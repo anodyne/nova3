@@ -4,7 +4,7 @@
             <inertia-link
                 v-if="users.can.create"
                 slot="controls"
-                :href="route('users.create')"
+                :href="$route('users.create')"
                 class="button button-primary"
             >
                 Add User
@@ -27,8 +27,7 @@
 
             <div class="flex items-center justify-between w-full py-2 px-6 bg-gray-200 border-t border-b text-xs uppercase tracking-wide font-semibold text-gray-600">
                 <div class="w-1/3">Name</div>
-                <div class="w-1/3">Email</div>
-                <div class="w-1/3"></div>
+                <div class="flex-auto">Email</div>
             </div>
 
             <div v-if="users.data.length === 0" class="flex items-center py-3 px-6 font-semibold border-b text-warning-700">
@@ -48,7 +47,7 @@
                     </div>
                 </div>
 
-                <div class="w-1/3">
+                <div class="flex-auto">
                     {{ user.email }}
                 </div>
 
@@ -59,7 +58,7 @@
                         <template #dropdown="{ toggle }">
                             <inertia-link
                                 v-if="user.can.update"
-                                :href="route('users.edit', { user })"
+                                :href="$route('users.edit', { user })"
                                 class="dropdown-link"
                             >
                                 <icon name="edit" class="dropdown-icon"></icon>
@@ -80,23 +79,11 @@
             </div>
 
             <template #footer>
-                <div class="flex-shrink">
-                    Showing <span class="font-semibold text-gray-700">1 of 2</span> users
-                </div>
-
-                <div class="flex items-center font-medium">
-                    <pagination :links="users.links"></pagination>
-
-                    <div class="flex items-center border-l ml-4 pl-4">
-                        <p>Go to page</p>
-
-                        <input type="text" class="w-12 rounded border py-1 px-2 mx-2">
-
-                        <button class="button button-text">
-                            Go
-                        </button>
-                    </div>
-                </div>
+                <pagination
+                    :links="users.links"
+                    :meta="users.meta"
+                    resource-label="user"
+                ></pagination>
             </template>
         </panel>
 
@@ -146,10 +133,10 @@ export default {
             type: Object,
             required: true
         },
-        pendingUsers: {
-            type: Array,
-            required: true
-        },
+        // pendingUsers: {
+        //     type: Array,
+        //     required: true
+        // },
         users: {
             type: Object,
             required: true
@@ -181,13 +168,13 @@ export default {
             const query = pickBy(this.form);
 
             this.$inertia.replace(
-                this.route('users.index', Object.keys(query).length ? query : { remember: 'forget' })
+                this.$route('users.index', Object.keys(query).length ? query : { remember: 'forget' })
             );
         }, 250),
 
         remove () {
             this.form.delete({
-                url: this.route('users.destroy', { user: this.deletingItem }),
+                url: this.$route('users.destroy', { user: this.deletingItem }),
                 then: (data) => {
                     this.hideModal();
 

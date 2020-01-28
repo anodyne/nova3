@@ -3,7 +3,7 @@
         <header class="flex relative w-full h-16 mb-8 bg-white shadow-md">
             <div class="flex items-center w-full md:max-w-6xl mx-auto leading-none">
                 <div class="w-1/4">
-                    <inertia-link :href="route('dashboard')">
+                    <inertia-link :href="$route('dashboard')">
                         <img
                             src="/dist/images/logo.png"
                             alt="Logo"
@@ -53,7 +53,7 @@
                             <hr class="block w-full border-gray-800">
 
                             <a
-                                :href="route('logout')"
+                                :href="$route('logout')"
                                 class="dropdown-link"
                                 onclick="event.preventDefault();document.getElementById('logout-form').submit();"
                             >
@@ -62,7 +62,7 @@
                             </a>
                             <form
                                 id="logout-form"
-                                :action="route('logout')"
+                                :action="$route('logout')"
                                 method="POST"
                                 style="display: none;"
                             >
@@ -76,7 +76,7 @@
 
         <div class="flex relative w-full max-w-6xl mx-auto">
             <nav class="w-56">
-                <inertia-link :href="route('dashboard')" class="flex items-center text-gray-700 py-2 transition-colors duration-100 hover:text-gray-800">
+                <inertia-link :href="$route('dashboard')" class="flex items-center text-gray-700 py-2 transition-colors duration-100 hover:text-gray-800">
                     <icon name="activity" class="mr-3"></icon>
                     Dashboard
                 </inertia-link>
@@ -88,7 +88,7 @@
 
                 <div class="ml-8 mb-2">
                     <!-- <inertia-link
-                            :href="route('roles.index')"
+                            :href="$route('roles.index')"
                             class="flex items-center py-1 text-sm transition-colors duration-100"
                             :class="navStyle('characters.*')"
                         >
@@ -96,7 +96,7 @@
                         </inertia-link> -->
 
                     <!-- <inertia-link
-                            :href="route('roles.index')"
+                            :href="$route('roles.index')"
                             class="flex items-center py-1 text-sm transition-colors duration-100"
                             :class="navStyle('pages.*')"
                         >
@@ -104,7 +104,7 @@
                         </inertia-link> -->
 
                     <inertia-link
-                        :href="route('roles.index')"
+                        :href="$route('roles.index')"
                         class="flex items-center py-1 text-sm tracking-wide transition-colors duration-100"
                         :class="navStyle('roles.*')"
                     >
@@ -112,7 +112,7 @@
                     </inertia-link>
 
                     <inertia-link
-                        :href="route('themes.index')"
+                        :href="$route('themes.index')"
                         class="flex items-center py-1 text-sm tracking-wide transition-colors duration-100"
                         :class="navStyle('themes.*')"
                     >
@@ -120,7 +120,7 @@
                     </inertia-link>
 
                     <inertia-link
-                        :href="route('users.index')"
+                        :href="$route('users.index')"
                         class="flex items-center py-1 text-sm tracking-wide transition-colors duration-100"
                         :class="navStyle('users.*')"
                     >
@@ -157,8 +157,8 @@ export default {
     methods: {
         navStyle (route) {
             return {
-                'font-bold text-primary-500': this.route().current(route),
-                'font-medium text-gray-600 hover:text-gray-700': !this.route().current(route)
+                'font-bold text-primary-500': this.$route().current(route),
+                'font-medium text-gray-600 hover:text-gray-700': !this.$route().current(route)
             };
         }
     }

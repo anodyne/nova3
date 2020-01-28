@@ -2,13 +2,13 @@
     <sidebar-layout>
         <page-header :title="user.name">
             <template #pretitle>
-                <inertia-link :href="route('users.index')">Users</inertia-link>
+                <inertia-link :href="$route('users.index')">Users</inertia-link>
             </template>
         </page-header>
 
         <section class="panel">
             <form
-                :action="route('users.update', { user })"
+                :action="$route('users.update', { user })"
                 method="POST"
                 role="form"
                 @submit.prevent="submit"
@@ -78,7 +78,7 @@
                         <div class="form-section-header">Roles</div>
                         <p class="form-section-message mb-6">Roles are made up of the abilities that users can take throughout the system. A user can be assigned as many roles as you'd like to give you more control over the actions your users can take.</p>
 
-                        <inertia-link :href="route('roles.index')" class="text-primary-600 hover:text-primary-500">
+                        <inertia-link :href="$route('roles.index')" class="text-primary-600 hover:text-primary-500">
                             Manage roles
                         </inertia-link>
                     </div>
@@ -140,7 +140,7 @@
                 <div class="form-controls">
                     <button type="submit" class="button button-primary">Update</button>
 
-                    <inertia-link :href="route('users.index')" class="button is-secondary">
+                    <inertia-link :href="$route('users.index')" class="button is-secondary">
                         Cancel
                     </inertia-link>
                 </div>
@@ -204,11 +204,11 @@ export default {
     methods: {
         submit () {
             this.form.post({
-                url: this.route('users.update', { user: this.user }),
+                url: this.$route('users.update', { user: this.user }),
                 then: (data) => {
                     this.$toast.message(`User account for ${data.name} was updated.`).success();
 
-                    this.$inertia.replace(this.route('users.index'));
+                    this.$inertia.replace(this.$route('users.index'));
                 }
             });
         }

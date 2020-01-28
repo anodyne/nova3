@@ -32,6 +32,12 @@ export default {
         }
     },
 
+    mounted () {
+        this.$events.$on('nova.toast', (toast) => {
+            this.toasts.push(toast);
+        });
+    },
+
     methods: {
         remove (index) {
             setTimeout(() => {

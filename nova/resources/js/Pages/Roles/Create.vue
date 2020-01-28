@@ -2,13 +2,13 @@
     <sidebar-layout>
         <page-header title="Add Role">
             <template #pretitle>
-                <inertia-link :href="route('roles.index')">Roles</inertia-link>
+                <inertia-link :href="$route('roles.index')">Roles</inertia-link>
             </template>
         </page-header>
 
         <section class="panel">
             <form
-                :action="route('roles.store')"
+                :action="$route('roles.store')"
                 method="POST"
                 role="form"
                 @submit.prevent="submit"
@@ -69,7 +69,7 @@
                                 v-model="permissions.added"
                                 not-found-message="Sorry, no permissions found with that name."
                                 placeholder="Add a permission..."
-                                :search-url="route('permissions.search').url()"
+                                :search-url="$route('permissions.search').url()"
                                 display-property="display_name"
                                 @add-item="addPermission"
                                 @remove-item="removePermission"
@@ -90,7 +90,7 @@
                                 v-model="users.added"
                                 not-found-message="Sorry, no users found with that name or email address."
                                 placeholder="Add a user..."
-                                :search-url="route('users.search').url()"
+                                :search-url="$route('users.search').url()"
                                 @add-item="addUser"
                                 @remove-item="removeUser"
                             ></tags-input>
@@ -101,7 +101,7 @@
                 <div class="form-controls">
                     <button type="submit" class="button button-primary">Add Role</button>
 
-                    <inertia-link :href="route('roles.index')" class="button button-soft">
+                    <inertia-link :href="$route('roles.index')" class="button button-soft">
                         Cancel
                     </inertia-link>
                 </div>
@@ -199,7 +199,7 @@ export default {
         },
 
         searchForPermissions: debounce(function () {
-            const route = `${this.route('permissions.search')}?search=${this.permissions.search}`;
+            const route = `${this.$route('permissions.search')}?search=${this.permissions.search}`;
 
             axios.get(route).then(({ data }) => {
                 this.permissions.results = data;
@@ -207,7 +207,7 @@ export default {
         }, 250),
 
         searchForUsers: debounce(function () {
-            const route = `${this.route('users.search')}?search=${this.users.search}`;
+            const route = `${this.$route('users.search')}?search=${this.users.search}`;
 
             axios.get(route).then(({ data }) => {
                 this.users.results = data;
@@ -215,7 +215,7 @@ export default {
         }, 250),
 
         submit () {
-            this.$inertia.post(this.route('roles.store'), this.formData);
+            this.$inertia.post(this.$route('roles.store'), this.formData);
         }
     }
 };

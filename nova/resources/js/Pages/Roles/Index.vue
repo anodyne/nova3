@@ -4,7 +4,7 @@
             <inertia-link
                 v-if="roles.can.create"
                 slot="controls"
-                :href="route('roles.create')"
+                :href="$route('roles.create')"
                 class="button button-primary"
             >
                 Add Role
@@ -55,7 +55,7 @@
                         <template #dropdown="{ toggle }">
                             <inertia-link
                                 v-if="role.can.view"
-                                :href="route('roles.show', { role })"
+                                :href="$route('roles.show', { role })"
                                 class="dropdown-link"
                             >
                                 <icon name="eye" class="dropdown-icon"></icon>
@@ -63,7 +63,7 @@
                             </inertia-link>
                             <inertia-link
                                 v-if="role.can.update"
-                                :href="route('roles.edit', { role })"
+                                :href="$route('roles.edit', { role })"
                                 class="dropdown-link"
                             >
                                 <icon name="edit" class="dropdown-icon"></icon>
@@ -97,23 +97,11 @@
             </div>
 
             <template #footer>
-                <div class="flex-shrink">
-                    Showing <span class="font-semibold text-gray-700">1 of 2</span> roles
-                </div>
-
-                <div class="flex items-center font-medium">
-                    <pagination :links="roles.links"></pagination>
-
-                    <div class="flex items-center border-l ml-4 pl-4">
-                        <p>Go to page</p>
-
-                        <input type="text" class="w-12 rounded border py-1 px-2 mx-2">
-
-                        <button class="button button-text">
-                            Go
-                        </button>
-                    </div>
-                </div>
+                <pagination
+                    :links="roles.links"
+                    :meta="roles.meta"
+                    resource-label="role"
+                ></pagination>
             </template>
         </panel>
 
@@ -191,7 +179,7 @@ export default {
 
         duplicate (role) {
             this.$inertia.post(
-                this.route('roles.duplicate', { originalRole: role })
+                this.$route('roles.duplicate', { originalRole: role })
             );
         },
 
@@ -199,13 +187,13 @@ export default {
             const query = pickBy(this.form);
 
             this.$inertia.replace(
-                this.route('roles.index', Object.keys(query).length ? query : { remember: 'forget' })
+                this.$route('roles.index', Object.keys(query).length ? query : { remember: 'forget' })
             );
         }, 250),
 
         remove () {
             this.$inertia.delete(
-                this.route('roles.destroy', { role: this.deletingItem })
+                this.$route('roles.destroy', { role: this.deletingItem })
             );
         },
 

@@ -58,7 +58,7 @@ export default {
             this.form.fields.theme = this.themes[index].location;
 
             this.form.post({
-                url: this.route('themes.install'),
+                url: this.$route('themes.install'),
                 then: (data) => {
                     this.$toast.message(`${data.name} theme was installed.`).success();
 

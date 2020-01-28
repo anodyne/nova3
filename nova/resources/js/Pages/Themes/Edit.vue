@@ -2,13 +2,13 @@
     <sidebar-layout>
         <page-header :title="theme.name">
             <template #pretitle>
-                <inertia-link :href="route('themes.index')">Themes</inertia-link>
+                <inertia-link :href="$route('themes.index')">Themes</inertia-link>
             </template>
         </page-header>
 
         <section class="panel">
             <form
-                :action="route('themes.update', { theme })"
+                :action="$route('themes.update', { theme })"
                 method="POST"
                 role="form"
                 @submit.prevent="submit"
@@ -143,7 +143,7 @@
                         Update
                     </button>
 
-                    <inertia-link :href="route('themes.index')" class="button is-secondary">
+                    <inertia-link :href="$route('themes.index')" class="button is-secondary">
                         Cancel
                     </inertia-link>
                 </div>
@@ -193,11 +193,11 @@ export default {
     methods: {
         submit () {
             this.form.put({
-                url: this.route('themes.update', { theme: this.theme }),
+                url: this.$route('themes.update', { theme: this.theme }),
                 then: (data) => {
                     this.$toast.message(`${data.name} theme was updated.`).success();
 
-                    this.$inertia.replace(this.route('themes.index'));
+                    this.$inertia.replace(this.$route('themes.index'));
                 }
             });
         }

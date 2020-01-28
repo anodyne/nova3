@@ -2,7 +2,7 @@
     <sidebar-layout>
         <page-header title="Themes">
             <template v-if="themes.can.create" #controls>
-                <inertia-link :href="route('themes.create')" class="button button-primary">
+                <inertia-link :href="$route('themes.create')" class="button button-primary">
                     Add Theme
                 </inertia-link>
             </template>
@@ -57,7 +57,7 @@
                         <template #dropdown="{ toggle }">
                             <inertia-link
                                 v-if="themes.can.view"
-                                :href="route('themes.show', { theme })"
+                                :href="$route('themes.show', { theme })"
                                 class="dropdown-link"
                             >
                                 <icon name="eye" class="dropdown-icon"></icon>
@@ -65,7 +65,7 @@
                             </inertia-link>
                             <inertia-link
                                 v-if="themes.can.update"
-                                :href="route('themes.edit', { theme })"
+                                :href="$route('themes.edit', { theme })"
                                 class="dropdown-link"
                             >
                                 <icon name="edit" class="dropdown-icon"></icon>
@@ -85,23 +85,11 @@
             </div>
 
             <template #footer>
-                <div class="flex-shrink">
-                    Showing <span class="font-semibold text-gray-700">1 of 2</span> themes
-                </div>
-
-                <div class="flex items-center font-medium">
-                    <pagination :links="themes.links"></pagination>
-
-                    <div class="flex items-center border-l ml-4 pl-4">
-                        <p>Go to page</p>
-
-                        <input type="text" class="w-12 rounded border py-1 px-2 mx-2">
-
-                        <button class="button button-text">
-                            Go
-                        </button>
-                    </div>
-                </div>
+                <pagination
+                    :links="themes.links"
+                    :meta="themes.meta"
+                    resource-label="theme"
+                ></pagination>
             </template>
         </panel>
 
@@ -190,13 +178,13 @@ export default {
             const query = pickBy(this.form);
 
             this.$inertia.replace(
-                this.route('themes.index', Object.keys(query).length ? query : { remember: 'forget' })
+                this.$route('themes.index', Object.keys(query).length ? query : { remember: 'forget' })
             );
         }, 250),
 
         remove () {
             this.form.delete({
-                url: this.route('themes.destroy', { theme: this.deletingItem }),
+                url: this.$route('themes.destroy', { theme: this.deletingItem }),
                 then: (data) => {
                     const index = findIndex(this.installedThemes, { id: data.id });
 

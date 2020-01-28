@@ -11,7 +11,7 @@
                 </a>
 
                 <div class="flex flex-col py-3 px-6">
-                    <inertia-link :href="route('dashboard')" class="flex items-center text-gray-400 py-2 transition-all duration-100 hover:text-gray-200">
+                    <inertia-link :href="$route('dashboard')" class="flex items-center text-gray-400 py-2 transition-all duration-100 hover:text-gray-200">
                         <icon name="activity" class="mr-3 text-gray-600"></icon>
                         Dashboard
                     </inertia-link>
@@ -23,7 +23,7 @@
 
                     <div class="ml-8 mb-2">
                         <inertia-link
-                            :href="route('roles.index')"
+                            :href="$route('roles.index')"
                             class="flex items-center py-1 text-sm transition-all duration-100"
                             :class="navStyle('roles.*')"
                         >
@@ -31,7 +31,7 @@
                         </inertia-link>
 
                         <inertia-link
-                            :href="route('themes.index')"
+                            :href="$route('themes.index')"
                             class="flex items-center py-1 text-sm transition-all duration-100"
                             :class="navStyle('themes.*')"
                         >
@@ -39,7 +39,7 @@
                         </inertia-link>
 
                         <inertia-link
-                            :href="route('users.index')"
+                            :href="$route('users.index')"
                             class="flex items-center py-1 text-sm transition-all duration-100"
                             :class="navStyle('users.*')"
                         >
@@ -111,7 +111,7 @@
                             <hr class="block w-full border-gray-800">
 
                             <a
-                                :href="route('logout')"
+                                :href="$route('logout')"
                                 class="dropdown-link"
                                 onclick="event.preventDefault();document.getElementById('logout-form').submit();"
                             >
@@ -120,7 +120,7 @@
                             </a>
                             <form
                                 id="logout-form"
-                                :action="route('logout')"
+                                :action="$route('logout')"
                                 method="POST"
                                 style="display: none;"
                             >
@@ -159,8 +159,8 @@ export default {
     methods: {
         navStyle (route) {
             return {
-                'font-bold text-white': this.route().current(route),
-                'text-gray-400 hover:text-gray-200': !this.route().current(route)
+                'font-bold text-white': this.$route().current(route),
+                'text-gray-400 hover:text-gray-200': !this.$route().current(route)
             };
         }
     }

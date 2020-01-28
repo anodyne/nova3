@@ -18,6 +18,7 @@ class ResourceCollection extends IlluminateResourceCollection
         return collect($items)
             ->put('data', $this->collection)
             ->put('links', $this->resource->links())
+            ->put('meta', $this->resource->meta())
             ->all();
     }
 }

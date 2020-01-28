@@ -4,7 +4,7 @@ export default class ToastService {
     constructor () {
         this.resetData();
 
-        this.emitter = new Vue();
+        this.emitter = Vue.prototype.$events;
     }
 
     config (options = {}) {
@@ -22,6 +22,7 @@ export default class ToastService {
 
     error () {
         this.data.type = 'is-danger';
+        this.data.config.timeout = 6000;
 
         this.makeToast();
     }
@@ -62,7 +63,7 @@ export default class ToastService {
 
     defaultConfig () {
         return {
-            timeout: 5000
+            timeout: 3000
         };
     }
 
