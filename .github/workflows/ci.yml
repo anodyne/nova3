@@ -33,5 +33,5 @@ jobs:
               run: nova/vendor/bin/phpunit
               
             - name: Deploy to Forge
-              if: github.ref == 'refs/heads/preview'
+              if: github.ref == 'refs/heads/stage'
               run: curl "${{ secrets.FORGE_STAGING_DEPLOYMENT_WEBHOOK }}"
