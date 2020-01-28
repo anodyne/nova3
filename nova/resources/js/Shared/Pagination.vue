@@ -94,9 +94,9 @@ export default {
             const query = new URLSearchParams(window.location.search);
             query.set('page', this.page);
 
-            if (this.page > this.last_page) {
+            if (this.page > this.meta.last_page) {
                 this.page = '';
-                window.alert('Please enter a valid page number');
+                this.$toast.message('Please enter a valid page number').error();
             } else {
                 this.$inertia.visit(`${this.$route(this.$route().current())}?${query.toString()}`);
             }
