@@ -27,8 +27,7 @@
 
             <div class="flex items-center justify-between w-full py-2 px-6 bg-gray-200 border-t border-b text-xs uppercase tracking-wide font-semibold text-gray-600">
                 <div class="w-1/3">Name</div>
-                <div class="w-1/3">Email</div>
-                <div class="w-1/3"></div>
+                <div class="flex-auto">Email</div>
             </div>
 
             <div v-if="users.data.length === 0" class="flex items-center py-3 px-6 font-semibold border-b text-warning-700">
@@ -48,7 +47,7 @@
                     </div>
                 </div>
 
-                <div class="w-1/3">
+                <div class="flex-auto">
                     {{ user.email }}
                 </div>
 
