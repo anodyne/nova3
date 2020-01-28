@@ -12,6 +12,16 @@ class ValidateStoreRole extends ValidatesRequest
             'name' => ['required', 'unique:roles'],
             'display_name' => ['required'],
             'permissions' => ['nullable'],
+            'users' => ['nullable'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'display_name.required' => 'The name field is required.',
+            'name.required' => 'The key field is required.',
+            'name.unique' => 'That value already exists. Please choose a unique key.',
         ];
     }
 }

@@ -18,14 +18,16 @@
                         label="Name"
                         field-id="display_name"
                         name="display_name"
+                        static
                     >
-                        <p class="font-bold">{{ role.display_name }}</p>
+                        <p class="font-semibold">{{ role.display_name }}</p>
                     </form-field>
 
                     <form-field
                         label="Key"
                         field-id="name"
                         name="name"
+                        static
                     >
                         <p class="font-bold">{{ role.name }}</p>
                     </form-field>
@@ -58,17 +60,15 @@
                 </div>
 
                 <div class="form-section-column-form">
-                    <form-field>
-                        <div class="flex items-center flex-wrap">
-                            <div
-                                v-for="user in role.users"
-                                :key="user.id"
-                                class="tag mr-2 mt-3"
-                            >
-                                {{ user.name }}
-                            </div>
+                    <div class="flex items-center flex-wrap">
+                        <div
+                            v-for="user in role.users"
+                            :key="user.id"
+                            class="tag mr-2 mt-3"
+                        >
+                            {{ user.name }}
                         </div>
-                    </form-field>
+                    </div>
                 </div>
             </div>
 

@@ -1,13 +1,23 @@
-.field-wrapper {
-    @apply block w-full relative;
-
-    + .field-wrapper {
+.field-wrapper-outer {
+    + .field-wrapper-outer {
         @apply mt-8;
     }
 }
 
+.field-wrapper-inner {
+    @apply block w-full relative px-3 py-2 rounded transition-colors duration-200 border-2 bg-gray-100;
+
+    &:focus-within {
+        @apply border-primary-500 bg-white;
+    }
+
+    &.static {
+        @apply p-0 bg-transparent border-none;
+    }
+}
+
 .field-group {
-    @apply flex items-center relative w-full px-3 py-2 rounded transition-colors duration-200 border-2 bg-transparent;
+    @apply flex items-center relative w-full bg-transparent;
 
     > .field {
         @apply flex-auto appearance-none bg-transparent text-gray-700;
@@ -36,14 +46,10 @@
     .field-addon + .field {
         @apply ml-3;
     }
-
-    &:focus-within {
-        @apply border-primary-500 bg-gray-100;
-    }
 }
 
 .field-label {
-    @apply flex items-center justify-between mb-1 text-sm text-gray-700 font-semibold;
+    @apply flex items-center justify-between mb-1 text-sm text-gray-600 font-medium;
 }
 
 .field-help,
@@ -98,13 +104,11 @@
     }
 }
 
-.field-wrapper.has-error {
+.field-wrapper-inner.has-error {
+    @apply border-danger-500;
+
     .field-label {
         @apply text-danger-500;
-    }
-
-    .field-group {
-        @apply border-danger-500;
     }
 }
 

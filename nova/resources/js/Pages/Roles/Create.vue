@@ -101,7 +101,7 @@
                 <div class="form-controls">
                     <button type="submit" class="button button-primary">Add Role</button>
 
-                    <inertia-link :href="$route('roles.index')" class="button button-soft">
+                    <inertia-link :href="$route('roles.index')" class="button">
                         Cancel
                     </inertia-link>
                 </div>

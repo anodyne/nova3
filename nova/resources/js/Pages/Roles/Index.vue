@@ -19,10 +19,6 @@
                     placeholder="Find a role..."
                     @reset="form.search = ''"
                 ></search-filter>
-
-                <button class="button button-small button-soft button-icon">
-                    <icon name="filter"></icon>
-                </button>
             </template>
 
             <div class="flex items-center justify-between w-full py-2 px-6 bg-gray-200 border-t border-b text-xs uppercase tracking-wide font-semibold text-gray-600">
