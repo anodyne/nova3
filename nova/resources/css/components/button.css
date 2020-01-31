@@ -31,10 +31,10 @@
     }
 
     &.button-primary-soft {
-        @apply bg-primary-100 text-primary-800 border-transparent;
+        @apply bg-primary-100 text-primary-600 border-transparent;
 
         &:hover {
-            @apply bg-primary-200 text-primary-900 border-transparent;
+            @apply bg-primary-200 text-primary-700 border-transparent;
         }
     }
 
@@ -47,10 +47,10 @@
     }
 
     &.button-success-soft {
-        @apply bg-success-100 text-success-800 border-transparent;
+        @apply bg-success-200 text-success-700 border-transparent;
 
         &:hover {
-            @apply bg-success-200 text-success-900 border-transparent;
+            @apply bg-success-300 text-success-800 border-transparent;
         }
     }
 
@@ -63,10 +63,10 @@
     }
 
     &.button-info-soft {
-        @apply bg-info-100 text-info-800 border-transparent;
+        @apply bg-info-200 text-info-700 border-transparent;
 
         &:hover {
-            @apply bg-info-200 text-info-900 border-transparent;
+            @apply bg-info-300 text-info-800 border-transparent;
         }
     }
 
@@ -95,10 +95,10 @@
     }
 
     &.button-danger-soft {
-        @apply bg-danger-100 text-danger-800 border-transparent;
+        @apply bg-danger-200 text-danger-700 border-transparent;
 
         &:hover {
-            @apply bg-danger-200 text-danger-900 border-transparent;
+            @apply bg-danger-300 text-danger-800 border-transparent;
         }
     }
 
@@ -110,10 +110,10 @@
         }
 
         &.button-soft {
-            @apply text-gray-400 bg-transparent;
+            @apply text-gray-600 bg-transparent;
 
             &:hover {
-                @apply text-gray-500 bg-transparent;
+                @apply text-gray-700 bg-transparent;
             }
         }
 
