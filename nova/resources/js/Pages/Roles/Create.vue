@@ -6,7 +6,7 @@
             </template>
         </page-header>
 
-        <section class="panel">
+        <panel>
             <form
                 :action="$route('roles.store')"
                 method="POST"
@@ -106,7 +106,7 @@
                     </inertia-link>
                 </div>
             </form>
-        </section>
+        </panel>
     </sidebar-layout>
 </template>
 
