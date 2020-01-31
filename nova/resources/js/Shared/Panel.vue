@@ -1,9 +1,9 @@
 <template>
-    <section class="bg-white rounded shadow-md" :class="{ 'p-6': !noPadding }">
+    <section class="bg-white rounded shadow-md mb-8" :class="{ 'p-8': !noPadding }">
         <div
             v-if="hasSlot('header')"
             class="flex items-center justify-between"
-            :class="{ 'py-3 px-6': noPadding }"
+            :class="{ 'py-4 px-8': noPadding }"
         >
             <slot name="header"></slot>
         </div>
@@ -13,7 +13,7 @@
         <div
             v-if="hasSlot('footer')"
             class="flex items-center bg-gray-100 text-gray-600 text-sm rounded-b"
-            :class="{ 'py-3 px-6': noPadding }"
+            :class="{ 'py-4 px-8': noPadding }"
         >
             <slot name="footer"></slot>
         </div>

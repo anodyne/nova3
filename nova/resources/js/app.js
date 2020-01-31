@@ -9,9 +9,11 @@ import './plugins';
 
 const app = document.getElementById('app');
 
+import Panel from '@/Shared/Panel';
 import MasterInertia from '@/Shared/MasterInertia';
 import SidebarLayout from '@/Shared/Layouts/SidebarLayout';
 
+Vue.component('panel', Panel);
 Vue.component('sidebar-layout', SidebarLayout);
 
 new Vue({

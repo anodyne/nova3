@@ -14,7 +14,7 @@
 
         .panel-header,
         .panel-footer {
-            @apply py-3 px-6;
+            @apply py-4 px-8;
         }
     }
 
