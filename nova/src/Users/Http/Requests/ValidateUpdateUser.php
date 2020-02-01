@@ -10,7 +10,7 @@ class ValidateUpdateUser extends ValidatesRequest
     {
         return [
             'nickname' => ['required'],
-            'email' => ['required', 'email', 'unique:users,email'],
+            'email' => ['required', 'email'],
         ];
     }
 }

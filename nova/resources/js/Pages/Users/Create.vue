@@ -17,7 +17,7 @@
 
                 <div class="form-section">
                     <div class="form-section-column-content">
-                        <div class="form-section-header">User Info</div>
+                        <div class="form-section-header">User info</div>
 
                         <p class="form-section-message mb-6">For privacy reasons, we don't recommend using a user's real name. Instead, use a nickname to help protect their identity.</p>
 
@@ -63,7 +63,7 @@
                     <div class="form-section-column-content">
                         <div class="form-section-header">Roles</div>
 
-                        <p class="form-section-message">Roles are made up of the abilities that users can take throughout the system. A user can be assigned as many roles as you'd like to give you more control over the actions your users can take.</p>
+                        <p class="form-section-message">Roles are made up of the actions a user can take throughout Nova. A user can be assigned as many roles as you'd like to give you more granular control over the actions they can perform.</p>
 
                         <inertia-link
                             :href="$route('roles.index')"
