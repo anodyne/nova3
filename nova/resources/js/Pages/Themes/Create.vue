@@ -6,7 +6,7 @@
             </template>
         </page-header>
 
-        <section class="panel">
+        <panel>
             <form
                 :action="$route('themes.store')"
                 method="POST"
@@ -178,7 +178,7 @@
                     </inertia-link>
                 </div>
             </form>
-        </section>
+        </panel>
     </sidebar-layout>
 </template>
 

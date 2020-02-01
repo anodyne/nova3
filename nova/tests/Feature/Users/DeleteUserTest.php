@@ -22,78 +22,63 @@ class DeleteUserTest extends TestCase
         $this->user = factory(User::class)->create();
     }
 
-    /**
-     * @test
-     */
+    /** @test **/
     public function authorizedUserCanDeleteUser()
     {
         $this->signInWithPermission('user.delete');
 
-        $response = $this->deleteJson(route('users.destroy', $this->user));
+        $response = $this->delete(route('users.destroy', $this->user));
+        $this->followRedirects($response)->assertOk();
 
-        $response->assertSuccessful();
+        $this->assertSoftDeleted('users', $this->user->only('id'));
     }
 
-    /**
-     * @test
-     */
+    /** @test **/
     public function unauthorizedUserCannotDeleteUser()
     {
         $this->signIn();
 
         $response = $this->deleteJson(route('users.destroy', $this->user));
-
         $response->assertForbidden();
+
+        $this->assertDatabaseHas('users', [
+            'id' => $this->user->id,
+            'deleted_at' => null,
+        ]);
     }
 
-    /**
-     * @test
-     */
+    /** @test **/
     public function guestCannotDeleteUser()
     {
         $response = $this->deleteJson(route('users.destroy', $this->user));
-
         $response->assertUnauthorized();
+
+        $this->assertDatabaseHas('users', [
+            'id' => $this->user->id,
+            'deleted_at' => null,
+        ]);
     }
 
-    /**
-     * @test
-     */
-    public function userCanBeDeleted()
-    {
-        $this->signInWithPermission('user.delete');
-
-        $response = $this->deleteJson(route('users.destroy', $this->user));
-
-        $response->assertSuccessful();
-
-        $this->assertSoftDeleted('users', $this->user->only('id'));
-    }
-
-    /**
-     * @test
-     */
+    /** @test **/
     public function currentUserCannotBeDeletedWhileTheyAreLoggedIn()
     {
         $this->signInWithPermission('user.delete');
 
-        $response = $this->deleteJson(
+        $response = $this->delete(
             route('users.destroy', $currentUser = auth()->user())
         );
 
-        $this->assertDatabaseHas('users', $currentUser->only('id', 'name'));
+        $this->assertDatabaseHas('users', $currentUser->only('id', 'nickname'));
     }
 
-    /**
-     * @test
-     */
+    /** @test **/
     public function eventsAreDispatchedWhenUserIsDeleted()
     {
         Event::fake();
 
         $this->signInWithPermission('user.delete');
 
-        $response = $this->deleteJson(route('users.destroy', $this->user));
+        $response = $this->delete(route('users.destroy', $this->user));
 
         Event::assertDispatched(UserDeleted::class, function ($event) {
             return $event->user->is($this->user);
@@ -102,13 +87,5 @@ class DeleteUserTest extends TestCase
         Event::assertDispatched(UserDeletedByAdmin::class, function ($event) {
             return $event->user->is($this->user);
         });
-    }
-
-    /**
-     * @test
-     */
-    public function allUserDataIsRemovedWhenUserIsDeleted()
-    {
-        $this->markTestIncomplete();
     }
 }

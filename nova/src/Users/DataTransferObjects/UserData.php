@@ -2,6 +2,7 @@
 
 namespace Nova\Users\DataTransferObjects;
 
+use Nova\Roles\Models\Role;
 use Illuminate\Http\Request;
 use Spatie\DataTransferObject\DataTransferObject;
 
@@ -10,18 +11,24 @@ class UserData extends DataTransferObject
     /**
      * @var  string
      */
-    public $name;
+    public $nickname;
 
     /**
      * @var  string
      */
     public $email;
 
+    /**
+     * @var  Role[]
+     */
+    public $roles;
+
     public static function fromRequest(Request $request): self
     {
         return new self([
-            'name' => $request->input('name'),
+            'nickname' => $request->input('nickname'),
             'email' => $request->input('email'),
+            'roles' => Role::whereIn('name', $request->input('roles'))->get(),
         ]);
     }
 }

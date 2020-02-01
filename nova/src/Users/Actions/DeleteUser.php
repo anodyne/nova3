@@ -13,8 +13,6 @@ class DeleteUser
             throw new CannotDeleteOwnAccountException('You cannot delete your own account.');
         }
 
-        return tap($user, function ($user) {
-            $user->delete();
-        });
+        return tap($user)->delete();
     }
 }

@@ -22,13 +22,13 @@
                 </button>
             </template>
 
-            <div class="flex items-center justify-between w-full py-2 px-6 bg-gray-200 border-t border-b text-xs uppercase tracking-wide font-semibold text-gray-600">
+            <div class="flex items-center justify-between w-full py-2 px-8 bg-gray-100 border-t border-b text-xs uppercase tracking-wide font-semibold text-gray-600">
                 <div class="w-1/3">Theme Name</div>
                 <div class="w-1/3">Location</div>
                 <div class="flex-auto">Status</div>
             </div>
 
-            <div v-if="themes.data.length === 0" class="flex items-center py-3 px-6 font-semibold border-b text-warning-700">
+            <div v-if="themes.data.length === 0" class="flex items-center py-4 px-8 font-semibold border-b text-warning-700">
                 <icon name="alert-triangle" class="mr-3 flex-shrink-0 h-6 w-6"></icon>
                 <div>No themes found.</div>
             </div>
@@ -36,7 +36,7 @@
             <div
                 v-for="theme in themes.data"
                 :key="theme.id"
-                class="flex items-center justify-between w-full py-3 px-6 border-b odd:bg-gray-100"
+                class="flex items-center justify-between w-full py-2 px-8 border-b"
             >
                 <div class="w-1/3">
                     {{ theme.name }}
@@ -124,10 +124,9 @@ import findIndex from 'lodash/findIndex';
 import ModalHelpers from '@/Utils/Mixins/ModalHelpers';
 import SearchFilter from '@/Shared/SearchFilter';
 import Pagination from '@/Shared/Pagination';
-import Panel from '@/Shared/Panel';
 
 export default {
-    components: { Pagination, SearchFilter, Panel },
+    components: { Pagination, SearchFilter },
 
     mixins: [ModalHelpers],
 

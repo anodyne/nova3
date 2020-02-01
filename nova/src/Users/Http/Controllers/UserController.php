@@ -2,19 +2,23 @@
 
 namespace Nova\Users\Http\Controllers;
 
-use Nova\Users\Events;
-use Nova\Roles\Models\Role;
 use Nova\Users\Models\User;
 use Illuminate\Http\Request;
-use Nova\Users\Http\Requests;
-use Nova\Users\Http\Responses;
 use Nova\Users\Actions\CreateUser;
 use Nova\Users\Actions\DeleteUser;
 use Nova\Users\Actions\UpdateUser;
+use Nova\Users\Events\UserCreatedByAdmin;
+use Nova\Users\Events\UserDeletedByAdmin;
+use Nova\Users\Events\UserUpdatedByAdmin;
 use Nova\Users\Http\Resources\UserResource;
 use Nova\Users\DataTransferObjects\UserData;
 use Nova\Users\Http\Resources\UserCollection;
+use Nova\Users\Http\Requests\ValidateStoreUser;
+use Nova\Users\Http\Responses\EditUserResponse;
 use Nova\Foundation\Http\Controllers\Controller;
+use Nova\Users\Http\Requests\ValidateUpdateUser;
+use Nova\Users\Http\Responses\UserIndexResponse;
+use Nova\Users\Http\Responses\CreateUserResponse;
 
 class UserController extends Controller
 {
@@ -29,56 +33,59 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        $users = User::orderBy('name')
+        $users = User::orderBy('nickname')
             ->filter($request->only('search'))
             ->paginate(15);
 
-        return app(Responses\Index::class)->with([
+        return app(UserIndexResponse::class)->with([
             'filters' => $request->all('search'),
             'users' => new UserCollection($users),
-            // 'pendingUsers' => User::wherePending()->get(),
         ]);
     }
 
     public function create()
     {
-        return app(Responses\Create::class)->with([
-            'roles' => Role::orderBy('title')->get(),
-        ]);
+        return app(CreateUserResponse::class);
     }
 
-    public function store(Requests\Store $request, CreateUser $action)
+    public function store(ValidateStoreUser $request, CreateUser $action)
     {
         $user = $action->execute(UserData::fromRequest($request));
 
-        event(new Events\UserCreatedByAdmin($user));
+        event(new UserCreatedByAdmin($user));
 
-        return $user->refresh();
+        return redirect()
+            ->route('users.index')
+            ->withToast("An account for {$user->nickname} was created.");
     }
 
     public function edit(User $user)
     {
-        return app(Responses\Edit::class)->with([
-            'roles' => Role::orderBy('title')->get(),
-            'user' => new UserResource($user),
+        return app(EditUserResponse::class)->with([
+            'user' => new UserResource($user->load('roles')),
         ]);
     }
 
-    public function update(Requests\Update $request, UpdateUser $action, User $user)
-    {
+    public function update(
+        ValidateUpdateUser $request,
+        UpdateUser $action,
+        User $user
+    ) {
         $user = $action->execute($user, UserData::fromRequest($request));
 
-        event(new Events\UserUpdatedByAdmin($user->refresh()));
+        event(new UserUpdatedByAdmin($user));
 
-        return $user;
+        return back()->withToast("{$user->nickname}'s account was updated.");
     }
 
     public function destroy(DeleteUser $action, User $user)
     {
         $user = $action->execute($user);
 
-        event(new Events\UserDeletedByAdmin($user));
+        event(new UserDeletedByAdmin($user));
 
-        return $user;
+        return redirect()
+            ->route('users.index')
+            ->withToast("{$user->nickname}'s account was deleted.");
     }
 }

@@ -28,10 +28,6 @@ class ResponsesServiceProvider extends ServiceProvider
             \Nova\Auth\Http\Responses\EmailVerificationResponse::class,
 
             \Nova\Dashboard\Http\Responses\DashboardResponse::class,
-
-            \Nova\Users\Http\Responses\Index::class,
-            \Nova\Users\Http\Responses\Create::class,
-            \Nova\Users\Http\Responses\Edit::class,
         ];
     }
 

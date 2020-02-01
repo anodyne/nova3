@@ -1,13 +1,13 @@
 <?php
 
-use Nova\Users\Models\User;
 use Illuminate\Support\Str;
+use Nova\Users\Models\User;
 use Faker\Generator as Faker;
 use Illuminate\Support\Facades\Hash;
 
 $factory->define(User::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
+        'nickname' => $faker->userName,
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
         'password' => Hash::make('secret'),
@@ -16,9 +16,9 @@ $factory->define(User::class, function (Faker $faker) {
 });
 
 $factory->state(User::class, 'unverified-email', [
-    'email_verified_at' => null
+    'email_verified_at' => null,
 ]);
 
 $factory->state(User::class, 'forced-password-reset', [
-    'force_password_reset' => true
+    'force_password_reset' => true,
 ]);

@@ -90,7 +90,8 @@
                         <form-field>
                             <tags-input
                                 v-model="users.added"
-                                not-found-message="Sorry, no users found with that name or email address."
+                                display-property="nickname"
+                                not-found-message="Sorry, no users found with that nickname or email address."
                                 placeholder="Add a user..."
                                 :search-url="$route('users.search').url()"
                                 @add-item="addUser"

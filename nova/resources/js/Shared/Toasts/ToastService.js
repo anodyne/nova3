@@ -22,7 +22,7 @@ export default class ToastService {
 
     error () {
         this.data.type = 'is-danger';
-        this.data.config.timeout = 6000;
+        this.data.config.timeout = 8000;
 
         this.makeToast();
     }
@@ -63,7 +63,7 @@ export default class ToastService {
 
     defaultConfig () {
         return {
-            timeout: 3000
+            timeout: 4000
         };
     }
 

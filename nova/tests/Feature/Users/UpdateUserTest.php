@@ -4,7 +4,6 @@ namespace Tests\Feature\Users;
 
 use Tests\TestCase;
 use Nova\Users\Models\User;
-use Illuminate\Http\Response;
 use Nova\Users\Events\UserUpdated;
 use Illuminate\Support\Facades\Event;
 use Nova\Users\Events\UserUpdatedByAdmin;
@@ -23,76 +22,73 @@ class UpdateUserTest extends TestCase
         $this->user = factory(User::class)->create();
     }
 
-    /**
-     * @test
-     */
-    public function authorizedUserCanUpdateUser()
+    /** @test **/
+    public function authorizedUserCanSeeUpdateUserPage()
     {
         $this->signInWithPermission('user.update');
 
         $response = $this->get(route('users.edit', $this->user));
-
-        $response->assertSuccessful();
+        $response->assertOk();
     }
 
-    /**
-     * @test
-     */
+    /** @test **/
+    public function authorizedUserCanUpdateUser()
+    {
+        $this->signInWithPermission('user.update');
+
+        $data = factory(User::class)->make();
+
+        $response = $this->put(
+            route('users.update', $this->user),
+            array_merge($data->toArray(), ['roles' => []])
+        );
+        $this->followRedirects($response)->assertOk();
+
+        $this->assertDatabaseHas('users', [
+            'id' => $this->user->id,
+            'nickname' => $data->nickname,
+            'email' => $data->email,
+        ]);
+    }
+
+    /** @test **/
     public function unauthorizedUserCannotUpdateUser()
     {
         $this->signIn();
 
         $response = $this->get(route('users.edit', $this->user));
-
         $response->assertForbidden();
 
-        $response = $this->postJson(route('users.store', $this->user), []);
-
+        $response = $this->putJson(route('users.update', $this->user), []);
         $response->assertForbidden();
     }
 
-    /**
-     * @test
-     */
+    /** @test **/
     public function guestCannotUpdateUser()
     {
-        $this->get(route('users.edit', $this->user))
-            ->assertRedirect(route('login'));
+        $response = $this->getJson(route('users.edit', $this->user));
+        $response->assertUnauthorized();
 
-        $this->putJson(route('users.update', $this->user), [])
-            ->assertStatus(Response::HTTP_UNAUTHORIZED);
+        $response = $this->putJson(route('users.update', $this->user), []);
+        $response->assertUnauthorized();
     }
 
-    /**
-     * @test
-     */
-    public function userCanBeUpdated()
-    {
-        $this->signInWithPermission('user.update');
-
-        $userData = factory(User::class)->make();
-
-        $this->putJson(route('users.update', $this->user), $userData->toArray())
-            ->assertSuccessful();
-
-        tap($this->user->fresh(), function ($user) use ($userData) {
-            $this->assertEquals($user->name, $userData->name);
-            $this->assertEquals($user->email, $userData->email);
-        });
-    }
-
-    /**
-     * @test
-     */
+    /** @test **/
     public function eventsAreDispatchedWhenUserIsUpdated()
     {
         Event::fake();
 
         $this->signInWithPermission('user.update');
 
-        $this->putJson(route('users.update', $this->user), factory(User::class)->make()->toArray());
+        $this->put(
+            route('users.update', $this->user),
+            array_merge(
+                factory(User::class)->make()->toArray(),
+                ['roles' => []]
+            )
+        );
 
-        $user = $this->user->fresh();
+        $user = $this->user->refresh();
 
         Event::assertDispatched(UserUpdated::class, function ($event) use ($user) {
             return $event->user->is($user);
@@ -103,25 +99,29 @@ class UpdateUserTest extends TestCase
         });
     }
 
-    /**
-     * @test
-     */
-    public function NameIsRequiredToCreateUser()
+    /** @test **/
+    public function nicknameIsRequiredToUpdateUser()
     {
-        $this->signInWithPermission('user.create');
+        $this->signInWithPermission('user.update');
 
-        $this->postJson(route('users.store'), ['email' => 'john@example.com'])
-            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response = $this->putJson(route('users.update', $this->user), [
+            'email' => 'john@example.com',
+            'roles' => [],
+        ]);
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('nickname');
     }
 
-    /**
-     * @test
-     */
-    public function EmailIsRequiredToCreateUser()
+    /** @test **/
+    public function emailIsRequiredToUpdateUser()
     {
-        $this->signInWithPermission('user.create');
+        $this->signInWithPermission('user.update');
 
-        $this->postJson(route('users.store'), ['name' => 'foo'])
-            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response = $this->putJson(route('users.update', $this->user), [
+            'nickname' => 'foo',
+            'roles' => [],
+        ]);
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('email');
     }
 }

@@ -1,12 +1,12 @@
 <template>
     <sidebar-layout>
-        <page-header title="Create User">
+        <page-header title="Add User">
             <template #pretitle>
                 <inertia-link :href="$route('users.index')">Users</inertia-link>
             </template>
         </page-header>
 
-        <section class="panel">
+        <panel>
             <form
                 :action="$route('users.store')"
                 method="POST"
@@ -17,23 +17,25 @@
 
                 <div class="form-section">
                     <div class="form-section-column-content">
-                        <div class="form-section-header">User Info</div>
-                        <p class="form-section-message mb-6">For privacy reasons, we don't recommend using a user's real name. Instead, you can use a nickname to help protect their identity.</p>
-                        <p class="form-section-message">For security reasons, you cannot specify the password for a user. After the account is created, a password will be generated and emailed to them.</p>
+                        <div class="form-section-header">User info</div>
+
+                        <p class="form-section-message mb-6">For privacy reasons, we don't recommend using a user's real name. Instead, use a nickname to help protect their identity.</p>
+
+                        <p class="form-section-message">For security reasons, you cannot specify the password for a new user. After the account is created, a password will be generated and emailed to them.</p>
                     </div>
 
                     <div class="form-section-column-form">
                         <form-field
-                            label="Name"
-                            field-id="name"
-                            name="name"
+                            label="Nickname"
+                            field-id="nickname"
+                            name="nickname"
                         >
                             <div class="field-group">
                                 <input
-                                    id="name"
-                                    v-model="form.fields.name"
+                                    id="nickname"
+                                    v-model="form.nickname"
                                     type="text"
-                                    name="name"
+                                    name="nickname"
                                     class="field"
                                 >
                             </div>
@@ -47,7 +49,7 @@
                             <div class="field-group">
                                 <input
                                     id="email"
-                                    v-model="form.fields.email"
+                                    v-model="form.email"
                                     type="email"
                                     name="email"
                                     class="field"
@@ -60,113 +62,107 @@
                 <div class="form-section">
                     <div class="form-section-column-content">
                         <div class="form-section-header">Roles</div>
-                        <p class="form-section-message mb-6">Roles are made up of the abilities that users can take throughout the system. A user can be assigned as many roles as you'd like to give you more control over the actions your users can take.</p>
 
-                        <inertia-link :href="$route('roles.index')" class="text-primary-600 hover:text-primary-500">
+                        <p class="form-section-message">Roles are made up of the actions a user can take throughout Nova. A user can be assigned as many roles as you'd like to give you more granular control over the actions they can perform.</p>
+
+                        <inertia-link
+                            :href="$route('roles.index')"
+                            class="button button-primary button-text mt-6"
+                        >
                             Manage roles
                         </inertia-link>
                     </div>
 
                     <div class="form-section-column-form">
-                        <form-field label="Assign Roles">
-                            <div class="field-group">
-                                <input
-                                    v-model="search"
-                                    type="text"
-                                    class="field"
-                                    placeholder="Find a role..."
-                                >
-
-                                <a
-                                    v-show="search !== ''"
-                                    role="button"
-                                    class="field-addon"
-                                    @click="search = ''"
-                                >
-                                    <icon name="close"></icon>
-                                </a>
-                            </div>
+                        <form-field label="Assign Role(s)">
+                            <tags-input
+                                v-model="roles.added"
+                                not-found-message="Sorry, no roles found with that name."
+                                placeholder="Add a role..."
+                                :search-url="$route('roles.search').url()"
+                                display-property="display_name"
+                                @add-item="addRole"
+                                @remove-item="removeRole"
+                            ></tags-input>
                         </form-field>
-
-                        <div
-                            v-for="(role, index) in filteredRoles"
-                            :key="role.id"
-                            class="flex items-center justify-between w-full p-2 rounded"
-                            :class="{ 'bg-gray-200': index % 2 === 0 }"
-                        >
-                            <div class="text-gray-600">{{ role.title }}</div>
-
-                            <a
-                                v-if="!hasRole(role)"
-                                role="button"
-                                class="text-gray-500 hover:text-gray-600"
-                                @click="addRole(role)"
-                            >
-                                <icon name="add"></icon>
-                            </a>
-
-                            <a
-                                v-if="hasRole(role)"
-                                role="button"
-                                class="text-success-500"
-                                @click="removeRole(role)"
-                            >
-                                <icon name="check-circle"></icon>
-                            </a>
-                        </div>
                     </div>
                 </div>
 
                 <div class="form-controls">
-                    <button type="submit" class="button button-primary">Create</button>
+                    <button type="submit" class="button button-primary">Add User</button>
 
-                    <inertia-link :href="$route('users.index')" class="button is-secondary">
+                    <inertia-link :href="$route('users.index')" class="button">
                         Cancel
                     </inertia-link>
                 </div>
             </form>
-        </section>
+        </panel>
     </sidebar-layout>
 </template>
 
 <script>
-import UserHelpers from './UserHelpers';
-import Form from '@/Utils/Form';
+import findIndex from 'lodash/findIndex';
+import debounce from 'lodash/debounce';
+import axios from '@/Utils/axios';
+import TagsInput from '@/Shared/TagsInput';
 
 export default {
-    mixins: [UserHelpers],
+    components: { TagsInput },
 
     data () {
         return {
-            form: new Form({
-                name: '',
-                email: '',
-                roles: []
-            }),
-            search: ''
+            form: {
+                nickname: '',
+                email: ''
+            },
+            roles: {
+                added: [],
+                results: [],
+                search: ''
+            }
         };
     },
 
     computed: {
-        filteredRoles () {
-            return this.roles.filter((role) => {
-                const searchRegex = new RegExp(this.search, 'i');
-
-                return searchRegex.test(role.name) || searchRegex.test(role.title);
-            });
+        formData () {
+            return {
+                nickname: this.form.nickname,
+                email: this.form.email,
+                roles: this.roles.added.map(role => role.name)
+            };
         }
     },
 
-    methods: {
-        submit () {
-            this.form.post({
-                url: this.$route('users.store'),
-                then: (data) => {
-                    this.$toast.message(`User account for ${data.name} was created.`).success();
+    watch: {
+        'roles.search': 'searchForRoles'
+    },
 
-                    this.$inertia.replace(this.$route('users.index'));
-                }
+    methods: {
+        addRole (role) {
+            this.roles.added.push(role);
+
+            this.roles.results = [];
+        },
+
+        removeRole (role) {
+            const index = findIndex(
+                this.roles.added,
+                r => r.name === role.name
+            );
+
+            this.roles.added.splice(index, 1);
+        },
+
+        searchForRoles: debounce(function () {
+            const route = `${this.$route('roles.search')}?search=${this.roles.search}`;
+
+            axios.get(route).then(({ data }) => {
+                this.roles.results = data;
             });
+        }, 250),
+
+        submit () {
+            this.$inertia.post(this.$route('users.store'), this.formData);
         }
     }
 };

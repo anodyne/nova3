@@ -66,7 +66,7 @@
                             :key="user.id"
                             class="tag mr-2 mt-3"
                         >
-                            {{ user.name }}
+                            {{ user.nickname }}
                         </div>
                     </div>
                 </div>

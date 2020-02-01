@@ -19,18 +19,14 @@
                     placeholder="Find a user..."
                     @reset="form.search = ''"
                 ></search-filter>
-
-                <button class="button button-small button-soft button-icon">
-                    <icon name="filter"></icon>
-                </button>
             </template>
 
-            <div class="flex items-center justify-between w-full py-2 px-6 bg-gray-200 border-t border-b text-xs uppercase tracking-wide font-semibold text-gray-600">
-                <div class="w-1/3">Name</div>
+            <div class="flex items-center justify-between w-full py-2 px-8 bg-gray-100 border-t border-b text-xs uppercase tracking-wide font-medium text-gray-600">
+                <div class="w-1/3">Nickname</div>
                 <div class="flex-auto">Email</div>
             </div>
 
-            <div v-if="users.data.length === 0" class="flex items-center py-3 px-6 font-semibold border-b text-warning-700">
+            <div v-if="users.data.length === 0" class="flex items-center py-4 px-8 font-semibold border-b text-warning-700">
                 <icon name="alert-triangle" class="mr-3 flex-shrink-0 h-6 w-6"></icon>
                 <div>No users found.</div>
             </div>
@@ -38,12 +34,12 @@
             <div
                 v-for="user in users.data"
                 :key="user.id"
-                class="flex items-center justify-between w-full py-3 px-6 border-b odd:bg-gray-100"
+                class="flex items-center justify-between w-full py-2 px-8 border-b"
             >
                 <div class="flex items-center w-1/3">
                     <avatar size="sm" :image-url="`https://api.adorable.io/avatars/285/${user.email}`"></avatar>
                     <div class="ml-3 font-medium">
-                        {{ user.name }}
+                        {{ user.nickname }}
                     </div>
                 </div>
 
@@ -92,16 +88,20 @@
             title="Delete Account"
             @close="hideModal"
         >
-            Are you sure you want to delete <strong>{{ deletingItem.name }}</strong>'s account?
+            Are you sure you want to delete <strong>{{ deletingItem.nickname }}</strong>'s account?
 
             <template #footer>
-                <button class="button is-secondary" @click="hideModal">
+                <button
+                    type="button"
+                    class="button"
+                    @click="hideModal"
+                >
                     Cancel
                 </button>
 
                 <button
                     type="button"
-                    class="button is-danger-vivid ml-4"
+                    class="button button-danger ml-4"
                     @click="remove"
                 >
                     Delete User
@@ -112,18 +112,16 @@
 </template>
 
 <script>
-import findIndex from 'lodash/findIndex';
 import pickBy from 'lodash/pickBy';
 import debounce from 'lodash/debounce';
 import Avatar from '@/Shared/Avatars/Avatar';
 import ModalHelpers from '@/Utils/Mixins/ModalHelpers';
 import SearchFilter from '@/Shared/SearchFilter';
 import Pagination from '@/Shared/Pagination';
-import Panel from '@/Shared/Panel';
 
 export default {
     components: {
-        Avatar, SearchFilter, Pagination, Panel
+        Avatar, SearchFilter, Pagination
     },
 
     mixins: [ModalHelpers],
@@ -133,10 +131,6 @@ export default {
             type: Object,
             required: true
         },
-        // pendingUsers: {
-        //     type: Array,
-        //     required: true
-        // },
         users: {
             type: Object,
             required: true
@@ -161,6 +155,7 @@ export default {
     methods: {
         confirmRemove (user, toggle) {
             toggle();
+
             this.showModal(user);
         },
 
@@ -173,18 +168,9 @@ export default {
         }, 250),
 
         remove () {
-            this.form.delete({
-                url: this.$route('users.destroy', { user: this.deletingItem }),
-                then: (data) => {
-                    this.hideModal();
-
-                    const index = findIndex(this.allUsers, { id: data.id });
-
-                    this.$toast.message(`User account for ${data.name} was removed.`).success();
-
-                    this.allUsers.splice(index, 1);
-                }
-            });
+            this.$inertia.delete(
+                this.$route('users.destroy', { user: this.deletingItem })
+            );
         }
     }
 };

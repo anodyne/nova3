@@ -29,7 +29,7 @@ class Toast
     /**
      * @var int  The duration of the toast
      */
-    public $duration = 3000;
+    public $duration = 4000;
 
     /**
      * Data to be used by the toast.
@@ -67,7 +67,7 @@ class Toast
     public function error()
     {
         $this->type = 'is-danger';
-        $this->duration = 6000;
+        $this->duration = 8000;
 
         return $this->makeToast();
     }
@@ -80,7 +80,7 @@ class Toast
     public function success()
     {
         $this->type = 'is-success';
-        $this->duration = 3000;
+        $this->duration = 4000;
 
         return $this->makeToast();
     }
