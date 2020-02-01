@@ -40,11 +40,13 @@ class CreateUserTest extends TestCase
         );
         $this->followRedirects($response)->assertOk();
 
-        $this->assertDatabaseHas('users', $data->only('name', 'email'));
+        $user = User::get()->last();
+
+        $this->assertDatabaseHas('users', $data->only('nickname', 'email'));
 
         $this->assertDatabaseHas('role_user', [
             'role_id' => $role->id,
-            'user_id' => User::get()->last()->id,
+            'user_id' => $user->id,
         ]);
     }
 
@@ -97,7 +99,7 @@ class CreateUserTest extends TestCase
     }
 
     /** @test **/
-    public function nameIsRequiredToCreateUser()
+    public function nicknameIsRequiredToCreateUser()
     {
         $this->signInWithPermission('user.create');
 
@@ -106,7 +108,7 @@ class CreateUserTest extends TestCase
             'roles' => [],
         ]);
         $response->assertStatus(422);
-        $response->assertJsonValidationErrors('name');
+        $response->assertJsonValidationErrors('nickname');
     }
 
     /** @test **/
@@ -115,7 +117,7 @@ class CreateUserTest extends TestCase
         $this->signInWithPermission('user.create');
 
         $response = $this->postJson(route('users.store'), [
-            'name' => 'foo',
+            'nickname' => 'foo',
             'roles' => [],
         ]);
         $response->assertStatus(422);
@@ -128,7 +130,7 @@ class CreateUserTest extends TestCase
         $this->signInWithPermission('user.create');
 
         $response = $this->postJson(route('users.store'), [
-            'name' => 'John Q. Public',
+            'nickname' => 'John Q. Public',
             'email' => 'john@example.com',
             'roles' => [],
         ]);
@@ -146,7 +148,7 @@ class CreateUserTest extends TestCase
         $this->signInWithPermission('user.create');
 
         $response = $this->postJson(route('users.store'), [
-            'name' => 'John Q. Public',
+            'nickname' => 'John Q. Public',
             'email' => 'john@example.com',
             'roles' => [],
         ]);

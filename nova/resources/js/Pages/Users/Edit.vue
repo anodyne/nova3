@@ -6,7 +6,7 @@
             </template>
         </page-header>
 
-        <section class="panel">
+        <panel>
             <form
                 :action="$route('users.update', { user })"
                 method="POST"
@@ -18,23 +18,25 @@
 
                 <div class="form-section">
                     <div class="form-section-column-content">
-                        <div class="form-section-header">User Info</div>
-                        <p class="form-section-message mb-6">For privacy reasons, we don't recommend using a user's real name. Instead, you can use a nickname to help protect their identity.</p>
-                        <p class="form-section-message">For security reasons, you cannot specify the password for a user. After the account is created, a password will be generated and emailed to them.</p>
+                        <div class="form-section-header">User info</div>
+
+                        <p class="form-section-message mb-6">For privacy reasons, we don't recommend using a user's real name. Instead, use a nickname to help protect their identity.</p>
+
+                        <p class="form-section-message">For security reasons, you cannot manually update a user's password. If the user has forgotten their password, they should reset their password from the sign page.</p>
                     </div>
 
                     <div class="form-section-column-form">
                         <form-field
-                            label="Name"
-                            field-id="name"
-                            name="name"
+                            label="Nickname"
+                            field-id="nickname"
+                            name="nickname"
                         >
                             <div class="field-group">
                                 <input
-                                    id="name"
-                                    v-model="form.fields.name"
+                                    id="nickname"
+                                    v-model="form.nickname"
                                     type="text"
-                                    name="name"
+                                    name="nickname"
                                     class="field"
                                 >
                             </div>
@@ -48,7 +50,7 @@
                             <div class="field-group">
                                 <input
                                     id="email"
-                                    v-model="form.fields.email"
+                                    v-model="form.email"
                                     type="email"
                                     name="email"
                                     class="field"
@@ -56,20 +58,21 @@
                             </div>
                         </form-field>
 
-                        <form-field label="Avatar">
-                            <div class="avatar avatar-lg items-center">
-                                <div class="avatar-image">
-                                    <a role="button" class="absolute inset-0 flex justify-center items-center rounded-full duration-150 text-transparent hover:text-gray-100">
-                                        <icon name="edit"></icon>
-                                    </a>
-                                </div>
+                        <div class="my-8">
+                            <label class="field-label">Avatar</label>
 
-                                <a role="button" class="button button-danger button-small ml-2">
-                                    <icon name="trash" class="mr-2"></icon>
-                                    Remove Image
-                                </a>
+                            <div class="flex items-center">
+                                <avatar :image-url="`https://api.adorable.io/avatars/285/${user.email}`" size="lg"></avatar>
+
+                                <button type="button" class="button button-soft button-small ml-4">
+                                    Change
+                                </button>
+
+                                <button type="button" class="button button-soft button-text ml-4">
+                                    Remove
+                                </button>
                             </div>
-                        </form-field>
+                        </div>
                     </div>
                 </div>
 
@@ -78,95 +81,63 @@
                         <div class="form-section-header">Roles</div>
                         <p class="form-section-message mb-6">Roles are made up of the abilities that users can take throughout the system. A user can be assigned as many roles as you'd like to give you more control over the actions your users can take.</p>
 
-                        <inertia-link :href="$route('roles.index')" class="text-primary-600 hover:text-primary-500">
+                        <inertia-link :href="$route('roles.index')" class="button button-primary button-text">
                             Manage roles
                         </inertia-link>
                     </div>
 
                     <div class="form-section-column-form">
-                        <form-field label="Assign Roles">
-                            <div class="field-group">
-                                <input
-                                    v-model="search"
-                                    type="text"
-                                    class="field"
-                                    placeholder="Find a role..."
-                                >
-
-                                <a
-                                    v-show="search !== ''"
-                                    role="button"
-                                    class="field-addon"
-                                    @click="search = ''"
-                                >
-                                    <icon name="close"></icon>
-                                </a>
-                            </div>
+                        <form-field label="Assigned Role(s)">
+                            <tags-input
+                                v-model="roles.added"
+                                not-found-message="Sorry, no roles found with that name."
+                                placeholder="Add a role..."
+                                :search-url="$route('roles.search').url()"
+                                display-property="display_name"
+                                @add-item="addRole"
+                                @remove-item="removeRole"
+                            ></tags-input>
                         </form-field>
-
-                        <toggle-switch v-model="showAssignedRolesOnly" class="mb-4">
-                            Show only assigned roles
-                        </toggle-switch>
-
-                        <div
-                            v-for="(role, index) in filteredRoles"
-                            :key="role.id"
-                            class="flex items-center justify-between w-full p-2 rounded"
-                            :class="{ 'bg-gray-200': index % 2 === 0 }"
-                        >
-                            <div class="text-gray-600">{{ role.title }}</div>
-
-                            <a
-                                v-if="!hasRole(role)"
-                                role="button"
-                                class="text-gray-500 hover:text-gray-600"
-                                @click="addRole(role)"
-                            >
-                                <icon name="add"></icon>
-                            </a>
-
-                            <a
-                                v-if="hasRole(role)"
-                                role="button"
-                                class="text-success-500"
-                                @click="removeRole(role)"
-                            >
-                                <icon name="check-circle"></icon>
-                            </a>
-                        </div>
                     </div>
                 </div>
 
                 <div class="form-controls">
-                    <button type="submit" class="button button-primary">Update</button>
+                    <button type="submit" class="button button-primary">Update User</button>
 
-                    <inertia-link :href="$route('users.index')" class="button is-secondary">
+                    <inertia-link :href="$route('users.index')" class="button">
                         Cancel
                     </inertia-link>
                 </div>
             </form>
-        </section>
+        </panel>
 
-        <section class="panel">
+        <panel>
             <div class="font-semibold text-xl mb-4 text-gray-700">Reset Password</div>
 
-            <p class="text-gray-600">If you believe a user should reset their password or they're having issues logging in and are unable to reset their password themselves, you can force a password reset that will take effect next time they attempt to sign in.</p>
+            <p class="text-gray-600">If you believe this user should be forced to reset their password, you can force a password reset that will prompt them to change their password the next time they attempt to sign in.</p>
 
             <div class="flex justify-end mt-6">
-                <a role="button" class="button is-danger">
+                <button
+                    type="button"
+                    class="button button-primary-soft"
+                    @click.prevent="forcePasswordReset"
+                >
                     Force Password Reset
-                </a>
+                </button>
             </div>
-        </section>
+        </panel>
     </sidebar-layout>
 </template>
 
 <script>
-import UserHelpers from './UserHelpers';
-import Form from '@/Utils/Form';
+import findIndex from 'lodash/findIndex';
+import debounce from 'lodash/debounce';
+import axios from '@/Utils/axios';
+import TagsInput from '@/Shared/TagsInput';
+import Avatar from '@/Shared/Avatars/Avatar';
 
 export default {
-    mixins: [UserHelpers],
+    components: { TagsInput, Avatar },
 
     props: {
         user: {
@@ -177,40 +148,68 @@ export default {
 
     data () {
         return {
-            form: new Form({
-                name: this.user.name,
-                email: this.user.email,
-                roles: this.user.roles
-            }),
-            search: '',
-            showAssignedRolesOnly: true
+            form: {
+                nickname: this.user.nickname,
+                email: this.user.email
+            },
+            roles: {
+                added: this.user.roles,
+                results: [],
+                search: ''
+            }
         };
     },
 
     computed: {
-        filteredRoles () {
-            const roles = (!this.showAssignedRolesOnly)
-                ? this.roles
-                : this.roles.filter(role => this.hasRole(role));
-
-            return roles.filter((role) => {
-                const searchRegex = new RegExp(this.search, 'i');
-
-                return searchRegex.test(role.name) || searchRegex.test(role.title);
-            });
+        formData () {
+            return {
+                nickname: this.form.nickname,
+                id: this.form.id,
+                email: this.form.email,
+                roles: this.roles.added.map(role => role.name)
+            };
         }
     },
 
-    methods: {
-        submit () {
-            this.form.post({
-                url: this.$route('users.update', { user: this.user }),
-                then: (data) => {
-                    this.$toast.message(`User account for ${data.name} was updated.`).success();
+    watch: {
+        'roles.search': 'searchForRoles'
+    },
 
-                    this.$inertia.replace(this.$route('users.index'));
-                }
+    methods: {
+        addRole (role) {
+            this.roles.added.push(role);
+
+            this.roles.results = [];
+        },
+
+        forcePasswordReset () {
+            this.$inertia.put(
+                this.$route('users.force-password-reset', { user: this.user })
+            );
+        },
+
+        removeRole (role) {
+            const index = findIndex(
+                this.roles.added,
+                r => r.name === role.name
+            );
+
+            this.roles.added.splice(index, 1);
+        },
+
+        searchForRoles: debounce(function () {
+            const route = `${this.$route('roles.search')}?search=${this.roles.search}`;
+
+            axios.get(route).then(({ data }) => {
+                this.roles.results = data;
             });
+        }, 250),
+
+        submit () {
+            this.$inertia.put(
+                this.$route('users.update', { user: this.user }),
+                this.formData
+            );
         }
     }
 };

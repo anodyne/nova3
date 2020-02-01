@@ -13,7 +13,7 @@ class UserBuilder extends Builder
     public function filter(array $filters)
     {
         return $this->when($filters['search'] ?? null, function ($query, $search) {
-            return $query->where('name', 'like', "%{$search}%")
+            return $query->where('nickname', 'like', "%{$search}%")
                 ->orWhere('email', 'like', "%{$search}%");
         });
     }

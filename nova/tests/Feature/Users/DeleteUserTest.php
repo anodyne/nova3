@@ -68,7 +68,7 @@ class DeleteUserTest extends TestCase
             route('users.destroy', $currentUser = auth()->user())
         );
 
-        $this->assertDatabaseHas('users', $currentUser->only('id', 'name'));
+        $this->assertDatabaseHas('users', $currentUser->only('id', 'nickname'));
     }
 
     /** @test **/

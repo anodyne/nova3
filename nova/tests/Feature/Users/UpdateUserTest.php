@@ -46,7 +46,7 @@ class UpdateUserTest extends TestCase
 
         $this->assertDatabaseHas('users', [
             'id' => $this->user->id,
-            'name' => $data->name,
+            'nickname' => $data->nickname,
             'email' => $data->email,
         ]);
     }
@@ -100,7 +100,7 @@ class UpdateUserTest extends TestCase
     }
 
     /** @test **/
-    public function nameIsRequiredToUpdateUser()
+    public function nicknameIsRequiredToUpdateUser()
     {
         $this->signInWithPermission('user.update');
 
@@ -109,7 +109,7 @@ class UpdateUserTest extends TestCase
             'roles' => [],
         ]);
         $response->assertStatus(422);
-        $response->assertJsonValidationErrors('name');
+        $response->assertJsonValidationErrors('nickname');
     }
 
     /** @test **/
@@ -118,7 +118,7 @@ class UpdateUserTest extends TestCase
         $this->signInWithPermission('user.update');
 
         $response = $this->putJson(route('users.update', $this->user), [
-            'name' => 'foo',
+            'nickname' => 'foo',
             'roles' => [],
         ]);
         $response->assertStatus(422);

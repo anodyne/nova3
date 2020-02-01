@@ -4,7 +4,7 @@ namespace Nova\Users\Http\Responses;
 
 use Nova\Foundation\Http\Responses\InertiaResponse;
 
-class Index extends InertiaResponse
+class CreateUserResponse extends InertiaResponse
 {
-    public $component = 'Users/Index';
+    public $component = 'Users/Create';
 }

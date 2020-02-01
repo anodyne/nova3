@@ -30,7 +30,7 @@ class CreateUserTest extends TestCase
     public function itCreatesANewUser()
     {
         $data = new UserData;
-        $data->name = 'John Public';
+        $data->nickname = 'John Public';
         $data->email = 'john@example.com';
         $data->roles = collect([$this->role]);
 
@@ -38,7 +38,7 @@ class CreateUserTest extends TestCase
 
         $this->assertInstanceOf(User::class, $user);
 
-        $this->assertEquals('John Public', $user->name);
+        $this->assertEquals('John Public', $user->nickname);
         $this->assertEquals('john@example.com', $user->email);
         $this->assertTrue($user->hasRole($this->role->name));
     }

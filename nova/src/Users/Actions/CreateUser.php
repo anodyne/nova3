@@ -9,6 +9,10 @@ class CreateUser
 {
     public function execute(UserData $data): User
     {
-        return User::create($data->toArray());
+        $user = User::create($data->except('roles')->all());
+
+        $data->roles->each->giveToUser($user);
+
+        return $user->refresh();
     }
 }

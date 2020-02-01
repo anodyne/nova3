@@ -4,13 +4,13 @@ namespace Nova\Users\Http\Requests;
 
 use Nova\Foundation\Http\Requests\ValidatesRequest;
 
-class Update extends ValidatesRequest
+class ValidateStoreUser extends ValidatesRequest
 {
     public function rules()
     {
         return [
-            'name' => ['nullable'],
-            'email' => ['nullable', 'email', 'unique:users,email'],
+            'nickname' => ['required'],
+            'email' => ['required', 'email', 'unique:users,email'],
         ];
     }
 }

@@ -29,7 +29,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected static $logFillable = true;
 
     protected $fillable = [
-        'name', 'email', 'password', 'last_login', 'force_password_reset',
+        'nickname', 'email', 'password', 'last_login', 'force_password_reset',
         'state',
     ];
 
@@ -64,18 +64,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Force the user to reset their password.
-     *
-     * @return \Nova\Users\Models\User
-     */
-    public function forcePasswordReset()
-    {
-        return tap($this, function ($user) {
-            $user->update(['force_password_reset' => true]);
-        });
-    }
-
-    /**
      * Set the description for logging.
      *
      * @param  string  $eventName
@@ -84,7 +72,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function getDescriptionForEvent(string $eventName): string
     {
-        return ":subject.name was {$eventName}";
+        return ":subject.nickname was {$eventName}";
     }
 
     /**
