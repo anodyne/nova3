@@ -93,7 +93,7 @@
 
                     <dropdown placement="bottom-end">
                         <div class="flex items-center">
-                            <avatar size="xs" :image-url="`https://api.adorable.io/avatars/285/${$store.get('User').email}`"></avatar>
+                            <avatar size="xs" :image-url="$store.get('User').avatar_url"></avatar>
                             <icon name="chevron-down" class="ml-1 text-gray-600 h-4 w-4"></icon>
                         </div>
 

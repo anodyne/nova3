@@ -194,7 +194,7 @@ export default {
 
         roleUsers (role) {
             return role.users.map(user => ({
-                'image-url': `https://api.adorable.io/avatars/285/${user.email}`,
+                'image-url': user.avatar_url,
                 tooltip: user.nickname
             }));
         }

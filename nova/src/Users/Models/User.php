@@ -12,21 +12,26 @@ use Nova\Users\Models\States\Inactive;
 use Nova\Users\Models\States\UserState;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Nova\Users\Models\Builders\UserBuilder;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, HasMedia
 {
     use Notifiable;
     use SoftDeletes;
     use LogsActivity;
     use LaratrustUserTrait;
     use HasStates;
+    use HasMediaTrait;
 
     protected static $logFillable = true;
+
+    protected $appends = ['avatar_url'];
 
     protected $fillable = [
         'nickname', 'email', 'password', 'last_login', 'force_password_reset',
@@ -76,6 +81,16 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Get the URL of the user's avatar.
+     *
+     * @return string
+     */
+    public function getAvatarUrlAttribute()
+    {
+        return $this->getFirstMediaUrl('avatar');
+    }
+
+    /**
      * Create a new Eloquent Collection instance.
      *
      * @param  array  $models
@@ -99,6 +114,24 @@ class User extends Authenticatable implements MustVerifyEmail
         return new UserBuilder($query);
     }
 
+    /**
+     * Register the media collections for the model.
+     *
+     * @return void
+     */
+    public function registerMediaCollections()
+    {
+        $this->addMediaCollection('avatar')
+            ->useFallbackUrl("https://api.adorable.io/avatars/285/{$this->email}")
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif'])
+            ->singleFile();
+    }
+
+    /**
+     * Register the states and transitions for the model.
+     *
+     * @return void
+     */
     protected function registerStates(): void
     {
         $this->addState('state', UserState::class)

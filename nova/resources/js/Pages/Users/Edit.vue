@@ -62,7 +62,7 @@
                             <label class="field-label">Avatar</label>
 
                             <div class="flex items-center">
-                                <avatar :image-url="`https://api.adorable.io/avatars/285/${user.email}`" size="lg"></avatar>
+                                <avatar :image-url="user.avatar_url" size="lg"></avatar>
 
                                 <button type="button" class="button button-soft button-small ml-4">
                                     Change

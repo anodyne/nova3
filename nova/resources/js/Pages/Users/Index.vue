@@ -37,7 +37,7 @@
                 class="flex items-center justify-between w-full py-2 px-8 border-b"
             >
                 <div class="flex items-center w-1/3">
-                    <avatar size="sm" :image-url="`https://api.adorable.io/avatars/285/${user.email}`"></avatar>
+                    <avatar size="sm" :image-url="user.avatar_url"></avatar>
                     <div class="ml-3 font-medium">
                         {{ user.nickname }}
                     </div>
