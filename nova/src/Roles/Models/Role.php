@@ -49,7 +49,8 @@ class Role extends LaratrustRole
      */
     public function getMorphByUserRelation($relationship)
     {
-        return parent::getMorphByUserRelation($relationship)->orderBy('name');
+        return parent::getMorphByUserRelation($relationship)
+            ->orderBy('nickname');
     }
 
     /**
