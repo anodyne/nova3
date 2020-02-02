@@ -1,6 +1,6 @@
 <template>
     <sidebar-layout>
-        <page-header :title="user.name">
+        <page-header :title="user.nickname">
             <template #pretitle>
                 <inertia-link :href="$route('users.index')">Users</inertia-link>
             </template>
@@ -62,13 +62,39 @@
                             <label class="field-label">Avatar</label>
 
                             <div class="flex items-center">
-                                <avatar :image-url="user.avatar_url" size="lg"></avatar>
+                                <avatar
+                                    v-show="form.avatar === null"
+                                    :image-url="user.avatar_url"
+                                    size="lg"
+                                ></avatar>
 
-                                <button type="button" class="button button-soft button-small ml-4">
+                                <div v-show="form.avatar !== null" class="avatar avatar-lg">
+                                    <img ref="preview" class="avatar-image">
+                                </div>
+
+                                <input
+                                    id="image"
+                                    ref="file"
+                                    type="file"
+                                    name="image"
+                                    class="hidden"
+                                    @change="setAvatar"
+                                >
+
+                                <button
+                                    type="button"
+                                    class="button button-soft button-small ml-4"
+                                    @click="$refs.file.click()"
+                                >
                                     Change
                                 </button>
 
-                                <button type="button" class="button button-soft button-text ml-4">
+                                <button
+                                    v-if="showRemoveButton"
+                                    type="button"
+                                    class="button button-soft button-text ml-4"
+                                    @click="resetAvatar"
+                                >
                                     Remove
                                 </button>
                             </div>
@@ -150,7 +176,8 @@ export default {
         return {
             form: {
                 nickname: this.user.nickname,
-                email: this.user.email
+                email: this.user.email,
+                avatar: null
             },
             roles: {
                 added: this.user.roles,
@@ -162,12 +189,21 @@ export default {
 
     computed: {
         formData () {
-            return {
-                nickname: this.form.nickname,
-                id: this.form.id,
-                email: this.form.email,
-                roles: this.roles.added.map(role => role.name)
-            };
+            const data = new FormData();
+
+            data.append('nickname', this.form.nickname);
+            data.append('email', this.form.email);
+            data.append('id', this.user.id);
+            data.append('roles[]', this.roles.added.map(role => role.name));
+            data.append('image', this.form.avatar);
+            data.append('_method', 'put');
+
+            return data;
+        },
+
+        showRemoveButton () {
+            return this.user.has_avatar
+                || (!this.user.has_avatar && this.form.avatar != null);
         }
     },
 
@@ -197,6 +233,11 @@ export default {
             this.roles.added.splice(index, 1);
         },
 
+        resetAvatar () {
+            this.form.avatar = null;
+            this.$refs.file.value = '';
+        },
+
         searchForRoles: debounce(function () {
             const route = `${this.$route('roles.search')}?search=${this.roles.search}`;
 
@@ -205,8 +246,20 @@ export default {
             });
         }, 250),
 
+        setAvatar (e) {
+            this.form.avatar = e.target.files[0];
+
+            const reader = new FileReader();
+
+            reader.onload = (r) => {
+                this.$refs.preview.src = r.target.result;
+            };
+
+            reader.readAsDataURL(this.form.avatar);
+        },
+
         submit () {
-            this.$inertia.put(
+            this.$inertia.post(
                 this.$route('users.update', { user: this.user }),
                 this.formData
             );
