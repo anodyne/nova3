@@ -29,6 +29,8 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     use HasStates;
     use HasMediaTrait;
 
+    public const MEDIA_DIRECTORY = 'users/{model_id}/{media_id}/';
+
     protected static $logFillable = true;
 
     protected $appends = ['avatar_url', 'has_avatar'];
