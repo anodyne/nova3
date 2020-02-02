@@ -31,7 +31,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
 
     protected static $logFillable = true;
 
-    protected $appends = ['avatar_url'];
+    protected $appends = ['avatar_url', 'has_avatar'];
 
     protected $fillable = [
         'nickname', 'email', 'password', 'last_login', 'force_password_reset',
@@ -88,6 +88,16 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     public function getAvatarUrlAttribute()
     {
         return $this->getFirstMediaUrl('avatar');
+    }
+
+    /**
+     * Does the user have an avatar?
+     *
+     * @return bool
+     */
+    public function getHasAvatarAttribute(): bool
+    {
+        return $this->getFirstMedia('avatar') !== null;
     }
 
     /**

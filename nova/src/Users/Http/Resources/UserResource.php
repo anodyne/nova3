@@ -14,6 +14,7 @@ class UserResource extends JsonResource
                 'update' => gate()->allows('update', $this->resource),
             ],
             'avatar_url' => $this->avatar_url,
+            'has_avatar' => $this->has_avatar,
             'email' => $this->email,
             'id' => $this->id,
             'nickname' => $this->nickname,

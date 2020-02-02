@@ -13,6 +13,9 @@ class DeleteUserTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * @var  User
+     */
     protected $user;
 
     public function setUp(): void

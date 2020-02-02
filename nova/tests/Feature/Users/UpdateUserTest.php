@@ -13,6 +13,9 @@ class UpdateUserTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * @var  User
+     */
     protected $user;
 
     public function setUp(): void
@@ -34,6 +37,7 @@ class UpdateUserTest extends TestCase
     /** @test **/
     public function authorizedUserCanUpdateUser()
     {
+        $this->withoutExceptionHandling();
         $this->signInWithPermission('user.update');
 
         $data = factory(User::class)->make();
