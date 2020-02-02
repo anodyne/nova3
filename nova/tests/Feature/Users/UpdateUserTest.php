@@ -6,6 +6,7 @@ use Tests\TestCase;
 use Nova\Users\Models\User;
 use Nova\Users\Events\UserUpdated;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Storage;
 use Nova\Users\Events\UserUpdatedByAdmin;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -23,6 +24,8 @@ class UpdateUserTest extends TestCase
         parent::setUp();
 
         $this->user = factory(User::class)->create();
+
+        Storage::fake('media');
     }
 
     /** @test **/
