@@ -41,7 +41,7 @@ class UploadUserAvatarTest extends TestCase
 
         $this->user->refresh();
 
-        $this->assertStringContainsString("/storage/{$this->user->id}", $this->user->avatar_url);
+        $this->assertStringContainsString("/media/{$this->user->id}", $this->user->avatar_url);
 
         $this->assertDatabaseHas('media', [
             'model_type' => 'users',
