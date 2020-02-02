@@ -6,7 +6,7 @@ use Nova\Users\Models\User;
 use Illuminate\Http\Request;
 use Nova\Users\Actions\CreateUser;
 use Nova\Users\Actions\DeleteUser;
-use Nova\Users\Actions\UpdateUser;
+use Nova\Users\Actions\UpdateUserManager;
 use Nova\Users\Events\UserCreatedByAdmin;
 use Nova\Users\Events\UserDeletedByAdmin;
 use Nova\Users\Events\UserUpdatedByAdmin;
@@ -68,10 +68,10 @@ class UserController extends Controller
 
     public function update(
         ValidateUpdateUser $request,
-        UpdateUser $action,
+        UpdateUserManager $action,
         User $user
     ) {
-        $user = $action->execute($user, UserData::fromRequest($request));
+        $user = $action->execute($user, $request);
 
         event(new UserUpdatedByAdmin($user));
 
