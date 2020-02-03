@@ -65,38 +65,51 @@
                                 <avatar
                                     v-show="form.avatar === null"
                                     :image-url="user.avatar_url"
-                                    size="lg"
+                                    size="xl"
                                 ></avatar>
 
-                                <div v-show="form.avatar !== null" class="avatar avatar-lg">
+                                <div v-show="form.avatar !== null" class="avatar avatar-xl">
                                     <img ref="preview" class="avatar-image">
                                 </div>
 
-                                <input
-                                    id="image"
-                                    ref="file"
-                                    type="file"
-                                    name="image"
-                                    class="hidden"
-                                    @change="setAvatar"
-                                >
+                                <div class="flex flex-col ml-4">
+                                    <input
+                                        id="image"
+                                        ref="file"
+                                        type="file"
+                                        name="image"
+                                        class="hidden"
+                                        @change="setAvatar"
+                                    >
 
-                                <button
-                                    type="button"
-                                    class="button button-soft button-small ml-4"
-                                    @click="$refs.file.click()"
-                                >
-                                    Change
-                                </button>
+                                    <div class="flex items-center">
+                                        <button
+                                            type="button"
+                                            class="button button-soft button-small"
+                                            @click="$refs.file.click()"
+                                        >
+                                            <icon name="camera" class="mr-2"></icon>
+                                            {{ avatarBrowseButtonLabel }}
+                                        </button>
 
-                                <button
-                                    v-if="showRemoveButton"
-                                    type="button"
-                                    class="button button-soft button-text ml-4"
-                                    @click="resetAvatar"
-                                >
-                                    Remove
-                                </button>
+                                        <button
+                                            v-if="showCancelAvatarChangeButton"
+                                            type="button"
+                                            class="button button-soft button-text ml-4"
+                                            @click="cancelAvatarChange"
+                                        >
+                                            Cancel
+                                        </button>
+                                    </div>
+
+                                    <form-checkbox
+                                        v-if="showRemoveOption"
+                                        v-model="form.remove_avatar"
+                                        class="mt-2 ml-px"
+                                    >
+                                        Remove avatar
+                                    </form-checkbox>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -161,9 +174,10 @@ import debounce from 'lodash/debounce';
 import axios from '@/Utils/axios';
 import TagsInput from '@/Shared/TagsInput';
 import Avatar from '@/Shared/Avatars/Avatar';
+import FormCheckbox from '@/Shared/Forms/FormCheckbox';
 
 export default {
-    components: { TagsInput, Avatar },
+    components: { TagsInput, Avatar, FormCheckbox },
 
     props: {
         user: {
@@ -177,7 +191,8 @@ export default {
             form: {
                 nickname: this.user.nickname,
                 email: this.user.email,
-                avatar: null
+                avatar: null,
+                remove_avatar: false
             },
             roles: {
                 added: this.user.roles,
@@ -188,6 +203,14 @@ export default {
     },
 
     computed: {
+        avatarBrowseButtonLabel () {
+            if (this.user.has_avatar || this.form.avatar != null) {
+                return 'Change Avatar';
+            }
+
+            return 'Add Avatar';
+        },
+
         formData () {
             const data = new FormData();
 
@@ -195,15 +218,19 @@ export default {
             data.append('email', this.form.email);
             data.append('id', this.user.id);
             data.append('roles[]', this.roles.added.map(role => role.name));
-            data.append('image', this.form.avatar);
+            data.append('avatar', this.form.avatar || '');
+            data.append('remove_avatar', this.form.remove_avatar ? '1' : '0');
             data.append('_method', 'put');
 
             return data;
         },
 
-        showRemoveButton () {
-            return this.user.has_avatar
-                || (!this.user.has_avatar && this.form.avatar != null);
+        showCancelAvatarChangeButton () {
+            return this.form.avatar != null;
+        },
+
+        showRemoveOption () {
+            return this.user.has_avatar;
         }
     },
 
@@ -216,6 +243,11 @@ export default {
             this.roles.added.push(role);
 
             this.roles.results = [];
+        },
+
+        cancelAvatarChange () {
+            this.form.avatar = null;
+            this.$refs.file.value = '';
         },
 
         forcePasswordReset () {
@@ -233,9 +265,12 @@ export default {
             this.roles.added.splice(index, 1);
         },
 
-        resetAvatar () {
-            this.form.avatar = null;
-            this.$refs.file.value = '';
+        removeExistingAvatar () {
+            this.cancelAvatarChange();
+
+            if (this.user.has_avatar) {
+                this.form.remove_avatar = true;
+            }
         },
 
         searchForRoles: debounce(function () {
@@ -262,7 +297,12 @@ export default {
             this.$inertia.post(
                 this.$route('users.update', { user: this.user }),
                 this.formData
-            );
+            ).then(() => {
+                if (Object.keys(this.$page.errors).length === 0) {
+                    this.form.avatar = null;
+                    this.form.remove_avatar = false;
+                }
+            });
         }
     }
 };
