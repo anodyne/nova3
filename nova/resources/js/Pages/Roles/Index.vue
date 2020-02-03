@@ -40,7 +40,7 @@
                     {{ role.display_name }}
                 </div>
 
-                <div class="flex-auto">
+                <div class="flex-auto leading-0">
                     <avatar-group size="xs" :items="roleUsers(role)"></avatar-group>
                 </div>
 
