@@ -8,6 +8,10 @@ class MaxFileSize implements Rule
 {
     public function passes($attribute, $value)
     {
+        if ($value === null) {
+            return true;
+        }
+
         return $value->getSize() <= config('medialibrary.max_file_size');
     }
 

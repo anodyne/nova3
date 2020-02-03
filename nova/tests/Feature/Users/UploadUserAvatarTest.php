@@ -34,7 +34,7 @@ class UploadUserAvatarTest extends TestCase
             'nickname' => $this->user->nickname,
             'email' => $this->user->email,
             'roles' => [],
-            'image' => UploadedFile::fake()->image('image.png'),
+            'avatar' => UploadedFile::fake()->image('image.png'),
         ]);
 
         $this->followRedirects($response)->assertOk();
@@ -56,7 +56,7 @@ class UploadUserAvatarTest extends TestCase
         $this->signIn();
 
         $response = $this->putJson(route('users.update', $this->user), [
-            'image' => UploadedFile::fake()->image('image.png'),
+            'avatar' => UploadedFile::fake()->image('image.png'),
         ]);
 
         $response->assertForbidden();
@@ -72,7 +72,7 @@ class UploadUserAvatarTest extends TestCase
     public function guestCannotUploadUserAvatar()
     {
         $response = $this->putJson(route('users.update', $this->user), [
-            'image' => UploadedFile::fake()->image('image.png'),
+            'avatar' => UploadedFile::fake()->image('image.png'),
         ]);
 
         $response->assertUnauthorized();
@@ -96,11 +96,11 @@ class UploadUserAvatarTest extends TestCase
             'nickname' => $this->user->nickname,
             'email' => $this->user->email,
             'roles' => [],
-            'image' => $fakeImage,
+            'avatar' => $fakeImage,
         ]);
 
         $response->assertStatus(422);
-        $response->assertJsonValidationErrors('image');
+        $response->assertJsonValidationErrors('avatar');
 
         $this->assertDatabaseMissing('media', [
             'model_type' => 'users',
@@ -118,14 +118,14 @@ class UploadUserAvatarTest extends TestCase
             'nickname' => $this->user->nickname,
             'email' => $this->user->email,
             'roles' => [],
-            'image' => UploadedFile::fake()->image('image.png'),
+            'avatar' => UploadedFile::fake()->image('image.png'),
         ]);
 
         $response = $this->putJson(route('users.update', $this->user), [
             'nickname' => $this->user->nickname,
             'email' => $this->user->email,
             'roles' => [],
-            'image' => UploadedFile::fake()->image('image2.png'),
+            'avatar' => UploadedFile::fake()->image('image2.png'),
         ]);
 
         $this->followRedirects($response)->assertOk();
@@ -142,11 +142,11 @@ class UploadUserAvatarTest extends TestCase
             'nickname' => $this->user->nickname,
             'email' => $this->user->email,
             'roles' => [],
-            'image' => UploadedFile::fake()->create('random.tmp'),
+            'avatar' => UploadedFile::fake()->create('random.tmp'),
         ]);
 
         $response->assertStatus(422);
-        $response->assertJsonValidationErrors('image');
+        $response->assertJsonValidationErrors('avatar');
 
         $this->assertDatabaseMissing('media', [
             'model_type' => 'users',

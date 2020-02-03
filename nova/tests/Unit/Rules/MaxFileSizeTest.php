@@ -31,6 +31,14 @@ class MaxFileSizeTest extends TestCase
     }
 
     /** @test **/
+    public function nullImagePassesValidation()
+    {
+        $this->assertTrue(
+            (new MaxFileSize)->passes(null, null)
+        );
+    }
+
+    /** @test **/
     public function imageOverMaxFileSizeLimitFailsValidation()
     {
         $file = UploadedFile::fake()->create(
