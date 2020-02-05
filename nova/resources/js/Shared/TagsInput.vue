@@ -38,7 +38,7 @@
                     class="field-addon"
                     @click="resetSearch"
                 >
-                    <icon name="close"></icon>
+                    <icon name="x-circle"></icon>
                 </button>
             </div>
         </template>

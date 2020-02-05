@@ -78,7 +78,7 @@
 
         <div class="sidebar-footer">
             <a href="#" class="sidebar-footer-link">
-                <icon name="notification"></icon>
+                <icon name="bell"></icon>
             </a>
 
             <div class="flex items-center">

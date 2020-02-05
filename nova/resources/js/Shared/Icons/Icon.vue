@@ -26,6 +26,7 @@ export default {
         },
 
         icon () {
+            return this.name;
             const name = find(this.$store.get('Icons'), (icon, key) => key === this.name);
 
             if (name === undefined) {

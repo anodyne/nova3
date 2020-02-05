@@ -17,7 +17,7 @@
             class="ml-2 text-gray-500 hover:text-gray-700"
             @click.prevent="$emit('reset')"
         >
-            <icon name="close"></icon>
+            <icon name="x-circle"></icon>
         </button>
     </div>
 </template>

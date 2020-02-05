@@ -26,7 +26,7 @@
 
                 <div class="w-1/4 flex items-center justify-end">
                     <a href="#" class="text-gray-600 mr-6 hover:text-gray-700">
-                        <icon name="notification"></icon>
+                        <icon name="bell"></icon>
                     </a>
 
                     <dropdown placement="bottom-end">
