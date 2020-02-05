@@ -3,7 +3,7 @@ const path = require('path');
 
 mix.setPublicPath('dist');
 
-mix.js('nova/resources/js/app.js', 'dist/js')
+mix.js('nova/resources/js/app-client.js', 'dist/js')
     .js('nova/resources/js/app-server.js', 'dist/js')
 
     .postCss('nova/resources/css/app.css', 'dist/css')

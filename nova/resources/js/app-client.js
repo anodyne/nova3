@@ -19,12 +19,6 @@ Vue.component('sidebar-layout', SidebarLayout);
 new Vue({
     store,
 
-    mounted () {
-        this.$store.set('Icons/initialIcons', window.novaSettings.icons);
-        this.$store.set('Theme/initialTheme', window.novaSettings.theme);
-        this.$store.set('User/initialUser', window.novaSettings.user);
-    },
-
     render (h) {
         return h(MasterInertia, [
             h(InertiaApp, {
