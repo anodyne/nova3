@@ -88,12 +88,12 @@
 
                 <div class="flex items-center">
                     <a href="#" class="text-gray-600 mr-6 hover:text-gray-700">
-                        <icon name="notification"></icon>
+                        <icon name="bell"></icon>
                     </a>
 
                     <dropdown placement="bottom-end">
                         <div class="flex items-center">
-                            <avatar size="xs" :image-url="$store.get('User').avatar_url"></avatar>
+                            <avatar size="xs" :image-url="$page.auth.user.avatar_url"></avatar>
                             <icon name="chevron-down" class="ml-1 text-gray-600 h-4 w-4"></icon>
                         </div>
 
