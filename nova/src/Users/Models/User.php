@@ -33,8 +33,6 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
 
     protected static $logFillable = true;
 
-    protected $appends = ['avatar_url', 'has_avatar'];
-
     protected $fillable = [
         'nickname', 'email', 'password', 'last_login', 'force_password_reset',
         'state',
