@@ -58,7 +58,7 @@
 }
 
 .form-section {
-    @apply flex flex-col mb-12;
+    @apply flex flex-col;
 
     > .form-section-column-content {
         @apply mb-8 w-full;
@@ -77,6 +77,10 @@
     }
 }
 
+.form-section-divider {
+    @apply block w-full h-px bg-gray-200 my-10;
+}
+
 @screen lg {
     .form-section {
         @apply flex-row;
@@ -88,7 +92,7 @@
 }
 
 .form-controls {
-    @apply flex flex-col;
+    @apply flex flex-col mt-10;
 }
 
 @screen lg {
