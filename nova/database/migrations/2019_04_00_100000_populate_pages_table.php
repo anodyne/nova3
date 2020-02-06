@@ -46,6 +46,7 @@ class PopulatePagesTable extends Migration
             ['uri' => 'roles/{originalRole}/duplicate', 'key' => 'roles.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Roles\\Http\\Controllers\\DuplicateRoleController', 'layout' => 'admin'],
 
             ['uri' => 'users', 'key' => 'users.index', 'resource' => 'Nova\\Users\\Http\\Controllers\\UserController@index', 'layout' => 'admin'],
+            ['uri' => 'users/show/{user}', 'key' => 'users.show', 'resource' => 'Nova\\Users\\Http\\Controllers\\UserController@show', 'layout' => 'admin'],
             ['uri' => 'users/create', 'key' => 'users.create', 'resource' => 'Nova\\Users\\Http\\Controllers\\UserController@create', 'layout' => 'admin'],
             ['uri' => 'users', 'key' => 'users.store', 'verb' => 'post', 'resource' => 'Nova\\Users\\Http\\Controllers\\UserController@store', 'layout' => 'admin'],
             ['uri' => 'users/{user}/edit', 'key' => 'users.edit', 'resource' => 'Nova\\Users\\Http\\Controllers\\UserController@edit', 'layout' => 'admin'],

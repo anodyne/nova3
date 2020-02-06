@@ -15,6 +15,7 @@ use Nova\Users\DataTransferObjects\UserData;
 use Nova\Users\Http\Resources\UserCollection;
 use Nova\Users\Http\Requests\ValidateStoreUser;
 use Nova\Users\Http\Responses\EditUserResponse;
+use Nova\Users\Http\Responses\ViewUserResponse;
 use Nova\Foundation\Http\Controllers\Controller;
 use Nova\Users\Http\Requests\ValidateUpdateUser;
 use Nova\Users\Http\Responses\UserIndexResponse;
@@ -40,6 +41,13 @@ class UserController extends Controller
         return app(UserIndexResponse::class)->with([
             'filters' => $request->all('search'),
             'users' => new UserCollection($users),
+        ]);
+    }
+
+    public function show(User $user)
+    {
+        return app(ViewUserResponse::class)->with([
+            'user' => new UserResource($user->load('roles')),
         ]);
     }
 

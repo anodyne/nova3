@@ -13,6 +13,7 @@ class UserResource extends JsonResource
             'can' => [
                 'delete' => gate()->allows('delete', $this->resource),
                 'update' => gate()->allows('update', $this->resource),
+                'view' => gate()->allows('view', $this->resource),
             ],
             'avatar_url' => $this->avatar_url,
             'has_avatar' => $this->has_avatar,

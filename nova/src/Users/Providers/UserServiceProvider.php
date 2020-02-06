@@ -8,6 +8,7 @@ use Nova\Users\Policies\UserPolicy;
 use Nova\Users\Events\UserCreatedByAdmin;
 use Nova\Users\Listeners\GeneratePassword;
 use Nova\Users\Http\Responses\EditUserResponse;
+use Nova\Users\Http\Responses\ViewUserResponse;
 use Nova\Users\Http\Responses\UserIndexResponse;
 use Nova\Users\Http\Responses\CreateUserResponse;
 use Nova\Users\Http\Controllers\SearchUsersController;
@@ -33,6 +34,7 @@ class UserServiceProvider extends DomainServiceProvider
         CreateUserResponse::class,
         EditUserResponse::class,
         UserIndexResponse::class,
+        ViewUserResponse::class,
     ];
 
     protected $routes = [

@@ -31,7 +31,7 @@ class UserPolicy
      */
     public function view(User $user, User $actionableUser)
     {
-        return $user->can('user.*');
+        return $user->can('user.view');
     }
 
     /**
