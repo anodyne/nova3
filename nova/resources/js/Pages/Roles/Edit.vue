@@ -57,6 +57,8 @@
                     </div>
                 </div>
 
+                <div class="form-section-divider"></div>
+
                 <div class="form-section">
                     <div class="form-section-column-content">
                         <div class="form-section-header">Permissions</div>
@@ -77,6 +79,8 @@
                         </form-field>
                     </div>
                 </div>
+
+                <div class="form-section-divider"></div>
 
                 <div class="form-section">
                     <div class="form-section-column-content">

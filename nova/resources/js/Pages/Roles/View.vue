@@ -29,10 +29,12 @@
                         name="name"
                         static
                     >
-                        <p class="font-bold">{{ role.name }}</p>
+                        <p class="font-semibold">{{ role.name }}</p>
                     </form-field>
                 </div>
             </div>
+
+            <div class="form-section-divider"></div>
 
             <div class="form-section">
                 <div class="form-section-column-content">
@@ -42,6 +44,11 @@
 
                 <div class="form-section-column-form">
                     <div class="flex items-center flex-wrap">
+                        <div v-if="role.permissions.length === 0" class="flex items-center font-semibold text-warning-700">
+                            <icon name="alert-triangle" class="mr-3 flex-shrink-0 h-6 w-6"></icon>
+                            <div>There are no permissions assigned to this role.</div>
+                        </div>
+
                         <div
                             v-for="permission in role.permissions"
                             :key="permission.id"
@@ -53,6 +60,8 @@
                 </div>
             </div>
 
+            <div class="form-section-divider"></div>
+
             <div class="form-section">
                 <div class="form-section-column-content">
                     <div class="form-section-header">Users with this role</div>
@@ -61,6 +70,11 @@
 
                 <div class="form-section-column-form">
                     <div class="flex items-center flex-wrap">
+                        <div v-if="role.users.length === 0" class="flex items-center font-semibold text-warning-700">
+                            <icon name="alert-triangle" class="mr-3 flex-shrink-0 h-6 w-6"></icon>
+                            <div>There are no users with this role.</div>
+                        </div>
+
                         <div
                             v-for="user in role.users"
                             :key="user.id"

@@ -78,7 +78,7 @@
                                 class="dropdown-link-danger"
                                 @click.prevent="confirmRemove(role, toggle)"
                             >
-                                <icon name="delete" class="dropdown-icon"></icon>
+                                <icon name="trash" class="dropdown-icon"></icon>
                                 Delete
                             </button>
                             <div v-if="role.locked">
