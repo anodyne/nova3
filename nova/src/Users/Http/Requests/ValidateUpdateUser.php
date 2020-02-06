@@ -15,7 +15,7 @@ class ValidateUpdateUser extends ValidatesRequest
     public function rules()
     {
         return [
-            'nickname' => ['required'],
+            'name' => ['required'],
             'email' => ['required', 'email'],
             'avatar' => ['nullable', 'mimes:jpeg,png,gif', new MaxFileSize],
         ];

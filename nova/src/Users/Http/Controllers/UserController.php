@@ -33,7 +33,7 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        $users = User::orderBy('nickname')
+        $users = User::orderBy('name')
             ->filter($request->only('search'))
             ->paginate(15);
 
@@ -56,7 +56,7 @@ class UserController extends Controller
 
         return redirect()
             ->route('users.index')
-            ->withToast("An account for {$user->nickname} was created.");
+            ->withToast("An account for {$user->name} was created.");
     }
 
     public function edit(User $user)
@@ -75,7 +75,7 @@ class UserController extends Controller
 
         event(new UserUpdatedByAdmin($user));
 
-        return back()->withToast("{$user->nickname}'s account was updated.");
+        return back()->withToast("{$user->name}'s account was updated.");
     }
 
     public function destroy(DeleteUser $action, User $user)
@@ -86,6 +86,6 @@ class UserController extends Controller
 
         return redirect()
             ->route('users.index')
-            ->withToast("{$user->nickname}'s account was deleted.");
+            ->withToast("{$user->name}'s account was deleted.");
     }
 }

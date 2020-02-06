@@ -11,7 +11,7 @@ class UserData extends DataTransferObject
     /**
      * @var  string
      */
-    public $nickname;
+    public $name;
 
     /**
      * @var  string
@@ -26,7 +26,7 @@ class UserData extends DataTransferObject
     public static function fromRequest(Request $request): self
     {
         return new self([
-            'nickname' => $request->input('nickname'),
+            'name' => $request->input('name'),
             'email' => $request->input('email'),
             'roles' => Role::whereIn('name', $request->input('roles'))->get(),
         ]);

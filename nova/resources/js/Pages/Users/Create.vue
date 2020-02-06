@@ -26,16 +26,16 @@
 
                     <div class="form-section-column-form">
                         <form-field
-                            label="Nickname"
-                            field-id="nickname"
-                            name="nickname"
+                            label="Name"
+                            field-id="name"
+                            name="name"
                         >
                             <div class="field-group">
                                 <input
-                                    id="nickname"
-                                    v-model="form.nickname"
+                                    id="name"
+                                    v-model="form.name"
                                     type="text"
-                                    name="nickname"
+                                    name="name"
                                     class="field"
                                 >
                             </div>
@@ -112,7 +112,7 @@ export default {
     data () {
         return {
             form: {
-                nickname: '',
+                name: '',
                 email: ''
             },
             roles: {
@@ -126,7 +126,7 @@ export default {
     computed: {
         formData () {
             return {
-                nickname: this.form.nickname,
+                name: this.form.name,
                 email: this.form.email,
                 roles: this.roles.added.map(role => role.name)
             };

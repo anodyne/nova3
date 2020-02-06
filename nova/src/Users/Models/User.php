@@ -34,7 +34,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     protected static $logFillable = true;
 
     protected $fillable = [
-        'nickname', 'email', 'password', 'last_login', 'force_password_reset',
+        'name', 'email', 'password', 'last_login', 'force_password_reset',
         'state',
     ];
 
@@ -77,7 +77,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
      */
     public function getDescriptionForEvent(string $eventName): string
     {
-        return ":subject.nickname was {$eventName}";
+        return ":subject.name was {$eventName}";
     }
 
     /**

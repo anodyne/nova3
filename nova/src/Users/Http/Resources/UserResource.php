@@ -2,6 +2,7 @@
 
 namespace Nova\Users\Http\Resources;
 
+use Nova\Roles\Http\Resources\RoleResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -17,8 +18,8 @@ class UserResource extends JsonResource
             'has_avatar' => $this->has_avatar,
             'email' => $this->email,
             'id' => $this->id,
-            'nickname' => $this->nickname,
-            'roles' => $this->whenLoaded('roles'),
+            'name' => $this->name,
+            'roles' => RoleResource::collection($this->whenLoaded('roles')),
         ];
     }
 }

@@ -31,7 +31,7 @@ class UploadUserAvatarTest extends TestCase
         $this->signInWithPermission('user.update');
 
         $response = $this->put(route('users.update', $this->user), [
-            'nickname' => $this->user->nickname,
+            'name' => $this->user->name,
             'email' => $this->user->email,
             'roles' => [],
             'avatar' => UploadedFile::fake()->image('image.png'),
@@ -93,7 +93,7 @@ class UploadUserAvatarTest extends TestCase
         $fakeImage->size(config('medialibrary.max_file_size') / 1024 + 1);
 
         $response = $this->putJson(route('users.update', $this->user), [
-            'nickname' => $this->user->nickname,
+            'name' => $this->user->name,
             'email' => $this->user->email,
             'roles' => [],
             'avatar' => $fakeImage,
@@ -115,14 +115,14 @@ class UploadUserAvatarTest extends TestCase
         $this->signInWithPermission('user.update');
 
         $this->putJson(route('users.update', $this->user), [
-            'nickname' => $this->user->nickname,
+            'name' => $this->user->name,
             'email' => $this->user->email,
             'roles' => [],
             'avatar' => UploadedFile::fake()->image('image.png'),
         ]);
 
         $response = $this->putJson(route('users.update', $this->user), [
-            'nickname' => $this->user->nickname,
+            'name' => $this->user->name,
             'email' => $this->user->email,
             'roles' => [],
             'avatar' => UploadedFile::fake()->image('image2.png'),
@@ -139,7 +139,7 @@ class UploadUserAvatarTest extends TestCase
         $this->signInWithPermission('user.update');
 
         $response = $this->putJson(route('users.update', $this->user), [
-            'nickname' => $this->user->nickname,
+            'name' => $this->user->name,
             'email' => $this->user->email,
             'roles' => [],
             'avatar' => UploadedFile::fake()->create('random.tmp'),

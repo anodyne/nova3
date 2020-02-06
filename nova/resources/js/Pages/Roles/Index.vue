@@ -195,7 +195,7 @@ export default {
         roleUsers (role) {
             return role.users.map(user => ({
                 'image-url': user.avatar_url,
-                tooltip: user.nickname
+                tooltip: user.name
             }));
         }
     }

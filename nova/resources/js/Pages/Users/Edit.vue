@@ -1,6 +1,6 @@
 <template>
     <sidebar-layout>
-        <page-header :title="user.nickname">
+        <page-header :title="user.name">
             <template #pretitle>
                 <inertia-link :href="$route('users.index')">Users</inertia-link>
             </template>
@@ -27,16 +27,16 @@
 
                     <div class="form-section-column-form">
                         <form-field
-                            label="Nickname"
-                            field-id="nickname"
-                            name="nickname"
+                            label="Name"
+                            field-id="name"
+                            name="name"
                         >
                             <div class="field-group">
                                 <input
-                                    id="nickname"
-                                    v-model="form.nickname"
+                                    id="name"
+                                    v-model="form.name"
                                     type="text"
-                                    name="nickname"
+                                    name="name"
                                     class="field"
                                 >
                             </div>
@@ -189,7 +189,7 @@ export default {
     data () {
         return {
             form: {
-                nickname: this.user.nickname,
+                name: this.user.name,
                 email: this.user.email,
                 avatar: null,
                 remove_avatar: false
@@ -214,7 +214,7 @@ export default {
         formData () {
             const data = new FormData();
 
-            data.append('nickname', this.form.nickname);
+            data.append('name', this.form.name);
             data.append('email', this.form.email);
             data.append('id', this.user.id);
             data.append('roles[]', this.roles.added.map(role => role.name));
