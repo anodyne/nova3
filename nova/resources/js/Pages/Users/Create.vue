@@ -21,7 +21,7 @@
 
                         <p class="form-section-message mb-6">For privacy reasons, we don't recommend using a user's real name. Instead, use a nickname to help protect their identity.</p>
 
-                        <p class="form-section-message">For security reasons, you cannot specify the password for a new user. After the account is created, a password will be generated and emailed to them.</p>
+                        <p class="form-section-message"><strong class="font-semibold">Note:</strong> after the account is created, a password will be generated and emailed to the new user.</p>
                     </div>
 
                     <div class="form-section-column-form">
@@ -58,6 +58,8 @@
                         </form-field>
                     </div>
                 </div>
+
+                <div class="form-section-divider"></div>
 
                 <div class="form-section">
                     <div class="form-section-column-content">

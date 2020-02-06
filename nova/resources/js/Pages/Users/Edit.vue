@@ -22,7 +22,7 @@
 
                         <p class="form-section-message mb-6">For privacy reasons, we don't recommend using a user's real name. Instead, use a nickname to help protect their identity.</p>
 
-                        <p class="form-section-message">For security reasons, you cannot manually update a user's password. If the user has forgotten their password, they should reset their password from the sign page.</p>
+                        <p class="form-section-message"><strong class="font-semibold">Note:</strong> you cannot manually update a user's password. If the user has forgotten their password, they should reset their password from the sign in page.</p>
                     </div>
 
                     <div class="form-section-column-form">
@@ -58,7 +58,7 @@
                             </div>
                         </form-field>
 
-                        <div class="my-8">
+                        <div class="mt-8">
                             <label class="field-label">Avatar</label>
 
                             <div class="flex items-center">
@@ -114,6 +114,8 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="form-section-divider"></div>
 
                 <div class="form-section">
                     <div class="form-section-column-content">

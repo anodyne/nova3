@@ -53,6 +53,14 @@
 
                         <template #dropdown="{ toggle }">
                             <inertia-link
+                                v-if="user.can.view"
+                                :href="$route('users.show', { user })"
+                                class="dropdown-link"
+                            >
+                                <icon name="eye" class="dropdown-icon"></icon>
+                                View
+                            </inertia-link>
+                            <inertia-link
                                 v-if="user.can.update"
                                 :href="$route('users.edit', { user })"
                                 class="dropdown-link"
@@ -66,7 +74,7 @@
                                 class="dropdown-link-danger"
                                 @click="confirmRemove(user, toggle)"
                             >
-                                <icon name="delete" class="dropdown-icon"></icon>
+                                <icon name="trash" class="dropdown-icon"></icon>
                                 Delete
                             </a>
                         </template>
