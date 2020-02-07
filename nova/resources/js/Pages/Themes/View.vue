@@ -19,7 +19,7 @@
                         field-id="name"
                         name="name"
                     >
-                        <p class="font-bold">{{ theme.name }}</p>
+                        <p class="font-semibold">{{ theme.name }}</p>
                     </form-field>
 
                     <form-field
@@ -27,7 +27,7 @@
                         field-id="location"
                         name="location"
                     >
-                        <p class="font-bold">themes/{{ theme.location }}</p>
+                        <p class="font-semibold">themes/{{ theme.location }}</p>
                     </form-field>
 
                     <form-field
@@ -40,7 +40,7 @@
                 </div>
             </div>
 
-            <div class="form-controls">
+            <div class="form-footer">
                 <inertia-link :href="$route('themes.index')" class="button">
                     Back
                 </inertia-link>

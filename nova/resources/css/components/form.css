@@ -75,10 +75,11 @@
     > .form-section-column-form {
         @apply flex-1;
     }
-}
 
-.form-section-divider {
-    @apply block w-full h-px bg-gray-200 my-10;
+    + .form-section,
+    + .form-footer {
+        @apply pt-10 mt-10 border-t;
+    }
 }
 
 @screen lg {
@@ -91,12 +92,12 @@
     }
 }
 
-.form-controls {
+.form-footer {
     @apply flex flex-col mt-10;
 }
 
 @screen lg {
-    .form-controls {
+    .form-footer {
         @apply flex-row-reverse items-center;
 
         button + button,

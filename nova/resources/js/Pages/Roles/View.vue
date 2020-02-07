@@ -34,8 +34,6 @@
                 </div>
             </div>
 
-            <div class="form-section-divider"></div>
-
             <div class="form-section">
                 <div class="form-section-column-content">
                     <div class="form-section-header">Permissions</div>
@@ -59,8 +57,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="form-section-divider"></div>
 
             <div class="form-section">
                 <div class="form-section-column-content">
@@ -86,7 +82,7 @@
                 </div>
             </div>
 
-            <div class="form-controls">
+            <div class="form-footer">
                 <inertia-link :href="$route('roles.index')" class="button">
                     Back
                 </inertia-link>

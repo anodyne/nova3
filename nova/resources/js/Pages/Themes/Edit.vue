@@ -138,7 +138,7 @@
                     </div>
                 </div> -->
 
-                <div class="form-controls">
+                <div class="form-footer">
                     <button type="submit" class="button button-primary">
                         Update
                     </button>

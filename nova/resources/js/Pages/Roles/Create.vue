@@ -57,8 +57,6 @@
                     </div>
                 </div>
 
-                <div class="form-section-divider"></div>
-
                 <div class="form-section">
                     <div class="form-section-column-content">
                         <div class="form-section-header">Permissions</div>
@@ -79,8 +77,6 @@
                         </form-field>
                     </div>
                 </div>
-
-                <div class="form-section-divider"></div>
 
                 <div class="form-section">
                     <div class="form-section-column-content">
@@ -103,7 +99,7 @@
                     </div>
                 </div>
 
-                <div class="form-controls">
+                <div class="form-footer">
                     <button type="submit" class="button button-primary">Add Role</button>
 
                     <inertia-link :href="$route('roles.index')" class="button">

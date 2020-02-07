@@ -115,8 +115,6 @@
                     </div>
                 </div>
 
-                <div class="form-section-divider"></div>
-
                 <div class="form-section">
                     <div class="form-section-column-content">
                         <div class="form-section-header">Roles</div>
@@ -142,7 +140,7 @@
                     </div>
                 </div>
 
-                <div class="form-controls">
+                <div class="form-footer">
                     <button type="submit" class="button button-primary">Update User</button>
 
                     <inertia-link :href="$route('users.index')" class="button">
