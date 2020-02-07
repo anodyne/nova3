@@ -115,7 +115,7 @@
                                 class="dropdown-link"
                                 onclick="event.preventDefault();document.getElementById('logout-form').submit();"
                             >
-                                <icon name="sign-out" class="dropdown-icon"></icon>
+                                <icon name="log-out" class="dropdown-icon"></icon>
                                 Log out
                             </a>
                             <form

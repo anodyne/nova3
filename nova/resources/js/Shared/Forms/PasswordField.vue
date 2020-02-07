@@ -13,10 +13,10 @@
                 @click="toggleFieldType"
             >
                 <div v-show="showPassword" class="leading-0">
-                    <icon name="hide"></icon>
+                    <icon name="eye-off"></icon>
                 </div>
                 <div v-show="!showPassword" class="leading-0">
-                    <icon name="show"></icon>
+                    <icon name="eye"></icon>
                 </div>
             </a>
         </div>
