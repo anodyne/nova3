@@ -42,7 +42,7 @@ class CreateUserTest extends TestCase
 
         $user = User::get()->last();
 
-        $this->assertDatabaseHas('users', $data->only('nickname', 'email'));
+        $this->assertDatabaseHas('users', $data->only('name', 'email'));
 
         $this->assertDatabaseHas('role_user', [
             'role_id' => $role->id,
@@ -99,7 +99,7 @@ class CreateUserTest extends TestCase
     }
 
     /** @test **/
-    public function nicknameIsRequiredToCreateUser()
+    public function nameIsRequiredToCreateUser()
     {
         $this->signInWithPermission('user.create');
 
@@ -108,7 +108,7 @@ class CreateUserTest extends TestCase
             'roles' => [],
         ]);
         $response->assertStatus(422);
-        $response->assertJsonValidationErrors('nickname');
+        $response->assertJsonValidationErrors('name');
     }
 
     /** @test **/
@@ -117,7 +117,7 @@ class CreateUserTest extends TestCase
         $this->signInWithPermission('user.create');
 
         $response = $this->postJson(route('users.store'), [
-            'nickname' => 'foo',
+            'name' => 'foo',
             'roles' => [],
         ]);
         $response->assertStatus(422);
@@ -130,7 +130,7 @@ class CreateUserTest extends TestCase
         $this->signInWithPermission('user.create');
 
         $response = $this->postJson(route('users.store'), [
-            'nickname' => 'John Q. Public',
+            'name' => 'John Q. Public',
             'email' => 'john@example.com',
             'roles' => [],
         ]);
@@ -148,7 +148,7 @@ class CreateUserTest extends TestCase
         $this->signInWithPermission('user.create');
 
         $response = $this->postJson(route('users.store'), [
-            'nickname' => 'John Q. Public',
+            'name' => 'John Q. Public',
             'email' => 'john@example.com',
             'roles' => [],
         ]);

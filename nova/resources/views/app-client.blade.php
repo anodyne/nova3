@@ -19,11 +19,7 @@
     <link href="{{ asset('/themes/pulsar/design/custom.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
-    <script>
-        window.novaToast = @json(session('nova.toast', []));
-        window.novaSettings = @json(nova()->provideScriptVariables());
-    </script>
-    <script src="{{ asset('/dist/js/app.js') }}" defer></script>
+    <script src="{{ asset('/dist/js/app-client.js') }}" defer></script>
     @routes
 </head>
 <body class="font-sans bg-gray-200 text-gray-900 antialiased">

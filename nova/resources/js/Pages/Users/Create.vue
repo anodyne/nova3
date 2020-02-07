@@ -21,21 +21,21 @@
 
                         <p class="form-section-message mb-6">For privacy reasons, we don't recommend using a user's real name. Instead, use a nickname to help protect their identity.</p>
 
-                        <p class="form-section-message">For security reasons, you cannot specify the password for a new user. After the account is created, a password will be generated and emailed to them.</p>
+                        <p class="form-section-message"><strong class="font-semibold">Note:</strong> after the account is created, a password will be generated and emailed to the new user.</p>
                     </div>
 
                     <div class="form-section-column-form">
                         <form-field
-                            label="Nickname"
-                            field-id="nickname"
-                            name="nickname"
+                            label="Name"
+                            field-id="name"
+                            name="name"
                         >
                             <div class="field-group">
                                 <input
-                                    id="nickname"
-                                    v-model="form.nickname"
+                                    id="name"
+                                    v-model="form.name"
                                     type="text"
-                                    name="nickname"
+                                    name="name"
                                     class="field"
                                 >
                             </div>
@@ -88,7 +88,7 @@
                     </div>
                 </div>
 
-                <div class="form-controls">
+                <div class="form-footer">
                     <button type="submit" class="button button-primary">Add User</button>
 
                     <inertia-link :href="$route('users.index')" class="button">
@@ -112,7 +112,7 @@ export default {
     data () {
         return {
             form: {
-                nickname: '',
+                name: '',
                 email: ''
             },
             roles: {
@@ -126,7 +126,7 @@ export default {
     computed: {
         formData () {
             return {
-                nickname: this.form.nickname,
+                name: this.form.name,
                 email: this.form.email,
                 roles: this.roles.added.map(role => role.name)
             };

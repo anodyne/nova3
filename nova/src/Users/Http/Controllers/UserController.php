@@ -6,7 +6,7 @@ use Nova\Users\Models\User;
 use Illuminate\Http\Request;
 use Nova\Users\Actions\CreateUser;
 use Nova\Users\Actions\DeleteUser;
-use Nova\Users\Actions\UpdateUser;
+use Nova\Users\Actions\UpdateUserManager;
 use Nova\Users\Events\UserCreatedByAdmin;
 use Nova\Users\Events\UserDeletedByAdmin;
 use Nova\Users\Events\UserUpdatedByAdmin;
@@ -15,6 +15,7 @@ use Nova\Users\DataTransferObjects\UserData;
 use Nova\Users\Http\Resources\UserCollection;
 use Nova\Users\Http\Requests\ValidateStoreUser;
 use Nova\Users\Http\Responses\EditUserResponse;
+use Nova\Users\Http\Responses\ViewUserResponse;
 use Nova\Foundation\Http\Controllers\Controller;
 use Nova\Users\Http\Requests\ValidateUpdateUser;
 use Nova\Users\Http\Responses\UserIndexResponse;
@@ -33,13 +34,20 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        $users = User::orderBy('nickname')
+        $users = User::orderBy('name')
             ->filter($request->only('search'))
             ->paginate(15);
 
         return app(UserIndexResponse::class)->with([
             'filters' => $request->all('search'),
             'users' => new UserCollection($users),
+        ]);
+    }
+
+    public function show(User $user)
+    {
+        return app(ViewUserResponse::class)->with([
+            'user' => new UserResource($user->load('roles')),
         ]);
     }
 
@@ -56,7 +64,7 @@ class UserController extends Controller
 
         return redirect()
             ->route('users.index')
-            ->withToast("An account for {$user->nickname} was created.");
+            ->withToast("An account for {$user->name} was created.");
     }
 
     public function edit(User $user)
@@ -68,14 +76,14 @@ class UserController extends Controller
 
     public function update(
         ValidateUpdateUser $request,
-        UpdateUser $action,
+        UpdateUserManager $action,
         User $user
     ) {
-        $user = $action->execute($user, UserData::fromRequest($request));
+        $user = $action->execute($user, $request);
 
         event(new UserUpdatedByAdmin($user));
 
-        return back()->withToast("{$user->nickname}'s account was updated.");
+        return back()->withToast("{$user->name}'s account was updated.");
     }
 
     public function destroy(DeleteUser $action, User $user)
@@ -86,6 +94,6 @@ class UserController extends Controller
 
         return redirect()
             ->route('users.index')
-            ->withToast("{$user->nickname}'s account was deleted.");
+            ->withToast("{$user->name}'s account was deleted.");
     }
 }

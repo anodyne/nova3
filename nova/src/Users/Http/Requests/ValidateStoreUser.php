@@ -9,7 +9,7 @@ class ValidateStoreUser extends ValidatesRequest
     public function rules()
     {
         return [
-            'nickname' => ['required'],
+            'name' => ['required'],
             'email' => ['required', 'email', 'unique:users,email'],
         ];
     }

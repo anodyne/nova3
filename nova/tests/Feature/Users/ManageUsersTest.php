@@ -72,7 +72,7 @@ class ManageUsersTest extends TestCase
         $this->signInWithPermission('user.create');
 
         $this->createUser([
-            'nickname' => 'John Public',
+            'name' => 'John Public',
         ]);
 
         $this->createUser();
@@ -87,7 +87,7 @@ class ManageUsersTest extends TestCase
         $response->assertOk();
         $response->assertPropCount('users.data', 1);
         $response->assertPropValue('users.data', function ($users) {
-            $this->assertEquals('John Public', $users[0]['nickname']);
+            $this->assertEquals('John Public', $users[0]['name']);
         });
     }
 

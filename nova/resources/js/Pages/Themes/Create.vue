@@ -170,7 +170,7 @@
                     </div>
                 </div>
 
-                <div class="form-controls">
+                <div class="form-footer">
                     <button type="submit" class="button button-primary">Create</button>
 
                     <inertia-link :href="$route('themes.index')" class="button is-secondary">

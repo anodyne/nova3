@@ -37,6 +37,18 @@
             <directory suffix="Test.php">./nova/tests/Feature/Users</directory>
             <directory suffix="Test.php">./nova/tests/Unit/Users</directory>
         </testsuite>
+
+        <testsuite name="media">
+            <file>./nova/tests/Feature/Users/UploadUserAvatarTest.php</file>
+            <file>./nova/tests/Unit/Rules/MaxFileSizeTest.php</file>
+            <file>./nova/tests/Unit/Users/Actions/RemoveUserAvatarTest.php</file>
+            <file>./nova/tests/Unit/Users/Actions/UploadUserAvatarTest.php</file>
+        </testsuite>
+
+        <testsuite name="uploads">
+            <file>./nova/tests/Feature/Users/UploadUserAvatarTest.php</file>
+            <file>./nova/tests/Unit/Users/Actions/UploadUserAvatarTest.php</file>
+        </testsuite>
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">

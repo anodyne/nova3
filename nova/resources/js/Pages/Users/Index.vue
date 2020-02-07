@@ -37,9 +37,9 @@
                 class="flex items-center justify-between w-full py-2 px-8 border-b"
             >
                 <div class="flex items-center w-1/3">
-                    <avatar size="sm" :image-url="`https://api.adorable.io/avatars/285/${user.email}`"></avatar>
+                    <avatar size="sm" :image-url="user.avatar_url"></avatar>
                     <div class="ml-3 font-medium">
-                        {{ user.nickname }}
+                        {{ user.name }}
                     </div>
                 </div>
 
@@ -52,6 +52,14 @@
                         <icon name="more-horizontal" class="h-6 w-6"></icon>
 
                         <template #dropdown="{ toggle }">
+                            <inertia-link
+                                v-if="user.can.view"
+                                :href="$route('users.show', { user })"
+                                class="dropdown-link"
+                            >
+                                <icon name="eye" class="dropdown-icon"></icon>
+                                View
+                            </inertia-link>
                             <inertia-link
                                 v-if="user.can.update"
                                 :href="$route('users.edit', { user })"
@@ -66,7 +74,7 @@
                                 class="dropdown-link-danger"
                                 @click="confirmRemove(user, toggle)"
                             >
-                                <icon name="delete" class="dropdown-icon"></icon>
+                                <icon name="trash" class="dropdown-icon"></icon>
                                 Delete
                             </a>
                         </template>
@@ -88,7 +96,7 @@
             title="Delete Account"
             @close="hideModal"
         >
-            Are you sure you want to delete <strong>{{ deletingItem.nickname }}</strong>'s account?
+            Are you sure you want to delete <strong>{{ deletingItem.name }}</strong>'s account?
 
             <template #footer>
                 <button

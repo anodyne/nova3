@@ -13,6 +13,9 @@ class DeleteUserTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * @var  User
+     */
     protected $user;
 
     public function setUp(): void
@@ -68,7 +71,7 @@ class DeleteUserTest extends TestCase
             route('users.destroy', $currentUser = auth()->user())
         );
 
-        $this->assertDatabaseHas('users', $currentUser->only('id', 'nickname'));
+        $this->assertDatabaseHas('users', $currentUser->only('id', 'name'));
     }
 
     /** @test **/

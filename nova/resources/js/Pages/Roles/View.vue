@@ -29,7 +29,7 @@
                         name="name"
                         static
                     >
-                        <p class="font-bold">{{ role.name }}</p>
+                        <p class="font-semibold">{{ role.name }}</p>
                     </form-field>
                 </div>
             </div>
@@ -42,6 +42,11 @@
 
                 <div class="form-section-column-form">
                     <div class="flex items-center flex-wrap">
+                        <div v-if="role.permissions.length === 0" class="flex items-center font-semibold text-warning-700">
+                            <icon name="alert-triangle" class="mr-3 flex-shrink-0 h-6 w-6"></icon>
+                            <div>There are no permissions assigned to this role.</div>
+                        </div>
+
                         <div
                             v-for="permission in role.permissions"
                             :key="permission.id"
@@ -61,18 +66,23 @@
 
                 <div class="form-section-column-form">
                     <div class="flex items-center flex-wrap">
+                        <div v-if="role.users.length === 0" class="flex items-center font-semibold text-warning-700">
+                            <icon name="alert-triangle" class="mr-3 flex-shrink-0 h-6 w-6"></icon>
+                            <div>There are no users with this role.</div>
+                        </div>
+
                         <div
                             v-for="user in role.users"
                             :key="user.id"
                             class="tag mr-2 mt-3"
                         >
-                            {{ user.nickname }}
+                            {{ user.name }}
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="form-controls">
+            <div class="form-footer">
                 <inertia-link :href="$route('roles.index')" class="button">
                     Back
                 </inertia-link>

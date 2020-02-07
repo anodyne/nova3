@@ -53,6 +53,12 @@ return [
             'visibility' => 'public',
         ],
 
+        'media' => [
+            'driver' => 'local',
+            'root' => base_path('media'),
+            'url' => env('APP_URL') . '/media',
+        ],
+
         'nova' => [
             'driver' => 'local',
             'root' => nova_path(),

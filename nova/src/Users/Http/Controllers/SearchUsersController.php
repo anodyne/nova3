@@ -17,7 +17,7 @@ class SearchUsersController extends Controller
 
     public function __invoke(Request $request)
     {
-        $users = User::orderBy('nickname')
+        $users = User::orderBy('name')
             ->filter($request->only('search'))
             ->get();
 

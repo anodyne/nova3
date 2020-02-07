@@ -22,21 +22,21 @@
 
                         <p class="form-section-message mb-6">For privacy reasons, we don't recommend using a user's real name. Instead, use a nickname to help protect their identity.</p>
 
-                        <p class="form-section-message">For security reasons, you cannot manually update a user's password. If the user has forgotten their password, they should reset their password from the sign page.</p>
+                        <p class="form-section-message"><strong class="font-semibold">Note:</strong> you cannot manually update a user's password. If the user has forgotten their password, they should reset their password from the sign in page.</p>
                     </div>
 
                     <div class="form-section-column-form">
                         <form-field
-                            label="Nickname"
-                            field-id="nickname"
-                            name="nickname"
+                            label="Name"
+                            field-id="name"
+                            name="name"
                         >
                             <div class="field-group">
                                 <input
-                                    id="nickname"
-                                    v-model="form.nickname"
+                                    id="name"
+                                    v-model="form.name"
                                     type="text"
-                                    name="nickname"
+                                    name="name"
                                     class="field"
                                 >
                             </div>
@@ -58,19 +58,58 @@
                             </div>
                         </form-field>
 
-                        <div class="my-8">
+                        <div class="mt-8">
                             <label class="field-label">Avatar</label>
 
                             <div class="flex items-center">
-                                <avatar :image-url="`https://api.adorable.io/avatars/285/${user.email}`" size="lg"></avatar>
+                                <avatar
+                                    v-show="form.avatar === null"
+                                    :image-url="user.avatar_url"
+                                    size="xl"
+                                ></avatar>
 
-                                <button type="button" class="button button-soft button-small ml-4">
-                                    Change
-                                </button>
+                                <div v-show="form.avatar !== null" class="avatar avatar-xl">
+                                    <img ref="preview" class="avatar-image">
+                                </div>
 
-                                <button type="button" class="button button-soft button-text ml-4">
-                                    Remove
-                                </button>
+                                <div class="flex flex-col ml-4">
+                                    <input
+                                        id="image"
+                                        ref="file"
+                                        type="file"
+                                        name="image"
+                                        class="hidden"
+                                        @change="setAvatar"
+                                    >
+
+                                    <div class="flex items-center">
+                                        <button
+                                            type="button"
+                                            class="button button-soft button-small"
+                                            @click="$refs.file.click()"
+                                        >
+                                            <icon name="camera" class="mr-2"></icon>
+                                            {{ avatarBrowseButtonLabel }}
+                                        </button>
+
+                                        <button
+                                            v-if="showCancelAvatarChangeButton"
+                                            type="button"
+                                            class="button button-soft button-text ml-4"
+                                            @click="cancelAvatarChange"
+                                        >
+                                            Cancel
+                                        </button>
+                                    </div>
+
+                                    <form-checkbox
+                                        v-if="showRemoveOption"
+                                        v-model="form.remove_avatar"
+                                        class="mt-2 ml-px"
+                                    >
+                                        Remove avatar
+                                    </form-checkbox>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -101,7 +140,7 @@
                     </div>
                 </div>
 
-                <div class="form-controls">
+                <div class="form-footer">
                     <button type="submit" class="button button-primary">Update User</button>
 
                     <inertia-link :href="$route('users.index')" class="button">
@@ -135,9 +174,10 @@ import debounce from 'lodash/debounce';
 import axios from '@/Utils/axios';
 import TagsInput from '@/Shared/TagsInput';
 import Avatar from '@/Shared/Avatars/Avatar';
+import FormCheckbox from '@/Shared/Forms/FormCheckbox';
 
 export default {
-    components: { TagsInput, Avatar },
+    components: { TagsInput, Avatar, FormCheckbox },
 
     props: {
         user: {
@@ -149,8 +189,10 @@ export default {
     data () {
         return {
             form: {
-                nickname: this.user.nickname,
-                email: this.user.email
+                name: this.user.name,
+                email: this.user.email,
+                avatar: null,
+                remove_avatar: false
             },
             roles: {
                 added: this.user.roles,
@@ -161,13 +203,34 @@ export default {
     },
 
     computed: {
+        avatarBrowseButtonLabel () {
+            if (this.user.has_avatar || this.form.avatar != null) {
+                return 'Change Avatar';
+            }
+
+            return 'Add Avatar';
+        },
+
         formData () {
-            return {
-                nickname: this.form.nickname,
-                id: this.form.id,
-                email: this.form.email,
-                roles: this.roles.added.map(role => role.name)
-            };
+            const data = new FormData();
+
+            data.append('name', this.form.name);
+            data.append('email', this.form.email);
+            data.append('id', this.user.id);
+            data.append('roles[]', this.roles.added.map(role => role.name));
+            data.append('avatar', this.form.avatar || '');
+            data.append('remove_avatar', this.form.remove_avatar ? '1' : '0');
+            data.append('_method', 'put');
+
+            return data;
+        },
+
+        showCancelAvatarChangeButton () {
+            return this.form.avatar != null;
+        },
+
+        showRemoveOption () {
+            return this.user.has_avatar;
         }
     },
 
@@ -180,6 +243,11 @@ export default {
             this.roles.added.push(role);
 
             this.roles.results = [];
+        },
+
+        cancelAvatarChange () {
+            this.form.avatar = null;
+            this.$refs.file.value = '';
         },
 
         forcePasswordReset () {
@@ -197,6 +265,14 @@ export default {
             this.roles.added.splice(index, 1);
         },
 
+        removeExistingAvatar () {
+            this.cancelAvatarChange();
+
+            if (this.user.has_avatar) {
+                this.form.remove_avatar = true;
+            }
+        },
+
         searchForRoles: debounce(function () {
             const route = `${this.$route('roles.search')}?search=${this.roles.search}`;
 
@@ -205,11 +281,28 @@ export default {
             });
         }, 250),
 
+        setAvatar (e) {
+            this.form.avatar = e.target.files[0];
+
+            const reader = new FileReader();
+
+            reader.onload = (r) => {
+                this.$refs.preview.src = r.target.result;
+            };
+
+            reader.readAsDataURL(this.form.avatar);
+        },
+
         submit () {
-            this.$inertia.put(
+            this.$inertia.post(
                 this.$route('users.update', { user: this.user }),
                 this.formData
-            );
+            ).then(() => {
+                if (Object.keys(this.$page.errors).length === 0) {
+                    this.form.avatar = null;
+                    this.form.remove_avatar = false;
+                }
+            });
         }
     }
 };

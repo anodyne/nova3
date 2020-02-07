@@ -9,6 +9,9 @@ class ForcePasswordResetTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * @var  \Nova\Users\Models\User
+     */
     protected $user;
 
     public function setUp(): void

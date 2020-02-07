@@ -6,6 +6,7 @@ use Tests\TestCase;
 use Nova\Users\Models\User;
 use Nova\Users\Events\UserUpdated;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Storage;
 use Nova\Users\Events\UserUpdatedByAdmin;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -13,6 +14,9 @@ class UpdateUserTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * @var  User
+     */
     protected $user;
 
     public function setUp(): void
@@ -20,6 +24,8 @@ class UpdateUserTest extends TestCase
         parent::setUp();
 
         $this->user = factory(User::class)->create();
+
+        Storage::fake('media');
     }
 
     /** @test **/
@@ -34,6 +40,7 @@ class UpdateUserTest extends TestCase
     /** @test **/
     public function authorizedUserCanUpdateUser()
     {
+        $this->withoutExceptionHandling();
         $this->signInWithPermission('user.update');
 
         $data = factory(User::class)->make();
@@ -46,7 +53,7 @@ class UpdateUserTest extends TestCase
 
         $this->assertDatabaseHas('users', [
             'id' => $this->user->id,
-            'nickname' => $data->nickname,
+            'name' => $data->name,
             'email' => $data->email,
         ]);
     }
@@ -100,7 +107,7 @@ class UpdateUserTest extends TestCase
     }
 
     /** @test **/
-    public function nicknameIsRequiredToUpdateUser()
+    public function nameIsRequiredToUpdateUser()
     {
         $this->signInWithPermission('user.update');
 
@@ -109,7 +116,7 @@ class UpdateUserTest extends TestCase
             'roles' => [],
         ]);
         $response->assertStatus(422);
-        $response->assertJsonValidationErrors('nickname');
+        $response->assertJsonValidationErrors('name');
     }
 
     /** @test **/
@@ -118,7 +125,7 @@ class UpdateUserTest extends TestCase
         $this->signInWithPermission('user.update');
 
         $response = $this->putJson(route('users.update', $this->user), [
-            'nickname' => 'foo',
+            'name' => 'foo',
             'roles' => [],
         ]);
         $response->assertStatus(422);

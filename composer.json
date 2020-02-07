@@ -21,6 +21,7 @@
         "spatie/laravel-activitylog": "^3.6",
         "spatie/laravel-collection-macros": "^6.0",
         "spatie/laravel-html": "^2.21",
+        "spatie/laravel-medialibrary": "^7.18",
         "spatie/laravel-model-states": "^1.0",
         "tightenco/ziggy": "^0.8"
     },

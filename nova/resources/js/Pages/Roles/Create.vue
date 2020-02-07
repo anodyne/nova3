@@ -88,8 +88,8 @@
                         <form-field>
                             <tags-input
                                 v-model="users.added"
-                                display-property="nickname"
-                                not-found-message="Sorry, no users found with that nickname or email address."
+                                display-property="name"
+                                not-found-message="Sorry, no users found with that name or email address."
                                 placeholder="Add a user..."
                                 :search-url="$route('users.search').url()"
                                 @add-item="addUser"
@@ -99,7 +99,7 @@
                     </div>
                 </div>
 
-                <div class="form-controls">
+                <div class="form-footer">
                     <button type="submit" class="button button-primary">Add Role</button>
 
                     <inertia-link :href="$route('roles.index')" class="button">

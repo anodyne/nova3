@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use Nova\Foundation\Nova;
 use Nova\Foundation\Macros;
 use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Session;
@@ -65,6 +66,17 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Inertia::share([
+            'auth' => function () {
+                return [
+                    'user' => Auth::user() ? [
+                        'id' => Auth::user()->id,
+                        'name' => Auth::user()->name,
+                        'email' => Auth::user()->email,
+                        'state' => Auth::user()->state,
+                        'avatar_url' => Auth::user()->avatar_url,
+                    ] : null,
+                ];
+            },
             'errors' => function () {
                 return Session::has('errors')
                     ? Session::get('errors')->getBag('default')->getMessages()

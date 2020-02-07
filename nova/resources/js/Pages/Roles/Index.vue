@@ -40,7 +40,7 @@
                     {{ role.display_name }}
                 </div>
 
-                <div class="flex-auto">
+                <div class="flex-auto leading-0">
                     <avatar-group size="xs" :items="roleUsers(role)"></avatar-group>
                 </div>
 
@@ -78,7 +78,7 @@
                                 class="dropdown-link-danger"
                                 @click.prevent="confirmRemove(role, toggle)"
                             >
-                                <icon name="delete" class="dropdown-icon"></icon>
+                                <icon name="trash" class="dropdown-icon"></icon>
                                 Delete
                             </button>
                             <div v-if="role.locked">
@@ -194,8 +194,8 @@ export default {
 
         roleUsers (role) {
             return role.users.map(user => ({
-                'image-url': `https://api.adorable.io/avatars/285/${user.email}`,
-                tooltip: user.nickname
+                'image-url': user.avatar_url,
+                tooltip: user.name
             }));
         }
     }
