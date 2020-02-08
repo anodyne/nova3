@@ -58,7 +58,7 @@
                         </form-field>
 
                         <form-field
-                            label="Preferred pronoun"
+                            label="Preferred pronouns"
                             field-id="gender"
                             name="gender"
                         >
