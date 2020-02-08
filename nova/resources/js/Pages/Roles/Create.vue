@@ -64,7 +64,7 @@
                     </div>
 
                     <div class="form-section-column-form">
-                        <form-field>
+                        <form-field label="Assign permissions">
                             <tags-input
                                 v-model="permissions.added"
                                 not-found-message="Sorry, no permissions found with that name."
@@ -85,7 +85,7 @@
                     </div>
 
                     <div class="form-section-column-form">
-                        <form-field>
+                        <form-field label="Assign users">
                             <tags-input
                                 v-model="users.added"
                                 display-property="name"

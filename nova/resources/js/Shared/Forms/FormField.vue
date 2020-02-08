@@ -1,12 +1,10 @@
 <template>
-    <div class="field-wrapper-outer">
-        <div class="field-wrapper-inner" :class="styles.inner">
-            <div v-if="hasLabel" class="field-label">
-                <label :for="fieldId">{{ label }}</label>
-            </div>
-
-            <slot></slot>
+    <div class="field-wrapper" :class="styles.errors">
+        <div v-if="hasLabel" class="field-label">
+            <label :for="fieldId">{{ label }}</label>
         </div>
+
+        <slot></slot>
 
         <div
             v-if="hasError"
@@ -46,10 +44,6 @@ export default {
         name: {
             type: String,
             default: ''
-        },
-        static: {
-            type: Boolean,
-            default: false
         }
     },
 
@@ -80,9 +74,8 @@ export default {
 
         styles () {
             return {
-                inner: {
-                    'has-error': this.hasError,
-                    static: this.static === true
+                errors: {
+                    'has-error': this.hasError
                 }
             };
         }

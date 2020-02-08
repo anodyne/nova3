@@ -43,7 +43,7 @@
                         </form-field>
 
                         <form-field
-                            label="Email Address"
+                            label="Email"
                             field-id="email"
                             name="email"
                         >
@@ -58,9 +58,36 @@
                             </div>
                         </form-field>
 
-                        <div class="mt-8">
-                            <label class="field-label">Avatar</label>
+                        <form-field
+                            label="Preferred pronoun"
+                            field-id="gender"
+                            name="gender"
+                        >
+                            <radio-button
+                                id="male"
+                                v-model="form.gender"
+                                native-value="male"
+                            >
+                                He/Him
+                            </radio-button>
+                            <radio-button
+                                id="female"
+                                v-model="form.gender"
+                                native-value="female"
+                                class="mx-6"
+                            >
+                                She/Her
+                            </radio-button>
+                            <radio-button
+                                id="neutral"
+                                v-model="form.gender"
+                                native-value="neutral"
+                            >
+                                They/Them
+                            </radio-button>
+                        </form-field>
 
+                        <form-field label="Avatar">
                             <div class="flex items-center">
                                 <avatar
                                     v-show="form.avatar === null"
@@ -102,16 +129,18 @@
                                         </button>
                                     </div>
 
-                                    <form-checkbox
+                                    <checkbox
                                         v-if="showRemoveOption"
+                                        id="remove-avatar"
                                         v-model="form.remove_avatar"
                                         class="mt-2 ml-px"
+                                        :native-value="true"
                                     >
                                         Remove avatar
-                                    </form-checkbox>
+                                    </checkbox>
                                 </div>
                             </div>
-                        </div>
+                        </form-field>
                     </div>
                 </div>
 
@@ -174,10 +203,13 @@ import debounce from 'lodash/debounce';
 import axios from '@/Utils/axios';
 import TagsInput from '@/Shared/TagsInput';
 import Avatar from '@/Shared/Avatars/Avatar';
-import FormCheckbox from '@/Shared/Forms/FormCheckbox';
+import Checkbox from '@/Shared/Forms/Checkbox';
+import RadioButton from '@/Shared/Forms/RadioButton';
 
 export default {
-    components: { TagsInput, Avatar, FormCheckbox },
+    components: {
+        TagsInput, Avatar, Checkbox, RadioButton
+    },
 
     props: {
         user: {
@@ -191,6 +223,7 @@ export default {
             form: {
                 name: this.user.name,
                 email: this.user.email,
+                gender: this.user.gender,
                 avatar: null,
                 remove_avatar: false
             },
@@ -216,6 +249,7 @@ export default {
 
             data.append('name', this.form.name);
             data.append('email', this.form.email);
+            data.append('gender', this.form.gender);
             data.append('id', this.user.id);
             data.append('roles[]', this.roles.added.map(role => role.name));
             data.append('avatar', this.form.avatar || '');

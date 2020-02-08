@@ -18,7 +18,6 @@
                         label="Name"
                         field-id="display_name"
                         name="display_name"
-                        static
                     >
                         <p class="font-semibold">{{ role.display_name }}</p>
                     </form-field>
@@ -27,7 +26,6 @@
                         label="Key"
                         field-id="name"
                         name="name"
-                        static
                     >
                         <p class="font-semibold">{{ role.name }}</p>
                     </form-field>
