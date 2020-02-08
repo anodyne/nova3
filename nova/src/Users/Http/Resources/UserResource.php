@@ -18,6 +18,8 @@ class UserResource extends JsonResource
             'avatar_url' => $this->avatar_url,
             'has_avatar' => $this->has_avatar,
             'email' => $this->email,
+            'gender' => $this->gender,
+            'pronouns' => $this->pronouns,
             'id' => $this->id,
             'name' => $this->name,
             'roles' => RoleResource::collection($this->whenLoaded('roles')),

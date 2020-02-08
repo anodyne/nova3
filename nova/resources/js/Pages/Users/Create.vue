@@ -42,7 +42,7 @@
                         </form-field>
 
                         <form-field
-                            label="Email Address"
+                            label="Email"
                             field-id="email"
                             name="email"
                         >
@@ -55,6 +55,35 @@
                                     class="field"
                                 >
                             </div>
+                        </form-field>
+
+                        <form-field
+                            label="Preferred pronoun"
+                            field-id="gender"
+                            name="gender"
+                        >
+                            <radio-button
+                                id="male"
+                                v-model="form.gender"
+                                native-value="male"
+                            >
+                                He/Him
+                            </radio-button>
+                            <radio-button
+                                id="female"
+                                v-model="form.gender"
+                                native-value="female"
+                                class="mx-6"
+                            >
+                                She/Her
+                            </radio-button>
+                            <radio-button
+                                id="neutral"
+                                v-model="form.gender"
+                                native-value="neutral"
+                            >
+                                They/Them
+                            </radio-button>
                         </form-field>
                     </div>
                 </div>
@@ -105,15 +134,17 @@ import findIndex from 'lodash/findIndex';
 import debounce from 'lodash/debounce';
 import axios from '@/Utils/axios';
 import TagsInput from '@/Shared/TagsInput';
+import RadioButton from '@/Shared/Forms/RadioButton';
 
 export default {
-    components: { TagsInput },
+    components: { TagsInput, RadioButton },
 
     data () {
         return {
             form: {
                 name: '',
-                email: ''
+                email: '',
+                gender: ''
             },
             roles: {
                 added: [],
@@ -128,6 +159,7 @@ export default {
             return {
                 name: this.form.name,
                 email: this.form.email,
+                gender: this.form.gender,
                 roles: this.roles.added.map(role => role.name)
             };
         }

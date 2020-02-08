@@ -1,11 +1,11 @@
-.field-wrapper-outer {
-    + .field-wrapper-outer {
+.field-wrapper {
+    + .field-wrapper {
         @apply mt-8;
     }
 }
 
-.field-wrapper-inner {
-    @apply block w-full relative px-3 py-2 rounded transition-colors duration-200 border-2 bg-gray-100;
+.field-group {
+    @apply flex items-center relative w-full bg-transparent px-3 py-2 rounded transition-colors duration-200 border-2 bg-gray-100;
 
     &:focus-within {
         @apply border-primary-500 bg-white;
@@ -14,12 +14,8 @@
     &.static {
         @apply p-0 bg-transparent border-none;
     }
-}
 
-.field-group {
-    @apply flex items-center relative w-full bg-transparent;
-
-    > .field {
+    .field {
         @apply flex-auto appearance-none bg-transparent text-gray-700;
 
         &:focus {
@@ -27,14 +23,14 @@
         }
     }
 
-    > .field-addon {
+    .field-addon {
         @apply flex-shrink text-gray-500;
     }
 
-    > a.field-addon,
-    > button.field-addon,
-    > .field-addon a,
-    > .field-addon button {
+    a.field-addon,
+    button.field-addon,
+    .field-addon a,
+    .field-addon button {
         @apply pointer-events-auto text-gray-500;
 
         &:hover {
@@ -109,11 +105,13 @@
     }
 }
 
-.field-wrapper-inner.has-error {
-    @apply border-danger-500;
-
+.field-wrapper.has-error {
     .field-label {
         @apply text-danger-500;
+    }
+
+    .field-group {
+        @apply border-danger-500;
     }
 }
 
@@ -157,11 +155,6 @@
     background-origin: border-box;
     height: 1em;
     width: 1em;
-
-  -webkit-print-color-adjust: exact;
-          color-adjust: exact;
-  -webkit-user-select: none;
-  color: #4299e1;
 
     &:checked {
         @apply border-transparent bg-no-repeat bg-center;

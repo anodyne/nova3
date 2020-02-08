@@ -10,7 +10,7 @@
             <div class="form-section">
                 <div class="form-section-column-content">
                     <div class="form-section-header">User info</div>
-                    <p class="form-section-message">A role is a collection of permissions that allows a user to take certain actions throughout Nova.</p>
+                    <p class="form-section-message">For privacy reasons, users are encouraged to use a nickname instead of their real name. Additionally, user email addresses should be safeguarded at all costs and not shared with other players without the express permission of this user.</p>
                 </div>
 
                 <div class="form-section-column-form">
@@ -18,7 +18,6 @@
                         label="Name"
                         field-id="name"
                         name="name"
-                        static
                     >
                         <p class="font-semibold">{{ user.name }}</p>
                     </form-field>
@@ -27,16 +26,22 @@
                         label="Email"
                         field-id="email"
                         name="email"
-                        static
                     >
                         <p class="font-semibold">{{ user.email }}</p>
+                    </form-field>
+
+                    <form-field
+                        label="Preferred pronouns"
+                        field-id="pronouns"
+                        name="pronouns"
+                    >
+                        <p class="font-semibold">{{ user.pronouns }}</p>
                     </form-field>
 
                     <form-field
                         label="Avatar"
                         field-id="avatar"
                         name="avatar"
-                        static
                     >
                         <avatar :image-url="user.avatar_url" size="xl"></avatar>
                     </form-field>
