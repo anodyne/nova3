@@ -32,6 +32,7 @@ class CreateUserTest extends TestCase
         $data = new UserData;
         $data->name = 'John Public';
         $data->email = 'john@example.com';
+        $data->gender = 'neutral';
         $data->roles = collect([$this->role]);
 
         $user = $this->action->execute($data);

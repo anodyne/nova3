@@ -33,6 +33,7 @@ class UploadUserAvatarTest extends TestCase
         $response = $this->put(route('users.update', $this->user), [
             'name' => $this->user->name,
             'email' => $this->user->email,
+            'gender' => $this->user->gender,
             'roles' => [],
             'avatar' => UploadedFile::fake()->image('image.png'),
         ]);
@@ -117,6 +118,7 @@ class UploadUserAvatarTest extends TestCase
         $this->putJson(route('users.update', $this->user), [
             'name' => $this->user->name,
             'email' => $this->user->email,
+            'gender' => $this->user->gender,
             'roles' => [],
             'avatar' => UploadedFile::fake()->image('image.png'),
         ]);
@@ -124,6 +126,7 @@ class UploadUserAvatarTest extends TestCase
         $response = $this->putJson(route('users.update', $this->user), [
             'name' => $this->user->name,
             'email' => $this->user->email,
+            'gender' => $this->user->gender,
             'roles' => [],
             'avatar' => UploadedFile::fake()->image('image2.png'),
         ]);

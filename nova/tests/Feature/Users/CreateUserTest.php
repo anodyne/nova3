@@ -125,6 +125,20 @@ class CreateUserTest extends TestCase
     }
 
     /** @test **/
+    public function genderIsRequiredToCreateUser()
+    {
+        $this->signInWithPermission('user.create');
+
+        $response = $this->postJson(route('users.store'), [
+            'name' => 'foo',
+            'email' => 'john@example.com',
+            'roles' => [],
+        ]);
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('gender');
+    }
+
+    /** @test **/
     public function passwordIsGeneratedAfterCreation()
     {
         $this->signInWithPermission('user.create');
@@ -150,6 +164,7 @@ class CreateUserTest extends TestCase
         $response = $this->postJson(route('users.store'), [
             'name' => 'John Q. Public',
             'email' => 'john@example.com',
+            'gender' => 'neutral',
             'roles' => [],
         ]);
 

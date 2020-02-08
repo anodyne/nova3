@@ -40,7 +40,6 @@ class UpdateUserTest extends TestCase
     /** @test **/
     public function authorizedUserCanUpdateUser()
     {
-        $this->withoutExceptionHandling();
         $this->signInWithPermission('user.update');
 
         $data = factory(User::class)->make();
@@ -130,5 +129,19 @@ class UpdateUserTest extends TestCase
         ]);
         $response->assertStatus(422);
         $response->assertJsonValidationErrors('email');
+    }
+
+    /** @test **/
+    public function genderIsRequiredToUpdateUser()
+    {
+        $this->signInWithPermission('user.update');
+
+        $response = $this->putJson(route('users.update', $this->user), [
+            'name' => 'foo',
+            'email' => 'john@example.com',
+            'roles' => [],
+        ]);
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('gender');
     }
 }
