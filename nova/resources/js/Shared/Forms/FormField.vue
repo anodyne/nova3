@@ -29,6 +29,10 @@ export default {
     name: 'FormField',
 
     props: {
+        error: {
+            type: String,
+            default: null
+        },
         fieldId: {
             type: String,
             default: ''
@@ -50,6 +54,10 @@ export default {
     computed: {
         errorMessage () {
             if (this.hasError) {
+                if (this.error) {
+                    return this.error;
+                }
+
                 return this.$page.errors[this.name][0];
             }
 
@@ -57,11 +65,19 @@ export default {
         },
 
         hasError () {
-            if (this.$page === undefined) {
+            if (this.$page === undefined && this.error === null) {
                 return false;
             }
 
-            return this.$page.errors[this.name];
+            if (this.$page === undefined && this.error) {
+                return true;
+            }
+
+            if (this.error === null && this.$page.errors.length > 0) {
+                return true;
+            }
+
+            return false;
         },
 
         hasHelp () {
