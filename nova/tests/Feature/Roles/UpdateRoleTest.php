@@ -80,7 +80,7 @@ class UpdateRoleTest extends TestCase
     }
 
     /** @test **/
-    public function lockedRoleCannotBeUpdated()
+    public function lockedRoleKeyCannotBeUpdated()
     {
         $role = factory(Role::class)->states('locked')->create();
 
@@ -88,12 +88,13 @@ class UpdateRoleTest extends TestCase
 
         $response = $this->put(route('roles.update', $role), [
             'display_name' => 'Foo',
+            'name' => 'foo',
         ]);
-
-        $response->assertForbidden();
 
         $this->assertDatabaseHas('roles', [
             'id' => $role->id,
+            'display_name' => 'Foo',
+            'name' => $role->name,
             'locked' => true,
         ]);
     }

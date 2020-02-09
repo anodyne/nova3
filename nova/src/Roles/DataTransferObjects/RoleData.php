@@ -27,6 +27,11 @@ class RoleData extends DataTransferObject
      */
     public $permissions;
 
+    /**
+     * @var  array
+     */
+    public $users;
+
     public static function fromRequest(Request $request): self
     {
         return new self([
@@ -34,6 +39,7 @@ class RoleData extends DataTransferObject
             'display_name' => $request->input('display_name'),
             'name' => $request->input('name'),
             'permissions' => $request->input('permissions'),
+            'users' => $request->input('users'),
         ]);
     }
 }

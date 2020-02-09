@@ -61,7 +61,6 @@ class DeleteRoleTest extends TestCase
         $this->signInWithPermission('role.delete');
 
         $response = $this->delete(route('roles.destroy', $role));
-
         $response->assertForbidden();
 
         $this->assertDatabaseHas('roles', [

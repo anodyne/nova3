@@ -14,7 +14,11 @@ class UpdateRole extends Action
     public function execute(Role $role, RoleData $data): Role
     {
         return $this->call(function () use ($role, $data) {
-            $role->update($data->except('permissions')->toArray());
+            $updateData = ($role->locked)
+                ? $data->except('name')
+                : $data;
+
+            $role->update($updateData->toArray());
 
             $permissions = collect($data->permissions)->map(function ($permission) {
                 return Permission::firstOrCreate(['name' => $permission]);
