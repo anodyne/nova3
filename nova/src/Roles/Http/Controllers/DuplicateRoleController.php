@@ -22,7 +22,7 @@ class DuplicateRoleController extends Controller
         DuplicateRole $action,
         Role $originalRole
     ) {
-        $this->authorize('create', Role::class);
+        $this->authorize('duplicate', $originalRole);
 
         $role = $action->execute($originalRole);
 

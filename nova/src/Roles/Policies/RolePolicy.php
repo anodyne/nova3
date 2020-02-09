@@ -57,7 +57,7 @@ class RolePolicy
      */
     public function update(User $user, Role $role)
     {
-        return $user->can('role.update') && ! $role->locked;
+        return $user->can('role.update');
     }
 
     /**
@@ -71,6 +71,19 @@ class RolePolicy
     public function delete(User $user, Role $role)
     {
         return $user->can('role.delete') && ! $role->locked;
+    }
+
+    /**
+     * Determine whether the user can duplicate the role.
+     *
+     * @param  User  $user
+     * @param  Role  $role
+     */
+    public function duplicate(User $user, Role $role)
+    {
+        return $user->can('role.create')
+            && $user->can('role.update')
+            && ! $role->locked;
     }
 
     /**

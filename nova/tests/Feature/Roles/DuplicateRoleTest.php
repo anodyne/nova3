@@ -69,6 +69,21 @@ class DuplicateRoleTest extends TestCase
     }
 
     /** @test **/
+    public function lockedRoleCannotBeDuplicated()
+    {
+        $role = factory(Role::class)->states('locked')->create();
+
+        $this->signInWithPermission(['role.create', 'role.update']);
+
+        $roleCount = Role::count();
+
+        $response = $this->postJson(route('roles.duplicate', $role));
+        $response->assertForbidden();
+
+        $this->assertEquals($roleCount, Role::count());
+    }
+
+    /** @test **/
     public function eventIsDispatchedWhenRoleIsDuplicated()
     {
         Event::fake();
