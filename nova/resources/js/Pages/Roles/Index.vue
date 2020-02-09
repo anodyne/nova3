@@ -66,7 +66,7 @@
                                 Edit
                             </inertia-link>
                             <button
-                                v-if="role.can.create && role.can.update"
+                                v-if="role.can.duplicate"
                                 class="dropdown-link"
                                 @click.prevent="duplicate(role)"
                             >
@@ -84,7 +84,7 @@
                             <div v-if="role.locked">
                                 <div class="dropdown-divider"></div>
                                 <div class="dropdown-text italic">
-                                    This role is locked and cannot be duplicated, edited, or deleted.
+                                    This role is locked and cannot be duplicated or deleted.
                                 </div>
                             </div>
                         </template>

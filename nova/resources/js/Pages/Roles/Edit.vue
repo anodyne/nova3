@@ -44,7 +44,7 @@
                             field-id="name"
                             name="name"
                         >
-                            <div class="field-group">
+                            <div v-if="!role.locked" class="field-group">
                                 <input
                                     id="name"
                                     v-model="form.name"
@@ -53,6 +53,9 @@
                                     class="field"
                                 >
                             </div>
+                            <p v-else class="font-semibold">
+                                {{ role.name }}
+                            </p>
                         </form-field>
                     </div>
                 </div>
