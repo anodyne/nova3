@@ -37,7 +37,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
-        $this->mapTestingRoutes();
+        $this->mapAcceptanceTestingRoutes();
     }
 
     /**
@@ -67,9 +67,9 @@ class RouteServiceProvider extends ServiceProvider
             ->group(nova_path('routes/api.php'));
     }
 
-    protected function mapTestingRoutes()
+    protected function mapAcceptanceTestingRoutes()
     {
-        if ($this->app->environment('testing')) {
+        if ($this->app->environment('acceptance')) {
             Route::prefix('__testing__')
                 ->middleware('web')
                 ->group(nova_path('routes/testing.php'));
