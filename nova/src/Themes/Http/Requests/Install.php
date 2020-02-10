@@ -9,7 +9,7 @@ class Install extends ValidatesRequest
     public function rules()
     {
         return [
-            'theme' => ['required', 'unique:themes'],
+            'theme' => ['required'],
         ];
     }
 }
