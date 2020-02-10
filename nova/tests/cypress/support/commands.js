@@ -17,6 +17,10 @@ Cypress.Commands.add('create', (model, attributes = {}) => cy.request(`/__testin
 
 Cypress.Commands.add('login', (attributes = {}) => cy.request('/__testing__/login', attributes));
 
+Cypress.Commands.add('loginWithPermissions', (attributes = {}) => cy.request('/__testing__/login-with-permissions', attributes));
+
+Cypress.Commands.add('logout', () => cy.request('/__testing__/logout'));
+
 //
 // -- This is a child command --
 // Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
