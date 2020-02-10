@@ -39,8 +39,7 @@ services:
 
     php:
         build:
-            context: ./
-            dockerfile: docker/php.dockerfile
+            context: ./docker/php
         volumes:
             - ./:/var/www:cached
             - ./docker/php/opcache.ini:/usr/local/etc/php/conf.d/opcache.ini
