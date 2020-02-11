@@ -41,6 +41,10 @@ jobs:
 
             - name: Execute tests
               run: nova/vendor/bin/phpunit
+              env:
+                DB_CONNECTION: mysql
+                DB_HOST: mysql
+                DB_PORT: 3306
 
             - name: Deploy to Forge
               if: github.ref == 'refs/heads/stage'
