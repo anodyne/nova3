@@ -17,7 +17,12 @@ Route::get('login', function () {
 
 Route::get('login-with-permissions', function () {
     $user = factory(User::class)->create();
-    $user->attachPermission(request()->get('permissions'));
+
+    $permissions = (is_string(request()->get('permissions')))
+        ? [request()->get('permissions')]
+        : request()->get('permissions');
+
+    $user->attachPermissions($permissions);
 
     auth()->login($user);
 });

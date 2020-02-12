@@ -1,39 +1,74 @@
 describe('Login', () => {
-    it('shows the login page', () => {
+    beforeEach(() => {
         cy.visit('/login');
     });
 
-    it('displays an error for invalid login credentials', () => {
-        cy.visit('/login');
-
-        cy.get('#email').type('foo@example.com');
-        cy.get('#password').type('password123');
+    const login = (email, password) => {
+        cy.get(`[name='email']`).type(email);
+        cy.get(`[name='password']`).type(password);
         cy.get('button').contains('Sign In').click();
+    };
 
-        cy.contains('These credentials do not match our records');
+    it('shows the login page', () => {
     });
 
-    it('does not display a password error', () => {
-        cy.create('Nova-Users-Models-User').then((user) => {
-            cy.visit('/login');
+    context('Incorrect credentials', () => {
+        it('displays an error when invalid email and password are entered', () => {
+            login('foo@example.com', 'password123');
 
-            cy.get('#email').type(user.email);
-            cy.get('#password').type('password');
-            cy.get('button').contains('Sign In').click();
-
+            cy.url().should('include', 'login');
             cy.contains('These credentials do not match our records');
+        });
+
+        it('displays an error when invalid email is entered', () => {
+            login('foo@example.com', 'secret');
+
+            cy.url().should('include', 'login');
+            cy.contains('These credentials do not match our records');
+        });
+
+        it('displays an error when invalid password is entered', () => {
+            cy.create('Nova-Users-Models-User').then((user) => {
+                login(user.email, 'password123');
+
+                cy.url().should('include', 'login');
+                cy.contains('These credentials do not match our records');
+            });
+        });
+
+        it('temporarily locks an account after 5 failed login attempts', () => {
+            cy.create('Nova-Users-Models-User').then((user) => {
+                login(user.email, 'password123');
+                cy.get(`[name='email']`).clear();
+
+                login(user.email, 'password123');
+                cy.get(`[name='email']`).clear();
+
+                login(user.email, 'password123');
+                cy.get(`[name='email']`).clear();
+
+                login(user.email, 'password123');
+                cy.get(`[name='email']`).clear();
+
+                login(user.email, 'password123');
+                cy.get(`[name='email']`).clear();
+
+                login(user.email, 'password123');
+
+                cy.url().should('include', 'login');
+                cy.contains('Too many login attempts');
+            });
         });
     });
 
-    it('can login a user', () => {
-        cy.create('Nova-Users-Models-User').then((user) => {
-            cy.visit('/login');
+    context('Correct credentials', () => {
+        it('redirects to the dashboard on success', () => {
+            cy.create('Nova-Users-Models-User').then((user) => {
+                login(user.email, 'secret');
 
-            cy.get('#email').type(user.email);
-            cy.get('#password').type('secret');
-            cy.get('button').contains('Sign In').click();
-
-            cy.contains('Dashboard');
+                cy.url().should('include', 'dashboard');
+                cy.get('.page-header').should('contain', 'Dashboard');
+            });
         });
     });
 });
