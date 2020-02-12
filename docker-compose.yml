@@ -11,7 +11,8 @@ services:
         depends_on:
             - php
             - mysql
-            - mysql-test
+        networks:
+            - default
 
     mysql:
         image: mysql:5.7
@@ -19,23 +20,13 @@ services:
         tty: true
         ports:
             - "33061:3306"
+        command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+        volumes:
+            - ./docker/mysql/init:/docker-entrypoint-initdb.d
         environment:
-            MYSQL_DATABASE: nova3
-            MYSQL_USER: root
-            MYSQL_PASSWORD: secret
             MYSQL_ROOT_PASSWORD: secret
-
-    mysql-test:
-        image: mysql:5.7
-        restart: unless-stopped
-        tty: true
-        ports:
-            - "33062:3306"
-        environment:
-            MYSQL_DATABASE: nova3
-            MYSQL_USER: root
-            MYSQL_PASSWORD: secret
-            MYSQL_ROOT_PASSWORD: secret
+        networks:
+            - default
 
     php:
         build:
@@ -46,3 +37,12 @@ services:
             - ./docker/php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
         ports:
             - "9000:9000"
+        environment:
+            DB_PORT: 3306
+            DB_HOST: mysql
+        networks:
+            - default
+
+networks:
+    default:
+        driver: bridge
