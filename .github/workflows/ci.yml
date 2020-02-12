@@ -16,7 +16,7 @@ jobs:
               MYSQL_ROOT_PASSWORD: secret
               MYSQL_DATABASE: nova3
             ports:
-              - 33062:3306
+              - 33061:3306
             options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
         strategy:
@@ -36,7 +36,7 @@ jobs:
 
             - name: Prepare Laravel app
               run: |
-                cp .env.ci .env
+                cp .env.ci .env.testing
                 php artisan key:generate
 
             - name: Execute tests
