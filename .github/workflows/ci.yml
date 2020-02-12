@@ -37,7 +37,7 @@ jobs:
             - name: Prepare Laravel app
               run: |
                 cp .env.ci .env.testing
-                php artisan key:generate
+                php artisan key:generate --env=testing
 
             - name: Execute tests
               run: nova/vendor/bin/phpunit
