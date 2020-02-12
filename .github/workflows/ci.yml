@@ -36,7 +36,7 @@ jobs:
 
             - name: Prepare Laravel app
               run: |
-                cp nova/.env.ci .env
+                cp .env.ci .env
                 php artisan key:generate
 
             - name: Execute tests
