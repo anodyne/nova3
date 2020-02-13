@@ -17,11 +17,11 @@
 
     <form-field label="Email" error="{{ $errors->first('email') }}">
         <div class="field-group">
-            <input id="email" type="email" class="field" name="email" value="{{ old('email') }}" required>
+            <input id="email" type="email" class="field" name="email" value="{{ old('email') }}" data-cy="email" required>
         </div>
     </form-field>
 
-    <button type="submit" class="button button-primary mt-8">
+    <button type="submit" class="button button-primary mt-8" data-cy="submit">
         {{ __('Send Reset Link') }}
     </button>
 </form>

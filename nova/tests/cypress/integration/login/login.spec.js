@@ -4,9 +4,9 @@ describe('Login', () => {
     });
 
     const login = (email, password) => {
-        cy.get(`[name='email']`).type(email);
-        cy.get(`[name='password']`).type(password);
-        cy.get('button').contains('Sign In').click();
+        cy.get('[data-cy=email]').type(email);
+        cy.get('[data-cy=password]').type(password);
+        cy.get('[data-cy=submit]').click();
     };
 
     it('shows the login page', () => {
@@ -39,19 +39,19 @@ describe('Login', () => {
         it('temporarily locks an account after 5 failed login attempts', () => {
             cy.create('Nova-Users-Models-User').then((user) => {
                 login(user.email, 'password123');
-                cy.get(`[name='email']`).clear();
+                cy.get('[data-cy=email]').clear();
 
                 login(user.email, 'password123');
-                cy.get(`[name='email']`).clear();
+                cy.get('[data-cy=email]').clear();
 
                 login(user.email, 'password123');
-                cy.get(`[name='email']`).clear();
+                cy.get('[data-cy=email]').clear();
 
                 login(user.email, 'password123');
-                cy.get(`[name='email']`).clear();
+                cy.get('[data-cy=email]').clear();
 
                 login(user.email, 'password123');
-                cy.get(`[name='email']`).clear();
+                cy.get('[data-cy=email]').clear();
 
                 login(user.email, 'password123');
 
