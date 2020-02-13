@@ -9,6 +9,7 @@
             type="text"
             :placeholder="placeholder"
             :value="value"
+            data-cy="search-field"
             @input="$emit('input', $event.target.value)"
         >
 
@@ -16,6 +17,7 @@
             v-show="!!value"
             id="clear-search"
             class="ml-2 text-gray-500 hover:text-gray-700"
+            data-cy="search-clear"
             @click.prevent="$emit('reset')"
         >
             <icon name="x-circle"></icon>

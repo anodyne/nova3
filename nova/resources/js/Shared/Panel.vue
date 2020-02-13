@@ -1,5 +1,9 @@
 <template>
-    <section class="bg-white rounded shadow-md mb-8" :class="{ 'p-8': !noPadding }">
+    <section
+        class="bg-white rounded shadow-md mb-8"
+        :class="{ 'p-8': !noPadding }"
+        data-cy="panel"
+    >
         <div
             v-if="hasSlot('header')"
             class="flex items-center justify-between"
