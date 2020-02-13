@@ -6,6 +6,7 @@
                 slot="controls"
                 :href="$route('roles.create')"
                 class="button button-primary"
+                data-cy="create"
             >
                 Add Role
             </inertia-link>
@@ -53,6 +54,7 @@
                                 v-if="role.can.view"
                                 :href="$route('roles.show', { role })"
                                 class="dropdown-link"
+                                data-cy="view"
                             >
                                 <icon name="eye" class="dropdown-icon"></icon>
                                 View
@@ -61,6 +63,7 @@
                                 v-if="role.can.update"
                                 :href="$route('roles.edit', { role })"
                                 class="dropdown-link"
+                                data-cy="edit"
                             >
                                 <icon name="edit" class="dropdown-icon"></icon>
                                 Edit
@@ -68,6 +71,7 @@
                             <button
                                 v-if="role.can.duplicate"
                                 class="dropdown-link"
+                                data-cy="duplicate"
                                 @click.prevent="duplicate(role)"
                             >
                                 <icon name="copy" class="dropdown-icon"></icon>
@@ -76,6 +80,7 @@
                             <button
                                 v-if="role.can.delete"
                                 class="dropdown-link-danger"
+                                data-cy="delete"
                                 @click.prevent="confirmRemove(role, toggle)"
                             >
                                 <icon name="trash" class="dropdown-icon"></icon>

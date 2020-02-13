@@ -1,4 +1,18 @@
 describe('Create Role', () => {
+    it('shows the add button to users who have create permissions', () => {
+        cy.loginWithPermissions({ permissions: 'role.create' });
+        cy.visit('/roles');
+
+        cy.get('[data-cy=create]');
+    });
+
+    it('does not show the add button to users who do not have create permissions', () => {
+        cy.loginWithPermissions({ permissions: 'role.update' });
+        cy.visit('/roles');
+
+        cy.get('[data-cy=create]').should('not.exist');
+    });
+
     it('shows the create role page', () => {
         cy.loginWithPermissions({ permissions: 'role.create' });
         cy.visit('/roles/create');
