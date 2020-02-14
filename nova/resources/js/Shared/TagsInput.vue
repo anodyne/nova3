@@ -12,6 +12,7 @@
                     v-for="item in items"
                     :key="item[keyProperty]"
                     class="tag mr-2 my-1"
+                    data-cy="tag-item"
                 >
                     {{ item[displayProperty] }}
 
@@ -30,12 +31,14 @@
                     type="text"
                     class="field placeholder-gray-500"
                     :placeholder="placeholder"
+                    data-cy="tags-search"
                 >
 
                 <button
                     v-if="!!searchTerm"
                     type="button"
                     class="field-addon"
+                    data-cy="reset-tags-search"
                     @click="resetSearch"
                 >
                     <icon name="x-circle"></icon>
@@ -137,12 +140,14 @@
                 <ul
                     ref="items"
                     class="picker-select-items"
+                    data-cy="tags-search-results"
                 >
                     <li
                         v-for="(result, index) in results"
                         :key="result[keyProperty]"
                         class="picker-select-item"
                         :class="{ 'is-active': index === highlightedIndex }"
+                        data-cy="tags-search-results-item"
                         @click="addItem(result)"
                     >
                         {{ result[displayProperty] }}

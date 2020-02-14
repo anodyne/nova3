@@ -121,6 +121,7 @@
                 <button
                     type="button"
                     class="button button-danger ml-4"
+                    data-cy="delete-role"
                     @click="remove"
                 >
                     Delete Role

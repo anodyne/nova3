@@ -6,7 +6,7 @@ describe('Viewing a role', () => {
         cy.get('[data-cy=page-header-title]').should('contain', 'Admin');
     });
 
-    context('Permissions', () => {
+    context('Testing system permissions', () => {
         it('can see the view button when user has permissions', () => {
             cy.loginWithPermissions({ permissions: 'role.view' });
             cy.visit('/roles');
@@ -23,7 +23,7 @@ describe('Viewing a role', () => {
 
             cy.get('main').within(() => {
                 cy.get('[data-cy=dropdown-trigger]').first().click();
-                cy.contains('View').should('not.exist');
+                cy.get('[data-cy=view]').should('not.exist');
             });
         });
     });

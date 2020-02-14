@@ -1,51 +1,128 @@
-describe('Create Role', () => {
-    it('shows the add button to users who have create permissions', () => {
+describe('Creating a role', () => {
+    beforeEach(() => {
         cy.loginWithPermissions({ permissions: 'role.create' });
+    });
+
+    it('can navigate to create role page from roles index page', () => {
         cy.visit('/roles');
 
-        cy.get('[data-cy=create]');
-    });
+        cy.get('main').within(() => {
+            cy.get('[data-cy=create]').click();
 
-    it('does not show the add button to users who do not have create permissions', () => {
-        cy.loginWithPermissions({ permissions: 'role.update' });
-        cy.visit('/roles');
-
-        cy.get('[data-cy=create]').should('not.exist');
-    });
-
-    it('shows the create role page', () => {
-        cy.loginWithPermissions({ permissions: 'role.create' });
-        cy.visit('/roles/create');
-
-        cy.contains('Add Role');
-    });
-
-    it('does not show the create role page if the user does not have create permissions', () => {
-        cy.login();
-        cy.visit('/roles/create', {
-            failOnStatusCode: false
+            cy.url().should('match', /roles\/create/);
         });
-        cy.contains('unauthorized');
     });
 
-    it('requires a role name to create a new role', () => {
-        cy.loginWithPermissions({ permissions: 'role.create' });
-        cy.visit('/roles/create');
+    context('Adding attributes', () => {
+        beforeEach(() => {
+            cy.visit('/roles/create');
+        });
 
-        cy.get('#name').type('foo');
-        cy.get('.button').contains('Add Role').click();
+        it('requires a name to create a role', () => {
+            cy.get('[data-cy=name]').type('foo');
+            cy.get('[data-cy=form]').submit();
 
-        cy.contains('The name field is required');
+            cy.contains('The name field is required');
+        });
+
+        it('requires a key to create a role', () => {
+            cy.get('[data-cy=display_name]').type('Foo');
+            cy.get('[data-cy=name]').clear();
+            cy.get('[data-cy=form]').submit();
+
+            cy.contains('The key field is required');
+        });
+
+        it('suggests a key based on the name entered', () => {
+            cy.get('[data-cy=display_name]').type('My Role');
+            cy.get('[data-cy=name]').should('have.value', 'my-role');
+        });
     });
 
-    it('requires a role key to create a new role', () => {
-        cy.loginWithPermissions({ permissions: 'role.create' });
-        cy.visit('/roles/create');
+    context('Attaching permissions', () => {
+        beforeEach(() => {
+            cy.visit('/roles/create');
+        });
 
-        cy.get('#display_name').type('Foo');
-        cy.get('#name').clear();
-        cy.get('.button').contains('Add Role').click();
+        it('can search for permissions', () => {
+            cy.get('[data-cy=tags-search]').first().type('create');
 
-        cy.contains('The key field is required');
+            cy.get('[data-cy=tags-search-results]');
+            cy.contains('Create user');
+        });
+
+        it('can select a permission to add to the role', () => {
+            cy.get('[data-cy=tags-search]').first().type('create');
+
+            cy.get('[data-cy=tags-search-results]');
+            cy.get('[data-cy=tags-search-results-item]').first().click();
+
+            cy.get('[data-cy=tags-search-results]').should('not.exist');
+            cy.get('[data-cy=tag-item]').should('contain', 'Create');
+        });
+
+        it('can clear permission search results', () => {
+            cy.get('[data-cy=tags-search]').first().type('create');
+
+            cy.get('[data-cy=tags-search-results]');
+            cy.get('[data-cy=reset-tags-search]').click();
+            cy.get('[data-cy=tags-search-results]').should('not.exist');
+        });
+    });
+
+    context('Assigning users', () => {
+        beforeEach(() => {
+            cy.visit('/roles/create');
+        });
+
+        it('can search for users', () => {
+            cy.create('Nova-Users-Models-User').then((user) => {
+                cy.get('[data-cy=tags-search]').last().type(user.name);
+
+                cy.get('[data-cy=tags-search-results]');
+                cy.contains(user.name);
+            });
+        });
+
+        it('can select a user to assign to the role', () => {
+            cy.create('Nova-Users-Models-User').then((user) => {
+                cy.get('[data-cy=tags-search]').last().type(user.name);
+
+                cy.get('[data-cy=tags-search-results]');
+                cy.get('[data-cy=tags-search-results-item]').first().click();
+                cy.get('[data-cy=tags-search-results]').should('not.exist');
+                cy.get('[data-cy=tag-item]').should('contain', user.name);
+            });
+        });
+
+        it('can clear user search results', () => {
+            cy.create('Nova-Users-Models-User').then((user) => {
+                cy.get('[data-cy=tags-search]').last().type(user.name);
+
+                cy.get('[data-cy=tags-search-results]');
+                cy.get('[data-cy=reset-tags-search]').click();
+                cy.get('[data-cy=tags-search-results]').should('not.exist');
+            });
+        });
+    });
+
+    context('Testing system permissions', () => {
+        it('can see the create button when user has permissions', () => {
+            cy.visit('/roles');
+
+            cy.get('main').within(() => {
+                cy.get('[data-cy=create]');
+            });
+        });
+
+        it('cannot see the create button when user is missing permissions', () => {
+            cy.logout();
+            cy.loginWithPermissions({ permissions: 'role.update' });
+            cy.visit('/roles');
+
+            cy.get('main').within(() => {
+                cy.get('[data-cy=create]').should('not.exist');
+            });
+        });
     });
 });

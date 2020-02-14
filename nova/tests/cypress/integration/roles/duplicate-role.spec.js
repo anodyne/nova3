@@ -11,7 +11,7 @@ describe('Duplicating a role', () => {
         });
     });
 
-    context('Permissions', () => {
+    context('Testing system permissions', () => {
         it('can see the duplicate button when user has permissions', () => {
             cy.loginWithPermissions({ permissions: ['role.create', 'role.update'] });
             cy.visit('/roles');
@@ -28,7 +28,7 @@ describe('Duplicating a role', () => {
 
             cy.get('main').within(() => {
                 cy.get('[data-cy=dropdown-trigger]').first().click();
-                cy.contains('Duplicate').should('not.exist');
+                cy.get('[data-cy=duplicate]').should('not.exist');
             });
         });
     });
