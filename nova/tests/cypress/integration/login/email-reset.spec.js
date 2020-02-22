@@ -1,4 +1,4 @@
-describe('Email Password Reset', () => {
+describe('Email password reset', () => {
     beforeEach(() => {
         cy.visit('/password/reset');
     });
@@ -6,7 +6,7 @@ describe('Email Password Reset', () => {
     it('shows the email password reset page', () => {
     });
 
-    it('displays an error when invalid email is entered', () => {
+    it('displays an error when an invalid email is entered', () => {
         cy.get('[data-cy=email]').type('foo@example.com');
         cy.get('[data-cy=submit]').click();
 

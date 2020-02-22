@@ -14,6 +14,16 @@ describe('Editing a role', () => {
         });
     });
 
+    it('can update a role', () => {
+        cy.visit('/roles/2/edit');
+
+        cy.get('[data-cy=display_name]').type('Standard User');
+        cy.get('[data-cy=form]').submit();
+
+        cy.url().should('match', /roles/);
+        cy.contains('Standard User');
+    });
+
     context('Updating attributes', () => {
         beforeEach(() => {
             cy.visit('/roles/2/edit');
@@ -54,6 +64,14 @@ describe('Editing a role', () => {
 
             cy.get('[data-cy=tags-search-results]').should('not.exist');
             cy.get('[data-cy=tag-item]').should('contain', 'Create');
+        });
+
+        it('can remove a selected permission from the list', () => {
+            cy.get('[data-cy=tags-search]').first().type('create');
+            cy.get('[data-cy=tags-search-results-item]').first().click();
+            cy.get('[data-cy=remove-tag-item]').first().click();
+
+            cy.get('[data-cy=tag-item]').should('not.contain', 'Create');
         });
 
         it('can clear permission search results', () => {
