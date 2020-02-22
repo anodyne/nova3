@@ -9,15 +9,15 @@ describe('Editing a role', () => {
         cy.get('main').within(() => {
             cy.get('[data-cy=dropdown-trigger]').first().click();
             cy.get('[data-cy=edit]').click();
-
-            cy.url().should('match', /roles\/\d*\/edit/);
         });
+
+        cy.url().should('match', /roles\/\d*\/edit/);
     });
 
     it('can update a role', () => {
         cy.visit('/roles/2/edit');
 
-        cy.get('[data-cy=display_name]').type('Standard User');
+        cy.get('[data-cy=display_name]').clear().type('Standard User');
         cy.get('[data-cy=form]').submit();
 
         cy.url().should('match', /roles/);

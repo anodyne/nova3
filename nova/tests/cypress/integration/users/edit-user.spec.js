@@ -1,65 +1,88 @@
-describe('Editing a role', () => {
+describe('Editing a user', () => {
     beforeEach(() => {
-        cy.loginWithPermissions({ permissions: 'role.update' });
+        cy.loginWithPermissions({ permissions: 'user.update' });
     });
 
-    it('can navigate to edit role page from roles index page', () => {
-        cy.visit('/roles');
+    it('can navigate to edit user page from users index page', () => {
+        cy.visit('/users');
 
         cy.get('main').within(() => {
             cy.get('[data-cy=dropdown-trigger]').first().click();
             cy.get('[data-cy=edit]').click();
-
-            cy.url().should('match', /roles\/\d*\/edit/);
         });
+
+        cy.url().should('match', /users\/\d*\/edit/);
     });
 
-    it('can update a user', () => {});
+    it('can update a user', () => {
+        cy.visit('/users/2/edit');
+
+        cy.get('[data-cy=name]').clear().type('AAA');
+        cy.get('[data-cy=form]').submit();
+
+        cy.url().should('match', /users/);
+        cy.contains('AAA');
+    });
 
     context('Updating attributes', () => {
         beforeEach(() => {
-            cy.visit('/roles/2/edit');
+            cy.visit('/users/2/edit');
         });
 
-        it('requires a name to update a role', () => {
-            cy.get('[data-cy=display_name]').clear();
+        it('requires a name to update a user', () => {
+            cy.get('[data-cy=name]').clear();
             cy.get('[data-cy=form]').submit();
 
             cy.contains('The name field is required');
         });
 
-        it('requires a key to update a role', () => {
-            cy.get('[data-cy=name]').clear();
+        it('requires an email address to update a user', () => {
+            cy.get('[data-cy=email]').clear();
             cy.get('[data-cy=form]').submit();
 
-            cy.contains('The key field is required');
+            cy.contains('The email field is required');
+        });
+
+        it('requires a valid email address to update a user', () => {
+            cy.get('[data-cy=email]').clear().type('foo');
+            cy.get('[data-cy=form]').submit();
+
+            cy.contains('The email must be a valid email address');
         });
     });
 
-    context('Attaching permissions', () => {
+    context('Attaching roles', () => {
         beforeEach(() => {
-            cy.visit('/roles/2/edit');
+            cy.visit('/users/2/edit');
         });
 
-        it('can search for permissions', () => {
-            cy.get('[data-cy=tags-search]').first().type('create');
+        it('can search for roles', () => {
+            cy.get('[data-cy=tags-search]').first().type('admin');
 
             cy.get('[data-cy=tags-search-results]');
-            cy.contains('Create user');
+            cy.contains('Admin');
         });
 
-        it('can select a permission to add to the role', () => {
-            cy.get('[data-cy=tags-search]').first().type('create');
+        it('can select a role to add to the user', () => {
+            cy.get('[data-cy=tags-search]').first().type('admin');
 
             cy.get('[data-cy=tags-search-results]');
             cy.get('[data-cy=tags-search-results-item]').first().click();
 
             cy.get('[data-cy=tags-search-results]').should('not.exist');
-            cy.get('[data-cy=tag-item]').should('contain', 'Create');
+            cy.get('[data-cy=tag-item]').should('contain', 'Admin');
         });
 
-        it('can clear permission search results', () => {
-            cy.get('[data-cy=tags-search]').first().type('create');
+        it('can remove a selected role from the list', () => {
+            cy.get('[data-cy=tags-search]').first().type('admin');
+            cy.get('[data-cy=tags-search-results-item]').first().click();
+            cy.get('[data-cy=remove-tag-item]').first().click();
+
+            cy.get('[data-cy=tag-item]').should('not.contain', 'Admin');
+        });
+
+        it('can clear role search results', () => {
+            cy.get('[data-cy=tags-search]').first().type('admin');
 
             cy.get('[data-cy=tags-search-results]');
             cy.get('[data-cy=reset-tags-search]').click();
@@ -67,45 +90,15 @@ describe('Editing a role', () => {
         });
     });
 
-    context('Assigning users', () => {
+    context('Updating avatar', () => {
         beforeEach(() => {
-            cy.visit('/roles/2/edit');
-        });
-
-        it('can search for users', () => {
-            cy.create('Nova-Users-Models-User').then((user) => {
-                cy.get('[data-cy=tags-search]').last().type(user.name);
-
-                cy.get('[data-cy=tags-search-results]');
-                cy.contains(user.name);
-            });
-        });
-
-        it('can select a user to assign to the role', () => {
-            cy.create('Nova-Users-Models-User').then((user) => {
-                cy.get('[data-cy=tags-search]').last().type(user.name);
-
-                cy.get('[data-cy=tags-search-results]');
-                cy.get('[data-cy=tags-search-results-item]').first().click();
-                cy.get('[data-cy=tags-search-results]').should('not.exist');
-                cy.get('[data-cy=tag-item]').should('contain', user.name);
-            });
-        });
-
-        it('can clear user search results', () => {
-            cy.create('Nova-Users-Models-User').then((user) => {
-                cy.get('[data-cy=tags-search]').last().type(user.name);
-
-                cy.get('[data-cy=tags-search-results]');
-                cy.get('[data-cy=reset-tags-search]').click();
-                cy.get('[data-cy=tags-search-results]').should('not.exist');
-            });
+            cy.visit('/users/2/edit');
         });
     });
 
     context('Testing system permissions', () => {
         it('can see the edit button when user has permissions', () => {
-            cy.visit('/roles');
+            cy.visit('/users');
 
             cy.get('main').within(() => {
                 cy.get('[data-cy=dropdown-trigger]').first().click();
@@ -115,8 +108,8 @@ describe('Editing a role', () => {
 
         it('cannot see the edit button when user is missing permissions', () => {
             cy.logout();
-            cy.loginWithPermissions({ permissions: 'role.create' });
-            cy.visit('/roles');
+            cy.loginWithPermissions({ permissions: 'user.create' });
+            cy.visit('/users');
 
             cy.get('main').within(() => {
                 cy.get('[data-cy=dropdown-trigger]').first().click();

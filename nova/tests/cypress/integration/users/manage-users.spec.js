@@ -39,7 +39,7 @@ describe('List all users', () => {
         });
 
         it('shows a warning message when no users were found', () => {
-            cy.get('[data-cy=search-field]').type('foo');
+            cy.get('[data-cy=search-field]').type('baz');
             cy.contains('No users found');
         });
     });

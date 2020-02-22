@@ -11,6 +11,7 @@
                 :action="$route('users.update', { user })"
                 method="POST"
                 role="form"
+                data-cy="form"
                 @submit.prevent="submit"
             >
                 <csrf-token></csrf-token>
@@ -38,6 +39,7 @@
                                     type="text"
                                     name="name"
                                     class="field"
+                                    data-cy="name"
                                 >
                             </div>
                         </form-field>
@@ -54,6 +56,7 @@
                                     type="email"
                                     name="email"
                                     class="field"
+                                    data-cy="email"
                                 >
                             </div>
                         </form-field>

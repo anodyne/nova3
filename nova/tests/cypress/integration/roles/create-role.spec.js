@@ -8,16 +8,15 @@ describe('Creating a role', () => {
 
         cy.get('main').within(() => {
             cy.get('[data-cy=create]').click();
-
-            cy.url().should('match', /roles\/create/);
         });
+
+        cy.url().should('match', /roles\/create/);
     });
 
     it('can create a role', () => {
         cy.visit('/roles/create');
 
         cy.get('[data-cy=display_name]').type('Foo');
-
         cy.get('[data-cy=tags-search]').first().type('create user');
         cy.get('[data-cy=tags-search-results-item]').first().click();
 

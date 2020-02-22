@@ -46,7 +46,7 @@ describe('List all roles', () => {
         });
 
         it('shows a warning message when no roles were found', () => {
-            cy.get('[data-cy=search-field]').type('foo');
+            cy.get('[data-cy=search-field]').type('baz');
             cy.contains('No roles found');
         });
     });

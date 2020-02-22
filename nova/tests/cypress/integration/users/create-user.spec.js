@@ -8,9 +8,9 @@ describe('Creating a user', () => {
 
         cy.get('main').within(() => {
             cy.get('[data-cy=create]').click();
-
-            cy.url().should('match', /users\/create/);
         });
+
+        cy.url().should('match', /users\/create/);
     });
 
     it('can create a user', () => {
