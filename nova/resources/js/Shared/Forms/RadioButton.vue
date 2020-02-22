@@ -4,6 +4,7 @@
         :for="id"
         class="inline-flex items-center"
         :disabled="disabled"
+        :data-cy="name"
         @click="focus"
         @keydown.prevent.enter="$refs.label.click()"
     >

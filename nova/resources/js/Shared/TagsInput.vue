@@ -19,6 +19,7 @@
                     <button
                         class="text-gray-500 ml-1 hover:text-gray-600"
                         type="button"
+                        data-cy="remove-tag-item"
                         @click="removeItem(item)"
                     >
                         <icon name="x" class="h-4 w-4"></icon>
