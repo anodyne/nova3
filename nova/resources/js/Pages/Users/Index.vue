@@ -6,6 +6,7 @@
                 slot="controls"
                 :href="$route('users.create')"
                 class="button button-primary"
+                data-cy="create"
             >
                 Add User
             </inertia-link>
@@ -22,7 +23,7 @@
             </template>
 
             <div class="flex items-center justify-between w-full py-2 px-8 bg-gray-100 border-t border-b text-xs uppercase tracking-wide font-medium text-gray-600">
-                <div class="w-1/3">Nickname</div>
+                <div class="w-1/3">Name</div>
                 <div class="flex-auto">Email</div>
             </div>
 
@@ -56,6 +57,7 @@
                                 v-if="user.can.view"
                                 :href="$route('users.show', { user })"
                                 class="dropdown-link"
+                                data-cy="view"
                             >
                                 <icon name="eye" class="dropdown-icon"></icon>
                                 View
@@ -64,19 +66,20 @@
                                 v-if="user.can.update"
                                 :href="$route('users.edit', { user })"
                                 class="dropdown-link"
+                                data-cy="edit"
                             >
                                 <icon name="edit" class="dropdown-icon"></icon>
                                 Edit
                             </inertia-link>
-                            <a
+                            <button
                                 v-if="user.can.delete"
-                                role="button"
                                 class="dropdown-link-danger"
+                                data-cy="delete"
                                 @click="confirmRemove(user, toggle)"
                             >
                                 <icon name="trash" class="dropdown-icon"></icon>
                                 Delete
-                            </a>
+                            </button>
                         </template>
                     </dropdown>
                 </div>
@@ -110,6 +113,7 @@
                 <button
                     type="button"
                     class="button button-danger ml-4"
+                    data-cy="delete-user"
                     @click="remove"
                 >
                     Delete User
