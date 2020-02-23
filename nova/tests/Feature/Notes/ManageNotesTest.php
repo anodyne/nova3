@@ -42,11 +42,6 @@ class ManageNotesTest extends TestCase
     }
 
     /** @test **/
-    public function userCanSeeNotesSharedWithThem()
-    {
-    }
-
-    /** @test **/
     public function notesCanBeFilteredByTitle()
     {
         $this->signIn($this->note->author);
