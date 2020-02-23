@@ -45,6 +45,10 @@
             <file>./nova/tests/Unit/Users/Actions/UploadUserAvatarTest.php</file>
         </testsuite>
 
+        <testsuite name="notes">
+            <directory suffix="Test.php">./nova/tests/Feature/Notes</directory>
+        </testsuite>
+
         <testsuite name="uploads">
             <file>./nova/tests/Feature/Users/UploadUserAvatarTest.php</file>
             <file>./nova/tests/Unit/Users/Actions/UploadUserAvatarTest.php</file>
