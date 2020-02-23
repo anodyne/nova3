@@ -47,6 +47,7 @@
 
         <testsuite name="notes">
             <directory suffix="Test.php">./nova/tests/Feature/Notes</directory>
+            <directory suffix="Test.php">./nova/tests/Unit/Notes</directory>
         </testsuite>
 
         <testsuite name="uploads">
