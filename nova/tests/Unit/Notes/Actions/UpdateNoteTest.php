@@ -22,7 +22,7 @@ class UpdateNoteTest extends TestCase
     }
 
     /** @test **/
-    public function itCreatesANewNote()
+    public function itUpdatesANote()
     {
         $originalNote = factory(Note::class)->create([
             'title' => 'My First Note',
