@@ -6,8 +6,12 @@ use Tests\TestCase;
 use Nova\Roles\Models\Role;
 use Nova\Roles\Events\RoleCreated;
 use Illuminate\Support\Facades\Event;
+use Nova\Roles\Http\Requests\ValidateStoreRole;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @see \Nova\Roles\Http\Controllers\RoleController
+ */
 class CreateRoleTest extends TestCase
 {
     use RefreshDatabase;
@@ -87,45 +91,6 @@ class CreateRoleTest extends TestCase
     }
 
     /** @test **/
-    public function nameIsRequiredToCreateRole()
-    {
-        $this->signInWithPermission('role.create');
-
-        $response = $this->post(route('roles.store'), [
-            'display_name' => 'Foo',
-        ]);
-
-        $response->assertSessionHasErrors('name');
-    }
-
-    /** @test **/
-    public function nameMustBeUnique()
-    {
-        $role = factory(Role::class)->create();
-
-        $this->signInWithPermission('role.create');
-
-        $response = $this->post(route('roles.store'), [
-            'name' => $role->name,
-            'display_name' => 'display_name',
-        ]);
-
-        $response->assertSessionHasErrors('name');
-    }
-
-    /** @test **/
-    public function displayNameIsRequiredToCreateRole()
-    {
-        $this->signInWithPermission('role.create');
-
-        $response = $this->post(route('roles.store'), [
-            'name' => 'foo',
-        ]);
-
-        $response->assertSessionHasErrors('display_name');
-    }
-
-    /** @test **/
     public function roleCanBeGivenToUser()
     {
         $this->signInWithPermission('role.create');
@@ -152,5 +117,14 @@ class CreateRoleTest extends TestCase
         $this->assertDatabaseHas('activity_log', [
             'description' => $role->display_name . ' role was created',
         ]);
+    }
+
+    /** @test **/
+    public function storingRoleInDatabaseUsesFormRequest()
+    {
+        $this->assertRouteUsesFormRequest(
+            'roles.store',
+            ValidateStoreRole::class
+        );
     }
 }

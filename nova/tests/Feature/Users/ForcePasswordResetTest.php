@@ -5,6 +5,9 @@ namespace Tests\Feature\Users;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @see \Nova\Users\Http\Controllers\ForcePasswordResetController
+ */
 class ForcePasswordResetTest extends TestCase
 {
     use RefreshDatabase;

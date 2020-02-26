@@ -11,6 +11,7 @@
                 :action="$route('roles.update', { role })"
                 method="POST"
                 role="form"
+                data-cy="form"
                 @submit.prevent="submit"
             >
                 <csrf-token></csrf-token>
@@ -35,6 +36,7 @@
                                     type="text"
                                     name="display_name"
                                     class="field"
+                                    data-cy="display_name"
                                 >
                             </div>
                         </form-field>
@@ -51,6 +53,7 @@
                                     type="text"
                                     name="name"
                                     class="field"
+                                    data-cy="name"
                                 >
                             </div>
                             <p v-else class="font-semibold">

@@ -41,6 +41,10 @@ $app->singleton(
     Nova\Foundation\Exceptions\Handler::class
 );
 
+if (isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] === 'nova3-acceptance.test') {
+    Dotenv\Dotenv::create(base_path(), '.env.acceptance')->overload();
+}
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application

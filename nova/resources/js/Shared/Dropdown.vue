@@ -5,6 +5,7 @@
                 ref="trigger"
                 type="button"
                 class="dropdown-trigger"
+                data-cy="dropdown-trigger"
                 @click="toggle"
             >
                 <slot></slot>

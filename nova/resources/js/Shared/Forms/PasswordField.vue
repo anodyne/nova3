@@ -59,7 +59,8 @@ export default {
                 name: this.name,
                 id: this.name,
                 placeholder: this.placeholder,
-                type: this.fieldType
+                type: this.fieldType,
+                'data-cy': this.name
             };
         },
 

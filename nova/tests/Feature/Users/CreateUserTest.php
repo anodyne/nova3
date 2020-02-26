@@ -10,8 +10,12 @@ use Illuminate\Support\Facades\Event;
 use Nova\Users\Events\UserCreatedByAdmin;
 use Illuminate\Support\Facades\Notification;
 use Nova\Users\Notifications\AccountCreated;
+use Nova\Users\Http\Requests\ValidateStoreUser;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @see \Nova\Users\Http\Controllers\UserController
+ */
 class CreateUserTest extends TestCase
 {
     use RefreshDatabase;
@@ -171,5 +175,14 @@ class CreateUserTest extends TestCase
         $user = User::get()->last();
 
         Notification::assertSentTo([$user], AccountCreated::class);
+    }
+
+    /** @test **/
+    public function storingUserInDatabaseUsesFormRequest()
+    {
+        $this->assertRouteUsesFormRequest(
+            'users.store',
+            ValidateStoreUser::class
+        );
     }
 }

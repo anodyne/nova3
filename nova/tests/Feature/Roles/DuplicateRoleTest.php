@@ -8,7 +8,11 @@ use Nova\Roles\Models\Permission;
 use Illuminate\Support\Facades\Event;
 use Nova\Roles\Events\RoleDuplicated;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Roles\Http\Requests\ValidateDuplicateRole;
 
+/**
+ * @see \Nova\Roles\Http\Controllers\DuplicateRoleController
+ */
 class DuplicateRoleTest extends TestCase
 {
     use RefreshDatabase;
@@ -101,5 +105,14 @@ class DuplicateRoleTest extends TestCase
         Event::assertDispatched(RoleDuplicated::class, function ($event) use ($role, $originalRole) {
             return $event->role->is($role) && $event->originalRole->is($originalRole);
         });
+    }
+
+    /** @test **/
+    public function duplicatingRoleInDatabaseUsesFormRequest()
+    {
+        $this->assertRouteUsesFormRequest(
+            'roles.duplicate',
+            ValidateDuplicateRole::class
+        );
     }
 }

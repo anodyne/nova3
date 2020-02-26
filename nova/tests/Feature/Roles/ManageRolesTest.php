@@ -6,6 +6,9 @@ use Tests\TestCase;
 use Nova\Roles\Models\Role;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @see \Nova\Roles\Http\Controllers\RoleController
+ */
 class ManageRolesTest extends TestCase
 {
     use RefreshDatabase;

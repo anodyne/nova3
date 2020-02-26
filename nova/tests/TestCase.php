@@ -2,14 +2,16 @@
 
 namespace Tests;
 
+use JMac\Testing\Traits\HttpTestAssertions;
 use Nova\Foundation\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication;
-    use ManagesTestUsers;
     use AddsCustomAssertions;
+    use CreatesApplication;
+    use HttpTestAssertions;
+    use ManagesTestUsers;
 
     public function setUp(): void
     {
