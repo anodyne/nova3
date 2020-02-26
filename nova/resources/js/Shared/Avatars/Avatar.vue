@@ -55,7 +55,8 @@ export default {
                 },
                 attrs: {
                     alt: 'avatar image',
-                    src: this.imageUrl
+                    src: this.imageUrl,
+                    'data-cy': 'avatar-image'
                 }
             });
         },

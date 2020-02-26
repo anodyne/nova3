@@ -1,16 +1,20 @@
 <template>
-    <div class="page-header">
+    <div class="page-header" data-cy="page-header">
         <div class="page-header-content">
             <div v-if="hasPreTitle" class="page-header-pretitle">
                 <slot name="pretitle">{{ pretitle }}</slot>
             </div>
 
-            <div class="page-header-title">
+            <div class="page-header-title" data-cy="page-header-title">
                 <slot>{{ title }}</slot>
             </div>
         </div>
 
-        <div v-if="hasSlot('controls')" class="page-header-controls">
+        <div
+            v-if="hasSlot('controls')"
+            class="page-header-controls"
+            data-cy="page-header-controls"
+        >
             <slot name="controls"></slot>
         </div>
     </div>

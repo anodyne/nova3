@@ -11,6 +11,7 @@
                 :action="$route('users.store')"
                 method="POST"
                 role="form"
+                data-cy="form"
                 @submit.prevent="submit"
             >
                 <csrf-token></csrf-token>
@@ -37,6 +38,7 @@
                                     type="text"
                                     name="name"
                                     class="field"
+                                    data-cy="name"
                                 >
                             </div>
                         </form-field>
@@ -53,6 +55,7 @@
                                     type="email"
                                     name="email"
                                     class="field"
+                                    data-cy="email"
                                 >
                             </div>
                         </form-field>
@@ -66,6 +69,7 @@
                                 id="male"
                                 v-model="form.gender"
                                 native-value="male"
+                                name="gender"
                             >
                                 He/Him
                             </radio-button>
@@ -74,6 +78,7 @@
                                 v-model="form.gender"
                                 native-value="female"
                                 class="mx-6"
+                                name="gender"
                             >
                                 She/Her
                             </radio-button>
@@ -81,6 +86,7 @@
                                 id="neutral"
                                 v-model="form.gender"
                                 native-value="neutral"
+                                name="gender"
                             >
                                 They/Them
                             </radio-button>

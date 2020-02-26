@@ -1,0 +1,10 @@
+{
+    "baseUrl": "http://nova3-acceptance.test",
+    "fileServerFolder": "nova/tests/cypress",
+    "fixturesFolder": "nova/tests/cypress/fixtures",
+    "integrationFolder": "nova/tests/cypress/integration",
+    "pluginsFile": "nova/tests/cypress/plugins/index.js",
+    "screenshotsFolder": "nova/tests/cypress/screenshots",
+    "supportFile": "nova/tests/cypress/support/index.js",
+    "videosFolder": "nova/tests/cypress/videos"
+}

@@ -33,14 +33,16 @@
                 @after-leave="cardLeaving = false"
             >
                 <div v-if="showContent" class="relative">
-                    <div class="min-w-lg max-w-lg w-full bg-white rounded shadow-2xl overflow-hidden">
-                        <div class="px-6 pt-4 font-semibold text-gray-900 text-xl">{{ title }}</div>
+                    <div class="min-w-lg max-w-lg w-full bg-white rounded shadow-2xl overflow-hidden" data-cy="modal">
+                        <div class="px-6 pt-4 font-semibold text-gray-900 text-xl" data-cy="modal-title">
+                            {{ title }}
+                        </div>
 
-                        <div class="px-6 py-4">
+                        <div class="px-6 py-4" data-cy="modal-body">
                             <slot></slot>
                         </div>
 
-                        <div class="flex items-center justify-end mt-4 px-6 py-4 bg-gray-100">
+                        <div class="flex items-center justify-end mt-4 px-6 py-4 bg-gray-100" data-cy="modal-footer">
                             <slot name="footer"></slot>
                         </div>
                     </div>

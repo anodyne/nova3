@@ -30,6 +30,7 @@
         "codedungeon/phpunit-result-printer": "^0.26",
         "facade/ignition": "^1.4",
         "fzaninotto/faker": "^1.4",
+        "jasonmccreary/laravel-test-assertions": "^0.4",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^3.0",
         "phpunit/phpunit": "^8.0",

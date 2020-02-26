@@ -11,6 +11,7 @@
                 :action="$route('users.update', { user })"
                 method="POST"
                 role="form"
+                data-cy="form"
                 @submit.prevent="submit"
             >
                 <csrf-token></csrf-token>
@@ -38,6 +39,7 @@
                                     type="text"
                                     name="name"
                                     class="field"
+                                    data-cy="name"
                                 >
                             </div>
                         </form-field>
@@ -54,6 +56,7 @@
                                     type="email"
                                     name="email"
                                     class="field"
+                                    data-cy="email"
                                 >
                             </div>
                         </form-field>
@@ -90,13 +93,17 @@
                         <form-field label="Avatar">
                             <div class="flex items-center">
                                 <avatar
-                                    v-show="form.avatar === null"
+                                    v-if="form.avatar === null"
                                     :image-url="user.avatar_url"
                                     size="xl"
                                 ></avatar>
 
-                                <div v-show="form.avatar !== null" class="avatar avatar-xl">
-                                    <img ref="preview" class="avatar-image">
+                                <div v-else class="avatar avatar-xl">
+                                    <img
+                                        ref="preview"
+                                        class="avatar-image"
+                                        data-cy="avatar-preview"
+                                    >
                                 </div>
 
                                 <div class="flex flex-col ml-4">
@@ -106,6 +113,7 @@
                                         type="file"
                                         name="image"
                                         class="hidden"
+                                        data-cy="upload"
                                         @change="setAvatar"
                                     >
 
@@ -113,6 +121,7 @@
                                         <button
                                             type="button"
                                             class="button button-soft button-small"
+                                            data-cy="avatar-action-button"
                                             @click="$refs.file.click()"
                                         >
                                             <icon name="camera" class="mr-2"></icon>
@@ -135,6 +144,7 @@
                                         v-model="form.remove_avatar"
                                         class="mt-2 ml-px"
                                         :native-value="true"
+                                        data-cy="remove-avatar"
                                     >
                                         Remove avatar
                                     </checkbox>

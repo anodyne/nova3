@@ -7,8 +7,12 @@ use Nova\Roles\Models\Role;
 use Nova\Roles\Models\Permission;
 use Nova\Roles\Events\RoleUpdated;
 use Illuminate\Support\Facades\Event;
+use Nova\Roles\Http\Requests\ValidateUpdateRole;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @see \Nova\Roles\Http\Controllers\RoleController
+ */
 class UpdateRoleTest extends TestCase
 {
     use RefreshDatabase;
@@ -176,5 +180,14 @@ class UpdateRoleTest extends TestCase
         $this->assertDatabaseHas('activity_log', [
             'description' => $this->role->display_name . ' role was updated',
         ]);
+    }
+
+    /** @test **/
+    public function updatingRoleInDatabaseUsesFormRequest()
+    {
+        $this->assertRouteUsesFormRequest(
+            'roles.update',
+            ValidateUpdateRole::class
+        );
     }
 }

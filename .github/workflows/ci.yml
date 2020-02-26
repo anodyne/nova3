@@ -9,6 +9,16 @@ jobs:
         container:
           image: kirschbaumdevelopment/laravel-test-runner:${{ matrix.php }}
 
+        services:
+          mysql:
+            image: mysql:5.7
+            env:
+              MYSQL_ROOT_PASSWORD: secret
+              MYSQL_DATABASE: test
+            ports:
+              - 33061:3306
+            options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
         strategy:
             matrix:
                 php: [7.4, 7.3, 7.2]
@@ -23,15 +33,19 @@ jobs:
 
             - name: Install dependencies
               run: composer install --no-interaction --no-scripts
-            
+
             - name: Prepare Laravel app
               run: |
-                cp nova/.env.ci .env
-                php artisan key:generate
+                cp .env.ci .env.testing
+                php artisan key:generate --env=testing
 
             - name: Execute tests
               run: nova/vendor/bin/phpunit
-              
+              env:
+                DB_CONNECTION: mysql
+                DB_HOST: mysql
+                DB_PORT: 3306
+
             - name: Deploy to Forge
               if: github.ref == 'refs/heads/stage'
               run: curl "${{ secrets.FORGE_DEPLOYMENT_WEBHOOK }}"

@@ -23,8 +23,6 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
         parent::boot();
     }
 
@@ -39,7 +37,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
-        //
+        $this->mapAcceptanceTestingRoutes();
     }
 
     /**
@@ -52,7 +50,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapWebRoutes()
     {
         Route::middleware('web')
-             ->group(nova_path('routes/web.php'));
+            ->group(nova_path('routes/web.php'));
     }
 
     /**
@@ -65,7 +63,16 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapApiRoutes()
     {
         Route::prefix('api')
-             ->middleware('api')
-             ->group(nova_path('routes/api.php'));
+            ->middleware('api')
+            ->group(nova_path('routes/api.php'));
+    }
+
+    protected function mapAcceptanceTestingRoutes()
+    {
+        if ($this->app->environment('acceptance')) {
+            Route::prefix('__testing__')
+                ->middleware('web')
+                ->group(nova_path('routes/testing.php'));
+        }
     }
 }

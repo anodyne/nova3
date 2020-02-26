@@ -25,10 +25,17 @@
 </template>
 
 <script>
+import get from 'lodash/get';
+import size from 'lodash/size';
+
 export default {
     name: 'FormField',
 
     props: {
+        error: {
+            type: String,
+            default: ''
+        },
         fieldId: {
             type: String,
             default: ''
@@ -50,26 +57,30 @@ export default {
     computed: {
         errorMessage () {
             if (this.hasError) {
-                return this.$page.errors[this.name][0];
+                if (this.error.length > 0) {
+                    return this.error;
+                }
+
+                return get(this.$page, `errors.${this.name}[0]`, '');
             }
 
             return false;
         },
 
         hasError () {
-            if (this.$page === undefined) {
+            if (this.$page == null && this.error.length === 0) {
                 return false;
             }
 
-            return this.$page.errors[this.name];
+            return this.error.length > 0 || size(this.$page.errors[this.name]) > 0;
         },
 
         hasHelp () {
-            return this.help !== '';
+            return this.help.length > 0;
         },
 
         hasLabel () {
-            return this.label !== '';
+            return this.label.length > 0;
         },
 
         styles () {

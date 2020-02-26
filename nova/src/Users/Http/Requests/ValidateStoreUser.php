@@ -19,7 +19,7 @@ class ValidateStoreUser extends ValidatesRequest
     {
         return [
             'gender.required' => 'Please select from one of the available pronouns',
-            'gender.required' => 'Preferred pronoun must be one of the provided options',
+            'gender.in' => 'Preferred pronoun must be one of the provided options',
         ];
     }
 }

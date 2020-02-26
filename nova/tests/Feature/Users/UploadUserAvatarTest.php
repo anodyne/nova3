@@ -7,6 +7,9 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @see \Nova\Users\Http\Controllers\UserController
+ */
 class UploadUserAvatarTest extends TestCase
 {
     use RefreshDatabase;

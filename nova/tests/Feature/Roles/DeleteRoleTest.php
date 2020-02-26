@@ -8,6 +8,9 @@ use Nova\Roles\Events\RoleDeleted;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @see \Nova\Roles\Http\Controllers\RoleController
+ */
 class DeleteRoleTest extends TestCase
 {
     use RefreshDatabase;
