@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Event;
 use Nova\Roles\Events\RoleDuplicated;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @see \Nova\Roles\Http\Controllers\DuplicateRoleController
+ */
 class DuplicateRoleTest extends TestCase
 {
     use RefreshDatabase;

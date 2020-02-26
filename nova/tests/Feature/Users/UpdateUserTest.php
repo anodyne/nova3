@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Storage;
 use Nova\Users\Events\UserUpdatedByAdmin;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @see \Nova\Users\Http\Controllers\UserController
+ */
 class UpdateUserTest extends TestCase
 {
     use RefreshDatabase;

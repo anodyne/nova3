@@ -5,6 +5,9 @@ namespace Tests\Feature\Users;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @see \Nova\Users\Http\Controllers\UserController
+ */
 class ManageUsersTest extends TestCase
 {
     use RefreshDatabase;

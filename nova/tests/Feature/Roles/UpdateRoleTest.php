@@ -9,6 +9,9 @@ use Nova\Roles\Events\RoleUpdated;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @see \Nova\Roles\Http\Controllers\RoleController
+ */
 class UpdateRoleTest extends TestCase
 {
     use RefreshDatabase;

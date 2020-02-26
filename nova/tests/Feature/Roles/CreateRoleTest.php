@@ -8,6 +8,9 @@ use Nova\Roles\Events\RoleCreated;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @see \Nova\Roles\Http\Controllers\RoleController
+ */
 class CreateRoleTest extends TestCase
 {
     use RefreshDatabase;

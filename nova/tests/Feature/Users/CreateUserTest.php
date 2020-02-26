@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Notification;
 use Nova\Users\Notifications\AccountCreated;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @see \Nova\Users\Http\Controllers\UserController
+ */
 class CreateUserTest extends TestCase
 {
     use RefreshDatabase;
