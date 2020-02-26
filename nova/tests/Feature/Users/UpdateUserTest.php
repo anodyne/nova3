@@ -8,6 +8,7 @@ use Nova\Users\Events\UserUpdated;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
 use Nova\Users\Events\UserUpdatedByAdmin;
+use Nova\Users\Http\Requests\ValidateUpdateUser;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
@@ -146,5 +147,14 @@ class UpdateUserTest extends TestCase
         ]);
         $response->assertStatus(422);
         $response->assertJsonValidationErrors('gender');
+    }
+
+    /** @test **/
+    public function updatingUserInDatabaseUsesFormRequest()
+    {
+        $this->assertRouteUsesFormRequest(
+            'users.update',
+            ValidateUpdateUser::class
+        );
     }
 }
