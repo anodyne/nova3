@@ -76,7 +76,7 @@ describe('Editing a user', () => {
         it('can remove a selected role from the list', () => {
             cy.get('[data-cy=tags-search]').first().type('admin');
             cy.get('[data-cy=tags-search-results-item]').first().click();
-            cy.get('[data-cy=remove-tag-item]').first().click();
+            cy.get('[data-cy=remove-tag-item]').last().click();
 
             cy.get('[data-cy=tag-item]').should('not.contain', 'Admin');
         });
@@ -93,6 +93,79 @@ describe('Editing a user', () => {
     context('Updating avatar', () => {
         beforeEach(() => {
             cy.visit('/users/2/edit');
+        });
+
+        it('shows a dummy avatar if the user has not uploaded one', () => {
+            cy.get('main').within(() => {
+                cy.get('[data-cy=avatar-image]')
+                    .should('have.attr', 'src')
+                    .and('match', /adorable/);
+            });
+        });
+
+        it('shows a preview when a new avatar is added', () => {
+            cy.fixture('cy.png').then((fileContent) => {
+                cy.get('[data-cy=upload]').upload(
+                    { fileContent, fileName: 'cy.png', mimeType: 'image/png' },
+                    { subjectType: 'input' },
+                );
+            });
+
+            cy.get('main').within(() => {
+                cy.get('[data-cy=avatar-preview]')
+                    .should('have.attr', 'src')
+                    .and('match', /image\/png;base64,iVBOR/);
+            });
+        });
+
+        it.skip('updates the preview when an avatar is updated', () => {
+            cy.fixture('cy.png').then((fileContent) => {
+                cy.get('[data-cy=upload]').upload(
+                    { fileContent, fileName: 'cy.png', mimeType: 'image/png' },
+                    { subjectType: 'input' },
+                );
+            });
+
+            cy.get('main').within(() => {
+                cy.get('[data-cy=avatar-preview]')
+                    .should('have.attr', 'src')
+                    .and('match', /image\/png;base64,iVBOR/);
+            });
+
+            cy.fixture('vue.png').then((fileContent) => {
+                cy.get('[data-cy=upload]').upload(
+                    { fileContent, fileName: 'vue.png', mimeType: 'image/png' },
+                    { subjectType: 'input' },
+                );
+            });
+
+            cy.get('main').within(() => {
+                cy.get('[data-cy=avatar-preview]')
+                    .should('have.attr', 'src')
+                    .and('match', /image\/png;base64,abc/);
+            });
+        });
+
+        it('can remove the avatar', () => {
+            cy.fixture('cy.png').then((fileContent) => {
+                cy.get('[data-cy=upload]').upload(
+                    { fileContent, fileName: 'cy.png', mimeType: 'image/png' },
+                    { subjectType: 'input' },
+                );
+            });
+
+            cy.get('main').within(() => {
+                cy.get('[data-cy=form]').submit();
+
+                cy.get('[data-cy=remove-avatar]').click();
+
+                cy.get('[data-cy=form]').submit();
+
+                cy.get('[data-cy=avatar-preview]').should('not.exist');
+                cy.get('[data-cy=avatar-image]')
+                    .should('have.attr', 'src')
+                    .and('match', /adorable/);
+            });
         });
     });
 
