@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9e24b5b30a4b1a3aff9c6fd2e71fac83",
+    "content-hash": "431c679a244343fcddd252bab3a60c00",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -5059,6 +5059,44 @@
                 "yml"
             ],
             "time": "2017-11-07T22:49:43+00:00"
+        },
+        {
+            "name": "jasonmccreary/laravel-test-assertions",
+            "version": "v0.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jasonmccreary/laravel-test-assertions.git",
+                "reference": "c473e80bbe15418528490c3f554a9881aba31f8e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jasonmccreary/laravel-test-assertions/zipball/c473e80bbe15418528490c3f554a9881aba31f8e",
+                "reference": "c473e80bbe15418528490c3f554a9881aba31f8e",
+                "shasum": ""
+            },
+            "require": {
+                "mockery/mockery": "^1.0",
+                "php": ">=7.2",
+                "phpunit/phpunit": "^7.5|^8.0|^9.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "JMac\\Testing\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jason McCreary",
+                    "email": "jason@pureconcepts.net"
+                }
+            ],
+            "description": "A set of helpful assertions when testing Laravel applications.",
+            "time": "2020-02-22T13:42:44+00:00"
         },
         {
             "name": "maximebf/debugbar",
