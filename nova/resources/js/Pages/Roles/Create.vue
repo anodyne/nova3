@@ -1,8 +1,8 @@
 <template>
-    <sidebar-layout>
+    <admin-layout>
         <page-header title="Add Role">
-            <template #pretitle>
-                <inertia-link :href="$route('roles.index')">Roles</inertia-link>
+            <template #pretitle="{ linkStyle }">
+                <inertia-link :href="$route('roles.index')" :class="linkStyle">Roles</inertia-link>
             </template>
         </page-header>
 
@@ -111,7 +111,7 @@
                 </div>
             </form>
         </panel>
-    </sidebar-layout>
+    </admin-layout>
 </template>
 
 <script>
