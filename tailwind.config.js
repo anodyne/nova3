@@ -7,70 +7,76 @@ module.exports = {
             transparent: 'transparent',
             white: 'var(--color-white, #fff)',
             danger: {
-                100: 'var(--color-danger-100, #fff5f5)',
-                200: 'var(--color-danger-200, #fed7d7)',
-                300: 'var(--color-danger-300, #feb2b2)',
-                400: 'var(--color-danger-400, #fc8181)',
-                500: 'var(--color-danger-500, #f56565)',
-                600: 'var(--color-danger-600, #e53e3e)',
-                700: 'var(--color-danger-700, #c53030)',
-                800: 'var(--color-danger-800, #9b2c2c)',
-                900: 'var(--color-danger-900, #742a2a)'
+                50: 'var(--color-danger-50, #fdf2f2)',
+                100: 'var(--color-danger-100, #fde8e8)',
+                200: 'var(--color-danger-200, #fbd5d5)',
+                300: 'var(--color-danger-300, #f8b4b4)',
+                400: 'var(--color-danger-400, #f98080)',
+                500: 'var(--color-danger-500, #f05252)',
+                600: 'var(--color-danger-600, #e02424)',
+                700: 'var(--color-danger-700, #c81e1e)',
+                800: 'var(--color-danger-800, #9b1c1c)',
+                900: 'var(--color-danger-900, #771d1d)'
             },
             gray: {
-                100: 'var(--color-gray-100, #f7fafc)',
-                200: 'var(--color-gray-200, #edf2f7)',
-                300: 'var(--color-gray-300, #e2e8f0)',
-                400: 'var(--color-gray-400, #cbd5e0)',
-                500: 'var(--color-gray-500, #a0aec0)',
-                600: 'var(--color-gray-600, #718096)',
-                700: 'var(--color-gray-700, #4a5568)',
-                800: 'var(--color-gray-800, #2d3748)',
-                900: 'var(--color-gray-900, #1a202c)'
+                50: 'var(--color-gray-50, #f9fafb)',
+                100: 'var(--color-gray-100, #f4f5f7)',
+                200: 'var(--color-gray-200, #e5e7eb)',
+                300: 'var(--color-gray-300, #d2d6dc)',
+                400: 'var(--color-gray-400, #9fa6b2)',
+                500: 'var(--color-gray-500, #6b7280)',
+                600: 'var(--color-gray-600, #4b5563)',
+                700: 'var(--color-gray-700, #374151)',
+                800: 'var(--color-gray-800, #252f3f)',
+                900: 'var(--color-gray-900, #161e2e)'
             },
             info: {
-                100: 'var(--color-info-100, #faf5ff)',
-                200: 'var(--color-info-200, #e9d8fd)',
-                300: 'var(--color-info-300, #d6bcfa)',
-                400: 'var(--color-info-400, #b794f4)',
-                500: 'var(--color-info-500, #9f7aea)',
-                600: 'var(--color-info-600, #805ad5)',
-                700: 'var(--color-info-700, #6b46c1)',
-                800: 'var(--color-info-800, #553c9a)',
-                900: 'var(--color-info-900, #44337a)'
+                50: 'var(--color-info-50, #f6f5ff)',
+                100: 'var(--color-info-100, #edebfe)',
+                200: 'var(--color-info-200, #dcd7fe)',
+                300: 'var(--color-info-300, #cabffd)',
+                400: 'var(--color-info-400, #ac94fa)',
+                500: 'var(--color-info-500, #9061f9)',
+                600: 'var(--color-info-600, #7e3af2)',
+                700: 'var(--color-info-700, #6c2bd9)',
+                800: 'var(--color-info-800, #5521b5)',
+                900: 'var(--color-info-900, #4a1d96)'
             },
             primary: {
-                100: 'var(--color-primary-100, #ebf8ff)',
-                200: 'var(--color-primary-200, #bee3f8)',
-                300: 'var(--color-primary-300, #90cdf4)',
-                400: 'var(--color-primary-400, #63b3ed)',
-                500: 'var(--color-primary-500, #4299e1)',
-                600: 'var(--color-primary-600, #3182ce)',
-                700: 'var(--color-primary-700, #2b6cb0)',
-                800: 'var(--color-primary-800, #2c5282)',
-                900: 'var(--color-primary-900, #2a4365)'
+                50: 'var(--color-primary-50, #ebf5ff)',
+                100: 'var(--color-primary-100, #e1effe)',
+                200: 'var(--color-primary-200, #c3ddfd)',
+                300: 'var(--color-primary-300, #a4cafe)',
+                400: 'var(--color-primary-400, #76a9fa)',
+                500: 'var(--color-primary-500, #3f83f8)',
+                600: 'var(--color-primary-600, #1c64f2)',
+                700: 'var(--color-primary-700, #1a56db)',
+                800: 'var(--color-primary-800, #1e429f)',
+                900: 'var(--color-primary-900, #233876)'
             },
             success: {
-                100: 'var(--color-success-100, #f0fff4)',
-                200: 'var(--color-success-200, #c6f6d5)',
-                300: 'var(--color-success-300, #9ae6b4)',
-                400: 'var(--color-success-400, #68d391)',
-                500: 'var(--color-success-500, #48bb78)',
-                600: 'var(--color-success-600, #38a169)',
-                700: 'var(--color-success-700, #2f855a)',
-                800: 'var(--color-success-800, #276749)',
-                900: 'var(--color-success-900, #22543d)'
+                50: 'var(--color-success-50, #f3faf7)',
+                100: 'var(--color-success-100, #def7ec)',
+                200: 'var(--color-success-200, #bcf0da)',
+                300: 'var(--color-success-300, #84e1bc)',
+                400: 'var(--color-success-400, #31c48d)',
+                500: 'var(--color-success-500, #0e9f6e)',
+                600: 'var(--color-success-600, #057a55)',
+                700: 'var(--color-success-700, #046c4e)',
+                800: 'var(--color-success-800, #03543f)',
+                900: 'var(--color-success-900, #014737)'
             },
             warning: {
-                100: 'var(--color-warning-100, #fffff0)',
-                200: 'var(--color-warning-200, #fefcbf)',
-                300: 'var(--color-warning-300, #faf089)',
-                400: 'var(--color-warning-400, #f6e05e)',
-                500: 'var(--color-warning-500, #ecc94b)',
-                600: 'var(--color-warning-600, #d69e2e)',
-                700: 'var(--color-warning-700, #b7791f)',
-                800: 'var(--color-warning-800, #975a16)',
-                900: 'var(--color-warning-900, #744210)'
+                50: 'var(--color-warning-50, #f3faf7)',
+                100: 'var(--color-warning-100, #def7ec)',
+                200: 'var(--color-warning-200, #bcf0da)',
+                300: 'var(--color-warning-300, #84e1bc)',
+                400: 'var(--color-warning-400, #31c48d)',
+                500: 'var(--color-warning-500, #0e9f6e)',
+                600: 'var(--color-warning-600, #057a55)',
+                700: 'var(--color-warning-700, #046c4e)',
+                800: 'var(--color-warning-800, #03543f)',
+                900: 'var(--color-warning-900, #014737)'
             }
         },
         container: {
@@ -128,6 +134,9 @@ module.exports = {
 
     plugins: [
         /* eslint-disable */
+        require('@tailwindcss/ui')({
+            layout: 'sidebar'
+        }),
         require('./nova/resources/js/tailwind-plugins/flexbox-grid')()
         /* eslint-enable */
     ]
