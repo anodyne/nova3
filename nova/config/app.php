@@ -178,6 +178,7 @@ return [
          * Nova Module Service Provides
          */
         Nova\Setup\Providers\SetupServiceProvider::class,
+        Nova\Notes\Providers\NoteServiceProvider::class,
         Nova\Roles\Providers\RoleServiceProvider::class,
         Nova\Themes\Providers\ThemeServiceProvider::class,
         Nova\Users\Providers\UserServiceProvider::class,
