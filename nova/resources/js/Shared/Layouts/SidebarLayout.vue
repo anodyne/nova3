@@ -16,6 +16,11 @@
                         Dashboard
                     </inertia-link>
 
+                    <inertia-link :href="$route('notes.index')" class="flex items-center text-gray-400 py-2 transition-all duration-100 hover:text-gray-200">
+                        <icon name="book-open" class="mr-3 text-gray-600"></icon>
+                        My Notes
+                    </inertia-link>
+
                     <inertia-link href="#" class="flex items-center text-gray-400 py-2 transition-all duration-100 hover:text-gray-200">
                         <icon name="sidebar" class="mr-3 text-gray-600"></icon>
                         Manage

@@ -52,6 +52,15 @@ class PopulatePagesTable extends Migration
             ['uri' => 'users/{user}/edit', 'key' => 'users.edit', 'resource' => 'Nova\\Users\\Http\\Controllers\\UserController@edit', 'layout' => 'admin'],
             ['uri' => 'users/{user}', 'key' => 'users.update', 'verb' => 'put', 'resource' => 'Nova\\Users\\Http\\Controllers\\UserController@update', 'layout' => 'admin'],
             ['uri' => 'users/{user}', 'key' => 'users.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Users\\Http\\Controllers\\UserController@destroy', 'layout' => 'admin'],
+
+            ['uri' => 'notes', 'key' => 'notes.index', 'resource' => 'Nova\\Notes\\Http\\Controllers\\NoteController@index', 'layout' => 'admin'],
+            ['uri' => 'notes/show/{note}', 'key' => 'notes.show', 'resource' => 'Nova\\Notes\\Http\\Controllers\\NoteController@show', 'layout' => 'admin'],
+            ['uri' => 'notes/create', 'key' => 'notes.create', 'resource' => 'Nova\\Notes\\Http\\Controllers\\NoteController@create', 'layout' => 'admin'],
+            ['uri' => 'notes', 'key' => 'notes.store', 'verb' => 'post', 'resource' => 'Nova\\Notes\\Http\\Controllers\\NoteController@store', 'layout' => 'admin'],
+            ['uri' => 'notes/{note}/edit', 'key' => 'notes.edit', 'resource' => 'Nova\\Notes\\Http\\Controllers\\NoteController@edit', 'layout' => 'admin'],
+            ['uri' => 'notes/{note}', 'key' => 'notes.update', 'verb' => 'put', 'resource' => 'Nova\\Notes\\Http\\Controllers\\NoteController@update', 'layout' => 'admin'],
+            ['uri' => 'notes/{note}', 'key' => 'notes.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Notes\\Http\\Controllers\\NoteController@destroy', 'layout' => 'admin'],
+            ['uri' => 'notes/{originalNote}/duplicate', 'key' => 'notes.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Notes\\Http\\Controllers\\DuplicateNoteController', 'layout' => 'admin'],
         ];
 
         collect($pages)->each(function ($page) {
