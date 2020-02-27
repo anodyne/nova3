@@ -15,6 +15,8 @@
 
 import 'cypress-file-upload';
 
+Cypress.Commands.add('auth', () => cy.request(`/__testing__/auth`).its('body'));
+
 Cypress.Commands.add('create', (model, attributes = {}) => cy.request(`/__testing__/create/${model}`, attributes).its('body'));
 
 Cypress.Commands.add('login', (attributes = {}) => cy.request('/__testing__/login', attributes));

@@ -4,6 +4,10 @@ use Nova\Users\Models\User;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Password;
 
+Route::get('auth', function () {
+    return auth()->user();
+});
+
 Route::get('create/{model}', function ($model) {
     $model = str_replace('-', '\\', $model);
 
@@ -14,6 +18,8 @@ Route::get('login', function () {
     $user = factory(User::class)->create(request()->all());
 
     auth()->login($user);
+
+    return $user;
 });
 
 Route::get('login-with-permissions', function () {

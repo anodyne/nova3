@@ -5,6 +5,7 @@
                 slot="controls"
                 :href="$route('notes.create')"
                 class="button button-primary"
+                data-cy="create"
             >
                 Add Note
             </inertia-link>

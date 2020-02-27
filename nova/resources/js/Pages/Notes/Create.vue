@@ -11,6 +11,7 @@
                 :action="$route('notes.store')"
                 method="POST"
                 role="form"
+                data-cy="form"
                 @submit.prevent="submit"
             >
                 <csrf-token></csrf-token>
@@ -34,6 +35,7 @@
                                     type="text"
                                     name="title"
                                     class="field"
+                                    data-cy="title"
                                 >
                             </div>
                         </form-field>
@@ -49,7 +51,8 @@
                                     v-model="form.content"
                                     name="content"
                                     class="field"
-                                    rows="10"
+                                    rows="20"
+                                    data-cy="content"
                                 ></textarea>
                             </div>
                         </form-field>
@@ -69,11 +72,6 @@
 </template>
 
 <script>
-import slug from 'slug';
-import findIndex from 'lodash/findIndex';
-import debounce from 'lodash/debounce';
-import axios from '@/Utils/axios';
-
 export default {
     data () {
         return {
