@@ -6,20 +6,28 @@
     >
         <slot></slot>
 
-        <portal v-if="isActive" to="dropdown">
-            <div class="fixed inset-0 z-999" @click="hide"></div>
+        <portal :disabled="false">
+            <div
+                v-if="isActive"
+                class="fixed inset-0 z-999"
+                @click="close"
+            ></div>
 
             <div ref="dropdown" class="z-9999">
                 <transition
-                    enter-active-class="transition ease-out duration-100"
+                    enter-active-class="transition ease-out duration-150"
                     enter-class="transform opacity-0 scale-95"
                     enter-to-class="transform opacity-100 scale-100"
-                    leave-active-class="transition ease-in duration-75"
+                    leave-active-class="transition ease-in duration-100"
                     leave-class="transform opacity-100 scale-100"
                     leave-to-class="transform opacity-0 scale-95"
                     appear
                 >
-                    <div class="absolute mt-2 w-56 rounded-md shadow-lg" :class="styles.placement">
+                    <div
+                        v-if="isActive"
+                        class="absolute mt-2 w-56 rounded-md shadow-lg"
+                        :class="styles.placement"
+                    >
                         <div class="rounded-md bg-white shadow-xs py-1">
                             <slot name="dropdown" v-bind="dropdownProps"></slot>
                         </div>
@@ -93,19 +101,20 @@ export default {
     },
 
     methods: {
-        hide () {
+        close () {
             if (this.isActive) {
                 this.isActive = false;
             }
         },
 
         show () {
+            this.disablePortal = false;
             this.isActive = true;
         },
 
         toggle () {
             if (this.isActive) {
-                this.hide();
+                this.close();
             } else {
                 this.show();
             }
