@@ -18,6 +18,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail, HasMedia
@@ -28,6 +29,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     use LaratrustUserTrait;
     use HasStates;
     use HasMediaTrait;
+    use HasEagerLimit;
 
     public const MEDIA_DIRECTORY = 'users/{model_id}/{media_id}/';
 

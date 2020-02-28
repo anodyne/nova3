@@ -30,7 +30,10 @@ class RoleController extends Controller
 
     public function index(Request $request)
     {
-        $roles = Role::with('users')
+        $roles = Role::withCount('users')
+            ->with(['users' => function ($query) {
+                $query->limit(4);
+            }])
             ->orderBy('display_name')
             ->filter($request->only('search'))
             ->paginate();
@@ -43,8 +46,10 @@ class RoleController extends Controller
 
     public function show(Role $role)
     {
+        $role->load('permissions');
+
         return app(ViewRoleResponse::class)->with([
-            'role' => new RoleResource($role->load('permissions', 'users')),
+            'role' => new RoleResource($role),
         ]);
     }
 

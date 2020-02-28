@@ -23,6 +23,7 @@ class RoleResource extends JsonResource
             'locked' => (bool) $this->locked,
             'display_name' => $this->display_name,
             'users' => UserResource::collection($this->whenLoaded('users')),
+            'usersCount' => $this->users_count,
         ];
     }
 }

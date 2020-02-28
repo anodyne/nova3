@@ -7,10 +7,12 @@ use Nova\Users\Models\User;
 use Laratrust\Models\LaratrustRole;
 use Nova\Roles\Models\Builders\RoleBuilder;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
 class Role extends LaratrustRole
 {
     use LogsActivity;
+    use HasEagerLimit;
 
     protected static $logFillable = true;
 
