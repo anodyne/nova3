@@ -1,12 +1,20 @@
+.dropdown-icon {
+    @apply mr-3 h-5 w-5 text-gray-400;
+}
+
 .dropdown-text {
     @apply block px-4 py-2 text-sm leading-5 text-gray-700;
 }
 
 .dropdown-link {
-    @apply flex items-center w-full px-4 py-2 text-sm leading-5 text-gray-700;
+    @apply flex items-center w-full px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition ease-in-out duration-150;
 
     &:hover {
         @apply bg-gray-100 text-gray-900;
+
+        .dropdown-icon {
+            @apply text-gray-500;
+        }
     }
 
     &:focus {
@@ -18,12 +26,12 @@
     @apply dropdown-link;
 
     &:hover {
-        @apply text-danger-500;
-    }
-}
+        @apply text-danger-600;
 
-.dropdown-icon {
-    @apply mr-3 h-5 w-5 text-gray-400;
+        .dropdown-icon {
+            @apply text-danger-500;
+        }
+    }
 }
 
 .dropdown-divider {
