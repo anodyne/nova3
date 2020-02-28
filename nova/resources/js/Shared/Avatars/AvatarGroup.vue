@@ -1,9 +1,10 @@
 <template>
-    <div class="avatar-group">
+    <div class="flex relative z-0 overflow-hidden">
         <avatar
-            v-for="item in truncatedItems"
+            v-for="(item, index) in truncatedItems"
             :key="item[keyProperty]"
-            v-bind="avatarData(item)"
+            v-bind="avatarData(item, index)"
+            class="text-white shadow-solid"
         ></avatar>
     </div>
 </template>
@@ -31,36 +32,25 @@ export default {
         },
         size: {
             type: String,
-            default: null
+            default: 'md'
         }
     },
 
     computed: {
         truncatedItems () {
-            // Make sure we only take the first X number of items
-            const items = this.items.slice(0, this.limit);
-
-            // If we have more than the limit, we'll add an item to show how
-            // many more items are in the list
-            if (this.items.length > this.limit) {
-                items.push({
-                    initials: `+${this.items.length - this.limit}`,
-                    size: this.size
-                });
-            }
-
-            return items;
+            return this.items.slice(0, this.limit);
         }
     },
 
     methods: {
-        avatarData (item) {
+        avatarData (item, index) {
+            const startingZIndex = this.limit * 10 - 10;
+
             return {
                 'image-url': item['image-url'],
-                initials: item.initials,
-                link: item.link,
                 size: this.size,
-                tooltip: item.tooltip
+                tooltip: item.tooltip,
+                class: (index === 0) ? `z-${startingZIndex}` : `-ml-2 z-${startingZIndex - index * 10}`
             };
         }
     }
