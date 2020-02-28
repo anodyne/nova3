@@ -1,7 +1,8 @@
 <template>
-    <sidebar-layout>
+    <admin-layout>
         <page-header title="Notes">
             <inertia-link
+                v-if="!hasEmptyState"
                 slot="controls"
                 :href="$route('notes.create')"
                 class="button button-primary"
@@ -11,79 +12,107 @@
             </inertia-link>
         </page-header>
 
-        <panel no-padding>
-            <template #header>
-                <search-filter
-                    v-model="form.search"
-                    class="w-1/2"
-                    placeholder="Find a note..."
-                    @reset="form.search = ''"
-                ></search-filter>
-            </template>
+        <empty-state
+            v-if="hasEmptyState"
+            image="notes"
+            link-label="Add a note now"
+            :link-url="$route('notes.create')"
+            message="Notes are a great way to keep your thoughts organized, be it about things you need to do for the game, a story idea, or as a scratchpad for your next great story entry."
+        ></empty-state>
 
-            <div class="flex items-center justify-between w-full py-2 px-8 bg-gray-100 border-t border-b text-xs uppercase tracking-wide font-medium text-gray-600">
-                <div class="w-1/2">Note Title</div>
-            </div>
-
-            <div v-if="notes.data.length === 0" class="flex items-center py-4 px-8 font-semibold border-b text-warning-700">
-                <icon name="alert-triangle" class="mr-3 flex-shrink-0 h-6 w-6"></icon>
-                <div>No notes found.</div>
-            </div>
-
-            <div
-                v-for="note in notes.data"
-                :key="note.id"
-                class="flex items-center justify-between w-full py-2 px-8 border-b"
-            >
-                <div class="w-1/2">
-                    {{ note.title }}
-                </div>
-
-                <div class="flex-shrink">
-                    <dropdown placement="bottom-end">
-                        <icon name="more-horizontal" class="h-6 w-6"></icon>
-
-                        <template #dropdown="{ toggle }">
-                            <inertia-link
-                                :href="$route('notes.show', { note })"
-                                class="dropdown-link"
-                            >
-                                <icon name="eye" class="dropdown-icon"></icon>
-                                View
-                            </inertia-link>
-                            <inertia-link
-                                :href="$route('notes.edit', { note })"
-                                class="dropdown-link"
-                            >
-                                <icon name="edit" class="dropdown-icon"></icon>
-                                Edit
-                            </inertia-link>
-                            <button
-                                class="dropdown-link"
-                                @click.prevent="duplicate(note)"
-                            >
-                                <icon name="copy" class="dropdown-icon"></icon>
-                                Duplicate
-                            </button>
-                            <button
-                                class="dropdown-link-danger"
-                                @click.prevent="confirmRemove(note, toggle)"
-                            >
-                                <icon name="trash" class="dropdown-icon"></icon>
-                                Delete
-                            </button>
-                        </template>
-                    </dropdown>
+        <panel v-else>
+            <div class="bg-white px-4 py-5 | sm:px-6">
+                <div>
+                    <label for="email" class="sr-only">Find a note</label>
+                    <search-filter
+                        v-model="form.search"
+                        class="w-1/2"
+                        placeholder="Find a note..."
+                        @reset="form.search = ''"
+                    ></search-filter>
                 </div>
             </div>
 
-            <template v-if="notes.meta.total > 0" #footer>
+            <ul>
+                <li
+                    v-for="note in notes.data"
+                    :key="note.id"
+                    class="border-t border-gray-200"
+                >
+                    <div class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
+                        <div class="px-4 py-4 flex items-center sm:px-6">
+                            <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
+                                <div>
+                                    <div class="leading-normal font-medium truncate">
+                                        {{ note.title }}
+                                    </div>
+                                    <div class="mt-2 flex">
+                                        <div class="flex items-center text-sm leading-5 text-gray-500">
+                                            <icon name="users" class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"></icon>
+                                            <span>
+                                                Foo
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ml-5 flex-shrink-0">
+                                <dropdown placement="bottom-end" class="text-gray-400 hover:text-gray-500">
+                                    <icon name="more-horizontal" class="h-6 w-6"></icon>
+
+                                    <template #dropdown="{ toggle }">
+                                        <inertia-link
+                                            :href="$route('notes.show', { note })"
+                                            class="dropdown-link"
+                                        >
+                                            <icon name="eye" class="dropdown-icon"></icon>
+                                            View
+                                        </inertia-link>
+                                        <inertia-link
+                                            :href="$route('notes.edit', { note })"
+                                            class="dropdown-link"
+                                        >
+                                            <icon name="edit" class="dropdown-icon"></icon>
+                                            Edit
+                                        </inertia-link>
+                                        <button
+                                            class="dropdown-link"
+                                            @click.prevent="duplicate(note)"
+                                        >
+                                            <icon name="copy" class="dropdown-icon"></icon>
+                                            Duplicate
+                                        </button>
+                                        <div class="dropdown-divider"></div>
+                                        <button
+                                            class="dropdown-link-danger"
+                                            @click.prevent="confirmRemove(note, toggle)"
+                                        >
+                                            <icon name="trash" class="dropdown-icon"></icon>
+                                            Delete
+                                        </button>
+                                    </template>
+                                </dropdown>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li v-if="notes.meta.total === 0" class="border-t border-warning-100">
+                    <div class="block focus:outline-none focus:bg-gray-50">
+                        <div class="flex items-center px-4 py-4 bg-warning-50 | sm:px-6">
+                            <icon name="alert-triangle" class="h-6 w-6 flex-shrink-0 mr-3 text-warning-400"></icon>
+                            <span class="font-medium text-warning-600">No notes found</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <div v-if="notes.meta.total > 0" class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 | sm:px-6">
                 <pagination
-                    :links="notes.links"
-                    :meta="notes.meta"
-                    resource-label="note"
+                    :links="roles.links"
+                    :meta="roles.meta"
+                    resource-label="role"
                 ></pagination>
-            </template>
+            </div>
         </panel>
 
         <modal
@@ -94,20 +123,25 @@
             Are you sure you want to delete the <strong>{{ deletingItem.title }}</strong> note? This change is permanent and cannot be undone.
 
             <template #footer>
-                <button class="button" @click="hideModal">
-                    Cancel
-                </button>
-
                 <button
                     type="button"
-                    class="button button-danger ml-4"
+                    class="button button-danger | sm:ml-3"
+                    data-cy="delete-note"
                     @click="remove"
                 >
                     Delete Note
                 </button>
+
+                <button
+                    type="button"
+                    class="button mt-3 | sm:mt-0"
+                    @click="hideModal"
+                >
+                    Cancel
+                </button>
             </template>
         </modal>
-    </sidebar-layout>
+    </admin-layout>
 </template>
 
 <script>
@@ -116,10 +150,11 @@ import debounce from 'lodash/debounce';
 import SearchFilter from '@/Shared/SearchFilter';
 import ModalHelpers from '@/Utils/Mixins/ModalHelpers';
 import Pagination from '@/Shared/Pagination';
+import EmptyState from '@/Shared/EmptyState';
 
 export default {
     components: {
-        Pagination, SearchFilter
+        Pagination, SearchFilter, EmptyState
     },
 
     mixins: [ModalHelpers],
@@ -141,6 +176,12 @@ export default {
                 search: this.filters.search
             }
         };
+    },
+
+    computed: {
+        hasEmptyState () {
+            return this.search == null && this.notes.meta.total === 0;
+        }
     },
 
     watch: {

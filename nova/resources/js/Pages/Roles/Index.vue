@@ -13,7 +13,7 @@
         </page-header>
 
         <panel>
-            <div class="bg-white px-4 py-5 border-b border-gray-200 | sm:px-6">
+            <div class="bg-white px-4 py-5 | sm:px-6">
                 <div>
                     <label for="email" class="sr-only">Find a role</label>
                     <search-filter
@@ -29,7 +29,7 @@
                 <li
                     v-for="role in roles.data"
                     :key="role.id"
-                    class="border-t border-gray-200 first:border-t-0"
+                    class="border-t border-gray-200"
                 >
                     <div class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
                         <div class="px-4 py-4 flex items-center sm:px-6">
@@ -83,15 +83,17 @@
                                             <icon name="copy" class="dropdown-icon"></icon>
                                             Duplicate
                                         </button>
-                                        <button
-                                            v-if="role.can.delete"
-                                            class="dropdown-link-danger"
-                                            data-cy="delete"
-                                            @click.prevent="confirmRemove(role, toggle)"
-                                        >
-                                            <icon name="trash" class="dropdown-icon"></icon>
-                                            Delete
-                                        </button>
+                                        <template v-if="role.can.delete">
+                                            <div class="dropdown-divider"></div>
+                                            <button
+                                                class="dropdown-link-danger"
+                                                data-cy="delete"
+                                                @click.prevent="confirmRemove(role, toggle)"
+                                            >
+                                                <icon name="trash" class="dropdown-icon"></icon>
+                                                Delete
+                                            </button>
+                                        </template>
                                         <div v-if="role.locked">
                                             <div class="dropdown-divider"></div>
                                             <div class="dropdown-text italic">
@@ -104,9 +106,17 @@
                         </div>
                     </div>
                 </li>
+                <li v-if="roles.meta.total === 0" class="border-t border-warning-100">
+                    <div class="block focus:outline-none focus:bg-gray-50">
+                        <div class="flex items-center px-4 py-4 bg-warning-50 | sm:px-6">
+                            <icon name="alert-triangle" class="h-6 w-6 flex-shrink-0 mr-3 text-warning-400"></icon>
+                            <span class="font-medium text-warning-600">No roles found</span>
+                        </div>
+                    </div>
+                </li>
             </ul>
 
-            <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 | sm:px-6">
+            <div v-if="roles.meta.total > 0" class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 | sm:px-6">
                 <pagination
                     :links="roles.links"
                     :meta="roles.meta"
@@ -123,17 +133,21 @@
             Are you sure you want to delete the <strong>{{ deletingItem.display_name }}</strong> role? This change is permanent and cannot be undone. Any users who have been assigned the role will have all permissions defined by this role removed from their personal permissions.
 
             <template #footer>
-                <button class="button" @click="hideModal">
-                    Cancel
-                </button>
-
                 <button
                     type="button"
-                    class="button button-danger ml-4"
+                    class="button button-danger | sm:ml-3"
                     data-cy="delete-role"
                     @click="remove"
                 >
                     Delete Role
+                </button>
+
+                <button
+                    type="button"
+                    class="button mt-3 | sm:mt-0"
+                    @click="hideModal"
+                >
+                    Cancel
                 </button>
             </template>
         </modal>
