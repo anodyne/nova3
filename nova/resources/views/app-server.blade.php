@@ -9,11 +9,8 @@
 
     <title>{{ config('app.name', 'Nova NextGen') }}</title>
 
-    <link href="https://rsms.me/inter/inter.css" rel="stylesheet">
-    {{-- <link rel="dns-prefetch" href="//fonts.gstatic.com"> --}}
-    {{-- <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800,900" rel="stylesheet"> --}}
-
     <!-- Styles -->
+    <link href="https://rsms.me/inter/inter.css" rel="stylesheet">
     <link href="{{ asset('/dist/css/vendor.css') }}" rel="stylesheet">
     <link href="{{ asset('/dist/css/app.css') }}" rel="stylesheet">
 
