@@ -248,7 +248,7 @@
 
 <script>
 import Mousetrap from 'mousetrap';
-import Avatar from '@/Shared/Avatars/Avatar';
+import Avatar from '@/Shared/Avatar';
 
 export default {
     name: 'AdminLayout',

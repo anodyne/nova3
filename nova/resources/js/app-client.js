@@ -4,16 +4,13 @@ import store from './Store';
 
 import './global';
 import './components';
-import './directives';
 import './plugins';
 
 const app = document.getElementById('app');
 
-import Panel from '@/Shared/Panel';
 import MasterInertia from '@/Shared/MasterInertia';
 import AdminLayout from '@/Shared/Layouts/AdminLayout';
 
-Vue.component('panel', Panel);
 Vue.component('admin-layout', AdminLayout);
 
 new Vue({

@@ -44,8 +44,8 @@
 
 <script>
 import ModalHelpers from '@/Utils/Mixins/ModalHelpers';
-import Avatar from '@/Shared/Avatars/Avatar';
-import AvatarGroup from '@/Shared/Avatars/AvatarGroup';
+import Avatar from '@/Shared/Avatar';
+import AvatarGroup from '@/Shared/AvatarGroup';
 
 export default {
     components: { Avatar, AvatarGroup },

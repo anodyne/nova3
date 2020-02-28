@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import Avatar from '@/Shared/Avatars/Avatar';
+import Avatar from '@/Shared/Avatar';
 
 export default {
     name: 'AvatarGroup',

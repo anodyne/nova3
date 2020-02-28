@@ -153,7 +153,6 @@
 </template>
 
 <script>
-import Form from '@/Utils/Form';
 import LayoutPicker from '@/Shared/Pickers/LayoutPicker';
 import IconSetPicker from '@/Shared/Pickers/IconSetPicker';
 
@@ -172,7 +171,7 @@ export default {
 
     data () {
         return {
-            form: new Form({
+            form: {
                 name: this.theme.name,
                 credits: this.theme.credits,
                 layoutAuth: this.theme.layout_auth,
@@ -180,7 +179,7 @@ export default {
                 layoutPublic: this.theme.layout_public,
                 iconSet: this.theme.icon_set,
                 active: true
-            })
+            }
         };
     },
 

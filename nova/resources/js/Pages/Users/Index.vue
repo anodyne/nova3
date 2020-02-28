@@ -162,7 +162,7 @@
 <script>
 import pickBy from 'lodash/pickBy';
 import debounce from 'lodash/debounce';
-import Avatar from '@/Shared/Avatars/Avatar';
+import Avatar from '@/Shared/Avatar';
 import ModalHelpers from '@/Utils/Mixins/ModalHelpers';
 import SearchFilter from '@/Shared/SearchFilter';
 import Pagination from '@/Shared/Pagination';

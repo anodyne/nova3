@@ -184,7 +184,6 @@
 
 <script>
 import slug from 'slug';
-import Form from '@/Utils/Form';
 import LayoutPicker from '@/Shared/Pickers/LayoutPicker';
 import IconSetPicker from '@/Shared/Pickers/IconSetPicker';
 
@@ -196,7 +195,7 @@ export default {
 
     data () {
         return {
-            form: new Form({
+            form: {
                 name: '',
                 location: '',
                 credits: '',
@@ -205,7 +204,7 @@ export default {
                 layoutPublic: null,
                 iconSet: null,
                 variants: ''
-            }),
+            },
             suggestLocation: true
         };
     },

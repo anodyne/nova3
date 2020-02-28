@@ -212,7 +212,7 @@ import findIndex from 'lodash/findIndex';
 import debounce from 'lodash/debounce';
 import axios from '@/Utils/axios';
 import TagsInput from '@/Shared/TagsInput';
-import Avatar from '@/Shared/Avatars/Avatar';
+import Avatar from '@/Shared/Avatar';
 import Checkbox from '@/Shared/Forms/Checkbox';
 import RadioButton from '@/Shared/Forms/RadioButton';
 

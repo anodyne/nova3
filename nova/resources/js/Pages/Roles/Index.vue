@@ -160,7 +160,7 @@ import debounce from 'lodash/debounce';
 import SearchFilter from '@/Shared/SearchFilter';
 import ModalHelpers from '@/Utils/Mixins/ModalHelpers';
 import Pagination from '@/Shared/Pagination';
-import AvatarGroup from '@/Shared/Avatars/AvatarGroup';
+import AvatarGroup from '@/Shared/AvatarGroup';
 import pluralize from 'pluralize';
 
 export default {

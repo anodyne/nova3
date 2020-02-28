@@ -3,7 +3,6 @@ import store from './Store';
 
 import './global';
 import './components';
-import './directives';
 import './plugins';
 
 import ToasterOven from '@/Shared/Toasts/ToasterOven';

@@ -48,10 +48,6 @@ export default {
     mixins: [Toggleable],
 
     props: {
-        boundary: {
-            type: String,
-            default: 'scrollParent'
-        },
         placement: {
             type: String,
             default: 'bottom-start'
