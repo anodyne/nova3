@@ -1,12 +1,14 @@
 import Vue from 'vue';
 import { InertiaApp } from '@inertiajs/inertia-vue';
 import VueTippy from 'vue-tippy';
-import PortalVue from 'portal-vue';
+import VuePortal from '@linusborg/vue-simple-portal';
 import Toast from '@/Shared/Toasts';
 
 Vue.use(Toast);
 Vue.use(InertiaApp);
-Vue.use(PortalVue);
+Vue.use(VuePortal, {
+    selector: '#portal'
+});
 Vue.use(VueTippy, {
     arrow: true,
     arrowType: 'round',
