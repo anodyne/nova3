@@ -47,7 +47,7 @@
                 </template>
             </div>
 
-            <div v-if="links.length > 3" class="flex items-center border-l ml-4 pl-4">
+            <div v-if="links.length > 3" class="flex items-center border-l ml-4 pl-4 text-sm">
                 <p>Go to page</p>
 
                 <input
