@@ -28,16 +28,14 @@
                             field-id="display_name"
                             name="display_name"
                         >
-                            <div class="field-group">
-                                <input
-                                    id="display_name"
-                                    v-model="form.display_name"
-                                    type="text"
-                                    name="display_name"
-                                    class="field"
-                                    data-cy="display_name"
-                                >
-                            </div>
+                            <input
+                                id="display_name"
+                                v-model="form.display_name"
+                                type="text"
+                                name="display_name"
+                                class="form-field"
+                                data-cy="display_name"
+                            >
                         </form-field>
 
                         <form-field
@@ -45,17 +43,15 @@
                             field-id="name"
                             name="name"
                         >
-                            <div class="field-group">
-                                <input
-                                    id="name"
-                                    v-model="form.name"
-                                    type="text"
-                                    name="name"
-                                    class="field"
-                                    data-cy="name"
-                                    @change="suggestName = false"
-                                >
-                            </div>
+                            <input
+                                id="name"
+                                v-model="form.name"
+                                type="text"
+                                name="name"
+                                class="form-field"
+                                data-cy="name"
+                                @change="suggestName = false"
+                            >
                         </form-field>
                     </div>
                 </div>

@@ -43,7 +43,7 @@
                         field-id="avatar"
                         name="avatar"
                     >
-                        <avatar :image-url="user.avatar_url" size="xl"></avatar>
+                        <avatar :image-url="user.avatar_url" size="lg"></avatar>
                     </form-field>
                 </div>
             </div>

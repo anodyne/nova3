@@ -1,5 +1,5 @@
 <template>
-    <sidebar-layout>
+    <admin-layout>
         <page-header title="Roles">
             <inertia-link
                 v-if="roles.can.create"
@@ -12,98 +12,107 @@
             </inertia-link>
         </page-header>
 
-        <panel no-padding>
-            <template #header>
-                <search-filter
-                    v-model="form.search"
-                    class="w-1/2"
-                    placeholder="Find a role..."
-                    @reset="form.search = ''"
-                ></search-filter>
-            </template>
-
-            <div class="flex items-center justify-between w-full py-2 px-8 bg-gray-100 border-t border-b text-xs uppercase tracking-wide font-medium text-gray-600">
-                <div class="w-1/2">Role Name</div>
-                <div class="flex-auto">Assigned Users</div>
+        <panel>
+            <div class="bg-white px-4 py-5 border-b border-gray-200 | sm:px-6">
+                <div>
+                    <label for="email" class="sr-only">Find a role</label>
+                    <search-filter
+                        v-model="form.search"
+                        class="w-1/2"
+                        placeholder="Find a role..."
+                        @reset="form.search = ''"
+                    ></search-filter>
+                </div>
             </div>
 
-            <div v-if="roles.data.length === 0" class="flex items-center py-4 px-8 font-semibold border-b text-warning-700">
-                <icon name="alert-triangle" class="mr-3 flex-shrink-0 h-6 w-6"></icon>
-                <div>No roles found.</div>
-            </div>
-
-            <div
-                v-for="role in roles.data"
-                :key="role.id"
-                class="flex items-center justify-between w-full py-2 px-8 border-b"
-            >
-                <div class="w-1/2">
-                    {{ role.display_name }}
-                </div>
-
-                <div class="flex-auto leading-0">
-                    <avatar-group size="xs" :items="roleUsers(role)"></avatar-group>
-                </div>
-
-                <div class="flex-shrink">
-                    <dropdown placement="bottom-end">
-                        <icon name="more-horizontal" class="h-6 w-6"></icon>
-
-                        <template #dropdown="{ toggle }">
-                            <inertia-link
-                                v-if="role.can.view"
-                                :href="$route('roles.show', { role })"
-                                class="dropdown-link"
-                                data-cy="view"
-                            >
-                                <icon name="eye" class="dropdown-icon"></icon>
-                                View
-                            </inertia-link>
-                            <inertia-link
-                                v-if="role.can.update"
-                                :href="$route('roles.edit', { role })"
-                                class="dropdown-link"
-                                data-cy="edit"
-                            >
-                                <icon name="edit" class="dropdown-icon"></icon>
-                                Edit
-                            </inertia-link>
-                            <button
-                                v-if="role.can.duplicate"
-                                class="dropdown-link"
-                                data-cy="duplicate"
-                                @click.prevent="duplicate(role)"
-                            >
-                                <icon name="copy" class="dropdown-icon"></icon>
-                                Duplicate
-                            </button>
-                            <button
-                                v-if="role.can.delete"
-                                class="dropdown-link-danger"
-                                data-cy="delete"
-                                @click.prevent="confirmRemove(role, toggle)"
-                            >
-                                <icon name="trash" class="dropdown-icon"></icon>
-                                Delete
-                            </button>
-                            <div v-if="role.locked">
-                                <div class="dropdown-divider"></div>
-                                <div class="dropdown-text italic">
-                                    This role is locked and cannot be duplicated or deleted.
+            <ul>
+                <li
+                    v-for="role in roles.data"
+                    :key="role.id"
+                    class="border-t border-gray-200 first:border-t-0"
+                >
+                    <div class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
+                        <div class="px-4 py-4 flex items-center sm:px-6">
+                            <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
+                                <div>
+                                    <div class="leading-normal font-medium truncate">
+                                        {{ role.display_name }}
+                                    </div>
+                                    <div class="mt-2 flex">
+                                        <div class="flex items-center text-sm leading-5 text-gray-500">
+                                            <icon name="users" class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"></icon>
+                                            <span>
+                                                {{ role.usersCount }} assigned {{ userLabel(role.users) }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-4 flex-shrink-0 sm:mt-0">
+                                    <avatar-group size="xs" :items="roleUsers(role)"></avatar-group>
                                 </div>
                             </div>
-                        </template>
-                    </dropdown>
-                </div>
-            </div>
+                            <div class="ml-5 flex-shrink-0">
+                                <dropdown placement="bottom-end" class="text-gray-400 hover:text-gray-500">
+                                    <icon name="more-horizontal" class="h-6 w-6"></icon>
 
-            <template #footer>
+                                    <template #dropdown="{ toggle }">
+                                        <inertia-link
+                                            v-if="role.can.view"
+                                            :href="$route('roles.show', { role })"
+                                            class="dropdown-link"
+                                            data-cy="view"
+                                        >
+                                            <icon name="eye" class="dropdown-icon"></icon>
+                                            View
+                                        </inertia-link>
+                                        <inertia-link
+                                            v-if="role.can.update"
+                                            :href="$route('roles.edit', { role })"
+                                            class="dropdown-link"
+                                            data-cy="edit"
+                                        >
+                                            <icon name="edit" class="dropdown-icon"></icon>
+                                            Edit
+                                        </inertia-link>
+                                        <button
+                                            v-if="role.can.duplicate"
+                                            class="dropdown-link"
+                                            data-cy="duplicate"
+                                            @click.prevent="duplicate(role)"
+                                        >
+                                            <icon name="copy" class="dropdown-icon"></icon>
+                                            Duplicate
+                                        </button>
+                                        <button
+                                            v-if="role.can.delete"
+                                            class="dropdown-link-danger"
+                                            data-cy="delete"
+                                            @click.prevent="confirmRemove(role, toggle)"
+                                        >
+                                            <icon name="trash" class="dropdown-icon"></icon>
+                                            Delete
+                                        </button>
+                                        <div v-if="role.locked">
+                                            <div class="dropdown-divider"></div>
+                                            <div class="dropdown-text italic">
+                                                This role is locked and cannot be duplicated or deleted.
+                                            </div>
+                                        </div>
+                                    </template>
+                                </dropdown>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 | sm:px-6">
                 <pagination
                     :links="roles.links"
                     :meta="roles.meta"
                     resource-label="role"
                 ></pagination>
-            </template>
+            </div>
         </panel>
 
         <modal
@@ -128,7 +137,7 @@
                 </button>
             </template>
         </modal>
-    </sidebar-layout>
+    </admin-layout>
 </template>
 
 <script>
@@ -138,6 +147,7 @@ import SearchFilter from '@/Shared/SearchFilter';
 import ModalHelpers from '@/Utils/Mixins/ModalHelpers';
 import Pagination from '@/Shared/Pagination';
 import AvatarGroup from '@/Shared/Avatars/AvatarGroup';
+import pluralize from 'pluralize';
 
 export default {
     components: {
@@ -203,6 +213,10 @@ export default {
                 'image-url': user.avatar_url,
                 tooltip: user.name
             }));
+        },
+
+        userLabel (users) {
+            return pluralize('user', users.length);
         }
     }
 };

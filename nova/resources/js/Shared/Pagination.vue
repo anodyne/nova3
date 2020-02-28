@@ -1,7 +1,15 @@
 <template>
-    <div class="flex items-center justify-between w-full">
-        <div class="flex-shrink">
-            Showing {{ meta.from }} - {{ meta.to }} of {{ meta.total }} {{ label }}
+    <div class="flex-1 flex items-center | sm:justify-between">
+        <div class="hidden | sm:block">
+            <p class="text-sm leading-5 text-gray-700">
+                Showing
+                <span class="font-medium">{{ meta.from }}</span>
+                to
+                <span class="font-medium">{{ meta.to }}</span>
+                of
+                <span class="font-medium">{{ meta.total }}</span>
+                {{ label }}
+            </p>
         </div>
 
         <div class="flex items-center font-medium">
@@ -10,7 +18,7 @@
                     <div
                         v-if="link.url === null"
                         :key="key"
-                        class="flex items-center justify-center rounded mx-2px h-6 w-6 leading-none text-gray-400"
+                        class="flex items-center justify-center rounded mx-2px h-6 w-6 leading-none text-gray-400 text-sm"
                     >
                         <template v-if="link.label === 'Previous' || link.label === 'Next'">
                             <icon v-show="link.label === 'Previous'" name="chevron-left"></icon>
@@ -24,7 +32,7 @@
                     <inertia-link
                         v-else
                         :key="key"
-                        class="flex items-center justify-center cursor-pointer rounded mx-2px h-6 w-6 leading-none"
+                        class="flex items-center justify-center cursor-pointer rounded mx-2px h-6 w-6 leading-none text-sm"
                         :class="{ 'bg-gray-500 text-white': link.active, 'hover:bg-gray-300': !link.active }"
                         :href="link.url"
                     >
