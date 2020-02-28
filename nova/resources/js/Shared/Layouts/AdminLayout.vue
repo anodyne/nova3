@@ -43,6 +43,32 @@
                             <icon name="sidebar" class="mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-300 group-focus:text-gray-300 transition ease-in-out duration-150"></icon>
                             Manage
                         </inertia-link>
+
+                        <div class="ml-12 mb-2">
+                            <inertia-link
+                                :href="$route('roles.index')"
+                                class="flex items-center py-1 text-sm font-medium transition ease-in-out duration-150"
+                                :class="subnavStyle('roles.*')"
+                            >
+                                Roles
+                            </inertia-link>
+
+                            <inertia-link
+                                :href="$route('themes.index')"
+                                class="flex items-center py-1 text-sm font-medium transition ease-in-out duration-150"
+                                :class="subnavStyle('themes.*')"
+                            >
+                                Themes
+                            </inertia-link>
+
+                            <inertia-link
+                                :href="$route('users.index')"
+                                class="flex items-center py-1 text-sm font-medium transition ease-in-out duration-150"
+                                :class="subnavStyle('users.*')"
+                            >
+                                Users
+                            </inertia-link>
+                        </div>
                     </nav>
                 </div>
             </div>
@@ -217,9 +243,6 @@
                 </div>
             </main>
         </div>
-
-        <portal-target name="dropdown"></portal-target>
-        <portal-target name="modals"></portal-target>
     </div>
 </template>
 
