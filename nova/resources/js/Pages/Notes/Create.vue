@@ -1,5 +1,5 @@
 <template>
-    <sidebar-layout>
+    <admin-layout>
         <page-header title="Add Note">
             <template #pretitle>
                 <inertia-link :href="$route('notes.index')">Notes</inertia-link>
@@ -68,7 +68,7 @@
                 </div>
             </form>
         </panel>
-    </sidebar-layout>
+    </admin-layout>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-    <sidebar-layout>
+    <admin-layout>
         <page-header title="Add Theme">
             <template #pretitle>
                 <inertia-link :href="$route('themes.index')">Themes</inertia-link>
@@ -179,7 +179,7 @@
                 </div>
             </form>
         </panel>
-    </sidebar-layout>
+    </admin-layout>
 </template>
 
 <script>

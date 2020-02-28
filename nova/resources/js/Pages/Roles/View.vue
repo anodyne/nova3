@@ -1,5 +1,5 @@
 <template>
-    <sidebar-layout>
+    <admin-layout>
         <page-header :title="role.display_name">
             <template #pretitle>
                 <inertia-link :href="$route('roles.index')">Roles</inertia-link>
@@ -86,7 +86,7 @@
                 </inertia-link>
             </div>
         </section>
-    </sidebar-layout>
+    </admin-layout>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-    <sidebar-layout>
+    <admin-layout>
         <page-header title="Test Page"></page-header>
 
         <section class="panel">
@@ -39,7 +39,7 @@
                 <button class="button button-info button-text">.button-text info</button>
             </div>
         </section>
-    </sidebar-layout>
+    </admin-layout>
 </template>
 
 <script>

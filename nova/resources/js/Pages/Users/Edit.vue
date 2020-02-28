@@ -1,5 +1,5 @@
 <template>
-    <sidebar-layout>
+    <admin-layout>
         <page-header :title="user.name">
             <template #pretitle>
                 <inertia-link :href="$route('users.index')">Users</inertia-link>
@@ -204,7 +204,7 @@
                 </button>
             </div>
         </panel>
-    </sidebar-layout>
+    </admin-layout>
 </template>
 
 <script>
