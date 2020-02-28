@@ -23,6 +23,7 @@
         "spatie/laravel-html": "^2.21",
         "spatie/laravel-medialibrary": "^7.18",
         "spatie/laravel-model-states": "^1.0",
+        "staudenmeir/eloquent-eager-limit": "^1.4",
         "tightenco/ziggy": "^0.8"
     },
     "require-dev": {
