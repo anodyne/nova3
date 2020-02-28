@@ -1,5 +1,5 @@
 <template>
-    <sidebar-layout>
+    <admin-layout>
         <page-header title="Themes">
             <template v-if="themes.can.create" #controls>
                 <inertia-link :href="$route('themes.create')" class="button button-primary">
@@ -126,7 +126,7 @@
                 </button>
             </template>
         </modal>
-    </sidebar-layout>
+    </admin-layout>
 </template>
 
 <script>
