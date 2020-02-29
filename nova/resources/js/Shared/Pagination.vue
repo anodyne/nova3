@@ -12,13 +12,13 @@
             </p>
         </div>
 
-        <div class="flex items-center font-medium">
+        <div class="flex items-center">
             <div class="flex flex-wrap items-center font-medium">
                 <template v-for="(link, key) in links">
                     <div
                         v-if="link.url === null"
                         :key="key"
-                        class="flex items-center justify-center rounded mx-2px h-6 w-6 leading-none text-gray-400 text-sm"
+                        class="flex items-center justify-center rounded mx-2px h-6 w-6 leading-5 text-gray-400 text-sm"
                     >
                         <template v-if="link.label === 'Previous' || link.label === 'Next'">
                             <icon v-show="link.label === 'Previous'" name="chevron-left"></icon>
@@ -32,8 +32,8 @@
                     <inertia-link
                         v-else
                         :key="key"
-                        class="flex items-center justify-center cursor-pointer rounded mx-2px h-6 w-6 leading-none text-sm"
-                        :class="{ 'bg-gray-500 text-white': link.active, 'hover:bg-gray-300': !link.active }"
+                        class="flex items-center justify-center cursor-pointer rounded mx-2px h-6 w-6 leading-5 text-sm transition ease-in-out duration-150"
+                        :class="{ 'bg-gray-500 text-white': link.active, 'text-gray-600 hover:bg-gray-100 hover:text-gray-700': !link.active }"
                         :href="link.url"
                     >
                         <template v-if="link.label === 'Previous' || link.label === 'Next'">
@@ -47,18 +47,46 @@
                 </template>
             </div>
 
-            <div v-if="links.length > 3" class="flex items-center border-l ml-4 pl-4 text-sm">
-                <p>Go to page</p>
+            <div
+                v-if="links.length > 3"
+                class="flex items-center border-l ml-4 pl-4 text-sm"
+                @click="$refs.goToPage.focus()"
+            >
+                <div class="relative flex items-center rounded-md bg-gray-50 border border-gray-200 py-2 px-3 shadow-sm focus-within:bg-white focus-within:border-gray-300">
+                    <div class="flex-shrink-0 inset-y-0 flex items-center pointer-events-none">
+                        <span class="text-gray-500 text-sm leading-5">
+                            Go to page
+                        </span>
+                    </div>
+                    <input
+                        ref="goToPage"
+                        v-model="page"
+                        class="appearance-none block w-8 text-sm text-center leading-5 bg-transparent mx-2 focus:outline-none"
+                        :placeholder="meta.current_page + 1"
+                    >
+                    <div class="inset-y-0 flex items-center">
+                        <button
+                            class="h-full py-0 px-0 border-transparent bg-transparent text-gray-500 font-medium text-sm leading-5 transition ease-in-out duration-150"
+                            :class="{ 'text-gray-500 hover:text-gray-600': !page, 'text-primary-500 hover:text-primary-600': page }"
+                            @click.prevent="goToPage"
+                        >
+                            Go
+                        </button>
+                    </div>
+                </div>
+                <!-- <p>Go to page</p>
 
-                <input
-                    v-model="page"
-                    type="text"
-                    class="w-12 rounded border py-1 px-2 mx-2 text-center text-gray-700 outline-none focus:border-gray-400"
-                >
+                <div class="bg-gray-50 rounded-md border border-gray-200 px-2 py-1 leading-5 text-gray-700 focus-within:border-gray-300 focus-within:bg-white transition ease-in-out duration-150">
+                    <input
+                        v-model="page"
+                        type="text"
+                        class="w-12 appearance-none bg-transparent focus:outline-none"
+                    >
 
-                <button class="button button-text" @click.prevent="goToPage">
-                    Go
-                </button>
+                    <button class="ml-3" @click.prevent="goToPage">
+                        Go
+                    </button>
+                </div> -->
             </div>
         </div>
     </div>

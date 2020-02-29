@@ -46,10 +46,8 @@ class RoleController extends Controller
 
     public function show(Role $role)
     {
-        $role->load('permissions');
-
         return app(ViewRoleResponse::class)->with([
-            'role' => new RoleResource($role),
+            'role' => new RoleResource($role->load('permissions', 'users')),
         ]);
     }
 

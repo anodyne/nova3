@@ -54,47 +54,46 @@
 }
 
 .form-section {
-    @apply flex flex-col;
+    @apply flex flex-col px-4 pt-4;
 
-    > .form-section-column-content {
+    > .form-section-header {
         @apply mb-8 w-full;
 
-        > .form-section-header {
-            @apply font-semibold text-xl mb-2 text-gray-700 tracking-tight;
+        > .form-section-header-title {
+            @apply mb-2 font-semibold text-xl text-gray-700 tracking-tight;
         }
 
-        > .form-section-message {
+        > .form-section-header-message {
             @apply text-gray-600;
         }
     }
 
-    > .form-section-column-form {
+    > .form-section-content {
         @apply flex-1;
     }
 
-    + .form-section,
-    + .form-footer {
-        @apply pt-10 mt-10 border-t;
+    + .form-section {
+        @apply pt-10 mt-10 border-t border-gray-100;
     }
 }
 
-@screen lg {
+@screen md {
     .form-section {
-        @apply flex-row;
+        @apply flex-row px-6 pt-6;
 
-        > .form-section-column-content {
+        > .form-section-header {
             @apply w-96 mr-16 mb-0;
         }
     }
 }
 
 .form-footer {
-    @apply flex flex-col mt-10;
+    @apply flex flex-col mt-10 px-4 py-4 border-t border-gray-100;
 }
 
-@screen lg {
+@screen md {
     .form-footer {
-        @apply flex-row-reverse items-center;
+        @apply flex-row-reverse items-center px-6 py-6;
 
         button + button,
         button + a,

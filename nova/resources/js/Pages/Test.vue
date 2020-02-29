@@ -2,32 +2,46 @@
     <admin-layout>
         <page-header title="Test Page"></page-header>
 
-        <section class="panel">
-            <div class="my-6">
+        <panel>
+            <div class="px-6 py-6">
                 <button class="button">.button</button>
+
                 <button class="button button-soft">.button-soft</button>
             </div>
 
-            <div class="my-6">
+            <div class="px-6 py-6">
                 <button class="button button-primary">.button-primary</button>
-                <button class="button button-success">.button-success</button>
-                <button class="button button-warning">.button-warning</button>
+
                 <button class="button button-danger">.button-danger</button>
-                <button class="button button-info">.button-info</button>
             </div>
 
-            <div class="my-6">
+            <div class="px-6 py-6">
                 <button class="button button-primary-soft">.button-primary-soft</button>
-                <button class="button button-success-soft">.button-success-soft</button>
+
                 <button class="button button-warning-soft">.button-warning-soft</button>
+
                 <button class="button button-danger-soft">.button-danger-soft</button>
-                <button class="button button-info-soft">.button-info-soft</button>
             </div>
 
-            <div class="my-6">
-                <button class="button button-primary button-small">.button-small</button>
+            <div class="px-6 py-6">
+                <button class="button button-primary button-sm">.button-sm</button>
                 <button class="button button-primary">.button</button>
-                <button class="button button-primary button-large">.button-large</button>
+                <button class="button button-primary button-lg">.button-lg</button>
+            </div>
+
+            <div class="px-6 py-6">
+                <button class="button button-primary button-sm">
+                    <icon name="activity"></icon>
+                    .button-sm
+                </button>
+                <button class="button button-primary">
+                    <icon name="activity"></icon>
+                    .button
+                </button>
+                <button class="button button-primary button-lg">
+                    <icon name="activity"></icon>
+                    .button-lg
+                </button>
             </div>
 
             <div class="my-6">
@@ -38,7 +52,7 @@
                 <button class="button button-danger button-text">.button-text danger</button>
                 <button class="button button-info button-text">.button-text info</button>
             </div>
-        </section>
+        </panel>
     </admin-layout>
 </template>
 

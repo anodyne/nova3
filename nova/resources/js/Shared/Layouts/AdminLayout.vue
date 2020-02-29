@@ -146,10 +146,10 @@
 
         <div class="flex flex-col w-0 flex-1 overflow-hidden">
             <div class="relative z-10 flex-shrink-0 flex h-16 bg-white shadow">
-                <button class="px-4 border-r border-gray-200 text-gray-500 focus:outline-none focus:bg-gray-100 focus:text-gray-600 md:hidden" @click.stop="sidebarOpen = true">
+                <button class="px-4 border-r border-gray-200 text-gray-500 focus:outline-none focus:bg-gray-100 focus:text-gray-600 | md:hidden" @click.stop="sidebarOpen = true">
                     <icon name="menu" class="h-6 w-6"></icon>
                 </button>
-                <div class="flex-1 px-4 flex justify-between">
+                <div class="flex-1 px-4 flex justify-between | md:px-6">
                     <div class="flex-1 flex">
                         <div class="w-full flex md:ml-0">
                             <label for="search_field" class="sr-only">Search</label>
@@ -238,7 +238,7 @@
                 x-data
                 x-init="$el.focus()"
             >
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+                <div class="max-w-5xl mx-auto px-4 sm:px-6 md:px-8">
                     <slot></slot>
                 </div>
             </main>

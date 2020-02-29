@@ -1,186 +1,92 @@
 .button {
-    @apply inline-flex items-center justify-center w-full relative h-10 leading-none px-4 rounded text-center no-underline font-semibold text-sm uppercase tracking-wide transition-colors duration-200 uppercase tracking-wide bg-white text-gray-600 cursor-pointer border whitespace-no-wrap;
+    @apply inline-flex items-center px-4 py-2 border border-gray-200 text-sm uppercase tracking-wide leading-5 font-semibold rounded-md text-gray-500 bg-white transition ease-in-out duration-150;
 
-    &:focus,
+    &:hover {
+        @apply text-gray-600 bg-gray-100;
+    }
+
     &:active {
+        @apply text-gray-700 bg-gray-100;
+    }
+
+    &:focus {
         @apply outline-none;
     }
 
-    &:hover {
-        @apply bg-gray-300 text-gray-700;
-    }
-
-    > .svg-icon {
-        @apply h-5 w-5 mr-2 leading-0;
+    > svg.icon {
+        @apply mr-2 h-5 w-5;
     }
 
     &.button-soft {
-        @apply bg-gray-200 text-gray-600 border-transparent;
+        @apply text-gray-600 bg-gray-100 border-transparent;
 
         &:hover {
-            @apply bg-gray-300 text-gray-700 border-transparent;
+            @apply text-gray-700 bg-gray-200 border-transparent;
+        }
+
+        &:active {
+            @apply text-gray-800 bg-gray-200 border-transparent;
         }
     }
 
     &.button-primary {
-        @apply bg-primary-500 text-white border-transparent;
+        @apply text-white bg-primary-500 border-transparent;
 
-        &:hover {
-            @apply bg-primary-600 text-white border-transparent;
+        &:hover,
+        &:active {
+            @apply text-white bg-primary-400 border-transparent;
         }
     }
 
     &.button-primary-soft {
-        @apply bg-primary-100 text-primary-600 border-transparent;
+        @apply text-primary-700 bg-primary-100 border-transparent;
 
-        &:hover {
-            @apply bg-primary-200 text-primary-700 border-transparent;
-        }
-    }
-
-    &.button-success {
-        @apply bg-success-500 text-white border-transparent;
-
-        &:hover {
-            @apply bg-success-600 text-white border-transparent;
-        }
-    }
-
-    &.button-success-soft {
-        @apply bg-success-200 text-success-700 border-transparent;
-
-        &:hover {
-            @apply bg-success-300 text-success-800 border-transparent;
-        }
-    }
-
-    &.button-info {
-        @apply bg-info-500 text-white border-transparent;
-
-        &:hover {
-            @apply bg-info-600 text-white border-transparent;
-        }
-    }
-
-    &.button-info-soft {
-        @apply bg-info-200 text-info-700 border-transparent;
-
-        &:hover {
-            @apply bg-info-300 text-info-800 border-transparent;
-        }
-    }
-
-    &.button-warning {
-        @apply bg-warning-700 text-white border-transparent;
-
-        &:hover {
-            @apply bg-warning-800 text-white border-transparent;
+        &:hover,
+        &:active {
+            @apply text-primary-700 bg-primary-50 border-transparent;
         }
     }
 
     &.button-warning-soft {
-        @apply bg-warning-300 text-warning-900 border-transparent;
+        @apply text-warning-600 bg-warning-100 border-transparent;
 
-        &:hover {
-            @apply bg-warning-400 text-warning-900 border-transparent;
+        &:hover,
+        &:active {
+            @apply text-warning-700 bg-warning-200 border-transparent;
         }
     }
 
     &.button-danger {
-        @apply bg-danger-500 text-white border-transparent;
+        @apply text-white bg-danger-500 border-transparent;
 
-        &:hover {
-            @apply bg-danger-600 text-white border-transparent;
+        &:hover,
+        &:active {
+            @apply text-white bg-danger-400 border-transparent;
         }
     }
 
     &.button-danger-soft {
-        @apply bg-danger-200 text-danger-700 border-transparent;
+        @apply text-danger-600 bg-danger-100 border-transparent;
 
-        &:hover {
-            @apply bg-danger-300 text-danger-800 border-transparent;
+        &:hover,
+        &:active {
+            @apply text-danger-700 bg-danger-200 border-transparent;
         }
     }
 
-    &.button-text {
-        @apply px-0 h-auto text-gray-700 border-none normal-case;
+    &.button-sm {
+        @apply px-3 py-2 leading-4;
 
-        &:hover {
-            @apply text-gray-800 bg-transparent;
-        }
-
-        &.button-soft {
-            @apply text-gray-600 bg-transparent;
-
-            &:hover {
-                @apply text-gray-700 bg-transparent;
-            }
-        }
-
-        &.button-primary {
-            @apply text-primary-600 bg-transparent;
-
-            &:hover {
-                @apply text-primary-700 bg-transparent;
-            }
-        }
-
-        &.button-success {
-            @apply text-success-600 bg-transparent;
-
-            &:hover {
-                @apply text-success-700 bg-transparent;
-            }
-        }
-
-        &.button-warning {
-            @apply text-warning-600 bg-transparent;
-
-            &:hover {
-                @apply text-warning-700 bg-transparent;
-            }
-        }
-
-        &.button-danger {
-            @apply text-danger-600 bg-transparent;
-
-            &:hover {
-                @apply text-danger-700 bg-transparent;
-            }
-        }
-
-        &.button-info {
-            @apply text-info-600 bg-transparent;
-
-            &:hover {
-                @apply text-info-700 bg-transparent;
-            }
+        > svg.icon {
+            @apply mr-2 h-4 w-4;
         }
     }
 
-    &.button-small {
-        @apply px-2 h-8 text-xs;
+    &.button-lg {
+        @apply leading-6 text-base;
 
-        > .svg-icon {
-            @apply h-4 w-4;
+        > svg.icon {
+            @apply mr-3 h-6 w-6;
         }
-    }
-
-    &.button-large {
-        @apply px-6 h-12 text-lg;
-
-        > .svg-icon {
-            @apply h-8 w-8 mr-3;
-        }
-    }
-}
-
-button:focus {
-    @apply outline-none;
-}
-
-@screen sm {
-    .button {
-        @apply w-auto;
     }
 }

@@ -17,15 +17,15 @@
                 <csrf-token></csrf-token>
 
                 <div class="form-section">
-                    <div class="form-section-column-content">
-                        <div class="form-section-header">User info</div>
+                    <div class="form-section-header">
+                        <div class="form-section-header-title">User info</div>
 
-                        <p class="form-section-message mb-6">For privacy reasons, we don't recommend using a user's real name. Instead, use a nickname to help protect their identity.</p>
+                        <p class="form-section-header-message mb-6">For privacy reasons, we don't recommend using a user's real name. Instead, use a nickname to help protect their identity.</p>
 
-                        <p class="form-section-message"><strong class="font-semibold">Note:</strong> after the account is created, a password will be generated and emailed to the new user.</p>
+                        <p class="form-section-header-message"><strong class="font-semibold">Note:</strong> after the account is created, a password will be generated and emailed to the new user.</p>
                     </div>
 
-                    <div class="form-section-column-form">
+                    <div class="form-section-content">
                         <form-field
                             label="Name"
                             field-id="name"
@@ -95,20 +95,20 @@
                 </div>
 
                 <div class="form-section">
-                    <div class="form-section-column-content">
-                        <div class="form-section-header">Roles</div>
+                    <div class="form-section-header">
+                        <div class="form-section-header-title">Roles</div>
 
-                        <p class="form-section-message">Roles are made up of the actions a user can take throughout Nova. A user can be assigned as many roles as you'd like to give you more granular control over the actions they can perform.</p>
+                        <p class="form-section-header-message">Roles are made up of the actions a user can take throughout Nova. A user can be assigned as many roles as you'd like to give you more granular control over the actions they can perform.</p>
 
                         <inertia-link
                             :href="$route('roles.index')"
-                            class="button button-primary button-text mt-6"
+                            class="button button-soft button-sm mt-6"
                         >
                             Manage roles
                         </inertia-link>
                     </div>
 
-                    <div class="form-section-column-form">
+                    <div class="form-section-content">
                         <form-field label="Assign Role(s)">
                             <tags-input
                                 v-model="roles.added"
