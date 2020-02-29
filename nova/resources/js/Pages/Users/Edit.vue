@@ -158,7 +158,11 @@
                         <div class="form-section-header-title">Roles</div>
                         <p class="form-section-header-message">Roles are made up of the actions a user can take throughout Nova. A user can be assigned as many roles as you'd like to give you more granular control over the actions they can perform.</p>
 
-                        <inertia-link :href="$route('roles.index')" class="button button-soft button-sm mt-6">
+                        <inertia-link
+                            v-if="user.can.manageRoles"
+                            :href="$route('roles.index')"
+                            class="button button-soft button-sm mt-6"
+                        >
                             Manage roles
                         </inertia-link>
                     </div>
