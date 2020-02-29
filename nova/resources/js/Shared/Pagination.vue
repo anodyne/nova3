@@ -17,9 +17,9 @@
         </div>
 
         <div class="flex | sm:hidden">
-            <template v-for="(link, key) in links">
+            <template v-for="(link, key) in mobileLinks">
                 <div
-                    v-if="link.url === null"
+                    v-if="link.url == null"
                     :key="key"
                     class="button opacity-75 ml-3"
                 >
@@ -27,7 +27,7 @@
                 </div>
 
                 <inertia-link
-                    v-if="link.url !== null && link.label === 'Previous' || link.label === 'Next'"
+                    v-if="link.url != null"
                     :key="key"
                     class="button ml-3"
                     :href="link.url"
@@ -147,6 +147,10 @@ export default {
     computed: {
         label () {
             return pluralize(this.resourceLabel, this.meta.total);
+        },
+
+        mobileLinks () {
+            return this.links.filter(link => link.label === 'Previous' || link.label === 'Next');
         }
     },
 
