@@ -1,7 +1,7 @@
 <template>
-    <div class="flex-1 flex items-center | sm:justify-between">
-        <div class="hidden | sm:block">
-            <p class="text-sm leading-5 text-gray-700">
+    <div class="flex-1 flex items-center justify-between">
+        <div>
+            <p class="hidden text-sm leading-5 text-gray-700 | sm:block">
                 Showing
                 <span class="font-medium">{{ meta.from }}</span>
                 to
@@ -10,9 +10,34 @@
                 <span class="font-medium">{{ meta.total }}</span>
                 {{ label }}
             </p>
+            <p class="block | sm:hidden">
+                <span class="font-medium">{{ meta.from }}</span>-<span class="font-medium">{{ meta.to }}</span>
+                of <span class="font-medium">{{ meta.total }}</span> {{ label }}
+            </p>
         </div>
 
-        <div class="flex items-center">
+        <div class="flex | sm:hidden">
+            <template v-for="(link, key) in links">
+                <div
+                    v-if="link.url === null"
+                    :key="key"
+                    class="button opacity-75 ml-3"
+                >
+                    {{ link.label }}
+                </div>
+
+                <inertia-link
+                    v-if="link.url !== null && link.label === 'Previous' || link.label === 'Next'"
+                    :key="key"
+                    class="button ml-3"
+                    :href="link.url"
+                >
+                    {{ link.label }}
+                </inertia-link>
+            </template>
+        </div>
+
+        <div class="hidden | sm:flex sm:items-center">
             <div class="flex flex-wrap items-center font-medium">
                 <template v-for="(link, key) in links">
                     <div
@@ -49,7 +74,7 @@
 
             <div
                 v-if="links.length > 3"
-                class="flex items-center border-l ml-4 pl-4 text-sm"
+                class="hidden items-center border-l ml-4 pl-4 text-sm | sm:flex"
                 @click="$refs.goToPage.focus()"
             >
                 <div class="relative flex items-center rounded-md bg-gray-50 border border-gray-200 py-2 px-3 shadow-sm focus-within:bg-white focus-within:border-gray-300">
