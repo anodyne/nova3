@@ -54,10 +54,10 @@
                                                 Last activity&nbsp;
                                                 <time datetime="2020-01-07">January 7, 2020</time>
                                             </div>
-                                            <div class="mt-2 flex items-center text-sm leading-5 text-gray-500">
+                                            <div v-if="user.lastLogin != null" class="mt-2 flex items-center text-sm leading-5 text-gray-500">
                                                 <icon name="log-in" class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"></icon>
                                                 Last signed in&nbsp;
-                                                <time datetime="2020-01-06">January 6, 2020</time>
+                                                <time :datetime="user.lastLoginSimple">{{ user.lastLogin }}</time>
                                             </div>
                                         </div>
                                     </div>
