@@ -28,14 +28,16 @@
                             field-id="display_name"
                             name="display_name"
                         >
-                            <input
-                                id="display_name"
-                                v-model="form.display_name"
-                                type="text"
-                                name="display_name"
-                                class="field"
-                                data-cy="display_name"
-                            >
+                            <div class="field-group">
+                                <input
+                                    id="display_name"
+                                    v-model="form.display_name"
+                                    type="text"
+                                    name="display_name"
+                                    class="field"
+                                    data-cy="display_name"
+                                >
+                            </div>
                         </form-field>
 
                         <form-field
@@ -43,15 +45,17 @@
                             field-id="name"
                             name="name"
                         >
-                            <input
-                                id="name"
-                                v-model="form.name"
-                                type="text"
-                                name="name"
-                                class="field"
-                                data-cy="name"
-                                @change="suggestName = false"
-                            >
+                            <div class="field-group">
+                                <input
+                                    id="name"
+                                    v-model="form.name"
+                                    type="text"
+                                    name="name"
+                                    class="field"
+                                    data-cy="name"
+                                    @change="suggestName = false"
+                                >
+                            </div>
                         </form-field>
                     </div>
                 </div>

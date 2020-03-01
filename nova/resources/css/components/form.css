@@ -5,10 +5,10 @@
 }
 
 .field-group {
-    @apply flex items-center relative w-full bg-transparent px-3 py-2 rounded transition-colors duration-200 border-2 bg-gray-100;
+    @apply flex items-center relative w-full bg-transparent py-2 px-3 rounded-md border border-gray-200 bg-gray-50 shadow-sm transition ease-in-out duration-200;
 
     &:focus-within {
-        @apply border-primary-500 bg-white;
+        @apply border-primary-300 bg-white shadow-outline-primary;
     }
 
     &.static {
@@ -45,7 +45,7 @@
 }
 
 .field-label {
-    @apply flex items-center justify-between mb-1 text-sm text-gray-600 font-medium;
+    @apply block mb-1 text-sm text-gray-700 font-medium;
 }
 
 .field-help,
@@ -106,16 +106,20 @@
 
 .field-wrapper.has-error {
     .field-label {
-        @apply text-danger-500;
+        @apply text-danger-600;
     }
 
     .field-group {
-        @apply border-danger-500;
+        @apply border-danger-300;
+
+        &:focus-within {
+            @apply border-danger-300 bg-white shadow-outline-danger;
+        }
     }
 }
 
 .field-error {
-    @apply text-danger-500;
+    @apply text-danger-600;
 }
 
 .form-checkbox {

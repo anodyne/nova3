@@ -7,29 +7,8 @@
         </page-header>
 
         <panel>
-            <div class="form-section">
-                <div class="form-section-column-content">
-                    <div class="form-section-header">Role info</div>
-                    <p class="form-section-message">A role is a collection of permissions that allows a user to take certain actions throughout Nova. Since a user can have as many roles as you'd like, we recommend creating roles with fewer permissions to give yourself more freedom to add and remove access for a given user.</p>
-                </div>
-
-                <div class="form-section-column-form">
-                    <form-field
-                        label="Title"
-                        field-id="title"
-                        name="title"
-                    >
-                        <p class="font-semibold">{{ note.title }}</p>
-                    </form-field>
-
-                    <form-field
-                        label="Content"
-                        field-id="content"
-                        name="content"
-                    >
-                        <p>{{ note.content }}</p>
-                    </form-field>
-                </div>
+            <div class="pt-4 px-4 | md:pt-6 md:px-6">
+                {{ note.content }}
             </div>
 
             <div class="form-footer">

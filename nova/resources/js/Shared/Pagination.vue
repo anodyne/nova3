@@ -99,19 +99,6 @@
                         </button>
                     </div>
                 </div>
-                <!-- <p>Go to page</p>
-
-                <div class="bg-gray-50 rounded-md border border-gray-200 px-2 py-1 leading-5 text-gray-700 focus-within:border-gray-300 focus-within:bg-white transition ease-in-out duration-150">
-                    <input
-                        v-model="page"
-                        type="text"
-                        class="w-12 appearance-none bg-transparent focus:outline-none"
-                    >
-
-                    <button class="ml-3" @click.prevent="goToPage">
-                        Go
-                    </button>
-                </div> -->
             </div>
         </div>
     </div>

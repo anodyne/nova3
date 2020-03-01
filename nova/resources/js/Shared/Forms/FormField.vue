@@ -1,8 +1,12 @@
 <template>
     <div class="field-wrapper" :class="styles.errors">
-        <div v-if="hasLabel" class="field-label">
-            <label :for="fieldId">{{ label }}</label>
-        </div>
+        <label
+            class="field-label"
+            :class="{ 'sr-only': !hasLabel }"
+            :for="fieldId"
+        >
+            {{ label }}
+        </label>
 
         <slot></slot>
 

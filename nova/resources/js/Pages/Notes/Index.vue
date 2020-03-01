@@ -46,14 +46,6 @@
                                     <div class="leading-normal font-medium truncate">
                                         {{ note.title }}
                                     </div>
-                                    <div class="mt-2 flex">
-                                        <div class="flex items-center text-sm leading-5 text-gray-500">
-                                            <icon name="users" class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"></icon>
-                                            <span>
-                                                Foo
-                                            </span>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                             <div class="ml-5 flex-shrink-0">
@@ -108,8 +100,8 @@
 
             <div v-if="notes.meta.total > 0" class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 | sm:px-6">
                 <pagination
-                    :links="roles.links"
-                    :meta="roles.meta"
+                    :links="notes.links"
+                    :meta="notes.meta"
                     resource-label="role"
                 ></pagination>
             </div>
