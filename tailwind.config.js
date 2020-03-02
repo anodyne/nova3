@@ -30,6 +30,9 @@ module.exports = {
             lineHeight: {
                 0: 0
             },
+            opacity: {
+                95: '.95'
+            },
             spacing: {
                 '2px': '2px'
             },

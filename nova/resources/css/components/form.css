@@ -24,7 +24,7 @@
     }
 
     .field-addon {
-        @apply flex-shrink text-gray-500;
+        @apply flex items-center flex-shrink-0 text-gray-500 text-sm;
     }
 
     a.field-addon,
@@ -36,11 +36,15 @@
         &:hover {
             @apply text-gray-600;
         }
+
+        &:focus {
+            @apply outline-none;
+        }
     }
 
     .field + .field-addon,
     .field-addon + .field {
-        @apply ml-3;
+        @apply ml-2;
     }
 }
 
@@ -50,7 +54,7 @@
 
 .field-help,
 .field-error {
-    @apply block w-full relative mt-1 ml-2px text-sm text-gray-600;
+    @apply block w-full relative mt-2 ml-2px text-sm text-gray-500;
 }
 
 .form-section {
@@ -119,7 +123,11 @@
 }
 
 .field-error {
-    @apply text-danger-600;
+    @apply flex items-center text-danger-600;
+
+    > svg.icon {
+        @apply mr-1 h-5 w-5 flex-shrink-0 text-danger-400;
+    }
 }
 
 .form-checkbox {
