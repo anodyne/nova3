@@ -48,30 +48,30 @@
                                 <dropdown placement="bottom-end" class="text-gray-400 hover:text-gray-500">
                                     <icon name="more-horizontal" class="h-6 w-6"></icon>
 
-                                    <template #dropdown="{ toggle }">
+                                    <template #dropdown="{ toggle, styles }">
                                         <inertia-link
                                             v-if="themes.can.view"
                                             :href="$route('themes.show', { theme })"
-                                            class="dropdown-link"
+                                            :class="styles.link"
                                         >
-                                            <icon name="eye" class="dropdown-icon"></icon>
+                                            <icon name="eye" :class="styles.icon"></icon>
                                             View
                                         </inertia-link>
                                         <inertia-link
                                             v-if="themes.can.update"
                                             :href="$route('themes.edit', { theme })"
-                                            class="dropdown-link"
+                                            :class="styles.link"
                                         >
-                                            <icon name="edit" class="dropdown-icon"></icon>
+                                            <icon name="edit" :class="styles.icon"></icon>
                                             Edit
                                         </inertia-link>
                                         <template v-if="themes.can.delete">
-                                            <div class="dropdown-divider"></div>
+                                            <div :class="styles.divider"></div>
                                             <button
-                                                class="dropdown-link-danger"
+                                                :class="styles.dangerLink"
                                                 @click.prevent="confirmRemove(theme, toggle)"
                                             >
-                                                <icon name="delete" class="dropdown-icon"></icon>
+                                                <icon name="trash" :class="styles.dangerIcon"></icon>
                                                 Delete
                                             </button>
                                         </template>
@@ -180,9 +180,9 @@ export default {
     },
 
     methods: {
-        confirmRemove (role, toggle) {
+        confirmRemove (theme, toggle) {
             toggle();
-            this.showModal(role);
+            this.showModal(theme);
         },
 
         refreshThemesList: debounce(function () {
@@ -194,18 +194,9 @@ export default {
         }, 250),
 
         remove () {
-            this.form.delete({
-                url: this.$route('themes.destroy', { theme: this.deletingItem }),
-                then: (data) => {
-                    const index = findIndex(this.installedThemes, { id: data.id });
-
-                    this.$toast
-                        .message(`${this.installedThemes[index].name} theme was removed.`)
-                        .success();
-
-                    this.installedThemes.splice(index, 1);
-                }
-            });
+            this.$inertia.delete(
+                this.$route('themes.destroy', { theme: this.deletingItem })
+            );
         }
     }
 };

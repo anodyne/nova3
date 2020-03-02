@@ -28,16 +28,14 @@
                             field-id="title"
                             name="title"
                         >
-                            <div class="field-group">
-                                <input
-                                    id="title"
-                                    v-model="form.title"
-                                    type="text"
-                                    name="title"
-                                    class="field"
-                                    data-cy="title"
-                                >
-                            </div>
+                            <input
+                                id="title"
+                                v-model="form.title"
+                                type="text"
+                                name="title"
+                                class="field"
+                                data-cy="title"
+                            >
                         </form-field>
 
                         <form-field
@@ -45,16 +43,14 @@
                             field-id="content"
                             name="content"
                         >
-                            <div class="field-group">
-                                <textarea
-                                    id="content"
-                                    v-model="form.content"
-                                    name="content"
-                                    class="field"
-                                    rows="20"
-                                    data-cy="content"
-                                ></textarea>
-                            </div>
+                            <textarea
+                                id="content"
+                                v-model="form.content"
+                                name="content"
+                                class="field"
+                                rows="20"
+                                data-cy="content"
+                            ></textarea>
                         </form-field>
                     </div>
                 </div>

@@ -19,7 +19,9 @@
                         field-id="name"
                         name="name"
                     >
-                        <p class="font-semibold">{{ user.name }}</p>
+                        <template #clean>
+                            <p class="font-semibold">{{ user.name }}</p>
+                        </template>
                     </form-field>
 
                     <form-field
@@ -27,7 +29,9 @@
                         field-id="email"
                         name="email"
                     >
-                        <p class="font-semibold">{{ user.email }}</p>
+                        <template #clean>
+                            <p class="font-semibold">{{ user.email }}</p>
+                        </template>
                     </form-field>
 
                     <form-field
@@ -35,7 +39,9 @@
                         field-id="pronouns"
                         name="pronouns"
                     >
-                        <p class="font-semibold">{{ user.pronouns }}</p>
+                        <template #clean>
+                            <p class="font-semibold">{{ user.pronouns }}</p>
+                        </template>
                     </form-field>
 
                     <form-field
@@ -43,7 +49,9 @@
                         field-id="avatar"
                         name="avatar"
                     >
-                        <avatar :image-url="user.avatar_url" size="lg"></avatar>
+                        <template #clean>
+                            <avatar :image-url="user.avatar_url" size="lg"></avatar>
+                        </template>
                     </form-field>
                 </div>
             </div>

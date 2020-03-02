@@ -177,25 +177,25 @@
                             <dropdown placement="bottom-end">
                                 <avatar size="xs" :image-url="$page.auth.user.avatar_url"></avatar>
 
-                                <template #dropdown>
-                                    <a href="#" class="dropdown-link">
-                                        <icon name="user" class="dropdown-icon"></icon>
+                                <template #dropdown="{ styles }">
+                                    <a href="#" :class="styles.link">
+                                        <icon name="user" :class="styles.icon"></icon>
                                         My Account
                                     </a>
 
-                                    <a href="#" class="dropdown-link">
-                                        <icon name="users" class="dropdown-icon"></icon>
+                                    <a href="#" :class="styles.link">
+                                        <icon name="users" :class="styles.icon"></icon>
                                         My Characters
                                     </a>
 
-                                    <div class="dropdown-divider"></div>
+                                    <div :class="styles.divider"></div>
 
                                     <a
                                         :href="$route('logout')"
-                                        class="dropdown-link"
+                                        :class="styles.link"
                                         onclick="event.preventDefault();document.getElementById('logout-form').submit();"
                                     >
-                                        <icon name="log-out" class="dropdown-icon"></icon>
+                                        <icon name="log-out" :class="styles.icon"></icon>
                                         Log out
                                     </a>
                                     <form
@@ -208,25 +208,6 @@
                                     </form>
                                 </template>
                             </dropdown>
-
-                            <!-- <div>
-                                <button class="max-w-xs flex items-center text-sm rounded-full focus:outline-none focus:shadow-outline" @click="open = !open">
-                                    <img
-                                        class="h-8 w-8 rounded-full"
-                                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                        alt=""
-                                    >
-                                </button>
-                            </div>
-                            <div
-                                class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg"
-                            >
-                                <div class="py-1 rounded-md bg-white shadow-xs">
-                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150">Your Profile</a>
-                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150">Settings</a>
-                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150">Sign out</a>
-                                </div>
-                            </div> -->
                         </div>
                     </div>
                 </div>

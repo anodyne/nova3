@@ -53,7 +53,9 @@ class UserController extends Controller
 
     public function create()
     {
-        return app(CreateUserResponse::class);
+        return app(CreateUserResponse::class)->with([
+            'user' => new UserResource(auth()->user()),
+        ]);
     }
 
     public function store(ValidateStoreUser $request, CreateUser $action)

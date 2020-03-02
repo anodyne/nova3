@@ -52,34 +52,34 @@
                                 <dropdown placement="bottom-end" class="text-gray-400 hover:text-gray-500">
                                     <icon name="more-horizontal" class="h-6 w-6"></icon>
 
-                                    <template #dropdown="{ toggle }">
+                                    <template #dropdown="{ toggle, styles }">
                                         <inertia-link
                                             :href="$route('notes.show', { note })"
-                                            class="dropdown-link"
+                                            :class="styles.link"
                                         >
-                                            <icon name="eye" class="dropdown-icon"></icon>
+                                            <icon name="eye" :class="styles.icon"></icon>
                                             View
                                         </inertia-link>
                                         <inertia-link
                                             :href="$route('notes.edit', { note })"
-                                            class="dropdown-link"
+                                            :class="styles.link"
                                         >
-                                            <icon name="edit" class="dropdown-icon"></icon>
+                                            <icon name="edit" :class="styles.icon"></icon>
                                             Edit
                                         </inertia-link>
                                         <button
-                                            class="dropdown-link"
+                                            :class="styles.link"
                                             @click.prevent="duplicate(note)"
                                         >
-                                            <icon name="copy" class="dropdown-icon"></icon>
+                                            <icon name="copy" :class="styles.icon"></icon>
                                             Duplicate
                                         </button>
-                                        <div class="dropdown-divider"></div>
+                                        <div :class="styles.divider"></div>
                                         <button
-                                            class="dropdown-link-danger"
+                                            :class="styles.dangerLink"
                                             @click.prevent="confirmRemove(note, toggle)"
                                         >
-                                            <icon name="trash" class="dropdown-icon"></icon>
+                                            <icon name="trash" :class="styles.dangerIcon"></icon>
                                             Delete
                                         </button>
                                     </template>

@@ -19,9 +19,7 @@
                 <div class="form-section">
                     <div class="form-section-header">
                         <div class="form-section-header-title">User info</div>
-
                         <p class="form-section-header-message mb-6">For privacy reasons, we don't recommend using a user's real name. Instead, use a nickname to help protect their identity.</p>
-
                         <p class="form-section-header-message"><strong class="font-semibold">Note:</strong> after the account is created, a password will be generated and emailed to the new user.</p>
                     </div>
 
@@ -31,16 +29,14 @@
                             field-id="name"
                             name="name"
                         >
-                            <div class="field-group">
-                                <input
-                                    id="name"
-                                    v-model="form.name"
-                                    type="text"
-                                    name="name"
-                                    class="field"
-                                    data-cy="name"
-                                >
-                            </div>
+                            <input
+                                id="name"
+                                v-model="form.name"
+                                type="text"
+                                name="name"
+                                class="field"
+                                data-cy="name"
+                            >
                         </form-field>
 
                         <form-field
@@ -48,16 +44,14 @@
                             field-id="email"
                             name="email"
                         >
-                            <div class="field-group">
-                                <input
-                                    id="email"
-                                    v-model="form.email"
-                                    type="email"
-                                    name="email"
-                                    class="field"
-                                    data-cy="email"
-                                >
-                            </div>
+                            <input
+                                id="email"
+                                v-model="form.email"
+                                type="email"
+                                name="email"
+                                class="field"
+                                data-cy="email"
+                            >
                         </form-field>
 
                         <form-field
@@ -65,31 +59,33 @@
                             field-id="gender"
                             name="gender"
                         >
-                            <radio-button
-                                id="male"
-                                v-model="form.gender"
-                                native-value="male"
-                                name="gender"
-                            >
-                                He/Him
-                            </radio-button>
-                            <radio-button
-                                id="female"
-                                v-model="form.gender"
-                                native-value="female"
-                                class="mx-6"
-                                name="gender"
-                            >
-                                She/Her
-                            </radio-button>
-                            <radio-button
-                                id="neutral"
-                                v-model="form.gender"
-                                native-value="neutral"
-                                name="gender"
-                            >
-                                They/Them
-                            </radio-button>
+                            <template #clean>
+                                <radio-button
+                                    id="male"
+                                    v-model="form.gender"
+                                    native-value="male"
+                                    name="gender"
+                                >
+                                    He/Him
+                                </radio-button>
+                                <radio-button
+                                    id="female"
+                                    v-model="form.gender"
+                                    native-value="female"
+                                    class="mx-6"
+                                    name="gender"
+                                >
+                                    She/Her
+                                </radio-button>
+                                <radio-button
+                                    id="neutral"
+                                    v-model="form.gender"
+                                    native-value="neutral"
+                                    name="gender"
+                                >
+                                    They/Them
+                                </radio-button>
+                            </template>
                         </form-field>
                     </div>
                 </div>
@@ -111,15 +107,17 @@
 
                     <div class="form-section-content">
                         <form-field label="Assign Role(s)">
-                            <tags-input
-                                v-model="roles.added"
-                                not-found-message="Sorry, no roles found with that name."
-                                placeholder="Add a role..."
-                                :search-url="$route('roles.search').url()"
-                                display-property="display_name"
-                                @add-item="addRole"
-                                @remove-item="removeRole"
-                            ></tags-input>
+                            <template #clean>
+                                <tags-input
+                                    v-model="roles.added"
+                                    not-found-message="Sorry, no roles found with that name."
+                                    placeholder="Add a role..."
+                                    :search-url="$route('roles.search').url()"
+                                    display-property="display_name"
+                                    @add-item="addRole"
+                                    @remove-item="removeRole"
+                                ></tags-input>
+                            </template>
                         </form-field>
                     </div>
                 </div>
@@ -145,6 +143,13 @@ import RadioButton from '@/Shared/Forms/RadioButton';
 
 export default {
     components: { TagsInput, RadioButton },
+
+    props: {
+        user: {
+            type: Object,
+            required: true
+        }
+    },
 
     data () {
         return {

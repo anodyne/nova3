@@ -55,48 +55,48 @@
                                 <dropdown placement="bottom-end" class="text-gray-400 hover:text-gray-500">
                                     <icon name="more-horizontal" class="h-6 w-6"></icon>
 
-                                    <template #dropdown="{ toggle }">
+                                    <template #dropdown="{ toggle, styles }">
                                         <inertia-link
                                             v-if="role.can.view"
                                             :href="$route('roles.show', { role })"
-                                            class="dropdown-link"
+                                            :class="styles.link"
                                             data-cy="view"
                                         >
-                                            <icon name="eye" class="dropdown-icon"></icon>
+                                            <icon name="eye" :class="styles.icon"></icon>
                                             View
                                         </inertia-link>
                                         <inertia-link
                                             v-if="role.can.update"
                                             :href="$route('roles.edit', { role })"
-                                            class="dropdown-link"
+                                            :class="styles.link"
                                             data-cy="edit"
                                         >
-                                            <icon name="edit" class="dropdown-icon"></icon>
+                                            <icon name="edit" :class="styles.icon"></icon>
                                             Edit
                                         </inertia-link>
                                         <button
                                             v-if="role.can.duplicate"
-                                            class="dropdown-link"
+                                            :class="styles.link"
                                             data-cy="duplicate"
                                             @click.prevent="duplicate(role)"
                                         >
-                                            <icon name="copy" class="dropdown-icon"></icon>
+                                            <icon name="copy" :class="styles.icon"></icon>
                                             Duplicate
                                         </button>
                                         <template v-if="role.can.delete">
-                                            <div class="dropdown-divider"></div>
+                                            <div :class="styles.divider"></div>
                                             <button
-                                                class="dropdown-link-danger"
+                                                :class="styles.dangerLink"
                                                 data-cy="delete"
                                                 @click.prevent="confirmRemove(role, toggle)"
                                             >
-                                                <icon name="trash" class="dropdown-icon"></icon>
+                                                <icon name="trash" :class="styles.dangerIcon"></icon>
                                                 Delete
                                             </button>
                                         </template>
                                         <div v-if="role.locked">
-                                            <div class="dropdown-divider"></div>
-                                            <div class="dropdown-text italic">
+                                            <div :class="styles.divider"></div>
+                                            <div :class="styles.text">
                                                 This role is locked and cannot be duplicated or deleted.
                                             </div>
                                         </div>

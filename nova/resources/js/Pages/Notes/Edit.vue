@@ -28,15 +28,13 @@
                             field-id="title"
                             name="title"
                         >
-                            <div class="field-group">
-                                <input
-                                    id="title"
-                                    v-model="form.title"
-                                    type="text"
-                                    name="title"
-                                    class="field"
-                                >
-                            </div>
+                            <input
+                                id="title"
+                                v-model="form.title"
+                                type="text"
+                                name="title"
+                                class="field"
+                            >
                         </form-field>
 
                         <form-field
@@ -44,15 +42,13 @@
                             field-id="content"
                             name="content"
                         >
-                            <div class="field-group">
-                                <textarea
-                                    id="content"
-                                    v-model="form.content"
-                                    name="content"
-                                    class="field"
-                                    rows="10"
-                                ></textarea>
-                            </div>
+                            <textarea
+                                id="content"
+                                v-model="form.content"
+                                name="content"
+                                class="field"
+                                rows="10"
+                            ></textarea>
                         </form-field>
                     </div>
                 </div>

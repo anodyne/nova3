@@ -28,16 +28,14 @@
                             field-id="display_name"
                             name="display_name"
                         >
-                            <div class="field-group">
-                                <input
-                                    id="display_name"
-                                    v-model="form.display_name"
-                                    type="text"
-                                    name="display_name"
-                                    class="field"
-                                    data-cy="display_name"
-                                >
-                            </div>
+                            <input
+                                id="display_name"
+                                v-model="form.display_name"
+                                type="text"
+                                name="display_name"
+                                class="field"
+                                data-cy="display_name"
+                            >
                         </form-field>
 
                         <form-field
@@ -45,17 +43,15 @@
                             field-id="name"
                             name="name"
                         >
-                            <div class="field-group">
-                                <input
-                                    id="name"
-                                    v-model="form.name"
-                                    type="text"
-                                    name="name"
-                                    class="field"
-                                    data-cy="name"
-                                    @change="suggestName = false"
-                                >
-                            </div>
+                            <input
+                                id="name"
+                                v-model="form.name"
+                                type="text"
+                                name="name"
+                                class="field"
+                                data-cy="name"
+                                @change="suggestName = false"
+                            >
                         </form-field>
                     </div>
                 </div>
@@ -68,15 +64,17 @@
 
                     <div class="form-section-content">
                         <form-field label="Assign permissions">
-                            <tags-input
-                                v-model="permissions.added"
-                                not-found-message="Sorry, no permissions found with that name."
-                                placeholder="Add a permission..."
-                                :search-url="$route('permissions.search').url()"
-                                display-property="display_name"
-                                @add-item="addPermission"
-                                @remove-item="removePermission"
-                            ></tags-input>
+                            <template #clean>
+                                <tags-input
+                                    v-model="permissions.added"
+                                    not-found-message="Sorry, no permissions found with that name."
+                                    placeholder="Add a permission..."
+                                    :search-url="$route('permissions.search').url()"
+                                    display-property="display_name"
+                                    @add-item="addPermission"
+                                    @remove-item="removePermission"
+                                ></tags-input>
+                            </template>
                         </form-field>
                     </div>
                 </div>
@@ -89,15 +87,17 @@
 
                     <div class="form-section-content">
                         <form-field label="Assign users">
-                            <tags-input
-                                v-model="users.added"
-                                display-property="name"
-                                not-found-message="Sorry, no users found with that name or email address."
-                                placeholder="Add a user..."
-                                :search-url="$route('users.search').url()"
-                                @add-item="addUser"
-                                @remove-item="removeUser"
-                            ></tags-input>
+                            <template #clean>
+                                <tags-input
+                                    v-model="users.added"
+                                    display-property="name"
+                                    not-found-message="Sorry, no users found with that name or email address."
+                                    placeholder="Add a user..."
+                                    :search-url="$route('users.search').url()"
+                                    @add-item="addUser"
+                                    @remove-item="removeUser"
+                                ></tags-input>
+                            </template>
                         </form-field>
                     </div>
                 </div>

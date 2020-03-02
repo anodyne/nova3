@@ -6,7 +6,7 @@
             </template>
         </page-header>
 
-        <section class="panel">
+        <panel>
             <div class="form-section">
                 <div class="form-section-column-content">
                     <div class="form-section-header">Theme info</div>
@@ -19,7 +19,9 @@
                         field-id="name"
                         name="name"
                     >
-                        <p class="font-semibold">{{ theme.name }}</p>
+                        <template #clean>
+                            <p class="font-semibold">{{ theme.name }}</p>
+                        </template>
                     </form-field>
 
                     <form-field
@@ -27,7 +29,9 @@
                         field-id="location"
                         name="location"
                     >
-                        <p class="font-semibold">themes/{{ theme.location }}</p>
+                        <template #clean>
+                            <p class="font-semibold">themes/{{ theme.location }}</p>
+                        </template>
                     </form-field>
 
                     <form-field
@@ -35,7 +39,9 @@
                         field-id="credits"
                         name="credits"
                     >
-                        <p>{{ theme.credits }}</p>
+                        <template #clean>
+                            <p>{{ theme.credits }}</p>
+                        </template>
                     </form-field>
                 </div>
             </div>
@@ -45,7 +51,7 @@
                     Back
                 </inertia-link>
             </div>
-        </section>
+        </panel>
     </admin-layout>
 </template>
 

@@ -19,7 +19,9 @@
                         field-id="display_name"
                         name="display_name"
                     >
-                        <p class="font-semibold">{{ role.display_name }}</p>
+                        <template #clean>
+                            <p class="font-semibold">{{ role.display_name }}</p>
+                        </template>
                     </form-field>
 
                     <form-field
@@ -27,7 +29,9 @@
                         field-id="name"
                         name="name"
                     >
-                        <p class="font-semibold">{{ role.name }}</p>
+                        <template #clean>
+                            <p class="font-semibold">{{ role.name }}</p>
+                        </template>
                     </form-field>
                 </div>
             </div>

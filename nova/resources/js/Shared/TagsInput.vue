@@ -10,7 +10,7 @@
             <div
                 v-for="item in items"
                 :key="item[keyProperty]"
-                class="tag mr-2 my-1"
+                class="badge mr-2 my-1"
                 data-cy="tag-item"
             >
                 {{ item[displayProperty] }}

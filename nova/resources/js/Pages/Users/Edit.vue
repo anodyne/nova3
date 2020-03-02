@@ -32,16 +32,14 @@
                             field-id="name"
                             name="name"
                         >
-                            <div class="field-group">
-                                <input
-                                    id="name"
-                                    v-model="form.name"
-                                    type="text"
-                                    name="name"
-                                    class="field"
-                                    data-cy="name"
-                                >
-                            </div>
+                            <input
+                                id="name"
+                                v-model="form.name"
+                                type="text"
+                                name="name"
+                                class="field"
+                                data-cy="name"
+                            >
                         </form-field>
 
                         <form-field
@@ -49,16 +47,14 @@
                             field-id="email"
                             name="email"
                         >
-                            <div class="field-group">
-                                <input
-                                    id="email"
-                                    v-model="form.email"
-                                    type="email"
-                                    name="email"
-                                    class="field"
-                                    data-cy="email"
-                                >
-                            </div>
+                            <input
+                                id="email"
+                                v-model="form.email"
+                                type="email"
+                                name="email"
+                                class="field"
+                                data-cy="email"
+                            >
                         </form-field>
 
                         <form-field
@@ -66,89 +62,93 @@
                             field-id="gender"
                             name="gender"
                         >
-                            <radio-button
-                                id="male"
-                                v-model="form.gender"
-                                native-value="male"
-                            >
-                                He/Him
-                            </radio-button>
-                            <radio-button
-                                id="female"
-                                v-model="form.gender"
-                                native-value="female"
-                                class="mx-6"
-                            >
-                                She/Her
-                            </radio-button>
-                            <radio-button
-                                id="neutral"
-                                v-model="form.gender"
-                                native-value="neutral"
-                            >
-                                They/Them
-                            </radio-button>
+                            <template #clean>
+                                <radio-button
+                                    id="male"
+                                    v-model="form.gender"
+                                    native-value="male"
+                                >
+                                    He/Him
+                                </radio-button>
+                                <radio-button
+                                    id="female"
+                                    v-model="form.gender"
+                                    native-value="female"
+                                    class="mx-6"
+                                >
+                                    She/Her
+                                </radio-button>
+                                <radio-button
+                                    id="neutral"
+                                    v-model="form.gender"
+                                    native-value="neutral"
+                                >
+                                    They/Them
+                                </radio-button>
+                            </template>
                         </form-field>
 
                         <form-field label="Avatar">
-                            <div class="flex items-center">
-                                <avatar
-                                    v-if="form.avatar === null"
-                                    :image-url="user.avatar_url"
-                                    size="lg"
-                                ></avatar>
+                            <template #clean>
+                                <div class="flex items-center">
+                                    <avatar
+                                        v-if="form.avatar === null"
+                                        :image-url="user.avatar_url"
+                                        size="lg"
+                                    ></avatar>
 
-                                <img
-                                    v-else
-                                    ref="preview"
-                                    class="avatar avatar-lg"
-                                    data-cy="avatar-preview"
-                                >
-
-                                <div class="flex flex-col ml-4">
-                                    <input
-                                        id="image"
-                                        ref="file"
-                                        type="file"
-                                        name="image"
-                                        class="hidden"
-                                        data-cy="upload"
-                                        @change="setAvatar"
+                                    <img
+                                        v-else
+                                        ref="preview"
+                                        class="avatar avatar-lg"
+                                        data-cy="avatar-preview"
                                     >
 
-                                    <div class="flex items-center">
-                                        <button
-                                            type="button"
-                                            class="button button-soft button-small"
-                                            data-cy="avatar-action-button"
-                                            @click="$refs.file.click()"
+                                    <div class="flex flex-col ml-4">
+                                        <input
+                                            id="image"
+                                            ref="file"
+                                            type="file"
+                                            name="image"
+                                            class="hidden"
+                                            data-cy="upload"
+                                            @change="setAvatar"
                                         >
-                                            <icon name="camera" class="mr-2"></icon>
-                                            {{ avatarBrowseButtonLabel }}
-                                        </button>
 
-                                        <button
-                                            v-if="showCancelAvatarChangeButton"
-                                            type="button"
-                                            class="text-gray-700 hover:text-gray-800 ml-4"
-                                            @click="cancelAvatarChange"
+                                        <div class="flex items-center">
+                                            <button
+                                                type="button"
+                                                class="button button-soft button-small"
+                                                data-cy="avatar-action-button"
+                                                @click="$refs.file.click()"
+                                            >
+                                                <icon name="camera" class="mr-2"></icon>
+                                                {{ avatarBrowseButtonLabel }}
+                                            </button>
+
+                                            <button
+                                                v-if="showCancelAvatarChangeButton"
+                                                type="button"
+                                                class="text-gray-700 hover:text-gray-800 ml-4"
+                                                @click="cancelAvatarChange"
+                                            >
+                                                Cancel
+                                            </button>
+                                        </div>
+
+                                        <checkbox
+                                            v-if="showRemoveOption"
+                                            id="remove-avatar"
+                                            v-model="form.remove_avatar"
+                                            class="mt-2 ml-px"
+                                            :native-value="true"
+                                            data-cy="remove-avatar"
                                         >
-                                            Cancel
-                                        </button>
+                                            Remove avatar
+                                        </checkbox>
                                     </div>
-
-                                    <checkbox
-                                        v-if="showRemoveOption"
-                                        id="remove-avatar"
-                                        v-model="form.remove_avatar"
-                                        class="mt-2 ml-px"
-                                        :native-value="true"
-                                        data-cy="remove-avatar"
-                                    >
-                                        Remove avatar
-                                    </checkbox>
                                 </div>
-                            </div>
+                            </template>
                         </form-field>
                     </div>
                 </div>
@@ -169,15 +169,17 @@
 
                     <div class="form-section-content">
                         <form-field label="Assigned Role(s)">
-                            <tags-input
-                                v-model="roles.added"
-                                not-found-message="Sorry, no roles found with that name."
-                                placeholder="Add a role..."
-                                :search-url="$route('roles.search').url()"
-                                display-property="display_name"
-                                @add-item="addRole"
-                                @remove-item="removeRole"
-                            ></tags-input>
+                            <template #clean>
+                                <tags-input
+                                    v-model="roles.added"
+                                    not-found-message="Sorry, no roles found with that name."
+                                    placeholder="Add a role..."
+                                    :search-url="$route('roles.search').url()"
+                                    display-property="display_name"
+                                    @add-item="addRole"
+                                    @remove-item="removeRole"
+                                ></tags-input>
+                            </template>
                         </form-field>
                     </div>
                 </div>

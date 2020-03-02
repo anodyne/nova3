@@ -67,33 +67,33 @@
                                 <dropdown placement="bottom-end" class="text-gray-400 hover:text-gray-500">
                                     <icon name="more-horizontal" class="h-6 w-6"></icon>
 
-                                    <template #dropdown="{ toggle }">
+                                    <template #dropdown="{ toggle, styles }">
                                         <inertia-link
                                             v-if="user.can.view"
                                             :href="$route('users.show', { user })"
-                                            class="dropdown-link"
+                                            :class="styles.link"
                                             data-cy="view"
                                         >
-                                            <icon name="eye" class="dropdown-icon"></icon>
+                                            <icon name="eye" :class="styles.icon"></icon>
                                             View
                                         </inertia-link>
                                         <inertia-link
                                             v-if="user.can.update"
                                             :href="$route('users.edit', { user })"
-                                            class="dropdown-link"
+                                            :class="styles.link"
                                             data-cy="edit"
                                         >
-                                            <icon name="edit" class="dropdown-icon"></icon>
+                                            <icon name="edit" :class="styles.icon"></icon>
                                             Edit
                                         </inertia-link>
                                         <template v-if="user.can.delete">
-                                            <div class="dropdown-divider"></div>
+                                            <div :class="styles.divider"></div>
                                             <button
-                                                class="dropdown-link-danger"
+                                                :class="styles.dangerLink"
                                                 data-cy="delete"
                                                 @click="confirmRemove(user, toggle)"
                                             >
-                                                <icon name="trash" class="dropdown-icon"></icon>
+                                                <icon name="trash" :class="styles.dangerIcon"></icon>
                                                 Delete
                                             </button>
                                         </template>
