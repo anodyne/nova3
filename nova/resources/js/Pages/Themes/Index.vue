@@ -1,5 +1,5 @@
 <template>
-    <sidebar-layout>
+    <admin-layout>
         <page-header title="Themes">
             <template v-if="themes.can.create" #controls>
                 <inertia-link :href="$route('themes.create')" class="button button-primary">
@@ -8,89 +8,96 @@
             </template>
         </page-header>
 
-        <panel no-padding>
-            <template #header>
-                <search-filter
-                    v-model="form.search"
-                    class="w-1/2"
-                    placeholder="Find a theme..."
-                    @reset="form.search = ''"
-                ></search-filter>
-
-                <button class="button button-small button-soft button-icon">
-                    <icon name="filter"></icon>
-                </button>
-            </template>
-
-            <div class="flex items-center justify-between w-full py-2 px-8 bg-gray-100 border-t border-b text-xs uppercase tracking-wide font-semibold text-gray-600">
-                <div class="w-1/3">Theme Name</div>
-                <div class="w-1/3">Location</div>
-                <div class="flex-auto">Status</div>
-            </div>
-
-            <div v-if="themes.data.length === 0" class="flex items-center py-4 px-8 font-semibold border-b text-warning-700">
-                <icon name="alert-triangle" class="mr-3 flex-shrink-0 h-6 w-6"></icon>
-                <div>No themes found.</div>
-            </div>
-
-            <div
-                v-for="theme in themes.data"
-                :key="theme.id"
-                class="flex items-center justify-between w-full py-2 px-8 border-b"
-            >
-                <div class="w-1/3">
-                    {{ theme.name }}
-                </div>
-
-                <div class="w-1/3">
-                    themes/{{ theme.location }}
-                </div>
-
-                <div class="flex-auto">
-                    <div class="badge badge-success">Active</div>
-                </div>
-
-                <div class="flex-shrink">
-                    <dropdown placement="bottom-end">
-                        <icon name="more-horizontal" class="h-6 w-6"></icon>
-
-                        <template #dropdown="{ toggle }">
-                            <inertia-link
-                                v-if="themes.can.view"
-                                :href="$route('themes.show', { theme })"
-                                class="dropdown-link"
-                            >
-                                <icon name="eye" class="dropdown-icon"></icon>
-                                View
-                            </inertia-link>
-                            <inertia-link
-                                v-if="themes.can.update"
-                                :href="$route('themes.edit', { theme })"
-                                class="dropdown-link"
-                            >
-                                <icon name="edit" class="dropdown-icon"></icon>
-                                Edit
-                            </inertia-link>
-                            <button
-                                v-if="themes.can.delete"
-                                class="dropdown-link-danger"
-                                @click.prevent="confirmRemove(theme, toggle)"
-                            >
-                                <icon name="delete" class="dropdown-icon"></icon>
-                                Delete
-                            </button>
-                        </template>
-                    </dropdown>
+        <panel>
+            <div class="bg-white px-4 py-5 | sm:px-6">
+                <div>
+                    <label for="email" class="sr-only">Find a theme</label>
+                    <search-filter
+                        v-model="form.search"
+                        class="w-1/2"
+                        placeholder="Find a theme..."
+                        @reset="form.search = ''"
+                    ></search-filter>
                 </div>
             </div>
 
-            <template #footer>
+            <ul>
+                <li
+                    v-for="theme in themes.data"
+                    :key="theme.id"
+                    class="border-t border-gray-200"
+                >
+                    <div class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
+                        <div class="px-4 py-4 flex items-center sm:px-6">
+                            <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
+                                <div>
+                                    <div class="leading-normal font-medium truncate">
+                                        {{ theme.name }}
+                                    </div>
+                                    <div class="mt-2 flex">
+                                        <div class="flex items-center text-sm leading-5 text-gray-500">
+                                            <icon name="folder" class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"></icon>
+                                            <span>
+                                                themes/{{ theme.location }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ml-5 flex-shrink-0">
+                                <dropdown placement="bottom-end" class="text-gray-400 hover:text-gray-500">
+                                    <icon name="more-horizontal" class="h-6 w-6"></icon>
+
+                                    <template #dropdown="{ toggle, styles }">
+                                        <inertia-link
+                                            v-if="themes.can.view"
+                                            :href="$route('themes.show', { theme })"
+                                            :class="styles.link"
+                                        >
+                                            <icon name="eye" :class="styles.icon"></icon>
+                                            View
+                                        </inertia-link>
+                                        <inertia-link
+                                            v-if="themes.can.update"
+                                            :href="$route('themes.edit', { theme })"
+                                            :class="styles.link"
+                                        >
+                                            <icon name="edit" :class="styles.icon"></icon>
+                                            Edit
+                                        </inertia-link>
+                                        <template v-if="themes.can.delete">
+                                            <div :class="styles.divider"></div>
+                                            <button
+                                                :class="styles.dangerLink"
+                                                @click.prevent="confirmRemove(theme, toggle)"
+                                            >
+                                                <icon name="trash" :class="styles.dangerIcon"></icon>
+                                                Delete
+                                            </button>
+                                        </template>
+                                    </template>
+                                </dropdown>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li v-if="themes.meta.total === 0" class="border-t border-warning-100">
+                    <div class="block focus:outline-none focus:bg-gray-50">
+                        <div class="flex items-center px-4 py-4 bg-warning-50 | sm:px-6">
+                            <icon name="alert-triangle" class="h-6 w-6 flex-shrink-0 mr-3 text-warning-400"></icon>
+                            <span class="font-medium text-warning-600">No themes found</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <div v-if="themes.meta.total > 0" class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 | sm:px-6">
                 <pagination
                     :links="themes.links"
                     :meta="themes.meta"
                     resource-label="theme"
                 ></pagination>
-            </template>
+            </div>
         </panel>
 
         <modal
@@ -101,20 +108,25 @@
             Are you sure you want to delete the {{ deletingItem.title }} theme?
 
             <template #footer>
-                <button class="button is-secondary" @click="hideModal">
-                    Cancel
-                </button>
-
                 <button
                     type="button"
-                    class="button is-danger-vivid ml-4"
+                    class="button button-danger | sm:ml-3"
+                    data-cy="delete-theme"
                     @click="remove"
                 >
                     Delete Theme
                 </button>
+
+                <button
+                    type="button"
+                    class="button mt-3 | sm:mt-0"
+                    @click="hideModal"
+                >
+                    Cancel
+                </button>
             </template>
         </modal>
-    </sidebar-layout>
+    </admin-layout>
 </template>
 
 <script>
@@ -168,9 +180,9 @@ export default {
     },
 
     methods: {
-        confirmRemove (role, toggle) {
+        confirmRemove (theme, toggle) {
             toggle();
-            this.showModal(role);
+            this.showModal(theme);
         },
 
         refreshThemesList: debounce(function () {
@@ -182,18 +194,9 @@ export default {
         }, 250),
 
         remove () {
-            this.form.delete({
-                url: this.$route('themes.destroy', { theme: this.deletingItem }),
-                then: (data) => {
-                    const index = findIndex(this.installedThemes, { id: data.id });
-
-                    this.$toast
-                        .message(`${this.installedThemes[index].name} theme was removed.`)
-                        .success();
-
-                    this.installedThemes.splice(index, 1);
-                }
-            });
+            this.$inertia.delete(
+                this.$route('themes.destroy', { theme: this.deletingItem })
+            );
         }
     }
 };

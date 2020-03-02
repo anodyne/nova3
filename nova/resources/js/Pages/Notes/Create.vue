@@ -1,5 +1,5 @@
 <template>
-    <sidebar-layout>
+    <admin-layout>
         <page-header title="Add Note">
             <template #pretitle>
                 <inertia-link :href="$route('notes.index')">Notes</inertia-link>
@@ -17,27 +17,25 @@
                 <csrf-token></csrf-token>
 
                 <div class="form-section">
-                    <div class="form-section-column-content">
-                        <div class="form-section-header">Role info</div>
-                        <p class="form-section-message">A role is a collection of permissions that allows a user to take certain actions throughout Nova. Since a user can have as many roles as you'd like, we recommend creating roles with fewer permissions to give yourself more freedom to add and remove access for a given user.</p>
+                    <div class="form-section-header">
+                        <div class="form-section-header-title">Role info</div>
+                        <p class="form-section-header-message">A role is a collection of permissions that allows a user to take certain actions throughout Nova. Since a user can have as many roles as you'd like, we recommend creating roles with fewer permissions to give yourself more freedom to add and remove access for a given user.</p>
                     </div>
 
-                    <div class="form-section-column-form">
+                    <div class="form-section-content">
                         <form-field
                             label="Title"
                             field-id="title"
                             name="title"
                         >
-                            <div class="field-group">
-                                <input
-                                    id="title"
-                                    v-model="form.title"
-                                    type="text"
-                                    name="title"
-                                    class="field"
-                                    data-cy="title"
-                                >
-                            </div>
+                            <input
+                                id="title"
+                                v-model="form.title"
+                                type="text"
+                                name="title"
+                                class="field"
+                                data-cy="title"
+                            >
                         </form-field>
 
                         <form-field
@@ -45,16 +43,14 @@
                             field-id="content"
                             name="content"
                         >
-                            <div class="field-group">
-                                <textarea
-                                    id="content"
-                                    v-model="form.content"
-                                    name="content"
-                                    class="field"
-                                    rows="20"
-                                    data-cy="content"
-                                ></textarea>
-                            </div>
+                            <textarea
+                                id="content"
+                                v-model="form.content"
+                                name="content"
+                                class="field"
+                                rows="20"
+                                data-cy="content"
+                            ></textarea>
                         </form-field>
                     </div>
                 </div>
@@ -68,7 +64,7 @@
                 </div>
             </form>
         </panel>
-    </sidebar-layout>
+    </admin-layout>
 </template>
 
 <script>

@@ -1,25 +1,27 @@
 <template>
-    <sidebar-layout>
+    <admin-layout>
         <page-header :title="user.name">
             <template #pretitle>
                 <inertia-link :href="$route('users.index')">Users</inertia-link>
             </template>
         </page-header>
 
-        <section class="panel">
+        <panel>
             <div class="form-section">
-                <div class="form-section-column-content">
-                    <div class="form-section-header">User info</div>
-                    <p class="form-section-message">For privacy reasons, users are encouraged to use a nickname instead of their real name. Additionally, user email addresses should be safeguarded at all costs and not shared with other players without the express permission of this user.</p>
+                <div class="form-section-header">
+                    <div class="form-section-header-title">User info</div>
+                    <p class="form-section-header-message">For privacy reasons, users are encouraged to use a nickname instead of their real name. Additionally, user email addresses should be safeguarded at all costs and not shared with other players without the express permission of this user.</p>
                 </div>
 
-                <div class="form-section-column-form">
+                <div class="form-section-content">
                     <form-field
                         label="Name"
                         field-id="name"
                         name="name"
                     >
-                        <p class="font-semibold">{{ user.name }}</p>
+                        <template #clean>
+                            <p class="font-semibold">{{ user.name }}</p>
+                        </template>
                     </form-field>
 
                     <form-field
@@ -27,7 +29,9 @@
                         field-id="email"
                         name="email"
                     >
-                        <p class="font-semibold">{{ user.email }}</p>
+                        <template #clean>
+                            <p class="font-semibold">{{ user.email }}</p>
+                        </template>
                     </form-field>
 
                     <form-field
@@ -35,7 +39,9 @@
                         field-id="pronouns"
                         name="pronouns"
                     >
-                        <p class="font-semibold">{{ user.pronouns }}</p>
+                        <template #clean>
+                            <p class="font-semibold">{{ user.pronouns }}</p>
+                        </template>
                     </form-field>
 
                     <form-field
@@ -43,18 +49,20 @@
                         field-id="avatar"
                         name="avatar"
                     >
-                        <avatar :image-url="user.avatar_url" size="xl"></avatar>
+                        <template #clean>
+                            <avatar :image-url="user.avatar_url" size="lg"></avatar>
+                        </template>
                     </form-field>
                 </div>
             </div>
 
             <div class="form-section">
-                <div class="form-section-column-content">
-                    <div class="form-section-header">Roles</div>
-                    <p class="form-section-message mb-6">Roles are the actions a user can take.</p>
+                <div class="form-section-header">
+                    <div class="form-section-header-title">Roles</div>
+                    <p class="form-section-header-message mb-6">Roles are the actions a user can take.</p>
                 </div>
 
-                <div class="form-section-column-form">
+                <div class="form-section-content">
                     <div class="flex items-center flex-wrap">
                         <div v-if="user.roles.length === 0" class="flex items-center font-semibold text-warning-700">
                             <icon name="alert-triangle" class="mr-3 flex-shrink-0 h-6 w-6"></icon>
@@ -64,7 +72,7 @@
                         <div
                             v-for="role in user.roles"
                             :key="role.id"
-                            class="tag mr-2 mt-3"
+                            class="badge mr-2 mt-3"
                         >
                             {{ role.display_name }}
                         </div>
@@ -77,12 +85,12 @@
                     Back
                 </inertia-link>
             </div>
-        </section>
-    </sidebar-layout>
+        </panel>
+    </admin-layout>
 </template>
 
 <script>
-import Avatar from '@/Shared/Avatars/Avatar';
+import Avatar from '@/Shared/Avatar';
 
 export default {
     components: { Avatar },

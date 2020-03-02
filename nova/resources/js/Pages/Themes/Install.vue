@@ -28,8 +28,6 @@
 </template>
 
 <script>
-import Form from '@/Utils/Form';
-
 export default {
     props: {
         pendingThemes: {
@@ -40,9 +38,9 @@ export default {
 
     data () {
         return {
-            form: new Form({
+            form: {
                 theme: ''
-            }),
+            },
             themes: this.pendingThemes
         };
     },

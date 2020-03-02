@@ -1,15 +1,17 @@
 .badge {
-    @apply inline-block rounded-full h-6 px-3 text-xs font-semibold uppercase tracking-wider bg-gray-300 text-gray-700;
+    @apply inline-flex items-center px-3 py-0.5 rounded-full text-sm uppercase tracking-wide font-medium leading-5 bg-gray-200 text-gray-800;
 
-    line-height: theme('spacing.6');
+    &.badge-sm {
+        @apply px-2.5 text-xs leading-4;
+    }
 }
 
 .badge-danger {
-    @apply bg-danger-200 text-danger-700;
+    @apply bg-danger-200 text-danger-800;
 }
 
 .badge-info {
-    @apply bg-info-100 text-info-600;
+    @apply bg-info-200 text-info-800;
 }
 
 .badge-success {
@@ -17,5 +19,5 @@
 }
 
 .badge-warning {
-    @apply bg-warning-200 text-warning-700;
+    @apply bg-warning-200 text-warning-800;
 }

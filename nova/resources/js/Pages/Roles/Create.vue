@@ -1,8 +1,8 @@
 <template>
-    <sidebar-layout>
+    <admin-layout>
         <page-header title="Add Role">
-            <template #pretitle>
-                <inertia-link :href="$route('roles.index')">Roles</inertia-link>
+            <template #pretitle="{ linkStyle }">
+                <inertia-link :href="$route('roles.index')" :class="linkStyle">Roles</inertia-link>
             </template>
         </page-header>
 
@@ -17,27 +17,25 @@
                 <csrf-token></csrf-token>
 
                 <div class="form-section">
-                    <div class="form-section-column-content">
-                        <div class="form-section-header">Role info</div>
-                        <p class="form-section-message">A role is a collection of permissions that allows a user to take certain actions throughout Nova. Since a user can have as many roles as you'd like, we recommend creating roles with fewer permissions to give yourself more freedom to add and remove access for a given user.</p>
+                    <div class="form-section-header">
+                        <div class="form-section-header-title">Role info</div>
+                        <p class="form-section-header-message">A role is a collection of permissions that allows a user to take certain actions throughout Nova. Since a user can have as many roles as you'd like, we recommend creating roles with fewer permissions to give yourself more freedom to add and remove access for a given user.</p>
                     </div>
 
-                    <div class="form-section-column-form">
+                    <div class="form-section-content">
                         <form-field
                             label="Name"
                             field-id="display_name"
                             name="display_name"
                         >
-                            <div class="field-group">
-                                <input
-                                    id="display_name"
-                                    v-model="form.display_name"
-                                    type="text"
-                                    name="display_name"
-                                    class="field"
-                                    data-cy="display_name"
-                                >
-                            </div>
+                            <input
+                                id="display_name"
+                                v-model="form.display_name"
+                                type="text"
+                                name="display_name"
+                                class="field"
+                                data-cy="display_name"
+                            >
                         </form-field>
 
                         <form-field
@@ -45,59 +43,61 @@
                             field-id="name"
                             name="name"
                         >
-                            <div class="field-group">
-                                <input
-                                    id="name"
-                                    v-model="form.name"
-                                    type="text"
-                                    name="name"
-                                    class="field"
-                                    data-cy="name"
-                                    @change="suggestName = false"
-                                >
-                            </div>
+                            <input
+                                id="name"
+                                v-model="form.name"
+                                type="text"
+                                name="name"
+                                class="field"
+                                data-cy="name"
+                                @change="suggestName = false"
+                            >
                         </form-field>
                     </div>
                 </div>
 
                 <div class="form-section">
-                    <div class="form-section-column-content">
-                        <div class="form-section-header">Permissions</div>
-                        <p class="form-section-message">Permissions are the actions a signed in user can take throughout Nova. Feel free to add whatever permissions you want to this role.</p>
+                    <div class="form-section-header">
+                        <div class="form-section-header-title">Permissions</div>
+                        <p class="form-section-header-message">Permissions are the actions a signed in user can take throughout Nova. Feel free to add whatever permissions you want to this role.</p>
                     </div>
 
-                    <div class="form-section-column-form">
+                    <div class="form-section-content">
                         <form-field label="Assign permissions">
-                            <tags-input
-                                v-model="permissions.added"
-                                not-found-message="Sorry, no permissions found with that name."
-                                placeholder="Add a permission..."
-                                :search-url="$route('permissions.search').url()"
-                                display-property="display_name"
-                                @add-item="addPermission"
-                                @remove-item="removePermission"
-                            ></tags-input>
+                            <template #clean>
+                                <tags-input
+                                    v-model="permissions.added"
+                                    not-found-message="Sorry, no permissions found with that name."
+                                    placeholder="Add a permission..."
+                                    :search-url="$route('permissions.search').url()"
+                                    display-property="display_name"
+                                    @add-item="addPermission"
+                                    @remove-item="removePermission"
+                                ></tags-input>
+                            </template>
                         </form-field>
                     </div>
                 </div>
 
                 <div class="form-section">
-                    <div class="form-section-column-content">
-                        <div class="form-section-header">Give users this role</div>
-                        <p class="form-section-message">You can quickly add users to this role from here.</p>
+                    <div class="form-section-header">
+                        <div class="form-section-header-title">Give users this role</div>
+                        <p class="form-section-header-message">You can quickly add users to this role from here.</p>
                     </div>
 
-                    <div class="form-section-column-form">
+                    <div class="form-section-content">
                         <form-field label="Assign users">
-                            <tags-input
-                                v-model="users.added"
-                                display-property="name"
-                                not-found-message="Sorry, no users found with that name or email address."
-                                placeholder="Add a user..."
-                                :search-url="$route('users.search').url()"
-                                @add-item="addUser"
-                                @remove-item="removeUser"
-                            ></tags-input>
+                            <template #clean>
+                                <tags-input
+                                    v-model="users.added"
+                                    display-property="name"
+                                    not-found-message="Sorry, no users found with that name or email address."
+                                    placeholder="Add a user..."
+                                    :search-url="$route('users.search').url()"
+                                    @add-item="addUser"
+                                    @remove-item="removeUser"
+                                ></tags-input>
+                            </template>
                         </form-field>
                     </div>
                 </div>
@@ -111,7 +111,7 @@
                 </div>
             </form>
         </panel>
-    </sidebar-layout>
+    </admin-layout>
 </template>
 
 <script>

@@ -1,16 +1,33 @@
 <template>
     <div class="field-wrapper" :class="styles.errors">
-        <div v-if="hasLabel" class="field-label">
-            <label :for="fieldId">{{ label }}</label>
-        </div>
+        <label
+            class="field-label"
+            :class="{ 'sr-only': !hasLabel }"
+            :for="fieldId"
+        >
+            {{ label }}
+        </label>
 
-        <slot></slot>
+        <slot v-if="hasSlot('clean')" name="clean"></slot>
+
+        <div v-else class="field-group">
+            <div v-if="hasSlot('addon-before')" class="field-addon">
+                <slot name="addon-before"></slot>
+            </div>
+
+            <slot></slot>
+
+            <div v-if="hasSlot('addon-after')" class="field-addon">
+                <slot name="addon-after"></slot>
+            </div>
+        </div>
 
         <div
             v-if="hasError"
             class="field-error"
             role="alert"
         >
+            <icon name="alert-circle"></icon>
             {{ errorMessage }}
         </div>
 
@@ -27,9 +44,12 @@
 <script>
 import get from 'lodash/get';
 import size from 'lodash/size';
+import SlotHelpers from '@/Utils/Mixins/SlotHelpers';
 
 export default {
     name: 'FormField',
+
+    mixins: [SlotHelpers],
 
     props: {
         error: {

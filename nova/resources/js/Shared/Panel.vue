@@ -1,42 +1,11 @@
 <template>
-    <section
-        class="bg-white rounded shadow-md mb-8"
-        :class="{ 'p-8': !noPadding }"
-        data-cy="panel"
-    >
-        <div
-            v-if="hasSlot('header')"
-            class="flex items-center justify-between"
-            :class="{ 'py-4 px-8': noPadding }"
-        >
-            <slot name="header"></slot>
-        </div>
-
+    <div class="bg-white shadow overflow-hidden -mx-4 | sm:mx-0 sm:rounded-md" data-cy="panel">
         <slot></slot>
-
-        <div
-            v-if="hasSlot('footer')"
-            class="flex items-center bg-gray-100 text-gray-600 text-sm rounded-b"
-            :class="{ 'py-4 px-8': noPadding }"
-        >
-            <slot name="footer"></slot>
-        </div>
-    </section>
+    </div>
 </template>
 
 <script>
-import SlotHelpers from '@/Utils/Mixins/SlotHelpers';
-
 export default {
-    name: 'Panel',
-
-    mixins: [SlotHelpers],
-
-    props: {
-        noPadding: {
-            type: Boolean,
-            default: false
-        }
-    }
+    name: 'Panel'
 };
 </script>

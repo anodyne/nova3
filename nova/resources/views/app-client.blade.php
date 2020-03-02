@@ -9,11 +9,8 @@
 
     <title>{{ config('app.name', 'Nova NextGen') }}</title>
 
-    <link href="https://rsms.me/inter/inter.css" rel="stylesheet">
-    {{-- <link rel="dns-prefetch" href="//fonts.gstatic.com"> --}}
-    {{-- <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800,900" rel="stylesheet"> --}}
-
     <!-- Styles -->
+    <link href="https://rsms.me/inter/inter.css" rel="stylesheet">
     <link href="{{ asset('/dist/css/vendor.css') }}" rel="stylesheet">
     <link href="{{ asset('/dist/css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('/themes/pulsar/design/custom.css') }}" rel="stylesheet">
@@ -22,7 +19,7 @@
     <script src="{{ asset('/dist/js/app-client.js') }}" defer></script>
     @routes
 </head>
-<body class="font-sans bg-gray-200 text-gray-900 antialiased">
+<body class="font-sans bg-gray-100 text-gray-900 antialiased">
     @inertia
 </body>
 </html>

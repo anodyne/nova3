@@ -1,35 +1,14 @@
 .avatar {
-    @apply relative inline-flex h-12 w-12 text-base font-semibold leading-none;
+    @apply inline-block rounded-full h-12 w-12;
 
-    &.avatar-xl {
-        @apply h-20 w-20 text-xl;
-    }
     &.avatar-lg {
-        @apply h-16 w-16 text-lg;
+        @apply h-14 w-14;
     }
     &.avatar-sm {
-        @apply h-10 w-10 text-sm;
+        @apply h-10 w-10;
     }
     &.avatar-xs {
-        @apply h-7 w-7 text-xs;
-    }
-
-    .avatar-image {
-        @apply h-full w-full object-cover rounded-full;
-
-        box-shadow: inset 0 0 0 1px hsla(0, 0%, 0%, .1);
-    }
-
-    .avatar-title {
-        @apply flex items-center justify-center cursor-default h-full w-full rounded-full bg-primary-500 text-white uppercase tracking-wide;
-
-        &.avatar-title-soft {
-            @apply bg-gray-300 text-gray-600;
-        }
-    }
-
-    .avatar-link {
-        @apply cursor-pointer;
+        @apply h-8 w-8;
     }
 }
 

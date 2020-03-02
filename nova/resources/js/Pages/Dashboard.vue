@@ -1,13 +1,15 @@
 <template>
-    <sidebar-layout>
+    <admin-layout>
         <page-header title="Dashboard"></page-header>
 
-        <div class="panel">
-            Welcome to Nova 3.
-        </div>
-    </sidebar-layout>
+        <panel>
+            <p class="py-6 px-6">Welcome to Nova 3.</p>
+        </panel>
+    </admin-layout>
 </template>
 
 <script>
-export default {};
+export default {
+    name: 'Dashboard'
+};
 </script>

@@ -12,12 +12,15 @@ use Nova\Users\Models\States\Inactive;
 use Nova\Users\Models\States\UserState;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
+use Laracasts\Presenter\PresentableTrait;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Nova\Users\Models\Builders\UserBuilder;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Nova\Users\Models\Presenters\UserPresenter;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail, HasMedia
@@ -28,19 +31,12 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     use LaratrustUserTrait;
     use HasStates;
     use HasMediaTrait;
+    use HasEagerLimit;
+    use PresentableTrait;
 
     public const MEDIA_DIRECTORY = 'users/{model_id}/{media_id}/';
 
     protected static $logFillable = true;
-
-    protected $fillable = [
-        'name', 'email', 'password', 'last_login', 'force_password_reset',
-        'state', 'gender',
-    ];
-
-    protected $hidden = [
-        'password', 'remember_token', 'force_password_reset',
-    ];
 
     protected $casts = [
         'force_password_reset' => 'boolean',
@@ -55,6 +51,17 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
         'updated' => Events\UserUpdated::class,
         'deleted' => Events\UserDeleted::class,
     ];
+
+    protected $fillable = [
+        'name', 'email', 'password', 'last_login', 'force_password_reset',
+        'state', 'gender',
+    ];
+
+    protected $hidden = [
+        'password', 'remember_token', 'force_password_reset',
+    ];
+
+    protected $presenter = UserPresenter::class;
 
     /**
      * Record a timestamp when a user logs in.
