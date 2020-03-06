@@ -195,19 +195,25 @@
         </panel>
 
         <panel class="mt-8">
-            <div class="py-4 px-4 | md:py-6 md:px-6">
-                <div class="font-semibold text-xl mb-4 text-gray-700">Reset Password</div>
-
-                <p class="text-gray-600">If you believe this user should be forced to reset their password, you can force a password reset that will prompt them to change their password the next time they attempt to sign in.</p>
-
-                <div class="flex justify-end mt-6">
-                    <button
-                        type="button"
-                        class="button button-primary-soft"
-                        @click.prevent="forcePasswordReset"
-                    >
-                        Force Password Reset
-                    </button>
+            <div class="px-4 py-5 | sm:p-6">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">
+                    Force Password Reset
+                </h3>
+                <div class="mt-2 | sm:flex sm:items-start sm:justify-between">
+                    <div class="max-w-xl text-sm leading-5 text-gray-500">
+                        <p>
+                            If you believe this user should reset their password, you can force a password reset that will prompt them to change their password the next time they attempt to sign in.
+                        </p>
+                    </div>
+                    <div class="mt-5 | sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:flex sm:items-center">
+                        <button
+                            type="button"
+                            class="button button-primary-soft"
+                            @click.prevent="forcePasswordReset"
+                        >
+                            Force Password Reset
+                        </button>
+                    </div>
                 </div>
             </div>
         </panel>
