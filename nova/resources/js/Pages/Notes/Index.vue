@@ -48,7 +48,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="ml-5 flex-shrink-0">
+                            <div class="flex items-center ml-5 flex-shrink-0">
                                 <dropdown placement="bottom-end" class="text-gray-400 hover:text-gray-500">
                                     <icon name="more-horizontal" class="h-6 w-6"></icon>
 

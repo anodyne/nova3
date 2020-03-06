@@ -16,43 +16,32 @@
             >
                 <csrf-token></csrf-token>
 
-                <div class="form-section">
-                    <div class="form-section-header">
-                        <div class="form-section-header-title">Role info</div>
-                        <p class="form-section-header-message">A role is a collection of permissions that allows a user to take certain actions throughout Nova. Since a user can have as many roles as you'd like, we recommend creating roles with fewer permissions to give yourself more freedom to add and remove access for a given user.</p>
-                    </div>
-
-                    <div class="form-section-content">
-                        <form-field
-                            label="Title"
-                            field-id="title"
+                <div class="px-4 pt-4 | sm:pt-6 sm:px-6">
+                    <form-field
+                        label="Title"
+                        field-id="title"
+                        name="title"
+                        class="sm:w-1/2"
+                    >
+                        <input
+                            id="title"
+                            v-model="form.title"
+                            type="text"
                             name="title"
+                            class="field"
+                            data-cy="title"
                         >
-                            <input
-                                id="title"
-                                v-model="form.title"
-                                type="text"
-                                name="title"
-                                class="field"
-                                data-cy="title"
-                            >
-                        </form-field>
+                    </form-field>
 
-                        <form-field
-                            label="Content"
-                            field-id="content"
-                            name="content"
-                        >
-                            <textarea
-                                id="content"
-                                v-model="form.content"
-                                name="content"
-                                class="field"
-                                rows="20"
-                                data-cy="content"
-                            ></textarea>
-                        </form-field>
-                    </div>
+                    <form-field
+                        label="Content"
+                        field-id="content"
+                        name="content"
+                    >
+                        <template #clean>
+                            <simple-editor v-model="form.note" height="min-h-48"></simple-editor>
+                        </template>
+                    </form-field>
                 </div>
 
                 <div class="form-footer">
@@ -68,11 +57,18 @@
 </template>
 
 <script>
+import SimpleEditor from '@/Shared/Editors/SimpleEditor';
+
 export default {
+    components: { SimpleEditor },
+
     data () {
         return {
             form: {
-                content: '',
+                note: {
+                    content: '',
+                    source: ''
+                },
                 title: ''
             }
         };
@@ -82,7 +78,8 @@ export default {
         formData () {
             return {
                 title: this.form.title,
-                content: this.form.content
+                source: this.form.note.source,
+                content: this.form.note.content
             };
         }
     },

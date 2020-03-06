@@ -28,6 +28,8 @@ abstract class Action
         try {
             return $callback();
         } catch (Throwable $th) {
+            logger()->error($th->getMessage());
+
             throw new ActionException($this->getErrorMessage($th));
         }
     }

@@ -30,6 +30,7 @@ module.exports = {
             lineHeight: {
                 0: 0
             },
+            minHeight: defaultTheme.spacing,
             opacity: {
                 95: '.95'
             },
