@@ -21,7 +21,7 @@ class UserResource extends JsonResource
             'has_avatar' => $this->has_avatar,
             'email' => $this->email,
             'gender' => $this->gender,
-            'lastLogin' => $this->present()->lastLogin,
+            'lastLogin' => optional($this->last_login)->diffForHumans(),
             'lastLoginSimple' => optional($this->last_login)->format('Y-m-d'),
             'pronouns' => $this->pronouns,
             'id' => $this->id,
