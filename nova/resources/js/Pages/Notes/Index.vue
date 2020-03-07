@@ -102,7 +102,7 @@
                 <pagination
                     :links="notes.links"
                     :meta="notes.meta"
-                    resource-label="role"
+                    resource-label="note"
                 ></pagination>
             </div>
         </panel>
