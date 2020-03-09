@@ -3,9 +3,9 @@
 namespace Tests;
 
 use Illuminate\Support\Arr;
+use Illuminate\Testing\Assert;
 use Illuminate\Testing\TestResponse;
 use PHPUnit\Framework\Assert as PHPUnit;
-use Illuminate\Foundation\Testing\Assert;
 
 trait AddsCustomAssertions
 {
