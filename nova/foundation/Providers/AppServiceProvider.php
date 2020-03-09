@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
         // Make sure the file finder can find Javascript files
         $this->app['view']->addExtension('js', 'file');
 
-        Blade::component('components.partials.page-header', 'pageHeader');
+        Blade::aliasComponent('components.partials.page-header', 'pageHeader');
 
         $this->app->bind(Nova::class, function ($app) {
             return new Nova;
