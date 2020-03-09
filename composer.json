@@ -16,6 +16,7 @@
         "inertiajs/inertia-laravel": "^0.1",
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
+        "laravel/ui": "^2.0",
         "santigarcor/laratrust": "^5.2",
         "spatie/data-transfer-object": "^1.12",
         "spatie/laravel-activitylog": "^3.6",
