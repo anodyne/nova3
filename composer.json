@@ -29,6 +29,7 @@
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
+        "beyondcode/helo-laravel": "^1.0",
         "codedungeon/phpunit-result-printer": "^0.26",
         "facade/ignition": "^2.0",
         "fzaninotto/faker": "^1.4",
