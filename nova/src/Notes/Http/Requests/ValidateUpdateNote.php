@@ -11,6 +11,7 @@ class ValidateUpdateNote extends ValidatesRequest
         return [
             'title' => ['required'],
             'content' => ['nullable'],
+            'source' => ['nullable'],
         ];
     }
 }

@@ -8,7 +8,7 @@
             ref="toggleSwitch"
             :class="{ 'bg-gray-200': !value, [`bg-${color}`]: value }"
             class="relative inline-block flex-no-shrink h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:shadow-outline"
-            role="checkbox"
+            role="switch"
             tabindex="0"
             :aria-checked="value.toString()"
         >

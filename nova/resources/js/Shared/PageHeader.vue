@@ -5,9 +5,9 @@
                 <slot name="pretitle" v-bind="pretitleProps">{{ pretitle }}</slot>
             </div>
 
-            <div class="block text-2xl font-extrabold leading-7 text-gray-900 | sm:text-3xl sm:leading-9 sm:truncate" data-cy="page-header-title">
+            <h1 class="block text-2xl font-extrabold leading-7 text-gray-900 | sm:text-3xl sm:leading-9 sm:truncate" data-cy="page-header-title">
                 <slot>{{ title }}</slot>
-            </div>
+            </h1>
         </div>
 
         <div

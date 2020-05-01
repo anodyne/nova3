@@ -9,13 +9,15 @@ class CreatePagesTable extends Migration
     public function up()
     {
         Schema::create('pages', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('uri');
             $table->string('key')->nullable();
             $table->string('verb')->default('get');
             $table->string('resource')->nullable();
             $table->string('layout')->default('public');
             $table->timestamps();
+
+            $table->index('key');
         });
     }
 

@@ -8,7 +8,7 @@ use Nova\Notes\DataTransferObjects\NoteData;
 
 class UpdateNote extends Action
 {
-    public $errorMessage = 'There was a problem updating the note';
+    // public $errorMessage = 'There was a problem updating the note';
 
     public function execute(Note $note, NoteData $data): Note
     {

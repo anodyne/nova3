@@ -11,7 +11,7 @@ class ValidateStoreNote extends ValidatesRequest
         return [
             'title' => ['required'],
             'content' => ['nullable'],
-            'json' => ['nullable'],
+            'source' => ['nullable'],
         ];
     }
 }

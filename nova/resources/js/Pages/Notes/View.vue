@@ -7,7 +7,7 @@
         </page-header>
 
         <panel>
-            <div class="pt-4 px-4 | md:pt-6 md:px-6" v-html="note.content"></div>
+            <div class="pt-4 px-4 editor-output | md:pt-6 md:px-6" v-html="note.content"></div>
 
             <div class="form-footer">
                 <inertia-link :href="$route('notes.index')" class="button">

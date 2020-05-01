@@ -9,7 +9,7 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -24,9 +24,11 @@ class CreateUsersTable extends Migration
         });
 
         Schema::create('password_resets', function (Blueprint $table) {
-            $table->string('email')->index();
+            $table->string('email');
             $table->string('token');
             $table->timestamp('created_at')->nullable();
+
+            $table->index('email');
         });
     }
 

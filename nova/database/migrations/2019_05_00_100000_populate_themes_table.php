@@ -19,9 +19,7 @@ class PopulateThemesTable extends Migration
             ['name' => 'Titan', 'location' => 'titan'],
         ];
 
-        collect($themes)->each(function ($theme) {
-            Theme::create($theme);
-        });
+        collect($themes)->each([Theme::class, 'create']);
 
         activity()->enableLogging();
     }

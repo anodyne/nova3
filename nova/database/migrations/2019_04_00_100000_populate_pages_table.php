@@ -63,9 +63,7 @@ class PopulatePagesTable extends Migration
             ['uri' => 'notes/{originalNote}/duplicate', 'key' => 'notes.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Notes\\Http\\Controllers\\DuplicateNoteController', 'layout' => 'admin'],
         ];
 
-        collect($pages)->each(function ($page) {
-            Page::create($page);
-        });
+        collect($pages)->each([Page::class, 'create']);
 
         activity()->enableLogging();
     }

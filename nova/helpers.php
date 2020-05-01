@@ -2,12 +2,20 @@
 
 use Nova\Foundation\Nova;
 use Nova\Foundation\Toast;
+use Illuminate\Pipeline\Pipeline;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 
 if (! function_exists('gate')) {
     function gate()
     {
         return app(GateContract::class);
+    }
+}
+
+if (! function_exists('pipe')) {
+    function pipe($passable)
+    {
+        return app(Pipeline::class)->send($passable);
     }
 }
 

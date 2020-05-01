@@ -9,7 +9,7 @@ class CreateThemeTables extends Migration
     public function up()
     {
         Schema::create('themes', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('name');
             $table->string('location');
             $table->text('credits')->nullable();
@@ -21,6 +21,8 @@ class CreateThemeTables extends Migration
             $table->json('layout_admin_settings')->nullable();
             $table->string('icon_set')->default('feather');
             $table->timestamps();
+
+            $table->index('location');
         });
     }
 

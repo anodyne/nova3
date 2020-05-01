@@ -17,7 +17,7 @@ class Note extends Model
     protected static $logName = 'admin';
 
     protected $casts = [
-        'source' => 'json',
+        'source' => 'array',
     ];
 
     protected $dispatchesEvents = [
