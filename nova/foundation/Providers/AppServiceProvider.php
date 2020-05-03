@@ -3,6 +3,7 @@
 namespace Nova\Foundation\Providers;
 
 use Inertia\Inertia;
+use Livewire\Livewire;
 use Nova\Foundation\Nova;
 use Nova\Foundation\Macros;
 use Illuminate\Routing\Route;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\Factory as ViewFactory;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Nova\Foundation\Http\Livewire\PasswordField;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app['view']->addExtension('js', 'file');
 
         Blade::aliasComponent('components.partials.page-header', 'pageHeader');
+        Livewire::component('password-field', PasswordField::class);
 
         $this->app->bind(Nova::class, function ($app) {
             return new Nova;
@@ -35,6 +38,10 @@ class AppServiceProvider extends ServiceProvider
         Route::mixin(new Macros\RouteMacros);
         ViewFactory::mixin(new Macros\ViewMacros);
         RedirectResponse::mixin(new Macros\RedirectResponseMacros);
+
+        Blade::directive('icon', function ($expression) {
+            return "<?php echo e(icon(${expression})); ?>";
+        });
     }
 
     /**

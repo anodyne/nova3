@@ -1,27 +1,42 @@
 <form action="{{ route('login') }}" method="POST" role="form">
     @csrf
 
-    <form-field
-        label="Email"
-        field-id="email"
-        error="{{ $errors->first('email') }}"
-    >
-        <input id="email" type="email" class="field" name="email" value="{{ old('email') }}" data-cy="email" required autofocus>
-    </form-field>
+    <x-form.field label="Email" field-id="email" :error="$errors->first('email')">
+        <input
+        id="email"
+        type="email"
+        class="field"
+        name="email"
+        value="{{ old('email') }}"
+        data-cy="email"
+        required
+        autofocus>
+    </x-form.field>
 
-    <password-field :allow-showing-password="true" label="Password" name="password"></password-field>
+    <livewire:password-field label="Password" field-id="password" field-name="password"></livewire:password-field>
 
-    <div class="flex items-center justify-between mt-8">
-        <div>
-            <stateful-button type="submit" class="button-primary" data-cy="submit">
-                Sign In
-            </stateful-button>
+    <div class="mt-8 flex items-center justify-between">
+        <div class="flex items-center">
+            <input
+                id="remember"
+                type="checkbox"
+                name="remember"
+                class="form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out">
+            <label for="remember" class="ml-2 block text-sm leading-5 text-gray-900">
+                Remember me
+            </label>
         </div>
 
-        @if (Route::has('password.request'))
-            <a class="button button-text" href="{{ route('password.request') }}">
-                {{ __('Forgot Your Password?') }}
+        <div class="text-sm leading-5">
+            <a href="{{ route('password.request') }}" class="font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150">
+                Forgot your password?
             </a>
-        @endif
+        </div>
+    </div>
+
+    <div class="mt-8">
+        <button type="submit" class="button button-primary w-full justify-center">
+            Sign in
+        </button>
     </div>
 </form>

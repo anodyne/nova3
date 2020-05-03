@@ -13,6 +13,7 @@
     <link href="https://rsms.me/inter/inter.css" rel="stylesheet">
     <link href="{{ asset('/dist/css/vendor.css') }}" rel="stylesheet">
     <link href="{{ asset('/dist/css/app.css') }}" rel="stylesheet">
+    @livewireStyles
 
     <!-- Scripts -->
     <script>
@@ -20,6 +21,7 @@
         window.novaSettings = @json(nova()->provideScriptVariables());
     </script>
     <script src="{{ asset('/dist/js/app-server.js') }}" defer></script>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.3.1/dist/alpine.min.js" defer></script>
     @routes
 </head>
 <body class="font-sans bg-gray-200 text-gray-900 antialiased">
@@ -30,5 +32,6 @@
     </div>
 
     {!! $scripts ?? false !!}
+    @livewireScripts
 </body>
 </html>
