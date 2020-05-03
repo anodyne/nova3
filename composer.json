@@ -17,6 +17,8 @@
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
+        "livewire/livewire": "^1.0",
+        "nothingworks/blade-svg": "dev-next-version",
         "santigarcor/laratrust": "^5.2",
         "spatie/data-transfer-object": "^1.12",
         "spatie/laravel-activitylog": "^3.6",
