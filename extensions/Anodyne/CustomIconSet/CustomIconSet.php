@@ -8,14 +8,19 @@ class CustomIconSet extends IconSet
 {
     public function classes(): string
     {
-        return 'fill-current';
+        return 'stroke-current';
     }
 
     public function map(): array
     {
         return [
-            'hide' => 'eye-slash',
-            'show' => 'eye',
+            'activity' => '',
+            'book' => '',
+            'hide' => '',
+            'notification' => '',
+            'search' => '',
+            'show' => '',
+            'sidebar' => '',
         ];
     }
 
