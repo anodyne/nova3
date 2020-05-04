@@ -50,6 +50,7 @@
         "psr-4": {
             "Nova\\": "nova/src/",
             "Nova\\Foundation\\": "nova/foundation/",
+            "Extensions\\": "extensions/",
             "Themes\\": "themes/"
         },
         "classmap": [
