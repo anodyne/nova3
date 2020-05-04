@@ -15,11 +15,11 @@
             >
                 @if ($showPassword)
                     <div class="leading-0">
-                        @icon('eye-off')
+                        @icon('hide')
                     </div>
                 @else
                     <div class="leading-0">
-                        @icon('eye')
+                        @icon('show')
                     </div>
                 @endif
             </button>
