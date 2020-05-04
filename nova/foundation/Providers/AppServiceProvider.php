@@ -7,11 +7,13 @@ use Livewire\Livewire;
 use Nova\Foundation\Nova;
 use Nova\Foundation\Macros;
 use Illuminate\Routing\Route;
+use Nova\Foundation\Icons\IconSets;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
+use Nova\Foundation\Icons\FeatherIconSet;
 use Illuminate\View\Factory as ViewFactory;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Nova\Foundation\Http\Livewire\PasswordField;
@@ -39,9 +41,7 @@ class AppServiceProvider extends ServiceProvider
         ViewFactory::mixin(new Macros\ViewMacros);
         RedirectResponse::mixin(new Macros\RedirectResponseMacros);
 
-        Blade::directive('icon', function ($expression) {
-            return "<?php echo e(icon(${expression})); ?>";
-        });
+        $this->setupIcons();
     }
 
     /**
@@ -102,5 +102,17 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(LengthAwarePaginator::class, function ($app, $values) {
             return new \Nova\Foundation\LengthAwarePaginator(...array_values($values));
         });
+    }
+
+    protected function setupIcons()
+    {
+        Blade::directive('icon', function ($expression) {
+            return "<?php echo e(icon(${expression})); ?>";
+        });
+
+        $iconSets = new IconSets;
+        $iconSets->add('feather', new FeatherIconSet);
+
+        $this->app->instance(IconSets::class, $iconSets);
     }
 }

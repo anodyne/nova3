@@ -13,9 +13,9 @@ return [
     */
 
     'sets' => [
-        'default' => [
+        'feather' => [
             'path' => 'nova/resources/svg/feather',
-            'prefix' => 'icon',
+            'prefix' => 'feather',
         ],
     ],
 
@@ -29,5 +29,5 @@ return [
     |
     */
 
-    'class' => '',
+    'class' => 'icon',
 ];
