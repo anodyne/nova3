@@ -20,6 +20,7 @@
         "axios": "^0.18",
         "buefy": "^0.7.3",
         "feather-icons": "^4.10",
+        "hex-to-rgba": "^2.0.1",
         "laravel-mix": "^4.0.7",
         "laravel-mix-tailwind": "^0.1.0",
         "lodash": "^4.17",
