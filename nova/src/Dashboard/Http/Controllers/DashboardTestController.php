@@ -3,9 +3,8 @@
 namespace Nova\Dashboard\Http\Controllers;
 
 use Nova\Foundation\Http\Controllers\Controller;
-use Nova\Dashboard\Http\Responses\DashboardResponse;
 
-class DashboardController extends Controller
+class DashboardTestController extends Controller
 {
     public function __construct()
     {
@@ -18,6 +17,8 @@ class DashboardController extends Controller
     {
         // $this->dispatchBrowserEvent('notify', 'Dashboard');
 
-        return app(DashboardResponse::class);
+        session()->flash('nova.notify', 'Message');
+
+        return redirect('/dashboard');
     }
 }

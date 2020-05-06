@@ -16,22 +16,23 @@
     @livewireStyles
 
     <!-- Scripts -->
-    <script>
+    {{-- <script>
         window.novaToast = @json(session('nova.toast', []));
         window.novaSettings = @json(nova()->provideScriptVariables());
-    </script>
-    <script src="{{ asset('/dist/js/app-server.js') }}" defer></script>
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.3.1/dist/alpine.min.js" defer></script>
+    </script> --}}
+    {{-- <script src="{{ asset('/dist/js/app-server.js') }}" defer></script> --}}
+    {{-- <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.3.1/dist/alpine.min.js" defer></script> --}}
     @routes
 </head>
 <body class="font-sans bg-gray-200 text-gray-900 antialiased">
     <div id="app">
         {!! $layout ?? false !!}
 
-        <toaster-oven></toaster-oven>
+        <x-notification :notification="session('nova.notify')" />
     </div>
 
     {!! $scripts ?? false !!}
     @livewireScripts
+    @novaScripts
 </body>
 </html>

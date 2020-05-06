@@ -4,19 +4,21 @@ namespace Nova\Foundation\Providers;
 
 use Inertia\Inertia;
 use Livewire\Livewire;
-use Nova\Foundation\Nova;
 use Nova\Foundation\Macros;
 use Illuminate\Routing\Route;
+use Nova\Foundation\NovaManager;
 use Nova\Foundation\Icons\IconSets;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
+use Nova\Foundation\NovaBladeDirectives;
 use Nova\Foundation\Icons\FeatherIconSet;
 use Illuminate\View\Factory as ViewFactory;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Nova\Foundation\Http\Livewire\PasswordField;
+use Nova\Foundation\View\Components\Notification;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,15 +35,16 @@ class AppServiceProvider extends ServiceProvider
         Blade::aliasComponent('components.partials.page-header', 'pageHeader');
         Livewire::component('password-field', PasswordField::class);
 
-        $this->app->bind(Nova::class, function ($app) {
-            return new Nova;
-        });
+        $this->app->singleton('nova', NovaManager::class);
 
         Route::mixin(new Macros\RouteMacros);
         ViewFactory::mixin(new Macros\ViewMacros);
         RedirectResponse::mixin(new Macros\RedirectResponseMacros);
 
         $this->setupIcons();
+
+        Blade::directive('novaScripts', [NovaBladeDirectives::class, 'novaScripts']);
+        Blade::component('notification', Notification::class);
     }
 
     /**
