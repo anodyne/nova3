@@ -15,7 +15,9 @@ class CustomIconSet extends IconSet
     {
         return [
             'activity' => '',
+            'alert' => '',
             'book' => '',
+            'check' => '',
             'hide' => '',
             'notification' => '',
             'search' => '',

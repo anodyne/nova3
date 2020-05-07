@@ -14,8 +14,15 @@ class BootstrapIconSet extends IconSet
     public function map(): array
     {
         return [
+            'activity' => '',
+            'alert' => '',
+            'book' => '',
+            'check' => '',
             'hide' => 'eye-slash',
+            'notification' => '',
+            'search' => '',
             'show' => 'eye',
+            'sidebar' => '',
         ];
     }
 

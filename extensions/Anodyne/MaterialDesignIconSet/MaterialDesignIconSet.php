@@ -15,7 +15,9 @@ class MaterialDesignIconSet extends IconSet
     {
         return [
             'activity' => 'gauge',
+            'alert' => '',
             'book' => 'book-open-page-variant',
+            'check' => '',
             'hide' => 'eye-off',
             'notification' => 'bell-outline',
             'search' => 'magnify',

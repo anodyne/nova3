@@ -15,7 +15,9 @@ class FontAwesomeSolidIconSet extends IconSet
     {
         return [
             'activity' => 'tachometer-alt',
+            'alert' => 'alert-circle',
             'book' => 'book-open',
+            'check' => 'check-circle',
             'hide' => 'eye-slash',
             'notification' => 'bell',
             'search' => 'search',

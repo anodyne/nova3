@@ -13,7 +13,9 @@ class FeatherIconSet extends IconSet
     {
         return [
             'activity' => 'activity',
+            'alert' => 'alert-circle',
             'book' => 'book-open',
+            'check' => 'check-circle',
             'hide' => 'eye-off',
             'notification' => 'bell',
             'search' => 'search',
