@@ -16,12 +16,4 @@ class Controller extends BaseController
     public function __construct()
     {
     }
-
-    public function dispatchBrowserEvent($event, $data = null)
-    {
-        session()->push('nova.dispatchQueue', [
-            'event' => $event,
-            'data' => $data,
-        ]);
-    }
 }
