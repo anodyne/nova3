@@ -17,3 +17,7 @@ body {
     font-feature-settings: 'kern' 1, 'ss01' 1, 'ss02' 1, 'ss03' 1;
     -webkit-font-feature-settings: 'kern' 1, 'ss01' 1, 'ss02' 1, 'ss03' 1;
 }
+
+[x-cloak] {
+    @apply hidden;
+}
