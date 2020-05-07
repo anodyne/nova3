@@ -32,19 +32,13 @@ class AppServiceProvider extends ServiceProvider
         // Make sure the file finder can find Javascript files
         $this->app['view']->addExtension('js', 'file');
 
-        Blade::aliasComponent('components.partials.page-header', 'pageHeader');
-        Livewire::component('password-field', PasswordField::class);
-
         $this->app->singleton('nova', NovaManager::class);
 
-        Route::mixin(new Macros\RouteMacros);
-        ViewFactory::mixin(new Macros\ViewMacros);
-        RedirectResponse::mixin(new Macros\RedirectResponseMacros);
+        $this->registerBladeDirectives();
 
-        $this->setupIcons();
+        $this->registerLivewireComponents();
 
-        Blade::directive('novaScripts', [NovaBladeDirectives::class, 'novaScripts']);
-        Blade::component('notification', Notification::class);
+        $this->registerIcons();
     }
 
     /**
@@ -54,19 +48,21 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->registerMacros();
+
         $this->registerInertia();
 
         $this->registerLengthAwarePaginator();
 
-        $this->app->bind('nova.data.response', function ($app) {
-            return [];
-        });
+        // $this->app->bind('nova.data.response', function ($app) {
+        //     return [];
+        // });
 
-        $this->app->bind('nova.data.frontend', function ($app) {
-            return collect(['system' => [
-                'name' => 'Nova NextGen',
-            ]]);
-        });
+        // $this->app->bind('nova.data.frontend', function ($app) {
+        //     return collect(['system' => [
+        //         'name' => 'Nova NextGen',
+        //     ]]);
+        // });
     }
 
     protected function registerInertia()
@@ -107,15 +103,29 @@ class AppServiceProvider extends ServiceProvider
         });
     }
 
-    protected function setupIcons()
+    protected function registerMacros()
     {
-        Blade::directive('icon', function ($expression) {
-            return "<?php echo e(icon(${expression})); ?>";
-        });
+        Route::mixin(new Macros\RouteMacros);
+        ViewFactory::mixin(new Macros\ViewMacros);
+        RedirectResponse::mixin(new Macros\RedirectResponseMacros);
+    }
 
+    protected function registerIcons()
+    {
         $iconSets = new IconSets;
         $iconSets->add('feather', new FeatherIconSet);
 
         $this->app->instance(IconSets::class, $iconSets);
+    }
+
+    protected function registerBladeDirectives()
+    {
+        Blade::directive('icon', [NovaBladeDirectives::class, 'icon']);
+        Blade::directive('novaScripts', [NovaBladeDirectives::class, 'novaScripts']);
+    }
+
+    protected function registerLivewireComponents()
+    {
+        Livewire::component('password-field', PasswordField::class);
     }
 }
