@@ -25,7 +25,7 @@ class PopulatePagesTable extends Migration
             ['uri' => 'password/reset', 'key' => 'password.update', 'verb' => 'post', 'resource' => 'Nova\\Auth\\Http\\Controllers\\ResetPasswordController@reset', 'layout' => 'auth'],
 
             ['uri' => '/', 'key' => 'home', 'resource' => 'Nova\\Foundation\\Http\\Controllers\\WelcomeController'],
-            ['uri' => 'dashboard', 'key' => 'dashboard', 'resource' => 'Nova\\Dashboard\\Http\\Controllers\\DashboardController'],
+            ['uri' => 'dashboard', 'key' => 'dashboard', 'resource' => 'Nova\\Dashboard\\Http\\Controllers\\DashboardController', 'layout' => 'admin'],
 
             ['uri' => 'themes', 'key' => 'themes.index', 'resource' => 'Nova\\Themes\\Http\\Controllers\\ThemeController@index', 'layout' => 'admin'],
             ['uri' => 'themes/show/{theme}', 'key' => 'themes.show', 'resource' => 'Nova\\Themes\\Http\\Controllers\\ThemeController@show', 'layout' => 'admin'],
