@@ -34,7 +34,7 @@
                     </button>
                 </div>
                 <div class="flex-shrink-0 flex items-center px-4">
-                    <img class="h-8 w-auto" src="/img/logos/workflow-logo-on-white.svg" alt="Workflow" />
+                    <x-nova-logo class="h-8 w-auto text-blue-500" />
                 </div>
                 <div class="mt-5 flex-1 h-0 overflow-y-auto">
                     <nav class="px-2">
@@ -87,7 +87,7 @@
     <div class="hidden md:flex md:flex-shrink-0">
         <div class="flex flex-col w-64 border-r border-gray-200 pt-5 pb-4 bg-white">
             <div class="flex items-center flex-shrink-0 px-4">
-                <img class="h-8 w-auto" src="/img/logos/workflow-logo-on-white.svg" alt="Workflow" />
+                <x-nova-logo class="h-8 w-auto text-blue-500" />
             </div>
             <div class="mt-5 h-0 flex-1 flex flex-col overflow-y-auto">
                 <!-- Sidebar component, swap this element with another sidebar if you like -->
