@@ -28,7 +28,7 @@
     <div id="app">
         {!! $layout ?? false !!}
 
-        <x-notification :notification="session('nova.notify')" />
+        <x-toasts />
     </div>
 
     {!! $scripts ?? false !!}
