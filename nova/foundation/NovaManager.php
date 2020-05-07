@@ -44,7 +44,6 @@ class NovaManager
 
         $appUrl = url('');
         $jsPath = "{$appUrl}/dist/js/app-server.js";
-        $processResponsePath = "{$appUrl}/nova/resources/js/process-response.js";
 
         // Adding semicolons for this JavaScript is important,
         // because it will be minified in production.
@@ -54,7 +53,6 @@ class NovaManager
 </script>
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.3.1/dist/alpine.min.js" data-turbolinks-eval="false" defer></script>
 <script src="{$jsPath}" data-turbolinks-eval="false" defer></script>
-<script src="{$processResponsePath}" data-turbolinks-eval="false"></script>
 HTML;
     }
 
