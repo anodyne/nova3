@@ -6,11 +6,6 @@ use Nova\Foundation\Icons\IconSet;
 
 class FontAwesomeSolidIconSet extends IconSet
 {
-    public function classes(): string
-    {
-        return 'fill-current';
-    }
-
     public function map(): array
     {
         return [

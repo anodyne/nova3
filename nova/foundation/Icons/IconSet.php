@@ -6,8 +6,6 @@ use Nova\Foundation\Exceptions\IconNotFound;
 
 abstract class IconSet
 {
-    abstract public function classes(): string;
-
     abstract public function map(): array;
 
     abstract public function name(): string;

@@ -2,7 +2,6 @@
 
 namespace Nova\Themes\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Nova\Themes\Models\Theme;
 use Nova\Themes\Http\Requests;
 use Nova\Themes\Actions\CreateTheme;
@@ -10,7 +9,6 @@ use Nova\Themes\Actions\DeleteTheme;
 use Nova\Themes\Actions\UpdateTheme;
 use Nova\Themes\Http\Resources\ThemeResource;
 use Nova\Themes\DataTransferObjects\ThemeData;
-use Nova\Themes\Http\Resources\ThemeCollection;
 use Nova\Foundation\Http\Controllers\Controller;
 use Nova\Themes\Http\Responses\EditThemeResponse;
 use Nova\Themes\Http\Responses\ViewThemeResponse;
@@ -28,15 +26,10 @@ class ThemeController extends Controller
         $this->authorizeResource(Theme::class);
     }
 
-    public function index(Request $request)
+    public function index()
     {
-        $themes = Theme::orderBy('name')
-            ->filter($request->only('search'))
-            ->paginate();
-
         return app(ThemeIndexResponse::class)->with([
-            'filters' => $request->all('search'),
-            'themes' => new ThemeCollection($themes),
+            'themes' => Theme::orderBy('name')->get(),
         ]);
     }
 

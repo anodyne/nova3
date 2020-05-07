@@ -4,11 +4,6 @@ namespace Nova\Foundation\Icons;
 
 class FeatherIconSet extends IconSet
 {
-    public function classes(): string
-    {
-        return 'stroke-current';
-    }
-
     public function map(): array
     {
         return [
@@ -16,11 +11,15 @@ class FeatherIconSet extends IconSet
             'alert' => 'alert-circle',
             'book' => 'book-open',
             'check' => 'check-circle',
+            'edit' => 'edit',
+            'folder' => 'folder',
             'hide' => 'eye-off',
+            'more' => 'more-horizontal',
             'notification' => 'bell',
             'search' => 'search',
             'show' => 'eye',
             'sidebar' => 'sidebar',
+            'trash' => 'trash',
         ];
     }
 

@@ -12,7 +12,7 @@ class Icon
     {
         return svg(
             $this->getIconName($name),
-            $this->buildClass($class),
+            $class,
             $attributes
         );
     }
@@ -20,13 +20,6 @@ class Icon
     public function getIconSet(): IconSet
     {
         return app(IconSets::class)->get(cache()->get('nova.icon-set', $this->default));
-    }
-
-    protected function buildClass($class): string
-    {
-        $setClass = $this->getIconSet()->classes();
-
-        return "${class} ${setClass}";
     }
 
     protected function getIconName($name): string

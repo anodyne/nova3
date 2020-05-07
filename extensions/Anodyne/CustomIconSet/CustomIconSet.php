@@ -6,11 +6,6 @@ use Nova\Foundation\Icons\IconSet;
 
 class CustomIconSet extends IconSet
 {
-    public function classes(): string
-    {
-        return 'stroke-current';
-    }
-
     public function map(): array
     {
         return [

@@ -97,6 +97,7 @@ class ServiceProvider extends LaravelServiceProvider
         $this->app->make(Factory::class)->add($set->prefix(), [
             'path' => __DIR__ . '/icons',
             'prefix' => $set->prefix(),
+            'class' => 'fill-current',
         ]);
 
         $this->app->make(IconSets::class)->add($set->prefix(), $set);

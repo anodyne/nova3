@@ -2,9 +2,14 @@
 
 namespace Nova\Themes\Http\Responses;
 
-use Nova\Foundation\Http\Responses\InertiaResponse;
+use Nova\Foundation\Http\Responses\ServerResponse;
 
-class ThemeIndexResponse extends InertiaResponse
+class ThemeIndexResponse extends ServerResponse
 {
-    public $component = 'Themes/Index';
+    public function views(): array
+    {
+        return [
+            'page' => 'themes.index',
+        ];
+    }
 }
