@@ -7,29 +7,19 @@ use Illuminate\Support\Str;
 class Toast
 {
     /**
+     * @var string  The toast title
+     */
+    public $title;
+
+    /**
      * @var string  The toast message
      */
     public $message;
 
     /**
-     * @var string  The type of toast (success, error, make)
+     * @var string  The type of toast (success, error)
      */
     public $type;
-
-    /**
-     * @var string  The link for an actionable toast
-     */
-    public $actionLink;
-
-    /**
-     * @var string  The text for the button of an actionable toast
-     */
-    public $actionText;
-
-    /**
-     * @var int  The duration of the toast
-     */
-    public $duration = 4000;
 
     /**
      * Data to be used by the toast.
@@ -48,26 +38,13 @@ class Toast
     }
 
     /**
-     * Create a toast.
-     *
-     * @return \Nova\Foundation\Toast
-     */
-    public function make()
-    {
-        $this->duration = 3000;
-
-        return $this->makeToast();
-    }
-
-    /**
      * Set the toast type to error.
      *
      * @return \Nova\Foundation\Toast
      */
     public function error()
     {
-        $this->type = 'is-danger';
-        $this->duration = 8000;
+        $this->type = 'error';
 
         return $this->makeToast();
     }
@@ -79,8 +56,7 @@ class Toast
      */
     public function success()
     {
-        $this->type = 'is-success';
-        $this->duration = 4000;
+        $this->type = 'success';
 
         return $this->makeToast();
     }
@@ -111,13 +87,11 @@ class Toast
     protected function makeToast()
     {
         session()->flash('nova.toast', [
-            'message' => $this->message,
-            'type' => $this->type,
-            'actionFunction' => $this->actionLink,
-            'actionText' => $this->actionText,
-            'config' => [
-                'timeout' => $this->duration,
+            'detail' => [
+                'title' => $this->title,
+                'message' => $this->message,
             ],
+            'type' => $this->type,
         ]);
 
         return $this;
