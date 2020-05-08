@@ -6,6 +6,6 @@ class WelcomeController extends Controller
 {
     public function __invoke()
     {
-        return view('components.pages.welcome');
+        return view('pages.welcome');
     }
 }

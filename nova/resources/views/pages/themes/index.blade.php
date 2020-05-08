@@ -37,14 +37,14 @@
                         @icon('more', 'h-6 w-6')
 
                         <template #dropdown="{ toggle, styles }">
-                            @can('view', $theme)
+                            {{-- @can('view', $theme)
                                 <a href="{{ route('themes.show', $theme) }}" :class="styles.link">
                                     <span :class="styles.icon">
                                         @icon('show')
                                     </span>
                                     View
                                 </a>
-                            @endcan
+                            @endcan --}}
 
                             @can('update', $theme)
                                 <a href="{{ route('themes.edit', $theme) }}" :class="styles.link">
@@ -60,7 +60,7 @@
 
                                 <button :class="styles.dangerLink">
                                     <span :class="styles.dangerIcon">
-                                        @icon('trash')
+                                        @icon('delete')
                                     </span>
                                     Delete
                                 </button>

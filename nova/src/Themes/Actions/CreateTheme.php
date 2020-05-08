@@ -12,7 +12,7 @@ class CreateTheme
     {
         $theme = Theme::create($data->toArray());
 
-        Artisan::call('nova:make:theme', [
+        Artisan::call('nova:make-theme', [
             'name' => $theme->name,
             '--location' => $theme->location,
         ]);

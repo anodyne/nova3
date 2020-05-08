@@ -7,7 +7,6 @@ use Nova\Pages\Page;
 abstract class BaseTheme
 {
     use Concerns\RendersTheme,
-        Concerns\Icons,
         Concerns\InteractsWithModel;
 
     /**

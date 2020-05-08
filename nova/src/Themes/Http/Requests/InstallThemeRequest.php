@@ -4,7 +4,7 @@ namespace Nova\Themes\Http\Requests;
 
 use Nova\Foundation\Http\Requests\ValidatesRequest;
 
-class Install extends ValidatesRequest
+class InstallThemeRequest extends ValidatesRequest
 {
     public function rules()
     {

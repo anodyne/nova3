@@ -14,7 +14,7 @@ class ThemeMakeCommand extends Command
      *
      * @var string
      */
-    protected $name = 'nova:make:theme';
+    protected $name = 'nova:make-theme';
 
     /**
      * The console command description.

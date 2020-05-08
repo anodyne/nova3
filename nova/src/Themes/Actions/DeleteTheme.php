@@ -8,8 +8,6 @@ class DeleteTheme
 {
     public function execute(Theme $theme): Theme
     {
-        return tap($theme, function ($theme) {
-            $theme->delete();
-        });
+        return tap($theme)->delete();
     }
 }
