@@ -53,7 +53,7 @@ class ToastTest extends TestCase
     {
         $this->toast->error();
 
-        $this->assertEquals('is-danger', $this->toast->type);
+        $this->assertEquals('error', $this->toast->type);
     }
 
     /**
@@ -63,6 +63,6 @@ class ToastTest extends TestCase
     {
         $this->toast->success();
 
-        $this->assertEquals('is-success', $this->toast->type);
+        $this->assertEquals('success', $this->toast->type);
     }
 }
