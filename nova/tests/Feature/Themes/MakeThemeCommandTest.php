@@ -12,7 +12,7 @@ class MakeThemeCommandTest extends TestCase
     {
         Storage::fake('themes');
 
-        $this->artisan('nova:make:theme', [
+        $this->artisan('nova:make-theme', [
             'name' => 'Foo',
         ]);
 
@@ -30,7 +30,7 @@ class MakeThemeCommandTest extends TestCase
     {
         Storage::fake('themes');
 
-        $this->artisan('nova:make:theme', [
+        $this->artisan('nova:make-theme', [
             'name' => 'Foo',
             '--location' => 'bar',
         ]);
@@ -46,7 +46,7 @@ class MakeThemeCommandTest extends TestCase
     {
         Storage::fake('themes');
 
-        $this->artisan('nova:make:theme', [
+        $this->artisan('nova:make-theme', [
             'name' => 'Foo',
             '--variants' => ['blue', 'red'],
         ]);
@@ -66,7 +66,7 @@ class MakeThemeCommandTest extends TestCase
 
         Storage::disk('themes')->makeDirectory('foo');
 
-        $this->artisan('nova:make:theme', [
+        $this->artisan('nova:make-theme', [
             'name' => 'Foo',
         ]);
     }

@@ -6,10 +6,10 @@ use Nova\Themes\Models\Theme;
 use Nova\DomainServiceProvider;
 use Nova\Themes\Policies\ThemePolicy;
 use Themes\Pulsar\Theme as PulsarTheme;
-use Nova\Themes\Http\Responses\UpdateThemeResponse;
 use Nova\Themes\Console\Commands\ThemeMakeCommand;
-use Nova\Themes\Http\Responses\ShowAllThemesResponse;
 use Nova\Themes\Http\Responses\CreateThemeResponse;
+use Nova\Themes\Http\Responses\UpdateThemeResponse;
+use Nova\Themes\Http\Responses\ShowAllThemesResponse;
 
 class ThemeServiceProvider extends DomainServiceProvider
 {
@@ -35,7 +35,6 @@ class ThemeServiceProvider extends DomainServiceProvider
 
         $this->app->extend('nova.data.frontend', function ($data) use ($theme) {
             $data->put('theme', $theme);
-            $data->put('icons', $theme->iconMap());
 
             return $data;
         });

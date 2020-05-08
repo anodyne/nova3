@@ -6,7 +6,6 @@ use Nova\Pages\Page;
 use Nova\Themes\Events;
 use Nova\Themes\ThemesCollection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Nova\Themes\Models\Builders\ThemeBuilder;
 
@@ -39,7 +38,7 @@ class Theme extends Model
     /**
      * Get the layout to use for the page.
      *
-     * @param  \Nova\Pages\Page  $page
+     * @param  Page  $page
      *
      * @return string
      */
@@ -77,7 +76,7 @@ class Theme extends Model
      *
      * @param  \Illuminate\Database\Query\Builder  $query
      *
-     * @return RoleBuilder
+     * @return ThemeBuilder
      */
     public function newEloquentBuilder($query): ThemeBuilder
     {

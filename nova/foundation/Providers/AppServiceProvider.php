@@ -18,51 +18,30 @@ use Nova\Foundation\Icons\FeatherIconSet;
 use Illuminate\View\Factory as ViewFactory;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Nova\Foundation\Http\Livewire\PasswordField;
-use Nova\Foundation\View\Components\Notification;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
+    public function register()
+    {
+        $this->registerNovaSingleton();
+    }
+
     public function boot()
     {
         // Make sure the file finder can find Javascript files
         $this->app['view']->addExtension('js', 'file');
 
-        $this->app->singleton('nova', NovaManager::class);
-
+        $this->registerInertia();
+        $this->registerMacros();
+        $this->registerLengthAwarePaginator();
         $this->registerBladeDirectives();
-
         $this->registerLivewireComponents();
-
         $this->registerIcons();
     }
 
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
+    protected function registerNovaSingleton()
     {
-        $this->registerMacros();
-
-        $this->registerInertia();
-
-        $this->registerLengthAwarePaginator();
-
-        // $this->app->bind('nova.data.response', function ($app) {
-        //     return [];
-        // });
-
-        // $this->app->bind('nova.data.frontend', function ($app) {
-        //     return collect(['system' => [
-        //         'name' => 'Nova NextGen',
-        //     ]]);
-        // });
+        $this->app->singleton('nova', NovaManager::class);
     }
 
     protected function registerInertia()

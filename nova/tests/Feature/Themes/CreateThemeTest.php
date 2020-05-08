@@ -37,11 +37,13 @@ class CreateThemeTest extends TestCase
     {
         $this->signIn();
 
-        $this->get(route('themes.create'))
-            ->assertForbidden();
+        $this->get(route('themes.create'))->assertForbidden();
 
-        $this->post(route('themes.store'), [])
-            ->assertForbidden();
+        $response = $this->postJson(route('themes.store'), [
+            'name' => 'Foo',
+            'location' => 'foo',
+        ]);
+        $response->assertForbidden();
     }
 
     /** @test  **/

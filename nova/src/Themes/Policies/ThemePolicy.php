@@ -13,9 +13,9 @@ class ThemePolicy
     /**
      * Determine whether the user can view any theme.
      *
-     * @param  \Nova\Users\Models\User  $user
+     * @param  User  $user
      *
-     * @return mixed
+     * @return bool
      */
     public function viewAny(User $user)
     {
@@ -25,10 +25,9 @@ class ThemePolicy
     /**
      * Determine whether the user can view the theme.
      *
-     * @param  \Nova\Users\Models\User  $user
-     * @param  \Nova\Themes\Models\Theme  $theme
+     * @param  User  $user
      *
-     * @return mixed
+     * @return bool
      */
     public function view(User $user)
     {
@@ -38,9 +37,9 @@ class ThemePolicy
     /**
      * Determine whether the user can create themes.
      *
-     * @param  \Nova\Users\Models\User  $user
+     * @param  User  $user
      *
-     * @return mixed
+     * @return bool
      */
     public function create(User $user)
     {
@@ -50,10 +49,9 @@ class ThemePolicy
     /**
      * Determine whether the user can update the theme.
      *
-     * @param  \Nova\Users\Models\User  $user
-     * @param  \Nova\Themes\Models\Theme  $theme
+     * @param  User  $user
      *
-     * @return mixed
+     * @return bool
      */
     public function update(User $user)
     {
@@ -63,10 +61,9 @@ class ThemePolicy
     /**
      * Determine whether the user can delete the theme.
      *
-     * @param  \Nova\Users\Models\User  $user
-     * @param  \Nova\Themes\Models\Theme  $theme
+     * @param  User  $user
      *
-     * @return mixed
+     * @return bool
      */
     public function delete(User $user)
     {
@@ -76,10 +73,10 @@ class ThemePolicy
     /**
      * Determine whether the user can restore the theme.
      *
-     * @param  \Nova\Users\Models\User  $user
-     * @param  \Nova\Themes\Models\Theme  $theme
+     * @param  User  $user
+     * @param  Theme  $theme
      *
-     * @return mixed
+     * @return bool
      */
     public function restore(User $user, Theme $theme)
     {
@@ -89,10 +86,10 @@ class ThemePolicy
     /**
      * Determine whether the user can permanently delete the theme.
      *
-     * @param  \Nova\Users\Models\User  $user
-     * @param  \Nova\Themes\Models\Theme  $theme
+     * @param  User  $user
+     * @param  Theme  $theme
      *
-     * @return mixed
+     * @return bool
      */
     public function forceDelete(User $user, Theme $theme)
     {
