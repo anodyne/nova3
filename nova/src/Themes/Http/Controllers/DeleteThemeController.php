@@ -19,6 +19,10 @@ class DeleteThemeController extends Controller
     {
         $this->authorize('delete', $theme);
 
-        return $action->execute($theme);
+        $action->execute($theme);
+
+        return redirect()
+            ->route('themes.index')
+            ->withToast("{$theme->name} theme was deleted.");
     }
 }

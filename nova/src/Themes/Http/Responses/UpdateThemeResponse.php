@@ -2,9 +2,14 @@
 
 namespace Nova\Themes\Http\Responses;
 
-use Nova\Foundation\Http\Responses\InertiaResponse;
+use Nova\Foundation\Http\Responses\ServerResponse;
 
-class UpdateThemeResponse extends InertiaResponse
+class UpdateThemeResponse extends ServerResponse
 {
-    public $component = 'Themes/Edit';
+    public function views(): array
+    {
+        return [
+            'page' => 'themes.update',
+        ];
+    }
 }

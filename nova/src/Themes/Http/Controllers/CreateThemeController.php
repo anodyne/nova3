@@ -29,6 +29,10 @@ class CreateThemeController extends Controller
     {
         $this->authorize('create', Theme::class);
 
-        return $action->execute(ThemeData::fromRequest($request));
+        $theme = $action->execute(ThemeData::fromRequest($request));
+
+        return redirect()
+            ->route('themes.index')
+            ->withToast("{$theme->name} theme was created.");
     }
 }

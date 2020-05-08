@@ -34,6 +34,10 @@ class UpdateThemeController extends Controller
     ) {
         $this->authorize('update', $theme);
 
-        return $action->execute($theme, ThemeData::fromRequest($request));
+        $theme = $action->execute($theme, ThemeData::fromRequest($request));
+
+        return redirect()
+            ->route('themes.edit', $theme)
+            ->withToast("{$theme->name} theme was updated.");
     }
 }
