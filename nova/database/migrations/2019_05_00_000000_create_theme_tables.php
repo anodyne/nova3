@@ -13,6 +13,7 @@ class CreateThemeTables extends Migration
             $table->string('name');
             $table->string('location');
             $table->text('credits')->nullable();
+            $table->boolean('active')->default(true);
             $table->string('layout_auth')->default('auth-simple');
             $table->json('layout_auth_settings')->nullable();
             $table->string('layout_public')->default('app-hero');
