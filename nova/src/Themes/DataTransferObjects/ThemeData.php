@@ -22,12 +22,18 @@ class ThemeData extends DataTransferObject
      */
     public $credits;
 
+    /**
+     * @var  bool
+     */
+    public $active;
+
     public static function fromRequest(Request $request): self
     {
         return new self([
             'name' => $request->input('name'),
             'location' => $request->input('location'),
             'credits' => $request->input('credits'),
+            'active' => $request->input('active'),
         ]);
     }
 }

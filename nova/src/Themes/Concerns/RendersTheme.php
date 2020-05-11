@@ -8,8 +8,13 @@ trait RendersTheme
 {
     public $structure;
 
-    public function structure(array $data = [])
+    public function structure(array $data = []): array
     {
+        return [
+            'view' => 'app-server',
+            'data' => $data,
+        ];
+
         $this->structure = view('app-server', (array) $data);
 
         return $this;
@@ -17,14 +22,14 @@ trait RendersTheme
 
     public function layout($view, array $data = [])
     {
-        $this->structure->layout = view("components.layouts.{$view}", (array) $data);
+        $this->structure->layout = view("layouts.{$view}", (array) $data);
 
         return $this;
     }
 
     public function template($view, array $data = [])
     {
-        $this->structure->layout->template = view("components.templates.{$view}", (array) $data);
+        $this->structure->layout->template = view("templates.{$view}", (array) $data);
 
         return $this;
     }
@@ -44,7 +49,7 @@ trait RendersTheme
             if (starts_with($script, ['http://', 'https://', '//'])) {
                 $path = $script;
             } else {
-                $filePath = view()->getFinder()->find("components.scripts.{$script}");
+                $filePath = view()->getFinder()->find("scripts.{$script}");
 
                 // Strip out the base path information
                 $path = url(str_replace(base_path(), '', $filePath));
@@ -57,6 +62,11 @@ trait RendersTheme
         $this->structure->scripts = implode("\r\n", $output);
 
         return $this;
+    }
+
+    public function prepareData(): array
+    {
+        return [];
     }
 
     public function __toString()

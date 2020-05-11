@@ -1,11 +1,9 @@
-@props(['clean', 'fieldId', 'help', 'label'])
-
-<div {{ $attributes->merge(['class' => 'field-wrapper']) }}>
+<div {{ $attributes->merge(['class' => $errors->has($fieldId) ? 'field-wrapper has-error' : 'field-wrapper']) }}>
     <label class="field-label" for="{{ $fieldId }}">
         {{ $label }}
     </label>
 
-    @if (isset($clean))
+    @if (isset($clean) && $clean)
         {{ $clean }}
     @else
         <div class="field-group">
@@ -24,12 +22,12 @@
             @endif
         </div>
 
-        @if ($errors->has($fieldId))
+        @error($fieldId)
             <div class="field-error" role="alert">
-                <icon name="alert-circle"></icon>
-                {{ $errors->first($fieldId) }}
+                @icon('alert')
+                {{ $message }}
             </div>
-        @endif
+        @enderror
 
         @if (isset($help))
             <div class="field-help" role="note">

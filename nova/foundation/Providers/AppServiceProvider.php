@@ -18,6 +18,9 @@ use Nova\Foundation\Icons\FeatherIconSet;
 use Illuminate\View\Factory as ViewFactory;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Nova\Foundation\Http\Livewire\PasswordField;
+use Nova\Foundation\Http\Livewire\ToggleSwitch;
+use Nova\Foundation\View\Components\FormField;
+use Nova\Themes\Http\Livewire\DeleteTheme;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -35,6 +38,7 @@ class AppServiceProvider extends ServiceProvider
         $this->registerMacros();
         $this->registerLengthAwarePaginator();
         $this->registerBladeDirectives();
+        $this->registerBladeComponents();
         $this->registerLivewireComponents();
         $this->registerIcons();
     }
@@ -84,9 +88,9 @@ class AppServiceProvider extends ServiceProvider
 
     protected function registerMacros()
     {
+        RedirectResponse::mixin(new Macros\RedirectResponseMacros);
         Route::mixin(new Macros\RouteMacros);
         ViewFactory::mixin(new Macros\ViewMacros);
-        RedirectResponse::mixin(new Macros\RedirectResponseMacros);
     }
 
     protected function registerIcons()
@@ -97,14 +101,22 @@ class AppServiceProvider extends ServiceProvider
         $this->app->instance(IconSets::class, $iconSets);
     }
 
+    protected function registerBladeComponents()
+    {
+        Blade::component('form-field', FormField::class);
+    }
+
     protected function registerBladeDirectives()
     {
         Blade::directive('icon', [NovaBladeDirectives::class, 'icon']);
         Blade::directive('novaScripts', [NovaBladeDirectives::class, 'novaScripts']);
+        Blade::directive('novaStyles', [NovaBladeDirectives::class, 'novaStyles']);
     }
 
     protected function registerLivewireComponents()
     {
+        Livewire::component('delete-theme', DeleteTheme::class);
         Livewire::component('password-field', PasswordField::class);
+        Livewire::component('toggle-switch', ToggleSwitch::class);
     }
 }

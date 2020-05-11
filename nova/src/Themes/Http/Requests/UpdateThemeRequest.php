@@ -11,6 +11,7 @@ class UpdateThemeRequest extends ValidatesRequest
         return [
             'name' => ['required'],
             'credits' => ['nullable'],
+            'active' => ['required'],
         ];
     }
 }

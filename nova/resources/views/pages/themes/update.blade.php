@@ -16,7 +16,7 @@
             </div>
 
             <div class="form-section-content">
-                <x-form.field
+                <x-form-field
                     label="Name"
                     field-id="name"
                     name="name"
@@ -28,9 +28,9 @@
                         name="name"
                         class="field"
                     >
-                </x-form.field>
+                </x-form-field>
 
-                <x-form.field
+                <x-form-field
                     label="Location"
                     field-id="location"
                     name="location"
@@ -46,22 +46,26 @@
                         name="location"
                         class="field"
                     >
-                </x-form.field>
+                </x-form-field>
 
-                <x-form.field label="Credits" field-id="credits">
+                <x-form-field label="Credits" field-id="credits">
                     <textarea
                         id="credits"
                         name="credits"
                         rows="5"
                         class="field"
                     >{{ old('credits', $theme->credits) }}</textarea>
-                </x-form.field>
+                </x-form-field>
 
-                {{-- <x-form.field label="" field-id="">
+                <x-form-field label="" field-id="active">
                     <x-slot name="clean">
-                        <toggle-switch v-model="form.active">Active</toggle-switch>
+                        <livewire:toggle-switch
+                            active="{{ $theme->active }}"
+                            field-name="active"
+                            label="Active"
+                        />
                     </x-slot>
-                </x-form.field> --}}
+                </x-form-field>
             </div>
         </div>
 

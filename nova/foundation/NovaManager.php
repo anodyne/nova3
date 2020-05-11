@@ -6,6 +6,21 @@ class NovaManager
 {
     public $version = '3.0.0';
 
+    public function styles($options = [])
+    {
+        $debug = config('app.debug');
+
+        $styles = $this->cssAssets();
+
+        // HTML Label.
+        $html = $debug ? ['<!-- Nova Styles -->'] : [];
+
+        // CSS assets.
+        $html[] = $debug ? $styles : $this->minify($styles);
+
+        return implode("\n", $html);
+    }
+
     public function scripts($options = [])
     {
         $debug = config('app.debug');
@@ -36,6 +51,19 @@ class NovaManager
             'theme' => $theme,
             'user' => auth()->user(),
         ]);
+    }
+
+    protected function cssAssets()
+    {
+        $appUrl = url('');
+        $vendorPath = "{$appUrl}/dist/css/vendor.css";
+        $baseStylesPath = "{$appUrl}/dist/css/app.css";
+
+        return <<<HTML
+<link href="https://rsms.me/inter/inter.css" rel="stylesheet">
+<link href="{$vendorPath}" rel="stylesheet">
+<link href="{$baseStylesPath}" rel="stylesheet">
+HTML;
     }
 
     protected function javaScriptAssets($options)

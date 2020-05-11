@@ -6,10 +6,5 @@ use Nova\Foundation\Http\Responses\ServerResponse;
 
 class DashboardResponse extends ServerResponse
 {
-    public function views(): array
-    {
-        return [
-            'page' => 'dashboard',
-        ];
-    }
+    public $view = 'dashboard';
 }

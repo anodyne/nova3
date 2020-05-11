@@ -1,4 +1,4 @@
-<x-form.field label="{{ $label }}" field-id="{{ $fieldId }}">
+<x-form-field label="{{ $label }}" field-id="{{ $fieldId }}">
     <input
         wire:model="password"
         type="{{ $showPassword ? 'text' : 'password' }}"
@@ -25,4 +25,4 @@
             </button>
         </x-slot>
     @endif
-</x-form.field>
+</x-form-field>

@@ -6,10 +6,5 @@ use Nova\Foundation\Http\Responses\ServerResponse;
 
 class ShowAllThemesResponse extends ServerResponse
 {
-    public function views(): array
-    {
-        return [
-            'page' => 'themes.index',
-        ];
-    }
+    public $view = 'themes.index';
 }
