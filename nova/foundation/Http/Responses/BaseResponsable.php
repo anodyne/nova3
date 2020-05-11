@@ -160,7 +160,7 @@ abstract class BaseResponsable implements Responsable
             ->buildLayout()
             ->buildTemplate()
             ->buildPage();
-            // ->buildScripts();
+        // ->buildScripts();
 
         return $this->output;
     }

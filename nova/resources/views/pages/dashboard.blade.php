@@ -14,7 +14,17 @@
             </p>
         </x-modal> --}}
 
-        <dropdown class="button">
+        <x-dropdown>
+            Options
+
+            <x-slot name="dropdown">
+                <a href="#" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">Account settings</a>
+                <a href="#" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">Account settings</a>
+                <a href="#" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">Account settings</a>
+            </x-slot>
+        </x-dropdown>
+
+        {{-- <dropdown class="button">
             Options
 
             <template #dropdown>
@@ -22,6 +32,6 @@
                 <a href="#" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">Account settings</a>
                 <a href="#" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">Account settings</a>
             </template>
-        </dropdown>
+        </dropdown> --}}
     </x-panel>
 @endsection

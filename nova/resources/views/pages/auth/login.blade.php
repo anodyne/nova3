@@ -1,4 +1,4 @@
-@extends('templates.simple')
+@extends($__novaTemplate)
 
 @section('content')
     <form action="{{ route('login') }}" method="POST" role="form">

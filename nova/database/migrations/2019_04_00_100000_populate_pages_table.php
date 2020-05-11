@@ -33,7 +33,8 @@ class PopulatePagesTable extends Migration
             ['uri' => 'themes', 'key' => 'themes.store', 'verb' => 'post', 'resource' => 'Nova\\Themes\\Http\\Controllers\\CreateThemeController@store', 'layout' => 'admin'],
             ['uri' => 'themes/{theme}/edit', 'key' => 'themes.edit', 'resource' => 'Nova\\Themes\\Http\\Controllers\\UpdateThemeController@showForm', 'layout' => 'admin'],
             ['uri' => 'themes/{theme}', 'key' => 'themes.update', 'verb' => 'put', 'resource' => 'Nova\\Themes\\Http\\Controllers\\UpdateThemeController@update', 'layout' => 'admin'],
-            ['uri' => 'themes/{theme}', 'key' => 'themes.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Themes\\Http\\Controllers\\DeleteThemeController', 'layout' => 'admin'],
+            ['uri' => 'themes/{theme}/delete', 'key' => 'themes.delete', 'resource' => 'Nova\\Themes\\Http\\Controllers\\DeleteThemeController@showConfirmation', 'layout' => 'admin'],
+            ['uri' => 'themes/{theme}', 'key' => 'themes.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Themes\\Http\\Controllers\\DeleteThemeController@destroy', 'layout' => 'admin'],
             ['uri' => 'themes/install', 'key' => 'themes.install', 'verb' => 'post', 'resource' => 'Nova\\Themes\\Http\\Controllers\\InstallThemeController', 'layout' => 'admin'],
 
             ['uri' => 'roles', 'key' => 'roles.index', 'resource' => 'Nova\\Roles\\Http\\Controllers\\RoleController@index', 'layout' => 'admin'],

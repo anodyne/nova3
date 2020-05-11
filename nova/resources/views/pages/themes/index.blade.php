@@ -15,9 +15,9 @@
     @foreach ($themes as $theme)
         <div
             x-data="{ id: {{ $theme->id }} }"
-            class="flex flex-col rounded-lg shadow-lg overflow-hidden"
+            class="flex flex-col rounded-lg shadow-lg"
         >
-            <a href="{{ route('themes.edit', $theme) }}" class="flex-shrink-0">
+            <a href="{{ route('themes.edit', $theme) }}" class="flex-shrink-0 rounded-t-lg overflow-hidden">
                 <img class="h-48 w-full object-cover" src="https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1679&q=80" alt="" />
             </a>
             <div class="flex-1 bg-white flex flex-col justify-between">
@@ -32,17 +32,17 @@
                         </p>
                     </div>
                 </a>
-                <div class="px-6 py-3 flex items-center justify-between bg-gray-50 border-t border-gray-100">
+                <div class="px-6 py-3 flex items-center justify-between bg-gray-50 border-t border-gray-100 rounded-b-lg">
                     <div class="flex-shrink-0">
                         <a href="#" x-on:click.prevent="$dispatch('open-modal', { id })">
                             <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
                         </a>
                     </div>
                     <div class="ml-3">
-                        <dropdown placement="bottom-end" class="text-gray-400 hover:text-gray-500">
+                        <x-dropdown class="text-gray-400 hover:text-gray-500">
                             @icon('more', 'h-6 w-6')
 
-                            <template #dropdown="{ toggle, styles }">
+                            <x-slot name="dropdown">
                                 {{-- @can('view', $theme)
                                     <a href="{{ route('themes.show', $theme) }}" :class="styles.link">
                                         <span :class="styles.icon">
@@ -62,20 +62,20 @@
                                 @endcan --}}
 
                                 @can('delete', $theme)
-                                    <div :class="styles.divider"></div>
+                                    {{-- <div :class="styles.divider"></div> --}}
 
                                     <button
-                                        :class="styles.dangerLink"
+                                        {{-- :class="styles.dangerLink" --}}
                                         x-on:click="$dispatch('open-modal', { id })"
                                     >
-                                        <span :class="styles.dangerIcon">
+                                        {{-- <span :class="styles.dangerIcon"> --}}
                                             @icon('delete')
-                                        </span>
+                                        {{-- </span> --}}
                                         Delete
                                     </button>
                                 @endcan
-                            </template>
-                        </dropdown>
+                            </x-slot>
+                        </x-dropdown>
                     </div>
                 </div>
             </div>
