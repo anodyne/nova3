@@ -43,10 +43,10 @@ abstract class Action
      */
     protected function getErrorMessage($throwable = null): string
     {
-        if ($this->errorMessage !== null) {
-            return $this->errorMessage;
+        if (! app()->environment('production') || $this->errorMessage === null) {
+            return $throwable->getMessage();
         }
 
-        return $throwable->getMessage();
+        return $this->errorMessage;
     }
 }

@@ -10,7 +10,6 @@ use Nova\Themes\Console\Commands\ThemeMakeCommand;
 use Nova\Themes\Http\Responses\CreateThemeResponse;
 use Nova\Themes\Http\Responses\UpdateThemeResponse;
 use Nova\Themes\Http\Responses\ShowAllThemesResponse;
-use Nova\Themes\Http\Responses\DeleteThemeConfirmationResponse;
 
 class ThemeServiceProvider extends DomainServiceProvider
 {
@@ -24,12 +23,11 @@ class ThemeServiceProvider extends DomainServiceProvider
 
     protected $responsables = [
         CreateThemeResponse::class,
-        DeleteThemeConfirmationResponse::class,
         UpdateThemeResponse::class,
         ShowAllThemesResponse::class,
     ];
 
-    protected function bootActions()
+    protected function bootedDomain()
     {
         $theme = new PulsarTheme;
 

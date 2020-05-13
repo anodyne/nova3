@@ -3,39 +3,26 @@
 namespace Nova\Themes\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Filesystem\FilesystemManager;
 use Symfony\Component\Console\Input\InputOption;
 
 class ThemeMakeCommand extends Command
 {
     /**
-     * The name and signature of the console command.
-     *
      * @var string
      */
     protected $name = 'nova:make-theme';
 
     /**
-     * The console command description.
-     *
      * @var string
      */
     protected $description = 'Scaffold a new theme.';
 
     /**
-     * The filesystem instance.
-     *
      * @var \Illuminate\Filesystem\Filesystem
      */
     protected $files;
 
-    /**
-     * Create a new command instance.
-     *
-     * @param  \Illuminate\Filesystem\FilesystemManager  $files
-     * @return void
-     */
     public function __construct(FilesystemManager $files)
     {
         parent::__construct();
@@ -43,11 +30,6 @@ class ThemeMakeCommand extends Command
         $this->files = $files->disk('themes');
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
     public function handle()
     {
         try {
@@ -70,8 +52,9 @@ class ThemeMakeCommand extends Command
     /**
      * Create the theme directory.
      *
-     * @return void
      * @throws RuntimeException
+     *
+     * @return void
      */
     protected function createThemeDirectory()
     {
@@ -89,7 +72,7 @@ class ThemeMakeCommand extends Command
      */
     protected function createThemeInstallFile()
     {
-        $stub = file_get_contents(__DIR__.'/../stubs/theme.json.stub');
+        $stub = file_get_contents(__DIR__ . '/../stubs/theme.json.stub');
 
         $stub = str_replace(
             ['DummyName', 'DummyLocation'],
@@ -97,7 +80,7 @@ class ThemeMakeCommand extends Command
             $stub
         );
 
-        $this->files->put($this->getThemeLocation().'/theme.json', $stub);
+        $this->files->put($this->getThemeLocation() . '/theme.json', $stub);
     }
 
     /**
@@ -107,7 +90,7 @@ class ThemeMakeCommand extends Command
      */
     protected function createThemeClass()
     {
-        $stub = file_get_contents(__DIR__.'/../stubs/theme.php.stub');
+        $stub = file_get_contents(__DIR__ . '/../stubs/theme.php.stub');
 
         $stub = str_replace(
             ['DummyNamespace', 'DummyLocation'],
@@ -115,7 +98,7 @@ class ThemeMakeCommand extends Command
             $stub
         );
 
-        $this->files->put($this->getThemeLocation().'/Theme.php', $stub);
+        $this->files->put($this->getThemeLocation() . '/Theme.php', $stub);
     }
 
     /**
@@ -125,7 +108,7 @@ class ThemeMakeCommand extends Command
      */
     protected function createThemeDesignDirectoryAndStylesheet()
     {
-        $this->files->makeDirectory($this->getThemeLocation().'/design');
+        $this->files->makeDirectory($this->getThemeLocation() . '/design');
 
         $this->createStylesheet('custom.css');
     }
@@ -138,7 +121,7 @@ class ThemeMakeCommand extends Command
     protected function createThemeVariants()
     {
         if ($variants = $this->option('variants')) {
-            $this->files->makeDirectory($this->getThemeLocation().'/design/variants');
+            $this->files->makeDirectory($this->getThemeLocation() . '/design/variants');
 
             collect($variants)->each(function ($variant) {
                 $this->createStylesheet("variants/{$variant}.css");
@@ -150,13 +133,14 @@ class ThemeMakeCommand extends Command
      * Create a new stylesheet.
      *
      * @param  string  $stylesheet
+     *
      * @return void
      */
     protected function createStylesheet($stylesheet)
     {
-        $stub = file_get_contents(__DIR__.'/../stubs/custom.css.stub');
+        $stub = file_get_contents(__DIR__ . '/../stubs/custom.css.stub');
 
-        $this->files->put($this->getThemeLocation()."/design/{$stylesheet}", $stub);
+        $this->files->put($this->getThemeLocation() . "/design/{$stylesheet}", $stub);
     }
 
     /**
@@ -191,7 +175,7 @@ class ThemeMakeCommand extends Command
     protected function getArguments()
     {
         return [
-            ['name', InputOption::VALUE_REQUIRED, 'The name of the theme']
+            ['name', InputOption::VALUE_REQUIRED, 'The name of the theme'],
         ];
     }
 

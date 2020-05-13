@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
 use Nova\Foundation\NovaBladeDirectives;
 use Nova\Foundation\Icons\FeatherIconSet;
-use Nova\Themes\Http\Livewire\DeleteTheme;
 use Illuminate\View\Factory as ViewFactory;
 use Nova\Foundation\View\Components\FormField;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -115,7 +114,6 @@ class AppServiceProvider extends ServiceProvider
 
     protected function registerLivewireComponents()
     {
-        Livewire::component('delete-theme', DeleteTheme::class);
         Livewire::component('password-field', PasswordField::class);
         Livewire::component('toggle-switch', ToggleSwitch::class);
     }

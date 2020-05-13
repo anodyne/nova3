@@ -2,7 +2,9 @@
 
 namespace Nova;
 
+use Livewire\Livewire;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -10,9 +12,13 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 
 abstract class DomainServiceProvider extends ServiceProvider
 {
+    protected $bladeComponents = [];
+
     protected $commands = [];
 
     protected $listeners = [];
+
+    protected $livewireComponents = [];
 
     protected $morphMaps = [];
 
@@ -27,15 +33,16 @@ abstract class DomainServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->bootingDomain();
+
+        $this->registerBladeComponents();
         $this->registerCommands();
-
         $this->registerListeners();
-
+        $this->registerLivewireComponents();
         $this->registerPolicies();
-
         $this->registerRoutes();
 
-        $this->bootActions();
+        $this->bootedDomain();
     }
 
     /**
@@ -43,31 +50,64 @@ abstract class DomainServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->registerMorphMaps();
+        $this->registeringDomain();
 
+        $this->registerMorphMaps();
         $this->registerResponsables();
 
-        $this->registerActions();
+        $this->registeredDomain();
     }
 
     /**
      * Allow a domain service provider to specify additional actions to run
-     * at the end of the boot process.
+     * before the boot process starts.
      *
      * @return void
      */
-    protected function bootActions()
+    protected function bootingDomain()
     {
     }
 
     /**
      * Allow a domain service provider to specify additional actions to run
-     * at the end of the register process.
+     * after the boot process runs.
      *
      * @return void
      */
-    protected function registerActions()
+    protected function bootedDomain()
     {
+    }
+
+    /**
+     * Allow a domain service provider to specify additional actions to run
+     * before the register process starts.
+     *
+     * @return void
+     */
+    protected function registeringDomain()
+    {
+    }
+
+    /**
+     * Allow a domain service provider to specify additional actions to run
+     * after the register process runs.
+     *
+     * @return void
+     */
+    protected function registeredDomain()
+    {
+    }
+
+    /**
+     * Register any Blade components.
+     *
+     * @return void
+     */
+    private function registerBladeComponents()
+    {
+        collect($this->bladeComponents)->each(function ($component, $alias) {
+            Blade::component($alias, $component);
+        });
     }
 
     /**
@@ -93,6 +133,18 @@ abstract class DomainServiceProvider extends ServiceProvider
             collect($listeners)->each(function ($listener) use ($event) {
                 Event::listen($event, $listener);
             });
+        });
+    }
+
+    /**
+     * Register any Livewire components.
+     *
+     * @return void
+     */
+    private function registerLivewireComponents()
+    {
+        collect($this->livewireComponents)->each(function ($component, $alias) {
+            Livewire::component($alias, $component);
         });
     }
 

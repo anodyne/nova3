@@ -2,6 +2,7 @@
     --color-black: black;
     --color-white: white;
 
+    --color-danger-50: red;
     --color-danger-100: red;
     --color-danger-200: red;
     --color-danger-300: red;
@@ -12,6 +13,7 @@
     --color-danger-800: red;
     --color-danger-900: red;
 
+    --color-gray-50: gray;
     --color-gray-100: gray;
     --color-gray-200: gray;
     --color-gray-300: gray;
@@ -22,6 +24,7 @@
     --color-gray-800: gray;
     --color-gray-900: gray;
 
+    --color-info-50: purple;
     --color-info-100: purple;
     --color-info-200: purple;
     --color-info-300: purple;
@@ -32,6 +35,7 @@
     --color-info-800: purple;
     --color-info-900: purple;
 
+    --color-primary-50: blue;
     --color-primary-100: blue;
     --color-primary-200: blue;
     --color-primary-300: blue;
@@ -42,6 +46,7 @@
     --color-primary-800: blue;
     --color-primary-900: blue;
 
+    --color-success-50: green;
     --color-success-100: green;
     --color-success-200: green;
     --color-success-300: green;
@@ -52,6 +57,7 @@
     --color-success-800: green;
     --color-success-900: green;
 
+    --color-warning-50: yellow;
     --color-warning-100: yellow;
     --color-warning-200: yellow;
     --color-warning-300: yellow;
