@@ -64,9 +64,9 @@ class InstallThemeTest extends TestCase
     /** @test **/
     public function installableThemesAreShown()
     {
-        $this->markTestSkipped('Pending themes not implemented yet');
-
         Storage::fake('themes');
+
+        $disk = Storage::disk('themes');
 
         $this->signInWithPermission('theme.create');
 
@@ -76,8 +76,6 @@ class InstallThemeTest extends TestCase
         ];
 
         factory(Theme::class)->create($createData);
-
-        $disk = Storage::disk('themes');
 
         $data = [
             'name' => 'Bar',

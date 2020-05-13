@@ -11,59 +11,88 @@
         </x-slot>
     </x-page-header>
 
-    <div class="mt-12 grid gap-6 max-w-lg mx-auto | lg:grid-cols-3 lg:max-w-none">
-    @foreach ($themes as $theme)
-        <div
-            x-data="{ id: {{ $theme->id }} }"
-            class="flex flex-col rounded-lg shadow-lg overflow-hidden"
-        >
-            <div class="flex-shrink-0">
-                <img class="h-48 w-full object-cover" src="https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1679&q=80" alt="" />
-            </div>
+    @if ($pendingThemes->count() > 0)
+        <div class="bg-gray-200 overflow-hidden rounded-lg">
+            <div class="px-4 py-5 | sm:p-6">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">
+                    Themes to be installed
+                </h3>
 
-            <div class="flex-1 bg-white flex flex-col justify-between">
-                <div class="flex-1 p-6">
-                    <div class="block">
-                        <div class="flex items-center justify-between">
-                            <h3 class="text-xl leading-7 font-semibold text-gray-900">
-                                {{ $theme->name }}
-                            </h3>
+                <div class="mt-4 grid gap-6 max-w-lg mx-auto | lg:grid-cols-3 lg:max-w-none">
+                @foreach ($pendingThemes as $pendingTheme)
+                    <x-card>
+                        <x-slot name="header">
+                            <div class="flex-shrink-0">
+                                <img class="h-48 w-full object-cover" src="https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1679&q=80" alt="" />
+                            </div>
+                        </x-slot>
 
-                            <dropdown class="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150" placement="bottom-end">
-                                @icon('more', 'h-6 w-6')
-
-                                <template #dropdown="{ toggle }">
-                                    @can('update', $theme)
-                                        <a href="{{ route('themes.edit', $theme) }}" class="dropdown-link">
-                                            @icon('edit', 'dropdown-icon')
-                                            Edit
-                                        </a>
-                                        <a href="#" class="dropdown-link">
-                                            @icon('star', 'dropdown-icon')
-                                            Make System Default
-                                        </a>
-                                    @endcan
-
-                                    @can('delete', $theme)
-                                        <button
-                                            v-on:click="toggle();$emit('open-modal', {{ json_encode($theme) }});"
-                                            class="dropdown-link"
-                                        >
-                                            @icon('delete', 'dropdown-icon')
-                                            Delete
-                                        </button>
-                                    @endcan
-                                </template>
-                            </dropdown>
-                        </div>
+                        <h3 class="text-xl leading-7 font-semibold text-gray-900">
+                            {{ $pendingTheme['name'] }}
+                        </h3>
                         <p class="mt-1 flex items-center text-base leading-6 text-gray-500">
                             @icon('folder', 'flex-shrink-0 mr-2 h-5 w-5 text-gray-400')
-                            themes/{{ $theme->location }}
+                            themes/{{ $pendingTheme['location'] }}
                         </p>
-                    </div>
+
+                        <form action="">
+                            <button type="button" class="mt-4 button button-xs">
+                                Install
+                            </button>
+                        </form>
+                    </x-card>
+                @endforeach
                 </div>
             </div>
         </div>
+    @endif
+
+    <div class="mt-12 grid gap-6 max-w-lg mx-auto | lg:grid-cols-3 lg:max-w-none">
+    @foreach ($themes as $theme)
+        <x-card x-data="{ id: {{ $theme->id }} }">
+            <x-slot name="header">
+                <div class="flex-shrink-0">
+                    <img class="h-48 w-full object-cover" src="https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1679&q=80" alt="" />
+                </div>
+            </x-slot>
+
+            <div class="flex items-center justify-between">
+                <h3 class="text-xl leading-7 font-semibold text-gray-900">
+                    {{ $theme->name }}
+                </h3>
+
+                <dropdown class="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150" placement="bottom-end">
+                    @icon('more', 'h-6 w-6')
+
+                    <template #dropdown="{ toggle }">
+                        @can('update', $theme)
+                            <a href="{{ route('themes.edit', $theme) }}" class="dropdown-link">
+                                @icon('edit', 'dropdown-icon')
+                                Edit
+                            </a>
+                            <a href="#" class="dropdown-link">
+                                @icon('star', 'dropdown-icon')
+                                Make System Default
+                            </a>
+                        @endcan
+
+                        @can('delete', $theme)
+                            <button
+                                v-on:click="toggle();$emit('open-modal', {{ json_encode($theme) }});"
+                                class="dropdown-link"
+                            >
+                                @icon('delete', 'dropdown-icon')
+                                Delete
+                            </button>
+                        @endcan
+                    </template>
+                </dropdown>
+            </div>
+            <p class="mt-1 flex items-center text-base leading-6 text-gray-500">
+                @icon('folder', 'flex-shrink-0 mr-2 h-5 w-5 text-gray-400')
+                themes/{{ $theme->location }}
+            </p>
+        </x-card>
     @endforeach
     </div>
 
