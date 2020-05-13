@@ -61,6 +61,7 @@ class UpdateThemeTest extends TestCase
             ->from(route('themes.edit', $this->theme))
             ->put(route('themes.update', $this->theme), [
                 'name' => 'New Name',
+                'active' => true,
                 'location' => $this->theme->location,
                 'layout_auth' => $this->theme->layout_auth,
                 'layout_admin' => $this->theme->layout_admin,

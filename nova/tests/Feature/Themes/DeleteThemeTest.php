@@ -3,7 +3,6 @@
 namespace Tests\Feature\Themes;
 
 use Tests\TestCase;
-use Illuminate\Http\Response;
 use Nova\Themes\Models\Theme;
 use Nova\Themes\Actions\DeleteTheme;
 use Nova\Themes\Events\ThemeDeleted;
@@ -28,8 +27,10 @@ class DeleteThemeTest extends TestCase
     {
         $this->signInWithPermission('theme.delete');
 
-        $this->deleteJson(route('themes.destroy', $this->theme))
-            ->assertSuccessful();
+        $response = $this->delete(route('themes.destroy', $this->theme));
+        $response->assertRedirect(route('themes.index'));
+
+        $this->assertDatabaseMissing('themes', $this->theme->only('id', 'name'));
     }
 
     /** @test **/
@@ -37,29 +38,15 @@ class DeleteThemeTest extends TestCase
     {
         $this->signIn();
 
-        $this->deleteJson(route('themes.destroy', $this->theme))
-            ->assertStatus(Response::HTTP_FORBIDDEN);
+        $response = $this->deleteJson(route('themes.destroy', $this->theme));
+        $response->assertForbidden();
     }
 
     /** @test **/
     public function guestCannotDeleteTheme()
     {
-        $this->deleteJson(route('themes.destroy', $this->theme))
-            ->assertStatus(Response::HTTP_UNAUTHORIZED);
-    }
-
-    /** @test **/
-    public function themeCanBeDeleted()
-    {
-        $this->signInWithPermission('theme.delete');
-
-        $this->deleteJson(route('themes.destroy', $this->theme))
-            ->assertJson($this->theme->toArray());
-
-        $this->assertDatabaseMissing('themes', [
-            'id' => $this->theme->id,
-            'name' => $this->theme->name,
-        ]);
+        $response = $this->deleteJson(route('themes.destroy', $this->theme));
+        $response->assertUnauthorized();
     }
 
     /** @test **/
@@ -67,7 +54,7 @@ class DeleteThemeTest extends TestCase
     {
         Event::fake();
 
-        $theme = (new DeleteTheme)->execute($this->theme);
+        $theme = app(DeleteTheme::class)->execute($this->theme);
 
         Event::assertDispatched(ThemeDeleted::class, function ($event) use ($theme) {
             return $event->theme->is($theme);

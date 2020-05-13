@@ -14,8 +14,8 @@ class ManageThemesTest extends TestCase
     {
         $this->signInWithPermission('theme.create');
 
-        $this->get(route('themes.index'))
-            ->assertSuccessful();
+        $response = $this->get(route('themes.index'));
+        $response->assertSuccessful();
     }
 
     /** @test **/
@@ -23,14 +23,14 @@ class ManageThemesTest extends TestCase
     {
         $this->signIn();
 
-        $this->get(route('themes.index'))
-            ->assertForbidden();
+        $response = $this->get(route('themes.index'));
+        $response->assertForbidden();
     }
 
     /** @test **/
     public function guestCannotManageThemes()
     {
-        $this->get(route('themes.index'))
-            ->assertRedirect(route('login'));
+        $response = $this->get(route('themes.index'));
+        $response->assertRedirect(route('login'));
     }
 }

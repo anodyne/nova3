@@ -36,15 +36,13 @@ class InstallThemeTest extends TestCase
         $disk->makeDirectory('foo');
         $disk->put('foo/theme.json', json_encode($this->theme->toArray()));
 
-        $this->from(route('themes.index'))
-            ->postJson(route('themes.install'), [
-                'theme' => $this->theme->location,
-            ])
-            ->assertJson($this->theme->toArray());
-
-        $this->assertDatabaseHas('themes', [
-            'name' => $this->theme->name,
+        $response = $this->postJson(route('themes.install'), [
+            'theme' => $this->theme->location,
         ]);
+        $response->assertSuccessful();
+        $response->assertJson($this->theme->toArray());
+
+        $this->assertDatabaseHas('themes', $this->theme->only('name'));
     }
 
     /** @test **/
@@ -52,15 +50,15 @@ class InstallThemeTest extends TestCase
     {
         $this->signIn();
 
-        $this->postJson(route('themes.install'), ['theme' => 'foo'])
-            ->assertForbidden();
+        $response = $this->postJson(route('themes.install'), ['theme' => 'foo']);
+        $response->assertForbidden();
     }
 
     /** @test **/
     public function guestCannotInstallTheme()
     {
-        $this->postJson(route('themes.install'), [])
-            ->assertUnauthorized();
+        $response = $this->postJson(route('themes.install'), []);
+        $response->assertUnauthorized();
     }
 
     /** @test **/
@@ -91,10 +89,9 @@ class InstallThemeTest extends TestCase
 
         $disk->makeDirectory('foo');
 
-        $this->get(route('themes.index'))
-            ->assertSuccessful()
-            ->assertResponseHas('pendingThemes', collect([$data]))
-            ->assertResponseMissing('pendingThemes', collect([$createData]));
+        $response = $this->get(route('themes.index'));
+        $response->assertResponseHas('pendingThemes', collect([$data]));
+        $response->assertResponseMissing('pendingThemes', collect([$createData]));
     }
 
     /** @test **/

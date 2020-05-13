@@ -28,13 +28,11 @@ class PopulatePagesTable extends Migration
             ['uri' => 'dashboard', 'key' => 'dashboard', 'resource' => 'Nova\\Dashboard\\Http\\Controllers\\DashboardController', 'layout' => 'admin'],
 
             ['uri' => 'themes', 'key' => 'themes.index', 'resource' => 'Nova\\Themes\\Http\\Controllers\\ShowAllThemesController', 'layout' => 'admin'],
-            // ['uri' => 'themes/show/{theme}', 'key' => 'themes.show', 'resource' => 'Nova\\Themes\\Http\\Controllers\\ThemeController@show', 'layout' => 'admin'],
             ['uri' => 'themes/create', 'key' => 'themes.create', 'resource' => 'Nova\\Themes\\Http\\Controllers\\CreateThemeController@showForm', 'layout' => 'admin'],
             ['uri' => 'themes', 'key' => 'themes.store', 'verb' => 'post', 'resource' => 'Nova\\Themes\\Http\\Controllers\\CreateThemeController@store', 'layout' => 'admin'],
             ['uri' => 'themes/{theme}/edit', 'key' => 'themes.edit', 'resource' => 'Nova\\Themes\\Http\\Controllers\\UpdateThemeController@showForm', 'layout' => 'admin'],
             ['uri' => 'themes/{theme}', 'key' => 'themes.update', 'verb' => 'put', 'resource' => 'Nova\\Themes\\Http\\Controllers\\UpdateThemeController@update', 'layout' => 'admin'],
-            ['uri' => 'themes/{theme}/delete', 'key' => 'themes.delete', 'resource' => 'Nova\\Themes\\Http\\Controllers\\DeleteThemeController@showConfirmation', 'layout' => 'admin'],
-            ['uri' => 'themes/{theme}', 'key' => 'themes.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Themes\\Http\\Controllers\\DeleteThemeController@destroy', 'layout' => 'admin'],
+            ['uri' => 'themes/{theme}', 'key' => 'themes.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Themes\\Http\\Controllers\\DeleteThemeController', 'layout' => 'admin'],
             ['uri' => 'themes/install', 'key' => 'themes.install', 'verb' => 'post', 'resource' => 'Nova\\Themes\\Http\\Controllers\\InstallThemeController', 'layout' => 'admin'],
 
             ['uri' => 'roles', 'key' => 'roles.index', 'resource' => 'Nova\\Roles\\Http\\Controllers\\RoleController@index', 'layout' => 'admin'],

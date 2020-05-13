@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Themes;
+namespace Tests\Unit\Themes;
 
 use Tests\TestCase;
 use Illuminate\Support\Facades\Storage;
