@@ -2,7 +2,7 @@
     <portal :disabled="false">
         <div
             v-if="showModal"
-            class="fixed bottom-0 inset-x-0 px-4 pb-4 z-9999 | sm:inset-0 sm:flex sm:items-center sm:justify-center"
+            class="fixed bottom-0 inset-x-0 px-4 pb-6 | sm:inset-0 sm:p-0 sm:flex sm:items-center sm:justify-center"
             @click="close"
         >
             <transition
@@ -16,7 +16,7 @@
                 @before-leave="backdropLeaving = true"
                 @after-leave="backdropLeaving = false"
             >
-                <div v-if="showBackdrop" class="fixed inset-0 transition-opacity">
+                <div v-if="showBackdrop" class="fixed inset-0 transition-opacity z-99">
                     <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
                 </div>
             </transition>
@@ -34,37 +34,52 @@
             >
                 <div
                     v-if="showContent"
-                    class="relative bg-white rounded-lg px-6 py-6 overflow-hidden shadow-xl transform transition-all | sm:max-w-lg sm:w-full"
+                    class="relative z-999 bg-white rounded-lg px-4 pt-5 pb-4 overflow-hidden shadow-xl transform transition-all | sm:w-full sm:p-6"
+                    :class="{ 'sm:max-w-sm': !hasSlot('advanced'), 'sm:max-w-lg': hasSlot('advanced') }"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-labelledby="modal-headline"
                     data-cy="modal"
                 >
-                    <div class="hidden absolute top-0 right-0 pt-6 pr-6 | sm:block">
-                        <button
-                            type="button"
-                            class="text-gray-400 hover:text-gray-500 focus:outline-none focus:text-gray-500 transition ease-in-out duration-150"
-                            @click="close"
-                        >
-                            <icon name="x" class="h-6 w-6"></icon>
-                        </button>
-                    </div>
-
-                    <div class="sm:flex sm:items-start">
-                        <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-danger-100 | sm:mx-0 sm:h-10 sm:w-10">
-                            <icon name="alert-triangle" class="h-6 w-6 text-danger-600"></icon>
+                    <div>
+                        <div v-if="hasSlot('icon')" :class="`mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-${color}-100`">
+                            <slot name="icon"></slot>
                         </div>
-                        <div class="mt-3 text-center | sm:mt-0 sm:ml-4 sm:text-left">
-                            <h3 class="text-lg leading-6 font-semibold text-gray-900" data-cy="modal-title">
+
+                        <div class="mt-3 text-center | sm:mt-5">
+                            <h3
+                                id="modal-headline"
+                                class="text-lg leading-6 font-medium text-gray-900"
+                                data-cy="modal-title"
+                            >
                                 {{ title }}
                             </h3>
-                            <div class="mt-3" data-cy="modal-body">
-                                <p class="leading-normal text-gray-500">
-                                    <slot></slot>
-                                </p>
+
+                            <div
+                                v-if="hasSlot('advanced')"
+                                class="mt-2"
+                                data-cy="modal-body"
+                            >
+                                <slot name="advanced" v-bind="modalProps"></slot>
+                            </div>
+
+                            <div
+                                v-if="hasSlot('default')"
+                                class="mt-2"
+                                data-cy="modal-body"
+                            >
+                                <slot></slot>
                             </div>
                         </div>
                     </div>
 
-                    <div class="mt-6 | sm:flex sm:flex-row-reverse" data-cy="modal-footer">
-                        <slot name="footer"></slot>
+                    <div
+                        v-if="hasSlot('footer')"
+                        class="mt-5 | sm:mt-6"
+                        :class="{ 'sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense': hasSlot('advanced') }"
+                        data-cy="modal-footer"
+                    >
+                        <slot name="footer" :close="close"></slot>
                     </div>
                 </div>
             </transition>
@@ -74,14 +89,17 @@
 
 <script>
 import Mousetrap from 'mousetrap';
+import SlotHelpers from '@/Utils/Mixins/SlotHelpers';
 
 export default {
     name: 'Modal',
 
+    mixins: [SlotHelpers],
+
     props: {
-        open: {
-            type: Boolean,
-            default: false
+        color: {
+            type: String,
+            default: 'gray'
         },
         title: {
             type: String,
@@ -93,6 +111,8 @@ export default {
         return {
             backdropLeaving: false,
             cardLeaving: false,
+            item: null,
+            open: false,
             showBackdrop: false,
             showContent: false,
             showModal: false
@@ -102,6 +122,12 @@ export default {
     computed: {
         leaving () {
             return this.backdropLeaving || this.cardLeaving;
+        },
+
+        modalProps () {
+            return {
+                item: this.item
+            };
         }
     },
 
@@ -120,6 +146,8 @@ export default {
         leaving (newValue) {
             if (newValue === false) {
                 this.showModal = false;
+                this.open = false;
+                this.item = null;
                 this.$emit('close');
             }
         }
@@ -128,6 +156,13 @@ export default {
     created () {
         Mousetrap.bind('esc', () => {
             this.close();
+        });
+    },
+
+    mounted () {
+        this.$root.$on('open-modal', (item) => {
+            this.item = item;
+            this.open = true;
         });
     },
 

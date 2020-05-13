@@ -15,12 +15,12 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
 use Nova\Foundation\NovaBladeDirectives;
 use Nova\Foundation\Icons\FeatherIconSet;
-use Illuminate\View\Factory as ViewFactory;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Nova\Foundation\Http\Livewire\PasswordField;
-use Nova\Foundation\Http\Livewire\ToggleSwitch;
-use Nova\Foundation\View\Components\FormField;
 use Nova\Themes\Http\Livewire\DeleteTheme;
+use Illuminate\View\Factory as ViewFactory;
+use Nova\Foundation\View\Components\FormField;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Nova\Foundation\Http\Livewire\ToggleSwitch;
+use Nova\Foundation\Http\Livewire\PasswordField;
 
 class AppServiceProvider extends ServiceProvider
 {

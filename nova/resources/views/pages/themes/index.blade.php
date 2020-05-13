@@ -15,67 +15,51 @@
     @foreach ($themes as $theme)
         <div
             x-data="{ id: {{ $theme->id }} }"
-            class="flex flex-col rounded-lg shadow-lg"
+            class="flex flex-col rounded-lg shadow-lg overflow-hidden"
         >
-            <a href="{{ route('themes.edit', $theme) }}" class="flex-shrink-0 rounded-t-lg overflow-hidden">
+            <div class="flex-shrink-0">
                 <img class="h-48 w-full object-cover" src="https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1679&q=80" alt="" />
-            </a>
+            </div>
+
             <div class="flex-1 bg-white flex flex-col justify-between">
-                <a href="{{ route('themes.edit', $theme) }}" class="flex-1 p-6">
+                <div class="flex-1 p-6">
                     <div class="block">
-                        <h3 class="text-xl leading-7 font-semibold text-gray-900">
-                            {{ $theme->name }}
-                        </h3>
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-xl leading-7 font-semibold text-gray-900">
+                                {{ $theme->name }}
+                            </h3>
+
+                            <dropdown class="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150" placement="bottom-end">
+                                @icon('more', 'h-6 w-6')
+
+                                <template #dropdown="{ toggle }">
+                                    @can('update', $theme)
+                                        <a href="{{ route('themes.edit', $theme) }}" class="dropdown-link">
+                                            @icon('edit', 'dropdown-icon')
+                                            Edit
+                                        </a>
+                                        <a href="#" class="dropdown-link">
+                                            @icon('star', 'dropdown-icon')
+                                            Make System Default
+                                        </a>
+                                    @endcan
+
+                                    @can('delete', $theme)
+                                        <button
+                                            v-on:click="toggle();$emit('open-modal', {{ json_encode($theme) }});"
+                                            class="dropdown-link"
+                                        >
+                                            @icon('delete', 'dropdown-icon')
+                                            Delete
+                                        </button>
+                                    @endcan
+                                </template>
+                            </dropdown>
+                        </div>
                         <p class="mt-1 flex items-center text-base leading-6 text-gray-500">
-                            @icon('folder', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
+                            @icon('folder', 'flex-shrink-0 mr-2 h-5 w-5 text-gray-400')
                             themes/{{ $theme->location }}
                         </p>
-                    </div>
-                </a>
-                <div class="px-6 py-3 flex items-center justify-between bg-gray-50 border-t border-gray-100 rounded-b-lg">
-                    <div class="flex-shrink-0">
-                        <a href="#" x-on:click.prevent="$dispatch('open-modal', { id })">
-                            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
-                        </a>
-                    </div>
-                    <div class="ml-3">
-                        <x-dropdown class="text-gray-400 hover:text-gray-500">
-                            @icon('more', 'h-6 w-6')
-
-                            <x-slot name="dropdown">
-                                {{-- @can('view', $theme)
-                                    <a href="{{ route('themes.show', $theme) }}" :class="styles.link">
-                                        <span :class="styles.icon">
-                                            @icon('show')
-                                        </span>
-                                        View
-                                    </a>
-                                @endcan --}}
-
-                                {{-- @can('update', $theme)
-                                    <a href="{{ route('themes.edit', $theme) }}" :class="styles.link">
-                                        <span :class="styles.icon">
-                                            @icon('edit')
-                                        </span>
-                                        Edit
-                                    </a>
-                                @endcan --}}
-
-                                @can('delete', $theme)
-                                    {{-- <div :class="styles.divider"></div> --}}
-
-                                    <button
-                                        {{-- :class="styles.dangerLink" --}}
-                                        x-on:click="$dispatch('open-modal', { id })"
-                                    >
-                                        {{-- <span :class="styles.dangerIcon"> --}}
-                                            @icon('delete')
-                                        {{-- </span> --}}
-                                        Delete
-                                    </button>
-                                @endcan
-                            </x-slot>
-                        </x-dropdown>
                     </div>
                 </div>
             </div>
@@ -83,46 +67,31 @@
     @endforeach
     </div>
 
-    {{-- <livewire:delete-theme /> --}}
-    <x-modal title="Delete theme?">
-        <p class="text-sm leading-5 text-gray-500">
-            Are you sure you want to delete the theme?
-        </p>
-    </x-modal>
+    <modal title="Delete theme?" color="danger">
+        <template #icon>
+            @icon('warning', 'h-6 w-6 text-danger-600')
+        </template>
 
-    {{-- <modal
-        :open="modalIsShown"
-        title="Delete theme?"
-        @close="hideModal"
-        >
-        Are you sure you want to delete the {{ deletingItem.title }} theme?
+        <template #advanced="{ item }">
+            <form :action="`themes/${item.id}`" method="POST" role="form" id="form">
+                @csrf
+                @method('delete')
 
-        <template #footer>
-            <button
-            type="button"
-            class="button button-danger | sm:ml-3"
-            data-cy="delete-theme"
-            @click="remove"
-            >
-            Delete Theme
-        </button>
+                Are you sure you want to delete the @{{ item.name }} theme?
+            </form>
+        </template>
 
-        <button
-        type="button"
-        class="button mt-3 | sm:mt-0"
-        @click="hideModal"
-        >
-        Cancel
-    </button>
-    </template>
-    </modal> --}}
+        <template #footer="{ close }">
+            <span class="flex w-full | sm:col-start-2">
+                <button form="form" class="button button-danger w-full">
+                    Delete
+                </button>
+            </span>
+            <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
+                <button @click="close" type="button" class="button w-full">
+                    Cancel
+                </button>
+            </span>
+        </template>
+    </modal>
 @endsection
-
-@push('scripts')
-    <script>
-        window.confirmDelete = function confirmThemeDelete () {
-            console.log('confirm');
-            // window.livewire.emit('deleteTheme', themeId);
-        }
-    </script>
-@endpush

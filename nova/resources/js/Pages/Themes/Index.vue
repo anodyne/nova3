@@ -52,26 +52,26 @@
                                         <inertia-link
                                             v-if="themes.can.view"
                                             :href="$route('themes.show', { theme })"
-                                            :class="styles.link"
+                                            class="dropdown-link"
                                         >
-                                            <icon name="eye" :class="styles.icon"></icon>
+                                            <icon name="eye" class="dropdown-icon"></icon>
                                             View
                                         </inertia-link>
                                         <inertia-link
                                             v-if="themes.can.update"
                                             :href="$route('themes.edit', { theme })"
-                                            :class="styles.link"
+                                            class="dropdown-link"
                                         >
-                                            <icon name="edit" :class="styles.icon"></icon>
+                                            <icon name="edit" class="dropdown-icon"></icon>
                                             Edit
                                         </inertia-link>
                                         <template v-if="themes.can.delete">
-                                            <div :class="styles.divider"></div>
+                                            <div class="dropdown-divider"></div>
                                             <button
-                                                :class="styles.dangerLink"
+                                                class="dropdown-link"
                                                 @click.prevent="confirmRemove(theme, toggle)"
                                             >
-                                                <icon name="trash" :class="styles.dangerIcon"></icon>
+                                                <icon name="trash" class="dropdown-icon"></icon>
                                                 Delete
                                             </button>
                                         </template>

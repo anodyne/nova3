@@ -36,7 +36,9 @@ class FeatherIconSet extends IconSet
             'show' => 'eye',
             'sidebar' => 'sidebar',
             'sign-out' => 'log-out',
+            'star' => 'star',
             'user' => 'user',
+            'warning' => 'alert-triangle',
         ];
     }
 

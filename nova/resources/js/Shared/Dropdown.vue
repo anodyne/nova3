@@ -1,10 +1,12 @@
 <template>
-    <button
-        type="button"
-        class="relative transition ease-in-out duration-150"
-        @click="show"
-    >
-        <slot></slot>
+    <div class="dropdown">
+        <button
+            type="button"
+            v-bind="$attrs"
+            @click="show"
+        >
+            <slot></slot>
+        </button>
 
         <portal :disabled="false">
             <div
@@ -25,17 +27,17 @@
                 >
                     <div
                         v-if="isActive"
-                        class="absolute mt-2 w-56 rounded-md shadow-lg"
+                        class="dropdown-menu-container"
                         :class="styles.placement"
                     >
-                        <div class="rounded-md bg-white shadow-xs py-1">
+                        <div class="dropdown-menu">
                             <slot name="dropdown" v-bind="dropdownProps"></slot>
                         </div>
                     </div>
                 </transition>
             </div>
         </portal>
-    </button>
+    </div>
 </template>
 
 <script>
@@ -47,6 +49,8 @@ export default {
 
     mixins: [Toggleable],
 
+    inheritAttrs: false,
+
     props: {
         placement: {
             type: String,
@@ -57,7 +61,6 @@ export default {
     computed: {
         dropdownProps () {
             return {
-                styles: this.styles,
                 toggle: this.toggle
             };
         },
@@ -75,13 +78,7 @@ export default {
 
         styles () {
             return {
-                dangerLink: 'group flex items-center w-full px-4 py-2 text-sm font-medium leading-5 text-gray-600 hover:bg-gray-100 hover:text-danger-500 transition ease-in-out duration-150',
-                dangerIcon: 'mr-3 h-5 w-5 text-gray-400 group-hover:text-danger-400',
-                divider: 'border-t border-gray-100 my-1',
-                icon: 'mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500',
-                link: 'group flex items-center w-full px-4 py-2 text-sm font-medium leading-5 text-gray-600 hover:bg-gray-100 hover:text-gray-800 transition ease-in-out duration-150',
-                placement: this.placementStyles[this.placement],
-                text: 'block px-4 py-2 text-sm leading-5 text-gray-700'
+                placement: this.placementStyles[this.placement]
             };
         }
     },

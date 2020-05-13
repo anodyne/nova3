@@ -59,44 +59,44 @@
                                         <inertia-link
                                             v-if="role.can.view"
                                             :href="$route('roles.show', { role })"
-                                            :class="styles.link"
+                                            class="dropdown-link"
                                             data-cy="view"
                                         >
-                                            <icon name="eye" :class="styles.icon"></icon>
+                                            <icon name="eye" class="dropdown-icon"></icon>
                                             View
                                         </inertia-link>
                                         <inertia-link
                                             v-if="role.can.update"
                                             :href="$route('roles.edit', { role })"
-                                            :class="styles.link"
+                                            class="dropdown-link"
                                             data-cy="edit"
                                         >
-                                            <icon name="edit" :class="styles.icon"></icon>
+                                            <icon name="edit" class="dropdown-icon"></icon>
                                             Edit
                                         </inertia-link>
                                         <button
                                             v-if="role.can.duplicate"
-                                            :class="styles.link"
+                                            class="dropdown-link"
                                             data-cy="duplicate"
                                             @click.prevent="duplicate(role)"
                                         >
-                                            <icon name="copy" :class="styles.icon"></icon>
+                                            <icon name="copy" class="dropdown-icon"></icon>
                                             Duplicate
                                         </button>
                                         <template v-if="role.can.delete">
-                                            <div :class="styles.divider"></div>
+                                            <div class="dropdown-divider"></div>
                                             <button
-                                                :class="styles.dangerLink"
+                                                class="dropdown-link"
                                                 data-cy="delete"
                                                 @click.prevent="confirmRemove(role, toggle)"
                                             >
-                                                <icon name="trash" :class="styles.dangerIcon"></icon>
+                                                <icon name="trash" class="dropdown-icon"></icon>
                                                 Delete
                                             </button>
                                         </template>
                                         <div v-if="role.locked">
-                                            <div :class="styles.divider"></div>
-                                            <div :class="styles.text">
+                                            <div class="dropdown-divider"></div>
+                                            <div class="dropdown-text">
                                                 This role is locked and cannot be duplicated or deleted.
                                             </div>
                                         </div>

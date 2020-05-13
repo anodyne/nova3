@@ -169,25 +169,25 @@
                             <dropdown placement="bottom-end">
                                 <avatar size="xs" :image-url="$page.auth.user.avatar_url"></avatar>
 
-                                <template #dropdown="{ styles }">
-                                    <a href="#" :class="styles.link">
-                                        <icon name="user" :class="styles.icon"></icon>
+                                <template #dropdown>
+                                    <a href="#" class="dropdown-link">
+                                        <icon name="user" class="dropdown-icon"></icon>
                                         My Account
                                     </a>
 
-                                    <a href="#" :class="styles.link">
-                                        <icon name="users" :class="styles.icon"></icon>
+                                    <a href="#" class="dropdown-link">
+                                        <icon name="users" class="dropdown-icon"></icon>
                                         My Characters
                                     </a>
 
-                                    <div :class="styles.divider"></div>
+                                    <div class="dropdown-divider"></div>
 
                                     <a
                                         :href="$route('logout')"
-                                        :class="styles.link"
+                                        class="dropdown-link"
                                         onclick="event.preventDefault();document.getElementById('logout-form').submit();"
                                     >
-                                        <icon name="log-out" :class="styles.icon"></icon>
+                                        <icon name="log-out" class="dropdown-icon"></icon>
                                         Log out
                                     </a>
                                     <form

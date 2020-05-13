@@ -71,29 +71,29 @@
                                         <inertia-link
                                             v-if="user.can.view"
                                             :href="$route('users.show', { user })"
-                                            :class="styles.link"
+                                            class="dropdown-link"
                                             data-cy="view"
                                         >
-                                            <icon name="eye" :class="styles.icon"></icon>
+                                            <icon name="eye" class="dropdown-icon"></icon>
                                             View
                                         </inertia-link>
                                         <inertia-link
                                             v-if="user.can.update"
                                             :href="$route('users.edit', { user })"
-                                            :class="styles.link"
+                                            class="dropdown-link"
                                             data-cy="edit"
                                         >
-                                            <icon name="edit" :class="styles.icon"></icon>
+                                            <icon name="edit" class="dropdown-icon"></icon>
                                             Edit
                                         </inertia-link>
                                         <template v-if="user.can.delete">
-                                            <div :class="styles.divider"></div>
+                                            <div class="dropdown-divider"></div>
                                             <button
-                                                :class="styles.dangerLink"
+                                                class="dropdown-link"
                                                 data-cy="delete"
                                                 @click="confirmRemove(user, toggle)"
                                             >
-                                                <icon name="trash" :class="styles.dangerIcon"></icon>
+                                                <icon name="trash" class="dropdown-icon"></icon>
                                                 Delete
                                             </button>
                                         </template>

@@ -6,10 +6,5 @@ use Nova\Foundation\Http\Responses\ServerResponse;
 
 class UpdateThemeResponse extends ServerResponse
 {
-    public function views(): array
-    {
-        return [
-            'page' => 'themes.update',
-        ];
-    }
+    public $view = 'themes.update';
 }

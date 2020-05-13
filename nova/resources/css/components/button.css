@@ -1,5 +1,5 @@
 .button {
-    @apply inline-flex items-center px-4 py-2 border border-gray-200 text-sm uppercase tracking-wide leading-5 font-semibold rounded-md text-gray-500 bg-white transition ease-in-out duration-150;
+    @apply inline-flex justify-center items-center px-4 py-2 border border-gray-200 text-sm uppercase tracking-wide leading-5 font-semibold rounded-md text-gray-500 bg-white transition ease-in-out duration-150;
 
     &:hover {
         @apply text-gray-600 bg-gray-100;
