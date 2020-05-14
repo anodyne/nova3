@@ -88,8 +88,8 @@ class InstallThemeTest extends TestCase
         $disk->makeDirectory('foo');
 
         $response = $this->get(route('themes.index'));
-        $response->assertResponseHas('pendingThemes', collect([$data]));
-        $response->assertResponseMissing('pendingThemes', collect([$createData]));
+        $response->assertViewHas('pendingThemes', collect([(object) $data]));
+        $response->assertResponseMissing('pendingThemes', collect([(object) $createData]));
     }
 
     /** @test **/
