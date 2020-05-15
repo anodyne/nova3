@@ -49,15 +49,15 @@ module.exports = {
     },
 
     variants: {
-        backgroundColor: ['responsive', 'group-hover', 'hover', 'group-focus', 'focus-within', 'focus', 'active', 'even', 'odd'],
-        borderColor: ['responsive', 'group-hover', 'hover', 'group-focus', 'focus-within', 'focus'],
+        backgroundColor: ['responsive', 'group-hover', 'hover', 'group-focus', 'focus-within', 'focus', 'active', 'even', 'odd', 'dark', 'dark-group-hover', 'dark-hover', 'dark-focus-within', 'dark-focus', 'dark-even', 'dark-odd'],
+        borderColor: ['responsive', 'group-hover', 'hover', 'group-focus', 'focus-within', 'focus', 'dark', 'dark-hover', 'dark-group-hover', 'dark-focus-within', 'dark-focus'],
         borderRadius: ['responsive', 'hover', 'focus', 'first', 'last'],
-        borderWidth: ['responsive', 'first', 'last'],
+        borderWidth: ['responsive', 'first', 'last', 'dark'],
         boxShadow: ['responsive', 'hover', 'focus', 'focus-within'],
         cursor: ['hover', 'group-hover', 'focus', 'focus-within', 'disabled'],
         margin: ['responsive', 'hover', 'focus', 'first', 'last'],
         opacity: ['responsive', 'hover', 'focus', 'disabled'],
-        textColor: ['responsive', 'group-hover', 'hover', 'group-focus', 'focus-within', 'focus', 'active']
+        textColor: ['responsive', 'group-hover', 'hover', 'group-focus', 'focus-within', 'focus', 'active', 'dark', 'dark-group-hover', 'dark-hover', 'dark-focus-within', 'dark-focus']
     },
 
     plugins: [
@@ -65,7 +65,8 @@ module.exports = {
         require('@tailwindcss/ui')({
             layout: 'sidebar'
         }),
-        require('./nova/resources/js/tailwind-plugins/flexbox-grid')()
+        require('./nova/resources/js/tailwind-plugins/flexbox-grid')(),
+        require('tailwindcss-dark-mode')()
         /* eslint-enable */
     ]
 };

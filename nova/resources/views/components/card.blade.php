@@ -1,9 +1,9 @@
 @props(['header', 'footer'])
 
-<div class="flex flex-col rounded-lg shadow-lg overflow-hidden" {{ $attributes }}>
+<div {{ $attributes->merge(['class' => 'flex flex-col rounded-lg shadow-lg overflow-hidden']) }}>
     {{ $header ?? false }}
 
-    <div class="flex-1 bg-white flex flex-col justify-between">
+    <div class="flex-1 bg-white dark:bg-gray-800 flex flex-col justify-between">
         <div class="flex-1 p-6">
             <div class="block">
                 {{ $slot }}

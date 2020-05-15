@@ -1,6 +1,10 @@
 .button {
     @apply inline-flex justify-center items-center px-4 py-2 border border-gray-200 text-sm uppercase tracking-wide leading-5 font-semibold rounded-md text-gray-500 bg-white transition ease-in-out duration-150;
 
+    /* @variants dark {
+        @apply border-gray-700 text-gray-400 bg-gray-900;
+    } */
+
     &:hover {
         @apply text-gray-600 bg-gray-100;
     }

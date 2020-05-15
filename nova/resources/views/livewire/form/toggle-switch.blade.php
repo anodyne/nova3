@@ -1,7 +1,7 @@
 <div>
     <label wire:click="toggle()" class="flex items-center">
         <span
-            class="relative inline-block flex-no-shrink h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:shadow-outline @if ($active) {{ $color }} @else bg-gray-200 @endif"
+            class="relative inline-block flex-no-shrink h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:shadow-outline @if ($active) {{ $color }} @else bg-gray-200 dark:bg-gray-700 @endif"
             role="switch"
             tabindex="0"
             {{-- x-bind:aria-checked="{{ (string) $active }}" --}}

@@ -1,7 +1,7 @@
 @extends($__novaStructure)
 
 @section('layout')
-<div x-data="{ sidebarOpen: false }" class="h-screen flex overflow-hidden bg-gray-100">
+<div x-data="{ sidebarOpen: false }" class="h-screen flex overflow-hidden bg-gray-100 dark:bg-black">
     <!-- Off-canvas menu for mobile -->
     <div class="md:hidden">
         <div x-show="sidebarOpen" class="fixed inset-0 flex z-40">
@@ -89,39 +89,39 @@
 
     <!-- Static sidebar for desktop -->
     <div class="hidden | md:flex md:flex-shrink-0">
-        <div class="flex flex-col w-64 border-r border-gray-200 bg-white">
+        <div class="flex flex-col w-64 border-r border-gray-200 dark:border-r-0 bg-white dark:bg-gray-900">
             <div class="h-0 flex-1 flex flex-col pt-6 pb-4 overflow-y-auto">
                 <div class="flex items-center flex-shrink-0 px-4">
                     <x-nova-logo class="h-8 w-auto text-blue-500" />
                 </div>
                 <!-- Sidebar component, swap this element with another sidebar if you like -->
-                <nav class="mt-5 flex-1 px-2 bg-white">
-                    <a href="{{ route('dashboard') }}" class="group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md bg-gray-100 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150">
-                        @icon('dashboard', 'mr-3 h-6 w-6 text-gray-500 group-hover:text-gray-500 group-focus:text-gray-600 transition ease-in-out duration-150')
+                <nav class="mt-5 flex-1 px-2">
+                    <a href="{{ route('dashboard') }}" class="group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-900 dark:text-gray-100 rounded-md bg-gray-100 dark:bg-gray-700 hover:text-gray-900 dark-hover:text-gray-100 hover:bg-gray-100 dark-hover:bg-gray-800 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150">
+                        @icon('dashboard', 'mr-3 h-6 w-6 text-gray-500 dark:text-gray-400 group-hover:text-gray-500 group-focus:text-gray-600 transition ease-in-out duration-150')
                         Dashboard
                     </a>
-                    <a href="#" class="mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:bg-gray-100 transition ease-in-out duration-150">
-                        @icon('book', 'mr-3 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
+                    <a href="#" class="mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-600 dark:text-gray-400 rounded-md hover:text-gray-900 hover:bg-gray-50 dark-hover:text-gray-100 dark-hover:bg-gray-800 focus:outline-none focus:bg-gray-100 dark-focus:bg-gray-800 transition ease-in-out duration-150">
+                        @icon('book', 'mr-3 h-6 w-6 text-gray-400 dark:text-gray-600 group-hover:text-gray-500 dark-group-hover:text-gray-400 group-focus:text-gray-500 transition ease-in-out duration-150')
                         My Notes
                     </a>
-                    <a href="#" class="mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:bg-gray-100 transition ease-in-out duration-150">
-                        @icon('settings', 'mr-3 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
+                    <a href="#" class="mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-600 dark:text-gray-400 rounded-md hover:text-gray-900 hover:bg-gray-50 dark-hover:text-gray-100 dark-hover:bg-gray-800 focus:outline-none focus:bg-gray-100 dark-focus:bg-gray-800 transition ease-in-out duration-150">
+                        @icon('settings', 'mr-3 h-6 w-6 text-gray-400 dark:text-gray-600 group-hover:text-gray-500 dark-group-hover:text-gray-400 group-focus:text-gray-500 transition ease-in-out duration-150')
                         Manage
                     </a>
                 </nav>
             </div>
 
-            <div class="flex-shrink-0 flex border-t border-gray-200 p-4">
+            <div class="flex-shrink-0 flex border-t border-gray-200 dark:border-t-0 p-4">
                 <a href="#" class="flex-shrink-0 group block">
                     <div class="flex items-center">
                         <div>
                             <img class="inline-block h-9 w-9 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
                         </div>
                         <div class="ml-3">
-                            <p class="text-sm leading-5 font-medium text-gray-700 group-hover:text-gray-900">
+                            <p class="text-sm leading-5 font-medium text-gray-700 dark:text-gray-300 group-hover:text-gray-900">
                                 Tom Cook
                             </p>
-                            <p class="text-xs leading-4 font-medium text-gray-500 group-hover:text-gray-700 transition ease-in-out duration-150">
+                            <p class="text-xs leading-4 font-medium text-gray-500 dark:text-gray-400 group-hover:text-gray-700 transition ease-in-out duration-150">
                                 View profile
                             </p>
                         </div>

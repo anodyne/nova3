@@ -20,12 +20,12 @@
 
                 <div class="mt-4 grid gap-6 max-w-lg mx-auto | lg:grid-cols-3 lg:max-w-none">
                 @foreach ($pendingThemes as $pendingTheme)
-                    <x-card>
-                        <x-slot name="header">
+                    <x-card class="border-2 border-info-400">
+                        {{-- <x-slot name="header">
                             <div class="flex-shrink-0">
                                 <img class="h-48 w-full object-cover" src="https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1679&q=80" alt="" />
                             </div>
-                        </x-slot>
+                        </x-slot> --}}
 
                         <h3 class="text-xl leading-7 font-semibold text-gray-900">
                             {{ $pendingTheme->name }}
