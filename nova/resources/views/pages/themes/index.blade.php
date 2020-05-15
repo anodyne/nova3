@@ -28,11 +28,11 @@
                         </x-slot>
 
                         <h3 class="text-xl leading-7 font-semibold text-gray-900">
-                            {{ $pendingTheme['name'] }}
+                            {{ $pendingTheme->name }}
                         </h3>
                         <p class="mt-1 flex items-center text-base leading-6 text-gray-500">
                             @icon('folder', 'flex-shrink-0 mr-2 h-5 w-5 text-gray-400')
-                            themes/{{ $pendingTheme['location'] }}
+                            themes/{{ $pendingTheme->location }}
                         </p>
 
                         <form action="">

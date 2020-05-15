@@ -25,10 +25,7 @@ class ThemesCollection extends Collection
             })->map(function ($location) use ($disk) {
                 $theme = json_decode($disk->get("{$location}/theme.json"));
 
-                return [
-                    'name' => $theme->name,
-                    'location' => $location,
-                ];
+                return $theme;
             });
     }
 }
