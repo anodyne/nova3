@@ -62,11 +62,10 @@
 
                     <x-form-field label="" field-id="active">
                         <x-slot name="clean">
-                            <livewire:toggle-switch
-                                active="{{ $theme->active }}"
-                                field-name="active"
-                                label="Active"
-                            />
+                            <x-toggle-switch :value="old('active', $theme->active ?? '')" name="active">
+                                <x-slot name="contentActive">Active</x-slot>
+                                <x-slot name="contentInactive">Inactive</x-slot>
+                            </x-toggle-switch>
                         </x-slot>
                     </x-form-field>
                 </div>

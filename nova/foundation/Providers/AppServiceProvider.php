@@ -18,8 +18,8 @@ use Nova\Foundation\Icons\FeatherIconSet;
 use Illuminate\View\Factory as ViewFactory;
 use Nova\Foundation\View\Components\FormField;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Nova\Foundation\Http\Livewire\ToggleSwitch;
 use Nova\Foundation\Http\Livewire\PasswordField;
+use Nova\Foundation\View\Components\ToggleSwitch;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -103,6 +103,7 @@ class AppServiceProvider extends ServiceProvider
     protected function registerBladeComponents()
     {
         Blade::component('form-field', FormField::class);
+        Blade::component('toggle-switch', ToggleSwitch::class);
     }
 
     protected function registerBladeDirectives()
@@ -115,6 +116,5 @@ class AppServiceProvider extends ServiceProvider
     protected function registerLivewireComponents()
     {
         Livewire::component('password-field', PasswordField::class);
-        Livewire::component('toggle-switch', ToggleSwitch::class);
     }
 }
