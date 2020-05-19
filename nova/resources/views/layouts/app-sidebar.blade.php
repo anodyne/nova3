@@ -1,10 +1,14 @@
 @extends($__novaStructure)
 
 @section('layout')
-<div x-data="{ sidebarOpen: false }" class="h-screen flex overflow-hidden bg-gray-100 dark:bg-black">
+<div
+    x-data="{ sidebarOpen: false }"
+    x-on:keydown.window.escape="sidebarOpen = false"
+    class="h-screen flex overflow-hidden bg-gray-100"
+>
     <!-- Off-canvas menu for mobile -->
-    <div class="md:hidden">
-        <div x-show="sidebarOpen" class="fixed inset-0 flex z-40">
+    <div x-show="sidebarOpen" class="md:hidden" x-cloak>
+        <div class="fixed inset-0 flex z-40">
             <div
                 x-on:click="sidebarOpen = false"
                 x-show="sidebarOpen"
@@ -29,164 +33,131 @@
                 x-transition:leave="transition ease-in-out duration-300 transform"
                 x-transition:leave-start="translate-x-0"
                 x-transition:leave-end="-translate-x-full"
-                class="relative flex-1 flex flex-col max-w-xs w-full bg-white"
+                class="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-white"
             >
                 <div class="absolute top-0 right-0 -mr-14 p-1">
                     <button
+                        x-show="sidebarOpen"
                         x-on:click="sidebarOpen = false"
-                        class="flex items-center justify-center h-12 w-12 rounded-full text-gray-200 hover:text-gray-50 focus:outline-none focus:bg-gray-600"
+                        class="flex items-center justify-center h-12 w-12 rounded-full focus:outline-none focus:bg-gray-600"
                         aria-label="Close sidebar"
                     >
-                        @icon('close', 'h-6 w-6')
+                        @icon('close', 'h-6 w-6 text-white')
                     </button>
                 </div>
 
-                <div class="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
-                    <div class="flex-shrink-0 flex items-center px-4">
-                        <x-nova-logo class="h-8 w-auto text-blue-500" />
-                    </div>
+                <div class="flex-shrink-0 flex items-center px-4">
+                    <x-nova-logo class="h-8 w-auto text-blue-500" />
+                </div>
 
-                    <nav class="mt-5 px-2">
+                <div class="mt-5 flex-1 h-0 overflow-y-auto">
+                    <nav class="px-2">
                         <a href="{{ route('dashboard') }}" class="group flex items-center px-2 py-2 text-base leading-6 font-medium text-gray-900 rounded-md bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150">
                             @icon('dashboard', 'mr-4 h-6 w-6 text-gray-500 group-hover:text-gray-500 group-focus:text-gray-600 transition ease-in-out duration-150')
                             Dashboard
                         </a>
-                        <a href="#" class="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-100 transition ease-in-out duration-150">
+                        <a href="{{ route('notes.index') }}" class="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-100 transition ease-in-out duration-150">
                             @icon('book', 'mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
                             My Notes
                         </a>
-                        <a href="#" class="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-100 transition ease-in-out duration-150">
+                        <div class="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-100 transition ease-in-out duration-150">
                             @icon('settings', 'mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
                             Manage
-                        </a>
+                        </div>
+                        <div class="flex flex-col ml-12">
+                            <a href="{{ route('roles.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Roles</a>
+                            <a href="{{ route('themes.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Themes</a>
+                            <a href="{{ route('users.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Users</a>
+                        </div>
                     </nav>
                 </div>
-
-                <div class="flex-shrink-0 flex border-t border-gray-200 p-4">
-                    <a href="#" class="flex-shrink-0 group block focus:outline-none">
-                        <div class="flex items-center">
-                            <div>
-                                <img class="inline-block h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
-                            </div>
-                            <div class="ml-3">
-                                <p class="text-base leading-6 font-medium text-gray-700 group-hover:text-gray-900">
-                                    Tom Cook
-                                </p>
-                                <p class="text-sm leading-5 font-medium text-gray-500 group-hover:text-gray-700 group-focus:underline transition ease-in-out duration-150">
-                                    View profile
-                                </p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
             </div>
-
-            <div x-show="sidebarOpen" class="flex-shrink-0 w-14">
-                <!-- Force sidebar to shrink to fit close icon -->
+            <div class="flex-shrink-0 w-14">
+                <!-- Dummy element to force sidebar to shrink to fit close icon -->
             </div>
         </div>
     </div>
 
     <!-- Static sidebar for desktop -->
     <div class="hidden | md:flex md:flex-shrink-0">
-        <div class="flex flex-col w-64 border-r border-gray-200 dark:border-r-0 bg-white dark:bg-gray-900">
-            <div class="h-0 flex-1 flex flex-col pt-6 pb-4 overflow-y-auto">
-                <div class="flex items-center flex-shrink-0 px-4">
-                    <x-nova-logo class="h-8 w-auto text-blue-500" />
-                </div>
-                <!-- Sidebar component, swap this element with another sidebar if you like -->
-                <nav class="mt-5 flex-1 px-2">
-                    <a href="{{ route('dashboard') }}" class="group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-900 dark:text-gray-100 rounded-md bg-gray-100 dark:bg-gray-700 hover:text-gray-900 dark-hover:text-gray-100 hover:bg-gray-100 dark-hover:bg-gray-800 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150">
-                        @icon('dashboard', 'mr-3 h-6 w-6 text-gray-500 dark:text-gray-400 group-hover:text-gray-500 group-focus:text-gray-600 transition ease-in-out duration-150')
-                        Dashboard
-                    </a>
-                    <a href="#" class="mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-600 dark:text-gray-400 rounded-md hover:text-gray-900 hover:bg-gray-50 dark-hover:text-gray-100 dark-hover:bg-gray-800 focus:outline-none focus:bg-gray-100 dark-focus:bg-gray-800 transition ease-in-out duration-150">
-                        @icon('book', 'mr-3 h-6 w-6 text-gray-400 dark:text-gray-600 group-hover:text-gray-500 dark-group-hover:text-gray-400 group-focus:text-gray-500 transition ease-in-out duration-150')
-                        My Notes
-                    </a>
-                    <a href="#" class="mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-600 dark:text-gray-400 rounded-md hover:text-gray-900 hover:bg-gray-50 dark-hover:text-gray-100 dark-hover:bg-gray-800 focus:outline-none focus:bg-gray-100 dark-focus:bg-gray-800 transition ease-in-out duration-150">
-                        @icon('settings', 'mr-3 h-6 w-6 text-gray-400 dark:text-gray-600 group-hover:text-gray-500 dark-group-hover:text-gray-400 group-focus:text-gray-500 transition ease-in-out duration-150')
-                        Manage
-                    </a>
-                </nav>
+        <div class="flex flex-col w-64 border-r border-gray-200 pt-5 pb-4 bg-white">
+            <div class="flex items-center flex-shrink-0 px-4">
+                <x-nova-logo class="h-8 w-auto text-blue-500" />
             </div>
 
-            <div class="flex-shrink-0 flex border-t border-gray-200 dark:border-t-0 p-4">
-                <a href="#" class="flex-shrink-0 group block">
-                    <div class="flex items-center">
-                        <div>
-                            <img class="inline-block h-9 w-9 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
-                        </div>
-                        <div class="ml-3">
-                            <p class="text-sm leading-5 font-medium text-gray-700 dark:text-gray-300 group-hover:text-gray-900">
-                                Tom Cook
-                            </p>
-                            <p class="text-xs leading-4 font-medium text-gray-500 dark:text-gray-400 group-hover:text-gray-700 transition ease-in-out duration-150">
-                                View profile
-                            </p>
-                        </div>
+            <div class="mt-5 h-0 flex-1 flex flex-col overflow-y-auto">
+                <!-- Sidebar component, swap this element with another sidebar if you like -->
+                <nav class="flex-1 px-2 bg-white">
+                    <a href="{{ route('dashboard') }}" class="group flex items-center px-2 py-2 text-sm leading-5 font-semibold text-gray-900 rounded-md bg-gray-100 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150">
+                        @icon('dashboard', 'mr-3 h-6 w-6 text-gray-500 group-hover:text-gray-500 group-focus:text-gray-600 transition ease-in-out duration-150')
+                        Dashboard
+                    </a>
+                    <a href="{{ route('notes.index') }}" class="mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-semibold text-gray-500 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:bg-gray-100 transition ease-in-out duration-150">
+                        @icon('book', 'mr-3 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
+                        My Notes
+                    </a>
+                    <div class="mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-semibold text-gray-500 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:bg-gray-100 transition ease-in-out duration-150">
+                        @icon('settings', 'mr-3 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
+                        Manage
                     </div>
-                </a>
+                    <div class="flex flex-col text-sm ml-11">
+                        <a href="{{ route('roles.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Roles</a>
+                        <a href="{{ route('themes.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Themes</a>
+                        <a href="{{ route('users.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Users</a>
+                    </div>
+                </nav>
             </div>
         </div>
     </div>
 
     <div class="flex flex-col w-0 flex-1 overflow-hidden">
-        <!-- Header for mobile -->
-        <div class="relative z-10 flex-shrink-0 flex h-16 bg-white shadow | md:hidden">
+        <div class="relative z-10 flex-shrink-0 flex h-16 bg-white shadow">
             <button
                 x-on:click.stop="sidebarOpen = true"
-                class="px-4 text-gray-500 focus:outline-none focus:bg-gray-100 focus:text-gray-600"
+                class="px-4 text-gray-500 focus:outline-none focus:bg-gray-100 focus:text-gray-600 | md:hidden"
                 aria-label="Open sidebar"
             >
                 @icon('menu', 'h-6 w-6')
             </button>
 
-            <div class="flex-1 px-4 flex items-center justify-between">
-                <div class="flex-1 flex justify-center">
-                    <x-nova-logo class="h-8 w-auto text-blue-500" />
+            <div class="flex-1 px-4 flex justify-between">
+                <div class="flex-1 flex">
+                    <div class="w-full flex | md:ml-0">
+                        <label for="search_field" class="sr-only">Search</label>
+                        <div class="flex items-center relative w-full text-gray-400 focus-within:text-gray-600">
+                            <div class="flex-shrink-0 mr-2 pointer-events-none leading-0">
+                                @icon('search', 'h-6 w-6')
+                            </div>
+
+                            <input
+                                id="search_field"
+                                class="block w-full h-full pr-3 py-2 text-gray-900 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400"
+                                placeholder="Search"
+                                type="search"
+                            >
+                        </div>
+                    </div>
                 </div>
 
-                <div x-data="{ open: false }" class="ml-4 flex items-center | md:ml-6">
-                    <!-- Profile dropdown -->
-                    <div x-on:click.away="open = false" class="ml-3 relative" x-data="{ open: false }">
-                        <div>
-                            <button
-                                x-on:click="open = !open"
-                                class="max-w-xs flex items-center text-sm rounded-full focus:outline-none focus:shadow-outline"
-                                id="user-menu"
-                                aria-label="User menu"
-                                aria-haspopup="true"
-                                x-bind:aria-expanded="open"
-                                aria-expanded="false"
-                            >
-                                <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt="">
-                            </button>
-                        </div>
-                    </div>
+                <div class="ml-4 flex items-center | md:ml-6">
+                    <button class="p-1 text-gray-400 rounded-full hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:shadow-outline focus:text-gray-500" aria-label="Notifications">
+                        @icon('notification', 'h-6 w-6')
+                    </button>
 
-                    <div
-                        x-show="open"
-                        x-description="Profile dropdown panel, show/hide based on dropdown state."
-                        x-transition:enter="transition ease-out duration-100"
-                        x-transition:enter-start="transform opacity-0 scale-95"
-                        x-transition:enter-end="transform opacity-100 scale-100"
-                        x-transition:leave="transition ease-in duration-75"
-                        x-transition:leave-start="transform opacity-100 scale-100"
-                        x-transition:leave-end="transform opacity-0 scale-95"
-                        class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg"
-                    >
-                        <div
-                            class="py-1 rounded-md bg-white shadow-xs"
-                            role="menu"
-                            aria-orientation="vertical"
-                            aria-labelledby="user-menu"
-                        >
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150" role="menuitem">Your Profile</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150" role="menuitem">Settings</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150" role="menuitem">Sign out</a>
-                        </div>
-                    </div>
+                    <dropdown class="ml-3" placement="bottom-end">
+                        <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt="">
+
+                        <template #dropdown>
+                            <button class="dropdown-link" form="logout-form" role="menuitem">
+                                @icon('sign-out', 'dropdown-icon')
+                                Sign out
+                            </button>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                                @csrf
+                            </form>
+                        </template>
+                    </dropdown>
                 </div>
             </div>
         </div>
