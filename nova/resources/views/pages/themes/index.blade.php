@@ -15,28 +15,28 @@
         <div class="bg-gray-200 dark:bg-gray-900 overflow-hidden rounded-lg">
             <div class="px-4 py-5 | sm:p-6">
                 <h3 class="text-lg leading-6 font-medium text-gray-900">
-                    Themes to be installed
+                    Looks like you've added @choice("a theme|{$pendingThemes->count()} themes", $pendingThemes->count()) to your site. Would you like to install @choice('it|them', $pendingThemes->count()) now?
                 </h3>
 
                 <div class="mt-4 grid gap-6 max-w-lg mx-auto | lg:grid-cols-3 lg:max-w-none">
                 @foreach ($pendingThemes as $pendingTheme)
-                    <x-card class="border-2 border-info-400">
-                        {{-- <x-slot name="header">
+                    <x-card class="bg-warning-100">
+                        <x-slot name="header">
                             <div class="flex-shrink-0">
                                 <img class="h-48 w-full object-cover" src="https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1679&q=80" alt="" />
                             </div>
-                        </x-slot> --}}
+                        </x-slot>
 
-                        <h3 class="text-xl leading-7 font-semibold text-gray-900">
+                        <h3 class="text-xl leading-7 font-semibold text-yellow-900">
                             {{ $pendingTheme->name }}
                         </h3>
-                        <p class="mt-1 flex items-center text-base leading-6 text-gray-500">
-                            @icon('folder', 'flex-shrink-0 mr-2 h-5 w-5 text-gray-400')
+                        <p class="mt-1 flex items-center text-base leading-6 text-yellow-500">
+                            @icon('folder', 'flex-shrink-0 mr-2 h-5 w-5 text-yellow-400')
                             themes/{{ $pendingTheme->location }}
                         </p>
 
                         <form action="">
-                            <button type="button" class="mt-4 button button-xs">
+                            <button type="button" class="mt-4 button button-warning button-xs">
                                 Install
                             </button>
                         </form>
@@ -94,6 +94,10 @@
             </p>
         </x-card>
     @endforeach
+    </div>
+
+    <div class="text-center mt-12 text-sm text-gray-600 font-medium">
+        Looking for more themes? Check out <a href="https://xtras.anodyne-productions.com" class="text-primary-500 hover:text-primary-600 transition ease-in-out duration-150">AnodyneXtras</a>!
     </div>
 
     <modal title="Delete theme?" color="danger">
