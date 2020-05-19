@@ -1,5 +1,9 @@
 .dropdown {
-    @apply relative inline-block text-left;
+    @apply relative inline-block text-left leading-0;
+
+    &:focus {
+        @apply outline-none;
+    }
 }
 
 .dropdown-menu-container {
@@ -11,7 +15,7 @@
 }
 
 .dropdown-icon {
-    @apply mr-3 h-5 w-5 text-gray-400;
+    @apply mr-3 h-5 w-5 text-gray-400 flex-shrink-0;
 }
 
 .dropdown-text {

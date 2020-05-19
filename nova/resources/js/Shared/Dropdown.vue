@@ -2,6 +2,7 @@
     <div class="dropdown">
         <button
             type="button"
+            class="focus:outline-none"
             v-bind="$attrs"
             @click="show"
         >
