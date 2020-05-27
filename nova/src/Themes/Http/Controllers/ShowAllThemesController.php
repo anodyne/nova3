@@ -19,11 +19,8 @@ class ShowAllThemesController extends Controller
     {
         $this->authorize('viewAny', Theme::class);
 
-        $themes = Theme::orderBy('name')->get();
-
         return app(ShowAllThemesResponse::class)->with([
-            'pendingThemes' => $themes->toBeInstalled(),
-            'themes' => $themes,
+            'themes' => Theme::orderBy('name')->get()->withPending(),
         ]);
     }
 }

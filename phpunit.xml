@@ -7,52 +7,14 @@
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
-         printerClass="Codedungeon\PHPUnitPrettyResultPrinter\Printer"
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="unit">
-            <directory suffix="Test.php">./nova/tests/Unit</directory>
+        <testsuite name="Unit">
+            <directory suffix="Test.php">./tests/Unit</directory>
         </testsuite>
-
-        <testsuite name="feature">
-            <directory suffix="Test.php">./nova/tests/Feature</directory>
-        </testsuite>
-
-        <testsuite name="authentication">
-            <directory suffix="Test.php">./nova/tests/Feature/Auth</directory>
-        </testsuite>
-
-        <testsuite name="roles">
-            <directory suffix="Test.php">./nova/tests/Feature/Roles</directory>
-            <directory suffix="Test.php">./nova/tests/Unit/Roles</directory>
-        </testsuite>
-
-        <testsuite name="themes">
-            <directory suffix="Test.php">./nova/tests/Feature/Themes</directory>
-            <directory suffix="Test.php">./nova/tests/Unit/Themes</directory>
-        </testsuite>
-
-        <testsuite name="users">
-            <directory suffix="Test.php">./nova/tests/Feature/Users</directory>
-            <directory suffix="Test.php">./nova/tests/Unit/Users</directory>
-        </testsuite>
-
-        <testsuite name="media">
-            <file>./nova/tests/Feature/Users/UploadUserAvatarTest.php</file>
-            <file>./nova/tests/Unit/Rules/MaxFileSizeTest.php</file>
-            <file>./nova/tests/Unit/Users/Actions/RemoveUserAvatarTest.php</file>
-            <file>./nova/tests/Unit/Users/Actions/UploadUserAvatarTest.php</file>
-        </testsuite>
-
-        <testsuite name="notes">
-            <directory suffix="Test.php">./nova/tests/Feature/Notes</directory>
-            <directory suffix="Test.php">./nova/tests/Unit/Notes</directory>
-        </testsuite>
-
-        <testsuite name="uploads">
-            <file>./nova/tests/Feature/Users/UploadUserAvatarTest.php</file>
-            <file>./nova/tests/Unit/Users/Actions/UploadUserAvatarTest.php</file>
+        <testsuite name="Feature">
+            <directory suffix="Test.php">./tests/Feature</directory>
         </testsuite>
     </testsuites>
     <filter>

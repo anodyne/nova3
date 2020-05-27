@@ -7,7 +7,10 @@
         </x-slot>
     </x-page-header>
 
-    <x-panel>
+    <x-panel
+        x-data="{ name: '', location: '', suggestLocation: true }"
+        x-init="$watch('name', value => { if (suggestLocation) { location = value.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'-') }})"
+    >
         <form action="{{ route('themes.store') }}" method="POST" role="form">
             @csrf
 
@@ -24,6 +27,7 @@
                         name="name"
                     >
                         <input
+                            x-model="name"
                             id="name"
                             value="{{ old('name') }}"
                             type="text"
@@ -42,6 +46,8 @@
                         </x-slot>
 
                         <input
+                            x-model="location"
+                            x-on:change="suggestLocation = false"
                             id="location"
                             value="{{ old('location') }}"
                             type="text"

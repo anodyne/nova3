@@ -20,6 +20,7 @@ class CreateThemeRequest extends ValidatesRequest
             'location' => ['required', 'unique:themes,location'],
             'credits' => ['nullable'],
             'variants' => ['nullable'],
+            'active' => ['nullable'],
         ];
     }
 }

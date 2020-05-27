@@ -53,13 +53,13 @@ trait ManagesTestUsers
      *
      * @return User
      */
-    protected function signIn(User $user = null): User
+    protected function signIn(User $user = null): self
     {
         $user = $user ?? $this->createUser();
 
         $this->actingAs($user);
 
-        return $user;
+        return $this;
     }
 
     /**
@@ -69,13 +69,13 @@ trait ManagesTestUsers
      *
      * @return User
      */
-    protected function signInAsAdmin(User $user = null): User
+    protected function signInAsAdmin(User $user = null): self
     {
         $user = $user ?? $this->createAdmin();
 
         $this->actingAs($user);
 
-        return $user;
+        return $this;
     }
 
     /**
@@ -86,7 +86,7 @@ trait ManagesTestUsers
      *
      * @return User
      */
-    protected function signInWithPermission($permissions, User $user = null): User
+    protected function signInWithPermission($permissions, User $user = null): self
     {
         $user = $user ?? $this->createUser();
 
@@ -96,7 +96,7 @@ trait ManagesTestUsers
 
         $this->actingAs($user);
 
-        return $user;
+        return $this;
     }
 
     /**

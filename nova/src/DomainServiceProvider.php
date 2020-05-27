@@ -117,9 +117,7 @@ abstract class DomainServiceProvider extends ServiceProvider
      */
     private function registerCommands()
     {
-        if ($this->app->runningInConsole()) {
-            $this->commands($this->commands);
-        }
+        $this->commands($this->commands);
     }
 
     /**
