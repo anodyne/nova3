@@ -14,7 +14,7 @@
     </div>
 
     @if (isset($controls))
-        <div class="inline-flex items-center w-auto mt-4 | sm:mt-0" data-cy="page-header-controls">
+        <div class="inline-flex flex-row-reverse items-center w-auto mt-4 | sm:mt-0 sm:flex-row" data-cy="page-header-controls">
             {{ $controls }}
         </div>
     @endif
