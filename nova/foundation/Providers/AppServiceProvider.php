@@ -19,6 +19,7 @@ use Illuminate\View\Factory as ViewFactory;
 use Nova\Foundation\View\Components\FormField;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Nova\Foundation\Http\Livewire\PasswordField;
+use Nova\Foundation\View\Components\Badge;
 use Nova\Foundation\View\Components\ToggleSwitch;
 
 class AppServiceProvider extends ServiceProvider
@@ -102,6 +103,7 @@ class AppServiceProvider extends ServiceProvider
 
     protected function registerBladeComponents()
     {
+        Blade::component('badge', Badge::class);
         Blade::component('form-field', FormField::class);
         Blade::component('toggle-switch', ToggleSwitch::class);
     }
