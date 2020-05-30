@@ -11,6 +11,8 @@ class FluentIconSet extends IconSet
         return [
             'add' => 'add-circle',
             'alert' => 'error-circle',
+            'arrow-right' => 'arrow-right',
+            'arrow-right-alt' => 'arrow-right-circle',
             'book' => 'class',
             'check' => 'checkmark',
             'check-alt' => 'checkmark-circle',
@@ -28,6 +30,7 @@ class FluentIconSet extends IconSet
             'folder' => 'folder',
             'hide' => 'eye-hide',
             'home' => 'home',
+            'info' => 'info',
             'lock' => 'lock',
             'menu' => 'navigation',
             'more' => 'more',

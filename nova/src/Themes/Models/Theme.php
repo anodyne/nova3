@@ -18,13 +18,14 @@ class Theme extends Model
     protected static $logName = 'admin';
 
     protected $fillable = [
-        'name', 'location', 'credits', 'active', 'layout_auth', 'layout_public',
-        'layout_admin', 'layout_auth_settings', 'layout_public_settings',
-        'layout_admin_settings', 'icon_set',
+        'name', 'location', 'credits', 'active', 'default', 'layout_auth',
+        'layout_public', 'layout_admin', 'layout_auth_settings',
+        'layout_public_settings', 'layout_admin_settings', 'icon_set',
     ];
 
     protected $casts = [
         'active' => 'boolean',
+        'default' => 'boolean',
         'layout_auth_settings' => 'json',
         'layout_public_settings' => 'json',
         'layout_admin_settings' => 'json',

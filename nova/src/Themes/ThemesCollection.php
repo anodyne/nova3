@@ -8,12 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class ThemesCollection extends Collection
 {
-    /**
-     * Get a collection of the theme locations that need to be installed.
-     *
-     * @return \Illuminate\Support\Collection
-     */
-    public function toBeInstalled()
+    public function onlyPending()
     {
         $disk = Storage::disk('themes');
 
@@ -24,26 +19,13 @@ class ThemesCollection extends Collection
             ->filter(function ($location) use ($disk) {
                 return $disk->exists("{$location}/theme.json");
             })->map(function ($location) use ($disk) {
-                $theme = json_decode($disk->get("{$location}/theme.json"));
-
-                return $theme;
-            });
+                return json_decode($disk->get("{$location}/theme.json"), true);
+            })->mapInto(PendingTheme::class)
+            ->sortBy('name');
     }
 
     public function withPending()
     {
-        $disk = Storage::disk('themes');
-
-        $pending = collect($disk->directories())
-            ->diff($this->map(function ($theme) {
-                return $theme->location;
-            }))
-            ->filter(function ($location) use ($disk) {
-                return $disk->exists("{$location}/theme.json");
-            })->map(function ($location) use ($disk) {
-                return json_decode($disk->get("{$location}/theme.json"), true);
-            })->mapInto(PendingTheme::class);
-
-        return $this->merge($pending)->sortBy('name');
+        return $this->merge($this->onlyPending())->sortBy('name');
     }
 }

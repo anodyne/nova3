@@ -18,12 +18,12 @@ class Badge extends Component
 
     public function badgeSize()
     {
-        return $this->size === null ?: 'badge-'.$this->size;
+        return $this->size === null ?: 'badge-' . $this->size;
     }
 
     public function badgeType()
     {
-        return $this->type === null ?: 'badge-'.$this->type;
+        return $this->type === null ?: 'badge-' . $this->type;
     }
 
     public function render()

@@ -3,7 +3,7 @@
 @section('content')
 <x-page-header title="Themes">
     <x-slot name="controls">
-        <dropdown class="flex items-center text-gray-400 dark:text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150 mx-4" placement="bottom-end">
+        <dropdown class="flex items-center text-gray-400 dark:text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150 mx-4 @if (request()->has('pending')) text-blue-500 @endif" placement="bottom-end">
             <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
 
             <template #dropdown="{ toggle }">
@@ -33,8 +33,11 @@
         </x-slot>
 
         <div class="flex items-center justify-between">
-            <h3 class="text-xl leading-7 font-semibold text-gray-900 dark:text-gray-100">
-                {{ $theme->name }}
+            <h3 class="inline-flex items-center text-xl leading-7 font-semibold text-gray-900 dark:text-gray-100">
+                @if ($theme->default)
+                    @icon('star', 'h-5 w-5 text-blue-500 mr-2')
+                @endif
+                <span>{{ $theme->name }}</span>
             </h3>
 
             <dropdown class="flex items-center text-gray-400 dark:text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150" placement="bottom-end">
@@ -42,31 +45,34 @@
 
                 <template #dropdown="{ toggle }">
                     @if (! $theme->exists)
-                    <a href="#" class="dropdown-link">
-                        @icon('edit', 'dropdown-icon')
-                        Install
-                    </a>
+                        <a href="#" class="dropdown-link">
+                            @icon('arrow-right-alt', 'dropdown-icon')
+                            Install
+                        </a>
                     @else
-                    @can('update', $theme)
-                    <a href="{{ route('themes.edit', $theme) }}" class="dropdown-link">
-                        @icon('edit', 'dropdown-icon')
-                        Edit
-                    </a>
-                    <a href="#" class="dropdown-link">
-                        @icon('star', 'dropdown-icon')
-                        Make System Default
-                    </a>
-                    @endcan
+                        @can('update', $theme)
+                            <a href="{{ route('themes.edit', $theme) }}" class="dropdown-link">
+                                @icon('edit', 'dropdown-icon')
+                                Edit
+                            </a>
 
-                    @can('delete', $theme)
-                    <button
-                    v-on:click="toggle();$emit('open-modal', {{ json_encode($theme) }});"
-                    class="dropdown-link"
-                    >
-                    @icon('delete', 'dropdown-icon')
-                    Delete
-                </button>
-                @endcan
+                            @if (! $theme->default)
+                                <a href="#" class="dropdown-link">
+                                    @icon('star', 'dropdown-icon')
+                                    Make System Default
+                                </a>
+                            @endif
+                        @endcan
+
+                        @can('delete', $theme)
+                            <button
+                                v-on:click="toggle();$emit('open-modal', {{ json_encode($theme) }});"
+                                class="dropdown-link"
+                            >
+                                @icon('delete', 'dropdown-icon')
+                                Delete
+                            </button>
+                    @endcan
                 @endif
             </template>
         </dropdown>
@@ -76,13 +82,13 @@
         themes/{{ $theme->location }}
     </p>
     @if (! $theme->exists)
-    <x-badge class="mt-2" size="sm">Pending</x-badge>
+        <x-badge class="mt-2" size="sm">Pending</x-badge>
     @else
-    @if ($theme->active)
-    <x-badge class="mt-2" size="sm" type="success">Active</x-badge>
-    @else
-    <x-badge class="mt-2" size="sm" type="danger">Inactive</x-badge>
-    @endif
+        @if ($theme->active)
+            <x-badge class="mt-2" size="sm" type="success">Active</x-badge>
+        @else
+            <x-badge class="mt-2" size="sm" type="danger">Inactive</x-badge>
+        @endif
     @endif
 </x-card>
 @endforeach
@@ -90,18 +96,16 @@
 
 <div class="w-full max-w-2xl mx-auto mt-16">
     <div class="rounded-md bg-blue-100 p-4">
-        <div class="flex">
+        <div class="flex items-center">
             <div class="flex-shrink-0">
-                <svg class="h-5 w-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
-                </svg>
+                @icon('info', 'h-6 w-6 text-blue-500')
             </div>
-            <div class="ml-3 flex-1 md:flex md:justify-between">
+            <div class="ml-3 flex-1 | md:flex md:justify-between">
                 <p class="text-sm leading-5 text-blue-700">
                     Looking for more themes? Check out AnodyneXtras!
                 </p>
                 <p class="mt-3 text-sm leading-5 | md:mt-0 md:ml-6">
-                    <a href="https://xtras.anodyne-productions.com" class="whitespace-no-wrap font-medium text-blue-700 hover:text-blue-600 transition ease-in-out duration-150">
+                    <a href="{{ config('services.anodyne.links.xtras') }}" target="_blank" class="whitespace-no-wrap font-medium text-blue-700 hover:text-blue-600 transition ease-in-out duration-150">
                         Go &rarr;
                     </a>
                 </p>
