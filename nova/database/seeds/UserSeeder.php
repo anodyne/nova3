@@ -31,7 +31,7 @@ class UserSeeder extends Seeder
 
         $user->transitionTo(Active::class)->attachRole('user');
 
-        factory(User::class)->times(50)->create()->each->attachRole('user');
+        factory(User::class)->times(25)->create()->each->attachRole('user');
 
         activity()->enableLogging();
     }

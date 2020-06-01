@@ -18,8 +18,12 @@ use Nova\Foundation\Icons\FeatherIconSet;
 use Illuminate\View\Factory as ViewFactory;
 use Nova\Foundation\View\Components\FormField;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 use Nova\Foundation\Http\Livewire\PasswordField;
+use Nova\Foundation\View\Components\Avatar;
+use Nova\Foundation\View\Components\AvatarGroup;
 use Nova\Foundation\View\Components\Badge;
+use Nova\Foundation\View\Components\Dropdown;
 use Nova\Foundation\View\Components\ToggleSwitch;
 
 class AppServiceProvider extends ServiceProvider
@@ -34,9 +38,11 @@ class AppServiceProvider extends ServiceProvider
         // Make sure the file finder can find Javascript files
         $this->app['view']->addExtension('js', 'file');
 
+        Paginator::useTailwind();
+
         $this->registerInertia();
         $this->registerMacros();
-        $this->registerLengthAwarePaginator();
+        // $this->registerLengthAwarePaginator();
         $this->registerBladeDirectives();
         $this->registerBladeComponents();
         $this->registerLivewireComponents();
@@ -104,7 +110,10 @@ class AppServiceProvider extends ServiceProvider
     protected function registerBladeComponents()
     {
         Blade::component('badge', Badge::class);
+        Blade::component('avatar', Avatar::class);
+        Blade::component('dropdown', Dropdown::class);
         Blade::component('form-field', FormField::class);
+        Blade::component('avatar-group', AvatarGroup::class);
         Blade::component('toggle-switch', ToggleSwitch::class);
     }
 

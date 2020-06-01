@@ -18,7 +18,7 @@ class CreateThemeController extends Controller
         $this->middleware('auth');
     }
 
-    public function showForm()
+    public function create()
     {
         $this->authorize('create', Theme::class);
 
@@ -33,6 +33,6 @@ class CreateThemeController extends Controller
 
         return redirect()
             ->route('themes.index')
-            ->withToast("{$theme->name} theme was created.");
+            ->withToast("{$theme->name} theme was created", 'A folder has been created in the themes directory to help you get started creating your theme.');
     }
 }

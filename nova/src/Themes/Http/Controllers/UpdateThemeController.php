@@ -18,7 +18,7 @@ class UpdateThemeController extends Controller
         $this->middleware('auth');
     }
 
-    public function showForm(Theme $theme)
+    public function edit(Theme $theme)
     {
         $this->authorize('update', $theme);
 
@@ -38,6 +38,6 @@ class UpdateThemeController extends Controller
 
         return redirect()
             ->route('themes.edit', $theme)
-            ->withToast("{$theme->name} theme was updated.");
+            ->withToast("{$theme->name} theme was updated");
     }
 }

@@ -74,19 +74,11 @@
 
 .field-label {
     @apply block mb-1 text-sm text-gray-700 font-medium;
-
-    /* @variants dark {
-        @apply text-gray-200;
-    } */
 }
 
 .field-help,
 .field-error {
     @apply block w-full relative mt-2 ml-2px text-sm text-gray-500;
-
-    /* @variants dark {
-        @apply text-gray-400;
-    } */
 }
 
 .form-section {
@@ -174,7 +166,7 @@
     @apply flex items-center text-danger-600;
 
     > svg.icon {
-        @apply mr-1 h-5 w-5 flex-shrink-0 text-danger-400;
+        @apply mr-2 h-5 w-5 flex-shrink-0 text-danger-400;
     }
 }
 

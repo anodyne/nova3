@@ -7,7 +7,7 @@
 }
 
 .dropdown-menu-container {
-    @apply absolute mt-2 w-56 rounded-md shadow-lg;
+    @apply absolute mt-2 w-56 rounded-md shadow-lg z-10;
 }
 
 .dropdown-menu {

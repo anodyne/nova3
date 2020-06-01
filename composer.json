@@ -12,6 +12,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
+        "f9webltd/laravel-meta": "^1.4",
         "fideloper/proxy": "^4.0",
         "inertiajs/inertia-laravel": "^0.1",
         "laravel/framework": "^7.0",

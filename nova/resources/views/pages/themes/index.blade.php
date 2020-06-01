@@ -3,10 +3,10 @@
 @section('content')
 <x-page-header title="Themes">
     <x-slot name="controls">
-        <dropdown class="flex items-center text-gray-400 dark:text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150 mx-4 @if (request()->has('pending')) text-blue-500 @endif" placement="bottom-end">
-            <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+        <dropdown placement="bottom-end" class="flex items-center text-gray-400 dark:text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150 mx-4 {{ request()->has('pending') ? 'text-blue-500' : '' }}">
+            @icon('filter', 'h-6 w-6')
 
-            <template #dropdown="{ toggle }">
+            <template #dropdown>
                 <div class="dropdown-text uppercase tracking-wide font-semibold text-gray-500">
                     Filter themes
                 </div>
@@ -16,16 +16,16 @@
         </dropdown>
 
         @can('create', 'Nova\Themes\Models\Theme')
-        <a href="{{ route('themes.create') }}" class="button button-primary">
-            Add Theme
-        </a>
+            <a href="{{ route('themes.create') }}" class="button button-primary">
+                Add Theme
+            </a>
         @endcan
     </x-slot>
 </x-page-header>
 
 <div class="mt-12 grid gap-6 max-w-lg mx-auto | lg:grid-cols-3 lg:max-w-none">
     @foreach ($themes as $theme)
-    <x-card x-data="{ id: {{ $theme->id }} }">
+    <x-card x-data="{ id: {{ $theme->id ?? 0 }} }">
         <x-slot name="header">
             <div class="flex-shrink-0">
                 <img class="h-48 w-full object-cover" src="https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1679&q=80" alt="" />
@@ -40,15 +40,20 @@
                 <span>{{ $theme->name }}</span>
             </h3>
 
-            <dropdown class="flex items-center text-gray-400 dark:text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150" placement="bottom-end">
+            <dropdown placement="bottom-end" class="flex items-center text-gray-400 dark:text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150">
                 @icon('more', 'h-6 w-6')
 
                 <template #dropdown="{ toggle }">
                     @if (! $theme->exists)
-                        <a href="#" class="dropdown-link">
+                        <button class="dropdown-link" type="submit" form="install-form-{{ $theme->location }}" role="menuitem">
                             @icon('arrow-right-alt', 'dropdown-icon')
                             Install
-                        </a>
+                        </button>
+
+                        <form id="install-form-{{ $theme->location }}" action="{{ route('themes.install') }}" method="POST" class="hidden">
+                            @csrf
+                            <input type="hidden" name="theme" value="{{ $theme->location }}">
+                        </form>
                     @else
                         @can('update', $theme)
                             <a href="{{ route('themes.edit', $theme) }}" class="dropdown-link">
@@ -72,26 +77,26 @@
                                 @icon('delete', 'dropdown-icon')
                                 Delete
                             </button>
-                    @endcan
-                @endif
-            </template>
-        </dropdown>
-    </div>
-    <p class="mt-1 flex items-center text-base leading-6 text-gray-500 dark:text-gray-400">
-        @icon('folder', 'flex-shrink-0 mr-2 h-5 w-5 text-gray-400 dark:text-gray-500')
-        themes/{{ $theme->location }}
-    </p>
-    @if (! $theme->exists)
-        <x-badge class="mt-2" size="sm">Pending</x-badge>
-    @else
-        @if ($theme->active)
-            <x-badge class="mt-2" size="sm" type="success">Active</x-badge>
+                        @endcan
+                    @endif
+                </template>
+            </dropdown>
+        </div>
+        <p class="mt-1 flex items-center text-base leading-6 text-gray-500 dark:text-gray-400">
+            @icon('folder', 'flex-shrink-0 mr-2 h-5 w-5 text-gray-400 dark:text-gray-500')
+            themes/{{ $theme->location }}
+        </p>
+        @if (! $theme->exists)
+            <x-badge class="mt-2" size="sm">Pending</x-badge>
         @else
-            <x-badge class="mt-2" size="sm" type="danger">Inactive</x-badge>
+            @if ($theme->active)
+                <x-badge class="mt-2" size="sm" type="success">Active</x-badge>
+            @else
+                <x-badge class="mt-2" size="sm" type="danger">Inactive</x-badge>
+            @endif
         @endif
-    @endif
-</x-card>
-@endforeach
+    </x-card>
+    @endforeach
 </div>
 
 <div class="w-full max-w-2xl mx-auto mt-16">
@@ -135,7 +140,7 @@
             </button>
         </span>
         <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
-            <button @click="close" type="button" class="button w-full">
+            <button v-on:click="close" type="button" class="button w-full">
                 Cancel
             </button>
         </span>

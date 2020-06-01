@@ -17,11 +17,11 @@ class ShowAllThemesController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(Request $request, ThemeFilters $filters)
+    public function __invoke(Request $request)
     {
         $this->authorize('viewAny', Theme::class);
 
-        $themes = Theme::filter($filters)->orderBy('name')->get();
+        $themes = Theme::orderBy('name')->get();
 
         return app(ShowAllThemesResponse::class)->with([
             'themes' => ($request->has('pending')) ? $themes->onlyPending() : $themes->withPending(),

@@ -1,7 +1,7 @@
 <div
     x-cloak
     x-data="{ show: false, title: '', message: '' }"
-    x-on:toast.window="show = true; title = $event.detail.title; message = $event.detail.message; setTimeout(() => { show = false }, 4000)"
+    x-on:toast.window="show = true; title = $event.detail.title; message = $event.detail.message; setTimeout(() => { show = false }, 5000)"
     x-show="show"
     x-description="Notification panel, show/hide based on alert state."
     x-transition:enter="transform ease-out duration-300 transition"

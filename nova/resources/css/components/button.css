@@ -34,11 +34,11 @@
     }
 
     &.button-primary {
-        @apply text-white bg-primary-500 border-transparent;
+        @apply text-white bg-primary-600 border-transparent;
 
         &:hover,
         &:active {
-            @apply text-white bg-primary-400 border-transparent;
+            @apply text-white bg-primary-500 border-transparent;
         }
     }
 

@@ -5,10 +5,10 @@ namespace Nova\Roles\Providers;
 use Nova\Roles\Models\Role;
 use Nova\DomainServiceProvider;
 use Nova\Roles\Policies\RolePolicy;
-use Nova\Roles\Http\Responses\EditRoleResponse;
-use Nova\Roles\Http\Responses\ViewRoleResponse;
-use Nova\Roles\Http\Responses\RoleIndexResponse;
+use Nova\Roles\Http\Responses\ShowRoleResponse;
 use Nova\Roles\Http\Responses\CreateRoleResponse;
+use Nova\Roles\Http\Responses\UpdateRoleResponse;
+use Nova\Roles\Http\Responses\ShowAllRolesResponse;
 use Nova\Roles\Http\Controllers\SearchRolesController;
 use Nova\Roles\Http\Controllers\SearchPermissionsController;
 
@@ -20,9 +20,9 @@ class RoleServiceProvider extends DomainServiceProvider
 
     protected $responsables = [
         CreateRoleResponse::class,
-        EditRoleResponse::class,
-        RoleIndexResponse::class,
-        ViewRoleResponse::class,
+        UpdateRoleResponse::class,
+        ShowAllRolesResponse::class,
+        ShowRoleResponse::class,
     ];
 
     protected $routes = [

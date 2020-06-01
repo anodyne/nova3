@@ -5,6 +5,7 @@ namespace Nova\Themes\Http\Controllers;
 use Nova\Themes\Models\Theme;
 use Nova\Themes\Actions\DeleteTheme;
 use Nova\Foundation\Http\Controllers\Controller;
+use Nova\Themes\Actions\DeleteThemeManager;
 
 class DeleteThemeController extends Controller
 {
@@ -23,6 +24,6 @@ class DeleteThemeController extends Controller
 
         return redirect()
             ->route('themes.index')
-            ->withToast("{$theme->name} theme was deleted.");
+            ->withToast("{$theme->name} theme was uninstalled", 'Theme files have not been deleted from the server.');
     }
 }

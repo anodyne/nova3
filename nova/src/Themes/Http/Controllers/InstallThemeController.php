@@ -31,7 +31,9 @@ class InstallThemeController extends Controller
 
         event(new ThemeInstalled($theme));
 
-        return $theme->refresh();
+        return redirect()
+            ->route('themes.index')
+            ->withToast("{$theme->name} was installed");
     }
 
     protected function getThemePropertiesFromQuickInstallFile($location)

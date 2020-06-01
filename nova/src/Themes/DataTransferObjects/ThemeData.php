@@ -25,7 +25,7 @@ class ThemeData extends DataTransferObject
     /**
      * @var  bool
      */
-    public $active;
+    public $active = true;
 
     public static function fromRequest(Request $request): self
     {

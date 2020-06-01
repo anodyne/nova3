@@ -26,6 +26,7 @@ class FluentIconSet extends IconSet
             'dashboard' => 'glance',
             'delete' => 'delete',
             'edit' => 'edit',
+            'filter' => 'filter',
             'flag' => 'flag',
             'folder' => 'folder',
             'hide' => 'eye-hide',
@@ -43,6 +44,7 @@ class FluentIconSet extends IconSet
             'sign-out' => 'sign-out',
             'star' => 'star',
             'user' => 'person',
+            'users' => 'people',
             'warning' => 'warning',
         ];
     }

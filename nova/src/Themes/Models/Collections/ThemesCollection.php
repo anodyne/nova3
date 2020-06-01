@@ -1,6 +1,6 @@
 <?php
 
-namespace Nova\Themes;
+namespace Nova\Themes\Models\Collections;
 
 use Nova\Themes\Models\PendingTheme;
 use Illuminate\Support\Facades\Storage;

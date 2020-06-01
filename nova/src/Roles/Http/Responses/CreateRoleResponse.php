@@ -2,9 +2,9 @@
 
 namespace Nova\Roles\Http\Responses;
 
-use Nova\Foundation\Http\Responses\InertiaResponse;
+use Nova\Foundation\Http\Responses\ServerResponse;
 
-class CreateRoleResponse extends InertiaResponse
+class CreateRoleResponse extends ServerResponse
 {
-    public $component = 'Roles/Create';
+    public $view = 'roles.create';
 }

@@ -13,6 +13,7 @@
     >
         <form action="{{ route('themes.store') }}" method="POST" role="form">
             @csrf
+            <input type="hidden" name="active" value="0">
 
             <div class="form-section">
                 <div class="form-section-header">
