@@ -57,11 +57,11 @@ test('an unauthorized user cannot create a role', function () {
     $response->assertForbidden();
 });
 
-test('a guest cannot view the create role page')
+test('an unauthenticated user cannot view the create role page')
     ->get('/roles/create')
     ->assertRedirect('/login');
 
-test('a guest cannot create a role')
+test('an unauthenticated user cannot create a role')
     ->postJson('/roles')
     ->assertUnauthorized();
 
@@ -91,12 +91,10 @@ test('a role can be given to a user', function () {
 
     $role = factory(Role::class)->make();
 
-    $data = array_merge($role->toArray(), [
+    $this->post(route('roles.store'), array_merge($role->toArray(), [
         'permissions' => [],
         'users' => [$user->id],
-    ]);
-
-    $this->post(route('roles.store'), $data);
+    ]));
 
     $this->assertTrue($user->hasRole($role->name));
 });
@@ -109,9 +107,5 @@ test('activity is logged when a role is created', function () {
     ]);
 });
 
-test('storing a role in the database uses the form request', function () {
-    $this->assertRouteUsesFormRequest(
-        'roles.store',
-        CreateRoleRequest::class
-    );
-});
+test('creating a role uses the correct form request')
+    ->assertRouteUsesFormRequest('roles.store', CreateRoleRequest::class);

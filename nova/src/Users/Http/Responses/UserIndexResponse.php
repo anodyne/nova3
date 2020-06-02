@@ -2,9 +2,9 @@
 
 namespace Nova\Users\Http\Responses;
 
-use Nova\Foundation\Http\Responses\InertiaResponse;
+use Nova\Foundation\Http\Responses\ServerResponse;
 
-class UserIndexResponse extends InertiaResponse
+class UserIndexResponse extends ServerResponse
 {
-    public $component = 'Users/Index';
+    public $view = 'users.index';
 }

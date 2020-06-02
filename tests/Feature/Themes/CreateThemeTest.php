@@ -6,6 +6,7 @@ use Nova\Themes\Events\ThemeCreated;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
 use Nova\Themes\DataTransferObjects\ThemeData;
+use Nova\Themes\Http\Requests\CreateThemeRequest;
 
 uses()->group('feature', 'themes');
 
@@ -13,16 +14,14 @@ beforeEach(function () {
     $this->theme = factory(Theme::class)->create();
 });
 
-test('authorized user can view the create theme page', function () {
+test('an authorized user can view the create theme page', function () {
     $this->signInWithPermission('theme.create');
 
     $response = $this->get(route('themes.create'));
     $response->assertSuccessful();
 });
 
-test('authorized user can create a theme', function () {
-    $this->withoutExceptionHandling();
-
+test('an authorized user can create a theme', function () {
     Storage::fake('themes');
 
     $this->signInWithPermission('theme.create');
@@ -35,14 +34,14 @@ test('authorized user can create a theme', function () {
     $this->assertDatabaseHas('themes', $theme->only('name', 'location'));
 });
 
-test('unauthorized user cannot view the create theme page', function () {
+test('an unauthorized user cannot view the create theme page', function () {
     $this->signIn();
 
     $response = $this->get(route('themes.create'));
     $response->assertForbidden();
 });
 
-test('unauthorized user cannot create a theme', function () {
+test('an unauthorized user cannot create a theme', function () {
     $this->signIn();
 
     $response = $this->postJson(
@@ -52,15 +51,15 @@ test('unauthorized user cannot create a theme', function () {
     $response->assertForbidden();
 });
 
-test('guest cannot view the create theme page')
+test('an unauthenticated user cannot view the create theme page')
     ->get('/themes/create')
     ->assertRedirect('/login');
 
-test('guest cannot create a theme')
+test('an unauthenticated user cannot create a theme')
     ->postJson('/themes')
     ->assertUnauthorized();
 
-test('theme directory is scaffolded when a theme is created', function () {
+test('a directory is scaffolded when a theme is created', function () {
     Storage::fake('themes');
 
     $data = factory(Theme::class)->make()->toArray();
@@ -83,28 +82,5 @@ test('an event is dispatched when a theme is created', function () {
     });
 });
 
-test('name is required to create a theme', function () {
-    Storage::fake('themes');
-
-    $this->signInWithPermission('theme.create');
-
-    $this->from(route('themes.index'))
-        ->post(route('themes.store'), [
-            'name' => null,
-            'location' => 'some-location',
-        ])
-        ->assertSessionHasErrors('name');
-});
-
-test('location is required to create a theme', function () {
-    Storage::fake('themes');
-
-    $this->signInWithPermission('theme.create');
-
-    $this->from(route('themes.index'))
-        ->post(route('themes.store'), [
-            'name' => 'some-name',
-            'location' => null,
-        ])
-        ->assertSessionHasErrors('location');
-});
+test('creating a theme uses the correct form request')
+    ->assertRouteUsesFormRequest('themes.store', CreateThemeRequest::class);

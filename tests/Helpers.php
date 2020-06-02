@@ -6,3 +6,10 @@ function assertDatabaseHas($table, $data)
 
     return test();
 }
+
+function assertRouteUsesFormRequest($route, $class)
+{
+    test()->assertRouteUsesFormRequest($route, $class);
+
+    return test();
+}
