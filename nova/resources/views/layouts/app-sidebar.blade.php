@@ -146,10 +146,10 @@
                         @icon('notification', 'h-6 w-6')
                     </button>
 
-                    <x-dropdown class="ml-3" placement="bottom-end">
+                    <dropdown class="ml-3" placement="bottom-end">
                         <x-avatar size="xs" :url="auth()->user()->avatar_url" :tooltip="auth()->user()->name" />
 
-                        <x-slot name="dropdown">
+                        <template #dropdown>
                             <button class="dropdown-link" form="logout-form" role="menuitem">
                                 @icon('sign-out', 'dropdown-icon')
                                 Sign out
@@ -158,8 +158,8 @@
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
                                 @csrf
                             </form>
-                        </x-slot>
-                    </x-dropdown>
+                        </template>
+                    </dropdown>
                 </div>
             </div>
         </div>

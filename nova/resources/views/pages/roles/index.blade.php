@@ -91,7 +91,7 @@
 
                                 @can('duplicate', $role)
                                     <button class="dropdown-link" data-cy="duplicate">
-                                        {{-- <icon name="copy" class="dropdown-icon"></icon> --}}
+                                        @icon('duplicate', 'dropdown-icon')
                                         Duplicate
                                     </button>
                                 @endcan

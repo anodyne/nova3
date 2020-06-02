@@ -25,6 +25,7 @@ class FluentIconSet extends IconSet
             'copy' => 'document-copy',
             'dashboard' => 'glance',
             'delete' => 'delete',
+            'duplicate' => 'hide-slide',
             'edit' => 'edit',
             'filter' => 'filter',
             'flag' => 'flag',

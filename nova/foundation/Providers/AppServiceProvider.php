@@ -8,6 +8,7 @@ use Nova\Foundation\Macros;
 use Illuminate\Routing\Route;
 use Nova\Foundation\NovaManager;
 use Nova\Foundation\Icons\IconSets;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Blade;
@@ -15,15 +16,13 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
 use Nova\Foundation\NovaBladeDirectives;
 use Nova\Foundation\Icons\FeatherIconSet;
+use Nova\Foundation\View\Components\Badge;
 use Illuminate\View\Factory as ViewFactory;
+use Nova\Foundation\View\Components\Avatar;
 use Nova\Foundation\View\Components\FormField;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Pagination\Paginator;
 use Nova\Foundation\Http\Livewire\PasswordField;
-use Nova\Foundation\View\Components\Avatar;
 use Nova\Foundation\View\Components\AvatarGroup;
-use Nova\Foundation\View\Components\Badge;
-use Nova\Foundation\View\Components\Dropdown;
 use Nova\Foundation\View\Components\ToggleSwitch;
 
 class AppServiceProvider extends ServiceProvider
@@ -111,7 +110,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Blade::component('badge', Badge::class);
         Blade::component('avatar', Avatar::class);
-        Blade::component('dropdown', Dropdown::class);
         Blade::component('form-field', FormField::class);
         Blade::component('avatar-group', AvatarGroup::class);
         Blade::component('toggle-switch', ToggleSwitch::class);
