@@ -32,6 +32,6 @@ class CreateRoleController extends Controller
 
         return redirect()
             ->route('roles.index')
-            ->withToast("{$role->display_name} role was created.");
+            ->withToast("{$role->display_name} role was created");
     }
 }

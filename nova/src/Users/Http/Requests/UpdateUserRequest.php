@@ -5,7 +5,7 @@ namespace Nova\Users\Http\Requests;
 use Nova\Foundation\Rules\MaxFileSize;
 use Nova\Foundation\Http\Requests\ValidatesRequest;
 
-class ValidateUpdateUser extends ValidatesRequest
+class UpdateUserRequest extends ValidatesRequest
 {
     public function rules()
     {

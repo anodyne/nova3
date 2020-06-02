@@ -4,7 +4,7 @@ namespace Nova\Users\Http\Responses;
 
 use Nova\Foundation\Http\Responses\ServerResponse;
 
-class CreateUserResponse extends ServerResponse
+class ShowAllUsersResponse extends ServerResponse
 {
-    public $view = 'users.create';
+    public $view = 'users.index';
 }

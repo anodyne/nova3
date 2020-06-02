@@ -7,10 +7,10 @@ use Nova\DomainServiceProvider;
 use Nova\Users\Policies\UserPolicy;
 use Nova\Users\Events\UserCreatedByAdmin;
 use Nova\Users\Listeners\GeneratePassword;
-use Nova\Users\Http\Responses\EditUserResponse;
-use Nova\Users\Http\Responses\ViewUserResponse;
-use Nova\Users\Http\Responses\UserIndexResponse;
+use Nova\Users\Http\Responses\ShowUserResponse;
 use Nova\Users\Http\Responses\CreateUserResponse;
+use Nova\Users\Http\Responses\UpdateUserResponse;
+use Nova\Users\Http\Responses\ShowAllUsersResponse;
 use Nova\Users\Http\Controllers\SearchUsersController;
 use Nova\Users\Http\Controllers\ForcePasswordResetController;
 
@@ -32,9 +32,9 @@ class UserServiceProvider extends DomainServiceProvider
 
     protected $responsables = [
         CreateUserResponse::class,
-        EditUserResponse::class,
-        UserIndexResponse::class,
-        ViewUserResponse::class,
+        UpdateUserResponse::class,
+        ShowAllUsersResponse::class,
+        ShowUserResponse::class,
     ];
 
     protected $routes = [

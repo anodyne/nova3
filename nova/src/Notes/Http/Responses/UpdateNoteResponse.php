@@ -4,7 +4,7 @@ namespace Nova\Notes\Http\Responses;
 
 use Nova\Foundation\Http\Responses\ServerResponse;
 
-class CreateNoteResponse extends ServerResponse
+class UpdateNoteResponse extends ServerResponse
 {
-    public $view = 'notes.create';
+    public $view = 'notes.edit';
 }

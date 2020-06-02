@@ -4,7 +4,7 @@ namespace Nova\Notes\Http\Requests;
 
 use Nova\Foundation\Http\Requests\ValidatesRequest;
 
-class ValidateStoreNote extends ValidatesRequest
+class UpdateNoteRequest extends ValidatesRequest
 {
     public function rules()
     {

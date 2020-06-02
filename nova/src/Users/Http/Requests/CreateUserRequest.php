@@ -4,7 +4,7 @@ namespace Nova\Users\Http\Requests;
 
 use Nova\Foundation\Http\Requests\ValidatesRequest;
 
-class ValidateStoreUser extends ValidatesRequest
+class CreateUserRequest extends ValidatesRequest
 {
     public function rules()
     {

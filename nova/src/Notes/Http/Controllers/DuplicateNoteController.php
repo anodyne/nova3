@@ -6,7 +6,7 @@ use Nova\Notes\Models\Note;
 use Nova\Notes\Actions\DuplicateNote;
 use Nova\Notes\Events\NoteDuplicated;
 use Nova\Foundation\Http\Controllers\Controller;
-use Nova\Notes\Http\Requests\ValidateDuplicateNote;
+use Nova\Notes\Http\Requests\DuplicateNoteRequest;
 
 class DuplicateNoteController extends Controller
 {
@@ -18,7 +18,7 @@ class DuplicateNoteController extends Controller
     }
 
     public function __invoke(
-        ValidateDuplicateNote $request,
+        DuplicateNoteRequest $request,
         DuplicateNote $action,
         Note $originalNote
     ) {
@@ -30,6 +30,6 @@ class DuplicateNoteController extends Controller
 
         return redirect()
             ->route('notes.edit', $note)
-            ->withToast("{$originalNote->title} has been duplicated.");
+            ->withToast("{$originalNote->title} has been duplicated");
     }
 }

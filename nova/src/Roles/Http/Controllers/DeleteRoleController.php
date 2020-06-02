@@ -23,6 +23,6 @@ class DeleteRoleController extends Controller
 
         return redirect()
             ->route('roles.index')
-            ->withToast("{$role->display_name} was deleted.");
+            ->withToast("{$role->display_name} was deleted", 'All users who had been assigned this role have been updated.');
     }
 }
