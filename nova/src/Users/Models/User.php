@@ -3,6 +3,7 @@
 namespace Nova\Users\Models;
 
 use Nova\Users\Events;
+use Nova\Notes\Models\Note;
 use Nova\Users\UsersCollection;
 use Spatie\ModelStates\HasStates;
 use Nova\Users\Models\States\Active;
@@ -57,6 +58,11 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     protected $hidden = [
         'password', 'remember_token', 'force_password_reset',
     ];
+
+    public function notes()
+    {
+        return $this->hasMany(Note::class);
+    }
 
     /**
      * Record a timestamp when a user logs in.

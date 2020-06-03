@@ -48,7 +48,7 @@
     </div>
 
     <ul>
-    @foreach ($roles as $role)
+    @forelse ($roles as $role)
         <li class="border-t border-gray-200">
             <div class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
                 <div class="px-4 py-4 flex items-center | sm:px-6">
@@ -120,18 +120,11 @@
                 </div>
             </div>
         </li>
+    @empty
+        <x-search-not-found>
+            No roles found
+        </x-search-not-found>
     @endforeach
-
-    @if ($roles->total() === 0)
-        <li class="border-t border-warning-100">
-            <div class="block focus:outline-none focus:bg-gray-50">
-                <div class="flex items-center px-4 py-4 bg-warning-50 | sm:px-6">
-                    @icon('warning', 'h-6 w-6 flex-shrink-0 mr-3 text-warning-400')
-                    <span class="font-medium text-warning-600">No roles found</span>
-                </div>
-            </div>
-        </li>
-    @endif
     </ul>
 
     <div class="px-4 py-2 border-t border-gray-200 | sm:px-6 sm:py-3">

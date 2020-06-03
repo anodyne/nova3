@@ -7,6 +7,7 @@ use Nova\Notes\Actions\CreateNote;
 use Nova\Notes\DataTransferObjects\NoteData;
 use Nova\Notes\Http\Requests\CreateNoteRequest;
 use Nova\Foundation\Http\Controllers\Controller;
+use Nova\Notes\Http\Responses\CreateNoteResponse;
 
 class CreateNoteController extends Controller
 {
