@@ -6,6 +6,7 @@ use Nova\Users\Models\User;
 use Illuminate\Http\Request;
 use Nova\Users\Http\Responses\ShowUserResponse;
 use Nova\Foundation\Http\Controllers\Controller;
+use Nova\Users\Filters\UserFilters;
 use Nova\Users\Http\Responses\ShowAllUsersResponse;
 
 class ShowUserController extends Controller
@@ -17,16 +18,16 @@ class ShowUserController extends Controller
         $this->middleware('auth');
     }
 
-    public function all(Request $request)
+    public function all(Request $request, UserFilters $filters)
     {
         $this->authorize('viewAny', User::class);
 
         $users = User::orderBy('name')
-            ->filter($request->only('search'))
+            ->filter($filters)
             ->paginate();
 
         return app(ShowAllUsersResponse::class)->with([
-            'filters' => $request->all('search'),
+            'search' => $request->search,
             'users' => $users,
         ]);
     }

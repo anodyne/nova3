@@ -21,38 +21,7 @@
 @else
     <x-panel>
         <div class="px-4 py-2 | sm:px-6 sm:py-3">
-            <div>
-                <label for="email" class="sr-only">Find a note</label>
-                <div class="flex items-center py-1 text-gray-500 transition duration-150 focus-within:text-gray-700">
-                    @icon('search', 'mr-3 flex-shrink-0')
-
-                    <input
-                        autocomplete="off"
-                        class="relative w-full appearance-none bg-transparent text-gray-800 focus:outline-none"
-                        name="search"
-                        type="text"
-                        placeholder="Find a note..."
-                        data-cy="search-field"
-                        role="searchbox"
-                    >
-
-                    {{-- <button
-                        v-show="!!value"
-                        id="clear-search"
-                        class="ml-2 text-gray-400 hover:text-gray-500 transition ease-in-out duration-150"
-                        data-cy="search-clear"
-                        role="button"
-                        aria-label="Reset"
-                        @click.prevent="$emit('reset')"
-                    >
-                        <icon
-                            name="x"
-                            title="Reset"
-                            aria-hidden="true"
-                        ></icon>
-                    </button> --}}
-                </div>
-            </div>
+            <x-search-filter placeholder="Find a note..." :search="$search" />
         </div>
 
         <ul>
@@ -99,7 +68,7 @@
             <x-search-not-found>
                 No notes found
             </x-search-not-found>
-        @endforeach
+        @endforelse
         </ul>
 
         <div class="px-4 py-2 border-t border-gray-200 | sm:px-6 sm:py-3">

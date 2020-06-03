@@ -6,6 +6,7 @@ use Nova\Roles\Models\Role;
 use Illuminate\Http\Request;
 use Nova\Roles\Http\Responses\ShowRoleResponse;
 use Nova\Foundation\Http\Controllers\Controller;
+use Nova\Roles\Filters\RoleFilters;
 use Nova\Roles\Http\Responses\ShowAllRolesResponse;
 
 class ShowRoleController extends Controller
@@ -17,7 +18,7 @@ class ShowRoleController extends Controller
         $this->middleware('auth');
     }
 
-    public function all(Request $request)
+    public function all(Request $request, RoleFilters $filters)
     {
         $this->authorize('viewAny', Role::class);
 
@@ -26,12 +27,12 @@ class ShowRoleController extends Controller
                 $query->limit(4);
             }])
             ->orderBy('display_name')
-            ->filter($request->only('search'))
+            ->filter($filters)
             ->paginate();
 
         return app(ShowAllRolesResponse::class)->with([
-            'filters' => $request->all('search'),
             'roles' => $roles,
+            'search' => $request->search,
         ]);
     }
 

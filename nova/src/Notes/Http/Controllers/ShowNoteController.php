@@ -6,6 +6,7 @@ use Nova\Notes\Models\Note;
 use Illuminate\Http\Request;
 use Nova\Notes\Http\Responses\ShowNoteResponse;
 use Nova\Foundation\Http\Controllers\Controller;
+use Nova\Notes\Filters\NoteFilters;
 use Nova\Notes\Http\Responses\ShowAllNotesResponse;
 
 class ShowNoteController extends Controller
@@ -17,18 +18,18 @@ class ShowNoteController extends Controller
         $this->middleware('auth');
     }
 
-    public function all(Request $request)
+    public function all(Request $request, NoteFilters $filters)
     {
         $this->authorize('viewAny', Note::class);
 
         $notes = Note::whereAuthor(auth()->user())
             ->orderBy('title')
-            ->filter($request->only('search'))
+            ->filter($filters)
             ->paginate();
 
         return app(ShowAllNotesResponse::class)->with([
-            'filters' => $request->all('search'),
             'notes' => $notes,
+            'search' => $request->search,
         ]);
     }
 

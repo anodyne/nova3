@@ -4,16 +4,11 @@ namespace Nova\Notes\Models\Builders;
 
 use Nova\Users\Models\User;
 use Illuminate\Database\Eloquent\Builder;
+use Nova\Foundation\Filters\Filterable;
 
 class NoteBuilder extends Builder
 {
-    public function filter(array $filters)
-    {
-        return $this->when($filters['search'] ?? null, function ($query, $search) {
-            return $query->where('title', 'like', "%{$search}%")
-                ->orWhere('content', 'like', "%{$search}%");
-        });
-    }
+    use Filterable;
 
     public function whereAuthor(User $user)
     {

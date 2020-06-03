@@ -6,17 +6,12 @@ use Nova\Users\Models\States\Active;
 use Nova\Users\Models\States\Pending;
 use Nova\Users\Models\States\Archived;
 use Nova\Users\Models\States\Inactive;
+use Nova\Foundation\Filters\Filterable;
 use Illuminate\Database\Eloquent\Builder;
 
 class UserBuilder extends Builder
 {
-    public function filter(array $filters)
-    {
-        return $this->when($filters['search'] ?? null, function ($query, $search) {
-            return $query->where('name', 'like', "%{$search}%")
-                ->orWhere('email', 'like', "%{$search}%");
-        });
-    }
+    use Filterable;
 
     /**
      * Get active users.
