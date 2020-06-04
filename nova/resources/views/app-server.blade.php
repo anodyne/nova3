@@ -9,6 +9,7 @@
 
     @livewireStyles
     @novaStyles
+    @stack('styles')
 </head>
 <body class="font-sans bg-gray-100 text-gray-900 dark:bg-black dark:text-gray-100 antialiased">
     <div id="app">

@@ -17,7 +17,7 @@
                 </x-input.group>
 
                 <x-input.group label="Content" for="content" :error="$errors->first('content')">
-                    <simple-editor height="min-h-48"></simple-editor>
+                    <simple-editor height="min-h-48" value="{{ old('content') }}"></simple-editor>
                 </x-input.group>
             </div>
 
