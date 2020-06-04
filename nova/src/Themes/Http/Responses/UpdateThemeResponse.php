@@ -6,5 +6,5 @@ use Nova\Foundation\Http\Responses\ServerResponse;
 
 class UpdateThemeResponse extends ServerResponse
 {
-    public $view = 'themes.update';
+    public $view = 'themes.edit';
 }

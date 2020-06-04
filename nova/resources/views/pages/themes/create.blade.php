@@ -8,101 +8,48 @@
     </x-page-header>
 
     <x-panel
-        x-data="{ name: '', location: '', suggestLocation: true }"
+        x-data="{ name: '{{ old('name') }}', location: '{{ old('location') }}', suggestLocation: true }"
         x-init="$watch('name', value => { if (suggestLocation) { location = value.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'-') }})"
     >
         <form action="{{ route('themes.store') }}" method="POST" role="form">
             @csrf
             <input type="hidden" name="active" value="0">
 
-            <div class="form-section">
-                <div class="form-section-header">
-                    <div class="form-section-header-title">Theme Info</div>
-                    <p class="form-section-header-message">A theme allows you to give your public-facing site the look-and-feel you want to any visitors. Using tools like regular HTML and CSS, you can show visitors the personality of your game and put your own spin on Nova.</p>
-                </div>
+            <x-form.section title="Theme Info" message="A theme allows you to give your public-facing site the look-and-feel you want to any visitors. Using tools like regular HTML and CSS, you can show visitors the personality of your game and put your own spin on Nova.">
+                <x-input.group label="Name" for="name" :error="$errors->first('name')">
+                    <x-input.text x-model="name" id="name" name="name" />
+                </x-input.group>
 
-                <div class="form-section-content">
-                    <x-form-field
-                        label="Name"
-                        field-id="name"
-                        name="name"
-                    >
-                        <input
-                            x-model="name"
-                            id="name"
-                            value="{{ old('name') }}"
-                            type="text"
-                            name="name"
-                            class="field"
-                        >
-                    </x-form-field>
-
-                    <x-form-field
-                        label="Location"
-                        field-id="location"
+                <x-input.group label="Location" for="location" :error="$errors->first('location')">
+                    <x-input.text
+                        x-model="location"
+                        x-on:change="suggestLocation = false"
+                        id="location"
                         name="location"
-                    >
-                        <x-slot name="addonBefore">
-                            themes/
-                        </x-slot>
+                        leading-add-on="themes/"
+                    />
+                </x-input.group>
 
-                        <input
-                            x-model="location"
-                            x-on:change="suggestLocation = false"
-                            id="location"
-                            value="{{ old('location') }}"
-                            type="text"
-                            name="location"
-                            class="field"
-                        >
-                    </x-form-field>
+                <x-input.group label="Credits" for="credits">
+                    <x-input.textarea id="credits" name="credits">{{ old('credits') }}</x-input.textarea>
+                </x-input.group>
+            </x-form.section>
 
-                    <x-form-field label="Credits" field-id="credits">
-                        <textarea
-                            id="credits"
-                            name="credits"
-                            rows="5"
-                            class="field"
-                        >
-                            {{ old('credits') }}
-                        </textarea>
-                    </x-form-field>
-                </div>
-            </div>
+            <x-form.section title="Scaffolding" message="When you create your theme, Nova will create all of the necessary directories and files for your theme. These options allow you to specify additional files you want created during scaffolding.">
+                <x-input.group
+                    label="Variants"
+                    for="variants"
+                    help="Enter the names of any variants you want for your theme, separated by commas."
+                >
+                    <x-input.text id="variants" name="variants" value="{{ old('variants') }}" />
+                </x-input.group>
+            </x-form.section>
 
-            <div class="form-section">
-                <div class="form-section-header">
-                    <div class="form-section-header-title">Scaffolding</div>
-                    <p class="form-section-header-message">When you create your theme, Nova will create all of the necessary directories and files for your theme. These options allow you to specify additional files you want created during scaffolding.</p>
-                </div>
-
-                <div class="form-section-content">
-                    <x-form-field
-                        label="Variants"
-                        field-id="variants"
-                    >
-                        <input
-                            id="variants"
-                            value="{{ old('variants') }}"
-                            type="text"
-                            name="variants"
-                            class="field"
-                        >
-
-                        <x-slot name="help">
-                            Enter the names of any variants you want for your theme, separated by commas.
-                        </x-slot>
-                    </x-form-field>
-                </div>
-            </div>
-
-            <div class="form-footer">
+            <x-form.footer>
                 <button type="submit" class="button button-primary">Add Theme</button>
 
-                <a href="{{ route('themes.index') }}" class="button">
-                    Cancel
-                </a>
-            </div>
+                <a href="{{ route('themes.index') }}" class="button">Cancel</a>
+            </x-form.footer>
         </form>
     </x-panel>
 @endsection

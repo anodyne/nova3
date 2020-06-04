@@ -1,0 +1,22 @@
+@props([
+    'title' => false,
+    'message' => false,
+])
+
+<div class="form-section">
+    @if ($title || $message)
+        <div class="form-section-header">
+            @if ($title)
+                <h3 class="form-section-header-title">{{ $title }}</h3>
+            @endif
+
+            @if ($message)
+                <p class="form-section-header-message">{{ $message }}</p>
+            @endif
+        </div>
+    @endif
+
+    <div class="form-section-content">
+        {{ $slot }}
+    </div>
+</div>
