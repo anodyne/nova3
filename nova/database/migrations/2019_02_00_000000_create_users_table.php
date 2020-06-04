@@ -14,7 +14,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
-            $table->string('gender')->default('neutral');
+            $table->string('pronouns')->default('neutral');
             $table->string('state');
             $table->rememberToken();
             $table->boolean('force_password_reset')->default(false);

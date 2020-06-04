@@ -11,98 +11,53 @@
     <form action="{{ route('users.store') }}" method="POST" role="form" data-cy="form">
         @csrf
 
-        <div class="form-section">
-            <div class="form-section-header">
-                <div class="form-section-header-title">User info</div>
+        <x-form.section title="User Info">
+            <x-slot name="message">
+                For privacy reasons, we don't recommend using a user's real name. Instead, use a nickname to help protect their identity.
 
-                <p class="form-section-header-message mb-6">For privacy reasons, we don't recommend using a user's real name. Instead, use a nickname to help protect their identity.</p>
+                <span class="block mt-6"><strong class="font-semibold">Note:</strong> after the account is created, a password will be generated and emailed to the new user.</span>
+            </x-slot>
 
-                <p class="form-section-header-message"><strong class="font-semibold">Note:</strong> after the account is created, a password will be generated and emailed to the new user.</p>
-            </div>
+            <x-input.group label="Name" for="name" :error="$errors->first('name')">
+                <x-input.text id="name" name="name" :value="old('name')" data-cy="name" />
+            </x-input.group>
 
-            <div class="form-section-content">
-                <x-form-field
-                    label="Name"
-                    field-id="name"
-                    name="name"
-                >
-                    <input
-                        id="name"
-                        type="text"
-                        name="name"
-                        class="field"
-                        value="{{ old('name') }}"
-                        data-cy="name"
-                    >
-                </x-form-field>
+            <x-input.group label="Email address" for="email" :error="$errors->first('email')">
+                <x-input.email id="email" name="email" :value="old('email')" data-cy="email" />
+            </x-input.group>
 
-                <x-form-field
-                    label="Email"
-                    field-id="email"
-                    name="email"
-                >
-                    <input
-                        id="email"
-                        type="email"
-                        name="email"
-                        class="field"
-                        value="{{ old('email') }}"
-                        data-cy="email"
-                    >
-                </x-form-field>
+            <x-input.group label="Preferred pronouns" for="pronouns" :error="$errors->first('pronouns')">
+                <x-input.radio label="He/Him" for="male" name="pronouns" id="male" value="male" />
 
-                <x-form-field
-                    label="Preferred pronouns"
-                    field-id="gender"
-                    name="gender"
-                >
-                    <x-slot name="clean">
-                        <label class="inline-flex items-center">
-                            <input type="radio" class="form-radio" name="gender" value="male">
-                            <span class="ml-2">He/Him</span>
-                        </label>
-                        <label class="inline-flex items-center mx-6">
-                            <input type="radio" class="form-radio" name="gender" value="female">
-                            <span class="ml-2">She/Her</span>
-                        </label>
-                        <label class="inline-flex items-center">
-                            <input type="radio" class="form-radio" name="gender" value="neutral">
-                            <span class="ml-2">They/Them</span>
-                        </label>
-                    </x-slot>
-                </x-form-field>
-            </div>
-        </div>
+                <span class="mx-6">
+                    <x-input.radio label="She/Her" for="female" name="pronouns" id="female" value="female" />
+                </span>
 
-        <div class="form-section">
-            <div class="form-section-header">
-                <div class="form-section-header-title">Roles</div>
+                <x-input.radio label="They/Them" for="neutral" name="pronouns" id="neutral" value="neutral" />
+            </x-input.group>
+        </x-form.section>
 
-                <p class="form-section-header-message">Roles are made up of the actions a user can take throughout Nova. A user can be assigned as many roles as you'd like to give you more granular control over the actions they can perform.</p>
+        <x-form.section title="Roles">
+            <x-slot name="message">
+                Roles are made up of the actions a user can take throughout Nova. A user can be assigned as many roles as you'd like to give you more granular control over the actions they can perform.
 
                 @can('viewAny', 'Nova\Roles\Models\Role')
                     <a href="{{ route('roles.index') }}" class="button button-soft button-sm mt-6">
                         Manage roles
                     </a>
                 @endcan
-            </div>
+            </x-slot>
 
-            <div class="form-section-content">
-                <x-form-field label="Assign Role(s)">
-                    <x-slot name="clean">
-                        Coming soon...
-                    </x-slot>
-                </x-form-field>
-            </div>
-        </div>
+            <x-input.group label="Assign roles">
+                Coming soon...
+            </x-input.group>
+        </x-form.section>
 
-        <div class="form-footer">
+        <x-form.footer>
             <button type="submit" class="button button-primary">Add User</button>
 
-            <a href="{{ route('users.index') }}" class="button">
-                Cancel
-            </a>
-        </div>
+            <a href="{{ route('users.index') }}" class="button">Cancel</a>
+        </x-form.footer>
     </form>
 </x-panel>
 @endsection

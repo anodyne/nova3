@@ -136,7 +136,7 @@ class UpdateUserTest extends TestCase
     }
 
     /** @test **/
-    public function genderIsRequiredToUpdateUser()
+    public function pronounIsRequiredToUpdateUser()
     {
         $this->signInWithPermission('user.update');
 
@@ -146,7 +146,7 @@ class UpdateUserTest extends TestCase
             'roles' => [],
         ]);
         $response->assertStatus(422);
-        $response->assertJsonValidationErrors('gender');
+        $response->assertJsonValidationErrors('pronouns');
     }
 
     /** @test **/

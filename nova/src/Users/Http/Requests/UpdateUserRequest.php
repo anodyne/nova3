@@ -12,7 +12,7 @@ class UpdateUserRequest extends ValidatesRequest
         return [
             'name' => ['required'],
             'email' => ['required', 'email'],
-            'gender' => ['required', 'in:male,female,neutral'],
+            'pronouns' => ['required', 'in:male,female,neutral'],
             'avatar' => ['nullable', 'mimes:jpeg,png,gif', new MaxFileSize],
         ];
     }
@@ -20,8 +20,8 @@ class UpdateUserRequest extends ValidatesRequest
     public function messages()
     {
         return [
-            'gender.required' => 'Please select from one of the available pronouns',
-            'gender.required' => 'Preferred pronoun must be one of the provided options',
+            'pronouns.required' => 'Please select from one of the available pronouns',
+            'pronouns.required' => 'Preferred pronoun must be one of the provided options',
         ];
     }
 }

@@ -9,7 +9,13 @@
 
     <x-panel
         x-data="{ name: '{{ old('name') }}', location: '{{ old('location') }}', suggestLocation: true }"
-        x-init="$watch('name', value => { if (suggestLocation) { location = value.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'-') }})"
+        x-init="
+            $watch('name', value => {
+                if (suggestLocation) {
+                    location = value.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'-');
+                }
+            })
+        "
     >
         <form action="{{ route('themes.store') }}" method="POST" role="form">
             @csrf

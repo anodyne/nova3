@@ -52,7 +52,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
 
     protected $fillable = [
         'name', 'email', 'password', 'last_login', 'force_password_reset',
-        'state', 'gender',
+        'state', 'pronouns',
     ];
 
     protected $hidden = [
@@ -106,27 +106,6 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     public function getHasAvatarAttribute(): bool
     {
         return $this->getFirstMedia('avatar') !== null;
-    }
-
-    public function getPronounsAttribute()
-    {
-        switch ($this->gender) {
-            case 'male':
-                return 'He/Him';
-
-            break;
-
-            case 'female':
-                return 'She/Her';
-
-            break;
-
-            case 'neutral':
-            default:
-                return 'They/Them';
-
-            break;
-        }
     }
 
     /**

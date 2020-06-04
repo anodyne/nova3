@@ -3,7 +3,6 @@
 namespace Nova\Foundation\Providers;
 
 use Inertia\Inertia;
-use Livewire\Livewire;
 use Nova\Foundation\Macros;
 use Illuminate\Routing\Route;
 use Nova\Foundation\NovaManager;
@@ -21,7 +20,6 @@ use Illuminate\View\Factory as ViewFactory;
 use Nova\Foundation\View\Components\Avatar;
 use Nova\Foundation\View\Components\FormField;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Nova\Foundation\Http\Livewire\PasswordField;
 use Nova\Foundation\View\Components\AvatarGroup;
 use Nova\Foundation\View\Components\ToggleSwitch;
 
@@ -124,6 +122,5 @@ class AppServiceProvider extends ServiceProvider
 
     protected function registerLivewireComponents()
     {
-        Livewire::component('password-field', PasswordField::class);
     }
 }

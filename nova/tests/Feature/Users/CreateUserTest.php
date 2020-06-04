@@ -129,7 +129,7 @@ class CreateUserTest extends TestCase
     }
 
     /** @test **/
-    public function genderIsRequiredToCreateUser()
+    public function pronounIsRequiredToCreateUser()
     {
         $this->signInWithPermission('user.create');
 
@@ -139,7 +139,7 @@ class CreateUserTest extends TestCase
             'roles' => [],
         ]);
         $response->assertStatus(422);
-        $response->assertJsonValidationErrors('gender');
+        $response->assertJsonValidationErrors('pronouns');
     }
 
     /** @test **/
@@ -168,7 +168,7 @@ class CreateUserTest extends TestCase
         $response = $this->postJson(route('users.store'), [
             'name' => 'John Q. Public',
             'email' => 'john@example.com',
-            'gender' => 'neutral',
+            'pronouns' => 'neutral',
             'roles' => [],
         ]);
 

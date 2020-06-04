@@ -4,9 +4,9 @@ namespace Nova\Roles\Http\Controllers;
 
 use Nova\Roles\Models\Role;
 use Illuminate\Http\Request;
+use Nova\Roles\Filters\RoleFilters;
 use Nova\Roles\Http\Responses\ShowRoleResponse;
 use Nova\Foundation\Http\Controllers\Controller;
-use Nova\Roles\Filters\RoleFilters;
 use Nova\Roles\Http\Responses\ShowAllRolesResponse;
 
 class ShowRoleController extends Controller

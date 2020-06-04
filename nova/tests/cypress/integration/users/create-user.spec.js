@@ -18,7 +18,7 @@ describe('Creating a user', () => {
 
         cy.get('[data-cy=name]').type('aaa');
         cy.get('[data-cy=email]').type('john1@example.com');
-        cy.get('[data-cy=gender]').first().click();
+        cy.get('[data-cy=pronouns]').first().click();
 
         cy.get('[data-cy=tags-search]').first().type('user');
         cy.get('[data-cy=tags-search-results-item]').first().click();
