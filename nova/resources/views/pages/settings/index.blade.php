@@ -20,7 +20,7 @@
                             x-on:click.prevent="tab = 'general'"
                             href="#general"
                             class="whitespace-no-wrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm leading-5 focus:outline-none"
-                            x-bind:class="{ 'border-blue-500 text-blue-600 focus:text-blue-800 focus:border-blue-700': tab == 'general', 'text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300': tab != 'general' }"
+                            x-bind:class="{ 'border-blue-500 text-blue-600': tab == 'general', 'text-gray-500 hover:text-gray-700 hover:border-gray-300': tab != 'general' }"
                         >
                             General
                         </a>
@@ -28,7 +28,7 @@
                             x-on:click.prevent="tab = 'email'"
                             href="#email"
                             class="whitespace-no-wrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm leading-5 focus:outline-none"
-                            x-bind:class="{ 'border-blue-500 text-blue-600 focus:text-blue-800 focus:border-blue-700': tab == 'email', 'text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300': tab != 'email' }"
+                            x-bind:class="{ 'border-blue-500 text-blue-600': tab == 'email', 'text-gray-500 hover:text-gray-700 hover:border-gray-300': tab != 'email' }"
                         >
                             Email
                         </a>
@@ -36,7 +36,7 @@
                             x-on:click.prevent="tab = 'defaults'"
                             href="#defaults"
                             class="whitespace-no-wrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm leading-5 focus:outline-none"
-                            x-bind:class="{ 'border-blue-500 text-blue-600 focus:text-blue-800 focus:border-blue-700': tab == 'defaults', 'text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300': tab != 'defaults' }"
+                            x-bind:class="{ 'border-blue-500 text-blue-600': tab == 'defaults', 'text-gray-500 hover:text-gray-700 hover:border-gray-300': tab != 'defaults' }"
                         >
                             Defaults
                         </a>
@@ -44,7 +44,7 @@
                             x-on:click.prevent="tab = 'meta-tags'"
                             href="#meta-tags"
                             class="whitespace-no-wrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm leading-5 focus:outline-none"
-                            x-bind:class="{ 'border-blue-500 text-blue-600 focus:text-blue-800 focus:border-blue-700': tab == 'meta-tags', 'text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300': tab != 'meta-tags' }"
+                            x-bind:class="{ 'border-blue-500 text-blue-600': tab == 'meta-tags', 'text-gray-500 hover:text-gray-700 hover:border-gray-300': tab != 'meta-tags' }"
                         >
                             Meta Tags
                         </a>
@@ -52,26 +52,21 @@
                 </div>
             </div>
         </div>
-        <div class="px-4 py-4 | sm:px-6 sm:py-6">
+        <div>
             <div x-show="tab == 'general'">
-                General settings
+                @include('pages.settings._general')
             </div>
 
             <div x-show="tab == 'email'">
-                Email settings
+                @include('pages.settings._email')
             </div>
 
             <div x-show="tab == 'defaults'">
-                <x-input.group label="Theme" for="theme" class="sm:w-1/3">
-                    <select class="form-select mt-1 block w-full" id="theme" name="theme">
-                        <option value="pulsar" selected>Pulsar</option>
-                        <option value="titan">Titan</option>
-                    </select>
-                </x-input.group>
+                @include('pages.settings._defaults')
             </div>
 
             <div x-show="tab == 'meta-tags'">
-                Meta tags
+                @include('pages.settings._meta-tags')
             </div>
         </div>
     </x-panel>

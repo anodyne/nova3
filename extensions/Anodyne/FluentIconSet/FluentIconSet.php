@@ -9,7 +9,8 @@ class FluentIconSet extends IconSet
     public function map(): array
     {
         return [
-            'add' => 'add-circle',
+            'add' => 'add',
+            'add-alt' => 'add-circle',
             'alert' => 'error-circle',
             'arrow-right' => 'arrow-right',
             'arrow-right-alt' => 'arrow-right-circle',

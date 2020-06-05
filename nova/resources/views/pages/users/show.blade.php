@@ -26,6 +26,20 @@
             </x-input.group>
         </x-form.section>
 
+        <x-form.section title="Activity" message="Keep track of milestones and latest activity of a user in the system.">
+            <x-input.group label="Joined">
+                <p class="font-semibold">{{ $user->created_at }}</p>
+            </x-input.group>
+
+            <x-input.group label="Last update">
+                <p class="font-semibold">{{ $user->updated_at }}</p>
+            </x-input.group>
+
+            <x-input.group label="Last sign in">
+                <p class="font-semibold">{{ $user->last_login }}</p>
+            </x-input.group>
+        </x-form.section>
+
         <x-form.section title="Roles" message="Roles are the actions a user can take.">
             <x-input.group>
                 <div class="flex items-center flex-wrap">

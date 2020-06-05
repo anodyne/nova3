@@ -34,7 +34,7 @@
                                     </span>
                                 </div>
                                 @if ($role->default)
-                                    <div class="flex items-center text-sm leading-5 text-gray-500 ml-6">
+                                    <div class="hidden items-center text-sm leading-5 text-gray-500 ml-6 | sm:flex">
                                         @icon('check-alt', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
                                         <span>Assigned to new users</span>
                                     </div>

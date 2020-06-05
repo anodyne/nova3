@@ -17,4 +17,9 @@ class IconSets
     {
         return $this->sets[$alias];
     }
+
+    public function getSets(): array
+    {
+        return $this->sets;
+    }
 }

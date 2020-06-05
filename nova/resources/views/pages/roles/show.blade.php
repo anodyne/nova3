@@ -16,6 +16,10 @@
             <x-input.group label="Key">
                 <p class="font-semibold">{{ $role->name }}</p>
             </x-input.group>
+
+            <x-input.group label="Assign to new users">
+                <p class="font-semibold">{{ $role->default ? 'Yes' : 'No' }}</p>
+            </x-input.group>
         </x-form.section>
 
         <x-form.section title="Permissions" message="Permissions are the actions a user can take.">

@@ -10,6 +10,16 @@ class ThemeBuilder extends Builder
     use Filterable;
 
     /**
+     * Scope the query to the active column.
+     *
+     * @return Builder
+     */
+    public function whereActive(): Builder
+    {
+        return $this->where('active', '=', true);
+    }
+
+    /**
      * Scope the query to the location column.
      *
      * @param  string  $location
