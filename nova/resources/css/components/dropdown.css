@@ -10,6 +10,10 @@
     @apply absolute mt-2 w-56 rounded-md shadow-lg z-10;
 }
 
+.dropdown-menu-container.wide {
+    @apply w-64;
+}
+
 .dropdown-menu {
     @apply rounded-md bg-white shadow-xs py-1;
 }

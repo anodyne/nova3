@@ -18,13 +18,18 @@ class Role extends LaratrustRole
 
     protected static $logName = 'admin';
 
+    protected $casts = [
+        'default' => 'boolean',
+        'locked' => 'boolean',
+    ];
+
     protected $dispatchesEvents = [
         'created' => Events\RoleCreated::class,
         'updated' => Events\RoleUpdated::class,
         'deleted' => Events\RoleDeleted::class,
     ];
 
-    protected $fillable = ['name', 'display_name', 'description'];
+    protected $fillable = ['name', 'display_name', 'description', 'default'];
 
     /**
      * Set the description for logging.

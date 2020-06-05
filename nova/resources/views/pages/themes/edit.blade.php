@@ -8,6 +8,24 @@
     </x-page-header>
 
     <x-panel>
+        @if ($theme->name === 'Pulsar')
+            <div class="bg-info-100 border-b border-info-200 p-4">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        @icon('star', 'h-6 w-6 text-info-500')
+                    </div>
+                    <div class="ml-3">
+                        <h3 class="text-sm leading-5 font-medium text-info-800">
+                            Default theme
+                        </h3>
+                        <div class="mt-2 text-sm leading-5 text-info-700">
+                            <p>{{ $theme->name }} is currently set as the system default theme. Be careful when making any edits to this theme as it could impact your public-facing site.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+
         <form action="{{ route('themes.update', $theme) }}" method="POST" role="form">
             @csrf
             @method('put')
@@ -30,7 +48,7 @@
                     <x-input.text id="preview" name="preview" :value="old('preview', $theme->preview)" />
                 </x-input.group>
 
-                <x-input.group label="Credits" for="credits">
+                <x-input.group label="Credits" for="credits" help="We strongly encourage providing detailed credits for your theme. If you used an icon set or borrowed code from someone or even got inspiration from another site, this is the place to provide the appropriate credit.">
                     <x-input.textarea id="credits" name="credits">{{ old('credits', $theme->credits) }}</x-input.textarea>
                 </x-input.group>
 

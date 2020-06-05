@@ -13,6 +13,7 @@ class CreateRoleRequest extends ValidatesRequest
             'display_name' => ['required'],
             'permissions' => ['nullable'],
             'users' => ['nullable'],
+            'default' => ['sometimes'],
         ];
     }
 

@@ -40,7 +40,7 @@
                     <x-input.text id="preview" name="preview" />
                 </x-input.group>
 
-                <x-input.group label="Credits" for="credits">
+                <x-input.group label="Credits" for="credits" help="We strongly encourage providing detailed credits for your theme. If you used an icon set or borrowed code from someone or even got inspiration from another site, this is the place to provide the appropriate credit.">
                     <x-input.textarea id="credits" name="credits">{{ old('credits') }}</x-input.textarea>
                 </x-input.group>
             </x-form.section>

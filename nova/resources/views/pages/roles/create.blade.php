@@ -28,6 +28,12 @@
                 <x-input.group label="Key" for="name" :error="$errors->first('name')">
                     <x-input.text x-model="name" x-on:change="suggestName = false" id="name" name="name" data-cy="name" />
                 </x-input.group>
+
+                <x-input.group>
+                    <x-input.toggle field="default" :value="old('default')">
+                        Give this role to new users
+                    </x-input.toggle>
+                </x-input.group>
             </x-form.section>
 
             <x-form.section title="Permissions" message="Permissions are the actions a signed in user can take throughout Nova. Feel free to add whatever permissions you want to this role.">

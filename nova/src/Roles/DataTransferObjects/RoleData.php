@@ -28,6 +28,11 @@ class RoleData extends DataTransferObject
     public $permissions;
 
     /**
+     * @var  bool
+     */
+    public $default;
+
+    /**
      * @var  array
      */
     public $users;
@@ -40,6 +45,7 @@ class RoleData extends DataTransferObject
             'name' => $request->input('name'),
             'permissions' => $request->input('permissions'),
             'users' => $request->input('users'),
+            'default' => $request->input('default'),
         ]);
     }
 }

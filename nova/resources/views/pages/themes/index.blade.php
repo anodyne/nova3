@@ -65,6 +65,7 @@
                                     @endcan
 
                                     @can('delete', $theme)
+                                        <div class="dropdown-divider"></div>
                                         <button
                                             v-on:click="toggle();$emit('open-modal', {{ json_encode($theme) }});"
                                             class="dropdown-link"

@@ -56,6 +56,10 @@ export default {
         placement: {
             type: String,
             default: 'bottom-start'
+        },
+        wide: {
+            type: Boolean,
+            default: false
         }
     },
 
@@ -79,7 +83,10 @@ export default {
 
         styles () {
             return {
-                placement: this.placementStyles[this.placement]
+                placement: this.placementStyles[this.placement],
+                width: {
+                    'dropdown-wide': this.wide
+                }
             };
         }
     },

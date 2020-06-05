@@ -3,11 +3,11 @@
 @section('content')
 <x-page-header title="Roles">
     <x-slot name="controls">
-    @can('create', 'Nova\Roles\Models\Role')
-        <a href="{{ route('roles.create') }}" class="button button-primary" data-cy="create">
-            Add Role
-        </a>
-    @endcan
+        @can('create', 'Nova\Roles\Models\Role')
+            <a href="{{ route('roles.create') }}" class="button button-primary" data-cy="create">
+                Add Role
+            </a>
+        @endcan
     </x-slot>
 </x-page-header>
 
@@ -33,6 +33,12 @@
                                         {{ $role->users_count }} assigned @choice('user|users', $role->users_count)
                                     </span>
                                 </div>
+                                @if ($role->default)
+                                    <div class="flex items-center text-sm leading-5 text-gray-500 ml-6">
+                                        @icon('check-alt', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
+                                        <span>Assigned to new users</span>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                         <div class="mt-4 flex-shrink-0 | sm:mt-0">
