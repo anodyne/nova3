@@ -12,14 +12,14 @@
             <div class="bg-info-100 border-b border-info-200 p-4">
                 <div class="flex">
                     <div class="flex-shrink-0">
-                        @icon('star', 'h-6 w-6 text-info-500')
+                        @icon('star', 'h-6 w-6 text-info-600')
                     </div>
                     <div class="ml-3">
-                        <h3 class="text-sm leading-5 font-medium text-info-800">
+                        <h3 class="text-sm leading-5 font-medium text-info-900">
                             Default theme
                         </h3>
-                        <div class="mt-2 text-sm leading-5 text-info-700">
-                            <p>{{ $theme->name }} is currently set as the system default theme. Be careful when making any edits to this theme as it could impact your public-facing site.</p>
+                        <div class="mt-2 text-sm leading-5 text-info-800">
+                            <p>{{ $theme->name }} is currently set as the system default theme. Be careful when making any updates to this theme as it could impact your public-facing site.</p>
                         </div>
                     </div>
                 </div>

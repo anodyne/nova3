@@ -31,7 +31,7 @@
 
                 <x-input.group>
                     <x-input.toggle field="default" :value="old('default')">
-                        Give this role to new users
+                        Assign this role to new users
                     </x-input.toggle>
                 </x-input.group>
             </x-form.section>

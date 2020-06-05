@@ -8,6 +8,24 @@
     </x-page-header>
 
     <x-panel>
+        @if ($role->default)
+            <div class="bg-info-100 border-b border-info-200 p-4">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        @icon('check-alt', 'h-6 w-6 text-info-600')
+                    </div>
+                    <div class="ml-3">
+                        <h3 class="text-sm leading-5 font-medium text-info-900">
+                            Default role for new users
+                        </h3>
+                        <div class="mt-2 text-sm leading-5 text-info-800">
+                            <p>New users are automatically assigned this role when they're activated. Be careful when making any updates to ensure new users have the correct permissions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+
         <form action="{{ route('roles.update', $role) }}" method="POST" role="form" data-cy="form">
             @csrf
             @method('put')
@@ -28,7 +46,7 @@
 
                 <x-input.group>
                     <x-input.toggle field="default" :value="old('default', $role->default ?? '')">
-                        Give this role to new users
+                        Assign this role to new users
                     </x-input.toggle>
                 </x-input.group>
             </x-form.section>
