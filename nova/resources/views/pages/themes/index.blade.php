@@ -1,7 +1,11 @@
 @extends($__novaTemplate)
 
 @section('content')
-    <x-page-header title="Themes">
+    <x-page-header>
+        <x-slot name="title">
+            {{ request()->has('pending') ? 'Pending ' : '' }}Themes
+        </x-slot>
+
         <x-slot name="controls">
             <dropdown placement="bottom-end" class="flex items-center text-gray-400 dark:text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150 mx-4 {{ request()->has('pending') ? 'text-blue-500' : '' }}">
                 @icon('filter', 'h-6 w-6')
@@ -29,16 +33,13 @@
                 <x-card x-data="{ id: {{ $theme->id ?? 0 }} }">
                     <x-slot name="header">
                         <div class="flex-shrink-0">
-                            <img class="h-48 w-full object-cover" src="{{ asset("themes/{$theme->location}/preview.webp") }}" alt="" />
+                            <img class="h-48 w-full object-cover" src="{{ asset("themes/{$theme->location}/{$theme->preview}") }}" alt="" />
                         </div>
                     </x-slot>
 
                     <div class="flex items-center justify-between">
                         <h3 class="inline-flex items-center text-xl leading-7 font-semibold text-gray-900 dark:text-gray-100">
-                            @if ($theme->default)
-                                @icon('star', 'h-5 w-5 text-blue-500 mr-2')
-                            @endif
-                            <span>{{ $theme->name }}</span>
+                            {{ $theme->name }}
                         </h3>
 
                         <dropdown placement="bottom-end" class="flex items-center text-gray-400 dark:text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150">
@@ -61,13 +62,6 @@
                                             @icon('edit', 'dropdown-icon')
                                             Edit
                                         </a>
-
-                                        @if (! $theme->default)
-                                            <a href="#" class="dropdown-link">
-                                                @icon('star', 'dropdown-icon')
-                                                Make System Default
-                                            </a>
-                                        @endif
                                     @endcan
 
                                     @can('delete', $theme)

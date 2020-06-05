@@ -15,8 +15,8 @@ class PopulateThemesTable extends Migration
         activity()->disableLogging();
 
         $themes = [
-            ['name' => 'Pulsar', 'location' => 'pulsar', 'default' => true],
-            ['name' => 'Titan', 'location' => 'titan'],
+            ['name' => 'Pulsar', 'location' => 'pulsar', 'preview' => 'preview.webp'],
+            ['name' => 'Titan', 'location' => 'titan', 'preview' => 'preview.webp'],
         ];
 
         collect($themes)->each([Theme::class, 'create']);

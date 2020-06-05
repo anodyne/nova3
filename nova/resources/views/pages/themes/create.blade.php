@@ -36,6 +36,10 @@
                     />
                 </x-input.group>
 
+                <x-input.group label="Preview image" for="preview" :error="$errors->first('preview')">
+                    <x-input.text id="preview" name="preview" />
+                </x-input.group>
+
                 <x-input.group label="Credits" for="credits">
                     <x-input.textarea id="credits" name="credits">{{ old('credits') }}</x-input.textarea>
                 </x-input.group>
