@@ -1,19 +1,27 @@
 .tag {
-    @apply flex items-center rounded-full py-1 px-3 text-xs font-medium uppercase tracking-wider bg-gray-200 text-gray-700;
+    @apply inline-flex items-center px-3 py-0.5 rounded-md text-sm font-medium leading-5 bg-gray-50 border border-gray-200 text-gray-800;
+
+    &.tag-sm {
+        @apply px-2.5 text-xs leading-4;
+    }
+}
+
+.tag-primary {
+    @apply bg-primary-50 border-primary-200 text-primary-800;
 }
 
 .tag-danger {
-    @apply bg-danger-200 text-danger-700;
+    @apply bg-danger-50 border-danger-200 text-danger-800;
 }
 
 .tag-info {
-    @apply bg-info-200 text-info-800;
+    @apply bg-info-50 border-info-200 text-info-800;
 }
 
 .tag-success {
-    @apply bg-success-200 text-success-800;
+    @apply bg-success-50 border-success-200 text-success-800;
 }
 
 .tag-warning {
-    @apply bg-warning-200 text-warning-800;
+    @apply bg-warning-50 border-warning-200 text-warning-800;
 }

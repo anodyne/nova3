@@ -8,6 +8,7 @@
 @import 'components/editor.css';
 @import 'components/form.css';
 @import 'components/icon.css';
+@import 'components/tag.css';
 @import 'components/toast.css';
 
 @import 'tailwindcss/utilities';

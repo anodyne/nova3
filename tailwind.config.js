@@ -57,7 +57,8 @@ module.exports = {
         cursor: ['hover', 'group-hover', 'focus', 'focus-within', 'disabled'],
         margin: ['responsive', 'hover', 'focus', 'first', 'last'],
         opacity: ['responsive', 'hover', 'focus', 'disabled'],
-        textColor: ['responsive', 'group-hover', 'hover', 'group-focus', 'focus-within', 'focus', 'active', 'dark', 'dark-group-hover', 'dark-hover', 'dark-focus-within', 'dark-focus']
+        textColor: ['responsive', 'group-hover', 'hover', 'group-focus', 'focus-within', 'focus', 'active', 'dark', 'dark-group-hover', 'dark-hover', 'dark-focus-within', 'dark-focus'],
+        visibility: ['responsive', 'group-hover']
     },
 
     plugins: [

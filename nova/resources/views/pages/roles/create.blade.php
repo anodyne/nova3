@@ -29,6 +29,10 @@
                     <x-input.text x-model="name" x-on:change="suggestName = false" id="name" name="name" data-cy="name" />
                 </x-input.group>
 
+                <x-input.group label="Description" for="description">
+                    <x-input.textarea id="description" name="description" data-cy="description" rows="3">{{ old('description') }}</x-input.textarea>
+                </x-input.group>
+
                 <x-input.group>
                     <x-input.toggle field="default" :value="old('default')">
                         Assign this role to new users

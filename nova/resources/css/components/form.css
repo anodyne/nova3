@@ -130,9 +130,12 @@
 .form-footer {
     @apply flex flex-col mt-10 px-4 py-4 border-t border-gray-100;
 
-    /* @variants dark {
-        @apply border-gray-800;
-    } */
+    button + button,
+    button + a,
+    a + button,
+    a + a {
+        @apply mt-4;
+    }
 }
 
 @screen md {
@@ -143,7 +146,7 @@
         button + a,
         a + button,
         a + a {
-            @apply mr-6;
+            @apply mt-0 mr-6;
         }
     }
 }

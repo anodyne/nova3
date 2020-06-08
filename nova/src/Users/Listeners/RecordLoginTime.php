@@ -5,16 +5,15 @@ namespace Nova\Users\Listeners;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class RecordLoginTime
+class RecordLoginTime implements ShouldQueue
 {
-    /**
-     * Handle the event.
-     *
-     * @param  object  $event
-     * @return void
-     */
+    use InteractsWithQueue;
+
     public function handle($event)
     {
-        $event->user->recordLoginTime();
+        $event->user->logins()->create([
+            'ip_address' => request()->ip(),
+            'created_at' => now(),
+        ]);
     }
 }

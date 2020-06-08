@@ -6,6 +6,7 @@ use Nova\Roles\Events;
 use Nova\Users\Models\User;
 use Laratrust\Models\LaratrustRole;
 use Nova\Roles\Models\Builders\RoleBuilder;
+use Nova\Users\Models\States\Active;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
@@ -57,6 +58,7 @@ class Role extends LaratrustRole
     public function getMorphByUserRelation($relationship)
     {
         return parent::getMorphByUserRelation($relationship)
+            ->whereState('state', Active::class)
             ->orderBy('name');
     }
 

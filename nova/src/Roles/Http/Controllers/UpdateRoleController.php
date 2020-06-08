@@ -22,7 +22,7 @@ class UpdateRoleController extends Controller
         $this->authorize('update', $role);
 
         return app(UpdateRoleResponse::class)->with([
-            'role' => $role->load('users', 'permissions'),
+            'role' => $role->load('users.media', 'permissions'),
         ]);
     }
 

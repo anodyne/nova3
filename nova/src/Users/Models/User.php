@@ -4,7 +4,6 @@ namespace Nova\Users\Models;
 
 use Nova\Users\Events;
 use Nova\Notes\Models\Note;
-use Nova\Users\UsersCollection;
 use Spatie\ModelStates\HasStates;
 use Nova\Users\Models\States\Active;
 use Nova\Users\Models\States\Pending;
@@ -20,6 +19,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
+use Nova\Users\Models\Collections\UsersCollection;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail, HasMedia
@@ -58,6 +58,11 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     protected $hidden = [
         'password', 'remember_token', 'force_password_reset',
     ];
+
+    public function logins()
+    {
+        return $this->hasMany(Login::class);
+    }
 
     public function notes()
     {

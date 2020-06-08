@@ -21,7 +21,7 @@ class CreateThemeTables extends Migration
             $table->string('icon_set')->default('feather');
             $table->timestamps();
 
-            $table->index('location');
+            $table->index(['location', 'name']);
         });
     }
 

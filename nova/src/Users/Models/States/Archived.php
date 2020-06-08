@@ -4,4 +4,10 @@ namespace Nova\Users\Models\States;
 
 class Archived extends UserState
 {
+    public static $name = 'archived';
+
+    public function statusClass(): string
+    {
+        return '';
+    }
 }

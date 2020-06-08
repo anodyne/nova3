@@ -18,16 +18,19 @@ class ShowUserController extends Controller
         $this->middleware('auth');
     }
 
-    public function all(Request $request, UserFilters $filters)
+    public function all(Request $request, UserFilters $filters, $tab = 'active')
     {
         $this->authorize('viewAny', User::class);
 
-        $users = User::orderBy('name')
+        $users = User::with('media')
+            ->withLastLoginAt()
+            ->orderBy('name')
             ->filter($filters)
             ->paginate();
 
         return app(ShowAllUsersResponse::class)->with([
             'search' => $request->search,
+            'tab' => $tab,
             'users' => $users,
         ]);
     }

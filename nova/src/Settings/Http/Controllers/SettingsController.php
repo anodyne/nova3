@@ -15,10 +15,16 @@ class SettingsController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index($tab = 'general')
     {
         return app(SettingsResponse::class)->with([
+            'tab' => $tab,
             'themes' => Theme::whereActive()->orderBy('name')->get(),
         ]);
+    }
+
+    public function update()
+    {
+        return back()->withToast('Welcome back!');
     }
 }

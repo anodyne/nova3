@@ -6,6 +6,10 @@
     }
 }
 
+.badge-primary {
+    @apply bg-primary-200 text-primary-800;
+}
+
 .badge-danger {
     @apply bg-danger-200 text-danger-800;
 }

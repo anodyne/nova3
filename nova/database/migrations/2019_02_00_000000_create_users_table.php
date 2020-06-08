@@ -30,10 +30,18 @@ class CreateUsersTable extends Migration
 
             $table->index('email');
         });
+
+        Schema::create('logins', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained('users');
+            $table->string('ip_address', 50);
+            $table->timestamp('created_at');
+        });
     }
 
     public function down()
     {
+        Schema::dropIfExists('logins');
         Schema::dropIfExists('users');
         Schema::dropIfExists('password_resets');
     }
