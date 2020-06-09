@@ -7,6 +7,11 @@
         </x-slot>
     </x-page-header>
 
+    <x-under-construction feature="Roles">
+        <li>Permissions cannot be updated for a role</li>
+        <li>Users cannot be assigned / removed from a role</li>
+    </x-under-construction>
+
     <x-panel x-data="{ tab: 'users' }">
         @if ($role->default)
             <div class="bg-info-100 border-t border-b border-info-200 p-4 | sm:rounded-t-md sm:border-t-0">

@@ -3,6 +3,11 @@
 @section('content')
     <x-page-header title="Settings" />
 
+    <x-under-construction feature="Settings">
+        <li>Settings are not stored in the database yet</li>
+        <li>Settings cannot be updated</li>
+    </x-under-construction>
+
     <x-panel x-data="tabs()" x-on:popstate.window="switchTab($event.state.tab)">
         <div>
             <div class="p-4 | sm:hidden">

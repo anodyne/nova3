@@ -11,6 +11,11 @@
         </x-slot>
     </x-page-header>
 
+    <x-under-construction feature="My Notes">
+        <li>Notes cannot be deleted</li>
+        <li>Rich text editor has not been properly implemented</li>
+    </x-under-construction>
+
     @if (auth()->user()->notes()->count() === 0)
         <x-empty-state
             image="notes"

@@ -18,6 +18,10 @@
         </x-slot>
     </x-page-header>
 
+    <x-under-construction feature="Users">
+        <li>Pending users cannot be accepted. (This functionality will be included with work on the Application Review Center)</li>
+    </x-under-construction>
+
     <x-panel>
         <div>
             <div class="p-4 | sm:hidden">

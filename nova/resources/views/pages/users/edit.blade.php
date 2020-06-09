@@ -7,6 +7,11 @@
         </x-slot>
     </x-page-header>
 
+    <x-under-construction feature="Users">
+        <li>Roles cannot be updated for a user</li>
+        <li>User status cannot be changed</li>
+    </x-under-construction>
+
     <x-panel>
         <form action="{{ route('users.update', $user) }}" method="POST" role="form" data-cy="form">
             @csrf

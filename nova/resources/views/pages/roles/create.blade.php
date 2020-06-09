@@ -7,6 +7,11 @@
         </x-slot>
     </x-page-header>
 
+    <x-under-construction feature="Roles">
+        <li>Permissions cannot be added to a role</li>
+        <li>Users cannot be added to a role</li>
+    </x-under-construction>
+
     <x-panel
         x-data="{ displayName: '{{ old('display_name') }}', name: '{{ old('name') }}', suggestName: true }"
         x-init="
