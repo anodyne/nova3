@@ -13,17 +13,15 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
+use Nova\Foundation\Icons\FluentIconSet;
 use Nova\Foundation\NovaBladeDirectives;
 use Nova\Foundation\Icons\FeatherIconSet;
 use Nova\Foundation\View\Components\Badge;
 use Illuminate\View\Factory as ViewFactory;
 use Nova\Foundation\View\Components\Avatar;
-use Nova\Foundation\View\Components\FormField;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Nova\Foundation\Icons\FluentIconSet;
-use Nova\Foundation\View\Components\AvatarGroup;
 use Nova\Foundation\View\Components\Dropdown;
-use Nova\Foundation\View\Components\ToggleSwitch;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Nova\Foundation\View\Components\AvatarGroup;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -39,7 +37,7 @@ class AppServiceProvider extends ServiceProvider
 
         Paginator::useTailwind();
 
-        $this->registerInertia();
+        // $this->registerInertia();
         $this->registerMacros();
         // $this->registerLengthAwarePaginator();
         $this->registerBladeDirectives();
