@@ -1,7 +1,7 @@
 @extends($__novaTemplate)
 
 @section('content')
-    <x-page-header title="Notes">
+    <x-page-header title="My Notes">
         <x-slot name="controls">
             @if ($notes->count() > 0)
                 <a href="{{ route('notes.create') }}" class="button button-primary" data-cy="create">
