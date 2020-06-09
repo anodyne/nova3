@@ -34,6 +34,7 @@
                                     <div class="leading-normal font-medium truncate">
                                         {{ $note->title }}
                                     </div>
+                                    <p class="mt-1 text-sm leading-5 text-gray-600">{{ $note->summary }}</p>
                                 </div>
                             </div>
                             <div class="flex items-center ml-5 flex-shrink-0">

@@ -23,6 +23,11 @@ class NoteData extends DataTransferObject
     public $source;
 
     /**
+     * @var  string
+     */
+    public $summary;
+
+    /**
      * @var  int
      */
     public $user_id;
@@ -33,6 +38,7 @@ class NoteData extends DataTransferObject
             'title' => $request->title,
             'content' => $request->content,
             'source' => $request->source,
+            'summary' => $request->summary,
             'user_id' => auth()->id(),
         ]);
     }

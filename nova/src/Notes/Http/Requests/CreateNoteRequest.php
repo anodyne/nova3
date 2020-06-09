@@ -12,6 +12,7 @@ class CreateNoteRequest extends ValidatesRequest
             'title' => ['required'],
             'content' => ['nullable'],
             'source' => ['nullable'],
+            'summary' => ['nullable'],
         ];
     }
 }

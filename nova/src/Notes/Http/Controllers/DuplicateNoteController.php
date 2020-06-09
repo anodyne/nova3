@@ -30,6 +30,6 @@ class DuplicateNoteController extends Controller
 
         return redirect()
             ->route('notes.edit', $note)
-            ->withToast("{$originalNote->title} has been duplicated");
+            ->withToast("{$originalNote->title} was duplicated");
     }
 }

@@ -26,7 +26,7 @@ class Note extends Model
         'deleted' => Events\NoteDeleted::class,
     ];
 
-    protected $fillable = ['user_id', 'title', 'content', 'source'];
+    protected $fillable = ['user_id', 'title', 'content', 'source', 'summary'];
 
     /**
      * The author of the note.

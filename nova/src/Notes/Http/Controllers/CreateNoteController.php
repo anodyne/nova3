@@ -33,6 +33,6 @@ class CreateNoteController extends Controller
 
         return redirect()
             ->route('notes.index')
-            ->withToast("{$note->title} note was created");
+            ->withToast("{$note->title} was created");
     }
 }
