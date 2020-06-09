@@ -2,10 +2,12 @@
 
 namespace Nova\Users\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Nova\Users\Models\User;
 use Nova\Users\Actions\DeleteUser;
 use Nova\Users\Events\UserDeletedByAdmin;
 use Nova\Foundation\Http\Controllers\Controller;
+use Nova\Users\Http\Responses\DeleteUserResponse;
 
 class DeleteUserController extends Controller
 {
@@ -16,7 +18,16 @@ class DeleteUserController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(DeleteUser $action, User $user)
+    public function confirm(Request $request)
+    {
+        $user = User::findOrFail($request->id);
+
+        return app(DeleteUserResponse::class)->with([
+            'user' => $user,
+        ]);
+    }
+
+    public function destroy(DeleteUser $action, User $user)
     {
         $this->authorize('delete', $user);
 

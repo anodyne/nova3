@@ -17,6 +17,7 @@
         "@popperjs/core": "^2.0.0",
         "@tailwindcss/ui": "^0.1.2",
         "@webcomponents/webcomponentsjs": "^2.4.3",
+        "alpinejs": "^2.3.5",
         "animate.css": "^3.7",
         "axios": "^0.18",
         "buefy": "^0.7.3",

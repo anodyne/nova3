@@ -10,6 +10,7 @@ use Nova\Notes\Http\Responses\CreateNoteResponse;
 use Nova\Notes\Http\Responses\UpdateNoteResponse;
 use Nova\Notes\Http\Responses\ShowAllNotesResponse;
 use Nova\Notes\Http\Controllers\SearchNotesController;
+use Nova\Notes\Http\Responses\DeleteNoteResponse;
 
 class NoteServiceProvider extends DomainServiceProvider
 {
@@ -19,6 +20,7 @@ class NoteServiceProvider extends DomainServiceProvider
 
     protected $responsables = [
         CreateNoteResponse::class,
+        DeleteNoteResponse::class,
         UpdateNoteResponse::class,
         ShowAllNotesResponse::class,
         ShowNoteResponse::class,

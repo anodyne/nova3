@@ -151,7 +151,7 @@ abstract class BaseResponsable implements Responsable
         );
 
         return view("pages.{$this->view}", array_merge([
-            '__novaStructure' => 'app-server',
+            '__novaStructure' => 'app',
             '__novaLayout' => $this->layout(),
             '__novaTemplate' => $this->template(),
         ], $data));

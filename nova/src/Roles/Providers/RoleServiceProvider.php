@@ -11,6 +11,7 @@ use Nova\Roles\Http\Responses\UpdateRoleResponse;
 use Nova\Roles\Http\Responses\ShowAllRolesResponse;
 use Nova\Roles\Http\Controllers\SearchRolesController;
 use Nova\Roles\Http\Controllers\SearchPermissionsController;
+use Nova\Roles\Http\Responses\DeleteRoleResponse;
 
 class RoleServiceProvider extends DomainServiceProvider
 {
@@ -20,6 +21,7 @@ class RoleServiceProvider extends DomainServiceProvider
 
     protected $responsables = [
         CreateRoleResponse::class,
+        DeleteRoleResponse::class,
         UpdateRoleResponse::class,
         ShowAllRolesResponse::class,
         ShowRoleResponse::class,

@@ -1,6 +1,6 @@
 @props(['header', 'footer'])
 
-<div {{ $attributes->merge(['class' => 'flex flex-col rounded-lg shadow-lg relative bg-white overflow-hidden']) }}>
+<div {{ $attributes->merge(['class' => 'flex flex-col rounded-lg shadow-lg relative bg-white']) }}>
     @if (! $header->isEmpty())
         {{ $header }}
     @endif

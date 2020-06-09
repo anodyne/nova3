@@ -18,7 +18,7 @@ class ShowUserController extends Controller
         $this->middleware('auth');
     }
 
-    public function all(Request $request, UserFilters $filters, $tab = 'active')
+    public function all(Request $request, UserFilters $filters)
     {
         $this->authorize('viewAny', User::class);
 
@@ -30,7 +30,6 @@ class ShowUserController extends Controller
 
         return app(ShowAllUsersResponse::class)->with([
             'search' => $request->search,
-            'tab' => $tab,
             'users' => $users,
         ]);
     }

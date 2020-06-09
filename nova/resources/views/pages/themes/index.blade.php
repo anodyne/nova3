@@ -7,17 +7,17 @@
         </x-slot>
 
         <x-slot name="controls">
-            <dropdown placement="bottom-end" class="flex items-center text-gray-400 dark:text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150 mx-4 {{ request()->has('pending') ? 'text-blue-500' : '' }}">
+            <x-dropdown placement="bottom-end" class="flex items-center text-gray-400 dark:text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150 mx-4 {{ request()->has('pending') ? 'text-blue-500' : '' }}">
                 @icon('filter', 'h-6 w-6')
 
-                <template #dropdown>
-                    <div class="dropdown-text uppercase tracking-wide font-semibold text-gray-500">
+                <x-slot name="dropdown">
+                    <div class="{{ $component->text() }} uppercase tracking-wide font-semibold text-gray-500">
                         Filter themes
                     </div>
-                    <a href="{{ route('themes.index') }}" class="dropdown-link">All themes</a>
-                    <a href="{{ route('themes.index') }}?pending" class="dropdown-link">Pending themes</a>
-                </template>
-            </dropdown>
+                    <a href="{{ route('themes.index') }}" class="{{ $component->link() }}">All themes</a>
+                    <a href="{{ route('themes.index') }}?pending" class="{{ $component->link() }}">Pending themes</a>
+                </x-slot>
+            </x-dropdown>
 
             @can('create', 'Nova\Themes\Models\Theme')
                 <a href="{{ route('themes.create') }}" class="button button-primary">
@@ -33,7 +33,7 @@
                 <x-card x-data="{ id: {{ $theme->id ?? 0 }} }">
                     <x-slot name="header">
                         <div class="flex-shrink-0">
-                            <img class="h-48 w-full object-cover" src="{{ asset("themes/{$theme->location}/{$theme->preview}") }}" alt="" />
+                            <img class="h-48 w-full object-cover rounded-t-md" src="{{ asset("themes/{$theme->location}/{$theme->preview}") }}" alt="" />
                         </div>
                     </x-slot>
 
@@ -42,14 +42,19 @@
                             {{ $theme->name }}
                         </h3>
 
-                        <dropdown placement="bottom-end" class="flex items-center text-gray-400 dark:text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150">
+                        <x-dropdown placement="bottom-end" class="flex items-center text-gray-400 dark:text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150">
                             @icon('more', 'h-6 w-6')
 
-                            <template #dropdown="{ toggle }">
+                            <x-slot name="dropdown">
                                 @if (! $theme->exists)
-                                    <button class="dropdown-link" type="submit" form="install-form-{{ $theme->location }}" role="menuitem">
-                                        @icon('arrow-right-alt', 'dropdown-icon')
-                                        Install
+                                    <button
+                                        class="{{ $component->link() }}"
+                                        type="submit"
+                                        form="install-form-{{ $theme->location }}"
+                                        role="menuitem"
+                                    >
+                                        @icon('arrow-right-alt', $component->icon())
+                                        <span>Install</span>
                                     </button>
 
                                     <form id="install-form-{{ $theme->location }}" action="{{ route('themes.install') }}" method="POST" class="hidden">
@@ -58,25 +63,25 @@
                                     </form>
                                 @else
                                     @can('update', $theme)
-                                        <a href="{{ route('themes.edit', $theme) }}" class="dropdown-link">
-                                            @icon('edit', 'dropdown-icon')
-                                            Edit
+                                        <a href="{{ route('themes.edit', $theme) }}" class="{{ $component->link() }}">
+                                            @icon('edit', $component->icon())
+                                            <span>Edit</span>
                                         </a>
                                     @endcan
 
                                     @can('delete', $theme)
-                                        <div class="dropdown-divider"></div>
+                                        <div class="{{ $component->divider() }}"></div>
                                         <button
-                                            v-on:click="toggle();$emit('open-modal', {{ json_encode($theme) }});"
-                                            class="dropdown-link"
+                                            x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($theme) }});"
+                                            class="{{ $component->link() }}"
                                         >
-                                            @icon('delete', 'dropdown-icon')
-                                            Delete
+                                            @icon('delete', $component->icon())
+                                            <span>Delete</span>
                                         </button>
                                     @endcan
                                 @endif
-                            </template>
-                        </dropdown>
+                            </x-slot>
+                        </x-dropdown>
                     </div>
                     <p class="mt-1 flex items-center text-base leading-6 text-gray-500 dark:text-gray-400">
                         @icon('folder', 'flex-shrink-0 mr-2 h-5 w-5 text-gray-400 dark:text-gray-500')
@@ -123,31 +128,18 @@
         </div>
     </div>
 
-    <modal title="Delete theme?" color="danger">
-        <template #icon>
-            @icon('warning', 'h-6 w-6 text-danger-600')
-        </template>
-
-        <template #advanced="{ item }">
-            <form :action="`themes/${item.id}`" method="POST" role="form" id="form">
-                @csrf
-                @method('delete')
-
-                Are you sure you want to delete the @{{ item.name }} theme?
-            </form>
-        </template>
-
-        <template #footer="{ close }">
+    <x-modal color="red" headline="Delete theme?" icon="warning" :url="route('themes.delete')">
+        <x-slot name="footer">
             <span class="flex w-full | sm:col-start-2">
                 <button form="form" class="button button-danger w-full">
                     Delete
                 </button>
             </span>
             <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
-                <button v-on:click="close" type="button" class="button w-full">
+                <button x-on:click="$dispatch('modal-close')" type="button" class="button w-full">
                     Cancel
                 </button>
             </span>
-        </template>
-    </modal>
+        </x-slot>
+    </x-modal>
 @endsection

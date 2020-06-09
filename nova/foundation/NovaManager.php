@@ -71,7 +71,7 @@ HTML;
         $jsonEncodedOptions = $options ? json_encode($options) : '';
 
         $appUrl = url('');
-        $jsPath = "{$appUrl}/dist/js/app-server.js";
+        $jsPath = "{$appUrl}/dist/js/app.js";
 
         // Adding semicolons for this JavaScript is important,
         // because it will be minified in production.
@@ -79,7 +79,6 @@ HTML;
 <script data-turbolinks-eval="false">
     window.nova_app_url = '{$appUrl}';
 </script>
-<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.3.1/dist/alpine.min.js" data-turbolinks-eval="false" defer></script>
 <script src="{$jsPath}" data-turbolinks-eval="false" defer></script>
 HTML;
     }

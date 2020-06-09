@@ -1,8 +1,6 @@
 <?php
 
-namespace Extensions\Anodyne\FluentIconSet;
-
-use Nova\Foundation\Icons\IconSet;
+namespace Nova\Foundation\Icons;
 
 class FluentIconSet extends IconSet
 {

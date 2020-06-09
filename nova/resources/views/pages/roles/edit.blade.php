@@ -9,7 +9,7 @@
 
     <x-panel x-data="{ tab: 'users' }">
         @if ($role->default)
-            <div class="bg-info-100 border-t border-b border-info-200 p-4 | sm:border-t-0">
+            <div class="bg-info-100 border-t border-b border-info-200 p-4 | sm:rounded-t-md sm:border-t-0">
                 <div class="flex">
                     <div class="flex-shrink-0">
                         @icon('check-alt', 'h-6 w-6 text-info-600')

@@ -40,12 +40,12 @@
 <script>
     function refreshList(query)
     {
-        const url = new URL(window.location.pathname, window.location.origin);
+        const url = new URL(window.location.href);
 
         if (query == null) {
             url.searchParams.delete('search');
         } else {
-            url.searchParams.set('search', query);
+            url.searchParams.append('search', query);
         }
 
         window.location.replace(url);

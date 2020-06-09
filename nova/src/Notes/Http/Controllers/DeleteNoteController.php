@@ -2,9 +2,11 @@
 
 namespace Nova\Notes\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Nova\Notes\Models\Note;
 use Nova\Notes\Actions\DeleteNote;
 use Nova\Foundation\Http\Controllers\Controller;
+use Nova\Notes\Http\Responses\DeleteNoteResponse;
 
 class DeleteNoteController extends Controller
 {
@@ -15,7 +17,16 @@ class DeleteNoteController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(Note $note, DeleteNote $action)
+    public function confirm(Request $request)
+    {
+        $note = Note::findOrFail($request->id);
+
+        return app(DeleteNoteResponse::class)->with([
+            'note' => $note,
+        ]);
+    }
+
+    public function destroy(Note $note, DeleteNote $action)
     {
         $this->authorize('delete', $note);
 

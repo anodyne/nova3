@@ -2,9 +2,11 @@
 
 namespace Nova\Roles\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Nova\Roles\Models\Role;
 use Nova\Roles\Actions\DeleteRole;
 use Nova\Foundation\Http\Controllers\Controller;
+use Nova\Roles\Http\Responses\DeleteRoleResponse;
 
 class DeleteRoleController extends Controller
 {
@@ -15,7 +17,16 @@ class DeleteRoleController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(DeleteRole $action, Role $role)
+    public function confirm(Request $request)
+    {
+        $role = Role::findOrFail($request->id);
+
+        return app(DeleteRoleResponse::class)->with([
+            'role' => $role,
+        ]);
+    }
+
+    public function destroy(DeleteRole $action, Role $role)
     {
         $this->authorize('delete', $role);
 

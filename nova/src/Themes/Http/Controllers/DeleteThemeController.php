@@ -2,10 +2,12 @@
 
 namespace Nova\Themes\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Nova\Themes\Models\Theme;
 use Nova\Themes\Actions\DeleteTheme;
 use Nova\Foundation\Http\Controllers\Controller;
 use Nova\Themes\Actions\DeleteThemeManager;
+use Nova\Themes\Http\Responses\DeleteThemeResponse;
 
 class DeleteThemeController extends Controller
 {
@@ -16,7 +18,16 @@ class DeleteThemeController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(DeleteTheme $action, Theme $theme)
+    public function confirm(Request $request)
+    {
+        $theme = Theme::findOrFail($request->id);
+
+        return app(DeleteThemeResponse::class)->with([
+            'theme' => $theme,
+        ]);
+    }
+
+    public function destroy(DeleteTheme $action, Theme $theme)
     {
         $this->authorize('delete', $theme);
 

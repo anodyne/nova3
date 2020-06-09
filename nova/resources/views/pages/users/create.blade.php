@@ -3,7 +3,7 @@
 @section('content')
 <x-page-header title="Add User">
     <x-slot name="pretitle">
-        <a href="{{ route('users.index') }}">Users</a>
+        <a href="{{ route('users.index', 'status=active') }}">Users</a>
     </template>
 </x-page-header>
 
@@ -59,7 +59,7 @@
         <x-form.footer>
             <button type="submit" class="button button-primary">Add User</button>
 
-            <a href="{{ route('users.index') }}" class="button">Cancel</a>
+            <a href="{{ route('users.index', 'status=active') }}" class="button">Cancel</a>
         </x-form.footer>
     </form>
 </x-panel>

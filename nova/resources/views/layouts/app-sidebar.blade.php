@@ -105,7 +105,7 @@
                         <a href="{{ route('roles.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Roles</a>
                         <a href="{{ route('settings.index', 'general') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Settings</a>
                         <a href="{{ route('themes.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Themes</a>
-                        <a href="{{ route('users.index', 'active') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Users</a>
+                        <a href="{{ route('users.index', 'status=active') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Users</a>
                     </div>
                 </nav>
             </div>
@@ -146,20 +146,20 @@
                         @icon('notification', 'h-6 w-6')
                     </button>
 
-                    <dropdown class="ml-3" placement="bottom-end">
+                    <x-dropdown placement="bottom-end" class="ml-3">
                         <x-avatar size="xs" :url="auth()->user()->avatar_url" :tooltip="auth()->user()->name" />
 
-                        <template #dropdown>
-                            <button class="dropdown-link" form="logout-form" role="menuitem">
-                                @icon('sign-out', 'dropdown-icon')
-                                Sign out
+                        <x-slot name="dropdown">
+                            <button class="{{ $component->link() }}" form="logout-form" role="menuitem">
+                                @icon('sign-out', $component->icon())
+                                <span>Sign out</span>
                             </button>
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
                                 @csrf
                             </form>
-                        </template>
-                    </dropdown>
+                        </x-slot>
+                    </x-dropdown>
                 </div>
             </div>
         </div>

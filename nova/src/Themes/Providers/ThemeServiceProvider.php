@@ -8,6 +8,7 @@ use Nova\Themes\Policies\ThemePolicy;
 use Themes\Pulsar\Theme as PulsarTheme;
 use Nova\Themes\Console\Commands\ThemeMakeCommand;
 use Nova\Themes\Http\Responses\CreateThemeResponse;
+use Nova\Themes\Http\Responses\DeleteThemeResponse;
 use Nova\Themes\Http\Responses\UpdateThemeResponse;
 use Nova\Themes\Http\Responses\ShowAllThemesResponse;
 
@@ -23,6 +24,7 @@ class ThemeServiceProvider extends DomainServiceProvider
 
     protected $responsables = [
         CreateThemeResponse::class,
+        DeleteThemeResponse::class,
         UpdateThemeResponse::class,
         ShowAllThemesResponse::class,
     ];

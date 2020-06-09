@@ -4,8 +4,8 @@ const path = require('path');
 mix.setPublicPath('dist');
 
 mix
-    // .js('nova/resources/js/app-client.js', 'dist/js')
-    .js('nova/resources/js/app-server.js', 'dist/js')
+    .js('nova/resources/js/app.js', 'dist/js')
+    .js('nova/resources/js/components.js', 'dist/js')
 
     .postCss('nova/resources/css/app.css', 'dist/css')
     .postCss('nova/resources/css/vendor.css', 'dist/css')
@@ -21,15 +21,7 @@ mix
         processCssUrls: false
     })
 
-    .babelConfig({
-        plugins: ['@babel/plugin-syntax-dynamic-import']
-    })
-
     .webpackConfig({
-        output: {
-            chunkFilename: 'js/[name].[contenthash].js',
-            publicPath: '/dist/'
-        },
         resolve: {
             alias: {
                 '@': path.resolve(__dirname, './nova/resources/js/'),

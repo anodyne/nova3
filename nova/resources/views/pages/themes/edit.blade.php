@@ -9,7 +9,7 @@
 
     <x-panel>
         @if ($theme->name === 'Pulsar')
-            <div class="bg-info-100 border-b border-info-200 p-4">
+            <div class="bg-info-100 border-t border-b border-info-200 p-4 | sm:rounded-t-md sm:border-t-0">
                 <div class="flex">
                     <div class="flex-shrink-0">
                         @icon('star', 'h-6 w-6 text-info-600')

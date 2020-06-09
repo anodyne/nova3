@@ -183,8 +183,6 @@ return [
         Nova\Settings\Providers\SettingsServiceProvider::class,
         Nova\Themes\Providers\ThemeServiceProvider::class,
         Nova\Users\Providers\UserServiceProvider::class,
-
-        Extensions\Anodyne\FluentIconSet\ServiceProvider::class,
     ],
 
     /*

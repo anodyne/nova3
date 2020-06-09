@@ -20,7 +20,9 @@ use Illuminate\View\Factory as ViewFactory;
 use Nova\Foundation\View\Components\Avatar;
 use Nova\Foundation\View\Components\FormField;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Nova\Foundation\Icons\FluentIconSet;
 use Nova\Foundation\View\Components\AvatarGroup;
+use Nova\Foundation\View\Components\Dropdown;
 use Nova\Foundation\View\Components\ToggleSwitch;
 
 class AppServiceProvider extends ServiceProvider
@@ -100,6 +102,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $iconSets = new IconSets;
         $iconSets->add('feather', new FeatherIconSet);
+        $iconSets->add('fluent', new FluentIconSet);
 
         $this->app->instance(IconSets::class, $iconSets);
     }
@@ -108,9 +111,8 @@ class AppServiceProvider extends ServiceProvider
     {
         Blade::component('badge', Badge::class);
         Blade::component('avatar', Avatar::class);
-        Blade::component('form-field', FormField::class);
+        Blade::component('dropdown', Dropdown::class);
         Blade::component('avatar-group', AvatarGroup::class);
-        Blade::component('toggle-switch', ToggleSwitch::class);
     }
 
     protected function registerBladeDirectives()
