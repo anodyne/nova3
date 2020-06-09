@@ -22,7 +22,3 @@ Route::get('test', function () {
 
     return Inertia::render('Test');
 });
-
-Route::get('modal-test', function () {
-    return 'This is my content';
-})->name('modal-test');

@@ -2,6 +2,7 @@
 
 namespace Nova\Themes\Providers;
 
+use Nova\Foundation\Nova;
 use Nova\Themes\Models\Theme;
 use Nova\DomainServiceProvider;
 use Nova\Themes\Policies\ThemePolicy;
@@ -31,14 +32,16 @@ class ThemeServiceProvider extends DomainServiceProvider
 
     protected function bootedDomain()
     {
-        $theme = new PulsarTheme;
+        if (Nova::isInstalled()) {
+            $theme = new PulsarTheme;
 
-        $this->app->instance('nova.theme', $theme);
+            $this->app->instance('nova.theme', $theme);
 
-        $this->app->extend('nova.data.frontend', function ($data) use ($theme) {
-            $data->put('theme', $theme);
+            $this->app->extend('nova.data.frontend', function ($data) use ($theme) {
+                $data->put('theme', $theme);
 
-            return $data;
-        });
+                return $data;
+            });
+        }
     }
 }

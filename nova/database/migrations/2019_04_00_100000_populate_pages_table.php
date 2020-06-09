@@ -40,7 +40,7 @@ class PopulatePagesTable extends Migration
             ['uri' => 'roles/show/{role}', 'key' => 'roles.show', 'resource' => 'Nova\\Roles\\Http\\Controllers\\ShowRoleController@show', 'layout' => 'admin'],
             ['uri' => 'roles/create', 'key' => 'roles.create', 'resource' => 'Nova\\Roles\\Http\\Controllers\\CreateRoleController@create', 'layout' => 'admin'],
             ['uri' => 'roles', 'key' => 'roles.store', 'verb' => 'post', 'resource' => 'Nova\\Roles\\Http\\Controllers\\CreateRoleController@store', 'layout' => 'admin'],
-            ['uri' => 'roles/{role}/edit/{tab?}', 'key' => 'roles.edit', 'resource' => 'Nova\\Roles\\Http\\Controllers\\UpdateRoleController@edit', 'layout' => 'admin'],
+            ['uri' => 'roles/{role}/edit', 'key' => 'roles.edit', 'resource' => 'Nova\\Roles\\Http\\Controllers\\UpdateRoleController@edit', 'layout' => 'admin'],
             ['uri' => 'roles/{role}', 'key' => 'roles.update', 'verb' => 'put', 'resource' => 'Nova\\Roles\\Http\\Controllers\\UpdateRoleController@update', 'layout' => 'admin'],
             ['uri' => 'roles/delete', 'key' => 'roles.delete', 'verb' => 'post', 'resource' => 'Nova\\Roles\\Http\\Controllers\\DeleteRoleController@confirm', 'layout' => 'admin'],
             ['uri' => 'roles/{role}', 'key' => 'roles.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Roles\\Http\\Controllers\\DeleteRoleController@destroy', 'layout' => 'admin'],

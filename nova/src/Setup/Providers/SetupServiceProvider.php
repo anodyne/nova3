@@ -10,4 +10,15 @@ class SetupServiceProvider extends DomainServiceProvider
     protected $commands = [
         RefreshNovaCommand::class,
     ];
+
+    protected $routes = [
+        'setup' => [
+            'verb' => 'get',
+            'uses' => 'Nova\Setup\Http\Controllers\SetupController@index',
+        ],
+        'setup/install' => [
+            'verb' => 'post',
+            'uses' => 'Nova\Setup\Http\Controllers\SetupController@install',
+        ],
+    ];
 }

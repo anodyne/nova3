@@ -2,9 +2,16 @@
 
 namespace Nova\Foundation;
 
+use Illuminate\Support\Facades\Schema;
+
 class NovaManager
 {
     public $version = '3.0.0';
+
+    public function isInstalled()
+    {
+        return Schema::hasTable('migrations');
+    }
 
     public function styles($options = [])
     {
