@@ -11,7 +11,7 @@ class CreateUser
     {
         $user = User::create($data->except('roles')->all());
 
-        $data->roles->each->giveToUser($user);
+        // $data->roles->each->giveToUser($user);
 
         return $user->refresh();
     }

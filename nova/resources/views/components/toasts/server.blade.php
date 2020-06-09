@@ -20,9 +20,9 @@
                 <div class="flex items-start">
                     <div class="flex-shrink-0">
                         @if ($notification['type'] === 'success')
-                            @icon('check-alt', 'h-5 w-5 text-green-400')
+                            @icon('check-alt', 'h-6 w-6 text-green-500')
                         @else
-                            @icon('alert', 'h-5 w-5 text-red-400')
+                            @icon('alert', 'h-6 w-6 text-red-500')
                         @endif
                     </div>
 
@@ -30,16 +30,17 @@
                         <p class="text-sm leading-5 font-medium text-gray-900">
                             {{ data_get($notification, 'detail.title') }}
                         </p>
-                        <p class="mt-1 text-sm leading-5 text-gray-500">
-                            {{ data_get($notification, 'detail.message') }}
-                        </p>
+
+                        @if (data_get($notification, 'detail.message'))
+                            <p class="mt-1 text-sm leading-5 text-gray-500">
+                                {{ data_get($notification, 'detail.message') }}
+                            </p>
+                        @endif
                     </div>
 
                     <div class="ml-4 flex-shrink-0 flex">
                         <button x-on:click="show = false" class="inline-flex text-gray-400 focus:outline-none focus:text-gray-500 transition ease-in-out duration-150">
-                            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                            </svg>
+                            @icon('close', 'h-5 w-5')
                         </button>
                     </div>
                 </div>

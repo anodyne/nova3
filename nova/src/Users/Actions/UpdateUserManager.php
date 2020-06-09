@@ -37,9 +37,9 @@ class UpdateUserManager
     {
         $this->updateUser->execute($user, UserData::fromRequest($request));
 
-        $this->uploadAvatar->execute($user, $request->file('avatar'));
+        // $this->uploadAvatar->execute($user, $request->file('avatar'));
 
-        $this->removeAvatar->execute($user, $request->input('remove_avatar', false));
+        // $this->removeAvatar->execute($user, $request->input('remove_avatar', false));
 
         return $user->refresh();
     }

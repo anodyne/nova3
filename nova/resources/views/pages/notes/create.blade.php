@@ -7,6 +7,11 @@
         </x-slot>
     </x-page-header>
 
+    <x-under-construction feature="My Notes">
+        <li>We are using the Trix editor right now, but will likely use a completely different rich text editor by the time Nova 3 launches</li>
+        <li>There are known issues with the display of HTML created with the rich text editor</li>
+    </x-under-construction>
+
     <x-panel>
         <form action="{{ route('notes.store') }}" method="POST" role="form" data-cy="form">
             @csrf
@@ -17,7 +22,7 @@
                 </x-input.group>
 
                 <x-input.group label="Content" for="content" :error="$errors->first('content')">
-                    <simple-editor height="min-h-48" value="{{ old('content') }}"></simple-editor>
+                    <x-input.rich-text name="content" :initial-value="old('content')" />
                 </x-input.group>
             </div>
 

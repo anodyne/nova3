@@ -31,9 +31,9 @@ class UpdateRoleManager
     {
         $this->updateRole->execute($role, RoleData::fromRequest($request));
 
-        $this->updateUsersRoles->execute(
-            RoleAssignmentData::fromRequest($request)
-        );
+        // $this->updateUsersRoles->execute(
+        //     RoleAssignmentData::fromRequest($request)
+        // );
 
         return $role->refresh();
     }

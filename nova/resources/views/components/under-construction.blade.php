@@ -7,7 +7,7 @@
         </div>
         <div class="ml-3">
             <h3 class="leading-7 font-medium text-yellow-900">
-                The {{ $feature }} feature is currently still being developed. Please bare with us while we continue to build out this functionality.
+                The {{ $feature }} feature is currently still being developed. Please bear with us while we continue to build out this functionality.
             </h3>
 
             <div class="mt-2 text-sm leading-5 text-yellow-800">

@@ -1,0 +1,37 @@
+.trix-content {
+    p {
+        @apply mb-4;
+
+        &:last-child {
+            @apply mb-0;
+        }
+    }
+
+    h1 {
+        @apply mb-4 text-2xl font-bold tracking-tight;
+    }
+
+    ul, ol {
+        @apply pl-4 mb-4;
+    }
+
+    ul {
+        @apply list-disc;
+
+        ul {
+            @apply mb-0;
+        }
+    }
+
+    ol {
+        @apply list-decimal;
+
+        ol {
+            @apply mb-0;
+        }
+    }
+
+    blockquote {
+        @apply border-l-4 border-gray-300 pl-4;
+    }
+}

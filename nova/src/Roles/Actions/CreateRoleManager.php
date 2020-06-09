@@ -31,10 +31,10 @@ class CreateRoleManager
     {
         $role = $this->createRole->execute(RoleData::fromRequest($request));
 
-        $data = RoleAssignmentData::fromRequest($request);
-        $data->role = $role;
+        // $data = RoleAssignmentData::fromRequest($request);
+        // $data->role = $role;
 
-        $this->updateUsersRoles->execute($data);
+        // $this->updateUsersRoles->execute($data);
 
         return $role->refresh();
     }

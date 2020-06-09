@@ -11,11 +11,6 @@
         </x-slot>
     </x-page-header>
 
-    <x-under-construction feature="My Notes">
-        <li>Notes cannot be deleted</li>
-        <li>Rich text editor has not been properly implemented</li>
-    </x-under-construction>
-
     @if (auth()->user()->notes()->count() === 0)
         <x-empty-state
             image="notes"
@@ -54,12 +49,22 @@
                                             @icon('edit', $component->icon())
                                             <span>Edit</span>
                                         </a>
-                                        <button class="{{ $component->link() }}">
-                                            @icon('duplicate', $component->icon())
-                                            <span>Duplicate</span>
-                                        </button>
+
+                                        <form action="{{ route('notes.duplicate', $note) }}" method="POST" role="form" id="duplicate-{{ $note->id }}">
+                                            @csrf
+
+                                            <button type="submit" class="{{ $component->link() }}" form="duplicate-{{ $note->id }}" data-cy="duplicate">
+                                                @icon('duplicate', $component->icon())
+                                                <span>Duplicate</span>
+                                            </button>
+                                        </form>
+
                                         <div class="{{ $component->divider() }}"></div>
-                                        <button class="{{ $component->link() }}">
+                                        <button
+                                            x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($note) }});"
+                                            class="{{ $component->link() }}"
+                                            data-cy="delete"
+                                        >
                                             @icon('delete', $component->icon())
                                             <span>Delete</span>
                                         </button>

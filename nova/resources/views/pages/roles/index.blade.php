@@ -65,10 +65,14 @@
                                     @endcan
 
                                     @can('duplicate', $role)
-                                        <button class="{{ $component->link() }}" data-cy="duplicate">
-                                            @icon('duplicate', $component->icon())
-                                            <span>Duplicate</span>
-                                        </button>
+                                        <form action="{{ route('roles.duplicate', $role) }}" method="POST" role="form" id="duplicate-{{ $role->id }}">
+                                            @csrf
+
+                                            <button type="submit" class="{{ $component->link() }}" form="duplicate-{{ $role->id }}" data-cy="duplicate">
+                                                @icon('duplicate', $component->icon())
+                                                <span>Duplicate</span>
+                                            </button>
+                                        </form>
                                     @endcan
 
                                     @can('delete', $role)

@@ -12,7 +12,7 @@
         <li>Users cannot be assigned / removed from a role</li>
     </x-under-construction>
 
-    <x-panel x-data="{ tab: 'users' }">
+    <x-panel x-data="{ tab: 'info' }">
         @if ($role->default)
             <div class="bg-info-100 border-t border-b border-info-200 p-4 | sm:rounded-t-md sm:border-t-0">
                 <div class="flex">
@@ -81,6 +81,9 @@
             @csrf
             @method('put')
 
+            <input type="hidden" name="users[]" value="">
+            <input type="hidden" name="permissions[]" value="">
+
             <div x-show="tab === 'info'">
                 <x-form.section title="Role Info" message="A role is a collection of permissions that allows a user to take certain actions throughout Nova. Since a user can have as many roles as you'd like, we recommend creating roles with fewer permissions to give yourself more freedom to add and remove access for a given user.">
                     <x-input.group label="Name" for="display_name" :error="$errors->first('display_name')">
@@ -133,7 +136,7 @@
             <div x-show="tab === 'users'" class="px-4 pt-4 | sm:px-6 sm:pt-6">
                 <p class="mb-6">These are the active users who have been assigned this role. You can add and remove users from this role from here.</p>
 
-                <div class="mb-8 sm:w-1/2 md:1/3">
+                {{-- <div class="mb-8 sm:w-1/2 md:1/3">
                     <div class="flex flex-col relative w-full rounded-md border border-gray-200 bg-white shadow-md transition ease-in-out duration-200 overflow-hidden">
                         <div class="p-2">
                             <x-input.group for="search">
@@ -160,7 +163,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <div class="grid gap-6 max-w-lg mx-auto | lg:grid-cols-3 lg:max-w-none">
                     @foreach ($role->users as $user)

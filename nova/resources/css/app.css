@@ -5,11 +5,12 @@
 @import 'components/badge.css';
 @import 'components/button.css';
 /* @import 'components/dropdown.css'; */
-@import 'components/editor.css';
+/* @import 'components/editor.css'; */
 @import 'components/form.css';
 @import 'components/icon.css';
 @import 'components/tag.css';
 @import 'components/toast.css';
+@import 'components/trix.css';
 
 @import 'tailwindcss/utilities';
 
