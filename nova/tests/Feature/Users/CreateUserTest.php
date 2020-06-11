@@ -6,6 +6,7 @@ use Tests\TestCase;
 use Nova\Roles\Models\Role;
 use Nova\Users\Models\User;
 use Nova\Users\Events\UserCreated;
+use Nova\Users\Models\States\Active;
 use Illuminate\Support\Facades\Event;
 use Nova\Users\Events\UserCreatedByAdmin;
 use Illuminate\Support\Facades\Notification;
@@ -45,6 +46,8 @@ class CreateUserTest extends TestCase
         $this->followRedirects($response)->assertOk();
 
         $user = User::get()->last();
+
+        $this->assertTrue($user->status->is(Active::class));
 
         $this->assertDatabaseHas('users', $data->only('name', 'email'));
 

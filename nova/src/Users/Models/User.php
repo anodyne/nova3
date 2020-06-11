@@ -7,11 +7,10 @@ use Nova\Notes\Models\Note;
 use Spatie\ModelStates\HasStates;
 use Nova\Users\Models\States\Active;
 use Nova\Users\Models\States\Pending;
-use Nova\Users\Models\States\Archived;
 use Nova\Users\Models\States\Inactive;
-use Nova\Users\Models\States\UserState;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
+use Nova\Users\Models\States\UserStatus;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Nova\Users\Models\Builders\UserBuilder;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -74,7 +73,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
      *
      * @return \Nova\Users\Models\User
      */
-    public function recordLoginTime()
+    public function recordLoginTime(): self
     {
         return tap($this, function ($user) {
             $user->update(['last_login' => now()]);
@@ -98,7 +97,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
      *
      * @return string
      */
-    public function getAvatarUrlAttribute()
+    public function getAvatarUrlAttribute(): string
     {
         return $this->getFirstMediaUrl('avatar');
     }
@@ -120,7 +119,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
      *
      * @return \Nova\Users\Models\UsersCollection
      */
-    public function newCollection(array $models = [])
+    public function newCollection(array $models = []): UsersCollection
     {
         return new UsersCollection($models);
     }
@@ -132,7 +131,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
      *
      * @return UserBuilder
      */
-    public function newEloquentBuilder($query)
+    public function newEloquentBuilder($query): UserBuilder
     {
         return new UserBuilder($query);
     }
@@ -142,7 +141,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
      *
      * @return void
      */
-    public function registerMediaCollections()
+    public function registerMediaCollections(): void
     {
         $this->addMediaCollection('avatar')
             ->useFallbackUrl("https://api.adorable.io/avatars/285/{$this->email}")
@@ -157,15 +156,13 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
      */
     protected function registerStates(): void
     {
-        $this->addState('status', UserState::class)
+        $this->addState('status', UserStatus::class)
             ->allowTransitions([
                 [Pending::class, Active::class],
                 [Pending::class, Inactive::class],
 
                 [Active::class, Inactive::class],
-                [Active::class, Archived::class],
 
-                [Inactive::class, Archived::class],
                 [Inactive::class, Active::class],
             ])
             ->default(Pending::class);

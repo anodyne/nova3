@@ -4,9 +4,9 @@ namespace Nova\Users\Http\Controllers;
 
 use Nova\Users\Models\User;
 use Illuminate\Http\Request;
+use Nova\Users\Filters\UserFilters;
 use Nova\Users\Http\Responses\ShowUserResponse;
 use Nova\Foundation\Http\Controllers\Controller;
-use Nova\Users\Filters\UserFilters;
 use Nova\Users\Http\Responses\ShowAllUsersResponse;
 
 class ShowUserController extends Controller
@@ -39,7 +39,7 @@ class ShowUserController extends Controller
         $this->authorize('view', $user);
 
         return app(ShowUserResponse::class)->with([
-            'user' => $user->load('roles'),
+            'user' => $user->load('roles', 'logins'),
         ]);
     }
 }

@@ -43,7 +43,7 @@
 
             <x-form.section title="Roles">
                 <x-slot name="message">
-                    Roles are made up of the actions a user can take throughout Nova. A user can be assigned as many roles as you'd like to give you more granular control over the actions they can perform.
+                    Roles are a collection of the actions a user can take throughout Nova. A user can be assigned as many roles as you'd like, giving you more granular control over what users can do.
 
                     @can('viewAny', 'Nova\Roles\Models\Role')
                         <a href="{{ route('roles.index') }}" class="button button-soft button-sm mt-6">

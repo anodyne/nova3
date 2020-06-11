@@ -3,6 +3,7 @@
     x-on:keydown.window.escape="open = false"
     x-on:click.away="open = false"
     x-on:dropdown-toggle="open = !open"
+    x-on:dropdown-close.window="open = false"
     class="relative inline-block text-left leading-0"
 >
     <div>

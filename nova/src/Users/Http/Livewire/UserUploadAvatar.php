@@ -15,6 +15,10 @@ class UserUploadAvatar extends Component
 
     public function updatedAvatar()
     {
+        $this->validate([
+            'avatar' => ['image', 'max:5000'],
+        ]);
+
         $this->path = $this->avatar->getRealPath();
     }
 

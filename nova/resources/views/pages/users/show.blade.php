@@ -3,7 +3,7 @@
 @section('content')
     <x-page-header :title="$user->name">
         <x-slot name="pretitle">
-            <a href="{{ route('users.index') }}">Users</a>
+            <a href="{{ route('users.index', "status={$user->status->name()}") }}">Users</a>
         </x-slot>
     </x-page-header>
 
@@ -36,7 +36,7 @@
             </x-input.group>
 
             <x-input.group label="Last sign in">
-                <p class="font-semibold">{{ $user->last_login }}</p>
+                <p class="font-semibold"></p>
             </x-input.group>
         </x-form.section>
 
@@ -58,7 +58,7 @@
         </x-form.section>
 
         <x-form.footer>
-            <a href="{{ route('users.index') }}" class="button">Back</a>
+            <a href="{{ route('users.index', "status={$user->status->name()}") }}" class="button">Back</a>
         </x-form.footer>
     </x-panel>
 @endsection

@@ -37,7 +37,7 @@ class PopulatePagesTable extends Migration
             ['uri' => 'themes/install', 'key' => 'themes.install', 'verb' => 'post', 'resource' => 'Nova\\Themes\\Http\\Controllers\\InstallThemeController', 'layout' => 'admin'],
 
             ['uri' => 'roles', 'key' => 'roles.index', 'resource' => 'Nova\\Roles\\Http\\Controllers\\ShowRoleController@all', 'layout' => 'admin'],
-            ['uri' => 'roles/show/{role}', 'key' => 'roles.show', 'resource' => 'Nova\\Roles\\Http\\Controllers\\ShowRoleController@show', 'layout' => 'admin'],
+            ['uri' => 'roles/{role}/show', 'key' => 'roles.show', 'resource' => 'Nova\\Roles\\Http\\Controllers\\ShowRoleController@show', 'layout' => 'admin'],
             ['uri' => 'roles/create', 'key' => 'roles.create', 'resource' => 'Nova\\Roles\\Http\\Controllers\\CreateRoleController@create', 'layout' => 'admin'],
             ['uri' => 'roles', 'key' => 'roles.store', 'verb' => 'post', 'resource' => 'Nova\\Roles\\Http\\Controllers\\CreateRoleController@store', 'layout' => 'admin'],
             ['uri' => 'roles/{role}/edit', 'key' => 'roles.edit', 'resource' => 'Nova\\Roles\\Http\\Controllers\\UpdateRoleController@edit', 'layout' => 'admin'],
@@ -47,7 +47,7 @@ class PopulatePagesTable extends Migration
             ['uri' => 'roles/{originalRole}/duplicate', 'key' => 'roles.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Roles\\Http\\Controllers\\DuplicateRoleController', 'layout' => 'admin'],
 
             ['uri' => 'users', 'key' => 'users.index', 'resource' => 'Nova\\Users\\Http\\Controllers\\ShowUserController@all', 'layout' => 'admin'],
-            ['uri' => 'users/show/{user}', 'key' => 'users.show', 'resource' => 'Nova\\Users\\Http\\Controllers\\ShowUserController@show', 'layout' => 'admin'],
+            ['uri' => 'users/{user}/show', 'key' => 'users.show', 'resource' => 'Nova\\Users\\Http\\Controllers\\ShowUserController@show', 'layout' => 'admin'],
             ['uri' => 'users/create', 'key' => 'users.create', 'resource' => 'Nova\\Users\\Http\\Controllers\\CreateUserController@create', 'layout' => 'admin'],
             ['uri' => 'users', 'key' => 'users.store', 'verb' => 'post', 'resource' => 'Nova\\Users\\Http\\Controllers\\CreateUserController@store', 'layout' => 'admin'],
             ['uri' => 'users/{user}/edit', 'key' => 'users.edit', 'resource' => 'Nova\\Users\\Http\\Controllers\\UpdateUserController@edit', 'layout' => 'admin'],
@@ -56,7 +56,7 @@ class PopulatePagesTable extends Migration
             ['uri' => 'users/{user}', 'key' => 'users.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Users\\Http\\Controllers\\DeleteUserController@destroy', 'layout' => 'admin'],
 
             ['uri' => 'notes', 'key' => 'notes.index', 'resource' => 'Nova\\Notes\\Http\\Controllers\\ShowNoteController@all', 'layout' => 'admin'],
-            ['uri' => 'notes/show/{note}', 'key' => 'notes.show', 'resource' => 'Nova\\Notes\\Http\\Controllers\\ShowNoteController@show', 'layout' => 'admin'],
+            ['uri' => 'notes/{note}/show', 'key' => 'notes.show', 'resource' => 'Nova\\Notes\\Http\\Controllers\\ShowNoteController@show', 'layout' => 'admin'],
             ['uri' => 'notes/create', 'key' => 'notes.create', 'resource' => 'Nova\\Notes\\Http\\Controllers\\CreateNoteController@create', 'layout' => 'admin'],
             ['uri' => 'notes', 'key' => 'notes.store', 'verb' => 'post', 'resource' => 'Nova\\Notes\\Http\\Controllers\\CreateNoteController@store', 'layout' => 'admin'],
             ['uri' => 'notes/{note}/edit', 'key' => 'notes.edit', 'resource' => 'Nova\\Notes\\Http\\Controllers\\UpdateNoteController@edit', 'layout' => 'admin'],

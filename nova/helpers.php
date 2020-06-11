@@ -54,3 +54,12 @@ if (! function_exists('theme_path')) {
         return app()->themePath($path);
     }
 }
+
+if (! function_exists('get_class_name')) {
+    function get_class_name($value)
+    {
+        $parts = explode('\\', $value);
+
+        return array_pop($parts);
+    }
+}

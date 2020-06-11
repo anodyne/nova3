@@ -3,13 +3,12 @@
 @section('content')
     <x-page-header :title="$user->name">
         <x-slot name="pretitle">
-            <a href="{{ route('users.index', "status={$user->state}") }}">Users</a>
+            <a href="{{ route('users.index', "status={$user->status->name()}") }}">Users</a>
         </x-slot>
     </x-page-header>
 
     <x-under-construction feature="Users">
         <li>Roles cannot be updated for a user</li>
-        <li>User status cannot be changed</li>
     </x-under-construction>
 
     <x-panel>
@@ -61,16 +60,16 @@
                 </x-input.group>
 
                 <x-input.group label="Status" for="status">
-                    <select name="status" id="status" class="form-select w-full | sm:w-1/2">
-                        <option value="{{ $user->status }}">{{ ucfirst($user->status->name()) }}</option>
-                        @foreach ($user->status->transitionableStates() as $status)
-                            <option value="{{ $status }}">{{ collect(explode('\\', $status))->last() }}</option>
-                        @endforeach
-                    </select>
+                    <x-input.state-dropdown
+                        :current-state="$user->status"
+                        :states="$user->status->transitionableStates()"
+                        name="status"
+                        id="status"
+                    />
                 </x-input.group>
             </x-form.section>
 
-            <x-form.section title="Avatar">
+            <x-form.section title="Avatar" message="User avatars should be a square image at least 200 pixels tall by 200 pixels wide, but not more than 5MB in size.">
                 <x-input.group>
                     @livewire('users:upload-avatar')
                 </x-input.group>
@@ -78,7 +77,7 @@
 
             <x-form.section title="Roles">
                 <x-slot name="message">
-                    Roles are made up of the actions a user can take throughout Nova. A user can be assigned as many roles as you'd like to give you more granular control over the actions they can perform.
+                    Roles are a collection of the actions a user can take throughout Nova. A user can be assigned as many roles as you'd like, giving you more granular control over what users can do.
 
                     @can('viewAny', 'Nova\Roles\Models\Role')
                         <a href="{{ route('roles.index') }}" class="button button-soft button-sm mt-6">
@@ -88,17 +87,14 @@
                 </x-slot>
 
                 <x-input.group label="Assign roles">
-                    <button class="inline-flex items-center mb-2 px-2.5 py-0.5 rounded-md text-sm font-medium leading-5 bg-blue-50 border border-blue-200 text-blue-800 transition ease-in-out duration-150 hover:bg-blue-100">
-                        Add role
-                        @icon('add', 'h-4 w-4 text-blue-700 ml-1')
-                    </button>
+                    @livewire('roles:find-role', ['roles' => $user->roles])
                 </x-input.group>
             </x-form.section>
 
             <x-form.footer>
                 <button type="submit" class="button button-primary">Update User</button>
 
-                <a href="{{ route('users.index', "status={$user->state}") }}" class="button">Cancel</a>
+                <a href="{{ route('users.index', "status={$user->status->name()}") }}" class="button">Cancel</a>
             </x-form.footer>
         </form>
     </x-panel>

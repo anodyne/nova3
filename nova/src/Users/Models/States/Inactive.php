@@ -2,17 +2,15 @@
 
 namespace Nova\Users\Models\States;
 
-class Inactive extends UserState
+class Inactive extends UserStatus
 {
-    // public static $name = 'inactive';
+    public function color(): string
+    {
+        return 'danger';
+    }
 
     public function name(): string
     {
         return 'inactive';
-    }
-
-    public function statusClass(): string
-    {
-        return 'danger';
     }
 }
