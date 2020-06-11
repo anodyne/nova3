@@ -38,12 +38,12 @@ class UserSeeder extends Seeder
             $user->attachRole('user');
 
             if ($decision === 2) {
-                $user->state->transitionTo(Active::class);
+                $user->status->transitionTo(Active::class);
             }
 
             if ($decision === 3) {
-                $user->state->transitionTo(Active::class);
-                $user->state->transitionTo(Inactive::class);
+                $user->status->transitionTo(Active::class);
+                $user->status->transitionTo(Inactive::class);
             }
         });
 

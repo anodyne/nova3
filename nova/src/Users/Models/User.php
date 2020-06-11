@@ -52,7 +52,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
 
     protected $fillable = [
         'name', 'email', 'password', 'last_login', 'force_password_reset',
-        'state', 'pronouns',
+        'status', 'pronouns',
     ];
 
     protected $hidden = [
@@ -157,7 +157,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
      */
     protected function registerStates(): void
     {
-        $this->addState('state', UserState::class)
+        $this->addState('status', UserState::class)
             ->allowTransitions([
                 [Pending::class, Active::class],
                 [Pending::class, Inactive::class],

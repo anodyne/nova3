@@ -8,6 +8,7 @@ use Nova\Users\Events\UserUpdatedByAdmin;
 use Nova\Users\Http\Requests\UpdateUserRequest;
 use Nova\Foundation\Http\Controllers\Controller;
 use Nova\Users\Http\Responses\UpdateUserResponse;
+use Spatie\ModelStates\State;
 
 class UpdateUserController extends Controller
 {

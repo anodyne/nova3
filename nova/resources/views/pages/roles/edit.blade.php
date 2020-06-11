@@ -12,7 +12,7 @@
         <li>Users cannot be assigned / removed from a role</li>
     </x-under-construction>
 
-    <x-panel x-data="{ tab: 'info' }">
+    <x-panel x-data="{ tab: 'permissions' }">
         @if ($role->default)
             <div class="bg-info-100 border-t border-b border-info-200 p-4 | sm:rounded-t-md sm:border-t-0">
                 <div class="flex">
@@ -111,26 +111,69 @@
                 </x-form.section>
             </div>
 
-            <div x-show="tab === 'permissions'">
-                <x-form.section title="Permissions" message="Permissions are the actions a signed in user can take throughout Nova. Feel free to add whatever permissions you want to this role.">
-                    <x-input.group label="Assign permissions">
-                        @foreach ($role->permissions as $permission)
-                            <span class="tag mb-3">
-                                <span>{{ $permission->display_name }}</span>
-                                <button type="button" class="flex-shrink-0 -mr-0.5 ml-1.5 inline-flex text-gray-500 focus:outline-none focus:text-gray-600" aria-label="Remove small badge">
-                                    <svg class="h-2 w-2" stroke="currentColor" fill="none" viewBox="0 0 8 8">
-                                        <path stroke-linecap="round" stroke-width="1.5" d="M1 1l6 6m0-6L1 7" />
-                                    </svg>
-                                </button>
-                            </span>
-                        @endforeach
-
-                        <button class="tag tag-primary mb-3">
-                            Add permission
-                            @icon('add', 'h-4 w-4 text-blue-700 ml-1')
-                        </button>
+            <div x-show="tab === 'permissions'" class="px-4 pt-4 | sm:px-6 sm:pt-6">
+                {{-- <div class="flex flex-col">
+                    @foreach ($permissions as $permission)
+                        <div class="flex items-center even:bg-gray-100 py-2 px-4">
+                            <label class="w-1/2" for="permission-{{ $permission->id }}">
+                                {{ $permission->display_name }}
+                            </label>
+                            <div class="flex items-center">
+                                <x-input.checkbox for="" label="" id="permission-{{ $permission->id }}" class="h-5 w-5" />
+                            </div>
+                        </div>
+                    @endforeach
+                </div> --}}
+                {{-- <x-form.section title="Permissions" message="Permissions are the actions a signed in user can take throughout Nova. Feel free to add whatever permissions you want to this role.">
+                    <x-input.group class="mb-8">
+                        <x-input.text placeholder="Search for permissions..." />
                     </x-input.group>
-                </x-form.section>
+
+                    <div class="group rounded-md flex items-center justify-between even:bg-gray-100 py-2 px-4">
+                        <div class="flex flex-col">
+                            <div class="font-medium">Create role</div>
+                            <div class="text-sm text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
+                        </div>
+                        <a href="#" class="invisible group-hover:visible flex-shrink-0 justify-end ml-6 text-gray-400 hover:text-gray-600 transition ease-in-out duration-150">
+                            @icon('close', 'h-5 w-5')
+                        </a>
+                    </div>
+                    <div class="group rounded-md flex items-center justify-between even:bg-gray-100 py-2 px-4">
+                        <div class="flex flex-col">
+                            <div class="font-medium">Edit role</div>
+                            <div class="text-sm text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
+                        </div>
+                        <a href="#" class="invisible group-hover:visible flex-shrink-0 justify-end ml-6 text-gray-400 hover:text-gray-600 transition ease-in-out duration-150">
+                            @icon('close', 'h-5 w-5')
+                        </a>
+                    </div>
+                    <div class="group rounded-md flex items-center justify-between even:bg-gray-100 py-2 px-4">
+                        <div class="flex flex-col">
+                            <div class="font-medium">Delete role</div>
+                            <div class="text-sm text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
+                        </div>
+                        <a href="#" class="invisible group-hover:visible flex-shrink-0 justify-end ml-6 text-gray-400 hover:text-gray-600 transition ease-in-out duration-150">
+                            @icon('close', 'h-5 w-5')
+                        </a>
+                    </div>
+                    <div class="group rounded-md flex items-center justify-between even:bg-gray-100 py-2 px-4">
+                        <div class="flex flex-col">
+                            <div class="font-medium">View role</div>
+                            <div class="text-sm text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
+                        </div>
+                        <a href="#" class="invisible group-hover:visible flex-shrink-0 justify-end ml-6 text-gray-400 hover:text-gray-600 transition ease-in-out duration-150">
+                            @icon('close', 'h-5 w-5')
+                        </a>
+                    </div>
+                </x-form.section> --}}
+
+                <div class="grid gap-6 max-w-lg mx-auto | lg:grid-cols-3 lg:max-w-none">
+                    @foreach ($permissions as $permission)
+                        <div class="w-full">
+                            <x-input.checkbox for="permission-{{ $permission->id }}" id="permission-{{ $permission->id }}" :label="$permission->display_name" class="h-5 w-5" />
+                        </div>
+                    @endforeach
+                </div>
             </div>
 
             <div x-show="tab === 'users'" class="px-4 pt-4 | sm:px-6 sm:pt-6">

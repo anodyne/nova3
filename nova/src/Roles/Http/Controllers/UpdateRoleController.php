@@ -7,6 +7,7 @@ use Nova\Roles\Actions\UpdateRoleManager;
 use Nova\Roles\Http\Requests\UpdateRoleRequest;
 use Nova\Foundation\Http\Controllers\Controller;
 use Nova\Roles\Http\Responses\UpdateRoleResponse;
+use Nova\Roles\Models\Permission;
 
 class UpdateRoleController extends Controller
 {
@@ -22,6 +23,7 @@ class UpdateRoleController extends Controller
         $this->authorize('update', $role);
 
         return app(UpdateRoleResponse::class)->with([
+            'permissions' => Permission::get(),
             'role' => $role->load('users.media', 'permissions'),
         ]);
     }

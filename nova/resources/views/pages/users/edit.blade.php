@@ -59,6 +59,21 @@
                         data-cy="pronouns"
                     />
                 </x-input.group>
+
+                <x-input.group label="Status" for="status">
+                    <select name="status" id="status" class="form-select w-full | sm:w-1/2">
+                        <option value="{{ $user->status }}">{{ ucfirst($user->status->name()) }}</option>
+                        @foreach ($user->status->transitionableStates() as $status)
+                            <option value="{{ $status }}">{{ collect(explode('\\', $status))->last() }}</option>
+                        @endforeach
+                    </select>
+                </x-input.group>
+            </x-form.section>
+
+            <x-form.section title="Avatar">
+                <x-input.group>
+                    @livewire('users:upload-avatar')
+                </x-input.group>
             </x-form.section>
 
             <x-form.section title="Roles">

@@ -4,7 +4,12 @@ namespace Nova\Users\Models\States;
 
 class Pending extends UserState
 {
-    public static $name = 'pending';
+    // public static $name = 'pending';
+
+    public function name(): string
+    {
+        return 'pending';
+    }
 
     public function statusClass(): string
     {

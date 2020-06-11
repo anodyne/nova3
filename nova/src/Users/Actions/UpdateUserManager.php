@@ -14,6 +14,11 @@ class UpdateUserManager
     protected $updateUser;
 
     /**
+     * @var  UpdateUserStatus
+     */
+    protected $updateUserStatus;
+
+    /**
      * @var  UploadUserAvatar
      */
     protected $uploadAvatar;
@@ -25,10 +30,12 @@ class UpdateUserManager
 
     public function __construct(
         UpdateUser $updateUser,
+        UpdateUserStatus $updateUserStatus,
         UploadUserAvatar $uploadAvatar,
         RemoveUserAvatar $removeAvatar
     ) {
         $this->updateUser = $updateUser;
+        $this->updateUserStatus = $updateUserStatus;
         $this->uploadAvatar = $uploadAvatar;
         $this->removeAvatar = $removeAvatar;
     }
@@ -37,7 +44,10 @@ class UpdateUserManager
     {
         $this->updateUser->execute($user, UserData::fromRequest($request));
 
+        $this->updateUserStatus->execute($user, $request->status);
+
         // $this->uploadAvatar->execute($user, $request->file('avatar'));
+        $this->uploadAvatar->execute($user, $request->avatar_path);
 
         // $this->removeAvatar->execute($user, $request->input('remove_avatar', false));
 

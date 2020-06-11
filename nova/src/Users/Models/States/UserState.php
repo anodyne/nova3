@@ -6,10 +6,7 @@ use Spatie\ModelStates\State;
 
 abstract class UserState extends State
 {
-    abstract public function statusClass(): string;
+    abstract public function name(): string;
 
-    public function status(): string
-    {
-        return static::$name;
-    }
+    abstract public function statusClass(): string;
 }

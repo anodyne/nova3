@@ -3,6 +3,7 @@
 namespace Nova\Users\Filters;
 
 use Nova\Foundation\Filters\Filters;
+use Nova\Users\Models\User;
 
 class UserFilters extends Filters
 {
@@ -16,6 +17,12 @@ class UserFilters extends Filters
 
     public function status($value)
     {
-        return $this->builder->whereState('state', $value);
+        $status = User::getStatesFor('status')
+            ->filter(function ($status) use ($value) {
+                return collect(explode('\\', $status))->last() === ucfirst($value);
+            })
+            ->first();
+
+        return $this->builder->whereState('status', $status);
     }
 }

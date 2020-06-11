@@ -13,6 +13,7 @@ use Nova\Users\Http\Responses\UpdateUserResponse;
 use Nova\Users\Http\Responses\ShowAllUsersResponse;
 use Nova\Users\Http\Controllers\SearchUsersController;
 use Nova\Users\Http\Controllers\ForcePasswordResetController;
+use Nova\Users\Http\Livewire\UserUploadAvatar;
 use Nova\Users\Http\Responses\DeleteUserResponse;
 
 class UserServiceProvider extends DomainServiceProvider
@@ -21,6 +22,10 @@ class UserServiceProvider extends DomainServiceProvider
         UserCreatedByAdmin::class => [
             GeneratePassword::class,
         ],
+    ];
+
+    protected $livewireComponents = [
+        'users:upload-avatar' => UserUploadAvatar::class,
     ];
 
     protected $morphMaps = [

@@ -4,6 +4,9 @@ namespace Nova\Users\Policies;
 
 use Nova\Users\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Nova\Users\Models\States\Active;
+use Nova\Users\Models\States\Inactive;
+use Nova\Users\Models\States\Pending;
 
 class UserPolicy
 {
@@ -96,5 +99,34 @@ class UserPolicy
     public function forceDelete(User $user, User $actionableUser)
     {
         return $this->delete($user, $actionableUser);
+    }
+
+    /**
+     * Determine whether the user can permanently delete the theme.
+     *
+     * @param  \Nova\Users\Models\User  $user
+     * @param  \Nova\Users\Models\User  $actionableUser
+     *
+     * @return mixed
+     */
+    public function activate(User $user, User $actionableUser)
+    {
+        return $this->update($user, $actionableUser)
+            && ($actionableUser->status->is(Pending::class) || $actionableUser->status->is(Inactive::class));
+    }
+
+    /**
+     * Determine whether the user can permanently delete the theme.
+     *
+     * @param  \Nova\Users\Models\User  $user
+     * @param  \Nova\Users\Models\User  $actionableUser
+     *
+     * @return mixed
+     */
+    public function deactivate(User $user, User $actionableUser)
+    {
+        return $this->update($user, $actionableUser)
+            && $actionableUser->status->is(Active::class)
+            && $user->isNot($actionableUser);
     }
 }

@@ -83,8 +83,8 @@
                                         {{ $user->name }}
                                     </div>
                                     <div class="mt-1">
-                                        <x-badge size="sm" :type="$user->state->statusClass()">
-                                            {{ $user->state }}
+                                        <x-badge size="sm" :type="$user->status->statusClass()">
+                                            {{ $user->status->name() }}
                                         </x-badge>
                                     </div>
                                 </div>
@@ -122,10 +122,24 @@
                                         </a>
                                     @endcan
 
+                                    @can('activate', $user)
+                                        <a href="#" class="{{ $component->link() }}">
+                                            @icon('check-alt', $component->icon())
+                                            <span>Activate</span>
+                                        </a>
+                                    @endcan
+
                                     @can('update', $user)
                                         <a href="{{ route('users.edit', $user) }}" class="{{ $component->link() }}" data-cy="edit">
                                             @icon('edit', $component->icon())
                                             <span>Edit</span>
+                                        </a>
+                                    @endcan
+
+                                    @can('deactivate', $user)
+                                        <a href="#" class="{{ $component->link() }}">
+                                            @icon('close-alt', $component->icon())
+                                            <span>Deactivate</span>
                                         </a>
                                     @endcan
 

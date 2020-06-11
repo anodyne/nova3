@@ -34,7 +34,7 @@ class UserData extends DataTransferObject
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'pronouns' => $request->input('pronouns'),
-            'roles' => Role::whereIn('name', $request->input('roles'))->get(),
+            // 'roles' => Role::whereIn('name', $request->input('roles'))->get(),
         ]);
     }
 }
