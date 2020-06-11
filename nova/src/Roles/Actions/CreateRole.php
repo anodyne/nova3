@@ -15,7 +15,7 @@ class CreateRole extends Action
     {
         return $this->call(function () use ($data) {
             $role = Role::firstOrCreate(
-                $data->only('name', 'display_name')->toArray()
+                $data->except('permissions', 'users')->toArray()
             );
 
             $permissions = collect($data->permissions)->map(function ($permission) {

@@ -36,7 +36,7 @@
     @foreach ($roles as $role)
         <span class="inline-flex items-center mb-2 px-2.5 py-0.5 rounded-md text-sm font-medium leading-5 bg-gray-50 border border-gray-200 text-gray-800 transition ease-in-out duration-150 hover:bg-gray-100">
             {{ $role['display_name'] }}
-            <button wire:click="removeRole({{ $role['id'] }})" type="button" class="ml-1 focus:outline-none">
+            <button wire:click="removeRole({{ $role['id'] }})" type="button" class="ml-1 text-gray-400 hover:text-gray-600 focus:outline-none transition ease-in-out duration-150">
                 <svg class="h-4 w-4" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
         </span>

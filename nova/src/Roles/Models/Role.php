@@ -58,7 +58,7 @@ class Role extends LaratrustRole
     public function getMorphByUserRelation($relationship)
     {
         return parent::getMorphByUserRelation($relationship)
-            ->whereState('state', Active::class)
+            ->whereState('status', Active::class)
             ->orderBy('name');
     }
 

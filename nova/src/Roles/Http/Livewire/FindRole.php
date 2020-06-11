@@ -19,7 +19,8 @@ class FindRole extends Component
 
         $this->dispatchBrowserEvent('dropdown-close');
 
-        $this->query = '';
+        $this->query = null;
+        $this->results = null;
     }
 
     public function removeRole($roleId)

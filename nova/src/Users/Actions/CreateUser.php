@@ -15,7 +15,7 @@ class CreateUser
             ['status' => Active::class]
         ));
 
-        // $data->roles->each->giveToUser($user);
+        $data->roles->each->giveToUser($user);
 
         return $user->fresh();
     }

@@ -22,7 +22,7 @@ class CreateUserTest extends TestCase
     use RefreshDatabase;
 
     /** @test **/
-    public function authorizedUserCanSeeCreateUserPage()
+    public function authorizedUserCanViewCreateUserPage()
     {
         $this->signInWithPermission('user.create');
 

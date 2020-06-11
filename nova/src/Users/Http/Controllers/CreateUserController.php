@@ -8,6 +8,7 @@ use Nova\Users\Events\UserCreatedByAdmin;
 use Nova\Users\DataTransferObjects\UserData;
 use Nova\Users\Http\Requests\CreateUserRequest;
 use Nova\Foundation\Http\Controllers\Controller;
+use Nova\Roles\Models\Role;
 use Nova\Users\Http\Responses\CreateUserResponse;
 
 class CreateUserController extends Controller
@@ -24,6 +25,7 @@ class CreateUserController extends Controller
         $this->authorize('create', User::class);
 
         return app(CreateUserResponse::class)->with([
+            'defaultRoles' => Role::whereDefault()->get(),
             'user' => auth()->user(),
         ]);
     }
