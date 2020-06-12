@@ -65,12 +65,11 @@
                                     @endcan
 
                                     @can('duplicate', $role)
-                                        <x-form :action="route('roles.duplicate', $role)" id="duplicate-{{ $role->id }}">
-                                            <button type="submit" class="{{ $component->link() }}" form="duplicate-{{ $role->id }}" data-cy="duplicate">
-                                                @icon('duplicate', $component->icon())
-                                                <span>Duplicate</span>
-                                            </button>
-                                        </x-form>
+                                        <button type="submit" class="{{ $component->link() }}" form="duplicate-{{ $role->id }}" data-cy="duplicate">
+                                            @icon('duplicate', $component->icon())
+                                            <span>Duplicate</span>
+                                        </button>
+                                        <x-form :action="route('roles.duplicate', $role)" id="duplicate-{{ $role->id }}" class="hidden" />
                                     @endcan
 
                                     @can('delete', $role)
