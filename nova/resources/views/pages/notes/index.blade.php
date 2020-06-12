@@ -51,12 +51,11 @@
                                             <span>Edit</span>
                                         </a>
 
-                                        <x-form :action="route('notes.duplicate', $note)" id="duplicate-{{ $note->id }}">
-                                            <button type="submit" class="{{ $component->link() }}" form="duplicate-{{ $note->id }}" data-cy="duplicate">
-                                                @icon('duplicate', $component->icon())
-                                                <span>Duplicate</span>
-                                            </button>
-                                        </x-form>
+                                        <button type="submit" class="{{ $component->link() }}" form="duplicate-{{ $note->id }}" data-cy="duplicate">
+                                            @icon('duplicate', $component->icon())
+                                            <span>Duplicate</span>
+                                        </button>
+                                        <x-form :action="route('notes.duplicate', $note)" id="duplicate-{{ $note->id }}" class="hidden" />
 
                                         <div class="{{ $component->divider() }}"></div>
                                         <button
