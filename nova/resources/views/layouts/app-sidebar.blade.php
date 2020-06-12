@@ -155,9 +155,7 @@
                                 <span>Sign out</span>
                             </button>
 
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
-                                @csrf
-                            </form>
+                            <x-form :action="route('logout')" class="hidden" id="logout-form" />
                         </x-slot>
                     </x-dropdown>
                 </div>

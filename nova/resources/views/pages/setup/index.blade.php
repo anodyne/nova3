@@ -60,9 +60,7 @@
         </div>
 
         <div x-show="tab === 'install'" x-cloak>
-            <form action="setup/install" method="POST">
-                @csrf
-
+            <x-form action="setup/install">
                 <h2 class="text-2xl font-light mb-8 text-center">Here we go!</h2>
 
                 <div class="flex items-center justify-center">
@@ -91,7 +89,7 @@
                         </template>
                     </button>
                 </div>
-            </form>
+            </x-form>
         </div>
     </div>
 </div>

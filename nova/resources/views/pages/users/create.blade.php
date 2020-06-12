@@ -8,9 +8,7 @@
     </x-page-header>
 
     <x-panel>
-        <form action="{{ route('users.store') }}" method="POST" role="form" data-cy="form">
-            @csrf
-
+        <x-form :action="route('users.store')">
             <x-form.section title="User Info">
                 <x-slot name="message">
                     <p>For privacy reasons, we don't recommend using a user's real name. Instead, use a nickname to help protect their identity.</p>
@@ -64,6 +62,6 @@
 
                 <a href="{{ route('users.index', 'status=active') }}" class="button">Cancel</a>
             </x-form.footer>
-        </form>
+        </x-form>
     </x-panel>
 @endsection

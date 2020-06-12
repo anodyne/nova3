@@ -47,20 +47,20 @@
 
                             <x-slot name="dropdown">
                                 @if (! $theme->exists)
-                                    <button
-                                        class="{{ $component->link() }}"
-                                        type="submit"
-                                        form="install-form-{{ $theme->location }}"
-                                        role="menuitem"
-                                    >
-                                        @icon('arrow-right-alt', $component->icon())
-                                        <span>Install</span>
-                                    </button>
 
-                                    <form id="install-form-{{ $theme->location }}" action="{{ route('themes.install') }}" method="POST" class="hidden">
-                                        @csrf
+                                    <x-form :action="route('themes.install')" id="install-form-{{ $theme->location }}">
                                         <input type="hidden" name="theme" value="{{ $theme->location }}">
-                                    </form>
+
+                                        <button
+                                            class="{{ $component->link() }}"
+                                            type="submit"
+                                            form="install-form-{{ $theme->location }}"
+                                            role="menuitem"
+                                        >
+                                            @icon('arrow-right-alt', $component->icon())
+                                            <span>Install</span>
+                                        </button>
+                                    </x-form>
                                 @else
                                     @can('update', $theme)
                                         <a href="{{ route('themes.edit', $theme) }}" class="{{ $component->link() }}">

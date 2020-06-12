@@ -12,9 +12,7 @@
 
 <p class="text-sm text-gray-600 mb-6">If you can't remember your password, please provide your email address and we will send you a link which you may use to change your password.</p>
 
-<form action="{{ route('password.email') }}" method="POST">
-    @csrf
-
+<x-form :action="route('password.email')">
     <form-field label="Email" error="{{ $errors->first('email') }}">
         <div class="field-group">
             <input id="email" type="email" class="field" name="email" value="{{ old('email') }}" data-cy="email" required>
@@ -24,4 +22,4 @@
     <button type="submit" class="button button-primary mt-8" data-cy="submit">
         {{ __('Send Reset Link') }}
     </button>
-</form>
+</x-form>
