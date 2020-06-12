@@ -2,9 +2,9 @@
 
 namespace Nova\Dashboard\Http\Responses;
 
-use Nova\Foundation\Http\Responses\InertiaResponse;
+use Nova\Foundation\Http\Responses\ServerResponse;
 
-class DashboardResponse extends InertiaResponse
+class DashboardResponse extends ServerResponse
 {
-    public $component = 'Dashboard';
+    public $view = 'dashboard';
 }

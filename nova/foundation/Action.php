@@ -28,6 +28,8 @@ abstract class Action
         try {
             return $callback();
         } catch (Throwable $th) {
+            logger()->error($th->getMessage());
+
             throw new ActionException($this->getErrorMessage($th));
         }
     }
@@ -41,10 +43,10 @@ abstract class Action
      */
     protected function getErrorMessage($throwable = null): string
     {
-        if ($this->errorMessage !== null) {
-            return $this->errorMessage;
+        if (! app()->environment('production') || $this->errorMessage === null) {
+            return $throwable->getMessage();
         }
 
-        return $throwable->getMessage();
+        return $this->errorMessage;
     }
 }

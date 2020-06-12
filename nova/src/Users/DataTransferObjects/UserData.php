@@ -21,7 +21,7 @@ class UserData extends DataTransferObject
     /**
      * @var  string
      */
-    public $gender;
+    public $pronouns;
 
     /**
      * @var  Role[]
@@ -33,8 +33,8 @@ class UserData extends DataTransferObject
         return new self([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'gender' => $request->input('gender'),
-            'roles' => Role::whereIn('name', $request->input('roles'))->get(),
+            'pronouns' => $request->input('pronouns'),
+            'roles' => Role::whereIn('id', $request->input('roles', []))->get(),
         ]);
     }
 }

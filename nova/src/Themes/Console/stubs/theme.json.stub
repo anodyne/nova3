@@ -1,4 +1,5 @@
 {
     "name": "DummyName",
-    "location": "DummyLocation"
+    "location": "DummyLocation",
+    "preview": "preview.jpg",
 }

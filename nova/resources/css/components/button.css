@@ -1,5 +1,9 @@
 .button {
-    @apply inline-flex items-center px-4 py-2 border border-gray-200 text-sm uppercase tracking-wide leading-5 font-semibold rounded-md text-gray-500 bg-white transition ease-in-out duration-150;
+    @apply inline-flex justify-center items-center px-4 py-2 border border-gray-200 text-sm uppercase tracking-wide leading-5 font-semibold rounded-md text-gray-500 bg-white transition ease-in-out duration-150;
+
+    /* @variants dark {
+        @apply border-gray-700 text-gray-400 bg-gray-900;
+    } */
 
     &:hover {
         @apply text-gray-600 bg-gray-100;
@@ -30,11 +34,11 @@
     }
 
     &.button-primary {
-        @apply text-white bg-primary-500 border-transparent;
+        @apply text-white bg-primary-600 border-transparent;
 
         &:hover,
         &:active {
-            @apply text-white bg-primary-400 border-transparent;
+            @apply text-white bg-primary-500 border-transparent;
         }
     }
 
@@ -71,6 +75,14 @@
         &:hover,
         &:active {
             @apply text-danger-700 bg-danger-200 border-transparent;
+        }
+    }
+
+    &.button-xs {
+        @apply text-xs px-2.5 py-1.5 leading-4;
+
+        > svg.icon {
+            @apply mr-2 h-4 w-4;
         }
     }
 

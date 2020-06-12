@@ -8,8 +8,9 @@ class RedirectResponseMacros
 {
     public function withToast()
     {
-        return function ($message) {
-            resolve(Toast::class)
+        return function ($title, $message = null) {
+            app(Toast::class)
+                ->withTitle($title)
                 ->withMessage($message)
                 ->success();
 
@@ -19,8 +20,9 @@ class RedirectResponseMacros
 
     public function withErrorToast()
     {
-        return function ($message) {
-            resolve(Toast::class)
+        return function ($title, $message = null) {
+            app(Toast::class)
+                ->withTitle($title)
                 ->withMessage($message)
                 ->error();
 

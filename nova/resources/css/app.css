@@ -4,9 +4,13 @@
 
 @import 'components/badge.css';
 @import 'components/button.css';
+/* @import 'components/dropdown.css'; */
+/* @import 'components/editor.css'; */
 @import 'components/form.css';
 @import 'components/icon.css';
+@import 'components/tag.css';
 @import 'components/toast.css';
+@import 'components/trix.css';
 
 @import 'tailwindcss/utilities';
 
@@ -15,4 +19,8 @@
 body {
     font-feature-settings: 'kern' 1, 'ss01' 1, 'ss02' 1, 'ss03' 1;
     -webkit-font-feature-settings: 'kern' 1, 'ss01' 1, 'ss02' 1, 'ss03' 1;
+}
+
+[x-cloak] {
+    @apply hidden;
 }

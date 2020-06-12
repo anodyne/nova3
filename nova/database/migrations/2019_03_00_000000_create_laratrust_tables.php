@@ -13,6 +13,7 @@ class CreateLaratrustTables extends Migration
             $table->string('name')->unique();
             $table->string('display_name')->nullable();
             $table->string('description')->nullable();
+            $table->boolean('default')->default(false);
             $table->boolean('locked')->default(false);
             $table->timestamps();
         });

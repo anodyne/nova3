@@ -18,6 +18,16 @@ class NoteData extends DataTransferObject
     public $content;
 
     /**
+     * @var  string
+     */
+    public $source;
+
+    /**
+     * @var  string
+     */
+    public $summary;
+
+    /**
      * @var  int
      */
     public $user_id;
@@ -25,8 +35,10 @@ class NoteData extends DataTransferObject
     public static function fromRequest(Request $request): self
     {
         return new self([
-            'title' => $request->input('title'),
-            'content' => $request->input('content'),
+            'title' => $request->title,
+            'content' => $request->content,
+            'source' => $request->source,
+            'summary' => $request->summary,
             'user_id' => auth()->id(),
         ]);
     }

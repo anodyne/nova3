@@ -16,13 +16,17 @@ class Note extends Model
 
     protected static $logName = 'admin';
 
+    protected $casts = [
+        'source' => 'array',
+    ];
+
     protected $dispatchesEvents = [
         'created' => Events\NoteCreated::class,
         'updated' => Events\NoteUpdated::class,
         'deleted' => Events\NoteDeleted::class,
     ];
 
-    protected $fillable = ['user_id', 'title', 'content'];
+    protected $fillable = ['user_id', 'title', 'content', 'source', 'summary'];
 
     /**
      * The author of the note.

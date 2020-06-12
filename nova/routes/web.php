@@ -1,6 +1,7 @@
 <?php
 
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
 
 try {
     $pages = cache()->rememberForever('nova.pages', function () {

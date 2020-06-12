@@ -2,24 +2,15 @@
 
 namespace Nova\Foundation;
 
-class Nova
+use Illuminate\Support\Facades\Facade;
+
+/**
+ * @see \Nova\Foundation\NovaManager
+ */
+class Nova extends Facade
 {
-    public $version = '3.0.0';
-
-    /**
-     * Provide data from the backend for the frontend to use.
-     *
-     * @return \Illuminate\Support\Collection
-     */
-    public function provideScriptVariables()
+    public static function getFacadeAccessor()
     {
-        $theme = app('nova.theme');
-
-        return collect([
-            'icons' => $theme->iconMap(),
-            'page' => request()->route()->findPageFromRoute(),
-            'theme' => $theme,
-            'user' => auth()->user(),
-        ]);
+        return 'nova';
     }
 }

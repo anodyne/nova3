@@ -2,16 +2,21 @@
 
 namespace Nova\Themes\Models\Builders;
 
+use Nova\Foundation\Filters\Filterable;
 use Illuminate\Database\Eloquent\Builder;
 
 class ThemeBuilder extends Builder
 {
-    public function filter(array $filters)
+    use Filterable;
+
+    /**
+     * Scope the query to the active column.
+     *
+     * @return Builder
+     */
+    public function whereActive(): Builder
     {
-        return $this->when($filters['search'] ?? null, function ($query, $search) {
-            return $query->where('name', 'like', "%{$search}%")
-                ->orWhere('location', 'like', "%{$search}%");
-        });
+        return $this->where('active', '=', true);
     }
 
     /**
@@ -19,9 +24,9 @@ class ThemeBuilder extends Builder
      *
      * @param  string  $location
      *
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
-    public function whereLocation($location)
+    public function whereLocation($location): Builder
     {
         return $this->where('location', '=', $location);
     }

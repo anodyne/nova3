@@ -27,11 +27,13 @@ trait InteractsWithModel
     /**
      * Get the model for the theme.
      *
-     * @return \Nova\Themes\Models\Theme
+     * @return Theme
      */
     public function getModel()
     {
-        return Theme::whereLocation($this->location)->firstOrFail();
+        return once(function () {
+            return Theme::whereLocation($this->location)->firstOrFail();
+        });
     }
 
     /**

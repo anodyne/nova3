@@ -13,7 +13,7 @@ abstract class TestCase extends BaseTestCase
     use HttpTestAssertions;
     use ManagesTestUsers;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

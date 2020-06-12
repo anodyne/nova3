@@ -17,21 +17,21 @@ class UpdateRoleManager
     /**
      * @var  UpdateUserRoles
      */
-    protected $updateUserRoles;
+    protected $updateRoleUsers;
 
     public function __construct(
         UpdateRole $updateRole,
-        UpdateUsersRoles $updateUsersRoles
+        UpdateRoleUsers $updateRoleUsers
     ) {
         $this->updateRole = $updateRole;
-        $this->updateUsersRoles = $updateUsersRoles;
+        $this->updateRoleUsers = $updateRoleUsers;
     }
 
     public function execute(Role $role, Request $request): Role
     {
         $this->updateRole->execute($role, RoleData::fromRequest($request));
 
-        $this->updateUsersRoles->execute(
+        $this->updateRoleUsers->execute(
             RoleAssignmentData::fromRequest($request)
         );
 

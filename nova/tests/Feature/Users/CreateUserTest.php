@@ -6,6 +6,7 @@ use Tests\TestCase;
 use Nova\Roles\Models\Role;
 use Nova\Users\Models\User;
 use Nova\Users\Events\UserCreated;
+use Nova\Users\Models\States\Active;
 use Illuminate\Support\Facades\Event;
 use Nova\Users\Events\UserCreatedByAdmin;
 use Illuminate\Support\Facades\Notification;
@@ -21,7 +22,7 @@ class CreateUserTest extends TestCase
     use RefreshDatabase;
 
     /** @test **/
-    public function authorizedUserCanSeeCreateUserPage()
+    public function authorizedUserCanViewCreateUserPage()
     {
         $this->signInWithPermission('user.create');
 
@@ -45,6 +46,8 @@ class CreateUserTest extends TestCase
         $this->followRedirects($response)->assertOk();
 
         $user = User::get()->last();
+
+        $this->assertTrue($user->status->is(Active::class));
 
         $this->assertDatabaseHas('users', $data->only('name', 'email'));
 
@@ -129,7 +132,7 @@ class CreateUserTest extends TestCase
     }
 
     /** @test **/
-    public function genderIsRequiredToCreateUser()
+    public function pronounIsRequiredToCreateUser()
     {
         $this->signInWithPermission('user.create');
 
@@ -139,7 +142,7 @@ class CreateUserTest extends TestCase
             'roles' => [],
         ]);
         $response->assertStatus(422);
-        $response->assertJsonValidationErrors('gender');
+        $response->assertJsonValidationErrors('pronouns');
     }
 
     /** @test **/
@@ -168,7 +171,7 @@ class CreateUserTest extends TestCase
         $response = $this->postJson(route('users.store'), [
             'name' => 'John Q. Public',
             'email' => 'john@example.com',
-            'gender' => 'neutral',
+            'pronouns' => 'neutral',
             'roles' => [],
         ]);
 

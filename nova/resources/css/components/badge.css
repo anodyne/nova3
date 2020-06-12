@@ -1,9 +1,13 @@
 .badge {
-    @apply inline-flex items-center px-3 py-0.5 rounded-full text-sm uppercase tracking-wide font-medium leading-5 bg-gray-200 text-gray-800;
+    @apply inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-gray-200 text-gray-800 uppercase tracking-wide;
 
     &.badge-sm {
         @apply px-2.5 text-xs leading-4;
     }
+}
+
+.badge-primary {
+    @apply bg-primary-200 text-primary-800;
 }
 
 .badge-danger {

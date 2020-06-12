@@ -22,7 +22,7 @@ export default {
         },
         tooltip: {
             type: String,
-            default: null
+            default: ''
         }
     },
 

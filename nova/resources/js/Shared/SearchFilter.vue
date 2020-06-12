@@ -1,6 +1,10 @@
 <template>
     <div class="flex items-center py-1 text-gray-500 transition duration-150 focus-within:text-gray-700">
-        <icon name="search" class="mr-3 flex-shrink-0"></icon>
+        <icon
+            name="search"
+            class="mr-3 flex-shrink-0"
+            aria-hidden="true"
+        ></icon>
 
         <input
             autocomplete="off"
@@ -10,6 +14,7 @@
             :placeholder="placeholder"
             :value="value"
             data-cy="search-field"
+            role="searchbox"
             @input="$emit('input', $event.target.value)"
         >
 
@@ -18,9 +23,15 @@
             id="clear-search"
             class="ml-2 text-gray-400 hover:text-gray-500 transition ease-in-out duration-150"
             data-cy="search-clear"
+            role="button"
+            aria-label="Reset"
             @click.prevent="$emit('reset')"
         >
-            <icon name="x"></icon>
+            <icon
+                name="x"
+                title="Reset"
+                aria-hidden="true"
+            ></icon>
         </button>
     </div>
 </template>

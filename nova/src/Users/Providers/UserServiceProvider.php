@@ -4,15 +4,18 @@ namespace Nova\Users\Providers;
 
 use Nova\Users\Models\User;
 use Nova\DomainServiceProvider;
+use Nova\Users\Http\Livewire\ManageUsers;
 use Nova\Users\Policies\UserPolicy;
 use Nova\Users\Events\UserCreatedByAdmin;
 use Nova\Users\Listeners\GeneratePassword;
-use Nova\Users\Http\Responses\EditUserResponse;
-use Nova\Users\Http\Responses\ViewUserResponse;
-use Nova\Users\Http\Responses\UserIndexResponse;
+use Nova\Users\Http\Responses\ShowUserResponse;
 use Nova\Users\Http\Responses\CreateUserResponse;
+use Nova\Users\Http\Responses\UpdateUserResponse;
+use Nova\Users\Http\Responses\ShowAllUsersResponse;
 use Nova\Users\Http\Controllers\SearchUsersController;
 use Nova\Users\Http\Controllers\ForcePasswordResetController;
+use Nova\Users\Http\Livewire\UserUploadAvatar;
+use Nova\Users\Http\Responses\DeleteUserResponse;
 
 class UserServiceProvider extends DomainServiceProvider
 {
@@ -20,6 +23,11 @@ class UserServiceProvider extends DomainServiceProvider
         UserCreatedByAdmin::class => [
             GeneratePassword::class,
         ],
+    ];
+
+    protected $livewireComponents = [
+        'users:manage-users' => ManageUsers::class,
+        'users:upload-avatar' => UserUploadAvatar::class,
     ];
 
     protected $morphMaps = [
@@ -32,9 +40,10 @@ class UserServiceProvider extends DomainServiceProvider
 
     protected $responsables = [
         CreateUserResponse::class,
-        EditUserResponse::class,
-        UserIndexResponse::class,
-        ViewUserResponse::class,
+        DeleteUserResponse::class,
+        UpdateUserResponse::class,
+        ShowAllUsersResponse::class,
+        ShowUserResponse::class,
     ];
 
     protected $routes = [

@@ -23,7 +23,7 @@ class RoleAssignmentData extends DataTransferObject
     {
         return new self([
             'role' => Role::find($request->input('id')),
-            'users' => User::whereIn('id', $request->input('users'))->get(),
+            'users' => User::whereIn('id', $request->input('users', []))->get(),
         ]);
     }
 }

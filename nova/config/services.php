@@ -13,6 +13,14 @@ return [
     |
     */
 
+    'anodyne' => [
+        'links' => [
+            'home' => 'https://anodyne-productions.com',
+            'nova' => 'https://anodyne-productions.com/nova',
+            'xtras' => 'https://xtras.anodyne-productions.com',
+        ],
+    ],
+
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),

@@ -6,6 +6,7 @@ use Nova\Roles\Events;
 use Nova\Users\Models\User;
 use Laratrust\Models\LaratrustRole;
 use Nova\Roles\Models\Builders\RoleBuilder;
+use Nova\Users\Models\States\Active;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
@@ -18,13 +19,18 @@ class Role extends LaratrustRole
 
     protected static $logName = 'admin';
 
+    protected $casts = [
+        'default' => 'boolean',
+        'locked' => 'boolean',
+    ];
+
     protected $dispatchesEvents = [
         'created' => Events\RoleCreated::class,
         'updated' => Events\RoleUpdated::class,
         'deleted' => Events\RoleDeleted::class,
     ];
 
-    protected $fillable = ['name', 'display_name', 'description'];
+    protected $fillable = ['name', 'display_name', 'description', 'default'];
 
     /**
      * Set the description for logging.
@@ -52,6 +58,7 @@ class Role extends LaratrustRole
     public function getMorphByUserRelation($relationship)
     {
         return parent::getMorphByUserRelation($relationship)
+            ->whereState('status', Active::class)
             ->orderBy('name');
     }
 

@@ -6,12 +6,14 @@ import './global';
 import './components';
 import './plugins';
 
-const app = document.getElementById('app');
-
 import MasterInertia from '@/Shared/MasterInertia';
 import AdminLayout from '@/Shared/Layouts/AdminLayout';
 
+Vue.use(InertiaApp);
+
 Vue.component('admin-layout', AdminLayout);
+
+const app = document.getElementById('app');
 
 new Vue({
     store,

@@ -2,6 +2,15 @@
 
 namespace Nova\Users\Models\States;
 
-class Pending extends UserState
+class Pending extends UserStatus
 {
+    public function color(): string
+    {
+        return 'warning';
+    }
+
+    public function name(): string
+    {
+        return 'pending';
+    }
 }

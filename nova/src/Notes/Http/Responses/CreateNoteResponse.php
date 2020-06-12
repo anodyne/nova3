@@ -2,9 +2,9 @@
 
 namespace Nova\Notes\Http\Responses;
 
-use Nova\Foundation\Http\Responses\InertiaResponse;
+use Nova\Foundation\Http\Responses\ServerResponse;
 
-class CreateNoteResponse extends InertiaResponse
+class CreateNoteResponse extends ServerResponse
 {
-    public $component = 'Notes/Create';
+    public $view = 'notes.create';
 }

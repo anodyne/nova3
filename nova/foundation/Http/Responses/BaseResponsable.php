@@ -123,6 +123,21 @@ abstract class BaseResponsable implements Responsable
         return $this->data;
     }
 
+    public function structure()
+    {
+        return 'app-server';
+    }
+
+    public function layout()
+    {
+        return "layouts.{$this->theme->getPageLayout($this->page)}";
+    }
+
+    public function template()
+    {
+        return 'templates.simple';
+    }
+
     /**
      * Render the response.
      *
@@ -130,11 +145,22 @@ abstract class BaseResponsable implements Responsable
      */
     public function render()
     {
+        $data = array_merge_recursive(
+            $this->prepareData(),
+            $this->theme->prepareData(),
+        );
+
+        return view("pages.{$this->view}", array_merge([
+            '__novaStructure' => 'app',
+            '__novaLayout' => $this->layout(),
+            '__novaTemplate' => $this->template(),
+        ], $data));
+
         $this->buildStructure()
             ->buildLayout()
             ->buildTemplate()
-            ->buildPage()
-            ->buildScripts();
+            ->buildPage();
+        // ->buildScripts();
 
         return $this->output;
     }

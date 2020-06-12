@@ -12,11 +12,13 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
+        "f9webltd/laravel-meta": "^1.4",
         "fideloper/proxy": "^4.0",
-        "inertiajs/inertia-laravel": "^0.1",
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
+        "livewire/livewire": "^1.0",
+        "nothingworks/blade-svg": "dev-next-version",
         "santigarcor/laratrust": "^5.2",
         "spatie/data-transfer-object": "^1.12",
         "spatie/laravel-activitylog": "^3.6",
@@ -24,18 +26,20 @@
         "spatie/laravel-html": "^2.21",
         "spatie/laravel-medialibrary": "^7.18",
         "spatie/laravel-model-states": "^1.0",
-        "staudenmeir/eloquent-eager-limit": "^1.4",
-        "tightenco/ziggy": "^0.8"
+        "spatie/once": "^2.2",
+        "staudenmeir/eloquent-eager-limit": "^1.4"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
-        "codedungeon/phpunit-result-printer": "^0.26",
+        "beyondcode/helo-laravel": "^1.0",
         "facade/ignition": "^2.0",
         "fzaninotto/faker": "^1.4",
         "jasonmccreary/laravel-test-assertions": "^0.4",
         "mockery/mockery": "^1.0",
-        "nunomaduro/collision": "^4.1",
-        "phpunit/phpunit": "^8.5",
+        "nunomaduro/collision": "^5.0",
+        "pestphp/pest": "^0.1.5",
+        "pestphp/pest-plugin-faker": "^0.1.1",
+        "phpunit/phpunit": "^9.0",
         "squizlabs/php_codesniffer": "^2.8"
     },
     "extra": {
@@ -47,6 +51,7 @@
         "psr-4": {
             "Nova\\": "nova/src/",
             "Nova\\Foundation\\": "nova/foundation/",
+            "Extensions\\": "extensions/",
             "Themes\\": "themes/"
         },
         "classmap": [

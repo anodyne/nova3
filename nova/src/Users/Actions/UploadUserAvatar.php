@@ -6,10 +6,10 @@ use Nova\Users\Models\User;
 
 class UploadUserAvatar
 {
-    public function execute(User $user, $image): User
+    public function execute(User $user, $imagePath): User
     {
-        if ($image !== null) {
-            $user->addMedia($image)->toMediaCollection('avatar');
+        if ($imagePath !== null) {
+            $user->addMedia($imagePath)->toMediaCollection('avatar');
         }
 
         return $user->refresh();

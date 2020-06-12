@@ -2,15 +2,15 @@
 
 namespace Nova\Roles\Models\Builders;
 
+use Nova\Foundation\Filters\Filterable;
 use Illuminate\Database\Eloquent\Builder;
 
 class RoleBuilder extends Builder
 {
-    public function filter(array $filters)
+    use Filterable;
+
+    public function whereDefault(): Builder
     {
-        return $this->when($filters['search'] ?? null, function ($query, $search) {
-            return $query->where('name', 'like', "%{$search}%")
-                ->orWhere('display_name', 'like', "%{$search}%");
-        });
+        return $this->where('default', true);
     }
 }

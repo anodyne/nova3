@@ -16,6 +16,8 @@ class DashboardController extends Controller
 
     public function __invoke()
     {
+        // $this->dispatchBrowserEvent('notify', 'Dashboard');
+
         return app(DashboardResponse::class);
     }
 }

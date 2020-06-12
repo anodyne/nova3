@@ -1,0 +1,133 @@
+.ProseMirror {
+    &.ProseMirror-focused {
+        @apply outline-none;
+    }
+}
+
+.editor-content {
+    p {
+        @apply mb-4;
+
+        &:last-child {
+            @apply mb-0;
+        }
+    }
+
+    h1 {
+        @apply mb-4 text-4xl font-bold tracking-tight;
+    }
+
+    h2 {
+        @apply mb-4 text-2xl font-semibold tracking-normal;
+    }
+
+    h3 {
+        @apply mb-4 text-xl font-medium;
+    }
+
+    ul, ol {
+        @apply pl-4 mb-4;
+    }
+
+    li > p {
+        @apply mb-0;
+    }
+
+    ul {
+        @apply list-disc;
+
+        ul {
+            @apply mb-0;
+        }
+    }
+
+    ol {
+        @apply list-decimal;
+
+        ol {
+            @apply mb-0;
+        }
+    }
+
+    table {
+        @apply border-collapse table-fixed w-full m-0 overflow-hidden;
+
+        td, th {
+            @apply border-2 py-1 px-2 align-top box-border relative;
+
+            min-width: 1rem;
+
+            > * {
+                @apply mb-0;
+            }
+        }
+
+        th {
+            @apply font-semibold text-left;
+        }
+
+        .selectedCell:after {
+            @apply absolute pointer-events-none inset-0 bg-blue-100 z-10;
+
+            content: "";
+        }
+
+        .column-resize-handle {
+            @apply absolute w-1 z-20 pointer-events-none inset-y-0;
+
+            right: -2px;
+            background-color: #adf;
+        }
+    }
+
+    .tableWrapper {
+        @apply my-4 overflow-x-auto;
+    }
+
+    .resize-cursor {
+        cursor: ew-resize;
+        cursor: col-resize;
+    }
+}
+
+.editor-output {
+    p {
+        @apply mb-4;
+    }
+
+    h1 {
+        @apply mb-4 text-4xl font-bold tracking-tight;
+    }
+
+    h2 {
+        @apply mb-4 text-2xl font-semibold tracking-normal;
+    }
+
+    h3 {
+        @apply mb-4 text-xl font-medium;
+    }
+
+    ul, ol {
+        @apply pl-4 mb-4;
+    }
+
+    li > p {
+        @apply mb-0;
+    }
+
+    ul {
+        @apply list-disc;
+
+        ul {
+            @apply mb-0;
+        }
+    }
+
+    ol {
+        @apply list-decimal;
+
+        ol {
+            @apply mb-0;
+        }
+    }
+}
