@@ -8,10 +8,7 @@
     </x-page-header>
 
     <x-panel>
-        <form action="{{ route('users.update', $user) }}" method="POST" role="form" data-cy="form">
-            @csrf
-            @method('put')
-
+        <x-form :action="route('users.update', $user)" method="PUT">
             <x-form.section title="User Info" message="For privacy reasons, we don't recommend using a user's real name. Instead, use a nickname to help protect their identity.">
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
                     <x-input.text id="name" name="name" :value="old('name', $user->name)" data-cy="name" />
@@ -92,6 +89,6 @@
 
                 <a href="{{ route('users.index', "status={$user->status->name()}") }}" class="button">Cancel</a>
             </x-form.footer>
-        </form>
+        </x-form>
     </x-panel>
 @endsection

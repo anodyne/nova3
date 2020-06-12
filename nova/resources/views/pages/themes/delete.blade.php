@@ -1,6 +1,3 @@
-<form action="{{ route('themes.destroy', $theme) }}" method="POST" role="form" id="form">
-    @csrf
-    @method('delete')
-
+<x-form :action="route('themes.destroy', $theme)" method="DELETE" id="form">
     Are you sure you want to delete the {{ $theme->name }} theme?
-</form>
+</x-form>

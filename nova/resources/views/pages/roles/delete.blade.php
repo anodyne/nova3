@@ -1,6 +1,3 @@
-<form action="{{ route('roles.destroy', $role) }}" method="POST" role="form" id="form">
-    @csrf
-    @method('delete')
-
+<x-form :action="route('roles.destroy', $role)" method="DELETE" id="form">
     Are you sure you want to delete the {{ $role->display_name }} role?
-</form>
+</x-form>

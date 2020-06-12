@@ -1,9 +1,7 @@
 @extends($__novaTemplate)
 
 @section('content')
-    <form action="{{ route('login') }}" method="POST" role="form">
-        @csrf
-
+    <x-form :action="route('login')">
         <x-input.group label="Email" for="email" :error="$errors->first('email')">
             <x-input.email id="email" name="email" :value="old('email')" data-cy="email" required autofocus />
         </x-input.group>
@@ -27,5 +25,5 @@
                 Sign in
             </button>
         </div>
-    </form>
+    </x-form>
 @endsection

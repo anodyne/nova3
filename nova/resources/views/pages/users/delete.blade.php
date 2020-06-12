@@ -1,6 +1,3 @@
-<form action="{{ route('users.destroy', $user) }}" method="POST" role="form" id="form">
-    @csrf
-    @method('delete')
-
+<x-form :action="route('users.destroy', $user)" method="DELETE" id="form">
     Are you sure you want to delete the account for {{ $user->name }}?
-</form>
+</x-form>

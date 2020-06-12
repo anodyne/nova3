@@ -13,9 +13,7 @@
     </x-under-construction>
 
     <x-panel>
-        <form action="{{ route('notes.store') }}" method="POST" role="form" data-cy="form">
-            @csrf
-
+        <x-form :action="route('notes.store')">
             <div class="px-4 pt-4 | sm:pt-6 sm:px-6">
                 <x-input.group label="Title" for="title" :error="$errors->first('title')" class="sm:w-1/2">
                     <x-input.text id="title" name="title" :value="old('title')" data-cy="title" />
@@ -35,6 +33,6 @@
 
                 <a href="{{ route('notes.index') }}" class="button">Cancel</a>
             </x-form.footer>
-        </form>
+        </x-form>
     </x-panel>
 @endsection

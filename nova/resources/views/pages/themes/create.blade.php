@@ -17,8 +17,7 @@
             })
         "
     >
-        <form action="{{ route('themes.store') }}" method="POST" role="form">
-            @csrf
+        <x-form :action="route('themes.store')">
             <input type="hidden" name="active" value="0">
 
             <x-form.section title="Theme Info" message="A theme allows you to give your public-facing site the look-and-feel you want to any visitors. Using tools like regular HTML and CSS, you can show visitors the personality of your game and put your own spin on Nova.">
@@ -60,6 +59,6 @@
 
                 <a href="{{ route('themes.index') }}" class="button">Cancel</a>
             </x-form.footer>
-        </form>
+        </x-form>
     </x-panel>
 @endsection

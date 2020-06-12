@@ -1,6 +1,4 @@
-<form action="{{ route('password.update') }}" method="POST">
-    @csrf
-
+<x-form :action="route('password.update')">
     <input type="hidden" name="token" value="{{ $token }}">
 
     <form-field label="Email" error="{{ $errors->first('email') }}">
@@ -24,4 +22,4 @@
     <button type="submit" class="button button-primary mt-8" data-cy="submit">
         {{ __('Reset Password') }}
     </button>
-</form>
+</x-form>

@@ -26,10 +26,7 @@
             </div>
         @endif
 
-        <form action="{{ route('themes.update', $theme) }}" method="POST" role="form">
-            @csrf
-            @method('put')
-
+        <x-form :action="route('themes.update', $theme)" method="PUT">
             <x-form.section title="Theme Info" message="A theme allows you to give your public-facing site the look-and-feel you want to any visitors. Using tools like regular HTML and CSS, you can show visitors the personality of your game and put your own spin on Nova.">
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
                     <x-input.text id="name" name="name" :value="old('name', $theme->name)" />
@@ -67,6 +64,6 @@
 
                 <a href="{{ route('themes.index') }}" class="button">Cancel</a>
             </x-form.footer>
-        </form>
+        </x-form>
     </x-panel>
 @endsection

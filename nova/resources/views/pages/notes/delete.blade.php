@@ -1,6 +1,3 @@
-<form action="{{ route('notes.destroy', $note) }}" method="POST" role="form" id="form">
-    @csrf
-    @method('delete')
-
+<x-form :action="route('notes.destroy', $note)" method="DELETE" id="form">
     Are you sure you want to delete {{ $note->title }}?
-</form>
+</x-form>

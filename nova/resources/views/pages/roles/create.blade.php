@@ -17,9 +17,7 @@
             })
         "
     >
-        <form action="{{ route('roles.store') }}" method="POST" role="form" data-cy="form">
-            @csrf
-
+        <x-form :action="route('roles.store')">
             <x-form.section title="Role Info" message="A role is a collection of permissions that allows a user to take certain actions throughout Nova. Since a user can have as many roles as you'd like, we recommend creating roles with fewer permissions to give yourself more freedom to add and remove access for a given user.">
                 <x-input.group label="Name" for="display_name" :error="$errors->first('display_name')">
                     <x-input.text x-model="displayName" id="display_name" name="display_name" data-cy="display_name" />
@@ -57,6 +55,6 @@
 
                 <a href="{{ route('roles.index') }}" class="button">Cancel</a>
             </x-form.footer>
-        </form>
+        </x-form>
     </x-panel>
 @endsection
