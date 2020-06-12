@@ -5,6 +5,12 @@
         <x-slot name="pretitle">
             <a href="{{ route('users.index', "status={$user->status->name()}") }}">Users</a>
         </x-slot>
+
+        <x-slot name="controls">
+            @can('update', $user)
+                <a href="{{ route('users.edit', $user) }}" class="button button-primary">Edit User</a>
+            @endcan
+        </x-slot>
     </x-page-header>
 
     <x-panel>

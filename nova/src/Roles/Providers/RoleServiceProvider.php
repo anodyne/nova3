@@ -13,11 +13,14 @@ use Nova\Roles\Http\Responses\UpdateRoleResponse;
 use Nova\Roles\Http\Responses\ShowAllRolesResponse;
 use Nova\Roles\Http\Controllers\SearchRolesController;
 use Nova\Roles\Http\Controllers\SearchPermissionsController;
+use Nova\Roles\Http\Livewire\ManagePermissions;
+use Nova\Roles\Http\Livewire\ManageRoles;
 
 class RoleServiceProvider extends DomainServiceProvider
 {
     protected $livewireComponents = [
-        'roles:find-role' => FindRole::class,
+        'roles:manage-permissions' => ManagePermissions::class,
+        'roles:manage-roles' => ManageRoles::class,
     ];
 
     protected $policies = [

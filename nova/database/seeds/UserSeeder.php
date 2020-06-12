@@ -32,20 +32,20 @@ class UserSeeder extends Seeder
 
         $user->transitionTo(Active::class)->attachRole('user');
 
-        factory(User::class)->times(25)->create()->each(function ($user) {
-            $decision = mt_rand(1, 3);
+        // factory(User::class)->times(25)->create()->each(function ($user) {
+        //     $decision = mt_rand(1, 3);
 
-            $user->attachRole('user');
+        //     $user->attachRole('user');
 
-            if ($decision === 2) {
-                $user->status->transitionTo(Active::class);
-            }
+        //     if ($decision === 2) {
+        //         $user->status->transitionTo(Active::class);
+        //     }
 
-            if ($decision === 3) {
-                $user->status->transitionTo(Active::class);
-                $user->status->transitionTo(Inactive::class);
-            }
-        });
+        //     if ($decision === 3) {
+        //         $user->status->transitionTo(Active::class);
+        //         $user->status->transitionTo(Inactive::class);
+        //     }
+        // });
 
         activity()->enableLogging();
     }

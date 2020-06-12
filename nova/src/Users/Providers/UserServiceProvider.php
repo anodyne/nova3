@@ -4,6 +4,7 @@ namespace Nova\Users\Providers;
 
 use Nova\Users\Models\User;
 use Nova\DomainServiceProvider;
+use Nova\Users\Http\Livewire\ManageUsers;
 use Nova\Users\Policies\UserPolicy;
 use Nova\Users\Events\UserCreatedByAdmin;
 use Nova\Users\Listeners\GeneratePassword;
@@ -25,6 +26,7 @@ class UserServiceProvider extends DomainServiceProvider
     ];
 
     protected $livewireComponents = [
+        'users:manage-users' => ManageUsers::class,
         'users:upload-avatar' => UserUploadAvatar::class,
     ];
 

@@ -20,11 +20,7 @@ class UpdateRole extends Action
 
             $role->update($updateData->toArray());
 
-            // $permissions = collect($data->permissions)->map(function ($permission) {
-            //     return Permission::firstOrCreate(['name' => $permission]);
-            // });
-
-            // $role->syncPermissions($permissions);
+            $role->syncPermissions($data->permissions);
 
             return $role->refresh();
         });

@@ -9,6 +9,7 @@ use Nova\Users\DataTransferObjects\UserData;
 use Nova\Users\Http\Requests\CreateUserRequest;
 use Nova\Foundation\Http\Controllers\Controller;
 use Nova\Roles\Models\Role;
+use Nova\Users\Actions\CreateUserManager;
 use Nova\Users\Http\Responses\CreateUserResponse;
 
 class CreateUserController extends Controller
@@ -30,9 +31,9 @@ class CreateUserController extends Controller
         ]);
     }
 
-    public function store(CreateUserRequest $request, CreateUser $action)
+    public function store(CreateUserRequest $request, CreateUserManager $action)
     {
-        $user = $action->execute(UserData::fromRequest($request));
+        $user = $action->execute($request);
 
         event(new UserCreatedByAdmin($user));
 

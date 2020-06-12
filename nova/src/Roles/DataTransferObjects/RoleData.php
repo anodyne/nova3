@@ -3,6 +3,7 @@
 namespace Nova\Roles\DataTransferObjects;
 
 use Illuminate\Http\Request;
+use Nova\Roles\Models\Permission;
 use Spatie\DataTransferObject\DataTransferObject;
 
 class RoleData extends DataTransferObject
@@ -43,7 +44,7 @@ class RoleData extends DataTransferObject
             'description' => $request->input('description'),
             'display_name' => $request->input('display_name'),
             'name' => $request->input('name'),
-            'permissions' => $request->input('permissions'),
+            'permissions' => Permission::whereIn('id', $request->input('permissions', []))->get(),
             'users' => $request->input('users'),
             'default' => $request->input('default'),
         ]);

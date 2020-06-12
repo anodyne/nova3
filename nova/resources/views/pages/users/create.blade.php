@@ -13,9 +13,9 @@
 
             <x-form.section title="User Info">
                 <x-slot name="message">
-                    For privacy reasons, we don't recommend using a user's real name. Instead, use a nickname to help protect their identity.
+                    <p>For privacy reasons, we don't recommend using a user's real name. Instead, use a nickname to help protect their identity.</p>
 
-                    <span class="block mt-6"><strong class="font-semibold">Note:</strong> after the account is created, a password will be generated and emailed to the new user.</span>
+                    <p class="block mt-6"><strong class="font-semibold">Note:</strong> after the account is created, a password will be generated and emailed to the new user.</p>
                 </x-slot>
 
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
@@ -37,9 +37,15 @@
                 </x-input.group>
             </x-form.section>
 
+            <x-form.section title="Avatar" message="User avatars should be a square image at least 200 pixels tall by 200 pixels wide, but not more than 5MB in size.">
+                <x-input.group>
+                    @livewire('users:upload-avatar')
+                </x-input.group>
+            </x-form.section>
+
             <x-form.section title="Roles">
                 <x-slot name="message">
-                    Roles are a collection of the actions a user can take throughout Nova. A user can be assigned as many roles as you'd like, giving you more granular control over what users can do.
+                    <p>Roles are a collection of the actions a user can take throughout Nova. A user can be assigned as many roles as you'd like, giving you more granular control over what users can do.</p>
 
                     @can('viewAny', 'Nova\Roles\Models\Role')
                         <a href="{{ route('roles.index') }}" class="button button-soft button-sm mt-6">
@@ -49,7 +55,7 @@
                 </x-slot>
 
                 <x-input.group label="Assign roles">
-                    @livewire('roles:find-role', ['roles' => $defaultRoles])
+                    @livewire('roles:manage-roles', ['roles' => $defaultRoles])
                 </x-input.group>
             </x-form.section>
 

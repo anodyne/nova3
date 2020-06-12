@@ -31,22 +31,25 @@ class UpdateUserManager
     public function __construct(
         UpdateUser $updateUser,
         UpdateUserStatus $updateUserStatus,
+        UpdateUserRoles $updateUserRoles,
         UploadUserAvatar $uploadAvatar,
         RemoveUserAvatar $removeAvatar
     ) {
         $this->updateUser = $updateUser;
         $this->updateUserStatus = $updateUserStatus;
+        $this->updateUserRoles = $updateUserRoles;
         $this->uploadAvatar = $uploadAvatar;
         $this->removeAvatar = $removeAvatar;
     }
 
     public function execute(User $user, Request $request): User
     {
-        $this->updateUser->execute($user, UserData::fromRequest($request));
+        $this->updateUser->execute($user, $data = UserData::fromRequest($request));
 
         $this->updateUserStatus->execute($user, $request->status);
 
-        // $this->uploadAvatar->execute($user, $request->file('avatar'));
+        $this->updateUserRoles->execute($user, $data->roles);
+
         $this->uploadAvatar->execute($user, $request->avatar_path);
 
         // $this->removeAvatar->execute($user, $request->input('remove_avatar', false));

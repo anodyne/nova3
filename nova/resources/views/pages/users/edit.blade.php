@@ -7,10 +7,6 @@
         </x-slot>
     </x-page-header>
 
-    <x-under-construction feature="Users">
-        <li>Roles cannot be updated for a user</li>
-    </x-under-construction>
-
     <x-panel>
         <form action="{{ route('users.update', $user) }}" method="POST" role="form" data-cy="form">
             @csrf
@@ -49,7 +45,7 @@
                     </span>
 
                     <x-input.radio
-                        label="They/Theme"
+                        label="They/Them"
                         for="neutral"
                         name="pronouns"
                         id="neutral"
@@ -77,7 +73,7 @@
 
             <x-form.section title="Roles">
                 <x-slot name="message">
-                    Roles are a collection of the actions a user can take throughout Nova. A user can be assigned as many roles as you'd like, giving you more granular control over what users can do.
+                    <p>Roles are a collection of the actions a user can take throughout Nova. A user can be assigned as many roles as you'd like, giving you more granular control over what users can do.</p>
 
                     @can('viewAny', 'Nova\Roles\Models\Role')
                         <a href="{{ route('roles.index') }}" class="button button-soft button-sm mt-6">
@@ -87,7 +83,7 @@
                 </x-slot>
 
                 <x-input.group label="Assign roles">
-                    @livewire('roles:find-role', ['roles' => $user->roles])
+                    @livewire('roles:manage-roles', ['roles' => $user->roles])
                 </x-input.group>
             </x-form.section>
 

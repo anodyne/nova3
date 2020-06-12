@@ -15,26 +15,26 @@ class CreateRoleManager
     protected $createRole;
 
     /**
-     * @var  UpdateUserRoles
+     * @var  UpdateRoleUsers
      */
-    protected $updateUserRoles;
+    protected $updateRoleUsers;
 
     public function __construct(
         CreateRole $createRole,
-        UpdateUsersRoles $updateUsersRoles
+        UpdateRoleUsers $updateRoleUsers
     ) {
         $this->createRole = $createRole;
-        $this->updateUsersRoles = $updateUsersRoles;
+        $this->updateRoleUsers = $updateRoleUsers;
     }
 
     public function execute(Request $request): Role
     {
         $role = $this->createRole->execute(RoleData::fromRequest($request));
 
-        // $data = RoleAssignmentData::fromRequest($request);
-        // $data->role = $role;
+        $data = RoleAssignmentData::fromRequest($request);
+        $data->role = $role;
 
-        // $this->updateUsersRoles->execute($data);
+        $this->updateRoleUsers->execute($data);
 
         return $role->refresh();
     }

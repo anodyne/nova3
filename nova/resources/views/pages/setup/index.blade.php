@@ -4,11 +4,9 @@
 <div x-data="{ tab: 'intro', isLoading: false }">
     <div>
         <div class="p-4 | sm:hidden">
-            <select x-on:change="window.location.replace($event.target.value)" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base leading-6 border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5 transition ease-in-out duration-150">
-                <option value="#"{{ request()->status === 'active' ? 'selected' : '' }}>Active Users</option>
-                <option value="#"{{ request()->status === 'pending' ? 'selected' : '' }}>Pending Users</option>
-                <option value="#"{{ request()->status === 'inactive' ? 'selected' : '' }}>Inactive Users</option>
-                <option value="#"{{ !request()->has('status') ? 'selected' : '' }}>All Users</option>
+            <select x-on:change="tab = $event.target.value" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base leading-6 border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5 transition ease-in-out duration-150">
+                <option value="intro" x-bind:selected="tab === 'intro'">Intro</option>
+                <option value="install" x-bind:selected="tab === 'install'">Install</option>
             </select>
         </div>
         <div class="hidden sm:block">
@@ -17,23 +15,15 @@
                     <a
                         @click.prevent="tab = 'intro'"
                         href="#"
-                        class="w-1/3 py-4 px-1 text-center border-b-2 font-medium text-sm leading-5 focus:outline-none"
+                        class="w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm leading-5 focus:outline-none"
                         :class="{ 'border-blue-500 text-blue-600': tab === 'intro', 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300': tab !== 'intro' }"
                     >
                         Intro
                     </a>
                     <a
-                        @click.prevent="tab = 'instructions'"
-                        href="#"
-                        class="w-1/3 py-4 px-1 text-center border-b-2 font-medium text-sm leading-5 focus:outline-none"
-                        :class="{ 'border-blue-500 text-blue-600': tab === 'instructions', 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300': tab !== 'instructions' }"
-                    >
-                        Instructions
-                    </a>
-                    <a
                         @click.prevent="tab = 'install'"
                         href="#"
-                        class="w-1/3 py-4 px-1 text-center border-b-2 font-medium text-sm leading-5 focus:outline-none"
+                        class="w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm leading-5 focus:outline-none"
                         :class="{ 'border-blue-500 text-blue-600': tab === 'install', 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300': tab !== 'install' }"
                     >
                         Install
@@ -63,40 +53,6 @@
                     <div class="ml-4 flex-1 | md:flex md:justify-between">
                         <p class="leading-6 text-yellow-700 font-medium">
                             This is alpha-level software and is not suitable for a production environment!
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div x-show="tab === 'instructions'" x-cloak>
-            <h2 class="text-2xl font-light mb-6">Requirements</h2>
-
-            <ol class="list-disc pl-5 space-y-2">
-                <li>PHP 7.3+</li>
-                <li>MySQL 5.7+</li>
-                <li>MySQL PDO installed for PHP</li>
-                <li>Updated modern browser (Chrome 83+, Brave 1.9+, Safari 13+, Firefox 77+, or Edge 83+)</li>
-            </ol>
-
-            <h2 class="text-2xl font-light my-6">Instructions</h2>
-
-            <ol class="list-decimal pl-5 space-y-2 mb-8">
-                <li>Ensure you have a separate database for testing Nova 3.</li>
-                <li>Copy the <code class="text-sm text-purple-600 font-medium">.env.example</code> file to a file called <code class="text-sm text-purple-600 font-medium">.env</code> in the root of the project.</li>
-                <li>Update the database credentials in <code class="text-sm text-purple-600 font-medium">.env</code> indicated by the <code class="text-sm text-purple-600 font-medium">DB_</code> prefix.</li>
-                <li>From the command line, run the following command: <code class="text-sm text-purple-600 font-medium">php artisan key:generate</code>.</li>
-                <li>Click the Install button on the next step.</li>
-            </ol>
-
-            <div class="rounded-md bg-purple-50 p-4">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        @icon('info', 'h-7 w-7 text-purple-400')
-                    </div>
-                    <div class="ml-4 flex-1 | md:flex md:justify-between">
-                        <p class="leading-6 text-purple-700 font-medium">
-                            This process must be completed each time a new preview version is released to Patrons. This will clear out the database and re-create the structure and data.
                         </p>
                     </div>
                 </div>

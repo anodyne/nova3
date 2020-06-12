@@ -58,7 +58,7 @@
                         {{ $headline }}
                     </h3>
 
-                    <div class="mt-2 text-gray-500 leading-5 text-sm" x-html="content"></div>
+                    <div class="mt-2 text-gray-500 leading-6" x-html="content"></div>
                 </div>
             </div>
             <div class="mt-5 | sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">

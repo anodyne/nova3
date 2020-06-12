@@ -5,7 +5,7 @@ namespace Nova\Roles\Http\Livewire;
 use Livewire\Component;
 use Nova\Roles\Models\Role;
 
-class FindRole extends Component
+class ManageRoles extends Component
 {
     public $roles;
 
@@ -46,6 +46,6 @@ class FindRole extends Component
 
     public function render()
     {
-        return view('livewire.roles.find-role');
+        return view('livewire.roles.manage-roles');
     }
 }

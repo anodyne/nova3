@@ -11,7 +11,7 @@
             @endif
 
             @if ($message)
-                <p class="form-section-header-message">{{ $message }}</p>
+                <div class="form-section-header-message">{{ $message }}</div>
             @endif
         </div>
     @endif
