@@ -2,13 +2,13 @@
 
 namespace Nova\Users\Models\Builders;
 
+use Nova\Users\Models\Login;
 use Nova\Users\Models\States\Active;
 use Nova\Users\Models\States\Pending;
 use Nova\Users\Models\States\Archived;
 use Nova\Users\Models\States\Inactive;
 use Nova\Foundation\Filters\Filterable;
 use Illuminate\Database\Eloquent\Builder;
-use Nova\Users\Models\Login;
 
 class UserBuilder extends Builder
 {

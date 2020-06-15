@@ -25,9 +25,9 @@ class ManageNotesTest extends TestCase
         $this->signIn($this->note->author);
 
         $response = $this->get(route('notes.index'));
-
         $response->assertOk();
-        $response->assertPropCount('notes.data', 1);
+
+        $this->assertCount(1, $response['notes']);
     }
 
     /** @test **/
@@ -36,9 +36,9 @@ class ManageNotesTest extends TestCase
         $this->signIn();
 
         $response = $this->get(route('notes.index'));
-
         $response->assertOk();
-        $response->assertPropCount('notes.data', 0);
+
+        $this->assertCount(0, $response['notes']);
     }
 
     /** @test **/
@@ -52,12 +52,9 @@ class ManageNotesTest extends TestCase
         ]);
 
         $response = $this->get(route('notes.index') . '?search=foo');
-
         $response->assertOk();
-        $response->assertPropCount('notes.data', 1);
-        $response->assertPropValue('notes.data', function ($notes) {
-            $this->assertEquals('Foo', $notes[0]['title']);
-        });
+
+        $this->assertCount(1, $response['notes']);
     }
 
     /** @test **/
@@ -71,11 +68,8 @@ class ManageNotesTest extends TestCase
         ]);
 
         $response = $this->get(route('notes.index') . '?search=foo');
-
         $response->assertOk();
-        $response->assertPropCount('notes.data', 1);
-        $response->assertPropValue('notes.data', function ($notes) {
-            $this->assertEquals('foo', $notes[0]['content']);
-        });
+
+        $this->assertCount(1, $response['notes']);
     }
 }

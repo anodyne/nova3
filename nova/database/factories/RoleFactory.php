@@ -11,6 +11,7 @@ $factory->define(Role::class, function (Faker $faker) {
         'name' => Str::slug($name),
         'display_name' => $name,
         'locked' => false,
+        'default' => false,
     ];
 });
 

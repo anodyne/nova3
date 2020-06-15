@@ -69,18 +69,6 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     }
 
     /**
-     * Record a timestamp when a user logs in.
-     *
-     * @return \Nova\Users\Models\User
-     */
-    public function recordLoginTime(): self
-    {
-        return tap($this, function ($user) {
-            $user->update(['last_login' => now()]);
-        });
-    }
-
-    /**
      * Set the description for logging.
      *
      * @param  string  $eventName

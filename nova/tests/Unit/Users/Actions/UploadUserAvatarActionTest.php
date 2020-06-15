@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Nova\Users\Actions\UploadUserAvatar;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class UploadUserAvatarTest extends TestCase
+class UploadUserAvatarActionTest extends TestCase
 {
     use RefreshDatabase;
 

@@ -54,7 +54,9 @@ class UpdateNoteTest extends TestCase
         $response = $this->get(route('notes.edit', $this->note));
         $response->assertForbidden();
 
-        $response = $this->put(route('notes.update', $this->note), []);
+        $response = $this->putJson(route('notes.update', $this->note), [
+            'title' => 'Foo',
+        ]);
         $response->assertForbidden();
     }
 

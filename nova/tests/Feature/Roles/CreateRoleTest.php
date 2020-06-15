@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Nova\Roles\Models\Role;
 use Nova\Roles\Events\RoleCreated;
 use Illuminate\Support\Facades\Event;
-use Nova\Roles\Http\Requests\ValidateStoreRole;
+use Nova\Roles\Http\Requests\CreateRoleRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
@@ -27,7 +27,7 @@ class CreateRoleTest extends TestCase
         $roleData = factory(Role::class)->make();
 
         $postData = array_merge($roleData->toArray(), [
-            'permissions' => ['foo', 'bar', 'baz'],
+            'permissions' => [1, 2, 3],
             'users' => [],
         ]);
 
@@ -55,7 +55,10 @@ class CreateRoleTest extends TestCase
         $response = $this->get(route('roles.create'));
         $response->assertForbidden();
 
-        $response = $this->post(route('roles.store'), []);
+        $response = $this->postJson(
+            route('roles.store'),
+            factory(Role::class)->make()->toArray()
+        );
         $response->assertForbidden();
     }
 
@@ -124,7 +127,7 @@ class CreateRoleTest extends TestCase
     {
         $this->assertRouteUsesFormRequest(
             'roles.store',
-            ValidateStoreRole::class
+            CreateRoleRequest::class
         );
     }
 }

@@ -33,6 +33,8 @@ class UpdateUserController extends Controller
         UpdateUserManager $action,
         User $user
     ) {
+        $this->authorize('update', $user);
+
         $user = $action->execute($user, $request);
 
         event(new UserUpdatedByAdmin($user));

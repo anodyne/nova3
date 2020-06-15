@@ -15,25 +15,13 @@ class ManageRolesTest extends TestCase
 
     protected $role;
 
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->role = factory(Role::class)->create();
-    }
-
     /** @test **/
     public function authorizedUserWithCreatePermissionCanManageRoles()
     {
         $this->signInWithPermission('role.create');
 
         $response = $this->get(route('roles.index'));
-        $response->assertOk();
-
-        $response->assertHasProp('roles.can');
-        $response->assertHasProp('roles.data');
-        $response->assertHasProp('roles.links');
-        $response->assertHasProp('roles.meta');
+        $response->assertSuccessful();
     }
 
     /** @test **/
@@ -42,7 +30,7 @@ class ManageRolesTest extends TestCase
         $this->signInWithPermission('role.update');
 
         $response = $this->get(route('roles.index'));
-        $response->assertOk();
+        $response->assertSuccessful();
     }
 
     /** @test **/
@@ -51,7 +39,7 @@ class ManageRolesTest extends TestCase
         $this->signInWithPermission('role.delete');
 
         $response = $this->get(route('roles.index'));
-        $response->assertOk();
+        $response->assertSuccessful();
     }
 
     /** @test **/
@@ -60,7 +48,7 @@ class ManageRolesTest extends TestCase
         $this->signInWithPermission('role.view');
 
         $response = $this->get(route('roles.index'));
-        $response->assertOk();
+        $response->assertSuccessful();
     }
 
     /** @test **/
@@ -89,12 +77,9 @@ class ManageRolesTest extends TestCase
         ]);
 
         $response = $this->get(route('roles.index') . '?search=user');
-
         $response->assertSuccessful();
-        $response->assertPropCount('roles.data', 2);
-        $response->assertPropValue('roles.data', function ($roles) {
-            $this->assertEquals('Another User Role', $roles[0]['display_name']);
-        });
+
+        $this->assertCount(2, $response['roles']);
     }
 
     /** @test **/
@@ -107,11 +92,8 @@ class ManageRolesTest extends TestCase
         ]);
 
         $response = $this->get(route('roles.index') . '?search=foo');
-
         $response->assertSuccessful();
-        $response->assertPropCount('roles.data', 1);
-        $response->assertPropValue('roles.data', function ($roles) {
-            $this->assertEquals('foo', $roles[0]['name']);
-        });
+
+        $this->assertCount(1, $response['roles']);
     }
 }

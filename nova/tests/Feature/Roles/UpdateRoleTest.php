@@ -7,7 +7,7 @@ use Nova\Roles\Models\Role;
 use Nova\Roles\Models\Permission;
 use Nova\Roles\Events\RoleUpdated;
 use Illuminate\Support\Facades\Event;
-use Nova\Roles\Http\Requests\ValidateUpdateRole;
+use Nova\Roles\Http\Requests\UpdateRoleRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
@@ -34,13 +34,12 @@ class UpdateRoleTest extends TestCase
         $response = $this->get(route('roles.edit', $this->role));
         $response->assertSuccessful();
 
-        $data = [
+        $data = factory(Role::class)->make([
             'id' => $this->role->id,
             'name' => 'new-name',
             'display_name' => 'New display name',
-            'permissions' => ['foo'],
-            'users' => [],
-        ];
+            'permissions' => [1],
+        ])->toArray();
 
         $this->assertCount(0, $this->role->permissions);
 
@@ -52,13 +51,6 @@ class UpdateRoleTest extends TestCase
             'name' => 'new-name',
             'display_name' => 'New display name',
         ]);
-
-        $this->assertDatabaseHas('permissions', ['name' => 'foo']);
-
-        $this->assertDatabaseHas('permission_role', [
-            'permission_id' => Permission::get()->last()->id,
-            'role_id' => $this->role->id,
-        ]);
     }
 
     /** @test **/
@@ -69,7 +61,10 @@ class UpdateRoleTest extends TestCase
         $response = $this->get(route('roles.edit', $this->role));
         $response->assertForbidden();
 
-        $response = $this->put(route('roles.update', $this->role), []);
+        $response = $this->putJson(
+            route('roles.update', $this->role),
+            factory(Role::class)->make()->toArray()
+        );
         $response->assertForbidden();
     }
 
@@ -93,6 +88,7 @@ class UpdateRoleTest extends TestCase
         $response = $this->put(route('roles.update', $role), [
             'display_name' => 'Foo',
             'name' => 'foo',
+            'default' => false,
         ]);
 
         $this->assertDatabaseHas('roles', [
@@ -110,12 +106,15 @@ class UpdateRoleTest extends TestCase
 
         $this->signInWithPermission('role.update');
 
+        $this->withoutExceptionHandling();
+
         $data = [
             'id' => $this->role->id,
             'name' => 'new-name',
             'display_name' => 'New display name',
-            'permissions' => ['foo', 'bar', 'baz'],
+            'permissions' => [1, 2, 3],
             'users' => [],
+            'default' => false,
         ];
 
         $this->put(route('roles.update', $this->role), $data);
@@ -142,6 +141,7 @@ class UpdateRoleTest extends TestCase
             'name' => $this->role->name,
             'display_name' => $this->role->display_name,
             'users' => [],
+            'default' => false,
         ]);
 
         $this->followRedirects($response)->assertSuccessful();
@@ -163,11 +163,12 @@ class UpdateRoleTest extends TestCase
             'name' => $this->role->name,
             'display_name' => $this->role->display_name,
             'users' => [$user->id],
+            'default' => false,
         ]);
 
         $this->followRedirects($response)->assertSuccessful();
 
-        $this->assertTrue($user->hasRole($this->role->name));
+        $this->assertTrue($user->refresh()->hasRole($this->role->name));
     }
 
     /** @test **/
@@ -187,7 +188,7 @@ class UpdateRoleTest extends TestCase
     {
         $this->assertRouteUsesFormRequest(
             'roles.update',
-            ValidateUpdateRole::class
+            UpdateRoleRequest::class
         );
     }
 }
