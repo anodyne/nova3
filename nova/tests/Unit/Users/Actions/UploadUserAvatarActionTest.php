@@ -3,7 +3,6 @@
 namespace Tests\Unit\Users\Actions;
 
 use Tests\TestCase;
-use Nova\Users\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Nova\Users\Actions\UploadUserAvatar;
@@ -13,31 +12,37 @@ class UploadUserAvatarActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $user;
-
     protected $action;
+
+    protected $user;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->user = $this->createUser();
-
         $this->action = app(UploadUserAvatar::class);
+
+        $this->user = $this->createUser();
     }
 
     /** @test **/
     public function itStoresTheUserAvatar()
     {
-        Storage::fake('media');
+        $disk = Storage::fake('media');
 
-        $user = $this->action->execute(
-            $this->user,
-            UploadedFile::fake()->image('image.png')
-        );
+        $diskPathPrefix = $disk->getAdapter()->getPathPrefix();
 
-        $this->assertInstanceOf(User::class, $user);
+        $this->assertCount(0, $this->user->getMedia('avatar'));
 
-        $this->assertCount(1, $user->getMedia('avatar'));
+        config()->set('filesystems.disks.media', [
+            'driver' => 'local',
+            'root' => $diskPathPrefix,
+        ]);
+
+        $path = $disk->put('tmp', UploadedFile::fake()->image('image.png'));
+
+        $this->action->execute($this->user, $diskPathPrefix . $path);
+
+        $this->assertCount(1, $this->user->refresh()->getMedia('avatar'));
     }
 }

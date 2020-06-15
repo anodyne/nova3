@@ -16,9 +16,9 @@ class ForcePasswordResetActionTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
-
         $this->action = app(ForcePasswordReset::class);
+
+        $this->user = factory(User::class)->create();
     }
 
     /** @test **/

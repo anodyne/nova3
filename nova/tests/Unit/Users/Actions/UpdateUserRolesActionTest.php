@@ -3,12 +3,15 @@
 namespace Tests\Unit\Users\Actions;
 
 use Tests\TestCase;
+use Nova\Roles\Models\Role;
 use Nova\Users\Models\User;
 use Nova\Users\Actions\UpdateUserRoles;
 
 class UpdateUserRolesActionTest extends TestCase
 {
     protected $action;
+
+    protected $role;
 
     protected $user;
 
@@ -19,17 +22,32 @@ class UpdateUserRolesActionTest extends TestCase
         $this->action = app(UpdateUserRoles::class);
 
         $this->user = factory(User::class)->create();
+
+        $this->role = factory(Role::class)->create();
     }
 
     /** @test **/
     public function itCanAddRolesToAUser()
     {
-        //
+        $this->assertCount(0, $this->user->roles);
+
+        $this->action->execute($this->user, collect([$this->role]));
+
+        $this->assertCount(1, $this->user->refresh()->roles);
+        $this->assertTrue($this->user->hasRole($this->role->name));
     }
 
     /** @test **/
     public function itCanRemoveRolesFromAUser()
     {
-        //
+        $this->user->attachRole($this->role);
+
+        $this->assertCount(1, $this->user->refresh()->roles);
+        $this->assertTrue($this->user->hasRole($this->role->name));
+
+        $this->action->execute($this->user, collect());
+
+        $this->assertCount(0, $this->user->refresh()->roles);
+        $this->assertFalse($this->user->hasRole($this->role->name));
     }
 }
