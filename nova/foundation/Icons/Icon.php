@@ -6,7 +6,7 @@ use BladeUI\Icons\Svg;
 
 class Icon
 {
-    protected $default = 'feather';
+    protected $default = 'fluent';
 
     public function make($name, $class = '', array $attributes = []): Svg
     {
@@ -19,7 +19,7 @@ class Icon
 
     public function getIconSet(): IconSet
     {
-        return app(IconSets::class)->get(cache()->get('nova.icon-set', $this->default));
+        return app(IconSets::class)->get($this->default);
     }
 
     protected function getIconName($name): string

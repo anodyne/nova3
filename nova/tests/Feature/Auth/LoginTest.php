@@ -13,7 +13,6 @@ class LoginTest extends TestCase
     /** @test **/
     public function guestCanViewLoginPage()
     {
-        $this->withoutExceptionHandling();
         $response = $this->get(route('login'));
         $response->assertOk();
     }
