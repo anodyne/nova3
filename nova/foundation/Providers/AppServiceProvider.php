@@ -24,7 +24,6 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerNovaSingleton();
-        $this->registerIcons();
     }
 
     public function boot()
@@ -35,10 +34,10 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useTailwind();
 
         $this->registerMacros();
+        $this->registerIcons();
         $this->registerBladeDirectives();
         $this->registerBladeComponents();
         $this->registerLivewireComponents();
-        // $this->registerIcons();
     }
 
     protected function registerNovaSingleton()
