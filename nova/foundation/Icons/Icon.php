@@ -26,7 +26,8 @@ class Icon
     {
         return sprintf(
             '%s-%s',
-            cache()->get('nova.icon-set', $this->default),
+            // cache()->get('nova.icon-set', $this->default),
+            $this->default,
             $this->getIconSet()->getIcon($name)
         );
     }
