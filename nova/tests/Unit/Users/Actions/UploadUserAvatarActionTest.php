@@ -3,6 +3,7 @@
 namespace Tests\Unit\Users\Actions;
 
 use Tests\TestCase;
+use Nova\Users\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Nova\Users\Actions\UploadUserAvatar;
@@ -22,7 +23,7 @@ class UploadUserAvatarActionTest extends TestCase
 
         $this->action = app(UploadUserAvatar::class);
 
-        $this->user = $this->createUser();
+        $this->user = create(User::class);
     }
 
     /** @test **/

@@ -2,15 +2,13 @@
 
 namespace Tests;
 
-use Illuminate\Support\Arr;
-use Illuminate\Testing\Assert;
 use Illuminate\Testing\TestResponse;
 use PHPUnit\Framework\Assert as PHPUnit;
 
 trait AddsCustomAssertions
 {
     /**
-     * Setup macros to test Inertia responses.
+     * Setup macros to test responses.
      *
      * @return void
      */

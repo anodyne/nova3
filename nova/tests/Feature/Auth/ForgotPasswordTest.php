@@ -3,6 +3,7 @@
 namespace Tests\Feature\Auth;
 
 use Tests\TestCase;
+use Nova\Users\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
@@ -31,7 +32,7 @@ class ForgotPasswordTest extends TestCase
     {
         Notification::fake();
 
-        $user = $this->createUser();
+        $user = create(User::class);
 
         $this->from(route('password.request'))
             ->post(route('password.email'), [
@@ -57,7 +58,7 @@ class ForgotPasswordTest extends TestCase
             ->assertRedirect(route('password.request'))
             ->assertSessionHasErrors('email');
 
-        Notification::assertNotSentTo($this->makeUser(), ResetPassword::class);
+        Notification::assertNotSentTo(make(User::class), ResetPassword::class);
     }
 
     public function testEmailIsRequiredOnEmailPasswordPage()

@@ -27,7 +27,7 @@ class CreateNoteTest extends TestCase
     {
         $this->signIn();
 
-        $data = factory(Note::class)->make([
+        $data = make(Note::class, [
             'user_id' => auth()->id(),
         ]);
 
@@ -56,7 +56,7 @@ class CreateNoteTest extends TestCase
 
         $this->signIn();
 
-        $this->post(route('notes.store'), factory(Note::class)->make()->toArray());
+        $this->post(route('notes.store'), make(Note::class)->toArray());
 
         Event::assertDispatched(NoteCreated::class);
     }
@@ -64,7 +64,7 @@ class CreateNoteTest extends TestCase
     /** @test **/
     public function activityIsLoggedWhenNoteIsCreated()
     {
-        $note = factory(Note::class)->create();
+        $note = create(Note::class);
 
         $this->assertDatabaseHas('activity_log', [
             'description' => $note->title . ' note was created',
@@ -83,7 +83,7 @@ class CreateNoteTest extends TestCase
     {
         $response = $this->postJson(
             route('notes.store'),
-            factory(Note::class)->make()->toArray()
+            make(Note::class)->toArray()
         );
         $response->assertUnauthorized();
     }

@@ -5,9 +5,9 @@ namespace Tests\Feature\Users;
 use Tests\TestCase;
 use Nova\Users\Models\User;
 use Nova\Users\Models\States\Active;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nova\Users\Models\States\Inactive;
 use Nova\Users\Models\States\Pending;
+use Nova\Users\Models\States\Inactive;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
  * @see \Nova\Users\Http\Controllers\ShowUserController
@@ -26,11 +26,11 @@ class ManageUsersTest extends TestCase
     {
         parent::setUp();
 
-        $this->activeUser = factory(User::class)->create();
+        $this->activeUser = create(User::class)->create();
 
-        $this->pendingUser = factory(User::class)->state('status:pending')->create();
+        $this->pendingUser = create(User::class, [], ['status:pending']);
 
-        $this->inactiveUser = factory(User::class)->state('status:inactive')->create();
+        $this->inactiveUser = create(User::class, [], ['status:inactive']);
     }
 
     /** @test **/
@@ -127,11 +127,11 @@ class ManageUsersTest extends TestCase
     {
         $this->signInWithPermission('user.create');
 
-        $this->createUser([
+        create(User::class, [
             'name' => 'Sparrow Capitan',
         ]);
 
-        $this->createUser();
+        create(User::class);
 
         $response = $this->get(route('users.index'));
         $response->assertSuccessful();
@@ -149,11 +149,11 @@ class ManageUsersTest extends TestCase
     {
         $this->signInWithPermission('user.create');
 
-        $this->createUser([
+        create(User::class, [
             'email' => 'sparrow@example.com',
         ]);
 
-        $this->createUser();
+        create(User::class);
 
         $response = $this->get(route('users.index'));
         $response->assertSuccessful();

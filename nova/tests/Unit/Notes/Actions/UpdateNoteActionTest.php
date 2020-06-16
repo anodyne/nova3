@@ -22,7 +22,7 @@ class UpdateNoteActionTest extends TestCase
 
         $this->action = app(UpdateNote::class);
 
-        $this->note = factory(Note::class)->create([
+        $this->note = create(Note::class, [
             'title' => 'My First Note',
             'content' => 'Content',
             'summary' => 'Summary',

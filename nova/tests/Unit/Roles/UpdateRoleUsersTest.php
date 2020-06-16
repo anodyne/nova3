@@ -25,9 +25,9 @@ class UpdateRoleUsersTest extends TestCase
 
         $this->action = app(UpdateRoleUsers::class);
 
-        $this->user = factory(User::class)->create();
+        $this->user = create(User::class);
 
-        $this->role = factory(Role::class)->create();
+        $this->role = create(Role::class);
 
         config(['laratrust.cache.enabled' => false]);
     }

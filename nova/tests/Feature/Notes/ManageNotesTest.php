@@ -16,7 +16,7 @@ class ManageNotesTest extends TestCase
     {
         parent::setUp();
 
-        $this->note = factory(Note::class)->create();
+        $this->note = create(Note::class);
     }
 
     /** @test **/
@@ -35,8 +35,8 @@ class ManageNotesTest extends TestCase
     {
         $this->signIn();
 
-        $note = factory(Note::class)->create([
-            'user_id' => auth()->user()->id,
+        $note = create(Note::class, [
+            'user_id' => auth()->user(),
         ]);
 
         $response = $this->get(route('notes.index'));
@@ -51,8 +51,8 @@ class ManageNotesTest extends TestCase
     {
         $this->signIn($this->note->author);
 
-        factory(Note::class)->create([
-            'user_id' => auth()->id(),
+        create(Note::class, [
+            'user_id' => auth()->user(),
             'title' => 'Foo',
         ]);
 
@@ -67,8 +67,8 @@ class ManageNotesTest extends TestCase
     {
         $this->signIn($this->note->author);
 
-        factory(Note::class)->create([
-            'user_id' => auth()->id(),
+        create(Note::class, [
+            'user_id' => auth()->user(),
             'content' => 'foobar',
         ]);
 
@@ -83,8 +83,8 @@ class ManageNotesTest extends TestCase
     {
         $this->signIn($this->note->author);
 
-        factory(Note::class)->create([
-            'user_id' => auth()->id(),
+        create(Note::class, [
+            'user_id' => auth()->user(),
             'summary' => 'barbaz',
         ]);
 

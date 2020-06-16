@@ -22,13 +22,13 @@ class UpdateUserStatusActionTest extends TestCase
 
         $this->action = app(UpdateUserStatus::class);
 
-        $this->user = factory(User::class)->create();
+        $this->user = create(User::class);
     }
 
     /** @test **/
     public function itCanTransitionFromPendingToActive()
     {
-        $user = factory(User::class)->state('status:pending')->create();
+        $user = create(User::class, [], ['status:pending']);
 
         $this->action->execute($this->user, Active::class);
 
@@ -38,7 +38,7 @@ class UpdateUserStatusActionTest extends TestCase
     /** @test **/
     public function itCanTransitionFromPendingToInactive()
     {
-        $user = factory(User::class)->state('status:pending')->create();
+        $user = create(User::class, [], ['status:pending']);
 
         $this->action->execute($this->user, Inactive::class);
 
@@ -56,7 +56,7 @@ class UpdateUserStatusActionTest extends TestCase
     /** @test **/
     public function itCanTransitionFromInactiveToActive()
     {
-        $user = factory(User::class)->state('status:inactive')->create();
+        $user = create(User::class, [], ['status:inactive']);
 
         $this->action->execute($this->user, Active::class);
 

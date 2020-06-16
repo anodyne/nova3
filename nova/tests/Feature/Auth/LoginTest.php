@@ -3,6 +3,7 @@
 namespace Tests\Feature\Auth;
 
 use Tests\TestCase;
+use Nova\Users\Models\User;
 use Nova\Users\Actions\ForcePasswordReset;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -29,7 +30,7 @@ class LoginTest extends TestCase
     /** @test **/
     public function guestCanLoginWithCorrectCredentials()
     {
-        $user = $this->createUser();
+        $user = create(User::class);
 
         $response = $this->post(route('login'), [
             'email' => $user->email,
@@ -61,7 +62,7 @@ class LoginTest extends TestCase
     /** @test **/
     public function guestCannotLoginWithIncorrectPassword()
     {
-        $user = $this->createUser();
+        $user = create(User::class);
 
         $response = $this->from(route('login'))
             ->post(route('login'), [
@@ -100,7 +101,7 @@ class LoginTest extends TestCase
     /** @test **/
     public function guestCannotAttemptLoggingInMoreThanFiveTimesInOneMinute()
     {
-        $user = $this->createUser();
+        $user = create(User::class);
 
         foreach (range(0, 5) as $_) {
             $response = $this->from(route('login'))
@@ -132,7 +133,7 @@ class LoginTest extends TestCase
     /** @test **/
     public function timestampIsRecordedWhenUserLogsIn()
     {
-        $user = $this->createUser();
+        $user = create(User::class);
 
         $response = $this->post(route('login'), [
             'email' => $user->email,
@@ -151,7 +152,9 @@ class LoginTest extends TestCase
     /** @test **/
     public function userIsPromptedToChangeTheirPasswordIfAnAdminHasForcedReset()
     {
-        app(ForcePasswordReset::class)->execute($user = $this->createUser());
+        app(ForcePasswordReset::class)->execute(
+            $user = create(User::class)
+        );
 
         $this->followingRedirects();
 

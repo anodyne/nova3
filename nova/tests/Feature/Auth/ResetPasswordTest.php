@@ -16,11 +16,11 @@ class ResetPasswordTest extends TestCase
 
     public function testGuestCanViewEmailResetPage()
     {
-        $token = $this->getPasswordResetToken($this->createUser());
+        $token = $this->getPasswordResetToken(create(User::class));
 
         $response = $this->get(route('password.reset', $token))
-            ->assertSuccessful();
-        // ->assertResponseHas('token', $token);
+            ->assertSuccessful()
+            ->assertViewHas('token', $token);
     }
 
     public function testAuthenticatedUserCannotViewEmailResetPage()
@@ -37,7 +37,7 @@ class ResetPasswordTest extends TestCase
     {
         Event::fake();
 
-        $user = $this->createUser();
+        $user = create(User::class);
 
         $token = $this->getPasswordResetToken($user);
 
@@ -61,7 +61,7 @@ class ResetPasswordTest extends TestCase
 
     public function testGuestCannotResetTheirPasswordWithInvalidPasswordResetToken()
     {
-        $user = $this->createUser();
+        $user = create(User::class);
 
         $token = 'invalid-token';
 
@@ -81,7 +81,7 @@ class ResetPasswordTest extends TestCase
 
     public function testGuestCannotResetTheirPasswordWithoutNewPassword()
     {
-        $user = $this->createUser();
+        $user = create(User::class);
 
         $token = $this->getPasswordResetToken($user);
 
@@ -104,7 +104,7 @@ class ResetPasswordTest extends TestCase
 
     public function testGuestCannotResetTheirPasswordWithoutEmail()
     {
-        $user = $this->createUser();
+        $user = create(User::class);
 
         $token = $this->getPasswordResetToken($user);
 

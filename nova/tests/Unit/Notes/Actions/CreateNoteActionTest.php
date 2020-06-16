@@ -28,7 +28,7 @@ class CreateNoteActionTest extends TestCase
         $data->title = 'My Note';
         $data->content = 'Content of my note';
         $data->summary = 'Summary of my note';
-        $data->user_id = factory(User::class)->create()->id;
+        $data->user_id = create(User::class)->id;
 
         $note = $this->action->execute($data);
 

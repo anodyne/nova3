@@ -4,6 +4,7 @@ namespace Tests\Feature\Roles;
 
 use Tests\TestCase;
 use Nova\Roles\Models\Role;
+use Nova\Users\Models\User;
 use Nova\Roles\Events\RoleCreated;
 use Illuminate\Support\Facades\Event;
 use Nova\Roles\Http\Requests\CreateRoleRequest;
@@ -24,7 +25,7 @@ class CreateRoleTest extends TestCase
         $response = $this->get(route('roles.create'));
         $response->assertSuccessful();
 
-        $roleData = factory(Role::class)->make();
+        $roleData = make(Role::class);
 
         $postData = array_merge($roleData->toArray(), [
             'permissions' => [1, 2, 3],
@@ -57,7 +58,7 @@ class CreateRoleTest extends TestCase
 
         $response = $this->postJson(
             route('roles.store'),
-            factory(Role::class)->make()->toArray()
+            make(Role::class)->toArray()
         );
         $response->assertForbidden();
     }
@@ -79,7 +80,7 @@ class CreateRoleTest extends TestCase
 
         $this->signInWithPermission('role.create');
 
-        $data = array_merge(factory(Role::class)->make()->toArray(), [
+        $data = array_merge(make(Role::class)->toArray(), [
             'permissions' => ['foo', 'bar', 'baz'],
             'users' => [],
         ]);
@@ -98,9 +99,9 @@ class CreateRoleTest extends TestCase
     {
         $this->signInWithPermission('role.create');
 
-        $user = $this->createUser();
+        $user = create(User::class);
 
-        $role = factory(Role::class)->make();
+        $role = make(Role::class);
 
         $data = array_merge($role->toArray(), [
             'permissions' => [],
@@ -115,7 +116,7 @@ class CreateRoleTest extends TestCase
     /** @test **/
     public function activityIsLoggedWhenRoleIsCreated()
     {
-        $role = factory(Role::class)->create();
+        $role = create(Role::class);
 
         $this->assertDatabaseHas('activity_log', [
             'description' => $role->display_name . ' role was created',

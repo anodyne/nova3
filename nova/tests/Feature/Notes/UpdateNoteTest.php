@@ -19,7 +19,7 @@ class UpdateNoteTest extends TestCase
     {
         parent::setUp();
 
-        $this->note = factory(Note::class)->create();
+        $this->note = create(Note::class);
     }
 
     /** @test **/

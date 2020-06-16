@@ -21,7 +21,7 @@ class UpdateThemeTest extends TestCase
     {
         parent::setUp();
 
-        $this->theme = factory(Theme::class)->create();
+        $this->theme = create(Theme::class);
     }
 
     /** @test **/
@@ -76,7 +76,7 @@ class UpdateThemeTest extends TestCase
     {
         Event::fake();
 
-        $data = factory(Theme::class)->make()->toArray();
+        $data = make(Theme::class)->toArray();
 
         $theme = app(UpdateTheme::class)->execute($this->theme, new ThemeData($data));
 

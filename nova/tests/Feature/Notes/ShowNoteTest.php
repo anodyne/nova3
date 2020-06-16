@@ -16,7 +16,7 @@ class ShowNoteTest extends TestCase
     {
         parent::setUp();
 
-        $this->note = factory(Note::class)->create();
+        $this->note = create(Note::class);
     }
 
     /** @test **/
@@ -24,7 +24,7 @@ class ShowNoteTest extends TestCase
     {
         $this->signIn();
 
-        $note = factory(Note::class)->create([
+        $note = create(Note::class, [
             'user_id' => auth()->user(),
         ]);
 

@@ -18,7 +18,7 @@ class InstallThemeTest extends TestCase
     {
         parent::setUp();
 
-        $this->theme = factory(Theme::class)->make([
+        $this->theme = make(Theme::class, [
             'name' => 'Foo',
             'location' => 'foo',
         ]);
@@ -39,8 +39,8 @@ class InstallThemeTest extends TestCase
         $this->followingRedirects();
 
         $this->postJson(route('themes.install'), [
-                'theme' => $this->theme->location,
-            ])
+            'theme' => $this->theme->location,
+        ])
             ->assertSuccessful();
 
         $this->assertDatabaseHas('themes', [
@@ -76,7 +76,7 @@ class InstallThemeTest extends TestCase
             'location' => 'foo',
         ];
 
-        factory(Theme::class)->create($createData);
+        create(Theme::class, $createData);
 
         $disk = Storage::disk('themes');
 

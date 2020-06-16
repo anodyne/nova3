@@ -65,7 +65,10 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "nova/tests/"
-        }
+        },
+        "files": [
+            "nova/tests/helpers.php"
+        ]
     },
     "scripts": {
         "post-autoload-dump": [

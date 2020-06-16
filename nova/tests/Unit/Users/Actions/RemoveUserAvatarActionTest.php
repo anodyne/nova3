@@ -23,7 +23,7 @@ class RemoveUserAvatarActionTest extends TestCase
 
         $this->action = app(RemoveUserAvatar::class);
 
-        $this->user = factory(User::class)->create();
+        $this->user = create(User::class);
 
         app(UploadUserAvatar::class)->execute(
             $this->user,

@@ -19,7 +19,7 @@ class DeleteUserTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = create(User::class);
     }
 
     /** @test **/

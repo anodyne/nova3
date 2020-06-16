@@ -22,7 +22,7 @@ class UpdateUserActionTest extends TestCase
 
         $this->action = app(UpdateUser::class);
 
-        $this->user = factory(User::class)->create();
+        $this->user = create(User::class);
     }
 
     /** @test **/

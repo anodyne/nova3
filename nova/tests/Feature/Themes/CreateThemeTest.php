@@ -21,7 +21,7 @@ class CreateThemeTest extends TestCase
     {
         parent::setUp();
 
-        $this->theme = factory(Theme::class)->create();
+        $this->theme = create(Theme::class);
     }
 
     /** @test  **/
@@ -42,7 +42,7 @@ class CreateThemeTest extends TestCase
 
         $this->postJson(
             route('themes.store'),
-            factory(Theme::class)->make()->toArray()
+            make(Theme::class)->toArray()
         )
             ->assertForbidden();
     }
@@ -64,7 +64,7 @@ class CreateThemeTest extends TestCase
 
         $this->signInWithPermission('theme.create');
 
-        $theme = factory(Theme::class)->make()->toArray();
+        $theme = make(Theme::class)->toArray();
 
         $this->followingRedirects();
 
@@ -79,9 +79,9 @@ class CreateThemeTest extends TestCase
     {
         Storage::fake('themes');
 
-        $data = factory(Theme::class)->make()->toArray();
+        $data = make(Theme::class)->toArray();
 
-        (new CreateTheme)->execute(new ThemeData($data));
+        app(CreateTheme::class)->execute(new ThemeData($data));
 
         $this->assertCount(1, Storage::disk('themes')->directories());
     }
@@ -92,9 +92,9 @@ class CreateThemeTest extends TestCase
         Event::fake();
         Storage::fake('themes');
 
-        $data = factory(Theme::class)->make()->toArray();
+        $data = make(Theme::class)->toArray();
 
-        $theme = (new CreateTheme)->execute(new ThemeData($data));
+        $theme = app(CreateTheme::class)->execute(new ThemeData($data));
 
         Event::assertDispatched(ThemeCreated::class, function ($event) use ($theme) {
             return $event->theme->is($theme);

@@ -4,6 +4,7 @@ namespace Tests\Unit\Roles;
 
 use Tests\TestCase;
 use Nova\Roles\Models\Role;
+use Nova\Users\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RoleTest extends TestCase
@@ -16,13 +17,13 @@ class RoleTest extends TestCase
     {
         parent::setUp();
 
-        $this->role = factory(Role::class)->create();
+        $this->role = create(Role::class);
     }
 
     /** @test **/
     public function itCanGiveAUserTheRole()
     {
-        $this->role->giveToUser($user = $this->createUser());
+        $this->role->giveToUser($user = create(User::class));
 
         $this->assertTrue($user->hasRole($this->role->name));
     }

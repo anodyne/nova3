@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Event;
 use Nova\Roles\Events\RoleDuplicated;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Roles\Http\Requests\DuplicateRoleRequest;
-use Nova\Roles\Http\Requests\ValidateDuplicateRole;
 
 /**
  * @see \Nova\Roles\Http\Controllers\DuplicateRoleController
@@ -24,7 +23,7 @@ class DuplicateRoleTest extends TestCase
     {
         parent::setUp();
 
-        $this->role = Role::firstOrCreate([
+        $this->role = create(Role::class, [
             'name' => 'foo',
             'display_name' => 'Foo',
         ]);
@@ -76,7 +75,7 @@ class DuplicateRoleTest extends TestCase
     /** @test **/
     public function lockedRoleCannotBeDuplicated()
     {
-        $role = factory(Role::class)->states('locked')->create();
+        $role = create(Role::class, [], ['locked']);
 
         $this->signInWithPermission(['role.create', 'role.update']);
 

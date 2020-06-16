@@ -20,7 +20,7 @@ class DeleteThemeTest extends TestCase
     {
         parent::setUp();
 
-        $this->theme = factory(Theme::class)->create();
+        $this->theme = create(Theme::class);
     }
 
     /** @test **/
@@ -75,7 +75,7 @@ class DeleteThemeTest extends TestCase
     {
         Event::fake();
 
-        $theme = (new DeleteTheme)->execute($this->theme);
+        $theme = app(DeleteTheme::class)->execute($this->theme);
 
         Event::assertDispatched(ThemeDeleted::class, function ($event) use ($theme) {
             return $event->theme->is($theme);

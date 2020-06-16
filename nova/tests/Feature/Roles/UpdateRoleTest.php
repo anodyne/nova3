@@ -4,6 +4,7 @@ namespace Tests\Feature\Roles;
 
 use Tests\TestCase;
 use Nova\Roles\Models\Role;
+use Nova\Users\Models\User;
 use Nova\Roles\Events\RoleUpdated;
 use Illuminate\Support\Facades\Event;
 use Nova\Roles\Http\Requests\UpdateRoleRequest;
@@ -22,7 +23,7 @@ class UpdateRoleTest extends TestCase
     {
         parent::setUp();
 
-        $this->role = factory(Role::class)->create();
+        $this->role = create(Role::class);
 
         config(['laratrust.cache.enabled' => false]);
     }
@@ -35,7 +36,7 @@ class UpdateRoleTest extends TestCase
         $response = $this->get(route('roles.edit', $this->role));
         $response->assertSuccessful();
 
-        $data = factory(Role::class)->make([
+        $data = make(Role::class, [
             'id' => $this->role->id,
             'name' => 'new-name',
             'display_name' => 'New display name',
@@ -64,7 +65,7 @@ class UpdateRoleTest extends TestCase
 
         $response = $this->putJson(
             route('roles.update', $this->role),
-            factory(Role::class)->make()->toArray()
+            make(Role::class)->toArray()
         );
         $response->assertForbidden();
     }
@@ -82,7 +83,7 @@ class UpdateRoleTest extends TestCase
     /** @test **/
     public function lockedRoleKeyCannotBeUpdated()
     {
-        $role = factory(Role::class)->states('locked')->create();
+        $role = create(Role::class, [], ['locked']);
 
         $this->signInWithPermission('role.update');
 
@@ -132,7 +133,7 @@ class UpdateRoleTest extends TestCase
     {
         $this->signInWithPermission('role.update');
 
-        $user = $this->createUser();
+        $user = create(User::class);
         $user->attachRole($this->role);
 
         $this->assertTrue($user->hasRole($this->role->name));
@@ -155,7 +156,7 @@ class UpdateRoleTest extends TestCase
     {
         $this->signInWithPermission('role.update');
 
-        $user = $this->createUser();
+        $user = create(User::class);
 
         $this->assertFalse($user->hasRole($this->role->name));
 

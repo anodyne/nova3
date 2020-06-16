@@ -21,7 +21,7 @@ class DuplicateNoteActionTest extends TestCase
 
         $this->action = app(DuplicateNote::class);
 
-        $this->originalNote = factory(Note::class)->create([
+        $this->originalNote = create(Note::class, [
             'title' => 'My Note',
             'content' => 'Content',
             'summary' => 'Summary',
