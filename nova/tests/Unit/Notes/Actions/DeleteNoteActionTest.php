@@ -7,26 +7,28 @@ use Nova\Notes\Models\Note;
 use Nova\Notes\Actions\DeleteNote;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class DeleteNoteTest extends TestCase
+class DeleteNoteActionTest extends TestCase
 {
     use RefreshDatabase;
 
     protected $action;
+
+    protected $note;
 
     public function setUp(): void
     {
         parent::setUp();
 
         $this->action = app(DeleteNote::class);
+
+        $this->note = factory(Note::class)->create();
     }
 
     /** @test **/
     public function itDeletesANote()
     {
-        $note = factory(Note::class)->create();
+        $note = $this->action->execute($this->note);
 
-        $note = $this->action->execute($note);
-
-        $this->assertInstanceOf(Note::class, $note);
+        $this->assertFalse($note->exists);
     }
 }

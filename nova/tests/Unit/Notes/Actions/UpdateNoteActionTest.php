@@ -8,39 +8,39 @@ use Nova\Notes\Actions\UpdateNote;
 use Nova\Notes\DataTransferObjects\NoteData;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class UpdateNoteTest extends TestCase
+class UpdateNoteActionTest extends TestCase
 {
     use RefreshDatabase;
 
     protected $action;
+
+    protected $note;
 
     public function setUp(): void
     {
         parent::setUp();
 
         $this->action = app(UpdateNote::class);
+
+        $this->note = factory(Note::class)->create([
+            'title' => 'My First Note',
+            'content' => 'Content',
+            'summary' => 'Summary',
+        ]);
     }
 
     /** @test **/
     public function itUpdatesANote()
     {
-        $originalNote = factory(Note::class)->create([
-            'title' => 'My First Note',
-            'content' => 'Content',
-        ]);
-
-        $this->assertEquals('My First Note', $originalNote->title);
-        $this->assertEquals('Content', $originalNote->content);
-
         $data = new NoteData;
         $data->title = 'My Note';
-        $data->content = 'Content of my note';
+        $data->content = 'New content';
+        $data->summary = 'New summary';
 
-        $note = $this->action->execute($originalNote, $data);
-
-        $this->assertInstanceOf(Note::class, $note);
+        $note = $this->action->execute($this->note, $data);
 
         $this->assertEquals('My Note', $note->title);
-        $this->assertEquals('Content of my note', $note->content);
+        $this->assertEquals('New content', $note->content);
+        $this->assertEquals('New summary', $note->summary);
     }
 }

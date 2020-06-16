@@ -22,35 +22,18 @@ class DeleteNoteTest extends TestCase
     }
 
     /** @test **/
-    public function userCanDeleteNote()
+    public function authenticatedUserCanDeleteNote()
     {
         $this->signIn($this->note->author);
 
-        $response = $this->delete(route('notes.destroy', $this->note));
+        $this->followingRedirects();
 
-        $this->followRedirects($response)->assertOk();
+        $response = $this->delete(route('notes.destroy', $this->note));
+        $response->assertSuccessful();
 
         $this->assertDatabaseMissing('notes', [
             'id' => $this->note->id,
         ]);
-    }
-
-    /** @test **/
-    public function userCannotDeleteNoteTheyDidNotCreate()
-    {
-        $this->signIn();
-
-        $response = $this->delete(route('notes.destroy', $this->note));
-
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function guestCannotDeleteNote()
-    {
-        $response = $this->delete(route('notes.destroy', $this->note));
-
-        $response->assertRedirect(route('login'));
     }
 
     /** @test **/
@@ -62,9 +45,7 @@ class DeleteNoteTest extends TestCase
 
         $this->delete(route('notes.destroy', $this->note));
 
-        Event::assertDispatched(NoteDeleted::class, function ($event) {
-            return $event->note->is($this->note);
-        });
+        Event::assertDispatched(NoteDeleted::class);
     }
 
     /** @test **/
@@ -75,5 +56,21 @@ class DeleteNoteTest extends TestCase
         $this->assertDatabaseHas('activity_log', [
             'description' => $this->note->title . ' note was deleted',
         ]);
+    }
+
+    /** @test **/
+    public function authenticatedUserCannotDeleteNoteTheyDidNotCreate()
+    {
+        $this->signIn();
+
+        $response = $this->delete(route('notes.destroy', $this->note));
+        $response->assertForbidden();
+    }
+
+    /** @test **/
+    public function unauthenticatedUserCannotDeleteNote()
+    {
+        $response = $this->deleteJson(route('notes.destroy', $this->note));
+        $response->assertUnauthorized();
     }
 }

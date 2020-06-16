@@ -7,32 +7,34 @@ use Nova\Notes\Models\Note;
 use Nova\Notes\Actions\DuplicateNote;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class DuplicateNoteTest extends TestCase
+class DuplicateNoteActionTest extends TestCase
 {
     use RefreshDatabase;
 
     protected $action;
+
+    protected $originalNote;
 
     public function setUp(): void
     {
         parent::setUp();
 
         $this->action = app(DuplicateNote::class);
+
+        $this->originalNote = factory(Note::class)->create([
+            'title' => 'My Note',
+            'content' => 'Content',
+            'summary' => 'Summary',
+        ]);
     }
 
     /** @test **/
     public function itDuplicatesANote()
     {
-        $originalNote = factory(Note::class)->create([
-            'title' => 'My Note',
-            'content' => 'Content',
-        ]);
-
-        $note = $this->action->execute($originalNote);
-
-        $this->assertInstanceOf(Note::class, $note);
+        $note = $this->action->execute($this->originalNote);
 
         $this->assertEquals('Copy of My Note', $note->title);
         $this->assertEquals('Content', $note->content);
+        $this->assertEquals('Summary', $note->summary);
     }
 }

@@ -6,6 +6,7 @@ use Tests\TestCase;
 use Nova\Notes\Models\Note;
 use Nova\Notes\Events\NoteCreated;
 use Illuminate\Support\Facades\Event;
+use Nova\Notes\Http\Requests\CreateNoteRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CreateNoteTest extends TestCase
@@ -13,12 +14,18 @@ class CreateNoteTest extends TestCase
     use RefreshDatabase;
 
     /** @test **/
-    public function userCanCreateANote()
+    public function authenticatedUserCanViewTheCreateNotePage()
     {
         $this->signIn();
 
         $response = $this->get(route('notes.create'));
-        $response->assertOk();
+        $response->assertSuccessful();
+    }
+
+    /** @test **/
+    public function authenticatedUserCanCreateNote()
+    {
+        $this->signIn();
 
         $data = factory(Note::class)->make([
             'user_id' => auth()->id(),
@@ -27,23 +34,19 @@ class CreateNoteTest extends TestCase
         $this->followingRedirects();
 
         $response = $this->post(route('notes.store'), $data->toArray());
-        $response->assertOk();
+        $response->assertSuccessful();
+
+        $this->assertRouteUsesFormRequest(
+            'notes.store',
+            CreateNoteRequest::class
+        );
 
         $this->assertDatabaseHas('notes', [
             'user_id' => auth()->id(),
             'title' => $data->title,
             'content' => $data->content,
+            'summary' => $data->summary,
         ]);
-    }
-
-    /** @test **/
-    public function guestCannotCreateRole()
-    {
-        $response = $this->get(route('notes.create'));
-        $response->assertRedirect(route('login'));
-
-        $response = $this->post(route('notes.store'), []);
-        $response->assertRedirect(route('login'));
     }
 
     /** @test **/
@@ -55,24 +58,7 @@ class CreateNoteTest extends TestCase
 
         $this->post(route('notes.store'), factory(Note::class)->make()->toArray());
 
-        $note = Note::get()->last();
-
-        Event::assertDispatched(NoteCreated::class, function ($event) use ($note) {
-            return $event->note->is($note);
-        });
-    }
-
-    /** @test **/
-    public function titleIsRequiredToCreateNote()
-    {
-        $this->signIn();
-
-        $response = $this->postJson(route('notes.store'), [
-            'content' => 'Foo',
-        ]);
-
-        $response->assertStatus(422);
-        $response->assertJsonValidationErrors('title');
+        Event::assertDispatched(NoteCreated::class);
     }
 
     /** @test **/
@@ -83,5 +69,22 @@ class CreateNoteTest extends TestCase
         $this->assertDatabaseHas('activity_log', [
             'description' => $note->title . ' note was created',
         ]);
+    }
+
+    /** @test **/
+    public function unauthenticatedUserCannotViewCreateNotePage()
+    {
+        $response = $this->getJson(route('notes.create'));
+        $response->assertUnauthorized();
+    }
+
+    /** @test **/
+    public function unauthenticatedUserCannotCreateNote()
+    {
+        $response = $this->postJson(
+            route('notes.store'),
+            factory(Note::class)->make()->toArray()
+        );
+        $response->assertUnauthorized();
     }
 }

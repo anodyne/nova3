@@ -20,25 +20,30 @@ class ManageNotesTest extends TestCase
     }
 
     /** @test **/
-    public function userCanSeeTheirNotes()
+    public function authenticatedUserCanSeeTheirNotes()
     {
         $this->signIn($this->note->author);
 
         $response = $this->get(route('notes.index'));
-        $response->assertOk();
+        $response->assertSuccessful();
 
         $this->assertCount(1, $response['notes']);
     }
 
     /** @test **/
-    public function userCannotSeeNotesTheyDidNotCreate()
+    public function authenticatedUserCannotSeeNotesTheyDidNotCreate()
     {
         $this->signIn();
 
-        $response = $this->get(route('notes.index'));
-        $response->assertOk();
+        $note = factory(Note::class)->create([
+            'user_id' => auth()->user()->id,
+        ]);
 
-        $this->assertCount(0, $response['notes']);
+        $response = $this->get(route('notes.index'));
+        $response->assertSuccessful();
+
+        $this->assertEquals(2, Note::count());
+        $this->assertCount(1, $response['notes']);
     }
 
     /** @test **/
@@ -51,8 +56,8 @@ class ManageNotesTest extends TestCase
             'title' => 'Foo',
         ]);
 
-        $response = $this->get(route('notes.index') . '?search=foo');
-        $response->assertOk();
+        $response = $this->get(route('notes.index', 'search=foo'));
+        $response->assertSuccessful();
 
         $this->assertCount(1, $response['notes']);
     }
@@ -64,12 +69,35 @@ class ManageNotesTest extends TestCase
 
         factory(Note::class)->create([
             'user_id' => auth()->id(),
-            'content' => 'foo',
+            'content' => 'foobar',
         ]);
 
-        $response = $this->get(route('notes.index') . '?search=foo');
-        $response->assertOk();
+        $response = $this->get(route('notes.index', 'search=foobar'));
+        $response->assertSuccessful();
 
         $this->assertCount(1, $response['notes']);
+    }
+
+    /** @test **/
+    public function notesCanBeFilteredBySummary()
+    {
+        $this->signIn($this->note->author);
+
+        factory(Note::class)->create([
+            'user_id' => auth()->id(),
+            'summary' => 'barbaz',
+        ]);
+
+        $response = $this->get(route('notes.index', 'search=barbaz'));
+        $response->assertSuccessful();
+
+        $this->assertCount(1, $response['notes']);
+    }
+
+    /** @test **/
+    public function unauthenticatedUserCannotSeeAnyNotes()
+    {
+        $response = $this->getJson(route('notes.index'));
+        $response->assertUnauthorized();
     }
 }
