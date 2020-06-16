@@ -6,7 +6,7 @@ use BladeUI\Icons\Svg;
 
 class Icon
 {
-    protected $default = 'fluent';
+    protected $default = 'feather';
 
     public function make($name, $class = '', array $attributes = []): Svg
     {
