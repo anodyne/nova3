@@ -12,23 +12,14 @@ class LoginTest extends TestCase
     use RefreshDatabase;
 
     /** @test **/
-    public function guestCanViewLoginPage()
+    public function unauthenticatedUserCanViewLoginPage()
     {
         $response = $this->get(route('login'));
-        $response->assertOk();
+        $response->assertSuccessful();
     }
 
     /** @test **/
-    public function authenticatedUserCannotViewLoginPage()
-    {
-        $this->signIn();
-
-        $response = $this->get(route('login'));
-        $response->assertRedirect(route('home'));
-    }
-
-    /** @test **/
-    public function guestCanLoginWithCorrectCredentials()
+    public function userCanLoginWithCorrectCredentials()
     {
         $user = create(User::class);
 
@@ -42,15 +33,21 @@ class LoginTest extends TestCase
     }
 
     /** @test **/
-    public function guestCannotLoginWithNonExistentEmail()
+    public function authenticatedUserCannotViewLoginPage()
     {
-        $response = $this->from(route('login'))
-            ->post(route('login'), [
-                'email' => 'go-away@example.com',
-                'password' => 'secret',
-            ]);
+        $this->signIn();
 
-        $response->assertRedirect(route('login'));
+        $response = $this->get(route('login'));
+        $response->assertRedirect(route('home'));
+    }
+
+    /** @test **/
+    public function userCannotLoginWithNonExistentEmail()
+    {
+        $response = $this->post(route('login'), [
+            'email' => 'go-away@example.com',
+            'password' => 'secret',
+        ]);
         $response->assertSessionHas('errors');
 
         $this->assertTrue(session()->hasOldInput('email'));
@@ -60,17 +57,14 @@ class LoginTest extends TestCase
     }
 
     /** @test **/
-    public function guestCannotLoginWithIncorrectPassword()
+    public function userCannotLoginWithIncorrectPassword()
     {
         $user = create(User::class);
 
-        $response = $this->from(route('login'))
-            ->post(route('login'), [
-                'email' => $user->email,
-                'password' => 'foo',
-            ]);
-
-        $response->assertRedirect(route('login'));
+        $response = $this->post(route('login'), [
+            'email' => $user->email,
+            'password' => 'foo',
+        ]);
 
         $this->assertTrue(session()->hasOldInput('email'));
         $this->assertFalse(session()->hasOldInput('password'));
@@ -84,44 +78,42 @@ class LoginTest extends TestCase
         $this->signIn();
 
         $response = $this->post(route('logout'));
-        $response->assertRedirect('/');
 
         $this->assertGuest();
     }
 
     /** @test **/
-    public function guestCannotLogout()
+    public function unauthenticatedUserCannotLogout()
     {
         $response = $this->post(route('logout'));
-        $response->assertRedirect('/');
 
         $this->assertGuest();
     }
 
     /** @test **/
-    public function guestCannotAttemptLoggingInMoreThanFiveTimesInOneMinute()
+    public function userCannotAttemptLoggingInMoreThanFiveTimesInOneMinute()
     {
         $user = create(User::class);
 
         foreach (range(0, 5) as $_) {
-            $response = $this->from(route('login'))
-                ->post(route('login'), [
-                    'email' => $user->email,
-                    'password' => 'invalid-password',
-                ]);
+            $response = $this->post(route('login'), [
+                'email' => $user->email,
+                'password' => 'invalid-password',
+            ]);
         }
 
-        $response->assertRedirect(route('login'));
         $response->assertSessionHasErrors('email');
 
         $this->assertStringContainsString(
             'Too many login attempts.',
-            collect($response
-                ->baseResponse
-                ->getSession()
-                ->get('errors')
-                ->getBag('default')
-                ->get('email'))->first()
+            collect(
+                $response
+                    ->baseResponse
+                    ->getSession()
+                    ->get('errors')
+                    ->getBag('default')
+                    ->get('email')
+            )->first()
         );
 
         $this->assertTrue(session()->hasOldInput('email'));
@@ -140,8 +132,6 @@ class LoginTest extends TestCase
             'password' => 'secret',
         ]);
 
-        $timeFormat = 'Y-m-d H:i';
-
         $this->assertCount(1, $user->refresh()->logins);
 
         $this->assertDatabaseHas('logins', [
@@ -150,7 +140,7 @@ class LoginTest extends TestCase
     }
 
     /** @test **/
-    public function userIsPromptedToChangeTheirPasswordIfAnAdminHasForcedReset()
+    public function userIsPromptedToChangeTheirPasswordIfAnAdminHasForcedAPasswordReset()
     {
         app(ForcePasswordReset::class)->execute(
             $user = create(User::class)
@@ -158,12 +148,10 @@ class LoginTest extends TestCase
 
         $this->followingRedirects();
 
-        $response = $this->from(route('login'))
-            ->post(route('login'), [
-                'email' => $user->email,
-                'password' => 'secret',
-            ]);
-
+        $response = $this->post(route('login'), [
+            'email' => $user->email,
+            'password' => 'secret',
+        ]);
         $response->assertSeeText('An admin has required you to reset your password.');
     }
 }

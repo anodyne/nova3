@@ -5,7 +5,6 @@ namespace Tests\Feature\Auth;
 use Tests\TestCase;
 use Nova\Users\Models\User;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -14,68 +13,64 @@ class ForgotPasswordTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testGuestCanViewEmailPasswordPage()
+    /** @test **/
+    public function unauthenticatedUserCanViewEmailPasswordPage()
     {
-        $this->get(route('password.request'))
-            ->assertSuccessful();
+        $response = $this->get(route('password.request'));
+        $response->assertSuccessful();
     }
 
-    public function testAuthenticatedUserCannotViewEmailPasswordPage()
-    {
-        $this->signIn();
-
-        $this->get(route('password.request'))
-            ->assertRedirect(route('home'));
-    }
-
-    public function testUserIsSentEmailWithPasswordResetLink()
+    /** @test **/
+    public function userIsSentEmailWithPasswordResetLink()
     {
         Notification::fake();
 
         $user = create(User::class);
 
-        $this->from(route('password.request'))
-            ->post(route('password.email'), [
-                'email' => $user->email,
-            ])
-            ->assertRedirect(route('password.request'));
+        $response = $this->post(route('password.email'), [
+            'email' => $user->email,
+        ]);
 
-        $this->assertNotNull($token = DB::table('password_resets')->first());
+        $this->assertNotNull(DB::table('password_resets')->first());
 
-        Notification::assertSentTo($user, ResetPassword::class, function ($notification, $channels) use ($token) {
-            return Hash::check($notification->token, $token->token) === true;
-        });
+        Notification::assertSentTo($user, ResetPassword::class);
     }
 
-    public function testGuestIsNotSentEmailWithPasswordResetLink()
+    /** @test **/
+    public function authenticatedUserCannotViewEmailPasswordPage()
+    {
+        $this->signIn();
+
+        $response = $this->get(route('password.request'));
+        $response->assertRedirect(route('home'));
+    }
+
+    /** @test **/
+    public function passwordResetEmailDoesNotGetSentToAnInvalidEmailAddress()
     {
         Notification::fake();
 
-        $this->from(route('password.request'))
-            ->post(route('password.email'), [
-                'email' => 'nobody@example.com',
-            ])
-            ->assertRedirect(route('password.request'))
-            ->assertSessionHasErrors('email');
+        $response = $this->post(route('password.email'), [
+            'email' => 'nobody@example.com',
+        ]);
+        $response->assertSessionHasErrors('email');
 
         Notification::assertNotSentTo(make(User::class), ResetPassword::class);
     }
 
-    public function testEmailIsRequiredOnEmailPasswordPage()
+    /** @test **/
+    public function emailIsRequiredToStartThePasswordResetProcess()
     {
-        $this->from(route('password.request'))
-            ->post(route('password.email'), [])
-            ->assertRedirect(route('password.request'))
-            ->assertSessionHasErrors('email');
+        $response = $this->post(route('password.email'), []);
+        $response->assertSessionHasErrors('email');
     }
 
-    public function testValidEmailIsRequiredOnEmailPasswordPage()
+    /** @test **/
+    public function validEmailIsRequiredToStartThePasswordResetProcess()
     {
-        $this->from(route('password.request'))
-            ->post(route('password.email'), [
-                'email' => 'invalid-email',
-            ])
-            ->assertRedirect(route('password.request'))
-            ->assertSessionHasErrors('email');
+        $response = $this->post(route('password.email'), [
+            'email' => 'invalid-email',
+        ]);
+        $response->assertSessionHasErrors('email');
     }
 }

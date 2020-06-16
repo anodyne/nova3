@@ -14,86 +14,80 @@ class ResetPasswordTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testGuestCanViewEmailResetPage()
+    /** @test **/
+    public function unauthenticatedUserCanViewEmailResetPage()
     {
         $token = $this->getPasswordResetToken(create(User::class));
 
-        $response = $this->get(route('password.reset', $token))
-            ->assertSuccessful()
-            ->assertViewHas('token', $token);
+        $response = $this->get(route('password.reset', $token));
+        $response->assertSuccessful();
+        $response->assertViewHas('token', $token);
     }
 
-    public function testAuthenticatedUserCannotViewEmailResetPage()
+    /** @test **/
+    public function authenticatedUserCannotViewEmailResetPage()
     {
         $this->signIn();
 
         $token = $this->getPasswordResetToken(auth()->user());
 
-        $response = $this->get(route('password.reset', $token))
-            ->assertRedirect(route('home'));
+        $response = $this->get(route('password.reset', $token));
+        $response->assertRedirect(route('home'));
     }
 
-    public function testGuestCanResetTheirPasswordWithValidPasswordResetToken()
+    /** @test **/
+    public function userCanResetTheirPasswordWithValidPasswordResetToken()
     {
         Event::fake();
 
-        $user = create(User::class);
+        $token = $this->getPasswordResetToken($user = create(User::class));
 
-        $token = $this->getPasswordResetToken($user);
-
-        $this->from(route('password.reset', $token))
-            ->post(route('password.update'), [
-                'email' => $user->email,
-                'token' => $token,
-                'password' => 'password',
-                'password_confirmation' => 'password',
-            ])
-            ->assertRedirect(route('home'));
+        $response = $this->post(route('password.update'), [
+            'email' => $user->email,
+            'token' => $token,
+            'password' => 'password',
+            'password_confirmation' => 'password',
+        ]);
+        $response->assertRedirect(route('home'));
 
         $this->assertEquals($user->email, $user->fresh()->email);
         $this->assertTrue(Hash::check('password', $user->fresh()->password));
         $this->assertAuthenticatedAs($user);
 
-        Event::assertDispatched(PasswordReset::class, function ($event) use ($user) {
-            return $event->user->is($user);
-        });
+        Event::assertDispatched(PasswordReset::class);
     }
 
-    public function testGuestCannotResetTheirPasswordWithInvalidPasswordResetToken()
+    /** @test **/
+    public function userCannotResetTheirPasswordWithInvalidPasswordResetToken()
     {
         $user = create(User::class);
 
         $token = 'invalid-token';
 
-        $this->from(route('password.reset', $token))
-            ->post(route('password.update'), [
-                'email' => $user->email,
-                'token' => $token,
-                'password' => 'password',
-                'password_confirmation' => 'password',
-            ])
-            ->assertRedirect(route('password.reset', $token));
+        $response = $this->post(route('password.update'), [
+            'email' => $user->email,
+            'token' => $token,
+            'password' => 'password',
+            'password_confirmation' => 'password',
+        ]);
 
         $this->assertEquals($user->email, $user->fresh()->email);
         $this->assertTrue(Hash::check('secret', $user->fresh()->password));
         $this->assertGuest();
     }
 
-    public function testGuestCannotResetTheirPasswordWithoutNewPassword()
+    /** @test **/
+    public function userCannotResetTheirPasswordWithoutNewPassword()
     {
-        $user = create(User::class);
+        $token = $this->getPasswordResetToken($user = create(User::class));
 
-        $token = $this->getPasswordResetToken($user);
-
-        $this->from(route('password.reset', $token))
-            ->post(route('password.update'), [
-                'email' => $user->email,
-                'token' => $token,
-                'password' => '',
-                'password_confirmation' => '',
-            ])
-            ->assertRedirect(route('password.reset', $token))
-            ->assertSessionHasErrors('password');
+        $response = $this->post(route('password.update'), [
+            'email' => $user->email,
+            'token' => $token,
+            'password' => '',
+            'password_confirmation' => '',
+        ]);
+        $response->assertSessionHasErrors('password');
 
         $this->assertTrue(session()->hasOldInput('email'));
         $this->assertFalse(session()->hasOldInput('password'));
@@ -102,21 +96,18 @@ class ResetPasswordTest extends TestCase
         $this->assertGuest();
     }
 
-    public function testGuestCannotResetTheirPasswordWithoutEmail()
+    /** @test **/
+    public function userCannotResetTheirPasswordWithoutEmail()
     {
-        $user = create(User::class);
+        $token = $this->getPasswordResetToken($user = create(User::class));
 
-        $token = $this->getPasswordResetToken($user);
-
-        $this->from(route('password.reset', $token))
-            ->post(route('password.update'), [
-                'email' => '',
-                'token' => $token,
-                'password' => 'password',
-                'password_confirmation' => 'password',
-            ])
-            ->assertRedirect(route('password.reset', $token))
-            ->assertSessionHasErrors('email');
+        $response = $this->post(route('password.update'), [
+            'email' => '',
+            'token' => $token,
+            'password' => 'password',
+            'password_confirmation' => 'password',
+        ]);
+        $response->assertSessionHasErrors('email');
 
         $this->assertFalse(session()->hasOldInput('password'));
         $this->assertEquals($user->email, $user->fresh()->email);
