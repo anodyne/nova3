@@ -4,7 +4,6 @@ namespace Tests\Feature\Roles;
 
 use Tests\TestCase;
 use Nova\Roles\Models\Role;
-use Nova\Roles\Models\Permission;
 use Nova\Roles\Events\RoleUpdated;
 use Illuminate\Support\Facades\Event;
 use Nova\Roles\Http\Requests\UpdateRoleRequest;
@@ -24,6 +23,8 @@ class UpdateRoleTest extends TestCase
         parent::setUp();
 
         $this->role = factory(Role::class)->create();
+
+        config(['laratrust.cache.enabled' => false]);
     }
 
     /** @test **/

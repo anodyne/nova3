@@ -37,6 +37,6 @@ class UpdateUserActionTest extends TestCase
 
         $this->assertEquals('John Public', $user->name);
         $this->assertEquals('john@example.com', $user->email);
-        $this->assertEquals('neutral', $user->pronounts);
+        $this->assertEquals('neutral', $user->pronouns);
     }
 }

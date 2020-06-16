@@ -37,13 +37,15 @@ class UpdateUserTest extends TestCase
     {
         $this->signInWithPermission('user.update');
 
-        $data = factory(User::class)->make();
+        $data = factory(User::class)->make([
+            'email' => $this->user->email,
+        ]);
 
         $this->followingRedirects();
 
         $response = $this->put(
             route('users.update', $this->user),
-            $data->toArray()
+            array_merge($data->toArray(), ['status' => $this->user->status])
         );
         $response->assertSuccessful();
 
@@ -68,7 +70,12 @@ class UpdateUserTest extends TestCase
 
         $this->put(
             route('users.update', $this->user),
-            factory(User::class)->make()->toArray()
+            [
+                'name' => 'Jack Sparrow',
+                'email' => $this->user->email,
+                'pronouns' => $this->user->pronouns,
+                'status' => $this->user->status,
+            ]
         );
 
         Event::assertDispatched(UserUpdated::class);

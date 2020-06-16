@@ -13,57 +13,50 @@ class UpdateRoleUsersTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @var  Role
-     */
+    protected $action;
+
     protected $role;
 
-    /**
-     * @var  User
-     */
     protected $user;
-
-    /**
-     * @var  UpdateRoleUsers
-     */
-    protected $action;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->user = $this->createUser();
+        $this->action = app(UpdateRoleUsers::class);
 
-        $this->role = Role::create(['name' => 'test-role']);
+        $this->user = factory(User::class)->create();
 
-        $this->action = new UpdateRoleUsers;
+        $this->role = factory(Role::class)->create();
+
+        config(['laratrust.cache.enabled' => false]);
     }
 
     /** @test **/
     public function itCanGiveUserARole()
     {
-        $this->assertFalse($this->user->isA('test-role'));
+        $this->assertFalse($this->user->hasRole($this->role->name));
 
         $this->action->execute(new RoleAssignmentData([
             'role' => $this->role,
             'users' => User::whereIn('id', [$this->user->id])->get(),
         ]));
 
-        $this->assertTrue($this->user->isA('test-role'));
+        $this->assertTrue($this->user->refresh()->hasRole($this->role->name));
     }
 
     /** @test **/
     public function itCanRevokeRoleFromUser()
     {
-        $this->user->attachRole('test-role');
+        $this->user->attachRole($this->role->name);
 
-        $this->assertTrue($this->user->isA('test-role'));
+        $this->assertTrue($this->user->hasRole($this->role->name));
 
         $this->action->execute(new RoleAssignmentData([
             'role' => $this->role,
             'users' => collect(),
         ]));
 
-        $this->assertFalse($this->user->isA('test-role'));
+        $this->assertFalse($this->user->refresh()->hasRole($this->role->name));
     }
 }

@@ -35,6 +35,8 @@ class DeleteUserActionTest extends TestCase
     {
         $this->expectException(CannotDeleteOwnAccountException::class);
 
+        $this->signIn($this->user);
+
         $this->action->execute($this->user);
     }
 }

@@ -77,7 +77,7 @@ class ManageUsersTest extends TestCase
         $response = $this->get(route('users.index'));
         $response->assertSuccessful();
 
-        $this->assertCount(User::count(), $response['users']);
+        $this->assertEquals(User::count(), $response['users']->total());
     }
 
     /** @test **/
@@ -88,9 +88,9 @@ class ManageUsersTest extends TestCase
         $response = $this->get(route('users.index', 'status=active'));
         $response->assertSuccessful();
 
-        $this->assertCount(
+        $this->assertEquals(
             User::whereState('status', Active::class)->count(),
-            $response['users']
+            $response['users']->total()
         );
     }
 
@@ -102,9 +102,9 @@ class ManageUsersTest extends TestCase
         $response = $this->get(route('users.index', 'status=pending'));
         $response->assertSuccessful();
 
-        $this->assertCount(
+        $this->assertEquals(
             User::whereState('status', Pending::class)->count(),
-            $response['users']
+            $response['users']->total()
         );
     }
 
@@ -116,9 +116,9 @@ class ManageUsersTest extends TestCase
         $response = $this->get(route('users.index', 'status=inactive'));
         $response->assertSuccessful();
 
-        $this->assertCount(
+        $this->assertEquals(
             User::whereState('status', Inactive::class)->count(),
-            $response['users']
+            $response['users']->total()
         );
     }
 
@@ -136,7 +136,7 @@ class ManageUsersTest extends TestCase
         $response = $this->get(route('users.index'));
         $response->assertSuccessful();
 
-        $this->assertCount(User::count(), $response['users']);
+        $this->assertEquals(User::count(), $response['users']->total());
 
         $response = $this->get(route('users.index', 'search=sparrow'));
         $response->assertSuccessful();
@@ -150,7 +150,7 @@ class ManageUsersTest extends TestCase
         $this->signInWithPermission('user.create');
 
         $this->createUser([
-            'email' => 'john@example.com',
+            'email' => 'sparrow@example.com',
         ]);
 
         $this->createUser();
@@ -158,9 +158,9 @@ class ManageUsersTest extends TestCase
         $response = $this->get(route('users.index'));
         $response->assertSuccessful();
 
-        $this->assertCount(User::count(), $response['users']);
+        $this->assertEquals(User::count(), $response['users']->total());
 
-        $response = $this->get(route('users.index', 'search=john@example.com'));
+        $response = $this->get(route('users.index', 'search=sparrow@example.com'));
         $response->assertSuccessful();
 
         $this->assertCount(1, $response['users']);
