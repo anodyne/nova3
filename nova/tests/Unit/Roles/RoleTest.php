@@ -7,6 +7,9 @@ use Nova\Roles\Models\Role;
 use Nova\Users\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @group roles
+ */
 class RoleTest extends TestCase
 {
     use RefreshDatabase;

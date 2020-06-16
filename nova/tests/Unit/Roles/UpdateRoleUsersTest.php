@@ -9,6 +9,9 @@ use Nova\Roles\Actions\UpdateRoleUsers;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Roles\DataTransferObjects\RoleAssignmentData;
 
+/**
+ * @group roles
+ */
 class UpdateRoleUsersTest extends TestCase
 {
     use RefreshDatabase;
@@ -23,13 +26,13 @@ class UpdateRoleUsersTest extends TestCase
     {
         parent::setUp();
 
+        $this->disableRoleCaching();
+
         $this->action = app(UpdateRoleUsers::class);
 
         $this->user = create(User::class);
 
         $this->role = create(Role::class);
-
-        config(['laratrust.cache.enabled' => false]);
     }
 
     /** @test **/

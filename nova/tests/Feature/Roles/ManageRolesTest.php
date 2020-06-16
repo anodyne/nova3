@@ -7,16 +7,14 @@ use Nova\Roles\Models\Role;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
- * @see \Nova\Roles\Http\Controllers\RoleController
+ * @group roles
  */
 class ManageRolesTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $role;
-
     /** @test **/
-    public function authorizedUserWithCreatePermissionCanManageRoles()
+    public function authorizedUserWithCreatePermissionCanViewManageRolesPage()
     {
         $this->signInWithPermission('role.create');
 
@@ -25,7 +23,7 @@ class ManageRolesTest extends TestCase
     }
 
     /** @test **/
-    public function authorizedUserWithUpdatePermissionCanManageRoles()
+    public function authorizedUserWithUpdatePermissionCanViewManageRolesPage()
     {
         $this->signInWithPermission('role.update');
 
@@ -34,7 +32,7 @@ class ManageRolesTest extends TestCase
     }
 
     /** @test **/
-    public function authorizedUserWithDeletePermissionCanManageRoles()
+    public function authorizedUserWithDeletePermissionCanViewManageRolesPage()
     {
         $this->signInWithPermission('role.delete');
 
@@ -43,7 +41,7 @@ class ManageRolesTest extends TestCase
     }
 
     /** @test **/
-    public function authorizedUserWithViewPermissionCanManageRoles()
+    public function authorizedUserWithViewPermissionCanViewManageRolesPage()
     {
         $this->signInWithPermission('role.view');
 
@@ -52,34 +50,23 @@ class ManageRolesTest extends TestCase
     }
 
     /** @test **/
-    public function unauthorizedUserCannotManageRoles()
-    {
-        $this->signIn();
-
-        $response = $this->getJson(route('roles.index'));
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function guestCannotManageRoles()
-    {
-        $response = $this->getJson(route('roles.index'));
-        $response->assertUnauthorized();
-    }
-
-    /** @test **/
     public function rolesCanBeFilteredByDisplayName()
     {
         $this->signInWithPermission('role.create');
 
         create(Role::class, [
-            'display_name' => 'Another User Role',
+            'display_name' => 'barbaz',
         ]);
 
-        $response = $this->get(route('roles.index') . '?search=user');
+        $response = $this->get(route('roles.index'));
         $response->assertSuccessful();
 
-        $this->assertCount(2, $response['roles']);
+        $this->assertEquals(Role::count(), $response['roles']->total());
+
+        $response = $this->get(route('roles.index', 'search=barbaz'));
+        $response->assertSuccessful();
+
+        $this->assertCount(1, $response['roles']);
     }
 
     /** @test **/
@@ -88,12 +75,33 @@ class ManageRolesTest extends TestCase
         $this->signInWithPermission('role.create');
 
         create(Role::class, [
-            'name' => 'foo',
+            'name' => 'foobar',
         ]);
 
-        $response = $this->get(route('roles.index') . '?search=foo');
+        $response = $this->get(route('roles.index'));
+        $response->assertSuccessful();
+
+        $this->assertEquals(Role::count(), $response['roles']->total());
+
+        $response = $this->get(route('roles.index', 'search=foobar'));
         $response->assertSuccessful();
 
         $this->assertCount(1, $response['roles']);
+    }
+
+    /** @test **/
+    public function unauthorizedUserCannotViewManageRolesPage()
+    {
+        $this->signIn();
+
+        $response = $this->get(route('roles.index'));
+        $response->assertForbidden();
+    }
+
+    /** @test **/
+    public function unauthenticatedUserCannotViewManageRolesPage()
+    {
+        $response = $this->getJson(route('roles.index'));
+        $response->assertUnauthorized();
     }
 }

@@ -15,6 +15,10 @@ $factory->define(Role::class, function (Faker $faker) {
     ];
 });
 
+$factory->state(Role::class, 'default', [
+    'default' => true,
+]);
+
 $factory->state(Role::class, 'locked', [
     'locked' => true,
 ]);
