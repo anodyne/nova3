@@ -24,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerNovaSingleton();
+        $this->registerIcons();
     }
 
     public function boot()
@@ -37,7 +38,7 @@ class AppServiceProvider extends ServiceProvider
         $this->registerBladeDirectives();
         $this->registerBladeComponents();
         $this->registerLivewireComponents();
-        $this->registerIcons();
+        // $this->registerIcons();
     }
 
     protected function registerNovaSingleton()
