@@ -7,6 +7,9 @@ use Nova\Notes\Models\Note;
 use Nova\Notes\Actions\DuplicateNote;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @group notes
+ */
 class DuplicateNoteActionTest extends TestCase
 {
     use RefreshDatabase;

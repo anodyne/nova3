@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Event;
 use Nova\Notes\Http\Requests\CreateNoteRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @group notes
+ */
 class CreateNoteTest extends TestCase
 {
     use RefreshDatabase;

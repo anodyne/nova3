@@ -9,6 +9,9 @@ use Nova\Notes\Events\NoteDuplicated;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Notes\Http\Requests\DuplicateNoteRequest;
 
+/**
+ * @group notes
+ */
 class DuplicateNoteTest extends TestCase
 {
     use RefreshDatabase;

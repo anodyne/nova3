@@ -7,6 +7,9 @@ use Nova\Users\Models\User;
 use Nova\Users\Actions\ForcePasswordReset;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @group auth
+ */
 class LoginTest extends TestCase
 {
     use RefreshDatabase;

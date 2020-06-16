@@ -8,6 +8,9 @@ use Nova\Notes\Actions\UpdateNote;
 use Nova\Notes\DataTransferObjects\NoteData;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @group notes
+ */
 class UpdateNoteActionTest extends TestCase
 {
     use RefreshDatabase;

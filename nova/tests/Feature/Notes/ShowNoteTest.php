@@ -6,6 +6,9 @@ use Tests\TestCase;
 use Nova\Notes\Models\Note;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @group notes
+ */
 class ShowNoteTest extends TestCase
 {
     use RefreshDatabase;

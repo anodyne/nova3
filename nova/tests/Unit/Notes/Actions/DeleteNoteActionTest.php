@@ -7,6 +7,9 @@ use Nova\Notes\Models\Note;
 use Nova\Notes\Actions\DeleteNote;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @group notes
+ */
 class DeleteNoteActionTest extends TestCase
 {
     use RefreshDatabase;

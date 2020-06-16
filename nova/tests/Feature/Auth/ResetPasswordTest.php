@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @group auth
+ */
 class ResetPasswordTest extends TestCase
 {
     use RefreshDatabase;

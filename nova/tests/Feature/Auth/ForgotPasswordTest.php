@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @group auth
+ */
 class ForgotPasswordTest extends TestCase
 {
     use RefreshDatabase;

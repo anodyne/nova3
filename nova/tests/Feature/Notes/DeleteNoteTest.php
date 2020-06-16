@@ -8,6 +8,9 @@ use Nova\Notes\Events\NoteDeleted;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @group notes
+ */
 class DeleteNoteTest extends TestCase
 {
     use RefreshDatabase;
