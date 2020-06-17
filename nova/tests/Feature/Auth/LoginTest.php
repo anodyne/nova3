@@ -17,6 +17,8 @@ class LoginTest extends TestCase
     /** @test **/
     public function unauthenticatedUserCanViewLoginPage()
     {
+        $this->withoutExceptionHandling();
+
         $response = $this->get(route('login'));
         $response->assertSuccessful();
     }
