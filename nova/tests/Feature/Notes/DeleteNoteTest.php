@@ -52,16 +52,6 @@ class DeleteNoteTest extends TestCase
     }
 
     /** @test **/
-    public function activityIsLoggedWhenNoteIsDeleted()
-    {
-        $this->note->delete();
-
-        $this->assertDatabaseHas('activity_log', [
-            'description' => $this->note->title . ' note was deleted',
-        ]);
-    }
-
-    /** @test **/
     public function authenticatedUserCannotDeleteNoteTheyDidNotCreate()
     {
         $this->signIn();

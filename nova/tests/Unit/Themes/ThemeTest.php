@@ -7,13 +7,14 @@ use Nova\Themes\Models\Theme;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @group themes
+ */
 class ThemeTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @test
-     */
+    /** @test **/
     public function itCanGetAListOfThemesToBeInstalled()
     {
         Storage::fake('themes');
@@ -28,10 +29,8 @@ class ThemeTest extends TestCase
         $this->assertCount(1, $themes->onlyPending());
     }
 
-    /**
-     * @test
-     */
-    public function itCollectsThemesWithAQuickInstallFileToBeInstalled()
+    /** @test **/
+    public function itIgnoresPendingThemesWithoutAQuickInstallFile()
     {
         Storage::fake('themes');
 

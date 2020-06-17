@@ -136,16 +136,6 @@ class CreateRoleTest extends TestCase
     }
 
     /** @test **/
-    public function activityIsLoggedWhenRoleIsCreated()
-    {
-        $role = create(Role::class);
-
-        $this->assertDatabaseHas('activity_log', [
-            'description' => $role->display_name . ' role was created',
-        ]);
-    }
-
-    /** @test **/
     public function unauthorizedUserCannotViewTheCreateRolePage()
     {
         $this->signIn();

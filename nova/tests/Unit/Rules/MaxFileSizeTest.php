@@ -6,6 +6,10 @@ use Tests\TestCase;
 use Illuminate\Http\UploadedFile;
 use Nova\Foundation\Rules\MaxFileSize;
 
+/**
+ * @group media
+ * @group validation
+ */
 class MaxFileSizeTest extends TestCase
 {
     protected $maxFileSize;

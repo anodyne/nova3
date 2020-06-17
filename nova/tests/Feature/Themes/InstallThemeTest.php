@@ -8,15 +8,22 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Themes\Exceptions\MissingQuickInstallFileException;
 
+/**
+ * @group themes
+ */
 class InstallThemeTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected $disk;
 
     protected $theme;
 
     public function setUp(): void
     {
         parent::setUp();
+
+        $this->disk = Storage::fake('themes');
 
         $this->theme = make(Theme::class, [
             'name' => 'Foo',
@@ -27,68 +34,41 @@ class InstallThemeTest extends TestCase
     /** @test **/
     public function authorizedUserCanInstallTheme()
     {
-        Storage::fake('themes');
-
         $this->signInWithPermission('theme.create');
 
-        $disk = Storage::disk('themes');
-
-        $disk->makeDirectory('foo');
-        $disk->put('foo/theme.json', json_encode($this->theme->toArray()));
+        $this->disk->makeDirectory('foo');
+        $this->disk->put('foo/theme.json', json_encode($this->theme->toArray()));
 
         $this->followingRedirects();
 
-        $this->postJson(route('themes.install'), [
+        $response = $this->post(route('themes.install'), [
             'theme' => $this->theme->location,
-        ])
-            ->assertSuccessful();
-
-        $this->assertDatabaseHas('themes', [
-            'name' => $this->theme->name,
         ]);
-    }
+        $response->assertSuccessful();
 
-    /** @test **/
-    public function unauthorizedUserCannotInstallTheme()
-    {
-        $this->signIn();
-
-        $this->postJson(route('themes.install'), ['theme' => 'foo'])
-            ->assertForbidden();
-    }
-
-    /** @test **/
-    public function guestCannotInstallTheme()
-    {
-        $this->postJson(route('themes.install'), [])
-            ->assertUnauthorized();
+        $this->assertDatabaseHas(
+            'themes',
+            $this->theme->only('name', 'location')
+        );
     }
 
     /** @test **/
     public function installableThemesAreShown()
     {
-        Storage::fake('themes');
-
         $this->signInWithPermission('theme.create');
 
-        $createData = [
-            'name' => 'Foo',
-            'location' => 'foo',
-        ];
+        create(Theme::class, [
+            'name' => 'Foobar',
+            'location' => 'foobar',
+        ]);
 
-        create(Theme::class, $createData);
-
-        $disk = Storage::disk('themes');
-
-        $data = [
+        $this->disk->makeDirectory('bar');
+        $this->disk->put('bar/theme.json', json_encode([
             'name' => 'Bar',
             'location' => 'bar',
-        ];
+        ]));
 
-        $disk->makeDirectory('bar');
-        $disk->put('bar/theme.json', json_encode($data));
-
-        $disk->makeDirectory('foo');
+        $this->disk->makeDirectory('foo');
 
         $response = $this->get(route('themes.index'));
         $response->assertSuccessful();
@@ -99,20 +79,37 @@ class InstallThemeTest extends TestCase
     /** @test **/
     public function themeCannotBeInstalledWithoutQuickInstallFile()
     {
-        Storage::fake('themes');
-
         $this->signInWithPermission('theme.create');
 
-        $disk = Storage::disk('themes');
-        $disk->makeDirectory('bar');
+        $this->disk->makeDirectory('bar');
 
         $this->withoutExceptionHandling();
         $this->expectException(MissingQuickInstallFileException::class);
 
-        $this->postJson(route('themes.install'), ['theme' => 'bar']);
+        $this->post(route('themes.install'), ['theme' => 'bar']);
 
         $this->assertDatabaseMissing('themes', [
             'location' => 'bar',
         ]);
+    }
+
+    /** @test **/
+    public function unauthorizedUserCannotInstallTheme()
+    {
+        $this->signIn();
+
+        $response = $this->post(route('themes.install'), [
+            'theme' => $this->theme->location,
+        ]);
+        $response->assertForbidden();
+    }
+
+    /** @test **/
+    public function unauthenticatedUserCannotInstallTheme()
+    {
+        $response = $this->postJson(route('themes.install'), [
+            'theme' => $this->theme->location,
+        ]);
+        $response->assertUnauthorized();
     }
 }

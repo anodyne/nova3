@@ -3,17 +3,22 @@
 namespace Tests\Feature\Themes;
 
 use Tests\TestCase;
+use Illuminate\Support\Arr;
 use Nova\Themes\Models\Theme;
-use Nova\Themes\Actions\CreateTheme;
 use Nova\Themes\Events\ThemeCreated;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
-use Nova\Themes\DataTransferObjects\ThemeData;
+use Nova\Themes\Http\Requests\CreateThemeRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @group themes
+ */
 class CreateThemeTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected $disk;
 
     protected $theme;
 
@@ -21,113 +26,101 @@ class CreateThemeTest extends TestCase
     {
         parent::setUp();
 
+        $this->disk = Storage::fake('themes');
+
         $this->theme = create(Theme::class);
     }
 
-    /** @test  **/
+    /** @test **/
+    public function authorizedUserCanViewTheCreateThemePage()
+    {
+        $this->signInWithPermission('theme.create');
+
+        $response = $this->get(route('themes.index'));
+        $response->assertSuccessful();
+    }
+
+    /** @test **/
     public function authorizedUserCanCreateTheme()
     {
         $this->signInWithPermission('theme.create');
 
-        $this->get(route('themes.create'))->assertSuccessful();
+        $this->followingRedirects();
+
+        $response = $this->post(
+            route('themes.store'),
+            $theme = make(Theme::class)->toArray()
+        );
+        $response->assertSuccessful();
+
+        $this->assertDatabaseHas('themes', Arr::only($theme, [
+            'name',
+            'location'
+        ]));
+
+        $this->assertRouteUsesFormRequest(
+            'themes.store',
+            CreateThemeRequest::class
+        );
     }
 
-    /** @test  **/
+    /** @test **/
+    public function themeDirectoryIsSetupWhenThemeIsCreated()
+    {
+        $this->signInWithPermission('theme.create');
+
+        $this->post(route('themes.store'), make(Theme::class)->toArray());
+
+        $this->assertCount(1, $this->disk->directories());
+    }
+
+    /** @test **/
+    public function eventIsDispatchedWhenThemeIsCreated()
+    {
+        Event::fake();
+
+        $this->signInWithPermission('theme.create');
+
+        $this->post(route('themes.store'), make(Theme::class)->toArray());
+
+        Event::assertDispatched(ThemeCreated::class);
+    }
+
+    /** @test **/
+    public function unauthorizedUserCannotViewTheCreateThemePage()
+    {
+        $this->signIn();
+
+        $response = $this->get(route('themes.create'));
+        $response->assertForbidden();
+    }
+
+    /** @test **/
     public function unauthorizedUserCannotCreateTheme()
     {
         $this->signIn();
 
-        $this->get(route('themes.create'))
-            ->assertForbidden();
-
-        $this->postJson(
+        $response = $this->post(
             route('themes.store'),
             make(Theme::class)->toArray()
-        )
-            ->assertForbidden();
+        );
+        $response->assertForbidden();
     }
 
-    /** @test  **/
-    public function guestCannotCreateTheme()
+    /** @test **/
+    public function unauthenticatedUserCannotViewTheCreateThemePage()
     {
-        $this->get(route('themes.create'))
-            ->assertRedirect(route('login'));
-
-        $this->post(route('themes.store'), [])
-            ->assertRedirect(route('login'));
+        $response = $this->getJson(route('themes.create'));
+        $response->assertUnauthorized();
     }
 
-    /** @test  **/
-    public function themeCanBeCreated()
+    /** @test **/
+    public function unauthenticatedUserCannotCreateTheme()
     {
-        Storage::fake('themes');
-
-        $this->signInWithPermission('theme.create');
-
-        $theme = make(Theme::class)->toArray();
-
-        $this->followingRedirects();
-
-        $this->post(route('themes.store'), $theme)
-            ->assertSuccessful();
-
-        $this->assertDatabaseHas('themes', $theme);
-    }
-
-    /** @test  **/
-    public function themeDirectoryIsScaffoldedWhenThemeIsCreated()
-    {
-        Storage::fake('themes');
-
-        $data = make(Theme::class)->toArray();
-
-        app(CreateTheme::class)->execute(new ThemeData($data));
-
-        $this->assertCount(1, Storage::disk('themes')->directories());
-    }
-
-    /** @test  **/
-    public function eventIsDispatchedWhenThemeIsCreated()
-    {
-        Event::fake();
-        Storage::fake('themes');
-
-        $data = make(Theme::class)->toArray();
-
-        $theme = app(CreateTheme::class)->execute(new ThemeData($data));
-
-        Event::assertDispatched(ThemeCreated::class, function ($event) use ($theme) {
-            return $event->theme->is($theme);
-        });
-    }
-
-    /** @test  **/
-    public function nameIsRequiredToCreateTheme()
-    {
-        Storage::fake('themes');
-
-        $this->signInWithPermission('theme.create');
-
-        $this->from(route('themes.index'))
-            ->post(route('themes.store'), [
-                'name' => null,
-                'location' => 'some-location',
-            ])
-            ->assertSessionHasErrors('name');
-    }
-
-    /** @test  **/
-    public function locationIsRequiredToCreateTheme()
-    {
-        Storage::fake('themes');
-
-        $this->signInWithPermission('theme.create');
-
-        $this->from(route('themes.index'))
-            ->post(route('themes.store'), [
-                'name' => 'some-name',
-                'location' => null,
-            ])
-            ->assertSessionHasErrors('location');
+        $response = $this->postJson(
+            route('themes.store'),
+            make(Theme::class)->toArray()
+        );
+        $response->assertUnauthorized();
     }
 }

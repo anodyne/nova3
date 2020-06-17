@@ -65,16 +65,6 @@ class CreateNoteTest extends TestCase
     }
 
     /** @test **/
-    public function activityIsLoggedWhenNoteIsCreated()
-    {
-        $note = create(Note::class);
-
-        $this->assertDatabaseHas('activity_log', [
-            'description' => $note->title . ' note was created',
-        ]);
-    }
-
-    /** @test **/
     public function unauthenticatedUserCannotViewCreateNotePage()
     {
         $response = $this->getJson(route('notes.create'));

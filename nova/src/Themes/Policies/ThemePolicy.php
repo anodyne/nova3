@@ -67,7 +67,7 @@ class ThemePolicy
      */
     public function delete(User $user)
     {
-        return $user->can('theme.delete');
+        return $user->can('theme.delete') && Theme::count() > 1;
     }
 
     /**

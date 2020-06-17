@@ -224,18 +224,6 @@ class UpdateRoleTest extends TestCase
     }
 
     /** @test **/
-    public function activityIsLoggedWhenRoleIsUpdated()
-    {
-        $this->role->update([
-            'display_name' => 'Foo',
-        ]);
-
-        $this->assertDatabaseHas('activity_log', [
-            'description' => $this->role->display_name . ' role was updated',
-        ]);
-    }
-
-    /** @test **/
     public function unauthorizedUserCannotViewTheEditRolePage()
     {
         $this->signIn();

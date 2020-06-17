@@ -69,16 +69,6 @@ class DeleteRoleTest extends TestCase
     }
 
     /** @test **/
-    public function activityIsLoggedWhenRoleIsDeleted()
-    {
-        $this->role->delete();
-
-        $this->assertDatabaseHas('activity_log', [
-            'description' => $this->role->display_name . ' role was deleted',
-        ]);
-    }
-
-    /** @test **/
     public function lockedRoleCannotBeDeleted()
     {
         $this->signInWithPermission('role.delete');

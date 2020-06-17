@@ -82,18 +82,6 @@ class UpdateNoteTest extends TestCase
     }
 
     /** @test **/
-    public function activityIsLoggedWhenNoteIsUpdated()
-    {
-        $this->note->update([
-            'title' => 'Foo',
-        ]);
-
-        $this->assertDatabaseHas('activity_log', [
-            'description' => $this->note->title . ' note was updated',
-        ]);
-    }
-
-    /** @test **/
     public function authenticatedUserCannotViewTheEditPageOfANoteTheyDidNotCreate()
     {
         $this->signIn();
