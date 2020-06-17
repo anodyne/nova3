@@ -3,13 +3,16 @@
 namespace Nova\Foundation\Icons;
 
 use BladeUI\Icons\Svg;
+use BladeUI\Icons\Factory;
 
 class Icon
 {
-    protected $default = 'default';
+    protected $default = 'fluent';
 
     public function make($name, $class = '', array $attributes = []): Svg
     {
+        dump(app(Factory::class)->all());
+
         return svg(
             $this->getIconName($name),
             $class,

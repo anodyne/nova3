@@ -18,9 +18,9 @@ return [
             'prefix' => 'feather',
             'class' => 'stroke-current',
         ],
-        'default' => [
+        'fluent' => [
             'path' => 'nova/resources/svg/fluent',
-            'prefix' => 'default',
+            'prefix' => 'fluent',
             'class' => '',
         ],
     ],
