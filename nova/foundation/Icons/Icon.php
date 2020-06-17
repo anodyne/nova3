@@ -10,6 +10,8 @@ class Icon
 
     public function make($name, $class = '', array $attributes = []): Svg
     {
+        dump($name, $class, $attributes, $this->getIconName($name));
+
         return svg(
             $this->getIconName($name),
             $class,
