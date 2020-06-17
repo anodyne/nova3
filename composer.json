@@ -43,6 +43,7 @@
     "extra": {
         "laravel": {
             "dont-discover": [
+                "blade-ui-kit/blade-icons",
                 "livewire/livewire"
             ]
         }

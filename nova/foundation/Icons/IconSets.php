@@ -2,8 +2,6 @@
 
 namespace Nova\Foundation\Icons;
 
-use BladeUI\Icons\Factory;
-
 class IconSets
 {
     protected $sets = [];
@@ -11,8 +9,6 @@ class IconSets
     public function add($alias, $class): self
     {
         $this->sets[$alias] = $class;
-
-        app(Factory::class)->add($alias, config('blade-icons.sets')[$alias]);
 
         return $this;
     }
