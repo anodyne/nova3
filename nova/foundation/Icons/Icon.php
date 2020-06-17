@@ -11,8 +11,6 @@ class Icon
 
     public function make($name, $class = '', array $attributes = []): Svg
     {
-        dump(app(Factory::class)->all());
-
         return svg(
             $this->getIconName($name),
             $class,
