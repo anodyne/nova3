@@ -10,6 +10,8 @@ class IconSets
     {
         $this->sets[$alias] = $class;
 
+        app(Factory::class)->add($alias, config('blade-icons.sets')[$alias]);
+
         return $this;
     }
 
