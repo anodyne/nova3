@@ -20,6 +20,8 @@ class RoleTest extends TestCase
     {
         parent::setUp();
 
+        $this->disableRoleCaching();
+
         $this->role = create(Role::class);
     }
 

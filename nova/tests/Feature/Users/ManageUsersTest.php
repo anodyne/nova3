@@ -26,7 +26,7 @@ class ManageUsersTest extends TestCase
     {
         parent::setUp();
 
-        $this->activeUser = create(User::class)->create();
+        $this->activeUser = create(User::class);
 
         $this->pendingUser = create(User::class, [], ['status:pending']);
 
