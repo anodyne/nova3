@@ -26,6 +26,8 @@ class Icon
 
     protected function getIconName($name): string
     {
+        dump($this->getIconSet(), $this->getIconSet()->getIcon($name));
+
         return sprintf(
             '%s-%s',
             $this->default,
