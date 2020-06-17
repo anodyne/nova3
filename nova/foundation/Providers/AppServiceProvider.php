@@ -54,6 +54,7 @@ class AppServiceProvider extends ServiceProvider
 
     protected function registerIcons()
     {
+        dump('registering icons');
         $iconSets = new IconSets;
         $iconSets->add('feather', new FeatherIconSet);
         $iconSets->add('fluent', new FluentIconSet);
