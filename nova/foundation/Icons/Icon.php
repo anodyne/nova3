@@ -6,12 +6,10 @@ use BladeUI\Icons\Svg;
 
 class Icon
 {
-    protected $default = 'fluent';
+    protected $default = 'default';
 
     public function make($name, $class = '', array $attributes = []): Svg
     {
-        dump($name, $class, $attributes, $this->getIconName($name));
-
         return svg(
             $this->getIconName($name),
             $class,
@@ -26,8 +24,6 @@ class Icon
 
     protected function getIconName($name): string
     {
-        dump($this->getIconSet(), $this->getIconSet()->getIcon($name));
-
         return sprintf(
             '%s-%s',
             $this->default,

@@ -56,7 +56,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $iconSets = new IconSets;
         $iconSets->add('feather', new FeatherIconSet);
-        $iconSets->add('fluent', new FluentIconSet);
+        $iconSets->add('default', new FluentIconSet);
 
         $this->app->instance(IconSets::class, $iconSets);
     }

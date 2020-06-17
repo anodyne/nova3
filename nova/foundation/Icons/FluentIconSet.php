@@ -59,6 +59,6 @@ class FluentIconSet extends IconSet
 
     public function prefix(): string
     {
-        return 'fluent';
+        return 'default';
     }
 }
