@@ -18,7 +18,8 @@
     <button x-on:click="showPassword = !showPassword" type="button" class="field-addon">
         <div x-show="showPassword" class="leading-0">
             {{-- @icon('hide') --}}
-            @svg('fluent-eye-hide')
+            {{-- @svg('fluent-eye-hide') --}}
+            <x-fluent-eye-hide />
         </div>
         <div x-show="!showPassword" class="leading-0">
             @icon('show')
