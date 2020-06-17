@@ -2,6 +2,8 @@
 
 namespace Nova\Foundation\Icons;
 
+use BladeUI\Icons\Factory;
+
 class IconSets
 {
     protected $sets = [];
