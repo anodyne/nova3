@@ -19,7 +19,7 @@ class DeleteUserActionTest extends TestCase
 
         $this->action = app(DeleteUser::class);
 
-        $this->user = create(User::class);
+        $this->user = create(User::class, [], ['status:active']);
     }
 
     /** @test **/

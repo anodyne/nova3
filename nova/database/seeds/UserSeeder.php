@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
                 'email' => 'user@user.com',
             ])->attachRole('user');
 
-        factory(User::class)->times(25)->state('status:pending')->create()->each(function ($user) {
+        factory(User::class)->times(25)->create()->each(function ($user) {
             $decision = mt_rand(1, 3);
 
             $user->attachRole('user');

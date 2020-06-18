@@ -47,7 +47,7 @@ class DeleteRoleTest extends TestCase
     {
         $this->signInWithPermission('role.delete');
 
-        $user = create(User::class);
+        $user = create(User::class, [], ['status:active']);
         $user->attachRole($this->role->name);
 
         $this->delete(route('roles.destroy', $this->role));

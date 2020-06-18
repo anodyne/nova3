@@ -21,7 +21,7 @@ class UpdateUserRolesActionTest extends TestCase
 
         $this->action = app(UpdateUserRoles::class);
 
-        $this->user = create(User::class);
+        $this->user = create(User::class, [], ['status:active']);
 
         $this->role = create(Role::class);
     }

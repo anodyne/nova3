@@ -105,7 +105,7 @@ class CreateRoleTest extends TestCase
 
         $role = make(Role::class, [], ['default']);
 
-        $john = create(User::class);
+        $john = create(User::class, [], ['status:active']);
 
         $this->followingRedirects();
 

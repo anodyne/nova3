@@ -2,12 +2,12 @@
 
 namespace Tests\Unit\Roles\Actions;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nova\Roles\Actions\UpdateRoleUsers;
-use Nova\Roles\DataTransferObjects\RoleAssignmentData;
+use Tests\TestCase;
 use Nova\Roles\Models\Role;
 use Nova\Users\Models\User;
-use Tests\TestCase;
+use Nova\Roles\Actions\UpdateRoleUsers;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Roles\DataTransferObjects\RoleAssignmentData;
 
 /**
  * @group roles
@@ -36,9 +36,9 @@ class UpdateRoleUsersActionTest extends TestCase
 
         $this->role = create(Role::class);
 
-        $this->john = create(User::class);
-        $this->jane = create(User::class);
-        $this->ryan = create(User::class);
+        $this->john = create(User::class, [], ['status:active']);
+        $this->jane = create(User::class, [], ['status:active']);
+        $this->ryan = create(User::class, [], ['status:active']);
     }
 
     /** @test **/
@@ -50,7 +50,7 @@ class UpdateRoleUsersActionTest extends TestCase
         $data->role = $this->role;
         $data->users = User::whereIn('id', [
             $this->john->id,
-            $this->jane->id
+            $this->jane->id,
         ])->get();
 
         $this->action->execute($data);
@@ -93,7 +93,7 @@ class UpdateRoleUsersActionTest extends TestCase
         $data->role = $this->role;
         $data->users = User::whereIn('id', [
             $this->john->id,
-            $this->ryan->id
+            $this->ryan->id,
         ])->get();
 
         $this->action->execute($data);

@@ -138,8 +138,8 @@ class UpdateRoleTest extends TestCase
     {
         $this->signInWithPermission('role.update');
 
-        $john = create(User::class);
-        $jane = create(User::class);
+        $john = create(User::class, [], ['status:active']);
+        $jane = create(User::class, [], ['status:active']);
 
         $john->attachRole($this->role);
 
@@ -175,8 +175,8 @@ class UpdateRoleTest extends TestCase
     {
         $this->signInWithPermission('role.update');
 
-        $john = create(User::class);
-        $jane = create(User::class);
+        $john = create(User::class, [], ['status:active']);
+        $jane = create(User::class, [], ['status:active']);
 
         $john->attachRole($this->role);
         $jane->attachRole($this->role);
@@ -287,7 +287,7 @@ class UpdateRoleTest extends TestCase
     {
         $this->signInWithPermission('role.update');
 
-        $user = create(User::class);
+        $user = create(User::class, [], ['status:active']);
         $user->attachRole($this->role);
 
         $this->assertTrue($user->hasRole($this->role->name));
@@ -310,7 +310,7 @@ class UpdateRoleTest extends TestCase
     {
         $this->signInWithPermission('role.update');
 
-        $user = create(User::class);
+        $user = create(User::class, [], ['status:active']);
 
         $this->assertFalse($user->hasRole($this->role->name));
 

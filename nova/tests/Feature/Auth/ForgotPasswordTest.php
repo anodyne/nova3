@@ -28,7 +28,7 @@ class ForgotPasswordTest extends TestCase
     {
         Notification::fake();
 
-        $user = create(User::class);
+        $user = create(User::class, [], ['status:active']);
 
         $response = $this->post(route('password.email'), [
             'email' => $user->email,

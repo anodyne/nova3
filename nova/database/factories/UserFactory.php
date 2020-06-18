@@ -26,12 +26,8 @@ $factory->state(User::class, 'forced-password-reset', [
     'force_password_reset' => true,
 ]);
 
-$factory->afterCreating(User::class, function ($user, $faker) {
+$factory->afterCreatingState(User::class, 'status:active', function ($user, $faker) {
     $user->transitionTo(Active::class);
-});
-
-$factory->afterCreatingState(User::class, 'status:pending', function ($user, $faker) {
-    //
 });
 
 $factory->afterCreatingState(User::class, 'status:inactive', function ($user, $faker) {

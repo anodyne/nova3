@@ -26,9 +26,9 @@ class ManageUsersTest extends TestCase
     {
         parent::setUp();
 
-        $this->activeUser = create(User::class);
+        $this->activeUser = create(User::class, [], ['status:active']);
 
-        $this->pendingUser = create(User::class, [], ['status:pending']);
+        $this->pendingUser = create(User::class);
 
         $this->inactiveUser = create(User::class, [], ['status:inactive']);
     }
@@ -129,9 +129,9 @@ class ManageUsersTest extends TestCase
 
         create(User::class, [
             'name' => 'Sparrow Capitan',
-        ]);
+        ], ['status:active']);
 
-        create(User::class);
+        create(User::class, [], ['status:active']);
 
         $response = $this->get(route('users.index'));
         $response->assertSuccessful();
@@ -151,9 +151,9 @@ class ManageUsersTest extends TestCase
 
         create(User::class, [
             'email' => 'sparrow@example.com',
-        ]);
+        ], ['status:active']);
 
-        create(User::class);
+        create(User::class, [], ['status:active']);
 
         $response = $this->get(route('users.index'));
         $response->assertSuccessful();

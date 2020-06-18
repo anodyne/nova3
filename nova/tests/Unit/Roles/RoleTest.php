@@ -28,7 +28,7 @@ class RoleTest extends TestCase
     /** @test **/
     public function itCanGiveAUserTheRole()
     {
-        $this->role->giveToUser($user = create(User::class));
+        $this->role->giveToUser($user = create(User::class, [], ['status:active']));
 
         $this->assertTrue($user->hasRole($this->role->name));
     }
