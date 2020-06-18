@@ -65,16 +65,6 @@ class CreateThemeTest extends TestCase
     }
 
     /** @test **/
-    public function themeDirectoryIsSetupWhenThemeIsCreated()
-    {
-        $this->signInWithPermission('theme.create');
-
-        $this->post(route('themes.store'), make(Theme::class)->toArray());
-
-        $this->assertCount(1, $this->disk->directories());
-    }
-
-    /** @test **/
     public function eventIsDispatchedWhenThemeIsCreated()
     {
         Event::fake();

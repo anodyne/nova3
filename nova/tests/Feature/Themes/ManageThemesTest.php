@@ -5,32 +5,64 @@ namespace Tests\Feature\Themes;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @group themes
+ */
 class ManageThemesTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test **/
-    public function authorizedUserCanManageThemes()
+    public function authorizedUserWithCreatePermissionCanViewManageThemesPage()
     {
         $this->signInWithPermission('theme.create');
 
-        $this->get(route('themes.index'))
-            ->assertSuccessful();
+        $this->withoutExceptionHandling();
+
+        $response = $this->get(route('themes.index'));
+        $response->assertSuccessful();
     }
 
     /** @test **/
-    public function unauthorizedUserCannotManageThemes()
+    public function authorizedUserWithUpdatePermissionCanViewManageThemesPage()
+    {
+        $this->signInWithPermission('theme.update');
+
+        $response = $this->get(route('themes.index'));
+        $response->assertSuccessful();
+    }
+
+    /** @test **/
+    public function authorizedUserWithDeletePermissionCanViewManageThemesPage()
+    {
+        $this->signInWithPermission('theme.delete');
+
+        $response = $this->get(route('themes.index'));
+        $response->assertSuccessful();
+    }
+
+    /** @test **/
+    public function authorizedUserWithViewPermissionCanViewManageThemesPage()
+    {
+        $this->signInWithPermission('theme.view');
+
+        $response = $this->get(route('themes.index'));
+        $response->assertSuccessful();
+    }
+
+    /** @test **/
+    public function unauthorizedUserCannotViewManageThemesPage()
     {
         $this->signIn();
 
-        $this->get(route('themes.index'))
-            ->assertForbidden();
+        $response = $this->get(route('themes.index'));
+        $response->assertForbidden();
     }
 
     /** @test **/
-    public function guestCannotManageThemes()
+    public function unauthenticatedUserCannotViewManageThemesPage()
     {
-        $this->get(route('themes.index'))
-            ->assertRedirect(route('login'));
+        $response = $this->getJson(route('themes.index'));
+        $response->assertUnauthorized();
     }
 }

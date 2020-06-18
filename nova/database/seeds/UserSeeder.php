@@ -19,20 +19,16 @@ class UserSeeder extends Seeder
         $admin = factory(User::class)->create([
             'name' => 'admin',
             'email' => 'admin@admin.com',
-        ]);
-
-        $admin->transitionTo(Active::class)->attachRole('admin');
+        ])->attachRole('admin');
 
         $user = factory(User::class)
             ->states('unverified-email')
             ->create([
                 'name' => 'user',
                 'email' => 'user@user.com',
-            ]);
+            ])->attachRole('user');
 
-        $user->transitionTo(Active::class)->attachRole('user');
-
-        factory(User::class)->times(25)->create()->each(function ($user) {
+        factory(User::class)->times(25)->state('status:pending')->create()->each(function ($user) {
             $decision = mt_rand(1, 3);
 
             $user->attachRole('user');

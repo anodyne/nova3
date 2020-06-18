@@ -14,11 +14,14 @@ class CreateTheme extends Action
     public function execute(ThemeData $data): Theme
     {
         return $this->call(function () use ($data) {
-            $theme = Theme::create($data->toArray());
+            $theme = Theme::create(
+                $data->except('variants')->toArray()
+            );
 
             Artisan::call('nova:make-theme', [
                 'name' => $theme->name,
                 '--location' => $theme->location,
+                '--variants' => $data->variants,
             ]);
 
             return $theme->refresh();

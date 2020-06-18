@@ -1,70 +1,74 @@
 <?php
 
-namespace Tests\Feature\Themes;
+namespace Tests\Unit\Themes;
 
 use Tests\TestCase;
+use RuntimeException;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * @group themes
+ */
 class MakeThemeCommandTest extends TestCase
 {
-    /** @test **/
-    public function themeCanBeScoffolded()
-    {
-        Storage::fake('themes');
+    protected $disk;
 
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->disk = Storage::fake('themes');
+    }
+
+    /** @test **/
+    public function itCanScaffoldAThemeDirectory()
+    {
         $this->artisan('nova:make-theme', [
             'name' => 'Foo',
         ]);
 
-        $disk = Storage::disk('themes');
-        $files = $disk->allFiles('foo');
+        $files = $this->disk->allFiles('foo');
 
-        $this->assertCount(1, $disk->directories());
+        $this->assertCount(1, $this->disk->directories());
         $this->assertContains('foo/theme.json', $files);
         $this->assertContains('foo/Theme.php', $files);
         $this->assertContains('foo/design/custom.css', $files);
     }
 
     /** @test **/
-    public function themeCanBeScaffoldedWithCustomLocation()
+    public function itCanScaffoldAThemeDirectoryAtACustomLocation()
     {
-        Storage::fake('themes');
-
         $this->artisan('nova:make-theme', [
             'name' => 'Foo',
             '--location' => 'bar',
         ]);
 
-        $directories = Storage::disk('themes')->directories();
+        $directories = $this->disk->directories();
 
         $this->assertContains('bar', $directories);
         $this->assertNotContains('foo', $directories);
     }
 
     /** @test **/
-    public function themeCanBeScaffoldedWithStyleVariants()
+    public function itCanScaffoldAThemeDirectoryWithVariantStylesheets()
     {
-        Storage::fake('themes');
-
         $this->artisan('nova:make-theme', [
             'name' => 'Foo',
             '--variants' => ['blue', 'red'],
         ]);
 
-        $files = Storage::disk('themes')->allFiles('foo');
+        $files = $this->disk->allFiles('foo');
 
         $this->assertContains('foo/design/variants/blue.css', $files);
         $this->assertContains('foo/design/variants/red.css', $files);
     }
 
     /** @test **/
-    public function themeScaffoldingRequiresLocation()
+    public function itRequiresALocationToScaffoldAThemeDirectory()
     {
-        Storage::fake('themes');
+        $this->expectException(RuntimeException::class);
 
-        $this->expectException('RuntimeException');
-
-        Storage::disk('themes')->makeDirectory('foo');
+        $this->disk->makeDirectory('foo');
 
         $this->artisan('nova:make-theme', [
             'name' => 'Foo',
