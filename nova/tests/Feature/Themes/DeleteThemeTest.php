@@ -66,7 +66,7 @@ class DeleteThemeTest extends TestCase
     /** @test **/
     public function whenTheDefaultThemeIsDeletedAnotherThemeIsSetAsTheDefault()
     {
-        $this->markTestIncomplete('Default themes not implemented yet');
+        $this->markTestSkipped('Default themes not implemented yet');
 
         $this->signInWithPermission('theme.delete');
 

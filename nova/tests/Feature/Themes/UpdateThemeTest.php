@@ -3,14 +3,14 @@
 namespace Tests\Feature\Themes;
 
 use Tests\TestCase;
-use Illuminate\Http\Response;
 use Nova\Themes\Models\Theme;
-use Nova\Themes\Actions\UpdateTheme;
 use Nova\Themes\Events\ThemeUpdated;
 use Illuminate\Support\Facades\Event;
-use Nova\Themes\DataTransferObjects\ThemeData;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @group themes
+ */
 class UpdateThemeTest extends TestCase
 {
     use RefreshDatabase;
@@ -25,45 +25,27 @@ class UpdateThemeTest extends TestCase
     }
 
     /** @test **/
+    public function authorizedUserCanViewTheEditThemePage()
+    {
+        $this->signInWithPermission('theme.update');
+
+        $response = $this->get(route('themes.edit', $this->theme));
+        $response->assertSuccessful();
+    }
+
+    /** @test **/
     public function authorizedUserCanUpdateTheme()
     {
         $this->signInWithPermission('theme.update');
 
-        $this->get(route('themes.edit', $this->theme))
-            ->assertSuccessful();
-    }
+        $this->followingRedirects();
 
-    /** @test **/
-    public function unauthorizedUserCannotUpdateTheme()
-    {
-        $this->signIn();
-
-        $this->get(route('themes.edit', $this->theme))
-            ->assertStatus(Response::HTTP_FORBIDDEN);
-    }
-
-    /** @test **/
-    public function guestCannotUpdateTheme()
-    {
-        $this->get(route('themes.edit', $this->theme))
-            ->assertRedirect(route('login'));
-
-        $this->put(route('themes.update', $this->theme), [])
-            ->assertRedirect(route('login'));
-    }
-
-    /** @test **/
-    public function themeCanBeUpdated()
-    {
-        $this->signInWithPermission('theme.update');
-
-        $this->followingRedirects()
-            ->put(route('themes.update', $this->theme), [
-                'name' => 'New Name',
-                'active' => (int) true,
-                'location' => $this->theme->location,
-            ])
-            ->assertSuccessful();
+        $response = $this->put(route('themes.update', $this->theme), [
+            'name' => 'New Name',
+            'active' => (int) true,
+            'location' => $this->theme->location,
+        ]);
+        $response->assertSuccessful();
 
         $this->assertDatabaseHas('themes', [
             'id' => $this->theme->id,
@@ -76,12 +58,51 @@ class UpdateThemeTest extends TestCase
     {
         Event::fake();
 
-        $data = make(Theme::class)->toArray();
+        $this->signInWithPermission('theme.update');
 
-        $theme = app(UpdateTheme::class)->execute($this->theme, new ThemeData($data));
+        $this->put(
+            route('themes.update', $this->theme),
+            make(Theme::class)->toArray()
+        );
 
-        Event::assertDispatched(ThemeUpdated::class, function ($event) use ($theme) {
-            return $event->theme->is($theme);
-        });
+        Event::assertDispatched(ThemeUpdated::class);
+    }
+
+    /** @test **/
+    public function unauthorizedUserCannotViewTheEditThemePage()
+    {
+        $this->signIn();
+
+        $response = $this->get(route('themes.edit', $this->theme));
+        $response->assertForbidden();
+    }
+
+    /** @test **/
+    public function unauthorizedUserCannotUpdateTheme()
+    {
+        $this->signIn();
+
+        $response = $this->putJson(
+            route('themes.update', $this->theme),
+            make(Theme::class)->toArray()
+        );
+        $response->assertForbidden();
+    }
+
+    /** @test **/
+    public function unauthenticatedUserCannotViewTheEditThemePage()
+    {
+        $response = $this->getJson(route('themes.edit', $this->theme));
+        $response->assertUnauthorized();
+    }
+
+    /** @test **/
+    public function unauthenticatedUserCannotUpdateTheme()
+    {
+        $response = $this->putJson(
+            route('themes.update', $this->theme),
+            make(Theme::class)->toArray()
+        );
+        $response->assertUnauthorized();
     }
 }

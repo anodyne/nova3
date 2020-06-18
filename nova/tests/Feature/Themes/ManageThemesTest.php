@@ -3,6 +3,8 @@
 namespace Tests\Feature\Themes;
 
 use Tests\TestCase;
+use Nova\Themes\Models\Theme;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
@@ -11,6 +13,15 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class ManageThemesTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected $disk;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->disk = Storage::fake('themes');
+    }
 
     /** @test **/
     public function authorizedUserWithCreatePermissionCanViewManageThemesPage()
@@ -48,6 +59,36 @@ class ManageThemesTest extends TestCase
 
         $response = $this->get(route('themes.index'));
         $response->assertSuccessful();
+    }
+
+    /** @test **/
+    public function installableThemesAreShownWithInstalledThemes()
+    {
+        $this->signInWithPermission('theme.create');
+
+        create(Theme::class, [
+            'name' => 'Foobar',
+            'location' => 'foobar',
+        ]);
+
+        $this->disk->makeDirectory('bar');
+        $this->disk->put('bar/theme.json', json_encode([
+            'name' => 'Bar',
+            'location' => 'bar',
+        ]));
+
+        $this->disk->makeDirectory('foo');
+
+        $response = $this->get(route('themes.index'));
+        $response->assertSuccessful();
+
+        $this->assertCount(1, $response['themes']->where('name', 'Bar'));
+    }
+
+    /** @test **/
+    public function themesCanBeFilteredToShowOnlyThemesToBeInstalled()
+    {
+        $this->markTestIncomplete();
     }
 
     /** @test **/

@@ -53,30 +53,6 @@ class InstallThemeTest extends TestCase
     }
 
     /** @test **/
-    public function installableThemesAreShown()
-    {
-        $this->signInWithPermission('theme.create');
-
-        create(Theme::class, [
-            'name' => 'Foobar',
-            'location' => 'foobar',
-        ]);
-
-        $this->disk->makeDirectory('bar');
-        $this->disk->put('bar/theme.json', json_encode([
-            'name' => 'Bar',
-            'location' => 'bar',
-        ]));
-
-        $this->disk->makeDirectory('foo');
-
-        $response = $this->get(route('themes.index'));
-        $response->assertSuccessful();
-
-        $this->assertCount(1, $response['themes']->where('name', 'Bar'));
-    }
-
-    /** @test **/
     public function themeCannotBeInstalledWithoutQuickInstallFile()
     {
         $this->signInWithPermission('theme.create');
