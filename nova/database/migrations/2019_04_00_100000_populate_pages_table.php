@@ -79,6 +79,16 @@ class PopulatePagesTable extends Migration
             ['uri' => 'ranks/groups/delete', 'key' => 'ranks.groups.delete', 'verb' => 'post', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\DeleteRankGroupController@confirm', 'layout' => 'admin'],
             ['uri' => 'ranks/groups/{group}', 'key' => 'ranks.groups.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\DeleteRankGroupController@destroy', 'layout' => 'admin'],
             ['uri' => 'ranks/groups/{originalGroup}/duplicate', 'key' => 'ranks.groups.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\DuplicateRankGroupController', 'layout' => 'admin'],
+
+            ['uri' => 'ranks/names', 'key' => 'ranks.names.index', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\ShowRankNameController@all', 'layout' => 'admin'],
+            ['uri' => 'ranks/names/{name}/show', 'key' => 'ranks.names.show', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\ShowRankNameController@show', 'layout' => 'admin'],
+            ['uri' => 'ranks/names/create', 'key' => 'ranks.names.create', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\CreateRankNameController@create', 'layout' => 'admin'],
+            ['uri' => 'ranks/names', 'key' => 'ranks.names.store', 'verb' => 'post', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\CreateRankNameController@store', 'layout' => 'admin'],
+            ['uri' => 'ranks/names/{name}/edit', 'key' => 'ranks.names.edit', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\UpdateRankNameController@edit', 'layout' => 'admin'],
+            ['uri' => 'ranks/names/{name}', 'key' => 'ranks.names.update', 'verb' => 'put', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\UpdateRankNameController@update', 'layout' => 'admin'],
+            ['uri' => 'ranks/names/delete', 'key' => 'ranks.names.delete', 'verb' => 'post', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\DeleteRankNameController@confirm', 'layout' => 'admin'],
+            ['uri' => 'ranks/names/{name}', 'key' => 'ranks.names.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\DeleteRankNameController@destroy', 'layout' => 'admin'],
+            ['uri' => 'ranks/names/{originalName}/duplicate', 'key' => 'ranks.names.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\DuplicateRankNameController', 'layout' => 'admin'],
         ];
 
         collect($pages)->each([Page::class, 'create']);

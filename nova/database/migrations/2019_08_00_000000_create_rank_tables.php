@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateRankTables extends Migration
 {
@@ -18,6 +18,12 @@ class CreateRankTables extends Migration
             $table->string('name');
             $table->timestamps();
         });
+
+        Schema::create('rank_names', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -28,5 +34,6 @@ class CreateRankTables extends Migration
     public function down()
     {
         Schema::dropIfExists('rank_groups');
+        Schema::dropIfExists('rank_names');
     }
 }

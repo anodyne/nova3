@@ -32,7 +32,7 @@
             </p>
 
             <x-slot name="footer">
-                <a href="{{ route('ranks.groups.index') }}" class="button w-full">
+                <a href="{{ route('ranks.names.index') }}" class="button w-full">
                     Go to rank names
                 </a>
             </x-slot>

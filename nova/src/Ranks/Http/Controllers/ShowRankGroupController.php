@@ -2,14 +2,12 @@
 
 namespace Nova\Ranks\Http\Controllers;
 
-use Nova\Roles\Models\Role;
 use Illuminate\Http\Request;
-use Nova\Roles\Http\Responses\ShowRoleResponse;
-use Nova\Foundation\Http\Controllers\Controller;
-use Nova\Ranks\Filters\RankGroupFilters;
 use Nova\Ranks\Models\RankGroup;
-use Nova\Ranks\Http\Responses\ShowAllRankGroupsResponse;
+use Nova\Ranks\Filters\RankGroupFilters;
+use Nova\Foundation\Http\Controllers\Controller;
 use Nova\Ranks\Http\Responses\ShowRankGroupResponse;
+use Nova\Ranks\Http\Responses\ShowAllRankGroupsResponse;
 
 class ShowRankGroupController extends Controller
 {
