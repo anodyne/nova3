@@ -18,15 +18,11 @@ class CreateThemeActionTest extends TestCase
 
     protected $action;
 
-    protected $disk;
-
     public function setUp(): void
     {
         parent::setUp();
 
         $this->action = app(CreateTheme::class);
-
-        $this->disk = Storage::fake('themes');
     }
 
     /** @test **/
@@ -45,15 +41,5 @@ class CreateThemeActionTest extends TestCase
         $this->assertEquals('foo', $theme->location);
         $this->assertTrue($theme->active);
         $this->assertEquals('preview.jpg', $theme->preview);
-    }
-
-    /** @test **/
-    public function itCreatesTheNewThemeDirectory()
-    {
-        $this->action->execute(new ThemeData(
-            make(Theme::class)->toArray()
-        ));
-
-        $this->assertCount(1, $this->disk->directories());
     }
 }

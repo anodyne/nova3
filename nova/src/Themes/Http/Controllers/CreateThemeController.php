@@ -6,6 +6,7 @@ use Nova\Themes\Models\Theme;
 use Nova\Themes\Actions\CreateTheme;
 use Nova\Themes\DataTransferObjects\ThemeData;
 use Nova\Foundation\Http\Controllers\Controller;
+use Nova\Themes\Actions\CreateThemeManager;
 use Nova\Themes\Http\Requests\CreateThemeRequest;
 use Nova\Themes\Http\Responses\CreateThemeResponse;
 
@@ -25,11 +26,11 @@ class CreateThemeController extends Controller
         return app(CreateThemeResponse::class);
     }
 
-    public function store(CreateThemeRequest $request, CreateTheme $action)
+    public function store(CreateThemeRequest $request, CreateThemeManager $action)
     {
         $this->authorize('create', Theme::class);
 
-        $theme = $action->execute(ThemeData::fromRequest($request));
+        $theme = $action->execute($request);
 
         return redirect()
             ->route('themes.index')
