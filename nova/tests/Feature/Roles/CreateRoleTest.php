@@ -4,69 +4,123 @@ namespace Tests\Feature\Roles;
 
 use Tests\TestCase;
 use Nova\Roles\Models\Role;
+use Nova\Users\Models\User;
 use Nova\Roles\Events\RoleCreated;
 use Illuminate\Support\Facades\Event;
-use Nova\Roles\Http\Requests\ValidateStoreRole;
+use Nova\Roles\Http\Requests\CreateRoleRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
- * @see \Nova\Roles\Http\Controllers\RoleController
+ * @group roles
  */
 class CreateRoleTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->disableRoleCaching();
+    }
+
+    /** @test **/
+    public function authorizedUserCanViewTheCreateRolePage()
+    {
+        $this->signInWithPermission('role.create');
+
+        $response = $this->get(route('roles.create'));
+        $response->assertSuccessful();
+    }
 
     /** @test **/
     public function authorizedUserCanCreateRole()
     {
         $this->signInWithPermission('role.create');
 
-        $response = $this->get(route('roles.create'));
-        $response->assertSuccessful();
-
-        $roleData = factory(Role::class)->make();
-
-        $postData = array_merge($roleData->toArray(), [
-            'permissions' => ['foo', 'bar', 'baz'],
-            'users' => [],
-        ]);
+        $role = make(Role::class);
 
         $this->followingRedirects();
 
-        $response = $this->post(route('roles.store'), $postData);
-
+        $response = $this->post(route('roles.store'), $role->toArray());
         $response->assertSuccessful();
 
-        $role = Role::get()->last();
+        $this->assertDatabaseHas('roles', $role->only('name', 'display_name'));
 
-        $this->assertCount(3, $role->permissions);
+        $this->assertRouteUsesFormRequest(
+            'roles.store',
+            CreateRoleRequest::class
+        );
+    }
 
-        $this->assertDatabaseHas('roles', [
-            'name' => $roleData->name,
-            'display_name' => $roleData->display_name,
+    /** @test **/
+    public function roleCanBeCreatedAsADefaultRoleForNewUsers()
+    {
+        $this->signInWithPermission('role.create');
+
+        $role = make(Role::class, [], ['default']);
+
+        $this->followingRedirects();
+
+        $response = $this->post(route('roles.store'), $role->toArray());
+        $response->assertSuccessful();
+
+        $this->assertTrue(
+            Role::whereDefault()->get()->contains('name', $role->name)
+        );
+
+        $this->assertDatabaseHas(
+            'roles',
+            $role->only('name', 'display_name', 'default')
+        );
+    }
+
+    /** @test **/
+    public function roleCanBeCreatedWithPermissions()
+    {
+        $this->signInWithPermission('role.create');
+
+        $role = make(Role::class);
+
+        $this->followingRedirects();
+
+        $response = $this->post(
+            route('roles.store'),
+            array_merge($role->toArray(), [
+                'permissions' => [1],
+            ])
+        );
+        $response->assertSuccessful();
+
+        $this->assertDatabaseHas('permission_role', [
+            'permission_id' => 1,
+            'role_id' => Role::latest()->first()->id,
         ]);
     }
 
     /** @test **/
-    public function unauthorizedUserCannotCreateRole()
+    public function roleCanBeCreatedWithUsers()
     {
-        $this->signIn();
+        $this->signInWithPermission('role.create');
 
-        $response = $this->get(route('roles.create'));
-        $response->assertForbidden();
+        $role = make(Role::class, [], ['default']);
 
-        $response = $this->post(route('roles.store'), []);
-        $response->assertForbidden();
-    }
+        $john = create(User::class, [], ['status:active']);
 
-    /** @test **/
-    public function guestCannotCreateRole()
-    {
-        $response = $this->get(route('roles.create'));
-        $response->assertRedirect(route('login'));
+        $this->followingRedirects();
 
-        $response = $this->post(route('roles.store'), []);
-        $response->assertRedirect(route('login'));
+        $response = $this->post(
+            route('roles.store'),
+            array_merge($role->toArray(), [
+                'users' => [$john->id],
+            ])
+        );
+        $response->assertSuccessful();
+
+        $this->assertDatabaseHas('role_user', [
+            'user_id' => $john->id,
+            'role_id' => Role::latest()->first()->id,
+        ]);
     }
 
     /** @test **/
@@ -76,55 +130,46 @@ class CreateRoleTest extends TestCase
 
         $this->signInWithPermission('role.create');
 
-        $data = array_merge(factory(Role::class)->make()->toArray(), [
-            'permissions' => ['foo', 'bar', 'baz'],
-            'users' => [],
-        ]);
+        $this->post(route('roles.store'), make(Role::class)->toArray());
 
-        $this->post(route('roles.store'), $data);
-
-        $role = Role::get()->last();
-
-        Event::assertDispatched(RoleCreated::class, function ($event) use ($role) {
-            return $event->role->is($role);
-        });
+        Event::assertDispatched(RoleCreated::class);
     }
 
     /** @test **/
-    public function roleCanBeGivenToUser()
+    public function unauthorizedUserCannotViewTheCreateRolePage()
     {
-        $this->signInWithPermission('role.create');
+        $this->signIn();
 
-        $user = $this->createUser();
-
-        $role = factory(Role::class)->make();
-
-        $data = array_merge($role->toArray(), [
-            'permissions' => [],
-            'users' => [$user->id],
-        ]);
-
-        $this->post(route('roles.store'), $data);
-
-        $this->assertTrue($user->hasRole($role->name));
+        $response = $this->get(route('roles.create'));
+        $response->assertForbidden();
     }
 
     /** @test **/
-    public function activityIsLoggedWhenRoleIsCreated()
+    public function unauthorizedUserCannotCreateRole()
     {
-        $role = factory(Role::class)->create();
+        $this->signIn();
 
-        $this->assertDatabaseHas('activity_log', [
-            'description' => $role->display_name . ' role was created',
-        ]);
-    }
-
-    /** @test **/
-    public function storingRoleInDatabaseUsesFormRequest()
-    {
-        $this->assertRouteUsesFormRequest(
-            'roles.store',
-            ValidateStoreRole::class
+        $response = $this->postJson(
+            route('roles.store'),
+            make(Role::class)->toArray()
         );
+        $response->assertForbidden();
+    }
+
+    /** @test **/
+    public function unauthenticatedUserCannotViewTheCreateRolePage()
+    {
+        $response = $this->getJson(route('roles.create'));
+        $response->assertUnauthorized();
+    }
+
+    /** @test **/
+    public function unauthenticatedUserCannotCreateRole()
+    {
+        $response = $this->postJson(
+            route('roles.store'),
+            make(Role::class)->toArray()
+        );
+        $response->assertUnauthorized();
     }
 }

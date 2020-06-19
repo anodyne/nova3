@@ -3,14 +3,35 @@
 namespace Tests\Feature\Users;
 
 use Tests\TestCase;
+use Nova\Users\Models\User;
+use Nova\Users\Models\States\Active;
+use Nova\Users\Models\States\Pending;
+use Nova\Users\Models\States\Inactive;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
- * @see \Nova\Users\Http\Controllers\UserController
+ * @group users
  */
 class ManageUsersTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected $activeUser;
+
+    protected $pendingUser;
+
+    protected $inactiveUser;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->activeUser = create(User::class, [], ['status:active']);
+
+        $this->pendingUser = create(User::class);
+
+        $this->inactiveUser = create(User::class, [], ['status:inactive']);
+    }
 
     /** @test **/
     public function authorizedUserWithCreatePermissionCanViewManageUsersPage()
@@ -18,12 +39,7 @@ class ManageUsersTest extends TestCase
         $this->signInWithPermission('user.create');
 
         $response = $this->get(route('users.index'));
-
-        $response->assertOk();
-        $response->assertHasProp('users.can');
-        $response->assertHasProp('users.data');
-        $response->assertHasProp('users.links');
-        $response->assertHasProp('users.meta');
+        $response->assertSuccessful();
     }
 
     /** @test **/
@@ -32,7 +48,7 @@ class ManageUsersTest extends TestCase
         $this->signInWithPermission('user.update');
 
         $response = $this->get(route('users.index'));
-        $response->assertOk();
+        $response->assertSuccessful();
     }
 
     /** @test **/
@@ -41,7 +57,7 @@ class ManageUsersTest extends TestCase
         $this->signInWithPermission('user.delete');
 
         $response = $this->get(route('users.index'));
-        $response->assertOk();
+        $response->assertSuccessful();
     }
 
     /** @test **/
@@ -50,23 +66,60 @@ class ManageUsersTest extends TestCase
         $this->signInWithPermission('user.view');
 
         $response = $this->get(route('users.index'));
-        $response->assertOk();
+        $response->assertSuccessful();
     }
 
     /** @test **/
-    public function unauthorizedUserCannotViewManageUsersPage()
+    public function manageUsersPageCanShowAllUsers()
     {
-        $this->signIn();
+        $this->signInWithPermission('user.view');
 
-        $response = $this->getJson(route('users.index'));
-        $response->assertForbidden();
+        $response = $this->get(route('users.index'));
+        $response->assertSuccessful();
+
+        $this->assertEquals(User::count(), $response['users']->total());
     }
 
     /** @test **/
-    public function guestCannotViewManageUsersPage()
+    public function manageUsersPageCanShowOnlyActiveUsers()
     {
-        $response = $this->getJson(route('users.index'));
-        $response->assertUnauthorized();
+        $this->signInWithPermission('user.view');
+
+        $response = $this->get(route('users.index', 'status=active'));
+        $response->assertSuccessful();
+
+        $this->assertEquals(
+            User::whereState('status', Active::class)->count(),
+            $response['users']->total()
+        );
+    }
+
+    /** @test **/
+    public function manageUsersPageCanShowOnlyPendingUsers()
+    {
+        $this->signInWithPermission('user.view');
+
+        $response = $this->get(route('users.index', 'status=pending'));
+        $response->assertSuccessful();
+
+        $this->assertEquals(
+            User::whereState('status', Pending::class)->count(),
+            $response['users']->total()
+        );
+    }
+
+    /** @test **/
+    public function manageUsersPageCanShowOnlyInactiveUsers()
+    {
+        $this->signInWithPermission('user.view');
+
+        $response = $this->get(route('users.index', 'status=inactive'));
+        $response->assertSuccessful();
+
+        $this->assertEquals(
+            User::whereState('status', Inactive::class)->count(),
+            $response['users']->total()
+        );
     }
 
     /** @test **/
@@ -74,24 +127,21 @@ class ManageUsersTest extends TestCase
     {
         $this->signInWithPermission('user.create');
 
-        $this->createUser([
-            'name' => 'John Public',
-        ]);
+        create(User::class, [
+            'name' => 'Sparrow Capitan',
+        ], ['status:active']);
 
-        $this->createUser();
+        create(User::class, [], ['status:active']);
 
         $response = $this->get(route('users.index'));
+        $response->assertSuccessful();
 
-        $response->assertOk();
-        $response->assertPropCount('users.data', 3);
+        $this->assertEquals(User::count(), $response['users']->total());
 
-        $response = $this->get(route('users.index') . '?search=john');
+        $response = $this->get(route('users.index', 'search=sparrow'));
+        $response->assertSuccessful();
 
-        $response->assertOk();
-        $response->assertPropCount('users.data', 1);
-        $response->assertPropValue('users.data', function ($users) {
-            $this->assertEquals('John Public', $users[0]['name']);
-        });
+        $this->assertCount(1, $response['users']);
     }
 
     /** @test **/
@@ -99,23 +149,36 @@ class ManageUsersTest extends TestCase
     {
         $this->signInWithPermission('user.create');
 
-        $this->createUser([
-            'email' => 'john@example.com',
-        ]);
+        create(User::class, [
+            'email' => 'sparrow@example.com',
+        ], ['status:active']);
 
-        $this->createUser();
+        create(User::class, [], ['status:active']);
 
         $response = $this->get(route('users.index'));
+        $response->assertSuccessful();
 
-        $response->assertOk();
-        $response->assertPropCount('users.data', 3);
+        $this->assertEquals(User::count(), $response['users']->total());
 
-        $response = $this->get(route('users.index') . '?search=john@example.com');
+        $response = $this->get(route('users.index', 'search=sparrow@example.com'));
+        $response->assertSuccessful();
 
-        $response->assertOk();
-        $response->assertPropCount('users.data', 1);
-        $response->assertPropValue('users.data', function ($users) {
-            $this->assertEquals('john@example.com', $users[0]['email']);
-        });
+        $this->assertCount(1, $response['users']);
+    }
+
+    /** @test **/
+    public function unauthorizedUserCannotViewManageUsersPage()
+    {
+        $this->signIn();
+
+        $response = $this->get(route('users.index'));
+        $response->assertForbidden();
+    }
+
+    /** @test **/
+    public function unauthenticatedUserCannotViewManageUsersPage()
+    {
+        $response = $this->get(route('users.index'));
+        $response->assertRedirect(route('login'));
     }
 }

@@ -4,7 +4,7 @@
     <x-page-header title="Add User">
         <x-slot name="pretitle">
             <a href="{{ route('users.index', 'status=active') }}">Users</a>
-        </template>
+        </x-slot>
     </x-page-header>
 
     <x-panel>

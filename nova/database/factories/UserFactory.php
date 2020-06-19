@@ -4,6 +4,8 @@ use Illuminate\Support\Str;
 use Nova\Users\Models\User;
 use Faker\Generator as Faker;
 use Illuminate\Support\Facades\Hash;
+use Nova\Users\Models\States\Active;
+use Nova\Users\Models\States\Inactive;
 
 $factory->define(User::class, function (Faker $faker) {
     return [
@@ -23,3 +25,11 @@ $factory->state(User::class, 'unverified-email', [
 $factory->state(User::class, 'forced-password-reset', [
     'force_password_reset' => true,
 ]);
+
+$factory->afterCreatingState(User::class, 'status:active', function ($user, $faker) {
+    $user->transitionTo(Active::class);
+});
+
+$factory->afterCreatingState(User::class, 'status:inactive', function ($user, $faker) {
+    $user->transitionTo(Inactive::class);
+});

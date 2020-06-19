@@ -8,10 +8,10 @@ use Nova\Roles\Models\Permission;
 use Illuminate\Support\Facades\Event;
 use Nova\Roles\Events\RoleDuplicated;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nova\Roles\Http\Requests\ValidateDuplicateRole;
+use Nova\Roles\Http\Requests\DuplicateRoleRequest;
 
 /**
- * @see \Nova\Roles\Http\Controllers\DuplicateRoleController
+ * @group roles
  */
 class DuplicateRoleTest extends TestCase
 {
@@ -23,7 +23,9 @@ class DuplicateRoleTest extends TestCase
     {
         parent::setUp();
 
-        $this->role = Role::firstOrCreate([
+        $this->disableRoleCaching();
+
+        $this->role = create(Role::class, [
             'name' => 'foo',
             'display_name' => 'Foo',
         ]);
@@ -34,48 +36,45 @@ class DuplicateRoleTest extends TestCase
     {
         $this->signInWithPermission(['role.create', 'role.update']);
 
-        $originalPermission = Permission::firstOrCreate([
-            'name' => 'bar',
-        ]);
+        $this->role->attachPermission($permission = Permission::first());
 
-        $this->role->attachPermission($originalPermission);
+        $this->followingRedirects();
 
         $response = $this->post(route('roles.duplicate', $this->role));
-
-        $this->followRedirects($response)->assertSuccessful();
+        $response->assertSuccessful();
 
         $role = Role::get()->last();
 
-        $this->assertCount(1, $this->role->permissions);
+        $this->assertCount(1, $this->role->refresh()->permissions);
         $this->assertCount(1, $role->permissions);
+        $this->assertTrue($role->hasPermission($permission->name));
 
         $this->assertDatabaseHas('roles', [
             'display_name' => "Copy of {$this->role->display_name}",
         ]);
+
+        $this->assertRouteUsesFormRequest(
+            'roles.duplicate',
+            DuplicateRoleRequest::class
+        );
     }
 
     /** @test **/
-    public function unauthorizedUserCannotDuplicateRole()
+    public function eventIsDispatchedWhenRoleIsDuplicated()
     {
-        $this->signIn();
+        Event::fake();
 
-        $response = $this->post(route('roles.duplicate', $this->role));
+        $this->signInWithPermission(['role.create', 'role.update']);
 
-        $response->assertForbidden();
-    }
+        $this->post(route('roles.duplicate', $this->role));
 
-    /** @test **/
-    public function guestCannotDuplicateRole()
-    {
-        $response = $this->post(route('roles.duplicate', $this->role));
-
-        $response->assertRedirect(route('login'));
+        Event::assertDispatched(RoleDuplicated::class);
     }
 
     /** @test **/
     public function lockedRoleCannotBeDuplicated()
     {
-        $role = factory(Role::class)->states('locked')->create();
+        $role = create(Role::class, [], ['locked']);
 
         $this->signInWithPermission(['role.create', 'role.update']);
 
@@ -88,31 +87,18 @@ class DuplicateRoleTest extends TestCase
     }
 
     /** @test **/
-    public function eventIsDispatchedWhenRoleIsDuplicated()
+    public function unauthorizedUserCannotDuplicateRole()
     {
-        Event::fake();
+        $this->signIn();
 
-        $this->signInWithPermission(['role.create', 'role.update']);
-
-        $originalRole = Role::firstOrCreate([
-            'name' => 'foo',
-        ]);
-
-        $this->post(route('roles.duplicate', $this->role));
-
-        $role = Role::get()->last();
-
-        Event::assertDispatched(RoleDuplicated::class, function ($event) use ($role, $originalRole) {
-            return $event->role->is($role) && $event->originalRole->is($originalRole);
-        });
+        $response = $this->post(route('roles.duplicate', $this->role));
+        $response->assertForbidden();
     }
 
     /** @test **/
-    public function duplicatingRoleInDatabaseUsesFormRequest()
+    public function unauthenticatedUserCannotDuplicateRole()
     {
-        $this->assertRouteUsesFormRequest(
-            'roles.duplicate',
-            ValidateDuplicateRole::class
-        );
+        $response = $this->postJson(route('roles.duplicate', $this->role));
+        $response->assertUnauthorized();
     }
 }

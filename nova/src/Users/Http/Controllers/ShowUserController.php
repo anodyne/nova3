@@ -24,8 +24,8 @@ class ShowUserController extends Controller
 
         $users = User::with('media')
             ->withLastLoginAt()
-            ->orderBy('name')
             ->filter($filters)
+            ->orderBy('name')
             ->paginate();
 
         return app(ShowAllUsersResponse::class)->with([

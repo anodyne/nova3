@@ -20,7 +20,9 @@ class UpdateRole extends Action
 
             $role->update($updateData->toArray());
 
-            $role->syncPermissions($data->permissions);
+            if ($data->permissions) {
+                $role->syncPermissions($data->permissions);
+            }
 
             return $role->refresh();
         });

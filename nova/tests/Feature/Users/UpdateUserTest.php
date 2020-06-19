@@ -6,39 +6,33 @@ use Tests\TestCase;
 use Nova\Users\Models\User;
 use Nova\Users\Events\UserUpdated;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Storage;
 use Nova\Users\Events\UserUpdatedByAdmin;
-use Nova\Users\Http\Requests\ValidateUpdateUser;
+use Nova\Users\Http\Requests\UpdateUserRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
- * @see \Nova\Users\Http\Controllers\UserController
+ * @group users
  */
 class UpdateUserTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @var  User
-     */
     protected $user;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
-
-        Storage::fake('media');
+        $this->user = create(User::class, [], ['status:active']);
     }
 
     /** @test **/
-    public function authorizedUserCanSeeUpdateUserPage()
+    public function authorizedUserCanViewTheEditUserPage()
     {
         $this->signInWithPermission('user.update');
 
         $response = $this->get(route('users.edit', $this->user));
-        $response->assertOk();
+        $response->assertSuccessful();
     }
 
     /** @test **/
@@ -46,41 +40,28 @@ class UpdateUserTest extends TestCase
     {
         $this->signInWithPermission('user.update');
 
-        $data = factory(User::class)->make();
+        $data = make(User::class, [
+            'email' => $this->user->email,
+        ]);
+
+        $this->followingRedirects();
 
         $response = $this->put(
             route('users.update', $this->user),
-            array_merge($data->toArray(), ['roles' => []])
+            array_merge($data->toArray(), ['status' => $this->user->status])
         );
-        $this->followRedirects($response)->assertOk();
+        $response->assertSuccessful();
 
         $this->assertDatabaseHas('users', [
             'id' => $this->user->id,
             'name' => $data->name,
             'email' => $data->email,
         ]);
-    }
 
-    /** @test **/
-    public function unauthorizedUserCannotUpdateUser()
-    {
-        $this->signIn();
-
-        $response = $this->get(route('users.edit', $this->user));
-        $response->assertForbidden();
-
-        $response = $this->putJson(route('users.update', $this->user), []);
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function guestCannotUpdateUser()
-    {
-        $response = $this->getJson(route('users.edit', $this->user));
-        $response->assertUnauthorized();
-
-        $response = $this->putJson(route('users.update', $this->user), []);
-        $response->assertUnauthorized();
+        $this->assertRouteUsesFormRequest(
+            'users.update',
+            UpdateUserRequest::class
+        );
     }
 
     /** @test **/
@@ -92,69 +73,55 @@ class UpdateUserTest extends TestCase
 
         $this->put(
             route('users.update', $this->user),
-            array_merge(
-                factory(User::class)->make()->toArray(),
-                ['roles' => []]
-            )
+            [
+                'name' => 'Jack Sparrow',
+                'email' => $this->user->email,
+                'pronouns' => $this->user->pronouns,
+                'status' => $this->user->status,
+            ]
         );
 
-        $user = $this->user->refresh();
-
-        Event::assertDispatched(UserUpdated::class, function ($event) use ($user) {
-            return $event->user->is($user);
-        });
-
-        Event::assertDispatched(UserUpdatedByAdmin::class, function ($event) use ($user) {
-            return $event->user->is($user);
-        });
+        Event::assertDispatched(UserUpdated::class);
+        Event::assertDispatched(UserUpdatedByAdmin::class);
     }
 
     /** @test **/
-    public function nameIsRequiredToUpdateUser()
+    public function unauthorizedUserCannotViewTheEditUserPage()
     {
-        $this->signInWithPermission('user.update');
+        $this->signIn();
 
-        $response = $this->putJson(route('users.update', $this->user), [
-            'email' => 'john@example.com',
-            'roles' => [],
-        ]);
-        $response->assertStatus(422);
-        $response->assertJsonValidationErrors('name');
+        $response = $this->get(route('users.edit', $this->user));
+        $response->assertForbidden();
     }
 
     /** @test **/
-    public function emailIsRequiredToUpdateUser()
+    public function unauthorizedUserCannotUpdateUser()
     {
-        $this->signInWithPermission('user.update');
+        $this->signIn();
 
-        $response = $this->putJson(route('users.update', $this->user), [
-            'name' => 'foo',
-            'roles' => [],
-        ]);
-        $response->assertStatus(422);
-        $response->assertJsonValidationErrors('email');
-    }
+        $this->followingRedirects();
 
-    /** @test **/
-    public function pronounIsRequiredToUpdateUser()
-    {
-        $this->signInWithPermission('user.update');
-
-        $response = $this->putJson(route('users.update', $this->user), [
-            'name' => 'foo',
-            'email' => 'john@example.com',
-            'roles' => [],
-        ]);
-        $response->assertStatus(422);
-        $response->assertJsonValidationErrors('pronouns');
-    }
-
-    /** @test **/
-    public function updatingUserInDatabaseUsesFormRequest()
-    {
-        $this->assertRouteUsesFormRequest(
-            'users.update',
-            ValidateUpdateUser::class
+        $response = $this->put(
+            route('users.update', $this->user),
+            make(User::class)->toArray()
         );
+        $response->assertForbidden();
+    }
+
+    /** @test **/
+    public function unauthenticatedUserCannotViewTheEditUserPage()
+    {
+        $response = $this->getJson(route('users.edit', $this->user));
+        $response->assertUnauthorized();
+    }
+
+    /** @test **/
+    public function unauthenticatedUserCannotUpdateUser()
+    {
+        $response = $this->putJson(
+            route('users.update', $this->user),
+            make(User::class)->toArray()
+        );
+        $response->assertUnauthorized();
     }
 }
