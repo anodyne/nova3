@@ -67,6 +67,16 @@ class PopulatePagesTable extends Migration
 
             ['uri' => 'settings/{tab?}', 'key' => 'settings.index', 'resource' => 'Nova\\Settings\\Http\\Controllers\\SettingsController@index', 'layout' => 'admin'],
             ['uri' => 'settings', 'key' => 'settings.update', 'verb' => 'put', 'resource' => 'Nova\\Settings\\Http\\Controllers\\SettingsController@update', 'layout' => 'admin'],
+
+            ['uri' => 'ranks/groups', 'key' => 'ranks.groups.index', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\ShowRankGroupController@all', 'layout' => 'admin'],
+            ['uri' => 'ranks/groups/{group}/show', 'key' => 'ranks.groups.show', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\ShowRankGroupController@show', 'layout' => 'admin'],
+            ['uri' => 'ranks/groups/create', 'key' => 'ranks.groups.create', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\CreateRankGroupController@create', 'layout' => 'admin'],
+            ['uri' => 'ranks/groups', 'key' => 'ranks.groups.store', 'verb' => 'post', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\CreateRankGroupController@store', 'layout' => 'admin'],
+            ['uri' => 'ranks/groups/{group}/edit', 'key' => 'ranks.groups.edit', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\UpdateRankGroupController@edit', 'layout' => 'admin'],
+            ['uri' => 'ranks/groups/{group}', 'key' => 'ranks.groups.update', 'verb' => 'put', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\UpdateRankGroupController@update', 'layout' => 'admin'],
+            ['uri' => 'ranks/groups/delete', 'key' => 'ranks.groups.delete', 'verb' => 'post', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\DeleteRankGroupController@confirm', 'layout' => 'admin'],
+            ['uri' => 'ranks/groups/{group}', 'key' => 'ranks.groups.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\DeleteRankGroupController@destroy', 'layout' => 'admin'],
+            ['uri' => 'ranks/groups/{originalGroup}/duplicate', 'key' => 'ranks.groups.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\DuplicateRankGroupController', 'layout' => 'admin'],
         ];
 
         collect($pages)->each([Page::class, 'create']);
