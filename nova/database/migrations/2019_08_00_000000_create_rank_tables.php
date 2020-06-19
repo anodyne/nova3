@@ -24,6 +24,15 @@ class CreateRankTables extends Migration
             $table->string('name');
             $table->timestamps();
         });
+
+        Schema::create('rank_items', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('group_id')->constrained('rank_groups', 'id');
+            $table->foreignId('name_id')->constrained('rank_names', 'id');
+            $table->string('base_image');
+            $table->string('overlay_image')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**

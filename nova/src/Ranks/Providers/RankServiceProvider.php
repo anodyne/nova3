@@ -9,6 +9,7 @@ use Nova\Ranks\Policies\RankNamePolicy;
 use Nova\Ranks\Policies\RankGroupPolicy;
 use Nova\Ranks\Http\Responses\ShowRankNameResponse;
 use Nova\Ranks\Http\Responses\ShowRankGroupResponse;
+use Nova\Ranks\Http\Responses\CreateRankItemResponse;
 use Nova\Ranks\Http\Responses\CreateRankNameResponse;
 use Nova\Ranks\Http\Responses\UpdateRankNameResponse;
 use Nova\Ranks\Http\Responses\CreateRankGroupResponse;
@@ -36,5 +37,7 @@ class RankServiceProvider extends DomainServiceProvider
         ShowRankNameResponse::class,
         ShowAllRankNamesResponse::class,
         UpdateRankNameResponse::class,
+
+        CreateRankItemResponse::class,
     ];
 }
