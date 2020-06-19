@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Storage;
 use Nova\Users\Actions\UploadUserAvatar;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @group users
+ * @group uploads
+ * @group media
+ */
 class UploadUserAvatarActionTest extends TestCase
 {
     use RefreshDatabase;

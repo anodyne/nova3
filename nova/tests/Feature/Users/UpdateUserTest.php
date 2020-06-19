@@ -10,6 +10,9 @@ use Nova\Users\Events\UserUpdatedByAdmin;
 use Nova\Users\Http\Requests\UpdateUserRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @group users
+ */
 class UpdateUserTest extends TestCase
 {
     use RefreshDatabase;
@@ -24,7 +27,7 @@ class UpdateUserTest extends TestCase
     }
 
     /** @test **/
-    public function authorizedUserCanViewEditUserPage()
+    public function authorizedUserCanViewTheEditUserPage()
     {
         $this->signInWithPermission('user.update');
 
@@ -83,7 +86,7 @@ class UpdateUserTest extends TestCase
     }
 
     /** @test **/
-    public function unauthorizedUserCannotViewEditUserPage()
+    public function unauthorizedUserCannotViewTheEditUserPage()
     {
         $this->signIn();
 
@@ -106,7 +109,7 @@ class UpdateUserTest extends TestCase
     }
 
     /** @test **/
-    public function unauthenticatedUserCannotViewEditUserPage()
+    public function unauthenticatedUserCannotViewTheEditUserPage()
     {
         $response = $this->getJson(route('users.edit', $this->user));
         $response->assertUnauthorized();

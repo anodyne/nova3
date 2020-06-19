@@ -10,6 +10,9 @@ use Nova\Users\Models\States\Inactive;
 use Nova\Users\Actions\UpdateUserStatus;
 use Spatie\ModelStates\Exceptions\TransitionNotFound;
 
+/**
+ * @group users
+ */
 class UpdateUserStatusActionTest extends TestCase
 {
     protected $action;

@@ -8,6 +8,9 @@ use Nova\Users\Actions\UpdateUser;
 use Nova\Users\DataTransferObjects\UserData;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @group users
+ */
 class UpdateUserActionTest extends TestCase
 {
     use RefreshDatabase;

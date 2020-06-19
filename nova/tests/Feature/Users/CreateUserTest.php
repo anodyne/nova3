@@ -11,6 +11,9 @@ use Nova\Users\Events\UserCreatedByAdmin;
 use Nova\Users\Http\Requests\CreateUserRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @group users
+ */
 class CreateUserTest extends TestCase
 {
     use RefreshDatabase;

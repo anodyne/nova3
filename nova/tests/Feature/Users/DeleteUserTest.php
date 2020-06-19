@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Event;
 use Nova\Users\Events\UserDeletedByAdmin;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @group users
+ */
 class DeleteUserTest extends TestCase
 {
     use RefreshDatabase;

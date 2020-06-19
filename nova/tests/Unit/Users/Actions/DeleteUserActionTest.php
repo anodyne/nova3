@@ -7,6 +7,9 @@ use Nova\Users\Models\User;
 use Nova\Users\Actions\DeleteUser;
 use Nova\Users\Exceptions\CannotDeleteOwnAccountException;
 
+/**
+ * @group users
+ */
 class DeleteUserActionTest extends TestCase
 {
     protected $action;

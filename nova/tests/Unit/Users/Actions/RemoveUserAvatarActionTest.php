@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Storage;
 use Nova\Users\Actions\RemoveUserAvatar;
 use Nova\Users\Actions\UploadUserAvatar;
 
+/**
+ * @group users
+ * @group uploads
+ * @group media
+ */
 class RemoveUserAvatarActionTest extends TestCase
 {
     protected $action;

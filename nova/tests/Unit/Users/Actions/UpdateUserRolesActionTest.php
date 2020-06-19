@@ -7,6 +7,10 @@ use Nova\Roles\Models\Role;
 use Nova\Users\Models\User;
 use Nova\Users\Actions\UpdateUserRoles;
 
+/**
+ * @group users
+ * @group roles
+ */
 class UpdateUserRolesActionTest extends TestCase
 {
     protected $action;

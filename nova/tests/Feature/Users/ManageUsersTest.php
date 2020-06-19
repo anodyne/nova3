@@ -10,7 +10,7 @@ use Nova\Users\Models\States\Inactive;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
- * @see \Nova\Users\Http\Controllers\ShowUserController
+ * @group users
  */
 class ManageUsersTest extends TestCase
 {

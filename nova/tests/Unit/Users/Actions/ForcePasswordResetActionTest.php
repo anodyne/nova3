@@ -6,6 +6,9 @@ use Tests\TestCase;
 use Nova\Users\Models\User;
 use Nova\Users\Actions\ForcePasswordReset;
 
+/**
+ * @group users
+ */
 class ForcePasswordResetActionTest extends TestCase
 {
     protected $action;

@@ -6,6 +6,9 @@ use Tests\TestCase;
 use Nova\Users\Actions\CreateUser;
 use Nova\Users\DataTransferObjects\UserData;
 
+/**
+ * @group users
+ */
 class CreateUserActionTest extends TestCase
 {
     protected $action;
