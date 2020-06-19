@@ -1,7 +1,13 @@
 @extends($__novaTemplate)
 
 @section('content')
-    <x-page-header title="Rank Groups" pretitle="Ranks">
+    <x-page-header title="Rank Groups">
+        <x-slot name="pretitle">
+            <a href="{{ route('ranks.index') }}">
+                Ranks
+            </a>
+        </x-slot>
+
         <x-slot name="controls">
             @can('create', 'Nova\Ranks\Models\RankGroup')
                 <a href="{{ route('ranks.groups.create') }}" class="button button-primary" data-cy="create">

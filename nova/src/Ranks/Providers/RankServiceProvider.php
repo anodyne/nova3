@@ -7,6 +7,7 @@ use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Policies\RankGroupPolicy;
 use Nova\Ranks\Http\Responses\ShowRankGroupResponse;
 use Nova\Ranks\Http\Responses\CreateRankGroupResponse;
+use Nova\Ranks\Http\Responses\ShowRankOptionsResponse;
 use Nova\Ranks\Http\Responses\UpdateRankGroupResponse;
 use Nova\Ranks\Http\Responses\ShowAllRankGroupsResponse;
 
@@ -17,6 +18,8 @@ class RankServiceProvider extends DomainServiceProvider
     ];
 
     protected $responsables = [
+        ShowRankOptionsResponse::class,
+
         CreateRankGroupResponse::class,
         ShowRankGroupResponse::class,
         ShowAllRankGroupsResponse::class,
