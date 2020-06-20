@@ -25,6 +25,16 @@ class RankItem extends Model
 
     protected $table = 'rank_items';
 
+    public function group()
+    {
+        return $this->belongsTo(RankGroup::class, 'group_id');
+    }
+
+    public function name()
+    {
+        return $this->belongsTo(RankName::class, 'name_id');
+    }
+
     /**
      * Set the description for logging.
      *

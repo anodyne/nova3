@@ -14,8 +14,10 @@ class DatabaseSeeder extends Seeder
         activity()->disableLogging();
 
         $this->call(UserSeeder::class);
+
         $this->call(RankGroupSeeder::class);
         $this->call(RankNameSeeder::class);
+        $this->call(RankItemSeeder::class);
 
         activity()->enableLogging();
     }

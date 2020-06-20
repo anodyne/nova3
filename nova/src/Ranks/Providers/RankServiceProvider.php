@@ -17,11 +17,15 @@ use Nova\Ranks\Http\Responses\ShowRankOptionsResponse;
 use Nova\Ranks\Http\Responses\UpdateRankGroupResponse;
 use Nova\Ranks\Http\Responses\ShowAllRankNamesResponse;
 use Nova\Ranks\Http\Responses\ShowAllRankGroupsResponse;
+use Nova\Ranks\Http\Responses\ShowAllRankItemsResponse;
+use Nova\Ranks\Models\RankItem;
+use Nova\Ranks\Policies\RankItemPolicy;
 
 class RankServiceProvider extends DomainServiceProvider
 {
     protected $policies = [
         RankGroup::class => RankGroupPolicy::class,
+        RankItem::class => RankItemPolicy::class,
         RankName::class => RankNamePolicy::class,
     ];
 
@@ -39,5 +43,6 @@ class RankServiceProvider extends DomainServiceProvider
         UpdateRankNameResponse::class,
 
         CreateRankItemResponse::class,
+        ShowAllRankItemsResponse::class,
     ];
 }

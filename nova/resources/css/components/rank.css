@@ -1,0 +1,13 @@
+.rank {
+    @apply relative overflow-hidden;
+}
+
+.rank-base {
+    @apply h-10 w-36 bg-transparent bg-left-top;
+}
+
+.rank-overlay {
+    @apply absolute h-10 w-36 bg-transparent bg-left-top;
+
+    top: -4px;
+}

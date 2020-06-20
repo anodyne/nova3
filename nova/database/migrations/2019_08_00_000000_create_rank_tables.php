@@ -27,8 +27,8 @@ class CreateRankTables extends Migration
 
         Schema::create('rank_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('group_id')->constrained('rank_groups', 'id');
-            $table->foreignId('name_id')->constrained('rank_names', 'id');
+            $table->unsignedInteger('group_id');
+            $table->unsignedInteger('name_id');
             $table->string('base_image');
             $table->string('overlay_image')->nullable();
             $table->timestamps();

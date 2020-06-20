@@ -14,6 +14,7 @@ class RankNameSeeder extends Seeder
             'Commander',
             'Lieutenant Commander',
             'Lieutenant',
+            'Lieutenant JG',
             'Ensign',
         ];
 
