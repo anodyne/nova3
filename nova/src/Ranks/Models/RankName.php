@@ -25,6 +25,11 @@ class RankName extends Model
 
     protected $table = 'rank_names';
 
+    public function ranks()
+    {
+        return $this->hasMany(RankItem::class, 'name_id');
+    }
+
     /**
      * Set the description for logging.
      *

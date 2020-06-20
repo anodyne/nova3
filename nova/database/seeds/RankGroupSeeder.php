@@ -9,7 +9,7 @@ class RankGroupSeeder extends Seeder
     {
         activity()->disableLogging();
 
-        $groups = ['Command', 'Operations', 'Science'];
+        $groups = ['Command', 'Operations', 'Science', 'Marines'];
 
         collect($groups)->each(function ($group) {
             RankGroup::create(['name' => $group]);

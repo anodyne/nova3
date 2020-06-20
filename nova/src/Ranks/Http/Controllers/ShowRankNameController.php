@@ -22,7 +22,7 @@ class ShowRankNameController extends Controller
     {
         $this->authorize('viewAny', RankName::class);
 
-        $names = RankName::orderBy('name')
+        $names = RankName::withCount('ranks')
             ->filter($filters)
             ->paginate();
 
@@ -37,7 +37,7 @@ class ShowRankNameController extends Controller
         $this->authorize('view', $name);
 
         return app(ShowRankNameResponse::class)->with([
-            'name' => $name,
+            'name' => $name->load('ranks.group'),
         ]);
     }
 }

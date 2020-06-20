@@ -12,6 +12,7 @@
             <x-form.section title="Rank Info" message="You can build up your rank with a few clicks. Assign it to a group, set a name, and pick your base and overlay images to build your rank quickly and easily.">
                 <x-input.group label="Rank Group" for="group_id" :error="$errors->first('group_id')">
                     <select name="group_id" id="group_id" class="form-select w-full | sm:w-1/2">
+                        <option value="">Select a rank group</option>
                         @foreach ($groups as $group)
                             <option value="{{ $group->id }}">{{ $group->name }}</option>
                         @endforeach
@@ -29,6 +30,7 @@
 
                 <x-input.group label="Rank Name" for="name_id" :error="$errors->first('name_id')">
                     <select name="name_id" id="name_id" class="form-select w-full | sm:w-1/2">
+                        <option value="">Select a rank name</option>
                         @foreach ($names as $name)
                             <option value="{{ $name->id }}">{{ $name->name }}</option>
                         @endforeach
@@ -90,7 +92,12 @@
                     <div x-show="tab === 'base'">
                         <div class="grid gap-6 grid-cols-2 max-w-lg mx-auto | lg:grid-cols-4 lg:max-w-none">
                             @foreach ($baseImages as $baseImage)
-                                <a href="#" x-on:click.prevent="base = '{{ $baseImage }}'" class="rounded-md border border-transparent py-2 flex justify-center hover:bg-gray-100 hover:border-gray-200">
+                                <a
+                                    x-on:click.prevent="base = '{{ $baseImage }}'"
+                                    class="rounded-md border border-transparent py-2 flex justify-center"
+                                    x-bind:class="{ 'bg-blue-100 border-blue-200 hover:bg-blue-100 hover:border-blue-200': base === '{{ $baseImage }}', 'hover:bg-gray-100 hover:border-gray-200': base !== '{{ $baseImage }}' }"
+                                    href="#"
+                                >
                                     <img src="{{ asset('ranks/base/' . $baseImage) }}" alt="" class="block">
                                 </a>
                             @endforeach
@@ -100,8 +107,14 @@
                     <div x-show="tab === 'overlay'">
                         <div class="grid gap-6 grid-cols-2 max-w-lg mx-auto | lg:grid-cols-4 lg:max-w-none">
                             @foreach ($overlayImages as $overlayImage)
-                                <a href="#" x-on:click.prevent="overlay = '{{ $overlayImage }}'" class="rounded-md border border-transparent py-2 flex justify-center hover:bg-gray-100 hover:border-gray-200">
-                                    <img src="{{ asset('ranks/overlay/' . $overlayImage) }}" alt="" class="block">
+                                <a
+                                    x-on:click.prevent="overlay = '{{ $overlayImage }}'"
+                                    class="flex flex-col rounded-md border border-transparent py-2 flex justify-center"
+                                    x-bind:class="{ 'bg-blue-100 border-blue-200 hover:bg-blue-100 hover:border-blue-200': overlay === '{{ $overlayImage }}', 'hover:bg-gray-100 hover:border-gray-200': overlay !== '{{ $overlayImage }}' }"
+                                    href="#"
+                                >
+                                    <img src="{{ asset('ranks/overlay/' . $overlayImage) }}" alt="" class="block h-10 w-36 mx-auto">
+                                    <span class="text-xs text-center text-gray-500">{{ $overlayImage }}</span>
                                 </a>
                             @endforeach
                         </div>

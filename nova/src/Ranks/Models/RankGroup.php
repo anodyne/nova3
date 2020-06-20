@@ -25,6 +25,11 @@ class RankGroup extends Model
 
     protected $table = 'rank_groups';
 
+    public function ranks()
+    {
+        return $this->hasMany(RankItem::class, 'group_id');
+    }
+
     /**
      * Set the description for logging.
      *

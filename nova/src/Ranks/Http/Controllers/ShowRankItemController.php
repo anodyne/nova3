@@ -23,7 +23,7 @@ class ShowRankItemController extends Controller
     {
         $this->authorize('viewAny', RankItem::class);
 
-        $items = RankItem::with('name')
+        $items = RankItem::withRankName()
             ->filter($filters)
             ->paginate();
 

@@ -45,16 +45,8 @@
                             <div class="flex items-center">
                                 <x-rank :base="$item->base_image" :overlay="$item->overlay_image" />
                                 <div class="ml-3 font-medium">
-                                    {{ optional($item->name)->name }}
+                                    {{ $item->rank_name }}
                                 </div>
-                                {{-- <div class="mt-2 flex">
-                                    <div class="flex items-center text-sm leading-5 text-gray-500">
-                                        @icon('users', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
-                                        <span>
-                                            18 @choice('rank|ranks', 18)
-                                        </span>
-                                    </div>
-                                </div> --}}
                             </div>
                         </div>
                         <div class="ml-5 flex-shrink-0">
