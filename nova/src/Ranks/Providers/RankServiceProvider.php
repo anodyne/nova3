@@ -2,25 +2,14 @@
 
 namespace Nova\Ranks\Providers;
 
+use Nova\Ranks\Http\Responses;
 use Nova\DomainServiceProvider;
+use Nova\Ranks\Models\RankItem;
 use Nova\Ranks\Models\RankName;
 use Nova\Ranks\Models\RankGroup;
-use Nova\Ranks\Policies\RankNamePolicy;
-use Nova\Ranks\Policies\RankGroupPolicy;
-use Nova\Ranks\Http\Responses\ShowRankNameResponse;
-use Nova\Ranks\Http\Responses\ShowRankGroupResponse;
-use Nova\Ranks\Http\Responses\CreateRankItemResponse;
-use Nova\Ranks\Http\Responses\CreateRankNameResponse;
-use Nova\Ranks\Http\Responses\UpdateRankNameResponse;
-use Nova\Ranks\Http\Responses\CreateRankGroupResponse;
-use Nova\Ranks\Http\Responses\DuplicateRankGroupResponse;
-use Nova\Ranks\Http\Responses\ShowRankOptionsResponse;
-use Nova\Ranks\Http\Responses\UpdateRankGroupResponse;
-use Nova\Ranks\Http\Responses\ShowAllRankNamesResponse;
-use Nova\Ranks\Http\Responses\ShowAllRankGroupsResponse;
-use Nova\Ranks\Http\Responses\ShowAllRankItemsResponse;
-use Nova\Ranks\Models\RankItem;
 use Nova\Ranks\Policies\RankItemPolicy;
+use Nova\Ranks\Policies\RankGroupPolicy;
+use Nova\Ranks\Policies\RankNamePolicy;
 
 class RankServiceProvider extends DomainServiceProvider
 {
@@ -31,20 +20,21 @@ class RankServiceProvider extends DomainServiceProvider
     ];
 
     protected $responsables = [
-        ShowRankOptionsResponse::class,
+        Responses\ShowRankOptionsResponse::class,
 
-        CreateRankGroupResponse::class,
-        DuplicateRankGroupResponse::class,
-        ShowRankGroupResponse::class,
-        ShowAllRankGroupsResponse::class,
-        UpdateRankGroupResponse::class,
+        Responses\Groups\CreateRankGroupResponse::class,
+        Responses\Groups\DuplicateRankGroupResponse::class,
+        Responses\Groups\ShowAllRankGroupsResponse::class,
+        Responses\Groups\ShowRankGroupResponse::class,
+        Responses\Groups\UpdateRankGroupResponse::class,
 
-        CreateRankNameResponse::class,
-        ShowRankNameResponse::class,
-        ShowAllRankNamesResponse::class,
-        UpdateRankNameResponse::class,
+        Responses\Names\CreateRankNameResponse::class,
+        Responses\Names\ShowAllRankNamesResponse::class,
+        Responses\Names\ShowRankNameResponse::class,
+        Responses\Names\UpdateRankNameResponse::class,
 
-        CreateRankItemResponse::class,
-        ShowAllRankItemsResponse::class,
+        Responses\Items\CreateRankItemResponse::class,
+        Responses\Items\ShowAllRankItemsResponse::class,
+        Responses\Items\ShowRankItemResponse::class,
     ];
 }

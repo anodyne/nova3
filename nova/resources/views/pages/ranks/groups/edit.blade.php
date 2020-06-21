@@ -20,7 +20,7 @@
                     @foreach ($group->ranks as $rank)
                         <div class="group flex items-center justify-between py-2 px-4 rounded even:bg-gray-100">
                             <div class="flex items-center">
-                                <x-rank :base="$rank->base_image" :overlay="$rank->overlay_image" />
+                                <x-rank :rank="$rank" />
                                 <span class="font-medium text-sm ml-3">{{ optional($rank->name)->name }}</span>
                             </div>
                             @can('update', $rank)

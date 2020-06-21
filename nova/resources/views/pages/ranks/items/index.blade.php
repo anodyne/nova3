@@ -43,7 +43,7 @@
                     <div class="px-4 py-4 flex items-center | sm:px-6">
                         <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
                             <div class="flex items-center">
-                                <x-rank :base="$item->base_image" :overlay="$item->overlay_image" />
+                                <x-rank :rank="$item" />
                                 <div class="ml-3 font-medium">
                                     {{ $item->rank_name }}
                                 </div>
