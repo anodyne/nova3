@@ -78,7 +78,8 @@ class PopulatePagesTable extends Migration
             ['uri' => 'ranks/groups/{group}', 'key' => 'ranks.groups.update', 'verb' => 'put', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\UpdateRankGroupController@update', 'layout' => 'admin'],
             ['uri' => 'ranks/groups/delete', 'key' => 'ranks.groups.delete', 'verb' => 'post', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\DeleteRankGroupController@confirm', 'layout' => 'admin'],
             ['uri' => 'ranks/groups/{group}', 'key' => 'ranks.groups.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\DeleteRankGroupController@destroy', 'layout' => 'admin'],
-            ['uri' => 'ranks/groups/{originalGroup}/duplicate', 'key' => 'ranks.groups.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\DuplicateRankGroupController', 'layout' => 'admin'],
+            ['uri' => 'ranks/groups/confirm-duplicate', 'key' => 'ranks.groups.confirm-duplicate', 'verb' => 'post',  'resource' => 'Nova\\Ranks\\Http\\Controllers\\DuplicateRankGroupController@confirm', 'layout' => 'admin'],
+            ['uri' => 'ranks/groups/{originalGroup}/duplicate', 'key' => 'ranks.groups.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\DuplicateRankGroupController@duplicate', 'layout' => 'admin'],
 
             ['uri' => 'ranks/names', 'key' => 'ranks.names.index', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\ShowRankNameController@all', 'layout' => 'admin'],
             ['uri' => 'ranks/names/{name}/show', 'key' => 'ranks.names.show', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\ShowRankNameController@show', 'layout' => 'admin'],

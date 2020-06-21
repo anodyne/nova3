@@ -13,6 +13,7 @@ use Nova\Ranks\Http\Responses\CreateRankItemResponse;
 use Nova\Ranks\Http\Responses\CreateRankNameResponse;
 use Nova\Ranks\Http\Responses\UpdateRankNameResponse;
 use Nova\Ranks\Http\Responses\CreateRankGroupResponse;
+use Nova\Ranks\Http\Responses\DuplicateRankGroupResponse;
 use Nova\Ranks\Http\Responses\ShowRankOptionsResponse;
 use Nova\Ranks\Http\Responses\UpdateRankGroupResponse;
 use Nova\Ranks\Http\Responses\ShowAllRankNamesResponse;
@@ -33,6 +34,7 @@ class RankServiceProvider extends DomainServiceProvider
         ShowRankOptionsResponse::class,
 
         CreateRankGroupResponse::class,
+        DuplicateRankGroupResponse::class,
         ShowRankGroupResponse::class,
         ShowAllRankGroupsResponse::class,
         UpdateRankGroupResponse::class,

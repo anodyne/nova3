@@ -30,8 +30,8 @@ class RankItemData extends DataTransferObject
     public static function fromRequest(Request $request): self
     {
         return new self([
-            'baseImage' => $request->input('base_image'),
-            'overlayImage' => $request->input('overlay_image'),
+            'base_image' => $request->input('base_image'),
+            'overlay_image' => $request->input('overlay_image'),
             'group_id' => $request->group_id,
             'name_id' => $request->name_id,
         ]);

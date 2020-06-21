@@ -62,7 +62,12 @@
                                     @endcan
 
                                     @can('duplicate', $group)
-                                        <button type="submit" class="{{ $component->link() }}" form="duplicate-{{ $group->id }}" data-cy="duplicate">
+                                        <button
+                                            x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-duplicate', {{ json_encode($group) }});"
+                                            class="{{ $component->link() }}"
+                                            data-cy="duplicate"
+                                        >
+                                        {{-- <button type="submit" class="{{ $component->link() }}" form="duplicate-{{ $group->id }}" data-cy="duplicate"> --}}
                                             @icon('duplicate', $component->icon())
                                             <span>Duplicate</span>
                                         </button>
@@ -103,6 +108,21 @@
             <span class="flex w-full | sm:col-start-2">
                 <button form="form" class="button button-danger w-full">
                     Delete
+                </button>
+            </span>
+            <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
+                <button x-on:click="$dispatch('modal-close')" type="button" class="button w-full">
+                    Cancel
+                </button>
+            </span>
+        </x-slot>
+    </x-modal>
+
+    <x-modal color="blue" headline="Duplicate rank group" icon="duplicate" :url="route('ranks.groups.confirm-duplicate')" event="modal-duplicate" :wide="true">
+        <x-slot name="footer">
+            <span class="flex w-full | sm:col-start-2">
+                <button form="form-duplicate" class="button button-primary w-full">
+                    Duplicate
                 </button>
             </span>
             <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">

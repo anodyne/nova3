@@ -6,6 +6,7 @@ use Tests\TestCase;
 use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Actions\DuplicateRankGroup;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Ranks\DataTransferObjects\RankGroupData;
 
 /**
  * @group ranks
@@ -32,9 +33,11 @@ class DuplicateRankGroupActionTest extends TestCase
     /** @test **/
     public function itDuplicatesARankGroup()
     {
-        $group = $this->action->execute($this->group);
+        $group = $this->action->execute($this->group, new RankGroupData([
+            'name' => 'New Name',
+        ]));
 
         $this->assertTrue($group->exists);
-        $this->assertEquals('Copy of Command', $group->name);
+        $this->assertEquals('New Name', $group->name);
     }
 }

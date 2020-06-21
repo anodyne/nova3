@@ -33,11 +33,14 @@ class DuplicateRankGroupTest extends TestCase
 
         $this->followingRedirects();
 
-        $response = $this->post(route('ranks.groups.duplicate', $this->group));
+        $response = $this->post(
+            route('ranks.groups.duplicate', $this->group),
+            ['name' => 'New Name', 'base_image' => 'foo.png']
+        );
         $response->assertSuccessful();
 
         $this->assertDatabaseHas('rank_groups', [
-            'name' => "Copy of {$this->group->name}",
+            'name' => 'New Name',
         ]);
     }
 
@@ -48,7 +51,10 @@ class DuplicateRankGroupTest extends TestCase
 
         $this->signInWithPermission(['rank.create', 'rank.update']);
 
-        $this->post(route('ranks.groups.duplicate', $this->group));
+        $this->post(
+            route('ranks.groups.duplicate', $this->group),
+            ['name' => 'New Name', 'base_image' => 'foo.png']
+        );
 
         Event::assertDispatched(RankGroupDuplicated::class);
     }
