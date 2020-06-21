@@ -82,7 +82,7 @@ class PopulateAuthorizationTables extends Migration
         Role::unguarded(function () {
             $roles = [
                 ['name' => 'admin', 'display_name' => 'System Admin', 'locked' => true],
-                ['name' => 'user', 'display_name' => 'Basic User', 'default' => true],
+                ['name' => 'user', 'display_name' => 'Active User', 'default' => true],
             ];
 
             collect($roles)->each(function ($role) {

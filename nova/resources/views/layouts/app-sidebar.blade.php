@@ -60,17 +60,32 @@
                             @icon('book', 'mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
                             My Notes
                         </a>
-                        <div class="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-100 transition ease-in-out duration-150">
-                            @icon('settings', 'mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
-                            Manage
-                        </div>
-                        <div class="flex flex-col ml-12">
-                            <a href="{{ route('ranks.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Ranks</a>
-                            <a href="{{ route('roles.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Roles</a>
-                            <a href="{{ route('settings.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Settings</a>
-                            <a href="{{ route('themes.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Themes</a>
-                            <a href="{{ route('users.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Users</a>
-                        </div>
+
+                        @if (auth()->user()->canManage())
+                            <div class="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-100 transition ease-in-out duration-150">
+                                @icon('settings', 'mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
+                                Manage
+                            </div>
+                            <div class="flex flex-col ml-12">
+                                @can('viewAny', 'Nova\Ranks\Models\RankItem')
+                                    <a href="{{ route('ranks.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Ranks</a>
+                                @endcan
+
+                                @can('viewAny', 'Nova\Roles\Models\Role')
+                                    <a href="{{ route('roles.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Roles</a>
+                                @endcan
+
+                                <a href="{{ route('settings.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Settings</a>
+
+                                @can('viewAny', 'Nova\Themes\Models\Theme')
+                                    <a href="{{ route('themes.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Themes</a>
+                                @endcan
+
+                                @can('viewAny', 'Nova\Users\Models\User')
+                                    <a href="{{ route('users.index', 'status=active') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Users</a>
+                                @endcan
+                            </div>
+                        @endif
                     </nav>
                 </div>
             </div>
@@ -98,17 +113,32 @@
                         @icon('book', 'mr-3 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
                         My Notes
                     </a>
-                    <div class="mt-1 first:mt-0 group flex items-center px-2 py-2 text-sm leading-5 font-semibold text-gray-500 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:bg-gray-100 transition ease-in-out duration-150">
-                        @icon('settings', 'mr-3 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
-                        Manage
-                    </div>
-                    <div class="flex flex-col text-sm ml-11">
-                        <a href="{{ route('ranks.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Ranks</a>
-                        <a href="{{ route('roles.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Roles</a>
-                        <a href="{{ route('settings.index', 'general') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Settings</a>
-                        <a href="{{ route('themes.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Themes</a>
-                        <a href="{{ route('users.index', 'status=active') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Users</a>
-                    </div>
+
+                    @if (auth()->user()->canManage())
+                        <div class="mt-1 first:mt-0 group flex items-center px-2 py-2 text-sm leading-5 font-semibold text-gray-500 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:bg-gray-100 transition ease-in-out duration-150">
+                            @icon('settings', 'mr-3 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
+                            Manage
+                        </div>
+                        <div class="flex flex-col text-sm ml-11">
+                            @can('viewAny', 'Nova\Ranks\Models\RankItem')
+                                <a href="{{ route('ranks.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Ranks</a>
+                            @endcan
+
+                            @can('viewAny', 'Nova\Roles\Models\Role')
+                                <a href="{{ route('roles.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Roles</a>
+                            @endcan
+
+                            <a href="{{ route('settings.index', 'general') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Settings</a>
+
+                            @can('viewAny', 'Nova\Themes\Models\Theme')
+                                <a href="{{ route('themes.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Themes</a>
+                            @endcan
+
+                            @can('viewAny', 'Nova\Users\Models\User')
+                                <a href="{{ route('users.index', 'status=active') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Users</a>
+                            @endcan
+                        </div>
+                    @endif
                 </nav>
             </div>
         </div>

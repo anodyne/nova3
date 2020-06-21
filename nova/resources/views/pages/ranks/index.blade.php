@@ -11,7 +11,7 @@
                 </h3>
             </div>
             <p class="mt-2 text-base leading-6 text-gray-500">
-                Rank groups are a simple way to collect related rank items together for simpler finding and selecting.
+                Rank groups are a simple way to collect related rank items together for simpler searching and selecting.
             </p>
 
             <x-slot name="footer">
@@ -43,7 +43,7 @@
                 Rank Items
             </h3>
             <p class="mt-2 text-base leading-6 text-gray-500">
-                Rank items bring the group, names, and images together in a simple and easy-to-use rank experience.
+                Rank items bring the group, name, and images together in a simple and easy-to-use rank experience.
             </p>
 
             <x-slot name="footer">
