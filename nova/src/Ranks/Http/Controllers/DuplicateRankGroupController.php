@@ -44,7 +44,7 @@ class DuplicateRankGroupController extends Controller
 
         return redirect()
             ->route('ranks.groups.edit', $group)
-            ->withToast("{$originalGroup->name} has been duplicated");
+            ->withToast("{$group->name} has been created", "The rank items from {$originalGroup->name} have been duplicated with the new base image for your new rank group.");
     }
 
     protected function getRankBaseImages(): array

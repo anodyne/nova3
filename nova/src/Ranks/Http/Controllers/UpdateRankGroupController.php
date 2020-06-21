@@ -23,7 +23,7 @@ class UpdateRankGroupController extends Controller
         $this->authorize('update', $group);
 
         return app(UpdateRankGroupResponse::class)->with([
-            'group' => $group,
+            'group' => $group->load('ranks.name'),
         ]);
     }
 
