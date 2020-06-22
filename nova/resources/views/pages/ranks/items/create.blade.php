@@ -9,6 +9,9 @@
 
     <x-panel x-data="{ tab: 'base', base: '', overlay: '' }">
         <x-form :action="route('ranks.items.store')">
+            <input type="hidden" name="base_image" x-model="base">
+            <input type="hidden" name="overlay_image" x-model="overlay">
+
             <x-form.section title="Rank Info" message="You can build up your rank with a few clicks. Assign it to a group, set a name, and pick your base and overlay images to build your rank quickly and easily.">
                 <x-input.group label="Rank Group" for="group_id" :error="$errors->first('group_id')">
                     <select name="group_id" id="group_id" class="form-select w-full | sm:w-1/2">
