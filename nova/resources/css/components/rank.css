@@ -1,13 +1,15 @@
 .rank {
-    @apply relative overflow-hidden;
+    @apply relative overflow-hidden rounded-sm;
 }
 
 .rank-base {
     @apply h-10 w-36 bg-transparent bg-left-top;
+
+    background-size: 144px 40px;
 }
 
 .rank-overlay {
     @apply absolute h-10 w-36 bg-transparent bg-left-top;
 
-    top: -4px;
+    background-size: 144px 40px;
 }
