@@ -20,32 +20,39 @@ class UserSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@admin.com',
         ]);
+        $admin->status->transitionTo(Active::class);
+        $admin->attachRoles(['admin', 'user']);
 
-        $admin->transitionTo(Active::class)->attachRole('admin');
-
-        $user = factory(User::class)
+        $activeUser = factory(User::class)
             ->states('unverified-email')
             ->create([
                 'name' => 'user',
                 'email' => 'user@user.com',
             ]);
+        $activeUser->status->transitionTo(Active::class);
+        $activeUser->attachRole('user');
 
-        $user->transitionTo(Active::class)->attachRole('user');
+        $inactiveUser = factory(User::class)
+            ->create([
+                'name' => 'inactive',
+                'email' => 'inactive@inactive.com',
+            ]);
+        $inactiveUser->status->transitionTo(Inactive::class);
 
-        // factory(User::class)->times(25)->create()->each(function ($user) {
-        //     $decision = mt_rand(1, 3);
+        factory(User::class)->times(25)->create()->each(function ($user) {
+            $decision = mt_rand(1, 3);
 
-        //     $user->attachRole('user');
+            $user->attachRole('user');
 
-        //     if ($decision === 2) {
-        //         $user->status->transitionTo(Active::class);
-        //     }
+            if ($decision === 2) {
+                $user->status->transitionTo(Active::class);
+            }
 
-        //     if ($decision === 3) {
-        //         $user->status->transitionTo(Active::class);
-        //         $user->status->transitionTo(Inactive::class);
-        //     }
-        // });
+            if ($decision === 3) {
+                $user->status->transitionTo(Active::class);
+                $user->status->transitionTo(Inactive::class);
+            }
+        });
 
         activity()->enableLogging();
     }

@@ -13,7 +13,9 @@ class UpdateTheme extends Action
     public function execute(Theme $theme, ThemeData $data): Theme
     {
         return $this->call(function () use ($theme, $data) {
-            return tap($theme)->update($data->toArray())->refresh();
+            return tap($theme)
+                ->update($data->except('variants')->toArray())
+                ->refresh();
         });
     }
 }

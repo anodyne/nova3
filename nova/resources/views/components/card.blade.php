@@ -1,7 +1,10 @@
-@props(['header', 'footer'])
+@props([
+    'header' => false,
+    'footer' => false,
+])
 
 <div {{ $attributes->merge(['class' => 'flex flex-col rounded-lg shadow-lg relative bg-white']) }}>
-    @if (! $header->isEmpty())
+    @if ($header)
         {{ $header }}
     @endif
 
@@ -12,7 +15,7 @@
             </div>
         </div>
 
-        @if (isset($footer))
+        @if ($footer)
             <div class="px-4 py-3 | sm:px-6">
                 {{ $footer }}
             </div>

@@ -1,8 +1,12 @@
-@props(['title'])
+@props([
+    'title',
+    'controls' => false,
+    'pretitle' => false,
+])
 
 <div class="mb-8 | sm:flex sm:items-center sm:justify-between" data-cy="page-header">
     <div class="flex-1 min-w-0">
-        @if (isset($pretitle))
+        @if ($pretitle)
             <div class="block mb-2 leading-none text-sm text-gray-600 dark:text-gray-500 font-semibold uppercase tracking-wide">
                 {{ $pretitle }}
             </div>
@@ -13,7 +17,7 @@
         </h1>
     </div>
 
-    @if (isset($controls))
+    @if ($controls)
         <div class="inline-flex flex-row-reverse items-center w-auto mt-4 | sm:mt-0 sm:flex-row" data-cy="page-header-controls">
             {{ $controls }}
         </div>

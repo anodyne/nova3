@@ -8,6 +8,9 @@ use Nova\Notes\Events\NoteDeleted;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @group notes
+ */
 class DeleteNoteTest extends TestCase
 {
     use RefreshDatabase;
@@ -18,39 +21,22 @@ class DeleteNoteTest extends TestCase
     {
         parent::setUp();
 
-        $this->note = factory(Note::class)->create();
+        $this->note = create(Note::class);
     }
 
     /** @test **/
-    public function userCanDeleteNote()
+    public function authenticatedUserCanDeleteNote()
     {
         $this->signIn($this->note->author);
 
-        $response = $this->delete(route('notes.destroy', $this->note));
+        $this->followingRedirects();
 
-        $this->followRedirects($response)->assertOk();
+        $response = $this->delete(route('notes.destroy', $this->note));
+        $response->assertSuccessful();
 
         $this->assertDatabaseMissing('notes', [
             'id' => $this->note->id,
         ]);
-    }
-
-    /** @test **/
-    public function userCannotDeleteNoteTheyDidNotCreate()
-    {
-        $this->signIn();
-
-        $response = $this->delete(route('notes.destroy', $this->note));
-
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function guestCannotDeleteNote()
-    {
-        $response = $this->delete(route('notes.destroy', $this->note));
-
-        $response->assertRedirect(route('login'));
     }
 
     /** @test **/
@@ -62,18 +48,22 @@ class DeleteNoteTest extends TestCase
 
         $this->delete(route('notes.destroy', $this->note));
 
-        Event::assertDispatched(NoteDeleted::class, function ($event) {
-            return $event->note->is($this->note);
-        });
+        Event::assertDispatched(NoteDeleted::class);
     }
 
     /** @test **/
-    public function activityIsLoggedWhenNoteIsDeleted()
+    public function authenticatedUserCannotDeleteNoteTheyDidNotCreate()
     {
-        $this->note->delete();
+        $this->signIn();
 
-        $this->assertDatabaseHas('activity_log', [
-            'description' => $this->note->title . ' note was deleted',
-        ]);
+        $response = $this->delete(route('notes.destroy', $this->note));
+        $response->assertForbidden();
+    }
+
+    /** @test **/
+    public function unauthenticatedUserCannotDeleteNote()
+    {
+        $response = $this->deleteJson(route('notes.destroy', $this->note));
+        $response->assertUnauthorized();
     }
 }

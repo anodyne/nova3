@@ -12,7 +12,7 @@ class UpdateUserStatus extends Action
     {
         $newStatus = State::make($status, $user);
 
-        if (! $user->status->is($newStatus)) {
+        if ((string) $user->status !== (string) $newStatus) {
             $user->status->transitionTo($newStatus);
         }
 

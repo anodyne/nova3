@@ -69,18 +69,6 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     }
 
     /**
-     * Record a timestamp when a user logs in.
-     *
-     * @return \Nova\Users\Models\User
-     */
-    public function recordLoginTime(): self
-    {
-        return tap($this, function ($user) {
-            $user->update(['last_login' => now()]);
-        });
-    }
-
-    /**
      * Set the description for logging.
      *
      * @param  string  $eventName
@@ -110,6 +98,19 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     public function getHasAvatarAttribute(): bool
     {
         return $this->getFirstMedia('avatar') !== null;
+    }
+
+    /**
+     * Can the user do any management in the app?
+     *
+     * @return bool
+     */
+    public function canManage(): bool
+    {
+        return $this->can('rank.*')
+            || $this->can('role.*')
+            || $this->can('theme.*')
+            || $this->can('user.*');
     }
 
     /**

@@ -27,6 +27,16 @@ class ThemeData extends DataTransferObject
      */
     public $active = true;
 
+    /**
+     * @var  string
+     */
+    public $preview;
+
+    /**
+     * @var  string[]
+     */
+    public $variants;
+
     public static function fromRequest(Request $request): self
     {
         return new self([
@@ -34,6 +44,8 @@ class ThemeData extends DataTransferObject
             'location' => $request->location,
             'credits' => $request->credits,
             'active' => $request->active ?? true,
+            'preview' => $request->preview,
+            'variants' => explode(',', $request->input('variants')),
         ]);
     }
 }

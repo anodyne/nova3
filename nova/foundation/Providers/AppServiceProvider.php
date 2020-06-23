@@ -2,16 +2,13 @@
 
 namespace Nova\Foundation\Providers;
 
-use Inertia\Inertia;
 use Nova\Foundation\Macros;
 use Illuminate\Routing\Route;
 use Nova\Foundation\NovaManager;
 use Nova\Foundation\Icons\IconSets;
 use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
 use Nova\Foundation\Icons\FluentIconSet;
 use Nova\Foundation\NovaBladeDirectives;
@@ -20,7 +17,6 @@ use Nova\Foundation\View\Components\Badge;
 use Illuminate\View\Factory as ViewFactory;
 use Nova\Foundation\View\Components\Avatar;
 use Nova\Foundation\View\Components\Dropdown;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Nova\Foundation\View\Components\AvatarGroup;
 
 class AppServiceProvider extends ServiceProvider
@@ -37,56 +33,16 @@ class AppServiceProvider extends ServiceProvider
 
         Paginator::useTailwind();
 
-        // $this->registerInertia();
         $this->registerMacros();
-        // $this->registerLengthAwarePaginator();
+        $this->registerIcons();
         $this->registerBladeDirectives();
         $this->registerBladeComponents();
         $this->registerLivewireComponents();
-        $this->registerIcons();
     }
 
     protected function registerNovaSingleton()
     {
         $this->app->singleton('nova', NovaManager::class);
-    }
-
-    protected function registerInertia()
-    {
-        Inertia::version(function () {
-            return md5_file(base_path('dist/mix-manifest.json'));
-        });
-
-        Inertia::share([
-            'auth' => function () {
-                return [
-                    'user' => Auth::user() ? [
-                        'id' => Auth::user()->id,
-                        'name' => Auth::user()->name,
-                        'email' => Auth::user()->email,
-                        'state' => Auth::user()->state,
-                        'avatar_url' => Auth::user()->avatar_url,
-                    ] : null,
-                ];
-            },
-            'errors' => function () {
-                return Session::has('errors')
-                    ? Session::get('errors')->getBag('default')->getMessages()
-                    : (object) [];
-            },
-            'toast' => function () {
-                return Session::has('nova.toast')
-                    ? Session::get('nova.toast')
-                    : (object) [];
-            },
-        ]);
-    }
-
-    protected function registerLengthAwarePaginator()
-    {
-        $this->app->bind(LengthAwarePaginator::class, function ($app, $values) {
-            return new \Nova\Foundation\LengthAwarePaginator(...array_values($values));
-        });
     }
 
     protected function registerMacros()

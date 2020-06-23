@@ -13,7 +13,7 @@ class ToastTest extends TestCase
     {
         parent::setUp();
 
-        $this->toast = $this->app->make(Toast::class);
+        $this->toast = app(Toast::class);
     }
 
     /**

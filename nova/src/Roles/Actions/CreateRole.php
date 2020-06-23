@@ -4,7 +4,6 @@ namespace Nova\Roles\Actions;
 
 use Nova\Foundation\Action;
 use Nova\Roles\Models\Role;
-use Nova\Roles\Models\Permission;
 use Nova\Roles\DataTransferObjects\RoleData;
 
 class CreateRole extends Action
@@ -18,7 +17,9 @@ class CreateRole extends Action
                 $data->except('permissions', 'users')->toArray()
             );
 
-            $role->syncPermissions($data->permissions);
+            if ($data->permissions) {
+                $role->syncPermissions($data->permissions);
+            }
 
             return $role->refresh();
         });

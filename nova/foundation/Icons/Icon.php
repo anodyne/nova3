@@ -3,6 +3,7 @@
 namespace Nova\Foundation\Icons;
 
 use BladeUI\Icons\Svg;
+use BladeUI\Icons\Factory;
 
 class Icon
 {
@@ -19,14 +20,14 @@ class Icon
 
     public function getIconSet(): IconSet
     {
-        return app(IconSets::class)->get(cache()->get('nova.icon-set', $this->default));
+        return app(IconSets::class)->get($this->default);
     }
 
     protected function getIconName($name): string
     {
         return sprintf(
             '%s-%s',
-            cache()->get('nova.icon-set', $this->default),
+            $this->default,
             $this->getIconSet()->getIcon($name)
         );
     }

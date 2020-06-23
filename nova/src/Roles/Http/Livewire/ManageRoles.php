@@ -7,7 +7,7 @@ use Nova\Roles\Models\Role;
 
 class ManageRoles extends Component
 {
-    public $roles;
+    public $roles = [];
 
     public $query;
 

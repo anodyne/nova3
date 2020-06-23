@@ -6,6 +6,9 @@ use Tests\TestCase;
 use Nova\Notes\Models\Note;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @group notes
+ */
 class ManageNotesTest extends TestCase
 {
     use RefreshDatabase;
@@ -16,29 +19,34 @@ class ManageNotesTest extends TestCase
     {
         parent::setUp();
 
-        $this->note = factory(Note::class)->create();
+        $this->note = create(Note::class);
     }
 
     /** @test **/
-    public function userCanSeeTheirNotes()
+    public function authenticatedUserCanSeeTheirNotes()
     {
         $this->signIn($this->note->author);
 
         $response = $this->get(route('notes.index'));
+        $response->assertSuccessful();
 
-        $response->assertOk();
-        $response->assertPropCount('notes.data', 1);
+        $this->assertCount(1, $response['notes']);
     }
 
     /** @test **/
-    public function userCannotSeeNotesTheyDidNotCreate()
+    public function authenticatedUserCannotSeeNotesTheyDidNotCreate()
     {
         $this->signIn();
 
-        $response = $this->get(route('notes.index'));
+        $note = create(Note::class, [
+            'user_id' => auth()->user(),
+        ]);
 
-        $response->assertOk();
-        $response->assertPropCount('notes.data', 0);
+        $response = $this->get(route('notes.index'));
+        $response->assertSuccessful();
+
+        $this->assertEquals(2, Note::count());
+        $this->assertCount(1, $response['notes']);
     }
 
     /** @test **/
@@ -46,18 +54,15 @@ class ManageNotesTest extends TestCase
     {
         $this->signIn($this->note->author);
 
-        factory(Note::class)->create([
-            'user_id' => auth()->id(),
+        create(Note::class, [
+            'user_id' => auth()->user(),
             'title' => 'Foo',
         ]);
 
-        $response = $this->get(route('notes.index') . '?search=foo');
+        $response = $this->get(route('notes.index', 'search=foo'));
+        $response->assertSuccessful();
 
-        $response->assertOk();
-        $response->assertPropCount('notes.data', 1);
-        $response->assertPropValue('notes.data', function ($notes) {
-            $this->assertEquals('Foo', $notes[0]['title']);
-        });
+        $this->assertCount(1, $response['notes']);
     }
 
     /** @test **/
@@ -65,17 +70,37 @@ class ManageNotesTest extends TestCase
     {
         $this->signIn($this->note->author);
 
-        factory(Note::class)->create([
-            'user_id' => auth()->id(),
-            'content' => 'foo',
+        create(Note::class, [
+            'user_id' => auth()->user(),
+            'content' => 'foobar',
         ]);
 
-        $response = $this->get(route('notes.index') . '?search=foo');
+        $response = $this->get(route('notes.index', 'search=foobar'));
+        $response->assertSuccessful();
 
-        $response->assertOk();
-        $response->assertPropCount('notes.data', 1);
-        $response->assertPropValue('notes.data', function ($notes) {
-            $this->assertEquals('foo', $notes[0]['content']);
-        });
+        $this->assertCount(1, $response['notes']);
+    }
+
+    /** @test **/
+    public function notesCanBeFilteredBySummary()
+    {
+        $this->signIn($this->note->author);
+
+        create(Note::class, [
+            'user_id' => auth()->user(),
+            'summary' => 'barbaz',
+        ]);
+
+        $response = $this->get(route('notes.index', 'search=barbaz'));
+        $response->assertSuccessful();
+
+        $this->assertCount(1, $response['notes']);
+    }
+
+    /** @test **/
+    public function unauthenticatedUserCannotSeeAnyNotes()
+    {
+        $response = $this->getJson(route('notes.index'));
+        $response->assertUnauthorized();
     }
 }

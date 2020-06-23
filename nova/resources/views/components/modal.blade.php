@@ -1,18 +1,20 @@
 @props([
-    'icon' => false,
-    'headline',
-    'content' => false,
     'color' => 'green',
+    'content' => false,
+    'event' => 'modal-load',
+    'headline',
+    'icon' => false,
     'url' => false,
+    'wide' => false,
 ])
 
 @push('modal')
     <div
-        x-data="modal()"
+        x-data="modal('{{ $event }}')"
+        x-init="listen()"
         x-show="open"
         x-on:keydown.window.escape="open = false"
         x-on:modal-close.window="open = false"
-        x-on:modal-load.window="loadModalContent($event.detail)"
         class="fixed bottom-0 inset-x-0 px-4 pb-6 z-50 | sm:inset-0 sm:p-0 sm:flex sm:items-center sm:justify-center"
     >
         <div
@@ -40,7 +42,7 @@
             x-transition:leave="ease-in duration-200"
             x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
             x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            class="relative bg-white rounded-lg px-4 pt-5 pb-4 overflow-hidden shadow-xl transform transition-all z-999 | sm:max-w-sm sm:w-full sm:p-6"
+            class="relative bg-white rounded-lg px-4 pt-5 pb-4 overflow-hidden shadow-xl transform transition-all z-999 | sm:w-full sm:p-6 @if ($wide) sm:max-w-lg @else sm:max-w-sm @endif"
             role="dialog"
             aria-modal="true"
             aria-labelledby="modal-headline"
@@ -70,13 +72,20 @@
 
 @push('scripts')
     <script>
-        function modal()
+        function modal(eventName)
         {
             return {
                 content: null,
                 isLoading: false,
                 open: false,
                 url: '{{ $url }}',
+
+                listen () {
+                    window.addEventListener(eventName, (event) => {
+                        console.log(event);
+                        this.loadModalContent(event.detail);
+                    });
+                },
 
                 loadModalContent (detail) {
                     fetch(this.url, {

@@ -37,7 +37,7 @@
                                     <p class="mt-1 text-sm leading-5 text-gray-600">{{ $note->summary }}</p>
                                 </div>
                             </div>
-                            <div class="flex items-center ml-5 flex-shrink-0">
+                            <div class="ml-5 flex-shrink-0 leading-0">
                                 <x-dropdown placement="bottom-end" class="text-gray-400 hover:text-gray-500">
                                     @icon('more', 'h-6 w-6')
 
