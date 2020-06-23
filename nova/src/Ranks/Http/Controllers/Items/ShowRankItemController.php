@@ -25,10 +25,15 @@ class ShowRankItemController extends Controller
 
         $items = RankItem::withRankName()
             ->filter($filters)
-            ->paginate();
+            ->orderBySort();
+
+        $items = ($request->has('reorder'))
+            ? $items->get()
+            : $items->paginate();
 
         return app(ShowAllRankItemsResponse::class)->with([
             'groups' => RankGroup::get(),
+            'isReordering' => $request->has('reorder'),
             'items' => $items,
             'search' => $request->search,
         ]);

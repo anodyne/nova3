@@ -7,7 +7,7 @@ use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Actions\ReorderRankGroups;
 use Nova\Foundation\Http\Controllers\Controller;
 
-class ReorderRankGroupController extends Controller
+class ReorderRankGroupsController extends Controller
 {
     public function __construct()
     {

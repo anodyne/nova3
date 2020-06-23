@@ -7,7 +7,7 @@ use Nova\Ranks\Models\RankName;
 use Nova\Ranks\Actions\ReorderRankNames;
 use Nova\Foundation\Http\Controllers\Controller;
 
-class ReorderRankNameController extends Controller
+class ReorderRankNamesController extends Controller
 {
     public function __construct()
     {

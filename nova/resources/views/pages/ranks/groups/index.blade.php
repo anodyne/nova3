@@ -40,7 +40,12 @@
                         <div class="mt-4">
                             <x-form :action="route('ranks.groups.reorder')" id="form-reorder">
                                 <input type="hidden" name="sort" x-model="newSortOrder">
-                                <button type="submit" form="form-reorder" class="button button-info">Save Sort Order</button>
+                                <div class="flex items-center space-x-4">
+                                    <button type="submit" form="form-reorder" class="button button-info">Save Sort Order</button>
+                                    <a href="{{ route('ranks.groups.index') }}" class="text-info-600 text-sm font-medium transition ease-in-out duration-150 hover:text-info-800">
+                                        Cancel
+                                    </a>
+                                </div>
                             </x-form>
                         </div>
                     </div>
