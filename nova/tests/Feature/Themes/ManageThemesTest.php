@@ -88,7 +88,24 @@ class ManageThemesTest extends TestCase
     /** @test **/
     public function themesCanBeFilteredToShowOnlyThemesToBeInstalled()
     {
-        $this->markTestIncomplete();
+        $this->signInWithPermission('theme.create');
+
+        create(Theme::class, [
+            'name' => 'Foobar',
+            'location' => 'foobar',
+        ]);
+
+        $this->disk->makeDirectory('bar');
+        $this->disk->put('bar/theme.json', json_encode([
+            'name' => 'Bar',
+            'location' => 'bar',
+        ]));
+
+        $response = $this->get(route('themes.index', 'pending'));
+        $response->assertSuccessful();
+
+        $this->assertCount(1, $response['themes']->where('name', 'Bar'));
+        $this->assertCount(0, $response['themes']->where('name', 'Foobar'));
     }
 
     /** @test **/
