@@ -19,14 +19,25 @@ class UserSeeder extends Seeder
         $admin = factory(User::class)->create([
             'name' => 'admin',
             'email' => 'admin@admin.com',
-        ])->attachRole('admin');
+        ]);
+        $admin->status->transitionTo(Active::class);
+        $admin->attachRoles(['admin', 'user']);
 
-        $user = factory(User::class)
+        $activeUser = factory(User::class)
             ->states('unverified-email')
             ->create([
                 'name' => 'user',
                 'email' => 'user@user.com',
-            ])->attachRole('user');
+            ]);
+        $activeUser->status->transitionTo(Active::class);
+        $activeUser->attachRole('user');
+
+        $inactiveUser = factory(User::class)
+            ->create([
+                'name' => 'inactive',
+                'email' => 'inactive@inactive.com',
+            ]);
+        $inactiveUser->status->transitionTo(Inactive::class);
 
         factory(User::class)->times(25)->create()->each(function ($user) {
             $decision = mt_rand(1, 3);

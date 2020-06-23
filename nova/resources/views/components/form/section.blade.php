@@ -3,7 +3,7 @@
     'message' => false,
 ])
 
-<div class="form-section">
+<div class="form-section" {{ $attributes }}>
     @if ($title || $message)
         <div class="form-section-header">
             @if ($title)

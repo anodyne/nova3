@@ -181,6 +181,7 @@ return [
          */
         Nova\Setup\Providers\SetupServiceProvider::class,
         Nova\Notes\Providers\NoteServiceProvider::class,
+        Nova\Ranks\Providers\RankServiceProvider::class,
         Nova\Roles\Providers\RoleServiceProvider::class,
         Nova\Settings\Providers\SettingsServiceProvider::class,
         Nova\Themes\Providers\ThemeServiceProvider::class,

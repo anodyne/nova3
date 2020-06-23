@@ -101,6 +101,19 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     }
 
     /**
+     * Can the user do any management in the app?
+     *
+     * @return bool
+     */
+    public function canManage(): bool
+    {
+        return $this->can('rank.*')
+            || $this->can('role.*')
+            || $this->can('theme.*')
+            || $this->can('user.*');
+    }
+
+    /**
      * Create a new Eloquent Collection instance.
      *
      * @param  array  $models

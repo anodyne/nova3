@@ -4,7 +4,7 @@
     <div
         x-cloak
         x-data="{ show: true }"
-        x-init="setTimeout(() => { show = false }, 5000)"
+        x-init="setTimeout(() => { show = false }, 6000)"
         x-show="show"
         x-description="Notification panel, show/hide based on alert state."
         x-transition:enter="transform ease-out duration-300 transition"

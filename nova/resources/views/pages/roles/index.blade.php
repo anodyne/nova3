@@ -45,7 +45,7 @@
                                 <x-avatar-group size="xs" :items="$role->users->take(4)" />
                             </div>
                         </div>
-                        <div class="ml-5 flex-shrink-0">
+                        <div class="ml-5 flex-shrink-0 leading-0">
                             <x-dropdown placement="bottom-end" class="text-gray-400 hover:text-gray-500">
                                 @icon('more', 'h-6 w-6')
 

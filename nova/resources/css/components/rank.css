@@ -1,0 +1,15 @@
+.rank {
+    @apply relative inline-flex overflow-hidden flex-shrink-0;
+}
+
+.rank-base {
+    @apply h-10 w-36 bg-transparent bg-left-top;
+
+    background-size: 144px 40px;
+}
+
+.rank-overlay {
+    @apply absolute h-10 w-36 bg-transparent bg-left-top;
+
+    background-size: 144px 40px;
+}
