@@ -21,13 +21,14 @@ class RankName extends Model
         'deleted' => Events\RankNameDeleted::class,
     ];
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'sort'];
 
     protected $table = 'rank_names';
 
     public function ranks()
     {
-        return $this->hasMany(RankItem::class, 'name_id');
+        return $this->hasMany(RankItem::class, 'name_id')
+            ->orderBy('sort', 'asc');
     }
 
     /**

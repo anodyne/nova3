@@ -1,5 +1,5 @@
 .rank {
-    @apply relative overflow-hidden rounded-sm;
+    @apply relative overflow-hidden rounded flex-shrink-0;
 }
 
 .rank-base {

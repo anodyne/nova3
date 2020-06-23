@@ -21,7 +21,9 @@ class RankItem extends Model
         'deleted' => Events\RankItemDeleted::class,
     ];
 
-    protected $fillable = ['base_image', 'overlay_image', 'group_id', 'name_id'];
+    protected $fillable = [
+        'base_image', 'overlay_image', 'group_id', 'name_id', 'sort'
+    ];
 
     protected $table = 'rank_items';
 

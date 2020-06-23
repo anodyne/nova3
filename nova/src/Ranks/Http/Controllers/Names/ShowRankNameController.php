@@ -24,9 +24,14 @@ class ShowRankNameController extends Controller
 
         $names = RankName::withCount('ranks')
             ->filter($filters)
-            ->paginate();
+            ->orderBySort();
+
+        $names = ($request->has('reorder'))
+            ? $names->get()
+            : $names->paginate();
 
         return app(ShowAllRankNamesResponse::class)->with([
+            'isReordering' => $request->has('reorder'),
             'names' => $names,
             'search' => $request->search,
         ]);

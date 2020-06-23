@@ -97,11 +97,12 @@
                             @foreach ($baseImages as $baseImage)
                                 <a
                                     x-on:click.prevent="base = '{{ $baseImage }}'"
-                                    class="rounded-md border border-transparent py-2 flex justify-center"
+                                    class="flex flex-col rounded-md border border-transparent py-2 flex justify-center"
                                     x-bind:class="{ 'bg-blue-100 border-blue-200 hover:bg-blue-100 hover:border-blue-200': base === '{{ $baseImage }}', 'hover:bg-gray-100 hover:border-gray-200': base !== '{{ $baseImage }}' }"
                                     href="#"
                                 >
-                                    <img src="{{ asset('ranks/base/' . $baseImage) }}" alt="" class="block">
+                                    <img src="{{ asset('ranks/base/' . $baseImage) }}" alt="" class="block h-10 w-36 mx-auto">
+                                    <span class="text-xs text-center text-gray-500">{{ $baseImage }}</span>
                                 </a>
                             @endforeach
                         </div>

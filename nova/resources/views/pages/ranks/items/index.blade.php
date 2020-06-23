@@ -49,7 +49,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="ml-5 flex-shrink-0">
+                        <div class="ml-5 flex-shrink-0 leading-0">
                             <x-dropdown placement="bottom-end" class="text-gray-400 hover:text-gray-500">
                                 @icon('more', 'h-6 w-6')
 
@@ -97,7 +97,7 @@
         </div>
     </x-panel>
 
-    <x-modal color="red" headline="Delete rank name?" icon="warning" :url="route('ranks.items.delete')">
+    <x-modal color="red" headline="Delete rank item?" icon="warning" :url="route('ranks.items.delete')">
         <x-slot name="footer">
             <span class="flex w-full | sm:col-start-2">
                 <button form="form" class="button button-danger w-full">

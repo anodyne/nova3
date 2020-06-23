@@ -80,6 +80,7 @@ class PopulatePagesTable extends Migration
             ['uri' => 'ranks/groups/{group}', 'key' => 'ranks.groups.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\Groups\\DeleteRankGroupController@destroy', 'layout' => 'admin'],
             ['uri' => 'ranks/groups/confirm-duplicate', 'key' => 'ranks.groups.confirm-duplicate', 'verb' => 'post',  'resource' => 'Nova\\Ranks\\Http\\Controllers\\Groups\\DuplicateRankGroupController@confirm', 'layout' => 'admin'],
             ['uri' => 'ranks/groups/{originalGroup}/duplicate', 'key' => 'ranks.groups.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\Groups\\DuplicateRankGroupController@duplicate', 'layout' => 'admin'],
+            ['uri' => 'ranks/groups/reorder', 'key' => 'ranks.groups.reorder', 'verb' => 'post', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\Groups\\ReorderRankGroupController', 'layout' => 'admin'],
 
             ['uri' => 'ranks/names', 'key' => 'ranks.names.index', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\Names\\ShowRankNameController@all', 'layout' => 'admin'],
             ['uri' => 'ranks/names/{name}/show', 'key' => 'ranks.names.show', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\Names\\ShowRankNameController@show', 'layout' => 'admin'],
@@ -90,6 +91,7 @@ class PopulatePagesTable extends Migration
             ['uri' => 'ranks/names/delete', 'key' => 'ranks.names.delete', 'verb' => 'post', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\Names\\DeleteRankNameController@confirm', 'layout' => 'admin'],
             ['uri' => 'ranks/names/{name}', 'key' => 'ranks.names.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\Names\\DeleteRankNameController@destroy', 'layout' => 'admin'],
             ['uri' => 'ranks/names/{originalName}/duplicate', 'key' => 'ranks.names.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\Names\\DuplicateRankNameController', 'layout' => 'admin'],
+            ['uri' => 'ranks/names/reorder', 'key' => 'ranks.names.reorder', 'verb' => 'post', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\Names\\ReorderRankNameController', 'layout' => 'admin'],
 
             ['uri' => 'ranks/items', 'key' => 'ranks.items.index', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\Items\\ShowRankItemController@all', 'layout' => 'admin'],
             ['uri' => 'ranks/items/{item}/show', 'key' => 'ranks.items.show', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\Items\\ShowRankItemController@show', 'layout' => 'admin'],

@@ -24,10 +24,15 @@ class ShowRankGroupController extends Controller
 
         $groups = RankGroup::withCount('ranks')
             ->filter($filters)
-            ->paginate();
+            ->orderBySort();
+
+        $groups = ($request->has('reorder'))
+            ? $groups->get()
+            : $groups->paginate();
 
         return app(ShowAllRankGroupsResponse::class)->with([
             'groups' => $groups,
+            'isReordering' => $request->has('reorder'),
             'search' => $request->search,
         ]);
     }

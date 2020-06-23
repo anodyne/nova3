@@ -10,6 +10,11 @@ class RankItemBuilder extends Builder
 {
     use Filterable;
 
+    public function inSortOrder()
+    {
+        return $this->builder->orderBy('sort', 'asc');
+    }
+
     public function withRankName()
     {
         return $this->addSelect(['rank_name' => RankName::select('name')

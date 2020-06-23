@@ -21,13 +21,14 @@ class RankGroup extends Model
         'deleted' => Events\RankGroupDeleted::class,
     ];
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'sort'];
 
     protected $table = 'rank_groups';
 
     public function ranks()
     {
-        return $this->hasMany(RankItem::class, 'group_id');
+        return $this->hasMany(RankItem::class, 'group_id')
+            ->orderBy('sort', 'asc');
     }
 
     /**

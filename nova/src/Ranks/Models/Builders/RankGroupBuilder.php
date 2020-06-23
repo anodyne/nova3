@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Builder;
 class RankGroupBuilder extends Builder
 {
     use Filterable;
+
+    public function orderBySort()
+    {
+        return $this->orderBy('sort', 'asc');
+    }
 }

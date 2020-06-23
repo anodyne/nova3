@@ -5,8 +5,8 @@ namespace Nova\Ranks\Http\Controllers\Items;
 use Nova\Ranks\Models\RankItem;
 use Nova\Ranks\Models\RankName;
 use Nova\Ranks\Models\RankGroup;
-use Symfony\Component\Finder\Finder;
 use Nova\Ranks\Actions\CreateRankItem;
+use Nova\Ranks\Concerns\FindRankImages;
 use Nova\Foundation\Http\Controllers\Controller;
 use Nova\Ranks\DataTransferObjects\RankItemData;
 use Nova\Ranks\Http\Requests\CreateRankItemRequest;
@@ -14,6 +14,8 @@ use Nova\Ranks\Http\Responses\Items\CreateRankItemResponse;
 
 class CreateRankItemController extends Controller
 {
+    use FindRankImages;
+
     public function __construct()
     {
         parent::__construct();
@@ -42,41 +44,5 @@ class CreateRankItemController extends Controller
         return redirect()
             ->route('ranks.items.index')
             ->withToast('Rank item was created');
-    }
-
-    protected function getRankBaseImages(): array
-    {
-        $finder = new Finder;
-        $finder->in(base_path('ranks/base'))->files();
-
-        $baseImages = [];
-
-        if ($finder->hasResults()) {
-            foreach ($finder as $file) {
-                $baseImages[] = $file->getRelativePathname();
-            }
-        }
-
-        sort($baseImages);
-
-        return $baseImages;
-    }
-
-    protected function getRankOverlayImages()
-    {
-        $finder = new Finder;
-        $finder->in(base_path('ranks/overlay'))->files();
-
-        $overlayImages = [];
-
-        if ($finder->hasResults()) {
-            foreach ($finder as $file) {
-                $overlayImages[] = $file->getRelativePathname();
-            }
-        }
-
-        sort($overlayImages);
-
-        return $overlayImages;
     }
 }
