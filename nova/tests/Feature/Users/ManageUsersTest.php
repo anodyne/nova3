@@ -178,7 +178,7 @@ class ManageUsersTest extends TestCase
     /** @test **/
     public function unauthenticatedUserCannotViewManageUsersPage()
     {
-        $response = $this->get(route('users.index'));
-        $response->assertRedirect(route('login'));
+        $response = $this->getJson(route('users.index'));
+        $response->assertUnauthorized();
     }
 }

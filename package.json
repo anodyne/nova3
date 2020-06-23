@@ -22,6 +22,7 @@
         "lodash": "^4.17",
         "mousetrap": "^1.6.3",
         "resolve-url-loader": "^2.3.1",
+        "sortablejs": "^1.10.2",
         "tailwindcss": "^1.2.0",
         "tailwindcss-dark-mode": "^1.1.4",
         "tiptap": "^1.26.5",
