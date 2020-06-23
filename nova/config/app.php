@@ -163,6 +163,8 @@ return [
         /*
          * Package Service Providers...
          */
+        BladeUI\Icons\BladeIconsServiceProvider::class,
+        Livewire\LivewireServiceProvider::class,
 
         /*
          * Application Service Providers...

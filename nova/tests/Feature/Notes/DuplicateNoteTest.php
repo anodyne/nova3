@@ -7,7 +7,11 @@ use Nova\Notes\Models\Note;
 use Illuminate\Support\Facades\Event;
 use Nova\Notes\Events\NoteDuplicated;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Notes\Http\Requests\DuplicateNoteRequest;
 
+/**
+ * @group notes
+ */
 class DuplicateNoteTest extends TestCase
 {
     use RefreshDatabase;
@@ -18,41 +22,27 @@ class DuplicateNoteTest extends TestCase
     {
         parent::setUp();
 
-        $this->note = factory(Note::class)->create();
+        $this->note = create(Note::class);
     }
 
     /** @test **/
-    public function userCanDuplicateNote()
+    public function authenticatedUserCanDuplicateNote()
     {
         $this->signIn($this->note->author);
 
+        $this->followingRedirects();
+
         $response = $this->post(route('notes.duplicate', $this->note));
+        $response->assertSuccessful();
 
-        $this->followRedirects($response)->assertOk();
-
-        $note = Note::get()->last();
+        $this->assertRouteUsesFormRequest(
+            'notes.duplicate',
+            DuplicateNoteRequest::class
+        );
 
         $this->assertDatabaseHas('notes', [
             'title' => "Copy of {$this->note->title}",
         ]);
-    }
-
-    /** @test **/
-    public function userCannotDuplicateNoteTheyDidNotCreate()
-    {
-        $this->signIn();
-
-        $response = $this->post(route('notes.duplicate', $this->note));
-
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function guestCannotDuplicateNote()
-    {
-        $response = $this->post(route('notes.duplicate', $this->note));
-
-        $response->assertRedirect(route('login'));
     }
 
     /** @test **/
@@ -64,10 +54,22 @@ class DuplicateNoteTest extends TestCase
 
         $this->post(route('notes.duplicate', $this->note));
 
-        $note = Note::get()->last();
+        Event::assertDispatched(NoteDuplicated::class);
+    }
 
-        Event::assertDispatched(NoteDuplicated::class, function ($event) use ($note) {
-            return $event->note->is($note) && $event->originalNote->is($this->note);
-        });
+    /** @test **/
+    public function authenticatedUserCannotDuplicateNoteTheyDidNotCreate()
+    {
+        $this->signIn();
+
+        $response = $this->post(route('notes.duplicate', $this->note));
+        $response->assertForbidden();
+    }
+
+    /** @test **/
+    public function unauthenticatedUserCannotDuplicateNote()
+    {
+        $response = $this->postJson(route('notes.duplicate', $this->note));
+        $response->assertUnauthorized();
     }
 }

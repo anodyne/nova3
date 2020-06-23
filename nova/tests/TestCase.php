@@ -12,6 +12,7 @@ abstract class TestCase extends BaseTestCase
     use CreatesApplication;
     use HttpTestAssertions;
     use ManagesTestUsers;
+    use TestHelpers;
 
     protected function setUp(): void
     {

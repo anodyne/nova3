@@ -3,31 +3,35 @@
 namespace Tests\Feature\Users;
 
 use Tests\TestCase;
-use Nova\Roles\Models\Role;
 use Nova\Users\Models\User;
 use Nova\Users\Events\UserCreated;
-use Nova\Users\Models\States\Active;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Event;
 use Nova\Users\Events\UserCreatedByAdmin;
-use Illuminate\Support\Facades\Notification;
-use Nova\Users\Notifications\AccountCreated;
-use Nova\Users\Http\Requests\ValidateStoreUser;
+use Nova\Users\Http\Requests\CreateUserRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
- * @see \Nova\Users\Http\Controllers\UserController
+ * @group users
  */
 class CreateUserTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        Mail::fake();
+    }
+
     /** @test **/
-    public function authorizedUserCanViewCreateUserPage()
+    public function authorizedUserCanViewTheCreateUserPage()
     {
         $this->signInWithPermission('user.create');
 
         $response = $this->get(route('users.create'));
-        $response->assertOk();
+        $response->assertSuccessful();
     }
 
     /** @test **/
@@ -35,48 +39,19 @@ class CreateUserTest extends TestCase
     {
         $this->signInWithPermission('user.create');
 
-        $data = factory(User::class)->make();
+        $data = make(User::class);
 
-        $role = factory(Role::class)->create();
+        $this->followingRedirects();
 
-        $response = $this->post(
-            route('users.store'),
-            array_merge($data->toArray(), ['roles' => [$role->name]])
-        );
-        $this->followRedirects($response)->assertOk();
-
-        $user = User::get()->last();
-
-        $this->assertTrue($user->status->is(Active::class));
+        $response = $this->post(route('users.store'), $data->toArray());
+        $response->assertSuccessful();
 
         $this->assertDatabaseHas('users', $data->only('name', 'email'));
 
-        $this->assertDatabaseHas('role_user', [
-            'role_id' => $role->id,
-            'user_id' => $user->id,
-        ]);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotCreateUser()
-    {
-        $this->signIn();
-
-        $response = $this->getJson(route('users.create'));
-        $response->assertForbidden();
-
-        $response = $this->postJson(route('users.store'), []);
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function guestCannotCreateUser()
-    {
-        $response = $this->getJson(route('users.create'));
-        $response->assertUnauthorized();
-
-        $response = $this->postJson(route('users.store'), []);
-        $response->assertUnauthorized();
+        $this->assertRouteUsesFormRequest(
+            'users.store',
+            CreateUserRequest::class
+        );
     }
 
     /** @test **/
@@ -86,106 +61,50 @@ class CreateUserTest extends TestCase
 
         $this->signInWithPermission('user.create');
 
+        $this->post(
+            route('users.store'),
+            make(User::class)->toArray()
+        );
+
+        Event::assertDispatched(UserCreated::class);
+        Event::assertDispatched(UserCreatedByAdmin::class);
+    }
+
+    /** @test **/
+    public function unauthorizedUserCannotViewCreateUserPage()
+    {
+        $this->signIn();
+
+        $response = $this->get(route('users.create'));
+        $response->assertForbidden();
+    }
+
+    /** @test **/
+    public function unauthorizedUserCannotCreateUser()
+    {
+        $this->signIn();
+
         $response = $this->post(
             route('users.store'),
-            array_merge(
-                factory(User::class)->make()->toArray(),
-                ['roles' => []]
-            )
+            make(User::class)->toArray()
         );
-
-        $user = User::get()->last();
-
-        Event::assertDispatched(UserCreatedByAdmin::class, function ($event) use ($user) {
-            return $event->user->is($user);
-        });
-
-        Event::assertDispatched(UserCreated::class, function ($event) use ($user) {
-            return $event->user->is($user);
-        });
+        $response->assertForbidden();
     }
 
     /** @test **/
-    public function nameIsRequiredToCreateUser()
+    public function unauthenticatedUserCannotViewCreateUserPage()
     {
-        $this->signInWithPermission('user.create');
-
-        $response = $this->postJson(route('users.store'), [
-            'email' => 'john@example.com',
-            'roles' => [],
-        ]);
-        $response->assertStatus(422);
-        $response->assertJsonValidationErrors('name');
+        $response = $this->getJson(route('users.create'));
+        $response->assertUnauthorized();
     }
 
     /** @test **/
-    public function emailIsRequiredToCreateUser()
+    public function unauthenticatedUserCannotCreateUser()
     {
-        $this->signInWithPermission('user.create');
-
-        $response = $this->postJson(route('users.store'), [
-            'name' => 'foo',
-            'roles' => [],
-        ]);
-        $response->assertStatus(422);
-        $response->assertJsonValidationErrors('email');
-    }
-
-    /** @test **/
-    public function pronounIsRequiredToCreateUser()
-    {
-        $this->signInWithPermission('user.create');
-
-        $response = $this->postJson(route('users.store'), [
-            'name' => 'foo',
-            'email' => 'john@example.com',
-            'roles' => [],
-        ]);
-        $response->assertStatus(422);
-        $response->assertJsonValidationErrors('pronouns');
-    }
-
-    /** @test **/
-    public function passwordIsGeneratedAfterCreation()
-    {
-        $this->signInWithPermission('user.create');
-
-        $response = $this->postJson(route('users.store'), [
-            'name' => 'John Q. Public',
-            'email' => 'john@example.com',
-            'roles' => [],
-        ]);
-
-        $user = User::get()->last();
-
-        $this->assertNotNull($user->password);
-    }
-
-    /** @test **/
-    public function userIsNotifiedWithPasswordAfterCreation()
-    {
-        Notification::fake();
-
-        $this->signInWithPermission('user.create');
-
-        $response = $this->postJson(route('users.store'), [
-            'name' => 'John Q. Public',
-            'email' => 'john@example.com',
-            'pronouns' => 'neutral',
-            'roles' => [],
-        ]);
-
-        $user = User::get()->last();
-
-        Notification::assertSentTo([$user], AccountCreated::class);
-    }
-
-    /** @test **/
-    public function storingUserInDatabaseUsesFormRequest()
-    {
-        $this->assertRouteUsesFormRequest(
-            'users.store',
-            ValidateStoreUser::class
+        $response = $this->postJson(
+            route('users.store'),
+            make(User::class)->toArray()
         );
+        $response->assertUnauthorized();
     }
 }

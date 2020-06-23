@@ -19,33 +19,29 @@ class UserSeeder extends Seeder
         $admin = factory(User::class)->create([
             'name' => 'admin',
             'email' => 'admin@admin.com',
-        ]);
-
-        $admin->transitionTo(Active::class)->attachRole('admin');
+        ])->attachRole('admin');
 
         $user = factory(User::class)
             ->states('unverified-email')
             ->create([
                 'name' => 'user',
                 'email' => 'user@user.com',
-            ]);
+            ])->attachRole('user');
 
-        $user->transitionTo(Active::class)->attachRole('user');
+        factory(User::class)->times(25)->create()->each(function ($user) {
+            $decision = mt_rand(1, 3);
 
-        // factory(User::class)->times(25)->create()->each(function ($user) {
-        //     $decision = mt_rand(1, 3);
+            $user->attachRole('user');
 
-        //     $user->attachRole('user');
+            if ($decision === 2) {
+                $user->status->transitionTo(Active::class);
+            }
 
-        //     if ($decision === 2) {
-        //         $user->status->transitionTo(Active::class);
-        //     }
-
-        //     if ($decision === 3) {
-        //         $user->status->transitionTo(Active::class);
-        //         $user->status->transitionTo(Inactive::class);
-        //     }
-        // });
+            if ($decision === 3) {
+                $user->status->transitionTo(Active::class);
+                $user->status->transitionTo(Inactive::class);
+            }
+        });
 
         activity()->enableLogging();
     }

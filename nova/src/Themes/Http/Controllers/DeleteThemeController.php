@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Nova\Themes\Models\Theme;
 use Nova\Themes\Actions\DeleteTheme;
 use Nova\Foundation\Http\Controllers\Controller;
-use Nova\Themes\Actions\DeleteThemeManager;
 use Nova\Themes\Http\Responses\DeleteThemeResponse;
 
 class DeleteThemeController extends Controller
@@ -27,8 +26,7 @@ class DeleteThemeController extends Controller
         ]);
     }
 
-    public function destroy(DeleteTheme $action, Theme $theme)
-    {
+    public function destroy(DeleteTheme $action, Theme $theme) {
         $this->authorize('delete', $theme);
 
         $action->execute($theme);

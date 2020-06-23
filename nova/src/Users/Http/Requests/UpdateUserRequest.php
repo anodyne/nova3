@@ -2,6 +2,7 @@
 
 namespace Nova\Users\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Nova\Foundation\Rules\MaxFileSize;
 use Nova\Foundation\Http\Requests\ValidatesRequest;
 
@@ -11,7 +12,11 @@ class UpdateUserRequest extends ValidatesRequest
     {
         return [
             'name' => ['required'],
-            'email' => ['required', 'email'],
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore($this->user)
+            ],
             'pronouns' => ['required', 'in:male,female,neutral'],
             'avatar' => ['nullable', 'mimes:jpeg,png,gif', new MaxFileSize],
         ];

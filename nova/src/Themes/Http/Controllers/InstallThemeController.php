@@ -3,7 +3,7 @@
 namespace Nova\Themes\Http\Controllers;
 
 use Nova\Themes\Models\Theme;
-use Nova\Themes\Actions\InstallTheme;
+use Nova\Themes\Actions\CreateTheme;
 use Nova\Themes\Events\ThemeInstalled;
 use Illuminate\Support\Facades\Storage;
 use Nova\Themes\DataTransferObjects\ThemeData;
@@ -21,7 +21,7 @@ class InstallThemeController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(InstallThemeRequest $request, InstallTheme $action)
+    public function __invoke(InstallThemeRequest $request, CreateTheme $action)
     {
         $this->authorize('create', Theme::class);
 

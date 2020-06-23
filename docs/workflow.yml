@@ -1,0 +1,72 @@
+name: CI
+
+on:
+  push
+
+jobs:
+    php-tests:
+        runs-on: ubuntu-latest
+
+        services:
+          mysql:
+            image: mysql:5.7
+            env:
+              MYSQL_DATABASE: database_ci
+              MYSQL_USER: user
+              MYSQL_PASSWORD: secret
+              MYSQL_ROOT_PASSWORD: secretroot
+            ports:
+              - 33306:3306
+            options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+        steps:
+            - uses: actions/checkout@v1
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v1
+              with:
+                  php-version: 7.4
+                  extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
+                  coverage: none
+
+            - name: Verify MySQL connection
+              run: |
+                mysql --version
+                sudo apt-get install -y mysql-client
+                mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uuser -psecret -e "SHOW DATABASES"
+
+            - name: Cache composer dependencies
+              uses: actions/cache@v1
+              with:
+                path: vendor
+                key: composer-${{ hashFiles('composer.lock') }}
+
+            - name: Install dependencies
+              run: composer install --no-interaction --prefer-dist --no-suggest --no-scripts
+
+            - name: Cache yarn dependencies
+              uses: actions/cache@v1
+              with:
+                path: node_modules
+                key: yarn-${{ hashFiles('yarn.lock') }}
+
+            - name: Run yarn
+              run: |
+                yarn --version
+                yarn && yarn dev
+
+            - name: Prepare Laravel app
+              run: |
+                cp .env.ci .env.testing
+                php artisan key:generate --env=testing
+                php artisan --version
+
+            - name: Execute tests
+              run: vendor/bin/phpunit --stop-on-failure
+
+            - name: Run security checks
+              run: |
+                test -d security-checker || git clone https://github.com/sensiolabs/security-checker.git
+                cd security-checker
+                composer install
+                php security-checker security:check ../composer.lock

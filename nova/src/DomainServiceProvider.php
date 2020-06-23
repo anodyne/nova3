@@ -35,12 +35,12 @@ abstract class DomainServiceProvider extends ServiceProvider
     {
         $this->bootingDomain();
 
-        $this->registerBladeComponents();
         $this->registerCommands();
         $this->registerListeners();
-        $this->registerLivewireComponents();
         $this->registerPolicies();
         $this->registerRoutes();
+        $this->registerBladeComponents();
+        $this->registerLivewireComponents();
 
         $this->bootedDomain();
     }

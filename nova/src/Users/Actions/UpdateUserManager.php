@@ -8,36 +8,26 @@ use Nova\Users\DataTransferObjects\UserData;
 
 class UpdateUserManager
 {
-    /**
-     * @var  UpdateUser
-     */
     protected $updateUser;
 
-    /**
-     * @var  UpdateUserStatus
-     */
-    protected $updateUserStatus;
+    protected $updateRoles;
 
-    /**
-     * @var  UploadUserAvatar
-     */
+    protected $updateStatus;
+
     protected $uploadAvatar;
 
-    /**
-     * @var  RemoveUserAvatar
-     */
     protected $removeAvatar;
 
     public function __construct(
         UpdateUser $updateUser,
-        UpdateUserStatus $updateUserStatus,
-        UpdateUserRoles $updateUserRoles,
+        UpdateUserStatus $updateStatus,
+        UpdateUserRoles $updateRoles,
         UploadUserAvatar $uploadAvatar,
         RemoveUserAvatar $removeAvatar
     ) {
         $this->updateUser = $updateUser;
-        $this->updateUserStatus = $updateUserStatus;
-        $this->updateUserRoles = $updateUserRoles;
+        $this->updateStatus = $updateStatus;
+        $this->updateRoles = $updateRoles;
         $this->uploadAvatar = $uploadAvatar;
         $this->removeAvatar = $removeAvatar;
     }
@@ -46,9 +36,9 @@ class UpdateUserManager
     {
         $this->updateUser->execute($user, $data = UserData::fromRequest($request));
 
-        $this->updateUserStatus->execute($user, $request->status);
+        $this->updateStatus->execute($user, $request->status);
 
-        $this->updateUserRoles->execute($user, $data->roles);
+        $this->updateRoles->execute($user, $data->roles);
 
         $this->uploadAvatar->execute($user, $request->avatar_path);
 
