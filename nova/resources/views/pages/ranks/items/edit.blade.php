@@ -56,7 +56,7 @@
                         Make a selection below to see a live preview of your rank item
                     </div>
 
-                    <div class="inline-flex rank" x-show="overlay !== '' || base !== ''">
+                    <div class="rank" x-show="overlay !== '' || base !== ''">
                         <div class="rank-overlay" x-bind:style="`background-image: url(/ranks/overlay/${overlay})`"></div>
                         <div class="rank-base" x-bind:style="`background-image: url(/ranks/base/${base});`"></div>
                     </div>
@@ -99,7 +99,7 @@
                             @foreach ($baseImages as $baseImage)
                                 <a
                                     x-on:click.prevent="base = '{{ $baseImage }}'"
-                                    class="flex flex-col rounded-md border border-transparent py-2 flex justify-center"
+                                    class="flex flex-col justify-center rounded-md border border-transparent py-2"
                                     x-bind:class="{ 'bg-blue-100 border-blue-200 hover:bg-blue-100 hover:border-blue-200': base === '{{ $baseImage }}', 'hover:bg-gray-100 hover:border-gray-200': base !== '{{ $baseImage }}' }"
                                     href="#"
                                 >
@@ -115,7 +115,7 @@
                             @foreach ($overlayImages as $overlayImage)
                                 <a
                                     x-on:click.prevent="overlay = '{{ $overlayImage }}'"
-                                    class="flex flex-col rounded-md border border-transparent py-2 flex justify-center"
+                                    class="flex flex-col justify-center rounded-md border border-transparent py-2"
                                     x-bind:class="{ 'bg-blue-100 border-blue-200 hover:bg-blue-100 hover:border-blue-200': overlay === '{{ $overlayImage }}', 'hover:bg-gray-100 hover:border-gray-200': overlay !== '{{ $overlayImage }}' }"
                                     href="#"
                                 >

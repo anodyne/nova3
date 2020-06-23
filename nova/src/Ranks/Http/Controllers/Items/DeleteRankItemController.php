@@ -22,7 +22,7 @@ class DeleteRankItemController extends Controller
         $item = RankItem::findOrFail($request->id);
 
         return app(DeleteRankItemResponse::class)->with([
-            'item' => $item,
+            'item' => $item->load('group', 'name'),
         ]);
     }
 
@@ -34,6 +34,6 @@ class DeleteRankItemController extends Controller
 
         return redirect()
             ->route('ranks.items.index')
-            ->withToast("Rank item was deleted", 'Any character with this rank will need a new rank assigned to them.');
+            ->withToast("{$item->name->name} rank item was deleted from the {$item->group->name} rank group", 'Any character who had this rank will need a new rank assigned to them.');
     }
 }

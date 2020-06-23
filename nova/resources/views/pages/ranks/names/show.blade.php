@@ -20,7 +20,7 @@
             </x-input.group>
         </x-form.section>
 
-        <x-form.section title="Assigned Ranks" message="These are the ranks that have been assigned this name.">
+        <x-form.section title="Assigned Ranks" message="These are the rank items that have been assigned this rank name.">
             <div class="flex flex-col w-full">
                 @foreach ($name->ranks as $rank)
                     <div class="group flex items-center justify-between py-2 px-4 rounded even:bg-gray-100">

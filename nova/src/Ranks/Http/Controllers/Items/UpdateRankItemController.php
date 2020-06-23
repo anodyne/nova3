@@ -28,9 +28,9 @@ class UpdateRankItemController extends Controller
         $this->authorize('update', $item);
 
         return app(UpdateRankItemResponse::class)->with([
-            'groups' => RankGroup::get(),
+            'groups' => RankGroup::orderBySort()->get(),
             'item' => $item,
-            'names' => RankName::get(),
+            'names' => RankName::orderBySort()->get(),
             'baseImages' => $this->getRankBaseImages(),
             'overlayImages' => $this->getRankOverlayImages(),
         ]);
@@ -45,6 +45,6 @@ class UpdateRankItemController extends Controller
 
         $item = $action->execute($item, RankItemData::fromRequest($request));
 
-        return back()->withToast("Rank item was updated");
+        return back()->withToast('Rank item was updated');
     }
 }

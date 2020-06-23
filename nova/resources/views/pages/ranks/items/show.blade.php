@@ -15,17 +15,21 @@
 
     <x-panel>
         <x-form.section title="Rank Info" message="You can build up your rank with a few clicks. Assign it to a group, set a name, and pick your base and overlay images to build your rank quickly and easily.">
-            <x-input.group label="Name">
+            <x-input.group label="Rank Name">
                 <p class="font-semibold">{{ $item->name->name }}</p>
             </x-input.group>
 
-            <x-input.group label="Group">
+            <x-input.group label="Rank Group">
                 <p class="font-semibold">{{ $item->group->name }}</p>
             </x-input.group>
 
             <x-input.group label="Preview">
                 <x-rank :rank="$item" />
             </x-input.group>
+        </x-form.section>
+
+        <x-form.section title="Characters" message="The following characters have this rank assigned to them.">
+            Coming soon...
         </x-form.section>
 
         <x-form.footer>
