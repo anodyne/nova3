@@ -2,6 +2,7 @@
 
 namespace Nova\Departments\Providers;
 
+use Nova\Departments\Http\Responses\CreateDepartmentResponse;
 use Nova\Departments\Http\Responses\DeleteDepartmentResponse;
 use Nova\DomainServiceProvider;
 use Nova\Departments\Models\Department;
@@ -16,6 +17,7 @@ class DepartmentServiceProvider extends DomainServiceProvider
     ];
 
     protected $responsables = [
+        CreateDepartmentResponse::class,
         DeleteDepartmentResponse::class,
         ShowAllDepartmentsResponse::class,
         ShowDepartmentResponse::class,

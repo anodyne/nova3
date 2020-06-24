@@ -29,6 +29,7 @@ class ShowDepartmentController extends Controller
             : $departments->paginate();
 
         return app(ShowAllDepartmentsResponse::class)->with([
+            'departmentCount' => Department::count(),
             'departments' => $departments,
             'isReordering' => $request->has('reorder'),
             'search' => $request->search,
