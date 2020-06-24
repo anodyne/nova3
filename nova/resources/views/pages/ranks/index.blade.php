@@ -6,7 +6,7 @@
     <div class="mt-12 lg:grid lg:grid-cols-3 lg:gap-8">
         <x-card>
             <div class="flex items-center justify-between">
-                <h3 class="inline-flex items-center text-xl leading-7 font-semibold text-gray-900 dark:text-gray-100">
+                <h3 class="inline-flex items-center text-xl leading-7 font-semibold text-gray-900">
                     Rank Groups
                 </h3>
             </div>
@@ -23,7 +23,7 @@
 
         <x-card>
             <div class="flex items-center justify-between">
-                <h3 class="inline-flex items-center text-xl leading-7 font-semibold text-gray-900 dark:text-gray-100">
+                <h3 class="inline-flex items-center text-xl leading-7 font-semibold text-gray-900">
                     Rank Names
                 </h3>
             </div>
@@ -39,7 +39,7 @@
         </x-card>
 
         <x-card>
-            <h3 class="inline-flex items-center text-xl leading-7 font-semibold text-gray-900 dark:text-gray-100">
+            <h3 class="inline-flex items-center text-xl leading-7 font-semibold text-gray-900">
                 Rank Items
             </h3>
             <p class="mt-2 text-base leading-6 text-gray-500">

@@ -31,6 +31,7 @@ class ShowRankGroupController extends Controller
             : $groups->paginate();
 
         return app(ShowAllRankGroupsResponse::class)->with([
+            'groupCount' => RankGroup::count(),
             'groups' => $groups,
             'isReordering' => $request->has('reorder'),
             'search' => $request->search,

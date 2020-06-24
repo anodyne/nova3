@@ -32,6 +32,7 @@ class ShowRankNameController extends Controller
 
         return app(ShowAllRankNamesResponse::class)->with([
             'isReordering' => $request->has('reorder'),
+            'nameCount' => RankName::count(),
             'names' => $names,
             'search' => $request->search,
         ]);
