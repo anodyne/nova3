@@ -15,6 +15,10 @@ class RankItem extends Model
 
     protected static $logName = 'admin';
 
+    protected $casts = [
+        'sort' => 'integer',
+    ];
+
     protected $dispatchesEvents = [
         'created' => Events\RankItemCreated::class,
         'updated' => Events\RankItemUpdated::class,

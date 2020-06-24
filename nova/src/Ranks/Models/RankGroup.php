@@ -15,6 +15,10 @@ class RankGroup extends Model
 
     protected static $logName = 'admin';
 
+    protected $casts = [
+        'sort' => 'integer',
+    ];
+
     protected $dispatchesEvents = [
         'created' => Events\RankGroupCreated::class,
         'updated' => Events\RankGroupUpdated::class,

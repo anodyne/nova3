@@ -180,6 +180,7 @@ return [
          * Nova Module Service Provides
          */
         Nova\Setup\Providers\SetupServiceProvider::class,
+        Nova\Departments\Providers\DepartmentServiceProvider::class,
         Nova\Notes\Providers\NoteServiceProvider::class,
         Nova\Ranks\Providers\RankServiceProvider::class,
         Nova\Roles\Providers\RoleServiceProvider::class,
