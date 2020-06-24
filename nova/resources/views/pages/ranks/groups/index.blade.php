@@ -10,7 +10,7 @@
 
         <x-slot name="controls">
             @can('update', $groups->first())
-                <a href="{{ route('ranks.groups.index', 'reorder') }}" class="flex items-center text-gray-400 dark:text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150 mx-4">
+                <a href="{{ route('ranks.groups.index', 'reorder') }}" class="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150 mx-4">
                     @icon('arrow-sort', 'h-6 w-6')
                 </a>
             @endcan
