@@ -102,6 +102,16 @@ class PopulatePagesTable extends Migration
             ['uri' => 'ranks/items/delete', 'key' => 'ranks.items.delete', 'verb' => 'post', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\Items\\DeleteRankItemController@confirm', 'layout' => 'admin'],
             ['uri' => 'ranks/items/{item}', 'key' => 'ranks.items.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\Items\\DeleteRankItemController@destroy', 'layout' => 'admin'],
             ['uri' => 'ranks/items/reorder', 'key' => 'ranks.items.reorder', 'verb' => 'post', 'resource' => 'Nova\\Ranks\\Http\\Controllers\\Items\\ReorderRankItemsController', 'layout' => 'admin'],
+
+            ['uri' => 'departments', 'key' => 'departments.index', 'resource' => 'Nova\\Departments\\Http\\Controllers\\ShowDepartmentController@all', 'layout' => 'admin'],
+            ['uri' => 'departments/{department}/show', 'key' => 'departments.show', 'resource' => 'Nova\\Departments\\Http\\Controllers\\ShowDepartmentController@show', 'layout' => 'admin'],
+            ['uri' => 'departments/create', 'key' => 'departments.create', 'resource' => 'Nova\\Departments\\Http\\Controllers\\CreateDepartmentController@create', 'layout' => 'admin'],
+            ['uri' => 'departments', 'key' => 'departments.store', 'verb' => 'post', 'resource' => 'Nova\\Departments\\Http\\Controllers\\CreateDepartmentController@store', 'layout' => 'admin'],
+            ['uri' => 'departments/{department}/edit', 'key' => 'departments.edit', 'resource' => 'Nova\\Departments\\Http\\Controllers\\UpdateDepartmentController@edit', 'layout' => 'admin'],
+            ['uri' => 'departments/{department}', 'key' => 'departments.update', 'verb' => 'put', 'resource' => 'Nova\\Departments\\Http\\Controllers\\UpdateDepartmentController@update', 'layout' => 'admin'],
+            ['uri' => 'departments/delete', 'key' => 'departments.delete', 'verb' => 'post', 'resource' => 'Nova\\Departments\\Http\\Controllers\\DeleteDepartmentController@confirm', 'layout' => 'admin'],
+            ['uri' => 'departments/{department}', 'key' => 'departments.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Departments\\Http\\Controllers\\DeleteDepartmentController@destroy', 'layout' => 'admin'],
+            ['uri' => 'departments/reorder', 'key' => 'departments.reorder', 'verb' => 'post', 'resource' => 'Nova\\Departments\\Http\\Controllers\\ReorderDepartmentsController', 'layout' => 'admin'],
         ];
 
         collect($pages)->each([Page::class, 'create']);

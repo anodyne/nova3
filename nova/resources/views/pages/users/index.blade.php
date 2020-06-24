@@ -73,7 +73,7 @@
                             <div class="flex-shrink-0">
                                 <x-avatar :url="$user->avatar_url" />
                             </div>
-                            <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
+                            <div class="min-w-0 flex-1 px-4 | md:grid md:grid-cols-2 md:gap-4">
                                 <div>
                                     <div class="leading-normal font-medium truncate">
                                         {{ $user->name }}

@@ -107,7 +107,8 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
      */
     public function canManage(): bool
     {
-        return $this->can('rank.*')
+        return $this->can('department.*')
+            || $this->can('rank.*')
             || $this->can('role.*')
             || $this->can('theme.*')
             || $this->can('user.*');

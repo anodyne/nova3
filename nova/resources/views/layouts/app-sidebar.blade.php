@@ -67,6 +67,10 @@
                                 Manage
                             </div>
                             <div class="flex flex-col ml-12">
+                                @can('viewAny', 'Nova\Departments\Models\Department')
+                                    <a href="{{ route('departments.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Departments</a>
+                                @endcan
+
                                 @can('viewAny', 'Nova\Ranks\Models\RankItem')
                                     <a href="{{ route('ranks.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Ranks</a>
                                 @endcan
@@ -120,6 +124,10 @@
                             Manage
                         </div>
                         <div class="flex flex-col text-sm ml-11">
+                            @can('viewAny', 'Nova\Departments\Models\Department')
+                                <a href="{{ route('departments.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Departments</a>
+                            @endcan
+
                             @can('viewAny', 'Nova\Ranks\Models\RankItem')
                                 <a href="{{ route('ranks.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Ranks</a>
                             @endcan

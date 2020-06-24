@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
         $this->call(RankNameSeeder::class);
         $this->call(RankItemSeeder::class);
 
+        $this->call(DepartmentSeeder::class);
+
         activity()->enableLogging();
     }
 }

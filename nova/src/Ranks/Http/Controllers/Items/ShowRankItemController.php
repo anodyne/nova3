@@ -34,6 +34,7 @@ class ShowRankItemController extends Controller
         return app(ShowAllRankItemsResponse::class)->with([
             'groups' => RankGroup::get(),
             'isReordering' => $request->has('reorder'),
+            'itemCount' => RankItem::count(),
             'items' => $items,
             'search' => $request->search,
         ]);
