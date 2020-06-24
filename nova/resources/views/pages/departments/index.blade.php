@@ -71,11 +71,28 @@
                                     @icon('reorder', 'h-5 w-5 text-gray-400')
                                 </div>
                             @endif
-                            <div class="min-w-0 flex-1 flex items-center">
-                                <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
+                            <div class="min-w-0 flex-1 px-4 | md:grid md:grid-cols-2 md:gap-4">
+                                <div>
+                                    <div class="leading-normal font-medium truncate">
+                                        {{ $department->name }}
+                                    </div>
                                     <div>
-                                        <div class="leading-normal font-medium truncate">
-                                            {{ $department->name }}
+                                        @if ($department->active)
+                                            <x-badge size="sm" type="success">Active</x-badge>
+                                        @else
+                                            <x-badge size="sm" type="danger">Inactive</x-badge>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="hidden md:block">
+                                    <div>
+                                        <div class="flex items-center text-sm leading-5 text-gray-500">
+                                            @icon('star', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
+                                            18 positions
+                                        </div>
+                                        <div class="mt-2 flex items-center text-sm leading-5 text-gray-500">
+                                            @icon('users', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
+                                            31 characters
                                         </div>
                                     </div>
                                 </div>

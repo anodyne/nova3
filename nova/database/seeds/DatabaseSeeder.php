@@ -15,11 +15,11 @@ class DatabaseSeeder extends Seeder
 
         $this->call(UserSeeder::class);
 
-        // $this->call(RankGroupSeeder::class);
-        // $this->call(RankNameSeeder::class);
-        // $this->call(RankItemSeeder::class);
+        $this->call(RankGroupSeeder::class);
+        $this->call(RankNameSeeder::class);
+        $this->call(RankItemSeeder::class);
 
-        // $this->call(DepartmentSeeder::class);
+        $this->call(DepartmentSeeder::class);
 
         activity()->enableLogging();
     }

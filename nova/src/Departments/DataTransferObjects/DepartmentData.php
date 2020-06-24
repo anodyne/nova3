@@ -17,11 +17,17 @@ class DepartmentData extends DataTransferObject
      */
     public $description;
 
+    /**
+     * @var  bool
+     */
+    public $active = true;
+
     public static function fromRequest(Request $request): self
     {
         return new self([
             'name' => $request->name,
             'description' => $request->description,
+            'active' => $request->active ?? true,
         ]);
     }
 }

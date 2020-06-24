@@ -9,6 +9,10 @@ class CreateDepartment
 {
     public function execute(DepartmentData $data): Department
     {
-        return Department::create($data->toArray());
+        return Department::create(
+            array_merge($data->toArray(), [
+                'sort' => Department::count(),
+            ])
+        );
     }
 }

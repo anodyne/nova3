@@ -11,7 +11,6 @@ class CreateDepartmentRequest extends ValidatesRequest
         return [
             'name' => ['required'],
             'description' => ['nullable'],
-            'active' => ['required'],
         ];
     }
 }

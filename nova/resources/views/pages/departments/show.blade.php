@@ -1,70 +1,39 @@
 @extends($__novaTemplate)
 
 @section('content')
-    <x-page-header :title="$user->name">
+    <x-page-header :title="$department->name">
         <x-slot name="pretitle">
-            <a href="{{ route('users.index', "status={$user->status->name()}") }}">Users</a>
+            <a href="{{ route('departments.index') }}">Departments</a>
         </x-slot>
 
         <x-slot name="controls">
-            @can('update', $user)
-                <a href="{{ route('users.edit', $user) }}" class="button button-primary">Edit User</a>
+            @can('update', $department)
+                <a href="{{ route('departments.edit', $department) }}" class="button button-primary">Edit Department</a>
             @endcan
         </x-slot>
     </x-page-header>
 
     <x-panel>
-        <x-form.section title="User Info" message="For privacy reasons, users are encouraged to use a nickname instead of their real name. Additionally, user email addresses should be safeguarded at all costs and not shared with other players without the express permission of this user.">
+        <x-form.section title="Department Info">
             <x-input.group label="Name">
-                <p class="font-semibold">{{ $user->name }}</p>
+                <p class="font-semibold">{{ $department->name }}</p>
             </x-input.group>
 
-            <x-input.group label="Email address">
-                <p class="font-semibold">{{ $user->email }}</p>
+            <x-input.group label="Description">
+                <p class="font-semibold">{{ $department->description }}</p>
             </x-input.group>
 
-            <x-input.group label="Preferred pronouns">
-                <p class="font-semibold">{{ $user->pronouns }}</p>
-            </x-input.group>
-
-            <x-input.group label="Avatar">
-                <x-avatar :url="$user->avatar_url" size="lg"></x-avatar>
+            <x-input.group label="Status">
+                <p class="font-semibold">{{ $department->active ? 'Active' : 'Inactive' }}</p>
             </x-input.group>
         </x-form.section>
 
-        <x-form.section title="Activity" message="Keep track of milestones and latest activity of a user in the system.">
-            <x-input.group label="Joined">
-                <p class="font-semibold">{{ $user->created_at }}</p>
-            </x-input.group>
-
-            <x-input.group label="Last update">
-                <p class="font-semibold">{{ $user->updated_at }}</p>
-            </x-input.group>
-
-            <x-input.group label="Last sign in">
-                <p class="font-semibold"></p>
-            </x-input.group>
-        </x-form.section>
-
-        <x-form.section title="Roles" message="Roles are the actions a user can take.">
-            <x-input.group>
-                <div class="flex items-center flex-wrap">
-                    @forelse ($user->roles as $role)
-                        <span class="badge mr-2 mt-3">
-                            {{ $role->display_name }}
-                        </span>
-                    @empty
-                        <div class="flex items-center font-semibold text-warning-700">
-                            @icon('warning', 'mr-3 flex-shrink-0 h-6 w-6')
-                            <span>This user does not have any roles.</span>
-                        </div>
-                    @endforelse
-                </div>
-            </x-input.group>
+        <x-form.section title="Positions">
+            Coming soon...
         </x-form.section>
 
         <x-form.footer>
-            <a href="{{ route('users.index', "status={$user->status->name()}") }}" class="button">Back</a>
+            <a href="{{ route('departments.index') }}" class="button">Back</a>
         </x-form.footer>
     </x-panel>
 @endsection
