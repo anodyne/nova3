@@ -21,7 +21,7 @@
             <li class="border-t border-gray-200">
                 <div class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
                     <div class="px-4 py-4 flex items-center | sm:px-6">
-                        <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
+                        <div class="min-w-0 flex-1 | sm:flex sm:items-center sm:justify-between">
                             <div>
                                 <div class="leading-normal font-medium truncate">
                                     {{ $role->display_name }}

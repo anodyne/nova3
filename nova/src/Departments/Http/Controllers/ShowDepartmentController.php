@@ -22,7 +22,9 @@ class ShowDepartmentController extends Controller
     {
         $this->authorize('viewAny', Department::class);
 
-        $departments = Department::filter($filters)->orderBySort();
+        $departments = Department::withCount('positions')
+            ->filter($filters)
+            ->orderBySort();
 
         $departments = ($request->has('reorder'))
             ? $departments->get()
@@ -41,7 +43,7 @@ class ShowDepartmentController extends Controller
         $this->authorize('view', $department);
 
         return app(ShowDepartmentResponse::class)->with([
-            'department' => $department,
+            'department' => $department->load('positions'),
         ]);
     }
 }

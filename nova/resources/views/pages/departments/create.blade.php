@@ -9,7 +9,7 @@
 
     <x-panel>
         <x-form :action="route('departments.store')">
-            <x-form.section title="Department Info">
+            <x-form.section title="Department Info" message="Departments are collections of positions that characters can hold and help to provide some organization for your character manifest.">
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
                     <x-input.text id="name" name="name" :value="old('name')" data-cy="name" />
                 </x-input.group>

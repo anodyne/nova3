@@ -41,6 +41,8 @@ class FluentIconSet extends IconSet
             'more' => 'more',
             'notification' => 'alert',
             'preferences' => 'settings-dev',
+            'remove' => 'remove',
+            'remove-alt' => 'block',
             'reorder' => 'reorder',
             'search' => 'search',
             'settings' => 'settings',

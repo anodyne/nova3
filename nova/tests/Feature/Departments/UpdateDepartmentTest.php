@@ -82,7 +82,7 @@ class UpdateDepartmentTest extends TestCase
     }
 
     /** @test **/
-    public function unauthorizedUserCannotUpdateRole()
+    public function unauthorizedUserCannotUpdateDepartment()
     {
         $this->signIn();
 
@@ -101,7 +101,7 @@ class UpdateDepartmentTest extends TestCase
     }
 
     /** @test **/
-    public function unauthenticatedUserCannotUpdateRole()
+    public function unauthenticatedUserCannotUpdateDepartment()
     {
         $response = $this->putJson(
             route('departments.update', $this->department),

@@ -65,39 +65,33 @@
             @forelse ($departments as $department)
                 <li class="sortable-item border-t border-gray-200 hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out @if ($isReordering) first:border-0 last:rounded-b-md @endif" data-id="{{ $department->id }}">
                     <div class="block">
-                        <div class="flex items-center px-4 py-4 | sm:px-6">
+                        <div class="px-4 py-4 flex items-center | sm:px-6">
                             @if ($isReordering)
                                 <div class="sortable-handle flex-shrink-0 cursor-move mr-5">
                                     @icon('reorder', 'h-5 w-5 text-gray-400')
                                 </div>
                             @endif
-                            <div class="min-w-0 flex-1 px-4 | md:grid md:grid-cols-2 md:gap-4">
+                            <div class="min-w-0 flex-1 | sm:flex sm:items-center sm:justify-between">
                                 <div>
                                     <div class="leading-normal font-medium truncate">
                                         {{ $department->name }}
                                     </div>
-                                    <div>
-                                        @if ($department->active)
-                                            <x-badge size="sm" type="success">Active</x-badge>
-                                        @else
-                                            <x-badge size="sm" type="danger">Inactive</x-badge>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="hidden md:block">
-                                    <div>
-                                        <div class="flex items-center text-sm leading-5 text-gray-500">
-                                            @icon('star', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
-                                            18 positions
+                                    <div class="mt-2 flex">
+                                        <div>
+                                            @if ($department->active)
+                                                <x-badge size="sm" type="success">Active</x-badge>
+                                            @else
+                                                <x-badge size="sm" type="danger">Inactive</x-badge>
+                                            @endif
                                         </div>
-                                        <div class="mt-2 flex items-center text-sm leading-5 text-gray-500">
-                                            @icon('users', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
-                                            31 characters
+
+                                        <div class="hidden items-center text-sm leading-5 text-gray-500 ml-6 | sm:flex">
+                                            {{ $department->positions_count }} @choice('position|positions', $department->positions_count)
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="leading-0">
+                            <div class="ml-5 flex-shrink-0 leading-0">
                                 <x-dropdown placement="bottom-end" class="text-gray-400 hover:text-gray-500">
                                     @icon('more', 'h-6 w-6')
 
@@ -114,13 +108,15 @@
                                                 @icon('edit', $component->icon())
                                                 <span>Edit</span>
                                             </a>
+
+                                            <div class="{{ $component->divider() }}"></div>
+
+                                            <a href="{{ route('positions.index', $department) }}" class="{{ $component->link() }}" data-cy="edit">
+                                                @icon('list', $component->icon())
+                                                <span>Positions</span>
+                                            </a>
                                         @endcan
 
-                                        <div class="{{ $component->divider() }}"></div>
-                                        <a href="{{ route('departments.edit', $department) }}" class="{{ $component->link() }}" data-cy="edit">
-                                            @icon('list', $component->icon())
-                                            <span>Positions</span>
-                                        </a>
 
                                         @can('delete', $department)
                                             <div class="{{ $component->divider() }}"></div>

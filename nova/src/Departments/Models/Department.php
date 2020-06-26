@@ -30,6 +30,11 @@ class Department extends Model
 
     protected $table = 'departments';
 
+    public function positions()
+    {
+        return $this->hasMany(Position::class)->orderBy('sort', 'asc');
+    }
+
     /**
      * Set the description for logging.
      *

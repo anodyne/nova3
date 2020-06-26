@@ -11,7 +11,7 @@ class DepartmentPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view any rank group.
+     * Determine whether the user can view any department.
      *
      * @param  User  $user
      *
@@ -23,7 +23,7 @@ class DepartmentPolicy
     }
 
     /**
-     * Determine whether the user can view the rank group.
+     * Determine whether the user can view the department.
      *
      * @param  User  $user
      * @param  Department  $department
@@ -36,7 +36,7 @@ class DepartmentPolicy
     }
 
     /**
-     * Determine whether the user can create rank groups.
+     * Determine whether the user can create departments.
      *
      * @param  User  $user
      *
@@ -48,7 +48,7 @@ class DepartmentPolicy
     }
 
     /**
-     * Determine whether the user can update the rank group.
+     * Determine whether the user can update the department.
      *
      * @param  User  $user
      * @param  Department  $department
@@ -61,7 +61,7 @@ class DepartmentPolicy
     }
 
     /**
-     * Determine whether the user can delete the rank group.
+     * Determine whether the user can delete the department.
      *
      * @param  User  $user
      * @param  Department  $department
@@ -74,7 +74,7 @@ class DepartmentPolicy
     }
 
     /**
-     * Determine whether the user can restore the rank group.
+     * Determine whether the user can restore the department.
      *
      * @param  User  $user
      * @param  Department  $department
@@ -87,7 +87,7 @@ class DepartmentPolicy
     }
 
     /**
-     * Determine whether the user can permanently delete the rank group.
+     * Determine whether the user can permanently delete the department.
      *
      * @param  User  $user
      * @param  Department  $department

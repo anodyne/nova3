@@ -71,10 +71,10 @@ class PopulateAuthorizationTables extends Migration
                 ['name' => 'rank.update', 'display_name' => 'Update rank'],
                 ['name' => 'rank.view', 'display_name' => 'View rank'],
 
-                ['name' => 'department.create', 'display_name' => 'Create department'],
-                ['name' => 'department.delete', 'display_name' => 'Delete department'],
-                ['name' => 'department.update', 'display_name' => 'Update department'],
-                ['name' => 'department.view', 'display_name' => 'View department'],
+                ['name' => 'department.create', 'display_name' => 'Create departments and positions'],
+                ['name' => 'department.delete', 'display_name' => 'Delete departments and positions'],
+                ['name' => 'department.update', 'display_name' => 'Update departments and positions'],
+                ['name' => 'department.view', 'display_name' => 'View departments and positions'],
             ];
 
             collect($permissions)->each(function ($permission) {

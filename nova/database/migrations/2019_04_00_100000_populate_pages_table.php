@@ -5,11 +5,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class PopulatePagesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         activity()->disableLogging();
@@ -112,6 +107,16 @@ class PopulatePagesTable extends Migration
             ['uri' => 'departments/delete', 'key' => 'departments.delete', 'verb' => 'post', 'resource' => 'Nova\\Departments\\Http\\Controllers\\DeleteDepartmentController@confirm', 'layout' => 'admin'],
             ['uri' => 'departments/{department}', 'key' => 'departments.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Departments\\Http\\Controllers\\DeleteDepartmentController@destroy', 'layout' => 'admin'],
             ['uri' => 'departments/reorder', 'key' => 'departments.reorder', 'verb' => 'post', 'resource' => 'Nova\\Departments\\Http\\Controllers\\ReorderDepartmentsController', 'layout' => 'admin'],
+
+            ['uri' => 'departments/{department}/positions', 'key' => 'positions.index', 'resource' => 'Nova\\Departments\\Http\\Controllers\\ShowPositionController@all', 'layout' => 'admin'],
+            ['uri' => 'positions/{position}/show', 'key' => 'positions.show', 'resource' => 'Nova\\Departments\\Http\\Controllers\\ShowPositionController@show', 'layout' => 'admin'],
+            ['uri' => 'positions/create', 'key' => 'positions.create', 'resource' => 'Nova\\Departments\\Http\\Controllers\\CreatePositionController@create', 'layout' => 'admin'],
+            ['uri' => 'positions', 'key' => 'positions.store', 'verb' => 'post', 'resource' => 'Nova\\Departments\\Http\\Controllers\\CreatePositionController@store', 'layout' => 'admin'],
+            ['uri' => 'positions/{position}/edit', 'key' => 'positions.edit', 'resource' => 'Nova\\Departments\\Http\\Controllers\\UpdatePositionController@edit', 'layout' => 'admin'],
+            ['uri' => 'positions/{position}', 'key' => 'positions.update', 'verb' => 'put', 'resource' => 'Nova\\Departments\\Http\\Controllers\\UpdatePositionController@update', 'layout' => 'admin'],
+            ['uri' => 'positions/delete', 'key' => 'positions.delete', 'verb' => 'post', 'resource' => 'Nova\\Departments\\Http\\Controllers\\DeletePositionController@confirm', 'layout' => 'admin'],
+            ['uri' => 'positions/{position}', 'key' => 'positions.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Departments\\Http\\Controllers\\DeletePositionController@destroy', 'layout' => 'admin'],
+            ['uri' => 'deparments/{department}/positions/reorder', 'key' => 'positions.reorder', 'verb' => 'post', 'resource' => 'Nova\\Departments\\Http\\Controllers\\ReorderPositionsController', 'layout' => 'admin'],
         ];
 
         collect($pages)->each([Page::class, 'create']);
@@ -119,11 +124,6 @@ class PopulatePagesTable extends Migration
         activity()->enableLogging();
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Page::truncate();
