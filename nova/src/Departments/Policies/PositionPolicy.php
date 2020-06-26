@@ -3,15 +3,15 @@
 namespace Nova\Departments\Policies;
 
 use Nova\Users\Models\User;
-use Nova\Departments\Models\Department;
+use Nova\Departments\Models\Position;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class DepartmentPolicy
+class PositionPolicy
 {
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view any department.
+     * Determine whether the user can view any position.
      *
      * @param  User  $user
      *
@@ -23,20 +23,20 @@ class DepartmentPolicy
     }
 
     /**
-     * Determine whether the user can view the department.
+     * Determine whether the user can view the position.
      *
      * @param  User  $user
-     * @param  Department  $department
+     * @param  Position  $position
      *
      * @return bool
      */
-    public function view(User $user, Department $department)
+    public function view(User $user, Position $position)
     {
         return $user->can('department.view');
     }
 
     /**
-     * Determine whether the user can create departments.
+     * Determine whether the user can create positions.
      *
      * @param  User  $user
      *
@@ -48,53 +48,53 @@ class DepartmentPolicy
     }
 
     /**
-     * Determine whether the user can update the department.
+     * Determine whether the user can update the position.
      *
      * @param  User  $user
-     * @param  Department  $department
+     * @param  Position  $position
      *
      * @return bool
      */
-    public function update(User $user, Department $department)
+    public function update(User $user, Position $position)
     {
         return $user->can('department.update');
     }
 
     /**
-     * Determine whether the user can delete the department.
+     * Determine whether the user can delete the position.
      *
      * @param  User  $user
-     * @param  Department  $department
+     * @param  Position  $position
      *
      * @return bool
      */
-    public function delete(User $user, Department $department)
+    public function delete(User $user, Position $position)
     {
         return $user->can('department.delete');
     }
 
     /**
-     * Determine whether the user can restore the department.
+     * Determine whether the user can restore the position.
      *
      * @param  User  $user
-     * @param  Department  $department
+     * @param  Position  $position
      *
      * @return bool
      */
-    public function restore(User $user, Department $department)
+    public function restore(User $user, Position $position)
     {
         return false;
     }
 
     /**
-     * Determine whether the user can permanently delete the department.
+     * Determine whether the user can permanently delete the position.
      *
      * @param  User  $user
-     * @param  Department  $department
+     * @param  Position  $position
      *
      * @return bool
      */
-    public function forceDelete(User $user, Department $department)
+    public function forceDelete(User $user, Position $position)
     {
         return false;
     }

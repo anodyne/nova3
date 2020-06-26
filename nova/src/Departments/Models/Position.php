@@ -5,9 +5,9 @@ namespace Nova\Departments\Models;
 use Nova\Departments\Events;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
-use Nova\Departments\Models\Builders\DepartmentBuilder;
+use Nova\Departments\Models\Builders\PositionBuilder;
 
-class Department extends Model
+class Position extends Model
 {
     use LogsActivity;
 
@@ -21,18 +21,20 @@ class Department extends Model
     ];
 
     protected $dispatchesEvents = [
-        'created' => Events\DepartmentCreated::class,
-        'updated' => Events\DepartmentUpdated::class,
-        'deleted' => Events\DepartmentDeleted::class,
+        'created' => Events\PositionCreated::class,
+        'updated' => Events\PositionUpdated::class,
+        'deleted' => Events\PositionDeleted::class,
     ];
 
-    protected $fillable = ['name', 'description', 'sort', 'active'];
+    protected $fillable = [
+        'name', 'description', 'sort', 'active', 'available', 'department_id',
+    ];
 
-    protected $table = 'departments';
+    protected $table = 'positions';
 
-    public function positions()
+    public function department()
     {
-        return $this->hasMany(Position::class)->orderBy('sort', 'asc');
+        return $this->belongsTo(Department::class);
     }
 
     /**
@@ -44,7 +46,7 @@ class Department extends Model
      */
     public function getDescriptionForEvent(string $eventName): string
     {
-        return ":subject.name department was {$eventName}";
+        return ":subject.name position was {$eventName}";
     }
 
     /**
@@ -52,10 +54,10 @@ class Department extends Model
      *
      * @param  \Illuminate\Database\Query\Builder  $query
      *
-     * @return DepartmentBuilder
+     * @return PositionBuilder
      */
-    public function newEloquentBuilder($query): DepartmentBuilder
+    public function newEloquentBuilder($query): PositionBuilder
     {
-        return new DepartmentBuilder($query);
+        return new PositionBuilder($query);
     }
 }
