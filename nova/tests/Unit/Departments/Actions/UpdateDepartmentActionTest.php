@@ -41,6 +41,6 @@ class UpdateDepartmentActionTest extends TestCase
         $this->assertTrue($department->exists);
         $this->assertEquals('Operations', $department->name);
         $this->assertEquals('Lorem consectetur adipisicing elit.', $department->description);
-        $this->assertFalse($data->active);
+        $this->assertFalse($department->active);
     }
 }
