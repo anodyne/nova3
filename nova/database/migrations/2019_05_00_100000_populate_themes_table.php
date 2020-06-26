@@ -5,11 +5,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class PopulateThemesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         activity()->disableLogging();
@@ -24,12 +19,8 @@ class PopulateThemesTable extends Migration
         activity()->enableLogging();
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
+        Theme::truncate();
     }
 }

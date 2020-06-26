@@ -6,11 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateRankTables extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('rank_groups', function (Blueprint $table) {
@@ -38,11 +33,6 @@ class CreateRankTables extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('rank_groups');
