@@ -7,16 +7,8 @@
 .field-group {
     @apply flex items-center relative w-full bg-transparent py-2 px-3 rounded-md border border-gray-200 bg-gray-50 shadow-sm transition ease-in-out duration-200;
 
-    /* @variants dark {
-        @apply border-gray-700 bg-gray-900;
-    } */
-
     &:focus-within {
         @apply border-primary-300 bg-white shadow-outline-primary;
-
-        /* @variants dark {
-            @apply bg-gray-800 border-primary-400;
-        } */
     }
 
     &.static {
@@ -26,10 +18,6 @@
     .field {
         @apply flex-auto appearance-none bg-transparent text-gray-700;
 
-        /* @variants dark {
-            @apply text-gray-200;
-        } */
-
         &:focus {
             @apply outline-none;
         }
@@ -37,10 +25,6 @@
 
     .field-addon {
         @apply flex items-center flex-shrink-0 text-gray-500 text-sm;
-
-        /* @variants dark {
-            @apply text-gray-400;
-        } */
     }
 
     a.field-addon,
@@ -49,17 +33,9 @@
     .field-addon button {
         @apply pointer-events-auto text-gray-500;
 
-        /* @variants dark {
-            @apply text-gray-400;
-        } */
-
         &:hover {
             @apply text-gray-600;
         }
-
-        /* @variants dark-hover {
-            @apply text-gray-300;
-        } */
 
         &:focus {
             @apply outline-none;
@@ -89,18 +65,10 @@
 
         > .form-section-header-title {
             @apply mb-2 font-semibold text-xl text-gray-700 tracking-tight;
-
-            /* @variants dark {
-                @apply text-gray-200;
-            } */
         }
 
         > .form-section-header-message {
             @apply text-gray-600;
-
-            /* @variants dark {
-                @apply text-gray-300;
-            } */
         }
     }
 
@@ -110,10 +78,6 @@
 
     + .form-section {
         @apply pt-10 mt-10 border-t border-gray-100;
-
-        /* @variants dark {
-            @apply border-gray-800;
-        } */
     }
 }
 
