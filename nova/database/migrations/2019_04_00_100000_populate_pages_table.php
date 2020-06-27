@@ -117,6 +117,15 @@ class PopulatePagesTable extends Migration
             ['uri' => 'positions/delete', 'key' => 'positions.delete', 'verb' => 'post', 'resource' => 'Nova\\Departments\\Http\\Controllers\\DeletePositionController@confirm', 'layout' => 'admin'],
             ['uri' => 'positions/{position}', 'key' => 'positions.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Departments\\Http\\Controllers\\DeletePositionController@destroy', 'layout' => 'admin'],
             ['uri' => 'deparments/{department}/positions/reorder', 'key' => 'positions.reorder', 'verb' => 'post', 'resource' => 'Nova\\Departments\\Http\\Controllers\\ReorderPositionsController', 'layout' => 'admin'],
+
+            ['uri' => 'characters', 'key' => 'characters.index', 'resource' => 'Nova\\Characters\\Http\\Controllers\\ShowCharacterController@all', 'layout' => 'admin'],
+            ['uri' => 'characters/{character}/show', 'key' => 'characters.show', 'resource' => 'Nova\\Characters\\Http\\Controllers\\ShowCharacterController@show', 'layout' => 'admin'],
+            ['uri' => 'characters/create', 'key' => 'characters.create', 'resource' => 'Nova\\Characters\\Http\\Controllers\\CreateCharacterController@create', 'layout' => 'admin'],
+            ['uri' => 'characters', 'key' => 'characters.store', 'verb' => 'post', 'resource' => 'Nova\\Characters\\Http\\Controllers\\CreateCharacterController@store', 'layout' => 'admin'],
+            ['uri' => 'characters/{character}/edit', 'key' => 'characters.edit', 'resource' => 'Nova\\Characters\\Http\\Controllers\\UpdateCharacterController@edit', 'layout' => 'admin'],
+            ['uri' => 'characters/{character}', 'key' => 'characters.update', 'verb' => 'put', 'resource' => 'Nova\\Characters\\Http\\Controllers\\UpdateCharacterController@update', 'layout' => 'admin'],
+            ['uri' => 'characters/delete', 'key' => 'characters.delete', 'verb' => 'post', 'resource' => 'Nova\\Characters\\Http\\Controllers\\DeleteCharacterController@confirm', 'layout' => 'admin'],
+            ['uri' => 'characters/{character}', 'key' => 'characters.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Characters\\Http\\Controllers\\DeleteCharacterController@destroy', 'layout' => 'admin'],
         ];
 
         collect($pages)->each([Page::class, 'create']);

@@ -6,6 +6,7 @@ use Nova\Users\Events;
 use Nova\Notes\Models\Note;
 use Spatie\ModelStates\HasStates;
 use Nova\Users\Models\States\Active;
+use Nova\Characters\Models\Character;
 use Nova\Users\Models\States\Pending;
 use Nova\Users\Models\States\Inactive;
 use Illuminate\Notifications\Notifiable;
@@ -57,6 +58,12 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     protected $hidden = [
         'password', 'remember_token', 'force_password_reset',
     ];
+
+    public function characters()
+    {
+        return $this->belongsToMany(Character::class, 'user_character')
+            ->using(UserCharacter::class);
+    }
 
     public function logins()
     {
