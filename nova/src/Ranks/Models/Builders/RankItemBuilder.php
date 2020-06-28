@@ -15,6 +15,16 @@ class RankItemBuilder extends Builder
         return $this->orderBy('sort', 'asc');
     }
 
+    public function whereActive()
+    {
+        return $this->where('active', true);
+    }
+
+    public function whereGroup($group)
+    {
+        return $this->where('group_id', $group);
+    }
+
     public function withRankName()
     {
         return $this->addSelect(['rank_name' => RankName::select('name')
