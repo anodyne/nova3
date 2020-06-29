@@ -154,6 +154,8 @@
         </div>
     </x-panel>
 
+    <x-tips section="users" />
+
     <x-modal color="red" headline="Delete account?" icon="warning" :url="route('users.delete')">
         <x-slot name="footer">
             <span class="flex w-full | sm:col-start-2">

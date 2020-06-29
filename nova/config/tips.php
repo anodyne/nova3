@@ -7,11 +7,11 @@ return [
     ],
 
     'roles' => [
-        'You can specify as many roles as you want to be assigned to newly created users.'
+        'You can specify as many roles as you want to be assigned to newly created users.',
     ],
 
     'settings' => [
-        'Remember, when you change the default theme for the site, it only applies to the public-facing site and not the admin site.'
+        'Remember, when you change the default theme for the site, it only applies to the public-facing site and not the admin site.',
     ],
 
     'users' => [

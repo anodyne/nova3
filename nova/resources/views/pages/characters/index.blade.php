@@ -161,6 +161,8 @@
         </div>
     </x-panel>
 
+    <x-tips section="characters" />
+
     <x-modal color="red" headline="Delete character?" icon="warning" :url="route('characters.delete')">
         <x-slot name="footer">
             <span class="flex w-full | sm:col-start-2">

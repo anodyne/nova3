@@ -149,6 +149,8 @@
             @endif
         </x-panel>
 
+        <x-tips section="departments" />
+
         <x-modal color="red" headline="Delete department?" icon="warning" :url="route('departments.delete')">
             <x-slot name="footer">
                 <span class="flex w-full | sm:col-start-2">

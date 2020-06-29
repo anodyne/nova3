@@ -166,6 +166,8 @@
             @endif
         </x-panel>
 
+        <x-tips section="positions" />
+
         <x-modal color="red" headline="Delete position?" icon="warning" :url="route('positions.delete')">
             <x-slot name="footer">
                 <span class="flex w-full | sm:col-start-2">
