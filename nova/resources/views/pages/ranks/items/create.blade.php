@@ -27,7 +27,7 @@
 
                 <x-input.group label="Rank Name" for="name_id" :error="$errors->first('name_id')">
                     <div class="flex items-center w-full">
-                        @livewire('ranks:names-dropdown', ['nameId' => old('name_id', $item->name_id)])
+                        @livewire('ranks:names-dropdown', ['nameId' => old('name_id')])
 
                         @can('create', 'Nova\Ranks\Models\RankName')
                             <a href="{{ route('ranks.names.index') }}" class="ml-3 group inline-flex items-center text-gray-600 transition ease-in-out duration-150 hover:text-gray-500">
@@ -85,7 +85,7 @@
                             @foreach ($baseImages as $baseImage)
                                 <a
                                     x-on:click.prevent="base = '{{ $baseImage }}'"
-                                    class="flex flex-col rounded-md border border-transparent py-2 flex justify-center"
+                                    class="flex flex-col rounded-md border border-transparent py-2 justify-center"
                                     x-bind:class="{ 'bg-blue-100 border-blue-200 hover:bg-blue-100 hover:border-blue-200': base === '{{ $baseImage }}', 'hover:bg-gray-100 hover:border-gray-200': base !== '{{ $baseImage }}' }"
                                     href="#"
                                 >
@@ -101,7 +101,7 @@
                             @foreach ($overlayImages as $overlayImage)
                                 <a
                                     x-on:click.prevent="overlay = '{{ $overlayImage }}'"
-                                    class="flex flex-col rounded-md border border-transparent py-2 flex justify-center"
+                                    class="flex flex-col rounded-md border border-transparent py-2 justify-center"
                                     x-bind:class="{ 'bg-blue-100 border-blue-200 hover:bg-blue-100 hover:border-blue-200': overlay === '{{ $overlayImage }}', 'hover:bg-gray-100 hover:border-gray-200': overlay !== '{{ $overlayImage }}' }"
                                     href="#"
                                 >
