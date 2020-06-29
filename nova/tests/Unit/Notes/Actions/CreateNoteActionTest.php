@@ -31,7 +31,7 @@ class CreateNoteActionTest extends TestCase
         $data->title = 'My Note';
         $data->content = 'Content of my note';
         $data->summary = 'Summary of my note';
-        $data->user_id = create(User::class, [], ['status:active'])->id;
+        $data->user = $user = create(User::class, [], ['status:active']);
 
         $note = $this->action->execute($data);
 
@@ -39,5 +39,6 @@ class CreateNoteActionTest extends TestCase
         $this->assertEquals('My Note', $note->title);
         $this->assertEquals('Content of my note', $note->content);
         $this->assertEquals('Summary of my note', $note->summary);
+        $this->assertEquals($user->id, $note->user_id);
     }
 }
