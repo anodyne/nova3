@@ -2,8 +2,8 @@
 
 return [
     'ranks' => [
-        'When duplicating a rank group, you can specify a new base image and all the ranks from the original group will be duplicated with the new base image.',
-        "When creating a rank item, you can quickly create a new rank group or rank name by searching for a group or name that doesn't exist. You'll be able to create the group or name right from the dropdown.",
+        'When duplicating a rank group, you can specify a new base image and all the ranks from the original rank group will be duplicated into the new rank group with the new base image.',
+        "When creating a rank item, you can quickly create a new rank group or rank name by searching for a rank group or rank name that doesn't exist. You'll be able to create the group or name right from the dropdown.",
     ],
 
     'roles' => [
