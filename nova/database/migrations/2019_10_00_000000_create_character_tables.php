@@ -16,22 +16,23 @@ class CreateCharacterTables extends Migration
         Schema::create('characters', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('type');
             $table->string('status');
-            $table->unsignedBigInteger('rank_id')->nullable();
+            $table->foreignId('rank_id')->nullable()->constrained('rank_items');
             $table->timestamps();
         });
 
         Schema::create('character_position', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('character_id');
-            $table->unsignedBigInteger('position_id');
+            $table->foreignId('character_id')->constrained('characters');
+            $table->foreignId('position_id')->constrained('positions');
             $table->boolean('primary')->default(false);
         });
 
-        Schema::create('user_character', function (Blueprint $table) {
+        Schema::create('character_user', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('character_id');
-            $table->unsignedBigInteger('user_id');
+            $table->foreignId('character_id')->constrained('characters');
+            $table->foreignId('user_id')->constrained('users');
             $table->boolean('primary')->default(false);
         });
     }
@@ -44,7 +45,7 @@ class CreateCharacterTables extends Migration
     public function down()
     {
         Schema::dropIfExists('character_position');
-        Schema::dropIfExists('user_character');
+        Schema::dropIfExists('character_user');
         Schema::dropIfExists('characters');
     }
 }

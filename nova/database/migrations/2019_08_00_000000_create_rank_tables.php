@@ -24,8 +24,8 @@ class CreateRankTables extends Migration
 
         Schema::create('rank_items', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('group_id');
-            $table->unsignedInteger('name_id');
+            $table->foreignId('group_id')->constrained('rank_groups');
+            $table->foreignId('name_id')->constrained('rank_names');
             $table->string('base_image');
             $table->string('overlay_image')->nullable();
             $table->unsignedInteger('sort')->nullable();
@@ -37,5 +37,6 @@ class CreateRankTables extends Migration
     {
         Schema::dropIfExists('rank_groups');
         Schema::dropIfExists('rank_names');
+        Schema::dropIfExists('rank_items');
     }
 }
