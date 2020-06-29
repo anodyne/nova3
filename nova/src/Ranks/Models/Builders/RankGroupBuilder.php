@@ -13,4 +13,9 @@ class RankGroupBuilder extends Builder
     {
         return $this->orderBy('sort', 'asc');
     }
+
+    public function whereActive()
+    {
+        return $this->where('active', true);
+    }
 }

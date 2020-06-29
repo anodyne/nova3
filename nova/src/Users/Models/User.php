@@ -61,8 +61,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
 
     public function characters()
     {
-        return $this->belongsToMany(Character::class, 'user_character')
-            ->using(UserCharacter::class);
+        return $this->belongsToMany(Character::class);
     }
 
     public function logins()

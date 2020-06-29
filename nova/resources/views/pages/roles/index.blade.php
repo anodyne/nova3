@@ -28,7 +28,11 @@
                                 </div>
                                 <div class="mt-2 flex">
                                     <div class="flex items-center text-sm leading-5 text-gray-500">
-                                        @icon('users', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
+                                        @if ($role->users_count === 1)
+                                            @icon('user', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
+                                        @else
+                                            @icon('users', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
+                                        @endif
                                         <span>
                                             {{ $role->users_count }} assigned @choice('user|users', $role->users_count)
                                         </span>
@@ -107,6 +111,21 @@
             {{ $roles->withQueryString()->links() }}
         </div>
     </x-panel>
+
+    <div class="w-full max-w-2xl mx-auto mt-16">
+        <div class="rounded-md bg-purple-100 p-4">
+            <div class="flex items-start">
+                <div class="flex-shrink-0">
+                    @icon('lightbulb', 'h-6 w-6 text-purple-500')
+                </div>
+                <div class="ml-3 flex-1 | md:flex md:justify-between">
+                    <p class="text-sm leading-6 text-purple-700">
+                        {{ Arr::random(config('tips.roles')) }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <x-modal color="red" headline="Delete role?" icon="warning" :url="route('roles.delete')">
         <x-slot name="footer">

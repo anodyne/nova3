@@ -35,6 +35,7 @@ class FluentIconSet extends IconSet
             'hide' => 'eye-hide',
             'home' => 'home',
             'info' => 'info',
+            'lightbulb' => 'lightbulb',
             'list' => 'list',
             'lock' => 'lock',
             'menu' => 'navigation',

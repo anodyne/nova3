@@ -1,11 +1,11 @@
 <?php
 
-namespace Nova\Users\Http\Livewire;
+namespace Nova\Characters\Http\Livewire;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-class UserUploadAvatar extends Component
+class CharacterUploadAvatar extends Component
 {
     use WithFileUploads;
 
@@ -24,6 +24,6 @@ class UserUploadAvatar extends Component
 
     public function render()
     {
-        return view('livewire.users.upload-avatar');
+        return view('livewire.characters.upload-avatar');
     }
 }

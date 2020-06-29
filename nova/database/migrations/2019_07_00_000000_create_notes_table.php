@@ -10,7 +10,7 @@ class CreateNotesTable extends Migration
     {
         Schema::create('notes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('user_id');
+            $table->foreignId('user_id')->constrained('users');
             $table->text('title');
             $table->text('summary')->nullable();
             $table->longText('content')->nullable();
