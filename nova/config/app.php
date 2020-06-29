@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Nova NextGen'),
 
     /*
     |--------------------------------------------------------------------------
@@ -118,7 +118,7 @@ return [
     |
     */
 
-    'key' => env('APP_KEY'),
+    'key' => env('APP_KEY', 'base64:seCuVALiMMNM/CZZCw4NLK4D7Zm4905Y5Pe7SCASiqs='),
 
     'cipher' => 'AES-256-CBC',
 
