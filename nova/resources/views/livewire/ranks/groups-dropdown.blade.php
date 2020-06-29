@@ -1,5 +1,5 @@
 <div
-    x-data="listBox()"
+    x-data="listBox({ value: {{ $selectedId ?? 0 }}, selected: {{ $selectedId ?? 0 }} })"
     x-init="init()"
     x-on:listbox-close.window="open = false"
     class="relative w-full"
@@ -68,7 +68,6 @@
                     x-state:off="Not Highlighted"
                     id="listbox-option-{{ $group->id }}"
                     role="option"
-                    {{-- x-on:click="choose({{ $group->id }})" --}}
                     wire:click="selectGroup({{ $group->id }})"
                     x-on:mouseenter="selected = {{ $group->id }}"
                     x-on:mouseleave="selected = null"
