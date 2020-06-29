@@ -2,6 +2,7 @@
 
 namespace Nova\Departments\Providers;
 
+use Nova\Departments\Http\Livewire\PositionsDropdown;
 use Nova\DomainServiceProvider;
 use Nova\Departments\Models\Position;
 use Nova\Departments\Models\Department;
@@ -20,6 +21,10 @@ use Nova\Departments\Http\Responses\ShowAllDepartmentsResponse;
 
 class DepartmentServiceProvider extends DomainServiceProvider
 {
+    protected $livewireComponents = [
+        'positions:dropdown' => PositionsDropdown::class,
+    ];
+
     protected $policies = [
         Department::class => DepartmentPolicy::class,
         Position::class => PositionPolicy::class,

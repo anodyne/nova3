@@ -36,12 +36,6 @@ class ThemeServiceProvider extends DomainServiceProvider
             $theme = new PulsarTheme;
 
             $this->app->instance('nova.theme', $theme);
-
-            $this->app->extend('nova.data.frontend', function ($data) use ($theme) {
-                $data->put('theme', $theme);
-
-                return $data;
-            });
         }
     }
 }

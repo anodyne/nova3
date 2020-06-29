@@ -14,6 +14,16 @@ class PositionBuilder extends Builder
         return $this->orderBy('sort', 'asc');
     }
 
+    public function whereActive()
+    {
+        return $this->where('active', true);
+    }
+
+    public function whereAvailable()
+    {
+        return $this->where('available', '>', 0);
+    }
+
     public function whereDepartment($id)
     {
         return $this->where('department_id', $id);
