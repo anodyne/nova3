@@ -1,11 +1,8 @@
-<div
-    x-data="listBox({ value: {{ $selectedId ?? 0 }}, selected: {{ $selectedId ?? 0 }} })"
-    x-init="init()"
-    x-on:listbox-close.window="open = false"
-    class="relative w-full"
->
-    <input type="hidden" name="name_id" value="{{ $selectedId }}">
+@props([
+    'items',
+])
 
+<div x-data="listBox()" x-init="init()" {{ $attributes->merge(['class' => 'relative']) }}>
     <span class="inline-block w-full rounded-md shadow-sm">
         <button
             x-ref="button"
@@ -18,8 +15,11 @@
             aria-labelledby="listbox-label"
             class="cursor-default relative w-full rounded-md border border-gray-300 bg-white pl-3 pr-10 py-2 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150 | sm:text-sm sm:leading-5"
         >
-            <span class="block truncate">
-                {{ optional($selected)->name ?? 'Select a rank name' }}
+            <span
+                x-text="['Wade Cooper','Arlene Mccoy','Devon Webb','Tom Cook','Tanya Fox','Hellen Schmidt','Caroline Schultz','Mason Heaney','Claudie Smitham','Emil Schaefer'][value]"
+                class="block truncate"
+            >
+                Wade Cooper
             </span>
             <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                 <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="none" stroke="currentColor">
@@ -36,11 +36,12 @@
         x-transition:leave="transition ease-in duration-100"
         x-transition:leave-start="opacity-100"
         x-transition:leave-end="opacity-0"
-        class="absolute mt-1 w-full rounded-md bg-white shadow-lg z-10"
+        class="absolute mt-1 w-full rounded-md bg-white shadow-lg"
         style="display: none;"
     >
         <ul
             x-on:keydown.enter.stop.prevent="onOptionSelect()"
+            x-on:keydown.space.stop.prevent="onOptionSelect()"
             x-on:keydown.escape="onEscape()"
             x-on:keydown.arrow-up.prevent="onArrowUp()"
             x-on:keydown.arrow-down.prevent="onArrowDown()"
@@ -52,61 +53,76 @@
             class="max-h-60 rounded-md py-1 text-base leading-6 shadow-xs overflow-auto focus:outline-none | sm:text-sm sm:leading-5"
             aria-activedescendant="listbox-option-0"
         >
-            <li class="p-2">
-                <div class="flex items-center rounded bg-gray-100 border-2 border-gray-100 text-gray-600 px-2 py-2 focus-within:border-gray-200 focus-within:bg-white focus-within:text-gray-700">
-                    <div class="flex-shrink-0 mr-3">
-                        @icon('search', 'h-5 w-5')
-                    </div>
-                    <input wire:model.debounce.250ms="query" type="text" placeholder="Find a rank name..." class="block w-full appearance-none bg-transparent focus:outline-none">
-                </div>
-            </li>
-
-            @forelse ($names as $name)
+            {{-- <template x-for="item in items">
                 <li
                     x-description="Select option, manage highlight styles based on mouseenter/mouseleave and keyboard navigation."
                     x-state:on="Highlighted"
                     x-state:off="Not Highlighted"
-                    id="listbox-option-{{ $name->id }}"
+                    id="listbox-option-0"
                     role="option"
-                    wire:click="selectName({{ $name->id }})"
-                    x-on:mouseenter="selected = {{ $name->id }}"
+                    x-on:click="choose(item.id)"
+                    x-on:mouseenter="selected = item.id"
                     x-on:mouseleave="selected = null"
-                    x-bind:class="{ 'text-white bg-blue-600': selected === {{ $name->id }}, 'text-gray-900': !(selected === {{ $name->id }}) }"
+                    x-bind:class="{ 'text-white bg-blue-600': selected === item.id, 'text-gray-900': !(selected === item.id) }"
                     class="cursor-default select-none relative py-2 pl-3 pr-9 text-gray-900"
                 >
                     <span
                         x-state:on="Selected"
                         x-state:off="Not Selected"
-                        x-bind:class="{ 'font-semibold': value === {{ $name->id }}, 'font-normal': !(value === {{ $name->id }}) }"
+                        x-bind:class="{ 'font-semibold': value === item.id, 'font-normal': !(value === item.id) }"
+                        x-text="item.name"
+                        class="block truncate font-semibold"
+                    ></span>
+
+                    <span
+                        x-show="value === item.id"
+                        x-description="Checkmark, only display for selected option."
+                        x-state:on="Highlighted"
+                        x-state:off="Not Highlighted"
+                        x-bind:class="{ 'text-white': selected === item.id, 'text-blue-600': !(selected === item.id) }"
+                        class="absolute inset-y-0 right-0 flex items-center pr-4 text-blue-600"
+                    >
+                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                    </span>
+                </li>
+            </template> --}}
+
+            @foreach ($items as $item)
+                <li
+                    x-description="Select option, manage highlight styles based on mouseenter/mouseleave and keyboard navigation."
+                    x-state:on="Highlighted"
+                    x-state:off="Not Highlighted"
+                    id="listbox-option-0"
+                    role="option"
+                    x-on:click="choose({{ $item->id }})"
+                    x-on:mouseenter="selected = {{ $item->id }}"
+                    x-on:mouseleave="selected = null"
+                    x-bind:class="{ 'text-white bg-blue-600': selected === {{ $item->id }}, 'text-gray-900': !(selected === {{ $item->id }}) }"
+                    class="cursor-default select-none relative py-2 pl-3 pr-9 text-gray-900"
+                >
+                    <span
+                        x-state:on="Selected"
+                        x-state:off="Not Selected"
+                        x-bind:class="{ 'font-semibold': value === {{ $item->id }}, 'font-normal': !(value === {{ $item->id }}) }"
                         class="block truncate font-semibold"
                     >
-                        {{ $name->name }}
+                        {{ $item->name }}
                     </span>
 
-                    @if ($selectedId === $name->id)
-                        <span
-                            x-description="Checkmark, only display for selected option."
-                            x-state:on="Highlighted"
-                            x-state:off="Not Highlighted"
-                            x-bind:class="{ 'text-white': selected === {{ $name->id }}, 'text-blue-600': !(selected === {{ $name->id }}) }"
-                            class="absolute inset-y-0 right-0 flex items-center pr-4 text-blue-600"
-                        >
-                            @icon('check', 'h-5 w-5')
-                        </span>
-                    @endif
+                    <span
+                        x-show="value === {{ $item->id }}"
+                        x-description="Checkmark, only display for selected option."
+                        x-state:on="Highlighted"
+                        x-state:off="Not Highlighted"
+                        x-bind:class="{ 'text-white': selected === {{ $item->id }}, 'text-blue-600': !(selected === {{ $item->id }}) }"
+                        class="absolute inset-y-0 right-0 flex items-center pr-4 text-blue-600"
+                    >
+                        @icon('check', 'h-5 w-5')
+                    </span>
                 </li>
-            @empty
-                <li class="py-4">
-                    <div class="text-center">
-                        <div class="text-gray-500">There is no rank name named</div>
-                        <div class="text-gray-800 font-medium mt-1">&lsquo;{{ $query }}&rsquo;</div>
-
-                        <button wire:click="createAndSelectName" type="button" class="mt-6 button button-primary">
-                            Create this name
-                        </button>
-                    </div>
-                </li>
-            @endforelse
+            @endforeach
         </ul>
     </div>
 </div>

@@ -16,6 +16,12 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 use Nova\Characters\Models\States\CharacterStatus;
 use Nova\Characters\Models\Builders\CharacterBuilder;
+use Nova\Characters\Models\States\CharacterType;
+use Nova\Characters\Models\States\NPC;
+use Nova\Characters\Models\States\PlayingCharacter;
+use Nova\Characters\Models\States\PNPC;
+use Nova\Departments\Models\Position;
+use Nova\Ranks\Models\RankItem;
 
 class Character extends Model implements HasMedia
 {
@@ -38,10 +44,34 @@ class Character extends Model implements HasMedia
         'name', 'status',
     ];
 
-    public function user()
+    public function positions()
     {
-        return $this->belongsToMany(User::class, 'user_character')
-            ->using(UserCharacter::class);
+        return $this->belongsToMany(Position::class);
+    }
+
+    public function rank()
+    {
+        return $this->hasOne(RankItem::class, 'id', 'rank_id');
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
+    public function getHasUserAttribute(): bool
+    {
+        return $this->users()->count() > 0;
+    }
+
+    public function getIsNpcAttribute(): bool
+    {
+        return $this->users()->count() === 0;
+    }
+
+    public function getIsPnpcAttribute(): bool
+    {
+        return false;
     }
 
     /**
@@ -118,5 +148,18 @@ class Character extends Model implements HasMedia
                 [Inactive::class, Active::class],
             ])
             ->default(Pending::class);
+
+        $this->addState('type', CharacterType::class)
+            ->allowTransitions([
+                [PlayingCharacter::class, NPC::class],
+                [PlayingCharacter::class, PNPC::class],
+
+                [NPC::class, PNPC::class],
+                [NPC::class, PlayingCharacter::class],
+
+                [PNPC::class, NPC::class],
+                [PNPC::class, PlayingCharacter::class],
+            ])
+            ->default(NPC::class);
     }
 }

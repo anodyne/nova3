@@ -9,6 +9,7 @@ use Nova\Characters\Filters\CharacterFilters;
 use Nova\Users\Http\Responses\ShowUserResponse;
 use Nova\Foundation\Http\Controllers\Controller;
 use Nova\Characters\Http\Responses\ShowAllCharactersResponse;
+use Nova\Characters\Http\Responses\ShowCharacterResponse;
 
 class ShowCharacterController extends Controller
 {
@@ -23,8 +24,7 @@ class ShowCharacterController extends Controller
     {
         $this->authorize('viewAny', Character::class);
 
-        $characters = Character::with('media')
-            ->withAssignedUser()
+        $characters = Character::with('media', 'positions', 'rank.name', 'users')
             ->filter($filters)
             ->orderBy('name')
             ->paginate();
@@ -35,12 +35,12 @@ class ShowCharacterController extends Controller
         ]);
     }
 
-    public function show(User $user)
+    public function show(Character $character)
     {
-        $this->authorize('view', $user);
+        $this->authorize('view', $character);
 
-        return app(ShowUserResponse::class)->with([
-            'user' => $user->load('roles', 'logins'),
+        return app(ShowCharacterResponse::class)->with([
+            'character' => $character->load('positions', 'rank.name', 'users'),
         ]);
     }
 }

@@ -10,6 +10,17 @@
         </x-slot>
 
         <x-slot name="controls">
+            <x-dropdown placement="bottom-end" class="flex items-center mr-4 text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150 {{ request()->has('type') ? 'text-blue-500' : '' }}">
+                @icon('filter', 'h-6 w-6')
+
+                <x-slot name="dropdown">
+                    <div class="{{ $component->text() }} uppercase tracking-wide font-semibold text-gray-500">
+                        Filter by character type
+                    </div>
+                    <a href="{{ route('characters.index', 'status='.request('status')) }}" class="{{ $component->link() }}">All characters</a>
+                </x-slot>
+            </x-dropdown>
+
             @can('create', 'Nova\Characters\Models\Character')
                 <a href="{{ route('characters.create') }}" class="button button-primary" data-cy="create">
                     Add Character
@@ -76,28 +87,33 @@
                             <div class="min-w-0 flex-1 px-4 | md:grid md:grid-cols-2 md:gap-4">
                                 <div>
                                     <div class="leading-normal font-medium truncate">
+                                        {{ optional(optional($character->rank)->name)->name }}
                                         {{ $character->name }}
                                     </div>
                                     <div class="mt-2 flex">
-                                        <x-badge size="sm" :type="$character->status->color()">
-                                            {{ $character->status->displayName() }}
-                                        </x-badge>
-
-                                        @if ($character->assigned_user)
-                                            <div class="hidden items-center text-sm leading-5 text-gray-500 ml-6 | sm:flex">
-                                                @icon('user', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
-                                                <span>
-                                                    Played by {{ $character->assigned_user }}
-                                                </span>
-                                            </div>
-                                        @else
-                                            <x-badge size="sm" class="ml-6">NPC</x-badge>
-                                        @endif
+                                        <div class="flex items-center text-sm leading-5 text-gray-500">
+                                            {{ $character->positions->implode('name', ' & ') }}
+                                        </div>
                                     </div>
+                                </div>
+                                <div>
+                                    @if ($character->hasUser)
+                                        <div class="hidden items-center text-sm leading-5 text-gray-500 ml-6 | sm:flex">
+                                            @if ($character->users->count() === 1)
+                                                @icon('user', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
+                                            @else
+                                                @icon('users', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
+                                            @endif
+
+                                            <span>
+                                                Played by {{ $character->users->implode('name', ' & ') }}
+                                            </span>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
-                        <div>
+                        <div class="leading-0">
                             <x-dropdown placement="bottom-end" class="text-gray-400 hover:text-gray-500">
                                 @icon('more', 'h-6 w-6')
 

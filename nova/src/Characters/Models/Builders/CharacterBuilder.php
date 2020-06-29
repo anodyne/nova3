@@ -42,29 +42,4 @@ class CharacterBuilder extends Builder
     {
         return $this->where('state', '=', Pending::class);
     }
-
-    /**
-     * Get the assigned user.
-     *
-     * @return Builder
-     */
-    public function withAssignedUser()
-    {
-        // return $this->whereHas('user', function ($query) {
-        //     return $query->join('user_character', 'user_character.character_id', '=', 'characters.id')
-        //         ->addSelect([
-        //             'assigned_user' => User::select('name')
-        //                 ->whereColumn('user_character.user_id', 'users.id')
-        //                 ->latest()
-        //                 ->take(1),
-        //         ]);
-        // });
-
-        return $this->join('user_character', 'user_character.character_id', '=', 'characters.id')
-            ->addSelect(['assigned_user' => User::select('name')
-            ->whereColumn('user_character.user_id', 'users.id')
-            ->latest()
-            ->take(1),
-            ]);
-    }
 }
