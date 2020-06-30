@@ -33,7 +33,7 @@ class DeleteCharacterController extends Controller
 
         $character = $action->execute($character);
 
-        event(new CharacterDeletedByAdmin($character));
+        CharacterDeletedByAdmin::dispatch($character);
 
         return redirect()
             ->route('characters.index')

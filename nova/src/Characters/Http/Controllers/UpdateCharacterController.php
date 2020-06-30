@@ -36,7 +36,7 @@ class UpdateCharacterController extends Controller
 
         $character = $action->execute($character, $request);
 
-        event(new CharacterUpdatedByAdmin($character));
+        CharacterUpdatedByAdmin::dispatch($character);
 
         return back()->withToast("{$character->name}'s account was updated");
     }

@@ -33,7 +33,7 @@ class CreateCharacterController extends Controller
 
         $character = $action->execute($request);
 
-        event(new CharacterCreatedByAdmin($character));
+        CharacterCreatedByAdmin::dispatch($character);
 
         return redirect()
             ->route('characters.index', 'status=active')
