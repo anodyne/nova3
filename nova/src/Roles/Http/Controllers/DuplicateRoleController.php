@@ -26,7 +26,7 @@ class DuplicateRoleController extends Controller
 
         $role = $action->execute($originalRole);
 
-        event(new RoleDuplicated($role, $originalRole));
+        RoleDuplicated::dispatch($role, $originalRole);
 
         return redirect()
             ->route('roles.edit', $role)

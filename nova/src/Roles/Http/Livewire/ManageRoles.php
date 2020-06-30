@@ -31,9 +31,14 @@ class ManageRoles extends Component
     public function updatedQuery($value)
     {
         $this->results = Role::query()
-            ->where('name', 'like', "%{$value}%")
-            ->orWhere('display_name', 'like', "%{$value}%")
-            ->orderBy('display_name')
+            ->whereAtOrBelowSortOrder(
+                auth()->user()->roles()->orderBySort()->first()->sort
+            )
+            ->where(function ($query) use ($value) {
+                return $query->where('name', 'like', "%{$value}%")
+                    ->orWhere('display_name', 'like', "%{$value}%");
+            })
+            ->orderBySort()
             ->get();
     }
 

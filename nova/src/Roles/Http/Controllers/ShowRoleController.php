@@ -26,11 +26,15 @@ class ShowRoleController extends Controller
             ->with(['users' => function ($query) {
                 $query->limit(4);
             }])
-            ->orderBy('display_name')
-            ->filter($filters)
-            ->paginate();
+            ->orderBySort()
+            ->filter($filters);
+
+        $roles = ($isReordering = $request->has('reorder'))
+            ? $roles->get()
+            : $roles->paginate();
 
         return app(ShowAllRolesResponse::class)->with([
+            'isReordering' => $isReordering,
             'roles' => $roles,
             'search' => $request->search,
         ]);

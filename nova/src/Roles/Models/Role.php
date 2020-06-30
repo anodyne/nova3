@@ -5,8 +5,8 @@ namespace Nova\Roles\Models;
 use Nova\Roles\Events;
 use Nova\Users\Models\User;
 use Laratrust\Models\LaratrustRole;
-use Nova\Roles\Models\Builders\RoleBuilder;
 use Nova\Users\Models\States\Active;
+use Nova\Roles\Models\Builders\RoleBuilder;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
@@ -30,7 +30,9 @@ class Role extends LaratrustRole
         'deleted' => Events\RoleDeleted::class,
     ];
 
-    protected $fillable = ['name', 'display_name', 'description', 'default'];
+    protected $fillable = [
+        'name', 'display_name', 'description', 'default', 'sort',
+    ];
 
     /**
      * Set the description for logging.
