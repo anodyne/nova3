@@ -2328,6 +2328,11 @@ cosmiconfig@^5.0.0:
     js-yaml "^3.13.1"
     parse-json "^4.0.0"
 
+countable@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/countable/-/countable-3.0.1.tgz#1d0c1c426e8db08890534151ac7448c3642496ce"
+  integrity sha512-dz/sdi+RFpHJKMen5RAB9EKpCKd/q5WMfxG3SbdbQ3Pak4+SEPmDhVWZF0GTTHwjqjR+7DmiZHzZiFJ4qeAzmg==
+
 create-ecdh@^4.0.0:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/create-ecdh/-/create-ecdh-4.0.3.tgz#c9111b6f33045c4697f144787f9254cdc77c45ff"
@@ -5649,6 +5654,11 @@ number-is-nan@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
   integrity sha1-CXtgK1NCKlIsGvuHkDGDNpQaAR0=
+
+numeral@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/numeral/-/numeral-2.0.6.tgz#4ad080936d443c2561aed9f2197efffe25f4e506"
+  integrity sha1-StCAk21EPCVhrtnyGX7//iX05QY=
 
 oauth-sign@~0.9.0:
   version "0.9.0"
