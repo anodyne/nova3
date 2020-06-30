@@ -29,7 +29,7 @@ class InstallThemeController extends Controller
             new ThemeData($this->getThemePropertiesFromQuickInstallFile($request->theme))
         );
 
-        event(new ThemeInstalled($theme));
+        ThemeInstalled::dispatch($theme);
 
         return redirect()
             ->route('themes.index')

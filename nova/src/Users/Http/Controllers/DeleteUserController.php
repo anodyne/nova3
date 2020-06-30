@@ -2,8 +2,8 @@
 
 namespace Nova\Users\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Nova\Users\Models\User;
+use Illuminate\Http\Request;
 use Nova\Users\Actions\DeleteUser;
 use Nova\Users\Events\UserDeletedByAdmin;
 use Nova\Foundation\Http\Controllers\Controller;
@@ -33,7 +33,7 @@ class DeleteUserController extends Controller
 
         $user = $action->execute($user);
 
-        event(new UserDeletedByAdmin($user));
+        UserDeletedByAdmin::dispatch($user);
 
         return redirect()
             ->route('users.index')

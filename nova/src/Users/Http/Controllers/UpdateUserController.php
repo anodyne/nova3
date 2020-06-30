@@ -8,7 +8,6 @@ use Nova\Users\Events\UserUpdatedByAdmin;
 use Nova\Users\Http\Requests\UpdateUserRequest;
 use Nova\Foundation\Http\Controllers\Controller;
 use Nova\Users\Http\Responses\UpdateUserResponse;
-use Spatie\ModelStates\State;
 
 class UpdateUserController extends Controller
 {
@@ -37,7 +36,7 @@ class UpdateUserController extends Controller
 
         $user = $action->execute($user, $request);
 
-        event(new UserUpdatedByAdmin($user));
+        UserUpdatedByAdmin::dispatch($user);
 
         return back()->withToast("{$user->name}'s account was updated");
     }

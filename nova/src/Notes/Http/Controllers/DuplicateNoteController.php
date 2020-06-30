@@ -26,7 +26,7 @@ class DuplicateNoteController extends Controller
 
         $note = $action->execute($originalNote);
 
-        event(new NoteDuplicated($note, $originalNote));
+        NoteDuplicated::dispatch($note, $originalNote);
 
         return redirect()
             ->route('notes.edit', $note)

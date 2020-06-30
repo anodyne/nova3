@@ -2,14 +2,12 @@
 
 namespace Nova\Users\Http\Controllers;
 
+use Nova\Roles\Models\Role;
 use Nova\Users\Models\User;
-use Nova\Users\Actions\CreateUser;
+use Nova\Users\Actions\CreateUserManager;
 use Nova\Users\Events\UserCreatedByAdmin;
-use Nova\Users\DataTransferObjects\UserData;
 use Nova\Users\Http\Requests\CreateUserRequest;
 use Nova\Foundation\Http\Controllers\Controller;
-use Nova\Roles\Models\Role;
-use Nova\Users\Actions\CreateUserManager;
 use Nova\Users\Http\Responses\CreateUserResponse;
 
 class CreateUserController extends Controller
@@ -37,7 +35,7 @@ class CreateUserController extends Controller
 
         $user = $action->execute($request);
 
-        event(new UserCreatedByAdmin($user));
+        UserCreatedByAdmin::dispatch($user);
 
         return redirect()
             ->route('users.index')

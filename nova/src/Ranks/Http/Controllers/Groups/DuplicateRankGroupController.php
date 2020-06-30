@@ -40,7 +40,7 @@ class DuplicateRankGroupController extends Controller
 
         $group = $action->execute($originalGroup, $request);
 
-        event(new RankGroupDuplicated($group, $originalGroup));
+        RankGroupDuplicated::dispatch($group, $originalGroup);
 
         return redirect()
             ->route('ranks.groups.edit', $group)

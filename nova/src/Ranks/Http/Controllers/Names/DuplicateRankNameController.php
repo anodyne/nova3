@@ -24,7 +24,7 @@ class DuplicateRankNameController extends Controller
 
         $name = $action->execute($originalName);
 
-        event(new RankNameDuplicated($name, $originalName));
+        RankNameDuplicated::dispatch($name, $originalName);
 
         return redirect()
             ->route('ranks.names.edit', $name)
