@@ -3,9 +3,11 @@
 use Nova\Users\Models\User;
 use Illuminate\Database\Seeder;
 use Nova\Characters\Models\Character;
-use Nova\Characters\Models\States\Active;
-use Nova\Characters\Models\States\Inactive;
 use Nova\Departments\Models\Position;
+use Nova\Characters\Models\States\Pnpc;
+use Nova\Characters\Models\States\Active;
+use Nova\Characters\Models\States\Primary;
+use Nova\Characters\Models\States\Inactive;
 
 class CharacterSeeder extends Seeder
 {
@@ -20,6 +22,7 @@ class CharacterSeeder extends Seeder
         $picard->users()->save(User::find(1));
         $picard->positions()->save(Position::find(1));
         $picard->status->transitionTo(Active::class);
+        $picard->type->transitionTo(Primary::class);
 
         $riker = factory(Character::class)->create([
             'name' => 'William Riker',
@@ -28,6 +31,7 @@ class CharacterSeeder extends Seeder
         $riker->users()->save(User::find(2));
         $riker->positions()->save(Position::find(2));
         $riker->status->transitionTo(Active::class);
+        $riker->type->transitionTo(Primary::class);
 
         $data = factory(Character::class)->create([
             'name' => 'Data',
@@ -65,6 +69,7 @@ class CharacterSeeder extends Seeder
             User::find(2),
         ]);
         $guinan->status->transitionTo(Active::class);
+        $guinan->type->transitionTo(Pnpc::class);
 
         $users = User::get();
 
