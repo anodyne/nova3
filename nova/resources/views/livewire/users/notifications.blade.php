@@ -1,7 +1,7 @@
 <div x-data="{ open: false }" class="leading-0">
     <button
         x-on:click.prevent="open = true"
-        wire:poll="checkNotifications"
+        wire:poll="refreshNotifications"
         type="button"
         class="relative p-1 text-gray-400 rounded-full hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:shadow-outline focus:text-gray-500"
         aria-label="Notifications"
@@ -90,15 +90,7 @@
                         <div class="relative flex-1 leading-normal px-4 space-y-8 | sm:px-6">
                             @forelse ($notifications as $notification)
                                 <div class="flex items-center w-full">
-                                    <div class="flex items-start">
-                                        <div class="flex-shrink-0 rounded-md leading-0 p-1.5 mr-4 bg-purple-50">
-                                            @icon('users', 'h-8 w-8 text-purple-600')
-                                        </div>
-                                        <div class="flex flex-col">
-                                            <h2 class="text-xs uppercase tracking-wider font-semibold text-gray-500">Account Created</h2>
-                                            <p class="mt-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit.<p>
-                                        </div>
-                                    </div>
+                                    @include("livewire.users.notifications.{$notification['type']}", compact('notification'))
                                 </div>
                             @empty
                                 <div class="rounded-md bg-blue-50 p-4">

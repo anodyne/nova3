@@ -3,43 +3,70 @@
 namespace Nova\Users\Http\Livewire;
 
 use Livewire\Component;
+use Nova\Users\Resources\NotificationResource;
 
 class UserNotifications extends Component
 {
     public $notifications = [];
 
-    public function checkNotifications(): void
-    {
-        $this->notifications = auth()->user()->notifications->toArray();
-    }
-
     public function clearAllNotifications(): void
     {
-        auth()->user()->notifications()->delete();
+        $this->getNotificationsAsBuilder()->delete();
 
-        $this->checkNotifications();
+        $this->refreshNotifications();
+    }
+
+    public function getNotifications()
+    {
+        return auth()->user()->notifications;
+    }
+
+    public function getNotificationsAsBuilder()
+    {
+        return auth()->user()->notifications();
+    }
+
+    public function getUnreadNotifications()
+    {
+        return auth()->user()->unreadNotifications;
     }
 
     public function hasNotifications(): bool
     {
-        return auth()->user()->notifications->count() > 0;
+        return $this->getNotifications()->count() > 0;
     }
 
     public function hasUnreadNotifications(): bool
     {
-        return auth()->user()->unreadNotifications->count() > 0;
+        return $this->getUnreadNotifications()->count() > 0;
     }
 
     public function markAllNotificationsAsRead(): void
     {
-        auth()->user()->unreadNotifications->markAsRead();
+        $this->getUnreadNotifications()->markAsRead();
 
-        $this->checkNotifications();
+        $this->refreshNotifications();
+    }
+
+    public function markNotificationAsRead($notificationId)
+    {
+        $this->getNotificationsAsBuilder()
+            ->where(['id' => $notificationId])
+            ->update(['read_at' => now()]);
+
+        $this->refreshNotifications();
+    }
+
+    public function refreshNotifications(): void
+    {
+        $this->notifications = NotificationResource::collection(
+            $this->getNotifications()
+        )->toArray(request());
     }
 
     public function mount()
     {
-        $this->checkNotifications();
+        $this->refreshNotifications();
     }
 
     public function render()
