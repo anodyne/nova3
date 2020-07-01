@@ -2,7 +2,6 @@
 
 namespace Nova\Characters\Models\Builders;
 
-use Nova\Users\Models\User;
 use Nova\Foundation\Filters\Filterable;
 use Illuminate\Database\Eloquent\Builder;
 use Nova\Characters\Models\States\Active;
@@ -41,5 +40,11 @@ class CharacterBuilder extends Builder
     public function wherePending()
     {
         return $this->where('state', '=', Pending::class);
+    }
+
+    public function whereIsPrimaryCharacter()
+    {
+        return $this->join('character_user', 'character_user.character_id', '=', 'characters.id')
+            ->where('character_user.primary', true);
     }
 }
