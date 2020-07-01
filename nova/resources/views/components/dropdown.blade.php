@@ -28,7 +28,7 @@
         x-transition:leave="transition ease-in duration-75"
         x-transition:leave-start="transform opacity-100 scale-100"
         x-transition:leave-end="transform opacity-0 scale-95"
-        class="absolute mt-2 w-56 rounded-md shadow-lg z-9999 {{ $placementStyles() }}"
+        class="absolute mt-2 rounded-md shadow-lg z-9999 {{ $placementStyles() }} @if ($wide) w-72 @else w-56 @endif"
         x-cloak
     >
         <div class="rounded-md bg-white shadow-xs z-10">
