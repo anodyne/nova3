@@ -14,6 +14,7 @@ use Nova\Users\Http\Responses\UpdateUserResponse;
 use Nova\Users\Http\Responses\ShowAllUsersResponse;
 use Nova\Users\Http\Controllers\SearchUsersController;
 use Nova\Users\Http\Controllers\ForcePasswordResetController;
+use Nova\Users\Http\Livewire\UserNotifications;
 use Nova\Users\Http\Livewire\UserUploadAvatar;
 use Nova\Users\Http\Responses\DeleteUserResponse;
 
@@ -27,6 +28,7 @@ class UserServiceProvider extends DomainServiceProvider
 
     protected $livewireComponents = [
         'users:manage-users' => ManageUsers::class,
+        'users:notifications' => UserNotifications::class,
         'users:upload-avatar' => UserUploadAvatar::class,
     ];
 

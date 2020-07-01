@@ -190,11 +190,9 @@
                 </div>
 
                 <div class="ml-4 flex items-center | md:ml-6">
-                    <button class="p-1 text-gray-400 rounded-full hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:shadow-outline focus:text-gray-500" aria-label="Notifications">
-                        @icon('notification', 'h-6 w-6')
-                    </button>
+                    @livewire('users:notifications')
 
-                    <x-dropdown placement="bottom-end" class="ml-3">
+                    <x-dropdown placement="bottom-end" class="ml-4">
                         <x-avatar size="xs" :url="auth()->user()->avatar_url" :tooltip="auth()->user()->name" />
 
                         <x-slot name="dropdown">
