@@ -2,14 +2,12 @@
 
 namespace Nova\Characters\Http\Controllers;
 
-use Nova\Users\Models\User;
 use Illuminate\Http\Request;
 use Nova\Characters\Models\Character;
 use Nova\Characters\Filters\CharacterFilters;
-use Nova\Users\Http\Responses\ShowUserResponse;
 use Nova\Foundation\Http\Controllers\Controller;
-use Nova\Characters\Http\Responses\ShowAllCharactersResponse;
 use Nova\Characters\Http\Responses\ShowCharacterResponse;
+use Nova\Characters\Http\Responses\ShowAllCharactersResponse;
 
 class ShowCharacterController extends Controller
 {

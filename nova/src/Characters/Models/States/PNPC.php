@@ -2,7 +2,7 @@
 
 namespace Nova\Characters\Models\States;
 
-class PNPC extends CharacterType
+class Pnpc extends CharacterType
 {
     public function color(): string
     {

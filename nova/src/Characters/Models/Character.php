@@ -4,24 +4,23 @@ namespace Nova\Characters\Models;
 
 use Nova\Characters\Events;
 use Nova\Users\Models\User;
+use Nova\Ranks\Models\RankItem;
 use Spatie\ModelStates\HasStates;
-use Nova\Users\Models\UserCharacter;
+use Nova\Departments\Models\Position;
+use Nova\Characters\Models\States\Npc;
 use Illuminate\Database\Eloquent\Model;
+use Nova\Characters\Models\States\Pnpc;
 use Nova\Characters\Models\States\Active;
 use Nova\Characters\Models\States\Pending;
+use Nova\Characters\Models\States\Primary;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Nova\Characters\Models\States\Inactive;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Nova\Characters\Models\States\CharacterType;
 use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 use Nova\Characters\Models\States\CharacterStatus;
 use Nova\Characters\Models\Builders\CharacterBuilder;
-use Nova\Characters\Models\States\CharacterType;
-use Nova\Characters\Models\States\NPC;
-use Nova\Characters\Models\States\PlayingCharacter;
-use Nova\Characters\Models\States\PNPC;
-use Nova\Departments\Models\Position;
-use Nova\Ranks\Models\RankItem;
 
 class Character extends Model implements HasMedia
 {
@@ -151,14 +150,14 @@ class Character extends Model implements HasMedia
 
         $this->addState('type', CharacterType::class)
             ->allowTransitions([
-                [PlayingCharacter::class, NPC::class],
-                [PlayingCharacter::class, PNPC::class],
+                [Primary::class, Npc::class],
+                [Primary::class, Pnpc::class],
 
-                [NPC::class, PNPC::class],
-                [NPC::class, PlayingCharacter::class],
+                [Npc::class, Pnpc::class],
+                [Npc::class, Primary::class],
 
-                [PNPC::class, NPC::class],
-                [PNPC::class, PlayingCharacter::class],
+                [Pnpc::class, Npc::class],
+                [Pnpc::class, Primary::class],
             ])
             ->default(NPC::class);
     }

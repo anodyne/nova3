@@ -2,7 +2,7 @@
 
 namespace Nova\Characters\Models\States;
 
-class PlayingCharacter extends CharacterType
+class Primary extends CharacterType
 {
     public function color(): string
     {
@@ -11,6 +11,6 @@ class PlayingCharacter extends CharacterType
 
     public function name(): string
     {
-        return 'active';
+        return 'primary';
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Nova\Characters\Models\States;
 
-class NPC extends CharacterType
+class Npc extends CharacterType
 {
     public function color(): string
     {
