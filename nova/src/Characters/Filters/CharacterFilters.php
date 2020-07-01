@@ -11,12 +11,12 @@ class CharacterFilters extends Filters
 
     public function hasuser($value)
     {
-        return $this->builder->whereHas('user');
+        return $this->builder->whereHasUser();
     }
 
     public function nouser($value)
     {
-        return $this->builder->whereDoesntHave('user');
+        return $this->builder->whereDoesntHaveUser();
     }
 
     public function search($value)

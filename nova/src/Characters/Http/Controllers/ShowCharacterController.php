@@ -25,7 +25,9 @@ class ShowCharacterController extends Controller
         $characters = Character::with('media', 'positions', 'rank.name', 'users')
             ->filter($filters)
             ->orderBy('name')
-            ->paginate();
+            ->toSql();
+        dd($characters);
+        // ->paginate();
 
         return app(ShowAllCharactersResponse::class)->with([
             'search' => $request->search,

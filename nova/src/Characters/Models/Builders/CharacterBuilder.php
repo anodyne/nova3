@@ -47,4 +47,14 @@ class CharacterBuilder extends Builder
         return $this->join('character_user', 'character_user.character_id', '=', 'characters.id')
             ->where('character_user.primary', true);
     }
+
+    public function whereHasUser()
+    {
+        return $this->whereHas('user');
+    }
+
+    public function whereDoesntHaveUser()
+    {
+        return $this->whereDoesntHave('user');
+    }
 }
