@@ -10,14 +10,23 @@
         </x-slot>
 
         <x-slot name="controls">
-            <x-dropdown placement="bottom-end" class="flex items-center mr-4 text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150 {{ request()->has('type') ? 'text-blue-500' : '' }}">
+            <x-dropdown placement="bottom-end" class="flex items-center mr-4 text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150 {{ request()->has('type') ? 'text-blue-500' : '' }}" wide="true">
                 @icon('filter', 'h-6 w-6')
 
                 <x-slot name="dropdown">
+                    <a href="{{ route('characters.index', 'status='.request('status').'&hasuser') }}" class="{{ $component->link() }}">Assigned to a user</a>
+                    <a href="{{ route('characters.index', 'status='.request('status').'&nouser') }}" class="{{ $component->link() }}">Not assigned to a user</a>
+
+                    <div class="{{ $component->divider() }}"></div>
+
                     <div class="{{ $component->text() }} uppercase tracking-wide font-semibold text-gray-500">
                         Filter by character type
                     </div>
-                    <a href="{{ route('characters.index', 'status='.request('status')) }}" class="{{ $component->link() }}">All characters</a>
+
+                    <a href="{{ route('characters.index', 'status='.request('status')) }}" class="{{ $component->link() }}">All character types</a>
+                    <a href="{{ route('characters.index', 'status='.request('status').'&type=primary') }}" class="{{ $component->link() }}">Primary characters</a>
+                    <a href="{{ route('characters.index', 'status='.request('status').'&type=pnpc') }}" class="{{ $component->link() }}">PNPCs</a>
+                    <a href="{{ route('characters.index', 'status='.request('status').'&type=npc') }}" class="{{ $component->link() }}">NPCs</a>
                 </x-slot>
             </x-dropdown>
 
@@ -97,8 +106,13 @@
                                     </div>
                                 </div>
                                 <div>
+                                    <div class="flex">
+                                        <x-badge size="sm" :type="$character->type->color()">
+                                            {{ $character->type->displayName() }}
+                                        </x-badge>
+                                    </div>
                                     @if ($character->hasUser)
-                                        <div class="hidden items-center text-sm leading-5 text-gray-500 ml-6 | sm:flex">
+                                        <div class="hidden mt-2 items-center text-sm leading-5 text-gray-500 | sm:flex">
                                             @if ($character->users->count() === 1)
                                                 @icon('user', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
                                             @else
