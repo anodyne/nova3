@@ -23,7 +23,8 @@ return [
     ],
 
     'users' => [
-        'You cannot delete your own account. If you want to delete your account, you can do so from your profile or have another admin delete it for you.',
+        'You cannot delete your own account from user management. If you want to delete your account, you can do so from your profile or have another admin delete it for you.',
         'When deactivating a user, all characters associated with the user will also be deactivated.',
+        "When searching for a user, you can search by the user's name or email address as well as the name of any of their assigned characters.",
     ],
 ];
