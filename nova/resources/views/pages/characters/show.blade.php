@@ -23,7 +23,7 @@
                 <x-input.group label="Rank">
                     <div class="flex items-center">
                         <x-rank :rank="$character->rank" />
-                        <span class="ml-3 font-medium">{{ $character->rank->name->name }}</span>
+                        <span class="ml-3 font-medium">{{ optional(optional($character->rank)->name)->name }}</span>
                     </div>
                 </x-input.group>
             @endif
