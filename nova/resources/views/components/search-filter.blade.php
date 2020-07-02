@@ -45,7 +45,11 @@
         if (query == null) {
             url.searchParams.delete('search');
         } else {
-            url.searchParams.append('search', query);
+            if (url.searchParams.has('search')) {
+                url.searchParams.set('search', query);
+            } else {
+                url.searchParams.append('search', query);
+            }
         }
 
         window.location.replace(url);
