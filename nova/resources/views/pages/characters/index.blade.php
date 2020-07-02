@@ -136,7 +136,7 @@
                                             {{ $character->type->displayName() }}
                                         </x-badge>
                                     </div>
-                                    @if ($character->hasUser)
+                                    @if ($character->users->count() > 0)
                                         <div class="hidden mt-2 items-center text-sm leading-5 text-gray-500 | sm:flex">
                                             @if ($character->users->count() === 1)
                                                 @icon('user', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
