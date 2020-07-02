@@ -9,6 +9,7 @@ use Nova\Characters\Livewire\CharacterUploadAvatar;
 use Nova\Characters\Responses\ShowCharacterResponse;
 use Nova\Characters\Responses\CreateCharacterResponse;
 use Nova\Characters\Responses\ShowAllCharactersResponse;
+use Nova\Characters\Responses\DeactivateCharacterResponse;
 
 class CharacterServiceProvider extends DomainServiceProvider
 {
@@ -26,6 +27,7 @@ class CharacterServiceProvider extends DomainServiceProvider
 
     protected $responsables = [
         CreateCharacterResponse::class,
+        DeactivateCharacterResponse::class,
         ShowAllCharactersResponse::class,
         ShowCharacterResponse::class,
     ];

@@ -127,6 +127,8 @@ class PopulatePagesTable extends Migration
             ['uri' => 'characters/{character}', 'key' => 'characters.update', 'verb' => 'put', 'resource' => 'Nova\\Characters\\Controllers\\UpdateCharacterController@update', 'layout' => 'admin'],
             ['uri' => 'characters/delete', 'key' => 'characters.delete', 'verb' => 'post', 'resource' => 'Nova\\Characters\\Controllers\\DeleteCharacterController@confirm', 'layout' => 'admin'],
             ['uri' => 'characters/{character}', 'key' => 'characters.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Characters\\Controllers\\DeleteCharacterController@destroy', 'layout' => 'admin'],
+            ['uri' => 'characters/confirm-deactivate', 'key' => 'characters.confirm-deactivate', 'verb' => 'post',  'resource' => 'Nova\\Characters\\Controllers\\DeactivateCharacterController@confirm', 'layout' => 'admin'],
+            ['uri' => 'characters/{character}/deactivate', 'key' => 'characters.deactivate', 'verb' => 'post', 'resource' => 'Nova\\Characters\\Controllers\\DeactivateCharacterController@deactivate', 'layout' => 'admin'],
         ];
 
         collect($pages)->each([Page::class, 'create']);

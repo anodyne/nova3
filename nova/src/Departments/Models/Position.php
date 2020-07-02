@@ -3,6 +3,7 @@
 namespace Nova\Departments\Models;
 
 use Nova\Departments\Events;
+use Nova\Characters\Models\Character;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Nova\Departments\Models\Builders\PositionBuilder;
@@ -31,6 +32,11 @@ class Position extends Model
     ];
 
     protected $table = 'positions';
+
+    public function characters()
+    {
+        return $this->belongsToMany(Character::class)->withPivot('primary');
+    }
 
     public function department()
     {

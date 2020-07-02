@@ -21,6 +21,7 @@ use Nova\Characters\Models\States\Statuses\Inactive;
 use Nova\Characters\Models\Builders\CharacterBuilder;
 use Nova\Characters\Models\States\Types\CharacterType;
 use Nova\Characters\Models\States\Statuses\CharacterStatus;
+use Nova\Characters\Models\States\Statuses\ActiveToInactive;
 
 class Character extends Model implements HasMedia
 {
@@ -45,7 +46,7 @@ class Character extends Model implements HasMedia
 
     public function positions()
     {
-        return $this->belongsToMany(Position::class);
+        return $this->belongsToMany(Position::class)->withPivot('primary');
     }
 
     public function rank()
@@ -141,9 +142,7 @@ class Character extends Model implements HasMedia
             ->allowTransitions([
                 [Pending::class, Active::class],
                 [Pending::class, Inactive::class],
-
-                [Active::class, Inactive::class],
-
+                [Active::class, Inactive::class, ActiveToInactive::class],
                 [Inactive::class, Active::class],
             ])
             ->default(Pending::class);

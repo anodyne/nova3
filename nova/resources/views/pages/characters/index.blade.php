@@ -171,6 +171,18 @@
                                         </a>
                                     @endcan
 
+                                    @can('deactivate', $character)
+                                        <div class="{{ $component->divider() }}"></div>
+                                        <button
+                                            x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-deactivate', {{ json_encode($character) }});"
+                                            class="{{ $component->link() }}"
+                                            data-cy="deactivate"
+                                        >
+                                            @icon('remove-alt', $component->icon())
+                                            <span>Deactivate</span>
+                                        </button>
+                                    @endcan
+
                                     @can('delete', $character)
                                         <div class="{{ $component->divider() }}"></div>
                                         <button
@@ -216,4 +228,19 @@
             </span>
         </x-slot>
     </x-modal>
+
+    <x-modal color="blue" headline="Deactivate character?" icon="duplicate" :url="route('characters.confirm-deactivate')" event="modal-deactivate">
+            <x-slot name="footer">
+                <span class="flex w-full | sm:col-start-2">
+                    <button form="form-deactivate" class="button button-primary w-full">
+                        Deactivate
+                    </button>
+                </span>
+                <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
+                    <button x-on:click="$dispatch('modal-close')" type="button" class="button w-full">
+                        Cancel
+                    </button>
+                </span>
+            </x-slot>
+        </x-modal>
 @endsection
