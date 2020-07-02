@@ -17,6 +17,7 @@ use Nova\Users\Models\Builders\UserBuilder;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Nova\Users\Models\States\ActiveToInactive;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 use Nova\Users\Models\Collections\UsersCollection;
@@ -165,12 +166,10 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     protected function registerStates(): void
     {
         $this->addState('status', UserStatus::class)
+            ->allowTransition(Active::class, Inactive::class, ActiveToInactive::class)
             ->allowTransitions([
                 [Pending::class, Active::class],
                 [Pending::class, Inactive::class],
-
-                [Active::class, Inactive::class],
-
                 [Inactive::class, Active::class],
             ])
             ->default(Pending::class);
