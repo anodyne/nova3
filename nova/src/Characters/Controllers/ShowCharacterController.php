@@ -38,7 +38,7 @@ class ShowCharacterController extends Controller
         $this->authorize('view', $character);
 
         return app(ShowCharacterResponse::class)->with([
-            'character' => $character->load('positions', 'rank.name', 'users'),
+            'character' => $character->load('media', 'positions', 'rank.name', 'users'),
         ]);
     }
 }
