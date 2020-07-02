@@ -117,7 +117,6 @@
                                                 class="{{ $component->link() }}"
                                                 data-cy="duplicate"
                                             >
-                                            {{-- <button type="submit" class="{{ $component->link() }}" form="duplicate-{{ $group->id }}" data-cy="duplicate"> --}}
                                                 @icon('duplicate', $component->icon())
                                                 <span>Duplicate</span>
                                             </button>
