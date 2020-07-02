@@ -5,6 +5,7 @@ namespace Tests\Feature\Users;
 use Tests\TestCase;
 use Nova\Users\Models\User;
 use Nova\Users\Models\States\Active;
+use Nova\Characters\Models\Character;
 use Nova\Users\Models\States\Pending;
 use Nova\Users\Models\States\Inactive;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -161,6 +162,33 @@ class ManageUsersTest extends TestCase
         $this->assertEquals(User::count(), $response['users']->total());
 
         $response = $this->get(route('users.index', 'search=sparrow@example.com'));
+        $response->assertSuccessful();
+
+        $this->assertCount(1, $response['users']);
+    }
+
+    /** @test **/
+    public function usersCanBeFilteredByAnyOfTheirAssignedCharacterNames()
+    {
+        $this->signInWithPermission('user.create');
+
+        $depp = create(User::class, [
+            'name' => 'Johnny Depp',
+        ], ['status:active']);
+
+        create(User::class, [], ['status:active']);
+
+        $character = create(Character::class, [
+            'name' => 'Jack Sparrow',
+        ], ['status:active']);
+        $character->users()->attach($depp);
+
+        $response = $this->get(route('users.index'));
+        $response->assertSuccessful();
+
+        $this->assertEquals(User::count(), $response['users']->total());
+
+        $response = $this->get(route('users.index', 'search=sparrow'));
         $response->assertSuccessful();
 
         $this->assertCount(1, $response['users']);

@@ -11,8 +11,14 @@ class UserFilters extends Filters
 
     public function search($value)
     {
-        return $this->builder->where('name', 'like', "%{$value}%")
-            ->orWhere('email', 'like', "%{$value}%");
+        return $this->builder
+            ->where(function ($query) use ($value) {
+                return $query->where('name', 'like', "%{$value}%")
+                    ->orWhere('email', 'like', "%{$value}%");
+            })
+            ->orWhereHas('characters', function ($query) use ($value) {
+                return $query->where('name', 'like', "%{$value}%");
+            });
     }
 
     public function status($value)
