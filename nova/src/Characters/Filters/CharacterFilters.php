@@ -21,14 +21,22 @@ class CharacterFilters extends Filters
 
     public function search($value)
     {
-        return $this->builder->where(function ($query) use ($value) {
-            return $query->where('name', 'like', "%{$value}%");
-        })->orWhereHas('users', function ($query) use ($value) {
-            return $query->where(function ($q) use ($value) {
-                return $q->where('name', 'like', "%{$value}%")
-                    ->orWhere('email', 'like', "%{$value}%");
+        return $this->builder
+            ->where(function ($query) use ($value) {
+                return $query->where('name', 'like', "%{$value}%");
+            })
+            ->orWhereHas('positions', function ($query) use ($value) {
+                return $query->where('name', 'like', "%{$value}%");
+            })
+            ->orWhereHas('positions.department', function ($query) use ($value) {
+                return $query->where('name', 'like', "%{$value}%");
+            })
+            ->orWhereHas('users', function ($query) use ($value) {
+                return $query->where(function ($q) use ($value) {
+                    return $q->where('name', 'like', "%{$value}%")
+                        ->orWhere('email', 'like', "%{$value}%");
+                });
             });
-        });
     }
 
     public function status($value)
