@@ -1,6 +1,6 @@
 <?php
 
-namespace Nova\Characters\Models\States;
+namespace Nova\Characters\Models\States\Types;
 
 class Pnpc extends CharacterType
 {

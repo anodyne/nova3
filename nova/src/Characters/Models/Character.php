@@ -7,20 +7,20 @@ use Nova\Users\Models\User;
 use Nova\Ranks\Models\RankItem;
 use Spatie\ModelStates\HasStates;
 use Nova\Departments\Models\Position;
-use Nova\Characters\Models\States\Npc;
 use Illuminate\Database\Eloquent\Model;
-use Nova\Characters\Models\States\Pnpc;
-use Nova\Characters\Models\States\Active;
-use Nova\Characters\Models\States\Pending;
-use Nova\Characters\Models\States\Primary;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Nova\Characters\Models\States\Inactive;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Nova\Characters\Models\States\Types\Npc;
+use Nova\Characters\Models\States\Types\Pnpc;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Nova\Characters\Models\States\CharacterType;
+use Nova\Characters\Models\States\Types\Primary;
 use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
-use Nova\Characters\Models\States\CharacterStatus;
+use Nova\Characters\Models\States\Statuses\Active;
+use Nova\Characters\Models\States\Statuses\Pending;
+use Nova\Characters\Models\States\Statuses\Inactive;
 use Nova\Characters\Models\Builders\CharacterBuilder;
+use Nova\Characters\Models\States\Types\CharacterType;
+use Nova\Characters\Models\States\Statuses\CharacterStatus;
 
 class Character extends Model implements HasMedia
 {

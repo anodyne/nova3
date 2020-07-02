@@ -4,9 +4,9 @@ namespace Nova\Characters\Models\Builders;
 
 use Nova\Foundation\Filters\Filterable;
 use Illuminate\Database\Eloquent\Builder;
-use Nova\Characters\Models\States\Active;
-use Nova\Characters\Models\States\Pending;
-use Nova\Characters\Models\States\Inactive;
+use Nova\Characters\Models\States\Statuses\Active;
+use Nova\Characters\Models\States\Statuses\Pending;
+use Nova\Characters\Models\States\Statuses\Inactive;
 
 class CharacterBuilder extends Builder
 {

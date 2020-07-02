@@ -1,10 +1,10 @@
 <?php
 
-namespace Nova\Characters\Models\States;
+namespace Nova\Characters\Models\States\Types;
 
 use Spatie\ModelStates\State;
 
-abstract class CharacterStatus extends State
+abstract class CharacterType extends State
 {
     abstract public function color(): string;
 

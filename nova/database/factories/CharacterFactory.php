@@ -2,21 +2,23 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 use Faker\Generator as Faker;
-use Nova\Characters\Models\Character;
-use Nova\Characters\Models\States\Active;
-use Nova\Characters\Models\States\Inactive;
-use Nova\Characters\Models\States\Npc;
-use Nova\Characters\Models\States\Pending;
-use Nova\Characters\Models\States\Pnpc;
-use Nova\Characters\Models\States\Primary;
 use Nova\Ranks\Models\RankItem;
+use Nova\Characters\Models\Character;
+use Nova\Characters\Models\States\Types\Npc;
+use Nova\Characters\Models\States\Types\Pnpc;
+use Nova\Characters\Models\States\Types\Primary;
+use Nova\Characters\Models\States\Statuses\Active;
+use Nova\Characters\Models\States\Statuses\Pending;
+use Nova\Characters\Models\States\Statuses\Inactive;
 
 $factory->define(Character::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'rank_id' => function () {
             return factory(RankItem::class)->create()->id;
-        }
+        },
+        'type' => Npc::class,
+        'status' => Active::class,
     ];
 });
 

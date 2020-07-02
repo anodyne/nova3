@@ -4,10 +4,10 @@ use Nova\Users\Models\User;
 use Illuminate\Database\Seeder;
 use Nova\Characters\Models\Character;
 use Nova\Departments\Models\Position;
-use Nova\Characters\Models\States\Pnpc;
-use Nova\Characters\Models\States\Active;
-use Nova\Characters\Models\States\Primary;
-use Nova\Characters\Models\States\Inactive;
+use Nova\Characters\Models\States\Types\Pnpc;
+use Nova\Characters\Models\States\Types\Primary;
+use Nova\Characters\Models\States\Statuses\Active;
+use Nova\Characters\Models\States\Statuses\Inactive;
 
 class CharacterSeeder extends Seeder
 {

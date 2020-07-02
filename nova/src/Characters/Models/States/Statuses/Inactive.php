@@ -1,6 +1,6 @@
 <?php
 
-namespace Nova\Characters\Models\States;
+namespace Nova\Characters\Models\States\Statuses;
 
 class Inactive extends CharacterStatus
 {

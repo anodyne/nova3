@@ -3,15 +3,15 @@
 namespace Tests\Feature\Characters;
 
 use Tests\TestCase;
-use Nova\Characters\Models\Character;
-use Nova\Characters\Models\States\Active;
-use Nova\Characters\Models\States\Pending;
-use Nova\Characters\Models\States\Inactive;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nova\Characters\Models\States\Npc;
-use Nova\Characters\Models\States\Pnpc;
-use Nova\Characters\Models\States\Primary;
 use Nova\Users\Models\User;
+use Nova\Characters\Models\Character;
+use Nova\Characters\Models\States\Types\Npc;
+use Nova\Characters\Models\States\Types\Pnpc;
+use Nova\Characters\Models\States\Types\Primary;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Characters\Models\States\Statuses\Active;
+use Nova\Characters\Models\States\Statuses\Pending;
+use Nova\Characters\Models\States\Statuses\Inactive;
 
 /**
  * @group characters
@@ -32,7 +32,7 @@ class ManageCharactersTest extends TestCase
 
         $this->activeCharacter = create(Character::class, [], ['status:active']);
 
-        $this->pendingCharacter = create(Character::class);
+        $this->pendingCharacter = create(Character::class, [], ['status:pending']);
 
         $this->inactiveCharacter = create(Character::class, [], ['status:inactive']);
     }
