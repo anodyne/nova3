@@ -7,7 +7,7 @@ use Nova\Users\Models\User;
 use Nova\Users\Events\UserUpdated;
 use Illuminate\Support\Facades\Event;
 use Nova\Users\Events\UserUpdatedByAdmin;
-use Nova\Users\Http\Requests\UpdateUserRequest;
+use Nova\Users\Requests\UpdateUserRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**

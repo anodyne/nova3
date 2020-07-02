@@ -4,19 +4,18 @@ namespace Nova\Users\Providers;
 
 use Nova\Users\Models\User;
 use Nova\DomainServiceProvider;
-use Nova\Users\Http\Livewire\ManageUsers;
 use Nova\Users\Policies\UserPolicy;
+use Nova\Users\Livewire\ManageUsers;
 use Nova\Users\Events\UserCreatedByAdmin;
+use Nova\Users\Livewire\UserUploadAvatar;
 use Nova\Users\Listeners\GeneratePassword;
-use Nova\Users\Http\Responses\ShowUserResponse;
-use Nova\Users\Http\Responses\CreateUserResponse;
-use Nova\Users\Http\Responses\UpdateUserResponse;
-use Nova\Users\Http\Responses\ShowAllUsersResponse;
-use Nova\Users\Http\Controllers\SearchUsersController;
-use Nova\Users\Http\Controllers\ForcePasswordResetController;
-use Nova\Users\Http\Livewire\UserNotifications;
-use Nova\Users\Http\Livewire\UserUploadAvatar;
-use Nova\Users\Http\Responses\DeleteUserResponse;
+use Nova\Users\Livewire\UserNotifications;
+use Nova\Users\Responses\ShowUserResponse;
+use Nova\Users\Responses\CreateUserResponse;
+use Nova\Users\Responses\DeleteUserResponse;
+use Nova\Users\Responses\UpdateUserResponse;
+use Nova\Users\Responses\ShowAllUsersResponse;
+use Nova\Users\Controllers\ForcePasswordResetController;
 
 class UserServiceProvider extends DomainServiceProvider
 {
@@ -53,11 +52,6 @@ class UserServiceProvider extends DomainServiceProvider
             'verb' => 'put',
             'uses' => ForcePasswordResetController::class,
             'as' => 'users.force-password-reset',
-        ],
-        'users/search' => [
-            'verb' => 'get',
-            'uses' => SearchUsersController::class,
-            'as' => 'users.search',
         ],
     ];
 }

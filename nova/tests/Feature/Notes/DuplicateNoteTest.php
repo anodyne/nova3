@@ -6,8 +6,8 @@ use Tests\TestCase;
 use Nova\Notes\Models\Note;
 use Illuminate\Support\Facades\Event;
 use Nova\Notes\Events\NoteDuplicated;
+use Nova\Notes\Requests\DuplicateNoteRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nova\Notes\Http\Requests\DuplicateNoteRequest;
 
 /**
  * @group notes

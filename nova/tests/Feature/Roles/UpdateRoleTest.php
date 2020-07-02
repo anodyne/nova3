@@ -8,7 +8,7 @@ use Nova\Users\Models\User;
 use Nova\Roles\Models\Permission;
 use Nova\Roles\Events\RoleUpdated;
 use Illuminate\Support\Facades\Event;
-use Nova\Roles\Http\Requests\UpdateRoleRequest;
+use Nova\Roles\Requests\UpdateRoleRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**

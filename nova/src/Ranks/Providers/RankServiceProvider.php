@@ -2,17 +2,17 @@
 
 namespace Nova\Ranks\Providers;
 
-use Nova\Ranks\Http\Responses;
+use Nova\Ranks\Responses;
 use Nova\DomainServiceProvider;
-use Nova\Ranks\Http\Livewire\RankGroupsDropdown;
-use Nova\Ranks\Http\Livewire\RankNamesDropdown;
-use Nova\Ranks\Http\Livewire\RanksDropdown;
 use Nova\Ranks\Models\RankItem;
 use Nova\Ranks\Models\RankName;
 use Nova\Ranks\Models\RankGroup;
+use Nova\Ranks\Livewire\RanksDropdown;
 use Nova\Ranks\Policies\RankItemPolicy;
-use Nova\Ranks\Policies\RankGroupPolicy;
 use Nova\Ranks\Policies\RankNamePolicy;
+use Nova\Ranks\Policies\RankGroupPolicy;
+use Nova\Ranks\Livewire\RankNamesDropdown;
+use Nova\Ranks\Livewire\RankGroupsDropdown;
 
 class RankServiceProvider extends DomainServiceProvider
 {

@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Nova\Notes\Models\Note;
 use Nova\Notes\Events\NoteCreated;
 use Illuminate\Support\Facades\Event;
-use Nova\Notes\Http\Requests\CreateNoteRequest;
+use Nova\Notes\Requests\CreateNoteRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**

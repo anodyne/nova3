@@ -19,15 +19,15 @@ class ResponsesServiceProvider extends ServiceProvider
     protected function getResponsableClasses()
     {
         return [
-            \Nova\Foundation\Http\Responses\SimplePageResponse::class,
-            \Nova\Foundation\Http\Responses\WelcomePageResponse::class,
+            \Nova\Foundation\Responses\SimplePageResponse::class,
+            \Nova\Foundation\Responses\WelcomePageResponse::class,
 
-            \Nova\Auth\Http\Responses\LoginResponse::class,
-            \Nova\Auth\Http\Responses\ForgotPasswordResponse::class,
-            \Nova\Auth\Http\Responses\ResetPasswordResponse::class,
-            \Nova\Auth\Http\Responses\EmailVerificationResponse::class,
+            \Nova\Auth\Responses\LoginResponse::class,
+            \Nova\Auth\Responses\ForgotPasswordResponse::class,
+            \Nova\Auth\Responses\ResetPasswordResponse::class,
+            \Nova\Auth\Responses\EmailVerificationResponse::class,
 
-            \Nova\Dashboard\Http\Responses\DashboardResponse::class,
+            \Nova\Dashboard\Responses\DashboardResponse::class,
         ];
     }
 

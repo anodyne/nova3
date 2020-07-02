@@ -28,7 +28,7 @@ $app = new Nova\Foundation\Application(
 
 $app->singleton(
     Illuminate\Contracts\Http\Kernel::class,
-    Nova\Foundation\Http\Kernel::class
+    Nova\Foundation\Kernel::class
 );
 
 $app->singleton(

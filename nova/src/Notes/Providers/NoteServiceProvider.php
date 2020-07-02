@@ -5,12 +5,11 @@ namespace Nova\Notes\Providers;
 use Nova\Notes\Models\Note;
 use Nova\DomainServiceProvider;
 use Nova\Notes\Policies\NotePolicy;
-use Nova\Notes\Http\Responses\ShowNoteResponse;
-use Nova\Notes\Http\Responses\CreateNoteResponse;
-use Nova\Notes\Http\Responses\UpdateNoteResponse;
-use Nova\Notes\Http\Responses\ShowAllNotesResponse;
-use Nova\Notes\Http\Controllers\SearchNotesController;
-use Nova\Notes\Http\Responses\DeleteNoteResponse;
+use Nova\Notes\Responses\ShowNoteResponse;
+use Nova\Notes\Responses\CreateNoteResponse;
+use Nova\Notes\Responses\DeleteNoteResponse;
+use Nova\Notes\Responses\UpdateNoteResponse;
+use Nova\Notes\Responses\ShowAllNotesResponse;
 
 class NoteServiceProvider extends DomainServiceProvider
 {
@@ -24,13 +23,5 @@ class NoteServiceProvider extends DomainServiceProvider
         UpdateNoteResponse::class,
         ShowAllNotesResponse::class,
         ShowNoteResponse::class,
-    ];
-
-    protected $routes = [
-        'notes/search' => [
-            'verb' => 'get',
-            'uses' => SearchNotesController::class,
-            'as' => 'notes.search',
-        ],
     ];
 }

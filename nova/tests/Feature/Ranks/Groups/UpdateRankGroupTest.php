@@ -6,8 +6,8 @@ use Tests\TestCase;
 use Nova\Ranks\Models\RankGroup;
 use Illuminate\Support\Facades\Event;
 use Nova\Ranks\Events\RankGroupUpdated;
+use Nova\Ranks\Requests\UpdateRankGroupRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nova\Ranks\Http\Requests\UpdateRankGroupRequest;
 
 /**
  * @group ranks

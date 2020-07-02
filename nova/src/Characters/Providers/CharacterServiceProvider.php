@@ -2,13 +2,13 @@
 
 namespace Nova\Characters\Providers;
 
-use Nova\Characters\Http\Livewire\CharacterUploadAvatar;
-use Nova\Characters\Http\Responses\CreateCharacterResponse;
 use Nova\DomainServiceProvider;
 use Nova\Characters\Models\Character;
 use Nova\Characters\Policies\CharacterPolicy;
-use Nova\Characters\Http\Responses\ShowAllCharactersResponse;
-use Nova\Characters\Http\Responses\ShowCharacterResponse;
+use Nova\Characters\Livewire\CharacterUploadAvatar;
+use Nova\Characters\Responses\ShowCharacterResponse;
+use Nova\Characters\Responses\CreateCharacterResponse;
+use Nova\Characters\Responses\ShowAllCharactersResponse;
 
 class CharacterServiceProvider extends DomainServiceProvider
 {

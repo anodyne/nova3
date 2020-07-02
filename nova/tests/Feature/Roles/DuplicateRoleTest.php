@@ -7,8 +7,8 @@ use Nova\Roles\Models\Role;
 use Nova\Roles\Models\Permission;
 use Illuminate\Support\Facades\Event;
 use Nova\Roles\Events\RoleDuplicated;
+use Nova\Roles\Requests\DuplicateRoleRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nova\Roles\Http\Requests\DuplicateRoleRequest;
 
 /**
  * @group roles

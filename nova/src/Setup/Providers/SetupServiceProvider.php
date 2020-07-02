@@ -14,11 +14,11 @@ class SetupServiceProvider extends DomainServiceProvider
     protected $routes = [
         'setup' => [
             'verb' => 'get',
-            'uses' => 'Nova\Setup\Http\Controllers\SetupController@index',
+            'uses' => 'Nova\Setup\Controllers\SetupController@index',
         ],
         'setup/install' => [
             'verb' => 'post',
-            'uses' => 'Nova\Setup\Http\Controllers\SetupController@install',
+            'uses' => 'Nova\Setup\Controllers\SetupController@install',
         ],
     ];
 }

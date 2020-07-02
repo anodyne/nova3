@@ -8,7 +8,7 @@ use Nova\Users\Events\UserCreated;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Event;
 use Nova\Users\Events\UserCreatedByAdmin;
-use Nova\Users\Http\Requests\CreateUserRequest;
+use Nova\Users\Requests\CreateUserRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
