@@ -11,17 +11,24 @@ class CharacterFilters extends Filters
 
     public function hasuser($value)
     {
-        return $this->builder->whereHasUser();
+        return $this->builder->whereHas('users');
     }
 
     public function nouser($value)
     {
-        return $this->builder->whereDoesntHaveUser();
+        return $this->builder->whereDoesntHave('users');
     }
 
     public function search($value)
     {
-        return $this->builder->where('name', 'like', "%{$value}%");
+        return $this->builder->where(function ($query) use ($value) {
+            return $query->where('name', 'like', "%{$value}%");
+        })->orWhereHas('users', function ($query) use ($value) {
+            return $query->where(function ($q) use ($value) {
+                return $q->where('name', 'like', "%{$value}%")
+                    ->orWhere('email', 'like', "%{$value}%");
+            });
+        });
     }
 
     public function status($value)
@@ -42,7 +49,7 @@ class CharacterFilters extends Filters
             'type',
             Character::getStatesFor('type')
                 ->filter(function ($type) use ($value) {
-                    return get_class_name($type) === ucfirst($value);
+                    return strtolower(get_class_name($type)) === strtolower($value);
                 })
                 ->first()
         );

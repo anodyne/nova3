@@ -14,8 +14,18 @@
                 @icon('filter', 'h-6 w-6')
 
                 <x-slot name="dropdown">
-                    <a href="{{ route('characters.index', 'status='.request('status').'&hasuser') }}" class="{{ $component->link() }}">Assigned to a user</a>
-                    <a href="{{ route('characters.index', 'status='.request('status').'&nouser') }}" class="{{ $component->link() }}">Not assigned to a user</a>
+                    <a href="{{ route('characters.index', 'status='.request('status').'&hasuser=1') }}" class="{{ $component->link() }} justify-between">
+                        <span>Assigned to a user</span>
+                        @if (request()->has('hasuser'))
+                            @icon('check', 'h-5 w-5')
+                        @endif
+                    </a>
+                    <a href="{{ route('characters.index', 'status='.request('status').'&nouser=1') }}" class="{{ $component->link() }} justify-between">
+                        <span>Not assigned to a user</span>
+                        @if (request()->has('nouser'))
+                            @icon('check', 'h-5 w-5')
+                        @endif
+                    </a>
 
                     <div class="{{ $component->divider() }}"></div>
 
@@ -24,9 +34,24 @@
                     </div>
 
                     <a href="{{ route('characters.index', 'status='.request('status')) }}" class="{{ $component->link() }}">All character types</a>
-                    <a href="{{ route('characters.index', 'status='.request('status').'&type=primary') }}" class="{{ $component->link() }}">Primary characters</a>
-                    <a href="{{ route('characters.index', 'status='.request('status').'&type=pnpc') }}" class="{{ $component->link() }}">PNPCs</a>
-                    <a href="{{ route('characters.index', 'status='.request('status').'&type=npc') }}" class="{{ $component->link() }}">NPCs</a>
+                    <a href="{{ route('characters.index', 'status='.request('status').'&type=primary') }}" class="{{ $component->link() }} justify-between">
+                        <span>Primary characters</span>
+                        @if (request('type') === 'primary')
+                            @icon('check', 'h-5 w-5')
+                        @endif
+                    </a>
+                    <a href="{{ route('characters.index', 'status='.request('status').'&type=pnpc') }}" class="{{ $component->link() }} justify-between">
+                        <span>PNPCs</span>
+                        @if (request('type') === 'pnpc')
+                            @icon('check', 'h-5 w-5')
+                        @endif
+                    </a>
+                    <a href="{{ route('characters.index', 'status='.request('status').'&type=npc') }}" class="{{ $component->link() }} justify-between">
+                        <span>NPCs</span>
+                        @if (request('type') === 'npc')
+                            @icon('check', 'h-5 w-5')
+                        @endif
+                    </a>
                 </x-slot>
             </x-dropdown>
 
