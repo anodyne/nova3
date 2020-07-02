@@ -166,10 +166,10 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     protected function registerStates(): void
     {
         $this->addState('status', UserStatus::class)
-            ->allowTransition(Active::class, Inactive::class, ActiveToInactive::class)
             ->allowTransitions([
                 [Pending::class, Active::class],
                 [Pending::class, Inactive::class],
+                [Active::class, Inactive::class, ActiveToInactive::class],
                 [Inactive::class, Active::class],
             ])
             ->default(Pending::class);
