@@ -22,6 +22,7 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 use Nova\Users\Models\Collections\UsersCollection;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Nova\Stories\Models\Post;
 
 class User extends Authenticatable implements MustVerifyEmail, HasMedia
 {
@@ -73,6 +74,11 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     public function notes()
     {
         return $this->hasMany(Note::class);
+    }
+
+    public function posts()
+    {
+        return $this->morphMany(Post::class, 'authorable');
     }
 
     /**

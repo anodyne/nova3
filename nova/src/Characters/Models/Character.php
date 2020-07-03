@@ -22,6 +22,7 @@ use Nova\Characters\Models\Builders\CharacterBuilder;
 use Nova\Characters\Models\States\Types\CharacterType;
 use Nova\Characters\Models\States\Statuses\CharacterStatus;
 use Nova\Characters\Models\States\Statuses\ActiveToInactive;
+use Nova\Stories\Models\Post;
 
 class Character extends Model implements HasMedia
 {
@@ -47,6 +48,11 @@ class Character extends Model implements HasMedia
     public function positions()
     {
         return $this->belongsToMany(Position::class)->withPivot('primary');
+    }
+
+    public function posts()
+    {
+        return $this->morphMany(Post::class, 'authorable');
     }
 
     public function rank()
