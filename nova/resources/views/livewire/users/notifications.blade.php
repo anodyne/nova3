@@ -1,7 +1,7 @@
 <div x-data="{ open: false }" class="leading-0">
     <button
         x-on:click.prevent="open = true"
-        wire:poll="refreshNotifications"
+        {{-- wire:poll="refreshNotifications" --}}
         type="button"
         class="relative p-1 text-gray-400 rounded-full hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:shadow-outline focus:text-gray-500"
         aria-label="Notifications"
