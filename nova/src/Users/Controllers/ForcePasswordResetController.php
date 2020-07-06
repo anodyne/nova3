@@ -17,7 +17,7 @@ class ForcePasswordResetController extends Controller
 
     public function __invoke(ForcePasswordReset $action, User $user)
     {
-        $this->authorize('update', $user);
+        $this->authorize('force-password-reset', $user);
 
         $action->execute($user);
 
