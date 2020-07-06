@@ -22,6 +22,7 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 use Nova\Users\Models\Collections\UsersCollection;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Nova\Characters\Models\States\Statuses\Active as ActiveCharacter;
 use Nova\Stories\Models\Post;
 
 class User extends Authenticatable implements MustVerifyEmail, HasMedia
@@ -63,7 +64,17 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
 
     public function characters()
     {
-        return $this->belongsToMany(Character::class);
+        return $this->belongsToMany(Character::class)->withTimestamps();
+    }
+
+    public function activeCharacters()
+    {
+        return $this->characters()->where('status', ActiveCharacter::class);
+    }
+
+    public function primaryCharacter()
+    {
+        return $this->activeCharacters()->wherePivot('primary', true);
     }
 
     public function logins()
