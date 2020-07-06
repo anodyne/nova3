@@ -125,6 +125,34 @@
                                         </a>
                                     @endcan
 
+                                    @can('activate', $user)
+                                        <div class="{{ $component->divider() }}"></div>
+                                        <x-form :action="route('users.activate', $user)" id="activate"></x-form>
+                                        <button
+                                            type="submit"
+                                            form="activate"
+                                            class="{{ $component->link() }}"
+                                            data-cy="activate"
+                                        >
+                                            @icon('check-alt', $component->icon())
+                                            <span>Activate</span>
+                                        </button>
+                                    @endcan
+
+                                    @can('deactivate', $user)
+                                        <div class="{{ $component->divider() }}"></div>
+                                        <x-form :action="route('users.deactivate', $user)" id="deactivate"></x-form>
+                                        <button
+                                            type="submit"
+                                            form="deactivate"
+                                            class="{{ $component->link() }}"
+                                            data-cy="deactivate"
+                                        >
+                                            @icon('remove-alt', $component->icon())
+                                            <span>Deactivate</span>
+                                        </button>
+                                    @endcan
+
                                     @can('delete', $user)
                                         <div class="{{ $component->divider() }}"></div>
                                         <button

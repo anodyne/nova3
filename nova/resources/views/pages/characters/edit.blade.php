@@ -91,4 +91,22 @@
             </x-form.footer>
         </x-form>
     </x-panel>
+
+    <x-panel class="mt-8 p-4 | sm:p-6">
+        <h3 class="text-lg leading-6 font-medium text-gray-900">
+            Deactivate User
+        </h3>
+        <div class="mt-2 | sm:flex sm:items-start sm:justify-between">
+            <div class="w-full text-sm leading-6 text-gray-500">
+                <p>
+                    If you believe this user should reset their password, you can force a password reset that will prompt them to change their password the next time they attempt to sign in.
+                </p>
+            </div>
+            <div class="mt-5 | sm:mt-0 sm:ml-8 sm:flex-shrink-0 sm:flex sm:items-center">
+                <button type="button" class="button button-danger-soft">
+                    Deactivate
+                </button>
+            </div>
+        </div>
+    </x-panel>
 @endsection

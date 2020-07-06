@@ -4,6 +4,7 @@ namespace Nova\Settings\Controllers;
 
 use Nova\Themes\Models\Theme;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Settings\Models\Settings;
 use Nova\Settings\Responses\SettingsResponse;
 
 class SettingsController extends Controller
@@ -18,6 +19,7 @@ class SettingsController extends Controller
     public function index($tab = 'general')
     {
         return app(SettingsResponse::class)->with([
+            'settings' => app('nova.settings'),
             'tab' => $tab,
             'themes' => Theme::whereActive()->orderBy('name')->get(),
         ]);

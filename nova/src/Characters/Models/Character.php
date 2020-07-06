@@ -62,7 +62,7 @@ class Character extends Model implements HasMedia
 
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
 
     public function getHasUserAttribute(): bool

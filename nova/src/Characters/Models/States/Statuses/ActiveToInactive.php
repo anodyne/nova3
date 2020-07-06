@@ -20,6 +20,10 @@ class ActiveToInactive extends Transition
         $this->character->save();
 
         $this->character->positions->each(function ($position) {
+            if (in_array(['primary', 'pnpc', 'npc'], $this->character->status)) {
+                $position->increment('available');
+            }
+
             if ($position->pivot->primary) {
                 $position->increment('available');
             }
