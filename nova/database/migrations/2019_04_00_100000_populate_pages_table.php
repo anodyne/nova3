@@ -50,6 +50,8 @@ class PopulatePagesTable extends Migration
             ['uri' => 'users/{user}', 'key' => 'users.update', 'verb' => 'put', 'resource' => 'Nova\\Users\\Controllers\\UpdateUserController@update', 'layout' => 'admin'],
             ['uri' => 'users/delete', 'key' => 'users.delete', 'verb' => 'post', 'resource' => 'Nova\\Users\\Controllers\\DeleteUserController@confirm', 'layout' => 'admin'],
             ['uri' => 'users/{user}', 'key' => 'users.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Users\\Controllers\\DeleteUserController@destroy', 'layout' => 'admin'],
+            ['uri' => 'users/{user}/activate', 'key' => 'users.activate', 'verb' => 'post', 'resource' => 'Nova\\Users\\Controllers\\ActivateUserController', 'layout' => 'admin'],
+            ['uri' => 'users/{user}/deactivate', 'key' => 'users.deactivate', 'verb' => 'post', 'resource' => 'Nova\\Users\\Controllers\\DeactivateUserController', 'layout' => 'admin'],
 
             ['uri' => 'notes', 'key' => 'notes.index', 'resource' => 'Nova\\Notes\\Controllers\\ShowNoteController@all', 'layout' => 'admin'],
             ['uri' => 'notes/{note}/show', 'key' => 'notes.show', 'resource' => 'Nova\\Notes\\Controllers\\ShowNoteController@show', 'layout' => 'admin'],

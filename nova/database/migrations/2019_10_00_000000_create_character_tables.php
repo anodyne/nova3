@@ -34,6 +34,7 @@ class CreateCharacterTables extends Migration
             $table->foreignId('character_id')->constrained('characters');
             $table->foreignId('user_id')->constrained('users');
             $table->boolean('primary')->default(false);
+            $table->timestamps();
         });
     }
 
