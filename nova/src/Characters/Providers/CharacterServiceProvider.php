@@ -10,6 +10,7 @@ use Nova\Characters\Responses\ShowCharacterResponse;
 use Nova\Characters\Responses\CreateCharacterResponse;
 use Nova\Characters\Responses\ShowAllCharactersResponse;
 use Nova\Characters\Responses\DeactivateCharacterResponse;
+use Nova\Characters\Responses\UpdateCharacterResponse;
 
 class CharacterServiceProvider extends DomainServiceProvider
 {
@@ -30,5 +31,6 @@ class CharacterServiceProvider extends DomainServiceProvider
         DeactivateCharacterResponse::class,
         ShowAllCharactersResponse::class,
         ShowCharacterResponse::class,
+        UpdateCharacterResponse::class,
     ];
 }
