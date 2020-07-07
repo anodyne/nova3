@@ -16,17 +16,30 @@ class PositionsDropdown extends Component
 
     public $positions;
 
-    public function updatedDepartmentId($value)
+    public function setDepartment($departmentId)
     {
-        $this->positions = Position::whereDepartment($value)
+        $this->departmentId = $departmentId;
+
+        $this->positions = Position::whereDepartment($departmentId)
             ->whereActive()
-            ->whereAvailable()
             ->orderBySort()
             ->get();
+
+        $this->dispatchBrowserEvent('show-submenu');
     }
+
+    // public function updatedDepartmentId($value)
+    // {
+    //     $this->positions = Position::whereDepartment($value)
+    //         ->whereActive()
+    //         ->whereAvailable()
+    //         ->orderBySort()
+    //         ->get();
+    // }
 
     public function mount()
     {
+        $this->departmentId = null;
         $this->departments = Department::orderBySort()->get();
     }
 
