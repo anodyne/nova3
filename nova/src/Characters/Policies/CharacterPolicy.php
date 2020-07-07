@@ -6,6 +6,7 @@ use Nova\Users\Models\User;
 use Nova\Characters\Models\Character;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Nova\Characters\Models\States\Statuses\Active;
+use Nova\Characters\Models\States\Statuses\Inactive;
 
 class CharacterPolicy
 {
@@ -44,6 +45,12 @@ class CharacterPolicy
     public function forceDelete(User $user, Character $character)
     {
         return false;
+    }
+
+    public function activate(User $user, Character $character)
+    {
+        return $user->can('character.update')
+            && $character->status->equals(Inactive::class);
     }
 
     public function deactivate(User $user, Character $character)
