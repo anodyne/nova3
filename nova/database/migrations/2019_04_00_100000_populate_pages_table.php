@@ -51,7 +51,8 @@ class PopulatePagesTable extends Migration
             ['uri' => 'users/delete', 'key' => 'users.delete', 'verb' => 'post', 'resource' => 'Nova\\Users\\Controllers\\DeleteUserController@confirm', 'layout' => 'admin'],
             ['uri' => 'users/{user}', 'key' => 'users.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Users\\Controllers\\DeleteUserController@destroy', 'layout' => 'admin'],
             ['uri' => 'users/{user}/activate', 'key' => 'users.activate', 'verb' => 'post', 'resource' => 'Nova\\Users\\Controllers\\ActivateUserController', 'layout' => 'admin'],
-            ['uri' => 'users/{user}/deactivate', 'key' => 'users.deactivate', 'verb' => 'post', 'resource' => 'Nova\\Users\\Controllers\\DeactivateUserController', 'layout' => 'admin'],
+            ['uri' => 'users/confirm-deactivate', 'key' => 'users.confirm-deactivate', 'verb' => 'post',  'resource' => 'Nova\\Users\\Controllers\\DeactivateUserController@confirm', 'layout' => 'admin'],
+            ['uri' => 'users/{user}/deactivate', 'key' => 'users.deactivate', 'verb' => 'post', 'resource' => 'Nova\\Users\\Controllers\\DeactivateUserController@deactivate', 'layout' => 'admin'],
 
             ['uri' => 'notes', 'key' => 'notes.index', 'resource' => 'Nova\\Notes\\Controllers\\ShowNoteController@all', 'layout' => 'admin'],
             ['uri' => 'notes/{note}/show', 'key' => 'notes.show', 'resource' => 'Nova\\Notes\\Controllers\\ShowNoteController@show', 'layout' => 'admin'],
@@ -129,6 +130,7 @@ class PopulatePagesTable extends Migration
             ['uri' => 'characters/{character}', 'key' => 'characters.update', 'verb' => 'put', 'resource' => 'Nova\\Characters\\Controllers\\UpdateCharacterController@update', 'layout' => 'admin'],
             ['uri' => 'characters/delete', 'key' => 'characters.delete', 'verb' => 'post', 'resource' => 'Nova\\Characters\\Controllers\\DeleteCharacterController@confirm', 'layout' => 'admin'],
             ['uri' => 'characters/{character}', 'key' => 'characters.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Characters\\Controllers\\DeleteCharacterController@destroy', 'layout' => 'admin'],
+            ['uri' => 'characters/{character}/activate', 'key' => 'characters.activate', 'verb' => 'post', 'resource' => 'Nova\\Characters\\Controllers\\ActivateCharacterController', 'layout' => 'admin'],
             ['uri' => 'characters/confirm-deactivate', 'key' => 'characters.confirm-deactivate', 'verb' => 'post',  'resource' => 'Nova\\Characters\\Controllers\\DeactivateCharacterController@confirm', 'layout' => 'admin'],
             ['uri' => 'characters/{character}/deactivate', 'key' => 'characters.deactivate', 'verb' => 'post', 'resource' => 'Nova\\Characters\\Controllers\\DeactivateCharacterController@deactivate', 'layout' => 'admin'],
         ];

@@ -16,6 +16,7 @@ use Nova\Users\Responses\DeleteUserResponse;
 use Nova\Users\Responses\UpdateUserResponse;
 use Nova\Users\Responses\ShowAllUsersResponse;
 use Nova\Users\Controllers\ForcePasswordResetController;
+use Nova\Users\Responses\DeactivateUserResponse;
 
 class UserServiceProvider extends DomainServiceProvider
 {
@@ -41,6 +42,7 @@ class UserServiceProvider extends DomainServiceProvider
 
     protected $responsables = [
         CreateUserResponse::class,
+        DeactivateUserResponse::class,
         DeleteUserResponse::class,
         UpdateUserResponse::class,
         ShowAllUsersResponse::class,
