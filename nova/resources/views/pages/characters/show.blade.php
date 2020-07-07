@@ -44,25 +44,35 @@
                 </x-input.group>
             @endif
 
+            <x-input.group label="Status">
+                <x-badge :type="$character->status->color()">{{ $character->status->displayName() }}</x-badge>
+            </x-input.group>
+
+            <x-input.group label="Character Type">
+                <x-badge :type="$character->type->color()">{{ $character->type->displayName() }}</x-badge>
+            </x-input.group>
+
             <x-input.group label="Avatar">
                 <x-avatar :url="$character->avatar_url" size="lg"></x-avatar>
             </x-input.group>
         </x-form.section>
 
-        <x-form.section title="User Info">
-            <x-input.group label="Played By">
-                <div class="flex flex-col w-full">
-                    @foreach ($character->users as $user)
-                        <div class="group flex items-center py-2 px-4 rounded even:bg-gray-100">
-                            <div class="flex-shrink-0">
-                                <x-avatar size="lg" :url="$user->avatar_url" />
+        @if ($character->users->count() > 0)
+            <x-form.section title="User Info">
+                <x-input.group label="Played By">
+                    <div class="flex flex-col w-full">
+                        @foreach ($character->users as $user)
+                            <div class="group flex items-center py-2 px-4 rounded even:bg-gray-100">
+                                <div class="flex-shrink-0">
+                                    <x-avatar size="lg" :url="$user->avatar_url" />
+                                </div>
+                                <span class="ml-3 font-medium">{{ $user->name }}</span>
                             </div>
-                            <span class="ml-3 font-medium">{{ $user->name }}</span>
-                        </div>
-                    @endforeach
-                </div>
-            </x-input.group>
-        </x-form.section>
+                        @endforeach
+                    </div>
+                </x-input.group>
+            </x-form.section>
+        @endif
 
         <x-form.footer>
             <a href="{{ route('characters.index', "status={$character->status->name()}") }}" class="button">Back</a>

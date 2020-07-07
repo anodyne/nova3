@@ -171,10 +171,26 @@
                                         </a>
                                     @endcan
 
+                                    @can('activate', $character)
+                                        <div class="{{ $component->divider() }}"></div>
+                                        <x-form :action="route('characters.activate', $character)" id="activate"></x-form>
+                                        <button
+                                            type="submit"
+                                            form="activate"
+                                            class="{{ $component->link() }}"
+                                            data-cy="activate"
+                                        >
+                                            @icon('check-alt', $component->icon())
+                                            <span>Activate</span>
+                                        </button>
+                                    @endcan
+
                                     @can('deactivate', $character)
                                         <div class="{{ $component->divider() }}"></div>
+                                        <x-form :action="route('characters.deactivate', $character)" id="deactivate"></x-form>
                                         <button
-                                            x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-deactivate', {{ json_encode($character) }});"
+                                            type="submit"
+                                            form="deactivate"
                                             class="{{ $component->link() }}"
                                             data-cy="deactivate"
                                         >
@@ -230,17 +246,17 @@
     </x-modal>
 
     <x-modal color="blue" headline="Deactivate character?" icon="duplicate" :url="route('characters.confirm-deactivate')" event="modal-deactivate">
-            <x-slot name="footer">
-                <span class="flex w-full | sm:col-start-2">
-                    <button form="form-deactivate" class="button button-primary w-full">
-                        Deactivate
-                    </button>
-                </span>
-                <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
-                    <button x-on:click="$dispatch('modal-close')" type="button" class="button w-full">
-                        Cancel
-                    </button>
-                </span>
-            </x-slot>
-        </x-modal>
+        <x-slot name="footer">
+            <span class="flex w-full | sm:col-start-2">
+                <button form="form-deactivate" class="button button-primary w-full">
+                    Deactivate
+                </button>
+            </span>
+            <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
+                <button x-on:click="$dispatch('modal-close')" type="button" class="button w-full">
+                    Cancel
+                </button>
+            </span>
+        </x-slot>
+    </x-modal>
 @endsection

@@ -1,112 +1,87 @@
 @extends($__novaTemplate)
 
 @section('content')
-    <x-page-header :title="$user->name">
+    <x-page-header :title="$character->name">
         <x-slot name="pretitle">
-            <a href="{{ route('users.index', "status={$user->status->name()}") }}">Users</a>
+            <a href="{{ route('characters.index', "status={$character->status->name()}") }}">Characters</a>
         </x-slot>
     </x-page-header>
 
     <x-panel>
-        <x-form :action="route('users.update', $user)" method="PUT">
-            <x-form.section title="User Info" message="For privacy reasons, we don't recommend using a user's real name. Instead, use a nickname to help protect their identity.">
+        <x-form :action="route('characters.update', $character)" method="PUT">
+            <x-form.section title="Character Info">
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
-                    <x-input.text id="name" name="name" :value="old('name', $user->name)" data-cy="name" />
+                    <x-input.text id="name" name="name" :value="old('name', $character->name)" data-cy="name" />
                 </x-input.group>
 
-                <x-input.group label="Email address" for="email" :error="$errors->first('email')">
-                    <x-input.email id="email" name="email" :value="old('email', $user->email)" data-cy="email" />
+                <x-input.group label="Position">
+                    @livewire('positions:dropdown')
                 </x-input.group>
 
-                <x-input.group label="Preferred pronouns" for="pronouns" :error="$errors->first('pronouns')">
-                    <x-input.radio
-                        label="He/Him"
-                        for="male"
-                        name="pronouns"
-                        id="male"
-                        value="male"
-                        :checked="old('pronouns', $user->pronouns) === 'male'"
-                        data-cy="pronouns"
-                    />
-
-                    <span class="mx-6">
-                        <x-input.radio
-                            label="She/Her"
-                            for="female"
-                            name="pronouns"
-                            id="female"
-                            value="female"
-                            :checked="old('pronouns', $user->pronouns) === 'female'"
-                            data-cy="pronouns"
-                        />
-                    </span>
-
-                    <x-input.radio
-                        label="They/Them"
-                        for="neutral"
-                        name="pronouns"
-                        id="neutral"
-                        value="neutral"
-                        :checked="old('pronouns', $user->pronouns) === 'neutral'"
-                        data-cy="pronouns"
-                    />
-                </x-input.group>
-
-                <x-input.group label="Status" for="status">
-                    <x-input.state-dropdown
-                        :current-state="$user->status"
-                        :states="$user->status->transitionableStates()"
-                        name="status"
-                        id="status"
-                    />
+                <x-input.group label="Rank">
+                    @livewire('ranks:dropdown')
                 </x-input.group>
             </x-form.section>
 
-            <x-form.section title="Avatar" message="User avatars should be a square image at least 200 pixels tall by 200 pixels wide, but not more than 5MB in size.">
+            <x-form.section title="Avatar" message="Character avatars should be a square image at least 200 pixels tall by 200 pixels wide, but not more than 5MB in size.">
                 <x-input.group>
-                    @livewire('users:upload-avatar')
+                    @livewire('characters:upload-avatar')
                 </x-input.group>
             </x-form.section>
 
-            <x-form.section title="Roles">
-                <x-slot name="message">
-                    <p>Roles are a collection of the actions a user can take throughout Nova. A user can be assigned as many roles as you'd like, giving you more granular control over what users can do.</p>
-
-                    @can('viewAny', 'Nova\Roles\Models\Role')
-                        <a href="{{ route('roles.index') }}" class="button button-soft button-sm mt-6">
-                            Manage roles
-                        </a>
-                    @endcan
-                </x-slot>
-
-                <x-input.group label="Assign roles">
-                    @livewire('roles:manage-roles', ['roles' => $user->roles])
-                </x-input.group>
+            <x-form.section title="Users">
+                Coming soon...
             </x-form.section>
 
             <x-form.footer>
-                <button type="submit" class="button button-primary">Update User</button>
+                <button type="submit" class="button button-primary">Update Character</button>
 
-                <a href="{{ route('users.index', "status={$user->status->name()}") }}" class="button">Cancel</a>
+                <a href="{{ route('characters.index', "status={$character->status->name()}") }}" class="button">Cancel</a>
             </x-form.footer>
         </x-form>
     </x-panel>
 
-    <x-panel class="mt-8 p-4 | sm:p-6">
-        <h3 class="text-lg leading-6 font-medium text-gray-900">
-            Deactivate User
-        </h3>
-        <div class="mt-2 | sm:flex sm:items-start sm:justify-between">
-            <div class="w-full text-sm leading-6 text-gray-500">
-                <p>
-                    If you believe this user should reset their password, you can force a password reset that will prompt them to change their password the next time they attempt to sign in.
-                </p>
+    @can('deactivate', $character)
+        <x-panel class="mt-8 p-4 | sm:p-6">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">
+                Deactivate Character
+            </h3>
+            <div class="mt-2 | sm:flex sm:items-start sm:justify-between">
+                <div class="w-full text-sm leading-6 font-medium text-gray-600">
+                    <p>
+                        When deactivating the user, all characters associated with the user that are not jointly owned with another user will be deactivated as well.
+                    </p>
+                </div>
+                <div class="mt-5 | sm:mt-0 sm:ml-8 sm:flex-shrink-0 sm:flex sm:items-center">
+                    <x-form :action="route('characters.deactivate', $character)">
+                        <button type="submit" class="button button-danger-soft">
+                            Deactivate
+                        </button>
+                    </x-form>
+                </div>
             </div>
-            <div class="mt-5 | sm:mt-0 sm:ml-8 sm:flex-shrink-0 sm:flex sm:items-center">
-                <button type="button" class="button button-danger-soft">
-                    Deactivate
-                </button>
+        </x-panel>
+    @endcan
+
+    @can('activate', $character)
+        <x-panel class="mt-8 p-4 | sm:p-6">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">
+                Activate Character
+            </h3>
+            <div class="mt-2 | sm:flex sm:items-start sm:justify-between">
+                <div class="w-full text-sm leading-6 font-medium text-gray-600">
+                    <p>
+                        When activating the user, their primary character will also be activated and their access roles will be set to the default roles for new users.
+                    </p>
+                </div>
+                <div class="mt-5 | sm:mt-0 sm:ml-8 sm:flex-shrink-0 sm:flex sm:items-center">
+                    <x-form :action="route('characters.activate', $character)">
+                        <button type="submit" class="button button-primary-soft">
+                            Activate
+                        </button>
+                    </x-form>
+                </div>
             </div>
-        </div>
-    </x-panel>
+        </x-panel>
+    @endcan
 @endsection

@@ -51,15 +51,6 @@
                         data-cy="pronouns"
                     />
                 </x-input.group>
-
-                <x-input.group label="Status" for="status">
-                    <x-input.state-dropdown
-                        :current-state="$user->status"
-                        :states="$user->status->transitionableStates()"
-                        name="status"
-                        id="status"
-                    />
-                </x-input.group>
             </x-form.section>
 
             <x-form.section title="Avatar" message="User avatars should be a square image at least 200 pixels tall by 200 pixels wide, but not more than 5MB in size.">
@@ -91,6 +82,50 @@
             </x-form.footer>
         </x-form>
     </x-panel>
+
+    @can('deactivate', $user)
+        <x-panel class="mt-8 p-4 | sm:p-6">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">
+                Deactivate User
+            </h3>
+            <div class="mt-2 | sm:flex sm:items-start sm:justify-between">
+                <div class="w-full text-sm leading-6 font-medium text-gray-600">
+                    <p>
+                        When deactivating the user, all characters associated with the user that are not jointly owned with another user will be deactivated as well.
+                    </p>
+                </div>
+                <div class="mt-5 | sm:mt-0 sm:ml-8 sm:flex-shrink-0 sm:flex sm:items-center">
+                    <x-form :action="route('users.deactivate', $user)">
+                        <button type="submit" class="button button-danger-soft">
+                            Deactivate
+                        </button>
+                    </x-form>
+                </div>
+            </div>
+        </x-panel>
+    @endcan
+
+    @can('activate', $user)
+        <x-panel class="mt-8 p-4 | sm:p-6">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">
+                Activate User
+            </h3>
+            <div class="mt-2 | sm:flex sm:items-start sm:justify-between">
+                <div class="w-full text-sm leading-6 font-medium text-gray-600">
+                    <p>
+                        When activating the user, their primary character will also be activated and their access roles will be set to the default roles for new users.
+                    </p>
+                </div>
+                <div class="mt-5 | sm:mt-0 sm:ml-8 sm:flex-shrink-0 sm:flex sm:items-center">
+                    <x-form :action="route('users.activate', $user)">
+                        <button type="submit" class="button button-primary-soft">
+                            Activate
+                        </button>
+                    </x-form>
+                </div>
+            </div>
+        </x-panel>
+    @endcan
 
     <x-panel class="mt-8 p-4 | sm:p-6">
         <h3 class="text-lg leading-6 font-medium text-gray-900">
@@ -143,48 +178,4 @@
             </div>
         </div>
     </x-panel>
-
-    @can('deactivate', $user)
-        <x-panel class="mt-8 p-4 | sm:p-6">
-            <h3 class="text-lg leading-6 font-medium text-gray-900">
-                Deactivate User
-            </h3>
-            <div class="mt-2 | sm:flex sm:items-start sm:justify-between">
-                <div class="w-full text-sm leading-6 font-medium text-gray-600">
-                    <p>
-                        When deactivating the user, all characters associated with the user that are not jointly owned with another user will be deactivated as well.
-                    </p>
-                </div>
-                <div class="mt-5 | sm:mt-0 sm:ml-8 sm:flex-shrink-0 sm:flex sm:items-center">
-                    <x-form :action="route('users.deactivate', $user)">
-                        <button type="submit" class="button button-danger-soft">
-                            Deactivate
-                        </button>
-                    </x-form>
-                </div>
-            </div>
-        </x-panel>
-    @endcan
-
-    @can('activate', $user)
-        <x-panel class="mt-8 p-4 | sm:p-6">
-            <h3 class="text-lg leading-6 font-medium text-gray-900">
-                Activate User
-            </h3>
-            <div class="mt-2 | sm:flex sm:items-start sm:justify-between">
-                <div class="w-full text-sm leading-6 font-medium text-gray-600">
-                    <p>
-                        When activating the user, their primary character will also be activated and their access roles will be set to the default roles for new users.
-                    </p>
-                </div>
-                <div class="mt-5 | sm:mt-0 sm:ml-8 sm:flex-shrink-0 sm:flex sm:items-center">
-                    <x-form :action="route('users.activate', $user)">
-                        <button type="submit" class="button button-primary-soft">
-                            Activate
-                        </button>
-                    </x-form>
-                </div>
-            </div>
-        </x-panel>
-    @endcan
 @endsection
