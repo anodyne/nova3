@@ -40,15 +40,15 @@
                             @icon('check', 'h-5 w-5')
                         @endif
                     </a>
-                    <a href="{{ route('characters.index', 'status='.request('status').'&type=pnpc') }}" class="{{ $component->link() }} justify-between">
-                        <span>PNPCs</span>
-                        @if (request('type') === 'pnpc')
+                    <a href="{{ route('characters.index', 'status='.request('status').'&type=secondary') }}" class="{{ $component->link() }} justify-between">
+                        <span>Secondary characters</span>
+                        @if (request('type') === 'secondary')
                             @icon('check', 'h-5 w-5')
                         @endif
                     </a>
-                    <a href="{{ route('characters.index', 'status='.request('status').'&type=npc') }}" class="{{ $component->link() }} justify-between">
-                        <span>NPCs</span>
-                        @if (request('type') === 'npc')
+                    <a href="{{ route('characters.index', 'status='.request('status').'&type=support') }}" class="{{ $component->link() }} justify-between">
+                        <span>Support characters</span>
+                        @if (request('type') === 'support')
                             @icon('check', 'h-5 w-5')
                         @endif
                     </a>
@@ -187,9 +187,9 @@
 
                                     @can('deactivate', $character)
                                         <div class="{{ $component->divider() }}"></div>
-                                        <x-form :action="route('characters.deactivate', $character)" id="deactivate"></x-form>
                                         <button
-                                            type="submit"
+                                            x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-deactivate', {{ json_encode($character) }});"
+                                            type="button"
                                             form="deactivate"
                                             class="{{ $component->link() }}"
                                             data-cy="deactivate"

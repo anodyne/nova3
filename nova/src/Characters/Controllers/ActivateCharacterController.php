@@ -2,12 +2,10 @@
 
 namespace Nova\Characters\Controllers;
 
-use Illuminate\Http\Request;
 use Nova\Characters\Models\Character;
 use Nova\Foundation\Controllers\Controller;
-use Nova\Characters\Actions\DeactivateCharacter;
-use Nova\Characters\Events\CharacterDeactivated;
-use Nova\Characters\Responses\DeactivateCharacterResponse;
+use Nova\Characters\Actions\ActivateCharacter;
+use Nova\Characters\Events\CharacterActivated;
 
 class ActivateCharacterController extends Controller
 {
@@ -18,18 +16,16 @@ class ActivateCharacterController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(
-        DeactivateCharacter $action,
-        Character $character
-    ) {
-        $this->authorize('deactivate', $character);
+    public function __invoke(ActivateCharacter $action, Character $character)
+    {
+        $this->authorize('activate', $character);
 
         $character = $action->execute($character);
 
-        CharacterDeactivated::dispatch($character);
+        CharacterActivated::dispatch($character);
 
         return redirect()
             ->route('characters.index', 'status=active')
-            ->withToast("{$character->name} has been deactivated");
+            ->withToast("{$character->name} has been activated");
     }
 }

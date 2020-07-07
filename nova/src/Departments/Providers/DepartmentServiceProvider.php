@@ -9,10 +9,12 @@ use Nova\Departments\Models\Department;
 use Nova\Departments\Policies\PositionPolicy;
 use Nova\Departments\Policies\DepartmentPolicy;
 use Nova\Departments\Livewire\PositionsDropdown;
+use Nova\Departments\Livewire\PositionsCollector;
 
 class DepartmentServiceProvider extends DomainServiceProvider
 {
     protected $livewireComponents = [
+        'positions:collector' => PositionsCollector::class,
         'positions:dropdown' => PositionsDropdown::class,
     ];
 

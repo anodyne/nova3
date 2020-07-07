@@ -7,11 +7,11 @@ use Nova\Users\Models\User;
 use Nova\Characters\Models\Character;
 use Nova\Departments\Models\Position;
 use Nova\Departments\Models\Department;
-use Nova\Characters\Models\States\Types\Npc;
-use Nova\Characters\Models\States\Types\Pnpc;
 use Nova\Characters\Models\States\Types\Primary;
+use Nova\Characters\Models\States\Types\Support;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Characters\Models\States\Statuses\Active;
+use Nova\Characters\Models\States\Types\Secondary;
 use Nova\Characters\Models\States\Statuses\Pending;
 use Nova\Characters\Models\States\Statuses\Inactive;
 
@@ -90,29 +90,29 @@ class FilterCharactersTest extends TestCase
     }
 
     /** @test **/
-    public function charactersCanBeFilteredToOnlyNpcs()
+    public function charactersCanBeFilteredToOnlySupportCharacters()
     {
         $this->signInWithPermission('character.view');
 
-        $response = $this->get(route('characters.index', 'type=npc'));
+        $response = $this->get(route('characters.index', 'type=support'));
         $response->assertSuccessful();
 
         $this->assertEquals(
-            Character::whereState('type', Npc::class)->count(),
+            Character::whereState('type', Support::class)->count(),
             $response['characters']->total()
         );
     }
 
     /** @test **/
-    public function charactersCanBeFilteredToOnlyProtectedNpcs()
+    public function charactersCanBeFilteredToOnlySecondaryCharacters()
     {
         $this->signInWithPermission('character.view');
 
-        $response = $this->get(route('characters.index', 'type=pnpc'));
+        $response = $this->get(route('characters.index', 'type=secondary'));
         $response->assertSuccessful();
 
         $this->assertEquals(
-            Character::whereState('type', Pnpc::class)->count(),
+            Character::whereState('type', Secondary::class)->count(),
             $response['characters']->total()
         );
     }

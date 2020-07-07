@@ -22,10 +22,10 @@
                 <x-input.checkbox label="Primary characters" id="primary" value="Nova\Characters\Models\States\Statuses\Primary" for="primary" name="foo[]" />
             </div>
             <div class="block my-2">
-                <x-input.checkbox label="Protected NPCs" id="pnpc" value="Nova\Characters\Models\States\Statuses\Pnpc" for="pnpc" name="foo[]" />
+                <x-input.checkbox label="Secondary characters" id="secondary" value="Nova\Characters\Models\States\Statuses\Secondary" for="secondary" name="foo[]" />
             </div>
             <div class="block">
-                <x-input.checkbox label="NPCs" id="npc" value="Nova\Characters\Models\States\Statuses\Npc" for="npc" name="foo[]" />
+                <x-input.checkbox label="Support characters" id="support" value="Nova\Characters\Models\States\Statuses\Support" for="support" name="foo[]" />
             </div>
         </x-input.group>
     </x-form.section>

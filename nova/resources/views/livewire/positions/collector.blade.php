@@ -1,0 +1,28 @@
+<div class="space-y-4">
+    @foreach ($positions as $position)
+        <div class="flex flex-col">
+            <div class="flex items-center w-full" wire:model="positions">
+                @livewire('positions:dropdown', [], key($loop->index))
+
+                <button wire:click="addPosition" type="button" class="ml-3 group inline-flex items-center text-gray-600 transition ease-in-out duration-150 hover:text-gray-500 focus:outline-none">
+                    @icon('add-alt', 'h-6 w-6 text-gray-400 transition ease-in-out duration-150 group-hover:text-gray-500')
+                </button>
+
+                @if (count($positions) > 1)
+                    <button wire:click="removePosition({{ $loop->index }})" type="button" class="ml-1 group inline-flex items-center text-gray-600 transition ease-in-out duration-150 hover:text-gray-500 focus:outline-none">
+                        @icon('delete', 'h-6 w-6 text-gray-400 transition ease-in-out duration-150 group-hover:text-gray-500')
+                    </button>
+                @endif
+            </div>
+
+            @if (count($positions) > 1)
+                @dd($position)
+                <div class="mt-2 ml-px text-sm">
+                    <x-input.radio label="Primary position" name="primary_position" id="primary_position" for="primary_position" value="{{ $position->id }}" />
+                </div>
+            @endif
+        </div>
+    @endforeach
+
+    <input type="text" name="positions" value="{{ $positionIds }}">
+</div>

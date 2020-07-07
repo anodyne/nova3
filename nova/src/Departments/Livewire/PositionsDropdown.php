@@ -16,7 +16,14 @@ class PositionsDropdown extends Component
 
     public $positions;
 
-    public function setDepartment($departmentId)
+    public $selected;
+
+    public function clearPositions()
+    {
+        $this->positions = null;
+    }
+
+    public function selectDepartment($departmentId)
     {
         $this->departmentId = $departmentId;
 
@@ -24,18 +31,18 @@ class PositionsDropdown extends Component
             ->whereActive()
             ->orderBySort()
             ->get();
-
-        $this->dispatchBrowserEvent('show-submenu');
     }
 
-    // public function updatedDepartmentId($value)
-    // {
-    //     $this->positions = Position::whereDepartment($value)
-    //         ->whereActive()
-    //         ->whereAvailable()
-    //         ->orderBySort()
-    //         ->get();
-    // }
+    public function selectPosition($positionId)
+    {
+        $this->positionId = $positionId;
+
+        $this->dispatchBrowserEvent('positions-dropdown-close');
+
+        $this->selected = $this->positions->where('id', $positionId)->first();
+
+        $this->emit('positionSelected', $positionId);
+    }
 
     public function mount()
     {

@@ -4,8 +4,8 @@ use Nova\Users\Models\User;
 use Illuminate\Database\Seeder;
 use Nova\Characters\Models\Character;
 use Nova\Departments\Models\Position;
-use Nova\Characters\Models\States\Types\Pnpc;
 use Nova\Characters\Models\States\Types\Primary;
+use Nova\Characters\Models\States\Types\Secondary;
 use Nova\Characters\Models\States\Statuses\Inactive;
 
 class CharacterSeeder extends Seeder
@@ -61,7 +61,7 @@ class CharacterSeeder extends Seeder
             User::find(1),
             User::find(2),
         ]);
-        $guinan->type->transitionTo(Pnpc::class);
+        $guinan->type->transitionTo(Secondary::class);
 
         // $users = User::get();
 

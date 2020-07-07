@@ -9,6 +9,11 @@ class ActivateCharacter
 {
     public function execute(Character $character): Character
     {
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($character)
+            ->log(':subject.name was activated');
+
         $character->status->transitionTo(Active::class);
 
         return $character->fresh();

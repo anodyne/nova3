@@ -4,25 +4,25 @@ namespace Nova\Characters\Models;
 
 use Nova\Characters\Events;
 use Nova\Users\Models\User;
+use Nova\Stories\Models\Post;
 use Nova\Ranks\Models\RankItem;
 use Spatie\ModelStates\HasStates;
 use Nova\Departments\Models\Position;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\Activitylog\Traits\LogsActivity;
-use Nova\Characters\Models\States\Types\Npc;
-use Nova\Characters\Models\States\Types\Pnpc;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Nova\Characters\Models\States\Types\Primary;
+use Nova\Characters\Models\States\Types\Support;
 use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 use Nova\Characters\Models\States\Statuses\Active;
+use Nova\Characters\Models\States\Types\Secondary;
 use Nova\Characters\Models\States\Statuses\Pending;
 use Nova\Characters\Models\States\Statuses\Inactive;
 use Nova\Characters\Models\Builders\CharacterBuilder;
 use Nova\Characters\Models\States\Types\CharacterType;
 use Nova\Characters\Models\States\Statuses\CharacterStatus;
 use Nova\Characters\Models\States\Statuses\ActiveToInactive;
-use Nova\Stories\Models\Post;
 
 class Character extends Model implements HasMedia
 {
@@ -70,12 +70,12 @@ class Character extends Model implements HasMedia
         return $this->users()->count() > 0;
     }
 
-    public function getIsNpcAttribute(): bool
+    public function getIsSupportAttribute(): bool
     {
         return $this->users()->count() === 0;
     }
 
-    public function getIsPnpcAttribute(): bool
+    public function getIsSecondaryAttribute(): bool
     {
         return false;
     }
@@ -155,15 +155,15 @@ class Character extends Model implements HasMedia
 
         $this->addState('type', CharacterType::class)
             ->allowTransitions([
-                [Primary::class, Npc::class],
-                [Primary::class, Pnpc::class],
+                [Primary::class, Support::class],
+                [Primary::class, Secondary::class],
 
-                [Npc::class, Pnpc::class],
-                [Npc::class, Primary::class],
+                [Support::class, Secondary::class],
+                [Support::class, Primary::class],
 
-                [Pnpc::class, Npc::class],
-                [Pnpc::class, Primary::class],
+                [Secondary::class, Support::class],
+                [Secondary::class, Primary::class],
             ])
-            ->default(NPC::class);
+            ->default(Support::class);
     }
 }

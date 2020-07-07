@@ -6,7 +6,7 @@ return [
         'Filters and searches from character management respect the tab you currently have selected. If you want to limit your search to inactive characters, you can go the inactive characters tab and then search or filter the list.',
         'The "Assigned to a user" filter will show you both primary characters and Protected NPCs.',
         "Primary characters are characters which are assigned to a user and have been marked as that user's primary character.",
-        "Protected NPCs (PNPCs) are characters which are assigned to a user, but are not that user's primary character.",
+        "Secondary characters are characters which are assigned to a user, but are not that user's primary character.",
     ],
 
     'ranks' => [

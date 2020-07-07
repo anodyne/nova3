@@ -2,7 +2,7 @@
 
 namespace Nova\Characters\Models\States\Types;
 
-class Pnpc extends CharacterType
+class Secondary extends CharacterType
 {
     public function color(): string
     {
@@ -11,6 +11,6 @@ class Pnpc extends CharacterType
 
     public function name(): string
     {
-        return 'PNPC';
+        return 'secondary';
     }
 }
