@@ -63,27 +63,27 @@ class CharacterSeeder extends Seeder
         ]);
         $guinan->type->transitionTo(Pnpc::class);
 
-        $users = User::get();
+        // $users = User::get();
 
-        $users->each(function ($user) {
-            $character = $user->characters()->create(
-                factory(Character::class)->make()->toArray()
-            );
+        // $users->each(function ($user) {
+        //     $character = $user->characters()->create(
+        //         factory(Character::class)->make()->toArray()
+        //     );
 
-            $decision = mt_rand(1, 3);
+        //     $decision = mt_rand(1, 3);
 
-            if ($decision === 3) {
-                $character->status->transitionTo(Inactive::class);
-            }
-        });
+        //     if ($decision === 3) {
+        //         $character->status->transitionTo(Inactive::class);
+        //     }
+        // });
 
-        factory(Character::class)->times(25)->create()->each(function ($character) {
-            $decision = mt_rand(1, 3);
+        // factory(Character::class)->times(25)->create()->each(function ($character) {
+        //     $decision = mt_rand(1, 3);
 
-            if ($decision === 3) {
-                $character->status->transitionTo(Inactive::class);
-            }
-        });
+        //     if ($decision === 3) {
+        //         $character->status->transitionTo(Inactive::class);
+        //     }
+        // });
 
         activity()->enableLogging();
     }
