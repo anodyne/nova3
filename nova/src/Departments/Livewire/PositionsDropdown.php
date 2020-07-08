@@ -18,6 +18,10 @@ class PositionsDropdown extends Component
 
     public $selected;
 
+    public $index;
+
+    protected $listeners = ['refresh-positions-dropdown' => '$refresh'];
+
     public function clearPositions()
     {
         $this->positions = null;
@@ -41,13 +45,19 @@ class PositionsDropdown extends Component
 
         $this->selected = $this->positions->where('id', $positionId)->first();
 
-        $this->emit('positionSelected', $positionId);
+        $this->emitUp('positionSelected', $positionId, $this->index);
     }
 
-    public function mount()
+    public function mount($position = null, $index = 0)
     {
+        $this->index = $index;
+        $this->positionId = $position;
         $this->departmentId = null;
         $this->departments = Department::orderBySort()->get();
+
+        if ($position) {
+            $this->selected = Position::find($position);
+        }
     }
 
     public function render()

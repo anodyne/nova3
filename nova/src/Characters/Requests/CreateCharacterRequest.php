@@ -11,7 +11,7 @@ class CreateCharacterRequest extends ValidatesRequest
         return [
             'name' => ['required'],
             'rank_id' => ['nullable'],
-            'type' => ['required'],
+            // 'type' => ['required'],
         ];
     }
 }

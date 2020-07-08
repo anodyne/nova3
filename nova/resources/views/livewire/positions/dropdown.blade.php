@@ -34,6 +34,7 @@
         x-transition:leave-start="transform opacity-100 scale-100"
         x-transition:leave-end="transform opacity-0 scale-95"
         class="origin-top-left absolute left-0 mt-2 w-full rounded-md shadow-lg"
+        x-cloak
     >
         <div class="relative rounded-md bg-white shadow-xs max-h-60 overflow-auto z-10">
             @if (! isset($positions))

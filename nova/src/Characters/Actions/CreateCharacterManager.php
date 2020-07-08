@@ -26,6 +26,10 @@ class CreateCharacterManager
             CharacterData::fromRequest($request)
         );
 
+        // Assign positions to the character
+
+        // Set the character type
+
         $this->uploadCharacterAvatar->execute($character, $request->avatar_path);
 
         return $character->fresh();
