@@ -19,7 +19,7 @@
                 </x-input.group>
 
                 <x-input.group label="Rank">
-                    @livewire('ranks:dropdown')
+                    @livewire('ranks:items-dropdown', ['rank' => old('rank_id')])
                 </x-input.group>
             </x-form.section>
 
