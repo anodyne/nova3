@@ -18,41 +18,41 @@ class CharacterSeeder extends Seeder
             'name' => 'Jean-Luc Picard',
             'rank_id' => 1,
         ]);
-        $picard->users()->save(User::find(1));
-        $picard->positions()->save(Position::find(1));
+        $picard->users()->save(User::find(1), ['primary' => true]);
+        $picard->positions()->save(Position::find(1), ['primary' => true]);
         $picard->type->transitionTo(Primary::class);
 
         $riker = factory(Character::class)->create([
             'name' => 'William Riker',
             'rank_id' => 2,
         ]);
-        $riker->users()->save(User::find(2));
-        $riker->positions()->save(Position::find(2));
+        $riker->users()->save(User::find(2), ['primary' => true]);
+        $riker->positions()->save(Position::find(2), ['primary' => true]);
         $riker->type->transitionTo(Primary::class);
 
         $data = factory(Character::class)->create([
             'name' => 'Data',
             'rank_id' => 17,
         ]);
-        $data->positions()->save(Position::find(5));
+        $data->positions()->save(Position::find(5), ['primary' => true]);
 
         $laforge = factory(Character::class)->create([
             'name' => 'Geordi LaForge',
             'rank_id' => 17,
         ]);
-        $laforge->positions()->save(Position::find(10));
+        $laforge->positions()->save(Position::find(10), ['primary' => true]);
 
         $worf = factory(Character::class)->create([
             'name' => 'Worf',
             'rank_id' => 18,
         ]);
-        $worf->positions()->save(Position::find(7));
+        $worf->positions()->save(Position::find(7), ['primary' => true]);
 
         $crusher = factory(Character::class)->create([
             'name' => 'Beverly Crusher',
             'rank_id' => 30,
         ]);
-        $crusher->positions()->save(Position::find(13));
+        $crusher->positions()->save(Position::find(13), ['primary' => true]);
 
         $guinan = factory(Character::class)->create([
             'name' => 'Guinan',
