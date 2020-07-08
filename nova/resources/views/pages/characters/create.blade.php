@@ -14,8 +14,8 @@
                     <x-input.text id="name" name="name" :value="old('name')" data-cy="name" />
                 </x-input.group>
 
-                <x-input.group label="Position(s)">
-                    @livewire('positions:collector')
+                <x-input.group label="Position(s)" :error="$errors->first('positions')">
+                    @livewire('positions:collector', ['positions' => old('positions')])
                 </x-input.group>
 
                 <x-input.group label="Rank">
