@@ -10,6 +10,7 @@ use Nova\Departments\Models\Position;
 use Nova\Characters\Events\CharacterCreated;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Characters\Events\CharacterCreatedByAdmin;
+use Nova\Characters\Requests\CreateCharacterRequest;
 
 /**
  * @group characters
@@ -59,6 +60,11 @@ class CreateCharacterTest extends TestCase
             'character_id' => $character->id,
             'user_id' => $user->id,
         ]);
+
+        $this->assertRouteUsesFormRequest(
+            'characters.store',
+            CreateCharacterRequest::class
+        );
     }
 
     /** @test **/

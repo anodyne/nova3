@@ -5,6 +5,8 @@ namespace Nova\Characters\Actions;
 use Illuminate\Http\Request;
 use Nova\Characters\Models\Character;
 use Nova\Characters\DataTransferObjects\CharacterData;
+use Nova\Characters\DataTransferObjects\AssignCharacterOwnersData;
+use Nova\Characters\DataTransferObjects\AssignCharacterPositionsData;
 
 class UpdateCharacterManager
 {
@@ -16,9 +18,18 @@ class UpdateCharacterManager
 
     protected $removeAvatar;
 
+    protected $assignCharacterOwners;
+
+    protected $assignCharacterPositions;
+
+    protected $setCharacterType;
+
     public function __construct(
         UpdateCharacter $updateCharacter,
         UpdateCharacterStatus $updateStatus,
+        AssignCharacterOwners $assignCharacterOwners,
+        AssignCharacterPositions $assignCharacterPositions,
+        SetCharacterType $setCharacterType,
         UploadCharacterAvatar $uploadAvatar,
         RemoveCharacterAvatar $removeAvatar
     ) {
@@ -26,16 +37,29 @@ class UpdateCharacterManager
         $this->updateStatus = $updateStatus;
         $this->uploadAvatar = $uploadAvatar;
         $this->removeAvatar = $removeAvatar;
+        $this->assignCharacterOwners = $assignCharacterOwners;
+        $this->assignCharacterPositions = $assignCharacterPositions;
+        $this->setCharacterType = $setCharacterType;
     }
 
     public function execute(Character $character, Request $request): Character
     {
-        $this->updateCharacter->execute(
+        $character = $this->updateCharacter->execute(
             $character,
-            $data = CharacterData::fromRequest($request)
+            CharacterData::fromRequest($request)
         );
 
-        $this->updateStatus->execute($character, $request->status);
+        $character = $this->assignCharacterOwners->execute(
+            $character,
+            AssignCharacterOwnersData::fromRequest($request)
+        );
+
+        $character = $this->assignCharacterPositions->execute(
+            $character,
+            AssignCharacterPositionsData::fromRequest($request)
+        );
+
+        $character = $this->setCharacterType->execute($character);
 
         $this->uploadAvatar->execute($character, $request->avatar_path);
 

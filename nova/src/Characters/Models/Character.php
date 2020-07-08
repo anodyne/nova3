@@ -11,6 +11,7 @@ use Nova\Departments\Models\Position;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Nova\Foundation\Concerns\HasStatesExtended;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Nova\Characters\Models\States\Types\Primary;
 use Nova\Characters\Models\States\Types\Support;
@@ -29,6 +30,7 @@ class Character extends Model implements HasMedia
 {
     use LogsActivity;
     use HasStates;
+    use HasStatesExtended;
     use HasMediaTrait;
     use HasEagerLimit;
 

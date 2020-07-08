@@ -10,8 +10,9 @@ class UpdateCharacterRequest extends ValidatesRequest
     {
         return [
             'name' => ['required'],
+            'positions' => ['required'],
             'rank_id' => ['nullable'],
-            'type' => ['required'],
+            'users' => ['nullable'],
         ];
     }
 }

@@ -11,13 +11,20 @@ class SetCharacterType
     public function execute(Character $character): Character
     {
         if ($character->activeUsers()->count() > 0) {
-            $character->type->transitionTo(Secondary::class);
+            $this->transition($character, Secondary::class);
         }
 
         if ($character->primaryUsers()->count() > 0) {
-            $character->type->transitionTo(Primary::class);
+            $this->transition($character, Primary::class);
         }
 
         return $character->refresh();
+    }
+
+    protected function transition(Character $character, $state)
+    {
+        if ($character->canTransitionTo($state, 'type')) {
+            $character->type->transitionTo($state);
+        }
     }
 }

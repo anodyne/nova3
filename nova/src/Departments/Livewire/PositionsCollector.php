@@ -54,6 +54,8 @@ class PositionsCollector extends Component
                     return ['id' => $position];
                 })
                 ->toArray();
+
+            $this->updatePositionIds();
         }
     }
 

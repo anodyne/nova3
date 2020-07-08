@@ -23,7 +23,7 @@ class UpdateCharacterController extends Controller
         $this->authorize('update', $character);
 
         return app(UpdateCharacterResponse::class)->with([
-            'character' => $character,
+            'character' => $character->load('positions', 'users'),
         ]);
     }
 
@@ -38,6 +38,6 @@ class UpdateCharacterController extends Controller
 
         CharacterUpdatedByAdmin::dispatch($character);
 
-        return back()->withToast("{$character->name}'s account was updated");
+        return back()->withToast("{$character->name} was updated");
     }
 }

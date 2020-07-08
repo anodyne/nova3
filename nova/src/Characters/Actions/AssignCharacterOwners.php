@@ -23,7 +23,7 @@ class AssignCharacterOwners
                     $this->updateExistingPrimaryCharacterForUser($userId);
                 }
 
-                $character->users()->attach($userId, [
+                $character->users()->sync($userId, [
                     'primary' => $shouldBePrimary,
                 ]);
             });

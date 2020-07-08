@@ -54,6 +54,8 @@ class UsersCollector extends Component
                     return ['id' => $user];
                 })
                 ->toArray();
+
+            $this->updateUserIds();
         }
     }
 
