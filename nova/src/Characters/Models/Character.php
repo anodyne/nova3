@@ -17,6 +17,7 @@ use Nova\Characters\Models\States\Types\Support;
 use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 use Nova\Characters\Models\States\Statuses\Active;
 use Nova\Characters\Models\States\Types\Secondary;
+use Nova\Users\Models\States\Active as ActiveUser;
 use Nova\Characters\Models\States\Statuses\Pending;
 use Nova\Characters\Models\States\Statuses\Inactive;
 use Nova\Characters\Models\Builders\CharacterBuilder;
@@ -42,7 +43,7 @@ class Character extends Model implements HasMedia
     ];
 
     protected $fillable = [
-        'name', 'status',
+        'name', 'status', 'rank_id',
     ];
 
     public function positions()
@@ -62,7 +63,19 @@ class Character extends Model implements HasMedia
 
     public function users()
     {
-        return $this->belongsToMany(User::class)->withTimestamps();
+        return $this->belongsToMany(User::class)
+            ->withPivot('primary')
+            ->withTimestamps();
+    }
+
+    public function activeUsers()
+    {
+        return $this->users()->where('status', ActiveUser::class);
+    }
+
+    public function primaryUsers()
+    {
+        return $this->activeUsers()->wherePivot('primary', true);
     }
 
     public function getHasUserAttribute(): bool

@@ -29,8 +29,10 @@
                 </x-input.group>
             </x-form.section>
 
-            <x-form.section title="Users">
-                Coming soon...
+            <x-form.section title="Ownership" message="Characters can be assigned to any number of users and all users will have the same permissions with the character. Additionally, if the character takes any action that sends a notification, all users will be notified.">
+                <x-input.group label="User(s)">
+                    @livewire('users:collector', ['users' => old('users')])
+                </x-input.group>
             </x-form.section>
 
             <x-form.footer>

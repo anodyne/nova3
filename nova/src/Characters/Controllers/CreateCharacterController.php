@@ -29,7 +29,6 @@ class CreateCharacterController extends Controller
         CreateCharacterRequest $request,
         CreateCharacterManager $action
     ) {
-        dd($request->all());
         $this->authorize('create', Character::class);
 
         $character = $action->execute($request);

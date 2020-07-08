@@ -2,18 +2,16 @@
 
 namespace Nova\Characters\Actions;
 
-use Illuminate\Http\Request;
 use Nova\Characters\Models\Character;
+use Nova\Characters\DataTransferObjects\AssignCharacterPositionsData;
 
 class AssignCharacterPositions
 {
-    public function execute(Character $character, Request $request): Character
+    public function execute(Character $character, AssignCharacterPositionsData $data): Character
     {
-        $positions = explode(',', $request->positions);
-
-        collect($positions)->each(function ($positionId) use ($character, $request) {
+        collect($data->positions)->each(function ($positionId) use ($character, $data) {
             $character->positions()->attach($positionId, [
-                'primary' => (int) $request->primary_position === (int) $positionId
+                'primary' => (int) $data->primaryPosition === (int) $positionId,
             ]);
         });
 

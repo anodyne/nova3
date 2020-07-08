@@ -6,7 +6,7 @@ class Inactive extends CharacterStatus
 {
     public function color(): string
     {
-        return 'danger';
+        return '';
     }
 
     public function name(): string

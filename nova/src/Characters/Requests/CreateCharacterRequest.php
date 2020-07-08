@@ -12,6 +12,7 @@ class CreateCharacterRequest extends ValidatesRequest
             'name' => ['required'],
             'positions' => ['required'],
             'rank_id' => ['nullable'],
+            'users' => ['nullable'],
         ];
     }
 }

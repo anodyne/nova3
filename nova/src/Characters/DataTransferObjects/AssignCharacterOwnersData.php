@@ -5,23 +5,23 @@ namespace Nova\Characters\DataTransferObjects;
 use Illuminate\Http\Request;
 use Spatie\DataTransferObject\DataTransferObject;
 
-class CharacterData extends DataTransferObject
+class AssignCharacterOwnersData extends DataTransferObject
 {
     /**
-     * @var  string
+     * @var  array
      */
-    public $name;
+    public $users;
 
     /**
-     * @var  int
+     * @var  array
      */
-    public $rank_id;
+    public $primaryCharacters;
 
     public static function fromRequest(Request $request): self
     {
         return new self([
-            'name' => $request->name,
-            'rank_id' => $request->rank_id,
+            'users' => explode(',', $request->users),
+            'primaryCharacters' => $request->input('primary_character', []),
         ]);
     }
 }
