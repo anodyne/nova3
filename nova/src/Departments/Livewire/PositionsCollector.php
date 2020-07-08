@@ -10,23 +10,23 @@ class PositionsCollector extends Component
 
     public $positionIds;
 
-    protected $listeners = ['positionSelected'];
+    protected $listeners = ['positionSelected' => 'handlePositionSelected'];
 
-    public function addPosition($index): void
+    public function addPosition($index)
     {
         $newIndex = $index + 1;
 
         $this->positions[$newIndex]['id'] = null;
     }
 
-    public function positionSelected($positionId, $index)
+    public function handlePositionSelected($positionId, $index)
     {
         $this->positions[$index]['id'] = $positionId;
 
         $this->updatePositionIds();
     }
 
-    public function removePosition($index): void
+    public function removePosition($index)
     {
         unset($this->positions[$index]);
 
@@ -44,9 +44,17 @@ class PositionsCollector extends Component
             ->implode('id', ',');
     }
 
-    public function mount()
+    public function mount($positions = null)
     {
-        $this->positions[0]['id'] = null;
+        if ($positions === null) {
+            $this->positions[0]['id'] = null;
+        } else {
+            $this->positions = collect(explode(',', $positions))
+                ->map(function ($position) {
+                    return ['id' => $position];
+                })
+                ->toArray();
+        }
     }
 
     public function render()
