@@ -4,6 +4,7 @@ namespace Nova\Users\Models;
 
 use Nova\Users\Events;
 use Nova\Notes\Models\Note;
+use Nova\Stories\Models\Post;
 use Spatie\ModelStates\HasStates;
 use Nova\Users\Models\States\Active;
 use Nova\Characters\Models\Character;
@@ -23,7 +24,6 @@ use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 use Nova\Users\Models\Collections\UsersCollection;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Nova\Characters\Models\States\Statuses\Active as ActiveCharacter;
-use Nova\Stories\Models\Post;
 
 class User extends Authenticatable implements MustVerifyEmail, HasMedia
 {
@@ -64,7 +64,9 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
 
     public function characters()
     {
-        return $this->belongsToMany(Character::class)->withTimestamps();
+        return $this->belongsToMany(Character::class)
+            ->withPivot('primary')
+            ->withTimestamps();
     }
 
     public function activeCharacters()

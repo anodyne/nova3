@@ -6,6 +6,8 @@ use Nova\Users\Models\User;
 use Nova\DomainServiceProvider;
 use Nova\Users\Policies\UserPolicy;
 use Nova\Users\Livewire\ManageUsers;
+use Nova\Users\Livewire\UsersDropdown;
+use Nova\Users\Livewire\UsersCollector;
 use Nova\Users\Events\UserCreatedByAdmin;
 use Nova\Users\Livewire\UserUploadAvatar;
 use Nova\Users\Listeners\GeneratePassword;
@@ -15,8 +17,8 @@ use Nova\Users\Responses\CreateUserResponse;
 use Nova\Users\Responses\DeleteUserResponse;
 use Nova\Users\Responses\UpdateUserResponse;
 use Nova\Users\Responses\ShowAllUsersResponse;
-use Nova\Users\Controllers\ForcePasswordResetController;
 use Nova\Users\Responses\DeactivateUserResponse;
+use Nova\Users\Controllers\ForcePasswordResetController;
 
 class UserServiceProvider extends DomainServiceProvider
 {
@@ -27,6 +29,8 @@ class UserServiceProvider extends DomainServiceProvider
     ];
 
     protected $livewireComponents = [
+        'users:collector' => UsersCollector::class,
+        'users:dropdown' => UsersDropdown::class,
         'users:manage-users' => ManageUsers::class,
         'users:notifications' => UserNotifications::class,
         'users:upload-avatar' => UserUploadAvatar::class,
