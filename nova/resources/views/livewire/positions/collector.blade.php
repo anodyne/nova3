@@ -1,8 +1,8 @@
-<div class="space-y-4">
+<div>
     <input type="hidden" name="positions" value="{{ $positionIds }}">
 
     @foreach ($positions as $position)
-        <div class="flex flex-col">
+        <div class="flex flex-col @if (! $loop->first) mt-4 @endif">
             <div class="flex items-center w-full" wire:model="positions">
                 @livewire(
                     'positions:dropdown',
