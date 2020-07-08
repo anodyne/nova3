@@ -1,4 +1,6 @@
 <div class="space-y-4">
+    <input type="hidden" name="positions" value="{{ $positionIds }}">
+
     @foreach ($positions as $position)
         <div class="flex flex-col">
             <div class="flex items-center w-full" wire:model="positions">
@@ -26,6 +28,4 @@
             @endif
         </div>
     @endforeach
-
-    <input type="hidden" name="positions" value="{{ $positionIds }}">
 </div>

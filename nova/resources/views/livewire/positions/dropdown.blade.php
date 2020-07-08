@@ -17,6 +17,7 @@
                 x-bind:aria-expanded="open"
             >
                 {{ optional($selected)->name ?? 'Pick a position'}}
+
                 <svg class="ml-2 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                 </svg>
@@ -43,15 +44,21 @@
                         Pick a department
                     </div>
                     @foreach ($departments as $department)
-                        <button wire:click="selectDepartment({{ $department->id }})" type="button" class="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none" role="menuitem">{{ $department->name }}</button>
+                        <button wire:click="selectDepartment({{ $department->id }})" type="button" class="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none" role="menuitem">
+                            {{ $department->name }}
+                        </button>
                     @endforeach
                 </div>
             @else
                 <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                    <button wire:click="clearPositions" type="button" class="block w-full text-left px-4 py-2 text-xs uppercase tracking-wide font-medium leading-5 text-gray-600 hover:bg-gray-100 hover:text-gray-900 focus:outline-none">&larr; Change selected department</button>
+                    <button wire:click="clearPositions" type="button" class="inline-flex items-center w-full text-left px-4 py-2 text-xs uppercase tracking-wide font-medium leading-5 text-gray-600 hover:bg-gray-100 hover:text-gray-900 focus:outline-none">
+                        &larr; Change selected department
+                    </button>
 
                     @forelse ($positions as $position)
-                        <button wire:click="selectPosition({{ $position->id }})" type="button" class="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none" role="menuitem">{{ $position->name }}</button>
+                        <button wire:click="selectPosition({{ $position->id }})" type="button" class="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none" role="menuitem">
+                            {{ $position->name }}
+                        </button>
                     @empty
                         <span class="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 focus:outline-none" role="menuitem">
                             No positions available for this department
