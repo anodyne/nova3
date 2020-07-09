@@ -10,20 +10,27 @@
                     key(Str::random())
                 )
 
-                <button wire:click="addPosition({{ $loop->index }})" type="button" class="ml-3 group inline-flex items-center text-gray-600 transition ease-in-out duration-150 hover:text-gray-500 focus:outline-none">
-                    @icon('add-alt', 'h-6 w-6 text-gray-400 transition ease-in-out duration-150 group-hover:text-gray-500')
-                </button>
-
                 @if (count($positions) > 1)
-                    <button wire:click="removePosition({{ $loop->index }})" type="button" class="ml-1 group inline-flex items-center text-gray-600 transition ease-in-out duration-150 hover:text-gray-500 focus:outline-none">
+                    <button wire:click="removePosition({{ $loop->index }})" type="button" class="ml-3 group inline-flex items-center text-gray-600 transition ease-in-out duration-150 hover:text-gray-500 focus:outline-none">
                         @icon('delete', 'h-6 w-6 text-gray-400 transition ease-in-out duration-150 group-hover:text-gray-500')
                     </button>
                 @endif
+
+                <button wire:click="addPosition({{ $loop->index }})" type="button" class="ml-1 group inline-flex items-center text-gray-600 transition ease-in-out duration-150 hover:text-gray-500 focus:outline-none">
+                    @icon('add-alt', 'h-6 w-6 text-gray-400 transition ease-in-out duration-150 group-hover:text-gray-500')
+                </button>
             </div>
 
             @if (count($positions) > 1)
                 <div class="mt-2 ml-px text-sm">
-                    <x-input.radio label="Primary position" name="primary_position" id="primary_position_{{ $position['id'] }}" for="primary_position_{{ $position['id'] }}" value="{{ $position['id'] }}" />
+                    <x-input.radio
+                        label="Primary position"
+                        name="primary_position"
+                        id="primary_position_{{ $position['id'] }}"
+                        for="primary_position_{{ $position['id'] }}"
+                        value="{{ $position['id'] }}"
+                        :checked="$position['primary']"
+                    />
                 </div>
             @endif
         </div>

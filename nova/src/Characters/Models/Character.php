@@ -53,6 +53,11 @@ class Character extends Model implements HasMedia
         return $this->belongsToMany(Position::class)->withPivot('primary');
     }
 
+    public function primaryPosition()
+    {
+        return $this->positions()->wherePivot('primary', true);
+    }
+
     public function posts()
     {
         return $this->morphMany(Post::class, 'authorable');

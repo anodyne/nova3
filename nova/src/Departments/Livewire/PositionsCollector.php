@@ -16,12 +16,18 @@ class PositionsCollector extends Component
     {
         $newIndex = $index + 1;
 
-        $this->positions[$newIndex]['id'] = null;
+        $this->positions[$newIndex] = [
+            'id' => null,
+            'primary' => false,
+        ];
     }
 
     public function handlePositionSelected($positionId, $index)
     {
-        $this->positions[$index]['id'] = $positionId;
+        $this->positions[$index] = [
+            'id' => $positionId,
+            'primary' => false,
+        ];
 
         $this->updatePositionIds();
     }
@@ -44,14 +50,22 @@ class PositionsCollector extends Component
             ->implode('id', ',');
     }
 
-    public function mount($positions = null)
+    public function mount($positions = null, $character = null)
     {
         if ($positions === null) {
-            $this->positions[0]['id'] = null;
+            $this->positions[0] = [
+                'id' => null,
+                'primary' => false,
+            ];
         } else {
             $this->positions = collect(explode(',', $positions))
-                ->map(function ($position) {
-                    return ['id' => $position];
+                ->map(function ($position) use ($character) {
+                    return [
+                        'id' => $position,
+                        'primary' => ($character === null)
+                            ? false
+                            : $position == $character->primaryPosition->first()->id
+                    ];
                 })
                 ->toArray();
 

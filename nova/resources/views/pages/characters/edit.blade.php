@@ -15,10 +15,10 @@
                 </x-input.group>
 
                 <x-input.group label="Position(s)" :error="$errors->first('positions')">
-                    @livewire(
-                        'positions:collector',
-                        ['positions' => old('positions', $character->positions->implode('id', ','))]
-                    )
+                    @livewire('positions:collector', [
+                        'positions' => old('positions', $character->positions->implode('id', ',')),
+                        'character' => $character,
+                    ])
                 </x-input.group>
 
                 <x-input.group label="Rank">
