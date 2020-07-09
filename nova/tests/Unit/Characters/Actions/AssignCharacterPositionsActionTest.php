@@ -31,40 +31,188 @@ class AssignCharacterPositionsActionTest extends TestCase
     }
 
     /** @test **/
-    public function itAssignsPositionsToCharacter()
+    public function itAssignsOnePositionToACharacterWithoutAnyPositionsAndSetsItAsThePrimaryPosition()
     {
-        $position1 = create(Position::class);
-        $position2 = create(Position::class);
+        $position = create(Position::class);
 
-        $data = new AssignCharacterPositionsData;
-        $data->positions = [$position1->id, $position2->id];
+        $data = new AssignCharacterPositionsData([
+            'positions' => [$position->id],
+        ]);
 
         $character = $this->action->execute($this->character, $data);
 
-        $position1->refresh();
-        $position2->refresh();
+        $position->refresh();
 
-        $this->assertCount(2, $character->positions);
-        $this->assertCount(1, $position1->characters->where('id', $this->character->id));
-        $this->assertCount(1, $position2->characters->where('id', $this->character->id));
+        $characterPositions = $character->positions;
+
+        $this->assertCount(1, $characterPositions);
+        $this->assertCount(1, $characterPositions->where('id', $position->id));
+        $this->assertTrue((bool) $characterPositions->first()->pivot->primary);
     }
 
     /** @test **/
-    public function itCanSetPrimaryPositionWhenAssigningPositionsToCharacter()
+    public function itAssignsMultiplePositionsToACharacterWithoutAnyPositions()
     {
-        $position1 = create(Position::class);
-        $position2 = create(Position::class);
+        $first = create(Position::class);
+        $second = create(Position::class);
 
-        $data = new AssignCharacterPositionsData;
-        $data->positions = [$position1->id, $position2->id];
-        $data->primaryPosition = $position1->id;
+        $data = new AssignCharacterPositionsData([
+            'positions' => [$first->id, $second->id],
+        ]);
 
         $character = $this->action->execute($this->character, $data);
 
-        $position1->refresh();
-        $position2->refresh();
+        $first->refresh();
+        $second->refresh();
 
-        $this->assertTrue((bool) $character->positions->where('id', $position1->id)->first()->pivot->primary);
-        $this->assertFalse((bool) $character->positions->where('id', $position2->id)->first()->pivot->primary);
+        $characterPositions = $character->positions;
+
+        $this->assertCount(2, $characterPositions);
+        $this->assertCount(1, $characterPositions->where('id', $first->id));
+        $this->assertCount(1, $characterPositions->where('id', $second->id));
+        $this->assertFalse((bool) $characterPositions[0]->pivot->primary);
+        $this->assertFalse((bool) $characterPositions[1]->pivot->primary);
+    }
+
+    /** @test **/
+    public function itAssignsMultiplePositionsToACharacterWithoutAnyPositionsAndSetsAPrimaryPosition()
+    {
+        $first = create(Position::class);
+        $second = create(Position::class);
+
+        $data = new AssignCharacterPositionsData([
+            'positions' => [$first->id, $second->id],
+            'primaryPosition' => $first->id,
+        ]);
+
+        $character = $this->action->execute($this->character, $data);
+
+        $first->refresh();
+        $second->refresh();
+
+        $characterPositions = $character->positions;
+
+        $this->assertCount(2, $characterPositions);
+        $this->assertCount(1, $characterPositions->where('id', $first->id));
+        $this->assertCount(1, $characterPositions->where('id', $second->id));
+        $this->assertTrue((bool) $characterPositions[0]->pivot->primary);
+        $this->assertFalse((bool) $characterPositions[1]->pivot->primary);
+    }
+
+    /** @test **/
+    public function itAssignsOnePositionToACharacterWithADifferentPositionsAndSetsItAsThePrimaryPosition()
+    {
+        $first = create(Position::class);
+        $second = create(Position::class);
+
+        $this->character->positions()->attach($first);
+
+        $data = new AssignCharacterPositionsData([
+            'positions' => [$second->id],
+        ]);
+
+        $character = $this->action->execute($this->character, $data);
+
+        $first->refresh();
+        $second->refresh();
+
+        $characterPositions = $character->positions;
+
+        $this->assertCount(1, $characterPositions);
+        $this->assertCount(0, $characterPositions->where('id', $first->id));
+        $this->assertCount(1, $characterPositions->where('id', $second->id));
+        $this->assertTrue((bool) $characterPositions->first()->pivot->primary);
+    }
+
+    /** @test **/
+    public function itChangesOnePositionOfACharacterWithMultiplePositionsWithoutChangingThePrimaryPosition()
+    {
+        $first = create(Position::class);
+        $second = create(Position::class);
+        $third = create(Position::class);
+
+        $this->character->positions()->attach($first);
+        $this->character->positions()->attach($second, ['primary' => true]);
+
+        $data = new AssignCharacterPositionsData([
+            'positions' => [$second->id, $third->id],
+            'primaryPosition' => $second->id,
+        ]);
+
+        $character = $this->action->execute($this->character, $data);
+
+        $first->refresh();
+        $second->refresh();
+        $third->refresh();
+
+        $characterPositions = $character->positions;
+
+        $this->assertCount(2, $characterPositions);
+        $this->assertCount(0, $characterPositions->where('id', $first->id));
+        $this->assertCount(1, $characterPositions->where('id', $second->id));
+        $this->assertCount(1, $characterPositions->where('id', $third->id));
+        $this->assertTrue((bool) $characterPositions->where('id', $second->id)->first()->pivot->primary);
+        $this->assertFalse((bool) $characterPositions->where('id', $third->id)->first()->pivot->primary);
+    }
+
+    /** @test **/
+    public function itChangesOnePositionOfACharacterWithMultiplePositionsWhileChangingThePrimaryPosition()
+    {
+        $first = create(Position::class);
+        $second = create(Position::class);
+        $third = create(Position::class);
+
+        $this->character->positions()->attach($first);
+        $this->character->positions()->attach($second, ['primary' => true]);
+
+        $data = new AssignCharacterPositionsData([
+            'positions' => [$second->id, $third->id],
+            'primaryPosition' => $third->id,
+        ]);
+
+        $character = $this->action->execute($this->character, $data);
+
+        $first->refresh();
+        $second->refresh();
+        $third->refresh();
+
+        $characterPositions = $character->positions;
+
+        $this->assertCount(2, $characterPositions);
+        $this->assertCount(0, $characterPositions->where('id', $first->id));
+        $this->assertCount(1, $characterPositions->where('id', $second->id));
+        $this->assertCount(1, $characterPositions->where('id', $third->id));
+        $this->assertFalse((bool) $characterPositions->where('id', $second->id)->first()->pivot->primary);
+        $this->assertTrue((bool) $characterPositions->where('id', $third->id)->first()->pivot->primary);
+    }
+
+    /** @test **/
+    public function itChangesPositionsAndRemovesThePrimaryPosition()
+    {
+        $first = create(Position::class);
+        $second = create(Position::class);
+        $third = create(Position::class);
+
+        $this->character->positions()->attach($first);
+        $this->character->positions()->attach($second, ['primary' => true]);
+
+        $data = new AssignCharacterPositionsData([
+            'positions' => [$second->id, $third->id],
+        ]);
+
+        $character = $this->action->execute($this->character, $data);
+
+        $first->refresh();
+        $second->refresh();
+        $third->refresh();
+
+        $characterPositions = $character->positions;
+
+        $this->assertCount(2, $characterPositions);
+        $this->assertCount(0, $characterPositions->where('id', $first->id));
+        $this->assertCount(1, $characterPositions->where('id', $second->id));
+        $this->assertCount(1, $characterPositions->where('id', $third->id));
+        $this->assertFalse((bool) $characterPositions->where('id', $second->id)->first()->pivot->primary);
+        $this->assertFalse((bool) $characterPositions->where('id', $third->id)->first()->pivot->primary);
     }
 }
