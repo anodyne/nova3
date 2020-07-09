@@ -16,6 +16,6 @@ class DeactivateCharacter
 
         $character->status->transitionTo(Inactive::class);
 
-        return $character->fresh();
+        return $character->refresh();
     }
 }

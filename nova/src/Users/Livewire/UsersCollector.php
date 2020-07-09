@@ -16,12 +16,18 @@ class UsersCollector extends Component
     {
         $newIndex = $index + 1;
 
-        $this->users[$newIndex]['id'] = null;
+        $this->users[$newIndex] = [
+            'id' => null,
+            'primary' => false,
+        ];
     }
 
     public function handleUserSelected($userId, $index)
     {
-        $this->users[$index]['id'] = $userId;
+        $this->users[$index] = [
+            'id' => $userId,
+            'primary' => false,
+        ];
 
         $this->updateUserIds();
     }
@@ -44,14 +50,22 @@ class UsersCollector extends Component
             ->implode('id', ',');
     }
 
-    public function mount($users = null)
+    public function mount($users = null, $character = null)
     {
         if ($users === null) {
-            $this->users[0]['id'] = null;
+            $this->users[0] = [
+                'id' => null,
+                'primary' => false,
+            ];
         } else {
             $this->users = collect(explode(',', $users))
-                ->map(function ($user) {
-                    return ['id' => $user];
+                ->map(function ($user) use ($character) {
+                    return [
+                        'id' => $user,
+                        'primary' => ($character === null)
+                            ? false
+                            : $character->primaryUsers->where('id', $user)->count() > 0,
+                    ];
                 })
                 ->toArray();
 

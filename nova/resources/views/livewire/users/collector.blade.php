@@ -10,15 +10,15 @@
                     key(Str::random())
                 )
 
-                <button wire:click="addUser({{ $loop->index }})" type="button" class="ml-3 group inline-flex items-center text-gray-600 transition ease-in-out duration-150 hover:text-gray-500 focus:outline-none">
-                    @icon('add-alt', 'h-6 w-6 text-gray-400 transition ease-in-out duration-150 group-hover:text-gray-500')
-                </button>
-
                 @if (count($users) > 1)
-                    <button wire:click="removeUser({{ $loop->index }})" type="button" class="ml-1 group inline-flex items-center text-gray-600 transition ease-in-out duration-150 hover:text-gray-500 focus:outline-none">
+                    <button wire:click="removeUser({{ $loop->index }})" type="button" class="ml-3 group inline-flex items-center text-gray-600 transition ease-in-out duration-150 hover:text-gray-500 focus:outline-none">
                         @icon('delete', 'h-6 w-6 text-gray-400 transition ease-in-out duration-150 group-hover:text-gray-500')
                     </button>
                 @endif
+
+                <button wire:click="addUser({{ $loop->index }})" type="button" class="ml-1 group inline-flex items-center text-gray-600 transition ease-in-out duration-150 hover:text-gray-500 focus:outline-none">
+                    @icon('add-alt', 'h-6 w-6 text-gray-400 transition ease-in-out duration-150 group-hover:text-gray-500')
+                </button>
             </div>
 
             @if ($user['id'] !== null)
@@ -29,6 +29,7 @@
                         id="primary_character_{{ $user['id'] }}"
                         for="primary_character_{{ $user['id'] }}"
                         value="{{ $user['id'] }}"
+                        :checked="$user['primary']"
                     />
                 </div>
             @endif

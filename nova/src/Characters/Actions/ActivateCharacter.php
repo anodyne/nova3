@@ -14,8 +14,19 @@ class ActivateCharacter
             ->performedOn($character)
             ->log(':subject.name was activated');
 
+        $usersWithCharacterAsPrimary = $character->users()->wherePivot('primary', true)->get();
+
+        $usersWithCharacterAsPrimary->reject(function ($user) {
+            return $user->characters()->wherePivot('primary', true)->count() === 1;
+        })->each(function ($user) use ($character) {
+            $user->characters()->wherePivot('primary', true)->updateExistingPivot(
+                $character->id,
+                ['primary' => false]
+            );
+        });
+
         $character->status->transitionTo(Active::class);
 
-        return $character->fresh();
+        return $character->refresh();
     }
 }

@@ -14,6 +14,8 @@ class SetCharacterType
             $this->transition($character, Secondary::class);
         }
 
+        $character->refresh();
+
         if ($character->primaryUsers()->count() > 0) {
             $this->transition($character, Primary::class);
         }

@@ -27,24 +27,30 @@ class AssignCharacterOwners
             })
             ->all();
 
+        $this->updateExistingPrimaryCharacterForUsers($character, $data);
+
         $character->users()->sync($users);
 
         return $character->refresh();
     }
 
-    protected function updateExistingPrimaryCharacterForUser($userId)
-    {
-        $user = User::find($userId);
+    protected function updateExistingPrimaryCharacterForUsers(
+        Character $character,
+        AssignCharacterOwnersData $data
+    ) {
+        collect($data->primaryCharacters)->each(function ($userId) use ($character) {
+            $user = User::find($userId);
 
-        $oldPrimaryCharacter = $user->primaryCharacter->first();
+            $oldPrimaryCharacter = $user->primaryCharacter->first();
 
-        if ($oldPrimaryCharacter) {
-            $user->primaryCharacter()->updateExistingPivot(
-                $oldPrimaryCharacter->id,
-                ['primary' => false]
-            );
+            if ($oldPrimaryCharacter && $oldPrimaryCharacter->isNot($character)) {
+                $user->primaryCharacter()->updateExistingPivot(
+                    $oldPrimaryCharacter->id,
+                    ['primary' => false]
+                );
 
-            $this->setCharacterType->execute($oldPrimaryCharacter);
-        }
+                $this->setCharacterType->execute($oldPrimaryCharacter);
+            }
+        });
     }
 }

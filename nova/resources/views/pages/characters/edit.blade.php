@@ -34,10 +34,10 @@
 
             <x-form.section title="Ownership" message="Characters can be assigned to any number of users and all users will have the same permissions with the character. Additionally, if the character takes any action that sends a notification, all users will be notified.">
                 <x-input.group label="User(s)">
-                    @livewire(
-                        'users:collector',
-                        ['users' => old('users', $character->users->implode('id', ','))]
-                    )
+                    @livewire('users:collector', [
+                        'users' => old('users', $character->users->implode('id', ',')),
+                        'character' => $character,
+                    ])
                 </x-input.group>
             </x-form.section>
 
@@ -48,4 +48,48 @@
             </x-form.footer>
         </x-form>
     </x-panel>
+
+    @can('deactivate', $character)
+        <x-panel class="mt-8 p-4 | sm:p-6">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">
+                Deactivate Character
+            </h3>
+            <div class="mt-2 | sm:flex sm:items-start sm:justify-between">
+                <div class="w-full text-sm leading-6 font-medium text-gray-600">
+                    <p>
+                        When deactivating the character, the owning user(s) will remain at their current status. Pay special attention to deactivating a character who is the only character assigned to a user as it may impede their ability to contribute to stories.
+                    </p>
+                </div>
+                <div class="mt-5 | sm:mt-0 sm:ml-8 sm:flex-shrink-0 sm:flex sm:items-center">
+                    <x-form :action="route('characters.deactivate', $character)">
+                        <button type="submit" class="button button-danger-soft">
+                            Deactivate
+                        </button>
+                    </x-form>
+                </div>
+            </div>
+        </x-panel>
+    @endcan
+
+    @can('activate', $character)
+        <x-panel class="mt-8 p-4 | sm:p-6">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">
+                Activate Character
+            </h3>
+            <div class="mt-2 | sm:flex sm:items-start sm:justify-between">
+                <div class="w-full text-sm leading-6 font-medium text-gray-600">
+                    <p>
+                        When activating the character, if they were previously a primary character for the user, but the user has since had a new primary character set for themselves, this character will be set as a secondary character for the user.
+                    </p>
+                </div>
+                <div class="mt-5 | sm:mt-0 sm:ml-8 sm:flex-shrink-0 sm:flex sm:items-center">
+                    <x-form :action="route('characters.activate', $character)">
+                        <button type="submit" class="button button-primary-soft">
+                            Activate
+                        </button>
+                    </x-form>
+                </div>
+            </div>
+        </x-panel>
+    @endcan
 @endsection

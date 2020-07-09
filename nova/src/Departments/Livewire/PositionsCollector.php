@@ -64,7 +64,7 @@ class PositionsCollector extends Component
                         'id' => $position,
                         'primary' => ($character === null)
                             ? false
-                            : $position == $character->primaryPosition->first()->id
+                            : $position == optional($character->primaryPosition->first())->id,
                     ];
                 })
                 ->toArray();
