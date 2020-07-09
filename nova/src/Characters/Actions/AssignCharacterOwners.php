@@ -17,17 +17,17 @@ class AssignCharacterOwners
 
     public function execute(Character $character, AssignCharacterOwnersData $data): Character
     {
-        if (count($data->users) > 0) {
-            collect($data->users)->each(function ($userId) use ($character, $data) {
-                if ($shouldBePrimary = in_array($userId, $data->primaryCharacters)) {
-                    $this->updateExistingPrimaryCharacterForUser($userId);
-                }
+        $users = collect($data->users)
+            ->mapWithKeys(function ($user) use ($data) {
+                $primary = (! isset($data->primaryCharacters))
+                    ? ['primary' => false]
+                    : ['primary' => in_array($user, $data->primaryCharacters)];
 
-                $character->users()->sync($userId, [
-                    'primary' => $shouldBePrimary,
-                ]);
-            });
-        }
+                return [$user => $primary];
+            })
+            ->all();
+
+        $character->users()->sync($users);
 
         return $character->refresh();
     }

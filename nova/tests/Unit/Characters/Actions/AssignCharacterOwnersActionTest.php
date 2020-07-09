@@ -33,65 +33,20 @@ class AssignCharacterOwnersActionTest extends TestCase
     }
 
     /** @test **/
-    public function itAssignsOwnershipOfCharacterToUsers()
+    public function itAssignsOneUserToACharacterWithoutAnyUsers()
     {
-        $john = create(User::class, [], ['status:active']);
-        $jason = create(User::class, [], ['status:active']);
+        $first = create(User::class, [], ['status:active']);
 
-        $data = new AssignCharacterOwnersData;
-        $data->users = [$john->id, $jason->id];
-        $data->primaryCharacters = [];
+        $data = new AssignCharacterOwnersData([
+            'users' => [$first->id],
+        ]);
 
         $character = $this->action->execute($this->character, $data);
 
-        $john->refresh();
-        $jason->refresh();
+        $characterUsers = $character->users;
 
-        $this->assertCount(2, $character->users);
-        $this->assertCount(1, $john->characters->where('id', $this->character->id));
-        $this->assertCount(1, $jason->characters->where('id', $this->character->id));
-    }
-
-    /** @test **/
-    public function itCanSetPrimaryCharacterWhenAssigningOwnershipOfCharacterToUsers()
-    {
-        $john = create(User::class, [], ['status:active']);
-        $jason = create(User::class, [], ['status:active']);
-
-        $data = new AssignCharacterOwnersData;
-        $data->users = [$john->id, $jason->id];
-        $data->primaryCharacters = [$jason->id];
-
-        $character = $this->action->execute($this->character, $data);
-
-        $john->refresh();
-        $jason->refresh();
-
-        $this->assertTrue((bool) $jason->characters->first()->pivot->primary);
-        $this->assertFalse((bool) $john->characters->first()->pivot->primary);
-    }
-
-    /** @test **/
-    public function itChangesExistingPrimaryCharacterToSecondaryCharacterWhenACharacterIsMarkedAsAUsersNewPrimaryCharacter()
-    {
-        $jason = create(User::class, [], ['status:active']);
-
-        $oldCharacter = create(Character::class, [], ['status:active']);
-        $oldCharacter->users()->attach($jason, ['primary' => true]);
-        $oldCharacter->type->transitionTo(Primary::class);
-
-        $data = new AssignCharacterOwnersData;
-        $data->users = [$jason->id];
-        $data->primaryCharacters = [$jason->id];
-
-        $character = $this->action->execute($this->character, $data);
-
-        $jason->refresh();
-        $oldCharacter->refresh();
-
-        $this->assertCount(1, $jason->primaryCharacter);
-        $this->assertTrue($jason->primaryCharacter->first()->is($this->character));
-        $this->assertFalse($jason->primaryCharacter->first()->is($oldCharacter));
-        $this->assertTrue($oldCharacter->type->equals(Secondary::class));
+        $this->assertCount(1, $characterUsers);
+        $this->assertCount(1, $characterUsers->where('id', $first->id));
+        $this->assertFalse((bool) $characterUsers[0]->pivot->primary);
     }
 }
