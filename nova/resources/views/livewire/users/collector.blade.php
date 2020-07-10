@@ -3,7 +3,7 @@
 
     @foreach ($users as $user)
         <div class="flex flex-col @if (! $loop->first) mt-4 @endif">
-            <div class="flex items-center w-full" wire:model="users">
+            <div class="flex items-center w-full">
                 @livewire(
                     'users:dropdown',
                     ['index' => $loop->index, 'user' => $user['id']],

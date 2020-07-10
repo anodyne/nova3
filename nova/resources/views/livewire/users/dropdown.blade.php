@@ -38,9 +38,19 @@
     >
         <div class="relative rounded-md bg-white shadow-xs max-h-60 overflow-auto z-10">
             <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                <div class="p-2">
+                    <div class="flex items-center rounded bg-gray-100 border-2 border-gray-100 text-gray-600 px-2 py-2 focus-within:border-gray-200 focus-within:bg-white focus-within:text-gray-700">
+                        <div class="flex-shrink-0 mr-3">
+                            @icon('search', 'h-5 w-5')
+                        </div>
+                        <input wire:model.debounce.250ms="query" type="text" placeholder="Find a user..." class="block w-full appearance-none bg-transparent focus:outline-none">
+                    </div>
+                </div>
+
                 @forelse ($users as $user)
-                    <button wire:click="selectUser({{ $user->id }})" type="button" class="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none" role="menuitem">
-                        {{ $user->name }}
+                    <button wire:click="selectUser({{ $user->id }})" type="button" class="inline-flex items-center space-x-3 w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none" role="menuitem">
+                        <span aria-label="{{ $user->status->displayName() }}" class="bg-{{ $user->status->color() }}-400 flex-shrink-0 inline-block h-2 w-2 rounded-full"></span>
+                        <span>{{ $user->name }}</span>
                     </button>
                 @empty
                     <span class="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 focus:outline-none" role="menuitem">
