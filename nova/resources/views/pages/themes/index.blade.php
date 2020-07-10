@@ -127,7 +127,7 @@
         </div>
     </div>
 
-    <x-modal color="red" headline="Delete theme?" icon="warning" :url="route('themes.delete')">
+    <x-modal color="red" title="Delete theme?" icon="warning" :url="route('themes.delete')">
         <x-slot name="footer">
             <span class="flex w-full | sm:col-start-2">
                 <button form="form" class="button button-danger w-full">
