@@ -7,6 +7,7 @@ use Nova\Users\Models\User;
 use Nova\Users\Events\UserCreated;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Event;
+use Nova\Characters\Models\Character;
 use Nova\Users\Events\UserCreatedByAdmin;
 use Nova\Users\Requests\CreateUserRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -39,14 +40,32 @@ class CreateUserTest extends TestCase
     {
         $this->signInWithPermission('user.create');
 
-        $data = make(User::class);
+        $data = make(User::class, [
+            'name' => 'Jack Sparrow',
+        ]);
+
+        $character = create(Character::class);
 
         $this->followingRedirects();
 
-        $response = $this->post(route('users.store'), $data->toArray());
+        $response = $this->post(route('users.store'), array_merge(
+            $data->toArray(),
+            [
+                'characters' => $character->id,
+                'primary_character' => $character->id,
+            ]
+        ));
         $response->assertSuccessful();
 
+        $user = User::where('name', 'Jack Sparrow')->first();
+
         $this->assertDatabaseHas('users', $data->only('name', 'email'));
+
+        $this->assertDatabaseHas('character_user', [
+            'character_id' => $character->id,
+            'user_id' => $user->id,
+            'primary' => true,
+        ]);
 
         $this->assertRouteUsesFormRequest(
             'users.store',
