@@ -26,7 +26,13 @@ class UsersDropdown extends Component
 
     public function updatedQuery($value)
     {
-        $this->users = User::get();
+        $this->users = User::query()
+            ->where(function ($query) use ($value) {
+                return $query->where('name', 'like', "%{$value}%")
+                    ->orWhere('email', 'like', "%{$value}%");
+            })
+            ->orderBy('name')
+            ->get();
     }
 
     public function mount($user = null, $index = 0)
