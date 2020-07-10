@@ -32,6 +32,29 @@
             </x-input.group>
         </x-form.section>
 
+        <x-form.section title="Character(s)">
+            <div class="flex flex-col w-full space-y-2">
+                @foreach ($user->characters as $character)
+                    <div class="group flex items-center justify-between w-full py-2 px-4 rounded even:bg-gray-100">
+                        <div class="flex items-center space-x-3">
+                            <div class="flex-shrink-0">
+                                <x-avatar size="lg" :url="$character->avatar_url" />
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="font-medium">{{ $character->name }}</span>
+                                <span>
+                                    <x-badge :type="$character->type->color()" size="sm">{{ $character->type->displayName() }}</x-badge>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <span aria-label="{{ $character->status->displayName() }}" class="bg-{{ $character->status->color() }}-400 flex-shrink-0 inline-block h-2 w-2 rounded-full"></span>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </x-form.section>
+
         <x-form.section title="Activity" message="Keep track of milestones and latest activity of a user in the system.">
             <x-input.group label="Joined">
                 <p class="font-semibold">{{ $user->created_at }}</p>

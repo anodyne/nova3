@@ -58,7 +58,7 @@
         </x-form.section>
 
         @if ($character->users->count() > 0)
-            <x-form.section title="User Info">
+            <x-form.section title="Ownership" message="Characters can be assigned to any number of users and all assigned users will have the same rights with the character. Additionally, any notifications on behalf of the character will be sent to all users assigned to the character.">
                 <x-input.group label="Played By">
                     <div class="flex flex-col w-full">
                         @foreach ($character->users as $user)

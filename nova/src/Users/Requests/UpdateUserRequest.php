@@ -11,14 +11,16 @@ class UpdateUserRequest extends ValidatesRequest
     public function rules()
     {
         return [
-            'name' => ['required'],
+            'avatar' => ['nullable', 'mimes:jpeg,png,gif', new MaxFileSize],
+            'characters' => ['nullable'],
             'email' => [
                 'required',
                 'email',
                 Rule::unique('users')->ignore($this->user),
             ],
+            'name' => ['required'],
+            'primary_character' => ['nullable'],
             'pronouns' => ['required', 'in:male,female,neutral'],
-            'avatar' => ['nullable', 'mimes:jpeg,png,gif', new MaxFileSize],
         ];
     }
 

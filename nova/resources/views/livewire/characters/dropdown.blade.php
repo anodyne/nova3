@@ -1,6 +1,6 @@
 <div
     x-data="{ open: false }"
-    x-on:users-dropdown-close.window="open = false"
+    x-on:characters-dropdown-close.window="open = false"
     x-on:keydown.window.escape="open = false"
     x-on:click.away="open = false"
     class="relative inline-block text-left w-full"
@@ -18,10 +18,10 @@
                 @if ($selected)
                     <div class="flex items-center space-x-3">
                         <span aria-label="{{ $selected->status->displayName() }}" class="bg-{{ $selected->status->color() }}-400 flex-shrink-0 inline-block h-2 w-2 rounded-full"></span>
-                        <span>{{ $selected->name }}</span>
+                        <span class="ml-3">{{ $selected->name }}</span>
                     </div>
                 @else
-                    <span>Pick a user</span>
+                    <span>Pick a character</span>
                 @endif
 
                 <svg class="ml-2 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
@@ -50,18 +50,25 @@
                         <div class="flex-shrink-0 mr-3">
                             @icon('search', 'h-5 w-5')
                         </div>
-                        <input wire:model.debounce.250ms="query" type="text" placeholder="Find a user..." class="block w-full appearance-none bg-transparent focus:outline-none">
+                        <input wire:model.debounce.250ms="query" type="text" placeholder="Find a character..." class="block w-full appearance-none bg-transparent focus:outline-none">
                     </div>
                 </div>
 
-                @forelse ($users as $user)
-                    <button wire:click="selectUser({{ $user->id }})" type="button" class="inline-flex items-center space-x-3 w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none" role="menuitem">
-                        <span aria-label="{{ $user->status->displayName() }}" class="bg-{{ $user->status->color() }}-400 flex-shrink-0 inline-block h-2 w-2 rounded-full"></span>
-                        <span>{{ $user->name }}</span>
+                @forelse ($characters as $character)
+                    <button wire:click="selectCharacter({{ $character->id }})" type="button" class="inline-flex items-center w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none" role="menuitem">
+                        <div class="flex items-center justify-between w-full">
+                            <div class="flex items-center">
+                                <span aria-label="{{ $character->status->displayName() }}" class="bg-{{ $character->status->color() }}-400 flex-shrink-0 inline-block h-2 w-2 rounded-full"></span>
+                                <span class="ml-3">{{ $character->name }}</span>
+                            </div>
+                            <div class="flex items-center text-xs uppercase tracking-wide text-gray-500">
+                                {{ $character->type->displayName() }}
+                            </div>
+                        </div>
                     </button>
                 @empty
                     <span class="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 focus:outline-none" role="menuitem">
-                        No users found
+                        No characters found
                     </span>
                 @endforelse
             </div>

@@ -2,6 +2,8 @@
 
 namespace Nova\Characters\Providers;
 
+use Nova\Characters\Livewire\CharactersCollector;
+use Nova\Characters\Livewire\CharactersDropdown;
 use Nova\DomainServiceProvider;
 use Nova\Characters\Models\Character;
 use Nova\Characters\Policies\CharacterPolicy;
@@ -15,6 +17,8 @@ use Nova\Characters\Responses\UpdateCharacterResponse;
 class CharacterServiceProvider extends DomainServiceProvider
 {
     protected $livewireComponents = [
+        'characters:collector' => CharactersCollector::class,
+        'characters:dropdown' => CharactersDropdown::class,
         'characters:upload-avatar' => CharacterUploadAvatar::class,
     ];
 

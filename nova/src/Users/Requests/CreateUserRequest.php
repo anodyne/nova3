@@ -9,8 +9,10 @@ class CreateUserRequest extends ValidatesRequest
     public function rules()
     {
         return [
-            'name' => ['required'],
+            'characters' => ['nullable'],
             'email' => ['required', 'email', 'unique:users,email'],
+            'name' => ['required'],
+            'primary_character' => ['nullable'],
             'pronouns' => ['required', 'in:male,female,neutral'],
         ];
     }
