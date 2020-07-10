@@ -25,13 +25,15 @@ class UpdateCharacterTest extends TestCase
     {
         parent::setUp();
 
-        $this->character = create(Character::class, [], ['status:active']);
+        $this->character = create(Character::class);
 
         $position = create(Position::class);
-        $user = create(User::class, [], ['status:active']);
+        $user = create(User::class);
 
         $this->character->positions()->attach($position);
         $this->character->users()->attach($user);
+
+        $this->character->refresh();
     }
 
     /** @test **/
@@ -83,11 +85,7 @@ class UpdateCharacterTest extends TestCase
     /** @test **/
     public function eventsAreDispatchedWhenACharacterIsUpdated()
     {
-        $this->markTestSkipped('Not sure why this is failing yet');
-
         Event::fake();
-
-        $this->withoutExceptionHandling();
 
         $this->signInWithPermission('character.update');
 
