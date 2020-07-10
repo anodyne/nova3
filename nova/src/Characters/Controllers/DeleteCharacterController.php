@@ -37,6 +37,6 @@ class DeleteCharacterController extends Controller
 
         return redirect()
             ->route('characters.index')
-            ->withToast("{$character->name}'s account was deleted");
+            ->withToast("{$character->name} was deleted");
     }
 }

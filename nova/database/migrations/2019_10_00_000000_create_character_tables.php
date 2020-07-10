@@ -20,6 +20,7 @@ class CreateCharacterTables extends Migration
             $table->string('status');
             $table->foreignId('rank_id')->nullable()->constrained('rank_items');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('character_position', function (Blueprint $table) {

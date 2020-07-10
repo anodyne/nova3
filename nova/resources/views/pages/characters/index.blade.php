@@ -230,7 +230,7 @@
 
     <x-tips section="characters" />
 
-    <x-modal color="red" headline="Delete character?" icon="warning" :url="route('characters.delete')">
+    <x-modal color="red" title="Delete character?" icon="warning" :url="route('characters.delete')">
         <x-slot name="footer">
             <span class="flex w-full | sm:col-start-2">
                 <button form="form" class="button button-danger w-full">
@@ -245,7 +245,7 @@
         </x-slot>
     </x-modal>
 
-    <x-modal color="blue" headline="Deactivate character?" icon="duplicate" :url="route('characters.confirm-deactivate')" event="modal-deactivate">
+    <x-modal color="blue" title="Deactivate character?" icon="duplicate" :url="route('characters.confirm-deactivate')" event="modal-deactivate">
         <x-slot name="footer">
             <span class="flex w-full | sm:col-start-2">
                 <button form="form-deactivate" class="button button-primary w-full">

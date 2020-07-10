@@ -11,6 +11,7 @@ use Nova\Departments\Models\Position;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Nova\Foundation\Concerns\HasStatesExtended;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Nova\Characters\Models\States\Types\Primary;
@@ -33,6 +34,7 @@ class Character extends Model implements HasMedia
     use HasStatesExtended;
     use HasMediaTrait;
     use HasEagerLimit;
+    use SoftDeletes;
 
     public const MEDIA_DIRECTORY = 'characters/{model_id}/{media_id}/';
 
