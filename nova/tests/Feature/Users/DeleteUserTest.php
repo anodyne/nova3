@@ -6,6 +6,7 @@ use Tests\TestCase;
 use Nova\Users\Models\User;
 use Nova\Users\Events\UserDeleted;
 use Illuminate\Support\Facades\Event;
+use Nova\Characters\Models\Character;
 use Nova\Users\Events\UserDeletedByAdmin;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -49,6 +50,21 @@ class DeleteUserTest extends TestCase
 
         Event::assertDispatched(UserDeleted::class);
         Event::assertDispatched(UserDeletedByAdmin::class);
+    }
+
+    /** @test **/
+    public function charactersAssignedToTheUserAreDeletedWhenTheUserIsDeleted()
+    {
+        $character = create(Character::class, [], ['status:active']);
+        $this->user->characters()->attach($character);
+
+        $this->signInWithPermission('user.delete');
+
+        $response = $this->delete(route('users.destroy', $this->user));
+
+        $this->assertSoftDeleted('users', $this->user->only('id'));
+
+        $this->assertSoftDeleted('characters', $character->only('id'));
     }
 
     /** @test **/
