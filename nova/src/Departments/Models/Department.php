@@ -22,8 +22,8 @@ class Department extends Model
 
     protected $dispatchesEvents = [
         'created' => Events\DepartmentCreated::class,
-        'updated' => Events\DepartmentUpdated::class,
         'deleted' => Events\DepartmentDeleted::class,
+        'updated' => Events\DepartmentUpdated::class,
     ];
 
     protected $fillable = ['name', 'description', 'sort', 'active'];
@@ -32,28 +32,14 @@ class Department extends Model
 
     public function positions()
     {
-        return $this->hasMany(Position::class)->orderBy('sort', 'asc');
+        return $this->hasMany(Position::class)->orderBySort();
     }
 
-    /**
-     * Set the description for logging.
-     *
-     * @param  string  $eventName
-     *
-     * @return string
-     */
     public function getDescriptionForEvent(string $eventName): string
     {
         return ":subject.name department was {$eventName}";
     }
 
-    /**
-     * Use a custom Eloquent builder.
-     *
-     * @param  \Illuminate\Database\Query\Builder  $query
-     *
-     * @return DepartmentBuilder
-     */
     public function newEloquentBuilder($query): DepartmentBuilder
     {
         return new DepartmentBuilder($query);

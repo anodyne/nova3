@@ -11,6 +11,7 @@ use Nova\Characters\DataTransferObjects\AssignCharacterPositionsData;
 
 /**
  * @group characters
+ * @group departments
  * @group positions
  */
 class AssignCharacterPositionsActionTest extends TestCase

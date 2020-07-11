@@ -6,11 +6,11 @@ use Nova\Foundation\Requests\ValidatesRequest;
 
 class CreateDepartmentRequest extends ValidatesRequest
 {
-    public function rules()
+    public function rules(): array
     {
         return [
-            'name' => ['required'],
             'description' => ['nullable'],
+            'name' => ['required'],
         ];
     }
 }

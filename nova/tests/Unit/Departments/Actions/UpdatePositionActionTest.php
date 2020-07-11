@@ -35,13 +35,14 @@ class UpdatePositionActionTest extends TestCase
     {
         $newDepartment = create(Department::class);
 
-        $data = new PositionData;
-        $data->name = 'Executive Officer';
-        $data->description = 'Lorem consectetur adipisicing elit.';
-        $data->active = false;
-        $data->available = 5;
-        $data->department_id = $newDepartment->id;
-        $data->department = $newDepartment;
+        $data = new PositionData([
+            'name' => 'Executive Officer',
+            'description' => 'Lorem consectetur adipisicing elit.',
+            'active' => false,
+            'available' => 5,
+            'department_id' => $newDepartment->id,
+            'department' => $newDepartment,
+        ]);
 
         $position = $this->action->execute($this->position, $data);
 

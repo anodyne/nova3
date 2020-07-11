@@ -23,8 +23,8 @@ class Position extends Model
 
     protected $dispatchesEvents = [
         'created' => Events\PositionCreated::class,
-        'updated' => Events\PositionUpdated::class,
         'deleted' => Events\PositionDeleted::class,
+        'updated' => Events\PositionUpdated::class,
     ];
 
     protected $fillable = [
@@ -43,25 +43,11 @@ class Position extends Model
         return $this->belongsTo(Department::class);
     }
 
-    /**
-     * Set the description for logging.
-     *
-     * @param  string  $eventName
-     *
-     * @return string
-     */
     public function getDescriptionForEvent(string $eventName): string
     {
         return ":subject.name position was {$eventName}";
     }
 
-    /**
-     * Use a custom Eloquent builder.
-     *
-     * @param  \Illuminate\Database\Query\Builder  $query
-     *
-     * @return PositionBuilder
-     */
     public function newEloquentBuilder($query): PositionBuilder
     {
         return new PositionBuilder($query);

@@ -6,7 +6,7 @@ use Nova\Foundation\Requests\ValidatesRequest;
 
 class UpdatePositionRequest extends ValidatesRequest
 {
-    public function rules()
+    public function rules(): array
     {
         return [
             'active' => ['required'],
@@ -14,6 +14,13 @@ class UpdatePositionRequest extends ValidatesRequest
             'department_id' => ['required', 'exists:departments,id'],
             'description' => ['nullable'],
             'name' => ['required'],
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'department_id' => 'department ID',
         ];
     }
 }

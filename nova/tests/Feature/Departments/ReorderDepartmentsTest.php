@@ -3,8 +3,8 @@
 namespace Tests\Feature\Departments;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Departments\Models\Department;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
  * @group departments

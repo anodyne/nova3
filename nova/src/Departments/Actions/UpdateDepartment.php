@@ -9,6 +9,6 @@ class UpdateDepartment
 {
     public function execute(Department $department, DepartmentData $data): Department
     {
-        return tap($department)->update($data->toArray())->fresh();
+        return tap($department)->update($data->toArray())->refresh();
     }
 }

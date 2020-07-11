@@ -11,6 +11,6 @@ class UpdatePosition
     {
         return tap($position)->update(
             $data->except('department')->toArray()
-        )->fresh();
+        )->refresh();
     }
 }
