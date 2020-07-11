@@ -14,7 +14,7 @@
     @if (auth()->user()->notes()->count() === 0)
         <x-empty-state
             image="notes"
-            message="Notes are a great way to keep your thoughts organized, be it about things you need to do for the game, a story idea, or as a scratchpad for your next great story entry."
+            message="Notes are a great way to keep your thoughts organized, be it about things you need to do for the game, a story idea, or as a scratchpad for your next great story post."
             label="Add a note now"
             :link="route('notes.create')"
         ></x-empty-state>
