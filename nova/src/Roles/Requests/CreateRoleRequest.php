@@ -6,23 +6,22 @@ use Nova\Foundation\Requests\ValidatesRequest;
 
 class CreateRoleRequest extends ValidatesRequest
 {
-    public function rules()
+    public function rules(): array
     {
         return [
-            'name' => ['required', 'unique:roles'],
+            'default' => ['sometimes'],
             'display_name' => ['required'],
+            'name' => ['required', 'unique:roles'],
             'permissions' => ['nullable'],
             'users' => ['nullable'],
-            'default' => ['sometimes'],
         ];
     }
 
-    public function messages()
+    public function attributes(): array
     {
         return [
-            'display_name.required' => 'The name field is required.',
-            'name.required' => 'The key field is required.',
-            'name.unique' => 'That value already exists. Please choose a unique key.',
+            'display_name' => 'name',
+            'name' => 'key',
         ];
     }
 }

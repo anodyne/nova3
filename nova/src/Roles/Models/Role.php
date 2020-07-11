@@ -12,8 +12,8 @@ use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
 class Role extends LaratrustRole
 {
-    use LogsActivity;
     use HasEagerLimit;
+    use LogsActivity;
 
     protected static $logFillable = true;
 
@@ -26,21 +26,14 @@ class Role extends LaratrustRole
 
     protected $dispatchesEvents = [
         'created' => Events\RoleCreated::class,
-        'updated' => Events\RoleUpdated::class,
         'deleted' => Events\RoleDeleted::class,
+        'updated' => Events\RoleUpdated::class,
     ];
 
     protected $fillable = [
         'name', 'display_name', 'description', 'default', 'sort',
     ];
 
-    /**
-     * Set the description for logging.
-     *
-     * @param  string  $eventName
-     *
-     * @return string
-     */
     public function getDescriptionForEvent(string $eventName): string
     {
         return ":subject.display_name role was {$eventName}";
@@ -64,27 +57,13 @@ class Role extends LaratrustRole
             ->orderBy('name');
     }
 
-    /**
-     * Give the role to a specific user.
-     *
-     * @param  User  $user
-     *
-     * @return Role
-     */
-    public function giveToUser(User $user)
+    public function giveToUser(User $user): self
     {
         $user->attachRole($this);
 
         return $this;
     }
 
-    /**
-     * Use a custom Eloquent builder.
-     *
-     * @param  \Illuminate\Database\Query\Builder  $query
-     *
-     * @return RoleBuilder
-     */
     public function newEloquentBuilder($query): RoleBuilder
     {
         return new RoleBuilder($query);

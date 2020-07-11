@@ -7,17 +7,17 @@ use Nova\Roles\Models\Role;
 
 class ManageRoles extends Component
 {
-    public $roles = [];
-
     public $query;
 
     public $results;
 
+    public $roles = [];
+
     public function addRole($roleId, $role)
     {
-        $this->roles[$roleId] = $role;
-
         $this->dispatchBrowserEvent('dropdown-close');
+
+        $this->roles[$roleId] = $role;
 
         $this->query = null;
         $this->results = null;

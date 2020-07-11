@@ -49,7 +49,11 @@ class UpdateRoleTest extends TestCase
 
         $response = $this->put(
             route('roles.update', $this->role),
-            $role->toArray()
+            array_merge($role->toArray(), [
+                'id' => $this->role->id,
+                'permissions' => [],
+                'users' => [],
+            ])
         );
         $response->assertSuccessful();
 
@@ -78,7 +82,9 @@ class UpdateRoleTest extends TestCase
         $response = $this->put(
             route('roles.update', $this->role),
             array_merge($role->toArray(), [
+                'id' => $this->role->id,
                 'permissions' => [$permission1->id, $permission2->id],
+                'users' => [],
             ])
         );
         $response->assertSuccessful();
@@ -114,7 +120,9 @@ class UpdateRoleTest extends TestCase
         $response = $this->put(
             route('roles.update', $this->role),
             array_merge($role->toArray(), [
+                'id' => $this->role->id,
                 'permissions' => [$permission1->id],
+                'users' => [],
             ])
         );
         $response->assertSuccessful();

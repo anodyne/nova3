@@ -9,14 +9,8 @@ use Nova\Roles\DataTransferObjects\RoleAssignmentData;
 
 class CreateRoleManager
 {
-    /**
-     * @var  CreateRole
-     */
     protected $createRole;
 
-    /**
-     * @var  UpdateRoleUsers
-     */
     protected $updateRoleUsers;
 
     public function __construct(

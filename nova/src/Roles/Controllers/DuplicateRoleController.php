@@ -6,7 +6,6 @@ use Nova\Roles\Models\Role;
 use Nova\Roles\Actions\DuplicateRole;
 use Nova\Roles\Events\RoleDuplicated;
 use Nova\Foundation\Controllers\Controller;
-use Nova\Roles\Requests\DuplicateRoleRequest;
 
 class DuplicateRoleController extends Controller
 {
@@ -18,7 +17,6 @@ class DuplicateRoleController extends Controller
     }
 
     public function __invoke(
-        DuplicateRoleRequest $request,
         DuplicateRole $action,
         Role $originalRole
     ) {
@@ -30,6 +28,6 @@ class DuplicateRoleController extends Controller
 
         return redirect()
             ->route('roles.edit', $role)
-            ->withToast("{$originalRole->display_name} has been duplicated");
+            ->withToast("{$originalRole->display_name} role has been duplicated");
     }
 }

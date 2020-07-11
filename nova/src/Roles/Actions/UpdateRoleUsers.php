@@ -2,17 +2,12 @@
 
 namespace Nova\Roles\Actions;
 
-use Nova\Foundation\Action;
 use Nova\Roles\DataTransferObjects\RoleAssignmentData;
 
-class UpdateRoleUsers extends Action
+class UpdateRoleUsers
 {
-    public $errorMessage = 'There was a problem updating users roles';
-
-    public function execute(RoleAssignmentData $data)
+    public function execute(RoleAssignmentData $data): void
     {
-        return $this->call(function () use ($data) {
-            $data->role->users()->sync($data->users);
-        });
+        $data->role->users()->sync($data->users);
     }
 }

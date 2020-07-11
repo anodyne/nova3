@@ -16,9 +16,9 @@ class ManagePermissions extends Component
 
     public function addPermission($permissionId, $permission)
     {
-        $this->permissions[$permissionId] = $permission;
-
         $this->dispatchBrowserEvent('dropdown-close');
+
+        $this->permissions[$permissionId] = $permission;
 
         $this->query = null;
         $this->results = null;
@@ -32,8 +32,10 @@ class ManagePermissions extends Component
     public function updatedQuery($value)
     {
         $this->results = Permission::query()
-            ->where('name', 'like', "%{$value}%")
-            ->orWhere('display_name', 'like', "%{$value}%")
+            ->where(function ($query) use ($value) {
+                return $query->where('name', 'like', "%{$value}%")
+                    ->orWhere('display_name', 'like', "%{$value}%");
+            })
             ->orderBy('display_name')
             ->get();
     }

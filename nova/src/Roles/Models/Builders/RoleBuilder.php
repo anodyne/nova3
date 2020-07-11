@@ -11,7 +11,7 @@ class RoleBuilder extends Builder
     use Filterable;
     use Sortable;
 
-    public function whereAtOrBelowSortOrder($maxSortValue)
+    public function whereAtOrBelowSortOrder($maxSortValue): Builder
     {
         return $this->where('sort', '>=', $maxSortValue);
     }

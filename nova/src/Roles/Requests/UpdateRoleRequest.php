@@ -6,22 +6,22 @@ use Nova\Foundation\Requests\ValidatesRequest;
 
 class UpdateRoleRequest extends ValidatesRequest
 {
-    public function rules()
+    public function rules(): array
     {
         return [
-            'name' => ['required'],
+            'default' => ['sometimes'],
             'display_name' => ['required'],
+            'name' => ['required'],
             'permissions' => ['nullable'],
             'users' => ['nullable'],
-            'default' => ['sometimes'],
         ];
     }
 
-    public function messages()
+    public function attributes(): array
     {
         return [
-            'display_name.required' => 'The name field is required.',
-            'name.required' => 'The key field is required.',
+            'display_name' => 'name',
+            'name' => 'key',
         ];
     }
 }

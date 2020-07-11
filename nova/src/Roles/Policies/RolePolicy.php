@@ -10,104 +10,44 @@ class RolePolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * Determine whether the user can view any role.
-     *
-     * @param  User  $user
-     *
-     * @return bool
-     */
-    public function viewAny(User $user)
+    public function viewAny(User $user): bool
     {
         return $user->can('role.*');
     }
 
-    /**
-     * Determine whether the user can view the role.
-     *
-     * @param  User  $user
-     * @param  Role  $role
-     *
-     * @return bool
-     */
-    public function view(User $user, Role $role)
+    public function view(User $user, Role $role): bool
     {
         return $user->can('role.view');
     }
 
-    /**
-     * Determine whether the user can create roles.
-     *
-     * @param  User  $user
-     *
-     * @return bool
-     */
-    public function create(User $user)
+    public function create(User $user): bool
     {
         return $user->can('role.create');
     }
 
-    /**
-     * Determine whether the user can update the role.
-     *
-     * @param  User  $user
-     * @param  Role  $role
-     *
-     * @return bool
-     */
-    public function update(User $user, Role $role)
+    public function update(User $user, Role $role): bool
     {
         return $user->can('role.update');
     }
 
-    /**
-     * Determine whether the user can delete the role.
-     *
-     * @param  User  $user
-     * @param  Role  $role
-     *
-     * @return bool
-     */
-    public function delete(User $user, Role $role)
+    public function delete(User $user, Role $role): bool
     {
         return $user->can('role.delete') && ! $role->locked;
     }
 
-    /**
-     * Determine whether the user can duplicate the role.
-     *
-     * @param  User  $user
-     * @param  Role  $role
-     */
-    public function duplicate(User $user, Role $role)
+    public function duplicate(User $user, Role $role): bool
     {
         return $user->can('role.create')
             && $user->can('role.update')
             && ! $role->locked;
     }
 
-    /**
-     * Determine whether the user can restore the role.
-     *
-     * @param  User  $user
-     * @param  Role  $role
-     *
-     * @return bool
-     */
-    public function restore(User $user, Role $role)
+    public function restore(User $user, Role $role): bool
     {
         return false;
     }
 
-    /**
-     * Determine whether the user can permanently delete the role.
-     *
-     * @param  User  $user
-     * @param  Role  $role
-     *
-     * @return bool
-     */
-    public function forceDelete(User $user, Role $role)
+    public function forceDelete(User $user, Role $role): bool
     {
         return false;
     }

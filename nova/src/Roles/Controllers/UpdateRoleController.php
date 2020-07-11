@@ -37,6 +37,6 @@ class UpdateRoleController extends Controller
 
         $role = $action->execute($role, $request);
 
-        return back()->withToast("{$role->display_name} was updated");
+        return back()->withToast("{$role->display_name} role was updated");
     }
 }

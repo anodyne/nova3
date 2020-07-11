@@ -2,10 +2,10 @@
 
 namespace Tests\Unit\Roles\Actions;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nova\Roles\Actions\DeleteRole;
-use Nova\Roles\Models\Role;
 use Tests\TestCase;
+use Nova\Roles\Models\Role;
+use Nova\Roles\Actions\DeleteRole;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
  * @group roles
