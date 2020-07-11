@@ -27,8 +27,9 @@ class CreateRankGroupActionTest extends TestCase
     /** @test **/
     public function itCreatesARankGroup()
     {
-        $data = new RankGroupData;
-        $data->name = 'Command';
+        $data = new RankGroupData([
+            'name' => 'Command',
+        ]);
 
         $group = $this->action->execute($data);
 
@@ -42,8 +43,9 @@ class CreateRankGroupActionTest extends TestCase
         create(RankGroup::class, ['sort' => 0]);
         create(RankGroup::class, ['sort' => 1]);
 
-        $data = new RankGroupData;
-        $data->name = 'Command';
+        $data = new RankGroupData([
+            'name' => 'Command',
+        ]);
 
         $group = $this->action->execute($data);
 

@@ -36,11 +36,12 @@ class CreateRankItemActionTest extends TestCase
     /** @test **/
     public function itCreatesARankItem()
     {
-        $data = new RankItemData;
-        $data->group_id = $this->group->id;
-        $data->name_id = $this->name->id;
-        $data->base_image = 'base.png';
-        $data->overlay_image = 'overlay.png';
+        $data = new RankItemData([
+            'group_id' => $this->group->id,
+            'name_id' => $this->name->id,
+            'base_image' => 'base.png',
+            'overlay_image' => 'overlay.png',
+        ]);
 
         $item = $this->action->execute($data);
 

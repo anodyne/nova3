@@ -27,8 +27,9 @@ class CreateRankNameActionTest extends TestCase
     /** @test **/
     public function itCreatesARankName()
     {
-        $data = new RankNameData;
-        $data->name = 'Captain';
+        $data = new RankNameData([
+            'name' => 'Captain',
+        ]);
 
         $name = $this->action->execute($data);
 
@@ -42,8 +43,9 @@ class CreateRankNameActionTest extends TestCase
         create(RankName::class, ['sort' => 0]);
         create(RankName::class, ['sort' => 1]);
 
-        $data = new RankNameData;
-        $data->name = 'Captain';
+        $data = new RankNameData([
+            'name' => 'Captain',
+        ]);
 
         $name = $this->action->execute($data);
 

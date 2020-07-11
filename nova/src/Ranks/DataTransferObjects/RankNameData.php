@@ -7,10 +7,7 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class RankNameData extends DataTransferObject
 {
-    /**
-     * @var  string
-     */
-    public $name;
+    public string $name;
 
     public static function fromRequest(Request $request): self
     {

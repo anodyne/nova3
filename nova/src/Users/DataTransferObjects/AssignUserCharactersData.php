@@ -8,15 +8,9 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class AssignUserCharactersData extends DataTransferObject
 {
-    /**
-     * @var  array
-     */
-    public $characters;
+    public ?array $characters;
 
-    /**
-     * @var  Character
-     */
-    public $primaryCharacter;
+    public ?Character $primaryCharacter;
 
     public static function fromRequest(Request $request): self
     {

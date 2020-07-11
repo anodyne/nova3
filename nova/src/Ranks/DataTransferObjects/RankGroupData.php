@@ -7,15 +7,12 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class RankGroupData extends DataTransferObject
 {
-    /**
-     * @var  string
-     */
-    public $name;
+    public string $name;
 
     public static function fromRequest(Request $request): self
     {
         return new self([
-            'name' => $request->input('name'),
+            'name' => $request->name,
         ]);
     }
 }

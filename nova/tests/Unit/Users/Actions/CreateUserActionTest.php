@@ -23,10 +23,11 @@ class CreateUserActionTest extends TestCase
     /** @test **/
     public function itCreatesANewUser()
     {
-        $data = new UserData;
-        $data->name = 'John Public';
-        $data->email = 'john@example.com';
-        $data->pronouns = 'neutral';
+        $data = new UserData([
+            'name' => 'John Public',
+            'email' => 'john@example.com',
+            'pronouns' => 'neutral',
+        ]);
 
         $user = $this->action->execute($data);
 
