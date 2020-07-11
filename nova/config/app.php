@@ -182,6 +182,7 @@ return [
         Nova\Setup\Providers\SetupServiceProvider::class,
         Nova\Auth\Providers\AuthServiceProvider::class,
         Nova\Characters\Providers\CharacterServiceProvider::class,
+        Nova\Dashboard\Providers\DashboardServiceProvider::class,
         Nova\Departments\Providers\DepartmentServiceProvider::class,
         Nova\Notes\Providers\NoteServiceProvider::class,
         Nova\Ranks\Providers\RankServiceProvider::class,

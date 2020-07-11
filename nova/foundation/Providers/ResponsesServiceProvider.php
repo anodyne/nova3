@@ -21,8 +21,6 @@ class ResponsesServiceProvider extends ServiceProvider
         return [
             \Nova\Foundation\Responses\SimplePageResponse::class,
             \Nova\Foundation\Responses\WelcomePageResponse::class,
-
-            \Nova\Dashboard\Responses\DashboardResponse::class,
         ];
     }
 
