@@ -7,15 +7,9 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class AssignCharacterPositionsData extends DataTransferObject
 {
-    /**
-     * @var  array
-     */
-    public $positions;
+    public array $positions;
 
-    /**
-     * @var  string
-     */
-    public $primaryPosition;
+    public ?int $primaryPosition;
 
     public static function fromRequest(Request $request): self
     {

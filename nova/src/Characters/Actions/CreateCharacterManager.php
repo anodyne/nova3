@@ -54,6 +54,6 @@ class CreateCharacterManager
 
         $this->uploadCharacterAvatar->execute($character, $request->avatar_path);
 
-        return $character->fresh();
+        return $character->refresh();
     }
 }

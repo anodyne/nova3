@@ -6,7 +6,7 @@ use Nova\Foundation\Requests\ValidatesRequest;
 
 class UpdateCharacterRequest extends ValidatesRequest
 {
-    public function rules()
+    public function rules(): array
     {
         return [
             'name' => ['required'],

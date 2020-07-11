@@ -16,6 +16,6 @@ class UpdateCharacterStatus extends Action
             $character->status->transitionTo($newStatus);
         }
 
-        return $character->fresh();
+        return $character->refresh();
     }
 }

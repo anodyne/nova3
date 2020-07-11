@@ -12,39 +12,24 @@ class CharacterBuilder extends Builder
 {
     use Filterable;
 
-    /**
-     * Get active users.
-     *
-     * @return Builder
-     */
     public function whereActive()
     {
         return $this->where('status', Active::class);
     }
 
-    /**
-     * Get inactive users.
-     *
-     * @return Builder
-     */
     public function whereInactive()
     {
-        return $this->where('state', '=', Inactive::class);
-    }
-
-    /**
-     * Get pending users.
-     *
-     * @return Builder
-     */
-    public function wherePending()
-    {
-        return $this->where('state', '=', Pending::class);
+        return $this->where('state', Inactive::class);
     }
 
     public function whereIsPrimaryCharacter()
     {
         return $this->join('character_user', 'character_user.character_id', '=', 'characters.id')
-            ->where('character_user.primary', true);
+           ->where('character_user.primary', true);
+    }
+
+    public function wherePending()
+    {
+        return $this->where('state', Pending::class);
     }
 }

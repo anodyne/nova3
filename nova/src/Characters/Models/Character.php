@@ -29,11 +29,11 @@ use Nova\Characters\Models\States\Statuses\ActiveToInactive;
 
 class Character extends Model implements HasMedia
 {
-    use LogsActivity;
+    use HasEagerLimit;
+    use HasMediaTrait;
     use HasStates;
     use HasStatesExtended;
-    use HasMediaTrait;
-    use HasEagerLimit;
+    use LogsActivity;
     use SoftDeletes;
 
     public const MEDIA_DIRECTORY = 'characters/{model_id}/{media_id}/';
@@ -42,17 +42,27 @@ class Character extends Model implements HasMedia
 
     protected $dispatchesEvents = [
         'created' => Events\CharacterCreated::class,
-        'updated' => Events\CharacterUpdated::class,
         'deleted' => Events\CharacterDeleted::class,
+        'updated' => Events\CharacterUpdated::class,
     ];
 
     protected $fillable = [
         'name', 'status', 'rank_id',
     ];
 
+    public function activeUsers()
+    {
+        return $this->users()->where('status', ActiveUser::class);
+    }
+
     public function positions()
     {
         return $this->belongsToMany(Position::class)->withPivot('primary');
+    }
+
+    public function posts()
+    {
+        return $this->morphMany(Post::class, 'authorable');
     }
 
     public function primaryPosition()
@@ -60,9 +70,9 @@ class Character extends Model implements HasMedia
         return $this->positions()->wherePivot('primary', true);
     }
 
-    public function posts()
+    public function primaryUsers()
     {
-        return $this->morphMany(Post::class, 'authorable');
+        return $this->activeUsers()->wherePivot('primary', true);
     }
 
     public function rank()
@@ -77,80 +87,26 @@ class Character extends Model implements HasMedia
             ->withTimestamps();
     }
 
-    public function activeUsers()
-    {
-        return $this->users()->where('status', ActiveUser::class);
-    }
-
-    public function primaryUsers()
-    {
-        return $this->activeUsers()->wherePivot('primary', true);
-    }
-
-    public function getHasUserAttribute(): bool
-    {
-        return $this->users()->count() > 0;
-    }
-
-    public function getIsSupportAttribute(): bool
-    {
-        return $this->users()->count() === 0;
-    }
-
-    public function getIsSecondaryAttribute(): bool
-    {
-        return false;
-    }
-
-    /**
-     * Set the description for logging.
-     *
-     * @param  string  $eventName
-     *
-     * @return string
-     */
     public function getDescriptionForEvent(string $eventName): string
     {
         return ":subject.name was {$eventName}";
     }
 
-    /**
-     * Get the URL of the user's avatar.
-     *
-     * @return string
-     */
     public function getAvatarUrlAttribute(): string
     {
         return $this->getFirstMediaUrl('avatar');
     }
 
-    /**
-     * Does the user have an avatar?
-     *
-     * @return bool
-     */
     public function getHasAvatarAttribute(): bool
     {
         return $this->getFirstMedia('avatar') !== null;
     }
 
-    /**
-     * Use the customized Eloquent builder when working with users.
-     *
-     * @param  \Illuminate\Database\Query\Builder  $query
-     *
-     * @return CharacterBuilder
-     */
     public function newEloquentBuilder($query): CharacterBuilder
     {
         return new CharacterBuilder($query);
     }
 
-    /**
-     * Register the media collections for the model.
-     *
-     * @return void
-     */
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('avatar')
@@ -159,11 +115,6 @@ class Character extends Model implements HasMedia
             ->singleFile();
     }
 
-    /**
-     * Register the states and transitions for the model.
-     *
-     * @return void
-     */
     protected function registerStates(): void
     {
         $this->addState('status', CharacterStatus::class)

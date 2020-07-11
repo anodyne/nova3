@@ -10,36 +10,36 @@ use Nova\Characters\DataTransferObjects\AssignCharacterPositionsData;
 
 class UpdateCharacterManager
 {
+    protected $assignCharacterOwners;
+
+    protected $assignCharacterPositions;
+
+    protected $removeAvatar;
+
+    protected $setCharacterType;
+
     protected $updateCharacter;
 
     protected $updateStatus;
 
     protected $uploadAvatar;
 
-    protected $removeAvatar;
-
-    protected $assignCharacterOwners;
-
-    protected $assignCharacterPositions;
-
-    protected $setCharacterType;
-
     public function __construct(
-        UpdateCharacter $updateCharacter,
-        UpdateCharacterStatus $updateStatus,
         AssignCharacterOwners $assignCharacterOwners,
         AssignCharacterPositions $assignCharacterPositions,
+        RemoveCharacterAvatar $removeAvatar,
         SetCharacterType $setCharacterType,
-        UploadCharacterAvatar $uploadAvatar,
-        RemoveCharacterAvatar $removeAvatar
+        UpdateCharacter $updateCharacter,
+        UpdateCharacterStatus $updateStatus,
+        UploadCharacterAvatar $uploadAvatar
     ) {
+        $this->assignCharacterOwners = $assignCharacterOwners;
+        $this->assignCharacterPositions = $assignCharacterPositions;
+        $this->removeAvatar = $removeAvatar;
+        $this->setCharacterType = $setCharacterType;
         $this->updateCharacter = $updateCharacter;
         $this->updateStatus = $updateStatus;
         $this->uploadAvatar = $uploadAvatar;
-        $this->removeAvatar = $removeAvatar;
-        $this->assignCharacterOwners = $assignCharacterOwners;
-        $this->assignCharacterPositions = $assignCharacterPositions;
-        $this->setCharacterType = $setCharacterType;
     }
 
     public function execute(Character $character, Request $request): Character

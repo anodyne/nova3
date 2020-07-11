@@ -11,6 +11,6 @@ class UpdateCharacter
     {
         return tap($character)
             ->update($data->toArray())
-            ->fresh();
+            ->refresh();
     }
 }

@@ -7,15 +7,9 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class CharacterData extends DataTransferObject
 {
-    /**
-     * @var  string
-     */
-    public $name;
+    public string $name;
 
-    /**
-     * @var  int
-     */
-    public $rank_id;
+    public ?int $rank_id;
 
     public static function fromRequest(Request $request): self
     {
