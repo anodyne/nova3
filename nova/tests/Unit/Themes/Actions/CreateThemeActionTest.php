@@ -3,9 +3,7 @@
 namespace Tests\Unit\Themes\Actions;
 
 use Tests\TestCase;
-use Nova\Themes\Models\Theme;
 use Nova\Themes\Actions\CreateTheme;
-use Illuminate\Support\Facades\Storage;
 use Nova\Themes\DataTransferObjects\ThemeData;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -28,11 +26,12 @@ class CreateThemeActionTest extends TestCase
     /** @test **/
     public function itCreatesATheme()
     {
-        $data = new ThemeData;
-        $data->name = 'Foo';
-        $data->location = 'foo';
-        $data->active = true;
-        $data->preview = 'preview.jpg';
+        $data = new ThemeData([
+            'name' => 'Foo',
+            'location' => 'foo',
+            'active' => true,
+            'preview' => 'preview.jpg',
+        ]);
 
         $theme = $this->action->execute($data);
 

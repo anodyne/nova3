@@ -7,43 +7,25 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class ThemeData extends DataTransferObject
 {
-    /**
-     * @var  string
-     */
-    public $name;
+    public string $name;
 
-    /**
-     * @var  string
-     */
-    public $location;
+    public string $location;
 
-    /**
-     * @var  string
-     */
-    public $credits;
+    public ?string $credits;
 
-    /**
-     * @var  bool
-     */
-    public $active = true;
+    public bool $active = true;
 
-    /**
-     * @var  string
-     */
-    public $preview;
+    public ?string $preview;
 
-    /**
-     * @var  string[]
-     */
-    public $variants;
+    public ?array $variants;
 
     public static function fromRequest(Request $request): self
     {
         return new self([
-            'name' => $request->name,
-            'location' => $request->location,
-            'credits' => $request->credits,
             'active' => $request->active ?? true,
+            'credits' => $request->credits,
+            'location' => $request->location,
+            'name' => $request->name,
             'preview' => $request->preview,
             'variants' => explode(',', $request->input('variants')),
         ]);

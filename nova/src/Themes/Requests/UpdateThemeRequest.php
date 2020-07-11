@@ -6,12 +6,12 @@ use Nova\Foundation\Requests\ValidatesRequest;
 
 class UpdateThemeRequest extends ValidatesRequest
 {
-    public function rules()
+    public function rules(): array
     {
         return [
-            'name' => ['required'],
-            'credits' => ['nullable'],
             'active' => ['required'],
+            'credits' => ['nullable'],
+            'name' => ['required'],
         ];
     }
 }
