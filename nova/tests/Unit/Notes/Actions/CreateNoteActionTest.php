@@ -27,11 +27,12 @@ class CreateNoteActionTest extends TestCase
     /** @test **/
     public function itCreatesANewNote()
     {
-        $data = new NoteData;
-        $data->title = 'My Note';
-        $data->content = 'Content of my note';
-        $data->summary = 'Summary of my note';
-        $data->user = $user = create(User::class, [], ['status:active']);
+        $data = new NoteData([
+            'title' => 'My Note',
+            'content' => 'Content of my note',
+            'summary' => 'Summary of my note',
+            'user' => $user = create(User::class, [], ['status:active']),
+        ]);
 
         $note = $this->action->execute($data);
 

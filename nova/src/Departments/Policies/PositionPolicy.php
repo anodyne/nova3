@@ -10,37 +10,37 @@ class PositionPolicy
 {
     use HandlesAuthorization;
 
-    public function viewAny(User $user)
+    public function viewAny(User $user): bool
     {
         return $user->can('department.*');
     }
 
-    public function view(User $user, Position $position)
+    public function view(User $user, Position $position): bool
     {
         return $user->can('department.view');
     }
 
-    public function create(User $user)
+    public function create(User $user): bool
     {
         return $user->can('department.create');
     }
 
-    public function update(User $user, Position $position)
+    public function update(User $user, Position $position): bool
     {
         return $user->can('department.update');
     }
 
-    public function delete(User $user, Position $position)
+    public function delete(User $user, Position $position): bool
     {
         return $user->can('department.delete');
     }
 
-    public function restore(User $user, Position $position)
+    public function restore(User $user, Position $position): bool
     {
         return false;
     }
 
-    public function forceDelete(User $user, Position $position)
+    public function forceDelete(User $user, Position $position): bool
     {
         return false;
     }
