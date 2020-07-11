@@ -6,7 +6,6 @@ use Nova\Notes\Models\Note;
 use Nova\Notes\Actions\DuplicateNote;
 use Nova\Notes\Events\NoteDuplicated;
 use Nova\Foundation\Controllers\Controller;
-use Nova\Notes\Requests\DuplicateNoteRequest;
 
 class DuplicateNoteController extends Controller
 {
@@ -18,7 +17,6 @@ class DuplicateNoteController extends Controller
     }
 
     public function __invoke(
-        DuplicateNoteRequest $request,
         DuplicateNote $action,
         Note $originalNote
     ) {

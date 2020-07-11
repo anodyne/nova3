@@ -6,13 +6,13 @@ use Nova\Foundation\Requests\ValidatesRequest;
 
 class UpdateNoteRequest extends ValidatesRequest
 {
-    public function rules()
+    public function rules(): array
     {
         return [
-            'title' => ['required'],
             'content' => ['nullable'],
             'source' => ['nullable'],
             'summary' => ['nullable'],
+            'title' => ['required'],
         ];
     }
 }

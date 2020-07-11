@@ -6,7 +6,6 @@ use Tests\TestCase;
 use Nova\Notes\Models\Note;
 use Illuminate\Support\Facades\Event;
 use Nova\Notes\Events\NoteDuplicated;
-use Nova\Notes\Requests\DuplicateNoteRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
@@ -34,11 +33,6 @@ class DuplicateNoteTest extends TestCase
 
         $response = $this->post(route('notes.duplicate', $this->note));
         $response->assertSuccessful();
-
-        $this->assertRouteUsesFormRequest(
-            'notes.duplicate',
-            DuplicateNoteRequest::class
-        );
 
         $this->assertDatabaseHas('notes', [
             'title' => "Copy of {$this->note->title}",

@@ -29,9 +29,10 @@ class CreateCharacterActionTest extends TestCase
     {
         $rank = create(RankItem::class);
 
-        $data = new CharacterData;
-        $data->name = 'Jack Sparrow';
-        $data->rank_id = $rank->id;
+        $data = new CharacterData([
+            'name' => 'Jack Sparrow',
+            'rank_id' => $rank->id,
+        ]);
 
         $character = $this->action->execute($data);
 

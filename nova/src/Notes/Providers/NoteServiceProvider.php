@@ -20,8 +20,8 @@ class NoteServiceProvider extends DomainServiceProvider
     protected $responsables = [
         CreateNoteResponse::class,
         DeleteNoteResponse::class,
-        UpdateNoteResponse::class,
         ShowAllNotesResponse::class,
         ShowNoteResponse::class,
+        UpdateNoteResponse::class,
     ];
 }

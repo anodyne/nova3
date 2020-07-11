@@ -35,10 +35,11 @@ class UpdateNoteActionTest extends TestCase
     /** @test **/
     public function itUpdatesANote()
     {
-        $data = new NoteData;
-        $data->title = 'My Note';
-        $data->content = 'New content';
-        $data->summary = 'New summary';
+        $data = new NoteData([
+            'title' => 'My Note',
+            'content' => 'New content',
+            'summary' => 'New summary',
+        ]);
 
         $note = $this->action->execute($this->note, $data);
 
