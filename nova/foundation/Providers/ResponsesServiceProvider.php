@@ -22,11 +22,6 @@ class ResponsesServiceProvider extends ServiceProvider
             \Nova\Foundation\Responses\SimplePageResponse::class,
             \Nova\Foundation\Responses\WelcomePageResponse::class,
 
-            \Nova\Auth\Responses\LoginResponse::class,
-            \Nova\Auth\Responses\ForgotPasswordResponse::class,
-            \Nova\Auth\Responses\ResetPasswordResponse::class,
-            \Nova\Auth\Responses\EmailVerificationResponse::class,
-
             \Nova\Dashboard\Responses\DashboardResponse::class,
         ];
     }
