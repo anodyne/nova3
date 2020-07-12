@@ -19,7 +19,7 @@ class ActiveToInactive extends Transition
     {
         $this->user->status = Inactive::class;
 
-        $this->user->characters->each(function ($character) {
+        $this->user->activeCharacters->each(function ($character) {
             if ($character->users->count() === 1) {
                 $character->status->transitionTo(InactiveCharacter::class);
             }

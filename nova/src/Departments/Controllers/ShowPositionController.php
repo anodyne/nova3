@@ -23,7 +23,8 @@ class ShowPositionController extends Controller
     {
         $this->authorize('viewAny', Department::class);
 
-        $positions = Position::whereDepartment($departmentId)
+        $positions = Position::withCount('activeCharacters')
+            ->whereDepartment($departmentId)
             ->filter($filters)
             ->orderBySort();
 

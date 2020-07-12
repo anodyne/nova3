@@ -64,6 +64,22 @@ class MakeThemeCommandTest extends TestCase
     }
 
     /** @test **/
+    public function itStripsUnnecessaryWhitespaceFromVariantFilenames()
+    {
+        $this->artisan('nova:make-theme', [
+            'name' => 'Foo',
+            '--variants' => ['blue', ' red', 'green ', ' purple '],
+        ]);
+
+        $files = $this->disk->allFiles('foo');
+
+        $this->assertContains('foo/design/variants/blue.css', $files);
+        $this->assertContains('foo/design/variants/red.css', $files);
+        $this->assertContains('foo/design/variants/green.css', $files);
+        $this->assertContains('foo/design/variants/purple.css', $files);
+    }
+
+    /** @test **/
     public function itRequiresALocationToScaffoldAThemeDirectory()
     {
         $this->expectException(RuntimeException::class);

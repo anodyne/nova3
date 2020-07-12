@@ -26,6 +26,12 @@
                             @icon('check', 'h-5 w-5')
                         @endif
                     </a>
+                    <a href="{{ route('characters.index', 'status='.request('status').'&noposition=1') }}" class="{{ $component->link() }} justify-between">
+                        <span>Not assigned a position</span>
+                        @if (request()->has('noposition'))
+                            @icon('check', 'h-5 w-5')
+                        @endif
+                    </a>
 
                     <div class="{{ $component->divider() }}"></div>
 

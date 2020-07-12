@@ -75,8 +75,12 @@ class ThemeMakeCommand extends Command
         $stub = file_get_contents(__DIR__ . '/../stubs/theme.json.stub');
 
         $stub = str_replace(
-            ['DummyName', 'DummyLocation'],
-            [$this->getThemeName(), $this->getThemeLocation()],
+            ['DummyName', 'DummyLocation', 'DummyPreview'],
+            [
+                $this->getThemeName(),
+                $this->getThemeLocation(),
+                $this->getThemePreviewImage(),
+            ],
             $stub
         );
 
@@ -124,7 +128,8 @@ class ThemeMakeCommand extends Command
             $this->files->makeDirectory($this->getThemeLocation() . '/design/variants');
 
             collect($variants)->each(function ($variant) {
-                $this->createStylesheet("variants/{$variant}.css");
+                $stylesheet = trim($variant);
+                $this->createStylesheet("variants/{$stylesheet}.css");
             });
         }
     }
@@ -168,6 +173,16 @@ class ThemeMakeCommand extends Command
     }
 
     /**
+     * Get the preview image of the theme.
+     *
+     * @return string
+     */
+    protected function getThemePreviewImage()
+    {
+        return $this->option('preview') ?? 'preview.jpg';
+    }
+
+    /**
      * Get the console command arguments.
      *
      * @return array
@@ -188,6 +203,7 @@ class ThemeMakeCommand extends Command
     {
         return [
             ['location', 'l', InputOption::VALUE_OPTIONAL, 'Set a custom location for the theme'],
+            ['preview', 'p', InputOption::VALUE_OPTIONAL, 'Set a custom preview image name for the theme'],
             ['variants', null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'Set the variants for the theme'],
         ];
     }

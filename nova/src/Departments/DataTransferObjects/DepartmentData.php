@@ -16,7 +16,7 @@ class DepartmentData extends DataTransferObject
     public static function fromRequest(Request $request): self
     {
         return new self([
-            'active' => (bool) $request->active ?? true,
+            'active' => (bool) ($request->active ?? true),
             'description' => $request->description,
             'name' => $request->name,
         ]);

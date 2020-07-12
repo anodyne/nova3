@@ -11,6 +11,7 @@ use Nova\Characters\Events\CharacterUpdated;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Characters\Events\CharacterUpdatedByAdmin;
 use Nova\Characters\Requests\UpdateCharacterRequest;
+use Nova\Ranks\Models\RankItem;
 
 /**
  * @group characters
@@ -52,8 +53,11 @@ class UpdateCharacterTest extends TestCase
 
         $this->followingRedirects();
 
+        $rank = create(RankItem::class);
+
         $response = $this->put(route('characters.update', $this->character), [
             'name' => 'Jack Sparrow',
+            'rank_id' => $rank->id,
             'positions' => $this->character->positions->implode('id', ','),
             'users' => $this->character->users->implode('id', ','),
         ]);
@@ -89,8 +93,11 @@ class UpdateCharacterTest extends TestCase
 
         $this->signInWithPermission('character.update');
 
+        $rank = create(RankItem::class);
+
         $response = $this->put(route('characters.update', $this->character), [
             'name' => 'Jack Sparrow',
+            'rank_id' => $rank->id,
             'positions' => $this->character->positions->implode('id', ','),
             'users' => $this->character->users->implode('id', ','),
         ]);

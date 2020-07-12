@@ -8,6 +8,8 @@ class DeletePosition
 {
     public function execute(Position $position): Position
     {
+        $position->characters()->detach();
+
         return tap($position)->delete();
     }
 }

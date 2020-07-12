@@ -45,7 +45,7 @@ class ShowRankItemController extends Controller
         $this->authorize('view', $item);
 
         return app(ShowRankItemResponse::class)->with([
-            'item' => $item->load('group', 'name'),
+            'item' => $item->load('group', 'name', 'characters'),
         ]);
     }
 }

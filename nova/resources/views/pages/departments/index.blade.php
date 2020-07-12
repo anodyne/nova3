@@ -81,7 +81,7 @@
                                             @if ($department->active)
                                                 <x-badge size="sm" type="success">Active</x-badge>
                                             @else
-                                                <x-badge size="sm" type="danger">Inactive</x-badge>
+                                                <x-badge size="sm">Inactive</x-badge>
                                             @endif
                                         </div>
 
@@ -151,7 +151,7 @@
 
         <x-tips section="departments" />
 
-        <x-modal color="red" title="Delete department?" icon="warning" :url="route('departments.delete')">
+        <x-modal color="red" title="Delete Department?" icon="warning" :url="route('departments.delete')">
             <x-slot name="footer">
                 <span class="flex w-full | sm:col-start-2">
                     <button form="form" class="button button-danger w-full">

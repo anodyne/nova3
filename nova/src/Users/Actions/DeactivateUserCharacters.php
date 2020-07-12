@@ -16,7 +16,7 @@ class DeactivateUserCharacters
 
     public function execute(User $user): User
     {
-        $user->characters->each(function($character) {
+        $user->activeCharacters->each(function($character) {
             $this->deactivateCharacter->execute($character);
         });
 

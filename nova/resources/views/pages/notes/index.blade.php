@@ -46,6 +46,7 @@
                                             @icon('show', $component->icon())
                                             <span>View</span>
                                         </a>
+
                                         <a href="{{ route('notes.edit', $note) }}" class="{{ $component->link() }}">
                                             @icon('edit', $component->icon())
                                             <span>Edit</span>
@@ -86,7 +87,7 @@
 
         <x-tips section="notes" />
 
-        <x-modal color="red" title="Delete note?" icon="warning" :url="route('notes.delete')">
+        <x-modal color="red" title="Delete Note?" icon="warning" :url="route('notes.delete')">
             <x-slot name="footer">
                 <span class="flex w-full | sm:col-start-2">
                     <button form="form" class="button button-danger w-full">

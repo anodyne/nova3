@@ -36,7 +36,7 @@
 
                     <div class="flex flex-col w-full">
                         @foreach ($character->positions as $position)
-                            <div class="group flex items-center justify-between py-2 px-4 rounded even:bg-gray-100">
+                            <div class="group flex items-center justify-between py-2 px-4 rounded odd:bg-gray-100">
                                 {{ $position->name }}
                             </div>
                         @endforeach
@@ -62,11 +62,24 @@
                 <x-input.group label="Played By">
                     <div class="flex flex-col w-full">
                         @foreach ($character->users as $user)
-                            <div class="group flex items-center py-2 px-4 rounded even:bg-gray-100">
-                                <div class="flex-shrink-0">
-                                    <x-avatar size="lg" :url="$user->avatar_url" />
+                            <div class="group flex items-center justify-between py-2 px-4 rounded odd:bg-gray-100">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0">
+                                        <x-avatar size="lg" :url="$user->avatar_url" />
+                                    </div>
+                                    <div class="flex flex-col ml-3">
+                                        <span class="font-medium">{{ $user->name }}</span>
+                                        <span>
+                                            <x-badge :type="$user->status->color()" size="sm">{{ $user->status->displayName() }}</x-badge>
+                                        </span>
+                                    </div>
                                 </div>
-                                <span class="ml-3 font-medium">{{ $user->name }}</span>
+
+                                @can('update', $user)
+                                    <a href="{{ route('users.edit', $user) }}" class="text-gray-500 transition ease-in-out duration-150 hover:text-gray-700 group-hover:visible | sm:invisible">
+                                        @icon('edit')
+                                    </a>
+                                @endcan
                             </div>
                         @endforeach
                     </div>

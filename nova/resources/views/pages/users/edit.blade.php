@@ -165,7 +165,7 @@
             </div>
         @endcan
 
-        <div class="mt-6">
+        {{-- <div class="mt-6">
             <div class="rounded-md bg-gray-50 px-6 py-5 | sm:flex sm:items-start sm:justify-between">
                 <div class="sm:flex sm:items-start">
                     @icon('sign-out', 'flex-shrink-0 h-8 w-8 text-gray-500')
@@ -185,6 +185,6 @@
                     </x-form>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </x-panel>
 @endsection

@@ -17,7 +17,7 @@
             >
                 @if ($selected)
                     <div class="flex items-center space-x-3">
-                        <span aria-label="{{ $selected->status->displayName() }}" class="bg-{{ $selected->status->color() }}-400 flex-shrink-0 inline-block h-2 w-2 rounded-full"></span>
+                        <x-status :status="$selected->status" />
                         <span class="ml-3">{{ $selected->name }}</span>
                     </div>
                 @else
@@ -58,7 +58,7 @@
                     <button wire:click="selectCharacter({{ $character->id }})" type="button" class="inline-flex items-center w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none" role="menuitem">
                         <div class="flex items-center justify-between w-full">
                             <div class="flex items-center">
-                                <span aria-label="{{ $character->status->displayName() }}" class="bg-{{ $character->status->color() }}-400 flex-shrink-0 inline-block h-2 w-2 rounded-full"></span>
+                                <x-status :status="$character->status" />
                                 <span class="ml-3">{{ $character->name }}</span>
                             </div>
                             <div class="flex items-center text-xs uppercase tracking-wide text-gray-500">

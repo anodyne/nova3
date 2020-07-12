@@ -7,11 +7,18 @@ use Nova\Characters\Models\Character;
 
 class CharacterFilters extends Filters
 {
-    protected $filters = ['search', 'status', 'type', 'hasuser', 'nouser'];
+    protected $filters = [
+        'search', 'status', 'type', 'hasuser', 'nouser', 'noposition'
+    ];
 
     public function hasuser($value)
     {
         return $this->builder->whereHas('users');
+    }
+
+    public function noposition($value)
+    {
+        return $this->builder->whereDoesntHave('positions');
     }
 
     public function nouser($value)

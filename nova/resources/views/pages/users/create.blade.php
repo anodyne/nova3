@@ -57,6 +57,12 @@
                 </x-input.group>
             </x-form.section>
 
+            <x-form.section title="Characters">
+                <x-input.group label="Assign characters">
+                    @livewire('characters:collector', ['characters' => old('characters')])
+                </x-input.group>
+            </x-form.section>
+
             <x-form.footer>
                 <button type="submit" class="button button-primary">Add User</button>
 

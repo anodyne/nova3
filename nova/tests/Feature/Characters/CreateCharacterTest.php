@@ -11,6 +11,7 @@ use Nova\Characters\Events\CharacterCreated;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Characters\Events\CharacterCreatedByAdmin;
 use Nova\Characters\Requests\CreateCharacterRequest;
+use Nova\Ranks\Models\RankItem;
 
 /**
  * @group characters
@@ -34,12 +35,14 @@ class CreateCharacterTest extends TestCase
         $this->signInWithPermission('character.create');
 
         $position = create(Position::class);
+        $rank = create(RankItem::class);
         $user = create(User::class, [], ['status:active']);
 
         $this->followingRedirects();
 
         $response = $this->post(route('characters.store'), [
             'name' => 'Jack Sparrow',
+            'rank_id' => $rank->id,
             'positions' => $position->id,
             'users' => $user->id,
         ]);
@@ -73,12 +76,14 @@ class CreateCharacterTest extends TestCase
         $this->signInWithPermission('character.create');
 
         $position = create(Position::class);
+        $rank = create(RankItem::class);
         $user = create(User::class, [], ['status:active']);
 
         $this->followingRedirects();
 
         $response = $this->post(route('characters.store'), [
             'name' => 'Jack Sparrow',
+            'rank_id' => $rank->id,
             'positions' => $position->id,
             'users' => $user->id,
             'primary_character' => [$user->id],
@@ -102,9 +107,11 @@ class CreateCharacterTest extends TestCase
         $this->signInWithPermission('character.create');
 
         $position = create(Position::class);
+        $rank = create(RankItem::class);
 
         $response = $this->post(route('characters.store'), [
             'name' => 'Jack Sparrow',
+            'rank_id' => $rank->id,
             'positions' => $position->id,
         ]);
 

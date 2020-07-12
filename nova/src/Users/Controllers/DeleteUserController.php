@@ -36,7 +36,7 @@ class DeleteUserController extends Controller
         UserDeletedByAdmin::dispatch($user);
 
         return redirect()
-            ->route('users.index')
+            ->route('users.index', "status={$user->status->name()}")
             ->withToast("{$user->name}'s account was deleted");
     }
 }

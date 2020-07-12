@@ -15,7 +15,7 @@ class CharacterData extends DataTransferObject
     {
         return new self([
             'name' => $request->name,
-            'rank_id' => $request->rank_id,
+            'rank_id' => (int) $request->rank_id,
         ]);
     }
 }

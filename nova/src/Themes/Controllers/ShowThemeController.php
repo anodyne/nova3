@@ -7,7 +7,7 @@ use Nova\Themes\Models\Theme;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Themes\Responses\ShowAllThemesResponse;
 
-class ShowAllThemesController extends Controller
+class ShowThemeController extends Controller
 {
     public function __construct()
     {
@@ -16,7 +16,7 @@ class ShowAllThemesController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(Request $request)
+    public function all(Request $request)
     {
         $this->authorize('viewAny', Theme::class);
 

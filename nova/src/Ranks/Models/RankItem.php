@@ -4,6 +4,7 @@ namespace Nova\Ranks\Models;
 
 use Nova\Ranks\Events;
 use Illuminate\Database\Eloquent\Model;
+use Nova\Characters\Models\Character;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Nova\Ranks\Models\Builders\RankItemBuilder;
 
@@ -21,8 +22,8 @@ class RankItem extends Model
 
     protected $dispatchesEvents = [
         'created' => Events\RankItemCreated::class,
-        'updated' => Events\RankItemUpdated::class,
         'deleted' => Events\RankItemDeleted::class,
+        'updated' => Events\RankItemUpdated::class,
     ];
 
     protected $fillable = [
@@ -30,6 +31,11 @@ class RankItem extends Model
     ];
 
     protected $table = 'rank_items';
+
+    public function characters()
+    {
+        return $this->hasMany(Character::class, 'rank_id');
+    }
 
     public function group()
     {

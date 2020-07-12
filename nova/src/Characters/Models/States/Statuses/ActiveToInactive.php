@@ -20,7 +20,7 @@ class ActiveToInactive extends Transition
         $this->character->save();
 
         $this->character->positions->each(function ($position) {
-            if (in_array(['primary', 'secondary', 'support'], $this->character->status->name())) {
+            if (in_array($this->character->status->name(), ['primary', 'secondary', 'support'])) {
                 $position->increment('available');
             }
 

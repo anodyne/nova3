@@ -34,6 +34,6 @@ class DeletePositionController extends Controller
 
         return redirect()
             ->route('positions.index', $position->department_id)
-            ->withToast("{$position->name} was deleted", 'Any characters assigned this position will need to have another position assigned to them.');
+            ->withToast("{$position->name} was deleted", 'Any characters who were assigned to the position will have to have a new position manually assigned to them.');
     }
 }

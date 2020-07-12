@@ -87,12 +87,12 @@
                         themes/{{ $theme->location }}
                     </p>
                     @if (! $theme->exists)
-                        <x-badge class="mt-2" size="sm">Pending</x-badge>
+                        <x-badge class="mt-2" size="sm" type="warning">Pending</x-badge>
                     @else
                         @if ($theme->active)
                             <x-badge class="mt-2" size="sm" type="success">Active</x-badge>
                         @else
-                            <x-badge class="mt-2" size="sm" type="danger">Inactive</x-badge>
+                            <x-badge class="mt-2" size="sm">Inactive</x-badge>
                         @endif
                     @endif
                 </x-card>
@@ -127,7 +127,7 @@
         </div>
     </div>
 
-    <x-modal color="red" title="Delete theme?" icon="warning" :url="route('themes.delete')">
+    <x-modal color="red" title="Delete Theme?" icon="warning" :url="route('themes.delete')">
         <x-slot name="footer">
             <span class="flex w-full | sm:col-start-2">
                 <button form="form" class="button button-danger w-full">

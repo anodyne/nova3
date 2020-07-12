@@ -1,3 +1,5 @@
 <x-form :action="route('users.deactivate', $user)" id="form-deactivate">
-    Are you sure you want to deactivate <span class="font-semibold">{{ $user->name }}</span>? This will also deactivate all characters assigned to them that are not jointly owned with another user.
+    <p>Are you sure you want to deactivate <span class="font-semibold">{{ $user->name }}</span>?</p>
+
+    <p class="mt-6">This will also deactivate all characters assigned to the user who are not jointly owned with another user.</p>
 </x-form>

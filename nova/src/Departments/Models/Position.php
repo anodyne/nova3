@@ -33,6 +33,11 @@ class Position extends Model
 
     protected $table = 'positions';
 
+    public function activeCharacters()
+    {
+        return $this->characters()->whereActive();
+    }
+
     public function characters()
     {
         return $this->belongsToMany(Character::class)->withPivot('primary');

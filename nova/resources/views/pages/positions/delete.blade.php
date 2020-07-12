@@ -1,3 +1,5 @@
 <x-form :action="route('positions.destroy', $position)" method="DELETE" id="form">
-    Are you sure you want to delete the {{ $position->name }} from the {{ $position->department->name}} department? Any characters with this position will need to have a new position assigned to them.
+    <p>Are you sure you want to delete the <span class="font-semibold">{{ $position->name }}</span> from the {{ $position->department->name}} department?</p>
+
+    <p class="mt-6">This action is permanent and cannot be undone. Any characters assigned to the position will have to have a new position manually assigned to them.</p>
 </x-form>

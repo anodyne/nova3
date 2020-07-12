@@ -22,7 +22,7 @@ class ThemeData extends DataTransferObject
     public static function fromRequest(Request $request): self
     {
         return new self([
-            'active' => (bool) $request->active ?? true,
+            'active' => (bool) ($request->active ?? true),
             'credits' => $request->credits,
             'location' => $request->location,
             'name' => $request->name,

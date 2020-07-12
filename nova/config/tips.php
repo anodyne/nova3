@@ -12,6 +12,11 @@ return [
         'If you want to make a character appear as a support character, you can unassign all users from the character.',
     ],
 
+    'positions' => [
+        'Positions management will show the number of currently active and assigned characters to a specific position.',
+        'If a position is marked as inactive, the available slots metric will not show.',
+    ],
+
     'ranks' => [
         'When duplicating a rank group, you can specify a new base image and all the ranks from the original rank group will be duplicated into the new rank group with the new base image.',
         "When creating a rank item, you can quickly create a new rank group or rank name by searching for a rank group or rank name that doesn't exist. You'll be able to create the group or name right from the dropdown.",

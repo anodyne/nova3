@@ -158,6 +158,26 @@ class FilterCharactersTest extends TestCase
     }
 
     /** @test **/
+    public function charactersCanBeFilteredToOnlyCharactersWithoutAPositionAssignedToThem()
+    {
+        $position = create(Position::class);
+        $character = create(Character::class);
+        $character->positions()->attach($position);
+
+        create(Character::class);
+
+        $this->signInWithPermission('character.view');
+
+        $response = $this->get(route('characters.index', 'noposition=1'));
+        $response->assertSuccessful();
+
+        $this->assertEquals(
+            Character::whereDoesntHave('positions')->count(),
+            $response['characters']->total()
+        );
+    }
+
+    /** @test **/
     public function charactersCanBeFilteredByCharacterName()
     {
         $this->signInWithPermission('character.create');
