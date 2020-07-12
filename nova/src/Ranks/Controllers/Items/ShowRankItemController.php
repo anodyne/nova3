@@ -32,7 +32,7 @@ class ShowRankItemController extends Controller
             : $items->paginate();
 
         return app(ShowAllRankItemsResponse::class)->with([
-            'groups' => RankGroup::get(),
+            'groups' => RankGroup::orderBySort()->get(),
             'isReordering' => $request->has('reorder'),
             'itemCount' => RankItem::count(),
             'items' => $items,

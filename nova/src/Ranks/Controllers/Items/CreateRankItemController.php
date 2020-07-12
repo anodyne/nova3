@@ -39,10 +39,12 @@ class CreateRankItemController extends Controller
     {
         $this->authorize('create', RankItem::class);
 
-        $action->execute(RankItemData::fromRequest($request));
+        $rank = $action->execute(RankItemData::fromRequest($request));
+
+        $group = strtolower($rank->group->name);
 
         return redirect()
-            ->route('ranks.items.index')
+            ->route('ranks.items.index', "group={$group}")
             ->withToast('Rank item was created');
     }
 }

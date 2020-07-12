@@ -7,6 +7,13 @@ use Nova\Characters\Models\States\Statuses\Active;
 
 class ActivateCharacter
 {
+    protected $setCharacterType;
+
+    public function __construct(SetCharacterType $setCharacterType)
+    {
+        $this->setCharacterType = $setCharacterType;
+    }
+
     public function execute(Character $character): Character
     {
         activity()
@@ -23,6 +30,10 @@ class ActivateCharacter
                 $character->id,
                 ['primary' => false]
             );
+
+            $character->refresh();
+
+            $this->setCharacterType->execute($character);
         });
 
         $character->status->transitionTo(Active::class);

@@ -8,6 +8,9 @@ use Nova\Characters\Models\Character;
 use Nova\Characters\Actions\ActivateCharacter;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Characters\Models\States\Statuses\Active;
+use Nova\Characters\Models\States\Statuses\Inactive;
+use Nova\Characters\Models\States\Types\Primary;
+use Nova\Characters\Models\States\Types\Secondary;
 
 /**
  * @group characters
@@ -32,9 +35,44 @@ class ActivateCharacterActionTest extends TestCase
     /** @test **/
     public function itActivatesACharacter()
     {
-        $character = $this->action->execute($this->character);
+        $jackSparrow = create(Character::class, [], ['status:inactive']);
 
-        $this->assertTrue($character->status->equals(Active::class));
+        $jackSparrow = $this->action->execute($jackSparrow);
+
+        $this->assertTrue($jackSparrow->status->equals(Active::class));
+    }
+
+    /** @test **/
+    public function itActivatesTheCharacterAsASecondaryCharacterIfTheUserAlreadyHasAnActivePrimaryCharacter()
+    {
+        $johnny = create(User::class, [], ['status:active']);
+
+        $bobSparrow = create(Character::class, [], ['status:inactive']);
+        $bobSparrow->users()->attach($johnny, ['primary' => true]);
+        $bobSparrow->type = Primary::class;
+        $bobSparrow->save();
+
+        $jackSparrow = create(Character::class, [], ['status:active']);
+        $jackSparrow->users()->attach($johnny, ['primary' => true]);
+        $jackSparrow->type = Primary::class;
+        $jackSparrow->save();
+
+        $johnny->refresh();
+
+        $this->assertCount(2, $johnny->characters);
+        $this->assertCount(1, $johnny->activeCharacters);
+        $this->assertTrue($bobSparrow->status->equals(Inactive::class));
+
+        $this->action->execute($bobSparrow);
+
+        $johnny->refresh();
+        $jackSparrow->refresh();
+        $bobSparrow->refresh();
+
+        $this->assertCount(2, $johnny->activeCharacters);
+        $this->assertCount(1, $johnny->primaryCharacter);
+        $this->assertTrue($jackSparrow->type->equals(Primary::class));
+        $this->assertTrue($bobSparrow->type->equals(Secondary::class));
     }
 
     /** @test **/
