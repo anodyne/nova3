@@ -35,8 +35,11 @@ class PopulateAuthorizationTables extends Migration
                 'rank.create', 'rank.delete', 'rank.update', 'rank.view',
                 'department.create', 'department.delete', 'department.update', 'department.view',
                 'character.create', 'character.delete', 'character.update', 'character.view',
+                'story.create', 'story.delete', 'story.update',
             ],
-            'user' => [],
+            'user' => [
+                'story.view',
+            ],
         ];
 
         collect($permissions)->each(function ($permission, $role) {
@@ -81,6 +84,11 @@ class PopulateAuthorizationTables extends Migration
                 ['name' => 'character.delete', 'display_name' => 'Delete characters'],
                 ['name' => 'character.update', 'display_name' => 'Update characters'],
                 ['name' => 'character.view', 'display_name' => 'View characters'],
+
+                ['name' => 'story.create', 'display_name' => 'Create stories'],
+                ['name' => 'story.delete', 'display_name' => 'Delete stories'],
+                ['name' => 'story.update', 'display_name' => 'Update stories'],
+                ['name' => 'story.view', 'display_name' => 'View stories'],
             ];
 
             collect($permissions)->each(function ($permission) {

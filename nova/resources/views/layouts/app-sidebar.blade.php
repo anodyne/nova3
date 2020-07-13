@@ -65,6 +65,20 @@
                             Players
                         </a> --}}
 
+                        <div class="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-100 transition ease-in-out duration-150">
+                            @icon('write', 'mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
+                            Write
+                        </div>
+                        <div class="flex flex-col ml-12">
+                            @can('viewAny', 'Nova\Stories\Models\Story')
+                                <a href="{{ route('departments.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Stories</a>
+                            @endcan
+
+                            @can('viewAny', 'Nova\Stories\Models\PostType')
+                                <a href="{{ route('departments.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Post Types</a>
+                            @endcan
+                        </div>
+
                         @if (auth()->user()->canManage())
                             <div class="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-100 transition ease-in-out duration-150">
                                 @icon('settings', 'mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
@@ -131,6 +145,20 @@
                         @icon('users', 'mr-3 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
                         Players
                     </a> --}}
+
+                    <div class="mt-1 first:mt-0 group flex items-center px-2 py-2 text-sm leading-5 font-semibold text-gray-500 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:bg-gray-100 transition ease-in-out duration-150">
+                        @icon('write', 'mr-3 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
+                        Write
+                    </div>
+                    <div class="flex flex-col text-sm ml-11">
+                        @can('viewAny', 'Nova\Stories\Models\Story')
+                            <a href="{{ route('characters.index', 'status=active') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Stories</a>
+                        @endcan
+
+                        @can('viewAny', 'Nova\Stories\Models\PostType')
+                            <a href="{{ route('characters.index', 'status=active') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Post Types</a>
+                        @endcan
+                    </div>
 
                     @if (auth()->user()->canManage())
                         <div class="mt-1 first:mt-0 group flex items-center px-2 py-2 text-sm leading-5 font-semibold text-gray-500 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:bg-gray-100 transition ease-in-out duration-150">

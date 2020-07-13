@@ -18,12 +18,15 @@ class CreateStoryTables extends Migration
             $table->foreignId('story_id')->nullable()->constrained('stories');
             $table->string('status');
             $table->string('title');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->text('summary')->nullable();
+            $table->unsignedBigInteger('parent_id')->null();
             $table->unsignedInteger('sort')->nullable();
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
             $table->timestamps();
+
+            $table->index(['story_id', 'status', 'parent_id', 'sort']);
         });
 
         Schema::create('post_author', function (Blueprint $table) {
@@ -35,18 +38,22 @@ class CreateStoryTables extends Migration
             $table->id();
             $table->string('key')->unique();
             $table->string('name');
-            $table->text('description');
+            $table->text('description')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('story_id')->constrained('stories')->onDelete('cascade');
+            $table->foreignId('story_id')->constrained('stories');
             $table->foreignId('post_type_id')->constrained('post_types');
             $table->string('status');
             $table->string('title');
             $table->longText('content');
             $table->dateTime('published_at')->nullable();
             $table->timestamps();
+
+            $table->index(['story_id', 'post_type_id', 'published_at']);
         });
     }
 
