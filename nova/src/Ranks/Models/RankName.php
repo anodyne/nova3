@@ -15,6 +15,10 @@ class RankName extends Model
 
     protected static $logName = 'admin';
 
+    protected $casts = [
+        'sort' => 'integer',
+    ];
+
     protected $dispatchesEvents = [
         'created' => Events\RankNameCreated::class,
         'updated' => Events\RankNameUpdated::class,

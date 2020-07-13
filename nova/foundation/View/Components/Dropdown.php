@@ -8,9 +8,12 @@ class Dropdown extends Component
 {
     public $placement;
 
-    public function __construct($placement = 'bottom-start')
+    public $wide;
+
+    public function __construct($placement = 'bottom-start', $wide = false)
     {
         $this->placement = $placement;
+        $this->wide = $wide;
     }
 
     public function divider()
@@ -38,26 +41,32 @@ class Dropdown extends Component
         switch ($this->placement) {
             case 'bottom-center':
                 return 'left-0 origin-top';
+
             break;
 
             case 'bottom-end':
                 return 'right-0 origin-top-right';
+
             break;
 
             case 'bottom-start':
                 return 'left-0 origin-top-left';
+
             break;
 
             case 'top-center':
                 return 'left-0 origin-bottom';
+
             break;
 
             case 'top-end':
                 return 'right-0 origin-bottom-right';
+
             break;
 
             case 'top-start':
                 return 'left-0 origin-bottom-left';
+
             break;
         }
     }

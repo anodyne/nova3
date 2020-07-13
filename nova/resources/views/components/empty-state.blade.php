@@ -10,7 +10,7 @@
             </div>
             <a href="{{ $link }}" class="button button-primary">
                 {{ $label }}
-                @icon('arrow-right-alt', 'h-5 w-5 ml-3 flex-shrink-0')
+                @icon('arrow-right', 'h-5 w-5 ml-3 flex-shrink-0')
             </a>
         </div>
     </div>

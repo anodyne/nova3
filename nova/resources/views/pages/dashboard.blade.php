@@ -6,4 +6,6 @@
     <x-panel class="p-6">
         <p>Welcome to Nova 3.</p>
     </x-panel>
+
+    <x-tips section="dashboard" />
 @endsection

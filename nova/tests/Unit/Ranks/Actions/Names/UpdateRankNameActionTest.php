@@ -31,8 +31,9 @@ class UpdateRankNameActionTest extends TestCase
     /** @test **/
     public function itUpdatesARankName()
     {
-        $data = new RankNameData;
-        $data->name = 'Captain';
+        $data = new RankNameData([
+            'name' => 'Captain',
+        ]);
 
         $name = $this->action->execute($this->name, $data);
 

@@ -23,7 +23,7 @@
         <x-form.section title="Assigned Ranks" message="These are the ranks that have been assigned to this group.">
             <div class="flex flex-col w-full">
                 @foreach ($group->ranks as $rank)
-                    <div class="group flex items-center justify-between py-2 px-4 rounded even:bg-gray-100">
+                    <div class="group flex items-center justify-between py-2 px-4 rounded odd:bg-gray-100">
                         <div class="flex flex-col | sm:flex-row sm:items-center">
                             <x-rank :rank="$rank" />
                             <span class="font-medium text-sm ml-3">{{ optional($rank->name)->name }}</span>

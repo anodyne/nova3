@@ -4,8 +4,10 @@ namespace Nova\Users\Models;
 
 use Nova\Users\Events;
 use Nova\Notes\Models\Note;
+use Nova\Stories\Models\Post;
 use Spatie\ModelStates\HasStates;
 use Nova\Users\Models\States\Active;
+use Nova\Characters\Models\Character;
 use Nova\Users\Models\States\Pending;
 use Nova\Users\Models\States\Inactive;
 use Illuminate\Notifications\Notifiable;
@@ -16,10 +18,12 @@ use Nova\Users\Models\Builders\UserBuilder;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Nova\Users\Models\States\ActiveToInactive;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 use Nova\Users\Models\Collections\UsersCollection;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Nova\Characters\Models\States\Statuses\Active as ActiveCharacter;
 
 class User extends Authenticatable implements MustVerifyEmail, HasMedia
 {
@@ -58,6 +62,23 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
         'password', 'remember_token', 'force_password_reset',
     ];
 
+    public function characters()
+    {
+        return $this->belongsToMany(Character::class)
+            ->withPivot('primary')
+            ->withTimestamps();
+    }
+
+    public function activeCharacters()
+    {
+        return $this->characters()->where('status', ActiveCharacter::class);
+    }
+
+    public function primaryCharacter()
+    {
+        return $this->activeCharacters()->wherePivot('primary', true);
+    }
+
     public function logins()
     {
         return $this->hasMany(Login::class);
@@ -66,6 +87,11 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     public function notes()
     {
         return $this->hasMany(Note::class);
+    }
+
+    public function posts()
+    {
+        return $this->morphMany(Post::class, 'authorable');
     }
 
     /**
@@ -107,7 +133,8 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
      */
     public function canManage(): bool
     {
-        return $this->can('rank.*')
+        return $this->can('department.*')
+            || $this->can('rank.*')
             || $this->can('role.*')
             || $this->can('theme.*')
             || $this->can('user.*');
@@ -161,9 +188,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
             ->allowTransitions([
                 [Pending::class, Active::class],
                 [Pending::class, Inactive::class],
-
-                [Active::class, Inactive::class],
-
+                [Active::class, Inactive::class, ActiveToInactive::class],
                 [Inactive::class, Active::class],
             ])
             ->default(Pending::class);

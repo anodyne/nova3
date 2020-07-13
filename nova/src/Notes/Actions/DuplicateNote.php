@@ -2,23 +2,18 @@
 
 namespace Nova\Notes\Actions;
 
-use Nova\Foundation\Action;
 use Nova\Notes\Models\Note;
 
-class DuplicateNote extends Action
+class DuplicateNote
 {
-    public $errorMessage = 'There was a problem duplicating the note';
-
     public function execute(Note $originalNote): Note
     {
-        return $this->call(function () use ($originalNote) {
-            $note = $originalNote->replicate();
+        $note = $originalNote->replicate();
 
-            $note->title = "Copy of {$note->title}";
+        $note->title = "Copy of {$note->title}";
 
-            $note->save();
+        $note->save();
 
-            return $note->refresh();
-        });
+        return $note->refresh();
     }
 }

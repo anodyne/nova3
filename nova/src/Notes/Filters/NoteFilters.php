@@ -10,9 +10,10 @@ class NoteFilters extends Filters
 
     public function search($value)
     {
-        return $this->builder
-            ->where('title', 'like', "%{$value}%")
-            ->orWhere('content', 'like', "%{$value}%")
-            ->orWhere('summary', 'like', "%{$value}%");
+        return $this->builder->where(function ($query) use ($value) {
+            return $query->where('title', 'like', "%{$value}%")
+                ->orWhere('content', 'like', "%{$value}%")
+                ->orWhere('summary', 'like', "%{$value}%");
+        });
     }
 }

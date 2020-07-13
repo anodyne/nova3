@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Nova NextGen'),
 
     /*
     |--------------------------------------------------------------------------
@@ -118,7 +118,7 @@ return [
     |
     */
 
-    'key' => env('APP_KEY'),
+    'key' => env('APP_KEY', 'base64:seCuVALiMMNM/CZZCw4NLK4D7Zm4905Y5Pe7SCASiqs='),
 
     'cipher' => 'AES-256-CBC',
 
@@ -180,6 +180,10 @@ return [
          * Nova Module Service Provides
          */
         Nova\Setup\Providers\SetupServiceProvider::class,
+        Nova\Auth\Providers\AuthServiceProvider::class,
+        Nova\Characters\Providers\CharacterServiceProvider::class,
+        Nova\Dashboard\Providers\DashboardServiceProvider::class,
+        Nova\Departments\Providers\DepartmentServiceProvider::class,
         Nova\Notes\Providers\NoteServiceProvider::class,
         Nova\Ranks\Providers\RankServiceProvider::class,
         Nova\Roles\Providers\RoleServiceProvider::class,

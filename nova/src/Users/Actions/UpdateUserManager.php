@@ -4,10 +4,13 @@ namespace Nova\Users\Actions;
 
 use Nova\Users\Models\User;
 use Illuminate\Http\Request;
+use Nova\Users\DataTransferObjects\AssignUserCharactersData;
 use Nova\Users\DataTransferObjects\UserData;
 
 class UpdateUserManager
 {
+    protected $assignUserCharacters;
+
     protected $updateUser;
 
     protected $updateRoles;
@@ -23,18 +26,28 @@ class UpdateUserManager
         UpdateUserStatus $updateStatus,
         UpdateUserRoles $updateRoles,
         UploadUserAvatar $uploadAvatar,
-        RemoveUserAvatar $removeAvatar
+        RemoveUserAvatar $removeAvatar,
+        AssignUserCharacters $assignUserCharacters
     ) {
         $this->updateUser = $updateUser;
         $this->updateStatus = $updateStatus;
         $this->updateRoles = $updateRoles;
         $this->uploadAvatar = $uploadAvatar;
         $this->removeAvatar = $removeAvatar;
+        $this->assignUserCharacters = $assignUserCharacters;
     }
 
     public function execute(User $user, Request $request): User
     {
-        $this->updateUser->execute($user, $data = UserData::fromRequest($request));
+        $user = $this->updateUser->execute(
+            $user,
+            $data = UserData::fromRequest($request)
+        );
+
+        $user = $this->assignUserCharacters->execute(
+            $user,
+            AssignUserCharactersData::fromRequest($request)
+        );
 
         $this->updateStatus->execute($user, $request->status);
 

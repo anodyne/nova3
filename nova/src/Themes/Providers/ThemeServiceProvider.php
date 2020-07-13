@@ -7,11 +7,11 @@ use Nova\Themes\Models\Theme;
 use Nova\DomainServiceProvider;
 use Nova\Themes\Policies\ThemePolicy;
 use Themes\Pulsar\Theme as PulsarTheme;
+use Nova\Themes\Responses\CreateThemeResponse;
+use Nova\Themes\Responses\DeleteThemeResponse;
+use Nova\Themes\Responses\UpdateThemeResponse;
+use Nova\Themes\Responses\ShowAllThemesResponse;
 use Nova\Themes\Console\Commands\ThemeMakeCommand;
-use Nova\Themes\Http\Responses\CreateThemeResponse;
-use Nova\Themes\Http\Responses\DeleteThemeResponse;
-use Nova\Themes\Http\Responses\UpdateThemeResponse;
-use Nova\Themes\Http\Responses\ShowAllThemesResponse;
 
 class ThemeServiceProvider extends DomainServiceProvider
 {
@@ -36,12 +36,6 @@ class ThemeServiceProvider extends DomainServiceProvider
             $theme = new PulsarTheme;
 
             $this->app->instance('nova.theme', $theme);
-
-            $this->app->extend('nova.data.frontend', function ($data) use ($theme) {
-                $data->put('theme', $theme);
-
-                return $data;
-            });
         }
     }
 }

@@ -68,12 +68,12 @@
         @forelse ($users as $user)
             <li class="border-t border-gray-200">
                 <div class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
-                    <div class="flex items-center px-4 py-4 sm:px-6">
+                    <div class="flex items-center px-4 py-4 | sm:px-6">
                         <div class="min-w-0 flex-1 flex items-center">
                             <div class="flex-shrink-0">
                                 <x-avatar :url="$user->avatar_url" />
                             </div>
-                            <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
+                            <div class="min-w-0 flex-1 px-4 | md:grid md:grid-cols-2 md:gap-4">
                                 <div>
                                     <div class="leading-normal font-medium truncate">
                                         {{ $user->name }}
@@ -125,6 +125,34 @@
                                         </a>
                                     @endcan
 
+                                    @can('activate', $user)
+                                        <div class="{{ $component->divider() }}"></div>
+                                        <x-form :action="route('users.activate', $user)" id="activate"></x-form>
+                                        <button
+                                            type="submit"
+                                            form="activate"
+                                            class="{{ $component->link() }}"
+                                            data-cy="activate"
+                                        >
+                                            @icon('check-alt', $component->icon())
+                                            <span>Activate</span>
+                                        </button>
+                                    @endcan
+
+                                    @can('deactivate', $user)
+                                        <div class="{{ $component->divider() }}"></div>
+                                        <button
+                                            x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-deactivate', {{ json_encode($user) }});"
+                                            type="button"
+                                            form="deactivate"
+                                            class="{{ $component->link() }}"
+                                            data-cy="deactivate"
+                                        >
+                                            @icon('remove-alt', $component->icon())
+                                            <span>Deactivate</span>
+                                        </button>
+                                    @endcan
+
                                     @can('delete', $user)
                                         <div class="{{ $component->divider() }}"></div>
                                         <button
@@ -154,11 +182,28 @@
         </div>
     </x-panel>
 
-    <x-modal color="red" headline="Delete account?" icon="warning" :url="route('users.delete')">
+    <x-tips section="users" />
+
+    <x-modal color="red" title="Delete User?" icon="warning" :url="route('users.delete')">
         <x-slot name="footer">
             <span class="flex w-full | sm:col-start-2">
                 <button form="form" class="button button-danger w-full">
                     Delete
+                </button>
+            </span>
+            <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
+                <button x-on:click="$dispatch('modal-close')" type="button" class="button w-full">
+                    Cancel
+                </button>
+            </span>
+        </x-slot>
+    </x-modal>
+
+    <x-modal color="blue" title="Deactivate User?" icon="duplicate" :url="route('users.confirm-deactivate')" event="modal-deactivate">
+        <x-slot name="footer">
+            <span class="flex w-full | sm:col-start-2">
+                <button form="form-deactivate" class="button button-primary w-full">
+                    Deactivate
                 </button>
             </span>
             <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">

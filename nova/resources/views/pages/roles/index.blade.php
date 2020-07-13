@@ -3,6 +3,12 @@
 @section('content')
     <x-page-header title="Roles">
         <x-slot name="controls">
+            @can('update', $roles->first())
+                <a href="{{ route('roles.index', 'reorder') }}" class="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150 mx-4">
+                    @icon('arrow-sort', 'h-6 w-6')
+                </a>
+            @endcan
+
             @can('create', 'Nova\Roles\Models\Role')
                 <a href="{{ route('roles.create') }}" class="button button-primary" data-cy="create">
                     Add Role
@@ -11,24 +17,63 @@
         </x-slot>
     </x-page-header>
 
-    <x-panel>
-        <div class="px-4 py-2 | sm:px-6 sm:py-3">
-            <x-search-filter placeholder="Find a role..." :search="$search" />
-        </div>
+    <x-panel x-data="sortableList()" x-init="initSortable()">
+        @if ($isReordering)
+            <div class="bg-info-100 border-t border-b border-info-200 p-4 | sm:rounded-t-md sm:border-t-0">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        @icon('arrow-sort', 'h-6 w-6 text-info-600')
+                    </div>
+                    <div class="ml-3">
+                        <h3 class="text-sm leading-5 font-medium text-info-900">
+                            Change Sorting Order
+                        </h3>
+                        <div class="mt-2 text-sm leading-5 text-info-800">
+                            <p>Sorting roles allows for admins to control the hierarchy of roles in the system to ensure that users with a lower role cannot give themselves higher privileges.</p>
+                            <p class="mt-4">Top roles have the greatest privileges &ndash; place the most important roles with the highest potential impact higher on the list, to ensure users can't gain unwanted access to areas of Nova.</p>
+                        </div>
+                        <div class="mt-4">
+                            <x-form :action="route('roles.reorder')" id="form-reorder">
+                                <input type="hidden" name="sort" x-model="newSortOrder">
+                                <div class="flex items-center space-x-4">
+                                    <button type="submit" form="form-reorder" class="button button-info">Save Sort Order</button>
+                                    <a href="{{ route('roles.index') }}" class="text-info-600 text-sm font-medium transition ease-in-out duration-150 hover:text-info-800">
+                                        Cancel
+                                    </a>
+                                </div>
+                            </x-form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @else
+            <div class="px-4 py-2 | sm:px-6 sm:py-3">
+                <x-search-filter placeholder="Find a role..." :search="$search" />
+            </div>
+        @endif
 
-        <ul>
+        <ul id="sortable-list">
         @forelse ($roles as $role)
-            <li class="border-t border-gray-200">
-                <div class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
+            <li class="sortable-item border-t border-gray-200 hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out @if ($isReordering) first:border-0 last:rounded-b-md @endif" data-id="{{ $role->id }}">
+                <div class="block">
                     <div class="px-4 py-4 flex items-center | sm:px-6">
-                        <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
+                        @if ($isReordering)
+                            <div class="sortable-handle flex-shrink-0 cursor-move mr-5">
+                                @icon('reorder', 'h-5 w-5 text-gray-400')
+                            </div>
+                        @endif
+                        <div class="min-w-0 flex-1 | sm:flex sm:items-center sm:justify-between">
                             <div>
                                 <div class="leading-normal font-medium truncate">
                                     {{ $role->display_name }}
                                 </div>
                                 <div class="mt-2 flex">
                                     <div class="flex items-center text-sm leading-5 text-gray-500">
-                                        @icon('users', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
+                                        @if ($role->users_count === 1)
+                                            @icon('user', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
+                                        @else
+                                            @icon('users', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
+                                        @endif
                                         <span>
                                             {{ $role->users_count }} assigned @choice('user|users', $role->users_count)
                                         </span>
@@ -103,12 +148,16 @@
         @endforelse
         </ul>
 
-        <div class="px-4 py-2 border-t border-gray-200 | sm:px-6 sm:py-3">
-            {{ $roles->withQueryString()->links() }}
-        </div>
+        @if (! $isReordering)
+            <div class="px-4 py-2 border-t border-gray-200 | sm:px-6 sm:py-3">
+                {{ $roles->withQueryString()->links() }}
+            </div>
+        @endif
     </x-panel>
 
-    <x-modal color="red" headline="Delete role?" icon="warning" :url="route('roles.delete')">
+    <x-tips section="roles" />
+
+    <x-modal color="red" title="Delete role?" icon="warning" :url="route('roles.delete')">
         <x-slot name="footer">
             <span class="flex w-full | sm:col-start-2">
                 <button form="form" class="button button-danger w-full">
@@ -123,3 +172,26 @@
         </x-slot>
     </x-modal>
 @endsection
+
+@push('scripts')
+    <script>
+        function sortableList() {
+            return {
+                newSortOrder: '',
+                sortable: null,
+
+                initSortable () {
+                    const el = document.getElementById('sortable-list');
+
+                    this.sortable = Sortable.create(el, {
+                        draggable: '.sortable-item',
+                        handle: '.sortable-handle',
+                        onEnd: () => {
+                            this.newSortOrder = this.sortable.toArray();
+                        }
+                    });
+                }
+            };
+        }
+    </script>
+@endpush

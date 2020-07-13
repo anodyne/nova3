@@ -8,15 +8,16 @@ use Illuminate\Foundation\Events\Dispatchable;
 
 class RoleDuplicated
 {
-    use Dispatchable, SerializesModels;
-
-    public $role;
+    use Dispatchable;
+    use SerializesModels;
 
     public $originalRole;
 
+    public $role;
+
     public function __construct(Role $role, Role $originalRole)
     {
-        $this->role = $role;
         $this->originalRole = $originalRole;
+        $this->role = $role;
     }
 }

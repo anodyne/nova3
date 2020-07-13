@@ -7,7 +7,7 @@
         </x-slot>
 
         <x-slot name="controls">
-            <x-dropdown placement="bottom-end" class="flex items-center text-gray-400 dark:text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150 mx-4 {{ request()->has('pending') ? 'text-blue-500' : '' }}">
+            <x-dropdown placement="bottom-end" class="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150 mx-4 {{ request()->has('pending') ? 'text-blue-500' : '' }}">
                 @icon('filter', 'h-6 w-6')
 
                 <x-slot name="dropdown">
@@ -38,11 +38,11 @@
                     </x-slot>
 
                     <div class="flex items-center justify-between">
-                        <h3 class="inline-flex items-center text-xl leading-7 font-semibold text-gray-900 dark:text-gray-100">
+                        <h3 class="inline-flex items-center text-xl leading-7 font-semibold text-gray-900">
                             {{ $theme->name }}
                         </h3>
 
-                        <x-dropdown placement="bottom-end" class="flex items-center text-gray-400 dark:text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150">
+                        <x-dropdown placement="bottom-end" class="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150">
                             @icon('more', 'h-6 w-6')
 
                             <x-slot name="dropdown">
@@ -82,17 +82,17 @@
                             </x-slot>
                         </x-dropdown>
                     </div>
-                    <p class="mt-1 flex items-center text-base leading-6 text-gray-500 dark:text-gray-400">
-                        @icon('folder', 'flex-shrink-0 mr-2 h-5 w-5 text-gray-400 dark:text-gray-500')
+                    <p class="mt-1 flex items-center text-base leading-6 text-gray-500">
+                        @icon('folder', 'flex-shrink-0 mr-2 h-5 w-5 text-gray-400')
                         themes/{{ $theme->location }}
                     </p>
                     @if (! $theme->exists)
-                        <x-badge class="mt-2" size="sm">Pending</x-badge>
+                        <x-badge class="mt-2" size="sm" type="warning">Pending</x-badge>
                     @else
                         @if ($theme->active)
                             <x-badge class="mt-2" size="sm" type="success">Active</x-badge>
                         @else
-                            <x-badge class="mt-2" size="sm" type="danger">Inactive</x-badge>
+                            <x-badge class="mt-2" size="sm">Inactive</x-badge>
                         @endif
                     @endif
                 </x-card>
@@ -127,7 +127,7 @@
         </div>
     </div>
 
-    <x-modal color="red" headline="Delete theme?" icon="warning" :url="route('themes.delete')">
+    <x-modal color="red" title="Delete Theme?" icon="warning" :url="route('themes.delete')">
         <x-slot name="footer">
             <span class="flex w-full | sm:col-start-2">
                 <button form="form" class="button button-danger w-full">

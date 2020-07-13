@@ -2,17 +2,26 @@
 
 namespace Nova\Ranks\Providers;
 
-use Nova\Ranks\Http\Responses;
+use Nova\Ranks\Responses;
 use Nova\DomainServiceProvider;
 use Nova\Ranks\Models\RankItem;
 use Nova\Ranks\Models\RankName;
 use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Policies\RankItemPolicy;
-use Nova\Ranks\Policies\RankGroupPolicy;
 use Nova\Ranks\Policies\RankNamePolicy;
+use Nova\Ranks\Policies\RankGroupPolicy;
+use Nova\Ranks\Livewire\RankItemsDropdown;
+use Nova\Ranks\Livewire\RankNamesDropdown;
+use Nova\Ranks\Livewire\RankGroupsDropdown;
 
 class RankServiceProvider extends DomainServiceProvider
 {
+    protected $livewireComponents = [
+        'ranks:items-dropdown' => RankItemsDropdown::class,
+        'ranks:groups-dropdown' => RankGroupsDropdown::class,
+        'ranks:names-dropdown' => RankNamesDropdown::class,
+    ];
+
     protected $policies = [
         RankGroup::class => RankGroupPolicy::class,
         RankItem::class => RankItemPolicy::class,

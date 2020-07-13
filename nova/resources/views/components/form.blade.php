@@ -3,14 +3,15 @@
     'method' => 'POST',
 ])
 
-@php
-    $formMethod = ($method !== 'GET' || $method !== 'POST') ? 'POST' : $method;
-@endphp
-
-<form action="{{ $action }}" method="{{ $formMethod }}" role="form" {{ $attributes->merge(['data-cy' => 'form']) }}>
+<form
+    action="{{ $action }}"
+    method="{{ $method === 'GET' ? 'GET' : 'POST' }}"
+    role="form"
+    {{ $attributes->merge(['data-cy' => 'form']) }}
+>
     @csrf
 
-    @if ($method !== 'GET' || $method !== 'POST')
+    @if (! in_array($method, ['GET', 'POST']))
         @method($method)
     @endif
 

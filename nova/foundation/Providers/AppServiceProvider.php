@@ -13,6 +13,7 @@ use Illuminate\Support\ServiceProvider;
 use Nova\Foundation\Icons\FluentIconSet;
 use Nova\Foundation\NovaBladeDirectives;
 use Nova\Foundation\Icons\FeatherIconSet;
+use Nova\Foundation\View\Components\Tips;
 use Nova\Foundation\View\Components\Badge;
 use Illuminate\View\Factory as ViewFactory;
 use Nova\Foundation\View\Components\Avatar;
@@ -63,10 +64,11 @@ class AppServiceProvider extends ServiceProvider
 
     protected function registerBladeComponents()
     {
-        Blade::component('badge', Badge::class);
         Blade::component('avatar', Avatar::class);
-        Blade::component('dropdown', Dropdown::class);
         Blade::component('avatar-group', AvatarGroup::class);
+        Blade::component('badge', Badge::class);
+        Blade::component('dropdown', Dropdown::class);
+        Blade::component('tips', Tips::class);
     }
 
     protected function registerBladeDirectives()

@@ -11,7 +11,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.2.5",
+        "php": "^7.4.0",
         "blade-ui-kit/blade-icons": "^0.4",
         "f9webltd/laravel-meta": "^1.4",
         "fideloper/proxy": "^4.0",

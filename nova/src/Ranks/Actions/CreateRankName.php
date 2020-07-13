@@ -9,6 +9,9 @@ class CreateRankName
 {
     public function execute(RankNameData $data): RankName
     {
-        return RankName::create($data->toArray());
+        return RankName::create(array_merge(
+            $data->toArray(),
+            ['sort' => RankName::count()]
+        ));
     }
 }

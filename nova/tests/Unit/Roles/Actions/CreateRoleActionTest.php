@@ -29,11 +29,12 @@ class CreateRoleActionTest extends TestCase
     /** @test **/
     public function itCreatesARole()
     {
-        $data = new RoleData;
-        $data->name = 'foo';
-        $data->display_name = 'Foo';
-        $data->description = 'Description of foo';
-        $data->default = false;
+        $data = new RoleData([
+            'name' => 'foo',
+            'display_name' => 'Foo',
+            'description' => 'Description of foo',
+            'default' => false,
+        ]);
 
         $role = $this->action->execute($data);
 
@@ -47,11 +48,12 @@ class CreateRoleActionTest extends TestCase
     /** @test **/
     public function itCanAddPermissions()
     {
-        $data = new RoleData;
-        $data->display_name = 'Bar';
-        $data->name = 'bar';
-        $data->default = false;
-        $data->permissions = Permission::whereIn('id', [1, 2, 3])->get();
+        $data = new RoleData([
+            'display_name' => 'Bar',
+            'name' => 'bar',
+            'default' => false,
+            'permissions' => Permission::whereIn('id', [1, 2, 3])->get(),
+        ]);
 
         $role = $this->action->execute($data);
 

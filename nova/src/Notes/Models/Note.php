@@ -22,41 +22,22 @@ class Note extends Model
 
     protected $dispatchesEvents = [
         'created' => Events\NoteCreated::class,
-        'updated' => Events\NoteUpdated::class,
         'deleted' => Events\NoteDeleted::class,
+        'updated' => Events\NoteUpdated::class,
     ];
 
     protected $fillable = ['user_id', 'title', 'content', 'source', 'summary'];
 
-    /**
-     * The author of the note.
-     *
-     * @return User
-     */
     public function author()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    /**
-     * Set the description for logging.
-     *
-     * @param  string  $eventName
-     *
-     * @return string
-     */
     public function getDescriptionForEvent(string $eventName): string
     {
         return ":subject.title note was {$eventName}";
     }
 
-    /**
-     * Use a custom Eloquent builder.
-     *
-     * @param  \Illuminate\Database\Query\Builder  $query
-     *
-     * @return NoteBuilder
-     */
     public function newEloquentBuilder($query): NoteBuilder
     {
         return new NoteBuilder($query);
