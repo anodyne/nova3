@@ -69,40 +69,35 @@
             <li class="border-t border-gray-200">
                 <div class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
                     <div class="flex items-center px-4 py-4 | sm:px-6">
-                        <div class="min-w-0 flex-1 flex items-center">
-                            <div class="flex-shrink-0">
-                                <x-avatar :url="$user->avatar_url" />
-                            </div>
-                            <div class="min-w-0 flex-1 px-4 | md:grid md:grid-cols-2 md:gap-4">
+                        <div class="min-w-0 flex-1 pr-4 | md:grid md:grid-cols-2 md:gap-4">
+                            <x-avatar-meta :url="$user->avatar_url">
+                                <x-slot name="primaryMeta">{{ $user->name }}</x-slot>
+
+                                <x-slot name="secondaryMeta">
+                                    <x-badge size="sm" :type="$user->status->color()">
+                                        {{ $user->status->displayName() }}
+                                    </x-badge>
+                                </x-slot>
+                            </x-avatar-meta>
+
+                            <div class="hidden md:block">
                                 <div>
-                                    <div class="leading-normal font-medium truncate">
-                                        {{ $user->name }}
+                                    <div class="flex items-center text-sm leading-5 text-gray-500">
+                                        @icon('clock', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
+                                        Last activity&nbsp;
+                                        <time datetime="{{ $user->updated_at }}">
+                                            {{ $user->updated_at->diffForHumans() }}
+                                        </time>
                                     </div>
-                                    <div class="mt-1">
-                                        <x-badge size="sm" :type="$user->status->color()">
-                                            {{ $user->status->displayName() }}
-                                        </x-badge>
-                                    </div>
-                                </div>
-                                <div class="hidden md:block">
-                                    <div>
-                                        <div class="flex items-center text-sm leading-5 text-gray-500">
-                                            @icon('clock', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
-                                            Last activity&nbsp;
-                                            <time datetime="{{ $user->updated_at }}">
-                                                {{ $user->updated_at->diffForHumans() }}
+                                    @if ($user->last_login_at != null)
+                                        <div class="mt-2 flex items-center text-sm leading-5 text-gray-500">
+                                            @icon('sign-in', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
+                                            Last signed in&nbsp;
+                                            <time datetime="{{ $user->last_login_at }}">
+                                                {{ $user->last_login_at->diffForHumans() }}
                                             </time>
                                         </div>
-                                        @if ($user->last_login_at != null)
-                                            <div class="mt-2 flex items-center text-sm leading-5 text-gray-500">
-                                                @icon('sign-in', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
-                                                Last signed in&nbsp;
-                                                <time datetime="{{ $user->last_login_at }}">
-                                                    {{ $user->last_login_at->diffForHumans() }}
-                                                </time>
-                                            </div>
-                                        @endif
-                                    </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>

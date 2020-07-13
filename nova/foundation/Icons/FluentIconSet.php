@@ -37,6 +37,7 @@ class FluentIconSet extends IconSet
             'info' => 'info',
             'lightbulb' => 'lightbulb',
             'list' => 'list',
+            'location' => 'location',
             'lock' => 'lock',
             'menu' => 'navigation',
             'more' => 'more',

@@ -1,17 +1,17 @@
 @extends($__novaTemplate)
 
 @section('content')
-    <x-page-header title="Roles">
+    <x-page-header title="Post Types">
         <x-slot name="controls">
-            @can('update', $roles->first())
-                <a href="{{ route('roles.index', 'reorder') }}" class="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150 mx-4">
+            @can('update', $postTypes->first())
+                <a href="{{ route('post-types.index', 'reorder') }}" class="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150 mx-4">
                     @icon('arrow-sort', 'h-6 w-6')
                 </a>
             @endcan
 
-            @can('create', 'Nova\Roles\Models\Role')
-                <a href="{{ route('roles.create') }}" class="button button-primary" data-cy="create">
-                    Add Role
+            @can('create', 'Nova\Stories\Models\PostType')
+                <a href="{{ route('post-types.create') }}" class="button button-primary" data-cy="create">
+                    Add Post Type
                 </a>
             @endcan
         </x-slot>
@@ -29,15 +29,14 @@
                             Change Sorting Order
                         </h3>
                         <div class="mt-2 text-sm leading-5 text-info-800">
-                            <p>Sorting roles allows for admins to control the hierarchy of roles in the system to ensure that users with a lower role cannot give themselves higher privileges.</p>
-                            <p class="mt-4">Top roles have the greatest privileges &ndash; place the most important roles with the highest potential impact higher on the list, to ensure users can't gain unwanted access to areas of Nova.</p>
+                            <p>Post types appear in the order you set in Nova's writing features. To change the sorting of the post types, drag them to the desired order and then click Save Sort Order below.</p>
                         </div>
                         <div class="mt-4">
-                            <x-form :action="route('roles.reorder')" id="form-reorder">
+                            <x-form :action="route('post-types.reorder')" id="form-reorder">
                                 <input type="hidden" name="sort" x-model="newSortOrder">
                                 <div class="flex items-center space-x-4">
                                     <button type="submit" form="form-reorder" class="button button-info">Save Sort Order</button>
-                                    <a href="{{ route('roles.index') }}" class="text-info-600 text-sm font-medium transition ease-in-out duration-150 hover:text-info-800">
+                                    <a href="{{ route('post-types.index') }}" class="text-info-600 text-sm font-medium transition ease-in-out duration-150 hover:text-info-800">
                                         Cancel
                                     </a>
                                 </div>
@@ -48,13 +47,13 @@
             </div>
         @else
             <div class="px-4 py-2 | sm:px-6 sm:py-3">
-                <x-search-filter placeholder="Find a role..." :search="$search" />
+                <x-search-filter placeholder="Find a post type..." :search="$search" />
             </div>
         @endif
 
         <ul id="sortable-list">
-        @forelse ($roles as $role)
-            <li class="sortable-item border-t border-gray-200 hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out @if ($isReordering) first:border-0 last:rounded-b-md @endif" data-id="{{ $role->id }}">
+        @forelse ($postTypes as $postType)
+            <li class="sortable-item border-t border-gray-200 hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out @if ($isReordering) first:border-0 last:rounded-b-md @endif" data-id="{{ $postType->id }}">
                 <div class="block">
                     <div class="px-4 py-4 flex items-center | sm:px-6">
                         @if ($isReordering)
@@ -62,65 +61,43 @@
                                 @icon('reorder', 'h-5 w-5 text-gray-400')
                             </div>
                         @endif
-                        <div class="min-w-0 flex-1 | sm:flex sm:items-center sm:justify-between">
-                            <div>
-                                <div class="leading-normal font-medium truncate">
-                                    {{ $role->display_name }}
-                                </div>
-                                <div class="mt-2 flex">
-                                    <div class="flex items-center text-sm leading-5 text-gray-500">
-                                        @if ($role->users_count === 1)
-                                            @icon('user', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
-                                        @else
-                                            @icon('users', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
-                                        @endif
-                                        <span>
-                                            {{ $role->users_count }} assigned @choice('user|users', $role->users_count)
-                                        </span>
-                                    </div>
-                                    @if ($role->default)
-                                        <div class="hidden items-center text-sm leading-5 text-gray-500 ml-6 | sm:flex">
-                                            @icon('check-alt', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
-                                            <span>Assigned to new users</span>
-                                        </div>
-                                    @endif
-                                </div>
+                        <div class="min-w-0 flex-1 | sm:flex sm:flex-col">
+                            <div class="leading-normal font-medium truncate">
+                                {{ $postType->name }}
                             </div>
-                            <div class="mt-4 flex-shrink-0 | sm:mt-0">
-                                <x-avatar-group size="xs" :items="$role->users->take(4)" />
-                            </div>
+                            <p class="text-sm leading-5 text-gray-600">{{ $postType->description }}</p>
                         </div>
                         <div class="ml-5 flex-shrink-0 leading-0">
                             <x-dropdown placement="bottom-end" class="text-gray-400 hover:text-gray-500">
                                 @icon('more', 'h-6 w-6')
 
                                 <x-slot name="dropdown">
-                                    @can('view', $role)
-                                        <a href="{{ route('roles.show', $role) }}" class="{{ $component->link() }}" data-cy="view">
+                                    @can('view', $postType)
+                                        <a href="{{ route('post-types.show', $postType) }}" class="{{ $component->link() }}" data-cy="view">
                                             @icon('show', $component->icon())
                                             <span>View</span>
                                         </a>
                                     @endcan
 
-                                    @can('update', $role)
-                                        <a href="{{ route('roles.edit', $role) }}" class="{{ $component->link() }}" data-cy="edit">
+                                    @can('update', $postType)
+                                        <a href="{{ route('post-types.edit', $postType) }}" class="{{ $component->link() }}" data-cy="edit">
                                             @icon('edit', $component->icon())
                                             <span>Edit</span>
                                         </a>
                                     @endcan
 
-                                    @can('duplicate', $role)
-                                        <button type="submit" class="{{ $component->link() }}" form="duplicate-{{ $role->id }}" data-cy="duplicate">
+                                    @can('duplicate', $postType)
+                                        {{-- <button type="submit" class="{{ $component->link() }}" form="duplicate-{{ $postType->id }}" data-cy="duplicate">
                                             @icon('duplicate', $component->icon())
                                             <span>Duplicate</span>
                                         </button>
-                                        <x-form :action="route('roles.duplicate', $role)" id="duplicate-{{ $role->id }}" class="hidden" />
+                                        <x-form :action="route('post-types.duplicate', $postType)" id="duplicate-{{ $postType->id }}" class="hidden" /> --}}
                                     @endcan
 
-                                    @can('delete', $role)
+                                    @can('delete', $postType)
                                         <div class="{{ $component->divider() }}"></div>
                                         <button
-                                            x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($role) }});"
+                                            x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($postType) }});"
                                             class="{{ $component->link() }}"
                                             data-cy="delete"
                                         >
@@ -128,13 +105,6 @@
                                             <span>Delete</span>
                                         </button>
                                     @endcan
-
-                                    @if ($role->locked)
-                                        <div class="{{ $component->divider() }}"></div>
-                                        <div class="{{ $component->text() }}">
-                                            This role is locked and cannot be duplicated or deleted.
-                                        </div>
-                                    @endif
                                 </x-slot>
                             </x-dropdown>
                         </div>
@@ -143,21 +113,21 @@
             </li>
         @empty
             <x-search-not-found>
-                No roles found
+                No post types found
             </x-search-not-found>
         @endforelse
         </ul>
 
         @if (! $isReordering)
             <div class="px-4 py-2 border-t border-gray-200 | sm:px-6 sm:py-3">
-                {{ $roles->withQueryString()->links() }}
+                {{ $postTypes->withQueryString()->links() }}
             </div>
         @endif
     </x-panel>
 
-    <x-tips section="roles" />
+    <x-tips section="post-types" />
 
-    <x-modal color="red" title="Delete Role?" icon="warning" :url="route('roles.delete')">
+    <x-modal color="red" title="Delete Post Type?" icon="warning" :url="route('post-types.delete')">
         <x-slot name="footer">
             <span class="flex w-full | sm:col-start-2">
                 <button form="form" class="button button-danger w-full">

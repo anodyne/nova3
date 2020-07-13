@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateStoryTables extends Migration
 {
@@ -39,6 +39,8 @@ class CreateStoryTables extends Migration
             $table->string('key')->unique();
             $table->string('name');
             $table->text('description')->nullable();
+            $table->json('fields')->nullable();
+            $table->unsignedBigInteger('sort')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -121,20 +121,18 @@
                 <div class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
                     <div class="flex items-center px-4 py-4 | sm:px-6">
                         <div class="min-w-0 flex-1 flex items-center">
-                            <div class="flex-shrink-0">
-                                <x-avatar :url="$character->avatar_url" />
-                            </div>
-                            <div class="min-w-0 flex-1 px-4 | md:grid md:grid-cols-2 md:gap-4">
+                            <div class="min-w-0 flex-1 pr-4 | md:grid md:grid-cols-2 md:gap-4">
                                 <div>
-                                    <div class="leading-normal font-medium truncate">
-                                        {{ optional(optional($character->rank)->name)->name }}
-                                        {{ $character->name }}
-                                    </div>
-                                    <div class="mt-2 flex">
-                                        <div class="flex items-center text-sm leading-5 text-gray-500">
+                                    <x-avatar-meta :url="$character->avatar_url">
+                                        <x-slot name="primaryMeta">
+                                            {{ optional(optional($character->rank)->name)->name }}
+                                            {{ $character->name }}
+                                        </x-slot>
+
+                                        <x-slot name="secondaryMeta">
                                             {{ $character->positions->implode('name', ' & ') }}
-                                        </div>
-                                    </div>
+                                        </x-slot>
+                                    </x-avatar-meta>
                                 </div>
                                 <div>
                                     <div class="flex">

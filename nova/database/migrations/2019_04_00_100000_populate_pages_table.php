@@ -133,6 +133,17 @@ class PopulatePagesTable extends Migration
             ['uri' => 'characters/{character}/activate', 'key' => 'characters.activate', 'verb' => 'post', 'resource' => 'Nova\\Characters\\Controllers\\ActivateCharacterController', 'layout' => 'admin'],
             ['uri' => 'characters/confirm-deactivate', 'key' => 'characters.confirm-deactivate', 'verb' => 'post',  'resource' => 'Nova\\Characters\\Controllers\\DeactivateCharacterController@confirm', 'layout' => 'admin'],
             ['uri' => 'characters/{character}/deactivate', 'key' => 'characters.deactivate', 'verb' => 'post', 'resource' => 'Nova\\Characters\\Controllers\\DeactivateCharacterController@deactivate', 'layout' => 'admin'],
+
+            ['uri' => 'post-types', 'key' => 'post-types.index', 'resource' => 'Nova\\Stories\\Controllers\\PostTypes\\ShowPostTypeController@all', 'layout' => 'admin'],
+            ['uri' => 'post-types/{postType}/show', 'key' => 'post-types.show', 'resource' => 'Nova\\Stories\\Controllers\\PostTypes\ShowPostTypeController@show', 'layout' => 'admin'],
+            ['uri' => 'post-types/create', 'key' => 'post-types.create', 'resource' => 'Nova\\Stories\\Controllers\\PostTypes\\CreatePostTypeController@create', 'layout' => 'admin'],
+            ['uri' => 'characters', 'key' => 'post-types.store', 'verb' => 'post', 'resource' => 'Nova\\Stories\\Controllers\\PostTypes\\CreatePostTypeController@store', 'layout' => 'admin'],
+            ['uri' => 'post-types/{postType}/edit', 'key' => 'post-types.edit', 'resource' => 'Nova\\Stories\\Controllers\\PostTypes\\UpdatePostTypeController@edit', 'layout' => 'admin'],
+            ['uri' => 'post-types/{postType}', 'key' => 'post-types.update', 'verb' => 'put', 'resource' => 'Nova\\Stories\\Controllers\\PostTypes\\UpdatePostTypeController@update', 'layout' => 'admin'],
+            ['uri' => 'post-types/delete', 'key' => 'post-types.delete', 'verb' => 'post', 'resource' => 'Nova\\Stories\\Controllers\\PostTypes\\DeletePostTypeController@confirm', 'layout' => 'admin'],
+            ['uri' => 'post-types/{character}', 'key' => 'post-types.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Stories\\Controllers\\PostTypes\\DeletePostTypeController@destroy', 'layout' => 'admin'],
+            ['uri' => 'post-types/reorder', 'key' => 'post-types.reorder', 'verb' => 'post', 'resource' => 'Nova\\Stories\\Controllers\\PostTypes\\ReorderPostTypesController', 'layout' => 'admin'],
+            ['uri' => 'post-types/{originalPostType}/duplicate', 'key' => 'post-types.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Stories\\Controllers\\PostTypes\\DuplicatePostTypeController', 'layout' => 'admin'],
         ];
 
         collect($pages)->each([Page::class, 'create']);
