@@ -27,9 +27,10 @@ class CreateDepartmentActionTest extends TestCase
     /** @test **/
     public function itCreatesADepartment()
     {
-        $data = new DepartmentData;
-        $data->name = 'Command';
-        $data->description = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.';
+        $data = new DepartmentData([
+            'name' => 'Command',
+            'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+        ]);
 
         $department = $this->action->execute($data);
 
@@ -44,9 +45,10 @@ class CreateDepartmentActionTest extends TestCase
         create(Department::class, ['sort' => 0]);
         create(Department::class, ['sort' => 1]);
 
-        $data = new DepartmentData;
-        $data->name = 'Command';
-        $data->description = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.';
+        $data = new DepartmentData([
+            'name' => 'Command',
+            'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+        ]);
 
         $department = $this->action->execute($data);
 

@@ -42,7 +42,7 @@ class UpdateThemeTest extends TestCase
 
         $response = $this->put(route('themes.update', $this->theme), [
             'name' => 'New Name',
-            'active' => (int) true,
+            'active' => true,
             'location' => $this->theme->location,
         ]);
         $response->assertSuccessful();

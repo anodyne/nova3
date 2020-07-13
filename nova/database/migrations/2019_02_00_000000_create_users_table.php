@@ -12,13 +12,13 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email');
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
-            $table->string('pronouns')->default('neutral');
             $table->string('status');
+            $table->string('pronouns')->default('neutral');
             $table->rememberToken();
             $table->boolean('force_password_reset')->default(false);
             $table->timestamp('last_login')->nullable();
+            $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

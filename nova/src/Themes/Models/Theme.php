@@ -28,53 +28,25 @@ class Theme extends Model
 
     protected $dispatchesEvents = [
         'created' => Events\ThemeCreated::class,
-        'updated' => Events\ThemeUpdated::class,
         'deleted' => Events\ThemeDeleted::class,
+        'updated' => Events\ThemeUpdated::class,
     ];
 
-    /**
-     * Get the layout to use for the page.
-     *
-     * @param  Page  $page
-     *
-     * @return string
-     */
     public function getLayoutForPage(Page $page)
     {
         return $this->getAttribute("layout_{$page->layout}");
     }
 
-    /**
-     * Set the description for logging.
-     *
-     * @param  string  $eventName
-     *
-     * @return string
-     */
     public function getDescriptionForEvent(string $eventName): string
     {
         return ":subject.name theme was {$eventName}";
     }
 
-    /**
-     * Create a new Eloquent Collection instance.
-     *
-     * @param  array  $models
-     *
-     * @return \Nova\Themes\ThemesCollection
-     */
     public function newCollection(array $models = [])
     {
         return new ThemesCollection($models);
     }
 
-    /**
-     * Use a custom Eloquent builder.
-     *
-     * @param  \Illuminate\Database\Query\Builder  $query
-     *
-     * @return ThemeBuilder
-     */
     public function newEloquentBuilder($query): ThemeBuilder
     {
         return new ThemeBuilder($query);

@@ -12,6 +12,7 @@ class SetupThemeDirectory
         Artisan::call('nova:make-theme', [
             'name' => $data->name,
             '--location' => $data->location,
+            '--preview' => $data->preview,
             '--variants' => $data->variants,
         ]);
     }

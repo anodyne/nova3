@@ -9,13 +9,6 @@ class Permission extends LaratrustPermission
 {
     protected $fillable = ['name', 'display_name', 'description'];
 
-    /**
-     * Use a custom Eloquent builder.
-     *
-     * @param  \Illuminate\Database\Query\Builder  $query
-     *
-     * @return PermissionBuilder
-     */
     public function newEloquentBuilder($query): PermissionBuilder
     {
         return new PermissionBuilder($query);

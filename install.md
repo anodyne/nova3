@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- PHP 7.3+
+- PHP 7.4+
 - MySQL PDO extension
 - MySQL 5.7+
 - Updated, modern browser (Chrome 83+, Brave 1.9+, Safari 13+, Firefox 77+, or Edge 83+)

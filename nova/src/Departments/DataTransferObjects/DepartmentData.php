@@ -7,27 +7,18 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class DepartmentData extends DataTransferObject
 {
-    /**
-     * @var  string
-     */
-    public $name;
+    public string $name;
 
-    /**
-     * @var  string
-     */
-    public $description;
+    public ?string $description;
 
-    /**
-     * @var  bool
-     */
-    public $active = true;
+    public bool $active = true;
 
     public static function fromRequest(Request $request): self
     {
         return new self([
-            'name' => $request->name,
+            'active' => (bool) ($request->active ?? true),
             'description' => $request->description,
-            'active' => $request->active ?? true,
+            'name' => $request->name,
         ]);
     }
 }

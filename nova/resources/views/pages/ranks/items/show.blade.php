@@ -29,7 +29,32 @@
         </x-form.section>
 
         <x-form.section title="Characters" message="The following characters have this rank assigned to them.">
-            Coming soon...
+            <div class="flex flex-col w-full space-y-2">
+                @foreach ($item->characters as $character)
+                    <div class="group flex items-center justify-between w-full py-2 px-4 rounded odd:bg-gray-100">
+                        <div class="flex items-center space-x-3">
+                            <div class="flex-shrink-0">
+                                <x-avatar size="lg" :url="$character->avatar_url" />
+                            </div>
+                            <div class="flex flex-col">
+                                <div class="flex items-center space-x-2">
+                                    <x-status :status="$character->status" />
+                                    <span class="font-medium">{{ $character->name }}</span>
+                                </div>
+                                <span>
+                                    <x-badge :type="$character->type->color()" size="sm">{{ $character->type->displayName() }}</x-badge>
+                                </span>
+                            </div>
+                        </div>
+
+                        @can('update', $character)
+                            <a href="{{ route('characters.edit', $character) }}" class="text-gray-500 transition ease-in-out duration-150 hover:text-gray-700 group-hover:visible | sm:invisible">
+                                @icon('edit')
+                            </a>
+                        @endcan
+                    </div>
+                @endforeach
+            </div>
         </x-form.section>
 
         <x-form.footer>

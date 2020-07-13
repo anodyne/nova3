@@ -33,12 +33,13 @@ class CreatePositionActionTest extends TestCase
     /** @test **/
     public function itCreatesAPosition()
     {
-        $data = new PositionData;
-        $data->name = 'Captain';
-        $data->description = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.';
-        $data->available = 1;
-        $data->department = $this->department;
-        $data->department_id = $this->department->id;
+        $data = new PositionData([
+            'name' => 'Captain',
+            'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+            'available' => 1,
+            'department' => $this->department,
+            'department_id' => $this->department->id,
+        ]);
 
         $position = $this->action->execute($data);
 
@@ -61,12 +62,13 @@ class CreatePositionActionTest extends TestCase
             'sort' => 1,
         ]);
 
-        $data = new PositionData;
-        $data->name = 'Captain';
-        $data->description = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.';
-        $data->available = 1;
-        $data->department = $this->department;
-        $data->department_id = $this->department->id;
+        $data = new PositionData([
+            'name' => 'Captain',
+            'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+            'available' => 1,
+            'department' => $this->department,
+            'department_id' => $this->department->id,
+        ]);
 
         $position = $this->action->execute($data);
 

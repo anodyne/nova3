@@ -31,8 +31,9 @@ class UpdateRankGroupActionTest extends TestCase
     /** @test **/
     public function itUpdatesARankGroup()
     {
-        $data = new RankGroupData;
-        $data->name = 'Command';
+        $data = new RankGroupData([
+            'name' => 'Command',
+        ]);
 
         $group = $this->action->execute($this->group, $data);
 

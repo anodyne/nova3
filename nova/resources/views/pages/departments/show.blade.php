@@ -19,19 +19,25 @@
                 <p class="font-semibold">{{ $department->name }}</p>
             </x-input.group>
 
-            <x-input.group label="Description">
-                <p class="font-semibold">{{ $department->description }}</p>
-            </x-input.group>
+            @if ($department->description)
+                <x-input.group label="Description">
+                    <p class="font-semibold">{{ $department->description }}</p>
+                </x-input.group>
+            @endif
 
             <x-input.group label="Status">
-                <p class="font-semibold">{{ $department->active ? 'Active' : 'Inactive' }}</p>
+                @if ($department->active)
+                    <x-badge type="success">Active</x-badge>
+                @else
+                    <x-badge>Inactive</x-badge>
+                @endif
             </x-input.group>
         </x-form.section>
 
         <x-form.section title="Positions" message="These are all of the positions currently assigned to this department.">
             <div class="flex flex-col w-full">
                 @foreach ($department->positions as $position)
-                    <div class="group flex items-center justify-between py-2 px-4 rounded even:bg-gray-100">
+                    <div class="group flex items-center justify-between py-2 px-4 rounded odd:bg-gray-100">
                         <div class="flex flex-col | sm:flex-row sm:items-center">
                             {{ $position->name }}
                         </div>

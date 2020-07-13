@@ -36,11 +36,12 @@ class UpdateRankItemActionTest extends TestCase
         $group = create(RankGroup::class);
         $name = create(RankName::class);
 
-        $data = new RankItemData;
-        $data->group_id = $group->id;
-        $data->name_id = $name->id;
-        $data->base_image = 'new-base.png';
-        $data->overlay_image = 'new-overlay.png';
+        $data = new RankItemData([
+            'group_id' => $group->id,
+            'name_id' => $name->id,
+            'base_image' => 'new-base.png',
+            'overlay_image' => 'new-overlay.png',
+        ]);
 
         $item = $this->action->execute($this->item, $data);
 

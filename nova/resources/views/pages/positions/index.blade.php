@@ -105,7 +105,7 @@
                                             @if ($position->active)
                                                 <x-badge size="sm" type="success">Active</x-badge>
                                             @else
-                                                <x-badge size="sm" type="danger">Inactive</x-badge>
+                                                <x-badge size="sm">Inactive</x-badge>
                                             @endif
                                         </div>
                                         @if ($position->active)
@@ -113,6 +113,10 @@
                                                 {{ $position->available }} available @choice('slot|slots', $position->available)
                                             </div>
                                         @endif
+
+                                        <div class="hidden items-center text-sm leading-5 text-gray-500 ml-6 | sm:flex">
+                                            {{ $position->active_characters_count }} assigned @choice('character|characters', $position->active_characters_count)
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -166,7 +170,9 @@
             @endif
         </x-panel>
 
-        <x-modal color="red" headline="Delete position?" icon="warning" :url="route('positions.delete')">
+        <x-tips section="positions" />
+
+        <x-modal color="red" title="Delete Position?" icon="warning" :url="route('positions.delete')">
             <x-slot name="footer">
                 <span class="flex w-full | sm:col-start-2">
                     <button form="form" class="button button-danger w-full">

@@ -8,7 +8,7 @@ use Nova\Themes\Models\Theme;
 use Nova\Themes\Events\ThemeCreated;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
-use Nova\Themes\Http\Requests\CreateThemeRequest;
+use Nova\Themes\Requests\CreateThemeRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
@@ -55,7 +55,7 @@ class CreateThemeTest extends TestCase
 
         $this->assertDatabaseHas('themes', Arr::only($theme, [
             'name',
-            'location'
+            'location',
         ]));
 
         $this->assertRouteUsesFormRequest(

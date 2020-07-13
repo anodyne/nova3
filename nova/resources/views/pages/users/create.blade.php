@@ -35,7 +35,7 @@
                 </x-input.group>
             </x-form.section>
 
-            <x-form.section title="Avatar" message="User avatars should be a square image at least 200 pixels tall by 200 pixels wide, but not more than 5MB in size.">
+            <x-form.section title="Avatar" message="User avatars should be a square image at least 500 pixels tall by 500 pixels wide, but not more than 5MB in size.">
                 <x-input.group>
                     @livewire('users:upload-avatar')
                 </x-input.group>
@@ -54,6 +54,12 @@
 
                 <x-input.group label="Assign roles">
                     @livewire('roles:manage-roles', ['roles' => $defaultRoles])
+                </x-input.group>
+            </x-form.section>
+
+            <x-form.section title="Characters">
+                <x-input.group label="Assign characters">
+                    @livewire('characters:collector', ['characters' => old('characters')])
                 </x-input.group>
             </x-form.section>
 

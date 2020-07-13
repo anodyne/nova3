@@ -27,11 +27,12 @@ class CreateNoteActionTest extends TestCase
     /** @test **/
     public function itCreatesANewNote()
     {
-        $data = new NoteData;
-        $data->title = 'My Note';
-        $data->content = 'Content of my note';
-        $data->summary = 'Summary of my note';
-        $data->user_id = create(User::class, [], ['status:active'])->id;
+        $data = new NoteData([
+            'title' => 'My Note',
+            'content' => 'Content of my note',
+            'summary' => 'Summary of my note',
+            'user' => $user = create(User::class, [], ['status:active']),
+        ]);
 
         $note = $this->action->execute($data);
 
@@ -39,5 +40,6 @@ class CreateNoteActionTest extends TestCase
         $this->assertEquals('My Note', $note->title);
         $this->assertEquals('Content of my note', $note->content);
         $this->assertEquals('Summary of my note', $note->summary);
+        $this->assertEquals($user->id, $note->user_id);
     }
 }

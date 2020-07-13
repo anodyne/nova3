@@ -24,16 +24,28 @@ class Avatar extends Component
         switch ($this->size) {
             case 'xs':
                 $size = 'h-8 w-8';
+
                 break;
+
             case 'sm':
                 $size = 'h-10 w-10';
+
                 break;
+
             case 'md':
             default:
                 $size = 'h-12 w-12';
+
                 break;
+
             case 'lg':
                 $size = 'h-14 w-14';
+
+                break;
+
+            case 'xl':
+                $size = 'h-24 w-24';
+
                 break;
         }
 

@@ -10,102 +10,42 @@ class NotePolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * Determine whether the user can view any note.
-     *
-     * @param  User  $user
-     *
-     * @return bool
-     */
-    public function viewAny(User $user)
+    public function viewAny(User $user): bool
     {
         return true;
     }
 
-    /**
-     * Determine whether the user can view the note.
-     *
-     * @param  User  $user
-     * @param  Note  $note
-     *
-     * @return bool
-     */
-    public function view(User $user, Note $note)
+    public function view(User $user, Note $note): bool
     {
         return $user->is($note->author);
     }
 
-    /**
-     * Determine whether the user can create notes.
-     *
-     * @param  User  $user
-     *
-     * @return bool
-     */
-    public function create(User $user)
+    public function create(User $user): bool
     {
         return true;
     }
 
-    /**
-     * Determine whether the user can update the note.
-     *
-     * @param  User  $user
-     * @param  Note  $note
-     *
-     * @return bool
-     */
-    public function update(User $user, Note $note)
+    public function update(User $user, Note $note): bool
     {
         return $user->is($note->author);
     }
 
-    /**
-     * Determine whether the user can delete the note.
-     *
-     * @param  User  $user
-     * @param  Note  $note
-     *
-     * @return bool
-     */
-    public function delete(User $user, Note $note)
+    public function delete(User $user, Note $note): bool
     {
         return $user->is($note->author);
     }
 
-    /**
-     * Determine whether the user can duplicate the note.
-     *
-     * @param  User  $user
-     * @param  Note  $note
-     */
-    public function duplicate(User $user, Note $note)
+    public function duplicate(User $user, Note $note): bool
     {
         return $user->is($note->author);
     }
 
-    /**
-     * Determine whether the user can restore the note.
-     *
-     * @param  User  $user
-     * @param  Note  $note
-     *
-     * @return bool
-     */
-    public function restore(User $user, Note $note)
+    public function restore(User $user, Note $note): bool
     {
         return false;
     }
 
-    /**
-     * Determine whether the user can permanently delete the note.
-     *
-     * @param  User  $user
-     * @param  Note  $note
-     *
-     * @return bool
-     */
-    public function forceDelete(User $user, Note $note)
+    public function forceDelete(User $user, Note $note): bool
     {
         return false;
     }

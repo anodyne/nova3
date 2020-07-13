@@ -5,16 +5,13 @@ namespace Nova\Roles\Providers;
 use Nova\Roles\Models\Role;
 use Nova\DomainServiceProvider;
 use Nova\Roles\Policies\RolePolicy;
-use Nova\Roles\Http\Livewire\FindRole;
-use Nova\Roles\Http\Responses\ShowRoleResponse;
-use Nova\Roles\Http\Responses\CreateRoleResponse;
-use Nova\Roles\Http\Responses\DeleteRoleResponse;
-use Nova\Roles\Http\Responses\UpdateRoleResponse;
-use Nova\Roles\Http\Responses\ShowAllRolesResponse;
-use Nova\Roles\Http\Controllers\SearchRolesController;
-use Nova\Roles\Http\Controllers\SearchPermissionsController;
-use Nova\Roles\Http\Livewire\ManagePermissions;
-use Nova\Roles\Http\Livewire\ManageRoles;
+use Nova\Roles\Livewire\ManageRoles;
+use Nova\Roles\Livewire\ManagePermissions;
+use Nova\Roles\Responses\ShowRoleResponse;
+use Nova\Roles\Responses\CreateRoleResponse;
+use Nova\Roles\Responses\DeleteRoleResponse;
+use Nova\Roles\Responses\UpdateRoleResponse;
+use Nova\Roles\Responses\ShowAllRolesResponse;
 
 class RoleServiceProvider extends DomainServiceProvider
 {
@@ -33,18 +30,5 @@ class RoleServiceProvider extends DomainServiceProvider
         UpdateRoleResponse::class,
         ShowAllRolesResponse::class,
         ShowRoleResponse::class,
-    ];
-
-    protected $routes = [
-        'permissions/search' => [
-            'verb' => 'get',
-            'uses' => SearchPermissionsController::class,
-            'as' => 'permissions.search',
-        ],
-        'roles/search' => [
-            'verb' => 'get',
-            'uses' => SearchRolesController::class,
-            'as' => 'roles.search',
-        ],
     ];
 }

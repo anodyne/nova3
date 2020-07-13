@@ -149,7 +149,9 @@
             @endif
         </x-panel>
 
-        <x-modal color="red" headline="Delete rank item?" icon="warning" :url="route('ranks.items.delete')">
+        <x-tips section="ranks" />
+
+        <x-modal color="red" title="Delete rank item?" icon="warning" :url="route('ranks.items.delete')">
             <x-slot name="footer">
                 <span class="flex w-full | sm:col-start-2">
                     <button form="form" class="button button-danger w-full">

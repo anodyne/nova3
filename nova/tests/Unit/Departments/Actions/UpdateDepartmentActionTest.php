@@ -31,10 +31,11 @@ class UpdateDepartmentActionTest extends TestCase
     /** @test **/
     public function itUpdatesADepartment()
     {
-        $data = new DepartmentData;
-        $data->name = 'Operations';
-        $data->description = 'Lorem consectetur adipisicing elit.';
-        $data->active = false;
+        $data = new DepartmentData([
+            'name' => 'Operations',
+            'description' => 'Lorem consectetur adipisicing elit.',
+            'active' => false,
+        ]);
 
         $department = $this->action->execute($this->department, $data);
 

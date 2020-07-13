@@ -4,6 +4,9 @@ namespace Nova\Users\Policies;
 
 use Nova\Users\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Nova\Users\Models\States\Active;
+use Nova\Users\Models\States\Inactive;
+use Nova\Users\Models\States\Pending;
 
 class UserPolicy
 {
@@ -72,29 +75,32 @@ class UserPolicy
         return $user->can('user.delete') && $user->isNot($actionableUser);
     }
 
-    /**
-     * Determine whether the user can restore the theme.
-     *
-     * @param  \Nova\Users\Models\User  $user
-     * @param  \Nova\Users\Models\User  $actionableUser
-     *
-     * @return mixed
-     */
     public function restore(User $user, User $actionableUser)
     {
         return $user->can('user.create') || $user->can('user.delete');
     }
 
-    /**
-     * Determine whether the user can permanently delete the theme.
-     *
-     * @param  \Nova\Users\Models\User  $user
-     * @param  \Nova\Users\Models\User  $actionableUser
-     *
-     * @return mixed
-     */
     public function forceDelete(User $user, User $actionableUser)
     {
         return $this->delete($user, $actionableUser);
+    }
+
+    public function activate(User $user, User $actionableUser)
+    {
+        return $this->update($user, $actionableUser)
+            && $actionableUser->status->equals(Inactive::class);
+    }
+
+    public function deactivate(User $user, User $actionableUser)
+    {
+        return $this->update($user, $actionableUser)
+            && $actionableUser->status->equals(Active::class)
+            && $actionableUser->isNot($user);
+    }
+
+    public function forcePasswordReset(User $user, User $actionableUser)
+    {
+        return $this->update($user, $actionableUser)
+            && ! $actionableUser->status->equals(Pending::class);
     }
 }

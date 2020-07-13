@@ -3,11 +3,15 @@
 namespace Nova\Foundation\Icons;
 
 use BladeUI\Icons\Svg;
-use BladeUI\Icons\Factory;
 
 class Icon
 {
-    protected $default = 'fluent';
+    protected $default;
+
+    public function __construct()
+    {
+        $this->default = app('nova.settings')->defaults->iconSet;
+    }
 
     public function make($name, $class = '', array $attributes = []): Svg
     {

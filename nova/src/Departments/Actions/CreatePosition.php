@@ -10,8 +10,7 @@ class CreatePosition
     public function execute(PositionData $data): Position
     {
         return Position::create(array_merge(
-            $data->except('department')->toArray(),
-            [
+            $data->except('department')->toArray(), [
                 'sort' => $data->department->positions()->count(),
             ]
         ));

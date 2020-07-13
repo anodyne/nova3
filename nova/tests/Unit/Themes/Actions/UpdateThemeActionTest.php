@@ -31,12 +31,13 @@ class UpdateThemeActionTest extends TestCase
     /** @test **/
     public function itUpdatesATheme()
     {
-        $data = new ThemeData;
-        $data->name = 'Slate';
-        $data->location = 'slate';
-        $data->credits = 'Slate credits';
-        $data->preview = 'new-preview.jpg';
-        $data->active = false;
+        $data = new ThemeData([
+            'name' => 'Slate',
+            'location' => 'slate',
+            'credits' => 'Slate credits',
+            'preview' => 'new-preview.jpg',
+            'active' => false,
+        ]);
 
         $theme = $this->action->execute($this->theme, $data);
 

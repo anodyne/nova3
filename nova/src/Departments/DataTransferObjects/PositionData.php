@@ -8,43 +8,25 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class PositionData extends DataTransferObject
 {
-    /**
-     * @var  string
-     */
-    public $name;
+    public string $name;
 
-    /**
-     * @var  string
-     */
-    public $description;
+    public ?string $description;
 
-    /**
-     * @var  int
-     */
-    public $available;
+    public int $available = 0;
 
-    /**
-     * @var  bool
-     */
-    public $active = true;
+    public bool $active = true;
 
-    /**
-     * @var  Department
-     */
-    public $department;
+    public Department $department;
 
-    /**
-     * @var  int
-     */
-    public $department_id;
+    public int $department_id = 0;
 
     public static function fromRequest(Request $request): self
     {
         return new self([
-            'active' => $request->active ?? true,
-            'available' => $request->available,
+            'active' => (bool) ($request->active ?? true),
+            'available' => (int) $request->available,
             'department' => Department::find($request->department_id),
-            'department_id' => $request->department_id,
+            'department_id' => (int) $request->department_id,
             'description' => $request->description,
             'name' => $request->name,
         ]);

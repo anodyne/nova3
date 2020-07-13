@@ -6,7 +6,7 @@ class PendingTheme extends Theme
 {
     protected $table = 'themes';
 
-    public function getKey()
+    public function getKey(): string
     {
         return $this->location;
     }

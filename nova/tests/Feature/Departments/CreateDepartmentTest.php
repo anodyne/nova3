@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Event;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Events\DepartmentCreated;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nova\Departments\Http\Requests\CreateDepartmentRequest;
+use Nova\Departments\Requests\CreateDepartmentRequest;
 
 /**
  * @group departments

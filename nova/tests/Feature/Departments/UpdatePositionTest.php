@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Event;
 use Nova\Departments\Models\Position;
 use Nova\Departments\Events\PositionUpdated;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nova\Departments\Http\Requests\UpdatePositionRequest;
+use Nova\Departments\Requests\UpdatePositionRequest;
 
 /**
  * @group departments

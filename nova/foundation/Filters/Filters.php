@@ -2,6 +2,7 @@
 
 namespace Nova\Foundation\Filters;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 abstract class Filters
@@ -38,7 +39,7 @@ abstract class Filters
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function apply($builder)
+    public function apply(Builder $builder)
     {
         $this->builder = $builder;
 

@@ -7,33 +7,21 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class RankItemData extends DataTransferObject
 {
-    /**
-     * @var  string
-     */
-    public $base_image;
+    public string $base_image;
 
-    /**
-     * @var  string
-     */
-    public $overlay_image;
+    public ?string $overlay_image;
 
-    /**
-     * @var  int
-     */
-    public $group_id;
+    public ?int $group_id;
 
-    /**
-     * @var  int
-     */
-    public $name_id;
+    public ?int $name_id;
 
     public static function fromRequest(Request $request): self
     {
         return new self([
             'base_image' => $request->input('base_image'),
+            'group_id' => (int) $request->group_id,
+            'name_id' => (int) $request->name_id,
             'overlay_image' => $request->input('overlay_image'),
-            'group_id' => $request->group_id,
-            'name_id' => $request->name_id,
         ]);
     }
 }

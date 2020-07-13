@@ -117,7 +117,6 @@
                                                 class="{{ $component->link() }}"
                                                 data-cy="duplicate"
                                             >
-                                            {{-- <button type="submit" class="{{ $component->link() }}" form="duplicate-{{ $group->id }}" data-cy="duplicate"> --}}
                                                 @icon('duplicate', $component->icon())
                                                 <span>Duplicate</span>
                                             </button>
@@ -155,7 +154,9 @@
             @endif
         </x-panel>
 
-        <x-modal color="red" headline="Delete rank group?" icon="warning" :url="route('ranks.groups.delete')">
+        <x-tips section="ranks" />
+
+        <x-modal color="red" title="Delete rank group?" icon="warning" :url="route('ranks.groups.delete')">
             <x-slot name="footer">
                 <span class="flex w-full | sm:col-start-2">
                     <button form="form" class="button button-danger w-full">
@@ -170,7 +171,7 @@
             </x-slot>
         </x-modal>
 
-        <x-modal color="blue" headline="Duplicate rank group" icon="duplicate" :url="route('ranks.groups.confirm-duplicate')" event="modal-duplicate" :wide="true">
+        <x-modal color="blue" title="Duplicate rank group" icon="duplicate" :url="route('ranks.groups.confirm-duplicate')" event="modal-duplicate" :wide="true">
             <x-slot name="footer">
                 <span class="flex w-full | sm:col-start-2">
                     <button form="form-duplicate" class="button button-primary w-full">

@@ -9,6 +9,9 @@ class CreateRankGroup
 {
     public function execute(RankGroupData $data): RankGroup
     {
-        return RankGroup::create($data->toArray());
+        return RankGroup::create(array_merge(
+            $data->toArray(),
+            ['sort' => RankGroup::count()]
+        ));
     }
 }

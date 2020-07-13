@@ -14,7 +14,7 @@
     @if (auth()->user()->notes()->count() === 0)
         <x-empty-state
             image="notes"
-            message="Notes are a great way to keep your thoughts organized, be it about things you need to do for the game, a story idea, or as a scratchpad for your next great story entry."
+            message="Notes are a great way to keep your thoughts organized, be it about things you need to do for the game, a story idea, or as a scratchpad for your next great story post."
             label="Add a note now"
             :link="route('notes.create')"
         ></x-empty-state>
@@ -46,6 +46,7 @@
                                             @icon('show', $component->icon())
                                             <span>View</span>
                                         </a>
+
                                         <a href="{{ route('notes.edit', $note) }}" class="{{ $component->link() }}">
                                             @icon('edit', $component->icon())
                                             <span>Edit</span>
@@ -84,7 +85,9 @@
             </div>
         </x-panel>
 
-        <x-modal color="red" headline="Delete note?" icon="warning" :url="route('notes.delete')">
+        <x-tips section="notes" />
+
+        <x-modal color="red" title="Delete Note?" icon="warning" :url="route('notes.delete')">
             <x-slot name="footer">
                 <span class="flex w-full | sm:col-start-2">
                     <button form="form" class="button button-danger w-full">

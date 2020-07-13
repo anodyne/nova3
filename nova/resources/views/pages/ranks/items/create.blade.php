@@ -7,49 +7,37 @@
         </x-slot>
     </x-page-header>
 
-    <x-panel x-data="{ tab: 'base', base: '', overlay: '' }">
+    <x-panel x-data="{ tab: 'base', base: '{{ old('base_image') }}', overlay: '{{ old('overlay_image') }}' }">
         <x-form :action="route('ranks.items.store')">
             <input type="hidden" name="base_image" x-model="base">
             <input type="hidden" name="overlay_image" x-model="overlay">
 
             <x-form.section title="Rank Info" message="You can build up your rank with a few clicks. Assign it to a group, set a name, and pick your base and overlay images to build your rank quickly and easily.">
                 <x-input.group label="Rank Group" for="group_id" :error="$errors->first('group_id')">
-                    <select name="group_id" id="group_id" class="form-select w-full | sm:w-1/2">
-                        <option value="">Select a rank group</option>
-                        @foreach ($groups as $group)
-                            <option value="{{ $group->id }}">{{ $group->name }}</option>
-                        @endforeach
-                    </select>
+                    <div class="flex items-center w-full">
+                        @livewire('ranks:groups-dropdown', ['groupId' => old('group_id')])
 
-                    <x-slot name="help">
                         @can('create', 'Nova\Ranks\Models\RankGroup')
-                            <a href="{{ route('ranks.groups.index') }}" class="group inline-flex items-center text-gray-600 transition ease-in-out duration-150 hover:text-gray-500">
-                                @icon('settings', 'text-gray-500 transition ease-in-out duration-150 group-hover:text-gray-400')
-                                <span class="ml-1">Manage your rank groups</span>
+                            <a href="{{ route('ranks.groups.index') }}" class="ml-3 group inline-flex items-center text-gray-600 transition ease-in-out duration-150 hover:text-gray-500">
+                                @icon('settings', 'h-6 w-6 text-gray-400 transition ease-in-out duration-150 group-hover:text-gray-500')
                             </a>
                         @endcan
-                    </x-slot>
+                    </div>
                 </x-input.group>
 
                 <x-input.group label="Rank Name" for="name_id" :error="$errors->first('name_id')">
-                    <select name="name_id" id="name_id" class="form-select w-full | sm:w-1/2">
-                        <option value="">Select a rank name</option>
-                        @foreach ($names as $name)
-                            <option value="{{ $name->id }}">{{ $name->name }}</option>
-                        @endforeach
-                    </select>
+                    <div class="flex items-center w-full">
+                        @livewire('ranks:names-dropdown', ['nameId' => old('name_id')])
 
-                    <x-slot name="help">
                         @can('create', 'Nova\Ranks\Models\RankName')
-                            <a href="{{ route('ranks.names.index') }}" class="group inline-flex items-center text-gray-600 transition ease-in-out duration-150 hover:text-gray-500">
-                                @icon('settings', 'text-gray-500 transition ease-in-out duration-150 group-hover:text-gray-400')
-                                <span class="ml-1">Manage your rank names</span>
+                            <a href="{{ route('ranks.names.index') }}" class="ml-3 group inline-flex items-center text-gray-600 transition ease-in-out duration-150 hover:text-gray-500">
+                                @icon('settings', 'h-6 w-6 text-gray-400 transition ease-in-out duration-150 group-hover:text-gray-500')
                             </a>
                         @endcan
-                    </x-slot>
+                    </div>
                 </x-input.group>
 
-                <x-input.group label="Rank Preview">
+                <x-input.group label="Rank Preview" :error="$errors->first('base_image')">
                     <div x-show="overlay === '' && base === ''">
                         Make a selection below to see a live preview of your rank item
                     </div>
@@ -97,7 +85,7 @@
                             @foreach ($baseImages as $baseImage)
                                 <a
                                     x-on:click.prevent="base = '{{ $baseImage }}'"
-                                    class="flex flex-col rounded-md border border-transparent py-2 flex justify-center"
+                                    class="flex flex-col rounded-md border border-transparent py-2 justify-center"
                                     x-bind:class="{ 'bg-blue-100 border-blue-200 hover:bg-blue-100 hover:border-blue-200': base === '{{ $baseImage }}', 'hover:bg-gray-100 hover:border-gray-200': base !== '{{ $baseImage }}' }"
                                     href="#"
                                 >
@@ -113,7 +101,7 @@
                             @foreach ($overlayImages as $overlayImage)
                                 <a
                                     x-on:click.prevent="overlay = '{{ $overlayImage }}'"
-                                    class="flex flex-col rounded-md border border-transparent py-2 flex justify-center"
+                                    class="flex flex-col rounded-md border border-transparent py-2 justify-center"
                                     x-bind:class="{ 'bg-blue-100 border-blue-200 hover:bg-blue-100 hover:border-blue-200': overlay === '{{ $overlayImage }}', 'hover:bg-gray-100 hover:border-gray-200': overlay !== '{{ $overlayImage }}' }"
                                     href="#"
                                 >

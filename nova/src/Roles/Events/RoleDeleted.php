@@ -8,7 +8,8 @@ use Illuminate\Foundation\Events\Dispatchable;
 
 class RoleDeleted
 {
-    use Dispatchable, SerializesModels;
+    use Dispatchable;
+    use SerializesModels;
 
     public $role;
 
