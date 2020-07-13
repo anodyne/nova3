@@ -2,9 +2,9 @@
 
 namespace Nova\Auth\Responses;
 
-use Nova\Foundation\Responses\ServerResponse;
+use Nova\Foundation\Responses\Responsable;
 
-class ForgotPasswordResponse extends ServerResponse
+class ForgotPasswordResponse extends Responsable
 {
     public $view = 'auth.passwords.email';
 }

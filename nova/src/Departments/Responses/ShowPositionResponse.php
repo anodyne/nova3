@@ -2,9 +2,9 @@
 
 namespace Nova\Departments\Responses;
 
-use Nova\Foundation\Responses\ServerResponse;
+use Nova\Foundation\Responses\Responsable;
 
-class ShowPositionResponse extends ServerResponse
+class ShowPositionResponse extends Responsable
 {
     public $view = 'positions.show';
 }

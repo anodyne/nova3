@@ -2,9 +2,9 @@
 
 namespace Nova\Themes\Responses;
 
-use Nova\Foundation\Responses\ServerResponse;
+use Nova\Foundation\Responses\Responsable;
 
-class UpdateThemeResponse extends ServerResponse
+class UpdateThemeResponse extends Responsable
 {
     public $view = 'themes.edit';
 }

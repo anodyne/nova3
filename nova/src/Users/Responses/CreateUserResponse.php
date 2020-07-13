@@ -2,9 +2,9 @@
 
 namespace Nova\Users\Responses;
 
-use Nova\Foundation\Responses\ServerResponse;
+use Nova\Foundation\Responses\Responsable;
 
-class CreateUserResponse extends ServerResponse
+class CreateUserResponse extends Responsable
 {
     public $view = 'users.create';
 }

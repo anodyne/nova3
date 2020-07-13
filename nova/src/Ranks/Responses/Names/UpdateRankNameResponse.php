@@ -2,9 +2,9 @@
 
 namespace Nova\Ranks\Responses\Names;
 
-use Nova\Foundation\Responses\ServerResponse;
+use Nova\Foundation\Responses\Responsable;
 
-class UpdateRankNameResponse extends ServerResponse
+class UpdateRankNameResponse extends Responsable
 {
     public $view = 'ranks.names.edit';
 }

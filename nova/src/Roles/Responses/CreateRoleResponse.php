@@ -2,9 +2,9 @@
 
 namespace Nova\Roles\Responses;
 
-use Nova\Foundation\Responses\ServerResponse;
+use Nova\Foundation\Responses\Responsable;
 
-class CreateRoleResponse extends ServerResponse
+class CreateRoleResponse extends Responsable
 {
     public $view = 'roles.create';
 }

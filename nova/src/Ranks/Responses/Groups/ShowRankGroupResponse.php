@@ -2,9 +2,9 @@
 
 namespace Nova\Ranks\Responses\Groups;
 
-use Nova\Foundation\Responses\ServerResponse;
+use Nova\Foundation\Responses\Responsable;
 
-class ShowRankGroupResponse extends ServerResponse
+class ShowRankGroupResponse extends Responsable
 {
     public $view = 'ranks.groups.show';
 }

@@ -2,9 +2,9 @@
 
 namespace Nova\Ranks\Responses\Groups;
 
-use Nova\Foundation\Responses\ServerResponse;
+use Nova\Foundation\Responses\Responsable;
 
-class DeleteRankGroupResponse extends ServerResponse
+class DeleteRankGroupResponse extends Responsable
 {
     public $view = 'ranks.groups.delete';
 }

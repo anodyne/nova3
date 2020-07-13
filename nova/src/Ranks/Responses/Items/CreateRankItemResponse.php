@@ -2,9 +2,9 @@
 
 namespace Nova\Ranks\Responses\Items;
 
-use Nova\Foundation\Responses\ServerResponse;
+use Nova\Foundation\Responses\Responsable;
 
-class CreateRankItemResponse extends ServerResponse
+class CreateRankItemResponse extends Responsable
 {
     public $view = 'ranks.items.create';
 }

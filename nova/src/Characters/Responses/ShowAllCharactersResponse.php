@@ -2,9 +2,9 @@
 
 namespace Nova\Characters\Responses;
 
-use Nova\Foundation\Responses\ServerResponse;
+use Nova\Foundation\Responses\Responsable;
 
-class ShowAllCharactersResponse extends ServerResponse
+class ShowAllCharactersResponse extends Responsable
 {
     public $view = 'characters.index';
 }

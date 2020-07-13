@@ -2,9 +2,9 @@
 
 namespace Nova\Ranks\Responses;
 
-use Nova\Foundation\Responses\ServerResponse;
+use Nova\Foundation\Responses\Responsable;
 
-class ShowRankOptionsResponse extends ServerResponse
+class ShowRankOptionsResponse extends Responsable
 {
     public $view = 'ranks.index';
 }

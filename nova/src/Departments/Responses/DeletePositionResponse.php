@@ -2,9 +2,9 @@
 
 namespace Nova\Departments\Responses;
 
-use Nova\Foundation\Responses\ServerResponse;
+use Nova\Foundation\Responses\Responsable;
 
-class DeletePositionResponse extends ServerResponse
+class DeletePositionResponse extends Responsable
 {
     public $view = 'positions.delete';
 }

@@ -2,9 +2,9 @@
 
 namespace Nova\Notes\Responses;
 
-use Nova\Foundation\Responses\ServerResponse;
+use Nova\Foundation\Responses\Responsable;
 
-class UpdateNoteResponse extends ServerResponse
+class UpdateNoteResponse extends Responsable
 {
     public $view = 'notes.edit';
 }

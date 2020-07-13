@@ -2,9 +2,9 @@
 
 namespace Nova\Characters\Responses;
 
-use Nova\Foundation\Responses\ServerResponse;
+use Nova\Foundation\Responses\Responsable;
 
-class DeactivateCharacterResponse extends ServerResponse
+class DeactivateCharacterResponse extends Responsable
 {
     public $view = 'characters.deactivate';
 }

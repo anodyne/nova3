@@ -2,9 +2,9 @@
 
 namespace Nova\Themes\Responses;
 
-use Nova\Foundation\Responses\ServerResponse;
+use Nova\Foundation\Responses\Responsable;
 
-class DeleteThemeResponse extends ServerResponse
+class DeleteThemeResponse extends Responsable
 {
     public $view = 'themes.delete';
 }

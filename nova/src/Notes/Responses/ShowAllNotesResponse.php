@@ -2,9 +2,9 @@
 
 namespace Nova\Notes\Responses;
 
-use Nova\Foundation\Responses\ServerResponse;
+use Nova\Foundation\Responses\Responsable;
 
-class ShowAllNotesResponse extends ServerResponse
+class ShowAllNotesResponse extends Responsable
 {
     public $view = 'notes.index';
 }

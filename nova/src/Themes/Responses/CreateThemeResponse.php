@@ -2,9 +2,9 @@
 
 namespace Nova\Themes\Responses;
 
-use Nova\Foundation\Responses\ServerResponse;
+use Nova\Foundation\Responses\Responsable;
 
-class CreateThemeResponse extends ServerResponse
+class CreateThemeResponse extends Responsable
 {
     public $view = 'themes.create';
 }
