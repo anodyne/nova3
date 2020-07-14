@@ -31,12 +31,26 @@
                     <x-input.textarea id="description" name="description" data-cy="description" rows="3">{{ old('description') }}</x-input.textarea>
                 </x-input.group>
 
-                <x-input.group label="Visibility" for="visibility" :error="$errors->first('visibility')">
+                <x-input.group
+                    label="Visibility"
+                    for="visibility"
+                    help="When displayed on the public site, only in character posts will be visible. Out of character posts will still be visible in the admin panel."
+                    :error="$errors->first('visibility')"
+                >
                     <x-input.radio label="In character" for="in_character" name="visibility" id="in_character" value="in-character" />
 
                     <span class="ml-6">
                         <x-input.radio label="Out of character" for="out_of_character" name="visibility" id="out_of_character" value="out-of-character" />
                     </span>
+                </x-input.group>
+
+                <x-input.group>
+                    <x-input.toggle
+                        field="active"
+                        :value="old('active', true)"
+                        active-text="Active"
+                        inactive-text="Inactive"
+                    />
                 </x-input.group>
             </x-form.section>
 
@@ -78,7 +92,7 @@
                 </x-input.group>
             </x-form.section>
 
-            <x-form.section title="Notifications" message="You can set notifications on a post type basis. Select here whether you'd like this post type to send out notifications to members of the game. (Subject to per-user notification settings.)">
+            <x-form.section title="Options">
                 <x-input.group>
                     <x-input.toggle
                         field="active"
@@ -87,21 +101,32 @@
                         inactive-text="Do not notify users"
                     />
                 </x-input.group>
-            </x-form.section>
 
-            <x-form.section title="Roles">
-                <x-slot name="message">
-                    <p>You can set access control around posting certain types of posts.</p>
+                <x-input.group>
+                    <x-input.toggle
+                        field="active"
+                        :value="old('active', $theme->active ?? '')"
+                        active-text="Include in post counts"
+                        inactive-text="Exclude from post counts"
+                    />
+                </x-input.group>
 
-                    @can('viewAny', 'Nova\Roles\Models\Role')
-                        <a href="{{ route('roles.index') }}" class="button button-soft button-sm mt-6">
-                            Manage roles
-                        </a>
-                    @endcan
-                </x-slot>
+                <x-input.group>
+                    <x-input.toggle
+                        field="active"
+                        :value="old('active', $theme->active ?? '')"
+                        active-text="Allow multiple authors"
+                        inactive-text="Do not allow multiple authors"
+                    />
+                </x-input.group>
 
-                <x-input.group label="Assign roles">
-                    @livewire('roles:manage-roles', ['roles' => []])
+                <x-input.group label="Restrict posting" help="You can set a specific role a user must have in order to use certain post types.">
+                    <select name="roles" id="roles" class="form-select w-full | md:w-2/3">
+                        <option value="">No role restrictions</option>
+                        @foreach ($roles as $role)
+                            <option value="{{ $role->id }}">{{ $role->display_name }}</option>
+                        @endforeach
+                    </select>
                 </x-input.group>
             </x-form.section>
 

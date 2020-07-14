@@ -8,6 +8,7 @@ use Nova\Foundation\Controllers\Controller;
 use Nova\Departments\Actions\CreateDepartment;
 use Nova\Departments\Requests\CreateDepartmentRequest;
 use Nova\Departments\DataTransferObjects\DepartmentData;
+use Nova\Roles\Models\Role;
 use Nova\Stories\Responses\PostTypes\CreatePostTypeResponse;
 
 class CreatePostTypeController extends Controller
@@ -23,7 +24,9 @@ class CreatePostTypeController extends Controller
     {
         $this->authorize('create', PostType::class);
 
-        return app(CreatePostTypeResponse::class);
+        return app(CreatePostTypeResponse::class)->with([
+            'roles' => Role::orderBySort()->get(),
+        ]);
     }
 
     public function store(CreateDepartmentRequest $request, CreateDepartment $action)
