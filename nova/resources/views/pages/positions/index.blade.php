@@ -26,8 +26,8 @@
     @if ($positionCount === 0)
         <x-empty-state
             image="organizer"
-            message="Departments allow you to organize character positions into logical groups that you can display on your manifests."
-            label="Add a deparment now"
+            message="Positions are the jobs or stations that characters can be assigned to for display on your manifests."
+            label="Add a position now"
             :link="route('positions.create')"
         ></x-empty-state>
     @else
