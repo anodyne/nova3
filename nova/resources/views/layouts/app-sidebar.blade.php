@@ -74,7 +74,7 @@
                                 <a href="{{ route('departments.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Stories</a>
                             @endcan
 
-                            @can('viewAny', 'Nova\Stories\Models\PostType')
+                            @can('viewAny', 'Nova\PostTypes\Models\PostType')
                                 <a href="{{ route('post-types.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Post Types</a>
                             @endcan
                         </div>
@@ -155,7 +155,7 @@
                             <a href="{{ route('characters.index', 'status=active') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Stories</a>
                         @endcan
 
-                        @can('viewAny', 'Nova\Stories\Models\PostType')
+                        @can('viewAny', 'Nova\PostTypes\Models\PostType')
                             <a href="{{ route('post-types.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Post Types</a>
                         @endcan
                     </div>

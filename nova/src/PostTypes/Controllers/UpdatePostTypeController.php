@@ -2,7 +2,7 @@
 
 namespace Nova\PostTypes\Controllers;
 
-use Nova\Stories\Models\PostType;
+use Nova\PostTypes\Models\PostType;
 use Nova\Departments\Models\Department;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Departments\Actions\CreateDepartment;

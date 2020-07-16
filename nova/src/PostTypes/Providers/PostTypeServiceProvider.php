@@ -10,7 +10,7 @@ use Nova\PostTypes\Responses\CreatePostTypeResponse;
 use Nova\PostTypes\Responses\UpdatePostTypeResponse;
 use Nova\PostTypes\Responses\ShowAllPostTypesResponse;
 
-class StoryServiceProvider extends DomainServiceProvider
+class PostTypeServiceProvider extends DomainServiceProvider
 {
     protected $policies = [
         PostType::class => PostTypePolicy::class,

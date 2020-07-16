@@ -9,7 +9,7 @@
                 </a>
             @endcan
 
-            @can('create', 'Nova\Stories\Models\PostType')
+            @can('create', 'Nova\PostTypes\Models\PostType')
                 <a href="{{ route('post-types.create') }}" class="button button-primary" data-cy="create">
                     Add Post Type
                 </a>
