@@ -1,6 +1,6 @@
 <?php
 
-namespace Nova\Stories\Filters;
+namespace Nova\PostTypes\Filters;
 
 use Nova\Foundation\Filters\Filters;
 

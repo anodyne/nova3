@@ -1,13 +1,13 @@
 <?php
 
-namespace Nova\Stories\Controllers\PostTypes;
+namespace Nova\PostTypes\Controllers;
 
 use Illuminate\Http\Request;
-use Nova\Stories\Models\PostType;
-use Nova\Stories\Filters\PostTypeFilters;
+use Nova\PostTypes\Models\PostType;
 use Nova\Foundation\Controllers\Controller;
-use Nova\Stories\Responses\PostTypes\ShowPostTypeResponse;
-use Nova\Stories\Responses\PostTypes\ShowAllPostTypesResponse;
+use Nova\PostTypes\Filters\PostTypeFilters;
+use Nova\PostTypes\Responses\ShowPostTypeResponse;
+use Nova\PostTypes\Responses\ShowAllPostTypesResponse;
 
 class ShowPostTypeController extends Controller
 {
@@ -37,6 +37,8 @@ class ShowPostTypeController extends Controller
 
     public function show(PostType $postType)
     {
+        $this->authorize('view', $postType);
+
         return app(ShowPostTypeResponse::class)->with([
             'postType' => $postType,
         ]);

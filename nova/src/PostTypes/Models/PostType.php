@@ -1,9 +1,9 @@
 <?php
 
-namespace Nova\Stories\Models;
+namespace Nova\PostTypes\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Nova\Stories\Models\Builders\PostTypeBuilder;
+use Nova\PostTypes\Models\Builders\PostTypeBuilder;
 
 class PostType extends Model
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Nova\Stories\Controllers\PostTypes;
+namespace Nova\PostTypes\Controllers;
 
 use Nova\Stories\Models\PostType;
 use Nova\Departments\Models\Department;

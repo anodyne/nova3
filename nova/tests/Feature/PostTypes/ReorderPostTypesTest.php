@@ -1,0 +1,102 @@
+<?php
+
+namespace Tests\Feature\PostTypes;
+
+use Tests\TestCase;
+use Nova\PostTypes\Models\PostType;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+/**
+ * @group stories
+ * @group post-types
+ */
+class ReorderPostTypesTest extends TestCase
+{
+    use RefreshDatabase;
+
+    protected $postType1;
+
+    protected $postType2;
+
+    protected $postType3;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->postType1 = create(PostType::class, ['sort' => 0]);
+        $this->postType2 = create(PostType::class, ['sort' => 1]);
+        $this->postType3 = create(PostType::class, ['sort' => 2]);
+    }
+
+    /** @test **/
+    public function authorizedUserCanReorderPostTypes()
+    {
+        $this->signInWithPermission('story.update');
+
+        $this->followingRedirects();
+
+        $response = $this->post(
+            route('post-types.reorder'),
+            [
+                'sort' => implode(',', [
+                    $this->postType3->id,
+                    $this->postType2->id,
+                    $this->postType1->id,
+                ]),
+            ]
+        );
+        $response->assertSuccessful();
+
+        $this->postType1->fresh();
+        $this->postType2->fresh();
+        $this->postType3->fresh();
+
+        $this->assertDatabaseHas('post_types', [
+            'id' => $this->postType1->id,
+            'sort' => 2,
+        ]);
+        $this->assertDatabaseHas('post_types', [
+            'id' => $this->postType2->id,
+            'sort' => 1,
+        ]);
+        $this->assertDatabaseHas('post_types', [
+            'id' => $this->postType3->id,
+            'sort' => 0,
+        ]);
+    }
+
+    /** @test **/
+    public function unauthorizedUserCannotReorderPostTypes()
+    {
+        $this->signIn();
+
+        $response = $this->post(
+            route('post-types.reorder'),
+            [
+                'sort' => implode(',', [
+                    $this->postType3->id,
+                    $this->postType2->id,
+                    $this->postType1->id,
+                ]),
+            ]
+        );
+        $response->assertForbidden();
+    }
+
+    /** @test **/
+    public function unauthenticatedUserCannotReorderPostTypes()
+    {
+        $response = $this->postJson(
+            route('post-types.reorder'),
+            [
+                'sort' => implode(',', [
+                    $this->postType3->id,
+                    $this->postType2->id,
+                    $this->postType1->id,
+                ]),
+            ]
+        );
+        $response->assertUnauthorized();
+    }
+}

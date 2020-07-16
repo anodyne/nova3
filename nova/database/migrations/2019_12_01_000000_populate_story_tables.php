@@ -1,6 +1,6 @@
 <?php
 
-use Nova\Stories\Models\PostType;
+use Nova\PostTypes\Models\PostType;
 use Illuminate\Database\Migrations\Migration;
 
 class PopulateStoryTables extends Migration
@@ -30,7 +30,7 @@ class PopulateStoryTables extends Migration
                 'key' => 'note',
                 'description' => 'A story note is a way to inform players of key pieces of information about the ongoing story in one place.',
                 'visibility' => 'out-of-character',
-                'sort' => 3
+                'sort' => 3,
             ],
         ];
 

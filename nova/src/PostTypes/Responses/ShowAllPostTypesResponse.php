@@ -1,6 +1,6 @@
 <?php
 
-namespace Nova\Stories\Responses\PostTypes;
+namespace Nova\PostTypes\Responses;
 
 use Nova\Foundation\Responses\Responsable;
 

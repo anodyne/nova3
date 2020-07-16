@@ -1,6 +1,6 @@
 <?php
 
-namespace Nova\Stories\Models\Builders;
+namespace Nova\PostTypes\Models\Builders;
 
 use Nova\Foundation\Filters\Filterable;
 use Illuminate\Database\Eloquent\Builder;

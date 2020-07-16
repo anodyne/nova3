@@ -1,14 +1,14 @@
 <?php
 
-namespace Nova\Stories\Controllers\PostTypes;
+namespace Nova\PostTypes\Controllers;
 
+use Nova\Roles\Models\Role;
 use Nova\Stories\Models\PostType;
 use Nova\Departments\Models\Department;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Departments\Actions\CreateDepartment;
 use Nova\Departments\Requests\CreateDepartmentRequest;
 use Nova\Departments\DataTransferObjects\DepartmentData;
-use Nova\Roles\Models\Role;
 use Nova\Stories\Responses\PostTypes\CreatePostTypeResponse;
 
 class CreatePostTypeController extends Controller

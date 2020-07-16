@@ -39,7 +39,7 @@ class CreateStoryTables extends Migration
             $table->string('key')->unique();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->foreignId('role_id')->nullable()->constrained('roles');
+            $table->foreignId('role_id')->nullable()->constrained();
             $table->boolean('active')->default(true);
             $table->string('visibility')->default('in-character');
             $table->json('fields')->nullable();

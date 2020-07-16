@@ -1,9 +1,9 @@
 <?php
 
-namespace Nova\Stories\Policies;
+namespace Nova\PostTypes\Policies;
 
 use Nova\Users\Models\User;
-use Nova\Stories\Models\PostType;
+use Nova\PostTypes\Models\PostType;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PostTypePolicy
