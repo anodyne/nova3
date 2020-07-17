@@ -6,6 +6,8 @@ use Tests\TestCase;
 use Nova\PostTypes\Models\PostType;
 use Illuminate\Support\Facades\Event;
 use Nova\PostTypes\Events\PostTypeDuplicated;
+use Nova\PostTypes\DataTransferObjects\Fields;
+use Nova\PostTypes\DataTransferObjects\Options;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
@@ -26,6 +28,18 @@ class DuplicatePostTypeTest extends TestCase
             'key' => 'foo',
             'name' => 'Foo',
         ]);
+        $this->postType->fields = Fields::fromArray([
+            'title' => true,
+            'time' => true,
+            'location' => true,
+            'content' => true,
+        ]);
+        $this->postType->options = Options::fromArray([
+            'notifyUsers' => true,
+            'includeInPostCounts' => true,
+            'multipleAuthors' => true,
+        ]);
+        $this->postType->save();
     }
 
     /** @test **/

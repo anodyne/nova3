@@ -11,9 +11,7 @@ $factory->define(Position::class, function (Faker $faker) {
         'description' => $faker->sentence,
         'active' => true,
         'available' => $faker->numberBetween(1, 5),
-        'department_id' => function () {
-            return factory(Department::class)->create()->id;
-        },
+        'department_id' => fn () => factory(Department::class)->create()->id,
     ];
 });
 

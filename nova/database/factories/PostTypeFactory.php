@@ -8,7 +8,10 @@ $factory->define(PostType::class, function (Faker $faker) {
     $word = $faker->word;
 
     return [
-        'name' => ucfirst($word),
+        'active' => $faker->randomElement([true, false]),
+        'description' => $faker->sentence,
         'key' => $word,
+        'name' => ucfirst($word),
+        'visibility' => $faker->randomElement(['in-character', 'out-of-character']),
     ];
 });

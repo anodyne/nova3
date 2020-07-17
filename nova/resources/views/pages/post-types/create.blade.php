@@ -57,8 +57,8 @@
             <x-form.section title="Fields" message="Post types determine which fields are available when creating a post of that type.">
                 <x-input.group>
                     <x-input.toggle
-                        field="active"
-                        :value="old('active', $theme->active ?? '')"
+                        field="fields[title]"
+                        :value="old('fields[title]', true)"
                         active-text="Show title field"
                         inactive-text="Hide title field"
                     />
@@ -66,8 +66,8 @@
 
                 <x-input.group>
                     <x-input.toggle
-                        field="active"
-                        :value="old('active', $theme->active ?? '')"
+                        field="fields[time]"
+                        :value="old('fields[time]', true)"
                         active-text="Show time field"
                         inactive-text="Hide time field"
                     />
@@ -75,8 +75,8 @@
 
                 <x-input.group>
                     <x-input.toggle
-                        field="active"
-                        :value="old('active', $theme->active ?? '')"
+                        field="fields[location]"
+                        :value="old('fields[location]', true)"
                         active-text="Show location field"
                         inactive-text="Hide location field"
                     />
@@ -84,8 +84,8 @@
 
                 <x-input.group>
                     <x-input.toggle
-                        field="active"
-                        :value="old('active', $theme->active ?? '')"
+                        field="fields[content]"
+                        :value="old('fields[content]', true)"
                         active-text="Show content field"
                         inactive-text="Hide content field"
                     />
@@ -95,8 +95,8 @@
             <x-form.section title="Options">
                 <x-input.group>
                     <x-input.toggle
-                        field="active"
-                        :value="old('active', $theme->active ?? '')"
+                        field="options[notifyUsers]"
+                        :value="old('options[notifyUsers]', true)"
                         active-text="Notify users"
                         inactive-text="Do not notify users"
                     />
@@ -104,8 +104,8 @@
 
                 <x-input.group>
                     <x-input.toggle
-                        field="active"
-                        :value="old('active', $theme->active ?? '')"
+                        field="options[includeInPostCounts]"
+                        :value="old('options[includeInPostCounts]', true)"
                         active-text="Include in post counts"
                         inactive-text="Exclude from post counts"
                     />
@@ -113,8 +113,8 @@
 
                 <x-input.group>
                     <x-input.toggle
-                        field="active"
-                        :value="old('active', $theme->active ?? '')"
+                        field="options[multipleAuthors]"
+                        :value="old('options[multipleAuthors]', true)"
                         active-text="Allow multiple authors"
                         inactive-text="Do not allow multiple authors"
                     />

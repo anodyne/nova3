@@ -8,7 +8,7 @@
     </x-page-header>
 
     <x-panel>
-        <x-form :action="route('post-types.update', $postType)">
+        <x-form :action="route('post-types.update', $postType)" method="PUT">
             <x-form.section title="Post Type Info" message="A role is a collection of permissions that allows a user to take certain actions throughout Nova. Since a user can have as many roles as you'd like, we recommend creating roles with fewer permissions to give yourself more freedom to add and remove access for a given user.">
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
                     <x-input.text id="name" name="name" :value="old('name', $postType->name)" data-cy="name" />
@@ -22,7 +22,12 @@
                     <x-input.textarea id="description" name="description" data-cy="description" rows="3">{{ old('description', $postType->description) }}</x-input.textarea>
                 </x-input.group>
 
-                <x-input.group label="Visibility" for="visibility" :error="$errors->first('visibility')">
+                <x-input.group
+                    label="Visibility"
+                    for="visibility"
+                    help="When displayed on the public site, only in character posts will be visible. Out of character posts will still be visible in the admin panel."
+                    :error="$errors->first('visibility')"
+                >
                     <x-input.radio
                         label="In character"
                         for="in_character"
@@ -45,13 +50,22 @@
                         />
                     </span>
                 </x-input.group>
+
+                <x-input.group>
+                    <x-input.toggle
+                        field="active"
+                        :value="old('active', $postType->active)"
+                        active-text="Active"
+                        inactive-text="Inactive"
+                    />
+                </x-input.group>
             </x-form.section>
 
             <x-form.section title="Fields" message="Post types determine which fields are available when creating a post of that type.">
                 <x-input.group>
                     <x-input.toggle
-                        field="active"
-                        :value="old('active', $theme->active ?? '')"
+                        field="fields[title]"
+                        :value="old('fields[title]', $postType->fields->title)"
                         active-text="Show title field"
                         inactive-text="Hide title field"
                     />
@@ -59,8 +73,8 @@
 
                 <x-input.group>
                     <x-input.toggle
-                        field="active"
-                        :value="old('active', $theme->active ?? '')"
+                        field="fields[time]"
+                        :value="old('fields[time]', $postType->fields->time)"
                         active-text="Show time field"
                         inactive-text="Hide time field"
                     />
@@ -68,8 +82,8 @@
 
                 <x-input.group>
                     <x-input.toggle
-                        field="active"
-                        :value="old('active', $theme->active ?? '')"
+                        field="fields[location]"
+                        :value="old('fields[location]', $postType->fields->location)"
                         active-text="Show location field"
                         inactive-text="Hide location field"
                     />
@@ -77,38 +91,49 @@
 
                 <x-input.group>
                     <x-input.toggle
-                        field="active"
-                        :value="old('active', $theme->active ?? '')"
+                        field="fields[content]"
+                        :value="old('fields[content]', $postType->fields->content)"
                         active-text="Show content field"
                         inactive-text="Hide content field"
                     />
                 </x-input.group>
             </x-form.section>
 
-            <x-form.section title="Notifications" message="You can set notifications on a post type basis. Select here whether you'd like this post type to send out notifications to members of the game. (Subject to per-user notification settings.)">
+            <x-form.section title="Options">
                 <x-input.group>
                     <x-input.toggle
-                        field="active"
-                        :value="old('active', $theme->active ?? '')"
+                        field="options[notifyUsers]"
+                        :value="old('options[notifyUsers]', $postType->options->notifyUsers)"
                         active-text="Notify users"
                         inactive-text="Do not notify users"
                     />
                 </x-input.group>
-            </x-form.section>
 
-            <x-form.section title="Roles">
-                <x-slot name="message">
-                    <p>You can set access control around posting certain types of posts.</p>
+                <x-input.group>
+                    <x-input.toggle
+                        field="fields[includeInPostCounts]"
+                        :value="old('fields[includeInPostCounts]', $postType->options->includeInPostCounts)"
+                        active-text="Include in post counts"
+                        inactive-text="Exclude from post counts"
+                    />
+                </x-input.group>
 
-                    @can('viewAny', 'Nova\Roles\Models\Role')
-                        <a href="{{ route('roles.index') }}" class="button button-soft button-sm mt-6">
-                            Manage roles
-                        </a>
-                    @endcan
-                </x-slot>
+                <x-input.group>
+                    <x-input.toggle
+                        field="fields[multipleAuthors]"
+                        :value="$postType->options->multipleAuthors"
+                        active-text="Allow multiple authors"
+                        inactive-text="Do not allow multiple authors"
+                    />
+                </x-input.group>
 
-                <x-input.group label="Assign roles">
-                    @livewire('roles:manage-roles', ['roles' => []])
+                <x-input.group label="Restrict posting" help="You can set a specific role a user must have in order to use certain post types.">
+                    <select name="role_id" id="role_id" class="form-select w-full | md:w-2/3">
+                        <option value="">No role restrictions</option>
+                        @foreach ($roles as $role)
+                            <option value="{{ $role->id }}" @if ($postType->role_id == $role->id) selected @endif>{{ $role->display_name }}</option>
+                        @endforeach
+                    </select>
                 </x-input.group>
             </x-form.section>
 

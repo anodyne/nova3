@@ -2,6 +2,7 @@
 
 namespace Nova\PostTypes\Controllers;
 
+use Nova\Roles\Models\Role;
 use Nova\PostTypes\Models\PostType;
 use Nova\Departments\Models\Department;
 use Nova\Foundation\Controllers\Controller;
@@ -25,6 +26,7 @@ class UpdatePostTypeController extends Controller
 
         return app(UpdatePostTypeResponse::class)->with([
             'postType' => $postType,
+            'roles' => Role::orderBySort()->get(),
         ]);
     }
 

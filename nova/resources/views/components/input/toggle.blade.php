@@ -8,7 +8,7 @@
 ])
 
 <label
-    x-data="toggleSwitch()"
+    x-data="toggleSwitch({{ $value ? 'true' : 'false' }})"
     x-on:click="active = !active"
     x-on:keydown.space.prevent="active = !active"
     class="flex items-center cursor-pointer"
@@ -64,9 +64,7 @@
 
 @push('scripts')
 <script>
-    const active = {{ $value ? 'true' : 'false' }};
-
-    function toggleSwitch () {
+    function toggleSwitch (active) {
         return {
             active: active
         }

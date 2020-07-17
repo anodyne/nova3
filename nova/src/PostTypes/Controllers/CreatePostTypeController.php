@@ -4,12 +4,11 @@ namespace Nova\PostTypes\Controllers;
 
 use Nova\Roles\Models\Role;
 use Nova\PostTypes\Models\PostType;
-use Nova\Departments\Models\Department;
+use Nova\PostTypes\Actions\CreatePostType;
 use Nova\Foundation\Controllers\Controller;
-use Nova\Departments\Actions\CreateDepartment;
+use Nova\PostTypes\Requests\CreatePostTypeRequest;
+use Nova\PostTypes\DataTransferObjects\PostTypeData;
 use Nova\PostTypes\Responses\CreatePostTypeResponse;
-use Nova\Departments\Requests\CreateDepartmentRequest;
-use Nova\Departments\DataTransferObjects\DepartmentData;
 
 class CreatePostTypeController extends Controller
 {
@@ -29,14 +28,14 @@ class CreatePostTypeController extends Controller
         ]);
     }
 
-    public function store(CreateDepartmentRequest $request, CreateDepartment $action)
+    public function store(CreatePostTypeRequest $request, CreatePostType $action)
     {
-        $this->authorize('create', Department::class);
+        $this->authorize('create', PostType::class);
 
-        $department = $action->execute(DepartmentData::fromRequest($request));
+        $postType = $action->execute(PostTypeData::fromRequest($request));
 
         return redirect()
-            ->route('departments.index')
-            ->withToast("{$department->name} department was created");
+            ->route('post-types.index')
+            ->withToast("{$postType->name} post type was created");
     }
 }

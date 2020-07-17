@@ -87,11 +87,11 @@
                                     @endcan
 
                                     @can('duplicate', $postType)
-                                        {{-- <button type="submit" class="{{ $component->link() }}" form="duplicate-{{ $postType->id }}" data-cy="duplicate">
+                                        <button type="submit" class="{{ $component->link() }}" form="duplicate-{{ $postType->id }}" data-cy="duplicate">
                                             @icon('duplicate', $component->icon())
                                             <span>Duplicate</span>
                                         </button>
-                                        <x-form :action="route('post-types.duplicate', $postType)" id="duplicate-{{ $postType->id }}" class="hidden" /> --}}
+                                        <x-form :action="route('post-types.duplicate', $postType)" id="duplicate-{{ $postType->id }}" class="hidden" />
                                     @endcan
 
                                     @can('delete', $postType)
