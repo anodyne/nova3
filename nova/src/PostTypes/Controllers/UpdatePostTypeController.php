@@ -6,9 +6,9 @@ use Nova\PostTypes\Models\PostType;
 use Nova\Departments\Models\Department;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Departments\Actions\CreateDepartment;
+use Nova\PostTypes\Responses\UpdatePostTypeResponse;
 use Nova\Departments\Requests\CreateDepartmentRequest;
 use Nova\Departments\DataTransferObjects\DepartmentData;
-use Nova\Stories\Responses\PostTypes\UpdatePostTypeResponse;
 
 class UpdatePostTypeController extends Controller
 {

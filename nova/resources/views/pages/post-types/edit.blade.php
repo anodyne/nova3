@@ -29,7 +29,7 @@
                         name="visibility"
                         id="in_character"
                         value="in-character"
-                        :checked="old('visibility', $user->visibility) === 'in-character'"
+                        :checked="old('visibility', $postType->visibility) === 'in-character'"
                         data-cy="visibility"
                     />
 
@@ -40,7 +40,7 @@
                             name="visibility"
                             id="out_of_character"
                             value="out-of-character"
-                            :checked="old('visibility', $user->visibility) === 'out-of-character'"
+                            :checked="old('visibility', $postType->visibility) === 'out-of-character'"
                             data-cy="visibility"
                         />
                     </span>

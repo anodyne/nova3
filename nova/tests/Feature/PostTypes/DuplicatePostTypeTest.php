@@ -3,10 +3,9 @@
 namespace Tests\Feature\PostTypes;
 
 use Tests\TestCase;
-use Nova\Roles\Models\Role;
-use Nova\Roles\Models\Permission;
+use Nova\PostTypes\Models\PostType;
 use Illuminate\Support\Facades\Event;
-use Nova\Roles\Events\RoleDuplicated;
+use Nova\PostTypes\Events\PostTypeDuplicated;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
@@ -17,83 +16,58 @@ class DuplicatePostTypeTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $role;
+    protected $postType;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->markTestSkipped();
-
-        $this->role = create(Role::class, [
-            'name' => 'foo',
-            'display_name' => 'Foo',
+        $this->postType = create(PostType::class, [
+            'key' => 'foo',
+            'name' => 'Foo',
         ]);
     }
 
     /** @test **/
-    public function authorizedUserCanDuplicateRole()
+    public function authorizedUserCanDuplicatePostType()
     {
-        $this->signInWithPermission(['role.create', 'role.update']);
-
-        $this->role->attachPermission($permission = Permission::first());
+        $this->signInWithPermission(['story.create', 'story.update']);
 
         $this->followingRedirects();
 
-        $response = $this->post(route('roles.duplicate', $this->role));
+        $response = $this->post(route('post-types.duplicate', $this->postType));
         $response->assertSuccessful();
 
-        $role = Role::get()->last();
-
-        $this->assertCount(1, $this->role->refresh()->permissions);
-        $this->assertCount(1, $role->permissions);
-        $this->assertTrue($role->hasPermission($permission->name));
-
-        $this->assertDatabaseHas('roles', [
-            'display_name' => "Copy of {$this->role->display_name}",
+        $this->assertDatabaseHas('post_types', [
+            'name' => "Copy of {$this->postType->name}",
         ]);
     }
 
     /** @test **/
-    public function eventIsDispatchedWhenRoleIsDuplicated()
+    public function eventIsDispatchedWhenPostTypeIsDuplicated()
     {
         Event::fake();
 
-        $this->signInWithPermission(['role.create', 'role.update']);
+        $this->signInWithPermission(['story.create', 'story.update']);
 
-        $this->post(route('roles.duplicate', $this->role));
+        $this->post(route('post-types.duplicate', $this->postType));
 
-        Event::assertDispatched(RoleDuplicated::class);
+        Event::assertDispatched(PostTypeDuplicated::class);
     }
 
     /** @test **/
-    public function lockedRoleCannotBeDuplicated()
-    {
-        $role = create(Role::class, [], ['locked']);
-
-        $this->signInWithPermission(['role.create', 'role.update']);
-
-        $roleCount = Role::count();
-
-        $response = $this->postJson(route('roles.duplicate', $role));
-        $response->assertForbidden();
-
-        $this->assertEquals($roleCount, Role::count());
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotDuplicateRole()
+    public function unauthorizedUserCannotDuplicatePostType()
     {
         $this->signIn();
 
-        $response = $this->post(route('roles.duplicate', $this->role));
+        $response = $this->post(route('post-types.duplicate', $this->postType));
         $response->assertForbidden();
     }
 
     /** @test **/
-    public function unauthenticatedUserCannotDuplicateRole()
+    public function unauthenticatedUserCannotDuplicatePostType()
     {
-        $response = $this->postJson(route('roles.duplicate', $this->role));
+        $response = $this->postJson(route('post-types.duplicate', $this->postType));
         $response->assertUnauthorized();
     }
 }
