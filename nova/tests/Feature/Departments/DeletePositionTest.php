@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Ranks\Groups;
+namespace Tests\Feature\Departments;
 
 use Tests\TestCase;
 use Illuminate\Support\Facades\Event;

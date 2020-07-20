@@ -46,6 +46,7 @@ class CreatePostTypeTest extends TestCase
                 ],
                 'options' => [
                     'notifyUsers' => true,
+                    'notifyDiscord' => true,
                     'includeInPostCounts' => false,
                     'multipleAuthors' => true,
                 ],
@@ -79,6 +80,7 @@ class CreatePostTypeTest extends TestCase
                 ],
                 'options' => [
                     'notifyUsers' => true,
+                    'notifyDiscord' => true,
                     'includeInPostCounts' => false,
                     'multipleAuthors' => true,
                 ],
@@ -113,6 +115,7 @@ class CreatePostTypeTest extends TestCase
                 ],
                 'options' => [
                     'notifyUsers' => true,
+                    'notifyDiscord' => true,
                     'includeInPostCounts' => false,
                     'multipleAuthors' => true,
                 ],
@@ -142,6 +145,7 @@ class CreatePostTypeTest extends TestCase
                 ],
                 'options' => [
                     'notifyUsers' => true,
+                    'notifyDiscord' => true,
                     'includeInPostCounts' => false,
                     'multipleAuthors' => true,
                 ],

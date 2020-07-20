@@ -144,6 +144,8 @@ class PopulatePagesTable extends Migration
             ['uri' => 'post-types/{character}', 'key' => 'post-types.destroy', 'verb' => 'delete', 'resource' => 'Nova\\PostTypes\\Controllers\\DeletePostTypeController@destroy', 'layout' => 'admin'],
             ['uri' => 'post-types/reorder', 'key' => 'post-types.reorder', 'verb' => 'post', 'resource' => 'Nova\\PostTypes\\Controllers\\ReorderPostTypesController', 'layout' => 'admin'],
             ['uri' => 'post-types/{originalPostType}/duplicate', 'key' => 'post-types.duplicate', 'verb' => 'post', 'resource' => 'Nova\\PostTypes\\Controllers\\DuplicatePostTypeController', 'layout' => 'admin'],
+
+            ['uri' => 'stories', 'key' => 'stories.index', 'resource' => 'Nova\\Stories\\Controllers\\ShowStoryController@all', 'layout' => 'admin'],
         ];
 
         collect($pages)->each([Page::class, 'create']);

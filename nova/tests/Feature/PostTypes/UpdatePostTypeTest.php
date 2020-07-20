@@ -3,13 +3,13 @@
 namespace Tests\Feature\PostTypes;
 
 use Tests\TestCase;
-use Nova\Roles\Models\Role;
-use Nova\Users\Models\User;
-use Nova\Roles\Models\Permission;
-use Nova\Roles\Events\RoleUpdated;
+use Nova\PostTypes\Models\PostType;
 use Illuminate\Support\Facades\Event;
-use Nova\Roles\Requests\UpdateRoleRequest;
+use Nova\PostTypes\Events\PostTypeUpdated;
+use Nova\PostTypes\Requests\UpdatePostTypeRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\PostTypes\DataTransferObjects\Fields;
+use Nova\PostTypes\DataTransferObjects\Options;
 
 /**
  * @group stories
@@ -19,320 +19,165 @@ class UpdatePostTypeTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $role;
+    protected $postType;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->markTestSkipped();
+        $this->postType = create(PostType::class);
 
-        $this->role = create(Role::class);
+        $this->postType->fields = Fields::fromArray([
+            'title' => true,
+            'time' => true,
+            'location' => true,
+            'content' => true,
+        ]);
+        $this->postType->options = Options::fromArray([
+            'notifyUsers' => true,
+            'notifyDiscord' => true,
+            'includeInPostCounts' => true,
+            'multipleAuthors' => true,
+        ]);
+
+        $this->postType->save();
     }
 
     /** @test **/
-    public function authorizedUserCanViewTheEditRolePage()
+    public function authorizedUserCanViewTheEditPostTypePage()
     {
-        $this->signInWithPermission('role.update');
+        $this->withoutExceptionHandling();
+        $this->signInWithPermission('story.update');
 
-        $response = $this->get(route('roles.edit', $this->role));
+        $response = $this->get(route('post-types.edit', $this->postType));
         $response->assertSuccessful();
     }
 
     /** @test **/
-    public function authorizedUserCanUpdateRole()
+    public function authorizedUserCanUpdatePostType()
     {
-        $this->signInWithPermission('role.update');
+        $this->signInWithPermission('story.update');
 
-        $role = make(Role::class);
+        $postType = make(PostType::class);
 
         $this->followingRedirects();
 
         $response = $this->put(
-            route('roles.update', $this->role),
-            array_merge($role->toArray(), [
-                'id' => $this->role->id,
-                'permissions' => [],
-                'users' => [],
+            route('post-types.update', $this->postType),
+            array_merge($postType->toArray(), [
+                'fields' => [
+                    'title' => false,
+                    'time' => true,
+                    'location' => false,
+                    'content' => true,
+                ],
+                'options' => [
+                    'notifyUsers' => false,
+                    'notifyDiscord' => true,
+                    'includeInPostCounts' => true,
+                    'multipleAuthors' => false,
+                ],
             ])
         );
         $response->assertSuccessful();
 
-        $this->assertDatabaseHas('roles', $role->only('name', 'display_name'));
+        $this->assertDatabaseHas('post_types', $postType->only('name', 'key'));
 
         $this->assertRouteUsesFormRequest(
-            'roles.update',
-            UpdateRoleRequest::class
+            'post-types.update',
+            UpdatePostTypeRequest::class
         );
     }
 
     /** @test **/
-    public function permissionsCanBeAddedToARole()
-    {
-        $this->signInWithPermission('role.update');
-
-        $permission1 = Permission::find(1);
-        $permission2 = Permission::find(2);
-
-        $this->role->attachPermission($permission1);
-
-        $role = make(Role::class);
-
-        $this->followingRedirects();
-
-        $response = $this->put(
-            route('roles.update', $this->role),
-            array_merge($role->toArray(), [
-                'id' => $this->role->id,
-                'permissions' => [$permission1->id, $permission2->id],
-                'users' => [],
-            ])
-        );
-        $response->assertSuccessful();
-
-        $this->assertTrue($this->role->refresh()->hasPermission($permission1->name));
-        $this->assertTrue($this->role->hasPermission($permission2->name));
-
-        $this->assertDatabaseHas('permission_role', [
-            'role_id' => $this->role->id,
-            'permission_id' => $permission1->id,
-        ]);
-
-        $this->assertDatabaseHas('permission_role', [
-            'role_id' => $this->role->id,
-            'permission_id' => $permission2->id,
-        ]);
-    }
-
-    /** @test **/
-    public function permissionsCanBeRemovedFromARole()
-    {
-        $this->signInWithPermission('role.update');
-
-        $permission1 = Permission::find(1);
-        $permission2 = Permission::find(2);
-
-        $this->role->attachPermissions([$permission1, $permission2]);
-
-        $role = make(Role::class);
-
-        $this->followingRedirects();
-
-        $response = $this->put(
-            route('roles.update', $this->role),
-            array_merge($role->toArray(), [
-                'id' => $this->role->id,
-                'permissions' => [$permission1->id],
-                'users' => [],
-            ])
-        );
-        $response->assertSuccessful();
-
-        $this->assertTrue($this->role->refresh()->hasPermission($permission1->name));
-        $this->assertFalse($this->role->hasPermission($permission2->name));
-
-        $this->assertDatabaseHas('permission_role', [
-            'role_id' => $this->role->id,
-            'permission_id' => $permission1->id,
-        ]);
-
-        $this->assertDatabaseMissing('permission_role', [
-            'role_id' => $this->role->id,
-            'permission_id' => $permission2->id,
-        ]);
-    }
-
-    /** @test **/
-    public function usersCanBeAddedToARole()
-    {
-        $this->signInWithPermission('role.update');
-
-        $john = create(User::class, [], ['status:active']);
-        $jane = create(User::class, [], ['status:active']);
-
-        $john->attachRole($this->role);
-
-        $role = make(Role::class);
-
-        $this->followingRedirects();
-
-        $response = $this->put(
-            route('roles.update', $this->role),
-            array_merge($role->toArray(), [
-                'id' => $this->role->id,
-                'users' => [$john->id, $jane->id],
-            ])
-        );
-        $response->assertSuccessful();
-
-        $this->assertTrue($this->role->refresh()->users->contains('id', $john->id));
-        $this->assertTrue($this->role->users->contains('id', $jane->id));
-
-        $this->assertDatabaseHas('role_user', [
-            'role_id' => $this->role->id,
-            'user_id' => $john->id,
-        ]);
-
-        $this->assertDatabaseHas('role_user', [
-            'role_id' => $this->role->id,
-            'user_id' => $jane->id,
-        ]);
-    }
-
-    /** @test **/
-    public function usersCanBeRemovedFromARole()
-    {
-        $this->signInWithPermission('role.update');
-
-        $john = create(User::class, [], ['status:active']);
-        $jane = create(User::class, [], ['status:active']);
-
-        $john->attachRole($this->role);
-        $jane->attachRole($this->role);
-
-        $role = make(Role::class);
-
-        $this->followingRedirects();
-
-        $response = $this->put(
-            route('roles.update', $this->role),
-            array_merge($role->toArray(), [
-                'id' => $this->role->id,
-                'users' => [$jane->id],
-            ])
-        );
-        $response->assertSuccessful();
-
-        $this->assertFalse($this->role->refresh()->users->contains('id', $john->id));
-        $this->assertTrue($this->role->users->contains('id', $jane->id));
-
-        $this->assertDatabaseMissing('role_user', [
-            'role_id' => $this->role->id,
-            'user_id' => $john->id,
-        ]);
-
-        $this->assertDatabaseHas('role_user', [
-            'role_id' => $this->role->id,
-            'user_id' => $jane->id,
-        ]);
-    }
-
-    /** @test **/
-    public function eventIsDispatchedWhenRoleIsUpdated()
+    public function eventIsDispatchedWhenPostTypeIsUpdated()
     {
         Event::fake();
 
-        $this->signInWithPermission('role.update');
+        $this->signInWithPermission('story.update');
 
         $this->put(
-            route('roles.update', $this->role),
-            make(Role::class)->toArray()
+            route('post-types.update', $this->postType),
+            array_merge(make(PostType::class)->toArray(), [
+                'fields' => [
+                    'title' => false,
+                    'time' => true,
+                    'location' => false,
+                    'content' => true,
+                ],
+                'options' => [
+                    'notifyUsers' => false,
+                    'notifyDiscord' => true,
+                    'includeInPostCounts' => true,
+                    'multipleAuthors' => false,
+                ],
+            ])
         );
 
-        Event::assertDispatched(RoleUpdated::class);
+        Event::assertDispatched(PostTypeUpdated::class);
     }
 
     /** @test **/
-    public function unauthorizedUserCannotViewTheEditRolePage()
+    public function unauthorizedUserCannotViewTheEditPostTypePage()
     {
         $this->signIn();
 
-        $response = $this->get(route('roles.edit', $this->role));
+        $response = $this->get(route('post-types.edit', $this->postType));
         $response->assertForbidden();
     }
 
     /** @test **/
-    public function unauthorizedUserCannotUpdateRole()
+    public function unauthorizedUserCannotUpdatePostType()
     {
         $this->signIn();
 
         $response = $this->putJson(
-            route('roles.update', $this->role),
-            make(Role::class)->toArray()
+            route('post-types.update', $this->postType),
+            array_merge(make(PostType::class)->toArray(), [
+                'fields' => [
+                    'title' => false,
+                    'time' => true,
+                    'location' => false,
+                    'content' => true,
+                ],
+                'options' => [
+                    'notifyUsers' => false,
+                    'notifyDiscord' => true,
+                    'includeInPostCounts' => true,
+                    'multipleAuthors' => false,
+                ],
+            ])
         );
         $response->assertForbidden();
     }
 
     /** @test **/
-    public function unauthenticatedUserCannotViewTheEditRolePage()
+    public function unauthenticatedUserCannotViewTheEditPostTypePage()
     {
-        $response = $this->getJson(route('roles.edit', $this->role));
+        $response = $this->getJson(route('post-types.edit', $this->postType));
         $response->assertUnauthorized();
     }
 
     /** @test **/
-    public function unauthenticatedUserCannotUpdateRole()
+    public function unauthenticatedUserCannotUpdatePostType()
     {
         $response = $this->putJson(
-            route('roles.update', $this->role),
-            make(Role::class)->toArray()
+            route('post-types.update', $this->postType),
+            array_merge(make(PostType::class)->toArray(), [
+                'fields' => [
+                    'title' => false,
+                    'time' => true,
+                    'location' => false,
+                    'content' => true,
+                ],
+                'options' => [
+                    'notifyUsers' => false,
+                    'notifyDiscord' => true,
+                    'includeInPostCounts' => true,
+                    'multipleAuthors' => false,
+                ],
+            ])
         );
         $response->assertUnauthorized();
-    }
-
-    /** @test **/
-    public function lockedRoleKeyCannotBeUpdated()
-    {
-        $role = create(Role::class, [], ['locked']);
-
-        $this->signInWithPermission('role.update');
-
-        $response = $this->put(route('roles.update', $role), [
-            'display_name' => 'Foo',
-            'name' => 'foo',
-            'default' => false,
-        ]);
-
-        $this->assertDatabaseHas('roles', [
-            'id' => $role->id,
-            'display_name' => 'Foo',
-            'name' => $role->name,
-            'locked' => true,
-        ]);
-    }
-
-    /** @test **/
-    public function roleCanBeRevokedFromUser()
-    {
-        $this->signInWithPermission('role.update');
-
-        $user = create(User::class, [], ['status:active']);
-        $user->attachRole($this->role);
-
-        $this->assertTrue($user->hasRole($this->role->name));
-
-        $response = $this->put(route('roles.update', $this->role), [
-            'id' => $this->role->id,
-            'name' => $this->role->name,
-            'display_name' => $this->role->display_name,
-            'users' => [],
-            'default' => false,
-        ]);
-
-        $this->followRedirects($response)->assertSuccessful();
-
-        $this->assertFalse($user->refresh()->hasRole($this->role->name));
-    }
-
-    /** @test **/
-    public function roleCanBeGivenToUser()
-    {
-        $this->signInWithPermission('role.update');
-
-        $user = create(User::class, [], ['status:active']);
-
-        $this->assertFalse($user->hasRole($this->role->name));
-
-        $response = $this->put(route('roles.update', $this->role), [
-            'id' => $this->role->id,
-            'name' => $this->role->name,
-            'display_name' => $this->role->display_name,
-            'users' => [$user->id],
-            'default' => false,
-        ]);
-
-        $this->followRedirects($response)->assertSuccessful();
-
-        $this->assertTrue($user->refresh()->hasRole($this->role->name));
     }
 }

@@ -71,7 +71,7 @@
                         </div>
                         <div class="flex flex-col ml-12">
                             @can('viewAny', 'Nova\Stories\Models\Story')
-                                <a href="{{ route('departments.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Stories</a>
+                                <a href="{{ route('stories.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Stories</a>
                             @endcan
 
                             @can('viewAny', 'Nova\PostTypes\Models\PostType')
@@ -152,7 +152,7 @@
                     </div>
                     <div class="flex flex-col text-sm ml-11">
                         @can('viewAny', 'Nova\Stories\Models\Story')
-                            <a href="{{ route('characters.index', 'status=active') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Stories</a>
+                            <a href="{{ route('stories.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Stories</a>
                         @endcan
 
                         @can('viewAny', 'Nova\PostTypes\Models\PostType')

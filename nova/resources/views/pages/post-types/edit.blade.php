@@ -111,6 +111,21 @@
 
                 <x-input.group>
                     <x-input.toggle
+                        field="options[notifyDiscord]"
+                        :value="old('options[notifyDiscord]', true)"
+                        active-text="Send notification to Discord"
+                        inactive-text="Do not send notification to Discord"
+                    />
+
+                    @if (! app('nova.settings')->discord->storyPostsEnabled)
+                        <x-slot name="help">
+                            <span class="font-medium">Story post notifications for Discord is currently disabled.</span> You can change this setting, but it will not work until you have enabled sending story post notifications to Discord from the <a class="text-blue-600 hover:text-blue-500 transition ease-in-out duration-150" href="{{ route('settings.index', 'discord') }}">Discord settings</a>.
+                        </x-slot>
+                    @endif
+                </x-input.group>
+
+                <x-input.group>
+                    <x-input.toggle
                         field="fields[includeInPostCounts]"
                         :value="old('fields[includeInPostCounts]', $postType->options->includeInPostCounts)"
                         active-text="Include in post counts"

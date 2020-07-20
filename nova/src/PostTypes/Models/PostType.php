@@ -7,10 +7,13 @@ use Nova\Roles\Models\Role;
 use Illuminate\Database\Eloquent\Model;
 use Nova\PostTypes\Models\Casts\FieldsCast;
 use Nova\PostTypes\Models\Casts\OptionsCast;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Nova\PostTypes\Models\Builders\PostTypeBuilder;
 
 class PostType extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'post_types';
 
     protected $fillable = [

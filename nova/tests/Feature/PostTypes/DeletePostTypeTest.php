@@ -3,10 +3,9 @@
 namespace Tests\Feature\PostTypes;
 
 use Tests\TestCase;
-use Nova\Roles\Models\Role;
-use Nova\Users\Models\User;
-use Nova\Roles\Events\RoleDeleted;
+use Nova\PostTypes\Models\PostType;
 use Illuminate\Support\Facades\Event;
+use Nova\PostTypes\Events\PostTypeDeleted;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
@@ -17,87 +16,55 @@ class DeletePostTypeTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $role;
+    protected $postType;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->markTestSkipped();
-
-        $this->role = create(Role::class);
+        $this->postType = create(PostType::class);
     }
 
     /** @test **/
-    public function authorizedUserCanDeleteRole()
+    public function authorizedUserCanDeletePostType()
     {
-        $this->signInWithPermission('role.delete');
+        $this->signInWithPermission('story.delete');
 
         $this->followingRedirects();
 
-        $response = $this->delete(route('roles.destroy', $this->role));
+        $response = $this->delete(route('post-types.destroy', $this->postType));
         $response->assertSuccessful();
 
-        $this->assertDatabaseMissing('roles', [
-            'id' => $this->role->id,
+        $this->assertSoftDeleted('post_types', [
+            'id' => $this->postType->id,
         ]);
     }
 
     /** @test **/
-    public function usersWithRoleThatHasBeenDeletedHaveThatRoleRemovedFromTheirRoles()
-    {
-        $this->signInWithPermission('role.delete');
-
-        $user = create(User::class, [], ['status:active']);
-        $user->attachRole($this->role->name);
-
-        $this->delete(route('roles.destroy', $this->role));
-
-        $this->assertCount(0, $user->refresh()->roles);
-        $this->assertFalse($user->hasRole($this->role->name));
-    }
-
-    /** @test **/
-    public function eventIsDispatchedWhenRoleIsDeleted()
+    public function eventIsDispatchedWhenPostTypeIsDeleted()
     {
         Event::fake();
 
-        $this->signInWithPermission('role.delete');
+        $this->signInWithPermission('story.delete');
 
-        $this->delete(route('roles.destroy', $this->role));
+        $this->delete(route('post-types.destroy', $this->postType));
 
-        Event::assertDispatched(RoleDeleted::class);
+        Event::assertDispatched(PostTypeDeleted::class);
     }
 
     /** @test **/
-    public function lockedRoleCannotBeDeleted()
-    {
-        $this->signInWithPermission('role.delete');
-
-        $role = create(Role::class, [], ['locked']);
-
-        $response = $this->delete(route('roles.destroy', $role));
-        $response->assertForbidden();
-
-        $this->assertDatabaseHas('roles', [
-            'id' => $role->id,
-            'locked' => true,
-        ]);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotDeleteRole()
+    public function unauthorizedUserCannotDeletePostType()
     {
         $this->signIn();
 
-        $response = $this->delete(route('roles.destroy', $this->role));
+        $response = $this->delete(route('post-types.destroy', $this->postType));
         $response->assertForbidden();
     }
 
     /** @test **/
-    public function unauthenticatedUserCannotDeleteRole()
+    public function unauthenticatedUserCannotDeletePostType()
     {
-        $response = $this->deleteJson(route('roles.destroy', $this->role));
+        $response = $this->deleteJson(route('post-types.destroy', $this->postType));
         $response->assertUnauthorized();
     }
 }

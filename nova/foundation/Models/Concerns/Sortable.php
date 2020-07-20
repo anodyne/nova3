@@ -8,4 +8,9 @@ trait Sortable
     {
         return $this->orderBy('sort', 'asc');
     }
+
+    public function orderBySortDesc()
+    {
+        return $this->orderBy('sort', 'desc');
+    }
 }

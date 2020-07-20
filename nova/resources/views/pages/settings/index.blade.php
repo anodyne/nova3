@@ -22,48 +22,57 @@
                         <option value="characters" x-bind:selected="tab === 'characters'">Characters</option>
                         <option value="defaults" x-bind:selected="tab === 'defaults'">Defaults</option>
                         <option value="meta-tags" x-bind:selected="tab === 'meta-tags'">Meta Tags</option>
+                        <option value="discord" x-bind:selected="tab === 'discord'">Discord</option>
                     </select>
                 </div>
                 <div class="hidden | sm:block sm:p-6 sm:pr-2 sm:space-y-1">
                     <a
                         x-on:click.prevent="switchTab('general')"
                         href="{{ route('settings.index', 'general') }}"
-                        class="group flex items-center px-3 py-2 text-sm leading-5 font-medium rounded-md focus:outline-none transition ease-in-out duration-150"
-                        x-bind:class="{ 'text-blue-600 hover:text-blue-600 focus:text-blue-600': tab == 'general', 'text-gray-500 hover:text-gray-700 hover:bg-gray-50 focus:text-gray-700': tab != 'general' }"
+                        class="group flex items-center px-3 py-2 text-sm leading-5 font-medium rounded focus:outline-none transition ease-in-out duration-150"
+                        x-bind:class="{ 'bg-blue-50 text-blue-600 hover:text-blue-600 focus:text-blue-600': tab == 'general', 'text-gray-500 hover:text-gray-700 hover:bg-gray-50 focus:text-gray-700': tab != 'general' }"
                     >
                         <span class="truncate">General</span>
                     </a>
                     <a
                         x-on:click.prevent="switchTab('email')"
                         href="{{ route('settings.index', 'email') }}"
-                        class="group flex items-center px-3 py-2 text-sm leading-5 font-medium rounded-md focus:outline-none transition ease-in-out duration-150"
-                        x-bind:class="{ 'text-blue-600 hover:text-blue-600 focus:text-blue-600': tab == 'email', 'text-gray-500 hover:text-gray-700 hover:bg-gray-50 focus:text-gray-700': tab != 'email' }"
+                        class="group flex items-center px-3 py-2 text-sm leading-5 font-medium rounded focus:outline-none transition ease-in-out duration-150"
+                        x-bind:class="{ 'bg-blue-50 text-blue-600 hover:text-blue-600 focus:text-blue-600': tab == 'email', 'text-gray-500 hover:text-gray-700 hover:bg-gray-50 focus:text-gray-700': tab != 'email' }"
                     >
                         <span class="truncate">Email</span>
                     </a>
                     <a
                         x-on:click.prevent="switchTab('characters')"
                         href="{{ route('settings.index', 'characters') }}"
-                        class="group flex items-center px-3 py-2 text-sm leading-5 font-medium rounded-md focus:outline-none transition ease-in-out duration-150"
-                        x-bind:class="{ 'text-blue-600 hover:text-blue-600 focus:text-blue-600': tab == 'characters', 'text-gray-500 hover:text-gray-700 hover:bg-gray-50 focus:text-gray-700': tab != 'characters' }"
+                        class="group flex items-center px-3 py-2 text-sm leading-5 font-medium rounded focus:outline-none transition ease-in-out duration-150"
+                        x-bind:class="{ 'bg-blue-50 text-blue-600 hover:text-blue-600 focus:text-blue-600': tab == 'characters', 'text-gray-500 hover:text-gray-700 hover:bg-gray-50 focus:text-gray-700': tab != 'characters' }"
                     >
                         <span class="truncate">Characters</span>
                     </a>
                     <a
                         x-on:click.prevent="switchTab('defaults')"
                         href="{{ route('settings.index', 'defaults') }}"
-                        class="group flex items-center px-3 py-2 text-sm leading-5 font-medium rounded-md focus:outline-none transition ease-in-out duration-150"
-                        x-bind:class="{ 'text-blue-600 hover:text-blue-600 focus:text-blue-600': tab == 'defaults', 'text-gray-500 hover:text-gray-700 hover:bg-gray-50 focus:text-gray-700': tab != 'defaults' }"
+                        class="group flex items-center px-3 py-2 text-sm leading-5 font-medium rounded focus:outline-none transition ease-in-out duration-150"
+                        x-bind:class="{ 'bg-blue-50 text-blue-600 hover:text-blue-600 focus:text-blue-600': tab == 'defaults', 'text-gray-500 hover:text-gray-700 hover:bg-gray-50 focus:text-gray-700': tab != 'defaults' }"
                     >
                         <span class="truncate">Defaults</span>
                     </a>
                     <a
                         x-on:click.prevent="switchTab('meta-tags')"
                         href="{{ route('settings.index', 'meta-tags') }}"
-                        class="group flex items-center px-3 py-2 text-sm leading-5 font-medium rounded-md focus:outline-none transition ease-in-out duration-150"
-                        x-bind:class="{ 'text-blue-600 hover:text-blue-600 focus:text-blue-600': tab == 'meta-tags', 'text-gray-500 hover:text-gray-700 hover:bg-gray-50 focus:text-gray-700': tab != 'meta-tags' }"
+                        class="group flex items-center px-3 py-2 text-sm leading-5 font-medium rounded focus:outline-none transition ease-in-out duration-150"
+                        x-bind:class="{ 'bg-blue-50 text-blue-600 hover:text-blue-600 focus:text-blue-600': tab == 'meta-tags', 'text-gray-500 hover:text-gray-700 hover:bg-gray-50 focus:text-gray-700': tab != 'meta-tags' }"
                     >
                         <span class="truncate">Meta Tags</span>
+                    </a>
+                    <a
+                        x-on:click.prevent="switchTab('discord')"
+                        href="{{ route('settings.index', 'discord') }}"
+                        class="group flex items-center px-3 py-2 text-sm leading-5 font-medium rounded focus:outline-none transition ease-in-out duration-150"
+                        x-bind:class="{ 'bg-blue-50 text-blue-600 hover:text-blue-600 focus:text-blue-600': tab == 'discord', 'text-gray-500 hover:text-gray-700 hover:bg-gray-50 focus:text-gray-700': tab != 'discord' }"
+                    >
+                        <span class="truncate">Discord</span>
                     </a>
                 </div>
             </nav>
@@ -89,6 +98,10 @@
 
                 <div x-show="tab === 'meta-tags'" x-cloak>
                     @include('pages.settings._meta-tags')
+                </div>
+
+                <div x-show="tab === 'discord'" x-cloak>
+                    @include('pages.settings._discord')
                 </div>
             </div>
         </div>

@@ -10,6 +10,9 @@ use Nova\Departments\Actions\CreateDepartment;
 use Nova\PostTypes\Responses\UpdatePostTypeResponse;
 use Nova\Departments\Requests\CreateDepartmentRequest;
 use Nova\Departments\DataTransferObjects\DepartmentData;
+use Nova\PostTypes\Actions\UpdatePostType;
+use Nova\PostTypes\DataTransferObjects\PostTypeData;
+use Nova\PostTypes\Requests\UpdatePostTypeRequest;
 
 class UpdatePostTypeController extends Controller
 {
@@ -30,14 +33,20 @@ class UpdatePostTypeController extends Controller
         ]);
     }
 
-    public function store(CreateDepartmentRequest $request, CreateDepartment $action)
-    {
-        $this->authorize('create', Department::class);
+    public function update(
+        UpdatePostTypeRequest $request,
+        UpdatePostType $action,
+        PostType $postType
+    ) {
+        $this->authorize('update', $postType);
 
-        $department = $action->execute(DepartmentData::fromRequest($request));
+        $postType = $action->execute(
+            $postType,
+            PostTypeData::fromRequest($request)
+        );
 
         return redirect()
-            ->route('departments.index')
-            ->withToast("{$department->name} department was created");
+            ->route('post-types.edit', $postType)
+            ->withToast("{$postType->name} was updated");
     }
 }

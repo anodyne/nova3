@@ -3,15 +3,19 @@
 namespace Nova\Stories\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Nova\Stories\Models\Builders\StoryBuilder;
 use Nova\Stories\Models\States\Stories\Current;
 use Nova\Stories\Models\States\Stories\Upcoming;
 use Nova\Stories\Models\States\Stories\Completed;
 use Nova\Stories\Models\States\Stories\StoryStatus;
 use Nova\Stories\Models\States\Stories\UpcomingToCurrent;
 use Nova\Stories\Models\States\Stories\CurrentToCompleted;
+use Spatie\ModelStates\HasStates;
 
 class Story extends Model
 {
+    use HasStates;
+
     protected $table = 'stories';
 
     protected $casts = [
@@ -42,5 +46,10 @@ class Story extends Model
                 [Current::class, Completed::class, CurrentToCompleted::class],
             ])
             ->default(Upcoming::class);
+    }
+
+    public function newEloquentBuilder($query): StoryBuilder
+    {
+        return new StoryBuilder($query);
     }
 }

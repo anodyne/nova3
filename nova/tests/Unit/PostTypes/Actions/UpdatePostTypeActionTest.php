@@ -7,27 +7,47 @@ use Nova\PostTypes\Actions\CreatePostType;
 use Nova\PostTypes\DataTransferObjects\Fields;
 use Nova\PostTypes\DataTransferObjects\Options;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\PostTypes\Actions\UpdatePostType;
 use Nova\PostTypes\DataTransferObjects\PostTypeData;
+use Nova\PostTypes\Models\PostType;
 
 /**
  * @group stories
  * @group post-types
  */
-class CreatePostTypeActionTest extends TestCase
+class UpdatePostTypeActionTest extends TestCase
 {
     use RefreshDatabase;
 
     protected $action;
 
+    protected $postType;
+
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->action = app(CreatePostType::class);
+        $this->action = app(UpdatePostType::class);
+
+        $this->postType = create(PostType::class);
+
+        $this->postType->fields = Fields::fromArray([
+            'title' => true,
+            'time' => true,
+            'location' => true,
+            'content' => true,
+        ]);
+        $this->postType->options = Options::fromArray([
+            'notifyUsers' => true,
+            'includeInPostCounts' => true,
+            'multipleAuthors' => true,
+        ]);
+
+        $this->postType->save();
     }
 
     /** @test **/
-    public function itCreatesAPostType()
+    public function itUpdatesAPostType()
     {
         $data = new PostTypeData([
             'key' => 'foo',
@@ -49,7 +69,7 @@ class CreatePostTypeActionTest extends TestCase
             ]),
         ]);
 
-        $postType = $this->action->execute($data);
+        $postType = $this->action->execute($this->postType, $data);
 
         $this->assertTrue($postType->exists);
         $this->assertEquals('Foo', $postType->name);

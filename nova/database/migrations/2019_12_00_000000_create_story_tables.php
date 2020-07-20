@@ -20,7 +20,7 @@ class CreateStoryTables extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->text('summary')->nullable();
-            $table->unsignedBigInteger('parent_id')->null();
+            $table->unsignedBigInteger('parent_id')->nullable();
             $table->unsignedInteger('sort')->nullable();
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();

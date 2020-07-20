@@ -37,6 +37,7 @@ class PopulateStoryTables extends Migration
                 ]),
                 'options' => new Options([
                     'notifyUsers' => true,
+                    'notifyDiscord' => true,
                     'includeInPostCounts' => true,
                     'multipleAuthors' => true,
                 ]),
@@ -56,6 +57,7 @@ class PopulateStoryTables extends Migration
                 ]),
                 'options' => new Options([
                     'notifyUsers' => true,
+                    'notifyDiscord' => true,
                     'includeInPostCounts' => true,
                     'multipleAuthors' => false,
                 ]),
@@ -75,6 +77,7 @@ class PopulateStoryTables extends Migration
                 ]),
                 'options' => new Options([
                     'notifyUsers' => false,
+                    'notifyDiscord' => false,
                     'includeInPostCounts' => false,
                     'multipleAuthors' => false,
                 ]),
@@ -95,6 +98,7 @@ class PopulateStoryTables extends Migration
                 ]),
                 'options' => new Options([
                     'notifyUsers' => false,
+                    'notifyDiscord' => true,
                     'includeInPostCounts' => false,
                     'multipleAuthors' => false,
                 ]),
