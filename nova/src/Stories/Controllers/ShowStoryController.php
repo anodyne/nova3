@@ -2,7 +2,9 @@
 
 namespace Nova\Stories\Controllers;
 
+use Illuminate\Http\Request;
 use Nova\Stories\Models\Story;
+use Nova\Stories\Filters\StoryFilters;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Stories\Responses\ShowAllStoriesResponse;
 
@@ -15,12 +17,12 @@ class ShowStoryController extends Controller
         $this->middleware('auth');
     }
 
-    public function all()
+    public function all(Request $request, StoryFilters $filters)
     {
         $this->authorize('viewAny', Story::class);
 
         return app(ShowAllStoriesResponse::class)->with([
-            'stories' => Story::orderBySortDesc()->get(),
+            'stories' => Story::filter($filters)->orderBySortDesc()->get(),
         ]);
     }
 }

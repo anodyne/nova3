@@ -30,10 +30,12 @@ class DeletePostTypeController extends Controller
     {
         $this->authorize('delete', $postType);
 
+        $name = $postType->name;
+
         $action->execute($postType);
 
         return redirect()
             ->route('post-types.index')
-            ->withToast("{$postType->name} was deleted");
+            ->withToast("{$name} was deleted");
     }
 }

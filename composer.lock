@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a6ba048784f031cb610bf62e222a97d1",
+    "content-hash": "ddb1ecea84736120d33273b6a6c7ba3e",
     "packages": [
         {
             "name": "awssat/discord-notification-channel",
@@ -889,6 +889,69 @@
                 "watermark"
             ],
             "time": "2019-11-02T09:15:47+00:00"
+        },
+        {
+            "name": "kirschbaum-development/laravel-route-file-macro",
+            "version": "0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kirschbaum-development/laravel-route-file-macro.git",
+                "reference": "c296763bf26e7a561aea12abeef396daaa6ba805"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kirschbaum-development/laravel-route-file-macro/zipball/c296763bf26e7a561aea12abeef396daaa6ba805",
+                "reference": "c296763bf26e7a561aea12abeef396daaa6ba805",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/routing": "^5.7|^6.0|^7.0",
+                "illuminate/support": "^5.7|^6.0|^7.0",
+                "php": ">=7.2.5"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0",
+                "orchestra/testbench": "^5.0",
+                "phpunit/phpunit": "^8.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "KirschbaumDevelopment\\RouteFileMacro\\RouteFileMacroServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "KirschbaumDevelopment\\RouteFileMacro\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "David VanScott",
+                    "email": "david@kirschbaumdevelopment.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Justin Seliga",
+                    "email": "justin@kirschbaumdevelopment.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Route macro that easily loads a route file without unnecessary method calls.",
+            "homepage": "https://github.com/kirschbaum-development/laravel-route-file-macro",
+            "keywords": [
+                "kirschbaum-development",
+                "laravel",
+                "laravel-route",
+                "laravel-route-file-macro"
+            ],
+            "time": "2020-03-09T14:44:24+00:00"
         },
         {
             "name": "kkszymanowski/traitor",

@@ -137,11 +137,11 @@ class PopulatePagesTable extends Migration
             ['uri' => 'post-types', 'key' => 'post-types.index', 'resource' => 'Nova\\PostTypes\\Controllers\\ShowPostTypeController@all', 'layout' => 'admin'],
             ['uri' => 'post-types/{postType}/show', 'key' => 'post-types.show', 'resource' => 'Nova\\PostTypes\\Controllers\\ShowPostTypeController@show', 'layout' => 'admin'],
             ['uri' => 'post-types/create', 'key' => 'post-types.create', 'resource' => 'Nova\\PostTypes\\Controllers\\CreatePostTypeController@create', 'layout' => 'admin'],
-            ['uri' => 'characters', 'key' => 'post-types.store', 'verb' => 'post', 'resource' => 'Nova\\PostTypes\\Controllers\\CreatePostTypeController@store', 'layout' => 'admin'],
+            ['uri' => 'post-types', 'key' => 'post-types.store', 'verb' => 'post', 'resource' => 'Nova\\PostTypes\\Controllers\\CreatePostTypeController@store', 'layout' => 'admin'],
             ['uri' => 'post-types/{postType}/edit', 'key' => 'post-types.edit', 'resource' => 'Nova\\PostTypes\\Controllers\\UpdatePostTypeController@edit', 'layout' => 'admin'],
             ['uri' => 'post-types/{postType}', 'key' => 'post-types.update', 'verb' => 'put', 'resource' => 'Nova\\PostTypes\\Controllers\\UpdatePostTypeController@update', 'layout' => 'admin'],
             ['uri' => 'post-types/delete', 'key' => 'post-types.delete', 'verb' => 'post', 'resource' => 'Nova\\PostTypes\\Controllers\\DeletePostTypeController@confirm', 'layout' => 'admin'],
-            ['uri' => 'post-types/{character}', 'key' => 'post-types.destroy', 'verb' => 'delete', 'resource' => 'Nova\\PostTypes\\Controllers\\DeletePostTypeController@destroy', 'layout' => 'admin'],
+            ['uri' => 'post-types/{postType}', 'key' => 'post-types.destroy', 'verb' => 'delete', 'resource' => 'Nova\\PostTypes\\Controllers\\DeletePostTypeController@destroy', 'layout' => 'admin'],
             ['uri' => 'post-types/reorder', 'key' => 'post-types.reorder', 'verb' => 'post', 'resource' => 'Nova\\PostTypes\\Controllers\\ReorderPostTypesController', 'layout' => 'admin'],
             ['uri' => 'post-types/{originalPostType}/duplicate', 'key' => 'post-types.duplicate', 'verb' => 'post', 'resource' => 'Nova\\PostTypes\\Controllers\\DuplicatePostTypeController', 'layout' => 'admin'],
 
