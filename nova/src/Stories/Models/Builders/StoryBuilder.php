@@ -10,4 +10,9 @@ class StoryBuilder extends Builder
 {
     use Filterable;
     use Sortable;
+
+    public function whereIsParentStory(): Builder
+    {
+        return $this->where('story_id', null);
+    }
 }

@@ -21,8 +21,13 @@ class ShowStoryController extends Controller
     {
         $this->authorize('viewAny', Story::class);
 
+        $stories = Story::whereIsParentStory()
+            ->filter($filters)
+            ->orderBySortDesc()
+            ->get();
+
         return app(ShowAllStoriesResponse::class)->with([
-            'stories' => Story::filter($filters)->orderBySortDesc()->get(),
+            'stories' => $stories,
         ]);
     }
 }
