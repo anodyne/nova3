@@ -24,9 +24,9 @@ class ReorderPostTypesTest extends TestCase
     {
         parent::setUp();
 
-        $this->postType1 = create(PostType::class, ['sort' => 0]);
-        $this->postType2 = create(PostType::class, ['sort' => 1]);
-        $this->postType3 = create(PostType::class, ['sort' => 2]);
+        $this->postType1 = create(PostType::class, ['name' => 'One', 'sort' => 0]);
+        $this->postType2 = create(PostType::class, ['name' => 'Two', 'sort' => 1]);
+        $this->postType3 = create(PostType::class, ['name' => 'Three', 'sort' => 2]);
     }
 
     /** @test **/
