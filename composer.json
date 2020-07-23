@@ -16,6 +16,7 @@
         "blade-ui-kit/blade-icons": "^0.4",
         "f9webltd/laravel-meta": "^1.4",
         "fideloper/proxy": "^4.0",
+        "kalnoy/nestedset": "^5.0",
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
