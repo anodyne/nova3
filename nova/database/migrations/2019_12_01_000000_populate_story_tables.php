@@ -1,9 +1,11 @@
 <?php
 
+use Nova\Stories\Models\Story;
 use Nova\PostTypes\Models\PostType;
 use Illuminate\Database\Migrations\Migration;
 use Nova\PostTypes\DataTransferObjects\Fields;
 use Nova\PostTypes\DataTransferObjects\Options;
+use Nova\Stories\Models\States\Stories\Completed;
 
 class PopulateStoryTables extends Migration
 {
@@ -12,6 +14,8 @@ class PopulateStoryTables extends Migration
         activity()->disableLogging();
 
         $this->populatePostTypes();
+
+        $this->populateStoryTimelineRoot();
 
         activity()->enableLogging();
     }
@@ -108,5 +112,13 @@ class PopulateStoryTables extends Migration
         ];
 
         collect($postTypes)->each([PostType::class, 'create']);
+    }
+
+    protected function populateStoryTimelineRoot()
+    {
+        Story::create([
+            'title' => 'Timeline',
+            'status' => Completed::class,
+        ]);
     }
 }

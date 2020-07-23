@@ -15,18 +15,16 @@ class CreateStoryTables extends Migration
     {
         Schema::create('stories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('story_id')->nullable()->constrained('stories');
             $table->string('status');
             $table->string('title');
             $table->text('description')->nullable();
             $table->text('summary')->nullable();
-            $table->unsignedBigInteger('parent_id')->nullable();
-            $table->unsignedInteger('sort')->nullable();
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
+            $table->nestedSet();
             $table->timestamps();
 
-            $table->index(['story_id', 'status', 'parent_id', 'sort']);
+            $table->index('status');
         });
 
         Schema::create('post_author', function (Blueprint $table) {

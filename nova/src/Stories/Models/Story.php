@@ -2,6 +2,8 @@
 
 namespace Nova\Stories\Models;
 
+use Kalnoy\Nestedset\NodeTrait;
+use Spatie\ModelStates\HasStates;
 use Illuminate\Database\Eloquent\Model;
 use Nova\Stories\Models\Builders\StoryBuilder;
 use Nova\Stories\Models\States\Stories\Current;
@@ -10,13 +12,15 @@ use Nova\Stories\Models\States\Stories\Completed;
 use Nova\Stories\Models\States\Stories\StoryStatus;
 use Nova\Stories\Models\States\Stories\UpcomingToCurrent;
 use Nova\Stories\Models\States\Stories\CurrentToCompleted;
-use Spatie\ModelStates\HasStates;
 
 class Story extends Model
 {
     use HasStates;
+    use NodeTrait;
 
     protected $table = 'stories';
+
+    protected $fillable = ['title', 'status'];
 
     protected $casts = [
         'start_date' => 'datetime',
@@ -38,6 +42,11 @@ class Story extends Model
         return $this->hasMany(self::class, 'story_id');
     }
 
+    // public function newEloquentBuilder($query): StoryBuilder
+    // {
+    //     return new StoryBuilder($query);
+    // }
+
     protected function registerStates(): void
     {
         $this->addState('status', StoryStatus::class)
@@ -46,10 +55,5 @@ class Story extends Model
                 [Current::class, Completed::class, CurrentToCompleted::class],
             ])
             ->default(Upcoming::class);
-    }
-
-    public function newEloquentBuilder($query): StoryBuilder
-    {
-        return new StoryBuilder($query);
     }
 }

@@ -1,39 +1,33 @@
 <?php
 
+use Nova\Stories\Models\Story;
 use Illuminate\Database\Seeder;
-use Nova\Stories\Models\States\Stories\Completed;
 use Nova\Stories\Models\States\Stories\Current;
 use Nova\Stories\Models\States\Stories\Upcoming;
-use Nova\Stories\Models\Story;
+use Nova\Stories\Models\States\Stories\Completed;
 
 class StorySeeder extends Seeder
 {
     public function run()
     {
-        factory(Story::class)->create([
-            'title' => 'Season 1',
-            'status' => Completed::class,
-            'sort' => 1,
+        $timeline = Story::whereIsRoot()->first();
+
+        $timeline->children()->createMany([
+            factory(Story::class)->make(['title' => 'Season 1', 'status' => Current::class])->toArray(),
+            factory(Story::class)->make(['title' => 'Season 2', 'status' => Upcoming::class])->toArray(),
         ]);
 
-        factory(Story::class)->create([
-            'title' => 'Episode 1',
-            'status' => Current::class,
-            'sort' => 0,
-            'story_id' => 1,
+        $season1 = Story::whereTitle('Season 1')->first();
+        $season1->children()->createMany([
+            factory(Story::class)->make(['title' => 'Episode 1', 'status' => Completed::class])->toArray(),
+            factory(Story::class)->make(['title' => 'Episode 2', 'status' => Current::class])->toArray(),
+            factory(Story::class)->make(['title' => 'Episode 3', 'status' => Upcoming::class])->toArray(),
         ]);
 
-        factory(Story::class)->create([
-            'title' => 'Episode 2',
-            'status' => Upcoming::class,
-            'sort' => 1,
-            'story_id' => 1,
-        ]);
-
-        factory(Story::class)->create([
-            'title' => 'Season 0',
-            'status' => Upcoming::class,
-            'sort' => 0,
+        $episode1 = Story::whereTitle('Episode 1')->first();
+        $episode1->children()->createMany([
+            factory(Story::class)->make(['title' => 'Sub-Episode 1', 'status' => Completed::class])->toArray(),
+            factory(Story::class)->make(['title' => 'Sub-Episode 2', 'status' => Completed::class])->toArray(),
         ]);
     }
 }
