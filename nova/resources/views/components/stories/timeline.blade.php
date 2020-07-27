@@ -18,7 +18,7 @@
                                     @icon('more', 'h-6 w-6')
 
                                     <x-slot name="dropdown">
-                                        <a href="#" class="{{ $component->link() }}">
+                                        <a href="{{ route('stories.show', $story) }}" class="{{ $component->link() }}">
                                             @icon('show', $component->icon())
                                             <span>View</span>
                                         </a>

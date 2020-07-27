@@ -54,6 +54,7 @@ class CreateStoryTables extends Migration
             $table->string('status');
             $table->string('title');
             $table->longText('content');
+            $table->boolean('mature_content')->default(false);
             $table->dateTime('published_at')->nullable();
             $table->timestamps();
 

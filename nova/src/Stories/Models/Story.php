@@ -42,10 +42,10 @@ class Story extends Model
         return $this->hasMany(self::class, 'story_id');
     }
 
-    // public function newEloquentBuilder($query): StoryBuilder
-    // {
-    //     return new StoryBuilder($query);
-    // }
+    public function newEloquentBuilder($query): StoryBuilder
+    {
+        return new StoryBuilder($query);
+    }
 
     protected function registerStates(): void
     {

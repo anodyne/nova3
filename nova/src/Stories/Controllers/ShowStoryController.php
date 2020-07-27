@@ -4,7 +4,9 @@ namespace Nova\Stories\Controllers;
 
 use Illuminate\Http\Request;
 use Nova\Stories\Models\Story;
+use Nova\Stories\Filters\StoryFilters;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Stories\Responses\ShowStoryResponse;
 use Nova\Stories\Responses\ShowAllStoriesResponse;
 
 class ShowStoryController extends Controller
@@ -16,18 +18,26 @@ class ShowStoryController extends Controller
         $this->middleware('auth');
     }
 
-    public function all(Request $request)
+    public function all(Request $request, StoryFilters $filters)
     {
         $this->authorize('viewAny', Story::class);
 
-        $stories = Story::hasParent();
-
-        $stories = ($request->has('reversed'))
-            ? $stories->defaultOrder()
-            : $stories->reversed();
+        $stories = Story::hasParent()
+            ->filter($filters)
+            ->get()
+            ->toTree();
 
         return app(ShowAllStoriesResponse::class)->with([
-            'stories' => $stories->get()->toTree(),
+            'stories' => $stories,
+        ]);
+    }
+
+    public function show(Story $story)
+    {
+        $this->authorize('view', $story);
+
+        return app(ShowStoryResponse::class)->with([
+            'story' => $story,
         ]);
     }
 }

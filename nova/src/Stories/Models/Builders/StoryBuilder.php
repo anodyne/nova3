@@ -2,17 +2,10 @@
 
 namespace Nova\Stories\Models\Builders;
 
+use Kalnoy\Nestedset\QueryBuilder;
 use Nova\Foundation\Filters\Filterable;
-use Illuminate\Database\Eloquent\Builder;
-use Nova\Foundation\Models\Concerns\Sortable;
 
-class StoryBuilder extends Builder
+class StoryBuilder extends QueryBuilder
 {
     use Filterable;
-    use Sortable;
-
-    public function whereIsParentStory(): Builder
-    {
-        return $this->where('story_id', null);
-    }
 }

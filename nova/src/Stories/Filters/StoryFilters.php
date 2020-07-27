@@ -18,8 +18,10 @@ class StoryFilters extends Filters
 
     public function sort($value)
     {
-        [$column, $direction] = explode(',', $value);
+        if ($value === 'desc') {
+            return $this->builder->defaultOrder();
+        }
 
-        return $this->builder->reorder($column, $direction);
+        return $this->builder->reversed();
     }
 }
