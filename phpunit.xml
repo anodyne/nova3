@@ -18,6 +18,16 @@
         </include>
     </coverage>
 
+    <testsuites>
+        <testsuite name="unit">
+            <directory suffix="Test.php">./nova/tests/Unit</directory>
+        </testsuite>
+
+        <testsuite name="feature">
+            <directory suffix="Test.php">./nova/tests/Feature</directory>
+        </testsuite>
+    </testsuites>
+
     <php>
         <server name="APP_ENV" value="testing"/>
         <server name="BCRYPT_ROUNDS" value="4"/>
