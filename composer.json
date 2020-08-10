@@ -46,6 +46,7 @@
         "laravel": {
             "dont-discover": [
                 "blade-ui-kit/blade-icons",
+                "kalnoy/nestedset",
                 "livewire/livewire"
             ]
         }
