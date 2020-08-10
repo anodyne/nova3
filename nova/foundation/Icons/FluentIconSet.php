@@ -44,6 +44,7 @@ class FluentIconSet extends IconSet
             'move-down' => 'swipe-down',
             'move-right' => 'swipe-right',
             'move-up' => 'swipe-up',
+            'note' => 'note',
             'notification' => 'alert',
             'preferences' => 'settings-dev',
             'remove' => 'remove',
