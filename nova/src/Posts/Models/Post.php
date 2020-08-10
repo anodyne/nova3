@@ -1,15 +1,15 @@
 <?php
 
-namespace Nova\Stories\Models;
+namespace Nova\Posts\Models;
 
+use Nova\Posts\Models\States\Draft;
+use Nova\Posts\Models\States\Pending;
 use Illuminate\Database\Eloquent\Model;
-use Nova\Stories\Models\States\Posts\Draft;
-use Nova\Stories\Models\States\Posts\Pending;
-use Nova\Stories\Models\States\Posts\Published;
-use Nova\Stories\Models\States\Posts\PostStatus;
-use Nova\Stories\Models\States\Posts\DraftToPending;
-use Nova\Stories\Models\States\Posts\DraftToPublished;
-use Nova\Stories\Models\States\Posts\PendingToPublished;
+use Nova\Posts\Models\States\Published;
+use Nova\Posts\Models\States\PostStatus;
+use Nova\Posts\Models\States\DraftToPending;
+use Nova\Posts\Models\States\DraftToPublished;
+use Nova\Posts\Models\States\PendingToPublished;
 
 class Post extends Model
 {

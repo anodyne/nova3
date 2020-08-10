@@ -185,6 +185,7 @@ return [
         Nova\Dashboard\Providers\DashboardServiceProvider::class,
         Nova\Departments\Providers\DepartmentServiceProvider::class,
         Nova\Notes\Providers\NoteServiceProvider::class,
+        Nova\Posts\Providers\PostServiceProvider::class,
         Nova\PostTypes\Providers\PostTypeServiceProvider::class,
         Nova\Ranks\Providers\RankServiceProvider::class,
         Nova\Roles\Providers\RoleServiceProvider::class,

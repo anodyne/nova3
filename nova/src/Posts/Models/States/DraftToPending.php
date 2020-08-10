@@ -1,11 +1,11 @@
 <?php
 
-namespace Nova\Stories\Models\States\Posts;
+namespace Nova\Posts\Models\States;
 
-use Nova\Stories\Models\Post;
+use Nova\Posts\Models\Post;
 use Spatie\ModelStates\Transition;
 
-class PendingToPublished extends Transition
+class DraftToPending extends Transition
 {
     protected $post;
 
@@ -16,8 +16,7 @@ class PendingToPublished extends Transition
 
     public function handle(): Post
     {
-        $this->post->status = Published::class;
-        $this->post->published_at = now();
+        $this->post->status = Pending::class;
         $this->post->save();
 
         return $this->post->refresh();

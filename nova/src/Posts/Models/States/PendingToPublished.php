@@ -1,11 +1,11 @@
 <?php
 
-namespace Nova\Stories\Models\States\Posts;
+namespace Nova\Posts\Models\States;
 
-use Nova\Stories\Models\Post;
+use Nova\Posts\Models\Post;
 use Spatie\ModelStates\Transition;
 
-class DraftToPublished extends Transition
+class PendingToPublished extends Transition
 {
     protected $post;
 

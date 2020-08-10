@@ -13,5 +13,7 @@ $factory->define(PostType::class, function (Faker $faker) {
         'key' => $word,
         'name' => ucfirst($word),
         'visibility' => $faker->randomElement(['in-character', 'out-of-character']),
+        'color' => $faker->hexColor,
+        'icon' => 'book',
     ];
 });

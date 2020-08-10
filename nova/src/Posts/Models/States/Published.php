@@ -1,6 +1,6 @@
 <?php
 
-namespace Nova\Stories\Models\States\Posts;
+namespace Nova\Posts\Models\States;
 
 class Published extends PostStatus
 {}
