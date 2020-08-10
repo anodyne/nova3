@@ -57,7 +57,7 @@
                             Dashboard
                         </a>
                         <a href="{{ route('notes.index') }}" class="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-100 transition ease-in-out duration-150">
-                            @icon('book', 'mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
+                            @icon('note', 'mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
                             My Notes
                         </a>
                         {{-- <a href="{{ route('notes.index') }}" class="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-100 transition ease-in-out duration-150">
@@ -65,9 +65,16 @@
                             Players
                         </a> --}}
 
+                        @can('create', 'Nova\Posts\Models\Post')
+                            <a href="{{ route('posts.create') }}" class="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-100 transition ease-in-out duration-150">
+                                @icon('write', 'mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
+                                Write New Post
+                            </a>
+                        @endcan
+
                         <div class="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-100 transition ease-in-out duration-150">
-                            @icon('write', 'mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
-                            Write
+                            @icon('book', 'mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
+                            Stories
                         </div>
                         <div class="flex flex-col ml-12">
                             @can('viewAny', 'Nova\Stories\Models\Story')
@@ -138,7 +145,7 @@
                         Dashboard
                     </a>
                     <a href="{{ route('notes.index') }}" class="mt-1 first:mt-0 group flex items-center px-2 py-2 text-sm leading-5 font-semibold text-gray-500 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:bg-gray-100 transition ease-in-out duration-150">
-                        @icon('book', 'mr-3 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
+                        @icon('note', 'mr-3 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
                         My Notes
                     </a>
                     {{-- <a href="{{ route('notes.index') }}" class="mt-1 first:mt-0 group flex items-center px-2 py-2 text-sm leading-5 font-semibold text-gray-500 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:bg-gray-100 transition ease-in-out duration-150">
@@ -146,9 +153,16 @@
                         Players
                     </a> --}}
 
+                    @can('create', 'Nova\Posts\Models\Post')
+                        <a href="{{ route('posts.create') }}" class="mt-1 first:mt-0 group flex items-center px-2 py-2 text-sm leading-5 font-semibold text-gray-500 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:bg-gray-100 transition ease-in-out duration-150">
+                            @icon('write', 'mr-3 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
+                            Write New Post
+                        </a>
+                    @endcan
+
                     <div class="mt-1 first:mt-0 group flex items-center px-2 py-2 text-sm leading-5 font-semibold text-gray-500 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:bg-gray-100 transition ease-in-out duration-150">
-                        @icon('write', 'mr-3 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
-                        Write
+                        @icon('book', 'mr-3 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
+                        Stories
                     </div>
                     <div class="flex flex-col text-sm ml-11">
                         @can('viewAny', 'Nova\Stories\Models\Story')
