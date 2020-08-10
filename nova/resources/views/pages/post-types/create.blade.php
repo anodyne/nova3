@@ -31,6 +31,14 @@
                     <x-input.textarea id="description" name="description" data-cy="description" rows="3">{{ old('description') }}</x-input.textarea>
                 </x-input.group>
 
+                <x-input.group label="Accent Color" for="color">
+                    <input type="color" id="color" name="color" class="w-full rounded | md:w-1/4" value="{{ old('color') }}">
+                </x-input.group>
+
+                <x-input.group label="Icon" for="icon">
+                    <x-input.text id="icon" name="icon" :value="old('icon')" />
+                </x-input.group>
+
                 <x-input.group
                     label="Visibility"
                     for="visibility"

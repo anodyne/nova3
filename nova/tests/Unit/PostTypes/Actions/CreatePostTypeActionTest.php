@@ -33,6 +33,8 @@ class CreatePostTypeActionTest extends TestCase
             'key' => 'foo',
             'name' => 'Foo',
             'description' => 'Description of foo',
+            'color' => '#000000',
+            'icon' => 'book',
             'active' => true,
             'visibility' => 'in-character',
             'fields' => new Fields([
@@ -55,6 +57,8 @@ class CreatePostTypeActionTest extends TestCase
         $this->assertEquals('Foo', $postType->name);
         $this->assertEquals('foo', $postType->key);
         $this->assertEquals('Description of foo', $postType->description);
+        $this->assertEquals('book', $postType->icon);
+        $this->assertEquals('#000000', $postType->color);
         $this->assertEquals('in-character', $postType->visibility);
         $this->assertTrue($postType->active);
 

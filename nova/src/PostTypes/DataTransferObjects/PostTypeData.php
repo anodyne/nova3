@@ -23,6 +23,10 @@ class PostTypeData extends DataTransferObject
 
     public string $visibility;
 
+    public ?string $icon;
+
+    public ?string $color
+
     public static function fromRequest(Request $request): self
     {
         return new self([

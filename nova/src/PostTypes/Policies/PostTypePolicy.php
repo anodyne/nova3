@@ -50,4 +50,13 @@ class PostTypePolicy
     {
         return false;
     }
+
+    public function write(User $user, PostType $postType): bool
+    {
+        if ($postType->role === null) {
+            return true;
+        }
+
+        return $user->hasRole($postType->role->name);
+    }
 }

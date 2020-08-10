@@ -61,11 +61,16 @@
                                 @icon('reorder', 'h-5 w-5 text-gray-400')
                             </div>
                         @endif
-                        <div class="min-w-0 flex-1 | sm:flex sm:flex-col">
-                            <div class="leading-normal font-medium truncate">
-                                {{ $postType->name }}
+                        <div class="flex min-w-0 flex-1">
+                            <div class="flex-shrink-0 mr-3 mt-2px" style="color:{{ $postType->color }}">
+                                @icon($postType->icon, 'h-6 w-6')
                             </div>
-                            <p class="text-sm leading-5 text-gray-600">{{ $postType->description }}</p>
+                            <div class="min-w-0 flex-1 | sm:flex sm:flex-col">
+                                <div class="leading-normal font-medium truncate">
+                                    {{ $postType->name }}
+                                </div>
+                                <p class="text-sm leading-5 text-gray-600">{{ $postType->description }}</p>
+                            </div>
                         </div>
                         <div class="ml-5 flex-shrink-0 leading-0">
                             <x-dropdown placement="bottom-end" class="text-gray-400 hover:text-gray-500">

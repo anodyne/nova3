@@ -18,7 +18,7 @@ class PostType extends Model
 
     protected $fillable = [
         'name', 'description', 'key', 'active', 'visibility', 'fields',
-        'options', 'sort',
+        'options', 'sort', 'icon', 'color',
     ];
 
     protected $casts = [
@@ -41,7 +41,7 @@ class PostType extends Model
 
     public function role()
     {
-        return $this->hasOne(Role::class);
+        return $this->belongsTo(Role::class);
     }
 
     public function newEloquentBuilder($query): PostTypeBuilder
