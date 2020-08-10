@@ -2,9 +2,9 @@
 
 use Nova\Stories\Models\Story;
 use Illuminate\Database\Seeder;
-use Nova\Stories\Models\States\Stories\Current;
-use Nova\Stories\Models\States\Stories\Upcoming;
-use Nova\Stories\Models\States\Stories\Completed;
+use Nova\Stories\Models\States\Current;
+use Nova\Stories\Models\States\Upcoming;
+use Nova\Stories\Models\States\Completed;
 
 class StorySeeder extends Seeder
 {
