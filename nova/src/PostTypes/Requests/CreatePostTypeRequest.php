@@ -11,6 +11,8 @@ class CreatePostTypeRequest extends ValidatesRequest
         return [
             'active' => ['required'],
             'description' => ['nullable'],
+            'color' => ['nullable'],
+            'icon' => ['nullable'],
             'fields' => ['required'],
             'key' => ['required'],
             'name' => ['required'],

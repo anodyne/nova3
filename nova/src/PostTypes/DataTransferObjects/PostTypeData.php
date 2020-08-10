@@ -25,14 +25,16 @@ class PostTypeData extends DataTransferObject
 
     public ?string $icon;
 
-    public ?string $color
+    public ?string $color;
 
     public static function fromRequest(Request $request): self
     {
         return new self([
             'active' => (bool) $request->active,
+            'color' => $request->color,
             'description' => $request->description,
             'fields' => Fields::fromArray($request->fields),
+            'icon' => $request->icon,
             'key' => $request->key,
             'name' => $request->name,
             'options' => Options::fromArray($request->options),
