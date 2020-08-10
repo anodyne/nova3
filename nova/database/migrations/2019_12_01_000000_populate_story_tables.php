@@ -2,10 +2,10 @@
 
 use Nova\Stories\Models\Story;
 use Nova\PostTypes\Models\PostType;
+use Nova\Stories\Models\States\Completed;
 use Illuminate\Database\Migrations\Migration;
 use Nova\PostTypes\DataTransferObjects\Fields;
 use Nova\PostTypes\DataTransferObjects\Options;
-use Nova\Stories\Models\States\Stories\Completed;
 
 class PopulateStoryTables extends Migration
 {
@@ -31,7 +31,9 @@ class PopulateStoryTables extends Migration
             [
                 'name' => 'Story Post',
                 'key' => 'post',
-                'description' => '',
+                'description' => 'A post that drives the story forward. It can be a singular post or a collaborative post with other characters in the game.',
+                'color' => '#76a9fa',
+                'icon' => 'book',
                 'visibility' => 'in-character',
                 'fields' => new Fields([
                     'title' => true,
@@ -51,7 +53,9 @@ class PopulateStoryTables extends Migration
             [
                 'name' => 'Personal Post',
                 'key' => 'personal',
-                'description' => '',
+                'description' => 'A post more geared toward telling the perspective of individual characters. This can often be thought of as an inner monologue or journal entry.',
+                'color' => '#31c48d',
+                'icon' => 'user',
                 'visibility' => 'in-character',
                 'fields' => new Fields([
                     'title' => true,
@@ -71,7 +75,9 @@ class PopulateStoryTables extends Migration
             [
                 'name' => 'Marker',
                 'key' => 'marker',
-                'description' => 'A marker allows you to mark time or location for the story to give players an indication that the story has moved location or timeframes.',
+                'description' => 'Mark time or location for the story to give players an indication that the action has moved location or timeframes.',
+                'color' => '#ff8a4c',
+                'icon' => 'location',
                 'visibility' => 'out-of-character',
                 'fields' => new Fields([
                     'title' => false,
@@ -92,7 +98,9 @@ class PopulateStoryTables extends Migration
             [
                 'name' => 'Note',
                 'key' => 'note',
-                'description' => 'A story note is a way to inform players of key pieces of information about the ongoing story in one place.',
+                'description' => 'Inform players of key pieces of information about the story in a single place. Players will be able to see all notes when composing a new story post.',
+                'color' => '#ac94fa',
+                'icon' => 'note',
                 'visibility' => 'out-of-character',
                 'fields' => new Fields([
                     'title' => false,
@@ -111,7 +119,9 @@ class PopulateStoryTables extends Migration
             ],
         ];
 
-        collect($postTypes)->each([PostType::class, 'create']);
+        PostType::unguarded(function () use ($postTypes) {
+            collect($postTypes)->each([PostType::class, 'create']);
+        });
     }
 
     protected function populateStoryTimelineRoot()

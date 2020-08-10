@@ -3,10 +3,10 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use Faker\Generator as Faker;
-use Nova\Stories\Models\States\Stories\Completed;
-use Nova\Stories\Models\States\Stories\Current;
 use Nova\Stories\Models\Story;
-use Nova\Stories\Models\States\Stories\Upcoming;
+use Nova\Stories\Models\States\Current;
+use Nova\Stories\Models\States\Upcoming;
+use Nova\Stories\Models\States\Completed;
 
 $factory->define(Story::class, function (Faker $faker) {
     return [

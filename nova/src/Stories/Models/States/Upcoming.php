@@ -1,6 +1,6 @@
 <?php
 
-namespace Nova\Stories\Models\States\Stories;
+namespace Nova\Stories\Models\States;
 
 class Upcoming extends StoryStatus
 {

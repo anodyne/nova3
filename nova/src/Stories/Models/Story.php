@@ -5,13 +5,13 @@ namespace Nova\Stories\Models;
 use Kalnoy\Nestedset\NodeTrait;
 use Spatie\ModelStates\HasStates;
 use Illuminate\Database\Eloquent\Model;
+use Nova\Stories\Models\States\Current;
+use Nova\Stories\Models\States\Upcoming;
+use Nova\Stories\Models\States\Completed;
+use Nova\Stories\Models\States\StoryStatus;
 use Nova\Stories\Models\Builders\StoryBuilder;
-use Nova\Stories\Models\States\Stories\Current;
-use Nova\Stories\Models\States\Stories\Upcoming;
-use Nova\Stories\Models\States\Stories\Completed;
-use Nova\Stories\Models\States\Stories\StoryStatus;
-use Nova\Stories\Models\States\Stories\UpcomingToCurrent;
-use Nova\Stories\Models\States\Stories\CurrentToCompleted;
+use Nova\Stories\Models\States\UpcomingToCurrent;
+use Nova\Stories\Models\States\CurrentToCompleted;
 
 class Story extends Model
 {

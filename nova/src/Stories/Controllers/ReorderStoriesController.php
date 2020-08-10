@@ -8,7 +8,7 @@ use Nova\Stories\Actions\ReorderStories;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Stories\Responses\ReorderStoriesResponse;
 
-class ShowStoryController extends Controller
+class ReorderStoriesController extends Controller
 {
     public function __construct()
     {

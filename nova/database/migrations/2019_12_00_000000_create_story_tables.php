@@ -37,6 +37,8 @@ class CreateStoryTables extends Migration
             $table->string('key')->unique();
             $table->string('name');
             $table->text('description')->nullable();
+            $table->string('color')->nullable();
+            $table->string('icon')->nullable();
             $table->foreignId('role_id')->nullable()->constrained();
             $table->boolean('active')->default(true);
             $table->string('visibility')->default('in-character');

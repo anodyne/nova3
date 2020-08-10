@@ -1,6 +1,6 @@
 <?php
 
-namespace Nova\Stories\Models\States\Stories;
+namespace Nova\Stories\Models\States;
 
 use Nova\Stories\Models\Story;
 use Spatie\ModelStates\Transition;
