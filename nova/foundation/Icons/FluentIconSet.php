@@ -14,6 +14,7 @@ class FluentIconSet extends IconSet
             'arrow-right-alt' => 'arrow-right-circle',
             'arrow-sort' => 'arrow-sort',
             'book' => 'class',
+            'calendar' => 'calendar',
             'check' => 'checkmark',
             'check-alt' => 'checkmark-circle',
             'chevron-down' => 'chevron-down',
