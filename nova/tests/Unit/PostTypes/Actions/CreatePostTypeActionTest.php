@@ -39,6 +39,7 @@ class CreatePostTypeActionTest extends TestCase
             'visibility' => 'in-character',
             'fields' => new Fields([
                 'title' => true,
+                'day' => false,
                 'time' => false,
                 'location' => true,
                 'content' => false,
@@ -63,6 +64,7 @@ class CreatePostTypeActionTest extends TestCase
         $this->assertTrue($postType->active);
 
         $this->assertTrue($postType->fields->title);
+        $this->assertFalse($postType->fields->day);
         $this->assertFalse($postType->fields->time);
         $this->assertTrue($postType->fields->location);
         $this->assertFalse($postType->fields->content);

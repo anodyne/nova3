@@ -81,6 +81,15 @@
 
                 <x-input.group>
                     <x-input.toggle
+                        field="fields[day]"
+                        :value="old('fields[day]', $postType->fields->day)"
+                        active-text="Show day field"
+                        inactive-text="Hide day field"
+                    />
+                </x-input.group>
+
+                <x-input.group>
+                    <x-input.toggle
                         field="fields[time]"
                         :value="old('fields[time]', $postType->fields->time)"
                         active-text="Show time field"

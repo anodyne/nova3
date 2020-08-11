@@ -74,6 +74,15 @@
 
                 <x-input.group>
                     <x-input.toggle
+                        field="fields[day]"
+                        :value="old('fields[day]', true)"
+                        active-text="Show day field"
+                        inactive-text="Hide day field"
+                    />
+                </x-input.group>
+
+                <x-input.group>
+                    <x-input.toggle
                         field="fields[time]"
                         :value="old('fields[time]', true)"
                         active-text="Show time field"

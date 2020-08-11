@@ -37,6 +37,7 @@ class PopulateStoryTables extends Migration
                 'visibility' => 'in-character',
                 'fields' => new Fields([
                     'title' => true,
+                    'day' => true,
                     'time' => true,
                     'location' => true,
                     'content' => true,
@@ -59,6 +60,7 @@ class PopulateStoryTables extends Migration
                 'visibility' => 'in-character',
                 'fields' => new Fields([
                     'title' => true,
+                    'day' => true,
                     'time' => true,
                     'location' => false,
                     'content' => true,
@@ -81,6 +83,7 @@ class PopulateStoryTables extends Migration
                 'visibility' => 'out-of-character',
                 'fields' => new Fields([
                     'title' => false,
+                    'day' => true,
                     'time' => true,
                     'location' => true,
                     'content' => false,
@@ -104,6 +107,7 @@ class PopulateStoryTables extends Migration
                 'visibility' => 'out-of-character',
                 'fields' => new Fields([
                     'title' => false,
+                    'day' => false,
                     'time' => false,
                     'location' => false,
                     'content' => true,

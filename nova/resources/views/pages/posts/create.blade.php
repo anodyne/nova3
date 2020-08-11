@@ -110,29 +110,34 @@
 
             @if ($postType->fields->title)
                 <x-input.group>
-                    <input type="text" class="w-full bg-transparent appearance-none focus:outline-none border-b text-3xl leading-9 font-extrabold text-gray-900 tracking-tight | sm:text-4xl sm:leading-10 md:text-5xl md:leading-14" placeholder="Give your post a title">
+                    <input type="text" class="w-full bg-transparent appearance-none focus:outline-none text-3xl leading-9 font-extrabold text-gray-900 tracking-tight placeholder-gray-400 | sm:text-4xl sm:leading-10 md:text-5xl md:leading-14" placeholder="Title here">
                 </x-input.group>
             @endif
 
-            <div class="flex items-center space-x-8 text-gray-600 text-lg font-medium mt-6">
-                @if ($postType->fields->time)
-                    <x-input.text placeholder="Time">
-                        <x-slot name="leadingAddOn">
-                            @icon('clock', 'h-5 w-5 text-gray-400')
-                        </x-slot>
-                    </x-input.text>
-                @endif
+            @if ($postType->fields->time || $postType->fields->day || $postType->fields->location)
+                <div class="flex flex-col space-y-8 text-gray-600 text-lg font-medium mt-8 | md:mt-4 md:flex-row md:items-center md:space-x-8 md:space-y-0">
+                    @if ($postType->fields->day)
+                        <div class="group flex items-center w-full space-x-2">
+                            @icon('calendar', 'h-5 w-5 text-gray-400 group-focus:text-gray-700')
+                            <input type="text" class="w-full bg-transparent appearance-none focus:outline-none text-base font-medium leading-6 text-gray-700 placeholder-gray-400" placeholder="Add day">
+                        </div>
+                    @endif
 
-                @if ($postType->fields->location)
-                    <x-input.text placeholder="Location">
-                        <x-slot name="leadingAddOn">
-                            @icon('location', 'h-5 w-5 text-gray-400')
-                        </x-slot>
-                    </x-input.text>
-                @endif
-            </div>
+                    @if ($postType->fields->time)
+                        <div class="group flex items-center w-full space-x-2">
+                            @icon('clock', 'h-5 w-5 text-gray-400 group-focus:text-gray-700')
+                            <input type="text" class="w-full bg-transparent appearance-none focus:outline-none text-base font-medium leading-6 text-gray-700 placeholder-gray-400" placeholder="Add time">
+                        </div>
+                    @endif
 
-
+                    @if ($postType->fields->location)
+                    <div class="group flex items-center w-full space-x-2">
+                            @icon('location', 'h-5 w-5 text-gray-400 group-focus:text-gray-700')
+                            <input type="text" class="w-full bg-transparent appearance-none focus:outline-none text-base font-medium leading-6 text-gray-700 placeholder-gray-400" placeholder="Add location">
+                        </div>
+                    @endif
+                </div>
+            @endif
         </div>
 
         @if ($postType->fields->content)
