@@ -2,6 +2,8 @@
 
 namespace Nova\Stories\Models;
 
+use Nova\Stories\Events;
+use Nova\Posts\Models\Post;
 use Kalnoy\Nestedset\NodeTrait;
 use Spatie\ModelStates\HasStates;
 use Illuminate\Database\Eloquent\Model;
@@ -25,6 +27,12 @@ class Story extends Model
     protected $casts = [
         'start_date' => 'datetime',
         'end_date' => 'datetime',
+    ];
+
+    protected $dispatchesEvents = [
+        'created' => Events\StoryCreated::class,
+        'deleted' => Events\StoryDeleted::class,
+        'updated' => Events\StoryUpdated::class,
     ];
 
     public function parentStory()

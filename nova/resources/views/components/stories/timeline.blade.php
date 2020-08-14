@@ -55,12 +55,17 @@
                                         <span>Inside {{ $story->title }}</span>
                                     </a>
 
-                                    <div class="{{ $component->divider() }}"></div>
-
-                                    <a href="#" class="{{ $component->link() }}">
-                                        @icon('delete', $component->icon())
-                                        <span>Delete</span>
-                                    </a>
+                                    @can('delete', $story)
+                                        <div class="{{ $component->divider() }}"></div>
+                                        <button
+                                            x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($story) }});"
+                                            class="{{ $component->link() }}"
+                                            data-cy="delete"
+                                        >
+                                            @icon('delete', $component->icon())
+                                            <span>Delete</span>
+                                        </button>
+                                    @endcan
                                 </x-dropdown>
                             </div>
                         </div>
