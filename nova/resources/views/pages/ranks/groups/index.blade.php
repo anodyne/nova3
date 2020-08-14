@@ -94,47 +94,45 @@
                             </div>
                             <div class="ml-5 flex-shrink-0 leading-0">
                                 <x-dropdown placement="bottom-end" class="text-gray-400 hover:text-gray-500">
-                                    @icon('more', 'h-6 w-6')
+                                    <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
 
-                                    <x-slot name="dropdown">
-                                        @can('view', $group)
-                                            <a href="{{ route('ranks.groups.show', $group) }}" class="{{ $component->link() }}" data-cy="view">
-                                                @icon('show', $component->icon())
-                                                <span>View</span>
-                                            </a>
-                                        @endcan
+                                    @can('view', $group)
+                                        <a href="{{ route('ranks.groups.show', $group) }}" class="{{ $component->link() }}" data-cy="view">
+                                            @icon('show', $component->icon())
+                                            <span>View</span>
+                                        </a>
+                                    @endcan
 
-                                        @can('update', $group)
-                                            <a href="{{ route('ranks.groups.edit', $group) }}" class="{{ $component->link() }}" data-cy="edit">
-                                                @icon('edit', $component->icon())
-                                                <span>Edit</span>
-                                            </a>
-                                        @endcan
+                                    @can('update', $group)
+                                        <a href="{{ route('ranks.groups.edit', $group) }}" class="{{ $component->link() }}" data-cy="edit">
+                                            @icon('edit', $component->icon())
+                                            <span>Edit</span>
+                                        </a>
+                                    @endcan
 
-                                        @can('duplicate', $group)
-                                            <button
-                                                x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-duplicate', {{ json_encode($group) }});"
-                                                class="{{ $component->link() }}"
-                                                data-cy="duplicate"
-                                            >
-                                                @icon('duplicate', $component->icon())
-                                                <span>Duplicate</span>
-                                            </button>
-                                            <x-form :action="route('ranks.groups.duplicate', $group)" id="duplicate-{{ $group->id }}" class="hidden" />
-                                        @endcan
+                                    @can('duplicate', $group)
+                                        <button
+                                            x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-duplicate', {{ json_encode($group) }});"
+                                            class="{{ $component->link() }}"
+                                            data-cy="duplicate"
+                                        >
+                                            @icon('duplicate', $component->icon())
+                                            <span>Duplicate</span>
+                                        </button>
+                                        <x-form :action="route('ranks.groups.duplicate', $group)" id="duplicate-{{ $group->id }}" class="hidden" />
+                                    @endcan
 
-                                        @can('delete', $group)
-                                            <div class="{{ $component->divider() }}"></div>
-                                            <button
-                                                x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($group) }});"
-                                                class="{{ $component->link() }}"
-                                                data-cy="delete"
-                                            >
-                                                @icon('delete', $component->icon())
-                                                <span>Delete</span>
-                                            </button>
-                                        @endcan
-                                    </x-slot>
+                                    @can('delete', $group)
+                                        <div class="{{ $component->divider() }}"></div>
+                                        <button
+                                            x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($group) }});"
+                                            class="{{ $component->link() }}"
+                                            data-cy="delete"
+                                        >
+                                            @icon('delete', $component->icon())
+                                            <span>Delete</span>
+                                        </button>
+                                    @endcan
                                 </x-dropdown>
                             </div>
                         </div>

@@ -10,31 +10,29 @@
             @endcan
 
             <x-dropdown placement="bottom-end" class="flex items-center mr-4 text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150 {{ request()->has('type') ? 'text-blue-500' : '' }}">
-                @icon('filter', 'h-6 w-6')
+                <x-slot name="trigger">@icon('filter', 'h-6 w-6')</x-slot>
 
-                <x-slot name="dropdown">
-                    {{-- <a href="{{ route('stories.index', 'sort=sort,desc') }}" class="{{ $component->link() }} justify-between">
-                        <span>Show only current stories</span>
-                    </a>
-                    <a href="{{ route('stories.index', 'sort=sort,asc') }}" class="{{ $component->link() }} justify-between">
-                        <span>Show only upcoming stories</span>
-                    </a>
+                {{-- <a href="{{ route('stories.index', 'sort=sort,desc') }}" class="{{ $component->link() }} justify-between">
+                    <span>Show only current stories</span>
+                </a>
+                <a href="{{ route('stories.index', 'sort=sort,asc') }}" class="{{ $component->link() }} justify-between">
+                    <span>Show only upcoming stories</span>
+                </a>
 
-                    <div class="{{ $component->divider() }}"></div> --}}
+                <div class="{{ $component->divider() }}"></div> --}}
 
-                    <a href="{{ route('stories.index', 'sort=asc') }}" class="{{ $component->link() }} justify-between">
-                        <span>Sort by newest first</span>
-                        @if (request('sort') === 'asc')
-                            @icon('check', 'h-5 w-5')
-                        @endif
-                    </a>
-                    <a href="{{ route('stories.index', 'sort=desc') }}" class="{{ $component->link() }} justify-between">
-                        <span>Sort by oldest first</span>
-                        @if (request('sort') === 'desc')
-                            @icon('check', 'h-5 w-5')
-                        @endif
-                    </a>
-                </x-slot>
+                <a href="{{ route('stories.index', 'sort=asc') }}" class="{{ $component->link() }} justify-between">
+                    <span>Sort by newest first</span>
+                    @if (request('sort') === 'asc')
+                        @icon('check', 'h-5 w-5')
+                    @endif
+                </a>
+                <a href="{{ route('stories.index', 'sort=desc') }}" class="{{ $component->link() }} justify-between">
+                    <span>Sort by oldest first</span>
+                    @if (request('sort') === 'desc')
+                        @icon('check', 'h-5 w-5')
+                    @endif
+                </a>
             </x-dropdown>
 
             @can('create', 'Nova\Stories\Models\Story')

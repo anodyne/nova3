@@ -11,54 +11,52 @@
 
         <x-slot name="controls">
             <x-dropdown placement="bottom-end" class="flex items-center mr-4 text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150 {{ request()->has('type') ? 'text-blue-500' : '' }}" wide="true">
-                @icon('filter', 'h-6 w-6')
+                <x-slot name="trigger">@icon('filter', 'h-6 w-6')</x-slot>
 
-                <x-slot name="dropdown">
-                    <a href="{{ route('characters.index', 'status='.request('status').'&hasuser=1') }}" class="{{ $component->link() }} justify-between">
-                        <span>Assigned to a user</span>
-                        @if (request()->has('hasuser'))
-                            @icon('check', 'h-5 w-5')
-                        @endif
-                    </a>
-                    <a href="{{ route('characters.index', 'status='.request('status').'&nouser=1') }}" class="{{ $component->link() }} justify-between">
-                        <span>Not assigned to a user</span>
-                        @if (request()->has('nouser'))
-                            @icon('check', 'h-5 w-5')
-                        @endif
-                    </a>
-                    <a href="{{ route('characters.index', 'status='.request('status').'&noposition=1') }}" class="{{ $component->link() }} justify-between">
-                        <span>Not assigned a position</span>
-                        @if (request()->has('noposition'))
-                            @icon('check', 'h-5 w-5')
-                        @endif
-                    </a>
+                <a href="{{ route('characters.index', 'status='.request('status').'&hasuser=1') }}" class="{{ $component->link() }} justify-between">
+                    <span>Assigned to a user</span>
+                    @if (request()->has('hasuser'))
+                        @icon('check', 'h-5 w-5')
+                    @endif
+                </a>
+                <a href="{{ route('characters.index', 'status='.request('status').'&nouser=1') }}" class="{{ $component->link() }} justify-between">
+                    <span>Not assigned to a user</span>
+                    @if (request()->has('nouser'))
+                        @icon('check', 'h-5 w-5')
+                    @endif
+                </a>
+                <a href="{{ route('characters.index', 'status='.request('status').'&noposition=1') }}" class="{{ $component->link() }} justify-between">
+                    <span>Not assigned a position</span>
+                    @if (request()->has('noposition'))
+                        @icon('check', 'h-5 w-5')
+                    @endif
+                </a>
 
-                    <div class="{{ $component->divider() }}"></div>
+                <div class="{{ $component->divider() }}"></div>
 
-                    <div class="{{ $component->text() }} uppercase tracking-wide font-semibold text-gray-500">
-                        Filter by character type
-                    </div>
+                <div class="{{ $component->text() }} uppercase tracking-wide font-semibold text-gray-500">
+                    Filter by character type
+                </div>
 
-                    <a href="{{ route('characters.index', 'status='.request('status')) }}" class="{{ $component->link() }}">All character types</a>
-                    <a href="{{ route('characters.index', 'status='.request('status').'&type=primary') }}" class="{{ $component->link() }} justify-between">
-                        <span>Primary characters</span>
-                        @if (request('type') === 'primary')
-                            @icon('check', 'h-5 w-5')
-                        @endif
-                    </a>
-                    <a href="{{ route('characters.index', 'status='.request('status').'&type=secondary') }}" class="{{ $component->link() }} justify-between">
-                        <span>Secondary characters</span>
-                        @if (request('type') === 'secondary')
-                            @icon('check', 'h-5 w-5')
-                        @endif
-                    </a>
-                    <a href="{{ route('characters.index', 'status='.request('status').'&type=support') }}" class="{{ $component->link() }} justify-between">
-                        <span>Support characters</span>
-                        @if (request('type') === 'support')
-                            @icon('check', 'h-5 w-5')
-                        @endif
-                    </a>
-                </x-slot>
+                <a href="{{ route('characters.index', 'status='.request('status')) }}" class="{{ $component->link() }}">All character types</a>
+                <a href="{{ route('characters.index', 'status='.request('status').'&type=primary') }}" class="{{ $component->link() }} justify-between">
+                    <span>Primary characters</span>
+                    @if (request('type') === 'primary')
+                        @icon('check', 'h-5 w-5')
+                    @endif
+                </a>
+                <a href="{{ route('characters.index', 'status='.request('status').'&type=secondary') }}" class="{{ $component->link() }} justify-between">
+                    <span>Secondary characters</span>
+                    @if (request('type') === 'secondary')
+                        @icon('check', 'h-5 w-5')
+                    @endif
+                </a>
+                <a href="{{ route('characters.index', 'status='.request('status').'&type=support') }}" class="{{ $component->link() }} justify-between">
+                    <span>Support characters</span>
+                    @if (request('type') === 'support')
+                        @icon('check', 'h-5 w-5')
+                    @endif
+                </a>
             </x-dropdown>
 
             @can('create', 'Nova\Characters\Models\Character')
@@ -158,63 +156,61 @@
                         </div>
                         <div class="leading-0">
                             <x-dropdown placement="bottom-end" class="text-gray-400 hover:text-gray-500">
-                                @icon('more', 'h-6 w-6')
+                                <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
 
-                                <x-slot name="dropdown">
-                                    @can('view', $character)
-                                        <a href="{{ route('characters.show', $character) }}" class="{{ $component->link() }}" data-cy="view">
-                                            @icon('show', $component->icon())
-                                            <span>View</span>
-                                        </a>
-                                    @endcan
+                                @can('view', $character)
+                                    <a href="{{ route('characters.show', $character) }}" class="{{ $component->link() }}" data-cy="view">
+                                        @icon('show', $component->icon())
+                                        <span>View</span>
+                                    </a>
+                                @endcan
 
-                                    @can('update', $character)
-                                        <a href="{{ route('characters.edit', $character) }}" class="{{ $component->link() }}" data-cy="edit">
-                                            @icon('edit', $component->icon())
-                                            <span>Edit</span>
-                                        </a>
-                                    @endcan
+                                @can('update', $character)
+                                    <a href="{{ route('characters.edit', $character) }}" class="{{ $component->link() }}" data-cy="edit">
+                                        @icon('edit', $component->icon())
+                                        <span>Edit</span>
+                                    </a>
+                                @endcan
 
-                                    @can('activate', $character)
-                                        <div class="{{ $component->divider() }}"></div>
-                                        <x-form :action="route('characters.activate', $character)" id="activate"></x-form>
-                                        <button
-                                            type="submit"
-                                            form="activate"
-                                            class="{{ $component->link() }}"
-                                            data-cy="activate"
-                                        >
-                                            @icon('check-alt', $component->icon())
-                                            <span>Activate</span>
-                                        </button>
-                                    @endcan
+                                @can('activate', $character)
+                                    <div class="{{ $component->divider() }}"></div>
+                                    <x-form :action="route('characters.activate', $character)" id="activate"></x-form>
+                                    <button
+                                        type="submit"
+                                        form="activate"
+                                        class="{{ $component->link() }}"
+                                        data-cy="activate"
+                                    >
+                                        @icon('check-alt', $component->icon())
+                                        <span>Activate</span>
+                                    </button>
+                                @endcan
 
-                                    @can('deactivate', $character)
-                                        <div class="{{ $component->divider() }}"></div>
-                                        <button
-                                            x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-deactivate', {{ json_encode($character) }});"
-                                            type="button"
-                                            form="deactivate"
-                                            class="{{ $component->link() }}"
-                                            data-cy="deactivate"
-                                        >
-                                            @icon('remove-alt', $component->icon())
-                                            <span>Deactivate</span>
-                                        </button>
-                                    @endcan
+                                @can('deactivate', $character)
+                                    <div class="{{ $component->divider() }}"></div>
+                                    <button
+                                        x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-deactivate', {{ json_encode($character) }});"
+                                        type="button"
+                                        form="deactivate"
+                                        class="{{ $component->link() }}"
+                                        data-cy="deactivate"
+                                    >
+                                        @icon('remove-alt', $component->icon())
+                                        <span>Deactivate</span>
+                                    </button>
+                                @endcan
 
-                                    @can('delete', $character)
-                                        <div class="{{ $component->divider() }}"></div>
-                                        <button
-                                            x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($character) }});"
-                                            class="{{ $component->link() }}"
-                                            data-cy="delete"
-                                        >
-                                            @icon('delete', $component->icon())
-                                            <span>Delete</span>
-                                        </button>
-                                    @endcan
-                                </x-slot>
+                                @can('delete', $character)
+                                    <div class="{{ $component->divider() }}"></div>
+                                    <button
+                                        x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($character) }});"
+                                        class="{{ $component->link() }}"
+                                        data-cy="delete"
+                                    >
+                                        @icon('delete', $component->icon())
+                                        <span>Delete</span>
+                                    </button>
+                                @endcan
                             </x-dropdown>
                         </div>
                     </div>

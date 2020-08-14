@@ -15,7 +15,7 @@
             aria-expanded="true"
             x-bind:aria-expanded="open"
         >
-            {{ $slot }}
+            {{ $trigger }}
         </button>
     </div>
 
@@ -33,7 +33,7 @@
     >
         <div class="rounded-md bg-white shadow-xs z-10">
             <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                {{ $dropdown }}
+                {{ $slot }}
             </div>
         </div>
     </div>

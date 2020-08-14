@@ -11,17 +11,15 @@
         <x-slot name="controls">
             @if ($itemCount > 0)
                 <x-dropdown placement="bottom-end" class="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150 {{ request()->has('group') ? 'text-blue-500' : '' }}">
-                    @icon('filter', 'h-6 w-6')
+                    <x-slot name="trigger">@icon('filter', 'h-6 w-6')</x-slot>
 
-                    <x-slot name="dropdown">
-                        <div class="{{ $component->text() }} uppercase tracking-wide font-semibold text-gray-500">
-                            Filter rank items
-                        </div>
-                        <a href="{{ route('ranks.items.index') }}" class="{{ $component->link() }}">All rank groups</a>
-                        @foreach ($groups as $group)
-                            <a href="{{ route('ranks.items.index', 'group=' . strtolower($group->name)) }}" class="{{ $component->link() }}">{{ $group->name }}</a>
-                        @endforeach
-                    </x-slot>
+                    <div class="{{ $component->text() }} uppercase tracking-wide font-semibold text-gray-500">
+                        Filter rank items
+                    </div>
+                    <a href="{{ route('ranks.items.index') }}" class="{{ $component->link() }}">All rank groups</a>
+                    @foreach ($groups as $group)
+                        <a href="{{ route('ranks.items.index', 'group=' . strtolower($group->name)) }}" class="{{ $component->link() }}">{{ $group->name }}</a>
+                    @endforeach
                 </x-dropdown>
 
                 @can('update', $items->first())
@@ -101,35 +99,33 @@
                             </div>
                             <div class="ml-5 flex-shrink-0 leading-0">
                                 <x-dropdown placement="bottom-end" class="text-gray-400 hover:text-gray-500">
-                                    @icon('more', 'h-6 w-6')
+                                    <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
 
-                                    <x-slot name="dropdown">
-                                        @can('view', $item)
-                                            <a href="{{ route('ranks.items.show', $item) }}" class="{{ $component->link() }}" data-cy="view">
-                                                @icon('show', $component->icon())
-                                                <span>View</span>
-                                            </a>
-                                        @endcan
+                                    @can('view', $item)
+                                        <a href="{{ route('ranks.items.show', $item) }}" class="{{ $component->link() }}" data-cy="view">
+                                            @icon('show', $component->icon())
+                                            <span>View</span>
+                                        </a>
+                                    @endcan
 
-                                        @can('update', $item)
-                                            <a href="{{ route('ranks.items.edit', $item) }}" class="{{ $component->link() }}" data-cy="edit">
-                                                @icon('edit', $component->icon())
-                                                <span>Edit</span>
-                                            </a>
-                                        @endcan
+                                    @can('update', $item)
+                                        <a href="{{ route('ranks.items.edit', $item) }}" class="{{ $component->link() }}" data-cy="edit">
+                                            @icon('edit', $component->icon())
+                                            <span>Edit</span>
+                                        </a>
+                                    @endcan
 
-                                        @can('delete', $item)
-                                            <div class="{{ $component->divider() }}"></div>
-                                            <button
-                                                x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($item) }});"
-                                                class="{{ $component->link() }}"
-                                                data-cy="delete"
-                                            >
-                                                @icon('delete', $component->icon())
-                                                <span>Delete</span>
-                                            </button>
-                                        @endcan
-                                    </x-slot>
+                                    @can('delete', $item)
+                                        <div class="{{ $component->divider() }}"></div>
+                                        <button
+                                            x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($item) }});"
+                                            class="{{ $component->link() }}"
+                                            data-cy="delete"
+                                        >
+                                            @icon('delete', $component->icon())
+                                            <span>Delete</span>
+                                        </button>
+                                    @endcan
                                 </x-dropdown>
                             </div>
                         </div>

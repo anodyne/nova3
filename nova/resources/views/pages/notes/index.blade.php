@@ -39,35 +39,33 @@
                             </div>
                             <div class="ml-5 flex-shrink-0 leading-0">
                                 <x-dropdown placement="bottom-end" class="text-gray-400 hover:text-gray-500">
-                                    @icon('more', 'h-6 w-6')
+                                    <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
 
-                                    <x-slot name="dropdown">
-                                        <a href="{{ route('notes.show', $note) }}" class="{{ $component->link() }}">
-                                            @icon('show', $component->icon())
-                                            <span>View</span>
-                                        </a>
+                                    <a href="{{ route('notes.show', $note) }}" class="{{ $component->link() }}">
+                                        @icon('show', $component->icon())
+                                        <span>View</span>
+                                    </a>
 
-                                        <a href="{{ route('notes.edit', $note) }}" class="{{ $component->link() }}">
-                                            @icon('edit', $component->icon())
-                                            <span>Edit</span>
-                                        </a>
+                                    <a href="{{ route('notes.edit', $note) }}" class="{{ $component->link() }}">
+                                        @icon('edit', $component->icon())
+                                        <span>Edit</span>
+                                    </a>
 
-                                        <button type="submit" class="{{ $component->link() }}" form="duplicate-{{ $note->id }}" data-cy="duplicate">
-                                            @icon('duplicate', $component->icon())
-                                            <span>Duplicate</span>
-                                        </button>
-                                        <x-form :action="route('notes.duplicate', $note)" id="duplicate-{{ $note->id }}" class="hidden" />
+                                    <button type="submit" class="{{ $component->link() }}" form="duplicate-{{ $note->id }}" data-cy="duplicate">
+                                        @icon('duplicate', $component->icon())
+                                        <span>Duplicate</span>
+                                    </button>
+                                    <x-form :action="route('notes.duplicate', $note)" id="duplicate-{{ $note->id }}" class="hidden" />
 
-                                        <div class="{{ $component->divider() }}"></div>
-                                        <button
-                                            x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($note) }});"
-                                            class="{{ $component->link() }}"
-                                            data-cy="delete"
-                                        >
-                                            @icon('delete', $component->icon())
-                                            <span>Delete</span>
-                                        </button>
-                                    </x-slot>
+                                    <div class="{{ $component->divider() }}"></div>
+                                    <button
+                                        x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($note) }});"
+                                        class="{{ $component->link() }}"
+                                        data-cy="delete"
+                                    >
+                                        @icon('delete', $component->icon())
+                                        <span>Delete</span>
+                                    </button>
                                 </x-dropdown>
                             </div>
                         </div>

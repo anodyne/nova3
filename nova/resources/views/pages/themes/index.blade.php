@@ -8,15 +8,13 @@
 
         <x-slot name="controls">
             <x-dropdown placement="bottom-end" class="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150 mx-4 {{ request()->has('pending') ? 'text-blue-500' : '' }}">
-                @icon('filter', 'h-6 w-6')
+                <x-slot name="trigger">@icon('filter', 'h-6 w-6')</x-slot>
 
-                <x-slot name="dropdown">
-                    <div class="{{ $component->text() }} uppercase tracking-wide font-semibold text-gray-500">
-                        Filter themes
-                    </div>
-                    <a href="{{ route('themes.index') }}" class="{{ $component->link() }}">All themes</a>
-                    <a href="{{ route('themes.index') }}?pending" class="{{ $component->link() }}">Pending themes</a>
-                </x-slot>
+                <div class="{{ $component->text() }} uppercase tracking-wide font-semibold text-gray-500">
+                    Filter themes
+                </div>
+                <a href="{{ route('themes.index') }}" class="{{ $component->link() }}">All themes</a>
+                <a href="{{ route('themes.index') }}?pending" class="{{ $component->link() }}">Pending themes</a>
             </x-dropdown>
 
             @can('create', 'Nova\Themes\Models\Theme')
@@ -43,43 +41,41 @@
                         </h3>
 
                         <x-dropdown placement="bottom-end" class="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150">
-                            @icon('more', 'h-6 w-6')
+                            <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
 
-                            <x-slot name="dropdown">
-                                @if (! $theme->exists)
+                            @if (! $theme->exists)
+                                <button
+                                    class="{{ $component->link() }}"
+                                    type="submit"
+                                    form="install-form-{{ $theme->location }}"
+                                    role="menuitem"
+                                >
+                                    @icon('arrow-right-alt', $component->icon())
+                                    <span>Install</span>
+                                </button>
+
+                                <x-form :action="route('themes.install')" id="install-form-{{ $theme->location }}">
+                                    <input type="hidden" name="theme" value="{{ $theme->location }}">
+                                </x-form>
+                            @else
+                                @can('update', $theme)
+                                    <a href="{{ route('themes.edit', $theme) }}" class="{{ $component->link() }}">
+                                        @icon('edit', $component->icon())
+                                        <span>Edit</span>
+                                    </a>
+                                @endcan
+
+                                @can('delete', $theme)
+                                    <div class="{{ $component->divider() }}"></div>
                                     <button
+                                        x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($theme) }});"
                                         class="{{ $component->link() }}"
-                                        type="submit"
-                                        form="install-form-{{ $theme->location }}"
-                                        role="menuitem"
                                     >
-                                        @icon('arrow-right-alt', $component->icon())
-                                        <span>Install</span>
+                                        @icon('delete', $component->icon())
+                                        <span>Delete</span>
                                     </button>
-
-                                    <x-form :action="route('themes.install')" id="install-form-{{ $theme->location }}">
-                                        <input type="hidden" name="theme" value="{{ $theme->location }}">
-                                    </x-form>
-                                @else
-                                    @can('update', $theme)
-                                        <a href="{{ route('themes.edit', $theme) }}" class="{{ $component->link() }}">
-                                            @icon('edit', $component->icon())
-                                            <span>Edit</span>
-                                        </a>
-                                    @endcan
-
-                                    @can('delete', $theme)
-                                        <div class="{{ $component->divider() }}"></div>
-                                        <button
-                                            x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($theme) }});"
-                                            class="{{ $component->link() }}"
-                                        >
-                                            @icon('delete', $component->icon())
-                                            <span>Delete</span>
-                                        </button>
-                                    @endcan
-                                @endif
-                            </x-slot>
+                                @endcan
+                            @endif
                         </x-dropdown>
                     </div>
                     <p class="mt-1 flex items-center text-base leading-6 text-gray-500">

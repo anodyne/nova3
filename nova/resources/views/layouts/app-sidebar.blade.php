@@ -247,16 +247,16 @@
                     @livewire('users:notifications')
 
                     <x-dropdown placement="bottom-end" class="ml-4">
-                        <x-avatar size="xs" :url="auth()->user()->avatar_url" :tooltip="auth()->user()->name" />
-
-                        <x-slot name="dropdown">
-                            <button class="{{ $component->link() }}" form="logout-form" role="menuitem">
-                                @icon('sign-out', $component->icon())
-                                <span>Sign out</span>
-                            </button>
-
-                            <x-form :action="route('logout')" class="hidden" id="logout-form" />
+                        <x-slot name="trigger">
+                            <x-avatar size="xs" :url="auth()->user()->avatar_url" :tooltip="auth()->user()->name" />
                         </x-slot>
+
+                        <button class="{{ $component->link() }}" form="logout-form" role="menuitem">
+                            @icon('sign-out', $component->icon())
+                            <span>Sign out</span>
+                        </button>
+
+                        <x-form :action="route('logout')" class="hidden" id="logout-form" />
                     </x-dropdown>
                 </div>
             </div>

@@ -16,54 +16,52 @@
                             <div class="text-xl font-bold tracking-tight">{{ $story->title }}</div>
                             <div class="leading-0">
                                 <x-dropdown placement="bottom-end" class="text-gray-400 hover:text-gray-500" :wide="true">
-                                    @icon('more', 'h-6 w-6')
+                                    <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
 
-                                    <x-slot name="dropdown">
-                                        <a href="#" class="{{ $component->link() }}">
-                                            @icon('show', $component->icon())
-                                            <span>View</span>
-                                        </a>
+                                    <a href="#" class="{{ $component->link() }}">
+                                        @icon('show', $component->icon())
+                                        <span>View</span>
+                                    </a>
 
-                                        <a href="#" class="{{ $component->link() }}">
-                                            @icon('edit', $component->icon())
-                                            <span>Edit</span>
-                                        </a>
+                                    <a href="#" class="{{ $component->link() }}">
+                                        @icon('edit', $component->icon())
+                                        <span>Edit</span>
+                                    </a>
 
-                                        <div class="{{ $component->divider() }}"></div>
+                                    <div class="{{ $component->divider() }}"></div>
 
-                                        <a href="#" class="{{ $component->link() }}">
-                                            @icon('list', $component->icon())
-                                            <span>Posts</span>
-                                        </a>
+                                    <a href="#" class="{{ $component->link() }}">
+                                        @icon('list', $component->icon())
+                                        <span>Posts</span>
+                                    </a>
 
-                                        <div class="{{ $component->divider() }}"></div>
+                                    <div class="{{ $component->divider() }}"></div>
 
-                                        <div class="uppercase tracking-wide font-semibold text-gray-400 {{ $component->text() }}">
-                                            Add a story
-                                        </div>
+                                    <div class="uppercase tracking-wide font-semibold text-gray-400 {{ $component->text() }}">
+                                        Add a story
+                                    </div>
 
-                                        <a href="#" class="{{ $component->link() }}">
-                                            @icon('chevron-left', $component->icon())
-                                            <span>Before {{ $story->title }}</span>
-                                        </a>
+                                    <a href="#" class="{{ $component->link() }}">
+                                        @icon('chevron-left', $component->icon())
+                                        <span>Before {{ $story->title }}</span>
+                                    </a>
 
-                                        <a href="#" class="{{ $component->link() }}">
-                                            @icon('chevron-right', $component->icon())
-                                            <span>After {{ $story->title }}</span>
-                                        </a>
+                                    <a href="#" class="{{ $component->link() }}">
+                                        @icon('chevron-right', $component->icon())
+                                        <span>After {{ $story->title }}</span>
+                                    </a>
 
-                                        <a href="#" class="{{ $component->link() }}">
-                                            @icon('chevron-down', $component->icon())
-                                            <span>Inside {{ $story->title }}</span>
-                                        </a>
+                                    <a href="#" class="{{ $component->link() }}">
+                                        @icon('chevron-down', $component->icon())
+                                        <span>Inside {{ $story->title }}</span>
+                                    </a>
 
-                                        <div class="{{ $component->divider() }}"></div>
+                                    <div class="{{ $component->divider() }}"></div>
 
-                                        <a href="#" class="{{ $component->link() }}">
-                                            @icon('delete', $component->icon())
-                                            <span>Delete</span>
-                                        </a>
-                                    </x-slot>
+                                    <a href="#" class="{{ $component->link() }}">
+                                        @icon('delete', $component->icon())
+                                        <span>Delete</span>
+                                    </a>
                                 </x-dropdown>
                             </div>
                         </div>

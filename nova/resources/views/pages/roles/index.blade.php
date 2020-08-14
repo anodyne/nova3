@@ -92,50 +92,48 @@
                         </div>
                         <div class="ml-5 flex-shrink-0 leading-0">
                             <x-dropdown placement="bottom-end" class="text-gray-400 hover:text-gray-500">
-                                @icon('more', 'h-6 w-6')
+                                <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
 
-                                <x-slot name="dropdown">
-                                    @can('view', $role)
-                                        <a href="{{ route('roles.show', $role) }}" class="{{ $component->link() }}" data-cy="view">
-                                            @icon('show', $component->icon())
-                                            <span>View</span>
-                                        </a>
-                                    @endcan
+                                @can('view', $role)
+                                    <a href="{{ route('roles.show', $role) }}" class="{{ $component->link() }}" data-cy="view">
+                                        @icon('show', $component->icon())
+                                        <span>View</span>
+                                    </a>
+                                @endcan
 
-                                    @can('update', $role)
-                                        <a href="{{ route('roles.edit', $role) }}" class="{{ $component->link() }}" data-cy="edit">
-                                            @icon('edit', $component->icon())
-                                            <span>Edit</span>
-                                        </a>
-                                    @endcan
+                                @can('update', $role)
+                                    <a href="{{ route('roles.edit', $role) }}" class="{{ $component->link() }}" data-cy="edit">
+                                        @icon('edit', $component->icon())
+                                        <span>Edit</span>
+                                    </a>
+                                @endcan
 
-                                    @can('duplicate', $role)
-                                        <button type="submit" class="{{ $component->link() }}" form="duplicate-{{ $role->id }}" data-cy="duplicate">
-                                            @icon('duplicate', $component->icon())
-                                            <span>Duplicate</span>
-                                        </button>
-                                        <x-form :action="route('roles.duplicate', $role)" id="duplicate-{{ $role->id }}" class="hidden" />
-                                    @endcan
+                                @can('duplicate', $role)
+                                    <button type="submit" class="{{ $component->link() }}" form="duplicate-{{ $role->id }}" data-cy="duplicate">
+                                        @icon('duplicate', $component->icon())
+                                        <span>Duplicate</span>
+                                    </button>
+                                    <x-form :action="route('roles.duplicate', $role)" id="duplicate-{{ $role->id }}" class="hidden" />
+                                @endcan
 
-                                    @can('delete', $role)
-                                        <div class="{{ $component->divider() }}"></div>
-                                        <button
-                                            x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($role) }});"
-                                            class="{{ $component->link() }}"
-                                            data-cy="delete"
-                                        >
-                                            @icon('delete', $component->icon())
-                                            <span>Delete</span>
-                                        </button>
-                                    @endcan
+                                @can('delete', $role)
+                                    <div class="{{ $component->divider() }}"></div>
+                                    <button
+                                        x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($role) }});"
+                                        class="{{ $component->link() }}"
+                                        data-cy="delete"
+                                    >
+                                        @icon('delete', $component->icon())
+                                        <span>Delete</span>
+                                    </button>
+                                @endcan
 
-                                    @if ($role->locked)
-                                        <div class="{{ $component->divider() }}"></div>
-                                        <div class="{{ $component->text() }}">
-                                            This role is locked and cannot be duplicated or deleted.
-                                        </div>
-                                    @endif
-                                </x-slot>
+                                @if ($role->locked)
+                                    <div class="{{ $component->divider() }}"></div>
+                                    <div class="{{ $component->text() }}">
+                                        This role is locked and cannot be duplicated or deleted.
+                                    </div>
+                                @endif
                             </x-dropdown>
                         </div>
                     </div>
