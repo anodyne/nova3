@@ -18,7 +18,7 @@ class IconsSelectMenu extends Component
 
     public function selectIcon($icon)
     {
-        $this->selected = $icon;
+        $this->selected = ($icon === '') ? null : $icon;
 
         $this->resetIcons();
     }
