@@ -54,7 +54,6 @@ class FluentIconSet extends IconSet
             'search' => 'search',
             'settings' => 'settings',
             'show' => 'eye-show',
-            'sidebar' => 'sidebar',
             'sign-in' => 'person-leave',
             'sign-out' => 'sign-out',
             'star' => 'star',
