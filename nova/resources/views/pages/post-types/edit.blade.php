@@ -9,7 +9,7 @@
 
     <x-panel>
         <x-form :action="route('post-types.update', $postType)" method="PUT">
-            <x-form.section title="Post Type Info" message="A role is a collection of permissions that allows a user to take certain actions throughout Nova. Since a user can have as many roles as you'd like, we recommend creating roles with fewer permissions to give yourself more freedom to add and remove access for a given user.">
+            <x-form.section title="Post Type Info" message="A post type defines how different types of story entries are displayed and used. Using post types, you can setup your writing features exactly how you want them for your game.">
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
                     <x-input.text id="name" name="name" :value="old('name', $postType->name)" data-cy="name" />
                 </x-input.group>
@@ -23,11 +23,11 @@
                 </x-input.group>
 
                 <x-input.group label="Accent Color" for="color">
-                    <input type="color" id="color" name="color" class="w-full rounded | md:w-1/4" value="{{ old('color', $postType->color) }}">
+                    <x-ui-color-picker name="color" id="color" :value="old('color', $postType->color)" />
                 </x-input.group>
 
                 <x-input.group label="Icon" for="icon">
-                    <x-input.text id="icon" name="icon" :value="old('icon', $postType->icon)" />
+                    @livewire('icons-select-menu', ['selected' => old('icon', $postType->icon)])
                 </x-input.group>
 
                 <x-input.group
@@ -69,7 +69,7 @@
                 </x-input.group>
             </x-form.section>
 
-            <x-form.section title="Fields" message="Post types determine which fields are available when creating a post of that type.">
+            <x-form.section title="Fields" message="Post types control which fields are available when creating a post of that type. You can turn any of these fields on/off to suit your game's needs.">
                 <x-input.group>
                     <x-input.toggle
                         field="fields[title]"
@@ -116,7 +116,7 @@
                 </x-input.group>
             </x-form.section>
 
-            <x-form.section title="Options">
+            <x-form.section title="Options" message="Post types control the behavior of a post of that type with a wide range of options. You can turn any of these fields on/off to suit your game's needs.">
                 <x-input.group>
                     <x-input.toggle
                         field="options[notifyUsers]"
