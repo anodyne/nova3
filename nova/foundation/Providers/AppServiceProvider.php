@@ -2,6 +2,7 @@
 
 namespace Nova\Foundation\Providers;
 
+use Livewire\Livewire;
 use Nova\Foundation\Macros;
 use Illuminate\Routing\Route;
 use Nova\Foundation\NovaManager;
@@ -17,6 +18,7 @@ use Nova\Foundation\View\Components\Tips;
 use Nova\Foundation\View\Components\Badge;
 use Illuminate\View\Factory as ViewFactory;
 use Nova\Foundation\View\Components\Avatar;
+use Nova\Foundation\Livewire\IconsSelectMenu;
 use Nova\Foundation\View\Components\Dropdown;
 use Nova\Foundation\View\Components\AvatarGroup;
 
@@ -80,5 +82,6 @@ class AppServiceProvider extends ServiceProvider
 
     protected function registerLivewireComponents()
     {
+        Livewire::component('icons-select-menu', IconsSelectMenu::class);
     }
 }
