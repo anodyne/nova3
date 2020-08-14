@@ -8,6 +8,7 @@
     <title>{{ config('app.name', 'Nova NextGen') }}</title>
 
     @livewireStyles
+    @bukStyles
     @novaStyles
     @stack('styles')
 </head>
@@ -20,6 +21,7 @@
     </div>
 
     @livewireScripts
+    @bukScripts
     @novaScripts
     @stack('scripts')
 </body>
