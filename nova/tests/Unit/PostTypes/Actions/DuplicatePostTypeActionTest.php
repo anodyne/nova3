@@ -25,7 +25,10 @@ class DuplicatePostTypeActionTest extends TestCase
 
         $this->action = app(DuplicatePostType::class);
 
-        $this->postType = create(PostType::class);
+        $this->postType = create(PostType::class, [
+            'sort' => 0,
+            'role_id' => 1,
+        ]);
     }
 
     /** @test **/
@@ -37,5 +40,7 @@ class DuplicatePostTypeActionTest extends TestCase
             "Copy of {$this->postType->name}",
             $postType->name
         );
+        $this->assertEquals(PostType::count() - 1, $postType->sort);
+        $this->assertEquals(1, $postType->role_id);
     }
 }
