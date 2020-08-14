@@ -66,51 +66,55 @@
                                 @icon($postType->icon, 'h-6 w-6')
                             </div>
                             <div class="min-w-0 flex-1 | sm:flex sm:flex-col">
-                                <div class="leading-normal font-medium truncate">
-                                    {{ $postType->name }}
+                                <div class="flex items-center space-x-3">
+                                    <div class="leading-normal font-medium truncate">
+                                        {{ $postType->name }}
+                                    </div>
+
+                                    @if ($postType->role)
+                                        <x-badge size="sm">{{ $postType->role->display_name }}</x-badge>
+                                    @endif
                                 </div>
                                 <p class="text-sm leading-5 text-gray-600">{{ $postType->description }}</p>
                             </div>
                         </div>
                         <div class="ml-5 flex-shrink-0 leading-0">
                             <x-dropdown placement="bottom-end" class="text-gray-400 hover:text-gray-500">
-                                @icon('more', 'h-6 w-6')
+                                <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
 
-                                <x-slot name="dropdown">
-                                    @can('view', $postType)
-                                        <a href="{{ route('post-types.show', $postType) }}" class="{{ $component->link() }}" data-cy="view">
-                                            @icon('show', $component->icon())
-                                            <span>View</span>
-                                        </a>
-                                    @endcan
+                                @can('view', $postType)
+                                    <a href="{{ route('post-types.show', $postType) }}" class="{{ $component->link() }}" data-cy="view">
+                                        @icon('show', $component->icon())
+                                        <span>View</span>
+                                    </a>
+                                @endcan
 
-                                    @can('update', $postType)
-                                        <a href="{{ route('post-types.edit', $postType) }}" class="{{ $component->link() }}" data-cy="edit">
-                                            @icon('edit', $component->icon())
-                                            <span>Edit</span>
-                                        </a>
-                                    @endcan
+                                @can('update', $postType)
+                                    <a href="{{ route('post-types.edit', $postType) }}" class="{{ $component->link() }}" data-cy="edit">
+                                        @icon('edit', $component->icon())
+                                        <span>Edit</span>
+                                    </a>
+                                @endcan
 
-                                    @can('duplicate', $postType)
-                                        <button type="submit" class="{{ $component->link() }}" form="duplicate-{{ $postType->id }}" data-cy="duplicate">
-                                            @icon('duplicate', $component->icon())
-                                            <span>Duplicate</span>
-                                        </button>
-                                        <x-form :action="route('post-types.duplicate', $postType)" id="duplicate-{{ $postType->id }}" class="hidden" />
-                                    @endcan
+                                @can('duplicate', $postType)
+                                    <button type="submit" class="{{ $component->link() }}" form="duplicate-{{ $postType->id }}" data-cy="duplicate">
+                                        @icon('duplicate', $component->icon())
+                                        <span>Duplicate</span>
+                                    </button>
+                                    <x-form :action="route('post-types.duplicate', $postType)" id="duplicate-{{ $postType->id }}" class="hidden" />
+                                @endcan
 
-                                    @can('delete', $postType)
-                                        <div class="{{ $component->divider() }}"></div>
-                                        <button
-                                            x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($postType) }});"
-                                            class="{{ $component->link() }}"
-                                            data-cy="delete"
-                                        >
-                                            @icon('delete', $component->icon())
-                                            <span>Delete</span>
-                                        </button>
-                                    @endcan
-                                </x-slot>
+                                @can('delete', $postType)
+                                    <div class="{{ $component->divider() }}"></div>
+                                    <button
+                                        x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($postType) }});"
+                                        class="{{ $component->link() }}"
+                                        data-cy="delete"
+                                    >
+                                        @icon('delete', $component->icon())
+                                        <span>Delete</span>
+                                    </button>
+                                @endcan
                             </x-dropdown>
                         </div>
                     </div>

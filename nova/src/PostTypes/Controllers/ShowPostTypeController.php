@@ -22,7 +22,9 @@ class ShowPostTypeController extends Controller
     {
         $this->authorize('viewAny', PostType::class);
 
-        $postTypes = PostType::filter($filters)->orderBySort();
+        $postTypes = PostType::with('role')
+            ->filter($filters)
+            ->orderBySort();
 
         $postTypes = ($isReordering = $request->has('reorder'))
             ? $postTypes->get()
