@@ -47,7 +47,7 @@
         <x-stories.timeline :stories="$stories" />
     </div>
 
-    <x-modal color="red" title="Delete Story?" icon="warning" :url="route('stories.delete')">
+    <x-modal color="red" title="Delete Story?" icon="warning" :url="route('stories.delete')" :wide="true">
         <x-slot name="footer">
             <span class="flex w-full | sm:col-start-2">
                 <button form="form" class="button button-danger w-full">

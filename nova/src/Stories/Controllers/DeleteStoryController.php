@@ -21,8 +21,13 @@ class DeleteStoryController extends Controller
     {
         $story = Story::findOrFail($request->id);
 
+        $stories = Story::whereNotIn('id', [1, $story->id])
+            ->orderBy('_lft')
+            ->get();
+
         return app(DeleteStoryResponse::class)->with([
             'story' => $story,
+            'stories' => $stories,
         ]);
     }
 

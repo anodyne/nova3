@@ -16,6 +16,8 @@ class DeleteStoryManager
 
     public function execute(Request $request, Story $story): Story
     {
+        // $story->stories->each->update(['parent_id' => $story->parent_id]);
+
         $story->posts->each->delete();
 
         $story = $this->deleteStory->execute($story);

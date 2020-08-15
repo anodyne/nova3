@@ -47,7 +47,7 @@ class Story extends Model
 
     public function stories()
     {
-        return $this->hasMany(self::class, 'story_id');
+        return $this->hasMany(self::class, 'parent_id');
     }
 
     public function newEloquentBuilder($query): StoryBuilder
