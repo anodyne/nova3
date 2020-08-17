@@ -131,7 +131,7 @@ class PopulateStoryTables extends Migration
     protected function populateStoryTimelineRoot()
     {
         Story::create([
-            'title' => 'Timeline',
+            'title' => 'Main Timeline',
             'status' => Completed::class,
         ]);
     }

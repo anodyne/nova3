@@ -17,11 +17,29 @@ class DeleteStoryController extends Controller
         $this->middleware('auth');
     }
 
+    public function delete($storyId)
+    {
+        $storiesToDelete = Story::descendantsAndSelf($storyId);
+
+        // $stories = Story::whereNotIn('id', $storiesToDelete->map(fn ($s) => $s->id)->toArray())->get();
+
+        // $storiesToDelete->each(fn ($s) => dump($s->title));
+        // $story->descendants->dd();
+        // dd('Done');
+
+        return app(DeleteStoryResponse::class)->with([
+            'storiesToDelete' => $storiesToDelete,
+        ]);
+    }
+
     public function confirm(Request $request)
     {
         $story = Story::findOrFail($request->id);
 
-        $stories = Story::whereNotIn('id', [1, $story->id])
+        $storiesToDelete = Story::whereDescendantAndSelf($request->id)->get();
+        dd($storiesToDelete);
+
+        $stories = Story::whereNotIn('id', [$story->id])
             ->orderBy('_lft')
             ->get();
 
