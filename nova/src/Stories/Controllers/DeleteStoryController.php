@@ -5,6 +5,7 @@ namespace Nova\Stories\Controllers;
 use Illuminate\Http\Request;
 use Nova\Stories\Models\Story;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Stories\Exceptions\StoryException;
 use Nova\Stories\Actions\DeleteStoryManager;
 use Nova\Stories\Responses\DeleteStoryResponse;
 
@@ -17,46 +18,30 @@ class DeleteStoryController extends Controller
         $this->middleware('auth');
     }
 
-    public function delete($storyId)
+    public function delete($id)
     {
-        $storiesToDelete = Story::descendantsAndSelf($storyId);
+        $this->authorize('delete', new Story);
 
-        // $stories = Story::whereNotIn('id', $storiesToDelete->map(fn ($s) => $s->id)->toArray())->get();
+        $stories = Story::descendantsAndSelf($id);
 
-        // $storiesToDelete->each(fn ($s) => dump($s->title));
-        // $story->descendants->dd();
-        // dd('Done');
+        throw_if(
+            $stories->where('id', 1)->count() > 0,
+            StoryException::cannotDeleteMainTimeline()
+        );
 
         return app(DeleteStoryResponse::class)->with([
-            'storiesToDelete' => $storiesToDelete,
+            'storiesToDelete' => $stories,
         ]);
     }
 
-    public function confirm(Request $request)
+    public function destroy(Request $request, DeleteStoryManager $action)
     {
-        $story = Story::findOrFail($request->id);
+        $this->authorize('delete', new Story);
 
-        $storiesToDelete = Story::whereDescendantAndSelf($request->id)->get();
-        dd($storiesToDelete);
-
-        $stories = Story::whereNotIn('id', [$story->id])
-            ->orderBy('_lft')
-            ->get();
-
-        return app(DeleteStoryResponse::class)->with([
-            'story' => $story,
-            'stories' => $stories,
-        ]);
-    }
-
-    public function destroy(Request $request, DeleteStoryManager $action, Story $story)
-    {
-        $this->authorize('delete', $story);
-
-        $action->execute($request, $story);
+        $action->execute($request);
 
         return redirect()
             ->route('stories.index')
-            ->withToast("{$story->title} was deleted", 'All posts in this story have been deleted as well.');
+            ->withToast('Story was deleted', 'All posts in this story have been deleted as well.');
     }
 }

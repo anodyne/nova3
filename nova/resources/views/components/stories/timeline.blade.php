@@ -57,14 +57,10 @@
 
                                     @can('delete', $story)
                                         <div class="{{ $component->divider() }}"></div>
-                                        <button
-                                            x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($story) }});"
-                                            class="{{ $component->link() }}"
-                                            data-cy="delete"
-                                        >
+                                        <a href="{{ route('stories.delete', $story) }}" class="{{ $component->link() }}">
                                             @icon('delete', $component->icon())
                                             <span>Delete</span>
-                                        </button>
+                                        </a>
                                     @endcan
                                 </x-dropdown>
                             </div>

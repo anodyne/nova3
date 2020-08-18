@@ -4,17 +4,19 @@ namespace Tests\Unit\Stories\Actions;
 
 use Tests\TestCase;
 use Nova\Stories\Models\Story;
-use Nova\Stories\Actions\DeleteStory;
+use Nova\Stories\Actions\MoveStory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
  * @group stories
  */
-class DeleteStoryActionTest extends TestCase
+class MoveStoryActionTest extends TestCase
 {
     use RefreshDatabase;
 
     protected $action;
+
+    protected $newStory;
 
     protected $story;
 
@@ -22,16 +24,18 @@ class DeleteStoryActionTest extends TestCase
     {
         parent::setUp();
 
-        $this->action = app(DeleteStory::class);
+        $this->action = app(MoveStory::class);
+
+        $this->newStory = create(Story::class);
 
         $this->story = create(Story::class);
     }
 
     /** @test **/
-    public function itDeletesAStory()
+    public function itMovesAStory()
     {
-        $story = $this->action->execute($this->story);
+        $story = $this->action->execute($this->story, $this->newStory->id);
 
-        $this->assertFalse($story->exists);
+        $this->assertEquals($this->newStory->id, $story->parent_id);
     }
 }

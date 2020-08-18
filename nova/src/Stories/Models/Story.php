@@ -22,7 +22,7 @@ class Story extends Model
 
     protected $table = 'stories';
 
-    protected $fillable = ['title', 'status'];
+    protected $fillable = ['title', 'status', 'parent_id'];
 
     protected $casts = [
         'start_date' => 'datetime',
@@ -42,7 +42,7 @@ class Story extends Model
 
     public function posts()
     {
-        return $this->hasMany(Post::class);
+        return $this->hasMany(Post::class, 'story_id');
     }
 
     public function stories()

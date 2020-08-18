@@ -15,7 +15,7 @@ class Post extends Model
 {
     protected $table = 'posts';
 
-    protected $fillable = ['mature_content'];
+    protected $fillable = ['mature_content', 'story_id'];
 
     protected $casts = [
         'mature_content' => 'boolean',

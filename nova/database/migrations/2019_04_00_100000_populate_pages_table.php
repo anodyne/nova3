@@ -149,9 +149,8 @@ class PopulatePagesTable extends Migration
             ['uri' => 'stories/{story}/show', 'key' => 'stories.show', 'resource' => 'Nova\\Stories\\Controllers\\ShowStoryController@show', 'layout' => 'admin'],
             ['uri' => 'stories/reorder', 'key' => 'stories.reorder.show', 'verb' => 'get', 'resource' => 'Nova\\Stories\\Controllers\\ReorderStoriesController@showReorder', 'layout' => 'admin'],
             ['uri' => 'stories/reorder', 'key' => 'stories.reorder.update', 'verb' => 'post', 'resource' => 'Nova\\Stories\\Controllers\\ReorderStoriesController@reorder', 'layout' => 'admin'],
-            ['uri' => 'stories/{story}/delete', 'key' => 'stories.delete1', 'verb' => 'get', 'resource' => 'Nova\\Stories\\Controllers\\DeleteStoryController@delete', 'layout' => 'admin'],
-            ['uri' => 'stories/delete', 'key' => 'stories.delete', 'verb' => 'post', 'resource' => 'Nova\\Stories\\Controllers\\DeleteStoryController@confirm', 'layout' => 'admin'],
-            ['uri' => 'stories/{story}', 'key' => 'stories.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Stories\\Controllers\\DeleteStoryController@destroy', 'layout' => 'admin'],
+            ['uri' => 'stories/{id}/delete', 'key' => 'stories.delete', 'verb' => 'get', 'resource' => 'Nova\\Stories\\Controllers\\DeleteStoryController@delete', 'layout' => 'admin'],
+            ['uri' => 'stories', 'key' => 'stories.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Stories\\Controllers\\DeleteStoryController@destroy', 'layout' => 'admin'],
 
             ['uri' => 'posts/create', 'key' => 'posts.create', 'resource' => 'Nova\\Posts\\Controllers\\CreatePostController@pickPostType', 'layout' => 'admin'],
             ['uri' => 'posts/create/{postType:key}', 'key' => 'posts.compose', 'resource' => 'Nova\\Posts\\Controllers\\CreatePostController@create', 'layout' => 'admin'],
