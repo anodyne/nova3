@@ -10,7 +10,7 @@ $factory->define(PostType::class, function (Faker $faker) {
     return [
         'active' => $faker->randomElement([true, false]),
         'description' => $faker->sentence,
-        'key' => $word,
+        'key' => $faker->lexify("{$word}-????"),
         'name' => ucfirst($word),
         'visibility' => $faker->randomElement(['in-character', 'out-of-character']),
         'color' => $faker->hexColor,
