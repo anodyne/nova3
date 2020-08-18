@@ -73,7 +73,8 @@
             toggle ($dispatch) {
                 if (! this.disabled) {
                     this.active = !this.active;
-                    $dispatch('toggle-changed', Boolean(this.active));
+                    $dispatch('toggle-changed', { value: Boolean(this.active) });
+                    $dispatch('input', Boolean(this.active));
                 }
             }
         }
