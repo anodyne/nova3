@@ -65,8 +65,8 @@
                                 </x-dropdown>
                             </div>
                         </div>
-                        <p class="leading-7 text-gray-600 mt-1">{{ $story->description }}</p>
-                        <div class="flex items-center space-x-8 mt-1 text-sm text-gray-500">
+                        <p class="text-gray-600 mt-1">{{ $story->description }}</p>
+                        <div class="flex items-center space-x-8 mt-2 text-sm text-gray-500">
                             <span>
                                 <x-badge :type="$story->status->color()" size="sm">{{ $story->status->displayName() }}</x-badge>
                             </span>

@@ -20,16 +20,16 @@
     <div class="lg:col-span-3">
         <div class="w-full mb-8">
             @if ($stories->count() === 1)
-                <p class="text-base leading-6 font-medium text-gray-500 mb-2">{{ $stories->first()->title }}</p>
+                <p class="text-base font-medium text-gray-500 mb-2">{{ $stories->first()->title }}</p>
             @endif
 
             @if ($stories->count() > 1)
-                <p class="text-base leading-6 font-medium text-gray-500 mb-2">{{ $stories->first()->title }}</p>
+                <p class="text-base font-medium text-gray-500 mb-2">{{ $stories->first()->title }}</p>
             @endif
 
             @if ($postType->fields->title)
                 <x-input.group>
-                    <input type="text" class="w-full bg-transparent appearance-none focus:outline-none text-3xl leading-9 font-extrabold text-gray-900 tracking-tight placeholder-gray-400 | sm:text-4xl sm:leading-10 md:text-5xl md:leading-14" placeholder="Title here">
+                    <input type="text" class="w-full bg-transparent appearance-none focus:outline-none text-3xl font-extrabold text-gray-900 tracking-tight placeholder-gray-400 | sm:text-4xl md:text-5xl" placeholder="Title here">
                 </x-input.group>
             @endif
 
@@ -38,21 +38,21 @@
                     @if ($postType->fields->day)
                         <div class="group flex items-center w-full space-x-2">
                             @icon('calendar', 'h-5 w-5 text-gray-400 group-focus:text-gray-700')
-                            <input type="text" class="w-full bg-transparent appearance-none focus:outline-none text-base font-medium leading-6 text-gray-700 placeholder-gray-400" placeholder="Add a day">
+                            <input type="text" class="w-full bg-transparent appearance-none focus:outline-none text-base font-medium text-gray-700 placeholder-gray-400" placeholder="Add a day">
                         </div>
                     @endif
 
                     @if ($postType->fields->time)
                         <div class="group flex items-center w-full space-x-2">
                             @icon('clock', 'h-5 w-5 text-gray-400 group-focus:text-gray-700')
-                            <input type="text" class="w-full bg-transparent appearance-none focus:outline-none text-base font-medium leading-6 text-gray-700 placeholder-gray-400" placeholder="Add a time">
+                            <input type="text" class="w-full bg-transparent appearance-none focus:outline-none text-base font-medium text-gray-700 placeholder-gray-400" placeholder="Add a time">
                         </div>
                     @endif
 
                     @if ($postType->fields->location)
                     <div class="group flex items-center w-full space-x-2">
                             @icon('location', 'h-5 w-5 text-gray-400 group-focus:text-gray-700')
-                            <input type="text" class="w-full bg-transparent appearance-none focus:outline-none text-base font-medium leading-6 text-gray-700 placeholder-gray-400" placeholder="Add a location">
+                            <input type="text" class="w-full bg-transparent appearance-none focus:outline-none text-base font-medium text-gray-700 placeholder-gray-400" placeholder="Add a location">
                         </div>
                     @endif
                 </div>

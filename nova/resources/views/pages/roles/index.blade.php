@@ -25,10 +25,10 @@
                         @icon('arrow-sort', 'h-6 w-6 text-info-600')
                     </div>
                     <div class="ml-3">
-                        <h3 class="text-sm leading-5 font-medium text-info-900">
+                        <h3 class="text-sm font-medium text-info-900">
                             Change Sorting Order
                         </h3>
-                        <div class="mt-2 text-sm leading-5 text-info-800">
+                        <div class="mt-2 text-sm text-info-800">
                             <p>Sorting roles allows for admins to control the hierarchy of roles in the system to ensure that users with a lower role cannot give themselves higher privileges.</p>
                             <p class="mt-4">Top roles have the greatest privileges &ndash; place the most important roles with the highest potential impact higher on the list, to ensure users can't gain unwanted access to areas of Nova.</p>
                         </div>
@@ -64,11 +64,11 @@
                         @endif
                         <div class="min-w-0 flex-1 | sm:flex sm:items-center sm:justify-between">
                             <div>
-                                <div class="leading-normal font-medium truncate">
+                                <div class="font-medium truncate">
                                     {{ $role->display_name }}
                                 </div>
                                 <div class="mt-2 flex">
-                                    <div class="flex items-center text-sm leading-5 text-gray-500">
+                                    <div class="flex items-center text-sm text-gray-500">
                                         @if ($role->users_count === 1)
                                             @icon('user', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
                                         @else
@@ -79,7 +79,7 @@
                                         </span>
                                     </div>
                                     @if ($role->default)
-                                        <div class="hidden items-center text-sm leading-5 text-gray-500 ml-6 | sm:flex">
+                                        <div class="hidden items-center text-sm text-gray-500 ml-6 | sm:flex">
                                             @icon('check-alt', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
                                             <span>Assigned to new users</span>
                                         </div>

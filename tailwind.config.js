@@ -66,9 +66,19 @@ module.exports = {
         require('@tailwindcss/ui')({
             layout: 'sidebar'
         }),
-        // require('./nova/resources/js/tailwind-plugins/flexbox-grid')(),
         require('@tailwindcss/typography'),
         require('tailwindcss-dark-mode')()
         /* eslint-enable */
-    ]
+    ],
+
+    experimental: {
+        defaultLineHeights: true,
+        extendedFontSizeScale: true,
+        extendedSpacingScale: true,
+        uniformColorPalette: true
+    },
+
+    future: {
+        removeDeprecatedGapUtilities: true
+    }
 };

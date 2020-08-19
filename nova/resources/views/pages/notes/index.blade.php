@@ -14,7 +14,7 @@
     @if (auth()->user()->notes()->count() === 0)
         <x-empty-state
             image="notes"
-            message="Notes are a great way to keep your thoughts organized, be it about things you need to do for the game, a story idea, or as a scratchpad for your next great story post."
+            message="Notes help keep your thoughts organized about your game, a story idea, or even as a scratchpad for your next great story post."
             label="Add a note now"
             :link="route('notes.create')"
         ></x-empty-state>
@@ -31,10 +31,10 @@
                         <div class="px-4 py-4 flex items-center sm:px-6">
                             <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
                                 <div>
-                                    <div class="leading-normal font-medium truncate">
+                                    <div class="font-medium truncate">
                                         {{ $note->title }}
                                     </div>
-                                    <p class="mt-1 text-sm leading-5 text-gray-600">{{ $note->summary }}</p>
+                                    <p class="mt-1 text-sm text-gray-600">{{ $note->summary }}</p>
                                 </div>
                             </div>
                             <div class="ml-5 flex-shrink-0 leading-0">

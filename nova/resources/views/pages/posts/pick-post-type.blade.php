@@ -11,7 +11,7 @@
 
 @section('content')
     <div class="text-center">
-        <h2 class="font-extrabold text-3xl leading-9">Choose a Post Type</h2>
+        <h2 class="font-extrabold text-3xl">Choose a Post Type</h2>
     </div>
 
     <div class="mt-12 max-w-4xl mx-auto">
@@ -27,7 +27,7 @@
                                     @icon($postType->icon, 'h-12 w-12')
                                 </span>
 
-                                <h3 class="inline-flex items-center text-lg leading-7 font-semibold text-gray-900 mt-4">
+                                <h3 class="inline-flex items-center text-lg font-semibold text-gray-900 mt-4">
                                     {{ $postType->name }}
                                 </h3>
 

@@ -68,7 +68,7 @@
 
                     <div class="h-full flex flex-col space-y-6 py-6 bg-white shadow-xl overflow-y-scroll">
                         <header class="flex items-center justify-between px-4 | sm:px-6">
-                            <h2 class="text-lg leading-7 font-medium text-gray-900">
+                            <h2 class="text-lg font-medium text-gray-900">
                                 Notifications
                             </h2>
 
@@ -99,7 +99,7 @@
                                             @icon('check-alt', 'h-6 w-6 text-blue-400')
                                         </div>
                                         <div class="ml-3">
-                                            <p class="leading-7 font-medium text-blue-800">
+                                            <p class="font-medium text-blue-800">
                                                 No unread notifications
                                             </p>
                                         </div>

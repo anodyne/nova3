@@ -35,10 +35,10 @@
                             @icon('arrow-sort', 'h-6 w-6 text-info-600')
                         </div>
                         <div class="ml-3">
-                            <h3 class="text-sm leading-5 font-medium text-info-900">
+                            <h3 class="text-sm font-medium text-info-900">
                                 Change Sorting Order
                             </h3>
-                            <div class="mt-2 text-sm leading-5 text-info-800">
+                            <div class="mt-2 text-sm text-info-800">
                                 <p>Departments appear in the order you set throughout Nova. To change the sorting of the departments, drag them to the desired order and then click Save Sort Order below.</p>
                             </div>
                             <div class="mt-4">
@@ -73,7 +73,7 @@
                             @endif
                             <div class="min-w-0 flex-1 | sm:flex sm:items-center sm:justify-between">
                                 <div>
-                                    <div class="leading-normal font-medium truncate">
+                                    <div class="font-medium truncate">
                                         {{ $department->name }}
                                     </div>
                                     <div class="mt-2 flex">
@@ -85,7 +85,7 @@
                                             @endif
                                         </div>
 
-                                        <div class="hidden items-center text-sm leading-5 text-gray-500 ml-6 | sm:flex">
+                                        <div class="hidden items-center text-sm text-gray-500 ml-6 | sm:flex">
                                             {{ $department->positions_count }} @choice('position|positions', $department->positions_count)
                                         </div>
                                     </div>

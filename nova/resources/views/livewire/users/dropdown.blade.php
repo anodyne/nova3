@@ -10,7 +10,7 @@
             <button
                 x-on:click="open = !open"
                 type="button"
-                class="flex items-center justify-between cursor-default relative w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150 | sm:text-sm sm:leading-5"
+                class="flex items-center justify-between cursor-default relative w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150 | sm:text-sm"
                 aria-haspopup="true"
                 aria-expanded="true"
                 x-bind:aria-expanded="open"
@@ -55,12 +55,12 @@
                 </div>
 
                 @forelse ($users as $user)
-                    <button wire:click="selectUser({{ $user->id }})" type="button" class="inline-flex items-center space-x-3 w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none" role="menuitem">
+                    <button wire:click="selectUser({{ $user->id }})" type="button" class="inline-flex items-center space-x-3 w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none" role="menuitem">
                         <x-status :status="$user->status" />
                         <span>{{ $user->name }}</span>
                     </button>
                 @empty
-                    <span class="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 focus:outline-none" role="menuitem">
+                    <span class="block w-full text-left px-4 py-2 text-sm text-gray-700 focus:outline-none" role="menuitem">
                         No users found
                     </span>
                 @endforelse

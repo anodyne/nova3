@@ -2,9 +2,9 @@
 
 @section('content')
     <header class="space-y-2">
-        <p class="text-base leading-6 font-medium text-gray-500">Season 1 - Into the Deep</p>
+        <p class="text-base font-medium text-gray-500">Season 1 - Into the Deep</p>
 
-        <h1 class="text-3xl leading-9 font-extrabold text-gray-900 tracking-tight | sm:text-4xl sm:leading-10 md:text-5xl md:leading-14">Frontier Medicine</h1>
+        <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight | sm:text-4xl md:text-5xl">Frontier Medicine</h1>
 
         <div class="flex items-center space-x-8 text-gray-600 text-lg font-medium">
             <div class="flex items-center space-x-2">

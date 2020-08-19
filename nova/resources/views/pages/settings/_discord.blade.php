@@ -1,11 +1,11 @@
 <x-form :action="route('settings.update')" method="PUT" id="discord">
     <div x-data="{ storyPosts: {{ $settings->discord->storyPostsEnabled ? 'true' : 'false' }}, applications: false }">
         <div class="px-4 py-5 | sm:p-6">
-            <h3 class="text-lg leading-6 font-medium text-gray-900" id="renew-headline">
+            <h3 class="text-lg font-medium text-gray-900" id="renew-headline">
                 Send story post notifications to Discord
             </h3>
             <div class="mt-2 sm:flex sm:items-start sm:justify-between">
-                <div class="max-w-xl text-sm leading-5 text-gray-500">
+                <div class="max-w-xl text-sm text-gray-500">
                     <p>
                         You can configure Nova to send notifications for story posts to your Discord server through webhooks.
                     </p>
@@ -20,7 +20,7 @@
             <div x-show="storyPosts" class="mt-6 px-6">
                 <x-input.group label="Discord Webhook" for="storyPosts[webhook]" :error="$errors->first('storyPosts[webhook]')">
                     <x-slot name="help">
-                        <ol class="list-inside list-decimal leading-6 ml-2px">
+                        <ol class="list-inside list-decimal leading-6 ml-0.5">
                             <li>From your Discord server, go to Server Settings > Webhooks</li>
                             <li>Create a new webhook and specify the channel any notifications should be sent to</li>
                             <li>After your webhook has been created, copy the webhook URL and paste it above</li>
@@ -37,11 +37,11 @@
         </div>
 
         <div class="px-4 py-5 | sm:p-6">
-            <h3 class="text-lg leading-6 font-medium text-gray-900" id="renew-headline">
+            <h3 class="text-lg font-medium text-gray-900" id="renew-headline">
                 Send application notifications to Discord
             </h3>
             <div class="mt-2 sm:flex sm:items-start sm:justify-between">
-                <div class="max-w-xl text-sm leading-5 text-gray-500">
+                <div class="max-w-xl text-sm text-gray-500">
                     <p>
                         You can configure Nova to send notifications for applications to your Discord server through webhooks. It's highly encouraged that you have those notifications sent to a private channel as they will contain prospective user information.
                     </p>

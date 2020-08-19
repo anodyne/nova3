@@ -1,5 +1,5 @@
 .button {
-    @apply inline-flex justify-center items-center px-4 py-2 border border-gray-200 text-sm uppercase tracking-wide leading-5 font-semibold rounded-md text-gray-500 bg-white transition ease-in-out duration-150;
+    @apply inline-flex justify-center items-center px-4 py-2 border border-gray-200 text-sm uppercase tracking-wide font-semibold rounded-md text-gray-500 bg-white transition ease-in-out duration-150;
 
     &:hover {
         @apply text-gray-600 bg-gray-100;
@@ -93,7 +93,7 @@
     }
 
     &.button-xs {
-        @apply text-xs px-2.5 py-1.5 leading-4;
+        @apply text-xs px-2.5 py-1.5;
 
         > svg.icon {
             @apply mr-2 h-4 w-4;
@@ -101,7 +101,7 @@
     }
 
     &.button-sm {
-        @apply px-3 py-2 leading-4;
+        @apply px-3 py-2;
 
         > svg.icon {
             @apply mr-2 h-4 w-4;
@@ -109,7 +109,7 @@
     }
 
     &.button-lg {
-        @apply leading-6 text-base;
+        @apply text-base;
 
         > svg.icon {
             @apply mr-3 h-6 w-6;

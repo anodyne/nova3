@@ -36,7 +36,7 @@
                     </x-slot>
 
                     <div class="flex items-center justify-between">
-                        <h3 class="inline-flex items-center text-xl leading-7 font-semibold text-gray-900">
+                        <h3 class="inline-flex items-center text-xl font-semibold text-gray-900">
                             {{ $theme->name }}
                         </h3>
 
@@ -78,7 +78,7 @@
                             @endif
                         </x-dropdown>
                     </div>
-                    <p class="mt-1 flex items-center text-base leading-6 text-gray-500">
+                    <p class="mt-1 flex items-center text-base text-gray-500">
                         @icon('folder', 'flex-shrink-0 mr-2 h-5 w-5 text-gray-400')
                         themes/{{ $theme->location }}
                     </p>
@@ -110,10 +110,10 @@
                     @icon('info', 'h-6 w-6 text-blue-500')
                 </div>
                 <div class="ml-3 flex-1 | md:flex md:justify-between">
-                    <p class="text-sm leading-5 text-blue-700">
+                    <p class="text-sm text-blue-700">
                         Looking for more themes? Check out AnodyneXtras!
                     </p>
-                    <p class="mt-3 text-sm leading-5 | md:mt-0 md:ml-6">
+                    <p class="mt-3 text-sm | md:mt-0 md:ml-6">
                         <a href="{{ config('services.anodyne.links.xtras') }}" target="_blank" class="whitespace-no-wrap font-medium text-blue-700 hover:text-blue-600 transition ease-in-out duration-150">
                             Go &rarr;
                         </a>

@@ -21,7 +21,7 @@
     <x-panel>
         <div>
             <div class="p-4 | sm:hidden">
-                <select x-on:change="window.location.replace($event.target.value)" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base leading-6 border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5 transition ease-in-out duration-150">
+                <select x-on:change="window.location.replace($event.target.value)" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm transition ease-in-out duration-150">
                     <option value="{{ route('users.index', 'status=active') }}"{{ request()->status === 'active' ? 'selected' : '' }}>Active Users</option>
                     <option value="{{ route('users.index', 'status=pending') }}"{{ request()->status === 'pending' ? 'selected' : '' }}>Pending Users</option>
                     <option value="{{ route('users.index', 'status=inactive') }}"{{ request()->status === 'inactive' ? 'selected' : '' }}>Inactive Users</option>
@@ -33,25 +33,25 @@
                     <nav class="-mb-px flex">
                         <a
                             href="{{ route('users.index', 'status=active') }}"
-                            class="whitespace-no-wrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm leading-5 focus:outline-none @if (request()->status === 'active') border-blue-500 text-blue-600 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
+                            class="whitespace-no-wrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'active') border-blue-500 text-blue-600 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
                         >
                             Active
                         </a>
                         <a
                             href="{{ route('users.index', 'status=pending') }}"
-                            class="whitespace-no-wrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm leading-5 focus:outline-none @if (request()->status === 'pending') border-blue-500 text-blue-600 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
+                            class="whitespace-no-wrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'pending') border-blue-500 text-blue-600 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
                         >
                             Pending
                         </a>
                         <a
                             href="{{ route('users.index', 'status=inactive') }}"
-                            class="whitespace-no-wrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm leading-5 focus:outline-none @if (request()->status === 'inactive') border-blue-500 text-blue-600 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
+                            class="whitespace-no-wrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'inactive') border-blue-500 text-blue-600 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
                         >
                             Inactive
                         </a>
                         <a
                             href="{{ route('users.index') }}"
-                            class="whitespace-no-wrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm leading-5 focus:outline-none @if (!request()->has('status')) border-blue-500 text-blue-600 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
+                            class="whitespace-no-wrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (!request()->has('status')) border-blue-500 text-blue-600 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
                         >
                             All Users
                         </a>
@@ -82,7 +82,7 @@
 
                             <div class="hidden md:block">
                                 <div>
-                                    <div class="flex items-center text-sm leading-5 text-gray-500">
+                                    <div class="flex items-center text-sm text-gray-500">
                                         @icon('clock', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
                                         Last activity&nbsp;
                                         <time datetime="{{ $user->updated_at }}">
@@ -90,7 +90,7 @@
                                         </time>
                                     </div>
                                     @if ($user->last_login_at != null)
-                                        <div class="mt-2 flex items-center text-sm leading-5 text-gray-500">
+                                        <div class="mt-2 flex items-center text-sm text-gray-500">
                                             @icon('sign-in', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
                                             Last signed in&nbsp;
                                             <time datetime="{{ $user->last_login_at }}">

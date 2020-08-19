@@ -12,7 +12,7 @@
             </div>
         @endif
 
-        <h1 class="block text-2xl font-extrabold leading-7 text-gray-900 | sm:text-3xl sm:leading-9 sm:truncate" data-cy="page-header-title">
+        <h1 class="block text-2xl font-extrabold text-gray-900 | sm:text-3xl sm:truncate" data-cy="page-header-title">
             {{ $title ?? $slot }}
         </h1>
     </div>

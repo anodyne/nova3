@@ -1,5 +1,5 @@
 <div>
-    <x-dropdown class="inline-flex items-center px-4 py-2 rounded-md font-medium leading-5 bg-blue-50 border border-blue-200 text-blue-800 transition ease-in-out duration-150 hover:bg-blue-100 | md:px-2.5 md:py-0.5 md:text-sm">
+    <x-dropdown class="inline-flex items-center px-4 py-2 rounded-md font-medium bg-blue-50 border border-blue-200 text-blue-800 transition ease-in-out duration-150 hover:bg-blue-100 | md:px-2.5 md:py-0.5 md:text-sm">
         <x-slot name="trigger">
             <span class="mr-1">Add permission</span>
             <svg class="h-5 w-5 text-blue-700 | md:h-4 md:w-4" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 4v16m8-8H4"></path></svg>
@@ -34,7 +34,7 @@
     </x-dropdown>
 
     @foreach ($permissions as $permission)
-        <span class="inline-flex items-center mb-2 px-4 py-2 rounded-md font-medium leading-5 bg-gray-50 border border-gray-200 text-gray-800 transition ease-in-out duration-150 hover:bg-gray-100 | md:px-2.5 md:py-0.5 md:text-sm">
+        <span class="inline-flex items-center mb-2 px-4 py-2 rounded-md font-medium bg-gray-50 border border-gray-200 text-gray-800 transition ease-in-out duration-150 hover:bg-gray-100 | md:px-2.5 md:py-0.5 md:text-sm">
             {{ $permission['display_name'] }}
             <button wire:click="removePermission({{ $permission['id'] }})" type="button" class="ml-1 text-gray-400 hover:text-gray-600 focus:outline-none transition ease-in-out duration-150">
                 <svg class="h-5 w-5 | md:h-4 md:w-4" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M6 18L18 6M6 6l12 12"></path></svg>

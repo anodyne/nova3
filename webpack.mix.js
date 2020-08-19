@@ -5,7 +5,6 @@ mix.setPublicPath('dist');
 
 mix
     .js('nova/resources/js/app.js', 'dist/js')
-    .js('nova/resources/js/components.js', 'dist/js')
 
     .postCss('nova/resources/css/app.css', 'dist/css')
     .postCss('nova/resources/css/vendor.css', 'dist/css')

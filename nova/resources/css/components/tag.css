@@ -1,8 +1,8 @@
 .tag {
-    @apply inline-flex items-center px-3 py-0.5 rounded-md text-sm font-medium leading-5 bg-gray-50 border border-gray-200 text-gray-800;
+    @apply inline-flex items-center px-3 py-0.5 rounded-md text-sm font-medium bg-gray-50 border border-gray-200 text-gray-800;
 
     &.tag-sm {
-        @apply px-2.5 text-xs leading-4;
+        @apply px-2.5 text-xs;
     }
 }
 

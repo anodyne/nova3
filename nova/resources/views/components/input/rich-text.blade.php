@@ -15,7 +15,7 @@
     </trix-editor>
 
     @if ($countWords)
-        <div class="mt-2 ml-2px text-sm text-gray-700">
+        <div class="mt-2 ml-0.5 text-sm text-gray-700">
             Word count: <span x-text="count"></span>
         </div>
     @endif

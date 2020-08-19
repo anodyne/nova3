@@ -25,10 +25,10 @@
                         @icon('arrow-sort', 'h-6 w-6 text-info-600')
                     </div>
                     <div class="ml-3">
-                        <h3 class="text-sm leading-5 font-medium text-info-900">
+                        <h3 class="text-sm font-medium text-info-900">
                             Change Sorting Order
                         </h3>
-                        <div class="mt-2 text-sm leading-5 text-info-800">
+                        <div class="mt-2 text-sm text-info-800">
                             <p>Post types appear in the order you set in Nova's writing features. To change the sorting of the post types, drag them to the desired order and then click Save Sort Order below.</p>
                         </div>
                         <div class="mt-4">
@@ -62,12 +62,12 @@
                             </div>
                         @endif
                         <div class="flex min-w-0 flex-1">
-                            <div class="flex-shrink-0 mr-3 mt-2px" style="color:{{ $postType->color }}">
+                            <div class="flex-shrink-0 mr-3 mt-0.5" style="color:{{ $postType->color }}">
                                 @icon($postType->icon, 'h-6 w-6')
                             </div>
                             <div class="min-w-0 flex-1 | sm:flex sm:flex-col">
                                 <div class="flex items-center space-x-3">
-                                    <div class="leading-normal font-medium truncate">
+                                    <div class="font-medium truncate">
                                         {{ $postType->name }}
                                     </div>
 
@@ -75,7 +75,7 @@
                                         <x-badge size="sm">{{ $postType->role->display_name }}</x-badge>
                                     @endif
                                 </div>
-                                <p class="text-sm leading-5 text-gray-600">{{ $postType->description }}</p>
+                                <p class="text-sm text-gray-600">{{ $postType->description }}</p>
                             </div>
                         </div>
                         <div class="ml-5 flex-shrink-0 leading-0">

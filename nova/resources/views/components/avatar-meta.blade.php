@@ -12,13 +12,13 @@
     @if ($primaryMeta || $secondaryMeta)
         <div class="flex flex-col ml-4">
             @if ($primaryMeta)
-                <div class="flex items-center leading-normal font-medium truncate">
+                <div class="flex items-center font-medium truncate">
                     {{ $primaryMeta}}
                 </div>
             @endif
 
             @if ($secondaryMeta)
-                <div class="mt-1 flex items-center text-sm leading-5 text-gray-500">
+                <div class="mt-1 flex items-center text-sm text-gray-500">
                     {{ $secondaryMeta }}
                 </div>
             @endif

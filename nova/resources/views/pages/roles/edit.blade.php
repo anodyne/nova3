@@ -15,10 +15,10 @@
                         @icon('check-alt', 'h-6 w-6 text-info-600')
                     </div>
                     <div class="ml-3">
-                        <h3 class="text-sm leading-5 font-medium text-info-900">
+                        <h3 class="text-sm font-medium text-info-900">
                             Default role for new users
                         </h3>
-                        <div class="mt-2 text-sm leading-5 text-info-800">
+                        <div class="mt-2 text-sm text-info-800">
                             <p>New users are automatically assigned this role when they're activated. Be careful when making any updates to ensure new users have the correct permissions.</p>
                         </div>
                     </div>

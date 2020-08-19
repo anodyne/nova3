@@ -27,12 +27,12 @@
                     </div>
 
                     <div class="ml-3 w-0 flex-1">
-                        <p class="text-sm leading-5 font-medium text-gray-900">
+                        <p class="text-sm font-medium text-gray-900">
                             {{ data_get($notification, 'detail.title') }}
                         </p>
 
                         @if (data_get($notification, 'detail.message'))
-                            <p class="mt-1 text-sm leading-5 text-gray-500">
+                            <p class="mt-1 text-sm text-gray-500">
                                 {{ data_get($notification, 'detail.message') }}
                             </p>
                         @endif
