@@ -63,6 +63,6 @@ class DeleteStoryManager
             $this->deleteStory->execute(Story::find($id));
         });
 
-        Story::fixTree();
+        Story::rebuildTree([]);
     }
 }
