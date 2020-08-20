@@ -106,14 +106,14 @@
         @if ($story->start_date)
             <div class="flex items-center space-x-2 text-gray-600 text-sm">
                 @icon('clock', 'text-gray-500')
-                <span>Started {{ $story->start_date->format('F dS, Y') }}</span>
+                <span>Started {{ $story->start_date->format('M dS, Y') }}</span>
             </div>
         @endif
 
         @if ($story->end_date)
             <div class="flex items-center space-x-2 text-gray-600 text-sm">
                 @icon('clock', 'text-gray-500')
-                <span>Ended {{ $story->end_date->format('F dS, Y') }}</span>
+                <span>Ended {{ $story->end_date->format('M dS, Y') }}</span>
             </div>
         @endif
     </div>
