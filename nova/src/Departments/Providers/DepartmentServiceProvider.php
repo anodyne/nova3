@@ -10,10 +10,12 @@ use Nova\Departments\Policies\PositionPolicy;
 use Nova\Departments\Policies\DepartmentPolicy;
 use Nova\Departments\Livewire\PositionsDropdown;
 use Nova\Departments\Livewire\PositionsCollector;
+use Nova\Departments\Livewire\UploadDepartmentHeaderImage;
 
 class DepartmentServiceProvider extends DomainServiceProvider
 {
     protected $livewireComponents = [
+        'departments:upload-header-image' => UploadDepartmentHeaderImage::class,
         'positions:collector' => PositionsCollector::class,
         'positions:dropdown' => PositionsDropdown::class,
     ];
