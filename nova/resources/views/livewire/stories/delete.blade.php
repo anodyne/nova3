@@ -4,13 +4,44 @@
             <div class="px-4 py-5 | sm:p-6">
                 <div class="flex items-start justify-between">
                     <div class="flex flex-col">
-                        <h3 class="text-lg font-medium text-gray-900" id="renew-headline">
-                            Delete {{ $story->title }}
+                        <h3 class="text-lg font-semibold text-gray-900" id="renew-headline">
+                            {{ ucfirst(data_get($actions, "{$story->id}.story.action")) }} {{ $story->title }}
                         </h3>
-                        <div class="mt-2 max-w-xl text-sm text-gray-500">
-                            <p id="renew-description">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo totam non cumque deserunt officiis ex maiores nostrum.
-                            </p>
+                        <div class="mt-2 max-w-xl text-gray-600 font-medium flex items-center space-x-6">
+                            @if (data_get($actions, "{$story->id}.story.action") === 'move')
+                                <div class="flex items-center space-x-1 text-purple-600">
+                                    @icon('arrow-right-alt', 'h-6 w-6 flex-shrink-0 text-purple-400')
+                                    <span>Story will be moved</span>
+                                </div>
+                            @endif
+
+                            @if (data_get($actions, "{$story->id}.story.action") === 'delete')
+                                <div class="flex items-center space-x-1 text-red-600">
+                                    @icon('close-alt', 'h-6 w-6 flex-shrink-0 text-red-400')
+                                    <span>Story will be deleted</span>
+                                </div>
+                            @endif
+
+                            @if (data_get($actions, "{$story->id}.posts.action") === 'move')
+                                <div class="flex items-center space-x-1 text-purple-600">
+                                    @icon('arrow-right-alt', 'h-6 w-6 flex-shrink-0 text-purple-400')
+                                    <span>Story posts will be moved</span>
+                                </div>
+                            @endif
+
+                            @if (data_get($actions, "{$story->id}.posts.action") === 'delete')
+                                <div class="flex items-center space-x-1 text-red-600">
+                                    @icon('close-alt', 'h-6 w-6 flex-shrink-0 text-red-400')
+                                    <span>Story posts will be deleted</span>
+                                </div>
+                            @endif
+
+                            @if (data_get($actions, "{$story->id}.posts.action") === 'none')
+                                <div class="flex items-center space-x-1 text-gray-600">
+                                    @icon('remove-alt', 'h-6 w-6 flex-shrink-0 text-gray-400')
+                                    <span>Story posts will not be updated</span>
+                                </div>
+                            @endif
                         </div>
 
                         <div class="mt-8">
@@ -32,7 +63,7 @@
                                     <div class="flex flex-col space-y-6">
                                         <div class="flex flex-col space-y-1">
                                             <x-input.radio
-                                                label="Delete this story's posts"
+                                                label="Delete story posts"
                                                 for="delete-posts-{{ $story->id }}"
                                                 name="posts_action[{{ $story->id }}]"
                                                 id="delete-posts-{{ $story->id }}"
@@ -40,14 +71,14 @@
                                                 :checked="data_get($actions, $story->id.'.posts.action') === 'delete'"
                                                 wire:click="trackPostsAction({{ $story->id }}, 'delete')"
                                             />
-                                            <label for="delete-posts-{{ $story->id }}" class="ml-6 max-w-xl text-sm text-gray-500">
-                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur magnam officia sapiente praesentium cum corporis perferendis alias illo qui non consectetur in repellat ipsam assumenda, odio ad! Sunt, harum illo.
+                                            <label for="delete-posts-{{ $story->id }}" class="ml-6 max-w-xl text-sm text-gray-600">
+                                                Delete the posts along with the story. This action is permanent and cannot be undone!
                                             </label>
                                         </div>
 
                                         <div class="flex flex-col space-y-1">
                                             <x-input.radio
-                                                label="Move this story's posts"
+                                                label="Move story posts"
                                                 for="move-posts-{{ $story->id }}"
                                                 name="posts_action[{{ $story->id }}]"
                                                 id="move-posts-{{ $story->id }}"
@@ -55,8 +86,8 @@
                                                 :checked="data_get($actions, $story->id.'.posts.action') === 'move'"
                                                 wire:click="trackPostsAction({{ $story->id }}, 'move')"
                                             />
-                                            <label for="move-posts-{{ $story->id }}" class="ml-6 max-w-xl text-sm text-gray-500">
-                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur magnam officia sapiente praesentium cum corporis perferendis alias illo qui non consectetur in repellat ipsam assumenda, odio ad! Sunt, harum illo.
+                                            <label for="move-posts-{{ $story->id }}" class="ml-6 max-w-xl text-sm text-gray-600">
+                                                Move the posts in this story to another story. Everything else about the posts will remain the same.
                                             </label>
                                         </div>
                                     </div>
