@@ -6,15 +6,15 @@ use Illuminate\View\Component;
 
 class Avatar extends Component
 {
-    public $url;
+    public string $src;
 
     public $size;
 
     public $tooltip;
 
-    public function __construct($url = null, $size = 'md', $tooltip = '')
+    public function __construct($src = null, $size = 'md', $tooltip = '')
     {
-        $this->url = $url;
+        $this->src = $src;
         $this->size = $size;
         $this->tooltip = $tooltip;
     }
