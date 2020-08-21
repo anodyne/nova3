@@ -1,15 +1,19 @@
 <?php
 
-namespace Nova\Characters\Livewire;
+namespace Nova\Foundation\Livewire;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-class CharacterUploadAvatar extends Component
+class UploadAvatar extends Component
 {
     use WithFileUploads;
 
     public $avatar;
+
+    public $existingAvatar;
+
+    public $newAvatar;
 
     public $path;
 
@@ -22,8 +26,13 @@ class CharacterUploadAvatar extends Component
         $this->path = $this->avatar->getRealPath();
     }
 
+    public function mount($existingAvatar = null)
+    {
+        $this->existingAvatar = $existingAvatar;
+    }
+
     public function render()
     {
-        return view('livewire.characters.upload-avatar');
+        return view('livewire.upload-avatar');
     }
 }

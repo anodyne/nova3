@@ -37,7 +37,7 @@
 
             <x-form.section title="Avatar" message="User avatars should be a square image at least 500 pixels tall by 500 pixels wide, but not more than 5MB in size.">
                 <x-input.group>
-                    @livewire('users:upload-avatar')
+                    @livewire('upload-avatar')
                 </x-input.group>
             </x-form.section>
 

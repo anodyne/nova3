@@ -28,7 +28,7 @@
 
             <x-form.section title="Avatar" message="Character avatars should be a square image at least 500 pixels tall by 500 pixels wide, but not more than 5MB in size.">
                 <x-input.group>
-                    @livewire('characters:upload-avatar')
+                    @livewire('upload-avatar', ['existingAvatar' => $character->avatar_url])
                 </x-input.group>
             </x-form.section>
 

@@ -19,6 +19,7 @@ use Nova\Foundation\View\Components\Badge;
 use Illuminate\View\Factory as ViewFactory;
 use Nova\Foundation\View\Components\Avatar;
 use Nova\Foundation\Livewire\IconsSelectMenu;
+use Nova\Foundation\Livewire\UploadAvatar;
 use Nova\Foundation\View\Components\Dropdown;
 use Nova\Foundation\View\Components\AvatarGroup;
 
@@ -83,5 +84,6 @@ class AppServiceProvider extends ServiceProvider
     protected function registerLivewireComponents()
     {
         Livewire::component('icons-select-menu', IconsSelectMenu::class);
+        Livewire::component('upload-avatar', UploadAvatar::class);
     }
 }

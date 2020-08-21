@@ -9,7 +9,6 @@ use Nova\Users\Livewire\ManageUsers;
 use Nova\Users\Livewire\UsersDropdown;
 use Nova\Users\Livewire\UsersCollector;
 use Nova\Users\Events\UserCreatedByAdmin;
-use Nova\Users\Livewire\UserUploadAvatar;
 use Nova\Users\Listeners\GeneratePassword;
 use Nova\Users\Livewire\UserNotifications;
 use Nova\Users\Responses\ShowUserResponse;
@@ -33,7 +32,6 @@ class UserServiceProvider extends DomainServiceProvider
         'users:dropdown' => UsersDropdown::class,
         'users:manage-users' => ManageUsers::class,
         'users:notifications' => UserNotifications::class,
-        'users:upload-avatar' => UserUploadAvatar::class,
     ];
 
     protected $morphMaps = [
