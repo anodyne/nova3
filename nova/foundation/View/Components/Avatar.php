@@ -6,7 +6,7 @@ use Illuminate\View\Component;
 
 class Avatar extends Component
 {
-    public string $src;
+    public ?string $src;
 
     public $size;
 
