@@ -36,7 +36,7 @@
             </x-dropdown>
 
             @can('create', 'Nova\Stories\Models\Story')
-                <a href="{{ route('stories.index') }}" class="button button-primary" data-cy="create">
+                <a href="{{ route('stories.create') }}" class="button button-primary" data-cy="create">
                     Add Story
                 </a>
             @endcan

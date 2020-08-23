@@ -23,11 +23,15 @@ class Story extends Model
 
     protected $table = 'stories';
 
-    protected $fillable = ['title', 'status', 'parent_id'];
+    protected $fillable = [
+        'title', 'status', 'parent_id', 'description', 'summary', 'start_date',
+        'end_date',
+    ];
 
     protected $casts = [
-        'start_date' => 'datetime',
         'end_date' => 'datetime',
+        'parent_id' => 'integer',
+        'start_date' => 'datetime',
     ];
 
     protected $dispatchesEvents = [

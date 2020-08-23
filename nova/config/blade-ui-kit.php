@@ -17,7 +17,7 @@ return [
         // 'logout' => BladeUIKit\Components\Buttons\Logout::class,
         // 'countdown' => BladeUIKit\Components\DateTime\Countdown::class,
         // 'date-time' => BladeUIKit\Components\DateTime\DateTime::class,
-        // 'pikaday' => BladeUIKit\Components\DateTime\Pikaday::class,
+        'pikaday' => BladeUIKit\Components\DateTime\Pikaday::class,
         // 'easy-mde' => BladeUIKit\Components\Editors\EasyMDE::class,
         // 'trix' => BladeUIKit\Components\Editors\Trix::class,
         // 'error' => BladeUIKit\Components\Forms\Error::class,

@@ -16,6 +16,11 @@ class StoryBuilder extends QueryBuilder
         return $this->where('status', Current::class);
     }
 
+    public function whereParent($parent = null)
+    {
+        return $this->where('parent_id', $parent);
+    }
+
     public function whereUpcoming()
     {
         return $this->where('status', Upcoming::class);
