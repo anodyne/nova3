@@ -27,8 +27,6 @@
         @endif
 
         <x-form :action="route('roles.update', $role)" method="PUT">
-            <input type="hidden" name="id" value="{{ $role->id }}">
-
             <x-form.section title="Role Info" message="A role is a collection of permissions that allows a user to take certain actions throughout Nova. Since a user can have as many roles as you'd like, we recommend creating roles with fewer permissions to give yourself more freedom to add and remove access for a given user.">
                 <x-input.group label="Name" for="display_name" :error="$errors->first('display_name')">
                     <x-input.text
@@ -68,9 +66,10 @@
 
             <x-form.footer>
                 <button type="submit" class="button button-primary">Update Role</button>
-
                 <a href="{{ route('roles.index') }}" class="button">Cancel</a>
             </x-form.footer>
+
+            <input type="hidden" name="id" value="{{ $role->id }}">
         </x-form>
     </x-panel>
 @endsection

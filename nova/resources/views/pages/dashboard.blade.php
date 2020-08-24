@@ -29,17 +29,17 @@
         <h3 class="font-semibold uppercase tracking-wide text-sm text-gray-600 mb-6">Authors</h3>
 
         <div class="grid gap-6 | md:grid-cols-2">
-            <x-avatar-meta :url="auth()->user()->avatar_url">
+            <x-avatar-meta :src="auth()->user()->avatar_url">
                 <x-slot name="primaryMeta">Lieutenant Commander Alwyn Llwyd</x-slot>
                 <x-slot name="secondaryMeta">Assistant Chief Medical Officer</x-slot>
             </x-avatar-meta>
 
-            <x-avatar-meta :url="auth()->user()->avatar_url">
+            <x-avatar-meta :src="auth()->user()->avatar_url">
                 <x-slot name="primaryMeta">Captain Edward Drake</x-slot>
                 <x-slot name="secondaryMeta">Executive Officer</x-slot>
             </x-avatar-meta>
 
-            <x-avatar-meta :url="auth()->user()->avatar_url">
+            <x-avatar-meta :src="auth()->user()->avatar_url">
                 <x-slot name="primaryMeta">Lieutenant Colonel Aaron Drake</x-slot>
                 <x-slot name="secondaryMeta">Marine Commanding Officer</x-slot>
             </x-avatar-meta>
@@ -48,7 +48,7 @@
         <h3 class="font-semibold uppercase tracking-wide text-sm text-gray-600 my-6">Additional Contributors</h3>
 
         <div class="grid grid-cols-2 gap-6">
-            <x-avatar-meta :url="auth()->user()->avatar_url" primary-meta="Jack Sparrow" />
+            <x-avatar-meta :src="auth()->user()->avatar_url" primary-meta="Jack Sparrow" />
         </div>
     </div>
 

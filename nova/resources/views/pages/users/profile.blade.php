@@ -9,7 +9,7 @@
     <x-panel class="p-4 | sm:p-6">
         <div class="flex">
             <div>
-                <x-avatar :url="$user->avatar_url" size="xl" />
+                <x-avatar :src="$user->avatar_url" size="xl" />
             </div>
             <div class="flex flex-col ml-6">
                 <h1 class="block text-2xl font-extrabold text-gray-900 | sm:text-4xl sm:truncate">
@@ -39,7 +39,7 @@
             <li class="col-span-1 flex flex-col text-center bg-white rounded-lg shadow">
                 <div class="flex-1 flex flex-col p-8">
                     <div>
-                        <x-avatar :url="$character->avatar_url" size="xl" />
+                        <x-avatar :src="$character->avatar_url" size="xl" />
                     </div>
                     <h3 class="mt-6 text-gray-900 text-sm font-medium">
                         @isset($character->rank)
@@ -148,7 +148,7 @@
             </x-input.group>
 
             <x-input.group label="Avatar">
-                <x-avatar :url="$user->avatar_url" size="lg"></x-avatar>
+                <x-avatar :src="$user->avatar_url" size="lg"></x-avatar>
             </x-input.group>
         </x-form.section>
 

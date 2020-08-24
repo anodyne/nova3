@@ -53,7 +53,7 @@
             </x-input.group>
 
             <x-input.group label="Avatar">
-                <x-avatar :url="$character->avatar_url" size="lg" />
+                <x-avatar :src="$character->avatar_url" size="lg" />
             </x-input.group>
         </x-form.section>
 
@@ -64,7 +64,7 @@
                         @foreach ($character->users as $user)
                             <div class="group flex items-center justify-between py-2 px-4 rounded odd:bg-gray-100">
                                 <div class="flex items-center">
-                                    <x-avatar-meta size="lg" :url="$user->avatar_url">
+                                    <x-avatar-meta size="lg" :src="$user->avatar_url">
                                         <x-slot name="primaryMeta">
                                             {{ $user->name }}
                                         </x-slot>

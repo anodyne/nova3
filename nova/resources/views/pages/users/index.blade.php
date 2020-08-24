@@ -70,7 +70,7 @@
                 <div class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
                     <div class="flex items-center px-4 py-4 | sm:px-6">
                         <div class="min-w-0 flex-1 pr-4 | md:grid md:grid-cols-2 md:gap-4">
-                            <x-avatar-meta :url="$user->avatar_url">
+                            <x-avatar-meta :src="$user->avatar_url">
                                 <x-slot name="primaryMeta">{{ $user->name }}</x-slot>
 
                                 <x-slot name="secondaryMeta">

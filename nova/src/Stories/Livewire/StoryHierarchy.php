@@ -22,13 +22,21 @@ class StoryHierarchy extends Component
         $this->getOrderStories();
     }
 
-    public function mount($parentId = 1, $direction = 'before', $neighbor = null)
+    public function mount($parentId = 1, $direction = 'after', $neighbor = null)
     {
         $this->parentId = $parentId;
         $this->direction = $direction;
         $this->neighbor = $neighbor;
 
         $this->parentStories = Story::defaultOrder()->get();
+        $this->getOrderStories();
+
+        if ($neighbor === null) {
+            $this->neighbor = optional($this->orderStories->last())->id;
+        } else {
+            $this->parentId = optional(Story::find($this->neighbor))->parent_id;
+        }
+
         $this->getOrderStories();
     }
 

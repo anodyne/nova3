@@ -13,7 +13,7 @@ class CreateStory
     public function execute(StoryData $data): Story
     {
         $story = Story::create(
-            $data->except('parent_id', 'displayDirection', 'displayStoryId')->toArray()
+            $data->except('parent_id', 'displayDirection', 'displayNeighbor')->toArray()
         );
 
         $parentStory = ($data->parent_id)
@@ -22,10 +22,10 @@ class CreateStory
 
         $story->appendToNode($parentStory);
 
-        if ($data->displayDirection && $data->displayStoryId) {
+        if ($data->displayDirection && $data->displayNeighbor) {
             $method = "{$data->displayDirection}Node";
 
-            $story->{$method}(Story::find($data->displayStoryId))->save();
+            $story->{$method}(Story::find($data->displayNeighbor))->save();
         }
 
         return $story;

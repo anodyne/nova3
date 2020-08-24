@@ -14,7 +14,9 @@ class CreateStoryRequest extends ValidatesRequest
             'start_date' => ['nullable'],
             'end_date' => ['nullable'],
             'summary' => ['nullable'],
-            'parent_id' => ['nullable'],
+            'parent_id' => ['required', 'exists:stories,id'],
+            'display_direction' => ['nullable'],
+            'display_neighbor' => ['nullable'],
         ];
     }
 }

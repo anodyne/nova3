@@ -15,11 +15,16 @@ use Nova\Stories\Models\Builders\StoryBuilder;
 use Nova\Stories\Models\States\CurrentToUpcoming;
 use Nova\Stories\Models\States\UpcomingToCurrent;
 use Nova\Stories\Models\States\CurrentToCompleted;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
-class Story extends Model
+class Story extends Model implements HasMedia
 {
+    use HasMediaTrait;
     use HasStates;
     use NodeTrait;
+
+    public const MEDIA_DIRECTORY = 'stories/{model_id}/{media_id}/';
 
     protected $table = 'stories';
 
@@ -58,6 +63,12 @@ class Story extends Model
     public function newEloquentBuilder($query): StoryBuilder
     {
         return new StoryBuilder($query);
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('story-images')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif']);
     }
 
     protected function registerStates(): void

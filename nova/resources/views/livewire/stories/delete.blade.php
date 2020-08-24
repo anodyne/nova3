@@ -48,12 +48,12 @@
                             @if (! $loop->first)
                                 @if (data_get($actions, "{$story->id}.story.action") === 'move')
                                     <x-input.group label="Move this story to:">
-                                        <select class="form-select" wire:change="trackStoryAction({{ $story->id }}, 'move', $event.target.value)">
+                                        <x-input.select wire:change="trackStoryAction({{ $story->id }}, 'move', $event.target.value)">
                                             <option value="">Choose a story</option>
                                             @foreach ($this->getStoriesForMovingStories($story->id) as $moveStoriesStory)
-                                            <option value="{{ $moveStoriesStory->id }}" @if(data_get($actions, "{$story->id}.story.actionId") === $moveStoriesStory->id) selected @endif>{{ $moveStoriesStory->title }}</option>
+                                                <option value="{{ $moveStoriesStory->id }}" @if(data_get($actions, "{$story->id}.story.actionId") === $moveStoriesStory->id) selected @endif>{{ $moveStoriesStory->title }}</option>
                                             @endforeach
-                                        </select>
+                                        </x-input.select>
                                     </x-input.group>
                                 @endif
                             @endif
@@ -96,12 +96,12 @@
 
                             @if (data_get($actions, "{$story->id}.posts.action") === 'move')
                                 <x-input.group label="Move this story's posts to:">
-                                    <select name="" class="form-select" wire:change="trackPostsAction({{ $story->id }}, 'move', $event.target.value)">
+                                    <x-input.select wire:change="trackPostsAction({{ $story->id }}, 'move', $event.target.value)">
                                         <option value="">Choose a story</option>
                                         @foreach ($this->getStoriesForMovingPosts($story->id) as $movePostsStory)
-                                        <option value="{{ $movePostsStory->id }}" @if(data_get($actions, "{$story->id}.posts.actionId") === $movePostsStory->id) selected @endif>{{ $movePostsStory->title }}</option>
+                                            <option value="{{ $movePostsStory->id }}" @if(data_get($actions, "{$story->id}.posts.actionId") === $movePostsStory->id) selected @endif>{{ $movePostsStory->title }}</option>
                                         @endforeach
-                                    </select>
+                                    </x-input.select>
                                 </x-input.group>
                             @endif
                         </div>
@@ -120,87 +120,6 @@
                 </div>
             </div>
         </x-panel>
-
-    {{-- <x-form.section
-        :title="$story->title"
-        :message="$story->description"
-        x-data="{ storyAction: 'delete', postsAction: 'move' }"
-        wire:key="{{ $loop->index }}"
-        >
-        @if (! $loop->first)
-        <x-input.group>
-            <x-input.radio
-            label="Delete this story"
-            for="delete-story-{{ $story->id }}"
-            name="story_action[{{ $story->id }}]"
-            id="delete-story-{{ $story->id }}"
-            value="delete"
-            :checked="data_get($actions, $story->id.'.story.action') === 'delete'"
-            wire:click="trackStoryAction({{ $story->id }}, 'delete')"
-            />
-
-            <span class="ml-6">
-                <x-input.radio
-                label="Move this story"
-                for="move-story-{{ $story->id }}"
-                name="story_action[{{ $story->id }}]"
-                id="move-story-{{ $story->id }}"
-                value="move"
-                :checked="data_get($actions, $story->id.'.story.action') === 'move'"
-                wire:click="trackStoryAction({{ $story->id }}, 'move')"
-                />
-            </span>
-        </x-input.group>
-
-        @if (data_get($actions, "{$story->id}.story.action") === 'move')
-        <x-input.group label="Move this story to:">
-            <select class="form-select" wire:change="trackStoryAction({{ $story->id }}, 'move', $event.target.value)">
-                <option value="">Choose a story</option>
-                @foreach ($this->getStoriesForMovingStories($story->id) as $moveStoriesStory)
-                <option value="{{ $moveStoriesStory->id }}" @if(data_get($actions, "{$story->id}.story.actionId") === $moveStoriesStory->id) selected @endif>{{ $moveStoriesStory->title }}</option>
-                @endforeach
-            </select>
-        </x-input.group>
-        @endif
-        @endif
-
-        @if (data_get($actions, "{$story->id}.story.action") === 'delete')
-        <x-input.group>
-            <x-input.radio
-            label="Delete this story's posts"
-            for="delete-posts-{{ $story->id }}"
-            name="posts_action[{{ $story->id }}]"
-            id="delete-posts-{{ $story->id }}"
-            value="delete"
-            :checked="data_get($actions, $story->id.'.posts.action') === 'delete'"
-            wire:click="trackPostsAction({{ $story->id }}, 'delete')"
-            />
-
-            <span class="ml-6">
-                <x-input.radio
-                label="Move this story's posts"
-                for="move-posts-{{ $story->id }}"
-                name="posts_action[{{ $story->id }}]"
-                id="move-posts-{{ $story->id }}"
-                value="move"
-                :checked="data_get($actions, $story->id.'.posts.action') === 'move'"
-                wire:click="trackPostsAction({{ $story->id }}, 'move')"
-                />
-            </span>
-        </x-input.group>
-
-        @if (data_get($actions, "{$story->id}.posts.action") === 'move')
-        <x-input.group label="Move this story's posts to:">
-            <select name="" class="form-select" wire:change="trackPostsAction({{ $story->id }}, 'move', $event.target.value)">
-                <option value="">Choose a story</option>
-                @foreach ($this->getStoriesForMovingPosts($story->id) as $movePostsStory)
-                <option value="{{ $movePostsStory->id }}" @if(data_get($actions, "{$story->id}.posts.actionId") === $movePostsStory->id) selected @endif>{{ $movePostsStory->title }}</option>
-                @endforeach
-            </select>
-        </x-input.group>
-        @endif
-        @endif
-    </x-form.section> --}}
     @endforeach
 
     <input type="hidden" name="actions" value="{{ json_encode($actions) }}">

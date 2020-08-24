@@ -153,12 +153,12 @@
                 </x-input.group>
 
                 <x-input.group label="Restrict posting" help="You can set a specific role a user must have in order to use certain post types.">
-                    <select name="roles" id="roles" class="form-select w-full | md:w-2/3">
+                    <x-input.select name="roles" id="roles" class="w-full | md:w-2/3">
                         <option value="">No role restrictions</option>
                         @foreach ($roles as $role)
                             <option value="{{ $role->id }}">{{ $role->display_name }}</option>
                         @endforeach
-                    </select>
+                    </x-input.select>
                 </x-input.group>
             </x-form.section>
 

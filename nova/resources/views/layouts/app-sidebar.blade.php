@@ -248,7 +248,7 @@
 
                     <x-dropdown placement="bottom-end" class="ml-4">
                         <x-slot name="trigger">
-                            <x-avatar size="xs" :url="auth()->user()->avatar_url" :tooltip="auth()->user()->name" />
+                            <x-avatar size="xs" :src="auth()->user()->avatar_url" :tooltip="auth()->user()->name" />
                         </x-slot>
 
                         <button class="{{ $component->link() }}" form="logout-form" role="menuitem">

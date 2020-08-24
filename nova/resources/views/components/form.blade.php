@@ -1,5 +1,6 @@
 @props([
     'action',
+    'footer' => false,
     'method' => 'POST',
 ])
 
@@ -15,5 +16,7 @@
         @method($method)
     @endif
 
-    {{ $slot }}
+    <div class="divide-y divide-gray-100 space-y-4 | md:space-y-8">
+        {{ $slot }}
+    </div>
 </form>

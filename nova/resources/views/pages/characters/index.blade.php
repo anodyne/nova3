@@ -121,7 +121,7 @@
                         <div class="min-w-0 flex-1 flex items-center">
                             <div class="min-w-0 flex-1 pr-4 | md:grid md:grid-cols-2 md:gap-4">
                                 <div>
-                                    <x-avatar-meta :url="$character->avatar_url">
+                                    <x-avatar-meta :src="$character->avatar_url">
                                         <x-slot name="primaryMeta">
                                             {{ optional(optional($character->rank)->name)->name }}
                                             {{ $character->name }}

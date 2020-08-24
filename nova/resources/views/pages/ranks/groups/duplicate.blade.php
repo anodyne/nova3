@@ -5,11 +5,11 @@
         </x-input.group>
 
         <x-input.group label="New Base Image" for="base_image">
-            <select name="base_image" id="base_image" class="form-select w-full">
+            <x-input.select name="base_image" id="base_image" class="w-full">
                 @foreach ($baseImages as $baseImage)
                     <option value="{{ $baseImage }}">{{ $baseImage }}</option>
                 @endforeach
-            </select>
+            </x-input.select>
         </x-input.group>
     </div>
 </x-form>

@@ -1,3 +1,3 @@
-<div class="field-group">
-    <textarea class="field" {{ $attributes->merge(['rows' => 5]) }}>{{ $slot }}</textarea>
-</div>
+<x-input.field>
+    <textarea class="form-field" {{ $attributes->merge(['rows' => 5]) }}>{{ $slot }}</textarea>
+</x-input.field>

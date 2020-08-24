@@ -12,12 +12,16 @@ class CreateStoryManager
 
     protected UpdateStoryStatus $updateStatus;
 
+    protected UploadStoryImages $uploadImages;
+
     public function __construct(
         CreateStory $createStory,
-        UpdateStoryStatus $updateStatus
+        UpdateStoryStatus $updateStatus,
+        UploadStoryImages $uploadImages
     ) {
         $this->createStory = $createStory;
         $this->updateStatus = $updateStatus;
+        $this->uploadImages = $uploadImages;
     }
 
     public function execute(Request $request): Story
@@ -28,6 +32,8 @@ class CreateStoryManager
         );
 
         // $this->updateStatus->execute($story, $data);
+
+        $this->uploadImages->execute($story, $request->images);
 
         return $story->refresh();
     }

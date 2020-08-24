@@ -33,7 +33,7 @@
                 @foreach ($item->characters as $character)
                     <div class="group flex items-center justify-between w-full py-2 px-4 rounded odd:bg-gray-100">
                         <div class="flex items-center">
-                            <x-avatar-meta size="lg" :url="$character->avatar_url">
+                            <x-avatar-meta size="lg" :src="$character->avatar_url">
                                 <x-slot name="primaryMeta">
                                     <x-status :status="$character->status" />
                                     <span class="ml-2">{{ $character->name }}</span>

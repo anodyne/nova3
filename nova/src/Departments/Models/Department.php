@@ -52,7 +52,7 @@ class Department extends Model implements HasMedia
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('header')
+        $this->addMediaCollection('department-header')
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif'])
             ->singleFile();
     }

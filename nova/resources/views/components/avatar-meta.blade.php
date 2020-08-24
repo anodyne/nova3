@@ -1,5 +1,5 @@
 @props([
-    'url',
+    'src',
     'tooltip' => '',
     'size' => 'md',
     'primaryMeta' => '',
@@ -7,7 +7,7 @@
 ])
 
 <div class="inline-flex items-center">
-    <x-avatar :url="$url" :tooltip="$tooltip" :size="$size" />
+    <x-avatar :src="$src" :tooltip="$tooltip" :size="$size" />
 
     @if ($primaryMeta || $secondaryMeta)
         <div class="flex flex-col ml-4">

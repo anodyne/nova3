@@ -75,7 +75,7 @@ class CreateStoryActionTest extends TestCase
         $data = new StoryData([
             'title' => 'Story Title',
             'displayDirection' => 'before',
-            'displayStoryId' => $firstStory->id,
+            'displayNeighbor' => $firstStory->id,
         ]);
 
         $story = $this->action->execute($data);
@@ -100,7 +100,7 @@ class CreateStoryActionTest extends TestCase
         $data = new StoryData([
             'title' => 'Story Title',
             'displayDirection' => 'after',
-            'displayStoryId' => $firstStory->id,
+            'displayNeighbor' => $firstStory->id,
         ]);
 
         $story = $this->action->execute($data);
@@ -132,7 +132,7 @@ class CreateStoryActionTest extends TestCase
             'title' => 'Story Title',
             'parent_id' => $firstStory->id,
             'displayDirection' => 'before',
-            'displayStoryId' => $secondStory->id,
+            'displayNeighbor' => $secondStory->id,
         ]);
 
         $story = $this->action->execute($data);
@@ -166,7 +166,7 @@ class CreateStoryActionTest extends TestCase
             'title' => 'Story Title',
             'parent_id' => $firstStory->id,
             'displayDirection' => 'after',
-            'displayStoryId' => $secondStory->id,
+            'displayNeighbor' => $secondStory->id,
         ]);
 
         $story = $this->action->execute($data);
