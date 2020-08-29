@@ -4,17 +4,16 @@ namespace Nova\Stories\Actions;
 
 use Nova\Stories\Models\Story;
 use Nova\Stories\Models\States\Current;
-use Nova\Stories\DataTransferObjects\StoryData;
 
 class UpdateStoryStatus
 {
-    public function execute(Story $story, StoryData $data): Story
+    public function execute(Story $story, $status): Story
     {
-        if ($data->status === 'current') {
+        if ($status === 'current') {
             $story->status->transitionTo(Current::class);
         }
 
-        if ($data->status === 'completed') {
+        if ($status === 'completed') {
             $story->status->transitionTo(Completed::class);
         }
 

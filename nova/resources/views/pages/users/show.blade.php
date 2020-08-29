@@ -8,7 +8,7 @@
 
         <x-slot name="controls">
             @can('update', $user)
-                <a href="{{ route('users.edit', $user) }}" class="button button-primary">Edit User</a>
+                <x-button-link :href="route('users.edit', $user)" color="blue">Edit User</x-button-link>
             @endcan
         </x-slot>
     </x-page-header>

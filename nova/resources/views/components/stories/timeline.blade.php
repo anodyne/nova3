@@ -22,7 +22,7 @@
                                         <span>View</span>
                                     </a>
 
-                                    <a href="#" class="{{ $component->link() }}">
+                                    <a href="{{ route('stories.edit', $story) }}" class="{{ $component->link() }}">
                                         @icon('edit', $component->icon())
                                         <span>Edit</span>
                                     </a>

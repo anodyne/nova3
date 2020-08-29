@@ -2,10 +2,12 @@
     'value' => false,
 ])
 
-<div class="field-group" x-data="{ value: '{{ $value }}' }">
-    <button type="button" class="field-addon" x-on:click.prevent="value--">
-        @icon('remove-alt', 'h-6 w-6')
-    </button>
+<x-input.field x-data="{ value: '{{ $value }}' }">
+    <x-slot name="leadingAddOn">
+        <button type="button" class="focus:outline-none" x-on:click.prevent="value--">
+            @icon('remove-alt', 'h-6 w-6')
+        </button>
+    </x-slot>
 
     <input
         x-model="value"
@@ -16,7 +18,9 @@
         {{ $attributes->merge(['step' => 1]) }}
     >
 
-    <button type="button" class="field-addon" x-on:click.prevent="value++">
-        @icon('add-alt', 'h-6 w-6')
-    </button>
-</div>
+    <x-slot name="trailingAddOn">
+        <button type="button" class="focus:outline-none" x-on:click.prevent="value++">
+            @icon('add-alt', 'h-6 w-6')
+        </button>
+    </x-slot>
+</x-input.field>

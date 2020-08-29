@@ -60,9 +60,8 @@
             </x-form.section>
 
             <x-form.footer>
-                <button type="submit" class="button button-primary">Update Theme</button>
-
-                <a href="{{ route('themes.index') }}" class="button">Cancel</a>
+                <x-button type="submit" color="blue">Update Theme</x-button>
+                <x-button-link :href="route('themes.index')" color="white">Cancel</x-button-link>
             </x-form.footer>
         </x-form>
     </x-panel>

@@ -31,9 +31,9 @@ class CreateStoryManager
             $request
         );
 
-        // $this->updateStatus->execute($story, $data);
+        $this->updateStatus->execute($story, $request->status);
 
-        $this->uploadImages->execute($story, $request->images);
+        $this->uploadImages->execute($story, $request->image_path);
 
         return $story->refresh();
     }

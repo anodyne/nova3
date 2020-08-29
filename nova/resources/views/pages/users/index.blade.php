@@ -11,9 +11,9 @@
 
         <x-slot name="controls">
             @can('create', 'Nova\Users\Models\User')
-                <a href="{{ route('users.create') }}" class="button button-primary" data-cy="create">
+                <x-button-link :href="route('users.create')" color="blue" data-cy="create">
                     Add User
-                </a>
+                </x-button-link>
             @endcan
         </x-slot>
     </x-page-header>

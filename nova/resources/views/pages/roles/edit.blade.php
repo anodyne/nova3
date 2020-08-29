@@ -65,8 +65,8 @@
             </x-form.section>
 
             <x-form.footer>
-                <button type="submit" class="button button-primary">Update Role</button>
-                <a href="{{ route('roles.index') }}" class="button">Cancel</a>
+                <x-button type="submit" color="blue">Update Role</x-button>
+                <x-button-link href="{{ route('roles.index') }}" color="white">Cancel</x-button-link>
             </x-form.footer>
 
             <input type="hidden" name="id" value="{{ $role->id }}">

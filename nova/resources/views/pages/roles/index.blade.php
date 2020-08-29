@@ -10,9 +10,9 @@
             @endcan
 
             @can('create', 'Nova\Roles\Models\Role')
-                <a href="{{ route('roles.create') }}" class="button button-primary" data-cy="create">
+                <x-button-link href="{{ route('roles.create') }}" color="blue" data-cy="create">
                     Add Role
-                </a>
+                </x-button-link>
             @endcan
         </x-slot>
     </x-page-header>
@@ -33,10 +33,10 @@
                             <p class="mt-4">Top roles have the greatest privileges &ndash; place the most important roles with the highest potential impact higher on the list, to ensure users can't gain unwanted access to areas of Nova.</p>
                         </div>
                         <div class="mt-4">
-                            <x-form :action="route('roles.reorder')" id="form-reorder">
+                            <x-form :action="route('roles.reorder')" id="form-reorder" :divide="false">
                                 <input type="hidden" name="sort" x-model="newSortOrder">
                                 <div class="flex items-center space-x-4">
-                                    <button type="submit" form="form-reorder" class="button button-info">Save Sort Order</button>
+                                    <x-button type="submit" form="form-reorder" color="purple">Save Sort Order</x-button>
                                     <a href="{{ route('roles.index') }}" class="text-info-600 text-sm font-medium transition ease-in-out duration-150 hover:text-info-800">
                                         Cancel
                                     </a>

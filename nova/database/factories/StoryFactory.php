@@ -16,6 +16,18 @@ $factory->define(Story::class, function (Faker $faker) {
     ];
 });
 
+$factory->state(Story::class, 'status:upcoming', [
+    'status' => Upcoming::class,
+]);
+
+$factory->state(Story::class, 'status:current', [
+    'status' => Current::class,
+]);
+
+$factory->state(Story::class, 'status:completed', [
+    'status' => Completed::class,
+]);
+
 $factory->state(Story::class, 'with:start', function (Faker $faker) {
     return [
         'start_date' => $faker->date(),

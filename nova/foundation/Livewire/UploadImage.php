@@ -1,11 +1,11 @@
 <?php
 
-namespace Nova\Departments\Livewire;
+namespace Nova\Foundation\Livewire;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-class UploadDepartmentHeaderImage extends Component
+class UploadImage extends Component
 {
     use WithFileUploads;
 
@@ -24,6 +24,6 @@ class UploadDepartmentHeaderImage extends Component
 
     public function render()
     {
-        return view('livewire.departments.upload-header-image');
+        return view('livewire.upload-image');
     }
 }

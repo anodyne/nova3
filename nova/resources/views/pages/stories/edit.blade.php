@@ -1,21 +1,21 @@
 @extends($__novaTemplate)
 
 @section('content')
-    <x-page-header title="Add Story">
+    <x-page-header :title="$story->title">
         <x-slot name="pretitle">
             <a href="{{ route('stories.index') }}">Stories</a>
         </x-slot>
     </x-page-header>
 
     <x-panel>
-        <x-form :action="route('stories.store')">
+        <x-form :action="route('stories.update', $story)" method="PUT">
             <x-form.section title="Story Info">
                 <x-input.group label="Title" for="title" :error="$errors->first('title')">
-                    <x-input.text id="title" name="title" data-cy="title" :value="old('title')" />
+                    <x-input.text id="title" name="title" data-cy="title" :value="old('title', $story->title)" />
                 </x-input.group>
 
                 <x-input.group label="Description" for="description">
-                    <x-input.textarea id="description" name="description" data-cy="description" rows="10">{{ old('description') }}</x-input.textarea>
+                    <x-input.textarea id="description" name="description" data-cy="description" rows="10">{{ old('description', $story->description) }}</x-input.textarea>
                 </x-input.group>
             </x-form.section>
 
@@ -32,7 +32,7 @@
                     <x-input.field>
                         <x-slot name="leadingAddOn">@icon('calendar')</x-slot>
 
-                        <x-ui-pikaday name="start_date" id="start_date" format="YYYY-MM-DD" :value="old('start_date', '')" class="form-field w-full | md:w-1/2" />
+                        <x-ui-pikaday name="start_date" id="start_date" format="YYYY-MM-DD" :value="old('start_date', $story->start_date ?? '')" class="form-field w-full | md:w-1/2" />
                     </x-input.field>
                 </x-input.group>
 
@@ -40,14 +40,14 @@
                     <x-input.field>
                         <x-slot name="leadingAddOn">@icon('calendar')</x-slot>
 
-                        <x-ui-pikaday name="end_date" id="end_date" format="YYYY-MM-DD" :value="old('end_date', '')" class="form-field" />
+                        <x-ui-pikaday name="end_date" id="end_date" format="YYYY-MM-DD" :value="old('end_date', $story->end_date ?? '')" class="form-field" />
                     </x-input.field>
                 </x-input.group>
             </x-form.section>
 
             <x-form.section title="Story Hierarchy" message="Stories can be organized inside any story on the timeline and then ordered within the parent story in whatever order you'd like.">
                 @livewire('stories:hierarchy', [
-                    'parentId' => old('parent_id', 1),
+                    'parentId' => old('parent_id', $story->parent_id),
                     'direction' => old('direction', request()->direction ?? 'after'),
                     'neighbor' => old('neighbor', request()->neighbor)
                 ])
@@ -59,15 +59,13 @@
 
             <x-form.section>
                 <x-input.group label="Story Summary">
-                    <x-input.rich-text name="summary" :initial-value="old('summary')" />
+                    <x-input.rich-text name="summary" :initial-value="old('summary', $story->summary)" />
                 </x-input.group>
             </x-form.section>
 
             <x-form.footer>
-                <x-button type="submit" color="blue">Add Story</x-button>
-                <x-button-link :href="route('stories.index')" type="button" color="white">Cancel</x-button-link>
-                {{-- <button type="submit" class="button button-primary">Add Story</button> --}}
-                {{-- <a href="{{ route('stories.index') }}" class="button">Cancel</a> --}}
+                <button type="submit" class="button button-primary">Update Story</button>
+                <a href="{{ route('stories.index') }}" class="button">Cancel</a>
             </x-form.footer>
         </x-form>
     </x-panel>

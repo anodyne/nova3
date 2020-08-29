@@ -10,13 +10,14 @@ use Illuminate\Database\Eloquent\Model;
 use Nova\Stories\Models\States\Current;
 use Nova\Stories\Models\States\Upcoming;
 use Nova\Stories\Models\States\Completed;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Nova\Stories\Models\States\StoryStatus;
 use Nova\Stories\Models\Builders\StoryBuilder;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Nova\Stories\Models\States\CurrentToUpcoming;
 use Nova\Stories\Models\States\UpcomingToCurrent;
 use Nova\Stories\Models\States\CurrentToCompleted;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Nova\Stories\Models\States\UpcomingToCompleted;
 
 class Story extends Model implements HasMedia
 {
@@ -68,7 +69,8 @@ class Story extends Model implements HasMedia
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('story-images')
-            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif']);
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif'])
+            ->singleFile();
     }
 
     protected function registerStates(): void
@@ -76,6 +78,7 @@ class Story extends Model implements HasMedia
         $this->addState('status', StoryStatus::class)
             ->allowTransitions([
                 [Upcoming::class, Current::class, UpcomingToCurrent::class],
+                [Upcoming::class, Completed::class, UpcomingToCompleted::class],
                 [Current::class, Upcoming::class, CurrentToUpcoming::class],
                 [Current::class, Completed::class, CurrentToCompleted::class],
             ])

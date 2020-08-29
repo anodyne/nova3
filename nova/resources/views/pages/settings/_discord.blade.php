@@ -17,13 +17,13 @@
                     <x-input.toggle field="storyPosts[enabled]" :value="$settings->discord->storyPostsEnabled" />
                 </div>
             </div>
-            <div x-show="storyPosts" class="mt-6 px-6">
+            <div x-show="storyPosts" class="mt-6 px-6 space-y-8">
                 <x-input.group label="Discord Webhook" for="storyPosts[webhook]" :error="$errors->first('storyPosts[webhook]')">
                     <x-slot name="help">
-                        <ol class="list-inside list-decimal leading-6 ml-0.5">
+                        <ol class="list-inside list-decimal ml-0.5 text-gray-500 space-y-1 text-sm">
                             <li>From your Discord server, go to Server Settings > Webhooks</li>
-                            <li>Create a new webhook and specify the channel any notifications should be sent to</li>
-                            <li>After your webhook has been created, copy the webhook URL and paste it above</li>
+                            <li>Create a new webhook and enter the channel notifications should be sent to</li>
+                            <li>Copy the webhook URL and paste it above</li>
                         </ol>
                     </x-slot>
 
@@ -31,7 +31,7 @@
                 </x-input.group>
 
                 <x-input.group label="Accent Color" for="storyPosts[color]" help="You can set the accent color used for all story post notifications.">
-                    <input type="color" id="storyPosts[color]" name="storyPosts[color]" class="w-full rounded | md:w-1/4" value="{{ $settings->discord->storyPostsColor }}">
+                    <x-ui-color-picker name="color" id="color" :value="old('storyPosts[color]', $settings->discord->storyPostsColor)" />
                 </x-input.group>
             </div>
         </div>
@@ -56,13 +56,21 @@
                     />
                 </div>
             </div>
-            <div x-show="applications" class="mt-8 px-6">
-                <x-input.group label="Discord Webhook" help="Discord webhooks are set from your Server Settings and allow Nova to send messages to a specific channel. Ensure that the channel you set your webhook up for is the one you want to receive these kinds of notifications.">
-                    <x-input.text placeholder="Webhook URL" />
+            <div x-show="applications" class="mt-8 px-6 space-y-8">
+                <x-input.group label="Discord Webhook">
+                    <x-slot name="help">
+                        <ol class="list-inside list-decimal ml-0.5 text-gray-500 space-y-1 text-sm">
+                            <li>From your Discord server, go to Server Settings > Webhooks</li>
+                            <li>Create a new webhook and enter the channel notifications should be sent to</li>
+                            <li>Copy the webhook URL and paste it above</li>
+                        </ol>
+                    </x-slot>
+
+                    <x-input.text placeholder="https://discordapp.com/api/webhooks/..." />
                 </x-input.group>
 
-                <x-input.group label="Message Color" help="You can set a color that you want to use for all application notifications.">
-                    <input type="color">
+                <x-input.group label="Accent Color" help="You can set the accent color used for all story post notifications.">
+                    <x-ui-color-picker name="color" id="color" :value="old('storyPosts[color]', $settings->discord->storyPostsColor)" />
                 </x-input.group>
             </div>
         </div>

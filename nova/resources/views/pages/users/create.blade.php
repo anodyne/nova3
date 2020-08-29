@@ -46,9 +46,11 @@
                     <p>Roles are a collection of the actions a user can take throughout Nova. A user can be assigned as many roles as you'd like, giving you more granular control over what users can do.</p>
 
                     @can('viewAny', 'Nova\Roles\Models\Role')
-                        <a href="{{ route('roles.index') }}" class="button button-soft button-sm mt-6">
-                            Manage roles
-                        </a>
+                        <div class="mt-6">
+                            <x-button-link href="{{ route('roles.index') }}" color="white" size="xs">
+                                Manage roles
+                            </x-button-link>
+                        </div>
                     @endcan
                 </x-slot>
 
