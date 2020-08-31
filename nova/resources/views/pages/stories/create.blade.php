@@ -22,9 +22,11 @@
             <x-form.section title="Story Status & Dates" message="Setting the status of a story lets you control the stories that players are able to write within. You can have as many currently running stories as you want. If you have more than 1 current story, players will be given the option to choose which story they want to write their post within.">
                 <x-input.group label="Status">
                     <x-input.select name="status" id="status">
-                        <option value="upcoming">Upcoming</option>
-                        <option value="current">Current</option>
-                        <option value="completed">Completed</option>
+                        @foreach (['upcoming', 'current', 'completed'] as $status)
+                            <option value="{{ $status }}" @if (old('status') === $status) selected @endif>
+                                {{ ucfirst($status) }}
+                            </option>
+                        @endforeach
                     </x-input.select>
                 </x-input.group>
 
@@ -49,7 +51,8 @@
                 @livewire('stories:hierarchy', [
                     'parentId' => old('parent_id', 1),
                     'direction' => old('direction', request()->direction ?? 'after'),
-                    'neighbor' => old('neighbor', request()->neighbor)
+                    'neighbor' => old('neighbor', request()->neighbor),
+                    'hasPositionChange' => true,
                 ])
             </x-form.section>
 

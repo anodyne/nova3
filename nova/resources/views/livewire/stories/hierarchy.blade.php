@@ -12,14 +12,14 @@
             <x-input.field>
                 <x-slot name="leadingAddOn">
                     <select name="display_direction" id="display_direction" aria-label="Display Order" class="form-select h-full py-0 border-none bg-transparent text-gray-500 -ml-3 focus:outline-none focus:shadow-none | sm:text-sm" wire:model="direction">
-                        <option value="before" @if ($direction === 'before') selected @endif>Before</option>
-                        <option value="after" @if ($direction === 'after') selected @endif>After</option>
+                        <option value="before">Before</option>
+                        <option value="after">After</option>
                     </select>
                 </x-slot>
 
                 <select name="display_neighbor" id="display_neighbor" class="form-select h-full w-full py-0 border-none bg-transparent focus:outline-none focus:shadow-none" wire:model="neighbor">
                     @foreach ($orderStories as $orderStory)
-                        <option value="{{ $orderStory->id }}" @if ($neighbor == $orderStory->id) selected @endif>{{ $orderStory->title }}</option>
+                        <option value="{{ $orderStory->id }}">{{ $orderStory->title }}</option>
                     @endforeach
                 </select>
             </x-input.field>
@@ -30,4 +30,6 @@
             </div>
         @endif
     </x-input.group>
+
+    <input type="hidden" name="has_position_change" value="{{ $hasPositionChange ? '1' : '0' }}">
 </div>

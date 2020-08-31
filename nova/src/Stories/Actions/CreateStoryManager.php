@@ -5,10 +5,13 @@ namespace Nova\Stories\Actions;
 use Illuminate\Http\Request;
 use Nova\Stories\Models\Story;
 use Nova\Stories\DataTransferObjects\StoryData;
+use Nova\Stories\DataTransferObjects\StoryPositionData;
 
 class CreateStoryManager
 {
     protected CreateStory $createStory;
+
+    protected SetStoryPosition $setStoryPosition;
 
     protected UpdateStoryStatus $updateStatus;
 
@@ -17,9 +20,11 @@ class CreateStoryManager
     public function __construct(
         CreateStory $createStory,
         UpdateStoryStatus $updateStatus,
-        UploadStoryImages $uploadImages
+        UploadStoryImages $uploadImages,
+        SetStoryPosition $setStoryPosition
     ) {
         $this->createStory = $createStory;
+        $this->setStoryPosition = $setStoryPosition;
         $this->updateStatus = $updateStatus;
         $this->uploadImages = $uploadImages;
     }
@@ -27,8 +32,13 @@ class CreateStoryManager
     public function execute(Request $request): Story
     {
         $story = $this->createStory->execute(
-            $data = StoryData::fromRequest($request),
+            StoryData::fromRequest($request),
             $request
+        );
+
+        $this->setStoryPosition->execute(
+            $story,
+            StoryPositionData::fromRequest($request)
         );
 
         $this->updateStatus->execute($story, $request->status);

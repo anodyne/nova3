@@ -16,7 +16,9 @@ use Nova\Stories\Models\Builders\StoryBuilder;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Nova\Stories\Models\States\CurrentToUpcoming;
 use Nova\Stories\Models\States\UpcomingToCurrent;
+use Nova\Stories\Models\States\CompletedToCurrent;
 use Nova\Stories\Models\States\CurrentToCompleted;
+use Nova\Stories\Models\States\CompletedToUpcoming;
 use Nova\Stories\Models\States\UpcomingToCompleted;
 
 class Story extends Model implements HasMedia
@@ -79,8 +81,12 @@ class Story extends Model implements HasMedia
             ->allowTransitions([
                 [Upcoming::class, Current::class, UpcomingToCurrent::class],
                 [Upcoming::class, Completed::class, UpcomingToCompleted::class],
+
                 [Current::class, Upcoming::class, CurrentToUpcoming::class],
                 [Current::class, Completed::class, CurrentToCompleted::class],
+
+                [Completed::class, Upcoming::class, CompletedToUpcoming::class],
+                [Completed::class, Current::class, CompletedToCurrent::class],
             ])
             ->default(Upcoming::class);
     }

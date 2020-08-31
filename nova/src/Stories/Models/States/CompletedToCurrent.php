@@ -5,7 +5,7 @@ namespace Nova\Stories\Models\States;
 use Nova\Stories\Models\Story;
 use Spatie\ModelStates\Transition;
 
-class UpcomingToCompleted extends Transition
+class CompletedToCurrent extends Transition
 {
     protected $story;
 
@@ -16,9 +16,8 @@ class UpcomingToCompleted extends Transition
 
     public function handle(): Story
     {
-        $this->story->status = Completed::class;
-        $this->story->start_date = now();
-        $this->story->end_date = now();
+        $this->story->status = Current::class;
+        $this->story->end_date = null;
         $this->story->save();
 
         return $this->story->refresh();

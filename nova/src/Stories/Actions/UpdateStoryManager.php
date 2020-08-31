@@ -5,10 +5,11 @@ namespace Nova\Stories\Actions;
 use Illuminate\Http\Request;
 use Nova\Stories\Models\Story;
 use Nova\Stories\DataTransferObjects\StoryData;
+use Nova\Stories\DataTransferObjects\StoryPositionData;
 
 class UpdateStoryManager
 {
-    protected SetStorySort $setStorySort;
+    protected SetStoryPosition $setStoryPosition;
 
     protected UpdateStory $updateStory;
 
@@ -20,9 +21,9 @@ class UpdateStoryManager
         UpdateStory $updateStory,
         UpdateStoryStatus $updateStatus,
         UploadStoryImages $uploadImages,
-        SetStorySort $setStorySort
+        SetStoryPosition $setStoryPosition
     ) {
-        $this->setStorySort = $setStorySort;
+        $this->setStoryPosition = $setStoryPosition;
         $this->updateStory = $updateStory;
         $this->updateStatus = $updateStatus;
         $this->uploadImages = $uploadImages;
@@ -32,14 +33,17 @@ class UpdateStoryManager
     {
         $story = $this->updateStory->execute(
             $story,
-            $data = StoryData::fromRequest($request)
+            StoryData::fromRequest($request)
         );
 
-        $this->setStorySort->execute($story, $data);
+        $this->setStoryPosition->execute(
+            $story,
+            StoryPositionData::fromRequest($request)
+        );
 
-        // $this->updateStatus->execute($story, $request->status);
+        $this->updateStatus->execute($story, $request->status);
 
-        // $this->uploadImages->execute($story, $request->image_path);
+        $this->uploadImages->execute($story, $request->image_path);
 
         return $story->refresh();
     }

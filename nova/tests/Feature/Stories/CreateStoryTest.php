@@ -28,7 +28,6 @@ class CreateStoryTest extends TestCase
     /** @test **/
     public function authorizedUserCanCreateAStory()
     {
-        $this->withoutExceptionHandling();
         $this->signInWithPermission('story.create');
 
         $story = make(Story::class);

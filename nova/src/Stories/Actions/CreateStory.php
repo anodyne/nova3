@@ -22,12 +22,6 @@ class CreateStory
 
         $story->appendToNode($parentStory);
 
-        if ($data->displayDirection && $data->displayNeighbor) {
-            $method = "{$data->displayDirection}Node";
-
-            $story->{$method}(Story::find($data->displayNeighbor))->save();
-        }
-
         return $story;
     }
 }
