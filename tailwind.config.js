@@ -49,15 +49,15 @@ module.exports = {
     },
 
     variants: {
-        backgroundColor: ['responsive', 'group-hover', 'hover', 'group-focus', 'focus-within', 'focus', 'active', 'even', 'odd', 'dark', 'dark-group-hover', 'dark-hover', 'dark-focus-within', 'dark-focus', 'dark-even', 'dark-odd'],
-        borderColor: ['responsive', 'group-hover', 'hover', 'group-focus', 'focus-within', 'focus', 'dark', 'dark-hover', 'dark-group-hover', 'dark-focus-within', 'dark-focus'],
+        backgroundColor: ['responsive', 'group-hover', 'hover', 'group-focus', 'focus-within', 'focus', 'active', 'even', 'odd'],
+        borderColor: ['responsive', 'group-hover', 'hover', 'group-focus', 'focus-within', 'focus'],
         borderRadius: ['responsive', 'hover', 'focus', 'first', 'last'],
-        borderWidth: ['responsive', 'first', 'last', 'dark'],
+        borderWidth: ['responsive', 'first', 'last'],
         boxShadow: ['responsive', 'hover', 'focus', 'focus-within'],
         cursor: ['hover', 'group-hover', 'focus', 'focus-within', 'disabled'],
         margin: ['responsive', 'hover', 'focus', 'first', 'last'],
         opacity: ['responsive', 'hover', 'focus', 'disabled'],
-        textColor: ['responsive', 'group-hover', 'hover', 'group-focus', 'focus-within', 'focus', 'active', 'dark', 'dark-group-hover', 'dark-hover', 'dark-focus-within', 'dark-focus'],
+        textColor: ['responsive', 'group-hover', 'hover', 'group-focus', 'focus-within', 'focus', 'active', 'group-focus-within'],
         visibility: ['responsive', 'group-hover']
     },
 
@@ -67,7 +67,7 @@ module.exports = {
             layout: 'sidebar'
         }),
         require('@tailwindcss/typography'),
-        require('tailwindcss-dark-mode')()
+        require('tailwindcss-interaction-variants'),
         /* eslint-enable */
     ],
 

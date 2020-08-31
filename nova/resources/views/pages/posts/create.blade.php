@@ -37,21 +37,21 @@
                 <div class="flex flex-col space-y-8 text-gray-600 text-lg font-medium mt-8 | md:mt-4 md:flex-row md:items-center md:space-x-8 md:space-y-0">
                     @if ($postType->fields->day)
                         <div class="group flex items-center w-full space-x-2">
-                            @icon('calendar', 'h-5 w-5 text-gray-400 group-focus:text-gray-700')
+                            @icon('calendar', 'h-5 w-5 text-gray-400 group-focus-within:text-gray-600')
                             <input type="text" class="w-full bg-transparent appearance-none focus:outline-none text-base font-medium text-gray-700 placeholder-gray-400" placeholder="Add a day">
                         </div>
                     @endif
 
                     @if ($postType->fields->time)
                         <div class="group flex items-center w-full space-x-2">
-                            @icon('clock', 'h-5 w-5 text-gray-400 group-focus:text-gray-700')
+                            @icon('clock', 'h-5 w-5 text-gray-400 group-focus-within:text-gray-600')
                             <input type="text" class="w-full bg-transparent appearance-none focus:outline-none text-base font-medium text-gray-700 placeholder-gray-400" placeholder="Add a time">
                         </div>
                     @endif
 
                     @if ($postType->fields->location)
                     <div class="group flex items-center w-full space-x-2">
-                            @icon('location', 'h-5 w-5 text-gray-400 group-focus:text-gray-700')
+                            @icon('location', 'h-5 w-5 text-gray-400 group-focus-within:text-gray-600')
                             <input type="text" class="w-full bg-transparent appearance-none focus:outline-none text-base font-medium text-gray-700 placeholder-gray-400" placeholder="Add a location">
                         </div>
                     @endif

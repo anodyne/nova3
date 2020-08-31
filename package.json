@@ -25,7 +25,8 @@
         "resolve-url-loader": "^2.3.1",
         "sortablejs": "^1.10.2",
         "tailwindcss": "^1.2.0",
-        "tailwindcss-dark-mode": "^1.1.6"
+        "tailwindcss-dark-mode": "^1.1.6",
+        "tailwindcss-interaction-variants": "^5.0.0"
     },
     "devDependencies": {
         "cross-env": "^5.1",
