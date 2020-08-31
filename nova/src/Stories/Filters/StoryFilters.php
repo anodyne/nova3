@@ -22,6 +22,6 @@ class StoryFilters extends Filters
             return $this->builder->defaultOrder();
         }
 
-        return $this->builder->reversed();
+        return $this->builder->reorder()->reversed();
     }
 }

@@ -8,6 +8,8 @@ use Nova\Stories\DataTransferObjects\StoryData;
 
 class UpdateStoryManager
 {
+    protected SetStorySort $setStorySort;
+
     protected UpdateStory $updateStory;
 
     protected UpdateStoryStatus $updateStatus;
@@ -17,8 +19,10 @@ class UpdateStoryManager
     public function __construct(
         UpdateStory $updateStory,
         UpdateStoryStatus $updateStatus,
-        UploadStoryImages $uploadImages
+        UploadStoryImages $uploadImages,
+        SetStorySort $setStorySort
     ) {
+        $this->setStorySort = $setStorySort;
         $this->updateStory = $updateStory;
         $this->updateStatus = $updateStatus;
         $this->uploadImages = $uploadImages;
@@ -26,17 +30,16 @@ class UpdateStoryManager
 
     public function execute(Story $story, Request $request): Story
     {
-        // dd($request->all());
         $story = $this->updateStory->execute(
             $story,
             $data = StoryData::fromRequest($request)
         );
 
+        $this->setStorySort->execute($story, $data);
+
         // $this->updateStatus->execute($story, $request->status);
 
         // $this->uploadImages->execute($story, $request->image_path);
-
-        Story::rebuildTree([]);
 
         return $story->refresh();
     }

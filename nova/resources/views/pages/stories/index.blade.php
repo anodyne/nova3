@@ -4,12 +4,6 @@
     <x-page-header title="Stories">
         <x-slot name="controls">
             @if ($stories->count() > 0)
-                @can('update', $stories->first())
-                    <a href="{{ route('stories.index', 'reorder') }}" class="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150 mx-4">
-                        @icon('arrow-sort', 'h-6 w-6')
-                    </a>
-                @endcan
-
                 <x-dropdown placement="bottom-end" class="flex items-center mr-4 text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150 {{ request()->has('type') ? 'text-blue-500' : '' }}">
                     <x-slot name="trigger">@icon('filter', 'h-6 w-6')</x-slot>
 

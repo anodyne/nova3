@@ -67,7 +67,7 @@ class UpdateStoryActionTest extends TestCase
         $data = new StoryData([
             'title' => $this->story->title,
             'parent_id' => $this->story->parent_id,
-            'displayDirection' => 'after',
+            'displayDirection' => 'before',
             'displayNeighbor' => $firstStory->id,
         ]);
 
@@ -76,7 +76,7 @@ class UpdateStoryActionTest extends TestCase
         $firstStory->refresh();
 
         $this->assertEquals(1, $story->parent_id);
-        $this->assertEquals(2, $firstStory->_lft);
-        $this->assertEquals(4, $story->_lft);
+        $this->assertEquals(2, $story->_lft);
+        $this->assertEquals(4, $firstStory->_lft);
     }
 }
