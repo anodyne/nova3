@@ -53,8 +53,8 @@
 
                         <dt class="sr-only">Role</dt>
                         <dd class="mt-3 space-x-3">
-                            <x-badge size="sm" :type="$character->status->color()">{{ $character->status->displayName() }}</x-badge>
-                            <x-badge size="sm" :type="$character->type->color()">{{ $character->type->displayName() }}</x-badge>
+                            <x-badge size="xs" :color="$character->status->color()">{{ $character->status->displayName() }}</x-badge>
+                            <x-badge size="xs" :color="$character->type->color()">{{ $character->type->displayName() }}</x-badge>
                         </dd>
                     </dl>
                 </div>

@@ -20,6 +20,6 @@
     </x-form.section>
 
     <x-form.footer>
-        <button type="submit" form="defaults" class="button button-primary">Update Defaults</button>
+        <x-button type="submit" form="defaults" color="blue">Update Defaults</x-button>
     </x-form.footer>
 </x-form>

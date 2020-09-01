@@ -99,11 +99,11 @@
                 <li class="py-4">
                     <div class="text-center">
                         <div class="text-gray-500">There is no rank group named</div>
-                        <div class="text-gray-800 font-medium mt-1">&lsquo;{{ $query }}&rsquo;</div>
+                        <div class="text-gray-800 font-medium mt-1 mb-6">&lsquo;{{ $query }}&rsquo;</div>
 
-                        <button wire:click="createAndSelectGroup" type="button" class="mt-6 button button-primary">
+                        <x-button wire:click="createAndSelectGroup" type="button" color="blue">
                             Create this group
-                        </button>
+                        </x-button>
                     </div>
                 </li>
             @endforelse

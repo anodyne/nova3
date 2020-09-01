@@ -36,9 +36,8 @@
             </x-form.section>
 
             <x-form.footer>
-                <button type="submit" class="button button-primary">Add Character</button>
-
-                <a href="{{ route('characters.index', 'status=active') }}" class="button">Cancel</a>
+                <x-button type="submit" color="blue">Add Character</x-button>
+                <x-button-link :href="route('characters.index', 'status=active')" color="white">Cancel</x-button-link>
             </x-form.footer>
         </x-form>
     </x-panel>

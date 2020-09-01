@@ -163,9 +163,8 @@
             </x-form.section>
 
             <x-form.footer>
-                <button type="submit" class="button button-primary">Add Post Type</button>
-
-                <a href="{{ route('post-types.index') }}" class="button">Cancel</a>
+                <x-button type="submit" color="blue">Add Post Type</x-button>
+                <x-button-link :href="route('post-types.index')" color="white">Cancel</x-button-link>
             </x-form.footer>
         </x-form>
     </x-panel>

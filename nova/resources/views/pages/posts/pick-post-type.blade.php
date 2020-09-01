@@ -32,7 +32,7 @@
                                 </h3>
 
                                 @if ($postType->role)
-                                    <x-badge size="sm" class="mt-1">{{ $postType->role->display_name }}</x-badge>
+                                    <x-badge size="xs" color="gray" class="mt-1">{{ $postType->role->display_name }}</x-badge>
                                 @endif
                             </div>
                         </div>

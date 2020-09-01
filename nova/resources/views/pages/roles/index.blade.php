@@ -10,7 +10,7 @@
             @endcan
 
             @can('create', 'Nova\Roles\Models\Role')
-                <x-button-link href="{{ route('roles.create') }}" color="blue" data-cy="create">
+                <x-button-link :href="route('roles.create')" color="blue" data-cy="create">
                     Add Role
                 </x-button-link>
             @endcan
@@ -19,16 +19,16 @@
 
     <x-panel x-data="sortableList()" x-init="initSortable()">
         @if ($isReordering)
-            <div class="bg-info-100 border-t border-b border-info-200 p-4 | sm:rounded-t-md sm:border-t-0">
+            <div class="bg-purple-100 border-t border-b border-purple-200 p-4 | sm:rounded-t-md sm:border-t-0">
                 <div class="flex">
                     <div class="flex-shrink-0">
-                        @icon('arrow-sort', 'h-6 w-6 text-info-600')
+                        @icon('arrow-sort', 'h-6 w-6 text-purple-600')
                     </div>
                     <div class="ml-3">
-                        <h3 class="text-sm font-medium text-info-900">
+                        <h3 class="text-sm font-medium text-purple-900">
                             Change Sorting Order
                         </h3>
-                        <div class="mt-2 text-sm text-info-800">
+                        <div class="mt-2 text-sm text-purple-800">
                             <p>Sorting roles allows for admins to control the hierarchy of roles in the system to ensure that users with a lower role cannot give themselves higher privileges.</p>
                             <p class="mt-4">Top roles have the greatest privileges &ndash; place the most important roles with the highest potential impact higher on the list, to ensure users can't gain unwanted access to areas of Nova.</p>
                         </div>
@@ -37,7 +37,7 @@
                                 <input type="hidden" name="sort" x-model="newSortOrder">
                                 <div class="flex items-center space-x-4">
                                     <x-button type="submit" form="form-reorder" color="purple">Save Sort Order</x-button>
-                                    <a href="{{ route('roles.index') }}" class="text-info-600 text-sm font-medium transition ease-in-out duration-150 hover:text-info-800">
+                                    <a href="{{ route('roles.index') }}" class="text-purple-600 text-sm font-medium transition ease-in-out duration-150 hover:text-purple-800">
                                         Cancel
                                     </a>
                                 </div>
@@ -158,14 +158,14 @@
     <x-modal color="red" title="Delete Role?" icon="warning" :url="route('roles.delete')">
         <x-slot name="footer">
             <span class="flex w-full | sm:col-start-2">
-                <button form="form" class="button button-danger w-full">
+                <x-button form="form" color="red" :full-width="true">
                     Delete
-                </button>
+                </x-button>
             </span>
             <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
-                <button x-on:click="$dispatch('modal-close')" type="button" class="button w-full">
+                <x-button x-on:click="$dispatch('modal-close')" type="button" color="white" :full-width="true">
                     Cancel
-                </button>
+                </x-button>
             </span>
         </x-slot>
     </x-modal>

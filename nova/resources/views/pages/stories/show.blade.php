@@ -93,14 +93,16 @@
 
 <div class="order-1 | lg:col-span-1 lg:order-2">
     @can('update', $story)
-        <a href="{{ route('stories.index') }}" class="button button-primary w-full mb-8" data-cy="create">
-            Edit Story
-        </a>
+        <div class="mb-8">
+            <x-button-link :href="route('stories.edit', $story)" color="blue" :full-width="true" data-cy="create">
+                Edit Story
+            </x-button-link>
+        </div>
     @endcan
 
     <div class="space-y-4">
         <div>
-            <x-badge :type="$story->status->color()">{{ $story->status->displayName() }}</x-badge>
+            <x-badge :color="$story->status->color()">{{ $story->status->displayName() }}</x-badge>
         </div>
 
         @if ($story->start_date)

@@ -47,7 +47,7 @@
 
                     @can('viewAny', 'Nova\Roles\Models\Role')
                         <div class="mt-6">
-                            <x-button-link href="{{ route('roles.index') }}" color="white" size="xs">
+                            <x-button-link :href="route('roles.index')" color="white" size="xs">
                                 Manage roles
                             </x-button-link>
                         </div>
@@ -66,9 +66,8 @@
             </x-form.section>
 
             <x-form.footer>
-                <button type="submit" class="button button-primary">Add User</button>
-
-                <a href="{{ route('users.index', 'status=active') }}" class="button">Cancel</a>
+                <x-button type="submit" color="blue">Add User</x-button>
+                <x-button-link :href="route('users.index', 'status=active')" color="white">Cancel</x-button-link>
             </x-form.footer>
         </x-form>
     </x-panel>

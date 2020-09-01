@@ -31,6 +31,6 @@
     </x-form.section>
 
     <x-form.footer>
-        <button type="submit" form="defaults" class="button button-primary">Update Character Settings</button>
+        <x-button type="submit" form="defaults" color="blue">Update Character Settings</x-button>
     </x-form.footer>
 </x-form>

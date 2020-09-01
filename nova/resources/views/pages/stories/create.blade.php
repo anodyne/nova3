@@ -69,8 +69,6 @@
             <x-form.footer>
                 <x-button type="submit" color="blue">Add Story</x-button>
                 <x-button-link :href="route('stories.index')" type="button" color="white">Cancel</x-button-link>
-                {{-- <button type="submit" class="button button-primary">Add Story</button> --}}
-                {{-- <a href="{{ route('stories.index') }}" class="button">Cancel</a> --}}
             </x-form.footer>
         </x-form>
     </x-panel>

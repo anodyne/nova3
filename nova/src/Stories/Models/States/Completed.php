@@ -6,7 +6,7 @@ class Completed extends StoryStatus
 {
     public function color(): string
     {
-        return '';
+        return 'gray';
     }
 
     public function name(): string

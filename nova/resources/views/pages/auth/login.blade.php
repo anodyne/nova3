@@ -1,5 +1,7 @@
 @extends($__novaTemplate)
 
+@section('page-header', 'Sign in to your account')
+
 @section('content')
     <x-form :action="route('login')" :divide="false">
         <x-input.group label="Email" for="email" :error="$errors->first('email')">
@@ -21,7 +23,7 @@
         </div>
 
         <div>
-            <x-button type="submit" color="blue" class="w-full justify-center">
+            <x-button type="submit" color="blue" :full-width="true">
                 Sign in
             </x-button>
         </div>

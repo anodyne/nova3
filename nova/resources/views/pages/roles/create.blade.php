@@ -52,7 +52,7 @@
 
             <x-form.footer>
                 <x-button type="submit" color="blue">Add Role</x-button>
-                <x-button-link href="{{ route('roles.index') }}" color="white">Cancel</x-button-link>
+                <x-button-link :href="route('roles.index')" color="white">Cancel</x-button-link>
             </x-form.footer>
         </x-form>
     </x-panel>

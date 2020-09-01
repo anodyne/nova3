@@ -1,3 +1,3 @@
-<span {{ $attributes->merge(['class' => "badge {$badgeSize} {$badgeType}"]) }}>
+<span {{ $attributes->merge(['class' => "{$baseStyles()} {$sizeStyles()} {$colorStyles()}"]) }}>
     {{ $slot }}
 </span>

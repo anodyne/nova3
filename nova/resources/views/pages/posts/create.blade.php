@@ -10,9 +10,8 @@
 @endsection
 
 @section('writing.trailing')
-    <button class="button">Save</button>
-
-    <button class="button button-primary">Publish</button>
+    <x-button color="white">Save</x-button>
+    <x-button color="blue">Publish</x-button>
 @endsection
 
 @section('content')
