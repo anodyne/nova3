@@ -7658,13 +7658,6 @@ table@^5.2.3:
     slice-ansi "^2.1.0"
     string-width "^3.0.0"
 
-tailwindcss-dark-mode@^1.1.6:
-  version "1.1.6"
-  resolved "https://registry.yarnpkg.com/tailwindcss-dark-mode/-/tailwindcss-dark-mode-1.1.6.tgz#b9a7980e7a3a5f10050857232f3f6c6c6c605724"
-  integrity sha512-3+pd3DqMr0ukOfhz5FTtvrZXCph1QreTMV64HDAjSOuJC1jgnpx+JosoQK6cYACFgwNcSpaSJY0tuQRiiF8Ffg==
-  dependencies:
-    tailwindcss "^1.6.2"
-
 tailwindcss-interaction-variants@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/tailwindcss-interaction-variants/-/tailwindcss-interaction-variants-5.0.0.tgz#8e0825dfa4b2a81804cbae536915e48a85e96580"
@@ -7673,7 +7666,7 @@ tailwindcss-interaction-variants@^5.0.0:
     lodash "^4.17.19"
     postcss-selector-parser "^6.0.2"
 
-tailwindcss@^1.2.0, tailwindcss@^1.6.2:
+tailwindcss@^1.2.0:
   version "1.7.2"
   resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-1.7.2.tgz#f07669e71d4f9d951016d5a03c6a82788ab2b61b"
   integrity sha512-O1RQtVpE0KbyZDZDBjCKpph6WOROijC2qc0iPsPpft9R43lhvGDL7vJXGuhb2NVXQew9FVPW+6G61f8naJnyCg==
