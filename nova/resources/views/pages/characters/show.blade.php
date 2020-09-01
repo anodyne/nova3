@@ -46,11 +46,11 @@
                 @endif
 
                 <x-input.group label="Status">
-                    <x-badge :type="$character->status->color()">{{ $character->status->displayName() }}</x-badge>
+                    <x-badge :color="$character->status->color()">{{ $character->status->displayName() }}</x-badge>
                 </x-input.group>
 
                 <x-input.group label="Character Type">
-                    <x-badge :type="$character->type->color()">{{ $character->type->displayName() }}</x-badge>
+                    <x-badge :color="$character->type->color()">{{ $character->type->displayName() }}</x-badge>
                 </x-input.group>
 
                 <x-input.group label="Avatar">
@@ -71,7 +71,7 @@
                                             </x-slot>
 
                                             <x-slot name="secondaryMeta">
-                                                <x-badge :type="$user->status->color()" size="sm">{{ $user->status->displayName() }}</x-badge>
+                                                <x-badge :color="$user->status->color()" size="xs">{{ $user->status->displayName() }}</x-badge>
                                             </x-slot>
                                         </x-avatar-meta>
                                     </div>

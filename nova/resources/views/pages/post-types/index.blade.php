@@ -72,7 +72,7 @@
                                     </div>
 
                                     @if ($postType->role)
-                                        <x-badge size="sm">{{ $postType->role->display_name }}</x-badge>
+                                        <x-badge size="xs" color="gray">{{ $postType->role->display_name }}</x-badge>
                                     @endif
                                 </div>
                                 <p class="text-sm text-gray-600">{{ $postType->description }}</p>

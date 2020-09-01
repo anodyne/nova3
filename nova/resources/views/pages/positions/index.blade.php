@@ -103,9 +103,9 @@
                                     <div class="mt-2 flex items-center">
                                         <div>
                                             @if ($position->active)
-                                                <x-badge size="sm" type="success">Active</x-badge>
+                                                <x-badge size="xs" color="green">Active</x-badge>
                                             @else
-                                                <x-badge size="sm">Inactive</x-badge>
+                                                <x-badge size="xs" color="gray">Inactive</x-badge>
                                             @endif
                                         </div>
                                         @if ($position->active)

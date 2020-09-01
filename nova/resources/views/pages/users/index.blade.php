@@ -74,7 +74,7 @@
                                 <x-slot name="primaryMeta">{{ $user->name }}</x-slot>
 
                                 <x-slot name="secondaryMeta">
-                                    <x-badge size="sm" :type="$user->status->color()">
+                                    <x-badge size="xs" :color="$user->status->color()">
                                         {{ $user->status->displayName() }}
                                     </x-badge>
                                 </x-slot>

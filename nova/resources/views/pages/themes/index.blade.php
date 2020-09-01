@@ -83,12 +83,12 @@
                         themes/{{ $theme->location }}
                     </p>
                     @if (! $theme->exists)
-                        <x-badge class="mt-2" size="sm" type="warning">Pending</x-badge>
+                        <x-badge class="mt-2" size="xs" color="yellow">Pending</x-badge>
                     @else
                         @if ($theme->active)
-                            <x-badge class="mt-2" size="sm" type="success">Active</x-badge>
+                            <x-badge class="mt-2" size="xs" color="green">Active</x-badge>
                         @else
-                            <x-badge class="mt-2" size="sm">Inactive</x-badge>
+                            <x-badge class="mt-2" size="xs" color="gray">Inactive</x-badge>
                         @endif
                     @endif
                 </x-card>

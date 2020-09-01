@@ -40,9 +40,9 @@
 
                 <x-input.group label="Status">
                     @if ($position->active)
-                        <x-badge type="success">Active</x-badge>
+                        <x-badge color="green">Active</x-badge>
                     @else
-                        <x-badge>Inactive</x-badge>
+                        <x-badge color="gray">Inactive</x-badge>
                     @endif
                 </x-input.group>
             </x-form.section>
@@ -59,7 +59,7 @@
                                     </x-slot>
 
                                     <x-slot name="secondaryMeta">
-                                        <x-badge :type="$character->type->color()" size="sm">{{ $character->type->displayName() }}</x-badge>
+                                        <x-badge :color="$character->type->color()" size="xs">{{ $character->type->displayName() }}</x-badge>
                                     </x-slot>
                                 </x-avatar-meta>
                             </div>

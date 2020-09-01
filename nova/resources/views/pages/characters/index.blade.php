@@ -134,7 +134,7 @@
                                 </div>
                                 <div>
                                     <div class="flex">
-                                        <x-badge size="sm" :type="$character->type->color()">
+                                        <x-badge size="xs" :color="$character->type->color()">
                                             {{ $character->type->displayName() }}
                                         </x-badge>
                                     </div>

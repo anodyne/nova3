@@ -102,7 +102,7 @@
 
     <div class="space-y-4">
         <div>
-            <x-badge :type="$story->status->color()">{{ $story->status->displayName() }}</x-badge>
+            <x-badge :color="$story->status->color()">{{ $story->status->displayName() }}</x-badge>
         </div>
 
         @if ($story->start_date)

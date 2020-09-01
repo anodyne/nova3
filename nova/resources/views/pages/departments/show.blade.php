@@ -28,9 +28,9 @@
 
                 <x-input.group label="Status">
                     @if ($department->active)
-                        <x-badge type="success">Active</x-badge>
+                        <x-badge color="green">Active</x-badge>
                     @else
-                        <x-badge>Inactive</x-badge>
+                        <x-badge color="gray">Inactive</x-badge>
                     @endif
                 </x-input.group>
             </x-form.section>
