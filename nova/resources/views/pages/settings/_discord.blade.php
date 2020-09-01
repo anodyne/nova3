@@ -31,7 +31,7 @@
                 </x-input.group>
 
                 <x-input.group label="Accent Color" for="storyPosts[color]" help="You can set the accent color used for all story post notifications.">
-                    <x-ui-color-picker name="color" id="color" :value="old('storyPosts[color]', $settings->discord->storyPostsColor)" />
+                    <x-buk-color-picker name="color" id="color" :value="old('storyPosts[color]', $settings->discord->storyPostsColor)" />
                 </x-input.group>
             </div>
         </div>
@@ -70,7 +70,7 @@
                 </x-input.group>
 
                 <x-input.group label="Accent Color" help="You can set the accent color used for all story post notifications.">
-                    <x-ui-color-picker name="color" id="color" :value="old('storyPosts[color]', $settings->discord->storyPostsColor)" />
+                    <x-buk-color-picker name="color" id="color" :value="old('storyPosts[color]', $settings->discord->storyPostsColor)" />
                 </x-input.group>
             </div>
         </div>

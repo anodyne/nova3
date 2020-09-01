@@ -1,5 +1,7 @@
 <?php
 
+use BladeUIKit\Components;
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -7,37 +9,38 @@ return [
     |--------------------------------------------------------------------------
     |
     | Below you reference all components that should be loaded for your app.
-    | By default all components from Blade UI Kit are loaded in.
+    | By default all components from Blade UI Kit are loaded in. You can
+    | disable or overwrite any component class or alias that you want.
     |
     */
 
     'components' => [
-        // 'alert' => BladeUIKit\Components\Alerts\Alert::class,
-        // 'form-button' => BladeUIKit\Components\Buttons\FormButton::class,
-        // 'logout' => BladeUIKit\Components\Buttons\Logout::class,
-        // 'countdown' => BladeUIKit\Components\DateTime\Countdown::class,
-        // 'date-time' => BladeUIKit\Components\DateTime\DateTime::class,
-        'pikaday' => BladeUIKit\Components\DateTime\Pikaday::class,
-        // 'easy-mde' => BladeUIKit\Components\Editors\EasyMDE::class,
-        // 'trix' => BladeUIKit\Components\Editors\Trix::class,
-        // 'error' => BladeUIKit\Components\Forms\Error::class,
-        // 'form' => BladeUIKit\Components\Forms\Form::class,
-        // 'label' => BladeUIKit\Components\Forms\Label::class,
-        // 'input' => BladeUIKit\Components\Forms\Inputs\Input::class,
-        // 'checkbox' => BladeUIKit\Components\Forms\Inputs\Checkbox::class,
-        'color-picker' => BladeUIKit\Components\Forms\Inputs\ColorPicker::class,
-        // 'input-email' => BladeUIKit\Components\Forms\Inputs\Email::class,
-        // 'input-password' => BladeUIKit\Components\Forms\Inputs\Password::class,
-        // 'textarea' => BladeUIKit\Components\Forms\Inputs\Textarea::class,
-        // 'html' => BladeUIKit\Components\Layouts\Html::class,
-        // 'social-meta' => BladeUIKit\Components\Layouts\SocialMeta::class,
-        // 'mapbox' => BladeUIKit\Components\Maps\Mapbox::class,
-        // 'markdown' => BladeUIKit\Components\Markdown\Markdown::class,
-        // 'toc' => BladeUIKit\Components\Markdown\ToC::class,
-        // 'dropdown' => BladeUIKit\Components\Navigation\Dropdown::class,
-        // 'avatar' => BladeUIKit\Components\Support\Avatar::class,
-        // 'cron' => BladeUIKit\Components\Support\Cron::class,
-        // 'unsplash' => BladeUIKit\Components\Support\Unsplash::class,
+        // 'alert' => Components\Alerts\Alert::class,
+        // 'form-button' => Components\Buttons\FormButton::class,
+        // 'logout' => Components\Buttons\Logout::class,
+        // 'carbon' => Components\DateTime\Carbon::class,
+        // 'countdown' => Components\DateTime\Countdown::class,
+        // 'easy-mde' => Components\Editors\EasyMDE::class,
+        // 'trix' => Components\Editors\Trix::class,
+        // 'error' => Components\Forms\Error::class,
+        // 'form' => Components\Forms\Form::class,
+        // 'label' => Components\Forms\Label::class,
+        // 'input' => Components\Forms\Inputs\Input::class,
+        // 'checkbox' => Components\Forms\Inputs\Checkbox::class,
+        'color-picker' => Components\Forms\Inputs\ColorPicker::class,
+        // 'email' => Components\Forms\Inputs\Email::class,
+        // 'password' => Components\Forms\Inputs\Password::class,
+        'pikaday' => Components\Forms\Inputs\Pikaday::class,
+        // 'textarea' => Components\Forms\Inputs\Textarea::class,
+        // 'html' => Components\Layouts\Html::class,
+        // 'social-meta' => Components\Layouts\SocialMeta::class,
+        // 'mapbox' => Components\Maps\Mapbox::class,
+        // 'markdown' => Components\Markdown\Markdown::class,
+        // 'toc' => Components\Markdown\ToC::class,
+        // 'dropdown' => Components\Navigation\Dropdown::class,
+        // 'avatar' => Components\Support\Avatar::class,
+        // 'cron' => Components\Support\Cron::class,
+        // 'unsplash' => Components\Support\Unsplash::class,
     ],
 
     /*
@@ -62,13 +65,13 @@ return [
     | By default it's empty. This is useful if you want to avoid
     | collision with components from other libraries.
     |
-    | If set with "ui", for example, you can reference components like:
+    | If set with "buk", for example, you can reference components like:
     |
-    | <x-ui-button />
+    | <x-buk-easy-mde />
     |
     */
 
-    'prefix' => 'ui',
+    'prefix' => 'buk',
 
     /*
     |--------------------------------------------------------------------------

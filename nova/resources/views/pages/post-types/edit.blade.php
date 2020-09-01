@@ -23,7 +23,7 @@
                 </x-input.group>
 
                 <x-input.group label="Accent Color" for="color">
-                    <x-ui-color-picker name="color" id="color" :value="old('color', $postType->color)" />
+                    <x-buk-color-picker name="color" id="color" :value="old('color', $postType->color)" />
                 </x-input.group>
 
                 <x-input.group label="Icon" for="icon">

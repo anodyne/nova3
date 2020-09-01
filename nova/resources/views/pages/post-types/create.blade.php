@@ -32,7 +32,7 @@
                 </x-input.group>
 
                 <x-input.group label="Accent Color" for="color">
-                    <x-ui-color-picker name="color" id="color" :value="old('color', '#000000')" />
+                    <x-buk-color-picker name="color" id="color" :value="old('color', '#000000')" />
                 </x-input.group>
 
                 <x-input.group label="Icon" for="icon">
