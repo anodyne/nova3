@@ -28,6 +28,7 @@ class CreateStoryTest extends TestCase
     /** @test **/
     public function authorizedUserCanCreateAStory()
     {
+        $this->withoutExceptionHandling();
         $this->signInWithPermission('story.create');
 
         $story = make(Story::class);
@@ -36,7 +37,9 @@ class CreateStoryTest extends TestCase
 
         $response = $this->post(
             route('stories.store'),
-            $story->toArray()
+            array_merge($story->toArray(), [
+                'status' => 'upcoming',
+            ])
         );
         $response->assertSuccessful();
 
@@ -55,7 +58,12 @@ class CreateStoryTest extends TestCase
 
         $this->signInWithPermission('story.create');
 
-        $this->post(route('stories.store'), make(Story::class)->toArray());
+        $this->post(
+            route('stories.store'),
+            array_merge(make(Story::class)->toArray(), [
+                'status' => 'upcoming',
+            ])
+        );
 
         Event::assertDispatched(StoryCreated::class);
     }
@@ -76,7 +84,9 @@ class CreateStoryTest extends TestCase
 
         $response = $this->postJson(
             route('stories.store'),
-            make(Story::class)->toArray()
+            array_merge(make(Story::class)->toArray(), [
+                'status' => 'upcoming',
+            ])
         );
         $response->assertForbidden();
     }
@@ -93,7 +103,9 @@ class CreateStoryTest extends TestCase
     {
         $response = $this->postJson(
             route('stories.store'),
-            make(Story::class)->toArray()
+            array_merge(make(Story::class)->toArray(), [
+                'status' => 'upcoming',
+            ])
         );
         $response->assertUnauthorized();
     }

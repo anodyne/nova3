@@ -45,7 +45,9 @@ class UpdateStoryTest extends TestCase
 
         $response = $this->put(
             route('stories.update', $this->story),
-            $story->toArray()
+            array_merge($story->toArray(), [
+                'status' => 'upcoming',
+            ])
         );
         $response->assertSuccessful();
 
@@ -66,7 +68,9 @@ class UpdateStoryTest extends TestCase
 
         $this->put(
             route('stories.update', $this->story),
-            make(Story::class)->toArray()
+            array_merge(make(Story::class)->toArray(), [
+                'status' => 'upcoming',
+            ])
         );
 
         Event::assertDispatched(StoryUpdated::class);
@@ -88,7 +92,9 @@ class UpdateStoryTest extends TestCase
 
         $response = $this->putJson(
             route('stories.update', $this->story),
-            make(Story::class)->toArray()
+            array_merge(make(Story::class)->toArray(), [
+                'status' => 'upcoming',
+            ])
         );
         $response->assertForbidden();
     }
@@ -105,7 +111,9 @@ class UpdateStoryTest extends TestCase
     {
         $response = $this->putJson(
             route('stories.update', $this->story),
-            make(Story::class)->toArray()
+            array_merge(make(Story::class)->toArray(), [
+                'status' => 'upcoming',
+            ])
         );
         $response->assertUnauthorized();
     }
