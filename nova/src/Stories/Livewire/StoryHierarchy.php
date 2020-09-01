@@ -21,6 +21,8 @@ class StoryHierarchy extends Component
 
     public $parentStories;
 
+    public $story;
+
     public function updatedDirection($value)
     {
         $this->hasPositionChange = true;
@@ -44,21 +46,33 @@ class StoryHierarchy extends Component
         $parentId = 1,
         $direction = 'after',
         $neighbor = null,
-        $hasPositionChange = false
+        $hasPositionChange = false,
+        $story = null
     ) {
         $this->parentId = $parentId;
         $this->direction = $direction;
         $this->neighbor = $neighbor;
         $this->hasPositionChange = $hasPositionChange;
-
+        $this->story = $story;
         $this->parentStories = Story::defaultOrder()->get();
+
         $this->getOrderStories();
 
-        if ($parentId > 1) {
-            $this->parent = $this->getStory($parentId);
+        if ($this->story !== null) {
+            $nextNeighbor = $this->story->getNextSibling();
+            $previousNeighbor = ($nextNeighbor === null)
+                ? $this->story->getPrevSibling()
+                : null;
+
+            $this->neighbor = optional($nextNeighbor)->id ?? optional($previousNeighbor)->id;
+            $this->direction = $nextNeighbor ? 'before' : 'after';
         }
 
-        if ($neighbor === null) {
+        if ($this->parentId > 1) {
+            $this->parent = $this->getStory($this->parentId);
+        }
+
+        if ($this->neighbor === null) {
             $this->neighbor = optional($this->orderStories->last())->id;
         } else {
             $this->parentId = optional($this->getStory($this->neighbor))->parent_id;

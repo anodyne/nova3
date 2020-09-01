@@ -51,7 +51,8 @@
                 @livewire('stories:hierarchy', [
                     'parentId' => old('parent_id', $story->parent_id),
                     'direction' => old('direction', request()->direction ?? 'after'),
-                    'neighbor' => old('neighbor', request()->neighbor)
+                    'neighbor' => old('neighbor', request()->neighbor),
+                    'story' => $story,
                 ])
             </x-form.section>
 
