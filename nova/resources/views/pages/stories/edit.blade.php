@@ -9,7 +9,7 @@
 
     <x-panel>
         <x-form :action="route('stories.update', $story)" method="PUT">
-            <x-form.section title="Story Info">
+            <x-form.section title="Story Info" message="Provide some basic information about your story including a brief description of what the story is about.">
                 <x-input.group label="Title" for="title" :error="$errors->first('title')">
                     <x-input.text id="title" name="title" data-cy="title" :value="old('title', $story->title)" />
                 </x-input.group>

@@ -50,7 +50,7 @@
                                         <span>After {{ $story->title }}</span>
                                     </a>
 
-                                    <a href="#" class="{{ $component->link() }}">
+                                    <a href="{{ route('stories.create', "parent={$story->id}") }}" class="{{ $component->link() }}">
                                         @icon('move-right', $component->icon())
                                         <span>Inside {{ $story->title }}</span>
                                     </a>

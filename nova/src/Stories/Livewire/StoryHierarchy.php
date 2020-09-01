@@ -15,6 +15,8 @@ class StoryHierarchy extends Component
 
     public $orderStories;
 
+    public $parent;
+
     public $parentId;
 
     public $parentStories;
@@ -27,6 +29,8 @@ class StoryHierarchy extends Component
     public function updatedParentId($value)
     {
         $this->hasPositionChange = true;
+
+        $this->parent = Story::find($value);
 
         $this->getOrderStories();
     }
@@ -50,10 +54,14 @@ class StoryHierarchy extends Component
         $this->parentStories = Story::defaultOrder()->get();
         $this->getOrderStories();
 
+        if ($parentId > 1) {
+            $this->parent = $this->getStory($parentId);
+        }
+
         if ($neighbor === null) {
             $this->neighbor = optional($this->orderStories->last())->id;
         } else {
-            $this->parentId = optional(Story::find($this->neighbor))->parent_id;
+            $this->parentId = optional($this->getStory($this->neighbor))->parent_id;
         }
 
         $this->getOrderStories();
@@ -64,10 +72,15 @@ class StoryHierarchy extends Component
         return view('livewire.stories.hierarchy');
     }
 
-    protected function getOrderStories()
+    protected function getOrderStories(): void
     {
         $this->orderStories = Story::whereParent($this->parentId)
             ->defaultOrder()
             ->get();
+    }
+
+    protected function getStory($id): Story
+    {
+        return Story::find($id);
     }
 }

@@ -32,8 +32,7 @@ class CreateStoryManager
     public function execute(Request $request): Story
     {
         $story = $this->createStory->execute(
-            StoryData::fromRequest($request),
-            $request
+            StoryData::fromRequest($request)
         );
 
         $this->setStoryPosition->execute(

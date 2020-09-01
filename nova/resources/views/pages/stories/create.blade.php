@@ -9,7 +9,7 @@
 
     <x-panel>
         <x-form :action="route('stories.store')">
-            <x-form.section title="Story Info">
+            <x-form.section title="Story Info" message="Provide some basic information about your story including a brief description of what the story is about.">
                 <x-input.group label="Title" for="title" :error="$errors->first('title')">
                     <x-input.text id="title" name="title" data-cy="title" :value="old('title')" />
                 </x-input.group>
@@ -49,7 +49,7 @@
 
             <x-form.section title="Story Hierarchy" message="Stories can be organized inside any story on the timeline and then ordered within the parent story in whatever order you'd like.">
                 @livewire('stories:hierarchy', [
-                    'parentId' => old('parent_id', 1),
+                    'parentId' => old('parent_id', request()->parent ?? 1),
                     'direction' => old('direction', request()->direction ?? 'after'),
                     'neighbor' => old('neighbor', request()->neighbor),
                     'hasPositionChange' => true,

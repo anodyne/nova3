@@ -1,5 +1,10 @@
 <div class="space-y-8">
     <x-input.group label="Parent Story" for="parent_id">
+        <x-slot name="help">
+            @if (isset($parent) && $parent->stories->count() === 0)
+                This would be the first story nested inside {{ $parent->title }}. Because of this, the status of {{ $parent->title }} will be set to Completed. You can manually update {{ $parent->title }}'s status to Current if you'd like players to be able to write posts in {{ $parent->title }}.
+            @endif
+        </x-slot>
         <x-input.select name="parent_id" id="parent_id" wire:model="parentId">
             @foreach ($parentStories as $parentStory)
                 <option value="{{ $parentStory->id }}">{{ $parentStory->title }}</option>

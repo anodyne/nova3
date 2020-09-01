@@ -63,6 +63,11 @@ class Story extends Model implements HasMedia
         return $this->hasMany(self::class, 'parent_id');
     }
 
+    public function isMainTimeline(): bool
+    {
+        return $this->id === 1;
+    }
+
     public function newEloquentBuilder($query): StoryBuilder
     {
         return new StoryBuilder($query);

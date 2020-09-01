@@ -7,6 +7,8 @@ use Nova\Stories\Models\Story;
 use Nova\Stories\Actions\CreateStory;
 use Nova\Stories\DataTransferObjects\StoryData;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Stories\Models\States\Completed;
+use Nova\Stories\Models\States\Current;
 
 /**
  * @group stories
@@ -60,5 +62,51 @@ class CreateStoryActionTest extends TestCase
         $story = $this->action->execute($data);
 
         $this->assertEquals($newStory->id, $story->parent_id);
+    }
+
+    /** @test **/
+    public function itSetsTheStatusOfTheParentStoryToCompletedWhenTheFirstNestedStoryIsCreated()
+    {
+        $newStory = create(Story::class, [], ['status:current']);
+
+        $this->assertTrue($newStory->status->is(Current::class));
+
+        $data = new StoryData([
+            'title' => 'Story Title',
+            'parent_id' => $newStory->id,
+        ]);
+
+        $story = $this->action->execute($data);
+
+        $newStory->refresh();
+
+        $this->assertTrue($newStory->status->is(Completed::class));
+    }
+
+    /** @test **/
+    public function itDoesNotChangeTheStatusOfTheParentStoryWhenTheSecondNestedStoryIsCreated()
+    {
+        $mainTimeline = Story::find(1);
+
+        $newStory = create(Story::class, [], ['status:current']);
+        $newStory->appendToNode($mainTimeline)->save();
+
+        $newStory->refresh();
+
+        $nestedStory = create(Story::class);
+        $nestedStory->appendToNode($newStory)->save();
+
+        $this->assertTrue($newStory->status->is(Current::class));
+
+        $data = new StoryData([
+            'title' => 'Story Title',
+            'parent_id' => $newStory->id,
+        ]);
+
+        $story = $this->action->execute($data);
+
+        $newStory->refresh();
+
+        $this->assertTrue($newStory->status->is(Current::class));
     }
 }

@@ -5,6 +5,7 @@ namespace Nova\Stories\Actions;
 use Nova\Stories\Models\Story;
 use Nova\Stories\DataTransferObjects\StoryData;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Stories\Models\States\Completed;
 
 class CreateStory
 {
@@ -21,6 +22,10 @@ class CreateStory
             : Story::find(1);
 
         $story->appendToNode($parentStory);
+
+        // if (! $parentStory->isMainTimeline() && $parentStory->stories->count() === 0) {
+        //     $parentStory->status->transitionTo(Completed::class);
+        // }
 
         return $story;
     }
