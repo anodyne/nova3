@@ -37,32 +37,34 @@
                 </x-input.group>
             </x-form.section>
 
-            <x-form.section title="Character(s)">
-                <div class="flex flex-col w-full space-y-2">
-                    @foreach ($user->characters as $character)
-                        <div class="group flex items-center justify-between w-full py-2 px-4 rounded odd:bg-gray-100">
-                            <div class="flex items-center space-x-3">
-                                <x-avatar-meta size="lg" :src="$character->avatar_url">
-                                    <x-slot name="primaryMeta">
-                                        <x-status :status="$character->status" />
-                                        <span class="ml-2">{{ $character->name }}</span>
-                                    </x-slot>
+            @if ($user->characters->count() > 0)
+                <x-form.section title="Character(s)">
+                    <div class="flex flex-col w-full space-y-2">
+                        @foreach ($user->characters as $character)
+                            <div class="group flex items-center justify-between w-full py-2 px-4 rounded odd:bg-gray-100">
+                                <div class="flex items-center space-x-3">
+                                    <x-avatar-meta size="lg" :src="$character->avatar_url">
+                                        <x-slot name="primaryMeta">
+                                            <x-status :status="$character->status" />
+                                            <span class="ml-2">{{ $character->name }}</span>
+                                        </x-slot>
 
-                                    <x-slot name="secondaryMeta">
-                                        <x-badge :color="$character->type->color()" size="xs">{{ $character->type->displayName() }}</x-badge>
-                                    </x-slot>
-                                </x-avatar-meta>
+                                        <x-slot name="secondaryMeta">
+                                            <x-badge :color="$character->type->color()" size="xs">{{ $character->type->displayName() }}</x-badge>
+                                        </x-slot>
+                                    </x-avatar-meta>
+                                </div>
+
+                                @can('update', $character)
+                                    <a href="{{ route('characters.edit', $character) }}" class="text-gray-500 transition ease-in-out duration-150 hover:text-gray-700 group-hover:visible | sm:invisible">
+                                        @icon('edit')
+                                    </a>
+                                @endcan
                             </div>
-
-                            @can('update', $character)
-                                <a href="{{ route('characters.edit', $character) }}" class="text-gray-500 transition ease-in-out duration-150 hover:text-gray-700 group-hover:visible | sm:invisible">
-                                    @icon('edit')
-                                </a>
-                            @endcan
-                        </div>
-                    @endforeach
-                </div>
-            </x-form.section>
+                        @endforeach
+                    </div>
+                </x-form.section>
+            @endif
 
             <x-form.section title="Activity" message="Keep track of milestones and latest activity of a user in the system.">
                 <x-input.group label="Joined">
