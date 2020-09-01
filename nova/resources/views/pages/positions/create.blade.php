@@ -52,12 +52,12 @@
             </x-form.section>
 
             <x-form.footer>
-                <button type="submit" class="button button-primary">Add Position</button>
+                <x-button type="submit" color="blue">Add Position</x-button>
 
                 @if ($selectedDepartment)
-                    <a href="{{ route('positions.index', $selectedDepartment) }}" class="button">Cancel</a>
+                    <x-button-link :href="route('positions.index', $selectedDepartment)" color="white">Cancel</x-button-link>
                 @else
-                    <a href="{{ route('departments.index') }}" class="button">Cancel</a>
+                    <x-button-link :href="route('departments.index')" color="white">Cancel</x-button-link>
                 @endif
             </x-form.footer>
         </x-form>

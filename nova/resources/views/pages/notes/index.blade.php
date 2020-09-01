@@ -4,9 +4,9 @@
     <x-page-header title="My Notes">
         <x-slot name="controls">
             @if ($notes->count() > 0)
-                <a href="{{ route('notes.create') }}" class="button button-primary" data-cy="create">
+                <x-button-link :href="route('notes.create')" color="blue" data-cy="create">
                     Add Note
-                </a>
+                </x-button-link>
             @endif
         </x-slot>
     </x-page-header>
@@ -88,14 +88,14 @@
         <x-modal color="red" title="Delete Note?" icon="warning" :url="route('notes.delete')">
             <x-slot name="footer">
                 <span class="flex w-full | sm:col-start-2">
-                    <button form="form" class="button button-danger w-full">
+                    <x-button form="form" color="red" :full-width="true">
                         Delete
-                    </button>
+                    </x-button>
                 </span>
                 <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
-                    <button x-on:click="$dispatch('modal-close')" type="button" class="button w-full">
+                    <x-button x-on:click="$dispatch('modal-close')" type="button" color="white" :full-width="true">
                         Cancel
-                    </button>
+                    </x-button>
                 </span>
             </x-slot>
         </x-modal>

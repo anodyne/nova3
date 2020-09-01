@@ -17,9 +17,9 @@
                 @endcan
 
                 @can('create', 'Nova\Ranks\Models\RankName')
-                    <a href="{{ route('ranks.names.create') }}" class="button button-primary" data-cy="create">
+                    <x-button-link :href="route('ranks.names.create')" color="blue" data-cy="create">
                         Add Rank Name
-                    </a>
+                    </x-button-link>
                 @endcan
             @endif
         </x-slot>
@@ -35,26 +35,26 @@
     @else
         <x-panel x-data="sortableList()" x-init="initSortable()">
             @if ($isReordering)
-                <div class="bg-info-100 border-t border-b border-info-200 p-4 | sm:rounded-t-md sm:border-t-0">
+                <div class="bg-purple-100 border-t border-b border-purple-200 p-4 | sm:rounded-t-md sm:border-t-0">
                     <div class="flex">
                         <div class="flex-shrink-0">
-                            @icon('arrow-sort', 'h-6 w-6 text-info-600')
+                            @icon('arrow-sort', 'h-6 w-6 text-purple-600')
                         </div>
                         <div class="ml-3">
-                            <h3 class="text-sm font-medium text-info-900">
+                            <h3 class="text-sm font-medium text-purple-900">
                                 Change Sorting Order
                             </h3>
-                            <div class="mt-2 text-sm text-info-800">
+                            <div class="mt-2 text-sm text-purple-800">
                                 <p>Rank names appear in the order you set throughout Nova. To change the sorting of the rank names, drag them to the desired order and then click Save Sort Order below.</p>
                             </div>
                             <div class="mt-4">
-                                <x-form :action="route('ranks.names.reorder')" id="form-reorder">
+                                <x-form :action="route('ranks.names.reorder')" id="form-reorder" :divide="false">
                                     <input type="hidden" name="sort" x-model="newSortOrder">
                                     <div class="flex items-center space-x-4">
-                                        <button type="submit" form="form-reorder" class="button button-info">Save Sort Order</button>
-                                        <a href="{{ route('ranks.names.index') }}" class="text-info-600 text-sm font-medium transition ease-in-out duration-150 hover:text-info-800">
+                                        <x-button type="submit" form="form-reorder" color="purple">Save Sort Order</x-button>
+                                        <x-button-link :href="route('ranks.names.index')" color="text-purple" size="none">
                                             Cancel
-                                        </a>
+                                        </x-button-link>
                                     </div>
                                 </x-form>
                             </div>
@@ -153,14 +153,14 @@
         <x-modal color="red" title="Delete rank name?" icon="warning" :url="route('ranks.names.delete')">
             <x-slot name="footer">
                 <span class="flex w-full | sm:col-start-2">
-                    <button form="form" class="button button-danger w-full">
+                    <x-button form="form" color="red" :full-width="true">
                         Delete
-                    </button>
+                    </x-button>
                 </span>
                 <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
-                    <button x-on:click="$dispatch('modal-close')" type="button" class="button w-full">
+                    <x-button x-on:click="$dispatch('modal-close')" type="button" color="white" :full-width="true">
                         Cancel
-                    </button>
+                    </x-button>
                 </span>
             </x-slot>
         </x-modal>

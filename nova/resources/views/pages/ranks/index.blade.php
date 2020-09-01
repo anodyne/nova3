@@ -15,9 +15,9 @@
             </p>
 
             <x-slot name="footer">
-                <a href="{{ route('ranks.groups.index') }}" class="button w-full">
+                <x-button-link :href="route('ranks.groups.index')" color="white" :full-width="true">
                     Go to rank groups
-                </a>
+                </x-button-link>
             </x-slot>
         </x-card>
 
@@ -32,9 +32,9 @@
             </p>
 
             <x-slot name="footer">
-                <a href="{{ route('ranks.names.index') }}" class="button w-full">
+                <x-button-link :href="route('ranks.names.index')" color="white" :full-width="true">
                     Go to rank names
-                </a>
+                </x-button-link>
             </x-slot>
         </x-card>
 
@@ -47,9 +47,9 @@
             </p>
 
             <x-slot name="footer">
-                <a href="{{ route('ranks.items.index') }}" class="button w-full">
+                <x-button-link :href="route('ranks.items.index')" color="white" :full-width="true">
                     Go to rank items
-                </a>
+                </x-button-link>
             </x-slot>
         </x-card>
     </div>

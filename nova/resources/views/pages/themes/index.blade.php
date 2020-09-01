@@ -126,14 +126,14 @@
     <x-modal color="red" title="Delete Theme?" icon="warning" :url="route('themes.delete')">
         <x-slot name="footer">
             <span class="flex w-full | sm:col-start-2">
-                <button form="form" class="button button-danger w-full">
+                <x-button form="form" color="red" :full-width="true">
                     Delete
-                </button>
+                </x-button>
             </span>
             <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
-                <button x-on:click="$dispatch('modal-close')" type="button" class="button w-full">
+                <x-button x-on:click="$dispatch('modal-close')" type="button" color="white" :full-width="true">
                     Cancel
-                </button>
+                </x-button>
             </span>
         </x-slot>
     </x-modal>

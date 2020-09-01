@@ -1,5 +1,5 @@
-<x-form :action="route('ranks.groups.duplicate', $group)" id="form-duplicate">
-    <div class="text-left">
+<x-form :action="route('ranks.groups.duplicate', $group)" id="form-duplicate" :divide="false">
+    <div class="text-left space-y-8">
         <x-input.group label="Name" for="name">
             <x-input.text name="name" id="name" placeholder="New rank group name" />
         </x-input.group>

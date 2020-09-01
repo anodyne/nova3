@@ -6,9 +6,9 @@ class ButtonLink extends Button
 {
     public $href;
 
-    public function __construct($href, $color = 'white', $size = 'md')
+    public function __construct($href, $color = 'white', $size = 'md', $fullWidth = false)
     {
-        parent::__construct($color, $size);
+        parent::__construct($color, $size, $fullWidth);
 
         $this->href = $href;
     }

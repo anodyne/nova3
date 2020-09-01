@@ -7,15 +7,6 @@
                 <x-dropdown placement="bottom-end" class="flex items-center mr-4 text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150 {{ request()->has('type') ? 'text-blue-500' : '' }}">
                     <x-slot name="trigger">@icon('filter', 'h-6 w-6')</x-slot>
 
-                    {{-- <a href="{{ route('stories.index', 'sort=sort,desc') }}" class="{{ $component->link() }} justify-between">
-                        <span>Show only current stories</span>
-                    </a>
-                    <a href="{{ route('stories.index', 'sort=sort,asc') }}" class="{{ $component->link() }} justify-between">
-                        <span>Show only upcoming stories</span>
-                    </a>
-
-                    <div class="{{ $component->divider() }}"></div> --}}
-
                     <a href="{{ route('stories.index', 'sort=asc') }}" class="{{ $component->link() }} justify-between">
                         <span>Sort by newest first</span>
                         @if (request('sort') === 'asc')
@@ -31,9 +22,9 @@
                 </x-dropdown>
 
                 @can('create', 'Nova\Stories\Models\Story')
-                    <a href="{{ route('stories.create') }}" class="button button-primary" data-cy="create">
+                    <x-button-link :href="route('stories.create')" color="blue" data-cy="create">
                         Add Story
-                    </a>
+                    </x-button-link>
                 @endcan
             @endif
         </x-slot>

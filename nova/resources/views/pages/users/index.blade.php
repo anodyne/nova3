@@ -180,14 +180,14 @@
     <x-modal color="red" title="Delete User?" icon="warning" :url="route('users.delete')">
         <x-slot name="footer">
             <span class="flex w-full | sm:col-start-2">
-                <button form="form" class="button button-danger w-full">
+                <x-button form="form" color="red" :full-width="true">
                     Delete
-                </button>
+                </x-button>
             </span>
             <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
-                <button x-on:click="$dispatch('modal-close')" type="button" class="button w-full">
+                <x-button x-on:click="$dispatch('modal-close')" type="button" color="white" :full-width="true">
                     Cancel
-                </button>
+                </x-button>
             </span>
         </x-slot>
     </x-modal>
@@ -195,14 +195,14 @@
     <x-modal color="blue" title="Deactivate User?" icon="duplicate" :url="route('users.confirm-deactivate')" event="modal-deactivate">
         <x-slot name="footer">
             <span class="flex w-full | sm:col-start-2">
-                <button form="form-deactivate" class="button button-primary w-full">
+                <x-button form="form-deactivate" color="blue" :full-width="true">
                     Deactivate
-                </button>
+                </x-button>
             </span>
             <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
-                <button x-on:click="$dispatch('modal-close')" type="button" class="button w-full">
+                <x-button x-on:click="$dispatch('modal-close')" type="button" color="white" :full-width="true">
                     Cancel
-                </button>
+                </x-button>
             </span>
         </x-slot>
     </x-modal>

@@ -77,6 +77,6 @@
     </div>
 
     <x-form.footer>
-        <button type="submit" form="discord" class="button button-primary">Update Discord Settings</button>
+        <x-button type="submit" form="discord" color="blue">Update Discord Settings</x-button>
     </x-form.footer>
 </x-form>

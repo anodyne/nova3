@@ -17,8 +17,8 @@
             <input x-on:focus="focused = true" x-on:blur="focused = false" type="file" id="avatar" wire:model="avatar" class="sr-only">
             <label
                 for="avatar"
-                class="cursor-pointer py-2 px-3 border border-gray-300 rounded-md text-sm leading-4 font-medium text-gray-700 hover:text-gray-500 active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out"
-                x-bind:class="{ 'outline-none border-blue-300 shadow-outline-blue': focused }"
+                class="cursor-pointer inline-flex items-center border uppercase tracking-wide font-semibold rounded-md transition ease-in-out duration-150 focus:outline-none border-gray-300 text-gray-700 bg-white hover:text-gray-500 active:text-gray-800 active:bg-gray-50 px-2.5 py-1.5 text-xs"
+                x-bind:class="{ 'border-blue-300 shadow-outline-blue': focused }"
             >
                 Change
             </label>
