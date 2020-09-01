@@ -164,6 +164,8 @@ return [
          * Package Service Providers...
          */
         BladeUI\Icons\BladeIconsServiceProvider::class,
+        BladeUIKit\BladeUIKitServiceProvider::class,
+        Kalnoy\Nestedset\NestedSetServiceProvider::class,
         Livewire\LivewireServiceProvider::class,
 
         /*
@@ -185,9 +187,12 @@ return [
         Nova\Dashboard\Providers\DashboardServiceProvider::class,
         Nova\Departments\Providers\DepartmentServiceProvider::class,
         Nova\Notes\Providers\NoteServiceProvider::class,
+        Nova\Posts\Providers\PostServiceProvider::class,
+        Nova\PostTypes\Providers\PostTypeServiceProvider::class,
         Nova\Ranks\Providers\RankServiceProvider::class,
         Nova\Roles\Providers\RoleServiceProvider::class,
         Nova\Settings\Providers\SettingsServiceProvider::class,
+        Nova\Stories\Providers\StoryServiceProvider::class,
         Nova\Themes\Providers\ThemeServiceProvider::class,
         Nova\Users\Providers\UserServiceProvider::class,
     ],

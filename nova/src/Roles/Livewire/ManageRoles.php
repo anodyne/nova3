@@ -4,6 +4,7 @@ namespace Nova\Roles\Livewire;
 
 use Livewire\Component;
 use Nova\Roles\Models\Role;
+use Illuminate\Support\Collection;
 
 class ManageRoles extends Component
 {
@@ -44,6 +45,8 @@ class ManageRoles extends Component
 
     public function mount($roles)
     {
+        $roles = Collection::wrap($roles);
+
         $roles->each(function ($role) {
             $this->roles[$role->id] = $role->toArray();
         });

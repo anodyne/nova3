@@ -18,8 +18,6 @@
         "
     >
         <x-form :action="route('themes.store')">
-            <input type="hidden" name="active" value="0">
-
             <x-form.section title="Theme Info" message="A theme allows you to give your public-facing site the look-and-feel you want to any visitors. Using tools like regular HTML and CSS, you can show visitors the personality of your game and put your own spin on Nova.">
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
                     <x-input.text x-model="name" id="name" name="name" />
@@ -55,10 +53,11 @@
             </x-form.section>
 
             <x-form.footer>
-                <button type="submit" class="button button-primary">Add Theme</button>
-
-                <a href="{{ route('themes.index') }}" class="button">Cancel</a>
+                <x-button type="submit" color="blue">Add Theme</x-button>
+                <x-button-link :href="route('themes.index')" color="white">Cancel</x-button-link>
             </x-form.footer>
+
+            <input type="hidden" name="active" value="0">
         </x-form>
     </x-panel>
 @endsection

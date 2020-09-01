@@ -2,9 +2,9 @@
 
 namespace Nova\Settings\Responses;
 
-use Nova\Foundation\Responses\ServerResponse;
+use Nova\Foundation\Responses\Responsable;
 
-class SettingsResponse extends ServerResponse
+class SettingsResponse extends Responsable
 {
     public $view = 'settings.index';
 }

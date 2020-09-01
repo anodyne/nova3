@@ -4,9 +4,8 @@ namespace Nova\Departments\Controllers;
 
 use Nova\Departments\Models\Department;
 use Nova\Foundation\Controllers\Controller;
-use Nova\Departments\Actions\UpdateDepartment;
+use Nova\Departments\Actions\UpdateDepartmentManager;
 use Nova\Departments\Requests\UpdateDepartmentRequest;
-use Nova\Departments\DataTransferObjects\DepartmentData;
 use Nova\Departments\Responses\UpdateDepartmentResponse;
 
 class UpdateDepartmentController extends Controller
@@ -29,12 +28,12 @@ class UpdateDepartmentController extends Controller
 
     public function update(
         UpdateDepartmentRequest $request,
-        UpdateDepartment $action,
+        UpdateDepartmentManager $action,
         Department $department
     ) {
         $this->authorize('update', $department);
 
-        $department = $action->execute($department, DepartmentData::fromRequest($request));
+        $department = $action->execute($department, $request);
 
         return back()->withToast("{$department->name} department was updated");
     }

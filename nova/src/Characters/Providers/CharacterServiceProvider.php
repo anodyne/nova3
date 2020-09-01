@@ -7,7 +7,6 @@ use Nova\Characters\Models\Character;
 use Nova\Characters\Policies\CharacterPolicy;
 use Nova\Characters\Livewire\CharactersDropdown;
 use Nova\Characters\Livewire\CharactersCollector;
-use Nova\Characters\Livewire\CharacterUploadAvatar;
 use Nova\Characters\Responses\ShowCharacterResponse;
 use Nova\Characters\Responses\CreateCharacterResponse;
 use Nova\Characters\Responses\DeleteCharacterResponse;
@@ -20,7 +19,6 @@ class CharacterServiceProvider extends DomainServiceProvider
     protected $livewireComponents = [
         'characters:collector' => CharactersCollector::class,
         'characters:dropdown' => CharactersDropdown::class,
-        'characters:upload-avatar' => CharacterUploadAvatar::class,
     ];
 
     protected $morphMaps = [

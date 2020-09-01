@@ -5,9 +5,9 @@
     'error' => false,
 ])
 
-<div {{ $attributes->merge(['class' => $error ? 'field-wrapper has-error' : 'field-wrapper']) }}>
+<div {{ $attributes->merge(['class' => $error ? 'has-error' : '']) }}>
     @if ($label)
-        <label class="field-label" for="{{ $for }}">
+        <label for="{{ $for }}" class="block mb-1 text-sm font-medium text-gray-700">
             {{ $label }}
         </label>
     @endif
@@ -15,15 +15,15 @@
     {{ $slot }}
 
     @if ($error)
-        <div class="field-error" role="alert">
-            @icon('alert')
+        <p class="flex items-center w-full relative mt-2 ml-0.5 text-sm text-danger-600 space-x-2" role="alert">
+            @icon('alert', 'h-5 w-5 flex-shrink-0 text-danger-400')
             <span>{{ $error }}</span>
-        </div>
+        </p>
     @endif
 
     @if ($help)
-        <div class="field-help" role="note">
+        <p class="block w-full relative mt-2 ml-0.5 text-sm text-gray-500" role="note">
             {{ $help }}
-        </div>
+        </p>
     @endif
 </div>

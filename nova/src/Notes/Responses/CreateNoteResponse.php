@@ -2,9 +2,9 @@
 
 namespace Nova\Notes\Responses;
 
-use Nova\Foundation\Responses\ServerResponse;
+use Nova\Foundation\Responses\Responsable;
 
-class CreateNoteResponse extends ServerResponse
+class CreateNoteResponse extends Responsable
 {
     public $view = 'notes.create';
 }

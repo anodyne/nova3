@@ -16,7 +16,7 @@
             aria-haspopup="listbox"
             x-bind:aria-expanded="open"
             aria-labelledby="listbox-label"
-            class="cursor-default relative w-full rounded-md border border-gray-300 bg-white pl-3 pr-10 py-2 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150 | sm:text-sm sm:leading-5"
+            class="cursor-default relative w-full rounded-md border border-gray-300 bg-white pl-3 pr-10 py-2 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150 | sm:text-sm"
         >
             <span class="block truncate">
                 {{ optional($selected)->name ?? 'Select a rank group' }}
@@ -49,7 +49,7 @@
             role="listbox"
             aria-labelledby="listbox-label"
             x-bind:aria-activedescendant="activeDescendant"
-            class="max-h-60 rounded-md py-1 text-base leading-6 shadow-xs overflow-auto focus:outline-none | sm:text-sm sm:leading-5"
+            class="max-h-60 rounded-md py-1 text-base shadow-xs overflow-auto focus:outline-none | sm:text-sm"
             aria-activedescendant="listbox-option-0"
         >
             <li class="p-2">

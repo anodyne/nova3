@@ -55,7 +55,7 @@
 
             <x-form.section title="Avatar" message="User avatars should be a square image at least 500 pixels tall by 500 pixels wide, but not more than 5MB in size.">
                 <x-input.group>
-                    @livewire('users:upload-avatar')
+                    @livewire('upload-avatar', ['existingAvatar' => $user->avatar_url])
                 </x-input.group>
             </x-form.section>
 
@@ -94,11 +94,11 @@
 
     @can('deactivate', $user)
         <x-panel class="mt-8 p-4 | sm:p-6">
-            <h3 class="text-lg leading-6 font-medium text-gray-900">
+            <h3 class="text-lg font-medium text-gray-900">
                 Deactivate User
             </h3>
             <div class="mt-2 | sm:flex sm:items-start sm:justify-between">
-                <div class="w-full text-sm leading-6 font-medium text-gray-600">
+                <div class="w-full text-sm font-medium text-gray-600">
                     <p>
                         When deactivating the user, all characters associated with the user that are not jointly owned with another user will be deactivated as well.
                     </p>
@@ -116,11 +116,11 @@
 
     @can('activate', $user)
         <x-panel class="mt-8 p-4 | sm:p-6">
-            <h3 class="text-lg leading-6 font-medium text-gray-900">
+            <h3 class="text-lg font-medium text-gray-900">
                 Activate User
             </h3>
             <div class="mt-2 | sm:flex sm:items-start sm:justify-between">
-                <div class="w-full text-sm leading-6 font-medium text-gray-600">
+                <div class="w-full text-sm font-medium text-gray-600">
                     <p>
                         When activating the user, their primary character will also be activated and their access roles will be set to the default roles for new users.
                     </p>
@@ -137,7 +137,7 @@
     @endcan
 
     <x-panel class="mt-8 p-4 | sm:p-6">
-        <h3 class="text-lg leading-6 font-medium text-gray-900">
+        <h3 class="text-lg font-medium text-gray-900">
             Account Security
         </h3>
 
@@ -147,7 +147,7 @@
                     <div class="sm:flex sm:items-start">
                         @icon('lock', 'flex-shrink-0 h-8 w-8 text-gray-500')
                         <div class="mt-3 | sm:mt-0 sm:ml-4">
-                            <div class="text-sm leading-6 font-medium text-gray-600">
+                            <div class="text-sm font-medium text-gray-600">
                                 If you believe this user should reset their password, you can force a password reset that will prompt them to change their password the next time they attempt to sign in.
                             </div>
                         </div>
@@ -155,7 +155,7 @@
                     <div class="mt-4 sm:mt-0 sm:ml-6 sm:flex-shrink-0">
                         <x-form :action="route('users.force-password-reset', $user)">
                             <span class="inline-flex rounded-md shadow-sm">
-                                <button type="submit" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
+                                <button type="submit" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
                                     Force Password Reset
                                 </button>
                             </span>
@@ -170,7 +170,7 @@
                 <div class="sm:flex sm:items-start">
                     @icon('sign-out', 'flex-shrink-0 h-8 w-8 text-gray-500')
                     <div class="mt-3 | sm:mt-0 sm:ml-4">
-                        <div class="text-sm leading-6 font-medium text-gray-600">
+                        <div class="text-sm font-medium text-gray-600">
                             If necessary, you can sign a user out of their account. Be warned, if they're actively doing anything when you initiate this action, any work will be lost on their next page load.
                         </div>
                     </div>
@@ -178,7 +178,7 @@
                 <div class="mt-4 sm:mt-0 sm:ml-6 sm:flex-shrink-0">
                     <x-form :action="route('users.force-password-reset', $user)">
                         <span class="inline-flex rounded-md shadow-sm">
-                            <button type="submit" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
+                            <button type="submit" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
                                 Sign This User Out
                             </button>
                         </span>

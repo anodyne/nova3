@@ -3,6 +3,7 @@
 use Nova\Settings\Models\Settings;
 use Illuminate\Database\Migrations\Migration;
 use Nova\Settings\DataTransferObjects\DefaultsSettings;
+use Nova\Settings\DataTransferObjects\DiscordSettings;
 use Nova\Settings\DataTransferObjects\EmailSettings;
 
 class PopulateSettingsTable extends Migration
@@ -18,6 +19,14 @@ class PopulateSettingsTable extends Migration
             ]),
             'meta_data' => [],
             'characters' => [],
+            'discord' => new DiscordSettings([
+                'storyPostsEnabled' => true,
+                'storyPostsWebhook' => null,
+                'storyPostsColor' => '#406ceb',
+                'applicationsEnabled' => false,
+                'applicationsWebhook' => null,
+                'applicationsColor' => null,
+            ]),
         ];
 
         $defaults = new Settings(array_merge([

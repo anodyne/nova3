@@ -12,9 +12,12 @@
     "license": "MIT",
     "require": {
         "php": "^7.4.0",
+        "awssat/discord-notification-channel": "^1.1",
         "blade-ui-kit/blade-icons": "^0.4",
+        "blade-ui-kit/blade-ui-kit": "dev-main",
         "f9webltd/laravel-meta": "^1.4",
         "fideloper/proxy": "^4.0",
+        "kalnoy/nestedset": "^5.0",
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
@@ -44,6 +47,8 @@
         "laravel": {
             "dont-discover": [
                 "blade-ui-kit/blade-icons",
+                "blade-ui-kit/blade-ui-kit",
+                "kalnoy/nestedset",
                 "livewire/livewire"
             ]
         }
@@ -93,5 +98,11 @@
         "vendor-dir": "nova/vendor"
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "repositories": {
+        "blade-ui-kit": {
+            "type": "vcs",
+            "url": "https://github.com/blade-ui-kit/blade-ui-kit"
+        }
+    }
 }

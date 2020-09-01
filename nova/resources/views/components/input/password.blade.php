@@ -2,25 +2,21 @@
     'leadingAddOn' => false,
 ])
 
-<div
+<x-input.field
     x-data="{ type: 'password', showPassword: false }"
     x-init="$watch('showPassword', value => type = (value) ? 'text' : 'password')"
-    class="field-group"
+    :leading-add-on="$leadingAddOn"
 >
-    @if ($leadingAddOn)
-        <div class="field-addon">
-            {{ $leadingAddOn }}
-        </div>
-    @endif
+    <input x-bind:type="type" class="form-field" {{ $attributes }}>
 
-    <input x-bind:type="type" class="field" {{ $attributes }}>
-
-    <button x-on:click="showPassword = !showPassword" type="button" class="field-addon">
-        <div x-show="showPassword" class="leading-0">
-            @icon('hide')
-        </div>
-        <div x-show="!showPassword" class="leading-0">
-            @icon('show')
-        </div>
-    </button>
-</div>
+    <x-slot name="trailingAddOn">
+        <button x-on:click="showPassword = !showPassword" type="button" class="focus:outline-none" x-cloak>
+            <div x-show="showPassword" class="leading-0">
+                @icon('hide')
+            </div>
+            <div x-show="!showPassword" class="leading-0">
+                @icon('show')
+            </div>
+        </button>
+    </x-slot>
+</x-input.field>

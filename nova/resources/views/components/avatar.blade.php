@@ -1,1 +1,1 @@
-<img src="{{ $url }}" alt="{{ $tooltip }}" {{ $attributes->merge(['class' => $styles() ])}}>
+<img src="{{ $src }}" alt="{{ $tooltip }}" {{ $attributes->merge(['class' => $styles() ])}}>

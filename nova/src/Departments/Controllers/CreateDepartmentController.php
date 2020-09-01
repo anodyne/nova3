@@ -4,9 +4,8 @@ namespace Nova\Departments\Controllers;
 
 use Nova\Departments\Models\Department;
 use Nova\Foundation\Controllers\Controller;
-use Nova\Departments\Actions\CreateDepartment;
+use Nova\Departments\Actions\CreateDepartmentManager;
 use Nova\Departments\Requests\CreateDepartmentRequest;
-use Nova\Departments\DataTransferObjects\DepartmentData;
 use Nova\Departments\Responses\CreateDepartmentResponse;
 
 class CreateDepartmentController extends Controller
@@ -25,11 +24,13 @@ class CreateDepartmentController extends Controller
         return app(CreateDepartmentResponse::class);
     }
 
-    public function store(CreateDepartmentRequest $request, CreateDepartment $action)
-    {
+    public function store(
+        CreateDepartmentRequest $request,
+        CreateDepartmentManager $action
+    ) {
         $this->authorize('create', Department::class);
 
-        $department = $action->execute(DepartmentData::fromRequest($request));
+        $department = $action->execute($request);
 
         return redirect()
             ->route('departments.index')

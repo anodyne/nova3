@@ -2,9 +2,9 @@
 
 namespace Nova\Users\Responses;
 
-use Nova\Foundation\Responses\ServerResponse;
+use Nova\Foundation\Responses\Responsable;
 
-class DeleteUserResponse extends ServerResponse
+class DeleteUserResponse extends Responsable
 {
     public $view = 'users.delete';
 }

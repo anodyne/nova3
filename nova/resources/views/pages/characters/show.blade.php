@@ -53,7 +53,7 @@
             </x-input.group>
 
             <x-input.group label="Avatar">
-                <x-avatar :url="$character->avatar_url" size="lg"></x-avatar>
+                <x-avatar :src="$character->avatar_url" size="lg" />
             </x-input.group>
         </x-form.section>
 
@@ -64,15 +64,15 @@
                         @foreach ($character->users as $user)
                             <div class="group flex items-center justify-between py-2 px-4 rounded odd:bg-gray-100">
                                 <div class="flex items-center">
-                                    <div class="flex-shrink-0">
-                                        <x-avatar size="lg" :url="$user->avatar_url" />
-                                    </div>
-                                    <div class="flex flex-col ml-3">
-                                        <span class="font-medium">{{ $user->name }}</span>
-                                        <span>
+                                    <x-avatar-meta size="lg" :src="$user->avatar_url">
+                                        <x-slot name="primaryMeta">
+                                            {{ $user->name }}
+                                        </x-slot>
+
+                                        <x-slot name="secondaryMeta">
                                             <x-badge :type="$user->status->color()" size="sm">{{ $user->status->displayName() }}</x-badge>
-                                        </span>
-                                    </div>
+                                        </x-slot>
+                                    </x-avatar-meta>
                                 </div>
 
                                 @can('update', $user)

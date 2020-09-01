@@ -19,8 +19,8 @@
                     @icon('check-alt', 'h-5 w-5 text-green-500')
                 </div>
                 <div class="ml-3 w-0 flex-1">
-                    <p x-text="title" class="text-sm leading-5 font-medium text-gray-900"></p>
-                    <p x-text="message" class="mt-1 text-sm leading-5 text-gray-500"></p>
+                    <p x-text="title" class="text-sm font-medium text-gray-900"></p>
+                    <p x-text="message" class="mt-1 text-sm text-gray-500"></p>
                 </div>
                 <div class="ml-4 flex-shrink-0 flex">
                     <button x-on:click="show = false" class="inline-flex text-gray-400 focus:outline-none focus:text-gray-500 transition ease-in-out duration-150">

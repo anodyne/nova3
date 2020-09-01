@@ -3,15 +3,16 @@
     'value',
     'activeIcon' => false,
     'activeText' => false,
+    'disabled' => false,
     'inactiveIcon' => false,
     'inactiveText' => false,
 ])
 
 <label
-    x-data="toggleSwitch()"
-    x-on:click="active = !active"
-    x-on:keydown.space.prevent="active = !active"
-    class="flex items-center cursor-pointer"
+    x-data="toggleSwitch({{ $value ? 'true' : 'false' }}, {{ $disabled ? 'true' : 'false' }})"
+    x-on:click.prevent="toggle($dispatch)"
+    x-on:keydown.space.prevent="toggle($dispatch)"
+    class="flex items-center @if ($disabled) opacity-50 cursor-not-allowed @else cursor-pointer @endif"
 >
     <span
         x-bind:class="{ 'bg-gray-200': !active, 'bg-blue-500': active }"
@@ -64,11 +65,18 @@
 
 @push('scripts')
 <script>
-    const active = {{ $value ? 'true' : 'false' }};
-
-    function toggleSwitch () {
+    function toggleSwitch (active, disabled) {
         return {
-            active: active
+            active: active,
+            disabled: disabled,
+
+            toggle ($dispatch) {
+                if (! this.disabled) {
+                    this.active = !this.active;
+                    $dispatch('toggle-changed', { value: Boolean(this.active) });
+                    $dispatch('input', Boolean(this.active));
+                }
+            }
         }
     }
 </script>

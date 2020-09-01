@@ -22,14 +22,14 @@
                 </x-input.group>
 
                 <x-input.group label="Department" for="department_id" :error="$errors->first('department_id')">
-                    <select name="department_id" id="department_id" class="form-select w-full | sm:w-2/3">
+                    <x-input.select name="department_id" id="department_id" class="w-full | sm:w-2/3">
                         <option value="">Select a department</option>
                         @foreach ($departments as $department)
                             <option value="{{ $department->id }}" @if ($department->id == optional($selectedDepartment)->id) selected @endif>
                                 {{ $department->name }}
                             </option>
                         @endforeach
-                    </select>
+                    </x-input.select>
                 </x-input.group>
 
                 <x-input.group label="Description" for="description">

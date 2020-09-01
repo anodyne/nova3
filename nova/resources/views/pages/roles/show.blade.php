@@ -8,7 +8,7 @@
 
         <x-slot name="controls">
             @can('update', $role)
-                <a href="{{ route('roles.edit', $role) }}" class="button button-primary">Edit Role</a>
+                <x-button-link :href="route('roles.edit', $role)" color="blue">Edit Role</x-button-link>
             @endcan
         </x-slot>
     </x-page-header>
@@ -63,7 +63,7 @@
         </x-form.section>
 
         <x-form.footer>
-            <a href="{{ route('roles.index') }}" class="button">Back</a>
+            <x-button-link :href="route('roles.index')" color="white">Back</x-button-link>
         </x-form.footer>
     </x-panel>
 @endsection

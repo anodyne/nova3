@@ -2,9 +2,9 @@
 
 namespace Nova\Roles\Responses;
 
-use Nova\Foundation\Responses\ServerResponse;
+use Nova\Foundation\Responses\Responsable;
 
-class DeleteRoleResponse extends ServerResponse
+class DeleteRoleResponse extends Responsable
 {
     public $view = 'roles.delete';
 }

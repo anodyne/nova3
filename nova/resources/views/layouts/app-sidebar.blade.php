@@ -52,21 +52,42 @@
 
                 <div class="mt-5 flex-1 h-0 overflow-y-auto">
                     <nav class="px-2">
-                        <a href="{{ route('dashboard') }}" class="group flex items-center px-2 py-2 text-base leading-6 font-medium text-gray-900 rounded-md bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150">
+                        <a href="{{ route('dashboard') }}" class="group flex items-center px-2 py-2 text-base font-medium text-gray-900 rounded-md bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150">
                             @icon('dashboard', 'mr-4 h-6 w-6 text-gray-500 group-hover:text-gray-500 group-focus:text-gray-600 transition ease-in-out duration-150')
                             Dashboard
                         </a>
-                        <a href="{{ route('notes.index') }}" class="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-100 transition ease-in-out duration-150">
-                            @icon('book', 'mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
+                        <a href="{{ route('notes.index') }}" class="mt-1 group flex items-center px-2 py-2 text-base font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-100 transition ease-in-out duration-150">
+                            @icon('note', 'mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
                             My Notes
                         </a>
-                        {{-- <a href="{{ route('notes.index') }}" class="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-100 transition ease-in-out duration-150">
+                        {{-- <a href="{{ route('notes.index') }}" class="mt-1 group flex items-center px-2 py-2 text-base font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-100 transition ease-in-out duration-150">
                             @icon('users', 'mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
                             Players
                         </a> --}}
 
+                        @can('create', 'Nova\Posts\Models\Post')
+                            <a href="{{ route('posts.create') }}" class="mt-1 group flex items-center px-2 py-2 text-base font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-100 transition ease-in-out duration-150">
+                                @icon('write', 'mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
+                                Write New Post
+                            </a>
+                        @endcan
+
+                        <div class="mt-1 group flex items-center px-2 py-2 text-base font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-100 transition ease-in-out duration-150">
+                            @icon('book', 'mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
+                            Stories
+                        </div>
+                        <div class="flex flex-col ml-12">
+                            @can('viewAny', 'Nova\Stories\Models\Story')
+                                <a href="{{ route('stories.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Stories</a>
+                            @endcan
+
+                            @can('viewAny', 'Nova\PostTypes\Models\PostType')
+                                <a href="{{ route('post-types.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Post Types</a>
+                            @endcan
+                        </div>
+
                         @if (auth()->user()->canManage())
-                            <div class="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-100 transition ease-in-out duration-150">
+                            <div class="mt-1 group flex items-center px-2 py-2 text-base font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-100 transition ease-in-out duration-150">
                                 @icon('settings', 'mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
                                 Manage
                             </div>
@@ -119,21 +140,42 @@
             <div class="mt-5 h-0 flex-1 flex flex-col overflow-y-auto">
                 <!-- Sidebar component, swap this element with another sidebar if you like -->
                 <nav class="flex-1 px-2 bg-white">
-                    <a href="{{ route('dashboard') }}" class="mt-1 first:mt-0 group flex items-center px-2 py-2 text-sm leading-5 font-semibold text-gray-500 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:bg-gray-100 transition ease-in-out duration-150">
+                    <a href="{{ route('dashboard') }}" class="mt-1 first:mt-0 group flex items-center px-2 py-2 text-sm font-semibold text-gray-500 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:bg-gray-100 transition ease-in-out duration-150">
                         @icon('dashboard', 'mr-3 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
                         Dashboard
                     </a>
-                    <a href="{{ route('notes.index') }}" class="mt-1 first:mt-0 group flex items-center px-2 py-2 text-sm leading-5 font-semibold text-gray-500 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:bg-gray-100 transition ease-in-out duration-150">
-                        @icon('book', 'mr-3 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
+                    <a href="{{ route('notes.index') }}" class="mt-1 first:mt-0 group flex items-center px-2 py-2 text-sm font-semibold text-gray-500 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:bg-gray-100 transition ease-in-out duration-150">
+                        @icon('note', 'mr-3 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
                         My Notes
                     </a>
-                    {{-- <a href="{{ route('notes.index') }}" class="mt-1 first:mt-0 group flex items-center px-2 py-2 text-sm leading-5 font-semibold text-gray-500 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:bg-gray-100 transition ease-in-out duration-150">
+                    {{-- <a href="{{ route('notes.index') }}" class="mt-1 first:mt-0 group flex items-center px-2 py-2 text-sm font-semibold text-gray-500 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:bg-gray-100 transition ease-in-out duration-150">
                         @icon('users', 'mr-3 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
                         Players
                     </a> --}}
 
+                    @can('create', 'Nova\Posts\Models\Post')
+                        <a href="{{ route('posts.create') }}" class="mt-1 first:mt-0 group flex items-center px-2 py-2 text-sm font-semibold text-gray-500 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:bg-gray-100 transition ease-in-out duration-150">
+                            @icon('write', 'mr-3 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
+                            Write New Post
+                        </a>
+                    @endcan
+
+                    <div class="mt-1 first:mt-0 group flex items-center px-2 py-2 text-sm font-semibold text-gray-500 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:bg-gray-100 transition ease-in-out duration-150">
+                        @icon('book', 'mr-3 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
+                        Stories
+                    </div>
+                    <div class="flex flex-col text-sm ml-11">
+                        @can('viewAny', 'Nova\Stories\Models\Story')
+                            <a href="{{ route('stories.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Stories</a>
+                        @endcan
+
+                        @can('viewAny', 'Nova\PostTypes\Models\PostType')
+                            <a href="{{ route('post-types.index') }}" class="my-1 font-medium text-gray-500 hover:text-gray-700 transition ease-in-out duration-150">Post Types</a>
+                        @endcan
+                    </div>
+
                     @if (auth()->user()->canManage())
-                        <div class="mt-1 first:mt-0 group flex items-center px-2 py-2 text-sm leading-5 font-semibold text-gray-500 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:bg-gray-100 transition ease-in-out duration-150">
+                        <div class="mt-1 first:mt-0 group flex items-center px-2 py-2 text-sm font-semibold text-gray-500 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:bg-gray-100 transition ease-in-out duration-150">
                             @icon('settings', 'mr-3 h-6 w-6 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150')
                             Manage
                         </div>
@@ -205,16 +247,16 @@
                     @livewire('users:notifications')
 
                     <x-dropdown placement="bottom-end" class="ml-4">
-                        <x-avatar size="xs" :url="auth()->user()->avatar_url" :tooltip="auth()->user()->name" />
-
-                        <x-slot name="dropdown">
-                            <button class="{{ $component->link() }}" form="logout-form" role="menuitem">
-                                @icon('sign-out', $component->icon())
-                                <span>Sign out</span>
-                            </button>
-
-                            <x-form :action="route('logout')" class="hidden" id="logout-form" />
+                        <x-slot name="trigger">
+                            <x-avatar size="xs" :src="auth()->user()->avatar_url" :tooltip="auth()->user()->name" />
                         </x-slot>
+
+                        <button class="{{ $component->link() }}" form="logout-form" role="menuitem">
+                            @icon('sign-out', $component->icon())
+                            <span>Sign out</span>
+                        </button>
+
+                        <x-form :action="route('logout')" class="hidden" id="logout-form" />
                     </x-dropdown>
                 </div>
             </div>

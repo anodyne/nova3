@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         bootstrap="nova/tests/bootstrap.php"
+         cacheResult="true"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="false">
+    <testsuites>
+        <testsuite name="unit">
+            <directory suffix="Test.php">./nova/tests/Unit</directory>
+        </testsuite>
+
+        <testsuite name="feature">
+            <directory suffix="Test.php">./nova/tests/Feature</directory>
+        </testsuite>
+
+        <testsuite name="auth">
+            <directory suffix="Test.php">./nova/tests/Feature/Auth</directory>
+        </testsuite>
+
+        <testsuite name="roles">
+            <directory suffix="Test.php">./nova/tests/Feature/Roles</directory>
+            <directory suffix="Test.php">./nova/tests/Unit/Roles</directory>
+        </testsuite>
+
+        <testsuite name="themes">
+            <directory suffix="Test.php">./nova/tests/Feature/Themes</directory>
+            <directory suffix="Test.php">./nova/tests/Unit/Themes</directory>
+        </testsuite>
+
+        <testsuite name="users">
+            <directory suffix="Test.php">./nova/tests/Feature/Users</directory>
+            <directory suffix="Test.php">./nova/tests/Unit/Users</directory>
+        </testsuite>
+
+        <!-- <testsuite name="media">
+            <file>./nova/tests/Feature/Users/UploadUserAvatarTest.php</file>
+            <file>./nova/tests/Unit/Rules/MaxFileSizeTest.php</file>
+            <file>./nova/tests/Unit/Users/Actions/RemoveUserAvatarTest.php</file>
+            <file>./nova/tests/Unit/Users/Actions/UploadUserAvatarTest.php</file>
+        </testsuite> -->
+
+        <testsuite name="notes">
+            <directory suffix="Test.php">./nova/tests/Feature/Notes</directory>
+            <directory suffix="Test.php">./nova/tests/Unit/Notes</directory>
+        </testsuite>
+
+        <!-- <testsuite name="uploads">
+            <file>./nova/tests/Feature/Users/UploadUserAvatarTest.php</file>
+            <file>./nova/tests/Unit/Users/Actions/UploadUserAvatarTest.php</file>
+        </testsuite> -->
+    </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./app</directory>
+        </whitelist>
+    </filter>
+    <php>
+        <server name="APP_ENV" value="testing"/>
+        <server name="BCRYPT_ROUNDS" value="4"/>
+        <server name="CACHE_DRIVER" value="array"/>
+        <server name="MAIL_DRIVER" value="array"/>
+        <server name="QUEUE_CONNECTION" value="sync"/>
+        <server name="SESSION_DRIVER" value="array"/>
+        <server name="APP_CONFIG_CACHE" value="nova/bootstrap/cache/config.phpunit.php"/>
+        <server name="APP_SERVICES_CACHE" value="nova/bootstrap/cache/services.phpunit.php"/>
+        <server name="APP_PACKAGES_CACHE" value="nova/bootstrap/cache/packages.phpunit.php"/>
+        <server name="APP_ROUTES_CACHE" value="nova/bootstrap/cache/routes.phpunit.php"/>
+        <server name="APP_EVENTS_CACHE" value="nova/bootstrap/cache/events.phpunit.php"/>
+    </php>
+</phpunit>

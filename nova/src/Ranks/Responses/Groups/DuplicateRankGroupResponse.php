@@ -2,9 +2,9 @@
 
 namespace Nova\Ranks\Responses\Groups;
 
-use Nova\Foundation\Responses\ServerResponse;
+use Nova\Foundation\Responses\Responsable;
 
-class DuplicateRankGroupResponse extends ServerResponse
+class DuplicateRankGroupResponse extends Responsable
 {
     public $view = 'ranks.groups.duplicate';
 }
