@@ -33,10 +33,11 @@ class Story extends Model implements HasMedia
 
     protected $fillable = [
         'title', 'status', 'parent_id', 'description', 'summary', 'start_date',
-        'end_date',
+        'end_date', 'allow_posting',
     ];
 
     protected $casts = [
+        'allow_posting' => 'boolean',
         'end_date' => 'datetime',
         'parent_id' => 'integer',
         'start_date' => 'datetime',
@@ -61,6 +62,11 @@ class Story extends Model implements HasMedia
     public function stories()
     {
         return $this->hasMany(self::class, 'parent_id');
+    }
+
+    public function getCanPostAttribute(): bool
+    {
+        return $this->status->is(Current::class) && $this->allow_posting;
     }
 
     public function isMainTimeline(): bool

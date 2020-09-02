@@ -21,6 +21,7 @@ class CreateStoryTables extends Migration
             $table->text('summary')->nullable();
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
+            $table->boolean('allow_posting')->default(true);
             $table->nestedSet();
             $table->timestamps();
 

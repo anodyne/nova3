@@ -4,6 +4,7 @@ namespace Nova\Stories\Providers;
 
 use Nova\Stories\Models\Story;
 use Nova\DomainServiceProvider;
+use Nova\Stories\Livewire\StoryStatus;
 use Nova\Stories\Policies\StoryPolicy;
 use Nova\Stories\Livewire\DeleteStories;
 use Nova\Stories\Livewire\StoryHierarchy;
@@ -19,6 +20,7 @@ class StoryServiceProvider extends DomainServiceProvider
     protected $livewireComponents = [
         'stories:delete-story' => DeleteStories::class,
         'stories:hierarchy' => StoryHierarchy::class,
+        'stories:status' => StoryStatus::class,
     ];
 
     protected $policies = [

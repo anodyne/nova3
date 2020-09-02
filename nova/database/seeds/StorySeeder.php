@@ -13,7 +13,7 @@ class StorySeeder extends Seeder
         $timeline = Story::whereIsRoot()->first();
 
         $timeline->children()->createMany([
-            factory(Story::class)->make(['title' => 'Season 1', 'status' => Current::class])->toArray(),
+            factory(Story::class)->make(['title' => 'Season 1', 'status' => Current::class, 'allow_posting' => false])->toArray(),
             factory(Story::class)->make(['title' => 'Season 2', 'status' => Upcoming::class])->toArray(),
         ]);
 
