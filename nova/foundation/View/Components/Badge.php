@@ -10,15 +10,21 @@ class Badge extends Component
 
     public $color;
 
-    public function __construct($size = null, $color = null)
+    public $leadingIcon;
+
+    public $trailingIcon;
+
+    public function __construct($size = null, $color = null, $leadingIcon = null, $trailingIcon = null)
     {
         $this->size = $size;
         $this->color = $color;
+        $this->leadingIcon = $leadingIcon;
+        $this->trailingIcon = $trailingIcon;
     }
 
     public function baseStyles()
     {
-        return 'inline-flex items-center rounded-full font-medium uppercase tracking-wide';
+        return 'inline-flex items-center rounded-full font-medium uppercase tracking-wide space-x-1';
     }
 
     public function colorStyles()
@@ -52,6 +58,62 @@ class Badge extends Component
 
             case 'yellow':
                 return 'bg-yellow-100 text-yellow-800';
+
+                break;
+        }
+    }
+
+    public function iconStyles()
+    {
+        return "{$this->iconColorStyles()} {$this->iconSizeStyles()}";
+    }
+
+    public function iconColorStyles()
+    {
+        switch ($this->color) {
+            case 'gray':
+            default:
+                return 'text-gray-600';
+
+                break;
+
+            case 'blue':
+                return 'text-blue-600';
+
+                break;
+
+            case 'green':
+                return 'text-green-600';
+
+                break;
+
+            case 'purple':
+                return 'text-purple-600';
+
+                break;
+
+            case 'red':
+                return 'text-red-600';
+
+                break;
+
+            case 'yellow':
+                return 'text-yellow-600';
+
+                break;
+        }
+    }
+
+    public function iconSizeStyles()
+    {
+        switch ($this->size) {
+            case 'xs':
+                return 'h-4 w-4';
+
+                break;
+
+            default:
+                return 'h-5 w-5';
 
                 break;
         }
