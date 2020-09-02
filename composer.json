@@ -14,7 +14,7 @@
         "php": "^7.4.0",
         "awssat/discord-notification-channel": "^1.1",
         "blade-ui-kit/blade-icons": "^0.4",
-        "blade-ui-kit/blade-ui-kit": "dev-main",
+        "blade-ui-kit/blade-ui-kit": "^0.1",
         "f9webltd/laravel-meta": "^1.4",
         "fideloper/proxy": "^4.0",
         "kalnoy/nestedset": "^5.0",
@@ -98,11 +98,5 @@
         "vendor-dir": "nova/vendor"
     },
     "minimum-stability": "dev",
-    "prefer-stable": true,
-    "repositories": {
-        "blade-ui-kit": {
-            "type": "vcs",
-            "url": "https://github.com/blade-ui-kit/blade-ui-kit"
-        }
-    }
+    "prefer-stable": true
 }
