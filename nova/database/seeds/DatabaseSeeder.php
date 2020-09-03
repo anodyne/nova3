@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call(CharacterSeeder::class);
 
+        $this->call(StorySeeder::class);
+
         activity()->enableLogging();
     }
 }

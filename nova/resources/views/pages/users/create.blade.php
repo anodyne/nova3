@@ -37,7 +37,7 @@
 
             <x-form.section title="Avatar" message="User avatars should be a square image at least 500 pixels tall by 500 pixels wide, but not more than 5MB in size.">
                 <x-input.group>
-                    @livewire('users:upload-avatar')
+                    @livewire('upload-avatar')
                 </x-input.group>
             </x-form.section>
 
@@ -46,9 +46,11 @@
                     <p>Roles are a collection of the actions a user can take throughout Nova. A user can be assigned as many roles as you'd like, giving you more granular control over what users can do.</p>
 
                     @can('viewAny', 'Nova\Roles\Models\Role')
-                        <a href="{{ route('roles.index') }}" class="button button-soft button-sm mt-6">
-                            Manage roles
-                        </a>
+                        <div class="mt-6">
+                            <x-button-link :href="route('roles.index')" color="white" size="xs">
+                                Manage roles
+                            </x-button-link>
+                        </div>
                     @endcan
                 </x-slot>
 
@@ -64,9 +66,8 @@
             </x-form.section>
 
             <x-form.footer>
-                <button type="submit" class="button button-primary">Add User</button>
-
-                <a href="{{ route('users.index', 'status=active') }}" class="button">Cancel</a>
+                <x-button type="submit" color="blue">Add User</x-button>
+                <x-button-link :href="route('users.index', 'status=active')" color="white">Cancel</x-button-link>
             </x-form.footer>
         </x-form>
     </x-panel>

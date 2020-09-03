@@ -1,8 +1,5 @@
 <?php
 
-use Inertia\Inertia;
-use Illuminate\Support\Facades\Route;
-
 try {
     $pages = cache()->rememberForever('nova.pages', function () {
         return \Nova\Pages\Page::get();
@@ -16,9 +13,3 @@ try {
 } catch (Exception $ex) {
     // We're not going to do anything here yet
 }
-
-Route::get('test', function () {
-    Inertia::setRootView('app-client');
-
-    return Inertia::render('Test');
-});

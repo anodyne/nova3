@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateStoryTables extends Migration
 {
@@ -15,15 +15,17 @@ class CreateStoryTables extends Migration
     {
         Schema::create('stories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('story_id')->nullable()->constrained('stories');
             $table->string('status');
             $table->string('title');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->text('summary')->nullable();
-            $table->unsignedInteger('sort')->nullable();
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
+            $table->boolean('allow_posting')->default(true);
+            $table->nestedSet();
             $table->timestamps();
+
+            $table->index('status');
         });
 
         Schema::create('post_author', function (Blueprint $table) {
@@ -35,18 +37,32 @@ class CreateStoryTables extends Migration
             $table->id();
             $table->string('key')->unique();
             $table->string('name');
-            $table->text('description');
+            $table->text('description')->nullable();
+            $table->string('color')->nullable();
+            $table->string('icon')->nullable();
+            $table->foreignId('role_id')->nullable()->constrained();
+            $table->boolean('active')->default(true);
+            $table->string('visibility')->default('in-character');
+            $table->json('fields')->nullable();
+            $table->json('options')->nullable();
+            $table->unsignedBigInteger('sort')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('story_id')->constrained('stories')->onDelete('cascade');
+            $table->foreignId('story_id')->constrained('stories');
             $table->foreignId('post_type_id')->constrained('post_types');
             $table->string('status');
             $table->string('title');
             $table->longText('content');
+            $table->unsignedInteger('word_count')->default(0);
+            $table->boolean('mature_content')->default(false);
             $table->dateTime('published_at')->nullable();
             $table->timestamps();
+
+            $table->index(['story_id', 'post_type_id', 'published_at']);
         });
     }
 

@@ -7,9 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Note::class, function (Faker $faker) {
     return [
-        'user_id' => function () {
-            return factory(User::class)->create();
-        },
+        'user_id' => fn () => factory(User::class)->create()->id,
         'title' => $faker->words(mt_rand(3, 10), true),
         'content' => $faker->paragraphs(mt_rand(1, 5), true),
         'summary' => $faker->sentences(mt_rand(1, 5), true),

@@ -8,12 +8,8 @@ use Nova\Ranks\Models\RankGroup;
 
 $factory->define(RankItem::class, function (Faker $faker) {
     return [
-        'group_id' => function () {
-            return create(RankGroup::class)->id;
-        },
-        'name_id' => function () {
-            return create(RankName::class)->id;
-        },
+        'group_id' => fn () => factory(RankGroup::class)->create()->id,
+        'name_id' => fn () => factory(RankName::class)->create()->id,
         'base_image' => 'base.png',
         'overlay_image' => 'overlay.png',
     ];

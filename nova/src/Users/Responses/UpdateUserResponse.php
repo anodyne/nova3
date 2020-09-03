@@ -2,9 +2,9 @@
 
 namespace Nova\Users\Responses;
 
-use Nova\Foundation\Responses\ServerResponse;
+use Nova\Foundation\Responses\Responsable;
 
-class UpdateUserResponse extends ServerResponse
+class UpdateUserResponse extends Responsable
 {
     public $view = 'users.edit';
 }

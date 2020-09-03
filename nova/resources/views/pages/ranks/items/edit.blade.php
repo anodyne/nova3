@@ -9,9 +9,6 @@
 
     <x-panel x-data="{ tab: 'base', base: '{{ old('base_image', $item->base_image) }}', overlay: '{{ old('overlay_image', $item->overlay_image) }}' }">
         <x-form :action="route('ranks.items.update', $item)" method="PUT">
-            <input type="hidden" name="base_image" x-model="base">
-            <input type="hidden" name="overlay_image" x-model="overlay">
-
             <x-form.section title="Rank Info" message="You can build up your rank with a few clicks. Assign it to a group, set a name, and pick your base and overlay images to build your rank quickly and easily.">
                 <x-input.group label="Rank Group" for="group_id" :error="$errors->first('group_id')">
                     <div class="flex items-center w-full">
@@ -62,7 +59,7 @@
                             <a
                                 href="#"
                                 x-on:click.prevent="tab = 'base'"
-                                class="ml-4 first:ml-0 px-3 py-2 font-medium text-sm leading-5 rounded-md  focus:outline-none"
+                                class="ml-4 first:ml-0 px-3 py-2 font-medium text-sm rounded-md  focus:outline-none"
                                 x-bind:class="{ 'bg-primary-100 text-primary-700': tab === 'base', 'text-gray-500 hover:text-gray-700': tab !== 'base' }"
                             >
                                 Base Images
@@ -70,7 +67,7 @@
                             <a
                                 href="#"
                                 x-on:click.prevent="tab = 'overlay'"
-                                class="ml-4 first:ml-0 px-3 py-2 font-medium text-sm leading-5 rounded-md  focus:outline-none"
+                                class="ml-4 first:ml-0 px-3 py-2 font-medium text-sm rounded-md  focus:outline-none"
                                 x-bind:class="{ 'bg-primary-100 text-primary-700': tab === 'overlay', 'text-gray-500 hover:text-gray-700': tab !== 'overlay' }"
                             >
                                 Overlay Images
@@ -116,10 +113,12 @@
             </div>
 
             <x-form.footer>
-                <button type="submit" class="button button-primary">Update Rank Item</button>
-
-                <a href="{{ route('ranks.items.index') }}" class="button">Cancel</a>
+                <x-button type="submit" color="blue">Update Rank Item</x-button>
+                <x-button-link :href="route('ranks.items.index')" color="white">Cancel</x-button-link>
             </x-form.footer>
+
+            <input type="hidden" name="base_image" x-model="base">
+            <input type="hidden" name="overlay_image" x-model="overlay">
         </x-form>
     </x-panel>
 @endsection

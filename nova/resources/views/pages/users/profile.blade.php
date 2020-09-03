@@ -9,10 +9,10 @@
     <x-panel class="p-4 | sm:p-6">
         <div class="flex">
             <div>
-                <x-avatar :url="$user->avatar_url" size="xl" />
+                <x-avatar :src="$user->avatar_url" size="xl" />
             </div>
             <div class="flex flex-col ml-6">
-                <h1 class="block text-2xl font-extrabold leading-7 text-gray-900 | sm:text-4xl sm:leading-10 sm:truncate">
+                <h1 class="block text-2xl font-extrabold text-gray-900 | sm:text-4xl sm:truncate">
                     {{ $user->name }}
                 </h1>
 
@@ -39,9 +39,9 @@
             <li class="col-span-1 flex flex-col text-center bg-white rounded-lg shadow">
                 <div class="flex-1 flex flex-col p-8">
                     <div>
-                        <x-avatar :url="$character->avatar_url" size="xl" />
+                        <x-avatar :src="$character->avatar_url" size="xl" />
                     </div>
-                    <h3 class="mt-6 text-gray-900 text-sm leading-5 font-medium">
+                    <h3 class="mt-6 text-gray-900 text-sm font-medium">
                         @isset($character->rank)
                             {{ $character->rank->name->name }}
                         @endisset
@@ -49,25 +49,25 @@
                     </h3>
                     <dl class="mt-1 flex-grow flex flex-col justify-between">
                         <dt class="sr-only">Title</dt>
-                        <dd class="text-gray-500 text-sm leading-5">{{ $character->positions->implode('name', ' & ') }}</dd>
+                        <dd class="text-gray-500 text-sm">{{ $character->positions->implode('name', ' & ') }}</dd>
 
                         <dt class="sr-only">Role</dt>
                         <dd class="mt-3 space-x-3">
-                            <x-badge size="sm" :type="$character->status->color()">{{ $character->status->displayName() }}</x-badge>
-                            <x-badge size="sm" :type="$character->type->color()">{{ $character->type->displayName() }}</x-badge>
+                            <x-badge size="xs" :color="$character->status->color()">{{ $character->status->displayName() }}</x-badge>
+                            <x-badge size="xs" :color="$character->type->color()">{{ $character->type->displayName() }}</x-badge>
                         </dd>
                     </dl>
                 </div>
                 {{-- <div class="border-t border-gray-200">
                     <div class="-mt-px flex">
                         <div class="w-0 flex-1 flex border-r border-gray-200">
-                            <a href="#" class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm leading-5 text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 transition ease-in-out duration-150">
+                            <a href="#" class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 transition ease-in-out duration-150">
                                 @icon('show', 'w-5 h-5 text-gray-400')
                                 <span class="ml-3">View</span>
                             </a>
                         </div>
                         <div class="-ml-px w-0 flex-1 flex">
-                            <a href="#" class="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm leading-5 text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 transition ease-in-out duration-150">
+                            <a href="#" class="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 transition ease-in-out duration-150">
                                 @icon('edit', 'w-5 h-5 text-gray-400')
                                 <span class="ml-3">Edit</span>
                             </a>
@@ -81,7 +81,7 @@
     <x-panel>
         <div class="pb-8">
             <div class="p-4 | sm:hidden">
-                <select x-on:change="window.location.replace($event.target.value)" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base leading-6 border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5 transition ease-in-out duration-150">
+                <select x-on:change="window.location.replace($event.target.value)" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm transition ease-in-out duration-150">
                     <option value="{{ route('users.index', 'status=active') }}"{{ request()->status === 'active' ? 'selected' : '' }}>Active Users</option>
                     <option value="{{ route('users.index', 'status=pending') }}"{{ request()->status === 'pending' ? 'selected' : '' }}>Pending Users</option>
                     <option value="{{ route('users.index', 'status=inactive') }}"{{ request()->status === 'inactive' ? 'selected' : '' }}>Inactive Users</option>
@@ -93,25 +93,25 @@
                     <nav class="-mb-px flex">
                         <a
                             href="{{ route('users.index', 'status=active') }}"
-                            class="whitespace-no-wrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm leading-5 focus:outline-none @if (request()->status === 'active') border-blue-500 text-blue-600 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
+                            class="whitespace-no-wrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'active') border-blue-500 text-blue-600 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
                         >
                             Basic Info
                         </a>
                         <a
                             href="{{ route('users.index', 'status=pending') }}"
-                            class="whitespace-no-wrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm leading-5 focus:outline-none @if (request()->status === 'pending') border-blue-500 text-blue-600 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
+                            class="whitespace-no-wrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'pending') border-blue-500 text-blue-600 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
                         >
                             Activity
                         </a>
                         <a
                             href="{{ route('users.index', 'status=inactive') }}"
-                            class="whitespace-no-wrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm leading-5 focus:outline-none @if (request()->status === 'inactive') border-blue-500 text-blue-600 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
+                            class="whitespace-no-wrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'inactive') border-blue-500 text-blue-600 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
                         >
                             Foo
                         </a>
                         <a
                             href="{{ route('users.index') }}"
-                            class="whitespace-no-wrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm leading-5 focus:outline-none @if (!request()->has('status')) border-blue-500 text-blue-600 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
+                            class="whitespace-no-wrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (!request()->has('status')) border-blue-500 text-blue-600 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
                         >
                             Bar
                         </a>
@@ -148,7 +148,7 @@
             </x-input.group>
 
             <x-input.group label="Avatar">
-                <x-avatar :url="$user->avatar_url" size="lg"></x-avatar>
+                <x-avatar :src="$user->avatar_url" size="lg"></x-avatar>
             </x-input.group>
         </x-form.section>
 

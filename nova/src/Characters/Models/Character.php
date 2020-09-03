@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Nova\Foundation\Concerns\HasStatesExtended;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Nova\Characters\Models\States\Types\Primary;
 use Nova\Characters\Models\States\Types\Support;
@@ -32,7 +31,6 @@ class Character extends Model implements HasMedia
     use HasEagerLimit;
     use HasMediaTrait;
     use HasStates;
-    use HasStatesExtended;
     use LogsActivity;
     use SoftDeletes;
 

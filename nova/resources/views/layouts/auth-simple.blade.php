@@ -5,8 +5,8 @@
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <x-nova-logo class="mx-auto h-12 w-auto text-blue-500" />
 
-            <h2 class="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900">
-                Sign in to your account
+            <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+                @yield('page-header')
             </h2>
         </div>
 

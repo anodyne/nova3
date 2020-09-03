@@ -1,6 +1,8 @@
-.field-wrapper {
-    + .field-wrapper {
-        @apply mt-8;
+.form-field {
+    @apply flex-1 appearance-none bg-transparent text-gray-700;
+
+    &:focus {
+        @apply outline-none;
     }
 }
 
@@ -9,10 +11,6 @@
 
     &:focus-within {
         @apply border-primary-300 bg-white shadow-outline-primary;
-    }
-
-    &.static {
-        @apply p-0 bg-transparent border-none;
     }
 
     .field {
@@ -48,78 +46,7 @@
     }
 }
 
-.field-label {
-    @apply block mb-1 text-sm text-gray-700 font-medium;
-}
-
-.field-help,
-.field-error {
-    @apply block w-full relative mt-2 ml-2px text-sm text-gray-500;
-}
-
-.form-section {
-    @apply flex flex-col px-4 pt-4;
-
-    > .form-section-header {
-        @apply mb-8 w-full;
-
-        > .form-section-header-title {
-            @apply mb-2 font-semibold text-xl text-gray-700 tracking-tight;
-        }
-
-        > .form-section-header-message {
-            @apply text-gray-600;
-        }
-    }
-
-    > .form-section-content {
-        @apply flex-1;
-    }
-
-    + .form-section {
-        @apply pt-10 mt-10 border-t border-gray-100;
-    }
-}
-
-@screen md {
-    .form-section {
-        @apply flex-row px-6 pt-6;
-
-        > .form-section-header {
-            @apply w-96 mr-16 mb-0;
-        }
-    }
-}
-
-.form-footer {
-    @apply flex flex-col mt-10 px-4 py-4 border-t border-gray-100;
-
-    button + button,
-    button + a,
-    a + button,
-    a + a {
-        @apply mt-4;
-    }
-}
-
-@screen md {
-    .form-footer {
-        @apply flex-row-reverse items-center px-6 py-6;
-
-        button + button,
-        button + a,
-        a + button,
-        a + a {
-            @apply mt-0 mr-6;
-        }
-    }
-}
-
-.field-wrapper.has-error {
-    .field-label {
-        @apply text-danger-600;
-    }
-
+.has-error {
     .field-group {
         @apply border-danger-300;
 
@@ -129,15 +56,7 @@
     }
 }
 
-.field-error {
-    @apply flex items-center text-danger-600;
-
-    > svg.icon {
-        @apply mr-2 h-5 w-5 flex-shrink-0 text-danger-400;
-    }
-}
-
-.form-checkbox {
+/* .form-checkbox {
     @apply inline-block border rounded flex-shrink-0 select-none align-middle appearance-none outline-none;
 
     background-origin: border-box;
@@ -195,4 +114,4 @@
 
         border-color: currentColor;
     }
-}
+} */

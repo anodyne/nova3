@@ -3,18 +3,6 @@
     'trailingAddOn' => false,
 ])
 
-<div class="field-group">
-    @if ($leadingAddOn)
-        <div class="field-addon">
-            {{ $leadingAddOn }}
-        </div>
-    @endif
-
-    <input type="text" class="field" {{ $attributes }}>
-
-    @if ($trailingAddOn)
-        <div class="field-addon">
-            {{ $trailingAddOn }}
-        </div>
-    @endif
-</div>
+<x-input.field :leading-add-on="$leadingAddOn" :trailing-add-on="$trailingAddOn">
+    <input type="text" class="form-field" {{ $attributes }}>
+</x-input.field>

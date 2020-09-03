@@ -2,9 +2,9 @@
 
 namespace Nova\Dashboard\Responses;
 
-use Nova\Foundation\Responses\ServerResponse;
+use Nova\Foundation\Responses\Responsable;
 
-class DashboardResponse extends ServerResponse
+class DashboardResponse extends Responsable
 {
     public $view = 'dashboard';
 }

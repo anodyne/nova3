@@ -4,7 +4,7 @@
 <div x-data="{ tab: 'intro', isLoading: false }">
     <div>
         <div class="p-4 | sm:hidden">
-            <select x-on:change="tab = $event.target.value" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base leading-6 border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5 transition ease-in-out duration-150">
+            <select x-on:change="tab = $event.target.value" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm transition ease-in-out duration-150">
                 <option value="intro" x-bind:selected="tab === 'intro'">Intro</option>
                 <option value="install" x-bind:selected="tab === 'install'">Install</option>
             </select>
@@ -15,7 +15,7 @@
                     <a
                         @click.prevent="tab = 'intro'"
                         href="#"
-                        class="w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm leading-5 focus:outline-none"
+                        class="w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm focus:outline-none"
                         :class="{ 'border-blue-500 text-blue-600': tab === 'intro', 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300': tab !== 'intro' }"
                     >
                         Intro
@@ -23,7 +23,7 @@
                     <a
                         @click.prevent="tab = 'install'"
                         href="#"
-                        class="w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm leading-5 focus:outline-none"
+                        class="w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm focus:outline-none"
                         :class="{ 'border-blue-500 text-blue-600': tab === 'install', 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300': tab !== 'install' }"
                     >
                         Install
@@ -37,11 +37,11 @@
         <div x-show="tab === 'intro'">
             <h2 class="text-2xl font-light mb-8 text-center">Thank you for supporting Anodyne&rsquo;s work on Nova 3!</h2>
 
-            <p class="mb-8 leading-7">
+            <p class="mb-8">
                 We've decided to provide Patrons with regular downloadable previews of the work being done on Nova 3. This is not intended to be used for QA purposes, but just to a way to get feedback from valued members of the community about the direction of Nova 3.
             </p>
 
-            <p class="mb-8 leading-7">
+            <p class="mb-8">
                 Please do not share this with anyone outside of the Anodyne Patreon community. Any feedback regarding this preview can be sent in the <a href="https://discord.gg/7WmKUks" target="_blank" class="text-blue-600 hover:text-blue-500 transition ease-in-out duration-150 font-medium">#patrons</a> channel on Discord.
             </p>
 
@@ -51,7 +51,7 @@
                         @icon('warning', 'h-7 w-7 text-yellow-400')
                     </div>
                     <div class="ml-4 flex-1 | md:flex md:justify-between">
-                        <p class="leading-6 text-yellow-700 font-medium">
+                        <p class="text-yellow-700 font-medium">
                             This is alpha-level software and is not suitable for a production environment!
                         </p>
                     </div>

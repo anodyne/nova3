@@ -2,9 +2,9 @@
 
 namespace Nova\Auth\Responses;
 
-use Nova\Foundation\Responses\ServerResponse;
+use Nova\Foundation\Responses\Responsable;
 
-class ResetPasswordResponse extends ServerResponse
+class ResetPasswordResponse extends Responsable
 {
     public $view = 'auth.passwords.reset';
 }

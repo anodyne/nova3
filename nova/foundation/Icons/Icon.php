@@ -6,11 +6,11 @@ use BladeUI\Icons\Svg;
 
 class Icon
 {
-    protected $default;
+    protected $iconSet;
 
     public function __construct()
     {
-        $this->default = app('nova.settings')->defaults->iconSet;
+        $this->iconSet = app(IconSets::class)->getDefaultSet();
     }
 
     public function make($name, $class = '', array $attributes = []): Svg
@@ -22,17 +22,12 @@ class Icon
         );
     }
 
-    public function getIconSet(): IconSet
-    {
-        return app(IconSets::class)->get($this->default);
-    }
-
     protected function getIconName($name): string
     {
         return sprintf(
             '%s-%s',
-            $this->default,
-            $this->getIconSet()->getIcon($name)
+            $this->iconSet->prefix(),
+            $this->iconSet->getIcon($name)
         );
     }
 }

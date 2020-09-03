@@ -1,25 +1,29 @@
-@if (session('status'))
-    <div class="rounded font-semibold bg-sucess-200 border-2 border-success-300 text-success-700 mb-6" role="alert">
-        {{ session('status') }}
-    </div>
-@endif
+@extends($__novaTemplate)
 
-@if (session('message'))
-    <div class="alert alert-warning" role="alert">
-        {{ session('message') }}
-    </div>
-@endif
+@section('page-header', 'Reset your password')
 
-<p class="text-sm text-gray-600 mb-6">If you can't remember your password, please provide your email address and we will send you a link which you may use to change your password.</p>
-
-<x-form :action="route('password.email')">
-    <form-field label="Email" error="{{ $errors->first('email') }}">
-        <div class="field-group">
-            <input id="email" type="email" class="field" name="email" value="{{ old('email') }}" data-cy="email" required>
+@section('content')
+    @if (session('status'))
+        <div class="rounded font-semibold bg-sucess-200 border-2 border-success-300 text-success-700 mb-6" role="alert">
+            {{ session('status') }}
         </div>
-    </form-field>
+    @endif
 
-    <button type="submit" class="button button-primary mt-8" data-cy="submit">
-        {{ __('Send Reset Link') }}
-    </button>
-</x-form>
+    @if (session('message'))
+        <div class="alert alert-warning" role="alert">
+            {{ session('message') }}
+        </div>
+    @endif
+
+    <p class="text-gray-700 mb-6">If you can't remember your password, please provide your email address and we will send you a link which you may use to change your password.</p>
+
+    <x-form :action="route('password.email')" :divide="false">
+        <x-input.group label="Email" for="email" :error="$errors->first('email')">
+            <x-input.email id="email" class="form-field" name="email" :value="old('email')" data-cy="email" placeholder="john@example.com" required />
+        </x-input.group>
+
+        <x-button type="submit" color="blue" :full-width="true" data-cy="submit">
+            {{ __('Send Reset Link') }}
+        </x-button>
+    </x-form>
+@endsection

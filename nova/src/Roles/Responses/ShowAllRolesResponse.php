@@ -2,9 +2,9 @@
 
 namespace Nova\Roles\Responses;
 
-use Nova\Foundation\Responses\ServerResponse;
+use Nova\Foundation\Responses\Responsable;
 
-class ShowAllRolesResponse extends ServerResponse
+class ShowAllRolesResponse extends Responsable
 {
     public $view = 'roles.index';
 }

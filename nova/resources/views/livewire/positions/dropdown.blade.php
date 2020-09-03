@@ -10,7 +10,7 @@
             <button
                 x-on:click="open = !open"
                 type="button"
-                class="flex items-center justify-between cursor-default relative w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150 | sm:text-sm sm:leading-5"
+                class="flex items-center justify-between cursor-default relative w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150 | sm:text-sm"
                 aria-haspopup="true"
                 aria-expanded="true"
                 x-bind:aria-expanded="open"
@@ -39,27 +39,27 @@
         <div class="relative rounded-md bg-white shadow-xs max-h-60 overflow-auto z-10">
             @if (! isset($positions))
                 <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                    <div class="block px-4 py-2 text-xs uppercase tracking-wide font-medium leading-5 text-gray-600">
+                    <div class="block px-4 py-2 text-xs uppercase tracking-wide font-medium text-gray-600">
                         Pick a department
                     </div>
                     @foreach ($departments as $department)
-                        <button wire:click="selectDepartment({{ $department->id }})" type="button" class="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none" role="menuitem">
+                        <button wire:click="selectDepartment({{ $department->id }})" type="button" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none" role="menuitem">
                             {{ $department->name }}
                         </button>
                     @endforeach
                 </div>
             @else
                 <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                    <button wire:click="clearPositions" type="button" class="inline-flex items-center w-full text-left px-4 py-2 text-xs uppercase tracking-wide font-medium leading-5 text-gray-600 hover:bg-gray-100 hover:text-gray-900 focus:outline-none">
+                    <button wire:click="clearPositions" type="button" class="inline-flex items-center w-full text-left px-4 py-2 text-xs uppercase tracking-wide font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 focus:outline-none">
                         &larr; Change selected department
                     </button>
 
                     @forelse ($positions as $position)
-                        <button wire:click="selectPosition({{ $position->id }})" type="button" class="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none" role="menuitem">
+                        <button wire:click="selectPosition({{ $position->id }})" type="button" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none" role="menuitem">
                             {{ $position->name }}
                         </button>
                     @empty
-                        <span class="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 focus:outline-none" role="menuitem">
+                        <span class="block w-full text-left px-4 py-2 text-sm text-gray-700 focus:outline-none" role="menuitem">
                             No positions available for this department
                         </span>
                     @endforelse

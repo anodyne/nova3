@@ -51,9 +51,8 @@
             </x-form.section>
 
             <x-form.footer>
-                <button type="submit" class="button button-primary">Add Role</button>
-
-                <a href="{{ route('roles.index') }}" class="button">Cancel</a>
+                <x-button type="submit" color="blue">Add Role</x-button>
+                <x-button-link :href="route('roles.index')" color="white">Cancel</x-button-link>
             </x-form.footer>
         </x-form>
     </x-panel>

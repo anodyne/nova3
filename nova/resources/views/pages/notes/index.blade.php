@@ -4,9 +4,9 @@
     <x-page-header title="My Notes">
         <x-slot name="controls">
             @if ($notes->count() > 0)
-                <a href="{{ route('notes.create') }}" class="button button-primary" data-cy="create">
+                <x-button-link :href="route('notes.create')" color="blue" data-cy="create">
                     Add Note
-                </a>
+                </x-button-link>
             @endif
         </x-slot>
     </x-page-header>
@@ -14,7 +14,7 @@
     @if (auth()->user()->notes()->count() === 0)
         <x-empty-state
             image="notes"
-            message="Notes are a great way to keep your thoughts organized, be it about things you need to do for the game, a story idea, or as a scratchpad for your next great story post."
+            message="Notes help keep your thoughts organized about your game, a story idea, or even as a scratchpad for your next great story post."
             label="Add a note now"
             :link="route('notes.create')"
         ></x-empty-state>
@@ -31,43 +31,41 @@
                         <div class="px-4 py-4 flex items-center sm:px-6">
                             <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
                                 <div>
-                                    <div class="leading-normal font-medium truncate">
+                                    <div class="font-medium truncate">
                                         {{ $note->title }}
                                     </div>
-                                    <p class="mt-1 text-sm leading-5 text-gray-600">{{ $note->summary }}</p>
+                                    <p class="mt-1 text-sm text-gray-600">{{ $note->summary }}</p>
                                 </div>
                             </div>
                             <div class="ml-5 flex-shrink-0 leading-0">
                                 <x-dropdown placement="bottom-end" class="text-gray-400 hover:text-gray-500">
-                                    @icon('more', 'h-6 w-6')
+                                    <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
 
-                                    <x-slot name="dropdown">
-                                        <a href="{{ route('notes.show', $note) }}" class="{{ $component->link() }}">
-                                            @icon('show', $component->icon())
-                                            <span>View</span>
-                                        </a>
+                                    <a href="{{ route('notes.show', $note) }}" class="{{ $component->link() }}">
+                                        @icon('show', $component->icon())
+                                        <span>View</span>
+                                    </a>
 
-                                        <a href="{{ route('notes.edit', $note) }}" class="{{ $component->link() }}">
-                                            @icon('edit', $component->icon())
-                                            <span>Edit</span>
-                                        </a>
+                                    <a href="{{ route('notes.edit', $note) }}" class="{{ $component->link() }}">
+                                        @icon('edit', $component->icon())
+                                        <span>Edit</span>
+                                    </a>
 
-                                        <button type="submit" class="{{ $component->link() }}" form="duplicate-{{ $note->id }}" data-cy="duplicate">
-                                            @icon('duplicate', $component->icon())
-                                            <span>Duplicate</span>
-                                        </button>
-                                        <x-form :action="route('notes.duplicate', $note)" id="duplicate-{{ $note->id }}" class="hidden" />
+                                    <button type="submit" class="{{ $component->link() }}" form="duplicate-{{ $note->id }}" data-cy="duplicate">
+                                        @icon('duplicate', $component->icon())
+                                        <span>Duplicate</span>
+                                    </button>
+                                    <x-form :action="route('notes.duplicate', $note)" id="duplicate-{{ $note->id }}" class="hidden" />
 
-                                        <div class="{{ $component->divider() }}"></div>
-                                        <button
-                                            x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($note) }});"
-                                            class="{{ $component->link() }}"
-                                            data-cy="delete"
-                                        >
-                                            @icon('delete', $component->icon())
-                                            <span>Delete</span>
-                                        </button>
-                                    </x-slot>
+                                    <div class="{{ $component->divider() }}"></div>
+                                    <button
+                                        x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($note) }});"
+                                        class="{{ $component->link() }}"
+                                        data-cy="delete"
+                                    >
+                                        @icon('delete', $component->icon())
+                                        <span>Delete</span>
+                                    </button>
                                 </x-dropdown>
                             </div>
                         </div>
@@ -90,14 +88,14 @@
         <x-modal color="red" title="Delete Note?" icon="warning" :url="route('notes.delete')">
             <x-slot name="footer">
                 <span class="flex w-full | sm:col-start-2">
-                    <button form="form" class="button button-danger w-full">
+                    <x-button form="form" color="red" :full-width="true">
                         Delete
-                    </button>
+                    </x-button>
                 </span>
                 <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
-                    <button x-on:click="$dispatch('modal-close')" type="button" class="button w-full">
+                    <x-button x-on:click="$dispatch('modal-close')" type="button" color="white" :full-width="true">
                         Cancel
-                    </button>
+                    </x-button>
                 </span>
             </x-slot>
         </x-modal>

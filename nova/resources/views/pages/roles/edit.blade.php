@@ -9,16 +9,16 @@
 
     <x-panel>
         @if ($role->default)
-            <div class="bg-info-100 border-t border-b border-info-200 p-4 | sm:rounded-t-md sm:border-t-0">
+            <div class="bg-purple-100 border-t border-b border-purple-200 p-4 | sm:rounded-t-md sm:border-t-0">
                 <div class="flex">
                     <div class="flex-shrink-0">
-                        @icon('check-alt', 'h-6 w-6 text-info-600')
+                        @icon('check-alt', 'h-6 w-6 text-purple-600')
                     </div>
                     <div class="ml-3">
-                        <h3 class="text-sm leading-5 font-medium text-info-900">
+                        <h3 class="text-sm font-medium text-purple-900">
                             Default role for new users
                         </h3>
-                        <div class="mt-2 text-sm leading-5 text-info-800">
+                        <div class="mt-2 text-sm text-purple-800">
                             <p>New users are automatically assigned this role when they're activated. Be careful when making any updates to ensure new users have the correct permissions.</p>
                         </div>
                     </div>
@@ -27,8 +27,6 @@
         @endif
 
         <x-form :action="route('roles.update', $role)" method="PUT">
-            <input type="hidden" name="id" value="{{ $role->id }}">
-
             <x-form.section title="Role Info" message="A role is a collection of permissions that allows a user to take certain actions throughout Nova. Since a user can have as many roles as you'd like, we recommend creating roles with fewer permissions to give yourself more freedom to add and remove access for a given user.">
                 <x-input.group label="Name" for="display_name" :error="$errors->first('display_name')">
                     <x-input.text
@@ -67,10 +65,11 @@
             </x-form.section>
 
             <x-form.footer>
-                <button type="submit" class="button button-primary">Update Role</button>
-
-                <a href="{{ route('roles.index') }}" class="button">Cancel</a>
+                <x-button type="submit" color="blue">Update Role</x-button>
+                <x-button-link :href="route('roles.index')" color="white">Cancel</x-button-link>
             </x-form.footer>
+
+            <input type="hidden" name="id" value="{{ $role->id }}">
         </x-form>
     </x-panel>
 @endsection

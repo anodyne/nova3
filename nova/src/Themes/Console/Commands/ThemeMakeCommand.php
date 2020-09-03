@@ -98,7 +98,7 @@ class ThemeMakeCommand extends Command
 
         $stub = str_replace(
             ['DummyNamespace', 'DummyLocation'],
-            [ucfirst($this->getThemeLocation()), $this->getThemeLocation()],
+            [$this->getThemeLocation(), $this->getThemeLocation()],
             $stub
         );
 

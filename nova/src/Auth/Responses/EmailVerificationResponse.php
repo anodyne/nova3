@@ -2,9 +2,9 @@
 
 namespace Nova\Auth\Responses;
 
-use Nova\Foundation\Responses\ServerResponse;
+use Nova\Foundation\Responses\Responsable;
 
-class EmailVerificationResponse extends ServerResponse
+class EmailVerificationResponse extends Responsable
 {
     public $view = 'auth.verify';
 }

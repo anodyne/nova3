@@ -1,6 +1,6 @@
 <?php
 
-namespace Themes\Titan;
+namespace Themes\titan;
 
 use Nova\Themes\BaseTheme;
 

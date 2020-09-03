@@ -1,25 +1,25 @@
-<x-form :action="route('password.update')">
-    <input type="hidden" name="token" value="{{ $token }}">
+@extends($__novaTemplate)
 
-    <form-field label="Email" error="{{ $errors->first('email') }}">
-        <div class="field-group">
-            <input id="email" type="email" class="field" name="email" value="{{ $email ?? old('email') }}" data-cy="email" required autofocus>
-        </div>
-    </form-field>
+@section('page-header', 'Reset your password')
 
-    <form-field label="Password" error="{{ $errors->first('password') }}">
-        <div class="field-group">
-            <input id="password" type="password" class="field" name="password" data-cy="password" required>
-        </div>
-    </form-field>
+@section('content')
+    <x-form :action="route('password.update')" :divide="false">
+        <x-input.group label="Email" for="email" :error="$errors->first('email')">
+            <x-input.email id="email" class="form-field" name="email" :value="old('email', $email)" placeholder="john@example.com" data-cy="email" required autofocus />
+        </x-input.group>
 
-    <form-field label="Confirm Password" error="{{ $errors->first('password-confirm') }}">
-        <div class="field-group">
-            <input id="password-confirm" type="password" class="field" name="password_confirmation" data-cy="password-confirm" required>
-        </div>
-    </form-field>
+        <x-input.group label="Password" for="password" :error="$errors->first('password')">
+            <x-input.password id="password" class="form-field" name="password" placeholder="Password" data-cy="password" required />
+        </x-input.group>
 
-    <button type="submit" class="button button-primary mt-8" data-cy="submit">
-        {{ __('Reset Password') }}
-    </button>
-</x-form>
+        <x-input.group label="Confirm Password" for="password-confirm" :error="$errors->first('password-confirm')">
+            <x-input.password id="password-confirm" class="form-field" name="password_confirmation" placeholder="Confirm your password" data-cy="password-confirm" required />
+        </x-input.group>
+
+        <x-button type="submit" color="blue" :full-width="true" data-cy="submit">
+            {{ __('Reset Password') }}
+        </x-button>
+
+        <input type="hidden" name="token" value="{{ $token }}">
+    </x-form>
+@endsection

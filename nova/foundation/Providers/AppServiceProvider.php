@@ -2,6 +2,7 @@
 
 namespace Nova\Foundation\Providers;
 
+use Livewire\Livewire;
 use Nova\Foundation\Macros;
 use Illuminate\Routing\Route;
 use Nova\Foundation\NovaManager;
@@ -13,11 +14,16 @@ use Illuminate\Support\ServiceProvider;
 use Nova\Foundation\Icons\FluentIconSet;
 use Nova\Foundation\NovaBladeDirectives;
 use Nova\Foundation\Icons\FeatherIconSet;
+use Nova\Foundation\Livewire\UploadImage;
 use Nova\Foundation\View\Components\Tips;
+use Nova\Foundation\Livewire\UploadAvatar;
 use Nova\Foundation\View\Components\Badge;
 use Illuminate\View\Factory as ViewFactory;
 use Nova\Foundation\View\Components\Avatar;
+use Nova\Foundation\View\Components\Button;
+use Nova\Foundation\Livewire\IconsSelectMenu;
 use Nova\Foundation\View\Components\Dropdown;
+use Nova\Foundation\View\Components\ButtonLink;
 use Nova\Foundation\View\Components\AvatarGroup;
 
 class AppServiceProvider extends ServiceProvider
@@ -67,6 +73,8 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('avatar', Avatar::class);
         Blade::component('avatar-group', AvatarGroup::class);
         Blade::component('badge', Badge::class);
+        Blade::component('button', Button::class);
+        Blade::component('button-link', ButtonLink::class);
         Blade::component('dropdown', Dropdown::class);
         Blade::component('tips', Tips::class);
     }
@@ -80,5 +88,8 @@ class AppServiceProvider extends ServiceProvider
 
     protected function registerLivewireComponents()
     {
+        Livewire::component('icons-select-menu', IconsSelectMenu::class);
+        Livewire::component('upload-avatar', UploadAvatar::class);
+        Livewire::component('upload-image', UploadImage::class);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Themes\Pulsar;
+namespace Themes\pulsar;
 
 use Nova\Themes\BaseTheme;
 

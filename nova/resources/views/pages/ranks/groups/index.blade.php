@@ -17,9 +17,9 @@
                 @endcan
 
                 @can('create', 'Nova\Ranks\Models\RankGroup')
-                    <a href="{{ route('ranks.groups.create') }}" class="button button-primary" data-cy="create">
+                    <x-button-link :href="route('ranks.groups.create')" color="blue" data-cy="create">
                         Add Rank Group
-                    </a>
+                    </x-button-link>
                 @endcan
             @endif
         </x-slot>
@@ -35,26 +35,26 @@
     @else
         <x-panel x-data="sortableList()" x-init="initSortable()">
             @if ($isReordering)
-                <div class="bg-info-100 border-t border-b border-info-200 p-4 | sm:rounded-t-md sm:border-t-0">
+                <div class="bg-purple-100 border-t border-b border-purple-200 p-4 | sm:rounded-t-md sm:border-t-0">
                     <div class="flex">
                         <div class="flex-shrink-0">
-                            @icon('arrow-sort', 'h-6 w-6 text-info-600')
+                            @icon('arrow-sort', 'h-6 w-6 text-purple-600')
                         </div>
                         <div class="ml-3">
-                            <h3 class="text-sm leading-5 font-medium text-info-900">
+                            <h3 class="text-sm font-medium text-purple-900">
                                 Change Sorting Order
                             </h3>
-                            <div class="mt-2 text-sm leading-5 text-info-800">
+                            <div class="mt-2 text-sm text-purple-800">
                                 <p>Rank groups appear in the order you set throughout Nova. To change the sorting of the rank groups, drag them to the desired order and then click Save Sort Order below.</p>
                             </div>
                             <div class="mt-4">
-                                <x-form :action="route('ranks.groups.reorder')" id="form-reorder">
+                                <x-form :action="route('ranks.groups.reorder')" id="form-reorder" :divide="false">
                                     <input type="hidden" name="sort" x-model="newSortOrder">
                                     <div class="flex items-center space-x-4">
-                                        <button type="submit" form="form-reorder" class="button button-info">Save Sort Order</button>
-                                        <a href="{{ route('ranks.groups.index') }}" class="text-info-600 text-sm font-medium transition ease-in-out duration-150 hover:text-info-800">
+                                        <x-button type="submit" form="form-reorder" color="purple">Save Sort Order</x-button>
+                                        <x-button-link :href="route('ranks.groups.index')" color="text-purple" size="none">
                                             Cancel
-                                        </a>
+                                        </x-button-link>
                                     </div>
                                 </x-form>
                             </div>
@@ -79,11 +79,11 @@
                             @endif
                             <div class="min-w-0 flex-1 | sm:flex sm:items-center sm:justify-between">
                                 <div>
-                                    <div class="leading-normal font-medium truncate">
+                                    <div class="font-medium truncate">
                                         {{ $group->name }}
                                     </div>
                                     <div class="mt-2 flex">
-                                        <div class="flex items-center text-sm leading-5 text-gray-500">
+                                        <div class="flex items-center text-sm text-gray-500">
                                             @icon('star', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
                                             <span>
                                                 {{ $group->ranks_count }} @choice('rank item|rank items', $group->ranks_count)
@@ -94,47 +94,45 @@
                             </div>
                             <div class="ml-5 flex-shrink-0 leading-0">
                                 <x-dropdown placement="bottom-end" class="text-gray-400 hover:text-gray-500">
-                                    @icon('more', 'h-6 w-6')
+                                    <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
 
-                                    <x-slot name="dropdown">
-                                        @can('view', $group)
-                                            <a href="{{ route('ranks.groups.show', $group) }}" class="{{ $component->link() }}" data-cy="view">
-                                                @icon('show', $component->icon())
-                                                <span>View</span>
-                                            </a>
-                                        @endcan
+                                    @can('view', $group)
+                                        <a href="{{ route('ranks.groups.show', $group) }}" class="{{ $component->link() }}" data-cy="view">
+                                            @icon('show', $component->icon())
+                                            <span>View</span>
+                                        </a>
+                                    @endcan
 
-                                        @can('update', $group)
-                                            <a href="{{ route('ranks.groups.edit', $group) }}" class="{{ $component->link() }}" data-cy="edit">
-                                                @icon('edit', $component->icon())
-                                                <span>Edit</span>
-                                            </a>
-                                        @endcan
+                                    @can('update', $group)
+                                        <a href="{{ route('ranks.groups.edit', $group) }}" class="{{ $component->link() }}" data-cy="edit">
+                                            @icon('edit', $component->icon())
+                                            <span>Edit</span>
+                                        </a>
+                                    @endcan
 
-                                        @can('duplicate', $group)
-                                            <button
-                                                x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-duplicate', {{ json_encode($group) }});"
-                                                class="{{ $component->link() }}"
-                                                data-cy="duplicate"
-                                            >
-                                                @icon('duplicate', $component->icon())
-                                                <span>Duplicate</span>
-                                            </button>
-                                            <x-form :action="route('ranks.groups.duplicate', $group)" id="duplicate-{{ $group->id }}" class="hidden" />
-                                        @endcan
+                                    @can('duplicate', $group)
+                                        <button
+                                            x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-duplicate', {{ json_encode($group) }});"
+                                            class="{{ $component->link() }}"
+                                            data-cy="duplicate"
+                                        >
+                                            @icon('duplicate', $component->icon())
+                                            <span>Duplicate</span>
+                                        </button>
+                                        <x-form :action="route('ranks.groups.duplicate', $group)" id="duplicate-{{ $group->id }}" class="hidden" />
+                                    @endcan
 
-                                        @can('delete', $group)
-                                            <div class="{{ $component->divider() }}"></div>
-                                            <button
-                                                x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($group) }});"
-                                                class="{{ $component->link() }}"
-                                                data-cy="delete"
-                                            >
-                                                @icon('delete', $component->icon())
-                                                <span>Delete</span>
-                                            </button>
-                                        @endcan
-                                    </x-slot>
+                                    @can('delete', $group)
+                                        <div class="{{ $component->divider() }}"></div>
+                                        <button
+                                            x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($group) }});"
+                                            class="{{ $component->link() }}"
+                                            data-cy="delete"
+                                        >
+                                            @icon('delete', $component->icon())
+                                            <span>Delete</span>
+                                        </button>
+                                    @endcan
                                 </x-dropdown>
                             </div>
                         </div>
@@ -159,14 +157,14 @@
         <x-modal color="red" title="Delete rank group?" icon="warning" :url="route('ranks.groups.delete')">
             <x-slot name="footer">
                 <span class="flex w-full | sm:col-start-2">
-                    <button form="form" class="button button-danger w-full">
+                    <x-button form="form" color="red" :full-width="true">
                         Delete
-                    </button>
+                    </x-button>
                 </span>
                 <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
-                    <button x-on:click="$dispatch('modal-close')" type="button" class="button w-full">
+                    <x-button x-on:click="$dispatch('modal-close')" type="button" color="white" :full-width="true">
                         Cancel
-                    </button>
+                    </x-button>
                 </span>
             </x-slot>
         </x-modal>
@@ -174,14 +172,14 @@
         <x-modal color="blue" title="Duplicate rank group" icon="duplicate" :url="route('ranks.groups.confirm-duplicate')" event="modal-duplicate" :wide="true">
             <x-slot name="footer">
                 <span class="flex w-full | sm:col-start-2">
-                    <button form="form-duplicate" class="button button-primary w-full">
+                    <x-button form="form-duplicate" color="blue" :full-width="true">
                         Duplicate
-                    </button>
+                    </x-button>
                 </span>
                 <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
-                    <button x-on:click="$dispatch('modal-close')" type="button" class="button w-full">
+                    <x-button x-on:click="$dispatch('modal-close')" type="button" color="white" :full-width="true">
                         Cancel
-                    </button>
+                    </x-button>
                 </span>
             </x-slot>
         </x-modal>

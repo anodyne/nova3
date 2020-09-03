@@ -2,9 +2,9 @@
 
 namespace Nova\Departments\Responses;
 
-use Nova\Foundation\Responses\ServerResponse;
+use Nova\Foundation\Responses\Responsable;
 
-class CreateDepartmentResponse extends ServerResponse
+class CreateDepartmentResponse extends Responsable
 {
     public $view = 'departments.create';
 }

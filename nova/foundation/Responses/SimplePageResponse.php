@@ -2,7 +2,7 @@
 
 namespace Nova\Foundation\Responses;
 
-class SimplePageResponse extends ServerResponse
+class SimplePageResponse extends Responsable
 {
     public function views(): array
     {
