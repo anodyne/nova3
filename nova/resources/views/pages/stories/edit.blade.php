@@ -30,6 +30,15 @@
                     </x-input.select>
                 </x-input.group>
 
+                <x-input.group>
+                    <x-input.toggle
+                        field="allow_posting"
+                        :value="old('allow_posting', $story->allow_posting ?? 'true')"
+                        active-text="Players can add posts to this story"
+                        inactive-text="Players cannot add posts to this story"
+                    />
+                </x-input.group>
+
                 <x-input.group label="Start Date" for="start_date">
                     <x-input.field>
                         <x-slot name="leadingAddOn">@icon('calendar')</x-slot>

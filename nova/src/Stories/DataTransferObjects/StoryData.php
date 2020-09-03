@@ -19,16 +19,13 @@ class StoryData extends DataTransferObject
 
     public ?string $end_date;
 
-    public ?string $displayDirection;
-
-    public ?int $displayNeighbor;
+    public bool $allow_posting;
 
     public static function fromRequest(Request $request): self
     {
         return new self([
+            'allow_posting' => (bool) $request->allow_posting,
             'description' => $request->description,
-            'displayDirection' => $request->display_direction,
-            'displayNeighbor' => (int) $request->display_neighbor,
             'end_date' => $request->end_date,
             'parent_id' => (int) $request->parent_id,
             'start_date' => $request->start_date,
