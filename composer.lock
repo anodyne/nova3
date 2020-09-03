@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "296d769335974174287a8e82c6f615a1",
+    "content-hash": "b7b9c1e548a6ca5e75e8390de98a6e32",
     "packages": [
         {
             "name": "awssat/discord-notification-channel",
@@ -138,16 +138,16 @@
         },
         {
             "name": "blade-ui-kit/blade-ui-kit",
-            "version": "dev-main",
+            "version": "0.1.0",
             "source": {
                 "type": "git",
-                "url": "git@github.com:blade-ui-kit/blade-ui-kit.git",
-                "reference": "e963248cb95d663ba5e2b119ab8e1f17ffa8deff"
+                "url": "https://github.com/blade-ui-kit/blade-ui-kit.git",
+                "reference": "75666fb2beadd8b494414bc3186daf0cb2e65d09"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/blade-ui-kit/blade-ui-kit/zipball/e963248cb95d663ba5e2b119ab8e1f17ffa8deff",
-                "reference": "e963248cb95d663ba5e2b119ab8e1f17ffa8deff",
+                "url": "https://api.github.com/repos/blade-ui-kit/blade-ui-kit/zipball/75666fb2beadd8b494414bc3186daf0cb2e65d09",
+                "reference": "75666fb2beadd8b494414bc3186daf0cb2e65d09",
                 "shasum": ""
             },
             "require": {
@@ -185,16 +185,7 @@
                     "BladeUIKit\\": "src"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Tests\\": "tests"
-                }
-            },
-            "scripts": {
-                "format": [
-                    "vendor/bin/php-cs-fixer fix"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -209,21 +200,17 @@
             "description": "A set of renderless components to utilise in your Laravel Blade views.",
             "homepage": "https://github.com/blade-ui-kit/blade-ui-kit",
             "keywords": [
-                "Blade",
-                "Laravel",
-                "UI"
+                "blade",
+                "laravel",
+                "ui"
             ],
-            "support": {
-                "issues": "https://github.com/blade-ui-kit/blade-ui-kit/issues",
-                "source": "https://github.com/blade-ui-kit/blade-ui-kit"
-            },
             "funding": [
                 {
-                    "type": "github",
-                    "url": "https://github.com/driesvints"
+                    "url": "https://github.com/driesvints",
+                    "type": "github"
                 }
             ],
-            "time": "2020-09-02T11:58:44+00:00"
+            "time": "2020-09-02T15:35:38+00:00"
         },
         {
             "name": "brick/math",
@@ -8616,9 +8603,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "blade-ui-kit/blade-ui-kit": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

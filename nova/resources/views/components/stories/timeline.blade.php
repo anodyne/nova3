@@ -68,7 +68,7 @@
                         <p class="text-gray-600 mt-1">{{ $story->description }}</p>
                         <div class="flex items-center space-x-8 mt-2 text-sm text-gray-500">
                             <span>
-                                <x-badge :color="$story->status->color()" size="xs">{{ $story->status->displayName() }}</x-badge>
+                                @livewire('stories:status', ['story' => $story])
                             </span>
 
                             <span>{{ mt_rand(2, 500) }} posts</span>

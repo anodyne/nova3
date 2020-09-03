@@ -13,8 +13,13 @@ $factory->define(Story::class, function (Faker $faker) {
         'status' => $faker->randomElement([Upcoming::class, Current::class, Completed::class]),
         'description' => $faker->sentences($faker->numberBetween(1, 5), true),
         'parent_id' => 1,
+        'allow_posting' => true,
     ];
 });
+
+$factory->state(Story::class, 'no-posting', [
+    'allow_posting' => false,
+]);
 
 $factory->state(Story::class, 'status:upcoming', [
     'status' => Upcoming::class,

@@ -33,6 +33,7 @@ class CreateStoryActionTest extends TestCase
             'end_date' => '2020-02-01',
             'start_date' => '2020-01-01',
             'summary' => 'Lorem ipsum dolor sit amet consectetur, adipisicing elit.',
+            'allow_posting' => true,
         ]);
 
         $story = $this->action->execute($data);
@@ -45,6 +46,7 @@ class CreateStoryActionTest extends TestCase
         $this->assertEquals(1, $story->parent_id);
         $this->assertEquals('2020-01-01', $story->start_date->format('Y-m-d'));
         $this->assertEquals('2020-02-01', $story->end_date->format('Y-m-d'));
+        $this->assertTrue($story->allow_posting);
     }
 
     /** @test **/
@@ -55,6 +57,7 @@ class CreateStoryActionTest extends TestCase
         $data = new StoryData([
             'title' => 'Story Title',
             'parent_id' => $newStory->id,
+            'allow_posting' => true,
         ]);
 
         $story = $this->action->execute($data);

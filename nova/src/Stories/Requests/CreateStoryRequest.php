@@ -10,6 +10,7 @@ class CreateStoryRequest extends ValidatesRequest
     {
         return [
             'title' => ['required'],
+            'allow_posting' => ['nullable'],
             'description' => ['nullable'],
             'start_date' => ['nullable'],
             'end_date' => ['nullable'],
