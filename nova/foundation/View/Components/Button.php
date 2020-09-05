@@ -24,7 +24,7 @@ class Button extends Component
     {
         $styles = 'inline-flex items-center border rounded-md transition ease-in-out duration-150 focus:outline-none';
 
-        if (! Str::startsWith($this->color, ['text-'])) {
+        if (! Str::endsWith($this->color, ['-text'])) {
             $styles .= ' uppercase tracking-wide font-semibold';
         }
 
@@ -39,7 +39,7 @@ class Button extends Component
     {
         $styles = 'inline-flex rounded-md';
 
-        if (! Str::startsWith($this->color, ['soft-', 'text-'])) {
+        if (! Str::endsWith($this->color, ['-soft', '-text'])) {
             $styles .= ' shadow-sm';
         }
 
@@ -64,7 +64,7 @@ class Button extends Component
 
                 break;
 
-            case 'soft-blue':
+            case 'blue-soft':
                 return 'border-transparent text-blue-700 bg-blue-100 hover:bg-blue-50 focus:border-blue-300 focus:shadow-outline-blue active:bg-blue-200';
 
                 break;
@@ -74,7 +74,7 @@ class Button extends Component
 
                 break;
 
-            case 'text-purple':
+            case 'purple-text':
                 return 'border-transparent text-purple-600 font-medium hover:text-purple-800';
 
                 break;
@@ -84,7 +84,7 @@ class Button extends Component
 
                 break;
 
-            case 'soft-red':
+            case 'red-soft':
                 return 'border-transparent text-red-700 bg-red-100 hover:bg-red-50 focus:border-red-300 focus:shadow-outline-red active:bg-red-200';
 
                 break;

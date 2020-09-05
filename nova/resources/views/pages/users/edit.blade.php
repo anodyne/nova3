@@ -104,7 +104,7 @@
                 </div>
                 <div class="mt-5 | sm:mt-0 sm:ml-8 sm:flex-shrink-0 sm:flex sm:items-center">
                     <x-form :action="route('users.deactivate', $user)">
-                        <x-button type="submit" color="soft-red">
+                        <x-button type="submit" color="red-soft">
                             Deactivate
                         </x-button>
                     </x-form>
@@ -126,7 +126,7 @@
                 </div>
                 <div class="mt-5 | sm:mt-0 sm:ml-8 sm:flex-shrink-0 sm:flex sm:items-center">
                     <x-form :action="route('users.activate', $user)">
-                        <x-button type="submit" color="soft-blue">
+                        <x-button type="submit" color="blue-soft">
                             Activate
                         </x-button>
                     </x-form>

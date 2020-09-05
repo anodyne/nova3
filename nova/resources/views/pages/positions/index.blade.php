@@ -70,7 +70,7 @@
                                     <input type="hidden" name="sort" x-model="newSortOrder">
                                     <div class="flex items-center space-x-4">
                                         <x-button type="submit" form="form-reorder" color="purple">Save Sort Order</x-button>
-                                        <x-button-link :href="route('positions.index', $department)" color="text-purple" size="none">
+                                        <x-button-link :href="route('positions.index', $department)" color="purple-text" size="none">
                                             Cancel
                                         </x-button-link>
                                     </div>
