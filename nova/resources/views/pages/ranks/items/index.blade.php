@@ -63,10 +63,10 @@
                                 <x-form :action="route('ranks.items.reorder')" id="form-reorder">
                                     <input type="hidden" name="sort" x-model="newSortOrder">
                                     <div class="flex items-center space-x-4">
-                                        <button type="submit" form="form-reorder" class="button button-purple">Save Sort Order</button>
-                                        <a href="{{ route('ranks.items.index') }}" class="text-purple-600 text-sm font-medium transition ease-in-out duration-150 hover:text-purple-800">
+                                        <x-button type="submit" form="form-reorder" color="purple">Save Sort Order</x-button>
+                                        <x-button-link :href="route('ranks.items.index')" color="purple-text" size="none">
                                             Cancel
-                                        </a>
+                                        </x-button-link>
                                     </div>
                                 </x-form>
                             </div>
@@ -150,12 +150,12 @@
         <x-modal color="red" title="Delete rank item?" icon="warning" :url="route('ranks.items.delete')">
             <x-slot name="footer">
                 <span class="flex w-full | sm:col-start-2">
-                    <x-button form="form" color="red" :full-width="true">
+                    <x-button form="form" color="red" full-width>
                         Delete
                     </x-button>
                 </span>
                 <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
-                    <x-button x-on:click="$dispatch('modal-close')" type="button" color="white" :full-width="true">
+                    <x-button x-on:click="$dispatch('modal-close')" type="button" color="white" full-width>
                         Cancel
                     </x-button>
                 </span>

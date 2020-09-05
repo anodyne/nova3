@@ -157,12 +157,12 @@
         <x-modal color="red" title="Delete rank group?" icon="warning" :url="route('ranks.groups.delete')">
             <x-slot name="footer">
                 <span class="flex w-full | sm:col-start-2">
-                    <x-button form="form" color="red" :full-width="true">
+                    <x-button form="form" color="red" full-width>
                         Delete
                     </x-button>
                 </span>
                 <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
-                    <x-button x-on:click="$dispatch('modal-close')" type="button" color="white" :full-width="true">
+                    <x-button x-on:click="$dispatch('modal-close')" type="button" color="white" full-width>
                         Cancel
                     </x-button>
                 </span>
@@ -172,12 +172,12 @@
         <x-modal color="blue" title="Duplicate rank group" icon="duplicate" :url="route('ranks.groups.confirm-duplicate')" event="modal-duplicate" :wide="true">
             <x-slot name="footer">
                 <span class="flex w-full | sm:col-start-2">
-                    <x-button form="form-duplicate" color="blue" :full-width="true">
+                    <x-button form="form-duplicate" color="blue" full-width>
                         Duplicate
                     </x-button>
                 </span>
                 <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
-                    <x-button x-on:click="$dispatch('modal-close')" type="button" color="white" :full-width="true">
+                    <x-button x-on:click="$dispatch('modal-close')" type="button" color="white" full-width>
                         Cancel
                     </x-button>
                 </span>

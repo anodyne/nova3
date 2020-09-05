@@ -15,7 +15,7 @@
             </p>
 
             <x-slot name="footer">
-                <x-button-link :href="route('ranks.groups.index')" color="white" :full-width="true">
+                <x-button-link :href="route('ranks.groups.index')" color="white" full-width>
                     Go to rank groups
                 </x-button-link>
             </x-slot>
@@ -32,7 +32,7 @@
             </p>
 
             <x-slot name="footer">
-                <x-button-link :href="route('ranks.names.index')" color="white" :full-width="true">
+                <x-button-link :href="route('ranks.names.index')" color="white" full-width>
                     Go to rank names
                 </x-button-link>
             </x-slot>
@@ -47,7 +47,7 @@
             </p>
 
             <x-slot name="footer">
-                <x-button-link :href="route('ranks.items.index')" color="white" :full-width="true">
+                <x-button-link :href="route('ranks.items.index')" color="white" full-width>
                     Go to rank items
                 </x-button-link>
             </x-slot>

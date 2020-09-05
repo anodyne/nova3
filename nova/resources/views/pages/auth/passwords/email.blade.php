@@ -4,7 +4,7 @@
 
 @section('content')
     @if (session('status'))
-        <div class="rounded font-semibold bg-sucess-200 border-2 border-success-300 text-success-700 mb-6" role="alert">
+        <div class="rounded font-semibold bg-green-200 border-2 border-green-300 text-green-700 mb-6" role="alert">
             {{ session('status') }}
         </div>
     @endif
@@ -19,10 +19,10 @@
 
     <x-form :action="route('password.email')" :divide="false">
         <x-input.group label="Email" for="email" :error="$errors->first('email')">
-            <x-input.email id="email" class="form-field" name="email" :value="old('email')" data-cy="email" placeholder="john@example.com" required />
+            <x-input.email id="email" name="email" :value="old('email')" data-cy="email" placeholder="john@example.com" required />
         </x-input.group>
 
-        <x-button type="submit" color="blue" :full-width="true" data-cy="submit">
+        <x-button type="submit" color="blue" full-width data-cy="submit">
             {{ __('Send Reset Link') }}
         </x-button>
     </x-form>

@@ -60,7 +60,7 @@
                                 href="#"
                                 x-on:click.prevent="tab = 'base'"
                                 class="ml-4 first:ml-0 px-3 py-2 font-medium text-sm rounded-md  focus:outline-none"
-                                x-bind:class="{ 'bg-primary-100 text-primary-700': tab === 'base', 'text-gray-500 hover:text-gray-700': tab !== 'base' }"
+                                x-bind:class="{ 'bg-blue-100 text-blue-700': tab === 'base', 'text-gray-500 hover:text-gray-700': tab !== 'base' }"
                             >
                                 Base Images
                             </a>
@@ -68,7 +68,7 @@
                                 href="#"
                                 x-on:click.prevent="tab = 'overlay'"
                                 class="ml-4 first:ml-0 px-3 py-2 font-medium text-sm rounded-md  focus:outline-none"
-                                x-bind:class="{ 'bg-primary-100 text-primary-700': tab === 'overlay', 'text-gray-500 hover:text-gray-700': tab !== 'overlay' }"
+                                x-bind:class="{ 'bg-blue-100 text-blue-700': tab === 'overlay', 'text-gray-500 hover:text-gray-700': tab !== 'overlay' }"
                             >
                                 Overlay Images
                             </a>

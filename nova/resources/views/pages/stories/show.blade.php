@@ -53,7 +53,7 @@
                             <div class="min-w-0 flex-1 flex items-center">
                                 <div class="min-w-0 flex-1 md:grid md:grid-cols-2 md:gap-4">
                                     <div>
-                                        <div class="font-medium text-primary-600 truncate">Post title</div>
+                                        <div class="font-medium text-blue-600 truncate">Post title</div>
                                         <div class="mt-1 flex items-center text-sm text-gray-500">
                                             Published on January 7, 2020
                                         </div>
@@ -94,7 +94,7 @@
 <div class="order-1 | lg:col-span-1 lg:order-2">
     @can('update', $story)
         <div class="mb-8">
-            <x-button-link :href="route('stories.edit', $story)" color="blue" :full-width="true" data-cy="create">
+            <x-button-link :href="route('stories.edit', $story)" color="blue" full-width data-cy="create">
                 Edit Story
             </x-button-link>
         </div>

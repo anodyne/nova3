@@ -59,6 +59,11 @@ class Button extends Component
 
                 break;
 
+            case 'gray-text':
+                return 'border-transparent text-gray-400 font-medium hover:text-gray-600 focus:text-gray-600';
+
+                break;
+
             case 'blue':
                 return 'border-transparent text-white bg-blue-600 hover:bg-blue-500 focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700';
 
@@ -69,13 +74,18 @@ class Button extends Component
 
                 break;
 
+            case 'blue-text':
+                return 'border-transparent text-blue-600 font-medium hover:text-blue-800 focus:text-blue-800';
+
+                break;
+
             case 'purple':
                 return 'border-transparent text-white bg-purple-600 hover:bg-purple-500 focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700';
 
                 break;
 
             case 'purple-text':
-                return 'border-transparent text-purple-600 font-medium hover:text-purple-800';
+                return 'border-transparent text-purple-600 font-medium hover:text-purple-800 focus:text-purple-800';
 
                 break;
 
