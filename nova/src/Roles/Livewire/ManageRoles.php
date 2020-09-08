@@ -8,9 +8,9 @@ use Illuminate\Support\Collection;
 
 class ManageRoles extends Component
 {
-    public $query;
+    public $search = null;
 
-    public $results;
+    public $results = null;
 
     public $roles = [];
 
@@ -20,8 +20,7 @@ class ManageRoles extends Component
 
         $this->roles[$roleId] = $role;
 
-        $this->query = null;
-        $this->results = null;
+        $this->reset(['search', 'results']);
     }
 
     public function removeRole($roleId)
@@ -29,7 +28,7 @@ class ManageRoles extends Component
         unset($this->roles[$roleId]);
     }
 
-    public function updatedQuery($value)
+    public function updatedSearch($value)
     {
         $this->results = Role::query()
             ->whereAtOrBelowSortOrder(
@@ -47,9 +46,9 @@ class ManageRoles extends Component
     {
         $roles = Collection::wrap($roles);
 
-        $roles->each(function ($role) {
-            $this->roles[$role->id] = $role->toArray();
-        });
+        $this->roles = $roles
+            ->mapWithKeys(fn ($role) => [$role->id => $role->toArray()])
+            ->toArray();
     }
 
     public function render()

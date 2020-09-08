@@ -8,11 +8,11 @@
     <input type="hidden" name="rank_id" value="{{ optional($selected)->id }}">
 
     <div>
-        <span class="rounded-md shadow-sm">
+        <span class="relative flex w-full rounded-md shadow-sm">
             <button
                 x-on:click="open = !open"
                 type="button"
-                class="flex items-center justify-between cursor-default relative w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150 | sm:text-sm"
+                class="flex items-center justify-between cursor-default relative w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150"
                 aria-haspopup="true"
                 aria-expanded="true"
                 x-bind:aria-expanded="open"

@@ -6,9 +6,9 @@ use Livewire\Component;
 
 class CharactersCollector extends Component
 {
-    public $characters;
-
     public $characterIds;
+
+    public $characters;
 
     protected $listeners = ['characterSelected' => 'handleCharacterSelected'];
 

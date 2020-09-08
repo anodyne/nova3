@@ -16,18 +16,18 @@
             aria-haspopup="listbox"
             x-bind:aria-expanded="open"
             aria-labelledby="listbox-label"
-            class="cursor-default relative w-full rounded-md border border-gray-300 bg-white pl-3 pr-10 py-2 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150 | sm:text-sm"
+            class="cursor-default relative w-full rounded-md border border-gray-200 bg-white pl-3 pr-10 py-2 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150"
         >
             <span class="flex items-center space-x-2 truncate">
                 @isset($selected)
-                    @icon($selected)
+                    @icon($selected, 'h-6 w-6')
                     <span>{{ $selected }}</span>
                 @else
                     Select an icon
                 @endisset
             </span>
             <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                <svg class="h-6 w-6 text-gray-400" viewBox="0 0 20 20" fill="none" stroke="currentColor">
                     <path d="M7 7l3-3 3 3m0 6l-3 3-3-3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                 </svg>
             </span>
@@ -41,7 +41,7 @@
         x-transition:leave="transition ease-in duration-100"
         x-transition:leave-start="opacity-100"
         x-transition:leave-end="opacity-0"
-        class="absolute mt-1 w-full rounded-md bg-white shadow-lg z-10"
+        class="absolute mt-2 w-full rounded-md bg-white shadow-lg z-10"
         style="display: none;"
     >
         <div
@@ -58,11 +58,16 @@
             aria-activedescendant="listbox-option-0"
         >
             <div class="p-2">
-                <div class="flex items-center rounded bg-gray-100 border-2 border-gray-100 text-gray-600 px-2 py-2 focus-within:border-gray-200 focus-within:bg-white focus-within:text-gray-700">
-                    <div class="flex-shrink-0 mr-3">
-                        @icon('search', 'h-5 w-5')
-                    </div>
-                    <input wire:model.debounce.250ms="search" type="text" placeholder="Find an icon..." class="block w-full appearance-none bg-transparent focus:outline-none">
+                <div class="group flex items-center rounded-md bg-gray-100 border-2 border-gray-100 text-gray-600 px-2 py-2 space-x-3 focus-within:border-gray-200 focus-within:bg-white focus-within:text-gray-700">
+                    @icon('search', 'h-5 w-5 flex-shrink-0 text-gray-400 group-focus-within:text-gray-600')
+
+                    <input wire:model.debounce.250ms="search" type="text" placeholder="Find an icon..." class="flex w-full appearance-none bg-transparent focus:outline-none">
+
+                    @isset($search)
+                        <x-button wire:click="$set('search', null)" color="gray-text" size="none">
+                            @icon('close-alt')
+                        </x-button>
+                    @endisset
                 </div>
             </div>
 
@@ -85,7 +90,7 @@
                         x-on:mouseenter="selected = ''"
                         x-on:mouseleave="selected = null"
                         x-bind:class="{ 'text-white bg-blue-600': selected === '', 'text-gray-900': !(selected === '') }"
-                        class="flex-shrink-0 cursor-default select-none relative p-2 text-gray-900 flex items-center justify-center rounded"
+                        class="flex-shrink-0 cursor-pointer select-none relative p-2 text-gray-900 flex items-center justify-center rounded"
                     >
                         <div
                             x-state:on="Selected"
@@ -108,7 +113,7 @@
                             x-on:mouseenter="selected = '{{ $icon }}'"
                             x-on:mouseleave="selected = null"
                             x-bind:class="{ 'text-white bg-blue-600': selected === '{{ $icon }}', 'text-gray-900': !(selected === '{{ $icon }}') }"
-                            class="flex-shrink-0 cursor-default select-none relative p-2 text-gray-900 flex items-center justify-center rounded"
+                            class="flex-shrink-0 cursor-pointer select-none relative p-2 text-gray-900 flex items-center justify-center rounded"
                         >
                             <div
                                 x-state:on="Selected"
@@ -117,20 +122,7 @@
                                 class="flex flex-col items-center truncate"
                             >
                                 @icon($icon, 'h-8 w-8')
-                                {{-- <span class="text-xs">{{ $icon }}</span> --}}
                             </div>
-
-                            {{-- @if ($selected === $icon)
-                                <span
-                                    x-description="Checkmark, only display for selected option."
-                                    x-state:on="Highlighted"
-                                    x-state:off="Not Highlighted"
-                                    x-bind:class="{ 'text-white': selected === '{{ $icon }}', 'text-blue-600': !(selected === '{{ $icon }}') }"
-                                    class="absolute inset-y-0 right-0 flex items-center pr-4 text-blue-600"
-                                >
-                                    @icon('check', 'h-5 w-5')
-                                </span>
-                            @endif --}}
                         </div>
                     @endforeach
                 </div>
