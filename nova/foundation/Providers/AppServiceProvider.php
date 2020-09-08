@@ -38,8 +38,6 @@ class AppServiceProvider extends ServiceProvider
         // Make sure the file finder can find Javascript files
         $this->app['view']->addExtension('js', 'file');
 
-        Paginator::useTailwind();
-
         $this->registerMacros();
         $this->registerIcons();
         $this->registerBladeDirectives();
