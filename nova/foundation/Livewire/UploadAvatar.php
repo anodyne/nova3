@@ -13,8 +13,6 @@ class UploadAvatar extends Component
 
     public $existingAvatar;
 
-    public $newAvatar;
-
     public $path;
 
     public function updatedAvatar()
@@ -24,11 +22,6 @@ class UploadAvatar extends Component
         ]);
 
         $this->path = $this->avatar->getRealPath();
-    }
-
-    public function mount($existingAvatar = null)
-    {
-        $this->existingAvatar = $existingAvatar;
     }
 
     public function render()

@@ -34,14 +34,12 @@ class IconsSelectMenu extends Component
         }
     }
 
-    public function mount($selected = null)
+    public function mount()
     {
         $this->allIcons = app(IconSets::class)->getDefaultSet()->map();
         ksort($this->allIcons);
 
         $this->resetIcons();
-
-        $this->selected = $selected;
     }
 
     public function render()

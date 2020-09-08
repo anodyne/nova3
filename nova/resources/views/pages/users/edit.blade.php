@@ -71,16 +71,16 @@
                 </x-slot>
 
                 <x-input.group label="Assign roles">
-                    @livewire('roles:manage-roles', ['roles' => $user->roles])
+                    {{-- @livewire('roles:manage-roles', ['roles' => $user->roles]) --}}
                 </x-input.group>
             </x-form.section>
 
             <x-form.section title="Characters">
                 <x-input.group label="Assign characters">
-                    @livewire('characters:collector', [
+                    {{-- @livewire('characters:collector', [
                         'characters' => old('characters', $user->characters->implode('id', ',')),
                         'user' => $user,
-                    ])
+                    ]) --}}
                 </x-input.group>
             </x-form.section>
 

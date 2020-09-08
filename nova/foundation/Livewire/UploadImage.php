@@ -9,6 +9,8 @@ class UploadImage extends Component
 {
     use WithFileUploads;
 
+    public $existingImage;
+
     public $image;
 
     public $path;
