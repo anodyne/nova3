@@ -4,9 +4,9 @@
     <x-page-header title="Roles">
         <x-slot name="controls">
             @can('update', $roles->first())
-                <a href="{{ route('roles.index', 'reorder') }}" class="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150 mx-4">
+                <x-button-link :href="route('roles.index', 'reorder')" color="gray-text" size="none" class="mx-4">
                     @icon('arrow-sort', 'h-6 w-6')
-                </a>
+                </x-button-link>
             @endcan
 
             @can('create', 'Nova\Roles\Models\Role')
@@ -37,9 +37,9 @@
                                 <input type="hidden" name="sort" x-model="newSortOrder">
                                 <div class="flex items-center space-x-4">
                                     <x-button type="submit" form="form-reorder" color="purple">Save Sort Order</x-button>
-                                    <a href="{{ route('roles.index') }}" class="text-purple-600 text-sm font-medium transition ease-in-out duration-150 hover:text-purple-800">
+                                    <x-button-link :href="route('roles.index')" color="purple-text" size="none">
                                         Cancel
-                                    </a>
+                                    </x-button-link>
                                 </div>
                             </x-form>
                         </div>

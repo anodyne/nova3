@@ -11,9 +11,9 @@
         <x-slot name="controls">
             @if ($groupCount > 0)
                 @can('update', $groups->first())
-                    <a href="{{ route('ranks.groups.index', 'reorder') }}" class="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150 mx-4">
+                    <x-button-link :href="route('ranks.groups.index', 'reorder')" color="gray-text" size="none" class="mx-4">
                         @icon('arrow-sort', 'h-6 w-6')
-                    </a>
+                    </x-button-link>
                 @endcan
 
                 @can('create', 'Nova\Ranks\Models\RankGroup')

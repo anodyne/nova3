@@ -1,11 +1,11 @@
 @extends($__novaTemplate)
 
 @section('content')
-<x-page-header :title="$story->title">
-    <x-slot name="pretitle">
-        <a href="{{ route('stories.index') }}">Stories</a>
-    </x-slot>
-</x-page-header>
+    <x-page-header :title="$story->title">
+        <x-slot name="pretitle">
+            <a href="{{ route('stories.index') }}">Stories</a>
+        </x-slot>
+    </x-page-header>
 
 <div class="grid gap-8 | lg:grid-cols-4">
     <div class="order-2 | lg:col-span-3 lg:order-1">
@@ -23,25 +23,25 @@
                     <div class="border-b border-gray-200 px-4 | sm:px-6">
                         <nav class="-mb-px flex">
                             <a
-                            x-on:click.prevent="switchTab('posts')"
-                            href="#"
-                            class="whitespace-no-wrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none"
-                            x-bind:class="{ 'border-blue-500 text-blue-600': tab === 'posts', 'text-gray-500 hover:text-gray-700 hover:border-gray-300': tab !== 'posts' }"
+                                x-on:click.prevent="switchTab('posts')"
+                                href="#"
+                                class="whitespace-no-wrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none"
+                                x-bind:class="{ 'border-blue-500 text-blue-600': tab === 'posts', 'text-gray-500 hover:text-gray-700 hover:border-gray-300': tab !== 'posts' }"
                             >
-                            Posts
-                        </a>
-                        <a
-                        x-on:click.prevent="switchTab('summary')"
-                        href="#"
-                        class="whitespace-no-wrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none"
-                        x-bind:class="{ 'border-blue-500 text-blue-600': tab === 'summary', 'text-gray-500 hover:text-gray-700 hover:border-gray-300': tab !== 'summary' }"
-                        >
-                        Summary
-                    </a>
-                </nav>
+                                Posts
+                            </a>
+                            <a
+                                x-on:click.prevent="switchTab('summary')"
+                                href="#"
+                                class="whitespace-no-wrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none"
+                                x-bind:class="{ 'border-blue-500 text-blue-600': tab === 'summary', 'text-gray-500 hover:text-gray-700 hover:border-gray-300': tab !== 'summary' }"
+                            >
+                                Summary
+                            </a>
+                    </nav>
+                </div>
             </div>
         </div>
-    </div>
 
     <div>
         <div x-show="tab === 'posts'" x-cloak>
@@ -93,11 +93,11 @@
 
 <div class="order-1 | lg:col-span-1 lg:order-2">
     @can('update', $story)
-        <div class="mb-8">
-            <x-button-link :href="route('stories.edit', $story)" color="blue" full-width data-cy="create">
-                Edit Story
-            </x-button-link>
-        </div>
+    <div class="mb-8">
+        <x-button-link :href="route('stories.edit', $story)" color="blue" full-width data-cy="create">
+            Edit Story
+        </x-button-link>
+    </div>
     @endcan
 
     <div class="space-y-4">
@@ -106,32 +106,32 @@
         </div>
 
         @if ($story->start_date)
-            <div class="flex items-center space-x-2 text-gray-600 text-sm">
-                @icon('clock', 'text-gray-500')
-                <span>Started {{ $story->start_date->format('M dS, Y') }}</span>
-            </div>
+        <div class="flex items-center space-x-2 text-gray-600 text-sm">
+            @icon('clock', 'text-gray-500')
+            <span>Started {{ $story->start_date->format('M dS, Y') }}</span>
+        </div>
         @endif
 
         @if ($story->end_date)
-            <div class="flex items-center space-x-2 text-gray-600 text-sm">
-                @icon('clock', 'text-gray-500')
-                <span>Ended {{ $story->end_date->format('M dS, Y') }}</span>
-            </div>
+        <div class="flex items-center space-x-2 text-gray-600 text-sm">
+            @icon('clock', 'text-gray-500')
+            <span>Ended {{ $story->end_date->format('M dS, Y') }}</span>
+        </div>
         @endif
     </div>
 
     @if ($story->children->count() > 0)
-        <div class="mt-8">
-            <h2 class="mb-4 text-lg font-semibold text-gray-700">Stories Within {{ $story->title }}</h2>
+    <div class="mt-8">
+        <h2 class="mb-4 text-lg font-semibold text-gray-700">Stories Within {{ $story->title }}</h2>
 
-            <ul class="list-none space-y-1">
-                @foreach ($story->children as $subStory)
-                <li>
-                    <a href="{{ route('stories.show', $subStory) }}" class="block px-2 py-1 rounded-md transition ease-in-out duration-150 hover:bg-gray-200">{{ $subStory->title }}</a>
-                </li>
-                @endforeach
-            </ul>
-        </div>
+        <ul class="list-none space-y-1">
+            @foreach ($story->children as $subStory)
+            <li>
+                <a href="{{ route('stories.show', $subStory) }}" class="block px-2 py-1 rounded-md transition ease-in-out duration-150 hover:bg-gray-200">{{ $subStory->title }}</a>
+            </li>
+            @endforeach
+        </ul>
+    </div>
     @endif
 </div>
 </div>
