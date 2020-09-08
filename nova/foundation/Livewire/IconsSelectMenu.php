@@ -8,13 +8,13 @@ use Nova\Foundation\Icons\IconSets;
 
 class IconsSelectMenu extends Component
 {
+    public $allIcons;
+
     public $icons;
 
     public $search;
 
     public $selected;
-
-    public $allIcons;
 
     public function selectIcon($icon)
     {
@@ -34,14 +34,12 @@ class IconsSelectMenu extends Component
         }
     }
 
-    public function mount($selected = null)
+    public function mount()
     {
         $this->allIcons = app(IconSets::class)->getDefaultSet()->map();
         ksort($this->allIcons);
 
         $this->resetIcons();
-
-        $this->selected = $selected;
     }
 
     public function render()
@@ -51,7 +49,7 @@ class IconsSelectMenu extends Component
 
     protected function resetIcons()
     {
-        $this->search = null;
+        $this->reset('search');
         $this->icons = $this->allIcons;
     }
 }

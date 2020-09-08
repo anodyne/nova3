@@ -9,7 +9,7 @@ class UsersDropdown extends Component
 {
     public $index;
 
-    public $query;
+    public $search;
 
     public $selected;
 
@@ -22,9 +22,11 @@ class UsersDropdown extends Component
         $this->selected = $this->users->where('id', $userId)->first();
 
         $this->emitUp('userSelected', $userId, $this->index);
+
+        $this->resetUsers();
     }
 
-    public function updatedQuery($value)
+    public function updatedSearch($value)
     {
         $this->users = User::query()
             ->where(function ($query) use ($value) {
@@ -38,7 +40,7 @@ class UsersDropdown extends Component
     public function mount($user = null, $index = 0)
     {
         $this->index = $index;
-        $this->users = User::get();
+        $this->resetUsers();
 
         if ($user) {
             $this->selected = User::find($user);
@@ -48,5 +50,11 @@ class UsersDropdown extends Component
     public function render()
     {
         return view('livewire.users.dropdown');
+    }
+
+    protected function resetUsers()
+    {
+        $this->reset('search');
+        $this->users = User::get();
     }
 }

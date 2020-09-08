@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b7b9c1e548a6ca5e75e8390de98a6e32",
+    "content-hash": "36c00e5123dc01cae4e38dcb130eb400",
     "packages": [
         {
             "name": "awssat/discord-notification-channel",
@@ -63,29 +63,29 @@
         },
         {
             "name": "blade-ui-kit/blade-icons",
-            "version": "0.4.4",
+            "version": "0.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/blade-ui-kit/blade-icons.git",
-                "reference": "53bbc70dcd93a35cd3b6f328778f0666bdcba1e0"
+                "reference": "b93505c65a1fc095df517d5640bae295779411e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/blade-ui-kit/blade-icons/zipball/53bbc70dcd93a35cd3b6f328778f0666bdcba1e0",
-                "reference": "53bbc70dcd93a35cd3b6f328778f0666bdcba1e0",
+                "url": "https://api.github.com/repos/blade-ui-kit/blade-icons/zipball/b93505c65a1fc095df517d5640bae295779411e6",
+                "reference": "b93505c65a1fc095df517d5640bae295779411e6",
                 "shasum": ""
             },
             "require": {
-                "illuminate/contracts": "^7.14",
-                "illuminate/filesystem": "^7.14",
-                "illuminate/support": "^7.14",
-                "illuminate/view": "^7.14",
+                "illuminate/contracts": "^7.14|^8.0",
+                "illuminate/filesystem": "^7.14|^8.0",
+                "illuminate/support": "^7.14|^8.0",
+                "illuminate/view": "^7.14|^8.0",
                 "php": "^7.2"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.16",
                 "mockery/mockery": "^1.3",
-                "orchestra/testbench": "^5.0",
+                "orchestra/testbench": "^5.0|^6.0",
                 "phpunit/phpunit": "^8.0|^9.0"
             },
             "type": "library",
@@ -134,27 +134,27 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-08-14T09:15:55+00:00"
+            "time": "2020-09-04T11:36:46+00:00"
         },
         {
             "name": "blade-ui-kit/blade-ui-kit",
-            "version": "0.1.0",
+            "version": "0.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/blade-ui-kit/blade-ui-kit.git",
-                "reference": "75666fb2beadd8b494414bc3186daf0cb2e65d09"
+                "reference": "0ec0469dac300a8f47eb79b96aa873656e0f217b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/blade-ui-kit/blade-ui-kit/zipball/75666fb2beadd8b494414bc3186daf0cb2e65d09",
-                "reference": "75666fb2beadd8b494414bc3186daf0cb2e65d09",
+                "url": "https://api.github.com/repos/blade-ui-kit/blade-ui-kit/zipball/0ec0469dac300a8f47eb79b96aa873656e0f217b",
+                "reference": "0ec0469dac300a8f47eb79b96aa873656e0f217b",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "illuminate/filesystem": "^7.0",
-                "illuminate/support": "^7.0",
-                "illuminate/view": "^7.0",
+                "illuminate/filesystem": "^7.0|^8.0",
+                "illuminate/support": "^7.0|^8.0",
+                "illuminate/view": "^7.0|^8.0",
                 "nesbot/carbon": "^2.38",
                 "php": "^7.3"
             },
@@ -165,7 +165,7 @@
                 "league/commonmark": "^1.4",
                 "livewire/livewire": "^1.2",
                 "lorisleiva/cron-translator": "^0.1.1",
-                "orchestra/testbench": "^5.0",
+                "orchestra/testbench": "^5.0|^6.0",
                 "phpunit/phpunit": "^9.0"
             },
             "suggest": {
@@ -210,7 +210,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-09-02T15:35:38+00:00"
+            "time": "2020-09-04T08:50:21+00:00"
         },
         {
             "name": "brick/math",
@@ -492,16 +492,16 @@
         },
         {
             "name": "egulias/email-validator",
-            "version": "2.1.19",
+            "version": "2.1.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/egulias/EmailValidator.git",
-                "reference": "840d5603eb84cc81a6a0382adac3293e57c1c64c"
+                "reference": "f46887bc48db66c7f38f668eb7d6ae54583617ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/840d5603eb84cc81a6a0382adac3293e57c1c64c",
-                "reference": "840d5603eb84cc81a6a0382adac3293e57c1c64c",
+                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/f46887bc48db66c7f38f668eb7d6ae54583617ff",
+                "reference": "f46887bc48db66c7f38f668eb7d6ae54583617ff",
                 "shasum": ""
             },
             "require": {
@@ -546,7 +546,7 @@
                 "validation",
                 "validator"
             ],
-            "time": "2020-08-08T21:28:19+00:00"
+            "time": "2020-09-06T13:44:32+00:00"
         },
         {
             "name": "f9webltd/laravel-meta",
@@ -1730,30 +1730,32 @@
         },
         {
             "name": "livewire/livewire",
-            "version": "v1.3.3",
+            "version": "v2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/livewire/livewire.git",
-                "reference": "d3df4ec046d2886bbf43d4cd8d8d9858e422e2ce"
+                "reference": "78358db519ac3cfd3884029b3a9640d9793018fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/livewire/livewire/zipball/d3df4ec046d2886bbf43d4cd8d8d9858e422e2ce",
-                "reference": "d3df4ec046d2886bbf43d4cd8d8d9858e422e2ce",
+                "url": "https://api.github.com/repos/livewire/livewire/zipball/78358db519ac3cfd3884029b3a9640d9793018fb",
+                "reference": "78358db519ac3cfd3884029b3a9640d9793018fb",
                 "shasum": ""
             },
             "require": {
-                "illuminate/database": "~5.6.0|~5.7.0|~5.8.0|^6.0|^7.0|^8.0",
-                "illuminate/support": "~5.6.0|~5.7.0|~5.8.0|^6.0|^7.0|^8.0",
-                "illuminate/validation": "~5.6.0|~5.7.0|~5.8.0|^6.0|^7.0|^8.0",
-                "php": "^7.1.3",
-                "symfony/http-kernel": "^4.0|^5.0"
+                "illuminate/database": "^7.0|^8.0",
+                "illuminate/support": "^7.0|^8.0",
+                "illuminate/validation": "^7.0|^8.0",
+                "php": "^7.2.5",
+                "symfony/http-kernel": "^5.0"
             },
             "require-dev": {
-                "laravel/framework": "~5.6.0|~5.7.0|~5.8.0|^6.0|^7.0",
+                "calebporzio/sushi": "^2.1",
+                "laravel/framework": "^7.0|^8.0",
                 "mockery/mockery": "^1.3.1",
-                "orchestra/testbench": "~3.6.0|~3.7.0|~3.8.0|^4.0|^5.0",
-                "phpunit/phpunit": "^7.5.15|^8.4|^9.0",
+                "orchestra/testbench": "^5.0",
+                "orchestra/testbench-dusk": "^5.2",
+                "phpunit/phpunit": "^8.4|^9.0",
                 "psy/psysh": "@stable"
             },
             "type": "library",
@@ -1789,7 +1791,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-08-21T15:57:49+00:00"
+            "time": "2020-09-07T17:22:55+00:00"
         },
         {
             "name": "maennchen/zipstream-php",
@@ -1991,16 +1993,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.39.0",
+            "version": "2.39.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "0a41ea7f7fedacf307b7a339800e10356a042918"
+                "reference": "7af467873250583cc967a59ee9df29fabab193c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/0a41ea7f7fedacf307b7a339800e10356a042918",
-                "reference": "0a41ea7f7fedacf307b7a339800e10356a042918",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/7af467873250583cc967a59ee9df29fabab193c1",
+                "reference": "7af467873250583cc967a59ee9df29fabab193c1",
                 "shasum": ""
             },
             "require": {
@@ -2013,7 +2015,7 @@
                 "doctrine/orm": "^2.7",
                 "friendsofphp/php-cs-fixer": "^2.14 || ^3.0",
                 "kylekatarnls/multi-tester": "^2.0",
-                "phpmd/phpmd": "^2.8",
+                "phpmd/phpmd": "^2.9",
                 "phpstan/extension-installer": "^1.0",
                 "phpstan/phpstan": "^0.12.35",
                 "phpunit/phpunit": "^7.5 || ^8.0",
@@ -2076,7 +2078,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-08-24T12:35:58+00:00"
+            "time": "2020-09-04T13:11:37+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -2132,16 +2134,16 @@
         },
         {
             "name": "opis/closure",
-            "version": "3.5.6",
+            "version": "3.5.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/opis/closure.git",
-                "reference": "e8d34df855b0a0549a300cb8cb4db472556e8aa9"
+                "reference": "4531e53afe2fc660403e76fb7644e95998bff7bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/opis/closure/zipball/e8d34df855b0a0549a300cb8cb4db472556e8aa9",
-                "reference": "e8d34df855b0a0549a300cb8cb4db472556e8aa9",
+                "url": "https://api.github.com/repos/opis/closure/zipball/4531e53afe2fc660403e76fb7644e95998bff7bf",
+                "reference": "4531e53afe2fc660403e76fb7644e95998bff7bf",
                 "shasum": ""
             },
             "require": {
@@ -2189,7 +2191,7 @@
                 "serialization",
                 "serialize"
             ],
-            "time": "2020-08-11T08:46:50+00:00"
+            "time": "2020-09-06T17:02:15+00:00"
         },
         {
             "name": "org_heigl/ghostscript",
@@ -5991,35 +5993,36 @@
     "packages-dev": [
         {
             "name": "barryvdh/laravel-debugbar",
-            "version": "v3.4.2",
+            "version": "v3.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-debugbar.git",
-                "reference": "91ee8b3acf0d72a4937f4855bd245acbda9910ac"
+                "reference": "1180dca59006aa4e58fed9057322c3861b3d1c23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/91ee8b3acf0d72a4937f4855bd245acbda9910ac",
-                "reference": "91ee8b3acf0d72a4937f4855bd245acbda9910ac",
+                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/1180dca59006aa4e58fed9057322c3861b3d1c23",
+                "reference": "1180dca59006aa4e58fed9057322c3861b3d1c23",
                 "shasum": ""
             },
             "require": {
-                "illuminate/routing": "^5.5|^6|^7",
-                "illuminate/session": "^5.5|^6|^7",
-                "illuminate/support": "^5.5|^6|^7",
+                "illuminate/routing": "^6|^7|^8",
+                "illuminate/session": "^6|^7|^8",
+                "illuminate/support": "^6|^7|^8",
                 "maximebf/debugbar": "^1.16.3",
-                "php": ">=7.0",
-                "symfony/debug": "^3|^4|^5",
-                "symfony/finder": "^3|^4|^5"
+                "php": ">=7.2",
+                "symfony/debug": "^4.3|^5",
+                "symfony/finder": "^4.3|^5"
             },
             "require-dev": {
-                "orchestra/testbench": "^3.5|^4.0|^5.0",
-                "phpunit/phpunit": "^6.0|^7.0|^8.5|^9.0"
+                "orchestra/testbench-dusk": "^4|^5|^6",
+                "phpunit/phpunit": "^8.5|^9.0",
+                "squizlabs/php_codesniffer": "^3.5"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.2-dev"
+                    "dev-master": "3.5-dev"
                 },
                 "laravel": {
                     "providers": [
@@ -6062,7 +6065,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-08-30T07:08:17+00:00"
+            "time": "2020-08-30T07:03:31+00:00"
         },
         {
             "name": "beyondcode/helo-laravel",
@@ -7082,16 +7085,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "9.1.6",
+            "version": "9.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "d25b24b1cd14772bde4d75daeb393dc17db9f6e6"
+                "reference": "f98f8466126d83b55b924a94d2244c53c216b8fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/d25b24b1cd14772bde4d75daeb393dc17db9f6e6",
-                "reference": "d25b24b1cd14772bde4d75daeb393dc17db9f6e6",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/f98f8466126d83b55b924a94d2244c53c216b8fb",
+                "reference": "f98f8466126d83b55b924a94d2244c53c216b8fb",
                 "shasum": ""
             },
             "require": {
@@ -7151,7 +7154,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-08-31T06:31:46+00:00"
+            "time": "2020-09-07T08:07:10+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",

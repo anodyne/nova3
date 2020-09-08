@@ -8,11 +8,11 @@ use Illuminate\Support\Collection;
 
 class ManageUsers extends Component
 {
-    public $users = [];
-
-    public $query;
+    public $search;
 
     public $results;
+
+    public $users = [];
 
     public function addUser($userId, $user)
     {
@@ -20,8 +20,7 @@ class ManageUsers extends Component
 
         $this->dispatchBrowserEvent('dropdown-close');
 
-        $this->query = null;
-        $this->results = null;
+        $this->reset(['search', 'results']);
     }
 
     public function removeUser($userId)
@@ -29,21 +28,24 @@ class ManageUsers extends Component
         unset($this->users[$userId]);
     }
 
-    public function updatedQuery($value)
+    public function updatedSearch($value)
     {
         $this->results = User::query()
-            ->where('name', 'like', "%{$value}%")
-            ->orWhere('email', 'like', "%{$value}%")
+            ->where(function ($query) use ($value) {
+                return $query->where('name', 'like', "%{$value}%")
+                    ->orWhere('email', 'like', "%{$value}%");
+            })
             ->orderBy('name')
             ->get();
     }
 
     public function mount($users)
     {
-        Collection::wrap($users)
-            ->each(function ($user) {
-                $this->users[$user->id] = $user->toArray();
-            });
+        $users = Collection::wrap($users);
+
+        $this->users = $users
+            ->mapWithKeys(fn ($user) => [$user->id => $user->toArray()])
+            ->toArray();
     }
 
     public function render()

@@ -15,7 +15,7 @@ class AssignCharacterPositionsData extends DataTransferObject
     {
         return new self([
             'positions' => explode(',', $request->positions),
-            'primaryPosition' => $request->primary_position,
+            'primaryPosition' => (int) $request->primary_position,
         ]);
     }
 }

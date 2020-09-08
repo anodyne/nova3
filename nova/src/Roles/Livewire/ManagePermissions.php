@@ -10,7 +10,7 @@ class ManagePermissions extends Component
 {
     public $permissions = [];
 
-    public $query;
+    public $search;
 
     public $results;
 
@@ -20,8 +20,7 @@ class ManagePermissions extends Component
 
         $this->permissions[$permissionId] = $permission;
 
-        $this->query = null;
-        $this->results = null;
+        $this->reset(['search', 'results']);
     }
 
     public function removePermission($permissionId)
@@ -29,7 +28,7 @@ class ManagePermissions extends Component
         unset($this->permissions[$permissionId]);
     }
 
-    public function updatedQuery($value)
+    public function updatedSearch($value)
     {
         $this->results = Permission::query()
             ->where(function ($query) use ($value) {
@@ -42,10 +41,11 @@ class ManagePermissions extends Component
 
     public function mount($permissions)
     {
-        Collection::wrap($permissions)
-            ->each(function ($permission) {
-                $this->permissions[$permission->id] = $permission->toArray();
-            });
+        $permissions = Collection::wrap($permissions);
+
+        $this->permissions = $permissions
+            ->mapWithKeys(fn ($permission) => [$permission->id => $permission->toArray()])
+            ->toArray();
     }
 
     public function render()

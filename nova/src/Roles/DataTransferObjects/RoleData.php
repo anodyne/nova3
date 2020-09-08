@@ -24,7 +24,7 @@ class RoleData extends DataTransferObject
     public static function fromRequest(Request $request): self
     {
         return new self([
-            'default' => $request->input('default', false),
+            'default' => (bool) $request->input('default', false),
             'description' => $request->input('description'),
             'display_name' => $request->input('display_name'),
             'name' => $request->input('name'),
