@@ -19,7 +19,7 @@ class RankItemPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->can('rank.*');
+        return $user->isAbleTo('rank.*');
     }
 
     /**
@@ -32,7 +32,7 @@ class RankItemPolicy
      */
     public function view(User $user, RankItem $name)
     {
-        return $user->can('rank.view');
+        return $user->isAbleTo('rank.view');
     }
 
     /**
@@ -44,7 +44,7 @@ class RankItemPolicy
      */
     public function create(User $user)
     {
-        return $user->can('rank.create');
+        return $user->isAbleTo('rank.create');
     }
 
     /**
@@ -57,7 +57,7 @@ class RankItemPolicy
      */
     public function update(User $user, RankItem $name)
     {
-        return $user->can('rank.update');
+        return $user->isAbleTo('rank.update');
     }
 
     /**
@@ -70,7 +70,7 @@ class RankItemPolicy
      */
     public function delete(User $user, RankItem $name)
     {
-        return $user->can('rank.delete');
+        return $user->isAbleTo('rank.delete');
     }
 
     /**
@@ -81,8 +81,8 @@ class RankItemPolicy
      */
     public function duplicate(User $user, RankItem $name)
     {
-        return $user->can('rank.create')
-            && $user->can('rank.update');
+        return $user->isAbleTo('rank.create')
+            && $user->isAbleTo('rank.update');
     }
 
     /**

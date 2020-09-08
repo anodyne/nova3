@@ -7,12 +7,12 @@ use Nova\Users\Models\User;
 use Nova\Stories\Models\Post;
 use Nova\Ranks\Models\RankItem;
 use Spatie\ModelStates\HasStates;
+use Spatie\MediaLibrary\HasMedia;
 use Nova\Departments\Models\Position;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Nova\Characters\Models\States\Types\Primary;
 use Nova\Characters\Models\States\Types\Support;
 use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
@@ -29,8 +29,8 @@ use Nova\Characters\Models\States\Statuses\ActiveToInactive;
 class Character extends Model implements HasMedia
 {
     use HasEagerLimit;
-    use HasMediaTrait;
     use HasStates;
+    use InteractsWithMedia;
     use LogsActivity;
     use SoftDeletes;
 

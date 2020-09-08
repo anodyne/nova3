@@ -3,15 +3,15 @@
 namespace Nova\Departments\Models;
 
 use Nova\Departments\Events;
+use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\Activitylog\Traits\LogsActivity;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Nova\Departments\Models\Builders\DepartmentBuilder;
 
 class Department extends Model implements HasMedia
 {
-    use HasMediaTrait;
+    use InteractsWithMedia;
     use LogsActivity;
 
     public const MEDIA_DIRECTORY = 'departments/{model_id}/{media_id}/';

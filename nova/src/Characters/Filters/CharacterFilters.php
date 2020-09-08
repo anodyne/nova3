@@ -41,7 +41,7 @@ class CharacterFilters extends Filters
             ->orWhereHas('users', function ($query) use ($value) {
                 return $query->where('name', 'like', "%{$value}%");
             })
-            ->when(auth()->user()->can('character.*'), function ($query) use ($value) {
+            ->when(auth()->user()->isAbleTo('character.*'), function ($query) use ($value) {
                 return $query->orWhereHas('users', function ($q) use ($value) {
                     return $q->where('email', 'like', "%{$value}%");
                 });

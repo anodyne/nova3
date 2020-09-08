@@ -6,6 +6,7 @@ use Nova\Users\Events;
 use Nova\Notes\Models\Note;
 use Nova\Stories\Models\Post;
 use Spatie\ModelStates\HasStates;
+use Spatie\MediaLibrary\HasMedia;
 use Nova\Users\Models\States\Active;
 use Nova\Characters\Models\Character;
 use Nova\Users\Models\States\Pending;
@@ -13,13 +14,12 @@ use Nova\Users\Models\States\Inactive;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
 use Nova\Users\Models\States\UserStatus;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Nova\Users\Models\Builders\UserBuilder;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Nova\Users\Models\States\ActiveToInactive;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 use Nova\Users\Models\Collections\UsersCollection;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -32,7 +32,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     use LogsActivity;
     use LaratrustUserTrait;
     use HasStates;
-    use HasMediaTrait;
+    use InteractsWithMedia;
     use HasEagerLimit;
 
     public const MEDIA_DIRECTORY = 'users/{model_id}/{media_id}/';
@@ -133,11 +133,11 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
      */
     public function canManage(): bool
     {
-        return $this->can('department.*')
-            || $this->can('rank.*')
-            || $this->can('role.*')
-            || $this->can('theme.*')
-            || $this->can('user.*');
+        return $this->isAbleTo('department.*')
+            || $this->isAbleTo('rank.*')
+            || $this->isAbleTo('role.*')
+            || $this->isAbleTo('theme.*')
+            || $this->isAbleTo('user.*');
     }
 
     /**
