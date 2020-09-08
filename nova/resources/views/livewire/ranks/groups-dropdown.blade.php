@@ -6,7 +6,7 @@
 >
     <input type="hidden" name="group_id" value="{{ $selectedId }}">
 
-    <span class="inline-block w-full rounded-md shadow-sm">
+    <span class="relative flex w-full rounded-md shadow-sm">
         <button
             x-ref="button"
             x-on:keydown.arrow-up.stop.prevent="onButtonClick()"
@@ -16,7 +16,7 @@
             aria-haspopup="listbox"
             x-bind:aria-expanded="open"
             aria-labelledby="listbox-label"
-            class="cursor-default relative w-full rounded-md border border-gray-300 bg-white pl-3 pr-10 py-2 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150 | sm:text-sm"
+            class="cursor-default relative w-full rounded-md border border-gray-200 bg-white pl-3 pr-10 py-2 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150"
         >
             <span class="block truncate">
                 {{ optional($selected)->name ?? 'Select a rank group' }}
@@ -53,11 +53,16 @@
             aria-activedescendant="listbox-option-0"
         >
             <li class="p-2">
-                <div class="flex items-center rounded bg-gray-100 border-2 border-gray-100 text-gray-600 px-2 py-2 focus-within:border-gray-200 focus-within:bg-white focus-within:text-gray-700">
-                    <div class="flex-shrink-0 mr-3">
-                        @icon('search', 'h-5 w-5')
-                    </div>
-                    <input wire:model.debounce.250ms="query" type="text" placeholder="Find a rank group..." class="block w-full appearance-none bg-transparent focus:outline-none">
+                <div class="group flex items-center rounded-md bg-gray-100 border-2 border-gray-100 text-gray-600 px-2 py-2 space-x-3 focus-within:border-gray-200 focus-within:bg-white focus-within:text-gray-700">
+                    @icon('search', 'flex-shrink-0 h-5 w-5 text-gray-400 group-focus-within:text-gray-600')
+
+                    <input wire:model.debounce.250ms="search" type="text" placeholder="Find a rank group..." class="flex w-full appearance-none bg-transparent focus:outline-none">
+
+                    @isset($search)
+                        <x-button wire:click="$set('search', null)" color="gray-text" size="none">
+                            @icon('close-alt')
+                        </x-button>
+                    @endisset
                 </div>
             </li>
 
@@ -99,7 +104,7 @@
                 <li class="py-4">
                     <div class="text-center">
                         <div class="text-gray-500">There is no rank group named</div>
-                        <div class="text-gray-800 font-medium mt-1 mb-6">&lsquo;{{ $query }}&rsquo;</div>
+                        <div class="text-gray-800 font-medium mt-1 mb-6">&lsquo;{{ $search }}&rsquo;</div>
 
                         <x-button wire:click="createAndSelectGroup" type="button" color="blue">
                             Create this group

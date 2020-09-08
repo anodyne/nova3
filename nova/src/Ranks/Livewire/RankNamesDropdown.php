@@ -13,7 +13,7 @@ class RankNamesDropdown extends Component
 
     public $names;
 
-    public $query;
+    public $search;
 
     public $selected;
 
@@ -22,7 +22,7 @@ class RankNamesDropdown extends Component
     public function createAndSelectName(CreateRankName $action)
     {
         $newName = $action->execute(new RankNameData([
-            'name' => $this->query,
+            'name' => $this->search,
         ]));
 
         $this->selectName($newName->id, $newName);
@@ -37,7 +37,7 @@ class RankNamesDropdown extends Component
     {
         $this->dispatchBrowserEvent('listbox-close');
 
-        $this->query = null;
+        $this->reset('search');
 
         $this->fetchNames();
 
@@ -45,7 +45,7 @@ class RankNamesDropdown extends Component
         $this->selected = $this->names->where('id', $nameId)->first();
     }
 
-    public function updatedQuery($value)
+    public function updatedSearch($value)
     {
         $this->names = RankName::query()
             ->where('name', 'like', "%{$value}%")

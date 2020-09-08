@@ -18,7 +18,7 @@ class PositionsDropdown extends Component
 
     public function clearPositions()
     {
-        $this->positions = null;
+        $this->reset('positions');
     }
 
     public function selectDepartment($departmentId)

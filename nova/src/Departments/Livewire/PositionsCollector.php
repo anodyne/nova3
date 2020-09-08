@@ -6,9 +6,9 @@ use Livewire\Component;
 
 class PositionsCollector extends Component
 {
-    public $positions;
-
     public $positionIds;
+
+    public $positions;
 
     protected $listeners = ['positionSelected' => 'handlePositionSelected'];
 
@@ -44,9 +44,7 @@ class PositionsCollector extends Component
     public function updatePositionIds()
     {
         $this->positionIds = collect($this->positions)
-            ->filter(function ($position) {
-                return $position['id'] !== null;
-            })
+            ->filter(fn ($position) => $position['id'] !== null)
             ->implode('id', ',');
     }
 
