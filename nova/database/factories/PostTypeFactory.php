@@ -1,19 +1,26 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
-use Faker\Generator as Faker;
+namespace Database\Factories;
+
 use Nova\PostTypes\Models\PostType;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(PostType::class, function (Faker $faker) {
-    $word = $faker->word;
+class PostTypeFactory extends Factory
+{
+    protected $model = PostType::class;
 
-    return [
-        'active' => $faker->randomElement([true, false]),
-        'description' => $faker->sentence,
-        'key' => $faker->lexify("{$word}-????"),
-        'name' => ucfirst($word),
-        'visibility' => $faker->randomElement(['in-character', 'out-of-character']),
-        'color' => $faker->hexColor,
-        'icon' => 'book',
-    ];
-});
+    public function definition()
+    {
+        $word = $this->faker->word;
+
+        return [
+            'active' => $this->faker->randomElement([true, false]),
+            'description' => $this->faker->sentence,
+            'key' => $this->faker->lexify("{$word}-????"),
+            'name' => ucfirst($word),
+            'visibility' => $this->faker->randomElement(['in-character', 'out-of-character']),
+            'color' => $this->faker->hexColor,
+            'icon' => 'book',
+        ];
+    }
+}

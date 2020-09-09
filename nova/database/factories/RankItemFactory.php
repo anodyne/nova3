@@ -1,16 +1,23 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
-use Faker\Generator as Faker;
+namespace Database\Factories;
+
 use Nova\Ranks\Models\RankItem;
 use Nova\Ranks\Models\RankName;
 use Nova\Ranks\Models\RankGroup;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(RankItem::class, function (Faker $faker) {
-    return [
-        'group_id' => fn () => factory(RankGroup::class)->create()->id,
-        'name_id' => fn () => factory(RankName::class)->create()->id,
-        'base_image' => 'base.png',
-        'overlay_image' => 'overlay.png',
-    ];
-});
+class RankItemFactory extends Factory
+{
+    protected $model = RankItem::class;
+
+    public function definition()
+    {
+        return [
+            'group_id' => fn () => RankGroup::factory(),
+            'name_id' => fn () => RankName::factory(),
+            'base_image' => 'base.png',
+            'overlay_image' => 'overlay.png',
+        ];
+    }
+}

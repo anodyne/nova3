@@ -1,35 +1,55 @@
 <?php
 
+namespace Database\Factories;
+
 use Illuminate\Support\Str;
 use Nova\Users\Models\User;
-use Faker\Generator as Faker;
 use Illuminate\Support\Facades\Hash;
 use Nova\Users\Models\States\Active;
 use Nova\Users\Models\States\Inactive;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(User::class, function (Faker $faker) {
-    return [
-        'name' => $faker->userName,
-        'email' => $faker->unique()->safeEmail,
-        'email_verified_at' => now(),
-        'password' => Hash::make('secret'),
-        'pronouns' => $faker->randomElement(['male', 'female', 'neutral']),
-        'remember_token' => Str::random(10),
-    ];
-});
+class UserFactory extends Factory
+{
+    protected $model = User::class;
 
-$factory->state(User::class, 'unverified-email', [
-    'email_verified_at' => null,
-]);
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->userName,
+            'email' => $this->faker->unique()->safeEmail,
+            'email_verified_at' => now(),
+            'password' => Hash::make('secret'),
+            'pronouns' => $this->faker->randomElement(['male', 'female', 'neutral']),
+            'remember_token' => Str::random(10),
+        ];
+    }
 
-$factory->state(User::class, 'forced-password-reset', [
-    'force_password_reset' => true,
-]);
+    public function unverifiedEmail()
+    {
+        return $this->state([
+            'email_verified_at' => null,
+        ]);
+    }
 
-$factory->afterCreatingState(User::class, 'status:active', function ($user, $faker) {
-    $user->transitionTo(Active::class);
-});
+    public function forcePasswordReset()
+    {
+        return $this->state([
+            'force_password_reset' => true,
+        ]);
+    }
 
-$factory->afterCreatingState(User::class, 'status:inactive', function ($user, $faker) {
-    $user->transitionTo(Inactive::class);
-});
+    public function active()
+    {
+        return $this->state([
+            'status' => Active::class,
+        ]);
+    }
+
+    public function inactive()
+    {
+        return $this->state([
+            'status' => Inactive::class,
+        ]);
+    }
+}

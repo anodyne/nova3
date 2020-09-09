@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Nova\Users\Models\User;
 use Illuminate\Database\Seeder;
 use Nova\Characters\Models\Character;

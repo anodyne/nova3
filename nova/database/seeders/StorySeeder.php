@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Nova\Stories\Models\Story;
 use Illuminate\Database\Seeder;
 use Nova\Stories\Models\States\Current;

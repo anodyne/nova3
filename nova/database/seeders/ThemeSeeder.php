@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Nova\Themes\Models\Theme;
 use Illuminate\Database\Seeder;
 

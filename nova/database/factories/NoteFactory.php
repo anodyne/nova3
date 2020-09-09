@@ -1,15 +1,22 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
+
 use Nova\Notes\Models\Note;
 use Nova\Users\Models\User;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Note::class, function (Faker $faker) {
-    return [
-        'user_id' => fn () => factory(User::class)->create()->id,
-        'title' => $faker->words(mt_rand(3, 10), true),
-        'content' => $faker->paragraphs(mt_rand(1, 5), true),
-        'summary' => $faker->sentences(mt_rand(1, 5), true),
-    ];
-});
+class NoteFactory extends Factory
+{
+    protected $model = Note::class;
+
+    public function definition()
+    {
+        return [
+            'user_id' => fn () => User::factory(),
+            'title' => $this->faker->words(mt_rand(3, 10), true),
+            'content' => $this->faker->paragraphs(mt_rand(1, 5), true),
+            'summary' => $this->faker->sentences(mt_rand(1, 5), true),
+        ];
+    }
+}

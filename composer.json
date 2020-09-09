@@ -58,12 +58,10 @@
             "Nova\\": "nova/src/",
             "Nova\\Foundation\\": "nova/foundation/",
             "Extensions\\": "extensions/",
-            "Themes\\": "themes/"
+            "Themes\\": "themes/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
         },
-        "classmap": [
-            "nova/database/seeds",
-            "nova/database/factories"
-        ],
         "files": [
             "nova/helpers.php"
         ]
