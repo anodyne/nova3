@@ -22,6 +22,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Nova\Users\Models\States\ActiveToInactive;
 use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 use Nova\Users\Models\Collections\UsersCollection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Nova\Characters\Models\States\Statuses\Active as ActiveCharacter;
 
@@ -31,6 +32,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     use SoftDeletes;
     use LogsActivity;
     use LaratrustUserTrait;
+    use HasFactory;
     use HasStates;
     use InteractsWithMedia;
     use HasEagerLimit;

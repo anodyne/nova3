@@ -25,10 +25,12 @@ use Nova\Characters\Models\Builders\CharacterBuilder;
 use Nova\Characters\Models\States\Types\CharacterType;
 use Nova\Characters\Models\States\Statuses\CharacterStatus;
 use Nova\Characters\Models\States\Statuses\ActiveToInactive;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Character extends Model implements HasMedia
 {
     use HasEagerLimit;
+    use HasFactory;
     use HasStates;
     use InteractsWithMedia;
     use LogsActivity;

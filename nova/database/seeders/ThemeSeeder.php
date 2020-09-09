@@ -16,7 +16,7 @@ class ThemeSeeder extends Seeder
     {
         activity()->disableLogging();
 
-        factory(Theme::class)->times(10)->create();
+        Theme::factory()->count(10)->create();
 
         activity()->enableLogging();
     }

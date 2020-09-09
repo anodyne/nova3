@@ -20,10 +20,12 @@ use Nova\Stories\Models\States\CompletedToCurrent;
 use Nova\Stories\Models\States\CurrentToCompleted;
 use Nova\Stories\Models\States\CompletedToUpcoming;
 use Nova\Stories\Models\States\UpcomingToCompleted;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Story extends Model implements HasMedia
 {
     use InteractsWithMedia;
+    use HasFactory;
     use HasStates;
     use NodeTrait;
 

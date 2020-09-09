@@ -8,9 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Nova\Departments\Models\Builders\DepartmentBuilder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Department extends Model implements HasMedia
 {
+    use HasFactory;
     use InteractsWithMedia;
     use LogsActivity;
 
