@@ -22,7 +22,7 @@ class DeleteStoryController extends Controller
     {
         $this->authorize('delete', new Story);
 
-        $stories = Story::descendantsAndSelf($id);
+        $stories = Story::defaultOrder()->descendantsAndSelf($id);
 
         throw_if(
             $stories->where('id', 1)->count() > 0,

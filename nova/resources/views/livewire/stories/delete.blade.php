@@ -2,11 +2,29 @@
     @foreach ($stories as $story)
         <x-panel>
             <div class="px-4 py-5 | sm:p-6">
-                <div class="flex items-start justify-between">
+                <div class="flex items-start">
                     <div class="flex flex-col">
-                        <h3 class="text-lg font-semibold text-gray-900" id="renew-headline">
-                            {{ ucfirst(data_get($actions, "{$story->id}.story.action")) }} {{ $story->title }}
-                        </h3>
+                        <div
+                            class="text-lg font-semibold text-gray-900"
+                            x-data="{}"
+                            x-on:toggle-changed="livewire.emit('delete-story-toggle', $event.detail.value, {{ $story->id }})"
+                        >
+                            <x-input.toggle
+                                field="active"
+                                :value="old('active', data_get($actions, $story->id.'.story.action') === 'delete')"
+                                :disabled="$loop->first"
+                                active-color="red"
+                                :active-text="'Delete '.$story->title"
+                                :inactive-text="'Move '.$story->title"
+                            />
+                        </div>
+
+                        @if ($story->parent && $story->parent_id > 1)
+                            <div class="mt-1 text-sm text-gray-600">
+                                This story is nested inside <span class="font-semibold">{{ optional($story->parent)->title }}</span>
+                            </div>
+                        @endif
+
                         <div class="mt-2 max-w-xl text-gray-600 font-medium flex items-center space-x-6">
                             @if (data_get($actions, "{$story->id}.story.action") === 'move')
                                 <div class="flex items-center space-x-1 text-purple-600">
@@ -105,17 +123,6 @@
                                 </x-input.group>
                             @endif
                         </div>
-                    </div>
-                    <div
-                        class="sm:ml-6 sm:flex-shrink-0 sm:flex"
-                        x-data="{}"
-                        x-on:toggle-changed="livewire.emit('delete-story-toggle', $event.detail.value, {{ $story->id }})"
-                    >
-                        <x-input.toggle
-                            field="active"
-                            :value="old('active', data_get($actions, $story->id.'.story.action') === 'delete')"
-                            :disabled="$loop->first"
-                        />
                     </div>
                 </div>
             </div>
