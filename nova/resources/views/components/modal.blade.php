@@ -10,7 +10,7 @@
 
 @push('modal')
     <div
-        x-data="modal('{{ $event }}', '{{ $url }}')"
+        x-data="AlpineComponents.modal('{{ $event }}', '{{ $url }}', '{{ csrf_token() }}')"
         x-init="listen()"
         x-show="open"
         x-on:keydown.window.escape="open = false"
@@ -68,38 +68,4 @@
             </div>
         </div>
     </div>
-@endpush
-
-@push('scripts')
-    <script>
-        function modal(eventName, url)
-        {
-            return {
-                content: null,
-                isLoading: false,
-                open: false,
-                url: url,
-
-                listen () {
-                    window.addEventListener(eventName, (event) => {
-                        this.loadModalContent(event.detail);
-                    });
-                },
-
-                loadModalContent (detail) {
-                    fetch(this.url, {
-                        method: 'POST',
-                        body: JSON.stringify(detail),
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        }
-                    })
-                        .then(response => response.text())
-                        .then(data => this.content = data)
-                        .finally(() => this.open = true);
-                }
-            };
-        }
-    </script>
 @endpush

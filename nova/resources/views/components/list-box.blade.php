@@ -2,7 +2,7 @@
     'items',
 ])
 
-<div x-data="listBox()" x-init="init()" {{ $attributes->merge(['class' => 'relative']) }}>
+<div x-data="AlpineComponents.listBox()" x-init="init()" {{ $attributes->merge(['class' => 'relative']) }}>
     <span class="inline-block w-full rounded-md shadow-sm">
         <button
             x-ref="button"
@@ -126,45 +126,3 @@
         </ul>
     </div>
 </div>
-
-@push('scripts')
-    <script>
-        function listBox(options = {})
-        {
-            return {
-                open: false,
-                value: 0,
-                selected: 0,
-                activeDescendant: 'listbox-option-0',
-                ...options,
-
-                init () {},
-
-                onButtonClick () {
-                    this.open = !this.open;
-                    this.$refs.listbox.focus();
-                },
-
-                onEscape () {
-                    this.open = false;
-                },
-
-                onOptionSelect () {},
-
-                onArrowUp () {
-                    this.selected--;
-                },
-
-                onArrowDown () {
-                    this.selected++;
-                },
-
-                choose (value) {
-                    this.value = value;
-                    this.selected = value;
-                    this.open = false;
-                }
-            };
-        }
-    </script>
-@endpush

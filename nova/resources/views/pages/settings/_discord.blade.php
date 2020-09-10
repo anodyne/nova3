@@ -30,8 +30,8 @@
                     <x-input.text id="storyPosts[webhook]" name="storyPosts[webhook]" :value="old('storyPosts[webhook]', $settings->discord->storyPostsWebhook)" placeholder="https://discordapp.com/api/webhooks/..." />
                 </x-input.group>
 
-                <x-input.group label="Accent Color" for="storyPosts[color]" help="You can set the accent color used for all story post notifications.">
-                    <x-buk-color-picker name="color" id="color" :value="old('storyPosts[color]', $settings->discord->storyPostsColor)" />
+                <x-input.group label="Accent Color" for="color1" help="You can set the accent color used for all story post notifications.">
+                    <x-buk-color-picker name="color1" id="color1" :value="old('color1', $settings->discord->storyPostsColor)" />
                 </x-input.group>
             </div>
         </div>
@@ -69,8 +69,8 @@
                     <x-input.text placeholder="https://discordapp.com/api/webhooks/..." />
                 </x-input.group>
 
-                <x-input.group label="Accent Color" help="You can set the accent color used for all story post notifications.">
-                    <x-buk-color-picker name="color" id="color" :value="old('storyPosts[color]', $settings->discord->storyPostsColor)" />
+                <x-input.group label="Accent Color" for="color2" help="You can set the accent color used for all story post notifications.">
+                    <x-buk-color-picker name="color2" id="color2" :value="old('color2', $settings->discord->storyPostsColor)" />
                 </x-input.group>
             </div>
         </div>

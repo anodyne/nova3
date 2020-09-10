@@ -33,7 +33,7 @@
             :link="route('ranks.groups.create')"
         ></x-empty-state>
     @else
-        <x-panel x-data="sortableList()" x-init="initSortable()">
+        <x-panel x-data="AlpineComponents.sortableList()" x-init="init()">
             @if ($isReordering)
                 <div class="bg-purple-100 border-t border-b border-purple-200 p-4 | sm:rounded-t-md sm:border-t-0">
                     <div class="flex">
@@ -185,26 +185,3 @@
         </x-modal>
     @endif
 @endsection
-
-@push('scripts')
-    <script>
-        function sortableList() {
-            return {
-                newSortOrder: '',
-                sortable: null,
-
-                initSortable () {
-                    const el = document.getElementById('sortable-list');
-
-                    this.sortable = Sortable.create(el, {
-                        draggable: '.sortable-item',
-                        handle: '.sortable-handle',
-                        onEnd: () => {
-                            this.newSortOrder = this.sortable.toArray();
-                        }
-                    });
-                }
-            };
-        }
-    </script>
-@endpush
