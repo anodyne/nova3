@@ -4,7 +4,7 @@
     'name',
 ])
 
-<div x-data="wordCount()" x-init="init()">
+<div x-data="AlpineComponents.wordCount()" x-init="init()">
     <input id="content" name="{{ $name }}" value="{{ $initialValue }}" type="hidden">
 
     <trix-editor
@@ -23,29 +23,6 @@
 
 @push('scripts')
     <script src="https://unpkg.com/trix@1.2.3/dist/trix.js"></script>
-    <script>
-        function wordCount()
-        {
-            return {
-                count: 0,
-
-                init () {
-                    this.refreshCount();
-                },
-
-                refreshCount (event) {
-                    if (event) {
-                        window.Countable.count(event.target.innerText, counter => {
-                            this.count = window.Numeral(counter.words).format('0,0');
-                        }, {
-                            stripTags: true
-                        });
-                    }
-
-                }
-            };
-        }
-    </script>
 @endpush
 
 @push('styles')

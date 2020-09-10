@@ -9,7 +9,7 @@
 ])
 
 <label
-    x-data="toggleSwitch({{ $value ? 'true' : 'false' }}, {{ $disabled ? 'true' : 'false' }})"
+    x-data="AlpineComponents.toggleSwitch({{ $value ? 'true' : 'false' }}, {{ $disabled ? 'true' : 'false' }})"
     x-on:click.prevent="toggle($dispatch)"
     x-on:keydown.space.prevent="toggle($dispatch)"
     class="flex items-center @if ($disabled) opacity-50 cursor-not-allowed @else cursor-pointer @endif"
@@ -62,22 +62,3 @@
         value="1"
     >
 </label>
-
-@push('scripts')
-<script>
-    function toggleSwitch (active, disabled) {
-        return {
-            active: active,
-            disabled: disabled,
-
-            toggle ($dispatch) {
-                if (! this.disabled) {
-                    this.active = !this.active;
-                    $dispatch('toggle-changed', { value: Boolean(this.active) });
-                    $dispatch('input', Boolean(this.active));
-                }
-            }
-        }
-    }
-</script>
-@endpush

@@ -37,22 +37,22 @@
 </div>
 
 @push('scripts')
-<script>
-    function refreshList(query)
-    {
-        const url = new URL(window.location.href);
+    <script>
+        function refreshList(query)
+        {
+            const url = new URL(window.location.href);
 
-        if (query == null) {
-            url.searchParams.delete('search');
-        } else {
-            if (url.searchParams.has('search')) {
-                url.searchParams.set('search', query);
+            if (query == null) {
+                url.searchParams.delete('search');
             } else {
-                url.searchParams.append('search', query);
+                if (url.searchParams.has('search')) {
+                    url.searchParams.set('search', query);
+                } else {
+                    url.searchParams.append('search', query);
+                }
             }
-        }
 
-        window.location.replace(url);
-    }
-</script>
+            window.location.replace(url);
+        }
+    </script>
 @endpush

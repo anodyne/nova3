@@ -9,7 +9,7 @@
     </x-under-construction>
 
     <x-panel
-        x-data="tabs()"
+        x-data="AlpineComponents.tabsList()"
         x-on:popstate.window="switchTab($event.state.tab)"
         class="md:grid md:grid-cols-4 md:gap-4"
     >
@@ -109,19 +109,3 @@
 
     <x-tips section="settings" />
 @endsection
-
-@push('scripts')
-    <script>
-        function tabs()
-        {
-            return {
-                tab: '{{ $tab }}',
-
-                switchTab (tab) {
-                    this.tab = tab;
-                    history.pushState({ tab: this.tab }, null, tab);
-                }
-            };
-        }
-    </script>
-@endpush
