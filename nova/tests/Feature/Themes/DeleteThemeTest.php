@@ -28,8 +28,8 @@ class DeleteThemeTest extends TestCase
 
         $this->disk = Storage::fake('themes');
 
-        $this->theme = create(Theme::class);
-        $this->secondTheme = create(Theme::class);
+        $this->theme = Theme::factory()->create();
+        $this->secondTheme = Theme::factory()->create();
     }
 
     /** @test **/

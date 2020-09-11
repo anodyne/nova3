@@ -28,8 +28,6 @@ class ManageThemesTest extends TestCase
     {
         $this->signInWithPermission('theme.create');
 
-        $this->withoutExceptionHandling();
-
         $response = $this->get(route('themes.index'));
         $response->assertSuccessful();
     }
@@ -66,7 +64,7 @@ class ManageThemesTest extends TestCase
     {
         $this->signInWithPermission('theme.create');
 
-        create(Theme::class, [
+        Theme::factory()->create([
             'name' => 'Foobar',
             'location' => 'foobar',
         ]);
@@ -90,7 +88,7 @@ class ManageThemesTest extends TestCase
     {
         $this->signInWithPermission('theme.create');
 
-        create(Theme::class, [
+        Theme::factory()->create([
             'name' => 'Foobar',
             'location' => 'foobar',
         ]);
