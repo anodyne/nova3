@@ -15,9 +15,9 @@
                         @livewire('ranks:groups-dropdown', ['groupId' => old('group_id', $item->group_id)])
 
                         @can('create', 'Nova\Ranks\Models\RankGroup')
-                            <a href="{{ route('ranks.groups.index') }}" class="ml-3 group inline-flex items-center text-gray-600 transition ease-in-out duration-150 hover:text-gray-500">
-                                @icon('settings', 'h-6 w-6 text-gray-400 transition ease-in-out duration-150 group-hover:text-gray-500')
-                            </a>
+                            <x-button-link :href="route('ranks.groups.index')" color="gray-text" size="none" class="ml-3">
+                                @icon('settings', 'h-6 w-6')
+                            </x-button-link>
                         @endcan
                     </div>
                 </x-input.group>
@@ -27,9 +27,9 @@
                         @livewire('ranks:names-dropdown', ['nameId' => old('name_id', $item->name_id)])
 
                         @can('create', 'Nova\Ranks\Models\RankName')
-                            <a href="{{ route('ranks.names.index') }}" class="ml-3 group inline-flex items-center text-gray-600 transition ease-in-out duration-150 hover:text-gray-500">
-                                @icon('settings', 'h-6 w-6 text-gray-400 transition ease-in-out duration-150 group-hover:text-gray-500')
-                            </a>
+                            <x-button-link :href="route('ranks.names.index')" color="gray-text" size="none" class="ml-3">
+                                @icon('settings', 'h-6 w-6')
+                            </x-button-link>
                         @endcan
                     </div>
                 </x-input.group>

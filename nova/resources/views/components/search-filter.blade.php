@@ -21,18 +21,20 @@
 
         <x-loader-circle x-show="isLoading" x-cloak class="h-5 w-5 text-gray-400 ml-3" />
 
-        <button
+        <x-button
             x-show="!!search"
             x-on:click.prevent="isLoading = true; search = ''; refreshList(null);"
             x-cloak
             id="clear-search"
-            class="ml-3 text-gray-400 hover:text-gray-500 transition ease-in-out duration-150"
+            class="ml-3"
+            color="gray-text"
+            size="none"
             data-cy="search-clear"
             role="button"
             aria-label="Reset"
         >
             @icon('close-alt', 'h-5 w-5')
-        </button>
+        </x-button>
     </div>
 </div>
 
