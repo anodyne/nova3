@@ -28,7 +28,7 @@ class ForgotPasswordTest extends TestCase
     {
         Notification::fake();
 
-        $user = create(User::class, [], ['status:active']);
+        $user = User::factory()->active()->create();
 
         $response = $this->post(route('password.email'), [
             'email' => $user->email,
@@ -58,7 +58,10 @@ class ForgotPasswordTest extends TestCase
         ]);
         $response->assertSessionHasErrors('email');
 
-        Notification::assertNotSentTo(make(User::class), ResetPassword::class);
+        Notification::assertNotSentTo(
+            User::factory()->make(),
+            ResetPassword::class
+        );
     }
 
     /** @test **/

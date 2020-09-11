@@ -6,9 +6,11 @@ use Nova\Ranks\Events;
 use Illuminate\Database\Eloquent\Model;
 use Nova\Ranks\Models\Builders\RankGroupBuilder;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class RankGroup extends Model
 {
+    use HasFactory;
     use LogsActivity;
 
     protected static $logFillable = true;

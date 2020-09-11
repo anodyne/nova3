@@ -25,7 +25,7 @@ class UpdateDepartmentActionTest extends TestCase
 
         $this->action = app(UpdateDepartment::class);
 
-        $this->department = create(Department::class);
+        $this->department = Department::factory()->create();
     }
 
     /** @test **/

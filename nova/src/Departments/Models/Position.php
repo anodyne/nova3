@@ -7,9 +7,11 @@ use Nova\Characters\Models\Character;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Nova\Departments\Models\Builders\PositionBuilder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Position extends Model
 {
+    use HasFactory;
     use LogsActivity;
 
     protected static $logFillable = true;

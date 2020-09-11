@@ -24,7 +24,7 @@ class DeleteStoryActionTest extends TestCase
 
         $this->action = app(DeleteStory::class);
 
-        $this->story = create(Story::class);
+        $this->story = Story::factory()->create();
     }
 
     /** @test **/

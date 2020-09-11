@@ -55,7 +55,7 @@ class ManagePostTypesTest extends TestCase
     {
         $this->signInWithPermission('story.create');
 
-        create(PostType::class, [
+        PostType::factory()->create([
             'name' => 'barbaz',
         ]);
 

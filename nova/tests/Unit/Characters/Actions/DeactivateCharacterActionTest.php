@@ -25,7 +25,7 @@ class DeactivateCharacterActionTest extends TestCase
 
         $this->action = app(DeactivateCharacter::class);
 
-        $this->character = create(Character::class, [], ['status:active']);
+        $this->character = Character::factory()->active()->create();
     }
 
     /** @test **/

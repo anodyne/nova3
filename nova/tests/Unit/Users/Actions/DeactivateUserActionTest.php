@@ -25,7 +25,7 @@ class DeactivateUserActionTest extends TestCase
 
         $this->action = app(DeactivateUser::class);
 
-        $this->user = create(User::class, [], ['status:active']);
+        $this->user = User::factory()->active()->create();
     }
 
     /** @test **/

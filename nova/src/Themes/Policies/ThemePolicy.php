@@ -12,27 +12,27 @@ class ThemePolicy
 
     public function viewAny(User $user): bool
     {
-        return $user->can('theme.*');
+        return $user->isAbleTo('theme.*');
     }
 
     public function view(User $user): bool
     {
-        return $user->can('theme.view');
+        return $user->isAbleTo('theme.view');
     }
 
     public function create(User $user): bool
     {
-        return $user->can('theme.create');
+        return $user->isAbleTo('theme.create');
     }
 
     public function update(User $user): bool
     {
-        return $user->can('theme.update');
+        return $user->isAbleTo('theme.update');
     }
 
     public function delete(User $user): bool
     {
-        return $user->can('theme.delete') && Theme::count() > 1;
+        return $user->isAbleTo('theme.delete') && Theme::count() > 1;
     }
 
     public function restore(User $user, Theme $theme): bool

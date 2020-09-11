@@ -8,9 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Nova\Themes\Models\Builders\ThemeBuilder;
 use Nova\Themes\Models\Collections\ThemesCollection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Theme extends Model
 {
+    use HasFactory;
     use LogsActivity;
 
     protected static $logFillable = true;

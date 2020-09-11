@@ -24,22 +24,10 @@ class DuplicatePostTypeTest extends TestCase
     {
         parent::setUp();
 
-        $this->postType = create(PostType::class, [
+        $this->postType = PostType::factory()->create([
             'key' => 'foo',
             'name' => 'Foo',
         ]);
-        $this->postType->fields = Fields::fromArray([
-            'title' => true,
-            'time' => true,
-            'location' => true,
-            'content' => true,
-        ]);
-        $this->postType->options = Options::fromArray([
-            'notifyUsers' => true,
-            'includeInPostCounts' => true,
-            'multipleAuthors' => true,
-        ]);
-        $this->postType->save();
     }
 
     /** @test **/

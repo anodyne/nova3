@@ -28,7 +28,7 @@ class RemoveUserAvatarActionTest extends TestCase
 
         $this->action = app(RemoveUserAvatar::class);
 
-        $this->user = create(User::class, [], ['status:active']);
+        $this->user = User::factory()->active()->create();
 
         app(UploadUserAvatar::class)->execute(
             $this->user,

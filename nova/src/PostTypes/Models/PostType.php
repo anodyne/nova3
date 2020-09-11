@@ -9,9 +9,11 @@ use Nova\PostTypes\Models\Casts\FieldsCast;
 use Nova\PostTypes\Models\Casts\OptionsCast;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Nova\PostTypes\Models\Builders\PostTypeBuilder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PostType extends Model
 {
+    use HasFactory;
     use SoftDeletes;
 
     protected $table = 'post_types';

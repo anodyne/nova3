@@ -25,7 +25,7 @@ class InstallThemeTest extends TestCase
 
         $this->disk = Storage::fake('themes');
 
-        $this->theme = make(Theme::class, [
+        $this->theme = Theme::factory()->make([
             'name' => 'Foo',
             'location' => 'foo',
         ]);

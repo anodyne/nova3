@@ -3,7 +3,7 @@
 namespace Nova\Setup\Console\Commands;
 
 use Illuminate\Console\Command;
-use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class RefreshNovaCommand extends Command
 {

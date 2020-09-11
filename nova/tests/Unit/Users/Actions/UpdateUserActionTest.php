@@ -25,7 +25,7 @@ class UpdateUserActionTest extends TestCase
 
         $this->action = app(UpdateUser::class);
 
-        $this->user = create(User::class, [], ['status:active']);
+        $this->user = User::factory()->active()->create();
     }
 
     /** @test **/

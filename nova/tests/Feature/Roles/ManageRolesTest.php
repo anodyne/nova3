@@ -54,7 +54,7 @@ class ManageRolesTest extends TestCase
     {
         $this->signInWithPermission('role.create');
 
-        create(Role::class, [
+        Role::factory()->create([
             'display_name' => 'barbaz',
         ]);
 
@@ -74,7 +74,7 @@ class ManageRolesTest extends TestCase
     {
         $this->signInWithPermission('role.create');
 
-        create(Role::class, [
+        Role::factory()->create([
             'name' => 'foobar',
         ]);
 

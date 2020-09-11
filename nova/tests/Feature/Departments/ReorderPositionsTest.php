@@ -27,17 +27,17 @@ class ReorderPositionsTest extends TestCase
     {
         parent::setUp();
 
-        $this->department = create(Department::class);
+        $this->department = Department::factory()->create();
 
-        $this->position1 = create(Position::class, [
+        $this->position1 = Position::factory()->create([
             'sort' => 0,
             'department_id' => $this->department,
         ]);
-        $this->position2 = create(Position::class, [
+        $this->position2 = Position::factory()->create([
             'sort' => 1,
             'department_id' => $this->department,
         ]);
-        $this->position3 = create(Position::class, [
+        $this->position3 = Position::factory()->create([
             'sort' => 2,
             'department_id' => $this->department,
         ]);

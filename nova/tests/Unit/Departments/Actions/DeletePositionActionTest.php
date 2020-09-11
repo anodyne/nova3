@@ -25,7 +25,7 @@ class DeletePositionActionTest extends TestCase
 
         $this->action = app(DeletePosition::class);
 
-        $this->position = create(Position::class);
+        $this->position = Position::factory()->create();
     }
 
     /** @test **/

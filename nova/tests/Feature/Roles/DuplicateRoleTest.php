@@ -24,7 +24,7 @@ class DuplicateRoleTest extends TestCase
 
         $this->disableRoleCaching();
 
-        $this->role = create(Role::class, [
+        $this->role = Role::factory()->create([
             'name' => 'foo',
             'display_name' => 'Foo',
         ]);
@@ -68,7 +68,7 @@ class DuplicateRoleTest extends TestCase
     /** @test **/
     public function lockedRoleCannotBeDuplicated()
     {
-        $role = create(Role::class, [], ['locked']);
+        $role = Role::factory()->locked()->create();
 
         $this->signInWithPermission(['role.create', 'role.update']);
 

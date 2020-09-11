@@ -22,7 +22,7 @@ class DeletePostTypeTest extends TestCase
     {
         parent::setUp();
 
-        $this->postType = create(PostType::class);
+        $this->postType = PostType::factory()->create();
     }
 
     /** @test **/

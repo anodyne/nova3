@@ -4,7 +4,6 @@ namespace Tests\Unit\Themes\Actions;
 
 use Tests\TestCase;
 use Nova\Themes\Models\Theme;
-use Nova\Themes\Actions\CreateTheme;
 use Illuminate\Support\Facades\Storage;
 use Nova\Themes\DataTransferObjects\ThemeData;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -34,7 +33,7 @@ class SetupThemeDirectoryActionTest extends TestCase
     public function itCreatesTheNewThemeDirectory()
     {
         $this->action->execute(new ThemeData(
-            make(Theme::class)->toArray()
+            Theme::factory()->make()->toArray()
         ));
 
         $this->assertCount(1, $this->disk->directories());

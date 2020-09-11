@@ -24,7 +24,7 @@ class DeleteDepartmentActionTest extends TestCase
 
         $this->action = app(DeleteDepartment::class);
 
-        $this->department = create(Department::class);
+        $this->department = Department::factory()->create();
     }
 
     /** @test **/

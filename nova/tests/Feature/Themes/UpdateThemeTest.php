@@ -21,7 +21,7 @@ class UpdateThemeTest extends TestCase
     {
         parent::setUp();
 
-        $this->theme = create(Theme::class);
+        $this->theme = Theme::factory()->create();
     }
 
     /** @test **/
@@ -62,7 +62,7 @@ class UpdateThemeTest extends TestCase
 
         $this->put(
             route('themes.update', $this->theme),
-            make(Theme::class)->toArray()
+            Theme::factory()->make()->toArray()
         );
 
         Event::assertDispatched(ThemeUpdated::class);
@@ -84,7 +84,7 @@ class UpdateThemeTest extends TestCase
 
         $response = $this->putJson(
             route('themes.update', $this->theme),
-            make(Theme::class)->toArray()
+            Theme::factory()->make()->toArray()
         );
         $response->assertForbidden();
     }
@@ -101,7 +101,7 @@ class UpdateThemeTest extends TestCase
     {
         $response = $this->putJson(
             route('themes.update', $this->theme),
-            make(Theme::class)->toArray()
+            Theme::factory()->make()->toArray()
         );
         $response->assertUnauthorized();
     }

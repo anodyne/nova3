@@ -31,7 +31,7 @@ class CreateNoteActionTest extends TestCase
             'title' => 'My Note',
             'content' => 'Content of my note',
             'summary' => 'Summary of my note',
-            'user' => $user = create(User::class, [], ['status:active']),
+            'user' => $user = User::factory()->active()->create(),
         ]);
 
         $note = $this->action->execute($data);

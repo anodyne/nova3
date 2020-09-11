@@ -54,7 +54,7 @@ class ManageDepartmentsTest extends TestCase
     {
         $this->signInWithPermission('department.create');
 
-        create(Department::class, [
+        Department::factory()->create([
             'name' => 'Command',
         ]);
 

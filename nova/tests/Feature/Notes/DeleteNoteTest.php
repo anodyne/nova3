@@ -21,7 +21,7 @@ class DeleteNoteTest extends TestCase
     {
         parent::setUp();
 
-        $this->note = create(Note::class);
+        $this->note = Note::factory()->create();
     }
 
     /** @test **/

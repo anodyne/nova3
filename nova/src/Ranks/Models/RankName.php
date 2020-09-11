@@ -6,9 +6,11 @@ use Nova\Ranks\Events;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Nova\Ranks\Models\Builders\RankNameBuilder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class RankName extends Model
 {
+    use HasFactory;
     use LogsActivity;
 
     protected static $logFillable = true;

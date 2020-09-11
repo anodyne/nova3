@@ -22,7 +22,7 @@ class ThemeTest extends TestCase
         $disk = Storage::disk('themes');
 
         $disk->makeDirectory('foo');
-        $disk->put('foo/theme.json', json_encode(factory(Theme::class)->make()));
+        $disk->put('foo/theme.json', json_encode(Theme::factory()->make()));
 
         $themes = Theme::get();
 
@@ -39,7 +39,7 @@ class ThemeTest extends TestCase
         $disk->makeDirectory('bar');
 
         $disk->makeDirectory('foo');
-        $disk->put('foo/theme.json', json_encode(factory(Theme::class)->make()));
+        $disk->put('foo/theme.json', json_encode(Theme::factory()->make()));
 
         $themes = Theme::get();
 

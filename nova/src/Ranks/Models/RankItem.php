@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Nova\Characters\Models\Character;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Nova\Ranks\Models\Builders\RankItemBuilder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class RankItem extends Model
 {
+    use HasFactory;
     use LogsActivity;
 
     protected static $logFillable = true;

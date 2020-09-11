@@ -22,7 +22,7 @@ class UpdateRankItemTest extends TestCase
     {
         parent::setUp();
 
-        $this->item = create(RankItem::class);
+        $this->item = RankItem::factory()->create();
     }
 
     /** @test **/
@@ -43,7 +43,7 @@ class UpdateRankItemTest extends TestCase
 
         $response = $this->put(
             route('ranks.items.update', $this->item),
-            $rankItemData = make(RankItem::class)->toArray()
+            $rankItemData = RankItem::factory()->make()->toArray()
         );
         $response->assertSuccessful();
 
@@ -64,7 +64,7 @@ class UpdateRankItemTest extends TestCase
 
         $this->put(
             route('ranks.items.update', $this->item),
-            make(RankItem::class)->toArray()
+            RankItem::factory()->make()->toArray()
         );
 
         Event::assertDispatched(RankItemUpdated::class);
@@ -86,7 +86,7 @@ class UpdateRankItemTest extends TestCase
 
         $response = $this->put(
             route('ranks.items.update', $this->item),
-            make(RankItem::class)->toArray()
+            RankItem::factory()->make()->toArray()
         );
         $response->assertForbidden();
     }
@@ -103,7 +103,7 @@ class UpdateRankItemTest extends TestCase
     {
         $response = $this->putJson(
             route('ranks.items.update', $this->item),
-            make(RankItem::class)->toArray()
+            RankItem::factory()->make()->toArray()
         );
         $response->assertUnauthorized();
     }

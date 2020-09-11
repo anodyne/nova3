@@ -24,7 +24,7 @@ class DeleteRoleTest extends TestCase
 
         $this->disableRoleCaching();
 
-        $this->role = create(Role::class);
+        $this->role = Role::factory()->create();
     }
 
     /** @test **/
@@ -47,7 +47,7 @@ class DeleteRoleTest extends TestCase
     {
         $this->signInWithPermission('role.delete');
 
-        $user = create(User::class, [], ['status:active']);
+        $user = User::factory()->active()->create();
         $user->attachRole($this->role->name);
 
         $this->delete(route('roles.destroy', $this->role));
@@ -73,7 +73,7 @@ class DeleteRoleTest extends TestCase
     {
         $this->signInWithPermission('role.delete');
 
-        $role = create(Role::class, [], ['locked']);
+        $role = Role::factory()->locked()->create();
 
         $response = $this->delete(route('roles.destroy', $role));
         $response->assertForbidden();

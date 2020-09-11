@@ -23,9 +23,9 @@ class ReorderRolesTest extends TestCase
     {
         parent::setUp();
 
-        $this->role1 = create(Role::class, ['sort' => 0]);
-        $this->role2 = create(Role::class, ['sort' => 1]);
-        $this->role3 = create(Role::class, ['sort' => 2]);
+        $this->role1 = Role::factory()->create(['sort' => 0]);
+        $this->role2 = Role::factory()->create(['sort' => 1]);
+        $this->role3 = Role::factory()->create(['sort' => 2]);
     }
 
     /** @test **/

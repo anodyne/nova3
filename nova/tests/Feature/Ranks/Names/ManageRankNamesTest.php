@@ -54,7 +54,7 @@ class ManageRankNamesTest extends TestCase
     {
         $this->signInWithPermission('rank.create');
 
-        create(RankName::class, [
+        RankName::factory()->create([
             'name' => 'Captain',
         ]);
 

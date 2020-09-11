@@ -34,11 +34,11 @@ class UpdateRoleUsersActionTest extends TestCase
 
         $this->action = app(UpdateRoleUsers::class);
 
-        $this->role = create(Role::class);
+        $this->role = Role::factory()->create();
 
-        $this->john = create(User::class, [], ['status:active']);
-        $this->jane = create(User::class, [], ['status:active']);
-        $this->ryan = create(User::class, [], ['status:active']);
+        $this->john = User::factory()->active()->create();
+        $this->jane = User::factory()->active()->create();
+        $this->ryan = User::factory()->active()->create();
     }
 
     /** @test **/

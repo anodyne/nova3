@@ -24,7 +24,7 @@ class DeleteRankNameActionTest extends TestCase
 
         $this->action = app(DeleteRankName::class);
 
-        $this->name = create(RankName::class);
+        $this->name = RankName::factory()->create();
     }
 
     /** @test **/

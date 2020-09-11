@@ -30,7 +30,7 @@ class CreateNoteTest extends TestCase
     {
         $this->signIn();
 
-        $data = make(Note::class, [
+        $data = Note::factory()->make([
             'user_id' => auth()->id(),
         ]);
 
@@ -59,7 +59,7 @@ class CreateNoteTest extends TestCase
 
         $this->signIn();
 
-        $this->post(route('notes.store'), make(Note::class)->toArray());
+        $this->post(route('notes.store'), Note::factory()->make()->toArray());
 
         Event::assertDispatched(NoteCreated::class);
     }
@@ -76,7 +76,7 @@ class CreateNoteTest extends TestCase
     {
         $response = $this->postJson(
             route('notes.store'),
-            make(Note::class)->toArray()
+            Note::factory()->make()->toArray()
         );
         $response->assertUnauthorized();
     }

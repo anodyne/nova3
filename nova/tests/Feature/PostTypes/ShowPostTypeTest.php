@@ -22,22 +22,7 @@ class ShowPostTypeTest extends TestCase
     {
         parent::setUp();
 
-        $this->postType = create(PostType::class);
-
-        $this->postType->fields = Fields::fromArray([
-            'title' => true,
-            'time' => true,
-            'location' => true,
-            'content' => true,
-        ]);
-        $this->postType->options = Options::fromArray([
-            'notifyUsers' => true,
-            'notifyDiscord' => true,
-            'includeInPostCounts' => true,
-            'multipleAuthors' => true,
-        ]);
-
-        $this->postType->save();
+        $this->postType = PostType::factory()->create();
     }
 
     /** @test **/

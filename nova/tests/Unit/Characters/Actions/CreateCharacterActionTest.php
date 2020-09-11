@@ -27,7 +27,7 @@ class CreateCharacterActionTest extends TestCase
     /** @test **/
     public function itCanCreateACharacter()
     {
-        $rank = create(RankItem::class);
+        $rank = RankItem::factory()->create();
 
         $data = new CharacterData([
             'name' => 'Jack Sparrow',

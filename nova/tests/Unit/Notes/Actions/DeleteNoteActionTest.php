@@ -24,7 +24,7 @@ class DeleteNoteActionTest extends TestCase
 
         $this->action = app(DeleteNote::class);
 
-        $this->note = create(Note::class);
+        $this->note = Note::factory()->create();
     }
 
     /** @test **/

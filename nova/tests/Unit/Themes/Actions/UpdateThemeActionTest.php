@@ -25,7 +25,7 @@ class UpdateThemeActionTest extends TestCase
 
         $this->action = app(UpdateTheme::class);
 
-        $this->theme = create(Theme::class);
+        $this->theme = Theme::factory()->create();
     }
 
     /** @test **/

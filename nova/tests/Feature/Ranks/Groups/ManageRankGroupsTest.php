@@ -54,7 +54,7 @@ class ManageRankGroupsTest extends TestCase
     {
         $this->signInWithPermission('rank.create');
 
-        create(RankGroup::class, [
+        RankGroup::factory()->create([
             'name' => 'Command',
         ]);
 

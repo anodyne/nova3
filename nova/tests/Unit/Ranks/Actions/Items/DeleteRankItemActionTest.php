@@ -24,7 +24,7 @@ class DeleteRankItemActionTest extends TestCase
 
         $this->action = app(DeleteRankItem::class);
 
-        $this->item = create(RankItem::class);
+        $this->item = RankItem::factory()->create();
     }
 
     /** @test **/

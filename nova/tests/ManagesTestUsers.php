@@ -31,7 +31,7 @@ trait ManagesTestUsers
      */
     protected function createUser(array $attributes = []): User
     {
-        return factory(User::class)->create($attributes);
+        return User::factory()->create($attributes);
     }
 
     /**
@@ -43,7 +43,7 @@ trait ManagesTestUsers
      */
     protected function makeUser(array $attributes = []): User
     {
-        return factory(User::class)->make($attributes);
+        return User::factory()->make($attributes);
     }
 
     /**

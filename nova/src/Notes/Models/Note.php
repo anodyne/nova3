@@ -7,9 +7,11 @@ use Nova\Users\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Nova\Notes\Models\Builders\NoteBuilder;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Note extends Model
 {
+    use HasFactory;
     use LogsActivity;
 
     protected static $logFillable = true;
