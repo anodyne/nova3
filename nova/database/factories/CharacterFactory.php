@@ -48,21 +48,21 @@ class CharacterFactory extends Factory
     public function primary()
     {
         return $this->state([
-            'status' => Primary::class,
+            'type' => Primary::class,
         ]);
     }
 
     public function secondary()
     {
         return $this->state([
-            'status' => Secondary::class,
+            'type' => Secondary::class,
         ]);
     }
 
     public function support()
     {
         return $this->state([
-            'status' => Support::class,
+            'type' => Support::class,
         ]);
     }
 }

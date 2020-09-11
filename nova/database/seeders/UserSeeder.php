@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
 
         $activeUser = User::factory()
             ->active()
-            ->withUnverifiedEmail()
+            ->unverifiedEmail()
             ->create([
                 'name' => 'user',
                 'email' => 'user@user.com',
