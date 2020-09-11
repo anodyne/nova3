@@ -22,7 +22,7 @@ class UpdateStoryTest extends TestCase
     {
         parent::setUp();
 
-        $this->story = create(Story::class);
+        $this->story = Story::factory()->create();
     }
 
     /** @test **/
@@ -39,7 +39,7 @@ class UpdateStoryTest extends TestCase
     {
         $this->signInWithPermission('story.update');
 
-        $story = make(Story::class);
+        $story = Story::factory()->make();
 
         $this->followingRedirects();
 
@@ -68,7 +68,7 @@ class UpdateStoryTest extends TestCase
 
         $this->put(
             route('stories.update', $this->story),
-            array_merge(make(Story::class)->toArray(), [
+            array_merge(Story::factory()->make()->toArray(), [
                 'status' => 'upcoming',
             ])
         );
@@ -92,7 +92,7 @@ class UpdateStoryTest extends TestCase
 
         $response = $this->putJson(
             route('stories.update', $this->story),
-            array_merge(make(Story::class)->toArray(), [
+            array_merge(Story::factory()->make()->toArray(), [
                 'status' => 'upcoming',
             ])
         );
@@ -111,7 +111,7 @@ class UpdateStoryTest extends TestCase
     {
         $response = $this->putJson(
             route('stories.update', $this->story),
-            array_merge(make(Story::class)->toArray(), [
+            array_merge(Story::factory()->make()->toArray(), [
                 'status' => 'upcoming',
             ])
         );

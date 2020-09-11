@@ -30,11 +30,11 @@ class MoveStoryPostsActionTest extends TestCase
 
         $this->action = app(MoveStoryPosts::class);
 
-        $this->newStory = create(Story::class);
+        $this->newStory = Story::factory()->create();
 
-        $this->story = create(Story::class);
+        $this->story = Story::factory()->create();
 
-        factory(Post::class)->times(5)->create([
+        Post::factory()->count(5)->create([
             'story_id' => $this->story,
         ]);
 
