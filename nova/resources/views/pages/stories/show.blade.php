@@ -11,7 +11,7 @@
     <div class="order-2 | lg:col-span-3 lg:order-1">
         <p class="text-lg">{{ $story->description }}</p>
 
-        <x-panel x-data="AlpineComponents.tabsList()" class="mt-8">
+        <x-panel x-data="AlpineComponents.tabsList('posts')" class="mt-8">
             <div>
                 <div class="p-4 | sm:hidden">
                     <select x-on:change="window.location.replace($event.target.value)" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm transition ease-in-out duration-150">
