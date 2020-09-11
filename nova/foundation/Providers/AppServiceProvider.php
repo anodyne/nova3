@@ -2,6 +2,7 @@
 
 namespace Nova\Foundation\Providers;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Livewire\Livewire;
 use Nova\Foundation\Macros;
 use Illuminate\Routing\Route;
@@ -43,6 +44,7 @@ class AppServiceProvider extends ServiceProvider
         $this->registerBladeDirectives();
         $this->registerBladeComponents();
         $this->registerLivewireComponents();
+        $this->setupFactories();
     }
 
     protected function registerNovaSingleton()
@@ -89,5 +91,14 @@ class AppServiceProvider extends ServiceProvider
         Livewire::component('icons-select-menu', IconsSelectMenu::class);
         Livewire::component('upload-avatar', UploadAvatar::class);
         Livewire::component('upload-image', UploadImage::class);
+    }
+
+    protected function setupFactories()
+    {
+        Factory::guessFactoryNamesUsing(function ($modelName) {
+            $modelPieces = explode('\\', $modelName);
+
+            return 'Database\\Factories\\' . last($modelPieces) . 'Factory';
+        });
     }
 }
