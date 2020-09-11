@@ -26,10 +26,10 @@ class UpdateCharacterTest extends TestCase
     {
         parent::setUp();
 
-        $this->character = create(Character::class);
+        $this->character = Character::factory()->create();
 
-        $position = create(Position::class);
-        $user = create(User::class);
+        $position = Position::factory()->create();
+        $user = User::factory()->create();
 
         $this->character->positions()->attach($position);
         $this->character->users()->attach($user);
@@ -53,7 +53,7 @@ class UpdateCharacterTest extends TestCase
 
         $this->followingRedirects();
 
-        $rank = create(RankItem::class);
+        $rank = RankItem::factory()->create();
 
         $response = $this->put(route('characters.update', $this->character), [
             'name' => 'Jack Sparrow',
@@ -93,7 +93,7 @@ class UpdateCharacterTest extends TestCase
 
         $this->signInWithPermission('character.update');
 
-        $rank = create(RankItem::class);
+        $rank = RankItem::factory()->create();
 
         $response = $this->put(route('characters.update', $this->character), [
             'name' => 'Jack Sparrow',

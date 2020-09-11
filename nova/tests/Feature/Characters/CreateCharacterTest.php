@@ -34,9 +34,9 @@ class CreateCharacterTest extends TestCase
     {
         $this->signInWithPermission('character.create');
 
-        $position = create(Position::class);
-        $rank = create(RankItem::class);
-        $user = create(User::class, [], ['status:active']);
+        $position = Position::factory()->create();
+        $rank = RankItem::factory()->create();
+        $user = User::factory()->active()->create();
 
         $this->followingRedirects();
 
@@ -75,9 +75,9 @@ class CreateCharacterTest extends TestCase
     {
         $this->signInWithPermission('character.create');
 
-        $position = create(Position::class);
-        $rank = create(RankItem::class);
-        $user = create(User::class, [], ['status:active']);
+        $position = Position::factory()->create();
+        $rank = RankItem::factory()->create();
+        $user = User::factory()->active()->create();
 
         $this->followingRedirects();
 
@@ -106,8 +106,8 @@ class CreateCharacterTest extends TestCase
 
         $this->signInWithPermission('character.create');
 
-        $position = create(Position::class);
-        $rank = create(RankItem::class);
+        $position = Position::factory()->create();
+        $rank = RankItem::factory()->create();
 
         $response = $this->post(route('characters.store'), [
             'name' => 'Jack Sparrow',

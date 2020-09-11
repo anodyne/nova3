@@ -22,7 +22,7 @@ class DeleteCharacterTest extends TestCase
     {
         parent::setUp();
 
-        $this->character = create(Character::class, [], ['status:active']);
+        $this->character = Character::factory()->active()->create();
     }
 
     /** @test **/

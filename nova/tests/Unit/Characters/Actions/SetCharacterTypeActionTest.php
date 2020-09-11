@@ -27,13 +27,13 @@ class SetCharacterTypeActionTest extends TestCase
 
         $this->action = app(SetCharacterType::class);
 
-        $this->character = create(Character::class);
+        $this->character = Character::factory()->create();
     }
 
     /** @test **/
     public function itCanSetCharacterAsSecondaryCharacter()
     {
-        $user = create(User::class, [], ['status:active']);
+        $user = User::factory()->active()->create();
         $this->character->users()->attach($user);
 
         $character = $this->action->execute($this->character);
@@ -44,7 +44,7 @@ class SetCharacterTypeActionTest extends TestCase
     /** @test **/
     public function itCanSetCharacterAsPrimaryCharacter()
     {
-        $user = create(User::class, [], ['status:active']);
+        $user = User::factory()->active()->create();
         $this->character->users()->attach($user, ['primary' => true]);
 
         $character = $this->action->execute($this->character);
