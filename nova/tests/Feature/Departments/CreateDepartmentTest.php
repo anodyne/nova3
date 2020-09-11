@@ -30,7 +30,7 @@ class CreateDepartmentTest extends TestCase
     {
         $this->signInWithPermission('department.create');
 
-        $department = make(Department::class);
+        $department = Department::factory()->make();
 
         $this->followingRedirects();
 
@@ -60,7 +60,7 @@ class CreateDepartmentTest extends TestCase
 
         $this->post(
             route('departments.store'),
-            make(Department::class)->toArray()
+            Department::factory()->make()->toArray()
         );
 
         Event::assertDispatched(DepartmentCreated::class);
@@ -82,7 +82,7 @@ class CreateDepartmentTest extends TestCase
 
         $response = $this->postJson(
             route('departments.store'),
-            make(Department::class)->toArray()
+            Department::factory()->make()->toArray()
         );
         $response->assertForbidden();
     }
@@ -99,7 +99,7 @@ class CreateDepartmentTest extends TestCase
     {
         $response = $this->postJson(
             route('departments.store'),
-            make(Department::class)->toArray()
+            Department::factory()->make()->toArray()
         );
         $response->assertUnauthorized();
     }

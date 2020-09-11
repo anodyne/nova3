@@ -23,9 +23,9 @@ class ReorderDepartmentsTest extends TestCase
     {
         parent::setUp();
 
-        $this->dept1 = create(Department::class, ['sort' => 0]);
-        $this->dept2 = create(Department::class, ['sort' => 1]);
-        $this->dept3 = create(Department::class, ['sort' => 2]);
+        $this->dept1 = Department::factory()->create(['sort' => 0]);
+        $this->dept2 = Department::factory()->create(['sort' => 1]);
+        $this->dept3 = Department::factory()->create(['sort' => 2]);
     }
 
     /** @test **/

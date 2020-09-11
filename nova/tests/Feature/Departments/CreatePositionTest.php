@@ -31,7 +31,7 @@ class CreatePositionTest extends TestCase
     {
         $this->signInWithPermission('department.create');
 
-        $position = make(Position::class);
+        $position = Position::factory()->make();
 
         $this->followingRedirects();
 
@@ -61,7 +61,7 @@ class CreatePositionTest extends TestCase
 
         $this->post(
             route('positions.store'),
-            make(Position::class)->toArray()
+            Position::factory()->make()->toArray()
         );
 
         Event::assertDispatched(PositionCreated::class);
@@ -83,7 +83,7 @@ class CreatePositionTest extends TestCase
 
         $response = $this->postJson(
             route('positions.store'),
-            make(Position::class)->toArray()
+            Position::factory()->make()->toArray()
         );
         $response->assertForbidden();
     }
@@ -100,7 +100,7 @@ class CreatePositionTest extends TestCase
     {
         $response = $this->postJson(
             route('positions.store'),
-            make(Position::class)->toArray()
+            Position::factory()->make()->toArray()
         );
         $response->assertUnauthorized();
     }

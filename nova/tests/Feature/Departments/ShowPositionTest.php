@@ -20,7 +20,7 @@ class ShowPositionTest extends TestCase
     {
         parent::setUp();
 
-        $this->position = create(Position::class);
+        $this->position = Position::factory()->create();
     }
 
     /** @test **/

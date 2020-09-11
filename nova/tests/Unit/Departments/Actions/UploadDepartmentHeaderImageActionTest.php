@@ -28,7 +28,7 @@ class UploadDepartmentHeaderImageActionTest extends TestCase
 
         $this->action = app(UploadDepartmentHeaderImage::class);
 
-        $this->department = create(Department::class);
+        $this->department = Department::factory()->create();
     }
 
     /** @test **/

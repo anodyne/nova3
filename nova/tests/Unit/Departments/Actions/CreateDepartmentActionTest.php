@@ -42,8 +42,8 @@ class CreateDepartmentActionTest extends TestCase
     /** @test **/
     public function itSetsTheCorrectSortOrderForANewlyCreatedDepartment()
     {
-        create(Department::class, ['sort' => 0]);
-        create(Department::class, ['sort' => 1]);
+        Department::factory()->create(['sort' => 0]);
+        Department::factory()->create(['sort' => 1]);
 
         $data = new DepartmentData([
             'name' => 'Command',

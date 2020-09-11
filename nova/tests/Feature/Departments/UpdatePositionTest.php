@@ -23,7 +23,7 @@ class UpdatePositionTest extends TestCase
     {
         parent::setUp();
 
-        $this->position = create(Position::class);
+        $this->position = Position::factory()->create();
     }
 
     /** @test **/
@@ -40,7 +40,7 @@ class UpdatePositionTest extends TestCase
     {
         $this->signInWithPermission('department.update');
 
-        $position = make(Position::class);
+        $position = Position::factory()->make();
 
         $this->followingRedirects();
 
@@ -67,7 +67,7 @@ class UpdatePositionTest extends TestCase
 
         $this->put(
             route('positions.update', $this->position),
-            make(Position::class)->toArray()
+            Position::factory()->make()->toArray()
         );
 
         Event::assertDispatched(PositionUpdated::class);
@@ -89,7 +89,7 @@ class UpdatePositionTest extends TestCase
 
         $response = $this->putJson(
             route('positions.update', $this->position),
-            make(Position::class)->toArray()
+            Position::factory()->make()->toArray()
         );
         $response->assertForbidden();
     }
@@ -106,7 +106,7 @@ class UpdatePositionTest extends TestCase
     {
         $response = $this->putJson(
             route('positions.update', $this->position),
-            make(Position::class)->toArray()
+            Position::factory()->make()->toArray()
         );
         $response->assertUnauthorized();
     }

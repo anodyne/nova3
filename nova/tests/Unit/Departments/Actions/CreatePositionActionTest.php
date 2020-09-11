@@ -27,7 +27,7 @@ class CreatePositionActionTest extends TestCase
 
         $this->action = app(CreatePosition::class);
 
-        $this->department = create(Department::class);
+        $this->department = Department::factory()->create();
     }
 
     /** @test **/
@@ -53,11 +53,11 @@ class CreatePositionActionTest extends TestCase
     /** @test **/
     public function itSetsTheCorrectSortOrderForANewlyCreatedPosition()
     {
-        create(Position::class, [
+        Position::factory()->create([
             'department_id' => $this->department,
             'sort' => 0,
         ]);
-        create(Position::class, [
+        Position::factory()->create([
             'department_id' => $this->department,
             'sort' => 1,
         ]);

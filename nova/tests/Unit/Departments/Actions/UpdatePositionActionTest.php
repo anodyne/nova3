@@ -27,13 +27,13 @@ class UpdatePositionActionTest extends TestCase
 
         $this->action = app(UpdatePosition::class);
 
-        $this->position = create(Position::class);
+        $this->position = Position::factory()->create();
     }
 
     /** @test **/
     public function itUpdatesAPosition()
     {
-        $newDepartment = create(Department::class);
+        $newDepartment = Department::factory()->create();
 
         $data = new PositionData([
             'name' => 'Executive Officer',
