@@ -24,7 +24,7 @@ class DeleteRoleActionTest extends TestCase
 
         $this->action = app(DeleteRole::class);
 
-        $this->role = create(Role::class);
+        $this->role = Role::factory()->create();
     }
 
     /** @test **/

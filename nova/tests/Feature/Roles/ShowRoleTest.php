@@ -19,7 +19,7 @@ class ShowRoleTest extends TestCase
     {
         parent::setUp();
 
-        $this->role = create(Role::class);
+        $this->role = Role::factory()->create();
     }
 
     /** @test **/
