@@ -19,7 +19,7 @@
         "kalnoy/nestedset": "^5.0",
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
-        "laravel/ui": "^2.2",
+        "laravel/ui": "^3.0",
         "livewire/livewire": "^2.0",
         "santigarcor/laratrust": "^6.2",
         "spatie/data-transfer-object": "^2.5",
