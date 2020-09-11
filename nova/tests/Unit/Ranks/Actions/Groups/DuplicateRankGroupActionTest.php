@@ -25,7 +25,7 @@ class DuplicateRankGroupActionTest extends TestCase
 
         $this->action = app(DuplicateRankGroup::class);
 
-        $this->group = create(RankGroup::class, [
+        $this->group = RankGroup::factory()->create([
             'name' => 'Command',
         ]);
     }

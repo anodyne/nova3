@@ -27,14 +27,14 @@ class UpdateRankItemActionTest extends TestCase
 
         $this->action = app(UpdateRankItem::class);
 
-        $this->item = create(RankItem::class);
+        $this->item = RankItem::factory()->create();
     }
 
     /** @test **/
     public function itUpdatesARankItem()
     {
-        $group = create(RankGroup::class);
-        $name = create(RankName::class);
+        $group = RankGroup::factory()->create();
+        $name = RankName::factory()->create();
 
         $data = new RankItemData([
             'group_id' => $group->id,

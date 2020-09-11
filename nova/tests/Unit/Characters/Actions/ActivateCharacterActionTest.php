@@ -29,13 +29,13 @@ class ActivateCharacterActionTest extends TestCase
 
         $this->action = app(ActivateCharacter::class);
 
-        $this->character = create(Character::class, [], ['status:inactive']);
+        $this->character = Character::factory()->inactive()->create();
     }
 
     /** @test **/
     public function itActivatesACharacter()
     {
-        $jackSparrow = create(Character::class, [], ['status:inactive']);
+        $jackSparrow = Character::factory()->inactive()->create();
 
         $jackSparrow = $this->action->execute($jackSparrow);
 
@@ -45,14 +45,14 @@ class ActivateCharacterActionTest extends TestCase
     /** @test **/
     public function itActivatesTheCharacterAsASecondaryCharacterIfTheUserAlreadyHasAnActivePrimaryCharacter()
     {
-        $johnny = create(User::class, [], ['status:active']);
+        $johnny = User::factory()->active()->create();
 
-        $bobSparrow = create(Character::class, [], ['status:inactive']);
+        $bobSparrow = Character::factory()->inactive()->create();
         $bobSparrow->users()->attach($johnny, ['primary' => true]);
         $bobSparrow->type = Primary::class;
         $bobSparrow->save();
 
-        $jackSparrow = create(Character::class, [], ['status:active']);
+        $jackSparrow = Character::factory()->active()->create();
         $jackSparrow->users()->attach($johnny, ['primary' => true]);
         $jackSparrow->type = Primary::class;
         $jackSparrow->save();
@@ -78,16 +78,16 @@ class ActivateCharacterActionTest extends TestCase
     /** @test **/
     public function itUpdatesTheCharacterToBeASecondaryCharacterIfAnAssignedUserHasAnotherPrimaryCharacter()
     {
-        $adam = create(User::class, [], ['status:active']);
-        $ben = create(User::class, [], ['status:active']);
+        $adam = User::factory()->active()->create();
+        $ben = User::factory()->active()->create();
 
         $this->character->users()->attach($adam, ['primary' => true]);
         $this->character->users()->attach($ben, ['primary' => true]);
 
-        $jackSparrow = create(Character::class, [], ['status:active']);
+        $jackSparrow = Character::factory()->active()->create();
         $jackSparrow->users()->attach($adam, ['primary' => true]);
 
-        $willTurner = create(Character::class, [], ['status:active']);
+        $willTurner = Character::factory()->active()->create();
         $willTurner->users()->attach($ben, ['primary' => true]);
 
         $adam->refresh();

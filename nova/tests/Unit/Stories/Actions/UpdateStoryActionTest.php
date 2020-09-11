@@ -25,7 +25,7 @@ class UpdateStoryActionTest extends TestCase
 
         $this->action = app(UpdateStory::class);
 
-        $this->story = create(Story::class, [
+        $this->story = Story::factory()->create([
             'parent_id' => 1,
         ]);
     }
@@ -61,7 +61,7 @@ class UpdateStoryActionTest extends TestCase
     {
         $mainTimeline = Story::find(1);
 
-        $firstStory = create(Story::class, [
+        $firstStory = Story::factory()->create([
             'title' => 'New First Story',
         ]);
         $firstStory->appendToNode($mainTimeline)->save();

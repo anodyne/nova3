@@ -21,7 +21,7 @@ class ResetPasswordTest extends TestCase
     public function unauthenticatedUserCanViewEmailResetPage()
     {
         $token = $this->getPasswordResetToken(
-            create(User::class, [], ['status:active'])
+            User::factory()->active()->create()
         );
 
         $response = $this->get(route('password.reset', $token));
@@ -46,7 +46,7 @@ class ResetPasswordTest extends TestCase
         Event::fake();
 
         $token = $this->getPasswordResetToken(
-            $user = create(User::class, [], ['status:active'])
+            $user = User::factory()->active()->create()
         );
 
         $response = $this->post(route('password.update'), [
@@ -67,7 +67,7 @@ class ResetPasswordTest extends TestCase
     /** @test **/
     public function userCannotResetTheirPasswordWithInvalidPasswordResetToken()
     {
-        $user = create(User::class, [], ['status:active']);
+        $user = User::factory()->active()->create();
 
         $token = 'invalid-token';
 
@@ -87,7 +87,7 @@ class ResetPasswordTest extends TestCase
     public function userCannotResetTheirPasswordWithoutNewPassword()
     {
         $token = $this->getPasswordResetToken(
-            $user = create(User::class, [], ['status:active'])
+            $user = User::factory()->active()->create()
         );
 
         $response = $this->post(route('password.update'), [
@@ -109,7 +109,7 @@ class ResetPasswordTest extends TestCase
     public function userCannotResetTheirPasswordWithoutEmail()
     {
         $token = $this->getPasswordResetToken(
-            $user = create(User::class, [], ['status:active'])
+            $user = User::factory()->active()->create()
         );
 
         $response = $this->post(route('password.update'), [

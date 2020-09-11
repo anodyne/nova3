@@ -56,14 +56,14 @@ class ManageRankItemsTest extends TestCase
     {
         $this->signInWithPermission('rank.create');
 
-        $group = create(RankGroup::class, ['name' => 'Command']);
-        $name = create(RankName::class, ['name' => 'Captain']);
+        $group = RankGroup::factory()->create(['name' => 'Command']);
+        $name = RankName::factory()->create(['name' => 'Captain']);
 
-        create(RankItem::class, [
+        RankItem::factory()->create([
             'group_id' => $group,
             'name_id' => $name,
         ]);
-        create(RankItem::class, ['group_id' => $group]);
+        RankItem::factory()->create(['group_id' => $group]);
 
         $response = $this->get(route('ranks.items.index'));
         $response->assertSuccessful();
@@ -82,14 +82,14 @@ class ManageRankItemsTest extends TestCase
     {
         $this->signInWithPermission('rank.create');
 
-        $command = create(RankGroup::class, ['name' => 'Command']);
-        $ops = create(RankGroup::class, ['name' => 'Operations']);
+        $command = RankGroup::factory()->create(['name' => 'Command']);
+        $ops = RankGroup::factory()->create(['name' => 'Operations']);
 
-        create(RankItem::class, ['group_id' => $command]);
-        create(RankItem::class, ['group_id' => $command]);
+        RankItem::factory()->create(['group_id' => $command]);
+        RankItem::factory()->create(['group_id' => $command]);
 
-        create(RankItem::class, ['group_id' => $ops]);
-        create(RankItem::class, ['group_id' => $ops]);
+        RankItem::factory()->create(['group_id' => $ops]);
+        RankItem::factory()->create(['group_id' => $ops]);
 
         $response = $this->get(route('ranks.items.index'));
         $response->assertSuccessful();

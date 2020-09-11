@@ -26,13 +26,13 @@ class AssignUserCharactersActionTest extends TestCase
 
         $this->action = app(AssignUserCharacters::class);
 
-        $this->user = create(User::class, [], ['status:active']);
+        $this->user = User::factory()->active()->create();
     }
 
     /** @test **/
     public function itAssignsACharacterToAUserWithoutAnyCharactersAndDoesNotSetThePrimaryCharacter()
     {
-        $jackSparrow = create(Character::class, [], ['status:active']);
+        $jackSparrow = Character::factory()->active()->create();
 
         $data = new AssignUserCharactersData([
             'characters' => [$jackSparrow->id],
@@ -50,7 +50,7 @@ class AssignUserCharactersActionTest extends TestCase
     /** @test **/
     public function itAssignsACharacterToAUserWithoutAnyCharactersAndSetsThePrimaryCharacter()
     {
-        $jackSparrow = create(Character::class, [], ['status:active']);
+        $jackSparrow = Character::factory()->active()->create();
 
         $data = new AssignUserCharactersData([
             'characters' => [$jackSparrow->id],
@@ -70,8 +70,8 @@ class AssignUserCharactersActionTest extends TestCase
     /** @test **/
     public function itAssignsACharacterToAUserWithExistingCharacter()
     {
-        $jackSparrow = create(Character::class, [], ['status:active']);
-        $willTurner = create(Character::class, [], ['status:active']);
+        $jackSparrow = Character::factory()->active()->create();
+        $willTurner = Character::factory()->active()->create();
 
         $data = new AssignUserCharactersData([
             'characters' => [$jackSparrow->id, $willTurner->id],
@@ -97,8 +97,8 @@ class AssignUserCharactersActionTest extends TestCase
     /** @test **/
     public function itAssignsACharacterToAUserWithExistingCharacterAndChangesThePrimaryCharacter()
     {
-        $jackSparrow = create(Character::class, [], ['status:active']);
-        $willTurner = create(Character::class, [], ['status:active']);
+        $jackSparrow = Character::factory()->active()->create();
+        $willTurner = Character::factory()->active()->create();
 
         $data = new AssignUserCharactersData([
             'characters' => [$jackSparrow->id, $willTurner->id],
@@ -124,8 +124,8 @@ class AssignUserCharactersActionTest extends TestCase
     /** @test **/
     public function itRemovesAnAssignedCharacterFromAUser()
     {
-        $jackSparrow = create(Character::class, [], ['status:active']);
-        $willTurner = create(Character::class, [], ['status:active']);
+        $jackSparrow = Character::factory()->active()->create();
+        $willTurner = Character::factory()->active()->create();
 
         $this->user->characters()->sync([$jackSparrow->id, $willTurner->id]);
 
@@ -151,9 +151,9 @@ class AssignUserCharactersActionTest extends TestCase
     /** @test **/
     public function itAddsAndRemovesCharactersFromAUser()
     {
-        $jackSparrow = create(Character::class, [], ['status:active']);
-        $willTurner = create(Character::class, [], ['status:active']);
-        $elizabethSwann = create(Character::class, [], ['status:active']);
+        $jackSparrow = Character::factory()->active()->create();
+        $willTurner = Character::factory()->active()->create();
+        $elizabethSwann = Character::factory()->active()->create();
 
         $this->user->characters()->sync([$jackSparrow->id, $willTurner->id]);
 

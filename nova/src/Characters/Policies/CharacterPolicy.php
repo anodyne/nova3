@@ -14,27 +14,27 @@ class CharacterPolicy
 
     public function viewAny(User $user): bool
     {
-        return $user->can('character.*');
+        return $user->isAbleTo('character.*');
     }
 
     public function view(User $user, Character $character): bool
     {
-        return $user->can('character.view');
+        return $user->isAbleTo('character.view');
     }
 
     public function create(User $user): bool
     {
-        return $user->can('character.create');
+        return $user->isAbleTo('character.create');
     }
 
     public function update(User $user, Character $character): bool
     {
-        return $user->can('character.update');
+        return $user->isAbleTo('character.update');
     }
 
     public function delete(User $user, Character $character): bool
     {
-        return $user->can('character.delete');
+        return $user->isAbleTo('character.delete');
     }
 
     public function restore(User $user, Character $character): bool
@@ -49,13 +49,13 @@ class CharacterPolicy
 
     public function activate(User $user, Character $character): bool
     {
-        return $user->can('character.update')
+        return $user->isAbleTo('character.update')
             && $character->status->equals(Inactive::class);
     }
 
     public function deactivate(User $user, Character $character): bool
     {
-        return $user->can('character.update')
+        return $user->isAbleTo('character.update')
             && $character->status->equals(Active::class);
     }
 }

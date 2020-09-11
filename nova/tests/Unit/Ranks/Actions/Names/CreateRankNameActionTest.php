@@ -40,8 +40,8 @@ class CreateRankNameActionTest extends TestCase
     /** @test **/
     public function itCreatesARankNameWithTheProperSortOrder()
     {
-        create(RankName::class, ['sort' => 0]);
-        create(RankName::class, ['sort' => 1]);
+        RankName::factory()->create(['sort' => 0]);
+        RankName::factory()->create(['sort' => 1]);
 
         $data = new RankNameData([
             'name' => 'Captain',

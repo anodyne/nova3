@@ -52,7 +52,7 @@ class CreateStoryActionTest extends TestCase
     /** @test **/
     public function itCreatesANestedStory()
     {
-        $newStory = create(Story::class);
+        $newStory = Story::factory()->create();
 
         $data = new StoryData([
             'title' => 'Story Title',

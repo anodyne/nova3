@@ -22,7 +22,7 @@ class UpdateDepartmentTest extends TestCase
     {
         parent::setUp();
 
-        $this->department = create(Department::class);
+        $this->department = Department::factory()->create();
     }
 
     /** @test **/
@@ -39,7 +39,7 @@ class UpdateDepartmentTest extends TestCase
     {
         $this->signInWithPermission('department.update');
 
-        $department = make(Department::class);
+        $department = Department::factory()->make();
 
         $this->followingRedirects();
 
@@ -66,7 +66,7 @@ class UpdateDepartmentTest extends TestCase
 
         $this->put(
             route('departments.update', $this->department),
-            make(Department::class)->toArray()
+            Department::factory()->make()->toArray()
         );
 
         Event::assertDispatched(DepartmentUpdated::class);
@@ -88,7 +88,7 @@ class UpdateDepartmentTest extends TestCase
 
         $response = $this->putJson(
             route('departments.update', $this->department),
-            make(Department::class)->toArray()
+            Department::factory()->make()->toArray()
         );
         $response->assertForbidden();
     }
@@ -105,7 +105,7 @@ class UpdateDepartmentTest extends TestCase
     {
         $response = $this->putJson(
             route('departments.update', $this->department),
-            make(Department::class)->toArray()
+            Department::factory()->make()->toArray()
         );
         $response->assertUnauthorized();
     }

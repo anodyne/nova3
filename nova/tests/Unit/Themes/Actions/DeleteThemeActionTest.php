@@ -34,7 +34,7 @@ class DeleteThemeActionTest extends TestCase
             'location' => 'slate',
         ]));
 
-        $this->theme = create(Theme::class, [
+        $this->theme = Theme::factory()->create([
             'name' => 'Slate',
             'location' => 'slate',
         ]);

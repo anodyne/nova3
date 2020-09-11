@@ -25,7 +25,7 @@ class UpdateRankNameActionTest extends TestCase
 
         $this->action = app(UpdateRankName::class);
 
-        $this->name = create(RankName::class);
+        $this->name = RankName::factory()->create();
     }
 
     /** @test **/

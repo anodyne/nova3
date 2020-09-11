@@ -28,16 +28,13 @@ class DuplicateRankGroupRankItemsActionTest extends TestCase
 
         $this->action = app(DuplicateRankGroupRankItems::class);
 
-        $this->group = create(RankGroup::class, [
-            'name' => 'Command',
-        ]);
-
-        create(RankItem::class, [
-            'group_id' => $this->group,
-        ]);
-        create(RankItem::class, [
-            'group_id' => $this->group,
-        ]);
+        $this->group = RankGroup::factory()
+            ->hasRanks(2, function (array $attributes, RankGroup $group) {
+                return ['group_id' => $group->id];
+            })
+            ->create([
+                'name' => 'Command',
+            ]);
     }
 
     /** @test **/

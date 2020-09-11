@@ -24,7 +24,7 @@ class LoginTest extends TestCase
     /** @test **/
     public function userCanLoginWithCorrectCredentials()
     {
-        $user = create(User::class, [], ['status:active']);
+        $user = User::factory()->active()->create();
 
         $response = $this->post(route('login'), [
             'email' => $user->email,
@@ -62,7 +62,7 @@ class LoginTest extends TestCase
     /** @test **/
     public function userCannotLoginWithIncorrectPassword()
     {
-        $user = create(User::class, [], ['status:active']);
+        $user = User::factory()->active()->create();
 
         $response = $this->post(route('login'), [
             'email' => $user->email,
@@ -96,7 +96,7 @@ class LoginTest extends TestCase
     /** @test **/
     public function userCannotAttemptLoggingInMoreThanFiveTimesInOneMinute()
     {
-        $user = create(User::class, [], ['status:active']);
+        $user = User::factory()->active()->create();
 
         foreach (range(0, 5) as $_) {
             $response = $this->post(route('login'), [
@@ -128,7 +128,7 @@ class LoginTest extends TestCase
     /** @test **/
     public function timestampIsRecordedWhenUserLogsIn()
     {
-        $user = create(User::class, [], ['status:active']);
+        $user = User::factory()->active()->create();
 
         $response = $this->post(route('login'), [
             'email' => $user->email,
@@ -146,7 +146,7 @@ class LoginTest extends TestCase
     public function userIsPromptedToChangeTheirPasswordIfAnAdminHasForcedAPasswordReset()
     {
         app(ForcePasswordReset::class)->execute(
-            $user = create(User::class, [], ['status:active'])
+            $user = User::factory()->active()->create()
         );
 
         $this->followingRedirects();

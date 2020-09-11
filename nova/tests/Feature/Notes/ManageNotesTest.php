@@ -19,7 +19,7 @@ class ManageNotesTest extends TestCase
     {
         parent::setUp();
 
-        $this->note = create(Note::class);
+        $this->note = Note::factory()->create();
     }
 
     /** @test **/
@@ -38,7 +38,7 @@ class ManageNotesTest extends TestCase
     {
         $this->signIn();
 
-        $note = create(Note::class, [
+        $note = Note::factory()->create([
             'user_id' => auth()->user(),
         ]);
 
@@ -54,7 +54,7 @@ class ManageNotesTest extends TestCase
     {
         $this->signIn($this->note->author);
 
-        create(Note::class, [
+        Note::factory()->create([
             'user_id' => auth()->user(),
             'title' => 'Foo',
         ]);
@@ -70,7 +70,7 @@ class ManageNotesTest extends TestCase
     {
         $this->signIn($this->note->author);
 
-        create(Note::class, [
+        Note::factory()->create([
             'user_id' => auth()->user(),
             'content' => 'foobar',
         ]);
@@ -86,7 +86,7 @@ class ManageNotesTest extends TestCase
     {
         $this->signIn($this->note->author);
 
-        create(Note::class, [
+        Note::factory()->create([
             'user_id' => auth()->user(),
             'summary' => 'barbaz',
         ]);

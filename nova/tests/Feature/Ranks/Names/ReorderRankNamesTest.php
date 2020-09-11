@@ -23,9 +23,9 @@ class ReorderRankNamesTest extends TestCase
     {
         parent::setUp();
 
-        $this->name1 = create(RankName::class, ['sort' => 0]);
-        $this->name2 = create(RankName::class, ['sort' => 1]);
-        $this->name3 = create(RankName::class, ['sort' => 2]);
+        $this->name1 = RankName::factory()->create(['sort' => 0]);
+        $this->name2 = RankName::factory()->create(['sort' => 1]);
+        $this->name3 = RankName::factory()->create(['sort' => 2]);
     }
 
     /** @test **/

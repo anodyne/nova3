@@ -19,7 +19,7 @@ class ShowStoryTest extends TestCase
     {
         parent::setUp();
 
-        $this->story = create(Story::class);
+        $this->story = Story::factory()->create();
     }
 
     /** @test **/

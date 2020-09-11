@@ -19,7 +19,7 @@ class ShowRankGroupTest extends TestCase
     {
         parent::setUp();
 
-        $this->group = create(RankGroup::class);
+        $this->group = RankGroup::factory()->create();
     }
 
     /** @test **/

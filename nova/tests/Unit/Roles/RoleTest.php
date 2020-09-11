@@ -22,13 +22,13 @@ class RoleTest extends TestCase
 
         $this->disableRoleCaching();
 
-        $this->role = create(Role::class);
+        $this->role = Role::factory()->create();
     }
 
     /** @test **/
     public function itCanGiveAUserTheRole()
     {
-        $this->role->giveToUser($user = create(User::class, [], ['status:active']));
+        $this->role->giveToUser($user = User::factory()->active()->create());
 
         $this->assertTrue($user->hasRole($this->role->name));
     }

@@ -31,7 +31,7 @@ class CreateStoryTest extends TestCase
         $this->withoutExceptionHandling();
         $this->signInWithPermission('story.create');
 
-        $story = make(Story::class);
+        $story = Story::factory()->make();
 
         $this->followingRedirects();
 
@@ -60,7 +60,7 @@ class CreateStoryTest extends TestCase
 
         $this->post(
             route('stories.store'),
-            array_merge(make(Story::class)->toArray(), [
+            array_merge(Story::factory()->make()->toArray(), [
                 'status' => 'upcoming',
             ])
         );
@@ -84,7 +84,7 @@ class CreateStoryTest extends TestCase
 
         $response = $this->postJson(
             route('stories.store'),
-            array_merge(make(Story::class)->toArray(), [
+            array_merge(Story::factory()->make()->toArray(), [
                 'status' => 'upcoming',
             ])
         );
@@ -103,7 +103,7 @@ class CreateStoryTest extends TestCase
     {
         $response = $this->postJson(
             route('stories.store'),
-            array_merge(make(Story::class)->toArray(), [
+            array_merge(Story::factory()->make()->toArray(), [
                 'status' => 'upcoming',
             ])
         );

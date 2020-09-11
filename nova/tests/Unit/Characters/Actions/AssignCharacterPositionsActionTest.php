@@ -28,13 +28,13 @@ class AssignCharacterPositionsActionTest extends TestCase
 
         $this->action = app(AssignCharacterPositions::class);
 
-        $this->character = create(Character::class, [], ['status:active']);
+        $this->character = Character::factory()->active()->create();
     }
 
     /** @test **/
     public function itAssignsOnePositionToACharacterWithoutAnyPositionsAndSetsItAsThePrimaryPosition()
     {
-        $position = create(Position::class);
+        $position = Position::factory()->create();
 
         $data = new AssignCharacterPositionsData([
             'positions' => [$position->id],
@@ -54,8 +54,8 @@ class AssignCharacterPositionsActionTest extends TestCase
     /** @test **/
     public function itAssignsMultiplePositionsToACharacterWithoutAnyPositions()
     {
-        $first = create(Position::class);
-        $second = create(Position::class);
+        $first = Position::factory()->create();
+        $second = Position::factory()->create();
 
         $data = new AssignCharacterPositionsData([
             'positions' => [$first->id, $second->id],
@@ -78,8 +78,8 @@ class AssignCharacterPositionsActionTest extends TestCase
     /** @test **/
     public function itAssignsMultiplePositionsToACharacterWithoutAnyPositionsAndSetsAPrimaryPosition()
     {
-        $first = create(Position::class);
-        $second = create(Position::class);
+        $first = Position::factory()->create();
+        $second = Position::factory()->create();
 
         $data = new AssignCharacterPositionsData([
             'positions' => [$first->id, $second->id],
@@ -103,8 +103,8 @@ class AssignCharacterPositionsActionTest extends TestCase
     /** @test **/
     public function itAssignsOnePositionToACharacterWithADifferentPositionsAndSetsItAsThePrimaryPosition()
     {
-        $first = create(Position::class);
-        $second = create(Position::class);
+        $first = Position::factory()->create();
+        $second = Position::factory()->create();
 
         $this->character->positions()->attach($first);
 
@@ -128,9 +128,9 @@ class AssignCharacterPositionsActionTest extends TestCase
     /** @test **/
     public function itChangesOnePositionOfACharacterWithMultiplePositionsWithoutChangingThePrimaryPosition()
     {
-        $first = create(Position::class);
-        $second = create(Position::class);
-        $third = create(Position::class);
+        $first = Position::factory()->create();
+        $second = Position::factory()->create();
+        $third = Position::factory()->create();
 
         $this->character->positions()->attach($first);
         $this->character->positions()->attach($second, ['primary' => true]);
@@ -159,9 +159,9 @@ class AssignCharacterPositionsActionTest extends TestCase
     /** @test **/
     public function itChangesOnePositionOfACharacterWithMultiplePositionsWhileChangingThePrimaryPosition()
     {
-        $first = create(Position::class);
-        $second = create(Position::class);
-        $third = create(Position::class);
+        $first = Position::factory()->create();
+        $second = Position::factory()->create();
+        $third = Position::factory()->create();
 
         $this->character->positions()->attach($first);
         $this->character->positions()->attach($second, ['primary' => true]);
@@ -190,9 +190,9 @@ class AssignCharacterPositionsActionTest extends TestCase
     /** @test **/
     public function itChangesPositionsAndRemovesThePrimaryPosition()
     {
-        $first = create(Position::class);
-        $second = create(Position::class);
-        $third = create(Position::class);
+        $first = Position::factory()->create();
+        $second = Position::factory()->create();
+        $third = Position::factory()->create();
 
         $this->character->positions()->attach($first);
         $this->character->positions()->attach($second, ['primary' => true]);

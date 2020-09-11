@@ -40,11 +40,11 @@ class CreateUserTest extends TestCase
     {
         $this->signInWithPermission('user.create');
 
-        $data = make(User::class, [
+        $data = User::factory()->make([
             'name' => 'Jack Sparrow',
         ]);
 
-        $character = create(Character::class);
+        $character = Character::factory()->create();
 
         $this->followingRedirects();
 
@@ -82,7 +82,7 @@ class CreateUserTest extends TestCase
 
         $this->post(
             route('users.store'),
-            make(User::class)->toArray()
+            User::factory()->make()->toArray()
         );
 
         Event::assertDispatched(UserCreated::class);
@@ -105,7 +105,7 @@ class CreateUserTest extends TestCase
 
         $response = $this->post(
             route('users.store'),
-            make(User::class)->toArray()
+            User::factory()->make()->toArray()
         );
         $response->assertForbidden();
     }
@@ -122,7 +122,7 @@ class CreateUserTest extends TestCase
     {
         $response = $this->postJson(
             route('users.store'),
-            make(User::class)->toArray()
+            User::factory()->make()->toArray()
         );
         $response->assertUnauthorized();
     }

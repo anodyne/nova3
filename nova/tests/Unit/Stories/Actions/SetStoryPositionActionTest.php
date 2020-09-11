@@ -25,7 +25,7 @@ class SetStoryPositionActionTest extends TestCase
 
         $this->action = app(SetStoryPosition::class);
 
-        $this->story = create(Story::class);
+        $this->story = Story::factory()->create();
     }
 
     /** @test **/
@@ -33,7 +33,7 @@ class SetStoryPositionActionTest extends TestCase
     {
         $mainTimeline = Story::find(1);
 
-        $firstStory = create(Story::class, [
+        $firstStory = Story::factory()->create([
             'title' => 'First Story',
         ]);
         $firstStory->appendToNode($mainTimeline)->save();
@@ -58,7 +58,7 @@ class SetStoryPositionActionTest extends TestCase
     {
         $mainTimeline = Story::find(1);
 
-        $firstStory = create(Story::class, [
+        $firstStory = Story::factory()->create([
             'title' => 'First Story',
         ]);
         $firstStory->appendToNode($mainTimeline)->save();
@@ -83,13 +83,13 @@ class SetStoryPositionActionTest extends TestCase
     {
         $mainTimeline = Story::find(1);
 
-        $firstStory = create(Story::class, [
+        $firstStory = Story::factory()->create([
             'title' => 'First Story',
         ]);
         $firstStory->appendToNode($mainTimeline)->save();
         $firstStory->refresh();
 
-        $secondStory = create(Story::class, [
+        $secondStory = Story::factory()->create([
             'title' => 'Second Story',
         ]);
         $secondStory->appendToNode($firstStory)->save();
@@ -117,13 +117,13 @@ class SetStoryPositionActionTest extends TestCase
     {
         $mainTimeline = Story::find(1);
 
-        $firstStory = create(Story::class, [
+        $firstStory = Story::factory()->create([
             'title' => 'First Story',
         ]);
         $firstStory->appendToNode($mainTimeline)->save();
         $firstStory->refresh();
 
-        $secondStory = create(Story::class, [
+        $secondStory = Story::factory()->create([
             'title' => 'Second Story',
         ]);
         $secondStory->appendToNode($firstStory)->save();

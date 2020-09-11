@@ -28,9 +28,9 @@ class MovePostActionTest extends TestCase
 
         $this->action = app(MovePost::class);
 
-        $this->story = create(Story::class);
+        $this->story = Story::factory()->create();
 
-        $this->post = create(Post::class);
+        $this->post = Post::factory()->create();
     }
 
     /** @test **/

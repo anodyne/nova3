@@ -14,33 +14,33 @@ class PostPolicy
 
     public function viewAny(User $user): bool
     {
-        return $user->can('post.*');
+        return $user->isAbleTo('post.*');
     }
 
     public function view(User $user, Post $post): bool
     {
-        return $user->can('post.view');
+        return $user->isAbleTo('post.view');
     }
 
     public function create(User $user): bool
     {
-        return $user->can('post.create');
+        return $user->isAbleTo('post.create');
     }
 
     public function update(User $user, Post $post): bool
     {
-        return $user->can('post.update');
+        return $user->isAbleTo('post.update');
     }
 
     public function delete(User $user, Post $post): bool
     {
-        return $user->can('post.delete');
+        return $user->isAbleTo('post.delete');
     }
 
     public function duplicate(User $user, Post $post): bool
     {
-        return $user->can('post.create')
-            && $user->can('post.update');
+        return $user->isAbleTo('post.create')
+            && $user->isAbleTo('post.update');
     }
 
     public function restore(User $user, Post $post): bool

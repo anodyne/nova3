@@ -19,7 +19,7 @@ class ShowDepartmentTest extends TestCase
     {
         parent::setUp();
 
-        $this->department = create(Department::class);
+        $this->department = Department::factory()->create();
     }
 
     /** @test **/

@@ -24,7 +24,7 @@ class DeletePostActionTest extends TestCase
 
         $this->action = app(DeletePost::class);
 
-        $this->post = create(Post::class);
+        $this->post = Post::factory()->create();
     }
 
     /** @test **/

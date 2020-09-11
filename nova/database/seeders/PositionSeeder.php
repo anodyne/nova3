@@ -1,8 +1,9 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 use Nova\Departments\Models\Position;
-use Nova\Departments\Models\Department;
 
 class PositionSeeder extends Seeder
 {

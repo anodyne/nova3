@@ -28,7 +28,7 @@ class UpdateRoleActionTest extends TestCase
 
         $this->action = app(UpdateRole::class);
 
-        $this->role = create(Role::class);
+        $this->role = Role::factory()->create();
     }
 
     /** @test **/

@@ -25,9 +25,9 @@ class ActivateUserTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = create(User::class, [], ['status:inactive']);
+        $this->user = User::factory()->inactive()->create();
 
-        $this->character = create(Character::class, [], ['status:inactive']);
+        $this->character = Character::factory()->inactive()->create();
         $this->character->users()->attach($this->user, ['primary' => true]);
     }
 
@@ -50,8 +50,6 @@ class ActivateUserTest extends TestCase
     /** @test **/
     public function userCanBeActivatedWithPreviousPrimaryCharacter()
     {
-        $this->withoutExceptionHandling();
-
         $this->signInWithPermission('user.update');
 
         $this->followingRedirects();

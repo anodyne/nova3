@@ -10,9 +10,12 @@ use Nova\Posts\Models\States\PostStatus;
 use Nova\Posts\Models\States\DraftToPending;
 use Nova\Posts\Models\States\DraftToPublished;
 use Nova\Posts\Models\States\PendingToPublished;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Post extends Model
 {
+    use HasFactory;
+
     protected $table = 'posts';
 
     protected $fillable = ['mature_content', 'story_id'];

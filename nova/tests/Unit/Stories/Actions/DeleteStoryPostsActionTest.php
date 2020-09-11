@@ -28,9 +28,9 @@ class DeleteStoryPostsActionTest extends TestCase
 
         $this->action = app(DeleteStoryPosts::class);
 
-        $this->story = create(Story::class);
+        $this->story = Story::factory()->create();
 
-        $this->posts = factory(Post::class)->times(5)->create([
+        $this->posts = Post::factory()->count(5)->create([
             'story_id' => $this->story,
         ]);
 

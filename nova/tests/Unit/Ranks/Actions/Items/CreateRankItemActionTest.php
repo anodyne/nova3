@@ -28,9 +28,9 @@ class CreateRankItemActionTest extends TestCase
 
         $this->action = app(CreateRankItem::class);
 
-        $this->group = create(RankGroup::class);
+        $this->group = RankGroup::factory()->create();
 
-        $this->name = create(RankName::class);
+        $this->name = RankName::factory()->create();
     }
 
     /** @test **/

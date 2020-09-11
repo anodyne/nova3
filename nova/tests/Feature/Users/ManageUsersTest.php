@@ -27,11 +27,11 @@ class ManageUsersTest extends TestCase
     {
         parent::setUp();
 
-        $this->activeUser = create(User::class, [], ['status:active']);
+        $this->activeUser = User::factory()->active()->create();
 
-        $this->pendingUser = create(User::class);
+        $this->pendingUser = User::factory()->create();
 
-        $this->inactiveUser = create(User::class, [], ['status:inactive']);
+        $this->inactiveUser = User::factory()->inactive()->create();
     }
 
     /** @test **/
@@ -128,11 +128,11 @@ class ManageUsersTest extends TestCase
     {
         $this->signInWithPermission('user.create');
 
-        create(User::class, [
+        User::factory()->active()->create([
             'name' => 'Sparrow Capitan',
-        ], ['status:active']);
+        ]);
 
-        create(User::class, [], ['status:active']);
+        User::factory()->active()->create();
 
         $response = $this->get(route('users.index'));
         $response->assertSuccessful();
@@ -150,11 +150,11 @@ class ManageUsersTest extends TestCase
     {
         $this->signInWithPermission('user.create');
 
-        create(User::class, [
+        User::factory()->active()->create([
             'email' => 'sparrow@example.com',
-        ], ['status:active']);
+        ]);
 
-        create(User::class, [], ['status:active']);
+        User::factory()->active()->create();
 
         $response = $this->get(route('users.index'));
         $response->assertSuccessful();
@@ -172,15 +172,15 @@ class ManageUsersTest extends TestCase
     {
         $this->signInWithPermission('user.create');
 
-        $depp = create(User::class, [
+        $depp = User::factory()->active()->create([
             'name' => 'Johnny Depp',
-        ], ['status:active']);
+        ]);
 
-        create(User::class, [], ['status:active']);
+        User::factory()->active()->create();
 
-        $character = create(Character::class, [
+        $character = Character::factory()->active()->create([
             'name' => 'Jack Sparrow',
-        ], ['status:active']);
+        ]);
         $character->users()->attach($depp);
 
         $response = $this->get(route('users.index'));

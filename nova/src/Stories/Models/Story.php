@@ -6,24 +6,26 @@ use Nova\Stories\Events;
 use Nova\Posts\Models\Post;
 use Kalnoy\Nestedset\NodeTrait;
 use Spatie\ModelStates\HasStates;
+use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
 use Nova\Stories\Models\States\Current;
 use Nova\Stories\Models\States\Upcoming;
 use Nova\Stories\Models\States\Completed;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Nova\Stories\Models\States\StoryStatus;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Nova\Stories\Models\Builders\StoryBuilder;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Nova\Stories\Models\States\CurrentToUpcoming;
 use Nova\Stories\Models\States\UpcomingToCurrent;
 use Nova\Stories\Models\States\CompletedToCurrent;
 use Nova\Stories\Models\States\CurrentToCompleted;
 use Nova\Stories\Models\States\CompletedToUpcoming;
 use Nova\Stories\Models\States\UpcomingToCompleted;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Story extends Model implements HasMedia
 {
-    use HasMediaTrait;
+    use InteractsWithMedia;
+    use HasFactory;
     use HasStates;
     use NodeTrait;
 
