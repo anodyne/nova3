@@ -21,7 +21,7 @@ class DeleteRankItemTest extends TestCase
     {
         parent::setUp();
 
-        $this->item = create(RankItem::class);
+        $this->item = RankItem::factory()->create();
     }
 
     /** @test **/

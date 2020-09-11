@@ -23,9 +23,9 @@ class ReorderRankItemsTest extends TestCase
     {
         parent::setUp();
 
-        $this->item1 = create(RankItem::class, ['sort' => 0]);
-        $this->item2 = create(RankItem::class, ['sort' => 1]);
-        $this->item3 = create(RankItem::class, ['sort' => 2]);
+        $this->item1 = RankItem::factory()->create(['sort' => 0]);
+        $this->item2 = RankItem::factory()->create(['sort' => 1]);
+        $this->item3 = RankItem::factory()->create(['sort' => 2]);
     }
 
     /** @test **/

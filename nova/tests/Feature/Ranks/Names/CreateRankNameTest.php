@@ -34,7 +34,7 @@ class CreateRankNameTest extends TestCase
 
         $response = $this->post(
             route('ranks.names.store'),
-            $rankNameData = make(RankName::class)->toArray()
+            $rankNameData = RankName::factory()->make()->toArray()
         );
         $response->assertSuccessful();
 
@@ -55,7 +55,7 @@ class CreateRankNameTest extends TestCase
 
         $this->post(
             route('ranks.names.store'),
-            make(RankName::class)->toArray()
+            RankName::factory()->make()->toArray()
         );
 
         Event::assertDispatched(RankNameCreated::class);
@@ -77,7 +77,7 @@ class CreateRankNameTest extends TestCase
 
         $response = $this->post(
             route('ranks.names.store'),
-            make(RankName::class)->toArray()
+            RankName::factory()->make()->toArray()
         );
         $response->assertForbidden();
     }
@@ -94,7 +94,7 @@ class CreateRankNameTest extends TestCase
     {
         $response = $this->postJson(
             route('ranks.names.store'),
-            make(RankName::class)->toArray()
+            RankName::factory()->make()->toArray()
         );
         $response->assertUnauthorized();
     }

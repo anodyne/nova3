@@ -25,9 +25,9 @@ class ShowRankItemTest extends TestCase
     {
         parent::setUp();
 
-        $this->group = create(RankGroup::class);
-        $this->name = create(RankName::class);
-        $this->item = create(RankItem::class, [
+        $this->group = RankGroup::factory()->create();
+        $this->name = RankName::factory()->create();
+        $this->item = RankItem::factory()->create([
             'group_id' => $this->group,
             'name_id' => $this->name,
         ]);

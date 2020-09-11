@@ -24,7 +24,7 @@ class DeleteRankGroupActionTest extends TestCase
 
         $this->action = app(DeleteRankGroup::class);
 
-        $this->group = create(RankGroup::class);
+        $this->group = RankGroup::factory()->create();
     }
 
     /** @test **/

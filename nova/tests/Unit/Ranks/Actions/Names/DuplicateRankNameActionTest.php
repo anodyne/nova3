@@ -24,7 +24,7 @@ class DuplicateRankNameActionTest extends TestCase
 
         $this->action = app(DuplicateRankName::class);
 
-        $this->name = create(RankName::class, [
+        $this->name = RankName::factory()->create([
             'name' => 'Captain',
         ]);
     }

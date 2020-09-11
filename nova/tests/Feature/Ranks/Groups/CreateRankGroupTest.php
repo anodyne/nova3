@@ -34,7 +34,7 @@ class CreateRankGroupTest extends TestCase
 
         $response = $this->post(
             route('ranks.groups.store'),
-            $rankGroupData = make(RankGroup::class)->toArray()
+            $rankGroupData = RankGroup::factory()->make()->toArray()
         );
         $response->assertSuccessful();
 
@@ -55,7 +55,7 @@ class CreateRankGroupTest extends TestCase
 
         $this->post(
             route('ranks.groups.store'),
-            make(RankGroup::class)->toArray()
+            RankGroup::factory()->make()->toArray()
         );
 
         Event::assertDispatched(RankGroupCreated::class);
@@ -77,7 +77,7 @@ class CreateRankGroupTest extends TestCase
 
         $response = $this->post(
             route('ranks.groups.store'),
-            make(RankGroup::class)->toArray()
+            RankGroup::factory()->make()->toArray()
         );
         $response->assertForbidden();
     }
@@ -94,7 +94,7 @@ class CreateRankGroupTest extends TestCase
     {
         $response = $this->postJson(
             route('ranks.groups.store'),
-            make(RankGroup::class)->toArray()
+            RankGroup::factory()->make()->toArray()
         );
         $response->assertUnauthorized();
     }

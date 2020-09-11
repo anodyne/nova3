@@ -40,8 +40,8 @@ class CreateRankGroupActionTest extends TestCase
     /** @test **/
     public function itCreatesARankGroupWithTheProperSortOrder()
     {
-        create(RankGroup::class, ['sort' => 0]);
-        create(RankGroup::class, ['sort' => 1]);
+        RankGroup::factory()->create(['sort' => 0]);
+        RankGroup::factory()->create(['sort' => 1]);
 
         $data = new RankGroupData([
             'name' => 'Command',

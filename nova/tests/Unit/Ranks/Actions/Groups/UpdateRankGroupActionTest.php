@@ -25,7 +25,7 @@ class UpdateRankGroupActionTest extends TestCase
 
         $this->action = app(UpdateRankGroup::class);
 
-        $this->group = create(RankGroup::class);
+        $this->group = RankGroup::factory()->create();
     }
 
     /** @test **/
