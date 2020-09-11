@@ -3,7 +3,6 @@
 namespace Tests\Unit\PostTypes\Actions;
 
 use Tests\TestCase;
-use Nova\PostTypes\Actions\CreatePostType;
 use Nova\PostTypes\DataTransferObjects\Fields;
 use Nova\PostTypes\DataTransferObjects\Options;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -29,22 +28,22 @@ class UpdatePostTypeActionTest extends TestCase
 
         $this->action = app(UpdatePostType::class);
 
-        $this->postType = create(PostType::class);
+        $this->postType = PostType::factory()->create();
 
-        $this->postType->fields = Fields::fromArray([
-            'title' => true,
-            'day' => true,
-            'time' => true,
-            'location' => true,
-            'content' => true,
-        ]);
-        $this->postType->options = Options::fromArray([
-            'notifyUsers' => true,
-            'includeInPostCounts' => true,
-            'multipleAuthors' => true,
-        ]);
+        // $this->postType->fields = Fields::fromArray([
+        //     'title' => true,
+        //     'day' => true,
+        //     'time' => true,
+        //     'location' => true,
+        //     'content' => true,
+        // ]);
+        // $this->postType->options = Options::fromArray([
+        //     'notifyUsers' => true,
+        //     'includeInPostCounts' => true,
+        //     'multipleAuthors' => true,
+        // ]);
 
-        $this->postType->save();
+        // $this->postType->save();
     }
 
     /** @test **/

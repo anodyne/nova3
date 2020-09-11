@@ -2,9 +2,10 @@
 
 namespace Nova\PostTypes\DataTransferObjects;
 
+use Illuminate\Contracts\Support\Arrayable;
 use Spatie\DataTransferObject\DataTransferObject;
 
-class Options extends DataTransferObject
+class Options extends DataTransferObject implements Arrayable
 {
     public bool $notifyUsers;
 

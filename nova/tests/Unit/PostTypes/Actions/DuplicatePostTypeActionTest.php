@@ -25,7 +25,7 @@ class DuplicatePostTypeActionTest extends TestCase
 
         $this->action = app(DuplicatePostType::class);
 
-        $this->postType = create(PostType::class, [
+        $this->postType = PostType::factory()->create([
             'sort' => 0,
             'role_id' => 1,
         ]);
