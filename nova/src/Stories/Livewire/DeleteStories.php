@@ -66,6 +66,10 @@ class DeleteStories extends Component
         if ($action === 'move') {
             $this->trackPostsAction($id, 'none');
         }
+
+        if ($action === 'delete') {
+            $this->trackPostsAction($id, 'delete');
+        }
     }
 
     public function mount($stories)

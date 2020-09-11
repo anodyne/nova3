@@ -51,7 +51,7 @@ class Story extends Model implements HasMedia
 
     public function parentStory()
     {
-        return $this->hasOne(self::class, 'story_id');
+        return $this->hasOne(self::class, 'parent_id');
     }
 
     public function posts()

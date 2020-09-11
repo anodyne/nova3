@@ -1,6 +1,7 @@
 @props([
     'field',
     'value',
+    'activeColor' => 'blue',
     'activeIcon' => false,
     'activeText' => false,
     'disabled' => false,
@@ -15,7 +16,7 @@
     class="flex items-center @if ($disabled) opacity-50 cursor-not-allowed @else cursor-pointer @endif"
 >
     <span
-        x-bind:class="{ 'bg-gray-200': !active, 'bg-blue-500': active }"
+        x-bind:class="{ 'bg-gray-200': !active, 'bg-{{ $activeColor }}-500': active }"
         class="relative inline-block flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full transition-colors ease-in-out duration-200 focus:outline-none focus:shadow-outline"
         role="switch"
         tabindex="0"
