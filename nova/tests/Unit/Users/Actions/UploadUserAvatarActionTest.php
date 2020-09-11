@@ -28,7 +28,7 @@ class UploadUserAvatarActionTest extends TestCase
 
         $this->action = app(UploadUserAvatar::class);
 
-        $this->user = create(User::class, [], ['status:active']);
+        $this->user = User::factory()->active()->create();
     }
 
     /** @test **/

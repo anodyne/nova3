@@ -23,7 +23,7 @@ class UpdateUserTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = create(User::class, [], ['status:active']);
+        $this->user = User::factory()->active()->create();
     }
 
     /** @test **/
@@ -40,7 +40,7 @@ class UpdateUserTest extends TestCase
     {
         $this->signInWithPermission('user.update');
 
-        $data = make(User::class, [
+        $data = User::factory()->make([
             'email' => $this->user->email,
         ]);
 
@@ -103,7 +103,7 @@ class UpdateUserTest extends TestCase
 
         $response = $this->put(
             route('users.update', $this->user),
-            make(User::class)->toArray()
+            User::factory()->make()->toArray()
         );
         $response->assertForbidden();
     }
@@ -120,7 +120,7 @@ class UpdateUserTest extends TestCase
     {
         $response = $this->putJson(
             route('users.update', $this->user),
-            make(User::class)->toArray()
+            User::factory()->make()->toArray()
         );
         $response->assertUnauthorized();
     }

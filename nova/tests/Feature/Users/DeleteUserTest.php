@@ -23,7 +23,7 @@ class DeleteUserTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = create(User::class, [], ['status:active']);
+        $this->user = User::factory()->active()->create();
     }
 
     /** @test **/
@@ -55,7 +55,7 @@ class DeleteUserTest extends TestCase
     /** @test **/
     public function charactersAssignedToTheUserAreDeletedWhenTheUserIsDeleted()
     {
-        $character = create(Character::class, [], ['status:active']);
+        $character = Character::factory()->active()->create();
         $this->user->characters()->attach($character);
 
         $this->signInWithPermission('user.delete');
