@@ -25,7 +25,7 @@ class UpdateNoteActionTest extends TestCase
 
         $this->action = app(UpdateNote::class);
 
-        $this->note = create(Note::class, [
+        $this->note = Note::factory()->create([
             'title' => 'My First Note',
             'content' => 'Content',
             'summary' => 'Summary',
