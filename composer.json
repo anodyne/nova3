@@ -33,7 +33,6 @@
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",
-        "beyondcode/helo-laravel": "^1.0",
         "facade/ignition": "^2.3.6",
         "friendsofphp/php-cs-fixer": "^2.16",
         "fzaninotto/faker": "^1.4",
@@ -59,8 +58,8 @@
             "Nova\\Foundation\\": "nova/foundation/",
             "Extensions\\": "extensions/",
             "Themes\\": "themes/",
-            "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
+            "Database\\Factories\\": "nova/database/factories/",
+            "Database\\Seeders\\": "nova/database/seeders/"
         },
         "files": [
             "nova/helpers.php"
