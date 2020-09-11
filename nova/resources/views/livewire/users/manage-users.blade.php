@@ -1,8 +1,8 @@
 <div>
-    <x-dropdown class="inline-flex items-center px-4 py-2 rounded-md font-medium bg-blue-50 border border-blue-200 text-blue-800 transition ease-in-out duration-150 hover:bg-blue-100 | md:px-2.5 md:py-0.5 md:text-sm">
+    <x-dropdown trigger-color="blue-soft" trigger-size="xs">
         <x-slot name="trigger">
             <span class="mr-1">Add user</span>
-            <svg class="h-5 w-5 text-blue-700 | md:h-4 md:w-4" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 4v16m8-8H4"></path></svg>
+            <svg class="h-4 w-4" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 4v16m8-8H4"></path></svg>
         </x-slot>
 
         <div class="p-2">
@@ -39,11 +39,11 @@
     </x-dropdown>
 
     @foreach ($users as $user)
-        <span class="inline-flex items-center mb-2 px-4 py-2 rounded-md font-medium bg-gray-50 border border-gray-200 text-gray-800 transition ease-in-out duration-150 hover:bg-gray-100 | md:px-2.5 md:py-0.5 md:text-sm">
-            {{ $user['name'] }}
-            <button wire:click="removeUser({{ $user['id'] }})" type="button" class="ml-1 text-gray-400 hover:text-gray-600 focus:outline-none transition ease-in-out duration-150">
-                <svg class="h-5 w-5 | md:h-4 md:w-4" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
+        <span class="inline-flex items-center px-2.5 py-1.5 mb-2 uppercase tracking-wide border border-transparent text-xs font-medium rounded-md text-gray-700 bg-gray-100 focus:outline-none focus:border-gray-300 focus:shadow-outline-gray active:bg-gray-200 transition ease-in-out duration-150 space-x-2">
+            <span>{{ $user['name'] }}</span>
+            <x-button wire:click="removeUser({{ $user['id'] }})" type="button" color="gray-text" size="none">
+                <svg class="h-4 w-4" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+            </x-button>
         </span>
         <input type="hidden" name="users[]" value="{{ $user['id'] }}">
     @endforeach

@@ -7,7 +7,7 @@
         </x-slot>
 
         <x-slot name="controls">
-            <x-dropdown placement="bottom-end" class="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150 mx-4 {{ request()->has('pending') ? 'text-blue-500' : '' }}">
+            <x-dropdown placement="bottom-end">
                 <x-slot name="trigger">@icon('filter', 'h-6 w-6')</x-slot>
 
                 <div class="{{ $component->text() }} uppercase tracking-wide font-semibold text-gray-500">
@@ -40,7 +40,7 @@
                             {{ $theme->name }}
                         </h3>
 
-                        <x-dropdown placement="bottom-end" class="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150">
+                        <x-dropdown placement="bottom-end">
                             <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
 
                             @if (! $theme->exists)

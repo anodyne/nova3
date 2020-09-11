@@ -14,7 +14,7 @@
                         <div class="flex items-center justify-between">
                             <div class="text-xl font-bold tracking-tight">{{ $story->title }}</div>
                             <div class="leading-0">
-                                <x-dropdown placement="bottom-end" class="text-gray-400 hover:text-gray-500" :wide="true">
+                                <x-dropdown placement="bottom-end" wide>
                                     <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
 
                                     <a href="{{ route('stories.show', $story) }}" class="{{ $component->link() }}">

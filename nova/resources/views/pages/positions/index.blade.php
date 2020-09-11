@@ -121,7 +121,7 @@
                                 </div>
                             </div>
                             <div class="leading-0">
-                                <x-dropdown placement="bottom-end" class="text-gray-400 hover:text-gray-500">
+                                <x-dropdown placement="bottom-end">
                                     <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
 
                                     @can('view', $position)

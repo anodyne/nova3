@@ -92,7 +92,7 @@
                                 </div>
                             </div>
                             <div class="ml-5 flex-shrink-0 leading-0">
-                                <x-dropdown placement="bottom-end" class="text-gray-400 hover:text-gray-500">
+                                <x-dropdown placement="bottom-end">
                                     <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
 
                                     @can('view', $department)

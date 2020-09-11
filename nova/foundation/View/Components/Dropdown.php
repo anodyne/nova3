@@ -8,11 +8,21 @@ class Dropdown extends Component
 {
     public $placement;
 
+    public $triggerColor;
+
+    public $triggerSize;
+
     public $wide;
 
-    public function __construct($placement = 'bottom-start', $wide = false)
-    {
+    public function __construct(
+        $placement = 'bottom-start',
+        $wide = false,
+        $triggerColor = 'gray-text',
+        $triggerSize = 'none'
+    ) {
+        $this->triggerColor = $triggerColor;
         $this->placement = $placement;
+        $this->triggerSize = $triggerSize;
         $this->wide = $wide;
     }
 

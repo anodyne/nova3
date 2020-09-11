@@ -10,7 +10,7 @@
         </x-slot>
 
         <x-slot name="controls">
-            <x-dropdown placement="bottom-end" class="flex items-center mr-4 text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150 {{ request()->has('type') ? 'text-blue-500' : '' }}" wide="true">
+            <x-dropdown placement="bottom-end" class="mr-4" wide>
                 <x-slot name="trigger">@icon('filter', 'h-6 w-6')</x-slot>
 
                 <a href="{{ route('characters.index', 'status='.request('status').'&hasuser=1') }}" class="{{ $component->link() }} justify-between">
@@ -155,7 +155,7 @@
                             </div>
                         </div>
                         <div class="leading-0">
-                            <x-dropdown placement="bottom-end" class="text-gray-400 hover:text-gray-500">
+                            <x-dropdown placement="bottom-end">
                                 <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
 
                                 @can('view', $character)
