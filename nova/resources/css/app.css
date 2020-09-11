@@ -2,12 +2,9 @@
 
 @import 'tailwindcss/components';
 
-@import 'components/button.css';
 @import 'components/form.css';
 @import 'components/icon.css';
 @import 'components/rank.css';
-@import 'components/tag.css';
-@import 'components/toast.css';
 @import 'components/trix.css';
 
 @import 'tailwindcss/utilities';

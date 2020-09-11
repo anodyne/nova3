@@ -7,16 +7,18 @@
     class="relative inline-block text-left leading-0"
 >
     <div>
-        <button
+        <x-button
             x-on:click="open = !open"
             type="button"
+            :color="$triggerColor"
+            :size="$triggerSize"
             {{ $attributes->merge(['id' => 'options-menu', 'class' => 'focus:outline-none']) }}
             aria-haspopup="true"
             aria-expanded="true"
             x-bind:aria-expanded="open"
         >
             {{ $trigger }}
-        </button>
+        </x-button>
     </div>
 
     <div

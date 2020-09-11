@@ -29,8 +29,8 @@
                 </select>
             </x-input.field>
         @else
-            <div class="flex items-center font-medium text-warning-600">
-                @icon('warning', 'mr-3 flex-shrink-0 h-6 w-6 text-warning-400')
+            <div class="flex items-center font-medium text-yellow-600">
+                @icon('warning', 'mr-3 flex-shrink-0 h-6 w-6 text-yellow-400')
                 <span>There are no stories available for setting display order.</span>
             </div>
         @endif

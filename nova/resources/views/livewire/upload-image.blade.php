@@ -28,9 +28,9 @@
     <input type="hidden" name="image_path" wire:model="path">
 
     @error('image')
-        <div class="field-error" role="alert">
-            @icon('alert')
+        <p class="flex items-center w-full relative mt-2 ml-0.5 text-sm text-red-600 space-x-2" role="alert">
+            @icon('alert', 'h-5 w-5 flex-shrink-0 text-red-400')
             <span>{{ $message }}</span>
-        </div>
+        </p>
     @enderror
 </div>

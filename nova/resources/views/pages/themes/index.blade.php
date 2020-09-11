@@ -7,7 +7,7 @@
         </x-slot>
 
         <x-slot name="controls">
-            <x-dropdown placement="bottom-end" class="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150 mx-4 {{ request()->has('pending') ? 'text-blue-500' : '' }}">
+            <x-dropdown placement="bottom-end">
                 <x-slot name="trigger">@icon('filter', 'h-6 w-6')</x-slot>
 
                 <div class="{{ $component->text() }} uppercase tracking-wide font-semibold text-gray-500">
@@ -40,7 +40,7 @@
                             {{ $theme->name }}
                         </h3>
 
-                        <x-dropdown placement="bottom-end" class="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150">
+                        <x-dropdown placement="bottom-end">
                             <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
 
                             @if (! $theme->exists)
@@ -95,9 +95,9 @@
             @endforeach
         </div>
     @else
-        <div class="flex items-center w-full rounded-md px-4 py-4 bg-warning-50 | sm:px-6">
-            @icon('warning', 'h-6 w-6 flex-shrink-0 mr-3 text-warning-400')
-            <span class="font-medium text-warning-600">
+        <div class="flex items-center w-full rounded-md px-4 py-4 bg-yellow-50 | sm:px-6">
+            @icon('warning', 'h-6 w-6 flex-shrink-0 mr-3 text-yellow-400')
+            <span class="font-medium text-yellow-600">
                 No themes found.
             </span>
         </div>
@@ -126,12 +126,12 @@
     <x-modal color="red" title="Delete Theme?" icon="warning" :url="route('themes.delete')">
         <x-slot name="footer">
             <span class="flex w-full | sm:col-start-2">
-                <x-button form="form" color="red" :full-width="true">
+                <x-button form="form" color="red" full-width>
                     Delete
                 </x-button>
             </span>
             <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
-                <x-button x-on:click="$dispatch('modal-close')" type="button" color="white" :full-width="true">
+                <x-button x-on:click="$dispatch('modal-close')" type="button" color="white" full-width>
                     Cancel
                 </x-button>
             </span>

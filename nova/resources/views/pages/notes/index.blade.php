@@ -38,7 +38,7 @@
                                 </div>
                             </div>
                             <div class="ml-5 flex-shrink-0 leading-0">
-                                <x-dropdown placement="bottom-end" class="text-gray-400 hover:text-gray-500">
+                                <x-dropdown placement="bottom-end">
                                     <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
 
                                     <a href="{{ route('notes.show', $note) }}" class="{{ $component->link() }}">
@@ -88,12 +88,12 @@
         <x-modal color="red" title="Delete Note?" icon="warning" :url="route('notes.delete')">
             <x-slot name="footer">
                 <span class="flex w-full | sm:col-start-2">
-                    <x-button form="form" color="red" :full-width="true">
+                    <x-button form="form" color="red" full-width>
                         Delete
                     </x-button>
                 </span>
                 <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
-                    <x-button x-on:click="$dispatch('modal-close')" type="button" color="white" :full-width="true">
+                    <x-button x-on:click="$dispatch('modal-close')" type="button" color="white" full-width>
                         Cancel
                     </x-button>
                 </span>

@@ -39,9 +39,9 @@
                     </div>
 
                     <div class="ml-4 flex-shrink-0 flex">
-                        <button x-on:click="show = false" class="inline-flex text-gray-400 focus:outline-none focus:text-gray-500 transition ease-in-out duration-150">
+                        <x-button x-on:click="show = false" color="gray-text" size="none">
                             @icon('close', 'h-5 w-5')
-                        </button>
+                        </x-button>
                     </div>
                 </div>
             </div>

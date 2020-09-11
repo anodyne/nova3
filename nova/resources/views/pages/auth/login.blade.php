@@ -16,14 +16,14 @@
             <x-input.checkbox label="Remember me" for="remember" id="remember" name="remember" class="h-4 w-4" />
 
             <div class="text-sm">
-                <a href="{{ route('password.request') }}" class="font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150">
+                <x-button-link :href="route('password.request')" color="blue-text" size="none">
                     Forgot your password?
-                </a>
+                </x-button-link>
             </div>
         </div>
 
         <div>
-            <x-button type="submit" color="blue" :full-width="true">
+            <x-button type="submit" color="blue" full-width>
                 Sign in
             </x-button>
         </div>

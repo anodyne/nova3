@@ -64,10 +64,12 @@
                 <h2 class="text-2xl font-light mb-8 text-center">Here we go!</h2>
 
                 <div class="flex items-center justify-center">
-                    <button
+                    <x-button
                         x-on:click="isLoading = true"
                         type="submit"
-                        class="button button-primary button-lg relative disabled:cursor-not-allowed justify-center"
+                        color="blue"
+                        size="lg"
+                        class="relative disabled:cursor-not-allowed justify-center"
                         x-bind:disabled="isLoading"
                     >
                         <span x-bind:class="{ 'text-transparent': isLoading }">Install Nova 3</span>
@@ -87,7 +89,7 @@
                                 </circle>
                             </svg>
                         </template>
-                    </button>
+                    </x-button>
                 </div>
             </x-form>
         </div>

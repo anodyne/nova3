@@ -9,9 +9,9 @@
         <x-slot name="controls">
             @if ($positionCount > 0)
                 @can('update', $positions->first())
-                    <a href="{{ route('positions.index', [$department, 'reorder']) }}" class="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150 mx-4">
+                    <x-button-link :href="route('positions.index', [$department, 'reorder'])" color="gray-text" size="none" class="mx-4">
                         @icon('arrow-sort', 'h-6 w-6')
-                    </a>
+                    </x-button-link>
                 @endcan
 
                 @can('create', 'Nova\Departments\Models\Position')
@@ -70,7 +70,7 @@
                                     <input type="hidden" name="sort" x-model="newSortOrder">
                                     <div class="flex items-center space-x-4">
                                         <x-button type="submit" form="form-reorder" color="purple">Save Sort Order</x-button>
-                                        <x-button-link :href="route('positions.index', $department)" color="text-purple" size="none">
+                                        <x-button-link :href="route('positions.index', $department)" color="purple-text" size="none">
                                             Cancel
                                         </x-button-link>
                                     </div>
@@ -121,7 +121,7 @@
                                 </div>
                             </div>
                             <div class="leading-0">
-                                <x-dropdown placement="bottom-end" class="text-gray-400 hover:text-gray-500">
+                                <x-dropdown placement="bottom-end">
                                     <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
 
                                     @can('view', $position)
@@ -173,12 +173,12 @@
         <x-modal color="red" title="Delete Position?" icon="warning" :url="route('positions.delete')">
             <x-slot name="footer">
                 <span class="flex w-full | sm:col-start-2">
-                    <x-button form="form" color="red" :full-width="true">
+                    <x-button form="form" color="red" full-width>
                         Delete
                     </x-button>
                 </span>
                 <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
-                    <x-button x-on:click="$dispatch('modal-close')" type="button" color="white" :full-width="true">
+                    <x-button x-on:click="$dispatch('modal-close')" type="button" color="white" full-width>
                         Cancel
                     </x-button>
                 </span>

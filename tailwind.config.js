@@ -1,6 +1,4 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
-const rgba = require('hex-to-rgba');
-const colors = require('@tailwindcss/ui/colors');
 
 module.exports = {
     theme: {
@@ -9,20 +7,8 @@ module.exports = {
             padding: '1rem'
         },
         extend: {
-            boxShadow: theme => ({
-                'outline-danger': `0 0 0 3px ${rgba(theme('colors.danger.300'), 0.45)}`,
-                'outline-info': `0 0 0 3px ${rgba(theme('colors.info.300'), 0.45)}`,
-                'outline-primary': `0 0 0 3px ${rgba(theme('colors.primary.300'), 0.45)}`,
-                'outline-success': `0 0 0 3px ${rgba(theme('colors.success.300'), 0.45)}`,
-                'outline-warning': `0 0 0 3px ${rgba(theme('colors.warning.300'), 0.45)}`
-            }),
             colors: {
-                transparent: 'transparent',
-                danger: colors.red,
-                info: colors.purple,
-                primary: colors.blue,
-                success: colors.green,
-                warning: colors.yellow
+                transparent: 'transparent'
             },
             fontFamily: {
                 sans: ['Inter var', ...defaultTheme.fontFamily.sans]
@@ -49,16 +35,16 @@ module.exports = {
     },
 
     variants: {
-        backgroundColor: ['responsive', 'group-hover', 'hover', 'group-focus', 'focus-within', 'focus', 'active', 'even', 'odd'],
-        borderColor: ['responsive', 'group-hover', 'hover', 'group-focus', 'focus-within', 'focus'],
-        borderRadius: ['responsive', 'hover', 'focus', 'first', 'last'],
-        borderWidth: ['responsive', 'first', 'last'],
-        boxShadow: ['responsive', 'hover', 'focus', 'focus-within'],
-        cursor: ['hover', 'group-hover', 'focus', 'focus-within', 'disabled'],
-        margin: ['responsive', 'hover', 'focus', 'first', 'last'],
-        opacity: ['responsive', 'hover', 'focus', 'disabled'],
-        textColor: ['responsive', 'group-hover', 'hover', 'group-focus', 'focus-within', 'focus', 'active', 'group-focus-within'],
-        visibility: ['responsive', 'group-hover']
+        backgroundColor: ({ after }) => after(['group-hover', 'group-focus', 'focus-within', 'active', 'even', 'odd']),
+        borderColor: ({ after }) => after(['group-hover', 'group-focus', 'focus-within']),
+        borderRadius: ({ after }) => after(['first', 'last']),
+        borderWidth: ({ after }) => after(['first', 'last']),
+        boxShadow: ({ after }) => after(['focus-within']),
+        cursor: ({ after }) => after(['disabled']),
+        margin: ({ after }) => after(['first', 'last']),
+        opacity: ({ after }) => after(['disabled']),
+        textColor: ({ after }) => after(['group-hover', 'group-focus', 'focus-within', 'active', 'group-focus-within']),
+        visibility: ({ after }) => after(['group-hover'])
     },
 
     plugins: [
@@ -71,7 +57,10 @@ module.exports = {
         /* eslint-enable */
     ],
 
+    dark: 'class',
+
     experimental: {
+        darkModeVariant: false,
         defaultLineHeights: true,
         extendedFontSizeScale: true,
         extendedSpacingScale: true,
@@ -79,6 +68,7 @@ module.exports = {
     },
 
     future: {
+        purgeLayersByDefault: true,
         removeDeprecatedGapUtilities: true
     }
 };
