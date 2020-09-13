@@ -11,18 +11,28 @@ use Nova\Posts\Models\States\DraftToPending;
 use Nova\Posts\Models\States\DraftToPublished;
 use Nova\Posts\Models\States\PendingToPublished;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\ModelStates\HasStates;
+use Nova\Posts\Events;
 
 class Post extends Model
 {
     use HasFactory;
+    use HasStates;
 
     protected $table = 'posts';
 
-    protected $fillable = ['mature_content', 'story_id'];
+    protected $fillable = [
+        'story_id', 'post_type_id', 'title', 'content', 'status', 'word_count'
+    ];
 
     protected $casts = [
-        'mature_content' => 'boolean',
         'published_at' => 'datetime',
+    ];
+
+    protected $dispatchesEvents = [
+        'created' => Events\PostCreated::class,
+        'deleted' => Events\PostDeleted::class,
+        'updated' => Events\PostUpdated::class,
     ];
 
     public function authorable()
