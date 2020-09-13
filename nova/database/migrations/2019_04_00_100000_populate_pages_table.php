@@ -158,6 +158,7 @@ class PopulatePagesTable extends Migration
 
             ['uri' => 'posts/create', 'key' => 'posts.create', 'resource' => 'Nova\\Posts\\Controllers\\CreatePostController@pickPostType', 'layout' => 'admin'],
             ['uri' => 'posts/create/{postType:key}', 'key' => 'posts.compose', 'resource' => 'Nova\\Posts\\Controllers\\CreatePostController@create', 'layout' => 'admin'],
+            ['uri' => 'posts', 'key' => 'posts.store', 'verb' => 'post', 'resource' => 'Nova\\Posts\\Controllers\\CreatePostController@store', 'layout' => 'admin'],
         ];
 
         collect($pages)->each([Page::class, 'create']);
