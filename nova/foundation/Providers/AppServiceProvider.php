@@ -8,10 +8,10 @@ use Nova\Foundation\Macros;
 use Illuminate\Routing\Route;
 use Nova\Foundation\NovaManager;
 use Nova\Foundation\Icons\IconSets;
-use Illuminate\Pagination\Paginator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 use Nova\Foundation\Icons\FluentIconSet;
 use Nova\Foundation\NovaBladeDirectives;
 use Nova\Foundation\Icons\FeatherIconSet;
@@ -95,10 +95,12 @@ class AppServiceProvider extends ServiceProvider
 
     protected function setupFactories()
     {
-        Factory::guessFactoryNamesUsing(function ($modelName) {
-            $modelPieces = explode('\\', $modelName);
+        Factory::guessFactoryNamesUsing(function (string $modelName) {
+            $namespace = 'Database\\Factories\\';
 
-            return 'Database\\Factories\\' . last($modelPieces) . 'Factory';
+            $modelName = Str::afterLast($modelName, '\\');
+
+            return $namespace.$modelName.'Factory';
         });
     }
 }
