@@ -2,16 +2,11 @@
 
 namespace Nova\Posts\Controllers;
 
-use Illuminate\Http\Request;
-use Nova\Posts\Models\Post;
-use Nova\Stories\Models\Story;
-use Nova\PostTypes\Models\PostType;
 use Nova\Foundation\Controllers\Controller;
-use Nova\Posts\Actions\CreatePost;
-use Nova\Posts\DataTransferObjects\PostData;
-use Nova\Posts\Requests\CreatePostRequest;
+use Nova\Posts\Models\Post;
 use Nova\Posts\Responses\CreatePostResponse;
-use Nova\Posts\Responses\PickPostTypeResponse;
+use Nova\PostTypes\Models\PostType;
+use Nova\Stories\Models\Story;
 
 class CreatePostController extends Controller
 {
@@ -22,34 +17,18 @@ class CreatePostController extends Controller
         $this->middleware('auth');
     }
 
-    public function pickPostType()
-    {
-        $this->authorize('create', new Post);
-
-        return app(PickPostTypeResponse::class)->with([
-            'postTypes' => PostType::orderBySort()->get(),
-        ]);
-    }
-
-    public function create(PostType $postType)
+    public function create(PostType $postType = null)
     {
         $this->authorize('write', [new Post, $postType]);
+
+        $usersPostTypes = PostType::orderBySort()
+            ->get()
+            ->filter(fn ($postType) => auth()->user()->can('write', $postType));
 
         return app(CreatePostResponse::class)->with([
             'postType' => $postType,
-            'stories' => Story::whereCurrent()->get(),
+            'postTypes' => $usersPostTypes,
+            'stories' => Story::wherePostable()->get(),
         ]);
-    }
-
-    public function store(
-        CreatePostRequest $request,
-        CreatePost $action,
-        PostType $postType
-    ) {
-        $this->authorize('write', [new Post, $postType]);
-
-        $post = $action->execute(PostData::fromRequest($request));
-
-        return redirect()->route('dashboard');
     }
 }

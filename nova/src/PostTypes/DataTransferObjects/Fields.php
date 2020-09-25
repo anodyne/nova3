@@ -7,24 +7,27 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class Fields extends DataTransferObject implements Arrayable
 {
-    public bool $title;
+    public Field $title;
 
-    public bool $day;
+    public Field $day;
 
-    public bool $time;
+    public Field $time;
 
-    public bool $location;
+    public Field $location;
 
-    public bool $content;
+    public Field $content;
+
+    public Field $rating;
 
     public static function fromArray(array $array): self
     {
         return new self([
-            'title' => (bool) data_get($array, 'title'),
-            'day' => (bool) data_get($array, 'day'),
-            'time' => (bool) data_get($array, 'time'),
-            'location' => (bool) data_get($array, 'location'),
-            'content' => (bool) data_get($array, 'content'),
+            'title' => Field::fromArray(data_get($array, 'title', [])),
+            'day' => Field::fromArray(data_get($array, 'day', [])),
+            'time' => Field::fromArray(data_get($array, 'time', [])),
+            'location' => Field::fromArray(data_get($array, 'location', [])),
+            'content' => Field::fromArray(data_get($array, 'content', [])),
+            'rating' => Field::fromArray(data_get($array, 'rating', [])),
         ]);
     }
 }

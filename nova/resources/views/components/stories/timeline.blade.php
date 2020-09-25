@@ -71,7 +71,7 @@
                                 @livewire('stories:status', ['story' => $story])
                             </span>
 
-                            <span>{{ mt_rand(2, 500) }} posts</span>
+                            <span>{{ $story->posts_count }} @choice('post|posts', $story->posts_count)</span>
 
                             @if ($story->getDescendantCount() > 0)
                                 <span>{{ mt_rand(500, 800) }} posts in all stories</span>

@@ -105,6 +105,18 @@
                             <span>Content field</span>
                         </div>
                     @endif
+
+                    @if ($postType->fields->rating)
+                        <div class="flex items-center space-x-2 text-green-600">
+                            @icon('check-alt', 'h-6 w-6 flex-shrink-0 text-green-500')
+                            <span>Rating field</span>
+                        </div>
+                    @else
+                        <div class="flex items-center space-x-2 text-red-600">
+                            @icon('close-alt', 'h-6 w-6 flex-shrink-0 text-red-500')
+                            <span>Rating field</span>
+                        </div>
+                    @endif
                 </div>
             </x-form.section>
 

@@ -31,11 +31,8 @@
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle
-                        field="allow_posting"
-                        :value="old('allow_posting', 'true')"
-                    >
-                        Players can add posts to this story
+                    <x-input.toggle field="allow_posting" :value="old('allow_posting', 'true')">
+                        Users can add posts to this story
                     </x-input.toggle>
                 </x-input.group>
 

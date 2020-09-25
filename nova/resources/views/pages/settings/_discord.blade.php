@@ -50,10 +50,7 @@
                     x-on:toggle-changed="applications = $event.detail"
                     class="mt-5 | sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:flex sm:items-center"
                 >
-                    <x-input.toggle
-                        field="active"
-                        :value="old('active', false)"
-                    />
+                    <x-input.toggle field="active" :value="old('active', false)" />
                 </div>
             </div>
             <div x-show="applications" class="mt-8 px-6 space-y-8">

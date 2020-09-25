@@ -6,7 +6,7 @@ use Nova\Foundation\Responses\Responsable;
 
 class CreatePostResponse extends Responsable
 {
-    public $layout = 'app-writing';
+    public $layout = 'app-blank';
 
     public $view = 'posts.create';
 }

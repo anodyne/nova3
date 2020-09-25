@@ -50,10 +50,7 @@
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle
-                        field="active"
-                        :value="old('active', $theme->active ?? '')"
-                    >
+                    <x-input.toggle field="active" :value="old('active', $theme->active ?? '')">
                         Active
                     </x-input.toggle>
                 </x-input.group>
