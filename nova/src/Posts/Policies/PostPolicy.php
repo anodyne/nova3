@@ -2,11 +2,11 @@
 
 namespace Nova\Posts\Policies;
 
-use Nova\Posts\Models\Post;
-use Nova\Users\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Gate;
+use Nova\Posts\Models\Post;
 use Nova\PostTypes\Models\PostType;
+use Nova\Users\Models\User;
 
 class PostPolicy
 {
@@ -53,9 +53,12 @@ class PostPolicy
         return false;
     }
 
-    public function write(User $user, Post $post, PostType $postType): bool
+    public function write(User $user, Post $post, ?PostType $postType): bool
     {
-        return $this->create($user, $post)
-            && Gate::forUser($user)->allows('write', $postType);
+        if ($postType === null || (isset($postType) && Gate::forUser($user)->allows('write', $postType))) {
+            return $this->create($user, $post);
+        }
+
+        return false;
     }
 }

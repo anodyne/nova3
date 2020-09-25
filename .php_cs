@@ -31,10 +31,10 @@ return PhpCsFixer\Config::create()
             'space' => 'single',
         ],
         'concat_space' => [
-            'spacing' => 'one',
+            'spacing' => 'none',
         ],
         'ordered_imports' => [
-            'sort_algorithm' => 'length',
+            'sort_algorithm' => 'alpha',
         ],
         'single_quote' => true,
         'lowercase_cast' => true,

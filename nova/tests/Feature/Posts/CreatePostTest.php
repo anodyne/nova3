@@ -2,12 +2,15 @@
 
 namespace Tests\Feature\Posts;
 
-use Tests\TestCase;
-use Nova\Posts\Models\Post;
-use Nova\Posts\Events\PostCreated;
-use Illuminate\Support\Facades\Event;
-use Nova\Posts\Requests\CreatePostRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
+use Livewire\Livewire;
+use Nova\Posts\Actions\CreateRootPost;
+use Nova\Posts\Events\PostCreated;
+use Nova\Posts\Livewire\ComposePost;
+use Nova\PostTypes\Models\PostType;
+use Nova\Stories\Models\Story;
+use Tests\TestCase;
 
 /**
  * @group posts
@@ -16,6 +19,15 @@ class CreatePostTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        app(CreateRootPost::class)->execute(
+            Story::factory()->current()->create()
+        );
+    }
+
     /** @test **/
     public function authorizedUserCanViewTheCreatePostPage()
     {
@@ -23,6 +35,7 @@ class CreatePostTest extends TestCase
 
         $response = $this->get(route('posts.create'));
         $response->assertSuccessful();
+        $response->assertSeeLivewire('posts:compose');
     }
 
     /** @test **/
@@ -30,65 +43,23 @@ class CreatePostTest extends TestCase
     {
         $this->signInWithPermission('post.create');
 
-        $post = Post::factory()->make();
-
-        $this->followingRedirects();
-
-        $response = $this->post(
-            route('posts.store'),
-            $post->toArray()
-        );
-        $response->assertSuccessful();
-
-        $this->assertDatabaseHas('posts', $post->only('title', 'content'));
-
-        $this->assertRouteUsesFormRequest(
-            'posts.store',
-            CreatePostRequest::class
-        );
-    }
-
-    /** @test **/
-    public function creatingAPostCalculatesItsWordCount()
-    {
-        $this->signInWithPermission('post.create');
-
-        $post = Post::factory()->make([
-            'content' => 'This is my awesome post.',
-        ]);
-
-        $this->followingRedirects();
-
-        $response = $this->post(
-            route('posts.store'),
-            $post->toArray()
-        );
-        $response->assertSuccessful();
+        Livewire::test(ComposePost::class, [
+            'allPostTypes' => $postTypes = PostType::get(),
+            'allStories' => Story::wherePostable()->get(),
+        ])->set('postType', $postTypes->first())
+            ->set('title', 'title')
+            ->set('day', 'day')
+            ->set('time', 'time')
+            ->set('location', 'location')
+            ->set('content', 'content')
+            ->call('publish');
 
         $this->assertDatabaseHas('posts', [
-            'word_count' => 5,
-        ]);
-    }
-
-    /** @test **/
-    public function creatingAPostWithHtmlContentCalculatesItsWordCount()
-    {
-        $this->signInWithPermission('post.create');
-
-        $post = Post::factory()->make([
-            'content' => 'This <strong>is</strong> my <span class="font-semibold">awesome</span> post.',
-        ]);
-
-        $this->followingRedirects();
-
-        $response = $this->post(
-            route('posts.store'),
-            $post->toArray()
-        );
-        $response->assertSuccessful();
-
-        $this->assertDatabaseHas('posts', [
-            'word_count' => 5,
+            'title' => 'title',
+            'day' => 'day',
+            'time' => 'time',
+            'location' => 'location',
+            'content' => 'content',
         ]);
     }
 
@@ -99,10 +70,16 @@ class CreatePostTest extends TestCase
 
         $this->signInWithPermission('post.create');
 
-        $this->post(
-            route('posts.store'),
-            Post::factory()->make()->toArray()
-        );
+        Livewire::test(ComposePost::class, [
+            'allPostTypes' => $postTypes = PostType::get(),
+            'allStories' => Story::wherePostable()->get(),
+        ])->set('postType', $postTypes->first())
+            ->set('title', 'title')
+            ->set('day', 'day')
+            ->set('time', 'time')
+            ->set('location', 'location')
+            ->set('content', 'content')
+            ->call('publish');
 
         Event::assertDispatched(PostCreated::class);
     }
@@ -121,11 +98,17 @@ class CreatePostTest extends TestCase
     {
         $this->signIn();
 
-        $response = $this->postJson(
-            route('posts.store'),
-            Post::factory()->make()->toArray()
-        );
-        $response->assertForbidden();
+        Livewire::test(ComposePost::class, [
+            'allPostTypes' => $postTypes = PostType::get(),
+            'allStories' => Story::wherePostable()->get(),
+        ])->set('postType', $postTypes->first())
+            ->set('title', 'title')
+            ->set('day', 'day')
+            ->set('time', 'time')
+            ->set('location', 'location')
+            ->set('content', 'content')
+            ->call('publish')
+            ->assertForbidden();
     }
 
     /** @test **/
@@ -138,10 +121,16 @@ class CreatePostTest extends TestCase
     /** @test **/
     public function unauthenticatedUserCannotCreateAPost()
     {
-        $response = $this->postJson(
-            route('posts.store'),
-            Post::factory()->make()->toArray()
-        );
-        $response->assertUnauthorized();
+        Livewire::test(ComposePost::class, [
+            'allPostTypes' => $postTypes = PostType::get(),
+            'allStories' => Story::wherePostable()->get(),
+        ])->set('postType', $postTypes->first())
+            ->set('title', 'title')
+            ->set('day', 'day')
+            ->set('time', 'time')
+            ->set('location', 'location')
+            ->set('content', 'content')
+            ->call('publish')
+            ->assertForbidden();
     }
 }

@@ -14,9 +14,9 @@
                                 :value="old('active', data_get($actions, $story->id.'.story.action') === 'delete')"
                                 :disabled="$loop->first"
                                 active-color="red"
-                                :active-text="'Delete '.$story->title"
-                                :inactive-text="'Move '.$story->title"
-                            />
+                            >
+                                Delete {{ $story->title }}
+                            </x-input.toggle>
                         </div>
 
                         @if ($story->parent && $story->parent_id > 1)

@@ -1,12 +1,9 @@
 <x-form :action="route('settings.update')" method="PUT" id="characters">
     <x-form.section title="Character Limits" message="You can define how many characters a user is allowed to create for themselves. Additional characters beyond the limit can still be created, but will require GM approval to be activated.">
         <x-input.group>
-            <x-input.toggle
-                field="active"
-                :value="old('active', '')"
-                active-text="Enforce character limits"
-                inactive-text="Don't enforce character limits"
-            />
+            <x-input.toggle field="active" :value="old('active', '')">
+                Enforce character limits
+            </x-input.toggle>
         </x-input.group>
 
         <x-input.group label="Character Limit">

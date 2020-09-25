@@ -2,10 +2,10 @@
 
 namespace Tests\Unit\Stories\Actions;
 
-use Tests\TestCase;
-use Nova\Stories\Models\Story;
-use Nova\Stories\Actions\MoveStory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Stories\Actions\MoveStory;
+use Nova\Stories\Models\Story;
+use Tests\TestCase;
 
 /**
  * @group stories
@@ -34,7 +34,7 @@ class MoveStoryActionTest extends TestCase
     /** @test **/
     public function itMovesAStory()
     {
-        $story = $this->action->execute($this->story, $this->newStory->id);
+        $story = $this->action->execute($this->story, $this->newStory);
 
         $this->assertEquals($this->newStory->id, $story->parent_id);
     }
