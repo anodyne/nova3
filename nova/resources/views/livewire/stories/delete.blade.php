@@ -13,7 +13,7 @@
                                 field="active"
                                 :value="old('active', data_get($actions, $story->id.'.story.action') === 'delete')"
                                 :disabled="$loop->first"
-                                active-color="bg-red-600"
+                                active-color="red"
                             >
                                 Delete {{ $story->title }}
                             </x-input.toggle>

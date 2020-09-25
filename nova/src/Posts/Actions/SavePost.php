@@ -5,10 +5,13 @@ namespace Nova\Posts\Actions;
 use Nova\Posts\DataTransferObjects\PostData;
 use Nova\Posts\Models\Post;
 
-class CreatePost
+class SavePost
 {
     public function execute(PostData $data): Post
     {
-        return Post::create($data->toArray());
+        return Post::updateOrCreate(
+            $data->only('id')->toArray(),
+            $data->except('id')->toArray()
+        );
     }
 }

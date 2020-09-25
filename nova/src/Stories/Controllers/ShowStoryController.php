@@ -3,11 +3,13 @@
 namespace Nova\Stories\Controllers;
 
 use Illuminate\Http\Request;
-use Nova\Stories\Models\Story;
-use Nova\Stories\Filters\StoryFilters;
 use Nova\Foundation\Controllers\Controller;
-use Nova\Stories\Responses\ShowStoryResponse;
+use Nova\Posts\Filters\PostFilters;
+use Nova\Posts\Models\Post;
+use Nova\Stories\Filters\StoryFilters;
+use Nova\Stories\Models\Story;
 use Nova\Stories\Responses\ShowAllStoriesResponse;
+use Nova\Stories\Responses\ShowStoryResponse;
 
 class ShowStoryController extends Controller
 {
@@ -33,12 +35,21 @@ class ShowStoryController extends Controller
         ]);
     }
 
-    public function show(Story $story)
+    public function show(Request $request, PostFilters $filters, Story $story)
     {
         $this->authorize('view', $story);
 
+        $posts = Post::with('type')
+            ->hasParent()
+            ->whereStory($story->id)
+            ->defaultOrder()
+            ->filter($filters)
+            ->paginate();
+
         return app(ShowStoryResponse::class)->with([
-            'story' => $story,
+            'posts' => $posts,
+            'search' => $request->search,
+            'story' => $story->loadCount('posts'),
         ]);
     }
 }

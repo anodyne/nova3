@@ -3,8 +3,8 @@
 namespace Nova\Stories\Actions;
 
 use Illuminate\Http\Request;
-use Nova\Stories\Models\Story;
 use Nova\Stories\Exceptions\StoryException;
+use Nova\Stories\Models\Story;
 
 class DeleteStoryManager
 {
@@ -40,7 +40,7 @@ class DeleteStoryManager
         $stories->where('story.action', 'move')->each(function ($item, $id) {
             $this->moveStory->execute(
                 Story::find($id),
-                data_get($item, 'story.actionId')
+                Story::find(data_get($item, 'story.actionId'))
             );
         });
 

@@ -2,11 +2,11 @@
 
 namespace Tests\Unit\Posts\Actions;
 
-use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Posts\Actions\MovePost;
 use Nova\Posts\Models\Post;
 use Nova\Stories\Models\Story;
-use Nova\Posts\Actions\MovePost;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 /**
  * @group posts
@@ -16,11 +16,11 @@ class MovePostActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
+    protected MovePost $action;
 
-    protected $story;
+    protected Story $story;
 
-    protected $post;
+    protected Post $post;
 
     public function setUp(): void
     {

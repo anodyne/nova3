@@ -2,27 +2,33 @@
 
 namespace Nova\Posts\Models;
 
-use Nova\Posts\Models\States\Draft;
-use Nova\Posts\Models\States\Pending;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Nova\Posts\Models\States\Published;
-use Nova\Posts\Models\States\PostStatus;
+use Kalnoy\Nestedset\NodeTrait;
+use Nova\Posts\Events;
+use Nova\Posts\Models\Builders\PostBuilder;
+use Nova\Posts\Models\States\Draft;
 use Nova\Posts\Models\States\DraftToPending;
 use Nova\Posts\Models\States\DraftToPublished;
+use Nova\Posts\Models\States\Pending;
 use Nova\Posts\Models\States\PendingToPublished;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Nova\Posts\Models\States\PostStatus;
+use Nova\Posts\Models\States\Published;
+use Nova\PostTypes\Models\PostType;
+use Nova\Stories\Models\Story;
 use Spatie\ModelStates\HasStates;
-use Nova\Posts\Events;
 
 class Post extends Model
 {
     use HasFactory;
     use HasStates;
+    use NodeTrait;
 
     protected $table = 'posts';
 
     protected $fillable = [
-        'story_id', 'post_type_id', 'title', 'content', 'status', 'word_count'
+        'story_id', 'post_type_id', 'title', 'content', 'status', 'word_count',
+        'day', 'time', 'location', 'parent_id',
     ];
 
     protected $casts = [
@@ -47,7 +53,12 @@ class Post extends Model
 
     public function type()
     {
-        return $this->belongsTo(PostType::class);
+        return $this->belongsTo(PostType::class, 'post_type_id');
+    }
+
+    public function newEloquentBuilder($query): PostBuilder
+    {
+        return new PostBuilder($query);
     }
 
     protected function registerStates(): void
