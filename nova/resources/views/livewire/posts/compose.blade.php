@@ -70,6 +70,7 @@
                             wire:model.lazy="title"
                             placeholder="Add your title"
                             class="text-3xl font-extrabold text-gray-900 tracking-tight | sm:text-4xl md:text-5xl"
+                            tabindex="1"
                         ></x-posts.field>
 
                         @if ($postType->fields->time->enabled || $postType->fields->day->enabled || $postType->fields->location->enabled)
@@ -82,6 +83,7 @@
                                     :value="$day"
                                     wire:model.lazy="day"
                                     placeholder="Add a day"
+                                    tabindex="2"
                                 ></x-posts.field>
 
                                 <x-posts.field
@@ -92,6 +94,7 @@
                                     :value="$time"
                                     wire:model.lazy="time"
                                     placeholder="Add a time"
+                                    tabindex="3"
                                 ></x-posts.field>
 
                                 <x-posts.field
@@ -102,17 +105,24 @@
                                     :value="$location"
                                     wire:model.lazy="location"
                                     placeholder="Add a location"
+                                    tabindex="4"
                                 ></x-posts.field>
                             </div>
                         @endif
                     </div>
 
-                    @if ($postType->fields->content->enabled)
-                        <x-input.group>
-                            {{-- <x-input.rich-text name="content" :initial-value="old('content')" /> --}}
-                            <x-input.editor-minimal>{{ old('content') }}</x-input.editor-minimal>
-                        </x-input.group>
-                    @endif
+                    {{-- <x-input.group for="content" label="Content" :error="$errors->first('content')">
+                        <x-input.rich-text wire:model.debounce="content" name="content" :initial-value="old('content')" tabindex="5" />
+                    </x-input.group> --}}
+
+                    <x-posts.editor
+                        :field="$postType->fields->content"
+                        name="content"
+                        :suggestion="$suggestion"
+                        :value="$content"
+                        wire:model.debounce="content"
+                        tabindex="6"
+                    ></x-posts.editor>
                 </div>
 
                 <div class="space-y-8">
