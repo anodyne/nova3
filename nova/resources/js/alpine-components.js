@@ -1,4 +1,27 @@
 export default class AlpineComponents {
+    editor (options = {}) {
+        return {
+            editor: null,
+            config: {
+                dispatch: null,
+                holder: 'editorjs',
+                data: {},
+                onReady: () => {},
+                onChange (editor) {
+                    editor.saver.save().then((data) => {
+                        this.dispatch('input', JSON.stringify(data));
+                    });
+                },
+                ...options
+            },
+
+            init (dispatch) {
+                this.config.dispatch = dispatch;
+                this.editor = new EditorJS(this.config);
+            }
+        };
+    }
+
     listBox (options = {}) {
         return {
             open: false,
