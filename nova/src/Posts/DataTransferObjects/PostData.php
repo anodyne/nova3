@@ -27,6 +27,7 @@ class PostData extends DataTransferObject
     public static function fromArray(array $array): self
     {
         return new self([
+            'id' => (int) data_get($array, 'id'),
             'content' => data_get($array, 'content'),
             'day' => data_get($array, 'day'),
             'location' => data_get($array, 'location'),
