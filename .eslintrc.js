@@ -74,5 +74,7 @@ module.exports = {
         'vue/no-unused-components': 'off',
         'vue/no-v-html': 'warn',
         'vue/singleline-html-element-content-newline': 'off',
+        'vue/v-bind-style': ['error', 'longform'],
+        'vue/v-on-style': ['error', 'longform']
     }
 };
