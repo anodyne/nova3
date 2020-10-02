@@ -29,6 +29,9 @@ class MoveStoryActionTest extends TestCase
         $this->newStory = Story::factory()->create();
 
         $this->story = Story::factory()->create();
+
+        $this->story->refresh();
+        $this->newStory->refresh();
     }
 
     /** @test **/
