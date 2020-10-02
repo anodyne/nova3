@@ -32,7 +32,9 @@
         "sortablejs": "^1.12.0",
         "tailwindcss": "^2.0.1",
         "tailwindcss-interaction-variants": "^5.0.0",
-        "vue": "^2.6.11",
+        "tiptap": "https://gitpkg.now.sh/rsvpify/tiptap/packages/tiptap?main",
+        "tiptap-extensions": "https://gitpkg.now.sh/rsvpify/tiptap/packages/tiptap-extensions?main",
+        "vue": "^2.6.12",
         "vue-template-compiler": "^2.6.11"
     },
     "devDependencies": {
