@@ -28,4 +28,5 @@ mix
             },
             symlinks: false
         }
-    });
+    })
+    .sourceMaps(false);
