@@ -17,4 +17,9 @@ trait WritesPost
     public $content;
 
     public $post;
+
+    public function updatedContent($value)
+    {
+        // dd($value);
+    }
 }
