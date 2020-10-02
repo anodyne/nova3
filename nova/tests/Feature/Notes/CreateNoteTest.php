@@ -2,12 +2,12 @@
 
 namespace Tests\Feature\Notes;
 
-use Tests\TestCase;
-use Nova\Notes\Models\Note;
-use Nova\Notes\Events\NoteCreated;
-use Illuminate\Support\Facades\Event;
-use Nova\Notes\Requests\CreateNoteRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
+use Nova\Notes\Events\NoteCreated;
+use Nova\Notes\Models\Note;
+use Nova\Notes\Requests\CreateNoteRequest;
+use Tests\TestCase;
 
 /**
  * @group notes
