@@ -31,4 +31,5 @@ mix
         node: {
             fs: 'empty'
         }
-    });
+    })
+    .sourceMaps(false);
