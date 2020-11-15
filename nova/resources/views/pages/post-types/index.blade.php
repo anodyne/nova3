@@ -63,7 +63,11 @@
                         @endif
                         <div class="flex min-w-0 flex-1">
                             <div class="flex-shrink-0 mr-3 mt-0.5" style="color:{{ $postType->color }}">
-                                @icon($postType->icon, 'h-6 w-6')
+                                @isset($postType->icon)
+                                    @icon($postType->icon, 'h-6 w-6')
+                                @else
+                                    <div class="h-6 w-6"></div>
+                                @endisset
                             </div>
                             <div class="min-w-0 flex-1 | sm:flex sm:flex-col">
                                 <div class="flex items-center space-x-3">
@@ -75,7 +79,6 @@
                                         <x-badge size="xs" color="gray">{{ $postType->role->display_name }}</x-badge>
                                     @endif
                                 </div>
-                                <p class="text-sm text-gray-600">{{ $postType->description }}</p>
                             </div>
                         </div>
                         <div class="ml-5 flex-shrink-0 leading-0">
