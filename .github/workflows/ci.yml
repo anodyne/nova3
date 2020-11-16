@@ -79,5 +79,5 @@ jobs:
                 php security-checker security:check ../composer.lock
 
             - name: Deploy to Forge
-              if: github.ref == 'refs/heads/stage'
+              if: github.ref == 'refs/heads/dev'
               run: curl "${{ secrets.FORGE_DEPLOYMENT_WEBHOOK }}"

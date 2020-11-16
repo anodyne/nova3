@@ -174,7 +174,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('avatar')
-            ->useFallbackUrl("https://api.adorable.io/avatars/285/{$this->email}")
+            ->useFallbackUrl("https://avatars.dicebear.com/api/bottts/{$this->email}.svg")
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif'])
             ->singleFile();
     }
