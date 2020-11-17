@@ -1,11 +1,11 @@
 <?php
 
-namespace Nova\PostTypes\DataTransferObjects;
+namespace Nova\PostTypes\Values;
 
 use Illuminate\Contracts\Support\Arrayable;
-use Spatie\DataTransferObject\DataTransferObject;
+use JessArcher\CastableDataTransferObject\CastableDataTransferObject;
 
-class Fields extends DataTransferObject implements Arrayable
+class Fields extends CastableDataTransferObject implements Arrayable
 {
     public Field $title;
 

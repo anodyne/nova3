@@ -2,7 +2,7 @@
 
 @section('content')
     @livewire('posts:compose', [
-        'allPostTypes' => $postTypes,
+        'postType' => $postType,
         'allStories' => $stories,
         'direction' => request('direction', 'after'),
         'neighbor' => request('neighbor'),
@@ -11,12 +11,12 @@
 
 @push('scripts')
     @once
-        <script src="https://unpkg.com/trix@1.2.3/dist/trix.js"></script>
+        <script src="{{ asset('dist/js/editor-tiptap.js') }}"></script>
     @endonce
 @endpush
 
 @push('styles')
     @once
-        <link rel="stylesheet" href="https://unpkg.com/trix@1.2.3/dist/trix.css">
+        <link rel="stylesheet" href="{{ asset('dist/css/tiptap.css') }}">
     @endonce
 @endpush

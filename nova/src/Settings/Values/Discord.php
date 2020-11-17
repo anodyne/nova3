@@ -1,11 +1,12 @@
 <?php
 
-namespace Nova\Settings\DataTransferObjects;
+namespace Nova\Settings\Values;
 
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Http\Request;
-use Spatie\DataTransferObject\DataTransferObject;
+use JessArcher\CastableDataTransferObject\CastableDataTransferObject;
 
-class DiscordSettings extends DataTransferObject
+class Discord extends CastableDataTransferObject implements Arrayable
 {
     public bool $storyPostsEnabled;
 

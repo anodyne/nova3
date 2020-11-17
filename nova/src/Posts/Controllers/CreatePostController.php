@@ -17,17 +17,12 @@ class CreatePostController extends Controller
         $this->middleware('auth');
     }
 
-    public function create(PostType $postType = null)
+    public function create(PostType $postType)
     {
         $this->authorize('write', [new Post, $postType]);
 
-        $usersPostTypes = PostType::orderBySort()
-            ->get()
-            ->filter(fn ($postType) => auth()->user()->can('write', $postType));
-
         return app(CreatePostResponse::class)->with([
             'postType' => $postType,
-            'postTypes' => $usersPostTypes,
             'stories' => Story::wherePostable()->get(),
         ]);
     }

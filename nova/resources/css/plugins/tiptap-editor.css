@@ -6,6 +6,8 @@
     }
 
     &__content {
+        @apply w-full;
+
         overflow-wrap: break-word;
         word-wrap: break-word;
         word-break: break-word;

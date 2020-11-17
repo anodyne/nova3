@@ -1,11 +1,11 @@
 <?php
 
-namespace Nova\PostTypes\DataTransferObjects;
+namespace Nova\PostTypes\Values;
 
 use Illuminate\Contracts\Support\Arrayable;
-use Spatie\DataTransferObject\DataTransferObject;
+use JessArcher\CastableDataTransferObject\CastableDataTransferObject;
 
-class Options extends DataTransferObject implements Arrayable
+class Options extends CastableDataTransferObject implements Arrayable
 {
     public bool $notifyUsers;
 

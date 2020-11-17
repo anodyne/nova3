@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Nova\PostTypes\DataTransferObjects\Field;
-use Nova\PostTypes\DataTransferObjects\Fields;
-use Nova\PostTypes\DataTransferObjects\Options;
 use Nova\PostTypes\Models\PostType;
+use Nova\PostTypes\Values\Field;
+use Nova\PostTypes\Values\Fields;
+use Nova\PostTypes\Values\Options;
 use Nova\Stories\Models\States\Completed;
 use Nova\Stories\Models\Story;
 

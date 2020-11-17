@@ -2,14 +2,12 @@
 
 namespace Tests\Feature\PostTypes;
 
-use Tests\TestCase;
-use Nova\PostTypes\Models\PostType;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\PostTypes\Events\PostTypeUpdated;
+use Nova\PostTypes\Models\PostType;
 use Nova\PostTypes\Requests\UpdatePostTypeRequest;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nova\PostTypes\DataTransferObjects\Fields;
-use Nova\PostTypes\DataTransferObjects\Options;
+use Tests\TestCase;
 
 /**
  * @group stories

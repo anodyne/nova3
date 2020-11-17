@@ -22,6 +22,8 @@ class ComposePost extends Component
 
     public $saving = false;
 
+    public $showEditor = false;
+
     protected $listeners = ['postTypeSelected' => 'setPostType'];
 
     public function publish(SavePostManager $action)
@@ -65,8 +67,6 @@ class ComposePost extends Component
     public function mount()
     {
         $this->setInitialStory();
-
-        $this->setPostTypeIfOnlyOneIsAvailable();
 
         $this->getSuggestedPost();
     }

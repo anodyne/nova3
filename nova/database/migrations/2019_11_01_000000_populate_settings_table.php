@@ -1,10 +1,9 @@
 <?php
 
-use Nova\Settings\Models\Settings;
 use Illuminate\Database\Migrations\Migration;
-use Nova\Settings\DataTransferObjects\DefaultsSettings;
-use Nova\Settings\DataTransferObjects\DiscordSettings;
-use Nova\Settings\DataTransferObjects\EmailSettings;
+use Nova\Settings\Models\Settings;
+use Nova\Settings\Values\Defaults;
+use Nova\Settings\Values\Discord;
 
 class PopulateSettingsTable extends Migration
 {
@@ -13,13 +12,13 @@ class PopulateSettingsTable extends Migration
         $settings = [
             'general' => [],
             'email' => [],
-            'defaults' => new DefaultsSettings([
+            'defaults' => new Defaults([
                 'theme' => 'Pulsar',
                 'iconSet' => 'fluent',
             ]),
             'meta_data' => [],
             'characters' => [],
-            'discord' => new DiscordSettings([
+            'discord' => new Discord([
                 'storyPostsEnabled' => true,
                 'storyPostsWebhook' => null,
                 'storyPostsColor' => '#406ceb',

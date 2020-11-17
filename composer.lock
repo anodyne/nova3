@@ -2015,16 +2015,16 @@
         },
         {
             "name": "livewire-ui/spotlight",
-            "version": "0.1.7",
+            "version": "0.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/livewire-ui/spotlight.git",
-                "reference": "ceb4005ee817b64ebf86526d2b0706ea6b4227ba"
+                "reference": "4de587c11dd37922d03db5412f98fe81beb151a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/livewire-ui/spotlight/zipball/ceb4005ee817b64ebf86526d2b0706ea6b4227ba",
-                "reference": "ceb4005ee817b64ebf86526d2b0706ea6b4227ba",
+                "url": "https://api.github.com/repos/livewire-ui/spotlight/zipball/4de587c11dd37922d03db5412f98fe81beb151a1",
+                "reference": "4de587c11dd37922d03db5412f98fe81beb151a1",
                 "shasum": ""
             },
             "require": {
@@ -2078,7 +2078,7 @@
             ],
             "support": {
                 "issues": "https://github.com/livewire-ui/spotlight/issues",
-                "source": "https://github.com/livewire-ui/spotlight/tree/0.1.7"
+                "source": "https://github.com/livewire-ui/spotlight/tree/0.1.8"
             },
             "funding": [
                 {
@@ -2086,7 +2086,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-04-27T13:10:45+00:00"
+            "time": "2021-04-28T13:07:12+00:00"
         },
         {
             "name": "livewire/livewire",
