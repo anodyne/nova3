@@ -1,6 +1,6 @@
 <?php
 
-namespace Nova\PostTypes\DataTransferObjects;
+namespace Nova\PostTypes\Values;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Spatie\DataTransferObject\DataTransferObject;

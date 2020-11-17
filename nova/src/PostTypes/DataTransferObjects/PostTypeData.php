@@ -3,6 +3,8 @@
 namespace Nova\PostTypes\DataTransferObjects;
 
 use Illuminate\Http\Request;
+use Nova\PostTypes\Values\Fields;
+use Nova\PostTypes\Values\Options;
 use Spatie\DataTransferObject\DataTransferObject;
 
 class PostTypeData extends DataTransferObject

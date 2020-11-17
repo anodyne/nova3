@@ -24,7 +24,8 @@
                 </x-input.group>
 
                 <x-input.group for="content" :error="$errors->first('content')">
-                    <x-input.rich-text name="content" :initial-value="old('content')" />
+                    {{-- <x-input.rich-text name="content" :initial-value="old('content')" /> --}}
+                    <posts-editor></posts-editor>
                 </x-input.group>
             </div>
 
@@ -35,3 +36,15 @@
         </x-form>
     </x-panel>
 @endsection
+
+@push('scripts')
+    @once
+        <script src="{{ asset('dist/js/editor-tiptap.js') }}"></script>
+    @endonce
+@endpush
+
+@push('styles')
+    @once
+        <link rel="stylesheet" href="{{ asset('dist/css/tiptap.css') }}">
+    @endonce
+@endpush

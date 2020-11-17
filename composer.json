@@ -16,6 +16,7 @@
         "blade-ui-kit/blade-ui-kit": "^0.1",
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "jessarcher/laravel-castable-data-transfer-object": "^0.0.1",
         "kalnoy/nestedset": "^5.0",
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",

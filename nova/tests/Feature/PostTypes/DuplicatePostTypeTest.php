@@ -2,13 +2,11 @@
 
 namespace Tests\Feature\PostTypes;
 
-use Tests\TestCase;
-use Nova\PostTypes\Models\PostType;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\PostTypes\Events\PostTypeDuplicated;
-use Nova\PostTypes\DataTransferObjects\Fields;
-use Nova\PostTypes\DataTransferObjects\Options;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\PostTypes\Models\PostType;
+use Tests\TestCase;
 
 /**
  * @group stories

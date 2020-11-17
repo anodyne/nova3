@@ -156,7 +156,8 @@ class PopulatePagesTable extends Migration
             ['uri' => 'stories/reorder', 'key' => 'stories.reorder.show', 'verb' => 'get', 'resource' => 'Nova\\Stories\\Controllers\\ReorderStoriesController@showReorder', 'layout' => 'admin'],
             ['uri' => 'stories/reorder', 'key' => 'stories.reorder.update', 'verb' => 'post', 'resource' => 'Nova\\Stories\\Controllers\\ReorderStoriesController@reorder', 'layout' => 'admin'],
 
-            ['uri' => 'posts/create/{postType:key?}', 'key' => 'posts.create', 'resource' => 'Nova\\Posts\\Controllers\\CreatePostController@create', 'layout' => 'admin'],
+            ['uri' => 'posts/create', 'key' => 'posts.create', 'resource' => 'Nova\\Posts\\Controllers\\SelectPostTypeController@create', 'layout' => 'admin'],
+            ['uri' => 'posts/create/{postType:key}', 'key' => 'posts.compose', 'resource' => 'Nova\\Posts\\Controllers\\CreatePostController@create', 'layout' => 'admin'],
         ];
 
         collect($pages)->each([Page::class, 'create']);

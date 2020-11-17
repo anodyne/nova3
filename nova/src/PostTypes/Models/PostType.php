@@ -2,14 +2,14 @@
 
 namespace Nova\PostTypes\Models;
 
-use Nova\PostTypes\Events;
-use Nova\Roles\Models\Role;
-use Illuminate\Database\Eloquent\Model;
-use Nova\PostTypes\Models\Casts\FieldsCast;
-use Nova\PostTypes\Models\Casts\OptionsCast;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Nova\PostTypes\Models\Builders\PostTypeBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Nova\PostTypes\Events;
+use Nova\PostTypes\Models\Builders\PostTypeBuilder;
+use Nova\PostTypes\Values\Fields;
+use Nova\PostTypes\Values\Options;
+use Nova\Roles\Models\Role;
 
 class PostType extends Model
 {
@@ -25,8 +25,8 @@ class PostType extends Model
 
     protected $casts = [
         'active' => 'boolean',
-        'fields' => FieldsCast::class,
-        'options' => OptionsCast::class,
+        'fields' => Fields::class,
+        'options' => Options::class,
         'sort' => 'int',
     ];
 

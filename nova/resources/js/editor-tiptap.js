@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import 'livewire-vue';
-import SimpleEditor from './components/SimpleEditor';
+import PostsEditor from './components/PostsEditor';
 
 window.Vue = Vue;
 
-Vue.component('simple-editor', SimpleEditor);
+Vue.component('posts-editor', PostsEditor);
 
 window.vm = new Vue().$mount('#app');

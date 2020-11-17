@@ -3,10 +3,10 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Nova\PostTypes\DataTransferObjects\Field;
-use Nova\PostTypes\DataTransferObjects\Fields;
-use Nova\PostTypes\DataTransferObjects\Options;
 use Nova\PostTypes\Models\PostType;
+use Nova\PostTypes\Values\Field;
+use Nova\PostTypes\Values\Fields;
+use Nova\PostTypes\Values\Options;
 
 class PostTypeFactory extends Factory
 {

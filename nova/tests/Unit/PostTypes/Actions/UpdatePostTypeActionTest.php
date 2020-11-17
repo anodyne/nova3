@@ -4,11 +4,11 @@ namespace Tests\Unit\PostTypes\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\PostTypes\Actions\UpdatePostType;
-use Nova\PostTypes\DataTransferObjects\Field;
-use Nova\PostTypes\DataTransferObjects\Fields;
-use Nova\PostTypes\DataTransferObjects\Options;
 use Nova\PostTypes\DataTransferObjects\PostTypeData;
 use Nova\PostTypes\Models\PostType;
+use Nova\PostTypes\Values\Field;
+use Nova\PostTypes\Values\Fields;
+use Nova\PostTypes\Values\Options;
 use Tests\TestCase;
 
 /**
