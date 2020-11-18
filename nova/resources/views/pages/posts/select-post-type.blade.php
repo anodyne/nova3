@@ -13,9 +13,13 @@
 
                     <div class="p-4 | sm:p-6">
                         <div class="flex flex-col items-center">
-                            <span style="color:{{ $postType->color }}">
-                                @icon($postType->icon, 'h-12 w-12')
-                            </span>
+                            @isset($postType->icon)
+                                <span style="color:{{ $postType->color }}">
+                                    @icon($postType->icon, 'h-12 w-12')
+                                </span>
+                            @else
+                                <div class="h-12 w-12"></div>
+                            @endif
 
                             <h3 class="inline-flex items-center text-lg font-semibold text-gray-900 mt-4">
                                 {{ $postType->name }}
