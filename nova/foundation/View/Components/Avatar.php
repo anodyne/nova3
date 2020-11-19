@@ -49,7 +49,7 @@ class Avatar extends Component
                 break;
         }
 
-        return 'inline-block relative rounded-full ' . $size;
+        return 'inline-block relative rounded-full bg-white ' . $size;
     }
 
     public function render()
