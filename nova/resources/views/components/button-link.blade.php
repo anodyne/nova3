@@ -1,5 +1,3 @@
-<span class="{{ $containerStyles() }}">
-    <a href="{{ $href }}" {{ $attributes->merge(['class' => "{$baseStyles()} {$colorStyles()} {$sizeStyles()}"]) }}>
-        {{ $slot }}
-    </a>
-</span>
+<a href="{{ $href }}" {{ $attributes->merge(['class' => "{$baseStyles()} {$colorStyles()} {$sizeStyles()}"]) }}>
+    {{ $slot }}
+</a>
