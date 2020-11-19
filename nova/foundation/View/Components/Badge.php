@@ -32,7 +32,7 @@ class Badge extends Component
         switch ($this->color) {
             case 'gray':
             default:
-                return 'bg-gray-200 text-gray-800';
+                return 'bg-gray-100 text-gray-800';
 
                 break;
 
