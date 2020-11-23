@@ -17,7 +17,7 @@
 >
     <span
         x-bind:class="{ 'bg-gray-200': !active, 'bg-{{ $activeColor }}-500': active }"
-        class="relative inline-block flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full transition-colors ease-in-out duration-200 focus:outline-none focus:shadow-outline"
+        class="relative inline-block flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full transition-colors ease-in-out duration-200 focus:outline-none focus:ring"
         role="switch"
         tabindex="0"
         x-bind:aria-checked="active.toString()"

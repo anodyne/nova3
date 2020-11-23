@@ -4,7 +4,7 @@
 <div x-data="{ tab: 'intro', isLoading: false }">
     <div>
         <div class="p-4 | sm:hidden">
-            <select x-on:change="tab = $event.target.value" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm transition ease-in-out duration-150">
+            <select x-on:change="tab = $event.target.value" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring focus:border-blue-300 sm:text-sm transition ease-in-out duration-150">
                 <option value="intro" x-bind:selected="tab === 'intro'">Intro</option>
                 <option value="install" x-bind:selected="tab === 'install'">Install</option>
             </select>

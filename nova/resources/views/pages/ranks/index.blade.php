@@ -65,7 +65,7 @@
                         Looking for more ranks? Check out AnodyneXtras!
                     </p>
                     <p class="mt-3 text-sm | md:mt-0 md:ml-6">
-                        <a href="{{ config('services.anodyne.links.xtras') }}" target="_blank" class="whitespace-no-wrap font-medium text-blue-700 hover:text-blue-600 transition ease-in-out duration-150">
+                        <a href="{{ config('services.anodyne.links.xtras') }}" target="_blank" class="whitespace-nowrap font-medium text-blue-700 hover:text-blue-600 transition ease-in-out duration-150">
                             Go &rarr;
                         </a>
                     </p>

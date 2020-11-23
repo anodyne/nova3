@@ -33,7 +33,7 @@
         class="absolute mt-2 rounded-md shadow-lg z-9999 {{ $placementStyles() }} @if ($wide) w-72 @else w-56 @endif"
         x-cloak
     >
-        <div class="rounded-md bg-white shadow-xs z-10">
+        <div class="rounded-md bg-white ring-1 ring-black ring-opacity-5 z-10">
             <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                 {{ $slot }}
             </div>

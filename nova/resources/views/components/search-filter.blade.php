@@ -10,7 +10,7 @@
             x-on:keydown.debounce.150="isLoading = true"
             x-on:keydown.debounce.500="refreshList($event.target.value)"
             autocomplete="off"
-            class="relative w-full appearance-none bg-transparent text-gray-800 focus:outline-none"
+            class="relative w-full appearance-none bg-transparent text-gray-800 border-none p-0 focus:ring-0 focus:outline-none"
             name="search"
             type="text"
             value="{{ $search }}"

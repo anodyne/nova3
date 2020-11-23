@@ -10,7 +10,7 @@
             <button
                 x-on:click="open = !open"
                 type="button"
-                class="flex items-center justify-between cursor-default relative w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150"
+                class="flex items-center justify-between cursor-default relative w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-left focus:outline-none focus:ring focus:border-blue-300 transition ease-in-out duration-150"
                 aria-haspopup="true"
                 aria-expanded="true"
                 x-bind:aria-expanded="open"
@@ -36,7 +36,7 @@
         class="origin-top-left absolute left-0 mt-2 w-full rounded-md shadow-lg"
         x-cloak
     >
-        <div class="relative rounded-md bg-white shadow-xs max-h-60 overflow-auto z-10">
+        <div class="relative rounded-md bg-white ring-1 ring-black ring-opacity-5 max-h-60 overflow-auto z-10">
             @if (! isset($positions))
                 <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                     <div class="block px-4 py-2 text-xs uppercase tracking-wide font-medium text-gray-600">

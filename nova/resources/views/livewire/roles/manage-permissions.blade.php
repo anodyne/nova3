@@ -39,7 +39,7 @@
     </x-dropdown>
 
     @foreach ($permissions as $permission)
-        <span class="inline-flex items-center px-2.5 py-1.5 mb-2 uppercase tracking-wide border border-transparent text-xs font-medium rounded-md text-gray-700 bg-gray-100 focus:outline-none focus:border-gray-300 focus:shadow-outline-gray active:bg-gray-200 transition ease-in-out duration-150 space-x-2">
+        <span class="inline-flex items-center px-2.5 py-1.5 mb-2 uppercase tracking-wide border border-transparent text-xs font-medium rounded-md text-gray-700 bg-gray-100 focus:outline-none focus:border-gray-300 focus:ring active:bg-gray-200 transition ease-in-out duration-150 space-x-2">
             <span>{{ $permission['display_name'] }}</span>
             <x-button wire:click="removePermission({{ $permission['id'] }})" type="button" color="gray-text" size="none">
                 <svg class="h-4 w-4" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M6 18L18 6M6 6l12 12"></path></svg>

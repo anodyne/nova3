@@ -16,7 +16,7 @@
             aria-haspopup="listbox"
             x-bind:aria-expanded="open"
             aria-labelledby="listbox-label"
-            class="cursor-default relative w-full rounded-md border border-gray-200 bg-white pl-3 pr-10 py-2 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150"
+            class="cursor-default relative w-full rounded-md border border-gray-200 bg-white pl-3 pr-10 py-2 text-left focus:outline-none focus:ring focus:border-blue-300 transition ease-in-out duration-150"
         >
             <span class="flex items-center space-x-2 truncate">
                 @isset($selected)
@@ -54,7 +54,7 @@
             role="listbox"
             aria-labelledby="listbox-label"
             x-bind:aria-activedescendant="activeDescendant"
-            class="max-h-60 rounded-md py-1 text-base shadow-xs overflow-auto focus:outline-none | sm:text-sm"
+            class="max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none | sm:text-sm"
             aria-activedescendant="listbox-option-0"
         >
             <div class="p-2">

@@ -235,7 +235,7 @@
 
                             <input
                                 id="search_field"
-                                class="block w-full h-full pr-3 py-2 text-gray-900 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400"
+                                class="block w-full h-full pr-3 py-2 text-gray-900 placeholder-gray-500 border-none p-0 focus:ring-0 focus:outline-none focus:placeholder-gray-400"
                                 placeholder="Search"
                                 type="search"
                             >

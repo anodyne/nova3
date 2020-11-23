@@ -1,15 +1,25 @@
+const colors = require('tailwindcss/colors');
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
     theme: {
+        colors: {
+            transparent: 'transparent',
+            current: 'currentColor',
+            black: '#000',
+            white: '#fff',
+            blue: colors.lightBlue,
+            gray: colors.coolGray,
+            green: colors.green,
+            purple: colors.purple,
+            red: colors.red,
+            yellow: colors.amber
+        },
         container: {
             center: true,
             padding: '1rem'
         },
         extend: {
-            colors: {
-                transparent: 'transparent'
-            },
             fontFamily: {
                 sans: ['Inter var', ...defaultTheme.fontFamily.sans]
             },
@@ -49,26 +59,12 @@ module.exports = {
 
     plugins: [
         /* eslint-disable */
-        require('@tailwindcss/ui')({
-            layout: 'sidebar'
-        }),
+        require('@tailwindcss/forms'),
         require('@tailwindcss/typography'),
+        require('@tailwindcss/aspect-ratio'),
         require('tailwindcss-interaction-variants'),
         /* eslint-enable */
     ],
 
-    dark: 'class',
-
-    experimental: {
-        darkModeVariant: false,
-        defaultLineHeights: true,
-        extendedFontSizeScale: true,
-        extendedSpacingScale: true,
-        uniformColorPalette: true
-    },
-
-    future: {
-        purgeLayersByDefault: true,
-        removeDeprecatedGapUtilities: true
-    }
+    darkMode: 'class'
 };
