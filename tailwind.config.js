@@ -27,11 +27,14 @@ module.exports = {
                 0: 0
             },
             minHeight: defaultTheme.spacing,
-            opacity: {
-                95: '.95'
+            screens: {
+                standalone: { raw: '(display-mode: standalone)' }
             },
             spacing: {
-                '2px': '2px'
+                'safe-top': 'env(safe-area-inset-top)',
+                'safe-bottom': 'env(safe-area-inset-bottom)',
+                'safe-left': 'env(safe-area-inset-left)',
+                'safe-right': 'env(safe-area-inset-right)'
             },
             zIndex: {
                 99: 99,

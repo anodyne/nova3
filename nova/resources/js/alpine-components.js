@@ -95,16 +95,16 @@ export default class AlpineComponents {
         };
     }
 
-    toggleSwitch (active, disabled) {
+    toggleSwitch (on, disabled) {
         return {
-            active,
+            on,
             disabled,
 
             toggle ($dispatch) {
                 if (!this.disabled) {
-                    this.active = !this.active;
-                    $dispatch('toggle-changed', { value: Boolean(this.active) });
-                    $dispatch('input', Boolean(this.active));
+                    this.on = !this.on;
+                    $dispatch('toggle-changed', { value: Boolean(this.on) });
+                    $dispatch('input', Boolean(this.on));
                 }
             }
         };
