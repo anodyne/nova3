@@ -14,16 +14,20 @@ class Dropdown extends Component
 
     public $wide;
 
+    public string $id;
+
     public function __construct(
         $placement = 'bottom-start',
         $wide = false,
         $triggerColor = 'gray-text',
-        $triggerSize = 'none'
+        $triggerSize = 'none',
+        $id = 'options-menu'
     ) {
         $this->triggerColor = $triggerColor;
         $this->placement = $placement;
         $this->triggerSize = $triggerSize;
         $this->wide = $wide;
+        $this->id = $id;
     }
 
     public function divider()
