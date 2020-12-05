@@ -64,21 +64,15 @@
 
             <x-form.section title="Fields" message="Post types control which fields are available when creating a post of that type. You can turn any of these fields on/off to suit your game's needs.">
                 <x-input.group>
-                    <x-input.toggle
-                        field="fields[title]"
-                        :value="old('fields[title]', true)"
-                        active-text="Show title field"
-                        inactive-text="Hide title field"
-                    />
+                    <x-input.toggle field="fields[title]" :value="old('fields[title]', true)">
+                        Show title field
+                    </x-input.toggle>
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle
-                        field="fields[day]"
-                        :value="old('fields[day]', true)"
-                        active-text="Show day field"
-                        inactive-text="Hide day field"
-                    />
+                    <x-input.toggle field="fields[day]" :value="old('fields[day]', true)">
+                        Show day field
+                    </x-input.toggle>
                 </x-input.group>
 
                 <x-input.group>

@@ -153,7 +153,7 @@
         <x-modal color="red" title="Delete rank name?" icon="warning" :url="route('ranks.names.delete')">
             <x-slot name="footer">
                 <span class="flex w-full | sm:col-start-2">
-                    <x-button form="form" color="red" full-width>
+                    <x-button type="submit" form="form" color="red" full-width>
                         Delete
                     </x-button>
                 </span>

@@ -157,7 +157,7 @@
         <x-modal color="red" title="Delete rank group?" icon="warning" :url="route('ranks.groups.delete')">
             <x-slot name="footer">
                 <span class="flex w-full | sm:col-start-2">
-                    <x-button form="form" color="red" full-width>
+                    <x-button type="submit" type="submit" form="form" color="red" full-width>
                         Delete
                     </x-button>
                 </span>
@@ -172,7 +172,7 @@
         <x-modal color="blue" title="Duplicate rank group" icon="duplicate" :url="route('ranks.groups.confirm-duplicate')" event="modal-duplicate" :wide="true">
             <x-slot name="footer">
                 <span class="flex w-full | sm:col-start-2">
-                    <x-button form="form-duplicate" color="blue" full-width>
+                    <x-button type="submit" form="form-duplicate" color="blue" full-width>
                         Duplicate
                     </x-button>
                 </span>

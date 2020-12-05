@@ -180,7 +180,7 @@
     <x-modal color="red" title="Delete User?" icon="warning" :url="route('users.delete')">
         <x-slot name="footer">
             <span class="flex w-full | sm:col-start-2">
-                <x-button form="form" color="red" full-width>
+                <x-button type="submit" form="form" color="red" full-width>
                     Delete
                 </x-button>
             </span>
@@ -195,7 +195,7 @@
     <x-modal color="blue" title="Deactivate User?" icon="duplicate" :url="route('users.confirm-deactivate')" event="modal-deactivate">
         <x-slot name="footer">
             <span class="flex w-full | sm:col-start-2">
-                <x-button form="form-deactivate" color="blue" full-width>
+                <x-button type="submit" form="form-deactivate" color="blue" full-width>
                     Deactivate
                 </x-button>
             </span>

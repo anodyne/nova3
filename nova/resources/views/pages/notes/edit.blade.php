@@ -10,6 +10,7 @@
     <x-under-construction feature="My Notes">
         <li>We are using the Trix editor right now, but will likely use a completely different rich text editor by the time Nova 3 launches</li>
         <li>There are known issues with the display of HTML created with the rich text editor</li>
+        <li>There are known issues with displaying the word count when loading an existing note</li>
     </x-under-construction>
 
     <x-panel>

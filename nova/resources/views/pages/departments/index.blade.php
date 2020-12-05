@@ -152,7 +152,7 @@
         <x-modal color="red" title="Delete Department?" icon="warning" :url="route('departments.delete')">
             <x-slot name="footer">
                 <span class="flex w-full | sm:col-start-2">
-                    <x-button form="form" class="red" full-width>
+                    <x-button type="submit" form="form" class="red" full-width>
                         Delete
                     </x-button>
                 </span>

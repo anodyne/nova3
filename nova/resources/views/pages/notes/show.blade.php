@@ -13,7 +13,12 @@
         </x-slot>
     </x-page-header>
 
-    <div class="prose max-w-none">
-        {!! $note->content !!}
-    </div>
+    <x-panel>
+        <div class="px-4 py-2 | sm:px-6 sm:py-3">
+            <div class="prose max-w-none">
+                {!! $note->content !!}
+            </div>
+        </div>
+    </x-panel>
+
 @endsection
