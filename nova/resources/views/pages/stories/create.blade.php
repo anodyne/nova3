@@ -34,9 +34,9 @@
                     <x-input.toggle
                         field="allow_posting"
                         :value="old('allow_posting', 'true')"
-                        active-text="Players can add posts to this story"
-                        inactive-text="Players cannot add posts to this story"
-                    />
+                    >
+                        Players can add posts to this story
+                    </x-input.toggle>
                 </x-input.group>
 
                 <x-input.group label="Start Date" for="start_date">

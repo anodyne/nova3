@@ -9,7 +9,7 @@
         <x-slot name="controls">
             @if ($positionCount > 0)
                 @can('update', $positions->first())
-                    <x-button-link :href="route('positions.index', [$department, 'reorder'])" color="gray-text" size="none" class="mx-4">
+                    <x-button-link :href="route('positions.index', [$department, 'reorder'])" color="gray-text" size="none">
                         @icon('arrow-sort', 'h-6 w-6')
                     </x-button-link>
                 @endcan
@@ -34,7 +34,7 @@
         <x-panel x-data="AlpineComponents.sortableList()" x-init="init()">
             <div>
                 <div class="p-4 | sm:hidden">
-                    <select x-on:change="window.location = $event.target.value" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150 | sm:text-sm">
+                    <select x-on:change="window.location = $event.target.value" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring focus:border-blue-300 transition ease-in-out duration-150 | sm:text-sm">
                         <option value="{{ route('departments.edit', $department) }}">Department Info</option>
                         <option value="email">Positions</option>
                     </select>
@@ -42,10 +42,10 @@
                 <div class="hidden sm:block">
                     <div class="border-b border-gray-200 px-4 | sm:px-6">
                         <nav class="-mb-px flex">
-                            <a href="{{ route('departments.edit', $department) }}" class="whitespace-no-wrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none">
+                            <a href="{{ route('departments.edit', $department) }}" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none">
                                 Department Info
                             </a>
-                            <a href="{{ route('positions.index', $department) }}" class="whitespace-no-wrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm border-blue-500 text-blue-600 focus:outline-none">
+                            <a href="{{ route('positions.index', $department) }}" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm border-blue-500 text-blue-600 focus:outline-none">
                                 Positions
                             </a>
                         </nav>
@@ -59,7 +59,7 @@
                             @icon('arrow-sort', 'h-6 w-6 text-purple-600')
                         </div>
                         <div class="ml-3">
-                            <h3 class="text-sm font-medium text-purple-900">
+                            <h3 class="font-medium text-purple-900">
                                 Change Sorting Order
                             </h3>
                             <div class="mt-2 text-sm text-purple-800">
@@ -173,7 +173,7 @@
         <x-modal color="red" title="Delete Position?" icon="warning" :url="route('positions.delete')">
             <x-slot name="footer">
                 <span class="flex w-full | sm:col-start-2">
-                    <x-button form="form" color="red" full-width>
+                    <x-button type="submit" form="form" color="red" full-width>
                         Delete
                     </x-button>
                 </span>

@@ -5,7 +5,7 @@
         <x-slot name="controls">
             @if ($departmentCount > 0)
                 @can('update', $departments->first())
-                    <x-button-link :href="route('departments.index', 'reorder')" color="gray-text" size="none" class="mx-4">
+                    <x-button-link :href="route('departments.index', 'reorder')" color="gray-text" size="none">
                         @icon('arrow-sort', 'h-6 w-6')
                     </x-button-link>
                 @endcan
@@ -35,7 +35,7 @@
                             @icon('arrow-sort', 'h-6 w-6 text-purple-600')
                         </div>
                         <div class="ml-3">
-                            <h3 class="text-sm font-medium text-purple-900">
+                            <h3 class="font-medium text-purple-900">
                                 Change Sorting Order
                             </h3>
                             <div class="mt-2 text-sm text-purple-800">
@@ -152,7 +152,7 @@
         <x-modal color="red" title="Delete Department?" icon="warning" :url="route('departments.delete')">
             <x-slot name="footer">
                 <span class="flex w-full | sm:col-start-2">
-                    <x-button form="form" class="red" full-width>
+                    <x-button type="submit" form="form" class="red" full-width>
                         Delete
                     </x-button>
                 </span>

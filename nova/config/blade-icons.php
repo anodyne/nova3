@@ -23,6 +23,11 @@ return [
             'prefix' => 'fluent',
             'class' => '',
         ],
+        'empty' => [
+            'path' => 'nova/resources/svg/empty-states',
+            'prefix' => 'empty',
+            'class' => '',
+        ],
     ],
 
     /*

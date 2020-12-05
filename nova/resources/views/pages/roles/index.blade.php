@@ -4,7 +4,7 @@
     <x-page-header title="Roles">
         <x-slot name="controls">
             @can('update', $roles->first())
-                <x-button-link :href="route('roles.index', 'reorder')" color="gray-text" size="none" class="mx-4">
+                <x-button-link :href="route('roles.index', 'reorder')" color="gray-text" size="none">
                     @icon('arrow-sort', 'h-6 w-6')
                 </x-button-link>
             @endcan
@@ -25,7 +25,7 @@
                         @icon('arrow-sort', 'h-6 w-6 text-purple-600')
                     </div>
                     <div class="ml-3">
-                        <h3 class="text-sm font-medium text-purple-900">
+                        <h3 class="font-medium text-purple-900">
                             Change Sorting Order
                         </h3>
                         <div class="mt-2 text-sm text-purple-800">
@@ -54,7 +54,7 @@
 
         <ul id="sortable-list">
         @forelse ($roles as $role)
-            <li class="sortable-item border-t border-gray-200 hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out @if ($isReordering) first:border-0 last:rounded-b-md @endif" data-id="{{ $role->id }}">
+            <li class="sortable-item border-t border-gray-200 hover:bg-gray-50 transition duration-150 ease-in-out @if ($isReordering) first:border-0 last:rounded-b-md @endif" data-id="{{ $role->id }}">
                 <div class="block">
                     <div class="px-4 py-4 flex items-center | sm:px-6">
                         @if ($isReordering)
@@ -67,7 +67,7 @@
                                 <div class="font-medium truncate">
                                     {{ $role->display_name }}
                                 </div>
-                                <div class="mt-2 flex">
+                                <div class="mt-2 flex flex-col space-y-2 | sm:flex-row sm:space-x-6 sm:space-y-0">
                                     <div class="flex items-center text-sm text-gray-500">
                                         @if ($role->users_count === 1)
                                             @icon('user', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
@@ -79,7 +79,7 @@
                                         </span>
                                     </div>
                                     @if ($role->default)
-                                        <div class="hidden items-center text-sm text-gray-500 ml-6 | sm:flex">
+                                        <div class="flex items-center text-sm text-gray-500">
                                             @icon('check-alt', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
                                             <span>Assigned to new users</span>
                                         </div>
@@ -158,7 +158,7 @@
     <x-modal color="red" title="Delete Role?" icon="warning" :url="route('roles.delete')">
         <x-slot name="footer">
             <span class="flex w-full | sm:col-start-2">
-                <x-button form="form" color="red" full-width>
+                <x-button type="submit" form="form" color="red" full-width>
                     Delete
                 </x-button>
             </span>

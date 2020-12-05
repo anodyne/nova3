@@ -56,4 +56,6 @@
         <a href="#">&larr; &ldquo;Medical Mob&rdquo;</a>
         <a href="#">&ldquo;Brass Pillars&rdquo; &rarr;</a>
     </div>
+
+    <x-tips section="dashboard" />
 @endsection

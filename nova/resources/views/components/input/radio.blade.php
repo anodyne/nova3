@@ -5,6 +5,6 @@
 ])
 
 <label for="{{ $for }}" class="inline-flex items-center space-x-2">
-    <input type="radio" {{ $attributes->merge(['class' => 'form-radio']) }} @if ($checked) checked @endif>
+    <input type="radio" {{ $attributes->merge(['class' => 'rounded-full border-gray-200 text-blue-500']) }} @if ($checked) checked @endif>
     <span>{{ $label }}</span>
 </label>

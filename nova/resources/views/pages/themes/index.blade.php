@@ -114,7 +114,7 @@
                         Looking for more themes? Check out AnodyneXtras!
                     </p>
                     <p class="mt-3 text-sm | md:mt-0 md:ml-6">
-                        <a href="{{ config('services.anodyne.links.xtras') }}" target="_blank" class="whitespace-no-wrap font-medium text-blue-700 hover:text-blue-600 transition ease-in-out duration-150">
+                        <a href="{{ config('services.anodyne.links.xtras') }}" target="_blank" class="whitespace-nowrap font-medium text-blue-700 hover:text-blue-600 transition ease-in-out duration-150">
                             Go &rarr;
                         </a>
                     </p>
@@ -126,7 +126,7 @@
     <x-modal color="red" title="Delete Theme?" icon="warning" :url="route('themes.delete')">
         <x-slot name="footer">
             <span class="flex w-full | sm:col-start-2">
-                <x-button form="form" color="red" full-width>
+                <x-button type="submit" form="form" color="red" full-width>
                     Delete
                 </x-button>
             </span>

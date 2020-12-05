@@ -36,7 +36,7 @@
 
                                     <div class="{{ $component->divider() }}"></div>
 
-                                    <div class="uppercase tracking-wide font-semibold text-gray-400 {{ $component->text() }}">
+                                    <div class="uppercase tracking-wide font-semibold text-gray-500 {{ $component->text() }}">
                                         Add a story
                                     </div>
 

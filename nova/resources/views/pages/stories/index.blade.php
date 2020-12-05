@@ -4,7 +4,7 @@
     <x-page-header title="Stories">
         <x-slot name="controls">
             @if ($stories->count() > 0)
-                <x-dropdown placement="bottom-end" class="mr-4">
+                <x-dropdown placement="bottom-end">
                     <x-slot name="trigger">@icon('filter', 'h-6 w-6')</x-slot>
 
                     <a href="{{ route('stories.index', 'sort=asc') }}" class="{{ $component->link() }} justify-between">

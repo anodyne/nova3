@@ -52,16 +52,16 @@ jobs:
             - name: Install dependencies
               run: composer install --no-interaction --prefer-dist --no-suggest --no-scripts
 
-            - name: Cache yarn dependencies
+            - name: Cache npm dependencies
               uses: actions/cache@v1
               with:
                 path: node_modules
-                key: yarn-${{ hashFiles('yarn.lock') }}
+                key: npm-${{ hashFiles('package-lock.json') }}
 
-            - name: Run yarn
+            - name: Run npm
               run: |
-                yarn --version
-                yarn && yarn dev
+                npm --version
+                npm install && npm run dev
 
             - name: Prepare Laravel app
               run: |

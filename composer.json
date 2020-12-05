@@ -36,15 +36,24 @@
         "facade/ignition": "^2.3.6",
         "friendsofphp/php-cs-fixer": "^2.16",
         "fzaninotto/faker": "^1.4",
+        "itsgoingd/clockwork": "^5.0",
         "jasonmccreary/laravel-test-assertions": "^1.0",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^5.0",
         "phpunit/phpunit": "^9.0",
         "squizlabs/php_codesniffer": "^3.5"
     },
+    "repositories": [
+        {
+            "name": "kalnoy/nestedset",
+            "type": "vcs",
+            "url": "https://github.com/urakozz/laravel-nestedset"
+        }
+    ],
     "extra": {
         "laravel": {
             "dont-discover": [
+                "barryvdh/laravel-debugbar",
                 "blade-ui-kit/blade-icons",
                 "blade-ui-kit/blade-ui-kit",
                 "kalnoy/nestedset",

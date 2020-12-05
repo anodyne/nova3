@@ -175,7 +175,7 @@
                 <div class="mt-4 sm:mt-0 sm:ml-6 sm:flex-shrink-0">
                     <x-form :action="route('users.force-password-reset', $user)">
                         <span class="inline-flex rounded-md shadow-sm">
-                            <button type="submit" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
+                            <button type="submit" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
                                 Sign This User Out
                             </button>
                         </span>

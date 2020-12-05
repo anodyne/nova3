@@ -18,7 +18,7 @@
     </div>
 
     @if ($controls)
-        <div class="inline-flex flex-row-reverse items-center w-auto mt-4 | sm:mt-0 sm:flex-row" data-cy="page-header-controls">
+        <div class="inline-flex flex-row-reverse items-center w-auto mt-4 space-x-4 space-x-reverse | sm:mt-0 sm:flex-row sm:space-x-4" data-cy="page-header-controls">
             {{ $controls }}
         </div>
     @endif

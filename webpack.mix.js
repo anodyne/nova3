@@ -27,8 +27,5 @@ mix
                 '@node_modules': path.resolve(__dirname, './node_modules/')
             },
             symlinks: false
-        },
-        node: {
-            fs: 'empty'
         }
     });

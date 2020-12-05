@@ -11,7 +11,7 @@
         <x-slot name="controls">
             @if ($groupCount > 0)
                 @can('update', $groups->first())
-                    <x-button-link :href="route('ranks.groups.index', 'reorder')" color="gray-text" size="none" class="mx-4">
+                    <x-button-link :href="route('ranks.groups.index', 'reorder')" color="gray-text" size="none">
                         @icon('arrow-sort', 'h-6 w-6')
                     </x-button-link>
                 @endcan
@@ -41,7 +41,7 @@
                             @icon('arrow-sort', 'h-6 w-6 text-purple-600')
                         </div>
                         <div class="ml-3">
-                            <h3 class="text-sm font-medium text-purple-900">
+                            <h3 class="font-medium text-purple-900">
                                 Change Sorting Order
                             </h3>
                             <div class="mt-2 text-sm text-purple-800">
@@ -157,7 +157,7 @@
         <x-modal color="red" title="Delete rank group?" icon="warning" :url="route('ranks.groups.delete')">
             <x-slot name="footer">
                 <span class="flex w-full | sm:col-start-2">
-                    <x-button form="form" color="red" full-width>
+                    <x-button type="submit" type="submit" form="form" color="red" full-width>
                         Delete
                     </x-button>
                 </span>
@@ -172,7 +172,7 @@
         <x-modal color="blue" title="Duplicate rank group" icon="duplicate" :url="route('ranks.groups.confirm-duplicate')" event="modal-duplicate" :wide="true">
             <x-slot name="footer">
                 <span class="flex w-full | sm:col-start-2">
-                    <x-button form="form-duplicate" color="blue" full-width>
+                    <x-button type="submit" form="form-duplicate" color="blue" full-width>
                         Duplicate
                     </x-button>
                 </span>
