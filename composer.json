@@ -43,6 +43,13 @@
         "phpunit/phpunit": "^9.0",
         "squizlabs/php_codesniffer": "^3.5"
     },
+    "repositories": [
+        {
+            "name": "kalnoy/nestedset",
+            "type": "vcs",
+            "url": "https://github.com/urakozz/laravel-nestedset"
+        }
+    ],
     "extra": {
         "laravel": {
             "dont-discover": [
