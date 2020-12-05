@@ -241,10 +241,10 @@
                     </form>
                 </div>
 
-                <div class="ml-4 flex items-center | md:ml-6">
+                <div class="ml-4 flex items-center space-x-4 | md:ml-6">
                     @livewire('users:notifications')
 
-                    <x-dropdown placement="bottom-end" class="ml-4">
+                    <x-dropdown placement="bottom-end">
                         <x-slot name="trigger">
                             <x-avatar size="xs" :src="auth()->user()->avatar_url" :tooltip="auth()->user()->name" />
                         </x-slot>
