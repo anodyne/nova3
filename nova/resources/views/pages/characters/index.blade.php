@@ -10,7 +10,7 @@
         </x-slot>
 
         <x-slot name="controls">
-            <x-dropdown placement="bottom-end" class="mr-4" wide>
+            <x-dropdown placement="bottom-end" wide>
                 <x-slot name="trigger">@icon('filter', 'h-6 w-6')</x-slot>
 
                 <a href="{{ route('characters.index', 'status='.request('status').'&hasuser=1') }}" class="{{ $component->link() }} justify-between">

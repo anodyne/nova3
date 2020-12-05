@@ -23,7 +23,7 @@
                 </x-dropdown>
 
                 @can('update', $items->first())
-                    <x-button-link :href="route('ranks.items.index', 'reorder')" color="gray-text" size="none" class="mx-4">
+                    <x-button-link :href="route('ranks.items.index', 'reorder')" color="gray-text" size="none">
                         @icon('arrow-sort', 'h-6 w-6')
                     </x-button-link>
                 @endcan
