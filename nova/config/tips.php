@@ -1,6 +1,10 @@
 <?php
 
 return [
+    'dashboard' => [
+        'On mobile devices, you can add this page to your home screen and get a standalone app that will behave like a native mobile app rather than a normal browser tab.',
+    ],
+
     'characters' => [
         "When searching for a character, you can search by the character's name, the name of any of the character's positions, the department name of any of the positions the character is assigned to, or their associated user's name or email address.",
         'Filters and searches from character management respect the tab you currently have selected. If you want to limit your search to inactive characters, you can go the inactive characters tab and then search or filter the list.',
