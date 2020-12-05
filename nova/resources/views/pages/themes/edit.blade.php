@@ -53,9 +53,9 @@
                     <x-input.toggle
                         field="active"
                         :value="old('active', $theme->active ?? '')"
-                        active-text="Active"
-                        inactive-text="Inactive"
-                    />
+                    >
+                        Active
+                    </x-input.toggle>
                 </x-input.group>
             </x-form.section>
 

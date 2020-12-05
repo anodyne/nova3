@@ -53,12 +53,9 @@
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle
-                        field="active"
-                        :value="old('active', true)"
-                        active-text="Active"
-                        inactive-text="Inactive"
-                    />
+                    <x-input.toggle field="active" :value="old('active', true)">
+                        Active
+                    </x-input.toggle>
                 </x-input.group>
             </x-form.section>
 
@@ -76,50 +73,38 @@
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle
-                        field="fields[time]"
-                        :value="old('fields[time]', true)"
-                        active-text="Show time field"
-                        inactive-text="Hide time field"
-                    />
+                    <x-input.toggle field="fields[time]" :value="old('fields[time]', true)">
+                        Show time field
+                    </x-input.toggle>
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle
-                        field="fields[location]"
-                        :value="old('fields[location]', true)"
-                        active-text="Show location field"
-                        inactive-text="Hide location field"
-                    />
+                    <x-input.toggle field="fields[location]" :value="old('fields[location]', true)">
+                        Show location field
+                    </x-input.toggle>
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle
-                        field="fields[content]"
-                        :value="old('fields[content]', true)"
-                        active-text="Show content field"
-                        inactive-text="Hide content field"
-                    />
+                    <x-input.toggle field="fields[content]" :value="old('fields[content]', true)">
+                        Show content field
+                    </x-input.toggle>
                 </x-input.group>
             </x-form.section>
 
             <x-form.section title="Options" message="Post types control the behavior of a post of that type with a wide range of options. You can turn any of these fields on/off to suit your game's needs.">
                 <x-input.group>
-                    <x-input.toggle
-                        field="options[notifyUsers]"
-                        :value="old('options[notifyUsers]', true)"
-                        active-text="Notify users"
-                        inactive-text="Do not notify users"
-                    />
+                    <x-input.toggle field="options[notifyUsers]" :value="old('options[notifyUsers]', true)">
+                        Notify users
+                    </x-input.toggle>
                 </x-input.group>
 
                 <x-input.group>
                     <x-input.toggle
                         field="options[notifyDiscord]"
                         :value="old('options[notifyDiscord]', app('nova.settings')->discord->storyPostsEnabled)"
-                        active-text="Send notification to Discord"
-                        inactive-text="Do not send notification to Discord"
-                    />
+                    >
+                        Send notification to Discord
+                    </x-input.toggle>
 
                     @if (! app('nova.settings')->discord->storyPostsEnabled)
                         <x-slot name="help">
@@ -132,18 +117,18 @@
                     <x-input.toggle
                         field="options[includeInPostCounts]"
                         :value="old('options[includeInPostCounts]', true)"
-                        active-text="Include in post counts"
-                        inactive-text="Exclude from post counts"
-                    />
+                    >
+                        Include in post counts
+                    </x-input.toggle>
                 </x-input.group>
 
                 <x-input.group>
                     <x-input.toggle
                         field="options[multipleAuthors]"
                         :value="old('options[multipleAuthors]', true)"
-                        active-text="Allow multiple authors"
-                        inactive-text="Do not allow multiple authors"
-                    />
+                    >
+                        Allow multiple authors
+                    </x-input.toggle>
                 </x-input.group>
 
                 <x-input.group label="Restrict posting" help="You can set a specific role a user must have in order to use certain post types.">
