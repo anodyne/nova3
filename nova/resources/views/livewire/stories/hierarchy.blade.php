@@ -22,7 +22,7 @@
                     </select>
                 </x-slot>
 
-                <select name="display_neighbor" id="display_neighbor" class="form-select h-full w-full py-0 border-none bg-transparent focus:outline-none focus:shadow-none" wire:model="neighbor">
+                <select name="display_neighbor" id="display_neighbor" class="form-select h-full w-full p-0 border-none bg-transparent focus:ring-0 focus:outline-none focus:shadow-none" wire:model="neighbor">
                     @foreach ($orderStories as $orderStory)
                         <option value="{{ $orderStory->id }}">{{ $orderStory->title }}</option>
                     @endforeach
