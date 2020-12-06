@@ -38,7 +38,7 @@ class CreateUserController extends Controller
         UserCreatedByAdmin::dispatch($user);
 
         return redirect()
-            ->route('users.index')
+            ->route('users.index', 'status=active')
             ->withToast("An account for {$user->name} was created", 'The user has been notified of their account and their password.');
     }
 }
