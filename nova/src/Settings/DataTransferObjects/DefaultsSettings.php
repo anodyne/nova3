@@ -6,13 +6,7 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class DefaultsSettings extends DataTransferObject
 {
-    /**
-     * @var  string
-     */
-    public $theme;
+    public string $theme = 'pulsar';
 
-    /**
-     * @var  string
-     */
-    public $iconSet;
+    public string $iconSet = 'fluent';
 }

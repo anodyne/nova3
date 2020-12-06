@@ -60,9 +60,9 @@
         </div>
 
         <div x-show="tab === 'install'" x-cloak>
-            <x-form action="setup/install">
-                <h2 class="text-2xl font-light mb-8 text-center">Here we go!</h2>
+            <h2 class="text-2xl font-light mb-8 text-center">Here we go!</h2>
 
+            <x-form action="setup/install">
                 <div class="flex items-center justify-center">
                     <x-button
                         x-on:click="isLoading = true"

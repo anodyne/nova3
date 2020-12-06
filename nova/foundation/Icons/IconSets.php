@@ -20,11 +20,7 @@ class IconSets
 
     public function getDefaultSet(): IconSet
     {
-        if ($iconSet = optional(optional(app('nova.settings'))->defaults)->iconSet) {
-            return $this->sets[$iconSet];
-        }
-
-        return $this->sets['fluent'];
+        return $this->sets[app('nova.settings')->defaults->iconSet];
     }
 
     public function getSets(): array

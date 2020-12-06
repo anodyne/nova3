@@ -11,6 +11,10 @@ class Settings extends Model
 {
     protected $table = 'settings';
 
+    protected $attributes = [
+        'defaults' => '[]',
+    ];
+
     protected $casts = [
         'general' => 'json',
         'email' => 'json',
