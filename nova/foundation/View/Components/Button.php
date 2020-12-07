@@ -53,6 +53,11 @@ class Button extends Component
 
                 break;
 
+            case 'dark-gray-text':
+                return 'border-transparent text-gray-600 font-medium hover:text-gray-800 focus:text-gray-800';
+
+                break;
+
             case 'gray-text':
                 return 'border-transparent font-medium text-gray-400 hover:text-gray-600';
 

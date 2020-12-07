@@ -43,7 +43,8 @@
         "eslint": "^5.5.0",
         "eslint-config-airbnb-base": "^13.1.0",
         "eslint-import-resolver-webpack": "^0.10.1",
-        "eslint-plugin-import": "^2.22.1",
-        "eslint-plugin-vue": "^5.2.0"
+        "eslint-plugin-import": "^2.14.0",
+        "eslint-plugin-vue": "^5.2.0",
+        "livewire-vue": "^0.3.1"
     }
 }
