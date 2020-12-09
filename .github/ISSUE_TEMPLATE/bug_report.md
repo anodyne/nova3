@@ -23,6 +23,11 @@ A clear and concise description of what you expected to happen.
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
+**Nova (please complete the following information):**
+ - Version
+ - Theme
+ - Installed extensions
+
 **Browser (please complete the following information):**
  - Browser [e.g. chrome, safari]
  - Version [e.g. 22]
