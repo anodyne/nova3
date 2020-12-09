@@ -6,6 +6,3 @@ contact_links:
     - name: Feature Request
       url: https://github.com/anodyne/nova3/discussions?discussions_q=category%3AIdeas
       about: Share ideas for new features
-    - name: Bug Report
-      url: https://github.com/anodyne/nova3/issues/new
-      about: Report a reproducable bug
