@@ -12,7 +12,6 @@
             type="button"
             :color="$triggerColor"
             :size="$triggerSize"
-            id="{{ $id }}"
             aria-haspopup="true"
             aria-expanded="true"
             x-bind:aria-expanded="open"
@@ -30,13 +29,11 @@
         x-transition:leave="transition ease-in duration-75"
         x-transition:leave-start="transform opacity-100 scale-100"
         x-transition:leave-end="transform opacity-0 scale-95"
-        class="absolute mt-2 rounded-md shadow-lg z-9999 {{ $placementStyles() }} @if ($wide) w-72 @else w-56 @endif"
+        class="absolute mt-2 rounded-md shadow-lg z-9999 {{ $placementStyles() }} {{ $wide ? 'w-72' : 'w-56'}}"
         x-cloak
     >
-        <div class="rounded-md bg-white ring-1 ring-black ring-opacity-5 z-10">
-            <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="{{ $id }}">
-                {{ $slot }}
-            </div>
+        <div class="rounded-md bg-white ring-1 ring-black ring-opacity-5 z-10 divide-y divide-gray-100">
+            {{ $slot }}
         </div>
     </div>
 </div>

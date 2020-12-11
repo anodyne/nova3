@@ -13,50 +13,66 @@
             <x-dropdown placement="bottom-end" wide>
                 <x-slot name="trigger">@icon('filter', 'h-6 w-6')</x-slot>
 
-                <a href="{{ route('characters.index', 'status='.request('status').'&hasuser=1') }}" class="{{ $component->link() }} justify-between">
-                    <span>Assigned to a user</span>
-                    @if (request()->has('hasuser'))
-                        @icon('check', 'h-5 w-5')
-                    @endif
-                </a>
-                <a href="{{ route('characters.index', 'status='.request('status').'&nouser=1') }}" class="{{ $component->link() }} justify-between">
-                    <span>Not assigned to a user</span>
-                    @if (request()->has('nouser'))
-                        @icon('check', 'h-5 w-5')
-                    @endif
-                </a>
-                <a href="{{ route('characters.index', 'status='.request('status').'&noposition=1') }}" class="{{ $component->link() }} justify-between">
-                    <span>Not assigned a position</span>
-                    @if (request()->has('noposition'))
-                        @icon('check', 'h-5 w-5')
-                    @endif
-                </a>
+                <x-dropdown.group>
+                    <x-dropdown.item :href="route('characters.index', 'status='.request('status').'&hasuser=1')">
+                        <div class="flex items-center justify-between w-full">
+                            <span>Assigned to a user</span>
+                            @if (request()->has('hasuser'))
+                                @icon('check', 'h-5 w-5')
+                            @endif
+                        </div>
+                    </x-dropdown.item>
+                    <x-dropdown.item :href="route('characters.index', 'status='.request('status').'&nouser=1')">
+                        <div class="flex items-center justify-between w-full">
+                            <span>Not assigned to a user</span>
+                            @if (request()->has('nouser'))
+                                @icon('check', 'h-5 w-5')
+                            @endif
+                        </div>
+                    </x-dropdown.item>
+                    <x-dropdown.item :href="route('characters.index', 'status='.request('status').'&noposition=1')">
+                        <div class="flex items-center justify-between w-full">
+                            <span>Not assigned a position</span>
+                            @if (request()->has('noposition'))
+                                @icon('check', 'h-5 w-5')
+                            @endif
+                        </div>
+                    </x-dropdown.item>
+                </x-dropdown.group>
 
-                <div class="{{ $component->divider() }}"></div>
+                <x-dropdown.group>
+                    <x-dropdown.text class="uppercase tracking-wide font-semibold text-gray-500">
+                        Filter by character type
+                    </x-dropdown.text>
 
-                <div class="{{ $component->text() }} uppercase tracking-wide font-semibold text-gray-500">
-                    Filter by character type
-                </div>
-
-                <a href="{{ route('characters.index', 'status='.request('status')) }}" class="{{ $component->link() }}">All character types</a>
-                <a href="{{ route('characters.index', 'status='.request('status').'&type=primary') }}" class="{{ $component->link() }} justify-between">
-                    <span>Primary characters</span>
-                    @if (request('type') === 'primary')
-                        @icon('check', 'h-5 w-5')
-                    @endif
-                </a>
-                <a href="{{ route('characters.index', 'status='.request('status').'&type=secondary') }}" class="{{ $component->link() }} justify-between">
-                    <span>Secondary characters</span>
-                    @if (request('type') === 'secondary')
-                        @icon('check', 'h-5 w-5')
-                    @endif
-                </a>
-                <a href="{{ route('characters.index', 'status='.request('status').'&type=support') }}" class="{{ $component->link() }} justify-between">
-                    <span>Support characters</span>
-                    @if (request('type') === 'support')
-                        @icon('check', 'h-5 w-5')
-                    @endif
-                </a>
+                    <x-dropdown.item :href="route('characters.index', 'status='.request('status'))">
+                        All character types
+                    </x-dropdown.item>
+                    <x-dropdown.item :href="route('characters.index', 'status='.request('status').'&type=primary')">
+                        <div class="flex items-center justify-between w-full">
+                            <span>Primary characters</span>
+                            @if (request('type') === 'primary')
+                                @icon('check', 'h-5 w-5')
+                            @endif
+                        </div>
+                    </x-dropdown.item>
+                    <x-dropdown.item :href="route('characters.index', 'status='.request('status').'&type=secondary')">
+                        <div class="flex items-center justify-between w-full">
+                            <span>Secondary characters</span>
+                            @if (request('type') === 'secondary')
+                                @icon('check', 'h-5 w-5')
+                            @endif
+                        </div>
+                    </x-dropdown.item>
+                    <x-dropdown.item :href="route('characters.index', 'status='.request('status').'&type=support')">
+                        <div class="flex items-center justify-between w-full">
+                            <span>Support characters</span>
+                            @if (request('type') === 'support')
+                                @icon('check', 'h-5 w-5')
+                            @endif
+                        </div>
+                    </x-dropdown.item>
+                </x-dropdown.group>
             </x-dropdown>
 
             @can('create', 'Nova\Characters\Models\Character')
@@ -158,58 +174,46 @@
                             <x-dropdown placement="bottom-end">
                                 <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
 
-                                @can('view', $character)
-                                    <a href="{{ route('characters.show', $character) }}" class="{{ $component->link() }}" data-cy="view">
-                                        @icon('show', $component->icon())
-                                        <span>View</span>
-                                    </a>
-                                @endcan
+                                <x-dropdown.group>
+                                    @can('view', $character)
+                                        <x-dropdown.item :href="route('characters.show', $character)" icon="show" data-cy="view">
+                                            <span>View</span>
+                                        </x-dropdown.item>
+                                    @endcan
 
-                                @can('update', $character)
-                                    <a href="{{ route('characters.edit', $character) }}" class="{{ $component->link() }}" data-cy="edit">
-                                        @icon('edit', $component->icon())
-                                        <span>Edit</span>
-                                    </a>
-                                @endcan
+                                    @can('update', $character)
+                                        <x-dropdown.item :href="route('characters.edit', $character)" icon="edit" data-cy="edit">
+                                            <span>Edit</span>
+                                        </x-dropdown.item>
+                                    @endcan
+                                </x-dropdown.group>
 
                                 @can('activate', $character)
-                                    <div class="{{ $component->divider() }}"></div>
-                                    <x-form :action="route('characters.activate', $character)" id="activate"></x-form>
-                                    <button
-                                        type="submit"
-                                        form="activate"
-                                        class="{{ $component->link() }}"
-                                        data-cy="activate"
-                                    >
-                                        @icon('check-alt', $component->icon())
-                                        <span>Activate</span>
-                                    </button>
+                                    <x-dropdown.group>
+                                        <x-dropdown.item type="submit" icon="check-alt" form="activate" data-cy="activate">
+                                            <span>Activate</span>
+
+                                            <x-slot name="buttonForm">
+                                                <x-form :action="route('characters.activate', $character)" id="activate" />
+                                            </x-slot>
+                                        </x-dropdown.item>
+                                    </x-dropdown.group>
                                 @endcan
 
                                 @can('deactivate', $character)
-                                    <div class="{{ $component->divider() }}"></div>
-                                    <button
-                                        x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-deactivate', {{ json_encode($character) }});"
-                                        type="button"
-                                        form="deactivate"
-                                        class="{{ $component->link() }}"
-                                        data-cy="deactivate"
-                                    >
-                                        @icon('remove-alt', $component->icon())
-                                        <span>Deactivate</span>
-                                    </button>
+                                    <x-dropdown.group>
+                                        <x-dropdown.item type="button" icon="remove-alt" data-cy="deactivate" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-deactivate', {{ json_encode($character) }});">
+                                            <span>Deactivate</span>
+                                        </x-dropdown.item>
+                                    </x-dropdown.group>
                                 @endcan
 
                                 @can('delete', $character)
-                                    <div class="{{ $component->divider() }}"></div>
-                                    <button
-                                        x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($character) }});"
-                                        class="{{ $component->link() }}"
-                                        data-cy="delete"
-                                    >
-                                        @icon('delete', $component->icon())
-                                        <span>Delete</span>
-                                    </button>
+                                    <x-dropdown.group>
+                                        <x-dropdown.item type="button" icon="delete" data-cy="delete" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($character) }});">
+                                            <span>Delete</span>
+                                        </x-dropdown.item>
+                                    </x-dropdown.group>
                                 @endcan
                             </x-dropdown>
                         </div>

@@ -1,6 +1,60 @@
 @extends($__novaTemplate)
 
 @section('content')
+    <div class="space-y-3 mb-8">
+        <div class="w-72 space-y-2">
+            <label class="text-sm font-semibold text-gray-600">Sex</label>
+
+            <div class="flex items-center rounded-full space-x-1 overflow-hidden text-sm font-semibold">
+                <div class="flex-1 py-0.5 bg-green-500 text-white text-center">0</div>
+                <a href="#" class="flex-1 py-0.5 bg-gray-300 hover:bg-gray-400 text-white text-center transition ease-in-out duration-150">&nbsp;</a>
+                <a href="#" class="flex-1 py-0.5 bg-gray-300 hover:bg-gray-400 text-white text-center transition ease-in-out duration-150">&nbsp;</a>
+                <a href="#" class="flex-1 py-0.5 bg-gray-300 hover:bg-gray-400 text-white text-center transition ease-in-out duration-150">&nbsp;</a>
+            </div>
+
+            <div class="text-sm text-gray-500 italic">No sexual content.</div>
+        </div>
+
+        <div class="w-72 space-y-2">
+            <label class="text-sm font-semibold text-gray-600">Violence</label>
+
+            <div class="flex items-center rounded-full space-x-1 overflow-hidden text-sm font-semibold">
+                <div class="flex-1 py-0.5 bg-yellow-500 text-white text-center">&nbsp;</div>
+                <div class="flex-1 py-0.5 bg-yellow-500 text-white text-center">1</div>
+                <div class="flex-1 py-0.5 bg-gray-300 text-white text-center">&nbsp;</div>
+                <div class="flex-1 py-0.5 bg-gray-300 text-white text-center">&nbsp;</div>
+            </div>
+
+            <div class="text-sm text-gray-500 italic">Mild violence.</div>
+        </div>
+
+        <div class="w-72 space-y-2">
+            <label class="text-sm font-semibold text-gray-600">Violence</label>
+
+            <div class="flex items-center rounded-full space-x-1 overflow-hidden text-sm font-semibold">
+                <div class="flex-1 py-0.5 bg-orange-500 text-white text-center">&nbsp;</div>
+                <div class="flex-1 py-0.5 bg-orange-500 text-white text-center">&nbsp;</div>
+                <div class="flex-1 py-0.5 bg-orange-500 text-white text-center">2</div>
+                <div class="flex-1 py-0.5 bg-gray-300 text-white text-center">&nbsp;</div>
+            </div>
+
+            <div class="text-sm text-gray-500 italic">Violence is permitted, with some limitations.</div>
+        </div>
+
+        <div class="w-72 space-y-2">
+            <label class="text-sm font-semibold text-gray-600">Language</label>
+
+            <div class="flex items-center rounded-full space-x-1 overflow-hidden text-sm font-semibold">
+                <div class="flex-1 py-0.5 bg-red-500 text-white text-center">&nbsp;</div>
+                <div class="flex-1 py-0.5 bg-red-500 text-white text-center">&nbsp;</div>
+                <div class="flex-1 py-0.5 bg-red-500 text-white text-center">&nbsp;</div>
+                <div class="flex-1 py-0.5 bg-red-500 text-white text-center">3</div>
+            </div>
+
+            <div class="text-sm text-gray-500 italic">Swearing and mature language is permitted.</div>
+        </div>
+    </div>
+
     <header class="space-y-2">
         <p class="text-base font-medium text-gray-500">Season 1 - Into the Deep</p>
 

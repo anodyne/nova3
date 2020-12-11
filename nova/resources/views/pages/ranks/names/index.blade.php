@@ -96,38 +96,36 @@
                                 <x-dropdown placement="bottom-end">
                                     <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
 
-                                    @can('view', $name)
-                                        <a href="{{ route('ranks.names.show', $name) }}" class="{{ $component->link() }}" data-cy="view">
-                                            @icon('show', $component->icon())
-                                            <span>View</span>
-                                        </a>
-                                    @endcan
+                                    <x-dropdown.group>
+                                        @can('view', $name)
+                                            <x-dropdown.item :href="route('ranks.names.show', $name)" icon="show" data-cy="view">
+                                                <span>View</span>
+                                            </x-dropdown.item>
+                                        @endcan
 
-                                    @can('update', $name)
-                                        <a href="{{ route('ranks.names.edit', $name) }}" class="{{ $component->link() }}" data-cy="edit">
-                                            @icon('edit', $component->icon())
-                                            <span>Edit</span>
-                                        </a>
-                                    @endcan
+                                        @can('update', $name)
+                                            <x-dropdown.item :href="route('ranks.names.edit', $name)" icon="edit" data-cy="edit">
+                                                <span>Edit</span>
+                                            </x-dropdown.item>
+                                        @endcan
 
-                                    @can('duplicate', $name)
-                                        <button type="submit" class="{{ $component->link() }}" form="duplicate-{{ $name->id }}" data-cy="duplicate">
-                                            @icon('duplicate', $component->icon())
-                                            <span>Duplicate</span>
-                                        </button>
-                                        <x-form :action="route('ranks.names.duplicate', $name)" id="duplicate-{{ $name->id }}" class="hidden" />
-                                    @endcan
+                                        @can('duplicate', $name)
+                                            <x-dropdown.item type="submit" icon="duplicate" form="duplicate-{{ $name->id }}" data-cy="duplicate">
+                                                <span>Duplicate</span>
+
+                                                <x-slot name="buttonForm">
+                                                    <x-form :action="route('ranks.names.duplicate', $name)" id="duplicate-{{ $name->id }}" class="hidden" />
+                                                </x-slot>
+                                            </x-dropdown.item>
+                                        @endcan
+                                    </x-dropdown.group>
 
                                     @can('delete', $name)
-                                        <div class="{{ $component->divider() }}"></div>
-                                        <button
-                                            x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($name) }});"
-                                            class="{{ $component->link() }}"
-                                            data-cy="delete"
-                                        >
-                                            @icon('delete', $component->icon())
-                                            <span>Delete</span>
-                                        </button>
+                                        <x-dropdown.group>
+                                            <x-dropdown.item type="button" icon="delete" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($name) }});" data-cy="delete">
+                                                <span>Delete</span>
+                                            </x-dropdown.item>
+                                        </x-dropdown.group>
                                     @endcan
                                 </x-dropdown>
                             </div>

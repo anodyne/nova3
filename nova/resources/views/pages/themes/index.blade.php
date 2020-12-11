@@ -10,11 +10,14 @@
             <x-dropdown placement="bottom-end">
                 <x-slot name="trigger">@icon('filter', 'h-6 w-6')</x-slot>
 
-                <div class="{{ $component->text() }} uppercase tracking-wide font-semibold text-gray-500">
-                    Filter themes
-                </div>
-                <a href="{{ route('themes.index') }}" class="{{ $component->link() }}">All themes</a>
-                <a href="{{ route('themes.index') }}?pending" class="{{ $component->link() }}">Pending themes</a>
+                <x-dropdown.group>
+                    <x-dropdown.text class="uppercase tracking-wide font-semibold text-gray-500">
+                        Filter themes
+                    </x-dropdown.text>
+
+                    <x-dropdown.item :href="route('themes.index')">All themes</x-dropdown.item>
+                    <x-dropdown.item :href="route('themes.index', 'pending')">Pending themes</x-dropdown.item>
+                </x-dropdown.group>
             </x-dropdown>
 
             @can('create', 'Nova\Themes\Models\Theme')
@@ -44,36 +47,32 @@
                             <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
 
                             @if (! $theme->exists)
-                                <button
-                                    class="{{ $component->link() }}"
-                                    type="submit"
-                                    form="install-form-{{ $theme->location }}"
-                                    role="menuitem"
-                                >
-                                    @icon('arrow-right-alt', $component->icon())
-                                    <span>Install</span>
-                                </button>
+                                <x-dropdown.group>
+                                    <x-dropdown.item type="submit" icon="arrow-right-alt" form="install-form-{{ $theme->location }}">
+                                        <span>Install</span>
 
-                                <x-form :action="route('themes.install')" id="install-form-{{ $theme->location }}">
-                                    <input type="hidden" name="theme" value="{{ $theme->location }}">
-                                </x-form>
+                                        <x-slot name="buttonForm">
+                                            <x-form :action="route('themes.install')" id="install-form-{{ $theme->location }}">
+                                                <input type="hidden" name="theme" value="{{ $theme->location }}">
+                                            </x-form>
+                                        </x-slot>
+                                    </x-dropdown.item>
+                                </x-dropdown.group>
                             @else
                                 @can('update', $theme)
-                                    <a href="{{ route('themes.edit', $theme) }}" class="{{ $component->link() }}">
-                                        @icon('edit', $component->icon())
-                                        <span>Edit</span>
-                                    </a>
+                                    <x-dropdown.group>
+                                        <x-dropdown.item :href="route('themes.edit', $theme)" icon="edit">
+                                            <span>Edit</span>
+                                        </x-dropdown.item>
+                                    </x-dropdown.group>
                                 @endcan
 
                                 @can('delete', $theme)
-                                    <div class="{{ $component->divider() }}"></div>
-                                    <button
-                                        x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($theme) }});"
-                                        class="{{ $component->link() }}"
-                                    >
-                                        @icon('delete', $component->icon())
-                                        <span>Delete</span>
-                                    </button>
+                                    <x-dropdown.group>
+                                        <x-dropdown.item type="button" icon="delete" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($theme) }});">
+                                            <span>Delete</span>
+                                        </x-dropdown.item>
+                                    </x-dropdown.group>
                                 @endcan
                             @endif
                         </x-dropdown>
