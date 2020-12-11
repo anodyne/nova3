@@ -1,5 +1,5 @@
 <template>
-    <div class="editor group flex flex-col items-start relative w-full rounded-md py-2 px-3 border border-gray-200 shadow-sm bg-white transition ease-in-out duration-200 focus-within:border-blue-300 focus-within:shadow-outline-blue space-y-6">
+    <div class="editor group flex flex-col items-start relative w-full space-y-6">
         <editor-menu-bar v-slot="{ commands, isActive }" v-bind:editor="editor">
             <div class="menubar">
                 <button
