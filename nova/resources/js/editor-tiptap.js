@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import 'livewire-vue';
-import PostsEditor from './components/PostsEditor';
+import PostsEditor from './components/PostsEditor.vue';
 
 window.Vue = Vue;
 
