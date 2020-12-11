@@ -4,44 +4,37 @@
             <x-dropdown placement="bottom-end">
                 <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
 
-                <a href="#" class="{{ $component->link() }}" data-cy="view">
-                    @icon('show', $component->icon())
-                    <span>View</span>
-                </a>
+                <x-dropdown.group>
+                    <x-dropdown.item icon="show" data-cy="view">
+                        <span>View</span>
+                    </x-dropdown.item>
 
-                @can('update', $post)
-                    <a href="#" class="{{ $component->link() }}" data-cy="edit">
-                        @icon('edit', $component->icon())
-                        <span>Edit</span>
-                    </a>
-                @endcan
+                    @can('update', $post)
+                        <x-dropdown.item icon="edit" data-cy="edit">
+                            <span>Edit</span>
+                        </x-dropdown.item>
+                    @endcan
+                </x-dropdown.group>
 
-                <div class="{{ $component->divider() }}"></div>
+                <x-dropdown.group>
+                    <x-dropdown.text class="uppercase tracking-wide font-semibold text-gray-500">
+                        Add a post
+                    </x-dropdown.text>
 
-                <div class="uppercase tracking-wide font-semibold text-gray-400 {{ $component->text() }}">
-                    Add a post
-                </div>
-
-                <a href="{{ route('posts.create', "direction=before&neighbor={$post->id}") }}" class="{{ $component->link() }}">
-                    @icon('move-up', $component->icon())
-                    <span>Before this post</span>
-                </a>
-
-                <a href="{{ route('posts.create', "direction=after&neighbor={$post->id}") }}" class="{{ $component->link() }}">
-                    @icon('move-down', $component->icon())
-                    <span>After this post</span>
-                </a>
+                    <x-dropdown.item :href='route("posts.create", "direction=before&neighbor={$post->id}")' icon="move-up">
+                        <span>Before this post</span>
+                    </x-dropdown.item>
+                    <x-dropdown.item :href='route("posts.create", "direction=after&neighbor={$post->id}")' icon="move-down">
+                        <span>After this post</span>
+                    </x-dropdown.item>
+                </x-dropdown.group>
 
                 @can('delete', $post)
-                    <div class="{{ $component->divider() }}"></div>
-                    <button
-                        x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($post) }});"
-                        class="{{ $component->link() }}"
-                        data-cy="delete"
-                    >
-                        @icon('delete', $component->icon())
-                        <span>Delete</span>
-                    </button>
+                    <x-dropdown.group>
+                        <x-dropdown.item type="button" icon="delete" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($post) }});" data-cy="delete">
+                            <span>Delete</span>
+                        </x-dropdown.item>
+                    </x-dropdown.group>
                 @endcan
             </x-dropdown>
         </div>

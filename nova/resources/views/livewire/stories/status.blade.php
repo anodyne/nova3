@@ -19,30 +19,40 @@
                 </x-badge>
             </x-slot>
 
-            <button wire:click="updateStatus('upcoming')" class="{{ $component->link() }} justify-between">
-                <span>Upcoming</span>
-                @if (Str::contains($story->status, 'Upcoming'))
-                    @icon('check-alt', 'h-5 w-5 text-blue-500 flex-shrink-0')
-                @endif
-            </button>
-            <button wire:click="updateStatus('current')" class="{{ $component->link() }} justify-between">
-                <span>Current (with posting)</span>
-                @if (Str::contains($story->status, 'Current') && $story->allow_posting)
-                    @icon('check-alt', 'h-5 w-5 text-blue-500 flex-shrink-0')
-                @endif
-            </button>
-            <button wire:click="updateStatus('current', false)" class="{{ $component->link() }} justify-between">
-                <span>Current (no posting)</span>
-                @if (Str::contains($story->status, 'Current') && ! $story->allow_posting)
-                    @icon('check-alt', 'h-5 w-5 text-blue-500 flex-shrink-0')
-                @endif
-            </button>
-            <button wire:click="updateStatus('completed')" class="{{ $component->link() }} justify-between">
-                <span>Completed</span>
-                @if (Str::contains($story->status, 'Completed'))
-                    @icon('check-alt', 'h-5 w-5 text-blue-500 flex-shrink-0')
-                @endif
-            </button>
+            <x-dropdown.group>
+                <x-dropdown.item type="button" wire:click="updateStatus('upcoming')">
+                    <div class="flex items-center justify-between w-full">
+                        <span>Upcoming</span>
+                        @if (Str::contains($story->status, 'Upcoming'))
+                            @icon('check-alt', 'h-5 w-5 text-blue-500 flex-shrink-0')
+                        @endif
+                    </div>
+                </x-dropdown.item>
+                <x-dropdown.item type="button" wire:click="updateStatus('current')">
+                    <div class="flex items-center justify-between w-full">
+                        <span>Current (with posting)</span>
+                        @if (Str::contains($story->status, 'Current') && $story->allow_posting)
+                            @icon('check-alt', 'h-5 w-5 text-blue-500 flex-shrink-0')
+                        @endif
+                    </div>
+                </x-dropdown.item>
+                <x-dropdown.item type="button" wire:click="updateStatus('current', false)">
+                    <div class="flex items-center justify-between w-full">
+                        <span>Current (no posting)</span>
+                        @if (Str::contains($story->status, 'Current') && ! $story->allow_posting)
+                            @icon('check-alt', 'h-5 w-5 text-blue-500 flex-shrink-0')
+                        @endif
+                    </div>
+                </x-dropdown.item>
+                <x-dropdown.item type="button" wire:click="updateStatus('completed')">
+                    <div class="flex items-center justify-between w-full">
+                        <span>Completed</span>
+                        @if (Str::contains($story->status, 'Completed'))
+                            @icon('check-alt', 'h-5 w-5 text-blue-500 flex-shrink-0')
+                        @endif
+                    </div>
+                </x-dropdown.item>
+            </x-dropdown.group>
         </x-dropdown>
     @endcan
 

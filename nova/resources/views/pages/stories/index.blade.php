@@ -7,18 +7,24 @@
                 <x-dropdown placement="bottom-end">
                     <x-slot name="trigger">@icon('filter', 'h-6 w-6')</x-slot>
 
-                    <a href="{{ route('stories.index', 'sort=asc') }}" class="{{ $component->link() }} justify-between">
-                        <span>Sort by newest first</span>
-                        @if (request('sort') === 'asc')
-                            @icon('check', 'h-5 w-5')
-                        @endif
-                    </a>
-                    <a href="{{ route('stories.index', 'sort=desc') }}" class="{{ $component->link() }} justify-between">
-                        <span>Sort by oldest first</span>
-                        @if (request('sort') === 'desc')
-                            @icon('check', 'h-5 w-5')
-                        @endif
-                    </a>
+                    <x-dropdown.group>
+                        <x-dropdown.item :href="route('stories.index', 'sort=asc')">
+                            <div class="flex items-center justify-between w-full">
+                                <span>Sort by newest first</span>
+                                @if (request('sort') === 'asc')
+                                    @icon('check', 'h-5 w-5')
+                                @endif
+                            </div>
+                        </x-dropdown.item>
+                        <x-dropdown.item :href="route('stories.index', 'sort=desc')">
+                            <div class="flex items-center justify-between w-full">
+                                <span>Sort by oldest first</span>
+                                @if (request('sort') === 'desc')
+                                    @icon('check', 'h-5 w-5')
+                                @endif
+                            </div>
+                        </x-dropdown.item>
+                    </x-dropdown.group>
                 </x-dropdown>
 
                 @can('create', 'Nova\Stories\Models\Story')

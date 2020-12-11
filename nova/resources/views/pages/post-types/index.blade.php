@@ -85,38 +85,36 @@
                             <x-dropdown placement="bottom-end">
                                 <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
 
-                                @can('view', $postType)
-                                    <a href="{{ route('post-types.show', $postType) }}" class="{{ $component->link() }}" data-cy="view">
-                                        @icon('show', $component->icon())
-                                        <span>View</span>
-                                    </a>
-                                @endcan
+                                <x-dropdown.group>
+                                    @can('view', $postType)
+                                        <x-dropdown.item :href="route('post-types.show', $postType)" icon="show" data-cy="view">
+                                            <span>View</span>
+                                        </x-dropdown.item>
+                                    @endcan
 
-                                @can('update', $postType)
-                                    <a href="{{ route('post-types.edit', $postType) }}" class="{{ $component->link() }}" data-cy="edit">
-                                        @icon('edit', $component->icon())
-                                        <span>Edit</span>
-                                    </a>
-                                @endcan
+                                    @can('update', $postType)
+                                        <x-dropdown.item :href="route('post-types.edit', $postType)" icon="edit" data-cy="edit">
+                                            <span>Edit</span>
+                                        </x-dropdown.item>
+                                    @endcan
 
-                                @can('duplicate', $postType)
-                                    <button type="submit" class="{{ $component->link() }}" form="duplicate-{{ $postType->id }}" data-cy="duplicate">
-                                        @icon('duplicate', $component->icon())
-                                        <span>Duplicate</span>
-                                    </button>
-                                    <x-form :action="route('post-types.duplicate', $postType)" id="duplicate-{{ $postType->id }}" class="hidden" />
-                                @endcan
+                                    @can('duplicate', $postType)
+                                        <x-dropdown.item type="submit" icon="duplicate" form="duplicate-{{ $postType->id }}" data-cy="duplicate">
+                                            <span>Duplicate</span>
+
+                                            <x-slot name="buttonForm">
+                                                <x-form :action="route('post-types.duplicate', $postType)" id="duplicate-{{ $postType->id }}" class="hidden" />
+                                            </x-slot>
+                                        </x-dropdown.item>
+                                    @endcan
+                                </x-dropdown.group>
 
                                 @can('delete', $postType)
-                                    <div class="{{ $component->divider() }}"></div>
-                                    <button
-                                        x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($postType) }});"
-                                        class="{{ $component->link() }}"
-                                        data-cy="delete"
-                                    >
-                                        @icon('delete', $component->icon())
-                                        <span>Delete</span>
-                                    </button>
+                                    <x-dropdown.group>
+                                        <x-dropdown.item type="button" icon="delete" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($postType) }});" data-cy="delete">
+                                            <span>Delete</span>
+                                        </x-dropdown.item>
+                                    </x-dropdown.group>
                                 @endcan
                             </x-dropdown>
                         </div>

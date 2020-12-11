@@ -105,58 +105,46 @@
                             <x-dropdown placement="bottom-end">
                                 <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
 
-                                @can('view', $user)
-                                    <a href="{{ route('users.show', $user) }}" class="{{ $component->link() }}" data-cy="view">
-                                        @icon('show', $component->icon())
-                                        <span>View</span>
-                                    </a>
-                                @endcan
+                                <x-dropdown.group>
+                                    @can('view', $user)
+                                        <x-dropdown.item :href="route('users.show', $user)" icon="show" data-cy="view">
+                                            <span>View</span>
+                                        </x-dropdown.item>
+                                    @endcan
 
-                                @can('update', $user)
-                                    <a href="{{ route('users.edit', $user) }}" class="{{ $component->link() }}" data-cy="edit">
-                                        @icon('edit', $component->icon())
-                                        <span>Edit</span>
-                                    </a>
-                                @endcan
+                                    @can('update', $user)
+                                        <x-dropdown.item :href="route('users.edit', $user)" icon="edit" data-cy="edit">
+                                            <span>Edit</span>
+                                        </x-dropdown.item>
+                                    @endcan
+                                </x-dropdown.group>
 
                                 @can('activate', $user)
-                                    <div class="{{ $component->divider() }}"></div>
-                                    <x-form :action="route('users.activate', $user)" id="activate"></x-form>
-                                    <button
-                                        type="submit"
-                                        form="activate"
-                                        class="{{ $component->link() }}"
-                                        data-cy="activate"
-                                    >
-                                        @icon('check-alt', $component->icon())
-                                        <span>Activate</span>
-                                    </button>
+                                    <x-dropdown.group>
+                                        <x-dropdown.item type="submit" id="check-alt" form="activate" data-cy="activate">
+                                            <span>Activate</span>
+
+                                            <x-slot name="buttonForm">
+                                                <x-form :action="route('users.activate', $user)" id="activate" />
+                                            </x-slot>
+                                        </x-dropdown.item>
+                                    </x-dropdown.group>
                                 @endcan
 
                                 @can('deactivate', $user)
-                                    <div class="{{ $component->divider() }}"></div>
-                                    <button
-                                        x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-deactivate', {{ json_encode($user) }});"
-                                        type="button"
-                                        form="deactivate"
-                                        class="{{ $component->link() }}"
-                                        data-cy="deactivate"
-                                    >
-                                        @icon('remove-alt', $component->icon())
-                                        <span>Deactivate</span>
-                                    </button>
+                                    <x-dropdown.group>
+                                        <x-dropdown.item type="button" icon="remove-alt" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-deactivate', {{ json_encode($user) }});" form="deactivate" data-cy="deactivate">
+                                            <span>Deactivate</span>
+                                        </x-dropdown.item>
+                                    </x-dropdown.group>
                                 @endcan
 
                                 @can('delete', $user)
-                                    <div class="{{ $component->divider() }}"></div>
-                                    <button
-                                        x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($user) }});"
-                                        class="{{ $component->link() }}"
-                                        data-cy="delete"
-                                    >
-                                        @icon('delete', $component->icon())
-                                        <span>Delete</span>
-                                    </button>
+                                    <x-dropdown.group>
+                                        <x-dropdown.item type="button" icon="delete" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($user) }});" data-cy="delete">
+                                            <span>Delete</span>
+                                        </x-dropdown.item>
+                                    </x-dropdown.group>
                                 @endcan
                             </x-dropdown>
                         </div>

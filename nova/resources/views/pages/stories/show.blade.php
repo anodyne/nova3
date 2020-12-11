@@ -24,45 +24,55 @@
                     <x-dropdown placement="bottom-end" wide class="mr-4">
                         <x-slot name="trigger">@icon('filter', 'h-6 w-6')</x-slot>
 
-                        <div class="{{ $component->text() }}">
-                            <x-input.checkbox for="story_posts" id="story_posts" label="Show story posts" checked />
-                        </div>
-                        <div class="{{ $component->text() }}">
-                            <x-input.checkbox label="Show journel entries" checked />
-                        </div>
-                        <div class="{{ $component->text() }}">
-                            <x-input.checkbox label="Show markers" checked />
-                        </div>
-                        <div class="{{ $component->text() }}">
-                            <x-input.checkbox label="Show story notes" checked />
-                        </div>
-                        <div class="{{ $component->text() }} space-x-2">
-                            <x-button color="blue" size="xs">Apply</x-button>
-                            <x-button color="white" size="xs">Reset</x-button>
-                        </div>
+                        <x-dropdown.group>
+                            <x-dropdown.text>
+                                <x-input.checkbox for="story_posts" id="story_posts" label="Show story posts" checked />
+                            </x-dropdown.text>
+                            <x-dropdown.text>
+                                <x-input.checkbox label="Show journel entries" checked />
+                            </x-dropdown.text>
+                            <x-dropdown.text>
+                                <x-input.checkbox label="Show markers" checked />
+                            </x-dropdown.text>
+                            <x-dropdown.text>
+                                <x-input.checkbox label="Show story notes" checked />
+                            </x-dropdown.text>
+                            <x-dropdown.text class="space-x-2">
+                                <x-button color="blue" size="xs">Apply</x-button>
+                                <x-button color="white" size="xs">Reset</x-button>
+                            </x-dropdown.text>
+                        </x-dropdown.group>
                     </x-dropdown>
 
                     <x-dropdown placement="bottom-end" wide>
                         <x-slot name="trigger">@icon('arrow-sort', 'h-6 w-6')</x-slot>
 
-                        <a href="{{ route('stories.show', [$story, 'sort=asc']) }}" class="{{ $component->link() }} justify-between">
-                            <span>Sort by newest chronologically</span>
-                            @if (request('sort') === 'asc')
-                                @icon('check', 'h-5 w-5')
-                            @endif
-                        </a>
-                        <a href="{{ route('stories.show', [$story, 'sort=desc']) }}" class="{{ $component->link() }} justify-between">
-                            <span>Sort by oldest chronologically</span>
-                            @if (request('sort') === 'desc')
-                                @icon('check', 'h-5 w-5')
-                            @endif
-                        </a>
-                        <a href="{{ route('stories.show', [$story, 'sort=published']) }}" class="{{ $component->link() }} justify-between">
-                            <span>Sort by published</span>
-                            @if (request('sort') === 'published')
-                                @icon('check', 'h-5 w-5')
-                            @endif
-                        </a>
+                        <x-dropdown.group>
+                            <x-dropdown.item :href="route('stories.show', [$story, 'sort=asc'])">
+                                <div class="flex items-center justify-between w-full">
+                                    <span>Sort by newest chronologically</span>
+                                    @if (request('sort') === 'asc')
+                                        @icon('check', 'h-5 w-5')
+                                    @endif
+                                </div>
+                            </x-dropdown.item>
+                            <x-dropdown.item :href="route('stories.show', [$story, 'sort=desc'])">
+                                <div class="flex items-center justify-between w-full">
+                                    <span>Sort by oldest chronologically</span>
+                                    @if (request('sort') === 'desc')
+                                        @icon('check', 'h-5 w-5')
+                                    @endif
+                                </div>
+                            </x-dropdown.item>
+                            <x-dropdown.item :href="route('stories.show', [$story, 'sort=published'])">
+                                <div class="flex items-center justify-between w-full">
+                                    <span>Sort by published</span>
+                                    @if (request('sort') === 'published')
+                                        @icon('check', 'h-5 w-5')
+                                    @endif
+                                </div>
+                            </x-dropdown.item>
+                        </x-dropdown.group>
                     </x-dropdown>
                 </div>
             </div>

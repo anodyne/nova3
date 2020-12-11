@@ -249,12 +249,16 @@
                             <x-avatar size="xs" :src="auth()->user()->avatar_url" :tooltip="auth()->user()->name" />
                         </x-slot>
 
-                        <button class="{{ $component->link() }}" form="logout-form" role="menuitem">
-                            @icon('sign-out', $component->icon())
-                            <span>Sign out</span>
-                        </button>
+                        <x-dropdown.group>
+                            <x-dropdown.item type="submit" icon="sign-out" form="logout-form">
+                                <span>Sign out</span>
 
-                        <x-form :action="route('logout')" class="hidden" id="logout-form" />
+                                <x-slot name="buttonForm">
+                                    <x-form :action="route('logout')" class="hidden" id="logout-form" />
+                                </x-slot>
+                            </x-dropdown.item>
+                        </x-dropdown.group>
+
                     </x-dropdown>
                 </div>
             </div>
