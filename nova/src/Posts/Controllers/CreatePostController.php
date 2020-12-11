@@ -4,7 +4,7 @@ namespace Nova\Posts\Controllers;
 
 use Nova\Foundation\Controllers\Controller;
 use Nova\Posts\Models\Post;
-use Nova\Posts\Responses\CreatePostResponse;
+use Nova\Posts\Responses\ComposePostResponse;
 use Nova\PostTypes\Models\PostType;
 use Nova\Stories\Models\Story;
 
@@ -25,7 +25,7 @@ class CreatePostController extends Controller
             ->get()
             ->filter(fn ($postType) => auth()->user()->can('write', $postType));
 
-        return app(CreatePostResponse::class)->with([
+        return app(ComposePostResponse::class)->with([
             'postType' => $postType,
             'stories' => Story::wherePostable()->get(),
         ]);

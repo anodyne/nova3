@@ -8,7 +8,7 @@ use Nova\Posts\Livewire\PickPostType;
 use Nova\Posts\Livewire\WritePost;
 use Nova\Posts\Models\Post;
 use Nova\Posts\Policies\PostPolicy;
-use Nova\Posts\Responses\CreatePostResponse;
+use Nova\Posts\Responses\ComposePostResponse;
 use Nova\Posts\Responses\SelectPostTypeResponse;
 
 class PostServiceProvider extends DomainServiceProvider
@@ -24,7 +24,7 @@ class PostServiceProvider extends DomainServiceProvider
     ];
 
     protected $responsables = [
-        CreatePostResponse::class,
+        ComposePostResponse::class,
         SelectPostTypeResponse::class,
     ];
 }

@@ -4,7 +4,7 @@ namespace Nova\Posts\Responses;
 
 use Nova\Foundation\Responses\Responsable;
 
-class SelectPostTypeResponse extends Responsable
+class ComposePostResponse extends Responsable
 {
-    public $view = 'posts.create';
+    public $view = 'posts.compose';
 }
