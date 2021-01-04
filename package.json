@@ -17,7 +17,7 @@
         "alpinejs": "^2.7.3",
         "animate.css": "^3.7",
         "autoprefixer": "^10.0.4",
-        "axios": "^0.19.2",
+        "axios": "^0.21.1",
         "countable": "^3.0.1",
         "cross-env": "^5.1",
         "hex-to-rgba": "^2.0.1",
