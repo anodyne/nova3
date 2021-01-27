@@ -69,7 +69,7 @@ jobs:
                 php artisan key:generate --env=testing
 
             - name: Execute tests
-              run: nova/vendor/bin/phpunit --stop-on-failure
+              run: php artisan test --parallel
 
             - name: Deploy to Forge
               if: github.ref == 'refs/heads/dev'
