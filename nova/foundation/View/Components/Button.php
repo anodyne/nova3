@@ -22,7 +22,7 @@ class Button extends Component
 
     public function baseStyles()
     {
-        $styles = 'inline-flex items-center border rounded-md transition ease-in-out duration-150 focus:outline-none disabled:cursor-not-allowed disabled:opacity-75';
+        $styles = 'inline-flex items-center text-center justify-center border rounded-md transition ease-in-out duration-150 focus:outline-none disabled:cursor-not-allowed disabled:opacity-75';
 
         if (! Str::endsWith($this->color, ['-text'])) {
             $styles .= ' uppercase tracking-wide font-semibold';
