@@ -1,9 +1,19 @@
-import Vue from 'vue';
-import 'livewire-vue';
-import PostsEditor from './components/PostsEditor.vue';
+import { Editor } from '@tiptap/core';
+import { defaultExtensions } from '@tiptap/starter-kit';
 
-window.Vue = Vue;
+window.tiptap = new Editor({
+    element: document.querySelector('.tiptap-editor'),
+    extensions: defaultExtensions(),
+    content: '<p>Your content.</p>'
+});
 
-Vue.component('posts-editor', PostsEditor);
+window.tiptap.on('update', () => {
+    console.log(this);
 
-window.vm = new Vue().$mount('#app');
+    const html = this.getHTML();
+
+    this.element.dispatchEvent(new CustomEvent(
+        'tiptap-updated',
+        { detail: html }
+    ));
+});
