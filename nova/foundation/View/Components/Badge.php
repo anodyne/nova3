@@ -60,6 +60,11 @@ class Badge extends Component
                 return 'bg-yellow-100 text-yellow-800';
 
                 break;
+
+            case 'dark-gray':
+                return 'bg-gray-800 text-gray-100';
+
+                break;
         }
     }
 
