@@ -1,19 +1,38 @@
-import { Editor } from '@tiptap/core';
+import { Editor as TipTap } from '@tiptap/core';
 import { defaultExtensions } from '@tiptap/starter-kit';
 
-window.tiptap = new Editor({
-    element: document.querySelector('.tiptap-editor'),
-    extensions: defaultExtensions(),
-    content: '<p>Your content.</p>'
-});
+window.setupEditor = content => ({
+    content,
+    inFocus: false,
+    // updatedAt is to force Alpine to
+    // rerender on selection change
+    updatedAt: Date.now(),
+    editor: null,
 
-window.tiptap.on('update', () => {
-    console.log(this);
+    init (el) {
+        const editor = new TipTap({
+            element: el,
+            extensions: defaultExtensions(),
+            content: this.content,
+            editorProps: {
+                attributes: {
+                    class: 'prose py-4 focus:outline-none'
+                }
+            }
+        });
 
-    const html = this.getHTML();
+        editor.on('update', () => {
+            this.content = this.editor.getHTML();
+        });
 
-    this.element.dispatchEvent(new CustomEvent(
-        'tiptap-updated',
-        { detail: html }
-    ));
+        editor.on('focus', () => {
+            this.inFocus = true;
+        });
+
+        editor.on('selection', () => {
+            this.updatedAt = Date.now();
+        });
+
+        this.editor = editor;
+    }
 });

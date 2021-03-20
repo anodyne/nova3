@@ -20,8 +20,8 @@
                     </x-input.text>
                 </x-input.group>
 
-                <div class="flex items-center">
-                    <x-dropdown placement="bottom-end" wide class="mr-4">
+                <div class="flex items-center space-x-2">
+                    <x-dropdown placement="bottom-end" wide>
                         <x-slot name="trigger">@icon('filter', 'h-6 w-6')</x-slot>
 
                         <x-dropdown.group>
@@ -29,7 +29,7 @@
                                 <x-input.checkbox for="story_posts" id="story_posts" label="Show story posts" checked />
                             </x-dropdown.text>
                             <x-dropdown.text>
-                                <x-input.checkbox label="Show journel entries" checked />
+                                <x-input.checkbox label="Show journal entries" checked />
                             </x-dropdown.text>
                             <x-dropdown.text>
                                 <x-input.checkbox label="Show markers" checked />
