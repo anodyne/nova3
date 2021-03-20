@@ -111,7 +111,7 @@
             <x-slot name="message">
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia quam eius provident ex modi nam, at ullam quia labore similique.</p>
 
-                <p class="mt-6"><strong>Note:</strong> Your post's ratings will match the game's overall ratings until you change them for this post.</p>
+                <p><strong>Note:</strong> Your post's ratings will match the game's overall ratings until you change them for this post.</p>
             </x-slot>
 
             <x-input.group label="Language" class="w-72">

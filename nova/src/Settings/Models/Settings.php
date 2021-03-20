@@ -4,8 +4,11 @@ namespace Nova\Settings\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Nova\Settings\Models\Builders\SettingsBuilder;
+use Nova\Settings\Values\Characters;
 use Nova\Settings\Values\Defaults;
 use Nova\Settings\Values\Discord;
+use Nova\Settings\Values\Email;
+use Nova\Settings\Values\General;
 
 class Settings extends Model
 {
@@ -16,10 +19,10 @@ class Settings extends Model
     ];
 
     protected $casts = [
-        'general' => 'json',
-        'email' => 'json',
+        'general' => General::class,
+        'email' => Email::class,
         'defaults' => Defaults::class,
-        'characters' => 'json',
+        'characters' => Characters::class,
         'meta_data' => 'json',
         'discord' => Discord::class,
     ];

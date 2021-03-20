@@ -2,22 +2,30 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Nova\Settings\Models\Settings;
+use Nova\Settings\Values\Characters;
 use Nova\Settings\Values\Defaults;
 use Nova\Settings\Values\Discord;
+use Nova\Settings\Values\Email;
+use Nova\Settings\Values\General;
 
 class PopulateSettingsTable extends Migration
 {
     public function up()
     {
         $settings = [
-            'general' => [],
-            'email' => [],
+            'general' => new General([]),
+            'email' => new Email([]),
             'defaults' => new Defaults([
                 'theme' => 'Pulsar',
                 'iconSet' => 'fluent',
             ]),
             'meta_data' => [],
-            'characters' => [],
+            'characters' => new Characters([
+                'allowCharacterCreation' => true,
+                'requireApprovalForCharacterCreation' => true,
+                'enforceCharacterLimits' => true,
+                'characterLimit' => 5,
+            ]),
             'discord' => new Discord([
                 'storyPostsEnabled' => true,
                 'storyPostsWebhook' => null,

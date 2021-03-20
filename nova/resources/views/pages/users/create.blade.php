@@ -13,7 +13,7 @@
                 <x-slot name="message">
                     <p>For privacy reasons, we don't recommend using a user's real name. Instead, use a nickname to help protect their identity.</p>
 
-                    <p class="block mt-6"><strong class="font-semibold">Note:</strong> after the account is created, a password will be generated and emailed to the new user.</p>
+                    <p class="block"><strong class="font-semibold">Note:</strong> after the account is created, a password will be generated and emailed to the new user.</p>
                 </x-slot>
 
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
@@ -46,7 +46,7 @@
                     <p>Roles are a collection of the actions a user can take throughout Nova. A user can be assigned as many roles as you'd like, giving you more granular control over what users can do.</p>
 
                     @can('viewAny', 'Nova\Roles\Models\Role')
-                        <div class="mt-6">
+                        <div>
                             <x-button-link :href="route('roles.index')" color="white" size="xs">
                                 Manage roles
                             </x-button-link>
