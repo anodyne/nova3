@@ -18,6 +18,12 @@ trait WritesPost
 
     public $post;
 
+    public $ratingLanguage;
+
+    public $ratingSex;
+
+    public $ratingViolence;
+
     public function updatedContent($value)
     {
         // dd($value);

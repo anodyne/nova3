@@ -76,7 +76,7 @@
         </x-form.section>
 
         <x-form.section>
-            <x-editor.post wire:model="content" />
+            <x-posts.editor wire:model="content" />
         </x-form.section>
 
         <x-form.section title="Ratings">

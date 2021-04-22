@@ -61,6 +61,9 @@ class CreateStoryTables extends Migration
             $table->string('time')->nullable();
             $table->string('location')->nullable();
             $table->unsignedInteger('word_count')->default(0);
+            $table->unsignedSmallInteger('rating_language')->default(0);
+            $table->unsignedSmallInteger('rating_sex')->default(0);
+            $table->unsignedSmallInteger('rating_violence')->default(0);
             $table->nestedSet();
             $table->dateTime('published_at')->nullable();
             $table->timestamps();

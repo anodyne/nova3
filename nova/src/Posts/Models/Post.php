@@ -28,11 +28,15 @@ class Post extends Model
 
     protected $fillable = [
         'story_id', 'post_type_id', 'title', 'content', 'status', 'word_count',
-        'day', 'time', 'location', 'parent_id',
+        'day', 'time', 'location', 'parent_id', 'rating_language', 'rating_sex',
+        'rating_violence',
     ];
 
     protected $casts = [
         'published_at' => 'datetime',
+        'rating_language' => 'integer',
+        'rating_sex' => 'integer',
+        'rating_violence' => 'integer',
     ];
 
     protected $dispatchesEvents = [

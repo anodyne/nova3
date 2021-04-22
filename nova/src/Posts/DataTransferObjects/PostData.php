@@ -24,6 +24,12 @@ class PostData extends DataTransferObject
 
     public int $word_count = 0;
 
+    public int $rating_language;
+
+    public int $rating_sex;
+
+    public int $rating_violence;
+
     public static function fromArray(array $array): self
     {
         return new self([
@@ -36,6 +42,9 @@ class PostData extends DataTransferObject
             'time' => data_get($array, 'time'),
             'title' => data_get($array, 'title'),
             'word_count' => str_word_count(strip_tags(data_get($array, 'content', ''))),
+            'rating_language' => (int) data_get($array, 'ratingLanguage'),
+            'rating_sex' => (int) data_get($array, 'ratingSex'),
+            'rating_violence' => (int) data_get($array, 'ratingViolence'),
         ]);
     }
 }

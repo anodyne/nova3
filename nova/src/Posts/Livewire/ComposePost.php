@@ -87,6 +87,9 @@ class ComposePost extends Component
             'id' => $this->postId,
             'postTypeId' => $this->postType->id,
             'storyId' => $this->story->id,
+            'ratingLanguage' => $this->ratingLanguage,
+            'ratingSex' => $this->ratingSex,
+            'ratingViolence' => $this->ratingViolence,
         ]);
     }
 
