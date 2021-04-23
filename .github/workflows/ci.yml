@@ -9,7 +9,7 @@ jobs:
 
         services:
           mysql:
-            image: mysql:5.7
+            image: mysql:8.0
             env:
               MYSQL_DATABASE: database_ci
               MYSQL_USER: user
@@ -21,7 +21,7 @@ jobs:
 
         strategy:
             matrix:
-                php: [7.4]
+                php: [8.0]
                 dependency-version: [prefer-stable]
                 os: [ubuntu-latest]
 
@@ -70,13 +70,6 @@ jobs:
 
             - name: Execute tests
               run: nova/vendor/bin/phpunit --stop-on-failure
-
-            - name: Run security checks
-              run: |
-                test -d security-checker || git clone https://github.com/sensiolabs/security-checker.git
-                cd security-checker
-                composer install
-                php security-checker security:check ../composer.lock
 
             - name: Deploy to Forge
               if: github.ref == 'refs/heads/dev'
