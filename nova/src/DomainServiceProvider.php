@@ -3,6 +3,7 @@
 namespace Nova;
 
 use Livewire\Livewire;
+use LivewireUI\Spotlight\Spotlight;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Event;
@@ -41,6 +42,7 @@ abstract class DomainServiceProvider extends ServiceProvider
         $this->registerRoutes();
         $this->registerBladeComponents();
         $this->registerLivewireComponents();
+        $this->registerSpotlightCommands();
 
         $this->bootedDomain();
     }
@@ -56,6 +58,11 @@ abstract class DomainServiceProvider extends ServiceProvider
         $this->registerResponsables();
 
         $this->registeredDomain();
+    }
+
+    public function spotlightCommands(): array
+    {
+        return [];
     }
 
     /**
@@ -98,34 +105,24 @@ abstract class DomainServiceProvider extends ServiceProvider
     {
     }
 
-    /**
-     * Register any Blade components.
-     *
-     * @return void
-     */
-    private function registerBladeComponents()
+    private function registerSpotlightCommands(): void
     {
-        collect($this->bladeComponents)->each(function ($component, $alias) {
-            Blade::component($alias, $component);
-        });
+        collect($this->spotlightCommands())
+            ->each(fn ($command) => Spotlight::registerCommand($command));
     }
 
-    /**
-     * Register any Artisan commands.
-     *
-     * @return void
-     */
-    private function registerCommands()
+    private function registerBladeComponents(): void
+    {
+        collect($this->bladeComponents)
+            ->each(fn ($component, $alias) => Blade::component($alias, $component));
+    }
+
+    private function registerCommands(): void
     {
         $this->commands($this->commands);
     }
 
-    /**
-     * Register any event listeners.
-     *
-     * @return void
-     */
-    private function registerListeners()
+    private function registerListeners(): void
     {
         collect($this->listeners)->each(function ($listeners, $event) {
             collect($listeners)->each(function ($listener) use ($event) {
@@ -134,46 +131,24 @@ abstract class DomainServiceProvider extends ServiceProvider
         });
     }
 
-    /**
-     * Register any Livewire components.
-     *
-     * @return void
-     */
-    private function registerLivewireComponents()
+    private function registerLivewireComponents(): void
     {
-        collect($this->livewireComponents)->each(function ($component, $alias) {
-            Livewire::component($alias, $component);
-        });
+        collect($this->livewireComponents)
+            ->each(fn ($component, $alias) => Livewire::component($alias, $component));
     }
 
-    /**
-     * Register any morph mappings.
-     *
-     * @return void
-     */
-    private function registerMorphMaps()
+    private function registerMorphMaps(): void
     {
         Relation::morphMap($this->morphMaps);
     }
 
-    /**
-     * Register any policies.
-     *
-     * @return void
-     */
-    private function registerPolicies()
+    private function registerPolicies(): void
     {
-        collect($this->policies)->each(function ($policy, $model) {
-            Gate::policy($model, $policy);
-        });
+        collect($this->policies)
+            ->each(fn ($policy, $model) => Gate::policy($model, $policy));
     }
 
-    /**
-     * Register any Responsable classes.
-     *
-     * @return void
-     */
-    private function registerResponsables()
+    private function registerResponsables(): void
     {
         collect($this->responsables)->each(function ($responsable) {
             $this->app->singleton($responsable, function ($app) use ($responsable) {
@@ -184,12 +159,7 @@ abstract class DomainServiceProvider extends ServiceProvider
         });
     }
 
-    /**
-     * Register any protected routes.
-     *
-     * @return void
-     */
-    private function registerRoutes()
+    private function registerRoutes(): void
     {
         Route::middleware('web')->group(function () {
             collect($this->routes)->each(function ($route, $uri) {
