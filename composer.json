@@ -54,7 +54,8 @@
                 "blade-ui-kit/blade-icons",
                 "blade-ui-kit/blade-ui-kit",
                 "kalnoy/nestedset",
-                "livewire/livewire"
+                "livewire/livewire",
+                "livewire-ui/spotlight"
             ]
         }
     },

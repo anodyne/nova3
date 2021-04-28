@@ -167,6 +167,7 @@ return [
         BladeUIKit\BladeUIKitServiceProvider::class,
         Kalnoy\Nestedset\NestedSetServiceProvider::class,
         Livewire\LivewireServiceProvider::class,
+        LivewireUI\Spotlight\SpotlightServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -179,7 +180,7 @@ return [
         Nova\Foundation\Providers\ResponsesServiceProvider::class,
 
         /**
-         * Nova Module Service Provides
+         * Nova Module Service Provides.
          */
         Nova\Setup\Providers\SetupServiceProvider::class,
         Nova\Auth\Providers\AuthServiceProvider::class,
