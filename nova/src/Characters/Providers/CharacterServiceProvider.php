@@ -2,17 +2,20 @@
 
 namespace Nova\Characters\Providers;
 
-use Nova\DomainServiceProvider;
+use Nova\Characters\Livewire\CharactersCollector;
+use Nova\Characters\Livewire\CharactersDropdown;
 use Nova\Characters\Models\Character;
 use Nova\Characters\Policies\CharacterPolicy;
-use Nova\Characters\Livewire\CharactersDropdown;
-use Nova\Characters\Livewire\CharactersCollector;
-use Nova\Characters\Responses\ShowCharacterResponse;
 use Nova\Characters\Responses\CreateCharacterResponse;
-use Nova\Characters\Responses\DeleteCharacterResponse;
-use Nova\Characters\Responses\UpdateCharacterResponse;
-use Nova\Characters\Responses\ShowAllCharactersResponse;
 use Nova\Characters\Responses\DeactivateCharacterResponse;
+use Nova\Characters\Responses\DeleteCharacterResponse;
+use Nova\Characters\Responses\ShowAllCharactersResponse;
+use Nova\Characters\Responses\ShowCharacterResponse;
+use Nova\Characters\Responses\UpdateCharacterResponse;
+use Nova\Characters\Spotlight\CreateCharacter;
+use Nova\Characters\Spotlight\EditCharacter;
+use Nova\Characters\Spotlight\ViewCharacter;
+use Nova\DomainServiceProvider;
 
 class CharacterServiceProvider extends DomainServiceProvider
 {
@@ -37,4 +40,13 @@ class CharacterServiceProvider extends DomainServiceProvider
         ShowCharacterResponse::class,
         UpdateCharacterResponse::class,
     ];
+
+    public function spotlightCommands(): array
+    {
+        return [
+            CreateCharacter::class,
+            EditCharacter::class,
+            ViewCharacter::class,
+        ];
+    }
 }
