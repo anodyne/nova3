@@ -2,7 +2,6 @@
 
 namespace Nova\Users\Spotlight;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use LivewireUI\Spotlight\Spotlight;
 use LivewireUI\Spotlight\SpotlightCommand;
@@ -26,7 +25,7 @@ class ViewUser extends SpotlightCommand
             );
     }
 
-    public function searchUser(Request $request, $query)
+    public function searchUser($query)
     {
         return User::where('name', 'like', "%${query}%")
             ->get()

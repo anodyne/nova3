@@ -2,14 +2,13 @@
 
 namespace Nova\Departments\Spotlight;
 
-use Illuminate\Http\Request;
-use LivewireUI\Spotlight\Spotlight;
 use Illuminate\Support\Facades\Gate;
-use Nova\Departments\Models\Department;
+use LivewireUI\Spotlight\Spotlight;
 use LivewireUI\Spotlight\SpotlightCommand;
-use LivewireUI\Spotlight\SpotlightSearchResult;
-use LivewireUI\Spotlight\SpotlightCommandDependency;
 use LivewireUI\Spotlight\SpotlightCommandDependencies;
+use LivewireUI\Spotlight\SpotlightCommandDependency;
+use LivewireUI\Spotlight\SpotlightSearchResult;
+use Nova\Departments\Models\Department;
 
 class ViewDepartment extends SpotlightCommand
 {
@@ -26,7 +25,7 @@ class ViewDepartment extends SpotlightCommand
             );
     }
 
-    public function searchDepartment(Request $request, $query)
+    public function searchDepartment($query)
     {
         return Department::where('name', 'like', "%${query}%")
             ->get()
