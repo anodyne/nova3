@@ -21,6 +21,7 @@
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
+        "livewire-ui/spotlight": "^0.1.7",
         "livewire/livewire": "^2.0",
         "santigarcor/laratrust": "^6.2",
         "spatie/data-transfer-object": "^3.0",
