@@ -2,6 +2,7 @@
 
 namespace Nova\Posts\DataTransferObjects;
 
+use Illuminate\Support\Str;
 use Spatie\DataTransferObject\DataTransferObject;
 
 class PostData extends DataTransferObject
@@ -41,7 +42,7 @@ class PostData extends DataTransferObject
             'story_id' => (int) data_get($array, 'storyId'),
             'time' => data_get($array, 'time'),
             'title' => data_get($array, 'title'),
-            'word_count' => str_word_count(strip_tags(data_get($array, 'content', ''))),
+            'word_count' => Str::of(data_get($array, 'content', ''))->pipe('strip_tags')->wordCount(),
             'rating_language' => (int) data_get($array, 'ratingLanguage'),
             'rating_sex' => (int) data_get($array, 'ratingSex'),
             'rating_violence' => (int) data_get($array, 'ratingViolence'),
