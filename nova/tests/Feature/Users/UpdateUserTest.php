@@ -2,13 +2,13 @@
 
 namespace Tests\Feature\Users;
 
-use Tests\TestCase;
-use Nova\Users\Models\User;
-use Nova\Users\Events\UserUpdated;
-use Illuminate\Support\Facades\Event;
-use Nova\Users\Events\UserUpdatedByAdmin;
-use Nova\Users\Requests\UpdateUserRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
+use Nova\Users\Events\UserUpdated;
+use Nova\Users\Events\UserUpdatedByAdmin;
+use Nova\Users\Models\User;
+use Nova\Users\Requests\UpdateUserRequest;
+use Tests\TestCase;
 
 /**
  * @group users

@@ -25,11 +25,11 @@ class PostData extends DataTransferObject
 
     public int $word_count = 0;
 
-    public int $rating_language;
+    public int $rating_language = 1;
 
-    public int $rating_sex;
+    public int $rating_sex = 1;
 
-    public int $rating_violence;
+    public int $rating_violence = 1;
 
     public static function fromArray(array $array): self
     {
@@ -43,9 +43,9 @@ class PostData extends DataTransferObject
             'time' => data_get($array, 'time'),
             'title' => data_get($array, 'title'),
             'word_count' => Str::of(data_get($array, 'content', ''))->pipe('strip_tags')->wordCount(),
-            'rating_language' => (int) data_get($array, 'ratingLanguage'),
-            'rating_sex' => (int) data_get($array, 'ratingSex'),
-            'rating_violence' => (int) data_get($array, 'ratingViolence'),
+            'rating_language' => (int) data_get($array, 'ratingLanguage', 1),
+            'rating_sex' => (int) data_get($array, 'ratingSex', 1),
+            'rating_violence' => (int) data_get($array, 'ratingViolence', 1),
         ]);
     }
 }
