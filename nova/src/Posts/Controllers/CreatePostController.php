@@ -21,10 +21,6 @@ class CreatePostController extends Controller
     {
         $this->authorize('write', [new Post, $postType]);
 
-        $usersPostTypes = PostType::orderBySort()
-            ->get()
-            ->filter(fn ($postType) => auth()->user()->can('write', $postType));
-
         return app(ComposePostResponse::class)->with([
             'postType' => $postType,
             'stories' => Story::wherePostable()->get(),

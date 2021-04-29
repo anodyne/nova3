@@ -10,6 +10,7 @@ use Nova\Posts\Models\Post;
 use Nova\Posts\Policies\PostPolicy;
 use Nova\Posts\Responses\ComposePostResponse;
 use Nova\Posts\Responses\SelectPostTypeResponse;
+use Nova\Posts\Spotlight\WritePost as SpotlightWritePost;
 
 class PostServiceProvider extends DomainServiceProvider
 {
@@ -27,4 +28,11 @@ class PostServiceProvider extends DomainServiceProvider
         ComposePostResponse::class,
         SelectPostTypeResponse::class,
     ];
+
+    public function spotlightCommands(): array
+    {
+        return [
+            SpotlightWritePost::class,
+        ];
+    }
 }

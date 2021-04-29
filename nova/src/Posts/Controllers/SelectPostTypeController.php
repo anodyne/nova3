@@ -2,6 +2,7 @@
 
 namespace Nova\Posts\Controllers;
 
+use Illuminate\Support\Facades\Gate;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Posts\Models\Post;
 use Nova\Posts\Responses\SelectPostTypeResponse;
@@ -23,7 +24,7 @@ class SelectPostTypeController extends Controller
 
         $usersPostTypes = PostType::orderBySort()
             ->get()
-            ->filter(fn ($postType) => auth()->user()->can('write', $postType));
+            ->filter(fn ($postType) => Gate::allows('write', $postType));
 
         if ($usersPostTypes->count() === 1) {
             return redirect()->route('posts.compose', $usersPostTypes->first());
