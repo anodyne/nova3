@@ -1,13 +1,19 @@
 <?php
 
-namespace Nova\Setup\Listeners;
+namespace Nova\Setup\Actions;
 
 use Database\State;
+use Illuminate\Console\Command;
 use Illuminate\Database\Events\MigrationsEnded;
+use Lorisleiva\Actions\Concerns\AsAction;
 
-class EnsureDatabaseStateIsLoaded
+class EnsureDatabaseState
 {
-    public function handle(MigrationsEnded $event)
+    use AsAction;
+
+    public string $commandSignature = 'nova:ensure-database-state';
+
+    public function handle(): void
     {
         activity()->disableLogging();
 
@@ -24,5 +30,17 @@ class EnsureDatabaseStateIsLoaded
         ])->each->__invoke();
 
         activity()->enableLogging();
+    }
+
+    public function asCommand(Command $command): void
+    {
+        $this->handle();
+
+        $command->info('Database state verified');
+    }
+
+    public function asListener(MigrationsEnded $event): void
+    {
+        $this->handle();
     }
 }

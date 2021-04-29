@@ -4,18 +4,19 @@ namespace Nova\Setup\Providers;
 
 use Illuminate\Database\Events\MigrationsEnded;
 use Nova\DomainServiceProvider;
+use Nova\Setup\Actions\EnsureDatabaseState;
 use Nova\Setup\Commands\RefreshNovaCommand;
-use Nova\Setup\Listeners\EnsureDatabaseStateIsLoaded;
 
 class SetupServiceProvider extends DomainServiceProvider
 {
     protected $commands = [
         RefreshNovaCommand::class,
+        EnsureDatabaseState::class,
     ];
 
     protected $listeners = [
         MigrationsEnded::class => [
-            EnsureDatabaseStateIsLoaded::class,
+            EnsureDatabaseState::class,
         ],
     ];
 
