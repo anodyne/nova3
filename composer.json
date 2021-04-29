@@ -63,10 +63,12 @@
         "psr-4": {
             "Nova\\": "nova/src/",
             "Nova\\Foundation\\": "nova/foundation/",
+            "Nova\\Setup\\": "nova/setup/",
             "Extensions\\": "extensions/",
             "Themes\\": "themes/",
             "Database\\Factories\\": "nova/database/factories/",
-            "Database\\Seeders\\": "nova/database/seeders/"
+            "Database\\Seeders\\": "nova/database/seeders/",
+            "Database\\State\\": "nova/database/state/"
         },
         "files": [
             "nova/helpers.php"

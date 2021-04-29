@@ -1,62 +1,19 @@
 <?php
 
-use Nova\Roles\Models\Role;
+namespace Database\State;
+
 use Nova\Roles\Models\Permission;
-use Illuminate\Database\Migrations\Migration;
 
-class PopulateAuthorizationTables extends Migration
+class EnsurePermissionsArePresent
 {
-    public function up()
+    public function __invoke()
     {
-        activity()->disableLogging();
+        if ($this->present()) {
+            return;
+        }
 
-        $this->populatePermissionsTable();
-
-        $this->populateRolesTable();
-
-        $this->assignPermissionsToRoles();
-
-        activity()->enableLogging();
-    }
-
-    public function down()
-    {
-        Role::truncate();
-        Permission::truncate();
-    }
-
-    protected function assignPermissionsToRoles()
-    {
-        $permissions = [
-            'admin' => [
-                'role.create', 'role.delete', 'role.update', 'role.view',
-                'theme.create', 'theme.delete', 'theme.update', 'theme.view',
-                'user.create', 'user.delete', 'user.update', 'user.view',
-                'rank.create', 'rank.delete', 'rank.update', 'rank.view',
-                'department.create', 'department.delete', 'department.update', 'department.view',
-                'character.create', 'character.delete', 'character.update', 'character.view',
-                'story.create', 'story.delete', 'story.update',
-                'post.delete', 'post.update',
-            ],
-            'user' => [
-                'story.view',
-                'post.view', 'post.create',
-            ],
-        ];
-
-        collect($permissions)->each(function ($permission, $role) {
-            $role = Role::whereName($role)->first();
-
-            $role->attachPermissions(
-                Permission::whereIn('name', $permission)->get()->pluck('id')->all()
-            );
-        });
-    }
-
-    protected function populatePermissionsTable()
-    {
         Permission::unguarded(function () {
-            $permissions = [
+            collect([
                 ['name' => 'role.create', 'display_name' => 'Create roles'],
                 ['name' => 'role.delete', 'display_name' => 'Delete roles'],
                 ['name' => 'role.update', 'display_name' => 'Update roles'],
@@ -96,25 +53,12 @@ class PopulateAuthorizationTables extends Migration
                 ['name' => 'post.delete', 'display_name' => 'Delete posts'],
                 ['name' => 'post.update', 'display_name' => 'Update posts'],
                 ['name' => 'post.view', 'display_name' => 'View posts'],
-            ];
-
-            collect($permissions)->each(function ($permission) {
-                Permission::firstOrCreate($permission);
-            });
+            ])->each([Permission::class, 'create']);
         });
     }
 
-    protected function populateRolesTable()
+    private function present(): bool
     {
-        Role::unguarded(function () {
-            $roles = [
-                ['name' => 'admin', 'display_name' => 'System Admin', 'locked' => true, 'sort' => 0],
-                ['name' => 'user', 'display_name' => 'Active User', 'default' => true, 'sort' => 1],
-            ];
-
-            collect($roles)->each(function ($role) {
-                Role::firstOrCreate($role);
-            });
-        });
+        return Permission::count() > 0;
     }
 }

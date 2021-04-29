@@ -1,9 +1,10 @@
 <?php
 
-namespace Nova\Setup\Console\Commands;
+namespace Nova\Setup\Commands;
 
 use Illuminate\Console\Command;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Throwable;
 
 class RefreshNovaCommand extends Command
 {
@@ -13,10 +14,13 @@ class RefreshNovaCommand extends Command
 
     public function handle()
     {
-        Media::get()->each->delete();
+        try {
+            Media::get()->each->delete();
+        } catch (Throwable $th) {
+            // Ignore...
+        }
 
         $this->call('migrate:fresh', ['--seed' => true]);
-        $this->call('cache:clear');
         $this->call('optimize:clear');
         $this->call('package:discover');
     }
