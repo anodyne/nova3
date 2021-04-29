@@ -5,7 +5,7 @@
             <svg class="h-4 w-4" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 4v16m8-8H4"></path></svg>
         </x-slot>
 
-        <div class="p-2">
+        <x-dropdown.group class="px-2 py-2">
             <div class="group flex items-center rounded-md bg-gray-100 border-2 border-gray-100 text-gray-600 px-2 py-2 space-x-3 focus-within:border-gray-200 focus-within:bg-white focus-within:text-gray-700">
                 @icon('search', 'flex-shrink-0 h-5 w-5 text-gray-400 group-focus-within:text-gray-600')
 
@@ -17,24 +17,20 @@
                     </x-button>
                 @endisset
             </div>
-        </div>
+        </x-dropdown.group>
 
         @if ($results)
-            <div class="{{ $component->divider() }}"></div>
-
-            @forelse ($results as $item)
-                <button
-                    wire:click="addPermission({{ $item['id'] }}, {{ $item }})"
-                    type="button"
-                    class="{{ $component->link() }}"
-                >
-                    {{ $item['display_name'] }}
-                </button>
-            @empty
-                <div class="{{ $component->text() }}">
-                    No results found
-                </div>
-            @endforelse
+            <x-dropdown.group>
+                @forelse ($results as $item)
+                    <x-dropdown.item type="button" wire:click="addPermission({{ $item['id'] }}, {{ $item }})">
+                        {{ $item['display_name'] }}
+                    </x-dropdown.item>
+                @empty
+                    <x-dropdown.text>
+                        No results found
+                    </x-dropdown.text>
+                @endforelse
+            </x-dropdown.group>
         @endif
     </x-dropdown>
 

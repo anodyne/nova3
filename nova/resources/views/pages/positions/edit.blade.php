@@ -43,7 +43,7 @@
                 <x-slot name="message">
                     You can allow or prevent prospective players from picking this position when applying to join by setting the number of available slots.
 
-                    <p class="block mt-6"><strong class="font-semibold">Note:</strong> after setting this number, Nova will manage keep the number updated for you as characters are assigned and un-assigned to this position.</p>
+                    <p class="block"><strong class="font-semibold">Note:</strong> after setting this number, Nova will manage keep the number updated for you as characters are assigned and un-assigned to this position.</p>
                 </x-slot>
 
                 <x-input.group label="Available Slots" for="available">

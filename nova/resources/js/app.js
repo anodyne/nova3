@@ -1,3 +1,4 @@
+import 'alpine-magic-helpers';
 import 'alpinejs';
 import axios from 'axios';
 import Numeral from 'numeral';

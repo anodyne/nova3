@@ -95,38 +95,34 @@
                                 <x-dropdown placement="bottom-end">
                                     <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
 
-                                    @can('view', $department)
-                                        <a href="{{ route('departments.show', $department) }}" class="{{ $component->link() }}" data-cy="view">
-                                            @icon('show', $component->icon())
-                                            <span>View</span>
-                                        </a>
-                                    @endcan
+                                    <x-dropdown.group>
+                                        @can('view', $department)
+                                            <x-dropdown.item :href="route('departments.show', $department)" icon="show" data-cy="view">
+                                                <span>View</span>
+                                            </x-dropdown.item>
+                                        @endcan
+
+                                        @can('update', $department)
+                                            <x-dropdown.item :href="route('departments.edit', $department)" icon="edit" data-cy="edit">
+                                                <span>Edit</span>
+                                            </x-dropdown.item>
+                                        @endcan
+                                    </x-dropdown.group>
 
                                     @can('update', $department)
-                                        <a href="{{ route('departments.edit', $department) }}" class="{{ $component->link() }}" data-cy="edit">
-                                            @icon('edit', $component->icon())
-                                            <span>Edit</span>
-                                        </a>
-
-                                        <div class="{{ $component->divider() }}"></div>
-
-                                        <a href="{{ route('positions.index', $department) }}" class="{{ $component->link() }}" data-cy="edit">
-                                            @icon('list', $component->icon())
-                                            <span>Positions</span>
-                                        </a>
+                                        <x-dropdown.group>
+                                            <x-dropdown.item :href="route('positions.index', $department)" icon="list" data-cy="edit">
+                                                <span>Positions</span>
+                                            </x-dropdown.item>
+                                        </x-dropdown.group>
                                     @endcan
 
-
                                     @can('delete', $department)
-                                        <div class="{{ $component->divider() }}"></div>
-                                        <button
-                                            x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($department) }});"
-                                            class="{{ $component->link() }}"
-                                            data-cy="delete"
-                                        >
-                                            @icon('delete', $component->icon())
-                                            <span>Delete</span>
-                                        </button>
+                                        <x-dropdown.group>
+                                            <x-dropdown.item type="button" icon="delete" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($department) }});" data-cy="delete">
+                                                <span>Delete</span>
+                                            </x-dropdown.item>
+                                        </x-dropdown.group>
                                     @endcan
                                 </x-dropdown>
                             </div>

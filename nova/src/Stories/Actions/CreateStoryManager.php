@@ -3,12 +3,15 @@
 namespace Nova\Stories\Actions;
 
 use Illuminate\Http\Request;
-use Nova\Stories\Models\Story;
+use Nova\Posts\Actions\CreateRootPost;
 use Nova\Stories\DataTransferObjects\StoryData;
 use Nova\Stories\DataTransferObjects\StoryPositionData;
+use Nova\Stories\Models\Story;
 
 class CreateStoryManager
 {
+    protected CreateRootPost $createRootPost;
+
     protected CreateStory $createStory;
 
     protected SetStoryPosition $setStoryPosition;
@@ -18,11 +21,13 @@ class CreateStoryManager
     protected UploadStoryImages $uploadImages;
 
     public function __construct(
+        CreateRootPost $createRootPost,
         CreateStory $createStory,
         UpdateStoryStatus $updateStatus,
         UploadStoryImages $uploadImages,
         SetStoryPosition $setStoryPosition
     ) {
+        $this->createRootPost = $createRootPost;
         $this->createStory = $createStory;
         $this->setStoryPosition = $setStoryPosition;
         $this->updateStatus = $updateStatus;
@@ -43,6 +48,8 @@ class CreateStoryManager
         $this->updateStatus->execute($story, $request->status);
 
         $this->uploadImages->execute($story, $request->image_path);
+
+        $this->createRootPost->execute($story);
 
         return $story->refresh();
     }

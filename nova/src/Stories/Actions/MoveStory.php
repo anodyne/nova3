@@ -6,8 +6,10 @@ use Nova\Stories\Models\Story;
 
 class MoveStory
 {
-    public function execute(Story $story, $newParent): Story
+    public function execute(Story $story, Story $newParent): Story
     {
-        return tap($story)->update(['parent_id' => $newParent])->refresh();
+        $newParent->appendNode($story);
+
+        return $story->refresh();
     }
 }

@@ -17,50 +17,42 @@
                                 <x-dropdown placement="bottom-end" wide>
                                     <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
 
-                                    <a href="{{ route('stories.show', $story) }}" class="{{ $component->link() }}">
-                                        @icon('show', $component->icon())
-                                        <span>View</span>
-                                    </a>
+                                    <x-dropdown.group>
+                                        <x-dropdown.item :href="route('stories.show', $story)" icon="show">
+                                            <span>View</span>
+                                        </x-dropdown.item>
+                                        <x-dropdown.item :href="route('stories.edit', $story)" icon="edit">
+                                            <span>Edit</span>
+                                        </x-dropdown.item>
+                                    </x-dropdown.group>
 
-                                    <a href="{{ route('stories.edit', $story) }}" class="{{ $component->link() }}">
-                                        @icon('edit', $component->icon())
-                                        <span>Edit</span>
-                                    </a>
+                                    <x-dropdown.group>
+                                        <x-dropdown.item icon="list">
+                                            <span>Posts</span>
+                                        </x-dropdown.item>
+                                    </x-dropdown.group>
 
-                                    <div class="{{ $component->divider() }}"></div>
-
-                                    <a href="#" class="{{ $component->link() }}">
-                                        @icon('list', $component->icon())
-                                        <span>Posts</span>
-                                    </a>
-
-                                    <div class="{{ $component->divider() }}"></div>
-
-                                    <div class="uppercase tracking-wide font-semibold text-gray-500 {{ $component->text() }}">
-                                        Add a story
-                                    </div>
-
-                                    <a href="{{ route('stories.create', "direction=before&neighbor={$story->id}") }}" class="{{ $component->link() }}">
-                                        @icon('move-up', $component->icon())
-                                        <span>Before {{ $story->title }}</span>
-                                    </a>
-
-                                    <a href="{{ route('stories.create', "direction=after&neighbor={$story->id}") }}" class="{{ $component->link() }}">
-                                        @icon('move-down', $component->icon())
-                                        <span>After {{ $story->title }}</span>
-                                    </a>
-
-                                    <a href="{{ route('stories.create', "parent={$story->id}") }}" class="{{ $component->link() }}">
-                                        @icon('move-right', $component->icon())
-                                        <span>Inside {{ $story->title }}</span>
-                                    </a>
+                                    <x-dropdown.group>
+                                        <x-dropdown.text class="uppercase tracking-wide font-semibold text-gray-500">
+                                            Add a story
+                                        </x-dropdown.text>
+                                        <x-dropdown.item :href='route("stories.create", "direction=before&neighbor={$story->id}")' icon="move-up">
+                                            <span>Before {{ $story->title }}</span>
+                                        </x-dropdown.item>
+                                        <x-dropdown.item :href='route("stories.create", "direction=after&neighbor={$story->id}")' icon="move-down">
+                                            <span>After {{ $story->title }}</span>
+                                        </x-dropdown.item>
+                                        <x-dropdown.item :href='route("stories.create", "parent={$story->id}")' icon="move-right">
+                                            <span>Inside {{ $story->title }}</span>
+                                        </x-dropdown.item>
+                                    </x-dropdown.group>
 
                                     @can('delete', $story)
-                                        <div class="{{ $component->divider() }}"></div>
-                                        <a href="{{ route('stories.delete', $story) }}" class="{{ $component->link() }}">
-                                            @icon('delete', $component->icon())
-                                            <span>Delete</span>
-                                        </a>
+                                        <x-dropdown.group>
+                                            <x-dropdown.item :href="route('stories.delete', $story)" icon="delete">
+                                                <span>Delete</span>
+                                            </x-dropdown.item>
+                                        </x-dropdown.group>
                                     @endcan
                                 </x-dropdown>
                             </div>
@@ -71,7 +63,7 @@
                                 @livewire('stories:status', ['story' => $story])
                             </span>
 
-                            <span>{{ mt_rand(2, 500) }} posts</span>
+                            <span>{{ $story->posts_count }} @choice('post|posts', $story->posts_count)</span>
 
                             @if ($story->getDescendantCount() > 0)
                                 <span>{{ mt_rand(500, 800) }} posts in all stories</span>

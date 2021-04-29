@@ -16,9 +16,22 @@ class StoryBuilder extends QueryBuilder
         return $this->where('status', Current::class);
     }
 
+    public function whereMainTimeline(): self
+    {
+        return $this->where('id', 1);
+    }
+
     public function whereParent($parent = null)
     {
         return $this->where('parent_id', $parent);
+    }
+
+    public function wherePostable()
+    {
+        return $this->where(function ($query) {
+            return $query->where('status', Current::class)
+                ->where('allow_posting', true);
+        });
     }
 
     public function whereUpcoming()

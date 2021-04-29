@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
-use Nova\PostTypes\Models\PostType;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Nova\PostTypes\DataTransferObjects\Fields;
-use Nova\PostTypes\DataTransferObjects\Options;
+use Nova\PostTypes\Models\PostType;
+use Nova\PostTypes\Values\Field;
+use Nova\PostTypes\Values\Fields;
+use Nova\PostTypes\Values\Options;
 
 class PostTypeFactory extends Factory
 {
@@ -24,16 +25,41 @@ class PostTypeFactory extends Factory
             'color' => $this->faker->hexColor,
             'icon' => 'book',
             'fields' => new Fields([
-                'title' => true,
-                'day' => false,
-                'time' => false,
-                'location' => true,
-                'content' => false,
+                'title' => new Field([
+                    'enabled' => true,
+                    'validate' => true,
+                    'suggest' => true,
+                ]),
+                'day' => new Field([
+                    'enabled' => true,
+                    'validate' => true,
+                    'suggest' => true,
+                ]),
+                'time' => new Field([
+                    'enabled' => true,
+                    'validate' => true,
+                    'suggest' => true,
+                ]),
+                'location' => new Field([
+                    'enabled' => true,
+                    'validate' => true,
+                    'suggest' => true,
+                ]),
+                'content' => new Field([
+                    'enabled' => true,
+                    'validate' => true,
+                    'suggest' => true,
+                ]),
+                'rating' => new Field([
+                    'enabled' => true,
+                    'validate' => true,
+                    'suggest' => true,
+                ]),
             ]),
             'options' => new Options([
                 'notifyUsers' => true,
                 'notifyDiscord' => true,
-                'includeInPostCounts' => false,
+                'includeInPostCounts' => true,
                 'multipleAuthors' => true,
             ]),
         ];

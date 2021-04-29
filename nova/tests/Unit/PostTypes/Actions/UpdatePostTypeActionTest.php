@@ -2,13 +2,14 @@
 
 namespace Tests\Unit\PostTypes\Actions;
 
-use Tests\TestCase;
-use Nova\PostTypes\DataTransferObjects\Fields;
-use Nova\PostTypes\DataTransferObjects\Options;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\PostTypes\Actions\UpdatePostType;
 use Nova\PostTypes\DataTransferObjects\PostTypeData;
 use Nova\PostTypes\Models\PostType;
+use Nova\PostTypes\Values\Field;
+use Nova\PostTypes\Values\Fields;
+use Nova\PostTypes\Values\Options;
+use Tests\TestCase;
 
 /**
  * @group stories
@@ -29,21 +30,6 @@ class UpdatePostTypeActionTest extends TestCase
         $this->action = app(UpdatePostType::class);
 
         $this->postType = PostType::factory()->create();
-
-        // $this->postType->fields = Fields::fromArray([
-        //     'title' => true,
-        //     'day' => true,
-        //     'time' => true,
-        //     'location' => true,
-        //     'content' => true,
-        // ]);
-        // $this->postType->options = Options::fromArray([
-        //     'notifyUsers' => true,
-        //     'includeInPostCounts' => true,
-        //     'multipleAuthors' => true,
-        // ]);
-
-        // $this->postType->save();
     }
 
     /** @test **/
@@ -58,11 +44,36 @@ class UpdatePostTypeActionTest extends TestCase
             'active' => true,
             'visibility' => 'in-character',
             'fields' => new Fields([
-                'title' => true,
-                'day' => false,
-                'time' => false,
-                'location' => true,
-                'content' => false,
+                'title' => new Field([
+                    'enabled' => true,
+                    'validate' => true,
+                    'suggest' => true,
+                ]),
+                'day' => new Field([
+                    'enabled' => false,
+                    'validate' => false,
+                    'suggest' => false,
+                ]),
+                'time' => new Field([
+                    'enabled' => false,
+                    'validate' => false,
+                    'suggest' => false,
+                ]),
+                'location' => new Field([
+                    'enabled' => true,
+                    'validate' => true,
+                    'suggest' => true,
+                ]),
+                'content' => new Field([
+                    'enabled' => false,
+                    'validate' => false,
+                    'suggest' => false,
+                ]),
+                'rating' => new Field([
+                    'enabled' => true,
+                    'validate' => true,
+                    'suggest' => true,
+                ]),
             ]),
             'options' => new Options([
                 'notifyUsers' => true,
@@ -83,11 +94,12 @@ class UpdatePostTypeActionTest extends TestCase
         $this->assertEquals('in-character', $postType->visibility);
         $this->assertTrue($postType->active);
 
-        $this->assertTrue($postType->fields->title);
-        $this->assertFalse($postType->fields->day);
-        $this->assertFalse($postType->fields->time);
-        $this->assertTrue($postType->fields->location);
-        $this->assertFalse($postType->fields->content);
+        $this->assertTrue($postType->fields->title->enabled);
+        $this->assertFalse($postType->fields->day->enabled);
+        $this->assertFalse($postType->fields->time->enabled);
+        $this->assertTrue($postType->fields->location->enabled);
+        $this->assertFalse($postType->fields->content->enabled);
+        $this->assertTrue($postType->fields->rating->enabled);
 
         $this->assertTrue($postType->options->notifyUsers);
         $this->assertTrue($postType->options->notifyDiscord);

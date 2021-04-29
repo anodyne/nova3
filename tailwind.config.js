@@ -13,7 +13,8 @@ module.exports = {
             green: colors.green,
             purple: colors.purple,
             red: colors.red,
-            yellow: colors.amber
+            yellow: colors.amber,
+            orange: colors.orange
         },
         container: {
             center: true,

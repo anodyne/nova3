@@ -29,10 +29,34 @@
                 </x-input.group>
             </x-form.section>
 
-            <x-form.section title="Ownership" message="Characters can be assigned to any number of users and all assigned users will have the same rights with the character. Additionally, any notifications on behalf of the character will be sent to all users assigned to the character.">
+            <x-form.section title="Ownership">
+                <x-slot name="message">
+                    @can('create', new Nova\Characters\Models\Character)
+                        <p>Characters can be assigned to any number of users and all assigned users will have the same rights with the character. Additionally, any notifications on behalf of the character will be sent to all users assigned to the character.</p>
+                    @endcan
+
+                    @cannot('create', new Nova\Characters\Models\Character)
+                        <p>Set whether this character should be automatically linked to your account.</p>
+
+                        @if (app('nova.settings')->characters->requireApprovalForCharacterCreation)
+                            <p><span class="font-semibold">Note:</span> This character will not be available until an admin has reviewed and approved it.</p>
+                        @endif
+
+                        {{-- <p><span class="font-semibold">Note:</span> You have reached the maximum allowed number of linked characters. If this character is intended to be linked to your account it will be created, but will require approval for it to be available on your account.</p> --}}
+                    @endcan
+
+
+                </x-slot>
+
                 <x-input.group label="Assign User(s)">
                     @livewire('users:collector', ['users' => old('users')])
                 </x-input.group>
+
+                {{-- <x-input.group>
+                    <x-input.toggle field="active" :value="old('active', 'true')">
+                        Link this character to my account
+                    </x-input.toggle>
+                </x-input.group> --}}
             </x-form.section>
 
             <x-form.footer>

@@ -5,9 +5,11 @@ mix.setPublicPath('dist');
 
 mix
     .js('nova/resources/js/app.js', 'dist/js')
+    .js('nova/resources/js/editor-tiptap.js', 'dist/js')
 
     .postCss('nova/resources/css/app.css', 'dist/css')
     .postCss('nova/resources/css/vendor.css', 'dist/css')
+    .postCss('nova/resources/css/plugins/tiptap.css', 'dist/css')
 
     .options({
         postCss: [
@@ -28,4 +30,5 @@ mix
             },
             symlinks: false
         }
-    });
+    })
+    .sourceMaps(false);

@@ -60,49 +60,40 @@
             </x-form.section>
 
             <x-form.section title="Fields" message="Post types control which fields are available when creating a post of that type. You can turn any of these fields on/off to suit your game's needs.">
-                <x-input.group>
-                    <x-input.toggle field="fields[title]" :value="old('fields[title]', true)">
-                        Show title field
-                    </x-input.toggle>
-                </x-input.group>
+                @foreach ($fieldTypes as $fieldType)
+                    <div x-data="{ '{{ $fieldType }}': true }" class="px-4 py-5 bg-gray-100 rounded border border-gray-200 | sm:p-6">
+                        <div x-on:toggle-changed="{{ $fieldType }} = $event.detail.value">
+                            <x-input.toggle field="fields[{{ $fieldType }}][enabled]" :value="old('fields[{{ $fieldType }}][enabled]', true)">
+                                {{ ucfirst($fieldType) }} field
+                            </x-input.toggle>
+                        </div>
 
-                <x-input.group>
-                    <x-input.toggle field="fields[day]" :value="old('fields[day]', true)">
-                        Show day field
-                    </x-input.toggle>
-                </x-input.group>
+                        <div x-show="{{ $fieldType }}" class="mt-6 px-6 space-y-4">
+                            <x-input.group>
+                                <x-input.toggle field="fields[{{ $fieldType }}][validate]" :value="old('fields[{{ $fieldType }}][validate]', true)">
+                                    Require value
+                                </x-input.toggle>
+                            </x-input.group>
 
-                <x-input.group>
-                    <x-input.toggle field="fields[time]" :value="old('fields[time]', true)">
-                        Show time field
-                    </x-input.toggle>
-                </x-input.group>
-
-                <x-input.group>
-                    <x-input.toggle field="fields[location]" :value="old('fields[location]', true)">
-                        Show location field
-                    </x-input.toggle>
-                </x-input.group>
-
-                <x-input.group>
-                    <x-input.toggle field="fields[content]" :value="old('fields[content]', true)">
-                        Show content field
-                    </x-input.toggle>
-                </x-input.group>
+                            <x-input.group help="Nova will attempt to offer a suggestion to the user based on nearby posts of the same post type">
+                                <x-input.toggle field="fields[{{ $fieldType }}][suggest]" :value="old('fields[{{ $fieldType }}][suggest]', true)">
+                                    Suggest content
+                                </x-input.toggle>
+                            </x-input.group>
+                        </div>
+                    </div>
+                @endforeach
             </x-form.section>
 
             <x-form.section title="Options" message="Post types control the behavior of a post of that type with a wide range of options. You can turn any of these fields on/off to suit your game's needs.">
                 <x-input.group>
                     <x-input.toggle field="options[notifyUsers]" :value="old('options[notifyUsers]', true)">
-                        Notify users
+                        Send notification to users
                     </x-input.toggle>
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle
-                        field="options[notifyDiscord]"
-                        :value="old('options[notifyDiscord]', app('nova.settings')->discord->storyPostsEnabled)"
-                    >
+                    <x-input.toggle field="options[notifyDiscord]" :value="old('options[notifyDiscord]', app('nova.settings')->discord->storyPostsEnabled)">
                         Send notification to Discord
                     </x-input.toggle>
 
@@ -114,19 +105,13 @@
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle
-                        field="options[includeInPostCounts]"
-                        :value="old('options[includeInPostCounts]', true)"
-                    >
+                    <x-input.toggle field="options[includeInPostCounts]" :value="old('options[includeInPostCounts]', true)">
                         Include in post counts
                     </x-input.toggle>
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle
-                        field="options[multipleAuthors]"
-                        :value="old('options[multipleAuthors]', true)"
-                    >
+                    <x-input.toggle field="options[multipleAuthors]" :value="old('options[multipleAuthors]', true)">
                         Allow multiple authors
                     </x-input.toggle>
                 </x-input.group>

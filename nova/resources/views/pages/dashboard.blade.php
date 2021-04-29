@@ -1,61 +1,253 @@
 @extends($__novaTemplate)
 
 @section('content')
-    <header class="space-y-2">
-        <p class="text-base font-medium text-gray-500">Season 1 - Into the Deep</p>
+<div>
+    <h1 class="sr-only">Profile</h1>
+    <!-- Main 3 column grid -->
+    <div class="grid grid-cols-1 gap-4 items-start lg:grid-cols-3 lg:gap-8">
+        <!-- Left column -->
+        <div class="grid grid-cols-1 gap-8 lg:col-span-2">
+            <!-- Welcome panel -->
+            <section aria-labelledby="profile-overview-title">
+                <x-panel>
+                    <h2 class="sr-only" id="profile-overview-title">Profile Overview</h2>
+                    <div class="p-6">
+                        <div class="sm:flex sm:items-center sm:justify-between">
+                            <div class="sm:flex sm:space-x-5">
+                                <div class="flex-shrink-0">
+                                    <img class="mx-auto h-20 w-20 rounded-full" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt="">
+                                </div>
+                                <div class="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
+                                    <p class="text-sm font-medium text-gray-600">Welcome back,</p>
+                                    <p class="text-xl font-medium text-gray-600 text-gray-900 sm:text-2xl">Rebecca Nicholas</p>
+                                </div>
+                            </div>
+                            <div class="mt-5 flex justify-center sm:mt-0">
+                                <a href="#" class="flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                                    My account
+                                </a>
+                            </div>
+                        </div>
+                    </div>
 
-        <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight | sm:text-4xl md:text-5xl">Frontier Medicine</h1>
+                    <div class="sm:rounded-b-md border-t border-gray-200 bg-gray-50 grid grid-cols-1 divide-y divide-gray-200 sm:grid-cols-3 sm:divide-y-0 sm:divide-x">
+                        <a href="#" class="group flex items-center justify-center space-x-3 px-6 py-5 text-sm font-medium text-center transition-all ease-in-out duration-150">
+                            @icon('users', 'h-6 w-6 text-gray-400 group-hover:text-gray-600')
+                            <span class="text-gray-600 group-hover:text-gray-800">Characters</span>
+                        </a>
 
-        <div class="flex items-center space-x-8 text-gray-600 text-lg font-medium">
-            <div class="flex items-center space-x-2">
-                @icon('clock', 'h-6 w-6 text-gray-500')
-                <span>6 Months Previous</span>
-            </div>
+                        <a href="#" class="group flex items-center justify-center space-x-3 px-6 py-5 text-sm font-medium text-center transition-all ease-in-out duration-150">
+                            @icon('preferences', 'h-6 w-6 text-gray-400 group-hover:text-gray-600')
+                            <span class="text-gray-600 group-hover:text-gray-800">Preferences</span>
+                        </a>
 
-            <div class="flex items-center space-x-2">
-                @icon('location', 'h-6 w-6 text-gray-500')
-                <span>Federation Medical Corps Aid Station - Yuil XI</span>
-            </div>
+                        <a href="#" class="group flex items-center justify-center space-x-3 px-6 py-5 text-sm font-medium text-center transition-all ease-in-out duration-150">
+                            @icon('email', 'h-6 w-6 text-gray-400 group-hover:text-gray-600')
+                            <span class="text-gray-600 group-hover:text-gray-800">Messages</span>
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-blue-500 text-white">3</span>
+                        </a>
+                    </div>
+                </x-panel>
+            </section>
+
+            <!-- Actions panel -->
+            <section aria-labelledby="quick-links-title">
+                <div class="rounded-lg bg-gray-200 overflow-hidden shadow divide-y divide-gray-200 sm:divide-y-0 sm:grid sm:grid-cols-2 sm:gap-px">
+                    <h2 class="sr-only" id="quick-links-title">Quick links</h2>
+
+                    <div class="rounded-tl-lg relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
+                        <div>
+                            <span class="rounded-lg inline-flex p-3 bg-blue-50 text-blue-700 ring-4 ring-white">
+                                @icon('write', 'h-6 w-6')
+                            </span>
+                        </div>
+                        <div class="mt-6">
+                            <h3 class="text-xl font-medium text-gray-600">
+                                <a href="#" class="focus:outline-none">
+                                    <!-- Extend touch target to entire panel -->
+                                    <span class="absolute inset-0" aria-hidden="true"></span>
+                                    Write a new story post
+                                </a>
+                            </h3>
+                        </div>
+                        <span class="absolute top-6 right-6 text-gray-300 group-hover:text-gray-400" aria-hidden="true">
+                            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z" />
+                            </svg>
+                        </span>
+                    </div>
+
+                    <div class="rounded-tr-lg relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
+                        <div>
+                            <span class="rounded-lg inline-flex p-3 bg-purple-50 text-purple-700 ring-4 ring-white">
+                                @icon('note', 'h-6 w-6')
+                            </span>
+                        </div>
+                        <div class="mt-6">
+                            <h3 class="text-xl font-medium text-gray-600">
+                                <a href="#" class="focus:outline-none">
+                                    <!-- Extend touch target to entire panel -->
+                                    <span class="absolute inset-0" aria-hidden="true"></span>
+                                    My notes
+                                </a>
+                            </h3>
+                        </div>
+                        <span class="absolute top-6 right-6 text-gray-300 group-hover:text-gray-400" aria-hidden="true">
+                            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z" />
+                            </svg>
+                        </span>
+                    </div>
+
+                    <div class="rounded-bl-lg relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
+                        <div>
+                            <span class="rounded-lg inline-flex p-3 bg-red-50 text-red-700 ring-4 ring-white">
+                                @icon('preferences', 'h-6 w-6')
+                            </span>
+                        </div>
+                        <div class="mt-6">
+                            <h3 class="text-xl font-medium text-gray-600">
+                                <a href="#" class="focus:outline-none">
+                                    <!-- Extend touch target to entire panel -->
+                                    <span class="absolute inset-0" aria-hidden="true"></span>
+                                    My preferences
+                                </a>
+                            </h3>
+                        </div>
+                        <span class="absolute top-6 right-6 text-gray-300 group-hover:text-gray-400" aria-hidden="true">
+                            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z" />
+                            </svg>
+                        </span>
+                    </div>
+
+                    <div class="rounded-br-lg relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
+                        <div>
+                            <span class="rounded-lg inline-flex p-3 bg-orange-50 text-orange-700 ring-4 ring-white">
+                                @icon('notification', 'h-6 w-6')
+                            </span>
+                        </div>
+                        <div class="mt-6">
+                            <h3 class="text-xl font-medium text-gray-600">
+                                <a href="#" class="focus:outline-none">
+                                    <!-- Extend touch target to entire panel -->
+                                    <span class="absolute inset-0" aria-hidden="true"></span>
+                                    My notifications
+                                </a>
+                            </h3>
+                        </div>
+                        <span class="absolute top-6 right-6 text-gray-300 group-hover:text-gray-400" aria-hidden="true">
+                            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z" />
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+            </section>
         </div>
-    </header>
 
-    <div class="prose max-w-none pt-10">
-        <p>The sandstorm was blowing hard across the surface. It stung his face and hands despite the coverings he had in place as he trudged quickly through the camp and out buildings towards the main administrators tent at the far end, tucked into the relative shelter of a cliff facing. For the most part the cliff kept that tend from the majority of the sandstorms but when it came in from the East as it was now, it didn’t help at all.</p>
+        <!-- Right column -->
+        <div class="grid grid-cols-1 gap-4">
+            <section aria-labelledby="timeline-title">
+                <div class="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
+                    <h2 id="timeline-title" class="text-lg font-medium text-gray-900">Recent Activity</h2>
 
-        <p>The entire planet was one big dustbowl, dotted with low mountains, deep canyons and covered in sand. They said that the planet was once a lush, ocean world, some millennia ago but for as far as Federation records showed the planet had always been a wasteland. Two decades ago the Federation had attempted to colonize the planet and begin the terraforming process, but for some unspecified reason they’d abandoned the attempt. The majority of the scientists and engineers had left he planet but a few dozen families had remained; either too stubborn to leave or with nowhere else to go. They’d been suffering here ever since, trying to eek out an existence on this dustbowl.</p>
-    </div>
+                    <!-- Activity Feed -->
+                    <div class="mt-6 flow-root">
+                        <ul class="-mb-8">
+                            <li>
+                                <div class="relative pb-8">
+                                    <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                                    <div class="relative flex space-x-3">
+                                        <div>
+                                            <span class="h-8 w-8 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white">
+                                                @icon('user', 'h-5 w-5 text-white')
+                                            </span>
+                                        </div>
+                                        <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
+                                            <div>
+                                                <p class="text-sm text-gray-500">Character bio updated for <a href="#" class="font-medium text-gray-900">Stanley Maura</a></p>
+                                            </div>
+                                            <div class="text-right text-sm whitespace-nowrap text-gray-500">
+                                                <time datetime="2020-09-20">Sep 20</time>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
 
-    <div class="mt-12 rounded-md bg-gray-200 p-6">
-        <h3 class="font-semibold uppercase tracking-wide text-sm text-gray-600 mb-6">Authors</h3>
+                            <li>
+                                <div class="relative pb-8">
+                                    <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                                    <div class="relative flex space-x-3">
+                                        <div>
+                                            <span class="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center ring-8 ring-white">
+                                                @icon('book', 'h-5 w-5 text-white')
+                                            </span>
+                                        </div>
+                                        <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
+                                            <div>
+                                                <p class="text-sm text-gray-500">New story post by <a href="#" class="font-medium text-gray-900">Bethany Blake</a></p>
+                                            </div>
+                                            <div class="text-right text-sm whitespace-nowrap text-gray-500">
+                                                <time datetime="2020-09-22">Sep 22</time>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
 
-        <div class="grid gap-6 | md:grid-cols-2">
-            <x-avatar-meta :src="auth()->user()->avatar_url">
-                <x-slot name="primaryMeta">Lieutenant Commander Alwyn Llwyd</x-slot>
-                <x-slot name="secondaryMeta">Assistant Chief Medical Officer</x-slot>
-            </x-avatar-meta>
+                            <li>
+                                <div class="relative pb-8">
+                                    <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                                    <div class="relative flex space-x-3">
+                                        <div>
+                                            <span class="h-8 w-8 rounded-full bg-green-500 flex items-center justify-center ring-8 ring-white">
+                                                @icon('email', 'h-5 w-5 text-white')
+                                            </span>
+                                        </div>
+                                        <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
+                                            <div>
+                                                <p class="text-sm text-gray-500">New message from <a href="#" class="font-medium text-gray-900">Martha Gardner</a></p>
+                                            </div>
+                                            <div class="text-right text-sm whitespace-nowrap text-gray-500">
+                                                <time datetime="2020-09-28">Sep 28</time>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
 
-            <x-avatar-meta :src="auth()->user()->avatar_url">
-                <x-slot name="primaryMeta">Captain Edward Drake</x-slot>
-                <x-slot name="secondaryMeta">Executive Officer</x-slot>
-            </x-avatar-meta>
-
-            <x-avatar-meta :src="auth()->user()->avatar_url">
-                <x-slot name="primaryMeta">Lieutenant Colonel Aaron Drake</x-slot>
-                <x-slot name="secondaryMeta">Marine Commanding Officer</x-slot>
-            </x-avatar-meta>
+                            <li>
+                                <div class="relative pb-8">
+                                    {{-- <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span> --}}
+                                    <div class="relative flex space-x-3">
+                                        <div>
+                                            <span class="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center ring-8 ring-white">
+                                                @icon('location', 'h-5 w-5 text-white')
+                                            </span>
+                                        </div>
+                                        <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
+                                            <div>
+                                                <p class="text-sm text-gray-500">New story marker by <a href="#" class="font-medium text-gray-900">Bethany Blake</a></p>
+                                            </div>
+                                            <div class="text-right text-sm whitespace-nowrap text-gray-500">
+                                                <time datetime="2020-09-30">Sep 30</time>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 flex flex-col justify-stretch">
+                        <x-button-link href="#">See all activity</x-button-link>
+                    </div>
+                </div>
+            </section>
         </div>
-
-        <h3 class="font-semibold uppercase tracking-wide text-sm text-gray-600 my-6">Additional Contributors</h3>
-
-        <div class="grid grid-cols-2 gap-6">
-            <x-avatar-meta :src="auth()->user()->avatar_url" primary-meta="Jack Sparrow" />
-        </div>
     </div>
+</div>
 
-    <div class="mt-6 text-center text-gray-600 space-x-8">
-        <a href="#">&larr; &ldquo;Medical Mob&rdquo;</a>
-        <a href="#">&ldquo;Brass Pillars&rdquo; &rarr;</a>
-    </div>
-
-    <x-tips section="dashboard" />
+<x-tips section="dashboard" />
 @endsection

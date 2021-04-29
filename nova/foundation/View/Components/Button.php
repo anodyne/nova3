@@ -22,7 +22,7 @@ class Button extends Component
 
     public function baseStyles()
     {
-        $styles = 'inline-flex items-center border rounded-md transition ease-in-out duration-150 focus:outline-none';
+        $styles = 'inline-flex items-center text-center justify-center border rounded-md transition ease-in-out duration-150 focus:outline-none disabled:cursor-not-allowed disabled:opacity-75';
 
         if (! Str::endsWith($this->color, ['-text'])) {
             $styles .= ' uppercase tracking-wide font-semibold';
@@ -45,6 +45,16 @@ class Button extends Component
             case 'white':
             default:
                 return 'border-gray-300 text-gray-700 bg-white hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500';
+
+                break;
+
+            case 'dark-gray-text':
+                return 'border-transparent text-gray-600 font-medium hover:text-gray-800 focus:text-gray-800';
+
+                break;
+
+            case 'dark-gray-text':
+                return 'border-transparent text-gray-600 font-medium hover:text-gray-800 focus:text-gray-800';
 
                 break;
 
@@ -105,6 +115,11 @@ class Button extends Component
         switch ($this->size) {
             case 'none':
                 return 'text-sm';
+
+                break;
+
+            case 'none-xs':
+                return 'text-xs';
 
                 break;
 

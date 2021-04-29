@@ -59,6 +59,8 @@ class FluentIconSet extends IconSet
             'sign-in' => 'person-leave',
             'sign-out' => 'sign-out',
             'star' => 'star',
+            'thumbs-down' => 'thumbs-down',
+            'thumbs-up' => 'thumbs-up',
             'user' => 'person',
             'users' => 'people',
             'warning' => 'warning',
