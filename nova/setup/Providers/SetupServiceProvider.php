@@ -5,11 +5,13 @@ namespace Nova\Setup\Providers;
 use Illuminate\Database\Events\MigrationsEnded;
 use Nova\DomainServiceProvider;
 use Nova\Setup\Actions\RunDataMigrations;
+use Nova\Setup\Commands\FreshNovaCommand;
 use Nova\Setup\Commands\RefreshNovaCommand;
 
 class SetupServiceProvider extends DomainServiceProvider
 {
     protected $commands = [
+        FreshNovaCommand::class,
         RefreshNovaCommand::class,
     ];
 

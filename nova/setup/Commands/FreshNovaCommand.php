@@ -6,9 +6,9 @@ use Illuminate\Console\Command;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Throwable;
 
-class RefreshNovaCommand extends Command
+class FreshNovaCommand extends Command
 {
-    protected $signature = 'nova:refresh';
+    protected $signature = 'nova:fresh';
 
     public function handle()
     {
@@ -17,8 +17,6 @@ class RefreshNovaCommand extends Command
         } catch (Throwable $th) {
             // Ignore...
         }
-
-        $this->call('migrate-data:rollback');
 
         $this->call('migrate:fresh', ['--seed' => true]);
         $this->call('optimize:clear');
