@@ -1,26 +1,21 @@
 <?php
 
-namespace Database\State;
-
+use Illuminate\Database\Migrations\Migration;
 use Nova\Stories\Models\States\Completed;
 use Nova\Stories\Models\Story;
 
-class EnsureStoryTimelineIsPresent
+class SetStoryTimeline extends Migration
 {
-    public function __invoke()
+    public function up(): void
     {
-        if ($this->present()) {
-            return;
-        }
-
         Story::create([
             'title' => 'Main Timeline',
             'status' => Completed::class,
         ]);
     }
 
-    private function present(): bool
+    public function down(): void
     {
-        return Story::count() > 0;
+        Story::truncate();
     }
 }

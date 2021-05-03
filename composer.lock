@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3dcadc8443316cf6d4c5934018b67664",
+    "content-hash": "459478d0f95f30037ad90466fac6f15b",
     "packages": [
         {
             "name": "awssat/discord-notification-channel",
@@ -274,6 +274,59 @@
                 }
             ],
             "time": "2021-01-20T22:51:39+00:00"
+        },
+        {
+            "name": "coderan/laravel-data-migrations",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/coderan-io/laravel-data-migrations.git",
+                "reference": "12378900ea7efe2884d021ae64e78611e802ba67"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/coderan-io/laravel-data-migrations/zipball/12378900ea7efe2884d021ae64e78611e802ba67",
+                "reference": "12378900ea7efe2884d021ae64e78611e802ba67",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^8.0",
+                "illuminate/support": "^8.0",
+                "php": "^7.4|^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Coderan\\DataMigrations\\DataMigrationsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Coderan\\DataMigrations\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jose Lorente",
+                    "email": "jose.lorente.martin@gmail.com"
+                },
+                {
+                    "name": "Eran Machiels",
+                    "email": "dev@eranmachiels.nl"
+                }
+            ],
+            "description": "An extension to allow you to separate data migrations from structure migrations",
+            "support": {
+                "issues": "https://github.com/coderan-io/laravel-data-migrations/issues",
+                "source": "https://github.com/coderan-io/laravel-data-migrations/tree/1.0.1"
+            },
+            "time": "2021-02-09T17:31:33+00:00"
         },
         {
             "name": "doctrine/inflector",

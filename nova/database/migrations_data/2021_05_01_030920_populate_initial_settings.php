@@ -1,20 +1,35 @@
 <?php
 
-namespace Database\State;
-
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Migrations\Migration;
 use Nova\Settings\Models\Settings;
 use Nova\Settings\Values;
 
-class EnsureCustomSettingsArePresent
+class PopulateInitialSettings extends Migration
 {
-    public function __invoke()
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up(): void
     {
-        if ($this->present()) {
-            return;
-        }
+        Settings::unguarded(function () {
+            collect([
+                $this->defaultSettings('default'),
+                $this->defaultSettings('custom'),
+            ])->each([Settings::class, 'create']);
+        });
+    }
 
-        $settings = [
+    public function down(): void
+    {
+        Settings::truncate();
+    }
+
+    public function defaultSettings($key): array
+    {
+        return [
+            'key' => $key,
             'general' => new Values\General([]),
             'email' => new Values\Email([]),
             'defaults' => new Values\Defaults([
@@ -37,16 +52,5 @@ class EnsureCustomSettingsArePresent
                 'applicationsColor' => null,
             ]),
         ];
-
-        $defaults = new Settings(array_merge([
-            'key' => 'custom',
-        ], $settings));
-
-        $defaults->save();
-    }
-
-    private function present(): bool
-    {
-        return DB::table('settings')->whereKey('custom')->count() > 0;
     }
 }

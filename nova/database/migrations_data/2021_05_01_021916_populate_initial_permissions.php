@@ -1,17 +1,12 @@
 <?php
 
-namespace Database\State;
-
+use Illuminate\Database\Migrations\Migration;
 use Nova\Roles\Models\Permission;
 
-class EnsurePermissionsArePresent
+class PopulateInitialPermissions extends Migration
 {
-    public function __invoke()
+    public function up(): void
     {
-        if ($this->present()) {
-            return;
-        }
-
         Permission::unguarded(function () {
             collect([
                 ['name' => 'role.create', 'display_name' => 'Create roles'],
@@ -57,8 +52,8 @@ class EnsurePermissionsArePresent
         });
     }
 
-    private function present(): bool
+    public function down(): void
     {
-        return Permission::count() > 0;
+        Permission::truncate();
     }
 }

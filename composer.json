@@ -14,6 +14,7 @@
         "awssat/discord-notification-channel": "^1.4",
         "blade-ui-kit/blade-icons": "^1.0",
         "blade-ui-kit/blade-ui-kit": "^0.2",
+        "coderan/laravel-data-migrations": "^1.0",
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "jessarcher/laravel-castable-data-transfer-object": "^2.0",

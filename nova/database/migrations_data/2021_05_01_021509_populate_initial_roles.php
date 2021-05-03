@@ -1,17 +1,12 @@
 <?php
 
-namespace Database\State;
-
+use Illuminate\Database\Migrations\Migration;
 use Nova\Roles\Models\Role;
 
-class EnsureRolesArePresent
+class PopulateInitialRoles extends Migration
 {
-    public function __invoke()
+    public function up(): void
     {
-        if ($this->present()) {
-            return;
-        }
-
         Role::unguarded(function () {
             collect([
                 ['name' => 'admin', 'display_name' => 'System Admin', 'locked' => true, 'sort' => 0],
@@ -20,8 +15,8 @@ class EnsureRolesArePresent
         });
     }
 
-    private function present(): bool
+    public function down(): void
     {
-        return Role::count() > 0;
+        Role::whereIn('name', ['admin', 'user'])->delete();
     }
 }
