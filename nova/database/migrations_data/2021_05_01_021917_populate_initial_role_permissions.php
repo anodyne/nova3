@@ -21,11 +21,11 @@ class PopulateInitialRolePermissions extends Migration
         collect([
             $this->adminPermissions(),
             $this->userPermissions(),
-        ])->each(function ($permission, $role) use ($method) {
-            $role = Role::whereName($role)->first();
+        ])->each(function ($permissions) use ($method) {
+            $role = Role::whereName($roleName = key($permissions))->first();
 
             $role->$method(
-                Permission::whereIn('name', $permission)->get()->pluck('id')->all()
+                Permission::whereIn('name', $permissions[$roleName])->get()->pluck('id')->all()
             );
         });
     }

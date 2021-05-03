@@ -22,7 +22,7 @@ class PopulateInitialPages extends Migration
                 $this->settings(),
                 $this->siteThemes(),
                 $this->users(),
-            ])->each([Page::class, 'create']);
+            ])->flatten(1)->each([Page::class, 'create']);
         });
     }
 
@@ -42,7 +42,7 @@ class PopulateInitialPages extends Migration
             $this->settings(),
             $this->siteThemes(),
             $this->users(),
-        ])->map(fn ($page) => $page['key'])->toArray();
+        ])->flatten(1)->map(fn ($page) => $page['key'])->toArray();
 
         Page::whereIn('key', $pageKeys)->delete();
     }
