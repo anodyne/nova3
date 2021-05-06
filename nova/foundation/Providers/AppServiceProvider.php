@@ -3,29 +3,29 @@
 namespace Nova\Foundation\Providers;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Livewire\Livewire;
-use Nova\Foundation\Macros;
-use Illuminate\Routing\Route;
-use Nova\Foundation\NovaManager;
-use Nova\Foundation\Icons\IconSets;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
-use Nova\Foundation\Icons\FluentIconSet;
-use Nova\Foundation\NovaBladeDirectives;
-use Nova\Foundation\Icons\FeatherIconSet;
-use Nova\Foundation\Livewire\UploadImage;
-use Nova\Foundation\View\Components\Tips;
-use Nova\Foundation\Livewire\UploadAvatar;
-use Nova\Foundation\View\Components\Badge;
 use Illuminate\View\Factory as ViewFactory;
-use Nova\Foundation\View\Components\Avatar;
-use Nova\Foundation\View\Components\Button;
+use Livewire\Livewire;
+use Nova\Foundation\Icons\FeatherIconSet;
+use Nova\Foundation\Icons\FluentIconSet;
+use Nova\Foundation\Icons\IconSets;
 use Nova\Foundation\Livewire\IconsSelectMenu;
-use Nova\Foundation\View\Components\Dropdown;
-use Nova\Foundation\View\Components\ButtonLink;
+use Nova\Foundation\Livewire\UploadAvatar;
+use Nova\Foundation\Livewire\UploadImage;
+use Nova\Foundation\Macros;
+use Nova\Foundation\NovaBladeDirectives;
+use Nova\Foundation\NovaManager;
+use Nova\Foundation\View\Components\Avatar;
 use Nova\Foundation\View\Components\AvatarGroup;
+use Nova\Foundation\View\Components\Badge;
+use Nova\Foundation\View\Components\Button;
+use Nova\Foundation\View\Components\ButtonLink;
+use Nova\Foundation\View\Components\Dropdown;
+use Nova\Foundation\View\Components\Tips;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -56,6 +56,7 @@ class AppServiceProvider extends ServiceProvider
     {
         RedirectResponse::mixin(new Macros\RedirectResponseMacros);
         Route::mixin(new Macros\RouteMacros);
+        Str::mixin(new Macros\StrMacros);
         ViewFactory::mixin(new Macros\ViewMacros);
     }
 
