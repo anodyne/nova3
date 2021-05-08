@@ -17,7 +17,7 @@ class SetupServiceProvider extends DomainServiceProvider
 
     protected $listeners = [
         MigrationsEnded::class => [
-            RunDataMigrations::class,
+            // RunDataMigrations::class,
         ],
     ];
 

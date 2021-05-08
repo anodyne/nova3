@@ -2,9 +2,10 @@
 
 namespace Tests;
 
+use Database\State\Pages;
+use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use JMac\Testing\Traits\AdditionalAssertions;
 use Nova\Foundation\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -17,6 +18,10 @@ abstract class TestCase extends BaseTestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        Pages::create();
+
+        $this->withoutExceptionHandling();
 
         $this->remapRouteCollection();
         $this->setupTestResponseMacros();

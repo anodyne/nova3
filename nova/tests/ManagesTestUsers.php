@@ -2,57 +2,32 @@
 
 namespace Tests;
 
+use Illuminate\Support\Arr;
+use Nova\Roles\Models\Permission;
+use Nova\Roles\Models\Role;
 use Nova\Users\Models\User;
 
 trait ManagesTestUsers
 {
-    /**
-     * Create an admin user.
-     *
-     * @param  array  $attributes
-     *
-     * @return User
-     */
     protected function createAdmin(array $attributes = []): User
     {
         $admin = $this->createUser($attributes);
 
-        $admin->attachRole('admin');
+        $admin->attachRole(Role::create(['name' => 'admin']));
 
         return $admin;
     }
 
-    /**
-     * Create a user and persist it to the database.
-     *
-     * @param  array  $attributes
-     *
-     * @return User
-     */
     protected function createUser(array $attributes = []): User
     {
         return User::factory()->create($attributes);
     }
 
-    /**
-     * Make a user.
-     *
-     * @param  array  $attributes
-     *
-     * @return User
-     */
     protected function makeUser(array $attributes = []): User
     {
         return User::factory()->make($attributes);
     }
 
-    /**
-     * Sign in to the app.
-     *
-     * @param  null|User  $user
-     *
-     * @return User
-     */
     protected function signIn(User $user = null): self
     {
         $user = $user ?? $this->createUser();
@@ -62,13 +37,6 @@ trait ManagesTestUsers
         return $this;
     }
 
-    /**
-     * Sign in to the app as an admin.
-     *
-     * @param  null|User  $user
-     *
-     * @return User
-     */
     protected function signInAsAdmin(User $user = null): self
     {
         $user = $user ?? $this->createAdmin();
@@ -78,19 +46,13 @@ trait ManagesTestUsers
         return $this;
     }
 
-    /**
-     * Sign in to the app with a specific permission.
-     *
-     * @param  string|array  $permissions
-     * @param  null|User  $user
-     *
-     * @return User
-     */
     protected function signInWithPermission($permissions, User $user = null): self
     {
         $user = $user ?? $this->createUser();
 
-        $permissions = (is_string($permissions)) ? [$permissions] : $permissions;
+        $permissions = collect(Arr::wrap($permissions))
+            ->each(fn ($permission) => Permission::factory()->create(['name' => $permission]))
+            ->toArray();
 
         $user->attachPermissions($permissions);
 
@@ -99,11 +61,6 @@ trait ManagesTestUsers
         return $this;
     }
 
-    /**
-     * Sign out of the app.
-     *
-     * @return void
-     */
     protected function signOut(): void
     {
         auth()->logout();
