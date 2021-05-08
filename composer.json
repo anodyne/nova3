@@ -63,6 +63,7 @@
         "psr-4": {
             "Nova\\": "nova/src/",
             "Nova\\Foundation\\": "nova/foundation/",
+            "Nova\\Setup\\": "nova/setup/",
             "Extensions\\": "extensions/",
             "Themes\\": "themes/",
             "Database\\Factories\\": "nova/database/factories/",

@@ -3,7 +3,7 @@
 namespace Nova\Setup\Providers;
 
 use Nova\DomainServiceProvider;
-use Nova\Setup\Console\Commands\RefreshNovaCommand;
+use Nova\Setup\Commands\RefreshNovaCommand;
 
 class SetupServiceProvider extends DomainServiceProvider
 {

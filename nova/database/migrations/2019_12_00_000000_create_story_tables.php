@@ -20,8 +20,8 @@ class CreateStoryTables extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->text('summary')->nullable();
-            $table->dateTime('start_date')->nullable();
-            $table->dateTime('end_date')->nullable();
+            $table->timestamp('start_date')->nullable();
+            $table->timestamp('end_date')->nullable();
             $table->boolean('allow_posting')->default(true);
             $table->timestamps();
 
@@ -65,7 +65,7 @@ class CreateStoryTables extends Migration
             $table->unsignedSmallInteger('rating_sex')->default(0);
             $table->unsignedSmallInteger('rating_violence')->default(0);
             $table->nestedSet();
-            $table->dateTime('published_at')->nullable();
+            $table->timestamp('published_at')->nullable();
             $table->timestamps();
 
             $table->index(['story_id', 'post_type_id', 'published_at']);

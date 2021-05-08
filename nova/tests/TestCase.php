@@ -2,9 +2,9 @@
 
 namespace Tests;
 
+use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use JMac\Testing\Traits\AdditionalAssertions;
 use Nova\Foundation\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
