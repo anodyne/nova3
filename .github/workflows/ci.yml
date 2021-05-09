@@ -67,7 +67,6 @@ jobs:
               run: |
                 cp .env.ci .env.testing
                 php artisan key:generate --env=testing
-                php artisan --version
                 php artisan list
 
             - name: Execute tests
