@@ -68,6 +68,7 @@ jobs:
                 cp .env.ci .env.testing
                 php artisan key:generate --env=testing
                 php artisan --version
+                php artisan list
 
             - name: Execute tests
               run: php artisan test --parallel
