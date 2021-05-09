@@ -62,7 +62,7 @@ jobs:
           php artisan list
 
       - name: Execute tests
-        run: vendor/bin/phpunit --verbose
+        run: php artisan test --parallel
 
       - name: Deploy to Forge
         if: github.ref == 'refs/heads/dev'
