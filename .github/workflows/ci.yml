@@ -4,74 +4,65 @@ on:
   push
 
 jobs:
-    php-tests:
-        runs-on: ${{ matrix.os }}
+  php-tests:
+    runs-on: ${{ matrix.os }}
 
-        services:
-          mysql:
-            image: mysql:8.0
-            env:
-              MYSQL_DATABASE: database_ci
-              MYSQL_USER: user
-              MYSQL_PASSWORD: secret
-              MYSQL_ROOT_PASSWORD: secretroot
-            ports:
-              - 33306:3306
-            options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_DATABASE: database_ci
+          MYSQL_USER: user
+          MYSQL_PASSWORD: secret
+          MYSQL_ROOT_PASSWORD: secretroot
+        ports:
+          - 33306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
-        strategy:
-            matrix:
-                php: [8.0]
-                dependency-version: [prefer-stable]
-                os: [ubuntu-latest]
+    strategy:
+      matrix:
+        php: [8.0]
+        dependency-version: [prefer-stable]
+        os: [ubuntu-latest]
 
-        name: PHP ${{ matrix.php }}
+    name: PHP ${{ matrix.php }}
 
-        steps:
-            - uses: actions/checkout@v1
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-            - name: Setup PHP
-              uses: shivammathur/setup-php@v2
-              with:
-                  php-version: ${{ matrix.php }}
-                  extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
-                  coverage: none
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+            php-version: ${{ matrix.php }}
+            extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
+            coverage: none
 
-            - name: Verify MySQL connection
-              run: |
-                mysql --version
-                sudo apt-get install -y mysql-client
-                mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uuser -psecret -e "SHOW DATABASES"
+      - name: Verify MySQL connection
+        run: |
+          mysql --version
+          sudo apt-get install -y mysql-client
+          mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uuser -psecret -e "SHOW DATABASES"
 
-            - name: Cache composer dependencies
-              uses: actions/cache@v1
-              with:
-                path: nova/vendor
-                key: composer-${{ hashFiles('composer.lock') }}
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-interaction --no-suggest
 
-            - name: Install dependencies
-              run: composer install --no-interaction --prefer-dist --no-suggest --no-scripts
+      - name: Install NPM dependencies
+        run: |
+          npm --version
+          npm install
 
-            - name: Cache npm dependencies
-              uses: actions/cache@v1
-              with:
-                path: node_modules
-                key: npm-${{ hashFiles('package-lock.json') }}
+      - name: Compile assets
+        run: npm run dev
 
-            - name: Run npm
-              run: |
-                npm --version
-                npm install && npm run dev
+      - name: Prepare Laravel app
+        run: |
+          cp .env.ci .env.testing
+          php artisan key:generate --env=testing
 
-            - name: Prepare Laravel app
-              run: |
-                cp .env.ci .env.testing
-                php artisan key:generate --env=testing
-                php artisan list
+      - name: Execute tests
+        run: vendor/bin/phpunit --verbose
 
-            - name: Execute tests
-              run: php artisan test --parallel
-
-            - name: Deploy to Forge
-              if: github.ref == 'refs/heads/dev'
-              run: curl "${{ secrets.FORGE_DEPLOYMENT_WEBHOOK }}"
+      - name: Deploy to Forge
+        if: github.ref == 'refs/heads/dev'
+        run: curl "${{ secrets.FORGE_DEPLOYMENT_WEBHOOK }}"
