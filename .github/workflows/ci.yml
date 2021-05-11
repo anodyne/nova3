@@ -57,13 +57,12 @@ jobs:
         run: |
           cp .env.ci .env.testing
           php artisan key:generate --env=testing
-          php artisan list
 
       - name: Execute tests
         env:
           DB_PORT: ${{ job.services.mysql.ports[3306] }}
           DB_USERNAME: root
-        run: php artisan test --parallel
+        run: php artisan test
 
       - name: Deploy to Forge
         if: github.ref == 'refs/heads/dev'
