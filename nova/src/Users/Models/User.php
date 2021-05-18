@@ -2,29 +2,29 @@
 
 namespace Nova\Users\Models;
 
-use Nova\Users\Events;
-use Nova\Notes\Models\Note;
-use Nova\Stories\Models\Post;
-use Spatie\ModelStates\HasStates;
-use Spatie\MediaLibrary\HasMedia;
-use Nova\Users\Models\States\Active;
-use Nova\Characters\Models\Character;
-use Nova\Users\Models\States\Pending;
-use Nova\Users\Models\States\Inactive;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
-use Nova\Users\Models\States\UserStatus;
-use Nova\Users\Models\Builders\UserBuilder;
-use Spatie\Activitylog\Traits\LogsActivity;
-use Spatie\MediaLibrary\InteractsWithMedia;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Nova\Users\Models\States\ActiveToInactive;
-use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
-use Nova\Users\Models\Collections\UsersCollection;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Nova\Characters\Models\Character;
 use Nova\Characters\Models\States\Statuses\Active as ActiveCharacter;
+use Nova\Notes\Models\Note;
+use Nova\Stories\Models\Post;
+use Nova\Users\Events;
+use Nova\Users\Models\Builders\UserBuilder;
+use Nova\Users\Models\Collections\UsersCollection;
+use Nova\Users\Models\States\Active;
+use Nova\Users\Models\States\ActiveToInactive;
+use Nova\Users\Models\States\Inactive;
+use Nova\Users\Models\States\Pending;
+use Nova\Users\Models\States\UserStatus;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\ModelStates\HasStates;
+use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
 class User extends Authenticatable implements MustVerifyEmail, HasMedia
 {
@@ -45,10 +45,6 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
         'force_password_reset' => 'boolean',
     ];
 
-    protected $dates = [
-        'last_login',
-    ];
-
     protected $dispatchesEvents = [
         'created' => Events\UserCreated::class,
         'updated' => Events\UserUpdated::class,
@@ -56,8 +52,8 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     ];
 
     protected $fillable = [
-        'name', 'email', 'password', 'last_login', 'force_password_reset',
-        'status', 'pronouns',
+        'name', 'email', 'password', 'force_password_reset', 'status',
+        'pronouns',
     ];
 
     protected $hidden = [
@@ -84,6 +80,11 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     public function logins()
     {
         return $this->hasMany(Login::class);
+    }
+
+    public function latestLogin()
+    {
+        return $this->hasOne(Login::class)->ofMany();
     }
 
     public function notes()

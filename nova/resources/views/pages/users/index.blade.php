@@ -89,12 +89,12 @@
                                             {{ $user->updated_at->diffForHumans() }}
                                         </time>
                                     </div>
-                                    @if ($user->last_login_at != null)
+                                    @if ($user->latestLogin !== null)
                                         <div class="mt-2 flex items-center text-sm text-gray-500">
                                             @icon('sign-in', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
                                             Last signed in&nbsp;
-                                            <time datetime="{{ $user->last_login_at }}">
-                                                {{ $user->last_login_at->diffForHumans() }}
+                                            <time datetime="{{ $user->latestLogin->created_at }}">
+                                                {{ $user->latestLogin->created_at->diffForHumans() }}
                                             </time>
                                         </div>
                                     @endif

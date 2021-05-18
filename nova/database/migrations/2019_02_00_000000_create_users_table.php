@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateUsersTable extends Migration
 {
@@ -17,7 +17,6 @@ class CreateUsersTable extends Migration
             $table->string('pronouns')->default('neutral');
             $table->rememberToken();
             $table->boolean('force_password_reset')->default(false);
-            $table->timestamp('last_login')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
             $table->softDeletes();

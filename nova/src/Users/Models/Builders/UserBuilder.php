@@ -2,13 +2,12 @@
 
 namespace Nova\Users\Models\Builders;
 
-use Nova\Users\Models\Login;
+use Illuminate\Database\Eloquent\Builder;
+use Nova\Foundation\Filters\Filterable;
 use Nova\Users\Models\States\Active;
-use Nova\Users\Models\States\Pending;
 use Nova\Users\Models\States\Archived;
 use Nova\Users\Models\States\Inactive;
-use Nova\Foundation\Filters\Filterable;
-use Illuminate\Database\Eloquent\Builder;
+use Nova\Users\Models\States\Pending;
 
 class UserBuilder extends Builder
 {
@@ -52,21 +51,5 @@ class UserBuilder extends Builder
     public function wherePending()
     {
         return $this->where('state', '=', Pending::class);
-    }
-
-    /**
-     * Get the last login date.
-     *
-     * @return Builder
-     */
-    public function withLastLoginAt()
-    {
-        return $this->addSelect(['last_login_at' => Login::select('created_at')
-            ->whereColumn('user_id', 'users.id')
-            ->latest()
-            ->take(1)
-        ])->withCasts([
-            'last_login_at' => 'date',
-        ]);
     }
 }

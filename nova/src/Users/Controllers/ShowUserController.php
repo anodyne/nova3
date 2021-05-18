@@ -2,12 +2,12 @@
 
 namespace Nova\Users\Controllers;
 
-use Nova\Users\Models\User;
 use Illuminate\Http\Request;
-use Nova\Users\Filters\UserFilters;
-use Nova\Users\Responses\ShowUserResponse;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Users\Filters\UserFilters;
+use Nova\Users\Models\User;
 use Nova\Users\Responses\ShowAllUsersResponse;
+use Nova\Users\Responses\ShowUserResponse;
 
 class ShowUserController extends Controller
 {
@@ -22,8 +22,7 @@ class ShowUserController extends Controller
     {
         $this->authorize('viewAny', User::class);
 
-        $users = User::with('media')
-            ->withLastLoginAt()
+        $users = User::with('media', 'latestLogin')
             ->filter($filters)
             ->orderBy('name')
             ->paginate();

@@ -10,6 +10,10 @@ class Login extends Model
 
     protected $fillable = ['ip_address', 'created_at'];
 
+    protected $casts = [
+        'created_at' => 'datetime',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
