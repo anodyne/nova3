@@ -16,8 +16,7 @@
         "@tailwindcss/typography": "^0.3.1",
         "@tiptap/core": "^2.0.0-alpha.7",
         "@tiptap/starter-kit": "^2.0.0-alpha.5",
-        "alpine-magic-helpers": "^0.5.1",
-        "alpinejs": "^2.7.3",
+        "alpinejs": "3.1.1",
         "animate.css": "^3.7",
         "autoprefixer": "^10.0.4",
         "axios": "^0.21",
@@ -38,10 +37,9 @@
     "devDependencies": {
         "cypress": "^6.1.0",
         "cypress-file-upload": "^4.1.1",
-        "eslint": "^5.5.0",
-        "eslint-config-airbnb-base": "^13.1.0",
-        "eslint-import-resolver-webpack": "^0.10.1",
-        "eslint-plugin-import": "^2.22.1",
-        "eslint-plugin-vue": "^5.2.0"
+        "eslint": "^7.29.0",
+        "eslint-config-airbnb-base": "^14.2.0",
+        "eslint-import-resolver-webpack": "^0.13.1",
+        "eslint-plugin-import": "^2.23.1"
     }
 }
