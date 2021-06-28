@@ -2,8 +2,8 @@
 
 namespace Nova\Foundation;
 
-use Throwable;
 use Illuminate\Support\Facades\Schema;
+use Throwable;
 
 class NovaManager
 {
@@ -88,10 +88,7 @@ HTML;
         // Adding semicolons for this JavaScript is important,
         // because it will be minified in production.
         return <<<HTML
-<script data-turbolinks-eval="false">
-    window.nova_app_url = '{$appUrl}';
-</script>
-<script src="{$jsPath}" data-turbolinks-eval="false" defer></script>
+<script src="{$jsPath}" defer></script>
 HTML;
     }
 
