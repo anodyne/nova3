@@ -10,6 +10,8 @@
     @bukStyles
     @novaStyles
     @stack('styles')
+
+    @novaScripts
 </head>
 <body class="font-sans bg-gray-100 text-gray-900 antialiased">
     <div id="app">
@@ -23,7 +25,6 @@
 
     @livewireScripts
     @bukScripts
-    @novaScripts
     @stack('scripts')
 </body>
 </html>
