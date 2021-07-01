@@ -1,8 +1,8 @@
 <div
-    x-data="setupEditor(
-        @entangle($attributes->wire('model')).defer
+    x-data="tipTap(
+        @entangle($attributes->wire('model')).defer,
+        $refs.editor
     )"
-    x-init="() => init($refs.editor)"
     @click.away="inFocus = false;"
     wire:ignore
     {{ $attributes->whereDoesntStartWith('wire:model') }}

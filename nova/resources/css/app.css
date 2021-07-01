@@ -5,11 +5,8 @@
 @import 'components/form.css';
 @import 'components/icon.css';
 @import 'components/rank.css';
-@import 'components/trix.css';
 
 @import 'tailwindcss/utilities';
-
-@import 'utilities/animation.css';
 
 @font-face {
     font-family: 'Inter var';

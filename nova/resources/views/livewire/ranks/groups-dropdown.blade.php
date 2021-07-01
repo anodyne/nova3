@@ -1,6 +1,5 @@
 <div
-    x-data="AlpineComponents.listBox({ value: {{ $selectedId ?? 0 }}, selected: {{ $selectedId ?? 0 }} })"
-    x-init="init()"
+    x-data="listBox({ value: {{ $selectedId ?? 0 }}, selected: {{ $selectedId ?? 0 }} })"
     x-on:listbox-close.window="open = false"
     class="relative w-full"
 >

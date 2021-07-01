@@ -5,8 +5,7 @@
 ])
 
 <div
-    x-data="AlpineComponents.wordCount()"
-    x-init="init()"
+    x-data="wordCount"
     x-on:trix-change="
         $dispatch('input', $event.target.value);
         @if ($countWords) refreshCount($event); @endif

@@ -1,17 +1,16 @@
 import { Editor as TipTap } from '@tiptap/core';
 import { defaultExtensions } from '@tiptap/starter-kit';
 
-window.setupEditor = (content) => ({
+export default (content, element) => ({
     content,
+    element,
     inFocus: false,
-    // updatedAt is to force Alpine to
-    // rerender on selection change
-    updatedAt: Date.now(),
+    updatedAt: Date.now(), // updatedAt is to force Alpine to re-render on selection change
     editor: null,
 
-    init(el) {
+    init() {
         const editor = new TipTap({
-            element: el,
+            element: this.element,
             extensions: defaultExtensions(),
             content: this.content,
             editorProps: {

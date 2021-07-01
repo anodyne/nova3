@@ -9,13 +9,11 @@
 
     <x-panel
         x-data="{ name: '{{ old('name') }}', location: '{{ old('location') }}', suggestLocation: true }"
-        x-init="
-            $watch('name', value => {
-                if (suggestLocation) {
-                    location = value.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'-');
-                }
-            })
-        "
+        x-init="$watch('name', value => {
+            if (suggestLocation) {
+                location = value.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'-');
+            }
+        })"
     >
         <x-form :action="route('themes.store')">
             <x-form.section title="Theme Info" message="A theme allows you to give your public-facing site the look-and-feel you want to any visitors. Using tools like regular HTML and CSS, you can show visitors the personality of your game and put your own spin on Nova.">

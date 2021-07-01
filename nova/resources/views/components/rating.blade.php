@@ -1,27 +1,24 @@
 @props([
+    'value',
     'static' => false,
 ])
 
-<div x-data="stars" class="flex items-center rounded-full space-x-1 overflow-hidden text-sm font-semibold">
-    <template x-for="i in 4">
-        <button x-bind="star(i)" type="button" x-on:click="setCount(i)" class="flex-1 py-0.5 bg-gray-300 hover:bg-gray-400 text-white text-center transition ease-in-out duration-150">
-            <span x-text="i">&nbsp;</span>
+<div x-data="ratings" class="flex items-center space-x-1 rounded-full overflow-hidden">
+    @for ($i = 0; $i <= 3; $i++)
+        <button
+            x-bind="rating({{ $i }})"
+            type="button"
+            x-on:click="setCount({{ $i }})"
+            class="m-0 flex-1 py-0.5 bg-gray-300 hover:bg-gray-400 text-white text-center text-sm font-semibold transition ease-in-out duration-150"
+            x-bind:class="{
+                'bg-green-500 hover:bg-green-500': count >= {{ $i }} && count === 0,
+                'bg-yellow-500 hover:bg-yellow-500': count >= {{ $i }} && count === 1,
+                'bg-orange-500 hover:bg-orange-500': count >= {{ $i }} && count === 2,
+                'bg-red-500 hover:bg-red-500': count >= {{ $i }} && count === 3
+            }"
+        >
+            <span x-show="count === {{ $i }}" x-text="count"></span>
+            <span x-show="count !== {{ $i }}">&nbsp;</span>
         </button>
-    </template>
+    @endfor
 </div>
-
-@push('scripts')
-    @once
-        <script>
-            function stars () {
-                count: 1,
-                setCount(count) {
-                    this.count = count
-                },
-                star: function (i) {
-
-                }
-            }
-        </script>
-    @endonce
-@endpush

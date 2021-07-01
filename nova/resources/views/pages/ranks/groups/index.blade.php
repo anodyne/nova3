@@ -33,7 +33,7 @@
             :link="route('ranks.groups.create')"
         ></x-empty-state>
     @else
-        <x-panel x-data="AlpineComponents.sortableList()" x-init="init()">
+        <x-panel x-data="sortableList">
             @if ($isReordering)
                 <div class="bg-purple-100 border-t border-b border-purple-200 p-4 | sm:rounded-t-md sm:border-t-0">
                     <div class="flex">
