@@ -17,7 +17,7 @@
         @method($method)
     @endif
 
-    <div class="@if ($divide) divide-y divide-gray-100 @endif space-y-4 | md:space-y-8">
+    <div class="@if ($divide) divide-y divide-gray-3 @endif space-y-4 | md:space-y-8">
         {{ $slot }}
     </div>
 </form>

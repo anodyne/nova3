@@ -3,7 +3,7 @@
         x-on:click.prevent="open = true"
         {{-- wire:poll.30s="refreshNotifications" --}}
         type="button"
-        class="relative p-1 text-gray-400 rounded-full transition ease-in-out duration-150 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring focus:text-gray-500"
+        class="relative p-1 text-gray-9 rounded-full transition ease-in-out duration-150 hover:bg-gray-3 hover:text-gray-10 focus:outline-none focus:ring focus:text-gray-9"
         aria-label="Notifications"
     >
         @icon('notification', 'h-6 w-6')

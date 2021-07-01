@@ -18,7 +18,7 @@
             @endif
 
             @if ($secondaryMeta)
-                <div class="mt-1 flex items-center text-sm text-gray-500">
+                <div class="mt-1 flex items-center text-sm text-gray-9">
                     {{ $secondaryMeta }}
                 </div>
             @endif

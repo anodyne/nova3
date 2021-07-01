@@ -7,7 +7,7 @@
 
 <div {{ $attributes->merge(['class' => $error ? 'has-error' : '']) }}>
     @if ($label)
-        <label for="{{ $for }}" class="block mb-1 text-sm font-medium text-gray-700">
+        <label for="{{ $for }}" class="block mb-1 text-sm font-medium text-gray-11">
             {{ $label }}
         </label>
     @endif
@@ -22,7 +22,7 @@
     @endif
 
     @if ($help)
-        <p class="block w-full relative mt-2 ml-0.5 text-sm text-gray-500" role="note">
+        <p class="block w-full relative mt-2 ml-0.5 text-sm text-gray-11" role="note">
             {{ $help }}
         </p>
     @endif

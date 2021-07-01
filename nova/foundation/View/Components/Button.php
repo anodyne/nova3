@@ -44,22 +44,22 @@ class Button extends Component
         switch ($this->color) {
             case 'white':
             default:
-                return 'border-gray-300 text-gray-700 bg-white hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:ring-blue-7';
+                return 'border-gray-7 text-gray-9 bg-gray-1 hover:bg-gray-2 hover:border-gray-8 hover:text-gray-10 focus:ring-2 focus:ring-offset-2 focus:ring-blue-7';
 
                 break;
 
             case 'dark-gray-text':
-                return 'border-transparent text-gray-600 font-medium hover:text-gray-800 focus:text-gray-800';
-
-                break;
-
-            case 'dark-gray-text':
-                return 'border-transparent text-gray-600 font-medium hover:text-gray-800 focus:text-gray-800';
+                return 'border-transparent text-gray-11 font-medium hover:text-gray-12 focus:text-gray-11';
 
                 break;
 
             case 'gray-text':
-                return 'border-transparent font-medium text-gray-400 hover:text-gray-600';
+                return 'border-transparent text-gray-9 font-medium hover:text-gray-10 focus:text-gray-10';
+
+                break;
+
+            case 'light-gray-text':
+                return 'border-transparent font-medium text-gray-7 hover:text-gray-8';
 
                 break;
 

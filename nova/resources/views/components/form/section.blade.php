@@ -7,11 +7,11 @@
     @if ($title || $message)
         <div class="mb-8 w-full | md:w-2/5 md:mr-16 md:mb-0">
             @if ($title)
-                <h3 class="font-semibold text-xl text-gray-700 tracking-tight">{{ $title }}</h3>
+                <h3 class="font-semibold text-xl text-gray-12 tracking-tight">{{ $title }}</h3>
             @endif
 
             @if ($message)
-                <div class="mt-2 text-gray-600 space-y-6">{{ $message }}</div>
+                <div class="mt-2 text-gray-11 space-y-6">{{ $message }}</div>
             @endif
         </div>
     @endif
