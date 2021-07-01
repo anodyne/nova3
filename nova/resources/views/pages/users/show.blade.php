@@ -88,8 +88,8 @@
                                 {{ $role->display_name }}
                             </span>
                         @empty
-                            <div class="flex items-center font-semibold text-yellow-700">
-                                @icon('warning', 'mr-3 flex-shrink-0 h-6 w-6')
+                            <div class="flex items-center font-semibold text-yellow-11">
+                                @icon('warning', 'mr-3 flex-shrink-0 h-6 w-6 text-yellow-9')
                                 <span>This user does not have any roles.</span>
                             </div>
                         @endforelse

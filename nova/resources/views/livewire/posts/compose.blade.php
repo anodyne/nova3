@@ -101,8 +101,8 @@
                 <x-rating :value="1" />
                 {{-- <x-input.number min="1" max="3" value="1" name="ratings[sex]" /> --}}
                 {{-- <div class="flex items-center rounded-full space-x-1 overflow-hidden text-sm font-semibold">
-                    <div class="flex-1 py-0.5 bg-yellow-500 text-white text-center">&nbsp;</div>
-                    <a href="#" class="flex-1 py-0.5 bg-yellow-500 hover:bg-gray-400 text-white text-center transition ease-in-out duration-150">1</a>
+                    <div class="flex-1 py-0.5 bg-yellow-9 text-white text-center">&nbsp;</div>
+                    <a href="#" class="flex-1 py-0.5 bg-yellow-9 hover:bg-gray-400 text-white text-center transition ease-in-out duration-150">1</a>
                     <a href="#" class="flex-1 py-0.5 bg-gray-300 hover:bg-gray-400 text-white text-center transition ease-in-out duration-150">&nbsp;</a>
                     <a href="#" class="flex-1 py-0.5 bg-gray-300 hover:bg-gray-400 text-white text-center transition ease-in-out duration-150">&nbsp;</a>
                 </div> --}}

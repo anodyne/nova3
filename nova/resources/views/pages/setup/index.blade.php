@@ -45,13 +45,13 @@
                 Please do not share this with anyone outside of the Anodyne Patreon community. Any feedback regarding this preview can be sent in the <a href="https://discord.gg/7WmKUks" target="_blank" class="text-blue-600 hover:text-blue-500 transition ease-in-out duration-150 font-medium">#patrons</a> channel on Discord.
             </p>
 
-            <div class="rounded-md bg-yellow-50 p-4">
+            <div class="rounded-md bg-yellow-3 p-4">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
-                        @icon('warning', 'h-7 w-7 text-yellow-400')
+                        @icon('warning', 'h-7 w-7 text-yellow-9')
                     </div>
                     <div class="ml-4 flex-1 | md:flex md:justify-between">
-                        <p class="text-yellow-700 font-medium">
+                        <p class="text-yellow-11 font-medium">
                             This is alpha-level software and is not suitable for a production environment!
                         </p>
                     </div>

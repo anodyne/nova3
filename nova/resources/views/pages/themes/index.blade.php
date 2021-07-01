@@ -94,9 +94,9 @@
             @endforeach
         </div>
     @else
-        <div class="flex items-center w-full rounded-md px-4 py-4 bg-yellow-50 | sm:px-6">
-            @icon('warning', 'h-6 w-6 flex-shrink-0 mr-3 text-yellow-400')
-            <span class="font-medium text-yellow-600">
+        <div class="flex items-center w-full rounded-md px-4 py-4 bg-yellow-3 | sm:px-6">
+            @icon('warning', 'h-6 w-6 flex-shrink-0 mr-3 text-yellow-9')
+            <span class="font-medium text-yellow-11">
                 No themes found.
             </span>
         </div>
