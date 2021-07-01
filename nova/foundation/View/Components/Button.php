@@ -79,17 +79,17 @@ class Button extends Component
                 break;
 
             case 'purple':
-                return 'border-transparent text-white bg-purple-600 hover:bg-purple-700 focus:ring-2 focus:ring-offset-2 focus:border-purple-700 focus:ring-purple-500';
+                return 'border-transparent text-white bg-purple-9 hover:bg-purple-10 focus:ring-2 focus:ring-offset-2 focus:border-purple-6 focus:ring-purple-6';
 
                 break;
 
             case 'purple-soft':
-                return 'border-transparent text-purple-700 bg-purple-100 hover:bg-purple-200 focus:ring-2 focus:ring-offset-2 focus:ring-purple-500';
+                return 'border-transparent text-purple-11 bg-purple-3 hover:bg-purple-4 focus:ring-2 focus:ring-offset-2 focus:ring-purple-6';
 
                 break;
 
             case 'purple-text':
-                return 'border-transparent font-medium text-purple-600 hover:text-purple-800';
+                return 'border-transparent font-medium text-purple-9 hover:text-purple-10';
 
                 break;
 

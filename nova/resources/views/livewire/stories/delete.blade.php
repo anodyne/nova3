@@ -27,8 +27,8 @@
 
                         <div class="mt-2 max-w-xl text-gray-600 font-medium flex items-center space-x-6">
                             @if (data_get($actions, "{$story->id}.story.action") === 'move')
-                                <div class="flex items-center space-x-1 text-purple-600">
-                                    @icon('arrow-right-alt', 'h-6 w-6 flex-shrink-0 text-purple-400')
+                                <div class="flex items-center space-x-1 text-purple-11">
+                                    @icon('arrow-right-alt', 'h-6 w-6 flex-shrink-0 text-purple-9')
                                     <span>Story will be moved</span>
                                 </div>
                             @endif
@@ -41,8 +41,8 @@
                             @endif
 
                             @if (data_get($actions, "{$story->id}.posts.action") === 'move')
-                                <div class="flex items-center space-x-1 text-purple-600">
-                                    @icon('arrow-right-alt', 'h-6 w-6 flex-shrink-0 text-purple-400')
+                                <div class="flex items-center space-x-1 text-purple-11">
+                                    @icon('arrow-right-alt', 'h-6 w-6 flex-shrink-0 text-purple-9')
                                     <span>Story posts will be moved</span>
                                 </div>
                             @endif

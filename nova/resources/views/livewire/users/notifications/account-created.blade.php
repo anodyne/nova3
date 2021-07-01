@@ -1,6 +1,6 @@
 <div class="flex items-start">
-    <div class="flex-shrink-0 rounded-md leading-0 p-1.5 mr-4 bg-purple-50">
-        @icon('users', 'h-8 w-8 text-purple-600')
+    <div class="flex-shrink-0 rounded-md leading-0 p-1.5 mr-4 bg-purple-3">
+        @icon('users', 'h-8 w-8 text-purple-11')
     </div>
     <div class="flex flex-col">
         <div class="flex items-center justify-between">

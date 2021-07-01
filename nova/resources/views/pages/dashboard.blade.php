@@ -79,7 +79,7 @@
 
                     <div class="rounded-tr-lg relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
                         <div>
-                            <span class="rounded-lg inline-flex p-3 bg-purple-50 text-purple-700 ring-4 ring-white">
+                            <span class="rounded-lg inline-flex p-3 bg-purple-3 text-purple-9 ring-4 ring-white">
                                 @icon('note', 'h-6 w-6')
                             </span>
                         </div>
