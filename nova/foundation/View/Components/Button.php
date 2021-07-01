@@ -79,12 +79,12 @@ class Button extends Component
                 break;
 
             case 'purple':
-                return 'border-transparent text-white bg-purple-9 hover:bg-purple-10 focus:ring-2 focus:ring-offset-2 focus:border-purple-6 focus:ring-purple-6';
+                return 'border-transparent text-white bg-purple-9 hover:bg-purple-10 focus:ring-2 focus:ring-offset-2 focus:border-purple-6 focus:ring-purple-7';
 
                 break;
 
             case 'purple-soft':
-                return 'border-transparent text-purple-11 bg-purple-3 hover:bg-purple-4 focus:ring-2 focus:ring-offset-2 focus:ring-purple-6';
+                return 'border-transparent text-purple-11 bg-purple-3 hover:bg-purple-4 focus:ring-2 focus:ring-offset-2 focus:ring-purple-7';
 
                 break;
 
@@ -94,17 +94,17 @@ class Button extends Component
                 break;
 
             case 'red':
-                return 'border-transparent text-white bg-red-600 hover:bg-red-700 focus:ring-2 focus:ring-offset-2 focus:ring-red-500';
+                return 'border-transparent text-white bg-red-9 hover:bg-red-10 focus:ring-2 focus:ring-offset-2 focus:ring-red-7';
 
                 break;
 
             case 'red-soft':
-                return 'border-transparent text-red-700 bg-red-100 hover:bg-red-200 focus:ring-2 focus:ring-offset-2 focus:ring-red-500';
+                return 'border-transparent text-red-11 bg-red-3 hover:bg-red-4 focus:ring-2 focus:ring-offset-2 focus:ring-red-7';
 
                 break;
 
             case 'red-text':
-                return 'border-transparent font-medium text-red-600 hover:text-red-800';
+                return 'border-transparent font-medium text-red-9 hover:text-red-10';
 
                 break;
         }

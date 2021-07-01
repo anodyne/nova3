@@ -52,8 +52,8 @@
                             <span>Title field</span>
                         </div>
                     @else
-                        <div class="flex items-center space-x-2 text-red-600">
-                            @icon('close-alt', 'h-6 w-6 flex-shrink-0 text-red-500')
+                        <div class="flex items-center space-x-2 text-red-11">
+                            @icon('close-alt', 'h-6 w-6 flex-shrink-0 text-red-9')
                             <span>Title field</span>
                         </div>
                     @endif
@@ -64,8 +64,8 @@
                             <span>Day field</span>
                         </div>
                     @else
-                        <div class="flex items-center space-x-2 text-red-600">
-                            @icon('close-alt', 'h-6 w-6 flex-shrink-0 text-red-500')
+                        <div class="flex items-center space-x-2 text-red-11">
+                            @icon('close-alt', 'h-6 w-6 flex-shrink-0 text-red-9')
                             <span>Day field</span>
                         </div>
                     @endif
@@ -76,8 +76,8 @@
                             <span>Time field</span>
                         </div>
                     @else
-                        <div class="flex items-center space-x-2 text-red-600">
-                            @icon('close-alt', 'h-6 w-6 flex-shrink-0 text-red-500')
+                        <div class="flex items-center space-x-2 text-red-11">
+                            @icon('close-alt', 'h-6 w-6 flex-shrink-0 text-red-9')
                             <span>Time field</span>
                         </div>
                     @endif
@@ -88,8 +88,8 @@
                             <span>Location field</span>
                         </div>
                     @else
-                        <div class="flex items-center space-x-2 text-red-600">
-                            @icon('close-alt', 'h-6 w-6 flex-shrink-0 text-red-500')
+                        <div class="flex items-center space-x-2 text-red-11">
+                            @icon('close-alt', 'h-6 w-6 flex-shrink-0 text-red-9')
                             <span>Location field</span>
                         </div>
                     @endif
@@ -100,8 +100,8 @@
                             <span>Content field</span>
                         </div>
                     @else
-                        <div class="flex items-center space-x-2 text-red-600">
-                            @icon('close-alt', 'h-6 w-6 flex-shrink-0 text-red-500')
+                        <div class="flex items-center space-x-2 text-red-11">
+                            @icon('close-alt', 'h-6 w-6 flex-shrink-0 text-red-9')
                             <span>Content field</span>
                         </div>
                     @endif
@@ -112,8 +112,8 @@
                             <span>Rating field</span>
                         </div>
                     @else
-                        <div class="flex items-center space-x-2 text-red-600">
-                            @icon('close-alt', 'h-6 w-6 flex-shrink-0 text-red-500')
+                        <div class="flex items-center space-x-2 text-red-11">
+                            @icon('close-alt', 'h-6 w-6 flex-shrink-0 text-red-9')
                             <span>Rating field</span>
                         </div>
                     @endif
@@ -128,8 +128,8 @@
                             <span>Sends notifications to users when published</span>
                         </div>
                     @else
-                        <div class="flex items-center space-x-2 text-red-600">
-                            @icon('close-alt', 'h-6 w-6 flex-shrink-0 text-red-500')
+                        <div class="flex items-center space-x-2 text-red-11">
+                            @icon('close-alt', 'h-6 w-6 flex-shrink-0 text-red-9')
                             <span>Does not send notifications to users when published</span>
                         </div>
                     @endif
@@ -140,8 +140,8 @@
                             <span>Sends notifications to Discord when published</span>
                         </div>
                     @else
-                        <div class="flex items-center space-x-2 text-red-600">
-                            @icon('close-alt', 'h-6 w-6 flex-shrink-0 text-red-500')
+                        <div class="flex items-center space-x-2 text-red-11">
+                            @icon('close-alt', 'h-6 w-6 flex-shrink-0 text-red-9')
                             <span>Does not send notifications to Discord when published</span>
                         </div>
                     @endif
@@ -152,8 +152,8 @@
                             <span>Is included in post counts</span>
                         </div>
                     @else
-                        <div class="flex items-center space-x-2 text-red-600">
-                            @icon('close-alt', 'h-6 w-6 flex-shrink-0 text-red-500')
+                        <div class="flex items-center space-x-2 text-red-11">
+                            @icon('close-alt', 'h-6 w-6 flex-shrink-0 text-red-9')
                             <span>Is not included in post counts</span>
                         </div>
                     @endif
@@ -164,8 +164,8 @@
                             <span>Allows multiple authors</span>
                         </div>
                     @else
-                        <div class="flex items-center space-x-2 text-red-600">
-                            @icon('close-alt', 'h-6 w-6 flex-shrink-0 text-red-500')
+                        <div class="flex items-center space-x-2 text-red-11">
+                            @icon('close-alt', 'h-6 w-6 flex-shrink-0 text-red-9')
                             <span>Does not allow multiple authors</span>
                         </div>
                     @endif

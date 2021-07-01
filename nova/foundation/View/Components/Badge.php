@@ -52,7 +52,7 @@ class Badge extends Component
                 break;
 
             case 'red':
-                return 'bg-red-100 text-red-800';
+                return 'bg-red-3 text-red-11 border-red-6';
 
                 break;
 
@@ -88,17 +88,17 @@ class Badge extends Component
                 break;
 
             case 'green':
-                return 'text-green-6';
+                return 'text-green-9';
 
                 break;
 
             case 'purple':
-                return 'text-purple-6';
+                return 'text-purple-9';
 
                 break;
 
             case 'red':
-                return 'text-red-600';
+                return 'text-red-9';
 
                 break;
 

@@ -34,8 +34,8 @@
                             @endif
 
                             @if (data_get($actions, "{$story->id}.story.action") === 'delete')
-                                <div class="flex items-center space-x-1 text-red-600">
-                                    @icon('close-alt', 'h-6 w-6 flex-shrink-0 text-red-400')
+                                <div class="flex items-center space-x-1 text-red-11">
+                                    @icon('close-alt', 'h-6 w-6 flex-shrink-0 text-red-9')
                                     <span>Story will be deleted</span>
                                 </div>
                             @endif
@@ -48,8 +48,8 @@
                             @endif
 
                             @if (data_get($actions, "{$story->id}.posts.action") === 'delete')
-                                <div class="flex items-center space-x-1 text-red-600">
-                                    @icon('close-alt', 'h-6 w-6 flex-shrink-0 text-red-400')
+                                <div class="flex items-center space-x-1 text-red-11">
+                                    @icon('close-alt', 'h-6 w-6 flex-shrink-0 text-red-9')
                                     <span>Story posts will be deleted</span>
                                 </div>
                             @endif

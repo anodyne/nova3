@@ -143,7 +143,7 @@
                 <div class="flex items-center flex-shrink-0 px-4">
                     {{-- <x-nova-logo-1 class="h-9 w-auto text-blue-500" /> --}}
                     {{-- <x-nova-logo-6 class="h-9 w-auto text-blue-500" /> --}}
-                    <x-nova-logo-6a class="h-9 w-auto text-red-500" />
+                    <x-nova-logo-6a class="h-9 w-auto text-red-9" />
                     {{-- <x-nova-logo-14 class="h-10 w-auto text-blue-500" /> --}}
                 </div>
 
