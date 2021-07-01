@@ -9,7 +9,7 @@
     </x-under-construction>
 
     <x-panel
-        x-data="AlpineComponents.tabsList('general')"
+        x-data="tabsList('general')"
         x-on:popstate.window="switchTab($event.state.tab)"
         class="md:grid md:grid-cols-4 md:gap-4"
     >
