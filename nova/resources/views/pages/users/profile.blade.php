@@ -61,13 +61,13 @@
                 {{-- <div class="border-t border-gray-200">
                     <div class="-mt-px flex">
                         <div class="w-0 flex-1 flex border-r border-gray-200">
-                            <a href="#" class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500 focus:outline-none focus:ring focus:border-blue-300 focus:z-10 transition ease-in-out duration-150">
+                            <a href="#" class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500 focus:outline-none focus:ring focus:border-blue-7 focus:z-10 transition ease-in-out duration-150">
                                 @icon('show', 'w-5 h-5 text-gray-400')
                                 <span class="ml-3">View</span>
                             </a>
                         </div>
                         <div class="-ml-px w-0 flex-1 flex">
-                            <a href="#" class="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500 focus:outline-none focus:ring focus:border-blue-300 focus:z-10 transition ease-in-out duration-150">
+                            <a href="#" class="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500 focus:outline-none focus:ring focus:border-blue-7 focus:z-10 transition ease-in-out duration-150">
                                 @icon('edit', 'w-5 h-5 text-gray-400')
                                 <span class="ml-3">Edit</span>
                             </a>
@@ -81,7 +81,7 @@
     <x-panel>
         <div class="pb-8">
             <div class="p-4 | sm:hidden">
-                <select x-on:change="window.location.replace($event.target.value)" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring focus:border-blue-300 sm:text-sm transition ease-in-out duration-150">
+                <select x-on:change="window.location.replace($event.target.value)" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring focus:border-blue-7 sm:text-sm transition ease-in-out duration-150">
                     <option value="{{ route('users.index', 'status=active') }}"{{ request()->status === 'active' ? 'selected' : '' }}>Active Users</option>
                     <option value="{{ route('users.index', 'status=pending') }}"{{ request()->status === 'pending' ? 'selected' : '' }}>Pending Users</option>
                     <option value="{{ route('users.index', 'status=inactive') }}"{{ request()->status === 'inactive' ? 'selected' : '' }}>Inactive Users</option>
@@ -93,25 +93,25 @@
                     <nav class="-mb-px flex">
                         <a
                             href="{{ route('users.index', 'status=active') }}"
-                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'active') border-blue-500 text-blue-600 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
+                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'active') border-blue-6 text-blue-9 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
                         >
                             Basic Info
                         </a>
                         <a
                             href="{{ route('users.index', 'status=pending') }}"
-                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'pending') border-blue-500 text-blue-600 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
+                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'pending') border-blue-6 text-blue-9 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
                         >
                             Activity
                         </a>
                         <a
                             href="{{ route('users.index', 'status=inactive') }}"
-                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'inactive') border-blue-500 text-blue-600 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
+                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'inactive') border-blue-6 text-blue-9 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
                         >
                             Foo
                         </a>
                         <a
                             href="{{ route('users.index') }}"
-                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (!request()->has('status')) border-blue-500 text-blue-600 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
+                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (!request()->has('status')) border-blue-6 text-blue-9 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
                         >
                             Bar
                         </a>

@@ -8,7 +8,7 @@
 
             @if ($notification['unread'])
                 <button wire:click="markNotificationAsRead('{{ $notification['id'] }}')" type="button" class="group rounded-full flex-shrink-0 ml-6 border-4 border-transparent transition ease-in-out duration-150 hover:border-blue-100">
-                    <div class="rounded-full h-2.5 w-2.5 bg-blue-400 group-hover:bg-blue-500"></div>
+                    <div class="rounded-full h-2.5 w-2.5 bg-blue-4 group-hover:bg-blue-5"></div>
                 </button>
             @endif
         </div>

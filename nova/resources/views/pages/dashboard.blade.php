@@ -57,7 +57,7 @@
 
                     <div class="rounded-tl-lg relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
                         <div>
-                            <span class="rounded-lg inline-flex p-3 bg-blue-50 text-blue-700 ring-4 ring-white">
+                            <span class="rounded-lg inline-flex p-3 bg-blue-3 text-blue-9 ring-4 ring-white">
                                 @icon('write', 'h-6 w-6')
                             </span>
                         </div>
@@ -181,7 +181,7 @@
                                     <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
                                     <div class="relative flex space-x-3">
                                         <div>
-                                            <span class="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center ring-8 ring-white">
+                                            <span class="h-8 w-8 rounded-full bg-blue-9 flex items-center justify-center ring-8 ring-white">
                                                 @icon('book', 'h-5 w-5 text-white')
                                             </span>
                                         </div>
@@ -223,7 +223,7 @@
                                     {{-- <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span> --}}
                                     <div class="relative flex space-x-3">
                                         <div>
-                                            <span class="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center ring-8 ring-white">
+                                            <span class="h-8 w-8 rounded-full bg-blue-9 flex items-center justify-center ring-8 ring-white">
                                                 @icon('location', 'h-5 w-5 text-white')
                                             </span>
                                         </div>

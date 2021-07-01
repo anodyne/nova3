@@ -15,7 +15,7 @@
             aria-haspopup="listbox"
             x-bind:aria-expanded="open"
             aria-labelledby="listbox-label"
-            class="cursor-default relative w-full rounded-md border border-gray-200 bg-white pl-3 pr-10 py-2 text-left focus:outline-none focus:ring focus:border-blue-300 transition ease-in-out duration-150"
+            class="cursor-default relative w-full rounded-md border border-gray-200 bg-white pl-3 pr-10 py-2 text-left focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-150"
         >
             <span class="block truncate">
                 {{ optional($selected)->name ?? 'Select a rank group' }}
@@ -75,7 +75,7 @@
                     wire:click="selectGroup({{ $group->id }})"
                     x-on:mouseenter="selected = {{ $group->id }}"
                     x-on:mouseleave="selected = null"
-                    x-bind:class="{ 'text-white bg-blue-600': selected === {{ $group->id }}, 'text-gray-900': !(selected === {{ $group->id }}) }"
+                    x-bind:class="{ 'text-white bg-blue-9': selected === {{ $group->id }}, 'text-gray-900': !(selected === {{ $group->id }}) }"
                     class="cursor-default select-none relative py-2 pl-3 pr-9 text-gray-900"
                 >
                     <span
@@ -92,8 +92,8 @@
                             x-description="Checkmark, only display for selected option."
                             x-state:on="Highlighted"
                             x-state:off="Not Highlighted"
-                            x-bind:class="{ 'text-white': selected === {{ $group->id }}, 'text-blue-600': !(selected === {{ $group->id }}) }"
-                            class="absolute inset-y-0 right-0 flex items-center pr-4 text-blue-600"
+                            x-bind:class="{ 'text-white': selected === {{ $group->id }}, 'text-blue-9': !(selected === {{ $group->id }}) }"
+                            class="absolute inset-y-0 right-0 flex items-center pr-4 text-blue-9"
                         >
                             @icon('check', 'h-5 w-5')
                         </span>

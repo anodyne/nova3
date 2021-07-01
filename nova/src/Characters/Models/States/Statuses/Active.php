@@ -6,7 +6,7 @@ class Active extends CharacterStatus
 {
     public function color(): string
     {
-        return 'success';
+        return 'green';
     }
 
     public function name(): string

@@ -10,7 +10,7 @@
     <x-panel x-data="{}">
         <div>
             <div class="p-4 | sm:hidden">
-                <select x-on:change="window.location = $event.target.value" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring focus:border-blue-300 sm:text-sm transition ease-in-out duration-150">
+                <select x-on:change="window.location = $event.target.value" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring focus:border-blue-7 sm:text-sm transition ease-in-out duration-150">
                     <option value="{{ route('departments.edit', $department) }}">Department Info</option>
                     <option value="{{ route('positions.index', $department) }}">Positions</option>
                 </select>
@@ -20,7 +20,7 @@
                     <nav class="-mb-px flex">
                         <a
                             href="{{ route('departments.edit', $department) }}"
-                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm border-blue-500 text-blue-600 focus:outline-none"
+                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm border-blue-7 text-blue-11 focus:outline-none"
                         >
                             Department Info
                         </a>

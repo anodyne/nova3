@@ -98,13 +98,13 @@
                                     @include("livewire.users.notifications.{$notification['type']}", compact('notification'))
                                 </div>
                             @empty
-                                <div class="rounded-md bg-blue-50 p-4">
+                                <div class="rounded-md bg-blue-3 p-4">
                                     <div class="flex items-center">
                                         <div class="flex-shrink-0">
-                                            @icon('check-alt', 'h-6 w-6 text-blue-500')
+                                            @icon('check-alt', 'h-6 w-6 text-blue-9')
                                         </div>
                                         <div class="ml-3">
-                                            <p class="font-medium text-blue-800">
+                                            <p class="font-medium text-blue-11">
                                                 No unread notifications
                                             </p>
                                         </div>

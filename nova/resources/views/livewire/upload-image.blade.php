@@ -13,7 +13,7 @@
                 >
                 <label
                     for="upload-image"
-                    class="cursor-pointer font-medium text-blue-600 hover:text-blue-500 transition duration-150 ease-in-out"
+                    class="cursor-pointer font-medium text-blue-9 hover:text-blue-10 transition duration-150 ease-in-out"
                     x-bind:class="{ 'outline-none underline': focused }"
                 >
                     Upload a file

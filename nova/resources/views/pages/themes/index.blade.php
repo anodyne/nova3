@@ -103,17 +103,17 @@
     @endif
 
     <div class="w-full max-w-2xl mx-auto mt-16">
-        <div class="rounded-md bg-blue-100 p-4">
+        <div class="rounded-md bg-blue-3 border border-blue-6 p-4">
             <div class="flex items-center">
                 <div class="flex-shrink-0">
-                    @icon('info', 'h-6 w-6 text-blue-500')
+                    @icon('info', 'h-6 w-6 text-blue-9')
                 </div>
                 <div class="ml-3 flex-1 | md:flex md:justify-between">
-                    <p class="text-sm text-blue-700">
+                    <p class="text-sm text-blue-11">
                         Looking for more themes? Check out AnodyneXtras!
                     </p>
                     <p class="mt-3 text-sm | md:mt-0 md:ml-6">
-                        <a href="{{ config('services.anodyne.links.xtras') }}" target="_blank" class="whitespace-nowrap font-medium text-blue-700 hover:text-blue-600 transition ease-in-out duration-150">
+                        <a href="{{ config('services.anodyne.links.xtras') }}" target="_blank" class="whitespace-nowrap font-medium text-blue-9 hover:text-blue-10 transition ease-in-out duration-150">
                             Go &rarr;
                         </a>
                     </p>

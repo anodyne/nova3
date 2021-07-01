@@ -24,7 +24,7 @@
                     <div class="flex items-center justify-between w-full">
                         <span>Upcoming</span>
                         @if (Str::contains($story->status, 'Upcoming'))
-                            @icon('check-alt', 'h-5 w-5 text-blue-500 flex-shrink-0')
+                            @icon('check-alt', 'h-5 w-5 text-blue-9 flex-shrink-0')
                         @endif
                     </div>
                 </x-dropdown.item>
@@ -32,7 +32,7 @@
                     <div class="flex items-center justify-between w-full">
                         <span>Current (with posting)</span>
                         @if (Str::contains($story->status, 'Current') && $story->allow_posting)
-                            @icon('check-alt', 'h-5 w-5 text-blue-500 flex-shrink-0')
+                            @icon('check-alt', 'h-5 w-5 text-blue-9 flex-shrink-0')
                         @endif
                     </div>
                 </x-dropdown.item>
@@ -40,7 +40,7 @@
                     <div class="flex items-center justify-between w-full">
                         <span>Current (no posting)</span>
                         @if (Str::contains($story->status, 'Current') && ! $story->allow_posting)
-                            @icon('check-alt', 'h-5 w-5 text-blue-500 flex-shrink-0')
+                            @icon('check-alt', 'h-5 w-5 text-blue-9 flex-shrink-0')
                         @endif
                     </div>
                 </x-dropdown.item>
@@ -48,7 +48,7 @@
                     <div class="flex items-center justify-between w-full">
                         <span>Completed</span>
                         @if (Str::contains($story->status, 'Completed'))
-                            @icon('check-alt', 'h-5 w-5 text-blue-500 flex-shrink-0')
+                            @icon('check-alt', 'h-5 w-5 text-blue-9 flex-shrink-0')
                         @endif
                     </div>
                 </x-dropdown.item>

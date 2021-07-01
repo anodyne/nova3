@@ -15,7 +15,7 @@
             aria-haspopup="listbox"
             x-bind:aria-expanded="open"
             aria-labelledby="listbox-label"
-            class="cursor-default relative w-full rounded-md border border-gray-200 bg-white pl-3 pr-10 py-2 text-left focus:outline-none focus:ring focus:border-blue-300 transition ease-in-out duration-150"
+            class="cursor-default relative w-full rounded-md border border-gray-200 bg-white pl-3 pr-10 py-2 text-left focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-150"
         >
             <span class="flex items-center space-x-2 truncate">
                 @isset($selected)
@@ -88,7 +88,7 @@
                         wire:click="selectIcon('')"
                         x-on:mouseenter="selected = ''"
                         x-on:mouseleave="selected = null"
-                        x-bind:class="{ 'text-white bg-blue-600': selected === '', 'text-gray-900': !(selected === '') }"
+                        x-bind:class="{ 'text-white bg-blue-9': selected === '', 'text-gray-900': !(selected === '') }"
                         class="flex-shrink-0 cursor-pointer select-none relative p-2 text-gray-900 flex items-center justify-center rounded"
                     >
                         <div
@@ -111,7 +111,7 @@
                             wire:click="selectIcon('{{ $icon }}')"
                             x-on:mouseenter="selected = '{{ $icon }}'"
                             x-on:mouseleave="selected = null"
-                            x-bind:class="{ 'text-white bg-blue-600': selected === '{{ $icon }}', 'text-gray-900': !(selected === '{{ $icon }}') }"
+                            x-bind:class="{ 'text-white bg-blue-9': selected === '{{ $icon }}', 'text-gray-900': !(selected === '{{ $icon }}') }"
                             class="flex-shrink-0 cursor-pointer select-none relative p-2 text-gray-900 flex items-center justify-center rounded"
                         >
                             <div

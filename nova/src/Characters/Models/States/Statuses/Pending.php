@@ -6,7 +6,7 @@ class Pending extends CharacterStatus
 {
     public function color(): string
     {
-        return 'warning';
+        return 'yellow';
     }
 
     public function name(): string

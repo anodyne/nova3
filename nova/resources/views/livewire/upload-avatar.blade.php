@@ -18,7 +18,7 @@
             <label
                 for="avatar"
                 class="cursor-pointer inline-flex items-center border uppercase tracking-wide font-semibold rounded-md transition ease-in-out duration-150 focus:outline-none border-gray-300 text-gray-700 bg-white hover:text-gray-500 active:text-gray-800 active:bg-gray-50 px-2.5 py-1.5 text-xs"
-                x-bind:class="{ 'border-blue-300 ring': focused }"
+                x-bind:class="{ 'border-blue-7 ring': focused }"
             >
                 Change
             </label>
