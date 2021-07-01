@@ -20,7 +20,7 @@
                 <div class="flex items-start">
                     <div class="flex-shrink-0">
                         @if ($notification['type'] === 'success')
-                            @icon('check-alt', 'h-6 w-6 text-green-500')
+                            @icon('check-alt', 'h-6 w-6 text-green-9')
                         @else
                             @icon('alert', 'h-6 w-6 text-red-500')
                         @endif

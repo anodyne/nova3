@@ -90,7 +90,7 @@
                 <x-rating :value="0" />
                 {{-- <x-input.number min="1" max="3" value="1" name="ratings[language]" /> --}}
                 {{-- <div class="flex items-center rounded-full space-x-1 overflow-hidden text-sm font-semibold">
-                    <div class="flex-1 py-0.5 bg-green-500 text-white text-center">0</div>
+                    <div class="flex-1 py-0.5 bg-green-9 text-white text-center">0</div>
                     <a href="#" class="flex-1 py-0.5 bg-gray-300 hover:bg-gray-400 text-white text-center transition ease-in-out duration-150">&nbsp;</a>
                     <a href="#" class="flex-1 py-0.5 bg-gray-300 hover:bg-gray-400 text-white text-center transition ease-in-out duration-150">&nbsp;</a>
                     <a href="#" class="flex-1 py-0.5 bg-gray-300 hover:bg-gray-400 text-white text-center transition ease-in-out duration-150">&nbsp;</a>

@@ -47,8 +47,8 @@
             <x-form.section title="Fields" message="Post types control which fields are available when creating a post of that type. You can turn any of these fields on/off to suit your game's needs.">
                 <div class="font-medium space-y-6">
                     @if ($postType->fields->title)
-                        <div class="flex items-center space-x-2 text-green-600">
-                            @icon('check-alt', 'h-6 w-6 flex-shrink-0 text-green-500')
+                        <div class="flex items-center space-x-2 text-green-11">
+                            @icon('check-alt', 'h-6 w-6 flex-shrink-0 text-green-9')
                             <span>Title field</span>
                         </div>
                     @else
@@ -59,8 +59,8 @@
                     @endif
 
                     @if ($postType->fields->day)
-                        <div class="flex items-center space-x-2 text-green-600">
-                            @icon('check-alt', 'h-6 w-6 flex-shrink-0 text-green-500')
+                        <div class="flex items-center space-x-2 text-green-11">
+                            @icon('check-alt', 'h-6 w-6 flex-shrink-0 text-green-9')
                             <span>Day field</span>
                         </div>
                     @else
@@ -71,8 +71,8 @@
                     @endif
 
                     @if ($postType->fields->time)
-                        <div class="flex items-center space-x-2 text-green-600">
-                            @icon('check-alt', 'h-6 w-6 flex-shrink-0 text-green-500')
+                        <div class="flex items-center space-x-2 text-green-11">
+                            @icon('check-alt', 'h-6 w-6 flex-shrink-0 text-green-9')
                             <span>Time field</span>
                         </div>
                     @else
@@ -83,8 +83,8 @@
                     @endif
 
                     @if ($postType->fields->location)
-                        <div class="flex items-center space-x-2 text-green-600">
-                            @icon('check-alt', 'h-6 w-6 flex-shrink-0 text-green-500')
+                        <div class="flex items-center space-x-2 text-green-11">
+                            @icon('check-alt', 'h-6 w-6 flex-shrink-0 text-green-9')
                             <span>Location field</span>
                         </div>
                     @else
@@ -95,8 +95,8 @@
                     @endif
 
                     @if ($postType->fields->content)
-                        <div class="flex items-center space-x-2 text-green-600">
-                            @icon('check-alt', 'h-6 w-6 flex-shrink-0 text-green-500')
+                        <div class="flex items-center space-x-2 text-green-11">
+                            @icon('check-alt', 'h-6 w-6 flex-shrink-0 text-green-9')
                             <span>Content field</span>
                         </div>
                     @else
@@ -107,8 +107,8 @@
                     @endif
 
                     @if ($postType->fields->rating)
-                        <div class="flex items-center space-x-2 text-green-600">
-                            @icon('check-alt', 'h-6 w-6 flex-shrink-0 text-green-500')
+                        <div class="flex items-center space-x-2 text-green-11">
+                            @icon('check-alt', 'h-6 w-6 flex-shrink-0 text-green-9')
                             <span>Rating field</span>
                         </div>
                     @else
@@ -123,8 +123,8 @@
             <x-form.section title="Options" message="Post types control the behavior of a post of that type with a wide range of options. You can turn any of these fields on/off to suit your game's needs.">
                 <div class="font-medium space-y-6">
                     @if ($postType->options->notifyUsers)
-                        <div class="flex items-center space-x-2 text-green-600">
-                            @icon('check-alt', 'h-6 w-6 flex-shrink-0 text-green-500')
+                        <div class="flex items-center space-x-2 text-green-11">
+                            @icon('check-alt', 'h-6 w-6 flex-shrink-0 text-green-9')
                             <span>Sends notifications to users when published</span>
                         </div>
                     @else
@@ -135,8 +135,8 @@
                     @endif
 
                     @if ($postType->options->notifyDiscord)
-                        <div class="flex items-center space-x-2 text-green-600">
-                            @icon('check-alt', 'h-6 w-6 flex-shrink-0 text-green-500')
+                        <div class="flex items-center space-x-2 text-green-11">
+                            @icon('check-alt', 'h-6 w-6 flex-shrink-0 text-green-9')
                             <span>Sends notifications to Discord when published</span>
                         </div>
                     @else
@@ -147,8 +147,8 @@
                     @endif
 
                     @if ($postType->options->includeInPostCounts)
-                        <div class="flex items-center space-x-2 text-green-600">
-                            @icon('check-alt', 'h-6 w-6 flex-shrink-0 text-green-500')
+                        <div class="flex items-center space-x-2 text-green-11">
+                            @icon('check-alt', 'h-6 w-6 flex-shrink-0 text-green-9')
                             <span>Is included in post counts</span>
                         </div>
                     @else
@@ -159,8 +159,8 @@
                     @endif
 
                     @if ($postType->options->multipleAuthors)
-                        <div class="flex items-center space-x-2 text-green-600">
-                            @icon('check-alt', 'h-6 w-6 flex-shrink-0 text-green-500')
+                        <div class="flex items-center space-x-2 text-green-11">
+                            @icon('check-alt', 'h-6 w-6 flex-shrink-0 text-green-9')
                             <span>Allows multiple authors</span>
                         </div>
                     @else

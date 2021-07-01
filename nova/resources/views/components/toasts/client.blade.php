@@ -16,7 +16,7 @@
         <div class="p-4">
             <div class="flex items-start">
                 <div class="flex-shrink-0">
-                    @icon('check-alt', 'h-5 w-5 text-green-500')
+                    @icon('check-alt', 'h-5 w-5 text-green-9')
                 </div>
                 <div class="ml-3 w-0 flex-1">
                     <p x-text="title" class="text-sm font-medium text-gray-900"></p>

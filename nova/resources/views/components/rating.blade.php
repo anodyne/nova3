@@ -11,7 +11,7 @@
             x-on:click="setCount({{ $i }})"
             class="m-0 flex-1 py-0.5 bg-gray-300 hover:bg-gray-400 text-white text-center text-sm font-semibold transition ease-in-out duration-150"
             x-bind:class="{
-                'bg-green-500 hover:bg-green-500': count >= {{ $i }} && count === 0,
+                'bg-green-9 hover:bg-green-9': count >= {{ $i }} && count === 0,
                 'bg-yellow-500 hover:bg-yellow-500': count >= {{ $i }} && count === 1,
                 'bg-orange-500 hover:bg-orange-500': count >= {{ $i }} && count === 2,
                 'bg-red-500 hover:bg-red-500': count >= {{ $i }} && count === 3
