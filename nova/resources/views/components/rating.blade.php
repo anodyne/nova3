@@ -13,7 +13,7 @@
             x-bind:class="{
                 'bg-green-9 hover:bg-green-9': count >= {{ $i }} && count === 0,
                 'bg-yellow-500 hover:bg-yellow-500': count >= {{ $i }} && count === 1,
-                'bg-orange-500 hover:bg-orange-500': count >= {{ $i }} && count === 2,
+                'bg-orange-9 hover:bg-orange-9': count >= {{ $i }} && count === 2,
                 'bg-red-9 hover:bg-red-9': count >= {{ $i }} && count === 3
             }"
         >

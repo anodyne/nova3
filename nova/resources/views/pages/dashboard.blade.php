@@ -123,7 +123,7 @@
 
                     <div class="rounded-br-lg relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
                         <div>
-                            <span class="rounded-lg inline-flex p-3 bg-orange-50 text-orange-700 ring-4 ring-white">
+                            <span class="rounded-lg inline-flex p-3 bg-orange-3 text-orange-9 ring-4 ring-white">
                                 @icon('notification', 'h-6 w-6')
                             </span>
                         </div>
