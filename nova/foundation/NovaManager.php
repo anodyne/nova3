@@ -68,12 +68,10 @@ class NovaManager
     protected function cssAssets()
     {
         $appUrl = url('');
-        $vendorPath = "{$appUrl}/dist/css/vendor.css";
         $baseStylesPath = "{$appUrl}/dist/css/app.css";
 
         return <<<HTML
 <link href="https://rsms.me/inter/inter.css" rel="stylesheet">
-<link href="{$vendorPath}" rel="stylesheet">
 <link href="{$baseStylesPath}" rel="stylesheet">
 HTML;
     }
