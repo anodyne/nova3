@@ -2,7 +2,7 @@
     'items',
 ])
 
-<div x-data="AlpineComponents.listBox()" x-init="init()" {{ $attributes->merge(['class' => 'relative']) }}>
+<div x-data="listBox" {{ $attributes->merge(['class' => 'relative']) }}>
     <span class="inline-block w-full rounded-md shadow-sm">
         <button
             x-ref="button"

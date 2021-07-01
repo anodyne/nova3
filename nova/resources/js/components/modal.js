@@ -4,7 +4,7 @@ export default (eventName, url, csrfToken) => ({
     open: false,
     url,
 
-    listen() {
+    init() {
         window.addEventListener(eventName, (event) => {
             this.loadModalContent(event.detail);
         });
