@@ -44,7 +44,7 @@
                         <a href="#" class="group flex items-center justify-center space-x-3 px-6 py-5 text-sm font-medium text-center transition-all ease-in-out duration-150">
                             @icon('email', 'h-6 w-6 text-gray-400 group-hover:text-gray-600')
                             <span class="text-gray-600 group-hover:text-gray-800">Messages</span>
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-blue-500 text-white">3</span>
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-red-500 text-white">3</span>
                         </a>
                     </div>
                 </x-panel>

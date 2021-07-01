@@ -10,8 +10,7 @@
 
 @push('modal')
     <div
-        x-data="AlpineComponents.modal('{{ $event }}', '{{ $url }}', '{{ csrf_token() }}')"
-        x-init="listen()"
+        x-data="modal('{{ $event }}', '{{ $url }}', '{{ csrf_token() }}')"
         x-show="open"
         x-on:keydown.window.escape="open = false"
         x-on:modal-close.window="open = false"

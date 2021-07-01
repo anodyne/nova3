@@ -6,7 +6,7 @@
 ])
 
 <label
-    x-data="AlpineComponents.toggleSwitch({{ $value ? 'true' : 'false'}}, {{ $disabled ? 'true' : 'false' }})"
+    x-data="toggleSwitch({{ $value ? 'true' : 'false'}}, {{ $disabled ? 'true' : 'false' }})"
     class="flex items-center"
     x-bind:class="{ 'cursor-not-allowed': disabled, 'cursor-pointer': !disabled }"
 >

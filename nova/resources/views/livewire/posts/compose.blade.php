@@ -87,33 +87,36 @@
             </x-slot>
 
             <x-input.group label="Language" class="w-72">
+                <x-rating :value="0" />
                 {{-- <x-input.number min="1" max="3" value="1" name="ratings[language]" /> --}}
-                <div class="flex items-center rounded-full space-x-1 overflow-hidden text-sm font-semibold">
+                {{-- <div class="flex items-center rounded-full space-x-1 overflow-hidden text-sm font-semibold">
                     <div class="flex-1 py-0.5 bg-green-500 text-white text-center">0</div>
                     <a href="#" class="flex-1 py-0.5 bg-gray-300 hover:bg-gray-400 text-white text-center transition ease-in-out duration-150">&nbsp;</a>
                     <a href="#" class="flex-1 py-0.5 bg-gray-300 hover:bg-gray-400 text-white text-center transition ease-in-out duration-150">&nbsp;</a>
                     <a href="#" class="flex-1 py-0.5 bg-gray-300 hover:bg-gray-400 text-white text-center transition ease-in-out duration-150">&nbsp;</a>
-                </div>
+                </div> --}}
             </x-input.group>
 
             <x-input.group label="Sex" class="w-72">
+                <x-rating :value="1" />
                 {{-- <x-input.number min="1" max="3" value="1" name="ratings[sex]" /> --}}
-                <div class="flex items-center rounded-full space-x-1 overflow-hidden text-sm font-semibold">
+                {{-- <div class="flex items-center rounded-full space-x-1 overflow-hidden text-sm font-semibold">
                     <div class="flex-1 py-0.5 bg-yellow-500 text-white text-center">&nbsp;</div>
                     <a href="#" class="flex-1 py-0.5 bg-yellow-500 hover:bg-gray-400 text-white text-center transition ease-in-out duration-150">1</a>
                     <a href="#" class="flex-1 py-0.5 bg-gray-300 hover:bg-gray-400 text-white text-center transition ease-in-out duration-150">&nbsp;</a>
                     <a href="#" class="flex-1 py-0.5 bg-gray-300 hover:bg-gray-400 text-white text-center transition ease-in-out duration-150">&nbsp;</a>
-                </div>
+                </div> --}}
             </x-input.group>
 
             <x-input.group label="Violence" class="w-72">
+                <x-rating :value="3" />
                 {{-- <x-input.number min="1" max="3" value="1" name="ratings[violence]" /> --}}
-                <div class="flex items-center rounded-full space-x-1 overflow-hidden text-sm font-semibold">
+                {{-- <div class="flex items-center rounded-full space-x-1 overflow-hidden text-sm font-semibold">
                     <div class="flex-1 py-0.5 bg-orange-500 text-white text-center">&nbsp;</div>
                     <a href="#" class="flex-1 py-0.5 bg-orange-500 hover:bg-gray-400 text-white text-center transition ease-in-out duration-150">&nbsp;</a>
                     <a href="#" class="flex-1 py-0.5 bg-orange-500 hover:bg-gray-400 text-white text-center transition ease-in-out duration-150">2</a>
                     <a href="#" class="flex-1 py-0.5 bg-gray-300 hover:bg-gray-400 text-white text-center transition ease-in-out duration-150">&nbsp;</a>
-                </div>
+                </div> --}}
             </x-input.group>
         </x-form.section>
 
