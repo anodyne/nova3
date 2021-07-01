@@ -24,7 +24,7 @@ class Badge extends Component
 
     public function baseStyles()
     {
-        return 'inline-flex items-center rounded-full font-medium uppercase tracking-wide space-x-1';
+        return 'inline-flex items-center rounded-full font-medium uppercase tracking-wide space-x-1 border';
     }
 
     public function colorStyles()
@@ -47,7 +47,7 @@ class Badge extends Component
                 break;
 
             case 'purple':
-                return 'bg-purple-3 text-purple-9 border border-purple-6';
+                return 'bg-purple-3 text-purple-9 border-purple-6';
 
                 break;
 
