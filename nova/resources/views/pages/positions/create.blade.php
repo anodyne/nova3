@@ -55,9 +55,9 @@
                 <x-button type="submit" color="blue">Add Position</x-button>
 
                 @if ($selectedDepartment)
-                    <x-button-link :href="route('positions.index', $selectedDepartment)" color="white">Cancel</x-button-link>
+                    <x-link :href="route('positions.index', $selectedDepartment)" color="white">Cancel</x-link>
                 @else
-                    <x-button-link :href="route('departments.index')" color="white">Cancel</x-button-link>
+                    <x-link :href="route('departments.index')" color="white">Cancel</x-link>
                 @endif
             </x-form.footer>
         </x-form>

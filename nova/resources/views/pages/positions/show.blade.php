@@ -12,7 +12,7 @@
 
         <x-slot name="controls">
             @can('update', $position)
-                <x-button-link :href="route('positions.edit', $position)" color="blue">Edit Position</x-button-link>
+                <x-link :href="route('positions.edit', $position)" color="blue">Edit Position</x-link>
             @endcan
         </x-slot>
     </x-page-header>
@@ -75,7 +75,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button-link :href="route('positions.index', $position->department)" color="white">Back</x-button-link>
+                <x-link :href="route('positions.index', $position->department)" color="white">Back</x-link>
             </x-form.footer>
         </x-form>
     </x-panel>

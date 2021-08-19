@@ -135,7 +135,7 @@
 
             <x-form.footer>
                 <x-button type="submit" color="blue">Update Post Type</x-button>
-                <x-button-link :href="route('post-types.index')" color="white">Cancel</x-button-link>
+                <x-link :href="route('post-types.index')" color="white">Cancel</x-link>
             </x-form.footer>
         </x-form>
     </x-panel>

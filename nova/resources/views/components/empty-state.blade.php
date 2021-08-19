@@ -8,10 +8,10 @@
             <div class="block text-center text-gray-11 mb-8 text-lg leading-relaxed">
                 {{ $message }}
             </div>
-            <x-button-link :href="$link" color="blue" class="space-x-3">
+            <x-link :href="$link" color="blue" class="space-x-3">
                 <span>{{ $label }}</span>
                 @icon('arrow-right', 'h-5 w-5 flex-shrink-0')
-            </x-button-link>
+            </x-link>
         </div>
     </div>
 </x-panel>

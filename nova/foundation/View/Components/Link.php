@@ -2,7 +2,7 @@
 
 namespace Nova\Foundation\View\Components;
 
-class ButtonLink extends Button
+class Link extends Button
 {
     public $href;
 
@@ -15,6 +15,6 @@ class ButtonLink extends Button
 
     public function render()
     {
-        return view('components.button-link');
+        return view('components.link');
     }
 }

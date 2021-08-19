@@ -134,9 +134,9 @@
         <div class="order-1 | lg:col-span-1 lg:order-2">
             @can('update', $story)
             <div class="mb-8">
-                <x-button-link :href="route('stories.edit', $story)" color="blue" full-width data-cy="create">
+                <x-link :href="route('stories.edit', $story)" color="blue" full-width data-cy="create">
                     Edit Story
-                </x-button-link>
+                </x-link>
             </div>
             @endcan
 

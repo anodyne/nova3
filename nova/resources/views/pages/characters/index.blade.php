@@ -76,9 +76,9 @@
             </x-dropdown>
 
             @can('create', 'Nova\Characters\Models\Character')
-                <x-button-link :href="route('characters.create')" color="blue" data-cy="create">
+                <x-link :href="route('characters.create')" color="blue" data-cy="create">
                     Add Character
-                </x-button-link>
+                </x-link>
             @endcan
         </x-slot>
     </x-page-header>

@@ -64,9 +64,9 @@
                     <p>Roles are a collection of the actions a user can take throughout Nova. A user can be assigned as many roles as you'd like, giving you more granular control over what users can do.</p>
 
                     @can('viewAny', 'Nova\Roles\Models\Role')
-                        <x-button-link :href="route('roles.index')" color="white" size="xs">
+                        <x-link :href="route('roles.index')" color="white" size="xs">
                             Manage roles
-                        </x-button-link>
+                        </x-link>
                     @endcan
                 </x-slot>
 
@@ -86,7 +86,7 @@
 
             <x-form.footer>
                 <x-button type="submit" color="blue">Update User</x-button>
-                <x-button-link :href='route("users.index", "status={$user->status->name()}")' color="white">Cancel</x-button-link>
+                <x-link :href='route("users.index", "status={$user->status->name()}")' color="white">Cancel</x-link>
             </x-form.footer>
         </x-form>
     </x-panel>

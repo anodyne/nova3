@@ -29,15 +29,15 @@
                 </x-dropdown>
 
                 @can('update', $items->first())
-                    <x-button-link :href="route('ranks.items.index', 'reorder')" color="gray-text" size="none">
+                    <x-link :href="route('ranks.items.index', 'reorder')" color="gray-text" size="none">
                         @icon('arrow-sort', 'h-6 w-6')
-                    </x-button-link>
+                    </x-link>
                 @endcan
 
                 @can('create', 'Nova\Ranks\Models\RankItem')
-                    <x-button-link :href="route('ranks.items.create')" color="blue" data-cy="create">
+                    <x-link :href="route('ranks.items.create')" color="blue" data-cy="create">
                         Add Rank Item
-                    </x-button-link>
+                    </x-link>
                 @endcan
             @endif
         </x-slot>
@@ -70,9 +70,9 @@
                                     <input type="hidden" name="sort" x-model="newSortOrder">
                                     <div class="flex items-center space-x-4">
                                         <x-button type="submit" form="form-reorder" color="purple">Save Sort Order</x-button>
-                                        <x-button-link :href="route('ranks.items.index')" color="purple-text" size="none">
+                                        <x-link :href="route('ranks.items.index')" color="purple-text" size="none">
                                             Cancel
-                                        </x-button-link>
+                                        </x-link>
                                     </div>
                                 </x-form>
                             </div>

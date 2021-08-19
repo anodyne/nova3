@@ -23,9 +23,9 @@
                                 </div>
                             </div>
                             <div class="mt-5 flex justify-center sm:mt-0">
-                                <a href="#" class="flex justify-center items-center px-4 py-2 border border-gray-6 shadow-sm text-sm font-medium rounded-md text-gray-11 bg-gray-4 hover:bg-gray-5">
+                                <x-link href="#" size="xs">
                                     My account
-                                </a>
+                                </x-link>
                             </div>
                         </div>
                     </div>
@@ -241,7 +241,7 @@
                         </ul>
                     </div>
                     <div class="mt-6 flex flex-col justify-stretch">
-                        <x-button-link href="#">See all activity</x-button-link>
+                        <x-link href="#">See all activity</x-link>
                     </div>
                 </div>
             </section>

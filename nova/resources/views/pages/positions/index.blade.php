@@ -9,15 +9,15 @@
         <x-slot name="controls">
             @if ($positionCount > 0)
                 @can('update', $positions->first())
-                    <x-button-link :href="route('positions.index', [$department, 'reorder'])" color="gray-text" size="none">
+                    <x-link :href="route('positions.index', [$department, 'reorder'])" color="gray-text" size="none">
                         @icon('arrow-sort', 'h-6 w-6')
-                    </x-button-link>
+                    </x-link>
                 @endcan
 
                 @can('create', 'Nova\Departments\Models\Position')
-                    <x-button-link :href='route("positions.create", "department={$department->id}")' color="blue" data-cy="create">
+                    <x-link :href='route("positions.create", "department={$department->id}")' color="blue" data-cy="create">
                         Add Position
-                    </x-button-link>
+                    </x-link>
                 @endcan
             @endif
         </x-slot>
@@ -70,9 +70,9 @@
                                     <input type="hidden" name="sort" x-model="newSortOrder">
                                     <div class="flex items-center space-x-4">
                                         <x-button type="submit" form="form-reorder" color="purple">Save Sort Order</x-button>
-                                        <x-button-link :href="route('positions.index', $department)" color="purple-text" size="none">
+                                        <x-link :href="route('positions.index', $department)" color="purple-text" size="none">
                                             Cancel
-                                        </x-button-link>
+                                        </x-link>
                                     </div>
                                 </x-form>
                             </div>

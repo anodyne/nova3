@@ -4,22 +4,22 @@
     <x-page-header title="Post Types">
         <x-slot name="controls">
             @can('update', $postTypes->first())
-                <x-button-link :href="route('post-types.index', 'reorder')" color="gray-text" size="none">
+                <x-link :href="route('post-types.index', 'reorder')" color="gray-text" size="none">
                     @icon('arrow-sort', 'h-6 w-6')
-                </x-button-link>
+                </x-link>
             @endcan
 
             @can('create', 'Nova\PostTypes\Models\PostType')
-                <x-button-link :href="route('post-types.create')" color="blue" data-cy="create">
+                <x-link :href="route('post-types.create')" color="blue" data-cy="create">
                     Add Post Type
-                </x-button-link>
+                </x-link>
             @endcan
         </x-slot>
     </x-page-header>
 
     <x-panel x-data="sortableList">
         @if ($isReordering)
-            <div class="bg-purple-3 border-t border-b border-purple-6 p-4 | sm:rounded-t-md sm:border-t-0">
+            <div class="bg-purple-3 border-t border-b border-purple-6 p-4 sm:rounded-t-md sm:border-t-0">
                 <div class="flex">
                     <div class="flex-shrink-0">
                         @icon('arrow-sort', 'h-6 w-6 text-purple-9')
@@ -36,9 +36,9 @@
                                 <input type="hidden" name="sort" x-model="newSortOrder">
                                 <div class="flex items-center space-x-4">
                                     <x-button type="submit" form="form-reorder" color="purple">Save Sort Order</x-button>
-                                    <x-button-link :href="route('post-types.index')" color="purple-text" size="none">
+                                    <x-link :href="route('post-types.index')" color="purple-text" size="none">
                                         Cancel
-                                    </x-button-link>
+                                    </x-link>
                                 </div>
                             </x-form>
                         </div>
@@ -53,9 +53,9 @@
 
         <ul id="sortable-list">
         @forelse ($postTypes as $postType)
-            <li class="sortable-item border-t border-gray-200 hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out @if ($isReordering) first:border-0 last:rounded-b-md @endif" data-id="{{ $postType->id }}">
+            <li class="sortable-item border-t border-gray-6 hover:bg-gray-2 focus:outline-none focus:bg-gray-2 transition duration-150 ease-in-out @if ($isReordering) first:border-0 last:rounded-b-md @endif" data-id="{{ $postType->id }}">
                 <div class="block">
-                    <div class="px-4 py-4 flex items-center | sm:px-6">
+                    <div class="px-4 py-4 flex items-center sm:px-6">
                         @if ($isReordering)
                             <div class="sortable-handle flex-shrink-0 cursor-move mr-5">
                                 @icon('reorder', 'h-5 w-5 text-gray-400')
@@ -129,7 +129,7 @@
         </ul>
 
         @if (! $isReordering)
-            <div class="px-4 py-2 border-t border-gray-200 | sm:px-6 sm:py-3">
+            <div class="px-4 py-2 border-t border-gray-6 sm:px-6 sm:py-3">
                 {{ $postTypes->withQueryString()->links() }}
             </div>
         @endif

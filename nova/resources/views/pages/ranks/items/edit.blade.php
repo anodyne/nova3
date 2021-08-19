@@ -15,9 +15,9 @@
                         @livewire('ranks:groups-dropdown', ['groupId' => old('group_id', $item->group_id)])
 
                         @can('create', 'Nova\Ranks\Models\RankGroup')
-                            <x-button-link :href="route('ranks.groups.index')" color="gray-text" size="none" class="ml-3">
+                            <x-link :href="route('ranks.groups.index')" color="gray-text" size="none" class="ml-3">
                                 @icon('settings', 'h-6 w-6')
-                            </x-button-link>
+                            </x-link>
                         @endcan
                     </div>
                 </x-input.group>
@@ -27,9 +27,9 @@
                         @livewire('ranks:names-dropdown', ['nameId' => old('name_id', $item->name_id)])
 
                         @can('create', 'Nova\Ranks\Models\RankName')
-                            <x-button-link :href="route('ranks.names.index')" color="gray-text" size="none" class="ml-3">
+                            <x-link :href="route('ranks.names.index')" color="gray-text" size="none" class="ml-3">
                                 @icon('settings', 'h-6 w-6')
-                            </x-button-link>
+                            </x-link>
                         @endcan
                     </div>
                 </x-input.group>
@@ -114,7 +114,7 @@
 
             <x-form.footer>
                 <x-button type="submit" color="blue">Update Rank Item</x-button>
-                <x-button-link :href="route('ranks.items.index')" color="white">Cancel</x-button-link>
+                <x-link :href="route('ranks.items.index')" color="white">Cancel</x-link>
             </x-form.footer>
 
             <input type="hidden" name="base_image" x-model="base">

@@ -16,9 +16,9 @@
             <x-input.checkbox label="Remember me" for="remember" id="remember" name="remember" class="h-4 w-4" />
 
             <div class="text-sm">
-                <x-button-link :href="route('password.request')" color="blue-text" size="none">
+                <x-link :href="route('password.request')" color="blue-text" size="none">
                     Forgot your password?
-                </x-button-link>
+                </x-link>
             </div>
         </div>
 

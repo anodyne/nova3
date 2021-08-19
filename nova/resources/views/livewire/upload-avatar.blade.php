@@ -7,7 +7,7 @@
                 @if ($existingAvatar)
                     <img src="{{ $existingAvatar }}" alt="Avatar">
                 @else
-                    <svg class="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+                    <svg class="h-full w-full text-gray-9" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
                     </svg>
                 @endif
@@ -17,7 +17,7 @@
             <input x-on:focus="focused = true" x-on:blur="focused = false" type="file" id="avatar" wire:model="avatar" class="sr-only">
             <label
                 for="avatar"
-                class="cursor-pointer inline-flex items-center border uppercase tracking-wide font-semibold rounded-md transition ease-in-out duration-150 focus:outline-none border-gray-300 text-gray-700 bg-white hover:text-gray-500 active:text-gray-800 active:bg-gray-50 px-2.5 py-1.5 text-xs"
+                class="cursor-pointer inline-flex items-center border uppercase tracking-wide font-semibold rounded-md transition ease-in-out duration-150 focus:outline-none border-gray-300 text-gray-700 bg-gray-1 hover:text-gray-500 active:text-gray-800 active:bg-gray-50 px-2.5 py-1.5 text-xs"
                 x-bind:class="{ 'border-blue-7 ring': focused }"
             >
                 Change

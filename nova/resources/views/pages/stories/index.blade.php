@@ -28,9 +28,9 @@
                 </x-dropdown>
 
                 @can('create', 'Nova\Stories\Models\Story')
-                    <x-button-link :href="route('stories.create')" color="blue" data-cy="create">
+                    <x-link :href="route('stories.create')" color="blue" data-cy="create">
                         Add Story
-                    </x-button-link>
+                    </x-link>
                 @endcan
             @endif
         </x-slot>

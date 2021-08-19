@@ -21,9 +21,9 @@
             </x-dropdown>
 
             @can('create', 'Nova\Themes\Models\Theme')
-                <x-button-link :href="route('themes.create')" color="blue">
+                <x-link :href="route('themes.create')" color="blue">
                     Add Theme
-                </x-button-link>
+                </x-link>
             @endcan
         </x-slot>
     </x-page-header>
