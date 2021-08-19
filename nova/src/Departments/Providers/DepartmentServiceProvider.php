@@ -35,12 +35,14 @@ class DepartmentServiceProvider extends DomainServiceProvider
     protected $responsables = [
         Responses\CreateDepartmentResponse::class,
         Responses\DeleteDepartmentResponse::class,
+        Responses\DuplicateDepartmentResponse::class,
         Responses\ShowAllDepartmentsResponse::class,
         Responses\ShowDepartmentResponse::class,
         Responses\UpdateDepartmentResponse::class,
 
         Responses\CreatePositionResponse::class,
         Responses\DeletePositionResponse::class,
+        Responses\DuplicatePositionResponse::class,
         Responses\ShowAllPositionsResponse::class,
         Responses\ShowPositionResponse::class,
         Responses\UpdatePositionResponse::class,

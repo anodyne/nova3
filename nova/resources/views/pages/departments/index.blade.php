@@ -107,6 +107,16 @@
                                                 <span>Edit</span>
                                             </x-dropdown.item>
                                         @endcan
+
+                                        @can('duplicate', $department)
+                                            <x-dropdown.item type="submit" icon="duplicate" form="duplicate-{{ $department->id }}" data-cy="duplicate">
+                                                <span>Duplicate</span>
+
+                                                <x-slot name="buttonForm">
+                                                    <x-form :action="route('departments.duplicate', $department)" id="duplicate-{{ $department->id }}" class="hidden" />
+                                                </x-slot>
+                                            </x-dropdown.item>
+                                        @endcan
                                     </x-dropdown.group>
 
                                     @can('update', $department)
@@ -150,6 +160,21 @@
                 <span class="flex w-full | sm:col-start-2">
                     <x-button type="submit" form="form" class="red" full-width>
                         Delete
+                    </x-button>
+                </span>
+                <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
+                    <x-button x-on:click="$dispatch('modal-close')" type="button" color="white" full-width>
+                        Cancel
+                    </x-button>
+                </span>
+            </x-slot>
+        </x-modal>
+
+        <x-modal color="blue" title="Duplicate department" icon="duplicate" :url="route('departments.confirm-duplicate')" event="modal-duplicate" :wide="true">
+            <x-slot name="footer">
+                <span class="flex w-full | sm:col-start-2">
+                    <x-button type="submit" form="form-duplicate" color="blue" full-width>
+                        Duplicate
                     </x-button>
                 </span>
                 <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">

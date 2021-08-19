@@ -37,6 +37,12 @@ class PositionPolicy
         return $user->isAbleTo('department.delete');
     }
 
+    public function duplicate(User $user, Position $position): bool
+    {
+        return $user->isAbleTo('department.create')
+            && $user->isAbleTo('department.update');
+    }
+
     public function restore(User $user, Position $position): bool
     {
         return false;
