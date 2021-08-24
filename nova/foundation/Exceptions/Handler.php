@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Foundation\Exceptions;
 
-use Exception;
-use Throwable;
-use Nova\Users\Exceptions\AdminForcedPasswordResetException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Nova\Users\Exceptions\AdminForcedPasswordResetException;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {

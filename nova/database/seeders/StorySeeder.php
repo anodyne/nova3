@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
-use Nova\Stories\Models\Story;
 use Illuminate\Database\Seeder;
+use Nova\Stories\Models\Story;
 
 class StorySeeder extends Seeder
 {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Foundation\Providers;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -54,17 +56,17 @@ class AppServiceProvider extends ServiceProvider
 
     protected function registerMacros()
     {
-        RedirectResponse::mixin(new Macros\RedirectResponseMacros);
-        Route::mixin(new Macros\RouteMacros);
-        Str::mixin(new Macros\StrMacros);
-        ViewFactory::mixin(new Macros\ViewMacros);
+        RedirectResponse::mixin(new Macros\RedirectResponseMacros());
+        Route::mixin(new Macros\RouteMacros());
+        Str::mixin(new Macros\StrMacros());
+        ViewFactory::mixin(new Macros\ViewMacros());
     }
 
     protected function registerIcons()
     {
-        $iconSets = new IconSets;
-        $iconSets->add('feather', new FeatherIconSet);
-        $iconSets->add('fluent', new FluentIconSet);
+        $iconSets = new IconSets();
+        $iconSets->add('feather', new FeatherIconSet());
+        $iconSets->add('fluent', new FluentIconSet());
 
         $this->app->instance(IconSets::class, $iconSets);
     }

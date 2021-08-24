@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Auth\Controllers;
 
-use Illuminate\Http\Request;
-use Nova\Foundation\Controllers\Controller;
 use Illuminate\Foundation\Auth\VerifiesEmails;
+use Illuminate\Http\Request;
 use Nova\Auth\Responses\EmailVerificationResponse;
+use Nova\Foundation\Controllers\Controller;
 
 class VerificationController extends Controller
 {

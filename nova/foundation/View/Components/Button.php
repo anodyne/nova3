@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Foundation\View\Components;
 
 use Illuminate\Support\Str;

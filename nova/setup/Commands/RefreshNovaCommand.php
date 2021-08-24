@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Setup\Commands;
 
 use Illuminate\Console\Command;

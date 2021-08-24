@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Foundation;
 
 use Illuminate\Support\Facades\Storage;
@@ -30,7 +32,7 @@ class WordGenerator
                 $length = $this->getRandomWeightedArrayItem($this->lengths);
                 $start = $this->getRandomWeightedArrayItem($this->bigrams);
                 $word = $this->fillWord($start, $length);
-            } while (!preg_match('/[AEIOUY]/', $word));
+            } while (! preg_match('/[AEIOUY]/', $word));
 
             $words[] = strtolower($word);
         }

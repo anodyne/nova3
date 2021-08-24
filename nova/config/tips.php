@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'dashboard' => [
         'On mobile devices, you can add this page to your home screen and get a standalone app that will behave like a native mobile app rather than a normal browser tab.',

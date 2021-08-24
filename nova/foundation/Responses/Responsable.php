@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Foundation\Responses;
 
-use Nova\Pages\Page;
 use BadMethodCallException;
-use Illuminate\Support\Str;
-use Illuminate\Http\Response;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Responsable as LaravelResponsable;
+use Illuminate\Http\Response;
+use Illuminate\Support\Str;
+use Nova\Pages\Page;
 
 abstract class Responsable implements LaravelResponsable
 {

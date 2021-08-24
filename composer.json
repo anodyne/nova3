@@ -34,16 +34,16 @@
         "staudenmeir/eloquent-eager-limit": "^1.6"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^3.5",
         "brianium/paratest": "^6.1",
         "facade/ignition": "^2.3.6",
-        "friendsofphp/php-cs-fixer": "^2.16",
         "fakerphp/faker": "^1.14",
+        "friendsofphp/php-cs-fixer": "^3.0",
         "itsgoingd/clockwork": "^5.0",
         "jasonmccreary/laravel-test-assertions": "^1.0",
         "laravel/sail": "^1.5",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^5.0",
+        "nunomaduro/phpinsights": "^2.0",
         "phpunit/phpunit": "^9.0",
         "squizlabs/php_codesniffer": "^3.5"
     },

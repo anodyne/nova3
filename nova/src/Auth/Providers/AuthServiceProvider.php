@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Auth\Providers;
 
-use Nova\DomainServiceProvider;
+use Nova\Auth\Responses\EmailVerificationResponse;
+use Nova\Auth\Responses\ForgotPasswordResponse;
 use Nova\Auth\Responses\LoginResponse;
 use Nova\Auth\Responses\ResetPasswordResponse;
-use Nova\Auth\Responses\ForgotPasswordResponse;
-use Nova\Auth\Responses\EmailVerificationResponse;
+use Nova\DomainServiceProvider;
 
 class AuthServiceProvider extends DomainServiceProvider
 {

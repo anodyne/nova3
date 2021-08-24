@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Auth\Controllers;
 
-use Illuminate\Http\Request;
-use Nova\Foundation\Controllers\Controller;
-use Nova\Auth\Responses\ResetPasswordResponse;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
+use Nova\Auth\Responses\ResetPasswordResponse;
+use Nova\Foundation\Controllers\Controller;
 
 class ResetPasswordController extends Controller
 {

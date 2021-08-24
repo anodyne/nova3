@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Foundation\Livewire;
 
-use Livewire\Component;
 use Illuminate\Support\Str;
+use Livewire\Component;
 use Nova\Foundation\Icons\IconSets;
 
 class IconsSelectMenu extends Component

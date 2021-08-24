@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Nova\Roles\Models\Role;
-use Illuminate\Database\Eloquent\Factories\Factory;
 
 class RoleFactory extends Factory
 {

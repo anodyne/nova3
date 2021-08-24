@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
-use Nova\Ranks\Models\RankName;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Nova\Ranks\Models\RankName;
 
 class RankNameFactory extends Factory
 {

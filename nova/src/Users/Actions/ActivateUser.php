@@ -2,8 +2,8 @@
 
 namespace Nova\Users\Actions;
 
-use Nova\Users\Models\User;
 use Nova\Users\Models\States\Active;
+use Nova\Users\Models\User;
 
 class ActivateUser
 {

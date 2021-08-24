@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Migrations\Migration;
 use Nova\PostTypes\Models\PostType;
 use Nova\PostTypes\Values\Field;

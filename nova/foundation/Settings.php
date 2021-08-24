@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Settings;
 
 use ArrayAccess;
-use JsonSerializable;
-use Illuminate\Support\Arr;
-use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Support\Arr;
+use JsonSerializable;
 
 class Settings implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
 {

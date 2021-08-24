@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Setup\Controllers;
 
 use Illuminate\Support\Facades\Artisan;

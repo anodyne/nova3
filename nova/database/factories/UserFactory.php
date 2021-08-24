@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
-use Illuminate\Support\Str;
-use Nova\Users\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Nova\Users\Models\States\Active;
 use Nova\Users\Models\States\Inactive;
-use Illuminate\Database\Eloquent\Factories\Factory;
+use Nova\Users\Models\User;
 
 class UserFactory extends Factory
 {

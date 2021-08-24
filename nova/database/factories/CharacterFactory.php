@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
-use Nova\Characters\Models\Character;
-use Nova\Characters\Models\States\Types\Primary;
-use Nova\Characters\Models\States\Types\Support;
-use Nova\Characters\Models\States\Statuses\Active;
-use Nova\Characters\Models\States\Types\Secondary;
-use Nova\Characters\Models\States\Statuses\Pending;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Nova\Characters\Models\Character;
+use Nova\Characters\Models\States\Statuses\Active;
 use Nova\Characters\Models\States\Statuses\Inactive;
+use Nova\Characters\Models\States\Statuses\Pending;
+use Nova\Characters\Models\States\Types\Primary;
+use Nova\Characters\Models\States\Types\Secondary;
+use Nova\Characters\Models\States\Types\Support;
 
 class CharacterFactory extends Factory
 {

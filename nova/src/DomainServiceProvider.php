@@ -2,14 +2,14 @@
 
 namespace Nova;
 
-use Livewire\Livewire;
-use LivewireUI\Spotlight\Spotlight;
-use Illuminate\Support\Facades\Gate;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Relations\Relation;
+use Livewire\Livewire;
+use LivewireUI\Spotlight\Spotlight;
 
 abstract class DomainServiceProvider extends ServiceProvider
 {

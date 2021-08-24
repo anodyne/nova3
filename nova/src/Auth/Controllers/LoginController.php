@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Auth\Controllers;
 
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Nova\Auth\Responses\LoginResponse;
 use Nova\Foundation\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {

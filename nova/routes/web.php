@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 try {
     $pages = cache()->rememberForever('nova.pages', function () {
-        return \Nova\Pages\Page::get();
+        return Nova\Pages\Page::get();
     });
 
     $pages->each(function ($page) use ($router) {
