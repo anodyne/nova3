@@ -1,68 +1,41 @@
 <?php
 
-namespace Tests\Unit;
+declare(strict_types=1);
 
-use Tests\TestCase;
 use Nova\Foundation\Toast;
 
-class ToastTest extends TestCase
-{
-    protected $toast;
+uses()->group('toast');
 
-    public function setUp(): void
-    {
-        parent::setUp();
+beforeEach(function () {
+    $this->toast = app(Toast::class);
+});
 
-        $this->toast = app(Toast::class);
-    }
+it('can set the toast message', function () {
+    $this->toast->withMessage('Message');
 
-    /**
-     * @test
-     */
-    public function itCanSetMessage()
-    {
-        $this->toast->withMessage('Message');
+    expect($this->toast->message)->toBe('Message');
+});
 
-        $this->assertEquals('Message', $this->toast->message);
-    }
+it('can set the action text', function () {
+    $this->toast->withActionText('Save');
 
-    /**
-     * @test
-     */
-    public function itCanSetActionText()
-    {
-        $this->toast->withActionText('Save');
+    expect($this->toast->actionText)->toBe('Save');
+});
 
-        $this->assertEquals('Save', $this->toast->actionText);
-    }
+it('can set the action url', function () {
+    $this->toast->withActionLink('https://google.com');
 
-    /**
-     * @test
-     */
-    public function itCanSetActionUrl()
-    {
-        $this->toast->withActionLink('https://google.com');
+    expect($this->toast->actionLink)->toBe('https://google.com');
+});
 
-        $this->assertEquals('https://google.com', $this->toast->actionLink);
-    }
+it('can set an error type', function () {
+    $this->toast->error();
 
-    /**
-     * @test
-     */
-    public function itCanSetErrorType()
-    {
-        $this->toast->error();
+    expect($this->toast->type)->toBe('error');
+});
 
-        $this->assertEquals('error', $this->toast->type);
-    }
+it('can set a success type', function () {
+    $this->toast->success();
 
-    /**
-     * @test
-     */
-    public function itCanSetSuccessType()
-    {
-        $this->toast->success();
-
-        $this->assertEquals('success', $this->toast->type);
-    }
-}
+    expect($this->toast->type)->toBe('success');
+});
