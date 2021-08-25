@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+/usr/bin/env bash "$(git rev-parse --show-toplevel)"/nova/vendor/bin/sail "$@"
