@@ -1,31 +1,33 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Characters\Models;
 
-use Nova\Characters\Events;
-use Nova\Users\Models\User;
-use Nova\Stories\Models\Post;
-use Nova\Ranks\Models\RankItem;
-use Spatie\ModelStates\HasStates;
-use Spatie\MediaLibrary\HasMedia;
-use Nova\Departments\Models\Position;
-use Illuminate\Database\Eloquent\Model;
-use Spatie\Activitylog\Traits\LogsActivity;
-use Spatie\MediaLibrary\InteractsWithMedia;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Nova\Characters\Models\States\Types\Primary;
-use Nova\Characters\Models\States\Types\Support;
-use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
-use Nova\Characters\Models\States\Statuses\Active;
-use Nova\Characters\Models\States\Types\Secondary;
-use Nova\Users\Models\States\Active as ActiveUser;
-use Nova\Characters\Models\States\Statuses\Pending;
-use Nova\Characters\Models\States\Statuses\Inactive;
-use Nova\Characters\Models\Builders\CharacterBuilder;
-use Nova\Characters\Models\States\Types\CharacterType;
-use Nova\Characters\Models\States\Statuses\CharacterStatus;
-use Nova\Characters\Models\States\Statuses\ActiveToInactive;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Nova\Characters\Events;
+use Nova\Characters\Models\Builders\CharacterBuilder;
+use Nova\Characters\Models\States\Statuses\Active;
+use Nova\Characters\Models\States\Statuses\ActiveToInactive;
+use Nova\Characters\Models\States\Statuses\CharacterStatus;
+use Nova\Characters\Models\States\Statuses\Inactive;
+use Nova\Characters\Models\States\Statuses\Pending;
+use Nova\Characters\Models\States\Types\CharacterType;
+use Nova\Characters\Models\States\Types\Primary;
+use Nova\Characters\Models\States\Types\Secondary;
+use Nova\Characters\Models\States\Types\Support;
+use Nova\Departments\Models\Position;
+use Nova\Ranks\Models\RankItem;
+use Nova\Stories\Models\Post;
+use Nova\Users\Models\States\Active as ActiveUser;
+use Nova\Users\Models\User;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\ModelStates\HasStates;
+use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
 class Character extends Model implements HasMedia
 {

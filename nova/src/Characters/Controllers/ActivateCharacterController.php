@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Characters\Controllers;
 
-use Nova\Characters\Models\Character;
-use Nova\Foundation\Controllers\Controller;
 use Nova\Characters\Actions\ActivateCharacter;
 use Nova\Characters\Events\CharacterActivated;
+use Nova\Characters\Models\Character;
+use Nova\Foundation\Controllers\Controller;
 
 class ActivateCharacterController extends Controller
 {

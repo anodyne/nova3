@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Characters\Models\States\Statuses;
 
-use Spatie\ModelStates\Transition;
 use Nova\Characters\Models\Character;
+use Spatie\ModelStates\Transition;
 
 class ActiveToInactive extends Transition
 {

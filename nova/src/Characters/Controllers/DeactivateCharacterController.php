@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Characters\Controllers;
 
 use Illuminate\Http\Request;
-use Nova\Characters\Models\Character;
-use Nova\Foundation\Controllers\Controller;
 use Nova\Characters\Actions\DeactivateCharacter;
 use Nova\Characters\Events\CharacterDeactivated;
+use Nova\Characters\Models\Character;
 use Nova\Characters\Responses\DeactivateCharacterResponse;
+use Nova\Foundation\Controllers\Controller;
 
 class DeactivateCharacterController extends Controller
 {

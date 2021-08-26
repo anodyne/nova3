@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Characters\Controllers;
 
 use Illuminate\Http\Request;
-use Nova\Characters\Models\Character;
-use Nova\Foundation\Controllers\Controller;
 use Nova\Characters\Actions\DeleteCharacter;
 use Nova\Characters\Events\CharacterDeletedByAdmin;
+use Nova\Characters\Models\Character;
 use Nova\Characters\Responses\DeleteCharacterResponse;
+use Nova\Foundation\Controllers\Controller;
 
 class DeleteCharacterController extends Controller
 {

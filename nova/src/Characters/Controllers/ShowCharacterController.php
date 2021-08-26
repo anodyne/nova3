@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Characters\Controllers;
 
 use Illuminate\Http\Request;
-use Nova\Characters\Models\Character;
-use Nova\Foundation\Controllers\Controller;
 use Nova\Characters\Filters\CharacterFilters;
-use Nova\Characters\Responses\ShowCharacterResponse;
+use Nova\Characters\Models\Character;
 use Nova\Characters\Responses\ShowAllCharactersResponse;
+use Nova\Characters\Responses\ShowCharacterResponse;
+use Nova\Foundation\Controllers\Controller;
 
 class ShowCharacterController extends Controller
 {

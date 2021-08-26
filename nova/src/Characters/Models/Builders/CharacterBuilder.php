@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Characters\Models\Builders;
 
-use Nova\Foundation\Filters\Filterable;
 use Illuminate\Database\Eloquent\Builder;
 use Nova\Characters\Models\States\Statuses\Active;
-use Nova\Characters\Models\States\Statuses\Pending;
 use Nova\Characters\Models\States\Statuses\Inactive;
+use Nova\Characters\Models\States\Statuses\Pending;
+use Nova\Foundation\Filters\Filterable;
 
 class CharacterBuilder extends Builder
 {
@@ -25,7 +27,7 @@ class CharacterBuilder extends Builder
     public function whereIsPrimaryCharacter()
     {
         return $this->join('character_user', 'character_user.character_id', '=', 'characters.id')
-           ->where('character_user.primary', true);
+            ->where('character_user.primary', true);
     }
 
     public function wherePending()
