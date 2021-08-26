@@ -21,6 +21,10 @@ $config = new Config();
 
 return $config->setRules([
     '@PSR12' => true,
+    'binary_operator_spaces' => true,
+    'blank_line_before_statement' => [
+        'statements' => ['break', 'continue', 'declare', 'return', 'throw', 'try'],
+    ],
     'declare_strict_types' => true,
     'method_chaining_indentation' => true,
     'no_unused_imports' => true,
@@ -30,6 +34,10 @@ return $config->setRules([
         'sort_algorithm' => 'alpha',
     ],
     'ordered_traits' => true,
+    'phpdoc_scalar' => true,
+    'phpdoc_single_line_var_spacing' => true,
+    'phpdoc_var_without_name' => true,
+    'unary_operator_spaces' => true,
 ])
     ->setFinder($finder)
     ->setRiskyAllowed(true);
