@@ -1,22 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Departments\Providers;
 
-use Nova\Departments\Responses;
-use Nova\DomainServiceProvider;
-use Nova\Departments\Models\Position;
+use Nova\Departments\Livewire\PositionsCollector;
+use Nova\Departments\Livewire\PositionsDropdown;
 use Nova\Departments\Models\Department;
-use Nova\Departments\Spotlight\EditPosition;
-use Nova\Departments\Spotlight\ViewPosition;
+use Nova\Departments\Models\Position;
+use Nova\Departments\Policies\DepartmentPolicy;
 use Nova\Departments\Policies\PositionPolicy;
-use Nova\Departments\Spotlight\ViewPositions;
+use Nova\Departments\Responses;
+use Nova\Departments\Spotlight\CreateDepartment;
 use Nova\Departments\Spotlight\CreatePosition;
 use Nova\Departments\Spotlight\EditDepartment;
+use Nova\Departments\Spotlight\EditPosition;
 use Nova\Departments\Spotlight\ViewDepartment;
-use Nova\Departments\Policies\DepartmentPolicy;
-use Nova\Departments\Livewire\PositionsDropdown;
-use Nova\Departments\Spotlight\CreateDepartment;
-use Nova\Departments\Livewire\PositionsCollector;
+use Nova\Departments\Spotlight\ViewPosition;
+use Nova\Departments\Spotlight\ViewPositions;
+use Nova\DomainServiceProvider;
 
 class DepartmentServiceProvider extends DomainServiceProvider
 {

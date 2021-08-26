@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Departments\DataTransferObjects;
 
 use Illuminate\Http\Request;

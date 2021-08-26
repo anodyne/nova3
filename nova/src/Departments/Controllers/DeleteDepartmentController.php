@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Departments\Controllers;
 
 use Illuminate\Http\Request;
-use Nova\Departments\Models\Department;
-use Nova\Foundation\Controllers\Controller;
 use Nova\Departments\Actions\DeleteDepartment;
+use Nova\Departments\Models\Department;
 use Nova\Departments\Responses\DeleteDepartmentResponse;
+use Nova\Foundation\Controllers\Controller;
 
 class DeleteDepartmentController extends Controller
 {

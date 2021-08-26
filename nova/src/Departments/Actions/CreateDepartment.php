@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Departments\Actions;
 
-use Nova\Departments\Models\Department;
 use Nova\Departments\DataTransferObjects\DepartmentData;
+use Nova\Departments\Models\Department;
 
 class CreateDepartment
 {

@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Departments\Controllers;
 
-use Nova\Departments\Models\Department;
-use Nova\Foundation\Controllers\Controller;
 use Nova\Departments\Actions\UpdateDepartmentManager;
+use Nova\Departments\Models\Department;
 use Nova\Departments\Requests\UpdateDepartmentRequest;
 use Nova\Departments\Responses\UpdateDepartmentResponse;
+use Nova\Foundation\Controllers\Controller;
 
 class UpdateDepartmentController extends Controller
 {

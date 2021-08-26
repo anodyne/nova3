@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Departments\Controllers;
 
-use Nova\Departments\Models\Position;
-use Nova\Departments\Models\Department;
-use Nova\Foundation\Controllers\Controller;
 use Nova\Departments\Actions\UpdatePosition;
-use Nova\Departments\Requests\UpdatePositionRequest;
 use Nova\Departments\DataTransferObjects\PositionData;
+use Nova\Departments\Models\Department;
+use Nova\Departments\Models\Position;
+use Nova\Departments\Requests\UpdatePositionRequest;
 use Nova\Departments\Responses\UpdatePositionResponse;
+use Nova\Foundation\Controllers\Controller;
 
 class UpdatePositionController extends Controller
 {
