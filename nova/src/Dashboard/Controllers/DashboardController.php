@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Dashboard\Controllers;
 
-use Nova\Foundation\Controllers\Controller;
 use Nova\Dashboard\Responses\DashboardResponse;
+use Nova\Foundation\Controllers\Controller;
 
 class DashboardController extends Controller
 {

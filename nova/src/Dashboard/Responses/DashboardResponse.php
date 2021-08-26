@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Dashboard\Responses;
 
 use Nova\Foundation\Responses\Responsable;
