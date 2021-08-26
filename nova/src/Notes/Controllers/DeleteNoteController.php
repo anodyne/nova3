@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Notes\Controllers;
 
-use Nova\Notes\Models\Note;
 use Illuminate\Http\Request;
-use Nova\Notes\Actions\DeleteNote;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Notes\Actions\DeleteNote;
+use Nova\Notes\Models\Note;
 use Nova\Notes\Responses\DeleteNoteResponse;
 
 class DeleteNoteController extends Controller

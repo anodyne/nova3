@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Notes\Controllers;
 
-use Nova\Notes\Models\Note;
-use Nova\Notes\Actions\UpdateNote;
-use Nova\Notes\Requests\UpdateNoteRequest;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Notes\Actions\UpdateNote;
 use Nova\Notes\DataTransferObjects\NoteData;
+use Nova\Notes\Models\Note;
+use Nova\Notes\Requests\UpdateNoteRequest;
 use Nova\Notes\Responses\UpdateNoteResponse;
 
 class UpdateNoteController extends Controller

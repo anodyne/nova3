@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Notes\Controllers;
 
-use Nova\Notes\Models\Note;
+use Nova\Foundation\Controllers\Controller;
 use Nova\Notes\Actions\DuplicateNote;
 use Nova\Notes\Events\NoteDuplicated;
-use Nova\Foundation\Controllers\Controller;
+use Nova\Notes\Models\Note;
 
 class DuplicateNoteController extends Controller
 {
