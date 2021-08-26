@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Stories\Actions;
 
-use Nova\Stories\Models\Story;
-use Nova\Stories\DataTransferObjects\StoryData;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Stories\DataTransferObjects\StoryData;
+use Nova\Stories\Models\Story;
 
 class CreateStory
 {

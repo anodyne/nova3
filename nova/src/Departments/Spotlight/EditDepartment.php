@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Departments\Spotlight;
 
 use Illuminate\Support\Facades\Gate;
@@ -45,6 +47,6 @@ class EditDepartment extends SpotlightCommand
 
     public function shouldBeShown(): bool
     {
-        return Gate::allows('update', new Department);
+        return Gate::allows('update', new Department());
     }
 }

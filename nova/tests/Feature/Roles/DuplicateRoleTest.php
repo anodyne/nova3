@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Roles;
 
-use Tests\TestCase;
-use Nova\Roles\Models\Role;
-use Nova\Roles\Models\Permission;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\Roles\Events\RoleDuplicated;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Roles\Models\Permission;
+use Nova\Roles\Models\Role;
+use Tests\TestCase;
 
 /**
  * @group roles

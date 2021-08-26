@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Foundation\View\Components;
 
 use Illuminate\Support\Str;
@@ -41,114 +43,38 @@ class Button extends Component
 
     public function colorStyles()
     {
-        switch ($this->color) {
-            case 'white':
-            default:
-                return 'border-gray-300 text-gray-700 bg-white hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500';
+        return match ($this->color) {
+            default => 'border-gray-7 text-gray-9 bg-gray-1 hover:bg-gray-2 hover:border-gray-8 hover:text-gray-10 focus:ring-2 focus:ring-offset-2 focus:ring-blue-7',
 
-                break;
+            'dark-gray-text' => 'border-transparent text-gray-11 font-medium hover:text-gray-12 focus:text-gray-12',
+            'gray-text' => 'border-transparent text-gray-9 font-medium hover:text-gray-11 focus:text-gray-11',
+            'light-gray-text' => 'border-transparent font-medium text-gray-7 hover:text-gray-8',
 
-            case 'dark-gray-text':
-                return 'border-transparent text-gray-600 font-medium hover:text-gray-800 focus:text-gray-800';
+            'blue' => 'border-transparent text-white bg-blue-9 hover:bg-blue-10 focus:ring-2 focus:ring-offset-2 focus:ring-blue-7',
+            'blue-soft' => 'border-transparent text-blue-11 bg-blue-3 hover:bg-blue-4 focus:ring-2 focus:ring-offset-2 focus:ring-blue-7',
+            'blue-text' => 'border-transparent font-medium text-blue-9 hover:text-blue-10',
 
-                break;
+            'purple' => 'border-transparent text-white bg-purple-9 hover:bg-purple-10 focus:ring-2 focus:ring-offset-2 focus:border-purple-6 focus:ring-purple-7',
+            'purple-soft' => 'border-transparent text-purple-11 bg-purple-3 hover:bg-purple-4 focus:ring-2 focus:ring-offset-2 focus:ring-purple-7',
+            'purple-text' => 'border-transparent font-medium text-purple-9 hover:text-purple-10',
 
-            case 'dark-gray-text':
-                return 'border-transparent text-gray-600 font-medium hover:text-gray-800 focus:text-gray-800';
-
-                break;
-
-            case 'gray-text':
-                return 'border-transparent font-medium text-gray-400 hover:text-gray-600';
-
-                break;
-
-            case 'blue':
-                return 'border-transparent text-white bg-blue-600 hover:bg-blue-700 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500';
-
-                break;
-
-            case 'blue-soft':
-                return 'border-transparent text-blue-700 bg-blue-100 hover:bg-blue-200 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500';
-
-                break;
-
-            case 'blue-text':
-                return 'border-transparent font-medium text-blue-600 hover:text-blue-800';
-
-                break;
-
-            case 'purple':
-                return 'border-transparent text-white bg-purple-600 hover:bg-purple-700 focus:ring-2 focus:ring-offset-2 focus:border-purple-700 focus:ring-purple-500';
-
-                break;
-
-            case 'purple-soft':
-                return 'border-transparent text-purple-700 bg-purple-100 hover:bg-purple-200 focus:ring-2 focus:ring-offset-2 focus:ring-purple-500';
-
-                break;
-
-            case 'purple-text':
-                return 'border-transparent font-medium text-purple-600 hover:text-purple-800';
-
-                break;
-
-            case 'red':
-                return 'border-transparent text-white bg-red-600 hover:bg-red-700 focus:ring-2 focus:ring-offset-2 focus:ring-red-500';
-
-                break;
-
-            case 'red-soft':
-                return 'border-transparent text-red-700 bg-red-100 hover:bg-red-200 focus:ring-2 focus:ring-offset-2 focus:ring-red-500';
-
-                break;
-
-            case 'red-text':
-                return 'border-transparent font-medium text-red-600 hover:text-red-800';
-
-                break;
-        }
+            'red' => 'border-transparent text-white bg-red-9 hover:bg-red-10 focus:ring-2 focus:ring-offset-2 focus:ring-red-7',
+            'red-soft' => 'border-transparent text-red-11 bg-red-3 hover:bg-red-4 focus:ring-2 focus:ring-offset-2 focus:ring-red-7',
+            'red-text' => 'border-transparent font-medium text-red-9 hover:text-red-10',
+        };
     }
 
     public function sizeStyles()
     {
-        switch ($this->size) {
-            case 'none':
-                return 'text-sm';
-
-                break;
-
-            case 'none-xs':
-                return 'text-xs';
-
-                break;
-
-            case 'xs':
-                return 'px-2.5 py-1.5 text-xs';
-
-                break;
-
-            case 'sm':
-                return 'px-3 py-2 text-sm';
-
-                break;
-
-            case 'md':
-            default:
-                return 'px-4 py-2 text-sm';
-
-                break;
-
-            case 'lg':
-                return 'px-4 py-2 text-base';
-
-                break;
-
-            case 'xl':
-                return 'px-6 py-3 text-base';
-
-                break;
-        }
+        return match ($this->size) {
+            'none' => 'text-sm',
+            'none-xs' => 'text-xs',
+            'xs' => 'px-2.5 py-1.5 text-xs',
+            'sm' => 'px-3 py-2 text-sm',
+            'lg' => 'px-4 py-2 text-base',
+            'xl' => 'px-6 py-3 text-lg',
+            default => 'px-4 py-2 text-sm',
+        };
     }
 
     public function render()

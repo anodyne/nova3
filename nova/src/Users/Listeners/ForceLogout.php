@@ -1,10 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Users\Listeners;
 
-use DB;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\DB;
 
 class ForceLogout
 {

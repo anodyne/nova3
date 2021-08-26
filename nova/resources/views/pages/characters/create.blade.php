@@ -61,7 +61,7 @@
 
             <x-form.footer>
                 <x-button type="submit" color="blue">Add Character</x-button>
-                <x-button-link :href="route('characters.index', 'status=active')" color="white">Cancel</x-button-link>
+                <x-link :href="route('characters.index', 'status=active')" color="white">Cancel</x-link>
             </x-form.footer>
         </x-form>
     </x-panel>

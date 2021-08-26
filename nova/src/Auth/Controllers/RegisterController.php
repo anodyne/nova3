@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Auth\Controllers;
 
-use Nova\Users\Models\User;
+use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Nova\Foundation\Controllers\Controller;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use Nova\Users\Models\User;
 
 class RegisterController extends Controller
 {

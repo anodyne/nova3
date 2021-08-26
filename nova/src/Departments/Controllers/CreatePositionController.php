@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Departments\Controllers;
 
 use Illuminate\Http\Request;
-use Nova\Departments\Models\Position;
-use Nova\Departments\Models\Department;
-use Nova\Foundation\Controllers\Controller;
 use Nova\Departments\Actions\CreatePosition;
-use Nova\Departments\Requests\CreatePositionRequest;
 use Nova\Departments\DataTransferObjects\PositionData;
+use Nova\Departments\Models\Department;
+use Nova\Departments\Models\Position;
+use Nova\Departments\Requests\CreatePositionRequest;
 use Nova\Departments\Responses\CreatePositionResponse;
+use Nova\Foundation\Controllers\Controller;
 
 class CreatePositionController extends Controller
 {

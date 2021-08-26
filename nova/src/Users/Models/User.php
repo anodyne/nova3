@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Users\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -28,14 +30,14 @@ use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
 class User extends Authenticatable implements MustVerifyEmail, HasMedia
 {
-    use Notifiable;
-    use SoftDeletes;
-    use LogsActivity;
-    use LaratrustUserTrait;
+    use HasEagerLimit;
     use HasFactory;
     use HasStates;
     use InteractsWithMedia;
-    use HasEagerLimit;
+    use LaratrustUserTrait;
+    use LogsActivity;
+    use Notifiable;
+    use SoftDeletes;
 
     public const MEDIA_DIRECTORY = 'users/{model_id}/{media_id}/';
 

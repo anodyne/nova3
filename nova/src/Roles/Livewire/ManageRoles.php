@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Roles\Livewire;
 
+use Illuminate\Support\Collection;
 use Livewire\Component;
 use Nova\Roles\Models\Role;
-use Illuminate\Support\Collection;
 
 class ManageRoles extends Component
 {

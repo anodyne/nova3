@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Livewire;
 
 use Livewire\Component;
-use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Actions\CreateRankGroup;
 use Nova\Ranks\DataTransferObjects\RankGroupData;
+use Nova\Ranks\Models\RankGroup;
 
 class RankGroupsDropdown extends Component
 {

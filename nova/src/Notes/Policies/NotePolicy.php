@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Notes\Policies;
 
+use Illuminate\Auth\Access\HandlesAuthorization;
 use Nova\Notes\Models\Note;
 use Nova\Users\Models\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
 
 class NotePolicy
 {

@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Roles;
 
-use Tests\TestCase;
-use Nova\Roles\Models\Role;
-use Nova\Users\Models\User;
-use Nova\Roles\Events\RoleCreated;
-use Illuminate\Support\Facades\Event;
-use Nova\Roles\Requests\CreateRoleRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
+use Nova\Roles\Events\RoleCreated;
+use Nova\Roles\Models\Role;
+use Nova\Roles\Requests\CreateRoleRequest;
+use Nova\Users\Models\User;
+use Tests\TestCase;
 
 /**
  * @group roles

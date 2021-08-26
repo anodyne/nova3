@@ -1,9 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Users\Listeners;
 
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Nova\Users\Exceptions\AdminForcedPasswordResetException;
 
 class CheckForForcedPasswordReset
@@ -19,7 +19,7 @@ class CheckForForcedPasswordReset
         if ($event->user->force_password_reset) {
             auth()->logout();
 
-            throw new AdminForcedPasswordResetException;
+            throw new AdminForcedPasswordResetException();
         }
     }
 }

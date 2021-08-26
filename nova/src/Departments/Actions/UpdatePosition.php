@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Departments\Actions;
 
-use Nova\Departments\Models\Position;
 use Nova\Departments\DataTransferObjects\PositionData;
+use Nova\Departments\Models\Position;
 
 class UpdatePosition
 {

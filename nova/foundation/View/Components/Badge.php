@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Foundation\View\Components;
 
 use Illuminate\View\Component;
@@ -24,7 +26,7 @@ class Badge extends Component
 
     public function baseStyles()
     {
-        return 'inline-flex items-center rounded-full font-medium uppercase tracking-wide space-x-1';
+        return 'inline-flex items-center rounded-full font-medium uppercase tracking-wide space-x-1 border';
     }
 
     public function colorStyles()
@@ -32,37 +34,37 @@ class Badge extends Component
         switch ($this->color) {
             case 'gray':
             default:
-                return 'bg-gray-100 text-gray-800';
+                return 'bg-gray-3 text-gray-11 border-gray-6';
 
                 break;
 
             case 'blue':
-                return 'bg-blue-100 text-blue-800';
+                return 'bg-blue-3 text-blue-11 border-blue-6';
 
                 break;
 
             case 'green':
-                return 'bg-green-100 text-green-800';
+                return 'bg-green-3 text-green-11 border-green-6';
 
                 break;
 
             case 'purple':
-                return 'bg-purple-100 text-purple-800';
+                return 'bg-purple-3 text-purple-11 border-purple-6';
 
                 break;
 
             case 'red':
-                return 'bg-red-100 text-red-800';
+                return 'bg-red-3 text-red-11 border-red-6';
 
                 break;
 
             case 'yellow':
-                return 'bg-yellow-100 text-yellow-800';
+                return 'bg-yellow-3 text-yellow-11';
 
                 break;
 
             case 'dark-gray':
-                return 'bg-gray-800 text-gray-100';
+                return 'bg-gray-11 text-gray-3';
 
                 break;
         }
@@ -78,32 +80,32 @@ class Badge extends Component
         switch ($this->color) {
             case 'gray':
             default:
-                return 'text-gray-600';
+                return 'text-gray-9';
 
                 break;
 
             case 'blue':
-                return 'text-blue-600';
+                return 'text-blue-9';
 
                 break;
 
             case 'green':
-                return 'text-green-600';
+                return 'text-green-9';
 
                 break;
 
             case 'purple':
-                return 'text-purple-600';
+                return 'text-purple-9';
 
                 break;
 
             case 'red':
-                return 'text-red-600';
+                return 'text-red-9';
 
                 break;
 
             case 'yellow':
-                return 'text-yellow-600';
+                return 'text-yellow-9';
 
                 break;
         }

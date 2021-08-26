@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Foundation;
 
-use Throwable;
 use Nova\Foundation\Exceptions\ActionException;
+use Throwable;
 
 abstract class Action
 {

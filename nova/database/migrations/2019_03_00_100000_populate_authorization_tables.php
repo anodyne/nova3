@@ -1,8 +1,10 @@
 <?php
 
-use Nova\Roles\Models\Role;
-use Nova\Roles\Models\Permission;
+declare(strict_types=1);
+
 use Illuminate\Database\Migrations\Migration;
+use Nova\Roles\Models\Permission;
+use Nova\Roles\Models\Role;
 
 class PopulateAuthorizationTables extends Migration
 {

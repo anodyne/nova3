@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Posts\Controllers;
 
 use Nova\Foundation\Controllers\Controller;
@@ -19,7 +21,7 @@ class CreatePostController extends Controller
 
     public function create(PostType $postType)
     {
-        $this->authorize('write', [new Post, $postType]);
+        $this->authorize('write', [new Post(), $postType]);
 
         return app(ComposePostResponse::class)->with([
             'postType' => $postType,

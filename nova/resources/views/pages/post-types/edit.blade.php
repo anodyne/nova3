@@ -106,7 +106,7 @@
 
                     @if (! app('nova.settings')->discord->storyPostsEnabled)
                         <x-slot name="help">
-                            <span class="font-medium">Story post notifications for Discord is currently disabled.</span> You can change this setting, but it will not work until you have enabled sending story post notifications to Discord from the <a class="text-blue-600 hover:text-blue-500 transition ease-in-out duration-150" href="{{ route('settings.index', 'discord') }}">Discord settings</a>.
+                            <span class="font-medium">Story post notifications for Discord is currently disabled.</span> You can change this setting, but it will not work until you have enabled sending story post notifications to Discord from the <a class="text-blue-9 hover:text-blue-10 transition ease-in-out duration-150" href="{{ route('settings.index', 'discord') }}">Discord settings</a>.
                         </x-slot>
                     @endif
                 </x-input.group>
@@ -135,7 +135,7 @@
 
             <x-form.footer>
                 <x-button type="submit" color="blue">Update Post Type</x-button>
-                <x-button-link :href="route('post-types.index')" color="white">Cancel</x-button-link>
+                <x-link :href="route('post-types.index')" color="white">Cancel</x-link>
             </x-form.footer>
         </x-form>
     </x-panel>

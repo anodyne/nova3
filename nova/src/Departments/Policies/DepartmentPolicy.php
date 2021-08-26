@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Departments\Policies;
 
-use Nova\Users\Models\User;
-use Nova\Departments\Models\Department;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Nova\Departments\Models\Department;
+use Nova\Users\Models\User;
 
 class DepartmentPolicy
 {

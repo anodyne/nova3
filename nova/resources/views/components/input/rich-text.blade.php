@@ -18,7 +18,7 @@
     <trix-editor
         x-ref="editor"
         input="content"
-        class="trix-content relative w-full min-h-56 bg-transparent py-2 px-3 rounded-md border border-gray-200 bg-gray-50 shadow-sm transition ease-in-out duration-200 focus:border-blue-300 focus:bg-white focus:ring">
+        class="trix-content relative w-full min-h-56 bg-transparent py-2 px-3 rounded-md border border-gray-200 bg-gray-50 shadow-sm transition ease-in-out duration-200 focus:border-blue-9 focus:bg-white focus:ring">
     </trix-editor>
 
     @if ($countWords)

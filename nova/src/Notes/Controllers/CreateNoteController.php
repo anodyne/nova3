@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Notes\Controllers;
 
-use Nova\Notes\Models\Note;
-use Nova\Notes\Actions\CreateNote;
-use Nova\Notes\Requests\CreateNoteRequest;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Notes\Actions\CreateNote;
 use Nova\Notes\DataTransferObjects\NoteData;
+use Nova\Notes\Models\Note;
+use Nova\Notes\Requests\CreateNoteRequest;
 use Nova\Notes\Responses\CreateNoteResponse;
 
 class CreateNoteController extends Controller

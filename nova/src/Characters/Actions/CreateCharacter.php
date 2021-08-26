@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Characters\Actions;
 
+use Nova\Characters\DataTransferObjects\CharacterData;
 use Nova\Characters\Models\Character;
 use Nova\Characters\Models\States\Statuses\Active;
-use Nova\Characters\DataTransferObjects\CharacterData;
 
 class CreateCharacter
 {

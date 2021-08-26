@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Departments\Controllers;
 
 use Illuminate\Http\Request;
-use Nova\Departments\Models\Position;
-use Nova\Foundation\Controllers\Controller;
 use Nova\Departments\Actions\DeletePosition;
+use Nova\Departments\Models\Position;
 use Nova\Departments\Responses\DeletePositionResponse;
+use Nova\Foundation\Controllers\Controller;
 
 class DeletePositionController extends Controller
 {

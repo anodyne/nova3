@@ -3,13 +3,13 @@
         x-on:click.prevent="open = true"
         {{-- wire:poll.30s="refreshNotifications" --}}
         type="button"
-        class="relative p-1 text-gray-400 rounded-full transition ease-in-out duration-150 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring focus:text-gray-500"
+        class="relative p-1 text-gray-9 rounded-full transition ease-in-out duration-150 hover:bg-gray-3 hover:text-gray-10 focus:outline-none focus:ring focus:text-gray-9"
         aria-label="Notifications"
     >
         @icon('notification', 'h-6 w-6')
 
         @if ($this->hasUnreadNotifications())
-            <span class="absolute top-0 right-0 block h-2.5 w-2.5 rounded-full text-white shadow-solid bg-red-500"></span>
+            <span class="absolute top-0 right-0 block h-2.5 w-2.5 rounded-full text-white shadow-solid bg-red-9"></span>
         @endif
     </button>
 
@@ -98,13 +98,13 @@
                                     @include("livewire.users.notifications.{$notification['type']}", compact('notification'))
                                 </div>
                             @empty
-                                <div class="rounded-md bg-blue-50 p-4">
+                                <div class="rounded-md bg-blue-3 p-4">
                                     <div class="flex items-center">
                                         <div class="flex-shrink-0">
-                                            @icon('check-alt', 'h-6 w-6 text-blue-500')
+                                            @icon('check-alt', 'h-6 w-6 text-blue-9')
                                         </div>
                                         <div class="ml-3">
-                                            <p class="font-medium text-blue-800">
+                                            <p class="font-medium text-blue-11">
                                                 No unread notifications
                                             </p>
                                         </div>

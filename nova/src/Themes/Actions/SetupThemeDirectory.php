@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Themes\Actions;
 
 use Illuminate\Support\Facades\Artisan;

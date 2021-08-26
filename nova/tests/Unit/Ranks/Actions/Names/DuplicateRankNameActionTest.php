@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Ranks\Actions\Names;
 
-use Tests\TestCase;
-use Nova\Ranks\Models\RankName;
-use Nova\Ranks\Actions\DuplicateRankName;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Ranks\Actions\DuplicateRankName;
+use Nova\Ranks\Models\RankName;
+use Tests\TestCase;
 
 /**
  * @group ranks

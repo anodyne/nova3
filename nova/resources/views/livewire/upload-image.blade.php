@@ -13,7 +13,7 @@
                 >
                 <label
                     for="upload-image"
-                    class="cursor-pointer font-medium text-blue-600 hover:text-blue-500 transition duration-150 ease-in-out"
+                    class="cursor-pointer font-medium text-blue-9 hover:text-blue-10 transition duration-150 ease-in-out"
                     x-bind:class="{ 'outline-none underline': focused }"
                 >
                     Upload a file
@@ -28,8 +28,8 @@
     <input type="hidden" name="image_path" wire:model="path">
 
     @error('image')
-        <p class="flex items-center w-full relative mt-2 ml-0.5 text-sm text-red-600 space-x-2" role="alert">
-            @icon('alert', 'h-5 w-5 flex-shrink-0 text-red-400')
+        <p class="flex items-center w-full relative mt-2 ml-0.5 text-sm text11 space-x-2" role="alert">
+            @icon('alert', 'h-5 w-5 flex-shrink-0 text-red-9')
             <span>{{ $message }}</span>
         </p>
     @enderror

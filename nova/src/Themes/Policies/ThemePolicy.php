@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Themes\Policies;
 
-use Nova\Users\Models\User;
-use Nova\Themes\Models\Theme;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Nova\Themes\Models\Theme;
+use Nova\Users\Models\User;
 
 class ThemePolicy
 {

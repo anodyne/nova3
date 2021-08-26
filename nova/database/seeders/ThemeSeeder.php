@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
-use Nova\Themes\Models\Theme;
 use Illuminate\Database\Seeder;
+use Nova\Themes\Models\Theme;
 
 class ThemeSeeder extends Seeder
 {

@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Departments\Requests;
 
-use Nova\Foundation\Rules\MaxFileSize;
 use Nova\Foundation\Requests\ValidatesRequest;
+use Nova\Foundation\Rules\MaxFileSize;
 
 class CreateDepartmentRequest extends ValidatesRequest
 {
@@ -11,7 +13,7 @@ class CreateDepartmentRequest extends ValidatesRequest
     {
         return [
             'description' => ['nullable'],
-            'image' => ['nullable', 'mimes:jpeg,png,gif', new MaxFileSize],
+            'image' => ['nullable', 'mimes:jpeg,png,gif', new MaxFileSize()],
             'name' => ['required'],
         ];
     }

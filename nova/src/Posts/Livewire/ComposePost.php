@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Posts\Livewire;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -28,7 +30,7 @@ class ComposePost extends Component
 
     public function publish(SavePostManager $action)
     {
-        $post = $this->post ?? new Post;
+        $post = $this->post ?? new Post();
 
         $this->authorize('write', [$post, $this->postType]);
 
@@ -46,7 +48,7 @@ class ComposePost extends Component
     public function save(SavePostManager $action)
     {
         if ($this->postType && $this->title) {
-            $post = $this->post ?? new Post;
+            $post = $this->post ?? new Post();
 
             $this->authorize('write', [$post, $this->postType]);
 

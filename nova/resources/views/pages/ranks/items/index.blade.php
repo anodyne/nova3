@@ -29,15 +29,15 @@
                 </x-dropdown>
 
                 @can('update', $items->first())
-                    <x-button-link :href="route('ranks.items.index', 'reorder')" color="gray-text" size="none">
+                    <x-link :href="route('ranks.items.index', 'reorder')" color="gray-text" size="none">
                         @icon('arrow-sort', 'h-6 w-6')
-                    </x-button-link>
+                    </x-link>
                 @endcan
 
                 @can('create', 'Nova\Ranks\Models\RankItem')
-                    <x-button-link :href="route('ranks.items.create')" color="blue" data-cy="create">
+                    <x-link :href="route('ranks.items.create')" color="blue" data-cy="create">
                         Add Rank Item
-                    </x-button-link>
+                    </x-link>
                 @endcan
             @endif
         </x-slot>
@@ -53,16 +53,16 @@
     @else
         <x-panel x-data="sortableList">
             @if ($isReordering)
-                <div class="bg-purple-100 border-t border-b border-purple-200 p-4 | sm:rounded-t-md sm:border-t-0">
+                <div class="bg-purple-3 border-t border-b border-purple-6 p-4 | sm:rounded-t-md sm:border-t-0">
                     <div class="flex">
                         <div class="flex-shrink-0">
-                            @icon('arrow-sort', 'h-6 w-6 text-purple-600')
+                            @icon('arrow-sort', 'h-6 w-6 text-purple-9')
                         </div>
                         <div class="ml-3">
-                            <h3 class="font-medium text-purple-900">
+                            <h3 class="font-medium text-purple-11">
                                 Change Sorting Order
                             </h3>
-                            <div class="mt-2 text-sm text-purple-800">
+                            <div class="mt-2 text-sm text-purple-11">
                                 <p>Rank items appear in the order you set throughout Nova. To change the sorting of the rank items, drag them to the desired order and then click Save Sort Order below.</p>
                             </div>
                             <div class="mt-4">
@@ -70,9 +70,9 @@
                                     <input type="hidden" name="sort" x-model="newSortOrder">
                                     <div class="flex items-center space-x-4">
                                         <x-button type="submit" form="form-reorder" color="purple">Save Sort Order</x-button>
-                                        <x-button-link :href="route('ranks.items.index')" color="purple-text" size="none">
+                                        <x-link :href="route('ranks.items.index')" color="purple-text" size="none">
                                             Cancel
-                                        </x-button-link>
+                                        </x-link>
                                     </div>
                                 </x-form>
                             </div>

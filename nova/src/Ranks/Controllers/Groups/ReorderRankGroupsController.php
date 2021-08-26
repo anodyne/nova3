@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Controllers\Groups;
 
 use Illuminate\Http\Request;
-use Nova\Ranks\Models\RankGroup;
-use Nova\Ranks\Actions\ReorderRankGroups;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Ranks\Actions\ReorderRankGroups;
+use Nova\Ranks\Models\RankGroup;
 
 class ReorderRankGroupsController extends Controller
 {
@@ -18,7 +20,7 @@ class ReorderRankGroupsController extends Controller
 
     public function __invoke(Request $request, ReorderRankGroups $action)
     {
-        $this->authorize('update', new RankGroup);
+        $this->authorize('update', new RankGroup());
 
         $action->execute($request->sort);
 

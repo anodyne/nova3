@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Roles\Controllers;
 
-use Nova\Roles\Models\Role;
-use Nova\Roles\Actions\CreateRoleManager;
-use Nova\Roles\Requests\CreateRoleRequest;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Roles\Actions\CreateRoleManager;
+use Nova\Roles\Models\Role;
+use Nova\Roles\Requests\CreateRoleRequest;
 use Nova\Roles\Responses\CreateRoleResponse;
 
 class CreateRoleController extends Controller

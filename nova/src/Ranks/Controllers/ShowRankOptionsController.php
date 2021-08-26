@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Controllers;
 
-use Nova\Ranks\Models\RankGroup;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Responses\ShowRankOptionsResponse;
 
 class ShowRankOptionsController extends Controller

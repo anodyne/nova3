@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\PostTypes\Controllers;
 
-use Nova\PostTypes\Models\PostType;
 use Nova\Foundation\Controllers\Controller;
 use Nova\PostTypes\Actions\DuplicatePostType;
 use Nova\PostTypes\Events\PostTypeDuplicated;
+use Nova\PostTypes\Models\PostType;
 
 class DuplicatePostTypeController extends Controller
 {

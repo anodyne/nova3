@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Roles\Actions;
 
-use Tests\TestCase;
-use Nova\Roles\Models\Permission;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Roles\Actions\CreateRole;
 use Nova\Roles\DataTransferObjects\RoleData;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Roles\Models\Permission;
+use Tests\TestCase;
 
 /**
  * @group roles

@@ -8,7 +8,7 @@
 
         <x-slot name="controls">
             @can('update', $user)
-                <x-button-link :href="route('users.edit', $user)" color="blue">Edit User</x-button-link>
+                <x-link :href="route('users.edit', $user)" color="blue">Edit User</x-link>
             @endcan
         </x-slot>
     </x-page-header>
@@ -88,8 +88,8 @@
                                 {{ $role->display_name }}
                             </span>
                         @empty
-                            <div class="flex items-center font-semibold text-yellow-700">
-                                @icon('warning', 'mr-3 flex-shrink-0 h-6 w-6')
+                            <div class="flex items-center font-semibold text-yellow-11">
+                                @icon('warning', 'mr-3 flex-shrink-0 h-6 w-6 text-yellow-9')
                                 <span>This user does not have any roles.</span>
                             </div>
                         @endforelse
@@ -98,7 +98,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button-link :href='route("users.index", "status={$user->status->name()}")' color="white">Back</x-button-link>
+                <x-link :href='route("users.index", "status={$user->status->name()}")' color="white">Back</x-link>
             </x-form.footer>
         </x-form>
     </x-panel>

@@ -4,9 +4,9 @@
     <x-page-header title="My Notes">
         <x-slot name="controls">
             @if ($notes->count() > 0)
-                <x-button-link :href="route('notes.create')" color="blue" data-cy="create">
+                <x-link :href="route('notes.create')" color="blue" data-cy="create">
                     Add Note
-                </x-button-link>
+                </x-link>
             @endif
         </x-slot>
     </x-page-header>

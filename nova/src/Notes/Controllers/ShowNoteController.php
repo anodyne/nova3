@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Notes\Controllers;
 
-use Nova\Notes\Models\Note;
 use Illuminate\Http\Request;
-use Nova\Notes\Filters\NoteFilters;
-use Nova\Notes\Responses\ShowNoteResponse;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Notes\Filters\NoteFilters;
+use Nova\Notes\Models\Note;
 use Nova\Notes\Responses\ShowAllNotesResponse;
+use Nova\Notes\Responses\ShowNoteResponse;
 
 class ShowNoteController extends Controller
 {

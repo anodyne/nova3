@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Departments\Controllers;
 
-use Nova\Departments\Models\Department;
-use Nova\Foundation\Controllers\Controller;
 use Nova\Departments\Actions\CreateDepartmentManager;
+use Nova\Departments\Models\Department;
 use Nova\Departments\Requests\CreateDepartmentRequest;
 use Nova\Departments\Responses\CreateDepartmentResponse;
+use Nova\Foundation\Controllers\Controller;
 
 class CreateDepartmentController extends Controller
 {

@@ -7,9 +7,9 @@
         </x-slot>
 
         <x-slot name="controls">
-            <x-button-link :href="route('notes.edit', $note)" color="blue">
+            <x-link :href="route('notes.edit', $note)" color="blue">
                 Edit Note
-            </x-button-link>
+            </x-link>
         </x-slot>
     </x-page-header>
 

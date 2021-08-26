@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Settings\Controllers;
 
-use Nova\Themes\Models\Theme;
 use Nova\Foundation\Controllers\Controller;
-use Nova\Settings\Models\Settings;
 use Nova\Settings\Responses\SettingsResponse;
+use Nova\Themes\Models\Theme;
 
 class SettingsController extends Controller
 {

@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Characters\Policies;
 
-use Nova\Users\Models\User;
-use Nova\Characters\Models\Character;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Nova\Characters\Models\Character;
 use Nova\Characters\Models\States\Statuses\Active;
 use Nova\Characters\Models\States\Statuses\Inactive;
+use Nova\Users\Models\User;
 
 class CharacterPolicy
 {

@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Characters\Actions;
 
-use Nova\Characters\Models\Character;
 use Nova\Characters\DataTransferObjects\AssignCharacterPositionsData;
+use Nova\Characters\Models\Character;
 
 class AssignCharacterPositions
 {

@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Users\Controllers;
 
-use Nova\Users\Models\User;
-use Nova\Users\Actions\ForcePasswordReset;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Users\Actions\ForcePasswordReset;
+use Nova\Users\Models\User;
 
 class ForcePasswordResetController extends Controller
 {

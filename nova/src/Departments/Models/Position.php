@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Departments\Models;
 
-use Nova\Departments\Events;
-use Nova\Characters\Models\Character;
-use Illuminate\Database\Eloquent\Model;
-use Spatie\Activitylog\Traits\LogsActivity;
-use Nova\Departments\Models\Builders\PositionBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Nova\Characters\Models\Character;
+use Nova\Departments\Events;
+use Nova\Departments\Models\Builders\PositionBuilder;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Position extends Model
 {

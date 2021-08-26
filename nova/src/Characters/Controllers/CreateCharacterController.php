@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Characters\Controllers;
 
-use Nova\Characters\Models\Character;
-use Nova\Foundation\Controllers\Controller;
 use Nova\Characters\Actions\CreateCharacterManager;
 use Nova\Characters\Events\CharacterCreatedByAdmin;
+use Nova\Characters\Models\Character;
 use Nova\Characters\Requests\CreateCharacterRequest;
 use Nova\Characters\Responses\CreateCharacterResponse;
+use Nova\Foundation\Controllers\Controller;
 
 class CreateCharacterController extends Controller
 {

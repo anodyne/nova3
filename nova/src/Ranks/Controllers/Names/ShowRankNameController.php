@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Controllers\Names;
 
 use Illuminate\Http\Request;
-use Nova\Ranks\Models\RankName;
-use Nova\Ranks\Filters\RankNameFilters;
 use Nova\Foundation\Controllers\Controller;
-use Nova\Ranks\Responses\Names\ShowRankNameResponse;
+use Nova\Ranks\Filters\RankNameFilters;
+use Nova\Ranks\Models\RankName;
 use Nova\Ranks\Responses\Names\ShowAllRankNamesResponse;
+use Nova\Ranks\Responses\Names\ShowRankNameResponse;
 
 class ShowRankNameController extends Controller
 {

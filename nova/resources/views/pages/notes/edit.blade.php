@@ -31,7 +31,7 @@
 
             <x-form.footer>
                 <x-button type="submit" color="blue">Update Note</x-button>
-                <x-button-link :href="route('notes.index')" color="white">Cancel</x-button-link>
+                <x-link :href="route('notes.index')" color="white">Cancel</x-link>
             </x-form.footer>
         </x-form>
     </x-panel>

@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Departments\Actions;
 
-use Tests\TestCase;
-use Nova\Departments\Models\Position;
-use Nova\Departments\Models\Department;
-use Nova\Departments\Actions\UpdatePosition;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Departments\Actions\UpdatePosition;
 use Nova\Departments\DataTransferObjects\PositionData;
+use Nova\Departments\Models\Department;
+use Nova\Departments\Models\Position;
+use Tests\TestCase;
 
 /**
  * @group departments

@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Controllers\Names;
 
 use Illuminate\Http\Request;
-use Nova\Ranks\Models\RankName;
-use Nova\Ranks\Actions\DeleteRankName;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Ranks\Actions\DeleteRankName;
+use Nova\Ranks\Models\RankName;
 use Nova\Ranks\Responses\Names\DeleteRankNameResponse;
 
 class DeleteRankNameController extends Controller

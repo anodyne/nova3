@@ -12,7 +12,7 @@
             <button
                 x-on:click="open = !open"
                 type="button"
-                class="flex items-center justify-between cursor-default relative w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-left focus:outline-none focus:ring focus:border-blue-300 transition ease-in-out duration-150"
+                class="flex items-center justify-between cursor-default relative w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-left focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-150"
                 aria-haspopup="true"
                 aria-expanded="true"
                 x-bind:aria-expanded="open"

@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Users\Actions;
 
-use Tests\TestCase;
-use Nova\Users\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Users\Actions\UpdateUser;
 use Nova\Users\DataTransferObjects\UserData;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Users\Models\User;
+use Tests\TestCase;
 
 /**
  * @group users

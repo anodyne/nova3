@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Foundation;
 
-use Illuminate\Support\Collection;
-use Illuminate\Pagination\UrlWindow;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Pagination\LengthAwarePaginator as BaseLengthAwarePaginator;
+use Illuminate\Pagination\UrlWindow;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Request;
 
 class LengthAwarePaginator extends BaseLengthAwarePaginator
 {

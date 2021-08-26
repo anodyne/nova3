@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Filters;
 
 use Nova\Foundation\Filters\Filters;
-use Nova\Ranks\Models\RankName;
 
 class RankItemFilters extends Filters
 {

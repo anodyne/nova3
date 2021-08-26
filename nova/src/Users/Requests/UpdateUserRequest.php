@@ -1,17 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Users\Requests;
 
 use Illuminate\Validation\Rule;
-use Nova\Foundation\Rules\MaxFileSize;
 use Nova\Foundation\Requests\ValidatesRequest;
+use Nova\Foundation\Rules\MaxFileSize;
 
 class UpdateUserRequest extends ValidatesRequest
 {
     public function rules()
     {
         return [
-            'avatar' => ['nullable', 'mimes:jpeg,png,gif', new MaxFileSize],
+            'avatar' => ['nullable', 'mimes:jpeg,png,gif', new MaxFileSize()],
             'characters' => ['nullable'],
             'email' => [
                 'required',

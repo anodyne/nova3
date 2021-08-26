@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Ranks\Actions\Items;
 
-use Tests\TestCase;
-use Nova\Ranks\Models\RankItem;
-use Nova\Ranks\Actions\DeleteRankItem;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Ranks\Actions\DeleteRankItem;
+use Nova\Ranks\Models\RankItem;
+use Tests\TestCase;
 
 /**
  * @group ranks

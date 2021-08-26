@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Actions;
 
 use Illuminate\Http\Request;

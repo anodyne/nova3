@@ -9,12 +9,12 @@
             x-bind="rating({{ $i }})"
             type="button"
             x-on:click="setCount({{ $i }})"
-            class="m-0 flex-1 py-0.5 bg-gray-300 hover:bg-gray-400 text-white text-center text-sm font-semibold transition ease-in-out duration-150"
+            class="m-0 flex-1 py-0.5 bg-gray-300 hover:bg-gray-400 text-center text-sm font-semibold transition ease-in-out duration-150"
             x-bind:class="{
-                'bg-green-500 hover:bg-green-500': count >= {{ $i }} && count === 0,
-                'bg-yellow-500 hover:bg-yellow-500': count >= {{ $i }} && count === 1,
-                'bg-orange-500 hover:bg-orange-500': count >= {{ $i }} && count === 2,
-                'bg-red-500 hover:bg-red-500': count >= {{ $i }} && count === 3
+                'bg-green-9 hover:bg-green-9 text-white': count >= {{ $i }} && count === 0,
+                'bg-yellow-9 hover:bg-yellow-9 text-black': count >= {{ $i }} && count === 1,
+                'bg-orange-9 hover:bg-orange-9 text-white': count >= {{ $i }} && count === 2,
+                'bg-red-9 hover:bg-red-9 text-white': count >= {{ $i }} && count === 3
             }"
         >
             <span x-show="count === {{ $i }}" x-text="count"></span>

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Users\Spotlight;
 
 use Illuminate\Support\Facades\Gate;
@@ -45,6 +47,6 @@ class EditUser extends SpotlightCommand
 
     public function shouldBeShown(): bool
     {
-        return Gate::allows('update', new User);
+        return Gate::allows('update', new User());
     }
 }

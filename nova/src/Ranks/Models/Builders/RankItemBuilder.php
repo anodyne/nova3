@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Models\Builders;
 
-use Nova\Ranks\Models\RankName;
-use Nova\Foundation\Filters\Filterable;
 use Illuminate\Database\Eloquent\Builder;
+use Nova\Foundation\Filters\Filterable;
+use Nova\Ranks\Models\RankName;
 
 class RankItemBuilder extends Builder
 {

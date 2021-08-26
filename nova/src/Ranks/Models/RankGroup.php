@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Models;
 
-use Nova\Ranks\Events;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Nova\Ranks\Events;
 use Nova\Ranks\Models\Builders\RankGroupBuilder;
 use Spatie\Activitylog\Traits\LogsActivity;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class RankGroup extends Model
 {

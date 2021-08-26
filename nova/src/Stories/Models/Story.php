@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Stories\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -24,9 +26,9 @@ use Spatie\ModelStates\HasStates;
 
 class Story extends Model implements HasMedia
 {
-    use InteractsWithMedia;
     use HasFactory;
     use HasStates;
+    use InteractsWithMedia;
     use NodeTrait;
 
     public const MEDIA_DIRECTORY = 'stories/{model_id}/{media_id}/';

@@ -64,9 +64,9 @@
                     <p>Roles are a collection of the actions a user can take throughout Nova. A user can be assigned as many roles as you'd like, giving you more granular control over what users can do.</p>
 
                     @can('viewAny', 'Nova\Roles\Models\Role')
-                        <x-button-link :href="route('roles.index')" color="white" size="xs">
+                        <x-link :href="route('roles.index')" color="white" size="xs">
                             Manage roles
-                        </x-button-link>
+                        </x-link>
                     @endcan
                 </x-slot>
 
@@ -86,7 +86,7 @@
 
             <x-form.footer>
                 <x-button type="submit" color="blue">Update User</x-button>
-                <x-button-link :href='route("users.index", "status={$user->status->name()}")' color="white">Cancel</x-button-link>
+                <x-link :href='route("users.index", "status={$user->status->name()}")' color="white">Cancel</x-link>
             </x-form.footer>
         </x-form>
     </x-panel>
@@ -175,7 +175,7 @@
                 <div class="mt-4 sm:mt-0 sm:ml-6 sm:flex-shrink-0">
                     <x-form :action="route('users.force-password-reset', $user)">
                         <span class="inline-flex rounded-md shadow-sm">
-                            <button type="submit" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
+                            <button type="submit" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-7 focus:ring active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
                                 Sign This User Out
                             </button>
                         </span>

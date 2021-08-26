@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\PostTypes\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;

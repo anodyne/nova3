@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Dashboard\Providers;
 
-use Nova\DomainServiceProvider;
 use Nova\Dashboard\Responses\DashboardResponse;
+use Nova\DomainServiceProvider;
 
 class DashboardServiceProvider extends DomainServiceProvider
 {

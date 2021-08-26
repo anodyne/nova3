@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Users\Actions;
 
-use Tests\TestCase;
-use Nova\Users\Models\User;
 use Nova\Users\Actions\DeleteUser;
 use Nova\Users\Exceptions\CannotDeleteOwnAccountException;
+use Nova\Users\Models\User;
+use Tests\TestCase;
 
 /**
  * @group users

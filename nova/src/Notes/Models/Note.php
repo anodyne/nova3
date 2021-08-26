@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Notes\Models;
 
-use Nova\Notes\Events;
-use Nova\Users\Models\User;
-use Illuminate\Database\Eloquent\Model;
-use Nova\Notes\Models\Builders\NoteBuilder;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Nova\Notes\Events;
+use Nova\Notes\Models\Builders\NoteBuilder;
+use Nova\Users\Models\User;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Note extends Model
 {

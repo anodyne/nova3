@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Roles\Actions;
 
 use Nova\Roles\Models\Role;

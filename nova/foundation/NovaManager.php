@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Foundation;
 
 use Illuminate\Support\Facades\Schema;
@@ -68,11 +70,13 @@ class NovaManager
     protected function cssAssets()
     {
         $appUrl = url('');
-        $baseStylesPath = "{$appUrl}/dist/css/app.css";
+        $appStylesPath = "{$appUrl}/dist/css/app.css";
+        $appThemesStylesPath = "{$appUrl}/dist/css/app-themes.css";
 
         return <<<HTML
 <link href="https://rsms.me/inter/inter.css" rel="stylesheet">
-<link href="{$baseStylesPath}" rel="stylesheet">
+<link href="{$appThemesStylesPath}" rel="stylesheet">
+<link href="{$appStylesPath}" rel="stylesheet">
 HTML;
     }
 

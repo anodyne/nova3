@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Foundation;
 
 use Illuminate\Support\Facades\Storage;
@@ -7,7 +9,9 @@ use Illuminate\Support\Facades\Storage;
 class WordGenerator
 {
     protected $lengths;
+
     protected $bigrams;
+
     protected $trigrams;
 
     public function __construct()
@@ -30,7 +34,7 @@ class WordGenerator
                 $length = $this->getRandomWeightedArrayItem($this->lengths);
                 $start = $this->getRandomWeightedArrayItem($this->bigrams);
                 $word = $this->fillWord($start, $length);
-            } while (!preg_match('/[AEIOUY]/', $word));
+            } while (! preg_match('/[AEIOUY]/', $word));
 
             $words[] = strtolower($word);
         }
@@ -47,7 +51,7 @@ class WordGenerator
                 return $word;
             }
 
-            $word.= $this->getRandomWeightedArrayItem($this->trigrams[$tail]);
+            $word .= $this->getRandomWeightedArrayItem($this->trigrams[$tail]);
         }
 
         return $word;

@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Stories\Actions;
 
-use Nova\Stories\Models\Story;
 use Nova\Posts\Actions\DeletePost;
+use Nova\Stories\Models\Story;
 
 class DeleteStoryPosts
 {

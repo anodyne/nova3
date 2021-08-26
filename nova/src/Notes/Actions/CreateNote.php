@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Notes\Actions;
 
-use Nova\Notes\Models\Note;
 use Nova\Notes\DataTransferObjects\NoteData;
+use Nova\Notes\Models\Note;
 
 class CreateNote
 {

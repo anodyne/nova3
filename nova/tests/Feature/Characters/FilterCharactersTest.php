@@ -1,19 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Characters;
 
-use Tests\TestCase;
-use Nova\Users\Models\User;
-use Nova\Characters\Models\Character;
-use Nova\Departments\Models\Position;
-use Nova\Departments\Models\Department;
-use Nova\Characters\Models\States\Types\Primary;
-use Nova\Characters\Models\States\Types\Support;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Characters\Models\Character;
 use Nova\Characters\Models\States\Statuses\Active;
-use Nova\Characters\Models\States\Types\Secondary;
-use Nova\Characters\Models\States\Statuses\Pending;
 use Nova\Characters\Models\States\Statuses\Inactive;
+use Nova\Characters\Models\States\Statuses\Pending;
+use Nova\Characters\Models\States\Types\Primary;
+use Nova\Characters\Models\States\Types\Secondary;
+use Nova\Characters\Models\States\Types\Support;
+use Nova\Departments\Models\Department;
+use Nova\Departments\Models\Position;
+use Nova\Users\Models\User;
+use Tests\TestCase;
 
 /**
  * @group characters

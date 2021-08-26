@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Themes\Models\Builders;
 
-use Nova\Foundation\Filters\Filterable;
 use Illuminate\Database\Eloquent\Builder;
+use Nova\Foundation\Filters\Filterable;
 
 class ThemeBuilder extends Builder
 {

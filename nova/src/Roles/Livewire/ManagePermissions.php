@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Roles\Livewire;
 
+use Illuminate\Support\Collection;
 use Livewire\Component;
 use Nova\Roles\Models\Permission;
-use Illuminate\Support\Collection;
 
 class ManagePermissions extends Component
 {

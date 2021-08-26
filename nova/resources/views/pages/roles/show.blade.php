@@ -8,7 +8,7 @@
 
         <x-slot name="controls">
             @can('update', $role)
-                <x-button-link :href="route('roles.edit', $role)" color="blue">Edit Role</x-button-link>
+                <x-link :href="route('roles.edit', $role)" color="blue">Edit Role</x-link>
             @endcan
         </x-slot>
     </x-page-header>
@@ -37,8 +37,8 @@
                                 {{ $permission->display_name }}
                             </div>
                         @empty
-                            <div class="flex items-center font-medium text-yellow-600">
-                                @icon('warning', 'mr-3 flex-shrink-0 h-6 w-6 text-yellow-400')
+                            <div class="flex items-center font-medium text-yellow-11">
+                                @icon('warning', 'mr-3 flex-shrink-0 h-6 w-6 text-yellow-9')
                                 <span>There are no permissions assigned to this role.</span>
                             </div>
                         @endforelse
@@ -54,8 +54,8 @@
                                 {{ $user->name }}
                             </div>
                         @empty
-                            <div class="flex items-center font-medium text-yellow-600">
-                                @icon('warning', 'mr-3 flex-shrink-0 h-6 w-6 text-yellow-400')
+                            <div class="flex items-center font-medium text-yellow-11">
+                                @icon('warning', 'mr-3 flex-shrink-0 h-6 w-6 text-yellow-9')
                                 <span>There are no users with this role.</span>
                             </div>
                         @endforelse
@@ -64,7 +64,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button-link :href="route('roles.index')" color="white">Back</x-button-link>
+                <x-link :href="route('roles.index')" color="white">Back</x-link>
             </x-form.footer>
         </x-form>
     </x-panel>

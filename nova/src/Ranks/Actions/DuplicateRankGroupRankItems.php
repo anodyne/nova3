@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Actions;
 
-use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\DataTransferObjects\RankItemData;
+use Nova\Ranks\Models\RankGroup;
 
 class DuplicateRankGroupRankItems
 {

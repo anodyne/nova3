@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Posts\Requests;
 
 use Nova\Foundation\Requests\ValidatesRequest;

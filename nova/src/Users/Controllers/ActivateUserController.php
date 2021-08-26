@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Users\Controllers;
 
 use Illuminate\Http\Request;
-use Nova\Users\Models\User;
-use Nova\Users\Actions\ActivateUser;
-use Nova\Users\Events\UserActivated;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Users\Actions\ActivateUserManager;
+use Nova\Users\Events\UserActivated;
+use Nova\Users\Models\User;
 
 class ActivateUserController extends Controller
 {

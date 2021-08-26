@@ -13,7 +13,7 @@
 
     @novaScripts
 </head>
-<body class="font-sans bg-gray-100 text-gray-900 antialiased">
+<body class="font-sans bg-gray-2 text-gray-12 antialiased">
     <div id="app">
         @yield('layout')
 

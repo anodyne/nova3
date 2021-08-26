@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Characters\Actions;
 
 use Nova\Characters\Models\Character;

@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Themes\Actions;
 
 use Illuminate\Http\Request;
-use Nova\Themes\Models\Theme;
 use Nova\Themes\DataTransferObjects\ThemeData;
+use Nova\Themes\Models\Theme;
 
 class CreateThemeManager
 {

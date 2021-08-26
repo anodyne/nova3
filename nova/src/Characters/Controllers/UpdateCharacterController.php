@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Characters\Controllers;
 
-use Nova\Characters\Models\Character;
-use Nova\Foundation\Controllers\Controller;
 use Nova\Characters\Actions\UpdateCharacterManager;
 use Nova\Characters\Events\CharacterUpdatedByAdmin;
+use Nova\Characters\Models\Character;
 use Nova\Characters\Requests\UpdateCharacterRequest;
 use Nova\Characters\Responses\UpdateCharacterResponse;
+use Nova\Foundation\Controllers\Controller;
 
 class UpdateCharacterController extends Controller
 {

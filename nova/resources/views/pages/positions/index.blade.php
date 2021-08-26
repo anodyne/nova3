@@ -9,15 +9,15 @@
         <x-slot name="controls">
             @if ($positionCount > 0)
                 @can('update', $positions->first())
-                    <x-button-link :href="route('positions.index', [$department, 'reorder'])" color="gray-text" size="none">
+                    <x-link :href="route('positions.index', [$department, 'reorder'])" color="gray-text" size="none">
                         @icon('arrow-sort', 'h-6 w-6')
-                    </x-button-link>
+                    </x-link>
                 @endcan
 
                 @can('create', 'Nova\Departments\Models\Position')
-                    <x-button-link :href='route("positions.create", "department={$department->id}")' color="blue" data-cy="create">
+                    <x-link :href='route("positions.create", "department={$department->id}")' color="blue" data-cy="create">
                         Add Position
-                    </x-button-link>
+                    </x-link>
                 @endcan
             @endif
         </x-slot>
@@ -34,7 +34,7 @@
         <x-panel x-data="sortableList">
             <div>
                 <div class="p-4 | sm:hidden">
-                    <select x-on:change="window.location = $event.target.value" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring focus:border-blue-300 transition ease-in-out duration-150 | sm:text-sm">
+                    <select x-on:change="window.location = $event.target.value" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-150 | sm:text-sm">
                         <option value="{{ route('departments.edit', $department) }}">Department Info</option>
                         <option value="email">Positions</option>
                     </select>
@@ -45,7 +45,7 @@
                             <a href="{{ route('departments.edit', $department) }}" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none">
                                 Department Info
                             </a>
-                            <a href="{{ route('positions.index', $department) }}" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm border-blue-500 text-blue-600 focus:outline-none">
+                            <a href="{{ route('positions.index', $department) }}" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm border-blue-7 text-blue-11 focus:outline-none">
                                 Positions
                             </a>
                         </nav>
@@ -53,16 +53,16 @@
                 </div>
             </div>
             @if ($isReordering)
-                <div class="bg-purple-100 border-t border-b border-purple-200 p-4 | sm:border-t-0">
+                <div class="bg-purple-3 border-t border-b border-purple-6 p-4 | sm:border-t-0">
                     <div class="flex">
                         <div class="flex-shrink-0">
-                            @icon('arrow-sort', 'h-6 w-6 text-purple-600')
+                            @icon('arrow-sort', 'h-6 w-6 text-purple-9')
                         </div>
                         <div class="ml-3">
-                            <h3 class="font-medium text-purple-900">
+                            <h3 class="font-medium text-purple-11">
                                 Change Sorting Order
                             </h3>
-                            <div class="mt-2 text-sm text-purple-800">
+                            <div class="mt-2 text-sm text-purple-11">
                                 <p>Positions appear in the order you set throughout Nova. To change the sorting of the positions, drag them to the desired order and then click Save Sort Order below.</p>
                             </div>
                             <div class="mt-4">
@@ -70,9 +70,9 @@
                                     <input type="hidden" name="sort" x-model="newSortOrder">
                                     <div class="flex items-center space-x-4">
                                         <x-button type="submit" form="form-reorder" color="purple">Save Sort Order</x-button>
-                                        <x-button-link :href="route('positions.index', $department)" color="purple-text" size="none">
+                                        <x-link :href="route('positions.index', $department)" color="purple-text" size="none">
                                             Cancel
-                                        </x-button-link>
+                                        </x-link>
                                     </div>
                                 </x-form>
                             </div>

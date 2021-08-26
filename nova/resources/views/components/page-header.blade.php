@@ -7,12 +7,12 @@
 <div class="mb-8 | sm:flex sm:items-center sm:justify-between" data-cy="page-header">
     <div class="flex-1 min-w-0">
         @if ($pretitle)
-            <div class="block mb-2 leading-none text-sm text-gray-600 font-semibold uppercase tracking-wide">
+            <div class="block mb-2 leading-none text-sm text-gray-11 font-semibold uppercase tracking-wide">
                 {{ $pretitle }}
             </div>
         @endif
 
-        <h1 class="block text-2xl font-extrabold text-gray-900 | sm:text-3xl sm:truncate" data-cy="page-header-title">
+        <h1 class="block text-3xl font-extrabold text-gray-12 tracking-tight sm:truncate" data-cy="page-header-title">
             {{ $title ?? $slot }}
         </h1>
     </div>

@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Notes;
 
-use Tests\TestCase;
-use Nova\Notes\Models\Note;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Notes\Models\Note;
+use Tests\TestCase;
 
 /**
  * @group notes

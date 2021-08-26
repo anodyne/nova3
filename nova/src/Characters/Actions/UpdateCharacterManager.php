@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Characters\Actions;
 
 use Illuminate\Http\Request;
-use Nova\Characters\Models\Character;
-use Nova\Characters\DataTransferObjects\CharacterData;
 use Nova\Characters\DataTransferObjects\AssignCharacterOwnersData;
 use Nova\Characters\DataTransferObjects\AssignCharacterPositionsData;
+use Nova\Characters\DataTransferObjects\CharacterData;
+use Nova\Characters\Models\Character;
 
 class UpdateCharacterManager
 {

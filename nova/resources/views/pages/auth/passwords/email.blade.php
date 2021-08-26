@@ -4,7 +4,7 @@
 
 @section('content')
     @if (session('status'))
-        <div class="rounded font-semibold bg-green-200 border-2 border-green-300 text-green-700 mb-6" role="alert">
+        <div class="rounded font-semibold bg-green-3 border-2 border-green-6 text-green-11 mb-6" role="alert">
             {{ session('status') }}
         </div>
     @endif

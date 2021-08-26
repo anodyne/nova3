@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Departments\Actions;
 
-use Tests\TestCase;
-use Nova\Departments\Models\Department;
-use Nova\Departments\Actions\UpdateDepartment;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Departments\Actions\UpdateDepartment;
 use Nova\Departments\DataTransferObjects\DepartmentData;
+use Nova\Departments\Models\Department;
+use Tests\TestCase;
 
 /**
  * @group departments

@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Roles\Actions;
 
-use Nova\Roles\Models\Role;
 use Nova\Roles\DataTransferObjects\RoleData;
+use Nova\Roles\Models\Role;
 
 class UpdateRole
 {

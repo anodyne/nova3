@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Characters\Filters;
 
-use Nova\Foundation\Filters\Filters;
 use Nova\Characters\Models\Character;
+use Nova\Foundation\Filters\Filters;
 
 class CharacterFilters extends Filters
 {

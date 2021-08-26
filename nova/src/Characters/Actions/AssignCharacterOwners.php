@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Characters\Actions;
 
-use Nova\Users\Models\User;
-use Nova\Characters\Models\Character;
 use Nova\Characters\DataTransferObjects\AssignCharacterOwnersData;
+use Nova\Characters\Models\Character;
+use Nova\Users\Models\User;
 
 class AssignCharacterOwners
 {

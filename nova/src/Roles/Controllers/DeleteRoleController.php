@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Roles\Controllers;
 
-use Nova\Roles\Models\Role;
 use Illuminate\Http\Request;
-use Nova\Roles\Actions\DeleteRole;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Roles\Actions\DeleteRole;
+use Nova\Roles\Models\Role;
 use Nova\Roles\Responses\DeleteRoleResponse;
 
 class DeleteRoleController extends Controller

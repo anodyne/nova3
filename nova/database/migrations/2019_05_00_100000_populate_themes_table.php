@@ -1,7 +1,9 @@
 <?php
 
-use Nova\Themes\Models\Theme;
+declare(strict_types=1);
+
 use Illuminate\Database\Migrations\Migration;
+use Nova\Themes\Models\Theme;
 
 class PopulateThemesTable extends Migration
 {

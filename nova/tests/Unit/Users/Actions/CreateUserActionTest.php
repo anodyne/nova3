@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Users\Actions;
 
-use Tests\TestCase;
 use Nova\Users\Actions\CreateUser;
 use Nova\Users\DataTransferObjects\UserData;
+use Tests\TestCase;
 
 /**
  * @group users

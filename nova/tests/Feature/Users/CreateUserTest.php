@@ -1,16 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Users;
 
-use Tests\TestCase;
-use Nova\Users\Models\User;
-use Nova\Users\Events\UserCreated;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Event;
-use Nova\Characters\Models\Character;
-use Nova\Users\Events\UserCreatedByAdmin;
-use Nova\Users\Requests\CreateUserRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Mail;
+use Nova\Characters\Models\Character;
+use Nova\Users\Events\UserCreated;
+use Nova\Users\Events\UserCreatedByAdmin;
+use Nova\Users\Models\User;
+use Nova\Users\Requests\CreateUserRequest;
+use Tests\TestCase;
 
 /**
  * @group users

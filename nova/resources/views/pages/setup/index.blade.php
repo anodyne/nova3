@@ -4,7 +4,7 @@
 <div x-data="{ tab: 'intro', isLoading: false }">
     <div>
         <div class="p-4 | sm:hidden">
-            <select x-on:change="tab = $event.target.value" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring focus:border-blue-300 sm:text-sm transition ease-in-out duration-150">
+            <select x-on:change="tab = $event.target.value" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring focus:border-blue-7 sm:text-sm transition ease-in-out duration-150">
                 <option value="intro" x-bind:selected="tab === 'intro'">Intro</option>
                 <option value="install" x-bind:selected="tab === 'install'">Install</option>
             </select>
@@ -16,7 +16,7 @@
                         @click.prevent="tab = 'intro'"
                         href="#"
                         class="w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm focus:outline-none"
-                        :class="{ 'border-blue-500 text-blue-600': tab === 'intro', 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300': tab !== 'intro' }"
+                        :class="{ 'border-blue-6 text-blue-9': tab === 'intro', 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300': tab !== 'intro' }"
                     >
                         Intro
                     </a>
@@ -24,7 +24,7 @@
                         @click.prevent="tab = 'install'"
                         href="#"
                         class="w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm focus:outline-none"
-                        :class="{ 'border-blue-500 text-blue-600': tab === 'install', 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300': tab !== 'install' }"
+                        :class="{ 'border-blue-6 text-blue-9': tab === 'install', 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300': tab !== 'install' }"
                     >
                         Install
                     </a>
@@ -42,16 +42,16 @@
             </p>
 
             <p class="mb-8">
-                Please do not share this with anyone outside of the Anodyne Patreon community. Any feedback regarding this preview can be sent in the <a href="https://discord.gg/7WmKUks" target="_blank" class="text-blue-600 hover:text-blue-500 transition ease-in-out duration-150 font-medium">#patrons</a> channel on Discord.
+                Please do not share this with anyone outside of the Anodyne Patreon community. Any feedback regarding this preview can be sent in the <a href="https://discord.gg/7WmKUks" target="_blank" class="text-blue-9 hover:text-blue-10 transition ease-in-out duration-150 font-medium">#patrons</a> channel on Discord.
             </p>
 
-            <div class="rounded-md bg-yellow-50 p-4">
+            <div class="rounded-md bg-yellow-3 p-4">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
-                        @icon('warning', 'h-7 w-7 text-yellow-400')
+                        @icon('warning', 'h-7 w-7 text-yellow-9')
                     </div>
                     <div class="ml-4 flex-1 | md:flex md:justify-between">
-                        <p class="text-yellow-700 font-medium">
+                        <p class="text-yellow-11 font-medium">
                             This is alpha-level software and is not suitable for a production environment!
                         </p>
                     </div>

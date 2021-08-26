@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Roles\Actions;
 
-use Nova\Roles\Models\Role;
 use Illuminate\Http\Request;
-use Nova\Roles\DataTransferObjects\RoleData;
 use Nova\Roles\DataTransferObjects\RoleAssignmentData;
+use Nova\Roles\DataTransferObjects\RoleData;
+use Nova\Roles\Models\Role;
 
 class UpdateRoleManager
 {

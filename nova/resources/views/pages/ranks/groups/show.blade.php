@@ -8,7 +8,7 @@
 
         <x-slot name="controls">
             @can('update', $group)
-                <x-button-link :href="route('ranks.groups.edit', $group)" color="blue">Edit Rank Group</x-button-link>
+                <x-link :href="route('ranks.groups.edit', $group)" color="blue">Edit Rank Group</x-link>
             @endcan
         </x-slot>
     </x-page-header>
@@ -40,7 +40,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button-link :href="route('ranks.groups.index')" color="white">Back</x-button-link>
+                <x-link :href="route('ranks.groups.index')" color="white">Back</x-link>
             </x-form.footer>
         </x-form>
     </x-panel>

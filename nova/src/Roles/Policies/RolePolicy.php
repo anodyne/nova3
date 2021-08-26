@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Roles\Policies;
 
+use Illuminate\Auth\Access\HandlesAuthorization;
 use Nova\Roles\Models\Role;
 use Nova\Users\Models\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
 
 class RolePolicy
 {

@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Departments\Spotlight;
 
-use LivewireUI\Spotlight\Spotlight;
 use Illuminate\Support\Facades\Gate;
-use Nova\Departments\Models\Department;
+use LivewireUI\Spotlight\Spotlight;
 use LivewireUI\Spotlight\SpotlightCommand;
-use LivewireUI\Spotlight\SpotlightSearchResult;
-use LivewireUI\Spotlight\SpotlightCommandDependency;
 use LivewireUI\Spotlight\SpotlightCommandDependencies;
+use LivewireUI\Spotlight\SpotlightCommandDependency;
+use LivewireUI\Spotlight\SpotlightSearchResult;
+use Nova\Departments\Models\Department;
 
 class CreatePosition extends SpotlightCommand
 {

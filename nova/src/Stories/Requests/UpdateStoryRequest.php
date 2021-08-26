@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Stories\Requests;
 
 use Nova\Foundation\Requests\ValidatesRequest;

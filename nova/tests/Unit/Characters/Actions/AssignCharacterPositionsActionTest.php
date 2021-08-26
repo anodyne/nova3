@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Characters\Actions;
 
-use Tests\TestCase;
-use Nova\Characters\Models\Character;
-use Nova\Departments\Models\Position;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Characters\Actions\AssignCharacterPositions;
 use Nova\Characters\DataTransferObjects\AssignCharacterPositionsData;
+use Nova\Characters\Models\Character;
+use Nova\Departments\Models\Position;
+use Tests\TestCase;
 
 /**
  * @group characters

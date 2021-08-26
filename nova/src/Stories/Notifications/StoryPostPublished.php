@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Stories\Notifications;
 
 use Awssat\Notifications\Messages\DiscordMessage;
@@ -18,7 +20,7 @@ class StoryPostPublished extends Notification implements ShouldQueue
 
     public function toDiscord($notifiable)
     {
-        return (new DiscordMessage)
+        return (new DiscordMessage())
             ->from('Nova NextGen')
             ->content('A new story post has been published!')
             ->embed(function ($embed) {

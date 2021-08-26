@@ -9,16 +9,16 @@
 
     <x-panel>
         @if ($theme->name === 'Pulsar')
-            <div class="bg-purple-100 border-t border-b border-purple-200 p-4 | sm:rounded-t-md sm:border-t-0">
+            <div class="bg-purple-3 border-t border-b border-purple-6 p-4 | sm:rounded-t-md sm:border-t-0">
                 <div class="flex">
                     <div class="flex-shrink-0">
-                        @icon('star', 'h-6 w-6 text-purple-600')
+                        @icon('star', 'h-6 w-6 text-purple-9')
                     </div>
                     <div class="ml-3">
-                        <h3 class="font-medium text-purple-900">
+                        <h3 class="font-medium text-purple-11">
                             Default theme
                         </h3>
-                        <div class="mt-2 text-sm text-purple-800">
+                        <div class="mt-2 text-sm text-purple-11">
                             <p>{{ $theme->name }} is currently set as the system default theme. Be careful when making any updates to this theme as it could impact your public-facing site.</p>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
 
             <x-form.footer>
                 <x-button type="submit" color="blue">Update Theme</x-button>
-                <x-button-link :href="route('themes.index')" color="white">Cancel</x-button-link>
+                <x-link :href="route('themes.index')" color="white">Cancel</x-link>
             </x-form.footer>
         </x-form>
     </x-panel>

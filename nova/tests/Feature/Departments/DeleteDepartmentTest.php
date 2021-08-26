@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Departments;
 
-use Tests\TestCase;
-use Illuminate\Support\Facades\Event;
-use Nova\Departments\Models\Department;
-use Nova\Departments\Events\DepartmentDeleted;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
+use Nova\Departments\Events\DepartmentDeleted;
+use Nova\Departments\Models\Department;
+use Tests\TestCase;
 
 /**
  * @group departments

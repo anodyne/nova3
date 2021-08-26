@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Characters\Actions;
 
+use Nova\Characters\Models\Character;
 use Nova\Foundation\Action;
 use Spatie\ModelStates\State;
-use Nova\Characters\Models\Character;
 
 class UpdateCharacterStatus extends Action
 {

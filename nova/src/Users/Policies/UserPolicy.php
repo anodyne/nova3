@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Users\Policies;
 
-use Nova\Users\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Nova\Users\Models\States\Active;
 use Nova\Users\Models\States\Inactive;
 use Nova\Users\Models\States\Pending;
+use Nova\Users\Models\User;
 
 class UserPolicy
 {

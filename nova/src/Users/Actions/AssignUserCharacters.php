@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Users\Actions;
 
-use Nova\Users\Models\User;
-use Nova\Characters\Models\Character;
 use Nova\Characters\Actions\SetCharacterType;
+use Nova\Characters\Models\Character;
 use Nova\Users\DataTransferObjects\AssignUserCharactersData;
+use Nova\Users\Models\User;
 
 class AssignUserCharacters
 {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Foundation\View\Components;
 
 use Illuminate\View\Component;
@@ -32,17 +34,17 @@ class Dropdown extends Component
 
     public function divider()
     {
-        return 'border-t border-gray-100 my-1';
+        return 'border-t border-gray-3 my-1';
     }
 
     public function icon()
     {
-        return 'mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500';
+        return 'mr-3 h-5 w-5 text-gray-7 group-hover:text-gray-8 group-focus:text-gray-8';
     }
 
     public function link()
     {
-        return 'group flex items-center w-full px-4 py-2 text-sm font-medium text-gray-700 transition ease-in-out duration-150 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900';
+        return 'group flex items-center w-full px-4 py-2 text-sm font-medium text-gray-9 transition ease-in-out duration-150 hover:bg-gray-3 hover:text-gray-10 focus:outline-none focus:bg-gray-3 focus:text-gray-10';
     }
 
     public function text()

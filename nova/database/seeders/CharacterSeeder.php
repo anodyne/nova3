@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
-use Nova\Users\Models\User;
 use Illuminate\Database\Seeder;
 use Nova\Characters\Models\Character;
 use Nova\Departments\Models\Position;
+use Nova\Users\Models\User;
 
 class CharacterSeeder extends Seeder
 {

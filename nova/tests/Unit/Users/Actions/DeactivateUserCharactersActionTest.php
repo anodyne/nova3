@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Users\Actions;
 
-use Tests\TestCase;
-use Nova\Users\Models\User;
-use Nova\Characters\Models\Character;
-use Nova\Users\Actions\DeactivateUserCharacters;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Characters\Models\Character;
 use Nova\Characters\Models\States\Statuses\Active;
 use Nova\Characters\Models\States\Statuses\Inactive;
+use Nova\Users\Actions\DeactivateUserCharacters;
+use Nova\Users\Models\User;
+use Tests\TestCase;
 
 /**
  * @group users

@@ -8,10 +8,10 @@
     }
 
     .menu-button {
-        @apply text-sm p-1 mx-1 text-gray-500 rounded;
+        @apply text-sm p-1 mx-1 text-gray-9 rounded;
 
         &:hover {
-            @apply text-gray-600 bg-gray-100;
+            @apply text-gray-10 bg-gray-3;
         }
     }
 }

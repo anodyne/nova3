@@ -1,5 +1,5 @@
 .form-field {
-    @apply flex-1 appearance-none bg-transparent text-gray-700 border-none p-0 focus:ring-0;
+    @apply flex-1 appearance-none bg-transparent text-gray-11 border-none p-0 focus:ring-0;
 
     &:focus {
         @apply outline-none;

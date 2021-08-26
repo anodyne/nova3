@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Themes\Controllers;
 
 use Illuminate\Http\Request;
-use Nova\Themes\Models\Theme;
-use Nova\Themes\Actions\DeleteTheme;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Themes\Actions\DeleteTheme;
+use Nova\Themes\Models\Theme;
 use Nova\Themes\Responses\DeleteThemeResponse;
 
 class DeleteThemeController extends Controller

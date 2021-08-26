@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
-use Nova\Departments\Models\Position;
-use Nova\Departments\Models\Department;
+
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Nova\Departments\Models\Department;
+use Nova\Departments\Models\Position;
 
 class PositionFactory extends Factory
 {

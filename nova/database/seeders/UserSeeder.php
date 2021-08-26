@@ -1,11 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
-use Nova\Users\Models\User;
 use Illuminate\Database\Seeder;
-use Nova\Users\Models\States\Active;
-use Nova\Users\Models\States\Inactive;
+use Nova\Users\Models\User;
 
 class UserSeeder extends Seeder
 {

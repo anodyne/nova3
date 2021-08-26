@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Auth\Controllers;
 
-use Nova\Foundation\Controllers\Controller;
-use Nova\Auth\Responses\ForgotPasswordResponse;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Nova\Auth\Responses\ForgotPasswordResponse;
+use Nova\Foundation\Controllers\Controller;
 
 class ForgotPasswordController extends Controller
 {

@@ -13,7 +13,7 @@
             aria-haspopup="listbox"
             x-bind:aria-expanded="open"
             aria-labelledby="listbox-label"
-            class="cursor-default relative w-full rounded-md border border-gray-300 bg-white pl-3 pr-10 py-2 text-left focus:outline-none focus:ring focus:border-blue-300 transition ease-in-out duration-150 | sm:text-sm"
+            class="cursor-default relative w-full rounded-md border border-gray-300 bg-white pl-3 pr-10 py-2 text-left focus:outline-none focus:ring focus:border-blue-6 transition ease-in-out duration-150 | sm:text-sm"
         >
             <span
                 x-text="['Wade Cooper','Arlene Mccoy','Devon Webb','Tom Cook','Tanya Fox','Hellen Schmidt','Caroline Schultz','Mason Heaney','Claudie Smitham','Emil Schaefer'][value]"
@@ -63,7 +63,7 @@
                     x-on:click="choose(item.id)"
                     x-on:mouseenter="selected = item.id"
                     x-on:mouseleave="selected = null"
-                    x-bind:class="{ 'text-white bg-blue-600': selected === item.id, 'text-gray-900': !(selected === item.id) }"
+                    x-bind:class="{ 'text-white bg-blue-6': selected === item.id, 'text-gray-900': !(selected === item.id) }"
                     class="cursor-default select-none relative py-2 pl-3 pr-9 text-gray-900"
                 >
                     <span
@@ -79,8 +79,8 @@
                         x-description="Checkmark, only display for selected option."
                         x-state:on="Highlighted"
                         x-state:off="Not Highlighted"
-                        x-bind:class="{ 'text-white': selected === item.id, 'text-blue-600': !(selected === item.id) }"
-                        class="absolute inset-y-0 right-0 flex items-center pr-4 text-blue-600"
+                        x-bind:class="{ 'text-white': selected === item.id, 'text-blue-6': !(selected === item.id) }"
+                        class="absolute inset-y-0 right-0 flex items-center pr-4 text-blue-6"
                     >
                         <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
@@ -116,8 +116,8 @@
                         x-description="Checkmark, only display for selected option."
                         x-state:on="Highlighted"
                         x-state:off="Not Highlighted"
-                        x-bind:class="{ 'text-white': selected === {{ $item->id }}, 'text-blue-600': !(selected === {{ $item->id }}) }"
-                        class="absolute inset-y-0 right-0 flex items-center pr-4 text-blue-600"
+                        x-bind:class="{ 'text-white': selected === {{ $item->id }}, 'text-blue-9': !(selected === {{ $item->id }}) }"
+                        class="absolute inset-y-0 right-0 flex items-center pr-4 text-blue-9"
                     >
                         @icon('check', 'h-5 w-5')
                     </span>

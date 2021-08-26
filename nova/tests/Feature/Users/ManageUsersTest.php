@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Users;
 
-use Tests\TestCase;
-use Nova\Users\Models\User;
-use Nova\Users\Models\States\Active;
-use Nova\Characters\Models\Character;
-use Nova\Users\Models\States\Pending;
-use Nova\Users\Models\States\Inactive;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Characters\Models\Character;
+use Nova\Users\Models\States\Active;
+use Nova\Users\Models\States\Inactive;
+use Nova\Users\Models\States\Pending;
+use Nova\Users\Models\User;
+use Tests\TestCase;
 
 /**
  * @group users

@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Departments\Spotlight;
 
-use LivewireUI\Spotlight\Spotlight;
 use Illuminate\Support\Facades\Gate;
-use Nova\Departments\Models\Department;
+use LivewireUI\Spotlight\Spotlight;
 use LivewireUI\Spotlight\SpotlightCommand;
+use Nova\Departments\Models\Department;
 
 class CreateDepartment extends SpotlightCommand
 {

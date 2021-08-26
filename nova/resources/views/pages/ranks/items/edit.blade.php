@@ -15,9 +15,9 @@
                         @livewire('ranks:groups-dropdown', ['groupId' => old('group_id', $item->group_id)])
 
                         @can('create', 'Nova\Ranks\Models\RankGroup')
-                            <x-button-link :href="route('ranks.groups.index')" color="gray-text" size="none" class="ml-3">
+                            <x-link :href="route('ranks.groups.index')" color="gray-text" size="none" class="ml-3">
                                 @icon('settings', 'h-6 w-6')
-                            </x-button-link>
+                            </x-link>
                         @endcan
                     </div>
                 </x-input.group>
@@ -27,9 +27,9 @@
                         @livewire('ranks:names-dropdown', ['nameId' => old('name_id', $item->name_id)])
 
                         @can('create', 'Nova\Ranks\Models\RankName')
-                            <x-button-link :href="route('ranks.names.index')" color="gray-text" size="none" class="ml-3">
+                            <x-link :href="route('ranks.names.index')" color="gray-text" size="none" class="ml-3">
                                 @icon('settings', 'h-6 w-6')
-                            </x-button-link>
+                            </x-link>
                         @endcan
                     </div>
                 </x-input.group>
@@ -60,7 +60,7 @@
                                 href="#"
                                 x-on:click.prevent="tab = 'base'"
                                 class="ml-4 first:ml-0 px-3 py-2 font-medium text-sm rounded-md  focus:outline-none"
-                                x-bind:class="{ 'bg-blue-100 text-blue-700': tab === 'base', 'text-gray-500 hover:text-gray-700': tab !== 'base' }"
+                                x-bind:class="{ 'bg-blue-3 text-blue-11': tab === 'base', 'text-gray-500 hover:text-gray-700': tab !== 'base' }"
                             >
                                 Base Images
                             </a>
@@ -68,7 +68,7 @@
                                 href="#"
                                 x-on:click.prevent="tab = 'overlay'"
                                 class="ml-4 first:ml-0 px-3 py-2 font-medium text-sm rounded-md  focus:outline-none"
-                                x-bind:class="{ 'bg-blue-100 text-blue-700': tab === 'overlay', 'text-gray-500 hover:text-gray-700': tab !== 'overlay' }"
+                                x-bind:class="{ 'bg-blue-3 text-blue-11': tab === 'overlay', 'text-gray-500 hover:text-gray-700': tab !== 'overlay' }"
                             >
                                 Overlay Images
                             </a>
@@ -83,7 +83,7 @@
                                 <a
                                     x-on:click.prevent="base = '{{ $baseImage }}'"
                                     class="flex flex-col justify-center rounded-md border border-transparent py-2"
-                                    x-bind:class="{ 'bg-blue-100 border-blue-200 hover:bg-blue-100 hover:border-blue-200': base === '{{ $baseImage }}', 'hover:bg-gray-100 hover:border-gray-200': base !== '{{ $baseImage }}' }"
+                                    x-bind:class="{ 'bg-blue-4 border-blue-7 hover:bg-blue-5 hover:border-blue-8': base === '{{ $baseImage }}', 'hover:bg-gray-100 hover:border-gray-200': base !== '{{ $baseImage }}' }"
                                     href="#"
                                 >
                                     <img src="{{ asset('ranks/base/' . $baseImage) }}" alt="" class="block h-10 w-36 mx-auto">
@@ -99,7 +99,7 @@
                                 <a
                                     x-on:click.prevent="overlay = '{{ $overlayImage }}'"
                                     class="flex flex-col justify-center rounded-md border border-transparent py-2"
-                                    x-bind:class="{ 'bg-blue-100 border-blue-200 hover:bg-blue-100 hover:border-blue-200': overlay === '{{ $overlayImage }}', 'hover:bg-gray-100 hover:border-gray-200': overlay !== '{{ $overlayImage }}' }"
+                                    x-bind:class="{ 'bg-blue-4 border-blue-7 hover:bg-blue-5 hover:border-blue-8': overlay === '{{ $overlayImage }}', 'hover:bg-gray-100 hover:border-gray-200': overlay !== '{{ $overlayImage }}' }"
                                     href="#"
                                 >
                                     <img src="{{ asset('ranks/overlay/' . $overlayImage) }}" alt="" class="block h-10 w-36 mx-auto">
@@ -114,7 +114,7 @@
 
             <x-form.footer>
                 <x-button type="submit" color="blue">Update Rank Item</x-button>
-                <x-button-link :href="route('ranks.items.index')" color="white">Cancel</x-button-link>
+                <x-link :href="route('ranks.items.index')" color="white">Cancel</x-link>
             </x-form.footer>
 
             <input type="hidden" name="base_image" x-model="base">

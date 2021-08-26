@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Models\RankItem;
 use Nova\Ranks\Models\RankName;
-use Nova\Ranks\Models\RankGroup;
-use Illuminate\Database\Eloquent\Factories\Factory;
 
 class RankItemFactory extends Factory
 {

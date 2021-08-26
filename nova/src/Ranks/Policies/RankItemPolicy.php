@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Policies;
 
-use Nova\Users\Models\User;
-use Nova\Ranks\Models\RankItem;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Nova\Ranks\Models\RankItem;
+use Nova\Users\Models\User;
 
 class RankItemPolicy
 {
