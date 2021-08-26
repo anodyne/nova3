@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Users\Actions;
 
-use Tests\TestCase;
-use Nova\Users\Models\User;
-use Nova\Users\Models\States\Active;
-use Nova\Users\Models\States\Pending;
-use Nova\Users\Models\States\Inactive;
 use Nova\Users\Actions\UpdateUserStatus;
+use Nova\Users\Models\States\Active;
+use Nova\Users\Models\States\Inactive;
+use Nova\Users\Models\States\Pending;
+use Nova\Users\Models\User;
 use Spatie\ModelStates\Exceptions\TransitionNotFound;
+use Tests\TestCase;
 
 /**
  * @group users

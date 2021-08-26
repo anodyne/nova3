@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Departments;
 
-use Tests\TestCase;
-use Nova\Departments\Models\Position;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Departments\Models\Position;
+use Tests\TestCase;
 
 /**
  * @group departments

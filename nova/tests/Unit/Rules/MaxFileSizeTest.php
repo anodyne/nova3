@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Rules;
 
-use Tests\TestCase;
 use Illuminate\Http\UploadedFile;
 use Nova\Foundation\Rules\MaxFileSize;
+use Tests\TestCase;
 
 /**
  * @group media
@@ -30,7 +32,7 @@ class MaxFileSizeTest extends TestCase
         );
 
         $this->assertTrue(
-            (new MaxFileSize)->passes($file, $file)
+            (new MaxFileSize())->passes($file, $file)
         );
     }
 
@@ -38,7 +40,7 @@ class MaxFileSizeTest extends TestCase
     public function nullImagePassesValidation()
     {
         $this->assertTrue(
-            (new MaxFileSize)->passes(null, null)
+            (new MaxFileSize())->passes(null, null)
         );
     }
 
@@ -51,7 +53,7 @@ class MaxFileSizeTest extends TestCase
         );
 
         $this->assertFalse(
-            (new MaxFileSize)->passes($file, $file)
+            (new MaxFileSize())->passes($file, $file)
         );
     }
 }

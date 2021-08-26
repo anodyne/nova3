@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Auth;
 
-use Tests\TestCase;
-use Nova\Users\Models\User;
-use Nova\Users\Actions\ForcePasswordReset;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Users\Actions\ForcePasswordReset;
+use Nova\Users\Models\User;
+use Tests\TestCase;
 
 /**
  * @group auth

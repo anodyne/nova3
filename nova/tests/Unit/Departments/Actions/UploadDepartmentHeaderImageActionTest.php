@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Departments\Actions;
 
-use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
-use Nova\Departments\Models\Department;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Departments\Actions\UploadDepartmentHeaderImage;
+use Nova\Departments\Models\Department;
+use Tests\TestCase;
 
 /**
  * @group departments

@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Ranks\Names;
 
-use Tests\TestCase;
-use Nova\Ranks\Models\RankName;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\Ranks\Events\RankNameDeleted;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Ranks\Models\RankName;
+use Tests\TestCase;
 
 /**
  * @group ranks

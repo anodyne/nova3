@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Themes\Actions;
 
-use Tests\TestCase;
-use Nova\Themes\Models\Theme;
-use Illuminate\Support\Facades\Storage;
-use Nova\Themes\DataTransferObjects\ThemeData;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Storage;
 use Nova\Themes\Actions\SetupThemeDirectory;
+use Nova\Themes\DataTransferObjects\ThemeData;
+use Nova\Themes\Models\Theme;
+use Tests\TestCase;
 
 /**
  * @group themes

@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Departments;
 
-use Tests\TestCase;
-use Illuminate\Support\Facades\Event;
-use Nova\Departments\Models\Department;
-use Nova\Departments\Events\DepartmentCreated;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
+use Nova\Departments\Events\DepartmentCreated;
+use Nova\Departments\Models\Department;
 use Nova\Departments\Requests\CreateDepartmentRequest;
+use Tests\TestCase;
 
 /**
  * @group departments

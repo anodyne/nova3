@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Departments\Actions;
 
-use Tests\TestCase;
-use Nova\Departments\Models\Department;
-use Nova\Departments\Actions\DeleteDepartment;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Departments\Actions\DeleteDepartment;
+use Nova\Departments\Models\Department;
+use Tests\TestCase;
 
 /**
  * @group departments

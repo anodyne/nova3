@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Roles\Actions;
 
-use Tests\TestCase;
-use Nova\Roles\Models\Role;
-use Nova\Roles\Actions\DuplicateRole;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Roles\Actions\DuplicateRole;
+use Nova\Roles\Models\Role;
+use Tests\TestCase;
 
 /**
  * @group roles

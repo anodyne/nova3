@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Themes;
 
-use Tests\TestCase;
-use RuntimeException;
 use Illuminate\Support\Facades\Storage;
+use RuntimeException;
+use Tests\TestCase;
 
 /**
  * @group themes

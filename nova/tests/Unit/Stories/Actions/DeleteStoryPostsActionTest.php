@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Stories\Actions;
 
-use Tests\TestCase;
-use Nova\Posts\Models\Post;
-use Nova\Stories\Models\Story;
-use Nova\Stories\Actions\DeleteStoryPosts;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Posts\Models\Post;
+use Nova\Stories\Actions\DeleteStoryPosts;
+use Nova\Stories\Models\Story;
+use Tests\TestCase;
 
 /**
  * @group stories
