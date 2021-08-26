@@ -3812,16 +3812,16 @@
         },
         {
             "name": "spatie/data-transfer-object",
-            "version": "3.6.1",
+            "version": "3.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/data-transfer-object.git",
-                "reference": "2dd4e4d5e758b5892e6219bc444a9f38ad77c5af"
+                "reference": "98df3aeac0a7aaf8f8850b25dc7180d5df009ba8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/data-transfer-object/zipball/2dd4e4d5e758b5892e6219bc444a9f38ad77c5af",
-                "reference": "2dd4e4d5e758b5892e6219bc444a9f38ad77c5af",
+                "url": "https://api.github.com/repos/spatie/data-transfer-object/zipball/98df3aeac0a7aaf8f8850b25dc7180d5df009ba8",
+                "reference": "98df3aeac0a7aaf8f8850b25dc7180d5df009ba8",
                 "shasum": ""
             },
             "require": {
@@ -3862,7 +3862,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/data-transfer-object/issues",
-                "source": "https://github.com/spatie/data-transfer-object/tree/3.6.1"
+                "source": "https://github.com/spatie/data-transfer-object/tree/3.6.2"
             },
             "funding": [
                 {
@@ -3874,7 +3874,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-08-17T03:36:52+00:00"
+            "time": "2021-08-25T10:51:15+00:00"
         },
         {
             "name": "spatie/image",
@@ -9351,16 +9351,16 @@
         },
         {
             "name": "pestphp/pest-plugin-parallel",
-            "version": "v0.2.0",
+            "version": "v0.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pestphp/pest-plugin-parallel.git",
-                "reference": "3f76c2842bedb18442038990704163b62fe2ebc2"
+                "reference": "6da63df8878cc279b0ff78aa78a1c5f04f054677"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pestphp/pest-plugin-parallel/zipball/3f76c2842bedb18442038990704163b62fe2ebc2",
-                "reference": "3f76c2842bedb18442038990704163b62fe2ebc2",
+                "url": "https://api.github.com/repos/pestphp/pest-plugin-parallel/zipball/6da63df8878cc279b0ff78aa78a1c5f04f054677",
+                "reference": "6da63df8878cc279b0ff78aa78a1c5f04f054677",
                 "shasum": ""
             },
             "require": {
@@ -9418,7 +9418,7 @@
                 "unit"
             ],
             "support": {
-                "source": "https://github.com/pestphp/pest-plugin-parallel/tree/v0.2.0"
+                "source": "https://github.com/pestphp/pest-plugin-parallel/tree/v0.2.1"
             },
             "funding": [
                 {
@@ -9450,7 +9450,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2021-08-20T11:34:26+00:00"
+            "time": "2021-08-25T11:03:56+00:00"
         },
         {
             "name": "phar-io/manifest",
