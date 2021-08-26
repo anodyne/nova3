@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Users\Filters;
 
-use Nova\Users\Models\User;
 use Nova\Foundation\Filters\Filters;
+use Nova\Users\Models\User;
 
 class UserFilters extends Filters
 {

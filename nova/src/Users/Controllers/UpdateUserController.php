@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Users\Controllers;
 
-use Nova\Users\Models\User;
+use Nova\Foundation\Controllers\Controller;
 use Nova\Users\Actions\UpdateUserManager;
 use Nova\Users\Events\UserUpdatedByAdmin;
+use Nova\Users\Models\User;
 use Nova\Users\Requests\UpdateUserRequest;
-use Nova\Foundation\Controllers\Controller;
 use Nova\Users\Responses\UpdateUserResponse;
 
 class UpdateUserController extends Controller

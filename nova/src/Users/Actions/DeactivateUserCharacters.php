@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Users\Actions;
 
 use Nova\Characters\Actions\DeactivateCharacter;
@@ -16,7 +18,7 @@ class DeactivateUserCharacters
 
     public function execute(User $user): User
     {
-        $user->activeCharacters->each(function($character) {
+        $user->activeCharacters->each(function ($character) {
             $this->deactivateCharacter->execute($character);
         });
 

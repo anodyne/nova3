@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Users\Actions;
 
-use Nova\Users\Models\User;
 use Illuminate\Http\Request;
 use Nova\Users\DataTransferObjects\AssignUserCharactersData;
 use Nova\Users\DataTransferObjects\UserData;
+use Nova\Users\Models\User;
 
 class UpdateUserManager
 {

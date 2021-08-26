@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Users\Livewire;
 
+use Illuminate\Support\Collection;
 use Livewire\Component;
 use Nova\Users\Models\User;
-use Illuminate\Support\Collection;
 
 class ManageUsers extends Component
 {

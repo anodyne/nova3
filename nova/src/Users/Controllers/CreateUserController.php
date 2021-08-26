@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Users\Controllers;
 
+use Nova\Foundation\Controllers\Controller;
 use Nova\Roles\Models\Role;
-use Nova\Users\Models\User;
 use Nova\Users\Actions\CreateUserManager;
 use Nova\Users\Events\UserCreatedByAdmin;
+use Nova\Users\Models\User;
 use Nova\Users\Requests\CreateUserRequest;
-use Nova\Foundation\Controllers\Controller;
 use Nova\Users\Responses\CreateUserResponse;
 
 class CreateUserController extends Controller
