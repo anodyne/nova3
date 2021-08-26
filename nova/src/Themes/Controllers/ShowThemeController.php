@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Themes\Controllers;
 
 use Illuminate\Http\Request;
-use Nova\Themes\Models\Theme;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Themes\Models\Theme;
 use Nova\Themes\Responses\ShowAllThemesResponse;
 
 class ShowThemeController extends Controller

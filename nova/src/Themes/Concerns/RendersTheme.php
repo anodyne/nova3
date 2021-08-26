@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Themes\Concerns;
 
 use Spatie\Html\Elements\Element;

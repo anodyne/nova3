@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Themes\Events;
 
-use Nova\Themes\Models\Theme;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
+use Nova\Themes\Models\Theme;
 
 class ThemeCreated
 {

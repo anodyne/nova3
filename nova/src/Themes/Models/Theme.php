@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Themes\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Nova\Pages\Page;
 use Nova\Themes\Events;
-use Illuminate\Database\Eloquent\Model;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Nova\Themes\Models\Builders\ThemeBuilder;
 use Nova\Themes\Models\Collections\ThemesCollection;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Theme extends Model
 {
