@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Roles\Models;
 
-use Nova\Roles\Events;
-use Nova\Users\Models\User;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Laratrust\Models\LaratrustRole;
-use Nova\Users\Models\States\Active;
+use Nova\Roles\Events;
 use Nova\Roles\Models\Builders\RoleBuilder;
+use Nova\Users\Models\States\Active;
+use Nova\Users\Models\User;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Role extends LaratrustRole
 {

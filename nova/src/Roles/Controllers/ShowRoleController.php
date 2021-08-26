@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Roles\Controllers;
 
-use Nova\Roles\Models\Role;
 use Illuminate\Http\Request;
-use Nova\Roles\Filters\RoleFilters;
-use Nova\Roles\Responses\ShowRoleResponse;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Roles\Filters\RoleFilters;
+use Nova\Roles\Models\Role;
 use Nova\Roles\Responses\ShowAllRolesResponse;
+use Nova\Roles\Responses\ShowRoleResponse;
 
 class ShowRoleController extends Controller
 {

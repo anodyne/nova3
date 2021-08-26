@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Roles\Controllers;
 
-use Nova\Roles\Models\Role;
+use Nova\Foundation\Controllers\Controller;
 use Nova\Roles\Actions\DuplicateRole;
 use Nova\Roles\Events\RoleDuplicated;
-use Nova\Foundation\Controllers\Controller;
+use Nova\Roles\Models\Role;
 
 class DuplicateRoleController extends Controller
 {

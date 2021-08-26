@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Roles\DataTransferObjects;
 
 use Illuminate\Http\Request;
-use Nova\Roles\Models\Permission;
 use Illuminate\Support\Collection;
+use Nova\Roles\Models\Permission;
 use Spatie\DataTransferObject\DataTransferObject;
 
 class RoleData extends DataTransferObject

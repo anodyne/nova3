@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Roles\Actions;
 
-use Nova\Roles\Models\Role;
 use Nova\Foundation\WordGenerator;
+use Nova\Roles\Models\Role;
 
 class DuplicateRole
 {
@@ -11,7 +13,7 @@ class DuplicateRole
     {
         $role = $originalRole->replicate();
 
-        $role->name = implode('-', (new WordGenerator)->words(2));
+        $role->name = implode('-', (new WordGenerator())->words(2));
         $role->display_name = "Copy of {$role->display_name}";
 
         $role->save();
