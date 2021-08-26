@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Stories\Policies;
 
-use Nova\Users\Models\User;
-use Nova\Stories\Models\Story;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Nova\Stories\Models\Story;
+use Nova\Users\Models\User;
 
 class StoryPolicy
 {

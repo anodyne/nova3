@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Stories\Controllers;
 
-use Nova\Stories\Models\Story;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Stories\Actions\UpdateStoryManager;
+use Nova\Stories\Models\Story;
 use Nova\Stories\Requests\UpdateStoryRequest;
 use Nova\Stories\Responses\UpdateStoryResponse;
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Stories\Models\States;
 
 use Nova\Stories\Models\Story;

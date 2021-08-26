@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Stories\Models\States;
 
 class Upcoming extends StoryStatus

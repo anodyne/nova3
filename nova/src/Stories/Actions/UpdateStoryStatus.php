@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Stories\Actions;
 
-use Nova\Stories\Models\Story;
+use Nova\Stories\Models\States\Completed;
 use Nova\Stories\Models\States\Current;
 use Nova\Stories\Models\States\Upcoming;
-use Nova\Stories\Models\States\Completed;
+use Nova\Stories\Models\Story;
 
 class UpdateStoryStatus
 {

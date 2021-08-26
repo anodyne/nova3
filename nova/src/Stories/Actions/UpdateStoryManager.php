@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Stories\Actions;
 
 use Illuminate\Http\Request;
-use Nova\Stories\Models\Story;
 use Nova\Stories\DataTransferObjects\StoryData;
 use Nova\Stories\DataTransferObjects\StoryPositionData;
+use Nova\Stories\Models\Story;
 
 class UpdateStoryManager
 {
