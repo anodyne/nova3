@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\PostTypes\Policies;
 
-use Nova\Users\Models\User;
-use Nova\PostTypes\Models\PostType;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Nova\PostTypes\Models\PostType;
+use Nova\Users\Models\User;
 
 class PostTypePolicy
 {

@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\PostTypes\Controllers;
 
 use Illuminate\Http\Request;
-use Nova\PostTypes\Models\PostType;
-use Nova\PostTypes\Actions\DeletePostType;
 use Nova\Foundation\Controllers\Controller;
+use Nova\PostTypes\Actions\DeletePostType;
+use Nova\PostTypes\Models\PostType;
 use Nova\PostTypes\Responses\DeletePostTypeResponse;
 
 class DeletePostTypeController extends Controller

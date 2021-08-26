@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\PostTypes\Controllers;
 
 use Illuminate\Http\Request;
-use Nova\PostTypes\Models\PostType;
 use Nova\Foundation\Controllers\Controller;
 use Nova\PostTypes\Actions\ReorderPostTypes;
+use Nova\PostTypes\Models\PostType;
 
 class ReorderPostTypesController extends Controller
 {
@@ -18,7 +20,7 @@ class ReorderPostTypesController extends Controller
 
     public function __invoke(Request $request, ReorderPostTypes $action)
     {
-        $this->authorize('update', new PostType);
+        $this->authorize('update', new PostType());
 
         $action->execute($request->sort);
 

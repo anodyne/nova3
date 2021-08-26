@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\PostTypes\Filters;
 
 use Nova\Foundation\Filters\Filters;
