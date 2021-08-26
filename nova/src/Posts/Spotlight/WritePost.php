@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Posts\Spotlight;
 
 use Illuminate\Support\Facades\Gate;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Posts\Controllers;
 
 use Illuminate\Support\Facades\Gate;
@@ -20,7 +22,7 @@ class SelectPostTypeController extends Controller
 
     public function create()
     {
-        $this->authorize('create', new Post);
+        $this->authorize('create', new Post());
 
         $usersPostTypes = PostType::orderBySort()
             ->get()
