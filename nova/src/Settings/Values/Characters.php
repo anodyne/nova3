@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Settings\Values;
 
 use Illuminate\Contracts\Support\Arrayable;
