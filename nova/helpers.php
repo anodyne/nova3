@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
+use Illuminate\Contracts\Auth\Access\Gate as GateContract;
+use Illuminate\Pipeline\Pipeline;
+use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Nova;
 use Nova\Foundation\Toast;
-use Nova\Foundation\Icons\Icon;
-use Illuminate\Pipeline\Pipeline;
-use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 
 if (! function_exists('gate')) {
     function gate()
