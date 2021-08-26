@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Settings\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;

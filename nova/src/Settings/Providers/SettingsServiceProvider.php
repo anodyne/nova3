@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Settings\Providers;
 
 use Nova\DomainServiceProvider;
@@ -20,7 +22,7 @@ class SettingsServiceProvider extends DomainServiceProvider
                 return Settings::custom()->first();
             }
 
-            return new Settings;
+            return new Settings();
         });
     }
 }
