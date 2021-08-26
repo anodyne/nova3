@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Controllers\Groups;
 
-use Nova\Ranks\Models\RankGroup;
-use Nova\Ranks\Actions\CreateRankGroup;
 use Nova\Foundation\Controllers\Controller;
-use Nova\Ranks\Requests\CreateRankGroupRequest;
+use Nova\Ranks\Actions\CreateRankGroup;
 use Nova\Ranks\DataTransferObjects\RankGroupData;
+use Nova\Ranks\Models\RankGroup;
+use Nova\Ranks\Requests\CreateRankGroupRequest;
 use Nova\Ranks\Responses\Groups\CreateRankGroupResponse;
 
 class CreateRankGroupController extends Controller

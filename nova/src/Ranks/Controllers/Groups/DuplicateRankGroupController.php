@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Controllers\Groups;
 
 use Illuminate\Http\Request;
-use Nova\Ranks\Models\RankGroup;
-use Nova\Ranks\Concerns\FindRankImages;
-use Nova\Ranks\Events\RankGroupDuplicated;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Ranks\Actions\DuplicateRankGroupManager;
+use Nova\Ranks\Concerns\FindRankImages;
+use Nova\Ranks\Events\RankGroupDuplicated;
+use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Responses\Groups\DuplicateRankGroupResponse;
 
 class DuplicateRankGroupController extends Controller

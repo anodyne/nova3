@@ -1,18 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Providers;
 
-use Nova\Ranks\Responses;
 use Nova\DomainServiceProvider;
-use Nova\Ranks\Models\RankItem;
-use Nova\Ranks\Models\RankName;
-use Nova\Ranks\Models\RankGroup;
-use Nova\Ranks\Policies\RankItemPolicy;
-use Nova\Ranks\Policies\RankNamePolicy;
-use Nova\Ranks\Policies\RankGroupPolicy;
+use Nova\Ranks\Livewire\RankGroupsDropdown;
 use Nova\Ranks\Livewire\RankItemsDropdown;
 use Nova\Ranks\Livewire\RankNamesDropdown;
-use Nova\Ranks\Livewire\RankGroupsDropdown;
+use Nova\Ranks\Models\RankGroup;
+use Nova\Ranks\Models\RankItem;
+use Nova\Ranks\Models\RankName;
+use Nova\Ranks\Policies\RankGroupPolicy;
+use Nova\Ranks\Policies\RankItemPolicy;
+use Nova\Ranks\Policies\RankNamePolicy;
+use Nova\Ranks\Responses;
 
 class RankServiceProvider extends DomainServiceProvider
 {

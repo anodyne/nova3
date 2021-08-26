@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Controllers\Names;
 
-use Nova\Ranks\Models\RankName;
-use Nova\Ranks\Actions\CreateRankName;
 use Nova\Foundation\Controllers\Controller;
-use Nova\Ranks\Requests\CreateRankNameRequest;
+use Nova\Ranks\Actions\CreateRankName;
 use Nova\Ranks\DataTransferObjects\RankNameData;
+use Nova\Ranks\Models\RankName;
+use Nova\Ranks\Requests\CreateRankNameRequest;
 use Nova\Ranks\Responses\Names\CreateRankNameResponse;
 
 class CreateRankNameController extends Controller

@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Controllers\Groups;
 
 use Illuminate\Http\Request;
-use Nova\Ranks\Models\RankGroup;
-use Nova\Ranks\Actions\DeleteRankGroup;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Ranks\Actions\DeleteRankGroup;
+use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Responses\Groups\DeleteRankGroupResponse;
 
 class DeleteRankGroupController extends Controller

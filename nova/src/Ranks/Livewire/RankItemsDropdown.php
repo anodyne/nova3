@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Livewire;
 
 use Livewire\Component;
-use Nova\Ranks\Models\RankItem;
 use Nova\Ranks\Models\RankGroup;
+use Nova\Ranks\Models\RankItem;
 
 class RankItemsDropdown extends Component
 {

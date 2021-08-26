@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Actions;
 
-use Nova\Ranks\Models\RankName;
 use Nova\Ranks\DataTransferObjects\RankNameData;
+use Nova\Ranks\Models\RankName;
 
 class CreateRankName
 {

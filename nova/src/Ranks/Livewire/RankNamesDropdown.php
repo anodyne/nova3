@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Livewire;
 
 use Livewire\Component;
-use Nova\Ranks\Models\RankName;
 use Nova\Ranks\Actions\CreateRankName;
 use Nova\Ranks\DataTransferObjects\RankNameData;
+use Nova\Ranks\Models\RankName;
 
 class RankNamesDropdown extends Component
 {

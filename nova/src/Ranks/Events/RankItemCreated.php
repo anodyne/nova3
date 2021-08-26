@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Events;
 
-use Nova\Ranks\Models\RankItem;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
+use Nova\Ranks\Models\RankItem;
 
 class RankItemCreated
 {

@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Controllers\Names;
 
-use Nova\Ranks\Models\RankName;
+use Nova\Foundation\Controllers\Controller;
 use Nova\Ranks\Actions\DuplicateRankName;
 use Nova\Ranks\Events\RankNameDuplicated;
-use Nova\Foundation\Controllers\Controller;
+use Nova\Ranks\Models\RankName;
 
 class DuplicateRankNameController extends Controller
 {
