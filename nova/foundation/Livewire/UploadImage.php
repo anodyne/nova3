@@ -10,7 +10,6 @@ use Livewire\WithFileUploads;
 class UploadImage extends Component
 {
     use WithFileUploads;
-
     public $existingImage;
 
     public $image;

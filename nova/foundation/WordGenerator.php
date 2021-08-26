@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Storage;
 class WordGenerator
 {
     protected $lengths;
+
     protected $bigrams;
+
     protected $trigrams;
 
     public function __construct()
@@ -49,7 +51,7 @@ class WordGenerator
                 return $word;
             }
 
-            $word.= $this->getRandomWeightedArrayItem($this->trigrams[$tail]);
+            $word .= $this->getRandomWeightedArrayItem($this->trigrams[$tail]);
         }
 
         return $word;
