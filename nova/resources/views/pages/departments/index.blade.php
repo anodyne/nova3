@@ -29,7 +29,7 @@
     @else
         <x-panel x-data="sortableList">
             @if ($isReordering)
-                <div class="bg-purple-3 border-t border-b border-purple-6 p-4 | sm:rounded-t-md sm:border-t-0">
+                <div class="bg-purple-3 border-t border-b border-purple-6 p-4 sm:rounded-t-md sm:border-t-0">
                     <div class="flex">
                         <div class="flex-shrink-0">
                             @icon('arrow-sort', 'h-6 w-6 text-purple-9')
@@ -56,22 +56,22 @@
                     </div>
                 </div>
             @else
-                <div class="px-4 py-2 | sm:px-6 sm:py-3">
+                <div class="px-4 py-2 sm:px-6 sm:py-3">
                     <x-search-filter placeholder="Find a department..." :search="$search" />
                 </div>
             @endif
 
             <ul id="sortable-list">
             @forelse ($departments as $department)
-                <li class="sortable-item border-t border-gray-200 hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out @if ($isReordering) first:border-0 last:rounded-b-md @endif" data-id="{{ $department->id }}">
+                <li class="sortable-item border-t border-gray-6 hover:bg-gray-2 focus:outline-none focus:bg-gray-2 transition duration-150 ease-in-out @if ($isReordering) first:border-0 last:rounded-b-md @endif" data-id="{{ $department->id }}">
                     <div class="block">
-                        <div class="px-4 py-4 flex items-center | sm:px-6">
+                        <div class="px-4 py-4 flex items-center sm:px-6">
                             @if ($isReordering)
                                 <div class="sortable-handle flex-shrink-0 cursor-move mr-5">
-                                    @icon('reorder', 'h-5 w-5 text-gray-400')
+                                    @icon('reorder', 'h-5 w-5 text-gray-9')
                                 </div>
                             @endif
-                            <div class="min-w-0 flex-1 | sm:flex sm:items-center sm:justify-between">
+                            <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
                                 <div>
                                     <div class="font-medium truncate">
                                         {{ $department->name }}
@@ -85,7 +85,7 @@
                                             @endif
                                         </div>
 
-                                        <div class="hidden items-center text-sm text-gray-500 ml-6 | sm:flex">
+                                        <div class="hidden items-center text-sm text-gray-11 ml-6 | sm:flex">
                                             {{ $department->positions_count }} @choice('position|positions', $department->positions_count)
                                         </div>
                                     </div>
@@ -105,6 +105,12 @@
                                         @can('update', $department)
                                             <x-dropdown.item :href="route('departments.edit', $department)" icon="edit" data-cy="edit">
                                                 <span>Edit</span>
+                                            </x-dropdown.item>
+                                        @endcan
+
+                                        @can('duplicate', $department)
+                                            <x-dropdown.item type="button" icon="duplicate" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-duplicate', {{ json_encode($department) }});" data-cy="duplicate">
+                                                <span>Duplicate</span>
                                             </x-dropdown.item>
                                         @endcan
                                     </x-dropdown.group>
@@ -137,7 +143,7 @@
             </ul>
 
             @if (! $isReordering)
-                <div class="px-4 py-2 border-t border-gray-200 | sm:px-6 sm:py-3">
+                <div class="px-4 py-2 border-t border-gray-6 | sm:px-6 sm:py-3">
                     {{ $departments->withQueryString()->links() }}
                 </div>
             @endif
@@ -148,8 +154,23 @@
         <x-modal color="red" title="Delete Department?" icon="warning" :url="route('departments.delete')">
             <x-slot name="footer">
                 <span class="flex w-full | sm:col-start-2">
-                    <x-button type="submit" form="form" class="red" full-width>
+                    <x-button type="submit" form="form" color="red" full-width>
                         Delete
+                    </x-button>
+                </span>
+                <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
+                    <x-button x-on:click="$dispatch('modal-close')" type="button" color="white" full-width>
+                        Cancel
+                    </x-button>
+                </span>
+            </x-slot>
+        </x-modal>
+
+        <x-modal color="blue" title="Duplicate department" icon="duplicate" :url="route('departments.confirm-duplicate')" event="modal-duplicate" :wide="true">
+            <x-slot name="footer">
+                <span class="flex w-full | sm:col-start-2">
+                    <x-button type="submit" form="form-duplicate" color="blue" full-width>
+                        Duplicate
                     </x-button>
                 </span>
                 <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">

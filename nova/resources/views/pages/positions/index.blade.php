@@ -34,15 +34,15 @@
         <x-panel x-data="sortableList">
             <div>
                 <div class="p-4 | sm:hidden">
-                    <select x-on:change="window.location = $event.target.value" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-150 | sm:text-sm">
+                    <select x-on:change="window.location = $event.target.value" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-150 sm:text-sm">
                         <option value="{{ route('departments.edit', $department) }}">Department Info</option>
                         <option value="email">Positions</option>
                     </select>
                 </div>
                 <div class="hidden sm:block">
-                    <div class="border-b border-gray-200 px-4 | sm:px-6">
+                    <div class="border-b border-gray-6 px-4 sm:px-6">
                         <nav class="-mb-px flex">
-                            <a href="{{ route('departments.edit', $department) }}" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none">
+                            <a href="{{ route('departments.edit', $department) }}" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-9 hover:text-gray-11 hover:border-gray-6 focus:outline-none">
                                 Department Info
                             </a>
                             <a href="{{ route('positions.index', $department) }}" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm border-blue-7 text-blue-11 focus:outline-none">
@@ -53,7 +53,7 @@
                 </div>
             </div>
             @if ($isReordering)
-                <div class="bg-purple-3 border-t border-b border-purple-6 p-4 | sm:border-t-0">
+                <div class="bg-purple-3 border-t border-b border-purple-6 p-4 sm:border-t-0">
                     <div class="flex">
                         <div class="flex-shrink-0">
                             @icon('arrow-sort', 'h-6 w-6 text-purple-9')
@@ -87,15 +87,15 @@
 
             <ul id="sortable-list">
             @forelse ($positions as $position)
-                <li class="sortable-item border-t border-gray-200 hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out @if ($isReordering) first:border-0 last:rounded-b-md @endif" data-id="{{ $position->id }}">
+                <li class="sortable-item border-t border-gray-6 hover:bg-gray-2 focus:outline-none focus:bg-gray-2 transition duration-150 ease-in-out @if ($isReordering) first:border-0 last:rounded-b-md @endif" data-id="{{ $position->id }}">
                     <div class="block">
-                        <div class="flex items-center px-4 py-4 | sm:px-6">
+                        <div class="flex items-center px-4 py-4 sm:px-6">
                             @if ($isReordering)
                                 <div class="sortable-handle flex-shrink-0 cursor-move mr-5">
-                                    @icon('reorder', 'h-5 w-5 text-gray-400')
+                                    @icon('reorder', 'h-5 w-5 text-gray-9')
                                 </div>
                             @endif
-                            <div class="min-w-0 flex-1 px-4 | md:grid md:grid-cols-2 md:gap-4">
+                            <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
                                 <div>
                                     <div class="font-medium truncate">
                                         {{ $position->name }}
@@ -109,12 +109,12 @@
                                             @endif
                                         </div>
                                         @if ($position->active)
-                                            <div class="hidden items-center text-sm text-gray-500 ml-6 | sm:flex">
+                                            <div class="hidden items-center text-sm text-gray-11 ml-6 | sm:flex">
                                                 {{ $position->available }} available @choice('slot|slots', $position->available)
                                             </div>
                                         @endif
 
-                                        <div class="hidden items-center text-sm text-gray-500 ml-6 | sm:flex">
+                                        <div class="hidden items-center text-sm text-gray-11 ml-6 | sm:flex">
                                             {{ $position->active_characters_count }} assigned @choice('character|characters', $position->active_characters_count)
                                         </div>
                                     </div>
@@ -134,6 +134,12 @@
                                         @can('update', $position)
                                             <x-dropdown.item :href="route('positions.edit', $position)" icon="edit" data-cy="edit">
                                                 <span>Edit</span>
+                                            </x-dropdown.item>
+                                        @endcan
+
+                                        @can('duplicate', $position)
+                                            <x-dropdown.item type="button" icon="duplicate" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-duplicate', {{ json_encode($position) }});" data-cy="duplicate">
+                                                <span>Duplicate</span>
                                             </x-dropdown.item>
                                         @endcan
                                     </x-dropdown.group>
@@ -158,7 +164,7 @@
             </ul>
 
             @if (! $isReordering)
-                <div class="px-4 py-2 border-t border-gray-200 | sm:px-6 sm:py-3">
+                <div class="px-4 py-2 border-t border-gray-6 | sm:px-6 sm:py-3">
                     {{ $positions->withQueryString()->links() }}
                 </div>
             @endif
@@ -171,6 +177,21 @@
                 <span class="flex w-full | sm:col-start-2">
                     <x-button type="submit" form="form" color="red" full-width>
                         Delete
+                    </x-button>
+                </span>
+                <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
+                    <x-button x-on:click="$dispatch('modal-close')" type="button" color="white" full-width>
+                        Cancel
+                    </x-button>
+                </span>
+            </x-slot>
+        </x-modal>
+
+        <x-modal color="blue" title="Duplicate position" icon="duplicate" :url="route('positions.confirm-duplicate')" event="modal-duplicate" :wide="true">
+            <x-slot name="footer">
+                <span class="flex w-full | sm:col-start-2">
+                    <x-button type="submit" form="form-duplicate" color="blue" full-width>
+                        Duplicate
                     </x-button>
                 </span>
                 <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">

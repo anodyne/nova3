@@ -37,6 +37,12 @@ class DepartmentPolicy
         return $user->isAbleTo('department.delete');
     }
 
+    public function duplicate(User $user, Department $department): bool
+    {
+        return $user->isAbleTo('department.create')
+            && $user->isAbleTo('department.update');
+    }
+
     public function restore(User $user, Department $department): bool
     {
         return false;

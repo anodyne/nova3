@@ -38,12 +38,12 @@
             <x-form.section title="Positions" message="These are all of the positions currently assigned to this department.">
                 <div class="flex flex-col w-full">
                     @foreach ($department->positions as $position)
-                        <div class="group flex items-center justify-between py-2 px-4 rounded odd:bg-gray-100">
-                            <div class="flex flex-col | sm:flex-row sm:items-center">
+                        <div class="group flex items-center justify-between py-2 px-4 rounded odd:bg-gray-3">
+                            <div class="flex flex-col sm:flex-row sm:items-center">
                                 {{ $position->name }}
                             </div>
                             @can('update', $position)
-                                <a href="{{ route('positions.edit', $position) }}" class="text-gray-500 transition ease-in-out duration-150 hover:text-gray-700 group-hover:visible | sm:invisible">
+                                <a href="{{ route('positions.edit', $position) }}" class="text-gray-9 transition ease-in-out duration-150 hover:text-gray-11 group-hover:visible sm:invisible">
                                     @icon('edit')
                                 </a>
                             @endcan
