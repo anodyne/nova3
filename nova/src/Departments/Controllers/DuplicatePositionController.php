@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Departments\Controllers;
 
 use Illuminate\Http\Request;
@@ -26,7 +28,7 @@ class DuplicatePositionController extends Controller
 
         return app(DuplicatePositionResponse::class)->with([
             'departments' => Department::get(),
-            'positions' => $position,
+            'position' => $position,
         ]);
     }
 

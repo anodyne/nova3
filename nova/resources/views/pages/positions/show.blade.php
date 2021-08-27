@@ -5,7 +5,7 @@
         <x-slot name="pretitle">
             <div class="flex items-center">
                 <a href="{{ route('departments.index') }}">Departments</a>
-                @icon('chevron-right', 'h-4 w-4 text-gray-500 mx-1')
+                @icon('chevron-right', 'h-4 w-4 text-gray-9 mx-1')
                 <a href="{{ route('positions.index', $position->department) }}">{{ $position->department->name }}</a>
             </div>
         </x-slot>
@@ -50,7 +50,7 @@
             <x-form.section title="Assigned Characters">
                 <div class="flex flex-col w-full space-y-2">
                     @foreach ($position->characters as $character)
-                        <div class="group flex items-center justify-between w-full py-2 px-4 rounded odd:bg-gray-100">
+                        <div class="group flex items-center justify-between w-full py-2 px-4 rounded odd:bg-gray-3">
                             <div class="flex items-center space-x-3">
                                 <x-avatar-meta size="lg" :src="$character->avatar_url">
                                     <x-slot name="primaryMeta">
@@ -65,7 +65,7 @@
                             </div>
 
                             @can('update', $character)
-                                <a href="{{ route('characters.edit', $character) }}" class="text-gray-500 transition ease-in-out duration-150 hover:text-gray-700 group-hover:visible | sm:invisible">
+                                <a href="{{ route('characters.edit', $character) }}" class="text-gray-9 transition ease-in-out duration-150 hover:text-gray-11 group-hover:visible sm:invisible">
                                     @icon('edit')
                                 </a>
                             @endcan
