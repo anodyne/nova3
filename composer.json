@@ -23,6 +23,7 @@
         "laravel/ui": "^3.0",
         "livewire-ui/spotlight": "^0.1.7",
         "livewire/livewire": "^2.5.1",
+        "lorisleiva/laravel-actions": "^2.1",
         "santigarcor/laratrust": "^6.2",
         "spatie/data-transfer-object": "^3.0",
         "spatie/laravel-activitylog": "^3.6",

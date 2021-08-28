@@ -15,21 +15,21 @@ use LivewireUI\Spotlight\Spotlight;
 
 abstract class DomainServiceProvider extends ServiceProvider
 {
-    protected $bladeComponents = [];
+    protected array $bladeComponents = [];
 
-    protected $commands = [];
+    protected array $commands = [];
 
-    protected $listeners = [];
+    protected array $listeners = [];
 
-    protected $livewireComponents = [];
+    protected array $livewireComponents = [];
 
-    protected $morphMaps = [];
+    protected array $morphMaps = [];
 
-    protected $policies = [];
+    protected array $policies = [];
 
-    protected $responsables = [];
+    protected array $responsables = [];
 
-    protected $routes = [];
+    protected array $routes = [];
 
     /**
      * Bootstrap any application services.
