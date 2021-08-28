@@ -9,7 +9,7 @@ use Nova\DomainServiceProvider;
 
 class DashboardServiceProvider extends DomainServiceProvider
 {
-    protected $responsables = [
+    protected array $responsables = [
         DashboardResponse::class,
     ];
 }
