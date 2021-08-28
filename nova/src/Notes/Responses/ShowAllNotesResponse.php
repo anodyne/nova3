@@ -8,5 +8,5 @@ use Nova\Foundation\Responses\Responsable;
 
 class ShowAllNotesResponse extends Responsable
 {
-    public $view = 'notes.index';
+    public string $view = 'notes.index';
 }

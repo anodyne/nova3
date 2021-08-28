@@ -13,7 +13,7 @@ class NoteCreated
     use Dispatchable;
     use SerializesModels;
 
-    public $note;
+    public Note $note;
 
     public function __construct(Note $note)
     {

@@ -27,11 +27,11 @@ class CreateNoteController extends Controller
         return app(CreateNoteResponse::class);
     }
 
-    public function store(CreateNoteRequest $request, CreateNote $action)
+    public function store(CreateNoteRequest $request)
     {
         $this->authorize('create', Note::class);
 
-        $note = $action->execute(NoteData::fromRequest($request));
+        $note = CreateNote::run(NoteData::fromRequest($request));
 
         return redirect()
             ->route('notes.index')

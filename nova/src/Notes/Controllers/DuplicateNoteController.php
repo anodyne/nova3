@@ -18,18 +18,16 @@ class DuplicateNoteController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(
-        DuplicateNote $action,
-        Note $originalNote
-    ) {
-        $this->authorize('duplicate', $originalNote);
+    public function __invoke(Note $original)
+    {
+        $this->authorize('duplicate', $original);
 
-        $note = $action->execute($originalNote);
+        $note = DuplicateNote::run($original);
 
-        NoteDuplicated::dispatch($note, $originalNote);
+        NoteDuplicated::dispatch($note, $original);
 
         return redirect()
             ->route('notes.edit', $note)
-            ->withToast("{$originalNote->title} was duplicated");
+            ->withToast("{$original->title} was duplicated");
     }
 }

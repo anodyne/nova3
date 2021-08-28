@@ -32,7 +32,7 @@ class DeleteNoteActionTest extends TestCase
     /** @test **/
     public function itDeletesANote()
     {
-        $note = $this->action->execute($this->note);
+        $note = $this->action->handle($this->note);
 
         $this->assertFalse($note->exists);
     }
