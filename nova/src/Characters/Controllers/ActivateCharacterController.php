@@ -18,11 +18,11 @@ class ActivateCharacterController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(ActivateCharacter $action, Character $character)
+    public function __invoke(Character $character)
     {
         $this->authorize('activate', $character);
 
-        $character = $action->execute($character);
+        $character = ActivateCharacter::run($character);
 
         CharacterActivated::dispatch($character);
 

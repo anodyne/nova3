@@ -8,5 +8,5 @@ use Nova\Foundation\Responses\Responsable;
 
 class DeactivateCharacterResponse extends Responsable
 {
-    public $view = 'characters.deactivate';
+    public string $view = 'characters.deactivate';
 }

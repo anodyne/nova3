@@ -31,12 +31,11 @@ class UpdateCharacterController extends Controller
 
     public function update(
         UpdateCharacterRequest $request,
-        UpdateCharacterManager $action,
         Character $character
     ) {
         $this->authorize('update', $character);
 
-        $character = $action->execute($character, $request);
+        $character = UpdateCharacterManager::run($character, $request);
 
         CharacterUpdatedByAdmin::dispatch($character);
 

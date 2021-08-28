@@ -27,13 +27,11 @@ class CreateCharacterController extends Controller
         return app(CreateCharacterResponse::class);
     }
 
-    public function store(
-        CreateCharacterRequest $request,
-        CreateCharacterManager $action
-    ) {
+    public function store(CreateCharacterRequest $request)
+    {
         $this->authorize('create', Character::class);
 
-        $character = $action->execute($request);
+        $character = CreateCharacterManager::run($request);
 
         CharacterCreatedByAdmin::dispatch($character);
 

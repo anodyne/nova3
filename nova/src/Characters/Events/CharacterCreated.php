@@ -13,7 +13,7 @@ class CharacterCreated
     use Dispatchable;
     use SerializesModels;
 
-    public $character;
+    public Character $character;
 
     public function __construct(Character $character)
     {

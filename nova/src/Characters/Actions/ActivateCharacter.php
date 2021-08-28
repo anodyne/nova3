@@ -4,19 +4,22 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Actions;
 
+use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Characters\Models\Character;
 use Nova\Characters\Models\States\Statuses\Active;
 
 class ActivateCharacter
 {
-    protected $setCharacterType;
+    use AsAction;
+
+    protected SetCharacterType $setCharacterType;
 
     public function __construct(SetCharacterType $setCharacterType)
     {
         $this->setCharacterType = $setCharacterType;
     }
 
-    public function execute(Character $character): Character
+    public function handle(Character $character): Character
     {
         activity()
             ->causedBy(auth()->user())

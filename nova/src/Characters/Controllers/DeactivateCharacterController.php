@@ -29,13 +29,11 @@ class DeactivateCharacterController extends Controller
         ]);
     }
 
-    public function deactivate(
-        DeactivateCharacter $action,
-        Character $character
-    ) {
+    public function deactivate(Character $character)
+    {
         $this->authorize('deactivate', $character);
 
-        $character = $action->execute($character);
+        $character = DeactivateCharacter::run($character);
 
         CharacterDeactivated::dispatch($character);
 
