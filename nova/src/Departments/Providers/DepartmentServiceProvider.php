@@ -22,17 +22,17 @@ use Nova\DomainServiceProvider;
 
 class DepartmentServiceProvider extends DomainServiceProvider
 {
-    protected $livewireComponents = [
+    protected array $livewireComponents = [
         'positions:collector' => PositionsCollector::class,
         'positions:dropdown' => PositionsDropdown::class,
     ];
 
-    protected $policies = [
+    protected array $policies = [
         Department::class => DepartmentPolicy::class,
         Position::class => PositionPolicy::class,
     ];
 
-    protected $responsables = [
+    protected array $responsables = [
         Responses\CreateDepartmentResponse::class,
         Responses\DeleteDepartmentResponse::class,
         Responses\DuplicateDepartmentResponse::class,

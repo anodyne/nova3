@@ -8,5 +8,5 @@ use Nova\Foundation\Responses\Responsable;
 
 class UpdatePositionResponse extends Responsable
 {
-    public $view = 'positions.edit';
+    public string $view = 'positions.edit';
 }

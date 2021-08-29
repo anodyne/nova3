@@ -30,12 +30,11 @@ class UpdateDepartmentController extends Controller
 
     public function update(
         UpdateDepartmentRequest $request,
-        UpdateDepartmentManager $action,
         Department $department
     ) {
         $this->authorize('update', $department);
 
-        $department = $action->execute($department, $request);
+        $department = UpdateDepartmentManager::run($department, $request);
 
         return back()->withToast("{$department->name} department was updated");
     }

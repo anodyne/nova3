@@ -13,7 +13,7 @@ class PositionDeleted
     use Dispatchable;
     use SerializesModels;
 
-    public $position;
+    public Position $position;
 
     public function __construct(Position $position)
     {

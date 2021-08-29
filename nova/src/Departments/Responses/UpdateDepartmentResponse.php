@@ -8,5 +8,5 @@ use Nova\Foundation\Responses\Responsable;
 
 class UpdateDepartmentResponse extends Responsable
 {
-    public $view = 'departments.edit';
+    public string $view = 'departments.edit';
 }

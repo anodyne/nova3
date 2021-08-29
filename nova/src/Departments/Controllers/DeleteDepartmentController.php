@@ -28,11 +28,11 @@ class DeleteDepartmentController extends Controller
         ]);
     }
 
-    public function destroy(DeleteDepartment $action, Department $department)
+    public function destroy(Department $department)
     {
         $this->authorize('delete', $department);
 
-        $action->execute($department);
+        DeleteDepartment::run($department);
 
         return redirect()
             ->route('departments.index')

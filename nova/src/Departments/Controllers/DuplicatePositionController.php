@@ -32,14 +32,11 @@ class DuplicatePositionController extends Controller
         ]);
     }
 
-    public function duplicate(
-        Request $request,
-        DuplicatePosition $action,
-        Position $original
-    ) {
+    public function duplicate(Request $request, Position $original)
+    {
         $this->authorize('duplicate', $original);
 
-        $position = $action->execute(
+        $position = DuplicatePosition::run(
             $original,
             PositionData::fromRequest($request)
         );

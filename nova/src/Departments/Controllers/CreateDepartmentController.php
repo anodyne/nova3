@@ -26,13 +26,11 @@ class CreateDepartmentController extends Controller
         return app(CreateDepartmentResponse::class);
     }
 
-    public function store(
-        CreateDepartmentRequest $request,
-        CreateDepartmentManager $action
-    ) {
+    public function store(CreateDepartmentRequest $request)
+    {
         $this->authorize('create', Department::class);
 
-        $department = $action->execute($request);
+        $department = CreateDepartmentManager::run($request);
 
         return redirect()
             ->route('departments.index')

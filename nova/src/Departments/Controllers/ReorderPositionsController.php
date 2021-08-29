@@ -19,14 +19,11 @@ class ReorderPositionsController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(
-        Request $request,
-        ReorderPositions $action,
-        Department $department
-    ) {
+    public function __invoke(Request $request, Department $department)
+    {
         $this->authorize('update', new Position());
 
-        $action->execute($request->sort);
+        ReorderPositions::run($request->sort);
 
         return redirect()
             ->route('positions.index', $department)
