@@ -13,7 +13,7 @@ class RoleDeleted
     use Dispatchable;
     use SerializesModels;
 
-    public $role;
+    public Role $role;
 
     public function __construct(Role $role)
     {

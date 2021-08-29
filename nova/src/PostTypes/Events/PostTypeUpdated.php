@@ -13,7 +13,7 @@ class PostTypeUpdated
     use Dispatchable;
     use SerializesModels;
 
-    public $postType;
+    public PostType $postType;
 
     public function __construct(PostType $postType)
     {

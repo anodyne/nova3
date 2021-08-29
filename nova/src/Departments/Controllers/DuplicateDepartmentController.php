@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Departments\Controllers;
 
 use Illuminate\Http\Request;
@@ -27,14 +29,11 @@ class DuplicateDepartmentController extends Controller
         ]);
     }
 
-    public function duplicate(
-        Request $request,
-        DuplicateDepartmentManager $action,
-        Department $original
-    ) {
+    public function duplicate(Request $request, Department $original)
+    {
         $this->authorize('duplicate', $original);
 
-        $department = $action->execute($original, $request);
+        $department = DuplicateDepartmentManager::run($original, $request);
 
         DepartmentDuplicated::dispatch($department, $original);
 

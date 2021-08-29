@@ -14,23 +14,23 @@ class CharacterBuilder extends Builder
 {
     use Filterable;
 
-    public function whereActive()
+    public function whereActive(): Builder
     {
         return $this->where('status', Active::class);
     }
 
-    public function whereInactive()
+    public function whereInactive(): Builder
     {
         return $this->where('state', Inactive::class);
     }
 
-    public function whereIsPrimaryCharacter()
+    public function whereIsPrimaryCharacter(): Builder
     {
         return $this->join('character_user', 'character_user.character_id', '=', 'characters.id')
             ->where('character_user.primary', true);
     }
 
-    public function wherePending()
+    public function wherePending(): Builder
     {
         return $this->where('state', Pending::class);
     }

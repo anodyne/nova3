@@ -22,17 +22,17 @@ use Nova\Stories\Spotlight\ViewStory;
 
 class StoryServiceProvider extends DomainServiceProvider
 {
-    protected $livewireComponents = [
+    protected array $livewireComponents = [
         'stories:delete-story' => DeleteStories::class,
         'stories:hierarchy' => StoryHierarchy::class,
         'stories:status' => StoryStatus::class,
     ];
 
-    protected $policies = [
+    protected array $policies = [
         Story::class => StoryPolicy::class,
     ];
 
-    protected $responsables = [
+    protected array $responsables = [
         CreateStoryResponse::class,
         DeleteStoryResponse::class,
         ReorderStoriesResponse::class,

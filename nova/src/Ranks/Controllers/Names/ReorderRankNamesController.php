@@ -18,11 +18,11 @@ class ReorderRankNamesController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(Request $request, ReorderRankNames $action)
+    public function __invoke(Request $request)
     {
         $this->authorize('update', new RankName());
 
-        $action->execute($request->sort);
+        ReorderRankNames::run($request->sort);
 
         return redirect()
             ->route('ranks.names.index')

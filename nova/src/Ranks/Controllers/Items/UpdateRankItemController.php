@@ -38,14 +38,11 @@ class UpdateRankItemController extends Controller
         ]);
     }
 
-    public function update(
-        UpdateRankItemRequest $request,
-        UpdateRankItem $action,
-        RankItem $item
-    ) {
+    public function update(UpdateRankItemRequest $request, RankItem $item)
+    {
         $this->authorize('update', $item);
 
-        $item = $action->execute($item, RankItemData::fromRequest($request));
+        $item = UpdateRankItem::run($item, RankItemData::fromRequest($request));
 
         return back()->withToast('Rank item was updated');
     }

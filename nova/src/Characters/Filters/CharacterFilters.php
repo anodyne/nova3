@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Filters;
 
+use Illuminate\Database\Eloquent\Builder;
 use Nova\Characters\Models\Character;
 use Nova\Foundation\Filters\Filters;
 
@@ -13,22 +14,22 @@ class CharacterFilters extends Filters
         'search', 'status', 'type', 'hasuser', 'nouser', 'noposition'
     ];
 
-    public function hasuser($value)
+    public function hasuser($value): Builder
     {
         return $this->builder->whereHas('users');
     }
 
-    public function noposition($value)
+    public function noposition($value): Builder
     {
         return $this->builder->whereDoesntHave('positions');
     }
 
-    public function nouser($value)
+    public function nouser($value): Builder
     {
         return $this->builder->whereDoesntHave('users');
     }
 
-    public function search($value)
+    public function search($value): Builder
     {
         return $this->builder
             ->where(function ($query) use ($value) {
@@ -50,7 +51,7 @@ class CharacterFilters extends Filters
             });
     }
 
-    public function status($value)
+    public function status($value): Builder
     {
         return $this->builder->whereState(
             'status',
@@ -62,7 +63,7 @@ class CharacterFilters extends Filters
         );
     }
 
-    public function type($value)
+    public function type($value): Builder
     {
         return $this->builder->whereState(
             'type',

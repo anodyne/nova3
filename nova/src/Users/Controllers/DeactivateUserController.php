@@ -27,11 +27,11 @@ class DeactivateUserController extends Controller
         ]);
     }
 
-    public function deactivate(DeactivateUser $action, User $user)
+    public function deactivate(User $user)
     {
         $this->authorize('deactivate', $user);
 
-        $user = $action->execute($user);
+        $user = DeactivateUser::run($user);
 
         UserDeactivated::dispatch($user);
 

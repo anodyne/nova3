@@ -8,5 +8,5 @@ use Nova\Foundation\Responses\Responsable;
 
 class DeleteDepartmentResponse extends Responsable
 {
-    public $view = 'departments.delete';
+    public string $view = 'departments.delete';
 }

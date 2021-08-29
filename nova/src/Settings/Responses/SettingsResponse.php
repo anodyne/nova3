@@ -8,5 +8,5 @@ use Nova\Foundation\Responses\Responsable;
 
 class SettingsResponse extends Responsable
 {
-    public $view = 'settings.index';
+    public string $view = 'settings.index';
 }

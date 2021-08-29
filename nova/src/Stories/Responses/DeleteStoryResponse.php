@@ -8,5 +8,5 @@ use Nova\Foundation\Responses\Responsable;
 
 class DeleteStoryResponse extends Responsable
 {
-    public $view = 'stories.delete';
+    public string $view = 'stories.delete';
 }

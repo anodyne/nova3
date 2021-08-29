@@ -25,28 +25,28 @@ use Nova\Users\Spotlight\ViewUser;
 
 class UserServiceProvider extends DomainServiceProvider
 {
-    protected $listeners = [
+    protected array $listeners = [
         UserCreatedByAdmin::class => [
             GeneratePassword::class,
         ],
     ];
 
-    protected $livewireComponents = [
+    protected array $livewireComponents = [
         'users:collector' => UsersCollector::class,
         'users:dropdown' => UsersDropdown::class,
         'users:manage-users' => ManageUsers::class,
         'users:notifications' => UserNotifications::class,
     ];
 
-    protected $morphMaps = [
+    protected array $morphMaps = [
         'users' => User::class,
     ];
 
-    protected $policies = [
+    protected array $policies = [
         User::class => UserPolicy::class,
     ];
 
-    protected $responsables = [
+    protected array $responsables = [
         CreateUserResponse::class,
         DeactivateUserResponse::class,
         DeleteUserResponse::class,
@@ -55,7 +55,7 @@ class UserServiceProvider extends DomainServiceProvider
         ShowUserResponse::class,
     ];
 
-    protected $routes = [
+    protected array $routes = [
         'users/force-password-reset/{user}' => [
             'verb' => 'put',
             'uses' => ForcePasswordResetController::class,

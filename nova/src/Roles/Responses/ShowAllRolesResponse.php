@@ -8,5 +8,5 @@ use Nova\Foundation\Responses\Responsable;
 
 class ShowAllRolesResponse extends Responsable
 {
-    public $view = 'roles.index';
+    public string $view = 'roles.index';
 }

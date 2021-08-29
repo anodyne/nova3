@@ -13,7 +13,7 @@ class RankGroupCreated
     use Dispatchable;
     use SerializesModels;
 
-    public $group;
+    public RankGroup $group;
 
     public function __construct(RankGroup $group)
     {

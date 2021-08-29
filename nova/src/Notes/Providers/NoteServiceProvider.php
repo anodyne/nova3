@@ -15,11 +15,11 @@ use Nova\Notes\Responses\UpdateNoteResponse;
 
 class NoteServiceProvider extends DomainServiceProvider
 {
-    protected $policies = [
+    protected array $policies = [
         Note::class => NotePolicy::class,
     ];
 
-    protected $responsables = [
+    protected array $responsables = [
         CreateNoteResponse::class,
         DeleteNoteResponse::class,
         ShowAllNotesResponse::class,

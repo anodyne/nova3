@@ -4,15 +4,18 @@ declare(strict_types=1);
 
 namespace Nova\Notes\Actions;
 
+use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Notes\DataTransferObjects\NoteData;
 use Nova\Notes\Models\Note;
 
 class CreateNote
 {
-    public function execute(NoteData $data): Note
+    use AsAction;
+
+    public function handle(NoteData $data): Note
     {
         return $data->user->notes()->create(
-            $data->except('user_id')->toArray()
+            $data->except('user')->toArray()
         );
     }
 }

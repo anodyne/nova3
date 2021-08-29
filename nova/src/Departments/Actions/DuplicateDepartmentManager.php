@@ -1,36 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Departments\Actions;
 
 use Illuminate\Http\Request;
+use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Departments\DataTransferObjects\DepartmentData;
 use Nova\Departments\Models\Department;
 
 class DuplicateDepartmentManager
 {
-    protected $duplicateDepartment;
+    use AsAction;
 
-    protected $duplicateDepartmentPositions;
-
-    public function __construct(
-        DuplicateDepartment $duplicateDepartment,
-        DuplicateDepartmentPositions $duplicateDepartmentPositions
-    ) {
-        $this->duplicateDepartment = $duplicateDepartment;
-        $this->duplicateDepartmentPositions = $duplicateDepartmentPositions;
-    }
-
-    public function execute(Department $original, Request $request): Department
+    public function handle(Department $original, Request $request): Department
     {
-        $department = $this->duplicateDepartment->execute(
+        $department = DuplicateDepartment::run(
             $original,
             DepartmentData::fromRequest($request)
         );
 
-        $this->duplicateDepartmentPositions->execute(
-            $department,
-            $original
-        );
+        DuplicateDepartmentPositions::run($department, $original);
 
         return $department->refresh();
     }

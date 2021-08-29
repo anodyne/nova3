@@ -17,7 +17,7 @@ abstract class Responsable implements LaravelResponsable
 
     public $template;
 
-    public $view;
+    public string $view;
 
     protected $app;
 

@@ -18,11 +18,11 @@ class ReorderPostTypesController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(Request $request, ReorderPostTypes $action)
+    public function __invoke(Request $request)
     {
         $this->authorize('update', new PostType());
 
-        $action->execute($request->sort);
+        ReorderPostTypes::run($request->sort);
 
         return redirect()
             ->route('post-types.index')

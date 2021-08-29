@@ -13,7 +13,7 @@ class UserCreatedByAdmin
     use Dispatchable;
     use SerializesModels;
 
-    public $user;
+    public User $user;
 
     public function __construct(User $user)
     {

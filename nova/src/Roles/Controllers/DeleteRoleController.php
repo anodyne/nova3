@@ -28,11 +28,11 @@ class DeleteRoleController extends Controller
         ]);
     }
 
-    public function destroy(DeleteRole $action, Role $role)
+    public function destroy(Role $role)
     {
         $this->authorize('delete', $role);
 
-        $action->execute($role);
+        DeleteRole::run($role);
 
         return redirect()
             ->route('roles.index')

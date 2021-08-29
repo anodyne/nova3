@@ -8,5 +8,5 @@ use Nova\Foundation\Responses\Responsable;
 
 class CreateThemeResponse extends Responsable
 {
-    public $view = 'themes.create';
+    public string $view = 'themes.create';
 }

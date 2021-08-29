@@ -31,14 +31,14 @@ class UpdatePositionController extends Controller
         ]);
     }
 
-    public function update(
-        UpdatePositionRequest $request,
-        UpdatePosition $action,
-        Position $position
-    ) {
+    public function update(UpdatePositionRequest $request, Position $position)
+    {
         $this->authorize('update', $position);
 
-        $position = $action->execute($position, PositionData::fromRequest($request));
+        $position = UpdatePosition::run(
+            $position,
+            PositionData::fromRequest($request)
+        );
 
         return back()->withToast("{$position->name} position was updated");
     }

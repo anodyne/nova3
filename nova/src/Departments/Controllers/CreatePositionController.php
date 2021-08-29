@@ -32,11 +32,11 @@ class CreatePositionController extends Controller
         ]);
     }
 
-    public function store(CreatePositionRequest $request, CreatePosition $action)
+    public function store(CreatePositionRequest $request)
     {
         $this->authorize('create', Position::class);
 
-        $position = $action->execute(PositionData::fromRequest($request));
+        $position = CreatePosition::run(PositionData::fromRequest($request));
 
         return redirect()
             ->route('positions.index', $position->department)

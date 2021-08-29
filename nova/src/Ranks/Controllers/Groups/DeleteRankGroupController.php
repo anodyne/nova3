@@ -28,11 +28,11 @@ class DeleteRankGroupController extends Controller
         ]);
     }
 
-    public function destroy(DeleteRankGroup $action, RankGroup $group)
+    public function destroy(RankGroup $group)
     {
         $this->authorize('delete', $group);
 
-        $action->execute($group);
+        DeleteRankGroup::run($group);
 
         return redirect()
             ->route('ranks.groups.index')

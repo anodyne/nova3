@@ -18,11 +18,11 @@ class ReorderDepartmentsController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(Request $request, ReorderDepartments $action)
+    public function __invoke(Request $request)
     {
         $this->authorize('update', new Department());
 
-        $action->execute($request->sort);
+        ReorderDepartments::run($request->sort);
 
         return redirect()
             ->route('departments.index')

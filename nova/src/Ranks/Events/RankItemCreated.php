@@ -13,7 +13,7 @@ class RankItemCreated
     use Dispatchable;
     use SerializesModels;
 
-    public $item;
+    public RankItem $item;
 
     public function __construct(RankItem $item)
     {

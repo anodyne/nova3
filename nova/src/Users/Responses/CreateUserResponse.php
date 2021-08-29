@@ -8,5 +8,5 @@ use Nova\Foundation\Responses\Responsable;
 
 class CreateUserResponse extends Responsable
 {
-    public $view = 'users.create';
+    public string $view = 'users.create';
 }

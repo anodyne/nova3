@@ -8,5 +8,5 @@ use Nova\Foundation\Responses\Responsable;
 
 class UpdateUserResponse extends Responsable
 {
-    public $view = 'users.edit';
+    public string $view = 'users.edit';
 }

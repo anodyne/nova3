@@ -16,17 +16,17 @@ use Nova\Posts\Spotlight\WritePost as SpotlightWritePost;
 
 class PostServiceProvider extends DomainServiceProvider
 {
-    protected $livewireComponents = [
+    protected array $livewireComponents = [
         'posts:compose' => ComposePost::class,
         'posts:pick-post-type' => PickPostType::class,
         'posts:write' => WritePost::class,
     ];
 
-    protected $policies = [
+    protected array $policies = [
         Post::class => PostPolicy::class,
     ];
 
-    protected $responsables = [
+    protected array $responsables = [
         ComposePostResponse::class,
         SelectPostTypeResponse::class,
     ];

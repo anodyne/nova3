@@ -8,5 +8,5 @@ use Nova\Foundation\Responses\Responsable;
 
 class DeleteRankItemResponse extends Responsable
 {
-    public $view = 'ranks.items.delete';
+    public string $view = 'ranks.items.delete';
 }

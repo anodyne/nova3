@@ -27,11 +27,11 @@ class CreateRankNameController extends Controller
         return app(CreateRankNameResponse::class);
     }
 
-    public function store(CreateRankNameRequest $request, CreateRankName $action)
+    public function store(CreateRankNameRequest $request)
     {
         $this->authorize('create', RankName::class);
 
-        $name = $action->execute(RankNameData::fromRequest($request));
+        $name = CreateRankName::run(RankNameData::fromRequest($request));
 
         return redirect()
             ->route('ranks.names.index')

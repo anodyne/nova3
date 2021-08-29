@@ -8,5 +8,5 @@ use Nova\Foundation\Responses\Responsable;
 
 class CreatePostTypeResponse extends Responsable
 {
-    public $view = 'post-types.create';
+    public string $view = 'post-types.create';
 }

@@ -43,7 +43,7 @@ class UpdateNoteActionTest extends TestCase
             'summary' => 'New summary',
         ]);
 
-        $note = $this->action->execute($this->note, $data);
+        $note = $this->action->handle($this->note, $data);
 
         $this->assertEquals('My Note', $note->title);
         $this->assertEquals('New content', $note->content);

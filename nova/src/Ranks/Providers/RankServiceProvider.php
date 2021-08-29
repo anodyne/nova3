@@ -18,19 +18,19 @@ use Nova\Ranks\Responses;
 
 class RankServiceProvider extends DomainServiceProvider
 {
-    protected $livewireComponents = [
+    protected array $livewireComponents = [
         'ranks:items-dropdown' => RankItemsDropdown::class,
         'ranks:groups-dropdown' => RankGroupsDropdown::class,
         'ranks:names-dropdown' => RankNamesDropdown::class,
     ];
 
-    protected $policies = [
+    protected array $policies = [
         RankGroup::class => RankGroupPolicy::class,
         RankItem::class => RankItemPolicy::class,
         RankName::class => RankNamePolicy::class,
     ];
 
-    protected $responsables = [
+    protected array $responsables = [
         Responses\ShowRankOptionsResponse::class,
 
         Responses\Groups\CreateRankGroupResponse::class,

@@ -28,14 +28,11 @@ class UpdateStoryController extends Controller
         ]);
     }
 
-    public function update(
-        UpdateStoryRequest $request,
-        UpdateStoryManager $action,
-        Story $story
-    ) {
+    public function update(UpdateStoryRequest $request, Story $story)
+    {
         $this->authorize('update', $story);
 
-        $story = $action->execute($story, $request);
+        $story = UpdateStoryManager::run($story, $request);
 
         return redirect()
             ->route('stories.edit', $story)

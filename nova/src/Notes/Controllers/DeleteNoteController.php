@@ -28,11 +28,11 @@ class DeleteNoteController extends Controller
         ]);
     }
 
-    public function destroy(Note $note, DeleteNote $action)
+    public function destroy(Note $note)
     {
         $this->authorize('delete', $note);
 
-        $action->execute($note);
+        DeleteNote::run($note);
 
         return redirect()
             ->route('notes.index')

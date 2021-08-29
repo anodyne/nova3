@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Filters;
 
+use Illuminate\Database\Eloquent\Builder;
 use Nova\Foundation\Filters\Filters;
 
 class StoryFilters extends Filters
 {
     protected $filters = ['search', 'sort'];
 
-    public function search($value)
+    public function search($value): Builder
     {
         return $this->builder->where(function ($query) use ($value) {
             return $query->where('name', 'like', "%{$value}%")
@@ -18,7 +19,7 @@ class StoryFilters extends Filters
         });
     }
 
-    public function sort($value)
+    public function sort($value): Builder
     {
         if ($value === 'desc') {
             return $this->builder->defaultOrder();

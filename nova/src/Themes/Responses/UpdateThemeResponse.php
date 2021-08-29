@@ -8,5 +8,5 @@ use Nova\Foundation\Responses\Responsable;
 
 class UpdateThemeResponse extends Responsable
 {
-    public $view = 'themes.edit';
+    public string $view = 'themes.edit';
 }

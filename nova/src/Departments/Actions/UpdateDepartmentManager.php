@@ -5,31 +5,22 @@ declare(strict_types=1);
 namespace Nova\Departments\Actions;
 
 use Illuminate\Http\Request;
+use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Departments\DataTransferObjects\DepartmentData;
 use Nova\Departments\Models\Department;
 
 class UpdateDepartmentManager
 {
-    protected $updateDepartment;
+    use AsAction;
 
-    protected $uploadHeaderImage;
-
-    public function __construct(
-        UpdateDepartment $updateDepartment,
-        UploadDepartmentHeaderImage $uploadHeaderImage
-    ) {
-        $this->updateDepartment = $updateDepartment;
-        $this->uploadHeaderImage = $uploadHeaderImage;
-    }
-
-    public function execute(Department $department, Request $request): Department
+    public function handle(Department $department, Request $request): Department
     {
-        $department = $this->updateDepartment->execute(
+        $department = UpdateDepartment::run(
             $department,
             DepartmentData::fromRequest($request)
         );
 
-        $this->uploadHeaderImage->execute($department, $request->image_path);
+        UploadDepartmentHeaderImage::run($department, $request->image_path);
 
         return $department->refresh();
     }

@@ -36,7 +36,7 @@ class DuplicateNoteActionTest extends TestCase
     /** @test **/
     public function itDuplicatesANote()
     {
-        $note = $this->action->execute($this->originalNote);
+        $note = $this->action->handle($this->originalNote);
 
         $this->assertEquals('Copy of My Note', $note->title);
         $this->assertEquals('Content', $note->content);

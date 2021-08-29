@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Nova\PostTypes\Actions;
 
+use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Foundation\WordGenerator;
 use Nova\PostTypes\Models\PostType;
 
 class DuplicatePostType
 {
-    public function execute(PostType $originalPostType): PostType
+    use AsAction;
+
+    public function handle(PostType $originalPostType): PostType
     {
         $postType = $originalPostType->replicate();
 

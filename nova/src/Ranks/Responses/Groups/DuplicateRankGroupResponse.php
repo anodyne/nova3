@@ -8,5 +8,5 @@ use Nova\Foundation\Responses\Responsable;
 
 class DuplicateRankGroupResponse extends Responsable
 {
-    public $view = 'ranks.groups.duplicate';
+    public string $view = 'ranks.groups.duplicate';
 }

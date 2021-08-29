@@ -8,5 +8,5 @@ use Nova\Foundation\Responses\Responsable;
 
 class DeleteNoteResponse extends Responsable
 {
-    public $view = 'notes.delete';
+    public string $view = 'notes.delete';
 }

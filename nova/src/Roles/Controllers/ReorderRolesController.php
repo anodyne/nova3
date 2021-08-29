@@ -18,11 +18,11 @@ class ReorderRolesController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(Request $request, ReorderRoles $action)
+    public function __invoke(Request $request)
     {
         $this->authorize('update', new Role());
 
-        $action->execute($request->sort);
+        ReorderRoles::run($request->sort);
 
         return redirect()
             ->route('roles.index')

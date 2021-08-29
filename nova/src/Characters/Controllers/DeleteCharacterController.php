@@ -29,11 +29,11 @@ class DeleteCharacterController extends Controller
         ]);
     }
 
-    public function destroy(DeleteCharacter $action, Character $character)
+    public function destroy(Character $character)
     {
         $this->authorize('delete', $character);
 
-        $character = $action->execute($character);
+        $character = DeleteCharacter::run($character);
 
         CharacterDeletedByAdmin::dispatch($character);
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Departments\Events;
 
 use Illuminate\Foundation\Events\Dispatchable;
@@ -11,9 +13,9 @@ class PositionDuplicated
     use Dispatchable;
     use SerializesModels;
 
-    public $position;
+    public Position $position;
 
-    public $original;
+    public Position $original;
 
     public function __construct(Position $position, Position $original)
     {

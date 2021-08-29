@@ -13,13 +13,13 @@ class RoleDuplicated
     use Dispatchable;
     use SerializesModels;
 
-    public $originalRole;
+    public Role $original;
 
-    public $role;
+    public Role $role;
 
-    public function __construct(Role $role, Role $originalRole)
+    public function __construct(Role $role, Role $original)
     {
-        $this->originalRole = $originalRole;
+        $this->original = $original;
         $this->role = $role;
     }
 }

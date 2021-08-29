@@ -32,14 +32,11 @@ class UpdatePostTypeController extends Controller
         ]);
     }
 
-    public function update(
-        UpdatePostTypeRequest $request,
-        UpdatePostType $action,
-        PostType $postType
-    ) {
+    public function update(UpdatePostTypeRequest $request, PostType $postType)
+    {
         $this->authorize('update', $postType);
 
-        $postType = $action->execute(
+        $postType = UpdatePostType::run(
             $postType,
             PostTypeData::fromRequest($request)
         );

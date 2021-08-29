@@ -13,7 +13,7 @@ class RankNameUpdated
     use Dispatchable;
     use SerializesModels;
 
-    public $name;
+    public RankName $name;
 
     public function __construct(RankName $name)
     {

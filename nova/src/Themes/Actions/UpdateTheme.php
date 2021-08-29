@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Nova\Themes\Actions;
 
+use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Themes\DataTransferObjects\ThemeData;
 use Nova\Themes\Models\Theme;
 
 class UpdateTheme
 {
-    public function execute(Theme $theme, ThemeData $data): Theme
+    use AsAction;
+
+    public function handle(Theme $theme, ThemeData $data): Theme
     {
         return tap($theme)
             ->update($data->except('variants')->toArray())

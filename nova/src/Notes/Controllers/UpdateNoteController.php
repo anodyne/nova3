@@ -29,14 +29,11 @@ class UpdateNoteController extends Controller
         ]);
     }
 
-    public function update(
-        UpdateNoteRequest $request,
-        Note $note,
-        UpdateNote $action
-    ) {
+    public function update(UpdateNoteRequest $request, Note $note)
+    {
         $this->authorize('update', $note);
 
-        $note = $action->execute($note, NoteData::fromRequest($request));
+        $note = UpdateNote::run($note, NoteData::fromRequest($request));
 
         return back()->withToast("{$note->title} was updated");
     }

@@ -27,11 +27,11 @@ class CreateRankGroupController extends Controller
         return app(CreateRankGroupResponse::class);
     }
 
-    public function store(CreateRankGroupRequest $request, CreateRankGroup $action)
+    public function store(CreateRankGroupRequest $request)
     {
         $this->authorize('create', RankGroup::class);
 
-        $group = $action->execute(RankGroupData::fromRequest($request));
+        $group = CreateRankGroup::run(RankGroupData::fromRequest($request));
 
         return redirect()
             ->route('ranks.groups.index')

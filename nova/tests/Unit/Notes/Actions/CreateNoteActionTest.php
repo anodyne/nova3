@@ -36,7 +36,7 @@ class CreateNoteActionTest extends TestCase
             'user' => $user = User::factory()->active()->create(),
         ]);
 
-        $note = $this->action->execute($data);
+        $note = $this->action->handle($data);
 
         $this->assertTrue($note->exists);
         $this->assertEquals('My Note', $note->title);

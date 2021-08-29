@@ -28,11 +28,11 @@ class DeletePositionController extends Controller
         ]);
     }
 
-    public function destroy(DeletePosition $action, Position $position)
+    public function destroy(Position $position)
     {
         $this->authorize('delete', $position);
 
-        $action->execute($position);
+        DeletePosition::run($position);
 
         return redirect()
             ->route('positions.index', $position->department_id)

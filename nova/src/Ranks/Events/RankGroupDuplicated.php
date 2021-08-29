@@ -13,13 +13,13 @@ class RankGroupDuplicated
     use Dispatchable;
     use SerializesModels;
 
-    public $group;
+    public RankGroup $group;
 
-    public $originalGroup;
+    public RankGroup $original;
 
-    public function __construct(RankGroup $group, RankGroup $originalGroup)
+    public function __construct(RankGroup $group, RankGroup $original)
     {
         $this->group = $group;
-        $this->originalGroup = $originalGroup;
+        $this->original = $original;
     }
 }

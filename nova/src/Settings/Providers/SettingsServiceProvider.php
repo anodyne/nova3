@@ -11,7 +11,7 @@ use Nova\Settings\Responses\SettingsResponse;
 
 class SettingsServiceProvider extends DomainServiceProvider
 {
-    protected $responsables = [
+    protected array $responsables = [
         SettingsResponse::class,
     ];
 

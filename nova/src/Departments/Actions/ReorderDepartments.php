@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace Nova\Departments\Actions;
 
+use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Departments\Models\Department;
 
 class ReorderDepartments
 {
-    public function execute(string $sort): void
+    use AsAction;
+
+    public function handle(string $sort): void
     {
-        collect(explode(',', $sort))->each(function ($deptId, $index) {
-            Department::where('id', $deptId)->update(['sort' => $index]);
+        collect(explode(',', $sort))->each(function ($id, $index) {
+            Department::where('id', $id)->update(['sort' => $index]);
         });
     }
 }

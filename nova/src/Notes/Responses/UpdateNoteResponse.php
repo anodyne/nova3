@@ -8,5 +8,5 @@ use Nova\Foundation\Responses\Responsable;
 
 class UpdateNoteResponse extends Responsable
 {
-    public $view = 'notes.edit';
+    public string $view = 'notes.edit';
 }

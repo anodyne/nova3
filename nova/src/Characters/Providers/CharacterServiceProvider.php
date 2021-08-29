@@ -21,20 +21,20 @@ use Nova\DomainServiceProvider;
 
 class CharacterServiceProvider extends DomainServiceProvider
 {
-    protected $livewireComponents = [
+    protected array $livewireComponents = [
         'characters:collector' => CharactersCollector::class,
         'characters:dropdown' => CharactersDropdown::class,
     ];
 
-    protected $morphMaps = [
+    protected array $morphMaps = [
         'characters' => Character::class,
     ];
 
-    protected $policies = [
+    protected array $policies = [
         Character::class => CharacterPolicy::class,
     ];
 
-    protected $responsables = [
+    protected array $responsables = [
         CreateCharacterResponse::class,
         DeactivateCharacterResponse::class,
         DeleteCharacterResponse::class,

@@ -8,5 +8,5 @@ use Nova\Foundation\Responses\Responsable;
 
 class UpdateStoryResponse extends Responsable
 {
-    public $view = 'stories.edit';
+    public string $view = 'stories.edit';
 }

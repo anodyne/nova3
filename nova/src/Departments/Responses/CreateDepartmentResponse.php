@@ -8,5 +8,5 @@ use Nova\Foundation\Responses\Responsable;
 
 class CreateDepartmentResponse extends Responsable
 {
-    public $view = 'departments.create';
+    public string $view = 'departments.create';
 }

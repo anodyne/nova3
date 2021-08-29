@@ -6,7 +6,7 @@ namespace Nova\Themes\Providers;
 
 use Nova\DomainServiceProvider;
 use Nova\Foundation\Nova;
-use Nova\Themes\Console\Commands\ThemeMakeCommand;
+use Nova\Themes\Actions\SetupThemeDirectory;
 use Nova\Themes\Models\Theme;
 use Nova\Themes\Policies\ThemePolicy;
 use Nova\Themes\Responses\CreateThemeResponse;
@@ -17,15 +17,15 @@ use Themes\pulsar\Theme as PulsarTheme;
 
 class ThemeServiceProvider extends DomainServiceProvider
 {
-    protected $commands = [
-        ThemeMakeCommand::class,
+    protected array $commands = [
+        SetupThemeDirectory::class,
     ];
 
-    protected $policies = [
+    protected array $policies = [
         Theme::class => ThemePolicy::class,
     ];
 
-    protected $responsables = [
+    protected array $responsables = [
         CreateThemeResponse::class,
         DeleteThemeResponse::class,
         UpdateThemeResponse::class,

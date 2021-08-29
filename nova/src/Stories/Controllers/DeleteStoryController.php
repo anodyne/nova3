@@ -36,11 +36,11 @@ class DeleteStoryController extends Controller
         ]);
     }
 
-    public function destroy(Request $request, DeleteStoryManager $action)
+    public function destroy(Request $request)
     {
         $this->authorize('delete', new Story());
 
-        $action->execute($request);
+        DeleteStoryManager::run($request);
 
         return redirect()
             ->route('stories.index')

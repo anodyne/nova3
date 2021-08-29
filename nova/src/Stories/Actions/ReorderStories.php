@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Actions;
 
+use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Stories\Models\Story;
 
 class ReorderStories
 {
-    public function execute(string $sort): void
+    use AsAction;
+
+    public function handle(string $sort): void
     {
-        collect(explode(',', $sort))->each(function ($roleId, $index) {
-            Story::where('id', $roleId)->update(['sort' => $index]);
+        collect(explode(',', $sort))->each(function ($id, $index) {
+            Story::where('id', $id)->update(['sort' => $index]);
         });
     }
 }

@@ -26,11 +26,11 @@ class CreateStoryController extends Controller
         return app(CreateStoryResponse::class);
     }
 
-    public function store(CreateStoryRequest $request, CreateStoryManager $action)
+    public function store(CreateStoryRequest $request)
     {
         $this->authorize('create', Story::class);
 
-        $story = $action->execute($request);
+        $story = CreateStoryManager::run($request);
 
         return redirect()
             ->route('stories.index')

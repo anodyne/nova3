@@ -8,5 +8,5 @@ use Nova\Foundation\Responses\Responsable;
 
 class CreatePositionResponse extends Responsable
 {
-    public $view = 'positions.create';
+    public string $view = 'positions.create';
 }

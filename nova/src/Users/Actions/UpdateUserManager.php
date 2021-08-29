@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace Nova\Users\Actions;
 
 use Illuminate\Http\Request;
+use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Users\DataTransferObjects\AssignUserCharactersData;
 use Nova\Users\DataTransferObjects\UserData;
 use Nova\Users\Models\User;
 
 class UpdateUserManager
 {
+    use AsAction;
+
     protected $assignUserCharacters;
 
     protected $updateUser;
@@ -39,25 +42,25 @@ class UpdateUserManager
         $this->assignUserCharacters = $assignUserCharacters;
     }
 
-    public function execute(User $user, Request $request): User
+    public function handle(User $user, Request $request): User
     {
-        $user = $this->updateUser->execute(
+        $user = UpdateUser::run(
             $user,
             $data = UserData::fromRequest($request)
         );
 
-        $user = $this->assignUserCharacters->execute(
+        $user = AssignUserCharacters::run(
             $user,
             AssignUserCharactersData::fromRequest($request)
         );
 
-        $this->updateStatus->execute($user, $request->status);
+        UpdateUserStatus::run($user, $request->status);
 
-        $this->updateRoles->execute($user, $data->roles);
+        UpdateUserRoles::run($user, $data->roles);
 
-        $this->uploadAvatar->execute($user, $request->avatar_path);
+        UploadUserAvatar::run($user, $request->avatar_path);
 
-        // $this->removeAvatar->execute($user, $request->input('remove_avatar', false));
+        // RemoveUserAvatar::run($user, $request->input('remove_avatar', false));
 
         return $user->refresh();
     }

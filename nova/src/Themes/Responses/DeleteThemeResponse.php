@@ -8,5 +8,5 @@ use Nova\Foundation\Responses\Responsable;
 
 class DeleteThemeResponse extends Responsable
 {
-    public $view = 'themes.delete';
+    public string $view = 'themes.delete';
 }

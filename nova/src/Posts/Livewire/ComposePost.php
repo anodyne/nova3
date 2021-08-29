@@ -28,13 +28,13 @@ class ComposePost extends Component
 
     protected $listeners = ['postTypeSelected' => 'setPostType'];
 
-    public function publish(SavePostManager $action)
+    public function publish()
     {
         $post = $this->post ?? new Post();
 
         $this->authorize('write', [$post, $this->postType]);
 
-        $post = $action->execute(
+        $post = SavePostManager::run(
             $this->getPostData(),
             $this->getPostStatusData('published'),
             $this->getPostPositionData()
@@ -45,7 +45,7 @@ class ComposePost extends Component
         return redirect()->route('stories.show', $this->story);
     }
 
-    public function save(SavePostManager $action)
+    public function save()
     {
         if ($this->postType && $this->title) {
             $post = $this->post ?? new Post();
@@ -54,7 +54,7 @@ class ComposePost extends Component
 
             $this->saving = true;
 
-            $this->post = $action->execute(
+            $this->post = SavePostManager::run(
                 $this->getPostData(),
                 $this->getPostStatusData('draft'),
                 $this->getPostPositionData()
