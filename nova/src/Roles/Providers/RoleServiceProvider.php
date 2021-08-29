@@ -17,16 +17,16 @@ use Nova\Roles\Responses\UpdateRoleResponse;
 
 class RoleServiceProvider extends DomainServiceProvider
 {
-    protected $livewireComponents = [
+    protected array $livewireComponents = [
         'roles:manage-permissions' => ManagePermissions::class,
         'roles:manage-roles' => ManageRoles::class,
     ];
 
-    protected $policies = [
+    protected array $policies = [
         Role::class => RolePolicy::class,
     ];
 
-    protected $responsables = [
+    protected array $responsables = [
         CreateRoleResponse::class,
         DeleteRoleResponse::class,
         UpdateRoleResponse::class,

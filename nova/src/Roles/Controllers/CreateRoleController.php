@@ -26,11 +26,11 @@ class CreateRoleController extends Controller
         return app(CreateRoleResponse::class);
     }
 
-    public function store(CreateRoleRequest $request, CreateRoleManager $action)
+    public function store(CreateRoleRequest $request)
     {
         $this->authorize('create', Role::class);
 
-        $role = $action->execute($request);
+        $role = CreateRoleManager::run($request);
 
         return redirect()
             ->route('roles.index')
