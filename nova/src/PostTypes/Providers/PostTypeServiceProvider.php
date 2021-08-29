@@ -15,11 +15,11 @@ use Nova\PostTypes\Responses\UpdatePostTypeResponse;
 
 class PostTypeServiceProvider extends DomainServiceProvider
 {
-    protected $policies = [
+    protected array $policies = [
         PostType::class => PostTypePolicy::class,
     ];
 
-    protected $responsables = [
+    protected array $responsables = [
         CreatePostTypeResponse::class,
         DeletePostTypeResponse::class,
         ShowAllPostTypesResponse::class,

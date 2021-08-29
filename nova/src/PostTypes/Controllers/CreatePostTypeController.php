@@ -31,11 +31,11 @@ class CreatePostTypeController extends Controller
         ]);
     }
 
-    public function store(CreatePostTypeRequest $request, CreatePostType $action)
+    public function store(CreatePostTypeRequest $request)
     {
         $this->authorize('create', PostType::class);
 
-        $postType = $action->execute(PostTypeData::fromRequest($request));
+        $postType = CreatePostType::run(PostTypeData::fromRequest($request));
 
         return redirect()
             ->route('post-types.index')

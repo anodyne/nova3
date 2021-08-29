@@ -8,5 +8,5 @@ use Nova\Foundation\Responses\Responsable;
 
 class DeletePostTypeResponse extends Responsable
 {
-    public $view = 'post-types.delete';
+    public string $view = 'post-types.delete';
 }

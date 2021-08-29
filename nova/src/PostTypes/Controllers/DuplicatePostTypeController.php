@@ -18,18 +18,16 @@ class DuplicatePostTypeController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(
-        DuplicatePostType $action,
-        PostType $originalPostType
-    ) {
-        $this->authorize('duplicate', $originalPostType);
+    public function __invoke(PostType $original)
+    {
+        $this->authorize('duplicate', $original);
 
-        $postType = $action->execute($originalPostType);
+        $postType = DuplicatePostType::run($original);
 
-        PostTypeDuplicated::dispatch($postType, $originalPostType);
+        PostTypeDuplicated::dispatch($postType, $original);
 
         return redirect()
             ->route('post-types.edit', $postType)
-            ->withToast("{$originalPostType->name} post type has been duplicated");
+            ->withToast("{$original->name} post type has been duplicated");
     }
 }
