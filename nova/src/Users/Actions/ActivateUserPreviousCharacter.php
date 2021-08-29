@@ -4,30 +4,26 @@ declare(strict_types=1);
 
 namespace Nova\Users\Actions;
 
+use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Characters\Actions\ActivateCharacter;
 use Nova\Users\Models\User;
 
 class ActivateUserPreviousCharacter
 {
-    protected $activateCharacter;
+    use AsAction;
 
-    public function __construct(ActivateCharacter $activateCharacter)
+    public function handle(User $user): void
     {
-        $this->activateCharacter = $activateCharacter;
-    }
-
-    public function execute(User $user): void
-    {
-        $primaryCharacters = $user->characters->filter(function ($character) {
-            return $character->pivot->primary !== true;
-        });
+        $primaryCharacters = $user->characters->filter(
+            fn ($character) => $character->pivot->primary !== true
+        );
 
         if ($primaryCharacters->count() > 1) {
-            $primaryCharacters->sortByDesc(function ($character) {
-                return $character->pivot->updated_at;
-            });
+            $primaryCharacters->sortByDesc(
+                fn ($character) => $character->pivot->updated_at
+            );
         }
 
-        $this->activateCharacter->execute($primaryCharacters->first());
+        ActivateCharacter::run($primaryCharacters->first());
     }
 }

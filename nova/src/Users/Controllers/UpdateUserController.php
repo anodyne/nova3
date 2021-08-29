@@ -29,14 +29,11 @@ class UpdateUserController extends Controller
         ]);
     }
 
-    public function update(
-        UpdateUserRequest $request,
-        UpdateUserManager $action,
-        User $user
-    ) {
+    public function update(UpdateUserRequest $request, User $user)
+    {
         $this->authorize('update', $user);
 
-        $user = $action->execute($user, $request);
+        $user = UpdateUserManager::run($user, $request);
 
         UserUpdatedByAdmin::dispatch($user);
 

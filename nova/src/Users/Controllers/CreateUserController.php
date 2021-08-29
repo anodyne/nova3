@@ -31,11 +31,11 @@ class CreateUserController extends Controller
         ]);
     }
 
-    public function store(CreateUserRequest $request, CreateUserManager $action)
+    public function store(CreateUserRequest $request)
     {
         $this->authorize('create', User::class);
 
-        $user = $action->execute($request);
+        $user = CreateUserManager::run($request);
 
         UserCreatedByAdmin::dispatch($user);
 

@@ -4,27 +4,18 @@ declare(strict_types=1);
 
 namespace Nova\Users\Actions;
 
+use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Users\Models\User;
 
 class DeleteUserManager
 {
-    protected $deleteUser;
+    use AsAction;
 
-    protected $deleteUserCharacters;
-
-    public function __construct(
-        DeleteUser $deleteUser,
-        DeleteUserCharacters $deleteUserCharacters
-    ) {
-        $this->deleteUser = $deleteUser;
-        $this->deleteUserCharacters = $deleteUserCharacters;
-    }
-
-    public function execute(User $user): User
+    public function handle(User $user): User
     {
-        $this->deleteUserCharacters->execute($user);
+        DeleteUserCharacters::run($user);
 
-        $this->deleteUser->execute($user);
+        DeleteUser::run($user);
 
         return $user;
     }

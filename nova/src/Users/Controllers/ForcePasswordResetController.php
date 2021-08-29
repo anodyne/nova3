@@ -17,11 +17,11 @@ class ForcePasswordResetController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(ForcePasswordReset $action, User $user)
+    public function __invoke(User $user)
     {
         $this->authorize('force-password-reset', $user);
 
-        $action->execute($user);
+        ForcePasswordReset::run($user);
 
         return back()
             ->withToast("Password reset initiated for {$user->name}", 'The user will be forced to reset their password the next time they sign in.');

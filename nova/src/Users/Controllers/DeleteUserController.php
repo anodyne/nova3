@@ -29,11 +29,11 @@ class DeleteUserController extends Controller
         ]);
     }
 
-    public function destroy(DeleteUserManager $action, User $user)
+    public function destroy(User $user)
     {
         $this->authorize('delete', $user);
 
-        $user = $action->execute($user);
+        $user = DeleteUserManager::run($user);
 
         UserDeletedByAdmin::dispatch($user);
 

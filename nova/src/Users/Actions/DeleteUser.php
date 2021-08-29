@@ -4,16 +4,20 @@ declare(strict_types=1);
 
 namespace Nova\Users\Actions;
 
-use Nova\Users\Exceptions\CannotDeleteOwnAccountException;
+use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Users\Exceptions\UserException;
 use Nova\Users\Models\User;
 
 class DeleteUser
 {
-    public function execute(User $user): User
+    use AsAction;
+
+    public function handle(User $user): User
     {
-        if ($user->is(auth()->user())) {
-            throw new CannotDeleteOwnAccountException('You cannot delete your own account.');
-        }
+        throw_if(
+            $user->is(auth()->user()),
+            UserException::cannotDeleteOwnAccount()
+        );
 
         return tap($user)->delete();
     }
