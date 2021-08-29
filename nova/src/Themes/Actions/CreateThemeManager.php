@@ -5,30 +5,21 @@ declare(strict_types=1);
 namespace Nova\Themes\Actions;
 
 use Illuminate\Http\Request;
+use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Themes\DataTransferObjects\ThemeData;
 use Nova\Themes\Models\Theme;
 
 class CreateThemeManager
 {
-    protected $createTheme;
+    use AsAction;
 
-    protected $setupThemeDirectory;
-
-    public function __construct(
-        CreateTheme $createTheme,
-        SetupThemeDirectory $setupThemeDirectory
-    ) {
-        $this->createTheme = $createTheme;
-        $this->setupThemeDirectory = $setupThemeDirectory;
-    }
-
-    public function execute(Request $request): Theme
+    public function handle(Request $request): Theme
     {
-        $theme = $this->createTheme->execute(
+        $theme = CreateTheme::run(
             $data = ThemeData::fromRequest($request)
         );
 
-        $this->setupThemeDirectory->execute($data);
+        SetupThemeDirectory::run($data);
 
         return $theme;
     }
