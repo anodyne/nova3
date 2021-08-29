@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Posts\Actions;
 
+use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Posts\DataTransferObjects\PostData;
 use Nova\Posts\DataTransferObjects\PostPositionData;
 use Nova\Posts\DataTransferObjects\PostStatusData;
@@ -11,32 +12,18 @@ use Nova\Posts\Models\Post;
 
 class SavePostManager
 {
-    protected SavePost $savePost;
+    use AsAction;
 
-    protected SetPostPosition $setPostPosition;
-
-    protected UpdatePostStatus $updatePostStatus;
-
-    public function __construct(
-        SavePost $savePost,
-        SetPostPosition $setPostPosition,
-        UpdatePostStatus $updatePostStatus
-    ) {
-        $this->savePost = $savePost;
-        $this->setPostPosition = $setPostPosition;
-        $this->updatePostStatus = $updatePostStatus;
-    }
-
-    public function execute(
+    public function handle(
         PostData $postData,
         PostStatusData $postStatusData,
         PostPositionData $positionData
     ): Post {
-        $post = $this->savePost->execute($postData);
+        $post = SavePost::run($postData);
 
-        $post = $this->updatePostStatus->execute($post, $postStatusData);
+        $post = UpdatePostStatus::run($post, $postStatusData);
 
-        $post = $this->setPostPosition->execute($post, $positionData);
+        $post = SetPostPosition::run($post, $positionData);
 
         // Send notifications
 

@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Nova\Posts\Actions;
 
+use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Posts\DataTransferObjects\PostPositionData;
 use Nova\Posts\Models\Post;
 
 class SetPostPosition
 {
-    public function execute(Post $post, PostPositionData $data): Post
+    use AsAction;
+
+    public function handle(Post $post, PostPositionData $data): Post
     {
         $rootPost = Post::whereStory($post->story_id)
             ->whereIsRoot()

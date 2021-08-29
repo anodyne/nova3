@@ -8,5 +8,5 @@ use Nova\Foundation\Responses\Responsable;
 
 class ComposePostResponse extends Responsable
 {
-    public $view = 'posts.compose';
+    public string $view = 'posts.compose';
 }
