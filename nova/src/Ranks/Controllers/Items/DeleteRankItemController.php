@@ -32,7 +32,7 @@ class DeleteRankItemController extends Controller
     {
         $this->authorize('delete', $item);
 
-        $action->execute($item);
+        DeleteRankItem::run($item);
 
         return redirect()
             ->route('ranks.items.index')

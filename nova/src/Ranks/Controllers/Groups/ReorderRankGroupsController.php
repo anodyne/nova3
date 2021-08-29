@@ -18,11 +18,11 @@ class ReorderRankGroupsController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(Request $request, ReorderRankGroups $action)
+    public function __invoke(Request $request)
     {
         $this->authorize('update', new RankGroup());
 
-        $action->execute($request->sort);
+        ReorderRankGroups::run($request->sort);
 
         return redirect()
             ->route('ranks.groups.index')

@@ -8,5 +8,5 @@ use Nova\Foundation\Responses\Responsable;
 
 class CreateRankNameResponse extends Responsable
 {
-    public $view = 'ranks.names.create';
+    public string $view = 'ranks.names.create';
 }

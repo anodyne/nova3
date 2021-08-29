@@ -37,11 +37,11 @@ class CreateRankItemController extends Controller
         ]);
     }
 
-    public function store(CreateRankItemRequest $request, CreateRankItem $action)
+    public function store(CreateRankItemRequest $request)
     {
         $this->authorize('create', RankItem::class);
 
-        $rank = $action->execute(RankItemData::fromRequest($request));
+        $rank = CreateRankItem::run(RankItemData::fromRequest($request));
 
         $group = strtolower($rank->group->name);
 

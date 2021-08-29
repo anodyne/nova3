@@ -33,19 +33,16 @@ class DuplicateRankGroupController extends Controller
         ]);
     }
 
-    public function duplicate(
-        Request $request,
-        DuplicateRankGroupManager $action,
-        RankGroup $originalGroup
-    ) {
-        $this->authorize('duplicate', $originalGroup);
+    public function duplicate(Request $request, RankGroup $original)
+    {
+        $this->authorize('duplicate', $original);
 
-        $group = $action->execute($originalGroup, $request);
+        $group = DuplicateRankGroupManager::run($original, $request);
 
-        RankGroupDuplicated::dispatch($group, $originalGroup);
+        RankGroupDuplicated::dispatch($group, $original);
 
         return redirect()
             ->route('ranks.groups.edit', $group)
-            ->withToast("{$group->name} has been created", "The rank items from {$originalGroup->name} have been duplicated with the new base image for your new rank group.");
+            ->withToast("{$group->name} has been created", "The rank items from {$original->name} have been duplicated with the new base image for your new rank group.");
     }
 }

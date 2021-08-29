@@ -29,14 +29,11 @@ class UpdateRankGroupController extends Controller
         ]);
     }
 
-    public function update(
-        UpdateRankGroupRequest $request,
-        UpdateRankGroup $action,
-        RankGroup $group
-    ) {
+    public function update(UpdateRankGroupRequest $request, RankGroup $group)
+    {
         $this->authorize('update', $group);
 
-        $group = $action->execute($group, RankGroupData::fromRequest($request));
+        $group = UpdateRankGroup::run($group, RankGroupData::fromRequest($request));
 
         return back()->withToast("{$group->name} was updated");
     }

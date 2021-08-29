@@ -29,14 +29,11 @@ class UpdateRankNameController extends Controller
         ]);
     }
 
-    public function update(
-        UpdateRankNameRequest $request,
-        UpdateRankName $action,
-        RankName $name
-    ) {
+    public function update(UpdateRankNameRequest $request, RankName $name)
+    {
         $this->authorize('update', $name);
 
-        $name = $action->execute($name, RankNameData::fromRequest($request));
+        $name = UpdateRankName::run($name, RankNameData::fromRequest($request));
 
         return back()->withToast("{$name->name} was updated");
     }

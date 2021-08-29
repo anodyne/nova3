@@ -8,5 +8,5 @@ use Nova\Foundation\Responses\Responsable;
 
 class UpdateRankItemResponse extends Responsable
 {
-    public $view = 'ranks.items.edit';
+    public string $view = 'ranks.items.edit';
 }

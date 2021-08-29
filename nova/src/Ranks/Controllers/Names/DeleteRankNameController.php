@@ -28,11 +28,11 @@ class DeleteRankNameController extends Controller
         ]);
     }
 
-    public function destroy(DeleteRankName $action, RankName $name)
+    public function destroy(RankName $name)
     {
         $this->authorize('delete', $name);
 
-        $action->execute($name);
+        DeleteRankName::run($name);
 
         return redirect()
             ->route('ranks.names.index')

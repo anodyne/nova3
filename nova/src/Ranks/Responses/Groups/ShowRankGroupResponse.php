@@ -8,5 +8,5 @@ use Nova\Foundation\Responses\Responsable;
 
 class ShowRankGroupResponse extends Responsable
 {
-    public $view = 'ranks.groups.show';
+    public string $view = 'ranks.groups.show';
 }
