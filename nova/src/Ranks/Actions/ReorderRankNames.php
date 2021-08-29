@@ -10,8 +10,8 @@ class ReorderRankNames
 {
     public function execute(string $sort): void
     {
-        collect(explode(',', $sort))->each(function ($nameId, $index) {
-            RankName::where('id', $nameId)->update(['sort' => $index]);
+        collect(explode(',', $sort))->each(function ($id, $index) {
+            RankName::where('id', $id)->update(['sort' => $index]);
         });
     }
 }

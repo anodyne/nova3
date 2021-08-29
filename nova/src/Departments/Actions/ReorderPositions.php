@@ -13,8 +13,8 @@ class ReorderPositions
 
     public function handle(string $sort): void
     {
-        collect(explode(',', $sort))->each(function ($positionId, $index) {
-            Position::where('id', $positionId)->update(['sort' => $index]);
+        collect(explode(',', $sort))->each(function ($id, $index) {
+            Position::where('id', $id)->update(['sort' => $index]);
         });
     }
 }

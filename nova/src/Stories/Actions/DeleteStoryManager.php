@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace Nova\Stories\Actions;
 
 use Illuminate\Http\Request;
+use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Stories\Exceptions\StoryException;
 use Nova\Stories\Models\Story;
 
 class DeleteStoryManager
 {
+    use AsAction;
+
     protected $deleteStory;
 
     protected $deleteStoryPosts;
@@ -30,7 +33,7 @@ class DeleteStoryManager
         $this->moveStoryPosts = $moveStoryPosts;
     }
 
-    public function execute(Request $request): void
+    public function handle(Request $request): void
     {
         $stories = collect(json_decode($request->actions, true));
 
@@ -40,21 +43,21 @@ class DeleteStoryManager
         );
 
         $stories->where('story.action', 'move')->each(function ($item, $id) {
-            $this->moveStory->execute(
+            MoveStory::run(
                 Story::find($id),
                 Story::find(data_get($item, 'story.actionId'))
             );
         });
 
         $stories->where('posts.action', 'move')->each(function ($item, $id) {
-            $this->moveStoryPosts->execute(
+            MoveStoryPosts::run(
                 Story::find($id),
                 Story::find(data_get($item, 'posts.actionId'))
             );
         });
 
         $stories->where('posts.action', 'delete')->each(function ($item, $id) {
-            $this->deleteStoryPosts->execute(Story::find($id));
+            DeleteStoryPosts::run(Story::find($id));
         });
 
         /**
@@ -62,7 +65,7 @@ class DeleteStoryManager
          * first which will cascade delete all descendants.
          */
         $stories->where('story.action', 'delete')->reverse()->each(function ($item, $id) {
-            $this->deleteStory->execute(Story::find($id));
+            DeleteStory::run(Story::find($id));
         });
 
         Story::rebuildTree([]);

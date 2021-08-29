@@ -13,7 +13,7 @@ class StoryDeleted
     use Dispatchable;
     use SerializesModels;
 
-    public $story;
+    public Story $story;
 
     public function __construct(Story $story)
     {

@@ -4,21 +4,17 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Actions;
 
+use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Posts\Actions\DeletePost;
 use Nova\Stories\Models\Story;
 
 class DeleteStoryPosts
 {
-    protected $deletePost;
+    use AsAction;
 
-    public function __construct(DeletePost $deletePost)
+    public function handle(Story $story): Story
     {
-        $this->deletePost = $deletePost;
-    }
-
-    public function execute(Story $story): Story
-    {
-        $story->posts->each(fn ($post) => $this->deletePost->execute($post));
+        $story->posts->each(fn ($post) => DeletePost::run($post));
 
         return $story->refresh();
     }

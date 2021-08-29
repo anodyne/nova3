@@ -33,11 +33,11 @@ class ReorderStoriesController extends Controller
         ]);
     }
 
-    public function reorder(Request $request, ReorderStories $action)
+    public function reorder(Request $request)
     {
         $this->authorize('update', new Story());
 
-        $action->execute($request->sort);
+        ReorderStories::run($request->sort);
 
         return redirect()
             ->route('stories.index')

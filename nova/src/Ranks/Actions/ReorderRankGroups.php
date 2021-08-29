@@ -10,8 +10,8 @@ class ReorderRankGroups
 {
     public function execute(string $sort): void
     {
-        collect(explode(',', $sort))->each(function ($groupId, $index) {
-            RankGroup::where('id', $groupId)->update(['sort' => $index]);
+        collect(explode(',', $sort))->each(function ($id, $index) {
+            RankGroup::where('id', $id)->update(['sort' => $index]);
         });
     }
 }

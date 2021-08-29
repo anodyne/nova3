@@ -13,8 +13,8 @@ class ReorderDepartments
 
     public function handle(string $sort): void
     {
-        collect(explode(',', $sort))->each(function ($deptId, $index) {
-            Department::where('id', $deptId)->update(['sort' => $index]);
+        collect(explode(',', $sort))->each(function ($id, $index) {
+            Department::where('id', $id)->update(['sort' => $index]);
         });
     }
 }
