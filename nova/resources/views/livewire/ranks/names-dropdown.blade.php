@@ -15,7 +15,7 @@
             aria-haspopup="listbox"
             x-bind:aria-expanded="open"
             aria-labelledby="listbox-label"
-            class="cursor-default relative w-full rounded-md border border-gray-200 bg-white pl-3 pr-10 py-2 text-left focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-150"
+            class="cursor-default relative w-full rounded-md border border-gray-6 bg-gray-1 pl-3 pr-10 py-2 text-left focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-150"
         >
             <span class="block truncate">
                 {{ optional($selected)->name ?? 'Select a rank name' }}
@@ -35,7 +35,7 @@
         x-transition:leave="transition ease-in duration-100"
         x-transition:leave-start="opacity-100"
         x-transition:leave-end="opacity-0"
-        class="absolute mt-1 w-full rounded-md bg-white shadow-lg z-10"
+        class="absolute mt-1 w-full rounded-md bg-gray-1 shadow-lg z-10"
         style="display: none;"
     >
         <ul
@@ -52,7 +52,7 @@
             aria-activedescendant="listbox-option-0"
         >
             <li class="p-2">
-                <div class="group flex items-center rounded-md bg-gray-100 border-2 border-gray-100 text-gray-600 px-2 py-2 space-x-3 focus-within:border-gray-200 focus-within:bg-white focus-within:text-gray-700">
+                <div class="group flex items-center rounded-md bg-gray-100 border-2 border-gray-100 text-gray-600 px-2 py-2 space-x-3 focus-within:border-gray-6 focus-within:bg-gray-1 focus-within:text-gray-700">
                     @icon('search', 'flex-shrink-0 h-5 w-5 text-gray-400 group-focus-within:text-gray-600')
 
                     <input wire:model.debounce.250ms="search" type="text" placeholder="Find a rank name..." class="flex w-full appearance-none bg-transparent border-none p-0 focus:ring-0 focus:outline-none">

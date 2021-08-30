@@ -10,7 +10,7 @@ use Nova\Foundation\Filters\Filters;
 
 class CharacterFilters extends Filters
 {
-    protected $filters = [
+    protected array $filters = [
         'search', 'status', 'type', 'hasuser', 'nouser', 'noposition'
     ];
 

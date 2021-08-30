@@ -1,4 +1,4 @@
-<div class="block bg-white rounded-md shadow">
+<div class="block bg-gray-1 rounded-md shadow">
     <div class="flex items-start space-x-4 px-4 py-4 | sm:px-6">
         <div class="flex-shrink-0 rounded-full p-1.5 border-2" style="left:6px; border-color:{{ $post->type->color }};color:{{ $post->type->color }}">
             @icon($post->type->icon, 'h-6 w-6')

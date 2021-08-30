@@ -2,15 +2,15 @@
     'stories'
 ])
 
-<div class="border-r-2 border-gray-300 absolute z-0 h-full top-0" style="left:25px;"></div>
+<div class="border-r-2 border-gray-6 absolute z-0 h-full top-0" style="left:25px;"></div>
 <ul class="relative z-10 list-none m-0 p-0 space-y-8">
     @foreach ($stories as $story)
         <li class="relative">
             <div class="flex">
-                <div class="absolute flex-shrink-0 bg-gray-300 rounded-full h-6 w-6 -mt-2" style="left:14px"></div>
+                <div class="absolute flex-shrink-0 bg-gray-6 rounded-full h-6 w-6 -mt-2" style="left:14px"></div>
 
                 <div class="w-full">
-                    <x-panel class="p-4 | sm:p-6">
+                    <x-panel class="p-4 sm:p-6">
                         <div class="flex items-center justify-between">
                             <div class="text-xl font-bold tracking-tight">{{ $story->title }}</div>
                             <div class="leading-0">
@@ -33,7 +33,7 @@
                                     </x-dropdown.group>
 
                                     <x-dropdown.group>
-                                        <x-dropdown.text class="uppercase tracking-wide font-semibold text-gray-500">
+                                        <x-dropdown.text class="uppercase tracking-wide font-semibold text-gray-9">
                                             Add a story
                                         </x-dropdown.text>
                                         <x-dropdown.item :href='route("stories.create", "direction=before&neighbor={$story->id}")' icon="move-up">
@@ -57,8 +57,8 @@
                                 </x-dropdown>
                             </div>
                         </div>
-                        <p class="text-gray-600 mt-1">{{ $story->description }}</p>
-                        <div class="flex items-center space-x-8 mt-2 text-sm text-gray-500">
+                        <p class="text-gray-11 mt-1">{{ $story->description }}</p>
+                        <div class="flex items-center space-x-8 mt-2 text-sm text-gray-9">
                             <span>
                                 @livewire('stories:status', ['story' => $story])
                             </span>

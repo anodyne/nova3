@@ -253,6 +253,12 @@
                         </x-slot>
 
                         <x-dropdown.group>
+                            <x-dropdown.text>
+                                @livewire('users:dark-mode-toggle')
+                            </x-dropdown.text>
+                        </x-dropdown.group>
+
+                        <x-dropdown.group>
                             <x-dropdown.item type="submit" icon="sign-out" form="logout-form">
                                 <span>Sign out</span>
 
@@ -261,7 +267,6 @@
                                 </x-slot>
                             </x-dropdown.item>
                         </x-dropdown.group>
-
                     </x-dropdown>
                 </div>
             </div>

@@ -71,7 +71,7 @@
                         </button>
                     </div>
 
-                    <div class="h-full flex flex-col py-6 bg-white shadow-xl overflow-y-scroll">
+                    <div class="h-full flex flex-col py-6 bg-gray-1 shadow-xl overflow-y-scroll">
                         <header class="flex items-center justify-between px-4 | sm:px-6">
                             <h2 class="text-lg font-medium text-gray-900">
                                 Notifications

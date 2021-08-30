@@ -8,5 +8,5 @@ use Nova\Foundation\Responses\Responsable;
 
 class ForgotPasswordResponse extends Responsable
 {
-    public $view = 'auth.passwords.email';
+    public string $view = 'auth.passwords.email';
 }

@@ -16,7 +16,7 @@ class PostSeeder extends Seeder
         Story::where('id', '>', 1)
             ->get()
             ->each(function ($story) {
-                $rootPost = app(CreateRootPost::class)->execute($story);
+                $rootPost = CreateRootPost::run($story);
 
                 $post = Post::factory()->published()->post()->create([
                     'story_id' => $story->id,

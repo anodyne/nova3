@@ -19,7 +19,7 @@
 
     <x-panel x-data="sortableList">
         @if ($isReordering)
-            <div class="bg-purple-3 border-t border-b border-purple-6 p-4 | sm:rounded-t-md sm:border-t-0">
+            <div class="bg-purple-3 border-t border-b border-purple-6 p-4 sm:rounded-t-md sm:border-t-0">
                 <div class="flex">
                     <div class="flex-shrink-0">
                         @icon('arrow-sort', 'h-6 w-6 text-purple-9')
@@ -47,106 +47,106 @@
                 </div>
             </div>
         @else
-            <div class="px-4 py-2 | sm:px-6 sm:py-3">
+            <div class="px-4 py-2 sm:px-6 sm:py-3">
                 <x-search-filter placeholder="Find a role..." :search="$search" />
             </div>
         @endif
 
         <ul id="sortable-list">
-        @forelse ($roles as $role)
-            <li class="sortable-item border-t border-gray-200 hover:bg-gray-50 transition duration-150 ease-in-out @if ($isReordering) first:border-0 last:rounded-b-md @endif" data-id="{{ $role->id }}">
-                <div class="block">
-                    <div class="px-4 py-4 flex items-center | sm:px-6">
-                        @if ($isReordering)
-                            <div class="sortable-handle flex-shrink-0 cursor-move mr-5">
-                                @icon('reorder', 'h-5 w-5 text-gray-400')
-                            </div>
-                        @endif
-                        <div class="min-w-0 flex-1 | sm:flex sm:items-center sm:justify-between">
-                            <div>
-                                <div class="font-medium truncate">
-                                    {{ $role->display_name }}
+            @forelse ($roles as $role)
+                <li class="sortable-item border-t border-gray-6 hover:bg-gray-2 transition duration-150 ease-in-out @if ($isReordering) first:border-0 last:rounded-b-md @endif" data-id="{{ $role->id }}">
+                    <div class="block">
+                        <div class="px-4 py-4 flex items-center sm:px-6">
+                            @if ($isReordering)
+                                <div class="sortable-handle flex-shrink-0 cursor-move mr-5">
+                                    @icon('reorder', 'h-5 w-5 text-gray-9')
                                 </div>
-                                <div class="mt-2 flex flex-col space-y-2 | sm:flex-row sm:space-x-6 sm:space-y-0">
-                                    <div class="flex items-center text-sm text-gray-500">
-                                        @if ($role->users_count === 1)
-                                            @icon('user', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
-                                        @else
-                                            @icon('users', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
-                                        @endif
-                                        <span>
-                                            {{ $role->users_count }} assigned @choice('user|users', $role->users_count)
-                                        </span>
+                            @endif
+                            <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
+                                <div>
+                                    <div class="font-medium truncate">
+                                        {{ $role->display_name }}
                                     </div>
-                                    @if ($role->default)
-                                        <div class="flex items-center text-sm text-gray-500">
-                                            @icon('check-alt', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
-                                            <span>Assigned to new users</span>
+                                    <div class="mt-2 flex flex-col space-y-2 sm:flex-row sm:space-x-6 sm:space-y-0">
+                                        <div class="flex items-center text-sm text-gray-11">
+                                            @if ($role->users_count === 1)
+                                                @icon('user', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-9')
+                                            @else
+                                                @icon('users', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-9')
+                                            @endif
+                                            <span>
+                                                {{ $role->users_count }} assigned @choice('user|users', $role->users_count)
+                                            </span>
                                         </div>
-                                    @endif
+                                        @if ($role->default)
+                                            <div class="flex items-center text-sm text-gray-11">
+                                                @icon('check-alt', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-9')
+                                                <span>Assigned to new users</span>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="mt-4 flex-shrink-0 sm:mt-0">
+                                    <x-avatar-group size="xs" :items="$role->users->take(4)" />
                                 </div>
                             </div>
-                            <div class="mt-4 flex-shrink-0 | sm:mt-0">
-                                <x-avatar-group size="xs" :items="$role->users->take(4)" />
+                            <div class="ml-5 flex-shrink-0 leading-0">
+                                <x-dropdown placement="bottom-end">
+                                    <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
+
+                                    <x-dropdown.group>
+                                        @can('view', $role)
+                                            <x-dropdown.item :href="route('roles.show', $role)" icon="show" data-cy="view">
+                                                <span>View</span>
+                                            </x-dropdown.item>
+                                        @endcan
+
+                                        @can('update', $role)
+                                            <x-dropdown.item :href="route('roles.edit', $role)" icon="edit" data-cy="edit">
+                                                <span>Edit</span>
+                                            </x-dropdown.item>
+                                        @endcan
+
+                                        @can('duplicate', $role)
+                                            <x-dropdown.item type="submit" form="duplicate-{{ $role->id }}" icon="duplicate" data-cy="duplicate">
+                                                <span>Duplicate</span>
+
+                                                <x-slot name="buttonForm">
+                                                    <x-form :action="route('roles.duplicate', $role)" id="duplicate-{{ $role->id }}" class="hidden" />
+                                                </x-slot>
+                                            </x-dropdown.item>
+                                        @endcan
+                                    </x-dropdown.group>
+
+                                    @can('delete', $role)
+                                        <x-dropdown.group>
+                                            <x-dropdown.item type="button" icon="delete" data-cy="delete" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($role) }});">
+                                                <span>Delete</span>
+                                            </x-dropdown.item>
+                                        </x-dropdown.group>
+                                    @endcan
+
+                                    @if ($role->locked)
+                                        <x-dropdown.group>
+                                            <x-dropdown.text>
+                                                This role is locked and cannot be duplicated or deleted.
+                                            </x-dropdown.text>
+                                        </x-dropdown.group>
+                                    @endif
+                                </x-dropdown>
                             </div>
-                        </div>
-                        <div class="ml-5 flex-shrink-0 leading-0">
-                            <x-dropdown placement="bottom-end">
-                                <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
-
-                                <x-dropdown.group>
-                                    @can('view', $role)
-                                        <x-dropdown.item :href="route('roles.show', $role)" icon="show" data-cy="view">
-                                            <span>View</span>
-                                        </x-dropdown.item>
-                                    @endcan
-
-                                    @can('update', $role)
-                                        <x-dropdown.item :href="route('roles.edit', $role)" icon="edit" data-cy="edit">
-                                            <span>Edit</span>
-                                        </x-dropdown.item>
-                                    @endcan
-
-                                    @can('duplicate', $role)
-                                        <x-dropdown.item type="submit" form="duplicate-{{ $role->id }}" icon="duplicate" data-cy="duplicate">
-                                            <span>Duplicate</span>
-
-                                            <x-slot name="buttonForm">
-                                                <x-form :action="route('roles.duplicate', $role)" id="duplicate-{{ $role->id }}" class="hidden" />
-                                            </x-slot>
-                                        </x-dropdown.item>
-                                    @endcan
-                                </x-dropdown.group>
-
-                                @can('delete', $role)
-                                    <x-dropdown.group>
-                                        <x-dropdown.item type="button" icon="delete" data-cy="delete" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($role) }});">
-                                            <span>Delete</span>
-                                        </x-dropdown.item>
-                                    </x-dropdown.group>
-                                @endcan
-
-                                @if ($role->locked)
-                                    <x-dropdown.group>
-                                        <x-dropdown.text>
-                                            This role is locked and cannot be duplicated or deleted.
-                                        </x-dropdown.text>
-                                    </x-dropdown.group>
-                                @endif
-                            </x-dropdown>
                         </div>
                     </div>
-                </div>
-            </li>
-        @empty
-            <x-search-not-found>
-                No roles found
-            </x-search-not-found>
-        @endforelse
+                </li>
+            @empty
+                <x-search-not-found>
+                    No roles found
+                </x-search-not-found>
+            @endforelse
         </ul>
 
         @if (! $isReordering)
-            <div class="px-4 py-2 border-t border-gray-200 | sm:px-6 sm:py-3">
+            <div class="px-4 py-2 border-t border-gray-6 sm:px-6 sm:py-3">
                 {{ $roles->withQueryString()->links() }}
             </div>
         @endif
@@ -156,12 +156,12 @@
 
     <x-modal color="red" title="Delete Role?" icon="warning" :url="route('roles.delete')">
         <x-slot name="footer">
-            <span class="flex w-full | sm:col-start-2">
+            <span class="flex w-full sm:col-start-2">
                 <x-button type="submit" form="form" color="red" full-width>
                     Delete
                 </x-button>
             </span>
-            <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
+            <span class="mt-3 flex w-full sm:mt-0 sm:col-start-1">
                 <x-button x-on:click="$dispatch('modal-close')" type="button" color="white" full-width>
                     Cancel
                 </x-button>

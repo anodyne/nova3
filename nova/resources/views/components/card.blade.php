@@ -3,7 +3,7 @@
     'footer' => false,
 ])
 
-<div {{ $attributes->merge(['class' => 'flex flex-col rounded-lg shadow-lg relative bg-white']) }}>
+<div {{ $attributes->merge(['class' => 'flex flex-col rounded-lg shadow-lg relative bg-gray-1']) }}>
     @if ($header)
         {{ $header }}
     @endif
@@ -16,7 +16,7 @@
         </div>
 
         @if ($footer)
-            <div class="px-4 py-3 | sm:px-6">
+            <div class="px-4 py-3 sm:px-6">
                 {{ $footer }}
             </div>
         @endif

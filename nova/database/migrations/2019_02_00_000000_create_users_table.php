@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->boolean('force_password_reset')->default(false);
             $table->timestamp('email_verified_at')->nullable();
+            $table->boolean('dark_mode')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

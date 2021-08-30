@@ -9,7 +9,7 @@ use Nova\Foundation\Filters\Filters;
 
 class StoryFilters extends Filters
 {
-    protected $filters = ['search', 'sort'];
+    protected array $filters = ['search', 'sort'];
 
     public function search($value): Builder
     {
