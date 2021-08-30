@@ -10,7 +10,7 @@ use Nova\Users\Models\User;
 
 class UserFilters extends Filters
 {
-    protected $filters = ['search', 'status'];
+    protected array $filters = ['search', 'status'];
 
     public function search($value): Builder
     {

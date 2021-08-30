@@ -12,7 +12,7 @@ use Nova\DomainServiceProvider;
 
 class AuthServiceProvider extends DomainServiceProvider
 {
-    protected $responsables = [
+    protected array $responsables = [
         EmailVerificationResponse::class,
         ForgotPasswordResponse::class,
         LoginResponse::class,

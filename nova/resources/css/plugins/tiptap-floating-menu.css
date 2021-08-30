@@ -1,5 +1,5 @@
 .floating-menu {
-    @apply absolute flex items-center -mt-1 ml-1 invisible opacity-0 transition ease-in duration-200 bg-white border rounded;
+    @apply absolute flex items-center -mt-1 ml-1 invisible opacity-0 transition ease-in duration-200 bg-gray-1 border rounded;
 
     z-index: 1;
 

@@ -14,7 +14,7 @@
                     <x-slot name="trigger">@icon('filter', 'h-6 w-6')</x-slot>
 
                     <x-dropdown.group>
-                        <x-dropdown.text class="uppercase tracking-wide font-semibold text-gray-500">
+                        <x-dropdown.text class="uppercase tracking-wide font-semibold text-gray-9">
                             Filter rank items
                         </x-dropdown.text>
 
@@ -53,7 +53,7 @@
     @else
         <x-panel x-data="sortableList">
             @if ($isReordering)
-                <div class="bg-purple-3 border-t border-b border-purple-6 p-4 | sm:rounded-t-md sm:border-t-0">
+                <div class="bg-purple-3 border-t border-b border-purple-6 p-4 sm:rounded-t-md sm:border-t-0">
                     <div class="flex">
                         <div class="flex-shrink-0">
                             @icon('arrow-sort', 'h-6 w-6 text-purple-9')
@@ -80,68 +80,68 @@
                     </div>
                 </div>
             @else
-                <div class="px-4 py-2 | sm:px-6 sm:py-3">
+                <div class="px-4 py-2 sm:px-6 sm:py-3">
                     <x-search-filter placeholder="Find a rank..." :search="$search" />
                 </div>
             @endif
 
             <ul id="sortable-list">
-            @forelse ($items as $item)
-                <li class="sortable-item border-t border-gray-200 hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out @if ($isReordering) first:border-0 last:rounded-b-md @endif" data-id="{{ $item->id }}">
-                    <div class="block">
-                        <div class="px-4 py-4 flex items-center | sm:px-6">
-                            @if ($isReordering)
-                                <div class="sortable-handle flex-shrink-0 cursor-move mr-5">
-                                    @icon('reorder', 'h-5 w-5 text-gray-400')
-                                </div>
-                            @endif
-                            <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
-                                <div class="flex items-center">
-                                    <x-rank :rank="$item" />
-                                    <div class="ml-3 font-medium">
-                                        {{ $item->rank_name }}
+                @forelse ($items as $item)
+                    <li class="sortable-item border-t border-gray-6 hover:bg-gray-2 focus:outline-none focus:bg-gray-2 transition duration-150 ease-in-out @if ($isReordering) first:border-0 last:rounded-b-md @endif" data-id="{{ $item->id }}">
+                        <div class="block">
+                            <div class="px-4 py-4 flex items-center sm:px-6">
+                                @if ($isReordering)
+                                    <div class="sortable-handle flex-shrink-0 cursor-move mr-5">
+                                        @icon('reorder', 'h-5 w-5 text-gray-9')
+                                    </div>
+                                @endif
+                                <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
+                                    <div class="flex items-center">
+                                        <x-rank :rank="$item" />
+                                        <div class="ml-3 font-medium">
+                                            {{ $item->rank_name }}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="ml-5 flex-shrink-0 leading-0">
-                                <x-dropdown placement="bottom-end">
-                                    <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
+                                <div class="ml-5 flex-shrink-0 leading-0">
+                                    <x-dropdown placement="bottom-end">
+                                        <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
 
-                                    <x-dropdown.group>
-                                        @can('view', $item)
-                                            <x-dropdown.item :href="route('ranks.items.show', $item)" icon="show" data-cy="view">
-                                                <span>View</span>
-                                            </x-dropdown.item>
-                                        @endcan
-
-                                        @can('update', $item)
-                                            <x-dropdown.item :href="route('ranks.items.edit', $item)" icon="edit" data-cy="edit">
-                                                <span>Edit</span>
-                                            </x-dropdown.item>
-                                        @endcan
-                                    </x-dropdown.group>
-
-                                    @can('delete', $item)
                                         <x-dropdown.group>
-                                            <x-dropdown.item type="button" icon="delete" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($item) }});" data-cy="delete">
-                                                <span>Delete</span>
-                                            </x-dropdown.item>
+                                            @can('view', $item)
+                                                <x-dropdown.item :href="route('ranks.items.show', $item)" icon="show" data-cy="view">
+                                                    <span>View</span>
+                                                </x-dropdown.item>
+                                            @endcan
+
+                                            @can('update', $item)
+                                                <x-dropdown.item :href="route('ranks.items.edit', $item)" icon="edit" data-cy="edit">
+                                                    <span>Edit</span>
+                                                </x-dropdown.item>
+                                            @endcan
                                         </x-dropdown.group>
-                                    @endcan
-                                </x-dropdown>
+
+                                        @can('delete', $item)
+                                            <x-dropdown.group>
+                                                <x-dropdown.item type="button" icon="delete" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($item) }});" data-cy="delete">
+                                                    <span>Delete</span>
+                                                </x-dropdown.item>
+                                            </x-dropdown.group>
+                                        @endcan
+                                    </x-dropdown>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </li>
-            @empty
-                <x-search-not-found>
-                    No rank items found
-                </x-search-not-found>
-            @endforelse
+                    </li>
+                @empty
+                    <x-search-not-found>
+                        No rank items found
+                    </x-search-not-found>
+                @endforelse
             </ul>
 
             @if (! $isReordering)
-                <div class="px-4 py-2 border-t border-gray-200 | sm:px-6 sm:py-3">
+                <div class="px-4 py-2 border-t border-gray-6 sm:px-6 sm:py-3">
                     {{ $items->withQueryString()->links() }}
                 </div>
             @endif
@@ -151,12 +151,12 @@
 
         <x-modal color="red" title="Delete rank item?" icon="warning" :url="route('ranks.items.delete')">
             <x-slot name="footer">
-                <span class="flex w-full | sm:col-start-2">
+                <span class="flex w-full sm:col-start-2">
                     <x-button type="submit" form="form" color="red" full-width>
                         Delete
                     </x-button>
                 </span>
-                <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
+                <span class="mt-3 flex w-full sm:mt-0 sm:col-start-1">
                     <x-button x-on:click="$dispatch('modal-close')" type="button" color="white" full-width>
                         Cancel
                     </x-button>

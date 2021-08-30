@@ -68,7 +68,7 @@
 
             <x-form.section title="Fields" message="Post types control which fields are available when creating a post of that type. You can turn any of these fields on/off to suit your game's needs.">
                 @foreach ($fieldTypes as $fieldType)
-                    <div x-data="{ '{{ $fieldType }}': {{ $postType->fields->{$fieldType}->enabled ? 'true' : 'false' }} }" class="px-4 py-5 bg-gray-100 rounded border border-gray-200 | sm:p-6">
+                    <div x-data="{ '{{ $fieldType }}': {{ $postType->fields->{$fieldType}->enabled ? 'true' : 'false' }} }" class="px-4 py-5 bg-gray-2 rounded border border-gray-6 sm:p-6">
                         <div x-on:toggle-changed="{{ $fieldType }} = $event.detail.value">
                             <x-input.toggle field="fields[{{ $fieldType }}][enabled]" :value="old('fields[{{ $fieldType }}][enabled]', $postType->fields->{$fieldType}->enabled)">
                                 {{ ucfirst($fieldType) }} field
@@ -124,7 +124,7 @@
                 </x-input.group>
 
                 <x-input.group label="Restrict posting" help="You can set a specific role a user must have in order to use certain post types.">
-                    <x-input.select name="role_id" id="role_id" class="w-full | md:w-2/3">
+                    <x-input.select name="role_id" id="role_id" class="w-full md:w-2/3">
                         <option value="">No role restrictions</option>
                         @foreach ($roles as $role)
                             <option value="{{ $role->id }}" @if ($postType->role_id == $role->id) selected @endif>{{ $role->display_name }}</option>

@@ -59,7 +59,7 @@
 
             <x-form.section title="Fields" message="Post types control which fields are available when creating a post of that type. You can turn any of these fields on/off to suit your game's needs.">
                 @foreach ($fieldTypes as $fieldType)
-                    <div x-data="{ '{{ $fieldType }}': true }" class="px-4 py-5 bg-gray-100 rounded border border-gray-200 | sm:p-6">
+                    <div x-data="{ '{{ $fieldType }}': true }" class="px-4 py-5 bg-gray-2 rounded border border-gray-6 sm:p-6">
                         <div x-on:toggle-changed="{{ $fieldType }} = $event.detail.value">
                             <x-input.toggle field="fields[{{ $fieldType }}][enabled]" :value="old('fields[{{ $fieldType }}][enabled]', true)">
                                 {{ ucfirst($fieldType) }} field

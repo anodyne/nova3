@@ -9,7 +9,7 @@ use Nova\Foundation\Filters\Filters;
 
 class RankGroupFilters extends Filters
 {
-    protected $filters = ['search'];
+    protected array $filters = ['search'];
 
     public function search($value): Builder
     {

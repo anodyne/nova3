@@ -11,7 +11,7 @@
                 <x-slot name="trigger">@icon('filter', 'h-6 w-6')</x-slot>
 
                 <x-dropdown.group>
-                    <x-dropdown.text class="uppercase tracking-wide font-semibold text-gray-500">
+                    <x-dropdown.text class="uppercase tracking-wide font-semibold text-gray-11">
                         Filter themes
                     </x-dropdown.text>
 
@@ -29,7 +29,7 @@
     </x-page-header>
 
     @if ($themes->count() > 0)
-        <div class="mt-12 grid gap-6 max-w-lg mx-auto | lg:grid-cols-3 lg:max-w-none">
+        <div class="mt-12 grid gap-6 max-w-lg mx-auto lg:grid-cols-3 lg:max-w-none">
             @foreach ($themes as $theme)
                 <x-card x-data="{ id: {{ $theme->id ?? 0 }} }">
                     <x-slot name="header">
@@ -39,7 +39,7 @@
                     </x-slot>
 
                     <div class="flex items-center justify-between">
-                        <h3 class="inline-flex items-center text-xl font-semibold text-gray-900">
+                        <h3 class="inline-flex items-center text-xl font-semibold text-gray-12">
                             {{ $theme->name }}
                         </h3>
 
@@ -77,8 +77,8 @@
                             @endif
                         </x-dropdown>
                     </div>
-                    <p class="mt-1 flex items-center text-base text-gray-500">
-                        @icon('folder', 'flex-shrink-0 mr-2 h-5 w-5 text-gray-400')
+                    <p class="mt-1 flex items-center text-base text-gray-11">
+                        @icon('folder', 'flex-shrink-0 mr-2 h-5 w-5 text-gray-9')
                         themes/{{ $theme->location }}
                     </p>
                     @if (! $theme->exists)
@@ -94,7 +94,7 @@
             @endforeach
         </div>
     @else
-        <div class="flex items-center w-full rounded-md px-4 py-4 bg-yellow-3 | sm:px-6">
+        <div class="flex items-center w-full rounded-md px-4 py-4 bg-yellow-3 sm:px-6">
             @icon('warning', 'h-6 w-6 flex-shrink-0 mr-3 text-yellow-9')
             <span class="font-medium text-yellow-11">
                 No themes found.

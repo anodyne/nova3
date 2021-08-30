@@ -33,7 +33,7 @@
     @else
         <x-panel x-data="sortableList">
             <div>
-                <div class="p-4 | sm:hidden">
+                <div class="p-4 sm:hidden">
                     <select x-on:change="window.location = $event.target.value" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-150 sm:text-sm">
                         <option value="{{ route('departments.edit', $department) }}">Department Info</option>
                         <option value="email">Positions</option>

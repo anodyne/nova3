@@ -36,7 +36,7 @@
 
     <ul class="my-8 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
         @foreach ($user->characters as $character)
-            <li class="col-span-1 flex flex-col text-center bg-white rounded-lg shadow">
+            <li class="col-span-1 flex flex-col text-center bg-gray-1 rounded-lg shadow">
                 <div class="flex-1 flex flex-col p-8">
                     <div>
                         <x-avatar :src="$character->avatar_url" size="xl" />

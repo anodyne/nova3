@@ -8,5 +8,5 @@ use Nova\Foundation\Responses\Responsable;
 
 class LoginResponse extends Responsable
 {
-    public $view = 'auth.login';
+    public string $view = 'auth.login';
 }

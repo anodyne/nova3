@@ -7,12 +7,12 @@
         </x-slot>
     </x-page-header>
 
-    <div class="grid gap-8 | lg:grid-cols-4">
-        <div class="order-2 | lg:col-span-3 lg:order-1">
+    <div class="grid gap-8 lg:grid-cols-4">
+        <div class="order-2 lg:col-span-3 lg:order-1">
             <p class="text-lg">{{ $story->description }}</p>
 
             <div class="flex items-center justify-between w-full my-8">
-                <x-input.group class="w-full | sm:w-1/2">
+                <x-input.group class="w-full sm:w-1/2">
                     <x-input.text id="name" name="name" data-cy="name" placeholder="Find a story post...">
                         <x-slot name="leadingAddOn">
                             @icon('search')
@@ -78,7 +78,7 @@
             </div>
 
             <div class="relative">
-                {{-- <div class="flex items-center justify-between px-4 py-2 | sm:px-6 sm:py-3">
+                {{-- <div class="flex items-center justify-between px-4 py-2 sm:px-6 sm:py-3">
                     <x-search-filter placeholder="Find a post..." :search="$search" />
 
                     <div class="flex-shrink-0 leading-0">
@@ -107,7 +107,7 @@
                     </div>
                 </div> --}}
 
-                <div class="border-r-4 border-gray-200 absolute z-0 h-full top-0 rounded-full" style="left:50%"></div>
+                <div class="border-r-4 border-gray-6 absolute z-0 h-full top-0 rounded-full" style="left:50%"></div>
 
                 <ul class="relative z-10 list-none m-0 p-0 space-y-8">
                     @forelse ($posts as $post)
@@ -125,19 +125,19 @@
                     @endforelse
                 </ul>
 
-                {{-- <div class="px-4 py-2 border-t border-gray-200 | sm:px-6 sm:py-3">
+                {{-- <div class="px-4 py-2 border-t border-gray-6 sm:px-6 sm:py-3">
                     {{ $posts->withQueryString()->links() }}
                 </div> --}}
             </div>
         </div>
 
-        <div class="order-1 | lg:col-span-1 lg:order-2">
+        <div class="order-1 lg:col-span-1 lg:order-2">
             @can('update', $story)
-            <div class="mb-8">
-                <x-link :href="route('stories.edit', $story)" color="blue" full-width data-cy="create">
-                    Edit Story
-                </x-link>
-            </div>
+                <div class="mb-8">
+                    <x-link :href="route('stories.edit', $story)" color="blue" full-width data-cy="create">
+                        Edit Story
+                    </x-link>
+                </div>
             @endcan
 
             <div class="space-y-4">
@@ -146,32 +146,32 @@
                 </div>
 
                 @if ($story->start_date)
-                <div class="flex items-center space-x-2 text-gray-600 text-sm">
-                    @icon('clock', 'text-gray-500')
-                    <span>Started {{ $story->start_date->format('M dS, Y') }}</span>
-                </div>
+                    <div class="flex items-center space-x-2 text-gray-11 text-sm">
+                        @icon('clock', 'text-gray-9')
+                        <span>Started {{ $story->start_date->format('M dS, Y') }}</span>
+                    </div>
                 @endif
 
                 @if ($story->end_date)
-                <div class="flex items-center space-x-2 text-gray-600 text-sm">
-                    @icon('clock', 'text-gray-500')
-                    <span>Ended {{ $story->end_date->format('M dS, Y') }}</span>
-                </div>
+                    <div class="flex items-center space-x-2 text-gray-11 text-sm">
+                        @icon('clock', 'text-gray-9')
+                        <span>Ended {{ $story->end_date->format('M dS, Y') }}</span>
+                    </div>
                 @endif
             </div>
 
             @if ($story->children->count() > 0)
-            <div class="mt-8">
-                <h2 class="mb-4 text-lg font-semibold text-gray-700">Stories Within {{ $story->title }}</h2>
+                <div class="mt-8">
+                    <h2 class="mb-4 text-lg font-semibold text-gray-11">Stories Within {{ $story->title }}</h2>
 
-                <ul class="list-none space-y-1">
-                    @foreach ($story->children as $subStory)
-                    <li>
-                        <a href="{{ route('stories.show', $subStory) }}" class="block px-2 py-1 rounded-md transition ease-in-out duration-150 hover:bg-gray-200">{{ $subStory->title }}</a>
-                    </li>
-                    @endforeach
-                </ul>
-            </div>
+                    <ul class="list-none space-y-1">
+                        @foreach ($story->children as $subStory)
+                        <li>
+                            <a href="{{ route('stories.show', $subStory) }}" class="block px-2 py-1 rounded-md transition ease-in-out duration-150 hover:bg-gray-2">{{ $subStory->title }}</a>
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
             @endif
         </div>
     </div>

@@ -9,11 +9,11 @@ use Nova\Setup\Commands\RefreshNovaCommand;
 
 class SetupServiceProvider extends DomainServiceProvider
 {
-    protected $commands = [
+    protected array $commands = [
         RefreshNovaCommand::class,
     ];
 
-    protected $routes = [
+    protected array $routes = [
         'setup' => [
             'verb' => 'get',
             'uses' => 'Nova\Setup\Controllers\SetupController@index',

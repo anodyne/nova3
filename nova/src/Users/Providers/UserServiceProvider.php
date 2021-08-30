@@ -8,6 +8,7 @@ use Nova\DomainServiceProvider;
 use Nova\Users\Controllers\ForcePasswordResetController;
 use Nova\Users\Events\UserCreatedByAdmin;
 use Nova\Users\Listeners\GeneratePassword;
+use Nova\Users\Livewire\DarkModeToggle;
 use Nova\Users\Livewire\ManageUsers;
 use Nova\Users\Livewire\UserNotifications;
 use Nova\Users\Livewire\UsersCollector;
@@ -33,6 +34,7 @@ class UserServiceProvider extends DomainServiceProvider
 
     protected array $livewireComponents = [
         'users:collector' => UsersCollector::class,
+        'users:dark-mode-toggle' => DarkModeToggle::class,
         'users:dropdown' => UsersDropdown::class,
         'users:manage-users' => ManageUsers::class,
         'users:notifications' => UserNotifications::class,

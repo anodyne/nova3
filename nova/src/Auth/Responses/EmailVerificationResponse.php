@@ -8,5 +8,5 @@ use Nova\Foundation\Responses\Responsable;
 
 class EmailVerificationResponse extends Responsable
 {
-    public $view = 'auth.verify';
+    public string $view = 'auth.verify';
 }
