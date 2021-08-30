@@ -44,7 +44,6 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     protected static $logFillable = true;
 
     protected $casts = [
-        'dark_mode' => 'boolean',
         'force_password_reset' => 'boolean',
     ];
 
@@ -56,7 +55,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
 
     protected $fillable = [
         'name', 'email', 'password', 'force_password_reset', 'status',
-        'pronouns', 'dark_mode',
+        'pronouns', 'appearance',
     ];
 
     protected $hidden = [

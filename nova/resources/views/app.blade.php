@@ -13,7 +13,7 @@
 
     @novaScripts
 </head>
-<body class="font-sans bg-gray-2 text-gray-12 antialiased{{ auth()->user()?->dark_mode === true ? ' dark' : '' }}">
+<body class="font-sans bg-gray-2 text-gray-12 antialiased {{ auth()->user()?->appearance ?? 'light' }}">
     <div id="app">
         @yield('layout')
 

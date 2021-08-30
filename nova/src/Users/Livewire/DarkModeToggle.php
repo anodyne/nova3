@@ -9,20 +9,18 @@ use Nova\Users\Actions\ToggleDarkMode;
 
 class DarkModeToggle extends Component
 {
-    public bool $on = false;
+    public string $appearance = 'light';
 
     public function toggle()
     {
-        ToggleDarkMode::run();
-
-        $this->on = ! $this->on;
+        $this->appearance = ToggleDarkMode::run();
 
         $this->dispatchBrowserEvent('refresh-page');
     }
 
     public function mount()
     {
-        $this->on = ! ! auth()->user()?->dark_mode;
+        $this->appearance = auth()->user()?->appearance ?? 'light';
     }
 
     public function render()

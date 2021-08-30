@@ -10,12 +10,16 @@ class ToggleDarkMode
 {
     use AsAction;
 
-    public function handle(): void
+    public function handle(): string
     {
         $user = auth()->user();
 
+        $appearance = $user->appearance === 'light' ? 'dark' : 'light';
+
         tap($user)->update([
-            'dark_mode' => ! $user->dark_mode,
+            'appearance' => $appearance,
         ]);
+
+        return $appearance;
     }
 }
