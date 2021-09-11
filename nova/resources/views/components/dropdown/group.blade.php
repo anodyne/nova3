@@ -1,3 +1,3 @@
-<div {{ $attributes->merge(['class' => 'py-1']) }} role="menu" aria-orientation="vertical">
+<div {{ $attributes->merge(['class' => 'p-1.5']) }} role="menu" aria-orientation="vertical">
     {{ $slot }}
 </div>

@@ -3,6 +3,7 @@
     'footer' => false,
     'method' => 'POST',
     'divide' => true,
+    'space' => true,
 ])
 
 <form
@@ -17,7 +18,10 @@
         @method($method)
     @endif
 
-    <div class="@if ($divide) divide-y divide-gray-3 @endif space-y-4 | md:space-y-8">
+    <div @class([
+        'divide-y divide-gray-3' => $divide,
+        'space-y-4 md:space-y-8' => $space,
+    ])>
         {{ $slot }}
     </div>
 </form>

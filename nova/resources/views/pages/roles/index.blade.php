@@ -120,9 +120,9 @@
 
                                     @can('delete', $role)
                                         <x-dropdown.group>
-                                            <x-dropdown.item type="button" icon="delete" data-cy="delete" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($role) }});">
+                                            <x-dropdown.item-danger type="button" icon="delete" data-cy="delete" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($role) }});">
                                                 <span>Delete</span>
-                                            </x-dropdown.item>
+                                            </x-dropdown.item-danger>
                                         </x-dropdown.group>
                                     @endcan
 
