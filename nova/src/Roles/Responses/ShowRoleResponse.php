@@ -8,5 +8,7 @@ use Nova\Foundation\Responses\Responsable;
 
 class ShowRoleResponse extends Responsable
 {
+    public ?string $subnav = 'users';
+
     public string $view = 'roles.show';
 }

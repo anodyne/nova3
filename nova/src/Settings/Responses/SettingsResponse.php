@@ -8,5 +8,7 @@ use Nova\Foundation\Responses\Responsable;
 
 class SettingsResponse extends Responsable
 {
-    public string $view = 'settings.index';
+    public ?string $subnav = 'settings';
+
+    public string $view = 'settings.discord';
 }

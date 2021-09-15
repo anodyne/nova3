@@ -1,4 +1,4 @@
-@extends($__novaTemplate)
+@extends($meta->template)
 
 @section('content')
     <x-page-header title="Add Story">
@@ -7,7 +7,7 @@
         </x-slot>
     </x-page-header>
 
-    <x-panel>
+    <x-panel on-edge>
         <x-form :action="route('stories.store')">
             <x-form.section title="Story Info" message="Provide some basic information about your story including a brief description of what the story is about.">
                 <x-input.group label="Title" for="title" :error="$errors->first('title')">

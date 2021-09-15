@@ -1,4 +1,4 @@
-@extends($__novaStructure)
+@extends($meta->structure)
 
 @section('layout')
     <div class="h-screen flex flex-col overflow-hidden bg-gray-100">

@@ -1,4 +1,4 @@
-@extends($__novaTemplate)
+@extends($meta->template)
 
 @section('content')
     <x-page-header>
@@ -83,7 +83,7 @@
         </x-slot>
     </x-page-header>
 
-    <x-panel>
+    <x-panel on-edge>
         <div>
             <div class="p-4 sm:hidden">
                 <select x-on:change="window.location.replace($event.target.value)" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 sm:text-sm transition ease-in-out duration-150">
@@ -210,9 +210,9 @@
 
                                     @can('delete', $character)
                                         <x-dropdown.group>
-                                            <x-dropdown.item type="button" icon="delete" data-cy="delete" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($character) }});">
+                                            <x-dropdown.item-danger type="button" icon="delete" data-cy="delete" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($character) }});">
                                                 <span>Delete</span>
-                                            </x-dropdown.item>
+                                            </x-dropdown.item-danger>
                                         </x-dropdown.group>
                                     @endcan
                                 </x-dropdown>

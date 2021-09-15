@@ -1,4 +1,4 @@
-<div x-data="{ open: false }" class="leading-0">
+<div x-data="{ open: false }" class="leading-none">
     <button
         x-on:click.prevent="open = true"
         {{-- wire:poll.30s="refreshNotifications" --}}

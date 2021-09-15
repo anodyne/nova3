@@ -50,6 +50,9 @@ module.exports = {
             padding: '1rem',
         },
         extend: {
+            boxShadow: (theme) => ({
+                nav: `inset 1px 0 ${theme('colors.gray.6')}`,
+            }),
             fontFamily: {
                 sans: ['Inter var', ...defaultTheme.fontFamily.sans],
             },

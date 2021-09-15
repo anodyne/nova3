@@ -8,5 +8,7 @@ use Nova\Foundation\Responses\Responsable;
 
 class ShowDepartmentResponse extends Responsable
 {
+    public ?string $subnav = 'characters';
+
     public string $view = 'departments.show';
 }

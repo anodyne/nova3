@@ -1,4 +1,4 @@
-@extends($__novaTemplate)
+@extends($meta->template)
 
 @section('content')
     <x-page-header title="Roles">
@@ -17,7 +17,7 @@
         </x-slot>
     </x-page-header>
 
-    <x-panel x-data="sortableList">
+    <x-panel x-data="sortableList" on-edge>
         @if ($isReordering)
             <div class="bg-purple-3 border-t border-b border-purple-6 p-4 sm:rounded-t-md sm:border-t-0">
                 <div class="flex">

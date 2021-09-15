@@ -19,6 +19,7 @@ class CreateSettingsTable extends Migration
             $table->json('characters')->nullable();
             $table->json('meta_data')->nullable();
             $table->json('discord')->nullable();
+            $table->json('posting_activity')->nullable();
             $table->timestamps();
         });
     }

@@ -1,4 +1,4 @@
-@extends($__novaTemplate)
+@extends($meta->template)
 
 @section('content')
     <x-page-header :title="$user->name">
@@ -7,7 +7,7 @@
         </x-slot>
     </x-page-header>
 
-    <x-panel>
+    <x-panel on-edge>
         <x-form :action="route('users.update', $user)" method="PUT">
             <x-form.section title="User Info" message="For privacy reasons, we don't recommend using a user's real name. Instead, use a nickname to help protect their identity.">
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
@@ -142,23 +142,25 @@
 
         @can('forcePasswordReset', $user)
             <div class="mt-6">
-                <div class="rounded-md bg-gray-50 px-6 py-5 | sm:flex sm:items-start sm:justify-between">
-                    <div class="sm:flex sm:items-start">
-                        @icon('lock', 'flex-shrink-0 h-8 w-8 text-gray-500')
-                        <div class="mt-3 | sm:mt-0 sm:ml-4">
-                            <div class="text-sm text-gray-600">
-                                If you believe this user should reset their password, you can force a password reset that will prompt them to change their password the next time they attempt to sign in.
+                <x-panel as="light well">
+                    <div class="sm:flex sm:items-start sm:justify-between">
+                        <div class="sm:flex sm:items-start">
+                            @icon('lock', 'flex-shrink-0 h-8 w-8 text-gray-500')
+                            <div class="mt-3 | sm:mt-0 sm:ml-4">
+                                <div class="text-sm text-gray-600">
+                                    If you believe this user should reset their password, you can force a password reset that will prompt them to change their password the next time they attempt to sign in.
+                                </div>
                             </div>
                         </div>
+                        <div class="mt-4 sm:mt-0 sm:ml-6 sm:flex-shrink-0">
+                            <x-form :action="route('users.force-password-reset', $user)">
+                                <x-button type="submit" color="white">
+                                    Force Password Reset
+                                </x-button>
+                            </x-form>
+                        </div>
                     </div>
-                    <div class="mt-4 sm:mt-0 sm:ml-6 sm:flex-shrink-0">
-                        <x-form :action="route('users.force-password-reset', $user)">
-                            <x-button type="submit" color="white">
-                                Force Password Reset
-                            </x-button>
-                        </x-form>
-                    </div>
-                </div>
+                </x-panel>
             </div>
         @endcan
 

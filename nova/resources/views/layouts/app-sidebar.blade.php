@@ -1,4 +1,4 @@
-@extends($__novaStructure)
+@extends($meta->structure)
 
 @section('layout')
 <div

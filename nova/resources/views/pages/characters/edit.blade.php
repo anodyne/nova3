@@ -1,4 +1,4 @@
-@extends($__novaTemplate)
+@extends($meta->template)
 
 @section('content')
     <x-page-header :title="$character->name">
@@ -7,7 +7,7 @@
         </x-slot>
     </x-page-header>
 
-    <x-panel>
+    <x-panel on-edge>
         <x-form :action="route('characters.update', $character)" method="PUT">
             <x-form.section title="Character Info">
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
@@ -50,11 +50,11 @@
 
     @can('deactivate', $character)
         <x-panel class="mt-8 p-4 | sm:p-6">
-            <h3 class="text-lg font-medium text-gray-900">
+            <h3 class="text-lg font-medium text-gray-12">
                 Deactivate Character
             </h3>
             <div class="mt-2 | sm:flex sm:items-start sm:justify-between">
-                <div class="w-full text-sm text-gray-600">
+                <div class="w-full text-sm text-gray-11">
                     <p>
                         When deactivating the character, the owning user(s) will remain at their current status. Pay special attention to deactivating a character who is the only character assigned to a user as it may impede their ability to contribute to stories.
                     </p>
@@ -72,11 +72,11 @@
 
     @can('activate', $character)
         <x-panel class="mt-8 p-4 | sm:p-6">
-            <h3 class="text-lg font-medium text-gray-900">
+            <h3 class="text-lg font-medium text-gray-12">
                 Activate Character
             </h3>
             <div class="mt-2 | sm:flex sm:items-start sm:justify-between">
-                <div class="w-full text-sm text-gray-600">
+                <div class="w-full text-sm text-gray-11">
                     <p>
                         When activating the character, if they were previously a primary character for the user, but the user has since had a new primary character set for themselves, this character will be set as a secondary character for the user.
                     </p>

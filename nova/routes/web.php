@@ -12,6 +12,8 @@ try {
             ->{$page->verb}($page->uri, $page->resource)
             ->name($page->key);
     });
+
+    Route::view('dashboard2', 'pages.dashboard2');
 } catch (Exception $ex) {
     // We're not going to do anything here yet
 }

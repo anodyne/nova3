@@ -8,5 +8,7 @@ use Nova\Foundation\Responses\Responsable;
 
 class CreateRoleResponse extends Responsable
 {
+    public ?string $subnav = 'users';
+
     public string $view = 'roles.create';
 }

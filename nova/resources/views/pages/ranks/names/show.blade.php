@@ -1,4 +1,4 @@
-@extends($__novaTemplate)
+@extends($meta->template)
 
 @section('content')
     <x-page-header :title="$name->name">
@@ -13,7 +13,7 @@
         </x-slot>
     </x-page-header>
 
-    <x-panel>
+    <x-panel on-edge>
         <x-form action="">
             <x-form.section title="Rank Name Info" message="Rank names allow you to re-use basic rank information across all of your ranks to avoid unnecessary and tedious editing of the same information across every rank in the system.">
                 <x-input.group label="Name">

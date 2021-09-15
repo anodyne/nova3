@@ -1,4 +1,4 @@
-@extends($__novaTemplate)
+@extends($meta->template)
 
 @section('content')
     <x-page-header title="Add Character">
@@ -7,7 +7,7 @@
         </x-slot>
     </x-page-header>
 
-    <x-panel>
+    <x-panel on-edge>
         <x-form :action="route('characters.store')">
             <x-form.section title="Character Info">
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">

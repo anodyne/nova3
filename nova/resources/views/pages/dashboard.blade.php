@@ -1,4 +1,4 @@
-@extends($__novaTemplate)
+@extends($meta->template)
 
 @section('content')
 <div>
@@ -9,7 +9,7 @@
         <div class="grid grid-cols-1 gap-8 lg:col-span-2">
             <!-- Welcome panel -->
             <section aria-labelledby="profile-overview-title">
-                <x-panel>
+                <x-panel on-edge>
                     <h2 class="sr-only" id="profile-overview-title">Profile Overview</h2>
                     <div class="p-6">
                         <div class="sm:flex sm:items-center sm:justify-between">

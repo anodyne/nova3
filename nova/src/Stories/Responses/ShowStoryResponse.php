@@ -8,5 +8,7 @@ use Nova\Foundation\Responses\Responsable;
 
 class ShowStoryResponse extends Responsable
 {
+    public ?string $subnav = 'writing';
+
     public string $view = 'stories.show';
 }

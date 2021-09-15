@@ -11,6 +11,7 @@ use Nova\Settings\Values\Defaults;
 use Nova\Settings\Values\Discord;
 use Nova\Settings\Values\Email;
 use Nova\Settings\Values\General;
+use Nova\Settings\Values\PostingActivity;
 
 class Settings extends Model
 {
@@ -27,10 +28,18 @@ class Settings extends Model
         'characters' => Characters::class,
         'meta_data' => 'json',
         'discord' => Discord::class,
+        'posting_activity' => PostingActivity::class,
     ];
 
     protected $fillable = [
-        'key', 'general', 'email', 'defaults', 'meta_data', 'characters', 'discord',
+        'key',
+        'general',
+        'email',
+        'defaults',
+        'meta_data',
+        'characters',
+        'discord',
+        'posting_activity',
     ];
 
     public function newEloquentBuilder($query): SettingsBuilder

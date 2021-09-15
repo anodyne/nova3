@@ -1,4 +1,4 @@
-@extends($__novaTemplate)
+@extends($meta->template)
 
 @section('content')
     <a href="{{ route('users.index', "status={$user->status->name()}") }}" class="group inline-flex items-center mb-4 text-sm text-gray-600 font-medium transition ease-in-out duration-150 hover:text-gray-800">

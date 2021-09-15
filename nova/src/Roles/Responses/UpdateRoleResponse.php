@@ -8,5 +8,7 @@ use Nova\Foundation\Responses\Responsable;
 
 class UpdateRoleResponse extends Responsable
 {
+    public ?string $subnav = 'users';
+
     public string $view = 'roles.edit';
 }

@@ -9,6 +9,7 @@ use Nova\Settings\Values\Defaults;
 use Nova\Settings\Values\Discord;
 use Nova\Settings\Values\Email;
 use Nova\Settings\Values\General;
+use Nova\Settings\Values\PostingActivity;
 
 class PopulateSettingsTable extends Migration
 {
@@ -35,6 +36,13 @@ class PopulateSettingsTable extends Migration
                 'applicationsEnabled' => false,
                 'applicationsWebhook' => null,
                 'applicationsColor' => null,
+            ]),
+            'posting_activity' => new PostingActivity([
+                'postsStrategy' => 'author',
+                'requiredActivity' => '1000',
+                'trackingStrategy' => 'words',
+                'wordCountPostConversion' => '500',
+                'wordCountStrategy' => 'average',
             ]),
         ];
 

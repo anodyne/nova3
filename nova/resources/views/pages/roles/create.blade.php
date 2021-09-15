@@ -1,4 +1,4 @@
-@extends($__novaTemplate)
+@extends($meta->template)
 
 @section('content')
     <x-page-header title="Add Role">
@@ -14,6 +14,7 @@
                 name = value.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'-');
             }
         })"
+        on-edge
     >
         <x-form :action="route('roles.store')">
             <x-form.section title="Role Info" message="A role is a collection of permissions that allows a user to take certain actions throughout Nova. Since a user can have as many roles as you'd like, we recommend creating roles with fewer permissions to give yourself more freedom to add and remove access for a given user.">

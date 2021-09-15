@@ -10,7 +10,7 @@
             <button
                 x-on:click="open = !open"
                 type="button"
-                class="flex items-center justify-between cursor-default relative w-full rounded-md border border-gray-200 bg-gray-1 px-3 py-2 text-left focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-150"
+                class="flex items-center justify-between cursor-default relative w-full rounded-md border border-gray-6 bg-gray-1 px-3 py-2 text-left focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-150"
                 aria-haspopup="true"
                 aria-expanded="true"
                 x-bind:aria-expanded="open"
@@ -24,7 +24,7 @@
                     <span>Pick a character</span>
                 @endif
 
-                <svg class="ml-2 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                <svg class="ml-2 h-5 w-5 text-gray-9" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                 </svg>
             </button>
@@ -46,7 +46,7 @@
         <div class="relative rounded-md bg-gray-1 ring-1 ring-black ring-opacity-5 max-h-60 overflow-auto z-10">
             <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                 <div class="p-2">
-                    <div class="group flex items-center rounded-md bg-gray-100 border-2 border-gray-100 text-gray-600 px-2 py-2 space-x-3 focus-within:border-gray-200 focus-within:bg-gray-1 focus-within:text-gray-700">
+                    <div class="group flex items-center rounded-md bg-gray-100 border-2 border-gray-100 text-gray-600 px-2 py-2 space-x-3 focus-within:border-gray-6 focus-within:bg-gray-1 focus-within:text-gray-700">
                         @icon('search', 'h-5 w-5 flex-shrink-0 text-gray-400 group-focus-within:text-gray-600')
 
                         <input wire:model.debounce.250ms="search" type="text" placeholder="Find a character..." class="flex w-full appearance-none bg-transparent border-none p-0 focus:ring-0 focus:outline-none">

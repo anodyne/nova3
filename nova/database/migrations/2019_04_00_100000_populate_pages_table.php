@@ -23,6 +23,7 @@ class PopulatePagesTable extends Migration
 
             ['uri' => '/', 'key' => 'home', 'resource' => 'Nova\\Foundation\\Controllers\\WelcomeController'],
             ['uri' => 'dashboard', 'key' => 'dashboard', 'resource' => 'Nova\\Dashboard\\Controllers\\DashboardController', 'layout' => 'admin'],
+            ['uri' => 'system-overview', 'key' => 'system-overview', 'resource' => 'Nova\\Dashboard\\Controllers\\SystemOverviewController', 'layout' => 'admin'],
 
             ['uri' => 'site-themes', 'key' => 'themes.index', 'resource' => 'Nova\\Themes\\Controllers\\ShowThemeController@all', 'layout' => 'admin'],
             ['uri' => 'site-themes/create', 'key' => 'themes.create', 'resource' => 'Nova\\Themes\\Controllers\\CreateThemeController@create', 'layout' => 'admin'],
@@ -67,7 +68,7 @@ class PopulatePagesTable extends Migration
             ['uri' => 'notes/{originalNote}/duplicate', 'key' => 'notes.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Notes\\Controllers\\DuplicateNoteController', 'layout' => 'admin'],
 
             ['uri' => 'settings/{tab?}', 'key' => 'settings.index', 'resource' => 'Nova\\Settings\\Controllers\\SettingsController@index', 'layout' => 'admin'],
-            ['uri' => 'settings', 'key' => 'settings.update', 'verb' => 'put', 'resource' => 'Nova\\Settings\\Controllers\\SettingsController@update', 'layout' => 'admin'],
+            ['uri' => 'settings/{tab?}', 'key' => 'settings.update', 'verb' => 'put', 'resource' => 'Nova\\Settings\\Controllers\\SettingsController@update', 'layout' => 'admin'],
 
             ['uri' => 'manage-ranks', 'key' => 'ranks.index', 'resource' => 'Nova\\Ranks\\Controllers\\ShowRankOptionsController', 'layout' => 'admin'],
 

@@ -1,4 +1,4 @@
-@extends($__novaTemplate)
+@extends($meta->template)
 
 @section('content')
     <x-page-header :title="$role->display_name">
@@ -13,7 +13,7 @@
         </x-slot>
     </x-page-header>
 
-    <x-panel>
+    <x-panel on-edge>
         <x-form action="">
             <x-form.section title="Role Info" message="A role is a collection of permissions that allows a user to take certain actions throughout Nova.">
                 <x-input.group label="Name">

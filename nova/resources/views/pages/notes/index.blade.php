@@ -1,4 +1,4 @@
-@extends($__novaTemplate)
+@extends($meta->template)
 
 @section('content')
     <x-page-header title="My Notes">
@@ -19,7 +19,7 @@
             :link="route('notes.create')"
         ></x-empty-state>
     @else
-        <x-panel>
+        <x-panel on-edge>
             <div class="px-4 py-2 | sm:px-6 sm:py-3">
                 <x-search-filter placeholder="Find a note..." :search="$search" />
             </div>
@@ -58,9 +58,9 @@
                                     </x-dropdown.group>
 
                                     <x-dropdown.group>
-                                        <x-dropdown.item type="button" icon="delete" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($note) }});" data-cy="delete">
+                                        <x-dropdown.item-danger type="button" icon="delete" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($note) }});" data-cy="delete">
                                             <span>Delete</span>
-                                        </x-dropdown.item>
+                                        </x-dropdown.item-danger>
                                     </x-dropdown.group>
                                 </x-dropdown>
                             </div>

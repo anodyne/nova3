@@ -1,4 +1,4 @@
-@extends($__novaTemplate)
+@extends($meta->template)
 
 @section('content')
     <x-page-header title="Add Note">
@@ -12,7 +12,7 @@
         <li>There are known issues with the display of HTML created with the rich text editor</li>
     </x-under-construction>
 
-    <x-panel>
+    <x-panel on-edge>
         <x-form :action="route('notes.store')">
             <div class="px-4 pt-4 space-y-8 | sm:pt-6 sm:px-6">
                 <x-input.group label="Title" for="title" :error="$errors->first('title')" class="sm:w-1/2">

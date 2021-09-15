@@ -8,5 +8,7 @@ use Nova\Foundation\Responses\Responsable;
 
 class ShowRankGroupResponse extends Responsable
 {
+    public ?string $subnav = 'characters';
+
     public string $view = 'ranks.groups.show';
 }

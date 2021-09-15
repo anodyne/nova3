@@ -10,7 +10,7 @@
                 <div class="absolute flex-shrink-0 bg-gray-6 rounded-full h-6 w-6 -mt-2" style="left:14px"></div>
 
                 <div class="w-full">
-                    <x-panel class="p-4 sm:p-6">
+                    <x-panel>
                         <div class="flex items-center justify-between">
                             <div class="text-xl font-bold tracking-tight">{{ $story->title }}</div>
                             <div class="leading-0">
@@ -49,9 +49,9 @@
 
                                     @can('delete', $story)
                                         <x-dropdown.group>
-                                            <x-dropdown.item :href="route('stories.delete', $story)" icon="delete">
+                                            <x-dropdown.item-danger :href="route('stories.delete', $story)" icon="delete">
                                                 <span>Delete</span>
-                                            </x-dropdown.item>
+                                            </x-dropdown.item-danger>
                                         </x-dropdown.group>
                                     @endcan
                                 </x-dropdown>

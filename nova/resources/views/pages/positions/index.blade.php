@@ -1,4 +1,4 @@
-@extends($__novaTemplate)
+@extends($meta->template)
 
 @section('content')
     <x-page-header :title="$department->name">
@@ -31,7 +31,7 @@
             :link="route('positions.create')"
         ></x-empty-state>
     @else
-        <x-panel x-data="sortableList">
+        <x-panel x-data="sortableList" on-edge>
             <div>
                 <div class="p-4 sm:hidden">
                     <select x-on:change="window.location = $event.target.value" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-150 sm:text-sm">
@@ -146,9 +146,9 @@
 
                                     @can('delete', $position)
                                         <x-dropdown.group>
-                                            <x-dropdown.item type="button" icon="delete" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($position) }});" data-cy="delete">
+                                            <x-dropdown.item-danger type="button" icon="delete" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($position) }});" data-cy="delete">
                                                 <span>Delete</span>
-                                            </x-dropdown.item>
+                                            </x-dropdown.item-danger>
                                         </x-dropdown.group>
                                     @endcan
                                 </x-dropdown>

@@ -1,4 +1,4 @@
-@extends($__novaTemplate)
+@extends($meta->template)
 
 @section('content')
     <x-page-header :title="$note->title">
@@ -13,7 +13,7 @@
         </x-slot>
     </x-page-header>
 
-    <x-panel>
+    <x-panel on-edge>
         <div class="px-4 py-2 | sm:px-6 sm:py-3">
             <div class="prose max-w-none">
                 {!! $note->content !!}

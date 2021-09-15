@@ -15,6 +15,8 @@ abstract class Responsable implements LaravelResponsable
 {
     public $layout;
 
+    public ?string $subnav = null;
+
     public $template;
 
     public string $view;
@@ -57,6 +59,15 @@ abstract class Responsable implements LaravelResponsable
         return "layouts.{$layout}";
     }
 
+    public function subnav(): mixed
+    {
+        if ($this->subnav) {
+            return "subnavs.{$this->subnav}";
+        }
+
+        return null;
+    }
+
     public function template(): string
     {
         $template = $this->template ?? 'simple';
@@ -76,11 +87,18 @@ abstract class Responsable implements LaravelResponsable
             $this->theme->prepareData(),
         );
 
-        return view("pages.{$this->view}", array_merge([
-            '__novaStructure' => 'app',
-            '__novaLayout' => $this->layout(),
-            '__novaTemplate' => $this->template(),
-        ], $data));
+        $meta = new ResponseMeta([
+            'layout' => $this->layout(),
+            'structure' => 'app',
+            'subnav' => $this->subnav(),
+            'subnavSection' => $this->subnav,
+            'template' => $this->template(),
+        ]);
+
+        return view(
+            "pages.{$this->view}",
+            array_merge(['meta' => $meta], $data)
+        );
     }
 
     public function toResponse($request)

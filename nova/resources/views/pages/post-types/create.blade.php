@@ -1,4 +1,4 @@
-@extends($__novaTemplate)
+@extends($meta->template)
 
 @section('content')
     <x-page-header title="Add Post Type">
@@ -14,6 +14,7 @@
                 key = value.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'-');
             }
         })"
+        on-edge
     >
         <x-form :action="route('post-types.store')">
             <x-form.section title="Post Type Info" message="A post type defines how different types of story entries are displayed and used. Using post types, you can setup your writing features exactly how you want them for your game.">

@@ -1,4 +1,4 @@
-@extends($__novaTemplate)
+@extends($meta->template)
 
 @section('content')
     <x-page-header title="Rank Groups">
@@ -33,7 +33,7 @@
             :link="route('ranks.groups.create')"
         ></x-empty-state>
     @else
-        <x-panel x-data="sortableList">
+        <x-panel x-data="sortableList" on-edge>
             @if ($isReordering)
                 <div class="bg-purple-3 border-t border-b border-purple-6 p-4 sm:rounded-t-md sm:border-t-0">
                     <div class="flex">
@@ -122,9 +122,9 @@
 
                                         @can('delete', $group)
                                             <x-dropdown.group>
-                                                <x-dropdown.item type="button" icon="delete" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($group) }});" data-cy="delete">
+                                                <x-dropdown.item-danger type="button" icon="delete" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($group) }});" data-cy="delete">
                                                     <span>Delete</span>
-                                                </x-dropdown.item>
+                                                </x-dropdown.item-danger>
                                             </x-dropdown.group>
                                         @endcan
                                     </x-dropdown>

@@ -1,4 +1,4 @@
-@extends($__novaTemplate)
+@extends($meta->template)
 
 @section('content')
     <x-page-header>
@@ -69,9 +69,9 @@
 
                                 @can('delete', $theme)
                                     <x-dropdown.group>
-                                        <x-dropdown.item type="button" icon="delete" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($theme) }});">
+                                        <x-dropdown.item-danger type="button" icon="delete" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($theme) }});">
                                             <span>Delete</span>
-                                        </x-dropdown.item>
+                                        </x-dropdown.item-danger>
                                     </x-dropdown.group>
                                 @endcan
                             @endif
@@ -108,12 +108,12 @@
                 <div class="flex-shrink-0">
                     @icon('info', 'h-6 w-6 text-blue-9')
                 </div>
-                <div class="ml-3 flex-1 | md:flex md:justify-between">
+                <div class="ml-3 flex-1 md:flex md:justify-between">
                     <p class="text-sm text-blue-11">
-                        Looking for more themes? Check out AnodyneXtras!
+                        Looking for more themes? Check out the Nova Exchange!
                     </p>
-                    <p class="mt-3 text-sm | md:mt-0 md:ml-6">
-                        <a href="{{ config('services.anodyne.links.xtras') }}" target="_blank" class="whitespace-nowrap font-medium text-blue-9 hover:text-blue-10 transition ease-in-out duration-150">
+                    <p class="mt-3 text-sm md:mt-0 md:ml-6">
+                        <a href="{{ config('services.anodyne.links.exchange') }}" target="_blank" class="whitespace-nowrap font-medium text-blue-9 hover:text-blue-10 transition ease-in-out duration-150">
                             Go &rarr;
                         </a>
                     </p>
@@ -124,12 +124,12 @@
 
     <x-modal color="red" title="Delete Theme?" icon="warning" :url="route('themes.delete')">
         <x-slot name="footer">
-            <span class="flex w-full | sm:col-start-2">
+            <span class="flex w-full sm:col-start-2">
                 <x-button type="submit" form="form" color="red" full-width>
                     Delete
                 </x-button>
             </span>
-            <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
+            <span class="mt-3 flex w-full sm:mt-0 sm:col-start-1">
                 <x-button x-on:click="$dispatch('modal-close')" type="button" color="white" full-width>
                     Cancel
                 </x-button>

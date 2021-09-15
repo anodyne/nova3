@@ -8,5 +8,7 @@ use Nova\Foundation\Responses\Responsable;
 
 class UpdateThemeResponse extends Responsable
 {
+    public ?string $subnav = 'system';
+
     public string $view = 'themes.edit';
 }
