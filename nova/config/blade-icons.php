@@ -25,6 +25,11 @@ return [
             'prefix' => 'fluent',
             'class' => '',
         ],
+        'fas' => [
+            'path' => 'nova/resources/svg/fontawesome-solid',
+            'prefix' => 'fas',
+            'class' => '',
+        ],
         'iconoir' => [
             'path' => 'nova/resources/svg/iconoir',
             'prefix' => 'iconoir',

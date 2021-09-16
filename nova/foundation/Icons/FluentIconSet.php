@@ -74,7 +74,7 @@ class FluentIconSet extends IconSet
 
     public function name(): string
     {
-        return 'Fluent Icons';
+        return 'Fluent';
     }
 
     public function prefix(): string
