@@ -6,9 +6,9 @@ namespace Nova\Settings\Responses;
 
 use Nova\Foundation\Responses\Responsable;
 
-class SettingsResponse extends Responsable
+class SystemDefaultsSettingsResponse extends Responsable
 {
     public ?string $subnav = 'settings';
 
-    public string $view = 'settings.discord';
+    public string $view = 'settings.system-defaults';
 }

@@ -5,28 +5,25 @@ declare(strict_types=1);
 namespace Nova\Settings\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Nova\Settings\DataTransferObjects\Characters;
+use Nova\Settings\DataTransferObjects\Discord;
+use Nova\Settings\DataTransferObjects\Email;
+use Nova\Settings\DataTransferObjects\General;
+use Nova\Settings\DataTransferObjects\MetaTags;
+use Nova\Settings\DataTransferObjects\PostingActivity;
+use Nova\Settings\DataTransferObjects\SystemDefaults;
 use Nova\Settings\Models\Builders\SettingsBuilder;
-use Nova\Settings\Values\Characters;
-use Nova\Settings\Values\Defaults;
-use Nova\Settings\Values\Discord;
-use Nova\Settings\Values\Email;
-use Nova\Settings\Values\General;
-use Nova\Settings\Values\PostingActivity;
 
 class Settings extends Model
 {
     protected $table = 'settings';
 
-    protected $attributes = [
-        'defaults' => '[]',
-    ];
-
     protected $casts = [
         'general' => General::class,
         'email' => Email::class,
-        'defaults' => Defaults::class,
+        'system_defaults' => SystemDefaults::class,
         'characters' => Characters::class,
-        'meta_data' => 'json',
+        'meta_tags' => MetaTags::class,
         'discord' => Discord::class,
         'posting_activity' => PostingActivity::class,
     ];
@@ -35,8 +32,8 @@ class Settings extends Model
         'key',
         'general',
         'email',
-        'defaults',
-        'meta_data',
+        'system_defaults',
+        'meta_tags',
         'characters',
         'discord',
         'posting_activity',

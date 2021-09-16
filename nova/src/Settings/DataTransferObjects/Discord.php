@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Nova\Settings\Values;
+namespace Nova\Settings\DataTransferObjects;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Http\Request;
@@ -24,14 +24,13 @@ class Discord extends CastableDataTransferObject implements Arrayable
 
     public static function fromRequest(Request $request): self
     {
-        return new self([
-            'applicationsEnabled' => (bool) $request->input('applications.enabled', false),
-            'applicationsWebhook' => $request->input('applications.webhook'),
-            'applicationsColor' => $request->input('applications.color'),
-
-            'storyPostsEnabled' => (bool) $request->input('storyPosts.enabled', false),
-            'storyPostsWebhook' => $request->input('storyPosts.webhook'),
-            'storyPostsColor' => $request->input('storyPosts.color'),
-        ]);
+        return new self(
+            applicationsColor: $request->input('applications.color'),
+            applicationsEnabled: (bool) $request->input('applications.enabled', false),
+            applicationsWebhook: $request->input('applications.webhook'),
+            storyPostsColor: $request->input('storyPosts.color'),
+            storyPostsEnabled: (bool) $request->input('storyPosts.enabled', false),
+            storyPostsWebhook: $request->input('storyPosts.webhook')
+        );
     }
 }
