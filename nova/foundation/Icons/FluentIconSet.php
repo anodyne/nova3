@@ -12,7 +12,6 @@ class FluentIconSet extends IconSet
             'add' => 'add',
             'add-alt' => 'add-circle',
             'alert' => 'error-circle',
-            'alert-filled' => 'error-circle-filled',
             'arrow-right' => 'arrow-right',
             'arrow-right-alt' => 'arrow-right-circle',
             'arrow-sort' => 'arrow-sort',

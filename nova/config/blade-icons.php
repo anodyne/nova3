@@ -25,6 +25,11 @@ return [
             'prefix' => 'fluent',
             'class' => '',
         ],
+        'iconoir' => [
+            'path' => 'nova/resources/svg/iconoir',
+            'prefix' => 'iconoir',
+            'class' => '',
+        ],
         'empty' => [
             'path' => 'nova/resources/svg/empty-states',
             'prefix' => 'empty',

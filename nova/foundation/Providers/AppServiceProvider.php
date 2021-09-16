@@ -14,6 +14,7 @@ use Illuminate\View\Factory as ViewFactory;
 use Livewire\Livewire;
 use Nova\Foundation\Icons\FeatherIconSet;
 use Nova\Foundation\Icons\FluentIconSet;
+use Nova\Foundation\Icons\IconoirIconSet;
 use Nova\Foundation\Icons\IconSets;
 use Nova\Foundation\Livewire\IconsSelectMenu;
 use Nova\Foundation\Livewire\UploadAvatar;
@@ -67,6 +68,7 @@ class AppServiceProvider extends ServiceProvider
         $iconSets = new IconSets();
         $iconSets->add('feather', new FeatherIconSet());
         $iconSets->add('fluent', new FluentIconSet());
+        $iconSets->add('iconoir', new IconoirIconSet());
 
         $this->app->instance(IconSets::class, $iconSets);
     }

@@ -59,7 +59,7 @@ class Badge extends Component
                 break;
 
             case 'yellow':
-                return 'bg-yellow-3 text-yellow-11';
+                return 'bg-yellow-3 text-yellow-11 border-yellow-6';
 
                 break;
 

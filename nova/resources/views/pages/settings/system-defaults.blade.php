@@ -21,7 +21,7 @@
             </x-input.group>
 
             <x-input.group label="Icon Set" for="icon_set">
-                <x-input.select class="mt-1 block w-full" id="icon_set" name="icon_set">
+                <x-input.select class="mt-1 block w-full" id="icon_set" name="icon-set">
                     @foreach ($iconSets->getSets() as $alias => $set)
                         <option value="{{ $alias }}" @if ($alias === $settings->system_defaults->iconSet) selected @endif>{{ $set->name() }}</option>
                     @endforeach
