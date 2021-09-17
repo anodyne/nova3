@@ -15,7 +15,6 @@ use Livewire\Livewire;
 use Nova\Foundation\Icons\FeatherIconSet;
 use Nova\Foundation\Icons\FluentIconSet;
 use Nova\Foundation\Icons\FontAwesomeSolidIconSet;
-use Nova\Foundation\Icons\IconoirIconSet;
 use Nova\Foundation\Icons\IconSets;
 use Nova\Foundation\Icons\StreamlineUiIconSet;
 use Nova\Foundation\Livewire\IconsSelectMenu;
@@ -70,7 +69,6 @@ class AppServiceProvider extends ServiceProvider
         $iconSets = new IconSets();
         $iconSets->add('fluent', new FluentIconSet());
         $iconSets->add('feather', new FeatherIconSet());
-        $iconSets->add('iconoir', new IconoirIconSet());
         $iconSets->add('fas', new FontAwesomeSolidIconSet());
         $iconSets->add('sui', new StreamlineUiIconSet());
 

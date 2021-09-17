@@ -30,11 +30,6 @@ return [
             'prefix' => 'fas',
             'class' => '',
         ],
-        'iconoir' => [
-            'path' => 'nova/resources/svg/iconoir',
-            'prefix' => 'iconoir',
-            'class' => '',
-        ],
         'sui' => [
             'path' => 'nova/resources/svg/streamline-ui',
             'prefix' => 'sui',
