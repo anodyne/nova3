@@ -17,19 +17,25 @@
             </x-slot>
 
             <x-input.group>
-                <x-input.toggle field="active" :value="old('characters.allowCharacterCreation', 'true')">
+                <x-input.toggle
+                    field="characters[allowCharacterCreation]"
+                    :value="old('characters.allowCharacterCreation', 'true')"
+                >
                     Allow users to create characters
                 </x-input.toggle>
             </x-input.group>
 
-            {{-- <x-input.group>
+            <x-input.group>
                 <x-input.toggle field="active" :value="old('active', 'true')">
-                    Auto-link characters to the creating user
+                    Automatically link characters to the creating user
                 </x-input.toggle>
-            </x-input.group> --}}
+            </x-input.group>
 
             <x-input.group>
-                <x-input.toggle field="active" :value="old('characters.requireApprovalForCharacterCreation', 'true')">
+                <x-input.toggle
+                    field="characters[requireApprovalForCharacterCreation]"
+                    :value="old('characters.requireApprovalForCharacterCreation', 'true')"
+                >
                     Require approval for created characters
                 </x-input.toggle>
             </x-input.group>

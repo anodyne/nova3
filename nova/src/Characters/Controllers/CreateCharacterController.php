@@ -22,18 +22,21 @@ class CreateCharacterController extends Controller
 
     public function create()
     {
-        $this->authorize('create', Character::class);
+        $this->authorize('createAny', Character::class);
 
         return app(CreateCharacterResponse::class);
     }
 
     public function store(CreateCharacterRequest $request)
     {
-        $this->authorize('create', Character::class);
+        $this->authorize('createAny', Character::class);
 
         $character = CreateCharacterManager::run($request);
 
-        CharacterCreatedByAdmin::dispatch($character);
+        CharacterCreatedByAdmin::dispatchIf(
+            $request->user()->can('create', Character::class),
+            $character
+        );
 
         return redirect()
             ->route('characters.index', 'status=active')

@@ -82,7 +82,7 @@
                         Users
                     </x-nav.main-item>
 
-                    @can('update', app('nova.settings'))
+                    @can('update', settings())
                         <x-nav.main-item href="{{ route('settings.index', 'general') }}" :active="$meta->subnavSection === 'settings'">
                             Settings
                         </x-nav.main-item>
@@ -116,7 +116,7 @@
                         Users
                     </x-nav.main-item-mobile>
 
-                    @can('update', app('nova.settings'))
+                    @can('update', settings())
                         <x-nav.main-item-mobile href="{{ route('settings.index', 'general') }}" :active="$meta->subnavSection === 'settings'">
                             Settings
                         </x-nav.main-item-mobile>

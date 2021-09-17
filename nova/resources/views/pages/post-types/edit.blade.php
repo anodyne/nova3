@@ -104,7 +104,7 @@
                         Send notification to Discord
                     </x-input.toggle>
 
-                    @if (! app('nova.settings')->discord->storyPostsEnabled)
+                    @if (! settings()->discord->storyPostsEnabled)
                         <x-slot name="help">
                             <span class="font-medium">Story post notifications for Discord is currently disabled.</span> You can change this setting, but it will not work until you have enabled sending story post notifications to Discord from the <a class="text-blue-9 hover:text-blue-10 transition ease-in-out duration-150" href="{{ route('settings.index', 'discord') }}">Discord settings</a>.
                         </x-slot>

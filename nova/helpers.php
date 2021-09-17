@@ -52,6 +52,13 @@ if (! function_exists('pipe')) {
     }
 }
 
+if (! function_exists('settings')) {
+    function settings()
+    {
+        return app('nova.settings');
+    }
+}
+
 if (! function_exists('toast')) {
     function toast()
     {

@@ -35,6 +35,11 @@ return [
             'prefix' => 'iconoir',
             'class' => '',
         ],
+        'sui' => [
+            'path' => 'nova/resources/svg/streamline-ui',
+            'prefix' => 'sui',
+            'class' => '',
+        ],
         'empty' => [
             'path' => 'nova/resources/svg/empty-states',
             'prefix' => 'empty',

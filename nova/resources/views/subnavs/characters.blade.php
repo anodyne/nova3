@@ -1,11 +1,15 @@
 <x-nav.sub>
     <x-nav.sub-header>Characters</x-nav.sub-header>
 
-    @can('viewAny', Nova\Characters\Models\Character::class)
-        <x-nav.sub-group>
-            <x-nav.sub-item href="{{ route('characters.index') }}" :active="request()->routeIs('characters.*')">All Characters</x-nav.sub-item>
-        </x-nav.sub-group>
-    @endcan
+    <x-nav.sub-group>
+        <x-nav.sub-item href="{{ route('characters.index', 'status=active') }}" :active="request()->routeIs('characters.*')">
+            @can('viewAny', Nova\Characters\Models\Character::class)
+                All Characters
+            @else
+                My Characters
+            @endcan
+        </x-nav.sub-item>
+    </x-nav.sub-group>
 
     @can('viewAny', Nova\Departments\Models\Department::class)
         <x-nav.sub-group>

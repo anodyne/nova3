@@ -22,7 +22,7 @@ class IconSets
 
     public function getDefaultSet(): IconSet
     {
-        return $this->sets[app('nova.settings')->system_defaults->iconSet];
+        return $this->sets[settings()->system_defaults->iconSet];
     }
 
     public function getSets(): array

@@ -21,10 +21,14 @@ class CreateCharacterManager
             CharacterData::fromRequest($request)
         );
 
-        $character = AssignCharacterOwners::run(
-            $character,
-            AssignCharacterOwnersData::fromRequest($request)
-        );
+        if ($request->self_assign) {
+            $character = SelfAssignCharacter::run($character);
+        } else {
+            $character = AssignCharacterOwners::run(
+                $character,
+                AssignCharacterOwnersData::fromRequest($request)
+            );
+        }
 
         $character = AssignCharacterPositions::run(
             $character,

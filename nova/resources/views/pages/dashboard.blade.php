@@ -57,7 +57,7 @@
 
                     <div class="rounded-tl-lg relative group bg-gray-1 p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
                         <div>
-                            <span class="rounded-lg inline-flex p-3 bg-blue-3 text-blue-9 ring-4 ring-gray-1">
+                            <span class="rounded-lg inline-flex p-3 bg-blue-3 text-blue-9 border border-blue-6 ring-4 ring-gray-1">
                                 @icon('write', 'h-6 w-6')
                             </span>
                         </div>
@@ -79,7 +79,7 @@
 
                     <div class="rounded-tr-lg relative group bg-gray-1 p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
                         <div>
-                            <span class="rounded-lg inline-flex p-3 bg-purple-3 text-purple-9 ring-4 ring-gray-1">
+                            <span class="rounded-lg inline-flex p-3 bg-purple-3 text-purple-9 border border-purple-6 ring-4 ring-gray-1">
                                 @icon('note', 'h-6 w-6')
                             </span>
                         </div>
@@ -101,7 +101,7 @@
 
                     <div class="rounded-bl-lg relative group bg-gray-1 p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
                         <div>
-                            <span class="rounded-lg inline-flex p-3 bg-red-3 text-red-9 ring-4 ring-gray-1">
+                            <span class="rounded-lg inline-flex p-3 bg-red-3 text-red-9 border border-red-6 ring-4 ring-gray-1">
                                 @icon('preferences', 'h-6 w-6')
                             </span>
                         </div>
@@ -123,7 +123,7 @@
 
                     <div class="rounded-br-lg relative group bg-gray-1 p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
                         <div>
-                            <span class="rounded-lg inline-flex p-3 bg-orange-3 text-orange-9 ring-4 ring-gray-1">
+                            <span class="rounded-lg inline-flex p-3 bg-orange-3 text-orange-9 border border-orange-6 ring-4 ring-gray-1">
                                 @icon('notification', 'h-6 w-6')
                             </span>
                         </div>

@@ -58,7 +58,7 @@
                     <div class="px-4 py-4 flex items-center sm:px-6">
                         @if ($isReordering)
                             <div class="sortable-handle flex-shrink-0 cursor-move mr-5">
-                                @icon('reorder', 'h-5 w-5 text-gray-400')
+                                @icon('reorder', 'h-5 w-5 text-gray-9')
                             </div>
                         @endif
                         <div class="flex min-w-0 flex-1">

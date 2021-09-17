@@ -22,10 +22,10 @@ class SettingsController extends Controller
 
     public function index(SettingsManager $settingsManager, $tab = 'general')
     {
-        $this->authorize('viewAny', app('nova.settings'));
+        $this->authorize('update', settings());
 
         return app($settingsManager->get($tab)->response)->with([
-            'settings' => app('nova.settings'),
+            'settings' => settings(),
             'tab' => $tab,
             'themes' => Theme::whereActive()->orderBy('name')->get(),
         ]);
@@ -36,7 +36,7 @@ class SettingsController extends Controller
         SettingsManager $settingsManager,
         $tab = 'general'
     ) {
-        $this->authorize('update', app('nova.settings'));
+        $this->authorize('update', settings());
 
         $tabString = Str::of($tab)->replace('-', ' ');
 

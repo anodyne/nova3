@@ -13,32 +13,34 @@
             <x-dropdown placement="bottom-end" wide>
                 <x-slot name="trigger">@icon('filter', 'h-6 w-6')</x-slot>
 
-                <x-dropdown.group>
-                    <x-dropdown.item :href="route('characters.index', 'status='.request('status').'&hasuser=1')">
-                        <div class="flex items-center justify-between w-full">
-                            <span>Assigned to a user</span>
-                            @if (request()->has('hasuser'))
-                                @icon('check', 'h-5 w-5')
-                            @endif
-                        </div>
-                    </x-dropdown.item>
-                    <x-dropdown.item :href="route('characters.index', 'status='.request('status').'&nouser=1')">
-                        <div class="flex items-center justify-between w-full">
-                            <span>Not assigned to a user</span>
-                            @if (request()->has('nouser'))
-                                @icon('check', 'h-5 w-5')
-                            @endif
-                        </div>
-                    </x-dropdown.item>
-                    <x-dropdown.item :href="route('characters.index', 'status='.request('status').'&noposition=1')">
-                        <div class="flex items-center justify-between w-full">
-                            <span>Not assigned a position</span>
-                            @if (request()->has('noposition'))
-                                @icon('check', 'h-5 w-5')
-                            @endif
-                        </div>
-                    </x-dropdown.item>
-                </x-dropdown.group>
+                @can('viewAny', Nova\Characters\Models\Character::class)
+                    <x-dropdown.group>
+                        <x-dropdown.item :href="route('characters.index', 'status='.request('status').'&hasuser=1')">
+                            <div class="flex items-center justify-between w-full">
+                                <span>Assigned to a user</span>
+                                @if (request()->has('hasuser'))
+                                    @icon('check', 'h-5 w-5')
+                                @endif
+                            </div>
+                        </x-dropdown.item>
+                        <x-dropdown.item :href="route('characters.index', 'status='.request('status').'&nouser=1')">
+                            <div class="flex items-center justify-between w-full">
+                                <span>Not assigned to a user</span>
+                                @if (request()->has('nouser'))
+                                    @icon('check', 'h-5 w-5')
+                                @endif
+                            </div>
+                        </x-dropdown.item>
+                        <x-dropdown.item :href="route('characters.index', 'status='.request('status').'&noposition=1')">
+                            <div class="flex items-center justify-between w-full">
+                                <span>Not assigned a position</span>
+                                @if (request()->has('noposition'))
+                                    @icon('check', 'h-5 w-5')
+                                @endif
+                            </div>
+                        </x-dropdown.item>
+                    </x-dropdown.group>
+                @endcan
 
                 <x-dropdown.group>
                     <x-dropdown.text class="uppercase tracking-wide font-semibold text-gray-9">
@@ -75,7 +77,7 @@
                 </x-dropdown.group>
             </x-dropdown>
 
-            @can('create', 'Nova\Characters\Models\Character')
+            @can('createAny', Nova\Characters\Models\Character::class)
                 <x-link :href="route('characters.create')" color="blue" data-cy="create">
                     Add Character
                 </x-link>
@@ -88,7 +90,11 @@
             <div class="p-4 sm:hidden">
                 <select x-on:change="window.location.replace($event.target.value)" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 sm:text-sm transition ease-in-out duration-150">
                     <option value="{{ route('characters.index', 'status=active') }}"{{ request()->status === 'active' ? 'selected' : '' }}>Active Characters</option>
-                    <option value="{{ route('characters.index', 'status=pending') }}"{{ request()->status === 'pending' ? 'selected' : '' }}>Pending Characters</option>
+
+                    @can('approveAny', Nova\Characters\Models\Character::class)
+                        <option value="{{ route('characters.index', 'status=pending') }}"{{ request()->status === 'pending' ? 'selected' : '' }}>Pending Characters</option>
+                    @endcan
+
                     <option value="{{ route('characters.index', 'status=inactive') }}"{{ request()->status === 'inactive' ? 'selected' : '' }}>Inactive Characters</option>
                     <option value="{{ route('characters.index') }}"{{ !request()->has('status') ? 'selected' : '' }}>All Characters</option>
                 </select>
@@ -102,12 +108,16 @@
                         >
                             Active
                         </a>
-                        <a
-                            href="{{ route('characters.index', 'status=pending') }}"
-                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'pending') border-blue-6 text-blue-9 @else text-gray-9 hover:text-gray-11 hover:border-gray-6 @endif"
-                        >
-                            Pending
-                        </a>
+
+                        @can('approveAny',  'Nova\Characters\Models\Character')
+                            <a
+                                href="{{ route('characters.index', 'status=pending') }}"
+                                class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'pending') border-blue-6 text-blue-9 @else text-gray-9 hover:text-gray-11 hover:border-gray-6 @endif"
+                            >
+                                Pending
+                            </a>
+                        @endcan
+
                         <a
                             href="{{ route('characters.index', 'status=inactive') }}"
                             class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'inactive') border-blue-6 text-blue-9 @else text-gray-9 hover:text-gray-11 hover:border-gray-6 @endif"

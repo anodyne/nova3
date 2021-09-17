@@ -14,6 +14,6 @@ class UpdateSettings
 
     public function handle($field, CastableDataTransferObject $data): Settings
     {
-        return tap(app('nova.settings'))->update([(string) $field => $data]);
+        return tap(settings())->update([(string) $field => $data]);
     }
 }
