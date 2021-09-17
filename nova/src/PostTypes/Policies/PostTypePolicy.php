@@ -14,33 +14,33 @@ class PostTypePolicy
 
     public function viewAny(User $user): bool
     {
-        return $user->isAbleTo('story.*');
+        return $user->isAbleTo('post-type.*');
     }
 
     public function view(User $user, PostType $postType): bool
     {
-        return $user->isAbleTo('story.view');
+        return $user->isAbleTo('post-type.view');
     }
 
     public function create(User $user): bool
     {
-        return $user->isAbleTo('story.create');
+        return $user->isAbleTo('post-type.create');
     }
 
     public function update(User $user, PostType $postType): bool
     {
-        return $user->isAbleTo('story.update');
+        return $user->isAbleTo('post-type.update');
     }
 
     public function delete(User $user, PostType $postType): bool
     {
-        return $user->isAbleTo('story.delete');
+        return $user->isAbleTo('post-type.delete');
     }
 
     public function duplicate(User $user, PostType $postType): bool
     {
-        return $user->isAbleTo('story.create')
-            && $user->isAbleTo('story.update');
+        return $user->isAbleTo('post-type.create')
+            && $user->isAbleTo('post-type.update');
     }
 
     public function restore(User $user, PostType $postType): bool

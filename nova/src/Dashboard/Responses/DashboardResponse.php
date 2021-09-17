@@ -8,5 +8,5 @@ use Nova\Foundation\Responses\Responsable;
 
 class DashboardResponse extends Responsable
 {
-    public string $view = 'dashboard';
+    public string $view = 'dashboards.dashboard';
 }

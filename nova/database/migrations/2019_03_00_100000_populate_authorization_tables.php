@@ -38,6 +38,7 @@ class PopulateAuthorizationTables extends Migration
                 'department.create', 'department.delete', 'department.update', 'department.view',
                 'character.create', 'character.delete', 'character.update', 'character.view',
                 'story.create', 'story.delete', 'story.update',
+                'post-type.create', 'post-type.delete', 'post-type.update', 'post-type.view',
                 'post.delete', 'post.update',
                 'settings.update',
             ],
@@ -94,6 +95,11 @@ class PopulateAuthorizationTables extends Migration
                 ['name' => 'story.delete', 'display_name' => 'Delete stories'],
                 ['name' => 'story.update', 'display_name' => 'Update stories'],
                 ['name' => 'story.view', 'display_name' => 'View stories'],
+
+                ['name' => 'post-type.create', 'display_name' => 'Create post types'],
+                ['name' => 'post-type.delete', 'display_name' => 'Delete post types'],
+                ['name' => 'post-type.update', 'display_name' => 'Update post types'],
+                ['name' => 'post-type.view', 'display_name' => 'View post types'],
 
                 ['name' => 'post.create', 'display_name' => 'Create posts'],
                 ['name' => 'post.delete', 'display_name' => 'Delete posts'],

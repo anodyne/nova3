@@ -62,69 +62,81 @@
                 </div>
 
                 <nav class="hidden lg:py-2 lg:flex lg:space-x-8" aria-label="Global">
-                    <x-nav.main-item href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                    <x-nav.main-item :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         Dashboard
                     </x-nav.main-item>
 
-                    <x-nav.main-item href="#" :active="$meta->subnavSection === 'writing'">
-                        Writing
-                    </x-nav.main-item>
+                    @if (auth()->user()->canWrite())
+                        <x-nav.main-item :href="route('writing-overview')" :active="$meta->subnavSection === 'writing'">
+                            Writing
+                        </x-nav.main-item>
+                    @endif
 
-                    <x-nav.main-item href="{{ route('notes.index') }}" :active="request()->routeIs('notes.*')">
+                    <x-nav.main-item :href="route('notes.index')" :active="request()->routeIs('notes.*')">
                         Notes
                     </x-nav.main-item>
 
-                    <x-nav.main-item href="{{ route('characters.index', 'status=active') }}" :active="$meta->subnavSection === 'characters'">
+                    <x-nav.main-item :href="route('characters.index', 'status=active')" :active="$meta->subnavSection === 'characters'">
                         Characters
                     </x-nav.main-item>
 
-                    <x-nav.main-item href="{{ route('users.index', 'status=active') }}" :active="$meta->subnavSection === 'users'">
-                        Users
-                    </x-nav.main-item>
+                    @if (auth()->user()->canManageUsers())
+                        <x-nav.main-item :href="route('users.index', 'status=active')" :active="$meta->subnavSection === 'users'">
+                            Users
+                        </x-nav.main-item>
+                    @endif
 
                     @can('update', settings())
-                        <x-nav.main-item href="{{ route('settings.index', 'general') }}" :active="$meta->subnavSection === 'settings'">
+                        <x-nav.main-item :href="route('settings.index', 'general')" :active="$meta->subnavSection === 'settings'">
                             Settings
                         </x-nav.main-item>
                     @endcan
 
-                    <x-nav.main-item href="{{ route('system-overview') }}" :active="$meta->subnavSection === 'system'">
-                        System
-                    </x-nav.main-item>
+                    @if (auth()->user()->canManageSystem())
+                        <x-nav.main-item :href="route('system-overview')" :active="$meta->subnavSection === 'system'">
+                            System
+                        </x-nav.main-item>
+                    @endif
                 </nav>
             </div>
 
             <nav x-description="Mobile menu, show/hide based on menu state." class="lg:hidden" aria-label="Global" id="mobile-menu" x-show="open" style="display: none;">
                 <div class="pt-2 pb-3 px-2 space-y-1">
-                    <x-nav.main-item-mobile href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                    <x-nav.main-item-mobile :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         Dashboard
                     </x-nav.main-item-mobile>
 
-                    <x-nav.main-item-mobile href="#" :active="$meta->subnavSection === 'writing'">
-                        Writing
-                    </x-nav.main-item-mobile>
+                    @if (auth()->user()->canWrite())
+                        <x-nav.main-item-mobile :href="route('writing-overview')" :active="$meta->subnavSection === 'writing'">
+                            Writing
+                        </x-nav.main-item-mobile>
+                    @endif
 
-                    <x-nav.main-item-mobile href="{{ route('notes.index') }}" :active="request()->routeIs('notes.*')">
+                    <x-nav.main-item-mobile :href="route('notes.index')" :active="request()->routeIs('notes.*')">
                         Notes
                     </x-nav.main-item-mobile>
 
-                    <x-nav.main-item-mobile href="{{ route('characters.index', 'status=active') }}" :active="$meta->subnavSection === 'characters'">
+                    <x-nav.main-item-mobile :href="route('characters.index', 'status=active')" :active="$meta->subnavSection === 'characters'">
                         Characters
                     </x-nav.main-item-mobile>
 
-                    <x-nav.main-item-mobile href="{{ route('users.index', 'status=active') }}" :active="$meta->subnavSection === 'users'">
-                        Users
-                    </x-nav.main-item-mobile>
+                    @if (auth()->user()->canManageUsers())
+                        <x-nav.main-item-mobile :href="route('users.index', 'status=active')" :active="$meta->subnavSection === 'users'">
+                            Users
+                        </x-nav.main-item-mobile>
+                    @endif
 
                     @can('update', settings())
-                        <x-nav.main-item-mobile href="{{ route('settings.index', 'general') }}" :active="$meta->subnavSection === 'settings'">
+                        <x-nav.main-item-mobile :href="route('settings.index', 'general')" :active="$meta->subnavSection === 'settings'">
                             Settings
                         </x-nav.main-item-mobile>
                     @endcan
 
-                    <x-nav.main-item-mobile href="#">
-                        System
-                    </x-nav.main-item-mobile>
+                    @if (auth()->user()->canManageSystem())
+                        <x-nav.main-item-mobile :href="route('system-overview')" :active="$meta->subnavSection === 'system'">
+                            System
+                        </x-nav.main-item-mobile>
+                    @endif
                 </div>
 
                 <div class="border-t border-gray-6 pt-4 pb-3">

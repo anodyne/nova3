@@ -10,5 +10,5 @@ class SystemOverviewResponse extends Responsable
 {
     public ?string $subnav = 'system';
 
-    public string $view = 'system-overview';
+    public string $view = 'dashboards.system-overview';
 }

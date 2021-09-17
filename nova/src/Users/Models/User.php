@@ -145,6 +145,24 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
             || $this->isAbleTo('user.*');
     }
 
+    public function canManageUsers(): bool
+    {
+        return $this->isAbleTo('user.*')
+            || $this->isAbleTo('role.*');
+    }
+
+    public function canManageSystem(): bool
+    {
+        return $this->isAbleTo('theme.*');
+    }
+
+    public function canWrite(): bool
+    {
+        return $this->isAbleTo('post.*')
+            || $this->isAbleTo('story.*')
+            || $this->isAbleTo('post-type.*');
+    }
+
     /**
      * Create a new Eloquent Collection instance.
      *
