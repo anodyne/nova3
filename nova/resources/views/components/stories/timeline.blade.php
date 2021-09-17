@@ -18,12 +18,17 @@
                                     <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
 
                                     <x-dropdown.group>
-                                        <x-dropdown.item :href="route('stories.show', $story)" icon="show">
-                                            <span>View</span>
-                                        </x-dropdown.item>
-                                        <x-dropdown.item :href="route('stories.edit', $story)" icon="edit">
-                                            <span>Edit</span>
-                                        </x-dropdown.item>
+                                        @can('view', $story)
+                                            <x-dropdown.item :href="route('stories.show', $story)" icon="show">
+                                                <span>View</span>
+                                            </x-dropdown.item>
+                                        @endcan
+
+                                        @can('update', $story)
+                                            <x-dropdown.item :href="route('stories.edit', $story)" icon="edit">
+                                                <span>Edit</span>
+                                            </x-dropdown.item>
+                                        @endcan
                                     </x-dropdown.group>
 
                                     <x-dropdown.group>
@@ -32,20 +37,22 @@
                                         </x-dropdown.item>
                                     </x-dropdown.group>
 
-                                    <x-dropdown.group>
-                                        <x-dropdown.text class="uppercase tracking-wide font-semibold text-gray-9">
-                                            Add a story
-                                        </x-dropdown.text>
-                                        <x-dropdown.item :href='route("stories.create", "direction=before&neighbor={$story->id}")' icon="move-up">
-                                            <span>Before {{ $story->title }}</span>
-                                        </x-dropdown.item>
-                                        <x-dropdown.item :href='route("stories.create", "direction=after&neighbor={$story->id}")' icon="move-down">
-                                            <span>After {{ $story->title }}</span>
-                                        </x-dropdown.item>
-                                        <x-dropdown.item :href='route("stories.create", "parent={$story->id}")' icon="move-right">
-                                            <span>Inside {{ $story->title }}</span>
-                                        </x-dropdown.item>
-                                    </x-dropdown.group>
+                                    @can('create', $story)
+                                        <x-dropdown.group>
+                                            <x-dropdown.text class="uppercase tracking-wide font-semibold text-gray-9">
+                                                Add a story
+                                            </x-dropdown.text>
+                                            <x-dropdown.item :href='route("stories.create", "direction=before&neighbor={$story->id}")' icon="move-up">
+                                                <span>Before {{ $story->title }}</span>
+                                            </x-dropdown.item>
+                                            <x-dropdown.item :href='route("stories.create", "direction=after&neighbor={$story->id}")' icon="move-down">
+                                                <span>After {{ $story->title }}</span>
+                                            </x-dropdown.item>
+                                            <x-dropdown.item :href='route("stories.create", "parent={$story->id}")' icon="move-right">
+                                                <span>Inside {{ $story->title }}</span>
+                                            </x-dropdown.item>
+                                        </x-dropdown.group>
+                                    @endcan
 
                                     @can('delete', $story)
                                         <x-dropdown.group>
