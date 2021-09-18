@@ -1,8 +1,7 @@
 @props([
     'field',
     'value',
-    'activeColor' => 'blue-9',
-    'inactiveColor' => 'gray-8',
+    'activeColor' => 'bg-blue-9',
     'disabled' => false,
 ])
 
@@ -10,7 +9,6 @@
     x-data="toggleSwitch({{ $value ? 'true' : 'false'}}, {{ $disabled ? 'true' : 'false' }})"
     class="flex items-center"
     x-bind:class="{ 'cursor-not-allowed': disabled, 'cursor-pointer': !disabled }"
-    x-cloak
 >
     <button
         type="button"
@@ -18,15 +16,15 @@
         x-bind:aria-pressed="on.toString()"
         aria-pressed="false"
         aria-labelledby="toggleLabel"
-        x-bind:class="{ 'bg-{{ $inactiveColor }}': !on, 'bg-{{ $activeColor }}': on, 'opacity-50 cursor-not-allowed': disabled, 'cursor-pointer': !disabled }"
-        class="relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-7"
+        x-bind:class="{ 'bg-gray-6': !on, '{{ $activeColor }}': on, 'opacity-50 cursor-not-allowed': disabled, 'cursor-pointer': !disabled }"
+        class="bg-gray-6 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-7"
     >
         <span class="sr-only">Use setting</span>
-        <span aria-hidden="true" x-bind:class="{ 'translate-x-5 border-{{ $activeColor }}': on, 'translate-x-1 border-{{ $inactiveColor }}': !on }" class="bg-gray-1 translate-x-1 translate-y-0.5 inline-block h-4 w-4 rounded-full transform ring-0 transition ease-in-out duration-200 border"></span>
+        <span aria-hidden="true" x-bind:class="{ 'translate-x-5': on, 'translate-x-0': !on }" class="translate-x-0 inline-block h-5 w-5 rounded-full bg-gray-1 shadow transform ring-0 transition ease-in-out duration-200"></span>
     </button>
 
     @if (! $slot->isEmpty())
-        <span class="ml-2" id="toggleLabel">
+        <span class="ml-3" id="toggleLabel">
             <span class="font-medium text-gray-11">
                 {{ $slot }}
             </span>

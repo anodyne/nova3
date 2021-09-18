@@ -30,6 +30,7 @@
         "postcss-nested": "^5.0.2",
         "resolve-url-loader": "^4.0.0",
         "sortablejs": "^1.12.0",
+        "tailwind-safelist-generator": "^0.1.2",
         "tailwindcss": "^2.0.1",
         "tailwindcss-interaction-variants": "^5.0.0"
     },

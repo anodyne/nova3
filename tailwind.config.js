@@ -26,6 +26,7 @@ module.exports = {
     purge: [
         './nova/resources/**/*.{js,ts,blade.php,css}',
         './nova/foundation/View/Components/*.php',
+        './safelist.txt',
     ],
 
     darkMode: false, // or 'media' or 'class'
@@ -80,6 +81,16 @@ module.exports = {
         require('@tailwindcss/typography'),
         require('@tailwindcss/aspect-ratio'),
         require('tailwindcss-interaction-variants'),
+        require('tailwind-safelist-generator')({
+            patterns: [
+                'bg-blue-9',
+                'border-blue-9',
+                'bg-gray-8',
+                'border-gray-8',
+                'bg-red-9',
+                'border-red-9',
+            ],
+        }),
         /* eslint-enable */
     ],
 };

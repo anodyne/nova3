@@ -10,4 +10,5 @@
 .php_cs.cache
 .php-cs-fixer.cache
 .phpunit.result.cache
+safelist.txt
 yarn-error.log

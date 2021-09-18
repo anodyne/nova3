@@ -26,7 +26,7 @@ class Badge extends Component
 
     public function baseStyles()
     {
-        return 'inline-flex items-center rounded-full font-medium uppercase tracking-wide space-x-1 border';
+        return 'inline-flex items-center rounded-full font-medium uppercase tracking-wide space-x-1.5 border';
     }
 
     public function colorStyles()
