@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nova;
 
-use Closure;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Event;
@@ -58,9 +57,7 @@ abstract class DomainServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        if ($bootingCallback = $this->domainBootingCallback()) {
-            $this->booting($bootingCallback);
-        }
+        $this->domainBooting();
 
         $this->registerConsoleCommands();
         $this->registerListeners();
@@ -70,9 +67,7 @@ abstract class DomainServiceProvider extends ServiceProvider
         $this->registerLivewireComponents();
         $this->registerSpotlightCommands();
 
-        if ($bootedCallback = $this->domainBootedCallback()) {
-            $this->booted($bootedCallback);
-        }
+        $this->domainBooted();
     }
 
     public function register()
@@ -86,14 +81,12 @@ abstract class DomainServiceProvider extends ServiceProvider
         return [];
     }
 
-    public function domainBootingCallback(): ?Closure
+    public function domainBooting(): void
     {
-        return null;
     }
 
-    public function domainBootedCallback(): ?Closure
+    public function domainBooted(): void
     {
-        return null;
     }
 
     /**

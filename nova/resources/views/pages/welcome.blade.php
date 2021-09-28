@@ -14,17 +14,18 @@
             <a href="https://anodyne-productions.com/nova" class="block mb-8">
                 <x-nova-logo-6 class="text-blue-9 h-20 w-auto mx-auto" />
             </a>
-            <div class="text-sm font-semibold uppercase tracking-wide text-gray-11 space-x-4">
+            <div class="text-xs font-semibold uppercase tracking-wide text-gray-11 space-x-4">
                 @auth
-                    <a class="border border-transparent hover:bg-purple-3 hover:border-purple-6 hover:text-purple-9 px-4 py-1.5 rounded-full" href="{{ route('dashboard') }}">Dashboard</a>
+                    <a class="border border-transparent hover:bg-purple-3 hover:border-purple-6 hover:text-purple-9 px-3 py-1 rounded-full" href="{{ route('dashboard') }}">Dashboard</a>
                 @endauth
 
                 @guest
-                    <a class="border border-transparent hover:bg-purple-3 hover:border-purple-6 hover:text-purple-9 px-4 py-1.5 rounded-full" href="{{ route('login') }}">Sign In</a>
+                    <a class="border border-transparent hover:bg-purple-3 hover:border-purple-6 hover:text-purple-9 px-3 py-1 rounded-full" href="{{ route('login') }}">Sign In</a>
                 @endguest
 
-                <a class="border border-transparent hover:bg-purple-3 hover:border-purple-6 hover:text-purple-9 px-4 py-1.5 rounded-full" href="https://anodyne-productions.com/docs" target="_blank" rel="noopener noreferrer">Documentation</a>
-                <a class="border border-transparent hover:bg-purple-3 hover:border-purple-6 hover:text-purple-9 px-4 py-1.5 rounded-full" href="https://anodyne-productions.com/support/chat" rel="noopener noreferrer">Support</a>
+                <a class="border border-transparent hover:bg-purple-3 hover:border-purple-6 hover:text-purple-9 px-3 py-1 rounded-full" href="https://anodyne-productions.com/docs" target="_blank" rel="noopener noreferrer">Documentation</a>
+
+                <a class="border border-transparent hover:bg-purple-3 hover:border-purple-6 hover:text-purple-9 px-3 py-1 rounded-full" href="https://anodyne-productions.com/support/chat" rel="noopener noreferrer">Support</a>
             </div>
         </div>
     </div>

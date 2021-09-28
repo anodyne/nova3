@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Themes\Providers;
 
-use Closure;
 use Nova\DomainServiceProvider;
 use Nova\Foundation\Nova;
 use Nova\Themes\Actions\SetupThemeDirectory;
@@ -42,14 +41,12 @@ class ThemeServiceProvider extends DomainServiceProvider
         ];
     }
 
-    public function domainBootedCallback(): ?Closure
+    public function domainBooted(): void
     {
-        return function () {
-            if (Nova::isInstalled()) {
-                $theme = new PulsarTheme();
+        if (Nova::isInstalled()) {
+            $theme = new PulsarTheme();
 
-                $this->app->instance('nova.theme', $theme);
-            }
-        };
+            $this->app->instance('nova.theme', $theme);
+        }
     }
 }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Settings\Providers;
 
-use Closure;
 use Nova\DomainServiceProvider;
 use Nova\Foundation\Nova;
 use Nova\Settings\DataTransferObjects\Characters;
@@ -48,51 +47,49 @@ class SettingsServiceProvider extends DomainServiceProvider
         ];
     }
 
-    public function domainBootingCallback(): ?Closure
+    public function domainBooting(): void
     {
-        return function () {
-            $this->app->singleton('nova.settings', function ($app) {
-                if (Nova::isInstalled()) {
-                    return Settings::custom()->first();
-                }
+        $this->app->singleton('nova.settings', function ($app) {
+            if (Nova::isInstalled()) {
+                return Settings::custom()->first();
+            }
 
-                return new Settings();
-            });
+            return new Settings();
+        });
 
-            $this->app->singleton(SettingsManager::class, function ($app) {
-                $manager = new SettingsManager();
+        $this->app->singleton(SettingsManager::class, function ($app) {
+            $manager = new SettingsManager();
 
-                $manager->add('characters', new SettingInfo(
-                    dto: Characters::class,
-                    response: CharactersSettingsResponse::class
-                ));
-                $manager->add('notifications', new SettingInfo(
-                    dto: Discord::class,
-                    response: NotificationSettingsResponse::class
-                ));
-                $manager->add('email', new SettingInfo(
-                    dto: Email::class,
-                    response: EmailSettingsResponse::class
-                ));
-                $manager->add('general', new SettingInfo(
-                    dto: General::class,
-                    response: GeneralSettingsResponse::class
-                ));
-                $manager->add('meta-tags', new SettingInfo(
-                    dto: MetaTags::class,
-                    response: MetaTagsSettingsResponse::class
-                ));
-                $manager->add('posting-activity', new SettingInfo(
-                    dto: PostingActivity::class,
-                    response: PostingActivitySettingsResponse::class
-                ));
-                $manager->add('system-defaults', new SettingInfo(
-                    dto: SystemDefaults::class,
-                    response: SystemDefaultsSettingsResponse::class
-                ));
+            $manager->add('characters', new SettingInfo(
+                dto: Characters::class,
+                response: CharactersSettingsResponse::class
+            ));
+            $manager->add('notifications', new SettingInfo(
+                dto: Discord::class,
+                response: NotificationSettingsResponse::class
+            ));
+            $manager->add('email', new SettingInfo(
+                dto: Email::class,
+                response: EmailSettingsResponse::class
+            ));
+            $manager->add('general', new SettingInfo(
+                dto: General::class,
+                response: GeneralSettingsResponse::class
+            ));
+            $manager->add('meta-tags', new SettingInfo(
+                dto: MetaTags::class,
+                response: MetaTagsSettingsResponse::class
+            ));
+            $manager->add('posting-activity', new SettingInfo(
+                dto: PostingActivity::class,
+                response: PostingActivitySettingsResponse::class
+            ));
+            $manager->add('system-defaults', new SettingInfo(
+                dto: SystemDefaults::class,
+                response: SystemDefaultsSettingsResponse::class
+            ));
 
-                return $manager;
-            });
-        };
+            return $manager;
+        });
     }
 }
