@@ -58,7 +58,9 @@ abstract class DomainServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->booting($this->domainBootingCallback());
+        if ($bootingCallback = $this->domainBootingCallback()) {
+            $this->booting($bootingCallback);
+        }
 
         $this->registerConsoleCommands();
         $this->registerListeners();
@@ -68,7 +70,9 @@ abstract class DomainServiceProvider extends ServiceProvider
         $this->registerLivewireComponents();
         $this->registerSpotlightCommands();
 
-        $this->booted($this->domainBootedCallback());
+        if ($bootedCallback = $this->domainBootedCallback()) {
+            $this->booted($bootedCallback);
+        }
     }
 
     public function register()
