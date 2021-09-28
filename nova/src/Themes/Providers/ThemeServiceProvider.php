@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Themes\Providers;
 
+use Closure;
 use Nova\DomainServiceProvider;
 use Nova\Foundation\Nova;
 use Nova\Themes\Actions\SetupThemeDirectory;
@@ -17,27 +18,38 @@ use Themes\pulsar\Theme as PulsarTheme;
 
 class ThemeServiceProvider extends DomainServiceProvider
 {
-    protected array $commands = [
-        SetupThemeDirectory::class,
-    ];
-
-    protected array $policies = [
-        Theme::class => ThemePolicy::class,
-    ];
-
-    protected array $responsables = [
-        CreateThemeResponse::class,
-        DeleteThemeResponse::class,
-        UpdateThemeResponse::class,
-        ShowAllThemesResponse::class,
-    ];
-
-    protected function bootedDomain()
+    public function consoleCommands(): array
     {
-        if (Nova::isInstalled()) {
-            $theme = new PulsarTheme();
+        return [
+            SetupThemeDirectory::class,
+        ];
+    }
 
-            $this->app->instance('nova.theme', $theme);
-        }
+    public function policies(): array
+    {
+        return [
+            Theme::class => ThemePolicy::class,
+        ];
+    }
+
+    public function responsables(): array
+    {
+        return [
+            CreateThemeResponse::class,
+            DeleteThemeResponse::class,
+            UpdateThemeResponse::class,
+            ShowAllThemesResponse::class,
+        ];
+    }
+
+    public function domainBootedCallback(): ?Closure
+    {
+        return function () {
+            if (Nova::isInstalled()) {
+                $theme = new PulsarTheme();
+
+                $this->app->instance('nova.theme', $theme);
+            }
+        };
     }
 }

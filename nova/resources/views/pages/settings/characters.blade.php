@@ -18,23 +18,23 @@
 
             <x-input.group>
                 <x-input.toggle
-                    field="characters[allowCharacterCreation]"
-                    :value="old('characters.allowCharacterCreation', 'true')"
+                    field="allow_character_creation"
+                    :value="old('allow_character_creation', 'true')"
                 >
                     Allow users to create characters
                 </x-input.toggle>
             </x-input.group>
 
             <x-input.group>
-                <x-input.toggle field="active" :value="old('active', 'true')">
+                <x-input.toggle field="auto_link_character" :value="old('auto_link_character', 'true')">
                     Automatically link characters to the creating user
                 </x-input.toggle>
             </x-input.group>
 
             <x-input.group>
                 <x-input.toggle
-                    field="characters[requireApprovalForCharacterCreation]"
-                    :value="old('characters.requireApprovalForCharacterCreation', 'true')"
+                    field="require_approval_for_character_creation"
+                    :value="old('require_approval_for_character_creation', 'true')"
                 >
                     Require approval for created characters
                 </x-input.toggle>
@@ -43,7 +43,7 @@
 
         <x-form.section title="Character Limits" message="Define how many characters a user can have linked to their account. Additional characters beyond the limit can still be created, but will require GM approval to be activated.">
             <x-input.group>
-                <x-input.toggle field="active" :value="old('characters.enforceCharacterLimits', 'true')">
+                <x-input.toggle field="enforce_character_limits" :value="old('enforce_character_limits', 'true')">
                     Enforce character limits
                 </x-input.toggle>
             </x-input.group>

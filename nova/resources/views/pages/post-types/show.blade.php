@@ -146,10 +146,10 @@
                         </div>
                     @endif
 
-                    @if ($postType->options->includeInPostCounts)
+                    @if ($postType->options->includeInPostTracking)
                         <div class="flex items-center space-x-2 text-green-11">
                             @icon('check-alt', 'h-6 w-6 flex-shrink-0 text-green-9')
-                            <span>Is included in post counts</span>
+                            <span>Is included in post tracking</span>
                         </div>
                     @else
                         <div class="flex items-center space-x-2 text-red-11">

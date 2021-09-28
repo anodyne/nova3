@@ -23,7 +23,7 @@
                 </x-input.group>
 
                 <x-input.group label="Key" for="name" :error="$errors->first('name')">
-                    <x-input.text x-model="name" x-on:change="suggestName = false" id="name" name="name" data-cy="name" />
+                    <x-input.text x-model="name" @change="suggestName = false" id="name" name="name" data-cy="name" />
                 </x-input.group>
 
                 <x-input.group label="Description" for="description">

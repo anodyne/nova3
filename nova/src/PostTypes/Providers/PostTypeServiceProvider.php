@@ -15,15 +15,21 @@ use Nova\PostTypes\Responses\UpdatePostTypeResponse;
 
 class PostTypeServiceProvider extends DomainServiceProvider
 {
-    protected array $policies = [
-        PostType::class => PostTypePolicy::class,
-    ];
+    public function policies(): array
+    {
+        return [
+            PostType::class => PostTypePolicy::class,
+        ];
+    }
 
-    protected array $responsables = [
-        CreatePostTypeResponse::class,
-        DeletePostTypeResponse::class,
-        ShowAllPostTypesResponse::class,
-        ShowPostTypeResponse::class,
-        UpdatePostTypeResponse::class,
-    ];
+    public function responsables(): array
+    {
+        return [
+            CreatePostTypeResponse::class,
+            DeletePostTypeResponse::class,
+            ShowAllPostTypesResponse::class,
+            ShowPostTypeResponse::class,
+            UpdatePostTypeResponse::class,
+        ];
+    }
 }

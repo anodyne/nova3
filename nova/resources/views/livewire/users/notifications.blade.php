@@ -1,6 +1,6 @@
 <div x-data="{ open: false }" class="leading-none">
     <button
-        x-on:click.prevent="open = true"
+        @click.prevent="open = true"
         {{-- wire:poll.30s="refreshNotifications" --}}
         type="button"
         class="relative p-1 text-gray-9 rounded-full transition ease-in-out duration-150 hover:bg-gray-3 hover:text-gray-10 focus:outline-none focus:ring focus:text-gray-9"
@@ -14,9 +14,9 @@
     </button>
 
     <div
-        x-on:sidebar-open.window="open = true"
-        x-on:sidebar-close.window="open = false"
-        x-on:keydown.window.escape="open = false"
+        @sidebar-open.window="open = true"
+        @sidebar-close.window="open = false"
+        @keydown.window.escape="open = false"
         x-show="open"
         class="fixed inset-0 overflow-hidden z-20"
         x-cloak
@@ -36,7 +36,7 @@
             ></div>
 
             <section
-                x-on:click.away="open = false"
+                @click.away="open = false"
                 class="absolute inset-y-0 right-0 pl-10 max-w-full flex"
                 aria-labelledby="slide-over-heading"
             >
@@ -63,7 +63,7 @@
                         class="absolute top-0 left-0 -ml-8 pt-4 pr-2 flex | sm:-ml-10 sm:pr-4"
                     >
                         <button
-                            x-on:click="open = false"
+                            @click="open = false"
                             class="rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white transition ease-in-out duration-150"
                         >
                             <span class="sr-only">Close panel</span>

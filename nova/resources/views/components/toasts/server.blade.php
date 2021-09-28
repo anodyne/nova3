@@ -39,7 +39,7 @@
                     </div>
 
                     <div class="ml-4 flex-shrink-0 flex">
-                        <x-button x-on:click="show = false" color="gray-text" size="none">
+                        <x-button @click="show = false" color="gray-text" size="none">
                             @icon('close', 'h-5 w-5')
                         </x-button>
                     </div>

@@ -21,27 +21,39 @@ use Nova\DomainServiceProvider;
 
 class CharacterServiceProvider extends DomainServiceProvider
 {
-    protected array $livewireComponents = [
-        'characters:collector' => CharactersCollector::class,
-        'characters:dropdown' => CharactersDropdown::class,
-    ];
+    public function livewireComponents(): array
+    {
+        return [
+            'characters:collector' => CharactersCollector::class,
+            'characters:dropdown' => CharactersDropdown::class,
+        ];
+    }
 
-    protected array $morphMaps = [
-        'characters' => Character::class,
-    ];
+    public function morphMaps(): array
+    {
+        return [
+            'character' => Character::class,
+        ];
+    }
 
-    protected array $policies = [
-        Character::class => CharacterPolicy::class,
-    ];
+    public function policies(): array
+    {
+        return [
+            Character::class => CharacterPolicy::class,
+        ];
+    }
 
-    protected array $responsables = [
-        CreateCharacterResponse::class,
-        DeactivateCharacterResponse::class,
-        DeleteCharacterResponse::class,
-        ShowAllCharactersResponse::class,
-        ShowCharacterResponse::class,
-        UpdateCharacterResponse::class,
-    ];
+    public function responsables(): array
+    {
+        return [
+            CreateCharacterResponse::class,
+            DeactivateCharacterResponse::class,
+            DeleteCharacterResponse::class,
+            ShowAllCharactersResponse::class,
+            ShowCharacterResponse::class,
+            UpdateCharacterResponse::class,
+        ];
+    }
 
     public function spotlightCommands(): array
     {

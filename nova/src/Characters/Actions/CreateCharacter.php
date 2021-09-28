@@ -17,7 +17,7 @@ class CreateCharacter
 
     public function handle(CharacterData $data): Character
     {
-        $status = $this->requiresApproval() ? Active::class : Pending::class;
+        $status = $this->requiresApproval() ? Pending::class : Active::class;
 
         return Character::create(array_merge(
             $data->toArray(),

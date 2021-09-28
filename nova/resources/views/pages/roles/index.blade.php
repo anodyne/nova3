@@ -120,7 +120,7 @@
 
                                     @can('delete', $role)
                                         <x-dropdown.group>
-                                            <x-dropdown.item-danger type="button" icon="delete" data-cy="delete" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($role) }});">
+                                            <x-dropdown.item-danger type="button" icon="delete" data-cy="delete" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($role) }});">
                                                 <span>Delete</span>
                                             </x-dropdown.item-danger>
                                         </x-dropdown.group>
@@ -162,7 +162,7 @@
                 </x-button>
             </span>
             <span class="mt-3 flex w-full sm:mt-0 sm:col-start-1">
-                <x-button x-on:click="$dispatch('modal-close')" type="button" color="white" full-width>
+                <x-button @click="$dispatch('modal-close')" type="button" color="white" full-width>
                     Cancel
                 </x-button>
             </span>

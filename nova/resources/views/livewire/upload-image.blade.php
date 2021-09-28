@@ -4,8 +4,8 @@
             @icon('image-add', 'mx-auto h-12 w-12 text-gray-9')
             <p x-data="{ focused: false }" class="mt-1 text-sm text-gray-11">
                 <input
-                    x-on:focus="focused = true"
-                    x-on:blur="focused = false"
+                    @focus="focused = true"
+                    @blur="focused = false"
                     type="file"
                     id="upload-image"
                     wire:model="image"
@@ -14,7 +14,7 @@
                 <label
                     for="upload-image"
                     class="cursor-pointer font-medium text-blue-9 hover:text-blue-10 transition duration-150 ease-in-out"
-                    x-bind:class="{ 'outline-none underline': focused }"
+                    :class="{ 'outline-none underline': focused }"
                 >
                     Upload a file
                 </label>

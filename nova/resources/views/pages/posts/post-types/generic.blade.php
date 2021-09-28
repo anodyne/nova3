@@ -31,7 +31,7 @@
 
                 @can('delete', $post)
                     <x-dropdown.group>
-                        <x-dropdown.item-danger type="button" icon="delete" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($post) }});" data-cy="delete">
+                        <x-dropdown.item-danger type="button" icon="delete" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($post) }});" data-cy="delete">
                             <span>Delete</span>
                         </x-dropdown.item-danger>
                     </x-dropdown.group>

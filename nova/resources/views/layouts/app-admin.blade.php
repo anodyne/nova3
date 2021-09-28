@@ -25,7 +25,7 @@
 
                     <div class="relative z-10 flex items-center lg:hidden">
                         <!-- Mobile menu button -->
-                        <button type="button" class="rounded-md p-2 inline-flex items-center justify-center text-gray-9 hover:bg-gray-2 hover:text-gray-11 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-12" aria-controls="mobile-menu" @click="open = !open" aria-expanded="false" x-bind:aria-expanded="open.toString()">
+                        <button type="button" class="rounded-md p-2 inline-flex items-center justify-center text-gray-9 hover:bg-gray-2 hover:text-gray-11 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-12" aria-controls="mobile-menu" @click="open = !open" aria-expanded="false" :aria-expanded="open.toString()">
                             <span class="sr-only">Open menu</span>
 
                             <svg x-description="Icon when menu is closed. Heroicon name: outline/menu" x-state:on="Menu open" x-state:off="Menu closed" class="block h-6 w-6" :class="{ 'hidden': open, 'block': !(open) }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>

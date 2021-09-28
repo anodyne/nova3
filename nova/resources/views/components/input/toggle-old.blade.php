@@ -8,19 +8,19 @@
 <label
     x-data="toggleSwitch({{ $value ? 'true' : 'false'}}, {{ $disabled ? 'true' : 'false' }})"
     class="flex items-center"
-    x-bind:class="{ 'cursor-not-allowed': disabled, 'cursor-pointer': !disabled }"
+    :class="{ 'cursor-not-allowed': disabled, 'cursor-pointer': !disabled }"
 >
     <button
         type="button"
-        x-on:click.prevent="toggle($dispatch)"
-        x-bind:aria-pressed="on.toString()"
+        @click.prevent="toggle($dispatch)"
+        :aria-pressed="on.toString()"
         aria-pressed="false"
         aria-labelledby="toggleLabel"
-        x-bind:class="{ 'bg-gray-6': !on, '{{ $activeColor }}': on, 'opacity-50 cursor-not-allowed': disabled, 'cursor-pointer': !disabled }"
+        :class="{ 'bg-gray-6': !on, '{{ $activeColor }}': on, 'opacity-50 cursor-not-allowed': disabled, 'cursor-pointer': !disabled }"
         class="bg-gray-6 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-7"
     >
         <span class="sr-only">Use setting</span>
-        <span aria-hidden="true" x-bind:class="{ 'translate-x-5': on, 'translate-x-0': !on }" class="translate-x-0 inline-block h-5 w-5 rounded-full bg-gray-1 shadow transform ring-0 transition ease-in-out duration-200"></span>
+        <span aria-hidden="true" :class="{ 'translate-x-5': on, 'translate-x-0': !on }" class="translate-x-0 inline-block h-5 w-5 rounded-full bg-gray-1 shadow transform ring-0 transition ease-in-out duration-200"></span>
     </button>
 
     @if (! $slot->isEmpty())

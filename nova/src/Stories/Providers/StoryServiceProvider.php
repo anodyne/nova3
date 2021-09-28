@@ -22,24 +22,33 @@ use Nova\Stories\Spotlight\ViewStory;
 
 class StoryServiceProvider extends DomainServiceProvider
 {
-    protected array $livewireComponents = [
-        'stories:delete-story' => DeleteStories::class,
-        'stories:hierarchy' => StoryHierarchy::class,
-        'stories:status' => StoryStatus::class,
-    ];
+    public function livewireComponents(): array
+    {
+        return [
+            'stories:delete-story' => DeleteStories::class,
+            'stories:hierarchy' => StoryHierarchy::class,
+            'stories:status' => StoryStatus::class,
+        ];
+    }
 
-    protected array $policies = [
-        Story::class => StoryPolicy::class,
-    ];
+    public function policies(): array
+    {
+        return [
+            Story::class => StoryPolicy::class,
+        ];
+    }
 
-    protected array $responsables = [
-        CreateStoryResponse::class,
-        DeleteStoryResponse::class,
-        ReorderStoriesResponse::class,
-        ShowAllStoriesResponse::class,
-        ShowStoryResponse::class,
-        UpdateStoryResponse::class,
-    ];
+    public function responsables(): array
+    {
+        return [
+            CreateStoryResponse::class,
+            DeleteStoryResponse::class,
+            ReorderStoriesResponse::class,
+            ShowAllStoriesResponse::class,
+            ShowStoryResponse::class,
+            UpdateStoryResponse::class,
+        ];
+    }
 
     public function spotlightCommands(): array
     {

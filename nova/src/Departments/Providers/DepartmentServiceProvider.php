@@ -22,31 +22,40 @@ use Nova\DomainServiceProvider;
 
 class DepartmentServiceProvider extends DomainServiceProvider
 {
-    protected array $livewireComponents = [
-        'positions:collector' => PositionsCollector::class,
-        'positions:dropdown' => PositionsDropdown::class,
-    ];
+    public function livewireComponents(): array
+    {
+        return [
+            'positions:collector' => PositionsCollector::class,
+            'positions:dropdown' => PositionsDropdown::class,
+        ];
+    }
 
-    protected array $policies = [
-        Department::class => DepartmentPolicy::class,
-        Position::class => PositionPolicy::class,
-    ];
+    public function policies(): array
+    {
+        return [
+            Department::class => DepartmentPolicy::class,
+            Position::class => PositionPolicy::class,
+        ];
+    }
 
-    protected array $responsables = [
-        Responses\CreateDepartmentResponse::class,
-        Responses\DeleteDepartmentResponse::class,
-        Responses\DuplicateDepartmentResponse::class,
-        Responses\ShowAllDepartmentsResponse::class,
-        Responses\ShowDepartmentResponse::class,
-        Responses\UpdateDepartmentResponse::class,
+    public function responsables(): array
+    {
+        return [
+            Responses\CreateDepartmentResponse::class,
+            Responses\DeleteDepartmentResponse::class,
+            Responses\DuplicateDepartmentResponse::class,
+            Responses\ShowAllDepartmentsResponse::class,
+            Responses\ShowDepartmentResponse::class,
+            Responses\UpdateDepartmentResponse::class,
 
-        Responses\CreatePositionResponse::class,
-        Responses\DeletePositionResponse::class,
-        Responses\DuplicatePositionResponse::class,
-        Responses\ShowAllPositionsResponse::class,
-        Responses\ShowPositionResponse::class,
-        Responses\UpdatePositionResponse::class,
-    ];
+            Responses\CreatePositionResponse::class,
+            Responses\DeletePositionResponse::class,
+            Responses\DuplicatePositionResponse::class,
+            Responses\ShowAllPositionsResponse::class,
+            Responses\ShowPositionResponse::class,
+            Responses\UpdatePositionResponse::class,
+        ];
+    }
 
     public function spotlightCommands(): array
     {

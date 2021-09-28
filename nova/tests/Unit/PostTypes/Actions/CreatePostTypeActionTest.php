@@ -75,7 +75,7 @@ class CreatePostTypeActionTest extends TestCase
             'options' => new Options([
                 'notifyUsers' => true,
                 'notifyDiscord' => true,
-                'includeInPostCounts' => false,
+                'includeInPostTracking' => false,
                 'multipleAuthors' => true,
             ]),
         ]);
@@ -100,7 +100,7 @@ class CreatePostTypeActionTest extends TestCase
 
         $this->assertTrue($postType->options->notifyUsers);
         $this->assertTrue($postType->options->notifyDiscord);
-        $this->assertFalse($postType->options->includeInPostCounts);
+        $this->assertFalse($postType->options->includeInPostTracking);
         $this->assertTrue($postType->options->multipleAuthors);
     }
 }

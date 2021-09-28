@@ -110,7 +110,7 @@
                                             @endcan
 
                                             @can('duplicate', $group)
-                                                <x-dropdown.item type="submit" icon="duplicate" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-duplicate', {{ json_encode($group) }});" data-cy="duplicate">
+                                                <x-dropdown.item type="submit" icon="duplicate" @click="$dispatch('dropdown-toggle');$dispatch('modal-duplicate', {{ json_encode($group) }});" data-cy="duplicate">
                                                     <span>Duplicate</span>
 
                                                     <x-slot name="buttonForm">
@@ -122,7 +122,7 @@
 
                                         @can('delete', $group)
                                             <x-dropdown.group>
-                                                <x-dropdown.item-danger type="button" icon="delete" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($group) }});" data-cy="delete">
+                                                <x-dropdown.item-danger type="button" icon="delete" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($group) }});" data-cy="delete">
                                                     <span>Delete</span>
                                                 </x-dropdown.item-danger>
                                             </x-dropdown.group>
@@ -156,7 +156,7 @@
                     </x-button>
                 </span>
                 <span class="mt-3 flex w-full sm:mt-0 sm:col-start-1">
-                    <x-button x-on:click="$dispatch('modal-close')" type="button" color="white" full-width>
+                    <x-button @click="$dispatch('modal-close')" type="button" color="white" full-width>
                         Cancel
                     </x-button>
                 </span>
@@ -171,7 +171,7 @@
                     </x-button>
                 </span>
                 <span class="mt-3 flex w-full sm:mt-0 sm:col-start-1">
-                    <x-button x-on:click="$dispatch('modal-close')" type="button" color="white" full-width>
+                    <x-button @click="$dispatch('modal-close')" type="button" color="white" full-width>
                         Cancel
                     </x-button>
                 </span>

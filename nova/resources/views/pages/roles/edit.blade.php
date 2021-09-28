@@ -10,7 +10,7 @@
     <x-panel x-data="tabsList('details')" on-edge>
         <div>
             <div class="p-4 sm:hidden">
-                <select x-on:change="switchTab($event.target.value)" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-150 sm:text-sm rounded-md">
+                <select @change="switchTab($event.target.value)" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-150 sm:text-sm rounded-md">
                     <option value="details">Details</option>
                     <option value="permissions">Permissions</option>
                     <option value="users">Users</option>
@@ -19,13 +19,13 @@
             <div class="hidden sm:block">
                 <div class="border-b border-gray-6 px-4 sm:px-6">
                     <nav class="-mb-px flex">
-                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none" x-bind:class="{ 'border-blue-7 text-blue-11': isTab('details'), 'text-gray-9 hover:text-gray-11 hover:border-gray-6': isNotTab('details') }" x-on:click.prevent="switchTab('details')">
+                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none" :class="{ 'border-blue-7 text-blue-11': isTab('details'), 'text-gray-9 hover:text-gray-11 hover:border-gray-6': isNotTab('details') }" @click.prevent="switchTab('details')">
                             Details
                         </a>
-                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none" x-bind:class="{ 'border-blue-7 text-blue-11': isTab('permissions'), 'text-gray-9 hover:text-gray-11 hover:border-gray-6': isNotTab('permissions') }" x-on:click.prevent="switchTab('permissions')">
+                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none" :class="{ 'border-blue-7 text-blue-11': isTab('permissions'), 'text-gray-9 hover:text-gray-11 hover:border-gray-6': isNotTab('permissions') }" @click.prevent="switchTab('permissions')">
                             Permissions
                         </a>
-                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none" x-bind:class="{ 'border-blue-7 text-blue-11': isTab('users'), 'text-gray-9 hover:text-gray-11 hover:border-gray-6': isNotTab('users') }" x-on:click.prevent="switchTab('users')">
+                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none" :class="{ 'border-blue-7 text-blue-11': isTab('users'), 'text-gray-9 hover:text-gray-11 hover:border-gray-6': isNotTab('users') }" @click.prevent="switchTab('users')">
                             Users
                         </a>
                     </nav>

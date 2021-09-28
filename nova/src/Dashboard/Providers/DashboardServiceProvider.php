@@ -11,9 +11,12 @@ use Nova\DomainServiceProvider;
 
 class DashboardServiceProvider extends DomainServiceProvider
 {
-    protected array $responsables = [
-        DashboardResponse::class,
-        SystemOverviewResponse::class,
-        WritingOverviewResponse::class,
-    ];
+    public function responsables(): array
+    {
+        return [
+            DashboardResponse::class,
+            SystemOverviewResponse::class,
+            WritingOverviewResponse::class,
+        ];
+    }
 }

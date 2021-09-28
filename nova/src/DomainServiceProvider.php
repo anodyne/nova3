@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova;
 
+use Closure;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Event;
@@ -15,30 +16,51 @@ use LivewireUI\Spotlight\Spotlight;
 
 abstract class DomainServiceProvider extends ServiceProvider
 {
-    protected array $bladeComponents = [];
+    public function bladeComponents(): array
+    {
+        return [];
+    }
 
-    protected array $commands = [];
+    public function consoleCommands(): array
+    {
+        return [];
+    }
 
-    protected array $listeners = [];
+    public function eventListeners(): array
+    {
+        return [];
+    }
 
-    protected array $livewireComponents = [];
+    public function livewireComponents(): array
+    {
+        return [];
+    }
 
-    protected array $morphMaps = [];
+    public function morphMaps(): array
+    {
+        return [];
+    }
 
-    protected array $policies = [];
+    public function policies(): array
+    {
+        return [];
+    }
 
-    protected array $responsables = [];
+    public function responsables(): array
+    {
+        return [];
+    }
 
-    protected array $routes = [];
+    public function routes(): array
+    {
+        return [];
+    }
 
-    /**
-     * Bootstrap any application services.
-     */
     public function boot()
     {
-        $this->bootingDomain();
+        $this->booting($this->domainBootingCallback());
 
-        $this->registerCommands();
+        $this->registerConsoleCommands();
         $this->registerListeners();
         $this->registerPolicies();
         $this->registerRoutes();
@@ -46,20 +68,13 @@ abstract class DomainServiceProvider extends ServiceProvider
         $this->registerLivewireComponents();
         $this->registerSpotlightCommands();
 
-        $this->bootedDomain();
+        $this->booted($this->domainBootedCallback());
     }
 
-    /**
-     * Register any application services.
-     */
     public function register()
     {
-        $this->registeringDomain();
-
         $this->registerMorphMaps();
         $this->registerResponsables();
-
-        $this->registeredDomain();
     }
 
     public function spotlightCommands(): array
@@ -67,24 +82,14 @@ abstract class DomainServiceProvider extends ServiceProvider
         return [];
     }
 
-    /**
-     * Allow a domain service provider to specify additional actions to run
-     * before the boot process starts.
-     *
-     * @return void
-     */
-    protected function bootingDomain()
+    public function domainBootingCallback(): ?Closure
     {
+        return null;
     }
 
-    /**
-     * Allow a domain service provider to specify additional actions to run
-     * after the boot process runs.
-     *
-     * @return void
-     */
-    protected function bootedDomain()
+    public function domainBootedCallback(): ?Closure
     {
+        return null;
     }
 
     /**
@@ -115,44 +120,44 @@ abstract class DomainServiceProvider extends ServiceProvider
 
     private function registerBladeComponents(): void
     {
-        collect($this->bladeComponents)
+        collect($this->bladeComponents())
             ->each(fn ($component, $alias) => Blade::component($alias, $component));
     }
 
-    private function registerCommands(): void
+    private function registerConsoleCommands(): void
     {
-        $this->commands($this->commands);
+        $this->commands($this->consoleCommands());
     }
 
     private function registerListeners(): void
     {
-        collect($this->listeners)->each(function ($listeners, $event) {
-            collect($listeners)->each(function ($listener) use ($event) {
-                Event::listen($event, $listener);
-            });
+        collect($this->eventListeners())->each(function ($listeners, $event) {
+            collect($listeners)->each(
+                fn ($listener) => Event::listen($event, $listener)
+            );
         });
     }
 
     private function registerLivewireComponents(): void
     {
-        collect($this->livewireComponents)
+        collect($this->livewireComponents())
             ->each(fn ($component, $alias) => Livewire::component($alias, $component));
     }
 
     private function registerMorphMaps(): void
     {
-        Relation::morphMap($this->morphMaps);
+        Relation::morphMap($this->morphMaps());
     }
 
     private function registerPolicies(): void
     {
-        collect($this->policies)
+        collect($this->policies())
             ->each(fn ($policy, $model) => Gate::policy($model, $policy));
     }
 
     private function registerResponsables(): void
     {
-        collect($this->responsables)->each(function ($responsable) {
+        collect($this->responsables())->each(function ($responsable) {
             $this->app->singleton($responsable, function ($app) use ($responsable) {
                 $page = optional($this->app['request']->route())->findPageFromRoute();
 
@@ -164,7 +169,7 @@ abstract class DomainServiceProvider extends ServiceProvider
     private function registerRoutes(): void
     {
         Route::middleware('web')->group(function () {
-            collect($this->routes)->each(function ($route, $uri) {
+            collect($this->routes())->each(function ($route, $uri) {
                 $verb = $route['verb'];
                 unset($route['verb']);
                 Route::{$verb}($uri, $route);

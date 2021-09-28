@@ -24,7 +24,7 @@
                 <x-input.group label="Location" for="location" :error="$errors->first('location')">
                     <x-input.text
                         x-model="location"
-                        x-on:change="suggestLocation = false"
+                        @change="suggestLocation = false"
                         id="location"
                         name="location"
                         leading-add-on="themes/"

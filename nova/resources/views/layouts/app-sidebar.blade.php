@@ -3,7 +3,7 @@
 @section('layout')
 <div
     x-data="{ sidebarOpen: false }"
-    x-on:keydown.window.escape="sidebarOpen = false"
+    @keydown.window.escape="sidebarOpen = false"
     class="h-screen flex overflow-hidden bg-gray-3"
 >
     <div
@@ -14,7 +14,7 @@
     >
         <div class="fixed inset-0 flex z-40">
             <div
-                x-on:click="sidebarOpen = false"
+                @click="sidebarOpen = false"
                 x-show="sidebarOpen"
                 x-description="Off-canvas menu overlay, show/hide based on off-canvas menu state."
                 x-transition:enter="transition-opacity ease-linear duration-300"
@@ -45,7 +45,7 @@
                 <div class="absolute top-0 right-0 -mr-12 pt-2">
                     <button
                         x-show="sidebarOpen"
-                        x-on:click="sidebarOpen = false"
+                        @click="sidebarOpen = false"
                         class="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
                         x-cloak
                     >
@@ -224,7 +224,7 @@
     <div class="flex flex-col w-0 flex-1 overflow-hidden">
         <div class="relative z-10 flex-shrink-0 flex h-16 bg-gray-1 shadow">
             <button
-                x-on:click.stop="sidebarOpen = true"
+                @click.stop="sidebarOpen = true"
                 class="px-4 text-gray-11 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-7 | md:hidden"
             >
                 <span class="sr-only">Open sidebar</span>

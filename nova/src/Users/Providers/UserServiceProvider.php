@@ -26,44 +26,62 @@ use Nova\Users\Spotlight\ViewUser;
 
 class UserServiceProvider extends DomainServiceProvider
 {
-    protected array $listeners = [
-        UserCreatedByAdmin::class => [
-            GeneratePassword::class,
-        ],
-    ];
+    public function eventListeners(): array
+    {
+        return [
+            UserCreatedByAdmin::class => [
+                GeneratePassword::class,
+            ],
+        ];
+    }
 
-    protected array $livewireComponents = [
-        'users:collector' => UsersCollector::class,
-        'users:dark-mode-toggle' => DarkModeToggle::class,
-        'users:dropdown' => UsersDropdown::class,
-        'users:manage-users' => ManageUsers::class,
-        'users:notifications' => UserNotifications::class,
-    ];
+    public function livewireComponents(): array
+    {
+        return [
+            'users:collector' => UsersCollector::class,
+            'users:dark-mode-toggle' => DarkModeToggle::class,
+            'users:dropdown' => UsersDropdown::class,
+            'users:manage-users' => ManageUsers::class,
+            'users:notifications' => UserNotifications::class,
+        ];
+    }
 
-    protected array $morphMaps = [
-        'users' => User::class,
-    ];
+    public function morphMaps(): array
+    {
+        return [
+            'user' => User::class,
+        ];
+    }
 
-    protected array $policies = [
-        User::class => UserPolicy::class,
-    ];
+    public function policies(): array
+    {
+        return [
+            User::class => UserPolicy::class,
+        ];
+    }
 
-    protected array $responsables = [
-        CreateUserResponse::class,
-        DeactivateUserResponse::class,
-        DeleteUserResponse::class,
-        UpdateUserResponse::class,
-        ShowAllUsersResponse::class,
-        ShowUserResponse::class,
-    ];
+    public function responsables(): array
+    {
+        return [
+            CreateUserResponse::class,
+            DeactivateUserResponse::class,
+            DeleteUserResponse::class,
+            UpdateUserResponse::class,
+            ShowAllUsersResponse::class,
+            ShowUserResponse::class,
+        ];
+    }
 
-    protected array $routes = [
-        'users/force-password-reset/{user}' => [
-            'verb' => 'put',
-            'uses' => ForcePasswordResetController::class,
-            'as' => 'users.force-password-reset',
-        ],
-    ];
+    public function routes(): array
+    {
+        return [
+            'users/force-password-reset/{user}' => [
+                'verb' => 'put',
+                'uses' => ForcePasswordResetController::class,
+                'as' => 'users.force-password-reset',
+            ],
+        ];
+    }
 
     public function spotlightCommands(): array
     {

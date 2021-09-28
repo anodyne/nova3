@@ -4,7 +4,7 @@
 
 <x-input.field x-data="{ value: '{{ $value }}' }">
     <x-slot name="leadingAddOn">
-        <button type="button" class="focus:outline-none" x-on:click.prevent="value--">
+        <button type="button" class="focus:outline-none" @click.prevent="value--">
             @icon('remove-alt', 'h-6 w-6')
         </button>
     </x-slot>
@@ -19,7 +19,7 @@
     >
 
     <x-slot name="trailingAddOn">
-        <button type="button" class="focus:outline-none" x-on:click.prevent="value++">
+        <button type="button" class="focus:outline-none" @click.prevent="value++">
             @icon('add-alt', 'h-6 w-6')
         </button>
     </x-slot>

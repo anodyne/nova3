@@ -1,6 +1,6 @@
 <div
     x-data="listBox({ value: '{{ $selected }}', selected: '{{ $selected }}' })"
-    x-on:listbox-close.window="open = false"
+    @listbox-close.window="open = false"
     class="relative w-full"
 >
     <input type="hidden" name="icon" value="{{ $selected }}">
@@ -8,12 +8,12 @@
     <span class="inline-block w-full rounded-md shadow-sm">
         <button
             x-ref="button"
-            x-on:keydown.arrow-up.stop.prevent="onButtonClick()"
-            x-on:keydown.arrow-down.stop.prevent="onButtonClick()"
-            x-on:click="onButtonClick()"
+            @keydown.arrow-up.stop.prevent="onButtonClick()"
+            @keydown.arrow-down.stop.prevent="onButtonClick()"
+            @click="onButtonClick()"
             type="button"
             aria-haspopup="listbox"
-            x-bind:aria-expanded="open"
+            :aria-expanded="open"
             aria-labelledby="listbox-label"
             class="cursor-default relative w-full rounded-md border border-gray-6 bg-gray-1 pl-3 pr-10 py-2 text-left focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-150"
         >
@@ -35,7 +35,7 @@
 
     <div
         x-show="open"
-        x-on:click.away="open = false"
+        @click.away="open = false"
         x-description="Select popover, show/hide based on select state."
         x-transition:leave="transition ease-in duration-100"
         x-transition:leave-start="opacity-100"
@@ -44,15 +44,15 @@
         style="display: none;"
     >
         <div
-            x-on:keydown.enter.stop.prevent="onOptionSelect()"
-            x-on:keydown.escape="onEscape()"
-            x-on:keydown.arrow-up.prevent="onArrowUp()"
-            x-on:keydown.arrow-down.prevent="onArrowDown()"
+            @keydown.enter.stop.prevent="onOptionSelect()"
+            @keydown.escape="onEscape()"
+            @keydown.arrow-up.prevent="onArrowUp()"
+            @keydown.arrow-down.prevent="onArrowDown()"
             x-ref="listbox"
             tabindex="-1"
             role="listbox"
             aria-labelledby="listbox-label"
-            x-bind:aria-activedescendant="activeDescendant"
+            :aria-activedescendant="activeDescendant"
             class="max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none | sm:text-sm"
             aria-activedescendant="listbox-option-0"
         >
@@ -86,15 +86,15 @@
                         id="listbox-option-0"
                         role="option"
                         wire:click="selectIcon('')"
-                        x-on:mouseenter="selected = ''"
-                        x-on:mouseleave="selected = null"
-                        x-bind:class="{ 'text-white bg-blue-9': selected === '', 'text-gray-900': !(selected === '') }"
+                        @mouseenter="selected = ''"
+                        @mouseleave="selected = null"
+                        :class="{ 'text-white bg-blue-9': selected === '', 'text-gray-900': !(selected === '') }"
                         class="flex-shrink-0 cursor-pointer select-none relative p-2 text-gray-900 flex items-center justify-center rounded"
                     >
                         <div
                             x-state:on="Selected"
                             x-state:off="Not Selected"
-                            x-bind:class="{ 'font-semibold': value === '', 'font-normal': !(value === '') }"
+                            :class="{ 'font-semibold': value === '', 'font-normal': !(value === '') }"
                             class="flex flex-col items-center truncate w-8 h-8 text-xs leading-tight"
                         >
                             No<br>icon
@@ -109,15 +109,15 @@
                             id="listbox-option-{{ $icon }}"
                             role="option"
                             wire:click="selectIcon('{{ $icon }}')"
-                            x-on:mouseenter="selected = '{{ $icon }}'"
-                            x-on:mouseleave="selected = null"
-                            x-bind:class="{ 'text-white bg-blue-9': selected === '{{ $icon }}', 'text-gray-900': !(selected === '{{ $icon }}') }"
+                            @mouseenter="selected = '{{ $icon }}'"
+                            @mouseleave="selected = null"
+                            :class="{ 'text-white bg-blue-9': selected === '{{ $icon }}', 'text-gray-900': !(selected === '{{ $icon }}') }"
                             class="flex-shrink-0 cursor-pointer select-none relative p-2 text-gray-900 flex items-center justify-center rounded"
                         >
                             <div
                                 x-state:on="Selected"
                                 x-state:off="Not Selected"
-                                x-bind:class="{ 'font-semibold': value === '{{ $icon }}', 'font-normal': !(value === '{{ $icon }}') }"
+                                :class="{ 'font-semibold': value === '{{ $icon }}', 'font-normal': !(value === '{{ $icon }}') }"
                                 class="flex flex-col items-center truncate"
                             >
                                 @icon($icon, 'h-8 w-8')

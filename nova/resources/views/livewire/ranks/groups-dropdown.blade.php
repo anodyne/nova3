@@ -1,6 +1,6 @@
 <div
     x-data="listBox({ value: {{ $selectedId ?? 0 }}, selected: {{ $selectedId ?? 0 }} })"
-    x-on:listbox-close.window="open = false"
+    @listbox-close.window="open = false"
     class="relative w-full"
 >
     <input type="hidden" name="group_id" value="{{ $selectedId }}">
@@ -8,12 +8,12 @@
     <span class="relative flex w-full rounded-md shadow-sm">
         <button
             x-ref="button"
-            x-on:keydown.arrow-up.stop.prevent="onButtonClick()"
-            x-on:keydown.arrow-down.stop.prevent="onButtonClick()"
-            x-on:click="onButtonClick()"
+            @keydown.arrow-up.stop.prevent="onButtonClick()"
+            @keydown.arrow-down.stop.prevent="onButtonClick()"
+            @click="onButtonClick()"
             type="button"
             aria-haspopup="listbox"
-            x-bind:aria-expanded="open"
+            :aria-expanded="open"
             aria-labelledby="listbox-label"
             class="cursor-default relative w-full rounded-md border border-gray-6 bg-gray-1 pl-3 pr-10 py-2 text-left focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-150"
         >
@@ -30,7 +30,7 @@
 
     <div
         x-show="open"
-        x-on:click.away="open = false"
+        @click.away="open = false"
         x-description="Select popover, show/hide based on select state."
         x-transition:leave="transition ease-in duration-100"
         x-transition:leave-start="opacity-100"
@@ -39,15 +39,15 @@
         style="display: none;"
     >
         <ul
-            x-on:keydown.enter.stop.prevent="onOptionSelect()"
-            x-on:keydown.escape="onEscape()"
-            x-on:keydown.arrow-up.prevent="onArrowUp()"
-            x-on:keydown.arrow-down.prevent="onArrowDown()"
+            @keydown.enter.stop.prevent="onOptionSelect()"
+            @keydown.escape="onEscape()"
+            @keydown.arrow-up.prevent="onArrowUp()"
+            @keydown.arrow-down.prevent="onArrowDown()"
             x-ref="listbox"
             tabindex="-1"
             role="listbox"
             aria-labelledby="listbox-label"
-            x-bind:aria-activedescendant="activeDescendant"
+            :aria-activedescendant="activeDescendant"
             class="max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none | sm:text-sm"
             aria-activedescendant="listbox-option-0"
         >
@@ -73,15 +73,15 @@
                     id="listbox-option-{{ $group->id }}"
                     role="option"
                     wire:click="selectGroup({{ $group->id }})"
-                    x-on:mouseenter="selected = {{ $group->id }}"
-                    x-on:mouseleave="selected = null"
-                    x-bind:class="{ 'text-white bg-blue-9': selected === {{ $group->id }}, 'text-gray-900': !(selected === {{ $group->id }}) }"
+                    @mouseenter="selected = {{ $group->id }}"
+                    @mouseleave="selected = null"
+                    :class="{ 'text-white bg-blue-9': selected === {{ $group->id }}, 'text-gray-900': !(selected === {{ $group->id }}) }"
                     class="cursor-default select-none relative py-2 pl-3 pr-9 text-gray-900"
                 >
                     <span
                         x-state:on="Selected"
                         x-state:off="Not Selected"
-                        x-bind:class="{ 'font-semibold': value === {{ $group->id }}, 'font-normal': !(value === {{ $group->id }}) }"
+                        :class="{ 'font-semibold': value === {{ $group->id }}, 'font-normal': !(value === {{ $group->id }}) }"
                         class="block truncate font-semibold"
                     >
                         {{ $group->name }}
@@ -92,7 +92,7 @@
                             x-description="Checkmark, only display for selected option."
                             x-state:on="Highlighted"
                             x-state:off="Not Highlighted"
-                            x-bind:class="{ 'text-white': selected === {{ $group->id }}, 'text-blue-9': !(selected === {{ $group->id }}) }"
+                            :class="{ 'text-white': selected === {{ $group->id }}, 'text-blue-9': !(selected === {{ $group->id }}) }"
                             class="absolute inset-y-0 right-0 flex items-center pr-4 text-blue-9"
                         >
                             @icon('check', 'h-5 w-5')

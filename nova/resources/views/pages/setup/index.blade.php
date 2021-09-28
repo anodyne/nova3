@@ -4,9 +4,9 @@
 <div x-data="{ tab: 'intro', isLoading: false }">
     <div>
         <div class="p-4 | sm:hidden">
-            <select x-on:change="tab = $event.target.value" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring focus:border-blue-7 sm:text-sm transition ease-in-out duration-150">
-                <option value="intro" x-bind:selected="tab === 'intro'">Intro</option>
-                <option value="install" x-bind:selected="tab === 'install'">Install</option>
+            <select @change="tab = $event.target.value" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring focus:border-blue-7 sm:text-sm transition ease-in-out duration-150">
+                <option value="intro" :selected="tab === 'intro'">Intro</option>
+                <option value="install" :selected="tab === 'install'">Install</option>
             </select>
         </div>
         <div class="hidden sm:block">
@@ -65,14 +65,14 @@
             <x-form action="setup/install">
                 <div class="flex items-center justify-center">
                     <x-button
-                        x-on:click="isLoading = true"
+                        @click="isLoading = true"
                         type="submit"
                         color="blue"
                         size="lg"
                         class="relative disabled:cursor-not-allowed justify-center"
-                        x-bind:disabled="isLoading"
+                        :disabled="isLoading"
                     >
-                        <span x-bind:class="{ 'text-transparent': isLoading }">Install Nova 3</span>
+                        <span :class="{ 'text-transparent': isLoading }">Install Nova 3</span>
                         <template x-if="isLoading">
                             <svg class="absolute block fill-current h-3 leading-none mx-auto" viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg">
                                 <circle cx="15" cy="15" r="15">

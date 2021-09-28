@@ -9,18 +9,24 @@ use Nova\Setup\Commands\RefreshNovaCommand;
 
 class SetupServiceProvider extends DomainServiceProvider
 {
-    protected array $commands = [
-        RefreshNovaCommand::class,
-    ];
+    public function consoleCommands(): array
+    {
+        return [
+            RefreshNovaCommand::class,
+        ];
+    }
 
-    protected array $routes = [
-        'setup' => [
-            'verb' => 'get',
-            'uses' => 'Nova\Setup\Controllers\SetupController@index',
-        ],
-        'setup/install' => [
-            'verb' => 'post',
-            'uses' => 'Nova\Setup\Controllers\SetupController@install',
-        ],
-    ];
+    public function routes(): array
+    {
+        return [
+            'setup' => [
+                'verb' => 'get',
+                'uses' => 'Nova\Setup\Controllers\SetupController@index',
+            ],
+            'setup/install' => [
+                'verb' => 'post',
+                'uses' => 'Nova\Setup\Controllers\SetupController@install',
+            ],
+        ];
+    }
 }

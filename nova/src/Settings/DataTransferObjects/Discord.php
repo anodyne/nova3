@@ -10,27 +10,15 @@ use JessArcher\CastableDataTransferObject\CastableDataTransferObject;
 
 class Discord extends CastableDataTransferObject implements Arrayable
 {
-    public bool $storyPostsEnabled;
+    public ?string $color;
 
-    public ?string $storyPostsWebhook;
-
-    public ?string $storyPostsColor;
-
-    public bool $applicationsEnabled;
-
-    public ?string $applicationsWebhook;
-
-    public ?string $applicationsColor;
+    public ?string $webhook;
 
     public static function fromRequest(Request $request): self
     {
         return new self(
-            applicationsColor: $request->input('applications.color'),
-            applicationsEnabled: (bool) $request->input('applications.enabled', false),
-            applicationsWebhook: $request->input('applications.webhook'),
-            storyPostsColor: $request->input('storyPosts.color'),
-            storyPostsEnabled: (bool) $request->input('storyPosts.enabled', false),
-            storyPostsWebhook: $request->input('storyPosts.webhook')
+            webhook: $request->input('webhook'),
+            color: $request->input('color'),
         );
     }
 }

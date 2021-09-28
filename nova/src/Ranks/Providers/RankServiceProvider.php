@@ -18,38 +18,47 @@ use Nova\Ranks\Responses;
 
 class RankServiceProvider extends DomainServiceProvider
 {
-    protected array $livewireComponents = [
-        'ranks:items-dropdown' => RankItemsDropdown::class,
-        'ranks:groups-dropdown' => RankGroupsDropdown::class,
-        'ranks:names-dropdown' => RankNamesDropdown::class,
-    ];
+    public function livewireComponents(): array
+    {
+        return [
+            'ranks:items-dropdown' => RankItemsDropdown::class,
+            'ranks:groups-dropdown' => RankGroupsDropdown::class,
+            'ranks:names-dropdown' => RankNamesDropdown::class,
+        ];
+    }
 
-    protected array $policies = [
-        RankGroup::class => RankGroupPolicy::class,
-        RankItem::class => RankItemPolicy::class,
-        RankName::class => RankNamePolicy::class,
-    ];
+    public function policies(): array
+    {
+        return [
+            RankGroup::class => RankGroupPolicy::class,
+            RankItem::class => RankItemPolicy::class,
+            RankName::class => RankNamePolicy::class,
+        ];
+    }
 
-    protected array $responsables = [
-        Responses\ShowRankOptionsResponse::class,
+    public function responsables(): array
+    {
+        return [
+            Responses\ShowRankOptionsResponse::class,
 
-        Responses\Groups\CreateRankGroupResponse::class,
-        Responses\Groups\DeleteRankGroupResponse::class,
-        Responses\Groups\DuplicateRankGroupResponse::class,
-        Responses\Groups\ShowAllRankGroupsResponse::class,
-        Responses\Groups\ShowRankGroupResponse::class,
-        Responses\Groups\UpdateRankGroupResponse::class,
+            Responses\Groups\CreateRankGroupResponse::class,
+            Responses\Groups\DeleteRankGroupResponse::class,
+            Responses\Groups\DuplicateRankGroupResponse::class,
+            Responses\Groups\ShowAllRankGroupsResponse::class,
+            Responses\Groups\ShowRankGroupResponse::class,
+            Responses\Groups\UpdateRankGroupResponse::class,
 
-        Responses\Names\CreateRankNameResponse::class,
-        Responses\Names\DeleteRankNameResponse::class,
-        Responses\Names\ShowAllRankNamesResponse::class,
-        Responses\Names\ShowRankNameResponse::class,
-        Responses\Names\UpdateRankNameResponse::class,
+            Responses\Names\CreateRankNameResponse::class,
+            Responses\Names\DeleteRankNameResponse::class,
+            Responses\Names\ShowAllRankNamesResponse::class,
+            Responses\Names\ShowRankNameResponse::class,
+            Responses\Names\UpdateRankNameResponse::class,
 
-        Responses\Items\CreateRankItemResponse::class,
-        Responses\Items\DeleteRankItemResponse::class,
-        Responses\Items\ShowAllRankItemsResponse::class,
-        Responses\Items\ShowRankItemResponse::class,
-        Responses\Items\UpdateRankItemResponse::class,
-    ];
+            Responses\Items\CreateRankItemResponse::class,
+            Responses\Items\DeleteRankItemResponse::class,
+            Responses\Items\ShowAllRankItemsResponse::class,
+            Responses\Items\ShowRankItemResponse::class,
+            Responses\Items\UpdateRankItemResponse::class,
+        ];
+    }
 }

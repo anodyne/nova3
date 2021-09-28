@@ -7,10 +7,10 @@
     x-init="$watch('showPassword', value => type = (value) ? 'text' : 'password')"
     :leading-add-on="$leadingAddOn"
 >
-    <input x-bind:type="type" class="form-field" {{ $attributes }}>
+    <input :type="type" class="form-field" {{ $attributes }}>
 
     <x-slot name="trailingAddOn">
-        <button x-on:click="showPassword = !showPassword" type="button" class="focus:outline-none" x-cloak>
+        <button @click="showPassword = !showPassword" type="button" class="focus:outline-none" x-cloak>
             <div x-show="showPassword" class="leading-0">
                 @icon('hide')
             </div>

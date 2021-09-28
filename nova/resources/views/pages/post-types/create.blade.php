@@ -8,7 +8,7 @@
     </x-page-header>
 
     <x-panel
-        x-data="{ name: '{{ old('name') }}', key: '{{ old('key') }}', suggestKey: true }"
+        x-data="{ ...tabsList('details'), name: '', key: '', suggestKey: true }"
         x-init="$watch('name', value => {
             if (suggestKey) {
                 key = value.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'-');
@@ -16,14 +16,39 @@
         })"
         on-edge
     >
-        <x-form :action="route('post-types.store')">
-            <x-form.section title="Post Type Info" message="A post type defines how different types of story entries are displayed and used. Using post types, you can setup your writing features exactly how you want them for your game.">
+        <div>
+            <div class="p-4 sm:hidden">
+                <select @change="switchTab($event.target.value)" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-150 sm:text-sm rounded-md">
+                    <option value="details">Details</option>
+                    <option value="permissions">Fields</option>
+                    <option value="users">Options</option>
+                </select>
+            </div>
+            <div class="hidden sm:block">
+                <div class="border-b border-gray-6 px-4 sm:px-6">
+                    <nav class="-mb-px flex">
+                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none" :class="{ 'border-blue-7 text-blue-11': isTab('details'), 'text-gray-9 hover:text-gray-11 hover:border-gray-6': isNotTab('details') }" @click.prevent="switchTab('details')">
+                            Details
+                        </a>
+                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none" :class="{ 'border-blue-7 text-blue-11': isTab('fields'), 'text-gray-9 hover:text-gray-11 hover:border-gray-6': isNotTab('fields') }" @click.prevent="switchTab('fields')">
+                            Fields
+                        </a>
+                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none" :class="{ 'border-blue-7 text-blue-11': isTab('options'), 'text-gray-9 hover:text-gray-11 hover:border-gray-6': isNotTab('options') }" @click.prevent="switchTab('options')">
+                            Options
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <x-form :action="route('post-types.store')" :divide="false" :space="false">
+            <x-form.section title="Post Type Info" message="A post type defines how different types of story entries are displayed and used. Using post types, you can setup your writing features exactly how you want them for your game." x-show="isTab('details')">
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
                     <x-input.text x-model="name" id="name" name="name" data-cy="name" />
                 </x-input.group>
 
                 <x-input.group label="Key" for="key" :error="$errors->first('key')">
-                    <x-input.text x-model="key" x-on:change="suggestKey = false" id="key" name="key" data-cy="key" />
+                    <x-input.text x-model="key" @change="suggestKey = false" id="key" name="key" data-cy="key" />
                 </x-input.group>
 
                 <x-input.group label="Description" for="description">
@@ -58,10 +83,10 @@
                 </x-input.group>
             </x-form.section>
 
-            <x-form.section title="Fields" message="Post types control which fields are available when creating a post of that type. You can turn any of these fields on/off to suit your game's needs.">
+            <x-form.section title="Fields" message="Post types control which fields are available when creating a post of that type. You can turn any of these fields on/off to suit your game's needs." x-show="isTab('fields')">
                 @foreach ($fieldTypes as $fieldType)
                     <div x-data="{ '{{ $fieldType }}': true }" class="px-4 py-5 bg-gray-2 rounded border border-gray-6 sm:p-6">
-                        <div x-on:toggle-changed="{{ $fieldType }} = $event.detail.value">
+                        <div @toggle-changed="{{ $fieldType }} = $event.detail.value">
                             <x-input.toggle field="fields[{{ $fieldType }}][enabled]" :value="old('fields[{{ $fieldType }}][enabled]', true)">
                                 {{ ucfirst($fieldType) }} field
                             </x-input.toggle>
@@ -84,7 +109,7 @@
                 @endforeach
             </x-form.section>
 
-            <x-form.section title="Options" message="Post types control the behavior of a post of that type with a wide range of options. You can turn any of these fields on/off to suit your game's needs.">
+            <x-form.section title="Options" message="Post types control the behavior of a post of that type with a wide range of options. You can turn any of these fields on/off to suit your game's needs." x-show="isTab('options')">
                 <x-input.group>
                     <x-input.toggle field="options[notifyUsers]" :value="old('options[notifyUsers]', true)">
                         Send notification to users
@@ -104,8 +129,8 @@
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle field="options[includeInPostCounts]" :value="old('options[includeInPostCounts]', true)">
-                        Include in post counts
+                    <x-input.toggle field="options[includeInPostTracking]" :value="old('options[includeInPostTracking]', true)">
+                        Include in post tracking
                     </x-input.toggle>
                 </x-input.group>
 
@@ -125,7 +150,7 @@
                 </x-input.group>
             </x-form.section>
 
-            <x-form.footer>
+            <x-form.footer class="mt-4 md:mt-8">
                 <x-button type="submit" color="blue">Add Post Type</x-button>
                 <x-link :href="route('post-types.index')" color="white">Cancel</x-link>
             </x-form.footer>

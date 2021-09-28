@@ -7,8 +7,8 @@
 
         <input
             x-model="search"
-            x-on:keydown.debounce.150="isLoading = true"
-            x-on:keydown.debounce.500="refreshList($event.target.value)"
+            @keydown.debounce.150="isLoading = true"
+            @keydown.debounce.500="refreshList($event.target.value)"
             autocomplete="off"
             class="relative w-full appearance-none bg-transparent text-gray-11 border-none p-0 focus:ring-0 focus:outline-none"
             name="search"
@@ -23,7 +23,7 @@
 
         <x-button
             x-show="!!search"
-            x-on:click.prevent="isLoading = true; search = ''; refreshList(null);"
+            @click.prevent="isLoading = true; search = ''; refreshList(null);"
             x-cloak
             id="clear-search"
             class="ml-3"

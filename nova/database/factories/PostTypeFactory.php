@@ -61,7 +61,7 @@ class PostTypeFactory extends Factory
             'options' => new Options([
                 'notifyUsers' => true,
                 'notifyDiscord' => true,
-                'includeInPostCounts' => true,
+                'includeInPostTracking' => true,
                 'multipleAuthors' => true,
             ]),
         ];

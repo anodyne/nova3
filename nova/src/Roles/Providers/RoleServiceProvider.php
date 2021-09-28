@@ -17,20 +17,29 @@ use Nova\Roles\Responses\UpdateRoleResponse;
 
 class RoleServiceProvider extends DomainServiceProvider
 {
-    protected array $livewireComponents = [
-        'roles:manage-permissions' => ManagePermissions::class,
-        'roles:manage-roles' => ManageRoles::class,
-    ];
+    public function livewireComponents(): array
+    {
+        return [
+            'roles:manage-permissions' => ManagePermissions::class,
+            'roles:manage-roles' => ManageRoles::class,
+        ];
+    }
 
-    protected array $policies = [
-        Role::class => RolePolicy::class,
-    ];
+    public function policies(): array
+    {
+        return [
+            Role::class => RolePolicy::class,
+        ];
+    }
 
-    protected array $responsables = [
-        CreateRoleResponse::class,
-        DeleteRoleResponse::class,
-        UpdateRoleResponse::class,
-        ShowAllRolesResponse::class,
-        ShowRoleResponse::class,
-    ];
+    public function responsables(): array
+    {
+        return [
+            CreateRoleResponse::class,
+            DeleteRoleResponse::class,
+            UpdateRoleResponse::class,
+            ShowAllRolesResponse::class,
+            ShowRoleResponse::class,
+        ];
+    }
 }

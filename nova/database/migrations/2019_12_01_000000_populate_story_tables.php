@@ -73,7 +73,7 @@ class PopulateStoryTables extends Migration
                 'options' => new Options([
                     'notifyUsers' => true,
                     'notifyDiscord' => true,
-                    'includeInPostCounts' => true,
+                    'includeInPostTracking' => true,
                     'multipleAuthors' => true,
                 ]),
                 'sort' => 0,
@@ -121,7 +121,7 @@ class PopulateStoryTables extends Migration
                 'options' => new Options([
                     'notifyUsers' => true,
                     'notifyDiscord' => true,
-                    'includeInPostCounts' => true,
+                    'includeInPostTracking' => true,
                     'multipleAuthors' => false,
                 ]),
                 'sort' => 1,
@@ -169,7 +169,7 @@ class PopulateStoryTables extends Migration
                 'options' => new Options([
                     'notifyUsers' => false,
                     'notifyDiscord' => false,
-                    'includeInPostCounts' => false,
+                    'includeInPostTracking' => false,
                     'multipleAuthors' => false,
                 ]),
                 'role_id' => 1,
@@ -218,7 +218,7 @@ class PopulateStoryTables extends Migration
                 'options' => new Options([
                     'notifyUsers' => false,
                     'notifyDiscord' => true,
-                    'includeInPostCounts' => false,
+                    'includeInPostTracking' => false,
                     'multipleAuthors' => false,
                 ]),
                 'role_id' => 1,

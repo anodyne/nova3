@@ -8,9 +8,9 @@
         <button
             x-bind="rating({{ $i }})"
             type="button"
-            x-on:click="setCount({{ $i }})"
+            @click="setCount({{ $i }})"
             class="m-0 flex-1 py-0.5 bg-gray-6 hover:bg-gray-9 text-center text-sm font-semibold transition ease-in-out duration-150"
-            x-bind:class="{
+            :class="{
                 'bg-green-9 hover:bg-green-9 text-gray-1': count >= {{ $i }} && count === 0,
                 'bg-yellow-9 hover:bg-yellow-9 text-gray-12': count >= {{ $i }} && count === 1,
                 'bg-orange-9 hover:bg-orange-9 text-gray-1': count >= {{ $i }} && count === 2,

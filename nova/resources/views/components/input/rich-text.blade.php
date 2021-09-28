@@ -6,7 +6,7 @@
 
 <div
     x-data="wordCount"
-    x-on:trix-change="
+    @trix-change="
         $dispatch('input', $event.target.value);
         @if ($countWords) refreshCount($event); @endif
     "

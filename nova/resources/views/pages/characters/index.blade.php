@@ -88,7 +88,7 @@
     <x-panel on-edge>
         <div>
             <div class="p-4 sm:hidden">
-                <select x-on:change="window.location.replace($event.target.value)" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 sm:text-sm transition ease-in-out duration-150">
+                <select @change="window.location.replace($event.target.value)" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 sm:text-sm transition ease-in-out duration-150">
                     <option value="{{ route('characters.index', 'status=active') }}"{{ request()->status === 'active' ? 'selected' : '' }}>Active Characters</option>
 
                     @can('approveAny', Nova\Characters\Models\Character::class)
@@ -212,7 +212,7 @@
 
                                     @can('deactivate', $character)
                                         <x-dropdown.group>
-                                            <x-dropdown.item type="button" icon="remove-alt" data-cy="deactivate" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-deactivate', {{ json_encode($character) }});">
+                                            <x-dropdown.item type="button" icon="remove-alt" data-cy="deactivate" @click="$dispatch('dropdown-toggle');$dispatch('modal-deactivate', {{ json_encode($character) }});">
                                                 <span>Deactivate</span>
                                             </x-dropdown.item>
                                         </x-dropdown.group>
@@ -220,7 +220,7 @@
 
                                     @can('delete', $character)
                                         <x-dropdown.group>
-                                            <x-dropdown.item-danger type="button" icon="delete" data-cy="delete" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($character) }});">
+                                            <x-dropdown.item-danger type="button" icon="delete" data-cy="delete" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($character) }});">
                                                 <span>Delete</span>
                                             </x-dropdown.item-danger>
                                         </x-dropdown.group>
@@ -252,7 +252,7 @@
                 </x-button>
             </span>
             <span class="mt-3 flex w-full sm:mt-0 sm:col-start-1">
-                <x-button x-on:click="$dispatch('modal-close')" type="button" color="white" full-width>
+                <x-button @click="$dispatch('modal-close')" type="button" color="white" full-width>
                     Cancel
                 </x-button>
             </span>
@@ -267,7 +267,7 @@
                 </x-button>
             </span>
             <span class="mt-3 flex w-full sm:mt-0 sm:col-start-1">
-                <x-button x-on:click="$dispatch('modal-close')" type="button" color="white" full-width>
+                <x-button @click="$dispatch('modal-close')" type="button" color="white" full-width>
                     Cancel
                 </x-button>
             </span>

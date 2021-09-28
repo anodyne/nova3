@@ -14,11 +14,11 @@
             @endif
         </span>
         <span x-data="{ focused: false }">
-            <input x-on:focus="focused = true" x-on:blur="focused = false" type="file" id="avatar" wire:model="avatar" class="sr-only">
+            <input @focus="focused = true" @blur="focused = false" type="file" id="avatar" wire:model="avatar" class="sr-only">
             <label
                 for="avatar"
                 class="cursor-pointer inline-flex items-center border uppercase tracking-wide font-semibold rounded-md transition ease-in-out duration-150 focus:outline-none border-gray-300 text-gray-700 bg-gray-1 hover:text-gray-500 active:text-gray-800 active:bg-gray-50 px-2.5 py-1.5 text-xs"
-                x-bind:class="{ 'border-blue-7 ring': focused }"
+                :class="{ 'border-blue-7 ring': focused }"
             >
                 Change
             </label>

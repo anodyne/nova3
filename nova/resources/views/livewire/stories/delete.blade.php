@@ -6,7 +6,7 @@
                     <div
                         class="text-lg font-semibold text-gray-12"
                         x-data="{}"
-                        x-on:toggle-changed="livewire.emit('delete-story-toggle', $event.detail.value, {{ $story->id }})"
+                        @toggle-changed="livewire.emit('delete-story-toggle', $event.detail.value, {{ $story->id }})"
                     >
                         <x-input.toggle
                             field="active"

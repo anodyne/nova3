@@ -12,6 +12,8 @@ class Characters extends CastableDataTransferObject implements Arrayable
 {
     public bool $allowCharacterCreation;
 
+    public bool $autoLinkCharacter;
+
     public int $characterLimit = 5;
 
     public bool $enforceCharacterLimits;
@@ -21,10 +23,11 @@ class Characters extends CastableDataTransferObject implements Arrayable
     public static function fromRequest(Request $request): self
     {
         return new self(
-            allowCharacterCreation: (bool) $request->input('allowCharacterCreation', false),
-            characterLimit: (int) $request->input('characterLimit', 5),
-            enforceCharacterLimits: (bool) $request->input('enforceCharacterLimits', false),
-            requireApprovalForCharacterCreation: (bool) $request->input('requireApprovalForCharacterCreation', false)
+            allowCharacterCreation: (bool) $request->input('allow_character_creation', false),
+            autoLinkCharacter: (bool) $request->input('auto_link_character', false),
+            characterLimit: (int) $request->input('character_limit', 5),
+            enforceCharacterLimits: (bool) $request->input('enforce_character_limits', false),
+            requireApprovalForCharacterCreation: (bool) $request->input('require_approval_for_character_creation', false)
         );
     }
 }

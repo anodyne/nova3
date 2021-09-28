@@ -12,13 +12,13 @@
     <div
         x-data="modal('{{ $event }}', '{{ $url }}', '{{ csrf_token() }}')"
         x-show="open"
-        x-on:keydown.window.escape="open = false"
-        x-on:modal-close.window="open = false"
+        @keydown.window.escape="open = false"
+        @modal-close.window="open = false"
         class="fixed bottom-0 inset-x-0 px-4 pb-6 z-50 sm:inset-0 sm:p-0 sm:flex sm:items-center sm:justify-center"
     >
         <div
             x-show="open"
-            x-on:click="open = false"
+            @click="open = false"
             x-description="Background overlay, show/hide based on modal state."
             x-transition:enter="ease-out duration-300"
             x-transition:enter-start="opacity-0"

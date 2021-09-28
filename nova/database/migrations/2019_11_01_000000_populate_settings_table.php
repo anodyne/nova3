@@ -26,11 +26,14 @@ class PopulateSettingsTable extends Migration
             'meta_tags' => new MetaTags(),
             'characters' => new Characters(
                 allowCharacterCreation: true,
-                requireApprovalForCharacterCreation: true,
+                autoLinkCharacter: true,
+                characterLimit: 5,
                 enforceCharacterLimits: true,
-                characterLimit: 5
+                requireApprovalForCharacterCreation: true,
             ),
             'discord' => new Discord(
+                webhook: null,
+                color: '#38b2ac',
                 storyPostsEnabled: true,
                 storyPostsWebhook: null,
                 storyPostsColor: '#406ceb',

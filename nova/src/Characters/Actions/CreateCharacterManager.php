@@ -39,6 +39,8 @@ class CreateCharacterManager
 
         UploadCharacterAvatar::run($character, $request->avatar_path);
 
+        SendPendingCharacterNotification::run($character);
+
         return $character->refresh();
     }
 }

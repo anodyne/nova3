@@ -102,12 +102,8 @@ class AppServiceProvider extends ServiceProvider
 
     protected function setupFactories()
     {
-        Factory::guessFactoryNamesUsing(function (string $modelName) {
-            $namespace = 'Database\\Factories\\';
-
-            $modelName = Str::afterLast($modelName, '\\');
-
-            return $namespace.$modelName.'Factory';
-        });
+        Factory::guessFactoryNamesUsing(
+            fn ($model) => 'Database\\Factories\\'.Str::afterLast($model, '\\').'Factory'
+        );
     }
 }

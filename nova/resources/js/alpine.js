@@ -1,5 +1,6 @@
 import Alpine from 'alpinejs';
 
+import ListBox from './components/list-box';
 import Modal from './components/modal';
 import Ratings from './components/ratings';
 import SortableList from './components/sortable-list';
@@ -8,6 +9,7 @@ import TipTap from './components/tip-tap';
 import ToggleSwitch from './components/toggle-switch';
 import WordCount from './components/word-count';
 
+Alpine.data('listBox', ListBox);
 Alpine.data('modal', Modal);
 Alpine.data('ratings', Ratings);
 Alpine.data('sortableList', SortableList);
