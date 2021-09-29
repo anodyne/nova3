@@ -60,9 +60,9 @@
             </div>
         </div>
 
-        <div class="px-4 py-2 sm:px-6 sm:py-3">
+        <x-content-box min-height>
             <x-search-filter placeholder="Find a user..." :search="$search" />
-        </div>
+        </x-content-box>
 
         <ul>
             @forelse ($users as $user)

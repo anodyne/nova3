@@ -56,9 +56,9 @@
                     </div>
                 </x-content-box>
             @else
-                <div class="px-4 py-2 sm:px-6 sm:py-3">
+                <x-content-box min-height>
                     <x-search-filter placeholder="Find a department..." :search="$search" />
-                </div>
+                </x-content-box>
             @endif
 
             <ul id="sortable-list">
