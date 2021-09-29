@@ -27,6 +27,7 @@ use Nova\Foundation\View\Components\Avatar;
 use Nova\Foundation\View\Components\AvatarGroup;
 use Nova\Foundation\View\Components\Badge;
 use Nova\Foundation\View\Components\Button;
+use Nova\Foundation\View\Components\ContentBox;
 use Nova\Foundation\View\Components\Dropdown;
 use Nova\Foundation\View\Components\Link;
 use Nova\Foundation\View\Components\Tips;
@@ -81,6 +82,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('avatar-group', AvatarGroup::class);
         Blade::component('badge', Badge::class);
         Blade::component('button', Button::class);
+        Blade::component('content-box', ContentBox::class);
         Blade::component('link', Link::class);
         Blade::component('dropdown', Dropdown::class);
         Blade::component('tips', Tips::class);

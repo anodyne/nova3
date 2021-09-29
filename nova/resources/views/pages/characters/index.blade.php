@@ -100,7 +100,7 @@
                 </select>
             </x-content-box>
             <div class="hidden sm:block">
-                <div class="border-b border-gray-6 px-4 sm:px-6">
+                <x-content-box class="border-b border-gray-6" no-height>
                     <nav class="-mb-px flex">
                         <a
                             href="{{ route('characters.index', 'status=active') }}"
@@ -131,19 +131,19 @@
                             All Characters
                         </a>
                     </nav>
-                </div>
+                </x-content-box>
             </div>
         </div>
 
-        <div class="px-4 py-2 sm:px-6 sm:py-3">
+        <x-content-box min-height>
             <x-search-filter placeholder="Find a character..." :search="$search" />
-        </div>
+        </x-content-box>
 
         <ul>
             @forelse ($characters as $character)
                 <li class="border-t border-gray-6">
                     <div class="block hover:bg-gray-2 focus:outline-none focus:bg-gray-2 transition duration-150 ease-in-out">
-                        <div class="flex items-center px-4 py-4 sm:px-6">
+                        <x-content-box class="flex items-center">
                             <div class="min-w-0 flex-1 flex items-center">
                                 <div class="min-w-0 flex-1 pr-4 md:grid md:grid-cols-2 md:gap-4">
                                     <div>
@@ -227,7 +227,7 @@
                                     @endcan
                                 </x-dropdown>
                             </div>
-                        </div>
+                        </x-content-box>
                     </div>
                 </li>
             @empty
