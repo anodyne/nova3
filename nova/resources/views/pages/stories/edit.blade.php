@@ -7,7 +7,7 @@
         </x-slot>
     </x-page-header>
 
-    <x-panel on-edge>
+    <x-panel>
         <x-form :action="route('stories.update', $story)" method="PUT">
             <x-form.section title="Story Info" message="Provide some basic information about your story including a brief description of what the story is about.">
                 <x-input.group label="Title" for="title" :error="$errors->first('title')">

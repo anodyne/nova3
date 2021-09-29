@@ -7,7 +7,7 @@
         </x-slot>
     </x-page-header>
 
-    <x-panel x-data="{ tab: 'base', base: '{{ old('base_image', $item->base_image) }}', overlay: '{{ old('overlay_image', $item->overlay_image) }}' }" on-edge>
+    <x-panel x-data="{ tab: 'base', base: '{{ old('base_image', $item->base_image) }}', overlay: '{{ old('overlay_image', $item->overlay_image) }}' }">
         <x-form :action="route('ranks.items.update', $item)" method="PUT">
             <x-form.section title="Rank Info" message="You can build up your rank with a few clicks. Assign it to a group, set a name, and pick your base and overlay images to build your rank quickly and easily.">
                 <x-input.group label="Rank Group" for="group_id" :error="$errors->first('group_id')">

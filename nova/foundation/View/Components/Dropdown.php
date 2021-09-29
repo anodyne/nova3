@@ -89,6 +89,6 @@ class Dropdown extends Component
 
     public function render()
     {
-        return view('components.dropdown');
+        return view('components.dropdown.index');
     }
 }

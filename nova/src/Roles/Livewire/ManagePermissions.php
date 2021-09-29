@@ -16,7 +16,7 @@ class ManagePermissions extends Component
 
     public $results;
 
-    public function addPermission($permissionId, $permission)
+    public function addPermission($permissionId, $permission): void
     {
         $this->dispatchBrowserEvent('dropdown-close');
 
@@ -25,12 +25,12 @@ class ManagePermissions extends Component
         $this->reset(['search', 'results']);
     }
 
-    public function removePermission($permissionId)
+    public function removePermission($permissionId): void
     {
         unset($this->permissions[$permissionId]);
     }
 
-    public function updatedSearch($value)
+    public function updatedSearch($value): void
     {
         $this->results = Permission::query()
             ->where(function ($query) use ($value) {

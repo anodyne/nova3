@@ -13,9 +13,9 @@
         <li>There are known issues with displaying the word count when loading an existing note</li>
     </x-under-construction>
 
-    <x-panel on-edge>
+    <x-panel>
         <x-form :action="route('notes.update', $note)" method="PUT">
-            <div class="px-4 pt-4 space-y-8 | sm:pt-6 sm:px-6">
+            <x-content-box class="space-y-8">
                 <x-input.group label="Title" for="title" :error="$errors->first('title')" class="sm:w-1/2">
                     <x-input.text id="title" name="title" :value="old('title', $note->title)" data-cy="title" />
                 </x-input.group>
@@ -27,7 +27,7 @@
                 <x-input.group for="content" :error="$errors->first('content')">
                     <x-input.rich-text name="content" :initial-value="old('content', $note->content)" />
                 </x-input.group>
-            </div>
+            </x-content-box>
 
             <x-form.footer>
                 <x-button type="submit" color="blue">Update Note</x-button>

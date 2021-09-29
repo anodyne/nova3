@@ -13,12 +13,12 @@
         </x-slot>
     </x-page-header>
 
-    <x-panel on-edge>
-        <div class="px-4 py-2 | sm:px-6 sm:py-3">
+    <x-panel>
+        <x-content-box>
             <div class="prose max-w-none">
                 {!! $note->content !!}
             </div>
-        </div>
+        </x-content-box>
     </x-panel>
 
 @endsection

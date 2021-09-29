@@ -1,4 +1,4 @@
-<div class="align-middle min-w-full overflow-x-auto overflow-hidden">
+<div {{ $attributes->merge(['class' => 'align-middle min-w-full overflow-x-auto overflow-hidden']) }}>
     <table class="min-w-full">
         <thead class="border-t border-b border-gray-3">
             <tr>

@@ -13,7 +13,7 @@
         </x-slot>
     </x-page-header>
 
-    <x-panel on-edge>
+    <x-panel>
         <x-form action="">
             <x-form.section title="Post Type Info" message="A post type defines how different types of story entries are displayed and used. Using post types, you can setup your writing features exactly how you want them for your game.">
                 <x-input.group label="Name">

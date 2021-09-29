@@ -7,14 +7,9 @@
         </x-slot>
     </x-page-header>
 
-    <x-under-construction feature="My Notes">
-        <li>We are using the Trix editor right now, but will likely use a completely different rich text editor by the time Nova 3 launches</li>
-        <li>There are known issues with the display of HTML created with the rich text editor</li>
-    </x-under-construction>
-
-    <x-panel on-edge>
+    <x-panel>
         <x-form :action="route('notes.store')">
-            <div class="px-4 pt-4 space-y-8 | sm:pt-6 sm:px-6">
+            <x-content-box class="space-y-8">
                 <x-input.group label="Title" for="title" :error="$errors->first('title')" class="sm:w-1/2">
                     <x-input.text id="title" name="title" :value="old('title')" data-cy="title" />
                 </x-input.group>
@@ -27,7 +22,7 @@
                     {{-- <x-input.rich-text name="content" :initial-value="old('content')" /> --}}
                     <posts-editor></posts-editor>
                 </x-input.group>
-            </div>
+            </x-content-box>
 
             <x-form.footer>
                 <x-button type="submit" color="blue">Add Note</x-button>

@@ -33,9 +33,9 @@
             :link="route('ranks.names.create')"
         ></x-empty-state>
     @else
-        <x-panel x-data="sortableList" on-edge>
+        <x-panel x-data="sortableList">
             @if ($isReordering)
-                <div class="bg-purple-3 border-t border-b border-purple-6 p-4 sm:rounded-t-md sm:border-t-0">
+                <x-content-box class="bg-purple-3 border-t border-b border-purple-6 sm:rounded-t-md sm:border-t-0">
                     <div class="flex">
                         <div class="flex-shrink-0">
                             @icon('arrow-sort', 'h-6 w-6 text-purple-9')
@@ -60,7 +60,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </x-content-box>
             @else
                 <div class="px-4 py-2 sm:px-6 sm:py-3">
                     <x-search-filter placeholder="Find a rank name..." :search="$search" />

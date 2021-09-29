@@ -9,9 +9,9 @@
         <div class="grid grid-cols-1 gap-8 lg:col-span-2">
             <!-- Welcome panel -->
             <section aria-labelledby="profile-overview-title">
-                <x-panel on-edge>
+                <x-panel>
                     <h2 class="sr-only" id="profile-overview-title">Profile Overview</h2>
-                    <div class="p-6">
+                    <x-content-box>
                         <div class="sm:flex sm:items-center sm:justify-between">
                             <div class="sm:flex sm:space-x-5">
                                 <div class="flex-shrink-0">
@@ -28,7 +28,7 @@
                                 </x-link>
                             </div>
                         </div>
-                    </div>
+                    </x-content-box>
 
                     <div class="sm:rounded-b-md border-t border-gray-6 bg-gray-2 grid grid-cols-1 divide-y divide-gray-6 sm:grid-cols-3 sm:divide-y-0 sm:divide-x">
                         <a href="#" class="group flex items-center justify-center space-x-3 px-6 py-5 text-sm font-medium text-center transition-all ease-in-out duration-150">

@@ -85,9 +85,9 @@
         </x-slot>
     </x-page-header>
 
-    <x-panel on-edge>
+    <x-panel>
         <div>
-            <div class="p-4 sm:hidden">
+            <x-content-box class="sm:hidden">
                 <select @change="window.location.replace($event.target.value)" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 sm:text-sm transition ease-in-out duration-150">
                     <option value="{{ route('characters.index', 'status=active') }}"{{ request()->status === 'active' ? 'selected' : '' }}>Active Characters</option>
 
@@ -98,7 +98,7 @@
                     <option value="{{ route('characters.index', 'status=inactive') }}"{{ request()->status === 'inactive' ? 'selected' : '' }}>Inactive Characters</option>
                     <option value="{{ route('characters.index') }}"{{ !request()->has('status') ? 'selected' : '' }}>All Characters</option>
                 </select>
-            </div>
+            </x-content-box>
             <div class="hidden sm:block">
                 <div class="border-b border-gray-6 px-4 sm:px-6">
                     <nav class="-mb-px flex">

@@ -13,7 +13,7 @@
         </x-slot>
     </x-page-header>
 
-    <x-panel on-edge>
+    <x-panel>
         <x-form action="">
             <x-form.section title="User Info" message="For privacy reasons, users are encouraged to use a nickname instead of their real name. Additionally, user email addresses should be safeguarded at all costs and not shared with other players without the express permission of this user.">
                 <x-input.group label="Name">

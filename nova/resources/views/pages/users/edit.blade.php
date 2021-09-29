@@ -7,7 +7,7 @@
         </x-slot>
     </x-page-header>
 
-    <x-panel on-edge>
+    <x-panel>
         <x-form :action="route('users.update', $user)" method="PUT">
             <x-form.section title="User Info" message="For privacy reasons, we don't recommend using a user's real name. Instead, use a nickname to help protect their identity.">
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">

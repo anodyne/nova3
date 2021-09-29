@@ -7,9 +7,9 @@
         </x-slot>
     </x-page-header>
 
-    <x-panel on-edge>
+    <x-panel>
         @if ($theme->name === 'Pulsar')
-            <div class="bg-purple-3 border-t border-b border-purple-6 p-4 | sm:rounded-t-md sm:border-t-0">
+            <x-content-box class="bg-purple-3 border-t border-b border-purple-6 sm:rounded-t-md sm:border-t-0">
                 <div class="flex">
                     <div class="flex-shrink-0">
                         @icon('star', 'h-6 w-6 text-purple-9')
@@ -23,7 +23,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </x-content-box>
         @endif
 
         <x-form :action="route('themes.update', $theme)" method="PUT">

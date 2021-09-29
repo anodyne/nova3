@@ -5,7 +5,7 @@
 @section('content')
 <x-page-header title="System Defaults Settings" />
 
-<x-panel on-edge>
+<x-panel>
     <x-form
         :action="route('settings.update', $tab)"
         method="PUT"

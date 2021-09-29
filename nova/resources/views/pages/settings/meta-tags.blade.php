@@ -3,7 +3,7 @@
 @section('content')
     <x-page-header title="Meta Tags Settings" />
 
-    <x-panel on-edge>
+    <x-panel>
         <x-form :action="route('settings.update')" method="PUT" id="meta-tags">
             <x-form.footer>
                 <x-button type="submit" form="meta-tags" color="blue">Update</x-button>

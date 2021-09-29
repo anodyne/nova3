@@ -3,7 +3,7 @@
 @section('content')
 <x-page-header title="Character Settings" />
 
-<x-panel on-edge>
+<x-panel>
     <x-form
         :action="route('settings.update', $tab)"
         method="PUT"

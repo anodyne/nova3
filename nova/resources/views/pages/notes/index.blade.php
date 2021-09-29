@@ -19,59 +19,59 @@
             :link="route('notes.create')"
         ></x-empty-state>
     @else
-        <x-panel on-edge>
+        <x-panel>
             <div class="px-4 py-2 | sm:px-6 sm:py-3">
                 <x-search-filter placeholder="Find a note..." :search="$search" />
             </div>
 
             <ul>
-            @forelse ($notes as $note)
-                <li class="border-t border-gray-200">
-                    <div class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
-                        <div class="px-4 py-4 flex items-center sm:px-6">
-                            <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
-                                <div>
-                                    <div class="font-medium truncate">
-                                        {{ $note->title }}
+                @forelse ($notes as $note)
+                    <li class="border-t border-gray-200">
+                        <div class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
+                            <x-content-box class="flex items-center">
+                                <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
+                                    <div>
+                                        <div class="font-medium truncate">
+                                            {{ $note->title }}
+                                        </div>
+                                        <p class="mt-1 text-sm text-gray-600">{{ $note->summary }}</p>
                                     </div>
-                                    <p class="mt-1 text-sm text-gray-600">{{ $note->summary }}</p>
                                 </div>
-                            </div>
-                            <div class="ml-5 flex-shrink-0 leading-0">
-                                <x-dropdown placement="bottom-end">
-                                    <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
+                                <div class="ml-5 flex-shrink-0 leading-0">
+                                    <x-dropdown placement="bottom-end">
+                                        <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
 
-                                    <x-dropdown.group>
-                                        <x-dropdown.item :href="route('notes.show', $note)" icon="show">
-                                            <span>View</span>
-                                        </x-dropdown.item>
-                                        <x-dropdown.item :href="route('notes.edit', $note)" icon="edit">
-                                            <span>Edit</span>
-                                        </x-dropdown.item>
-                                        <x-dropdown.item type="submit" icon="duplicate" form="duplicate-{{ $note->id }}" data-cy="duplicate">
-                                            <span>Duplicate</span>
+                                        <x-dropdown.group>
+                                            <x-dropdown.item :href="route('notes.show', $note)" icon="show">
+                                                <span>View</span>
+                                            </x-dropdown.item>
+                                            <x-dropdown.item :href="route('notes.edit', $note)" icon="edit">
+                                                <span>Edit</span>
+                                            </x-dropdown.item>
+                                            <x-dropdown.item type="submit" icon="duplicate" form="duplicate-{{ $note->id }}" data-cy="duplicate">
+                                                <span>Duplicate</span>
 
-                                            <x-slot name="buttonForm">
-                                                <x-form :action="route('notes.duplicate', $note)" id="duplicate-{{ $note->id }}" class="hidden" />
-                                            </x-slot>
-                                        </x-dropdown.item>
-                                    </x-dropdown.group>
+                                                <x-slot name="buttonForm">
+                                                    <x-form :action="route('notes.duplicate', $note)" id="duplicate-{{ $note->id }}" class="hidden" />
+                                                </x-slot>
+                                            </x-dropdown.item>
+                                        </x-dropdown.group>
 
-                                    <x-dropdown.group>
-                                        <x-dropdown.item-danger type="button" icon="delete" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($note) }});" data-cy="delete">
-                                            <span>Delete</span>
-                                        </x-dropdown.item-danger>
-                                    </x-dropdown.group>
-                                </x-dropdown>
-                            </div>
+                                        <x-dropdown.group>
+                                            <x-dropdown.item-danger type="button" icon="delete" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($note) }});" data-cy="delete">
+                                                <span>Delete</span>
+                                            </x-dropdown.item-danger>
+                                        </x-dropdown.group>
+                                    </x-dropdown>
+                                </div>
+                            </x-content-box>
                         </div>
-                    </div>
-                </li>
-            @empty
-                <x-search-not-found>
-                    No notes found
-                </x-search-not-found>
-            @endforelse
+                    </li>
+                @empty
+                    <x-search-not-found>
+                        No notes found
+                    </x-search-not-found>
+                @endforelse
             </ul>
 
             <div class="px-4 py-2 border-t border-gray-200 | sm:px-6 sm:py-3">

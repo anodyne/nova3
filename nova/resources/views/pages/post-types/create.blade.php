@@ -14,16 +14,15 @@
                 key = value.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'-');
             }
         })"
-        on-edge
     >
         <div>
-            <div class="p-4 sm:hidden">
+            <x-content-box class="sm:hidden">
                 <select @change="switchTab($event.target.value)" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-150 sm:text-sm rounded-md">
                     <option value="details">Details</option>
                     <option value="permissions">Fields</option>
                     <option value="users">Options</option>
                 </select>
-            </div>
+            </x-content-box>
             <div class="hidden sm:block">
                 <div class="border-b border-gray-6 px-4 sm:px-6">
                     <nav class="-mb-px flex">
@@ -85,7 +84,7 @@
 
             <x-form.section title="Fields" message="Post types control which fields are available when creating a post of that type. You can turn any of these fields on/off to suit your game's needs." x-show="isTab('fields')">
                 @foreach ($fieldTypes as $fieldType)
-                    <div x-data="{ '{{ $fieldType }}': true }" class="px-4 py-5 bg-gray-2 rounded border border-gray-6 sm:p-6">
+                    <x-content-box class="bg-gray-2 rounded border border-gray-6" x-data="{ '{{ $fieldType }}': true }">
                         <div @toggle-changed="{{ $fieldType }} = $event.detail.value">
                             <x-input.toggle field="fields[{{ $fieldType }}][enabled]" :value="old('fields[{{ $fieldType }}][enabled]', true)">
                                 {{ ucfirst($fieldType) }} field
@@ -105,7 +104,7 @@
                                 </x-input.toggle>
                             </x-input.group>
                         </div>
-                    </div>
+                    </x-content-box>
                 @endforeach
             </x-form.section>
 

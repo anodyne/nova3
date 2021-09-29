@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Nova\Characteers\Notifications;
+namespace Nova\Characters\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

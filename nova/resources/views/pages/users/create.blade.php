@@ -7,7 +7,7 @@
         </x-slot>
     </x-page-header>
 
-    <x-panel on-edge>
+    <x-panel>
         <x-form :action="route('users.store')">
             <x-form.section title="User Info">
                 <x-slot name="message">

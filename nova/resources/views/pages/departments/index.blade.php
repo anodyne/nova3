@@ -27,9 +27,9 @@
             :link="route('departments.create')"
         ></x-empty-state>
     @else
-        <x-panel x-data="sortableList" on-edge>
+        <x-panel x-data="sortableList">
             @if ($isReordering)
-                <div class="bg-purple-3 border-t border-b border-purple-6 p-4 sm:rounded-t-md sm:border-t-0">
+                <x-content-box class="bg-purple-3 border-t border-b border-purple-6 sm:rounded-t-md sm:border-t-0">
                     <div class="flex">
                         <div class="flex-shrink-0">
                             @icon('arrow-sort', 'h-6 w-6 text-purple-9')
@@ -54,7 +54,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </x-content-box>
             @else
                 <div class="px-4 py-2 sm:px-6 sm:py-3">
                     <x-search-filter placeholder="Find a department..." :search="$search" />
@@ -62,84 +62,84 @@
             @endif
 
             <ul id="sortable-list">
-            @forelse ($departments as $department)
-                <li class="sortable-item border-t border-gray-6 hover:bg-gray-2 focus:outline-none focus:bg-gray-2 transition duration-150 ease-in-out @if ($isReordering) first:border-0 last:rounded-b-md @endif" data-id="{{ $department->id }}">
-                    <div class="block">
-                        <div class="px-4 py-4 flex items-center sm:px-6">
-                            @if ($isReordering)
-                                <div class="sortable-handle flex-shrink-0 cursor-move mr-5">
-                                    @icon('reorder', 'h-5 w-5 text-gray-9')
-                                </div>
-                            @endif
-                            <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
-                                <div>
-                                    <div class="font-medium truncate">
-                                        {{ $department->name }}
+                @forelse ($departments as $department)
+                    <li class="sortable-item border-t border-gray-6 hover:bg-gray-2 focus:outline-none focus:bg-gray-2 transition duration-150 ease-in-out @if ($isReordering) first:border-0 last:rounded-b-md @endif" data-id="{{ $department->id }}">
+                        <div class="block">
+                            <div class="px-4 py-4 flex items-center sm:px-6">
+                                @if ($isReordering)
+                                    <div class="sortable-handle flex-shrink-0 cursor-move mr-5">
+                                        @icon('reorder', 'h-5 w-5 text-gray-9')
                                     </div>
-                                    <div class="mt-2 flex">
-                                        <div>
-                                            @if ($department->active)
-                                                <x-badge size="xs" color="green">Active</x-badge>
-                                            @else
-                                                <x-badge size="xs" color="gray">Inactive</x-badge>
-                                            @endif
+                                @endif
+                                <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
+                                    <div>
+                                        <div class="font-medium truncate">
+                                            {{ $department->name }}
                                         </div>
+                                        <div class="mt-2 flex">
+                                            <div>
+                                                @if ($department->active)
+                                                    <x-badge size="xs" color="green">Active</x-badge>
+                                                @else
+                                                    <x-badge size="xs" color="gray">Inactive</x-badge>
+                                                @endif
+                                            </div>
 
-                                        <div class="hidden items-center text-sm text-gray-11 ml-6 | sm:flex">
-                                            {{ $department->positions_count }} @choice('position|positions', $department->positions_count)
+                                            <div class="hidden items-center text-sm text-gray-11 ml-6 | sm:flex">
+                                                {{ $department->positions_count }} @choice('position|positions', $department->positions_count)
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="ml-5 flex-shrink-0 leading-0">
-                                <x-dropdown placement="bottom-end">
-                                    <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
+                                <div class="ml-5 flex-shrink-0 leading-0">
+                                    <x-dropdown placement="bottom-end">
+                                        <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
 
-                                    <x-dropdown.group>
-                                        @can('view', $department)
-                                            <x-dropdown.item :href="route('departments.show', $department)" icon="show" data-cy="view">
-                                                <span>View</span>
-                                            </x-dropdown.item>
-                                        @endcan
+                                        <x-dropdown.group>
+                                            @can('view', $department)
+                                                <x-dropdown.item :href="route('departments.show', $department)" icon="show" data-cy="view">
+                                                    <span>View</span>
+                                                </x-dropdown.item>
+                                            @endcan
+
+                                            @can('update', $department)
+                                                <x-dropdown.item :href="route('departments.edit', $department)" icon="edit" data-cy="edit">
+                                                    <span>Edit</span>
+                                                </x-dropdown.item>
+                                            @endcan
+
+                                            @can('duplicate', $department)
+                                                <x-dropdown.item type="button" icon="duplicate" @click="$dispatch('dropdown-toggle');$dispatch('modal-duplicate', {{ json_encode($department) }});" data-cy="duplicate">
+                                                    <span>Duplicate</span>
+                                                </x-dropdown.item>
+                                            @endcan
+                                        </x-dropdown.group>
 
                                         @can('update', $department)
-                                            <x-dropdown.item :href="route('departments.edit', $department)" icon="edit" data-cy="edit">
-                                                <span>Edit</span>
-                                            </x-dropdown.item>
+                                            <x-dropdown.group>
+                                                <x-dropdown.item :href="route('positions.index', $department)" icon="list" data-cy="edit">
+                                                    <span>Positions</span>
+                                                </x-dropdown.item>
+                                            </x-dropdown.group>
                                         @endcan
 
-                                        @can('duplicate', $department)
-                                            <x-dropdown.item type="button" icon="duplicate" @click="$dispatch('dropdown-toggle');$dispatch('modal-duplicate', {{ json_encode($department) }});" data-cy="duplicate">
-                                                <span>Duplicate</span>
-                                            </x-dropdown.item>
+                                        @can('delete', $department)
+                                            <x-dropdown.group>
+                                                <x-dropdown.item-danger type="button" icon="delete" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($department) }});" data-cy="delete">
+                                                    <span>Delete</span>
+                                                </x-dropdown.item-danger>
+                                            </x-dropdown.group>
                                         @endcan
-                                    </x-dropdown.group>
-
-                                    @can('update', $department)
-                                        <x-dropdown.group>
-                                            <x-dropdown.item :href="route('positions.index', $department)" icon="list" data-cy="edit">
-                                                <span>Positions</span>
-                                            </x-dropdown.item>
-                                        </x-dropdown.group>
-                                    @endcan
-
-                                    @can('delete', $department)
-                                        <x-dropdown.group>
-                                            <x-dropdown.item-danger type="button" icon="delete" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($department) }});" data-cy="delete">
-                                                <span>Delete</span>
-                                            </x-dropdown.item-danger>
-                                        </x-dropdown.group>
-                                    @endcan
-                                </x-dropdown>
+                                    </x-dropdown>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </li>
-            @empty
-                <x-search-not-found>
-                    No departments found
-                </x-search-not-found>
-            @endforelse
+                    </li>
+                @empty
+                    <x-search-not-found>
+                        No departments found
+                    </x-search-not-found>
+                @endforelse
             </ul>
 
             @if (! $isReordering)

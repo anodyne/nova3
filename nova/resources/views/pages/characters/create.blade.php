@@ -7,7 +7,7 @@
         </x-slot>
     </x-page-header>
 
-    <x-panel on-edge>
+    <x-panel>
         <x-form :action="route('characters.store')">
             <x-form.section title="Character Info">
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">

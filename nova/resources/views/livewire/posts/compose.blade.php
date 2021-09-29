@@ -1,4 +1,4 @@
-<x-panel on-edge>
+<x-panel>
     <x-form action="">
         <x-form.section title="Story" message="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur autem sapiente, eum exercitationem ullam debitis doloremque necessitatibus tempora quasi possimus quaerat asperiores repellat ab nulla pariatur non nisi voluptatibus. Commodi!">
             <div class="w-full">
