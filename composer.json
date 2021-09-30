@@ -21,6 +21,7 @@
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
+        "livewire-ui/modal": "^1.0",
         "livewire-ui/spotlight": "^0.1.7",
         "livewire/livewire": "^2.5.1",
         "lorisleiva/laravel-actions": "^2.1",

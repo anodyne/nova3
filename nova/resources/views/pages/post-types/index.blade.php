@@ -46,7 +46,7 @@
                 </div>
             </x-content-box>
         @else
-            <x-content-box min-height>
+            <x-content-box height="xs">
                 <x-search-filter placeholder="Find a post type..." :search="$search" />
             </x-content-box>
         @endif

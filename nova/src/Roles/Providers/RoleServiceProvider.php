@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Roles\Providers;
 
 use Nova\DomainServiceProvider;
+use Nova\Roles\Livewire\AddPermissionsModal;
 use Nova\Roles\Livewire\ManagePermissions;
 use Nova\Roles\Livewire\ManageRoles;
 use Nova\Roles\Models\Role;
@@ -22,6 +23,7 @@ class RoleServiceProvider extends DomainServiceProvider
         return [
             'roles:manage-permissions' => ManagePermissions::class,
             'roles:manage-roles' => ManageRoles::class,
+            'roles:add-permissions-modal' => AddPermissionsModal::class,
         ];
     }
 

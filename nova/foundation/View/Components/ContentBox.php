@@ -9,27 +9,27 @@ use Illuminate\View\Component;
 class ContentBox extends Component
 {
     public function __construct(
-        public bool $minHeight = false,
-        public bool $noHeight = false,
-        public bool $minWidth = false,
-        public bool $noWidth = false,
+        public string $height = 'base',
+        public string $width = 'base',
     ) {
     }
 
-    public function heightStyles()
+    public function heightStyles(): string
     {
-        return match (true) {
-            $this->minHeight => 'py-2 sm:py-3',
-            $this->noHeight => 'py-0',
+        return match ($this->height) {
+            'none' => 'py-0',
+            'xs' => 'py-2 sm:py-3',
+            'sm' => 'py-3 sm:py-4',
             default => 'py-5 sm:py-6',
         };
     }
 
-    public function widthStyles()
+    public function widthStyles(): string
     {
-        return match (true) {
-            $this->minWidth => 'px-2 sm:px-3',
-            $this->noWidth => 'px-0',
+        return match ($this->width) {
+            'none' => 'px-0',
+            'xs' => 'px-2 sm:px-3',
+            'sm' => 'px-3 sm:px-4',
             default => 'px-4 sm:px-6',
         };
     }

@@ -6,48 +6,42 @@ namespace Nova\Roles\Livewire;
 
 use Illuminate\Support\Collection;
 use Livewire\Component;
-use Nova\Roles\Models\Permission;
+use Nova\Roles\Models\Role;
 
 class ManagePermissions extends Component
 {
-    public $permissions = [];
+    public $listeners = [
+        'permissionSelected',
+    ];
 
-    public $search;
+    public ?Collection $permissions;
 
-    public $results;
+    public ?Role $role;
 
-    public function addPermission($permissionId, $permission): void
+    public function permissionSelected($permissionId): void
     {
-        $this->dispatchBrowserEvent('dropdown-close');
+        logger('permission selected', ['role' => $this->role->id, 'permission' => $permissionId]);
 
-        $this->permissions[$permissionId] = $permission;
+        $this->role->attachPermission($permissionId);
 
-        $this->reset(['search', 'results']);
+        $this->role->refresh();
+
+        $this->permissions = $this->role->permissions;
     }
 
     public function removePermission($permissionId): void
     {
-        unset($this->permissions[$permissionId]);
+        $this->role->detachPermission($permissionId);
+
+        $this->role->refresh();
+
+        $this->permissions = $this->role->permissions;
     }
 
-    public function updatedSearch($value): void
+    public function mount(?Role $role)
     {
-        $this->results = Permission::query()
-            ->where(function ($query) use ($value) {
-                return $query->where('name', 'like', "%{$value}%")
-                    ->orWhere('display_name', 'like', "%{$value}%");
-            })
-            ->orderBy('display_name')
-            ->get();
-    }
-
-    public function mount($permissions)
-    {
-        $permissions = Collection::wrap($permissions);
-
-        $this->permissions = $permissions
-            ->mapWithKeys(fn ($permission) => [$permission->id => $permission->toArray()])
-            ->toArray();
+        $this->role = $role;
+        $this->permissions = Collection::wrap($role->permissions);
     }
 
     public function render()

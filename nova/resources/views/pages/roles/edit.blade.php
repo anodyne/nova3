@@ -140,11 +140,11 @@
                 </div>
             @endif
 
-            @livewire('roles:manage-permissions')
+            @livewire('roles:manage-permissions', ['role' => $role])
         </div>
 
         <div x-show="isTab('users')" x-cloak>
-            @livewire('roles:manage-permissions')
+            Users
         </div>
     </x-panel>
 

@@ -80,7 +80,7 @@
                     </div>
                 </div>
             @else
-                <x-content-box min-height>
+                <x-content-box height="xs">
                     <x-search-filter placeholder="Find a position..." :search="$search" />
                 </x-content-box>
             @endif

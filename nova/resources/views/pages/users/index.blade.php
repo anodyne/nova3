@@ -60,7 +60,7 @@
             </div>
         </div>
 
-        <x-content-box min-height>
+        <x-content-box height="xs">
             <x-search-filter placeholder="Find a user..." :search="$search" />
         </x-content-box>
 

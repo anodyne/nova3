@@ -21,6 +21,7 @@
         @stack('modal')
     </div>
 
+    @livewire('livewire-ui-modal')
     @livewire('livewire-ui-spotlight')
 
     @livewireScripts

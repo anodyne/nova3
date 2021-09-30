@@ -29,7 +29,7 @@
             class="fixed inset-0 transition-opacity z-[99]"
             x-cloak
         >
-            <div class="absolute inset-0 bg-black opacity-50"></div>
+            <div class="absolute inset-0 bg-gray-12 opacity-75"></div>
         </div>
 
         <div
@@ -59,7 +59,10 @@
                         {{ $title }}
                     </h3>
 
-                    <div class="mt-2 text-gray-11" x-html="content"></div>
+                    <div class="mt-2 text-gray-11">
+                        <div x-html="content"></div>
+                        {{ $slot }}
+                    </div>
                 </div>
             </div>
             <div class="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
