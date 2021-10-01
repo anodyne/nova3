@@ -112,7 +112,7 @@
                                             @endcan
 
                                             @can('duplicate', $group)
-                                                <x-dropdown.item type="submit" icon="duplicate" @click="$dispatch('dropdown-toggle');$dispatch('modal-duplicate', {{ json_encode($group) }});" data-cy="duplicate">
+                                                <x-dropdown.item type="submit" icon="copy" @click="$dispatch('dropdown-toggle');$dispatch('modal-duplicate', {{ json_encode($group) }});" data-cy="duplicate">
                                                     <span>Duplicate</span>
 
                                                     <x-slot name="buttonForm">
@@ -165,7 +165,7 @@
             </x-slot>
         </x-modal>
 
-        <x-modal color="blue" title="Duplicate rank group" icon="duplicate" :url="route('ranks.groups.confirm-duplicate')" event="modal-duplicate" :wide="true">
+        <x-modal color="blue" title="Duplicate rank group" icon="copy" :url="route('ranks.groups.confirm-duplicate')" event="modal-duplicate" :wide="true">
             <x-slot name="footer">
                 <span class="flex w-full sm:col-start-2">
                     <x-button type="submit" form="form-duplicate" color="blue" full-width>

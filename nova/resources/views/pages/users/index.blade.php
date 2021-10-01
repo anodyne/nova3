@@ -135,7 +135,7 @@
 
                                     @can('deactivate', $user)
                                         <x-dropdown.group>
-                                            <x-dropdown.item type="button" icon="remove-alt" @click="$dispatch('dropdown-toggle');$dispatch('modal-deactivate', {{ json_encode($user) }});" form="deactivate" data-cy="deactivate">
+                                            <x-dropdown.item type="button" icon="remove" @click="$dispatch('dropdown-toggle');$dispatch('modal-deactivate', {{ json_encode($user) }});" form="deactivate" data-cy="deactivate">
                                                 <span>Deactivate</span>
                                             </x-dropdown.item>
                                         </x-dropdown.group>
@@ -182,7 +182,7 @@
         </x-slot>
     </x-modal>
 
-    <x-modal color="blue" title="Deactivate User?" icon="duplicate" :url="route('users.confirm-deactivate')" event="modal-deactivate">
+    <x-modal color="blue" title="Deactivate User?" icon="copy" :url="route('users.confirm-deactivate')" event="modal-deactivate">
         <x-slot name="footer">
             <span class="flex w-full sm:col-start-2">
                 <x-button type="submit" form="form-deactivate" color="blue" full-width>

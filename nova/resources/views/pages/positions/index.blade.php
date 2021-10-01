@@ -140,7 +140,7 @@
                                         @endcan
 
                                         @can('duplicate', $position)
-                                            <x-dropdown.item type="button" icon="duplicate" @click="$dispatch('dropdown-toggle');$dispatch('modal-duplicate', {{ json_encode($position) }});" data-cy="duplicate">
+                                            <x-dropdown.item type="button" icon="copy" @click="$dispatch('dropdown-toggle');$dispatch('modal-duplicate', {{ json_encode($position) }});" data-cy="duplicate">
                                                 <span>Duplicate</span>
                                             </x-dropdown.item>
                                         @endcan
@@ -189,7 +189,7 @@
             </x-slot>
         </x-modal>
 
-        <x-modal color="blue" title="Duplicate position" icon="duplicate" :url="route('positions.confirm-duplicate')" event="modal-duplicate" :wide="true">
+        <x-modal color="blue" title="Duplicate position" icon="copy" :url="route('positions.confirm-duplicate')" event="modal-duplicate" :wide="true">
             <x-slot name="footer">
                 <span class="flex w-full | sm:col-start-2">
                     <x-button type="submit" form="form-duplicate" color="blue" full-width>

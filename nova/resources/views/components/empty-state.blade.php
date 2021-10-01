@@ -10,7 +10,6 @@
             </div>
             <x-link :href="$link" color="blue" class="space-x-3">
                 <span>{{ $label }}</span>
-                @icon('arrow-right', 'h-5 w-5 flex-shrink-0')
             </x-link>
         </div>
     </div>

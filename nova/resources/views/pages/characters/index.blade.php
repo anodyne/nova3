@@ -100,7 +100,7 @@
                 </select>
             </x-content-box>
             <div class="hidden sm:block">
-                <x-content-box class="border-b border-gray-6" no-height>
+                <x-content-box class="border-b border-gray-6" height="none">
                     <nav class="-mb-px flex">
                         <a
                             href="{{ route('characters.index', 'status=active') }}"
@@ -202,7 +202,7 @@
 
                                     @can('activate', $character)
                                         <x-dropdown.group>
-                                            <x-dropdown.item type="submit" icon="check-alt" form="activate" data-cy="activate">
+                                            <x-dropdown.item type="submit" icon="check" form="activate" data-cy="activate">
                                                 <span>Activate</span>
 
                                                 <x-slot name="buttonForm">
@@ -214,7 +214,7 @@
 
                                     @can('deactivate', $character)
                                         <x-dropdown.group>
-                                            <x-dropdown.item type="button" icon="remove-alt" data-cy="deactivate" @click="$dispatch('dropdown-toggle');$dispatch('modal-deactivate', {{ json_encode($character) }});">
+                                            <x-dropdown.item type="button" icon="remove" data-cy="deactivate" @click="$dispatch('dropdown-toggle');$dispatch('modal-deactivate', {{ json_encode($character) }});">
                                                 <span>Deactivate</span>
                                             </x-dropdown.item>
                                         </x-dropdown.group>
@@ -261,7 +261,7 @@
         </x-slot>
     </x-modal>
 
-    <x-modal color="blue" title="Deactivate character?" icon="duplicate" :url="route('characters.confirm-deactivate')" event="modal-deactivate">
+    <x-modal color="blue" title="Deactivate character?" icon="copy" :url="route('characters.confirm-deactivate')" event="modal-deactivate">
         <x-slot name="footer">
             <span class="flex w-full sm:col-start-2">
                 <x-button type="submit" form="form-deactivate" color="blue" full-width>

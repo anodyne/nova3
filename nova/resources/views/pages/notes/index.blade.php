@@ -50,7 +50,7 @@
                                             <x-dropdown.item :href="route('notes.edit', $note)" icon="edit">
                                                 <span>Edit</span>
                                             </x-dropdown.item>
-                                            <x-dropdown.item type="submit" icon="duplicate" form="duplicate-{{ $note->id }}" data-cy="duplicate">
+                                            <x-dropdown.item type="submit" icon="copy" form="duplicate-{{ $note->id }}" data-cy="duplicate">
                                                 <span>Duplicate</span>
 
                                                 <x-slot name="buttonForm">

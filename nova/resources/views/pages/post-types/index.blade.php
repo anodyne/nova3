@@ -101,7 +101,7 @@
                                     @endcan
 
                                     @can('duplicate', $postType)
-                                        <x-dropdown.item type="submit" icon="duplicate" form="duplicate-{{ $postType->id }}" data-cy="duplicate">
+                                        <x-dropdown.item type="submit" icon="copy" form="duplicate-{{ $postType->id }}" data-cy="duplicate">
                                             <span>Duplicate</span>
 
                                             <x-slot name="buttonForm">
