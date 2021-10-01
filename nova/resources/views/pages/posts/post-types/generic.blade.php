@@ -2,7 +2,9 @@
     <div class="flex items-start relative space-x-4 px-4 py-4 sm:px-6">
         <div class="absolute top-0 right-0 pt-4 pr-4 sm:pr-6">
             <x-dropdown placement="bottom-end">
-                <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
+                <x-slot name="trigger">
+                    <x-icon.more class="h-6 w-6" />
+                </x-slot>
 
                 <x-dropdown.group>
                     <x-dropdown.item icon="show" data-cy="view">

@@ -57,6 +57,6 @@
             </div>
         </div>
 
-        @icon('more', 'h-6 w-6 text-gray-400 flex-shrink-0')
+        <x-icon.more class="h-6 w-6 text-gray-9 flex-shrink-0" />
     </div>
 </div>

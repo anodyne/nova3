@@ -39,7 +39,9 @@
                                 </div>
                                 <div class="ml-5 flex-shrink-0 leading-0">
                                     <x-dropdown placement="bottom-end">
-                                        <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
+                                        <x-slot name="trigger">
+                                            <x-icon.more class="h-6 w-6" />
+                                        </x-slot>
 
                                         <x-dropdown.group>
                                             <x-dropdown.item :href="route('notes.show', $note)" icon="show">

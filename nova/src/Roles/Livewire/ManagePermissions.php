@@ -4,48 +4,97 @@ declare(strict_types=1);
 
 namespace Nova\Roles\Livewire;
 
-use Illuminate\Support\Collection;
 use Livewire\Component;
+use Livewire\WithPagination;
 use Nova\Roles\Models\Role;
 
 class ManagePermissions extends Component
 {
+    use WithPagination;
+
     public $listeners = [
-        'permissionSelected',
+        'permissionsSelected' => 'attachSelectedPermissions',
     ];
 
-    public ?Collection $permissions;
+    // public $permissions;
 
     public ?Role $role;
 
-    public function permissionSelected($permissionId): void
+    public $selected = [];
+
+    public $selectPage = false;
+
+    public $selectAll = false;
+
+    /**
+     * Attach the permissions to the role that we get from the modal.
+     */
+    public function attachSelectedPermissions(array $permissions): void
     {
-        logger('permission selected', ['role' => $this->role->id, 'permission' => $permissionId]);
+        $this->role->attachPermissions($permissions);
 
-        $this->role->attachPermission($permissionId);
-
-        $this->role->refresh();
-
-        $this->permissions = $this->role->permissions;
+        $this->getPermissions();
     }
 
-    public function removePermission($permissionId): void
+    /**
+     * Detach selected permissions from the role.
+     */
+    public function detachSelectedPermissions(): void
     {
-        $this->role->detachPermission($permissionId);
+        $this->dispatchBrowserEvent('dropdown-close');
 
-        $this->role->refresh();
+        $this->role->detachPermissions($this->selected);
 
-        $this->permissions = $this->role->permissions;
+        $this->getPermissions();
+    }
+
+    public function selectAll(): void
+    {
+        $this->selectAll = true;
+    }
+
+    /**
+     * Set the selected permissions when the select page property is changed.
+     */
+    public function updatedSelectPage($value): void
+    {
+        $this->selected = $value
+            ? $this->permissions->pluck('id')->map(fn ($id) => (string) $id)
+            : [];
+    }
+
+    public function getRowsQueryProperty()
+    {
+        $query = $this->roles->permissions();
+
+        return $query;
+
+        // return $this->applySorting($query);
+    }
+
+    public function getRowsProperty()
+    {
+        return $this->applyPagination($this->rowsQuery);
     }
 
     public function mount(?Role $role)
     {
         $this->role = $role;
-        $this->permissions = Collection::wrap($role->permissions);
+
+        $this->getPermissions();
     }
 
     public function render()
     {
-        return view('livewire.roles.manage-permissions');
+        return view('livewire.roles.manage-permissions', [
+            'permissions' => $this->rows,
+        ]);
+    }
+
+    protected function getPermissions(): void
+    {
+        $this->role->refresh();
+
+        // $this->permissions = $this->role->permissions->paginate();
     }
 }

@@ -2,7 +2,7 @@
 
 @section('content')
     <a href="{{ route('users.index', "status={$user->status->name()}") }}" class="group inline-flex items-center mb-4 text-sm text-gray-600 font-medium transition ease-in-out duration-150 hover:text-gray-800">
-        @icon('chevron-left', 'h-5 w-5 text-gray-400 transition ease-in-out duration-150 group-hover:text-gray-500')
+        <x-icon.chevron-left class="h-5 w-5 text-gray-400 transition ease-in-out duration-150 group-hover:text-gray-500" />
         <span class="ml-1">Back to Users</span>
     </a>
 

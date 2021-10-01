@@ -80,7 +80,7 @@
                 </ul>
 
                 <x-button color="blue-soft" size="xs" class="mt-4">
-                    @icon('add-alt', 'h-5 w-5')
+                    @icon('add', 'h-5 w-5')
                     <span class="ml-2">Add permission</span>
                 </x-button>
             </div> --}}
@@ -90,7 +90,7 @@
                     <p>Permissions are the actions an authenticated user can perform throughout Nova. Feel free to add whatever permissions you want to this role.</p>
 
                     <x-button color="blue-soft" size="xs">
-                        @icon('add-alt', 'h-5 w-5')
+                        @icon('add', 'h-5 w-5')
                         <span class="ml-2">Add permission</span>
                     </x-button>
                 </x-slot>
@@ -126,7 +126,7 @@
                 <div class="mt-6 mx-6 bg-purple-3 border border-purple-6 p-4 rounded">
                     <div class="flex">
                         <div class="flex-shrink-0">
-                            @icon('check-alt', 'h-6 w-6 text-purple-9')
+                            @icon('check', 'h-6 w-6 text-purple-9')
                         </div>
                         <div class="ml-3">
                             <h3 class="font-medium text-purple-11">
@@ -153,7 +153,7 @@
             <div class="bg-purple-3 border-t border-b border-purple-6 p-4 | sm:rounded-t-md sm:border-t-0">
                 <div class="flex">
                     <div class="flex-shrink-0">
-                        @icon('check-alt', 'h-6 w-6 text-purple-9')
+                        @icon('check', 'h-6 w-6 text-purple-9')
                     </div>
                     <div class="ml-3">
                         <h3 class="font-medium text-purple-11">

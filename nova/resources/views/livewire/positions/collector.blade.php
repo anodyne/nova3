@@ -17,7 +17,7 @@
                 @endif
 
                 <x-button wire:click="addPosition({{ $loop->index }})" type="button" color="gray-text" size="none" class="ml-1">
-                    @icon('add-alt', 'h-6 w-6')
+                    @icon('add', 'h-6 w-6')
                 </x-button>
             </div>
 

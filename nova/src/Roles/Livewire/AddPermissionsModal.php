@@ -11,51 +11,51 @@ use Nova\Roles\Models\Permission;
 
 class AddPermissionsModal extends ModalComponent
 {
-    public Collection $filteredPermissions;
+    public ?Collection $allPermissions;
 
-    public Collection $permissions;
-
-    public ?Collection $results;
+    public ?Collection $filteredPermissions;
 
     public string $search = '';
 
-    public array $selected = [1];
+    public array $selected = [];
 
     public function permissionDisplayName($id): string
     {
-        return $this->permissions->where('id', $id)->first()->display_name;
+        return $this->allPermissions->where('id', $id)->first()->display_name;
     }
 
-    public function selectPermission($permissionId): void
+    public function apply(): void
     {
         $this->closeModalWithEvents([
-            'roles:manage-permissions' => ['permissionSelected', [$permissionId]],
+            'roles:manage-permissions' => ['permissionsSelected', [$this->selected]],
         ]);
+    }
+
+    public function dismiss(): void
+    {
+        $this->forceClose()->closeModal();
+    }
+
+    public function resetSearch(): void
+    {
+        $this->search = '';
+        $this->filteredPermissions = null;
     }
 
     public function updatedSearch($value)
     {
-        $this->filteredPermissions = $this->permissions->filter(function ($permission) use ($value) {
+        $this->filteredPermissions = $this->allPermissions->filter(function ($permission) use ($value) {
             return Str::of($permission->name)->contains($value)
                 || Str::of($permission->display_name)->contains($value)
                 || Str::of($permission->description)->contains($value);
         })->filter(function ($permission) {
             return ! in_array($permission->id, $this->selected);
         });
-
-        // $this->results = Permission::query()
-        //     ->where(function ($query) use ($value) {
-        //         return $query->where('name', 'like', "%{$value}%")
-        //             ->orWhere('display_name', 'like', "%{$value}%")
-        //             ->orWhere('description', 'like', "%{$value}%");
-        //     })
-        //     // ->whereNotIn('id', $this->role->permissions->map(fn ($permission) => $permission->id)->all())
-        //     ->get();
     }
 
     public function mount()
     {
-        $this->permissions = Permission::get();
+        $this->allPermissions = Permission::get();
     }
 
     public function render()

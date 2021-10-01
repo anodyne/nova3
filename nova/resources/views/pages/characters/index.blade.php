@@ -182,7 +182,9 @@
                             </div>
                             <div class="leading-0">
                                 <x-dropdown placement="bottom-end">
-                                    <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
+                                    <x-slot name="trigger">
+                                        <x-icon.more class="h-6 w-6" />
+                                    </x-slot>
 
                                     <x-dropdown.group>
                                         @can('view', $character)

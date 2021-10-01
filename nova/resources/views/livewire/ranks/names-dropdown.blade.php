@@ -59,7 +59,7 @@
 
                     @isset($search)
                         <x-button wire:click="$set('search', null)" color="gray-text" size="none">
-                            @icon('close-alt')
+                            @icon('close')
                         </x-button>
                     @endisset
                 </div>

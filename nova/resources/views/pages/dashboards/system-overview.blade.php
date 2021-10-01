@@ -26,7 +26,7 @@
                         </p>
                         @if (version_compare($filesVersion, $serverVersion, '>='))
                             <p class="ml-2 flex items-baseline text-sm font-medium text-green-11">
-                                @icon('check-alt', 'self-center flex-shrink-0 h-5 w-5 text-green-9')
+                                @icon('check', 'self-center flex-shrink-0 h-5 w-5 text-green-9')
                                 <span class="ml-0.5">Up-to-date</span>
                             </p>
                         @else
@@ -41,7 +41,7 @@
                 <x-panel as="well">
                     <dt>
                         <div class="absolute bg-blue-3 border border-blue-6 rounded-md p-3">
-                            @icon('database', 'h-6 w-6 text-blue-9')
+                            @icon('info', 'h-6 w-6 text-blue-9')
                         </div>
                         <p class="ml-16 text-sm font-medium text-gray-11 truncate">Database Version</p>
                     </dt>
@@ -52,7 +52,7 @@
 
                         @if (version_compare($databaseVersion, $filesVersion, '>='))
                             <p class="ml-2 flex items-baseline text-sm font-medium text-green-11">
-                                @icon('check-alt', 'self-center flex-shrink-0 h-5 w-5 text-green-9')
+                                @icon('check', 'self-center flex-shrink-0 h-5 w-5 text-green-9')
                                 <span class="ml-0.5">Up-to-date</span>
                             </p>
                         @else

@@ -1,7 +1,7 @@
 <div class="flex flex-col">
     <div class="w-full flex justify-center px-6 pt-5 pb-6 border-2 border-gray-6 border-dashed rounded-md">
         <div class="text-center">
-            @icon('image-add', 'mx-auto h-12 w-12 text-gray-9')
+            @icon('image', 'mx-auto h-12 w-12 text-gray-9')
             <p x-data="{ focused: false }" class="mt-1 text-sm text-gray-11">
                 <input
                     @focus="focused = true"

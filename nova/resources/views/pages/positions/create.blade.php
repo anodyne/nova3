@@ -7,7 +7,7 @@
                 <a href="{{ route('departments.index') }}">Departments</a>
 
                 @if ($selectedDepartment)
-                    @icon('chevron-right', 'h-4 w-4 text-gray-9 mx-1')
+                    <x-icon.chevron-right class="h-4 w-4 text-gray-9 mx-1" />
                     <a href="{{ route('positions.index', $selectedDepartment) }}">{{ $selectedDepartment->name }}</a>
                 @endif
             </div>

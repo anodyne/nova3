@@ -37,7 +37,7 @@
                         </a>
 
                         <a href="#" class="group flex items-center justify-center space-x-3 px-6 py-5 text-sm font-medium text-center transition-all ease-in-out duration-150">
-                            @icon('preferences', 'h-6 w-6 text-gray-9 group-hover:text-gray-10')
+                            @icon('settings', 'h-6 w-6 text-gray-9 group-hover:text-gray-10')
                             <span class="text-gray-11 group-hover:text-gray-12">Preferences</span>
                         </a>
 
@@ -102,7 +102,7 @@
                     <div class="rounded-bl-lg relative group bg-gray-1 p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
                         <div>
                             <span class="rounded-lg inline-flex p-3 bg-red-3 text-red-9 border border-red-6 ring-4 ring-gray-1">
-                                @icon('preferences', 'h-6 w-6')
+                                @icon('settings', 'h-6 w-6')
                             </span>
                         </div>
                         <div class="mt-6">

@@ -17,7 +17,7 @@
                 @endif
 
                 <button wire:click="addUser({{ $loop->index }})" type="button" class="ml-1 inline-flex items-center text-gray-9 transition ease-in-out duration-150 hover:text-gray-11 focus:outline-none">
-                    @icon('add-alt', 'h-6 w-6')
+                    @icon('add', 'h-6 w-6')
                 </button>
             </div>
 

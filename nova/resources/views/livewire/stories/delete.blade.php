@@ -28,7 +28,7 @@
                         @if (data_get($actions, "{$story->id}.story.action") === 'move')
                             <x-badge color="purple">
                                 <x-slot name="leadingIcon">
-                                    @icon('arrow-right-alt', 'h-6 w-6 flex-shrink-0')
+                                    @icon('arrow-right', 'h-6 w-6 flex-shrink-0')
                                 </x-slot>
                                 <span>Story will be moved</span>
                             </x-badge>
@@ -37,7 +37,7 @@
                         @if (data_get($actions, "{$story->id}.story.action") === 'delete')
                             <x-badge color="red">
                                 <x-slot name="leadingIcon">
-                                    @icon('close-alt', 'h-6 w-6 flex-shrink-0')
+                                    @icon('close', 'h-6 w-6 flex-shrink-0')
                                 </x-slot>
                                 <span>Story will be deleted</span>
                             </x-badge>
@@ -46,7 +46,7 @@
                         @if (data_get($actions, "{$story->id}.posts.action") === 'move')
                             <x-badge color="purple">
                                 <x-slot name="leadingIcon">
-                                    @icon('arrow-right-alt', 'h-6 w-6 flex-shrink-0')
+                                    @icon('arrow-right', 'h-6 w-6 flex-shrink-0')
                                 </x-slot>
                                 <span>Story posts will be moved</span>
                             </x-badge>
@@ -55,7 +55,7 @@
                         @if (data_get($actions, "{$story->id}.posts.action") === 'delete')
                             <x-badge color="red">
                                 <x-slot name="leadingIcon">
-                                    @icon('close-alt', 'h-6 w-6 flex-shrink-0')
+                                    @icon('close', 'h-6 w-6 flex-shrink-0')
                                 </x-slot>
                                 <span>Story posts will be deleted</span>
                             </x-badge>
@@ -64,7 +64,7 @@
                         @if (data_get($actions, "{$story->id}.posts.action") === 'none')
                             <x-badge>
                                 <x-slot name="leadingIcon">
-                                    @icon('remove-alt', 'h-6 w-6 flex-shrink-0')
+                                    @icon('remove', 'h-6 w-6 flex-shrink-0')
                                 </x-slot>
                                 <span>Story posts will not be updated</span>
                             </x-badge>

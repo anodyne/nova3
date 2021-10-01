@@ -58,7 +58,7 @@
                     <div class="px-4 py-4 flex items-center sm:px-6">
                         @if ($isReordering)
                             <div class="sortable-handle flex-shrink-0 cursor-move mr-5">
-                                @icon('reorder', 'h-5 w-5 text-gray-9')
+                                <x-icon.move-handle class="h-5 w-5 text-gray-9" />
                             </div>
                         @endif
                         <div class="flex min-w-0 flex-1">
@@ -83,7 +83,9 @@
                         </div>
                         <div class="ml-5 flex-shrink-0 leading-0">
                             <x-dropdown placement="bottom-end">
-                                <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
+                                <x-slot name="trigger">
+                                    <x-icon.more class="h-6 w-6" />
+                                </x-slot>
 
                                 <x-dropdown.group>
                                     @can('view', $postType)

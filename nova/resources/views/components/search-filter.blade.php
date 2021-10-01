@@ -33,7 +33,7 @@
             role="button"
             aria-label="Reset"
         >
-            @icon('close-alt', 'h-5 w-5')
+            @icon('close', 'h-5 w-5')
         </x-button>
     </div>
 </div>

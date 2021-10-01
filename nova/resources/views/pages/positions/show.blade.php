@@ -5,7 +5,7 @@
         <x-slot name="pretitle">
             <div class="flex items-center">
                 <a href="{{ route('departments.index') }}">Departments</a>
-                @icon('chevron-right', 'h-4 w-4 text-gray-9 mx-1')
+                <x-icon.chevron-right class="h-4 w-4 text-gray-9 mx-1" />
                 <a href="{{ route('positions.index', $position->department) }}">{{ $position->department->name }}</a>
             </div>
         </x-slot>

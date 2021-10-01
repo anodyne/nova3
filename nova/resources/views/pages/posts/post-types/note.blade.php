@@ -1,7 +1,7 @@
 <div class="block bg-gray-3">
     <div class="flex items-center relative px-4 py-4 sm:px-6">
         <div class="absolute top-0 right-0 pt-4 pr-4 sm:pr-6">
-            @icon('more', 'h-6 w-6 text-gray-9')
+            <x-icon.more class="h-6 w-6 text-gray-9" />
         </div>
 
         <div class="flex flex-col items-center flex-1">
