@@ -11,19 +11,23 @@ use Nova\Roles\Models\Permission;
 
 class AddPermissionsModal extends ModalComponent
 {
-    public ?Collection $allPermissions;
-
-    public ?Collection $filteredPermissions;
+    public Collection $allPermissions;
 
     public string $search = '';
 
     public array $selected = [];
 
+    /**
+     * Get the display name of a given permission.
+     */
     public function permissionDisplayName($id): string
     {
-        return $this->allPermissions->where('id', $id)->first()->display_name;
+        return $this->allPermissions->firstWhere('id', $id)->display_name;
     }
 
+    /**
+     * Apply the the selected permissions to the role.
+     */
     public function apply(): void
     {
         $this->closeModalWithEvents([
@@ -31,26 +35,29 @@ class AddPermissionsModal extends ModalComponent
         ]);
     }
 
+    /**
+     * Dismiss the modal.
+     */
     public function dismiss(): void
     {
         $this->forceClose()->closeModal();
     }
 
-    public function resetSearch(): void
+    /**
+     * Get a subset of all permissions based on the search.
+     */
+    public function getFilteredPermissionsProperty(): Collection
     {
-        $this->search = '';
-        $this->filteredPermissions = null;
-    }
+        $permissions = $this->search === '*'
+            ? $this->allPermissions
+            : $this->allPermissions
+                ->filter(function ($permission) {
+                    return Str::of($permission->name)->contains($this->search)
+                        || Str::of($permission->display_name)->contains($this->search)
+                        || Str::of($permission->description)->contains($this->search);
+                });
 
-    public function updatedSearch($value)
-    {
-        $this->filteredPermissions = $this->allPermissions->filter(function ($permission) use ($value) {
-            return Str::of($permission->name)->contains($value)
-                || Str::of($permission->display_name)->contains($value)
-                || Str::of($permission->description)->contains($value);
-        })->filter(function ($permission) {
-            return ! in_array($permission->id, $this->selected);
-        });
+        return $permissions->filter(fn ($p) => ! in_array($p->id, $this->selected));
     }
 
     public function mount()
@@ -60,7 +67,9 @@ class AddPermissionsModal extends ModalComponent
 
     public function render()
     {
-        return view('livewire.roles.add-permissions-modal');
+        return view('livewire.roles.add-permissions-modal', [
+            'filteredPermissions' => $this->filteredPermissions,
+        ]);
     }
 
     public static function modalMaxWidth(): string

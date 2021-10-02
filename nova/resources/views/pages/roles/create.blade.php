@@ -36,18 +36,6 @@
                 </x-input.group>
             </x-form.section>
 
-            <x-form.section title="Permissions" message="Permissions are the actions a signed in user can take throughout Nova. Feel free to add whatever permissions you want to this role.">
-                <x-input.group label="Assign permissions">
-                    @livewire('roles:manage-permissions', ['permissions' => []])
-                </x-input.group>
-            </x-form.section>
-
-            <x-form.section title="Users" message="You can quickly add users to this role from here.">
-                <x-input.group label="Assign users">
-                    @livewire('users:manage-users', ['users' => []])
-                </x-input.group>
-            </x-form.section>
-
             <x-form.footer>
                 <x-button type="submit" color="blue">Add Role</x-button>
                 <x-link :href="route('roles.index')" color="white">Cancel</x-link>

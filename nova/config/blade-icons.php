@@ -35,6 +35,11 @@ return [
             'prefix' => 'sui',
             'class' => '',
         ],
+        'ic' => [
+            'path' => 'nova/resources/svg/iconly-curved',
+            'prefix' => 'ic',
+            'class' => '',
+        ],
         'empty' => [
             'path' => 'nova/resources/svg/empty-states',
             'prefix' => 'empty',

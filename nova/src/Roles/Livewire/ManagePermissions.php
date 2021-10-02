@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace Nova\Roles\Livewire;
 
 use Livewire\Component;
-use Livewire\WithPagination;
+use Nova\Foundation\Livewire\DataTable\WithPerPagePagination;
+use Nova\Foundation\Livewire\DataTable\WithSorting;
 use Nova\Roles\Models\Role;
 
 class ManagePermissions extends Component
 {
-    use WithPagination;
+    use WithPerPagePagination;
+    use WithSorting;
 
     public $listeners = [
         'permissionsSelected' => 'attachSelectedPermissions',
     ];
-
-    // public $permissions;
 
     public ?Role $role;
 
@@ -32,8 +32,6 @@ class ManagePermissions extends Component
     public function attachSelectedPermissions(array $permissions): void
     {
         $this->role->attachPermissions($permissions);
-
-        $this->getPermissions();
     }
 
     /**
@@ -44,10 +42,11 @@ class ManagePermissions extends Component
         $this->dispatchBrowserEvent('dropdown-close');
 
         $this->role->detachPermissions($this->selected);
-
-        $this->getPermissions();
     }
 
+    /**
+     * Select all permissions.
+     */
     public function selectAll(): void
     {
         $this->selectAll = true;
@@ -59,29 +58,35 @@ class ManagePermissions extends Component
     public function updatedSelectPage($value): void
     {
         $this->selected = $value
-            ? $this->permissions->pluck('id')->map(fn ($id) => (string) $id)
+            ? $this->rows->pluck('id')->map(fn ($id) => (string) $id)
             : [];
     }
 
+    /**
+     * Get the query for the rows to be displayed in the data table.
+     */
     public function getRowsQueryProperty()
     {
-        $query = $this->roles->permissions();
+        $query = $this->role->permissions();
 
-        return $query;
-
-        // return $this->applySorting($query);
+        return $this->applySorting($query);
     }
 
+    /**
+     * Get the paginated rows to be displayed in the data table.
+     */
     public function getRowsProperty()
     {
-        return $this->applyPagination($this->rowsQuery);
+        return $this->applyPagination(
+            $this->rowsQuery,
+            $this->columns,
+            'permissionsPage'
+        );
     }
 
-    public function mount(?Role $role)
+    public function mount(Role $role)
     {
         $this->role = $role;
-
-        $this->getPermissions();
     }
 
     public function render()
@@ -89,12 +94,5 @@ class ManagePermissions extends Component
         return view('livewire.roles.manage-permissions', [
             'permissions' => $this->rows,
         ]);
-    }
-
-    protected function getPermissions(): void
-    {
-        $this->role->refresh();
-
-        // $this->permissions = $this->role->permissions->paginate();
     }
 }

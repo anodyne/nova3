@@ -5,7 +5,7 @@
 
     <x-content-box height="none" width="sm">
         <div>
-            <x-input.group>
+            <x-input.group help="You can type * to see all available permissions.">
                 <x-input.text placeholder="Search for permissions" wire:model.debounce.500ms="search" autofocus>
                     <x-slot name="leadingAddOn">
                         @icon('search')
@@ -13,7 +13,7 @@
 
                     <x-slot name="trailingAddOn">
                         @if ($search)
-                            <x-button color="gray-text" size="none" wire:click="resetSearch">
+                            <x-button color="gray-text" size="none" wire:click="$set('search', '')">
                                 @icon('close')
                             </x-button>
                         @endif
@@ -22,7 +22,7 @@
             </x-input.group>
 
             <div class="mt-4 w-full max-h-60 h-60 overflow-auto bg-gray-1 text-base focus:outline-none sm:text-sm space-y-1" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
-                @if (count($selected) === 0 && ! isset($filteredPermissions))
+                @if (count($selected) === 0 && $filteredPermissions->count() === 0)
                     <div class="flex flex-col items-center h-60">
                         <div class="flex flex-col flex-1 justify-center text-center">
                             @icon('lock', 'mx-auto h-12 w-12 text-gray-9')
@@ -46,7 +46,7 @@
                     @endforeach
                 @endif
 
-                @isset($filteredPermissions)
+                @if($filteredPermissions->count() > 0)
                     @foreach ($filteredPermissions as $permission)
                         <div class="p-1.5 rounded-md odd:bg-gray-3">
                             <x-input.checkbox id="permission-{{ $permission->id }}" for="permission-{{ $permission->id }}" :value="$permission->id" :label="$permission->display_name" wire:model="selected" />

@@ -31,7 +31,7 @@
                 x-transition:leave="ease-in-out duration-500"
                 x-transition:leave-start="opacity-100"
                 x-transition:leave-end="opacity-0"
-                class="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+                class="absolute inset-0 bg-gray-12 opacity-75 transition-opacity"
                 aria-hidden="true"
             ></div>
 
@@ -60,11 +60,11 @@
                         x-transition:leave="ease-in-out duration-500"
                         x-transition:leave-start="opacity-100"
                         x-transition:leave-end="opacity-0"
-                        class="absolute top-0 left-0 -ml-8 pt-4 pr-2 flex | sm:-ml-10 sm:pr-4"
+                        class="absolute top-0 left-0 -ml-8 pt-4 pr-2 flex sm:-ml-10 sm:pr-4"
                     >
                         <button
                             @click="open = false"
-                            class="rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white transition ease-in-out duration-150"
+                            class="rounded-md text-gray-6 hover:text-gray-1 focus:outline-none focus:ring-2 focus:ring-gray-1 transition ease-in-out duration-150"
                         >
                             <span class="sr-only">Close panel</span>
                             @icon('close', 'h-6 w-6')
@@ -72,27 +72,27 @@
                     </div>
 
                     <div class="h-full flex flex-col py-6 bg-gray-1 shadow-xl overflow-y-scroll">
-                        <header class="flex items-center justify-between px-4 | sm:px-6">
-                            <h2 class="text-lg font-medium text-gray-900">
+                        <header class="flex items-center justify-between px-4 sm:px-6">
+                            <h2 class="text-lg font-medium text-gray-12">
                                 Notifications
                             </h2>
 
                             @if ($this->hasUnreadNotifications())
-                                <button wire:click="markAllNotificationsAsRead" type="button" class="inline-flex items-center text-xs text-gray-400 hover:text-gray-600 transition ease-in-out duration-150 focus:outline-none">
+                                <button wire:click="markAllNotificationsAsRead" type="button" class="inline-flex items-center text-xs text-gray-9 hover:text-gray-10 transition ease-in-out duration-150 focus:outline-none">
                                     @icon('check', 'h-5 w-5')
                                     <span class="ml-2">Mark all as read</span>
                                 </button>
                             @endif
 
                             @if (! $this->hasUnreadNotifications() && $this->hasNotifications())
-                                <button wire:click="clearAllNotifications" type="button" class="inline-flex items-center text-xs text-gray-400 hover:text-gray-600 transition ease-in-out duration-150 focus:outline-none">
+                                <button wire:click="clearAllNotifications" type="button" class="inline-flex items-center text-xs text-gray-9 hover:text-gray-10 transition ease-in-out duration-150 focus:outline-none">
                                     @icon('check', 'h-5 w-5')
                                     <span class="ml-2">Clear all</span>
                                 </button>
                             @endif
                         </header>
 
-                        <div class="mt-6 relative flex-1 leading-normal px-4 space-y-8 | sm:px-6">
+                        <div class="mt-6 relative flex-1 leading-normal px-4 space-y-8 sm:px-6">
                             @forelse ($notifications as $notification)
                                 <div class="flex items-center w-full">
                                     @include("livewire.users.notifications.{$notification['type']}", compact('notification'))
