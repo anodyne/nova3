@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 use LivewireUI\Modal\ModalComponent;
 use Nova\Roles\Models\Permission;
 
-class AddPermissionsModal extends ModalComponent
+class SelectPermissionsModal extends ModalComponent
 {
     public Collection $allPermissions;
 
@@ -67,7 +67,7 @@ class AddPermissionsModal extends ModalComponent
 
     public function render()
     {
-        return view('livewire.roles.add-permissions-modal', [
+        return view('livewire.roles.select-permissions-modal', [
             'filteredPermissions' => $this->filteredPermissions,
         ]);
     }

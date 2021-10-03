@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Nova\Roles\Livewire;
 
 use Livewire\Component;
+use Nova\Foundation\Livewire\DataTable\WithBulkActions;
 use Nova\Foundation\Livewire\DataTable\WithPerPagePagination;
 use Nova\Foundation\Livewire\DataTable\WithSorting;
 use Nova\Roles\Models\Role;
 
 class ManagePermissions extends Component
 {
+    use WithBulkActions;
     use WithPerPagePagination;
     use WithSorting;
 
@@ -18,13 +20,9 @@ class ManagePermissions extends Component
         'permissionsSelected' => 'attachSelectedPermissions',
     ];
 
-    public ?Role $role;
+    public Role $role;
 
-    public $selected = [];
-
-    public $selectPage = false;
-
-    public $selectAll = false;
+    public string $search = '';
 
     /**
      * Attach the permissions to the role that we get from the modal.
@@ -39,27 +37,13 @@ class ManagePermissions extends Component
      */
     public function detachSelectedPermissions(): void
     {
-        $this->dispatchBrowserEvent('dropdown-close');
+        if ($this->selectAll) {
+            $this->role->syncPermissions([]);
+        } else {
+            $this->role->detachPermissions($this->selected);
+        }
 
-        $this->role->detachPermissions($this->selected);
-    }
-
-    /**
-     * Select all permissions.
-     */
-    public function selectAll(): void
-    {
-        $this->selectAll = true;
-    }
-
-    /**
-     * Set the selected permissions when the select page property is changed.
-     */
-    public function updatedSelectPage($value): void
-    {
-        $this->selected = $value
-            ? $this->rows->pluck('id')->map(fn ($id) => (string) $id)
-            : [];
+        $this->selected = [];
     }
 
     /**
@@ -67,7 +51,15 @@ class ManagePermissions extends Component
      */
     public function getRowsQueryProperty()
     {
-        $query = $this->role->permissions();
+        $query = $this->role
+            ->permissions()
+            ->when($this->search, function ($query) {
+                return $query->where(function ($q) {
+                    return $q->where('name', 'like', "%{$this->search}%")
+                        ->orWhere('display_name', 'like', "%{$this->search}%")
+                        ->orWhere('description', 'like', "%{$this->search}%");
+                });
+            });
 
         return $this->applySorting($query);
     }

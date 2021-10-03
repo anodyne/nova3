@@ -9,7 +9,7 @@ use Nova\Users\Controllers\ForcePasswordResetController;
 use Nova\Users\Events\UserCreatedByAdmin;
 use Nova\Users\Listeners\GeneratePassword;
 use Nova\Users\Livewire\DarkModeToggle;
-use Nova\Users\Livewire\ManageUsers;
+use Nova\Users\Livewire\SelectUsersModal;
 use Nova\Users\Livewire\UserNotifications;
 use Nova\Users\Livewire\UsersCollector;
 use Nova\Users\Livewire\UsersDropdown;
@@ -41,8 +41,8 @@ class UserServiceProvider extends DomainServiceProvider
             'users:collector' => UsersCollector::class,
             'users:dark-mode-toggle' => DarkModeToggle::class,
             'users:dropdown' => UsersDropdown::class,
-            'users:manage-users' => ManageUsers::class,
             'users:notifications' => UserNotifications::class,
+            'users:select-users-modal' => SelectUsersModal::class,
         ];
     }
 
