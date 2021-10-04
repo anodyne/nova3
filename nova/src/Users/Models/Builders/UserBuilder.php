@@ -22,7 +22,7 @@ class UserBuilder extends Builder
      */
     public function whereActive()
     {
-        return $this->where('state', '=', Active::class);
+        return $this->where('status', '=', Active::class);
     }
 
     /**
@@ -32,7 +32,7 @@ class UserBuilder extends Builder
      */
     public function whereArchived()
     {
-        return $this->where('state', '=', Archived::class);
+        return $this->where('status', '=', Archived::class);
     }
 
     /**
@@ -42,7 +42,7 @@ class UserBuilder extends Builder
      */
     public function whereInactive()
     {
-        return $this->where('state', '=', Inactive::class);
+        return $this->where('status', '=', Inactive::class);
     }
 
     /**
@@ -52,6 +52,6 @@ class UserBuilder extends Builder
      */
     public function wherePending()
     {
-        return $this->where('state', '=', Pending::class);
+        return $this->where('status', '=', Pending::class);
     }
 }

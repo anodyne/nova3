@@ -16,13 +16,15 @@ class ManagePermissions extends Component
     use WithPerPagePagination;
     use WithSorting;
 
+    public $filters = [
+        'search' => '',
+    ];
+
     public $listeners = [
         'permissionsSelected' => 'attachSelectedPermissions',
     ];
 
     public Role $role;
-
-    public string $search = '';
 
     /**
      * Attach the permissions to the role that we get from the modal.
@@ -53,11 +55,11 @@ class ManagePermissions extends Component
     {
         $query = $this->role
             ->permissions()
-            ->when($this->search, function ($query) {
-                return $query->where(function ($q) {
-                    return $q->where('name', 'like', "%{$this->search}%")
-                        ->orWhere('display_name', 'like', "%{$this->search}%")
-                        ->orWhere('description', 'like', "%{$this->search}%");
+            ->when($this->filters['search'], function ($query, $search) {
+                return $query->where(function ($q) use ($search) {
+                    return $q->where('name', 'like', "%{$search}%")
+                        ->orWhere('display_name', 'like', "%{$search}%")
+                        ->orWhere('description', 'like', "%{$search}%");
                 });
             });
 
@@ -74,6 +76,13 @@ class ManagePermissions extends Component
             $this->columns,
             'permissionsPage'
         );
+    }
+
+    public function selectAll()
+    {
+        $this->selectAll = true;
+
+        $this->selected = $this->role->permissions->pluck('id')->map(fn ($id) => (string) $id);
     }
 
     public function mount(Role $role)

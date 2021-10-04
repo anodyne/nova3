@@ -68,16 +68,32 @@
                                         {{ $role->display_name }}
                                     </div>
                                     <div class="mt-2 flex flex-col space-y-2 sm:flex-row sm:space-x-6 sm:space-y-0">
-                                        <div class="flex items-center text-sm text-gray-11">
-                                            @if ($role->users_count === 1)
-                                                @icon('user', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-9')
-                                            @else
-                                                @icon('users', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-9')
-                                            @endif
-                                            <span>
-                                                {{ $role->users_count }} assigned @choice('user|users', $role->users_count)
-                                            </span>
-                                        </div>
+                                        @if ($role->active_users_count > 0)
+                                            <div class="flex items-center text-sm text-gray-11">
+                                                @if ($role->active_users_count === 1)
+                                                    @icon('user', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-9')
+                                                @else
+                                                    @icon('users', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-9')
+                                                @endif
+                                                <span>
+                                                    {{ $role->active_users_count }} active @choice('user|users', $role->active_users_count)
+                                                </span>
+                                            </div>
+                                        @endif
+
+                                        @if ($role->inactive_users_count > 0)
+                                            <div class="flex items-center text-sm text-gray-11">
+                                                @if ($role->inactive_users_count === 1)
+                                                    @icon('user', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-9')
+                                                @else
+                                                    @icon('users', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-9')
+                                                @endif
+                                                <span>
+                                                    {{ $role->inactive_users_count }} inactive @choice('user|users', $role->inactive_users_count)
+                                                </span>
+                                            </div>
+                                        @endif
+
                                         @if ($role->default)
                                             <div class="flex items-center text-sm text-gray-11">
                                                 @icon('check', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-9')

@@ -1,20 +1,68 @@
 <div>
     <x-content-box>
-        <div class="flex justify-between">
-            <div>
-                <h3 class="font-bold text-xl text-gray-12 tracking-tight">Users Assigned this Role</h3>
-                <p class="mt-1 text-gray-10 space-y-6">You can manage the users who are assigned this role from here.</p>
-            </div>
+        <h3 class="font-bold text-xl text-gray-12 tracking-tight">Users Assigned this Role</h3>
 
+        <div class="flex justify-between mt-4">
             @if ($users->total() > 0)
-                <div class="flex items-center space-x-2">
+                <div class="w-full sm:w-1/3">
+                    <x-input.group>
+                        <x-input.text wire:model.debounce.500ms="filters.search" placeholder="Find assigned users...">
+                            <x-slot name="leadingAddOn">
+                                @icon('search', 'h-5 w-5')
+                            </x-slot>
+
+                            <x-slot name="trailingAddOn">
+                                @if ($filters['search'])
+                                    <x-button color="gray-text" size="none" wire:click="$set('filters.search', '')">
+                                        @icon('close')
+                                    </x-button>
+                                @endif
+                            </x-slot>
+                        </x-input.text>
+                    </x-input.group>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <x-dropdown placement="bottom-end">
+                        <x-slot name="trigger">
+                            @icon('filter', 'h-6 w-6')
+                        </x-slot>
+
+                        <x-dropdown.group>
+                            <x-dropdown.item type="button" wire:click="$set('filters.status', '')">
+                                <div class="flex items-center justify-between w-full">
+                                    <span>All users</span>
+                                    @if ($filters['status'] === '')
+                                        @icon('check', 'h-5 w-5 text-green-9')
+                                    @endif
+                                </div>
+                            </x-dropdown.item>
+                            <x-dropdown.item type="button" wire:click="$set('filters.status', 'Nova\\\Users\\\Models\\\States\\\Active')">
+                                <div class="flex items-center justify-between w-full">
+                                    <span>Only active users</span>
+                                    @if ($filters['status'] === 'Nova\Users\Models\States\Active')
+                                        @icon('check', 'h-5 w-5 text-green-9')
+                                    @endif
+                                </div>
+                            </x-dropdown.item>
+                            <x-dropdown.item type="button" wire:click="$set('filters.status', 'Nova\\\Users\\\Models\\\States\\\Inactive')">
+                                <div class="flex items-center justify-between w-full">
+                                    <span>Only inactive users</span>
+                                    @if ($filters['status'] === 'Nova\Users\Models\States\Inactive')
+                                        @icon('check', 'h-5 w-5 text-green-9')
+                                    @endif
+                                </div>
+                            </x-dropdown.item>
+                        </x-dropdown.group>
+                    </x-dropdown>
+
                     @if (count($selected) > 0)
-                        <x-button color="red-soft" size="xs" wire:click="unassignSelectedUsers">
+                        <x-button color="red-soft" size="sm" wire:click="unassignSelectedUsers">
                             Remove {{ count($selected) }} @choice('user|users', count($selected))
                         </x-button>
                     @endif
 
-                    <x-button type="button" size="xs" wire:click="$emit('openModal', 'users:select-users-modal')">
+                    <x-button type="button" color="blue" size="sm" wire:click="$emit('openModal', 'users:select-users-modal')">
                         Add users
                     </x-button>
                 </div>

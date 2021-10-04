@@ -14,6 +14,11 @@ class ManageUsers extends Component
     use WithPerPagePagination;
     use WithSorting;
 
+    public $filters = [
+        'search' => '',
+        'status' => '',
+    ];
+
     public $listeners = [
         'usersSelected' => 'assignSelectedUsers',
     ];
@@ -67,7 +72,17 @@ class ManageUsers extends Component
      */
     public function getRowsQueryProperty()
     {
-        $query = $this->role->users();
+        $query = $this->role->users()
+            ->when($this->filters['search'], function ($query, $search) {
+                return $query->where(function ($q) use ($search) {
+                    return $q->where('name', 'like', "%{$search}%")
+                        ->orWhere('email', 'like', "%{$search}%");
+                });
+            })
+            ->when(
+                $this->filters['status'],
+                fn ($query, $status) => $query->where('status', $status)
+            );
 
         return $this->applySorting($query);
     }

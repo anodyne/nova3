@@ -3,25 +3,25 @@
         <h3 class="font-bold text-xl text-gray-12 tracking-tight">Permissions Assigned to this Role</h3>
 
         <div class="flex justify-between mt-4">
-            <div class="w-full sm:w-1/3">
-                <x-input.group>
-                    <x-input.text wire:model.debounce.500ms="search" placeholder="Find permissions...">
-                        <x-slot name="leadingAddOn">
-                            @icon('search', 'h-5 w-5')
-                        </x-slot>
-
-                        <x-slot name="trailingAddOn">
-                            @if ($search)
-                                <x-button color="gray-text" size="none" wire:click="$set('search', '')">
-                                    @icon('close')
-                                </x-button>
-                            @endif
-                        </x-slot>
-                    </x-input.text>
-                </x-input.group>
-            </div>
-
             @if ($permissions->total() > 0)
+                <div class="w-full sm:w-1/3">
+                    <x-input.group>
+                        <x-input.text wire:model.debounce.500ms="filters.search" placeholder="Find assigned permissions...">
+                            <x-slot name="leadingAddOn">
+                                @icon('search', 'h-5 w-5')
+                            </x-slot>
+
+                            <x-slot name="trailingAddOn">
+                                @if ($filters['search'])
+                                    <x-button color="gray-text" size="none" wire:click="$set('filters.search', '')">
+                                        @icon('close')
+                                    </x-button>
+                                @endif
+                            </x-slot>
+                        </x-input.text>
+                    </x-input.group>
+                </div>
+
                 <div class="flex items-center space-x-4">
                     @if (count($selected) > 0)
                         <x-button color="red-soft" size="sm" wire:click="detachSelectedPermissions">
