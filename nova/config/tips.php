@@ -31,6 +31,7 @@ return [
 
     'roles' => [
         'You can specify as many roles as you want to be assigned to newly created users.',
+        'Our recommendation is to create small roles with fewer permissions. This allows you to add sets of permissions to a user by granting them a role instead of trying to put all of the permissions users may need into a single role.'
     ],
 
     'settings' => [

@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@admin.com',
         ]);
-        $admin->attachRoles(['admin', 'user']);
+        $admin->attachRoles(['admin', 'user', 'writer']);
 
         $activeUser = User::factory()
             ->active()
@@ -31,7 +31,7 @@ class UserSeeder extends Seeder
                 'name' => 'user',
                 'email' => 'user@user.com',
             ]);
-        $activeUser->attachRole('user');
+        $activeUser->attachRoles(['user', 'writer']);
 
         User::factory()
             ->inactive()

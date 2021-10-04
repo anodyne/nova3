@@ -42,7 +42,8 @@ class PopulateAuthorizationTables extends Migration
                 'post.delete', 'post.update',
                 'settings.update',
             ],
-            'user' => [
+            'user' => [],
+            'writer' => [
                 'story.view',
                 'post.view', 'post.create',
             ],
@@ -121,6 +122,7 @@ class PopulateAuthorizationTables extends Migration
             $roles = [
                 ['name' => 'admin', 'display_name' => 'System Admin', 'locked' => true, 'sort' => 0],
                 ['name' => 'user', 'display_name' => 'Active User', 'default' => true, 'sort' => 1],
+                ['name' => 'writer', 'display_name' => 'Writer', 'default' => true, 'sort' => 2],
             ];
 
             collect($roles)->each(function ($role) {
