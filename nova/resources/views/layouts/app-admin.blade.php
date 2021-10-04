@@ -7,7 +7,7 @@
                 <div class="relative h-16 flex justify-between">
                     <div class="relative z-10 px-2 flex lg:px-0">
                         <div class="flex-shrink-0 flex items-center">
-                            <x-nova-logo-6 class="block h-8 w-auto text-blue-9" />
+                            <x-nova-logo class="block h-8 w-auto" />
                         </div>
                     </div>
 

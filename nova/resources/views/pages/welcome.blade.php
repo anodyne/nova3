@@ -12,7 +12,7 @@
     <div class="mx-auto px-2 h-screen flex items-center justify-center">
         <div class="pb-16 text-center">
             <a href="https://anodyne-productions.com/nova" class="block mb-8">
-                <x-nova-logo-6 class="text-blue-9 h-20 w-auto mx-auto" />
+                <x-nova-logo class="h-20 w-auto mx-auto" />
             </a>
             <div class="text-xs font-semibold uppercase tracking-wide text-gray-11 space-x-4">
                 @auth
