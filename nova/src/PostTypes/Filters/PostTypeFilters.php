@@ -13,6 +13,6 @@ class PostTypeFilters extends Filters
 
     public function search($value): Builder
     {
-        return $this->builder->where('name', 'like', "%{$value}%");
+        return $this->builder->searchFor($value);
     }
 }

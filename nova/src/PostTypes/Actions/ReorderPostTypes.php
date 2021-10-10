@@ -13,8 +13,8 @@ class ReorderPostTypes
 
     public function handle(string $sort): void
     {
-        collect(explode(',', $sort))->each(function ($id, $index) {
-            PostType::where('id', $id)->update(['sort' => $index]);
-        });
+        collect(explode(',', $sort))->each(
+            fn ($id, $index) => PostType::where('id', $id)->update(['sort' => $index])
+        );
     }
 }

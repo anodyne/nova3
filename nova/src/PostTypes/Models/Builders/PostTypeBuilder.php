@@ -12,4 +12,9 @@ class PostTypeBuilder extends Builder
 {
     use Filterable;
     use Sortable;
+
+    public function searchFor($search): Builder
+    {
+        return $this->where('name', 'like', "%{$search}%");
+    }
 }
