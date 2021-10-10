@@ -22,9 +22,9 @@ class PopulatePagesTable extends Migration
             ['uri' => 'password/reset', 'key' => 'password.update', 'verb' => 'post', 'resource' => 'Nova\\Auth\\Controllers\\ResetPasswordController@reset', 'layout' => 'auth'],
 
             ['uri' => '/', 'key' => 'home', 'resource' => 'Nova\\Foundation\\Controllers\\WelcomeController'],
-            ['uri' => 'dashboard', 'key' => 'dashboard', 'resource' => 'Nova\\Dashboard\\Controllers\\DashboardController', 'layout' => 'admin'],
-            ['uri' => 'system-overview', 'key' => 'system-overview', 'resource' => 'Nova\\Dashboard\\Controllers\\SystemOverviewController', 'layout' => 'admin'],
-            ['uri' => 'writing-overview', 'key' => 'writing-overview', 'resource' => 'Nova\\Dashboard\\Controllers\\WritingOverviewController', 'layout' => 'admin'],
+            ['uri' => 'dashboard', 'key' => 'dashboard', 'resource' => 'Nova\\Dashboards\\Controllers\\DashboardController', 'layout' => 'admin'],
+            ['uri' => 'system-overview', 'key' => 'system-overview', 'resource' => 'Nova\\Dashboards\\Controllers\\SystemOverviewController', 'layout' => 'admin'],
+            ['uri' => 'writing-overview', 'key' => 'writing-overview', 'resource' => 'Nova\\Dashboards\\Controllers\\WritingOverviewController', 'layout' => 'admin'],
 
             ['uri' => 'site-themes', 'key' => 'themes.index', 'resource' => 'Nova\\Themes\\Controllers\\ShowThemeController@all', 'layout' => 'admin'],
             ['uri' => 'site-themes/create', 'key' => 'themes.create', 'resource' => 'Nova\\Themes\\Controllers\\CreateThemeController@create', 'layout' => 'admin'],
