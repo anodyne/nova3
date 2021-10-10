@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Notes\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 use Nova\Notes\Actions\DeleteNote;
 use Nova\Notes\Models\Note;
 use Nova\Notes\Responses\DeleteNoteResponse;
@@ -19,7 +21,7 @@ class DeleteNoteController extends Controller
         $this->middleware('auth');
     }
 
-    public function confirm(Request $request)
+    public function confirm(Request $request): Responsable
     {
         $note = Note::findOrFail($request->id);
 
@@ -28,7 +30,7 @@ class DeleteNoteController extends Controller
         ]);
     }
 
-    public function destroy(Note $note)
+    public function destroy(Note $note): RedirectResponse
     {
         $this->authorize('delete', $note);
 

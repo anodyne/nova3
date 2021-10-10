@@ -13,7 +13,7 @@ use Nova\Notes\Responses\ShowAllNotesResponse;
 use Nova\Notes\Responses\ShowNoteResponse;
 use Nova\Notes\Responses\UpdateNoteResponse;
 
-class NoteServiceProvider extends DomainServiceProvider
+class NotesServiceProvider extends DomainServiceProvider
 {
     public function policies(): array
     {

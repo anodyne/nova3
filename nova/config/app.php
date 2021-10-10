@@ -189,7 +189,7 @@ return [
         Nova\Characters\Providers\CharacterServiceProvider::class,
         Nova\Dashboards\Providers\DashboardsServiceProvider::class,
         Nova\Departments\Providers\DepartmentServiceProvider::class,
-        Nova\Notes\Providers\NoteServiceProvider::class,
+        Nova\Notes\Providers\NotesServiceProvider::class,
         Nova\Posts\Providers\PostServiceProvider::class,
         Nova\PostTypes\Providers\PostTypeServiceProvider::class,
         Nova\Ranks\Providers\RankServiceProvider::class,

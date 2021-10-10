@@ -6,6 +6,7 @@ namespace Nova\Notes\Controllers;
 
 use Illuminate\Http\Request;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 use Nova\Notes\Filters\NoteFilters;
 use Nova\Notes\Models\Note;
 use Nova\Notes\Responses\ShowAllNotesResponse;
@@ -20,7 +21,7 @@ class ShowNoteController extends Controller
         $this->middleware('auth');
     }
 
-    public function all(Request $request, NoteFilters $filters)
+    public function all(Request $request, NoteFilters $filters): Responsable
     {
         $this->authorize('viewAny', Note::class);
 
@@ -35,7 +36,7 @@ class ShowNoteController extends Controller
         ]);
     }
 
-    public function show(Note $note)
+    public function show(Note $note): Responsable
     {
         $this->authorize('view', $note);
 

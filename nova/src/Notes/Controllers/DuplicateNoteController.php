@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Notes\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Notes\Actions\DuplicateNote;
 use Nova\Notes\Events\NoteDuplicated;
@@ -18,7 +19,7 @@ class DuplicateNoteController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(Note $original)
+    public function __invoke(Note $original): RedirectResponse
     {
         $this->authorize('duplicate', $original);
 

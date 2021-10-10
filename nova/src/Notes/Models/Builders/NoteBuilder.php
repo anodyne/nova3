@@ -12,6 +12,15 @@ class NoteBuilder extends Builder
 {
     use Filterable;
 
+    public function searchFor($search): Builder
+    {
+        return $this->where(function ($query) use ($search) {
+            return $query->where('title', 'like', "%{$search}%")
+                ->orWhere('content', 'like', "%{$search}%")
+                ->orWhere('summary', 'like', "%{$search}%");
+        });
+    }
+
     public function whereAuthor(User $user): Builder
     {
         return $this->where('user_id', $user->id);

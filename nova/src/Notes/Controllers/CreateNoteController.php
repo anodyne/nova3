@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Notes\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 use Nova\Notes\Actions\CreateNote;
 use Nova\Notes\DataTransferObjects\NoteData;
 use Nova\Notes\Models\Note;
@@ -20,14 +22,14 @@ class CreateNoteController extends Controller
         $this->middleware('auth');
     }
 
-    public function create()
+    public function create(): Responsable
     {
         $this->authorize('create', Note::class);
 
         return app(CreateNoteResponse::class);
     }
 
-    public function store(CreateNoteRequest $request)
+    public function store(CreateNoteRequest $request): RedirectResponse
     {
         $this->authorize('create', Note::class);
 
