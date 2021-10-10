@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Nova\Dashboard\Providers;
+namespace Nova\Dashboards\Providers;
 
-use Nova\Dashboard\Responses\DashboardResponse;
-use Nova\Dashboard\Responses\SystemOverviewResponse;
-use Nova\Dashboard\Responses\WritingOverviewResponse;
+use Nova\Dashboards\Responses\DashboardResponse;
+use Nova\Dashboards\Responses\SystemOverviewResponse;
+use Nova\Dashboards\Responses\WritingOverviewResponse;
 use Nova\DomainServiceProvider;
 
-class DashboardServiceProvider extends DomainServiceProvider
+class DashboardsServiceProvider extends DomainServiceProvider
 {
     public function responsables(): array
     {

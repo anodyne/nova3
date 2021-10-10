@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Nova\Dashboard\Controllers;
+namespace Nova\Dashboards\Controllers;
 
-use Nova\Dashboard\Responses\DashboardResponse;
+use Nova\Dashboards\Responses\DashboardResponse;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 
 class DashboardController extends Controller
 {
@@ -16,7 +17,7 @@ class DashboardController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke()
+    public function __invoke(): Responsable
     {
         return app(DashboardResponse::class);
     }

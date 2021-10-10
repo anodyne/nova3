@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Nova\Dashboard\Responses;
+namespace Nova\Dashboards\Responses;
 
 use Nova\Foundation\Responses\Responsable;
 

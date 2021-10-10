@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Nova\Dashboard\Controllers;
+namespace Nova\Dashboards\Controllers;
 
-use Nova\Dashboard\Responses\SystemOverviewResponse;
+use Nova\Dashboards\Responses\SystemOverviewResponse;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 
 class SystemOverviewController extends Controller
 {
@@ -16,7 +17,7 @@ class SystemOverviewController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke()
+    public function __invoke(): Responsable
     {
         return app(SystemOverviewResponse::class);
     }
