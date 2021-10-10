@@ -1,5 +1,5 @@
-<div class="block bg-gray-1 rounded-md shadow">
-    <div class="flex items-start relative space-x-4 px-4 py-4 sm:px-6">
+<x-panel>
+    <x-content-box class="flex items-start relative">
         <div class="absolute top-0 right-0 pt-4 pr-4 sm:pr-6">
             <x-dropdown placement="bottom-end">
                 <x-slot name="trigger">
@@ -45,7 +45,7 @@
             @icon($post->type->icon, 'h-5 w-5 sm:h-6 sm:w-6')
         </div>
 
-        <div class="w-full space-y-4 sm:space-y-2">
+        <div class="w-full space-y-4 sm:space-y-2 ml-4">
             <div>
                 <h3 class="uppercase tracking-wide text-xs text-gray-9 font-semibold">{{ $post->type->name }}</h3>
                 <h2 class="flex-wrap font-bold text-lg tracking-tight text-gray-12 sm:text-2xl">{{ $post->title }}</h2>
@@ -77,11 +77,11 @@
             @endif
 
             <div class="block">
-                <div class="flex overflow-hidden">
-                    <img class="inline-block h-8 w-8 rounded-full text-gray-1 shadow-solid" src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-                    <img class="-ml-1 inline-block h-8 w-8 rounded-full text-gray-1 shadow-solid" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-                    <img class="-ml-1 inline-block h-8 w-8 rounded-full text-gray-1 shadow-solid" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80" alt="">
-                    <img class="-ml-1 inline-block h-8 w-8 rounded-full text-gray-1 shadow-solid" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                <div class="flex -space-x-2 relative z-0 overflow-hidden">
+                    <img class="relative z-30 inline-block h-8 w-8 rounded-full ring-2 ring-gray-1" src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                    <img class="relative z-20 inline-block h-8 w-8 rounded-full ring-2 ring-gray-1" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                    <img class="relative z-10 inline-block h-8 w-8 rounded-full ring-2 ring-gray-1" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80" alt="">
+                    <img class="relative z-0 inline-block h-8 w-8 rounded-full ring-2 ring-gray-1" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
                 </div>
             </div>
 
@@ -107,5 +107,5 @@
                 @endif
             </div>
         </div>
-    </div>
-</div>
+    </x-content-box>
+</x-panel>

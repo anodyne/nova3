@@ -32,7 +32,7 @@
         class="absolute mt-2 rounded-md shadow-lg z-[9999] {{ $placementStyles() }} {{ $wide ? 'w-72' : 'w-56'}}"
         x-cloak
     >
-        <div class="rounded-md bg-gray-1 ring-1 ring-gray-12 ring-opacity-5 z-10 divide-y divide-gray-3">
+        <div class="rounded-lg bg-gray-1 ring-1 ring-gray-12 ring-opacity-5 z-10 divide-y divide-gray-3">
             {{ $slot }}
         </div>
     </div>

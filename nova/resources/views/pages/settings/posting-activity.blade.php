@@ -1,7 +1,14 @@
 @extends($meta->template)
 
 @section('content')
-<x-page-header title="Posting Activity Settings" />
+<x-page-header title="Posting Activity Settings">
+    <x-slot name="controls">
+        <x-button color="white" size="sm" onclick="Livewire.emit('openModal', 'settings:find-settings')">
+            @icon('search', 'h-5 w-5')
+            <span class="ml-2">Find a setting</span>
+        </x-button>
+    </x-slot>
+</x-page-header>
 
 <x-panel>
     <x-form
@@ -17,7 +24,7 @@
                 </legend>
                 <div class="space-y-4">
                     <!-- Active: "ring-1 ring-offset-2 ring-indigo-500" -->
-                    <label class="relative block rounded-lg border border-gray-6 bg-gray-1 shadow-sm px-6 py-4 cursor-pointer hover:border-gray-9 sm:flex sm:justify-between focus:outline-none transition duration-150">
+                    <label class="relative block rounded-md border border-gray-6 bg-gray-1 shadow-sm px-6 py-4 cursor-pointer hover:border-gray-9 sm:flex sm:justify-between focus:outline-none transition duration-150">
                         <input type="radio" name="tracking-strategy" value="posts" class="sr-only" aria-labelledby="tracking-strategy-0-label" aria-describedby="tracking-strategy-0-description-0 tracking-strategy-0-description-1" x-model="strategy">
                         <div class="flex items-center">
                             <div class="text-sm">
@@ -29,11 +36,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="absolute -inset-px rounded-lg border-2 pointer-events-none" aria-hidden="true" :class="{ 'border-blue-9': strategy === 'posts', 'border-transparent': strategy !== 'posts' }"></div>
+                        <div class="absolute -inset-px rounded-md border-2 pointer-events-none" aria-hidden="true" :class="{ 'border-blue-9': strategy === 'posts', 'border-transparent': strategy !== 'posts' }"></div>
                     </label>
 
                     <!-- Active: "ring-1 ring-offset-2 ring-indigo-500" -->
-                    <label class="relative block rounded-lg border border-gray-6 bg-gray-1 shadow-sm px-6 py-4 cursor-pointer hover:border-gray-9 sm:flex sm:justify-between focus:outline-none transition duration-150">
+                    <label class="relative block rounded-md border border-gray-6 bg-gray-1 shadow-sm px-6 py-4 cursor-pointer hover:border-gray-9 sm:flex sm:justify-between focus:outline-none transition duration-150">
                         <input type="radio" name="tracking-strategy" value="words" class="sr-only" aria-labelledby="tracking-strategy-1-label" aria-describedby="tracking-strategy-1-description-0 tracking-strategy-1-description-1" x-model="strategy">
                         <div class="flex items-center">
                             <div class="text-sm">
@@ -46,7 +53,7 @@
                             </div>
                         </div>
                         <!-- Checked: "border-indigo-500", Not Checked: "border-transparent" -->
-                        <div class="absolute -inset-px rounded-lg border-2 pointer-events-none" aria-hidden="true" :class="{ 'border-blue-9': strategy === 'words', 'border-transparent': strategy !== 'words' }"></div>
+                        <div class="absolute -inset-px rounded-md border-2 pointer-events-none" aria-hidden="true" :class="{ 'border-blue-9': strategy === 'words', 'border-transparent': strategy !== 'words' }"></div>
                     </label>
                 </div>
             </fieldset>
@@ -72,7 +79,7 @@
                 <div class="bg-gray-1 rounded-md -space-y-px">
                     <!-- Checked: "bg-indigo-50 border-indigo-200 z-10", Not Checked: "border-gray-200" -->
                     <label class="rounded-tl-md rounded-tr-md relative border p-4 flex cursor-pointer focus:outline-none" :class="{ 'bg-blue-3 border-blue-6 z-10': postsStrategy === 'author', 'border-gray-6': postsStrategy !== 'author' }">
-                        <input type="radio" name="posts-strategy" value="author" class="h-4 w-4 mt-0.5 cursor-pointer  border-gray-6 focus:ring-blue-9" :class="{ 'text-blue-11': postsStrategy === 'author' }" aria-labelledby="posts-strategy-0-label" aria-describedby="posts-strategy-0-description" x-model="postsStrategy">
+                        <input type="radio" name="posts-strategy" value="author" class="h-4 w-4 mt-0.5 cursor-pointer  border-gray-6 focus:ring-blue-9 bg-gray-1 focus:ring-offset-gray-1" :class="{ 'text-blue-11': postsStrategy === 'author' }" aria-labelledby="posts-strategy-0-label" aria-describedby="posts-strategy-0-description" x-model="postsStrategy">
                         <div class="ml-3 flex flex-col">
                             <!-- Checked: "text-indigo-900", Not Checked: "text-gray-900" -->
                             <span id="posts-strategy-0-label" class="block text-sm font-medium" :class="{ 'text-blue-12': postsStrategy === 'author', 'text-gray-12': postsStrategy !== 'author' }">
@@ -87,7 +94,7 @@
 
                     <!-- Checked: "bg-indigo-50 border-indigo-200 z-10", Not Checked: "border-gray-200" -->
                     <label class="rounded-bl-md rounded-br-md relative border p-4 flex cursor-pointer focus:outline-none" :class="{ 'bg-blue-3 border-blue-6 z-10': postsStrategy === 'post', 'border-gray-6': postsStrategy !== 'post' }">
-                        <input type="radio" name="posts-strategy" value="post" class="h-4 w-4 mt-0.5 cursor-pointer  border-gray-6 focus:ring-blue-9" :class="{ 'text-blue-11': postsStrategy === 'author' }" aria-labelledby="posts-strategy-1-label" aria-describedby="posts-strategy-1-description" x-model="postsStrategy">
+                        <input type="radio" name="posts-strategy" value="post" class="h-4 w-4 mt-0.5 cursor-pointer  border-gray-6 focus:ring-blue-9 bg-gray-1 focus:ring-offset-gray-1" :class="{ 'text-blue-11': postsStrategy === 'author' }" aria-labelledby="posts-strategy-1-label" aria-describedby="posts-strategy-1-description" x-model="postsStrategy">
                         <div class="ml-3 flex flex-col">
                             <!-- Checked: "text-indigo-900", Not Checked: "text-gray-900" -->
                             <span id="posts-strategy-1-label" class="block text-sm font-medium" :class="{ 'text-blue-12': postsStrategy === 'post', 'text-gray-12': postsStrategy !== 'post' }">
@@ -111,7 +118,7 @@
                 <div class="bg-gray-1 rounded-md -space-y-px">
                     <!-- Checked: "bg-indigo-50 border-indigo-200 z-10", Not Checked: "border-gray-200" -->
                     <label class="rounded-tl-md rounded-tr-md relative border p-4 flex cursor-pointer focus:outline-none" :class="{ 'bg-blue-3 border-blue-6 z-10': wordCountStrategy === 'all', 'border-gray-6': wordCountStrategy !== 'all' }">
-                        <input type="radio" name="word-count-strategy" value="all" class="h-4 w-4 mt-0.5 cursor-pointer  border-gray-6 focus:ring-blue-9" :class="{ 'text-blue-11': wordCountStrategy === 'all' }" aria-labelledby="word-count-strategy-0-label" aria-describedby="word-count-strategy-0-description" x-model="wordCountStrategy">
+                        <input type="radio" name="word-count-strategy" value="all" class="h-4 w-4 mt-0.5 cursor-pointer  border-gray-6 focus:ring-blue-9 bg-gray-1 focus:ring-offset-gray-1" :class="{ 'text-blue-11': wordCountStrategy === 'all' }" aria-labelledby="word-count-strategy-0-label" aria-describedby="word-count-strategy-0-description" x-model="wordCountStrategy">
                         <div class="ml-3 flex flex-col">
                             <!-- Checked: "text-indigo-900", Not Checked: "text-gray-900" -->
                             <span id="word-count-strategy-0-label" class="block text-sm font-medium" :class="{ 'text-blue-12': wordCountStrategy === 'all', 'text-gray-12': wordCountStrategy !== 'all' }">
@@ -126,7 +133,7 @@
 
                     <!-- Checked: "bg-indigo-50 border-indigo-200 z-10", Not Checked: "border-gray-200" -->
                     <label class="rounded-bl-md rounded-br-md relative border p-4 flex cursor-pointer focus:outline-none" :class="{ 'bg-blue-3 border-blue-6 z-10': wordCountStrategy === 'average', 'border-gray-6': wordCountStrategy !== 'average' }">
-                        <input type="radio" name="word-count-strategy" value="average" class="h-4 w-4 mt-0.5 cursor-pointer  border-gray-6 focus:ring-blue-9" :class="{ 'text-blue-11': wordCountStrategy === 'average' }" aria-labelledby="word-count-strategy-1-label" aria-describedby="word-count-strategy-1-description" x-model="wordCountStrategy">
+                        <input type="radio" name="word-count-strategy" value="average" class="h-4 w-4 mt-0.5 cursor-pointer  border-gray-6 focus:ring-blue-9 bg-gray-1 focus:ring-offset-gray-1" :class="{ 'text-blue-11': wordCountStrategy === 'average' }" aria-labelledby="word-count-strategy-1-label" aria-describedby="word-count-strategy-1-description" x-model="wordCountStrategy">
                         <div class="ml-3 flex flex-col">
                             <!-- Checked: "text-indigo-900", Not Checked: "text-gray-900" -->
                             <span id="word-count-strategy-1-label" class="block text-sm font-medium" :class="{ 'text-blue-12': wordCountStrategy === 'average', 'text-gray-12': wordCountStrategy !== 'average' }">

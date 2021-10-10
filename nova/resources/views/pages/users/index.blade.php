@@ -33,25 +33,25 @@
                     <nav class="-mb-px flex">
                         <a
                             href="{{ route('users.index', 'status=active') }}"
-                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'active') border-blue-6 text-blue-9 @else text-gray-9 hover:text-gray-11 hover:border-gray-6 @endif"
+                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none {{ request()->status === 'active' ? 'border-blue-6 text-blue-9' : 'border-transparent text-gray-9 hover:text-gray-11 hover:border-gray-6' }}"
                         >
                             Active
                         </a>
                         <a
                             href="{{ route('users.index', 'status=pending') }}"
-                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'pending') border-blue-6 text-blue-9 @else text-gray-9 hover:text-gray-11 hover:border-gray-6 @endif"
+                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none {{ request()->status === 'pending' ? 'border-blue-6 text-blue-9' : 'border-transparent text-gray-9 hover:text-gray-11 hover:border-gray-6' }}"
                         >
                             Pending
                         </a>
                         <a
                             href="{{ route('users.index', 'status=inactive') }}"
-                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'inactive') border-blue-6 text-blue-9 @else text-gray-9 hover:text-gray-11 hover:border-gray-6 @endif"
+                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none {{ request()->status === 'inactive' ? 'border-blue-6 text-blue-9' : 'border-transparent text-gray-9 hover:text-gray-11 hover:border-gray-6' }}"
                         >
                             Inactive
                         </a>
                         <a
                             href="{{ route('users.index') }}"
-                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (!request()->has('status')) border-blue-6 text-blue-9 @else text-gray-9 hover:text-gray-11 hover:border-gray-6 @endif"
+                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none {{ !request()->has('status') ? 'border-blue-6 text-blue-9' : 'border-transparent text-gray-9 hover:text-gray-11 hover:border-gray-6' }}"
                         >
                             All Users
                         </a>
@@ -82,19 +82,21 @@
 
                                 <div class="hidden md:block">
                                     <div>
-                                        <div class="flex items-center text-sm text-gray-11">
-                                            @icon('clock', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-9')
-                                            Last activity&nbsp;
-                                            <time datetime="{{ $user->updated_at }}">
-                                                {{ $user->updated_at->diffForHumans() }}
-                                            </time>
-                                        </div>
+                                        @if ($user->updated_at !== null)
+                                            <div class="flex items-center text-sm text-gray-11">
+                                                @icon('clock', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-9')
+                                                Last activity&nbsp;
+                                                <time datetime="{{ $user->updated_at }}">
+                                                    {{ $user->updated_at?->diffForHumans() }}
+                                                </time>
+                                            </div>
+                                        @endif
                                         @if ($user->latestLogin !== null)
                                             <div class="mt-2 flex items-center text-sm text-gray-11">
                                                 @icon('sign-in', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-9')
                                                 Last signed in&nbsp;
                                                 <time datetime="{{ $user->latestLogin->created_at }}">
-                                                    {{ $user->latestLogin->created_at->diffForHumans() }}
+                                                    {{ $user->latestLogin->created_at?->diffForHumans() }}
                                                 </time>
                                             </div>
                                         @endif
@@ -182,10 +184,10 @@
         </x-slot>
     </x-modal>
 
-    <x-modal color="blue" title="Deactivate User?" icon="copy" :url="route('users.confirm-deactivate')" event="modal-deactivate">
+    <x-modal color="red" title="Deactivate User?" icon="remove" :url="route('users.confirm-deactivate')" event="modal-deactivate">
         <x-slot name="footer">
             <span class="flex w-full sm:col-start-2">
-                <x-button type="submit" form="form-deactivate" color="blue" full-width>
+                <x-button type="submit" form="form-deactivate" color="red" full-width>
                     Deactivate
                 </x-button>
             </span>

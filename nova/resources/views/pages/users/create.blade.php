@@ -41,24 +41,6 @@
                 </x-input.group>
             </x-form.section>
 
-            <x-form.section title="Roles">
-                <x-slot name="message">
-                    <p>Roles are a collection of the actions a user can take throughout Nova. A user can be assigned as many roles as you'd like, giving you more granular control over what users can do.</p>
-
-                    @can('viewAny', 'Nova\Roles\Models\Role')
-                        <div>
-                            <x-link :href="route('roles.index')" size="xs">
-                                Manage roles
-                            </x-link>
-                        </div>
-                    @endcan
-                </x-slot>
-
-                <x-input.group label="Assign roles">
-                    @livewire('roles:manage-roles', ['roles' => $defaultRoles])
-                </x-input.group>
-            </x-form.section>
-
             <x-form.section title="Characters">
                 <x-input.group label="Assign characters">
                     @livewire('characters:collector', ['characters' => old('characters')])

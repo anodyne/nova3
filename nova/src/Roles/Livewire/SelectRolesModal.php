@@ -6,9 +6,9 @@ namespace Nova\Roles\Livewire;
 
 use Illuminate\Support\Collection;
 use LivewireUI\Modal\ModalComponent;
-use Nova\Roles\Models\Permission;
+use Nova\Roles\Models\Role;
 
-class SelectPermissionsModal extends ModalComponent
+class SelectRolesModal extends ModalComponent
 {
     public string $search = '';
 
@@ -17,12 +17,12 @@ class SelectPermissionsModal extends ModalComponent
     public array $selectedDisplay = [];
 
     /**
-     * Emit events with the selected permissions.
+     * Apply the the selected roles to the user.
      */
     public function apply(): void
     {
         $this->closeModalWithEvents([
-            'roles:manage-permissions' => ['permissionsSelected', [$this->selected]],
+            'users:manage-roles' => ['rolesSelected', [$this->selected]],
         ]);
     }
 
@@ -35,26 +35,26 @@ class SelectPermissionsModal extends ModalComponent
     }
 
     /**
-     * Get a subset of all permissions based on the search.
+     * Get a subset of all roles based on the search.
      */
-    public function getFilteredPermissionsProperty(): Collection
+    public function getFilteredRolesProperty(): Collection
     {
         if ($this->search === '') {
             return collect();
         }
 
-        return Permission::query()
+        return Role::query()
             ->unless($this->search === '*', fn ($query) => $query->searchFor($this->search))
             ->whereNotIn('id', $this->selected)
             ->get();
     }
 
     /**
-     * Keep track of a tuple of IDs and display names from the selected list.
+     * Keep track of a tuple of IDs and names from the selected list.
      */
     public function updatedSelected(): void
     {
-        $this->selectedDisplay = Permission::query()
+        $this->selectedDisplay = Role::query()
             ->whereIn('id', $this->selected)
             ->get()
             ->pluck('display_name', 'id')
@@ -63,8 +63,8 @@ class SelectPermissionsModal extends ModalComponent
 
     public function render()
     {
-        return view('livewire.roles.select-permissions-modal', [
-            'filteredPermissions' => $this->filteredPermissions,
+        return view('livewire.roles.select-roles-modal', [
+            'filteredRoles' => $this->filteredRoles,
         ]);
     }
 

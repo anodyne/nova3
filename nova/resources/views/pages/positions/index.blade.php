@@ -35,7 +35,7 @@
             <div>
                 <x-content-box class="sm:hidden">
                     <select @change="window.location = $event.target.value" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-150 sm:text-sm">
-                        <option value="{{ route('departments.edit', $department) }}">Department Info</option>
+                        <option value="{{ route('departments.edit', $department) }}">Details</option>
                         <option value="email">Positions</option>
                     </select>
                 </x-content-box>
@@ -43,7 +43,7 @@
                     <div class="border-b border-gray-6 px-4 sm:px-6">
                         <nav class="-mb-px flex">
                             <a href="{{ route('departments.edit', $department) }}" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-9 hover:text-gray-11 hover:border-gray-6 focus:outline-none">
-                                Department Info
+                                Details
                             </a>
                             <a href="{{ route('positions.index', $department) }}" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm border-blue-7 text-blue-11 focus:outline-none">
                                 Positions

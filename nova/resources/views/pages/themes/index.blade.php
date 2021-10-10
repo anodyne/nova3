@@ -31,68 +31,68 @@
     @if ($themes->count() > 0)
         <div class="mt-12 grid gap-6 max-w-lg mx-auto lg:grid-cols-3 lg:max-w-none">
             @foreach ($themes as $theme)
-                <x-card x-data="{ id: {{ $theme->id ?? 0 }} }">
-                    <x-slot name="header">
-                        <div class="flex-shrink-0">
-                            <img class="h-48 w-full object-cover rounded-t-md" src="{{ asset("themes/{$theme->location}/{$theme->preview}") }}" alt="" />
-                        </div>
-                    </x-slot>
+                <x-panel x-data="{ id: {{ $theme->id ?? 0 }} }">
+                    <div class="flex-shrink-0">
+                        <img class="h-48 w-full object-cover rounded-t-md" src="{{ asset("themes/{$theme->location}/{$theme->preview}") }}" alt="" />
+                    </div>
 
-                    <div class="flex items-center justify-between">
-                        <h3 class="inline-flex items-center text-xl font-semibold text-gray-12">
-                            {{ $theme->name }}
-                        </h3>
+                    <x-content-box>
+                        <div class="flex items-center justify-between">
+                            <h3 class="inline-flex items-center text-xl font-semibold text-gray-12">
+                                {{ $theme->name }}
+                            </h3>
 
-                        <x-dropdown placement="bottom-end">
-                            <x-slot name="trigger">
-                                <x-icon.more class="h-6 w-6" />
-                            </x-slot>
+                            <x-dropdown placement="bottom-end">
+                                <x-slot name="trigger">
+                                    <x-icon.more class="h-6 w-6" />
+                                </x-slot>
 
-                            @if (! $theme->exists)
-                                <x-dropdown.group>
-                                    <x-dropdown.item type="submit" icon="arrow-right-alt" form="install-form-{{ $theme->location }}">
-                                        <span>Install</span>
-
-                                        <x-slot name="buttonForm">
-                                            <x-form :action="route('themes.install')" id="install-form-{{ $theme->location }}">
-                                                <input type="hidden" name="theme" value="{{ $theme->location }}">
-                                            </x-form>
-                                        </x-slot>
-                                    </x-dropdown.item>
-                                </x-dropdown.group>
-                            @else
-                                @can('update', $theme)
+                                @if (! $theme->exists)
                                     <x-dropdown.group>
-                                        <x-dropdown.item :href="route('themes.edit', $theme)" icon="edit">
-                                            <span>Edit</span>
+                                        <x-dropdown.item type="submit" icon="arrow-right-alt" form="install-form-{{ $theme->location }}">
+                                            <span>Install</span>
+
+                                            <x-slot name="buttonForm">
+                                                <x-form :action="route('themes.install')" id="install-form-{{ $theme->location }}">
+                                                    <input type="hidden" name="theme" value="{{ $theme->location }}">
+                                                </x-form>
+                                            </x-slot>
                                         </x-dropdown.item>
                                     </x-dropdown.group>
-                                @endcan
+                                @else
+                                    @can('update', $theme)
+                                        <x-dropdown.group>
+                                            <x-dropdown.item :href="route('themes.edit', $theme)" icon="edit">
+                                                <span>Edit</span>
+                                            </x-dropdown.item>
+                                        </x-dropdown.group>
+                                    @endcan
 
-                                @can('delete', $theme)
-                                    <x-dropdown.group>
-                                        <x-dropdown.item-danger type="button" icon="delete" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($theme) }});">
-                                            <span>Delete</span>
-                                        </x-dropdown.item-danger>
-                                    </x-dropdown.group>
-                                @endcan
-                            @endif
-                        </x-dropdown>
-                    </div>
-                    <p class="mt-1 flex items-center text-base text-gray-11">
-                        @icon('folder', 'flex-shrink-0 mr-2 h-5 w-5 text-gray-9')
-                        themes/{{ $theme->location }}
-                    </p>
-                    @if (! $theme->exists)
-                        <x-badge class="mt-2" size="xs" color="yellow">Pending</x-badge>
-                    @else
-                        @if ($theme->active)
-                            <x-badge class="mt-2" size="xs" color="green">Active</x-badge>
+                                    @can('delete', $theme)
+                                        <x-dropdown.group>
+                                            <x-dropdown.item-danger type="button" icon="delete" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($theme) }});">
+                                                <span>Delete</span>
+                                            </x-dropdown.item-danger>
+                                        </x-dropdown.group>
+                                    @endcan
+                                @endif
+                            </x-dropdown>
+                        </div>
+                        <p class="mt-1 flex items-center text-base text-gray-11">
+                            @icon('folder', 'flex-shrink-0 mr-2 h-5 w-5 text-gray-9')
+                            themes/{{ $theme->location }}
+                        </p>
+                        @if (! $theme->exists)
+                            <x-badge class="mt-2" size="xs" color="yellow">Pending</x-badge>
                         @else
-                            <x-badge class="mt-2" size="xs" color="gray">Inactive</x-badge>
+                            @if ($theme->active)
+                                <x-badge class="mt-2" size="xs" color="green">Active</x-badge>
+                            @else
+                                <x-badge class="mt-2" size="xs" color="gray">Inactive</x-badge>
+                            @endif
                         @endif
-                    @endif
-                </x-card>
+                    </x-content-box>
+                </x-panel>
             @endforeach
         </div>
     @else

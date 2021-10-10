@@ -7,6 +7,7 @@ use Nova\PostTypes\Models\PostType;
 use Nova\PostTypes\Values\Field;
 use Nova\PostTypes\Values\Fields;
 use Nova\PostTypes\Values\Options;
+use Nova\Roles\Models\Role;
 use Nova\Stories\Models\States\Completed;
 use Nova\Stories\Models\Story;
 
@@ -30,12 +31,14 @@ class PopulateStoryTables extends Migration
 
     protected function populatePostTypes()
     {
+        $storyManager = Role::where('name', 'story-manager')->first();
+
         $postTypes = [
             [
                 'name' => 'Story Post',
                 'key' => 'post',
                 'description' => 'A post that drives the story forward. It can be a singular post or a collaborative post with other characters in the game.',
-                'color' => '#76a9fa',
+                'color' => '#05a2c2',
                 'icon' => 'book',
                 'visibility' => 'in-character',
                 'fields' => new Fields([
@@ -83,7 +86,7 @@ class PopulateStoryTables extends Migration
                 'name' => 'Journal Entry',
                 'key' => 'personal',
                 'description' => 'A post more geared toward telling the perspective of individual characters. This can often be thought of as an inner monologue or journal entry.',
-                'color' => '#31c48d',
+                'color' => '#46a758',
                 'icon' => 'user',
                 'visibility' => 'in-character',
                 'fields' => new Fields([
@@ -131,7 +134,7 @@ class PopulateStoryTables extends Migration
                 'name' => 'Marker',
                 'key' => 'marker',
                 'description' => 'Mark time or location for the story to give players an indication that the action has moved location or timeframes.',
-                'color' => '#ff8a4c',
+                'color' => '#e93d82',
                 'icon' => 'location',
                 'visibility' => 'out-of-character',
                 'fields' => new Fields([
@@ -172,7 +175,7 @@ class PopulateStoryTables extends Migration
                     'includeInPostTracking' => false,
                     'multipleAuthors' => false,
                 ]),
-                'role_id' => 1,
+                'role_id' => $storyManager->id,
                 'sort' => 2,
             ],
 
@@ -180,7 +183,7 @@ class PopulateStoryTables extends Migration
                 'name' => 'Note',
                 'key' => 'note',
                 'description' => 'Inform players of key pieces of information about the story in a single place. Players will be able to see all notes when composing a new story post.',
-                'color' => '#ac94fa',
+                'color' => '#ab4aba',
                 'icon' => 'lightbulb',
                 'visibility' => 'out-of-character',
                 'fields' => new Fields([
@@ -221,7 +224,7 @@ class PopulateStoryTables extends Migration
                     'includeInPostTracking' => false,
                     'multipleAuthors' => false,
                 ]),
-                'role_id' => 1,
+                'role_id' => $storyManager->id,
                 'sort' => 3,
             ],
         ];

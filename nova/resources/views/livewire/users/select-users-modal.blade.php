@@ -34,22 +34,32 @@
                     </div>
                 @endif
 
-                @if(count($selected) > 0)
-                    @foreach ($selected as $selectedUser)
+                @if (count($selectedDisplay) > 0)
+                    @foreach ($selectedDisplay as $id => $name)
                         <div class="p-1.5 rounded-md odd:bg-gray-3">
-                            <x-input.checkbox :value="$selectedUser" wire:model="selected">
+                            <x-input.checkbox :value="$id" :label="$name" wire:model="selected">
                                 <x-slot name="label">
-                                    {{ $this->userName($selectedUser) }}
+                                    <div class="flex items-center space-x-2">
+                                        <x-status :status="$status" />
+                                        <span>{{ $name }}</span>
+                                    </div>
                                 </x-slot>
                             </x-input.checkbox>
                         </div>
                     @endforeach
                 @endif
 
-                @if($filteredUsers->count() > 0)
+                @if ($filteredUsers->count() > 0)
                     @foreach ($filteredUsers as $user)
                         <div class="p-1.5 rounded-md odd:bg-gray-3">
-                            <x-input.checkbox id="user-{{ $user->id }}" for="user-{{ $user->id }}" :value="$user->id" :label="$user->name" wire:model="selected" />
+                            <x-input.checkbox id="user-{{ $user->id }}" for="user-{{ $user->id }}" :value="$user->id" wire:model="selected">
+                                <x-slot name="label">
+                                    <div class="flex items-center space-x-2">
+                                        <x-status :status="$user->status" />
+                                        <span>{{ $user->name }}</span>
+                                    </div>
+                                </x-slot>
+                            </x-input.checkbox>
                         </div>
                     @endforeach
                 @endisset

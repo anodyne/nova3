@@ -6,12 +6,12 @@
     </div>
 
     <div class="mt-12 max-w-4xl mx-auto">
-        <div class="grid gap-6 max-w-lg mx-auto | md:grid-cols-2 lg:grid-cols-4 lg:max-w-none">
+        <div class="grid gap-6 max-w-lg mx-auto md:grid-cols-2 lg:grid-cols-4 lg:max-w-none">
             @foreach ($postTypes as $postType)
-                <a href="{{ route('posts.compose', $postType) }}" class="flex flex-col items-center rounded-md bg-gray-1 shadow hover:border-blue-7 focus:outline-none transition ease-in-out duration-150 overflow-hidden hover:shadow-lg">
+                <a href="{{ route('posts.compose', $postType) }}" class="flex flex-col items-center rounded-lg bg-gray-1 shadow focus:outline-none transition ease-in-out duration-150 overflow-hidden hover:shadow-lg">
                     <div class="h-1.5 w-full" style="background-color:{{ $postType->color }}"></div>
 
-                    <div class="p-4 | sm:p-6">
+                    <div class="p-4 sm:p-6">
                         <div class="flex flex-col items-center">
                             @isset($postType->icon)
                                 <span style="color:{{ $postType->color }}">

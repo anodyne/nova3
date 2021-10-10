@@ -29,6 +29,8 @@ class ActiveToInactive extends Transition
 
         $this->user->save();
 
+        $this->user->syncRoles(['inactive']);
+
         return $this->user;
     }
 }

@@ -1,3 +1,3 @@
-<div {{ $attributes->merge(['class' => "{$heightStyles()} {$widthStyles()}"]) }}>
+<div {{ $attributes->merge(['class' => $styles()]) }}>
     {{ $slot }}
 </div>

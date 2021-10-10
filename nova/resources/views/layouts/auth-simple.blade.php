@@ -11,7 +11,7 @@
         </div>
 
         <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-            <div class="bg-gray-1 py-8 px-4 shadow-lg sm:rounded-lg sm:px-10">
+            <div class="bg-gray-1 py-8 px-4 shadow-xl sm:rounded-xl sm:px-10">
                 @yield('template')
             </div>
         </div>

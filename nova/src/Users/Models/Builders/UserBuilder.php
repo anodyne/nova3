@@ -15,43 +15,39 @@ class UserBuilder extends Builder
 {
     use Filterable;
 
-    /**
-     * Get active users.
-     *
-     * @return Builder
-     */
+    public function searchFor($search): Builder
+    {
+        return $this->where(function ($query) use ($search) {
+            return $query->where('name', 'like', "%{$search}%")
+                ->orWhere('email', 'like', "%{$search}%");
+        })
+            ->orWhereHas('characters', function ($query) use ($search) {
+                return $query->where('name', 'like', "%{$search}%");
+            });
+    }
+
     public function whereActive()
     {
-        return $this->where('status', '=', Active::class);
+        return $this->where('status', Active::class);
     }
 
-    /**
-     * Get archived users.
-     *
-     * @return Builder
-     */
     public function whereArchived()
     {
-        return $this->where('status', '=', Archived::class);
+        return $this->where('status', Archived::class);
     }
 
-    /**
-     * Get inactive users.
-     *
-     * @return Builder
-     */
     public function whereInactive()
     {
-        return $this->where('status', '=', Inactive::class);
+        return $this->where('status', Inactive::class);
     }
 
-    /**
-     * Get pending users.
-     *
-     * @return Builder
-     */
     public function wherePending()
     {
-        return $this->where('status', '=', Pending::class);
+        return $this->where('status', Pending::class);
+    }
+
+    public function whereNotPending()
+    {
+        return $this->where('status', '!=', Pending::class);
     }
 }

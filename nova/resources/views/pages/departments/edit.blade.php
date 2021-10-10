@@ -11,7 +11,7 @@
         <div>
             <div class="p-4 | sm:hidden">
                 <select @change="window.location = $event.target.value" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 sm:text-sm transition ease-in-out duration-150">
-                    <option value="{{ route('departments.edit', $department) }}">Department Info</option>
+                    <option value="{{ route('departments.edit', $department) }}">Details</option>
                     <option value="{{ route('positions.index', $department) }}">Positions</option>
                 </select>
             </div>
@@ -22,7 +22,7 @@
                             href="{{ route('departments.edit', $department) }}"
                             class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm border-blue-7 text-blue-11 focus:outline-none"
                         >
-                            Department Info
+                            Details
                         </a>
                         <a
                             href="{{ route('positions.index', $department) }}"

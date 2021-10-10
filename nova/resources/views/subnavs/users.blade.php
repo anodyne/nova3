@@ -3,13 +3,8 @@
 
     <x-nav.sub-group>
         @can('viewAny', Nova\Users\Models\User::class)
-            <x-nav.sub-item href="{{ route('users.index') }}" :active="request()->routeIs('users.*')">All Users</x-nav.sub-item>
+            <x-nav.sub-item href="{{ route('users.index', 'status=active') }}" :active="request()->routeIs('users.*')">All Users</x-nav.sub-item>
         @endcan
-    </x-nav.sub-group>
-
-    <x-nav.sub-group>
-        <x-nav.sub-item href="#">Profile</x-nav.sub-item>
-        <x-nav.sub-item href="#">Notifications</x-nav.sub-item>
     </x-nav.sub-group>
 
     @can('viewAny', Nova\Roles\Models\Role::class)

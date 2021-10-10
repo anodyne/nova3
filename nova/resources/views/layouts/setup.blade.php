@@ -11,7 +11,7 @@
         </div>
 
         <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-2xl">
-            <div class="bg-gray-1 shadow sm:rounded-lg">
+            <div class="bg-gray-1 shadow-xl sm:rounded-xl">
                 @yield('content')
             </div>
         </div>

@@ -4,67 +4,60 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\View\Components;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\View\Component;
 
 class Button extends Component
 {
-    public $color;
-
-    public $fullWidth;
-
-    public $size;
-
-    public function __construct($color = 'white', $size = 'md', $fullWidth = false)
-    {
-        $this->color = $color;
-        $this->fullWidth = $fullWidth;
-        $this->size = $size;
+    public function __construct(
+        public string $color = 'white',
+        public string $size = 'md',
+        public bool $fullWidth = false
+    ) {
     }
 
-    public function baseStyles()
+    public function styles(): string
     {
-        $styles = 'inline-flex items-center text-center justify-center border rounded-md transition ease-in-out duration-150 focus:outline-none disabled:cursor-not-allowed disabled:opacity-75';
-
-        if (! Str::endsWith($this->color, ['-text'])) {
-            $styles .= ' uppercase tracking-wide font-semibold';
-        }
-
-        if (! Str::endsWith($this->color, ['-soft', '-text'])) {
-            $styles .= ' shadow-sm';
-        }
-
-        if ($this->fullWidth) {
-            $styles .= ' w-full justify-center';
-        }
-
-        return $styles;
+        return Arr::toCssClasses([
+            'inline-flex items-center text-center justify-center border rounded-md',
+            'transition ease-in-out duration-150',
+            'focus:outline-none',
+            'disabled:cursor-not-allowed disabled:opacity-75',
+            'uppercase tracking-wide font-semibold shadow-sm' => ! Str::endsWith($this->color, ['-text']),
+            'font-medium border-transparent' => Str::endsWith($this->color, ['-text']),
+            'w-full' => $this->fullWidth,
+            $this->colorStyles(),
+            $this->sizeStyles(),
+        ]);
     }
 
-    public function colorStyles()
+    public function colorStyles(): string
     {
         return match ($this->color) {
-            default => 'border-gray-7 text-gray-9 bg-gray-1 hover:bg-gray-2 hover:border-gray-8 hover:text-gray-10 focus:ring-2 focus:ring-offset-2 focus:ring-blue-7',
+            default => 'bg-gray-1 border-gray-7 text-gray-11 hover:bg-gray-2 hover:border-gray-8 focus:ring-2 focus:ring-offset-2 focus:ring-gray-7',
 
-            'dark-gray-text' => 'border-transparent text-gray-11 font-medium hover:text-gray-12 focus:text-gray-12',
-            'gray-text' => 'border-transparent text-gray-9 font-medium hover:text-gray-11 focus:text-gray-11',
-            'light-gray-text' => 'border-transparent font-medium text-gray-7 hover:text-gray-8',
+            'dark-gray-text' => 'text-gray-11 hover:text-gray-12',
+            'gray-text' => 'text-gray-9 hover:text-gray-11',
+            'light-gray-text' => 'text-gray-7 hover:text-gray-8',
 
             'blue' => 'border-transparent text-white bg-blue-9 hover:bg-blue-10 focus:ring-2 focus:ring-offset-2 focus:ring-blue-7',
-            'blue-soft' => 'border-transparent text-blue-11 bg-blue-3 hover:bg-blue-4 focus:ring-2 focus:ring-offset-2 focus:ring-blue-7',
-            'blue-text' => 'border-transparent font-medium text-blue-9 hover:text-blue-10',
+            'blue-outline' => 'bg-blue-1 border-blue-7 text-blue-11 hover:bg-blue-2 hover:border-blue-8 focus:ring-2 focus:ring-offset-2 focus:ring-blue-7',
+            'blue-text' => 'text-blue-9 hover:text-blue-10',
 
-            'purple' => 'border-transparent text-white bg-purple-9 hover:bg-purple-10 focus:ring-2 focus:ring-offset-2 focus:border-purple-6 focus:ring-purple-7',
-            'purple-soft' => 'border-transparent text-purple-11 bg-purple-3 hover:bg-purple-4 focus:ring-2 focus:ring-offset-2 focus:ring-purple-7',
-            'purple-text' => 'border-transparent font-medium text-purple-9 hover:text-purple-10',
+            'purple' => 'border-transparent text-white bg-purple-9 hover:bg-purple-10 focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-1 focus:border-purple-6 focus:ring-purple-7',
+            'purple-outline' => 'bg-purple-1 border-purple-7 text-purple-11 hover:bg-purple-2 hover:border-purple-8 focus:ring-2 focus:ring-offset-2 focus:ring-purple-7',
+            'purple-text' => 'text-purple-9 hover:text-purple-10',
 
             'red' => 'border-transparent text-white bg-red-9 hover:bg-red-10 focus:ring-2 focus:ring-offset-2 focus:ring-red-7',
-            'red-soft' => 'border-transparent text-red-11 bg-red-3 hover:bg-red-4 focus:ring-2 focus:ring-offset-2 focus:ring-red-7',
-            'red-text' => 'border-transparent font-medium text-red-9 hover:text-red-10',
+            'red-outline' => 'bg-red-1 border-red-7 text-red-11 hover:bg-red-2 hover:border-red-8 focus:ring-2 focus:ring-offset-2 focus:ring-red-7',
+            'red-text' => 'text-red-9 hover:text-red-10',
+
+            'gray' => 'border-transparent text-gray-11 bg-gray-6 hover:bg-gray-7 focus:ring-2 focus:ring-offset-2 focus:ring-gray-5',
         };
     }
 
-    public function sizeStyles()
+    public function sizeStyles(): string
     {
         return match ($this->size) {
             'none' => 'text-sm',

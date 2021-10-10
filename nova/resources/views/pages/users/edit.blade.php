@@ -7,8 +7,33 @@
         </x-slot>
     </x-page-header>
 
-    <x-panel>
-        <x-form :action="route('users.update', $user)" method="PUT">
+    <x-panel x-data="tabsList('details')">
+        <div>
+            <x-content-box class="sm:hidden">
+                <select @change="switchTab($event.target.value)" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-150 sm:text-sm rounded-md">
+                    <option value="details">Details</option>
+                    <option value="characters">Characters</option>
+                    <option value="roles">Roles</option>
+                </select>
+            </x-content-box>
+            <div class="hidden sm:block">
+                <div class="border-b border-gray-6 px-4 sm:px-6">
+                    <nav class="-mb-px flex">
+                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none" :class="{ 'border-blue-7 text-blue-11': isTab('details'), 'text-gray-9 hover:text-gray-11 hover:border-gray-6': isNotTab('details') }" @click.prevent="switchTab('details')">
+                            Details
+                        </a>
+                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none" :class="{ 'border-blue-7 text-blue-11': isTab('characters'), 'text-gray-9 hover:text-gray-11 hover:border-gray-6': isNotTab('characters') }" @click.prevent="switchTab('characters')">
+                            Characters
+                        </a>
+                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none" :class="{ 'border-blue-7 text-blue-11': isTab('roles'), 'text-gray-9 hover:text-gray-11 hover:border-gray-6': isNotTab('roles') }" @click.prevent="switchTab('roles')">
+                            Roles
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <x-form :action="route('users.update', $user)" method="PUT" x-show="isTab('details')">
             <x-form.section title="User Info" message="For privacy reasons, we don't recommend using a user's real name. Instead, use a nickname to help protect their identity.">
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
                     <x-input.text id="name" name="name" :value="old('name', $user->name)" data-cy="name" />
@@ -59,131 +84,122 @@
                 </x-input.group>
             </x-form.section>
 
-            <x-form.section title="Roles">
-                <x-slot name="message">
-                    <p>Roles are a collection of the actions a user can take throughout Nova. A user can be assigned as many roles as you'd like, giving you more granular control over what users can do.</p>
-
-                    @can('viewAny', 'Nova\Roles\Models\Role')
-                        <x-link :href="route('roles.index')" color="white" size="xs">
-                            Manage roles
-                        </x-link>
-                    @endcan
-                </x-slot>
-
-                <x-input.group label="Assign roles">
-                    @livewire('roles:manage-roles', ['roles' => $user->roles])
-                </x-input.group>
-            </x-form.section>
-
-            <x-form.section title="Characters">
-                <x-input.group label="Assign characters">
-                    @livewire('characters:collector', [
-                        'characters' => old('characters', $user->characters->implode('id', ',')),
-                        'user' => $user,
-                    ])
-                </x-input.group>
-            </x-form.section>
-
             <x-form.footer>
                 <x-button type="submit" color="blue">Update User</x-button>
                 <x-link :href='route("users.index", "status={$user->status->name()}")' color="white">Cancel</x-link>
             </x-form.footer>
         </x-form>
+
+        <div x-show="isTab('characters')" x-cloak>
+            @livewire('users:manage-characters', ['user' => $user])
+        </div>
+
+        <div x-show="isTab('roles')" x-cloak>
+            @livewire('users:manage-roles', ['user' => $user])
+        </div>
     </x-panel>
 
     @can('deactivate', $user)
-        <x-panel class="mt-8 p-4 | sm:p-6">
-            <h3 class="text-lg font-medium text-gray-900">
-                Deactivate User
-            </h3>
-            <div class="mt-2 | sm:flex sm:items-start sm:justify-between">
-                <div class="w-full text-sm text-gray-600">
-                    <p>
-                        When deactivating the user, all characters associated with the user that are not jointly owned with another user will be deactivated as well.
-                    </p>
+        <x-panel class="mt-8">
+            <x-content-box>
+                <h3 class="text-lg font-medium text-gray-12">
+                    Deactivate User
+                </h3>
+                <div class="mt-2 sm:flex sm:items-start sm:justify-between">
+                    <div class="w-full text-gray-11">
+                        <p>
+                            When deactivating the user, all characters associated with the user that are not jointly owned with another user will be deactivated as well.
+                        </p>
+                    </div>
+                    <div class="mt-5 sm:mt-0 sm:ml-8 sm:flex-shrink-0 sm:flex sm:items-center">
+                        <x-form :action="route('users.deactivate', $user)">
+                            <x-button type="submit" color="red-outline">
+                                Deactivate
+                            </x-button>
+                        </x-form>
+                    </div>
                 </div>
-                <div class="mt-5 | sm:mt-0 sm:ml-8 sm:flex-shrink-0 sm:flex sm:items-center">
-                    <x-form :action="route('users.deactivate', $user)">
-                        <x-button type="submit" color="red-soft">
-                            Deactivate
-                        </x-button>
-                    </x-form>
-                </div>
-            </div>
+            </x-content-box>
         </x-panel>
     @endcan
 
     @can('activate', $user)
-        <x-panel class="mt-8 p-4 | sm:p-6">
-            <h3 class="text-lg font-medium text-gray-900">
-                Activate User
-            </h3>
-            <div class="mt-2 | sm:flex sm:items-start sm:justify-between">
-                <div class="w-full text-sm text-gray-600">
-                    <p>
-                        When activating the user, their primary character will also be activated and their access roles will be set to the default roles for new users.
-                    </p>
+        <x-panel class="mt-8">
+            <x-content-box>
+                <h3 class="text-lg font-medium text-gray-12">
+                    Activate User
+                </h3>
+                <div class="mt-2 sm:flex sm:items-start sm:justify-between">
+                    <div class="w-full text-gray-11">
+                        <p>
+                            When activating the user, their primary character will also be activated and their access roles will be set to the default roles for new users.
+                        </p>
+                    </div>
+                    <div class="mt-5 sm:mt-0 sm:ml-8 sm:flex-shrink-0 sm:flex sm:items-center">
+                        <x-form :action="route('users.activate', $user)">
+                            <x-button type="submit" color="blue-outline">
+                                Activate
+                            </x-button>
+                        </x-form>
+                    </div>
                 </div>
-                <div class="mt-5 | sm:mt-0 sm:ml-8 sm:flex-shrink-0 sm:flex sm:items-center">
-                    <x-form :action="route('users.activate', $user)">
-                        <x-button type="submit" color="blue-soft">
-                            Activate
-                        </x-button>
-                    </x-form>
-                </div>
-            </div>
+            </x-content-box>
         </x-panel>
     @endcan
 
-    <x-panel class="mt-8 p-4 | sm:p-6">
-        <h3 class="text-lg font-medium text-gray-900">
-            Account Security
-        </h3>
+    <x-panel class="mt-8">
+        <x-content-box>
+            <h3 class="text-lg font-medium text-gray-900">
+                Account Security
+            </h3>
 
-        @can('forcePasswordReset', $user)
-            <div class="mt-6">
-                <x-panel as="light well">
-                    <div class="sm:flex sm:items-start sm:justify-between">
-                        <div class="sm:flex sm:items-start">
-                            @icon('lock', 'flex-shrink-0 h-8 w-8 text-gray-500')
-                            <div class="mt-3 | sm:mt-0 sm:ml-4">
-                                <div class="text-sm text-gray-600">
-                                    If you believe this user should reset their password, you can force a password reset that will prompt them to change their password the next time they attempt to sign in.
+            @can('forcePasswordReset', $user)
+                <div class="mt-6">
+                    <x-panel as="light well">
+                        <x-content-box>
+                            <div class="sm:flex sm:items-start sm:justify-between">
+                                <div class="sm:flex sm:items-start">
+                                    @icon('lock', 'flex-shrink-0 h-8 w-8 text-gray-9')
+                                    <div class="mt-3 sm:mt-0 sm:ml-4">
+                                        <div class="text-sm text-gray-12">
+                                            If you believe this user should reset their password, you can force a password reset that will prompt them to change their password the next time they attempt to sign in.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-4 sm:mt-0 sm:ml-6 sm:flex-shrink-0">
+                                    <x-form :action="route('users.force-password-reset', $user)">
+                                        <x-button type="submit">
+                                            Force Password Reset
+                                        </x-button>
+                                    </x-form>
                                 </div>
                             </div>
-                        </div>
-                        <div class="mt-4 sm:mt-0 sm:ml-6 sm:flex-shrink-0">
-                            <x-form :action="route('users.force-password-reset', $user)">
-                                <x-button type="submit" color="white">
-                                    Force Password Reset
-                                </x-button>
-                            </x-form>
-                        </div>
-                    </div>
-                </x-panel>
-            </div>
-        @endcan
+                        </x-content-box>
+                    </x-panel>
+                </div>
+            @endcan
 
-        {{-- <div class="mt-6">
-            <div class="rounded-md bg-gray-50 px-6 py-5 | sm:flex sm:items-start sm:justify-between">
-                <div class="sm:flex sm:items-start">
-                    @icon('sign-out', 'flex-shrink-0 h-8 w-8 text-gray-500')
-                    <div class="mt-3 | sm:mt-0 sm:ml-4">
-                        <div class="text-sm font-medium text-gray-600">
-                            If necessary, you can sign a user out of their account. Be warned, if they're actively doing anything when you initiate this action, any work will be lost on their next page load.
+            {{-- <div class="mt-6">
+                <div class="rounded-md bg-gray-50 px-6 py-5 sm:flex sm:items-start sm:justify-between">
+                    <div class="sm:flex sm:items-start">
+                        @icon('sign-out', 'flex-shrink-0 h-8 w-8 text-gray-500')
+                        <div class="mt-3 sm:mt-0 sm:ml-4">
+                            <div class="text-sm font-medium text-gray-600">
+                                If necessary, you can sign a user out of their account. Be warned, if they're actively doing anything when you initiate this action, any work will be lost on their next page load.
+                            </div>
                         </div>
                     </div>
+                    <div class="mt-4 sm:mt-0 sm:ml-6 sm:flex-shrink-0">
+                        <x-form :action="route('users.force-password-reset', $user)">
+                            <span class="inline-flex rounded-md shadow-sm">
+                                <button type="submit" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-gray-1 hover:text-gray-500 focus:outline-none focus:border-blue-7 focus:ring active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
+                                    Sign This User Out
+                                </button>
+                            </span>
+                        </x-form>
+                    </div>
                 </div>
-                <div class="mt-4 sm:mt-0 sm:ml-6 sm:flex-shrink-0">
-                    <x-form :action="route('users.force-password-reset', $user)">
-                        <span class="inline-flex rounded-md shadow-sm">
-                            <button type="submit" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-gray-1 hover:text-gray-500 focus:outline-none focus:border-blue-7 focus:ring active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
-                                Sign This User Out
-                            </button>
-                        </span>
-                    </x-form>
-                </div>
-            </div>
-        </div> --}}
+            </div> --}}
+        </x-content-box>
     </x-panel>
 @endsection

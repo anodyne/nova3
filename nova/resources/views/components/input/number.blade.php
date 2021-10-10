@@ -14,7 +14,7 @@
         type="text"
         inputmode="numeric"
         pattern="[0-9]*"
-        class="appearance-none bg-transparent text-gray-700 w-full text-center border-none p-0 focus:ring-0 focus:outline-none"
+        class="appearance-none bg-transparent text-gray-11 w-full text-center border-none p-0 focus:ring-0 focus:outline-none"
         {{ $attributes->merge(['step' => 1]) }}
     >
 

@@ -15,7 +15,8 @@ class RoleFilters extends Filters
     {
         return $this->builder->where(function ($query) use ($value) {
             return $query->where('name', 'like', "%{$value}%")
-                ->orWhere('display_name', 'like', "%{$value}%");
+                ->orWhere('display_name', 'like', "%{$value}%")
+                ->orWhere('description', 'like', "%{$value}%");
         });
     }
 }

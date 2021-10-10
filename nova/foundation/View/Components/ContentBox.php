@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\View\Components;
 
+use Illuminate\Support\Arr;
 use Illuminate\View\Component;
 
 class ContentBox extends Component
@@ -12,6 +13,14 @@ class ContentBox extends Component
         public string $height = 'base',
         public string $width = 'base',
     ) {
+    }
+
+    public function styles(): string
+    {
+        return Arr::toCssClasses([
+            $this->heightStyles(),
+            $this->widthStyles(),
+        ]);
     }
 
     public function heightStyles(): string

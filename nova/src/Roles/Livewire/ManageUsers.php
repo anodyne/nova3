@@ -36,7 +36,12 @@ class ManageUsers extends Component
      */
     public function assignSelectedUsers(array $users): void
     {
-        $this->role->users()->attach($users);
+        $usersToAssign = collect($users)
+            ->diff($this->role->users()->pluck('id'));
+
+        if ($usersToAssign->count() > 0) {
+            $this->role->users()->attach($users);
+        }
     }
 
     /**

@@ -6,9 +6,9 @@ namespace Nova\Roles\Providers;
 
 use Nova\DomainServiceProvider;
 use Nova\Roles\Livewire\ManagePermissions;
-use Nova\Roles\Livewire\ManageRoles;
 use Nova\Roles\Livewire\ManageUsers;
 use Nova\Roles\Livewire\SelectPermissionsModal;
+use Nova\Roles\Livewire\SelectRolesModal;
 use Nova\Roles\Models\Role;
 use Nova\Roles\Policies\RolePolicy;
 use Nova\Roles\Responses\CreateRoleResponse;
@@ -24,8 +24,8 @@ class RoleServiceProvider extends DomainServiceProvider
         return [
             'roles:manage-permissions' => ManagePermissions::class,
             'roles:manage-users' => ManageUsers::class,
-            'roles:manage-roles' => ManageRoles::class,
             'roles:select-permissions-modal' => SelectPermissionsModal::class,
+            'roles:select-roles-modal' => SelectRolesModal::class,
         ];
     }
 

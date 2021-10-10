@@ -4,26 +4,17 @@ declare(strict_types=1);
 
 namespace Nova\Users\Livewire;
 
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Str;
+use Illuminate\Support\Collection;
 use LivewireUI\Modal\ModalComponent;
 use Nova\Users\Models\User;
 
 class SelectUsersModal extends ModalComponent
 {
-    public Collection $allUsers;
-
     public string $search = '';
 
     public array $selected = [];
 
-    /**
-     * Get the name of a given user.
-     */
-    public function userName($id): string
-    {
-        return $this->allUsers->firstWhere('id', $id)->name;
-    }
+    public array $selectedDisplay = [];
 
     /**
      * Apply the the selected users to the role.
@@ -48,20 +39,27 @@ class SelectUsersModal extends ModalComponent
      */
     public function getFilteredUsersProperty(): Collection
     {
-        $users = $this->search === '*'
-            ? $this->allUsers
-            : $this->allUsers
-                ->filter(function ($user) {
-                    return Str::of($user->name)->contains($this->search)
-                        || Str::of($user->email)->contains($this->search);
-                });
+        if ($this->search === '') {
+            return collect();
+        }
 
-        return $users->filter(fn ($p) => ! in_array($p->id, $this->selected));
+        return User::query()
+            ->unless($this->search === '*', fn ($query) => $query->searchFor($this->search))
+            ->whereNotIn('id', $this->selected)
+            ->whereNotPending()
+            ->get();
     }
 
-    public function mount()
+    /**
+     * Keep track of a tuple of IDs and names from the selected list.
+     */
+    public function updatedSelected(): void
     {
-        $this->allUsers = User::get();
+        $this->selectedDisplay = User::query()
+            ->whereIn('id', $this->selected)
+            ->get()
+            ->pluck('name', 'id')
+            ->all();
     }
 
     public function render()

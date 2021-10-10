@@ -38,7 +38,7 @@
                                 <x-input.checkbox label="Show story notes" checked />
                             </x-dropdown.text>
                             <x-dropdown.text class="space-x-2">
-                                <x-button color="blue" size="xs">Apply</x-button>
+                                <x-button color="blue-outline" size="xs">Apply</x-button>
                                 <x-button color="white" size="xs">Reset</x-button>
                             </x-dropdown.text>
                         </x-dropdown.group>

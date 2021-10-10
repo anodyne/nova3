@@ -33,7 +33,7 @@
                                 <div class="flex items-center justify-between w-full">
                                     <span>All users</span>
                                     @if ($filters['status'] === '')
-                                        @icon('check', 'h-5 w-5 text-green-9')
+                                        @icon('check', 'h-6 w-6 text-green-9')
                                     @endif
                                 </div>
                             </x-dropdown.item>
@@ -41,7 +41,7 @@
                                 <div class="flex items-center justify-between w-full">
                                     <span>Only active users</span>
                                     @if ($filters['status'] === 'Nova\Users\Models\States\Active')
-                                        @icon('check', 'h-5 w-5 text-green-9')
+                                        @icon('check', 'h-6 w-6 text-green-9')
                                     @endif
                                 </div>
                             </x-dropdown.item>
@@ -49,22 +49,24 @@
                                 <div class="flex items-center justify-between w-full">
                                     <span>Only inactive users</span>
                                     @if ($filters['status'] === 'Nova\Users\Models\States\Inactive')
-                                        @icon('check', 'h-5 w-5 text-green-9')
+                                        @icon('check', 'h-6 w-6 text-green-9')
                                     @endif
                                 </div>
                             </x-dropdown.item>
                         </x-dropdown.group>
                     </x-dropdown>
 
-                    @if (count($selected) > 0)
-                        <x-button color="red-soft" size="sm" wire:click="unassignSelectedUsers">
-                            Remove {{ count($selected) }} @choice('user|users', count($selected))
-                        </x-button>
-                    @endif
+                    @can('update', $role)
+                        @if (count($selected) > 0)
+                            <x-button color="red-outline" size="sm" wire:click="unassignSelectedUsers">
+                                Remove {{ count($selected) }} @choice('user|users', count($selected))
+                            </x-button>
+                        @endif
 
-                    <x-button type="button" color="blue" size="sm" wire:click="$emit('openModal', 'users:select-users-modal')">
-                        Add users
-                    </x-button>
+                        <x-button type="button" color="blue" size="sm" wire:click="$emit('openModal', 'users:select-users-modal')">
+                            Add users
+                        </x-button>
+                    @endcan
                 </div>
             @endif
         </div>
@@ -73,9 +75,12 @@
     @if ($users->total() > 0)
         <x-table class="rounded-b-lg">
             <x-slot name="head">
-                <x-table.heading class="pr-0 w-8 leading-0">
-                    <x-input.checkbox wire:model="selectPage" />
-                </x-table.heading>
+                @can('update', $role)
+                    <x-table.heading class="pr-0 w-8 leading-0">
+                        <x-input.checkbox wire:model="selectPage" />
+                    </x-table.heading>
+                @endcan
+
                 <x-table.heading>Name</x-table.heading>
             </x-slot>
             <x-slot name="body">
@@ -95,9 +100,12 @@
 
                 @foreach ($users as $user)
                     <x-table.row wire:key="row-{{ $user->id }}">
-                        <x-table.cell class="pr-0 leading-0">
-                            <x-input.checkbox wire:model="selected" value="{{ $user->id }}" />
-                        </x-table.cell>
+                        @can('update', $role)
+                            <x-table.cell class="pr-0 leading-0">
+                                <x-input.checkbox wire:model="selected" value="{{ $user->id }}" />
+                            </x-table.cell>
+                        @endcan
+
                         <x-table.cell>
                             <x-avatar-meta :src="$user->avatar_url">
                                 <x-slot name="primaryMeta">{{ $user->name }}</x-slot>
@@ -125,15 +133,17 @@
 
             <h3 class="mt-2 text-sm font-medium text-gray-12">No users</h3>
 
-            <p class="mt-1 text-sm text-gray-11">
-                Get started by assigning users this role.
-            </p>
+            @can('update', $role)
+                <p class="mt-1 text-sm text-gray-11">
+                    Get started by assigning users this role.
+                </p>
 
-            <div class="mt-6">
-                <x-button color="blue" wire:click="$emit('openModal', 'users:select-users-modal')">
-                    Add users
-                </x-button>
-            </div>
+                <div class="mt-6">
+                    <x-button color="blue" wire:click="$emit('openModal', 'users:select-users-modal')">
+                        Add users
+                    </x-button>
+                </div>
+            @endcan
         </x-content-box>
     @endif
 </div>

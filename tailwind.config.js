@@ -86,6 +86,7 @@ module.exports = {
                 'bg-blue-9',
                 'border-blue-9',
                 'bg-gray-8',
+                'bg-gray-9',
                 'border-gray-8',
                 'bg-red-9',
                 'border-red-9',

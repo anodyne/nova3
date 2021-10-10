@@ -30,19 +30,24 @@ class PopulateAuthorizationTables extends Migration
     protected function assignPermissionsToRoles()
     {
         $permissions = [
-            'admin' => [
+            'owner' => [
                 'role.create', 'role.delete', 'role.update', 'role.view',
                 'theme.create', 'theme.delete', 'theme.update', 'theme.view',
+                'settings.update',
+            ],
+            'admin' => [
                 'user.create', 'user.delete', 'user.update', 'user.view',
                 'rank.create', 'rank.delete', 'rank.update', 'rank.view',
                 'department.create', 'department.delete', 'department.update', 'department.view',
                 'character.create', 'character.delete', 'character.update', 'character.view',
-                'story.create', 'story.delete', 'story.update',
                 'post-type.create', 'post-type.delete', 'post-type.update', 'post-type.view',
-                'post.delete', 'post.update',
-                'settings.update',
             ],
-            'user' => [],
+            'story-manager' => [
+                'story.create', 'story.delete', 'story.update',
+                'post.delete', 'post.update',
+            ],
+            'active' => [],
+            'inactive' => [],
             'writer' => [
                 'story.view',
                 'post.view', 'post.create',
@@ -120,9 +125,12 @@ class PopulateAuthorizationTables extends Migration
     {
         Role::unguarded(function () {
             $roles = [
-                ['name' => 'admin', 'display_name' => 'System Admin', 'locked' => true, 'sort' => 0],
-                ['name' => 'user', 'display_name' => 'Active User', 'default' => true, 'sort' => 1],
-                ['name' => 'writer', 'display_name' => 'Writer', 'default' => true, 'sort' => 2],
+                ['name' => 'owner', 'display_name' => 'Site Owner', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'locked' => true, 'sort' => 0],
+                ['name' => 'admin', 'display_name' => 'Site Admin', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'locked' => true, 'sort' => 1],
+                ['name' => 'active', 'display_name' => 'Active User', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'default' => true, 'sort' => 2],
+                ['name' => 'story-manager', 'display_name' => 'Story Manager', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'default' => false, 'sort' => 3],
+                ['name' => 'writer', 'display_name' => 'Writer', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'default' => true, 'sort' => 4],
+                ['name' => 'inactive', 'display_name' => 'Inactive User', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'default' => false, 'sort' => 5],
             ];
 
             collect($roles)->each(function ($role) {

@@ -6,6 +6,7 @@ namespace Nova\Characters\Providers;
 
 use Nova\Characters\Livewire\CharactersCollector;
 use Nova\Characters\Livewire\CharactersDropdown;
+use Nova\Characters\Livewire\SelectCharactersModal;
 use Nova\Characters\Models\Character;
 use Nova\Characters\Policies\CharacterPolicy;
 use Nova\Characters\Responses\CreateCharacterResponse;
@@ -26,6 +27,7 @@ class CharacterServiceProvider extends DomainServiceProvider
         return [
             'characters:collector' => CharactersCollector::class,
             'characters:dropdown' => CharactersDropdown::class,
+            'characters:select-characters-modal' => SelectCharactersModal::class,
         ];
     }
 

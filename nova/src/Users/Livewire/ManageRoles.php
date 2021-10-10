@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Nova\Roles\Livewire;
+namespace Nova\Users\Livewire;
 
 use Livewire\Component;
 use Nova\Foundation\Livewire\DataTable\WithBulkActions;
 use Nova\Foundation\Livewire\DataTable\WithPerPagePagination;
 use Nova\Foundation\Livewire\DataTable\WithSorting;
-use Nova\Roles\Models\Role;
+use Nova\Users\Models\User;
 
-class ManagePermissions extends Component
+class ManageRoles extends Component
 {
     use WithBulkActions;
     use WithPerPagePagination;
@@ -21,33 +21,33 @@ class ManagePermissions extends Component
     ];
 
     public $listeners = [
-        'permissionsSelected' => 'attachSelectedPermissions',
+        'rolesSelected' => 'attachSelectedRoles',
     ];
 
-    public Role $role;
+    public User $user;
 
     /**
-     * Attach the permissions to the role that we get from the modal.
+     * Attach the roles to the user that we get from the modal.
      */
-    public function attachSelectedPermissions(array $permissions): void
+    public function attachSelectedRoles(array $roles): void
     {
-        $permissionsToAdd = collect($permissions)
-            ->diff($this->role->permissions()->pluck('id'));
+        $rolesToAttach = collect($roles)
+            ->diff($this->user->roles()->pluck('id'));
 
-        if ($permissionsToAdd->count() > 0) {
-            $this->role->attachPermissions($permissionsToAdd->all());
+        if ($rolesToAttach->count() > 0) {
+            $this->user->attachRoles($roles);
         }
     }
 
     /**
-     * Detach selected permissions from the role.
+     * Detach selected roles from the user.
      */
-    public function detachSelectedPermissions(): void
+    public function detachSelectedRoles(): void
     {
         if ($this->selectAll) {
-            $this->role->syncPermissions([]);
+            $this->user->syncRoles([]);
         } else {
-            $this->role->detachPermissions($this->selected);
+            $this->user->detachRoles($this->selected);
         }
 
         $this->selected = [];
@@ -58,8 +58,8 @@ class ManagePermissions extends Component
      */
     public function getRowsQueryProperty()
     {
-        $query = $this->role
-            ->permissions()
+        $query = $this->user
+            ->roles()
             ->when($this->filters['search'], function ($query, $search) {
                 return $query->where(function ($q) use ($search) {
                     return $q->where('name', 'like', "%{$search}%")
@@ -79,29 +79,29 @@ class ManagePermissions extends Component
         return $this->applyPagination(
             $this->rowsQuery,
             $this->columns,
-            'permissionsPage'
+            'rolesPage'
         );
     }
 
     /**
-     * Select all permissions.
+     * Select all rows.
      */
     public function selectAll()
     {
         $this->selectAll = true;
 
-        $this->selected = $this->role->permissions->pluck('id')->map(fn ($id) => (string) $id);
+        $this->selected = $this->user->roles->pluck('id')->map(fn ($id) => (string) $id);
     }
 
-    public function mount(Role $role)
+    public function mount(User $user)
     {
-        $this->role = $role;
+        $this->user = $user;
     }
 
     public function render()
     {
-        return view('livewire.roles.manage-permissions', [
-            'permissions' => $this->rows,
+        return view('livewire.users.manage-roles', [
+            'roles' => $this->rows,
         ]);
     }
 }

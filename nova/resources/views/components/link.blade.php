@@ -1,3 +1,3 @@
-<a href="{{ $href }}" {{ $attributes->merge(['class' => "{$baseStyles()} {$colorStyles()} {$sizeStyles()}"]) }}>
+<a href="{{ $href }}" {{ $attributes->merge(['class' => "{$styles()}"]) }}>
     {{ $slot }}
 </a>

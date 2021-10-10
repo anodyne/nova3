@@ -1,3 +1,3 @@
-<button {{ $attributes->merge(['type' => 'button', 'class' => "{$colorStyles()} {$sizeStyles()} {$baseStyles()}"]) }}>
+<button {{ $attributes->merge(['type' => 'button', 'class' => $styles()]) }}>
     {{ $slot }}
 </button>

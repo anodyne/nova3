@@ -4,141 +4,76 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\View\Components;
 
+use Illuminate\Support\Arr;
 use Illuminate\View\Component;
 
 class Badge extends Component
 {
-    public $size;
-
-    public $color;
-
-    public $leadingIcon;
-
-    public $trailingIcon;
-
-    public function __construct($size = null, $color = null, $leadingIcon = null, $trailingIcon = null)
-    {
-        $this->size = $size;
-        $this->color = $color;
-        $this->leadingIcon = $leadingIcon;
-        $this->trailingIcon = $trailingIcon;
+    public function __construct(
+        public string $size = 'md',
+        public string $color = 'gray',
+        public ?string $leadingIcon = null,
+        public ?string $trailingIcon = null
+    ) {
     }
 
-    public function baseStyles()
+    public function styles(): string
     {
-        return 'inline-flex items-center rounded-full font-medium uppercase tracking-wide space-x-1.5 border';
+        return Arr::toCssClasses([
+            'inline-flex items-center rounded-full space-x-1.5',
+            'font-medium uppercase tracking-wide border',
+            $this->colorStyles(),
+            $this->sizeStyles(),
+        ]);
     }
 
-    public function colorStyles()
+    public function colorStyles(): string
     {
-        switch ($this->color) {
-            case 'gray':
-            default:
-                return 'bg-gray-3 text-gray-11 border-gray-6';
-
-                break;
-
-            case 'blue':
-                return 'bg-blue-3 text-blue-11 border-blue-6';
-
-                break;
-
-            case 'green':
-                return 'bg-green-3 text-green-11 border-green-6';
-
-                break;
-
-            case 'purple':
-                return 'bg-purple-3 text-purple-11 border-purple-6';
-
-                break;
-
-            case 'red':
-                return 'bg-red-3 text-red-11 border-red-6';
-
-                break;
-
-            case 'yellow':
-                return 'bg-yellow-3 text-yellow-11 border-yellow-6';
-
-                break;
-
-            case 'dark-gray':
-                return 'bg-gray-11 text-gray-3';
-
-                break;
-        }
+        return match ($this->color) {
+            default => 'bg-gray-3 border-gray-6 text-gray-11',
+            'blue' => 'bg-blue-3 border-blue-6 text-blue-11',
+            'dark-gray' => 'bg-gray-11 text-gray-3',
+            'green' => 'bg-green-3 border-green-6 text-green-11',
+            'purple' => 'bg-purple-3 border-purple-6 text-purple-11',
+            'red' => 'bg-red-3 border-red-6 text-red-11',
+            'yellow' => 'bg-yellow-3 border-yellow-6 text-yellow-11',
+        };
     }
 
-    public function iconStyles()
+    public function iconStyles(): string
     {
-        return "{$this->iconColorStyles()} {$this->iconSizeStyles()}";
+        return Arr::toCssClasses([
+            $this->iconColorStyles(),
+            $this->iconSizeStyles(),
+        ]);
     }
 
-    public function iconColorStyles()
+    public function iconColorStyles(): string
     {
-        switch ($this->color) {
-            case 'gray':
-            default:
-                return 'text-gray-9';
-
-                break;
-
-            case 'blue':
-                return 'text-blue-9';
-
-                break;
-
-            case 'green':
-                return 'text-green-9';
-
-                break;
-
-            case 'purple':
-                return 'text-purple-9';
-
-                break;
-
-            case 'red':
-                return 'text-red-9';
-
-                break;
-
-            case 'yellow':
-                return 'text-yellow-9';
-
-                break;
-        }
+        return match ($this->color) {
+            default => 'text-gray-9',
+            'blue' => 'text-blue-9',
+            'green' => 'text-green-9',
+            'purple' => 'text-purple-9',
+            'red' => 'text-red-9',
+            'yellow' => 'text-yellow-9',
+        };
     }
 
-    public function iconSizeStyles()
+    public function iconSizeStyles(): string
     {
-        switch ($this->size) {
-            case 'xs':
-                return 'h-4 w-4';
-
-                break;
-
-            default:
-                return 'h-5 w-5';
-
-                break;
-        }
+        return match ($this->size) {
+            default => 'h-5 w-5',
+            'xs' => 'h-4 w-4',
+        };
     }
 
-    public function sizeStyles()
+    public function sizeStyles(): string
     {
-        switch ($this->size) {
-            case 'xs':
-                return 'px-2.5 py-0.5 text-xs';
-
-                break;
-
-            default:
-                return 'px-3 py-0.5 text-sm';
-
-                break;
-        }
+        return match ($this->size) {
+            default => 'px-3 py-0.5 text-sm',
+            'xs' => 'px-2.5 py-0.5 text-xs',
+        };
     }
 
     public function render()

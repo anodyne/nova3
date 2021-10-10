@@ -54,15 +54,15 @@
                 <h3 class="text-lg font-medium text-gray-12">
                     Deactivate Character
                 </h3>
-                <div class="mt-2 | sm:flex sm:items-start sm:justify-between">
-                    <div class="w-full text-sm text-gray-11">
+                <div class="mt-2 sm:flex sm:items-start sm:justify-between">
+                    <div class="w-full text-gray-11">
                         <p>
                             When deactivating the character, the owning user(s) will remain at their current status. Pay special attention to deactivating a character who is the only character assigned to a user as it may impede their ability to contribute to stories.
                         </p>
                     </div>
-                    <div class="mt-5 | sm:mt-0 sm:ml-8 sm:flex-shrink-0 sm:flex sm:items-center">
+                    <div class="mt-5 sm:mt-0 sm:ml-8 sm:flex-shrink-0 sm:flex sm:items-center">
                         <x-form :action="route('characters.deactivate', $character)">
-                            <x-button type="submit" color="red-soft">
+                            <x-button type="submit" color="red-outline">
                                 Deactivate
                             </x-button>
                         </x-form>
@@ -78,15 +78,15 @@
                 <h3 class="text-lg font-medium text-gray-12">
                     Activate Character
                 </h3>
-                <div class="mt-2 | sm:flex sm:items-start sm:justify-between">
-                    <div class="w-full text-sm text-gray-11">
+                <div class="mt-2 sm:flex sm:items-start sm:justify-between">
+                    <div class="w-full text-gray-11">
                         <p>
                             When activating the character, if they were previously a primary character for the user, but the user has since had a new primary character set for themselves, this character will be set as a secondary character for the user.
                         </p>
                     </div>
-                    <div class="mt-5 | sm:mt-0 sm:ml-8 sm:flex-shrink-0 sm:flex sm:items-center">
+                    <div class="mt-5 sm:mt-0 sm:ml-8 sm:flex-shrink-0 sm:flex sm:items-center">
                         <x-form :action="route('characters.activate', $character)">
-                            <x-button type="submit" color="blue-soft">
+                            <x-button type="submit" color="blue-outline">
                                 Activate
                             </x-button>
                         </x-form>

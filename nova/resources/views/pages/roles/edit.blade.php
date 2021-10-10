@@ -34,7 +34,7 @@
         </div>
 
         <x-form :action="route('roles.update', $role)" method="PUT" :divide="false" :space="false" x-show="isTab('details')">
-            <x-form.section title="Role Info" message="A role is a collection of permissions that allows a user to take certain actions throughout Nova. Since a user can have as many roles as you'd like, we recommend creating roles with fewer permissions to give yourself more freedom to add and remove access for a given user.">
+            <x-form.section title="Role Details" message="A role is a collection of permissions that allows a user to take certain actions throughout Nova. Since a user can have as many roles as you'd like, we recommend creating roles with fewer permissions to give yourself more freedom to add and remove access for a given user.">
                 <x-input.group label="Name" for="display_name" :error="$errors->first('display_name')">
                     <x-input.text
                         id="display_name"

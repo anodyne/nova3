@@ -14,6 +14,7 @@ use Nova\Settings\DataTransferObjects\MetaTags;
 use Nova\Settings\DataTransferObjects\PostingActivity;
 use Nova\Settings\DataTransferObjects\SettingInfo;
 use Nova\Settings\DataTransferObjects\SystemDefaults;
+use Nova\Settings\Livewire\FindSettingsModal;
 use Nova\Settings\Models\Settings;
 use Nova\Settings\Policies\SettingsPolicy;
 use Nova\Settings\Responses\CharactersSettingsResponse;
@@ -27,6 +28,13 @@ use Nova\Settings\SettingsManager;
 
 class SettingsServiceProvider extends DomainServiceProvider
 {
+    public function livewireComponents(): array
+    {
+        return [
+            'settings:find-settings' => FindSettingsModal::class,
+        ];
+    }
+
     public function policies(): array
     {
         return [

@@ -23,7 +23,7 @@ class AvatarGroup extends Component
 
     public function styles()
     {
-        return 'ring-2 ring-white';
+        return 'ring-2 ring-gray-1';
     }
 
     public function render()
