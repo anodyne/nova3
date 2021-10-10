@@ -7,6 +7,7 @@ namespace Nova\Auth\Controllers;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Nova\Auth\Responses\ForgotPasswordResponse;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 
 class ForgotPasswordController extends Controller
 {
@@ -19,7 +20,7 @@ class ForgotPasswordController extends Controller
         $this->middleware('guest');
     }
 
-    public function showLinkRequestForm()
+    public function showLinkRequestForm(): Responsable
     {
         return app(ForgotPasswordResponse::class);
     }

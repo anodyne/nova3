@@ -7,6 +7,7 @@ namespace Nova\Auth\Controllers;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Nova\Auth\Responses\LoginResponse;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 
 class LoginController extends Controller
 {
@@ -19,13 +20,13 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function showLoginForm()
-    {
-        return app(LoginResponse::class);
-    }
-
-    public function redirectTo()
+    public function redirectTo(): string
     {
         return route('dashboard');
+    }
+
+    public function showLoginForm(): Responsable
+    {
+        return app(LoginResponse::class);
     }
 }

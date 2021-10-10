@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 use Nova\Auth\Responses\ResetPasswordResponse;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 
 class ResetPasswordController extends Controller
 {
@@ -20,16 +21,16 @@ class ResetPasswordController extends Controller
         $this->middleware('guest');
     }
 
-    public function showResetForm(Request $request, $token = null)
+    public function redirectTo(): string
+    {
+        return route('home');
+    }
+
+    public function showResetForm(Request $request, $token = null): Responsable
     {
         return app(ResetPasswordResponse::class)->with([
             'token' => $token,
             'email' => $request->email,
         ]);
-    }
-
-    public function redirectTo()
-    {
-        return route('home');
     }
 }
