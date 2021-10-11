@@ -16,7 +16,7 @@ class CreateUsersTable extends Migration
             $table->string('email');
             $table->string('password')->nullable();
             $table->string('status');
-            $table->string('pronouns')->default('neutral');
+            $table->json('pronouns');
             $table->rememberToken();
             $table->boolean('force_password_reset')->default(false);
             $table->timestamp('email_verified_at')->nullable();

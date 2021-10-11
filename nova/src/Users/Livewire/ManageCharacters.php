@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace Nova\Users\Livewire;
 
 use Livewire\Component;
+use Nova\Characters\Models\Character;
 use Nova\Foundation\Livewire\DataTable\WithBulkActions;
 use Nova\Foundation\Livewire\DataTable\WithPerPagePagination;
 use Nova\Foundation\Livewire\DataTable\WithSorting;
+use Nova\Users\Actions\SetUserCharacters;
+use Nova\Users\Actions\SetUserPrimaryCharacter;
 use Nova\Users\Models\User;
 
 class ManageCharacters extends Component
@@ -21,17 +24,30 @@ class ManageCharacters extends Component
     ];
 
     public $listeners = [
-        'charactersSelected' => 'assignedSelectedCharacters',
+        'charactersSelected' => 'assignSelectedCharacters',
     ];
 
     public User $user;
 
     /**
+     * Assign the character as the user's primary character.
+     */
+    public function assignPrimaryCharacter(Character $character): void
+    {
+        SetUserPrimaryCharacter::run($this->user, $character);
+    }
+
+    /**
      * Assign the characters to the user that we get from the modal.
      */
-    public function assignedSelectedCharacters(array $characters): void
+    public function assignSelectedCharacters(array $characters): void
     {
-        // $this->user->attachRoles($characters);
+        $charactersToSync = collect($this->user->characters()->pluck('id')->all())
+            ->concat($characters)
+            ->unique()
+            ->all();
+
+        SetUserCharacters::run($this->user, $charactersToSync);
     }
 
     /**
@@ -39,11 +55,11 @@ class ManageCharacters extends Component
      */
     public function unassignSelectedCharacters(): void
     {
-        if ($this->selectAll) {
-            // $this->user->syncRoles([]);
-        } else {
-            // $this->user->detachRoles($this->selected);
-        }
+        $charactersToSync = $this->selectAll
+            ? []
+            : $this->user->characters()->pluck('id')->diff($this->selected)->all();
+
+        SetUserCharacters::run($this->user, $charactersToSync);
 
         $this->selected = [];
     }
@@ -55,12 +71,10 @@ class ManageCharacters extends Component
     {
         $query = $this->user
             ->characters()
-            ->when($this->filters['search'], function ($query, $search) {
-                return $query->where(function ($q) use ($search) {
-                    return $q->where('name', 'like', "%{$search}%")
-                        ->orWhere('email', 'like', "%{$search}%");
-                });
-            });
+            ->when(
+                $this->filters['search'],
+                fn ($query, $search) => $query->searchFor($search)
+            );
 
         return $this->applySorting($query);
     }
@@ -81,7 +95,9 @@ class ManageCharacters extends Component
     {
         $this->selectAll = true;
 
-        $this->selected = $this->user->characters->pluck('id')->map(fn ($id) => (string) $id);
+        $this->selected = $this->user->characters
+            ->pluck('id')
+            ->map(fn ($id) => (string) $id);
     }
 
     public function mount(User $user)

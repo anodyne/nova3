@@ -51,7 +51,7 @@ class CharacterSeeder extends Seeder
             'name' => 'Beverly Crusher',
             'rank_id' => 30,
         ]);
-        $crusher->positions()->save(Position::find(13), ['primary' => true]);
+        $crusher->positions()->save(Position::find(15), ['primary' => true]);
 
         $guinan = Character::factory()->secondary()->create([
             'name' => 'Guinan',

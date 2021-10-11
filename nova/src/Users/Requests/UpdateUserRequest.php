@@ -14,23 +14,27 @@ class UpdateUserRequest extends ValidatesRequest
     {
         return [
             'avatar' => ['nullable', 'mimes:jpeg,png,gif', new MaxFileSize()],
-            'characters' => ['nullable'],
             'email' => [
                 'required',
                 'email',
                 Rule::unique('users')->ignore($this->user),
             ],
             'name' => ['required'],
-            'primary_character' => ['nullable'],
-            'pronouns' => ['required', 'in:male,female,neutral'],
+            'pronouns.value' => ['required', 'in:none,male,female,neutral,neo,other'],
+            'pronouns.subject' => ['required_if:pronouns.value,other'],
+            'pronouns.object' => ['required_if:pronouns.value,other'],
+            'pronouns.possessive' => ['required_if:pronouns.value,other'],
         ];
     }
 
     public function messages()
     {
         return [
-            'pronouns.required' => 'Please select from one of the available pronouns',
-            'pronouns.required' => 'Preferred pronoun must be one of the provided options',
+            'pronouns.value.required' => 'Please select from one of the available pronouns',
+            'pronouns.value.in' => 'Pronouns must be one of the provided options',
+            'pronouns.subject.required_if' => 'Please enter the subject pronoun the user uses',
+            'pronouns.object.required_if' => 'Please enter the object pronoun the user uses',
+            'pronouns.possessive.required_if' => 'Please enter the possessive pronoun the user uses',
         ];
     }
 }

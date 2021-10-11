@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Nova\Users\Controllers;
 
 use Nova\Foundation\Controllers\Controller;
-use Nova\Roles\Models\Role;
 use Nova\Users\Actions\CreateUserManager;
 use Nova\Users\Events\UserCreatedByAdmin;
 use Nova\Users\Models\User;
@@ -25,10 +24,7 @@ class CreateUserController extends Controller
     {
         $this->authorize('create', User::class);
 
-        return app(CreateUserResponse::class)->with([
-            'defaultRoles' => Role::whereDefault()->get(),
-            'user' => auth()->user(),
-        ]);
+        return app(CreateUserResponse::class);
     }
 
     public function store(CreateUserRequest $request)

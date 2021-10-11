@@ -8,6 +8,7 @@ use Livewire\Component;
 use Nova\Foundation\Livewire\DataTable\WithBulkActions;
 use Nova\Foundation\Livewire\DataTable\WithPerPagePagination;
 use Nova\Foundation\Livewire\DataTable\WithSorting;
+use Nova\Users\Actions\SetUserRoles;
 use Nova\Users\Models\User;
 
 class ManageRoles extends Component
@@ -31,12 +32,12 @@ class ManageRoles extends Component
      */
     public function attachSelectedRoles(array $roles): void
     {
-        $rolesToAttach = collect($roles)
-            ->diff($this->user->roles()->pluck('id'));
+        $rolesToSync = collect($this->user->roles()->pluck('id')->all())
+            ->concat($roles)
+            ->unique()
+            ->all();
 
-        if ($rolesToAttach->count() > 0) {
-            $this->user->attachRoles($roles);
-        }
+        SetUserRoles::run($this->user, $rolesToSync);
     }
 
     /**
@@ -44,11 +45,11 @@ class ManageRoles extends Component
      */
     public function detachSelectedRoles(): void
     {
-        if ($this->selectAll) {
-            $this->user->syncRoles([]);
-        } else {
-            $this->user->detachRoles($this->selected);
-        }
+        $rolesToSync = $this->selectAll
+            ? []
+            : $this->user->roles()->pluck('id')->diff($this->selected)->all();
+
+        SetUserRoles::run($this->user, $rolesToSync);
 
         $this->selected = [];
     }
@@ -60,13 +61,10 @@ class ManageRoles extends Component
     {
         $query = $this->user
             ->roles()
-            ->when($this->filters['search'], function ($query, $search) {
-                return $query->where(function ($q) use ($search) {
-                    return $q->where('name', 'like', "%{$search}%")
-                        ->orWhere('display_name', 'like', "%{$search}%")
-                        ->orWhere('description', 'like', "%{$search}%");
-                });
-            });
+            ->when(
+                $this->filters['search'],
+                fn ($query, $search) => $query->searchFor($search)
+            );
 
         return $this->applySorting($query);
     }
@@ -90,7 +88,9 @@ class ManageRoles extends Component
     {
         $this->selectAll = true;
 
-        $this->selected = $this->user->roles->pluck('id')->map(fn ($id) => (string) $id);
+        $this->selected = $this->user->roles
+            ->pluck('id')
+            ->map(fn ($id) => (string) $id);
     }
 
     public function mount(User $user)

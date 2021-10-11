@@ -117,7 +117,7 @@
                             @if ($character->type->name() === 'primary')
                                 @icon('star', 'h-6 w-6 text-blue-9')
                             @else
-                                <x-button color="gray-text" size="none">
+                                <x-button color="gray-text" size="none" wire:click="assignPrimaryCharacter({{ $character->id }})">
                                     @icon('star', 'h-6 w-6')
                                 </x-button>
                             @endif

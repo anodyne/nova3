@@ -50,6 +50,158 @@
                 </x-panel>
             </section>
 
+            <section aria-labelledby="dashboard-stats-title">
+                <h2 class="sr-only" id="dashboard-stats-title">Dashboard Stats</h2>
+
+                <div>
+                    <dl class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                        <x-panel>
+                            <x-content-box>
+                                <dt>
+                                    <div class="absolute bg-blue-3 border border-blue-6 rounded-md p-3">
+                                        @icon('users', 'h-6 w-6 text-blue-9')
+                                    </div>
+                                    <p class="ml-16 text-sm font-medium text-gray-11 truncate">Total Users</p>
+                                </dt>
+                                <dd class="ml-16 flex items-baseline">
+                                    <p class="text-2xl font-semibold text-gray-12">
+                                        14
+                                    </p>
+                                    <p class="ml-2 flex items-baseline">
+                                        <p class="ml-2 flex items-baseline text-sm font-semibold text-green-11 rounded-full bg-green-3 border border-green-6 pl-1 pr-2">
+                                        <!-- Heroicon name: solid/arrow-sm-up -->
+                                        <svg class="self-center flex-shrink-0 h-5 w-5 text-green-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path fill-rule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                                        </svg>
+                                        <span class="sr-only">
+                                            Increased by
+                                        </span>
+                                        2
+                                    </p>
+                                </dd>
+                            </x-content-box>
+                        </x-panel>
+
+                        <x-panel>
+                            <x-content-box>
+                                <dt>
+                                    <div class="absolute bg-blue-3 border border-blue-6 rounded-md p-3">
+                                        @icon('book', 'h-6 w-6 text-blue-9')
+                                    </div>
+                                    <p class="ml-16 text-sm font-medium text-gray-11 truncate">Story Posts</p>
+                                </dt>
+                                <dd class="ml-16 flex items-baseline">
+                                    <p class="text-2xl font-semibold text-gray-12">
+                                        52
+                                    </p>
+                                    <p class="ml-2 flex items-baseline">
+                                        <p class="ml-2 flex items-baseline text-sm font-semibold text-red-11 rounded-full bg-red-3 border border-red-6 pl-1 pr-2">
+                                        <!-- Heroicon name: solid/arrow-sm-up -->
+                                        <svg class="self-center flex-shrink-0 h-5 w-5 text-red-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <path fill-rule="evenodd" d="M14.707 10.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 12.586V5a1 1 0 012 0v7.586l2.293-2.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                    </svg>
+                                        <span class="sr-only">
+                                            Decreased by
+                                        </span>
+                                        12
+                                    </p>
+                                </dd>
+                            </x-content-box>
+                        </x-panel>
+
+                        <x-panel>
+                            <x-content-box>
+                                <dt>
+                                    <div class="absolute bg-blue-3 border border-blue-6 rounded-md p-3">
+                                        @icon('write', 'h-6 w-6 text-blue-9')
+                                    </div>
+                                    <p class="ml-16 text-sm font-medium text-gray-11 truncate">In Progress Posts</p>
+                                </dt>
+                                <dd class="ml-16 flex items-baseline">
+                                    <p class="text-2xl font-semibold text-gray-12">
+                                        2
+                                    </p>
+                                </dd>
+                            </x-content-box>
+                        </x-panel>
+
+                        {{-- <div class="relative bg-gray-1 pt-5 px-4 pb-12 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
+                            <dt>
+                                <div class="absolute bg-blue-3 border border-blue-6 rounded-md p-3">
+                                    @icon('users', 'h-6 w-6 text-blue-9')
+                                </div>
+                                <p class="ml-16 text-sm font-medium text-gray-11 truncate">Total Subscribers</p>
+                            </dt>
+                            <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
+                                <p class="text-2xl font-semibold text-gray-12">
+                                    71,897
+                                </p>
+                                <p class="ml-2 flex items-baseline">
+                                    <p class="ml-2 flex items-baseline text-sm font-semibold text-green-11 rounded-full bg-green-3 border border-green-6 pl-1 pr-2">
+                                    <!-- Heroicon name: solid/arrow-sm-up -->
+                                    <svg class="self-center flex-shrink-0 h-5 w-5 text-green-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <path fill-rule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                                    </svg>
+                                    <span class="sr-only">
+                                        Increased by
+                                    </span>
+                                    122
+                                </p>
+                            </dd>
+                        </div>
+
+                        <div class="relative bg-gray-1 pt-5 px-4 pb-12 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
+                            <dt>
+                                <div class="absolute bg-blue-3 border border-blue-6 rounded-md p-3">
+                                    @icon('email', 'h-6 w-6 text-blue-9')
+                                </div>
+                                <p class="ml-16 text-sm font-medium text-gray-11 truncate">Avg. Open Rate</p>
+                            </dt>
+                            <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
+                                <p class="text-2xl font-semibold text-gray-12">
+                                    58.16%
+                                </p>
+                                <p class="ml-2 flex items-baseline text-sm font-semibold text-green-11">
+                                    <!-- Heroicon name: solid/arrow-sm-up -->
+                                    <svg class="self-center flex-shrink-0 h-5 w-5 text-green-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <path fill-rule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                                    </svg>
+                                    <span class="sr-only">
+                                        Increased by
+                                    </span>
+                                    5.4%
+                                </p>
+                            </dd>
+                        </div>
+
+                        <div class="relative bg-gray-1 pt-5 px-4 pb-12 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
+                            <dt>
+                                <div class="absolute bg-blue-3 border border-blue-6 rounded-md p-3">
+                                    @icon('warning', 'h-6 w-6 text-blue-9')
+                                </div>
+                                <p class="ml-16 text-sm font-medium text-gray-11 truncate">Avg. Click Rate</p>
+                            </dt>
+                            <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
+                                <p class="text-2xl font-semibold text-gray-12">
+                                    24.57%
+                                </p>
+                                <p class="ml-2 flex items-baseline text-sm font-semibold text-red-11">
+                                    <!-- Heroicon name: solid/arrow-sm-down -->
+                                    <svg class="self-center flex-shrink-0 h-5 w-5 text-red-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <path fill-rule="evenodd" d="M14.707 10.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 12.586V5a1 1 0 012 0v7.586l2.293-2.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                    </svg>
+                                    <span class="sr-only">
+                                        Decreased by
+                                    </span>
+                                    3.2%
+                                </p>
+                            </dd>
+                        </div> --}}
+                    </dl>
+                </div>
+
+            </section>
+
             <!-- Actions panel -->
             <section aria-labelledby="quick-links-title">
                 <div class="rounded-lg bg-gray-1 overflow-hidden shadow divide-y divide-gray-200 sm:divide-y-0 sm:grid sm:grid-cols-2 sm:gap-px">

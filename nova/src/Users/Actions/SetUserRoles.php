@@ -8,7 +8,7 @@ use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Foundation\Action;
 use Nova\Users\Models\User;
 
-class UpdateUserRoles extends Action
+class SetUserRoles extends Action
 {
     use AsAction;
 
