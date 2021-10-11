@@ -1,7 +1,9 @@
 <?php
 
-use Nova\Pages\Page;
+declare(strict_types=1);
+
 use Illuminate\Database\Migrations\Migration;
+use Nova\Pages\Page;
 
 class PopulatePagesTable extends Migration
 {
@@ -20,7 +22,9 @@ class PopulatePagesTable extends Migration
             ['uri' => 'password/reset', 'key' => 'password.update', 'verb' => 'post', 'resource' => 'Nova\\Auth\\Controllers\\ResetPasswordController@reset', 'layout' => 'auth'],
 
             ['uri' => '/', 'key' => 'home', 'resource' => 'Nova\\Foundation\\Controllers\\WelcomeController'],
-            ['uri' => 'dashboard', 'key' => 'dashboard', 'resource' => 'Nova\\Dashboard\\Controllers\\DashboardController', 'layout' => 'admin'],
+            ['uri' => 'dashboard', 'key' => 'dashboard', 'resource' => 'Nova\\Dashboards\\Controllers\\DashboardController', 'layout' => 'admin'],
+            ['uri' => 'system-overview', 'key' => 'system-overview', 'resource' => 'Nova\\Dashboards\\Controllers\\SystemOverviewController', 'layout' => 'admin'],
+            ['uri' => 'writing-overview', 'key' => 'writing-overview', 'resource' => 'Nova\\Dashboards\\Controllers\\WritingOverviewController', 'layout' => 'admin'],
 
             ['uri' => 'site-themes', 'key' => 'themes.index', 'resource' => 'Nova\\Themes\\Controllers\\ShowThemeController@all', 'layout' => 'admin'],
             ['uri' => 'site-themes/create', 'key' => 'themes.create', 'resource' => 'Nova\\Themes\\Controllers\\CreateThemeController@create', 'layout' => 'admin'],
@@ -65,7 +69,7 @@ class PopulatePagesTable extends Migration
             ['uri' => 'notes/{originalNote}/duplicate', 'key' => 'notes.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Notes\\Controllers\\DuplicateNoteController', 'layout' => 'admin'],
 
             ['uri' => 'settings/{tab?}', 'key' => 'settings.index', 'resource' => 'Nova\\Settings\\Controllers\\SettingsController@index', 'layout' => 'admin'],
-            ['uri' => 'settings', 'key' => 'settings.update', 'verb' => 'put', 'resource' => 'Nova\\Settings\\Controllers\\SettingsController@update', 'layout' => 'admin'],
+            ['uri' => 'settings/{tab?}', 'key' => 'settings.update', 'verb' => 'put', 'resource' => 'Nova\\Settings\\Controllers\\SettingsController@update', 'layout' => 'admin'],
 
             ['uri' => 'manage-ranks', 'key' => 'ranks.index', 'resource' => 'Nova\\Ranks\\Controllers\\ShowRankOptionsController', 'layout' => 'admin'],
 
@@ -110,6 +114,8 @@ class PopulatePagesTable extends Migration
             ['uri' => 'departments/{department}', 'key' => 'departments.update', 'verb' => 'put', 'resource' => 'Nova\\Departments\\Controllers\\UpdateDepartmentController@update', 'layout' => 'admin'],
             ['uri' => 'departments/delete', 'key' => 'departments.delete', 'verb' => 'post', 'resource' => 'Nova\\Departments\\Controllers\\DeleteDepartmentController@confirm', 'layout' => 'admin'],
             ['uri' => 'departments/{department}', 'key' => 'departments.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Departments\\Controllers\\DeleteDepartmentController@destroy', 'layout' => 'admin'],
+            ['uri' => 'departments/confirm-duplicate', 'key' => 'departments.confirm-duplicate', 'verb' => 'post',  'resource' => 'Nova\\Departments\\Controllers\\DuplicateDepartmentController@confirm', 'layout' => 'admin'],
+            ['uri' => 'departments/{original}/duplicate', 'key' => 'departments.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Departments\\Controllers\\DuplicateDepartmentController@duplicate', 'layout' => 'admin'],
             ['uri' => 'departments/reorder', 'key' => 'departments.reorder', 'verb' => 'post', 'resource' => 'Nova\\Departments\\Controllers\\ReorderDepartmentsController', 'layout' => 'admin'],
 
             ['uri' => 'departments/{department}/positions', 'key' => 'positions.index', 'resource' => 'Nova\\Departments\\Controllers\\ShowPositionController@all', 'layout' => 'admin'],
@@ -120,6 +126,8 @@ class PopulatePagesTable extends Migration
             ['uri' => 'positions/{position}', 'key' => 'positions.update', 'verb' => 'put', 'resource' => 'Nova\\Departments\\Controllers\\UpdatePositionController@update', 'layout' => 'admin'],
             ['uri' => 'positions/delete', 'key' => 'positions.delete', 'verb' => 'post', 'resource' => 'Nova\\Departments\\Controllers\\DeletePositionController@confirm', 'layout' => 'admin'],
             ['uri' => 'positions/{position}', 'key' => 'positions.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Departments\\Controllers\\DeletePositionController@destroy', 'layout' => 'admin'],
+            ['uri' => 'positions/confirm-duplicate', 'key' => 'positions.confirm-duplicate', 'verb' => 'post',  'resource' => 'Nova\\Departments\\Controllers\\DuplicatePositionController@confirm', 'layout' => 'admin'],
+            ['uri' => 'positions/{original}/duplicate', 'key' => 'positions.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Departments\\Controllers\\DuplicatePositionController@duplicate', 'layout' => 'admin'],
             ['uri' => 'deparments/{department}/positions/reorder', 'key' => 'positions.reorder', 'verb' => 'post', 'resource' => 'Nova\\Departments\\Controllers\\ReorderPositionsController', 'layout' => 'admin'],
 
             ['uri' => 'characters', 'key' => 'characters.index', 'resource' => 'Nova\\Characters\\Controllers\\ShowCharacterController@all', 'layout' => 'admin'],
@@ -156,8 +164,9 @@ class PopulatePagesTable extends Migration
             ['uri' => 'stories/reorder', 'key' => 'stories.reorder.show', 'verb' => 'get', 'resource' => 'Nova\\Stories\\Controllers\\ReorderStoriesController@showReorder', 'layout' => 'admin'],
             ['uri' => 'stories/reorder', 'key' => 'stories.reorder.update', 'verb' => 'post', 'resource' => 'Nova\\Stories\\Controllers\\ReorderStoriesController@reorder', 'layout' => 'admin'],
 
-            ['uri' => 'posts/create', 'key' => 'posts.create', 'resource' => 'Nova\\Posts\\Controllers\\CreatePostController@pickPostType', 'layout' => 'admin'],
+            ['uri' => 'posts/create', 'key' => 'posts.create', 'resource' => 'Nova\\Posts\\Controllers\\SelectPostTypeController@create', 'layout' => 'admin'],
             ['uri' => 'posts/create/{postType:key}', 'key' => 'posts.compose', 'resource' => 'Nova\\Posts\\Controllers\\CreatePostController@create', 'layout' => 'admin'],
+            ['uri' => 'posts', 'key' => 'posts.store', 'verb' => 'post', 'resource' => 'Nova\\Posts\\Controllers\\CreatePostController@store', 'layout' => 'admin'],
         ];
 
         collect($pages)->each([Page::class, 'create']);

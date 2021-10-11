@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Users;
 
-use Tests\TestCase;
-use Nova\Users\Models\User;
-use Nova\Characters\Models\Character;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nova\Users\Models\States\Inactive as InactiveUser;
+use Nova\Characters\Models\Character;
 use Nova\Characters\Models\States\Statuses\Inactive as InactiveCharacter;
+use Nova\Users\Models\States\Inactive as InactiveUser;
+use Nova\Users\Models\User;
+use Tests\TestCase;
 
 /**
  * @group users
@@ -25,9 +27,9 @@ class DeactivateUserTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = create(User::class, [], ['status:active']);
+        $this->user = User::factory()->active()->create();
 
-        $this->character = create(Character::class, [], ['status:active']);
+        $this->character = Character::factory()->active()->create();
         $this->character->users()->attach($this->user);
     }
 

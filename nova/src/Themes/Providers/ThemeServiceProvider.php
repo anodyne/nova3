@@ -1,39 +1,50 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Themes\Providers;
 
-use Nova\Foundation\Nova;
-use Nova\Themes\Models\Theme;
 use Nova\DomainServiceProvider;
+use Nova\Foundation\Nova;
+use Nova\Themes\Actions\SetupThemeDirectory;
+use Nova\Themes\Models\Theme;
 use Nova\Themes\Policies\ThemePolicy;
-use Themes\pulsar\Theme as PulsarTheme;
 use Nova\Themes\Responses\CreateThemeResponse;
 use Nova\Themes\Responses\DeleteThemeResponse;
-use Nova\Themes\Responses\UpdateThemeResponse;
 use Nova\Themes\Responses\ShowAllThemesResponse;
-use Nova\Themes\Console\Commands\ThemeMakeCommand;
+use Nova\Themes\Responses\UpdateThemeResponse;
+use Themes\pulsar\Theme as PulsarTheme;
 
 class ThemeServiceProvider extends DomainServiceProvider
 {
-    protected $commands = [
-        ThemeMakeCommand::class,
-    ];
+    public function consoleCommands(): array
+    {
+        return [
+            SetupThemeDirectory::class,
+        ];
+    }
 
-    protected $policies = [
-        Theme::class => ThemePolicy::class,
-    ];
+    public function policies(): array
+    {
+        return [
+            Theme::class => ThemePolicy::class,
+        ];
+    }
 
-    protected $responsables = [
-        CreateThemeResponse::class,
-        DeleteThemeResponse::class,
-        UpdateThemeResponse::class,
-        ShowAllThemesResponse::class,
-    ];
+    public function responsables(): array
+    {
+        return [
+            CreateThemeResponse::class,
+            DeleteThemeResponse::class,
+            UpdateThemeResponse::class,
+            ShowAllThemesResponse::class,
+        ];
+    }
 
-    protected function bootedDomain()
+    public function domainBooted(): void
     {
         if (Nova::isInstalled()) {
-            $theme = new PulsarTheme;
+            $theme = new PulsarTheme();
 
             $this->app->instance('nova.theme', $theme);
         }

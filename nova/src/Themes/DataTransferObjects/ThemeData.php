@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Themes\DataTransferObjects;
 
 use Illuminate\Http\Request;
@@ -15,7 +17,7 @@ class ThemeData extends DataTransferObject
 
     public bool $active = true;
 
-    public ?string $preview;
+    public string $preview = 'preview.jpg';
 
     public ?array $variants;
 
@@ -26,7 +28,7 @@ class ThemeData extends DataTransferObject
             'credits' => $request->credits,
             'location' => $request->location,
             'name' => $request->name,
-            'preview' => $request->preview,
+            'preview' => $request->preview ?? 'preview.jpg',
             'variants' => explode(',', $request->input('variants')),
         ]);
     }

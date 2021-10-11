@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Foundation\View\Components;
 
 use Illuminate\View\Component;
@@ -19,13 +21,9 @@ class AvatarGroup extends Component
         $this->limit = $limit;
     }
 
-    public function styles($index)
+    public function styles()
     {
-        $startingZIndex = $this->limit * 10 - 10;
-        $calculatedZIndex = $startingZIndex - $index * 10;
-        $zIndex = ($index === 0) ? "z-{$startingZIndex}" : "-ml-2 z-{$calculatedZIndex}";
-
-        return 'text-white shadow-solid ' . $zIndex;
+        return 'ring-2 ring-gray-1';
     }
 
     public function render()

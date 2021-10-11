@@ -1,17 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Characters;
 
-use Tests\TestCase;
-use Nova\Users\Models\User;
-use Illuminate\Support\Facades\Event;
-use Nova\Characters\Models\Character;
-use Nova\Departments\Models\Position;
-use Nova\Characters\Events\CharacterCreated;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
+use Nova\Characters\Events\CharacterCreated;
 use Nova\Characters\Events\CharacterCreatedByAdmin;
+use Nova\Characters\Models\Character;
 use Nova\Characters\Requests\CreateCharacterRequest;
+use Nova\Departments\Models\Position;
 use Nova\Ranks\Models\RankItem;
+use Nova\Users\Models\User;
+use Tests\TestCase;
 
 /**
  * @group characters
@@ -34,9 +36,9 @@ class CreateCharacterTest extends TestCase
     {
         $this->signInWithPermission('character.create');
 
-        $position = create(Position::class);
-        $rank = create(RankItem::class);
-        $user = create(User::class, [], ['status:active']);
+        $position = Position::factory()->create();
+        $rank = RankItem::factory()->create();
+        $user = User::factory()->active()->create();
 
         $this->followingRedirects();
 
@@ -75,9 +77,9 @@ class CreateCharacterTest extends TestCase
     {
         $this->signInWithPermission('character.create');
 
-        $position = create(Position::class);
-        $rank = create(RankItem::class);
-        $user = create(User::class, [], ['status:active']);
+        $position = Position::factory()->create();
+        $rank = RankItem::factory()->create();
+        $user = User::factory()->active()->create();
 
         $this->followingRedirects();
 
@@ -106,8 +108,8 @@ class CreateCharacterTest extends TestCase
 
         $this->signInWithPermission('character.create');
 
-        $position = create(Position::class);
-        $rank = create(RankItem::class);
+        $position = Position::factory()->create();
+        $rank = RankItem::factory()->create();
 
         $response = $this->post(route('characters.store'), [
             'name' => 'Jack Sparrow',

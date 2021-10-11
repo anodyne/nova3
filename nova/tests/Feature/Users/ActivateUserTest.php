@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Users;
 
-use Tests\TestCase;
-use Nova\Users\Models\User;
-use Nova\Characters\Models\Character;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nova\Users\Models\States\Active as ActiveUser;
+use Nova\Characters\Models\Character;
 use Nova\Characters\Models\States\Statuses\Active as ActiveCharacter;
+use Nova\Users\Models\States\Active as ActiveUser;
+use Nova\Users\Models\User;
+use Tests\TestCase;
 
 /**
  * @group users
@@ -25,9 +27,9 @@ class ActivateUserTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = create(User::class, [], ['status:inactive']);
+        $this->user = User::factory()->inactive()->create();
 
-        $this->character = create(Character::class, [], ['status:inactive']);
+        $this->character = Character::factory()->inactive()->create();
         $this->character->users()->attach($this->user, ['primary' => true]);
     }
 
@@ -50,8 +52,6 @@ class ActivateUserTest extends TestCase
     /** @test **/
     public function userCanBeActivatedWithPreviousPrimaryCharacter()
     {
-        $this->withoutExceptionHandling();
-
         $this->signInWithPermission('user.update');
 
         $this->followingRedirects();

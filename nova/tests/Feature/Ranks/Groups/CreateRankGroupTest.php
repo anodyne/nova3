@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Ranks\Groups;
 
-use Tests\TestCase;
-use Nova\Ranks\Models\RankGroup;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\Ranks\Events\RankGroupCreated;
+use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Requests\CreateRankGroupRequest;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 /**
  * @group ranks
@@ -34,7 +36,7 @@ class CreateRankGroupTest extends TestCase
 
         $response = $this->post(
             route('ranks.groups.store'),
-            $rankGroupData = make(RankGroup::class)->toArray()
+            $rankGroupData = RankGroup::factory()->make()->toArray()
         );
         $response->assertSuccessful();
 
@@ -55,7 +57,7 @@ class CreateRankGroupTest extends TestCase
 
         $this->post(
             route('ranks.groups.store'),
-            make(RankGroup::class)->toArray()
+            RankGroup::factory()->make()->toArray()
         );
 
         Event::assertDispatched(RankGroupCreated::class);
@@ -77,7 +79,7 @@ class CreateRankGroupTest extends TestCase
 
         $response = $this->post(
             route('ranks.groups.store'),
-            make(RankGroup::class)->toArray()
+            RankGroup::factory()->make()->toArray()
         );
         $response->assertForbidden();
     }
@@ -94,7 +96,7 @@ class CreateRankGroupTest extends TestCase
     {
         $response = $this->postJson(
             route('ranks.groups.store'),
-            make(RankGroup::class)->toArray()
+            RankGroup::factory()->make()->toArray()
         );
         $response->assertUnauthorized();
     }

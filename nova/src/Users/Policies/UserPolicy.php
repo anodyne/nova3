@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Users\Policies;
 
-use Nova\Users\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Nova\Users\Models\States\Active;
 use Nova\Users\Models\States\Inactive;
 use Nova\Users\Models\States\Pending;
+use Nova\Users\Models\User;
 
 class UserPolicy
 {
@@ -21,7 +23,7 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->can('user.*');
+        return $user->isAbleTo('user.*');
     }
 
     /**
@@ -34,7 +36,7 @@ class UserPolicy
      */
     public function view(User $user, User $actionableUser)
     {
-        return $user->can('user.view');
+        return $user->isAbleTo('user.view');
     }
 
     /**
@@ -46,7 +48,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        return $user->can('user.create');
+        return $user->isAbleTo('user.create');
     }
 
     /**
@@ -59,7 +61,7 @@ class UserPolicy
      */
     public function update(User $user, User $actionableUser)
     {
-        return $user->can('user.update');
+        return $user->isAbleTo('user.update');
     }
 
     /**
@@ -72,12 +74,12 @@ class UserPolicy
      */
     public function delete(User $user, User $actionableUser)
     {
-        return $user->can('user.delete') && $user->isNot($actionableUser);
+        return $user->isAbleTo('user.delete') && $user->isNot($actionableUser);
     }
 
     public function restore(User $user, User $actionableUser)
     {
-        return $user->can('user.create') || $user->can('user.delete');
+        return $user->isAbleTo('user.create') || $user->isAbleTo('user.delete');
     }
 
     public function forceDelete(User $user, User $actionableUser)

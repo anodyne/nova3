@@ -1,27 +1,70 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
-use Faker\Generator as Faker;
+declare(strict_types=1);
+
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Nova\Characters\Models\Character;
-use Nova\Characters\Models\States\Types\Primary;
-use Nova\Characters\Models\States\Types\Support;
 use Nova\Characters\Models\States\Statuses\Active;
-use Nova\Characters\Models\States\Types\Secondary;
-use Nova\Characters\Models\States\Statuses\Pending;
 use Nova\Characters\Models\States\Statuses\Inactive;
+use Nova\Characters\Models\States\Statuses\Pending;
+use Nova\Characters\Models\States\Types\Primary;
+use Nova\Characters\Models\States\Types\Secondary;
+use Nova\Characters\Models\States\Types\Support;
 
-$factory->define(Character::class, function (Faker $faker) {
-    return [
-        'name' => $faker->name,
-        'type' => Support::class,
-        'status' => Active::class,
-    ];
-});
+class CharacterFactory extends Factory
+{
+    protected $model = Character::class;
 
-$factory->state(Character::class, 'status:active', ['status' => Active::class]);
-$factory->state(Character::class, 'status:inactive', ['status' => Inactive::class]);
-$factory->state(Character::class, 'status:pending', ['status' => Pending::class]);
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->name,
+            'type' => Support::class,
+            'status' => Active::class,
+        ];
+    }
 
-$factory->state(Character::class, 'type:primary', ['type' => Primary::class]);
-$factory->state(Character::class, 'type:support', ['type' => Support::class]);
-$factory->state(Character::class, 'type:secondary', ['type' => Secondary::class]);
+    public function active()
+    {
+        return $this->state([
+            'status' => Active::class,
+        ]);
+    }
+
+    public function inactive()
+    {
+        return $this->state([
+            'status' => Inactive::class,
+        ]);
+    }
+
+    public function pending()
+    {
+        return $this->state([
+            'status' => Pending::class,
+        ]);
+    }
+
+    public function primary()
+    {
+        return $this->state([
+            'type' => Primary::class,
+        ]);
+    }
+
+    public function secondary()
+    {
+        return $this->state([
+            'type' => Secondary::class,
+        ]);
+    }
+
+    public function support()
+    {
+        return $this->state([
+            'type' => Support::class,
+        ]);
+    }
+}

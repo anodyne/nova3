@@ -1,13 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Actions;
 
-use Nova\Ranks\Models\RankGroup;
+use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Ranks\DataTransferObjects\RankGroupData;
+use Nova\Ranks\Models\RankGroup;
 
 class UpdateRankGroup
 {
-    public function execute(RankGroup $group, RankGroupData $data): RankGroup
+    use AsAction;
+
+    public function handle(RankGroup $group, RankGroupData $data): RankGroup
     {
         return tap($group)->update($data->toArray())->fresh();
     }

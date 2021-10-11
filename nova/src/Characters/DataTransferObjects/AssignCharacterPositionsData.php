@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Characters\DataTransferObjects;
 
 use Illuminate\Http\Request;
@@ -15,7 +17,7 @@ class AssignCharacterPositionsData extends DataTransferObject
     {
         return new self([
             'positions' => explode(',', $request->positions),
-            'primaryPosition' => $request->primary_position,
+            'primaryPosition' => (int) $request->primary_position,
         ]);
     }
 }

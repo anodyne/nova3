@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Users\Actions;
 
-use Tests\TestCase;
-use Nova\Users\Models\User;
 use Nova\Users\Actions\DeleteUser;
 use Nova\Users\Exceptions\CannotDeleteOwnAccountException;
+use Nova\Users\Models\User;
+use Tests\TestCase;
 
 /**
  * @group users
@@ -22,7 +24,7 @@ class DeleteUserActionTest extends TestCase
 
         $this->action = app(DeleteUser::class);
 
-        $this->user = create(User::class, [], ['status:active']);
+        $this->user = User::factory()->active()->create();
     }
 
     /** @test **/

@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Departments;
 
-use Tests\TestCase;
-use Nova\Departments\Models\Department;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Departments\Models\Department;
+use Tests\TestCase;
 
 /**
  * @group departments
@@ -19,7 +21,7 @@ class ShowDepartmentTest extends TestCase
     {
         parent::setUp();
 
-        $this->department = create(Department::class);
+        $this->department = Department::factory()->create();
     }
 
     /** @test **/

@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Characters\Controllers;
 
-use Nova\Characters\Models\Character;
-use Nova\Foundation\Controllers\Controller;
 use Nova\Characters\Actions\CreateCharacterManager;
 use Nova\Characters\Events\CharacterCreatedByAdmin;
+use Nova\Characters\Models\Character;
 use Nova\Characters\Requests\CreateCharacterRequest;
 use Nova\Characters\Responses\CreateCharacterResponse;
+use Nova\Foundation\Controllers\Controller;
 
 class CreateCharacterController extends Controller
 {
@@ -20,20 +22,21 @@ class CreateCharacterController extends Controller
 
     public function create()
     {
-        $this->authorize('create', Character::class);
+        $this->authorize('createAny', Character::class);
 
         return app(CreateCharacterResponse::class);
     }
 
-    public function store(
-        CreateCharacterRequest $request,
-        CreateCharacterManager $action
-    ) {
-        $this->authorize('create', Character::class);
+    public function store(CreateCharacterRequest $request)
+    {
+        $this->authorize('createAny', Character::class);
 
-        $character = $action->execute($request);
+        $character = CreateCharacterManager::run($request);
 
-        CharacterCreatedByAdmin::dispatch($character);
+        CharacterCreatedByAdmin::dispatchIf(
+            $request->user()->can('create', Character::class),
+            $character
+        );
 
         return redirect()
             ->route('characters.index', 'status=active')

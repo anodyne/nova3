@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Users\Controllers;
 
-use Nova\Users\Models\User;
 use Illuminate\Http\Request;
+use Nova\Foundation\Controllers\Controller;
 use Nova\Users\Actions\DeleteUserManager;
 use Nova\Users\Events\UserDeletedByAdmin;
-use Nova\Foundation\Controllers\Controller;
+use Nova\Users\Models\User;
 use Nova\Users\Responses\DeleteUserResponse;
 
 class DeleteUserController extends Controller
@@ -27,11 +29,11 @@ class DeleteUserController extends Controller
         ]);
     }
 
-    public function destroy(DeleteUserManager $action, User $user)
+    public function destroy(User $user)
     {
         $this->authorize('delete', $user);
 
-        $user = $action->execute($user);
+        $user = DeleteUserManager::run($user);
 
         UserDeletedByAdmin::dispatch($user);
 

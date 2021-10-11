@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Foundation\Livewire;
 
 use Livewire\Component;
@@ -8,6 +10,7 @@ use Livewire\WithFileUploads;
 class UploadImage extends Component
 {
     use WithFileUploads;
+    public $existingImage;
 
     public $image;
 

@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Roles\Controllers;
 
-use Nova\Roles\Models\Role;
+use Nova\Foundation\Controllers\Controller;
 use Nova\Roles\Actions\DuplicateRole;
 use Nova\Roles\Events\RoleDuplicated;
-use Nova\Foundation\Controllers\Controller;
+use Nova\Roles\Models\Role;
 
 class DuplicateRoleController extends Controller
 {
@@ -16,18 +18,16 @@ class DuplicateRoleController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(
-        DuplicateRole $action,
-        Role $originalRole
-    ) {
-        $this->authorize('duplicate', $originalRole);
+    public function __invoke(Role $original)
+    {
+        $this->authorize('duplicate', $original);
 
-        $role = $action->execute($originalRole);
+        $role = DuplicateRole::run($original);
 
-        RoleDuplicated::dispatch($role, $originalRole);
+        RoleDuplicated::dispatch($role, $original);
 
         return redirect()
             ->route('roles.edit', $role)
-            ->withToast("{$originalRole->display_name} role has been duplicated");
+            ->withToast("{$original->display_name} role has been duplicated");
     }
 }

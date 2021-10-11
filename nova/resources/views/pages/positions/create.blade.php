@@ -1,4 +1,4 @@
-@extends($__novaTemplate)
+@extends($meta->template)
 
 @section('content')
     <x-page-header title="Add Position">
@@ -7,7 +7,7 @@
                 <a href="{{ route('departments.index') }}">Departments</a>
 
                 @if ($selectedDepartment)
-                    @icon('chevron-right', 'h-4 w-4 text-gray-500 mx-1')
+                    <x-icon.chevron-right class="h-4 w-4 text-gray-9 mx-1" />
                     <a href="{{ route('positions.index', $selectedDepartment) }}">{{ $selectedDepartment->name }}</a>
                 @endif
             </div>
@@ -41,7 +41,7 @@
                 <x-slot name="message">
                     You can allow or prevent prospective players from picking this position when applying to join by setting the number of available slots.
 
-                    <p class="block mt-6"><strong class="font-semibold">Note:</strong> after setting this number, Nova will manage keep the number updated for you as characters are assigned and un-assigned to this position.</p>
+                    <p class="block"><strong class="font-semibold">Note:</strong> after setting this number, Nova will manage keep the number updated for you as characters are assigned and un-assigned to this position.</p>
                 </x-slot>
 
                 <x-input.group label="Available Slots" for="available">
@@ -55,9 +55,9 @@
                 <x-button type="submit" color="blue">Add Position</x-button>
 
                 @if ($selectedDepartment)
-                    <x-button-link :href="route('positions.index', $selectedDepartment)" color="white">Cancel</x-button-link>
+                    <x-link :href="route('positions.index', $selectedDepartment)" color="white">Cancel</x-link>
                 @else
-                    <x-button-link :href="route('departments.index')" color="white">Cancel</x-button-link>
+                    <x-link :href="route('departments.index')" color="white">Cancel</x-link>
                 @endif
             </x-form.footer>
         </x-form>

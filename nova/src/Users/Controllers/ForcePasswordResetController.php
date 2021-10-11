@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Users\Controllers;
 
-use Nova\Users\Models\User;
-use Nova\Users\Actions\ForcePasswordReset;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Users\Actions\ForcePasswordReset;
+use Nova\Users\Models\User;
 
 class ForcePasswordResetController extends Controller
 {
@@ -15,11 +17,11 @@ class ForcePasswordResetController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(ForcePasswordReset $action, User $user)
+    public function __invoke(User $user)
     {
         $this->authorize('force-password-reset', $user);
 
-        $action->execute($user);
+        ForcePasswordReset::run($user);
 
         return back()
             ->withToast("Password reset initiated for {$user->name}", 'The user will be forced to reset their password the next time they sign in.');

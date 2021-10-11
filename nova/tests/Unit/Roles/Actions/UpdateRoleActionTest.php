@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Roles\Actions;
 
-use Tests\TestCase;
-use Nova\Roles\Models\Role;
-use Nova\Roles\Models\Permission;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Roles\Actions\UpdateRole;
 use Nova\Roles\DataTransferObjects\RoleData;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Roles\Models\Permission;
+use Nova\Roles\Models\Role;
+use Tests\TestCase;
 
 /**
  * @group roles
@@ -28,7 +30,7 @@ class UpdateRoleActionTest extends TestCase
 
         $this->action = app(UpdateRole::class);
 
-        $this->role = create(Role::class);
+        $this->role = Role::factory()->create();
     }
 
     /** @test **/

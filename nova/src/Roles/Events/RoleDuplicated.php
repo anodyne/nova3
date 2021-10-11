@@ -1,23 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Roles\Events;
 
-use Nova\Roles\Models\Role;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
+use Nova\Roles\Models\Role;
 
 class RoleDuplicated
 {
     use Dispatchable;
     use SerializesModels;
 
-    public $originalRole;
+    public Role $original;
 
-    public $role;
+    public Role $role;
 
-    public function __construct(Role $role, Role $originalRole)
+    public function __construct(Role $role, Role $original)
     {
-        $this->originalRole = $originalRole;
+        $this->original = $original;
         $this->role = $role;
     }
 }

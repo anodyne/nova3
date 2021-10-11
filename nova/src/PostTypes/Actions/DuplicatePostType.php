@@ -1,20 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\PostTypes\Actions;
 
+use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Foundation\WordGenerator;
 use Nova\PostTypes\Models\PostType;
 
 class DuplicatePostType
 {
-    public function execute(PostType $originalPostType): PostType
-    {
-        $postType = $originalPostType->replicate();
+    use AsAction;
 
-        $postType->key = implode('-', (new WordGenerator)->words(2));
+    public function handle(PostType $original): PostType
+    {
+        $postType = $original->replicate();
+
+        $postType->key = implode('-', (new WordGenerator())->words(2));
         $postType->name = "Copy of {$postType->name}";
         $postType->sort = PostType::count();
-        $postType->role_id = $originalPostType->role_id;
+        $postType->role_id = $original->role_id;
 
         $postType->save();
 

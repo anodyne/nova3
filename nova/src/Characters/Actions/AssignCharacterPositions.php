@@ -1,14 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Characters\Actions;
 
-use Nova\Characters\Models\Character;
+use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Characters\DataTransferObjects\AssignCharacterPositionsData;
+use Nova\Characters\Models\Character;
 
 class AssignCharacterPositions
 {
-    public function execute(Character $character, AssignCharacterPositionsData $data): Character
-    {
+    use AsAction;
+
+    public function handle(
+        Character $character,
+        AssignCharacterPositionsData $data
+    ): Character {
         $positions = collect($data->positions);
 
         $characterMap = $positions->mapWithKeys(function ($position) use ($positions, $data) {

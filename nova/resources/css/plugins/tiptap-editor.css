@@ -1,0 +1,43 @@
+.editor {
+    @apply relative;
+
+    .ProseMirror:focus {
+        @apply outline-none;
+    }
+
+    &__content {
+        @apply w-full;
+
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        word-break: break-word;
+
+        * {
+            caret-color: currentColor;
+        }
+
+        a {
+            @apply text-blue-9 underline cursor-pointer;
+        }
+
+        ul {
+            @apply block list-disc mx-6;
+        }
+
+        ol {
+            @apply block list-decimal mx-6;
+        }
+
+        h1 {
+            @apply text-2xl;
+        }
+
+        h2 {
+            @apply text-xl;
+        }
+
+        h3 {
+            @apply text-lg;
+        }
+    }
+}

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use BladeUIKit\Components;
 
 return [
@@ -85,7 +87,7 @@ return [
     */
 
     'assets' => [
-        'alpine' => 'https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.3.5/dist/alpine.min.js',
+        // 'alpine' => 'https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.3.5/dist/alpine.min.js',
 
         'easy-mde' => [
             'https://unpkg.com/easymde/dist/easymde.min.css',

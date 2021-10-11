@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Departments\Policies;
 
-use Nova\Users\Models\User;
-use Nova\Departments\Models\Department;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Nova\Departments\Models\Department;
+use Nova\Users\Models\User;
 
 class DepartmentPolicy
 {
@@ -12,27 +14,33 @@ class DepartmentPolicy
 
     public function viewAny(User $user): bool
     {
-        return $user->can('department.*');
+        return $user->isAbleTo('department.*');
     }
 
     public function view(User $user, Department $department): bool
     {
-        return $user->can('department.view');
+        return $user->isAbleTo('department.view');
     }
 
     public function create(User $user): bool
     {
-        return $user->can('department.create');
+        return $user->isAbleTo('department.create');
     }
 
     public function update(User $user, Department $department): bool
     {
-        return $user->can('department.update');
+        return $user->isAbleTo('department.update');
     }
 
     public function delete(User $user, Department $department): bool
     {
-        return $user->can('department.delete');
+        return $user->isAbleTo('department.delete');
+    }
+
+    public function duplicate(User $user, Department $department): bool
+    {
+        return $user->isAbleTo('department.create')
+            && $user->isAbleTo('department.update');
     }
 
     public function restore(User $user, Department $department): bool

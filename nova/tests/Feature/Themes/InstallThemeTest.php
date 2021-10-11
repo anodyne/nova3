@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Themes;
 
-use Tests\TestCase;
-use Nova\Themes\Models\Theme;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Storage;
 use Nova\Themes\Exceptions\MissingQuickInstallFileException;
+use Nova\Themes\Models\Theme;
+use Tests\TestCase;
 
 /**
  * @group themes
@@ -25,7 +27,7 @@ class InstallThemeTest extends TestCase
 
         $this->disk = Storage::fake('themes');
 
-        $this->theme = make(Theme::class, [
+        $this->theme = Theme::factory()->make([
             'name' => 'Foo',
             'location' => 'foo',
         ]);

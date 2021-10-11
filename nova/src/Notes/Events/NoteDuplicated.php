@@ -1,23 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Notes\Events;
 
-use Nova\Notes\Models\Note;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
+use Nova\Notes\Models\Note;
 
 class NoteDuplicated
 {
     use Dispatchable;
     use SerializesModels;
 
-    public $note;
+    public Note $note;
 
-    public $originalNote;
+    public Note $original;
 
-    public function __construct(Note $note, Note $originalNote)
+    public function __construct(Note $note, Note $original)
     {
         $this->note = $note;
-        $this->originalNote = $originalNote;
+        $this->original = $original;
     }
 }

@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Themes\Models\Collections;
 
-use Nova\Themes\Models\PendingTheme;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Storage;
+use Nova\Themes\Models\PendingTheme;
 
 class ThemesCollection extends Collection
 {

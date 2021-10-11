@@ -1,48 +1,36 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Stories\Actions;
 
 use Illuminate\Http\Request;
-use Nova\Stories\Models\Story;
+use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Posts\Actions\CreateRootPost;
 use Nova\Stories\DataTransferObjects\StoryData;
 use Nova\Stories\DataTransferObjects\StoryPositionData;
+use Nova\Stories\Models\Story;
 
 class CreateStoryManager
 {
-    protected CreateStory $createStory;
+    use AsAction;
 
-    protected SetStoryPosition $setStoryPosition;
-
-    protected UpdateStoryStatus $updateStatus;
-
-    protected UploadStoryImages $uploadImages;
-
-    public function __construct(
-        CreateStory $createStory,
-        UpdateStoryStatus $updateStatus,
-        UploadStoryImages $uploadImages,
-        SetStoryPosition $setStoryPosition
-    ) {
-        $this->createStory = $createStory;
-        $this->setStoryPosition = $setStoryPosition;
-        $this->updateStatus = $updateStatus;
-        $this->uploadImages = $uploadImages;
-    }
-
-    public function execute(Request $request): Story
+    public function handle(Request $request): Story
     {
-        $story = $this->createStory->execute(
+        $story = CreateStory::run(
             StoryData::fromRequest($request)
         );
 
-        $this->setStoryPosition->execute(
+        SetStoryPosition::run(
             $story,
             StoryPositionData::fromRequest($request)
         );
 
-        $this->updateStatus->execute($story, $request->status);
+        UpdateStoryStatus::run($story, $request->status);
 
-        $this->uploadImages->execute($story, $request->image_path);
+        UploadStoryImages::run($story, $request->image_path);
+
+        CreateRootPost::run($story);
 
         return $story->refresh();
     }

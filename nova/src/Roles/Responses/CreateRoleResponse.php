@@ -1,10 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Roles\Responses;
 
 use Nova\Foundation\Responses\Responsable;
 
 class CreateRoleResponse extends Responsable
 {
-    public $view = 'roles.create';
+    public ?string $subnav = 'users';
+
+    public string $view = 'roles.create';
 }

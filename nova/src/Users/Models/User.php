@@ -1,39 +1,44 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Users\Models;
 
-use Nova\Users\Events;
-use Nova\Notes\Models\Note;
-use Nova\Stories\Models\Post;
-use Spatie\ModelStates\HasStates;
-use Nova\Users\Models\States\Active;
-use Nova\Characters\Models\Character;
-use Nova\Users\Models\States\Pending;
-use Nova\Users\Models\States\Inactive;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
-use Nova\Users\Models\States\UserStatus;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Nova\Users\Models\Builders\UserBuilder;
-use Spatie\Activitylog\Traits\LogsActivity;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Nova\Users\Models\States\ActiveToInactive;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
-use Nova\Users\Models\Collections\UsersCollection;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Nova\Characters\Models\Character;
 use Nova\Characters\Models\States\Statuses\Active as ActiveCharacter;
+use Nova\Notes\Models\Note;
+use Nova\Stories\Models\Post;
+use Nova\Users\DataTransferObjects\PronounsData;
+use Nova\Users\Events;
+use Nova\Users\Models\Builders\UserBuilder;
+use Nova\Users\Models\Collections\UsersCollection;
+use Nova\Users\Models\States\Active;
+use Nova\Users\Models\States\ActiveToInactive;
+use Nova\Users\Models\States\Inactive;
+use Nova\Users\Models\States\Pending;
+use Nova\Users\Models\States\UserStatus;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\ModelStates\HasStates;
+use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
 class User extends Authenticatable implements MustVerifyEmail, HasMedia
 {
+    use HasEagerLimit;
+    use HasFactory;
+    use HasStates;
+    use InteractsWithMedia;
+    use LaratrustUserTrait;
+    use LogsActivity;
     use Notifiable;
     use SoftDeletes;
-    use LogsActivity;
-    use LaratrustUserTrait;
-    use HasStates;
-    use HasMediaTrait;
-    use HasEagerLimit;
 
     public const MEDIA_DIRECTORY = 'users/{model_id}/{media_id}/';
 
@@ -41,10 +46,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
 
     protected $casts = [
         'force_password_reset' => 'boolean',
-    ];
-
-    protected $dates = [
-        'last_login',
+        'pronouns' => PronounsData::class,
     ];
 
     protected $dispatchesEvents = [
@@ -54,8 +56,8 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     ];
 
     protected $fillable = [
-        'name', 'email', 'password', 'last_login', 'force_password_reset',
-        'status', 'pronouns',
+        'name', 'email', 'password', 'force_password_reset', 'status',
+        'pronouns', 'appearance',
     ];
 
     protected $hidden = [
@@ -82,6 +84,11 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     public function logins()
     {
         return $this->hasMany(Login::class);
+    }
+
+    public function latestLogin()
+    {
+        return $this->hasOne(Login::class)->ofMany();
     }
 
     public function notes()
@@ -133,11 +140,29 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
      */
     public function canManage(): bool
     {
-        return $this->can('department.*')
-            || $this->can('rank.*')
-            || $this->can('role.*')
-            || $this->can('theme.*')
-            || $this->can('user.*');
+        return $this->isAbleTo('department.*')
+            || $this->isAbleTo('rank.*')
+            || $this->isAbleTo('role.*')
+            || $this->isAbleTo('theme.*')
+            || $this->isAbleTo('user.*');
+    }
+
+    public function canManageUsers(): bool
+    {
+        return $this->isAbleTo('user.*')
+            || $this->isAbleTo('role.*');
+    }
+
+    public function canManageSystem(): bool
+    {
+        return $this->isAbleTo('theme.*');
+    }
+
+    public function canWrite(): bool
+    {
+        return $this->isAbleTo('post.*')
+            || $this->isAbleTo('story.*')
+            || $this->isAbleTo('post-type.*');
     }
 
     /**
@@ -172,7 +197,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('avatar')
-            ->useFallbackUrl("https://api.adorable.io/avatars/285/{$this->email}")
+            ->useFallbackUrl("https://avatars.dicebear.com/api/bottts/{$this->email}.svg")
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif'])
             ->singleFile();
     }

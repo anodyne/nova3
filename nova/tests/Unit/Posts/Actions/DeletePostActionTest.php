@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Posts\Actions;
 
-use Tests\TestCase;
-use Nova\Posts\Models\Post;
-use Nova\Posts\Actions\DeletePost;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Posts\Actions\DeletePost;
+use Nova\Posts\Models\Post;
+use Tests\TestCase;
 
 /**
  * @group posts
@@ -14,9 +16,9 @@ class DeletePostActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
+    protected DeletePost $action;
 
-    protected $post;
+    protected Post $post;
 
     public function setUp(): void
     {
@@ -24,7 +26,7 @@ class DeletePostActionTest extends TestCase
 
         $this->action = app(DeletePost::class);
 
-        $this->post = create(Post::class);
+        $this->post = Post::factory()->create();
     }
 
     /** @test **/

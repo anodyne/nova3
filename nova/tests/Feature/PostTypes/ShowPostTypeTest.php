@@ -1,12 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\PostTypes;
 
-use Tests\TestCase;
-use Nova\PostTypes\Models\PostType;
-use Nova\PostTypes\DataTransferObjects\Fields;
-use Nova\PostTypes\DataTransferObjects\Options;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\PostTypes\Models\PostType;
+use Tests\TestCase;
 
 /**
  * @group stories
@@ -22,22 +22,7 @@ class ShowPostTypeTest extends TestCase
     {
         parent::setUp();
 
-        $this->postType = create(PostType::class);
-
-        $this->postType->fields = Fields::fromArray([
-            'title' => true,
-            'time' => true,
-            'location' => true,
-            'content' => true,
-        ]);
-        $this->postType->options = Options::fromArray([
-            'notifyUsers' => true,
-            'notifyDiscord' => true,
-            'includeInPostCounts' => true,
-            'multipleAuthors' => true,
-        ]);
-
-        $this->postType->save();
+        $this->postType = PostType::factory()->create();
     }
 
     /** @test **/

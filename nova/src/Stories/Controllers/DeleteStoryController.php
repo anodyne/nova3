@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Stories\Controllers;
 
 use Illuminate\Http\Request;
-use Nova\Stories\Models\Story;
 use Nova\Foundation\Controllers\Controller;
-use Nova\Stories\Exceptions\StoryException;
 use Nova\Stories\Actions\DeleteStoryManager;
+use Nova\Stories\Exceptions\StoryException;
+use Nova\Stories\Models\Story;
 use Nova\Stories\Responses\DeleteStoryResponse;
 
 class DeleteStoryController extends Controller
@@ -20,9 +22,9 @@ class DeleteStoryController extends Controller
 
     public function delete($id)
     {
-        $this->authorize('delete', new Story);
+        $this->authorize('delete', new Story());
 
-        $stories = Story::descendantsAndSelf($id);
+        $stories = Story::defaultOrder()->descendantsAndSelf($id);
 
         throw_if(
             $stories->where('id', 1)->count() > 0,
@@ -34,11 +36,11 @@ class DeleteStoryController extends Controller
         ]);
     }
 
-    public function destroy(Request $request, DeleteStoryManager $action)
+    public function destroy(Request $request)
     {
-        $this->authorize('delete', new Story);
+        $this->authorize('delete', new Story());
 
-        $action->execute($request);
+        DeleteStoryManager::run($request);
 
         return redirect()
             ->route('stories.index')

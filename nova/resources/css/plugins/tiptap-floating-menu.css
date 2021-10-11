@@ -1,0 +1,17 @@
+.floating-menu {
+    @apply absolute flex items-center -mt-1 ml-1 invisible opacity-0 transition ease-in duration-200 bg-gray-1 border rounded;
+
+    z-index: 1;
+
+    &.is-active {
+        @apply visible opacity-100;
+    }
+
+    .menu-button {
+        @apply text-sm p-1 mx-1 text-gray-9 rounded;
+
+        &:hover {
+            @apply text-gray-10 bg-gray-3;
+        }
+    }
+}

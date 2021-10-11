@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\PostTypes;
 
-use Tests\TestCase;
-use Nova\PostTypes\Models\PostType;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\PostTypes\Events\PostTypeCreated;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\PostTypes\Models\PostType;
 use Nova\PostTypes\Requests\CreatePostTypeRequest;
+use Tests\TestCase;
 
 /**
  * @group stories
@@ -31,27 +33,14 @@ class CreatePostTypeTest extends TestCase
     {
         $this->signInWithPermission('story.create');
 
-        $postType = make(PostType::class);
+        $postType = PostType::factory()->make();
 
         $this->followingRedirects();
 
-        $response = $this->post(route('post-types.store'), array_merge(
-            $postType->toArray(),
-            [
-                'fields' => [
-                    'title' => true,
-                    'time' => false,
-                    'location' => true,
-                    'content' => false,
-                ],
-                'options' => [
-                    'notifyUsers' => true,
-                    'notifyDiscord' => true,
-                    'includeInPostCounts' => false,
-                    'multipleAuthors' => true,
-                ],
-            ]
-        ));
+        $response = $this->post(
+            route('post-types.store'),
+            $postType->toArray()
+        );
         $response->assertSuccessful();
 
         $this->assertDatabaseHas('post_types', $postType->only('name', 'key'));
@@ -71,20 +60,7 @@ class CreatePostTypeTest extends TestCase
 
         $this->post(
             route('post-types.store'),
-            array_merge(make(PostType::class)->toArray(), [
-                'fields' => [
-                    'title' => true,
-                    'time' => false,
-                    'location' => true,
-                    'content' => false,
-                ],
-                'options' => [
-                    'notifyUsers' => true,
-                    'notifyDiscord' => true,
-                    'includeInPostCounts' => false,
-                    'multipleAuthors' => true,
-                ],
-            ])
+            PostType::factory()->make()->toArray()
         );
 
         Event::assertDispatched(PostTypeCreated::class);
@@ -106,20 +82,7 @@ class CreatePostTypeTest extends TestCase
 
         $response = $this->postJson(
             route('post-types.store'),
-            array_merge(make(PostType::class)->toArray(), [
-                'fields' => [
-                    'title' => true,
-                    'time' => false,
-                    'location' => true,
-                    'content' => false,
-                ],
-                'options' => [
-                    'notifyUsers' => true,
-                    'notifyDiscord' => true,
-                    'includeInPostCounts' => false,
-                    'multipleAuthors' => true,
-                ],
-            ])
+            PostType::factory()->make()->toArray()
         );
         $response->assertForbidden();
     }
@@ -136,20 +99,7 @@ class CreatePostTypeTest extends TestCase
     {
         $response = $this->postJson(
             route('post-types.store'),
-            array_merge(make(PostType::class)->toArray(), [
-                'fields' => [
-                    'title' => true,
-                    'time' => false,
-                    'location' => true,
-                    'content' => false,
-                ],
-                'options' => [
-                    'notifyUsers' => true,
-                    'notifyDiscord' => true,
-                    'includeInPostCounts' => false,
-                    'multipleAuthors' => true,
-                ],
-            ])
+            PostType::factory()->make()->toArray()
         );
         $response->assertUnauthorized();
     }

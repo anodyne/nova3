@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Departments\Controllers;
 
 use Illuminate\Http\Request;
-use Nova\Departments\Models\Department;
-use Nova\Foundation\Controllers\Controller;
 use Nova\Departments\Filters\DepartmentFilters;
-use Nova\Departments\Responses\ShowDepartmentResponse;
+use Nova\Departments\Models\Department;
 use Nova\Departments\Responses\ShowAllDepartmentsResponse;
+use Nova\Departments\Responses\ShowDepartmentResponse;
+use Nova\Foundation\Controllers\Controller;
 
 class ShowDepartmentController extends Controller
 {

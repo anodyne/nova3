@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Characters\Actions;
 
-use Tests\TestCase;
-use Nova\Characters\Models\Character;
-use Nova\Characters\Actions\DeactivateCharacter;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Characters\Actions\DeactivateCharacter;
+use Nova\Characters\Models\Character;
 use Nova\Characters\Models\States\Statuses\Inactive;
+use Tests\TestCase;
 
 /**
  * @group characters
@@ -25,7 +27,7 @@ class DeactivateCharacterActionTest extends TestCase
 
         $this->action = app(DeactivateCharacter::class);
 
-        $this->character = create(Character::class, [], ['status:active']);
+        $this->character = Character::factory()->active()->create();
     }
 
     /** @test **/

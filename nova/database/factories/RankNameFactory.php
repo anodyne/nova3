@@ -1,11 +1,20 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
-use Faker\Generator as Faker;
+declare(strict_types=1);
+
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Nova\Ranks\Models\RankName;
 
-$factory->define(RankName::class, function (Faker $faker) {
-    return [
-        'name' => ucfirst($faker->word),
-    ];
-});
+class RankNameFactory extends Factory
+{
+    protected $model = RankName::class;
+
+    public function definition()
+    {
+        return [
+            'name' => ucfirst($this->faker->word),
+        ];
+    }
+}

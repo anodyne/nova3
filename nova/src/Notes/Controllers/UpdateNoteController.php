@@ -1,12 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Notes\Controllers;
 
-use Nova\Notes\Models\Note;
-use Nova\Notes\Actions\UpdateNote;
-use Nova\Notes\Requests\UpdateNoteRequest;
+use Illuminate\Http\RedirectResponse;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
+use Nova\Notes\Actions\UpdateNote;
 use Nova\Notes\DataTransferObjects\NoteData;
+use Nova\Notes\Models\Note;
+use Nova\Notes\Requests\UpdateNoteRequest;
 use Nova\Notes\Responses\UpdateNoteResponse;
 
 class UpdateNoteController extends Controller
@@ -18,7 +22,7 @@ class UpdateNoteController extends Controller
         $this->middleware('auth');
     }
 
-    public function edit(Note $note)
+    public function edit(Note $note): Responsable
     {
         $this->authorize('update', $note);
 
@@ -27,14 +31,11 @@ class UpdateNoteController extends Controller
         ]);
     }
 
-    public function update(
-        UpdateNoteRequest $request,
-        Note $note,
-        UpdateNote $action
-    ) {
+    public function update(UpdateNoteRequest $request, Note $note): RedirectResponse
+    {
         $this->authorize('update', $note);
 
-        $note = $action->execute($note, NoteData::fromRequest($request));
+        $note = UpdateNote::run($note, NoteData::fromRequest($request));
 
         return back()->withToast("{$note->title} was updated");
     }

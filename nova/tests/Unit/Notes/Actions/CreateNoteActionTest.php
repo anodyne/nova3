@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Notes\Actions;
 
-use Tests\TestCase;
-use Nova\Users\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Notes\Actions\CreateNote;
 use Nova\Notes\DataTransferObjects\NoteData;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Users\Models\User;
+use Tests\TestCase;
 
 /**
  * @group notes
@@ -31,10 +33,10 @@ class CreateNoteActionTest extends TestCase
             'title' => 'My Note',
             'content' => 'Content of my note',
             'summary' => 'Summary of my note',
-            'user' => $user = create(User::class, [], ['status:active']),
+            'user' => $user = User::factory()->active()->create(),
         ]);
 
-        $note = $this->action->execute($data);
+        $note = $this->action->handle($data);
 
         $this->assertTrue($note->exists);
         $this->assertEquals('My Note', $note->title);

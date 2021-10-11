@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Departments;
 
-use Tests\TestCase;
-use Illuminate\Support\Facades\Event;
-use Nova\Departments\Models\Position;
-use Nova\Departments\Events\PositionDeleted;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
+use Nova\Departments\Events\PositionDeleted;
+use Nova\Departments\Models\Position;
+use Tests\TestCase;
 
 /**
  * @group departments
@@ -22,7 +24,7 @@ class DeletePositionTest extends TestCase
     {
         parent::setUp();
 
-        $this->position = create(Position::class);
+        $this->position = Position::factory()->create();
     }
 
     /** @test **/

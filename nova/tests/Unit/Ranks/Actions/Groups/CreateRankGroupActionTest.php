@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Ranks\Actions\Groups;
 
-use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Ranks\Actions\CreateRankGroup;
 use Nova\Ranks\DataTransferObjects\RankGroupData;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Ranks\Models\RankGroup;
+use Tests\TestCase;
 
 /**
  * @group ranks
@@ -40,8 +42,8 @@ class CreateRankGroupActionTest extends TestCase
     /** @test **/
     public function itCreatesARankGroupWithTheProperSortOrder()
     {
-        create(RankGroup::class, ['sort' => 0]);
-        create(RankGroup::class, ['sort' => 1]);
+        RankGroup::factory()->create(['sort' => 0]);
+        RankGroup::factory()->create(['sort' => 1]);
 
         $data = new RankGroupData([
             'name' => 'Command',

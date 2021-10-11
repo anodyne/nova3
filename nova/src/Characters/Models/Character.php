@@ -1,36 +1,40 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Characters\Models;
 
-use Nova\Characters\Events;
-use Nova\Users\Models\User;
-use Nova\Stories\Models\Post;
-use Nova\Ranks\Models\RankItem;
-use Spatie\ModelStates\HasStates;
-use Nova\Departments\Models\Position;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Nova\Characters\Models\States\Types\Primary;
-use Nova\Characters\Models\States\Types\Support;
-use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
-use Nova\Characters\Models\States\Statuses\Active;
-use Nova\Characters\Models\States\Types\Secondary;
-use Nova\Users\Models\States\Active as ActiveUser;
-use Nova\Characters\Models\States\Statuses\Pending;
-use Nova\Characters\Models\States\Statuses\Inactive;
+use Nova\Characters\Events;
 use Nova\Characters\Models\Builders\CharacterBuilder;
-use Nova\Characters\Models\States\Types\CharacterType;
-use Nova\Characters\Models\States\Statuses\CharacterStatus;
+use Nova\Characters\Models\States\Statuses\Active;
 use Nova\Characters\Models\States\Statuses\ActiveToInactive;
+use Nova\Characters\Models\States\Statuses\CharacterStatus;
+use Nova\Characters\Models\States\Statuses\Inactive;
+use Nova\Characters\Models\States\Statuses\Pending;
+use Nova\Characters\Models\States\Types\CharacterType;
+use Nova\Characters\Models\States\Types\Primary;
+use Nova\Characters\Models\States\Types\Secondary;
+use Nova\Characters\Models\States\Types\Support;
+use Nova\Departments\Models\Position;
+use Nova\Ranks\Models\RankItem;
+use Nova\Stories\Models\Post;
+use Nova\Users\Models\States\Active as ActiveUser;
+use Nova\Users\Models\User;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\ModelStates\HasStates;
+use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
 class Character extends Model implements HasMedia
 {
     use HasEagerLimit;
-    use HasMediaTrait;
+    use HasFactory;
     use HasStates;
+    use InteractsWithMedia;
     use LogsActivity;
     use SoftDeletes;
 
@@ -108,7 +112,7 @@ class Character extends Model implements HasMedia
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('avatar')
-            ->useFallbackUrl("https://api.adorable.io/avatars/285/{str_replace(' ', '', {$this->name})}")
+            ->useFallbackUrl("https://avatars.dicebear.com/api/bottts/{str_replace(' ', '', {$this->name})}.svg")
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif'])
             ->singleFile();
     }

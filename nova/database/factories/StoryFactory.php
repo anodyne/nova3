@@ -1,46 +1,69 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
-use Faker\Generator as Faker;
-use Nova\Stories\Models\Story;
+declare(strict_types=1);
+
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Nova\Stories\Models\States\Completed;
 use Nova\Stories\Models\States\Current;
 use Nova\Stories\Models\States\Upcoming;
-use Nova\Stories\Models\States\Completed;
+use Nova\Stories\Models\Story;
 
-$factory->define(Story::class, function (Faker $faker) {
-    return [
-        'title' => ucfirst($faker->words($faker->numberBetween(1, 5), true)),
-        'status' => $faker->randomElement([Upcoming::class, Current::class, Completed::class]),
-        'description' => $faker->sentences($faker->numberBetween(1, 5), true),
-        'parent_id' => 1,
-        'allow_posting' => true,
-    ];
-});
+class StoryFactory extends Factory
+{
+    protected $model = Story::class;
 
-$factory->state(Story::class, 'no-posting', [
-    'allow_posting' => false,
-]);
+    public function definition()
+    {
+        return [
+            'title' => ucfirst($this->faker->words($this->faker->numberBetween(1, 5), true)),
+            'status' => $this->faker->randomElement([Upcoming::class, Current::class, Completed::class]),
+            'description' => $this->faker->sentences($this->faker->numberBetween(1, 5), true),
+            'parent_id' => 1,
+            'allow_posting' => true,
+        ];
+    }
 
-$factory->state(Story::class, 'status:upcoming', [
-    'status' => Upcoming::class,
-]);
+    public function withoutPosting()
+    {
+        return $this->state([
+            'allow_posting' => false,
+        ]);
+    }
 
-$factory->state(Story::class, 'status:current', [
-    'status' => Current::class,
-]);
+    public function upcoming()
+    {
+        return $this->state([
+            'status' => Upcoming::class,
+        ]);
+    }
 
-$factory->state(Story::class, 'status:completed', [
-    'status' => Completed::class,
-]);
+    public function current()
+    {
+        return $this->state([
+            'status' => Current::class,
+        ]);
+    }
 
-$factory->state(Story::class, 'with:start', function (Faker $faker) {
-    return [
-        'start_date' => $faker->date(),
-    ];
-});
+    public function completed()
+    {
+        return $this->state([
+            'status' => Completed::class,
+        ]);
+    }
 
-$factory->state(Story::class, 'with:end', function (Faker $faker) {
-    return [
-        'end_date' => $faker->date(),
-    ];
-});
+    public function withStartDate()
+    {
+        return $this->state([
+            'start_date' => $this->faker->date(),
+        ]);
+    }
+
+    public function withEndDate()
+    {
+        return $this->state([
+            'end_date' => $this->faker->date(),
+        ]);
+    }
+}

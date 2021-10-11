@@ -1,13 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Themes\Actions;
 
-use Nova\Themes\Models\Theme;
+use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Themes\DataTransferObjects\ThemeData;
+use Nova\Themes\Models\Theme;
 
 class CreateTheme
 {
-    public function execute(ThemeData $data): Theme
+    use AsAction;
+
+    public function handle(ThemeData $data): Theme
     {
         return Theme::create(
             $data->except('variants')->toArray()

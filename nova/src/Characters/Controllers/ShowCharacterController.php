@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Characters\Controllers;
 
 use Illuminate\Http\Request;
-use Nova\Characters\Models\Character;
-use Nova\Foundation\Controllers\Controller;
 use Nova\Characters\Filters\CharacterFilters;
-use Nova\Characters\Responses\ShowCharacterResponse;
+use Nova\Characters\Models\Character;
 use Nova\Characters\Responses\ShowAllCharactersResponse;
+use Nova\Characters\Responses\ShowCharacterResponse;
+use Nova\Foundation\Controllers\Controller;
 
 class ShowCharacterController extends Controller
 {
@@ -20,9 +22,11 @@ class ShowCharacterController extends Controller
 
     public function all(Request $request, CharacterFilters $filters)
     {
-        $this->authorize('viewAny', Character::class);
-
-        $characters = Character::with('media', 'positions', 'rank.name', 'users')
+        $characters = Character::query()
+            ->with('media', 'positions', 'rank.name', 'users')
+            ->when($request->user()->cannot('viewAny', Character::class), function ($query) use ($request) {
+                return $query->whereRelation('users', 'users.id', '=', $request->user()->id);
+            })
             ->filter($filters)
             ->orderBy('name')
             ->paginate();

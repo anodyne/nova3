@@ -13,16 +13,16 @@
         x-transition:leave="transition ease-in duration-100"
         x-transition:leave-start="opacity-100"
         x-transition:leave-end="opacity-0"
-        class="max-w-sm w-full bg-white shadow-lg rounded-lg pointer-events-auto"
+        class="max-w-sm w-full bg-gray-1 shadow-lg rounded-lg pointer-events-auto"
     >
-        <div class="rounded-lg shadow-xs overflow-hidden">
+        <div class="rounded-lg ring-1 ring-gray-12 ring-opacity-5 overflow-hidden">
             <div class="p-4">
                 <div class="flex items-start">
                     <div class="flex-shrink-0">
                         @if ($notification['type'] === 'success')
-                            @icon('check-alt', 'h-6 w-6 text-green-500')
+                            @icon('check', 'h-6 w-6 text-green-9')
                         @else
-                            @icon('alert', 'h-6 w-6 text-red-500')
+                            @icon('alert', 'h-6 w-6 text-red-9')
                         @endif
                     </div>
 
@@ -39,9 +39,9 @@
                     </div>
 
                     <div class="ml-4 flex-shrink-0 flex">
-                        <button x-on:click="show = false" class="inline-flex text-gray-400 focus:outline-none focus:text-gray-500 transition ease-in-out duration-150">
+                        <x-button @click="show = false" color="gray-text" size="none">
                             @icon('close', 'h-5 w-5')
-                        </button>
+                        </x-button>
                     </div>
                 </div>
             </div>

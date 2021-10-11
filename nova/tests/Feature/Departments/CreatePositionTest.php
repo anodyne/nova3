@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Departments;
 
-use Tests\TestCase;
-use Illuminate\Support\Facades\Event;
-use Nova\Departments\Models\Position;
-use Nova\Departments\Events\PositionCreated;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
+use Nova\Departments\Events\PositionCreated;
+use Nova\Departments\Models\Position;
 use Nova\Departments\Requests\CreatePositionRequest;
+use Tests\TestCase;
 
 /**
  * @group departments
@@ -31,7 +33,7 @@ class CreatePositionTest extends TestCase
     {
         $this->signInWithPermission('department.create');
 
-        $position = make(Position::class);
+        $position = Position::factory()->make();
 
         $this->followingRedirects();
 
@@ -61,7 +63,7 @@ class CreatePositionTest extends TestCase
 
         $this->post(
             route('positions.store'),
-            make(Position::class)->toArray()
+            Position::factory()->make()->toArray()
         );
 
         Event::assertDispatched(PositionCreated::class);
@@ -83,7 +85,7 @@ class CreatePositionTest extends TestCase
 
         $response = $this->postJson(
             route('positions.store'),
-            make(Position::class)->toArray()
+            Position::factory()->make()->toArray()
         );
         $response->assertForbidden();
     }
@@ -100,7 +102,7 @@ class CreatePositionTest extends TestCase
     {
         $response = $this->postJson(
             route('positions.store'),
-            make(Position::class)->toArray()
+            Position::factory()->make()->toArray()
         );
         $response->assertUnauthorized();
     }

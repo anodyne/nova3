@@ -1,17 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Departments\Models;
 
-use Nova\Departments\Events;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\Activitylog\Traits\LogsActivity;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Nova\Departments\Events;
 use Nova\Departments\Models\Builders\DepartmentBuilder;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Department extends Model implements HasMedia
 {
-    use HasMediaTrait;
+    use HasFactory;
+    use InteractsWithMedia;
     use LogsActivity;
 
     public const MEDIA_DIRECTORY = 'departments/{model_id}/{media_id}/';

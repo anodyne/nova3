@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Controllers\Names;
 
-use Nova\Ranks\Models\RankName;
+use Nova\Foundation\Controllers\Controller;
 use Nova\Ranks\Actions\DuplicateRankName;
 use Nova\Ranks\Events\RankNameDuplicated;
-use Nova\Foundation\Controllers\Controller;
+use Nova\Ranks\Models\RankName;
 
 class DuplicateRankNameController extends Controller
 {
@@ -16,18 +18,16 @@ class DuplicateRankNameController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(
-        DuplicateRankName $action,
-        RankName $originalName
-    ) {
-        $this->authorize('duplicate', $originalName);
+    public function __invoke(RankName $original)
+    {
+        $this->authorize('duplicate', $original);
 
-        $name = $action->execute($originalName);
+        $name = DuplicateRankName::run($original);
 
-        RankNameDuplicated::dispatch($name, $originalName);
+        RankNameDuplicated::dispatch($name, $original);
 
         return redirect()
             ->route('ranks.names.edit', $name)
-            ->withToast("{$originalName->name} has been duplicated");
+            ->withToast("{$original->name} has been duplicated");
     }
 }

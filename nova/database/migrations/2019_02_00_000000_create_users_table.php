@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
+declare(strict_types=1);
+
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateUsersTable extends Migration
 {
@@ -14,11 +16,11 @@ class CreateUsersTable extends Migration
             $table->string('email');
             $table->string('password')->nullable();
             $table->string('status');
-            $table->string('pronouns')->default('neutral');
+            $table->json('pronouns');
             $table->rememberToken();
             $table->boolean('force_password_reset')->default(false);
-            $table->timestamp('last_login')->nullable();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('appearance', 5)->default('light');
             $table->timestamps();
             $table->softDeletes();
         });

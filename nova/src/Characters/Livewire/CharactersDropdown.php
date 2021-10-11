@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Characters\Livewire;
 
 use Livewire\Component;
@@ -7,13 +9,13 @@ use Nova\Characters\Models\Character;
 
 class CharactersDropdown extends Component
 {
+    public $characters;
+
     public $index;
 
-    public $query;
+    public $search;
 
     public $selected;
-
-    public $characters;
 
     public function selectCharacter($characterId)
     {
@@ -22,9 +24,11 @@ class CharactersDropdown extends Component
         $this->selected = $this->characters->where('id', $characterId)->first();
 
         $this->emitUp('characterSelected', $characterId, $this->index);
+
+        $this->resetCharacters();
     }
 
-    public function updatedQuery($value)
+    public function updatedSearch($value)
     {
         $this->characters = Character::query()
             ->where('name', 'like', "%{$value}%")
@@ -35,7 +39,7 @@ class CharactersDropdown extends Component
     public function mount($character = null, $index = 0)
     {
         $this->index = $index;
-        $this->characters = Character::get();
+        $this->resetCharacters();
 
         if ($character) {
             $this->selected = Character::find($character);
@@ -45,5 +49,11 @@ class CharactersDropdown extends Component
     public function render()
     {
         return view('livewire.characters.dropdown');
+    }
+
+    protected function resetCharacters()
+    {
+        $this->reset('search');
+        $this->characters = Character::get();
     }
 }

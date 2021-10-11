@@ -1,18 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Roles\Models;
 
-use Nova\Roles\Events;
-use Nova\Users\Models\User;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Laratrust\Models\LaratrustRole;
-use Nova\Users\Models\States\Active;
+use Nova\Roles\Events;
 use Nova\Roles\Models\Builders\RoleBuilder;
+use Nova\Users\Models\States\Active;
+use Nova\Users\Models\User;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
 class Role extends LaratrustRole
 {
     use HasEagerLimit;
+    use HasFactory;
     use LogsActivity;
 
     protected static $logFillable = true;
@@ -53,7 +57,7 @@ class Role extends LaratrustRole
     public function getMorphByUserRelation($relationship)
     {
         return parent::getMorphByUserRelation($relationship)
-            ->whereState('status', Active::class)
+            // ->whereState('status', Active::class)
             ->orderBy('name');
     }
 

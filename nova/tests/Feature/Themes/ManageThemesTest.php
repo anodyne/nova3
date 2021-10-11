@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Themes;
 
-use Tests\TestCase;
-use Nova\Themes\Models\Theme;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Storage;
+use Nova\Themes\Models\Theme;
+use Tests\TestCase;
 
 /**
  * @group themes
@@ -27,8 +29,6 @@ class ManageThemesTest extends TestCase
     public function authorizedUserWithCreatePermissionCanViewManageThemesPage()
     {
         $this->signInWithPermission('theme.create');
-
-        $this->withoutExceptionHandling();
 
         $response = $this->get(route('themes.index'));
         $response->assertSuccessful();
@@ -66,7 +66,7 @@ class ManageThemesTest extends TestCase
     {
         $this->signInWithPermission('theme.create');
 
-        create(Theme::class, [
+        Theme::factory()->create([
             'name' => 'Foobar',
             'location' => 'foobar',
         ]);
@@ -90,7 +90,7 @@ class ManageThemesTest extends TestCase
     {
         $this->signInWithPermission('theme.create');
 
-        create(Theme::class, [
+        Theme::factory()->create([
             'name' => 'Foobar',
             'location' => 'foobar',
         ]);

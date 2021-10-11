@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Stories\Actions;
 
-use Tests\TestCase;
-use Nova\Posts\Models\Post;
-use Nova\Stories\Models\Story;
-use Nova\Stories\Actions\MoveStoryPosts;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Posts\Models\Post;
+use Nova\Stories\Actions\MoveStoryPosts;
+use Nova\Stories\Models\Story;
+use Tests\TestCase;
 
 /**
  * @group stories
@@ -30,11 +32,11 @@ class MoveStoryPostsActionTest extends TestCase
 
         $this->action = app(MoveStoryPosts::class);
 
-        $this->newStory = create(Story::class);
+        $this->newStory = Story::factory()->create();
 
-        $this->story = create(Story::class);
+        $this->story = Story::factory()->create();
 
-        factory(Post::class)->times(5)->create([
+        Post::factory()->count(5)->create([
             'story_id' => $this->story,
         ]);
 

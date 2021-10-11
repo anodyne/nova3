@@ -1,14 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Users\Actions;
 
+use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Foundation\Action;
 use Nova\Users\Models\User;
 use Spatie\ModelStates\State;
 
 class UpdateUserStatus extends Action
 {
-    public function execute(User $user, $status): User
+    use AsAction;
+
+    public function handle(User $user, $status): User
     {
         if ($status) {
             $newStatus = State::make($status, $user);

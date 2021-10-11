@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Themes;
 
-use Tests\TestCase;
-use Nova\Themes\Models\Theme;
-use Nova\Themes\Events\ThemeUpdated;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
+use Nova\Themes\Events\ThemeUpdated;
+use Nova\Themes\Models\Theme;
+use Tests\TestCase;
 
 /**
  * @group themes
@@ -21,7 +23,7 @@ class UpdateThemeTest extends TestCase
     {
         parent::setUp();
 
-        $this->theme = create(Theme::class);
+        $this->theme = Theme::factory()->create();
     }
 
     /** @test **/
@@ -62,7 +64,7 @@ class UpdateThemeTest extends TestCase
 
         $this->put(
             route('themes.update', $this->theme),
-            make(Theme::class)->toArray()
+            Theme::factory()->make()->toArray()
         );
 
         Event::assertDispatched(ThemeUpdated::class);
@@ -84,7 +86,7 @@ class UpdateThemeTest extends TestCase
 
         $response = $this->putJson(
             route('themes.update', $this->theme),
-            make(Theme::class)->toArray()
+            Theme::factory()->make()->toArray()
         );
         $response->assertForbidden();
     }
@@ -101,7 +103,7 @@ class UpdateThemeTest extends TestCase
     {
         $response = $this->putJson(
             route('themes.update', $this->theme),
-            make(Theme::class)->toArray()
+            Theme::factory()->make()->toArray()
         );
         $response->assertUnauthorized();
     }

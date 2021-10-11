@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Auth;
 
-use Tests\TestCase;
-use Nova\Users\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+use Nova\Users\Models\User;
+use Tests\TestCase;
 
 /**
  * @group auth
@@ -21,7 +23,7 @@ class ResetPasswordTest extends TestCase
     public function unauthenticatedUserCanViewEmailResetPage()
     {
         $token = $this->getPasswordResetToken(
-            create(User::class, [], ['status:active'])
+            User::factory()->active()->create()
         );
 
         $response = $this->get(route('password.reset', $token));
@@ -46,7 +48,7 @@ class ResetPasswordTest extends TestCase
         Event::fake();
 
         $token = $this->getPasswordResetToken(
-            $user = create(User::class, [], ['status:active'])
+            $user = User::factory()->active()->create()
         );
 
         $response = $this->post(route('password.update'), [
@@ -67,7 +69,7 @@ class ResetPasswordTest extends TestCase
     /** @test **/
     public function userCannotResetTheirPasswordWithInvalidPasswordResetToken()
     {
-        $user = create(User::class, [], ['status:active']);
+        $user = User::factory()->active()->create();
 
         $token = 'invalid-token';
 
@@ -87,7 +89,7 @@ class ResetPasswordTest extends TestCase
     public function userCannotResetTheirPasswordWithoutNewPassword()
     {
         $token = $this->getPasswordResetToken(
-            $user = create(User::class, [], ['status:active'])
+            $user = User::factory()->active()->create()
         );
 
         $response = $this->post(route('password.update'), [
@@ -109,7 +111,7 @@ class ResetPasswordTest extends TestCase
     public function userCannotResetTheirPasswordWithoutEmail()
     {
         $token = $this->getPasswordResetToken(
-            $user = create(User::class, [], ['status:active'])
+            $user = User::factory()->active()->create()
         );
 
         $response = $this->post(route('password.update'), [

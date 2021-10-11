@@ -1,31 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Roles\Actions;
 
-use Nova\Roles\Models\Role;
 use Illuminate\Http\Request;
-use Nova\Roles\DataTransferObjects\RoleData;
+use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Roles\DataTransferObjects\RoleAssignmentData;
+use Nova\Roles\DataTransferObjects\RoleData;
+use Nova\Roles\Models\Role;
 
 class UpdateRoleManager
 {
-    protected $updateRole;
+    use AsAction;
 
-    protected $updateRoleUsers;
-
-    public function __construct(
-        UpdateRole $updateRole,
-        UpdateRoleUsers $updateRoleUsers
-    ) {
-        $this->updateRole = $updateRole;
-        $this->updateRoleUsers = $updateRoleUsers;
-    }
-
-    public function execute(Role $role, Request $request): Role
+    public function handle(Role $role, Request $request): Role
     {
-        $this->updateRole->execute($role, RoleData::fromRequest($request));
+        UpdateRole::run($role, RoleData::fromRequest($request));
 
-        $this->updateRoleUsers->execute(
+        UpdateRoleUsers::run(
             RoleAssignmentData::fromRequest($request)
         );
 

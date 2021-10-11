@@ -1,14 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Characters\Actions;
 
+use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Characters\Models\Character;
 use Nova\Foundation\Action;
 use Spatie\ModelStates\State;
-use Nova\Characters\Models\Character;
 
 class UpdateCharacterStatus extends Action
 {
-    public function execute(Character $character, $status): Character
+    use AsAction;
+
+    public function handle(Character $character, $status): Character
     {
         $newStatus = State::make($status, $character);
 

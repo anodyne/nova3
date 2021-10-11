@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Themes;
 
 use Nova\Pages\Page;
-use Nova\Themes\Concerns\RendersTheme;
 use Nova\Themes\Concerns\InteractsWithModel;
+use Nova\Themes\Concerns\RendersTheme;
 
 abstract class BaseTheme
 {
-    use RendersTheme;
     use InteractsWithModel;
+    use RendersTheme;
 
     /**
      * @var string

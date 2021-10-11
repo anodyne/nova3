@@ -1,19 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Characters;
 
-use Tests\TestCase;
-use Nova\Users\Models\User;
-use Nova\Characters\Models\Character;
-use Nova\Departments\Models\Position;
-use Nova\Departments\Models\Department;
-use Nova\Characters\Models\States\Types\Primary;
-use Nova\Characters\Models\States\Types\Support;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Characters\Models\Character;
 use Nova\Characters\Models\States\Statuses\Active;
-use Nova\Characters\Models\States\Types\Secondary;
-use Nova\Characters\Models\States\Statuses\Pending;
 use Nova\Characters\Models\States\Statuses\Inactive;
+use Nova\Characters\Models\States\Statuses\Pending;
+use Nova\Characters\Models\States\Types\Primary;
+use Nova\Characters\Models\States\Types\Secondary;
+use Nova\Characters\Models\States\Types\Support;
+use Nova\Departments\Models\Department;
+use Nova\Departments\Models\Position;
+use Nova\Users\Models\User;
+use Tests\TestCase;
 
 /**
  * @group characters
@@ -120,11 +122,11 @@ class FilterCharactersTest extends TestCase
     /** @test **/
     public function charactersCanBeFilteredToOnlyCharactersAssignedToUsers()
     {
-        $user = create(User::class, [], ['status:active']);
-        $character = create(Character::class, [], ['status:active']);
+        $user = User::factory()->active()->create();
+        $character = Character::factory()->active()->create();
         $character->users()->attach($user);
 
-        create(Character::class);
+        Character::factory()->create();
 
         $this->signInWithPermission('character.view');
 
@@ -140,11 +142,11 @@ class FilterCharactersTest extends TestCase
     /** @test **/
     public function charactersCanBeFilteredToOnlyCharactersNotAssignedToUsers()
     {
-        $user = create(User::class, [], ['status:active']);
-        $character = create(Character::class, [], ['status:active']);
+        $user = User::factory()->active()->create();
+        $character = Character::factory()->active()->create();
         $character->users()->attach($user);
 
-        create(Character::class);
+        Character::factory()->create();
 
         $this->signInWithPermission('character.view');
 
@@ -160,11 +162,11 @@ class FilterCharactersTest extends TestCase
     /** @test **/
     public function charactersCanBeFilteredToOnlyCharactersWithoutAPositionAssignedToThem()
     {
-        $position = create(Position::class);
-        $character = create(Character::class);
+        $position = Position::factory()->create();
+        $character = Character::factory()->create();
         $character->positions()->attach($position);
 
-        create(Character::class);
+        Character::factory()->create();
 
         $this->signInWithPermission('character.view');
 
@@ -182,11 +184,11 @@ class FilterCharactersTest extends TestCase
     {
         $this->signInWithPermission('character.create');
 
-        create(Character::class, [
+        Character::factory()->active()->create([
             'name' => 'Sparrow Capitan',
-        ], ['status:active']);
+        ]);
 
-        create(Character::class, [], ['status:active']);
+        Character::factory()->active()->create();
 
         $response = $this->get(route('characters.index'));
         $response->assertSuccessful();
@@ -204,16 +206,16 @@ class FilterCharactersTest extends TestCase
     {
         $this->signInWithPermission('character.create');
 
-        $user = create(User::class, [
+        $user = User::factory()->active()->create([
             'name' => 'Johnny Depp',
-        ], ['status:active']);
+        ]);
 
-        $character = create(Character::class, [
+        $character = Character::factory()->active()->create([
             'name' => 'Jack Sparrow',
-        ], ['status:active']);
+        ]);
         $character->users()->attach($user);
 
-        create(Character::class, [], ['status:active']);
+        Character::factory()->active()->create();
 
         $response = $this->get(route('characters.index'));
         $response->assertSuccessful();
@@ -231,16 +233,16 @@ class FilterCharactersTest extends TestCase
     {
         $this->signInWithPermission('character.create');
 
-        $user = create(User::class, [
+        $user = User::factory()->active()->create([
             'email' => 'john@example.com',
-        ], ['status:active']);
+        ]);
 
-        $character = create(Character::class, [
+        $character = Character::factory()->active()->create([
             'name' => 'Jack Sparrow',
-        ], ['status:active']);
+        ]);
         $character->users()->attach($user);
 
-        create(Character::class, [], ['status:active']);
+        Character::factory()->active()->create();
 
         $response = $this->get(route('characters.index'));
         $response->assertSuccessful();
@@ -258,16 +260,16 @@ class FilterCharactersTest extends TestCase
     {
         $this->signInWithPermission('character.create');
 
-        $position = create(Position::class, [
+        $position = Position::factory()->create([
             'name' => 'Commanding Officer',
         ]);
 
-        $character = create(Character::class, [
+        $character = Character::factory()->active()->create([
             'name' => 'Jack Sparrow',
-        ], ['status:active']);
+        ]);
         $character->positions()->attach($position);
 
-        create(Character::class, [], ['status:active']);
+        Character::factory()->active()->create();
 
         $response = $this->get(route('characters.index'));
         $response->assertSuccessful();
@@ -285,36 +287,36 @@ class FilterCharactersTest extends TestCase
     {
         $this->signInWithPermission('character.create');
 
-        $command = create(Department::class, ['name' => 'Command']);
-        $ops = create(Department::class, ['name' => 'Operations']);
+        $command = Department::factory()->create(['name' => 'Command']);
+        $ops = Department::factory()->create(['name' => 'Operations']);
 
-        $xoPosition = create(Position::class, [
+        $xoPosition = Position::factory()->create([
             'name' => 'Executive Officer',
             'department_id' => $command,
         ]);
 
-        $xo2Position = create(Position::class, [
+        $xo2Position = Position::factory()->create([
             'name' => 'Second Officer',
             'department_id' => $command,
         ]);
 
-        $opsPosition = Create(Position::class, [
+        $opsPosition = Position::factory()->create([
             'name' => 'Chief Operations Officer',
             'department_id' => $ops,
         ]);
 
-        $jack = create(Character::class, [
+        $jack = Character::factory()->active()->create([
             'name' => 'Jack Sparrow',
-        ], ['status:active']);
+        ]);
         $jack->positions()->attach($xoPosition);
 
-        $will = create(Character::class, [
+        $will = Character::factory()->active()->create([
             'name' => 'Will Turner',
-        ], ['status:active']);
+        ]);
         $will->positions()->attach($opsPosition);
         $will->positions()->attach($xo2Position);
 
-        create(Character::class, [], ['status:active']);
+        Character::factory()->active()->create();
 
         $response = $this->get(route('characters.index'));
         $response->assertSuccessful();

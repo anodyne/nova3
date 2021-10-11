@@ -1,19 +1,32 @@
 <?php
 
+declare(strict_types=1);
+
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use Faker\Generator as Faker;
 use Nova\Themes\Models\Theme;
 
-$factory->define(Theme::class, function (Faker $faker) {
-    $name = $faker->words(mt_rand(1, 3), true);
+class ThemeFactory extends Factory
+{
+    protected $model = Theme::class;
 
-    return [
-        'name' => ucfirst($name),
-        'location' => Str::slug($name),
-        'active' => true,
-    ];
-});
+    public function definition()
+    {
+        $name = $this->faker->words(mt_rand(1, 3), true);
 
-$factory->state(Theme::class, 'inactive', [
-    'active' => false,
-]);
+        return [
+            'name' => ucfirst($name),
+            'location' => Str::slug($name),
+            'active' => true,
+        ];
+    }
+
+    public function inactive()
+    {
+        return $this->state([
+            'active' => false,
+        ]);
+    }
+}

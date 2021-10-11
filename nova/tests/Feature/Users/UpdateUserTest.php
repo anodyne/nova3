@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Users;
 
-use Tests\TestCase;
-use Nova\Users\Models\User;
-use Nova\Users\Events\UserUpdated;
-use Illuminate\Support\Facades\Event;
-use Nova\Users\Events\UserUpdatedByAdmin;
-use Nova\Users\Requests\UpdateUserRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
+use Nova\Users\Events\UserUpdated;
+use Nova\Users\Events\UserUpdatedByAdmin;
+use Nova\Users\Models\User;
+use Nova\Users\Requests\UpdateUserRequest;
+use Tests\TestCase;
 
 /**
  * @group users
@@ -23,7 +25,7 @@ class UpdateUserTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = create(User::class, [], ['status:active']);
+        $this->user = User::factory()->active()->create();
     }
 
     /** @test **/
@@ -40,7 +42,7 @@ class UpdateUserTest extends TestCase
     {
         $this->signInWithPermission('user.update');
 
-        $data = make(User::class, [
+        $data = User::factory()->make([
             'email' => $this->user->email,
         ]);
 
@@ -103,7 +105,7 @@ class UpdateUserTest extends TestCase
 
         $response = $this->put(
             route('users.update', $this->user),
-            make(User::class)->toArray()
+            User::factory()->make()->toArray()
         );
         $response->assertForbidden();
     }
@@ -120,7 +122,7 @@ class UpdateUserTest extends TestCase
     {
         $response = $this->putJson(
             route('users.update', $this->user),
-            make(User::class)->toArray()
+            User::factory()->make()->toArray()
         );
         $response->assertUnauthorized();
     }

@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Controllers\Items;
 
 use Illuminate\Http\Request;
-use Nova\Ranks\Models\RankItem;
-use Nova\Ranks\Models\RankGroup;
-use Nova\Ranks\Filters\RankItemFilters;
 use Nova\Foundation\Controllers\Controller;
-use Nova\Ranks\Responses\Items\ShowRankItemResponse;
+use Nova\Ranks\Filters\RankItemFilters;
+use Nova\Ranks\Models\RankGroup;
+use Nova\Ranks\Models\RankItem;
 use Nova\Ranks\Responses\Items\ShowAllRankItemsResponse;
+use Nova\Ranks\Responses\Items\ShowRankItemResponse;
 
 class ShowRankItemController extends Controller
 {

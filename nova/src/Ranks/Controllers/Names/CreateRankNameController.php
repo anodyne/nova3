@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Controllers\Names;
 
-use Nova\Ranks\Models\RankName;
-use Nova\Ranks\Actions\CreateRankName;
 use Nova\Foundation\Controllers\Controller;
-use Nova\Ranks\Requests\CreateRankNameRequest;
+use Nova\Ranks\Actions\CreateRankName;
 use Nova\Ranks\DataTransferObjects\RankNameData;
+use Nova\Ranks\Models\RankName;
+use Nova\Ranks\Requests\CreateRankNameRequest;
 use Nova\Ranks\Responses\Names\CreateRankNameResponse;
 
 class CreateRankNameController extends Controller
@@ -25,11 +27,11 @@ class CreateRankNameController extends Controller
         return app(CreateRankNameResponse::class);
     }
 
-    public function store(CreateRankNameRequest $request, CreateRankName $action)
+    public function store(CreateRankNameRequest $request)
     {
         $this->authorize('create', RankName::class);
 
-        $name = $action->execute(RankNameData::fromRequest($request));
+        $name = CreateRankName::run(RankNameData::fromRequest($request));
 
         return redirect()
             ->route('ranks.names.index')

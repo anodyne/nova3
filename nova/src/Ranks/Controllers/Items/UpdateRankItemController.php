@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Controllers\Items;
 
-use Nova\Ranks\Models\RankItem;
-use Nova\Ranks\Models\RankName;
-use Nova\Ranks\Models\RankGroup;
+use Nova\Foundation\Controllers\Controller;
 use Nova\Ranks\Actions\UpdateRankItem;
 use Nova\Ranks\Concerns\FindRankImages;
-use Nova\Foundation\Controllers\Controller;
-use Nova\Ranks\Requests\UpdateRankItemRequest;
 use Nova\Ranks\DataTransferObjects\RankItemData;
+use Nova\Ranks\Models\RankGroup;
+use Nova\Ranks\Models\RankItem;
+use Nova\Ranks\Models\RankName;
+use Nova\Ranks\Requests\UpdateRankItemRequest;
 use Nova\Ranks\Responses\Items\UpdateRankItemResponse;
 
 class UpdateRankItemController extends Controller
@@ -36,14 +38,11 @@ class UpdateRankItemController extends Controller
         ]);
     }
 
-    public function update(
-        UpdateRankItemRequest $request,
-        UpdateRankItem $action,
-        RankItem $item
-    ) {
+    public function update(UpdateRankItemRequest $request, RankItem $item)
+    {
         $this->authorize('update', $item);
 
-        $item = $action->execute($item, RankItemData::fromRequest($request));
+        $item = UpdateRankItem::run($item, RankItemData::fromRequest($request));
 
         return back()->withToast('Rank item was updated');
     }

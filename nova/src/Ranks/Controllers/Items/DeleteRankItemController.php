@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Controllers\Items;
 
 use Illuminate\Http\Request;
-use Nova\Ranks\Models\RankItem;
-use Nova\Ranks\Actions\DeleteRankItem;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Ranks\Actions\DeleteRankItem;
+use Nova\Ranks\Models\RankItem;
 use Nova\Ranks\Responses\Items\DeleteRankItemResponse;
 
 class DeleteRankItemController extends Controller
@@ -30,7 +32,7 @@ class DeleteRankItemController extends Controller
     {
         $this->authorize('delete', $item);
 
-        $action->execute($item);
+        DeleteRankItem::run($item);
 
         return redirect()
             ->route('ranks.items.index')

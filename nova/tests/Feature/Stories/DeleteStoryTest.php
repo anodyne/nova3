@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Stories;
 
-use Tests\TestCase;
-use Nova\Posts\Models\Post;
-use Nova\Stories\Models\Story;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
+use Nova\Posts\Models\Post;
 use Nova\Stories\Events\StoryDeleted;
 use Nova\Stories\Exceptions\StoryException;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Stories\Models\Story;
+use Tests\TestCase;
 
 /**
  * @group stories
@@ -19,11 +21,19 @@ class DeleteStoryTest extends TestCase
 
     protected $story;
 
+    protected $mainTimeline;
+
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->story = create(Story::class);
+        $this->story = Story::factory()->create();
+
+        $this->mainTimeline = Story::whereMainTimeline()->first();
+        $this->mainTimeline->appendNode($this->story);
+
+        $this->mainTimeline->refresh();
+        $this->story->refresh();
     }
 
     /** @test **/
@@ -80,7 +90,7 @@ class DeleteStoryTest extends TestCase
     public function nestedStoriesCanBeDeletedWhenDeletingTheParentStory()
     {
         $this->withoutExceptionHandling();
-        $nestedStory = create(Story::class, [
+        $nestedStory = Story::factory()->create([
             'parent_id' => $this->story,
         ]);
 
@@ -114,9 +124,11 @@ class DeleteStoryTest extends TestCase
     /** @test **/
     public function nestedStoriesCanBeMovedWhenDeletingTheParentStory()
     {
-        $nestedStory = create(Story::class, [
-            'parent_id' => $this->story,
-        ]);
+        $nestedStory = Story::factory()->create();
+        $this->story->appendNode($nestedStory);
+
+        $this->story->refresh();
+        $nestedStory->refresh();
 
         $this->signInWithPermission('story.delete');
 
@@ -129,7 +141,7 @@ class DeleteStoryTest extends TestCase
                     'posts' => ['action' => 'delete', 'actionId' => null],
                 ],
                 $nestedStory->id => [
-                    'story' => ['action' => 'move', 'actionId' => 1],
+                    'story' => ['action' => 'move', 'actionId' => $this->mainTimeline->id],
                     'posts' => ['action' => 'nothing', 'actionId' => null],
                 ],
             ]),
@@ -149,11 +161,11 @@ class DeleteStoryTest extends TestCase
     /** @test **/
     public function nestedStoriesCanBeMovedAndDeletedWhenDeletingTheParentStory()
     {
-        $nestedStory1 = create(Story::class, [
+        $nestedStory1 = Story::factory()->create([
             'parent_id' => $this->story,
         ]);
 
-        $nestedStory2 = create(Story::class, [
+        $nestedStory2 = Story::factory()->create([
             'parent_id' => $this->story,
         ]);
 
@@ -196,7 +208,7 @@ class DeleteStoryTest extends TestCase
     /** @test **/
     public function storyPostsCanBeDeletedWhenDeletingTheStory()
     {
-        factory(Post::class)->times(5)->create([
+        Post::factory()->count(5)->create([
             'story_id' => $this->story,
         ]);
 
@@ -228,13 +240,13 @@ class DeleteStoryTest extends TestCase
     /** @test **/
     public function storyPostsCanBeMovedWhenDeletingTheStory()
     {
-        factory(Post::class)->times(5)->create([
+        Post::factory()->count(5)->create([
             'story_id' => $this->story,
         ]);
 
         $this->story->refresh();
 
-        $newStory = create(Story::class);
+        $newStory = Story::factory()->create();
 
         $this->signInWithPermission('story.delete');
 
@@ -262,14 +274,14 @@ class DeleteStoryTest extends TestCase
     /** @test **/
     public function storyPostsCanBeDeletedAndMovedWhenDeletingAStory()
     {
-        $story1 = create(Story::class);
-        $story2 = create(Story::class);
+        $story1 = Story::factory()->create();
+        $story2 = Story::factory()->create();
 
-        factory(Post::class)->times(5)->create([
+        Post::factory()->count(5)->create([
             'story_id' => $this->story,
         ]);
 
-        factory(Post::class)->times(5)->create([
+        Post::factory()->count(5)->create([
             'story_id' => $story1,
         ]);
 

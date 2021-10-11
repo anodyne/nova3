@@ -1,36 +1,29 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Actions;
 
 use Illuminate\Http\Request;
+use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Ranks\DataTransferObjects\RankGroupData;
 use Nova\Ranks\DataTransferObjects\RankItemData;
 use Nova\Ranks\Models\RankGroup;
 
 class DuplicateRankGroupManager
 {
-    protected $duplicateRankGroup;
+    use AsAction;
 
-    protected $duplicateRankGroupRankItems;
-
-    public function __construct(
-        DuplicateRankGroup $duplicateRankGroup,
-        DuplicateRankGroupRankItems $duplicateRankGroupRankItems
-    ) {
-        $this->duplicateRankGroup = $duplicateRankGroup;
-        $this->duplicateRankGroupRankItems = $duplicateRankGroupRankItems;
-    }
-
-    public function execute(RankGroup $originalGroup, Request $request): RankGroup
+    public function handle(RankGroup $original, Request $request): RankGroup
     {
-        $group = $this->duplicateRankGroup->execute(
-            $originalGroup,
+        $group = DuplicateRankGroup::run(
+            $original,
             RankGroupData::fromRequest($request)
         );
 
-        $this->duplicateRankGroupRankItems->execute(
+        DuplicateRankGroupRankItems::run(
             $group,
-            $originalGroup,
+            $original,
             RankItemData::fromRequest($request)
         );
 

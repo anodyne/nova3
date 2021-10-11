@@ -1,22 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Users\Actions;
 
-use Nova\Users\Models\User;
-use Nova\Characters\Models\Character;
+use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Characters\Actions\SetCharacterType;
+use Nova\Characters\Models\Character;
 use Nova\Users\DataTransferObjects\AssignUserCharactersData;
+use Nova\Users\Models\User;
 
 class AssignUserCharacters
 {
-    protected $setCharacterType;
+    use AsAction;
 
-    public function __construct(SetCharacterType $setCharacterType)
-    {
-        $this->setCharacterType = $setCharacterType;
-    }
-
-    public function execute(User $user, AssignUserCharactersData $data): User
+    public function handle(User $user, AssignUserCharactersData $data): User
     {
         $characters = collect($data->characters)
             ->mapWithKeys(function ($character) use ($data) {
@@ -39,8 +37,6 @@ class AssignUserCharacters
     {
         $characters = Character::whereIn('id', $characterIds)->get();
 
-        $characters->each(function ($character) {
-            $this->setCharacterType->execute($character);
-        });
+        $characters->each(fn ($character) => SetCharacterType::run($character));
     }
 }

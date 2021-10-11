@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Notes;
 
-use Tests\TestCase;
-use Nova\Notes\Models\Note;
-use Nova\Notes\Events\NoteCreated;
-use Illuminate\Support\Facades\Event;
-use Nova\Notes\Requests\CreateNoteRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
+use Nova\Notes\Events\NoteCreated;
+use Nova\Notes\Models\Note;
+use Nova\Notes\Requests\CreateNoteRequest;
+use Tests\TestCase;
 
 /**
  * @group notes
@@ -30,7 +32,7 @@ class CreateNoteTest extends TestCase
     {
         $this->signIn();
 
-        $data = make(Note::class, [
+        $data = Note::factory()->make([
             'user_id' => auth()->id(),
         ]);
 
@@ -59,7 +61,7 @@ class CreateNoteTest extends TestCase
 
         $this->signIn();
 
-        $this->post(route('notes.store'), make(Note::class)->toArray());
+        $this->post(route('notes.store'), Note::factory()->make()->toArray());
 
         Event::assertDispatched(NoteCreated::class);
     }
@@ -76,7 +78,7 @@ class CreateNoteTest extends TestCase
     {
         $response = $this->postJson(
             route('notes.store'),
-            make(Note::class)->toArray()
+            Note::factory()->make()->toArray()
         );
         $response->assertUnauthorized();
     }

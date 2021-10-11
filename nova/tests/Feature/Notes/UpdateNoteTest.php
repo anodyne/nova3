@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Notes;
 
-use Tests\TestCase;
-use Nova\Notes\Models\Note;
-use Nova\Notes\Events\NoteUpdated;
-use Illuminate\Support\Facades\Event;
-use Nova\Notes\Requests\UpdateNoteRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
+use Nova\Notes\Events\NoteUpdated;
+use Nova\Notes\Models\Note;
+use Nova\Notes\Requests\UpdateNoteRequest;
+use Tests\TestCase;
 
 /**
  * @group notes
@@ -22,7 +24,7 @@ class UpdateNoteTest extends TestCase
     {
         parent::setUp();
 
-        $this->note = create(Note::class);
+        $this->note = Note::factory()->create();
     }
 
     /** @test **/

@@ -1,28 +1,15 @@
 <?php
 
-namespace Tests\Unit;
+declare(strict_types=1);
 
-use Tests\TestCase;
 use Nova\Foundation\WordGenerator;
 
-class WordGeneratorTest extends TestCase
-{
-    protected $generator;
+uses()->group('words');
 
-    public function setUp(): void
-    {
-        parent::setUp();
+beforeEach(function () {
+    $this->generator = new WordGenerator();
+});
 
-        $this->generator = new WordGenerator;
-    }
-
-    /**
-     * @test
-     */
-    public function itCanGenerateWord()
-    {
-        $words = $this->generator->words();
-
-        $this->assertCount(1, $words);
-    }
-}
+it('can generate words')
+    ->expect(fn () => $this->generator->words())
+    ->toHaveCount(1);

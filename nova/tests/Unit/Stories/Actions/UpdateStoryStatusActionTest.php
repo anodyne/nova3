@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Stories\Actions;
 
-use Tests\TestCase;
-use Nova\Stories\Models\Story;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Stories\Actions\UpdateStoryStatus;
+use Nova\Stories\Models\States\Completed;
 use Nova\Stories\Models\States\Current;
 use Nova\Stories\Models\States\Upcoming;
-use Nova\Stories\Models\States\Completed;
-use Nova\Stories\Actions\UpdateStoryStatus;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Stories\Models\Story;
+use Tests\TestCase;
 
 /**
  * @group stories
@@ -27,7 +29,7 @@ class UpdateStoryStatusActionTest extends TestCase
 
         $this->action = app(UpdateStoryStatus::class);
 
-        $this->story = create(Story::class, [], ['status:upcoming']);
+        $this->story = Story::factory()->upcoming()->create();
     }
 
     /** @test **/
@@ -51,7 +53,7 @@ class UpdateStoryStatusActionTest extends TestCase
     /** @test **/
     public function itCanTransitionFromUpcomingToCurrent()
     {
-        $story = create(Story::class, [], ['status:upcoming']);
+        $story = Story::factory()->upcoming()->create();
 
         $story = $this->action->execute($story, 'current');
 
@@ -62,7 +64,7 @@ class UpdateStoryStatusActionTest extends TestCase
     /** @test **/
     public function itCanTransitionFromUpcomingToCompleted()
     {
-        $story = create(Story::class, [], ['status:upcoming']);
+        $story = Story::factory()->upcoming()->create();
 
         $story = $this->action->execute($story, 'completed');
 
@@ -74,9 +76,9 @@ class UpdateStoryStatusActionTest extends TestCase
     /** @test **/
     public function itCanTransitionFromCurrentToUpcoming()
     {
-        $story = create(Story::class, [
+        $story = Story::factory()->current()->create([
             'start_date' => now(),
-        ], ['status:current']);
+        ]);
 
         $story = $this->action->execute($story, 'upcoming');
 
@@ -88,9 +90,9 @@ class UpdateStoryStatusActionTest extends TestCase
     /** @test **/
     public function itCanTransitionFromCurrentToCompleted()
     {
-        $story = create(Story::class, [
+        $story = Story::factory()->current()->create([
             'start_date' => now(),
-        ], ['status:current']);
+        ]);
 
         $story = $this->action->execute($story, 'completed');
 
@@ -102,10 +104,10 @@ class UpdateStoryStatusActionTest extends TestCase
     /** @test **/
     public function itCanTransitionFromCompletedToUpcoming()
     {
-        $story = create(Story::class, [
+        $story = Story::factory()->completed()->create([
             'start_date' => now(),
             'end_date' => now(),
-        ], ['status:completed']);
+        ]);
 
         $story = $this->action->execute($story, 'upcoming');
 
@@ -117,10 +119,10 @@ class UpdateStoryStatusActionTest extends TestCase
     /** @test **/
     public function itCanTransitionFromCompletedToCurrent()
     {
-        $story = create(Story::class, [
+        $story = Story::factory()->completed()->create([
             'start_date' => now(),
             'end_date' => now(),
-        ], ['status:completed']);
+        ]);
 
         $story = $this->action->execute($story, 'current');
 

@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\PostTypes;
 
-use Tests\TestCase;
-use Nova\PostTypes\Models\PostType;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\PostTypes\Events\PostTypeUpdated;
+use Nova\PostTypes\Models\PostType;
 use Nova\PostTypes\Requests\UpdatePostTypeRequest;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nova\PostTypes\DataTransferObjects\Fields;
-use Nova\PostTypes\DataTransferObjects\Options;
+use Tests\TestCase;
 
 /**
  * @group stories
@@ -25,22 +25,7 @@ class UpdatePostTypeTest extends TestCase
     {
         parent::setUp();
 
-        $this->postType = create(PostType::class);
-
-        $this->postType->fields = Fields::fromArray([
-            'title' => true,
-            'time' => true,
-            'location' => true,
-            'content' => true,
-        ]);
-        $this->postType->options = Options::fromArray([
-            'notifyUsers' => true,
-            'notifyDiscord' => true,
-            'includeInPostCounts' => true,
-            'multipleAuthors' => true,
-        ]);
-
-        $this->postType->save();
+        $this->postType = PostType::factory()->create();
     }
 
     /** @test **/
@@ -58,26 +43,13 @@ class UpdatePostTypeTest extends TestCase
     {
         $this->signInWithPermission('story.update');
 
-        $postType = make(PostType::class);
-
         $this->followingRedirects();
+
+        $postType = PostType::factory()->make();
 
         $response = $this->put(
             route('post-types.update', $this->postType),
-            array_merge($postType->toArray(), [
-                'fields' => [
-                    'title' => false,
-                    'time' => true,
-                    'location' => false,
-                    'content' => true,
-                ],
-                'options' => [
-                    'notifyUsers' => false,
-                    'notifyDiscord' => true,
-                    'includeInPostCounts' => true,
-                    'multipleAuthors' => false,
-                ],
-            ])
+            $postType->toArray()
         );
         $response->assertSuccessful();
 
@@ -98,20 +70,7 @@ class UpdatePostTypeTest extends TestCase
 
         $this->put(
             route('post-types.update', $this->postType),
-            array_merge(make(PostType::class)->toArray(), [
-                'fields' => [
-                    'title' => false,
-                    'time' => true,
-                    'location' => false,
-                    'content' => true,
-                ],
-                'options' => [
-                    'notifyUsers' => false,
-                    'notifyDiscord' => true,
-                    'includeInPostCounts' => true,
-                    'multipleAuthors' => false,
-                ],
-            ])
+            PostType::factory()->make()->toArray()
         );
 
         Event::assertDispatched(PostTypeUpdated::class);
@@ -133,20 +92,7 @@ class UpdatePostTypeTest extends TestCase
 
         $response = $this->putJson(
             route('post-types.update', $this->postType),
-            array_merge(make(PostType::class)->toArray(), [
-                'fields' => [
-                    'title' => false,
-                    'time' => true,
-                    'location' => false,
-                    'content' => true,
-                ],
-                'options' => [
-                    'notifyUsers' => false,
-                    'notifyDiscord' => true,
-                    'includeInPostCounts' => true,
-                    'multipleAuthors' => false,
-                ],
-            ])
+            PostType::factory()->make()->toArray()
         );
         $response->assertForbidden();
     }
@@ -163,20 +109,7 @@ class UpdatePostTypeTest extends TestCase
     {
         $response = $this->putJson(
             route('post-types.update', $this->postType),
-            array_merge(make(PostType::class)->toArray(), [
-                'fields' => [
-                    'title' => false,
-                    'time' => true,
-                    'location' => false,
-                    'content' => true,
-                ],
-                'options' => [
-                    'notifyUsers' => false,
-                    'notifyDiscord' => true,
-                    'includeInPostCounts' => true,
-                    'multipleAuthors' => false,
-                ],
-            ])
+            PostType::factory()->make()->toArray()
         );
         $response->assertUnauthorized();
     }

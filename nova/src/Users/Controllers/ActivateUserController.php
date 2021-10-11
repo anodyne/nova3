@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Users\Controllers;
 
 use Illuminate\Http\Request;
-use Nova\Users\Models\User;
-use Nova\Users\Actions\ActivateUser;
-use Nova\Users\Events\UserActivated;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Users\Actions\ActivateUserManager;
+use Nova\Users\Events\UserActivated;
+use Nova\Users\Models\User;
 
 class ActivateUserController extends Controller
 {
@@ -16,14 +17,11 @@ class ActivateUserController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(
-        Request $request,
-        ActivateUserManager $action,
-        User $user
-    ) {
+    public function __invoke(Request $request, User $user)
+    {
         $this->authorize('activate', $user);
 
-        $user = $action->execute($request, $user);
+        $user = ActivateUserManager::run($request, $user);
 
         UserActivated::dispatch($user);
 

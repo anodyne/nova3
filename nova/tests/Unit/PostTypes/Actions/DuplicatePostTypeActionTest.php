@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\PostTypes\Actions;
 
-use Tests\TestCase;
-use Nova\PostTypes\Models\PostType;
-use Nova\PostTypes\Actions\DuplicatePostType;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\PostTypes\Actions\DuplicatePostType;
+use Nova\PostTypes\Models\PostType;
+use Tests\TestCase;
 
 /**
  * @group stories
@@ -25,7 +27,7 @@ class DuplicatePostTypeActionTest extends TestCase
 
         $this->action = app(DuplicatePostType::class);
 
-        $this->postType = create(PostType::class, [
+        $this->postType = PostType::factory()->create([
             'sort' => 0,
             'role_id' => 1,
         ]);

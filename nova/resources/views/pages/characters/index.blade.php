@@ -1,4 +1,4 @@
-@extends($__novaTemplate)
+@extends($meta->template)
 
 @section('content')
     <x-page-header>
@@ -10,220 +10,236 @@
         </x-slot>
 
         <x-slot name="controls">
-            <x-dropdown placement="bottom-end" class="flex items-center mr-4 text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150 {{ request()->has('type') ? 'text-blue-500' : '' }}" wide="true">
+            <x-dropdown placement="bottom-end" wide>
                 <x-slot name="trigger">@icon('filter', 'h-6 w-6')</x-slot>
 
-                <a href="{{ route('characters.index', 'status='.request('status').'&hasuser=1') }}" class="{{ $component->link() }} justify-between">
-                    <span>Assigned to a user</span>
-                    @if (request()->has('hasuser'))
-                        @icon('check', 'h-5 w-5')
-                    @endif
-                </a>
-                <a href="{{ route('characters.index', 'status='.request('status').'&nouser=1') }}" class="{{ $component->link() }} justify-between">
-                    <span>Not assigned to a user</span>
-                    @if (request()->has('nouser'))
-                        @icon('check', 'h-5 w-5')
-                    @endif
-                </a>
-                <a href="{{ route('characters.index', 'status='.request('status').'&noposition=1') }}" class="{{ $component->link() }} justify-between">
-                    <span>Not assigned a position</span>
-                    @if (request()->has('noposition'))
-                        @icon('check', 'h-5 w-5')
-                    @endif
-                </a>
+                @can('viewAny', Nova\Characters\Models\Character::class)
+                    <x-dropdown.group>
+                        <x-dropdown.item :href="route('characters.index', 'status='.request('status').'&hasuser=1')">
+                            <div class="flex items-center justify-between w-full">
+                                <span>Assigned to a user</span>
+                                @if (request()->has('hasuser'))
+                                    @icon('check', 'h-5 w-5')
+                                @endif
+                            </div>
+                        </x-dropdown.item>
+                        <x-dropdown.item :href="route('characters.index', 'status='.request('status').'&nouser=1')">
+                            <div class="flex items-center justify-between w-full">
+                                <span>Not assigned to a user</span>
+                                @if (request()->has('nouser'))
+                                    @icon('check', 'h-5 w-5')
+                                @endif
+                            </div>
+                        </x-dropdown.item>
+                        <x-dropdown.item :href="route('characters.index', 'status='.request('status').'&noposition=1')">
+                            <div class="flex items-center justify-between w-full">
+                                <span>Not assigned a position</span>
+                                @if (request()->has('noposition'))
+                                    @icon('check', 'h-5 w-5')
+                                @endif
+                            </div>
+                        </x-dropdown.item>
+                    </x-dropdown.group>
+                @endcan
 
-                <div class="{{ $component->divider() }}"></div>
+                <x-dropdown.group>
+                    <x-dropdown.text class="uppercase tracking-wide font-semibold text-gray-9">
+                        Filter by character type
+                    </x-dropdown.text>
 
-                <div class="{{ $component->text() }} uppercase tracking-wide font-semibold text-gray-500">
-                    Filter by character type
-                </div>
-
-                <a href="{{ route('characters.index', 'status='.request('status')) }}" class="{{ $component->link() }}">All character types</a>
-                <a href="{{ route('characters.index', 'status='.request('status').'&type=primary') }}" class="{{ $component->link() }} justify-between">
-                    <span>Primary characters</span>
-                    @if (request('type') === 'primary')
-                        @icon('check', 'h-5 w-5')
-                    @endif
-                </a>
-                <a href="{{ route('characters.index', 'status='.request('status').'&type=secondary') }}" class="{{ $component->link() }} justify-between">
-                    <span>Secondary characters</span>
-                    @if (request('type') === 'secondary')
-                        @icon('check', 'h-5 w-5')
-                    @endif
-                </a>
-                <a href="{{ route('characters.index', 'status='.request('status').'&type=support') }}" class="{{ $component->link() }} justify-between">
-                    <span>Support characters</span>
-                    @if (request('type') === 'support')
-                        @icon('check', 'h-5 w-5')
-                    @endif
-                </a>
+                    <x-dropdown.item :href="route('characters.index', 'status='.request('status'))">
+                        All character types
+                    </x-dropdown.item>
+                    <x-dropdown.item :href="route('characters.index', 'status='.request('status').'&type=primary')">
+                        <div class="flex items-center justify-between w-full">
+                            <span>Primary characters</span>
+                            @if (request('type') === 'primary')
+                                @icon('check', 'h-5 w-5')
+                            @endif
+                        </div>
+                    </x-dropdown.item>
+                    <x-dropdown.item :href="route('characters.index', 'status='.request('status').'&type=secondary')">
+                        <div class="flex items-center justify-between w-full">
+                            <span>Secondary characters</span>
+                            @if (request('type') === 'secondary')
+                                @icon('check', 'h-5 w-5')
+                            @endif
+                        </div>
+                    </x-dropdown.item>
+                    <x-dropdown.item :href="route('characters.index', 'status='.request('status').'&type=support')">
+                        <div class="flex items-center justify-between w-full">
+                            <span>Support characters</span>
+                            @if (request('type') === 'support')
+                                @icon('check', 'h-5 w-5')
+                            @endif
+                        </div>
+                    </x-dropdown.item>
+                </x-dropdown.group>
             </x-dropdown>
 
-            @can('create', 'Nova\Characters\Models\Character')
-                <x-button-link :href="route('characters.create')" color="blue" data-cy="create">
+            @can('createAny', Nova\Characters\Models\Character::class)
+                <x-link :href="route('characters.create')" color="blue" data-cy="create">
                     Add Character
-                </x-button-link>
+                </x-link>
             @endcan
         </x-slot>
     </x-page-header>
 
     <x-panel>
         <div>
-            <div class="p-4 | sm:hidden">
-                <select x-on:change="window.location.replace($event.target.value)" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm transition ease-in-out duration-150">
+            <x-content-box class="sm:hidden">
+                <select @change="window.location.replace($event.target.value)" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 sm:text-sm transition ease-in-out duration-150">
                     <option value="{{ route('characters.index', 'status=active') }}"{{ request()->status === 'active' ? 'selected' : '' }}>Active Characters</option>
-                    <option value="{{ route('characters.index', 'status=pending') }}"{{ request()->status === 'pending' ? 'selected' : '' }}>Pending Characters</option>
+
+                    @can('approveAny', Nova\Characters\Models\Character::class)
+                        <option value="{{ route('characters.index', 'status=pending') }}"{{ request()->status === 'pending' ? 'selected' : '' }}>Pending Characters</option>
+                    @endcan
+
                     <option value="{{ route('characters.index', 'status=inactive') }}"{{ request()->status === 'inactive' ? 'selected' : '' }}>Inactive Characters</option>
                     <option value="{{ route('characters.index') }}"{{ !request()->has('status') ? 'selected' : '' }}>All Characters</option>
                 </select>
-            </div>
+            </x-content-box>
             <div class="hidden sm:block">
-                <div class="border-b border-gray-200 px-4 | sm:px-6">
+                <x-content-box class="border-b border-gray-6" height="none">
                     <nav class="-mb-px flex">
                         <a
                             href="{{ route('characters.index', 'status=active') }}"
-                            class="whitespace-no-wrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'active') border-blue-500 text-blue-600 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
+                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'active') border-blue-6 text-blue-9 @else text-gray-9 hover:text-gray-11 hover:border-gray-6 @endif"
                         >
                             Active
                         </a>
-                        <a
-                            href="{{ route('characters.index', 'status=pending') }}"
-                            class="whitespace-no-wrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'pending') border-blue-500 text-blue-600 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
-                        >
-                            Pending
-                        </a>
+
+                        @can('approveAny',  'Nova\Characters\Models\Character')
+                            <a
+                                href="{{ route('characters.index', 'status=pending') }}"
+                                class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'pending') border-blue-6 text-blue-9 @else text-gray-9 hover:text-gray-11 hover:border-gray-6 @endif"
+                            >
+                                Pending
+                            </a>
+                        @endcan
+
                         <a
                             href="{{ route('characters.index', 'status=inactive') }}"
-                            class="whitespace-no-wrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'inactive') border-blue-500 text-blue-600 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
+                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'inactive') border-blue-6 text-blue-9 @else text-gray-9 hover:text-gray-11 hover:border-gray-6 @endif"
                         >
                             Inactive
                         </a>
                         <a
                             href="{{ route('characters.index') }}"
-                            class="whitespace-no-wrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (!request()->has('status')) border-blue-500 text-blue-600 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
+                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (!request()->has('status')) border-blue-6 text-blue-9 @else text-gray-9 hover:text-gray-11 hover:border-gray-6 @endif"
                         >
                             All Characters
                         </a>
                     </nav>
-                </div>
+                </x-content-box>
             </div>
         </div>
 
-        <div class="px-4 py-2 | sm:px-6 sm:py-3">
+        <x-content-box height="xs">
             <x-search-filter placeholder="Find a character..." :search="$search" />
-        </div>
+        </x-content-box>
 
         <ul>
-        @forelse ($characters as $character)
-            <li class="border-t border-gray-200">
-                <div class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
-                    <div class="flex items-center px-4 py-4 | sm:px-6">
-                        <div class="min-w-0 flex-1 flex items-center">
-                            <div class="min-w-0 flex-1 pr-4 | md:grid md:grid-cols-2 md:gap-4">
-                                <div>
-                                    <x-avatar-meta :src="$character->avatar_url">
-                                        <x-slot name="primaryMeta">
-                                            {{ optional(optional($character->rank)->name)->name }}
-                                            {{ $character->name }}
-                                        </x-slot>
+            @forelse ($characters as $character)
+                <li class="border-t border-gray-6">
+                    <div class="block hover:bg-gray-2 focus:outline-none focus:bg-gray-2 transition duration-150 ease-in-out">
+                        <x-content-box class="flex items-center">
+                            <div class="min-w-0 flex-1 flex items-center">
+                                <div class="min-w-0 flex-1 pr-4 md:grid md:grid-cols-2 md:gap-4">
+                                    <div>
+                                        <x-avatar-meta :src="$character->avatar_url">
+                                            <x-slot name="primaryMeta">
+                                                {{ optional(optional($character->rank)->name)->name }}
+                                                {{ $character->name }}
+                                            </x-slot>
 
-                                        <x-slot name="secondaryMeta">
-                                            {{ $character->positions->implode('name', ' & ') }}
-                                        </x-slot>
-                                    </x-avatar-meta>
-                                </div>
-                                <div>
-                                    <div class="flex">
-                                        <x-badge size="xs" :color="$character->type->color()">
-                                            {{ $character->type->displayName() }}
-                                        </x-badge>
+                                            <x-slot name="secondaryMeta">
+                                                {{ $character->positions->implode('name', ' & ') }}
+                                            </x-slot>
+                                        </x-avatar-meta>
                                     </div>
-                                    @if ($character->users->count() > 0)
-                                        <div class="hidden mt-2 items-center text-sm text-gray-500 | sm:flex">
-                                            @if ($character->users->count() === 1)
-                                                @icon('user', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
-                                            @else
-                                                @icon('users', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400')
-                                            @endif
-
-                                            <span>
-                                                Played by {{ $character->users->implode('name', ' & ') }}
-                                            </span>
+                                    <div>
+                                        <div class="flex">
+                                            <x-badge size="xs" :color="$character->type->color()">
+                                                {{ $character->type->displayName() }}
+                                            </x-badge>
                                         </div>
-                                    @endif
+                                        @if ($character->users->count() > 0)
+                                            <div class="hidden mt-2 items-center text-sm text-gray-11 sm:flex">
+                                                @if ($character->users->count() === 1)
+                                                    @icon('user', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-9')
+                                                @else
+                                                    @icon('users', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-9')
+                                                @endif
+
+                                                <span>
+                                                    Played by {{ $character->users->implode('name', ' & ') }}
+                                                </span>
+                                            </div>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="leading-0">
-                            <x-dropdown placement="bottom-end" class="text-gray-400 hover:text-gray-500">
-                                <x-slot name="trigger">@icon('more', 'h-6 w-6')</x-slot>
+                            <div class="leading-0">
+                                <x-dropdown placement="bottom-end">
+                                    <x-slot name="trigger">
+                                        <x-icon.more class="h-6 w-6" />
+                                    </x-slot>
 
-                                @can('view', $character)
-                                    <a href="{{ route('characters.show', $character) }}" class="{{ $component->link() }}" data-cy="view">
-                                        @icon('show', $component->icon())
-                                        <span>View</span>
-                                    </a>
-                                @endcan
+                                    <x-dropdown.group>
+                                        @can('view', $character)
+                                            <x-dropdown.item :href="route('characters.show', $character)" icon="show" data-cy="view">
+                                                <span>View</span>
+                                            </x-dropdown.item>
+                                        @endcan
 
-                                @can('update', $character)
-                                    <a href="{{ route('characters.edit', $character) }}" class="{{ $component->link() }}" data-cy="edit">
-                                        @icon('edit', $component->icon())
-                                        <span>Edit</span>
-                                    </a>
-                                @endcan
+                                        @can('update', $character)
+                                            <x-dropdown.item :href="route('characters.edit', $character)" icon="edit" data-cy="edit">
+                                                <span>Edit</span>
+                                            </x-dropdown.item>
+                                        @endcan
+                                    </x-dropdown.group>
 
-                                @can('activate', $character)
-                                    <div class="{{ $component->divider() }}"></div>
-                                    <x-form :action="route('characters.activate', $character)" id="activate"></x-form>
-                                    <button
-                                        type="submit"
-                                        form="activate"
-                                        class="{{ $component->link() }}"
-                                        data-cy="activate"
-                                    >
-                                        @icon('check-alt', $component->icon())
-                                        <span>Activate</span>
-                                    </button>
-                                @endcan
+                                    @can('activate', $character)
+                                        <x-dropdown.group>
+                                            <x-dropdown.item type="submit" icon="check" form="activate" data-cy="activate">
+                                                <span>Activate</span>
 
-                                @can('deactivate', $character)
-                                    <div class="{{ $component->divider() }}"></div>
-                                    <button
-                                        x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-deactivate', {{ json_encode($character) }});"
-                                        type="button"
-                                        form="deactivate"
-                                        class="{{ $component->link() }}"
-                                        data-cy="deactivate"
-                                    >
-                                        @icon('remove-alt', $component->icon())
-                                        <span>Deactivate</span>
-                                    </button>
-                                @endcan
+                                                <x-slot name="buttonForm">
+                                                    <x-form :action="route('characters.activate', $character)" id="activate" />
+                                                </x-slot>
+                                            </x-dropdown.item>
+                                        </x-dropdown.group>
+                                    @endcan
 
-                                @can('delete', $character)
-                                    <div class="{{ $component->divider() }}"></div>
-                                    <button
-                                        x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($character) }});"
-                                        class="{{ $component->link() }}"
-                                        data-cy="delete"
-                                    >
-                                        @icon('delete', $component->icon())
-                                        <span>Delete</span>
-                                    </button>
-                                @endcan
-                            </x-dropdown>
-                        </div>
+                                    @can('deactivate', $character)
+                                        <x-dropdown.group>
+                                            <x-dropdown.item type="button" icon="remove" data-cy="deactivate" @click="$dispatch('dropdown-toggle');$dispatch('modal-deactivate', {{ json_encode($character) }});">
+                                                <span>Deactivate</span>
+                                            </x-dropdown.item>
+                                        </x-dropdown.group>
+                                    @endcan
+
+                                    @can('delete', $character)
+                                        <x-dropdown.group>
+                                            <x-dropdown.item-danger type="button" icon="delete" data-cy="delete" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($character) }});">
+                                                <span>Delete</span>
+                                            </x-dropdown.item-danger>
+                                        </x-dropdown.group>
+                                    @endcan
+                                </x-dropdown>
+                            </div>
+                        </x-content-box>
                     </div>
-                </div>
-            </li>
-        @empty
-            <x-search-not-found>
-                No characters found
-            </x-search-not-found>
-        @endforelse
+                </li>
+            @empty
+                <x-search-not-found>
+                    No characters found
+                </x-search-not-found>
+            @endforelse
         </ul>
 
-        <div class="px-4 py-2 border-t border-gray-200 | sm:px-6 sm:py-3">
+        <div class="px-4 py-2 border-t border-gray-6 sm:px-6 sm:py-3">
             {{ $characters->withQueryString()->links() }}
         </div>
     </x-panel>
@@ -232,28 +248,28 @@
 
     <x-modal color="red" title="Delete character?" icon="warning" :url="route('characters.delete')">
         <x-slot name="footer">
-            <span class="flex w-full | sm:col-start-2">
-                <x-button form="form" color="red" :full-width="true">
+            <span class="flex w-full sm:col-start-2">
+                <x-button type="submit" form="form" color="red" full-width>
                     Delete
                 </x-button>
             </span>
-            <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
-                <x-button x-on:click="$dispatch('modal-close')" type="button" color="white" :full-width="true">
+            <span class="mt-3 flex w-full sm:mt-0 sm:col-start-1">
+                <x-button @click="$dispatch('modal-close')" type="button" color="white" full-width>
                     Cancel
                 </x-button>
             </span>
         </x-slot>
     </x-modal>
 
-    <x-modal color="blue" title="Deactivate character?" icon="duplicate" :url="route('characters.confirm-deactivate')" event="modal-deactivate">
+    <x-modal color="blue" title="Deactivate character?" icon="copy" :url="route('characters.confirm-deactivate')" event="modal-deactivate">
         <x-slot name="footer">
-            <span class="flex w-full | sm:col-start-2">
-                <x-button form="form-deactivate" color="blue" :full-width="true">
+            <span class="flex w-full sm:col-start-2">
+                <x-button type="submit" form="form-deactivate" color="blue" full-width>
                     Deactivate
                 </x-button>
             </span>
-            <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
-                <x-button x-on:click="$dispatch('modal-close')" type="button" color="white" :full-width="true">
+            <span class="mt-3 flex w-full sm:mt-0 sm:col-start-1">
+                <x-button @click="$dispatch('modal-close')" type="button" color="white" full-width>
                     Cancel
                 </x-button>
             </span>

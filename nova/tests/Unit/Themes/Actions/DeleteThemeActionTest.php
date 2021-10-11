@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Themes\Actions;
 
-use Tests\TestCase;
-use Nova\Themes\Models\Theme;
-use Nova\Themes\Actions\DeleteTheme;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Storage;
+use Nova\Themes\Actions\DeleteTheme;
+use Nova\Themes\Models\Theme;
+use Tests\TestCase;
 
 /**
  * @group themes
@@ -34,7 +36,7 @@ class DeleteThemeActionTest extends TestCase
             'location' => 'slate',
         ]));
 
-        $this->theme = create(Theme::class, [
+        $this->theme = Theme::factory()->create([
             'name' => 'Slate',
             'location' => 'slate',
         ]);

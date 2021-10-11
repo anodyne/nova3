@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
-use Illuminate\Foundation\Application;
 use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Foundation\Application;
 
 trait CreatesApplication
 {

@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Stories\Controllers;
 
 use Illuminate\Http\Request;
-use Nova\Stories\Models\Story;
-use Nova\Stories\Actions\ReorderStories;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Stories\Actions\ReorderStories;
+use Nova\Stories\Models\Story;
 use Nova\Stories\Responses\ReorderStoriesResponse;
 
 class ReorderStoriesController extends Controller
@@ -19,7 +21,7 @@ class ReorderStoriesController extends Controller
 
     public function showReorder(Request $request)
     {
-        $this->authorize('update', new Story);
+        $this->authorize('update', new Story());
 
         $stories = Story::hasParent()
             ->defaultOrder()
@@ -31,11 +33,11 @@ class ReorderStoriesController extends Controller
         ]);
     }
 
-    public function reorder(Request $request, ReorderStories $action)
+    public function reorder(Request $request)
     {
-        $this->authorize('update', new Story);
+        $this->authorize('update', new Story());
 
-        $action->execute($request->sort);
+        ReorderStories::run($request->sort);
 
         return redirect()
             ->route('stories.index')

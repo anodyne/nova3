@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Characters\Actions;
 
-use Tests\TestCase;
-use Nova\Users\Models\User;
-use Nova\Characters\Models\Character;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Characters\Actions\AssignCharacterOwners;
 use Nova\Characters\DataTransferObjects\AssignCharacterOwnersData;
+use Nova\Characters\Models\Character;
+use Nova\Users\Models\User;
+use Tests\TestCase;
 
 /**
  * @group characters
@@ -27,13 +29,13 @@ class AssignCharacterOwnersActionTest extends TestCase
 
         $this->action = app(AssignCharacterOwners::class);
 
-        $this->character = create(Character::class, [], ['status:active']);
+        $this->character = Character::factory()->active()->create();
     }
 
     /** @test **/
     public function itAssignsOneUserToACharacterWithoutAnyUsers()
     {
-        $first = create(User::class, [], ['status:active']);
+        $first = User::factory()->active()->create();
 
         $data = new AssignCharacterOwnersData([
             'users' => [$first->id],
@@ -51,7 +53,7 @@ class AssignCharacterOwnersActionTest extends TestCase
     /** @test **/
     public function itAssignsOneUserToACharacterWithoutAnyUsersAndSetsTheCharacterAsThePrimaryCharacterForThatUser()
     {
-        $first = create(User::class, [], ['status:active']);
+        $first = User::factory()->active()->create();
 
         $data = new AssignCharacterOwnersData([
             'users' => [$first->id],
@@ -71,8 +73,8 @@ class AssignCharacterOwnersActionTest extends TestCase
     /** @test **/
     public function itAssignsMultipleUsersToACharacterWithoutAnyUsers()
     {
-        $first = create(User::class, [], ['status:active']);
-        $second = create(User::class, [], ['status:active']);
+        $first = User::factory()->active()->create();
+        $second = User::factory()->active()->create();
 
         $data = new AssignCharacterOwnersData([
             'users' => [$first->id, $second->id],
@@ -92,8 +94,8 @@ class AssignCharacterOwnersActionTest extends TestCase
     /** @test **/
     public function itAssignsMultipleUsersToACharacterWithoutAnyUsersAndSetsItAsThePrimaryCharacterForOneOfTheUsers()
     {
-        $first = create(User::class, [], ['status:active']);
-        $second = create(User::class, [], ['status:active']);
+        $first = User::factory()->active()->create();
+        $second = User::factory()->active()->create();
 
         $data = new AssignCharacterOwnersData([
             'users' => [$first->id, $second->id],
@@ -115,8 +117,8 @@ class AssignCharacterOwnersActionTest extends TestCase
     /** @test **/
     public function itAssignsMultipleUsersToACharacterWithoutAnyUsersAndSetsItAsThePrimaryCharacterForAllUsers()
     {
-        $first = create(User::class, [], ['status:active']);
-        $second = create(User::class, [], ['status:active']);
+        $first = User::factory()->active()->create();
+        $second = User::factory()->active()->create();
 
         $data = new AssignCharacterOwnersData([
             'users' => [$first->id, $second->id],
@@ -138,9 +140,9 @@ class AssignCharacterOwnersActionTest extends TestCase
     /** @test **/
     public function itAddsAUserToACharacterWithMultipleUsers()
     {
-        $first = create(User::class, [], ['status:active']);
-        $second = create(User::class, [], ['status:active']);
-        $third = create(User::class, [], ['status:active']);
+        $first = User::factory()->active()->create();
+        $second = User::factory()->active()->create();
+        $third = User::factory()->active()->create();
 
         $this->character->users()->attach($first);
         $this->character->users()->attach($second);
@@ -165,9 +167,9 @@ class AssignCharacterOwnersActionTest extends TestCase
     /** @test **/
     public function itUpdatesTheUsersOnACharacterWithExistingUsers()
     {
-        $first = create(User::class, [], ['status:active']);
-        $second = create(User::class, [], ['status:active']);
-        $third = create(User::class, [], ['status:active']);
+        $first = User::factory()->active()->create();
+        $second = User::factory()->active()->create();
+        $third = User::factory()->active()->create();
 
         $this->character->users()->attach($first);
         $this->character->users()->attach($second);
@@ -191,9 +193,9 @@ class AssignCharacterOwnersActionTest extends TestCase
     /** @test **/
     public function itUpdatesTheUsersOnACharacterWithExistingUsersAndRemovesTheUserWithThePrimaryCharacter()
     {
-        $first = create(User::class, [], ['status:active']);
-        $second = create(User::class, [], ['status:active']);
-        $third = create(User::class, [], ['status:active']);
+        $first = User::factory()->active()->create();
+        $second = User::factory()->active()->create();
+        $third = User::factory()->active()->create();
 
         $this->character->users()->attach($first, ['primary' => true]);
         $this->character->users()->attach($second);
@@ -218,8 +220,8 @@ class AssignCharacterOwnersActionTest extends TestCase
     /** @test **/
     public function itUpdatesThePrimaryUserForACharacter()
     {
-        $first = create(User::class, [], ['status:active']);
-        $second = create(User::class, [], ['status:active']);
+        $first = User::factory()->active()->create();
+        $second = User::factory()->active()->create();
 
         $this->character->users()->attach($first, ['primary' => true]);
         $this->character->users()->attach($second);
@@ -244,9 +246,9 @@ class AssignCharacterOwnersActionTest extends TestCase
     /** @test **/
     public function itUpdatesTheUsersForACharacterWhileChangingThePrimaryUserForACharacter()
     {
-        $first = create(User::class, [], ['status:active']);
-        $second = create(User::class, [], ['status:active']);
-        $third = create(User::class, [], ['status:active']);
+        $first = User::factory()->active()->create();
+        $second = User::factory()->active()->create();
+        $third = User::factory()->active()->create();
 
         $this->character->users()->attach($first, ['primary' => true]);
         $this->character->users()->attach($second);
@@ -272,9 +274,9 @@ class AssignCharacterOwnersActionTest extends TestCase
     /** @test **/
     public function itProperlyUpdatesThePrimaryCharacterOfAUser()
     {
-        $user = create(User::class, [], ['status:active']);
+        $user = User::factory()->active()->create();
 
-        $oldPrimaryCharacter = create(Character::class, [], ['status:active']);
+        $oldPrimaryCharacter = Character::factory()->active()->create();
         $oldPrimaryCharacter->users()->attach($user, ['primary' => true]);
 
         $data = new AssignCharacterOwnersData([
@@ -301,12 +303,12 @@ class AssignCharacterOwnersActionTest extends TestCase
     /** @test **/
     public function itProperlyUpdatesThePrimaryCharacterOfMultipleUsers()
     {
-        $adam = create(User::class, [], ['status:active']);
-        $adamOldPrimaryCharacter = create(Character::class, [], ['status:active']);
+        $adam = User::factory()->active()->create();
+        $adamOldPrimaryCharacter = Character::factory()->active()->create();
         $adamOldPrimaryCharacter->users()->attach($adam, ['primary' => true]);
 
-        $ben = create(User::class, [], ['status:active']);
-        $benOldPrimaryCharacter = create(Character::class, [], ['status:active']);
+        $ben = User::factory()->active()->create();
+        $benOldPrimaryCharacter = Character::factory()->active()->create();
         $benOldPrimaryCharacter->users()->attach($ben, ['primary' => true]);
 
         $data = new AssignCharacterOwnersData([

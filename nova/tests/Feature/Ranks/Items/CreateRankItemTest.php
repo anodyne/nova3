@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Ranks\Items;
 
-use Tests\TestCase;
-use Nova\Ranks\Models\RankItem;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\Ranks\Events\RankItemCreated;
+use Nova\Ranks\Models\RankItem;
 use Nova\Ranks\Requests\CreateRankItemRequest;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 /**
  * @group ranks
@@ -34,7 +36,7 @@ class CreateRankItemTest extends TestCase
 
         $response = $this->post(
             route('ranks.items.store'),
-            $rankItemData = make(RankItem::class)->toArray()
+            $rankItemData = RankItem::factory()->make()->toArray()
         );
         $response->assertSuccessful();
 
@@ -55,7 +57,7 @@ class CreateRankItemTest extends TestCase
 
         $this->post(
             route('ranks.items.store'),
-            make(RankItem::class)->toArray()
+            RankItem::factory()->make()->toArray()
         );
 
         Event::assertDispatched(RankItemCreated::class);
@@ -77,7 +79,7 @@ class CreateRankItemTest extends TestCase
 
         $response = $this->post(
             route('ranks.items.store'),
-            make(RankItem::class)->toArray()
+            RankItem::factory()->make()->toArray()
         );
         $response->assertForbidden();
     }
@@ -94,7 +96,7 @@ class CreateRankItemTest extends TestCase
     {
         $response = $this->postJson(
             route('ranks.items.store'),
-            make(RankItem::class)->toArray()
+            RankItem::factory()->make()->toArray()
         );
         $response->assertUnauthorized();
     }

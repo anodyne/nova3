@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Characters;
 
-use Tests\TestCase;
-use Illuminate\Support\Facades\Event;
-use Nova\Characters\Models\Character;
-use Nova\Characters\Events\CharacterDeleted;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
+use Nova\Characters\Events\CharacterDeleted;
 use Nova\Characters\Events\CharacterDeletedByAdmin;
+use Nova\Characters\Models\Character;
+use Tests\TestCase;
 
 /**
  * @group characters
@@ -22,7 +24,7 @@ class DeleteCharacterTest extends TestCase
     {
         parent::setUp();
 
-        $this->character = create(Character::class, [], ['status:active']);
+        $this->character = Character::factory()->active()->create();
     }
 
     /** @test **/

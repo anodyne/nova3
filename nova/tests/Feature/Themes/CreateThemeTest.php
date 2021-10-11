@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Themes;
 
-use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Arr;
-use Nova\Themes\Models\Theme;
-use Nova\Themes\Events\ThemeCreated;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
+use Nova\Themes\Events\ThemeCreated;
+use Nova\Themes\Models\Theme;
 use Nova\Themes\Requests\CreateThemeRequest;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 /**
  * @group themes
@@ -28,7 +30,7 @@ class CreateThemeTest extends TestCase
 
         $this->disk = Storage::fake('themes');
 
-        $this->theme = create(Theme::class);
+        $this->theme = Theme::factory()->create();
     }
 
     /** @test **/
@@ -49,7 +51,7 @@ class CreateThemeTest extends TestCase
 
         $response = $this->post(
             route('themes.store'),
-            $theme = make(Theme::class)->toArray()
+            $theme = Theme::factory()->make()->toArray()
         );
         $response->assertSuccessful();
 
@@ -71,7 +73,7 @@ class CreateThemeTest extends TestCase
 
         $this->signInWithPermission('theme.create');
 
-        $this->post(route('themes.store'), make(Theme::class)->toArray());
+        $this->post(route('themes.store'), Theme::factory()->make()->toArray());
 
         Event::assertDispatched(ThemeCreated::class);
     }
@@ -92,7 +94,7 @@ class CreateThemeTest extends TestCase
 
         $response = $this->post(
             route('themes.store'),
-            make(Theme::class)->toArray()
+            Theme::factory()->make()->toArray()
         );
         $response->assertForbidden();
     }
@@ -109,7 +111,7 @@ class CreateThemeTest extends TestCase
     {
         $response = $this->postJson(
             route('themes.store'),
-            make(Theme::class)->toArray()
+            Theme::factory()->make()->toArray()
         );
         $response->assertUnauthorized();
     }

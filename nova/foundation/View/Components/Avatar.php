@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Foundation\View\Components;
 
 use Illuminate\View\Component;
@@ -49,7 +51,7 @@ class Avatar extends Component
                 break;
         }
 
-        return 'inline-block relative rounded-full ' . $size;
+        return 'inline-block relative rounded-full bg-gray-1 ' . $size;
     }
 
     public function render()

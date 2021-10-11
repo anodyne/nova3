@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Users\Actions;
 
-use Tests\TestCase;
-use Nova\Users\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Nova\Users\Actions\UploadUserAvatar;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Users\Models\User;
+use Tests\TestCase;
 
 /**
  * @group users
@@ -28,7 +30,7 @@ class UploadUserAvatarActionTest extends TestCase
 
         $this->action = app(UploadUserAvatar::class);
 
-        $this->user = create(User::class, [], ['status:active']);
+        $this->user = User::factory()->active()->create();
     }
 
     /** @test **/

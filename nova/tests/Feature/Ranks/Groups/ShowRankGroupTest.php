@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Ranks\Groups;
 
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Ranks\Models\RankGroup;
+use Tests\TestCase;
 
 /**
  * @group ranks
@@ -19,7 +21,7 @@ class ShowRankGroupTest extends TestCase
     {
         parent::setUp();
 
-        $this->group = create(RankGroup::class);
+        $this->group = RankGroup::factory()->create();
     }
 
     /** @test **/

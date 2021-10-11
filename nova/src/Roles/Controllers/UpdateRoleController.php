@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Roles\Controllers;
 
-use Nova\Roles\Models\Role;
-use Nova\Roles\Models\Permission;
-use Nova\Roles\Actions\UpdateRoleManager;
-use Nova\Roles\Requests\UpdateRoleRequest;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Roles\Actions\UpdateRoleManager;
+use Nova\Roles\Models\Permission;
+use Nova\Roles\Models\Role;
+use Nova\Roles\Requests\UpdateRoleRequest;
 use Nova\Roles\Responses\UpdateRoleResponse;
 
 class UpdateRoleController extends Controller
@@ -28,14 +30,11 @@ class UpdateRoleController extends Controller
         ]);
     }
 
-    public function update(
-        UpdateRoleRequest $request,
-        UpdateRoleManager $action,
-        Role $role
-    ) {
+    public function update(UpdateRoleRequest $request, Role $role)
+    {
         $this->authorize('update', $role);
 
-        $role = $action->execute($role, $request);
+        $role = UpdateRoleManager::run($role, $request);
 
         return back()->withToast("{$role->display_name} role was updated");
     }

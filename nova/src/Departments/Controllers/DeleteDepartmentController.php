@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Departments\Controllers;
 
 use Illuminate\Http\Request;
-use Nova\Departments\Models\Department;
-use Nova\Foundation\Controllers\Controller;
 use Nova\Departments\Actions\DeleteDepartment;
+use Nova\Departments\Models\Department;
 use Nova\Departments\Responses\DeleteDepartmentResponse;
+use Nova\Foundation\Controllers\Controller;
 
 class DeleteDepartmentController extends Controller
 {
@@ -26,11 +28,11 @@ class DeleteDepartmentController extends Controller
         ]);
     }
 
-    public function destroy(DeleteDepartment $action, Department $department)
+    public function destroy(Department $department)
     {
         $this->authorize('delete', $department);
 
-        $action->execute($department);
+        DeleteDepartment::run($department);
 
         return redirect()
             ->route('departments.index')

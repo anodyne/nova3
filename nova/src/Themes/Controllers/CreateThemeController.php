@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Themes\Controllers;
 
-use Nova\Themes\Models\Theme;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Themes\Actions\CreateThemeManager;
+use Nova\Themes\Models\Theme;
 use Nova\Themes\Requests\CreateThemeRequest;
 use Nova\Themes\Responses\CreateThemeResponse;
 

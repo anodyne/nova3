@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Roles;
 
-use Tests\TestCase;
-use Nova\Roles\Models\Role;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Roles\Models\Role;
+use Tests\TestCase;
 
 /**
  * @group roles
@@ -54,7 +56,7 @@ class ManageRolesTest extends TestCase
     {
         $this->signInWithPermission('role.create');
 
-        create(Role::class, [
+        Role::factory()->create([
             'display_name' => 'barbaz',
         ]);
 
@@ -74,7 +76,7 @@ class ManageRolesTest extends TestCase
     {
         $this->signInWithPermission('role.create');
 
-        create(Role::class, [
+        Role::factory()->create([
             'name' => 'foobar',
         ]);
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Users;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -26,15 +28,15 @@ class UserCharactersTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = create(User::class, [], ['status:active']);
+        $this->user = User::factory()->active()->create();
 
-        $this->activePrimaryCharacter = create(Character::class, [], ['status:active']);
+        $this->activePrimaryCharacter = Character::factory()->active()->create();
         $this->activePrimaryCharacter->users()->attach($this->user, ['primary' => true]);
 
-        $this->secondaryCharacter = create(Character::class, [], ['status:active']);
+        $this->secondaryCharacter = Character::factory()->active()->create();
         $this->secondaryCharacter->users()->attach($this->user);
 
-        $this->inactiveCharacter = create(Character::class, [], ['status:inactive']);
+        $this->inactiveCharacter = Character::factory()->inactive()->create();
         $this->inactiveCharacter->users()->attach($this->user);
 
         $this->user->refresh();

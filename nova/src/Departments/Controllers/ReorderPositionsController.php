@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Departments\Controllers;
 
 use Illuminate\Http\Request;
-use Nova\Departments\Models\Position;
-use Nova\Departments\Models\Department;
-use Nova\Foundation\Controllers\Controller;
 use Nova\Departments\Actions\ReorderPositions;
+use Nova\Departments\Models\Department;
+use Nova\Departments\Models\Position;
+use Nova\Foundation\Controllers\Controller;
 
 class ReorderPositionsController extends Controller
 {
@@ -17,14 +19,11 @@ class ReorderPositionsController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(
-        Request $request,
-        ReorderPositions $action,
-        Department $department
-    ) {
-        $this->authorize('update', new Position);
+    public function __invoke(Request $request, Department $department)
+    {
+        $this->authorize('update', new Position());
 
-        $action->execute($request->sort);
+        ReorderPositions::run($request->sort);
 
         return redirect()
             ->route('positions.index', $department)

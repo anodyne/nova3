@@ -1,22 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Roles\Actions;
 
-use Nova\Roles\Models\Role;
+use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Foundation\WordGenerator;
+use Nova\Roles\Models\Role;
 
 class DuplicateRole
 {
-    public function execute(Role $originalRole): Role
-    {
-        $role = $originalRole->replicate();
+    use AsAction;
 
-        $role->name = implode('-', (new WordGenerator)->words(2));
+    public function handle(Role $original): Role
+    {
+        $role = $original->replicate();
+
+        $role->name = implode('-', (new WordGenerator())->words(2));
         $role->display_name = "Copy of {$role->display_name}";
 
         $role->save();
 
-        $role->syncPermissions($originalRole->permissions);
+        $role->syncPermissions($original->permissions);
 
         return $role->refresh();
     }

@@ -1,19 +1,188 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Themes\Actions;
 
-use Illuminate\Support\Facades\Artisan;
+use Illuminate\Console\Command;
+use Illuminate\Filesystem\FilesystemManager;
+use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Themes\DataTransferObjects\ThemeData;
+use Nova\Themes\Exceptions\ThemeException;
+use Throwable;
 
 class SetupThemeDirectory
 {
-    public function execute(ThemeData $data): void
+    use AsAction;
+
+    public string $commandSignature = 'nova:make-theme';
+
+    public string $commandDescription = 'Scaffold a new theme.';
+
+    protected ThemeData $data;
+
+    public function __construct(FilesystemManager $files)
     {
-        Artisan::call('nova:make-theme', [
-            'name' => $data->name,
-            '--location' => $data->location,
-            '--preview' => $data->preview,
-            '--variants' => $data->variants,
-        ]);
+        $this->files = $files->disk('themes');
+    }
+
+    public function handle(ThemeData $data): void
+    {
+        $this->data = $data;
+
+        try {
+            $this->createThemeDirectory();
+
+            $this->createThemeInstallFile();
+
+            $this->createThemeClass();
+
+            $this->createThemeDesignDirectoryAndStylesheet();
+
+            $this->createThemeVariants();
+        } catch (Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function asCommand(Command $command): void
+    {
+        try {
+            $this->handle(new ThemeData([
+                'name' => $command->argument('name'),
+                'location' => $command->option('location'),
+                'preview' => $command->option('preview'),
+                'variants' => $command->option('variants'),
+            ]));
+
+            $command->info('Theme scaffold created successfully.');
+        } catch (Throwable $th) {
+            $command->error($th->getMessage());
+        }
+    }
+
+    /**
+     * Create the theme directory.
+     *
+     * @throws \Nova\Themes\Exceptions\ThemeException
+     *
+     * @return void
+     */
+    protected function createThemeDirectory(): void
+    {
+        $location = $this->getThemeLocation();
+
+        throw_if(
+            $this->files->exists($location),
+            ThemeException::themeAlreadyExists($location)
+        );
+
+        $this->files->makeDirectory($location);
+    }
+
+    /**
+     * Create the theme.json file.
+     *
+     * @return void
+     */
+    protected function createThemeInstallFile()
+    {
+        $stub = file_get_contents(__DIR__ . '/../stubs/theme.json.stub');
+
+        $stub = str_replace(
+            ['DummyName', 'DummyLocation', 'DummyPreview'],
+            [
+                $this->getThemeName(),
+                $this->getThemeLocation(),
+                $this->data->preview,
+            ],
+            $stub
+        );
+
+        $this->files->put($this->getThemeLocation() . '/theme.json', $stub);
+    }
+
+    /**
+     * Create the Theme.php file.
+     *
+     * @return void
+     */
+    protected function createThemeClass()
+    {
+        $stub = file_get_contents(__DIR__ . '/../stubs/theme.php.stub');
+
+        $stub = str_replace(
+            ['DummyNamespace', 'DummyLocation'],
+            [$this->getThemeLocation(), $this->getThemeLocation()],
+            $stub
+        );
+
+        $this->files->put($this->getThemeLocation() . '/Theme.php', $stub);
+    }
+
+    /**
+     * Create the design directory and add the custom.css file to it.
+     *
+     * @return void
+     */
+    protected function createThemeDesignDirectoryAndStylesheet()
+    {
+        $this->files->makeDirectory($this->getThemeLocation() . '/design');
+
+        $this->createStylesheet('custom.css');
+    }
+
+    /**
+     * Create the variants directory and add the stylesheets.
+     *
+     * @return void
+     */
+    protected function createThemeVariants()
+    {
+        if ($variants = $this->data->variants) {
+            $this->files->makeDirectory($this->getThemeLocation() . '/design/variants');
+
+            collect($variants)->each(
+                fn ($variant) => $this->createStylesheet("variants/{trim($variant)}.css")
+            );
+        }
+    }
+
+    /**
+     * Create a new stylesheet.
+     *
+     * @param  string  $stylesheet
+     *
+     * @return void
+     */
+    protected function createStylesheet($stylesheet)
+    {
+        $stub = file_get_contents(__DIR__ . '/../stubs/custom.css.stub');
+
+        $this->files->put($this->getThemeLocation() . "/design/{$stylesheet}", $stub);
+    }
+
+    /**
+     * Get the location of the theme.
+     *
+     * @return string
+     */
+    protected function getThemeLocation(): string
+    {
+        if ($location = $this->data->location) {
+            return strtolower($location);
+        }
+
+        return strtolower($this->getThemeName());
+    }
+
+    /**
+     * Get the name of the theme.
+     *
+     * @return string
+     */
+    protected function getThemeName(): string
+    {
+        return $this->data->name;
     }
 }

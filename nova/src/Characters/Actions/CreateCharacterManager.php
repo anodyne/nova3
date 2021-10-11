@@ -1,58 +1,45 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Characters\Actions;
 
 use Illuminate\Http\Request;
-use Nova\Characters\Models\Character;
-use Nova\Characters\DataTransferObjects\CharacterData;
+use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Characters\DataTransferObjects\AssignCharacterOwnersData;
 use Nova\Characters\DataTransferObjects\AssignCharacterPositionsData;
+use Nova\Characters\DataTransferObjects\CharacterData;
+use Nova\Characters\Models\Character;
 
 class CreateCharacterManager
 {
-    protected $assignCharacterOwners;
+    use AsAction;
 
-    protected $assignCharacterPositions;
-
-    protected $createCharacter;
-
-    protected $setCharacterType;
-
-    protected $uploadCharacterAvatar;
-
-    public function __construct(
-        CreateCharacter $createCharacter,
-        AssignCharacterPositions $assignCharacterPositions,
-        AssignCharacterOwners $assignCharacterOwners,
-        SetCharacterType $setCharacterType,
-        UploadCharacterAvatar $uploadCharacterAvatar
-    ) {
-        $this->assignCharacterOwners = $assignCharacterOwners;
-        $this->assignCharacterPositions = $assignCharacterPositions;
-        $this->createCharacter = $createCharacter;
-        $this->setCharacterType = $setCharacterType;
-        $this->uploadCharacterAvatar = $uploadCharacterAvatar;
-    }
-
-    public function execute(Request $request): Character
+    public function handle(Request $request): Character
     {
-        $character = $this->createCharacter->execute(
+        $character = CreateCharacter::run(
             CharacterData::fromRequest($request)
         );
 
-        $character = $this->assignCharacterOwners->execute(
-            $character,
-            AssignCharacterOwnersData::fromRequest($request)
-        );
+        if ($request->self_assign) {
+            $character = SelfAssignCharacter::run($character);
+        } else {
+            $character = AssignCharacterOwners::run(
+                $character,
+                AssignCharacterOwnersData::fromRequest($request)
+            );
+        }
 
-        $character = $this->assignCharacterPositions->execute(
+        $character = AssignCharacterPositions::run(
             $character,
             AssignCharacterPositionsData::fromRequest($request)
         );
 
-        $character = $this->setCharacterType->execute($character);
+        $character = SetCharacterType::run($character);
 
-        $this->uploadCharacterAvatar->execute($character, $request->avatar_path);
+        UploadCharacterAvatar::run($character, $request->avatar_path);
+
+        SendPendingCharacterNotification::run($character);
 
         return $character->refresh();
     }

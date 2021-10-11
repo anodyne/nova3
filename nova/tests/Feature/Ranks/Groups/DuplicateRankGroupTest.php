@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Ranks\Groups;
 
-use Tests\TestCase;
-use Nova\Ranks\Models\RankItem;
-use Nova\Ranks\Models\RankGroup;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\Ranks\Events\RankGroupDuplicated;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Ranks\Models\RankGroup;
+use Tests\TestCase;
 
 /**
  * @group ranks
@@ -22,13 +23,12 @@ class DuplicateRankGroupTest extends TestCase
     {
         parent::setUp();
 
-        $this->group = create(RankGroup::class, [
-            'name' => 'Command',
-        ]);
-
-        create(RankItem::class, [
-            'group_id' => $this->group,
-        ]);
+        $this->group = RankGroup::factory()
+            ->hasRanks(1, function (array $attributes, RankGroup $group) {
+                return ['group_id' => $group->id];
+            })->create([
+                'name' => 'Command',
+            ]);
     }
 
     /** @test **/

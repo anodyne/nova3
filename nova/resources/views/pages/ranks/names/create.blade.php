@@ -1,4 +1,4 @@
-@extends($__novaTemplate)
+@extends($meta->template)
 
 @section('content')
     <x-page-header title="Add Rank Name">
@@ -17,7 +17,7 @@
 
             <x-form.footer>
                 <x-button type="submit" color="blue">Add Rank Name</x-button>
-                <x-button-link :href="route('ranks.names.index')" color="white">Cancel</x-button-link>
+                <x-link :href="route('ranks.names.index')" color="white">Cancel</x-link>
             </x-form.footer>
         </x-form>
     </x-panel>

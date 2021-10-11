@@ -1,17 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Departments\Events;
 
+use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Nova\Departments\Models\Department;
-use Illuminate\Foundation\Events\Dispatchable;
 
 class DepartmentUpdated
 {
     use Dispatchable;
     use SerializesModels;
 
-    public $department;
+    public Department $department;
 
     public function __construct(Department $department)
     {

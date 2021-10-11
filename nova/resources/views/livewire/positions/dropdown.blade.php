@@ -1,23 +1,23 @@
 <div
     x-data="{ open: false }"
-    x-on:positions-dropdown-close.window="open = false"
-    x-on:keydown.window.escape="open = false"
-    x-on:click.away="open = false"
+    @positions-dropdown-close.window="open = false"
+    @keydown.window.escape="open = false"
+    @click.away="open = false"
     class="relative inline-block text-left w-full"
 >
     <div>
-        <span class="rounded-md shadow-sm">
+        <span class="relative flex w-full rounded-md shadow-sm">
             <button
-                x-on:click="open = !open"
+                @click="open = !open"
                 type="button"
-                class="flex items-center justify-between cursor-default relative w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150 | sm:text-sm"
+                class="flex items-center justify-between cursor-default relative w-full rounded-md border border-gray-6 bg-gray-1 px-3 py-2 text-left focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-150"
                 aria-haspopup="true"
                 aria-expanded="true"
-                x-bind:aria-expanded="open"
+                :aria-expanded="open"
             >
                 {{ optional($selected)->name ?? 'Pick a position'}}
 
-                <svg class="ml-2 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                <svg class="ml-2 h-5 w-5 text-gray-9" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                 </svg>
             </button>
@@ -36,7 +36,7 @@
         class="origin-top-left absolute left-0 mt-2 w-full rounded-md shadow-lg"
         x-cloak
     >
-        <div class="relative rounded-md bg-white shadow-xs max-h-60 overflow-auto z-10">
+        <div class="relative rounded-md bg-gray-1 ring-1 ring-black ring-opacity-5 max-h-60 overflow-auto z-10">
             @if (! isset($positions))
                 <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                     <div class="block px-4 py-2 text-xs uppercase tracking-wide font-medium text-gray-600">

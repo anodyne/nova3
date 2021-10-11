@@ -1,14 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\PostTypes;
 
-use Tests\TestCase;
-use Nova\PostTypes\Models\PostType;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\PostTypes\Events\PostTypeDuplicated;
-use Nova\PostTypes\DataTransferObjects\Fields;
-use Nova\PostTypes\DataTransferObjects\Options;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\PostTypes\Models\PostType;
+use Tests\TestCase;
 
 /**
  * @group stories
@@ -24,22 +24,10 @@ class DuplicatePostTypeTest extends TestCase
     {
         parent::setUp();
 
-        $this->postType = create(PostType::class, [
+        $this->postType = PostType::factory()->create([
             'key' => 'foo',
             'name' => 'Foo',
         ]);
-        $this->postType->fields = Fields::fromArray([
-            'title' => true,
-            'time' => true,
-            'location' => true,
-            'content' => true,
-        ]);
-        $this->postType->options = Options::fromArray([
-            'notifyUsers' => true,
-            'includeInPostCounts' => true,
-            'multipleAuthors' => true,
-        ]);
-        $this->postType->save();
     }
 
     /** @test **/

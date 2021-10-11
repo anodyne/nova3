@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Ranks\Actions\Groups;
 
-use Tests\TestCase;
-use Nova\Ranks\Models\RankGroup;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Ranks\Actions\UpdateRankGroup;
 use Nova\Ranks\DataTransferObjects\RankGroupData;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Ranks\Models\RankGroup;
+use Tests\TestCase;
 
 /**
  * @group ranks
@@ -25,7 +27,7 @@ class UpdateRankGroupActionTest extends TestCase
 
         $this->action = app(UpdateRankGroup::class);
 
-        $this->group = create(RankGroup::class);
+        $this->group = RankGroup::factory()->create();
     }
 
     /** @test **/

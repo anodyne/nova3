@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Departments\Actions;
 
-use Tests\TestCase;
-use Nova\Departments\Models\Position;
-use Nova\Departments\Actions\DeletePosition;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Departments\Actions\DeletePosition;
+use Nova\Departments\Models\Position;
+use Tests\TestCase;
 
 /**
  * @group departments
@@ -25,7 +27,7 @@ class DeletePositionActionTest extends TestCase
 
         $this->action = app(DeletePosition::class);
 
-        $this->position = create(Position::class);
+        $this->position = Position::factory()->create();
     }
 
     /** @test **/

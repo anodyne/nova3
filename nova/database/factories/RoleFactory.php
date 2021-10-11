@@ -1,24 +1,40 @@
 <?php
 
+declare(strict_types=1);
+
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Nova\Roles\Models\Role;
-use Faker\Generator as Faker;
 
-$factory->define(Role::class, function (Faker $faker) {
-    $name = $faker->words(2, true);
+class RoleFactory extends Factory
+{
+    protected $model = Role::class;
 
-    return [
-        'name' => Str::slug($name),
-        'display_name' => $name,
-        'locked' => false,
-        'default' => false,
-    ];
-});
+    public function definition()
+    {
+        $name = $this->faker->words(2, true);
 
-$factory->state(Role::class, 'default', [
-    'default' => true,
-]);
+        return [
+            'name' => Str::slug($name),
+            'display_name' => $name,
+            'locked' => false,
+            'default' => false,
+        ];
+    }
 
-$factory->state(Role::class, 'locked', [
-    'locked' => true,
-]);
+    public function default()
+    {
+        return $this->state([
+            'default' => true,
+        ]);
+    }
+
+    public function locked()
+    {
+        return $this->state([
+            'locked' => true,
+        ]);
+    }
+}

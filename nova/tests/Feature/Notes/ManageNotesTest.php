@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Notes;
 
-use Tests\TestCase;
-use Nova\Notes\Models\Note;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Notes\Models\Note;
+use Tests\TestCase;
 
 /**
  * @group notes
@@ -19,7 +21,7 @@ class ManageNotesTest extends TestCase
     {
         parent::setUp();
 
-        $this->note = create(Note::class);
+        $this->note = Note::factory()->create();
     }
 
     /** @test **/
@@ -38,7 +40,7 @@ class ManageNotesTest extends TestCase
     {
         $this->signIn();
 
-        $note = create(Note::class, [
+        $note = Note::factory()->create([
             'user_id' => auth()->user(),
         ]);
 
@@ -54,7 +56,7 @@ class ManageNotesTest extends TestCase
     {
         $this->signIn($this->note->author);
 
-        create(Note::class, [
+        Note::factory()->create([
             'user_id' => auth()->user(),
             'title' => 'Foo',
         ]);
@@ -70,7 +72,7 @@ class ManageNotesTest extends TestCase
     {
         $this->signIn($this->note->author);
 
-        create(Note::class, [
+        Note::factory()->create([
             'user_id' => auth()->user(),
             'content' => 'foobar',
         ]);
@@ -86,7 +88,7 @@ class ManageNotesTest extends TestCase
     {
         $this->signIn($this->note->author);
 
-        create(Note::class, [
+        Note::factory()->create([
             'user_id' => auth()->user(),
             'summary' => 'barbaz',
         ]);

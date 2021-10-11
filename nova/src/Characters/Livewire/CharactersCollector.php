@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Characters\Livewire;
 
 use Livewire\Component;
 
 class CharactersCollector extends Component
 {
-    public $characters;
-
     public $characterIds;
+
+    public $characters;
 
     protected $listeners = ['characterSelected' => 'handleCharacterSelected'];
 

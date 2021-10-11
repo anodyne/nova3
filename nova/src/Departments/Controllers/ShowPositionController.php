@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Departments\Controllers;
 
 use Illuminate\Http\Request;
-use Nova\Departments\Models\Position;
-use Nova\Departments\Models\Department;
-use Nova\Foundation\Controllers\Controller;
 use Nova\Departments\Filters\PositionFilters;
-use Nova\Departments\Responses\ShowPositionResponse;
+use Nova\Departments\Models\Department;
+use Nova\Departments\Models\Position;
 use Nova\Departments\Responses\ShowAllPositionsResponse;
+use Nova\Departments\Responses\ShowPositionResponse;
+use Nova\Foundation\Controllers\Controller;
 
 class ShowPositionController extends Controller
 {

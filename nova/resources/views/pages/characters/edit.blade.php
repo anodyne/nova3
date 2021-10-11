@@ -1,4 +1,4 @@
-@extends($__novaTemplate)
+@extends($meta->template)
 
 @section('content')
     <x-page-header :title="$character->name">
@@ -43,52 +43,56 @@
 
             <x-form.footer>
                 <x-button type="submit" color="blue">Update Character</x-button>
-                <x-button-link :href='route("characters.index", "status={$character->status->name()}")' color="white">Cancel</x-button-link>
+                <x-link :href='route("characters.index", "status={$character->status->name()}")' color="white">Cancel</x-link>
             </x-form.footer>
         </x-form>
     </x-panel>
 
     @can('deactivate', $character)
-        <x-panel class="mt-8 p-4 | sm:p-6">
-            <h3 class="text-lg font-medium text-gray-900">
-                Deactivate Character
-            </h3>
-            <div class="mt-2 | sm:flex sm:items-start sm:justify-between">
-                <div class="w-full text-sm text-gray-600">
-                    <p>
-                        When deactivating the character, the owning user(s) will remain at their current status. Pay special attention to deactivating a character who is the only character assigned to a user as it may impede their ability to contribute to stories.
-                    </p>
+        <x-panel class="mt-8">
+            <x-content-box>
+                <h3 class="text-lg font-medium text-gray-12">
+                    Deactivate Character
+                </h3>
+                <div class="mt-2 sm:flex sm:items-start sm:justify-between">
+                    <div class="w-full text-gray-11">
+                        <p>
+                            When deactivating the character, the owning user(s) will remain at their current status. Pay special attention to deactivating a character who is the only character assigned to a user as it may impede their ability to contribute to stories.
+                        </p>
+                    </div>
+                    <div class="mt-5 sm:mt-0 sm:ml-8 sm:flex-shrink-0 sm:flex sm:items-center">
+                        <x-form :action="route('characters.deactivate', $character)">
+                            <x-button type="submit" color="red-outline">
+                                Deactivate
+                            </x-button>
+                        </x-form>
+                    </div>
                 </div>
-                <div class="mt-5 | sm:mt-0 sm:ml-8 sm:flex-shrink-0 sm:flex sm:items-center">
-                    <x-form :action="route('characters.deactivate', $character)">
-                        <x-button type="submit" color="soft-red">
-                            Deactivate
-                        </x-button>
-                    </x-form>
-                </div>
-            </div>
+            </x-content-box>
         </x-panel>
     @endcan
 
     @can('activate', $character)
-        <x-panel class="mt-8 p-4 | sm:p-6">
-            <h3 class="text-lg font-medium text-gray-900">
-                Activate Character
-            </h3>
-            <div class="mt-2 | sm:flex sm:items-start sm:justify-between">
-                <div class="w-full text-sm text-gray-600">
-                    <p>
-                        When activating the character, if they were previously a primary character for the user, but the user has since had a new primary character set for themselves, this character will be set as a secondary character for the user.
-                    </p>
+        <x-panel class="mt-8">
+            <x-content-box>
+                <h3 class="text-lg font-medium text-gray-12">
+                    Activate Character
+                </h3>
+                <div class="mt-2 sm:flex sm:items-start sm:justify-between">
+                    <div class="w-full text-gray-11">
+                        <p>
+                            When activating the character, if they were previously a primary character for the user, but the user has since had a new primary character set for themselves, this character will be set as a secondary character for the user.
+                        </p>
+                    </div>
+                    <div class="mt-5 sm:mt-0 sm:ml-8 sm:flex-shrink-0 sm:flex sm:items-center">
+                        <x-form :action="route('characters.activate', $character)">
+                            <x-button type="submit" color="blue-outline">
+                                Activate
+                            </x-button>
+                        </x-form>
+                    </div>
                 </div>
-                <div class="mt-5 | sm:mt-0 sm:ml-8 sm:flex-shrink-0 sm:flex sm:items-center">
-                    <x-form :action="route('characters.activate', $character)">
-                        <x-button type="submit" color="soft-blue">
-                            Activate
-                        </x-button>
-                    </x-form>
-                </div>
-            </div>
+            </x-content-box>
         </x-panel>
     @endcan
 @endsection

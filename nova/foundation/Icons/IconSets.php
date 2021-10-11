@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Foundation\Icons;
 
 class IconSets
@@ -20,7 +22,7 @@ class IconSets
 
     public function getDefaultSet(): IconSet
     {
-        return $this->sets[app('nova.settings')->defaults->iconSet];
+        return $this->sets[settings()->system_defaults->iconSet];
     }
 
     public function getSets(): array

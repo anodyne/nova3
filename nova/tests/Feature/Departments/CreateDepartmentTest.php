@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Departments;
 
-use Tests\TestCase;
-use Illuminate\Support\Facades\Event;
-use Nova\Departments\Models\Department;
-use Nova\Departments\Events\DepartmentCreated;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
+use Nova\Departments\Events\DepartmentCreated;
+use Nova\Departments\Models\Department;
 use Nova\Departments\Requests\CreateDepartmentRequest;
+use Tests\TestCase;
 
 /**
  * @group departments
@@ -30,7 +32,7 @@ class CreateDepartmentTest extends TestCase
     {
         $this->signInWithPermission('department.create');
 
-        $department = make(Department::class);
+        $department = Department::factory()->make();
 
         $this->followingRedirects();
 
@@ -60,7 +62,7 @@ class CreateDepartmentTest extends TestCase
 
         $this->post(
             route('departments.store'),
-            make(Department::class)->toArray()
+            Department::factory()->make()->toArray()
         );
 
         Event::assertDispatched(DepartmentCreated::class);
@@ -82,7 +84,7 @@ class CreateDepartmentTest extends TestCase
 
         $response = $this->postJson(
             route('departments.store'),
-            make(Department::class)->toArray()
+            Department::factory()->make()->toArray()
         );
         $response->assertForbidden();
     }
@@ -99,7 +101,7 @@ class CreateDepartmentTest extends TestCase
     {
         $response = $this->postJson(
             route('departments.store'),
-            make(Department::class)->toArray()
+            Department::factory()->make()->toArray()
         );
         $response->assertUnauthorized();
     }

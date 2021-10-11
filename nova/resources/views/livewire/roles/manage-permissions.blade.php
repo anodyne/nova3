@@ -1,45 +1,110 @@
 <div>
-    <x-dropdown class="inline-flex items-center px-4 py-2 rounded-md font-medium bg-blue-50 border border-blue-200 text-blue-800 transition ease-in-out duration-150 hover:bg-blue-100 | md:px-2.5 md:py-0.5 md:text-sm">
-        <x-slot name="trigger">
-            <span class="mr-1">Add permission</span>
-            <svg class="h-5 w-5 text-blue-700 | md:h-4 md:w-4" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 4v16m8-8H4"></path></svg>
-        </x-slot>
+    <x-content-box>
+        <h3 class="font-bold text-xl text-gray-12 tracking-tight">Permissions Assigned to this Role</h3>
 
-        <div class="p-2">
-            <div class="flex items-center rounded bg-gray-100 border-2 border-gray-100 text-gray-600 px-2 py-2 focus-within:border-gray-200 focus-within:bg-white focus-within:text-gray-700">
-                <div class="flex-shrink-0 mr-3">
-                    @icon('search', 'h-5 w-5')
+        <div class="flex justify-between mt-4">
+            @if ($permissions->total() > 0)
+                <div class="w-full sm:w-1/3">
+                    <x-input.group>
+                        <x-input.text wire:model.debounce.500ms="filters.search" placeholder="Find assigned permissions...">
+                            <x-slot name="leadingAddOn">
+                                @icon('search', 'h-5 w-5')
+                            </x-slot>
+
+                            <x-slot name="trailingAddOn">
+                                @if ($filters['search'])
+                                    <x-button color="gray-text" size="none" wire:click="$set('filters.search', '')">
+                                        @icon('close')
+                                    </x-button>
+                                @endif
+                            </x-slot>
+                        </x-input.text>
+                    </x-input.group>
                 </div>
-                <input wire:model.debounce.250ms="query" type="text" placeholder="Find a permission..." class="block w-full appearance-none bg-transparent focus:outline-none">
-            </div>
+
+                @can('update', $role)
+                    <div class="flex items-center space-x-4">
+                        @if (count($selected) > 0)
+                            <x-button color="red-outline" size="sm" wire:click="detachSelectedPermissions">
+                                Remove {{ count($selected) }} @choice('permission|permissions', count($selected))
+                            </x-button>
+                        @endif
+
+                        <x-button type="button" color="blue" size="sm" wire:click="$emit('openModal', 'roles:select-permissions-modal')">
+                            Add permissions
+                        </x-button>
+                    </div>
+                @endcan
+            @endif
         </div>
+    </x-content-box>
 
-        @if ($results)
-            <div class="{{ $component->divider() }}"></div>
+    @if ($permissions->total() > 0)
+        <x-table class="rounded-b-lg">
+            <x-slot name="head">
+                @can('update', $role)
+                    <x-table.heading class="pr-0 w-8 leading-0">
+                        <x-input.checkbox wire:model="selectPage" />
+                    </x-table.heading>
+                @endcan
 
-            @forelse ($results as $item)
-                <button
-                    wire:click="addPermission({{ $item['id'] }}, {{ $item }})"
-                    type="button"
-                    class="{{ $component->link() }}"
-                >
-                    {{ $item['display_name'] }}
-                </button>
-            @empty
-                <div class="{{ $component->text() }}">
-                    No results found
-                </div>
-            @endforelse
+                <x-table.heading>Name</x-table.heading>
+                <x-table.heading>Description</x-table.heading>
+            </x-slot>
+            <x-slot name="body">
+                @if ($selectPage)
+                    <x-table.row>
+                        <x-table.cell class="bg-blue-3" colspan="3">
+                            @unless ($selectAll)
+                                <div>
+                                    <span class="text-blue-11">You've selected <strong>{{ $permissions->count() }}</strong> permissions assigned to this role. Do you want to select all <strong>{{ $permissions->total() }}</strong>?</span>
+
+                                    <x-button size="none" color="blue-text" wire:click="selectAll" class="ml-1">Select All</x-button>
+                                </div>
+                            @else
+                                <span class="text-blue-11">You've selected all <strong>{{ $permissions->total() }}</strong> permissions assigned to this role.</span>
+                            @endunless
+                        </x-table.cell>
+                    </x-table.row>
+                @endif
+
+                @foreach ($permissions as $permission)
+                    <x-table.row wire:key="row-{{ $permission->id }}">
+                        @can('update', $role)
+                            <x-table.cell class="pr-0 leading-0">
+                                <x-input.checkbox wire:model="selected" value="{{ $permission->id }}" />
+                            </x-table.cell>
+                        @endcan
+
+                        <x-table.cell>{{ $permission->display_name }}</x-table.cell>
+                        <x-table.cell>{{ $permission->description }}</x-table.cell>
+                    </x-table.row>
+                @endforeach
+            </x-slot>
+        </x-table>
+
+        @if ($permissions->total() > $permissions->perPage())
+            <x-content-box class="border-t border-gray-3" height="xs">
+                {{ $permissions->withQueryString()->links() }}
+            </x-content-box>
         @endif
-    </x-dropdown>
+    @else
+        <x-content-box class="text-center">
+            @icon('lock', 'mx-auto h-12 w-12 text-gray-9')
 
-    @foreach ($permissions as $permission)
-        <span class="inline-flex items-center mb-2 px-4 py-2 rounded-md font-medium bg-gray-50 border border-gray-200 text-gray-800 transition ease-in-out duration-150 hover:bg-gray-100 | md:px-2.5 md:py-0.5 md:text-sm">
-            {{ $permission['display_name'] }}
-            <button wire:click="removePermission({{ $permission['id'] }})" type="button" class="ml-1 text-gray-400 hover:text-gray-600 focus:outline-none transition ease-in-out duration-150">
-                <svg class="h-5 w-5 | md:h-4 md:w-4" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
-        </span>
-        <input type="hidden" name="permissions[]" value="{{ $permission['id'] }}">
-    @endforeach
+            <h3 class="mt-2 text-sm font-medium text-gray-12">No permissions</h3>
+
+            @can('update', $role)
+                <p class="mt-1 text-sm text-gray-11">
+                    Get started by assigning permissions to this role.
+                </p>
+
+                <div class="mt-6">
+                    <x-button color="blue" wire:click="$emit('openModal', 'roles:select-permissions-modal')">
+                        Add permissions
+                    </x-button>
+                </div>
+            @endcan
+        </x-content-box>
+    @endif
 </div>

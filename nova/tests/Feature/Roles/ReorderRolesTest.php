@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Roles;
 
-use Tests\TestCase;
-use Nova\Roles\Models\Role;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Roles\Models\Role;
+use Tests\TestCase;
 
 /**
  * @group roles
@@ -23,9 +25,9 @@ class ReorderRolesTest extends TestCase
     {
         parent::setUp();
 
-        $this->role1 = create(Role::class, ['sort' => 0]);
-        $this->role2 = create(Role::class, ['sort' => 1]);
-        $this->role3 = create(Role::class, ['sort' => 2]);
+        $this->role1 = Role::factory()->create(['sort' => 0]);
+        $this->role2 = Role::factory()->create(['sort' => 1]);
+        $this->role3 = Role::factory()->create(['sort' => 2]);
     }
 
     /** @test **/

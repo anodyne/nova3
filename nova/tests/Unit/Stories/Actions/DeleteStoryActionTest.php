@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Stories\Actions;
 
-use Tests\TestCase;
-use Nova\Stories\Models\Story;
-use Nova\Stories\Actions\DeleteStory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Stories\Actions\DeleteStory;
+use Nova\Stories\Models\Story;
+use Tests\TestCase;
 
 /**
  * @group stories
@@ -24,7 +26,7 @@ class DeleteStoryActionTest extends TestCase
 
         $this->action = app(DeleteStory::class);
 
-        $this->story = create(Story::class);
+        $this->story = Story::factory()->create();
     }
 
     /** @test **/

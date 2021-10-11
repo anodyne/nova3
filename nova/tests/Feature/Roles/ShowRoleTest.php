@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Roles;
 
-use Tests\TestCase;
-use Nova\Roles\Models\Role;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Roles\Models\Role;
+use Tests\TestCase;
 
 /**
  * @group roles
@@ -19,7 +21,7 @@ class ShowRoleTest extends TestCase
     {
         parent::setUp();
 
-        $this->role = create(Role::class);
+        $this->role = Role::factory()->create();
     }
 
     /** @test **/

@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Policies;
 
-use Nova\Users\Models\User;
-use Nova\Ranks\Models\RankName;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Nova\Ranks\Models\RankName;
+use Nova\Users\Models\User;
 
 class RankNamePolicy
 {
@@ -19,7 +21,7 @@ class RankNamePolicy
      */
     public function viewAny(User $user)
     {
-        return $user->can('rank.*');
+        return $user->isAbleTo('rank.*');
     }
 
     /**
@@ -32,7 +34,7 @@ class RankNamePolicy
      */
     public function view(User $user, RankName $name)
     {
-        return $user->can('rank.view');
+        return $user->isAbleTo('rank.view');
     }
 
     /**
@@ -44,7 +46,7 @@ class RankNamePolicy
      */
     public function create(User $user)
     {
-        return $user->can('rank.create');
+        return $user->isAbleTo('rank.create');
     }
 
     /**
@@ -57,7 +59,7 @@ class RankNamePolicy
      */
     public function update(User $user, RankName $name)
     {
-        return $user->can('rank.update');
+        return $user->isAbleTo('rank.update');
     }
 
     /**
@@ -70,7 +72,7 @@ class RankNamePolicy
      */
     public function delete(User $user, RankName $name)
     {
-        return $user->can('rank.delete');
+        return $user->isAbleTo('rank.delete');
     }
 
     /**
@@ -81,8 +83,8 @@ class RankNamePolicy
      */
     public function duplicate(User $user, RankName $name)
     {
-        return $user->can('rank.create')
-            && $user->can('rank.update');
+        return $user->isAbleTo('rank.create')
+            && $user->isAbleTo('rank.update');
     }
 
     /**

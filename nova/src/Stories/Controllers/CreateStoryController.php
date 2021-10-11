@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Stories\Controllers;
 
-use Nova\Stories\Models\Story;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Stories\Actions\CreateStoryManager;
+use Nova\Stories\Models\Story;
 use Nova\Stories\Requests\CreateStoryRequest;
 use Nova\Stories\Responses\CreateStoryResponse;
 
@@ -24,11 +26,11 @@ class CreateStoryController extends Controller
         return app(CreateStoryResponse::class);
     }
 
-    public function store(CreateStoryRequest $request, CreateStoryManager $action)
+    public function store(CreateStoryRequest $request)
     {
         $this->authorize('create', Story::class);
 
-        $story = $action->execute($request);
+        $story = CreateStoryManager::run($request);
 
         return redirect()
             ->route('stories.index')

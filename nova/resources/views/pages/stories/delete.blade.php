@@ -1,4 +1,4 @@
-@extends($__novaTemplate)
+@extends($meta->template)
 
 @section('content')
     <x-page-header title="Delete Story">
@@ -12,7 +12,7 @@
 
         <x-form.footer>
             <x-button type="submit" color="blue">Delete @choice('Story|Stories', $storiesToDelete)</x-button>
-            <x-button-link :href="route('stories.index')" class="button">Cancel</x-button-link>
+            <x-link :href="route('stories.index')" color="white">Cancel</x-link>
         </x-form.footer>
     </x-form>
 @endsection

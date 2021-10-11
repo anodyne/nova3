@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Controllers\Groups;
 
 use Illuminate\Http\Request;
-use Nova\Ranks\Models\RankGroup;
-use Nova\Ranks\Actions\DeleteRankGroup;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Ranks\Actions\DeleteRankGroup;
+use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Responses\Groups\DeleteRankGroupResponse;
 
 class DeleteRankGroupController extends Controller
@@ -26,11 +28,11 @@ class DeleteRankGroupController extends Controller
         ]);
     }
 
-    public function destroy(DeleteRankGroup $action, RankGroup $group)
+    public function destroy(RankGroup $group)
     {
         $this->authorize('delete', $group);
 
-        $action->execute($group);
+        DeleteRankGroup::run($group);
 
         return redirect()
             ->route('ranks.groups.index')

@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Roles\Controllers;
 
-use Nova\Roles\Models\Role;
 use Illuminate\Http\Request;
-use Nova\Roles\Actions\ReorderRoles;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Roles\Actions\ReorderRoles;
+use Nova\Roles\Models\Role;
 
 class ReorderRolesController extends Controller
 {
@@ -16,11 +18,11 @@ class ReorderRolesController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(Request $request, ReorderRoles $action)
+    public function __invoke(Request $request)
     {
-        $this->authorize('update', new Role);
+        $this->authorize('update', new Role());
 
-        $action->execute($request->sort);
+        ReorderRoles::run($request->sort);
 
         return redirect()
             ->route('roles.index')

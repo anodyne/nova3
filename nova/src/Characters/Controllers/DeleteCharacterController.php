@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Characters\Controllers;
 
 use Illuminate\Http\Request;
-use Nova\Characters\Models\Character;
-use Nova\Foundation\Controllers\Controller;
 use Nova\Characters\Actions\DeleteCharacter;
 use Nova\Characters\Events\CharacterDeletedByAdmin;
+use Nova\Characters\Models\Character;
 use Nova\Characters\Responses\DeleteCharacterResponse;
+use Nova\Foundation\Controllers\Controller;
 
 class DeleteCharacterController extends Controller
 {
@@ -27,11 +29,11 @@ class DeleteCharacterController extends Controller
         ]);
     }
 
-    public function destroy(DeleteCharacter $action, Character $character)
+    public function destroy(Character $character)
     {
         $this->authorize('delete', $character);
 
-        $character = $action->execute($character);
+        $character = DeleteCharacter::run($character);
 
         CharacterDeletedByAdmin::dispatch($character);
 

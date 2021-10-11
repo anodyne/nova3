@@ -3,7 +3,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    @meta
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Nova NextGen') }}</title>
 
@@ -11,8 +10,10 @@
     @bukStyles
     @novaStyles
     @stack('styles')
+
+    @novaScripts
 </head>
-<body class="font-sans bg-gray-100 text-gray-900 antialiased">
+<body class="font-sans bg-gray-3 text-gray-12 antialiased {{ auth()->user()?->appearance ?? 'light' }}">
     <div id="app">
         @yield('layout')
 
@@ -20,9 +21,11 @@
         @stack('modal')
     </div>
 
+    @livewire('livewire-ui-modal')
+    @livewire('livewire-ui-spotlight')
+
     @livewireScripts
     @bukScripts
-    @novaScripts
     @stack('scripts')
 </body>
 </html>

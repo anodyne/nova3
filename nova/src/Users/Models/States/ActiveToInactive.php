@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Users\Models\States;
 
+use Nova\Characters\Models\States\Statuses\Inactive as InactiveCharacter;
 use Nova\Users\Models\User;
 use Spatie\ModelStates\Transition;
-use Nova\Characters\Models\States\Statuses\Inactive as InactiveCharacter;
 
 class ActiveToInactive extends Transition
 {
@@ -26,6 +28,8 @@ class ActiveToInactive extends Transition
         });
 
         $this->user->save();
+
+        $this->user->syncRoles(['inactive']);
 
         return $this->user;
     }

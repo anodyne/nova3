@@ -1,22 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Stories\Actions;
 
-use Nova\Stories\Models\Story;
+use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Posts\Actions\MovePost;
+use Nova\Stories\Models\Story;
 
 class MoveStoryPosts
 {
-    protected $movePost;
+    use AsAction;
 
-    public function __construct(MovePost $movePost)
+    public function handle(Story $oldStory, Story $newStory): Story
     {
-        $this->movePost = $movePost;
-    }
-
-    public function execute(Story $oldStory, Story $newStory): Story
-    {
-        $oldStory->posts->each(fn ($post) => $this->movePost->execute($post, $newStory));
+        $oldStory->posts->each(fn ($post) => MovePost::run($post, $newStory));
 
         return $newStory->refresh();
     }

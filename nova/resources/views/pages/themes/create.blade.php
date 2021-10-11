@@ -1,4 +1,4 @@
-@extends($__novaTemplate)
+@extends($meta->template)
 
 @section('content')
     <x-page-header title="Add Theme">
@@ -9,13 +9,11 @@
 
     <x-panel
         x-data="{ name: '{{ old('name') }}', location: '{{ old('location') }}', suggestLocation: true }"
-        x-init="
-            $watch('name', value => {
-                if (suggestLocation) {
-                    location = value.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'-');
-                }
-            })
-        "
+        x-init="$watch('name', value => {
+            if (suggestLocation) {
+                location = value.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'-');
+            }
+        })"
     >
         <x-form :action="route('themes.store')">
             <x-form.section title="Theme Info" message="A theme allows you to give your public-facing site the look-and-feel you want to any visitors. Using tools like regular HTML and CSS, you can show visitors the personality of your game and put your own spin on Nova.">
@@ -26,7 +24,7 @@
                 <x-input.group label="Location" for="location" :error="$errors->first('location')">
                     <x-input.text
                         x-model="location"
-                        x-on:change="suggestLocation = false"
+                        @change="suggestLocation = false"
                         id="location"
                         name="location"
                         leading-add-on="themes/"
@@ -54,7 +52,7 @@
 
             <x-form.footer>
                 <x-button type="submit" color="blue">Add Theme</x-button>
-                <x-button-link :href="route('themes.index')" color="white">Cancel</x-button-link>
+                <x-link :href="route('themes.index')" color="white">Cancel</x-link>
             </x-form.footer>
 
             <input type="hidden" name="active" value="0">

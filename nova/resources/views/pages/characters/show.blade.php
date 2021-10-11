@@ -1,4 +1,4 @@
-@extends($__novaTemplate)
+@extends($meta->template)
 
 @section('content')
     <x-page-header :title="$character->name">
@@ -8,7 +8,7 @@
 
         <x-slot name="controls">
             @can('update', $character)
-                <x-button-link :href="route('characters.edit', $character)" color="blue">Edit Character</x-button-link>
+                <x-link :href="route('characters.edit', $character)" color="blue">Edit Character</x-link>
             @endcan
         </x-slot>
     </x-page-header>
@@ -89,7 +89,7 @@
             @endif
 
             <x-form.footer>
-                <x-button-link :href='route("characters.index", "status={$character->status->name()}")' color="white">Back</x-button-link>
+                <x-link :href='route("characters.index", "status={$character->status->name()}")' color="white">Back</x-link>
             </x-form.footer>
         </x-form>
     </x-panel>

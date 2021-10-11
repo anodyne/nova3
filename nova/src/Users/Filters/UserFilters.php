@@ -1,27 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Users\Filters;
 
-use Nova\Users\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Nova\Foundation\Filters\Filters;
+use Nova\Users\Models\User;
 
 class UserFilters extends Filters
 {
-    protected $filters = ['search', 'status'];
+    protected array $filters = ['search', 'status'];
 
-    public function search($value)
+    public function search($value): Builder
     {
-        return $this->builder
-            ->where(function ($query) use ($value) {
-                return $query->where('name', 'like', "%{$value}%")
-                    ->orWhere('email', 'like', "%{$value}%");
-            })
-            ->orWhereHas('characters', function ($query) use ($value) {
-                return $query->where('name', 'like', "%{$value}%");
-            });
+        return $this->builder->searchFor($value);
     }
 
-    public function status($value)
+    public function status($value): Builder
     {
         return $this->builder->whereState(
             'status',

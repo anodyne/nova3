@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Controllers\Names;
 
 use Illuminate\Http\Request;
-use Nova\Ranks\Models\RankName;
-use Nova\Ranks\Actions\ReorderRankNames;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Ranks\Actions\ReorderRankNames;
+use Nova\Ranks\Models\RankName;
 
 class ReorderRankNamesController extends Controller
 {
@@ -16,11 +18,11 @@ class ReorderRankNamesController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(Request $request, ReorderRankNames $action)
+    public function __invoke(Request $request)
     {
-        $this->authorize('update', new RankName);
+        $this->authorize('update', new RankName());
 
-        $action->execute($request->sort);
+        ReorderRankNames::run($request->sort);
 
         return redirect()
             ->route('ranks.names.index')

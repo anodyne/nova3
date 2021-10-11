@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Users\Actions;
 
-use Tests\TestCase;
-use Nova\Users\Models\User;
-use Nova\Users\Models\States\Active;
-use Nova\Users\Models\States\Pending;
-use Nova\Users\Models\States\Inactive;
 use Nova\Users\Actions\UpdateUserStatus;
+use Nova\Users\Models\States\Active;
+use Nova\Users\Models\States\Inactive;
+use Nova\Users\Models\States\Pending;
+use Nova\Users\Models\User;
 use Spatie\ModelStates\Exceptions\TransitionNotFound;
+use Tests\TestCase;
 
 /**
  * @group users
@@ -25,13 +27,13 @@ class UpdateUserStatusActionTest extends TestCase
 
         $this->action = app(UpdateUserStatus::class);
 
-        $this->user = create(User::class, [], ['status:active']);
+        $this->user = User::factory()->active()->create();
     }
 
     /** @test **/
     public function itCanTransitionFromPendingToActive()
     {
-        $user = create(User::class);
+        $user = User::factory()->create();
 
         $this->action->execute($this->user, Active::class);
 
@@ -41,7 +43,7 @@ class UpdateUserStatusActionTest extends TestCase
     /** @test **/
     public function itCanTransitionFromPendingToInactive()
     {
-        $user = create(User::class);
+        $user = User::factory()->create();
 
         $this->action->execute($this->user, Inactive::class);
 
@@ -59,7 +61,7 @@ class UpdateUserStatusActionTest extends TestCase
     /** @test **/
     public function itCanTransitionFromInactiveToActive()
     {
-        $user = create(User::class, [], ['status:inactive']);
+        $user = User::factory()->inactive()->create();
 
         $this->action->execute($this->user, Active::class);
 

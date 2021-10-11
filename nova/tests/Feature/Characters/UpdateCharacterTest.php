@@ -1,17 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Characters;
 
-use Tests\TestCase;
-use Nova\Users\Models\User;
-use Illuminate\Support\Facades\Event;
-use Nova\Characters\Models\Character;
-use Nova\Departments\Models\Position;
-use Nova\Characters\Events\CharacterUpdated;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
+use Nova\Characters\Events\CharacterUpdated;
 use Nova\Characters\Events\CharacterUpdatedByAdmin;
+use Nova\Characters\Models\Character;
 use Nova\Characters\Requests\UpdateCharacterRequest;
+use Nova\Departments\Models\Position;
 use Nova\Ranks\Models\RankItem;
+use Nova\Users\Models\User;
+use Tests\TestCase;
 
 /**
  * @group characters
@@ -26,10 +28,10 @@ class UpdateCharacterTest extends TestCase
     {
         parent::setUp();
 
-        $this->character = create(Character::class);
+        $this->character = Character::factory()->create();
 
-        $position = create(Position::class);
-        $user = create(User::class);
+        $position = Position::factory()->create();
+        $user = User::factory()->create();
 
         $this->character->positions()->attach($position);
         $this->character->users()->attach($user);
@@ -53,7 +55,7 @@ class UpdateCharacterTest extends TestCase
 
         $this->followingRedirects();
 
-        $rank = create(RankItem::class);
+        $rank = RankItem::factory()->create();
 
         $response = $this->put(route('characters.update', $this->character), [
             'name' => 'Jack Sparrow',
@@ -93,7 +95,7 @@ class UpdateCharacterTest extends TestCase
 
         $this->signInWithPermission('character.update');
 
-        $rank = create(RankItem::class);
+        $rank = RankItem::factory()->create();
 
         $response = $this->put(route('characters.update', $this->character), [
             'name' => 'Jack Sparrow',

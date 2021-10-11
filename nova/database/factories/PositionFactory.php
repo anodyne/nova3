@@ -1,24 +1,39 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
-use Faker\Generator as Faker;
-use Nova\Departments\Models\Position;
+declare(strict_types=1);
+
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Nova\Departments\Models\Department;
+use Nova\Departments\Models\Position;
 
-$factory->define(Position::class, function (Faker $faker) {
-    return [
-        'name' => ucwords($faker->words($faker->numberBetween(1, 3), true)),
-        'description' => $faker->sentence,
-        'active' => true,
-        'available' => $faker->numberBetween(1, 5),
-        'department_id' => fn () => factory(Department::class)->create()->id,
-    ];
-});
+class PositionFactory extends Factory
+{
+    protected $model = Position::class;
 
-$factory->state('inactive', Position::class, [
-    'active' => false,
-]);
+    public function definition()
+    {
+        return [
+            'name' => ucwords($this->faker->words($this->faker->numberBetween(1, 3), true)),
+            'description' => $this->faker->sentence,
+            'active' => true,
+            'available' => $this->faker->numberBetween(1, 5),
+            'department_id' => fn () => Department::factory(),
+        ];
+    }
 
-$factory->state('unavailable', Position::class, [
-    'available' => 0,
-]);
+    public function inactive()
+    {
+        return $this->state([
+            'active' => false,
+        ]);
+    }
+
+    public function unavailable()
+    {
+        return $this->state([
+            'available' => 0,
+        ]);
+    }
+}

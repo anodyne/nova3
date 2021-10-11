@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Stories;
 
-use Tests\TestCase;
-use Nova\Stories\Models\Story;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Stories\Models\Story;
+use Tests\TestCase;
 
 /**
  * @group stories
@@ -19,7 +21,7 @@ class ShowStoryTest extends TestCase
     {
         parent::setUp();
 
-        $this->story = create(Story::class);
+        $this->story = Story::factory()->create();
     }
 
     /** @test **/

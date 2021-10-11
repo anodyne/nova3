@@ -1,83 +1,44 @@
 @props([
     'field',
     'value',
-    'activeIcon' => false,
-    'activeText' => false,
+    'activeColor' => 'blue-9',
+    'inactiveColor' => 'gray-8',
     'disabled' => false,
-    'inactiveIcon' => false,
-    'inactiveText' => false,
 ])
 
 <label
-    x-data="toggleSwitch({{ $value ? 'true' : 'false' }}, {{ $disabled ? 'true' : 'false' }})"
-    x-on:click.prevent="toggle($dispatch)"
-    x-on:keydown.space.prevent="toggle($dispatch)"
-    class="flex items-center @if ($disabled) opacity-50 cursor-not-allowed @else cursor-pointer @endif"
+    x-data="toggleSwitch({{ $value ? 'true' : 'false'}}, {{ $disabled ? 'true' : 'false' }})"
+    class="flex items-center"
+    :class="{ 'cursor-not-allowed': disabled, 'cursor-pointer': !disabled }"
+    x-cloak
 >
-    <span
-        x-bind:class="{ 'bg-gray-200': !active, 'bg-blue-500': active }"
-        class="relative inline-block flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full transition-colors ease-in-out duration-200 focus:outline-none focus:shadow-outline"
-        role="switch"
-        tabindex="0"
-        x-bind:aria-checked="active.toString()"
+    <button
+        type="button"
+        @click.prevent="toggle($dispatch)"
+        :aria-pressed="on.toString()"
+        aria-pressed="false"
+        aria-labelledby="toggleLabel"
+        :class="{ 'bg-{{ $inactiveColor }}': !on, 'bg-{{ $activeColor }}': on, 'opacity-50 cursor-not-allowed': disabled, 'cursor-pointer': !disabled }"
+        class="relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-1 focus:ring-blue-7"
     >
-        <span
-            aria-hidden="true"
-            x-bind:class="{ 'translate-x-5': active, 'translate-x-0': !active }"
-            class="relative inline-block h-5 w-5 rounded-full bg-white shadow transform transition ease-in-out duration-200"
-        >
-            <span
-                x-bind:class="{ 'opacity-0 ease-out duration-100': active, 'opacity-100 ease-in duration-200': !active }"
-                class="absolute inset-0 h-full w-full flex items-center justify-center transition-opacity"
-            >
-                {{ $inactiveIcon }}
-            </span>
-            <span
-                x-bind:class="{ 'opacity-100 ease-in duration-200': active, 'opacity-0 ease-out duration-100': !active }"
-                class="absolute inset-0 h-full w-full flex items-center justify-center transition-opacity"
-            >
-                {{ $activeIcon }}
+        <span class="sr-only">Use setting</span>
+        <span aria-hidden="true" :class="{ 'translate-x-5 border-{{ $activeColor }}': on, 'translate-x-1 border-{{ $inactiveColor }}': !on }" class="bg-gray-1 translate-x-1 translate-y-0.5 inline-block h-4 w-4 rounded-full transform ring-0 transition ease-in-out duration-200 border"></span>
+    </button>
+
+    @if (! $slot->isEmpty())
+        <span class="ml-2" id="toggleLabel">
+            <span class="font-medium text-gray-11">
+                {{ $slot }}
             </span>
         </span>
-    </span>
-
-    <div class="ml-3 font-medium text-gray-700">
-        {{ $slot }}
-
-        <div x-show="!active">
-            {{ $inactiveText }}
-        </div>
-
-        <div x-show="active">
-            {{ $activeText }}
-        </div>
-    </div>
+    @endif
 
     <input type="hidden" name="{{ $field }}" value="0">
     <input
-        x-model="active"
+        x-model="on"
         type="checkbox"
         name="{{ $field }}"
         class="hidden"
         value="1"
     >
 </label>
-
-@push('scripts')
-<script>
-    function toggleSwitch (active, disabled) {
-        return {
-            active: active,
-            disabled: disabled,
-
-            toggle ($dispatch) {
-                if (! this.disabled) {
-                    this.active = !this.active;
-                    $dispatch('toggle-changed', { value: Boolean(this.active) });
-                    $dispatch('input', Boolean(this.active));
-                }
-            }
-        }
-    }
-</script>
-@endpush

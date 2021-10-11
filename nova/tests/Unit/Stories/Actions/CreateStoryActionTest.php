@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Stories\Actions;
 
-use Tests\TestCase;
-use Nova\Stories\Models\Story;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Stories\Actions\CreateStory;
 use Nova\Stories\DataTransferObjects\StoryData;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Stories\Models\Story;
+use Tests\TestCase;
 
 /**
  * @group stories
@@ -52,7 +54,7 @@ class CreateStoryActionTest extends TestCase
     /** @test **/
     public function itCreatesANestedStory()
     {
-        $newStory = create(Story::class);
+        $newStory = Story::factory()->create();
 
         $data = new StoryData([
             'title' => 'Story Title',

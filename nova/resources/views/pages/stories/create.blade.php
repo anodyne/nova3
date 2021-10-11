@@ -1,4 +1,4 @@
-@extends($__novaTemplate)
+@extends($meta->template)
 
 @section('content')
     <x-page-header title="Add Story">
@@ -31,12 +31,9 @@
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle
-                        field="allow_posting"
-                        :value="old('allow_posting', 'true')"
-                        active-text="Players can add posts to this story"
-                        inactive-text="Players cannot add posts to this story"
-                    />
+                    <x-input.toggle field="allow_posting" :value="old('allow_posting', 'true')">
+                        Users can add posts to this story
+                    </x-input.toggle>
                 </x-input.group>
 
                 <x-input.group label="Start Date" for="start_date">
@@ -77,7 +74,7 @@
 
             <x-form.footer>
                 <x-button type="submit" color="blue">Add Story</x-button>
-                <x-button-link :href="route('stories.index')" type="button" color="white">Cancel</x-button-link>
+                <x-link :href="route('stories.index')" type="button" color="white">Cancel</x-link>
             </x-form.footer>
         </x-form>
     </x-panel>

@@ -1,19 +1,30 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+declare(strict_types=1);
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Nova\Departments\Models\Department;
 
-$factory->define(Department::class, function (Faker $faker) {
-    return [
-        'name' => ucfirst($faker->word),
-        'description' => $faker->sentence,
-        'sort' => 0,
-        'active' => true,
-    ];
-});
+class DepartmentFactory extends Factory
+{
+    protected $model = Department::class;
 
-$factory->state('inactive', Department::class, [
-    'active' => false,
-]);
+    public function definition()
+    {
+        return [
+            'name' => ucfirst($this->faker->word),
+            'description' => $this->faker->sentence,
+            'sort' => 0,
+            'active' => true,
+        ];
+    }
+
+    public function inactive()
+    {
+        return $this->state([
+            'active' => false,
+        ]);
+    }
+}

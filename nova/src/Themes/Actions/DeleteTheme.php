@@ -1,12 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Themes\Actions;
 
+use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Themes\Models\Theme;
 
 class DeleteTheme
 {
-    public function execute(Theme $theme): Theme
+    use AsAction;
+
+    public function handle(Theme $theme): Theme
     {
         return tap($theme)->delete();
     }

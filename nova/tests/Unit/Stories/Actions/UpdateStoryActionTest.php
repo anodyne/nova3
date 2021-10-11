@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Stories\Actions;
 
-use Tests\TestCase;
-use Nova\Stories\Models\Story;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Stories\Actions\UpdateStory;
 use Nova\Stories\DataTransferObjects\StoryData;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Stories\Models\Story;
+use Tests\TestCase;
 
 /**
  * @group stories
@@ -25,7 +27,7 @@ class UpdateStoryActionTest extends TestCase
 
         $this->action = app(UpdateStory::class);
 
-        $this->story = create(Story::class, [
+        $this->story = Story::factory()->create([
             'parent_id' => 1,
         ]);
     }
@@ -61,7 +63,7 @@ class UpdateStoryActionTest extends TestCase
     {
         $mainTimeline = Story::find(1);
 
-        $firstStory = create(Story::class, [
+        $firstStory = Story::factory()->create([
             'title' => 'New First Story',
         ]);
         $firstStory->appendToNode($mainTimeline)->save();

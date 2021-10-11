@@ -1,15 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Models;
 
-use Nova\Ranks\Events;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Nova\Characters\Models\Character;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Nova\Ranks\Events;
 use Nova\Ranks\Models\Builders\RankItemBuilder;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class RankItem extends Model
 {
+    use HasFactory;
     use LogsActivity;
 
     protected static $logFillable = true;

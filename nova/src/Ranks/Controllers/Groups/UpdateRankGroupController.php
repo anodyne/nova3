@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Controllers\Groups;
 
-use Nova\Ranks\Models\RankGroup;
-use Nova\Ranks\Actions\UpdateRankGroup;
 use Nova\Foundation\Controllers\Controller;
-use Nova\Ranks\Requests\UpdateRankGroupRequest;
+use Nova\Ranks\Actions\UpdateRankGroup;
 use Nova\Ranks\DataTransferObjects\RankGroupData;
+use Nova\Ranks\Models\RankGroup;
+use Nova\Ranks\Requests\UpdateRankGroupRequest;
 use Nova\Ranks\Responses\Groups\UpdateRankGroupResponse;
 
 class UpdateRankGroupController extends Controller
@@ -27,14 +29,11 @@ class UpdateRankGroupController extends Controller
         ]);
     }
 
-    public function update(
-        UpdateRankGroupRequest $request,
-        UpdateRankGroup $action,
-        RankGroup $group
-    ) {
+    public function update(UpdateRankGroupRequest $request, RankGroup $group)
+    {
         $this->authorize('update', $group);
 
-        $group = $action->execute($group, RankGroupData::fromRequest($request));
+        $group = UpdateRankGroup::run($group, RankGroupData::fromRequest($request));
 
         return back()->withToast("{$group->name} was updated");
     }

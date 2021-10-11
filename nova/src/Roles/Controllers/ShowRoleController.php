@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Roles\Controllers;
 
-use Nova\Roles\Models\Role;
 use Illuminate\Http\Request;
-use Nova\Roles\Filters\RoleFilters;
-use Nova\Roles\Responses\ShowRoleResponse;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Roles\Filters\RoleFilters;
+use Nova\Roles\Models\Role;
 use Nova\Roles\Responses\ShowAllRolesResponse;
+use Nova\Roles\Responses\ShowRoleResponse;
 
 class ShowRoleController extends Controller
 {
@@ -22,10 +24,12 @@ class ShowRoleController extends Controller
     {
         $this->authorize('viewAny', Role::class);
 
-        $roles = Role::withCount('users')
-            ->with(['users' => function ($query) {
-                $query->limit(4);
-            }])
+        $roles = Role::query()
+            ->withCount([
+                'users as active_users_count' => fn ($query) => $query->whereActive(),
+                'users as inactive_users_count' => fn ($query) => $query->whereInactive(),
+            ])
+            ->with(['users' => fn ($query) => $query->whereActive()->limit(4)])
             ->orderBySort()
             ->filter($filters);
 

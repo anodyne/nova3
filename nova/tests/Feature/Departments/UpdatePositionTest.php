@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Departments;
 
-use Tests\TestCase;
-use Illuminate\Support\Facades\Event;
-use Nova\Departments\Models\Position;
-use Nova\Departments\Events\PositionUpdated;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
+use Nova\Departments\Events\PositionUpdated;
+use Nova\Departments\Models\Position;
 use Nova\Departments\Requests\UpdatePositionRequest;
+use Tests\TestCase;
 
 /**
  * @group departments
@@ -23,7 +25,7 @@ class UpdatePositionTest extends TestCase
     {
         parent::setUp();
 
-        $this->position = create(Position::class);
+        $this->position = Position::factory()->create();
     }
 
     /** @test **/
@@ -40,7 +42,7 @@ class UpdatePositionTest extends TestCase
     {
         $this->signInWithPermission('department.update');
 
-        $position = make(Position::class);
+        $position = Position::factory()->make();
 
         $this->followingRedirects();
 
@@ -67,7 +69,7 @@ class UpdatePositionTest extends TestCase
 
         $this->put(
             route('positions.update', $this->position),
-            make(Position::class)->toArray()
+            Position::factory()->make()->toArray()
         );
 
         Event::assertDispatched(PositionUpdated::class);
@@ -89,7 +91,7 @@ class UpdatePositionTest extends TestCase
 
         $response = $this->putJson(
             route('positions.update', $this->position),
-            make(Position::class)->toArray()
+            Position::factory()->make()->toArray()
         );
         $response->assertForbidden();
     }
@@ -106,7 +108,7 @@ class UpdatePositionTest extends TestCase
     {
         $response = $this->putJson(
             route('positions.update', $this->position),
-            make(Position::class)->toArray()
+            Position::factory()->make()->toArray()
         );
         $response->assertUnauthorized();
     }

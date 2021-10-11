@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Departments;
 
-use Tests\TestCase;
-use Illuminate\Support\Facades\Event;
-use Nova\Departments\Models\Department;
-use Nova\Departments\Events\DepartmentUpdated;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
+use Nova\Departments\Events\DepartmentUpdated;
+use Nova\Departments\Models\Department;
 use Nova\Departments\Requests\UpdateDepartmentRequest;
+use Tests\TestCase;
 
 /**
  * @group departments
@@ -22,7 +24,7 @@ class UpdateDepartmentTest extends TestCase
     {
         parent::setUp();
 
-        $this->department = create(Department::class);
+        $this->department = Department::factory()->create();
     }
 
     /** @test **/
@@ -39,7 +41,7 @@ class UpdateDepartmentTest extends TestCase
     {
         $this->signInWithPermission('department.update');
 
-        $department = make(Department::class);
+        $department = Department::factory()->make();
 
         $this->followingRedirects();
 
@@ -66,7 +68,7 @@ class UpdateDepartmentTest extends TestCase
 
         $this->put(
             route('departments.update', $this->department),
-            make(Department::class)->toArray()
+            Department::factory()->make()->toArray()
         );
 
         Event::assertDispatched(DepartmentUpdated::class);
@@ -88,7 +90,7 @@ class UpdateDepartmentTest extends TestCase
 
         $response = $this->putJson(
             route('departments.update', $this->department),
-            make(Department::class)->toArray()
+            Department::factory()->make()->toArray()
         );
         $response->assertForbidden();
     }
@@ -105,7 +107,7 @@ class UpdateDepartmentTest extends TestCase
     {
         $response = $this->putJson(
             route('departments.update', $this->department),
-            make(Department::class)->toArray()
+            Department::factory()->make()->toArray()
         );
         $response->assertUnauthorized();
     }

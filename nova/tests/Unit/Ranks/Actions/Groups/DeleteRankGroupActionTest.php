@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Ranks\Actions\Groups;
 
-use Tests\TestCase;
-use Nova\Ranks\Models\RankGroup;
-use Nova\Ranks\Actions\DeleteRankGroup;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Ranks\Actions\DeleteRankGroup;
+use Nova\Ranks\Models\RankGroup;
+use Tests\TestCase;
 
 /**
  * @group ranks
@@ -24,7 +26,7 @@ class DeleteRankGroupActionTest extends TestCase
 
         $this->action = app(DeleteRankGroup::class);
 
-        $this->group = create(RankGroup::class);
+        $this->group = RankGroup::factory()->create();
     }
 
     /** @test **/

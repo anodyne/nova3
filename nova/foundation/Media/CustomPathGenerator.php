@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Foundation\Media;
 
-use Spatie\MediaLibrary\Models\Media;
-use Spatie\MediaLibrary\PathGenerator\PathGenerator;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\MediaLibrary\Support\PathGenerator\PathGenerator;
 
 class CustomPathGenerator implements PathGenerator
 {
@@ -21,11 +23,11 @@ class CustomPathGenerator implements PathGenerator
 
     public function getPathForConversions(Media $media): string
     {
-        return $this->getPath($media) . 'conversions/';
+        return $this->getPath($media).'conversions/';
     }
 
     public function getPathForResponsiveImages(Media $media): string
     {
-        return $this->getPath($media) . 'responsive/';
+        return $this->getPath($media).'responsive/';
     }
 }

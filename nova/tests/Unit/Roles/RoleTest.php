@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Roles;
 
-use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Roles\Models\Role;
 use Nova\Users\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 /**
  * @group roles
@@ -22,13 +24,13 @@ class RoleTest extends TestCase
 
         $this->disableRoleCaching();
 
-        $this->role = create(Role::class);
+        $this->role = Role::factory()->create();
     }
 
     /** @test **/
     public function itCanGiveAUserTheRole()
     {
-        $this->role->giveToUser($user = create(User::class, [], ['status:active']));
+        $this->role->giveToUser($user = User::factory()->active()->create());
 
         $this->assertTrue($user->hasRole($this->role->name));
     }

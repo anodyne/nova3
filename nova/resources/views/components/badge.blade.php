@@ -1,4 +1,4 @@
-<span {{ $attributes->merge(['class' => "{$baseStyles()} {$sizeStyles()} {$colorStyles()}"]) }}>
+<span {{ $attributes->merge(['class' => $styles()]) }}>
     @isset($leadingIcon)
         <div>
             {{ $leadingIcon }}

@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Ranks\Items;
 
-use Tests\TestCase;
-use Nova\Ranks\Models\RankItem;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Ranks\Models\RankItem;
+use Tests\TestCase;
 
 /**
  * @group ranks
@@ -23,9 +25,9 @@ class ReorderRankItemsTest extends TestCase
     {
         parent::setUp();
 
-        $this->item1 = create(RankItem::class, ['sort' => 0]);
-        $this->item2 = create(RankItem::class, ['sort' => 1]);
-        $this->item3 = create(RankItem::class, ['sort' => 2]);
+        $this->item1 = RankItem::factory()->create(['sort' => 0]);
+        $this->item2 = RankItem::factory()->create(['sort' => 1]);
+        $this->item3 = RankItem::factory()->create(['sort' => 2]);
     }
 
     /** @test **/

@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Users\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Nova\Users\Mail\SendAccountCreation;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Notification;
+use Nova\Users\Mail\SendAccountCreation;
 
 class AccountCreated extends Notification implements ShouldQueue
 {

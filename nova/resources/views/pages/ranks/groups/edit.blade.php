@@ -1,4 +1,4 @@
-@extends($__novaTemplate)
+@extends($meta->template)
 
 @section('content')
     <x-page-header :title="$group->name">
@@ -35,7 +35,7 @@
 
             <x-form.footer>
                 <x-button type="submit" color="blue">Update Rank Group</x-button>
-                <x-button-link :href="route('ranks.groups.index')" color="white">Cancel</x-button-link>
+                <x-link :href="route('ranks.groups.index')" color="white">Cancel</x-link>
             </x-form.footer>
         </x-form>
     </x-panel>

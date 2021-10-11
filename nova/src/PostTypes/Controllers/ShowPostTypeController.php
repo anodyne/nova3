@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\PostTypes\Controllers;
 
 use Illuminate\Http\Request;
-use Nova\PostTypes\Models\PostType;
 use Nova\Foundation\Controllers\Controller;
 use Nova\PostTypes\Filters\PostTypeFilters;
-use Nova\PostTypes\Responses\ShowPostTypeResponse;
+use Nova\PostTypes\Models\PostType;
 use Nova\PostTypes\Responses\ShowAllPostTypesResponse;
+use Nova\PostTypes\Responses\ShowPostTypeResponse;
 
 class ShowPostTypeController extends Controller
 {

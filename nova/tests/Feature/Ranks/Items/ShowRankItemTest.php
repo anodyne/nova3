@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Ranks\Items;
 
-use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Models\RankItem;
 use Nova\Ranks\Models\RankName;
-use Nova\Ranks\Models\RankGroup;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 /**
  * @group ranks
@@ -25,9 +27,9 @@ class ShowRankItemTest extends TestCase
     {
         parent::setUp();
 
-        $this->group = create(RankGroup::class);
-        $this->name = create(RankName::class);
-        $this->item = create(RankItem::class, [
+        $this->group = RankGroup::factory()->create();
+        $this->name = RankName::factory()->create();
+        $this->item = RankItem::factory()->create([
             'group_id' => $this->group,
             'name_id' => $this->name,
         ]);

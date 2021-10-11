@@ -1,23 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Events;
 
-use Nova\Ranks\Models\RankGroup;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
+use Nova\Ranks\Models\RankGroup;
 
 class RankGroupDuplicated
 {
     use Dispatchable;
     use SerializesModels;
 
-    public $group;
+    public RankGroup $group;
 
-    public $originalGroup;
+    public RankGroup $original;
 
-    public function __construct(RankGroup $group, RankGroup $originalGroup)
+    public function __construct(RankGroup $group, RankGroup $original)
     {
         $this->group = $group;
-        $this->originalGroup = $originalGroup;
+        $this->original = $original;
     }
 }

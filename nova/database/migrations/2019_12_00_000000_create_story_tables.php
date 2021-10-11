@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
+declare(strict_types=1);
+
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateStoryTables extends Migration
 {
@@ -15,14 +17,14 @@ class CreateStoryTables extends Migration
     {
         Schema::create('stories', function (Blueprint $table) {
             $table->id();
+            $table->nestedSet();
             $table->string('status');
             $table->string('title');
             $table->text('description')->nullable();
             $table->text('summary')->nullable();
-            $table->dateTime('start_date')->nullable();
-            $table->dateTime('end_date')->nullable();
+            $table->timestamp('start_date')->nullable();
+            $table->timestamp('end_date')->nullable();
             $table->boolean('allow_posting')->default(true);
-            $table->nestedSet();
             $table->timestamps();
 
             $table->index('status');
@@ -53,13 +55,19 @@ class CreateStoryTables extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('story_id')->constrained('stories');
-            $table->foreignId('post_type_id')->constrained('post_types');
+            $table->foreignId('post_type_id')->nullable()->constrained('post_types');
             $table->string('status');
-            $table->string('title');
-            $table->longText('content');
+            $table->string('title')->nullable();
+            $table->longText('content')->nullable();
+            $table->string('day')->nullable();
+            $table->string('time')->nullable();
+            $table->string('location')->nullable();
             $table->unsignedInteger('word_count')->default(0);
-            $table->boolean('mature_content')->default(false);
-            $table->dateTime('published_at')->nullable();
+            $table->unsignedSmallInteger('rating_language')->default(0);
+            $table->unsignedSmallInteger('rating_sex')->default(0);
+            $table->unsignedSmallInteger('rating_violence')->default(0);
+            $table->nestedSet();
+            $table->timestamp('published_at')->nullable();
             $table->timestamps();
 
             $table->index(['story_id', 'post_type_id', 'published_at']);

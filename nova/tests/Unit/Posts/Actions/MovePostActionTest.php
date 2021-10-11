@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Posts\Actions;
 
-use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Posts\Actions\MovePost;
 use Nova\Posts\Models\Post;
 use Nova\Stories\Models\Story;
-use Nova\Posts\Actions\MovePost;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 /**
  * @group posts
@@ -16,11 +18,11 @@ class MovePostActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
+    protected MovePost $action;
 
-    protected $story;
+    protected Story $story;
 
-    protected $post;
+    protected Post $post;
 
     public function setUp(): void
     {
@@ -28,9 +30,9 @@ class MovePostActionTest extends TestCase
 
         $this->action = app(MovePost::class);
 
-        $this->story = create(Story::class);
+        $this->story = Story::factory()->create();
 
-        $this->post = create(Post::class);
+        $this->post = Post::factory()->create();
     }
 
     /** @test **/

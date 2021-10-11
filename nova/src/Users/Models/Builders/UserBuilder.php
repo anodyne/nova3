@@ -1,72 +1,53 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Users\Models\Builders;
 
-use Nova\Users\Models\Login;
+use Illuminate\Database\Eloquent\Builder;
+use Nova\Foundation\Filters\Filterable;
 use Nova\Users\Models\States\Active;
-use Nova\Users\Models\States\Pending;
 use Nova\Users\Models\States\Archived;
 use Nova\Users\Models\States\Inactive;
-use Nova\Foundation\Filters\Filterable;
-use Illuminate\Database\Eloquent\Builder;
+use Nova\Users\Models\States\Pending;
 
 class UserBuilder extends Builder
 {
     use Filterable;
 
-    /**
-     * Get active users.
-     *
-     * @return Builder
-     */
-    public function whereActive()
+    public function searchFor($search): Builder
     {
-        return $this->where('state', '=', Active::class);
+        return $this->where(function ($query) use ($search) {
+            return $query->where('name', 'like', "%{$search}%")
+                ->orWhere('email', 'like', "%{$search}%");
+        })
+            ->orWhereHas('characters', function ($query) use ($search) {
+                return $query->where('name', 'like', "%{$search}%");
+            });
     }
 
-    /**
-     * Get archived users.
-     *
-     * @return Builder
-     */
-    public function whereArchived()
+    public function whereActive(): Builder
     {
-        return $this->where('state', '=', Archived::class);
+        return $this->where('status', Active::class);
     }
 
-    /**
-     * Get inactive users.
-     *
-     * @return Builder
-     */
-    public function whereInactive()
+    public function whereArchived(): Builder
     {
-        return $this->where('state', '=', Inactive::class);
+        return $this->where('status', Archived::class);
     }
 
-    /**
-     * Get pending users.
-     *
-     * @return Builder
-     */
-    public function wherePending()
+    public function whereInactive(): Builder
     {
-        return $this->where('state', '=', Pending::class);
+        return $this->where('status', Inactive::class);
     }
 
-    /**
-     * Get the last login date.
-     *
-     * @return Builder
-     */
-    public function withLastLoginAt()
+    public function wherePending(): Builder
     {
-        return $this->addSelect(['last_login_at' => Login::select('created_at')
-            ->whereColumn('user_id', 'users.id')
-            ->latest()
-            ->take(1)
-        ])->withCasts([
-            'last_login_at' => 'date',
-        ]);
+        return $this->where('status', Pending::class);
+    }
+
+    public function whereNotPending(): Builder
+    {
+        return $this->where('status', '!=', Pending::class);
     }
 }

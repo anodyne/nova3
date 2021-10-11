@@ -1,32 +1,53 @@
 <?php
 
-use Nova\Settings\Models\Settings;
+declare(strict_types=1);
+
 use Illuminate\Database\Migrations\Migration;
-use Nova\Settings\DataTransferObjects\DefaultsSettings;
-use Nova\Settings\DataTransferObjects\DiscordSettings;
-use Nova\Settings\DataTransferObjects\EmailSettings;
+use Nova\Settings\DataTransferObjects\Characters;
+use Nova\Settings\DataTransferObjects\Discord;
+use Nova\Settings\DataTransferObjects\Email;
+use Nova\Settings\DataTransferObjects\General;
+use Nova\Settings\DataTransferObjects\MetaTags;
+use Nova\Settings\DataTransferObjects\PostingActivity;
+use Nova\Settings\DataTransferObjects\SystemDefaults;
+use Nova\Settings\Models\Settings;
 
 class PopulateSettingsTable extends Migration
 {
     public function up()
     {
         $settings = [
-            'general' => [],
-            'email' => [],
-            'defaults' => new DefaultsSettings([
-                'theme' => 'Pulsar',
-                'iconSet' => 'fluent',
-            ]),
-            'meta_data' => [],
-            'characters' => [],
-            'discord' => new DiscordSettings([
-                'storyPostsEnabled' => true,
-                'storyPostsWebhook' => null,
-                'storyPostsColor' => '#406ceb',
-                'applicationsEnabled' => false,
-                'applicationsWebhook' => null,
-                'applicationsColor' => null,
-            ]),
+            'general' => new General(),
+            'email' => new Email(),
+            'system_defaults' => new SystemDefaults(
+                iconSet: 'fluent',
+                theme: 'Pulsar'
+            ),
+            'meta_tags' => new MetaTags(),
+            'characters' => new Characters(
+                allowCharacterCreation: true,
+                autoLinkCharacter: true,
+                characterLimit: 5,
+                enforceCharacterLimits: true,
+                requireApprovalForCharacterCreation: true,
+            ),
+            'discord' => new Discord(
+                webhook: null,
+                color: '#38b2ac',
+                storyPostsEnabled: true,
+                storyPostsWebhook: null,
+                storyPostsColor: '#406ceb',
+                applicationsEnabled: false,
+                applicationsWebhook: null,
+                applicationsColor: null
+            ),
+            'posting_activity' => new PostingActivity(
+                postsStrategy: 'author',
+                requiredActivity: 1000,
+                trackingStrategy: 'words',
+                wordCountPostConversion: 500,
+                wordCountStrategy: 'average'
+            ),
         ];
 
         $defaults = new Settings(array_merge([

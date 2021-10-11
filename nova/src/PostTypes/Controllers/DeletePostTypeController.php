@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\PostTypes\Controllers;
 
 use Illuminate\Http\Request;
-use Nova\PostTypes\Models\PostType;
-use Nova\PostTypes\Actions\DeletePostType;
 use Nova\Foundation\Controllers\Controller;
+use Nova\PostTypes\Actions\DeletePostType;
+use Nova\PostTypes\Models\PostType;
 use Nova\PostTypes\Responses\DeletePostTypeResponse;
 
 class DeletePostTypeController extends Controller
@@ -26,13 +28,13 @@ class DeletePostTypeController extends Controller
         ]);
     }
 
-    public function destroy(DeletePostType $action, PostType $postType)
+    public function destroy(PostType $postType)
     {
         $this->authorize('delete', $postType);
 
         $name = $postType->name;
 
-        $action->execute($postType);
+        DeletePostType::run($postType);
 
         return redirect()
             ->route('post-types.index')

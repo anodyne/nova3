@@ -1,4 +1,4 @@
-@extends($__novaTemplate)
+@extends($meta->template)
 
 @section('content')
     <x-page-header title="Add Post Type">
@@ -8,23 +8,46 @@
     </x-page-header>
 
     <x-panel
-        x-data="{ name: '{{ old('name') }}', key: '{{ old('key') }}', suggestKey: true }"
-        x-init="
-            $watch('name', value => {
-                if (suggestKey) {
-                    key = value.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'-');
-                }
-            })
-        "
+        x-data="{ ...tabsList('details'), name: '', key: '', suggestKey: true }"
+        x-init="$watch('name', value => {
+            if (suggestKey) {
+                key = value.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'-');
+            }
+        })"
     >
-        <x-form :action="route('post-types.store')">
-            <x-form.section title="Post Type Info" message="A post type defines how different types of story entries are displayed and used. Using post types, you can setup your writing features exactly how you want them for your game.">
+        <div>
+            <x-content-box class="sm:hidden">
+                <select @change="switchTab($event.target.value)" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-150 sm:text-sm rounded-md">
+                    <option value="details">Details</option>
+                    <option value="permissions">Fields</option>
+                    <option value="users">Options</option>
+                </select>
+            </x-content-box>
+            <div class="hidden sm:block">
+                <div class="border-b border-gray-6 px-4 sm:px-6">
+                    <nav class="-mb-px flex">
+                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none" :class="{ 'border-blue-7 text-blue-11': isTab('details'), 'text-gray-9 hover:text-gray-11 hover:border-gray-6': isNotTab('details') }" @click.prevent="switchTab('details')">
+                            Details
+                        </a>
+                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none" :class="{ 'border-blue-7 text-blue-11': isTab('fields'), 'text-gray-9 hover:text-gray-11 hover:border-gray-6': isNotTab('fields') }" @click.prevent="switchTab('fields')">
+                            Fields
+                        </a>
+                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none" :class="{ 'border-blue-7 text-blue-11': isTab('options'), 'text-gray-9 hover:text-gray-11 hover:border-gray-6': isNotTab('options') }" @click.prevent="switchTab('options')">
+                            Options
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <x-form :action="route('post-types.store')" :divide="false" :space="false">
+            <x-form.section title="Post Type Info" message="A post type defines how different types of story entries are displayed and used. Using post types, you can setup your writing features exactly how you want them for your game." x-show="isTab('details')">
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
                     <x-input.text x-model="name" id="name" name="name" data-cy="name" />
                 </x-input.group>
 
                 <x-input.group label="Key" for="key" :error="$errors->first('key')">
-                    <x-input.text x-model="key" x-on:change="suggestKey = false" id="key" name="key" data-cy="key" />
+                    <x-input.text x-model="key" @change="suggestKey = false" id="key" name="key" data-cy="key" />
                 </x-input.group>
 
                 <x-input.group label="Description" for="description">
@@ -53,103 +76,67 @@
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle
-                        field="active"
-                        :value="old('active', true)"
-                        active-text="Active"
-                        inactive-text="Inactive"
-                    />
+                    <x-input.toggle field="active" :value="old('active', true)">
+                        Active
+                    </x-input.toggle>
                 </x-input.group>
             </x-form.section>
 
-            <x-form.section title="Fields" message="Post types control which fields are available when creating a post of that type. You can turn any of these fields on/off to suit your game's needs.">
-                <x-input.group>
-                    <x-input.toggle
-                        field="fields[title]"
-                        :value="old('fields[title]', true)"
-                        active-text="Show title field"
-                        inactive-text="Hide title field"
-                    />
-                </x-input.group>
+            <x-form.section title="Fields" message="Post types control which fields are available when creating a post of that type. You can turn any of these fields on/off to suit your game's needs." x-show="isTab('fields')">
+                @foreach ($fieldTypes as $fieldType)
+                    <x-content-box class="bg-gray-2 rounded border border-gray-6" x-data="{ '{{ $fieldType }}': true }">
+                        <div @toggle-changed="{{ $fieldType }} = $event.detail.value">
+                            <x-input.toggle field="fields[{{ $fieldType }}][enabled]" :value="old('fields[{{ $fieldType }}][enabled]', true)">
+                                {{ ucfirst($fieldType) }} field
+                            </x-input.toggle>
+                        </div>
 
-                <x-input.group>
-                    <x-input.toggle
-                        field="fields[day]"
-                        :value="old('fields[day]', true)"
-                        active-text="Show day field"
-                        inactive-text="Hide day field"
-                    />
-                </x-input.group>
+                        <div x-show="{{ $fieldType }}" class="mt-6 px-6 space-y-4">
+                            <x-input.group>
+                                <x-input.toggle field="fields[{{ $fieldType }}][validate]" :value="old('fields[{{ $fieldType }}][validate]', true)">
+                                    Require value
+                                </x-input.toggle>
+                            </x-input.group>
 
-                <x-input.group>
-                    <x-input.toggle
-                        field="fields[time]"
-                        :value="old('fields[time]', true)"
-                        active-text="Show time field"
-                        inactive-text="Hide time field"
-                    />
-                </x-input.group>
-
-                <x-input.group>
-                    <x-input.toggle
-                        field="fields[location]"
-                        :value="old('fields[location]', true)"
-                        active-text="Show location field"
-                        inactive-text="Hide location field"
-                    />
-                </x-input.group>
-
-                <x-input.group>
-                    <x-input.toggle
-                        field="fields[content]"
-                        :value="old('fields[content]', true)"
-                        active-text="Show content field"
-                        inactive-text="Hide content field"
-                    />
-                </x-input.group>
+                            <x-input.group help="Nova will attempt to offer a suggestion to the user based on nearby posts of the same post type">
+                                <x-input.toggle field="fields[{{ $fieldType }}][suggest]" :value="old('fields[{{ $fieldType }}][suggest]', true)">
+                                    Suggest content
+                                </x-input.toggle>
+                            </x-input.group>
+                        </div>
+                    </x-content-box>
+                @endforeach
             </x-form.section>
 
-            <x-form.section title="Options" message="Post types control the behavior of a post of that type with a wide range of options. You can turn any of these fields on/off to suit your game's needs.">
+            <x-form.section title="Options" message="Post types control the behavior of a post of that type with a wide range of options. You can turn any of these fields on/off to suit your game's needs." x-show="isTab('options')">
                 <x-input.group>
-                    <x-input.toggle
-                        field="options[notifyUsers]"
-                        :value="old('options[notifyUsers]', true)"
-                        active-text="Notify users"
-                        inactive-text="Do not notify users"
-                    />
+                    <x-input.toggle field="options[notifyUsers]" :value="old('options[notifyUsers]', true)">
+                        Send notification to users
+                    </x-input.toggle>
                 </x-input.group>
 
-                <x-input.group>
-                    <x-input.toggle
-                        field="options[notifyDiscord]"
-                        :value="old('options[notifyDiscord]', app('nova.settings')->discord->storyPostsEnabled)"
-                        active-text="Send notification to Discord"
-                        inactive-text="Do not send notification to Discord"
-                    />
+                {{-- <x-input.group>
+                    <x-input.toggle field="options[notifyDiscord]" :value="old('options[notifyDiscord]', settings()->discord->storyPostsEnabled)">
+                        Send notification to Discord
+                    </x-input.toggle>
 
-                    @if (! app('nova.settings')->discord->storyPostsEnabled)
+                    @if (! settings()->discord->storyPostsEnabled)
                         <x-slot name="help">
-                            <span class="font-medium">Story post notifications for Discord is currently disabled.</span> You can change this setting, but it will not work until you have enabled sending story post notifications to Discord from the <a class="text-blue-600 hover:text-blue-500 transition ease-in-out duration-150" href="{{ route('settings.index', 'discord') }}">Discord settings</a>.
+                            <span class="font-medium">Story post notifications for Discord is currently disabled.</span> You can change this setting, but it will not work until you have enabled sending story post notifications to Discord from the <a class="text-blue-9 hover:text-blue-10 transition ease-in-out duration-150" href="{{ route('settings.index', 'discord') }}">Discord settings</a>.
                         </x-slot>
                     @endif
+                </x-input.group> --}}
+
+                <x-input.group>
+                    <x-input.toggle field="options[includeInPostTracking]" :value="old('options[includeInPostTracking]', true)">
+                        Include in post tracking
+                    </x-input.toggle>
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle
-                        field="options[includeInPostCounts]"
-                        :value="old('options[includeInPostCounts]', true)"
-                        active-text="Include in post counts"
-                        inactive-text="Exclude from post counts"
-                    />
-                </x-input.group>
-
-                <x-input.group>
-                    <x-input.toggle
-                        field="options[multipleAuthors]"
-                        :value="old('options[multipleAuthors]', true)"
-                        active-text="Allow multiple authors"
-                        inactive-text="Do not allow multiple authors"
-                    />
+                    <x-input.toggle field="options[multipleAuthors]" :value="old('options[multipleAuthors]', true)">
+                        Allow multiple authors
+                    </x-input.toggle>
                 </x-input.group>
 
                 <x-input.group label="Restrict posting" help="You can set a specific role a user must have in order to use certain post types.">
@@ -162,9 +149,9 @@
                 </x-input.group>
             </x-form.section>
 
-            <x-form.footer>
+            <x-form.footer class="mt-4 md:mt-8">
                 <x-button type="submit" color="blue">Add Post Type</x-button>
-                <x-button-link :href="route('post-types.index')" color="white">Cancel</x-button-link>
+                <x-link :href="route('post-types.index')" color="white">Cancel</x-link>
             </x-form.footer>
         </x-form>
     </x-panel>

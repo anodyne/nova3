@@ -1,10 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Characters\Responses;
 
 use Nova\Foundation\Responses\Responsable;
 
 class ShowAllCharactersResponse extends Responsable
 {
-    public $view = 'characters.index';
+    public ?string $subnav = 'characters';
+
+    public string $view = 'characters.index';
 }

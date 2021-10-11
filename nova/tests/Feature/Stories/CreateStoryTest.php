@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Stories;
 
-use Tests\TestCase;
-use Nova\Stories\Models\Story;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\Stories\Events\StoryCreated;
+use Nova\Stories\Models\Story;
 use Nova\Stories\Requests\CreateStoryRequest;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 /**
  * @group stories
@@ -31,7 +33,7 @@ class CreateStoryTest extends TestCase
         $this->withoutExceptionHandling();
         $this->signInWithPermission('story.create');
 
-        $story = make(Story::class);
+        $story = Story::factory()->make();
 
         $this->followingRedirects();
 
@@ -60,7 +62,7 @@ class CreateStoryTest extends TestCase
 
         $this->post(
             route('stories.store'),
-            array_merge(make(Story::class)->toArray(), [
+            array_merge(Story::factory()->make()->toArray(), [
                 'status' => 'upcoming',
             ])
         );
@@ -84,7 +86,7 @@ class CreateStoryTest extends TestCase
 
         $response = $this->postJson(
             route('stories.store'),
-            array_merge(make(Story::class)->toArray(), [
+            array_merge(Story::factory()->make()->toArray(), [
                 'status' => 'upcoming',
             ])
         );
@@ -103,7 +105,7 @@ class CreateStoryTest extends TestCase
     {
         $response = $this->postJson(
             route('stories.store'),
-            array_merge(make(Story::class)->toArray(), [
+            array_merge(Story::factory()->make()->toArray(), [
                 'status' => 'upcoming',
             ])
         );

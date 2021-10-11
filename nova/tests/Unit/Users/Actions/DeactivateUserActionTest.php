@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Users\Actions;
 
-use Tests\TestCase;
-use Nova\Users\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Users\Actions\DeactivateUser;
 use Nova\Users\Models\States\Inactive;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Users\Models\User;
+use Tests\TestCase;
 
 /**
  * @group users
@@ -25,7 +27,7 @@ class DeactivateUserActionTest extends TestCase
 
         $this->action = app(DeactivateUser::class);
 
-        $this->user = create(User::class, [], ['status:active']);
+        $this->user = User::factory()->active()->create();
     }
 
     /** @test **/

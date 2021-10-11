@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Ranks\Names;
 
-use Tests\TestCase;
-use Nova\Ranks\Models\RankName;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Ranks\Models\RankName;
+use Tests\TestCase;
 
 /**
  * @group ranks
@@ -19,7 +21,7 @@ class ShowRankNameTest extends TestCase
     {
         parent::setUp();
 
-        $this->name = create(RankName::class);
+        $this->name = RankName::factory()->create();
     }
 
     /** @test **/

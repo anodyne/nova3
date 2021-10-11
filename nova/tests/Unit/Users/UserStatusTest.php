@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Users;
 
-use Tests\TestCase;
-use Nova\Users\Models\User;
-use Nova\Characters\Models\Character;
-use Nova\Users\Models\States\Inactive;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Characters\Models\Character;
 use Nova\Characters\Models\States\Statuses\Active;
 use Nova\Characters\Models\States\Statuses\Inactive as InactiveCharacter;
+use Nova\Users\Models\States\Inactive;
+use Nova\Users\Models\User;
+use Tests\TestCase;
 
 /**
  * @group users
@@ -23,11 +25,12 @@ class UserStatusTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = create(User::class, [], ['status:active']);
-
-        create(Character::class, [], ['status:active'])->users()->attach($this->user);
-        create(Character::class, [], ['status:active'])->users()->attach($this->user);
-        create(Character::class, [], ['status:active'])->users()->attach($this->user);
+        $this->user = User::factory()
+            ->active()
+            ->hasAttached(
+                Character::factory()->count(3)->active()
+            )
+            ->create();
     }
 
     /** @test **/
@@ -47,8 +50,8 @@ class UserStatusTest extends TestCase
     /** @test **/
     public function itOnlyDeactivatesCharactersWithOneUserWhenTransitioningFromActiveToInactive()
     {
-        $user = create(User::class, [], ['status:active']);
-        $character = create(Character::class, [], ['status:active']);
+        $user = User::factory()->active()->create();
+        $character = Character::factory()->active()->create();
         $character->users()->saveMany([
             $user,
             $this->user,

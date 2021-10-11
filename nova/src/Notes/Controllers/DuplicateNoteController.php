@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Notes\Controllers;
 
-use Nova\Notes\Models\Note;
+use Illuminate\Http\RedirectResponse;
+use Nova\Foundation\Controllers\Controller;
 use Nova\Notes\Actions\DuplicateNote;
 use Nova\Notes\Events\NoteDuplicated;
-use Nova\Foundation\Controllers\Controller;
+use Nova\Notes\Models\Note;
 
 class DuplicateNoteController extends Controller
 {
@@ -16,18 +19,16 @@ class DuplicateNoteController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(
-        DuplicateNote $action,
-        Note $originalNote
-    ) {
-        $this->authorize('duplicate', $originalNote);
+    public function __invoke(Note $original): RedirectResponse
+    {
+        $this->authorize('duplicate', $original);
 
-        $note = $action->execute($originalNote);
+        $note = DuplicateNote::run($original);
 
-        NoteDuplicated::dispatch($note, $originalNote);
+        NoteDuplicated::dispatch($note, $original);
 
         return redirect()
             ->route('notes.edit', $note)
-            ->withToast("{$originalNote->title} was duplicated");
+            ->withToast("{$original->title} was duplicated");
     }
 }

@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Posts\Policies;
 
-use Nova\Posts\Models\Post;
-use Nova\Users\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Gate;
+use Nova\Posts\Models\Post;
 use Nova\PostTypes\Models\PostType;
+use Nova\Users\Models\User;
 
 class PostPolicy
 {
@@ -14,33 +16,33 @@ class PostPolicy
 
     public function viewAny(User $user): bool
     {
-        return $user->can('post.*');
+        return $user->isAbleTo('post.*');
     }
 
     public function view(User $user, Post $post): bool
     {
-        return $user->can('post.view');
+        return $user->isAbleTo('post.view');
     }
 
     public function create(User $user): bool
     {
-        return $user->can('post.create');
+        return $user->isAbleTo('post.create');
     }
 
     public function update(User $user, Post $post): bool
     {
-        return $user->can('post.update');
+        return $user->isAbleTo('post.update');
     }
 
     public function delete(User $user, Post $post): bool
     {
-        return $user->can('post.delete');
+        return $user->isAbleTo('post.delete');
     }
 
     public function duplicate(User $user, Post $post): bool
     {
-        return $user->can('post.create')
-            && $user->can('post.update');
+        return $user->isAbleTo('post.create')
+            && $user->isAbleTo('post.update');
     }
 
     public function restore(User $user, Post $post): bool
@@ -53,9 +55,12 @@ class PostPolicy
         return false;
     }
 
-    public function write(User $user, Post $post, PostType $postType): bool
+    public function write(User $user, Post $post, ?PostType $postType): bool
     {
-        return $this->create($user, $post)
-            && Gate::forUser($user)->allows('write', $postType);
+        if ($postType === null || (isset($postType) && Gate::forUser($user)->allows('write', $postType))) {
+            return $this->create($user, $post);
+        }
+
+        return false;
     }
 }

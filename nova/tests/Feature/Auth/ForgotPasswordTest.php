@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Auth;
 
-use Tests\TestCase;
-use Nova\Users\Models\User;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Notification;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
+use Nova\Users\Models\User;
+use Tests\TestCase;
 
 /**
  * @group auth
@@ -28,7 +30,7 @@ class ForgotPasswordTest extends TestCase
     {
         Notification::fake();
 
-        $user = create(User::class, [], ['status:active']);
+        $user = User::factory()->active()->create();
 
         $response = $this->post(route('password.email'), [
             'email' => $user->email,
@@ -58,7 +60,10 @@ class ForgotPasswordTest extends TestCase
         ]);
         $response->assertSessionHasErrors('email');
 
-        Notification::assertNotSentTo(make(User::class), ResetPassword::class);
+        Notification::assertNotSentTo(
+            User::factory()->make(),
+            ResetPassword::class
+        );
     }
 
     /** @test **/

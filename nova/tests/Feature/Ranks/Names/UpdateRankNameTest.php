@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Ranks\Names;
 
-use Tests\TestCase;
-use Nova\Ranks\Models\RankName;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\Ranks\Events\RankNameUpdated;
+use Nova\Ranks\Models\RankName;
 use Nova\Ranks\Requests\UpdateRankNameRequest;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 /**
  * @group ranks
@@ -22,7 +24,7 @@ class UpdateRankNameTest extends TestCase
     {
         parent::setUp();
 
-        $this->name = create(RankName::class);
+        $this->name = RankName::factory()->create();
     }
 
     /** @test **/
@@ -43,7 +45,7 @@ class UpdateRankNameTest extends TestCase
 
         $response = $this->put(
             route('ranks.names.update', $this->name),
-            $rankNameData = make(RankName::class)->toArray()
+            $rankNameData = RankName::factory()->make()->toArray()
         );
         $response->assertSuccessful();
 
@@ -64,7 +66,7 @@ class UpdateRankNameTest extends TestCase
 
         $this->put(
             route('ranks.names.update', $this->name),
-            make(RankName::class)->toArray()
+            RankName::factory()->make()->toArray()
         );
 
         Event::assertDispatched(RankNameUpdated::class);
@@ -86,7 +88,7 @@ class UpdateRankNameTest extends TestCase
 
         $response = $this->put(
             route('ranks.names.update', $this->name),
-            make(RankName::class)->toArray()
+            RankName::factory()->make()->toArray()
         );
         $response->assertForbidden();
     }
@@ -103,7 +105,7 @@ class UpdateRankNameTest extends TestCase
     {
         $response = $this->putJson(
             route('ranks.names.update', $this->name),
-            make(RankName::class)->toArray()
+            RankName::factory()->make()->toArray()
         );
         $response->assertUnauthorized();
     }

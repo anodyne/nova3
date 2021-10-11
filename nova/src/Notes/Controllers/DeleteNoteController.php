@@ -1,11 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Notes\Controllers;
 
-use Nova\Notes\Models\Note;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Nova\Notes\Actions\DeleteNote;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
+use Nova\Notes\Actions\DeleteNote;
+use Nova\Notes\Models\Note;
 use Nova\Notes\Responses\DeleteNoteResponse;
 
 class DeleteNoteController extends Controller
@@ -17,7 +21,7 @@ class DeleteNoteController extends Controller
         $this->middleware('auth');
     }
 
-    public function confirm(Request $request)
+    public function confirm(Request $request): Responsable
     {
         $note = Note::findOrFail($request->id);
 
@@ -26,11 +30,11 @@ class DeleteNoteController extends Controller
         ]);
     }
 
-    public function destroy(Note $note, DeleteNote $action)
+    public function destroy(Note $note): RedirectResponse
     {
         $this->authorize('delete', $note);
 
-        $action->execute($note);
+        DeleteNote::run($note);
 
         return redirect()
             ->route('notes.index')

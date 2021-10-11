@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Characters\Controllers;
 
-use Nova\Characters\Models\Character;
-use Nova\Foundation\Controllers\Controller;
 use Nova\Characters\Actions\UpdateCharacterManager;
 use Nova\Characters\Events\CharacterUpdatedByAdmin;
+use Nova\Characters\Models\Character;
 use Nova\Characters\Requests\UpdateCharacterRequest;
 use Nova\Characters\Responses\UpdateCharacterResponse;
+use Nova\Foundation\Controllers\Controller;
 
 class UpdateCharacterController extends Controller
 {
@@ -29,12 +31,11 @@ class UpdateCharacterController extends Controller
 
     public function update(
         UpdateCharacterRequest $request,
-        UpdateCharacterManager $action,
         Character $character
     ) {
         $this->authorize('update', $character);
 
-        $character = $action->execute($character, $request);
+        $character = UpdateCharacterManager::run($character, $request);
 
         CharacterUpdatedByAdmin::dispatch($character);
 

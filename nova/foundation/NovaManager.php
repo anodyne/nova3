@@ -1,16 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Foundation;
 
 use Illuminate\Support\Facades\Schema;
+use Throwable;
 
 class NovaManager
 {
     public $version = '3.0.0';
 
-    public function isInstalled()
+    public function isInstalled(): bool
     {
-        return Schema::hasTable('migrations');
+        try {
+            return Schema::hasTable('migrations');
+        } catch (Throwable $th) {
+            return false;
+        }
     }
 
     public function styles($options = [])
@@ -63,13 +70,13 @@ class NovaManager
     protected function cssAssets()
     {
         $appUrl = url('');
-        $vendorPath = "{$appUrl}/dist/css/vendor.css";
-        $baseStylesPath = "{$appUrl}/dist/css/app.css";
+        $appStylesPath = "{$appUrl}/dist/css/app.css";
+        $appThemesStylesPath = "{$appUrl}/dist/css/app-themes.css";
 
         return <<<HTML
 <link href="https://rsms.me/inter/inter.css" rel="stylesheet">
-<link href="{$vendorPath}" rel="stylesheet">
-<link href="{$baseStylesPath}" rel="stylesheet">
+<link href="{$appThemesStylesPath}" rel="stylesheet">
+<link href="{$appStylesPath}" rel="stylesheet">
 HTML;
     }
 
@@ -83,10 +90,7 @@ HTML;
         // Adding semicolons for this JavaScript is important,
         // because it will be minified in production.
         return <<<HTML
-<script data-turbolinks-eval="false">
-    window.nova_app_url = '{$appUrl}';
-</script>
-<script src="{$jsPath}" data-turbolinks-eval="false" defer></script>
+<script src="{$jsPath}" defer></script>
 HTML;
     }
 

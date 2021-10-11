@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Users\Actions;
 
-use Tests\TestCase;
 use Nova\Roles\Models\Role;
-use Nova\Users\Models\User;
 use Nova\Users\Actions\UpdateUserRoles;
+use Nova\Users\Models\User;
+use Tests\TestCase;
 
 /**
  * @group users
@@ -25,9 +27,9 @@ class UpdateUserRolesActionTest extends TestCase
 
         $this->action = app(UpdateUserRoles::class);
 
-        $this->user = create(User::class, [], ['status:active']);
+        $this->user = User::factory()->active()->create();
 
-        $this->role = create(Role::class);
+        $this->role = Role::factory()->create();
     }
 
     /** @test **/

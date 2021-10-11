@@ -1,21 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Foundation\Responses;
 
-use Nova\Pages\Page;
 use BadMethodCallException;
-use Illuminate\Support\Str;
-use Illuminate\Http\Response;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Responsable as LaravelResponsable;
+use Illuminate\Http\Response;
+use Illuminate\Support\Str;
+use Nova\Pages\Page;
 
 abstract class Responsable implements LaravelResponsable
 {
     public $layout;
 
+    public ?string $subnav = null;
+
     public $template;
 
-    public $view;
+    public string $view;
 
     protected $app;
 
@@ -55,6 +59,15 @@ abstract class Responsable implements LaravelResponsable
         return "layouts.{$layout}";
     }
 
+    public function subnav(): mixed
+    {
+        if ($this->subnav) {
+            return "subnavs.{$this->subnav}";
+        }
+
+        return null;
+    }
+
     public function template(): string
     {
         $template = $this->template ?? 'simple';
@@ -74,11 +87,18 @@ abstract class Responsable implements LaravelResponsable
             $this->theme->prepareData(),
         );
 
-        return view("pages.{$this->view}", array_merge([
-            '__novaStructure' => 'app',
-            '__novaLayout' => $this->layout(),
-            '__novaTemplate' => $this->template(),
-        ], $data));
+        $meta = new ResponseMeta([
+            'layout' => $this->layout(),
+            'structure' => 'app',
+            'subnav' => $this->subnav(),
+            'subnavSection' => $this->subnav,
+            'template' => $this->template(),
+        ]);
+
+        return view(
+            "pages.{$this->view}",
+            array_merge(['meta' => $meta], $data)
+        );
     }
 
     public function toResponse($request)

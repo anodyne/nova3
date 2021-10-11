@@ -1,16 +1,10 @@
 <?php
 
-/**
- * This file is part of Laratrust,
- * a role & permission management solution for Laravel.
- *
- * @license MIT
- *
- * @package Laratrust
- */
+declare(strict_types=1);
+
+use Nova\Roles\Models\Permission;
 use Nova\Roles\Models\Role;
 use Nova\Users\Models\User;
-use Nova\Roles\Models\Permission;
 
 return [
     /*

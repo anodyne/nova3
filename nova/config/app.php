@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -167,6 +169,7 @@ return [
         BladeUIKit\BladeUIKitServiceProvider::class,
         Kalnoy\Nestedset\NestedSetServiceProvider::class,
         Livewire\LivewireServiceProvider::class,
+        LivewireUI\Spotlight\SpotlightServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -179,14 +182,14 @@ return [
         Nova\Foundation\Providers\ResponsesServiceProvider::class,
 
         /**
-         * Nova Module Service Provides
+         * Nova Module Service Provides.
          */
         Nova\Setup\Providers\SetupServiceProvider::class,
         Nova\Auth\Providers\AuthServiceProvider::class,
         Nova\Characters\Providers\CharacterServiceProvider::class,
-        Nova\Dashboard\Providers\DashboardServiceProvider::class,
+        Nova\Dashboards\Providers\DashboardsServiceProvider::class,
         Nova\Departments\Providers\DepartmentServiceProvider::class,
-        Nova\Notes\Providers\NoteServiceProvider::class,
+        Nova\Notes\Providers\NotesServiceProvider::class,
         Nova\Posts\Providers\PostServiceProvider::class,
         Nova\PostTypes\Providers\PostTypeServiceProvider::class,
         Nova\Ranks\Providers\RankServiceProvider::class,

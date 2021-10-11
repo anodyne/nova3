@@ -2,21 +2,32 @@
 
 @import 'tailwindcss/components';
 
-@import 'components/button.css';
 @import 'components/form.css';
 @import 'components/icon.css';
 @import 'components/rank.css';
-@import 'components/tag.css';
-@import 'components/toast.css';
-@import 'components/trix.css';
 
 @import 'tailwindcss/utilities';
 
-@import 'utilities/animation.css';
+@font-face {
+    font-family: 'Inter var';
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('/dist/fonts/Inter-roman.var.woff2?v=3.18') format('woff2');
+    font-named-instance: 'Regular';
+}
+
+@font-face {
+    font-family: 'Inter var';
+    font-style: italic;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('/dist/fonts/Inter-italic.var.woff2?v=3.18') format('woff2');
+    font-named-instance: 'Italic';
+}
 
 body {
-    font-feature-settings: 'kern' 1, 'ss01' 1, 'ss02' 1, 'ss03' 1;
-    -webkit-font-feature-settings: 'kern' 1, 'ss01' 1, 'ss02' 1, 'ss03' 1;
+    font-feature-settings: 'ss01', 'ss03', 'cv11', 'zero';
 }
 
 [x-cloak] {

@@ -1,12 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Notes\Controllers;
 
-use Nova\Notes\Models\Note;
-use Nova\Notes\Actions\CreateNote;
-use Nova\Notes\Requests\CreateNoteRequest;
+use Illuminate\Http\RedirectResponse;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
+use Nova\Notes\Actions\CreateNote;
 use Nova\Notes\DataTransferObjects\NoteData;
+use Nova\Notes\Models\Note;
+use Nova\Notes\Requests\CreateNoteRequest;
 use Nova\Notes\Responses\CreateNoteResponse;
 
 class CreateNoteController extends Controller
@@ -18,18 +22,18 @@ class CreateNoteController extends Controller
         $this->middleware('auth');
     }
 
-    public function create()
+    public function create(): Responsable
     {
         $this->authorize('create', Note::class);
 
         return app(CreateNoteResponse::class);
     }
 
-    public function store(CreateNoteRequest $request, CreateNote $action)
+    public function store(CreateNoteRequest $request): RedirectResponse
     {
         $this->authorize('create', Note::class);
 
-        $note = $action->execute(NoteData::fromRequest($request));
+        $note = CreateNote::run(NoteData::fromRequest($request));
 
         return redirect()
             ->route('notes.index')

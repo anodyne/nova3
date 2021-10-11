@@ -1,4 +1,4 @@
-@extends($__novaTemplate)
+@extends($meta->template)
 
 @section('content')
     <x-page-header :title="$department->name">
@@ -8,7 +8,7 @@
 
         <x-slot name="controls">
             @can('update', $department)
-                <x-button-link :href="route('departments.edit', $department)" color="blue">Edit Department</x-button-link>
+                <x-link :href="route('departments.edit', $department)" color="blue">Edit Department</x-link>
             @endcan
         </x-slot>
     </x-page-header>
@@ -38,12 +38,12 @@
             <x-form.section title="Positions" message="These are all of the positions currently assigned to this department.">
                 <div class="flex flex-col w-full">
                     @foreach ($department->positions as $position)
-                        <div class="group flex items-center justify-between py-2 px-4 rounded odd:bg-gray-100">
-                            <div class="flex flex-col | sm:flex-row sm:items-center">
+                        <div class="group flex items-center justify-between py-2 px-4 rounded odd:bg-gray-3">
+                            <div class="flex flex-col sm:flex-row sm:items-center">
                                 {{ $position->name }}
                             </div>
                             @can('update', $position)
-                                <a href="{{ route('positions.edit', $position) }}" class="text-gray-500 transition ease-in-out duration-150 hover:text-gray-700 group-hover:visible | sm:invisible">
+                                <a href="{{ route('positions.edit', $position) }}" class="text-gray-9 transition ease-in-out duration-150 hover:text-gray-11 group-hover:visible sm:invisible">
                                     @icon('edit')
                                 </a>
                             @endcan
@@ -53,7 +53,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button-link :href="route('departments.index', 'status=active')" color="white">Back</x-button-link>
+                <x-link :href="route('departments.index', 'status=active')" color="white">Back</x-link>
             </x-form.footer>
         </x-form>
     </x-panel>

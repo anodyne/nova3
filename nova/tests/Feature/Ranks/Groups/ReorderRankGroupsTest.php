@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Ranks\Groups;
 
-use Tests\TestCase;
-use Nova\Ranks\Models\RankGroup;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Ranks\Models\RankGroup;
+use Tests\TestCase;
 
 /**
  * @group ranks
@@ -23,9 +25,9 @@ class ReorderRankGroupsTest extends TestCase
     {
         parent::setUp();
 
-        $this->group1 = create(RankGroup::class, ['sort' => 0]);
-        $this->group2 = create(RankGroup::class, ['sort' => 1]);
-        $this->group3 = create(RankGroup::class, ['sort' => 2]);
+        $this->group1 = RankGroup::factory()->create(['sort' => 0]);
+        $this->group2 = RankGroup::factory()->create(['sort' => 1]);
+        $this->group3 = RankGroup::factory()->create(['sort' => 2]);
     }
 
     /** @test **/

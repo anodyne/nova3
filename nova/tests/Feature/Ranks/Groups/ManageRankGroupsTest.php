@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Ranks\Groups;
 
-use Tests\TestCase;
-use Nova\Ranks\Models\RankGroup;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Ranks\Models\RankGroup;
+use Tests\TestCase;
 
 /**
  * @group ranks
@@ -54,7 +56,7 @@ class ManageRankGroupsTest extends TestCase
     {
         $this->signInWithPermission('rank.create');
 
-        create(RankGroup::class, [
+        RankGroup::factory()->create([
             'name' => 'Command',
         ]);
 

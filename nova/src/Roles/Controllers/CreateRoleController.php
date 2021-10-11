@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Roles\Controllers;
 
-use Nova\Roles\Models\Role;
-use Nova\Roles\Actions\CreateRoleManager;
-use Nova\Roles\Requests\CreateRoleRequest;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Roles\Actions\CreateRole;
+use Nova\Roles\DataTransferObjects\RoleData;
+use Nova\Roles\Models\Role;
+use Nova\Roles\Requests\CreateRoleRequest;
 use Nova\Roles\Responses\CreateRoleResponse;
 
 class CreateRoleController extends Controller
@@ -24,14 +27,14 @@ class CreateRoleController extends Controller
         return app(CreateRoleResponse::class);
     }
 
-    public function store(CreateRoleRequest $request, CreateRoleManager $action)
+    public function store(CreateRoleRequest $request)
     {
         $this->authorize('create', Role::class);
 
-        $role = $action->execute($request);
+        $role = CreateRole::run(RoleData::fromRequest($request));
 
         return redirect()
-            ->route('roles.index')
+            ->route('roles.edit', $role)
             ->withToast("{$role->display_name} role was created");
     }
 }

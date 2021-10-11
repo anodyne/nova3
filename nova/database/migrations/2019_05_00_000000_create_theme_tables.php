@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
+declare(strict_types=1);
+
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateThemeTables extends Migration
 {
@@ -17,7 +19,7 @@ class CreateThemeTables extends Migration
             $table->boolean('active')->default(true);
             $table->string('layout_auth')->default('auth-simple');
             $table->string('layout_public')->default('app-hero');
-            $table->string('layout_admin')->default('app-sidebar');
+            $table->string('layout_admin')->default('app-admin');
             $table->string('icon_set')->default('feather');
             $table->timestamps();
 

@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Users\DataTransferObjects;
 
-use Nova\Roles\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Nova\Roles\Models\Role;
 use Spatie\DataTransferObject\DataTransferObject;
 
 class UserData extends DataTransferObject
@@ -13,7 +15,7 @@ class UserData extends DataTransferObject
 
     public string $email;
 
-    public string $pronouns;
+    public PronounsData $pronouns;
 
     public ?Collection $roles;
 
@@ -22,7 +24,7 @@ class UserData extends DataTransferObject
         return new self([
             'email' => $request->input('email'),
             'name' => $request->input('name'),
-            'pronouns' => $request->input('pronouns'),
+            'pronouns' => PronounsData::fromValue($request->input('pronouns', [])),
             'roles' => Role::whereIn('id', $request->input('roles', []))->get(),
         ]);
     }

@@ -1,0 +1,26 @@
+.bubble-menu {
+    @apply absolute flex bg-black rounded-lg px-4 py-1 mb-1 z-20 items-center justify-center invisible opacity-0;
+
+    transform: translateX(-50%);
+    transition: opacity 0.2s, visibility 0.2s;
+
+    &.is-active {
+        @apply opacity-100 visible;
+    }
+
+    .menu-button {
+        @apply relative inline-block h-full text-white mr-2 cursor-pointer px-1 pb-1;
+
+        &:last-child {
+            @apply mr-0;
+        }
+
+        &:hover {
+            @apply text-white;
+        }
+
+        &.is-active {
+            @apply text-white;
+        }
+    }
+}

@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\PostTypes;
 
-use Tests\TestCase;
-use Nova\PostTypes\Models\PostType;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\PostTypes\Models\PostType;
+use Tests\TestCase;
 
 /**
  * @group stories
@@ -24,9 +26,9 @@ class ReorderPostTypesTest extends TestCase
     {
         parent::setUp();
 
-        $this->postType1 = create(PostType::class, ['name' => 'One', 'sort' => 0]);
-        $this->postType2 = create(PostType::class, ['name' => 'Two', 'sort' => 1]);
-        $this->postType3 = create(PostType::class, ['name' => 'Three', 'sort' => 2]);
+        $this->postType1 = PostType::factory()->create(['name' => 'One', 'sort' => 0]);
+        $this->postType2 = PostType::factory()->create(['name' => 'Two', 'sort' => 1]);
+        $this->postType3 = PostType::factory()->create(['name' => 'Three', 'sort' => 2]);
     }
 
     /** @test **/

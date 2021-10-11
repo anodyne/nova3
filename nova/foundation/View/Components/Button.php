@@ -1,130 +1,73 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Foundation\View\Components;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\View\Component;
 
 class Button extends Component
 {
-    public $color;
-
-    public $fullWidth;
-
-    public $size;
-
-    public function __construct($color = 'white', $size = 'md', $fullWidth = false)
-    {
-        $this->color = $color;
-        $this->fullWidth = $fullWidth;
-        $this->size = $size;
+    public function __construct(
+        public string $color = 'white',
+        public string $size = 'md',
+        public bool $fullWidth = false
+    ) {
     }
 
-    public function baseStyles()
+    public function styles(): string
     {
-        $styles = 'inline-flex items-center border rounded-md transition ease-in-out duration-150 focus:outline-none';
-
-        if (! Str::startsWith($this->color, ['text-'])) {
-            $styles .= ' uppercase tracking-wide font-semibold';
-        }
-
-        if ($this->fullWidth) {
-            $styles .= ' w-full justify-center';
-        }
-
-        return $styles;
+        return Arr::toCssClasses([
+            'inline-flex items-center text-center justify-center border rounded-md',
+            'transition ease-in-out duration-150',
+            'focus:outline-none',
+            'disabled:cursor-not-allowed disabled:opacity-75',
+            'uppercase tracking-wide font-semibold shadow-sm' => ! Str::endsWith($this->color, ['-text']),
+            'font-medium border-transparent' => Str::endsWith($this->color, ['-text']),
+            'w-full' => $this->fullWidth,
+            $this->colorStyles(),
+            $this->sizeStyles(),
+        ]);
     }
 
-    public function containerStyles()
+    public function colorStyles(): string
     {
-        $styles = 'inline-flex rounded-md';
+        return match ($this->color) {
+            default => 'bg-gray-1 border-gray-7 text-gray-11 hover:bg-gray-2 hover:border-gray-8 focus:ring-2 focus:ring-offset-2 focus:ring-gray-7',
 
-        if (! Str::startsWith($this->color, ['soft-', 'text-'])) {
-            $styles .= ' shadow-sm';
-        }
+            'dark-gray-text' => 'text-gray-11 hover:text-gray-12',
+            'gray-text' => 'text-gray-9 hover:text-gray-11',
+            'light-gray-text' => 'text-gray-7 hover:text-gray-8',
 
-        if ($this->fullWidth) {
-            $styles .= ' w-full';
-        }
+            'blue' => 'border-transparent text-white bg-blue-9 hover:bg-blue-10 focus:ring-2 focus:ring-offset-2 focus:ring-blue-7',
+            'blue-outline' => 'bg-blue-1 border-blue-7 text-blue-11 hover:bg-blue-2 hover:border-blue-8 focus:ring-2 focus:ring-offset-2 focus:ring-blue-7',
+            'blue-text' => 'text-blue-9 hover:text-blue-10',
 
-        return $styles;
+            'purple' => 'border-transparent text-white bg-purple-9 hover:bg-purple-10 focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-1 focus:border-purple-6 focus:ring-purple-7',
+            'purple-outline' => 'bg-purple-1 border-purple-7 text-purple-11 hover:bg-purple-2 hover:border-purple-8 focus:ring-2 focus:ring-offset-2 focus:ring-purple-7',
+            'purple-text' => 'text-purple-9 hover:text-purple-10',
+
+            'red' => 'border-transparent text-white bg-red-9 hover:bg-red-10 focus:ring-2 focus:ring-offset-2 focus:ring-red-7',
+            'red-outline' => 'bg-red-1 border-red-7 text-red-11 hover:bg-red-2 hover:border-red-8 focus:ring-2 focus:ring-offset-2 focus:ring-red-7',
+            'red-text' => 'text-red-9 hover:text-red-10',
+
+            'gray' => 'border-transparent text-gray-11 bg-gray-6 hover:bg-gray-7 focus:ring-2 focus:ring-offset-2 focus:ring-gray-5',
+        };
     }
 
-    public function colorStyles()
+    public function sizeStyles(): string
     {
-        switch ($this->color) {
-            case 'white':
-            default:
-                return 'border-gray-300 text-gray-700 bg-white hover:text-gray-500 focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50';
-
-                break;
-
-            case 'blue':
-                return 'border-transparent text-white bg-blue-600 hover:bg-blue-500 focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700';
-
-                break;
-
-            case 'soft-blue':
-                return 'border-transparent text-blue-700 bg-blue-100 hover:bg-blue-50 focus:border-blue-300 focus:shadow-outline-blue active:bg-blue-200';
-
-                break;
-
-            case 'purple':
-                return 'border-transparent text-white bg-purple-600 hover:bg-purple-500 focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700';
-
-                break;
-
-            case 'text-purple':
-                return 'border-transparent text-purple-600 font-medium hover:text-purple-800';
-
-                break;
-
-            case 'red':
-                return 'border-transparent text-white bg-red-600 hover:bg-red-500 focus:border-red-700 focus:shadow-outline-red active:bg-red-700';
-
-                break;
-
-            case 'soft-red':
-                return 'border-transparent text-red-700 bg-red-100 hover:bg-red-50 focus:border-red-300 focus:shadow-outline-red active:bg-red-200';
-
-                break;
-        }
-    }
-
-    public function sizeStyles()
-    {
-        switch ($this->size) {
-            case 'none':
-                return 'text-sm';
-
-                break;
-
-            case 'xs':
-                return 'px-2.5 py-1.5 text-xs';
-
-                break;
-
-            case 'sm':
-                return 'px-3 py-2 text-sm';
-
-                break;
-
-            case 'md':
-            default:
-                return 'px-4 py-2 text-sm';
-
-                break;
-
-            case 'lg':
-                return 'px-4 py-2 text-base';
-
-                break;
-
-            case 'xl':
-                return 'px-6 py-3 text-base';
-
-                break;
-        }
+        return match ($this->size) {
+            'none' => 'text-sm',
+            'none-xs' => 'text-xs',
+            'xs' => 'px-2.5 py-1.5 text-xs',
+            'sm' => 'px-3 py-2 text-sm',
+            'lg' => 'px-4 py-2 text-base',
+            'xl' => 'px-6 py-3 text-lg',
+            default => 'px-4 py-2 text-sm',
+        };
     }
 
     public function render()

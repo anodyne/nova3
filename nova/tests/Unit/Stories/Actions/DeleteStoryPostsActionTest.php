@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Stories\Actions;
 
-use Tests\TestCase;
-use Nova\Posts\Models\Post;
-use Nova\Stories\Models\Story;
-use Nova\Stories\Actions\DeleteStoryPosts;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Posts\Models\Post;
+use Nova\Stories\Actions\DeleteStoryPosts;
+use Nova\Stories\Models\Story;
+use Tests\TestCase;
 
 /**
  * @group stories
@@ -28,9 +30,9 @@ class DeleteStoryPostsActionTest extends TestCase
 
         $this->action = app(DeleteStoryPosts::class);
 
-        $this->story = create(Story::class);
+        $this->story = Story::factory()->create();
 
-        $this->posts = factory(Post::class)->times(5)->create([
+        $this->posts = Post::factory()->count(5)->create([
             'story_id' => $this->story,
         ]);
 

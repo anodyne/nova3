@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Roles;
 
-use Tests\TestCase;
-use Nova\Roles\Models\Role;
-use Nova\Users\Models\User;
-use Nova\Roles\Events\RoleCreated;
-use Illuminate\Support\Facades\Event;
-use Nova\Roles\Requests\CreateRoleRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
+use Nova\Roles\Events\RoleCreated;
+use Nova\Roles\Models\Role;
+use Nova\Roles\Requests\CreateRoleRequest;
+use Nova\Users\Models\User;
+use Tests\TestCase;
 
 /**
  * @group roles
@@ -38,7 +40,7 @@ class CreateRoleTest extends TestCase
     {
         $this->signInWithPermission('role.create');
 
-        $role = make(Role::class);
+        $role = Role::factory()->make();
 
         $this->followingRedirects();
 
@@ -58,7 +60,7 @@ class CreateRoleTest extends TestCase
     {
         $this->signInWithPermission('role.create');
 
-        $role = make(Role::class, [], ['default']);
+        $role = Role::factory()->default()->make();
 
         $this->followingRedirects();
 
@@ -80,7 +82,7 @@ class CreateRoleTest extends TestCase
     {
         $this->signInWithPermission('role.create');
 
-        $role = make(Role::class);
+        $role = Role::factory()->make();
 
         $this->followingRedirects();
 
@@ -103,9 +105,9 @@ class CreateRoleTest extends TestCase
     {
         $this->signInWithPermission('role.create');
 
-        $role = make(Role::class, [], ['default']);
+        $role = Role::factory()->default()->make();
 
-        $john = create(User::class, [], ['status:active']);
+        $john = User::factory()->active()->create();
 
         $this->followingRedirects();
 
@@ -130,7 +132,7 @@ class CreateRoleTest extends TestCase
 
         $this->signInWithPermission('role.create');
 
-        $this->post(route('roles.store'), make(Role::class)->toArray());
+        $this->post(route('roles.store'), Role::factory()->make()->toArray());
 
         Event::assertDispatched(RoleCreated::class);
     }
@@ -151,7 +153,7 @@ class CreateRoleTest extends TestCase
 
         $response = $this->postJson(
             route('roles.store'),
-            make(Role::class)->toArray()
+            Role::factory()->make()->toArray()
         );
         $response->assertForbidden();
     }
@@ -168,7 +170,7 @@ class CreateRoleTest extends TestCase
     {
         $response = $this->postJson(
             route('roles.store'),
-            make(Role::class)->toArray()
+            Role::factory()->make()->toArray()
         );
         $response->assertUnauthorized();
     }

@@ -1,23 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\PostTypes\Events;
 
-use Nova\PostTypes\Models\PostType;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
+use Nova\PostTypes\Models\PostType;
 
 class PostTypeDuplicated
 {
     use Dispatchable;
     use SerializesModels;
 
-    public $originalPostType;
+    public PostType $original;
 
-    public $postType;
+    public PostType $postType;
 
-    public function __construct(PostType $postType, PostType $originalPostType)
+    public function __construct(PostType $postType, PostType $original)
     {
-        $this->originalPostType = $originalPostType;
+        $this->original = $original;
         $this->postType = $postType;
     }
 }

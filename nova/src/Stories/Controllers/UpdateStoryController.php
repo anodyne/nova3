@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Stories\Controllers;
 
-use Nova\Stories\Models\Story;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Stories\Actions\UpdateStoryManager;
+use Nova\Stories\Models\Story;
 use Nova\Stories\Requests\UpdateStoryRequest;
 use Nova\Stories\Responses\UpdateStoryResponse;
 
@@ -26,14 +28,11 @@ class UpdateStoryController extends Controller
         ]);
     }
 
-    public function update(
-        UpdateStoryRequest $request,
-        UpdateStoryManager $action,
-        Story $story
-    ) {
+    public function update(UpdateStoryRequest $request, Story $story)
+    {
         $this->authorize('update', $story);
 
-        $story = $action->execute($story, $request);
+        $story = UpdateStoryManager::run($story, $request);
 
         return redirect()
             ->route('stories.edit', $story)

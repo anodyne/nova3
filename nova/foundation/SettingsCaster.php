@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Settings;
 
-use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
+use Illuminate\Contracts\Support\Jsonable;
 
 class SettingsCaster implements CastsAttributes
 {

@@ -67,7 +67,7 @@
         }
 
         .selectedCell:after {
-            @apply absolute pointer-events-none inset-0 bg-blue-100 z-10;
+            @apply absolute pointer-events-none inset-0 bg-blue-3 z-10;
 
             content: "";
         }

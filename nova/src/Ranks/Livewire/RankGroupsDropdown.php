@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Livewire;
 
 use Livewire\Component;
-use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Actions\CreateRankGroup;
 use Nova\Ranks\DataTransferObjects\RankGroupData;
+use Nova\Ranks\Models\RankGroup;
 
 class RankGroupsDropdown extends Component
 {
@@ -13,7 +15,7 @@ class RankGroupsDropdown extends Component
 
     public $groups;
 
-    public $query;
+    public $search;
 
     public $selected;
 
@@ -22,7 +24,7 @@ class RankGroupsDropdown extends Component
     public function createAndSelectGroup(CreateRankGroup $action)
     {
         $newGroup = $action->execute(new RankGroupData([
-            'name' => $this->query,
+            'name' => $this->search,
         ]));
 
         $this->selectGroup($newGroup->id, $newGroup);
@@ -37,7 +39,7 @@ class RankGroupsDropdown extends Component
     {
         $this->dispatchBrowserEvent('listbox-close');
 
-        $this->query = null;
+        $this->reset('search');
 
         $this->fetchGroups();
 
@@ -45,7 +47,7 @@ class RankGroupsDropdown extends Component
         $this->selected = $this->groups->where('id', $groupId)->first();
     }
 
-    public function updatedQuery($value)
+    public function updatedSearch($value)
     {
         $this->groups = RankGroup::query()
             ->where('name', 'like', "%{$value}%")

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Foundation\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection as IlluminateResourceCollection;

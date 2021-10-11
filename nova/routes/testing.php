@@ -1,8 +1,10 @@
 <?php
 
-use Nova\Users\Models\User;
-use Illuminate\Support\Facades\Route;
+declare(strict_types=1);
+
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Route;
+use Nova\Users\Models\User;
 
 Route::get('auth', function () {
     return auth()->user();

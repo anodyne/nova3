@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Notes\Actions;
 
-use Tests\TestCase;
-use Nova\Notes\Models\Note;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Notes\Actions\UpdateNote;
 use Nova\Notes\DataTransferObjects\NoteData;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Notes\Models\Note;
+use Tests\TestCase;
 
 /**
  * @group notes
@@ -25,7 +27,7 @@ class UpdateNoteActionTest extends TestCase
 
         $this->action = app(UpdateNote::class);
 
-        $this->note = create(Note::class, [
+        $this->note = Note::factory()->create([
             'title' => 'My First Note',
             'content' => 'Content',
             'summary' => 'Summary',
@@ -41,7 +43,7 @@ class UpdateNoteActionTest extends TestCase
             'summary' => 'New summary',
         ]);
 
-        $note = $this->action->execute($this->note, $data);
+        $note = $this->action->handle($this->note, $data);
 
         $this->assertEquals('My Note', $note->title);
         $this->assertEquals('New content', $note->content);

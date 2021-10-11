@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Ranks\Actions\Names;
 
-use Tests\TestCase;
-use Nova\Ranks\Models\RankName;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Ranks\Actions\UpdateRankName;
 use Nova\Ranks\DataTransferObjects\RankNameData;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Ranks\Models\RankName;
+use Tests\TestCase;
 
 /**
  * @group ranks
@@ -25,7 +27,7 @@ class UpdateRankNameActionTest extends TestCase
 
         $this->action = app(UpdateRankName::class);
 
-        $this->name = create(RankName::class);
+        $this->name = RankName::factory()->create();
     }
 
     /** @test **/

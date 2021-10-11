@@ -1,30 +1,37 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Foundation\Providers;
 
-use Livewire\Livewire;
-use Nova\Foundation\Macros;
-use Illuminate\Routing\Route;
-use Nova\Foundation\NovaManager;
-use Nova\Foundation\Icons\IconSets;
-use Illuminate\Pagination\Paginator;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Nova\Foundation\Icons\FluentIconSet;
-use Nova\Foundation\NovaBladeDirectives;
-use Nova\Foundation\Icons\FeatherIconSet;
-use Nova\Foundation\Livewire\UploadImage;
-use Nova\Foundation\View\Components\Tips;
-use Nova\Foundation\Livewire\UploadAvatar;
-use Nova\Foundation\View\Components\Badge;
+use Illuminate\Support\Str;
 use Illuminate\View\Factory as ViewFactory;
-use Nova\Foundation\View\Components\Avatar;
-use Nova\Foundation\View\Components\Button;
+use Livewire\Livewire;
+use Nova\Foundation\Icons\FeatherIconSet;
+use Nova\Foundation\Icons\FluentIconSet;
+use Nova\Foundation\Icons\FontAwesomeSolidIconSet;
+use Nova\Foundation\Icons\IconlyCurvedIconSet;
+use Nova\Foundation\Icons\IconSets;
+use Nova\Foundation\Icons\StreamlineUiIconSet;
 use Nova\Foundation\Livewire\IconsSelectMenu;
-use Nova\Foundation\View\Components\Dropdown;
-use Nova\Foundation\View\Components\ButtonLink;
+use Nova\Foundation\Livewire\UploadAvatar;
+use Nova\Foundation\Livewire\UploadImage;
+use Nova\Foundation\Macros;
+use Nova\Foundation\NovaBladeDirectives;
+use Nova\Foundation\NovaManager;
+use Nova\Foundation\View\Components\Avatar;
 use Nova\Foundation\View\Components\AvatarGroup;
+use Nova\Foundation\View\Components\Badge;
+use Nova\Foundation\View\Components\Button;
+use Nova\Foundation\View\Components\ContentBox;
+use Nova\Foundation\View\Components\Dropdown;
+use Nova\Foundation\View\Components\Link;
+use Nova\Foundation\View\Components\Tips;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -38,13 +45,12 @@ class AppServiceProvider extends ServiceProvider
         // Make sure the file finder can find Javascript files
         $this->app['view']->addExtension('js', 'file');
 
-        Paginator::useTailwind();
-
         $this->registerMacros();
         $this->registerIcons();
         $this->registerBladeDirectives();
         $this->registerBladeComponents();
         $this->registerLivewireComponents();
+        $this->setupFactories();
     }
 
     protected function registerNovaSingleton()
@@ -54,16 +60,20 @@ class AppServiceProvider extends ServiceProvider
 
     protected function registerMacros()
     {
-        RedirectResponse::mixin(new Macros\RedirectResponseMacros);
-        Route::mixin(new Macros\RouteMacros);
-        ViewFactory::mixin(new Macros\ViewMacros);
+        RedirectResponse::mixin(new Macros\RedirectResponseMacros());
+        Route::mixin(new Macros\RouteMacros());
+        Str::mixin(new Macros\StrMacros());
+        ViewFactory::mixin(new Macros\ViewMacros());
     }
 
     protected function registerIcons()
     {
-        $iconSets = new IconSets;
-        $iconSets->add('feather', new FeatherIconSet);
-        $iconSets->add('fluent', new FluentIconSet);
+        $iconSets = new IconSets();
+        $iconSets->add('fluent', new FluentIconSet());
+        $iconSets->add('feather', new FeatherIconSet());
+        $iconSets->add('fas', new FontAwesomeSolidIconSet());
+        $iconSets->add('sui', new StreamlineUiIconSet());
+        // $iconSets->add('ic', new IconlyCurvedIconSet());
 
         $this->app->instance(IconSets::class, $iconSets);
     }
@@ -74,7 +84,8 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('avatar-group', AvatarGroup::class);
         Blade::component('badge', Badge::class);
         Blade::component('button', Button::class);
-        Blade::component('button-link', ButtonLink::class);
+        Blade::component('content-box', ContentBox::class);
+        Blade::component('link', Link::class);
         Blade::component('dropdown', Dropdown::class);
         Blade::component('tips', Tips::class);
     }
@@ -91,5 +102,12 @@ class AppServiceProvider extends ServiceProvider
         Livewire::component('icons-select-menu', IconsSelectMenu::class);
         Livewire::component('upload-avatar', UploadAvatar::class);
         Livewire::component('upload-image', UploadImage::class);
+    }
+
+    protected function setupFactories()
+    {
+        Factory::guessFactoryNamesUsing(
+            fn ($model) => 'Database\\Factories\\'.Str::afterLast($model, '\\').'Factory'
+        );
     }
 }

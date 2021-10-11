@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Departments\Livewire;
 
 use Livewire\Component;
-use Nova\Departments\Models\Position;
 use Nova\Departments\Models\Department;
+use Nova\Departments\Models\Position;
 
 class PositionsDropdown extends Component
 {
@@ -18,7 +20,7 @@ class PositionsDropdown extends Component
 
     public function clearPositions()
     {
-        $this->positions = null;
+        $this->reset('positions');
     }
 
     public function selectDepartment($departmentId)

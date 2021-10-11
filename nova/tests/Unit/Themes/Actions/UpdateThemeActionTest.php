@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Themes\Actions;
 
-use Tests\TestCase;
-use Nova\Themes\Models\Theme;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Themes\Actions\UpdateTheme;
 use Nova\Themes\DataTransferObjects\ThemeData;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Themes\Models\Theme;
+use Tests\TestCase;
 
 /**
  * @group themes
@@ -25,7 +27,7 @@ class UpdateThemeActionTest extends TestCase
 
         $this->action = app(UpdateTheme::class);
 
-        $this->theme = create(Theme::class);
+        $this->theme = Theme::factory()->create();
     }
 
     /** @test **/

@@ -1,30 +1,34 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Stories\Models;
 
-use Nova\Stories\Events;
-use Nova\Posts\Models\Post;
-use Kalnoy\Nestedset\NodeTrait;
-use Spatie\ModelStates\HasStates;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Nova\Stories\Models\States\Current;
-use Nova\Stories\Models\States\Upcoming;
-use Nova\Stories\Models\States\Completed;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Nova\Stories\Models\States\StoryStatus;
+use Kalnoy\Nestedset\NodeTrait;
+use Nova\Posts\Models\Post;
+use Nova\Stories\Events;
 use Nova\Stories\Models\Builders\StoryBuilder;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Nova\Stories\Models\States\CurrentToUpcoming;
-use Nova\Stories\Models\States\UpcomingToCurrent;
+use Nova\Stories\Models\States\Completed;
 use Nova\Stories\Models\States\CompletedToCurrent;
-use Nova\Stories\Models\States\CurrentToCompleted;
 use Nova\Stories\Models\States\CompletedToUpcoming;
+use Nova\Stories\Models\States\Current;
+use Nova\Stories\Models\States\CurrentToCompleted;
+use Nova\Stories\Models\States\CurrentToUpcoming;
+use Nova\Stories\Models\States\StoryStatus;
+use Nova\Stories\Models\States\Upcoming;
 use Nova\Stories\Models\States\UpcomingToCompleted;
+use Nova\Stories\Models\States\UpcomingToCurrent;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\ModelStates\HasStates;
 
 class Story extends Model implements HasMedia
 {
-    use HasMediaTrait;
+    use HasFactory;
     use HasStates;
+    use InteractsWithMedia;
     use NodeTrait;
 
     public const MEDIA_DIRECTORY = 'stories/{model_id}/{media_id}/';
@@ -49,14 +53,14 @@ class Story extends Model implements HasMedia
         'updated' => Events\StoryUpdated::class,
     ];
 
-    public function parentStory()
-    {
-        return $this->hasOne(self::class, 'story_id');
-    }
-
     public function posts()
     {
-        return $this->hasMany(Post::class, 'story_id');
+        return $this->hasMany(Post::class, 'story_id')->defaultOrder();
+    }
+
+    public function rootPost()
+    {
+        return $this->hasOne(Post::class, 'story_id')->where('parent_id', null);
     }
 
     public function stories()

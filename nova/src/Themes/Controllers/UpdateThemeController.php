@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Themes\Controllers;
 
-use Nova\Themes\Models\Theme;
-use Nova\Themes\Actions\UpdateTheme;
 use Nova\Foundation\Controllers\Controller;
-use Nova\Themes\Requests\UpdateThemeRequest;
+use Nova\Themes\Actions\UpdateTheme;
 use Nova\Themes\DataTransferObjects\ThemeData;
+use Nova\Themes\Models\Theme;
+use Nova\Themes\Requests\UpdateThemeRequest;
 use Nova\Themes\Responses\UpdateThemeResponse;
 
 class UpdateThemeController extends Controller

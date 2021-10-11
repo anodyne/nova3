@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Stories\Livewire;
 
 use Livewire\Component;
@@ -65,6 +67,10 @@ class DeleteStories extends Component
 
         if ($action === 'move') {
             $this->trackPostsAction($id, 'none');
+        }
+
+        if ($action === 'delete') {
+            $this->trackPostsAction($id, 'delete');
         }
     }
 

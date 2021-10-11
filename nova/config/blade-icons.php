@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -21,6 +23,26 @@ return [
         'fluent' => [
             'path' => 'nova/resources/svg/fluent',
             'prefix' => 'fluent',
+            'class' => '',
+        ],
+        'fas' => [
+            'path' => 'nova/resources/svg/fontawesome-solid',
+            'prefix' => 'fas',
+            'class' => '',
+        ],
+        'sui' => [
+            'path' => 'nova/resources/svg/streamline-ui',
+            'prefix' => 'sui',
+            'class' => '',
+        ],
+        'ic' => [
+            'path' => 'nova/resources/svg/iconly-curved',
+            'prefix' => 'ic',
+            'class' => '',
+        ],
+        'empty' => [
+            'path' => 'nova/resources/svg/empty-states',
+            'prefix' => 'empty',
             'class' => '',
         ],
     ],

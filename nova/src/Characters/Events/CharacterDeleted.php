@@ -1,17 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Characters\Events;
 
-use Nova\Characters\Models\Character;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
+use Nova\Characters\Models\Character;
 
 class CharacterDeleted
 {
     use Dispatchable;
     use SerializesModels;
 
-    public $character;
+    public Character $character;
 
     public function __construct(Character $character)
     {

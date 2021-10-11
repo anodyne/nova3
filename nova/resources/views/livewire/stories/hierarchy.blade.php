@@ -16,21 +16,21 @@
         @if ($orderStories->count() > 0)
             <x-input.field>
                 <x-slot name="leadingAddOn">
-                    <select name="display_direction" id="display_direction" aria-label="Display Order" class="form-select h-full py-0 border-none bg-transparent text-gray-500 -ml-3 focus:outline-none focus:shadow-none | sm:text-sm" wire:model="direction">
+                    <select name="display_direction" id="display_direction" aria-label="Display Order" class="form-select h-full py-0 border-none bg-transparent text-gray-500 -ml-3 focus:ring-0 focus:outline-none focus:shadow-none | sm:text-sm" wire:model="direction">
                         <option value="before">Before</option>
                         <option value="after">After</option>
                     </select>
                 </x-slot>
 
-                <select name="display_neighbor" id="display_neighbor" class="form-select h-full w-full py-0 border-none bg-transparent focus:outline-none focus:shadow-none" wire:model="neighbor">
+                <select name="display_neighbor" id="display_neighbor" class="form-select h-full w-full p-0 border-none bg-transparent focus:ring-0 focus:outline-none focus:shadow-none" wire:model="neighbor">
                     @foreach ($orderStories as $orderStory)
                         <option value="{{ $orderStory->id }}">{{ $orderStory->title }}</option>
                     @endforeach
                 </select>
             </x-input.field>
         @else
-            <div class="flex items-center font-medium text-warning-600">
-                @icon('warning', 'mr-3 flex-shrink-0 h-6 w-6 text-warning-400')
+            <div class="flex items-center font-medium text-yellow-11">
+                @icon('warning', 'mr-3 flex-shrink-0 h-6 w-6 text-yellow-9')
                 <span>There are no stories available for setting display order.</span>
             </div>
         @endif

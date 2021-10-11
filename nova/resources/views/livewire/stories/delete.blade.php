@@ -1,46 +1,74 @@
 <div class="space-y-8">
     @foreach ($stories as $story)
         <x-panel>
-            <div class="px-4 py-5 | sm:p-6">
-                <div class="flex items-start justify-between">
+            <x-content-box>
+                <div class="flex items-start">
                     <div class="flex flex-col">
-                        <h3 class="text-lg font-semibold text-gray-900" id="renew-headline">
-                            {{ ucfirst(data_get($actions, "{$story->id}.story.action")) }} {{ $story->title }}
-                        </h3>
-                        <div class="mt-2 max-w-xl text-gray-600 font-medium flex items-center space-x-6">
+                        <div
+                            class="text-lg font-semibold text-gray-12"
+                            x-data="{}"
+                            @toggle-changed="livewire.emit('delete-story-toggle', $event.detail.value, {{ $story->id }})"
+                        >
+                            <x-input.toggle
+                                field="active"
+                                :value="old('active', data_get($actions, $story->id.'.story.action') === 'delete')"
+                                :disabled="$loop->first"
+                                active-color="red-9"
+                            >
+                                <span class="text-gray-12">Delete {{ $story->title }}</span>
+                            </x-input.toggle>
+                        </div>
+
+                        @if ($story->parent && $story->parent_id > 1)
+                            <div class="mt-1 text-sm text-gray-11">
+                                This story is nested inside <span class="font-semibold">{{ optional($story->parent)->title }}</span>
+                            </div>
+                        @endif
+
+                        <div class="mt-2 max-w-xl text-gray-11 font-medium flex items-center space-x-6">
                             @if (data_get($actions, "{$story->id}.story.action") === 'move')
-                                <div class="flex items-center space-x-1 text-purple-600">
-                                    @icon('arrow-right-alt', 'h-6 w-6 flex-shrink-0 text-purple-400')
+                                <x-badge color="purple">
+                                    <x-slot name="leadingIcon">
+                                        @icon('arrow-right', 'h-5 w-5 flex-shrink-0')
+                                    </x-slot>
                                     <span>Story will be moved</span>
-                                </div>
+                                </x-badge>
                             @endif
 
                             @if (data_get($actions, "{$story->id}.story.action") === 'delete')
-                                <div class="flex items-center space-x-1 text-red-600">
-                                    @icon('close-alt', 'h-6 w-6 flex-shrink-0 text-red-400')
+                                <x-badge color="red">
+                                    <x-slot name="leadingIcon">
+                                        @icon('close', 'h-5 w-5 flex-shrink-0')
+                                    </x-slot>
                                     <span>Story will be deleted</span>
-                                </div>
+                                </x-badge>
                             @endif
 
                             @if (data_get($actions, "{$story->id}.posts.action") === 'move')
-                                <div class="flex items-center space-x-1 text-purple-600">
-                                    @icon('arrow-right-alt', 'h-6 w-6 flex-shrink-0 text-purple-400')
+                                <x-badge color="purple">
+                                    <x-slot name="leadingIcon">
+                                        @icon('arrow-right', 'h-5 w-5 flex-shrink-0')
+                                    </x-slot>
                                     <span>Story posts will be moved</span>
-                                </div>
+                                </x-badge>
                             @endif
 
                             @if (data_get($actions, "{$story->id}.posts.action") === 'delete')
-                                <div class="flex items-center space-x-1 text-red-600">
-                                    @icon('close-alt', 'h-6 w-6 flex-shrink-0 text-red-400')
+                                <x-badge color="red">
+                                    <x-slot name="leadingIcon">
+                                        @icon('close', 'h-5 w-5 flex-shrink-0')
+                                    </x-slot>
                                     <span>Story posts will be deleted</span>
-                                </div>
+                                </x-badge>
                             @endif
 
                             @if (data_get($actions, "{$story->id}.posts.action") === 'none')
-                                <div class="flex items-center space-x-1 text-gray-600">
-                                    @icon('remove-alt', 'h-6 w-6 flex-shrink-0 text-gray-400')
+                                <x-badge>
+                                    <x-slot name="leadingIcon">
+                                        @icon('remove', 'h-5 w-5 flex-shrink-0')
+                                    </x-slot>
                                     <span>Story posts will not be updated</span>
-                                </div>
+                                </x-badge>
                             @endif
                         </div>
 
@@ -71,7 +99,7 @@
                                                 :checked="data_get($actions, $story->id.'.posts.action') === 'delete'"
                                                 wire:click="trackPostsAction({{ $story->id }}, 'delete')"
                                             />
-                                            <label for="delete-posts-{{ $story->id }}" class="ml-6 max-w-xl text-sm text-gray-600">
+                                            <label for="delete-posts-{{ $story->id }}" class="ml-6 max-w-xl text-sm text-gray-11">
                                                 Delete the posts along with the story. This action is permanent and cannot be undone!
                                             </label>
                                         </div>
@@ -86,7 +114,7 @@
                                                 :checked="data_get($actions, $story->id.'.posts.action') === 'move'"
                                                 wire:click="trackPostsAction({{ $story->id }}, 'move')"
                                             />
-                                            <label for="move-posts-{{ $story->id }}" class="ml-6 max-w-xl text-sm text-gray-600">
+                                            <label for="move-posts-{{ $story->id }}" class="ml-6 max-w-xl text-sm text-gray-11">
                                                 Move the posts in this story to another story. Everything else about the posts will remain the same.
                                             </label>
                                         </div>
@@ -106,19 +134,8 @@
                             @endif
                         </div>
                     </div>
-                    <div
-                        class="sm:ml-6 sm:flex-shrink-0 sm:flex"
-                        x-data="{}"
-                        x-on:toggle-changed="livewire.emit('delete-story-toggle', $event.detail.value, {{ $story->id }})"
-                    >
-                        <x-input.toggle
-                            field="active"
-                            :value="old('active', data_get($actions, $story->id.'.story.action') === 'delete')"
-                            :disabled="$loop->first"
-                        />
-                    </div>
                 </div>
-            </div>
+            </x-content-box>
         </x-panel>
     @endforeach
 

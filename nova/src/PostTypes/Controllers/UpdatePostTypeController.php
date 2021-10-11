@@ -1,18 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\PostTypes\Controllers;
 
-use Nova\Roles\Models\Role;
-use Nova\PostTypes\Models\PostType;
-use Nova\Departments\Models\Department;
 use Nova\Foundation\Controllers\Controller;
-use Nova\Departments\Actions\CreateDepartment;
-use Nova\PostTypes\Responses\UpdatePostTypeResponse;
-use Nova\Departments\Requests\CreateDepartmentRequest;
-use Nova\Departments\DataTransferObjects\DepartmentData;
 use Nova\PostTypes\Actions\UpdatePostType;
 use Nova\PostTypes\DataTransferObjects\PostTypeData;
+use Nova\PostTypes\Models\PostType;
 use Nova\PostTypes\Requests\UpdatePostTypeRequest;
+use Nova\PostTypes\Responses\UpdatePostTypeResponse;
+use Nova\Roles\Models\Role;
 
 class UpdatePostTypeController extends Controller
 {
@@ -28,19 +26,17 @@ class UpdatePostTypeController extends Controller
         $this->authorize('update', $postType);
 
         return app(UpdatePostTypeResponse::class)->with([
+            'fieldTypes' => ['title', 'day', 'time', 'location', 'content', 'rating'],
             'postType' => $postType,
             'roles' => Role::orderBySort()->get(),
         ]);
     }
 
-    public function update(
-        UpdatePostTypeRequest $request,
-        UpdatePostType $action,
-        PostType $postType
-    ) {
+    public function update(UpdatePostTypeRequest $request, PostType $postType)
+    {
         $this->authorize('update', $postType);
 
-        $postType = $action->execute(
+        $postType = UpdatePostType::run(
             $postType,
             PostTypeData::fromRequest($request)
         );

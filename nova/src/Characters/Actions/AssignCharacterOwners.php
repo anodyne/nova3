@@ -1,22 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Characters\Actions;
 
-use Nova\Users\Models\User;
-use Nova\Characters\Models\Character;
+use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Characters\DataTransferObjects\AssignCharacterOwnersData;
+use Nova\Characters\Models\Character;
+use Nova\Users\Models\User;
 
 class AssignCharacterOwners
 {
-    protected $setCharacterType;
+    use AsAction;
 
-    public function __construct(SetCharacterType $setCharacterType)
-    {
-        $this->setCharacterType = $setCharacterType;
-    }
-
-    public function execute(Character $character, AssignCharacterOwnersData $data): Character
-    {
+    public function handle(
+        Character $character,
+        AssignCharacterOwnersData $data
+    ): Character {
         $users = collect($data->users)
             ->mapWithKeys(function ($user) use ($data) {
                 $primary = (! isset($data->primaryCharacters))
@@ -37,7 +37,7 @@ class AssignCharacterOwners
     protected function updateExistingPrimaryCharacterForUsers(
         Character $character,
         AssignCharacterOwnersData $data
-    ) {
+    ): void {
         collect($data->primaryCharacters)->each(function ($userId) use ($character) {
             $user = User::find($userId);
 
@@ -49,7 +49,7 @@ class AssignCharacterOwners
                     ['primary' => false]
                 );
 
-                $this->setCharacterType->execute($oldPrimaryCharacter);
+                SetCharacterType::run($oldPrimaryCharacter);
             }
         });
     }

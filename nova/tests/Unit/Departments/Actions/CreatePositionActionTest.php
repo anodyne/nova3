@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Departments\Actions;
 
-use Tests\TestCase;
-use Nova\Departments\Models\Position;
-use Nova\Departments\Models\Department;
-use Nova\Departments\Actions\CreatePosition;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Departments\Actions\CreatePosition;
 use Nova\Departments\DataTransferObjects\PositionData;
+use Nova\Departments\Models\Department;
+use Nova\Departments\Models\Position;
+use Tests\TestCase;
 
 /**
  * @group departments
@@ -27,7 +29,7 @@ class CreatePositionActionTest extends TestCase
 
         $this->action = app(CreatePosition::class);
 
-        $this->department = create(Department::class);
+        $this->department = Department::factory()->create();
     }
 
     /** @test **/
@@ -53,11 +55,11 @@ class CreatePositionActionTest extends TestCase
     /** @test **/
     public function itSetsTheCorrectSortOrderForANewlyCreatedPosition()
     {
-        create(Position::class, [
+        Position::factory()->create([
             'department_id' => $this->department,
             'sort' => 0,
         ]);
-        create(Position::class, [
+        Position::factory()->create([
             'department_id' => $this->department,
             'sort' => 1,
         ]);

@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Characters\Actions;
 
-use Tests\TestCase;
-use Nova\Ranks\Models\RankItem;
-use Nova\Characters\Actions\CreateCharacter;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Characters\Actions\CreateCharacter;
 use Nova\Characters\DataTransferObjects\CharacterData;
+use Nova\Ranks\Models\RankItem;
+use Tests\TestCase;
 
 /**
  * @group characters
@@ -27,7 +29,7 @@ class CreateCharacterActionTest extends TestCase
     /** @test **/
     public function itCanCreateACharacter()
     {
-        $rank = create(RankItem::class);
+        $rank = RankItem::factory()->create();
 
         $data = new CharacterData([
             'name' => 'Jack Sparrow',

@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Roles\Policies;
 
+use Illuminate\Auth\Access\HandlesAuthorization;
 use Nova\Roles\Models\Role;
 use Nova\Users\Models\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
 
 class RolePolicy
 {
@@ -12,33 +14,33 @@ class RolePolicy
 
     public function viewAny(User $user): bool
     {
-        return $user->can('role.*');
+        return $user->isAbleTo('role.*');
     }
 
     public function view(User $user, Role $role): bool
     {
-        return $user->can('role.view');
+        return $user->isAbleTo('role.view');
     }
 
     public function create(User $user): bool
     {
-        return $user->can('role.create');
+        return $user->isAbleTo('role.create');
     }
 
     public function update(User $user, Role $role): bool
     {
-        return $user->can('role.update');
+        return $user->isAbleTo('role.update');
     }
 
     public function delete(User $user, Role $role): bool
     {
-        return $user->can('role.delete') && ! $role->locked;
+        return $user->isAbleTo('role.delete') && ! $role->locked;
     }
 
     public function duplicate(User $user, Role $role): bool
     {
-        return $user->can('role.create')
-            && $user->can('role.update')
+        return $user->isAbleTo('role.create')
+            && $user->isAbleTo('role.update')
             && ! $role->locked;
     }
 

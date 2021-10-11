@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Stories\Actions;
 
-use Tests\TestCase;
-use Nova\Stories\Models\Story;
-use Nova\Stories\Actions\SetStoryPosition;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Stories\Actions\SetStoryPosition;
 use Nova\Stories\DataTransferObjects\StoryPositionData;
+use Nova\Stories\Models\Story;
+use Tests\TestCase;
 
 /**
  * @group stories
@@ -19,28 +21,36 @@ class SetStoryPositionActionTest extends TestCase
 
     protected $story;
 
+    protected $mainTimeline;
+
     public function setUp(): void
     {
         parent::setUp();
 
         $this->action = app(SetStoryPosition::class);
 
-        $this->story = create(Story::class);
+        $this->mainTimeline = Story::whereMainTimeline()->first();
+
+        $this->story = Story::factory()->create();
+
+        $this->mainTimeline->appendNode($this->story);
+
+        $this->mainTimeline->refresh();
+        $this->story->refresh();
     }
 
     /** @test **/
     public function itCreatesAStoryBeforeAnotherStory()
     {
-        $mainTimeline = Story::find(1);
-
-        $firstStory = create(Story::class, [
+        $firstStory = Story::factory()->create([
             'title' => 'First Story',
         ]);
-        $firstStory->appendToNode($mainTimeline)->save();
+        $this->mainTimeline->appendNode($firstStory);
+        $firstStory->refresh();
 
         $data = new StoryPositionData([
-            'displayDirection' => 'before',
-            'displayNeighbor' => $firstStory->id,
+            'direction' => 'before',
+            'neighbor' => $firstStory,
             'hasPositionChange' => true,
         ]);
 
@@ -56,16 +66,16 @@ class SetStoryPositionActionTest extends TestCase
     /** @test **/
     public function itCreatesAStoryAfterAnotherStory()
     {
-        $mainTimeline = Story::find(1);
+        $mainTimeline = Story::whereMainTimeline()->first();
 
-        $firstStory = create(Story::class, [
+        $firstStory = Story::factory()->create([
             'title' => 'First Story',
         ]);
         $firstStory->appendToNode($mainTimeline)->save();
 
         $data = new StoryPositionData([
-            'displayDirection' => 'after',
-            'displayNeighbor' => $firstStory->id,
+            'direction' => 'after',
+            'neighbor' => $firstStory,
             'hasPositionChange' => true,
         ]);
 
@@ -81,23 +91,23 @@ class SetStoryPositionActionTest extends TestCase
     /** @test **/
     public function itCreatesANestedStoryBeforeAnotherStory()
     {
-        $mainTimeline = Story::find(1);
+        $mainTimeline = Story::whereMainTimeline()->first();
 
-        $firstStory = create(Story::class, [
+        $firstStory = Story::factory()->create([
             'title' => 'First Story',
         ]);
         $firstStory->appendToNode($mainTimeline)->save();
         $firstStory->refresh();
 
-        $secondStory = create(Story::class, [
+        $secondStory = Story::factory()->create([
             'title' => 'Second Story',
         ]);
         $secondStory->appendToNode($firstStory)->save();
 
         $data = new StoryPositionData([
             'parent_id' => $firstStory->id,
-            'displayDirection' => 'before',
-            'displayNeighbor' => $secondStory->id,
+            'direction' => 'before',
+            'neighbor' => $secondStory,
             'hasPositionChange' => true,
         ]);
 
@@ -115,23 +125,23 @@ class SetStoryPositionActionTest extends TestCase
     /** @test **/
     public function itCreatesANestedStoryAfterAnotherStory()
     {
-        $mainTimeline = Story::find(1);
+        $mainTimeline = Story::whereMainTimeline()->first();
 
-        $firstStory = create(Story::class, [
+        $firstStory = Story::factory()->create([
             'title' => 'First Story',
         ]);
         $firstStory->appendToNode($mainTimeline)->save();
         $firstStory->refresh();
 
-        $secondStory = create(Story::class, [
+        $secondStory = Story::factory()->create([
             'title' => 'Second Story',
         ]);
         $secondStory->appendToNode($firstStory)->save();
 
         $data = new StoryPositionData([
             'parent_id' => $firstStory->id,
-            'displayDirection' => 'after',
-            'displayNeighbor' => $secondStory->id,
+            'direction' => 'after',
+            'neighbor' => $secondStory,
             'hasPositionChange' => true,
         ]);
 

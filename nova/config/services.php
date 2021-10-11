@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -17,7 +19,7 @@ return [
         'links' => [
             'home' => 'https://anodyne-productions.com',
             'nova' => 'https://anodyne-productions.com/nova',
-            'xtras' => 'https://xtras.anodyne-productions.com',
+            'exchange' => 'https://anodyne-productions.com/exchange',
         ],
     ],
 

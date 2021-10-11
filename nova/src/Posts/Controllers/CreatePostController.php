@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Posts\Controllers;
 
-use Nova\Posts\Models\Post;
-use Nova\Stories\Models\Story;
-use Nova\PostTypes\Models\PostType;
 use Nova\Foundation\Controllers\Controller;
-use Nova\Posts\Responses\CreatePostResponse;
-use Nova\Posts\Responses\PickPostTypeResponse;
+use Nova\Posts\Models\Post;
+use Nova\Posts\Responses\ComposePostResponse;
+use Nova\PostTypes\Models\PostType;
+use Nova\Stories\Models\Story;
 
 class CreatePostController extends Controller
 {
@@ -18,27 +19,13 @@ class CreatePostController extends Controller
         $this->middleware('auth');
     }
 
-    public function pickPostType()
-    {
-        $this->authorize('create', new Post);
-
-        return app(PickPostTypeResponse::class)->with([
-            'postTypes' => PostType::orderBySort()->get(),
-        ]);
-    }
-
     public function create(PostType $postType)
     {
-        $this->authorize('write', [new Post, $postType]);
+        $this->authorize('write', [new Post(), $postType]);
 
-        return app(CreatePostResponse::class)->with([
+        return app(ComposePostResponse::class)->with([
             'postType' => $postType,
-            'stories' => Story::whereCurrent()->get(),
+            'stories' => Story::wherePostable()->get(),
         ]);
-    }
-
-    public function store(PostType $postType)
-    {
-        $this->authorize('write', [new Post, $postType]);
     }
 }

@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Stories\Actions;
 
-use Tests\TestCase;
-use Nova\Stories\Models\Story;
-use Nova\Stories\Actions\MoveStory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Stories\Actions\MoveStory;
+use Nova\Stories\Models\Story;
+use Tests\TestCase;
 
 /**
  * @group stories
@@ -26,15 +28,18 @@ class MoveStoryActionTest extends TestCase
 
         $this->action = app(MoveStory::class);
 
-        $this->newStory = create(Story::class);
+        $this->newStory = Story::factory()->create();
 
-        $this->story = create(Story::class);
+        $this->story = Story::factory()->create();
+
+        $this->story->refresh();
+        $this->newStory->refresh();
     }
 
     /** @test **/
     public function itMovesAStory()
     {
-        $story = $this->action->execute($this->story, $this->newStory->id);
+        $story = $this->action->execute($this->story, $this->newStory);
 
         $this->assertEquals($this->newStory->id, $story->parent_id);
     }

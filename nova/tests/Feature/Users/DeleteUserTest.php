@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Users;
 
-use Tests\TestCase;
-use Nova\Users\Models\User;
-use Nova\Users\Events\UserDeleted;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\Characters\Models\Character;
+use Nova\Users\Events\UserDeleted;
 use Nova\Users\Events\UserDeletedByAdmin;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Users\Models\User;
+use Tests\TestCase;
 
 /**
  * @group users
@@ -23,7 +25,7 @@ class DeleteUserTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = create(User::class, [], ['status:active']);
+        $this->user = User::factory()->active()->create();
     }
 
     /** @test **/
@@ -55,7 +57,7 @@ class DeleteUserTest extends TestCase
     /** @test **/
     public function charactersAssignedToTheUserAreDeletedWhenTheUserIsDeleted()
     {
-        $character = create(Character::class, [], ['status:active']);
+        $character = Character::factory()->active()->create();
         $this->user->characters()->attach($character);
 
         $this->signInWithPermission('user.delete');

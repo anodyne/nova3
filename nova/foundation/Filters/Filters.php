@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Foundation\Filters;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -10,17 +12,17 @@ abstract class Filters
     /**
      * @var Request
      */
-    protected $request;
+    protected Request $request;
 
     /**
      * @var \Illuminate\Database\Eloquent\Builder
      */
-    protected $builder;
+    protected Builder $builder;
 
     /**
      * @var array
      */
-    protected $filters = [];
+    protected array $filters = [];
 
     /**
      * Create a new filters instance.
@@ -39,7 +41,7 @@ abstract class Filters
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function apply(Builder $builder)
+    public function apply(Builder $builder): Builder
     {
         $this->builder = $builder;
 
@@ -57,7 +59,7 @@ abstract class Filters
      *
      * @return array
      */
-    public function getFilters()
+    public function getFilters(): array
     {
         return array_filter($this->request->only($this->filters));
     }

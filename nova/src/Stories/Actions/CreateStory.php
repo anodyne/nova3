@@ -1,16 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Stories\Actions;
 
-use Nova\Stories\Models\Story;
+use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Stories\DataTransferObjects\StoryData;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Stories\Models\Story;
 
 class CreateStory
 {
-    use RefreshDatabase;
+    use AsAction;
 
-    public function execute(StoryData $data): Story
+    public function handle(StoryData $data): Story
     {
         $story = Story::create(
             $data->except('parent_id', 'displayDirection', 'displayNeighbor')->toArray()

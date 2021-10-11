@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Ranks\Actions\Names;
 
-use Tests\TestCase;
-use Nova\Ranks\Models\RankName;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Ranks\Actions\CreateRankName;
 use Nova\Ranks\DataTransferObjects\RankNameData;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Ranks\Models\RankName;
+use Tests\TestCase;
 
 /**
  * @group ranks
@@ -40,8 +42,8 @@ class CreateRankNameActionTest extends TestCase
     /** @test **/
     public function itCreatesARankNameWithTheProperSortOrder()
     {
-        create(RankName::class, ['sort' => 0]);
-        create(RankName::class, ['sort' => 1]);
+        RankName::factory()->create(['sort' => 0]);
+        RankName::factory()->create(['sort' => 1]);
 
         $data = new RankNameData([
             'name' => 'Captain',

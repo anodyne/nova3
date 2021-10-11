@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Ranks\Controllers\Items;
 
-use Nova\Ranks\Models\RankItem;
-use Nova\Ranks\Models\RankName;
-use Nova\Ranks\Models\RankGroup;
+use Nova\Foundation\Controllers\Controller;
 use Nova\Ranks\Actions\CreateRankItem;
 use Nova\Ranks\Concerns\FindRankImages;
-use Nova\Foundation\Controllers\Controller;
-use Nova\Ranks\Requests\CreateRankItemRequest;
 use Nova\Ranks\DataTransferObjects\RankItemData;
+use Nova\Ranks\Models\RankGroup;
+use Nova\Ranks\Models\RankItem;
+use Nova\Ranks\Models\RankName;
+use Nova\Ranks\Requests\CreateRankItemRequest;
 use Nova\Ranks\Responses\Items\CreateRankItemResponse;
 
 class CreateRankItemController extends Controller
@@ -35,11 +37,11 @@ class CreateRankItemController extends Controller
         ]);
     }
 
-    public function store(CreateRankItemRequest $request, CreateRankItem $action)
+    public function store(CreateRankItemRequest $request)
     {
         $this->authorize('create', RankItem::class);
 
-        $rank = $action->execute(RankItemData::fromRequest($request));
+        $rank = CreateRankItem::run(RankItemData::fromRequest($request));
 
         $group = strtolower($rank->group->name);
 
