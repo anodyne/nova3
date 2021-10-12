@@ -62,7 +62,7 @@ class SettingsServiceProvider extends DomainServiceProvider
                 return Settings::custom()->first();
             }
 
-            return new Settings();
+            return null;
         });
 
         $this->app->singleton(SettingsManager::class, function ($app) {

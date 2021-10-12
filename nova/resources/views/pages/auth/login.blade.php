@@ -29,7 +29,7 @@
     </div>
 </x-form>
 
-@env('local')
+@env(['local', 'dev'])
     <div class="mt-6">
         <div class="relative">
             <div class="absolute inset-0 flex items-center">
@@ -37,7 +37,7 @@
             </div>
             <div class="relative flex justify-center text-sm">
                 <span class="px-2 bg-gray-1 text-gray-11">
-                    Or continue with
+                    Or sign in with
                 </span>
             </div>
         </div>
