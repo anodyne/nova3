@@ -2,6 +2,7 @@ import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
 import TextAlign from '@tiptap/extension-text-align';
+import Link from '@tiptap/extension-link';
 import pretty from 'pretty';
 
 export default (content) => ({
@@ -17,6 +18,9 @@ export default (content) => ({
                 TextAlign.configure({
                     alignments: ['left', 'center', 'right'],
                     types: ['heading', 'paragraph'],
+                }),
+                Link.configure({
+                    openOnClick: false,
                 }),
             ],
             content: this.content,
@@ -48,12 +52,38 @@ export default (content) => ({
         return window.editor.isActive(type, opts);
     },
 
+    removeLink() {
+        return window.editor.chain().unsetLink().focus().run();
+    },
+
     setContent(newContent) {
         return window.editor.commands.setContent(newContent);
     },
 
     setHorizontalRule() {
         return window.editor.chain().setHorizontalRule().focus().run();
+    },
+
+    setLink() {
+        const previousUrl = window.editor.getAttributes('link').href;
+        const url = window.prompt('URL', previousUrl);
+
+        // Cancelled
+        if (url === null) {
+            return;
+        }
+
+        // Empty
+        if (url === '') {
+            window.editor.chain().extendMarkRange('link').unsetLink().focus()
+                .run();
+
+            return;
+        }
+
+        // Update link
+        window.editor.chain().extendMarkRange('link').setLink({ href: url }).focus()
+            .run();
     },
 
     setTextAlign(direction) {
