@@ -19,6 +19,6 @@ class SystemOverviewController extends Controller
 
     public function __invoke(): Responsable
     {
-        return app(SystemOverviewResponse::class);
+        return SystemOverviewResponse::send();
     }
 }

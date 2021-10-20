@@ -90,6 +90,7 @@ module.exports = {
                 'border-gray-8',
                 'bg-red-9',
                 'border-red-9',
+                'max-w-none',
             ],
         }),
         /* eslint-enable */

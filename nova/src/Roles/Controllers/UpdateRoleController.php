@@ -24,7 +24,7 @@ class UpdateRoleController extends Controller
     {
         $this->authorize('update', $role);
 
-        return app(UpdateRoleResponse::class)->with([
+        return UpdateRoleResponse::sendWith([
             'permissions' => Permission::get(),
             'role' => $role->load('users.media', 'permissions'),
         ]);

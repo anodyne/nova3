@@ -29,7 +29,7 @@ class ShowUserController extends Controller
             ->orderBy('name')
             ->paginate();
 
-        return app(ShowAllUsersResponse::class)->with([
+        return ShowAllUsersResponse::sendWith([
             'search' => $request->search,
             'users' => $users,
         ]);
@@ -39,7 +39,7 @@ class ShowUserController extends Controller
     {
         $this->authorize('view', $user);
 
-        return app(ShowUserResponse::class)->with([
+        return ShowUserResponse::sendWith([
             'user' => $user->load('roles', 'logins'),
         ]);
     }

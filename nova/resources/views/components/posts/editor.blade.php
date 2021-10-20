@@ -1,22 +1,16 @@
 <div
-    x-data="tipTap(
-        @entangle($attributes->wire('model')).defer,
-        $refs.editor
-    )"
-    @click.away="inFocus = false;"
+    x-data="tipTap(@entangle($attributes->wire('model')).defer)"
+    x-init="() => init($refs.editor)"
+    @click.away="inFocus = false"
     wire:ignore
     {{ $attributes->whereDoesntStartWith('wire:model') }}
 >
-    <x-posts.toolbar />
+    <template x-if="editor">
+        <x-posts.toolbar />
 
-    <div x-ref="editor"></div>
+        <div x-ref="editor"></div>
+    </template>
 </div>
-
-@push('scripts')
-    @once
-        <script src="{{ asset('dist/js/editor-tiptap.js') }}"></script>
-    @endonce
-@endpush
 
 @push('styles')
     @once

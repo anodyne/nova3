@@ -23,7 +23,7 @@ class DeleteRankNameController extends Controller
     {
         $name = RankName::findOrFail($request->id);
 
-        return app(DeleteRankNameResponse::class)->with([
+        return DeleteRankNameResponse::sendWith([
             'name' => $name,
         ]);
     }

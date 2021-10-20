@@ -32,7 +32,7 @@ class ShowRankGroupController extends Controller
             ? $groups->get()
             : $groups->paginate();
 
-        return app(ShowAllRankGroupsResponse::class)->with([
+        return ShowAllRankGroupsResponse::sendWith([
             'groupCount' => RankGroup::count(),
             'groups' => $groups,
             'isReordering' => $request->has('reorder'),
@@ -44,7 +44,7 @@ class ShowRankGroupController extends Controller
     {
         $this->authorize('view', $group);
 
-        return app(ShowRankGroupResponse::class)->with([
+        return ShowRankGroupResponse::sendWith([
             'group' => $group->load('ranks.name'),
         ]);
     }

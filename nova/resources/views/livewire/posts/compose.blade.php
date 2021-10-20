@@ -76,7 +76,7 @@
         </x-form.section>
 
         <x-form.section>
-            <x-posts.editor wire:model="content" />
+            @livewire('nova:editor', ['content' => $content])
         </x-form.section>
 
         <x-form.section title="Ratings">

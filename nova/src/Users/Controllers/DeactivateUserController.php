@@ -22,7 +22,7 @@ class DeactivateUserController extends Controller
     {
         $user = User::findOrFail($request->id);
 
-        return app(DeactivateUserResponse::class)->with([
+        return DeactivateUserResponse::sendWith([
             'user' => $user,
         ]);
     }

@@ -64,18 +64,6 @@ class UserServiceProvider extends DomainServiceProvider
         ];
     }
 
-    public function responsables(): array
-    {
-        return [
-            CreateUserResponse::class,
-            DeactivateUserResponse::class,
-            DeleteUserResponse::class,
-            UpdateUserResponse::class,
-            ShowAllUsersResponse::class,
-            ShowUserResponse::class,
-        ];
-    }
-
     public function routes(): array
     {
         return [

@@ -23,7 +23,7 @@ class CreatePostController extends Controller
     {
         $this->authorize('write', [new Post(), $postType]);
 
-        return app(ComposePostResponse::class)->with([
+        return ComposePostResponse::sendWith([
             'postType' => $postType,
             'stories' => Story::wherePostable()->get(),
         ]);

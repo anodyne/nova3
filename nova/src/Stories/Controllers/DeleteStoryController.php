@@ -31,7 +31,7 @@ class DeleteStoryController extends Controller
             StoryException::cannotDeleteMainTimeline()
         );
 
-        return app(DeleteStoryResponse::class)->with([
+        return DeleteStoryResponse::sendWith([
             'storiesToDelete' => $stories,
         ]);
     }

@@ -29,7 +29,7 @@ class UpdateRankItemController extends Controller
     {
         $this->authorize('update', $item);
 
-        return app(UpdateRankItemResponse::class)->with([
+        return UpdateRankItemResponse::sendWith([
             'groups' => RankGroup::orderBySort()->get(),
             'item' => $item,
             'names' => RankName::orderBySort()->get(),

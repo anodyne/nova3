@@ -26,7 +26,7 @@ class UpdateNoteController extends Controller
     {
         $this->authorize('update', $note);
 
-        return app(UpdateNoteResponse::class)->with([
+        return UpdateNoteResponse::sendWith([
             'note' => $note,
         ]);
     }

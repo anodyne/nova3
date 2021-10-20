@@ -10,7 +10,6 @@ use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
 use Nova\Departments\Policies\DepartmentPolicy;
 use Nova\Departments\Policies\PositionPolicy;
-use Nova\Departments\Responses;
 use Nova\Departments\Spotlight\CreateDepartment;
 use Nova\Departments\Spotlight\CreatePosition;
 use Nova\Departments\Spotlight\EditDepartment;
@@ -35,25 +34,6 @@ class DepartmentServiceProvider extends DomainServiceProvider
         return [
             Department::class => DepartmentPolicy::class,
             Position::class => PositionPolicy::class,
-        ];
-    }
-
-    public function responsables(): array
-    {
-        return [
-            Responses\CreateDepartmentResponse::class,
-            Responses\DeleteDepartmentResponse::class,
-            Responses\DuplicateDepartmentResponse::class,
-            Responses\ShowAllDepartmentsResponse::class,
-            Responses\ShowDepartmentResponse::class,
-            Responses\UpdateDepartmentResponse::class,
-
-            Responses\CreatePositionResponse::class,
-            Responses\DeletePositionResponse::class,
-            Responses\DuplicatePositionResponse::class,
-            Responses\ShowAllPositionsResponse::class,
-            Responses\ShowPositionResponse::class,
-            Responses\UpdatePositionResponse::class,
         ];
     }
 

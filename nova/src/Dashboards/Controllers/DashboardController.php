@@ -19,6 +19,6 @@ class DashboardController extends Controller
 
     public function __invoke(): Responsable
     {
-        return app(DashboardResponse::class);
+        return DashboardResponse::send();
     }
 }

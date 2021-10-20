@@ -26,7 +26,7 @@ class DuplicatePositionController extends Controller
     {
         $position = Position::findOrFail($request->id);
 
-        return app(DuplicatePositionResponse::class)->with([
+        return DuplicatePositionResponse::sendWith([
             'departments' => Department::get(),
             'position' => $position,
         ]);

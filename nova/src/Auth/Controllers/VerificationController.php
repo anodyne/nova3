@@ -34,6 +34,6 @@ class VerificationController extends Controller
             redirect($this->redirectPath());
         }
 
-        return app(EmailVerificationResponse::class);
+        return EmailVerificationResponse::send();
     }
 }

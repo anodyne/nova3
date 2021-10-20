@@ -34,7 +34,7 @@ class ShowPositionController extends Controller
             ? $positions->get()
             : $positions->paginate();
 
-        return app(ShowAllPositionsResponse::class)->with([
+        return ShowAllPositionsResponse::sendWith([
             'department' => Department::find($departmentId),
             'isReordering' => $request->has('reorder'),
             'positionCount' => ($request->has('reorder')) ? $positions->count() : $positions->total(),
@@ -47,7 +47,7 @@ class ShowPositionController extends Controller
     {
         $this->authorize('view', $position);
 
-        return app(ShowPositionResponse::class)->with([
+        return ShowPositionResponse::sendWith([
             'position' => $position->load('department'),
         ]);
     }

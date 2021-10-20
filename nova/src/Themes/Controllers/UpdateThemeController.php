@@ -24,19 +24,16 @@ class UpdateThemeController extends Controller
     {
         $this->authorize('update', $theme);
 
-        return app(UpdateThemeResponse::class)->with([
+        return UpdateThemeResponse::sendWith([
             'theme' => $theme,
         ]);
     }
 
-    public function update(
-        UpdateThemeRequest $request,
-        UpdateTheme $action,
-        Theme $theme
-    ) {
+    public function update(UpdateThemeRequest $request, Theme $theme)
+    {
         $this->authorize('update', $theme);
 
-        $theme = $action->execute($theme, ThemeData::fromRequest($request));
+        $theme = UpdateTheme::run($theme, ThemeData::fromRequest($request));
 
         return redirect()
             ->route('themes.edit', $theme)

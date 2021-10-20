@@ -32,7 +32,7 @@ class ShowStoryController extends Controller
             ->get()
             ->toTree();
 
-        return app(ShowAllStoriesResponse::class)->with([
+        return ShowAllStoriesResponse::sendWith([
             'stories' => $stories,
         ]);
     }
@@ -48,7 +48,7 @@ class ShowStoryController extends Controller
             ->filter($filters)
             ->paginate();
 
-        return app(ShowStoryResponse::class)->with([
+        return ShowStoryResponse::sendWith([
             'posts' => $posts,
             'search' => $request->search,
             'story' => $story->loadCount('posts'),

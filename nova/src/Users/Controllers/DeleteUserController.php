@@ -24,7 +24,7 @@ class DeleteUserController extends Controller
     {
         $user = User::findOrFail($request->id);
 
-        return app(DeleteUserResponse::class)->with([
+        return DeleteUserResponse::sendWith([
             'user' => $user,
         ]);
     }

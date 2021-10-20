@@ -1,13 +1,7 @@
 @extends($meta->template)
 
 @section('content')
-    <x-page-header title="Rank Names">
-        <x-slot name="pretitle">
-            <a href="{{ route('ranks.index') }}">
-                Ranks
-            </a>
-        </x-slot>
-
+    <x-page-header title="Rank Names" pretitle="Ranks">
         <x-slot name="controls">
             @if ($nameCount > 0)
                 @can('update', $names->first())
