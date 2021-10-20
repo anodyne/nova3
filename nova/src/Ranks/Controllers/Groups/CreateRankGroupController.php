@@ -24,7 +24,7 @@ class CreateRankGroupController extends Controller
     {
         $this->authorize('create', RankGroup::class);
 
-        return app(CreateRankGroupResponse::class);
+        return CreateRankGroupResponse::send();
     }
 
     public function store(CreateRankGroupRequest $request)

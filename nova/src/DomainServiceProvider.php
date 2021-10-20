@@ -45,11 +45,6 @@ abstract class DomainServiceProvider extends ServiceProvider
         return [];
     }
 
-    public function responsables(): array
-    {
-        return [];
-    }
-
     public function routes(): array
     {
         return [];
@@ -73,7 +68,6 @@ abstract class DomainServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerMorphMaps();
-        $this->registerResponsables();
     }
 
     public function spotlightCommands(): array
@@ -150,17 +144,6 @@ abstract class DomainServiceProvider extends ServiceProvider
     {
         collect($this->policies())
             ->each(fn ($policy, $model) => Gate::policy($model, $policy));
-    }
-
-    private function registerResponsables(): void
-    {
-        collect($this->responsables())->each(function ($responsable) {
-            $this->app->singleton($responsable, function ($app) use ($responsable) {
-                $page = optional($this->app['request']->route())->findPageFromRoute();
-
-                return new $responsable($page, $app);
-            });
-        });
     }
 
     private function registerRoutes(): void

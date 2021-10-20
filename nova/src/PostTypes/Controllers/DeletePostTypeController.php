@@ -23,7 +23,7 @@ class DeletePostTypeController extends Controller
     {
         $postType = PostType::findOrFail($request->id);
 
-        return app(DeletePostTypeResponse::class)->with([
+        return DeletePostTypeResponse::sendWith([
             'postType' => $postType,
         ]);
     }

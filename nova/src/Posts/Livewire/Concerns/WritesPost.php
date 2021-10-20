@@ -16,7 +16,7 @@ trait WritesPost
 
     public $location;
 
-    public $content;
+    public $content = '';
 
     public $post;
 
@@ -26,8 +26,8 @@ trait WritesPost
 
     public $ratingViolence;
 
-    public function updatedContent($value)
+    public function setPostContent($content): void
     {
-        // dd($value);
+        $this->content = $content;
     }
 }

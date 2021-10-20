@@ -22,6 +22,6 @@ class ForgotPasswordController extends Controller
 
     public function showLinkRequestForm(): Responsable
     {
-        return app(ForgotPasswordResponse::class);
+        return ForgotPasswordResponse::send();
     }
 }

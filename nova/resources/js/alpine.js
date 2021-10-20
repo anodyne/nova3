@@ -5,7 +5,7 @@ import Modal from './components/modal';
 import Ratings from './components/ratings';
 import SortableList from './components/sortable-list';
 import TabsList from './components/tabs-list';
-import TipTap from './components/tip-tap';
+import TipTap from './components/tiptap';
 import ToggleSwitch from './components/toggle-switch';
 import WordCount from './components/word-count';
 

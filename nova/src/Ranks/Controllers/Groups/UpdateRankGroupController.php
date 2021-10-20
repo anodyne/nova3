@@ -24,7 +24,7 @@ class UpdateRankGroupController extends Controller
     {
         $this->authorize('update', $group);
 
-        return app(UpdateRankGroupResponse::class)->with([
+        return UpdateRankGroupResponse::sendWith([
             'group' => $group->load('ranks.name'),
         ]);
     }

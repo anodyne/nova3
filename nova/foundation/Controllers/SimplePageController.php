@@ -18,6 +18,6 @@ class SimplePageController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return app(SimplePageResponse::class);
+        return SimplePageResponse::send();
     }
 }

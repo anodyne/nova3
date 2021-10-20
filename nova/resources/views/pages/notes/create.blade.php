@@ -19,8 +19,7 @@
                 </x-input.group>
 
                 <x-input.group for="content" :error="$errors->first('content')">
-                    {{-- <x-input.rich-text name="content" :initial-value="old('content')" /> --}}
-                    <posts-editor></posts-editor>
+                    @livewire('nova:editor', ['content' => old('content', '')])
                 </x-input.group>
             </x-content-box>
 
@@ -31,12 +30,6 @@
         </x-form>
     </x-panel>
 @endsection
-
-@push('scripts')
-    @once
-        <script src="{{ asset('dist/js/editor-tiptap.js') }}"></script>
-    @endonce
-@endpush
 
 @push('styles')
     @once

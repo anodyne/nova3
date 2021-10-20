@@ -33,7 +33,7 @@ class ShowRankItemController extends Controller
             ? $items->get()
             : $items->paginate();
 
-        return app(ShowAllRankItemsResponse::class)->with([
+        return ShowAllRankItemsResponse::sendWith([
             'groups' => RankGroup::orderBySort()->get(),
             'isReordering' => $request->has('reorder'),
             'itemCount' => RankItem::count(),
@@ -46,7 +46,7 @@ class ShowRankItemController extends Controller
     {
         $this->authorize('view', $item);
 
-        return app(ShowRankItemResponse::class)->with([
+        return ShowRankItemResponse::sendWith([
             'item' => $item->load('group', 'name', 'characters'),
         ]);
     }

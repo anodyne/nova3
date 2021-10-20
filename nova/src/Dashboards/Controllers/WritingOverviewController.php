@@ -19,6 +19,6 @@ class WritingOverviewController extends Controller
 
     public function __invoke(): Responsable
     {
-        return app(WritingOverviewResponse::class);
+        return WritingOverviewResponse::send();
     }
 }

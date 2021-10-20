@@ -18,12 +18,14 @@ use Nova\Foundation\Icons\FontAwesomeSolidIconSet;
 use Nova\Foundation\Icons\IconlyCurvedIconSet;
 use Nova\Foundation\Icons\IconSets;
 use Nova\Foundation\Icons\StreamlineUiIconSet;
+use Nova\Foundation\Livewire\Editor;
 use Nova\Foundation\Livewire\IconsSelectMenu;
 use Nova\Foundation\Livewire\UploadAvatar;
 use Nova\Foundation\Livewire\UploadImage;
 use Nova\Foundation\Macros;
 use Nova\Foundation\NovaBladeDirectives;
 use Nova\Foundation\NovaManager;
+use Nova\Foundation\Responses\FiltersManager;
 use Nova\Foundation\View\Components\Avatar;
 use Nova\Foundation\View\Components\AvatarGroup;
 use Nova\Foundation\View\Components\Badge;
@@ -50,6 +52,7 @@ class AppServiceProvider extends ServiceProvider
         $this->registerBladeDirectives();
         $this->registerBladeComponents();
         $this->registerLivewireComponents();
+        $this->registerResponseFilters();
         $this->setupFactories();
     }
 
@@ -99,9 +102,18 @@ class AppServiceProvider extends ServiceProvider
 
     protected function registerLivewireComponents()
     {
+        Livewire::component('nova:editor', Editor::class);
         Livewire::component('icons-select-menu', IconsSelectMenu::class);
         Livewire::component('upload-avatar', UploadAvatar::class);
         Livewire::component('upload-image', UploadImage::class);
+    }
+
+    protected function registerResponseFilters(): void
+    {
+        $this->app->singleton(
+            'nova.response-filters',
+            fn () => new FiltersManager()
+        );
     }
 
     protected function setupFactories()

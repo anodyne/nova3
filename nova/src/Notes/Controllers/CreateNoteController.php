@@ -26,7 +26,7 @@ class CreateNoteController extends Controller
     {
         $this->authorize('create', Note::class);
 
-        return app(CreateNoteResponse::class);
+        return CreateNoteResponse::send();
     }
 
     public function store(CreateNoteRequest $request): RedirectResponse

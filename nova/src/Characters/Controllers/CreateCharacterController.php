@@ -24,7 +24,7 @@ class CreateCharacterController extends Controller
     {
         $this->authorize('createAny', Character::class);
 
-        return app(CreateCharacterResponse::class);
+        return CreateCharacterResponse::send();
     }
 
     public function store(CreateCharacterRequest $request)

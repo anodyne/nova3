@@ -23,12 +23,12 @@ class DeleteRankItemController extends Controller
     {
         $item = RankItem::findOrFail($request->id);
 
-        return app(DeleteRankItemResponse::class)->with([
+        return DeleteRankItemResponse::sendWith([
             'item' => $item->load('group', 'name'),
         ]);
     }
 
-    public function destroy(DeleteRankItem $action, RankItem $item)
+    public function destroy(RankItem $item)
     {
         $this->authorize('delete', $item);
 

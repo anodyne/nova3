@@ -23,7 +23,7 @@ class CreateDepartmentController extends Controller
     {
         $this->authorize('create', Department::class);
 
-        return app(CreateDepartmentResponse::class);
+        return CreateDepartmentResponse::send();
     }
 
     public function store(CreateDepartmentRequest $request)

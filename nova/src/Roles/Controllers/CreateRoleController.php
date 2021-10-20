@@ -24,7 +24,7 @@ class CreateRoleController extends Controller
     {
         $this->authorize('create', Role::class);
 
-        return app(CreateRoleResponse::class);
+        return CreateRoleResponse::send();
     }
 
     public function store(CreateRoleRequest $request)

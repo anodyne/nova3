@@ -6,7 +6,7 @@
     {{ $attributes->whereDoesntStartWith('wire:model') }}
 >
     <template x-if="editor">
-        <x-posts.toolbar />
+        <x-editor.toolbar />
 
         <div x-ref="editor"></div>
     </template>

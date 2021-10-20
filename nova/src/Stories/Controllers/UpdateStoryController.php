@@ -23,7 +23,7 @@ class UpdateStoryController extends Controller
     {
         $this->authorize('update', $story);
 
-        return app(UpdateStoryResponse::class)->with([
+        return UpdateStoryResponse::sendWith([
             'story' => $story,
         ]);
     }

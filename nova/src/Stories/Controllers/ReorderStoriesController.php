@@ -28,7 +28,7 @@ class ReorderStoriesController extends Controller
             ->get()
             ->toTree();
 
-        return app(ReorderStoriesResponse::class)->with([
+        return ReorderStoriesResponse::sendWith([
             'stories' => $stories,
         ]);
     }

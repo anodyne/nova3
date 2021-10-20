@@ -24,7 +24,7 @@ class CreateUserController extends Controller
     {
         $this->authorize('create', User::class);
 
-        return app(CreateUserResponse::class);
+        return CreateUserResponse::send();
     }
 
     public function store(CreateUserRequest $request)

@@ -29,7 +29,7 @@ class CreateRankItemController extends Controller
     {
         $this->authorize('create', RankGroup::class);
 
-        return app(CreateRankItemResponse::class)->with([
+        return CreateRankItemResponse::sendWith([
             'groups' => RankGroup::orderBySort()->get(),
             'names' => RankName::orderBySort()->get(),
             'baseImages' => $this->getRankBaseImages(),

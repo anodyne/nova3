@@ -23,8 +23,8 @@ class NoteData extends DataTransferObject
     public static function fromRequest(Request $request): self
     {
         return new self([
-            'content' => $request->content,
-            'source' => $request->source,
+            'content' => $request->input('editor-content'),
+            // 'source' => $request->source,
             'summary' => $request->summary,
             'title' => $request->title,
             'user' => auth()->user(),

@@ -30,7 +30,7 @@ class ShowNoteController extends Controller
             ->orderBy('title')
             ->paginate();
 
-        return app(ShowAllNotesResponse::class)->with([
+        return ShowAllNotesResponse::sendWith([
             'notes' => $notes,
             'search' => $request->search,
         ]);
@@ -40,7 +40,7 @@ class ShowNoteController extends Controller
     {
         $this->authorize('view', $note);
 
-        return app(ShowNoteResponse::class)->with([
+        return ShowNoteResponse::sendWith([
             'note' => $note,
         ]);
     }

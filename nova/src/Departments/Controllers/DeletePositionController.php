@@ -23,7 +23,7 @@ class DeletePositionController extends Controller
     {
         $position = Position::findOrFail($request->id);
 
-        return app(DeletePositionResponse::class)->with([
+        return DeletePositionResponse::sendWith([
             'position' => $position->load('department'),
         ]);
     }

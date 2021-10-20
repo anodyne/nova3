@@ -23,7 +23,7 @@ class DeleteRankGroupController extends Controller
     {
         $group = RankGroup::findOrFail($request->id);
 
-        return app(DeleteRankGroupResponse::class)->with([
+        return DeleteRankGroupResponse::sendWith([
             'group' => $group,
         ]);
     }
