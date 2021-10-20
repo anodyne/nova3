@@ -2,13 +2,12 @@
     "private": true,
     "license": "MIT",
     "scripts": {
-        "dev": "$npm_execpath run development",
-        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch": "$npm_execpath run development --watch",
-        "watch-poll": "$npm_execpath run watch --watch-poll",
-        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "prod": "$npm_execpath run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --config=node_modules/laravel-mix/setup/webpack.config.js"
+        "css:build-dev": "cross-env ENV_BUILD=dev postcss nova/resources/css/*.css --base nova/resources --dir dist --verbose",
+        "css:build-prod": "cross-env ENV_BUILD=prod postcss nova/resources/css/*.css --base nova/resources --dir dist --verbose",
+        "js:build-dev": "esbuild nova/resources/js/app.js --bundle --minify --sourcemap=inline --target=es2016 --outfile=dist/js/app.js",
+        "js:build-prod": "esbuild nova/resources/js/app.js --bundle --minify --target=es2016 --outfile=dist/js/app.js",
+        "dev": "concurrently \"npm run js:build-dev\" \"npm run css:build-dev\"",
+        "prod": "concurrently \"npm run js:build-prod\" \"npm run css:build-prod\""
     },
     "dependencies": {
         "@tailwindcss/aspect-ratio": "^0.2.0",
@@ -23,8 +22,8 @@
         "axios": "^0.21",
         "countable": "^3.0.1",
         "cross-env": "^5.1",
+        "esbuild": "^0.13.8",
         "hex-to-rgba": "^2.0.1",
-        "laravel-mix": "^6.0.0",
         "lodash": "^4.17",
         "numeral": "^2.0.6",
         "postcss": "^8.1.14",
@@ -38,11 +37,14 @@
         "tailwindcss-interaction-variants": "^5.0.0"
     },
     "devDependencies": {
+        "concurrently": "^6.3.0",
+        "cssnano": "^5.0.8",
         "cypress": "^6.1.0",
         "cypress-file-upload": "^4.1.1",
         "eslint": "^7.29.0",
         "eslint-config-airbnb-base": "^14.2.0",
         "eslint-import-resolver-webpack": "^0.13.1",
-        "eslint-plugin-import": "^2.23.1"
+        "eslint-plugin-import": "^2.23.1",
+        "postcss-cli": "^9.0.1"
     }
 }
