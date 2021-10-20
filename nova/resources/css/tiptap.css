@@ -1,0 +1,7 @@
+@import 'plugins/tiptap-editor.css';
+@import 'plugins/tiptap-bubble-menu.css';
+@import 'plugins/tiptap-floating-menu.css';
+
+.ProseMirror:focus {
+    outline: none;
+}
