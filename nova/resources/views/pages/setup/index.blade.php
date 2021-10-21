@@ -38,7 +38,7 @@
             <h2 class="text-2xl font-extrabold mb-8 text-center">Thank you for supporting Anodyne&rsquo;s work on Nova 3!</h2>
 
             <p class="mb-8 text-gray-11">
-                We&rsquo;ve decided to provide Patrons with downloadable previews of the work being done on Nova 3. This is not intended to be used for QA purposes, but just as a way to get feedback from valued members of the community about the direction of Nova 3.
+                One of the perks of being a Patreon support is downloadable previews of the work being done on Nova 3. This is not intended to be used for QA purposes, but just as a way to get feedback from valued members of the community about the direction of Nova 3.
             </p>
 
             <p class="mb-8 text-gray-11">
