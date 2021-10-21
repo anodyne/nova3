@@ -18,9 +18,9 @@ class Editor extends Component
         $this->emit('postContentUpdated', $value);
     }
 
-    public function getWordCountProperty(): int
+    public function getWordCountProperty(): string
     {
-        return Str::of($this->content)->pipe('strip_tags')->wordCount();
+        return number_format(Str::of($this->content)->pipe('strip_tags')->wordCount());
     }
 
     public function render()

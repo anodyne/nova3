@@ -179,7 +179,7 @@
         </div>
 
         @if ($codeView)
-            <nav class="menu flex items-center space-x-3 md:space-x-1.5 my-1 md:my-00 border-b border-gray-6 py-2 px-3 bg-gray-2">
+            <nav class="menu flex items-center space-x-3 border-b border-gray-6 py-2 px-3 bg-gray-2">
                 <button
                     type="button"
                     class="leading-0 transition duration-150 text-gray-9 hover:text-gray-11 text-sm h-5 font-medium"
@@ -196,9 +196,9 @@
             rows="20"
             wire:model="content"
         ></textarea>
-    </div>
 
-    <div class="text-gray-11 text-sm mt-2 ml-1">Word count: {{ $this->wordCount }}</div>
+        <div class="text-gray-11 text-sm px-3 py-1.5 border-t border-gray-6">{{ $this->wordCount }} @choice('word|words', $this->wordCount)</div>
+    </div>
 </div>
 
 @push('styles')
