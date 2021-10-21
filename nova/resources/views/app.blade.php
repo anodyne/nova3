@@ -18,9 +18,9 @@
         @yield('layout')
 
         <x-toasts />
-        @stack('modal')
     </div>
 
+    @stack('modal')
     @livewire('livewire-ui-modal')
     @livewire('livewire-ui-spotlight')
 

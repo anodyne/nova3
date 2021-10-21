@@ -23,7 +23,7 @@ class DeleteDepartmentController extends Controller
     {
         $department = Department::findOrFail($request->id);
 
-        return app(DeleteDepartmentResponse::class)->with([
+        return DeleteDepartmentResponse::sendWith([
             'department' => $department,
         ]);
     }

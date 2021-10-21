@@ -27,7 +27,7 @@ class InstallThemeController extends Controller
     {
         $this->authorize('create', Theme::class);
 
-        $theme = $action->execute(
+        $theme = CreateTheme::run(
             new ThemeData($this->getThemePropertiesFromQuickInstallFile($request->theme))
         );
 

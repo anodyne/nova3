@@ -23,16 +23,16 @@ class DeleteThemeController extends Controller
     {
         $theme = Theme::findOrFail($request->id);
 
-        return app(DeleteThemeResponse::class)->with([
+        return DeleteThemeResponse::sendWith([
             'theme' => $theme,
         ]);
     }
 
-    public function destroy(DeleteTheme $action, Theme $theme)
+    public function destroy(Theme $theme)
     {
         $this->authorize('delete', $theme);
 
-        $action->execute($theme);
+        DeleteTheme::run($theme);
 
         return redirect()
             ->route('themes.index')

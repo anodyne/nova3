@@ -28,7 +28,7 @@ class ResetPasswordController extends Controller
 
     public function showResetForm(Request $request, $token = null): Responsable
     {
-        return app(ResetPasswordResponse::class)->with([
+        return ResetPasswordResponse::sendWith([
             'token' => $token,
             'email' => $request->email,
         ]);

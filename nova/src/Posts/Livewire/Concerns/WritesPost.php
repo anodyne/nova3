@@ -16,18 +16,18 @@ trait WritesPost
 
     public $location;
 
-    public $content;
+    public $content = '';
 
     public $post;
 
-    public $ratingLanguage;
+    public $ratingLanguage = 0;
 
     public $ratingSex;
 
     public $ratingViolence;
 
-    public function updatedContent($value)
+    public function setPostContent($content): void
     {
-        // dd($value);
+        $this->content = $content;
     }
 }

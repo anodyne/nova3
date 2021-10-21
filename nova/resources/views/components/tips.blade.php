@@ -5,7 +5,7 @@
                 <div class="flex-shrink-0">
                     @icon('lightbulb', 'h-6 w-6 text-purple-9')
                 </div>
-                <div class="ml-3 flex-1 | md:flex md:justify-between">
+                <div class="ml-3 flex-1 md:flex md:justify-between">
                     <p class="text-sm text-purple-11">
                         {{ $getRandomTip }}
                     </p>

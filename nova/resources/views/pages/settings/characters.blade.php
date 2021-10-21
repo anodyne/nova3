@@ -56,7 +56,7 @@
             </x-input.group>
 
             <x-input.group label="Character Limit">
-                <div class="w-full | sm:w-2/3 md:w-2/5">
+                <div class="w-full sm:w-2/3 md:w-2/5">
                     <x-input.number id="character_limit" name="character_limit" :value="old('character_limit', 5)" />
                 </div>
             </x-input.group>

@@ -23,7 +23,7 @@ class CreateStoryController extends Controller
     {
         $this->authorize('create', Story::class);
 
-        return app(CreateStoryResponse::class);
+        return CreateStoryResponse::send();
     }
 
     public function store(CreateStoryRequest $request)

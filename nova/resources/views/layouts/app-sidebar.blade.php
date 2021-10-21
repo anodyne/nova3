@@ -137,7 +137,7 @@
     </div>
 
     <!-- Static sidebar for desktop -->
-    <div class="hidden | md:flex md:flex-shrink-0">
+    <div class="hidden md:flex md:flex-shrink-0">
         <div class="flex flex-col w-64">
             <div class="flex flex-col flex-grow border-r border-gray-6 pt-5 pb-4 bg-gray-1 overflow-y-auto">
                 <div class="flex items-center flex-shrink-0 px-4">
@@ -222,7 +222,7 @@
         <div class="relative z-10 flex-shrink-0 flex h-16 bg-gray-1 shadow">
             <button
                 @click.stop="sidebarOpen = true"
-                class="px-4 text-gray-11 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-7 | md:hidden"
+                class="px-4 text-gray-11 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-7 md:hidden"
             >
                 <span class="sr-only">Open sidebar</span>
                 @icon('menu', 'h-6 w-6')
@@ -230,7 +230,7 @@
 
             <div class="flex-1 px-4 flex justify-between">
                 <div class="flex-1 flex">
-                    <form class="w-full flex | md:ml-0" action="#" method="GET">
+                    <form class="w-full flex md:ml-0" action="#" method="GET">
                         <label for="search_field" class="sr-only">Search</label>
                         <div class="relative flex items-center w-full text-gray-9 focus-within:text-gray-10">
                             <div class="flex items-center pointer-events-none">
@@ -241,7 +241,7 @@
                     </form>
                 </div>
 
-                <div class="ml-4 flex items-center space-x-4 | md:ml-6">
+                <div class="ml-4 flex items-center space-x-4 md:ml-6">
                     @livewire('users:notifications')
 
                     <x-dropdown placement="bottom-end">

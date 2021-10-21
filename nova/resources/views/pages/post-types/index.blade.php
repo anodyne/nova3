@@ -69,7 +69,7 @@
                                     <div class="h-6 w-6"></div>
                                 @endisset
                             </div>
-                            <div class="min-w-0 flex-1 | sm:flex sm:flex-col">
+                            <div class="min-w-0 flex-1 sm:flex sm:flex-col">
                                 <div class="flex items-center space-x-3">
                                     <div class="font-medium truncate">
                                         {{ $postType->name }}
@@ -141,12 +141,12 @@
 
     <x-modal color="red" title="Delete Post Type?" icon="warning" :url="route('post-types.delete')">
         <x-slot name="footer">
-            <span class="flex w-full | sm:col-start-2">
+            <span class="flex w-full sm:col-start-2">
                 <x-button type="submit" form="form" color="red" full-width>
                     Delete
                 </x-button>
             </span>
-            <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
+            <span class="mt-3 flex w-full sm:mt-0 sm:col-start-1">
                 <x-button @click="$dispatch('modal-close')" type="button" color="white" full-width>
                     Cancel
                 </x-button>

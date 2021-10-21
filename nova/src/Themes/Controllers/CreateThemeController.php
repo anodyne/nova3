@@ -23,14 +23,14 @@ class CreateThemeController extends Controller
     {
         $this->authorize('create', Theme::class);
 
-        return app(CreateThemeResponse::class);
+        return CreateThemeResponse::send();
     }
 
-    public function store(CreateThemeRequest $request, CreateThemeManager $action)
+    public function store(CreateThemeRequest $request)
     {
         $this->authorize('create', Theme::class);
 
-        $theme = $action->execute($request);
+        $theme = CreateThemeManager::run($request);
 
         return redirect()
             ->route('themes.index')

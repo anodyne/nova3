@@ -1,5 +1,5 @@
 <div class="block bg-gray-1 rounded-md shadow">
-    <div class="flex items-start space-x-4 px-4 py-4 | sm:px-6">
+    <div class="flex items-start space-x-4 px-4 py-4 sm:px-6">
         <div class="flex-shrink-0 rounded-full p-1.5 border-2" style="left:6px; border-color:{{ $post->type->color }};color:{{ $post->type->color }}">
             @icon($post->type->icon, 'h-6 w-6')
         </div>
@@ -11,7 +11,7 @@
             </div>
 
             @if ($post->day || $post->time || $post->location)
-                <div class="flex flex-col space-x-6 | md:flex-row">
+                <div class="flex flex-col space-x-6 md:flex-row">
                     @if ($post->day)
                         <div class="flex items-center text-sm text-gray-600 space-x-1.5">
                             @icon('calendar', 'flex-shrink-0 h-5 w-5 text-gray-400')
@@ -47,7 +47,7 @@
             <div class="flex space-x-6">
                 <x-badge :color="$post->status->color()" size="xs">{{ $post->status->displayName() }}</x-badge>
                 @if ($post->published_at)
-                    <div class="hidden items-center text-sm text-gray-500 | sm:flex">
+                    <div class="hidden items-center text-sm text-gray-500 sm:flex">
                         Published&nbsp;
                         <time datetime="{{ $post->published_at }}">
                             {{ $post->published_at->format('M d, Y') }}

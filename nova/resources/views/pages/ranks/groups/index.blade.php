@@ -1,13 +1,7 @@
 @extends($meta->template)
 
 @section('content')
-    <x-page-header title="Rank Groups">
-        <x-slot name="pretitle">
-            <a href="{{ route('ranks.index') }}">
-                Ranks
-            </a>
-        </x-slot>
-
+    <x-page-header title="Rank Groups" pretitle="Ranks">
         <x-slot name="controls">
             @if ($groupCount > 0)
                 @can('update', $groups->first())

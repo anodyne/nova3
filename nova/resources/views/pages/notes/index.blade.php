@@ -26,7 +26,7 @@
 
             <ul>
                 @forelse ($notes as $note)
-                    <li class="border-t border-gray-200">
+                    <li class="border-t border-gray-6">
                         <div class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
                             <x-content-box class="flex items-center">
                                 <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
@@ -34,7 +34,7 @@
                                         <div class="font-medium truncate">
                                             {{ $note->title }}
                                         </div>
-                                        <p class="mt-1 text-sm text-gray-600">{{ $note->summary }}</p>
+                                        <p class="mt-1 text-sm text-gray-11">{{ $note->summary }}</p>
                                     </div>
                                 </div>
                                 <div class="ml-5 flex-shrink-0 leading-0">
@@ -76,7 +76,7 @@
                 @endforelse
             </ul>
 
-            <div class="px-4 py-2 border-t border-gray-200 | sm:px-6 sm:py-3">
+            <div class="px-4 py-2 border-t border-gray-6 sm:px-6 sm:py-3">
                 {{ $notes->withQueryString()->links() }}
             </div>
         </x-panel>
@@ -85,12 +85,12 @@
 
         <x-modal color="red" title="Delete Note?" icon="warning" :url="route('notes.delete')">
             <x-slot name="footer">
-                <span class="flex w-full | sm:col-start-2">
+                <span class="flex w-full sm:col-start-2">
                     <x-button type="submit" form="form" color="red" full-width>
                         Delete
                     </x-button>
                 </span>
-                <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
+                <span class="mt-3 flex w-full sm:mt-0 sm:col-start-1">
                     <x-button @click="$dispatch('modal-close')" type="button" color="white" full-width>
                         Cancel
                     </x-button>

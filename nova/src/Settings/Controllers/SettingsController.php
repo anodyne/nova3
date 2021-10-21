@@ -25,7 +25,13 @@ class SettingsController extends Controller
     {
         $this->authorize('update', settings());
 
-        return app($settingsManager->get($tab)->response)->with([
+        // return app($settingsManager->get($tab)->response)->with([
+        //     'settings' => settings(),
+        //     'systemNotifications' => SystemNotification::get(),
+        //     'tab' => $tab,
+        //     'themes' => Theme::whereActive()->orderBy('name')->get(),
+        // ]);
+        return $settingsManager->get($tab)->response::sendWith([
             'settings' => settings(),
             'systemNotifications' => SystemNotification::get(),
             'tab' => $tab,

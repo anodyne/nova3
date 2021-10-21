@@ -11,7 +11,7 @@
                         </div>
                     </div>
 
-                    <div class="relative z-0 flex-1 px-2 flex items-center justify-center sm:absolute sm:inset-0">
+                    <div class="relative z-0 flex-1 px-4 md:px-2 flex items-center justify-center sm:absolute sm:inset-0">
                         <div class="max-w-xs w-full">
                             <label for="search" class="sr-only">Search</label>
                             <div class="relative">
@@ -142,12 +142,12 @@
                 <div class="border-t border-gray-6 pt-4 pb-3">
                     <div class="px-4 flex items-center">
                         <div class="flex-shrink-0">
-                            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=80" alt="">
+                            <x-avatar size="xs" :src="auth()->user()->avatar_url" :tooltip="auth()->user()->name" />
                         </div>
 
                         <div class="ml-3">
-                            <div class="text-base font-medium text-gray-12">Lisa Marie</div>
-                            <div class="text-sm font-medium text-gray-11">lisamarie@example.com</div>
+                            <div class="text-base font-medium text-gray-12">{{ auth()->user()->name }}</div>
+                            <div class="text-sm font-medium text-gray-11">{{ auth()->user()->email }}</div>
                         </div>
 
                         <button type="button" class="ml-auto flex-shrink-0 bg-gray-1 rounded-full p-1 text-gray-9 hover:text-gray-11 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-12">
@@ -167,7 +167,7 @@
             </nav>
         </header>
 
-        <main class="max-w-7xl mx-auto pb-10 lg:py-12 lg:px-8 focus:outline-none" tabindex="0">
+        <main class="max-w-7xl mx-auto py-8 lg:py-12 lg:px-8 focus:outline-none" tabindex="0">
             <div class="lg:grid lg:grid-cols-12 lg:gap-x-5">
                 @if ($meta->subnav)
                     <aside class="py-6 px-2 sm:px-6 lg:py-0 lg:px-0 lg:col-span-2">

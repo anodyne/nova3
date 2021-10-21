@@ -24,7 +24,7 @@ class ShowThemeController extends Controller
 
         $themes = Theme::orderBy('name')->get();
 
-        return app(ShowAllThemesResponse::class)->with([
+        return ShowAllThemesResponse::sendWith([
             'themes' => ($request->has('pending')) ? $themes->onlyPending() : $themes->withPending(),
         ]);
     }

@@ -23,7 +23,7 @@ class DeleteRoleController extends Controller
     {
         $role = Role::findOrFail($request->id);
 
-        return app(DeleteRoleResponse::class)->with([
+        return DeleteRoleResponse::sendWith([
             'role' => $role,
         ]);
     }

@@ -32,7 +32,7 @@ class SelectPostTypeController extends Controller
             return redirect()->route('posts.compose', $usersPostTypes->first());
         }
 
-        return app(SelectPostTypeResponse::class)->with([
+        return SelectPostTypeResponse::sendWith([
             'postTypes' => $usersPostTypes,
             'stories' => Story::wherePostable()->get(),
         ]);

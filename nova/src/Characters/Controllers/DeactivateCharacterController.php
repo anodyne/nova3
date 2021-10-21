@@ -24,7 +24,7 @@ class DeactivateCharacterController extends Controller
     {
         $character = Character::findOrFail($request->id);
 
-        return app(DeactivateCharacterResponse::class)->with([
+        return DeactivateCharacterResponse::sendWith([
             'character' => $character,
         ]);
     }

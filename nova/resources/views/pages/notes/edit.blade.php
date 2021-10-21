@@ -7,12 +7,6 @@
         </x-slot>
     </x-page-header>
 
-    <x-under-construction feature="My Notes">
-        <li>We are using the Trix editor right now, but will likely use a completely different rich text editor by the time Nova 3 launches</li>
-        <li>There are known issues with the display of HTML created with the rich text editor</li>
-        <li>There are known issues with displaying the word count when loading an existing note</li>
-    </x-under-construction>
-
     <x-panel>
         <x-form :action="route('notes.update', $note)" method="PUT">
             <x-content-box class="space-y-8">
@@ -20,12 +14,12 @@
                     <x-input.text id="title" name="title" :value="old('title', $note->title)" data-cy="title" />
                 </x-input.group>
 
-                <x-input.group label="Summary" for="summary" :error="$errors->first('summary')" class="sm:w-2/3">
+                <x-input.group label="Summary" for="summary" :error="$errors->first('summary')" class="sm:w-1/2">
                     <x-input.textarea id="summary" name="summary" rows="3" data-cy="summary">{{ old('summary', $note->summary) }}</x-input.textarea>
                 </x-input.group>
 
                 <x-input.group for="content" :error="$errors->first('content')">
-                    <x-input.rich-text name="content" :initial-value="old('content', $note->content)" />
+                    @livewire('nova:editor', ['content' => old('content', $note->content)])
                 </x-input.group>
             </x-content-box>
 

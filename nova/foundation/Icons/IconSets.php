@@ -22,7 +22,9 @@ class IconSets
 
     public function getDefaultSet(): IconSet
     {
-        return $this->sets[settings()->system_defaults->iconSet];
+        $default = settings()?->system_defaults->iconSet ?? 'fluent';
+
+        return $this->sets[$default];
     }
 
     public function getSets(): array

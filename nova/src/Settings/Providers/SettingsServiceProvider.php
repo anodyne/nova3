@@ -42,19 +42,6 @@ class SettingsServiceProvider extends DomainServiceProvider
         ];
     }
 
-    public function responsables(): array
-    {
-        return [
-            CharactersSettingsResponse::class,
-            EmailSettingsResponse::class,
-            GeneralSettingsResponse::class,
-            MetaTagsSettingsResponse::class,
-            NotificationSettingsResponse::class,
-            PostingActivitySettingsResponse::class,
-            SystemDefaultsSettingsResponse::class,
-        ];
-    }
-
     public function domainBooting(): void
     {
         $this->app->singleton('nova.settings', function ($app) {
@@ -62,7 +49,7 @@ class SettingsServiceProvider extends DomainServiceProvider
                 return Settings::custom()->first();
             }
 
-            return new Settings();
+            return null;
         });
 
         $this->app->singleton(SettingsManager::class, function ($app) {

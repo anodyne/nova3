@@ -1,13 +1,7 @@
 @extends($meta->template)
 
 @section('content')
-    <x-page-header title="Rank Items">
-        <x-slot name="pretitle">
-            <a href="{{ route('ranks.index') }}">
-                Ranks
-            </a>
-        </x-slot>
-
+    <x-page-header title="Rank Items" pretitle="Ranks">
         <x-slot name="controls">
             @if ($itemCount > 0)
                 <x-dropdown placement="bottom-end">

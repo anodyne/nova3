@@ -27,6 +27,6 @@ class LoginController extends Controller
 
     public function showLoginForm(): Responsable
     {
-        return app(LoginResponse::class);
+        return LoginResponse::send();
     }
 }

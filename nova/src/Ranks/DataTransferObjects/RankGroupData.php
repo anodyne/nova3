@@ -13,8 +13,8 @@ class RankGroupData extends DataTransferObject
 
     public static function fromRequest(Request $request): self
     {
-        return new self([
-            'name' => $request->name,
-        ]);
+        return new self(
+            name: $request->name,
+        );
     }
 }

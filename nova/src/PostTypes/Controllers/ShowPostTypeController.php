@@ -32,7 +32,7 @@ class ShowPostTypeController extends Controller
             ? $postTypes->get()
             : $postTypes->paginate();
 
-        return app(ShowAllPostTypesResponse::class)->with([
+        return ShowAllPostTypesResponse::sendWith([
             'isReordering' => $isReordering,
             'postTypes' => $postTypes,
             'search' => $request->search,

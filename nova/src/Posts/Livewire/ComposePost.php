@@ -26,7 +26,10 @@ class ComposePost extends Component
 
     public $showEditor = false;
 
-    protected $listeners = ['postTypeSelected' => 'setPostType'];
+    protected $listeners = [
+        'postContentUpdated' => 'setPostContent',
+        'postTypeSelected' => 'setPostType',
+    ];
 
     public function publish()
     {

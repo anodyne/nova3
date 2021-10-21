@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Nova\Foundation\Responses;
 
 use BadMethodCallException;
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Responsable as LaravelResponsable;
 use Illuminate\Http\Response;
+use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Str;
 use Nova\Pages\Page;
 
@@ -31,25 +31,42 @@ abstract class Responsable implements LaravelResponsable
 
     protected $theme;
 
-    public function __construct(Page $page, Application $app)
+    public static function send(): self
     {
-        $this->app = $app;
+        return new static(
+            optional(request()->route())->findPageFromRoute(),
+            app()
+        );
+    }
+
+    public static function sendWith(array $data): self
+    {
+        $instance = new static(
+            optional(request()->route())->findPageFromRoute(),
+            app()
+        );
+
+        return $instance->with($data);
+    }
+
+    public function __construct(Page $page)
+    {
+        $this->app = app();
         $this->page = $page;
-        $this->theme = $app['nova.theme'];
+        $this->theme = app('nova.theme');
     }
 
     /**
      * Handle preparing the data to be used by the view.
      *
-     * This is a method that's meant to be used in the individual Responsable
-     * objects, especially by developers that want to make some changes to
-     * the data before Nova takes over again and uses that data.
-     *
      * @return array
      */
     public function prepareData(): array
     {
-        return $this->data;
+        return app(Pipeline::class)
+            ->send(collect($this->data))
+            ->through(app('nova.response-filters')->resolveFiltersFor($this->page->key))
+            ->then(fn ($data) => $data->all());
     }
 
     public function layout(): string

@@ -11,11 +11,6 @@ use Nova\Roles\Livewire\SelectPermissionsModal;
 use Nova\Roles\Livewire\SelectRolesModal;
 use Nova\Roles\Models\Role;
 use Nova\Roles\Policies\RolePolicy;
-use Nova\Roles\Responses\CreateRoleResponse;
-use Nova\Roles\Responses\DeleteRoleResponse;
-use Nova\Roles\Responses\ShowAllRolesResponse;
-use Nova\Roles\Responses\ShowRoleResponse;
-use Nova\Roles\Responses\UpdateRoleResponse;
 
 class RoleServiceProvider extends DomainServiceProvider
 {
@@ -33,17 +28,6 @@ class RoleServiceProvider extends DomainServiceProvider
     {
         return [
             Role::class => RolePolicy::class,
-        ];
-    }
-
-    public function responsables(): array
-    {
-        return [
-            CreateRoleResponse::class,
-            DeleteRoleResponse::class,
-            UpdateRoleResponse::class,
-            ShowAllRolesResponse::class,
-            ShowRoleResponse::class,
         ];
     }
 }

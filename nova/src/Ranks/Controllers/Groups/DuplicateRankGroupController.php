@@ -27,7 +27,7 @@ class DuplicateRankGroupController extends Controller
     {
         $group = RankGroup::findOrFail($request->id);
 
-        return app(DuplicateRankGroupResponse::class)->with([
+        return DuplicateRankGroupResponse::sendWith([
             'group' => $group,
             'baseImages' => $this->getRankBaseImages(),
         ]);

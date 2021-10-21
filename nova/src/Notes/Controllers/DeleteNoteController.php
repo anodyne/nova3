@@ -25,7 +25,7 @@ class DeleteNoteController extends Controller
     {
         $note = Note::findOrFail($request->id);
 
-        return app(DeleteNoteResponse::class)->with([
+        return DeleteNoteResponse::sendWith([
             'note' => $note,
         ]);
     }

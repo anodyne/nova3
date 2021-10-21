@@ -109,12 +109,12 @@
                                             @endif
                                         </div>
                                         @if ($position->active)
-                                            <div class="hidden items-center text-sm text-gray-11 ml-6 | sm:flex">
+                                            <div class="hidden items-center text-sm text-gray-11 ml-6 sm:flex">
                                                 {{ $position->available }} available @choice('slot|slots', $position->available)
                                             </div>
                                         @endif
 
-                                        <div class="hidden items-center text-sm text-gray-11 ml-6 | sm:flex">
+                                        <div class="hidden items-center text-sm text-gray-11 ml-6 sm:flex">
                                             {{ $position->active_characters_count }} assigned @choice('character|characters', $position->active_characters_count)
                                         </div>
                                     </div>
@@ -166,7 +166,7 @@
             </ul>
 
             @if (! $isReordering)
-                <div class="px-4 py-2 border-t border-gray-6 | sm:px-6 sm:py-3">
+                <div class="px-4 py-2 border-t border-gray-6 sm:px-6 sm:py-3">
                     {{ $positions->withQueryString()->links() }}
                 </div>
             @endif
@@ -176,12 +176,12 @@
 
         <x-modal color="red" title="Delete Position?" icon="warning" :url="route('positions.delete')">
             <x-slot name="footer">
-                <span class="flex w-full | sm:col-start-2">
+                <span class="flex w-full sm:col-start-2">
                     <x-button type="submit" form="form" color="red" full-width>
                         Delete
                     </x-button>
                 </span>
-                <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
+                <span class="mt-3 flex w-full sm:mt-0 sm:col-start-1">
                     <x-button @click="$dispatch('modal-close')" type="button" color="white" full-width>
                         Cancel
                     </x-button>
@@ -191,12 +191,12 @@
 
         <x-modal color="blue" title="Duplicate position" icon="copy" :url="route('positions.confirm-duplicate')" event="modal-duplicate" :wide="true">
             <x-slot name="footer">
-                <span class="flex w-full | sm:col-start-2">
+                <span class="flex w-full sm:col-start-2">
                     <x-button type="submit" form="form-duplicate" color="blue" full-width>
                         Duplicate
                     </x-button>
                 </span>
-                <span class="mt-3 flex w-full | sm:mt-0 sm:col-start-1">
+                <span class="mt-3 flex w-full sm:mt-0 sm:col-start-1">
                     <x-button @click="$dispatch('modal-close')" type="button" color="white" full-width>
                         Cancel
                     </x-button>

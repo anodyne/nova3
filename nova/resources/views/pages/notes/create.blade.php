@@ -14,13 +14,12 @@
                     <x-input.text id="title" name="title" :value="old('title')" data-cy="title" />
                 </x-input.group>
 
-                <x-input.group label="Summary" for="summary" :error="$errors->first('summary')" class="sm:w-2/3">
+                <x-input.group label="Summary" for="summary" :error="$errors->first('summary')" class="sm:w-1/2">
                     <x-input.textarea id="summary" name="summary" rows="3" data-cy="summary">{{ old('summary') }}</x-input.textarea>
                 </x-input.group>
 
                 <x-input.group for="content" :error="$errors->first('content')">
-                    {{-- <x-input.rich-text name="content" :initial-value="old('content')" /> --}}
-                    <posts-editor></posts-editor>
+                    @livewire('nova:editor', ['content' => old('content', '')])
                 </x-input.group>
             </x-content-box>
 
@@ -31,12 +30,6 @@
         </x-form>
     </x-panel>
 @endsection
-
-@push('scripts')
-    @once
-        <script src="{{ asset('dist/js/editor-tiptap.js') }}"></script>
-    @endonce
-@endpush
 
 @push('styles')
     @once

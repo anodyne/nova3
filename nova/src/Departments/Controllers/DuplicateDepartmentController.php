@@ -24,7 +24,7 @@ class DuplicateDepartmentController extends Controller
     {
         $department = Department::findOrFail($request->id);
 
-        return app(DuplicateDepartmentResponse::class)->with([
+        return DuplicateDepartmentResponse::sendWith([
             'department' => $department,
         ]);
     }

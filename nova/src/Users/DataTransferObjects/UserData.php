@@ -21,11 +21,11 @@ class UserData extends DataTransferObject
 
     public static function fromRequest(Request $request): self
     {
-        return new self([
-            'email' => $request->input('email'),
-            'name' => $request->input('name'),
-            'pronouns' => PronounsData::fromValue($request->input('pronouns', [])),
-            'roles' => Role::whereIn('id', $request->input('roles', []))->get(),
-        ]);
+        return new self(
+            email: $request->input('email'),
+            name: $request->input('name'),
+            pronouns: PronounsData::fromValue($request->input('pronouns', [])),
+            roles: Role::whereIn('id', $request->input('roles', []))->get(),
+        );
     }
 }

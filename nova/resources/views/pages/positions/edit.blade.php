@@ -19,7 +19,7 @@
                 </x-input.group>
 
                 <x-input.group label="Department" for="department_id" :error="$errors->first('department_id')">
-                    <x-input.select name="department_id" id="department_id" class="w-full | sm:w-2/3">
+                    <x-input.select name="department_id" id="department_id" class="w-full sm:w-2/3">
                         @foreach ($departments as $department)
                             <option value="{{ $department->id }}" @if ($department->id == old('department_id', $position->department->id)) selected @endif>
                                 {{ $department->name }}
@@ -47,7 +47,7 @@
                 </x-slot>
 
                 <x-input.group label="Available Slots" for="available">
-                    <div class="w-full | sm:w-1/3">
+                    <div class="w-full sm:w-1/3">
                         <x-input.number id="available" name="available" :value="old('available', $position->available)" />
                     </div>
                 </x-input.group>

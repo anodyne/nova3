@@ -24,7 +24,7 @@ class DeleteCharacterController extends Controller
     {
         $character = Character::findOrFail($request->id);
 
-        return app(DeleteCharacterResponse::class)->with([
+        return DeleteCharacterResponse::sendWith([
             'character' => $character,
         ]);
     }

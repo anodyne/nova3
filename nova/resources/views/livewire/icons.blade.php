@@ -53,7 +53,7 @@
             role="listbox"
             aria-labelledby="listbox-label"
             :aria-activedescendant="activeDescendant"
-            class="max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none | sm:text-sm"
+            class="max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
             aria-activedescendant="listbox-option-0"
         >
             <div class="p-2">

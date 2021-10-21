@@ -32,7 +32,7 @@ class ShowDepartmentController extends Controller
             ? $departments->get()
             : $departments->paginate();
 
-        return app(ShowAllDepartmentsResponse::class)->with([
+        return ShowAllDepartmentsResponse::sendWith([
             'departmentCount' => Department::count(),
             'departments' => $departments,
             'isReordering' => $request->has('reorder'),
@@ -44,7 +44,7 @@ class ShowDepartmentController extends Controller
     {
         $this->authorize('view', $department);
 
-        return app(ShowDepartmentResponse::class)->with([
+        return ShowDepartmentResponse::sendWith([
             'department' => $department->load('positions'),
         ]);
     }

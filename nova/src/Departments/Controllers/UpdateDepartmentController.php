@@ -23,7 +23,7 @@ class UpdateDepartmentController extends Controller
     {
         $this->authorize('update', $department);
 
-        return app(UpdateDepartmentResponse::class)->with([
+        return UpdateDepartmentResponse::sendWith([
             'department' => $department,
         ]);
     }

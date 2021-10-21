@@ -25,7 +25,7 @@ class UpdatePostTypeController extends Controller
     {
         $this->authorize('update', $postType);
 
-        return app(UpdatePostTypeResponse::class)->with([
+        return UpdatePostTypeResponse::sendWith([
             'fieldTypes' => ['title', 'day', 'time', 'location', 'content', 'rating'],
             'postType' => $postType,
             'roles' => Role::orderBySort()->get(),

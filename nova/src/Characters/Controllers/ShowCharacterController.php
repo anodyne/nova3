@@ -31,7 +31,7 @@ class ShowCharacterController extends Controller
             ->orderBy('name')
             ->paginate();
 
-        return app(ShowAllCharactersResponse::class)->with([
+        return ShowAllCharactersResponse::sendWith([
             'search' => $request->search,
             'characters' => $characters,
         ]);
@@ -41,7 +41,7 @@ class ShowCharacterController extends Controller
     {
         $this->authorize('view', $character);
 
-        return app(ShowCharacterResponse::class)->with([
+        return ShowCharacterResponse::sendWith([
             'character' => $character->load('media', 'positions', 'rank.name', 'users'),
         ]);
     }

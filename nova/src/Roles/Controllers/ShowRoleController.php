@@ -37,7 +37,7 @@ class ShowRoleController extends Controller
             ? $roles->get()
             : $roles->paginate();
 
-        return app(ShowAllRolesResponse::class)->with([
+        return ShowAllRolesResponse::sendWith([
             'isReordering' => $isReordering,
             'roles' => $roles,
             'search' => $request->search,
@@ -48,7 +48,7 @@ class ShowRoleController extends Controller
     {
         $this->authorize('view', $role);
 
-        return app(ShowRoleResponse::class)->with([
+        return ShowRoleResponse::sendWith([
             'role' => $role->load('permissions', 'users'),
         ]);
     }

@@ -32,14 +32,6 @@ class PostServiceProvider extends DomainServiceProvider
         ];
     }
 
-    public function responsables(): array
-    {
-        return [
-            ComposePostResponse::class,
-            SelectPostTypeResponse::class,
-        ];
-    }
-
     public function spotlightCommands(): array
     {
         return [
