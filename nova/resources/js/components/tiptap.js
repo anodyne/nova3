@@ -86,6 +86,10 @@ export default (content) => ({
             .run();
     },
 
+    setParagraph() {
+        return window.editor.commands.setParagraph();
+    },
+
     setTextAlign(direction) {
         return window.editor.chain().setTextAlign(direction).focus().run();
     },
