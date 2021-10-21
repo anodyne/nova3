@@ -8,7 +8,7 @@
             <div wire:ignore>
                 <template x-if="editor">
                     <nav class="menu flex items-center flex-wrap divide-x divide-gray-6 border-b border-gray-6 py-1.5 px-3 bg-gray-2">
-                        <div class="flex items-center space-x-3 md:space-x-1.5 my-1 md:my-0 pr-3">
+                        <div class="flex items-center space-x-3 md:space-x-2 my-1 md:my-0 pr-3">
                             <button
                                 type="button"
                                 class="leading-0 transition duration-150"
@@ -38,7 +38,7 @@
 
                         </div>
 
-                        <div class="flex items-center space-x-3 md:space-x-1.5 my-1 md:my-0 px-3">
+                        <div class="flex items-center space-x-3 md:space-x-2 my-1 md:my-0 px-3">
                             <button
                                 type="button"
                                 class="leading-0 transition duration-150"
@@ -76,7 +76,7 @@
                             </button>
                         </div>
 
-                        <div class="flex items-center space-x-3 md:space-x-1.5 my-1 md:my-0 px-3">
+                        <div class="flex items-center space-x-3 md:space-x-2 my-1 md:my-0 px-3">
                             <button
                                 type="button"
                                 class="leading-0 transition duration-150"
@@ -114,7 +114,7 @@
                             </button>
                         </div>
 
-                        <div class="flex items-center space-x-3 md:space-x-1.5 my-1 md:my-0 px-3">
+                        <div class="flex items-center space-x-3 md:space-x-2 my-1 md:my-0 px-3">
                             <button
                                 type="button"
                                 class="leading-0 transition duration-150"
@@ -143,7 +143,7 @@
                             </button>
                         </div>
 
-                        <div class="flex items-center space-x-3 md:space-x-1.5 my-1 md:my-0 px-3">
+                        <div class="flex items-center space-x-3 md:space-x-2 my-1 md:my-0 px-3">
                             <button
                                 type="button"
                                 class="leading-0 transition duration-150"
@@ -162,7 +162,7 @@
                             </button>
                         </div>
 
-                        <div class="flex items-center space-x-3 md:space-x-1.5 my-1 md:my-0 pl-3">
+                        <div class="flex items-center space-x-3 md:space-x-2 my-1 md:my-0 pl-3">
                             <button
                                 type="button"
                                 class="leading-0 transition duration-150 text-gray-9 hover:text-gray-11"
