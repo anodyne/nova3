@@ -70,6 +70,35 @@ module.exports = {
                 'safe-left': 'env(safe-area-inset-left)',
                 'safe-right': 'env(safe-area-inset-right)',
             },
+            typography: (theme) => ({
+                DEFAULT: {
+                    css: {
+                        color: theme('colors.gray.11'),
+                        'h1, h2, h3, h4, h5, h6': {
+                            color: theme('colors.gray.12'),
+                        },
+                        h1: {
+                            fontWeight: theme('fontWeight.extrabold'),
+                        },
+                        h2: {
+                            fontWeight: theme('fontWeight.bold'),
+                        },
+                        'h3, h4': {
+                            fontWeight: theme('fontWeight.semibold'),
+                        },
+                        'h5, h6': {
+                            fontWeight: theme('fontWeight.medium'),
+                        },
+                        strong: {
+                            fontWeight: theme('fontWeight.semibold'),
+                        },
+                        blockquote: {
+                            color: theme('colors.gray.11'),
+                            borderColor: theme('colors.gray.6'),
+                        },
+                    },
+                },
+            }),
         },
     },
 
