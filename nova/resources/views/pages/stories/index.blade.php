@@ -44,7 +44,7 @@
             :link="route('stories.create')"
         ></x-empty-state>
     @else
-        <div class="relative w-full | sm:w-2/3">
+        <div class="relative w-full sm:w-2/3">
             <x-stories.timeline :stories="$stories" />
         </div>
     @endif

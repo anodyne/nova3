@@ -40,7 +40,7 @@
                     <x-input.field>
                         <x-slot name="leadingAddOn">@icon('calendar')</x-slot>
 
-                        <x-buk-pikaday name="start_date" id="start_date" format="YYYY-MM-DD" :value="old('start_date', $story->start_date ?? '')" class="form-field w-full | md:w-1/2" />
+                        <x-buk-pikaday name="start_date" id="start_date" format="YYYY-MM-DD" :value="old('start_date', $story->start_date ?? '')" class="form-field w-full md:w-1/2" />
                     </x-input.field>
                 </x-input.group>
 

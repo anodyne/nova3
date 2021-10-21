@@ -46,7 +46,7 @@
                 </x-input.group>
             </x-form.section>
 
-            <div class="border-t border-gray-100 mt-10 px-4 pt-4 | sm:px-6 sm:pt-6">
+            <div class="border-t border-gray-100 mt-10 px-4 pt-4 sm:px-6 sm:pt-6">
                 <div>
                     <div class="sm:hidden">
                         <select aria-label="Selected tab" class="form-select block w-full" @change="tab = $event.target.value">
@@ -76,9 +76,9 @@
                     </div>
                 </div>
 
-                <div class="mt-6 | sm:h-72 sm:overflow-y-scroll">
+                <div class="mt-6 sm:h-72 sm:overflow-y-scroll">
                     <div x-show="tab === 'base'">
-                        <div class="grid gap-6 grid-cols-2 max-w-lg mx-auto | lg:grid-cols-4 lg:max-w-none">
+                        <div class="grid gap-6 grid-cols-2 max-w-lg mx-auto lg:grid-cols-4 lg:max-w-none">
                             @foreach ($baseImages as $baseImage)
                                 <a
                                     @click.prevent="base = '{{ $baseImage }}'"
@@ -94,7 +94,7 @@
                     </div>
 
                     <div x-show="tab === 'overlay'">
-                        <div class="grid gap-6 grid-cols-2 max-w-lg mx-auto | lg:grid-cols-4 lg:max-w-none">
+                        <div class="grid gap-6 grid-cols-2 max-w-lg mx-auto lg:grid-cols-4 lg:max-w-none">
                             @foreach ($overlayImages as $overlayImage)
                                 <a
                                     @click.prevent="overlay = '{{ $overlayImage }}'"

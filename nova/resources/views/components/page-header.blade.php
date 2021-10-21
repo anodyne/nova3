@@ -4,7 +4,7 @@
     'pretitle' => false,
 ])
 
-<div class="mb-8 sm:flex sm:items-center sm:justify-between" data-cy="page-header">
+<div class="mb-8 px-4 sm:px-0 sm:flex sm:items-center sm:justify-between" data-cy="page-header">
     <div class="flex-1 min-w-0">
         @if ($pretitle)
             <div class="block mb-2 leading-none text-sm text-gray-9 font-semibold uppercase tracking-wide">

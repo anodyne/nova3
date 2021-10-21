@@ -20,6 +20,6 @@ class SetupController
         Artisan::call('optimize:clear');
         Artisan::call('package:discover');
 
-        return redirect()->route('login');
+        return redirect('/login');
     }
 }

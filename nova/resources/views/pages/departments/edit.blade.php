@@ -9,7 +9,7 @@
 
     <x-panel x-data="{}">
         <div>
-            <div class="p-4 | sm:hidden">
+            <div class="p-4 sm:hidden">
                 <select @change="window.location = $event.target.value" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 sm:text-sm transition ease-in-out duration-150">
                     <option value="{{ route('departments.edit', $department) }}">Details</option>
                     <option value="{{ route('positions.index', $department) }}">Positions</option>

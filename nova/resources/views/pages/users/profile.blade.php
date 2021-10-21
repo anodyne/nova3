@@ -6,13 +6,13 @@
         <span class="ml-1">Back to Users</span>
     </a>
 
-    <x-panel class="p-4 | sm:p-6">
+    <x-panel class="p-4 sm:p-6">
         <div class="flex">
             <div>
                 <x-avatar :src="$user->avatar_url" size="xl" />
             </div>
             <div class="flex flex-col ml-6">
-                <h1 class="block text-2xl font-extrabold text-gray-900 | sm:text-4xl sm:truncate">
+                <h1 class="block text-2xl font-extrabold text-gray-900 sm:text-4xl sm:truncate">
                     {{ $user->name }}
                 </h1>
 
@@ -80,7 +80,7 @@
 
     <x-panel>
         <div class="pb-8">
-            <div class="p-4 | sm:hidden">
+            <div class="p-4 sm:hidden">
                 <select @change="window.location.replace($event.target.value)" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring focus:border-blue-7 sm:text-sm transition ease-in-out duration-150">
                     <option value="{{ route('users.index', 'status=active') }}"{{ request()->status === 'active' ? 'selected' : '' }}>Active Users</option>
                     <option value="{{ route('users.index', 'status=pending') }}"{{ request()->status === 'pending' ? 'selected' : '' }}>Pending Users</option>
@@ -89,7 +89,7 @@
                 </select>
             </div>
             <div class="hidden sm:block">
-                <div class="border-b border-gray-200 px-4 | sm:px-6">
+                <div class="border-b border-gray-200 px-4 sm:px-6">
                     <nav class="-mb-px flex">
                         <a
                             href="{{ route('users.index', 'status=active') }}"

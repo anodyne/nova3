@@ -63,7 +63,7 @@
                     <x-input.group label="Played By">
                         <div class="flex flex-col w-full">
                             @foreach ($character->users as $user)
-                                <div class="group flex items-center justify-between py-2 px-4 rounded odd:bg-gray-100">
+                                <div class="group flex items-center justify-between py-2 px-4 rounded odd:bg-gray-3">
                                     <div class="flex items-center">
                                         <x-avatar-meta size="lg" :src="$user->avatar_url">
                                             <x-slot name="primaryMeta">
@@ -77,7 +77,7 @@
                                     </div>
 
                                     @can('update', $user)
-                                        <a href="{{ route('users.edit', $user) }}" class="text-gray-500 transition ease-in-out duration-150 hover:text-gray-700 group-hover:visible | sm:invisible">
+                                        <a href="{{ route('users.edit', $user) }}" class="text-gray-11 transition ease-in-out duration-150 hover:text-gray-12 group-hover:visible sm:invisible">
                                             @icon('edit')
                                         </a>
                                     @endcan
