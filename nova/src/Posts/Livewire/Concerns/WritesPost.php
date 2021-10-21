@@ -20,7 +20,7 @@ trait WritesPost
 
     public $post;
 
-    public $ratingLanguage;
+    public $ratingLanguage = 0;
 
     public $ratingSex;
 

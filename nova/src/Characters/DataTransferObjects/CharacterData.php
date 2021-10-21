@@ -15,9 +15,9 @@ class CharacterData extends DataTransferObject
 
     public static function fromRequest(Request $request): self
     {
-        return new self([
-            'name' => $request->name,
-            'rank_id' => (int) $request->rank_id,
-        ]);
+        return new self(
+            name: $request->name,
+            rank_id: (int) $request->rank_id,
+        );
     }
 }

@@ -25,14 +25,14 @@ class StoryData extends DataTransferObject
 
     public static function fromRequest(Request $request): self
     {
-        return new self([
-            'allow_posting' => (bool) $request->allow_posting,
-            'description' => $request->description,
-            'end_date' => $request->end_date,
-            'parent_id' => (int) $request->parent_id,
-            'start_date' => $request->start_date,
-            'summary' => $request->summary,
-            'title' => $request->title,
-        ]);
+        return new self(
+            allow_posting: (bool) $request->allow_posting,
+            description: $request->description,
+            end_date: $request->end_date,
+            parent_id: (int) $request->parent_id,
+            start_date: $request->start_date,
+            summary: $request->summary,
+            title: $request->title,
+        );
     }
 }

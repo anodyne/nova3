@@ -33,17 +33,17 @@ class PostTypeData extends DataTransferObject
 
     public static function fromRequest(Request $request): self
     {
-        return new self([
-            'active' => (bool) $request->active,
-            'color' => $request->color,
-            'description' => $request->description,
-            'fields' => Fields::fromArray($request->fields),
-            'icon' => $request->icon,
-            'key' => $request->key,
-            'name' => $request->name,
-            'options' => Options::fromArray($request->options),
-            'role_id' => (int) $request->role_id,
-            'visibility' => $request->visibility,
-        ]);
+        return new self(
+            active: (bool) $request->active,
+            color: $request->color,
+            description: $request->description,
+            fields: Fields::fromArray($request->fields),
+            icon: $request->icon,
+            key: $request->key,
+            name: $request->name,
+            options: Options::fromArray($request->options),
+            role_id: (int) $request->role_id,
+            visibility: $request->visibility,
+        );
     }
 }

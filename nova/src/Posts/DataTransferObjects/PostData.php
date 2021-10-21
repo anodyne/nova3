@@ -35,19 +35,19 @@ class PostData extends DataTransferObject
 
     public static function fromArray(array $array): self
     {
-        return new self([
-            'id' => (int) data_get($array, 'id'),
-            'content' => data_get($array, 'content'),
-            'day' => data_get($array, 'day'),
-            'location' => data_get($array, 'location'),
-            'post_type_id' => (int) data_get($array, 'postTypeId'),
-            'story_id' => (int) data_get($array, 'storyId'),
-            'time' => data_get($array, 'time'),
-            'title' => data_get($array, 'title'),
-            'word_count' => Str::of(data_get($array, 'content', ''))->pipe('strip_tags')->wordCount(),
-            'rating_language' => (int) data_get($array, 'ratingLanguage', 1),
-            'rating_sex' => (int) data_get($array, 'ratingSex', 1),
-            'rating_violence' => (int) data_get($array, 'ratingViolence', 1),
-        ]);
+        return new self(
+            id: (int) data_get($array, 'id'),
+            content: data_get($array, 'content'),
+            day: data_get($array, 'day'),
+            location: data_get($array, 'location'),
+            post_type_id: (int) data_get($array, 'postTypeId'),
+            story_id: (int) data_get($array, 'storyId'),
+            time: data_get($array, 'time'),
+            title: data_get($array, 'title'),
+            word_count: Str::of(data_get($array, 'content', ''))->pipe('strip_tags')->wordCount(),
+            rating_language: (int) data_get($array, 'ratingLanguage', 1),
+            rating_sex: (int) data_get($array, 'ratingSex', 1),
+            rating_violence: (int) data_get($array, 'ratingViolence', 1),
+        );
     }
 }

@@ -23,13 +23,13 @@ class ThemeData extends DataTransferObject
 
     public static function fromRequest(Request $request): self
     {
-        return new self([
-            'active' => (bool) ($request->active ?? true),
-            'credits' => $request->credits,
-            'location' => $request->location,
-            'name' => $request->name,
-            'preview' => $request->preview ?? 'preview.jpg',
-            'variants' => explode(',', $request->input('variants')),
-        ]);
+        return new self(
+            active: (bool) ($request->active ?? true),
+            credits: $request->credits,
+            location: $request->location,
+            name: $request->name,
+            preview: $request->preview ?? 'preview.jpg',
+            variants: explode(',', $request->input('variants')),
+        );
     }
 }

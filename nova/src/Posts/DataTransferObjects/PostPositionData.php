@@ -17,10 +17,10 @@ class PostPositionData extends DataTransferObject
 
     public static function fromArray(array $array): self
     {
-        return new self([
-            'direction' => data_get($array, 'displayDirection'),
-            'neighbor' => Post::find(data_get($array, 'displayNeighbor')),
-            'hasPositionChange' => (bool) data_get($array, 'hasPositionChange', false),
-        ]);
+        return new self(
+            direction: data_get($array, 'displayDirection'),
+            neighbor: Post::find(data_get($array, 'displayNeighbor')),
+            hasPositionChange: (bool) data_get($array, 'hasPositionChange', false),
+        );
     }
 }

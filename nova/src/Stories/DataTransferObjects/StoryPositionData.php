@@ -20,11 +20,11 @@ class StoryPositionData extends DataTransferObject
 
     public static function fromRequest(Request $request): self
     {
-        return new self([
-            'direction' => $request->display_direction,
-            'neighbor' => Story::find($request->display_neighbor),
-            'hasPositionChange' => (bool) $request->has_position_change,
-            'parent_id' => (int) $request->parent_id,
-        ]);
+        return new self(
+            direction: $request->display_direction,
+            neighbor: Story::find($request->display_neighbor),
+            hasPositionChange: (bool) $request->has_position_change,
+            parent_id: (int) $request->parent_id,
+        );
     }
 }

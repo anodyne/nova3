@@ -24,13 +24,13 @@ class PositionData extends DataTransferObject
 
     public static function fromRequest(Request $request): self
     {
-        return new self([
-            'active' => (bool) ($request->active ?? true),
-            'available' => (int) $request->available,
-            'department' => Department::find($request->department_id),
-            'department_id' => (int) $request->department_id,
-            'description' => $request->description,
-            'name' => $request->name,
-        ]);
+        return new self(
+            active: (bool) ($request->active ?? true),
+            available: (int) $request->available,
+            department: Department::find($request->department_id),
+            department_id: (int) $request->department_id,
+            description: $request->description,
+            name: $request->name,
+        );
     }
 }

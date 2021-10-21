@@ -13,8 +13,8 @@ class RankNameData extends DataTransferObject
 
     public static function fromRequest(Request $request): self
     {
-        return new self([
-            'name' => $request->input('name'),
-        ]);
+        return new self(
+            name: $request->input('name'),
+        );
     }
 }
