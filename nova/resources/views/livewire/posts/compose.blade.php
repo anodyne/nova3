@@ -87,15 +87,15 @@
             </x-slot>
 
             <x-input.group label="Language" class="w-72">
-                <x-rating :value="0" />
+                <x-rating :value="1" wire:model="ratingLanguage" />
             </x-input.group>
 
             <x-input.group label="Sex" class="w-72">
-                <x-rating :value="1" />
+                <x-rating :value="1" name="ratings_sex" />
             </x-input.group>
 
             <x-input.group label="Violence" class="w-72">
-                <x-rating :value="3" />
+                <x-rating :value="3" name="ratings_violence" />
             </x-input.group>
         </x-form.section>
 

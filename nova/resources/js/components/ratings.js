@@ -3,6 +3,7 @@ export default (count = 0) => ({
 
     setCount(newCount) {
         this.count = newCount;
+        this.$dispatch('input', newCount);
     },
 
     rating: (i) => ({
