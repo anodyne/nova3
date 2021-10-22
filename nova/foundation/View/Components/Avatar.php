@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\View\Components;
 
+use Illuminate\Support\Arr;
 use Illuminate\View\Component;
 
 class Avatar extends Component
@@ -21,37 +22,25 @@ class Avatar extends Component
         $this->tooltip = $tooltip;
     }
 
-    public function styles()
+    public function styles(): string
     {
-        switch ($this->size) {
-            case 'xs':
-                $size = 'h-8 w-8';
+        return Arr::toCssClasses([
+            'inline-block relative rounded-full',
+            'bg-gray-1',
+            // 'ring-2 ring-gray-1',
+            $this->sizeStyles(),
+        ]);
+    }
 
-                break;
-
-            case 'sm':
-                $size = 'h-10 w-10';
-
-                break;
-
-            case 'md':
-            default:
-                $size = 'h-12 w-12';
-
-                break;
-
-            case 'lg':
-                $size = 'h-14 w-14';
-
-                break;
-
-            case 'xl':
-                $size = 'h-24 w-24';
-
-                break;
-        }
-
-        return 'inline-block relative rounded-full bg-gray-1 ' . $size;
+    public function sizeStyles(): string
+    {
+        return match ($this->size) {
+            default => 'h-12 w-12',
+            'xs' => 'h-8 w-8',
+            'sm' => 'h-10 w-10',
+            'lg' => 'h-16 w-16',
+            'xl' => 'h-24 w-24',
+        };
     }
 
     public function render()

@@ -12,6 +12,7 @@ use Nova\Settings\DataTransferObjects\Email;
 use Nova\Settings\DataTransferObjects\General;
 use Nova\Settings\DataTransferObjects\MetaTags;
 use Nova\Settings\DataTransferObjects\PostingActivity;
+use Nova\Settings\DataTransferObjects\Ratings;
 use Nova\Settings\DataTransferObjects\SettingInfo;
 use Nova\Settings\DataTransferObjects\SystemDefaults;
 use Nova\Settings\Livewire\FindSettingsModal;
@@ -23,6 +24,7 @@ use Nova\Settings\Responses\GeneralSettingsResponse;
 use Nova\Settings\Responses\MetaTagsSettingsResponse;
 use Nova\Settings\Responses\NotificationSettingsResponse;
 use Nova\Settings\Responses\PostingActivitySettingsResponse;
+use Nova\Settings\Responses\RatingsSettingsResponse;
 use Nova\Settings\Responses\SystemDefaultsSettingsResponse;
 use Nova\Settings\SettingsManager;
 
@@ -82,6 +84,10 @@ class SettingsServiceProvider extends DomainServiceProvider
             $manager->add('system-defaults', new SettingInfo(
                 dto: SystemDefaults::class,
                 response: SystemDefaultsSettingsResponse::class
+            ));
+            $manager->add('ratings', new SettingInfo(
+                dto: Ratings::class,
+                response: RatingsSettingsResponse::class
             ));
 
             return $manager;

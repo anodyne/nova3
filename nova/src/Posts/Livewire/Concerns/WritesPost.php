@@ -26,8 +26,23 @@ trait WritesPost
 
     public $ratingViolence;
 
+    public function daySelected($value): void
+    {
+        $this->day = $value;
+    }
+
+    public function locationSelected($value): void
+    {
+        $this->location = $value;
+    }
+
     public function setPostContent($content): void
     {
         $this->content = $content;
+    }
+
+    public function timeSelected($value): void
+    {
+        $this->time = $value;
     }
 }

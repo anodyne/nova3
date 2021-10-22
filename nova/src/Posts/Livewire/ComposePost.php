@@ -16,7 +16,7 @@ use Nova\Posts\Models\Post;
 class ComposePost extends Component
 {
     use AuthorizesRequests;
-    use Concerns\HandlesPostSuggestion;
+    // use Concerns\HandlesPostSuggestion;
     use Concerns\HasPostType;
     use Concerns\HasStories;
     use Concerns\SetsPostPosition;
@@ -29,6 +29,9 @@ class ComposePost extends Component
     protected $listeners = [
         'postContentUpdated' => 'setPostContent',
         'postTypeSelected' => 'setPostType',
+        'daySelected',
+        'locationSelected',
+        'timeSelected',
     ];
 
     public function publish()
@@ -73,7 +76,7 @@ class ComposePost extends Component
     {
         $this->setInitialStory();
 
-        $this->getSuggestedPost();
+        // $this->getSuggestedPost();
     }
 
     public function render()

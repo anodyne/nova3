@@ -6,12 +6,11 @@ namespace Nova\Posts\Providers;
 
 use Nova\DomainServiceProvider;
 use Nova\Posts\Livewire\ComposePost;
-use Nova\Posts\Livewire\PickPostType;
-use Nova\Posts\Livewire\WritePost;
+use Nova\Posts\Livewire\SelectDayModal;
+use Nova\Posts\Livewire\SelectLocationModal;
+use Nova\Posts\Livewire\SelectTimeModal;
 use Nova\Posts\Models\Post;
 use Nova\Posts\Policies\PostPolicy;
-use Nova\Posts\Responses\ComposePostResponse;
-use Nova\Posts\Responses\SelectPostTypeResponse;
 use Nova\Posts\Spotlight\WritePost as SpotlightWritePost;
 
 class PostServiceProvider extends DomainServiceProvider
@@ -20,8 +19,9 @@ class PostServiceProvider extends DomainServiceProvider
     {
         return [
             'posts:compose' => ComposePost::class,
-            'posts:pick-post-type' => PickPostType::class,
-            'posts:write' => WritePost::class,
+            'posts:select-day-modal' => SelectDayModal::class,
+            'posts:select-location-modal' => SelectLocationModal::class,
+            'posts:select-time-modal' => SelectTimeModal::class,
         ];
     }
 

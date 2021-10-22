@@ -1,4 +1,4 @@
-<x-panel>
+{{-- <x-panel>
     <x-form action="">
         <x-form.section title="Story" message="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur autem sapiente, eum exercitationem ullam debitis doloremque necessitatibus tempora quasi possimus quaerat asperiores repellat ab nulla pariatur non nisi voluptatibus. Commodi!">
             <div class="w-full">
@@ -109,4 +109,81 @@
             <div class="text-gray-600" wire:loading.delay>Saving...</div>
         </x-form.footer>
     </x-form>
+</x-panel> --}}
+
+<x-panel>
+    <x-content-box>
+        <div class="space-y-8">
+            <div class="flex items-center space-between">
+                <input type="text" wire:model="title" class="block w-full flex-1 appearance-none bg-transparent border-none focus:ring-0 text-3xl font-extrabold placeholder-gray-9 tracking-tight p-0.5" placeholder="Add a title">
+
+                <div class="flex items-center space-x-1 ml-8">
+                    <div class="block">
+                        <div class="flex -space-x-2 overflow-hidden">
+                            {{-- <img class="inline-block h-8 w-8 rounded-full ring-2 ring-gray-1" src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                            <img class="inline-block h-8 w-8 rounded-full ring-2 ring-gray-1" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                            <img class="inline-block h-8 w-8 rounded-full ring-2 ring-gray-1" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80" alt=""> --}}
+                            <span class="inline-flex items-center justify-center h-10 w-10 rounded-full bg-gray-6">
+                                <span class="text-sm font-medium leading-none text-gray-11">AB</span>
+                            </span>
+
+                            <img class="inline-block h-10 w-10 rounded-full ring-4 ring-gray-1" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+
+                            <x-button color="blue-outline" size="none" class="h-10 w-10 rounded-full ring-4 ring-gray-1">
+                                @icon('user-add', 'h-6 w-6')
+                            </x-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-4">
+                @if ($postType->fields->location->enabled)
+                    <button type="button" class="flex items-center space-x-1.5 rounded-full text-xs py-0.5 px-2 border transition duration-200 {{ $location ? 'bg-blue-3 hover:bg-blue-4 border-blue-7 hover:border-blue-8 text-blue-11' : 'bg-gray-3 hover:bg-gray-4 border-gray-7 hover:border-gray-8 text-gray-11' }}" wire:click='$emit("openModal", "posts:select-location-modal", {{ json_encode([$story->id, $location]) }})'>
+                        @icon('location', 'h-5 w-5 ' . ($location ? 'text-blue-9' : 'text-gray-9'))
+                        <span class="font-medium">{{ $location ?? 'Add a location' }}</span>
+                    </button>
+                @endif
+
+                @if ($postType->fields->day->enabled)
+                    <button type="button" class="flex items-center space-x-1.5 rounded-full text-xs py-0.5 px-2 border {{ $day ? 'bg-blue-3 hover:bg-blue-4 border-blue-7 hover:border-blue-8 text-blue-11' : 'bg-gray-3 hover:bg-gray-4 border-gray-7 hover:border-gray-8 text-gray-11' }}" wire:click='$emit("openModal", "posts:select-day-modal", {{ json_encode([$story->id, $day]) }})'>
+                        @icon('calendar', 'h-5 w-5 ' . ($day ? 'text-blue-9' : 'text-gray-9'))
+                        <span class="font-medium">{{ $day ?? 'Add a day' }}</span>
+                    </button>
+                @endif
+
+                @if ($postType->fields->time->enabled)
+                    <button type="button" class="flex items-center space-x-1.5 rounded-full text-xs py-0.5 px-2 border {{ $time ? 'bg-blue-3 hover:bg-blue-4 border-blue-7 hover:border-blue-8 text-blue-11' : 'bg-gray-3 hover:bg-gray-4 border-gray-7 hover:border-gray-8 text-gray-11' }}" wire:click='$emit("openModal", "posts:select-time-modal", {{ json_encode([$story->id, $time]) }})'>
+                        @icon('clock', 'h-5 w-5 ' . ($time ? 'text-blue-9' : 'text-gray-9'))
+                        <span class="font-medium">{{ $time ?? 'Add a time' }}</span>
+                    </button>
+                @endif
+            </div>
+
+            @livewire('nova:editor', ['content' => old('content', '')])
+
+            <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-1.5 rounded-full bg-gray-3 hover:bg-gray-4 border border-gray-7 hover:border-gray-8 text-xs py-0.5 px-2">
+                    @icon('book', 'h-5 w-5 text-gray-9')
+                    <span class="text-gray-11 font-medium">{{ $story->title }}</span>
+                    {{-- <x-icon.chevron-down class="h-4 w-4 text-gray-9" /> --}}
+                </div>
+
+                <div class="flex items-center space-x-1.5 rounded-full bg-gray-3 border border-gray-6 text-xs py-0.5 px-2">
+                    @icon('mature', 'h-5 w-5 text-gray-9')
+                    <span class="text-gray-11 font-medium">Set content rating</span>
+                </div>
+            </div>
+        </div>
+    </x-content-box>
+
+    <x-form.footer>
+        <x-button wire:click="publish" color="blue">Publish</x-button>
+
+        <x-button wire:click="save" wire:poll.30s="save" color="white">
+            Save
+        </x-button>
+
+        {{-- <div class="text-gray-600" wire:loading.delay>Saving...</div> --}}
+    </x-form.footer>
 </x-panel>

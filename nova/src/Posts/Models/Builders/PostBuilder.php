@@ -8,6 +8,7 @@ use Kalnoy\Nestedset\QueryBuilder;
 use Nova\Foundation\Filters\Filterable;
 use Nova\Foundation\Models\Concerns\Sortable;
 use Nova\Posts\Models\Post;
+use Nova\Posts\Models\States\Published;
 
 class PostBuilder extends QueryBuilder
 {
@@ -22,6 +23,11 @@ class PostBuilder extends QueryBuilder
     public function wherePostType($postTypeId): self
     {
         return $this->where('post_type_id', $postTypeId);
+    }
+
+    public function wherePublished(): self
+    {
+        return $this->where('status', Published::class);
     }
 
     public function whereStory($storyId): self

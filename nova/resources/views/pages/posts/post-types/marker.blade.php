@@ -15,6 +15,13 @@
 
                 @if ($post->day || $post->time || $post->location)
                     <div class="flex space-x-4">
+                        @if ($post->location)
+                            <div class="flex items-center text-sm text-gray-11 space-x-1.5">
+                                @icon('location', 'flex-shrink-0 h-5 w-5 text-gray-9')
+                                <span>{{ $post->location }}</span>
+                            </div>
+                        @endif
+
                         @if ($post->day)
                             <div class="flex items-center text-sm text-gray-11 space-x-1.5">
                                 @icon('calendar', 'flex-shrink-0 h-5 w-5 text-gray-9')
@@ -26,13 +33,6 @@
                             <div class="flex items-center text-sm text-gray-11 space-x-1.5">
                                 @icon('clock', 'flex-shrink-0 h-5 w-5 text-gray-9')
                                 <span>{{ $post->time }}</span>
-                            </div>
-                        @endif
-
-                        @if ($post->location)
-                            <div class="flex items-center text-sm text-gray-11 space-x-1.5">
-                                @icon('location', 'flex-shrink-0 h-5 w-5 text-gray-9')
-                                <span>{{ $post->location }}</span>
                             </div>
                         @endif
                     </div>
