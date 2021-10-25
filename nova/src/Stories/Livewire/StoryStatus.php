@@ -11,13 +11,13 @@ class StoryStatus extends Component
 {
     public $story;
 
-    public function updateStatus(UpdateStoryStatus $updateStatus, $status, $allowPosting = true)
+    public function updateStatus($status, $allowPosting = true)
     {
         $this->dispatchBrowserEvent('dropdown-close');
 
         $this->story->update(['allow_posting' => $allowPosting]);
 
-        $updateStatus->execute($this->story, $status);
+        UpdateStoryStatus::run($this->story, $status);
 
         $this->dispatchBrowserEvent('toast', [
             'title' => $this->story->title . ' status updated',

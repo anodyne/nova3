@@ -16,7 +16,6 @@ use Nova\Posts\Models\Post;
 class ComposePost extends Component
 {
     use AuthorizesRequests;
-    // use Concerns\HandlesPostSuggestion;
     use Concerns\HasPostType;
     use Concerns\HasStories;
     use Concerns\SetsPostPosition;
@@ -27,10 +26,10 @@ class ComposePost extends Component
     public $showEditor = false;
 
     protected $listeners = [
-        'postContentUpdated' => 'setPostContent',
-        'postTypeSelected' => 'setPostType',
         'daySelected',
         'locationSelected',
+        'postContentUpdated' => 'setPostContent',
+        'storySelected' => 'setStory',
         'timeSelected',
     ];
 
@@ -69,14 +68,17 @@ class ComposePost extends Component
             $this->postId = $this->post->id;
 
             $this->saving = false;
+
+            $this->dispatchBrowserEvent('toast', [
+                'title' => $this->title . ' has been saved',
+                'message' => null,
+            ]);
         }
     }
 
     public function mount()
     {
         $this->setInitialStory();
-
-        // $this->getSuggestedPost();
     }
 
     public function render()

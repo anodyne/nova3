@@ -8,6 +8,7 @@ use Nova\DomainServiceProvider;
 use Nova\Posts\Livewire\ComposePost;
 use Nova\Posts\Livewire\SelectDayModal;
 use Nova\Posts\Livewire\SelectLocationModal;
+use Nova\Posts\Livewire\SelectStoryModal;
 use Nova\Posts\Livewire\SelectTimeModal;
 use Nova\Posts\Models\Post;
 use Nova\Posts\Policies\PostPolicy;
@@ -21,6 +22,7 @@ class PostServiceProvider extends DomainServiceProvider
             'posts:compose' => ComposePost::class,
             'posts:select-day-modal' => SelectDayModal::class,
             'posts:select-location-modal' => SelectLocationModal::class,
+            'posts:select-story-modal' => SelectStoryModal::class,
             'posts:select-time-modal' => SelectTimeModal::class,
         ];
     }

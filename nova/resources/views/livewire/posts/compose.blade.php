@@ -163,11 +163,18 @@
             @livewire('nova:editor', ['content' => old('content', '')])
 
             <div class="flex items-center space-x-4">
-                <div class="flex items-center space-x-1.5 rounded-full bg-gray-3 hover:bg-gray-4 border border-gray-7 hover:border-gray-8 text-xs py-0.5 px-2">
-                    @icon('book', 'h-5 w-5 text-gray-9')
-                    <span class="text-gray-11 font-medium">{{ $story->title }}</span>
-                    {{-- <x-icon.chevron-down class="h-4 w-4 text-gray-9" /> --}}
-                </div>
+                @if ($allStories->count() > 1)
+                    <button type="button" class="flex items-center space-x-1.5 rounded-full text-xs py-0.5 px-2 border {{ $story ? 'bg-blue-3 hover:bg-blue-4 border-blue-7 hover:border-blue-8 text-blue-11' : 'bg-gray-3 hover:bg-gray-4 border-gray-7 hover:border-gray-8 text-gray-11' }}" wire:click='$emit("openModal", "posts:select-story-modal", {{ json_encode([$story->id]) }})'>
+                        @icon('book', 'h-5 w-5 flex-shrink-0 ' . ($story ? 'text-blue-9' : 'text-gray-9'))
+                        <span class="font-medium">{{ $story->title ?? 'Choose a story' }}</span>
+                        <x-icon.chevron-down class="text-blue-9 flex-shrink-0 h-4 w-4" />
+                    </button>
+                @else
+                    <div class="flex items-center space-x-1.5 rounded-full text-xs py-0.5 px-2 border {{ $story ? 'bg-blue-3 border-blue-7 text-blue-11' : 'bg-gray-3 border-gray-7 text-gray-11' }}">
+                        @icon('book', 'h-5 w-5 ' . ($story ? 'text-blue-9' : 'text-gray-9'))
+                        <span class="font-medium">{{ $story->title ?? 'Choose a story' }}</span>
+                    </div>
+                @endif
 
                 <div class="flex items-center space-x-1.5 rounded-full bg-gray-3 border border-gray-6 text-xs py-0.5 px-2">
                     @icon('mature', 'h-5 w-5 text-gray-9')
@@ -180,10 +187,10 @@
     <x-form.footer>
         <x-button wire:click="publish" color="blue">Publish</x-button>
 
-        <x-button wire:click="save" wire:poll.30s="save" color="white">
+        <x-button wire:click="save" color="white">
             Save
         </x-button>
 
-        {{-- <div class="text-gray-600" wire:loading.delay>Saving...</div> --}}
+        {{-- <div class="text-gray-11" wire:loading.delay>Saving...</div> --}}
     </x-form.footer>
 </x-panel>

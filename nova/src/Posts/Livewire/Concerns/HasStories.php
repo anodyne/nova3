@@ -12,13 +12,9 @@ trait HasStories
 
     public $story;
 
-    public function setStory($storyId = null)
+    public function setStory($value)
     {
-        $this->dispatchBrowserEvent('dropdown-close');
-
-        $this->story = Story::find($storyId);
-
-        $this->getSuggestedPost();
+        $this->story = Story::find($value);
     }
 
     protected function setInitialStory()
