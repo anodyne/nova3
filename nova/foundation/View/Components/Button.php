@@ -41,6 +41,9 @@ class Button extends Component
             'gray-text' => 'text-gray-9 hover:text-gray-11',
             'light-gray-text' => 'text-gray-7 hover:text-gray-8',
 
+            'gray-blue-text' => 'text-gray-9 hover:text-blue-11',
+            'gray-red-text' => 'text-gray-9 hover:text-red-11',
+
             'blue' => 'border-transparent text-white bg-blue-9 hover:bg-blue-10 focus:ring-2 focus:ring-offset-2 focus:ring-blue-7',
             'blue-outline' => 'bg-blue-1 border-blue-7 text-blue-11 hover:bg-blue-2 hover:border-blue-8 focus:ring-2 focus:ring-offset-2 focus:ring-blue-7',
             'blue-text' => 'text-blue-9 hover:text-blue-10',
