@@ -7,7 +7,9 @@ namespace Nova\Posts\Policies;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Gate;
 use Nova\Posts\Models\Post;
+use Nova\Posts\Models\States\Draft;
 use Nova\PostTypes\Models\PostType;
+use Nova\Stories\Models\Story;
 use Nova\Users\Models\User;
 
 class PostPolicy
@@ -26,7 +28,8 @@ class PostPolicy
 
     public function create(User $user): bool
     {
-        return $user->isAbleTo('post.create');
+        return $user->isAbleTo('post.create')
+            && Story::whereCurrent()->wherePostable()->count() > 0;
     }
 
     public function update(User $user, Post $post): bool
@@ -36,6 +39,10 @@ class PostPolicy
 
     public function delete(User $user, Post $post): bool
     {
+        if ($post->status->is(Draft::class)) {
+            return true;
+        }
+
         return $user->isAbleTo('post.delete');
     }
 

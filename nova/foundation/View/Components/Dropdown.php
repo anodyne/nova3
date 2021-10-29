@@ -44,7 +44,7 @@ class Dropdown extends Component
 
     public function link()
     {
-        return 'group flex items-center w-full px-4 py-2 text-sm font-medium text-gray-9 transition ease-in-out duration-150 hover:bg-gray-4 hover:text-gray-10 focus:outline-none';
+        return 'group flex items-center w-full px-4 py-2 text-sm font-medium text-gray-9 transition ease-in-out duration-200 hover:bg-gray-4 hover:text-gray-10 focus:outline-none';
     }
 
     public function text()

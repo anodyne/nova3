@@ -25,6 +25,7 @@ class PopulatePagesTable extends Migration
             ['uri' => 'dashboard', 'key' => 'dashboard', 'resource' => 'Nova\\Dashboards\\Controllers\\DashboardController', 'layout' => 'admin'],
             ['uri' => 'system-overview', 'key' => 'system-overview', 'resource' => 'Nova\\Dashboards\\Controllers\\SystemOverviewController', 'layout' => 'admin'],
             ['uri' => 'writing-overview', 'key' => 'writing-overview', 'resource' => 'Nova\\Dashboards\\Controllers\\WritingOverviewController', 'layout' => 'admin'],
+            ['uri' => 'whats-new', 'key' => 'whats-new', 'resource' => 'Nova\\Dashboards\\Controllers\\WhatsNewController', 'layout' => 'admin'],
 
             ['uri' => 'site-themes', 'key' => 'themes.index', 'resource' => 'Nova\\Themes\\Controllers\\ShowThemeController@all', 'layout' => 'admin'],
             ['uri' => 'site-themes/create', 'key' => 'themes.create', 'resource' => 'Nova\\Themes\\Controllers\\CreateThemeController@create', 'layout' => 'admin'],

@@ -13,7 +13,7 @@
     <x-panel x-data="tabsList('global')">
         <div>
             <x-content-box class="sm:hidden">
-                <select @change="switchTab($event.target.value)" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-150 sm:text-sm rounded-md">
+                <select @change="switchTab($event.target.value)" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-200 sm:text-sm rounded-md">
                     <option value="global">Global</option>
                     <option value="group">Group Notifications</option>
                     <option value="individual">Individual Notifications</option>
@@ -58,7 +58,7 @@
             <div x-show="isTab('group')" x-cloak>
                 <ul>
                     @foreach ($systemNotifications->where('category', 'group') as $systemNotification)
-                        <li class="border-t border-gray-6 hover:bg-gray-2 first:border-0 transition duration-150 ease-in-out">
+                        <li class="border-t border-gray-6 hover:bg-gray-2 first:border-0 transition duration-200 ease-in-out">
                             <div class="block">
                                 <div class="px-4 py-4 flex items-center sm:px-6">
                                     <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
@@ -86,7 +86,7 @@
             <div x-show="isTab('individual')" x-cloak>
                 <ul>
                     @foreach ($systemNotifications->where('category', 'individual') as $systemNotification)
-                        <li class="border-t border-gray-6 hover:bg-gray-2 first:border-0 transition duration-150 ease-in-out">
+                        <li class="border-t border-gray-6 hover:bg-gray-2 first:border-0 transition duration-200 ease-in-out">
                             <div class="block">
                                 <div class="px-4 py-4 flex items-center sm:px-6">
                                     <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">

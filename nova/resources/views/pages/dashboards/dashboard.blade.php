@@ -15,15 +15,15 @@
                         <div class="sm:flex sm:items-center sm:justify-between">
                             <div class="sm:flex sm:space-x-5">
                                 <div class="flex-shrink-0">
-                                    <img class="mx-auto h-20 w-20 rounded-full" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt="">
+                                    <x-avatar size="lg" :src="auth()->user()->avatar_url" :tooltip="auth()->user()->name" />
                                 </div>
                                 <div class="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
                                     <p class="text-sm font-medium text-gray-11">Welcome back,</p>
-                                    <p class="text-xl font-medium text-gray-12 sm:text-2xl">Rebecca Nicholas</p>
+                                    <p class="text-xl font-medium text-gray-12 sm:text-2xl">{{ auth()->user()->name }}</p>
                                 </div>
                             </div>
                             <div class="mt-5 flex justify-center sm:mt-0">
-                                <x-link href="#" size="xs">
+                                <x-link href="#" size="xs" color="blue-outline">
                                     My account
                                 </x-link>
                             </div>
@@ -31,17 +31,17 @@
                     </x-content-box>
 
                     <div class="sm:rounded-b-md border-t border-gray-6 bg-gray-2 grid grid-cols-1 divide-y divide-gray-6 sm:grid-cols-3 sm:divide-y-0 sm:divide-x">
-                        <a href="#" class="group flex items-center justify-center space-x-3 px-6 py-5 text-sm font-medium text-center transition-all ease-in-out duration-150">
+                        <a href="#" class="group flex items-center justify-center space-x-3 px-6 py-5 text-sm font-medium text-center transition-all ease-in-out duration-200">
                             @icon('users', 'h-6 w-6 text-gray-9 group-hover:text-gray-10')
                             <span class="text-gray-11 group-hover:text-gray-12">Characters</span>
                         </a>
 
-                        <a href="#" class="group flex items-center justify-center space-x-3 px-6 py-5 text-sm font-medium text-center transition-all ease-in-out duration-150">
+                        <a href="#" class="group flex items-center justify-center space-x-3 px-6 py-5 text-sm font-medium text-center transition-all ease-in-out duration-200">
                             @icon('preferences', 'h-6 w-6 text-gray-9 group-hover:text-gray-10')
                             <span class="text-gray-11 group-hover:text-gray-12">Preferences</span>
                         </a>
 
-                        <a href="#" class="group flex items-center justify-center space-x-3 px-6 py-5 text-sm font-medium text-center transition-all ease-in-out duration-150">
+                        <a href="#" class="group flex items-center justify-center space-x-3 px-6 py-5 text-sm font-medium text-center transition-all ease-in-out duration-200">
                             @icon('email', 'h-6 w-6 text-gray-9 group-hover:text-gray-10')
                             <span class="text-gray-11 group-hover:text-gray-12">Messages</span>
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-red-3 text-red-11 border border-red-6">3</span>

@@ -13,6 +13,8 @@ class Editor extends Component
 
     public string $content = '';
 
+    public string $fieldName = 'editor-content';
+
     public function updatedContent($value): void
     {
         $this->emit('postContentUpdated', $value);
@@ -21,6 +23,12 @@ class Editor extends Component
     public function getWordCountProperty(): string
     {
         return number_format(Str::of($this->content)->pipe('strip_tags')->wordCount());
+    }
+
+    public function mount($content = '', $fieldName = 'editor-content')
+    {
+        $this->content = $content;
+        $this->fieldName = $fieldName;
     }
 
     public function render()

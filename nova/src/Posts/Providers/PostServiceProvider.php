@@ -6,6 +6,7 @@ namespace Nova\Posts\Providers;
 
 use Nova\DomainServiceProvider;
 use Nova\Posts\Livewire\ComposePost;
+use Nova\Posts\Livewire\ReadPostModal;
 use Nova\Posts\Livewire\SelectDayModal;
 use Nova\Posts\Livewire\SelectLocationModal;
 use Nova\Posts\Livewire\SelectStoryModal;
@@ -20,6 +21,7 @@ class PostServiceProvider extends DomainServiceProvider
     {
         return [
             'posts:compose' => ComposePost::class,
+            'posts:read-post-modal' => ReadPostModal::class,
             'posts:select-day-modal' => SelectDayModal::class,
             'posts:select-location-modal' => SelectLocationModal::class,
             'posts:select-story-modal' => SelectStoryModal::class,

@@ -27,7 +27,7 @@
             <ul>
                 @forelse ($notes as $note)
                     <li class="border-t border-gray-6">
-                        <div class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
+                        <div class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-200 ease-in-out">
                             <x-content-box class="flex items-center">
                                 <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
                                     <div>

@@ -34,7 +34,7 @@
         <x-panel x-data="sortableList">
             <div>
                 <x-content-box class="sm:hidden">
-                    <select @change="window.location = $event.target.value" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-150 sm:text-sm">
+                    <select @change="window.location = $event.target.value" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-200 sm:text-sm">
                         <option value="{{ route('departments.edit', $department) }}">Details</option>
                         <option value="email">Positions</option>
                     </select>
@@ -87,7 +87,7 @@
 
             <ul id="sortable-list">
             @forelse ($positions as $position)
-                <li class="sortable-item border-t border-gray-6 hover:bg-gray-2 focus:outline-none focus:bg-gray-2 transition duration-150 ease-in-out @if ($isReordering) first:border-0 last:rounded-b-md @endif" data-id="{{ $position->id }}">
+                <li class="sortable-item border-t border-gray-6 hover:bg-gray-2 focus:outline-none focus:bg-gray-2 transition duration-200 ease-in-out @if ($isReordering) first:border-0 last:rounded-b-md @endif" data-id="{{ $position->id }}">
                     <div class="block">
                         <div class="flex items-center px-4 py-4 sm:px-6">
                             @if ($isReordering)

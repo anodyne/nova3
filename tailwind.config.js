@@ -1,4 +1,3 @@
-const colors = require('tailwindcss/colors');
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 const scale = Array.from({ length: 12 }, (_, i) => i + 1);
@@ -26,6 +25,8 @@ module.exports = {
     purge: [
         './nova/resources/**/*.{js,ts,blade.php,css}',
         './nova/foundation/View/Components/*.php',
+        './nova/vendor/livewire-ui/modal/resources/views/*.blade.php',
+        './storage/framework/views/*.php',
         './safelist.txt',
     ],
 
@@ -120,6 +121,11 @@ module.exports = {
                 'bg-red-9',
                 'border-red-9',
                 'max-w-none',
+                'sm:max-w-lg',
+                'sm:max-w-xl',
+                'sm:max-w-2xl',
+                'sm:max-w-3xl',
+                'sm:max-w-4xl',
             ],
         }),
         /* eslint-enable */

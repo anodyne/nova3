@@ -2,7 +2,7 @@
 
 <div x-data="{ search: '{{ $search }}', isLoading: false }">
     <label for="email" class="sr-only">{{ $placeholder }}</label>
-    <div class="flex items-center py-1 text-gray-9 transition duration-150 focus-within:text-gray-11">
+    <div class="flex items-center py-1 text-gray-9 transition ease-in-out duration-200 focus-within:text-gray-11">
         @icon('search', 'mr-3 flex-shrink-0')
 
         <input

@@ -10,7 +10,7 @@
             <button
                 @click="open = !open"
                 type="button"
-                class="flex items-center justify-between cursor-default relative w-full rounded-md border border-gray-6 bg-gray-1 px-3 py-2 text-left focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-150"
+                class="flex items-center justify-between cursor-default relative w-full rounded-md border border-gray-6 bg-gray-1 px-3 py-2 text-left focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-200"
                 aria-haspopup="true"
                 aria-expanded="true"
                 :aria-expanded="open"

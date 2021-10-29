@@ -17,7 +17,7 @@
     >
         <div>
             <x-content-box class="sm:hidden">
-                <select @change="switchTab($event.target.value)" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-150 sm:text-sm rounded-md">
+                <select @change="switchTab($event.target.value)" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-200 sm:text-sm rounded-md">
                     <option value="details">Details</option>
                     <option value="permissions">Fields</option>
                     <option value="users">Options</option>
@@ -97,12 +97,6 @@
                                     Require value
                                 </x-input.toggle>
                             </x-input.group>
-
-                            <x-input.group help="Nova will attempt to offer a suggestion to the user based on nearby posts of the same post type">
-                                <x-input.toggle field="fields[{{ $fieldType }}][suggest]" :value="old('fields[{{ $fieldType }}][suggest]', true)">
-                                    Suggest content
-                                </x-input.toggle>
-                            </x-input.group>
                         </div>
                     </x-content-box>
                 @endforeach
@@ -122,7 +116,7 @@
 
                     @if (! settings()->discord->storyPostsEnabled)
                         <x-slot name="help">
-                            <span class="font-medium">Story post notifications for Discord is currently disabled.</span> You can change this setting, but it will not work until you have enabled sending story post notifications to Discord from the <a class="text-blue-9 hover:text-blue-10 transition ease-in-out duration-150" href="{{ route('settings.index', 'discord') }}">Discord settings</a>.
+                            <span class="font-medium">Story post notifications for Discord is currently disabled.</span> You can change this setting, but it will not work until you have enabled sending story post notifications to Discord from the <a class="text-blue-9 hover:text-blue-10 transition ease-in-out duration-200" href="{{ route('settings.index', 'discord') }}">Discord settings</a>.
                         </x-slot>
                     @endif
                 </x-input.group> --}}

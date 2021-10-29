@@ -115,7 +115,7 @@
                         Looking for more themes? Check out the Nova Exchange!
                     </p>
                     <p class="mt-3 text-sm md:mt-0 md:ml-6">
-                        <a href="{{ config('services.anodyne.links.exchange') }}" target="_blank" class="whitespace-nowrap font-medium text-blue-9 hover:text-blue-10 transition ease-in-out duration-150">
+                        <a href="{{ config('services.anodyne.links.exchange') }}" target="_blank" class="whitespace-nowrap font-medium text-blue-9 hover:text-blue-10 transition ease-in-out duration-200">
                             Go &rarr;
                         </a>
                     </p>

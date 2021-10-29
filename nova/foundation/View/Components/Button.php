@@ -20,8 +20,8 @@ class Button extends Component
     public function styles(): string
     {
         return Arr::toCssClasses([
-            'inline-flex items-center text-center justify-center border rounded-md',
-            'transition ease-in-out duration-150',
+            'inline-flex items-center text-center justify-center border rounded-md space-x-1.5',
+            'transition ease-in-out duration-200',
             'focus:outline-none',
             'disabled:cursor-not-allowed disabled:opacity-75',
             'uppercase tracking-wide font-semibold shadow-sm' => ! Str::endsWith($this->color, ['-text']),

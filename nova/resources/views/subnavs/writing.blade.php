@@ -7,7 +7,7 @@
 
     @can('create', Nova\Posts\Models\Post::class)
         <x-nav.sub-group>
-            <x-nav.sub-item :href="route('posts.create')" :active="request()->routeIs('posts.*')">Write New Post</x-nav.sub-item>
+            <x-nav.sub-item :href="route('posts.create')" :active="request()->routeIs('posts.*')">Write a Story Post</x-nav.sub-item>
         </x-nav.sub-group>
     @endcan
 

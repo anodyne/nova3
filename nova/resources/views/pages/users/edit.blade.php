@@ -10,7 +10,7 @@
     <x-panel x-data="tabsList('details')">
         <div>
             <x-content-box class="sm:hidden">
-                <select @change="switchTab($event.target.value)" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-150 sm:text-sm rounded-md">
+                <select @change="switchTab($event.target.value)" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-200 sm:text-sm rounded-md">
                     <option value="details">Details</option>
                     <option value="characters">Characters</option>
                     <option value="roles">Roles</option>
@@ -196,7 +196,7 @@
                     <div class="mt-4 sm:mt-0 sm:ml-6 sm:flex-shrink-0">
                         <x-form :action="route('users.force-password-reset', $user)">
                             <span class="inline-flex rounded-md shadow-sm">
-                                <button type="submit" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-gray-1 hover:text-gray-500 focus:outline-none focus:border-blue-7 focus:ring active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
+                                <button type="submit" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-gray-1 hover:text-gray-500 focus:outline-none focus:border-blue-7 focus:ring active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-200">
                                     Sign This User Out
                                 </button>
                             </span>

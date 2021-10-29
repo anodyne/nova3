@@ -29,7 +29,11 @@ class SelectPostTypeController extends Controller
             ->filter(fn ($postType) => Gate::allows('write', $postType));
 
         if ($usersPostTypes->count() === 1) {
-            return redirect()->route('posts.compose', $usersPostTypes->first());
+            return redirect()->route('posts.compose', [
+                $usersPostTypes->first(),
+                'direction' => request('direction'),
+                'neighbor' => request('neighbor'),
+            ]);
         }
 
         return SelectPostTypeResponse::sendWith([

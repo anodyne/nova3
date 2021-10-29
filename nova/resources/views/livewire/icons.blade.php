@@ -15,7 +15,7 @@
             aria-haspopup="listbox"
             :aria-expanded="open"
             aria-labelledby="listbox-label"
-            class="cursor-default relative w-full rounded-md border border-gray-6 bg-gray-1 pl-3 pr-10 py-2 text-left focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-150"
+            class="cursor-default relative w-full rounded-md border border-gray-6 bg-gray-1 pl-3 pr-10 py-2 text-left focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-200"
         >
             <span class="flex items-center space-x-2 truncate">
                 @isset($selected)

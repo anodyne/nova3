@@ -9,7 +9,7 @@
         <x-nav.sub-item href="#">Pages</x-nav.sub-item>
         <x-nav.sub-item href="#">Content</x-nav.sub-item>
         <x-nav.sub-item href="#">Forms</x-nav.sub-item>
-        <x-nav.sub-item href="#">Menus</x-nav.sub-item>
+        {{-- <x-nav.sub-item href="#">Menus</x-nav.sub-item> --}}
     </x-nav.sub-group>
 
     <x-nav.sub-group>

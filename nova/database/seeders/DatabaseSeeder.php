@@ -8,6 +8,8 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
+    protected bool $useGenericSeeds = false;
+
     public function run()
     {
         activity()->disableLogging();
@@ -23,10 +25,19 @@ class DatabaseSeeder extends Seeder
             PositionSeeder::class,
 
             CharacterSeeder::class,
-
-            StorySeeder::class,
-            PostSeeder::class,
         ]);
+
+        // if ($this->useGenericSeeds) {
+        //     $this->call([
+        //         StorySeeder::class,
+        //         PostSeeder::class,
+        //     ]);
+        // } else {
+        //     $this->call([
+        //         NimitzStorySeeder::class,
+        //         NimitzPostSeeder::class,
+        //     ]);
+        // }
 
         activity()->enableLogging();
     }

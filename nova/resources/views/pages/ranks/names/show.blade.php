@@ -30,7 +30,7 @@
                                 <span class="font-medium ml-3">{{ optional($rank->group)->name }}</span>
                             </div>
                             @can('update', $rank)
-                                <a href="{{ route('ranks.items.edit', $rank) }}" class="text-gray-500 transition ease-in-out duration-150 hover:text-gray-700 group-hover:visible sm:invisible">
+                                <a href="{{ route('ranks.items.edit', $rank) }}" class="text-gray-500 transition ease-in-out duration-200 hover:text-gray-700 group-hover:visible sm:invisible">
                                     @icon('edit')
                                 </a>
                             @endcan

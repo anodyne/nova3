@@ -3,7 +3,7 @@
 @section('content')
     <x-page-header title="Stories">
         <x-slot name="controls">
-            @if ($stories->count() > 0)
+            @if ($storyCount > 0)
                 <x-dropdown placement="bottom-end">
                     <x-slot name="trigger">@icon('filter', 'h-6 w-6')</x-slot>
 
@@ -36,7 +36,7 @@
         </x-slot>
     </x-page-header>
 
-    @if ($stories->count() === 0)
+    @if ($storyCount === 0)
         <x-empty-state
             image="book-lover"
             message="There is no greater power on this earth than story."
@@ -44,8 +44,6 @@
             :link="route('stories.create')"
         ></x-empty-state>
     @else
-        <div class="relative w-full sm:w-2/3">
-            <x-stories.timeline :stories="$stories" />
-        </div>
+        @livewire('stories:timeline')
     @endif
 @endsection

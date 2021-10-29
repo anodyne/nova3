@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Posts\Filters\PostFilters;
 use Nova\Posts\Models\Post;
-use Nova\Stories\Filters\StoryFilters;
 use Nova\Stories\Models\Story;
 use Nova\Stories\Responses\ShowAllStoriesResponse;
 use Nova\Stories\Responses\ShowStoryResponse;
@@ -22,18 +21,12 @@ class ShowStoryController extends Controller
         $this->middleware('auth');
     }
 
-    public function all(Request $request, StoryFilters $filters)
+    public function all()
     {
         $this->authorize('viewAny', Story::class);
 
-        $stories = Story::hasParent()
-            ->defaultOrder()
-            ->filter($filters)
-            ->get()
-            ->toTree();
-
         return ShowAllStoriesResponse::sendWith([
-            'stories' => $stories,
+            'storyCount' => Story::withDepth()->having('depth', '=', 1)->count(),
         ]);
     }
 

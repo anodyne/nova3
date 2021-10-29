@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Actions;
 
+use Illuminate\Support\Arr;
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Stories\DataTransferObjects\StoryData;
+use Nova\Stories\Data\StoryData;
 use Nova\Stories\Models\Story;
 
 class CreateStory
@@ -14,15 +15,9 @@ class CreateStory
 
     public function handle(StoryData $data): Story
     {
-        $story = Story::create(
-            $data->except('parent_id', 'displayDirection', 'displayNeighbor')->toArray()
-        );
+        $story = Story::create(Arr::except($data->all(), ['parent', 'parent_id']));
 
-        $parentStory = ($data->parent_id)
-            ? Story::find($data->parent_id)
-            : Story::find(1);
-
-        $story->appendToNode($parentStory);
+        $story->appendToNode($data->parent)->save();
 
         return $story;
     }

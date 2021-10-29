@@ -21,7 +21,7 @@
     <x-panel>
         <div>
             <x-content-box class="sm:hidden">
-                <select @change="window.location.replace($event.target.value)" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 sm:text-sm transition ease-in-out duration-150">
+                <select @change="window.location.replace($event.target.value)" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 sm:text-sm transition ease-in-out duration-200">
                     <option value="{{ route('users.index', 'status=active') }}"{{ request()->status === 'active' ? 'selected' : '' }}>Active Users</option>
                     <option value="{{ route('users.index', 'status=pending') }}"{{ request()->status === 'pending' ? 'selected' : '' }}>Pending Users</option>
                     <option value="{{ route('users.index', 'status=inactive') }}"{{ request()->status === 'inactive' ? 'selected' : '' }}>Inactive Users</option>
@@ -67,7 +67,7 @@
         <ul>
             @forelse ($users as $user)
                 <li class="border-t border-gray-6">
-                    <div class="block hover:bg-gray-2 focus:outline-none focus:bg-gray-2 transition duration-150 ease-in-out">
+                    <div class="block hover:bg-gray-2 focus:outline-none focus:bg-gray-2 transition duration-200 ease-in-out">
                         <div class="flex items-center px-4 py-4 sm:px-6">
                             <div class="min-w-0 flex-1 pr-4 md:grid md:grid-cols-2 md:gap-4">
                                 <x-avatar-meta :src="$user->avatar_url">

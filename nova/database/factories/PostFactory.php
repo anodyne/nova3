@@ -20,10 +20,9 @@ class PostFactory extends Factory
     {
         $word = $this->faker->word;
 
-        $content = $this->faker->paragraphs(
-            $this->faker->numberBetween(1, 10),
-            true
-        );
+        $content = collect($this->faker->paragraphs($this->faker->numberBetween(10, 25)))
+            ->map(fn ($line) => "<p>{$line}</p>")
+            ->implode('');
 
         return [
             'title' => ucwords($this->faker->words(3, true)),

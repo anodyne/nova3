@@ -10,7 +10,7 @@
             <button
                 @click="open = !open"
                 type="button"
-                class="flex items-center justify-between cursor-default relative w-full rounded-md border border-gray-6 bg-gray-1 px-3 py-2 text-left focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-150"
+                class="flex items-center justify-between cursor-default relative w-full rounded-md border border-gray-6 bg-gray-1 px-3 py-2 text-left focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-200"
                 aria-haspopup="true"
                 aria-expanded="true"
                 :aria-expanded="open"
@@ -60,7 +60,7 @@
                 </div>
 
                 @forelse ($users as $user)
-                    <button wire:click="selectUser({{ $user->id }})" type="button" class="inline-flex items-center space-x-3 w-full text-left px-4 py-2 text-sm rounded-md text-gray-11 transition ease-in-out duration-150 hover:bg-gray-3 hover:text-gray-12 focus:outline-none" role="menuitem">
+                    <button wire:click="selectUser({{ $user->id }})" type="button" class="inline-flex items-center space-x-3 w-full text-left px-4 py-2 text-sm rounded-md text-gray-11 transition ease-in-out duration-200 hover:bg-gray-3 hover:text-gray-12 focus:outline-none" role="menuitem">
                         <x-status :status="$user->status" />
                         <span>{{ $user->name }}</span>
                     </button>

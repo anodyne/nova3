@@ -24,7 +24,7 @@
                 </legend>
                 <div class="space-y-4">
                     <!-- Active: "ring-1 ring-offset-2 ring-indigo-500" -->
-                    <label class="relative block rounded-md border border-gray-6 bg-gray-1 shadow-sm px-6 py-4 cursor-pointer hover:border-gray-9 sm:flex sm:justify-between focus:outline-none transition duration-150">
+                    <label class="relative block rounded-md border border-gray-6 bg-gray-1 shadow-sm px-6 py-4 cursor-pointer hover:border-gray-9 sm:flex sm:justify-between focus:outline-none transition ease-in-out duration-200">
                         <input type="radio" name="tracking-strategy" value="posts" class="sr-only" aria-labelledby="tracking-strategy-0-label" aria-describedby="tracking-strategy-0-description-0 tracking-strategy-0-description-1" x-model="strategy">
                         <div class="flex items-center">
                             <div class="text-sm">
@@ -40,7 +40,7 @@
                     </label>
 
                     <!-- Active: "ring-1 ring-offset-2 ring-indigo-500" -->
-                    <label class="relative block rounded-md border border-gray-6 bg-gray-1 shadow-sm px-6 py-4 cursor-pointer hover:border-gray-9 sm:flex sm:justify-between focus:outline-none transition duration-150">
+                    <label class="relative block rounded-md border border-gray-6 bg-gray-1 shadow-sm px-6 py-4 cursor-pointer hover:border-gray-9 sm:flex sm:justify-between focus:outline-none transition ease-in-out duration-200">
                         <input type="radio" name="tracking-strategy" value="words" class="sr-only" aria-labelledby="tracking-strategy-1-label" aria-describedby="tracking-strategy-1-description-0 tracking-strategy-1-description-1" x-model="strategy">
                         <div class="flex items-center">
                             <div class="text-sm">

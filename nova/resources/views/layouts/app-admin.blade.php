@@ -6,9 +6,9 @@
             <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:divide-y lg:divide-gray-6 lg:px-8">
                 <div class="relative h-16 flex justify-between">
                     <div class="relative z-10 px-2 flex lg:px-0">
-                        <div class="flex-shrink-0 flex items-center">
+                        <a href="{{ route('dashboard') }}" class="flex-shrink-0 flex items-center">
                             <x-nova-logo class="block h-8 w-auto" />
-                        </div>
+                        </a>
                     </div>
 
                     <div class="relative z-0 flex-1 px-4 md:px-2 flex items-center justify-center sm:absolute sm:inset-0">
@@ -46,6 +46,18 @@
                                 <x-dropdown.text>
                                     @livewire('users:dark-mode-toggle')
                                 </x-dropdown.text>
+                            </x-dropdown.group>
+
+                            <x-dropdown.group>
+                                <x-dropdown.item href="#" icon="user">
+                                    My account
+                                </x-dropdown.item>
+                            </x-dropdown.group>
+
+                            <x-dropdown.group>
+                                <x-dropdown.item :href="route('whats-new')" icon="star">
+                                    See what's new
+                                </x-dropdown.item>
                             </x-dropdown.group>
 
                             <x-dropdown.group>
@@ -152,14 +164,18 @@
 
                         <button type="button" class="ml-auto flex-shrink-0 bg-gray-1 rounded-full p-1 text-gray-9 hover:text-gray-11 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-12">
                             <span class="sr-only">View notifications</span>
-                            <svg class="h-6 w-6" x-description="Heroicon name: outline/bell" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                            @icon('notification', 'h-6 w-6')
                         </button>
                     </div>
 
                     <div class="mt-3 px-2 space-y-1">
-                        <a href="#" class="block rounded-md py-2 px-3 text-base font-medium text-gray-11 hover:bg-gray-2 hover:text-gray-12">Your Profile</a>
+                        <div class="block py-2 px-3 font-medium">
+                            @livewire('users:dark-mode-toggle')
+                        </div>
 
-                        <a href="#" class="block rounded-md py-2 px-3 text-base font-medium text-gray-11 hover:bg-gray-2 hover:text-gray-12">Settings</a>
+                        <a href="#" class="block rounded-md py-2 px-3 text-base font-medium text-gray-11 hover:bg-gray-2 hover:text-gray-12">My account</a>
+
+                        <a href="{{ route('whats-new') }}" class="block rounded-md py-2 px-3 text-base font-medium text-gray-11 hover:bg-gray-2 hover:text-gray-12">See what's new</a>
 
                         <a href="#" class="block rounded-md py-2 px-3 text-base font-medium text-gray-11 hover:bg-gray-2 hover:text-gray-12">Sign out</a>
                     </div>

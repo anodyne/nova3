@@ -137,60 +137,194 @@
                 </div>
             </div>
 
-            <div class="flex items-center space-x-4">
-                @if ($postType->fields->location->enabled)
-                    <button type="button" class="flex items-center space-x-1.5 rounded-full text-xs py-0.5 px-2 border transition duration-200 {{ $location ? 'bg-blue-3 hover:bg-blue-4 border-blue-7 hover:border-blue-8 text-blue-11' : 'bg-gray-3 hover:bg-gray-4 border-gray-7 hover:border-gray-8 text-gray-11' }}" wire:click='$emit("openModal", "posts:select-location-modal", {{ json_encode([$story->id, $location]) }})'>
-                        @icon('location', 'h-5 w-5 ' . ($location ? 'text-blue-9' : 'text-gray-9'))
-                        <span class="font-medium">{{ $location ?? 'Add a location' }}</span>
-                    </button>
-                @endif
+            @if ($postType->fields->location->enabled || $postType->fields->day->enabled || $postType->fields->time->enabled)
+                <div class="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4">
+                    @if ($postType->fields->location->enabled)
+                        <button type="button" class="flex items-center space-x-1.5 rounded-full text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition duration-200 {{ $location ? 'bg-blue-3 hover:bg-blue-4 border-blue-7 hover:border-blue-8 text-blue-11' : 'bg-gray-3 hover:bg-gray-4 border-gray-7 hover:border-gray-8 text-gray-11' }}" wire:click='$emit("openModal", "posts:select-location-modal", {{ json_encode([$story->id, $location]) }})'>
+                            @icon('location', 'h-5 w-5 ' . ($location ? 'text-blue-9' : 'text-gray-9'))
+                            <span class="font-medium">{{ $location ?? 'Add a location' }}</span>
+                        </button>
+                    @endif
 
-                @if ($postType->fields->day->enabled)
-                    <button type="button" class="flex items-center space-x-1.5 rounded-full text-xs py-0.5 px-2 border {{ $day ? 'bg-blue-3 hover:bg-blue-4 border-blue-7 hover:border-blue-8 text-blue-11' : 'bg-gray-3 hover:bg-gray-4 border-gray-7 hover:border-gray-8 text-gray-11' }}" wire:click='$emit("openModal", "posts:select-day-modal", {{ json_encode([$story->id, $day]) }})'>
-                        @icon('calendar', 'h-5 w-5 ' . ($day ? 'text-blue-9' : 'text-gray-9'))
-                        <span class="font-medium">{{ $day ?? 'Add a day' }}</span>
-                    </button>
-                @endif
+                    @if ($postType->fields->day->enabled)
+                        <button type="button" class="flex items-center space-x-1.5 rounded-full text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition duration-200 {{ $day ? 'bg-blue-3 hover:bg-blue-4 border-blue-7 hover:border-blue-8 text-blue-11' : 'bg-gray-3 hover:bg-gray-4 border-gray-7 hover:border-gray-8 text-gray-11' }}" wire:click='$emit("openModal", "posts:select-day-modal", {{ json_encode([$story->id, $day]) }})'>
+                            @icon('calendar', 'h-5 w-5 ' . ($day ? 'text-blue-9' : 'text-gray-9'))
+                            <span class="font-medium">{{ $day ?? 'Add a day' }}</span>
+                        </button>
+                    @endif
 
-                @if ($postType->fields->time->enabled)
-                    <button type="button" class="flex items-center space-x-1.5 rounded-full text-xs py-0.5 px-2 border {{ $time ? 'bg-blue-3 hover:bg-blue-4 border-blue-7 hover:border-blue-8 text-blue-11' : 'bg-gray-3 hover:bg-gray-4 border-gray-7 hover:border-gray-8 text-gray-11' }}" wire:click='$emit("openModal", "posts:select-time-modal", {{ json_encode([$story->id, $time]) }})'>
-                        @icon('clock', 'h-5 w-5 ' . ($time ? 'text-blue-9' : 'text-gray-9'))
-                        <span class="font-medium">{{ $time ?? 'Add a time' }}</span>
-                    </button>
-                @endif
-            </div>
+                    @if ($postType->fields->time->enabled)
+                        <button type="button" class="flex items-center space-x-1.5 rounded-full text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition duration-200 {{ $time ? 'bg-blue-3 hover:bg-blue-4 border-blue-7 hover:border-blue-8 text-blue-11' : 'bg-gray-3 hover:bg-gray-4 border-gray-7 hover:border-gray-8 text-gray-11' }}" wire:click='$emit("openModal", "posts:select-time-modal", {{ json_encode([$story->id, $time]) }})'>
+                            @icon('clock', 'h-5 w-5 ' . ($time ? 'text-blue-9' : 'text-gray-9'))
+                            <span class="font-medium">{{ $time ?? 'Add a time' }}</span>
+                        </button>
+                    @endif
+                </div>
+            @endif
 
             @livewire('nova:editor', ['content' => old('content', '')])
 
-            <div class="flex items-center space-x-4">
+            <div class="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4">
                 @if ($allStories->count() > 1)
-                    <button type="button" class="flex items-center space-x-1.5 rounded-full text-xs py-0.5 px-2 border {{ $story ? 'bg-blue-3 hover:bg-blue-4 border-blue-7 hover:border-blue-8 text-blue-11' : 'bg-gray-3 hover:bg-gray-4 border-gray-7 hover:border-gray-8 text-gray-11' }}" wire:click='$emit("openModal", "posts:select-story-modal", {{ json_encode([$story->id]) }})'>
+                    <button type="button" class="flex items-center space-x-1.5 rounded-full text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition duration-200 {{ $story ? 'bg-blue-3 hover:bg-blue-4 border-blue-7 hover:border-blue-8 text-blue-11' : 'bg-gray-3 hover:bg-gray-4 border-gray-7 hover:border-gray-8 text-gray-11' }}" wire:click='$emit("openModal", "posts:select-story-modal", {{ json_encode([$story->id]) }})'>
                         @icon('book', 'h-5 w-5 flex-shrink-0 ' . ($story ? 'text-blue-9' : 'text-gray-9'))
                         <span class="font-medium">{{ $story->title ?? 'Choose a story' }}</span>
                         <x-icon.chevron-down class="text-blue-9 flex-shrink-0 h-4 w-4" />
                     </button>
                 @else
-                    <div class="flex items-center space-x-1.5 rounded-full text-xs py-0.5 px-2 border {{ $story ? 'bg-blue-3 border-blue-7 text-blue-11' : 'bg-gray-3 border-gray-7 text-gray-11' }}">
+                    <div class="flex items-center space-x-1.5 rounded-full text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition duration-200 {{ $story ? 'bg-blue-3 border-blue-7 text-blue-11' : 'bg-gray-3 border-gray-7 text-gray-11' }}">
                         @icon('book', 'h-5 w-5 ' . ($story ? 'text-blue-9' : 'text-gray-9'))
                         <span class="font-medium">{{ $story->title ?? 'Choose a story' }}</span>
                     </div>
                 @endif
 
-                <div class="flex items-center space-x-1.5 rounded-full bg-gray-3 border border-gray-6 text-xs py-0.5 px-2">
-                    @icon('mature', 'h-5 w-5 text-gray-9')
-                    <span class="text-gray-11 font-medium">Set content rating</span>
-                </div>
+                @if ($postType->fields->rating->enabled)
+                    <div class="flex items-center space-x-1.5 rounded-full text-xs py-1.5 md:py-0.5 px-3 md:px-2 transition duration-200 bg-gray-3 border border-gray-6">
+                        @icon('mature', 'h-5 w-5 text-gray-9')
+                        <span class="text-gray-11 font-medium">Set content rating</span>
+                    </div>
+                @endif
             </div>
+
+            @if ($this->showPostPositionControl)
+                <x-input.group label="Post position">
+                    <ul class="bg-gray-2 border border-gray-6 rounded-lg w-full md:w-2/3">
+                        @if ($previousPost)
+                            <li>
+                                <article>
+                                    <a href="#" class="grid items-start relative rounded-md p-3 sm:p-5 overflow-hidden hover:bg-gray-1 transition ease-in-out duration-200" wire:click.prevent='$emit("openModal", "posts:read-post-modal", {{ json_encode([$previousPost->id]) }})'>
+                                        <div class="md:col-start-1 row-start-1 md:row-end-3 flex items-baseline font-medium mb-1 md:mb-0">
+                                            <svg viewBox="0 0 12 12" class="w-3 h-3 mr-6 overflow-visible text-gray-9">
+                                                <circle cx="6" cy="6" r="6" fill="currentColor"></circle>
+                                                <path d="M 6 18 V 500" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-6"></path>
+                                            </svg>
+                                            <div class="flex flex-col space-y-1 items-start">
+                                                <div class="text-gray-12">{{ $previousPost->title }}</div>
+
+                                                @if ($previousPost->location || $previousPost->day || $previousPost->time)
+                                                    <div class="flex items-center space-x-6">
+                                                        @if ($previousPost->location)
+                                                            <div class="flex items-center space-x-1 text-sm text-gray-11">
+                                                                @icon('location', 'h-5 w-5 text-gray-9 flex-shrink-0')
+                                                                <span>{{ $previousPost->location }}</span>
+                                                            </div>
+                                                        @endif
+
+                                                        @if ($previousPost->day)
+                                                            <div class="flex items-center space-x-1 text-sm text-gray-11">
+                                                                @icon('calendar', 'h-5 w-5 text-gray-9 flex-shrink-0')
+                                                                <span>{{ $previousPost->day }}</span>
+                                                            </div>
+                                                        @endif
+
+                                                        @if ($previousPost->time)
+                                                            <div class="flex items-center space-x-1 text-sm text-gray-11">
+                                                                @icon('clock', 'h-5 w-5 text-gray-9 flex-shrink-0')
+                                                                <span>{{ $previousPost->time }}</span>
+                                                            </div>
+                                                        @endif
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </a>
+                                </article>
+                            </li>
+                        @endif
+
+                        <li>
+                            <article>
+                                <button type="button" class="group w-full grid items-start relative rounded-md p-3 sm:p-5 overflow-hidden hover:bg-gray-1 transition ease-in-out duration-200">
+                                    <div class="md:col-start-1 row-start-1 md:row-end-3 flex items-center font-medium mb-1 md:mb-0">
+                                        <svg viewBox="0 0 12 12" class="w-3 h-3 mr-6 overflow-visible text-blue-9">
+                                            <circle cx="6" cy="6" r="6" fill="currentColor"></circle>
+                                            <circle cx="6" cy="6" r="11" fill="none" stroke="currentColor" stroke-width="2" class="text-blue-7"></circle>
+
+                                            @if ($previousPost)
+                                                <path d="M 6 -6 V -30" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-6"></path>
+                                            @endif
+
+                                            @if ($nextPost)
+                                                <path d="M 6 18 V 500" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-6"></path>
+                                            @endif
+                                        </svg>
+                                        <span class="text-gray-12 font-bold">{{ $title ?? 'This ' . strtolower($postType->name) }}</span>
+                                        <div class="inline-flex items-center space-x-1 invisible group-hover:visible text-sm text-gray-9 ml-12">
+                                            @icon('arrow-sort', 'h-5 w-5 text-gray-9 flex-shrink-0')
+                                            <span>Change post position</span>
+                                        </div>
+                                    </div>
+                                </button>
+                            </article>
+                        </li>
+
+                        @if ($nextPost)
+                            <li>
+                                <article>
+                                    <a href="#" class="grid items-start relative rounded-md p-3 sm:p-5 overflow-hidden hover:bg-gray-1 transition ease-in-out duration-200" wire:click.prevent='$emit("openModal", "posts:read-post-modal", {{ json_encode([$nextPost->id]) }})'>
+                                        <div class="md:col-start-1 row-start-1 md:row-end-3 flex items-baseline font-medium mb-1 md:mb-0">
+                                            <svg viewBox="0 0 12 12" class="w-3 h-3 mr-6 overflow-visible text-gray-9">
+                                                <circle cx="6" cy="6" r="6" fill="currentColor"></circle>
+                                                <path d="M 6 -6 V -30" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-6"></path>
+                                            </svg>
+                                            <div class="flex flex-col space-y-1 items-start">
+                                                <div class="text-gray-12">{{ $nextPost->title }}</div>
+
+                                                @if ($nextPost->location || $nextPost->day || $nextPost->time)
+                                                    <div class="flex items-center space-x-6">
+                                                        @if ($nextPost->location)
+                                                            <div class="flex items-center space-x-1 text-sm text-gray-11">
+                                                                @icon('location', 'h-5 w-5 text-gray-9 flex-shrink-0')
+                                                                <span>{{ $nextPost->location }}</span>
+                                                            </div>
+                                                        @endif
+
+                                                        @if ($nextPost->day)
+                                                            <div class="flex items-center space-x-1 text-sm text-gray-11">
+                                                                @icon('calendar', 'h-5 w-5 text-gray-9 flex-shrink-0')
+                                                                <span>{{ $nextPost->day }}</span>
+                                                            </div>
+                                                        @endif
+
+                                                        @if ($nextPost->time)
+                                                            <div class="flex items-center space-x-1 text-sm text-gray-11">
+                                                                @icon('clock', 'h-5 w-5 text-gray-9 flex-shrink-0')
+                                                                <span>{{ $nextPost->time }}</span>
+                                                            </div>
+                                                        @endif
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </a>
+                                </article>
+                            </li>
+                        @endif
+                    </ul>
+                </x-input.group>
+            @endif
+
+            @if ($postType->fields->summary->enabled)
+                <x-input.group label="Post Summary" help="If your post contains content intended only for mature audiences or that could be difficult for some people to read, you can provide a summary of the post." class="w-full md:w-2/3">
+                    <x-input.textarea rows="3">{{ old('summary', '') }}</x-input.textarea>
+                </x-input.group>
+            @endif
         </div>
     </x-content-box>
 
-    <x-form.footer>
-        <x-button wire:click="publish" color="blue">Publish</x-button>
+    <div class="flex flex-col px-4 py-4 space-y-4 rounded-b-lg border-t border-gray-4 md:flex-row-reverse md:items-center md:px-6 md:py-6 md:space-y-0 md:space-x-6 md:space-x-reverse justify-between">
+        <div class="flex flex-col md:flex-row-reverse md:items-center md:space-x-reverse space-y-4 md:space-y-0 md:space-x-6">
+            <x-button wire:click="publish" color="blue">Publish</x-button>
 
-        <x-button wire:click="save" color="white">
-            Save
-        </x-button>
+            <x-button wire:click="save" color="white">
+                Save
+            </x-button>
+        </div>
 
-        {{-- <div class="text-gray-11" wire:loading.delay>Saving...</div> --}}
-    </x-form.footer>
+        {{-- @can('delete', $post) --}}
+            <div>
+                <x-link href="#" color="gray-text" size="none" class="hover:text-red-11">Discard draft</x-link>
+            </div>
+        {{-- @endcan --}}
+    </div>
 </x-panel>

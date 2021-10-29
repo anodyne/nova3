@@ -21,6 +21,8 @@ class Fields extends CastableDataTransferObject implements Arrayable
 
     public Field $rating;
 
+    public Field $summary;
+
     public static function fromArray(array $array): self
     {
         return new self([
@@ -30,6 +32,7 @@ class Fields extends CastableDataTransferObject implements Arrayable
             'location' => Field::fromArray(data_get($array, 'location', [])),
             'content' => Field::fromArray(data_get($array, 'content', [])),
             'rating' => Field::fromArray(data_get($array, 'rating', [])),
+            'summary' => Field::fromArray(data_get($array, 'summary', [])),
         ]);
     }
 }

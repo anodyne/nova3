@@ -3,7 +3,7 @@
         @click.prevent="open = true"
         {{-- wire:poll.30s="refreshNotifications" --}}
         type="button"
-        class="relative p-1 text-gray-9 rounded-full transition ease-in-out duration-150 hover:bg-gray-4 hover:text-gray-10 focus:outline-none focus:ring focus:text-gray-9"
+        class="relative p-1 text-gray-9 rounded-full transition ease-in-out duration-200 hover:bg-gray-4 hover:text-gray-10 focus:outline-none focus:ring focus:text-gray-9"
         aria-label="Notifications"
     >
         @icon('notification', 'h-6 w-6')
@@ -64,7 +64,7 @@
                     >
                         <button
                             @click="open = false"
-                            class="rounded-md text-gray-6 hover:text-gray-1 focus:outline-none focus:ring-2 focus:ring-gray-1 transition ease-in-out duration-150"
+                            class="rounded-md text-gray-6 hover:text-gray-1 focus:outline-none focus:ring-2 focus:ring-gray-1 transition ease-in-out duration-200"
                         >
                             <span class="sr-only">Close panel</span>
                             @icon('close', 'h-6 w-6')
@@ -78,14 +78,14 @@
                             </h2>
 
                             @if ($this->hasUnreadNotifications())
-                                <button wire:click="markAllNotificationsAsRead" type="button" class="inline-flex items-center text-xs text-gray-9 hover:text-gray-10 transition ease-in-out duration-150 focus:outline-none">
+                                <button wire:click="markAllNotificationsAsRead" type="button" class="inline-flex items-center text-xs text-gray-9 hover:text-gray-10 transition ease-in-out duration-200 focus:outline-none">
                                     @icon('check', 'h-5 w-5')
                                     <span class="ml-2">Mark all as read</span>
                                 </button>
                             @endif
 
                             @if (! $this->hasUnreadNotifications() && $this->hasNotifications())
-                                <button wire:click="clearAllNotifications" type="button" class="inline-flex items-center text-xs text-gray-9 hover:text-gray-10 transition ease-in-out duration-150 focus:outline-none">
+                                <button wire:click="clearAllNotifications" type="button" class="inline-flex items-center text-xs text-gray-9 hover:text-gray-10 transition ease-in-out duration-200 focus:outline-none">
                                     @icon('check', 'h-5 w-5')
                                     <span class="ml-2">Clear all</span>
                                 </button>

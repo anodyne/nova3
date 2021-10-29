@@ -53,9 +53,16 @@ class Story extends Model implements HasMedia
         'updated' => Events\StoryUpdated::class,
     ];
 
-    public function posts()
+    public function allPosts()
     {
         return $this->hasMany(Post::class, 'story_id')->defaultOrder();
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'story_id')
+            ->wherePublished()
+            ->defaultOrder();
     }
 
     public function rootPost()
@@ -76,6 +83,11 @@ class Story extends Model implements HasMedia
     public function isMainTimeline(): bool
     {
         return $this->id === 1;
+    }
+
+    public function getIsCurrentAttribute(): bool
+    {
+        return $this->status->is(Current::class);
     }
 
     public function newEloquentBuilder($query): StoryBuilder

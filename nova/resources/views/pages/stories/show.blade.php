@@ -167,7 +167,7 @@
                     <ul class="list-none space-y-1">
                         @foreach ($story->children as $subStory)
                         <li>
-                            <a href="{{ route('stories.show', $subStory) }}" class="block px-2 py-1 rounded-md transition ease-in-out duration-150 hover:bg-gray-2">{{ $subStory->title }}</a>
+                            <a href="{{ route('stories.show', $subStory) }}" class="block px-2 py-1 rounded-md transition ease-in-out duration-200 hover:bg-gray-2">{{ $subStory->title }}</a>
                         </li>
                         @endforeach
                     </ul>

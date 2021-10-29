@@ -6,7 +6,7 @@ namespace Tests\Unit\Stories\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Stories\Actions\CreateStory;
-use Nova\Stories\DataTransferObjects\StoryData;
+use Nova\Stories\Data\StoryData;
 use Nova\Stories\Models\Story;
 use Tests\TestCase;
 
@@ -29,7 +29,7 @@ class CreateStoryActionTest extends TestCase
     /** @test **/
     public function itCreatesAStory()
     {
-        $data = new StoryData([
+        $data = StoryData::from([
             'title' => 'Story Title',
             'description' => 'Lorem ipsum dolor sit amet consectetur, adipisicing elit.',
             'end_date' => '2020-02-01',
@@ -56,7 +56,7 @@ class CreateStoryActionTest extends TestCase
     {
         $newStory = Story::factory()->create();
 
-        $data = new StoryData([
+        $data = StoryData::from([
             'title' => 'Story Title',
             'parent_id' => $newStory->id,
             'allow_posting' => true,

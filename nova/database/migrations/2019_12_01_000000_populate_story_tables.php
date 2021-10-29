@@ -45,32 +45,30 @@ class PopulateStoryTables extends Migration
                     'title' => new Field([
                         'enabled' => true,
                         'validate' => true,
-                        'suggest' => false,
                     ]),
                     'day' => new Field([
                         'enabled' => true,
                         'validate' => false,
-                        'suggest' => true,
                     ]),
                     'time' => new Field([
                         'enabled' => true,
                         'validate' => false,
-                        'suggest' => true,
                     ]),
                     'location' => new Field([
                         'enabled' => true,
                         'validate' => false,
-                        'suggest' => true,
                     ]),
                     'content' => new Field([
                         'enabled' => true,
                         'validate' => false,
-                        'suggest' => false,
                     ]),
                     'rating' => new Field([
                         'enabled' => true,
                         'validate' => false,
-                        'suggest' => false,
+                    ]),
+                    'summary' => new Field([
+                        'enabled' => true,
+                        'validate' => false,
                     ]),
                 ]),
                 'options' => new Options([
@@ -93,32 +91,30 @@ class PopulateStoryTables extends Migration
                     'title' => new Field([
                         'enabled' => true,
                         'validate' => true,
-                        'suggest' => false,
                     ]),
                     'day' => new Field([
                         'enabled' => true,
                         'validate' => false,
-                        'suggest' => true,
                     ]),
                     'time' => new Field([
                         'enabled' => true,
                         'validate' => false,
-                        'suggest' => true,
                     ]),
                     'location' => new Field([
                         'enabled' => true,
                         'validate' => false,
-                        'suggest' => true,
                     ]),
                     'content' => new Field([
                         'enabled' => true,
                         'validate' => false,
-                        'suggest' => false,
                     ]),
                     'rating' => new Field([
                         'enabled' => true,
                         'validate' => false,
-                        'suggest' => false,
+                    ]),
+                    'summary' => new Field([
+                        'enabled' => true,
+                        'validate' => false,
                     ]),
                 ]),
                 'options' => new Options([
@@ -141,32 +137,30 @@ class PopulateStoryTables extends Migration
                     'title' => new Field([
                         'enabled' => true,
                         'validate' => true,
-                        'suggest' => false,
                     ]),
                     'day' => new Field([
                         'enabled' => true,
                         'validate' => false,
-                        'suggest' => false,
                     ]),
                     'time' => new Field([
                         'enabled' => true,
                         'validate' => false,
-                        'suggest' => false,
                     ]),
                     'location' => new Field([
                         'enabled' => true,
                         'validate' => false,
-                        'suggest' => false,
                     ]),
                     'content' => new Field([
                         'enabled' => true,
                         'validate' => false,
-                        'suggest' => false,
                     ]),
                     'rating' => new Field([
                         'enabled' => false,
                         'validate' => false,
-                        'suggest' => false,
+                    ]),
+                    'summary' => new Field([
+                        'enabled' => false,
+                        'validate' => false,
                     ]),
                 ]),
                 'options' => new Options([
@@ -190,32 +184,30 @@ class PopulateStoryTables extends Migration
                     'title' => new Field([
                         'enabled' => true,
                         'validate' => false,
-                        'suggest' => false,
                     ]),
                     'day' => new Field([
                         'enabled' => false,
                         'validate' => false,
-                        'suggest' => false,
                     ]),
                     'time' => new Field([
                         'enabled' => false,
                         'validate' => false,
-                        'suggest' => false,
                     ]),
                     'location' => new Field([
                         'enabled' => false,
                         'validate' => false,
-                        'suggest' => false,
                     ]),
                     'content' => new Field([
                         'enabled' => true,
                         'validate' => true,
-                        'suggest' => false,
                     ]),
                     'rating' => new Field([
                         'enabled' => false,
                         'validate' => false,
-                        'suggest' => false,
+                    ]),
+                    'summary' => new Field([
+                        'enabled' => false,
+                        'validate' => false,
                     ]),
                 ]),
                 'options' => new Options([

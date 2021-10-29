@@ -13,7 +13,7 @@
             aria-haspopup="listbox"
             :aria-expanded="open"
             aria-labelledby="listbox-label"
-            class="cursor-default relative w-full rounded-md border border-gray-300 bg-gray-1 pl-3 pr-10 py-2 text-left focus:outline-none focus:ring focus:border-blue-6 transition ease-in-out duration-150 sm:text-sm"
+            class="cursor-default relative w-full rounded-md border border-gray-300 bg-gray-1 pl-3 pr-10 py-2 text-left focus:outline-none focus:ring focus:border-blue-6 transition ease-in-out duration-200 sm:text-sm"
         >
             <span
                 x-text="['Wade Cooper','Arlene Mccoy','Devon Webb','Tom Cook','Tanya Fox','Hellen Schmidt','Caroline Schultz','Mason Heaney','Claudie Smitham','Emil Schaefer'][value]"

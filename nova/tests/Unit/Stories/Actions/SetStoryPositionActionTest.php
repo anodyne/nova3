@@ -6,7 +6,7 @@ namespace Tests\Unit\Stories\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Stories\Actions\SetStoryPosition;
-use Nova\Stories\DataTransferObjects\StoryPositionData;
+use Nova\Stories\Data\StoryPositionData;
 use Nova\Stories\Models\Story;
 use Tests\TestCase;
 
@@ -48,7 +48,7 @@ class SetStoryPositionActionTest extends TestCase
         $this->mainTimeline->appendNode($firstStory);
         $firstStory->refresh();
 
-        $data = new StoryPositionData([
+        $data = StoryPositionData::from([
             'direction' => 'before',
             'neighbor' => $firstStory,
             'hasPositionChange' => true,
@@ -73,7 +73,7 @@ class SetStoryPositionActionTest extends TestCase
         ]);
         $firstStory->appendToNode($mainTimeline)->save();
 
-        $data = new StoryPositionData([
+        $data = StoryPositionData::from([
             'direction' => 'after',
             'neighbor' => $firstStory,
             'hasPositionChange' => true,
@@ -104,7 +104,7 @@ class SetStoryPositionActionTest extends TestCase
         ]);
         $secondStory->appendToNode($firstStory)->save();
 
-        $data = new StoryPositionData([
+        $data = StoryPositionData::from([
             'parent_id' => $firstStory->id,
             'direction' => 'before',
             'neighbor' => $secondStory,
@@ -138,7 +138,7 @@ class SetStoryPositionActionTest extends TestCase
         ]);
         $secondStory->appendToNode($firstStory)->save();
 
-        $data = new StoryPositionData([
+        $data = StoryPositionData::from([
             'parent_id' => $firstStory->id,
             'direction' => 'after',
             'neighbor' => $secondStory,

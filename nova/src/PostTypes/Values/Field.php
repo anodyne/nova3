@@ -13,14 +13,11 @@ class Field extends DataTransferObject implements Arrayable
 
     public bool $validate;
 
-    public bool $suggest;
-
     public static function fromArray(array $array): self
     {
         return new self([
             'enabled' => (bool) data_get($array, 'enabled'),
             'validate' => (bool) data_get($array, 'validate'),
-            'suggest' => (bool) data_get($array, 'suggest'),
         ]);
     }
 }

@@ -2,93 +2,59 @@
     'stories'
 ])
 
-<div class="border-r-2 border-gray-6 absolute z-0 h-full top-0" style="left:25px;"></div>
-<ul class="relative z-10 list-none m-0 p-0 space-y-8">
+<div>
     @foreach ($stories as $story)
-        <li class="relative">
-            <div class="flex">
-                <div class="absolute flex-shrink-0 bg-gray-6 rounded-full h-6 w-6 -mt-2" style="left:14px"></div>
+        <div class="grid md:grid-cols-12 items-baseline relative p-3 sm:p-5 overflow-hidden" wire:key="story-{{ $story->id }}">
+            <div class="md:col-start-1 md:col-span-1 row-start-1 md:row-end-3 flex items-center font-medium mb-1 md:mb-0">
+                <svg viewBox="0 0 12 12" class="w-3 h-3 mr-6 overflow-visible">
+                    <!-- Circle -->
+                    <circle cx="6" cy="6" r="6" fill="currentColor" class="text-{{ $story->status->color() }}-9"></circle>
 
-                <div class="w-full">
-                    <x-panel>
-                        <x-content-box>
-                            <div class="flex items-center justify-between">
-                                <div class="text-xl font-bold tracking-tight">{{ $story->title }}</div>
-                                <div class="leading-0">
-                                    <x-dropdown placement="bottom-end" wide>
-                                        <x-slot name="trigger">
-                                            <x-icon.more class="h-6 w-6" />
-                                        </x-slot>
+                    @if ($story->is_current)
+                        <!-- Ring -->
+                        <circle cx="6" cy="6" r="11" fill="none" stroke="currentColor" stroke-width="2" class="text-blue-9"></circle>
+                    @endif
 
-                                        <x-dropdown.group>
-                                            @can('view', $story)
-                                                <x-dropdown.item :href="route('stories.show', $story)" icon="show">
-                                                    <span>View</span>
-                                                </x-dropdown.item>
-                                            @endcan
+                    @if ($story->getNextSibling())
+                        <!-- Lower arm -->
+                        <path d="M 6 18 V 50000" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-6"></path>
+                    @endif
 
-                                            @can('update', $story)
-                                                <x-dropdown.item :href="route('stories.edit', $story)" icon="edit">
-                                                    <span>Edit</span>
-                                                </x-dropdown.item>
-                                            @endcan
-                                        </x-dropdown.group>
-
-                                        <x-dropdown.group>
-                                            <x-dropdown.item icon="list">
-                                                <span>Posts</span>
-                                            </x-dropdown.item>
-                                        </x-dropdown.group>
-
-                                        @can('create', $story)
-                                            <x-dropdown.group>
-                                                <x-dropdown.text class="uppercase tracking-wide font-semibold text-gray-9">
-                                                    Add a story
-                                                </x-dropdown.text>
-                                                <x-dropdown.item :href='route("stories.create", "direction=before&neighbor={$story->id}")' icon="move-up">
-                                                    <span>Before {{ $story->title }}</span>
-                                                </x-dropdown.item>
-                                                <x-dropdown.item :href='route("stories.create", "direction=after&neighbor={$story->id}")' icon="move-down">
-                                                    <span>After {{ $story->title }}</span>
-                                                </x-dropdown.item>
-                                                <x-dropdown.item :href='route("stories.create", "parent={$story->id}")' icon="move-right">
-                                                    <span>Inside {{ $story->title }}</span>
-                                                </x-dropdown.item>
-                                            </x-dropdown.group>
-                                        @endcan
-
-                                        @can('delete', $story)
-                                            <x-dropdown.group>
-                                                <x-dropdown.item-danger :href="route('stories.delete', $story)" icon="delete">
-                                                    <span>Delete</span>
-                                                </x-dropdown.item-danger>
-                                            </x-dropdown.group>
-                                        @endcan
-                                    </x-dropdown>
-                                </div>
-                            </div>
-                            <p class="text-gray-11 mt-1">{{ $story->description }}</p>
-                            <div class="flex items-center space-x-8 mt-2 text-sm text-gray-9">
-                                <span>
-                                    @livewire('stories:status', ['story' => $story])
-                                </span>
-
-                                <span>{{ $story->posts_count }} @choice('post|posts', $story->posts_count)</span>
-
-                                @if ($story->getDescendantCount() > 0)
-                                    <span>{{ mt_rand(500, 800) }} posts in all stories</span>
-                                @endif
-                            </div>
-                        </x-content-box>
-                    </x-panel>
-                </div>
+                    @if ($story->getPrevSibling())
+                        <!-- Upper arm -->
+                        <path d="M 6 -6 V -30" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-6"></path>
+                    @endif
+                </svg>
             </div>
 
-            @if ($story->getDescendantCount() > 0)
-                <div class="relative w-full ml-16 pt-8">
-                    <x-stories.timeline :stories="$story->children" />
+            <div class="md:col-start-2 md:col-span-11 ml-9 md:ml-0 text-gray-11">
+                <h3 class="text-xl font-bold tracking-tight text-gray-12">{{ $story->title }}</h3>
+
+                <p class="leading-7 mt-1">{{ $story->description }}</p>
+
+                <div class="relative flex items-center space-x-8 mt-3 text-sm text-gray-11">
+                    <x-badge :color="$story->status->color()" size="xs">
+                        {{ $story->status->displayName() }}
+                    </x-badge>
+
+                    <span>{{ $story->posts()->count() }} @choice('post|posts', $story->posts()->count())</span>
+
+                    @if ($story->getDescendantCount() > 0)
+                        <span>{{ mt_rand(500, 800) }} posts in all stories</span>
+                    @endif
+
+                    <x-button type="button" size="none" color="gray-text" wire:click="selectStory('{{ $story->id }}')">
+                        @icon('settings', 'h-5 w-5 flex-shrink-0')
+                        <span>Manage story</span>
+                    </x-button>
                 </div>
-            @endif
-        </li>
+
+                @if ($story->getDescendantCount() > 0)
+                    <div class="relative w-full">
+                        <x-stories.timeline :stories="$story->children" />
+                    </div>
+                @endif
+            </div>
+        </div>
     @endforeach
-</ul>
+</div>

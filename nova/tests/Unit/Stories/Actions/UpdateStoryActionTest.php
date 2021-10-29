@@ -6,7 +6,7 @@ namespace Tests\Unit\Stories\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Stories\Actions\UpdateStory;
-use Nova\Stories\DataTransferObjects\StoryData;
+use Nova\Stories\Data\StoryData;
 use Nova\Stories\Models\Story;
 use Tests\TestCase;
 
@@ -35,7 +35,7 @@ class UpdateStoryActionTest extends TestCase
     /** @test **/
     public function itUpdatesAStory()
     {
-        $data = new StoryData([
+        $data = StoryData::from([
             'title' => 'Story Title',
             'description' => 'Lorem ipsum dolor sit amet consectetur, adipisicing elit.',
             'end_date' => '2020-02-01',
@@ -68,7 +68,7 @@ class UpdateStoryActionTest extends TestCase
         ]);
         $firstStory->appendToNode($mainTimeline)->save();
 
-        $data = new StoryData([
+        $data = StoryData::from([
             'title' => $this->story->title,
             'parent_id' => $this->story->parent_id,
             'allow_posting' => true,

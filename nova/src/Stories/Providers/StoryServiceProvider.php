@@ -8,6 +8,7 @@ use Nova\DomainServiceProvider;
 use Nova\Stories\Livewire\DeleteStories;
 use Nova\Stories\Livewire\StoryHierarchy;
 use Nova\Stories\Livewire\StoryStatus;
+use Nova\Stories\Livewire\StoryTimeline;
 use Nova\Stories\Models\Story;
 use Nova\Stories\Policies\StoryPolicy;
 use Nova\Stories\Spotlight\CreateStory;
@@ -22,6 +23,7 @@ class StoryServiceProvider extends DomainServiceProvider
             'stories:delete-story' => DeleteStories::class,
             'stories:hierarchy' => StoryHierarchy::class,
             'stories:status' => StoryStatus::class,
+            'stories:timeline' => StoryTimeline::class,
         ];
     }
 

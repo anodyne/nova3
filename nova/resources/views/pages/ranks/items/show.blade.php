@@ -47,7 +47,7 @@
                             </div>
 
                             @can('update', $character)
-                                <a href="{{ route('characters.edit', $character) }}" class="text-gray-11 transition ease-in-out duration-150 hover:text-gray-12 group-hover:visible sm:invisible">
+                                <a href="{{ route('characters.edit', $character) }}" class="text-gray-11 transition ease-in-out duration-200 hover:text-gray-12 group-hover:visible sm:invisible">
                                     @icon('edit')
                                 </a>
                             @endcan

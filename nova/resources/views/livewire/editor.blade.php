@@ -11,7 +11,7 @@
                         <div class="flex items-center space-x-3 md:space-x-2 my-1 md:my-0 pr-3">
                             <button
                                 type="button"
-                                class="leading-0 transition duration-150"
+                                class="leading-0 transition ease-in-out duration-200"
                                 :class="{ 'text-blue-9': isActive('bold', updatedAt), 'text-gray-9 hover:text-gray-11': !isActive('bold', updatedAt) }"
                                 @click="toggleBold()"
                             >
@@ -20,7 +20,7 @@
 
                             <button
                                 type="button"
-                                class="leading-0 transition duration-150"
+                                class="leading-0 transition ease-in-out duration-200"
                                 :class="{ 'text-blue-9': isActive('italic', updatedAt), 'text-gray-9 hover:text-gray-11': !isActive('italic', updatedAt) }"
                                 @click="toggleItalic()"
                             >
@@ -29,7 +29,7 @@
 
                             <button
                                 type="button"
-                                class="leading-0 transition duration-150"
+                                class="leading-0 transition ease-in-out duration-200"
                                 :class="{ 'text-blue-9': isActive('underline', updatedAt), 'text-gray-9 hover:text-gray-11': !isActive('underline', updatedAt) }"
                                 @click="toggleUnderline()"
                             >
@@ -41,7 +41,7 @@
                         <div class="flex items-center space-x-3 md:space-x-2 my-1 md:my-0 px-3">
                             <button
                                 type="button"
-                                class="leading-0 transition duration-150"
+                                class="leading-0 transition ease-in-out duration-200"
                                 :class="{ 'text-blue-9': isActive('heading', { level: 1 }, updatedAt), 'text-gray-9 hover:text-gray-11': !isActive('heading', { level: 1 }, updatedAt) }"
                                 @click="toggleHeading(1)"
                             >
@@ -50,7 +50,7 @@
 
                             <button
                                 type="button"
-                                class="leading-0 transition duration-150"
+                                class="leading-0 transition ease-in-out duration-200"
                                 :class="{ 'text-blue-9': isActive('heading', { level: 2 }, updatedAt), 'text-gray-9 hover:text-gray-11': !isActive('heading', { level: 2 }, updatedAt) }"
                                 @click="toggleHeading(2)"
                             >
@@ -59,7 +59,7 @@
 
                             <button
                                 type="button"
-                                class="leading-0 transition duration-150"
+                                class="leading-0 transition ease-in-out duration-200"
                                 :class="{ 'text-blue-9': isActive('heading', { level: 3 }, updatedAt), 'text-gray-9 hover:text-gray-11': !isActive('heading', { level: 3 }, updatedAt) }"
                                 @click="toggleHeading(3)"
                             >
@@ -68,7 +68,7 @@
 
                             <button
                                 type="button"
-                                class="leading-0 transition duration-150"
+                                class="leading-0 transition ease-in-out duration-200"
                                 :class="{ 'text-blue-9': isActive('paragraph', updatedAt), 'text-gray-9 hover:text-gray-11': !isActive('paragraph', updatedAt) }"
                                 @click="setParagraph()"
                             >
@@ -79,7 +79,7 @@
                         <div class="flex items-center space-x-3 md:space-x-2 my-1 md:my-0 px-3">
                             <button
                                 type="button"
-                                class="leading-0 transition duration-150"
+                                class="leading-0 transition ease-in-out duration-200"
                                 :class="{ 'text-blue-9': isActive('bulletList', updatedAt), 'text-gray-9 hover:text-gray-11': !isActive('bulletList', updatedAt) }"
                                 @click="toggleBulletList()"
                             >
@@ -88,7 +88,7 @@
 
                             <button
                                 type="button"
-                                class="leading-0 transition duration-150"
+                                class="leading-0 transition ease-in-out duration-200"
                                 :class="{ 'text-blue-9': isActive('orderedList', updatedAt), 'text-gray-9 hover:text-gray-11': !isActive('orderedList', updatedAt) }"
                                 @click="toggleOrderedList()"
                             >
@@ -97,7 +97,7 @@
 
                             <button
                                 type="button"
-                                class="leading-0 transition duration-150"
+                                class="leading-0 transition ease-in-out duration-200"
                                 :class="{ 'text-blue-9': isActive('link', updatedAt), 'text-gray-9 hover:text-gray-11': !isActive('link', updatedAt) }"
                                 @click="setLink()"
                             >
@@ -106,7 +106,7 @@
 
                             <button
                                 type="button"
-                                class="leading-0 transition duration-150 text-gray-9 hover:text-gray-11"
+                                class="leading-0 transition ease-in-out duration-200 text-gray-9 hover:text-gray-11"
                                 @click="removeLink()"
                                 x-show="isActive('link', updatedAt)"
                             >
@@ -117,7 +117,7 @@
                         <div class="flex items-center space-x-3 md:space-x-2 my-1 md:my-0 px-3">
                             <button
                                 type="button"
-                                class="leading-0 transition duration-150"
+                                class="leading-0 transition ease-in-out duration-200"
                                 :class="{ 'text-blue-9': isActive({ textAlign: 'left' }, updatedAt), 'text-gray-9 hover:text-gray-11': !isActive({ textAlign: 'left' }, updatedAt) }"
                                 @click="setTextAlign('left')"
                             >
@@ -126,7 +126,7 @@
 
                             <button
                                 type="button"
-                                class="leading-0 transition duration-150"
+                                class="leading-0 transition ease-in-out duration-200"
                                 :class="{ 'text-blue-9': isActive({ textAlign: 'center' }, updatedAt), 'text-gray-9 hover:text-gray-11': !isActive({ textAlign: 'center' }, updatedAt) }"
                                 @click="setTextAlign('center')"
                             >
@@ -135,7 +135,7 @@
 
                             <button
                                 type="button"
-                                class="leading-0 transition duration-150"
+                                class="leading-0 transition ease-in-out duration-200"
                                 :class="{ 'text-blue-9': isActive({ textAlign: 'right' }, updatedAt), 'text-gray-9 hover:text-gray-11': !isActive({ textAlign: 'right' }, updatedAt) }"
                                 @click="setTextAlign('right')"
                             >
@@ -146,7 +146,7 @@
                         <div class="flex items-center space-x-3 md:space-x-2 my-1 md:my-0 px-3">
                             <button
                                 type="button"
-                                class="leading-0 transition duration-150"
+                                class="leading-0 transition ease-in-out duration-200"
                                 :class="{ 'text-blue-9': isActive('blockquote', updatedAt), 'text-gray-9 hover:text-gray-11': !isActive('blockquote', updatedAt) }"
                                 @click="toggleBlockquote()"
                             >
@@ -155,7 +155,7 @@
 
                             <button
                                 type="button"
-                                class="leading-0 transition duration-150 text-gray-9 hover:text-gray-11"
+                                class="leading-0 transition ease-in-out duration-200 text-gray-9 hover:text-gray-11"
                                 @click="setHorizontalRule()"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6 md:h-5 md:w-5"><path fill="none" d="M0 0h24v24H0z"/><path d="M2 11h2v2H2v-2zm4 0h12v2H6v-2zm14 0h2v2h-2v-2z" fill="currentColor"/></svg>
@@ -165,7 +165,7 @@
                         <div class="flex items-center space-x-3 md:space-x-2 my-1 md:my-0 pl-3">
                             <button
                                 type="button"
-                                class="leading-0 transition duration-150 text-gray-9 hover:text-gray-11"
+                                class="leading-0 transition ease-in-out duration-200 text-gray-9 hover:text-gray-11"
                                 @click="$wire.set('codeView', true)"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6 md:h-5 md:w-5"><path fill="none" d="M0 0h24v24H0z"/><path d="M16.95 8.464l1.414-1.414 4.95 4.95-4.95 4.95-1.414-1.414L20.485 12 16.95 8.464zm-9.9 0L3.515 12l3.535 3.536-1.414 1.414L.686 12l4.95-4.95L7.05 8.464z" fill="currentColor"/></svg>
@@ -182,7 +182,7 @@
             <nav class="menu flex items-center space-x-3 border-b border-gray-6 py-2 px-3 bg-gray-2">
                 <button
                     type="button"
-                    class="leading-0 transition duration-150 text-gray-9 hover:text-gray-11 text-sm h-5 font-medium"
+                    class="leading-0 transition ease-in-out duration-200 text-gray-9 hover:text-gray-11 text-sm h-5 font-medium"
                     @click="setContent(content);$wire.set('codeView', false);"
                 >
                     Back to editor
@@ -191,7 +191,7 @@
         @endif
 
         <textarea
-            name="editor-content"
+            name="{{ $fieldName }}"
             class="appearance-none bg-transparent font-mono w-full border-none py-4 px-3 focus:outline-none focus:ring-0 leading-relaxed {{ $codeView ? '' : 'hidden' }}"
             rows="20"
             wire:model="content"

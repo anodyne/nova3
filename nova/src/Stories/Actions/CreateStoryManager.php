@@ -7,8 +7,8 @@ namespace Nova\Stories\Actions;
 use Illuminate\Http\Request;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Posts\Actions\CreateRootPost;
-use Nova\Stories\DataTransferObjects\StoryData;
-use Nova\Stories\DataTransferObjects\StoryPositionData;
+use Nova\Stories\Data\StoryData;
+use Nova\Stories\Data\StoryPositionData;
 use Nova\Stories\Models\Story;
 
 class CreateStoryManager
@@ -17,14 +17,9 @@ class CreateStoryManager
 
     public function handle(Request $request): Story
     {
-        $story = CreateStory::run(
-            StoryData::fromRequest($request)
-        );
+        $story = CreateStory::run(StoryData::from($request));
 
-        SetStoryPosition::run(
-            $story,
-            StoryPositionData::fromRequest($request)
-        );
+        SetStoryPosition::run($story, StoryPositionData::from($request));
 
         UpdateStoryStatus::run($story, $request->status);
 

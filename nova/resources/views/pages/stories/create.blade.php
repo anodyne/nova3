@@ -68,7 +68,10 @@
 
             <x-form.section>
                 <x-input.group label="Story Summary">
-                    <x-input.rich-text name="summary" :initial-value="old('summary')" />
+                    @livewire('nova:editor', [
+                        'content' => old('summary', ''),
+                        'fieldName' => 'summary'
+                    ])
                 </x-input.group>
             </x-form.section>
 

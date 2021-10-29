@@ -1,8 +1,8 @@
 @extends($meta->template)
 
 @section('content')
-    <a href="{{ route('users.index', "status={$user->status->name()}") }}" class="group inline-flex items-center mb-4 text-sm text-gray-600 font-medium transition ease-in-out duration-150 hover:text-gray-800">
-        <x-icon.chevron-left class="h-5 w-5 text-gray-400 transition ease-in-out duration-150 group-hover:text-gray-500" />
+    <a href="{{ route('users.index', "status={$user->status->name()}") }}" class="group inline-flex items-center mb-4 text-sm text-gray-600 font-medium transition ease-in-out duration-200 hover:text-gray-800">
+        <x-icon.chevron-left class="h-5 w-5 text-gray-400 transition ease-in-out duration-200 group-hover:text-gray-500" />
         <span class="ml-1">Back to Users</span>
     </a>
 
@@ -61,13 +61,13 @@
                 {{-- <div class="border-t border-gray-200">
                     <div class="-mt-px flex">
                         <div class="w-0 flex-1 flex border-r border-gray-200">
-                            <a href="#" class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500 focus:outline-none focus:ring focus:border-blue-7 focus:z-10 transition ease-in-out duration-150">
+                            <a href="#" class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500 focus:outline-none focus:ring focus:border-blue-7 focus:z-10 transition ease-in-out duration-200">
                                 @icon('show', 'w-5 h-5 text-gray-400')
                                 <span class="ml-3">View</span>
                             </a>
                         </div>
                         <div class="-ml-px w-0 flex-1 flex">
-                            <a href="#" class="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500 focus:outline-none focus:ring focus:border-blue-7 focus:z-10 transition ease-in-out duration-150">
+                            <a href="#" class="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500 focus:outline-none focus:ring focus:border-blue-7 focus:z-10 transition ease-in-out duration-200">
                                 @icon('edit', 'w-5 h-5 text-gray-400')
                                 <span class="ml-3">Edit</span>
                             </a>
@@ -81,7 +81,7 @@
     <x-panel>
         <div class="pb-8">
             <div class="p-4 sm:hidden">
-                <select @change="window.location.replace($event.target.value)" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring focus:border-blue-7 sm:text-sm transition ease-in-out duration-150">
+                <select @change="window.location.replace($event.target.value)" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring focus:border-blue-7 sm:text-sm transition ease-in-out duration-200">
                     <option value="{{ route('users.index', 'status=active') }}"{{ request()->status === 'active' ? 'selected' : '' }}>Active Users</option>
                     <option value="{{ route('users.index', 'status=pending') }}"{{ request()->status === 'pending' ? 'selected' : '' }}>Pending Users</option>
                     <option value="{{ route('users.index', 'status=inactive') }}"{{ request()->status === 'inactive' ? 'selected' : '' }}>Inactive Users</option>

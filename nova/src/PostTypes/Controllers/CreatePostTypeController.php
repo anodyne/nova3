@@ -26,7 +26,7 @@ class CreatePostTypeController extends Controller
         $this->authorize('create', PostType::class);
 
         return CreatePostTypeResponse::sendWith([
-            'fieldTypes' => ['title', 'day', 'time', 'location', 'content', 'rating'],
+            'fieldTypes' => ['title', 'location', 'day', 'time', 'content', 'rating', 'summary'],
             'roles' => Role::orderBySort()->get(),
         ]);
     }

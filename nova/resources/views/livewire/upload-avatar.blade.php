@@ -17,7 +17,7 @@
             <input @focus="focused = true" @blur="focused = false" type="file" id="avatar" wire:model="avatar" class="sr-only">
             <label
                 for="avatar"
-                class="cursor-pointer inline-flex items-center text-center justify-center border rounded-md transition ease-in-out duration-150 focus:outline-none disabled:cursor-not-allowed disabled:opacity-75 bg-gray-1 border-gray-7 text-gray-11 hover:bg-gray-2 hover:border-gray-8 focus:ring-2 focus:ring-offset-2 focus:ring-gray-7 px-2.5 py-1.5 text-xs uppercase tracking-wide font-semibold shadow-sm"
+                class="cursor-pointer inline-flex items-center text-center justify-center border rounded-md transition ease-in-out duration-200 focus:outline-none disabled:cursor-not-allowed disabled:opacity-75 bg-gray-1 border-gray-7 text-gray-11 hover:bg-gray-2 hover:border-gray-8 focus:ring-2 focus:ring-offset-2 focus:ring-gray-7 px-2.5 py-1.5 text-xs uppercase tracking-wide font-semibold shadow-sm"
                 :class="{ 'border-blue-7 ring': focused }"
             >
                 Change

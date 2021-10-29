@@ -54,7 +54,7 @@
 
         <ul id="sortable-list">
             @forelse ($roles as $role)
-                <li class="sortable-item border-t border-gray-6 hover:bg-gray-2 transition duration-150 ease-in-out @if ($isReordering) first:border-0 last:rounded-b-md @endif" data-id="{{ $role->id }}">
+                <li class="sortable-item border-t border-gray-6 hover:bg-gray-2 transition ease-in-out duration-200 @if ($isReordering) first:border-0 last:rounded-b-md @endif" data-id="{{ $role->id }}">
                     <div class="block">
                         <div class="px-4 py-4 flex items-center sm:px-6">
                             @if ($isReordering)
