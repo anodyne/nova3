@@ -4,7 +4,7 @@
     <x-page-header title="Stories">
         <x-slot name="controls">
             @if ($storyCount > 0)
-                <x-dropdown placement="bottom-end">
+                <x-dropdown placement="bottom-start md:bottom-end">
                     <x-slot name="trigger">@icon('filter', 'h-6 w-6')</x-slot>
 
                     <x-dropdown.group>

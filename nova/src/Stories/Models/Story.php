@@ -80,6 +80,22 @@ class Story extends Model implements HasMedia
         return $this->status->is(Current::class) && $this->allow_posting;
     }
 
+    public function getPostCountAttribute(): int
+    {
+        return $this->posts()->count();
+    }
+
+    public function getAllStoriesPostCountAttribute(): int
+    {
+        if ($this->getDescendantCount() > 0) {
+            return Story::withCount('posts')
+                ->descendantsAndSelf($this->id)
+                ->sum('posts_count');
+        }
+
+        return 0;
+    }
+
     public function isMainTimeline(): bool
     {
         return $this->id === 1;

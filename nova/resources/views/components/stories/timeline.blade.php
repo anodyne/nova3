@@ -4,8 +4,8 @@
 
 <div>
     @foreach ($stories as $story)
-        <div class="grid md:grid-cols-12 items-baseline relative p-3 sm:p-5 overflow-hidden" wire:key="story-{{ $story->id }}">
-            <div class="md:col-start-1 md:col-span-1 row-start-1 md:row-end-3 flex items-center font-medium mb-1 md:mb-0">
+        <div class="grid grid-cols-12 items-baseline relative p-3 sm:p-5 overflow-hidden" wire:key="story-{{ $story->id }}">
+            <div class="col-start-1 col-span-1 row-start-1 md:row-end-3 flex items-center font-medium mb-1 md:mb-0">
                 <svg viewBox="0 0 12 12" class="w-3 h-3 mr-6 overflow-visible">
                     <!-- Circle -->
                     <circle cx="6" cy="6" r="6" fill="currentColor" class="text-{{ $story->status->color() }}-9"></circle>
@@ -27,26 +27,32 @@
                 </svg>
             </div>
 
-            <div class="md:col-start-2 md:col-span-11 ml-9 md:ml-0 text-gray-11">
+            <div class="col-start-2 col-span-11 ml-0 text-gray-11">
                 <h3 class="text-xl font-bold tracking-tight text-gray-12">{{ $story->title }}</h3>
 
                 <p class="leading-7 mt-1">{{ $story->description }}</p>
 
-                <div class="relative flex items-center space-x-8 mt-3 text-sm text-gray-11">
-                    <x-badge :color="$story->status->color()" size="xs">
-                        {{ $story->status->displayName() }}
-                    </x-badge>
+                <div class="relative flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-8 mt-3 text-sm text-gray-11">
+                    <span>
+                        <x-badge :color="$story->status->color()" size="xs">
+                            {{ $story->status->displayName() }}
+                        </x-badge>
+                    </span>
 
-                    <span>{{ $story->posts()->count() }} @choice('post|posts', $story->posts()->count())</span>
-
-                    @if ($story->getDescendantCount() > 0)
-                        <span>{{ mt_rand(500, 800) }} posts in all stories</span>
+                    @if ($story->allow_posting)
+                        <span>{{ $story->post_count }} @choice('post|posts', $story->post_count)</span>
                     @endif
 
-                    <x-button type="button" size="none" color="gray-text" wire:click="selectStory('{{ $story->id }}')">
-                        @icon('settings', 'h-5 w-5 flex-shrink-0')
-                        <span>Manage story</span>
-                    </x-button>
+                    @if ($story->getDescendantCount() > 0)
+                        <span>{{ $story->all_stories_post_count }} posts in all stories</span>
+                    @endif
+
+                    <span class="leading-0">
+                        <x-button type="button" size="none" color="gray-blue-text" wire:click="selectStory('{{ $story->id }}')">
+                            @icon('settings', 'h-5 w-5 flex-shrink-0')
+                            <span>Manage story</span>
+                        </x-button>
+                    </span>
                 </div>
 
                 @if ($story->getDescendantCount() > 0)

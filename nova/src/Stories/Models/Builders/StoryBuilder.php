@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Models\Builders;
 
+use Illuminate\Database\Eloquent\Builder;
 use Kalnoy\Nestedset\QueryBuilder;
 use Nova\Foundation\Filters\Filterable;
 use Nova\Stories\Models\States\Current;
@@ -13,7 +14,7 @@ class StoryBuilder extends QueryBuilder
 {
     use Filterable;
 
-    public function whereCurrent()
+    public function whereCurrent(): self
     {
         return $this->where('status', Current::class);
     }
@@ -23,20 +24,19 @@ class StoryBuilder extends QueryBuilder
         return $this->where('id', 1);
     }
 
-    public function whereParent($parent = null)
+    public function whereParent($parent = null): self
     {
         return $this->where('parent_id', $parent);
     }
 
-    public function wherePostable()
+    public function wherePostable(): self
     {
-        return $this->where(function ($query) {
-            return $query->where('status', Current::class)
-                ->where('allow_posting', true);
-        });
+        return $this->where(
+            fn (Builder $query) => $query->whereCurrent()->where('allow_posting', true)
+        );
     }
 
-    public function whereUpcoming()
+    public function whereUpcoming(): self
     {
         return $this->where('status', Upcoming::class);
     }
