@@ -1,6 +1,6 @@
 <x-panel>
     @if ($selectedStory)
-        <x-content-box height="xs" class="sticky top-0 z-30 bg-gray-2 backdrop-filter backdrop-blur bg-opacity-50 border-t border-b border-gray-6 sm:rounded-t-lg sm:border-t-0">
+        <x-content-box height="sm" class="sticky top-0 z-30 bg-gray-2 backdrop-filter backdrop-blur bg-opacity-50 border-t border-b border-gray-6 sm:rounded-t-lg sm:border-t-0">
             <div class="flex md:hidden items-center justify-between">
                 <div class="font-bold tracking-tight text-gray-12 flex-1 truncate">{{ $selectedStory->title }}</div>
 

@@ -35,7 +35,7 @@
                             @icon('arrow-sort', 'h-7 w-7 md:h-6 md:w-6 text-purple-9')
                         </div>
                         <div class="ml-3">
-                            <h3 class="font-medium text-purple-11">
+                            <h3 class="text-lg md:text-base font-semibold md:font-medium text-purple-11">
                                 Change Sorting Order
                             </h3>
                             <div class="mt-2 text-base md:text-sm text-purple-11">
