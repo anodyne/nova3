@@ -32,13 +32,13 @@
                 <x-content-box class="bg-purple-3 border-t border-b border-purple-6 sm:rounded-t-md sm:border-t-0">
                     <div class="flex">
                         <div class="flex-shrink-0">
-                            @icon('arrow-sort', 'h-6 w-6 text-purple-9')
+                            @icon('arrow-sort', 'h-7 w-7 md:h-6 md:w-6 text-purple-9')
                         </div>
                         <div class="ml-3">
                             <h3 class="font-medium text-purple-11">
                                 Change Sorting Order
                             </h3>
-                            <div class="mt-2 text-sm text-purple-11">
+                            <div class="mt-2 text-base md:text-sm text-purple-11">
                                 <p>Rank names appear in the order you set throughout Nova. To change the sorting of the rank names, drag them to the desired order and then click Save Sort Order below.</p>
                             </div>
                             <div class="mt-4">
