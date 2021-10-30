@@ -63,16 +63,16 @@ class Badge extends Component
     public function iconSizeStyles(): string
     {
         return match ($this->size) {
-            default => 'h-5 w-5',
-            'xs' => 'h-4 w-4',
+            default => 'h-6 w-6 md:h-5 md:w-5',
+            'xs' => 'h-5 w-5 md:h-4 md:w-4',
         };
     }
 
     public function sizeStyles(): string
     {
         return match ($this->size) {
-            default => 'px-3 py-0.5 text-sm',
-            'xs' => 'px-2.5 py-0.5 text-xs',
+            default => 'px-4 py-1 text-base md:px-3 md:py-0.5 md:text-sm',
+            'xs' => 'px-3 py-0.5 text-sm md:px-2.5 md:py-0.5 md:text-xs',
         };
     }
 
