@@ -25,17 +25,17 @@ class Dropdown extends Component
 
     public function icon(): string
     {
-        return 'mr-3 h-5 w-5 text-gray-7 group-hover:text-gray-8 group-focus:text-gray-8';
+        return 'mr-3 h-6 w-6 md:h-5 md:w-5 text-gray-7 group-hover:text-gray-8 group-focus:text-gray-8';
     }
 
     public function link(): string
     {
-        return 'group flex items-center w-full px-4 py-2 text-sm font-medium text-gray-9 transition ease-in-out duration-200 hover:bg-gray-4 hover:text-gray-10 focus:outline-none';
+        return 'group flex items-center w-full px-4 py-2 text-base md:text-sm font-medium text-gray-9 transition ease-in-out duration-200 hover:bg-gray-4 hover:text-gray-10 focus:outline-none';
     }
 
     public function text(): string
     {
-        return 'block px-4 py-3 text-sm';
+        return 'block px-4 py-3 text-base md:text-sm';
     }
 
     public function placementStyles(): string
