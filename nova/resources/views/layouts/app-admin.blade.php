@@ -186,7 +186,7 @@
         <main class="max-w-7xl mx-auto py-8 lg:py-12 lg:px-8 focus:outline-none" tabindex="0">
             <div class="lg:grid lg:grid-cols-12 lg:gap-x-5">
                 @if ($meta->subnav)
-                    <aside class="py-6 px-2 sm:px-6 lg:py-0 lg:px-0 lg:col-span-2">
+                    <aside class="pb-8 px-4 sm:px-6 lg:py-0 lg:px-0 lg:col-span-2">
                         @include($meta->subnav)
                     </aside>
                 @endif

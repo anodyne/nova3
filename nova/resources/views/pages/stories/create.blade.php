@@ -77,7 +77,7 @@
 
             <x-form.footer>
                 <x-button type="submit" color="blue">Add Story</x-button>
-                <x-link :href="route('stories.index')" type="button" color="white">Cancel</x-link>
+                <x-link :href="route('stories.index')">Cancel</x-link>
             </x-form.footer>
         </x-form>
     </x-panel>

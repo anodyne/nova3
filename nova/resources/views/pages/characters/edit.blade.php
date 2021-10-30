@@ -43,7 +43,7 @@
 
             <x-form.footer>
                 <x-button type="submit" color="blue">Update Character</x-button>
-                <x-link :href='route("characters.index", "status={$character->status->name()}")' color="white">Cancel</x-link>
+                <x-link :href='route("characters.index", "status={$character->status->name()}")'>Cancel</x-link>
             </x-form.footer>
         </x-form>
     </x-panel>
