@@ -13,7 +13,7 @@
 
                     <x-dropdown placement="bottom-end" wide>
                         <x-slot name="trigger">
-                            <x-icon.more class="h-6 w-6" />
+                            <x-icon.more class="h-7 w-7 md:h-6 md:w-6" />
                         </x-slot>
 
                         <x-dropdown.group>

@@ -32,7 +32,7 @@
 
                 <p class="leading-7 mt-1">{{ $story->description }}</p>
 
-                <div class="relative flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-8 mt-3 text-sm text-gray-11">
+                <div class="relative flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-8 mt-3 text-base md:text-sm text-gray-11">
                     <span>
                         <x-badge :color="$story->status->color()" size="xs">
                             {{ $story->status->displayName() }}
@@ -49,7 +49,7 @@
 
                     <span class="leading-0">
                         <x-button type="button" size="none" color="gray-blue-text" wire:click="selectStory('{{ $story->id }}')">
-                            @icon('settings', 'h-5 w-5 flex-shrink-0')
+                            @icon('settings', 'h-6 w-6 flex-shrink-0')
                             <span>Manage story</span>
                         </x-button>
                     </span>
