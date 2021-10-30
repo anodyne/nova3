@@ -5,7 +5,7 @@
 
     <div class="grid gap-6 max-w-lg mx-auto md:grid-cols-2 lg:grid-cols-4 lg:max-w-none">
         @foreach ($postTypes as $postType)
-            <a href="{{ route('posts.compose', [$postType, 'direction' => request('direction'), 'neighbor' => request('neighbor')]) }}" class="flex flex-col items-center rounded-lg bg-gray-1 shadow focus:outline-none transition ease-in-out duration-200 overflow-hidden hover:shadow-lg">
+            <a href="{{ route('posts.compose', [$postType, 'direction' => request('direction'), 'neighbor' => request('neighbor')]) }}" class="flex flex-col items-center md:rounded-lg bg-gray-1 shadow focus:outline-none transition ease-in-out duration-200 overflow-hidden hover:shadow-lg">
                 <div class="h-1.5 w-full" style="background-color:{{ $postType->color }}"></div>
 
                 <div class="p-4 sm:p-6">

@@ -140,8 +140,8 @@
             @if ($postType->fields->location->enabled || $postType->fields->day->enabled || $postType->fields->time->enabled)
                 <div class="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4">
                     @if ($postType->fields->location->enabled)
-                        <button type="button" class="flex items-center space-x-1.5 rounded-full text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition duration-200 {{ $location ? 'bg-blue-3 hover:bg-blue-4 border-blue-7 hover:border-blue-8 text-blue-11' : 'bg-gray-3 hover:bg-gray-4 border-gray-7 hover:border-gray-8 text-gray-11' }}" wire:click='$emit("openModal", "posts:select-location-modal", {{ json_encode([$story->id, $location]) }})'>
-                            @icon('location', 'h-5 w-5 ' . ($location ? 'text-blue-9' : 'text-gray-9'))
+                        <button type="button" class="flex items-center space-x-1.5 rounded-full text-sm md:text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition duration-200 {{ $location ? 'bg-blue-3 hover:bg-blue-4 border-blue-7 hover:border-blue-8 text-blue-11' : 'bg-gray-3 hover:bg-gray-4 border-gray-7 hover:border-gray-8 text-gray-11' }}" wire:click='$emit("openModal", "posts:select-location-modal", {{ json_encode([$story->id, $location]) }})'>
+                            @icon('location', 'h-6 w-6 md:h-5 md:w-5 ' . ($location ? 'text-blue-9' : 'text-gray-9'))
                             <span class="font-medium">{{ $location ?? 'Add a location' }}</span>
                         </button>
                     @endif
