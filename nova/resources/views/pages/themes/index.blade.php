@@ -33,7 +33,7 @@
             @foreach ($themes as $theme)
                 <x-panel x-data="{ id: {{ $theme->id ?? 0 }} }">
                     <div class="flex-shrink-0">
-                        <img class="h-48 w-full object-cover rounded-t-md" src="{{ asset("themes/{$theme->location}/{$theme->preview}") }}" alt="" />
+                        <img class="h-48 w-full object-cover md:rounded-t-md" src="{{ asset("themes/{$theme->location}/{$theme->preview}") }}" alt="" />
                     </div>
 
                     <x-content-box>

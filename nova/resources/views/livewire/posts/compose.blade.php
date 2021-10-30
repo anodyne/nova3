@@ -147,15 +147,15 @@
                     @endif
 
                     @if ($postType->fields->day->enabled)
-                        <button type="button" class="flex items-center space-x-1.5 rounded-full text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition duration-200 {{ $day ? 'bg-blue-3 hover:bg-blue-4 border-blue-7 hover:border-blue-8 text-blue-11' : 'bg-gray-3 hover:bg-gray-4 border-gray-7 hover:border-gray-8 text-gray-11' }}" wire:click='$emit("openModal", "posts:select-day-modal", {{ json_encode([$story->id, $day]) }})'>
-                            @icon('calendar', 'h-5 w-5 ' . ($day ? 'text-blue-9' : 'text-gray-9'))
+                        <button type="button" class="flex items-center space-x-1.5 rounded-full text-sm md:text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition duration-200 {{ $day ? 'bg-blue-3 hover:bg-blue-4 border-blue-7 hover:border-blue-8 text-blue-11' : 'bg-gray-3 hover:bg-gray-4 border-gray-7 hover:border-gray-8 text-gray-11' }}" wire:click='$emit("openModal", "posts:select-day-modal", {{ json_encode([$story->id, $day]) }})'>
+                            @icon('calendar', 'h-6 w-6 md:h-5 md:w-5 ' . ($day ? 'text-blue-9' : 'text-gray-9'))
                             <span class="font-medium">{{ $day ?? 'Add a day' }}</span>
                         </button>
                     @endif
 
                     @if ($postType->fields->time->enabled)
-                        <button type="button" class="flex items-center space-x-1.5 rounded-full text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition duration-200 {{ $time ? 'bg-blue-3 hover:bg-blue-4 border-blue-7 hover:border-blue-8 text-blue-11' : 'bg-gray-3 hover:bg-gray-4 border-gray-7 hover:border-gray-8 text-gray-11' }}" wire:click='$emit("openModal", "posts:select-time-modal", {{ json_encode([$story->id, $time]) }})'>
-                            @icon('clock', 'h-5 w-5 ' . ($time ? 'text-blue-9' : 'text-gray-9'))
+                        <button type="button" class="flex items-center space-x-1.5 rounded-full text-sm md:text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition duration-200 {{ $time ? 'bg-blue-3 hover:bg-blue-4 border-blue-7 hover:border-blue-8 text-blue-11' : 'bg-gray-3 hover:bg-gray-4 border-gray-7 hover:border-gray-8 text-gray-11' }}" wire:click='$emit("openModal", "posts:select-time-modal", {{ json_encode([$story->id, $time]) }})'>
+                            @icon('clock', 'h-6 w-6 md:h-5 md:w-5 ' . ($time ? 'text-blue-9' : 'text-gray-9'))
                             <span class="font-medium">{{ $time ?? 'Add a time' }}</span>
                         </button>
                     @endif
@@ -166,21 +166,21 @@
 
             <div class="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4">
                 @if ($allStories->count() > 1)
-                    <button type="button" class="flex items-center space-x-1.5 rounded-full text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition duration-200 {{ $story ? 'bg-blue-3 hover:bg-blue-4 border-blue-7 hover:border-blue-8 text-blue-11' : 'bg-gray-3 hover:bg-gray-4 border-gray-7 hover:border-gray-8 text-gray-11' }}" wire:click='$emit("openModal", "posts:select-story-modal", {{ json_encode([$story->id]) }})'>
-                        @icon('book', 'h-5 w-5 flex-shrink-0 ' . ($story ? 'text-blue-9' : 'text-gray-9'))
+                    <button type="button" class="flex items-center space-x-1.5 rounded-full text-sm md:text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition duration-200 {{ $story ? 'bg-blue-3 hover:bg-blue-4 border-blue-7 hover:border-blue-8 text-blue-11' : 'bg-gray-3 hover:bg-gray-4 border-gray-7 hover:border-gray-8 text-gray-11' }}" wire:click='$emit("openModal", "posts:select-story-modal", {{ json_encode([$story->id]) }})'>
+                        @icon('book', 'h-6 w-6 md:h-5 md:w-5 flex-shrink-0 ' . ($story ? 'text-blue-9' : 'text-gray-9'))
                         <span class="font-medium">{{ $story->title ?? 'Choose a story' }}</span>
                         <x-icon.chevron-down class="text-blue-9 flex-shrink-0 h-4 w-4" />
                     </button>
                 @else
-                    <div class="flex items-center space-x-1.5 rounded-full text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition duration-200 {{ $story ? 'bg-blue-3 border-blue-7 text-blue-11' : 'bg-gray-3 border-gray-7 text-gray-11' }}">
-                        @icon('book', 'h-5 w-5 ' . ($story ? 'text-blue-9' : 'text-gray-9'))
+                    <div class="flex items-center space-x-1.5 rounded-full text-sm md:text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition duration-200 {{ $story ? 'bg-blue-3 border-blue-7 text-blue-11' : 'bg-gray-3 border-gray-7 text-gray-11' }}">
+                        @icon('book', 'h-6 w-6 md:h-5 md:w-5 ' . ($story ? 'text-blue-9' : 'text-gray-9'))
                         <span class="font-medium">{{ $story->title ?? 'Choose a story' }}</span>
                     </div>
                 @endif
 
                 @if ($postType->fields->rating->enabled)
-                    <div class="flex items-center space-x-1.5 rounded-full text-xs py-1.5 md:py-0.5 px-3 md:px-2 transition duration-200 bg-gray-3 border border-gray-6">
-                        @icon('mature', 'h-5 w-5 text-gray-9')
+                    <div class="flex items-center space-x-1.5 rounded-full text-sm md:text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition duration-200 bg-gray-3 border-gray-6">
+                        @icon('mature', 'h-6 w-6 md:h-5 md:w-5 text-gray-9')
                         <span class="text-gray-11 font-medium">Set content rating</span>
                     </div>
                 @endif
