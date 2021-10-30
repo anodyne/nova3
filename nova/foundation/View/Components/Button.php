@@ -65,11 +65,11 @@ class Button extends Component
         return match ($this->size) {
             'none' => 'text-sm',
             'none-xs' => 'text-xs',
-            'xs' => 'px-2.5 py-1.5 text-xs',
-            'sm' => 'px-3 py-2 text-sm',
+            'xs' => 'px-3 py-2 text-sm md:px-2.5 md:py-1.5 md:text-xs',
+            'sm' => 'px-4 py-2 text-base md:px-3 md:py-2 md:text-sm',
             'lg' => 'px-4 py-2 text-base',
             'xl' => 'px-6 py-3 text-lg',
-            default => 'px-4 py-2 text-sm',
+            default => 'px-4 py-2 text-lg md:text-sm',
         };
     }
 
