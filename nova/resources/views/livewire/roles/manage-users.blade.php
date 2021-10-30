@@ -25,7 +25,7 @@
                 <div class="flex items-center space-x-4">
                     <x-dropdown placement="bottom-end">
                         <x-slot name="trigger">
-                            @icon('filter', 'h-6 w-6')
+                            @icon('filter', 'h-7 w-7 md:h-6 md:w-6')
                         </x-slot>
 
                         <x-dropdown.group>

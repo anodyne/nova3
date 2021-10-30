@@ -22,7 +22,7 @@
 
                 <div class="flex items-center space-x-2">
                     <x-dropdown placement="bottom-end" wide>
-                        <x-slot name="trigger">@icon('filter', 'h-6 w-6')</x-slot>
+                        <x-slot name="trigger">@icon('filter', 'h-7 w-7 md:h-6 md:w-6')</x-slot>
 
                         <x-dropdown.group>
                             <x-dropdown.text>
@@ -45,7 +45,7 @@
                     </x-dropdown>
 
                     <x-dropdown placement="bottom-end" wide>
-                        <x-slot name="trigger">@icon('arrow-sort', 'h-6 w-6')</x-slot>
+                        <x-slot name="trigger">@icon('arrow-sort', 'h-7 w-7 md:h-6 md:w-6')</x-slot>
 
                         <x-dropdown.group>
                             <x-dropdown.item :href="route('stories.show', [$story, 'sort=asc'])">
@@ -83,7 +83,7 @@
 
                     <div class="flex-shrink-0 leading-0">
                         <x-dropdown placement="bottom-end" wide>
-                            <x-slot name="trigger">@icon('filter', 'h-6 w-6')</x-slot>
+                            <x-slot name="trigger">@icon('filter', 'h-7 w-7 md:h-6 md:w-6')</x-slot>
 
                             <a href="{{ route('stories.show', [$story, 'sort=asc']) }}" class="{{ $component->link() }} justify-between">
                                 <span>Sort by newest chronologically</span>

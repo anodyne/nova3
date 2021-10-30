@@ -10,8 +10,8 @@
         </x-slot>
 
         <x-slot name="controls">
-            <x-dropdown placement="bottom-end" wide>
-                <x-slot name="trigger">@icon('filter', 'h-6 w-6')</x-slot>
+            <x-dropdown placement="bottom-start md:bottom-end" wide>
+                <x-slot name="trigger">@icon('filter', 'h-7 w-7 md:h-6 md:w-6')</x-slot>
 
                 @can('viewAny', Nova\Characters\Models\Character::class)
                     <x-dropdown.group>

@@ -6,7 +6,7 @@
             @if ($groupCount > 0)
                 @can('update', $groups->first())
                     <x-link :href="route('ranks.groups.index', 'reorder')" color="gray-text" size="none">
-                        @icon('arrow-sort', 'h-6 w-6')
+                        @icon('arrow-sort', 'h-7 w-7 md:h-6 md:w-6')
                     </x-link>
                 @endcan
 

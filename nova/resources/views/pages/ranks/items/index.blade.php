@@ -4,8 +4,8 @@
     <x-page-header title="Rank Items" pretitle="Ranks">
         <x-slot name="controls">
             @if ($itemCount > 0)
-                <x-dropdown placement="bottom-end">
-                    <x-slot name="trigger">@icon('filter', 'h-6 w-6')</x-slot>
+                <x-dropdown placement="bottom-start md:bottom-end">
+                    <x-slot name="trigger">@icon('filter', 'h-7 w-7 md:h-6 md:w-6')</x-slot>
 
                     <x-dropdown.group>
                         <x-dropdown.text class="uppercase tracking-wide font-semibold text-gray-9">
@@ -24,7 +24,7 @@
 
                 @can('update', $items->first())
                     <x-link :href="route('ranks.items.index', 'reorder')" color="gray-text" size="none">
-                        @icon('arrow-sort', 'h-6 w-6')
+                        @icon('arrow-sort', 'h-7 w-7 md:h-6 md:w-6')
                     </x-link>
                 @endcan
 

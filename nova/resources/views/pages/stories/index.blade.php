@@ -5,7 +5,7 @@
         <x-slot name="controls">
             @if ($storyCount > 0)
                 <x-dropdown placement="bottom-start md:bottom-end">
-                    <x-slot name="trigger">@icon('filter', 'h-6 w-6')</x-slot>
+                    <x-slot name="trigger">@icon('filter', 'h-7 w-7 md:h-6 md:w-6')</x-slot>
 
                     <x-dropdown.group>
                         <x-dropdown.item :href="route('stories.index', 'sort=asc')">
