@@ -105,16 +105,16 @@
     @endif
 
     <div class="w-full max-w-2xl mx-auto mt-16">
-        <div class="rounded-md bg-blue-3 border border-blue-6 p-4">
-            <div class="flex items-center">
+        <div class="md:rounded-md bg-blue-3 border-t border-b md:border-l md:border-r border-blue-6 p-4">
+            <div class="flex md:items-center">
                 <div class="flex-shrink-0">
-                    @icon('info', 'h-6 w-6 text-blue-9')
+                    @icon('info', 'h-7 w-7 md:h-6 md:w-6 text-blue-9')
                 </div>
                 <div class="ml-3 flex-1 md:flex md:justify-between">
-                    <p class="text-sm text-blue-11">
+                    <p class="text-base md:text-sm text-blue-11">
                         Looking for more themes? Check out the Nova Exchange!
                     </p>
-                    <p class="mt-3 text-sm md:mt-0 md:ml-6">
+                    <p class="mt-3 text-base md:text-sm md:mt-0 md:ml-6">
                         <a href="{{ config('services.anodyne.links.exchange') }}" target="_blank" class="whitespace-nowrap font-medium text-blue-9 hover:text-blue-10 transition ease-in-out duration-200">
                             Go &rarr;
                         </a>
