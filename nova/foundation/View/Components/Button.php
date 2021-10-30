@@ -69,7 +69,7 @@ class Button extends Component
             'sm' => 'px-4 py-2 text-base md:px-3 md:py-2 md:text-sm',
             'lg' => 'px-4 py-2 text-base',
             'xl' => 'px-6 py-3 text-lg',
-            default => 'px-4 py-2 text-lg md:text-sm',
+            default => 'px-4 py-3 md:py-2 text-base md:text-sm',
         };
     }
 
