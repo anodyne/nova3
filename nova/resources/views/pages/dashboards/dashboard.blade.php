@@ -31,8 +31,8 @@
                     </x-content-box>
 
                     <div class="sm:rounded-b-md border-t border-gray-6 bg-gray-2 grid grid-cols-1 divide-y divide-gray-6 sm:grid-cols-3 sm:divide-y-0 sm:divide-x">
-                        <a href="#" class="group flex items-center justify-center space-x-3 px-6 py-5 text-sm font-medium text-center transition-all ease-in-out duration-200">
-                            @icon('users', 'h-6 w-6 text-gray-9 group-hover:text-gray-10')
+                        <a href="#" class="group flex items-center justify-center space-x-3 px-6 py-5 text-base md:text-sm font-medium text-center transition-all ease-in-out duration-200">
+                            @icon('users', 'h-7 w-7 md:h-6 md:w-6 text-gray-9 group-hover:text-gray-10')
                             <span class="text-gray-11 group-hover:text-gray-12">Characters</span>
                         </a>
 
