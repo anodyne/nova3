@@ -21,8 +21,6 @@
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
-        "livewire-ui/modal": "^1.0",
-        "livewire-ui/spotlight": "^0.1.7",
         "livewire/livewire": "^2.5.1",
         "lorisleiva/laravel-actions": "^2.1",
         "santigarcor/laratrust": "^6.2",
@@ -34,7 +32,9 @@
         "spatie/laravel-medialibrary": "^9.0",
         "spatie/laravel-model-states": "^1.9",
         "spatie/once": "^2.2",
-        "staudenmeir/eloquent-eager-limit": "^1.6"
+        "staudenmeir/eloquent-eager-limit": "^1.6",
+        "wire-elements/modal": "^1.0",
+        "wire-elements/spotlight": "^1.0"
     },
     "require-dev": {
         "brianium/paratest": "^6.1",
