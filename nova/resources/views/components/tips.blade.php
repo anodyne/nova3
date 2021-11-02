@@ -1,6 +1,6 @@
 @if ($hasTips())
     <div class="w-full max-w-2xl mx-auto mt-16">
-        <div class="md:rounded-md bg-purple-3 border-t border-b md:border-l md:border-r border-purple-6 p-4">
+        <div class="sm:rounded-lg bg-purple-3 border-t border-b sm:border-l sm:border-r border-purple-6 p-4">
             <div class="flex items-start">
                 <div class="flex-shrink-0">
                     @icon('lightbulb', 'h-7 w-7 md:h-6 md:w-6 text-purple-9')

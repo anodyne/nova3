@@ -29,11 +29,11 @@
     </x-page-header>
 
     @if ($themes->count() > 0)
-        <div class="mt-12 grid gap-6 max-w-lg mx-auto lg:grid-cols-3 lg:max-w-none">
+        <div class="mt-12 grid gap-6 w-full max-w-2xl mx-auto lg:grid-cols-3 lg:max-w-none">
             @foreach ($themes as $theme)
                 <x-panel x-data="{ id: {{ $theme->id ?? 0 }} }">
                     <div class="flex-shrink-0">
-                        <img class="h-48 w-full object-cover md:rounded-t-md" src="{{ asset("themes/{$theme->location}/{$theme->preview}") }}" alt="" />
+                        <img class="h-48 w-full object-cover sm:rounded-t-lg" src="{{ asset("themes/{$theme->location}/{$theme->preview}") }}" alt="" />
                     </div>
 
                     <x-content-box>
@@ -105,8 +105,8 @@
     @endif
 
     <div class="w-full max-w-2xl mx-auto mt-16">
-        <div class="md:rounded-md bg-blue-3 border-t border-b md:border-l md:border-r border-blue-6 p-4">
-            <div class="flex md:items-center">
+        <div class="sm:rounded-lg bg-blue-3 border-t border-b sm:border-l sm:border-r border-blue-6 p-4">
+            <div class="flex items-start">
                 <div class="flex-shrink-0">
                     @icon('info', 'h-7 w-7 md:h-6 md:w-6 text-blue-9')
                 </div>
