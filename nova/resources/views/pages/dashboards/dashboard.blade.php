@@ -31,7 +31,7 @@
                     </x-content-box>
 
                     <div class="sm:rounded-b-md border-t border-gray-6 bg-gray-2 grid grid-cols-1 divide-y divide-gray-6 sm:grid-cols-3 sm:divide-y-0 sm:divide-x">
-                        <a href="#" class="group flex items-center justify-center space-x-3 px-6 py-5 text-base md:text-sm font-medium text-center transition-all ease-in-out duration-200">
+                        <a href="{{ route('characters.index') }}" class="group flex items-center justify-center space-x-3 px-6 py-5 text-base md:text-sm font-medium text-center transition-all ease-in-out duration-200">
                             @icon('users', 'h-7 w-7 md:h-6 md:w-6 text-gray-9 group-hover:text-gray-10')
                             <span class="text-gray-11 group-hover:text-gray-12">Characters</span>
                         </a>
@@ -215,7 +215,7 @@
                         </div>
                         <div class="mt-6">
                             <h3 class="text-xl font-medium text-gray-12">
-                                <a href="#" class="focus:outline-none">
+                                <a href="{{ route('posts.create') }}" class="focus:outline-none">
                                     <!-- Extend touch target to entire panel -->
                                     <span class="absolute inset-0" aria-hidden="true"></span>
                                     Write a new story post
@@ -237,7 +237,7 @@
                         </div>
                         <div class="mt-6">
                             <h3 class="text-xl font-medium text-gray-12">
-                                <a href="#" class="focus:outline-none">
+                                <a href="{{ route('notes.index') }}" class="focus:outline-none">
                                     <!-- Extend touch target to entire panel -->
                                     <span class="absolute inset-0" aria-hidden="true"></span>
                                     My notes
