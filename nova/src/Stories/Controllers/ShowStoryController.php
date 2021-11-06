@@ -37,6 +37,7 @@ class ShowStoryController extends Controller
         $posts = Post::with('type')
             ->hasParent()
             ->whereStory($story->id)
+            ->wherePublished()
             ->defaultOrder()
             ->filter($filters)
             ->paginate();

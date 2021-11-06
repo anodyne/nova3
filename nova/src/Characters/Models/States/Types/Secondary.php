@@ -6,6 +6,8 @@ namespace Nova\Characters\Models\States\Types;
 
 class Secondary extends CharacterType
 {
+    public static $name = 'secondary';
+
     public function color(): string
     {
         return 'purple';

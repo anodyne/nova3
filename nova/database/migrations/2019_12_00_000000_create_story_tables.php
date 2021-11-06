@@ -24,7 +24,6 @@ class CreateStoryTables extends Migration
             $table->text('summary')->nullable();
             $table->timestamp('start_date')->nullable();
             $table->timestamp('end_date')->nullable();
-            $table->boolean('allow_posting')->default(true);
             $table->timestamps();
 
             $table->index('status');

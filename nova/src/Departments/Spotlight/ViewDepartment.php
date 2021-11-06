@@ -18,6 +18,10 @@ class ViewDepartment extends SpotlightCommand
 
     protected string $description = 'View a department';
 
+    protected array $synonyms = [
+        'show department',
+    ];
+
     public function dependencies(): ?SpotlightCommandDependencies
     {
         return SpotlightCommandDependencies::collection()

@@ -6,6 +6,8 @@ namespace Nova\Users\Models\States;
 
 class Active extends UserStatus
 {
+    public static $name = 'active';
+
     public function color(): string
     {
         return 'green';

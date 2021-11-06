@@ -6,6 +6,7 @@ namespace Nova\Posts\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Posts\Models\Post;
+use Nova\Posts\Models\States\Published;
 use Nova\Stories\Models\Story;
 
 class CreateRootPost
@@ -16,6 +17,7 @@ class CreateRootPost
     {
         return $story->posts()->create([
             'title' => "{$story->title} Root Post",
+            'status' => Published::class,
         ]);
     }
 }

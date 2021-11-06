@@ -19,7 +19,7 @@
                             <div class="flex items-center justify-between w-full">
                                 <span>Assigned to a user</span>
                                 @if (request()->has('hasuser'))
-                                    @icon('check', 'h-5 w-5')
+                                    @icon('check', 'h-5 w-5 flex-shrink-0 text-blue-9')
                                 @endif
                             </div>
                         </x-dropdown.item>
@@ -27,7 +27,7 @@
                             <div class="flex items-center justify-between w-full">
                                 <span>Not assigned to a user</span>
                                 @if (request()->has('nouser'))
-                                    @icon('check', 'h-5 w-5')
+                                    @icon('check', 'h-5 w-5 flex-shrink-0 text-blue-9')
                                 @endif
                             </div>
                         </x-dropdown.item>
@@ -35,7 +35,7 @@
                             <div class="flex items-center justify-between w-full">
                                 <span>Not assigned a position</span>
                                 @if (request()->has('noposition'))
-                                    @icon('check', 'h-5 w-5')
+                                    @icon('check', 'h-5 w-5 flex-shrink-0 text-blue-9')
                                 @endif
                             </div>
                         </x-dropdown.item>
@@ -54,7 +54,7 @@
                         <div class="flex items-center justify-between w-full">
                             <span>Primary characters</span>
                             @if (request('type') === 'primary')
-                                @icon('check', 'h-5 w-5')
+                                @icon('check', 'h-5 w-5 flex-shrink-0 text-blue-9')
                             @endif
                         </div>
                     </x-dropdown.item>
@@ -62,7 +62,7 @@
                         <div class="flex items-center justify-between w-full">
                             <span>Secondary characters</span>
                             @if (request('type') === 'secondary')
-                                @icon('check', 'h-5 w-5')
+                                @icon('check', 'h-5 w-5 flex-shrink-0 text-blue-9')
                             @endif
                         </div>
                     </x-dropdown.item>
@@ -70,7 +70,7 @@
                         <div class="flex items-center justify-between w-full">
                             <span>Support characters</span>
                             @if (request('type') === 'support')
-                                @icon('check', 'h-5 w-5')
+                                @icon('check', 'h-5 w-5 flex-shrink-0 text-blue-9')
                             @endif
                         </div>
                     </x-dropdown.item>

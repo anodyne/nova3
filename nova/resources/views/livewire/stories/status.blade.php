@@ -1,14 +1,8 @@
 <div class="leading-0">
     @can('update', $story)
-        <x-dropdown wide>
+        <x-dropdown placement="bottom-end md:bottom-start" wide>
             <x-slot name="trigger">
                 <x-badge :color="$story->status->color()" size="xs">
-                    @if ($story->canPost)
-                        <x-slot name="leadingIcon">
-                            @icon('edit', $component->iconStyles())
-                        </x-slot>
-                    @endif
-
                     {{ $story->status->displayName() }}
 
                     <x-slot name="trailingIcon">
@@ -21,35 +15,63 @@
 
             <x-dropdown.group>
                 <x-dropdown.item type="button" wire:click="updateStatus('upcoming')">
-                    <div class="flex items-center justify-between w-full">
-                        <span>Upcoming</span>
-                        @if (Str::contains($story->status, 'Upcoming'))
-                            @icon('check', 'h-5 w-5 text-blue-9 flex-shrink-0')
-                        @endif
+                    <div class="flex w-full">
+                        <div class="flex-1 text-left">
+                            <span>Upcoming</span>
+                            <div class="text-sm text-gray-9 text-left font-normal mt-1">
+                                Story or story arc that will happen in the future
+                            </div>
+                        </div>
+                        <div class="flex justify-end flex-shrink-0 w-8">
+                            @if ($story->status->equals('upcoming'))
+                                @icon('check', 'h-6 w-6 text-blue-9')
+                            @endif
+                        </div>
+                    </div>
+                </x-dropdown.item>
+                <x-dropdown.item type="button" wire:click="updateStatus('ongoing')">
+                    <div class="flex w-full">
+                        <div class="flex-1 text-left">
+                            <span>Ongoing</span>
+                            <div class="text-sm text-gray-9 text-left font-normal mt-1">
+                                Active story or story arc that cannot be posted into
+                            </div>
+                        </div>
+                        <div class="flex justify-end flex-shrink-0 w-8">
+                            @if ($story->status->equals('ongoing'))
+                                @icon('check', 'h-6 w-6 text-blue-9')
+                            @endif
+                        </div>
                     </div>
                 </x-dropdown.item>
                 <x-dropdown.item type="button" wire:click="updateStatus('current')">
-                    <div class="flex items-center justify-between w-full">
-                        <span>Current (with posting)</span>
-                        @if (Str::contains($story->status, 'Current') && $story->allow_posting)
-                            @icon('check', 'h-5 w-5 text-blue-9 flex-shrink-0')
-                        @endif
-                    </div>
-                </x-dropdown.item>
-                <x-dropdown.item type="button" wire:click="updateStatus('current', false)">
-                    <div class="flex items-center justify-between w-full">
-                        <span>Current (no posting)</span>
-                        @if (Str::contains($story->status, 'Current') && ! $story->allow_posting)
-                            @icon('check', 'h-5 w-5 text-blue-9 flex-shrink-0')
-                        @endif
+                    <div class="flex w-full">
+                        <div class="flex-1 text-left">
+                            <span>Current</span>
+                            <div class="text-sm text-gray-9 text-left font-normal mt-1">
+                                Story that is current running and players can post into
+                            </div>
+                        </div>
+                        <div class="flex justify-end flex-shrink-0 w-8">
+                            @if ($story->status->equals('current'))
+                                @icon('check', 'h-6 w-6 text-blue-9')
+                            @endif
+                        </div>
                     </div>
                 </x-dropdown.item>
                 <x-dropdown.item type="button" wire:click="updateStatus('completed')">
-                    <div class="flex items-center justify-between w-full">
-                        <span>Completed</span>
-                        @if (Str::contains($story->status, 'Completed'))
-                            @icon('check', 'h-5 w-5 text-blue-9 flex-shrink-0')
-                        @endif
+                    <div class="flex w-full">
+                        <div class="flex-1 text-left">
+                            <span>Completed</span>
+                            <div class="text-sm text-gray-9 text-left font-normal mt-1">
+                                Story or story arc that has concluded
+                            </div>
+                        </div>
+                        <div class="flex justify-end flex-shrink-0 w-8">
+                            @if ($story->status->equals('completed'))
+                                @icon('check', 'h-6 w-6 text-blue-9')
+                            @endif
+                        </div>
                     </div>
                 </x-dropdown.item>
             </x-dropdown.group>

@@ -17,14 +17,10 @@ use Nova\Users\Livewire\UsersCollector;
 use Nova\Users\Livewire\UsersDropdown;
 use Nova\Users\Models\User;
 use Nova\Users\Policies\UserPolicy;
-use Nova\Users\Responses\CreateUserResponse;
-use Nova\Users\Responses\DeactivateUserResponse;
-use Nova\Users\Responses\DeleteUserResponse;
-use Nova\Users\Responses\ShowAllUsersResponse;
-use Nova\Users\Responses\ShowUserResponse;
-use Nova\Users\Responses\UpdateUserResponse;
-use Nova\Users\Spotlight\CreateUser;
+use Nova\Users\Spotlight\AddUser;
+use Nova\Users\Spotlight\EditUser;
 use Nova\Users\Spotlight\ViewUser;
+use Nova\Users\Spotlight\ViewUsers;
 
 class UserServiceProvider extends DomainServiceProvider
 {
@@ -78,8 +74,10 @@ class UserServiceProvider extends DomainServiceProvider
     public function spotlightCommands(): array
     {
         return [
-            CreateUser::class,
+            AddUser::class,
+            EditUser::class,
             ViewUser::class,
+            ViewUsers::class,
         ];
     }
 }

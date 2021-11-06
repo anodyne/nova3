@@ -76,11 +76,6 @@ class ComposePost extends Component
         }
     }
 
-    public function mount()
-    {
-        $this->setInitialStory();
-    }
-
     public function render()
     {
         return view('livewire.posts.compose');

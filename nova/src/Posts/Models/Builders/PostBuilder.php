@@ -27,7 +27,7 @@ class PostBuilder extends QueryBuilder
 
     public function wherePublished(): self
     {
-        return $this->where('status', Published::class);
+        return $this->whereState('status', Published::class);
     }
 
     public function whereStory($storyId): self

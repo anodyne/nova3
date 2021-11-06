@@ -18,6 +18,11 @@ class ViewStory extends SpotlightCommand
 
     protected string $description = 'View a story';
 
+    protected array $synonyms = [
+        'show story', 'view mission', 'show mission', 'view mission group',
+        'show mission group',
+    ];
+
     public function dependencies(): ?SpotlightCommandDependencies
     {
         return SpotlightCommandDependencies::collection()

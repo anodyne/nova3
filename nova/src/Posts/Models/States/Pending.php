@@ -6,6 +6,8 @@ namespace Nova\Posts\Models\States;
 
 class Pending extends PostStatus
 {
+    public static $name = 'pending';
+
     public function color(): string
     {
         return 'yellow';

@@ -18,6 +18,10 @@ class EditUser extends SpotlightCommand
 
     protected string $description = 'Edit a user';
 
+    protected array $synonyms = [
+        'update user', 'edit user account', 'update user account',
+    ];
+
     public function dependencies(): ?SpotlightCommandDependencies
     {
         return SpotlightCommandDependencies::collection()

@@ -23,7 +23,8 @@ class StoryTimeline extends Component
 
     public function getStoriesProperty(StoryFilters $filters)
     {
-        return Story::hasParent()
+        return Story::query()
+            ->hasParent()
             ->defaultOrder()
             ->filter($filters)
             ->get()

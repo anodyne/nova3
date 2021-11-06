@@ -27,6 +27,16 @@ use Nova\Settings\Responses\PostingActivitySettingsResponse;
 use Nova\Settings\Responses\RatingsSettingsResponse;
 use Nova\Settings\Responses\SystemDefaultsSettingsResponse;
 use Nova\Settings\SettingsManager;
+use Nova\Settings\Spotlight\ViewCharacterSettings;
+use Nova\Settings\Spotlight\ViewEmailSettings;
+use Nova\Settings\Spotlight\ViewGeneralSettings;
+use Nova\Settings\Spotlight\ViewGroupNotificationSettings;
+use Nova\Settings\Spotlight\ViewIndividualNotificationSettings;
+use Nova\Settings\Spotlight\ViewMetaTagsSettings;
+use Nova\Settings\Spotlight\ViewNotificationSettings;
+use Nova\Settings\Spotlight\ViewPostingActivitySettings;
+use Nova\Settings\Spotlight\ViewRatingsSettings;
+use Nova\Settings\Spotlight\ViewSystemDefaultsSettings;
 
 class SettingsServiceProvider extends DomainServiceProvider
 {
@@ -41,6 +51,22 @@ class SettingsServiceProvider extends DomainServiceProvider
     {
         return [
             Settings::class => SettingsPolicy::class,
+        ];
+    }
+
+    public function spotlightCommands(): array
+    {
+        return [
+            ViewCharacterSettings::class,
+            ViewEmailSettings::class,
+            ViewGeneralSettings::class,
+            ViewGroupNotificationSettings::class,
+            ViewIndividualNotificationSettings::class,
+            ViewMetaTagsSettings::class,
+            ViewNotificationSettings::class,
+            ViewPostingActivitySettings::class,
+            ViewRatingsSettings::class,
+            ViewSystemDefaultsSettings::class,
         ];
     }
 

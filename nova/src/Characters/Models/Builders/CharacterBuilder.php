@@ -27,12 +27,12 @@ class CharacterBuilder extends Builder
 
     public function whereActive(): Builder
     {
-        return $this->where('status', Active::class);
+        return $this->whereState('status', Active::class);
     }
 
     public function whereInactive(): Builder
     {
-        return $this->where('status', Inactive::class);
+        return $this->whereState('status', Inactive::class);
     }
 
     public function whereIsPrimaryCharacter(): Builder
@@ -43,11 +43,11 @@ class CharacterBuilder extends Builder
 
     public function wherePending(): Builder
     {
-        return $this->where('status', Pending::class);
+        return $this->whereState('status', Pending::class);
     }
 
     public function whereNotPending(): Builder
     {
-        return $this->where('status', '!=', Pending::class);
+        return $this->whereNotState('status', Pending::class);
     }
 }

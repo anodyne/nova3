@@ -14,7 +14,7 @@ class NimitzStorySeeder extends Seeder
         $timeline = Story::whereIsRoot()->first();
 
         $timeline->children()->createMany([
-            Story::factory()->current()->withoutPosting()->make(['title' => 'USS Sojourner', 'description' => ''])->toArray(),
+            Story::factory()->ongoing()->make(['title' => 'USS Sojourner', 'description' => ''])->toArray(),
         ]);
 
         $season1 = Story::whereTitle('USS Sojourner')->first();

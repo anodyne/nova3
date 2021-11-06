@@ -42,7 +42,7 @@ class SelectStoryModal extends ModalComponent
     public function getFilteredStoriesProperty(): Collection
     {
         return Story::query()
-            ->wherePostable()
+            ->whereCurrent()
             ->when(
                 $this->search,
                 fn ($query, $search) => $query->where('title', 'like', "%{$search}%")

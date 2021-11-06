@@ -8,6 +8,13 @@ return [
         'You can bring up a command palette to quickly move around Nova by using Cmd + K or Cmd + / on Mac. On Windows you can use Ctrl + K or Ctrl + /.',
     ],
 
+    'stories' => [
+        'Current stories are stories that are actively running and players can post in.',
+        'Ongoing stories are meant for story arcs that are actively running and have postable stories within them.',
+        'Upcoming stories are stories that are going to be told in the future.',
+        'Completed stories are intended for stories or story arcs that are finished.',
+    ],
+
     'characters' => [
         "When searching for a character, you can search by the character's name, the name of any of the character's positions, the department name of any of the positions the character is assigned to, or their associated user's name or email address.",
         'Filters and searches from character management respect the tab you currently have selected. If you want to limit your search to inactive characters, you can go the inactive characters tab and then search or filter the list.',

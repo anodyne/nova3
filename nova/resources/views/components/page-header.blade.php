@@ -4,7 +4,7 @@
     'pretitle' => false,
 ])
 
-<div class="mb-8 px-4 sm:px-0 md:flex md:items-center md:justify-between" data-cy="page-header">
+<div class="mb-8 px-4 sm:px-0 md:flex md:items-center md:justify-between" data-cy="page-header" {{ $attributes }}>
     <div class="flex-1 min-w-0">
         @if ($pretitle)
             <div class="block mb-2 leading-none text-base md:text-sm text-gray-9 font-semibold uppercase tracking-wide">
@@ -18,7 +18,7 @@
     </div>
 
     @if ($controls)
-        <div class="inline-flex sm:flex-row flex-row-reverse items-center w-auto mt-4 md:mt-0 space-x-4 space-x-reverse" data-cy="page-header-controls">
+        <div class="inline-flex flex-row-reverse sm:flex-row items-center w-auto mt-4 md:mt-0 space-x-4 space-x-reverse sm:space-x-4" data-cy="page-header-controls">
             {{ $controls }}
         </div>
     @endif

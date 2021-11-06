@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Nova\Characters\Filters;
 
 use Illuminate\Database\Eloquent\Builder;
-use Nova\Characters\Models\Character;
 use Nova\Foundation\Filters\Filters;
 
 class CharacterFilters extends Filters
@@ -53,25 +52,11 @@ class CharacterFilters extends Filters
 
     public function status($value): Builder
     {
-        return $this->builder->whereState(
-            'status',
-            Character::getStatesFor('status')
-                ->filter(function ($status) use ($value) {
-                    return get_class_name($status) === ucfirst($value);
-                })
-                ->first()
-        );
+        return $this->builder->whereState('status', $value);
     }
 
     public function type($value): Builder
     {
-        return $this->builder->whereState(
-            'type',
-            Character::getStatesFor('type')
-                ->filter(function ($type) use ($value) {
-                    return strtolower(get_class_name($type)) === strtolower($value);
-                })
-                ->first()
-        );
+        return $this->builder->whereState('type', $value);
     }
 }

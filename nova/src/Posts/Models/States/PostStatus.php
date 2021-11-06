@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Posts\Models\States;
 
 use Spatie\ModelStates\State;
+use Spatie\ModelStates\StateConfig;
 
 abstract class PostStatus extends State
 {
@@ -15,5 +16,16 @@ abstract class PostStatus extends State
     public function displayName(): string
     {
         return ucfirst($this->name());
+    }
+
+    public static function config(): StateConfig
+    {
+        return parent::config()
+            ->default(Draft::class)
+            ->allowTransitions([
+                [Draft::class, Pending::class, DraftToPending::class],
+                [Draft::class, Published::class, DraftToPublished::class],
+                [Pending::class, Published::class, PendingToPublished::class],
+            ]);
     }
 }

@@ -12,18 +12,22 @@ use LivewireUI\Spotlight\SpotlightCommandDependency;
 use LivewireUI\Spotlight\SpotlightSearchResult;
 use Nova\Departments\Models\Department;
 
-class CreatePosition extends SpotlightCommand
+class AddPosition extends SpotlightCommand
 {
-    protected string $name = 'Create Position';
+    protected string $name = 'Add Position';
 
-    protected string $description = 'Create a new position';
+    protected string $description = 'Add a new position';
+
+    protected array $synonyms = [
+        'create position',
+    ];
 
     public function dependencies(): ?SpotlightCommandDependencies
     {
         return SpotlightCommandDependencies::collection()
             ->add(
                 SpotlightCommandDependency::make('department')
-                    ->setPlaceholder('Which department do you want to create this position for?')
+                    ->setPlaceholder('Which department do you want to add this position for?')
             );
     }
 
@@ -35,7 +39,7 @@ class CreatePosition extends SpotlightCommand
                 return new SpotlightSearchResult(
                     $department->id,
                     $department->name,
-                    sprintf('Create position within %s', $department->name)
+                    sprintf('Add position within %s', $department->name)
                 );
             });
     }

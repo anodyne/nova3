@@ -14,7 +14,7 @@ class StorySeeder extends Seeder
         $timeline = Story::whereIsRoot()->first();
 
         $timeline->children()->createMany([
-            Story::factory()->current()->withoutPosting()->make(['title' => 'Season 1'])->toArray(),
+            Story::factory()->ongoing()->make(['title' => 'Season 1'])->toArray(),
             Story::factory()->upcoming()->make(['title' => 'Season 2'])->toArray(),
         ]);
 

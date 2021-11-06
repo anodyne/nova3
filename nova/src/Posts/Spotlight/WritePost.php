@@ -15,6 +15,10 @@ class WritePost extends SpotlightCommand
 
     protected string $description = 'Start a new story post';
 
+    protected array $synonyms = [
+        'compose post', 'create post',
+    ];
+
     public function execute(Spotlight $spotlight)
     {
         $spotlight->redirectRoute('posts.create');

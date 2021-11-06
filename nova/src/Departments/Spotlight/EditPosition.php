@@ -19,6 +19,10 @@ class EditPosition extends SpotlightCommand
 
     protected string $description = 'Edit a position';
 
+    protected array $synonyms = [
+        'update position',
+    ];
+
     public function dependencies(): ?SpotlightCommandDependencies
     {
         return SpotlightCommandDependencies::collection()

@@ -22,18 +22,12 @@
             <x-form.section title="Story Status & Dates" message="Setting the status of a story lets you control the stories that players are able to write within. You can have as many currently running stories as you want. If you have more than 1 current story, players will be given the option to choose which story they want to write their post within.">
                 <x-input.group label="Status">
                     <x-input.select name="status" id="status">
-                        @foreach (['upcoming', 'current', 'completed'] as $status)
+                        @foreach (Nova\Stories\Models\Story::getStatesFor('status') as $status)
                             <option value="{{ $status }}" @if (old('status') === $status) selected @endif>
                                 {{ ucfirst($status) }}
                             </option>
                         @endforeach
                     </x-input.select>
-                </x-input.group>
-
-                <x-input.group>
-                    <x-input.toggle field="allow_posting" :value="old('allow_posting', 'true')">
-                        Users can add posts to this story
-                    </x-input.toggle>
                 </x-input.group>
 
                 <x-input.group label="Start Date" for="start_date">

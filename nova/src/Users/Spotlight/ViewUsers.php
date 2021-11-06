@@ -9,19 +9,23 @@ use LivewireUI\Spotlight\Spotlight;
 use LivewireUI\Spotlight\SpotlightCommand;
 use Nova\Users\Models\User;
 
-class CreateUser extends SpotlightCommand
+class ViewUsers extends SpotlightCommand
 {
-    protected string $name = 'Create User';
+    protected string $name = 'View Users';
 
-    protected string $description = 'Create a new user';
+    protected string $description = 'View all users';
+
+    protected array $synonyms = [
+        'show all users',
+    ];
 
     public function execute(Spotlight $spotlight): void
     {
-        $spotlight->redirectRoute('users.create');
+        $spotlight->redirectRoute('users.index');
     }
 
     public function shouldBeShown(): bool
     {
-        return Gate::allows('create', User::class);
+        return Gate::allows('viewAny', User::class);
     }
 }

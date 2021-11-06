@@ -8,15 +8,15 @@ use Nova\Posts\Models\Post;
 
 trait SetsPostPosition
 {
-    public ?string $direction;
+    public $direction;
 
-    public ?int $neighbor;
+    public $neighbor;
 
     public ?Post $previousPost;
 
     public ?Post $nextPost;
 
-    public function bootSetsPostPosition()
+    public function bootedSetsPostPosition()
     {
         if ($this->story) {
             if ($this->neighbor === null && $this->direction === null) {

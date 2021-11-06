@@ -6,6 +6,8 @@ namespace Nova\Characters\Models\States\Statuses;
 
 class Active extends CharacterStatus
 {
+    public static $name = 'active';
+
     public function color(): string
     {
         return 'green';

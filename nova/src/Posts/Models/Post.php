@@ -9,13 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Kalnoy\Nestedset\NodeTrait;
 use Nova\Posts\Events;
 use Nova\Posts\Models\Builders\PostBuilder;
-use Nova\Posts\Models\States\Draft;
-use Nova\Posts\Models\States\DraftToPending;
-use Nova\Posts\Models\States\DraftToPublished;
-use Nova\Posts\Models\States\Pending;
-use Nova\Posts\Models\States\PendingToPublished;
 use Nova\Posts\Models\States\PostStatus;
-use Nova\Posts\Models\States\Published;
 use Nova\PostTypes\Models\PostType;
 use Nova\Stories\Models\Story;
 use Spatie\ModelStates\HasStates;
@@ -39,6 +33,7 @@ class Post extends Model
         'rating_language' => 'integer',
         'rating_sex' => 'integer',
         'rating_violence' => 'integer',
+        'status' => PostStatus::class,
     ];
 
     protected $dispatchesEvents = [
@@ -65,16 +60,5 @@ class Post extends Model
     public function newEloquentBuilder($query): PostBuilder
     {
         return new PostBuilder($query);
-    }
-
-    protected function registerStates(): void
-    {
-        $this->addState('status', PostStatus::class)
-            ->allowTransitions([
-                [Draft::class, Pending::class, DraftToPending::class],
-                [Draft::class, Published::class, DraftToPublished::class],
-                [Pending::class, Published::class, PendingToPublished::class],
-            ])
-            ->default(Draft::class);
     }
 }

@@ -34,6 +34,7 @@
 
         <div
             x-show="open"
+            x-trap.inert.noscroll="open"
             x-description="Modal panel, show/hide based on modal state."
             x-transition:enter="ease-out duration-300"
             x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"

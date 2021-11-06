@@ -9,7 +9,7 @@ use Nova\Characters\Livewire\CharactersDropdown;
 use Nova\Characters\Livewire\SelectCharactersModal;
 use Nova\Characters\Models\Character;
 use Nova\Characters\Policies\CharacterPolicy;
-use Nova\Characters\Spotlight\CreateCharacter;
+use Nova\Characters\Spotlight\AddCharacter;
 use Nova\Characters\Spotlight\EditCharacter;
 use Nova\Characters\Spotlight\ViewCharacter;
 use Nova\DomainServiceProvider;
@@ -42,7 +42,7 @@ class CharacterServiceProvider extends DomainServiceProvider
     public function spotlightCommands(): array
     {
         return [
-            CreateCharacter::class,
+            AddCharacter::class,
             EditCharacter::class,
             ViewCharacter::class,
         ];

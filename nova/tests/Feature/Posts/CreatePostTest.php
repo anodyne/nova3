@@ -49,7 +49,7 @@ class CreatePostTest extends TestCase
 
         Livewire::test(ComposePost::class, [
             'allPostTypes' => $postTypes = PostType::get(),
-            'allStories' => Story::wherePostable()->get(),
+            'allStories' => Story::whereCurrent()->get(),
         ])->set('postType', $postTypes->first())
             ->set('title', 'title')
             ->set('day', 'day')
@@ -76,7 +76,7 @@ class CreatePostTest extends TestCase
 
         Livewire::test(ComposePost::class, [
             'allPostTypes' => $postTypes = PostType::get(),
-            'allStories' => Story::wherePostable()->get(),
+            'allStories' => Story::whereCurrent()->get(),
         ])->set('postType', $postTypes->first())
             ->set('title', 'title')
             ->set('day', 'day')
@@ -104,7 +104,7 @@ class CreatePostTest extends TestCase
 
         Livewire::test(ComposePost::class, [
             'allPostTypes' => $postTypes = PostType::get(),
-            'allStories' => Story::wherePostable()->get(),
+            'allStories' => Story::whereCurrent()->get(),
         ])->set('postType', $postTypes->first())
             ->set('title', 'title')
             ->set('day', 'day')
@@ -127,7 +127,7 @@ class CreatePostTest extends TestCase
     {
         Livewire::test(ComposePost::class, [
             'allPostTypes' => $postTypes = PostType::get(),
-            'allStories' => Story::wherePostable()->get(),
+            'allStories' => Story::whereCurrent()->get(),
         ])->set('postType', $postTypes->first())
             ->set('title', 'title')
             ->set('day', 'day')

@@ -9,11 +9,15 @@ use LivewireUI\Spotlight\Spotlight;
 use LivewireUI\Spotlight\SpotlightCommand;
 use Nova\Departments\Models\Department;
 
-class CreateDepartment extends SpotlightCommand
+class AddDepartment extends SpotlightCommand
 {
-    protected string $name = 'Create Department';
+    protected string $name = 'Add Department';
 
-    protected string $description = 'Create a new department';
+    protected string $description = 'Add a new department';
+
+    protected array $synonyms = [
+        'create department',
+    ];
 
     public function execute(Spotlight $spotlight): void
     {

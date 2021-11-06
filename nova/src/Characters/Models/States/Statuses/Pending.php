@@ -6,6 +6,8 @@ namespace Nova\Characters\Models\States\Statuses;
 
 class Pending extends CharacterStatus
 {
+    public static $name = 'pending';
+
     public function color(): string
     {
         return 'yellow';

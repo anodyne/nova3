@@ -9,11 +9,9 @@ use Spatie\ModelStates\Transition;
 
 class ActiveToInactive extends Transition
 {
-    protected $character;
-
-    public function __construct(Character $character)
-    {
-        $this->character = $character;
+    public function __construct(
+        protected Character $character
+    ) {
     }
 
     public function handle(): Character

@@ -11,11 +11,9 @@ class StoryStatus extends Component
 {
     public $story;
 
-    public function updateStatus($status, $allowPosting = true)
+    public function updateStatus($status)
     {
         $this->dispatchBrowserEvent('dropdown-close');
-
-        $this->story->update(['allow_posting' => $allowPosting]);
 
         UpdateStoryStatus::run($this->story, $status);
 

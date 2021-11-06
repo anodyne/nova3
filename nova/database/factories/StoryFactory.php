@@ -7,6 +7,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Nova\Stories\Models\States\Completed;
 use Nova\Stories\Models\States\Current;
+use Nova\Stories\Models\States\Ongoing;
 use Nova\Stories\Models\States\Upcoming;
 use Nova\Stories\Models\Story;
 
@@ -21,15 +22,7 @@ class StoryFactory extends Factory
             'status' => $this->faker->randomElement([Upcoming::class, Current::class, Completed::class]),
             'description' => $this->faker->sentences($this->faker->numberBetween(1, 5), true),
             'parent_id' => 1,
-            'allow_posting' => true,
         ];
-    }
-
-    public function withoutPosting()
-    {
-        return $this->state([
-            'allow_posting' => false,
-        ]);
     }
 
     public function upcoming()
@@ -50,6 +43,13 @@ class StoryFactory extends Factory
     {
         return $this->state([
             'status' => Completed::class,
+        ]);
+    }
+
+    public function ongoing()
+    {
+        return $this->state([
+            'status' => Ongoing::class,
         ]);
     }
 

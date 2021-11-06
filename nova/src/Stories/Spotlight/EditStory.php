@@ -18,6 +18,11 @@ class EditStory extends SpotlightCommand
 
     protected string $description = 'Edit a story';
 
+    protected array $synonyms = [
+        'update story', 'update mission', 'edit mission', 'update mission group',
+        'edit mission group',
+    ];
+
     public function dependencies(): ?SpotlightCommandDependencies
     {
         return SpotlightCommandDependencies::collection()

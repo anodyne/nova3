@@ -18,10 +18,6 @@ use Nova\Users\DataTransferObjects\PronounsData;
 use Nova\Users\Events;
 use Nova\Users\Models\Builders\UserBuilder;
 use Nova\Users\Models\Collections\UsersCollection;
-use Nova\Users\Models\States\Active;
-use Nova\Users\Models\States\ActiveToInactive;
-use Nova\Users\Models\States\Inactive;
-use Nova\Users\Models\States\Pending;
 use Nova\Users\Models\States\UserStatus;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\HasMedia;
@@ -47,6 +43,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     protected $casts = [
         'force_password_reset' => 'boolean',
         'pronouns' => PronounsData::class,
+        'status' => UserStatus::class,
     ];
 
     protected $dispatchesEvents = [
@@ -200,22 +197,5 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
             ->useFallbackUrl("https://avatars.dicebear.com/api/bottts/{$this->email}.svg")
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif'])
             ->singleFile();
-    }
-
-    /**
-     * Register the states and transitions for the model.
-     *
-     * @return void
-     */
-    protected function registerStates(): void
-    {
-        $this->addState('status', UserStatus::class)
-            ->allowTransitions([
-                [Pending::class, Active::class],
-                [Pending::class, Inactive::class],
-                [Active::class, Inactive::class, ActiveToInactive::class],
-                [Inactive::class, Active::class],
-            ])
-            ->default(Pending::class);
     }
 }

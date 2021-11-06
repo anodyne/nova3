@@ -9,11 +9,9 @@ use Spatie\ModelStates\Transition;
 
 class DraftToPending extends Transition
 {
-    protected $post;
-
-    public function __construct(Post $post)
-    {
-        $this->post = $post;
+    public function __construct(
+        protected Post $post
+    ) {
     }
 
     public function handle(): Post

@@ -18,6 +18,10 @@ class ViewCharacter extends SpotlightCommand
 
     protected string $description = 'View a character bio';
 
+    protected array $synonyms = [
+        'show character',
+    ];
+
     public function dependencies(): ?SpotlightCommandDependencies
     {
         return SpotlightCommandDependencies::collection()

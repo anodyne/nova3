@@ -18,6 +18,10 @@ class EditCharacter extends SpotlightCommand
 
     protected string $description = 'Edit a character bio';
 
+    protected array $synonyms = [
+        'update character',
+    ];
+
     public function dependencies(): ?SpotlightCommandDependencies
     {
         return SpotlightCommandDependencies::collection()

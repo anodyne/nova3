@@ -11,16 +11,16 @@
                         <x-dropdown.item :href="route('stories.index', 'sort=asc')">
                             <div class="flex items-center justify-between w-full">
                                 <span>Sort by newest first</span>
-                                @if (request('sort') === 'asc')
-                                    @icon('check', 'h-5 w-5')
+                                @if (request('sort', 'desc') === 'asc')
+                                    @icon('check', 'h-6 w-6 md:h-5 md:w-5 flex-shrink-0 text-blue-9')
                                 @endif
                             </div>
                         </x-dropdown.item>
                         <x-dropdown.item :href="route('stories.index', 'sort=desc')">
                             <div class="flex items-center justify-between w-full">
                                 <span>Sort by oldest first</span>
-                                @if (request('sort') === 'desc')
-                                    @icon('check', 'h-5 w-5')
+                                @if (request('sort', 'desc') === 'desc')
+                                    @icon('check', 'h-6 w-6 md:h-5 md:w-5 flex-shrink-0 text-blue-9')
                                 @endif
                             </div>
                         </x-dropdown.item>
@@ -46,4 +46,6 @@
     @else
         @livewire('stories:timeline')
     @endif
+
+    <x-tips section="stories" />
 @endsection

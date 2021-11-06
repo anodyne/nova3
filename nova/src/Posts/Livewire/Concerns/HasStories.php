@@ -12,13 +12,13 @@ trait HasStories
 
     public $story;
 
+    public function bootedHasStories()
+    {
+        $this->story = $this->allStories->first();
+    }
+
     public function setStory($value)
     {
         $this->story = Story::find($value);
-    }
-
-    protected function setInitialStory()
-    {
-        $this->story = $this->allStories->first();
     }
 }

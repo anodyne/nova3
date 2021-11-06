@@ -6,6 +6,8 @@ namespace Nova\Stories\Models\States;
 
 class Upcoming extends StoryStatus
 {
+    public static $name = 'upcoming';
+
     public function color(): string
     {
         return 'yellow';

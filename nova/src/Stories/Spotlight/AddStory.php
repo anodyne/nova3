@@ -9,11 +9,16 @@ use LivewireUI\Spotlight\Spotlight;
 use LivewireUI\Spotlight\SpotlightCommand;
 use Nova\Stories\Models\Story;
 
-class CreateStory extends SpotlightCommand
+class AddStory extends SpotlightCommand
 {
-    protected string $name = 'Create Story';
+    protected string $name = 'Add Story';
 
-    protected string $description = 'Create a new story';
+    protected string $description = 'Add a new story';
+
+    protected array $synonyms = [
+        'create story', 'add mission', 'create mission', 'add mission group',
+        'create mission group',
+    ];
 
     public function execute(Spotlight $spotlight): void
     {

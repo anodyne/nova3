@@ -18,6 +18,10 @@ class ViewUser extends SpotlightCommand
 
     protected string $description = 'View a user profile';
 
+    protected array $synonyms = [
+        'show user', 'view user account', 'show user account', 'show user profile',
+    ];
+
     public function dependencies(): ?SpotlightCommandDependencies
     {
         return SpotlightCommandDependencies::collection()

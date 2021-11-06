@@ -9,11 +9,9 @@ use Spatie\ModelStates\Transition;
 
 class CompletedToCurrent extends Transition
 {
-    protected $story;
-
-    public function __construct(Story $story)
-    {
-        $this->story = $story;
+    public function __construct(
+        protected Story $story
+    ) {
     }
 
     public function handle(): Story

@@ -10,11 +10,9 @@ use Spatie\ModelStates\Transition;
 
 class ActiveToInactive extends Transition
 {
-    protected $user;
-
-    public function __construct(User $user)
-    {
-        $this->user = $user;
+    public function __construct(
+        protected User $user
+    ) {
     }
 
     public function handle(): User

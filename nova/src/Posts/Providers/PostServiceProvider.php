@@ -13,7 +13,7 @@ use Nova\Posts\Livewire\SelectStoryModal;
 use Nova\Posts\Livewire\SelectTimeModal;
 use Nova\Posts\Models\Post;
 use Nova\Posts\Policies\PostPolicy;
-use Nova\Posts\Spotlight\WritePost as SpotlightWritePost;
+use Nova\Posts\Spotlight\WritePost;
 
 class PostServiceProvider extends DomainServiceProvider
 {
@@ -39,7 +39,7 @@ class PostServiceProvider extends DomainServiceProvider
     public function spotlightCommands(): array
     {
         return [
-            SpotlightWritePost::class,
+            WritePost::class,
         ];
     }
 }

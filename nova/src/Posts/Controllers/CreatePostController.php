@@ -25,7 +25,7 @@ class CreatePostController extends Controller
 
         return ComposePostResponse::sendWith([
             'postType' => $postType,
-            'stories' => Story::wherePostable()->get(),
+            'stories' => Story::whereCurrent()->get(),
         ]);
     }
 }

@@ -6,6 +6,8 @@ namespace Nova\Users\Models\States;
 
 class Pending extends UserStatus
 {
+    public static $name = 'pending';
+
     public function color(): string
     {
         return 'yellow';

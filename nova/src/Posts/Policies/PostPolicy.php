@@ -29,7 +29,7 @@ class PostPolicy
     public function create(User $user): bool
     {
         return $user->isAbleTo('post.create')
-            && Story::whereCurrent()->wherePostable()->count() > 0;
+            && Story::whereCurrent()->count() > 0;
     }
 
     public function update(User $user, Post $post): bool
@@ -39,7 +39,7 @@ class PostPolicy
 
     public function delete(User $user, Post $post): bool
     {
-        if ($post->status->is(Draft::class)) {
+        if ($post->status->equals(Draft::class)) {
             return true;
         }
 

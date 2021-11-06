@@ -11,8 +11,9 @@ use Nova\Stories\Livewire\StoryStatus;
 use Nova\Stories\Livewire\StoryTimeline;
 use Nova\Stories\Models\Story;
 use Nova\Stories\Policies\StoryPolicy;
-use Nova\Stories\Spotlight\CreateStory;
+use Nova\Stories\Spotlight\AddStory;
 use Nova\Stories\Spotlight\EditStory;
+use Nova\Stories\Spotlight\ViewStories;
 use Nova\Stories\Spotlight\ViewStory;
 
 class StoryServiceProvider extends DomainServiceProvider
@@ -37,8 +38,9 @@ class StoryServiceProvider extends DomainServiceProvider
     public function spotlightCommands(): array
     {
         return [
-            CreateStory::class,
+            AddStory::class,
             EditStory::class,
+            ViewStories::class,
             ViewStory::class,
         ];
     }

@@ -10,16 +10,8 @@ use Kalnoy\Nestedset\NodeTrait;
 use Nova\Posts\Models\Post;
 use Nova\Stories\Events;
 use Nova\Stories\Models\Builders\StoryBuilder;
-use Nova\Stories\Models\States\Completed;
-use Nova\Stories\Models\States\CompletedToCurrent;
-use Nova\Stories\Models\States\CompletedToUpcoming;
 use Nova\Stories\Models\States\Current;
-use Nova\Stories\Models\States\CurrentToCompleted;
-use Nova\Stories\Models\States\CurrentToUpcoming;
 use Nova\Stories\Models\States\StoryStatus;
-use Nova\Stories\Models\States\Upcoming;
-use Nova\Stories\Models\States\UpcomingToCompleted;
-use Nova\Stories\Models\States\UpcomingToCurrent;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\ModelStates\HasStates;
@@ -45,6 +37,7 @@ class Story extends Model implements HasMedia
         'end_date' => 'datetime',
         'parent_id' => 'integer',
         'start_date' => 'datetime',
+        'status' => StoryStatus::class,
     ];
 
     protected $dispatchesEvents = [
@@ -77,7 +70,7 @@ class Story extends Model implements HasMedia
 
     public function getCanPostAttribute(): bool
     {
-        return $this->status->is(Current::class) && $this->allow_posting;
+        return $this->status->equals(Current::class);
     }
 
     public function getPostCountAttribute(): int
@@ -103,7 +96,7 @@ class Story extends Model implements HasMedia
 
     public function getIsCurrentAttribute(): bool
     {
-        return $this->status->is(Current::class);
+        return $this->status->equals(Current::class);
     }
 
     public function newEloquentBuilder($query): StoryBuilder
@@ -116,21 +109,5 @@ class Story extends Model implements HasMedia
         $this->addMediaCollection('story-images')
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif'])
             ->singleFile();
-    }
-
-    protected function registerStates(): void
-    {
-        $this->addState('status', StoryStatus::class)
-            ->allowTransitions([
-                [Upcoming::class, Current::class, UpcomingToCurrent::class],
-                [Upcoming::class, Completed::class, UpcomingToCompleted::class],
-
-                [Current::class, Upcoming::class, CurrentToUpcoming::class],
-                [Current::class, Completed::class, CurrentToCompleted::class],
-
-                [Completed::class, Upcoming::class, CompletedToUpcoming::class],
-                [Completed::class, Current::class, CompletedToCurrent::class],
-            ])
-            ->default(Upcoming::class);
     }
 }

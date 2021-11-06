@@ -9,17 +9,16 @@ use Spatie\ModelStates\Transition;
 
 class UpcomingToCurrent extends Transition
 {
-    protected $story;
-
-    public function __construct(Story $story)
-    {
-        $this->story = $story;
+    public function __construct(
+        protected Story $story
+    ) {
     }
 
     public function handle(): Story
     {
         $this->story->status = Current::class;
         $this->story->start_date = now();
+        $this->story->end_date = null;
         $this->story->save();
 
         return $this->story->refresh();

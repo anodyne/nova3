@@ -18,6 +18,10 @@ class EditDepartment extends SpotlightCommand
 
     protected string $description = 'Edit a department';
 
+    protected array $synonyms = [
+        'update department',
+    ];
+
     public function dependencies(): ?SpotlightCommandDependencies
     {
         return SpotlightCommandDependencies::collection()

@@ -113,7 +113,85 @@
 
 <x-panel>
     <x-content-box>
+        <nav aria-label="Progress">
+            <ol role="list" class="space-y-4 md:flex md:space-y-0 md:space-x-8">
+                <li class="md:flex-1">
+                    <!-- Completed Step -->
+                    <a href="#" class="group pl-4 py-2 flex flex-col border-l-4 border-blue-9 hover:border-blue-10 md:pl-0 md:pt-4 md:pb-0 md:border-l-0 md:border-t-4">
+                        <span class="text-xs text-blue-11 font-semibold tracking-wide uppercase group-hover:text-blue-11">Step 1</span>
+                        <span class="text-sm font-medium">Pick post type</span>
+                    </a>
+                </li>
+
+                <li class="md:flex-1">
+                    <!-- Current Step -->
+                    <a href="#" class="pl-4 py-2 flex flex-col border-l-4 border-blue-9 md:pl-0 md:pt-4 md:pb-0 md:border-l-0 md:border-t-4" aria-current="step">
+                        <span class="text-xs text-blue-11 font-semibold tracking-wide uppercase">Step 2</span>
+                        <span class="text-sm font-medium">Write story post</span>
+                    </a>
+                </li>
+
+                <li class="md:flex-1">
+                    <!-- Upcoming Step -->
+                    <a href="#" class="group pl-4 py-2 flex flex-col border-l-4 border-gray-6 hover:border-gray-7 md:pl-0 md:pt-4 md:pb-0 md:border-l-0 md:border-t-4">
+                        <span class="text-xs text-gray-11 font-semibold tracking-wide uppercase group-hover:text-gray-12">Step 3</span>
+                        <span class="text-sm font-medium">Set content rating</span>
+                    </a>
+                </li>
+
+                <li class="md:flex-1">
+                    <!-- Upcoming Step -->
+                    <a href="#" class="group pl-4 py-2 flex flex-col border-l-4 border-gray-6 hover:border-gray-7 md:pl-0 md:pt-4 md:pb-0 md:border-l-0 md:border-t-4">
+                        <span class="text-xs text-gray-11 font-semibold tracking-wide uppercase group-hover:text-gray-12">Step 4</span>
+                        <span class="text-sm font-medium">Set post position</span>
+                    </a>
+                </li>
+            </ol>
+        </nav>
+    </x-content-box>
+
+    <x-content-box>
         <div class="space-y-8">
+            {{-- <div class="flex items-center w-full justify-between">
+                <div class="font-extrabold tracking-tight text-lg">
+                    Compose story post
+                </div>
+
+                <ol role="list" class="ml-8 flex items-center space-x-5">
+                    <li>
+                        <!-- Completed Step -->
+                        <a href="#" class="block w-2.5 h-2.5 bg-blue-9 rounded-full hover:bg-blue-11">
+                            <span class="sr-only">Step 1</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <!-- Current Step -->
+                        <a href="#" class="relative flex items-center justify-center" aria-current="step">
+                            <span class="absolute w-5 h-5 p-px flex" aria-hidden="true">
+                                <span class="w-full h-full rounded-full bg-blue-3"></span>
+                            </span>
+                            <span class="relative block w-2.5 h-2.5 bg-blue-9 rounded-full" aria-hidden="true"></span>
+                            <span class="sr-only">Step 2</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <!-- Upcoming Step -->
+                        <a href="#" class="block w-2.5 h-2.5 bg-gray-9 rounded-full hover:bg-gray-4">
+                            <span class="sr-only">Step 3</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <!-- Upcoming Step -->
+                        <a href="#" class="block w-2.5 h-2.5 bg-gray-9 rounded-full hover:bg-gray-4">
+                            <span class="sr-only">Step 4</span>
+                        </a>
+                    </li>
+                </ol>
+            </div> --}}
+
             <div class="flex items-center space-between">
                 <input type="text" wire:model="title" class="block w-full flex-1 appearance-none bg-transparent border-none focus:ring-0 text-3xl font-extrabold placeholder-gray-9 tracking-tight p-0.5" placeholder="Add a title">
 

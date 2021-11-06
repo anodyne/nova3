@@ -30,7 +30,7 @@
         "spatie/laravel-data": "^1.0",
         "spatie/laravel-html": "^2.21",
         "spatie/laravel-medialibrary": "^9.0",
-        "spatie/laravel-model-states": "^1.9",
+        "spatie/laravel-model-states": "^2.1",
         "spatie/once": "^2.2",
         "staudenmeir/eloquent-eager-limit": "^1.6",
         "wire-elements/modal": "^1.0",

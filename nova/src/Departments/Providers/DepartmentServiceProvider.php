@@ -10,8 +10,8 @@ use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
 use Nova\Departments\Policies\DepartmentPolicy;
 use Nova\Departments\Policies\PositionPolicy;
-use Nova\Departments\Spotlight\CreateDepartment;
-use Nova\Departments\Spotlight\CreatePosition;
+use Nova\Departments\Spotlight\AddDepartment;
+use Nova\Departments\Spotlight\AddPosition;
 use Nova\Departments\Spotlight\EditDepartment;
 use Nova\Departments\Spotlight\EditPosition;
 use Nova\Departments\Spotlight\ViewDepartment;
@@ -40,8 +40,8 @@ class DepartmentServiceProvider extends DomainServiceProvider
     public function spotlightCommands(): array
     {
         return [
-            CreateDepartment::class,
-            CreatePosition::class,
+            AddDepartment::class,
+            AddPosition::class,
             EditDepartment::class,
             EditPosition::class,
             ViewDepartment::class,

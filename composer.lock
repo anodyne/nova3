@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8b483b4c31237fec5ec4e8b1e3bea5ab",
+    "content-hash": "08a76f2b61e28982800da0e2bed4ebc8",
     "packages": [
         {
             "name": "awssat/discord-notification-channel",
@@ -1416,16 +1416,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v8.68.1",
+            "version": "v8.69.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "abe985ff1fb82dd04aab03bc1dc56e83fe61a59f"
+                "reference": "545181da688db64fed6d8427e55f630a90ca0d32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/abe985ff1fb82dd04aab03bc1dc56e83fe61a59f",
-                "reference": "abe985ff1fb82dd04aab03bc1dc56e83fe61a59f",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/545181da688db64fed6d8427e55f630a90ca0d32",
+                "reference": "545181da688db64fed6d8427e55f630a90ca0d32",
                 "shasum": ""
             },
             "require": {
@@ -1584,7 +1584,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2021-10-27T12:31:46+00:00"
+            "time": "2021-11-02T13:53:22+00:00"
         },
         {
             "name": "laravel/serializable-closure",
@@ -1776,16 +1776,16 @@
         },
         {
             "name": "laravel/ui",
-            "version": "v3.3.0",
+            "version": "v3.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/ui.git",
-                "reference": "07d725813350c695c779382cbd6dac0ab8665537"
+                "reference": "28f3d190fe270b6dcd6fdab4a77a392e693ceca5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/ui/zipball/07d725813350c695c779382cbd6dac0ab8665537",
-                "reference": "07d725813350c695c779382cbd6dac0ab8665537",
+                "url": "https://api.github.com/repos/laravel/ui/zipball/28f3d190fe270b6dcd6fdab4a77a392e693ceca5",
+                "reference": "28f3d190fe270b6dcd6fdab4a77a392e693ceca5",
                 "shasum": ""
             },
             "require": {
@@ -1828,9 +1828,9 @@
                 "ui"
             ],
             "support": {
-                "source": "https://github.com/laravel/ui/tree/v3.3.0"
+                "source": "https://github.com/laravel/ui/tree/v3.3.2"
             },
-            "time": "2021-05-25T16:45:33+00:00"
+            "time": "2021-11-05T08:25:44+00:00"
         },
         {
             "name": "league/commonmark",
@@ -2618,16 +2618,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.53.1",
+            "version": "2.54.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "f4655858a784988f880c1b8c7feabbf02dfdf045"
+                "reference": "eed83939f1aed3eee517d03a33f5ec587ac529b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/f4655858a784988f880c1b8c7feabbf02dfdf045",
-                "reference": "f4655858a784988f880c1b8c7feabbf02dfdf045",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/eed83939f1aed3eee517d03a33f5ec587ac529b5",
+                "reference": "eed83939f1aed3eee517d03a33f5ec587ac529b5",
                 "shasum": ""
             },
             "require": {
@@ -2638,6 +2638,7 @@
                 "symfony/translation": "^3.4 || ^4.0 || ^5.0"
             },
             "require-dev": {
+                "doctrine/dbal": "^2.0 || ^3.0",
                 "doctrine/orm": "^2.7",
                 "friendsofphp/php-cs-fixer": "^3.0",
                 "kylekatarnls/multi-tester": "^2.0",
@@ -2708,7 +2709,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-09-06T09:29:23+00:00"
+            "time": "2021-11-01T21:22:20+00:00"
         },
         {
             "name": "nette/schema",
@@ -2859,16 +2860,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v4.13.0",
+            "version": "v4.13.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "50953a2691a922aa1769461637869a0a2faa3f53"
+                "reference": "63a79e8daa781cac14e5195e63ed8ae231dd10fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/50953a2691a922aa1769461637869a0a2faa3f53",
-                "reference": "50953a2691a922aa1769461637869a0a2faa3f53",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/63a79e8daa781cac14e5195e63ed8ae231dd10fd",
+                "reference": "63a79e8daa781cac14e5195e63ed8ae231dd10fd",
                 "shasum": ""
             },
             "require": {
@@ -2909,9 +2910,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v4.13.0"
+                "source": "https://github.com/nikic/PHP-Parser/tree/v4.13.1"
             },
-            "time": "2021-09-20T12:20:58+00:00"
+            "time": "2021-11-03T20:52:16+00:00"
         },
         {
             "name": "opis/closure",
@@ -3049,20 +3050,20 @@
         },
         {
             "name": "psr/container",
-            "version": "1.1.1",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/container.git",
-                "reference": "8622567409010282b7aeebe4bb841fe98b58dcaf"
+                "reference": "513e0666f7216c7459170d56df27dfcefe1689ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/container/zipball/8622567409010282b7aeebe4bb841fe98b58dcaf",
-                "reference": "8622567409010282b7aeebe4bb841fe98b58dcaf",
+                "url": "https://api.github.com/repos/php-fig/container/zipball/513e0666f7216c7459170d56df27dfcefe1689ea",
+                "reference": "513e0666f7216c7459170d56df27dfcefe1689ea",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.2.0"
+                "php": ">=7.4.0"
             },
             "type": "library",
             "autoload": {
@@ -3091,9 +3092,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-fig/container/issues",
-                "source": "https://github.com/php-fig/container/tree/1.1.1"
+                "source": "https://github.com/php-fig/container/tree/1.1.2"
             },
-            "time": "2021-03-05T17:36:06+00:00"
+            "time": "2021-11-05T16:50:12+00:00"
         },
         {
             "name": "psr/event-dispatcher",
@@ -4136,16 +4137,16 @@
         },
         {
             "name": "spatie/laravel-data",
-            "version": "1.0.2",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-data.git",
-                "reference": "e14ce1793ffaf537504c50bb1e08874026239443"
+                "reference": "fa327125f7f5677d46db3dba02e4da34a9077c00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-data/zipball/e14ce1793ffaf537504c50bb1e08874026239443",
-                "reference": "e14ce1793ffaf537504c50bb1e08874026239443",
+                "url": "https://api.github.com/repos/spatie/laravel-data/zipball/fa327125f7f5677d46db3dba02e4da34a9077c00",
+                "reference": "fa327125f7f5677d46db3dba02e4da34a9077c00",
                 "shasum": ""
             },
             "require": {
@@ -4200,7 +4201,7 @@
                 "spatie"
             ],
             "support": {
-                "source": "https://github.com/spatie/laravel-data/tree/1.0.2"
+                "source": "https://github.com/spatie/laravel-data/tree/1.0.4"
             },
             "funding": [
                 {
@@ -4208,7 +4209,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-11-02T12:54:03+00:00"
+            "time": "2021-11-04T08:26:50+00:00"
         },
         {
             "name": "spatie/laravel-html",
@@ -4396,30 +4397,40 @@
         },
         {
             "name": "spatie/laravel-model-states",
-            "version": "1.9.1",
+            "version": "2.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-model-states.git",
-                "reference": "b2899c0b012b5cc5325f6f017d829ac9b413dc75"
+                "reference": "67f44df50d7807dade464b17202f0509520a6fb4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-model-states/zipball/b2899c0b012b5cc5325f6f017d829ac9b413dc75",
-                "reference": "b2899c0b012b5cc5325f6f017d829ac9b413dc75",
+                "url": "https://api.github.com/repos/spatie/laravel-model-states/zipball/67f44df50d7807dade464b17202f0509520a6fb4",
+                "reference": "67f44df50d7807dade464b17202f0509520a6fb4",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "facade/ignition-contracts": "^1.0",
-                "laravel/framework": "~5.8|^6.0|^7.0|^8.0",
-                "php": "^7.2|^8.0"
+                "illuminate/contracts": "^8.0",
+                "illuminate/database": "^8.0",
+                "illuminate/support": "^8.0",
+                "php": "^7.4|^8.0",
+                "spatie/laravel-package-tools": "^1.1"
             },
             "require-dev": {
-                "orchestra/testbench": "^3.8|^4.0|^5.0|^6.0",
-                "phpunit/phpunit": "^8.2|^9.0",
-                "symfony/var-dumper": "^4.4|^5.0"
+                "orchestra/testbench": "^6.0",
+                "phpunit/phpunit": "^9.3",
+                "symfony/var-dumper": "^5.0"
             },
             "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\ModelStates\\ModelStatesServiceProvider"
+                    ]
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Spatie\\ModelStates\\": "src"
@@ -4444,8 +4455,7 @@
                 "state"
             ],
             "support": {
-                "issues": "https://github.com/spatie/laravel-model-states/issues",
-                "source": "https://github.com/spatie/laravel-model-states/tree/1.9.1"
+                "source": "https://github.com/spatie/laravel-model-states/tree/2.1.2"
             },
             "funding": [
                 {
@@ -4453,7 +4463,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2020-12-01T12:38:11+00:00"
+            "time": "2021-10-08T04:08:10+00:00"
         },
         {
             "name": "spatie/laravel-package-tools",
@@ -7489,16 +7499,16 @@
         },
         {
             "name": "wire-elements/modal",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wire-elements/modal.git",
-                "reference": "dd9beb7875742d9608bc67d61601b9b7e95c0031"
+                "reference": "b3e08a9fbfabd615c6d27a8780b142a2dce47fbb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wire-elements/modal/zipball/dd9beb7875742d9608bc67d61601b9b7e95c0031",
-                "reference": "dd9beb7875742d9608bc67d61601b9b7e95c0031",
+                "url": "https://api.github.com/repos/wire-elements/modal/zipball/b3e08a9fbfabd615c6d27a8780b142a2dce47fbb",
+                "reference": "b3e08a9fbfabd615c6d27a8780b142a2dce47fbb",
                 "shasum": ""
             },
             "require": {
@@ -7541,22 +7551,22 @@
             ],
             "support": {
                 "issues": "https://github.com/wire-elements/modal/issues",
-                "source": "https://github.com/wire-elements/modal/tree/1.0.2"
+                "source": "https://github.com/wire-elements/modal/tree/1.0.3"
             },
-            "time": "2021-10-30T13:48:07+00:00"
+            "time": "2021-11-05T12:45:43+00:00"
         },
         {
             "name": "wire-elements/spotlight",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wire-elements/spotlight.git",
-                "reference": "6c2d8a974e03ec67d01303e386667be8fd3f2a0a"
+                "reference": "99611933571bf88eb21590789f836c8045c2fac3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wire-elements/spotlight/zipball/6c2d8a974e03ec67d01303e386667be8fd3f2a0a",
-                "reference": "6c2d8a974e03ec67d01303e386667be8fd3f2a0a",
+                "url": "https://api.github.com/repos/wire-elements/spotlight/zipball/99611933571bf88eb21590789f836c8045c2fac3",
+                "reference": "99611933571bf88eb21590789f836c8045c2fac3",
                 "shasum": ""
             },
             "require": {
@@ -7609,7 +7619,7 @@
             ],
             "support": {
                 "issues": "https://github.com/wire-elements/spotlight/issues",
-                "source": "https://github.com/wire-elements/spotlight/tree/1.0.1"
+                "source": "https://github.com/wire-elements/spotlight/tree/1.0.2"
             },
             "funding": [
                 {
@@ -7617,22 +7627,22 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-10-30T13:35:51+00:00"
+            "time": "2021-11-06T11:46:09+00:00"
         }
     ],
     "packages-dev": [
         {
             "name": "brianium/paratest",
-            "version": "v6.3.1",
+            "version": "v6.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paratestphp/paratest.git",
-                "reference": "3d81e35876f6497467310b123583cca6bd4c38f2"
+                "reference": "5843dced0fb11c67fa3863e9ad40cfc319c32f33"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paratestphp/paratest/zipball/3d81e35876f6497467310b123583cca6bd4c38f2",
-                "reference": "3d81e35876f6497467310b123583cca6bd4c38f2",
+                "url": "https://api.github.com/repos/paratestphp/paratest/zipball/5843dced0fb11c67fa3863e9ad40cfc319c32f33",
+                "reference": "5843dced0fb11c67fa3863e9ad40cfc319c32f33",
                 "shasum": ""
             },
             "require": {
@@ -7641,28 +7651,28 @@
                 "ext-reflection": "*",
                 "ext-simplexml": "*",
                 "php": "^7.3 || ^8.0",
-                "phpunit/php-code-coverage": "^9.2.6",
+                "phpunit/php-code-coverage": "^9.2.7",
                 "phpunit/php-file-iterator": "^3.0.5",
                 "phpunit/php-timer": "^5.0.3",
-                "phpunit/phpunit": "^9.5.8",
+                "phpunit/phpunit": "^9.5.10",
                 "sebastian/environment": "^5.1.3",
-                "symfony/console": "^4.4.23 || ^5.3.6",
-                "symfony/process": "^4.4.22 || ^5.3.4"
+                "symfony/console": "^4.4.30 || ^5.3.7",
+                "symfony/process": "^4.4.30 || ^5.3.7"
             },
             "require-dev": {
                 "doctrine/coding-standard": "^9.0.0",
-                "ekino/phpstan-banned-code": "^0.4.0",
+                "ekino/phpstan-banned-code": "^0.5.0",
                 "ergebnis/phpstan-rules": "^0.15.3",
                 "ext-posix": "*",
-                "infection/infection": "^0.24",
-                "phpstan/phpstan": "^0.12.94",
+                "infection/infection": "^0.25.3",
+                "phpstan/phpstan": "^0.12.99",
                 "phpstan/phpstan-deprecation-rules": "^0.12.6",
-                "phpstan/phpstan-phpunit": "^0.12.21",
-                "phpstan/phpstan-strict-rules": "^0.12.10",
+                "phpstan/phpstan-phpunit": "^0.12.22",
+                "phpstan/phpstan-strict-rules": "^0.12.11",
                 "squizlabs/php_codesniffer": "^3.6.0",
                 "symfony/filesystem": "^5.3.4",
                 "thecodingmachine/phpstan-strict-rules": "^0.12.1",
-                "vimeo/psalm": "^4.9.2"
+                "vimeo/psalm": "^4.10.0"
             },
             "bin": [
                 "bin/paratest"
@@ -7701,7 +7711,7 @@
             ],
             "support": {
                 "issues": "https://github.com/paratestphp/paratest/issues",
-                "source": "https://github.com/paratestphp/paratest/tree/v6.3.1"
+                "source": "https://github.com/paratestphp/paratest/tree/v6.3.2"
             },
             "funding": [
                 {
@@ -7713,7 +7723,7 @@
                     "type": "paypal"
                 }
             ],
-            "time": "2021-08-10T07:38:58+00:00"
+            "time": "2021-11-03T10:16:06+00:00"
         },
         {
             "name": "composer/ca-bundle",
@@ -9002,16 +9012,16 @@
         },
         {
             "name": "laravel/sail",
-            "version": "v1.12.2",
+            "version": "v1.12.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/sail.git",
-                "reference": "1acae00ddb5c6ec4a2957fe42c0004f13cd17a7a"
+                "reference": "f335277677188b79d12f4caad88577cf76e54dfa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/sail/zipball/1acae00ddb5c6ec4a2957fe42c0004f13cd17a7a",
-                "reference": "1acae00ddb5c6ec4a2957fe42c0004f13cd17a7a",
+                "url": "https://api.github.com/repos/laravel/sail/zipball/f335277677188b79d12f4caad88577cf76e54dfa",
+                "reference": "f335277677188b79d12f4caad88577cf76e54dfa",
                 "shasum": ""
             },
             "require": {
@@ -9058,7 +9068,7 @@
                 "issues": "https://github.com/laravel/sail/issues",
                 "source": "https://github.com/laravel/sail"
             },
-            "time": "2021-10-26T21:37:54+00:00"
+            "time": "2021-11-05T13:35:24+00:00"
         },
         {
             "name": "league/container",

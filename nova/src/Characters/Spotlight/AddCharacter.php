@@ -9,11 +9,15 @@ use LivewireUI\Spotlight\Spotlight;
 use LivewireUI\Spotlight\SpotlightCommand;
 use Nova\Characters\Models\Character;
 
-class CreateCharacter extends SpotlightCommand
+class AddCharacter extends SpotlightCommand
 {
-    protected string $name = 'Create Character';
+    protected string $name = 'Add Character';
 
-    protected string $description = 'Create a new character';
+    protected string $description = 'Add a new character';
+
+    protected array $synonyms = [
+        'create character',
+    ];
 
     public function execute(Spotlight $spotlight): void
     {

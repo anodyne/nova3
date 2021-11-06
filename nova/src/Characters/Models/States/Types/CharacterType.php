@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Characters\Models\States\Types;
 
 use Spatie\ModelStates\State;
+use Spatie\ModelStates\StateConfig;
 
 abstract class CharacterType extends State
 {
@@ -15,5 +16,21 @@ abstract class CharacterType extends State
     public function displayName(): string
     {
         return ucfirst($this->name());
+    }
+
+    public static function config(): StateConfig
+    {
+        return parent::config()
+            ->default(Support::class)
+            ->allowTransitions([
+                [Primary::class, Support::class],
+                [Primary::class, Secondary::class],
+
+                [Support::class, Secondary::class],
+                [Support::class, Primary::class],
+
+                [Secondary::class, Support::class],
+                [Secondary::class, Primary::class],
+            ]);
     }
 }

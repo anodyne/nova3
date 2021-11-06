@@ -19,6 +19,10 @@ class ViewPosition extends SpotlightCommand
 
     protected string $description = 'View a position';
 
+    protected array $synonyms = [
+        'show position',
+    ];
+
     public function dependencies(): ?SpotlightCommandDependencies
     {
         return SpotlightCommandDependencies::collection()

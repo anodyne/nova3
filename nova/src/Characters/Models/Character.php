@@ -9,15 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Nova\Characters\Events;
 use Nova\Characters\Models\Builders\CharacterBuilder;
-use Nova\Characters\Models\States\Statuses\Active;
-use Nova\Characters\Models\States\Statuses\ActiveToInactive;
 use Nova\Characters\Models\States\Statuses\CharacterStatus;
-use Nova\Characters\Models\States\Statuses\Inactive;
-use Nova\Characters\Models\States\Statuses\Pending;
 use Nova\Characters\Models\States\Types\CharacterType;
-use Nova\Characters\Models\States\Types\Primary;
-use Nova\Characters\Models\States\Types\Secondary;
-use Nova\Characters\Models\States\Types\Support;
 use Nova\Departments\Models\Position;
 use Nova\Ranks\Models\RankItem;
 use Nova\Stories\Models\Post;
@@ -41,6 +34,11 @@ class Character extends Model implements HasMedia
     public const MEDIA_DIRECTORY = 'characters/{model_id}/{media_id}/';
 
     protected static $logFillable = true;
+
+    protected $casts = [
+        'status' => CharacterStatus::class,
+        'type' => CharacterType::class,
+    ];
 
     protected $dispatchesEvents = [
         'created' => Events\CharacterCreated::class,
@@ -115,30 +113,5 @@ class Character extends Model implements HasMedia
             ->useFallbackUrl("https://avatars.dicebear.com/api/bottts/{str_replace(' ', '', {$this->name})}.svg")
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif'])
             ->singleFile();
-    }
-
-    protected function registerStates(): void
-    {
-        $this->addState('status', CharacterStatus::class)
-            ->allowTransitions([
-                [Pending::class, Active::class],
-                [Pending::class, Inactive::class],
-                [Active::class, Inactive::class, ActiveToInactive::class],
-                [Inactive::class, Active::class],
-            ])
-            ->default(Pending::class);
-
-        $this->addState('type', CharacterType::class)
-            ->allowTransitions([
-                [Primary::class, Support::class],
-                [Primary::class, Secondary::class],
-
-                [Support::class, Secondary::class],
-                [Support::class, Primary::class],
-
-                [Secondary::class, Support::class],
-                [Secondary::class, Primary::class],
-            ])
-            ->default(Support::class);
     }
 }

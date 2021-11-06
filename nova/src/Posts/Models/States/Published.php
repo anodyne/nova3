@@ -6,6 +6,8 @@ namespace Nova\Posts\Models\States;
 
 class Published extends PostStatus
 {
+    public static $name = 'published';
+
     public function color(): string
     {
         return 'blue';

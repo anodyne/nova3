@@ -1,7 +1,44 @@
 <div class="block bg-gray-3">
     <div class="flex items-center relative px-4 py-4 sm:px-6">
         <div class="absolute top-0 right-0 pt-4 pr-4 sm:pr-6">
-            <x-icon.more class="h-6 w-6 text-gray-9" />
+            <x-dropdown placement="bottom-end">
+                <x-slot name="trigger">
+                    <x-icon.more class="h-6 w-6" />
+                </x-slot>
+
+                <x-dropdown.group>
+                    <x-dropdown.item icon="show" data-cy="view">
+                        <span>View</span>
+                    </x-dropdown.item>
+
+                    @can('update', $post)
+                        <x-dropdown.item icon="edit" data-cy="edit">
+                            <span>Edit</span>
+                        </x-dropdown.item>
+                    @endcan
+                </x-dropdown.group>
+
+                <x-dropdown.group>
+                    <x-dropdown.text class="uppercase tracking-wide font-semibold text-gray-9">
+                        Add a post
+                    </x-dropdown.text>
+
+                    <x-dropdown.item :href='route("posts.create", "direction=before&neighbor={$post->id}")' icon="move-up">
+                        <span>Before this post</span>
+                    </x-dropdown.item>
+                    <x-dropdown.item :href='route("posts.create", "direction=after&neighbor={$post->id}")' icon="move-down">
+                        <span>After this post</span>
+                    </x-dropdown.item>
+                </x-dropdown.group>
+
+                @can('delete', $post)
+                    <x-dropdown.group>
+                        <x-dropdown.item-danger type="button" icon="delete" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($post) }});" data-cy="delete">
+                            <span>Delete</span>
+                        </x-dropdown.item-danger>
+                    </x-dropdown.group>
+                @endcan
+            </x-dropdown>
         </div>
 
         <div class="flex flex-col items-center flex-1">

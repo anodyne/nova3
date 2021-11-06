@@ -1,5 +1,7 @@
 import Alpine from 'alpinejs';
 
+import Trap from '@alpinejs/trap';
+
 import ListBox from './components/list-box';
 import Modal from './components/modal';
 import Ratings from './components/ratings';
@@ -8,6 +10,8 @@ import TabsList from './components/tabs-list';
 import TipTap from './components/tiptap';
 import ToggleSwitch from './components/toggle-switch';
 import WordCount from './components/word-count';
+
+Alpine.plugin(Trap);
 
 Alpine.data('listBox', ListBox);
 Alpine.data('modal', Modal);

@@ -2,7 +2,7 @@
     @if ($selectedStory)
         <x-content-box height="sm" class="sticky top-0 z-30 bg-gray-2 backdrop-filter backdrop-blur bg-opacity-50 border-t border-b border-gray-6 sm:rounded-t-lg sm:border-t-0">
             <div class="flex md:hidden items-center justify-between">
-                <div class="font-bold tracking-tight text-gray-12 flex-1 truncate">{{ $selectedStory->title }}</div>
+                <div class="text-xl sm:text-lg font-bold tracking-tight text-gray-12 flex-1 truncate">{{ $selectedStory->title }}</div>
 
                 <div class="flex items-center space-x-4">
                     @can('update', $selectedStory)
@@ -30,11 +30,13 @@
                             @endcan
                         </x-dropdown.group>
 
-                        <x-dropdown.group>
-                            <x-dropdown.item icon="list">
-                                <span>Posts</span>
-                            </x-dropdown.item>
-                        </x-dropdown.group>
+                        @can('view', $selectedStory)
+                            <x-dropdown.group>
+                                <x-dropdown.item icon="list">
+                                    <span>Posts</span>
+                                </x-dropdown.item>
+                            </x-dropdown.group>
+                        @endcan
 
                         @can('create', $selectedStory)
                             <x-dropdown.group>
@@ -42,13 +44,13 @@
                                     Add a story
                                 </x-dropdown.text>
                                 <x-dropdown.item :href='route("stories.create", "direction=before&neighbor={$selectedStory->id}")' icon="move-up">
-                                    <span>Before {{ $selectedStory->title }}</span>
+                                    <span>Before this story</span>
                                 </x-dropdown.item>
                                 <x-dropdown.item :href='route("stories.create", "direction=after&neighbor={$selectedStory->id}")' icon="move-down">
-                                    <span>After {{ $selectedStory->title }}</span>
+                                    <span>After this story</span>
                                 </x-dropdown.item>
                                 <x-dropdown.item :href='route("stories.create", "parent={$selectedStory->id}")' icon="move-right">
-                                    <span>Inside {{ $selectedStory->title }}</span>
+                                    <span>Inside this story</span>
                                 </x-dropdown.item>
                             </x-dropdown.group>
                         @endcan
@@ -96,7 +98,7 @@
                 @endcan
 
                 @can('create', $selectedStory)
-                    <x-dropdown wide>
+                    <x-dropdown>
                         <x-slot name="trigger">
                             @icon('add', 'h-5 w-5 flex-shrink-0')
                             <span>Add story</span>
@@ -105,13 +107,13 @@
 
                         <x-dropdown.group>
                             <x-dropdown.item :href='route("stories.create", "direction=before&neighbor={$selectedStory->id}")' icon="move-up">
-                                <span>Before {{ $selectedStory->title }}</span>
+                                <span>Before this story</span>
                             </x-dropdown.item>
                             <x-dropdown.item :href='route("stories.create", "direction=after&neighbor={$selectedStory->id}")' icon="move-down">
-                                <span>After {{ $selectedStory->title }}</span>
+                                <span>After this story</span>
                             </x-dropdown.item>
                             <x-dropdown.item :href='route("stories.create", "parent={$selectedStory->id}")' icon="move-right">
-                                <span>Inside {{ $selectedStory->title }}</span>
+                                <span>Inside this story</span>
                             </x-dropdown.item>
                         </x-dropdown.group>
                     </x-dropdown>
