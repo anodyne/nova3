@@ -33,6 +33,7 @@ use Nova\Foundation\View\Components\Button;
 use Nova\Foundation\View\Components\ContentBox;
 use Nova\Foundation\View\Components\Dropdown;
 use Nova\Foundation\View\Components\Link;
+use Nova\Foundation\View\Components\Panel;
 use Nova\Foundation\View\Components\Tips;
 
 class AppServiceProvider extends ServiceProvider
@@ -90,6 +91,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('content-box', ContentBox::class);
         Blade::component('link', Link::class);
         Blade::component('dropdown', Dropdown::class);
+        Blade::component('panel', Panel::class);
         Blade::component('tips', Tips::class);
     }
 

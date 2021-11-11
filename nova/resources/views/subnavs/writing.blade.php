@@ -7,13 +7,13 @@
 
     @can('create', Nova\Posts\Models\Post::class)
         <x-nav.sub-group>
-            <x-nav.sub-item :href="route('posts.create')" :active="request()->routeIs('posts.*')">Write a Story Post</x-nav.sub-item>
+            <x-nav.sub-item :href="route('posts.create')" :active="request()->is('posts/*')">Write a Story Post</x-nav.sub-item>
         </x-nav.sub-group>
     @endcan
 
     <x-nav.sub-group>
         @can('viewAny', Nova\Stories\Models\Story::class)
-            <x-nav.sub-item :href="route('stories.index')" :active="request()->routeIs('stories.*')">Stories</x-nav.sub-item>
+            <x-nav.sub-item :href="route('stories.index')" :active="request()->is('stories*')">Stories</x-nav.sub-item>
         @endcan
 
         @can('viewAny', Nova\PostTypes\Models\PostType::class)

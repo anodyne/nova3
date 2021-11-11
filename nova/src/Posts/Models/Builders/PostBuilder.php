@@ -15,6 +15,16 @@ class PostBuilder extends QueryBuilder
     use Filterable;
     use Sortable;
 
+    public function searchFor($search): self
+    {
+        return $this->where(function ($query) use ($search) {
+            return $query->where('title', 'like', "%{$search}%")
+                ->orWhere('location', 'like', "%{$search}%")
+                ->orWhere('day', 'like', "%{$search}%")
+                ->orWhere('time', 'like', "%{$search}%");
+        });
+    }
+
     public function whereNotPost(Post $post): self
     {
         return $this->where('id', '!=', $post->id);

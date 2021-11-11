@@ -36,6 +36,7 @@ class StoryFactory extends Factory
     {
         return $this->state([
             'status' => Current::class,
+            'start_date' => now()->subMonths(mt_rand(1, 6)),
         ]);
     }
 
@@ -43,6 +44,8 @@ class StoryFactory extends Factory
     {
         return $this->state([
             'status' => Completed::class,
+            'start_date' => now()->subMonths(mt_rand(1, 6)),
+            'end_date' => now(),
         ]);
     }
 
@@ -50,6 +53,7 @@ class StoryFactory extends Factory
     {
         return $this->state([
             'status' => Ongoing::class,
+            'start_date' => now()->subMonths(mt_rand(1, 6)),
         ]);
     }
 

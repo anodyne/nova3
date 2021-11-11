@@ -61,4 +61,11 @@ class Post extends Model
     {
         return new PostBuilder($query);
     }
+
+    public function shouldShowContentWarning(): bool
+    {
+        return $this->rating_language >= 2
+            || $this->rating_sex >= 2
+            || $this->rating_violence >= 2;
+    }
 }

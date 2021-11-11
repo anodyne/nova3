@@ -46,6 +46,7 @@ class ShowStoryController extends Controller
             'posts' => $posts,
             'search' => $request->search,
             'story' => $story->loadCount('posts'),
+            'ancestors' => $story->ancestors->splice(1),
         ]);
     }
 }

@@ -186,12 +186,20 @@
         <main class="max-w-7xl mx-auto py-8 lg:py-12 lg:px-8 focus:outline-none" tabindex="0">
             <div class="lg:grid lg:grid-cols-12 lg:gap-x-5">
                 @if ($meta->subnav)
-                    <aside class="pb-8 px-4 sm:px-6 lg:py-0 lg:px-0 lg:col-span-2">
+                    <aside class="pb-8 px-4 sm:px-6 lg:py-0 lg:px-0 lg:col-span-3 xl:col-span-2">
                         @include($meta->subnav)
+
+                        {{-- <div>
+                            <div class="sm:hidden">xs</div>
+                            <div class="hidden sm:block md:hidden">sm</div>
+                            <div class="hidden md:block lg:hidden">md</div>
+                            <div class="hidden lg:block xl:hidden">lg</div>
+                            <div class="hidden xl:block">xl</div>
+                        </div> --}}
                     </aside>
                 @endif
 
-                <div class="space-y-6 sm:px-6 lg:px-0 {{ $meta->subnav ? 'lg:col-span-10' : 'lg:col-span-12' }}">
+                <div class="space-y-6 sm:px-6 lg:px-0 {{ $meta->subnav ? 'lg:col-span-9 xl:col-span-10' : 'lg:col-span-12' }}">
                     @yield('template')
                 </div>
             </div>

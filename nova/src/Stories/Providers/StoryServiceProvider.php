@@ -6,6 +6,7 @@ namespace Nova\Stories\Providers;
 
 use Nova\DomainServiceProvider;
 use Nova\Stories\Livewire\DeleteStories;
+use Nova\Stories\Livewire\PostsList;
 use Nova\Stories\Livewire\StoryHierarchy;
 use Nova\Stories\Livewire\StoryStatus;
 use Nova\Stories\Livewire\StoryTimeline;
@@ -23,6 +24,7 @@ class StoryServiceProvider extends DomainServiceProvider
         return [
             'stories:delete-story' => DeleteStories::class,
             'stories:hierarchy' => StoryHierarchy::class,
+            'stories:posts-list' => PostsList::class,
             'stories:status' => StoryStatus::class,
             'stories:timeline' => StoryTimeline::class,
         ];

@@ -8,7 +8,7 @@ use Nova\Foundation\Responses\Responsable;
 
 class ComposePostResponse extends Responsable
 {
-    public ?string $subnav = 'writing';
+    public ?string $subnav = 'posting';
 
     public string $view = 'posts.compose';
 }

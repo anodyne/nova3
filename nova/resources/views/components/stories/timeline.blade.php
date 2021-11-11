@@ -56,11 +56,11 @@
                     </span>
 
                     @if ($story->post_count > 0)
-                        <span class="font-medium">{{ $story->post_count }} @choice('post|posts', $story->post_count)</span>
+                        <span class="font-medium">{{ number_format($story->post_count) }} @choice('post|posts', $story->post_count)</span>
                     @endif
 
                     @if ($story->getDescendantCount() > 0)
-                        <span class="font-medium">{{ $story->all_stories_post_count }} posts in all stories</span>
+                        <span class="font-medium">{{ number_format($story->all_stories_post_count) }} posts in all stories</span>
                     @endif
 
                     @canany(['view', 'create', 'update', 'delete'], $story)

@@ -20,6 +20,7 @@ class Button extends Component
     public function styles(): string
     {
         return Arr::toCssClasses([
+            'group',
             'inline-flex items-center text-center justify-center border rounded-md space-x-1.5',
             'transition ease-in-out duration-200',
             'focus:outline-none',

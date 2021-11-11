@@ -1,7 +1,7 @@
 @extends($meta->template)
 
 @section('content')
-    <x-page-header>
+    {{-- <x-page-header>
         <x-slot name="pretitle">
             <div class="flex items-center space-x-1">
                 <x-icon.chevron-left class="h-4 w-4 text-gray-9" />
@@ -10,7 +10,7 @@
         </x-slot>
 
         Write a {{ $postType->name }}
-    </x-page-header>
+    </x-page-header> --}}
 
     @livewire('posts:compose', [
         'postType' => $postType,
