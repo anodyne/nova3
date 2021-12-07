@@ -4,8 +4,8 @@
     "scripts": {
         "css:build-dev": "cross-env ENV_BUILD=dev postcss nova/resources/css/*.css --base nova/resources --dir dist --verbose",
         "css:build-prod": "cross-env ENV_BUILD=prod postcss nova/resources/css/*.css --base nova/resources --dir dist --verbose",
-        "js:build-dev": "esbuild nova/resources/js/app.js --bundle --minify --sourcemap=inline --target=es2016 --outfile=dist/js/app.js",
-        "js:build-prod": "esbuild nova/resources/js/app.js --bundle --minify --target=es2016 --outfile=dist/js/app.js",
+        "js:build-dev": "esbuild nova/resources/js/app.js --bundle --minify --sourcemap=inline --outfile=dist/js/app.js",
+        "js:build-prod": "esbuild nova/resources/js/app.js --bundle --minify --outfile=dist/js/app.js",
         "dev": "concurrently \"npm run js:build-dev\" \"npm run css:build-dev\"",
         "prod": "concurrently \"npm run js:build-prod\" \"npm run css:build-prod\""
     },
