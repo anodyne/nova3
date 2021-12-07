@@ -16,7 +16,7 @@
     @novaScripts
 </head>
 <body class="font-sans bg-gray-3 text-gray-12 antialiased {{ auth()->user()?->appearance ?? 'light' }}">
-    <div id="app">
+    <div id="nova">
         @yield('layout')
 
         <x-toasts />
