@@ -21,6 +21,7 @@
     >
         <div
             x-show="isOpen"
+            @click="isOpen = false"
             x-transition:enter="ease-out duration-200"
             x-transition:enter-start="opacity-0"
             x-transition:enter-end="opacity-100"
@@ -33,7 +34,6 @@
         </div>
 
         <div
-            @click.outside="isOpen = false"
             x-show="isOpen"
             x-transition:enter="ease-out duration-200"
             x-transition:enter-start="opacity-0 scale-95"
