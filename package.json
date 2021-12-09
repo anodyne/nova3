@@ -17,7 +17,6 @@
         "@tiptap/extension-underline": "^2.0.0-beta.16",
         "@tiptap/starter-kit": "^2.0.0-alpha.5",
         "alpinejs": "^3.2.1",
-        "autoprefixer": "^10.0.4",
         "axios": "^0.21",
         "countable": "^3.0.1",
         "cross-env": "^5.1",
@@ -25,16 +24,17 @@
         "hex-to-rgba": "^2.0.1",
         "lodash": "^4.17",
         "numeral": "^2.0.6",
-        "postcss": "^8.1.14",
         "postcss-import": "^13.0.0",
-        "postcss-nested": "^5.0.2",
         "pretty": "^2.0.0",
         "resolve-url-loader": "^4.0.0",
-        "sortablejs": "^1.12.0",
-        "tailwind-safelist-generator": "^0.1.2",
-        "tailwindcss-interaction-variants": "^5.0.0"
+        "sortablejs": "^1.12.0"
     },
     "devDependencies": {
+        "@tailwindcss/aspect-ratio": "^0.4.0",
+        "@tailwindcss/forms": "^0.4.0",
+        "@tailwindcss/line-clamp": "^0.3.0",
+        "@tailwindcss/typography": "^0.5.0",
+        "autoprefixer": "^10.4.0",
         "concurrently": "^6.3.0",
         "cssnano": "^5.0.8",
         "cypress": "^6.1.0",
@@ -43,6 +43,8 @@
         "eslint-config-airbnb-base": "^14.2.0",
         "eslint-import-resolver-webpack": "^0.13.1",
         "eslint-plugin-import": "^2.23.1",
-        "postcss-cli": "^9.0.1"
+        "postcss": "^8.4.4",
+        "postcss-cli": "^9.0.1",
+        "tailwindcss": "^3.0.0"
     }
 }
