@@ -41,7 +41,7 @@
             x-transition:leave="ease-in duration-150"
             x-transition:leave-start="opacity-100 scale-100"
             x-transition:leave-end="opacity-0 scale-95"
-            class="relative transform transition-all max-w-lg w-full"
+            class="relative transition-all max-w-lg w-full"
         >
             <div class="bg-white rounded-lg overflow-hidden shadow-xl">
                 <div class="relative">
@@ -87,7 +87,7 @@
                 </div>
             </div>
 
-            <div class="mt-8 bg-white bg-opacity-10 backdrop-filter backdrop-blur rounded-lg overflow-hidden">
+            <div class="mt-8 bg-white bg-opacity-10 backdrop-blur rounded-lg overflow-hidden">
                 <ul class="text-white font-medium">
                     <li class="block w-full px-6 py-3 text-left">
                         Type <code>POST</code> to search for a specific post

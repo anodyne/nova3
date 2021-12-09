@@ -84,7 +84,7 @@
                                     <div>
                                         @if ($user->updated_at !== null)
                                             <div class="flex items-center text-sm text-gray-11">
-                                                @icon('clock', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-9')
+                                                @icon('clock', 'shrink-0 mr-1.5 h-5 w-5 text-gray-9')
                                                 Last activity&nbsp;
                                                 <time datetime="{{ $user->updated_at }}">
                                                     {{ $user->updated_at?->diffForHumans() }}
@@ -93,7 +93,7 @@
                                         @endif
                                         @if ($user->latestLogin !== null)
                                             <div class="mt-2 flex items-center text-sm text-gray-11">
-                                                @icon('sign-in', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-9')
+                                                @icon('sign-in', 'shrink-0 mr-1.5 h-5 w-5 text-gray-9')
                                                 Last signed in&nbsp;
                                                 <time datetime="{{ $user->latestLogin->created_at }}">
                                                     {{ $user->latestLogin->created_at?->diffForHumans() }}

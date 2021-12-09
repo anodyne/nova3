@@ -21,17 +21,13 @@ const createColorScale = (color) => ({
 
 module.exports = {
     mode: 'jit',
-
-    purge: [
+    content: [
         './nova/resources/**/*.{js,ts,blade.php,css}',
         './nova/foundation/View/Components/*.php',
         './nova/vendor/livewire-ui/modal/resources/views/*.blade.php',
         './storage/framework/views/*.php',
         './safelist.txt',
     ],
-
-    darkMode: false, // or 'media' or 'class'
-
     theme: {
         colors: {
             transparent: 'transparent',
@@ -102,9 +98,6 @@ module.exports = {
             }),
         },
     },
-
-    variants: {},
-
     plugins: [
         /* eslint-disable */
         require('@tailwindcss/forms'),

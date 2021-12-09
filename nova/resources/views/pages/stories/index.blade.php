@@ -12,7 +12,7 @@
                             <div class="flex items-center justify-between w-full">
                                 <span>Sort by newest first</span>
                                 @if (request('sort', 'desc') === 'asc')
-                                    @icon('check', 'h-6 w-6 md:h-5 md:w-5 flex-shrink-0 text-blue-9')
+                                    @icon('check', 'h-6 w-6 md:h-5 md:w-5 shrink-0 text-blue-9')
                                 @endif
                             </div>
                         </x-dropdown.item>
@@ -20,7 +20,7 @@
                             <div class="flex items-center justify-between w-full">
                                 <span>Sort by oldest first</span>
                                 @if (request('sort', 'desc') === 'desc')
-                                    @icon('check', 'h-6 w-6 md:h-5 md:w-5 flex-shrink-0 text-blue-9')
+                                    @icon('check', 'h-6 w-6 md:h-5 md:w-5 shrink-0 text-blue-9')
                                 @endif
                             </div>
                         </x-dropdown.item>

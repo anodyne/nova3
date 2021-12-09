@@ -47,7 +47,7 @@
                         @endisset
                         {{ $character->name }}
                     </h3>
-                    <dl class="mt-1 flex-grow flex flex-col justify-between">
+                    <dl class="mt-1 grow flex flex-col justify-between">
                         <dt class="sr-only">Title</dt>
                         <dd class="text-gray-500 text-sm">{{ $character->positions->implode('name', ' & ') }}</dd>
 
@@ -175,7 +175,7 @@
                         </span>
                     @empty
                         <div class="flex items-center font-semibold text-yellow-11">
-                            @icon('warning', 'mr-3 flex-shrink-0 h-6 w-6')
+                            @icon('warning', 'mr-3 shrink-0 h-6 w-6')
                             <span>This user does not have any roles.</span>
                         </div>
                     @endforelse

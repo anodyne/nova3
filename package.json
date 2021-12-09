@@ -11,9 +11,6 @@
     },
     "dependencies": {
         "@alpinejs/trap": "^3.5.0",
-        "@tailwindcss/aspect-ratio": "^0.2.0",
-        "@tailwindcss/forms": "^0.2.1",
-        "@tailwindcss/typography": "^0.3.1",
         "@tiptap/core": "^2.0.0-alpha.7",
         "@tiptap/extension-link": "^2.0.0-beta.23",
         "@tiptap/extension-text-align": "^2.0.0-beta.23",
@@ -35,7 +32,6 @@
         "resolve-url-loader": "^4.0.0",
         "sortablejs": "^1.12.0",
         "tailwind-safelist-generator": "^0.1.2",
-        "tailwindcss": "^2.0.1",
         "tailwindcss-interaction-variants": "^5.0.0"
     },
     "devDependencies": {

@@ -1,6 +1,6 @@
 <x-panel>
     @if ($selectedStory)
-        <x-content-box height="sm" class="sticky top-0 z-30 bg-gray-2 backdrop-filter backdrop-blur bg-opacity-50 border-t border-b border-gray-6 sm:rounded-t-lg sm:border-t-0">
+        <x-content-box height="sm" class="sticky top-0 z-30 bg-gray-2 backdrop-blur bg-opacity-50 border-t border-b border-gray-6 sm:rounded-t-lg sm:border-t-0">
             <div class="flex md:hidden items-center justify-between">
                 <div class="text-xl sm:text-lg font-bold tracking-tight text-gray-12 flex-1 truncate">{{ $selectedStory->title }}</div>
 
@@ -100,9 +100,9 @@
                 @can('create', $selectedStory)
                     <x-dropdown>
                         <x-slot name="trigger">
-                            @icon('add', 'h-5 w-5 flex-shrink-0')
+                            @icon('add', 'h-5 w-5 shrink-0')
                             <span>Add story</span>
-                            <x-icon.chevron-down class="h-4 w-4 flex-shrink-0" />
+                            <x-icon.chevron-down class="h-4 w-4 shrink-0" />
                         </x-slot>
 
                         <x-dropdown.group>

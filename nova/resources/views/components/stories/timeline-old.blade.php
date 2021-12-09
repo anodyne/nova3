@@ -7,7 +7,7 @@
     @foreach ($stories as $story)
         <li class="relative">
             <div class="flex">
-                <div class="absolute flex-shrink-0 bg-gray-6 rounded-full h-6 w-6 -mt-2" style="left:14px"></div>
+                <div class="absolute shrink-0 bg-gray-6 rounded-full h-6 w-6 -mt-2" style="left:14px"></div>
 
                 <div class="w-full">
                     <x-panel>

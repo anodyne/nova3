@@ -80,7 +80,7 @@
 
                         <x-table.cell class="pr-0 leading-0">
                             <span style="color:{{ $post->type->color }}">
-                                @icon($post->type->icon, 'h-5 w-5 flex-shrink-0')
+                                @icon($post->type->icon, 'h-5 w-5 shrink-0')
                             </span>
                         </x-table.cell>
                         <x-table.cell>{{ $post->title }}</x-table.cell>

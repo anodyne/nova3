@@ -48,72 +48,72 @@
                 <div class="font-medium space-y-6">
                     @if ($postType->fields->title)
                         <div class="flex items-center space-x-2 text-green-11">
-                            @icon('check', 'h-6 w-6 flex-shrink-0 text-green-9')
+                            @icon('check', 'h-6 w-6 shrink-0 text-green-9')
                             <span>Title field</span>
                         </div>
                     @else
                         <div class="flex items-center space-x-2 text-red-11">
-                            @icon('close', 'h-6 w-6 flex-shrink-0 text-red-9')
+                            @icon('close', 'h-6 w-6 shrink-0 text-red-9')
                             <span>Title field</span>
                         </div>
                     @endif
 
                     @if ($postType->fields->day)
                         <div class="flex items-center space-x-2 text-green-11">
-                            @icon('check', 'h-6 w-6 flex-shrink-0 text-green-9')
+                            @icon('check', 'h-6 w-6 shrink-0 text-green-9')
                             <span>Day field</span>
                         </div>
                     @else
                         <div class="flex items-center space-x-2 text-red-11">
-                            @icon('close', 'h-6 w-6 flex-shrink-0 text-red-9')
+                            @icon('close', 'h-6 w-6 shrink-0 text-red-9')
                             <span>Day field</span>
                         </div>
                     @endif
 
                     @if ($postType->fields->time)
                         <div class="flex items-center space-x-2 text-green-11">
-                            @icon('check', 'h-6 w-6 flex-shrink-0 text-green-9')
+                            @icon('check', 'h-6 w-6 shrink-0 text-green-9')
                             <span>Time field</span>
                         </div>
                     @else
                         <div class="flex items-center space-x-2 text-red-11">
-                            @icon('close', 'h-6 w-6 flex-shrink-0 text-red-9')
+                            @icon('close', 'h-6 w-6 shrink-0 text-red-9')
                             <span>Time field</span>
                         </div>
                     @endif
 
                     @if ($postType->fields->location)
                         <div class="flex items-center space-x-2 text-green-11">
-                            @icon('check', 'h-6 w-6 flex-shrink-0 text-green-9')
+                            @icon('check', 'h-6 w-6 shrink-0 text-green-9')
                             <span>Location field</span>
                         </div>
                     @else
                         <div class="flex items-center space-x-2 text-red-11">
-                            @icon('close', 'h-6 w-6 flex-shrink-0 text-red-9')
+                            @icon('close', 'h-6 w-6 shrink-0 text-red-9')
                             <span>Location field</span>
                         </div>
                     @endif
 
                     @if ($postType->fields->content)
                         <div class="flex items-center space-x-2 text-green-11">
-                            @icon('check', 'h-6 w-6 flex-shrink-0 text-green-9')
+                            @icon('check', 'h-6 w-6 shrink-0 text-green-9')
                             <span>Content field</span>
                         </div>
                     @else
                         <div class="flex items-center space-x-2 text-red-11">
-                            @icon('close', 'h-6 w-6 flex-shrink-0 text-red-9')
+                            @icon('close', 'h-6 w-6 shrink-0 text-red-9')
                             <span>Content field</span>
                         </div>
                     @endif
 
                     @if ($postType->fields->rating)
                         <div class="flex items-center space-x-2 text-green-11">
-                            @icon('check', 'h-6 w-6 flex-shrink-0 text-green-9')
+                            @icon('check', 'h-6 w-6 shrink-0 text-green-9')
                             <span>Rating field</span>
                         </div>
                     @else
                         <div class="flex items-center space-x-2 text-red-11">
-                            @icon('close', 'h-6 w-6 flex-shrink-0 text-red-9')
+                            @icon('close', 'h-6 w-6 shrink-0 text-red-9')
                             <span>Rating field</span>
                         </div>
                     @endif
@@ -124,48 +124,48 @@
                 <div class="font-medium space-y-6">
                     @if ($postType->options->notifyUsers)
                         <div class="flex items-center space-x-2 text-green-11">
-                            @icon('check', 'h-6 w-6 flex-shrink-0 text-green-9')
+                            @icon('check', 'h-6 w-6 shrink-0 text-green-9')
                             <span>Sends notifications to users when published</span>
                         </div>
                     @else
                         <div class="flex items-center space-x-2 text-red-11">
-                            @icon('close', 'h-6 w-6 flex-shrink-0 text-red-9')
+                            @icon('close', 'h-6 w-6 shrink-0 text-red-9')
                             <span>Does not send notifications to users when published</span>
                         </div>
                     @endif
 
                     @if ($postType->options->notifyDiscord)
                         <div class="flex items-center space-x-2 text-green-11">
-                            @icon('check', 'h-6 w-6 flex-shrink-0 text-green-9')
+                            @icon('check', 'h-6 w-6 shrink-0 text-green-9')
                             <span>Sends notifications to Discord when published</span>
                         </div>
                     @else
                         <div class="flex items-center space-x-2 text-red-11">
-                            @icon('close', 'h-6 w-6 flex-shrink-0 text-red-9')
+                            @icon('close', 'h-6 w-6 shrink-0 text-red-9')
                             <span>Does not send notifications to Discord when published</span>
                         </div>
                     @endif
 
                     @if ($postType->options->includeInPostTracking)
                         <div class="flex items-center space-x-2 text-green-11">
-                            @icon('check', 'h-6 w-6 flex-shrink-0 text-green-9')
+                            @icon('check', 'h-6 w-6 shrink-0 text-green-9')
                             <span>Is included in post tracking</span>
                         </div>
                     @else
                         <div class="flex items-center space-x-2 text-red-11">
-                            @icon('close', 'h-6 w-6 flex-shrink-0 text-red-9')
+                            @icon('close', 'h-6 w-6 shrink-0 text-red-9')
                             <span>Is not included in post counts</span>
                         </div>
                     @endif
 
                     @if ($postType->options->multipleAuthors)
                         <div class="flex items-center space-x-2 text-green-11">
-                            @icon('check', 'h-6 w-6 flex-shrink-0 text-green-9')
+                            @icon('check', 'h-6 w-6 shrink-0 text-green-9')
                             <span>Allows multiple authors</span>
                         </div>
                     @else
                         <div class="flex items-center space-x-2 text-red-11">
-                            @icon('close', 'h-6 w-6 flex-shrink-0 text-red-9')
+                            @icon('close', 'h-6 w-6 shrink-0 text-red-9')
                             <span>Does not allow multiple authors</span>
                         </div>
                     @endif

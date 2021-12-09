@@ -31,7 +31,7 @@
             @if ($isReordering)
                 <x-content-box class="bg-purple-3 border-t border-b border-purple-6 sm:rounded-t-md sm:border-t-0">
                     <div class="flex">
-                        <div class="flex-shrink-0">
+                        <div class="shrink-0">
                             @icon('arrow-sort', 'h-7 w-7 md:h-6 md:w-6 text-purple-9')
                         </div>
                         <div class="ml-3">
@@ -67,7 +67,7 @@
                         <div class="block">
                             <div class="px-4 py-4 flex items-center sm:px-6">
                                 @if ($isReordering)
-                                    <div class="sortable-handle flex-shrink-0 cursor-move mr-5">
+                                    <div class="sortable-handle shrink-0 cursor-move mr-5">
                                         <x-icon.move-handle class="h-5 w-5 text-gray-9" />
                                     </div>
                                 @endif
@@ -78,7 +78,7 @@
                                         </div>
                                         <div class="mt-2 flex">
                                             <div class="flex items-center text-sm text-gray-11">
-                                                @icon('star', 'flex-shrink-0 mr-1.5 h-5 w-5 text-gray-9')
+                                                @icon('star', 'shrink-0 mr-1.5 h-5 w-5 text-gray-9')
                                                 <span>
                                                     {{ $group->ranks_count }} @choice('rank item|rank items', $group->ranks_count)
                                                 </span>
@@ -86,7 +86,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="ml-5 flex-shrink-0 leading-0">
+                                <div class="ml-5 shrink-0 leading-0">
                                     <x-dropdown placement="bottom-end">
                                         <x-slot name="trigger">
                                             <x-icon.more class="h-6 w-6" />

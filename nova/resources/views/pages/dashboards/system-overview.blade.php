@@ -27,12 +27,12 @@
                             </p>
                             @if (version_compare($filesVersion, $serverVersion, '>='))
                                 <p class="ml-2 flex items-baseline text-sm font-medium text-green-11">
-                                    @icon('check', 'self-center flex-shrink-0 h-5 w-5 text-green-9')
+                                    @icon('check', 'self-center shrink-0 h-5 w-5 text-green-9')
                                     <span class="ml-0.5">Up-to-date</span>
                                 </p>
                             @else
                                 <p class="ml-2 flex items-baseline text-sm font-medium text-blue-11">
-                                    @icon('alert', 'self-center flex-shrink-0 h-5 w-5 text-blue-9')
+                                    @icon('alert', 'self-center shrink-0 h-5 w-5 text-blue-9')
                                     <span class="ml-0.5">New version available</span>
                                 </p>
                             @endif
@@ -55,12 +55,12 @@
 
                             @if (version_compare($databaseVersion, $filesVersion, '>='))
                                 <p class="ml-2 flex items-baseline text-sm font-medium text-green-11">
-                                    @icon('check', 'self-center flex-shrink-0 h-5 w-5 text-green-9')
+                                    @icon('check', 'self-center shrink-0 h-5 w-5 text-green-9')
                                     <span class="ml-0.5">Up-to-date</span>
                                 </p>
                             @else
                                 <p class="ml-2 flex items-baseline text-sm font-medium text-red-11">
-                                    @icon('alert', 'self-center flex-shrink-0 h-5 w-5 text-red-9')
+                                    @icon('alert', 'self-center shrink-0 h-5 w-5 text-red-9')
                                     <span class="ml-0.5">Update required</span>
                                 </p>
                             @endif

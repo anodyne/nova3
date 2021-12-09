@@ -21,7 +21,7 @@ class StoryData extends Data
     ) {
     }
 
-    public static function fromRequest(Request $request): self
+    public static function fromRequest(Request $request): static
     {
         return new self(
             title: $request->input('title'),

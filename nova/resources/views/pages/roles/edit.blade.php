@@ -71,7 +71,7 @@
             @if ($role->default)
                 <div class="mt-6 mx-6 bg-purple-3 border border-purple-6 p-4 rounded">
                     <div class="flex">
-                        <div class="flex-shrink-0">
+                        <div class="shrink-0">
                             @icon('check', 'h-6 w-6 text-purple-9')
                         </div>
                         <div class="ml-3">
