@@ -15,7 +15,6 @@ use Livewire\Livewire;
 use Nova\Foundation\Icons\FeatherIconSet;
 use Nova\Foundation\Icons\FluentIconSet;
 use Nova\Foundation\Icons\FontAwesomeSolidIconSet;
-use Nova\Foundation\Icons\IconlyCurvedIconSet;
 use Nova\Foundation\Icons\IconSets;
 use Nova\Foundation\Icons\StreamlineUiIconSet;
 use Nova\Foundation\Livewire\Editor;

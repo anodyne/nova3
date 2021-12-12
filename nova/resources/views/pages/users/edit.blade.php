@@ -115,7 +115,7 @@
                             When deactivating the user, all characters associated with the user that are not jointly owned with another user will be deactivated as well.
                         </p>
                     </div>
-                    <div class="mt-5 sm:mt-0 sm:ml-8 sm:flex-shrink-0 sm:flex sm:items-center">
+                    <div class="mt-5 sm:mt-0 sm:ml-8 sm:shrink-0 sm:flex sm:items-center">
                         <x-form :action="route('users.deactivate', $user)">
                             <x-button type="submit" color="red-outline">
                                 Deactivate
@@ -139,7 +139,7 @@
                             When activating the user, their primary character will also be activated and their access roles will be set to the default roles for new users.
                         </p>
                     </div>
-                    <div class="mt-5 sm:mt-0 sm:ml-8 sm:flex-shrink-0 sm:flex sm:items-center">
+                    <div class="mt-5 sm:mt-0 sm:ml-8 sm:shrink-0 sm:flex sm:items-center">
                         <x-form :action="route('users.activate', $user)">
                             <x-button type="submit" color="blue-outline">
                                 Activate
@@ -163,14 +163,14 @@
                         <x-content-box>
                             <div class="sm:flex sm:items-start sm:justify-between">
                                 <div class="sm:flex sm:items-start">
-                                    @icon('lock', 'flex-shrink-0 h-8 w-8 text-gray-9')
+                                    @icon('lock', 'shrink-0 h-8 w-8 text-gray-9')
                                     <div class="mt-3 sm:mt-0 sm:ml-4">
                                         <div class="text-sm text-gray-12">
                                             If you believe this user should reset their password, you can force a password reset that will prompt them to change their password the next time they attempt to sign in.
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mt-4 sm:mt-0 sm:ml-6 sm:flex-shrink-0">
+                                <div class="mt-4 sm:mt-0 sm:ml-6 sm:shrink-0">
                                     <x-form :action="route('users.force-password-reset', $user)">
                                         <x-button type="submit">
                                             Force Password Reset
@@ -186,14 +186,14 @@
             {{-- <div class="mt-6">
                 <div class="rounded-md bg-gray-50 px-6 py-5 sm:flex sm:items-start sm:justify-between">
                     <div class="sm:flex sm:items-start">
-                        @icon('sign-out', 'flex-shrink-0 h-8 w-8 text-gray-500')
+                        @icon('sign-out', 'shrink-0 h-8 w-8 text-gray-500')
                         <div class="mt-3 sm:mt-0 sm:ml-4">
                             <div class="text-sm font-medium text-gray-600">
                                 If necessary, you can sign a user out of their account. Be warned, if they're actively doing anything when you initiate this action, any work will be lost on their next page load.
                             </div>
                         </div>
                     </div>
-                    <div class="mt-4 sm:mt-0 sm:ml-6 sm:flex-shrink-0">
+                    <div class="mt-4 sm:mt-0 sm:ml-6 sm:shrink-0">
                         <x-form :action="route('users.force-password-reset', $user)">
                             <span class="inline-flex rounded-md shadow-sm">
                                 <button type="submit" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-gray-1 hover:text-gray-500 focus:outline-none focus:border-blue-7 focus:ring active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-200">

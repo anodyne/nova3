@@ -22,7 +22,7 @@
                                 Story or story arc that will happen in the future
                             </div>
                         </div>
-                        <div class="flex justify-end flex-shrink-0 w-8">
+                        <div class="flex justify-end shrink-0 w-8">
                             @if ($story->status->equals('upcoming'))
                                 @icon('check', 'h-6 w-6 text-blue-9')
                             @endif
@@ -37,7 +37,7 @@
                                 Active story or story arc that cannot be posted into
                             </div>
                         </div>
-                        <div class="flex justify-end flex-shrink-0 w-8">
+                        <div class="flex justify-end shrink-0 w-8">
                             @if ($story->status->equals('ongoing'))
                                 @icon('check', 'h-6 w-6 text-blue-9')
                             @endif
@@ -52,7 +52,7 @@
                                 Story that is current running and players can post into
                             </div>
                         </div>
-                        <div class="flex justify-end flex-shrink-0 w-8">
+                        <div class="flex justify-end shrink-0 w-8">
                             @if ($story->status->equals('current'))
                                 @icon('check', 'h-6 w-6 text-blue-9')
                             @endif
@@ -67,7 +67,7 @@
                                 Story or story arc that has concluded
                             </div>
                         </div>
-                        <div class="flex justify-end flex-shrink-0 w-8">
+                        <div class="flex justify-end shrink-0 w-8">
                             @if ($story->status->equals('completed'))
                                 @icon('check', 'h-6 w-6 text-blue-9')
                             @endif

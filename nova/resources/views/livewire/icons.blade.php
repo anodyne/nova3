@@ -58,7 +58,7 @@
         >
             <div class="p-2">
                 <div class="group flex items-center rounded-md bg-gray-100 border-2 border-gray-100 text-gray-600 px-2 py-2 space-x-3 focus-within:border-gray-6 focus-within:bg-gray-1 focus-within:text-gray-700">
-                    @icon('search', 'h-5 w-5 flex-shrink-0 text-gray-400 group-focus-within:text-gray-600')
+                    @icon('search', 'h-5 w-5 shrink-0 text-gray-9 group-focus-within:text-gray-11')
 
                     <input wire:model.debounce.250ms="search" type="text" placeholder="Find an icon..." class="flex w-full appearance-none bg-transparent border-none p-0 focus:ring-0 focus:outline-none">
 
@@ -89,7 +89,7 @@
                         @mouseenter="selected = ''"
                         @mouseleave="selected = null"
                         :class="{ 'text-white bg-blue-9': selected === '', 'text-gray-900': !(selected === '') }"
-                        class="flex-shrink-0 cursor-pointer select-none relative p-2 text-gray-900 flex items-center justify-center rounded"
+                        class="shrink-0 cursor-pointer select-none relative p-2 text-gray-900 flex items-center justify-center rounded"
                     >
                         <div
                             x-state:on="Selected"
@@ -112,7 +112,7 @@
                             @mouseenter="selected = '{{ $icon }}'"
                             @mouseleave="selected = null"
                             :class="{ 'text-white bg-blue-9': selected === '{{ $icon }}', 'text-gray-900': !(selected === '{{ $icon }}') }"
-                            class="flex-shrink-0 cursor-pointer select-none relative p-2 text-gray-900 flex items-center justify-center rounded"
+                            class="shrink-0 cursor-pointer select-none relative p-2 text-gray-900 flex items-center justify-center rounded"
                         >
                             <div
                                 x-state:on="Selected"

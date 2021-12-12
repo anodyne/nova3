@@ -32,7 +32,7 @@
         <div class="mt-12 grid gap-6 w-full max-w-2xl mx-auto lg:grid-cols-3 lg:max-w-none">
             @foreach ($themes as $theme)
                 <x-panel x-data="{ id: {{ $theme->id ?? 0 }} }">
-                    <div class="flex-shrink-0">
+                    <div class="shrink-0">
                         <img class="h-48 w-full object-cover sm:rounded-t-lg" src="{{ asset("themes/{$theme->location}/{$theme->preview}") }}" alt="" />
                     </div>
 
@@ -79,7 +79,7 @@
                             </x-dropdown>
                         </div>
                         <p class="mt-1 flex items-center text-base text-gray-11">
-                            @icon('folder', 'flex-shrink-0 mr-2 h-5 w-5 text-gray-9')
+                            @icon('folder', 'shrink-0 mr-2 h-5 w-5 text-gray-9')
                             themes/{{ $theme->location }}
                         </p>
                         @if (! $theme->exists)
@@ -97,7 +97,7 @@
         </div>
     @else
         <div class="flex items-center w-full rounded-md px-4 py-4 bg-yellow-3 sm:px-6">
-            @icon('warning', 'h-6 w-6 flex-shrink-0 mr-3 text-yellow-9')
+            @icon('warning', 'h-6 w-6 shrink-0 mr-3 text-yellow-9')
             <span class="font-medium text-yellow-11">
                 No themes found.
             </span>
@@ -107,7 +107,7 @@
     <div class="w-full max-w-2xl mx-auto mt-16">
         <div class="sm:rounded-lg bg-blue-3 border-t border-b sm:border-l sm:border-r border-blue-6 p-4">
             <div class="flex items-start">
-                <div class="flex-shrink-0">
+                <div class="shrink-0">
                     @icon('info', 'h-7 w-7 md:h-6 md:w-6 text-blue-9')
                 </div>
                 <div class="ml-3 flex-1 md:flex md:justify-between">

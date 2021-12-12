@@ -16,7 +16,7 @@
 
     @if ($error)
         <p class="flex items-center w-full relative mt-2 ml-0.5 text-sm text-red-11 space-x-1" role="alert">
-            @icon('alert', 'h-6 w-6 flex-shrink-0 text-red-9')
+            @icon('alert', 'h-6 w-6 shrink-0 text-red-9')
             <span>{{ $error }}</span>
         </p>
     @endif

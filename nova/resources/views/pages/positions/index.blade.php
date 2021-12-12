@@ -55,7 +55,7 @@
             @if ($isReordering)
                 <div class="bg-purple-3 border-t border-b border-purple-6 p-4 sm:border-t-0">
                     <div class="flex">
-                        <div class="flex-shrink-0">
+                        <div class="shrink-0">
                             @icon('arrow-sort', 'h-7 w-7 md:h-6 md:w-6 text-purple-9')
                         </div>
                         <div class="ml-3">
@@ -91,7 +91,7 @@
                     <div class="block">
                         <div class="flex items-center px-4 py-4 sm:px-6">
                             @if ($isReordering)
-                                <div class="sortable-handle flex-shrink-0 cursor-move mr-5">
+                                <div class="sortable-handle shrink-0 cursor-move mr-5">
                                     <x-icon.move-handle class="h-5 w-5 text-gray-9" />
                                 </div>
                             @endif

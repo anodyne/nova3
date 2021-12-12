@@ -1,7 +1,7 @@
 <div>
     <x-content-box width="sm">
         <div class="flex items-center space-x-2">
-            @icon('book', 'h-6 w-6 flex-shrink-0 text-gray-11')
+            @icon('book', 'h-6 w-6 shrink-0 text-gray-11')
             <h3 class="text-lg leading-6 font-medium text-gray-12" id="modal-title">Choose a story</h3>
         </div>
     </x-content-box>

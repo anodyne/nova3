@@ -33,10 +33,10 @@
             <div
                 x-show="sidebarOpen"
                 x-description="Off-canvas menu, show/hide based on off-canvas menu state."
-                x-transition:enter="transition ease-in-out duration-300 transform"
+                x-transition:enter="transition ease-in-out duration-300"
                 x-transition:enter-start="-translate-x-full"
                 x-transition:enter-end="translate-x-0"
-                x-transition:leave="transition ease-in-out duration-300 transform"
+                x-transition:leave="transition ease-in-out duration-300"
                 x-transition:leave-start="translate-x-0"
                 x-transition:leave-end="-translate-x-full"
                 x-cloak
@@ -54,7 +54,7 @@
                     </button>
                 </div>
 
-                <div class="flex-shrink-0 flex items-center px-4">
+                <div class="shrink-0 flex items-center px-4">
                     <x-nova-logo class="h-8 w-auto" />
                 </div>
 
@@ -130,21 +130,21 @@
                 </div>
             </div>
 
-            <div class="flex-shrink-0 w-14" aria-hidden="true">
+            <div class="shrink-0 w-14" aria-hidden="true">
                 <!-- Dummy element to force sidebar to shrink to fit close icon -->
             </div>
         </div>
     </div>
 
     <!-- Static sidebar for desktop -->
-    <div class="hidden md:flex md:flex-shrink-0">
+    <div class="hidden md:flex md:shrink-0">
         <div class="flex flex-col w-64">
-            <div class="flex flex-col flex-grow border-r border-gray-6 pt-5 pb-4 bg-gray-1 overflow-y-auto">
-                <div class="flex items-center flex-shrink-0 px-4">
+            <div class="flex flex-col grow border-r border-gray-6 pt-5 pb-4 bg-gray-1 overflow-y-auto">
+                <div class="flex items-center shrink-0 px-4">
                     <x-nova-logo class="h-9 w-auto" />
                 </div>
 
-                <div class="mt-5 flex-grow flex flex-col">
+                <div class="mt-5 grow flex flex-col">
                     <!-- Sidebar component, swap this element with another sidebar if you like -->
                     <nav class="flex-1 px-2 bg-gray-1 space-y-1">
                         <a href="{{ route('dashboard') }}" class="group flex items-center px-2 py-2 text-sm font-semibold rounded-md transition ease-in-out duration-150 @if (request()->routeIs('dashboard')) text-gray-12 bg-gray-3 @else text-gray-11 hover:text-gray-12 hover:bg-gray-3 @endif">
@@ -219,7 +219,7 @@
     </div>
 
     <div class="flex flex-col w-0 flex-1 overflow-hidden">
-        <div class="relative z-10 flex-shrink-0 flex h-16 bg-gray-1 shadow">
+        <div class="relative z-10 shrink-0 flex h-16 bg-gray-1 shadow">
             <button
                 @click.stop="sidebarOpen = true"
                 class="px-4 text-gray-11 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-7 md:hidden"

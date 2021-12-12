@@ -51,12 +51,12 @@
 
                 @if ($role->default)
                     <div class="flex items-center space-x-2 text-green-11 font-medium">
-                        @icon('check', 'h-6 w-6 flex-shrink-0 text-green-9')
+                        @icon('check', 'h-6 w-6 shrink-0 text-green-9')
                         <span>Assigned to new users</span>
                     </div>
                 @else
                     <div class="flex items-center space-x-2 text-red-11 font-medium">
-                        @icon('close', 'h-6 w-6 flex-shrink-0 text-red-9')
+                        @icon('close', 'h-6 w-6 shrink-0 text-red-9')
                         <span>Not assigned to new users</span>
                     </div>
                 @endif

@@ -2,7 +2,7 @@
 
 <div class="rounded-md bg-yellow-3 border border-yellow-6 p-4 mb-8">
     <div class="flex">
-        <div class="flex-shrink-0">
+        <div class="shrink-0">
             @icon('warning', 'h-7 w-7 text-yellow-9')
         </div>
         <div class="ml-3">

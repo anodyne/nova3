@@ -44,10 +44,10 @@
                     class="relative w-screen max-w-md"
                     x-description="Slide-over panel, show/hide based on slide-over state."
                     x-show="open"
-                    x-transition:enter="transform transition ease-in-out duration-500"
+                    x-transition:enter="transition ease-in-out duration-500"
                     x-transition:enter-start="translate-x-full"
                     x-transition:enter-end="translate-x-0"
-                    x-transition:leave="transform transition ease-in-out duration-500"
+                    x-transition:leave="transition ease-in-out duration-500"
                     x-transition:leave-start="translate-x-0"
                     x-transition:leave-end="translate-x-full"
                 >
@@ -100,7 +100,7 @@
                             @empty
                                 <div class="rounded-md bg-blue-3 p-4">
                                     <div class="flex items-center">
-                                        <div class="flex-shrink-0">
+                                        <div class="shrink-0">
                                             @icon('check', 'h-6 w-6 text-blue-9')
                                         </div>
                                         <div class="ml-3">

@@ -71,7 +71,7 @@
                                             <x-badge size="xs" :color="$systemNotification->webStatusBadgeColor">Web</x-badge>
                                         </div>
                                     </div>
-                                    <div class="ml-5 flex-shrink-0 leading-0">
+                                    <div class="ml-5 shrink-0 leading-0">
                                         <x-button color="gray-text">
                                             @icon('edit', 'h-5 w-5')
                                         </x-button>
@@ -98,7 +98,7 @@
                                             <x-badge size="xs" :color="$systemNotification->webStatusBadgeColor">Web</x-badge>
                                         </div>
                                     </div>
-                                    <div class="ml-5 flex-shrink-0 leading-0">
+                                    <div class="ml-5 shrink-0 leading-0">
                                         <x-button color="gray-text">
                                             @icon('edit', 'h-5 w-5')
                                         </x-button>
