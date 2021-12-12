@@ -8,7 +8,7 @@
 @endphp
 
 <div>
-    <x-page-header>System Overview</x-page-header>
+    <x-page-header>Writing Overview</x-page-header>
 
     <div class="space-y-12">
         <div>
