@@ -72,7 +72,7 @@
                     <div class="space-y-10">
                         <div class="flex items-start space-x-2 text-gray-11 font-medium">
                             <span style="color:{{ $post->type->color }}">
-                                @icon($post->type->icon, 'h-6 w-6 flex-shrink-0')
+                                @icon($post->type->icon, 'h-6 w-6 shrink-0')
                             </span>
                             <span>{{ $post->type->name }}</span>
                         </div>
@@ -81,21 +81,21 @@
                             <div class="flex flex-col space-y-3">
                                 @if ($post->type->fields->location->enabled && $post->location)
                                     <div class="flex items-start space-x-2 text-gray-11 font-medium">
-                                        @icon('location', 'h-6 w-6 text-gray-9 flex-shrink-0')
+                                        @icon('location', 'h-6 w-6 text-gray-9 shrink-0')
                                         <span>{{ $post->location }}</span>
                                     </div>
                                 @endif
 
                                 @if ($post->type->fields->day->enabled && $post->day)
                                     <div class="flex items-start space-x-2 text-gray-11 font-medium">
-                                        @icon('calendar', 'h-6 w-6 text-gray-9 flex-shrink-0')
+                                        @icon('calendar', 'h-6 w-6 text-gray-9 shrink-0')
                                         <span>{{ $post->day }}</span>
                                     </div>
                                 @endif
 
                                 @if ($post->type->fields->time->enabled && $post->time)
                                     <div class="flex items-start space-x-2 text-gray-11 font-medium">
-                                        @icon('clock', 'h-6 w-6 text-gray-9 flex-shrink-0')
+                                        @icon('clock', 'h-6 w-6 text-gray-9 shrink-0')
                                         <span>{{ $post->time }}</span>
                                     </div>
                                 @endif
@@ -104,12 +104,12 @@
 
                         <div class="flex flex-col space-y-3">
                             <div class="flex items-center space-x-2 text-gray-11 font-medium">
-                                @icon('number', 'h-6 w-6 text-gray-9 flex-shrink-0')
+                                @icon('number', 'h-6 w-6 text-gray-9 shrink-0')
                                 <span>{{ number_format($post->word_count) }} words</span>
                             </div>
 
                             <div class="flex items-center space-x-2 text-gray-11 font-medium">
-                                @icon('timer', 'h-6 w-6 text-gray-9 flex-shrink-0')
+                                @icon('timer', 'h-6 w-6 text-gray-9 shrink-0')
                                 <span>{{ ceil($post->word_count / 200) }} min read</span>
                             </div>
                         </div>

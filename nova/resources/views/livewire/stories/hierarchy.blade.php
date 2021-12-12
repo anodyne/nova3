@@ -30,7 +30,7 @@
             </x-input.field>
         @else
             <div class="flex items-center font-medium text-yellow-11">
-                @icon('warning', 'mr-3 flex-shrink-0 h-6 w-6 text-yellow-9')
+                @icon('warning', 'mr-3 shrink-0 h-6 w-6 text-yellow-9')
                 <span>There are no stories available for setting display order.</span>
             </div>
         @endif

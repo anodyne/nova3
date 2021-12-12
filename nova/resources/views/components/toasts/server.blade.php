@@ -7,7 +7,7 @@
         x-init="setTimeout(() => { show = false }, 6000)"
         x-show="show"
         x-description="Notification panel, show/hide based on alert state."
-        x-transition:enter="transform ease-out duration-300 transition"
+        x-transition:enter="ease-out duration-300 transition"
         x-transition:enter-start="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
         x-transition:enter-end="translate-y-0 opacity-100 sm:translate-x-0"
         x-transition:leave="transition ease-in duration-100"
@@ -18,7 +18,7 @@
         <div class="rounded-lg ring-1 ring-gray-12 ring-opacity-5 overflow-hidden">
             <div class="p-4">
                 <div class="flex items-start">
-                    <div class="flex-shrink-0">
+                    <div class="shrink-0">
                         @if ($notification['type'] === 'success')
                             @icon('check', 'h-6 w-6 text-green-9')
                         @else
@@ -38,7 +38,7 @@
                         @endif
                     </div>
 
-                    <div class="ml-4 flex-shrink-0 flex">
+                    <div class="ml-4 shrink-0 flex">
                         <x-button @click="show = false" color="gray-text" size="none">
                             @icon('close', 'h-5 w-5')
                         </x-button>

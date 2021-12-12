@@ -245,9 +245,9 @@
             <div class="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4">
                 @if ($allStories->count() > 1)
                     <button type="button" class="flex items-center space-x-1.5 rounded-full text-sm md:text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition duration-200 {{ $story ? 'bg-blue-3 hover:bg-blue-4 border-blue-7 hover:border-blue-8 text-blue-11' : 'bg-gray-3 hover:bg-gray-4 border-gray-7 hover:border-gray-8 text-gray-11' }}" wire:click='$emit("openModal", "posts:select-story-modal", {{ json_encode([$story->id]) }})'>
-                        @icon('book', 'h-6 w-6 md:h-5 md:w-5 flex-shrink-0 ' . ($story ? 'text-blue-9' : 'text-gray-9'))
+                        @icon('book', 'h-6 w-6 md:h-5 md:w-5 shrink-0 ' . ($story ? 'text-blue-9' : 'text-gray-9'))
                         <span class="font-medium">{{ $story->title ?? 'Choose a story' }}</span>
-                        <x-icon.chevron-down class="text-blue-9 flex-shrink-0 h-4 w-4" />
+                        <x-icon.chevron-down class="text-blue-9 shrink-0 h-4 w-4" />
                     </button>
                 @else
                     <div class="flex items-center space-x-1.5 rounded-full text-sm md:text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition duration-200 {{ $story ? 'bg-blue-3 border-blue-7 text-blue-11' : 'bg-gray-3 border-gray-7 text-gray-11' }}">
@@ -283,21 +283,21 @@
                                                     <div class="flex items-center space-x-6">
                                                         @if ($previousPost->location)
                                                             <div class="flex items-center space-x-1 text-sm text-gray-11">
-                                                                @icon('location', 'h-5 w-5 text-gray-9 flex-shrink-0')
+                                                                @icon('location', 'h-5 w-5 text-gray-9 shrink-0')
                                                                 <span>{{ $previousPost->location }}</span>
                                                             </div>
                                                         @endif
 
                                                         @if ($previousPost->day)
                                                             <div class="flex items-center space-x-1 text-sm text-gray-11">
-                                                                @icon('calendar', 'h-5 w-5 text-gray-9 flex-shrink-0')
+                                                                @icon('calendar', 'h-5 w-5 text-gray-9 shrink-0')
                                                                 <span>{{ $previousPost->day }}</span>
                                                             </div>
                                                         @endif
 
                                                         @if ($previousPost->time)
                                                             <div class="flex items-center space-x-1 text-sm text-gray-11">
-                                                                @icon('clock', 'h-5 w-5 text-gray-9 flex-shrink-0')
+                                                                @icon('clock', 'h-5 w-5 text-gray-9 shrink-0')
                                                                 <span>{{ $previousPost->time }}</span>
                                                             </div>
                                                         @endif
@@ -328,7 +328,7 @@
                                         </svg>
                                         <span class="text-gray-12 font-bold">{{ $title ?? 'This ' . strtolower($postType->name) }}</span>
                                         <div class="inline-flex items-center space-x-1 invisible group-hover:visible text-sm text-gray-9 ml-12">
-                                            @icon('arrow-sort', 'h-5 w-5 text-gray-9 flex-shrink-0')
+                                            @icon('arrow-sort', 'h-5 w-5 text-gray-9 shrink-0')
                                             <span>Change post position</span>
                                         </div>
                                     </div>
@@ -352,21 +352,21 @@
                                                     <div class="flex items-center space-x-6">
                                                         @if ($nextPost->location)
                                                             <div class="flex items-center space-x-1 text-sm text-gray-11">
-                                                                @icon('location', 'h-5 w-5 text-gray-9 flex-shrink-0')
+                                                                @icon('location', 'h-5 w-5 text-gray-9 shrink-0')
                                                                 <span>{{ $nextPost->location }}</span>
                                                             </div>
                                                         @endif
 
                                                         @if ($nextPost->day)
                                                             <div class="flex items-center space-x-1 text-sm text-gray-11">
-                                                                @icon('calendar', 'h-5 w-5 text-gray-9 flex-shrink-0')
+                                                                @icon('calendar', 'h-5 w-5 text-gray-9 shrink-0')
                                                                 <span>{{ $nextPost->day }}</span>
                                                             </div>
                                                         @endif
 
                                                         @if ($nextPost->time)
                                                             <div class="flex items-center space-x-1 text-sm text-gray-11">
-                                                                @icon('clock', 'h-5 w-5 text-gray-9 flex-shrink-0')
+                                                                @icon('clock', 'h-5 w-5 text-gray-9 shrink-0')
                                                                 <span>{{ $nextPost->time }}</span>
                                                             </div>
                                                         @endif

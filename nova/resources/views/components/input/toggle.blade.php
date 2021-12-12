@@ -19,10 +19,10 @@
         aria-pressed="false"
         aria-labelledby="toggleLabel"
         :class="{ 'bg-{{ $inactiveColor }}': !on, 'bg-{{ $activeColor }}': on, 'opacity-50 cursor-not-allowed': disabled, 'cursor-pointer': !disabled }"
-        class="relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-1 focus:ring-blue-7"
+        class="relative inline-flex shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-1 focus:ring-blue-7"
     >
         <span class="sr-only">Use setting</span>
-        <span aria-hidden="true" :class="{ 'translate-x-5 border-{{ $activeColor }}': on, 'translate-x-1 border-{{ $inactiveColor }}': !on }" class="bg-gray-1 translate-x-1 translate-y-0.5 inline-block h-4 w-4 rounded-full transform ring-0 transition ease-in-out duration-200 border"></span>
+        <span aria-hidden="true" :class="{ 'translate-x-5 border-{{ $activeColor }}': on, 'translate-x-1 border-{{ $inactiveColor }}': !on }" class="bg-gray-1 translate-x-1 translate-y-0.5 inline-block h-4 w-4 rounded-full ring-0 transition ease-in-out duration-200 border"></span>
     </button>
 
     @if (! $slot->isEmpty())

@@ -42,7 +42,7 @@
 
     <div class="space-y-2">
         <div class="flex items-center space-x-2">
-            <div class="flex-shrink-0" style="border-color:{{ $post->type->color }};color:{{ $post->type->color }}">
+            <div class="shrink-0" style="border-color:{{ $post->type->color }};color:{{ $post->type->color }}">
                 @icon($post->type->icon, 'h-6 w-6 md:h-5 md:w-5')
             </div>
 
@@ -53,21 +53,21 @@
             <div class="flex flex-col space-y-2 sm:space-y-0 sm:space-x-6 sm:flex-row">
                 @if ($post->location)
                     <div class="flex items-center text-sm text-gray-11 space-x-1.5 font-medium">
-                        @icon('location', 'flex-shrink-0 h-5 w-5 text-gray-9')
+                        @icon('location', 'shrink-0 h-5 w-5 text-gray-9')
                         <span>{{ $post->location }}</span>
                     </div>
                 @endif
 
                 @if ($post->day)
                     <div class="flex items-center text-sm text-gray-11 space-x-1.5 font-medium">
-                        @icon('calendar', 'flex-shrink-0 h-5 w-5 text-gray-9')
+                        @icon('calendar', 'shrink-0 h-5 w-5 text-gray-9')
                         <span>{{ $post->day }}</span>
                     </div>
                 @endif
 
                 @if ($post->time)
                     <div class="flex items-center text-sm text-gray-11 space-x-1.5 font-medium">
-                        @icon('clock', 'flex-shrink-0 h-5 w-5 text-gray-9')
+                        @icon('clock', 'shrink-0 h-5 w-5 text-gray-9')
                         <span>{{ $post->time }}</span>
                     </div>
                 @endif
@@ -152,7 +152,7 @@
             </x-dropdown>
         </div>
 
-        <div class="flex-shrink-0 rounded-full p-1.5 border-2" style="border-color:{{ $post->type->color }};color:{{ $post->type->color }}">
+        <div class="shrink-0 rounded-full p-1.5 border-2" style="border-color:{{ $post->type->color }};color:{{ $post->type->color }}">
             @icon($post->type->icon, 'h-5 w-5 sm:h-6 sm:w-6')
         </div>
 
@@ -166,21 +166,21 @@
                 <div class="flex flex-col space-y-2 sm:space-y-0 sm:space-x-6 sm:flex-row">
                     @if ($post->location)
                         <div class="flex items-center text-sm text-gray-11 space-x-1.5">
-                            @icon('location', 'flex-shrink-0 h-5 w-5 text-gray-9')
+                            @icon('location', 'shrink-0 h-5 w-5 text-gray-9')
                             <span>{{ $post->location }}</span>
                         </div>
                     @endif
 
                     @if ($post->day)
                         <div class="flex items-center text-sm text-gray-11 space-x-1.5">
-                            @icon('calendar', 'flex-shrink-0 h-5 w-5 text-gray-9')
+                            @icon('calendar', 'shrink-0 h-5 w-5 text-gray-9')
                             <span>{{ $post->day }}</span>
                         </div>
                     @endif
 
                     @if ($post->time)
                         <div class="flex items-center text-sm text-gray-11 space-x-1.5">
-                            @icon('clock', 'flex-shrink-0 h-5 w-5 text-gray-9')
+                            @icon('clock', 'shrink-0 h-5 w-5 text-gray-9')
                             <span>{{ $post->time }}</span>
                         </div>
                     @endif

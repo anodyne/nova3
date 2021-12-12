@@ -37,7 +37,7 @@
                                         <p class="mt-1 text-sm text-gray-11">{{ $note->summary }}</p>
                                     </div>
                                 </div>
-                                <div class="ml-5 flex-shrink-0 leading-0">
+                                <div class="ml-5 shrink-0 leading-0">
                                     <x-dropdown placement="bottom-end">
                                         <x-slot name="trigger">
                                             <x-icon.more class="h-6 w-6" />

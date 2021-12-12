@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
+use Nova\Notes\Data\NoteData;
 use Nova\Users\Models\User;
 
 try {
@@ -19,6 +20,21 @@ try {
 
         return redirect()->route('dashboard');
     })->name('dev-login');
+
+    Route::get('laravel-data', function () {
+        $data = new NoteData(
+            title: 'My title',
+            content: 'My content',
+            summary: 'My summary',
+            user: User::first(),
+        );
+
+        $data->only('title');
+
+        $data->all();
+
+        // dd($data, $data->all(), $data->toArray());
+    });
 } catch (Exception $ex) {
     // We're not going to do anything here yet
 }

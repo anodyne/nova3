@@ -86,7 +86,7 @@
                 @if ($ancestors->count() > 0)
                     <div>
                         <x-link :href="route('stories.show', $ancestors->last())" size="none" color="gray-blue-text">
-                            @icon('book', 'h-6 w-6 flex-shrink-0')
+                            @icon('book', 'h-6 w-6 shrink-0')
                             <span class="ml-2">Part of {{ $ancestors->last()->title }}</span>
                         </x-link>
                     </div>

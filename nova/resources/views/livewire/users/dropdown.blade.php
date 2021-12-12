@@ -35,11 +35,11 @@
         x-show="open"
         x-description="Dropdown panel, show/hide based on dropdown state."
         x-transition:enter="transition ease-out duration-100"
-        x-transition:enter-start="transform opacity-0 scale-95"
-        x-transition:enter-end="transform opacity-100 scale-100"
+        x-transition:enter-start="opacity-0 scale-95"
+        x-transition:enter-end="opacity-100 scale-100"
         x-transition:leave="transition ease-in duration-75"
-        x-transition:leave-start="transform opacity-100 scale-100"
-        x-transition:leave-end="transform opacity-0 scale-95"
+        x-transition:leave-start="opacity-100 scale-100"
+        x-transition:leave-end="opacity-0 scale-95"
         class="origin-top-left absolute left-0 mt-2 w-full rounded-md shadow-lg"
         x-cloak
     >
@@ -47,7 +47,7 @@
             <div class="p-1.5" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                 <div class="mb-2">
                     <div class="group flex items-center rounded-md bg-gray-3 border-2 border-gray-3 text-gray-9 px-2 py-2 space-x-3 focus-within:border-gray-6 focus-within:bg-gray-1 focus-within:text-gray-11">
-                        @icon('search', 'flex-shrink-0 h-5 w-5 text-gray-9 group-focus-within:text-gray-11')
+                        @icon('search', 'shrink-0 h-5 w-5 text-gray-9 group-focus-within:text-gray-11')
 
                         <input wire:model.debounce.250ms="search" type="text" placeholder="Find a user..." class="flex w-full appearance-none bg-transparent border-none p-0 focus:ring-0 focus:outline-none">
 

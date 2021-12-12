@@ -1,5 +1,5 @@
 .rank {
-    @apply relative inline-flex overflow-hidden flex-shrink-0;
+    @apply relative inline-flex overflow-hidden shrink-0;
 }
 
 .rank-base {

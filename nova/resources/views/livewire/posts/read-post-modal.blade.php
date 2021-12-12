@@ -6,23 +6,23 @@
 
         <div class="flex items-center space-x-6">
             <div class="flex items-center space-x-2 text-sm text-gray-11 font-medium">
-                @icon('location', 'h-6 w-6 text-gray-9 flex-shrink-0')
+                @icon('location', 'h-6 w-6 text-gray-9 shrink-0')
                 <span>{{ $post->location }}</span>
             </div>
 
             <div class="flex items-center space-x-2 text-sm text-gray-11 font-medium">
-                @icon('calendar', 'h-6 w-6 text-gray-9 flex-shrink-0')
+                @icon('calendar', 'h-6 w-6 text-gray-9 shrink-0')
                 <span>{{ $post->day }}</span>
             </div>
 
             <div class="flex items-center space-x-2 text-sm text-gray-11 font-medium">
-                @icon('clock', 'h-6 w-6 text-gray-9 flex-shrink-0')
+                @icon('clock', 'h-6 w-6 text-gray-9 shrink-0')
                 <span>{{ $post->time }}</span>
             </div>
         </div>
 
         <div class="flex items-center space-x-2 text-sm text-gray-11 font-medium mt-4">
-            @icon('users', 'h-6 w-6 text-gray-9 flex-shrink-0')
+            @icon('users', 'h-6 w-6 text-gray-9 shrink-0')
             <span>Captain Jean-Luc Picard, Commander William Riker, and Dr. Beverly Crusher</span>
         </div>
 

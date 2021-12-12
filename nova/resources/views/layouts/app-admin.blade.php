@@ -6,7 +6,7 @@
             <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:divide-y lg:divide-gray-6 lg:px-8">
                 <div class="relative h-16 flex justify-between">
                     <div class="relative z-10 px-2 flex lg:px-0">
-                        <a href="{{ route('dashboard') }}" class="flex-shrink-0 flex items-center">
+                        <a href="{{ route('dashboard') }}" class="shrink-0 flex items-center">
                             <x-nova-logo class="block h-8 w-auto" />
                         </a>
                     </div>
@@ -16,7 +16,7 @@
                             <label for="search" class="sr-only">Search</label>
                             <div class="relative">
                                 <div class="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
-                                    @icon('search', 'flex-shrink-0 h-5 w-5 text-gray-9')
+                                    @icon('search', 'shrink-0 h-5 w-5 text-gray-9')
                                 </div>
                                 <input name="search" id="search" class="block w-full bg-gray-1 border border-gray-6 rounded-md py-2 pl-10 pr-3 text-sm placeholder-gray-9 focus:outline-none focus:text-gray-12 focus:placeholder-gray-9 focus:ring-1 focus:ring-gray-12 focus:border-gray-12 sm:text-sm" placeholder="Search" type="search">
                             </div>
@@ -153,7 +153,7 @@
 
                 <div class="border-t border-gray-6 pt-4 pb-3">
                     <div class="px-4 flex items-center">
-                        <div class="flex-shrink-0">
+                        <div class="shrink-0">
                             <x-avatar size="xs" :src="auth()->user()->avatar_url" :tooltip="auth()->user()->name" />
                         </div>
 
@@ -162,7 +162,7 @@
                             <div class="text-sm font-medium text-gray-11">{{ auth()->user()->email }}</div>
                         </div>
 
-                        <button type="button" class="ml-auto flex-shrink-0 bg-gray-1 rounded-full p-1 text-gray-9 hover:text-gray-11 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-12">
+                        <button type="button" class="ml-auto shrink-0 bg-gray-1 rounded-full p-1 text-gray-9 hover:text-gray-11 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-12">
                             <span class="sr-only">View notifications</span>
                             @icon('notification', 'h-6 w-6')
                         </button>

@@ -14,7 +14,7 @@
                     <x-content-box>
                         <div class="flex flex-col md:flex-row items-center md:justify-between">
                             <div class="flex items-center space-x-5">
-                                <div class="flex-shrink-0">
+                                <div class="shrink-0">
                                     <x-avatar size="lg" :src="auth()->user()->avatar_url" :tooltip="auth()->user()->name" />
                                 </div>
                                 <div class="pt-1">
@@ -70,7 +70,7 @@
                                     <p class="ml-2 flex items-baseline">
                                         <p class="ml-2 flex items-baseline text-sm font-semibold text-green-11 rounded-full bg-green-3 border border-green-6 pl-1 pr-2">
                                         <!-- Heroicon name: solid/arrow-sm-up -->
-                                        <svg class="self-center flex-shrink-0 h-5 w-5 text-green-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <svg class="self-center shrink-0 h-5 w-5 text-green-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                             <path fill-rule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                                         </svg>
                                         <span class="sr-only">
@@ -97,7 +97,7 @@
                                     <p class="ml-2 flex items-baseline">
                                         <p class="ml-2 flex items-baseline text-sm font-semibold text-red-11 rounded-full bg-red-3 border border-red-6 pl-1 pr-2">
                                         <!-- Heroicon name: solid/arrow-sm-up -->
-                                        <svg class="self-center flex-shrink-0 h-5 w-5 text-red-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <svg class="self-center shrink-0 h-5 w-5 text-red-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                         <path fill-rule="evenodd" d="M14.707 10.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 12.586V5a1 1 0 012 0v7.586l2.293-2.293a1 1 0 011.414 0z" clip-rule="evenodd" />
                                     </svg>
                                         <span class="sr-only">
@@ -139,7 +139,7 @@
                                 <p class="ml-2 flex items-baseline">
                                     <p class="ml-2 flex items-baseline text-sm font-semibold text-green-11 rounded-full bg-green-3 border border-green-6 pl-1 pr-2">
                                     <!-- Heroicon name: solid/arrow-sm-up -->
-                                    <svg class="self-center flex-shrink-0 h-5 w-5 text-green-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <svg class="self-center shrink-0 h-5 w-5 text-green-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                         <path fill-rule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                                     </svg>
                                     <span class="sr-only">
@@ -163,7 +163,7 @@
                                 </p>
                                 <p class="ml-2 flex items-baseline text-sm font-semibold text-green-11">
                                     <!-- Heroicon name: solid/arrow-sm-up -->
-                                    <svg class="self-center flex-shrink-0 h-5 w-5 text-green-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <svg class="self-center shrink-0 h-5 w-5 text-green-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                         <path fill-rule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                                     </svg>
                                     <span class="sr-only">
@@ -187,7 +187,7 @@
                                 </p>
                                 <p class="ml-2 flex items-baseline text-sm font-semibold text-red-11">
                                     <!-- Heroicon name: solid/arrow-sm-down -->
-                                    <svg class="self-center flex-shrink-0 h-5 w-5 text-red-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <svg class="self-center shrink-0 h-5 w-5 text-red-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                         <path fill-rule="evenodd" d="M14.707 10.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 12.586V5a1 1 0 012 0v7.586l2.293-2.293a1 1 0 011.414 0z" clip-rule="evenodd" />
                                     </svg>
                                     <span class="sr-only">

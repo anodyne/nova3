@@ -11,7 +11,7 @@
         @if ($theme->name === 'Pulsar')
             <x-content-box class="bg-purple-3 border-t border-b border-purple-6 sm:rounded-t-md sm:border-t-0">
                 <div class="flex">
-                    <div class="flex-shrink-0">
+                    <div class="shrink-0">
                         @icon('star', 'h-6 w-6 text-purple-9')
                     </div>
                     <div class="ml-3">
