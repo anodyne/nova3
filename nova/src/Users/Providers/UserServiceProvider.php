@@ -16,7 +16,6 @@ use Nova\Users\Livewire\UserNotifications;
 use Nova\Users\Livewire\UsersCollector;
 use Nova\Users\Livewire\UsersDropdown;
 use Nova\Users\Models\User;
-use Nova\Users\Policies\UserPolicy;
 use Nova\Users\Spotlight\AddUser;
 use Nova\Users\Spotlight\EditUser;
 use Nova\Users\Spotlight\ViewUser;
@@ -50,13 +49,6 @@ class UserServiceProvider extends DomainServiceProvider
     {
         return [
             'user' => User::class,
-        ];
-    }
-
-    public function policies(): array
-    {
-        return [
-            User::class => UserPolicy::class,
         ];
     }
 

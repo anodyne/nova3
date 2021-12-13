@@ -11,8 +11,6 @@ use Nova\Posts\Livewire\SelectDayModal;
 use Nova\Posts\Livewire\SelectLocationModal;
 use Nova\Posts\Livewire\SelectStoryModal;
 use Nova\Posts\Livewire\SelectTimeModal;
-use Nova\Posts\Models\Post;
-use Nova\Posts\Policies\PostPolicy;
 use Nova\Posts\Spotlight\WritePost;
 
 class PostServiceProvider extends DomainServiceProvider
@@ -26,13 +24,6 @@ class PostServiceProvider extends DomainServiceProvider
             'posts:select-location-modal' => SelectLocationModal::class,
             'posts:select-story-modal' => SelectStoryModal::class,
             'posts:select-time-modal' => SelectTimeModal::class,
-        ];
-    }
-
-    public function policies(): array
-    {
-        return [
-            Post::class => PostPolicy::class,
         ];
     }
 

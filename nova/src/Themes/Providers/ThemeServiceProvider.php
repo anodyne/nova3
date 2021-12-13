@@ -7,8 +7,6 @@ namespace Nova\Themes\Providers;
 use Nova\DomainServiceProvider;
 use Nova\Foundation\Nova;
 use Nova\Themes\Actions\SetupThemeDirectory;
-use Nova\Themes\Models\Theme;
-use Nova\Themes\Policies\ThemePolicy;
 use Themes\pulsar\Theme as PulsarTheme;
 
 class ThemeServiceProvider extends DomainServiceProvider
@@ -17,13 +15,6 @@ class ThemeServiceProvider extends DomainServiceProvider
     {
         return [
             SetupThemeDirectory::class,
-        ];
-    }
-
-    public function policies(): array
-    {
-        return [
-            Theme::class => ThemePolicy::class,
         ];
     }
 

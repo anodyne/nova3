@@ -6,10 +6,6 @@ namespace Nova\Departments\Providers;
 
 use Nova\Departments\Livewire\PositionsCollector;
 use Nova\Departments\Livewire\PositionsDropdown;
-use Nova\Departments\Models\Department;
-use Nova\Departments\Models\Position;
-use Nova\Departments\Policies\DepartmentPolicy;
-use Nova\Departments\Policies\PositionPolicy;
 use Nova\Departments\Spotlight\AddDepartment;
 use Nova\Departments\Spotlight\AddPosition;
 use Nova\Departments\Spotlight\EditDepartment;
@@ -26,14 +22,6 @@ class DepartmentServiceProvider extends DomainServiceProvider
         return [
             'positions:collector' => PositionsCollector::class,
             'positions:dropdown' => PositionsDropdown::class,
-        ];
-    }
-
-    public function policies(): array
-    {
-        return [
-            Department::class => DepartmentPolicy::class,
-            Position::class => PositionPolicy::class,
         ];
     }
 

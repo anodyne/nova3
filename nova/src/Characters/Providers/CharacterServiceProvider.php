@@ -8,7 +8,6 @@ use Nova\Characters\Livewire\CharactersCollector;
 use Nova\Characters\Livewire\CharactersDropdown;
 use Nova\Characters\Livewire\SelectCharactersModal;
 use Nova\Characters\Models\Character;
-use Nova\Characters\Policies\CharacterPolicy;
 use Nova\Characters\Spotlight\AddCharacter;
 use Nova\Characters\Spotlight\EditCharacter;
 use Nova\Characters\Spotlight\ViewCharacter;
@@ -29,13 +28,6 @@ class CharacterServiceProvider extends DomainServiceProvider
     {
         return [
             'character' => Character::class,
-        ];
-    }
-
-    public function policies(): array
-    {
-        return [
-            Character::class => CharacterPolicy::class,
         ];
     }
 

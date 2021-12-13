@@ -17,7 +17,6 @@ use Nova\Settings\DataTransferObjects\SettingInfo;
 use Nova\Settings\DataTransferObjects\SystemDefaults;
 use Nova\Settings\Livewire\FindSettingsModal;
 use Nova\Settings\Models\Settings;
-use Nova\Settings\Policies\SettingsPolicy;
 use Nova\Settings\Responses\CharactersSettingsResponse;
 use Nova\Settings\Responses\EmailSettingsResponse;
 use Nova\Settings\Responses\GeneralSettingsResponse;
@@ -44,13 +43,6 @@ class SettingsServiceProvider extends DomainServiceProvider
     {
         return [
             'settings:find-settings' => FindSettingsModal::class,
-        ];
-    }
-
-    public function policies(): array
-    {
-        return [
-            Settings::class => SettingsPolicy::class,
         ];
     }
 
