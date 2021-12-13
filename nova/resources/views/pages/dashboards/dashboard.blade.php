@@ -334,7 +334,7 @@
                                     <div class="relative flex space-x-3">
                                         <div>
                                             <span class="h-10 w-10 rounded-full bg-blue-3 border border-blue-6 flex items-center justify-center ring-8 ring-gray-1">
-                                                @icon('book', 'h-6 w-6 text-blue-11')
+                                                @icon('book', 'h-6 w-6 text-blue-9')
                                             </span>
                                         </div>
                                         <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
@@ -355,7 +355,7 @@
                                     <div class="relative flex space-x-3">
                                         <div>
                                             <span class="h-10 w-10 rounded-full bg-green-3 border border-green-6 flex items-center justify-center ring-8 ring-gray-1">
-                                                @icon('email', 'h-6 w-6 text-green-11')
+                                                @icon('email', 'h-6 w-6 text-green-9')
                                             </span>
                                         </div>
                                         <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
@@ -376,7 +376,7 @@
                                     <div class="relative flex space-x-3">
                                         <div>
                                             <span class="h-10 w-10 rounded-full bg-blue-3 border border-blue-6 flex items-center justify-center ring-8 ring-gray-1">
-                                                @icon('location', 'h-6 w-6 text-blue-11')
+                                                @icon('location', 'h-6 w-6 text-blue-9')
                                             </span>
                                         </div>
                                         <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
