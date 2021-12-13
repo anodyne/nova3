@@ -309,11 +309,11 @@
                         <ul class="-mb-8">
                             <li>
                                 <div class="relative pb-8">
-                                    <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-1" aria-hidden="true"></span>
+                                    <span class="absolute top-4 left-5 -ml-px h-full w-0.5 bg-gray-6" aria-hidden="true"></span>
                                     <div class="relative flex space-x-3">
                                         <div>
-                                            <span class="h-8 w-8 rounded-full bg-gray-3 border border-gray-6 flex items-center justify-center ring-8 ring-gray-1">
-                                                @icon('user', 'h-5 w-5 text-gray-11')
+                                            <span class="h-10 w-10 rounded-full bg-gray-3 border border-gray-6 flex items-center justify-center ring-8 ring-gray-1">
+                                                @icon('user', 'h-6 w-6 text-gray-11')
                                             </span>
                                         </div>
                                         <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
@@ -330,11 +330,11 @@
 
                             <li>
                                 <div class="relative pb-8">
-                                    <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-1" aria-hidden="true"></span>
+                                    <span class="absolute top-4 left-5 -ml-px h-full w-0.5 bg-gray-6" aria-hidden="true"></span>
                                     <div class="relative flex space-x-3">
                                         <div>
-                                            <span class="h-8 w-8 rounded-full bg-blue-3 border border-blue-6 flex items-center justify-center ring-8 ring-gray-1">
-                                                @icon('book', 'h-5 w-5 text-blue-11')
+                                            <span class="h-10 w-10 rounded-full bg-blue-3 border border-blue-6 flex items-center justify-center ring-8 ring-gray-1">
+                                                @icon('book', 'h-6 w-6 text-blue-11')
                                             </span>
                                         </div>
                                         <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
@@ -351,11 +351,11 @@
 
                             <li>
                                 <div class="relative pb-8">
-                                    <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-1" aria-hidden="true"></span>
+                                    <span class="absolute top-4 left-5 -ml-px h-full w-0.5 bg-gray-6" aria-hidden="true"></span>
                                     <div class="relative flex space-x-3">
                                         <div>
-                                            <span class="h-8 w-8 rounded-full bg-green-3 border border-green-6 flex items-center justify-center ring-8 ring-gray-1">
-                                                @icon('email', 'h-5 w-5 text-green-11')
+                                            <span class="h-10 w-10 rounded-full bg-green-3 border border-green-6 flex items-center justify-center ring-8 ring-gray-1">
+                                                @icon('email', 'h-6 w-6 text-green-11')
                                             </span>
                                         </div>
                                         <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
@@ -372,11 +372,11 @@
 
                             <li>
                                 <div class="relative pb-8">
-                                    {{-- <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-1" aria-hidden="true"></span> --}}
+                                    {{-- <span class="absolute top-4 left-5 -ml-px h-full w-0.5 bg-gray-6" aria-hidden="true"></span> --}}
                                     <div class="relative flex space-x-3">
                                         <div>
-                                            <span class="h-8 w-8 rounded-full bg-blue-3 border border-blue-6 flex items-center justify-center ring-8 ring-gray-1">
-                                                @icon('location', 'h-5 w-5 text-blue-11')
+                                            <span class="h-10 w-10 rounded-full bg-blue-3 border border-blue-6 flex items-center justify-center ring-8 ring-gray-1">
+                                                @icon('location', 'h-6 w-6 text-blue-11')
                                             </span>
                                         </div>
                                         <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
