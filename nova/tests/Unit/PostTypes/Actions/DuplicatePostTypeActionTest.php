@@ -17,15 +17,11 @@ class DuplicatePostTypeActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $postType;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(DuplicatePostType::class);
 
         $this->postType = PostType::factory()->create([
             'sort' => 0,
@@ -36,7 +32,7 @@ class DuplicatePostTypeActionTest extends TestCase
     /** @test **/
     public function itDuplicatesAPostType()
     {
-        $postType = $this->action->execute($this->postType);
+        $postType = DuplicatePostType::run($this->postType);
 
         $this->assertEquals(
             "Copy of {$this->postType->name}",

@@ -33,7 +33,7 @@ class DuplicatePostTypeTest extends TestCase
     /** @test **/
     public function authorizedUserCanDuplicatePostType()
     {
-        $this->signInWithPermission(['story.create', 'story.update']);
+        $this->signInWithPermission(['post-type.create', 'post-type.update']);
 
         $this->followingRedirects();
 
@@ -50,7 +50,7 @@ class DuplicatePostTypeTest extends TestCase
     {
         Event::fake();
 
-        $this->signInWithPermission(['story.create', 'story.update']);
+        $this->signInWithPermission(['post-type.create', 'post-type.update']);
 
         $this->post(route('post-types.duplicate', $this->postType));
 

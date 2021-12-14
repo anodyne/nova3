@@ -30,32 +30,30 @@ class PostTypeFactory extends Factory
                 'title' => new Field([
                     'enabled' => true,
                     'validate' => true,
-                    'suggest' => true,
                 ]),
                 'day' => new Field([
                     'enabled' => true,
                     'validate' => true,
-                    'suggest' => true,
                 ]),
                 'time' => new Field([
                     'enabled' => true,
                     'validate' => true,
-                    'suggest' => true,
                 ]),
                 'location' => new Field([
                     'enabled' => true,
                     'validate' => true,
-                    'suggest' => true,
                 ]),
                 'content' => new Field([
                     'enabled' => true,
                     'validate' => true,
-                    'suggest' => true,
                 ]),
                 'rating' => new Field([
                     'enabled' => true,
                     'validate' => true,
-                    'suggest' => true,
+                ]),
+                'summary' => new Field([
+                    'enabled' => true,
+                    'validate' => true,
                 ]),
             ]),
             'options' => new Options([

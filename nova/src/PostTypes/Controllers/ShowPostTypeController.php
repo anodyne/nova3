@@ -43,7 +43,7 @@ class ShowPostTypeController extends Controller
     {
         $this->authorize('view', $postType);
 
-        return app(ShowPostTypeResponse::class)->with([
+        return ShowPostTypeResponse::sendWith([
             'postType' => $postType,
         ]);
     }

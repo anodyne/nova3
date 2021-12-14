@@ -31,8 +31,7 @@ class UpdatePostTypeTest extends TestCase
     /** @test **/
     public function authorizedUserCanViewTheEditPostTypePage()
     {
-        $this->withoutExceptionHandling();
-        $this->signInWithPermission('story.update');
+        $this->signInWithPermission('post-type.update');
 
         $response = $this->get(route('post-types.edit', $this->postType));
         $response->assertSuccessful();
@@ -41,7 +40,7 @@ class UpdatePostTypeTest extends TestCase
     /** @test **/
     public function authorizedUserCanUpdatePostType()
     {
-        $this->signInWithPermission('story.update');
+        $this->signInWithPermission('post-type.update');
 
         $this->followingRedirects();
 
@@ -66,7 +65,7 @@ class UpdatePostTypeTest extends TestCase
     {
         Event::fake();
 
-        $this->signInWithPermission('story.update');
+        $this->signInWithPermission('post-type.update');
 
         $this->put(
             route('post-types.update', $this->postType),

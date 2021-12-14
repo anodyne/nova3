@@ -20,15 +20,6 @@ class CreatePostTypeActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->action = app(CreatePostType::class);
-    }
-
     /** @test **/
     public function itCreatesAPostType()
     {
@@ -44,32 +35,30 @@ class CreatePostTypeActionTest extends TestCase
                 'title' => new Field([
                     'enabled' => true,
                     'validate' => true,
-                    'suggest' => true,
                 ]),
                 'day' => new Field([
                     'enabled' => false,
                     'validate' => false,
-                    'suggest' => false,
                 ]),
                 'time' => new Field([
                     'enabled' => false,
                     'validate' => false,
-                    'suggest' => false,
                 ]),
                 'location' => new Field([
                     'enabled' => true,
                     'validate' => true,
-                    'suggest' => true,
                 ]),
                 'content' => new Field([
                     'enabled' => false,
                     'validate' => false,
-                    'suggest' => false,
                 ]),
                 'rating' => new Field([
                     'enabled' => true,
                     'validate' => true,
-                    'suggest' => true,
+                ]),
+                'summary' => new Field([
+                    'enabled' => true,
+                    'validate' => true,
                 ]),
             ]),
             'options' => new Options([
@@ -80,7 +69,7 @@ class CreatePostTypeActionTest extends TestCase
             ]),
         ]);
 
-        $postType = $this->action->execute($data);
+        $postType = CreatePostType::run($data);
 
         $this->assertTrue($postType->exists);
         $this->assertEquals('Foo', $postType->name);
@@ -97,6 +86,7 @@ class CreatePostTypeActionTest extends TestCase
         $this->assertTrue($postType->fields->location->enabled);
         $this->assertFalse($postType->fields->content->enabled);
         $this->assertTrue($postType->fields->rating->enabled);
+        $this->assertTrue($postType->fields->summary->enabled);
 
         $this->assertTrue($postType->options->notifyUsers);
         $this->assertTrue($postType->options->notifyDiscord);
