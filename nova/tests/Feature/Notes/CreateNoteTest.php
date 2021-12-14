@@ -38,7 +38,10 @@ class CreateNoteTest extends TestCase
 
         $this->followingRedirects();
 
-        $response = $this->post(route('notes.store'), $data->toArray());
+        $response = $this->post(route('notes.store'), array_merge(
+            $data->toArray(),
+            ['editor-content' => $data->content]
+        ));
         $response->assertSuccessful();
 
         $this->assertRouteUsesFormRequest(

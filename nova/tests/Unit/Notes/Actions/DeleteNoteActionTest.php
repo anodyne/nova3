@@ -16,15 +16,11 @@ class DeleteNoteActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $note;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(DeleteNote::class);
 
         $this->note = Note::factory()->create();
     }
@@ -32,7 +28,7 @@ class DeleteNoteActionTest extends TestCase
     /** @test **/
     public function itDeletesANote()
     {
-        $note = $this->action->handle($this->note);
+        $note = DeleteNote::run($this->note);
 
         $this->assertFalse($note->exists);
     }

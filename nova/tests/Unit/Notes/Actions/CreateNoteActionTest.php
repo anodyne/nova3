@@ -6,7 +6,7 @@ namespace Tests\Unit\Notes\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Notes\Actions\CreateNote;
-use Nova\Notes\DataTransferObjects\NoteData;
+use Nova\Notes\Data\NoteData;
 use Nova\Users\Models\User;
 use Tests\TestCase;
 
@@ -17,26 +17,17 @@ class CreateNoteActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->action = app(CreateNote::class);
-    }
-
     /** @test **/
     public function itCreatesANewNote()
     {
-        $data = new NoteData([
+        $data = NoteData::from([
             'title' => 'My Note',
             'content' => 'Content of my note',
             'summary' => 'Summary of my note',
             'user' => $user = User::factory()->active()->create(),
         ]);
 
-        $note = $this->action->handle($data);
+        $note = CreateNote::run($data);
 
         $this->assertTrue($note->exists);
         $this->assertEquals('My Note', $note->title);
