@@ -45,12 +45,6 @@
                 <div class="relative flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-8 mt-3 text-base md:text-sm text-gray-9">
                     <span>
                         <x-badge :color="$story->status->color()" size="xs">
-                            @if ($story->is_current && $story->allow_posting)
-                                <x-slot name="leadingIcon">
-                                    @icon('edit', $component->iconStyles())
-                                </x-slot>
-                            @endif
-
                             {{ $story->status->displayName() }}
                         </x-badge>
                     </span>

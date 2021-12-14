@@ -29,11 +29,10 @@ class Story extends Model implements HasMedia
 
     protected $fillable = [
         'title', 'status', 'parent_id', 'description', 'summary', 'start_date',
-        'end_date', 'allow_posting',
+        'end_date',
     ];
 
     protected $casts = [
-        'allow_posting' => 'boolean',
         'end_date' => 'datetime',
         'parent_id' => 'integer',
         'start_date' => 'datetime',

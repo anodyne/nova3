@@ -18,8 +18,6 @@ class DeleteStoryPostsActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $story;
 
     protected $posts;
@@ -27,8 +25,6 @@ class DeleteStoryPostsActionTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(DeleteStoryPosts::class);
 
         $this->story = Story::factory()->create();
 
@@ -44,7 +40,7 @@ class DeleteStoryPostsActionTest extends TestCase
     {
         $this->assertCount(5, $this->story->posts);
 
-        $story = $this->action->execute($this->story);
+        $story = DeleteStoryPosts::run($this->story);
 
         $this->assertCount(0, $story->posts);
     }

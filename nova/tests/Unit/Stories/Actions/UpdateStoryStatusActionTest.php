@@ -19,15 +19,11 @@ class UpdateStoryStatusActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $story;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(UpdateStoryStatus::class);
 
         $this->story = Story::factory()->upcoming()->create();
     }
@@ -37,7 +33,7 @@ class UpdateStoryStatusActionTest extends TestCase
     {
         $this->assertTrue($this->story->status->equals(Upcoming::class));
 
-        $story = $this->action->execute($this->story, 'current');
+        $story = UpdateStoryStatus::run($this->story, 'current');
 
         $this->assertTrue($story->status->equals(Current::class));
     }
@@ -45,7 +41,7 @@ class UpdateStoryStatusActionTest extends TestCase
     /** @test **/
     public function itCannotTransitionToTheStatusItsInNow()
     {
-        $story = $this->action->execute($this->story, 'upcoming');
+        $story = UpdateStoryStatus::run($this->story, 'upcoming');
 
         $this->assertTrue($story->status->equals(Upcoming::class));
     }
@@ -55,7 +51,7 @@ class UpdateStoryStatusActionTest extends TestCase
     {
         $story = Story::factory()->upcoming()->create();
 
-        $story = $this->action->execute($story, 'current');
+        $story = UpdateStoryStatus::run($story, 'current');
 
         $this->assertTrue($story->status->equals(Current::class));
         $this->assertNotNull($story->start_date);
@@ -66,7 +62,7 @@ class UpdateStoryStatusActionTest extends TestCase
     {
         $story = Story::factory()->upcoming()->create();
 
-        $story = $this->action->execute($story, 'completed');
+        $story = UpdateStoryStatus::run($story, 'completed');
 
         $this->assertTrue($story->status->equals(Completed::class));
         $this->assertNotNull($story->start_date);
@@ -80,7 +76,7 @@ class UpdateStoryStatusActionTest extends TestCase
             'start_date' => now(),
         ]);
 
-        $story = $this->action->execute($story, 'upcoming');
+        $story = UpdateStoryStatus::run($story, 'upcoming');
 
         $this->assertTrue($story->status->equals(Upcoming::class));
         $this->assertNull($story->start_date);
@@ -94,7 +90,7 @@ class UpdateStoryStatusActionTest extends TestCase
             'start_date' => now(),
         ]);
 
-        $story = $this->action->execute($story, 'completed');
+        $story = UpdateStoryStatus::run($story, 'completed');
 
         $this->assertTrue($story->status->equals(Completed::class));
         $this->assertNotNull($story->start_date);
@@ -109,7 +105,7 @@ class UpdateStoryStatusActionTest extends TestCase
             'end_date' => now(),
         ]);
 
-        $story = $this->action->execute($story, 'upcoming');
+        $story = UpdateStoryStatus::run($story, 'upcoming');
 
         $this->assertTrue($story->status->equals(Upcoming::class));
         $this->assertNull($story->start_date);
@@ -124,7 +120,7 @@ class UpdateStoryStatusActionTest extends TestCase
             'end_date' => now(),
         ]);
 
-        $story = $this->action->execute($story, 'current');
+        $story = UpdateStoryStatus::run($story, 'current');
 
         $this->assertTrue($story->status->equals(Current::class));
         $this->assertNotNull($story->start_date);

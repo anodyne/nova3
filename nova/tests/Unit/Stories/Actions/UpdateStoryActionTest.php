@@ -17,15 +17,11 @@ class UpdateStoryActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $story;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(UpdateStory::class);
 
         $this->story = Story::factory()->create([
             'parent_id' => 1,
@@ -42,10 +38,9 @@ class UpdateStoryActionTest extends TestCase
             'start_date' => '2020-01-01',
             'summary' => 'Lorem ipsum dolor sit amet consectetur, adipisicing elit.',
             'parent_id' => $this->story->parent_id,
-            'allow_posting' => false,
         ]);
 
-        $story = $this->action->execute($this->story, $data);
+        $story = UpdateStory::run($this->story, $data);
 
         $this->assertTrue($story->exists);
 
@@ -55,7 +50,6 @@ class UpdateStoryActionTest extends TestCase
         $this->assertEquals(1, $story->parent_id);
         $this->assertEquals('2020-01-01', $story->start_date->format('Y-m-d'));
         $this->assertEquals('2020-02-01', $story->end_date->format('Y-m-d'));
-        $this->assertFalse($story->allow_posting);
     }
 
     /** @test **/
@@ -71,10 +65,9 @@ class UpdateStoryActionTest extends TestCase
         $data = StoryData::from([
             'title' => $this->story->title,
             'parent_id' => $this->story->parent_id,
-            'allow_posting' => true,
         ]);
 
-        $story = $this->action->execute($this->story, $data);
+        $story = UpdateStory::run($this->story, $data);
 
         $firstStory->refresh();
 

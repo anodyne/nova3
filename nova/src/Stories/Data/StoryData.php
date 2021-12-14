@@ -16,7 +16,7 @@ class StoryData extends Data
         public ?string $start_date,
         public ?string $end_date,
         public ?int $parent_id,
-        public Story $parent,
+        public ?Story $parent,
         public ?string $summary
     ) {
     }

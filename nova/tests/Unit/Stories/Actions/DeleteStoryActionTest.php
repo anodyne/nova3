@@ -16,15 +16,11 @@ class DeleteStoryActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $story;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(DeleteStory::class);
 
         $this->story = Story::factory()->create();
     }
@@ -32,7 +28,7 @@ class DeleteStoryActionTest extends TestCase
     /** @test **/
     public function itDeletesAStory()
     {
-        $story = $this->action->execute($this->story);
+        $story = DeleteStory::run($this->story);
 
         $this->assertFalse($story->exists);
     }
