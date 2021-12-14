@@ -18,15 +18,11 @@ class SetupThemeDirectoryActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $disk;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(SetupThemeDirectory::class);
 
         $this->disk = Storage::fake('themes');
     }
@@ -34,7 +30,7 @@ class SetupThemeDirectoryActionTest extends TestCase
     /** @test **/
     public function itCreatesTheNewThemeDirectory()
     {
-        $this->action->execute(new ThemeData(
+        SetupThemeDirectory::run(new ThemeData(
             Theme::factory()->make()->toArray()
         ));
 

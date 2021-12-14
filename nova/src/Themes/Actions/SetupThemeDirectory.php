@@ -15,7 +15,11 @@ class SetupThemeDirectory
 {
     use AsAction;
 
-    public string $commandSignature = 'nova:make-theme';
+    public string $commandSignature = 'nova:make-theme
+                                       {name : The name of the theme}
+                                       {--location= : Set a custom location for the theme}
+                                       {--preview= : Set a custom preview image name for the theme}
+                                       {--variants=* : Set the variants for the theme}';
 
     public string $commandDescription = 'Scaffold a new theme.';
 
@@ -48,12 +52,12 @@ class SetupThemeDirectory
     public function asCommand(Command $command): void
     {
         try {
-            $this->handle(new ThemeData([
-                'name' => $command->argument('name'),
-                'location' => $command->option('location'),
-                'preview' => $command->option('preview'),
-                'variants' => $command->option('variants'),
-            ]));
+            $this->handle(new ThemeData(
+                name: $command->argument('name'),
+                location: $command->option('location'),
+                preview: $command->option('preview'),
+                variants: $command->option('variants'),
+            ));
 
             $command->info('Theme scaffold created successfully.');
         } catch (Throwable $th) {
@@ -142,9 +146,9 @@ class SetupThemeDirectory
         if ($variants = $this->data->variants) {
             $this->files->makeDirectory($this->getThemeLocation() . '/design/variants');
 
-            collect($variants)->each(
-                fn ($variant) => $this->createStylesheet("variants/{trim($variant)}.css")
-            );
+            collect($variants)
+                ->map(fn ($variant) => trim($variant))
+                ->each(fn ($variant) => $this->createStylesheet("variants/{$variant}.css"));
         }
     }
 

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\Unit\Themes;
 
 use Illuminate\Support\Facades\Storage;
-use RuntimeException;
 use Tests\TestCase;
 
 /**
@@ -20,6 +19,8 @@ class MakeThemeCommandTest extends TestCase
         parent::setUp();
 
         $this->disk = Storage::fake('themes');
+
+        $this->withoutExceptionHandling();
     }
 
     /** @test **/
@@ -79,17 +80,5 @@ class MakeThemeCommandTest extends TestCase
         $this->assertContains('foo/design/variants/red.css', $files);
         $this->assertContains('foo/design/variants/green.css', $files);
         $this->assertContains('foo/design/variants/purple.css', $files);
-    }
-
-    /** @test **/
-    public function itRequiresALocationToScaffoldAThemeDirectory()
-    {
-        $this->expectException(RuntimeException::class);
-
-        $this->disk->makeDirectory('foo');
-
-        $this->artisan('nova:make-theme', [
-            'name' => 'Foo',
-        ]);
     }
 }

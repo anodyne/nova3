@@ -11,7 +11,7 @@ class ThemeData extends DataTransferObject
 {
     public string $name;
 
-    public string $location;
+    public ?string $location;
 
     public ?string $credits;
 
@@ -29,7 +29,7 @@ class ThemeData extends DataTransferObject
             location: $request->location,
             name: $request->name,
             preview: $request->preview ?? 'preview.jpg',
-            variants: explode(',', $request->input('variants')),
+            variants: explode(',', $request->input('variants', '')),
         );
     }
 }

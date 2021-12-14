@@ -16,26 +16,17 @@ class CreateThemeActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->action = app(CreateTheme::class);
-    }
-
     /** @test **/
     public function itCreatesATheme()
     {
-        $data = new ThemeData([
-            'name' => 'Foo',
-            'location' => 'foo',
-            'active' => true,
-            'preview' => 'preview.jpg',
-        ]);
+        $data = new ThemeData(
+            name: 'Foo',
+            location: 'foo',
+            active: true,
+            preview: 'preview.jpg',
+        );
 
-        $theme = $this->action->execute($data);
+        $theme = CreateTheme::run($data);
 
         $this->assertTrue($theme->exists);
         $this->assertEquals('Foo', $theme->name);

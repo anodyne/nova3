@@ -17,8 +17,6 @@ class DeleteThemeActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $disk;
 
     protected $theme;
@@ -26,8 +24,6 @@ class DeleteThemeActionTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(DeleteTheme::class);
 
         $this->disk = Storage::fake('themes');
         $this->disk->makeDirectory('slate');
@@ -45,7 +41,7 @@ class DeleteThemeActionTest extends TestCase
     /** @test **/
     public function itDeletesATheme()
     {
-        $theme = $this->action->execute($this->theme);
+        $theme = DeleteTheme::run($this->theme);
 
         $this->assertFalse($theme->exists);
     }
@@ -53,7 +49,7 @@ class DeleteThemeActionTest extends TestCase
     /** @test **/
     public function itDoesNotRemoveTheThemeDirectoryWhenTheThemeIsDeleted()
     {
-        $this->action->execute($this->theme);
+        DeleteTheme::run($this->theme);
 
         $this->assertCount(1, $this->disk->directories());
     }
