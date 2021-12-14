@@ -6,6 +6,7 @@ namespace Nova\Foundation\Providers;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
@@ -63,7 +64,8 @@ class AppServiceProvider extends ServiceProvider
 
     protected function registerMacros()
     {
-        RedirectResponse::mixin(new Macros\RedirectResponseMacros());
+        Redirector::mixin(new Macros\ToastMacros());
+        RedirectResponse::mixin(new Macros\ToastMacros());
         Route::mixin(new Macros\RouteMacros());
         Str::mixin(new Macros\StrMacros());
         ViewFactory::mixin(new Macros\ViewMacros());

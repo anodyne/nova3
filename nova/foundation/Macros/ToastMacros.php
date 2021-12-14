@@ -6,7 +6,7 @@ namespace Nova\Foundation\Macros;
 
 use Nova\Foundation\Toast;
 
-class RedirectResponseMacros
+class ToastMacros
 {
     public function withToast()
     {

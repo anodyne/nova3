@@ -17,28 +17,24 @@ class CreateRoleActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     public function setUp(): void
     {
         parent::setUp();
 
         $this->disableRoleCaching();
-
-        $this->action = app(CreateRole::class);
     }
 
     /** @test **/
     public function itCreatesARole()
     {
-        $data = new RoleData([
-            'name' => 'foo',
-            'display_name' => 'Foo',
-            'description' => 'Description of foo',
-            'default' => false,
-        ]);
+        $data = new RoleData(
+            name: 'foo',
+            display_name: 'Foo',
+            description: 'Description of foo',
+            default: false,
+        );
 
-        $role = $this->action->execute($data);
+        $role = CreateRole::run($data);
 
         $this->assertTrue($role->exists);
         $this->assertEquals('Foo', $role->display_name);
@@ -50,14 +46,14 @@ class CreateRoleActionTest extends TestCase
     /** @test **/
     public function itCanAddPermissions()
     {
-        $data = new RoleData([
-            'display_name' => 'Bar',
-            'name' => 'bar',
-            'default' => false,
-            'permissions' => Permission::whereIn('id', [1, 2, 3])->get(),
-        ]);
+        $data = new RoleData(
+            display_name: 'Bar',
+            name: 'bar',
+            default: false,
+            permissions: Permission::whereIn('id', [1, 2, 3])->get(),
+        );
 
-        $role = $this->action->execute($data);
+        $role = CreateRole::run($data);
 
         $this->assertTrue($role->permissions->contains('id', 1));
         $this->assertTrue($role->permissions->contains('id', 2));

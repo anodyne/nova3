@@ -44,7 +44,7 @@ class PopulatePagesTable extends Migration
             ['uri' => 'roles/{role}', 'key' => 'roles.update', 'verb' => 'put', 'resource' => 'Nova\\Roles\\Controllers\\UpdateRoleController@update', 'layout' => 'admin'],
             ['uri' => 'roles/delete', 'key' => 'roles.delete', 'verb' => 'post', 'resource' => 'Nova\\Roles\\Controllers\\DeleteRoleController@confirm', 'layout' => 'admin'],
             ['uri' => 'roles/{role}', 'key' => 'roles.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Roles\\Controllers\\DeleteRoleController@destroy', 'layout' => 'admin'],
-            ['uri' => 'roles/{originalRole}/duplicate', 'key' => 'roles.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Roles\\Controllers\\DuplicateRoleController', 'layout' => 'admin'],
+            ['uri' => 'roles/{original}/duplicate', 'key' => 'roles.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Roles\\Controllers\\DuplicateRoleController', 'layout' => 'admin'],
             ['uri' => 'roles/reorder', 'key' => 'roles.reorder', 'verb' => 'post', 'resource' => 'Nova\\Roles\\Controllers\\ReorderRolesController', 'layout' => 'admin'],
 
             ['uri' => 'users', 'key' => 'users.index', 'resource' => 'Nova\\Users\\Controllers\\ShowUserController@all', 'layout' => 'admin'],

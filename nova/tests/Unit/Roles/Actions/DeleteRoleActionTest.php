@@ -16,15 +16,11 @@ class DeleteRoleActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $role;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(DeleteRole::class);
 
         $this->role = Role::factory()->create();
     }
@@ -32,7 +28,7 @@ class DeleteRoleActionTest extends TestCase
     /** @test **/
     public function itDeletesARole()
     {
-        $role = $this->action->execute($this->role);
+        $role = DeleteRole::run($this->role);
 
         $this->assertFalse($role->exists);
     }

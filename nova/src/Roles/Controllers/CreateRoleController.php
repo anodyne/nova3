@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Roles\Controllers;
 
+use Illuminate\Support\Facades\Gate;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Roles\Actions\CreateRole;
 use Nova\Roles\DataTransferObjects\RoleData;
@@ -33,8 +34,12 @@ class CreateRoleController extends Controller
 
         $role = CreateRole::run(RoleData::fromRequest($request));
 
-        return redirect()
-            ->route('roles.edit', $role)
-            ->withToast("{$role->display_name} role was created");
+        $redirect = redirect()->withToast("{$role->display_name} role was created");
+
+        if (Gate::allows('update', $role)) {
+            return $redirect->route('roles.edit', $role);
+        }
+
+        return $redirect->route('roles.index');
     }
 }

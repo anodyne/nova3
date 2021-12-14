@@ -16,15 +16,11 @@ class DuplicateRoleActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $role;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(DuplicateRole::class);
 
         $this->role = Role::factory()->create();
         $this->role->attachPermissions([1, 2]);
@@ -33,7 +29,7 @@ class DuplicateRoleActionTest extends TestCase
     /** @test **/
     public function itDuplicatesARole()
     {
-        $role = $this->action->execute($this->role);
+        $role = DuplicateRole::run($this->role);
 
         $this->assertEquals(
             "Copy of {$this->role->display_name}",

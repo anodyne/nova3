@@ -18,8 +18,6 @@ class UpdateRoleUsersActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $role;
 
     protected $john;
@@ -33,8 +31,6 @@ class UpdateRoleUsersActionTest extends TestCase
         parent::setUp();
 
         $this->disableRoleCaching();
-
-        $this->action = app(UpdateRoleUsers::class);
 
         $this->role = Role::factory()->create();
 
@@ -55,7 +51,7 @@ class UpdateRoleUsersActionTest extends TestCase
             $this->jane->id,
         ])->get();
 
-        $this->action->execute($data);
+        UpdateRoleUsers::run($data);
 
         $this->role->refresh();
 
@@ -75,7 +71,7 @@ class UpdateRoleUsersActionTest extends TestCase
         $data->role = $this->role;
         $data->users = User::whereIn('id', [$this->jane->id])->get();
 
-        $this->action->execute($data);
+        UpdateRoleUsers::run($data);
 
         $this->role->refresh();
 
@@ -98,7 +94,7 @@ class UpdateRoleUsersActionTest extends TestCase
             $this->ryan->id,
         ])->get();
 
-        $this->action->execute($data);
+        UpdateRoleUsers::run($data);
 
         $this->role->refresh();
 

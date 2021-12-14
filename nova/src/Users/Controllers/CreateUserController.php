@@ -36,14 +36,13 @@ class CreateUserController extends Controller
 
         UserCreatedByAdmin::dispatch($user);
 
+        $redirect = redirect()
+            ->withToast("An account for {$user->name} was created", 'The user has been notified of their account and their password.');
+
         if (Gate::allows('update', $user)) {
-            return redirect()
-                ->route('users.edit', $user)
-                ->withToast("An account for {$user->name} was created", 'The user has been notified of their account and their password.');
+            return $redirect->route('users.edit', $user);
         }
 
-        return redirect()
-            ->route('users.index')
-            ->withToast("An account for {$user->name} was created", 'The user has been notified of their account and their password.');
+        return $redirect->route('users.index');
     }
 }

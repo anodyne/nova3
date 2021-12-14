@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Event;
 use Nova\Roles\Events\RoleCreated;
 use Nova\Roles\Models\Role;
 use Nova\Roles\Requests\CreateRoleRequest;
-use Nova\Users\Models\User;
 use Tests\TestCase;
 
 /**
@@ -75,54 +74,6 @@ class CreateRoleTest extends TestCase
             'roles',
             $role->only('name', 'display_name', 'default')
         );
-    }
-
-    /** @test **/
-    public function roleCanBeCreatedWithPermissions()
-    {
-        $this->signInWithPermission('role.create');
-
-        $role = Role::factory()->make();
-
-        $this->followingRedirects();
-
-        $response = $this->post(
-            route('roles.store'),
-            array_merge($role->toArray(), [
-                'permissions' => [1],
-            ])
-        );
-        $response->assertSuccessful();
-
-        $this->assertDatabaseHas('permission_role', [
-            'permission_id' => 1,
-            'role_id' => Role::latest()->first()->id,
-        ]);
-    }
-
-    /** @test **/
-    public function roleCanBeCreatedWithUsers()
-    {
-        $this->signInWithPermission('role.create');
-
-        $role = Role::factory()->default()->make();
-
-        $john = User::factory()->active()->create();
-
-        $this->followingRedirects();
-
-        $response = $this->post(
-            route('roles.store'),
-            array_merge($role->toArray(), [
-                'users' => [$john->id],
-            ])
-        );
-        $response->assertSuccessful();
-
-        $this->assertDatabaseHas('role_user', [
-            'user_id' => $john->id,
-            'role_id' => Role::latest()->first()->id,
-        ]);
     }
 
     /** @test **/

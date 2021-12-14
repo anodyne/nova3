@@ -18,8 +18,6 @@ class UpdateRoleActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $role;
 
     public function setUp(): void
@@ -28,22 +26,20 @@ class UpdateRoleActionTest extends TestCase
 
         $this->disableRoleCaching();
 
-        $this->action = app(UpdateRole::class);
-
         $this->role = Role::factory()->create();
     }
 
     /** @test **/
     public function itCanUpdateARole()
     {
-        $data = new RoleData([
-            'name' => 'foo',
-            'display_name' => 'Foo',
-            'description' => 'New description of foo',
-            'default' => true,
-        ]);
+        $data = new RoleData(
+            name: 'foo',
+            display_name: 'Foo',
+            description: 'New description of foo',
+            default: true,
+        );
 
-        $role = $this->action->execute($this->role, $data);
+        $role = UpdateRole::run($this->role, $data);
 
         $this->assertEquals('foo', $role->name);
         $this->assertEquals('Foo', $role->display_name);
@@ -56,15 +52,15 @@ class UpdateRoleActionTest extends TestCase
     {
         $this->role->attachPermission(1);
 
-        $data = new RoleData([
-            'name' => $this->role->name,
-            'display_name' => $this->role->display_name,
-            'description' => $this->role->description,
-            'default' => $this->role->default,
-            'permissions' => Permission::whereIn('id', [1, 2, 3])->get(),
-        ]);
+        $data = new RoleData(
+            name: $this->role->name,
+            display_name: $this->role->display_name,
+            description: $this->role->description,
+            default: $this->role->default,
+            permissions: Permission::whereIn('id', [1, 2, 3])->get(),
+        );
 
-        $role = $this->action->execute($this->role, $data);
+        $role = UpdateRole::run($this->role, $data);
 
         $this->assertCount(3, $role->permissions);
         $this->assertTrue($role->permissions->contains('id', 1));
@@ -77,15 +73,15 @@ class UpdateRoleActionTest extends TestCase
     {
         $this->role->attachPermissions([1, 2]);
 
-        $data = new RoleData([
-            'name' => $this->role->name,
-            'display_name' => $this->role->display_name,
-            'description' => $this->role->description,
-            'default' => $this->role->default,
-            'permissions' => Permission::whereIn('id', [1])->get(),
-        ]);
+        $data = new RoleData(
+            name: $this->role->name,
+            display_name: $this->role->display_name,
+            description: $this->role->description,
+            default: $this->role->default,
+            permissions: Permission::whereIn('id', [1])->get(),
+        );
 
-        $role = $this->action->execute($this->role, $data);
+        $role = UpdateRole::run($this->role, $data);
 
         $this->assertCount(1, $role->permissions);
         $this->assertTrue($role->permissions->contains('id', 1));
@@ -97,15 +93,15 @@ class UpdateRoleActionTest extends TestCase
     {
         $this->role->attachPermissions([1, 2]);
 
-        $data = new RoleData([
-            'name' => $this->role->name,
-            'display_name' => $this->role->display_name,
-            'description' => $this->role->description,
-            'default' => $this->role->default,
-            'permissions' => Permission::whereIn('id', [1, 3])->get(),
-        ]);
+        $data = new RoleData(
+            name: $this->role->name,
+            display_name: $this->role->display_name,
+            description: $this->role->description,
+            default: $this->role->default,
+            permissions: Permission::whereIn('id', [1, 3])->get(),
+        );
 
-        $role = $this->action->execute($this->role, $data);
+        $role = UpdateRole::run($this->role, $data);
 
         $this->assertCount(2, $role->permissions);
         $this->assertTrue($role->permissions->contains('id', 1));
