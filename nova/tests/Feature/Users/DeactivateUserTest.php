@@ -45,12 +45,12 @@ class DeactivateUserTest extends TestCase
 
         $this->assertDatabaseHas('users', [
             'id' => $this->user->id,
-            'status' => InactiveUser::class,
+            'status' => InactiveUser::$name,
         ]);
 
         $this->assertDatabaseHas('characters', [
             'id' => $this->character->id,
-            'status' => InactiveCharacter::class,
+            'status' => InactiveCharacter::$name,
         ]);
     }
 

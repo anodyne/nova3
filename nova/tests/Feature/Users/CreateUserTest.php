@@ -7,7 +7,6 @@ namespace Tests\Feature\Users;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Mail;
-use Nova\Characters\Models\Character;
 use Nova\Users\Events\UserCreated;
 use Nova\Users\Events\UserCreatedByAdmin;
 use Nova\Users\Models\User;
@@ -46,28 +45,12 @@ class CreateUserTest extends TestCase
             'name' => 'Jack Sparrow',
         ]);
 
-        $character = Character::factory()->create();
-
         $this->followingRedirects();
 
-        $response = $this->post(route('users.store'), array_merge(
-            $data->toArray(),
-            [
-                'characters' => $character->id,
-                'primary_character' => $character->id,
-            ]
-        ));
+        $response = $this->post(route('users.store'), $data->toArray());
         $response->assertSuccessful();
 
-        $user = User::where('name', 'Jack Sparrow')->first();
-
         $this->assertDatabaseHas('users', $data->only('name', 'email'));
-
-        $this->assertDatabaseHas('character_user', [
-            'character_id' => $character->id,
-            'user_id' => $user->id,
-            'primary' => true,
-        ]);
 
         $this->assertRouteUsesFormRequest(
             'users.store',

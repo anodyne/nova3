@@ -17,15 +17,11 @@ class ActivateUserActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $user;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(ActivateUser::class);
 
         $this->user = User::factory()->inactive()->create();
     }
@@ -33,8 +29,8 @@ class ActivateUserActionTest extends TestCase
     /** @test **/
     public function itActivatesAUser()
     {
-        $user = $this->action->execute($this->user);
+        $user = ActivateUser::run($this->user);
 
-        $this->assertTrue($user->status->equals(Active::class));
+        $this->assertInstanceOf(Active::class, $user->status);
     }
 }

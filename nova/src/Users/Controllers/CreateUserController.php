@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Users\Controllers;
 
+use Illuminate\Support\Facades\Gate;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Users\Actions\CreateUserManager;
 use Nova\Users\Events\UserCreatedByAdmin;
@@ -35,8 +36,14 @@ class CreateUserController extends Controller
 
         UserCreatedByAdmin::dispatch($user);
 
+        if (Gate::allows('update', $user)) {
+            return redirect()
+                ->route('users.edit', $user)
+                ->withToast("An account for {$user->name} was created", 'The user has been notified of their account and their password.');
+        }
+
         return redirect()
-            ->route('users.edit', $user)
+            ->route('users.index')
             ->withToast("An account for {$user->name} was created", 'The user has been notified of their account and their password.');
     }
 }

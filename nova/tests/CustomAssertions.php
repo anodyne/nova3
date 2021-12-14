@@ -7,7 +7,7 @@ namespace Tests;
 use Illuminate\Testing\TestResponse;
 use PHPUnit\Framework\Assert as PHPUnit;
 
-trait AddsCustomAssertions
+trait CustomAssertions
 {
     /**
      * Setup macros to test responses.

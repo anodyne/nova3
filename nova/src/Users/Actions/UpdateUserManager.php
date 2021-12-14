@@ -17,8 +17,6 @@ class UpdateUserManager
     {
         $user = UpdateUser::run($user, UserData::fromRequest($request));
 
-        UpdateUserStatus::run($user, $request->status);
-
         UploadUserAvatar::run($user, $request->avatar_path);
 
         // RemoveUserAvatar::run($user, $request->input('remove_avatar', false));

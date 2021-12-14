@@ -19,15 +19,11 @@ class AssignCharacterOwnersActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $character;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(AssignCharacterOwners::class);
 
         $this->character = Character::factory()->active()->create();
     }
@@ -41,7 +37,7 @@ class AssignCharacterOwnersActionTest extends TestCase
             'users' => [$first->id],
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterOwners::run($this->character, $data);
 
         $characterUsers = $character->users;
 
@@ -60,7 +56,7 @@ class AssignCharacterOwnersActionTest extends TestCase
             'primaryCharacters' => [$first->id],
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterOwners::run($this->character, $data);
 
         $characterUsers = $character->users;
 
@@ -80,7 +76,7 @@ class AssignCharacterOwnersActionTest extends TestCase
             'users' => [$first->id, $second->id],
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterOwners::run($this->character, $data);
 
         $characterUsers = $character->users;
 
@@ -102,7 +98,7 @@ class AssignCharacterOwnersActionTest extends TestCase
             'primaryCharacters' => [$second->id],
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterOwners::run($this->character, $data);
 
         $characterUsers = $character->users;
 
@@ -125,7 +121,7 @@ class AssignCharacterOwnersActionTest extends TestCase
             'primaryCharacters' => [$first->id, $second->id],
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterOwners::run($this->character, $data);
 
         $characterUsers = $character->users;
 
@@ -151,7 +147,7 @@ class AssignCharacterOwnersActionTest extends TestCase
             'users' => [$first->id, $second->id, $third->id],
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterOwners::run($this->character, $data);
 
         $characterUsers = $character->users;
 
@@ -178,7 +174,7 @@ class AssignCharacterOwnersActionTest extends TestCase
             'users' => [$first->id, $third->id],
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterOwners::run($this->character, $data);
 
         $characterUsers = $character->users;
 
@@ -204,7 +200,7 @@ class AssignCharacterOwnersActionTest extends TestCase
             'users' => [$first->id, $third->id],
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterOwners::run($this->character, $data);
 
         $characterUsers = $character->users;
 
@@ -231,7 +227,7 @@ class AssignCharacterOwnersActionTest extends TestCase
             'primaryCharacters' => [$second->id],
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterOwners::run($this->character, $data);
 
         $characterUsers = $character->users;
 
@@ -258,7 +254,7 @@ class AssignCharacterOwnersActionTest extends TestCase
             'primaryCharacters' => [$third->id],
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterOwners::run($this->character, $data);
 
         $characterUsers = $character->users;
 
@@ -284,7 +280,7 @@ class AssignCharacterOwnersActionTest extends TestCase
             'primaryCharacters' => [$user->id],
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterOwners::run($this->character, $data);
 
         $oldPrimaryCharacter->refresh();
 
@@ -316,7 +312,7 @@ class AssignCharacterOwnersActionTest extends TestCase
             'primaryCharacters' => [$adam->id, $ben->id],
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterOwners::run($this->character, $data);
 
         $adamOldPrimaryCharacter->refresh();
         $benOldPrimaryCharacter->refresh();

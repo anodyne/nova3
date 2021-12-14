@@ -70,7 +70,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
 
     public function activeCharacters()
     {
-        return $this->characters()->where('status', ActiveCharacter::class);
+        return $this->characters()->whereState('status', ActiveCharacter::class);
     }
 
     public function primaryCharacter()

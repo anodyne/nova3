@@ -25,8 +25,6 @@ class UpdateUserStatusActionTest extends TestCase
     {
         parent::setUp();
 
-        $this->action = app(UpdateUserStatus::class);
-
         $this->user = User::factory()->active()->create();
     }
 
@@ -35,9 +33,9 @@ class UpdateUserStatusActionTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $this->action->execute($this->user, Active::class);
+        UpdateUserStatus::run($user, Active::class);
 
-        $this->assertEquals($this->user->status, Active::class);
+        $this->assertInstanceOf(Active::class, $user->status);
     }
 
     /** @test **/
@@ -45,17 +43,17 @@ class UpdateUserStatusActionTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $this->action->execute($this->user, Inactive::class);
+        UpdateUserStatus::run($user, Inactive::class);
 
-        $this->assertEquals($this->user->status, Inactive::class);
+        $this->assertInstanceOf(Inactive::class, $user->status);
     }
 
     /** @test **/
     public function itCanTransitionFromActiveToInactive()
     {
-        $this->action->execute($this->user, Inactive::class);
+        UpdateUserStatus::run($this->user, Inactive::class);
 
-        $this->assertEquals($this->user->status, Inactive::class);
+        $this->assertInstanceOf(Inactive::class, $this->user->status);
     }
 
     /** @test **/
@@ -63,9 +61,9 @@ class UpdateUserStatusActionTest extends TestCase
     {
         $user = User::factory()->inactive()->create();
 
-        $this->action->execute($this->user, Active::class);
+        UpdateUserStatus::run($user, Active::class);
 
-        $this->assertEquals($this->user->status, Active::class);
+        $this->assertInstanceOf(Active::class, $user->status);
     }
 
     /** @test **/
@@ -73,8 +71,8 @@ class UpdateUserStatusActionTest extends TestCase
     {
         $this->expectException(TransitionNotFound::class);
 
-        $this->action->execute($this->user, Pending::class);
+        UpdateUserStatus::run($this->user, Pending::class);
 
-        $this->assertNotEquals($this->user->status, Pending::class);
+        $this->assertNotEquals(Pending::class, $this->user->status);
     }
 }
