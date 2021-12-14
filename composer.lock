@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "56cc37444cc3f7d10f467cb58f1da558",
+    "content-hash": "e8a7ecde773dfce6bc0a9c2d8b644334",
     "packages": [
         {
             "name": "awssat/discord-notification-channel",
@@ -9597,22 +9597,23 @@
         },
         {
             "name": "jasonmccreary/laravel-test-assertions",
-            "version": "v1.1.0",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jasonmccreary/laravel-test-assertions.git",
-                "reference": "163c9df0a68a6fb7c39827292a315408bcea27cc"
+                "reference": "f70f51ed7cdb7d5818d927522401d8ccc467fa25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jasonmccreary/laravel-test-assertions/zipball/163c9df0a68a6fb7c39827292a315408bcea27cc",
-                "reference": "163c9df0a68a6fb7c39827292a315408bcea27cc",
+                "url": "https://api.github.com/repos/jasonmccreary/laravel-test-assertions/zipball/f70f51ed7cdb7d5818d927522401d8ccc467fa25",
+                "reference": "f70f51ed7cdb7d5818d927522401d8ccc467fa25",
                 "shasum": ""
             },
             "require": {
-                "mockery/mockery": "^1.0",
-                "php": ">=7.2",
-                "phpunit/phpunit": "^7.5|^8.0|^9.0"
+                "illuminate/testing": "^8.0",
+                "mockery/mockery": "^1.4.2",
+                "php": ">=7.3",
+                "phpunit/phpunit": "^9.3.3"
             },
             "type": "library",
             "extra": {
@@ -9640,9 +9641,9 @@
             "description": "A set of helpful assertions when testing Laravel applications.",
             "support": {
                 "issues": "https://github.com/jasonmccreary/laravel-test-assertions/issues",
-                "source": "https://github.com/jasonmccreary/laravel-test-assertions/tree/v1.1.0"
+                "source": "https://github.com/jasonmccreary/laravel-test-assertions/tree/v2.0.0"
             },
-            "time": "2021-02-20T13:23:21+00:00"
+            "time": "2021-09-28T18:47:10+00:00"
         },
         {
             "name": "justinrainbow/json-schema",
