@@ -17,15 +17,11 @@ class DuplicateRankGroupActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $group;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(DuplicateRankGroup::class);
 
         $this->group = RankGroup::factory()->create([
             'name' => 'Command',
@@ -35,9 +31,9 @@ class DuplicateRankGroupActionTest extends TestCase
     /** @test **/
     public function itDuplicatesARankGroup()
     {
-        $group = $this->action->execute($this->group, new RankGroupData([
-            'name' => 'New Name',
-        ]));
+        $group = DuplicateRankGroup::run($this->group, new RankGroupData(
+            name: 'New Name',
+        ));
 
         $this->assertTrue($group->exists);
         $this->assertEquals('New Name', $group->name);

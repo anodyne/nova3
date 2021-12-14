@@ -17,23 +17,14 @@ class CreateRankNameActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->action = app(CreateRankName::class);
-    }
-
     /** @test **/
     public function itCreatesARankName()
     {
-        $data = new RankNameData([
-            'name' => 'Captain',
-        ]);
+        $data = new RankNameData(
+            name: 'Captain',
+        );
 
-        $name = $this->action->execute($data);
+        $name = CreateRankName::run($data);
 
         $this->assertTrue($name->exists);
         $this->assertEquals('Captain', $name->name);
@@ -45,11 +36,11 @@ class CreateRankNameActionTest extends TestCase
         RankName::factory()->create(['sort' => 0]);
         RankName::factory()->create(['sort' => 1]);
 
-        $data = new RankNameData([
-            'name' => 'Captain',
-        ]);
+        $data = new RankNameData(
+            name: 'Captain',
+        );
 
-        $name = $this->action->execute($data);
+        $name = CreateRankName::run($data);
 
         $this->assertEquals(2, $name->sort);
     }

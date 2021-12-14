@@ -17,15 +17,11 @@ class UpdateRankNameActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $name;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(UpdateRankName::class);
 
         $this->name = RankName::factory()->create();
     }
@@ -33,11 +29,11 @@ class UpdateRankNameActionTest extends TestCase
     /** @test **/
     public function itUpdatesARankName()
     {
-        $data = new RankNameData([
-            'name' => 'Captain',
-        ]);
+        $data = new RankNameData(
+            name: 'Captain',
+        );
 
-        $name = $this->action->execute($this->name, $data);
+        $name = UpdateRankName::run($this->name, $data);
 
         $this->assertTrue($name->exists);
         $this->assertEquals('Captain', $name->name);

@@ -17,23 +17,14 @@ class CreateRankGroupActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->action = app(CreateRankGroup::class);
-    }
-
     /** @test **/
     public function itCreatesARankGroup()
     {
-        $data = new RankGroupData([
-            'name' => 'Command',
-        ]);
+        $data = new RankGroupData(
+            name: 'Command',
+        );
 
-        $group = $this->action->execute($data);
+        $group = CreateRankGroup::run($data);
 
         $this->assertTrue($group->exists);
         $this->assertEquals('Command', $group->name);
@@ -45,11 +36,11 @@ class CreateRankGroupActionTest extends TestCase
         RankGroup::factory()->create(['sort' => 0]);
         RankGroup::factory()->create(['sort' => 1]);
 
-        $data = new RankGroupData([
-            'name' => 'Command',
-        ]);
+        $data = new RankGroupData(
+            name: 'Command',
+        );
 
-        $group = $this->action->execute($data);
+        $group = CreateRankGroup::run($data);
 
         $this->assertEquals(2, $group->sort);
     }

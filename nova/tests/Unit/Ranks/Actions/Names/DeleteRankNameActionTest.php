@@ -16,15 +16,11 @@ class DeleteRankNameActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $name;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(DeleteRankName::class);
 
         $this->name = RankName::factory()->create();
     }
@@ -32,7 +28,7 @@ class DeleteRankNameActionTest extends TestCase
     /** @test **/
     public function itDeletesARankName()
     {
-        $name = $this->action->execute($this->name);
+        $name = DeleteRankName::run($this->name);
 
         $this->assertFalse($name->exists);
     }

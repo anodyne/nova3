@@ -19,15 +19,11 @@ class UpdateRankItemActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $item;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(UpdateRankItem::class);
 
         $this->item = RankItem::factory()->create();
     }
@@ -38,14 +34,14 @@ class UpdateRankItemActionTest extends TestCase
         $group = RankGroup::factory()->create();
         $name = RankName::factory()->create();
 
-        $data = new RankItemData([
-            'group_id' => $group->id,
-            'name_id' => $name->id,
-            'base_image' => 'new-base.png',
-            'overlay_image' => 'new-overlay.png',
-        ]);
+        $data = new RankItemData(
+            group_id: $group->id,
+            name_id: $name->id,
+            base_image: 'new-base.png',
+            overlay_image: 'new-overlay.png',
+        );
 
-        $item = $this->action->execute($this->item, $data);
+        $item = UpdateRankItem::run($this->item, $data);
 
         $this->assertTrue($item->exists);
         $this->assertEquals($group->id, $item->group_id);
