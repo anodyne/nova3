@@ -19,15 +19,11 @@ class CreatePositionActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $department;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(CreatePosition::class);
 
         $this->department = Department::factory()->create();
     }
@@ -43,7 +39,7 @@ class CreatePositionActionTest extends TestCase
             'department_id' => $this->department->id,
         ]);
 
-        $position = $this->action->execute($data);
+        $position = CreatePosition::run($data);
 
         $this->assertTrue($position->exists);
         $this->assertEquals('Captain', $position->name);
@@ -72,7 +68,7 @@ class CreatePositionActionTest extends TestCase
             'department_id' => $this->department->id,
         ]);
 
-        $position = $this->action->execute($data);
+        $position = CreatePosition::run($data);
 
         $this->assertEquals(2, $position->sort);
     }

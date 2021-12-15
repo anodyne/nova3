@@ -18,15 +18,11 @@ class DuplicatePositionActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $position;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(DuplicatePosition::class);
 
         $this->position = Position::factory()->create([
             'name' => 'Commanding Officer',
@@ -37,7 +33,7 @@ class DuplicatePositionActionTest extends TestCase
     /** @test **/
     public function itDuplicatesAPosition()
     {
-        $position = $this->action->execute($this->position, new PositionData([
+        $position = DuplicatePosition::run($this->position, new PositionData([
             'name' => 'Executive Officer',
             'description' => $this->position->description,
             'active' => $this->position->active,

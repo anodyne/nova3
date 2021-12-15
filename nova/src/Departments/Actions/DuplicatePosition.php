@@ -14,7 +14,9 @@ class DuplicatePosition
 
     public function handle(Position $original, PositionData $data): Position
     {
-        $position = $original->replicate()->fill($data->toArray());
+        $position = $original->replicate();
+
+        $position->fill(collect($data->all())->filter()->toArray());
 
         $position->save();
 

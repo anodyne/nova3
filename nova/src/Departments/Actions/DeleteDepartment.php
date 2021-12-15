@@ -11,11 +11,11 @@ class DeleteDepartment
 {
     use AsAction;
 
-    public function execute(Department $department): Department
+    public function handle(Department $department): Department
     {
-        $department->positions->each(function ($position) {
-            DeletePosition::run($position);
-        });
+        $department->positions->each(
+            fn ($position) => DeletePosition::run($position)
+        );
 
         return tap($department)->delete();
     }

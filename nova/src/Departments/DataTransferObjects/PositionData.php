@@ -18,7 +18,7 @@ class PositionData extends DataTransferObject
 
     public bool $active = true;
 
-    public Department $department;
+    public ?Department $department;
 
     public int $department_id = 0;
 

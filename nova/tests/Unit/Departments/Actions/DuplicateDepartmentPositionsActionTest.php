@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Departments\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -17,15 +19,11 @@ class DuplicateDepartmentPositionsActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $department;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(DuplicateDepartmentPositions::class);
 
         $this->department = Department::factory()
             ->hasPositions(2, function (array $attributes, Department $department) {
@@ -39,12 +37,12 @@ class DuplicateDepartmentPositionsActionTest extends TestCase
     /** @test **/
     public function itDuplicatesThePositionsFromAnotherDepartment()
     {
-        $department = app(DuplicateDepartment::class)->execute(
+        $department = DuplicateDepartment::run(
             $this->department,
             new DepartmentData(['name' => 'New Name'])
         );
 
-        $this->action->execute($department, $this->department);
+        DuplicateDepartmentPositions::run($department, $this->department);
 
         $department->refresh();
 

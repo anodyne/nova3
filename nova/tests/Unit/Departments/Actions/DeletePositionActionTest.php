@@ -17,15 +17,11 @@ class DeletePositionActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $position;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(DeletePosition::class);
 
         $this->position = Position::factory()->create();
     }
@@ -33,7 +29,7 @@ class DeletePositionActionTest extends TestCase
     /** @test **/
     public function itDeletesAPosition()
     {
-        $position = $this->action->execute($this->position);
+        $position = DeletePosition::run($this->position);
 
         $this->assertFalse($position->exists);
     }

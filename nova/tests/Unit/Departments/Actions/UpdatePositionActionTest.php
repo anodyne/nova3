@@ -19,15 +19,11 @@ class UpdatePositionActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $position;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(UpdatePosition::class);
 
         $this->position = Position::factory()->create();
     }
@@ -46,7 +42,7 @@ class UpdatePositionActionTest extends TestCase
             'department' => $newDepartment,
         ]);
 
-        $position = $this->action->execute($this->position, $data);
+        $position = UpdatePosition::run($this->position, $data);
 
         $this->assertTrue($position->exists);
         $this->assertEquals('Executive Officer', $position->name);

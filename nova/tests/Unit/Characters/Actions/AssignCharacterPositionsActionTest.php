@@ -20,15 +20,11 @@ class AssignCharacterPositionsActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $character;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(AssignCharacterPositions::class);
 
         $this->character = Character::factory()->active()->create();
     }
@@ -42,7 +38,7 @@ class AssignCharacterPositionsActionTest extends TestCase
             'positions' => [$position->id],
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterPositions::run($this->character, $data);
 
         $position->refresh();
 
@@ -63,7 +59,7 @@ class AssignCharacterPositionsActionTest extends TestCase
             'positions' => [$first->id, $second->id],
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterPositions::run($this->character, $data);
 
         $first->refresh();
         $second->refresh();
@@ -88,7 +84,7 @@ class AssignCharacterPositionsActionTest extends TestCase
             'primaryPosition' => $first->id,
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterPositions::run($this->character, $data);
 
         $first->refresh();
         $second->refresh();
@@ -114,7 +110,7 @@ class AssignCharacterPositionsActionTest extends TestCase
             'positions' => [$second->id],
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterPositions::run($this->character, $data);
 
         $first->refresh();
         $second->refresh();
@@ -142,7 +138,7 @@ class AssignCharacterPositionsActionTest extends TestCase
             'primaryPosition' => $second->id,
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterPositions::run($this->character, $data);
 
         $first->refresh();
         $second->refresh();
@@ -173,7 +169,7 @@ class AssignCharacterPositionsActionTest extends TestCase
             'primaryPosition' => $third->id,
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterPositions::run($this->character, $data);
 
         $first->refresh();
         $second->refresh();
@@ -203,7 +199,7 @@ class AssignCharacterPositionsActionTest extends TestCase
             'positions' => [$second->id, $third->id],
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterPositions::run($this->character, $data);
 
         $first->refresh();
         $second->refresh();

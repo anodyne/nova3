@@ -17,15 +17,11 @@ class UpdateDepartmentActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $department;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(UpdateDepartment::class);
 
         $this->department = Department::factory()->create();
     }
@@ -39,7 +35,7 @@ class UpdateDepartmentActionTest extends TestCase
             'active' => false,
         ]);
 
-        $department = $this->action->execute($this->department, $data);
+        $department = UpdateDepartment::run($this->department, $data);
 
         $this->assertTrue($department->exists);
         $this->assertEquals('Operations', $department->name);

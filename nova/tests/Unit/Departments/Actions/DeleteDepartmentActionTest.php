@@ -16,15 +16,11 @@ class DeleteDepartmentActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $department;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(DeleteDepartment::class);
 
         $this->department = Department::factory()->create();
     }
@@ -32,7 +28,7 @@ class DeleteDepartmentActionTest extends TestCase
     /** @test **/
     public function itDeletesADepartment()
     {
-        $department = $this->action->execute($this->department);
+        $department = DeleteDepartment::run($this->department);
 
         $this->assertFalse($department->exists);
     }

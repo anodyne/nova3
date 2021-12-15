@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Departments\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Nova\Departments\Actions\DuplicatePosition;
 use Nova\Departments\DataTransferObjects\PositionData;
 use Nova\Departments\Events\PositionDuplicated;
@@ -43,8 +44,13 @@ class DuplicatePositionController extends Controller
 
         PositionDuplicated::dispatch($position, $original);
 
-        return redirect()
-            ->route('positions.edit', $position)
+        $redirect = redirect()
             ->withToast("{$position->name} has been created", "All of the data from {$original->name} has been duplicated into your new position.");
+
+        if (Gate::allows('update', $position)) {
+            return $redirect->route('positions.edit', $position);
+        }
+
+        return $redirect->route('positions.index', $position->department_id);
     }
 }

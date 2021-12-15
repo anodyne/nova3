@@ -17,15 +17,6 @@ class CreateDepartmentActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->action = app(CreateDepartment::class);
-    }
-
     /** @test **/
     public function itCreatesADepartment()
     {
@@ -34,7 +25,7 @@ class CreateDepartmentActionTest extends TestCase
             'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
         ]);
 
-        $department = $this->action->execute($data);
+        $department = CreateDepartment::run($data);
 
         $this->assertTrue($department->exists);
         $this->assertEquals('Command', $department->name);
@@ -52,7 +43,7 @@ class CreateDepartmentActionTest extends TestCase
             'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
         ]);
 
-        $department = $this->action->execute($data);
+        $department = CreateDepartment::run($data);
 
         $this->assertEquals(2, $department->sort);
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Departments\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -15,15 +17,11 @@ class DuplicateDepartmentActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $department;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(DuplicateDepartment::class);
 
         $this->department = Department::factory()->create([
             'name' => 'Command',
@@ -34,7 +32,7 @@ class DuplicateDepartmentActionTest extends TestCase
     /** @test **/
     public function itDuplicatesADepartment()
     {
-        $department = $this->action->execute($this->department, new DepartmentData([
+        $department = DuplicateDepartment::run($this->department, new DepartmentData([
             'name' => 'New Name',
             'description' => $this->department->description,
             'active' => $this->department->active,
