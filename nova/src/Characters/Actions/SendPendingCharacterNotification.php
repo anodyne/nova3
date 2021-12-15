@@ -6,8 +6,8 @@ namespace Nova\Characters\Actions;
 
 use Illuminate\Support\Facades\Notification;
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Characteers\Notifications\CharacterNeedsApproval;
 use Nova\Characters\Models\Character;
+use Nova\Characters\Notifications\CharacterNeedsApproval;
 use Nova\Users\Models\User;
 
 class SendPendingCharacterNotification

@@ -15,7 +15,7 @@ class UpdateCharacterManager
 {
     use AsAction;
 
-    public function execute(Character $character, Request $request): Character
+    public function handle(Character $character, Request $request): Character
     {
         $character = UpdateCharacter::run(
             $character,

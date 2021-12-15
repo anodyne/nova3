@@ -17,15 +17,6 @@ class CreateCharacterActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->action = app(CreateCharacter::class);
-    }
-
     /** @test **/
     public function itCanCreateACharacter()
     {
@@ -36,7 +27,7 @@ class CreateCharacterActionTest extends TestCase
             'rank_id' => $rank->id,
         ]);
 
-        $character = $this->action->execute($data);
+        $character = CreateCharacter::run($data);
 
         $this->assertTrue($character->exists);
         $this->assertEquals('Jack Sparrow', $character->name);

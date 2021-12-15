@@ -12,13 +12,6 @@ class ActivateCharacter
 {
     use AsAction;
 
-    protected SetCharacterType $setCharacterType;
-
-    public function __construct(SetCharacterType $setCharacterType)
-    {
-        $this->setCharacterType = $setCharacterType;
-    }
-
     public function handle(Character $character): Character
     {
         activity()
@@ -38,7 +31,7 @@ class ActivateCharacter
 
             $character->refresh();
 
-            $this->setCharacterType->execute($character);
+            SetCharacterType::run($character);
         });
 
         $character->status->transitionTo(Active::class);

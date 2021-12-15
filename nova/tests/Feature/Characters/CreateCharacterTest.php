@@ -12,6 +12,7 @@ use Nova\Characters\Models\Character;
 use Nova\Characters\Requests\CreateCharacterRequest;
 use Nova\Departments\Models\Position;
 use Nova\Ranks\Models\RankItem;
+use Nova\Settings\Models\Settings;
 use Nova\Users\Models\User;
 use Tests\TestCase;
 
@@ -23,8 +24,32 @@ class CreateCharacterTest extends TestCase
     use RefreshDatabase;
 
     /** @test **/
-    public function authorizedUserCanViewTheCreateCharacterPage()
+    public function authenticatedUserCanViewTheCreateCharacterPageWithoutPermissionsWhenAllowCharacterCreationSettingIsTrue()
     {
+        Settings::custom()->update(['characters->allowCharacterCreation' => true]);
+
+        $this->signIn();
+
+        $response = $this->get(route('characters.create'));
+        $response->assertSuccessful();
+    }
+
+    /** @test **/
+    public function authenticatedUserCannotViewTheCreateCharacterPageWithoutPermissionsWhenAllowCharacterCreationSettingIsFalse()
+    {
+        Settings::custom()->update(['characters->allowCharacterCreation' => false]);
+
+        $this->signIn();
+
+        $response = $this->get(route('characters.create'));
+        $response->assertForbidden();
+    }
+
+    /** @test **/
+    public function authenticatedUserCanViewTheCreateCharacterPageWithPermissionsWhenAllowCharacterCreationSettingIsTrue()
+    {
+        Settings::custom()->update(['characters->allowCharacterCreation' => true]);
+
         $this->signInWithPermission('character.create');
 
         $response = $this->get(route('characters.create'));
@@ -32,9 +57,22 @@ class CreateCharacterTest extends TestCase
     }
 
     /** @test **/
-    public function authorizedUserCanCreateACharacter()
+    public function authenticatedUserCanViewTheCreateCharacterPageWithPermissionsWhenAllowCharacterCreationSettingIsFalse()
     {
+        Settings::custom()->update(['characters->allowCharacterCreation' => false]);
+
         $this->signInWithPermission('character.create');
+
+        $response = $this->get(route('characters.create'));
+        $response->assertSuccessful();
+    }
+
+    /** @test **/
+    public function authenticatedUserCanCreateACharacterWithoutPermissionsWhenAllowCharacterCreationSettingIsTrue()
+    {
+        Settings::custom()->update(['characters->allowCharacterCreation' => true]);
+
+        $this->signIn();
 
         $position = Position::factory()->create();
         $rank = RankItem::factory()->create();
@@ -73,8 +111,110 @@ class CreateCharacterTest extends TestCase
     }
 
     /** @test **/
+    public function authenticatedUserCannotCreateACharacterWithoutPermissionsWhenAllowCharacterCreationSettingIsFalse()
+    {
+        Settings::custom()->update(['characters->allowCharacterCreation' => false]);
+
+        $this->signIn();
+
+        $position = Position::factory()->create();
+        $rank = RankItem::factory()->create();
+        $user = User::factory()->active()->create();
+
+        $response = $this->postJson(route('characters.store'), [
+            'name' => 'Jack Sparrow',
+            'rank_id' => $rank->id,
+            'positions' => $position->id,
+            'users' => $user->id,
+        ]);
+        $response->assertForbidden();
+
+        $this->assertDatabaseMissing('characters', [
+            'name' => 'Jack Sparrow',
+        ]);
+    }
+
+    /** @test **/
+    public function authenticatedUserCanCreateACharacterWithPermissionsWhenAllowCharacterCreationSettingIsTrue()
+    {
+        Settings::custom()->update(['characters->allowCharacterCreation' => true]);
+
+        $this->signInWithPermission('character.create');
+
+        $position = Position::factory()->create();
+        $rank = RankItem::factory()->create();
+        $user = User::factory()->active()->create();
+
+        $this->followingRedirects();
+
+        $response = $this->post(route('characters.store'), [
+            'name' => 'Jack Sparrow',
+            'rank_id' => $rank->id,
+            'positions' => $position->id,
+            'users' => $user->id,
+        ]);
+        $response->assertSuccessful();
+
+        $character = Character::latest()->first();
+
+        $this->assertDatabaseHas('characters', [
+            'name' => 'Jack Sparrow',
+        ]);
+
+        $this->assertDatabaseHas('character_position', [
+            'character_id' => $character->id,
+            'position_id' => $position->id,
+        ]);
+
+        $this->assertDatabaseHas('character_user', [
+            'character_id' => $character->id,
+            'user_id' => $user->id,
+        ]);
+    }
+
+    /** @test **/
+    public function authenticatedUserCanCreateACharacterWithPermissionsWhenAllowCharacterCreationSettingIsFalse()
+    {
+        Settings::custom()->update(['characters->allowCharacterCreation' => false]);
+
+        $this->signInWithPermission('character.create');
+
+        $position = Position::factory()->create();
+        $rank = RankItem::factory()->create();
+        $user = User::factory()->active()->create();
+
+        $this->followingRedirects();
+
+        $response = $this->post(route('characters.store'), [
+            'name' => 'Jack Sparrow',
+            'rank_id' => $rank->id,
+            'positions' => $position->id,
+            'users' => $user->id,
+        ]);
+        $response->assertSuccessful();
+
+        $character = Character::latest()->first();
+
+        $this->assertDatabaseHas('characters', [
+            'name' => 'Jack Sparrow',
+        ]);
+
+        $this->assertDatabaseHas('character_position', [
+            'character_id' => $character->id,
+            'position_id' => $position->id,
+        ]);
+
+        $this->assertDatabaseHas('character_user', [
+            'character_id' => $character->id,
+            'user_id' => $user->id,
+        ]);
+    }
+
+    /** @test **/
     public function authorizedUserCanCreateACharacterAsAPrimaryCharacter()
     {
+        $this->markTestIncomplete();
+
         $this->signInWithPermission('character.create');
 
         $position = Position::factory()->create();
@@ -123,26 +263,35 @@ class CreateCharacterTest extends TestCase
     }
 
     /** @test **/
-    public function unauthorizedUserCannotViewTheCreateCharacterPage()
+    public function characterCreatedByUserWithoutPermissionsIsAssignedToTheCreatingUserWhenAutoLinkCharacterIsTrue()
     {
-        $this->signIn();
+        $this->markTestIncomplete();
 
-        $response = $this->get(route('characters.create'));
-        $response->assertForbidden();
+        Settings::custom()->update(['characters->autoLinkCharacter' => true]);
     }
 
     /** @test **/
-    public function unauthorizedUserCannotCreateACharacter()
+    public function characterCreatedByUserWithoutPermissionsIsNotAssignedToTheCreatingUserWhenAutoLinkCharacterIsFalse()
     {
-        $this->signIn();
+        $this->markTestIncomplete();
 
-        $this->followingRedirects();
+        Settings::custom()->update(['characters->autoLinkCharacter' => false]);
+    }
 
-        $response = $this->post(route('characters.store'), [
-            'name' => 'Jack Sparrow',
-            'positions' => '1',
-        ]);
-        $response->assertForbidden();
+    /** @test **/
+    public function characterCreatedByUserWithoutPermissionsHasAStatusOfPendingWhenRequireApprovalIsTrue()
+    {
+        $this->markTestIncomplete();
+
+        Settings::custom()->update(['characters->requireApprovalForCharacterCreation' => true]);
+    }
+
+    /** @test **/
+    public function characterCreatedByUserWithoutPermissionsHasAStatusOfActiveWhenRequireApprovalIsFalse()
+    {
+        $this->markTestIncomplete();
+
+        Settings::custom()->update(['characters->requireApprovalForCharacterCreation' => false]);
     }
 
     /** @test **/

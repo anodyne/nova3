@@ -21,15 +21,11 @@ class ActivateCharacterActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $character;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(ActivateCharacter::class);
 
         $this->character = Character::factory()->inactive()->create();
     }
@@ -39,9 +35,9 @@ class ActivateCharacterActionTest extends TestCase
     {
         $jackSparrow = Character::factory()->inactive()->create();
 
-        $jackSparrow = $this->action->execute($jackSparrow);
+        $jackSparrow = ActivateCharacter::run($jackSparrow);
 
-        $this->assertTrue($jackSparrow->status->equals(Active::class));
+        $this->assertInstanceOf(Active::class, $jackSparrow->status);
     }
 
     /** @test **/
@@ -63,9 +59,9 @@ class ActivateCharacterActionTest extends TestCase
 
         $this->assertCount(2, $johnny->characters);
         $this->assertCount(1, $johnny->activeCharacters);
-        $this->assertTrue($bobSparrow->status->equals(Inactive::class));
+        $this->assertInstanceOf(Inactive::class, $bobSparrow->status);
 
-        $this->action->execute($bobSparrow);
+        ActivateCharacter::run($bobSparrow);
 
         $johnny->refresh();
         $jackSparrow->refresh();
@@ -73,8 +69,8 @@ class ActivateCharacterActionTest extends TestCase
 
         $this->assertCount(2, $johnny->activeCharacters);
         $this->assertCount(1, $johnny->primaryCharacter);
-        $this->assertTrue($jackSparrow->type->equals(Primary::class));
-        $this->assertTrue($bobSparrow->type->equals(Secondary::class));
+        $this->assertInstanceOf(Primary::class, $jackSparrow->type);
+        $this->assertInstanceOf(Secondary::class, $bobSparrow->type);
     }
 
     /** @test **/
@@ -98,16 +94,16 @@ class ActivateCharacterActionTest extends TestCase
         $this->assertCount(2, $adam->characters()->wherePivot('primary', true)->get());
         $this->assertCount(2, $ben->characters()->wherePivot('primary', true)->get());
 
-        $elizabethSwann = $this->action->execute($this->character);
+        $elizabethSwann = ActivateCharacter::run($this->character);
 
-        $this->assertTrue($elizabethSwann->status->equals(Active::class));
+        $this->assertInstanceOf(Active::class, $elizabethSwann->status);
         $this->assertFalse((bool) $elizabethSwann->users()->where('users.id', $adam->id)->first()->pivot->primary);
         $this->assertFalse((bool) $elizabethSwann->users()->where('users.id', $ben->id)->first()->pivot->primary);
 
-        $this->assertTrue($jackSparrow->status->equals(Active::class));
+        $this->assertInstanceOf(Active::class, $jackSparrow->status);
         $this->assertTrue((bool) $jackSparrow->users()->where('users.id', $adam->id)->first()->pivot->primary);
 
-        $this->assertTrue($willTurner->status->equals(Active::class));
+        $this->assertInstanceOf(Active::class, $willTurner->status);
         $this->assertTrue((bool) $willTurner->users()->where('users.id', $ben->id)->first()->pivot->primary);
     }
 }

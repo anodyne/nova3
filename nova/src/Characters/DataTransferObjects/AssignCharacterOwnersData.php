@@ -17,7 +17,7 @@ class AssignCharacterOwnersData extends DataTransferObject
     {
         return new self(
             primaryCharacters: $request->input('primary_character', []),
-            users: ($request->users) ? explode(',', $request->users) : [],
+            users: ($request->users) ? explode(',', (string) $request->users) : [],
         );
     }
 }

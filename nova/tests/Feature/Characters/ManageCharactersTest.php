@@ -15,48 +15,28 @@ class ManageCharactersTest extends TestCase
     use RefreshDatabase;
 
     /** @test **/
-    public function authorizedUserWithCreatePermissionCanViewManageCharactersPage()
-    {
-        $this->signInWithPermission('character.create');
-
-        $response = $this->get(route('characters.index'));
-        $response->assertSuccessful();
-    }
-
-    /** @test **/
-    public function authorizedUserWithUpdatePermissionCanViewManageCharactersPage()
-    {
-        $this->signInWithPermission('character.update');
-
-        $response = $this->get(route('characters.index'));
-        $response->assertSuccessful();
-    }
-
-    /** @test **/
-    public function authorizedUserWithDeletePermissionCanViewManageCharactersPage()
-    {
-        $this->signInWithPermission('character.delete');
-
-        $response = $this->get(route('characters.index'));
-        $response->assertSuccessful();
-    }
-
-    /** @test **/
-    public function authorizedUserWithViewPermissionCanViewManageCharactersPage()
-    {
-        $this->signInWithPermission('character.view');
-
-        $response = $this->get(route('characters.index'));
-        $response->assertSuccessful();
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotViewManageCharactersPage()
+    public function authenticatedUserCanViewManageCharactersPage()
     {
         $this->signIn();
 
         $response = $this->get(route('characters.index'));
-        $response->assertForbidden();
+        $response->assertSuccessful();
+    }
+
+    /** @test **/
+    public function authorizedUserCanSeeAllCharactersOnManageCharactersPage()
+    {
+        $this->signInWithPermission('character.create');
+
+        $this->markTestIncomplete();
+    }
+
+    /** @test **/
+    public function unauthorizedUserCanOnlySeeTheirOwnCharactersOnManageCharactersPage()
+    {
+        $this->signIn();
+
+        $this->markTestIncomplete();
     }
 
     /** @test **/

@@ -51,6 +51,7 @@ class UpdateCharacterTest extends TestCase
     /** @test **/
     public function authorizedUserCanUpdateACharacter()
     {
+        $this->withoutExceptionHandling();
         $this->signInWithPermission('character.update');
 
         $this->followingRedirects();
