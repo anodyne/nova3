@@ -39,9 +39,10 @@
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle field="allow_setting_primary_character" :value="old('allow_setting_primary_character', $settings->characters->allowSettingPrimaryCharacter)">
+                    <x-input.toggle field="allow_setting_primary_character" :value="old('allow_setting_primary_character', $settings->characters->allowSettingPrimaryCharacter)" help="Requires auto-linking created characters to be enabled.">
                         Allow setting created character as a primary character
                     </x-input.toggle>
+
                 </x-input.group>
 
                 <x-input.group>
