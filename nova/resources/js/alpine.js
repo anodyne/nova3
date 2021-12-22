@@ -2,6 +2,7 @@ import Alpine from 'alpinejs';
 
 import Trap from '@alpinejs/trap';
 
+import AdminThemeToggle from './components/admin-theme-toggle';
 import ListBox from './components/list-box';
 import Modal from './components/modal';
 import Ratings from './components/ratings';
@@ -13,6 +14,7 @@ import WordCount from './components/word-count';
 
 Alpine.plugin(Trap);
 
+Alpine.data('adminThemeToggle', AdminThemeToggle);
 Alpine.data('listBox', ListBox);
 Alpine.data('modal', Modal);
 Alpine.data('ratings', Ratings);

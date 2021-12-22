@@ -6,7 +6,7 @@ namespace Tests\Unit\Characters\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Characters\Actions\CreateCharacter;
-use Nova\Characters\DataTransferObjects\CharacterData;
+use Nova\Characters\Data\CharacterData;
 use Nova\Ranks\Models\RankItem;
 use Tests\TestCase;
 
@@ -22,7 +22,7 @@ class CreateCharacterActionTest extends TestCase
     {
         $rank = RankItem::factory()->create();
 
-        $data = new CharacterData([
+        $data = CharacterData::from([
             'name' => 'Jack Sparrow',
             'rank_id' => $rank->id,
         ]);

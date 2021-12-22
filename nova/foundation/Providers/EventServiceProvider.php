@@ -27,7 +27,7 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         Login::class => [
-            \Nova\Users\Listeners\RecordLoginTime::class
+            \Nova\Users\Listeners\RecordLoginTime::class,
         ],
     ];
 

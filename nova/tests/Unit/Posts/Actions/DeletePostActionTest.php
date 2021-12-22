@@ -16,15 +16,11 @@ class DeletePostActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected DeletePost $action;
-
     protected Post $post;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(DeletePost::class);
 
         $this->post = Post::factory()->create();
     }
@@ -32,7 +28,7 @@ class DeletePostActionTest extends TestCase
     /** @test **/
     public function itDeletesAPost()
     {
-        $post = $this->action->execute($this->post);
+        $post = DeletePost::run($this->post);
 
         $this->assertFalse($post->exists);
     }

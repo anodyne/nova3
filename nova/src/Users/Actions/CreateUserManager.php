@@ -6,7 +6,7 @@ namespace Nova\Users\Actions;
 
 use Illuminate\Http\Request;
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Users\DataTransferObjects\UserData;
+use Nova\Users\Data\UserData;
 use Nova\Users\Models\User;
 
 class CreateUserManager
@@ -15,7 +15,7 @@ class CreateUserManager
 
     public function handle(Request $request): User
     {
-        $user = CreateUser::run(UserData::fromRequest($request));
+        $user = CreateUser::run(UserData::from($request));
 
         UploadUserAvatar::run($user, $request->avatar_path);
 

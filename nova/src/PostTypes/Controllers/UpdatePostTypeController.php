@@ -6,7 +6,7 @@ namespace Nova\PostTypes\Controllers;
 
 use Nova\Foundation\Controllers\Controller;
 use Nova\PostTypes\Actions\UpdatePostType;
-use Nova\PostTypes\DataTransferObjects\PostTypeData;
+use Nova\PostTypes\Data\PostTypeData;
 use Nova\PostTypes\Models\PostType;
 use Nova\PostTypes\Requests\UpdatePostTypeRequest;
 use Nova\PostTypes\Responses\UpdatePostTypeResponse;
@@ -38,7 +38,7 @@ class UpdatePostTypeController extends Controller
 
         $postType = UpdatePostType::run(
             $postType,
-            PostTypeData::fromRequest($request)
+            PostTypeData::from($request)
         );
 
         return redirect()

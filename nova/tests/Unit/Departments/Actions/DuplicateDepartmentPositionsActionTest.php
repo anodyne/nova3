@@ -7,7 +7,7 @@ namespace Tests\Unit\Departments\Actions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Departments\Actions\DuplicateDepartment;
 use Nova\Departments\Actions\DuplicateDepartmentPositions;
-use Nova\Departments\DataTransferObjects\DepartmentData;
+use Nova\Departments\Data\DepartmentData;
 use Nova\Departments\Models\Department;
 use Tests\TestCase;
 
@@ -39,7 +39,10 @@ class DuplicateDepartmentPositionsActionTest extends TestCase
     {
         $department = DuplicateDepartment::run(
             $this->department,
-            new DepartmentData(['name' => 'New Name'])
+            DepartmentData::from([
+                'name' => 'New Name',
+                'active' => true,
+            ])
         );
 
         DuplicateDepartmentPositions::run($department, $this->department);

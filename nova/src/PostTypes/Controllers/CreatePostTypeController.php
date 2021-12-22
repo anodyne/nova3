@@ -6,7 +6,7 @@ namespace Nova\PostTypes\Controllers;
 
 use Nova\Foundation\Controllers\Controller;
 use Nova\PostTypes\Actions\CreatePostType;
-use Nova\PostTypes\DataTransferObjects\PostTypeData;
+use Nova\PostTypes\Data\PostTypeData;
 use Nova\PostTypes\Models\PostType;
 use Nova\PostTypes\Requests\CreatePostTypeRequest;
 use Nova\PostTypes\Responses\CreatePostTypeResponse;
@@ -35,7 +35,7 @@ class CreatePostTypeController extends Controller
     {
         $this->authorize('create', PostType::class);
 
-        $postType = CreatePostType::run(PostTypeData::fromRequest($request));
+        $postType = CreatePostType::run(PostTypeData::from($request));
 
         return redirect()
             ->route('post-types.index')

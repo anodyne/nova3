@@ -10,8 +10,6 @@ class UsersCollector extends Component
 {
     public $users;
 
-    public $userIds;
-
     protected $listeners = ['userSelected' => 'handleUserSelected'];
 
     public function addUser($index)
@@ -30,8 +28,6 @@ class UsersCollector extends Component
             'id' => $userId,
             'primary' => false,
         ];
-
-        $this->updateUserIds();
     }
 
     public function removeUser($index)
@@ -39,39 +35,26 @@ class UsersCollector extends Component
         unset($this->users[$index]);
 
         $this->users = array_values($this->users);
-
-        $this->updateUserIds();
     }
 
-    public function updateUserIds()
+    public function mount($users = null, $primaryCharacters = [], $character = null)
     {
-        $this->userIds = collect($this->users)
-            ->filter(function ($user) {
-                return $user['id'] !== null;
-            })
-            ->implode('id', ',');
-    }
-
-    public function mount($users = null, $character = null)
-    {
-        if ($users === null) {
+        if ($users === null || (is_array($users) && count($users) === 0)) {
             $this->users[0] = [
                 'id' => null,
                 'primary' => false,
             ];
         } else {
-            $this->users = collect(explode(',', $users))
-                ->map(function ($user) use ($character) {
+            $this->users = collect($users)
+                ->map(function ($user) use ($character, $primaryCharacters) {
                     return [
                         'id' => $user,
                         'primary' => ($character === null)
-                            ? false
+                            ? in_array($user, $primaryCharacters)
                             : $character->primaryUsers->where('id', $user)->count() > 0,
                     ];
                 })
                 ->toArray();
-
-            $this->updateUserIds();
         }
     }
 

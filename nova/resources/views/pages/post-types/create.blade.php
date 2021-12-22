@@ -109,18 +109,6 @@
                     </x-input.toggle>
                 </x-input.group>
 
-                {{-- <x-input.group>
-                    <x-input.toggle field="options[notifyDiscord]" :value="old('options[notifyDiscord]', settings()->discord->storyPostsEnabled)">
-                        Send notification to Discord
-                    </x-input.toggle>
-
-                    @if (! settings()->discord->storyPostsEnabled)
-                        <x-slot name="help">
-                            <span class="font-medium">Story post notifications for Discord is currently disabled.</span> You can change this setting, but it will not work until you have enabled sending story post notifications to Discord from the <a class="text-blue-9 hover:text-blue-10 transition ease-in-out duration-200" href="{{ route('settings.index', 'discord') }}">Discord settings</a>.
-                        </x-slot>
-                    @endif
-                </x-input.group> --}}
-
                 <x-input.group>
                     <x-input.toggle field="options[includeInPostTracking]" :value="old('options[includeInPostTracking]', true)">
                         Include in post tracking

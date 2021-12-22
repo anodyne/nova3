@@ -6,10 +6,10 @@ namespace Tests\Unit\PostTypes\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\PostTypes\Actions\CreatePostType;
-use Nova\PostTypes\DataTransferObjects\PostTypeData;
-use Nova\PostTypes\Values\Field;
-use Nova\PostTypes\Values\Fields;
-use Nova\PostTypes\Values\Options;
+use Nova\PostTypes\Data\Field;
+use Nova\PostTypes\Data\Fields;
+use Nova\PostTypes\Data\Options;
+use Nova\PostTypes\Data\PostTypeData;
 use Tests\TestCase;
 
 /**
@@ -23,7 +23,7 @@ class CreatePostTypeActionTest extends TestCase
     /** @test **/
     public function itCreatesAPostType()
     {
-        $data = new PostTypeData([
+        $data = PostTypeData::from([
             'key' => 'foo',
             'name' => 'Foo',
             'description' => 'Description of foo',
@@ -31,37 +31,37 @@ class CreatePostTypeActionTest extends TestCase
             'icon' => 'book',
             'active' => true,
             'visibility' => 'in-character',
-            'fields' => new Fields([
-                'title' => new Field([
+            'fields' => Fields::from([
+                'title' => Field::From([
                     'enabled' => true,
                     'validate' => true,
                 ]),
-                'day' => new Field([
+                'day' => Field::From([
                     'enabled' => false,
                     'validate' => false,
                 ]),
-                'time' => new Field([
+                'time' => Field::From([
                     'enabled' => false,
                     'validate' => false,
                 ]),
-                'location' => new Field([
+                'location' => Field::From([
                     'enabled' => true,
                     'validate' => true,
                 ]),
-                'content' => new Field([
+                'content' => Field::From([
                     'enabled' => false,
                     'validate' => false,
                 ]),
-                'rating' => new Field([
+                'rating' => Field::From([
                     'enabled' => true,
                     'validate' => true,
                 ]),
-                'summary' => new Field([
+                'summary' => Field::From([
                     'enabled' => true,
                     'validate' => true,
                 ]),
             ]),
-            'options' => new Options([
+            'options' => Options::from([
                 'notifyUsers' => true,
                 'notifyDiscord' => true,
                 'includeInPostTracking' => false,

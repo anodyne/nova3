@@ -6,7 +6,7 @@ namespace Tests\Unit\Departments\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Departments\Actions\CreatePosition;
-use Nova\Departments\DataTransferObjects\PositionData;
+use Nova\Departments\Data\PositionData;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
 use Tests\TestCase;
@@ -31,12 +31,13 @@ class CreatePositionActionTest extends TestCase
     /** @test **/
     public function itCreatesAPosition()
     {
-        $data = new PositionData([
+        $data = PositionData::from([
             'name' => 'Captain',
             'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
             'available' => 1,
             'department' => $this->department,
             'department_id' => $this->department->id,
+            'active' => true,
         ]);
 
         $position = CreatePosition::run($data);
@@ -60,12 +61,13 @@ class CreatePositionActionTest extends TestCase
             'sort' => 1,
         ]);
 
-        $data = new PositionData([
+        $data = PositionData::from([
             'name' => 'Captain',
             'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
             'available' => 1,
             'department' => $this->department,
             'department_id' => $this->department->id,
+            'active' => true,
         ]);
 
         $position = CreatePosition::run($data);

@@ -21,6 +21,7 @@ class MakeThemeCommandTest extends TestCase
         $this->disk = Storage::fake('themes');
 
         $this->withoutExceptionHandling();
+        $this->markTestSkipped();
     }
 
     /** @test **/

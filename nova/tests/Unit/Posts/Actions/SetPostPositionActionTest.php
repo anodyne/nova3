@@ -7,7 +7,7 @@ namespace Tests\Unit\Posts\Actions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Posts\Actions\CreateRootPost;
 use Nova\Posts\Actions\SetPostPosition;
-use Nova\Posts\DataTransferObjects\PostPositionData;
+use Nova\Posts\Data\PostPositionData;
 use Nova\Posts\Models\Post;
 use Nova\Stories\Models\Story;
 use Tests\TestCase;
@@ -19,8 +19,6 @@ class SetPostPositionActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected SetPostPosition $action;
-
     protected Post $rootPost;
 
     protected Story $story;
@@ -29,11 +27,9 @@ class SetPostPositionActionTest extends TestCase
     {
         parent::setUp();
 
-        $this->action = app(SetPostPosition::class);
-
         $this->story = Story::factory()->create();
 
-        $this->rootPost = app(CreateRootPost::class)->execute($this->story);
+        $this->rootPost = CreateRootPost::run($this->story);
     }
 
     /** @test **/
@@ -43,12 +39,12 @@ class SetPostPositionActionTest extends TestCase
             'story_id' => $this->story->id,
         ]);
 
-        $post = $this->action->execute($post, new PostPositionData([
+        $post = SetPostPosition::run($post, PostPositionData::from([
             'hasPositionChange' => false,
         ]));
 
-        $this->assertEquals($this->rootPost->id, $post->parent_id);
-        $this->assertEquals(2, $post->_lft);
+        $this->assertTrue($post->parent->is($this->rootPost));
+        $this->assertTrue($this->rootPost->descendants()->first()->is($post));
     }
 
     /** @test **/
@@ -62,22 +58,21 @@ class SetPostPositionActionTest extends TestCase
 
         $posts[0]->appendToNode($this->rootPost)->save();
 
-        $post = $this->action->execute(
+        $post = SetPostPosition::run(
             $posts[1],
-            new PostPositionData([
+            PostPositionData::from([
                 'hasPositionChange' => true,
-                'direction' => 'before',
-                'neighbor' => $posts[0],
+                'displayDirection' => 'before',
+                'displayNeighbor' => $posts[0]->id,
             ])
         );
 
         $posts->each->refresh();
 
-        $this->assertEquals($this->rootPost->id, $posts[0]->parent_id);
-        $this->assertEquals(4, $posts[0]->_lft);
-
-        $this->assertEquals($this->rootPost->id, $posts[1]->parent_id);
-        $this->assertEquals(2, $posts[1]->_lft);
+        $this->assertTrue($posts[0]->parent->is($this->rootPost));
+        $this->assertTrue($posts[1]->parent->is($this->rootPost));
+        $this->assertTrue($posts[0]->getPrevSibling()->is($posts[1]));
+        $this->assertTrue($posts[1]->getNextSibling()->is($posts[0]));
     }
 
     /** @test **/
@@ -91,22 +86,21 @@ class SetPostPositionActionTest extends TestCase
 
         $posts[0]->appendToNode($this->rootPost)->save();
 
-        $post = $this->action->execute(
+        $post = SetPostPosition::run(
             $posts[1],
-            new PostPositionData([
+            PostPositionData::from([
                 'hasPositionChange' => true,
-                'direction' => 'after',
-                'neighbor' => $posts[0],
+                'displayDirection' => 'after',
+                'displayNeighbor' => $posts[0]->id,
             ])
         );
 
         $posts->each->refresh();
 
-        $this->assertEquals($this->rootPost->id, $posts[0]->parent_id);
-        $this->assertEquals(2, $posts[0]->_lft);
-
-        $this->assertEquals($this->rootPost->id, $posts[1]->parent_id);
-        $this->assertEquals(4, $posts[1]->_lft);
+        $this->assertTrue($posts[0]->parent->is($this->rootPost));
+        $this->assertTrue($posts[1]->parent->is($this->rootPost));
+        $this->assertTrue($posts[0]->getNextSibling()->is($posts[1]));
+        $this->assertTrue($posts[1]->getPrevSibling()->is($posts[0]));
     }
 
     /** @test **/
@@ -122,25 +116,24 @@ class SetPostPositionActionTest extends TestCase
         $posts[1]->appendToNode($this->rootPost)->save();
         $posts->each->refresh();
 
-        $post = $this->action->execute(
+        $post = SetPostPosition::run(
             $posts[2],
-            new PostPositionData([
+            PostPositionData::from([
                 'hasPositionChange' => true,
-                'direction' => 'before',
-                'neighbor' => $posts[1],
+                'displayDirection' => 'before',
+                'displayNeighbor' => $posts[1]->id,
             ])
         );
 
         $posts->each->refresh();
 
-        $this->assertEquals($this->rootPost->id, $posts[0]->parent_id);
-        $this->assertEquals(2, $posts[0]->_lft);
-
-        $this->assertEquals($this->rootPost->id, $posts[1]->parent_id);
-        $this->assertEquals(6, $posts[1]->_lft);
-
-        $this->assertEquals($this->rootPost->id, $posts[2]->parent_id);
-        $this->assertEquals(4, $posts[2]->_lft);
+        $this->assertTrue($posts[0]->parent->is($this->rootPost));
+        $this->assertTrue($posts[1]->parent->is($this->rootPost));
+        $this->assertTrue($posts[2]->parent->is($this->rootPost));
+        $this->assertTrue($posts[0]->getNextSibling()->is($posts[2]));
+        $this->assertTrue($posts[1]->getPrevSibling()->is($posts[2]));
+        $this->assertTrue($posts[2]->getPrevSibling()->is($posts[0]));
+        $this->assertTrue($posts[2]->getNextSibling()->is($posts[1]));
     }
 
     /** @test **/
@@ -156,24 +149,23 @@ class SetPostPositionActionTest extends TestCase
         $posts[1]->appendToNode($this->rootPost)->save();
         $posts->each->refresh();
 
-        $post = $this->action->execute(
+        $post = SetPostPosition::run(
             $posts[2],
-            new PostPositionData([
+            PostPositionData::from([
                 'hasPositionChange' => true,
-                'direction' => 'after',
-                'neighbor' => $posts[0],
+                'displayDirection' => 'after',
+                'displayNeighbor' => $posts[0]->id,
             ])
         );
 
         $posts->each->refresh();
 
-        $this->assertEquals($this->rootPost->id, $posts[0]->parent_id);
-        $this->assertEquals(2, $posts[0]->_lft);
-
-        $this->assertEquals($this->rootPost->id, $posts[1]->parent_id);
-        $this->assertEquals(6, $posts[1]->_lft);
-
-        $this->assertEquals($this->rootPost->id, $posts[2]->parent_id);
-        $this->assertEquals(4, $posts[2]->_lft);
+        $this->assertTrue($posts[0]->parent->is($this->rootPost));
+        $this->assertTrue($posts[1]->parent->is($this->rootPost));
+        $this->assertTrue($posts[2]->parent->is($this->rootPost));
+        $this->assertTrue($posts[0]->getNextSibling()->is($posts[2]));
+        $this->assertTrue($posts[1]->getPrevSibling()->is($posts[2]));
+        $this->assertTrue($posts[2]->getPrevSibling()->is($posts[0]));
+        $this->assertTrue($posts[2]->getNextSibling()->is($posts[1]));
     }
 }

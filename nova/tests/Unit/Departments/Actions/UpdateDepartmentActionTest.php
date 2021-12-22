@@ -6,7 +6,7 @@ namespace Tests\Unit\Departments\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Departments\Actions\UpdateDepartment;
-use Nova\Departments\DataTransferObjects\DepartmentData;
+use Nova\Departments\Data\DepartmentData;
 use Nova\Departments\Models\Department;
 use Tests\TestCase;
 
@@ -29,7 +29,7 @@ class UpdateDepartmentActionTest extends TestCase
     /** @test **/
     public function itUpdatesADepartment()
     {
-        $data = new DepartmentData([
+        $data = DepartmentData::from([
             'name' => 'Operations',
             'description' => 'Lorem consectetur adipisicing elit.',
             'active' => false,

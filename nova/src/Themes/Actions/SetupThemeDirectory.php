@@ -7,7 +7,7 @@ namespace Nova\Themes\Actions;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\FilesystemManager;
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Themes\DataTransferObjects\ThemeData;
+use Nova\Themes\Data\ThemeData;
 use Nova\Themes\Exceptions\ThemeException;
 use Throwable;
 
@@ -52,12 +52,12 @@ class SetupThemeDirectory
     public function asCommand(Command $command): void
     {
         try {
-            $this->handle(new ThemeData(
-                name: $command->argument('name'),
-                location: $command->option('location'),
-                preview: $command->option('preview'),
-                variants: $command->option('variants'),
-            ));
+            $this->handle(ThemeData::from([
+                'name' => $command->argument('name'),
+                'location' => $command->option('location'),
+                'preview' => $command->option('preview'),
+                'variants' => $command->option('variants'),
+            ]));
 
             $command->info('Theme scaffold created successfully.');
         } catch (Throwable $th) {

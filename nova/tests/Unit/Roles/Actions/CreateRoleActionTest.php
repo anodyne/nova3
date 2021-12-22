@@ -6,7 +6,7 @@ namespace Tests\Unit\Roles\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Roles\Actions\CreateRole;
-use Nova\Roles\DataTransferObjects\RoleData;
+use Nova\Roles\Data\RoleData;
 use Nova\Roles\Models\Permission;
 use Tests\TestCase;
 
@@ -27,12 +27,12 @@ class CreateRoleActionTest extends TestCase
     /** @test **/
     public function itCreatesARole()
     {
-        $data = new RoleData(
-            name: 'foo',
-            display_name: 'Foo',
-            description: 'Description of foo',
-            default: false,
-        );
+        $data = RoleData::from([
+            'name' => 'foo',
+            'display_name' => 'Foo',
+            'description' => 'Description of foo',
+            'default' => false,
+        ]);
 
         $role = CreateRole::run($data);
 
@@ -46,12 +46,12 @@ class CreateRoleActionTest extends TestCase
     /** @test **/
     public function itCanAddPermissions()
     {
-        $data = new RoleData(
-            display_name: 'Bar',
-            name: 'bar',
-            default: false,
-            permissions: Permission::whereIn('id', [1, 2, 3])->get(),
-        );
+        $data = RoleData::from([
+            'display_name' => 'Bar',
+            'name' => 'bar',
+            'default' => false,
+            'permissions' => Permission::whereIn('id', [1, 2, 3])->get(),
+        ]);
 
         $role = CreateRole::run($data);
 

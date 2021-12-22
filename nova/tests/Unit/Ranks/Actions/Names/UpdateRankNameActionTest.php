@@ -6,7 +6,7 @@ namespace Tests\Unit\Ranks\Actions\Names;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Ranks\Actions\UpdateRankName;
-use Nova\Ranks\DataTransferObjects\RankNameData;
+use Nova\Ranks\Data\RankNameData;
 use Nova\Ranks\Models\RankName;
 use Tests\TestCase;
 
@@ -29,9 +29,9 @@ class UpdateRankNameActionTest extends TestCase
     /** @test **/
     public function itUpdatesARankName()
     {
-        $data = new RankNameData(
-            name: 'Captain',
-        );
+        $data = RankNameData::from([
+            'name' => 'Captain',
+        ]);
 
         $name = UpdateRankName::run($this->name, $data);
 

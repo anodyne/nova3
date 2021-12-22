@@ -14,7 +14,7 @@ use Nova\Characters\Models\Character;
 use Nova\Characters\Models\States\Statuses\Active as ActiveCharacter;
 use Nova\Notes\Models\Note;
 use Nova\Stories\Models\Post;
-use Nova\Users\DataTransferObjects\PronounsData;
+use Nova\Users\Data\PronounsData;
 use Nova\Users\Events;
 use Nova\Users\Models\Builders\UserBuilder;
 use Nova\Users\Models\Collections\UsersCollection;

@@ -6,8 +6,8 @@ namespace Tests\Unit\Users\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Users\Actions\UpdateUser;
-use Nova\Users\DataTransferObjects\PronounsData;
-use Nova\Users\DataTransferObjects\UserData;
+use Nova\Users\Data\PronounsData;
+use Nova\Users\Data\UserData;
 use Nova\Users\Models\User;
 use Tests\TestCase;
 
@@ -30,10 +30,10 @@ class UpdateUserActionTest extends TestCase
     /** @test **/
     public function itUpdatesAUser()
     {
-        $data = new UserData([
+        $data = UserData::from([
             'name' => 'John Public',
             'email' => 'john@example.com',
-            'pronouns' => new PronounsData(value: 'neutral'),
+            'pronouns' => PronounsData::from(['value' => 'neutral']),
         ]);
 
         $user = UpdateUser::run($this->user, $data);

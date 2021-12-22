@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Nova\Departments\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Departments\DataTransferObjects\DepartmentData;
+use Nova\Departments\Data\DepartmentData;
 use Nova\Departments\Models\Department;
 
 class DuplicateDepartment

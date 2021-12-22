@@ -6,7 +6,7 @@ namespace Tests\Unit\Ranks\Actions\Names;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Ranks\Actions\CreateRankName;
-use Nova\Ranks\DataTransferObjects\RankNameData;
+use Nova\Ranks\Data\RankNameData;
 use Nova\Ranks\Models\RankName;
 use Tests\TestCase;
 
@@ -20,9 +20,9 @@ class CreateRankNameActionTest extends TestCase
     /** @test **/
     public function itCreatesARankName()
     {
-        $data = new RankNameData(
-            name: 'Captain',
-        );
+        $data = RankNameData::from([
+            'name' => 'Captain',
+        ]);
 
         $name = CreateRankName::run($data);
 
@@ -36,9 +36,9 @@ class CreateRankNameActionTest extends TestCase
         RankName::factory()->create(['sort' => 0]);
         RankName::factory()->create(['sort' => 1]);
 
-        $data = new RankNameData(
-            name: 'Captain',
-        );
+        $data = RankNameData::from([
+            'name' => 'Captain',
+        ]);
 
         $name = CreateRankName::run($data);
 

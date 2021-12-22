@@ -7,7 +7,7 @@ namespace Nova\Ranks\Controllers\Items;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Ranks\Actions\CreateRankItem;
 use Nova\Ranks\Concerns\FindRankImages;
-use Nova\Ranks\DataTransferObjects\RankItemData;
+use Nova\Ranks\Data\RankItemData;
 use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Models\RankItem;
 use Nova\Ranks\Models\RankName;
@@ -41,7 +41,7 @@ class CreateRankItemController extends Controller
     {
         $this->authorize('create', RankItem::class);
 
-        $rank = CreateRankItem::run(RankItemData::fromRequest($request));
+        $rank = CreateRankItem::run(RankItemData::from($request));
 
         $group = strtolower($rank->group->name);
 

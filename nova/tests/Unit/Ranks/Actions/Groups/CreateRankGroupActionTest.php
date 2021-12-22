@@ -6,7 +6,7 @@ namespace Tests\Unit\Ranks\Actions\Groups;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Ranks\Actions\CreateRankGroup;
-use Nova\Ranks\DataTransferObjects\RankGroupData;
+use Nova\Ranks\Data\RankGroupData;
 use Nova\Ranks\Models\RankGroup;
 use Tests\TestCase;
 
@@ -20,9 +20,9 @@ class CreateRankGroupActionTest extends TestCase
     /** @test **/
     public function itCreatesARankGroup()
     {
-        $data = new RankGroupData(
-            name: 'Command',
-        );
+        $data = RankGroupData::from([
+            'name' => 'Command',
+        ]);
 
         $group = CreateRankGroup::run($data);
 
@@ -36,9 +36,9 @@ class CreateRankGroupActionTest extends TestCase
         RankGroup::factory()->create(['sort' => 0]);
         RankGroup::factory()->create(['sort' => 1]);
 
-        $data = new RankGroupData(
-            name: 'Command',
-        );
+        $data = RankGroupData::from([
+            'name' => 'Command',
+        ]);
 
         $group = CreateRankGroup::run($data);
 

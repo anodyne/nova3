@@ -9,10 +9,16 @@ use Nova\Characters\Models\States\Statuses\Active;
 use Nova\Characters\Models\States\Statuses\Inactive;
 use Nova\Characters\Models\States\Statuses\Pending;
 use Nova\Foundation\Filters\Filterable;
+use Nova\Users\Models\User;
 
 class CharacterBuilder extends Builder
 {
     use Filterable;
+
+    public function isAssignedTo(User $user): Builder
+    {
+        return $this->whereHas('users', fn ($q) => $q->where('users.id', $user->id));
+    }
 
     public function searchFor($search): Builder
     {

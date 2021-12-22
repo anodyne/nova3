@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Posts\Actions;
 
+use Illuminate\Support\Arr;
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Posts\DataTransferObjects\PostData;
+use Nova\Posts\Data\PostData;
 use Nova\Posts\Models\Post;
 
 class SavePost
@@ -15,8 +16,8 @@ class SavePost
     public function handle(PostData $data): Post
     {
         return Post::updateOrCreate(
-            $data->only('id')->toArray(),
-            $data->except('id')->toArray()
+            Arr::only($data->all(), 'id'),
+            Arr::except($data->all(), 'id')
         );
     }
 }

@@ -22,7 +22,6 @@ const createColorScale = (color) => ({
 });
 
 module.exports = {
-    mode: 'jit',
     content: [
         './nova/resources/**/*.{js,ts,blade.php,css}',
         './nova/foundation/View/Components/*.php',
@@ -30,6 +29,7 @@ module.exports = {
         './storage/framework/views/*.php',
         './safelist.txt',
     ],
+    darkMode: 'class',
     theme: {
         colors: {
             transparent: 'transparent',
@@ -54,7 +54,7 @@ module.exports = {
                 sans: ['Inter var', ...defaultTheme.fontFamily.sans],
             },
             lineHeight: {
-                0: 0,
+                0: '0',
             },
             minHeight: defaultTheme.spacing,
             screens: {

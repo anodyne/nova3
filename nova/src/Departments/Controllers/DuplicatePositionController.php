@@ -7,7 +7,7 @@ namespace Nova\Departments\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Nova\Departments\Actions\DuplicatePosition;
-use Nova\Departments\DataTransferObjects\PositionData;
+use Nova\Departments\Data\PositionData;
 use Nova\Departments\Events\PositionDuplicated;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
@@ -39,7 +39,7 @@ class DuplicatePositionController extends Controller
 
         $position = DuplicatePosition::run(
             $original,
-            PositionData::fromRequest($request)
+            PositionData::from($request)
         );
 
         PositionDuplicated::dispatch($position, $original);

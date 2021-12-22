@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Nova\Ranks\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Ranks\DataTransferObjects\RankGroupData;
+use Nova\Ranks\Data\RankGroupData;
 use Nova\Ranks\Models\RankGroup;
 
 class CreateRankGroup
@@ -15,7 +15,7 @@ class CreateRankGroup
     public function handle(RankGroupData $data): RankGroup
     {
         return RankGroup::create(array_merge(
-            $data->toArray(),
+            $data->all(),
             ['sort' => RankGroup::count()]
         ));
     }

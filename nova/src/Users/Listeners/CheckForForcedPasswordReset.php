@@ -10,9 +10,8 @@ class CheckForForcedPasswordReset
 {
     public function handle($event)
     {
-        throw_if(
-            $event->user->force_password_reset,
-            UserException::adminForcedPasswordReset()
-        );
+        if ($event->user->force_password_reset) {
+            UserException::adminForcedPasswordReset();
+        }
     }
 }

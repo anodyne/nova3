@@ -7,7 +7,7 @@ namespace Nova\Ranks\Controllers\Items;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Ranks\Actions\UpdateRankItem;
 use Nova\Ranks\Concerns\FindRankImages;
-use Nova\Ranks\DataTransferObjects\RankItemData;
+use Nova\Ranks\Data\RankItemData;
 use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Models\RankItem;
 use Nova\Ranks\Models\RankName;
@@ -42,7 +42,7 @@ class UpdateRankItemController extends Controller
     {
         $this->authorize('update', $item);
 
-        $item = UpdateRankItem::run($item, RankItemData::fromRequest($request));
+        $item = UpdateRankItem::run($item, RankItemData::from($request));
 
         return back()->withToast('Rank item was updated');
     }

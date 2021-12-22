@@ -6,7 +6,7 @@ namespace Tests\Unit\Departments\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Departments\Actions\DuplicatePosition;
-use Nova\Departments\DataTransferObjects\PositionData;
+use Nova\Departments\Data\PositionData;
 use Nova\Departments\Models\Position;
 use Tests\TestCase;
 
@@ -33,14 +33,18 @@ class DuplicatePositionActionTest extends TestCase
     /** @test **/
     public function itDuplicatesAPosition()
     {
-        $position = DuplicatePosition::run($this->position, new PositionData([
+        $position = DuplicatePosition::run($this->position, PositionData::from([
             'name' => 'Executive Officer',
             'description' => $this->position->description,
             'active' => $this->position->active,
+            'available' => $this->position->available,
+            'department_id' => $this->position->department_id,
         ]));
 
         $this->assertTrue($position->exists);
         $this->assertEquals('Executive Officer', $position->name);
         $this->assertEquals('My original description', $position->description);
+        $this->assertEquals($this->position->department_id, $position->department_id);
+        $this->assertEquals($this->position->available, $position->available);
     }
 }

@@ -23,16 +23,10 @@ class SettingsController extends Controller
 
     public function index(SettingsManager $settingsManager, $tab = 'general')
     {
-        $this->authorize('update', settings());
+        $this->authorize('update', $settings = settings());
 
-        // return app($settingsManager->get($tab)->response)->with([
-        //     'settings' => settings(),
-        //     'systemNotifications' => SystemNotification::get(),
-        //     'tab' => $tab,
-        //     'themes' => Theme::whereActive()->orderBy('name')->get(),
-        // ]);
         return $settingsManager->get($tab)->response::sendWith([
-            'settings' => settings(),
+            'settings' => $settings,
             'systemNotifications' => SystemNotification::get(),
             'tab' => $tab,
             'themes' => Theme::whereActive()->orderBy('name')->get(),

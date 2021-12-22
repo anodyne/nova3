@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Nova\Departments\Controllers;
 
 use Nova\Departments\Actions\UpdatePosition;
-use Nova\Departments\DataTransferObjects\PositionData;
+use Nova\Departments\Data\PositionData;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
 use Nova\Departments\Requests\UpdatePositionRequest;
@@ -37,7 +37,7 @@ class UpdatePositionController extends Controller
 
         $position = UpdatePosition::run(
             $position,
-            PositionData::fromRequest($request)
+            PositionData::from($request)
         );
 
         return back()->withToast("{$position->name} position was updated");

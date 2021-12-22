@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Nova\Posts\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Posts\DataTransferObjects\PostData;
-use Nova\Posts\DataTransferObjects\PostPositionData;
-use Nova\Posts\DataTransferObjects\PostStatusData;
+use Nova\Posts\Data\PostData;
+use Nova\Posts\Data\PostPositionData;
+use Nova\Posts\Data\PostStatusData;
 use Nova\Posts\Models\Post;
 
 class SavePostManager

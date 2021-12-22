@@ -1,5 +1,7 @@
 @extends($meta->structure)
 
+@php($settings = settings())
+
 @section('layout')
     <div class="relative min-h-screen">
         <header x-data="{ open: false }" class="bg-gray-1 shadow">
@@ -7,7 +9,7 @@
                 <div class="relative h-16 flex justify-between">
                     <div class="relative z-10 px-2 flex lg:px-0">
                         <a href="{{ route('dashboard') }}" class="shrink-0 flex items-center">
-                            <x-nova-logo class="block h-8 w-auto" />
+                            <x-logos.nova class="block h-8 w-auto" />
                         </a>
                     </div>
 
@@ -37,16 +39,12 @@
                     <div class="hidden lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center space-x-4">
                         @livewire('users:notifications')
 
+                        @livewire('users:admin-theme-toggle')
+
                         <x-dropdown placement="bottom-end">
                             <x-slot name="trigger">
                                 <x-avatar size="xs" :src="auth()->user()->avatar_url" :tooltip="auth()->user()->name" />
                             </x-slot>
-
-                            <x-dropdown.group>
-                                <x-dropdown.text>
-                                    @livewire('users:dark-mode-toggle')
-                                </x-dropdown.text>
-                            </x-dropdown.group>
 
                             <x-dropdown.group>
                                 <x-dropdown.item href="#" icon="user">
@@ -98,7 +96,7 @@
                         </x-nav.main-item>
                     @endif
 
-                    @can('update', settings())
+                    @can('update', $settings)
                         <x-nav.main-item :href="route('settings.index', 'general')" :active="$meta->subnavSection === 'settings'">
                             Settings
                         </x-nav.main-item>
@@ -138,7 +136,7 @@
                         </x-nav.main-item-mobile>
                     @endif
 
-                    @can('update', settings())
+                    @can('update', $settings)
                         <x-nav.main-item-mobile :href="route('settings.index', 'general')" :active="$meta->subnavSection === 'settings'">
                             Settings
                         </x-nav.main-item-mobile>
@@ -163,16 +161,17 @@
                         </div>
 
                         <button type="button" class="ml-auto shrink-0 bg-gray-1 rounded-full p-1 text-gray-9 hover:text-gray-11 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-12">
+                            <span class="sr-only">Switch theme</span>
+                            @icon('moon', 'h-6 w-6')
+                        </button>
+
+                        <button type="button" class="ml-auto shrink-0 bg-gray-1 rounded-full p-1 text-gray-9 hover:text-gray-11 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-12">
                             <span class="sr-only">View notifications</span>
                             @icon('notification', 'h-6 w-6')
                         </button>
                     </div>
 
                     <div class="mt-3 px-2 space-y-1">
-                        <div class="block py-2 px-3 font-medium">
-                            @livewire('users:dark-mode-toggle')
-                        </div>
-
                         <a href="#" class="block rounded-md py-2 px-3 text-base font-medium text-gray-11 hover:bg-gray-2 hover:text-gray-12">My account</a>
 
                         <a href="{{ route('whats-new') }}" class="block rounded-md py-2 px-3 text-base font-medium text-gray-11 hover:bg-gray-2 hover:text-gray-12">See what's new</a>
@@ -204,5 +203,23 @@
                 </div>
             </div>
         </main>
+
+        <footer class="max-w-7xl mx-auto py-8 lg:py-12 lg:px-8 focus:outline-none">
+            <div class="flex items-center justify-between text-sm text-gray-9">
+                <div class="flex items-center space-x-1.5 font-medium">
+                    <span>Powered by</span>
+                    <a href="https://anodyne-productions.com" target="_blank">
+                        <x-logos.nova-grayscale class="h-5 w-auto" />
+                    </a>
+                </div>
+
+                <div class="flex items-center space-x-1.5 font-medium">
+                    <span>Built with &hearts; by</span>
+                    <a href="https://anodyne-productions.com" target="_blank">
+                        <x-logos.anodyne text-color="text-gray-9" logo-color="text-gray-8" class="h-5 w-auto" />
+                    </a>
+                </div>
+            </div>
+        </footer>
     </div>
 @endsection

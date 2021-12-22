@@ -6,8 +6,8 @@ namespace Nova\Roles\Actions;
 
 use Illuminate\Http\Request;
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Roles\DataTransferObjects\RoleAssignmentData;
-use Nova\Roles\DataTransferObjects\RoleData;
+use Nova\Roles\Data\RoleAssignmentData;
+use Nova\Roles\Data\RoleData;
 use Nova\Roles\Models\Role;
 
 class UpdateRoleManager
@@ -16,10 +16,10 @@ class UpdateRoleManager
 
     public function handle(Role $role, Request $request): Role
     {
-        UpdateRole::run($role, RoleData::fromRequest($request));
+        UpdateRole::run($role, RoleData::from($request));
 
         UpdateRoleUsers::run(
-            RoleAssignmentData::fromRequest($request)
+            RoleAssignmentData::from($request)
         );
 
         return $role->refresh();

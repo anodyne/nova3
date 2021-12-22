@@ -6,7 +6,7 @@ namespace Nova\Ranks\Controllers\Groups;
 
 use Nova\Foundation\Controllers\Controller;
 use Nova\Ranks\Actions\CreateRankGroup;
-use Nova\Ranks\DataTransferObjects\RankGroupData;
+use Nova\Ranks\Data\RankGroupData;
 use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Requests\CreateRankGroupRequest;
 use Nova\Ranks\Responses\Groups\CreateRankGroupResponse;
@@ -31,7 +31,7 @@ class CreateRankGroupController extends Controller
     {
         $this->authorize('create', RankGroup::class);
 
-        $group = CreateRankGroup::run(RankGroupData::fromRequest($request));
+        $group = CreateRankGroup::run(RankGroupData::from($request));
 
         return redirect()
             ->route('ranks.groups.index')

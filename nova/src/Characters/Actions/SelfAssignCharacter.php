@@ -13,7 +13,14 @@ class SelfAssignCharacter
 
     public function handle(Character $character): Character
     {
-        $character->users()->sync([auth()->id()]);
+        if (settings()->characters->autoLinkCharacter) {
+            activity()
+                ->causedBy(auth()->user())
+                ->performedOn($character)
+                ->log(':subject.name was self-assigned ownership to :causer.name');
+
+            $character->users()->sync([auth()->id()]);
+        }
 
         return $character->refresh();
     }

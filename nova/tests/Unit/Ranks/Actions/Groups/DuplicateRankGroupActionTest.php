@@ -6,7 +6,7 @@ namespace Tests\Unit\Ranks\Actions\Groups;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Ranks\Actions\DuplicateRankGroup;
-use Nova\Ranks\DataTransferObjects\RankGroupData;
+use Nova\Ranks\Data\RankGroupData;
 use Nova\Ranks\Models\RankGroup;
 use Tests\TestCase;
 
@@ -31,9 +31,9 @@ class DuplicateRankGroupActionTest extends TestCase
     /** @test **/
     public function itDuplicatesARankGroup()
     {
-        $group = DuplicateRankGroup::run($this->group, new RankGroupData(
-            name: 'New Name',
-        ));
+        $group = DuplicateRankGroup::run($this->group, RankGroupData::from([
+            'name' => 'New Name',
+        ]));
 
         $this->assertTrue($group->exists);
         $this->assertEquals('New Name', $group->name);

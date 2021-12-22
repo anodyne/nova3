@@ -7,7 +7,7 @@ namespace Tests\Unit\Themes\Actions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
 use Nova\Themes\Actions\SetupThemeDirectory;
-use Nova\Themes\DataTransferObjects\ThemeData;
+use Nova\Themes\Data\ThemeData;
 use Nova\Themes\Models\Theme;
 use Tests\TestCase;
 
@@ -30,7 +30,7 @@ class SetupThemeDirectoryActionTest extends TestCase
     /** @test **/
     public function itCreatesTheNewThemeDirectory()
     {
-        SetupThemeDirectory::run(new ThemeData(
+        SetupThemeDirectory::run(ThemeData::from(
             Theme::factory()->make()->toArray()
         ));
 

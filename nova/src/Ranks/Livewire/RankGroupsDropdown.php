@@ -6,7 +6,7 @@ namespace Nova\Ranks\Livewire;
 
 use Livewire\Component;
 use Nova\Ranks\Actions\CreateRankGroup;
-use Nova\Ranks\DataTransferObjects\RankGroupData;
+use Nova\Ranks\Data\RankGroupData;
 use Nova\Ranks\Models\RankGroup;
 
 class RankGroupsDropdown extends Component
@@ -21,9 +21,9 @@ class RankGroupsDropdown extends Component
 
     public $selectedId;
 
-    public function createAndSelectGroup(CreateRankGroup $action)
+    public function createAndSelectGroup()
     {
-        $newGroup = $action->execute(new RankGroupData([
+        $newGroup = CreateRankGroup::run(RankGroupData::from([
             'name' => $this->search,
         ]));
 

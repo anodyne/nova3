@@ -6,7 +6,7 @@ namespace Tests\Unit\Departments\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Departments\Actions\UpdatePosition;
-use Nova\Departments\DataTransferObjects\PositionData;
+use Nova\Departments\Data\PositionData;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
 use Tests\TestCase;
@@ -33,7 +33,7 @@ class UpdatePositionActionTest extends TestCase
     {
         $newDepartment = Department::factory()->create();
 
-        $data = new PositionData([
+        $data = PositionData::from([
             'name' => 'Executive Officer',
             'description' => 'Lorem consectetur adipisicing elit.',
             'active' => false,

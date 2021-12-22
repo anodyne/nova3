@@ -6,7 +6,7 @@ namespace Tests\Unit\Ranks\Actions\Groups;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Ranks\Actions\UpdateRankGroup;
-use Nova\Ranks\DataTransferObjects\RankGroupData;
+use Nova\Ranks\Data\RankGroupData;
 use Nova\Ranks\Models\RankGroup;
 use Tests\TestCase;
 
@@ -29,9 +29,9 @@ class UpdateRankGroupActionTest extends TestCase
     /** @test **/
     public function itUpdatesARankGroup()
     {
-        $data = new RankGroupData(
-            name: 'Command',
-        );
+        $data = RankGroupData::from([
+            'name' => 'Command',
+        ]);
 
         $group = UpdateRankGroup::run($this->group, $data);
 

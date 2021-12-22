@@ -6,7 +6,7 @@ namespace Tests\Unit\Roles\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Roles\Actions\UpdateRole;
-use Nova\Roles\DataTransferObjects\RoleData;
+use Nova\Roles\Data\RoleData;
 use Nova\Roles\Models\Permission;
 use Nova\Roles\Models\Role;
 use Tests\TestCase;
@@ -32,12 +32,12 @@ class UpdateRoleActionTest extends TestCase
     /** @test **/
     public function itCanUpdateARole()
     {
-        $data = new RoleData(
-            name: 'foo',
-            display_name: 'Foo',
-            description: 'New description of foo',
-            default: true,
-        );
+        $data = RoleData::from([
+            'name' => 'foo',
+            'display_name' => 'Foo',
+            'description' => 'New description of foo',
+            'default' => true,
+        ]);
 
         $role = UpdateRole::run($this->role, $data);
 
@@ -52,13 +52,13 @@ class UpdateRoleActionTest extends TestCase
     {
         $this->role->attachPermission(1);
 
-        $data = new RoleData(
-            name: $this->role->name,
-            display_name: $this->role->display_name,
-            description: $this->role->description,
-            default: $this->role->default,
-            permissions: Permission::whereIn('id', [1, 2, 3])->get(),
-        );
+        $data = RoleData::from([
+            'name' => $this->role->name,
+            'display_name' => $this->role->display_name,
+            'description' => $this->role->description,
+            'default' => $this->role->default,
+            'permissions' => Permission::whereIn('id', [1, 2, 3])->get(),
+        ]);
 
         $role = UpdateRole::run($this->role, $data);
 
@@ -73,13 +73,13 @@ class UpdateRoleActionTest extends TestCase
     {
         $this->role->attachPermissions([1, 2]);
 
-        $data = new RoleData(
-            name: $this->role->name,
-            display_name: $this->role->display_name,
-            description: $this->role->description,
-            default: $this->role->default,
-            permissions: Permission::whereIn('id', [1])->get(),
-        );
+        $data = RoleData::from([
+            'name' => $this->role->name,
+            'display_name' => $this->role->display_name,
+            'description' => $this->role->description,
+            'default' => $this->role->default,
+            'permissions' => Permission::whereIn('id', [1])->get(),
+        ]);
 
         $role = UpdateRole::run($this->role, $data);
 
@@ -93,13 +93,13 @@ class UpdateRoleActionTest extends TestCase
     {
         $this->role->attachPermissions([1, 2]);
 
-        $data = new RoleData(
-            name: $this->role->name,
-            display_name: $this->role->display_name,
-            description: $this->role->description,
-            default: $this->role->default,
-            permissions: Permission::whereIn('id', [1, 3])->get(),
-        );
+        $data = RoleData::from([
+            'name' => $this->role->name,
+            'display_name' => $this->role->display_name,
+            'description' => $this->role->description,
+            'default' => $this->role->default,
+            'permissions' => Permission::whereIn('id', [1, 3])->get(),
+        ]);
 
         $role = UpdateRole::run($this->role, $data);
 

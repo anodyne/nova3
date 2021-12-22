@@ -6,7 +6,7 @@ namespace Tests\Unit\Roles\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Roles\Actions\UpdateRoleUsers;
-use Nova\Roles\DataTransferObjects\RoleAssignmentData;
+use Nova\Roles\Data\RoleAssignmentData;
 use Nova\Roles\Models\Role;
 use Nova\Users\Models\User;
 use Tests\TestCase;
@@ -44,12 +44,10 @@ class UpdateRoleUsersActionTest extends TestCase
     {
         $this->john->attachRole($this->role);
 
-        $data = new RoleAssignmentData();
-        $data->role = $this->role;
-        $data->users = User::whereIn('id', [
-            $this->john->id,
-            $this->jane->id,
-        ])->get();
+        $data = RoleAssignmentData::from([
+            'role' => $this->role,
+            'users' => User::whereIn('id', [$this->john->id, $this->jane->id])->get()
+        ]);
 
         UpdateRoleUsers::run($data);
 
@@ -67,9 +65,10 @@ class UpdateRoleUsersActionTest extends TestCase
         $this->john->attachRole($this->role);
         $this->jane->attachRole($this->role);
 
-        $data = new RoleAssignmentData();
-        $data->role = $this->role;
-        $data->users = User::whereIn('id', [$this->jane->id])->get();
+        $data = RoleAssignmentData::from([
+            'role' => $this->role,
+            'users' => User::whereIn('id', [$this->jane->id])->get(),
+        ]);
 
         UpdateRoleUsers::run($data);
 
@@ -87,12 +86,10 @@ class UpdateRoleUsersActionTest extends TestCase
         $this->john->attachRole($this->role);
         $this->jane->attachRole($this->role);
 
-        $data = new RoleAssignmentData();
-        $data->role = $this->role;
-        $data->users = User::whereIn('id', [
-            $this->john->id,
-            $this->ryan->id,
-        ])->get();
+        $data = RoleAssignmentData::from([
+            'role' => $this->role,
+            'users' => User::whereIn('id', [$this->john->id, $this->ryan->id])->get(),
+        ]);
 
         UpdateRoleUsers::run($data);
 

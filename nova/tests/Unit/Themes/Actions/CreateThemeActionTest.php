@@ -6,7 +6,7 @@ namespace Tests\Unit\Themes\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Themes\Actions\CreateTheme;
-use Nova\Themes\DataTransferObjects\ThemeData;
+use Nova\Themes\Data\ThemeData;
 use Tests\TestCase;
 
 /**
@@ -19,12 +19,12 @@ class CreateThemeActionTest extends TestCase
     /** @test **/
     public function itCreatesATheme()
     {
-        $data = new ThemeData(
-            name: 'Foo',
-            location: 'foo',
-            active: true,
-            preview: 'preview.jpg',
-        );
+        $data = ThemeData::from([
+            'name' => 'Foo',
+            'location' => 'foo',
+            'active' => true,
+            'preview' => 'preview.jpg',
+        ]);
 
         $theme = CreateTheme::run($data);
 

@@ -6,8 +6,8 @@ namespace Nova\Ranks\Actions;
 
 use Illuminate\Http\Request;
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Ranks\DataTransferObjects\RankGroupData;
-use Nova\Ranks\DataTransferObjects\RankItemData;
+use Nova\Ranks\Data\RankGroupData;
+use Nova\Ranks\Data\RankItemData;
 use Nova\Ranks\Models\RankGroup;
 
 class DuplicateRankGroupManager
@@ -18,13 +18,13 @@ class DuplicateRankGroupManager
     {
         $group = DuplicateRankGroup::run(
             $original,
-            RankGroupData::fromRequest($request)
+            RankGroupData::from($request)
         );
 
         DuplicateRankGroupRankItems::run(
             $group,
             $original,
-            RankItemData::fromRequest($request)
+            RankItemData::from($request)
         );
 
         return $group->refresh();

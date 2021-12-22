@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Settings;
 
-use Nova\Settings\DataTransferObjects\SettingInfo;
+use Nova\Settings\Data\SettingInfo;
 
 class SettingsManager
 {

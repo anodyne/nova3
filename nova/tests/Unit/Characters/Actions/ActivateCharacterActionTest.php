@@ -31,79 +31,86 @@ class ActivateCharacterActionTest extends TestCase
     }
 
     /** @test **/
-    public function itActivatesACharacter()
+    public function itCanActivateACharacter()
     {
-        $jackSparrow = Character::factory()->inactive()->create();
+        $character = ActivateCharacter::run(
+            Character::factory()->inactive()->create()
+        );
 
-        $jackSparrow = ActivateCharacter::run($jackSparrow);
-
-        $this->assertInstanceOf(Active::class, $jackSparrow->status);
+        $this->assertInstanceOf(Active::class, $character->status);
     }
 
     /** @test **/
-    public function itActivatesTheCharacterAsASecondaryCharacterIfTheUserAlreadyHasAnActivePrimaryCharacter()
+    public function itCanActivateACharacterAsASecondaryCharacterIfTheUserAlreadyHasAnActivePrimaryCharacter()
     {
-        $johnny = User::factory()->active()->create();
+        $user = User::factory()->active()->create();
 
-        $bobSparrow = Character::factory()->inactive()->create();
-        $bobSparrow->users()->attach($johnny, ['primary' => true]);
-        $bobSparrow->type = Primary::class;
-        $bobSparrow->save();
+        $character1 = Character::factory()->inactive()->create();
+        $character1->users()->attach($user, ['primary' => true]);
+        $character1->type = Primary::class;
+        $character1->save();
 
-        $jackSparrow = Character::factory()->active()->create();
-        $jackSparrow->users()->attach($johnny, ['primary' => true]);
-        $jackSparrow->type = Primary::class;
-        $jackSparrow->save();
+        $character2 = Character::factory()->active()->create();
+        $character2->users()->attach($user, ['primary' => true]);
+        $character2->type = Primary::class;
+        $character2->save();
 
-        $johnny->refresh();
+        $user->refresh();
 
-        $this->assertCount(2, $johnny->characters);
-        $this->assertCount(1, $johnny->activeCharacters);
-        $this->assertInstanceOf(Inactive::class, $bobSparrow->status);
+        $this->assertCount(2, $user->characters);
+        $this->assertCount(1, $user->activeCharacters);
+        $this->assertCount(1, $user->primaryCharacter);
+        $this->assertInstanceOf(Inactive::class, $character1->status);
+        $this->assertInstanceOf(Active::class, $character2->status);
+        $this->assertInstanceOf(Primary::class, $character1->type);
+        $this->assertInstanceOf(Primary::class, $character2->type);
 
-        ActivateCharacter::run($bobSparrow);
+        ActivateCharacter::run($character1);
 
-        $johnny->refresh();
-        $jackSparrow->refresh();
-        $bobSparrow->refresh();
+        $user->refresh();
+        $character1->refresh();
+        $character2->refresh();
 
-        $this->assertCount(2, $johnny->activeCharacters);
-        $this->assertCount(1, $johnny->primaryCharacter);
-        $this->assertInstanceOf(Primary::class, $jackSparrow->type);
-        $this->assertInstanceOf(Secondary::class, $bobSparrow->type);
+        $this->assertCount(2, $user->characters);
+        $this->assertCount(2, $user->activeCharacters);
+        $this->assertCount(1, $user->primaryCharacter);
+        $this->assertInstanceOf(Active::class, $character1->status);
+        $this->assertInstanceOf(Active::class, $character2->status);
+        $this->assertInstanceOf(Secondary::class, $character1->type);
+        $this->assertInstanceOf(Primary::class, $character2->type);
     }
 
     /** @test **/
-    public function itUpdatesTheCharacterToBeASecondaryCharacterIfAnAssignedUserHasAnotherPrimaryCharacter()
+    public function itCanUpdateACharacterToBeASecondaryCharacterIfAnAssignedUserHasAnotherPrimaryCharacter()
     {
-        $adam = User::factory()->active()->create();
-        $ben = User::factory()->active()->create();
+        $user1 = User::factory()->active()->create();
+        $user2 = User::factory()->active()->create();
 
-        $this->character->users()->attach($adam, ['primary' => true]);
-        $this->character->users()->attach($ben, ['primary' => true]);
+        $this->character->users()->attach($user1, ['primary' => true]);
+        $this->character->users()->attach($user2, ['primary' => true]);
 
-        $jackSparrow = Character::factory()->active()->create();
-        $jackSparrow->users()->attach($adam, ['primary' => true]);
+        $character1 = Character::factory()->active()->create();
+        $character1->users()->attach($user1, ['primary' => true]);
 
-        $willTurner = Character::factory()->active()->create();
-        $willTurner->users()->attach($ben, ['primary' => true]);
+        $character2 = Character::factory()->active()->create();
+        $character2->users()->attach($user2, ['primary' => true]);
 
-        $adam->refresh();
-        $ben->refresh();
+        $user1->refresh();
+        $user2->refresh();
 
-        $this->assertCount(2, $adam->characters()->wherePivot('primary', true)->get());
-        $this->assertCount(2, $ben->characters()->wherePivot('primary', true)->get());
+        $this->assertCount(2, $user1->characters()->wherePivot('primary', true)->get());
+        $this->assertCount(2, $user2->characters()->wherePivot('primary', true)->get());
 
-        $elizabethSwann = ActivateCharacter::run($this->character);
+        $character3 = ActivateCharacter::run($this->character);
 
-        $this->assertInstanceOf(Active::class, $elizabethSwann->status);
-        $this->assertFalse((bool) $elizabethSwann->users()->where('users.id', $adam->id)->first()->pivot->primary);
-        $this->assertFalse((bool) $elizabethSwann->users()->where('users.id', $ben->id)->first()->pivot->primary);
+        $this->assertInstanceOf(Active::class, $character1->status);
+        $this->assertTrue((bool) $character1->users()->where('users.id', $user1->id)->first()->pivot->primary);
 
-        $this->assertInstanceOf(Active::class, $jackSparrow->status);
-        $this->assertTrue((bool) $jackSparrow->users()->where('users.id', $adam->id)->first()->pivot->primary);
+        $this->assertInstanceOf(Active::class, $character2->status);
+        $this->assertTrue((bool) $character2->users()->where('users.id', $user2->id)->first()->pivot->primary);
 
-        $this->assertInstanceOf(Active::class, $willTurner->status);
-        $this->assertTrue((bool) $willTurner->users()->where('users.id', $ben->id)->first()->pivot->primary);
+        $this->assertInstanceOf(Active::class, $character3->status);
+        $this->assertFalse((bool) $character3->users()->where('users.id', $user1->id)->first()->pivot->primary);
+        $this->assertFalse((bool) $character3->users()->where('users.id', $user2->id)->first()->pivot->primary);
     }
 }

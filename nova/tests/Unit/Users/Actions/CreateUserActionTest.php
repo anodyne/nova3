@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests\Unit\Users\Actions;
 
 use Nova\Users\Actions\CreateUser;
-use Nova\Users\DataTransferObjects\PronounsData;
-use Nova\Users\DataTransferObjects\UserData;
+use Nova\Users\Data\PronounsData;
+use Nova\Users\Data\UserData;
 use Tests\TestCase;
 
 /**
@@ -17,10 +17,10 @@ class CreateUserActionTest extends TestCase
     /** @test **/
     public function itCreatesANewUser()
     {
-        $data = new UserData([
+        $data = UserData::from([
             'name' => 'John Public',
             'email' => 'john@example.com',
-            'pronouns' => new PronounsData(value: 'neutral'),
+            'pronouns' => PronounsData::from(['value' => 'neutral']),
         ]);
 
         $user = CreateUser::run($data);

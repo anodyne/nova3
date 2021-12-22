@@ -16,19 +16,10 @@ class CreateRootPostActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected CreateRootPost $action;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->action = app(CreateRootPost::class);
-    }
-
     /** @test **/
     public function itCreatesARootPost()
     {
-        $post = $this->action->execute($story = Story::factory()->create());
+        $post = CreateRootPost::run($story = Story::factory()->create());
 
         $this->assertTrue($post->exists);
 

@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Roles\Actions;
 
+use Illuminate\Support\Arr;
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Roles\DataTransferObjects\RoleData;
+use Nova\Roles\Data\RoleData;
 use Nova\Roles\Models\Role;
 
 class CreateRole
@@ -15,7 +16,7 @@ class CreateRole
     public function handle(RoleData $data): Role
     {
         $role = Role::firstOrCreate(
-            $data->except('permissions', 'users')->toArray()
+            Arr::except($data->all(), ['permissions', 'users'])
         );
 
         if ($data->permissions) {

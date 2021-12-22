@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Nova\Posts\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Posts\DataTransferObjects\PostStatusData;
+use Nova\Posts\Data\PostStatusData;
 use Nova\Posts\Models\Post;
 use Nova\Posts\Models\States\Draft;
 use Nova\Posts\Models\States\Pending;

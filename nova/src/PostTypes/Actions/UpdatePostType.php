@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\PostTypes\Actions;
 
+use Illuminate\Support\Arr;
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\PostTypes\DataTransferObjects\PostTypeData;
+use Nova\PostTypes\Data\PostTypeData;
 use Nova\PostTypes\Models\PostType;
 
 class UpdatePostType
@@ -16,7 +17,7 @@ class UpdatePostType
     {
         return tap($postType)
             ->update(array_merge(
-                $data->except('fields', 'options')->toArray(),
+                Arr::except($data->all(), ['fields', 'options']),
                 [
                     'fields' => $data->fields,
                     'options' => $data->options,

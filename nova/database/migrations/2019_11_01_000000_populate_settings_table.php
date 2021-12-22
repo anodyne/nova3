@@ -3,13 +3,13 @@
 declare(strict_types=1);
 
 use Illuminate\Database\Migrations\Migration;
-use Nova\Settings\DataTransferObjects\Characters;
-use Nova\Settings\DataTransferObjects\Discord;
-use Nova\Settings\DataTransferObjects\Email;
-use Nova\Settings\DataTransferObjects\General;
-use Nova\Settings\DataTransferObjects\MetaTags;
-use Nova\Settings\DataTransferObjects\PostingActivity;
-use Nova\Settings\DataTransferObjects\SystemDefaults;
+use Nova\Settings\Data\Characters;
+use Nova\Settings\Data\Discord;
+use Nova\Settings\Data\Email;
+use Nova\Settings\Data\General;
+use Nova\Settings\Data\MetaTags;
+use Nova\Settings\Data\PostingActivity;
+use Nova\Settings\Data\SystemDefaults;
 use Nova\Settings\Models\Settings;
 
 class PopulateSettingsTable extends Migration
@@ -24,23 +24,18 @@ class PopulateSettingsTable extends Migration
                 theme: 'Pulsar'
             ),
             'meta_tags' => new MetaTags(),
-            'characters' => new Characters(
-                allowCharacterCreation: true,
-                autoLinkCharacter: true,
-                characterLimit: 5,
-                enforceCharacterLimits: true,
-                requireApprovalForCharacterCreation: true,
-            ),
-            'discord' => new Discord(
-                webhook: null,
-                color: '#38b2ac',
-                storyPostsEnabled: true,
-                storyPostsWebhook: null,
-                storyPostsColor: '#406ceb',
-                applicationsEnabled: false,
-                applicationsWebhook: null,
-                applicationsColor: null
-            ),
+            'characters' => Characters::from([
+                'allowCharacterCreation' => true,
+                'allowSettingPrimaryCharacter' => false,
+                'autoLinkCharacter' => true,
+                'characterLimit' => 5,
+                'enforceCharacterLimits' => true,
+                'requireApprovalForCharacterCreation' => false,
+            ]),
+            'discord' => Discord::from([
+                'webhook' => null,
+                'color' => '#38b2ac',
+            ]),
             'posting_activity' => new PostingActivity(
                 postsStrategy: 'author',
                 requiredActivity: 1000,

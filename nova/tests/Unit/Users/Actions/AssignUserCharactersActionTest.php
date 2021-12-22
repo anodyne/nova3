@@ -10,7 +10,7 @@ use Nova\Characters\Models\States\Types\Primary;
 use Nova\Characters\Models\States\Types\Secondary;
 use Nova\Characters\Models\States\Types\Support;
 use Nova\Users\Actions\AssignUserCharacters;
-use Nova\Users\DataTransferObjects\AssignUserCharactersData;
+use Nova\Users\Data\AssignUserCharactersData;
 use Nova\Users\Models\User;
 use Tests\TestCase;
 
@@ -18,15 +18,11 @@ class AssignUserCharactersActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $user;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(AssignUserCharacters::class);
 
         $this->user = User::factory()->active()->create();
     }
@@ -36,11 +32,11 @@ class AssignUserCharactersActionTest extends TestCase
     {
         $jackSparrow = Character::factory()->active()->create();
 
-        $data = new AssignUserCharactersData([
+        $data = AssignUserCharactersData::from([
             'characters' => [$jackSparrow->id],
         ]);
 
-        $user = $this->action->execute($this->user, $data);
+        $user = AssignUserCharacters::run($this->user, $data);
 
         $jackSparrow->refresh();
 
@@ -54,12 +50,12 @@ class AssignUserCharactersActionTest extends TestCase
     {
         $jackSparrow = Character::factory()->active()->create();
 
-        $data = new AssignUserCharactersData([
+        $data = AssignUserCharactersData::from([
             'characters' => [$jackSparrow->id],
             'primaryCharacter' => $jackSparrow,
         ]);
 
-        $user = $this->action->execute($this->user, $data);
+        $user = AssignUserCharacters::run($this->user, $data);
 
         $jackSparrow->refresh();
 
@@ -75,12 +71,12 @@ class AssignUserCharactersActionTest extends TestCase
         $jackSparrow = Character::factory()->active()->create();
         $willTurner = Character::factory()->active()->create();
 
-        $data = new AssignUserCharactersData([
+        $data = AssignUserCharactersData::from([
             'characters' => [$jackSparrow->id, $willTurner->id],
             'primaryCharacter' => $jackSparrow,
         ]);
 
-        $user = $this->action->execute($this->user, $data);
+        $user = AssignUserCharacters::run($this->user, $data);
 
         $jackSparrow->refresh();
         $willTurner->refresh();
@@ -102,12 +98,12 @@ class AssignUserCharactersActionTest extends TestCase
         $jackSparrow = Character::factory()->active()->create();
         $willTurner = Character::factory()->active()->create();
 
-        $data = new AssignUserCharactersData([
+        $data = AssignUserCharactersData::from([
             'characters' => [$jackSparrow->id, $willTurner->id],
             'primaryCharacter' => $willTurner,
         ]);
 
-        $user = $this->action->execute($this->user, $data);
+        $user = AssignUserCharacters::run($this->user, $data);
 
         $jackSparrow->refresh();
         $willTurner->refresh();
@@ -131,11 +127,11 @@ class AssignUserCharactersActionTest extends TestCase
 
         $this->user->characters()->sync([$jackSparrow->id, $willTurner->id]);
 
-        $data = new AssignUserCharactersData([
+        $data = AssignUserCharactersData::from([
             'characters' => [$willTurner->id],
         ]);
 
-        $user = $this->action->execute($this->user, $data);
+        $user = AssignUserCharacters::run($this->user, $data);
 
         $jackSparrow->refresh();
         $willTurner->refresh();
@@ -159,12 +155,12 @@ class AssignUserCharactersActionTest extends TestCase
 
         $this->user->characters()->sync([$jackSparrow->id, $willTurner->id]);
 
-        $data = new AssignUserCharactersData([
+        $data = AssignUserCharactersData::from([
             'characters' => [$willTurner->id, $elizabethSwann->id],
             'primaryCharacter' => $elizabethSwann,
         ]);
 
-        $user = $this->action->execute($this->user, $data);
+        $user = AssignUserCharacters::run($this->user, $data);
 
         $jackSparrow->refresh();
         $willTurner->refresh();

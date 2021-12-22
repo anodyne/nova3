@@ -6,7 +6,7 @@ namespace Nova\Departments\Controllers;
 
 use Illuminate\Http\Request;
 use Nova\Departments\Actions\CreatePosition;
-use Nova\Departments\DataTransferObjects\PositionData;
+use Nova\Departments\Data\PositionData;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
 use Nova\Departments\Requests\CreatePositionRequest;
@@ -36,7 +36,7 @@ class CreatePositionController extends Controller
     {
         $this->authorize('create', Position::class);
 
-        $position = CreatePosition::run(PositionData::fromRequest($request));
+        $position = CreatePosition::run(PositionData::from($request));
 
         return redirect()
             ->route('positions.index', $position->department)

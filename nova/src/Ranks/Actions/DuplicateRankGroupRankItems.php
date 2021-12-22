@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Ranks\Actions;
 
+use Illuminate\Support\Arr;
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Ranks\DataTransferObjects\RankItemData;
+use Nova\Ranks\Data\RankItemData;
 use Nova\Ranks\Models\RankGroup;
 
 class DuplicateRankGroupRankItems
@@ -20,7 +21,7 @@ class DuplicateRankGroupRankItems
         $original->ranks->each(function ($rank) use ($group, $data) {
             $group->ranks()->create(array_merge(
                 $rank->toArray(),
-                $data->only('base_image')->toArray()
+                Arr::only($data->all(), 'base_image')
             ));
         });
     }
