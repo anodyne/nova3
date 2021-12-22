@@ -30,7 +30,7 @@ class DeletePostTypeTest extends TestCase
     /** @test **/
     public function authorizedUserCanDeletePostType()
     {
-        $this->signInWithPermission('story.delete');
+        $this->signInWithPermission('post-type.delete');
 
         $this->followingRedirects();
 
@@ -47,7 +47,7 @@ class DeletePostTypeTest extends TestCase
     {
         Event::fake();
 
-        $this->signInWithPermission('story.delete');
+        $this->signInWithPermission('post-type.delete');
 
         $this->delete(route('post-types.destroy', $this->postType));
 

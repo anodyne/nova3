@@ -44,7 +44,7 @@ class UpdateNoteTest extends TestCase
         $data = [
             'id' => $this->note->id,
             'title' => 'New Title',
-            'content' => 'New content',
+            'editor-content' => 'New content',
             'summary' => 'New summary',
         ];
 
@@ -76,7 +76,7 @@ class UpdateNoteTest extends TestCase
         $this->put(route('notes.update', $this->note), [
             'id' => $this->note->id,
             'title' => 'New Title',
-            'content' => 'New content',
+            'editor-content' => 'New content',
             'summary' => 'New summary',
         ]);
 

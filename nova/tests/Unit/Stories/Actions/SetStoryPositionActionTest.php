@@ -17,8 +17,6 @@ class SetStoryPositionActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $story;
 
     protected $mainTimeline;
@@ -26,8 +24,6 @@ class SetStoryPositionActionTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(SetStoryPosition::class);
 
         $this->mainTimeline = Story::whereMainTimeline()->first();
 
@@ -54,7 +50,7 @@ class SetStoryPositionActionTest extends TestCase
             'hasPositionChange' => true,
         ]);
 
-        $this->action->execute($this->story, $data);
+        SetStoryPosition::run($this->story, $data);
 
         $this->story->refresh();
         $firstStory->refresh();
@@ -79,7 +75,7 @@ class SetStoryPositionActionTest extends TestCase
             'hasPositionChange' => true,
         ]);
 
-        $this->action->execute($this->story, $data);
+        SetStoryPosition::run($this->story, $data);
 
         $this->story->refresh();
         $firstStory->refresh();
@@ -111,7 +107,7 @@ class SetStoryPositionActionTest extends TestCase
             'hasPositionChange' => true,
         ]);
 
-        $this->action->execute($this->story, $data);
+        SetStoryPosition::run($this->story, $data);
 
         $this->story->refresh();
         $firstStory->refresh();
@@ -145,7 +141,7 @@ class SetStoryPositionActionTest extends TestCase
             'hasPositionChange' => true,
         ]);
 
-        $this->action->execute($this->story, $data);
+        SetStoryPosition::run($this->story, $data);
 
         $this->story->refresh();
         $firstStory->refresh();

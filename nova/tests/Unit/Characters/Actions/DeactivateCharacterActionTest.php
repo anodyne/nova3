@@ -17,15 +17,11 @@ class DeactivateCharacterActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $character;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(DeactivateCharacter::class);
 
         $this->character = Character::factory()->active()->create();
     }
@@ -33,8 +29,8 @@ class DeactivateCharacterActionTest extends TestCase
     /** @test **/
     public function itDeactivatesACharacter()
     {
-        $character = $this->action->execute($this->character);
+        $character = DeactivateCharacter::run($this->character);
 
-        $this->assertTrue($character->status->equals(Inactive::class));
+        $this->assertInstanceOf(Inactive::class, $character->status);
     }
 }

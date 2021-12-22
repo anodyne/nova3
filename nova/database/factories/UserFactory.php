@@ -7,7 +7,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Nova\Users\DataTransferObjects\PronounsData;
+use Nova\Users\Data\PronounsData;
 use Nova\Users\Models\States\Active;
 use Nova\Users\Models\States\Inactive;
 use Nova\Users\Models\User;
@@ -23,7 +23,7 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => now(),
             'password' => Hash::make('secret'),
-            'pronouns' => PronounsData::fromValue(['value' => $this->faker->randomElement(['male', 'female', 'neutral', 'neo', 'none'])]),
+            'pronouns' => PronounsData::from(['value' => $this->faker->randomElement(['male', 'female', 'neutral', 'neo', 'none'])]),
             'remember_token' => Str::random(10),
         ];
     }

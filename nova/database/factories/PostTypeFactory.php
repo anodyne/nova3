@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Nova\PostTypes\Data\Field;
+use Nova\PostTypes\Data\Fields;
+use Nova\PostTypes\Data\Options;
 use Nova\PostTypes\Models\PostType;
-use Nova\PostTypes\Values\Field;
-use Nova\PostTypes\Values\Fields;
-use Nova\PostTypes\Values\Options;
 
 class PostTypeFactory extends Factory
 {
@@ -26,39 +26,37 @@ class PostTypeFactory extends Factory
             'visibility' => $this->faker->randomElement(['in-character', 'out-of-character']),
             'color' => $this->faker->hexColor,
             'icon' => 'book',
-            'fields' => new Fields([
-                'title' => new Field([
+            'fields' => Fields::from([
+                'title' => Field::from([
                     'enabled' => true,
                     'validate' => true,
-                    'suggest' => true,
                 ]),
-                'day' => new Field([
+                'day' => Field::from([
                     'enabled' => true,
                     'validate' => true,
-                    'suggest' => true,
                 ]),
-                'time' => new Field([
+                'time' => Field::from([
                     'enabled' => true,
                     'validate' => true,
-                    'suggest' => true,
                 ]),
-                'location' => new Field([
+                'location' => Field::from([
                     'enabled' => true,
                     'validate' => true,
-                    'suggest' => true,
                 ]),
-                'content' => new Field([
+                'content' => Field::from([
                     'enabled' => true,
                     'validate' => true,
-                    'suggest' => true,
                 ]),
-                'rating' => new Field([
+                'rating' => Field::from([
                     'enabled' => true,
                     'validate' => true,
-                    'suggest' => true,
+                ]),
+                'summary' => Field::from([
+                    'enabled' => true,
+                    'validate' => true,
                 ]),
             ]),
-            'options' => new Options([
+            'options' => Options::from([
                 'notifyUsers' => true,
                 'notifyDiscord' => true,
                 'includeInPostTracking' => true,

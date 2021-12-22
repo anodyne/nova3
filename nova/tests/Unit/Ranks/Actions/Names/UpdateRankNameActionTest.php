@@ -6,7 +6,7 @@ namespace Tests\Unit\Ranks\Actions\Names;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Ranks\Actions\UpdateRankName;
-use Nova\Ranks\DataTransferObjects\RankNameData;
+use Nova\Ranks\Data\RankNameData;
 use Nova\Ranks\Models\RankName;
 use Tests\TestCase;
 
@@ -17,15 +17,11 @@ class UpdateRankNameActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $name;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(UpdateRankName::class);
 
         $this->name = RankName::factory()->create();
     }
@@ -33,11 +29,11 @@ class UpdateRankNameActionTest extends TestCase
     /** @test **/
     public function itUpdatesARankName()
     {
-        $data = new RankNameData([
+        $data = RankNameData::from([
             'name' => 'Captain',
         ]);
 
-        $name = $this->action->execute($this->name, $data);
+        $name = UpdateRankName::run($this->name, $data);
 
         $this->assertTrue($name->exists);
         $this->assertEquals('Captain', $name->name);

@@ -6,7 +6,7 @@ namespace Tests\Unit\Themes\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Themes\Actions\UpdateTheme;
-use Nova\Themes\DataTransferObjects\ThemeData;
+use Nova\Themes\Data\ThemeData;
 use Nova\Themes\Models\Theme;
 use Tests\TestCase;
 
@@ -17,15 +17,11 @@ class UpdateThemeActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $theme;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(UpdateTheme::class);
 
         $this->theme = Theme::factory()->create();
     }
@@ -33,7 +29,7 @@ class UpdateThemeActionTest extends TestCase
     /** @test **/
     public function itUpdatesATheme()
     {
-        $data = new ThemeData([
+        $data = ThemeData::from([
             'name' => 'Slate',
             'location' => 'slate',
             'credits' => 'Slate credits',
@@ -41,7 +37,7 @@ class UpdateThemeActionTest extends TestCase
             'active' => false,
         ]);
 
-        $theme = $this->action->execute($this->theme, $data);
+        $theme = UpdateTheme::run($this->theme, $data);
 
         $this->assertTrue($theme->exists);
         $this->assertEquals('Slate', $theme->name);

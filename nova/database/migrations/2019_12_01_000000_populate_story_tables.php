@@ -3,10 +3,10 @@
 declare(strict_types=1);
 
 use Illuminate\Database\Migrations\Migration;
+use Nova\PostTypes\Data\Field;
+use Nova\PostTypes\Data\Fields;
+use Nova\PostTypes\Data\Options;
 use Nova\PostTypes\Models\PostType;
-use Nova\PostTypes\Values\Field;
-use Nova\PostTypes\Values\Fields;
-use Nova\PostTypes\Values\Options;
 use Nova\Roles\Models\Role;
 use Nova\Stories\Models\States\Completed;
 use Nova\Stories\Models\Story;
@@ -41,37 +41,37 @@ class PopulateStoryTables extends Migration
                 'color' => '#05a2c2',
                 'icon' => 'book',
                 'visibility' => 'in-character',
-                'fields' => new Fields([
-                    'title' => new Field([
+                'fields' => Fields::from([
+                    'title' => Field::from([
                         'enabled' => true,
                         'validate' => true,
                     ]),
-                    'day' => new Field([
+                    'day' => Field::from([
                         'enabled' => true,
                         'validate' => false,
                     ]),
-                    'time' => new Field([
+                    'time' => Field::from([
                         'enabled' => true,
                         'validate' => false,
                     ]),
-                    'location' => new Field([
+                    'location' => Field::from([
                         'enabled' => true,
                         'validate' => false,
                     ]),
-                    'content' => new Field([
+                    'content' => Field::from([
                         'enabled' => true,
                         'validate' => false,
                     ]),
-                    'rating' => new Field([
+                    'rating' => Field::from([
                         'enabled' => true,
                         'validate' => false,
                     ]),
-                    'summary' => new Field([
+                    'summary' => Field::from([
                         'enabled' => true,
                         'validate' => false,
                     ]),
                 ]),
-                'options' => new Options([
+                'options' => Options::from([
                     'notifyUsers' => true,
                     'notifyDiscord' => true,
                     'includeInPostTracking' => true,
@@ -87,37 +87,37 @@ class PopulateStoryTables extends Migration
                 'color' => '#46a758',
                 'icon' => 'user',
                 'visibility' => 'in-character',
-                'fields' => new Fields([
-                    'title' => new Field([
+                'fields' => Fields::from([
+                    'title' => Field::from([
                         'enabled' => true,
                         'validate' => true,
                     ]),
-                    'day' => new Field([
+                    'day' => Field::from([
                         'enabled' => true,
                         'validate' => false,
                     ]),
-                    'time' => new Field([
+                    'time' => Field::from([
                         'enabled' => true,
                         'validate' => false,
                     ]),
-                    'location' => new Field([
+                    'location' => Field::from([
                         'enabled' => true,
                         'validate' => false,
                     ]),
-                    'content' => new Field([
+                    'content' => Field::from([
                         'enabled' => true,
                         'validate' => false,
                     ]),
-                    'rating' => new Field([
+                    'rating' => Field::from([
                         'enabled' => true,
                         'validate' => false,
                     ]),
-                    'summary' => new Field([
+                    'summary' => Field::from([
                         'enabled' => true,
                         'validate' => false,
                     ]),
                 ]),
-                'options' => new Options([
+                'options' => Options::from([
                     'notifyUsers' => true,
                     'notifyDiscord' => true,
                     'includeInPostTracking' => true,
@@ -133,37 +133,37 @@ class PopulateStoryTables extends Migration
                 'color' => '#e93d82',
                 'icon' => 'location',
                 'visibility' => 'out-of-character',
-                'fields' => new Fields([
-                    'title' => new Field([
+                'fields' => Fields::from([
+                    'title' => Field::from([
                         'enabled' => true,
                         'validate' => true,
                     ]),
-                    'day' => new Field([
+                    'day' => Field::from([
                         'enabled' => true,
                         'validate' => false,
                     ]),
-                    'time' => new Field([
+                    'time' => Field::from([
                         'enabled' => true,
                         'validate' => false,
                     ]),
-                    'location' => new Field([
+                    'location' => Field::from([
                         'enabled' => true,
                         'validate' => false,
                     ]),
-                    'content' => new Field([
+                    'content' => Field::from([
                         'enabled' => true,
                         'validate' => false,
                     ]),
-                    'rating' => new Field([
+                    'rating' => Field::from([
                         'enabled' => false,
                         'validate' => false,
                     ]),
-                    'summary' => new Field([
+                    'summary' => Field::from([
                         'enabled' => false,
                         'validate' => false,
                     ]),
                 ]),
-                'options' => new Options([
+                'options' => Options::from([
                     'notifyUsers' => false,
                     'notifyDiscord' => false,
                     'includeInPostTracking' => false,
@@ -180,37 +180,37 @@ class PopulateStoryTables extends Migration
                 'color' => '#ab4aba',
                 'icon' => 'lightbulb',
                 'visibility' => 'out-of-character',
-                'fields' => new Fields([
-                    'title' => new Field([
+                'fields' => Fields::from([
+                    'title' => Field::from([
                         'enabled' => true,
                         'validate' => false,
                     ]),
-                    'day' => new Field([
+                    'day' => Field::from([
                         'enabled' => false,
                         'validate' => false,
                     ]),
-                    'time' => new Field([
+                    'time' => Field::from([
                         'enabled' => false,
                         'validate' => false,
                     ]),
-                    'location' => new Field([
+                    'location' => Field::from([
                         'enabled' => false,
                         'validate' => false,
                     ]),
-                    'content' => new Field([
+                    'content' => Field::from([
                         'enabled' => true,
                         'validate' => true,
                     ]),
-                    'rating' => new Field([
+                    'rating' => Field::from([
                         'enabled' => false,
                         'validate' => false,
                     ]),
-                    'summary' => new Field([
+                    'summary' => Field::from([
                         'enabled' => false,
                         'validate' => false,
                     ]),
                 ]),
-                'options' => new Options([
+                'options' => Options::from([
                     'notifyUsers' => false,
                     'notifyDiscord' => true,
                     'includeInPostTracking' => false,

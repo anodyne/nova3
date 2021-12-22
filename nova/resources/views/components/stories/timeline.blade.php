@@ -45,12 +45,6 @@
                 <div class="relative flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-8 mt-3 text-base md:text-sm text-gray-9">
                     <span>
                         <x-badge :color="$story->status->color()" size="xs">
-                            @if ($story->is_current && $story->allow_posting)
-                                <x-slot name="leadingIcon">
-                                    @icon('edit', $component->iconStyles())
-                                </x-slot>
-                            @endif
-
                             {{ $story->status->displayName() }}
                         </x-badge>
                     </span>
@@ -66,7 +60,7 @@
                     @canany(['view', 'create', 'update', 'delete'], $story)
                         <span class="leading-0">
                             <x-button type="button" size="none" color="gray-blue-text" wire:click="selectStory('{{ $story->id }}')">
-                                @icon('settings', 'h-6 w-6 shrink-0')
+                                @icon('settings', 'h-6 w-6 shrink-0 mr-1.5')
                                 <span>Manage</span>
                             </x-button>
                         </span>
@@ -75,7 +69,7 @@
                     @can('view', $story)
                         <span class="leading-0">
                             <x-link :href="route('stories.show', $story)" size="none" color="gray-blue-text">
-                                @icon('arrow-right', 'h-6 w-6 shrink-0')
+                                @icon('arrow-right', 'h-6 w-6 shrink-0 mr-1.5')
                                 <span>Go to story</span>
                             </x-link>
                         </span>

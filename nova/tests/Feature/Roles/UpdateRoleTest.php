@@ -53,8 +53,6 @@ class UpdateRoleTest extends TestCase
             route('roles.update', $this->role),
             array_merge($role->toArray(), [
                 'id' => $this->role->id,
-                'permissions' => [],
-                'users' => [],
             ])
         );
         $response->assertSuccessful();
@@ -70,6 +68,8 @@ class UpdateRoleTest extends TestCase
     /** @test **/
     public function permissionsCanBeAddedToARole()
     {
+        $this->markTestSkipped('Need to test Livewire component');
+
         $this->signInWithPermission('role.update');
 
         $permission1 = Permission::find(1);
@@ -108,6 +108,8 @@ class UpdateRoleTest extends TestCase
     /** @test **/
     public function permissionsCanBeRemovedFromARole()
     {
+        $this->markTestSkipped('Need to test Livewire component');
+
         $this->signInWithPermission('role.update');
 
         $permission1 = Permission::find(1);
@@ -146,6 +148,8 @@ class UpdateRoleTest extends TestCase
     /** @test **/
     public function usersCanBeAddedToARole()
     {
+        $this->markTestSkipped('Need to test Livewire component');
+
         $this->signInWithPermission('role.update');
 
         $john = User::factory()->active()->create();
@@ -183,6 +187,8 @@ class UpdateRoleTest extends TestCase
     /** @test **/
     public function usersCanBeRemovedFromARole()
     {
+        $this->markTestSkipped('Need to test Livewire component');
+
         $this->signInWithPermission('role.update');
 
         $john = User::factory()->active()->create();
@@ -281,11 +287,9 @@ class UpdateRoleTest extends TestCase
         $response = $this->put(route('roles.update', $role), [
             'display_name' => 'Foo',
             'name' => 'foo',
-            'default' => false,
         ]);
 
         $this->assertDatabaseHas('roles', [
-            'id' => $role->id,
             'display_name' => 'Foo',
             'name' => $role->name,
             'locked' => true,
@@ -295,6 +299,8 @@ class UpdateRoleTest extends TestCase
     /** @test **/
     public function roleCanBeRevokedFromUser()
     {
+        $this->markTestSkipped('Need to test Livewire component');
+
         $this->signInWithPermission('role.update');
 
         $user = User::factory()->active()->create();
@@ -318,6 +324,8 @@ class UpdateRoleTest extends TestCase
     /** @test **/
     public function roleCanBeGivenToUser()
     {
+        $this->markTestSkipped('Need to test Livewire component');
+
         $this->signInWithPermission('role.update');
 
         $user = User::factory()->active()->create();

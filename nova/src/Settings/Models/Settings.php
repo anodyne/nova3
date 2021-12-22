@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Nova\Settings\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Nova\Settings\DataTransferObjects\Characters;
-use Nova\Settings\DataTransferObjects\Discord;
-use Nova\Settings\DataTransferObjects\Email;
-use Nova\Settings\DataTransferObjects\General;
-use Nova\Settings\DataTransferObjects\MetaTags;
-use Nova\Settings\DataTransferObjects\PostingActivity;
-use Nova\Settings\DataTransferObjects\SystemDefaults;
+use Nova\Settings\Data\Characters;
+use Nova\Settings\Data\Discord;
+use Nova\Settings\Data\Email;
+use Nova\Settings\Data\General;
+use Nova\Settings\Data\MetaTags;
+use Nova\Settings\Data\PostingActivity;
+use Nova\Settings\Data\SystemDefaults;
 use Nova\Settings\Models\Builders\SettingsBuilder;
 
 class Settings extends Model

@@ -1,7 +1,7 @@
 <div>
-    <input type="hidden" name="positions" value="{{ $positionIds }}">
-
     @foreach ($positions as $position)
+        <input type="hidden" name="positions[]" value="{{ $position['id'] }}">
+
         <div class="flex flex-col @if (! $loop->first) mt-4 @endif">
             <div class="flex items-center w-full" wire:model="positions">
                 @livewire(
@@ -25,9 +25,9 @@
                 <div class="mt-2 ml-px text-sm">
                     <x-input.radio
                         label="Primary position"
-                        name="primary_position"
-                        id="primary_position_{{ $position['id'] }}"
-                        for="primary_position_{{ $position['id'] }}"
+                        name="primaryPosition"
+                        id="primaryPosition{{ $position['id'] }}"
+                        for="primaryPosition{{ $position['id'] }}"
                         value="{{ $position['id'] }}"
                         :checked="$position['primary']"
                     />

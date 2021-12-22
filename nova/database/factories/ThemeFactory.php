@@ -20,6 +20,7 @@ class ThemeFactory extends Factory
             'name' => ucfirst($name),
             'location' => Str::slug($name),
             'active' => true,
+            'preview' => 'preview.jpg',
         ];
     }
 

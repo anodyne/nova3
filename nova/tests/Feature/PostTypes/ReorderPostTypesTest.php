@@ -34,7 +34,7 @@ class ReorderPostTypesTest extends TestCase
     /** @test **/
     public function authorizedUserCanReorderPostTypes()
     {
-        $this->signInWithPermission('story.update');
+        $this->signInWithPermission('post-type.update');
 
         $this->followingRedirects();
 

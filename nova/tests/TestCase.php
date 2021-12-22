@@ -11,8 +11,8 @@ use Nova\Foundation\Providers\RouteServiceProvider;
 abstract class TestCase extends BaseTestCase
 {
     use AdditionalAssertions;
-    use AddsCustomAssertions;
     use CreatesApplication;
+    use CustomAssertions;
     use ManagesTestUsers;
     use TestHelpers;
 

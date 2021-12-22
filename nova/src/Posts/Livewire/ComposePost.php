@@ -8,9 +8,9 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 use Nova\Foundation\Toast;
 use Nova\Posts\Actions\SavePostManager;
-use Nova\Posts\DataTransferObjects\PostData;
-use Nova\Posts\DataTransferObjects\PostPositionData;
-use Nova\Posts\DataTransferObjects\PostStatusData;
+use Nova\Posts\Data\PostData;
+use Nova\Posts\Data\PostPositionData;
+use Nova\Posts\Data\PostStatusData;
 use Nova\Posts\Models\Post;
 
 class ComposePost extends Component
@@ -83,7 +83,7 @@ class ComposePost extends Component
 
     protected function getPostData(): PostData
     {
-        return PostData::fromArray([
+        return PostData::from([
             'title' => $this->title,
             'content' => $this->content,
             'day' => $this->day,
@@ -100,14 +100,14 @@ class ComposePost extends Component
 
     protected function getPostStatusData(string $status): PostStatusData
     {
-        return new PostStatusData([
+        return PostStatusData::from([
             'status' => $status,
         ]);
     }
 
     protected function getPostPositionData(): PostPositionData
     {
-        return PostPositionData::fromArray([
+        return PostPositionData::from([
             'hasPositionChange' => false,
             'displayDirection' => $this->direction,
             'displayNeighbor' => $this->neighbor,

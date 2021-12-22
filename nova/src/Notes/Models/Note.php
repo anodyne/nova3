@@ -30,7 +30,7 @@ class Note extends Model
         'updated' => Events\NoteUpdated::class,
     ];
 
-    protected $fillable = ['user_id', 'title', 'content', 'source', 'summary'];
+    protected $fillable = ['user_id', 'title', 'content', 'summary'];
 
     public function author()
     {

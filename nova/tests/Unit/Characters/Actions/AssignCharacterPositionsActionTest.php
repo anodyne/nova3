@@ -6,29 +6,24 @@ namespace Tests\Unit\Characters\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Characters\Actions\AssignCharacterPositions;
-use Nova\Characters\DataTransferObjects\AssignCharacterPositionsData;
+use Nova\Characters\Data\AssignCharacterPositionsData;
 use Nova\Characters\Models\Character;
 use Nova\Departments\Models\Position;
 use Tests\TestCase;
 
 /**
  * @group characters
- * @group departments
  * @group positions
  */
 class AssignCharacterPositionsActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $character;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(AssignCharacterPositions::class);
 
         $this->character = Character::factory()->active()->create();
     }
@@ -38,19 +33,18 @@ class AssignCharacterPositionsActionTest extends TestCase
     {
         $position = Position::factory()->create();
 
-        $data = new AssignCharacterPositionsData([
+        $data = AssignCharacterPositionsData::from([
             'positions' => [$position->id],
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterPositions::run($this->character, $data);
 
         $position->refresh();
 
-        $characterPositions = $character->positions;
-
-        $this->assertCount(1, $characterPositions);
-        $this->assertCount(1, $characterPositions->where('id', $position->id));
-        $this->assertTrue((bool) $characterPositions->first()->pivot->primary);
+        $this->assertCount(1, $character->positions);
+        $this->assertCount(1, $character->primaryPosition);
+        $this->assertTrue($character->positions->first()->is($position));
+        $this->assertTrue($character->primaryPosition->first()->is($position));
     }
 
     /** @test **/
@@ -59,22 +53,19 @@ class AssignCharacterPositionsActionTest extends TestCase
         $first = Position::factory()->create();
         $second = Position::factory()->create();
 
-        $data = new AssignCharacterPositionsData([
+        $data = AssignCharacterPositionsData::from([
             'positions' => [$first->id, $second->id],
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterPositions::run($this->character, $data);
 
         $first->refresh();
         $second->refresh();
 
-        $characterPositions = $character->positions;
-
-        $this->assertCount(2, $characterPositions);
-        $this->assertCount(1, $characterPositions->where('id', $first->id));
-        $this->assertCount(1, $characterPositions->where('id', $second->id));
-        $this->assertFalse((bool) $characterPositions[0]->pivot->primary);
-        $this->assertFalse((bool) $characterPositions[1]->pivot->primary);
+        $this->assertCount(2, $character->positions);
+        $this->assertCount(0, $character->primaryPosition);
+        $this->assertTrue($first->characters->first()->is($character));
+        $this->assertTrue($second->characters->first()->is($character));
     }
 
     /** @test **/
@@ -83,23 +74,21 @@ class AssignCharacterPositionsActionTest extends TestCase
         $first = Position::factory()->create();
         $second = Position::factory()->create();
 
-        $data = new AssignCharacterPositionsData([
+        $data = AssignCharacterPositionsData::from([
             'positions' => [$first->id, $second->id],
             'primaryPosition' => $first->id,
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterPositions::run($this->character, $data);
 
         $first->refresh();
         $second->refresh();
 
-        $characterPositions = $character->positions;
-
-        $this->assertCount(2, $characterPositions);
-        $this->assertCount(1, $characterPositions->where('id', $first->id));
-        $this->assertCount(1, $characterPositions->where('id', $second->id));
-        $this->assertTrue((bool) $characterPositions[0]->pivot->primary);
-        $this->assertFalse((bool) $characterPositions[1]->pivot->primary);
+        $this->assertCount(2, $character->positions);
+        $this->assertTrue($first->characters->first()->is($character));
+        $this->assertTrue($second->characters->first()->is($character));
+        $this->assertTrue($character->primaryPosition->first()->is($first));
+        $this->assertFalse($character->primaryPosition->first()->is($second));
     }
 
     /** @test **/
@@ -110,21 +99,23 @@ class AssignCharacterPositionsActionTest extends TestCase
 
         $this->character->positions()->attach($first);
 
-        $data = new AssignCharacterPositionsData([
+        $data = AssignCharacterPositionsData::from([
             'positions' => [$second->id],
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterPositions::run($this->character, $data);
 
         $first->refresh();
         $second->refresh();
 
         $characterPositions = $character->positions;
 
-        $this->assertCount(1, $characterPositions);
-        $this->assertCount(0, $characterPositions->where('id', $first->id));
-        $this->assertCount(1, $characterPositions->where('id', $second->id));
-        $this->assertTrue((bool) $characterPositions->first()->pivot->primary);
+        $this->assertCount(1, $character->positions);
+        $this->assertCount(1, $character->primaryPosition);
+        $this->assertFalse($character->positions->first()->is($first));
+        $this->assertTrue($character->positions->first()->is($second));
+        $this->assertFalse($character->primaryPosition->first()->is($first));
+        $this->assertTrue($character->primaryPosition->first()->is($second));
     }
 
     /** @test **/
@@ -136,26 +127,31 @@ class AssignCharacterPositionsActionTest extends TestCase
 
         $this->character->positions()->attach($first);
         $this->character->positions()->attach($second, ['primary' => true]);
+        $this->character->refresh();
 
-        $data = new AssignCharacterPositionsData([
+        $this->assertCount(2, $this->character->positions);
+        $this->assertCount(1, $this->character->primaryPosition);
+        $this->assertFalse($this->character->primaryPosition->first()->is($first));
+        $this->assertTrue($this->character->primaryPosition->first()->is($second));
+
+        $data = AssignCharacterPositionsData::from([
             'positions' => [$second->id, $third->id],
             'primaryPosition' => $second->id,
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterPositions::run($this->character, $data);
 
         $first->refresh();
         $second->refresh();
         $third->refresh();
 
-        $characterPositions = $character->positions;
-
-        $this->assertCount(2, $characterPositions);
-        $this->assertCount(0, $characterPositions->where('id', $first->id));
-        $this->assertCount(1, $characterPositions->where('id', $second->id));
-        $this->assertCount(1, $characterPositions->where('id', $third->id));
-        $this->assertTrue((bool) $characterPositions->where('id', $second->id)->first()->pivot->primary);
-        $this->assertFalse((bool) $characterPositions->where('id', $third->id)->first()->pivot->primary);
+        $this->assertCount(2, $character->positions);
+        $this->assertCount(1, $character->primaryPosition);
+        $this->assertCount(0, $first->characters);
+        $this->assertCount(1, $second->characters);
+        $this->assertCount(1, $third->characters);
+        $this->assertTrue($character->primaryPosition->first()->is($second));
+        $this->assertFalse($character->primaryPosition->first()->is($third));
     }
 
     /** @test **/
@@ -167,26 +163,31 @@ class AssignCharacterPositionsActionTest extends TestCase
 
         $this->character->positions()->attach($first);
         $this->character->positions()->attach($second, ['primary' => true]);
+        $this->character->refresh();
 
-        $data = new AssignCharacterPositionsData([
+        $this->assertCount(2, $this->character->positions);
+        $this->assertCount(1, $this->character->primaryPosition);
+        $this->assertFalse($this->character->primaryPosition->first()->is($first));
+        $this->assertTrue($this->character->primaryPosition->first()->is($second));
+
+        $data = AssignCharacterPositionsData::from([
             'positions' => [$second->id, $third->id],
             'primaryPosition' => $third->id,
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterPositions::run($this->character, $data);
 
         $first->refresh();
         $second->refresh();
         $third->refresh();
 
-        $characterPositions = $character->positions;
-
-        $this->assertCount(2, $characterPositions);
-        $this->assertCount(0, $characterPositions->where('id', $first->id));
-        $this->assertCount(1, $characterPositions->where('id', $second->id));
-        $this->assertCount(1, $characterPositions->where('id', $third->id));
-        $this->assertFalse((bool) $characterPositions->where('id', $second->id)->first()->pivot->primary);
-        $this->assertTrue((bool) $characterPositions->where('id', $third->id)->first()->pivot->primary);
+        $this->assertCount(2, $character->positions);
+        $this->assertCount(1, $character->primaryPosition);
+        $this->assertCount(0, $first->characters);
+        $this->assertCount(1, $second->characters);
+        $this->assertCount(1, $third->characters);
+        $this->assertFalse($character->primaryPosition->first()->is($second));
+        $this->assertTrue($character->primaryPosition->first()->is($third));
     }
 
     /** @test **/
@@ -198,24 +199,27 @@ class AssignCharacterPositionsActionTest extends TestCase
 
         $this->character->positions()->attach($first);
         $this->character->positions()->attach($second, ['primary' => true]);
+        $this->character->refresh();
 
-        $data = new AssignCharacterPositionsData([
+        $this->assertCount(2, $this->character->positions);
+        $this->assertCount(1, $this->character->primaryPosition);
+        $this->assertFalse($this->character->primaryPosition->first()->is($first));
+        $this->assertTrue($this->character->primaryPosition->first()->is($second));
+
+        $data = AssignCharacterPositionsData::from([
             'positions' => [$second->id, $third->id],
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterPositions::run($this->character, $data);
 
         $first->refresh();
         $second->refresh();
         $third->refresh();
 
-        $characterPositions = $character->positions;
-
-        $this->assertCount(2, $characterPositions);
-        $this->assertCount(0, $characterPositions->where('id', $first->id));
-        $this->assertCount(1, $characterPositions->where('id', $second->id));
-        $this->assertCount(1, $characterPositions->where('id', $third->id));
-        $this->assertFalse((bool) $characterPositions->where('id', $second->id)->first()->pivot->primary);
-        $this->assertFalse((bool) $characterPositions->where('id', $third->id)->first()->pivot->primary);
+        $this->assertCount(2, $character->positions);
+        $this->assertCount(0, $character->primaryPosition);
+        $this->assertCount(0, $first->characters);
+        $this->assertCount(1, $second->characters);
+        $this->assertCount(1, $third->characters);
     }
 }

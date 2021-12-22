@@ -12,7 +12,6 @@ use Nova\Departments\Requests\UpdatePositionRequest;
 use Tests\TestCase;
 
 /**
- * @group departments
  * @group positions
  */
 class UpdatePositionTest extends TestCase

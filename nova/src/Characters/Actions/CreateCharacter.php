@@ -6,7 +6,7 @@ namespace Nova\Characters\Actions;
 
 use Illuminate\Support\Facades\Gate;
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Characters\DataTransferObjects\CharacterData;
+use Nova\Characters\Data\CharacterData;
 use Nova\Characters\Models\Character;
 use Nova\Characters\Models\States\Statuses\Active;
 use Nova\Characters\Models\States\Statuses\Pending;
@@ -31,8 +31,10 @@ class CreateCharacter
             return false;
         }
 
-        if (settings()->characters->allowCharacterCreation) {
-            if (! settings()->characters->requireApprovalForCharacterCreation) {
+        $settings = settings();
+
+        if ($settings->characters->allowCharacterCreation) {
+            if (! $settings->characters->requireApprovalForCharacterCreation) {
                 return false;
             }
         }

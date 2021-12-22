@@ -28,8 +28,6 @@ class UploadUserAvatarActionTest extends TestCase
     {
         parent::setUp();
 
-        $this->action = app(UploadUserAvatar::class);
-
         $this->user = User::factory()->active()->create();
     }
 
@@ -49,7 +47,7 @@ class UploadUserAvatarActionTest extends TestCase
 
         $path = $disk->put('tmp', UploadedFile::fake()->image('image.png'));
 
-        $this->action->execute($this->user, $diskPathPrefix . $path);
+        UploadUserAvatar::run($this->user, $diskPathPrefix . $path);
 
         $this->assertCount(1, $this->user->refresh()->getMedia('avatar'));
     }

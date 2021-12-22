@@ -16,15 +16,11 @@ class DeleteRankItemActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $item;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(DeleteRankItem::class);
 
         $this->item = RankItem::factory()->create();
     }
@@ -32,7 +28,7 @@ class DeleteRankItemActionTest extends TestCase
     /** @test **/
     public function itDeletesARankItem()
     {
-        $item = $this->action->execute($this->item);
+        $item = DeleteRankItem::run($this->item);
 
         $this->assertFalse($item->exists);
     }

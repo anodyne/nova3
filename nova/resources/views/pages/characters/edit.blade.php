@@ -16,7 +16,8 @@
 
                 <x-input.group label="Position(s)" :error="$errors->first('positions')">
                     @livewire('positions:collector', [
-                        'positions' => old('positions', $character->positions->implode('id', ',')),
+                        'positions' => old('positions', $character->positions->pluck('id')->all()),
+                        'primaryPosition' => old('primaryPosition', $character->primaryPosition->first()?->id),
                         'character' => $character,
                     ])
                 </x-input.group>
@@ -35,7 +36,8 @@
             <x-form.section title="Ownership" message="Characters can be assigned to any number of users and all assigned users will have the same rights with the character. Additionally, any notifications on behalf of the character will be sent to all users assigned to the character.">
                 <x-input.group label="Assign User(s)">
                     @livewire('users:collector', [
-                        'users' => old('users', $character->users->implode('id', ',')),
+                        'users' => old('users', $character->users->pluck('id')),
+                        'primaryCharacters' => old('primaryCharacters', $character->primaryUsers->pluck('id')->all()),
                         'character' => $character,
                     ])
                 </x-input.group>

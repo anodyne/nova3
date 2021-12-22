@@ -28,7 +28,7 @@ class ShowPostTypeTest extends TestCase
     /** @test **/
     public function authorizedUserCanViewAPostType()
     {
-        $this->signInWithPermission('story.view');
+        $this->signInWithPermission('post-type.view');
 
         $response = $this->get(route('post-types.show', $this->postType));
         $response->assertSuccessful();

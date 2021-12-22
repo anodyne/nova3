@@ -30,7 +30,7 @@ class SetCharacterType
 
     protected function transition(Character $character, $state): void
     {
-        if ($character->canTransitionTo($state, 'type')) {
+        if ($character->type->canTransitionTo($state)) {
             $character->type->transitionTo($state);
         }
     }

@@ -16,15 +16,11 @@ class DuplicateRankNameActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $name;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(DuplicateRankName::class);
 
         $this->name = RankName::factory()->create([
             'name' => 'Captain',
@@ -34,7 +30,7 @@ class DuplicateRankNameActionTest extends TestCase
     /** @test **/
     public function itDuplicatesARankName()
     {
-        $name = $this->action->execute($this->name);
+        $name = DuplicateRankName::run($this->name);
 
         $this->assertTrue($name->exists);
         $this->assertEquals('Copy of Captain', $name->name);

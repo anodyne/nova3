@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Nova\Foundation\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Nova\Foundation\DataTransferObjects\DiscordSettings;
+use Nova\Foundation\Data\DiscordSettings;
 
 class SystemNotification extends Model
 {

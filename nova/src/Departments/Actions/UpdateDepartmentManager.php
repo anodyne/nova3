@@ -6,7 +6,7 @@ namespace Nova\Departments\Actions;
 
 use Illuminate\Http\Request;
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Departments\DataTransferObjects\DepartmentData;
+use Nova\Departments\Data\DepartmentData;
 use Nova\Departments\Models\Department;
 
 class UpdateDepartmentManager
@@ -17,7 +17,7 @@ class UpdateDepartmentManager
     {
         $department = UpdateDepartment::run(
             $department,
-            DepartmentData::fromRequest($request)
+            DepartmentData::from($request)
         );
 
         UploadDepartmentHeaderImage::run($department, $request->image_path);

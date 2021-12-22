@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Notes\Actions;
 
+use Illuminate\Support\Arr;
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Notes\DataTransferObjects\NoteData;
+use Nova\Notes\Data\NoteData;
 use Nova\Notes\Models\Note;
 
 class CreateNote
@@ -15,7 +16,7 @@ class CreateNote
     public function handle(NoteData $data): Note
     {
         return $data->user->notes()->create(
-            $data->except('user')->toArray()
+            Arr::except($data->all(), 'user')
         );
     }
 }

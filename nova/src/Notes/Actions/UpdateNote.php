@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Notes\Actions;
 
+use Illuminate\Support\Arr;
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Notes\DataTransferObjects\NoteData;
+use Nova\Notes\Data\NoteData;
 use Nova\Notes\Models\Note;
 
 class UpdateNote
@@ -15,7 +16,7 @@ class UpdateNote
     public function handle(Note $note, NoteData $data): Note
     {
         return tap($note)
-            ->update($data->except('user')->toArray())
+            ->update(Arr::except($data->all(), 'user'))
             ->refresh();
     }
 }

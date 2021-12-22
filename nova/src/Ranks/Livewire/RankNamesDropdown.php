@@ -6,7 +6,7 @@ namespace Nova\Ranks\Livewire;
 
 use Livewire\Component;
 use Nova\Ranks\Actions\CreateRankName;
-use Nova\Ranks\DataTransferObjects\RankNameData;
+use Nova\Ranks\Data\RankNameData;
 use Nova\Ranks\Models\RankName;
 
 class RankNamesDropdown extends Component
@@ -23,7 +23,7 @@ class RankNamesDropdown extends Component
 
     public function createAndSelectName(CreateRankName $action)
     {
-        $newName = $action->execute(new RankNameData([
+        $newName = CreateRankName::run(RankNameData::from([
             'name' => $this->search,
         ]));
 

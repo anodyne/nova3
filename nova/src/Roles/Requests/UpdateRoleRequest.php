@@ -12,10 +12,9 @@ class UpdateRoleRequest extends ValidatesRequest
     {
         return [
             'default' => ['sometimes'],
+            'description' => ['nullable'],
             'display_name' => ['required'],
             'name' => ['required'],
-            'permissions' => ['nullable'],
-            'users' => ['nullable'],
         ];
     }
 

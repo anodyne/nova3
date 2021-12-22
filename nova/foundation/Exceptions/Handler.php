@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Nova\Foundation\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Nova\Users\Exceptions\AdminForcedPasswordResetException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -15,9 +14,7 @@ class Handler extends ExceptionHandler
      *
      * @var array
      */
-    protected $dontReport = [
-        AdminForcedPasswordResetException::class,
-    ];
+    protected $dontReport = [];
 
     /**
      * A list of the inputs that are never flashed for validation exceptions.
@@ -51,12 +48,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        if ($exception instanceof AdminForcedPasswordResetException) {
-            return redirect()
-                ->route('password.request')
-                ->with('message', 'An admin has required you to reset your password.');
-        }
-
         return parent::render($request, $exception);
     }
 }

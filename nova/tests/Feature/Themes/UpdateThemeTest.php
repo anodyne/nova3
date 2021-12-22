@@ -46,6 +46,7 @@ class UpdateThemeTest extends TestCase
             'name' => 'New Name',
             'active' => true,
             'location' => $this->theme->location,
+            'preview' => $this->theme->preview,
         ]);
         $response->assertSuccessful();
 

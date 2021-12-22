@@ -8,7 +8,7 @@ use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Support\Facades\Storage;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Themes\Actions\CreateTheme;
-use Nova\Themes\DataTransferObjects\ThemeData;
+use Nova\Themes\Data\ThemeData;
 use Nova\Themes\Events\ThemeInstalled;
 use Nova\Themes\Exceptions\MissingQuickInstallFileException;
 use Nova\Themes\Models\Theme;
@@ -28,7 +28,7 @@ class InstallThemeController extends Controller
         $this->authorize('create', Theme::class);
 
         $theme = CreateTheme::run(
-            new ThemeData($this->getThemePropertiesFromQuickInstallFile($request->theme))
+            ThemeData::from($this->getThemePropertiesFromQuickInstallFile($request->theme))
         );
 
         ThemeInstalled::dispatch($theme);

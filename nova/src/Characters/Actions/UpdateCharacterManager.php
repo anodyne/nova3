@@ -6,30 +6,30 @@ namespace Nova\Characters\Actions;
 
 use Illuminate\Http\Request;
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Characters\DataTransferObjects\AssignCharacterOwnersData;
-use Nova\Characters\DataTransferObjects\AssignCharacterPositionsData;
-use Nova\Characters\DataTransferObjects\CharacterData;
+use Nova\Characters\Data\AssignCharacterOwnersData;
+use Nova\Characters\Data\AssignCharacterPositionsData;
+use Nova\Characters\Data\CharacterData;
 use Nova\Characters\Models\Character;
 
 class UpdateCharacterManager
 {
     use AsAction;
 
-    public function execute(Character $character, Request $request): Character
+    public function handle(Character $character, Request $request): Character
     {
         $character = UpdateCharacter::run(
             $character,
-            CharacterData::fromRequest($request)
+            CharacterData::from($request)
         );
 
         $character = AssignCharacterOwners::run(
             $character,
-            AssignCharacterOwnersData::fromRequest($request)
+            AssignCharacterOwnersData::from($request)
         );
 
         $character = AssignCharacterPositions::run(
             $character,
-            AssignCharacterPositionsData::fromRequest($request)
+            AssignCharacterPositionsData::from($request)
         );
 
         $character = SetCharacterType::run($character);

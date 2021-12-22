@@ -6,7 +6,7 @@ namespace Tests\Unit\Roles\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Roles\Actions\UpdateRoleUsers;
-use Nova\Roles\DataTransferObjects\RoleAssignmentData;
+use Nova\Roles\Data\RoleAssignmentData;
 use Nova\Roles\Models\Role;
 use Nova\Users\Models\User;
 use Tests\TestCase;
@@ -17,8 +17,6 @@ use Tests\TestCase;
 class UpdateRoleUsersActionTest extends TestCase
 {
     use RefreshDatabase;
-
-    protected $action;
 
     protected $role;
 
@@ -34,8 +32,6 @@ class UpdateRoleUsersActionTest extends TestCase
 
         $this->disableRoleCaching();
 
-        $this->action = app(UpdateRoleUsers::class);
-
         $this->role = Role::factory()->create();
 
         $this->john = User::factory()->active()->create();
@@ -48,14 +44,12 @@ class UpdateRoleUsersActionTest extends TestCase
     {
         $this->john->attachRole($this->role);
 
-        $data = new RoleAssignmentData();
-        $data->role = $this->role;
-        $data->users = User::whereIn('id', [
-            $this->john->id,
-            $this->jane->id,
-        ])->get();
+        $data = RoleAssignmentData::from([
+            'role' => $this->role,
+            'users' => User::whereIn('id', [$this->john->id, $this->jane->id])->get()
+        ]);
 
-        $this->action->execute($data);
+        UpdateRoleUsers::run($data);
 
         $this->role->refresh();
 
@@ -71,11 +65,12 @@ class UpdateRoleUsersActionTest extends TestCase
         $this->john->attachRole($this->role);
         $this->jane->attachRole($this->role);
 
-        $data = new RoleAssignmentData();
-        $data->role = $this->role;
-        $data->users = User::whereIn('id', [$this->jane->id])->get();
+        $data = RoleAssignmentData::from([
+            'role' => $this->role,
+            'users' => User::whereIn('id', [$this->jane->id])->get(),
+        ]);
 
-        $this->action->execute($data);
+        UpdateRoleUsers::run($data);
 
         $this->role->refresh();
 
@@ -91,14 +86,12 @@ class UpdateRoleUsersActionTest extends TestCase
         $this->john->attachRole($this->role);
         $this->jane->attachRole($this->role);
 
-        $data = new RoleAssignmentData();
-        $data->role = $this->role;
-        $data->users = User::whereIn('id', [
-            $this->john->id,
-            $this->ryan->id,
-        ])->get();
+        $data = RoleAssignmentData::from([
+            'role' => $this->role,
+            'users' => User::whereIn('id', [$this->john->id, $this->ryan->id])->get(),
+        ]);
 
-        $this->action->execute($data);
+        UpdateRoleUsers::run($data);
 
         $this->role->refresh();
 

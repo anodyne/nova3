@@ -4,7 +4,7 @@
 <div x-data="{ tab: 'intro', isLoading: false }">
     <div>
         <div class="p-4 sm:hidden">
-            <select @change="tab = $event.target.value" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 sm:text-sm transition ease-in-out duration-200">
+            <select @change="tab = $event.target.value" aria-label="Selected tab" class="mt-1 form-select bg-gray-1 block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 sm:text-sm transition ease-in-out duration-200">
                 <option value="intro" :selected="tab === 'intro'">Intro</option>
                 <option value="install" :selected="tab === 'install'">Install</option>
             </select>
@@ -35,10 +35,10 @@
 
     <div class="py-8 px-4 sm:px-10">
         <div x-show="tab === 'intro'">
-            <h2 class="text-2xl font-extrabold mb-8 text-center">Thank you for supporting Anodyne&rsquo;s work on Nova 3!</h2>
+            <h2 class="text-2xl font-extrabold mb-8 text-center">Thank you for supporting Anodyne&rsquo;s continued work on Nova 3!</h2>
 
             <p class="mb-8 text-gray-11">
-                One of the perks of being a Patreon support is downloadable previews of the work being done on Nova 3. This is not intended to be used for QA purposes, but just as a way to get feedback from valued members of the community about the direction of Nova 3.
+                One of the perks of being a Patreon supporter is downloadable previews of the work being done on Nova 3. This is not intended to be used for QA purposes, but just as a way to get feedback from valued members of the community about the direction of Nova 3.
             </p>
 
             <p class="mb-8 text-gray-11">
@@ -46,9 +46,9 @@
             </p>
 
             <div class="rounded-md bg-yellow-3 border border-yellow-6 p-4">
-                <div class="flex items-center">
+                <div class="flex">
                     <div class="shrink-0">
-                        @icon('warning', 'h-7 w-7 text-yellow-9')
+                        @icon('warning', 'h-8 w-8 text-yellow-9')
                     </div>
                     <div class="ml-4 flex-1 md:flex md:justify-between text-yellow-11">
                         <p class="text-yellow-11 font-medium">

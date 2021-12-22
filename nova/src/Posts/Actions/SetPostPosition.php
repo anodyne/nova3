@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Nova\Posts\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Posts\DataTransferObjects\PostPositionData;
+use Nova\Posts\Data\PostPositionData;
 use Nova\Posts\Models\Post;
 
 class SetPostPosition
@@ -32,6 +32,6 @@ class SetPostPosition
             }
         }
 
-        return $post;
+        return $post->refresh();
     }
 }

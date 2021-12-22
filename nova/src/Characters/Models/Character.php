@@ -52,7 +52,7 @@ class Character extends Model implements HasMedia
 
     public function activeUsers()
     {
-        return $this->users()->where('status', ActiveUser::class);
+        return $this->users()->whereState('status', ActiveUser::class);
     }
 
     public function positions()

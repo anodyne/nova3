@@ -6,7 +6,7 @@ namespace Nova\Departments\Actions;
 
 use Illuminate\Http\Request;
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Departments\DataTransferObjects\DepartmentData;
+use Nova\Departments\Data\DepartmentData;
 use Nova\Departments\Models\Department;
 
 class DuplicateDepartmentManager
@@ -17,7 +17,7 @@ class DuplicateDepartmentManager
     {
         $department = DuplicateDepartment::run(
             $original,
-            DepartmentData::fromRequest($request)
+            DepartmentData::from($request)
         );
 
         DuplicateDepartmentPositions::run($department, $original);

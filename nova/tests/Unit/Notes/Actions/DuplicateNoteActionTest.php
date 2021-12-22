@@ -16,15 +16,11 @@ class DuplicateNoteActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $originalNote;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(DuplicateNote::class);
 
         $this->originalNote = Note::factory()->create([
             'title' => 'My Note',
@@ -36,7 +32,7 @@ class DuplicateNoteActionTest extends TestCase
     /** @test **/
     public function itDuplicatesANote()
     {
-        $note = $this->action->handle($this->originalNote);
+        $note = DuplicateNote::run($this->originalNote);
 
         $this->assertEquals('Copy of My Note', $note->title);
         $this->assertEquals('Content', $note->content);

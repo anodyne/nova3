@@ -6,7 +6,8 @@ namespace Tests\Unit\Users\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Users\Actions\UpdateUser;
-use Nova\Users\DataTransferObjects\UserData;
+use Nova\Users\Data\PronounsData;
+use Nova\Users\Data\UserData;
 use Nova\Users\Models\User;
 use Tests\TestCase;
 
@@ -17,15 +18,11 @@ class UpdateUserActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $user;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(UpdateUser::class);
 
         $this->user = User::factory()->active()->create();
     }
@@ -33,16 +30,16 @@ class UpdateUserActionTest extends TestCase
     /** @test **/
     public function itUpdatesAUser()
     {
-        $data = new UserData([
+        $data = UserData::from([
             'name' => 'John Public',
             'email' => 'john@example.com',
-            'pronouns' => 'neutral',
+            'pronouns' => PronounsData::from(['value' => 'neutral']),
         ]);
 
-        $user = $this->action->execute($this->user, $data);
+        $user = UpdateUser::run($this->user, $data);
 
         $this->assertEquals('John Public', $user->name);
         $this->assertEquals('john@example.com', $user->email);
-        $this->assertEquals('neutral', $user->pronouns);
+        $this->assertEquals('neutral', $user->pronouns->value);
     }
 }

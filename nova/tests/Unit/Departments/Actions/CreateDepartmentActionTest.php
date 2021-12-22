@@ -6,7 +6,7 @@ namespace Tests\Unit\Departments\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Departments\Actions\CreateDepartment;
-use Nova\Departments\DataTransferObjects\DepartmentData;
+use Nova\Departments\Data\DepartmentData;
 use Nova\Departments\Models\Department;
 use Tests\TestCase;
 
@@ -17,24 +17,16 @@ class CreateDepartmentActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->action = app(CreateDepartment::class);
-    }
-
     /** @test **/
     public function itCreatesADepartment()
     {
-        $data = new DepartmentData([
+        $data = DepartmentData::from([
             'name' => 'Command',
             'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+            'active' => true,
         ]);
 
-        $department = $this->action->execute($data);
+        $department = CreateDepartment::run($data);
 
         $this->assertTrue($department->exists);
         $this->assertEquals('Command', $department->name);
@@ -47,12 +39,13 @@ class CreateDepartmentActionTest extends TestCase
         Department::factory()->create(['sort' => 0]);
         Department::factory()->create(['sort' => 1]);
 
-        $data = new DepartmentData([
+        $data = DepartmentData::from([
             'name' => 'Command',
             'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+            'active' => true,
         ]);
 
-        $department = $this->action->execute($data);
+        $department = CreateDepartment::run($data);
 
         $this->assertEquals(2, $department->sort);
     }

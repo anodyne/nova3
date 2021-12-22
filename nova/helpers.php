@@ -7,6 +7,7 @@ use Illuminate\Pipeline\Pipeline;
 use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Nova;
 use Nova\Foundation\Toast;
+use Nova\Settings\Models\Settings;
 
 if (! function_exists('blank')) {
     function blank($value)
@@ -55,7 +56,11 @@ if (! function_exists('pipe')) {
 if (! function_exists('settings')) {
     function settings()
     {
-        return app('nova.settings');
+        if (Nova::isInstalled()) {
+            return Settings::custom()->first();
+        }
+
+        return null;
     }
 }
 

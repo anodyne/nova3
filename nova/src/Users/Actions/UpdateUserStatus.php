@@ -15,12 +15,10 @@ class UpdateUserStatus extends Action
 
     public function handle(User $user, $status): User
     {
-        if ($status) {
-            $newStatus = State::make($status, $user);
+        $newStatus = State::make($status, $user);
 
-            if ((string) $user->status !== (string) $newStatus) {
-                $user->status->transitionTo($newStatus);
-            }
+        if ((string) $user->status !== (string) $newStatus) {
+            $user->status->transitionTo($newStatus);
         }
 
         return $user->fresh();

@@ -49,7 +49,7 @@
 
                                 @if (! $theme->exists)
                                     <x-dropdown.group>
-                                        <x-dropdown.item type="submit" icon="arrow-right-alt" form="install-form-{{ $theme->location }}">
+                                        <x-dropdown.item type="submit" icon="arrow-right" form="install-form-{{ $theme->location }}">
                                             <span>Install</span>
 
                                             <x-slot name="buttonForm">

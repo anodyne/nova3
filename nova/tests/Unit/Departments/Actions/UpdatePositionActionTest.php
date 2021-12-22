@@ -6,7 +6,7 @@ namespace Tests\Unit\Departments\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Departments\Actions\UpdatePosition;
-use Nova\Departments\DataTransferObjects\PositionData;
+use Nova\Departments\Data\PositionData;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
 use Tests\TestCase;
@@ -19,15 +19,11 @@ class UpdatePositionActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $position;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(UpdatePosition::class);
 
         $this->position = Position::factory()->create();
     }
@@ -37,7 +33,7 @@ class UpdatePositionActionTest extends TestCase
     {
         $newDepartment = Department::factory()->create();
 
-        $data = new PositionData([
+        $data = PositionData::from([
             'name' => 'Executive Officer',
             'description' => 'Lorem consectetur adipisicing elit.',
             'active' => false,
@@ -46,7 +42,7 @@ class UpdatePositionActionTest extends TestCase
             'department' => $newDepartment,
         ]);
 
-        $position = $this->action->execute($this->position, $data);
+        $position = UpdatePosition::run($this->position, $data);
 
         $this->assertTrue($position->exists);
         $this->assertEquals('Executive Officer', $position->name);

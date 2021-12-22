@@ -7,7 +7,7 @@ namespace Nova\Themes\Actions;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\FilesystemManager;
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Themes\DataTransferObjects\ThemeData;
+use Nova\Themes\Data\ThemeData;
 use Nova\Themes\Exceptions\ThemeException;
 use Throwable;
 
@@ -15,7 +15,11 @@ class SetupThemeDirectory
 {
     use AsAction;
 
-    public string $commandSignature = 'nova:make-theme';
+    public string $commandSignature = 'nova:make-theme
+                                       {name : The name of the theme}
+                                       {--location= : Set a custom location for the theme}
+                                       {--preview= : Set a custom preview image name for the theme}
+                                       {--variants=* : Set the variants for the theme}';
 
     public string $commandDescription = 'Scaffold a new theme.';
 
@@ -48,7 +52,7 @@ class SetupThemeDirectory
     public function asCommand(Command $command): void
     {
         try {
-            $this->handle(new ThemeData([
+            $this->handle(ThemeData::from([
                 'name' => $command->argument('name'),
                 'location' => $command->option('location'),
                 'preview' => $command->option('preview'),
@@ -142,9 +146,9 @@ class SetupThemeDirectory
         if ($variants = $this->data->variants) {
             $this->files->makeDirectory($this->getThemeLocation() . '/design/variants');
 
-            collect($variants)->each(
-                fn ($variant) => $this->createStylesheet("variants/{trim($variant)}.css")
-            );
+            collect($variants)
+                ->map(fn ($variant) => trim($variant))
+                ->each(fn ($variant) => $this->createStylesheet("variants/{$variant}.css"));
         }
     }
 

@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Roles\Controllers;
 
+use Illuminate\Support\Facades\Gate;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Roles\Actions\CreateRole;
-use Nova\Roles\DataTransferObjects\RoleData;
+use Nova\Roles\Data\RoleData;
 use Nova\Roles\Models\Role;
 use Nova\Roles\Requests\CreateRoleRequest;
 use Nova\Roles\Responses\CreateRoleResponse;
@@ -31,10 +32,14 @@ class CreateRoleController extends Controller
     {
         $this->authorize('create', Role::class);
 
-        $role = CreateRole::run(RoleData::fromRequest($request));
+        $role = CreateRole::run(RoleData::from($request));
 
-        return redirect()
-            ->route('roles.edit', $role)
-            ->withToast("{$role->display_name} role was created");
+        $redirect = redirect()->withToast("{$role->display_name} role was created");
+
+        if (Gate::allows('update', $role)) {
+            return $redirect->route('roles.edit', $role);
+        }
+
+        return $redirect->route('roles.index');
     }
 }

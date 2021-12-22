@@ -22,7 +22,7 @@ class CreatePostTypeTest extends TestCase
     /** @test **/
     public function authorizedUserCanViewTheCreatePostTypePage()
     {
-        $this->signInWithPermission('story.create');
+        $this->signInWithPermission('post-type.create');
 
         $response = $this->get(route('post-types.create'));
         $response->assertSuccessful();
@@ -31,7 +31,7 @@ class CreatePostTypeTest extends TestCase
     /** @test **/
     public function authorizedUserCanCreatePostType()
     {
-        $this->signInWithPermission('story.create');
+        $this->signInWithPermission('post-type.create');
 
         $postType = PostType::factory()->make();
 
@@ -56,7 +56,7 @@ class CreatePostTypeTest extends TestCase
     {
         Event::fake();
 
-        $this->signInWithPermission('story.create');
+        $this->signInWithPermission('post-type.create');
 
         $this->post(
             route('post-types.store'),

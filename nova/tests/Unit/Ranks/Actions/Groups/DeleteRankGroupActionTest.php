@@ -16,15 +16,11 @@ class DeleteRankGroupActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $group;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(DeleteRankGroup::class);
 
         $this->group = RankGroup::factory()->create();
     }
@@ -32,7 +28,7 @@ class DeleteRankGroupActionTest extends TestCase
     /** @test **/
     public function itDeletesARankGroup()
     {
-        $group = $this->action->execute($this->group);
+        $group = DeleteRankGroup::run($this->group);
 
         $this->assertFalse($group->exists);
     }

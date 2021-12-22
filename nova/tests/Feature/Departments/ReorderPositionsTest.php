@@ -10,7 +10,6 @@ use Nova\Departments\Models\Position;
 use Tests\TestCase;
 
 /**
- * @group departments
  * @group positions
  */
 class ReorderPositionsTest extends TestCase

@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Nova\Roles\Controllers;
 
 use Nova\Foundation\Controllers\Controller;
-use Nova\Roles\Actions\UpdateRoleManager;
+use Nova\Roles\Actions\UpdateRole;
+use Nova\Roles\Data\RoleData;
 use Nova\Roles\Models\Permission;
 use Nova\Roles\Models\Role;
 use Nova\Roles\Requests\UpdateRoleRequest;
@@ -34,7 +35,7 @@ class UpdateRoleController extends Controller
     {
         $this->authorize('update', $role);
 
-        $role = UpdateRoleManager::run($role, $request);
+        $role = UpdateRole::run($role, RoleData::from($request));
 
         return back()->withToast("{$role->display_name} role was updated");
     }

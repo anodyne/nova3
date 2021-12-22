@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Nova\Roles\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Roles\DataTransferObjects\RoleAssignmentData;
+use Nova\Roles\Data\RoleAssignmentData;
 
 class UpdateRoleUsers
 {

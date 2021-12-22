@@ -6,7 +6,7 @@ namespace Nova\Themes\Controllers;
 
 use Nova\Foundation\Controllers\Controller;
 use Nova\Themes\Actions\UpdateTheme;
-use Nova\Themes\DataTransferObjects\ThemeData;
+use Nova\Themes\Data\ThemeData;
 use Nova\Themes\Models\Theme;
 use Nova\Themes\Requests\UpdateThemeRequest;
 use Nova\Themes\Responses\UpdateThemeResponse;
@@ -33,7 +33,7 @@ class UpdateThemeController extends Controller
     {
         $this->authorize('update', $theme);
 
-        $theme = UpdateTheme::run($theme, ThemeData::fromRequest($request));
+        $theme = UpdateTheme::run($theme, ThemeData::from($request));
 
         return redirect()
             ->route('themes.edit', $theme)

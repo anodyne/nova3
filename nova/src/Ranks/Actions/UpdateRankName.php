@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Nova\Ranks\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Ranks\DataTransferObjects\RankNameData;
+use Nova\Ranks\Data\RankNameData;
 use Nova\Ranks\Models\RankName;
 
 class UpdateRankName
@@ -14,6 +14,6 @@ class UpdateRankName
 
     public function handle(RankName $name, RankNameData $data): RankName
     {
-        return tap($name)->update($data->toArray())->fresh();
+        return tap($name)->update($data->all())->fresh();
     }
 }

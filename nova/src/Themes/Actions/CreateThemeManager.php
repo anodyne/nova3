@@ -6,7 +6,7 @@ namespace Nova\Themes\Actions;
 
 use Illuminate\Http\Request;
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Themes\DataTransferObjects\ThemeData;
+use Nova\Themes\Data\ThemeData;
 use Nova\Themes\Models\Theme;
 
 class CreateThemeManager
@@ -16,7 +16,7 @@ class CreateThemeManager
     public function handle(Request $request): Theme
     {
         $theme = CreateTheme::run(
-            $data = ThemeData::fromRequest($request)
+            $data = ThemeData::from($request)
         );
 
         SetupThemeDirectory::run($data);

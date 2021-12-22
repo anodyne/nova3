@@ -12,10 +12,9 @@ class CreateRoleRequest extends ValidatesRequest
     {
         return [
             'default' => ['sometimes'],
+            'description' => ['nullable'],
             'display_name' => ['required'],
             'name' => ['required', 'unique:roles'],
-            'permissions' => ['nullable'],
-            'users' => ['nullable'],
         ];
     }
 

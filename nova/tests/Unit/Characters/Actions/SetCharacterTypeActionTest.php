@@ -19,15 +19,11 @@ class SetCharacterTypeActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $character;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(SetCharacterType::class);
 
         $this->character = Character::factory()->create();
     }
@@ -38,9 +34,9 @@ class SetCharacterTypeActionTest extends TestCase
         $user = User::factory()->active()->create();
         $this->character->users()->attach($user);
 
-        $character = $this->action->execute($this->character);
+        $character = SetCharacterType::run($this->character);
 
-        $this->assertTrue($character->type->equals(Secondary::class));
+        $this->assertInstanceOf(Secondary::class, $character->type);
     }
 
     /** @test **/
@@ -49,8 +45,8 @@ class SetCharacterTypeActionTest extends TestCase
         $user = User::factory()->active()->create();
         $this->character->users()->attach($user, ['primary' => true]);
 
-        $character = $this->action->execute($this->character);
+        $character = SetCharacterType::run($this->character);
 
-        $this->assertTrue($character->type->equals(Primary::class));
+        $this->assertInstanceOf(Primary::class, $character->type);
     }
 }

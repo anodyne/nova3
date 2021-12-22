@@ -71,28 +71,28 @@
 
                 @can('view', $selectedStory)
                     <x-link :href="route('stories.show', $selectedStory)" size="none" color="gray-text">
-                        @icon('show', 'h-5 w-5')
+                        @icon('show', 'h-5 w-5 mr-1.5')
                         <span>View</span>
                     </x-link>
                 @endcan
 
                 @can('update', $selectedStory)
                     <x-link :href="route('stories.edit', $selectedStory)" size="none" color="gray-text">
-                        @icon('edit', 'h-5 w-5')
+                        @icon('edit', 'h-5 w-5 mr-1.5')
                         <span>Edit</span>
                     </x-link>
                 @endcan
 
                 @can('view', $selectedStory)
                     <x-link href="#" size="none" color="gray-text">
-                        @icon('list', 'h-5 w-5')
+                        @icon('list', 'h-5 w-5 mr-1.5')
                         <span>Posts</span>
                     </x-link>
                 @endcan
 
                 @can('delete', $selectedStory)
                     <x-link :href="route('stories.delete', $selectedStory)" size="none" color="gray-red-text">
-                        @icon('delete', 'h-5 w-5')
+                        @icon('delete', 'h-5 w-5 mr-1.5')
                         <span>Delete</span>
                     </x-link>
                 @endcan
@@ -100,9 +100,9 @@
                 @can('create', $selectedStory)
                     <x-dropdown>
                         <x-slot name="trigger">
-                            @icon('add', 'h-5 w-5 shrink-0')
+                            @icon('add', 'h-5 w-5 shrink-0 mr-1.5')
                             <span>Add story</span>
-                            <x-icon.chevron-down class="h-4 w-4 shrink-0" />
+                            <x-icon.chevron-down class="h-4 w-4 shrink-0 ml-1.5" />
                         </x-slot>
 
                         <x-dropdown.group>

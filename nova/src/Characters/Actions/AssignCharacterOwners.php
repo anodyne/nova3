@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Nova\Characters\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Characters\DataTransferObjects\AssignCharacterOwnersData;
+use Nova\Characters\Data\AssignCharacterOwnersData;
 use Nova\Characters\Models\Character;
 use Nova\Users\Models\User;
 
@@ -18,6 +18,7 @@ class AssignCharacterOwners
         AssignCharacterOwnersData $data
     ): Character {
         $users = collect($data->users)
+            ->filter()
             ->mapWithKeys(function ($user) use ($data) {
                 $primary = (! isset($data->primaryCharacters))
                     ? ['primary' => false]

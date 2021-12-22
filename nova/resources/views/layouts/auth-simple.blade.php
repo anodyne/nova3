@@ -3,7 +3,7 @@
 @section('layout')
     <div class="min-h-screen bg-gray-3 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
-            <x-nova-logo class="mx-auto h-10 w-auto" />
+            <x-logos.nova class="mx-auto h-10 w-auto" />
 
             <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-12">
                 @yield('page-header')

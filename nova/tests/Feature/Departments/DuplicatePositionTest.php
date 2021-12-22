@@ -7,11 +7,11 @@ namespace Tests\Feature\Departments;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\Departments\Events\PositionDuplicated;
+use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
 use Tests\TestCase;
 
 /**
- * @group departments
  * @group positions
  */
 class DuplicatePositionTest extends TestCase
@@ -34,7 +34,7 @@ class DuplicatePositionTest extends TestCase
     }
 
     /** @test **/
-    public function authorizedUserCanDuplicatePosition()
+    public function authorizedUserCanDuplicateAPositionInTheSameDepartment()
     {
         $this->signInWithPermission(['department.create', 'department.update']);
 
@@ -42,15 +42,40 @@ class DuplicatePositionTest extends TestCase
 
         $response = $this->post(
             route('positions.duplicate', $this->position),
-            ['name' => 'Executive Officer']
+            [
+                'name' => 'Executive Officer',
+                'department_id' => $this->position->department_id,
+            ]
         );
         $response->assertSuccessful();
 
-        $newPosition = Position::get()->last();
+        $this->assertDatabaseHas('positions', [
+            'name' => 'Executive Officer',
+            'department_id' => $this->position->department_id,
+        ]);
+    }
+
+    /** @test **/
+    public function authorizedUserCanDuplicateAPositionInANewDepartment()
+    {
+        $this->signInWithPermission(['department.create', 'department.update']);
+
+        $this->followingRedirects();
+
+        $department = Department::factory()->create();
+
+        $response = $this->post(
+            route('positions.duplicate', $this->position),
+            [
+                'name' => 'Executive Officer',
+                'department_id' => $department->id,
+            ]
+        );
+        $response->assertSuccessful();
 
         $this->assertDatabaseHas('positions', [
             'name' => 'Executive Officer',
-            'department_id' => $newPosition->department_id,
+            'department_id' => $department->id,
         ]);
     }
 
@@ -63,7 +88,10 @@ class DuplicatePositionTest extends TestCase
 
         $this->post(
             route('positions.duplicate', $this->position),
-            ['name' => 'Executive Officer']
+            [
+                'name' => 'Executive Officer',
+                'department_id' => $this->position->department_id,
+            ]
         );
 
         Event::assertDispatched(PositionDuplicated::class);

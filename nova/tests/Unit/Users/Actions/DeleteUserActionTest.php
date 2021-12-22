@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Users\Actions;
 
 use Nova\Users\Actions\DeleteUser;
-use Nova\Users\Exceptions\CannotDeleteOwnAccountException;
+use Nova\Users\Exceptions\UserException;
 use Nova\Users\Models\User;
 use Tests\TestCase;
 
@@ -14,15 +14,11 @@ use Tests\TestCase;
  */
 class DeleteUserActionTest extends TestCase
 {
-    protected $action;
-
     protected $user;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(DeleteUser::class);
 
         $this->user = User::factory()->active()->create();
     }
@@ -30,7 +26,7 @@ class DeleteUserActionTest extends TestCase
     /** @test **/
     public function itDeletesAUser()
     {
-        $user = $this->action->execute($this->user);
+        $user = DeleteUser::run($this->user);
 
         $this->assertNotNull($user->deleted_at);
     }
@@ -38,10 +34,10 @@ class DeleteUserActionTest extends TestCase
     /** @test **/
     public function itThrowsAnExceptionIfTheCurrentUserTriesToDeleteTheirAccount()
     {
-        $this->expectException(CannotDeleteOwnAccountException::class);
+        $this->expectException(UserException::class);
 
         $this->signIn($this->user);
 
-        $this->action->execute($this->user);
+        DeleteUser::run($this->user);
     }
 }

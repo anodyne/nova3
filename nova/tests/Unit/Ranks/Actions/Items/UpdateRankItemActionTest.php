@@ -6,7 +6,7 @@ namespace Tests\Unit\Ranks\Actions\Items;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Ranks\Actions\UpdateRankItem;
-use Nova\Ranks\DataTransferObjects\RankItemData;
+use Nova\Ranks\Data\RankItemData;
 use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Models\RankItem;
 use Nova\Ranks\Models\RankName;
@@ -19,15 +19,11 @@ class UpdateRankItemActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $item;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(UpdateRankItem::class);
 
         $this->item = RankItem::factory()->create();
     }
@@ -38,14 +34,14 @@ class UpdateRankItemActionTest extends TestCase
         $group = RankGroup::factory()->create();
         $name = RankName::factory()->create();
 
-        $data = new RankItemData([
+        $data = RankItemData::from([
             'group_id' => $group->id,
             'name_id' => $name->id,
             'base_image' => 'new-base.png',
             'overlay_image' => 'new-overlay.png',
         ]);
 
-        $item = $this->action->execute($this->item, $data);
+        $item = UpdateRankItem::run($this->item, $data);
 
         $this->assertTrue($item->exists);
         $this->assertEquals($group->id, $item->group_id);

@@ -6,7 +6,7 @@ namespace Tests\Unit\Characters\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Characters\Actions\AssignCharacterOwners;
-use Nova\Characters\DataTransferObjects\AssignCharacterOwnersData;
+use Nova\Characters\Data\AssignCharacterOwnersData;
 use Nova\Characters\Models\Character;
 use Nova\Users\Models\User;
 use Tests\TestCase;
@@ -19,15 +19,11 @@ class AssignCharacterOwnersActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $character;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(AssignCharacterOwners::class);
 
         $this->character = Character::factory()->active()->create();
     }
@@ -37,17 +33,15 @@ class AssignCharacterOwnersActionTest extends TestCase
     {
         $first = User::factory()->active()->create();
 
-        $data = new AssignCharacterOwnersData([
+        $data = AssignCharacterOwnersData::from([
             'users' => [$first->id],
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterOwners::run($this->character, $data);
 
-        $characterUsers = $character->users;
-
-        $this->assertCount(1, $characterUsers);
-        $this->assertCount(1, $characterUsers->where('id', $first->id));
-        $this->assertFalse((bool) $characterUsers[0]->pivot->primary);
+        $this->assertCount(1, $character->users);
+        $this->assertCount(0, $character->primaryUsers);
+        $this->assertTrue($character->users->first()->is($first));
     }
 
     /** @test **/
@@ -55,19 +49,17 @@ class AssignCharacterOwnersActionTest extends TestCase
     {
         $first = User::factory()->active()->create();
 
-        $data = new AssignCharacterOwnersData([
+        $data = AssignCharacterOwnersData::from([
             'users' => [$first->id],
             'primaryCharacters' => [$first->id],
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterOwners::run($this->character, $data);
 
-        $characterUsers = $character->users;
-
-        $this->assertCount(1, $characterUsers);
-        $this->assertCount(1, $characterUsers->where('id', $first->id));
+        $this->assertCount(1, $character->users);
         $this->assertCount(1, $character->primaryUsers);
-        $this->assertTrue((bool) $characterUsers[0]->pivot->primary);
+        $this->assertTrue($character->users->first()->is($first));
+        $this->assertTrue($character->primaryUsers->first()->is($first));
     }
 
     /** @test **/
@@ -76,19 +68,16 @@ class AssignCharacterOwnersActionTest extends TestCase
         $first = User::factory()->active()->create();
         $second = User::factory()->active()->create();
 
-        $data = new AssignCharacterOwnersData([
+        $data = AssignCharacterOwnersData::from([
             'users' => [$first->id, $second->id],
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterOwners::run($this->character, $data);
 
-        $characterUsers = $character->users;
-
-        $this->assertCount(2, $characterUsers);
-        $this->assertCount(1, $characterUsers->where('id', $first->id));
-        $this->assertCount(1, $characterUsers->where('id', $second->id));
-        $this->assertFalse((bool) $characterUsers[0]->pivot->primary);
-        $this->assertFalse((bool) $characterUsers[1]->pivot->primary);
+        $this->assertCount(2, $character->users);
+        $this->assertCount(0, $character->primaryUsers);
+        $this->assertTrue($first->characters->first()->is($character));
+        $this->assertTrue($second->characters->first()->is($character));
     }
 
     /** @test **/
@@ -97,21 +86,19 @@ class AssignCharacterOwnersActionTest extends TestCase
         $first = User::factory()->active()->create();
         $second = User::factory()->active()->create();
 
-        $data = new AssignCharacterOwnersData([
+        $data = AssignCharacterOwnersData::from([
             'users' => [$first->id, $second->id],
             'primaryCharacters' => [$second->id],
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterOwners::run($this->character, $data);
 
-        $characterUsers = $character->users;
-
-        $this->assertCount(2, $characterUsers);
-        $this->assertCount(1, $characterUsers->where('id', $first->id));
-        $this->assertCount(1, $characterUsers->where('id', $second->id));
+        $this->assertCount(2, $character->users);
         $this->assertCount(1, $character->primaryUsers);
-        $this->assertFalse((bool) $characterUsers[0]->pivot->primary);
-        $this->assertTrue((bool) $characterUsers[1]->pivot->primary);
+        $this->assertTrue($first->characters->first()->is($character));
+        $this->assertTrue($second->characters->first()->is($character));
+        $this->assertFalse($character->primaryUsers->first()->is($first));
+        $this->assertTrue($character->primaryUsers->first()->is($second));
     }
 
     /** @test **/
@@ -120,21 +107,19 @@ class AssignCharacterOwnersActionTest extends TestCase
         $first = User::factory()->active()->create();
         $second = User::factory()->active()->create();
 
-        $data = new AssignCharacterOwnersData([
+        $data = AssignCharacterOwnersData::from([
             'users' => [$first->id, $second->id],
             'primaryCharacters' => [$first->id, $second->id],
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterOwners::run($this->character, $data);
 
-        $characterUsers = $character->users;
-
-        $this->assertCount(2, $characterUsers);
-        $this->assertCount(1, $characterUsers->where('id', $first->id));
-        $this->assertCount(1, $characterUsers->where('id', $second->id));
+        $this->assertCount(2, $character->users);
         $this->assertCount(2, $character->primaryUsers);
-        $this->assertTrue((bool) $characterUsers[0]->pivot->primary);
-        $this->assertTrue((bool) $characterUsers[1]->pivot->primary);
+        $this->assertTrue($first->characters->first()->is($character));
+        $this->assertTrue($second->characters->first()->is($character));
+        $this->assertTrue($character->primaryUsers->first()->is($first));
+        $this->assertTrue($character->primaryUsers->last()->is($second));
     }
 
     /** @test **/
@@ -147,21 +132,17 @@ class AssignCharacterOwnersActionTest extends TestCase
         $this->character->users()->attach($first);
         $this->character->users()->attach($second);
 
-        $data = new AssignCharacterOwnersData([
+        $data = AssignCharacterOwnersData::from([
             'users' => [$first->id, $second->id, $third->id],
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterOwners::run($this->character, $data);
 
-        $characterUsers = $character->users;
-
-        $this->assertCount(3, $characterUsers);
-        $this->assertCount(1, $characterUsers->where('id', $first->id));
-        $this->assertCount(1, $characterUsers->where('id', $second->id));
-        $this->assertCount(1, $characterUsers->where('id', $third->id));
-        $this->assertFalse((bool) $characterUsers[0]->pivot->primary);
-        $this->assertFalse((bool) $characterUsers[1]->pivot->primary);
-        $this->assertFalse((bool) $characterUsers[2]->pivot->primary);
+        $this->assertCount(3, $character->users);
+        $this->assertCount(0, $character->primaryUsers);
+        $this->assertTrue($first->characters->first()->is($character));
+        $this->assertTrue($second->characters->first()->is($character));
+        $this->assertTrue($third->characters->first()->is($character));
     }
 
     /** @test **/
@@ -174,20 +155,17 @@ class AssignCharacterOwnersActionTest extends TestCase
         $this->character->users()->attach($first);
         $this->character->users()->attach($second);
 
-        $data = new AssignCharacterOwnersData([
+        $data = AssignCharacterOwnersData::from([
             'users' => [$first->id, $third->id],
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterOwners::run($this->character, $data);
 
-        $characterUsers = $character->users;
-
-        $this->assertCount(2, $characterUsers);
-        $this->assertCount(1, $characterUsers->where('id', $first->id));
-        $this->assertCount(0, $characterUsers->where('id', $second->id));
-        $this->assertCount(1, $characterUsers->where('id', $third->id));
-        $this->assertFalse((bool) $characterUsers[0]->pivot->primary);
-        $this->assertFalse((bool) $characterUsers[1]->pivot->primary);
+        $this->assertCount(2, $character->users);
+        $this->assertCount(0, $character->primaryUsers);
+        $this->assertTrue($first->characters->first()->is($character));
+        $this->assertNull($second->characters->first());
+        $this->assertTrue($third->characters->first()->is($character));
     }
 
     /** @test **/
@@ -199,22 +177,21 @@ class AssignCharacterOwnersActionTest extends TestCase
 
         $this->character->users()->attach($first, ['primary' => true]);
         $this->character->users()->attach($second);
+        $this->character->refresh();
 
-        $data = new AssignCharacterOwnersData([
+        $this->assertCount(1, $this->character->primaryUsers);
+
+        $data = AssignCharacterOwnersData::from([
             'users' => [$first->id, $third->id],
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterOwners::run($this->character, $data);
 
-        $characterUsers = $character->users;
-
-        $this->assertCount(2, $characterUsers);
-        $this->assertCount(1, $characterUsers->where('id', $first->id));
-        $this->assertCount(0, $characterUsers->where('id', $second->id));
-        $this->assertCount(1, $characterUsers->where('id', $third->id));
+        $this->assertCount(2, $character->users);
         $this->assertCount(0, $character->primaryUsers);
-        $this->assertFalse((bool) $characterUsers[0]->pivot->primary);
-        $this->assertFalse((bool) $characterUsers[1]->pivot->primary);
+        $this->assertTrue($first->characters->first()->is($character));
+        $this->assertNull($second->characters->first());
+        $this->assertTrue($third->characters->first()->is($character));
     }
 
     /** @test **/
@@ -225,22 +202,24 @@ class AssignCharacterOwnersActionTest extends TestCase
 
         $this->character->users()->attach($first, ['primary' => true]);
         $this->character->users()->attach($second);
+        $this->character->refresh();
 
-        $data = new AssignCharacterOwnersData([
+        $this->assertCount(2, $this->character->users);
+        $this->assertCount(1, $this->character->primaryUsers);
+        $this->assertTrue($this->character->primaryUsers->first()->is($first));
+        $this->assertFalse($this->character->primaryUsers->first()->is($second));
+
+        $data = AssignCharacterOwnersData::from([
             'users' => [$first->id, $second->id],
             'primaryCharacters' => [$second->id],
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterOwners::run($this->character, $data);
 
-        $characterUsers = $character->users;
-
-        $this->assertCount(2, $characterUsers);
-        $this->assertCount(1, $characterUsers->where('id', $first->id));
-        $this->assertCount(1, $characterUsers->where('id', $second->id));
+        $this->assertCount(2, $character->users);
         $this->assertCount(1, $character->primaryUsers);
-        $this->assertFalse((bool) $characterUsers[0]->pivot->primary);
-        $this->assertTrue((bool) $characterUsers[1]->pivot->primary);
+        $this->assertFalse($this->character->primaryUsers->first()->is($first));
+        $this->assertTrue($this->character->primaryUsers->first()->is($second));
     }
 
     /** @test **/
@@ -252,23 +231,27 @@ class AssignCharacterOwnersActionTest extends TestCase
 
         $this->character->users()->attach($first, ['primary' => true]);
         $this->character->users()->attach($second);
+        $this->character->refresh();
 
-        $data = new AssignCharacterOwnersData([
+        $this->assertCount(2, $this->character->users);
+        $this->assertCount(1, $this->character->primaryUsers);
+        $this->assertTrue($this->character->primaryUsers->first()->is($first));
+        $this->assertFalse($this->character->primaryUsers->first()->is($second));
+
+        $data = AssignCharacterOwnersData::from([
             'users' => [$second->id, $third->id],
             'primaryCharacters' => [$third->id],
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterOwners::run($this->character, $data);
 
-        $characterUsers = $character->users;
-
-        $this->assertCount(2, $characterUsers);
-        $this->assertCount(0, $characterUsers->where('id', $first->id));
-        $this->assertCount(1, $characterUsers->where('id', $second->id));
-        $this->assertCount(1, $characterUsers->where('id', $third->id));
+        $this->assertCount(2, $character->users);
         $this->assertCount(1, $character->primaryUsers);
-        $this->assertFalse((bool) $characterUsers[0]->pivot->primary);
-        $this->assertTrue((bool) $characterUsers[1]->pivot->primary);
+        $this->assertNull($first->characters->first());
+        $this->assertTrue($second->characters->first()->is($character));
+        $this->assertTrue($third->characters->first()->is($character));
+        $this->assertFalse($this->character->primaryUsers->first()->is($second));
+        $this->assertTrue($this->character->primaryUsers->first()->is($third));
     }
 
     /** @test **/
@@ -278,66 +261,77 @@ class AssignCharacterOwnersActionTest extends TestCase
 
         $oldPrimaryCharacter = Character::factory()->active()->create();
         $oldPrimaryCharacter->users()->attach($user, ['primary' => true]);
+        $oldPrimaryCharacter->refresh();
 
-        $data = new AssignCharacterOwnersData([
+        $this->assertTrue($oldPrimaryCharacter->primaryUsers->first()->is($user));
+
+        $data = AssignCharacterOwnersData::from([
             'users' => [$user->id],
             'primaryCharacters' => [$user->id],
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterOwners::run($this->character, $data);
 
         $oldPrimaryCharacter->refresh();
 
-        $characterUsers = $character->users;
-
-        $this->assertCount(1, $characterUsers);
-        $this->assertCount(1, $oldPrimaryCharacter->users);
-        $this->assertCount(1, $characterUsers->where('id', $user->id));
-        $this->assertCount(1, $oldPrimaryCharacter->users->where('id', $user->id));
+        $this->assertCount(1, $character->users);
         $this->assertCount(1, $character->primaryUsers);
+        $this->assertCount(1, $oldPrimaryCharacter->users);
         $this->assertCount(0, $oldPrimaryCharacter->primaryUsers);
-        $this->assertFalse((bool) $oldPrimaryCharacter->users[0]->pivot->primary);
-        $this->assertTrue((bool) $characterUsers[0]->pivot->primary);
+        $this->assertTrue($character->users->first()->is($user));
+        $this->assertTrue($character->primaryUsers->first()->is($user));
+        $this->assertTrue($oldPrimaryCharacter->users->first()->is($user));
     }
 
     /** @test **/
     public function itProperlyUpdatesThePrimaryCharacterOfMultipleUsers()
     {
-        $adam = User::factory()->active()->create();
-        $adamOldPrimaryCharacter = Character::factory()->active()->create();
-        $adamOldPrimaryCharacter->users()->attach($adam, ['primary' => true]);
+        $first = User::factory()->active()->create();
+        $firstOldPrimaryCharacter = Character::factory()->active()->create();
+        $firstOldPrimaryCharacter->users()->attach($first, ['primary' => true]);
 
-        $ben = User::factory()->active()->create();
-        $benOldPrimaryCharacter = Character::factory()->active()->create();
-        $benOldPrimaryCharacter->users()->attach($ben, ['primary' => true]);
+        $second = User::factory()->active()->create();
+        $secondOldPrimaryCharacter = Character::factory()->active()->create();
+        $secondOldPrimaryCharacter->users()->attach($second, ['primary' => true]);
 
-        $data = new AssignCharacterOwnersData([
-            'users' => [$adam->id, $ben->id],
-            'primaryCharacters' => [$adam->id, $ben->id],
+        $data = AssignCharacterOwnersData::from([
+            'users' => [$first->id, $second->id],
+            'primaryCharacters' => [$first->id, $second->id],
         ]);
 
-        $character = $this->action->execute($this->character, $data);
+        $character = AssignCharacterOwners::run($this->character, $data);
 
-        $adamOldPrimaryCharacter->refresh();
-        $benOldPrimaryCharacter->refresh();
+        $firstOldPrimaryCharacter->refresh();
+        $secondOldPrimaryCharacter->refresh();
 
-        $characterUsers = $character->users;
-
-        $this->assertCount(2, $characterUsers);
-        $this->assertCount(1, $characterUsers->where('id', $adam->id));
-        $this->assertCount(1, $characterUsers->where('id', $ben->id));
+        $this->assertCount(2, $character->users);
+        $this->assertCount(1, $character->users->where('id', $first->id));
+        $this->assertCount(1, $character->users->where('id', $second->id));
         $this->assertCount(2, $character->primaryUsers);
-        $this->assertTrue((bool) $characterUsers[0]->pivot->primary);
-        $this->assertTrue((bool) $characterUsers[1]->pivot->primary);
+        $this->assertTrue((bool) $character->users[0]->pivot->primary);
+        $this->assertTrue((bool) $character->users[1]->pivot->primary);
 
-        $this->assertCount(1, $adamOldPrimaryCharacter->users);
-        $this->assertCount(1, $adamOldPrimaryCharacter->users->where('id', $adam->id));
-        $this->assertCount(0, $adamOldPrimaryCharacter->primaryUsers);
-        $this->assertFalse((bool) $adamOldPrimaryCharacter->users[0]->pivot->primary);
+        $this->assertCount(1, $firstOldPrimaryCharacter->users);
+        $this->assertCount(1, $firstOldPrimaryCharacter->users->where('id', $first->id));
+        $this->assertCount(0, $firstOldPrimaryCharacter->primaryUsers);
+        $this->assertFalse((bool) $firstOldPrimaryCharacter->users[0]->pivot->primary);
 
-        $this->assertCount(1, $benOldPrimaryCharacter->users);
-        $this->assertCount(1, $benOldPrimaryCharacter->users->where('id', $ben->id));
-        $this->assertCount(0, $benOldPrimaryCharacter->primaryUsers);
-        $this->assertFalse((bool) $benOldPrimaryCharacter->users[0]->pivot->primary);
+        $this->assertCount(1, $secondOldPrimaryCharacter->users);
+        $this->assertCount(1, $secondOldPrimaryCharacter->users->where('id', $second->id));
+        $this->assertCount(0, $secondOldPrimaryCharacter->primaryUsers);
+        $this->assertFalse((bool) $secondOldPrimaryCharacter->users[0]->pivot->primary);
+    }
+
+    /** @test **/
+    public function itCanAssignNoUsersToACharacter()
+    {
+        $data = AssignCharacterOwnersData::from([
+            'users' => [],
+        ]);
+
+        $character = AssignCharacterOwners::run($this->character, $data);
+
+        $this->assertCount(0, $character->users);
+        $this->assertCount(0, $character->primaryUsers);
     }
 }

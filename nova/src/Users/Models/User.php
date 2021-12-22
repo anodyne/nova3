@@ -14,7 +14,7 @@ use Nova\Characters\Models\Character;
 use Nova\Characters\Models\States\Statuses\Active as ActiveCharacter;
 use Nova\Notes\Models\Note;
 use Nova\Stories\Models\Post;
-use Nova\Users\DataTransferObjects\PronounsData;
+use Nova\Users\Data\PronounsData;
 use Nova\Users\Events;
 use Nova\Users\Models\Builders\UserBuilder;
 use Nova\Users\Models\Collections\UsersCollection;
@@ -70,7 +70,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
 
     public function activeCharacters()
     {
-        return $this->characters()->where('status', ActiveCharacter::class);
+        return $this->characters()->whereState('status', ActiveCharacter::class);
     }
 
     public function primaryCharacter()

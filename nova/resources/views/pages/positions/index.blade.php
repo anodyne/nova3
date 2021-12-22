@@ -34,7 +34,7 @@
         <x-panel x-data="sortableList">
             <div>
                 <x-content-box class="sm:hidden">
-                    <select @change="window.location = $event.target.value" aria-label="Selected tab" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-200 sm:text-sm">
+                    <select @change="window.location = $event.target.value" aria-label="Selected tab" class="mt-1 form-select bg-gray-1 block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-200 sm:text-sm">
                         <option value="{{ route('departments.edit', $department) }}">Details</option>
                         <option value="email">Positions</option>
                     </select>

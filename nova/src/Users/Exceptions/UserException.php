@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace Nova\Users\Exceptions;
 
 use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class UserException extends Exception
 {
     public static function adminForcedPasswordReset()
     {
-        return new self('An admin is requiring that you reset your password.');
+        Auth::logout();
+
+        throw new AdminForcedPasswordResetException();
     }
 
     public static function cannotDeleteOwnAccount()

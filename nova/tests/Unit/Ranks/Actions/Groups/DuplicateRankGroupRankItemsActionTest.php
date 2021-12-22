@@ -7,8 +7,8 @@ namespace Tests\Unit\Ranks\Actions\Groups;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Ranks\Actions\DuplicateRankGroup;
 use Nova\Ranks\Actions\DuplicateRankGroupRankItems;
-use Nova\Ranks\DataTransferObjects\RankGroupData;
-use Nova\Ranks\DataTransferObjects\RankItemData;
+use Nova\Ranks\Data\RankGroupData;
+use Nova\Ranks\Data\RankItemData;
 use Nova\Ranks\Models\RankGroup;
 use Tests\TestCase;
 
@@ -19,15 +19,11 @@ class DuplicateRankGroupRankItemsActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $group;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(DuplicateRankGroupRankItems::class);
 
         $this->group = RankGroup::factory()
             ->hasRanks(2, function (array $attributes, RankGroup $group) {
@@ -41,12 +37,12 @@ class DuplicateRankGroupRankItemsActionTest extends TestCase
     /** @test **/
     public function itDuplicatesTheRankItemsFromAnotherRankGroup()
     {
-        $group = app(DuplicateRankGroup::class)->execute(
+        $group = DuplicateRankGroup::run(
             $this->group,
-            new RankGroupData(['name' => 'New Name'])
+            RankGroupData::from(['name' => 'New Name'])
         );
 
-        $this->action->execute($group, $this->group, new RankItemData([
+        DuplicateRankGroupRankItems::run($group, $this->group, RankItemData::from([
             'base_image' => 'new.png',
         ]));
 

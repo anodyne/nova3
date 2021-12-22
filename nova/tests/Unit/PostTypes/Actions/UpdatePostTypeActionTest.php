@@ -6,11 +6,11 @@ namespace Tests\Unit\PostTypes\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\PostTypes\Actions\UpdatePostType;
-use Nova\PostTypes\DataTransferObjects\PostTypeData;
+use Nova\PostTypes\Data\Field;
+use Nova\PostTypes\Data\Fields;
+use Nova\PostTypes\Data\Options;
+use Nova\PostTypes\Data\PostTypeData;
 use Nova\PostTypes\Models\PostType;
-use Nova\PostTypes\Values\Field;
-use Nova\PostTypes\Values\Fields;
-use Nova\PostTypes\Values\Options;
 use Tests\TestCase;
 
 /**
@@ -21,15 +21,11 @@ class UpdatePostTypeActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $postType;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(UpdatePostType::class);
 
         $this->postType = PostType::factory()->create();
     }
@@ -37,7 +33,7 @@ class UpdatePostTypeActionTest extends TestCase
     /** @test **/
     public function itUpdatesAPostType()
     {
-        $data = new PostTypeData([
+        $data = PostTypeData::from([
             'key' => 'foo',
             'name' => 'Foo',
             'description' => 'Description of foo',
@@ -45,39 +41,37 @@ class UpdatePostTypeActionTest extends TestCase
             'icon' => 'book',
             'active' => true,
             'visibility' => 'in-character',
-            'fields' => new Fields([
-                'title' => new Field([
+            'fields' => Fields::from([
+                'title' => Field::from([
                     'enabled' => true,
                     'validate' => true,
-                    'suggest' => true,
                 ]),
-                'day' => new Field([
+                'day' => Field::from([
                     'enabled' => false,
                     'validate' => false,
-                    'suggest' => false,
                 ]),
-                'time' => new Field([
+                'time' => Field::from([
                     'enabled' => false,
                     'validate' => false,
-                    'suggest' => false,
                 ]),
-                'location' => new Field([
+                'location' => Field::from([
                     'enabled' => true,
                     'validate' => true,
-                    'suggest' => true,
                 ]),
-                'content' => new Field([
+                'content' => Field::from([
                     'enabled' => false,
                     'validate' => false,
-                    'suggest' => false,
                 ]),
-                'rating' => new Field([
+                'rating' => Field::from([
                     'enabled' => true,
                     'validate' => true,
-                    'suggest' => true,
+                ]),
+                'summary' => Field::from([
+                    'enabled' => true,
+                    'validate' => true,
                 ]),
             ]),
-            'options' => new Options([
+            'options' => Options::from([
                 'notifyUsers' => true,
                 'notifyDiscord' => true,
                 'includeInPostTracking' => false,
@@ -85,7 +79,7 @@ class UpdatePostTypeActionTest extends TestCase
             ]),
         ]);
 
-        $postType = $this->action->execute($this->postType, $data);
+        $postType = UpdatePostType::run($this->postType, $data);
 
         $this->assertTrue($postType->exists);
         $this->assertEquals('Foo', $postType->name);
@@ -102,6 +96,7 @@ class UpdatePostTypeActionTest extends TestCase
         $this->assertTrue($postType->fields->location->enabled);
         $this->assertFalse($postType->fields->content->enabled);
         $this->assertTrue($postType->fields->rating->enabled);
+        $this->assertTrue($postType->fields->summary->enabled);
 
         $this->assertTrue($postType->options->notifyUsers);
         $this->assertTrue($postType->options->notifyDiscord);

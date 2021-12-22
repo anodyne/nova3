@@ -19,7 +19,7 @@ class StoryFactory extends Factory
     {
         return [
             'title' => ucfirst($this->faker->words($this->faker->numberBetween(1, 5), true)),
-            'status' => $this->faker->randomElement([Upcoming::class, Current::class, Completed::class]),
+            'status' => $this->faker->randomElement([Upcoming::$name, Current::$name, Completed::$name]),
             'description' => $this->faker->sentences($this->faker->numberBetween(1, 5), true),
             'parent_id' => 1,
         ];
@@ -28,14 +28,14 @@ class StoryFactory extends Factory
     public function upcoming()
     {
         return $this->state([
-            'status' => Upcoming::class,
+            'status' => Upcoming::$name,
         ]);
     }
 
     public function current()
     {
         return $this->state([
-            'status' => Current::class,
+            'status' => Current::$name,
             'start_date' => now()->subMonths(mt_rand(1, 6)),
         ]);
     }
@@ -43,7 +43,7 @@ class StoryFactory extends Factory
     public function completed()
     {
         return $this->state([
-            'status' => Completed::class,
+            'status' => Completed::$name,
             'start_date' => now()->subMonths(mt_rand(1, 6)),
             'end_date' => now(),
         ]);
@@ -52,7 +52,7 @@ class StoryFactory extends Factory
     public function ongoing()
     {
         return $this->state([
-            'status' => Ongoing::class,
+            'status' => Ongoing::$name,
             'start_date' => now()->subMonths(mt_rand(1, 6)),
         ]);
     }

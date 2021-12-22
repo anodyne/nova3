@@ -6,7 +6,7 @@ namespace Nova\Ranks\Controllers\Groups;
 
 use Nova\Foundation\Controllers\Controller;
 use Nova\Ranks\Actions\UpdateRankGroup;
-use Nova\Ranks\DataTransferObjects\RankGroupData;
+use Nova\Ranks\Data\RankGroupData;
 use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Requests\UpdateRankGroupRequest;
 use Nova\Ranks\Responses\Groups\UpdateRankGroupResponse;
@@ -33,7 +33,7 @@ class UpdateRankGroupController extends Controller
     {
         $this->authorize('update', $group);
 
-        $group = UpdateRankGroup::run($group, RankGroupData::fromRequest($request));
+        $group = UpdateRankGroup::run($group, RankGroupData::from($request));
 
         return back()->withToast("{$group->name} was updated");
     }

@@ -44,7 +44,7 @@ class PopulatePagesTable extends Migration
             ['uri' => 'roles/{role}', 'key' => 'roles.update', 'verb' => 'put', 'resource' => 'Nova\\Roles\\Controllers\\UpdateRoleController@update', 'layout' => 'admin'],
             ['uri' => 'roles/delete', 'key' => 'roles.delete', 'verb' => 'post', 'resource' => 'Nova\\Roles\\Controllers\\DeleteRoleController@confirm', 'layout' => 'admin'],
             ['uri' => 'roles/{role}', 'key' => 'roles.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Roles\\Controllers\\DeleteRoleController@destroy', 'layout' => 'admin'],
-            ['uri' => 'roles/{originalRole}/duplicate', 'key' => 'roles.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Roles\\Controllers\\DuplicateRoleController', 'layout' => 'admin'],
+            ['uri' => 'roles/{original}/duplicate', 'key' => 'roles.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Roles\\Controllers\\DuplicateRoleController', 'layout' => 'admin'],
             ['uri' => 'roles/reorder', 'key' => 'roles.reorder', 'verb' => 'post', 'resource' => 'Nova\\Roles\\Controllers\\ReorderRolesController', 'layout' => 'admin'],
 
             ['uri' => 'users', 'key' => 'users.index', 'resource' => 'Nova\\Users\\Controllers\\ShowUserController@all', 'layout' => 'admin'],
@@ -67,7 +67,7 @@ class PopulatePagesTable extends Migration
             ['uri' => 'notes/{note}', 'key' => 'notes.update', 'verb' => 'put', 'resource' => 'Nova\\Notes\\Controllers\\UpdateNoteController@update', 'layout' => 'admin'],
             ['uri' => 'notes/delete', 'key' => 'notes.delete', 'verb' => 'post', 'resource' => 'Nova\\Notes\\Controllers\\DeleteNoteController@confirm', 'layout' => 'admin'],
             ['uri' => 'notes/{note}', 'key' => 'notes.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Notes\\Controllers\\DeleteNoteController@destroy', 'layout' => 'admin'],
-            ['uri' => 'notes/{originalNote}/duplicate', 'key' => 'notes.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Notes\\Controllers\\DuplicateNoteController', 'layout' => 'admin'],
+            ['uri' => 'notes/{original}/duplicate', 'key' => 'notes.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Notes\\Controllers\\DuplicateNoteController', 'layout' => 'admin'],
 
             ['uri' => 'settings/{tab?}', 'key' => 'settings.index', 'resource' => 'Nova\\Settings\\Controllers\\SettingsController@index', 'layout' => 'admin'],
             ['uri' => 'settings/{tab?}', 'key' => 'settings.update', 'verb' => 'put', 'resource' => 'Nova\\Settings\\Controllers\\SettingsController@update', 'layout' => 'admin'],
@@ -81,7 +81,7 @@ class PopulatePagesTable extends Migration
             ['uri' => 'ranks/groups/delete', 'key' => 'ranks.groups.delete', 'verb' => 'post', 'resource' => 'Nova\\Ranks\\Controllers\\Groups\\DeleteRankGroupController@confirm', 'layout' => 'admin'],
             ['uri' => 'ranks/groups/{group}', 'key' => 'ranks.groups.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Ranks\\Controllers\\Groups\\DeleteRankGroupController@destroy', 'layout' => 'admin'],
             ['uri' => 'ranks/groups/confirm-duplicate', 'key' => 'ranks.groups.confirm-duplicate', 'verb' => 'post',  'resource' => 'Nova\\Ranks\\Controllers\\Groups\\DuplicateRankGroupController@confirm', 'layout' => 'admin'],
-            ['uri' => 'ranks/groups/{originalGroup}/duplicate', 'key' => 'ranks.groups.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Ranks\\Controllers\\Groups\\DuplicateRankGroupController@duplicate', 'layout' => 'admin'],
+            ['uri' => 'ranks/groups/{original}/duplicate', 'key' => 'ranks.groups.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Ranks\\Controllers\\Groups\\DuplicateRankGroupController@duplicate', 'layout' => 'admin'],
             ['uri' => 'ranks/groups/reorder', 'key' => 'ranks.groups.reorder', 'verb' => 'post', 'resource' => 'Nova\\Ranks\\Controllers\\Groups\\ReorderRankGroupsController', 'layout' => 'admin'],
 
             ['uri' => 'ranks/names', 'key' => 'ranks.names.index', 'resource' => 'Nova\\Ranks\\Controllers\\Names\\ShowRankNameController@all', 'layout' => 'admin'],
@@ -92,7 +92,7 @@ class PopulatePagesTable extends Migration
             ['uri' => 'ranks/names/{name}', 'key' => 'ranks.names.update', 'verb' => 'put', 'resource' => 'Nova\\Ranks\\Controllers\\Names\\UpdateRankNameController@update', 'layout' => 'admin'],
             ['uri' => 'ranks/names/delete', 'key' => 'ranks.names.delete', 'verb' => 'post', 'resource' => 'Nova\\Ranks\\Controllers\\Names\\DeleteRankNameController@confirm', 'layout' => 'admin'],
             ['uri' => 'ranks/names/{name}', 'key' => 'ranks.names.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Ranks\\Controllers\\Names\\DeleteRankNameController@destroy', 'layout' => 'admin'],
-            ['uri' => 'ranks/names/{originalName}/duplicate', 'key' => 'ranks.names.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Ranks\\Controllers\\Names\\DuplicateRankNameController', 'layout' => 'admin'],
+            ['uri' => 'ranks/names/{original}/duplicate', 'key' => 'ranks.names.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Ranks\\Controllers\\Names\\DuplicateRankNameController', 'layout' => 'admin'],
             ['uri' => 'ranks/names/reorder', 'key' => 'ranks.names.reorder', 'verb' => 'post', 'resource' => 'Nova\\Ranks\\Controllers\\Names\\ReorderRankNamesController', 'layout' => 'admin'],
 
             ['uri' => 'ranks/items', 'key' => 'ranks.items.index', 'resource' => 'Nova\\Ranks\\Controllers\\Items\\ShowRankItemController@all', 'layout' => 'admin'],
@@ -150,7 +150,7 @@ class PopulatePagesTable extends Migration
             ['uri' => 'post-types/delete', 'key' => 'post-types.delete', 'verb' => 'post', 'resource' => 'Nova\\PostTypes\\Controllers\\DeletePostTypeController@confirm', 'layout' => 'admin'],
             ['uri' => 'post-types/{postType}', 'key' => 'post-types.destroy', 'verb' => 'delete', 'resource' => 'Nova\\PostTypes\\Controllers\\DeletePostTypeController@destroy', 'layout' => 'admin'],
             ['uri' => 'post-types/reorder', 'key' => 'post-types.reorder', 'verb' => 'post', 'resource' => 'Nova\\PostTypes\\Controllers\\ReorderPostTypesController', 'layout' => 'admin'],
-            ['uri' => 'post-types/{originalPostType}/duplicate', 'key' => 'post-types.duplicate', 'verb' => 'post', 'resource' => 'Nova\\PostTypes\\Controllers\\DuplicatePostTypeController', 'layout' => 'admin'],
+            ['uri' => 'post-types/{original}/duplicate', 'key' => 'post-types.duplicate', 'verb' => 'post', 'resource' => 'Nova\\PostTypes\\Controllers\\DuplicatePostTypeController', 'layout' => 'admin'],
 
             ['uri' => 'stories', 'key' => 'stories.index', 'resource' => 'Nova\\Stories\\Controllers\\ShowStoryController@all', 'layout' => 'admin'],
             ['uri' => 'stories/{story}/show', 'key' => 'stories.show', 'resource' => 'Nova\\Stories\\Controllers\\ShowStoryController@show', 'layout' => 'admin'],

@@ -14,8 +14,9 @@
     @stack('styles')
 
     @novaScripts
+    @stack('headScripts')
 </head>
-<body class="font-sans bg-gray-3 text-gray-12 antialiased {{ auth()->user()?->appearance ?? 'light' }}">
+<body class="font-sans bg-gray-3 text-gray-12 antialiased">
     <div id="nova">
         @yield('layout')
 

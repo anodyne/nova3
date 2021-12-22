@@ -78,8 +78,7 @@ class UpdateUserTest extends TestCase
             [
                 'name' => 'Jack Sparrow',
                 'email' => $this->user->email,
-                'pronouns' => $this->user->pronouns,
-                'status' => $this->user->status,
+                'pronouns' => ['value' => $this->user->pronouns->value],
             ]
         );
 

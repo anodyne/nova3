@@ -145,18 +145,18 @@ class LoginTest extends TestCase
     }
 
     /** @test **/
-    public function userIsPromptedToChangeTheirPasswordIfAnAdminHasForcedAPasswordReset()
+    public function userIsSignedOutAndRedirectedToChangeTheirPasswordIfAnAdminHasForcedAPasswordReset()
     {
-        app(ForcePasswordReset::class)->execute(
+        ForcePasswordReset::run(
             $user = User::factory()->active()->create()
         );
-
-        $this->followingRedirects();
 
         $response = $this->post(route('login'), [
             'email' => $user->email,
             'password' => 'secret',
         ]);
-        $response->assertSeeText('An admin has required you to reset your password.');
+
+        $this->assertGuest();
+        $response->assertRedirect(route('password.request'));
     }
 }

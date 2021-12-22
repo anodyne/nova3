@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Nova\Departments\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Departments\DataTransferObjects\PositionData;
+use Nova\Departments\Data\PositionData;
 use Nova\Departments\Models\Position;
 
 class DuplicatePosition
@@ -14,7 +14,9 @@ class DuplicatePosition
 
     public function handle(Position $original, PositionData $data): Position
     {
-        $position = $original->replicate()->fill($data->toArray());
+        $position = $original->replicate();
+
+        $position->fill(collect($data->all())->filter()->toArray());
 
         $position->save();
 

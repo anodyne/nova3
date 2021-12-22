@@ -6,7 +6,7 @@ namespace Tests\Unit\Posts\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Posts\Actions\UpdatePostStatus;
-use Nova\Posts\DataTransferObjects\PostStatusData;
+use Nova\Posts\Data\PostStatusData;
 use Nova\Posts\Models\Post;
 use Nova\Posts\Models\States\Draft;
 use Nova\Posts\Models\States\Pending;
@@ -20,15 +20,11 @@ class UpdatePostStatusActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected UpdatePostStatus $action;
-
     protected Post $post;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(UpdatePostStatus::class);
 
         $this->post = Post::factory()->draft()->create();
     }
@@ -38,7 +34,7 @@ class UpdatePostStatusActionTest extends TestCase
     {
         $this->assertTrue($this->post->status->equals(Draft::class));
 
-        $post = $this->action->execute($this->post, new PostStatusData([
+        $post = UpdatePostStatus::run($this->post, PostStatusData::from([
             'status' => 'published',
         ]));
 
@@ -48,7 +44,7 @@ class UpdatePostStatusActionTest extends TestCase
     /** @test **/
     public function itCannotTransitionToTheStatusItsInNow()
     {
-        $post = $this->action->execute($this->post, new PostStatusData([
+        $post = UpdatePostStatus::run($this->post, PostStatusData::from([
             'status' => 'draft',
         ]));
 
@@ -60,7 +56,7 @@ class UpdatePostStatusActionTest extends TestCase
     {
         $post = Post::factory()->draft()->create();
 
-        $post = $this->action->execute($post, new PostStatusData([
+        $post = UpdatePostStatus::run($post, PostStatusData::from([
             'status' => 'published',
         ]));
 
@@ -73,7 +69,7 @@ class UpdatePostStatusActionTest extends TestCase
     {
         $post = Post::factory()->draft()->create();
 
-        $post = $this->action->execute($post, new PostStatusData([
+        $post = UpdatePostStatus::run($post, PostStatusData::from([
             'status' => 'pending',
         ]));
 
@@ -86,7 +82,7 @@ class UpdatePostStatusActionTest extends TestCase
     {
         $post = Post::factory()->pending()->create();
 
-        $post = $this->action->execute($post, new PostStatusData([
+        $post = UpdatePostStatus::run($post, PostStatusData::from([
             'status' => 'published',
         ]));
 

@@ -21,7 +21,7 @@ class Button extends Component
     {
         return Arr::toCssClasses([
             'group',
-            'inline-flex items-center text-center justify-center border rounded-md space-x-1.5',
+            'inline-flex items-center text-center justify-center border rounded-md',
             'transition ease-in-out duration-200',
             'focus:outline-none',
             'disabled:cursor-not-allowed disabled:opacity-75',

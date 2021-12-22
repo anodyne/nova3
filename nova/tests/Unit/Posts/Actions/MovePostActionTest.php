@@ -18,8 +18,6 @@ class MovePostActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected MovePost $action;
-
     protected Story $story;
 
     protected Post $post;
@@ -27,8 +25,6 @@ class MovePostActionTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(MovePost::class);
 
         $this->story = Story::factory()->create();
 
@@ -38,7 +34,7 @@ class MovePostActionTest extends TestCase
     /** @test **/
     public function itMovesAPost()
     {
-        $post = $this->action->execute($this->post, $this->story);
+        $post = MovePost::run($this->post, $this->story);
 
         $this->assertEquals($this->story->id, $post->story_id);
     }

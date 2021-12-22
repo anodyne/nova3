@@ -55,7 +55,7 @@
                 </div>
 
                 <div class="shrink-0 flex items-center px-4">
-                    <x-nova-logo class="h-8 w-auto" />
+                    <x-logos.nova class="h-8 w-auto" />
                 </div>
 
                 <div class="mt-5 flex-1 h-0 overflow-y-auto">
@@ -141,7 +141,7 @@
         <div class="flex flex-col w-64">
             <div class="flex flex-col grow border-r border-gray-6 pt-5 pb-4 bg-gray-1 overflow-y-auto">
                 <div class="flex items-center shrink-0 px-4">
-                    <x-nova-logo class="h-9 w-auto" />
+                    <x-logos.nova class="h-9 w-auto" />
                 </div>
 
                 <div class="mt-5 grow flex flex-col">

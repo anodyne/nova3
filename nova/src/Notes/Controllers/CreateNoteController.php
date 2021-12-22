@@ -8,7 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Foundation\Responses\Responsable;
 use Nova\Notes\Actions\CreateNote;
-use Nova\Notes\DataTransferObjects\NoteData;
+use Nova\Notes\Data\NoteData;
 use Nova\Notes\Models\Note;
 use Nova\Notes\Requests\CreateNoteRequest;
 use Nova\Notes\Responses\CreateNoteResponse;

@@ -18,8 +18,6 @@ use Tests\TestCase;
  */
 class RemoveUserAvatarActionTest extends TestCase
 {
-    protected $action;
-
     protected $user;
 
     public function setUp(): void
@@ -28,11 +26,9 @@ class RemoveUserAvatarActionTest extends TestCase
 
         Storage::fake('media');
 
-        $this->action = app(RemoveUserAvatar::class);
-
         $this->user = User::factory()->active()->create();
 
-        app(UploadUserAvatar::class)->execute(
+        UploadUserAvatar::run(
             $this->user,
             UploadedFile::fake()->image('image.png')
         );
@@ -43,7 +39,7 @@ class RemoveUserAvatarActionTest extends TestCase
     {
         $this->assertCount(1, $this->user->getMedia('avatar'));
 
-        $this->action->execute($this->user, true);
+        RemoveUserAvatar::run($this->user, true);
 
         $this->assertCount(0, $this->user->refresh()->getMedia('avatar'));
     }
@@ -53,7 +49,7 @@ class RemoveUserAvatarActionTest extends TestCase
     {
         $this->assertCount(1, $this->user->getMedia('avatar'));
 
-        $this->action->execute($this->user, false);
+        RemoveUserAvatar::run($this->user, false);
 
         $this->assertCount(1, $this->user->refresh()->getMedia('avatar'));
     }
@@ -63,7 +59,7 @@ class RemoveUserAvatarActionTest extends TestCase
     {
         $this->assertCount(1, $this->user->getMedia('avatar'));
 
-        $this->action->execute($this->user);
+        RemoveUserAvatar::run($this->user);
 
         $this->assertCount(1, $this->user->refresh()->getMedia('avatar'));
     }

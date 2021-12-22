@@ -8,8 +8,6 @@ use Livewire\Component;
 
 class PositionsCollector extends Component
 {
-    public $positionIds;
-
     public $positions;
 
     protected $listeners = ['positionSelected' => 'handlePositionSelected'];
@@ -30,8 +28,6 @@ class PositionsCollector extends Component
             'id' => $positionId,
             'primary' => false,
         ];
-
-        $this->updatePositionIds();
     }
 
     public function removePosition($index)
@@ -39,37 +35,26 @@ class PositionsCollector extends Component
         unset($this->positions[$index]);
 
         $this->positions = array_values($this->positions);
-
-        $this->updatePositionIds();
     }
 
-    public function updatePositionIds()
+    public function mount($positions = null, $primaryPosition = null, $character = null)
     {
-        $this->positionIds = collect($this->positions)
-            ->filter(fn ($position) => $position['id'] !== null)
-            ->implode('id', ',');
-    }
-
-    public function mount($positions = null, $character = null)
-    {
-        if ($positions === null) {
+        if ($positions === null || (is_array($positions) && count($positions) === 0)) {
             $this->positions[0] = [
                 'id' => null,
                 'primary' => false,
             ];
         } else {
-            $this->positions = collect(explode(',', $positions))
-                ->map(function ($position) use ($character) {
+            $this->positions = collect($positions)
+                ->map(function ($position) use ($character, $primaryPosition) {
                     return [
                         'id' => $position,
                         'primary' => ($character === null)
-                            ? false
+                            ? (int) $primaryPosition === (int) $position
                             : $position == optional($character->primaryPosition->first())->id,
                     ];
                 })
                 ->toArray();
-
-            $this->updatePositionIds();
         }
     }
 

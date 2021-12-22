@@ -17,15 +17,11 @@ class DeletePostTypeActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $postType;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(DeletePostType::class);
 
         $this->postType = PostType::factory()->create();
     }
@@ -33,7 +29,7 @@ class DeletePostTypeActionTest extends TestCase
     /** @test **/
     public function itDeletesAPostType()
     {
-        $postType = $this->action->execute($this->postType);
+        $postType = DeletePostType::run($this->postType);
 
         $this->assertNotNull($postType->deleted_at);
     }

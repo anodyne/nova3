@@ -7,10 +7,10 @@ namespace Nova\PostTypes\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Nova\PostTypes\Data\Fields;
+use Nova\PostTypes\Data\Options;
 use Nova\PostTypes\Events;
 use Nova\PostTypes\Models\Builders\PostTypeBuilder;
-use Nova\PostTypes\Values\Fields;
-use Nova\PostTypes\Values\Options;
 use Nova\Roles\Models\Role;
 
 class PostType extends Model

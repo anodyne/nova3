@@ -45,7 +45,7 @@ class ActivateUserTest extends TestCase
 
         $this->assertDatabaseHas('users', [
             'id' => $this->user->id,
-            'status' => ActiveUser::class,
+            'status' => ActiveUser::$name,
         ]);
     }
 
@@ -63,12 +63,12 @@ class ActivateUserTest extends TestCase
 
         $this->assertDatabaseHas('users', [
             'id' => $this->user->id,
-            'status' => ActiveUser::class,
+            'status' => ActiveUser::$name,
         ]);
 
         $this->assertDatabaseHas('characters', [
             'id' => $this->character->id,
-            'status' => ActiveCharacter::class,
+            'status' => ActiveCharacter::$name,
         ]);
     }
 

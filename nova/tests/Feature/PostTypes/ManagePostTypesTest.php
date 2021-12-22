@@ -19,7 +19,7 @@ class ManagePostTypesTest extends TestCase
     /** @test **/
     public function authorizedUserWithCreatePermissionCanViewManagePostTypesPage()
     {
-        $this->signInWithPermission('story.create');
+        $this->signInWithPermission('post-type.create');
 
         $response = $this->get(route('post-types.index'));
         $response->assertSuccessful();
@@ -28,7 +28,7 @@ class ManagePostTypesTest extends TestCase
     /** @test **/
     public function authorizedUserWithUpdatePermissionCanViewManagePostTypesPage()
     {
-        $this->signInWithPermission('story.update');
+        $this->signInWithPermission('post-type.update');
 
         $response = $this->get(route('post-types.index'));
         $response->assertSuccessful();
@@ -37,7 +37,7 @@ class ManagePostTypesTest extends TestCase
     /** @test **/
     public function authorizedUserWithDeletePermissionCanViewManagePostTypesPage()
     {
-        $this->signInWithPermission('story.delete');
+        $this->signInWithPermission('post-type.delete');
 
         $response = $this->get(route('post-types.index'));
         $response->assertSuccessful();
@@ -46,7 +46,7 @@ class ManagePostTypesTest extends TestCase
     /** @test **/
     public function authorizedUserWithViewPermissionCanViewManagePostTypesPage()
     {
-        $this->signInWithPermission('story.view');
+        $this->signInWithPermission('post-type.view');
 
         $response = $this->get(route('post-types.index'));
         $response->assertSuccessful();
@@ -55,7 +55,7 @@ class ManagePostTypesTest extends TestCase
     /** @test **/
     public function postTypesCanBeFilteredByName()
     {
-        $this->signInWithPermission('story.create');
+        $this->signInWithPermission('post-type.create');
 
         PostType::factory()->create([
             'name' => 'barbaz',

@@ -51,7 +51,7 @@ class PostsList extends Component
             ->posts()
             ->hasParent()
             ->when($this->filters['search'], fn ($query, $search) => $query->searchFor($search))
-            ->when($this->filters['type'], fn ($query, $types) => $query->whereIn('type', $types))
+            ->when($this->filters['types'], fn ($query, $types) => $query->whereIn('type', $types))
             ->defaultOrder();
 
         return $this->applySorting($query);

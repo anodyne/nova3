@@ -1,7 +1,7 @@
 <div>
-    <input type="hidden" name="users" value="{{ $userIds }}">
-
     @foreach ($users as $user)
+        <input type="hidden" name="users[]" value="{{ $user['id'] }}">
+
         <div class="flex flex-col @if (! $loop->first) mt-4 @endif">
             <div class="flex items-center w-full">
                 @livewire(
@@ -25,9 +25,9 @@
                 <div class="mt-2 ml-px text-sm">
                     <x-input.checkbox
                         label="Primary character"
-                        name="primary_character[]"
-                        id="primary_character_{{ $user['id'] }}"
-                        for="primary_character_{{ $user['id'] }}"
+                        name="primaryCharacters[]"
+                        id="primaryCharacters{{ $user['id'] }}"
+                        for="primaryCharacters{{ $user['id'] }}"
                         value="{{ $user['id'] }}"
                         :checked="$user['primary']"
                     />

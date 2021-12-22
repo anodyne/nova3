@@ -6,7 +6,7 @@ namespace Tests\Unit\Notes\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Notes\Actions\UpdateNote;
-use Nova\Notes\DataTransferObjects\NoteData;
+use Nova\Notes\Data\NoteData;
 use Nova\Notes\Models\Note;
 use Tests\TestCase;
 
@@ -17,15 +17,11 @@ class UpdateNoteActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $action;
-
     protected $note;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->action = app(UpdateNote::class);
 
         $this->note = Note::factory()->create([
             'title' => 'My First Note',
@@ -37,13 +33,13 @@ class UpdateNoteActionTest extends TestCase
     /** @test **/
     public function itUpdatesANote()
     {
-        $data = new NoteData([
+        $data = NoteData::from([
             'title' => 'My Note',
             'content' => 'New content',
             'summary' => 'New summary',
         ]);
 
-        $note = $this->action->handle($this->note, $data);
+        $note = UpdateNote::run($this->note, $data);
 
         $this->assertEquals('My Note', $note->title);
         $this->assertEquals('New content', $note->content);

@@ -4,11 +4,12 @@
     'activeColor' => 'blue-9',
     'inactiveColor' => 'gray-8',
     'disabled' => false,
+    'help' => false,
 ])
 
 <label
     x-data="toggleSwitch({{ $value ? 'true' : 'false'}}, {{ $disabled ? 'true' : 'false' }})"
-    class="flex items-center"
+    class="flex"
     :class="{ 'cursor-not-allowed': disabled, 'cursor-pointer': !disabled }"
     x-cloak
 >
@@ -30,6 +31,12 @@
             <span class="font-medium text-gray-11">
                 {{ $slot }}
             </span>
+
+            @if ($help)
+                <span class="text-sm text-gray-11">
+                    {{ $help }}
+                </span>
+            @endif
         </span>
     @endif
 
