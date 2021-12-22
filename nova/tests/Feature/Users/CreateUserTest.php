@@ -25,6 +25,8 @@ class CreateUserTest extends TestCase
         parent::setUp();
 
         Mail::fake();
+
+        User::truncate();
     }
 
     /** @test **/

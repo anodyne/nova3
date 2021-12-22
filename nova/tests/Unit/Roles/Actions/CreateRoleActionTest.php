@@ -7,7 +7,6 @@ namespace Tests\Unit\Roles\Actions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Roles\Actions\CreateRole;
 use Nova\Roles\Data\RoleData;
-use Nova\Roles\Models\Permission;
 use Tests\TestCase;
 
 /**
@@ -41,22 +40,5 @@ class CreateRoleActionTest extends TestCase
         $this->assertEquals('foo', $role->name);
         $this->assertEquals('Description of foo', $role->description);
         $this->assertFalse($role->default);
-    }
-
-    /** @test **/
-    public function itCanAddPermissions()
-    {
-        $data = RoleData::from([
-            'display_name' => 'Bar',
-            'name' => 'bar',
-            'default' => false,
-            'permissions' => Permission::whereIn('id', [1, 2, 3])->get(),
-        ]);
-
-        $role = CreateRole::run($data);
-
-        $this->assertTrue($role->permissions->contains('id', 1));
-        $this->assertTrue($role->permissions->contains('id', 2));
-        $this->assertTrue($role->permissions->contains('id', 3));
     }
 }

@@ -49,7 +49,7 @@
             <div class="border-t border-gray-100 mt-10 px-4 pt-4 sm:px-6 sm:pt-6">
                 <div>
                     <div class="sm:hidden">
-                        <select aria-label="Selected tab" class="form-select block w-full" @change="tab = $event.target.value">
+                        <select aria-label="Selected tab" class="form-select bg-gray-1 block w-full" @change="tab = $event.target.value">
                             <option value="base">Base Images</option>
                             <option value="overlay">Overlay Images</option>
                         </select>

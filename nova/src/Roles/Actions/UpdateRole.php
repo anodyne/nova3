@@ -17,13 +17,9 @@ class UpdateRole
     {
         $updateData = ($role->locked)
             ? Arr::except($data->all(), 'name')
-            : $data;
+            : $data->all();
 
-        $role->update($updateData->toArray());
-
-        if ($data->permissions) {
-            $role->syncPermissions($data->permissions);
-        }
+        $role->update($updateData);
 
         return $role->refresh();
     }

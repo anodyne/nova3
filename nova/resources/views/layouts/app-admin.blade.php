@@ -187,39 +187,26 @@
                 @if ($meta->subnav)
                     <aside class="pb-8 px-4 sm:px-6 lg:py-0 lg:px-0 lg:col-span-3 xl:col-span-2">
                         @include($meta->subnav)
-
-                        {{-- <div>
-                            <div class="sm:hidden">xs</div>
-                            <div class="hidden sm:block md:hidden">sm</div>
-                            <div class="hidden md:block lg:hidden">md</div>
-                            <div class="hidden lg:block xl:hidden">lg</div>
-                            <div class="hidden xl:block">xl</div>
-                        </div> --}}
                     </aside>
                 @endif
 
                 <div class="space-y-6 sm:px-6 lg:px-0 {{ $meta->subnav ? 'lg:col-span-9 xl:col-span-10' : 'lg:col-span-12' }}">
                     @yield('template')
+
+                    <footer class="mx-auto py-4">
+                        <div class="flex items-center justify-center text-sm text-gray-9">
+                            <div class="flex items-center space-x-1.5 font-medium">
+                                <span>Powered by</span>
+                                <a href="https://anodyne-productions.com" target="_blank">
+                                    <x-logos.nova-grayscale class="h-5 w-auto" />
+                                </a>
+                            </div>
+                        </div>
+                    </footer>
                 </div>
             </div>
         </main>
 
-        <footer class="max-w-7xl mx-auto py-8 lg:py-12 lg:px-8 focus:outline-none">
-            <div class="flex items-center justify-between text-sm text-gray-9">
-                <div class="flex items-center space-x-1.5 font-medium">
-                    <span>Powered by</span>
-                    <a href="https://anodyne-productions.com" target="_blank">
-                        <x-logos.nova-grayscale class="h-5 w-auto" />
-                    </a>
-                </div>
-
-                <div class="flex items-center space-x-1.5 font-medium">
-                    <span>Built with &hearts; by</span>
-                    <a href="https://anodyne-productions.com" target="_blank">
-                        <x-logos.anodyne text-color="text-gray-9" logo-color="text-gray-8" class="h-5 w-auto" />
-                    </a>
-                </div>
-            </div>
-        </footer>
+        <x-tailwind.breakpoint />
     </div>
 @endsection

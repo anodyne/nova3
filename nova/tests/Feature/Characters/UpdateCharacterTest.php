@@ -51,7 +51,6 @@ class UpdateCharacterTest extends TestCase
     /** @test **/
     public function authorizedUserCanUpdateACharacter()
     {
-        $this->withoutExceptionHandling();
         $this->signInWithPermission('character.update');
 
         $this->followingRedirects();
@@ -61,8 +60,8 @@ class UpdateCharacterTest extends TestCase
         $response = $this->put(route('characters.update', $this->character), [
             'name' => 'Jack Sparrow',
             'rank_id' => $rank->id,
-            'positions' => $this->character->positions->implode('id', ','),
-            'users' => $this->character->users->implode('id', ','),
+            'positions' => $this->character->positions->pluck('id')->all(),
+            'users' => $this->character->users->pluck('id')->all(),
         ]);
         $response->assertSuccessful();
 
@@ -101,8 +100,8 @@ class UpdateCharacterTest extends TestCase
         $response = $this->put(route('characters.update', $this->character), [
             'name' => 'Jack Sparrow',
             'rank_id' => $rank->id,
-            'positions' => $this->character->positions->implode('id', ','),
-            'users' => $this->character->users->implode('id', ','),
+            'positions' => $this->character->positions->pluck('id')->all(),
+            'users' => $this->character->users->pluck('id')->all(),
         ]);
 
         Event::assertDispatched(CharacterUpdated::class);
@@ -128,7 +127,7 @@ class UpdateCharacterTest extends TestCase
 
         $response = $this->put(route('characters.update', $this->character), [
             'name' => 'Jack Sparrow',
-            'positions' => '1',
+            'positions' => [1],
         ]);
         $response->assertForbidden();
     }
@@ -145,7 +144,7 @@ class UpdateCharacterTest extends TestCase
     {
         $response = $this->putJson(route('characters.update', $this->character), [
             'name' => 'Jack Sparrow',
-            'positions' => '1',
+            'positions' => [1],
         ]);
         $response->assertUnauthorized();
     }

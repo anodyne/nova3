@@ -1,5 +1,6 @@
 /* eslint-disable */
 const defaultTheme = require('tailwindcss/defaultTheme');
+const { default: flattenColorPalette } = require('tailwindcss/lib/util/flattenColorPalette');
 /* eslint-enable */
 
 const scale = Array.from({ length: 12 }, (_, i) => i + 1);
@@ -102,6 +103,14 @@ module.exports = {
         require('@tailwindcss/forms'),
         require('@tailwindcss/typography'),
         require('@tailwindcss/aspect-ratio'),
+        function ({ matchUtilities, theme }) {
+            matchUtilities(
+                {
+                    highlight: (value) => ({ boxShadow: `inset 0 1px 0 0 ${value}` }),
+                },
+                { values: flattenColorPalette(theme('backgroundColor')), type: 'color' }
+            )
+        },
         // require('tailwind-safelist-generator')({
         //     patterns: [
         //         'bg-blue-9',

@@ -35,6 +35,7 @@ class DuplicateRoleActionTest extends TestCase
             "Copy of {$this->role->display_name}",
             $role->display_name
         );
+
         $this->assertEquals(
             $this->role->permissions->count(),
             $role->permissions->count()
