@@ -58,6 +58,7 @@ class FluentIconSet extends IconSet
             'user-add' => 'person-add',
             'users' => 'people',
             'warning' => 'warning',
+            'wrench' => 'wrench',
             'write' => 'compose',
         ];
     }

@@ -15,11 +15,15 @@ class PopulateFormTables extends Migration
 
         $this->populateFormBlocks();
 
+        Form::unguard();
+
         $this->buildCharacterForm();
 
         $this->buildUserForm();
 
         $this->buildApplicationForm();
+
+        Form::reguard();
 
         activity()->enableLogging();
     }
@@ -60,6 +64,7 @@ class PopulateFormTables extends Migration
         $form = Form::create([
             'name' => 'Character form',
             'key' => 'character',
+            'locked' => true,
         ]);
 
         $form->blocks()->attach([
@@ -74,6 +79,7 @@ class PopulateFormTables extends Migration
         $form = Form::create([
             'name' => 'User form',
             'key' => 'user',
+            'locked' => true,
         ]);
 
         $form->blocks()->attach([
@@ -88,6 +94,7 @@ class PopulateFormTables extends Migration
         $form = Form::create([
             'name' => 'Application form',
             'key' => 'application',
+            'locked' => true,
         ]);
 
         $form->blocks()->attach([
