@@ -167,6 +167,16 @@ class PopulatePagesTable extends Migration
             ['uri' => 'posts/create/{postType:key}', 'key' => 'posts.compose', 'resource' => 'Nova\\Posts\\Controllers\\CreatePostController@create', 'layout' => 'admin'],
             ['uri' => 'posts', 'key' => 'posts.store', 'verb' => 'post', 'resource' => 'Nova\\Posts\\Controllers\\CreatePostController@store', 'layout' => 'admin'],
             ['uri' => 'stories/{story}/posts/{post}/show', 'key' => 'posts.show', 'resource' => 'Nova\\Posts\\Controllers\\ShowPostController@show', 'layout' => 'admin'],
+
+            ['uri' => 'forms', 'key' => 'forms.index', 'resource' => 'Nova\\Forms\\Controllers\\ShowFormController@all', 'layout' => 'admin'],
+            ['uri' => 'forms/{form}/show', 'key' => 'forms.show', 'resource' => 'Nova\\Forms\\Controllers\\ShowFormController@show', 'layout' => 'admin'],
+            ['uri' => 'forms/create', 'key' => 'forms.create', 'resource' => 'Nova\\Forms\\Controllers\\CreateFormController@create', 'layout' => 'admin'],
+            ['uri' => 'forms', 'key' => 'forms.store', 'verb' => 'post', 'resource' => 'Nova\\Forms\\Controllers\\CreateFormController@store', 'layout' => 'admin'],
+            ['uri' => 'forms/{form}/edit', 'key' => 'forms.edit', 'resource' => 'Nova\\Forms\\Controllers\\UpdateFormController@edit', 'layout' => 'admin'],
+            ['uri' => 'forms/{form}', 'key' => 'forms.update', 'verb' => 'put', 'resource' => 'Nova\\Forms\\Controllers\\UpdateFormController@update', 'layout' => 'admin'],
+            ['uri' => 'forms/delete', 'key' => 'forms.delete', 'verb' => 'post', 'resource' => 'Nova\\Forms\\Controllers\\DeleteFormController@confirm', 'layout' => 'admin'],
+            ['uri' => 'forms/{form}', 'key' => 'forms.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Forms\\Controllers\\DeleteFormController@destroy', 'layout' => 'admin'],
+            ['uri' => 'forms/{original}/duplicate', 'key' => 'forms.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Forms\\Controllers\\DuplicateFormController', 'layout' => 'admin'],
         ];
 
         collect($pages)->each([Page::class, 'create']);

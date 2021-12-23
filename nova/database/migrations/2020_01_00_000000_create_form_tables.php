@@ -18,6 +18,7 @@ class CreateFormTables extends Migration
             $table->string('name');
             $table->string('key')->unique();
             $table->text('description')->nullable();
+            $table->boolean('locked')->default(false);
             $table->json('settings')->nullable();
             $table->timestamps();
 

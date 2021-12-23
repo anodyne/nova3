@@ -41,12 +41,15 @@ class PopulateAuthorizationTables extends Migration
                 'department.create', 'department.delete', 'department.update', 'department.view',
                 'character.create', 'character.delete', 'character.update', 'character.view',
                 'post-type.create', 'post-type.delete', 'post-type.update', 'post-type.view',
+                'form.create', 'form.delete', 'form.update',
             ],
             'story-manager' => [
                 'story.create', 'story.delete', 'story.update',
                 'post.delete', 'post.update',
             ],
-            'active' => [],
+            'active' => [
+                'form.view',
+            ],
             'inactive' => [],
             'writer' => [
                 'story.view',
@@ -113,6 +116,11 @@ class PopulateAuthorizationTables extends Migration
                 ['name' => 'post.view', 'display_name' => 'View posts', 'description' => 'Allows a user to view any posts'],
 
                 ['name' => 'settings.update', 'display_name' => 'Update settings', 'description' => 'Allows a user to edit settings'],
+
+                ['name' => 'form.create', 'display_name' => 'Create forms', 'description' => 'Allows a user to add new forms'],
+                ['name' => 'form.delete', 'display_name' => 'Delete forms', 'description' => 'Allows a user to remove forms'],
+                ['name' => 'form.update', 'display_name' => 'Update forms', 'description' => 'Allows a user to edit forms'],
+                ['name' => 'form.view', 'display_name' => 'View forms', 'description' => 'Allows a user to view any forms'],
             ];
 
             collect($permissions)->each(function ($permission) {
