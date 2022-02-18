@@ -12,9 +12,9 @@
                     @endcan
 
                     <x-dropdown placement="bottom-end" wide>
-                        <x-slot name="trigger">
+                        <x-slot:trigger>
                             <x-icon.more class="h-7 w-7 md:h-6 md:w-6" />
-                        </x-slot>
+                        </x-slot:trigger>
 
                         <x-dropdown.group>
                             @can('view', $selectedStory)
@@ -99,11 +99,11 @@
 
                 @can('create', $selectedStory)
                     <x-dropdown>
-                        <x-slot name="trigger">
+                        <x-slot:trigger>
                             @icon('add', 'h-5 w-5 shrink-0 mr-1.5')
                             <span>Add story</span>
                             <x-icon.chevron-down class="h-4 w-4 shrink-0 ml-1.5" />
-                        </x-slot>
+                        </x-slot:trigger>
 
                         <x-dropdown.group>
                             <x-dropdown.item :href='route("stories.create", "direction=before&neighbor={$selectedStory->id}")' icon="move-up">

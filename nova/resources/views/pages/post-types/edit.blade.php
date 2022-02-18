@@ -2,9 +2,9 @@
 
 @section('content')
     <x-page-header :title="$postType->name">
-        <x-slot name="pretitle">
+        <x-slot:pretitle>
             <a href="{{ route('post-types.index') }}">Post Types</a>
-        </x-slot>
+        </x-slot:pretitle>
     </x-page-header>
 
     <x-panel x-data="tabsList('details')">

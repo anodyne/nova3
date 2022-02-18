@@ -2,15 +2,15 @@
 
 @section('content')
     <x-page-header :title="$role->display_name">
-        <x-slot name="pretitle">
+        <x-slot:pretitle>
             <a href="{{ route('roles.index') }}">Roles</a>
-        </x-slot>
+        </x-slot:pretitle>
 
-        <x-slot name="controls">
+        <x-slot:controls>
             @can('update', $role)
                 <x-link :href="route('roles.edit', $role)" color="blue">Edit Role</x-link>
             @endcan
-        </x-slot>
+        </x-slot:controls>
     </x-page-header>
 
     <x-panel x-data="tabsList('details')">

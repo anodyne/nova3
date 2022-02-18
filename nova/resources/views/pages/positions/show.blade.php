@@ -2,19 +2,19 @@
 
 @section('content')
     <x-page-header :title="$position->name">
-        <x-slot name="pretitle">
+        <x-slot:pretitle>
             <div class="flex items-center">
                 <a href="{{ route('departments.index') }}">Departments</a>
                 <x-icon.chevron-right class="h-4 w-4 text-gray-9 mx-1" />
                 <a href="{{ route('positions.index', $position->department) }}">{{ $position->department->name }}</a>
             </div>
-        </x-slot>
+        </x-slot:pretitle>
 
-        <x-slot name="controls">
+        <x-slot:controls>
             @can('update', $position)
                 <x-link :href="route('positions.edit', $position)" color="blue">Edit Position</x-link>
             @endcan
-        </x-slot>
+        </x-slot:controls>
     </x-page-header>
 
     <x-panel>
@@ -53,14 +53,14 @@
                         <div class="group flex items-center justify-between w-full py-2 px-4 rounded odd:bg-gray-3">
                             <div class="flex items-center space-x-3">
                                 <x-avatar-meta size="lg" :src="$character->avatar_url">
-                                    <x-slot name="primaryMeta">
+                                    <x-slot:primaryMeta>
                                         <x-status :status="$character->status" />
                                         <span class="ml-2">{{ $character->name }}</span>
-                                    </x-slot>
+                                    </x-slot:primaryMeta>
 
-                                    <x-slot name="secondaryMeta">
+                                    <x-slot:secondaryMeta>
                                         <x-badge :color="$character->type->color()" size="xs">{{ $character->type->displayName() }}</x-badge>
-                                    </x-slot>
+                                    </x-slot:secondaryMeta>
                                 </x-avatar-meta>
                             </div>
 

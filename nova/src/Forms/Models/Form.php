@@ -8,16 +8,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Nova\Forms\Events;
 use Nova\Forms\Models\Builders\FormBuilder;
+use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Form extends Model
 {
     use HasFactory;
     use LogsActivity;
-
-    protected static $logFillable = true;
-
-    protected static $logName = 'admin';
 
     protected $casts = [
         'locked' => 'boolean',
@@ -37,6 +34,16 @@ class Form extends Model
             ->using(FormBlock::class)
             ->withPivot('id', 'sort', 'parent_id', 'settings')
             ->orderBy('pivot_sort');
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logFillable()
+            ->useLogName('admin')
+            ->setDescriptionForEvent(
+                fn (string $eventName) => ":subject.name was {$eventName}"
+            );
     }
 
     public function getDescriptionForEvent(string $eventName): string

@@ -2,9 +2,9 @@
 
 @section('content')
     <x-page-header title="Add Form">
-        <x-slot name="pretitle">
+        <x-slot:pretitle>
             <a href="{{ route('forms.index') }}">Forms</a>
-        </x-slot>
+        </x-slot:pretitle>
     </x-page-header>
 
     <x-panel

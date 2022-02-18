@@ -2,10 +2,10 @@
 
 @section('content')
     <x-page-header title="Rank Items" pretitle="Ranks">
-        <x-slot name="controls">
+        <x-slot:controls>
             @if ($itemCount > 0)
                 <x-dropdown placement="bottom-start md:bottom-end">
-                    <x-slot name="trigger">@icon('filter', 'h-7 w-7 md:h-6 md:w-6')</x-slot>
+                    <x-slot:trigger>@icon('filter', 'h-7 w-7 md:h-6 md:w-6')</x-slot:trigger>
 
                     <x-dropdown.group>
                         <x-dropdown.text class="uppercase tracking-wide font-semibold text-gray-9">
@@ -34,7 +34,7 @@
                     </x-link>
                 @endcan
             @endif
-        </x-slot>
+        </x-slot:controls>
     </x-page-header>
 
     @if ($itemCount === 0)
@@ -99,9 +99,9 @@
                                 </div>
                                 <div class="ml-5 shrink-0 leading-0">
                                     <x-dropdown placement="bottom-end">
-                                        <x-slot name="trigger">
+                                        <x-slot:trigger>
                                             <x-icon.more class="h-6 w-6" />
-                                        </x-slot>
+                                        </x-slot:trigger>
 
                                         <x-dropdown.group>
                                             @can('view', $item)
@@ -146,7 +146,7 @@
         <x-tips section="ranks" />
 
         <x-modal color="red" title="Delete rank item?" icon="warning" :url="route('ranks.items.delete')">
-            <x-slot name="footer">
+            <x-slot:footer>
                 <span class="flex w-full sm:col-start-2">
                     <x-button type="submit" form="form" color="red" full-width>
                         Delete
@@ -157,7 +157,7 @@
                         Cancel
                     </x-button>
                 </span>
-            </x-slot>
+            </x-slot:footer>
         </x-modal>
     @endif
 @endsection

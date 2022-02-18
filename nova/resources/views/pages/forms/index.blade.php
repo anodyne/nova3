@@ -2,13 +2,13 @@
 
 @section('content')
     <x-page-header title="Forms">
-        <x-slot name="controls">
+        <x-slot:controls>
             @can('create', 'Nova\Forms\Models\Form')
                 <x-link :href="route('forms.create')" color="blue" data-cy="create">
                     Add Form
                 </x-link>
             @endcan
-        </x-slot>
+        </x-slot:controls>
     </x-page-header>
 
     <x-panel>
@@ -67,9 +67,9 @@
                             </div>
                             <div class="ml-5 shrink-0 leading-0">
                                 <x-dropdown placement="bottom-end">
-                                    <x-slot name="trigger">
+                                    <x-slot:trigger>
                                         <x-icon.more class="h-6 w-6" />
-                                    </x-slot>
+                                    </x-slot:trigger>
 
                                     <x-dropdown.group>
                                         @can('view', $form)
@@ -94,9 +94,9 @@
                                             <x-dropdown.item type="submit" form="duplicate-{{ $form->id }}" icon="copy" data-cy="duplicate">
                                                 <span>Duplicate</span>
 
-                                                <x-slot name="buttonForm">
+                                                <x-slot:buttonForm>
                                                     <x-form :action="route('forms.duplicate', $form)" id="duplicate-{{ $form->id }}" class="hidden" />
-                                                </x-slot>
+                                                </x-slot:buttonForm>
                                             </x-dropdown.item>
                                         @endcan --}}
                                     </x-dropdown.group>
@@ -144,7 +144,7 @@
     <x-tips section="forms" />
 
     <x-modal color="red" title="Delete Form?" icon="warning" :url="route('forms.delete')">
-        <x-slot name="footer">
+        <x-slot:footer>
             <span class="flex w-full sm:col-start-2">
                 <x-button type="submit" form="form" color="red" full-width>
                     Delete
@@ -155,6 +155,6 @@
                     Cancel
                 </x-button>
             </span>
-        </x-slot>
+        </x-slot:footer>
     </x-modal>
 @endsection

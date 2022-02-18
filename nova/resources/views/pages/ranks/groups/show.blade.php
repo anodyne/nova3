@@ -2,15 +2,15 @@
 
 @section('content')
     <x-page-header :title="$group->name">
-        <x-slot name="pretitle">
+        <x-slot:pretitle>
             <a href="{{ route('ranks.groups.index') }}">Rank Groups</a>
-        </x-slot>
+        </x-slot:pretitle>
 
-        <x-slot name="controls">
+        <x-slot:controls>
             @can('update', $group)
                 <x-link :href="route('ranks.groups.edit', $group)" color="blue">Edit Rank Group</x-link>
             @endcan
-        </x-slot>
+        </x-slot:controls>
     </x-page-header>
 
     <x-panel>

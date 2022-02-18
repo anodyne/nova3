@@ -2,9 +2,9 @@
 
 @section('content')
     <x-page-header :title="$group->name">
-        <x-slot name="pretitle">
+        <x-slot:pretitle>
             <a href="{{ route('ranks.groups.index') }}">Rank Groups</a>
-        </x-slot>
+        </x-slot:pretitle>
     </x-page-header>
 
     <x-panel>

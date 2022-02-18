@@ -2,12 +2,12 @@
 
 @section('content')
     <x-page-header title="Posting Activity Settings" x-data="{}">
-        <x-slot name="controls">
+        <x-slot:controls>
             <x-button type="button" color="white" size="sm" @click="$dispatch('toggle-spotlight')">
                 @icon('search', 'h-5 w-5')
                 <span class="ml-2">Find a setting</span>
             </x-button>
-        </x-slot>
+        </x-slot:controls>
     </x-page-header>
 
     <x-panel>
@@ -61,11 +61,11 @@
 
             <x-form.section title="Monthly Required Activity Levels" message="Set the specific requirements your game has around posting activity for users.">
                 <x-input.group>
-                    <x-slot name="label">
+                    <x-slot:label>
                         <span x-show="strategy === 'posts'">Story posts</span>
                         <span x-show="strategy === 'words'">Story post words</span>
                         <span>per month</span>
-                    </x-slot>
+                    </x-slot:label>
 
                     <x-input.text name="required-activity" value="{{ $settings->posting_activity->requiredActivity }}" />
                 </x-input.group>

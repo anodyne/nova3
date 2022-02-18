@@ -2,7 +2,7 @@
 
 @section('content')
     <x-page-header title="Departments">
-        <x-slot name="controls">
+        <x-slot:controls>
             @if ($departmentCount > 0)
                 @can('update', $departments->first())
                     <x-link :href="route('departments.index', 'reorder')" color="gray-text" size="none">
@@ -16,7 +16,7 @@
                     </x-link>
                 @endcan
             @endif
-        </x-slot>
+        </x-slot:controls>
     </x-page-header>
 
     @if ($departmentCount === 0)
@@ -93,9 +93,9 @@
                                 </div>
                                 <div class="ml-5 shrink-0 leading-0">
                                     <x-dropdown placement="bottom-end">
-                                        <x-slot name="trigger">
+                                        <x-slot:trigger>
                                             <x-icon.more class="h-6 w-6" />
-                                        </x-slot>
+                                        </x-slot:trigger>
 
                                         <x-dropdown.group>
                                             @can('view', $department)
@@ -154,7 +154,7 @@
         <x-tips section="departments" />
 
         <x-modal color="red" title="Delete Department?" icon="warning" :url="route('departments.delete')">
-            <x-slot name="footer">
+            <x-slot:footer>
                 <span class="flex w-full sm:col-start-2">
                     <x-button type="submit" form="form" color="red" full-width>
                         Delete
@@ -165,11 +165,11 @@
                         Cancel
                     </x-button>
                 </span>
-            </x-slot>
+            </x-slot:footer>
         </x-modal>
 
         <x-modal color="blue" title="Duplicate department" icon="copy" :url="route('departments.confirm-duplicate')" event="modal-duplicate" :wide="true">
-            <x-slot name="footer">
+            <x-slot:footer>
                 <span class="flex w-full sm:col-start-2">
                     <x-button type="submit" form="form-duplicate" color="blue" full-width>
                         Duplicate
@@ -180,7 +180,7 @@
                         Cancel
                     </x-button>
                 </span>
-            </x-slot>
+            </x-slot:footer>
         </x-modal>
     @endif
 @endsection

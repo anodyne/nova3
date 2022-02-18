@@ -52,7 +52,7 @@ return [
         | NOTE: Currently the database check does not use cache.
         |
         */
-        'enabled' => true,
+        'enabled' => env('LARATRUST_ENABLE_CACHE', env('APP_ENV') === 'production'),
 
         /*
         |--------------------------------------------------------------------------
@@ -67,36 +67,13 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Use teams feature in the package
-    |--------------------------------------------------------------------------
-    |
-    | Defines if Laratrust will use the teams feature.
-    | Please check the docs to see what you need to do in case you have the package already configured.
-    |
-    */
-    'use_teams' => false,
-
-    /*
-    |--------------------------------------------------------------------------
-    | Strict check for roles/permissions inside teams
-    |--------------------------------------------------------------------------
-    |
-    | Determines if a strict check should be done when checking if a role or permission
-    | is attached inside a team.
-    | If it's false, when checking a role/permission without specifying the team,
-    | it will check only if the user has attached that role/permission ignoring the team.
-    |
-    */
-    'teams_strict_check' => false,
-
-    /*
-    |--------------------------------------------------------------------------
     | Laratrust User Models
     |--------------------------------------------------------------------------
     |
     | This is the array that contains the information of the user models.
-    | This information is used in the add-trait command, and for the roles and
-    | permissions relationships with the possible user models.
+    | This information is used in the add-trait command, for the roles and
+    | permissions relationships with the possible user models, and the
+    | administration panel to attach roles and permissions to the users.
     |
     | The key in the array is the name of the relationship inside the roles and permissions.
     |
@@ -116,20 +93,15 @@ return [
     |
     */
     'models' => [
-        /**
-         * Role model
-         */
+
         'role' => Role::class,
 
-        /**
-         * Permission model
-         */
         'permission' => Permission::class,
 
         /**
-         * Team model
+         * Will be used only if the teams functionality is enabled.
          */
-        'team' => 'App\Team',
+        'team' => \App\Models\Team::class,
     ],
 
     /*
@@ -141,34 +113,20 @@ return [
     |
     */
     'tables' => [
-        /**
-         * Roles table.
-         */
+
         'roles' => 'roles',
 
-        /**
-         * Permissions table.
-         */
         'permissions' => 'permissions',
 
         /**
-         * Teams table.
+         * Will be used only if the teams functionality is enabled.
          */
         'teams' => 'teams',
 
-        /**
-         * Role - User intermediate table.
-         */
         'role_user' => 'role_user',
 
-        /**
-         * Permission - User intermediate table.
-         */
         'permission_user' => 'permission_user',
 
-        /**
-         * Permission - Role intermediate table.
-         */
         'permission_role' => 'permission_role',
     ],
 
@@ -232,8 +190,9 @@ return [
              */
             'abort' => [
                 'code' => 403,
-                'message' => 'User does not have any of the necessary access rights.',
+                'message' => 'User does not have any of the necessary access rights.'
             ],
+
             /**
              * Redirects the user to the given url.
              * If you want to flash a key to the session,
@@ -244,20 +203,148 @@ return [
                 'url' => '/home',
                 'message' => [
                     'key' => 'error',
-                    'content' => '',
-                ],
-            ],
-        ],
+                    'content' => ''
+                ]
+            ]
+        ]
+    ],
+
+    'teams' => [
+        /*
+        |--------------------------------------------------------------------------
+        | Use teams feature in the package
+        |--------------------------------------------------------------------------
+        |
+        | Defines if Laratrust will use the teams feature.
+        | Please check the docs to see what you need to do in case you have the package already configured.
+        |
+        */
+        'enabled' => false,
+
+        /*
+        |--------------------------------------------------------------------------
+        | Strict check for roles/permissions inside teams
+        |--------------------------------------------------------------------------
+        |
+        | Determines if a strict check should be done when checking if a role or permission
+        | is attached inside a team.
+        | If it's false, when checking a role/permission without specifying the team,
+        | it will check only if the user has attached that role/permission ignoring the team.
+        |
+        */
+        'strict_check' => false,
     ],
 
     /*
     |--------------------------------------------------------------------------
-    | Laratrust Magic 'can' Method
+    | Laratrust Magic 'isAbleTo' Method
     |--------------------------------------------------------------------------
     |
-    | Supported cases for the magic can method (Refer to the docs).
+    | Supported cases for the magic is able to method (Refer to the docs).
     | Available: camel_case|snake_case|kebab_case
     |
     */
-    'magic_can_method_case' => 'kebab_case',
+    'magic_is_able_to_method_case' => 'kebab_case',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Laratrust Permissions as Gates
+    |--------------------------------------------------------------------------
+    |
+    | Determines if you can check if a user has a permission using the "can" method.
+    |
+    */
+    'permissions_as_gates' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Laratrust Panel
+    |--------------------------------------------------------------------------
+    |
+    | Section to manage everything related with the admin panel for the roles and permissions.
+    |
+    */
+    'panel' => [
+        /*
+        |--------------------------------------------------------------------------
+        | Laratrust Panel Register
+        |--------------------------------------------------------------------------
+        |
+        | This manages if routes used for the admin panel should be registered.
+        | Turn this value to false if you don't want to use Laratrust admin panel
+        |
+        */
+        'register' => false,
+
+        /*
+        |--------------------------------------------------------------------------
+        | Laratrust Panel Path
+        |--------------------------------------------------------------------------
+        |
+        | This is the URI path where Laratrust panel for roles and permissions
+        | will be accessible from.
+        |
+        */
+        'path' => 'laratrust',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Laratrust Panel Path
+        |--------------------------------------------------------------------------
+        |
+        | The route where the go back link should point
+        |
+        */
+        'go_back_route' => '/',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Laratrust Panel Route Middleware
+        |--------------------------------------------------------------------------
+        |
+        | These middleware will get attached onto each Laratrust panel route.
+        |
+        */
+        'middleware' => ['web'],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Enable permissions assignment
+        |--------------------------------------------------------------------------
+        |
+        | Enable/Disable the permissions assignment to the users.
+        |
+        */
+        'assign_permissions_to_user' => true,
+
+        /*
+        |--------------------------------------------------------------------------
+        | Enable permissions creation
+        |--------------------------------------------------------------------------
+        |
+        | Enable/Disable the possibility to create permissions from the panel.
+        |
+        */
+        'create_permissions' => true,
+
+        /*
+        |--------------------------------------------------------------------------
+        | Add restriction to roles in the panel
+        |--------------------------------------------------------------------------
+        |
+        | Configure which roles can not be editable, deletable and removable.
+        | To add a role to the restriction, use name of the role here.
+        |
+        */
+        'roles_restrictions' => [
+            // The user won't be able to remove roles already assigned to users.
+            'not_removable' => [],
+
+            // The user won't be able to edit the role and the permissions assigned.
+            'not_editable' => [],
+
+            // The user won't be able to delete the role.
+            'not_deletable' => [],
+        ],
+    ]
 ];

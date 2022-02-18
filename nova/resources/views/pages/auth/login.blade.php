@@ -28,29 +28,4 @@
         </x-button>
     </div>
 </x-form>
-
-@env('local')
-    <div class="mt-6">
-        <div class="relative">
-            <div class="absolute inset-0 flex items-center">
-                <div class="w-full border-t border-gray-6"></div>
-            </div>
-            <div class="relative flex justify-center text-sm">
-                <span class="px-2 bg-gray-1 text-gray-11">
-                    Or sign in with
-                </span>
-            </div>
-        </div>
-
-        <div class="mt-6 grid grid-cols-1 gap-3">
-            <div>
-                <x-link :href="route('dev-login', 'admin@admin.com')" size="sm" full-width>Test Admin Account</x-link>
-            </div>
-
-            <div>
-                <x-link :href="route('dev-login', 'user@user.com')" size="sm" full-width>Test User Account</x-link>
-            </div>
-        </div>
-    </div>
-@endenv
 @endsection

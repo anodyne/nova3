@@ -10,7 +10,7 @@
         "prod": "concurrently \"npm run js:build-prod\" \"npm run css:build-prod\""
     },
     "dependencies": {
-        "@alpinejs/trap": "^3.5.0",
+        "@alpinejs/focus": "^3.9.0",
         "@tiptap/core": "^2.0.0-alpha.7",
         "@tiptap/extension-link": "^2.0.0-beta.23",
         "@tiptap/extension-text-align": "^2.0.0-beta.23",

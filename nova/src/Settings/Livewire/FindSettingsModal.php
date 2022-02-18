@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Nova\Settings\Livewire;
 
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 use LivewireUI\Modal\ModalComponent;
 
 class FindSettingsModal extends ModalComponent
@@ -29,7 +28,7 @@ class FindSettingsModal extends ModalComponent
     {
         return $this->search === ''
             ? collect()
-            : $this->settings->filter(fn ($s) => Str::of($s['keywords'])->contains($this->search));
+            : $this->settings->filter(fn ($s) => str($s['keywords'])->contains($this->search));
     }
 
     public function mount()

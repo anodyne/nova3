@@ -2,9 +2,9 @@
 
 @section('content')
     <x-page-header title="Add Rank Name">
-        <x-slot name="pretitle">
+        <x-slot:pretitle>
             <a href="{{ route('ranks.names.index') }}">Rank Names</a>
-        </x-slot>
+        </x-slot:pretitle>
     </x-page-header>
 
     <x-panel>

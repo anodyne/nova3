@@ -2,7 +2,7 @@
 
 @section('content')
     <x-page-header :title="$story->title">
-        <x-slot name="pretitle">
+        <x-slot:pretitle>
             <div class="flex items-center">
                 <a href="{{ route('stories.index') }}">Stories</a>
 
@@ -15,15 +15,15 @@
                     @endforeach
                 @endif
             </div>
-        </x-slot>
+        </x-slot:pretitle>
 
-        <x-slot name="controls">
+        <x-slot:controls>
             @can('update', $story)
                 <x-link :href="route('stories.edit', $story)" color="blue">
                     Edit Story
                 </x-link>
             @endcan
-        </x-slot>
+        </x-slot:controls>
     </x-page-header>
 
     <x-panel x-data="tabsList('posts')">

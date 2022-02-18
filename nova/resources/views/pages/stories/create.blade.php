@@ -2,9 +2,9 @@
 
 @section('content')
     <x-page-header title="Add Story">
-        <x-slot name="pretitle">
+        <x-slot:pretitle>
             <a href="{{ route('stories.index') }}">Stories</a>
-        </x-slot>
+        </x-slot:pretitle>
     </x-page-header>
 
     <x-panel>
@@ -32,7 +32,7 @@
 
                 <x-input.group label="Start Date" for="start_date">
                     <x-input.field>
-                        <x-slot name="leadingAddOn">@icon('calendar')</x-slot>
+                        <x-slot:leadingAddOn>@icon('calendar')</x-slot:leadingAddOn>
 
                         <x-buk-pikaday name="start_date" id="start_date" format="YYYY-MM-DD" :value="old('start_date', '')" class="form-field w-full md:w-1/2" />
                     </x-input.field>
@@ -40,7 +40,7 @@
 
                 <x-input.group label="End Date" for="end_date">
                     <x-input.field>
-                        <x-slot name="leadingAddOn">@icon('calendar')</x-slot>
+                        <x-slot:leadingAddOn>@icon('calendar')</x-slot:leadingAddOn>
 
                         <x-buk-pikaday name="end_date" id="end_date" format="YYYY-MM-DD" :value="old('end_date', '')" class="form-field" />
                     </x-input.field>

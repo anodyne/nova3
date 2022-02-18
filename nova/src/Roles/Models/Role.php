@@ -10,6 +10,7 @@ use Nova\Roles\Events;
 use Nova\Roles\Models\Builders\RoleBuilder;
 use Nova\Users\Models\States\Active;
 use Nova\Users\Models\User;
+use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
@@ -18,10 +19,6 @@ class Role extends LaratrustRole
     use HasEagerLimit;
     use HasFactory;
     use LogsActivity;
-
-    protected static $logFillable = true;
-
-    protected static $logName = 'admin';
 
     protected $casts = [
         'default' => 'boolean',
@@ -38,9 +35,14 @@ class Role extends LaratrustRole
         'name', 'display_name', 'description', 'default', 'sort',
     ];
 
-    public function getDescriptionForEvent(string $eventName): string
+    public function getActivitylogOptions(): LogOptions
     {
-        return ":subject.display_name role was {$eventName}";
+        return LogOptions::defaults()
+            ->logFillable()
+            ->useLogName('admin')
+            ->setDescriptionForEvent(
+                fn (string $eventName) => ":subject.display_name role was {$eventName}"
+            );
     }
 
     /**

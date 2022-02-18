@@ -2,7 +2,7 @@
 
 @section('content')
     <x-page-header title="Roles">
-        <x-slot name="controls">
+        <x-slot:controls>
             @can('update', $roles->first())
                 <x-link :href="route('roles.index', 'reorder')" color="gray-text" size="none">
                     @icon('arrow-sort', 'h-7 w-7 md:h-6 md:w-6')
@@ -14,7 +14,7 @@
                     Add Role
                 </x-link>
             @endcan
-        </x-slot>
+        </x-slot:controls>
     </x-page-header>
 
     <x-panel x-data="sortableList">
@@ -108,9 +108,9 @@
                             </div>
                             <div class="ml-5 shrink-0 leading-0">
                                 <x-dropdown placement="bottom-end">
-                                    <x-slot name="trigger">
+                                    <x-slot:trigger>
                                         <x-icon.more class="h-6 w-6" />
-                                    </x-slot>
+                                    </x-slot:trigger>
 
                                     <x-dropdown.group>
                                         @can('view', $role)
@@ -129,9 +129,9 @@
                                             <x-dropdown.item type="submit" form="duplicate-{{ $role->id }}" icon="copy" data-cy="duplicate">
                                                 <span>Duplicate</span>
 
-                                                <x-slot name="buttonForm">
+                                                <x-slot:buttonForm>
                                                     <x-form :action="route('roles.duplicate', $role)" id="duplicate-{{ $role->id }}" class="hidden" />
-                                                </x-slot>
+                                                </x-slot:buttonForm>
                                             </x-dropdown.item>
                                         @endcan
                                     </x-dropdown.group>
@@ -173,7 +173,7 @@
     <x-tips section="roles" />
 
     <x-modal color="red" title="Delete Role?" icon="warning" :url="route('roles.delete')">
-        <x-slot name="footer">
+        <x-slot:footer>
             <span class="flex w-full sm:col-start-2">
                 <x-button type="submit" form="form" color="red" full-width>
                     Delete
@@ -184,6 +184,6 @@
                     Cancel
                 </x-button>
             </span>
-        </x-slot>
+        </x-slot:footer>
     </x-modal>
 @endsection

@@ -2,9 +2,9 @@
 
 @section('content')
     <x-page-header title="Add User">
-        <x-slot name="pretitle">
+        <x-slot:pretitle>
             <a href="{{ route('users.index', 'status=active') }}">Users</a>
-        </x-slot>
+        </x-slot:pretitle>
     </x-page-header>
 
     <x-panel>
@@ -22,11 +22,11 @@
                     })
                 "
             >
-                <x-slot name="message">
+                <x-slot:message>
                     <p>For privacy reasons, we don't recommend using a user's real name. Instead, use a nickname to help protect their identity.</p>
 
                     <p class="block"><strong class="font-semibold">Note:</strong> after the account is created, a password will be generated and emailed to the new user.</p>
-                </x-slot>
+                </x-slot:message>
 
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
                     <x-input.text id="name" name="name" :value="old('name')" data-cy="name" />

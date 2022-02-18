@@ -2,9 +2,9 @@
 
 @section('content')
     <x-page-header title="Add Rank Item">
-        <x-slot name="pretitle">
+        <x-slot:pretitle>
             <a href="{{ route('ranks.items.index') }}">Rank Items</a>
-        </x-slot>
+        </x-slot:pretitle>
     </x-page-header>
 
     <x-panel x-data="{ tab: 'base', base: '{{ old('base_image') }}', overlay: '{{ old('overlay_image') }}' }">

@@ -2,16 +2,16 @@
 
 @section('content')
     <x-page-header :title="$form->name">
-        <x-slot name="pretitle">
+        <x-slot:pretitle>
             <a href="{{ route('forms.index') }}">Forms</a>
-        </x-slot>
+        </x-slot:pretitle>
 
-        <x-slot name="controls">
+        <x-slot:controls>
             @can('update', $form)
                 <x-link :href="route('forms.edit', $form)" color="blue-outline">Design Form</x-link>
                 <x-link :href="route('forms.edit', $form)" color="blue">Edit Form</x-link>
             @endcan
-        </x-slot>
+        </x-slot:controls>
     </x-page-header>
 
     <x-panel>

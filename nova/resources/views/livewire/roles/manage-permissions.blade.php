@@ -7,17 +7,17 @@
                 <div class="w-full sm:w-1/3">
                     <x-input.group>
                         <x-input.text wire:model.debounce.500ms="filters.search" placeholder="Find assigned permissions...">
-                            <x-slot name="leadingAddOn">
+                            <x-slot:leadingAddOn>
                                 @icon('search', 'h-5 w-5')
-                            </x-slot>
+                            </x-slot:leadingAddOn>
 
-                            <x-slot name="trailingAddOn">
+                            <x-slot:trailingAddOn>
                                 @if ($filters['search'])
                                     <x-button color="gray-text" size="none" wire:click="$set('filters.search', '')">
                                         @icon('close')
                                     </x-button>
                                 @endif
-                            </x-slot>
+                            </x-slot:trailingAddOn>
                         </x-input.text>
                     </x-input.group>
                 </div>
@@ -41,7 +41,7 @@
 
     @if ($permissions->total() > 0)
         <x-table class="rounded-b-lg">
-            <x-slot name="head">
+            <x-slot:head>
                 @can('update', $role)
                     <x-table.heading class="pr-0 w-8 leading-0">
                         <x-input.checkbox wire:model="selectPage" />
@@ -50,8 +50,9 @@
 
                 <x-table.heading>Name</x-table.heading>
                 <x-table.heading>Description</x-table.heading>
-            </x-slot>
-            <x-slot name="body">
+            </x-slot:head>
+
+            <x-slot:body>
                 @if ($selectPage)
                     <x-table.row>
                         <x-table.cell class="bg-blue-3" colspan="3">
@@ -80,7 +81,7 @@
                         <x-table.cell>{{ $permission->description }}</x-table.cell>
                     </x-table.row>
                 @endforeach
-            </x-slot>
+            </x-slot:body>
         </x-table>
 
         @if ($permissions->total() > $permissions->perPage())

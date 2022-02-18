@@ -2,13 +2,13 @@
 
 @section('content')
     <x-page-header>
-        <x-slot name="title">
+        <x-slot:title>
             {{ request()->has('pending') ? 'Pending ' : '' }}Themes
-        </x-slot>
+        </x-slot:title>
 
-        <x-slot name="controls">
+        <x-slot:controls>
             <x-dropdown placement="bottom-start md:bottom-end">
-                <x-slot name="trigger">@icon('filter', 'h-7 w-7 md:h-6 md:w-6')</x-slot>
+                <x-slot:trigger>@icon('filter', 'h-7 w-7 md:h-6 md:w-6')</x-slot:trigger>
 
                 <x-dropdown.group>
                     <x-dropdown.text class="uppercase tracking-wide font-semibold text-gray-11">
@@ -25,7 +25,7 @@
                     Add Theme
                 </x-link>
             @endcan
-        </x-slot>
+        </x-slot:controls>
     </x-page-header>
 
     @if ($themes->count() > 0)
@@ -43,20 +43,20 @@
                             </h3>
 
                             <x-dropdown placement="bottom-end">
-                                <x-slot name="trigger">
+                                <x-slot:trigger>
                                     <x-icon.more class="h-6 w-6" />
-                                </x-slot>
+                                </x-slot:trigger>
 
                                 @if (! $theme->exists)
                                     <x-dropdown.group>
                                         <x-dropdown.item type="submit" icon="arrow-right" form="install-form-{{ $theme->location }}">
                                             <span>Install</span>
 
-                                            <x-slot name="buttonForm">
+                                            <x-slot:buttonForm>
                                                 <x-form :action="route('themes.install')" id="install-form-{{ $theme->location }}">
                                                     <input type="hidden" name="theme" value="{{ $theme->location }}">
                                                 </x-form>
-                                            </x-slot>
+                                            </x-slot:buttonForm>
                                         </x-dropdown.item>
                                     </x-dropdown.group>
                                 @else
@@ -125,7 +125,7 @@
     </div>
 
     <x-modal color="red" title="Delete Theme?" icon="warning" :url="route('themes.delete')">
-        <x-slot name="footer">
+        <x-slot:footer>
             <span class="flex w-full sm:col-start-2">
                 <x-button type="submit" form="form" color="red" full-width>
                     Delete
@@ -136,6 +136,6 @@
                     Cancel
                 </x-button>
             </span>
-        </x-slot>
+        </x-slot:footer>
     </x-modal>
 @endsection

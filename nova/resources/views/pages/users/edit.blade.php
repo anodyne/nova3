@@ -2,9 +2,9 @@
 
 @section('content')
     <x-page-header :title="$user->name">
-        <x-slot name="pretitle">
+        <x-slot:pretitle>
             <a href="{{ route('users.index', "status={$user->status->name()}") }}">Users</a>
-        </x-slot>
+        </x-slot:pretitle>
     </x-page-header>
 
     <x-panel x-data="tabsList('details')">

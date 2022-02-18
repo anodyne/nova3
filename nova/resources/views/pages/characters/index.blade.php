@@ -2,16 +2,16 @@
 
 @section('content')
     <x-page-header>
-        <x-slot name="title">
+        <x-slot:title>
             @if (request()->has('status'))
                 {{ ucfirst(request()->status) }}
             @endif
             Characters
-        </x-slot>
+        </x-slot:title>
 
-        <x-slot name="controls">
+        <x-slot:controls>
             <x-dropdown placement="bottom-start md:bottom-end" wide>
-                <x-slot name="trigger">@icon('filter', 'h-7 w-7 md:h-6 md:w-6')</x-slot>
+                <x-slot:trigger>@icon('filter', 'h-7 w-7 md:h-6 md:w-6')</x-slot:trigger>
 
                 @can('viewAny', Nova\Characters\Models\Character::class)
                     <x-dropdown.group>
@@ -82,21 +82,21 @@
                     Add Character
                 </x-link>
             @endcan
-        </x-slot>
+        </x-slot:controls>
     </x-page-header>
 
     <x-panel>
         <div>
             <x-content-box class="sm:hidden">
                 <select @change="window.location.replace($event.target.value)" aria-label="Selected tab" class="mt-1 form-select bg-gray-1 block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-200 sm:text-sm rounded-md">
-                    <option value="{{ route('characters.index', 'status=active') }}"{{ request()->status === 'active' ? 'selected' : '' }}>Active Characters</option>
+                    <option value="{{ route('characters.index', 'status=active') }}" @selected(request()->status === 'active')>Active Characters</option>
 
                     @can('approveAny', Nova\Characters\Models\Character::class)
-                        <option value="{{ route('characters.index', 'status=pending') }}"{{ request()->status === 'pending' ? 'selected' : '' }}>Pending Characters</option>
+                        <option value="{{ route('characters.index', 'status=pending') }}" @selected(request()->status === 'pending')>Pending Characters</option>
                     @endcan
 
-                    <option value="{{ route('characters.index', 'status=inactive') }}"{{ request()->status === 'inactive' ? 'selected' : '' }}>Inactive Characters</option>
-                    <option value="{{ route('characters.index') }}"{{ !request()->has('status') ? 'selected' : '' }}>All Characters</option>
+                    <option value="{{ route('characters.index', 'status=inactive') }}" @selected(request()->status === 'inactive')>Inactive Characters</option>
+                    <option value="{{ route('characters.index') }}" @selected(! request()->has('status'))>All Characters</option>
                 </select>
             </x-content-box>
             <div class="hidden sm:block">
@@ -148,14 +148,14 @@
                                 <div class="min-w-0 flex-1 pr-4 md:grid md:grid-cols-2 md:gap-4">
                                     <div>
                                         <x-avatar-meta :src="$character->avatar_url">
-                                            <x-slot name="primaryMeta">
+                                            <x-slot:primaryMeta>
                                                 {{ optional(optional($character->rank)->name)->name }}
                                                 {{ $character->name }}
-                                            </x-slot>
+                                            </x-slot:primaryMeta>
 
-                                            <x-slot name="secondaryMeta">
+                                            <x-slot:secondaryMeta>
                                                 {{ $character->positions->implode('name', ' & ') }}
-                                            </x-slot>
+                                            </x-slot:secondaryMeta>
                                         </x-avatar-meta>
                                     </div>
                                     <div>
@@ -182,9 +182,9 @@
                             </div>
                             <div class="leading-0">
                                 <x-dropdown placement="bottom-end">
-                                    <x-slot name="trigger">
+                                    <x-slot:trigger>
                                         <x-icon.more class="h-6 w-6" />
-                                    </x-slot>
+                                    </x-slot:trigger>
 
                                     <x-dropdown.group>
                                         @can('view', $character)
@@ -205,9 +205,9 @@
                                             <x-dropdown.item type="submit" icon="check" form="activate" data-cy="activate">
                                                 <span>Activate</span>
 
-                                                <x-slot name="buttonForm">
+                                                <x-slot:buttonForm>
                                                     <x-form :action="route('characters.activate', $character)" id="activate" />
-                                                </x-slot>
+                                                </x-slot:buttonForm>
                                             </x-dropdown.item>
                                         </x-dropdown.group>
                                     @endcan
@@ -247,7 +247,7 @@
     <x-tips section="characters" />
 
     <x-modal color="red" title="Delete character?" icon="warning" :url="route('characters.delete')">
-        <x-slot name="footer">
+        <x-slot:footer>
             <span class="flex w-full sm:col-start-2">
                 <x-button type="submit" form="form" color="red" full-width>
                     Delete
@@ -258,11 +258,11 @@
                     Cancel
                 </x-button>
             </span>
-        </x-slot>
+        </x-slot:footer>
     </x-modal>
 
     <x-modal color="blue" title="Deactivate character?" icon="copy" :url="route('characters.confirm-deactivate')" event="modal-deactivate">
-        <x-slot name="footer">
+        <x-slot:footer>
             <span class="flex w-full sm:col-start-2">
                 <x-button type="submit" form="form-deactivate" color="blue" full-width>
                     Deactivate
@@ -273,6 +273,6 @@
                     Cancel
                 </x-button>
             </span>
-        </x-slot>
+        </x-slot:footer>
     </x-modal>
 @endsection

@@ -2,7 +2,7 @@
 
 @section('content')
     <x-page-header title="Add Position">
-        <x-slot name="pretitle">
+        <x-slot:pretitle>
             <div class="flex items-center">
                 <a href="{{ route('departments.index') }}">Departments</a>
 
@@ -11,7 +11,7 @@
                     <a href="{{ route('positions.index', $selectedDepartment) }}">{{ $selectedDepartment->name }}</a>
                 @endif
             </div>
-        </x-slot>
+        </x-slot:pretitle>
     </x-page-header>
 
     <x-panel>
@@ -38,11 +38,11 @@
             </x-form.section>
 
             <x-form.section title="Availability">
-                <x-slot name="message">
+                <x-slot:message>
                     You can allow or prevent prospective players from picking this position when applying to join by setting the number of available slots.
 
                     <p class="block"><strong class="font-semibold">Note:</strong> after setting this number, Nova will manage keep the number updated for you as characters are assigned and un-assigned to this position.</p>
-                </x-slot>
+                </x-slot:message>
 
                 <x-input.group label="Available Slots" for="available">
                     <div class="w-full sm:w-1/3">

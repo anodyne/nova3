@@ -42,7 +42,7 @@ class Dropdown extends Component
     {
         return collect(explode(' ', $this->placement))
             ->map(function ($placement) {
-                $string = Str::of($placement);
+                $string = str($placement);
 
                 if ($string->contains(':')) {
                     return $this->placement($string->after(':'), $string->before(':'));

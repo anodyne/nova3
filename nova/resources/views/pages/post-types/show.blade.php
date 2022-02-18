@@ -2,15 +2,15 @@
 
 @section('content')
     <x-page-header :title="$postType->name">
-        <x-slot name="pretitle">
+        <x-slot:pretitle>
             <a href="{{ route('post-types.index') }}">Post Types</a>
-        </x-slot>
+        </x-slot:pretitle>
 
-        <x-slot name="controls">
+        <x-slot:controls>
             @can('update', $postType)
                 <x-link :href="route('post-types.edit', $postType)" color="blue">Edit Post Type</x-link>
             @endcan
-        </x-slot>
+        </x-slot:controls>
     </x-page-header>
 
     <x-panel>

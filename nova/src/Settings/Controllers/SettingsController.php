@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Nova\Settings\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Foundation\Models\SystemNotification;
 use Nova\Settings\Actions\UpdateSettings;
@@ -40,7 +39,7 @@ class SettingsController extends Controller
     ) {
         $this->authorize('update', settings());
 
-        $tabString = Str::of($tab)->replace('-', ' ');
+        $tabString = str($tab)->replace('-', ' ');
 
         UpdateSettings::run(
             $tabString->snake(),

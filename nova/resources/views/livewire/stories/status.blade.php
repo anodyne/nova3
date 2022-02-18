@@ -1,17 +1,17 @@
 <div class="leading-0">
     @can('update', $story)
         <x-dropdown placement="bottom-end md:bottom-start" wide>
-            <x-slot name="trigger">
+            <x-slot:trigger>
                 <x-badge :color="$story->status->color()" size="xs">
                     {{ $story->status->displayName() }}
 
-                    <x-slot name="trailingIcon">
+                    <x-slot:trailingIcon>
                         <svg class="{{ $component->iconStyles() }} -mr-1" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                         </svg>
-                    </x-slot>
+                    </x-slot:trailingIcon>
                 </x-badge>
-            </x-slot>
+            </x-slot:trigger>
 
             <x-dropdown.group>
                 <x-dropdown.item type="button" wire:click="updateStatus('upcoming')">
@@ -81,9 +81,9 @@
     @cannot('update', $story)
         <x-badge :color="$story->status->color()" size="xs">
             @if ($story->canPost)
-                <x-slot name="leadingIcon">
+                <x-slot:leadingIcon>
                     @icon('edit', $component->iconStyles())
-                </x-slot>
+                </x-slot:leadingIcon>
             @endif
 
             {{ $story->status->displayName() }}

@@ -2,9 +2,9 @@
 
 @section('content')
     <x-page-header title="Delete Story">
-        <x-slot name="pretitle">
+        <x-slot:pretitle>
             <a href="{{ route('stories.index') }}">Stories</a>
-        </x-slot>
+        </x-slot:pretitle>
     </x-page-header>
 
     <x-form :action="route('stories.destroy')" method="DELETE" :divide="false">

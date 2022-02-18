@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Kalnoy\Nestedset\NodeTrait;
@@ -67,35 +68,47 @@ class Story extends Model implements HasMedia
         return $this->hasMany(self::class, 'parent_id');
     }
 
-    public function getCanPostAttribute(): bool
+    public function allStoriesPostCount(): Attribute
     {
-        return $this->status->equals(Current::class);
+        return new Attribute(
+            get: function ($value): int {
+                if ($this->getDescendantCount() > 0) {
+                    return Story::withCount('posts')
+                        ->descendantsAndSelf($this->id)
+                        ->sum('posts_count');
+                }
+
+                return 0;
+            }
+        );
     }
 
-    public function getPostCountAttribute(): int
+    public function canPost(): Attribute
     {
-        return $this->posts()->count();
+        return new Attribute(
+            get: fn ($value): bool => $this->status->equals(Current::class)
+        );
     }
 
-    public function getAllStoriesPostCountAttribute(): int
+    public function isCurrent(): Attribute
     {
-        if ($this->getDescendantCount() > 0) {
-            return Story::withCount('posts')
-                ->descendantsAndSelf($this->id)
-                ->sum('posts_count');
-        }
-
-        return 0;
+        return new Attribute(
+            get: fn ($value): bool => $this->status->equals(Current::class)
+        );
     }
 
-    public function isMainTimeline(): bool
+    public function isMainTimeline(): Attribute
     {
-        return $this->id === 1;
+        return new Attribute(
+            get: fn ($value): bool => $this->id === 1
+        );
     }
 
-    public function getIsCurrentAttribute(): bool
+    public function postCount(): Attribute
     {
-        return $this->status->equals(Current::class);
+        return new Attribute(
+            get: fn ($value): int => $this->posts()->count()
+        );
     }
 
     public function newEloquentBuilder($query): StoryBuilder

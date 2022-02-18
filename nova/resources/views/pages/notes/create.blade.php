@@ -2,9 +2,9 @@
 
 @section('content')
     <x-page-header title="Add Note">
-        <x-slot name="pretitle">
+        <x-slot:pretitle>
             <a href="{{ route('notes.index') }}">Notes</a>
-        </x-slot>
+        </x-slot:pretitle>
     </x-page-header>
 
     <x-panel>
