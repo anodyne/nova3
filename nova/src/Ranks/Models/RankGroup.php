@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Nova\Ranks\Events;
 use Nova\Ranks\Models\Builders\RankGroupBuilder;
+use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class RankGroup extends Model
@@ -39,16 +40,14 @@ class RankGroup extends Model
             ->orderBy('sort', 'asc');
     }
 
-    /**
-     * Set the description for logging.
-     *
-     * @param  string  $eventName
-     *
-     * @return string
-     */
-    public function getDescriptionForEvent(string $eventName): string
+    public function getActivitylogOptions(): LogOptions
     {
-        return ":subject.name rank group was {$eventName}";
+        return LogOptions::defaults()
+            ->logFillable()
+            ->useLogName('admin')
+            ->setDescriptionForEvent(
+                fn (string $eventName) => ":subject.name rank group was {$eventName}"
+            );
     }
 
     /**

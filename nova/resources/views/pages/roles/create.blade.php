@@ -2,9 +2,9 @@
 
 @section('content')
     <x-page-header title="Add Role">
-        <x-slot name="pretitle">
+        <x-slot:pretitle>
             <a href="{{ route('roles.index') }}">Roles</a>
-        </x-slot>
+        </x-slot:pretitle>
     </x-page-header>
 
     <x-panel

@@ -4,9 +4,9 @@
 
 @section('content')
     <x-page-header title="Add Character">
-        <x-slot name="pretitle">
+        <x-slot:pretitle>
             <a href="{{ route('characters.index', 'status=active') }}">Characters</a>
-        </x-slot>
+        </x-slot:pretitle>
     </x-page-header>
 
     <x-panel>
@@ -46,7 +46,7 @@
                 </x-form.section>
             @else
                 <x-form.section title="Ownership" class="border-purple-3">
-                    <x-slot name="message">
+                    <x-slot:message>
                         @if (! $settings->characters->autoLinkCharacter)
                             <p>Set whether this character should be automatically linked to your account.</p>
                         @endif
@@ -58,7 +58,7 @@
                         @if ($settings->characters->enforceCharacterLimits && auth()->user()->activeCharacters()->count() >= $settings->characters->characterLimit)
                             <p><span class="font-semibold">Note:</span> You have reached the maximum allowed number of linked characters. If this character is intended to be linked to your account it will be created, but will require approval for it to be available on your account.</p>
                         @endif
-                    </x-slot>
+                    </x-slot:message>
 
                     @if ($settings->characters->autoLinkCharacter)
                         <x-alert class="bg-gray-3 border-gray-6 text-gray-11">This character will automatically be linked to your account.</x-alert>

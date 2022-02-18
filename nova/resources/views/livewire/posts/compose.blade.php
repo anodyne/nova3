@@ -80,11 +80,11 @@
         </x-form.section>
 
         <x-form.section title="Ratings">
-            <x-slot name="message">
+            <x-slot:message>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia quam eius provident ex modi nam, at ullam quia labore similique.</p>
 
                 <p><strong>Note:</strong> Your post's ratings will match the game's overall ratings until you change them for this post.</p>
-            </x-slot>
+            </x-slot:message>
 
             <x-input.group label="Language" class="w-72">
                 <x-rating :value="1" wire:model="ratingLanguage" />

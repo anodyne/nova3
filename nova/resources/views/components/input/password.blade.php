@@ -9,7 +9,7 @@
 >
     <input :type="type" class="form-field" {{ $attributes }}>
 
-    <x-slot name="trailingAddOn">
+    <x-slot:trailingAddOn>
         <button @click="showPassword = !showPassword" type="button" class="focus:outline-none" x-cloak>
             <div x-show="showPassword" class="leading-0">
                 @icon('hide')
@@ -18,5 +18,5 @@
                 @icon('show')
             </div>
         </button>
-    </x-slot>
+    </x-slot:trailingAddOn>
 </x-input.field>

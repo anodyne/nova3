@@ -5,15 +5,12 @@ declare(strict_types=1);
 namespace Nova\Pages;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Page extends Model
 {
     use LogsActivity;
-
-    protected static $logFillable = true;
-
-    protected static $logName = 'admin';
 
     protected $fillable = [
         'uri', 'key', 'verb', 'resource', 'layout',
@@ -32,15 +29,13 @@ class Page extends Model
         return $query->where('key', $key);
     }
 
-    /**
-     * Set the description for logging.
-     *
-     * @param  string  $eventName
-     *
-     * @return string
-     */
-    public function getDescriptionForEvent(string $eventName): string
+    public function getActivitylogOptions(): LogOptions
     {
-        return ":subject.key page was {$eventName}";
+        return LogOptions::defaults()
+            ->logFillable()
+            ->useLogName('admin')
+            ->setDescriptionForEvent(
+                fn (string $eventName) => ":subject.key page was {$eventName}"
+            );
     }
 }

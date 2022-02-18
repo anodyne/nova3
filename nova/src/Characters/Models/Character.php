@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -16,6 +17,7 @@ use Nova\Ranks\Models\RankItem;
 use Nova\Stories\Models\Post;
 use Nova\Users\Models\States\Active as ActiveUser;
 use Nova\Users\Models\User;
+use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -32,8 +34,6 @@ class Character extends Model implements HasMedia
     use SoftDeletes;
 
     public const MEDIA_DIRECTORY = 'characters/{model_id}/{media_id}/';
-
-    protected static $logFillable = true;
 
     protected $casts = [
         'status' => CharacterStatus::class,
@@ -87,19 +87,27 @@ class Character extends Model implements HasMedia
             ->withTimestamps();
     }
 
-    public function getDescriptionForEvent(string $eventName): string
+    public function getActivitylogOptions(): LogOptions
     {
-        return ":subject.name was {$eventName}";
+        return LogOptions::defaults()
+            ->logFillable()
+            ->setDescriptionForEvent(
+                fn (string $eventName) => ":subject.name was {$eventName}"
+            );
     }
 
-    public function getAvatarUrlAttribute(): string
+    public function avatarUrl(): Attribute
     {
-        return $this->getFirstMediaUrl('avatar');
+        return new Attribute(
+            get: fn ($value): string => $this->getFirstMediaUrl('avatar')
+        );
     }
 
-    public function getHasAvatarAttribute(): bool
+    public function hasAvatar(): Attribute
     {
-        return $this->getFirstMedia('avatar') !== null;
+        return new Attribute(
+            get: fn ($value): bool => $this->getFirstMedia('avatar') !== null
+        );
     }
 
     public function newEloquentBuilder($query): CharacterBuilder

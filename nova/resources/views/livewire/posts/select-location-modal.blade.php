@@ -10,17 +10,17 @@
         <div>
             <x-input.group>
                 <x-input.text placeholder="Search locations" wire:model.debounce.500ms="search" autofocus>
-                    <x-slot name="leadingAddOn">
+                    <x-slot:leadingAddOn>
                         @icon('search')
-                    </x-slot>
+                    </x-slot:leadingAddOn>
 
-                    <x-slot name="trailingAddOn">
+                    <x-slot:trailingAddOn>
                         @if ($search)
                             <x-button color="gray-text" size="none" wire:click="$set('search', '')">
                                 @icon('close')
                             </x-button>
                         @endif
-                    </x-slot>
+                    </x-slot:trailingAddOn>
                 </x-input.text>
             </x-input.group>
 

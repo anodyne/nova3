@@ -2,10 +2,10 @@
 
 @section('content')
     <x-page-header title="Stories">
-        <x-slot name="controls">
+        <x-slot:controls>
             @if ($storyCount > 0)
                 <x-dropdown placement="bottom-start md:bottom-end">
-                    <x-slot name="trigger">@icon('filter', 'h-7 w-7 md:h-6 md:w-6')</x-slot>
+                    <x-slot:trigger>@icon('filter', 'h-7 w-7 md:h-6 md:w-6')</x-slot:trigger>
 
                     <x-dropdown.group>
                         <x-dropdown.item :href="route('stories.index', 'sort=asc')">
@@ -33,7 +33,7 @@
                     </x-link>
                 @endcan
             @endif
-        </x-slot>
+        </x-slot:controls>
     </x-page-header>
 
     @if ($storyCount === 0)

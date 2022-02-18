@@ -2,15 +2,15 @@
 
 @section('content')
     <x-page-header :title="$character->name">
-        <x-slot name="pretitle">
+        <x-slot:pretitle>
             <a href="{{ route('characters.index', "status={$character->status->name()}") }}">Characters</a>
-        </x-slot>
+        </x-slot:pretitle>
 
-        <x-slot name="controls">
+        <x-slot:controls>
             @can('update', $character)
                 <x-link :href="route('characters.edit', $character)" color="blue">Edit Character</x-link>
             @endcan
-        </x-slot>
+        </x-slot:controls>
     </x-page-header>
 
     <x-panel>
@@ -31,9 +31,9 @@
 
                 @if ($character->positions->count() > 0)
                     <x-input.group>
-                        <x-slot name="label">
+                        <x-slot:label>
                             @choice('Position|Positions', $character->positions)
-                        </x-slot>
+                        </x-slot:label>
 
                         <div class="flex flex-col w-full">
                             @foreach ($character->positions as $position)
@@ -66,13 +66,13 @@
                                 <div class="group flex items-center justify-between py-2 px-4 rounded odd:bg-gray-3">
                                     <div class="flex items-center">
                                         <x-avatar-meta size="lg" :src="$user->avatar_url">
-                                            <x-slot name="primaryMeta">
+                                            <x-slot:primaryMeta>
                                                 {{ $user->name }}
-                                            </x-slot>
+                                            </x-slot:primaryMeta>
 
-                                            <x-slot name="secondaryMeta">
+                                            <x-slot:secondaryMeta>
                                                 <x-badge :color="$user->status->color()" size="xs">{{ $user->status->displayName() }}</x-badge>
-                                            </x-slot>
+                                            </x-slot:secondaryMeta>
                                         </x-avatar-meta>
                                     </div>
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Users\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -19,6 +20,8 @@ use Nova\Users\Events;
 use Nova\Users\Models\Builders\UserBuilder;
 use Nova\Users\Models\Collections\UsersCollection;
 use Nova\Users\Models\States\UserStatus;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -27,6 +30,7 @@ use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
 class User extends Authenticatable implements MustVerifyEmail, HasMedia
 {
+    use CausesActivity;
     use HasEagerLimit;
     use HasFactory;
     use HasStates;
@@ -37,8 +41,6 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     use SoftDeletes;
 
     public const MEDIA_DIRECTORY = 'users/{model_id}/{media_id}/';
-
-    protected static $logFillable = true;
 
     protected $casts = [
         'force_password_reset' => 'boolean',
@@ -98,36 +100,27 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
         return $this->morphMany(Post::class, 'authorable');
     }
 
-    /**
-     * Set the description for logging.
-     *
-     * @param  string  $eventName
-     *
-     * @return string
-     */
-    public function getDescriptionForEvent(string $eventName): string
+    public function getActivitylogOptions(): LogOptions
     {
-        return ":subject.name was {$eventName}";
+        return LogOptions::defaults()
+            ->logFillable()
+            ->setDescriptionForEvent(
+                fn (string $eventName) => ":subject.name was {$eventName}"
+            );
     }
 
-    /**
-     * Get the URL of the user's avatar.
-     *
-     * @return string
-     */
-    public function getAvatarUrlAttribute(): string
+    public function avatarUrl(): Attribute
     {
-        return $this->getFirstMediaUrl('avatar');
+        return new Attribute(
+            get: fn ($value): string => $this->getFirstMediaUrl('avatar')
+        );
     }
 
-    /**
-     * Does the user have an avatar?
-     *
-     * @return bool
-     */
-    public function getHasAvatarAttribute(): bool
+    public function hasAvatar(): Attribute
     {
-        return $this->getFirstMedia('avatar') !== null;
+        return new Attribute(
+            get: fn ($value): bool => $this->getFirstMedia('avatar') !== null
+        );
     }
 
     /**
@@ -135,31 +128,47 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
      *
      * @return bool
      */
-    public function canManage(): bool
+    public function canManage(): Attribute
     {
-        return $this->isAbleTo('department.*')
-            || $this->isAbleTo('rank.*')
-            || $this->isAbleTo('role.*')
-            || $this->isAbleTo('theme.*')
-            || $this->isAbleTo('user.*');
+        return new Attribute(
+            get: function ($value): bool {
+                return $this->isAbleTo('department.*')
+                    || $this->isAbleTo('rank.*')
+                    || $this->isAbleTo('role.*')
+                    || $this->isAbleTo('theme.*')
+                    || $this->isAbleTo('user.*');
+            }
+        );
     }
 
-    public function canManageUsers(): bool
+    public function canManageUsers(): Attribute
     {
-        return $this->isAbleTo('user.*')
-            || $this->isAbleTo('role.*');
+        return new Attribute(
+            get: function ($value): bool {
+                return $this->isAbleTo('user.*')
+                    || $this->isAbleTo('role.*');
+            }
+        );
     }
 
-    public function canManageSystem(): bool
+    public function canManageSystem(): Attribute
     {
-        return $this->isAbleTo('theme.*');
+        return new Attribute(
+            get: function ($value): bool {
+                return $this->isAbleTo('theme.*');
+            }
+        );
     }
 
-    public function canWrite(): bool
+    public function canWrite(): Attribute
     {
-        return $this->isAbleTo('post.*')
-            || $this->isAbleTo('story.*')
-            || $this->isAbleTo('post-type.*');
+        return new Attribute(
+            get: function ($value): bool {
+                return $this->isAbleTo('post.*')
+                    || $this->isAbleTo('story.*')
+                    || $this->isAbleTo('post-type.*');
+            }
+        );
     }
 
     /**

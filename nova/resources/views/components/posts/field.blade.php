@@ -9,11 +9,11 @@
 @if ($field->enabled)
     <div class="flex flex-col space-y-1 w-full">
         <x-input.field>
-            <x-slot name="leadingAddOn">
+            <x-slot:leadingAddOn>
                 @if ($icon)
                     @icon($icon, 'h-5 w-5 text-gray-9 group-focus-within:text-gray-11')
                 @endif
-            </x-slot>
+            </x-slot:leadingAddOn>
 
             <input type="text" {{ $attributes->merge(['class' => 'form-field']) }}>
         </x-input.field>

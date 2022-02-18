@@ -2,12 +2,12 @@
 
 @section('content')
     <x-page-header title="Character Settings" x-data="{}">
-        <x-slot name="controls">
+        <x-slot:controls>
             <x-button type="button" color="white" size="sm" @click="$dispatch('toggle-spotlight')">
                 @icon('search', 'h-5 w-5')
                 <span class="ml-2">Find a setting</span>
             </x-button>
-        </x-slot>
+        </x-slot:controls>
     </x-page-header>
 
     <x-panel>
@@ -17,11 +17,11 @@
             id="character"
         >
             <x-form.section title="Character Creation">
-                <x-slot name="message">
+                <x-slot:message>
                     <p>Change how character creation is handled for users who do not have the Create Character permission.</p>
 
                     <p class="block"><strong class="font-semibold">Note:</strong> users with the Create Character permission will always be able to create characters regardless of these settings.</p>
-                </x-slot>
+                </x-slot:message>
 
                 <x-input.group>
                     <x-input.toggle

@@ -7,26 +7,26 @@
                 <div class="w-full sm:w-1/3">
                     <x-input.group>
                         <x-input.text wire:model.debounce.500ms="filters.search" placeholder="Find assigned users...">
-                            <x-slot name="leadingAddOn">
+                            <x-slot:leadingAddOn>
                                 @icon('search', 'h-5 w-5')
-                            </x-slot>
+                            </x-slot:leadingAddOn>
 
-                            <x-slot name="trailingAddOn">
+                            <x-slot:trailingAddOn>
                                 @if ($filters['search'])
                                     <x-button color="gray-text" size="none" wire:click="$set('filters.search', '')">
                                         @icon('close')
                                     </x-button>
                                 @endif
-                            </x-slot>
+                            </x-slot:trailingAddOn>
                         </x-input.text>
                     </x-input.group>
                 </div>
 
                 <div class="flex items-center space-x-4">
                     <x-dropdown placement="bottom-end">
-                        <x-slot name="trigger">
+                        <x-slot:trigger>
                             @icon('filter', 'h-7 w-7 md:h-6 md:w-6')
-                        </x-slot>
+                        </x-slot:trigger>
 
                         <x-dropdown.group>
                             <x-dropdown.item type="button" wire:click="$set('filters.status', '')">
@@ -74,7 +74,7 @@
 
     @if ($users->total() > 0)
         <x-table class="rounded-b-lg">
-            <x-slot name="head">
+            <x-slot:head>
                 @can('update', $role)
                     <x-table.heading class="pr-0 w-8 leading-0">
                         <x-input.checkbox wire:model="selectPage" />
@@ -82,8 +82,9 @@
                 @endcan
 
                 <x-table.heading>Name</x-table.heading>
-            </x-slot>
-            <x-slot name="body">
+            </x-slot:head>
+
+            <x-slot:body>
                 @if ($selectPage)
                     <x-table.row>
                         <x-table.cell class="bg-blue-3" colspan="3">
@@ -108,18 +109,18 @@
 
                         <x-table.cell>
                             <x-avatar-meta :src="$user->avatar_url">
-                                <x-slot name="primaryMeta">{{ $user->name }}</x-slot>
+                                <x-slot:primaryMeta>{{ $user->name }}</x-slot:primaryMeta>
 
-                                <x-slot name="secondaryMeta">
+                                <x-slot:secondaryMeta>
                                     <x-badge size="xs" :color="$user->status->color()">
                                         {{ $user->status->displayName() }}
                                     </x-badge>
-                                </x-slot>
+                                </x-slot:secondaryMeta>
                             </x-avatar-meta>
                         </x-table.cell>
                     </x-table.row>
                 @endforeach
-            </x-slot>
+            </x-slot:body>
         </x-table>
 
         @if ($users->total() > $users->perPage())

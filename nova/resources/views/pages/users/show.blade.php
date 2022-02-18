@@ -2,15 +2,15 @@
 
 @section('content')
     <x-page-header :title="$user->name">
-        <x-slot name="pretitle">
+        <x-slot:pretitle>
             <a href="{{ route('users.index', "status={$user->status->name()}") }}">Users</a>
-        </x-slot>
+        </x-slot:pretitle>
 
-        <x-slot name="controls">
+        <x-slot:controls>
             @can('update', $user)
                 <x-link :href="route('users.edit', $user)" color="blue">Edit User</x-link>
             @endcan
-        </x-slot>
+        </x-slot:controls>
     </x-page-header>
 
     <x-panel>

@@ -4,12 +4,12 @@
 
 @section('content')
     <x-page-header title="System Defaults Settings" x-data="{}">
-        <x-slot name="controls">
+        <x-slot:controls>
             <x-button type="button" color="white" size="sm" @click="$dispatch('toggle-spotlight')">
                 @icon('search', 'h-5 w-5')
                 <span class="ml-2">Find a setting</span>
             </x-button>
-        </x-slot>
+        </x-slot:controls>
     </x-page-header>
 
     <x-panel>

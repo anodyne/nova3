@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Livewire;
 
-use Illuminate\Support\Str;
 use Livewire\Component;
 
 class Editor extends Component
@@ -22,7 +21,7 @@ class Editor extends Component
 
     public function getWordCountProperty(): string
     {
-        return number_format(Str::of($this->content)->pipe('strip_tags')->wordCount());
+        return number_format(str($this->content)->pipe('strip_tags')->wordCount());
     }
 
     public function mount($content = '', $fieldName = 'editor-content')

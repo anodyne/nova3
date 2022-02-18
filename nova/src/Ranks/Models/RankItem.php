@@ -9,16 +9,13 @@ use Illuminate\Database\Eloquent\Model;
 use Nova\Characters\Models\Character;
 use Nova\Ranks\Events;
 use Nova\Ranks\Models\Builders\RankItemBuilder;
+use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class RankItem extends Model
 {
     use HasFactory;
     use LogsActivity;
-
-    protected static $logFillable = true;
-
-    protected static $logName = 'admin';
 
     protected $casts = [
         'sort' => 'integer',
@@ -51,16 +48,14 @@ class RankItem extends Model
         return $this->belongsTo(RankName::class, 'name_id');
     }
 
-    /**
-     * Set the description for logging.
-     *
-     * @param  string  $eventName
-     *
-     * @return string
-     */
-    public function getDescriptionForEvent(string $eventName): string
+    public function getActivitylogOptions(): LogOptions
     {
-        return ":subject.name rank name was {$eventName}";
+        return LogOptions::defaults()
+            ->logFillable()
+            ->useLogName('admin')
+            ->setDescriptionForEvent(
+                fn (string $eventName) => ":subject.name rank item was {$eventName}"
+            );
     }
 
     /**

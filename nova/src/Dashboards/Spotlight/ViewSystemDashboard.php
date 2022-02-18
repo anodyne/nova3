@@ -25,6 +25,6 @@ class ViewSystemDashboard extends SpotlightCommand
 
     public function shouldBeShown(Request $request): bool
     {
-        return $request->user()?->canManageSystem() ?? false;
+        return $request->user()?->canManageSystem ?? false;
     }
 }

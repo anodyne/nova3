@@ -82,10 +82,10 @@
         <div class="pb-8">
             <div class="p-4 sm:hidden">
                 <select @change="window.location.replace($event.target.value)" aria-label="Selected tab" class="mt-1 form-select bg-gray-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring focus:border-blue-7 sm:text-sm transition ease-in-out duration-200">
-                    <option value="{{ route('users.index', 'status=active') }}"{{ request()->status === 'active' ? 'selected' : '' }}>Active Users</option>
-                    <option value="{{ route('users.index', 'status=pending') }}"{{ request()->status === 'pending' ? 'selected' : '' }}>Pending Users</option>
-                    <option value="{{ route('users.index', 'status=inactive') }}"{{ request()->status === 'inactive' ? 'selected' : '' }}>Inactive Users</option>
-                    <option value="{{ route('users.index') }}"{{ !request()->has('status') ? 'selected' : '' }}>All Users</option>
+                    <option value="{{ route('users.index', 'status=active') }}" @selected(request()->status === 'active')>Active Users</option>
+                    <option value="{{ route('users.index', 'status=pending') }}" @selected(request()->status === 'pending')>Pending Users</option>
+                    <option value="{{ route('users.index', 'status=inactive') }}" @selected(request()->status === 'inactive')>Inactive Users</option>
+                    <option value="{{ route('users.index') }}" @selected(! request()->has('status'))>All Users</option>
                 </select>
             </div>
             <div class="hidden sm:block">
@@ -122,15 +122,15 @@
     </x-panel>
 
     {{-- <x-page-header :title="$user->name">
-        <x-slot name="pretitle">
+        <x-slot:pretitle>
             <a href="{{ route('users.index', "status={$user->status->name()}") }}">Users</a>
-        </x-slot>
+        </x-slot:pretitle>
 
-        <x-slot name="controls">
+        <x-slot:controls>
             @can('update', $user)
                 <x-link :href="route('users.edit', $user)" color="blue">Edit User</x-link>
             @endcan
-        </x-slot>
+        </x-slot:controls>
     </x-page-header>
 
     <x-panel>

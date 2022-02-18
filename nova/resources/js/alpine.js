@@ -1,6 +1,6 @@
 import Alpine from 'alpinejs';
 
-import Trap from '@alpinejs/trap';
+import Focus from '@alpinejs/focus';
 
 import AdminThemeToggle from './components/admin-theme-toggle';
 import ListBox from './components/list-box';
@@ -12,7 +12,7 @@ import TipTap from './components/tiptap';
 import ToggleSwitch from './components/toggle-switch';
 import WordCount from './components/word-count';
 
-Alpine.plugin(Trap);
+Alpine.plugin(Focus);
 
 Alpine.data('adminThemeToggle', AdminThemeToggle);
 Alpine.data('listBox', ListBox);

@@ -9,16 +9,13 @@ use Illuminate\Database\Eloquent\Model;
 use Nova\Notes\Events;
 use Nova\Notes\Models\Builders\NoteBuilder;
 use Nova\Users\Models\User;
+use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Note extends Model
 {
     use HasFactory;
     use LogsActivity;
-
-    protected static $logFillable = true;
-
-    protected static $logName = 'admin';
 
     protected $casts = [
         'source' => 'array',
@@ -37,9 +34,14 @@ class Note extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function getDescriptionForEvent(string $eventName): string
+    public function getActivitylogOptions(): LogOptions
     {
-        return ":subject.title note was {$eventName}";
+        return LogOptions::defaults()
+            ->logFillable()
+            ->useLogName('admin')
+            ->setDescriptionForEvent(
+                fn (string $eventName) => ":subject.name note was {$eventName}"
+            );
     }
 
     public function newEloquentBuilder($query): NoteBuilder

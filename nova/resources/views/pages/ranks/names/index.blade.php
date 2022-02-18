@@ -2,7 +2,7 @@
 
 @section('content')
     <x-page-header title="Rank Names" pretitle="Ranks">
-        <x-slot name="controls">
+        <x-slot:controls>
             @if ($nameCount > 0)
                 @can('update', $names->first())
                     <x-link :href="route('ranks.names.index', 'reorder')" color="gray-text" size="none">
@@ -16,7 +16,7 @@
                     </x-link>
                 @endcan
             @endif
-        </x-slot>
+        </x-slot:controls>
     </x-page-header>
 
     @if ($nameCount === 0)
@@ -88,9 +88,9 @@
                                 </div>
                                 <div class="ml-5 shrink-0 leading-0">
                                     <x-dropdown placement="bottom-end">
-                                        <x-slot name="trigger">
+                                        <x-slot:trigger>
                                             <x-icon.more class="h-6 w-6" />
-                                        </x-slot>
+                                        </x-slot:trigger>
 
                                         <x-dropdown.group>
                                             @can('view', $name)
@@ -109,9 +109,9 @@
                                                 <x-dropdown.item type="submit" icon="copy" form="duplicate-{{ $name->id }}" data-cy="duplicate">
                                                     <span>Duplicate</span>
 
-                                                    <x-slot name="buttonForm">
+                                                    <x-slot:buttonForm>
                                                         <x-form :action="route('ranks.names.duplicate', $name)" id="duplicate-{{ $name->id }}" class="hidden" />
-                                                    </x-slot>
+                                                    </x-slot:buttonForm>
                                                 </x-dropdown.item>
                                             @endcan
                                         </x-dropdown.group>
@@ -145,7 +145,7 @@
         <x-tips section="ranks" />
 
         <x-modal color="red" title="Delete rank name?" icon="warning" :url="route('ranks.names.delete')">
-            <x-slot name="footer">
+            <x-slot:footer>
                 <span class="flex w-full sm:col-start-2">
                     <x-button type="submit" form="form" color="red" full-width>
                         Delete
@@ -156,7 +156,7 @@
                         Cancel
                     </x-button>
                 </span>
-            </x-slot>
+            </x-slot:footer>
         </x-modal>
     @endif
 @endsection

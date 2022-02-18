@@ -2,12 +2,12 @@
 
 @section('content')
     <x-page-header title="Notifications Settings" x-data="{}">
-        <x-slot name="controls">
+        <x-slot:controls>
             <x-button type="button" color="white" size="sm" @click="$dispatch('toggle-spotlight')">
                 @icon('search', 'h-5 w-5')
                 <span class="ml-2">Find a setting</span>
             </x-button>
-        </x-slot>
+        </x-slot:controls>
     </x-page-header>
 
     <x-panel x-data="tabsList('global')">
@@ -39,13 +39,13 @@
         <x-form :action="route('settings.update')" method="PUT" id="discord" :divide="false" :space="false">
             <x-form.section title="Global Discord Settings" message="You can set global settings for the Discord webhook and accent color to use for all Discord notifications. These settings can be used instead of duplicating the values in each of your notifications." x-show="isTab('global')">
                 <x-input.group label="Discord Webhook" for="webhook" :error="$errors->first('webhook')">
-                    <x-slot name="help">
+                    <x-slot:help>
                         <ol class="list-inside list-decimal ml-0.5 text-gray-11 space-y-1 text-sm">
                             <li>From your Discord server, go to Server Settings > Webhooks</li>
                             <li>Create a new webhook and enter the channel you'd like notifications to be sent to</li>
                             <li>Copy the webhook URL and paste it in the field above</li>
                         </ol>
-                    </x-slot>
+                    </x-slot:help>
 
                     <x-input.text id="webhook" name="webhook" :value="old('webhook', $settings->discord->webhook)" placeholder="https://discordapp.com/api/webhooks/..." />
                 </x-input.group>

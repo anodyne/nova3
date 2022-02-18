@@ -3,11 +3,11 @@
 ])
 
 <x-input.field x-data="{ value: '{{ $value }}' }">
-    <x-slot name="leadingAddOn">
+    <x-slot:leadingAddOn>
         <button type="button" class="focus:outline-none" @click.prevent="value--">
             @icon('remove', 'h-6 w-6')
         </button>
-    </x-slot>
+    </x-slot:leadingAddOn>
 
     <input
         x-model="value"
@@ -18,9 +18,9 @@
         {{ $attributes->merge(['step' => 1]) }}
     >
 
-    <x-slot name="trailingAddOn">
+    <x-slot:trailingAddOn>
         <button type="button" class="focus:outline-none" @click.prevent="value++">
             @icon('add', 'h-6 w-6')
         </button>
-    </x-slot>
+    </x-slot:trailingAddOn>
 </x-input.field>

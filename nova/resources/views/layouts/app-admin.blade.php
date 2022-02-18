@@ -42,9 +42,9 @@
                         @livewire('users:admin-theme-toggle')
 
                         <x-dropdown placement="bottom-end">
-                            <x-slot name="trigger">
+                            <x-slot:trigger>
                                 <x-avatar size="xs" :src="auth()->user()->avatar_url" :tooltip="auth()->user()->name" />
-                            </x-slot>
+                            </x-slot:trigger>
 
                             <x-dropdown.group>
                                 <x-dropdown.item href="#" icon="user">
@@ -62,9 +62,9 @@
                                 <x-dropdown.item type="submit" icon="sign-out" form="logout-form">
                                     <span>Sign out</span>
 
-                                    <x-slot name="buttonForm">
+                                    <x-slot:buttonForm>
                                         <x-form :action="route('logout')" class="hidden" id="logout-form" />
-                                    </x-slot>
+                                    </x-slot:buttonForm>
                                 </x-dropdown.item>
                             </x-dropdown.group>
                         </x-dropdown>
@@ -76,7 +76,7 @@
                         Dashboard
                     </x-nav.main-item>
 
-                    @if (auth()->user()->canWrite())
+                    @if (auth()->user()->canWrite)
                         <x-nav.main-item :href="route('writing-overview')" :active="$meta->subnavSection === 'writing'">
                             Writing
                         </x-nav.main-item>
@@ -90,7 +90,7 @@
                         Characters
                     </x-nav.main-item>
 
-                    @if (auth()->user()->canManageUsers())
+                    @if (auth()->user()->canManageUsers)
                         <x-nav.main-item :href="route('users.index', 'status=active')" :active="$meta->subnavSection === 'users'">
                             Users
                         </x-nav.main-item>
@@ -102,7 +102,7 @@
                         </x-nav.main-item>
                     @endcan
 
-                    @if (auth()->user()->canManageSystem())
+                    @if (auth()->user()->canManageSystem)
                         <x-nav.main-item :href="route('system-overview')" :active="$meta->subnavSection === 'system'">
                             System
                         </x-nav.main-item>
@@ -116,7 +116,7 @@
                         Dashboard
                     </x-nav.main-item-mobile>
 
-                    @if (auth()->user()->canWrite())
+                    @if (auth()->user()->canWrite)
                         <x-nav.main-item-mobile :href="route('writing-overview')" :active="$meta->subnavSection === 'writing'">
                             Writing
                         </x-nav.main-item-mobile>
@@ -130,7 +130,7 @@
                         Characters
                     </x-nav.main-item-mobile>
 
-                    @if (auth()->user()->canManageUsers())
+                    @if (auth()->user()->canManageUsers)
                         <x-nav.main-item-mobile :href="route('users.index', 'status=active')" :active="$meta->subnavSection === 'users'">
                             Users
                         </x-nav.main-item-mobile>
@@ -142,7 +142,7 @@
                         </x-nav.main-item-mobile>
                     @endcan
 
-                    @if (auth()->user()->canManageSystem())
+                    @if (auth()->user()->canManageSystem)
                         <x-nav.main-item-mobile :href="route('system-overview')" :active="$meta->subnavSection === 'system'">
                             System
                         </x-nav.main-item-mobile>

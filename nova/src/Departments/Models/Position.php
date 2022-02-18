@@ -9,16 +9,13 @@ use Illuminate\Database\Eloquent\Model;
 use Nova\Characters\Models\Character;
 use Nova\Departments\Events;
 use Nova\Departments\Models\Builders\PositionBuilder;
+use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Position extends Model
 {
     use HasFactory;
     use LogsActivity;
-
-    protected static $logFillable = true;
-
-    protected static $logName = 'admin';
 
     protected $casts = [
         'active' => 'boolean',
@@ -52,9 +49,14 @@ class Position extends Model
         return $this->belongsTo(Department::class);
     }
 
-    public function getDescriptionForEvent(string $eventName): string
+    public function getActivitylogOptions(): LogOptions
     {
-        return ":subject.name position was {$eventName}";
+        return LogOptions::defaults()
+            ->logFillable()
+            ->useLogName('admin')
+            ->setDescriptionForEvent(
+                fn (string $eventName) => ":subject.name position was {$eventName}"
+            );
     }
 
     public function newEloquentBuilder($query): PositionBuilder

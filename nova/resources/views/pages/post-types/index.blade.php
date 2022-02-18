@@ -2,7 +2,7 @@
 
 @section('content')
     <x-page-header title="Post Types">
-        <x-slot name="controls">
+        <x-slot:controls>
             @can('update', $postTypes->first())
                 <x-link :href="route('post-types.index', 'reorder')" color="gray-text" size="none">
                     @icon('arrow-sort', 'h-7 w-7 md:h-6 md:w-6')
@@ -14,7 +14,7 @@
                     Add Post Type
                 </x-link>
             @endcan
-        </x-slot>
+        </x-slot:controls>
     </x-page-header>
 
     <x-panel x-data="sortableList">
@@ -83,9 +83,9 @@
                         </div>
                         <div class="ml-5 shrink-0 leading-0">
                             <x-dropdown placement="bottom-end">
-                                <x-slot name="trigger">
+                                <x-slot:trigger>
                                     <x-icon.more class="h-6 w-6" />
-                                </x-slot>
+                                </x-slot:trigger>
 
                                 <x-dropdown.group>
                                     @can('view', $postType)
@@ -104,9 +104,9 @@
                                         <x-dropdown.item type="submit" icon="copy" form="duplicate-{{ $postType->id }}" data-cy="duplicate">
                                             <span>Duplicate</span>
 
-                                            <x-slot name="buttonForm">
+                                            <x-slot:buttonForm>
                                                 <x-form :action="route('post-types.duplicate', $postType)" id="duplicate-{{ $postType->id }}" class="hidden" />
-                                            </x-slot>
+                                            </x-slot:buttonForm>
                                         </x-dropdown.item>
                                     @endcan
                                 </x-dropdown.group>
@@ -140,7 +140,7 @@
     <x-tips section="post-types" />
 
     <x-modal color="red" title="Delete Post Type?" icon="warning" :url="route('post-types.delete')">
-        <x-slot name="footer">
+        <x-slot:footer>
             <span class="flex w-full sm:col-start-2">
                 <x-button type="submit" form="form" color="red" full-width>
                     Delete
@@ -151,6 +151,6 @@
                     Cancel
                 </x-button>
             </span>
-        </x-slot>
+        </x-slot:footer>
     </x-modal>
 @endsection

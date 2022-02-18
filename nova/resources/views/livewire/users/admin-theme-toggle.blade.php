@@ -1,13 +1,13 @@
 <div class="leading-0" x-data="adminThemeToggle(@entangle('appearance'))" x-cloak>
     <x-dropdown placement="bottom-end">
-        <x-slot name="trigger">
+        <x-slot:trigger>
             <span x-show="isLightTheme" :class="{ 'text-blue-9': isLightThemeSelected() }">
                 @icon('sun', 'h-6 w-6')
             </span>
             <span x-show="isDarkTheme" :class="{ 'text-blue-9': isDarkThemeSelected() }">
                 @icon('moon', 'h-6 w-6')
             </span>
-        </x-slot>
+        </x-slot:trigger>
 
         <x-dropdown.group>
             <x-dropdown.item href="#" @click.prevent="setTheme('light')">

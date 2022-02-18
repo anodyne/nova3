@@ -91,7 +91,7 @@
                             @endcan
                         </div>
 
-                        @if (auth()->user()->canManage())
+                        @if (auth()->user()->canManage)
                             <div class="group flex items-center px-2 py-2 text-base font-semibold rounded-md transition ease-in-out duration-150 @if (request()->routeIs('characters.*') || request()->routeIs('departments.*') || request()->routeIs('positions.*') || request()->routeIs('ranks.*') || request()->routeIs('roles.*') || request()->routeIs('settings.*') || request()->routeIs('users.*')) text-gray-12 bg-gray-3 @else text-gray-600 hover:text-gray-12 hover:bg-gray-3 @endif">
                                 @icon('settings', 'mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-11 transition ease-in-out duration-150')
                                 Manage
@@ -177,7 +177,7 @@
                             @endcan
                         </div>
 
-                        @if (auth()->user()->canManage())
+                        @if (auth()->user()->canManage)
                             <div class="group flex items-center px-2 py-2 text-sm font-semibold rounded-md transition ease-in-out duration-150 @if (request()->routeIs('characters.*') || request()->routeIs('departments.*') || request()->routeIs('positions.*') || request()->routeIs('ranks.*') || request()->routeIs('roles.*') || request()->routeIs('settings.*') || request()->routeIs('users.*'))  text-gray-12 bg-gray-3 @else text-gray-11 hover:text-gray-12 hover:bg-gray-3 @endif">
                                 @icon('settings', 'mr-3 h-6 w-6 text-gray-400 group-hover:text-gray-11 transition ease-in-out duration-150')
                                 Manage
@@ -245,9 +245,9 @@
                     @livewire('users:notifications')
 
                     <x-dropdown placement="bottom-end">
-                        <x-slot name="trigger">
+                        <x-slot:trigger>
                             <x-avatar size="xs" :src="auth()->user()->avatar_url" :tooltip="auth()->user()->name" />
-                        </x-slot>
+                        </x-slot:trigger>
 
                         <x-dropdown.group>
                             <x-dropdown.text>
@@ -259,9 +259,9 @@
                             <x-dropdown.item type="submit" icon="sign-out" form="logout-form">
                                 <span>Sign out</span>
 
-                                <x-slot name="buttonForm">
+                                <x-slot:buttonForm>
                                     <x-form :action="route('logout')" class="hidden" id="logout-form" />
-                                </x-slot>
+                                </x-slot:buttonForm>
                             </x-dropdown.item>
                         </x-dropdown.group>
                     </x-dropdown>

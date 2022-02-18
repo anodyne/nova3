@@ -10,16 +10,13 @@ use Nova\Pages\Page;
 use Nova\Themes\Events;
 use Nova\Themes\Models\Builders\ThemeBuilder;
 use Nova\Themes\Models\Collections\ThemesCollection;
+use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Theme extends Model
 {
     use HasFactory;
     use LogsActivity;
-
-    protected static $logFillable = true;
-
-    protected static $logName = 'admin';
 
     protected $fillable = [
         'name', 'location', 'credits', 'active', 'preview', 'layout_auth',
@@ -41,9 +38,14 @@ class Theme extends Model
         return $this->getAttribute("layout_{$page->layout}");
     }
 
-    public function getDescriptionForEvent(string $eventName): string
+    public function getActivitylogOptions(): LogOptions
     {
-        return ":subject.name theme was {$eventName}";
+        return LogOptions::defaults()
+            ->logFillable()
+            ->useLogName('admin')
+            ->setDescriptionForEvent(
+                fn (string $eventName) => ":subject.name theme was {$eventName}"
+            );
     }
 
     public function newCollection(array $models = [])

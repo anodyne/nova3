@@ -7,17 +7,17 @@
         <div>
             <x-input.group help="You can type * to see all available users.">
                 <x-input.text placeholder="Search for users" wire:model.debounce.500ms="search" autofocus>
-                    <x-slot name="leadingAddOn">
+                    <x-slot:leadingAddOn>
                         @icon('search')
-                    </x-slot>
+                    </x-slot:leadingAddOn>
 
-                    <x-slot name="trailingAddOn">
+                    <x-slot:trailingAddOn>
                         @if ($search)
                             <x-button color="gray-text" size="none" wire:click="$set('search', '')">
                                 @icon('close')
                             </x-button>
                         @endif
-                    </x-slot>
+                    </x-slot:trailingAddOn>
                 </x-input.text>
             </x-input.group>
 
@@ -38,12 +38,12 @@
                     @foreach ($selectedDisplay as $id => $name)
                         <div class="p-1.5 rounded-md odd:bg-gray-3">
                             <x-input.checkbox :value="$id" :label="$name" wire:model="selected">
-                                <x-slot name="label">
+                                <x-slot:label>
                                     <div class="flex items-center space-x-2">
                                         <x-status :status="$status" />
                                         <span>{{ $name }}</span>
                                     </div>
-                                </x-slot>
+                                </x-slot:label>
                             </x-input.checkbox>
                         </div>
                     @endforeach
@@ -53,12 +53,12 @@
                     @foreach ($filteredUsers as $user)
                         <div class="p-1.5 rounded-md odd:bg-gray-3">
                             <x-input.checkbox id="user-{{ $user->id }}" for="user-{{ $user->id }}" :value="$user->id" wire:model="selected">
-                                <x-slot name="label">
+                                <x-slot:label>
                                     <div class="flex items-center space-x-2">
                                         <x-status :status="$user->status" />
                                         <span>{{ $user->name }}</span>
                                     </div>
-                                </x-slot>
+                                </x-slot:label>
                             </x-input.checkbox>
                         </div>
                     @endforeach

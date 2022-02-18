@@ -2,15 +2,15 @@
 
 @section('content')
     <x-page-header>
-        <x-slot name="pretitle">
+        <x-slot:pretitle>
             <a href="{{ route('stories.show', $story) }}">
                 {{ $story->title }}
             </a>
-        </x-slot>
+        </x-slot:pretitle>
 
         {{ $post->title }}
 
-        <x-slot name="controls">
+        <x-slot:controls>
             @if ($previousPost)
                 <x-link :href="route('posts.show', [$story, $previousPost])" size="none" color="gray-text">
                     <x-icon.chevron-left class="h-7 w-7 md:h-6 md:w-6" />
@@ -28,7 +28,7 @@
                     Edit post
                 </x-link>
             @endcan
-        </x-slot>
+        </x-slot:controls>
     </x-page-header>
 
     <x-panel x-data="{ showContent: {{ $post->shouldShowContentWarning() ? 'false' : 'true' }} }">
@@ -169,33 +169,33 @@
                         <x-content-box>
                             <div class="grid md:grid-cols-2 md:gap-6">
                                 <x-avatar-meta :src="Nova\Characters\Models\Character::find(1)->avatar_url">
-                                    <x-slot name="primaryMeta">
+                                    <x-slot:primaryMeta>
                                         {{ optional(optional(Nova\Characters\Models\Character::find(1)->rank)->name)->name }}
                                         {{ Nova\Characters\Models\Character::find(1)->name }}
-                                    </x-slot>
+                                    </x-slot:primaryMeta>
 
-                                    <x-slot name="secondaryMeta">
+                                    <x-slot:secondaryMeta>
                                         {{ Nova\Characters\Models\Character::find(1)->positions->implode('name', ' & ') }}
-                                    </x-slot>
+                                    </x-slot:secondaryMeta>
                                 </x-avatar-meta>
                                 <x-avatar-meta :src="Nova\Characters\Models\Character::find(2)->avatar_url">
-                                    <x-slot name="primaryMeta">
+                                    <x-slot:primaryMeta>
                                         {{ optional(optional(Nova\Characters\Models\Character::find(2)->rank)->name)->name }}
                                         {{ Nova\Characters\Models\Character::find(2)->name }}
-                                    </x-slot>
+                                    </x-slot:primaryMeta>
 
-                                    <x-slot name="secondaryMeta">
+                                    <x-slot:secondaryMeta>
                                         {{ Nova\Characters\Models\Character::find(2)->positions->implode('name', ' & ') }}
-                                    </x-slot>
+                                    </x-slot:secondaryMeta>
                                 </x-avatar-meta>
                                 <x-avatar-meta :src="Nova\Users\Models\User::find(1)->avatar_url">
-                                    <x-slot name="primaryMeta">
+                                    <x-slot:primaryMeta>
                                         {{ Nova\Users\Models\User::find(1)->name }}
-                                    </x-slot>
+                                    </x-slot:primaryMeta>
 
-                                    <x-slot name="secondaryMeta">
+                                    <x-slot:secondaryMeta>
                                         as Admiral William Reardon
-                                    </x-slot>
+                                    </x-slot:secondaryMeta>
                                 </x-avatar-meta>
                             </div>
                         </x-content-box>

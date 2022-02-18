@@ -2,15 +2,15 @@
 
 @section('content')
     <x-page-header :title="$item->name->name">
-        <x-slot name="pretitle">
+        <x-slot:pretitle>
             <a href="{{ route('ranks.items.index') }}">Rank Items</a>
-        </x-slot>
+        </x-slot:pretitle>
 
-        <x-slot name="controls">
+        <x-slot:controls>
             @can('update', $item)
                 <x-link :href="route('ranks.items.edit', $item)" color="blue">Edit Rank Item</x-link>
             @endcan
-        </x-slot>
+        </x-slot:controls>
     </x-page-header>
 
     <x-panel>
@@ -35,14 +35,14 @@
                         <div class="group flex items-center justify-between w-full py-2 px-4 rounded odd:bg-gray-3">
                             <div class="flex items-center">
                                 <x-avatar-meta size="lg" :src="$character->avatar_url">
-                                    <x-slot name="primaryMeta">
+                                    <x-slot:primaryMeta>
                                         <x-status :status="$character->status" />
                                         <span class="ml-2">{{ $character->name }}</span>
-                                    </x-slot>
+                                    </x-slot:primaryMeta>
 
-                                    <x-slot name="secondaryMeta">
+                                    <x-slot:secondaryMeta>
                                         <x-badge :color="$character->type->color()" size="xs">{{ $character->type->displayName() }}</x-badge>
-                                    </x-slot>
+                                    </x-slot:secondaryMeta>
                                 </x-avatar-meta>
                             </div>
 
