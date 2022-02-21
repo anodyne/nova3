@@ -3,9 +3,9 @@
 @section('content')
     <x-page-header>
         <x-slot:title>
-            @if (request()->has('status'))
+            {{-- @if (request()->has('status'))
                 {{ ucfirst(request()->status) }}
-            @endif
+            @endif --}}
             Users
         </x-slot:title>
 
@@ -17,6 +17,52 @@
             @endcan
         </x-slot:controls>
     </x-page-header>
+
+    <x-panel>
+        <x-content-box height="sm" class="flex items-center space-x-6">
+            <div class="flex-1">
+                <x-input.group>
+                    <x-input.text placeholder="Search for user"></x-input.text>
+                </x-input.group>
+            </div>
+            <div class="flex-1">
+                <x-input.group>
+                    <x-input.text placeholder="Search"></x-input.text>
+                </x-input.group>
+            </div>
+            <div class="flex-auto">
+                <x-button size="sm">Clear all</x-button>
+            </div>
+        </x-content-box>
+
+        <x-table>
+            <x-slot:head>
+                <x-table.heading>Name</x-table.heading>
+                <x-table.heading>Status</x-table.heading>
+            </x-slot:head>
+
+            <x-slot:body>
+                @foreach ($users as $user)
+                    <x-table.row>
+                        <x-table.cell class="text-base">
+                            <x-avatar-meta :src="$user->avatar_url">
+                                <x-slot:primaryMeta>{{ $user->name }}</x-slot:primaryMeta>
+                            </x-avatar-meta>
+                        </x-table.cell>
+                        <x-table.cell>
+                            <x-badge size="xs" :color="$user->status->color()">
+                                {{ $user->status->displayName() }}
+                            </x-badge>
+                        </x-table.cell>
+                    </x-table.row>
+                @endforeach
+            </x-slot:body>
+        </x-table>
+
+        <div class="px-4 py-2 border-t border-gray-3 sm:px-6 sm:py-3">
+            {{ $users->withQueryString()->links() }}
+        </div>
+    </x-panel>
 
     <x-panel>
         <div>
