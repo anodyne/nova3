@@ -15,6 +15,7 @@ use Nova\Users\Livewire\SelectUsersModal;
 use Nova\Users\Livewire\UserNotifications;
 use Nova\Users\Livewire\UsersCollector;
 use Nova\Users\Livewire\UsersDropdown;
+use Nova\Users\Livewire\UsersList;
 use Nova\Users\Models\User;
 use Nova\Users\Spotlight\AddUser;
 use Nova\Users\Spotlight\EditUser;
@@ -38,6 +39,7 @@ class UserServiceProvider extends DomainServiceProvider
             'users:collector' => UsersCollector::class,
             'users:admin-theme-toggle' => AdminThemeToggle::class,
             'users:dropdown' => UsersDropdown::class,
+            'users:list' => UsersList::class,
             'users:manage-characters' => ManageCharacters::class,
             'users:manage-roles' => ManageRoles::class,
             'users:notifications' => UserNotifications::class,

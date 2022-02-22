@@ -18,99 +18,45 @@
         </x-slot:controls>
     </x-page-header>
 
-    <x-panel>
-        <x-content-box height="sm" class="flex items-center space-x-6">
+    {{-- <x-panel>
+        <x-content-box height="sm" class="flex items-center space-x-8">
             <div class="flex-1">
                 <x-input.group>
-                    <x-input.text placeholder="Search for user"></x-input.text>
+                    <x-input.text placeholder="Search for user">
+                        <x-slot:leadingAddOn>
+                            @icon('search', 'h-5 w-5')
+                        </x-slot:leadingAddOn>
+                    </x-input.text>
                 </x-input.group>
             </div>
-            <div class="flex-1">
-                <x-input.group>
-                    <x-input.text placeholder="Search"></x-input.text>
-                </x-input.group>
+            <div class="shrink">
+                <x-input.select>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                    <option value="pending">Pending</option>
+                    <option value="">All users</option>
+                </x-input.select>
             </div>
-            <div class="flex-auto">
-                <x-button size="sm">Clear all</x-button>
+            <div class="shrink">
+                <x-button size="none" color="gray-text">Clear all</x-button>
             </div>
-        </x-content-box>
-
-        <x-table>
-            <x-slot:head>
-                <x-table.heading>Name</x-table.heading>
-                <x-table.heading>Status</x-table.heading>
-            </x-slot:head>
-
-            <x-slot:body>
-                @foreach ($users as $user)
-                    <x-table.row>
-                        <x-table.cell class="text-base">
-                            <x-avatar-meta :src="$user->avatar_url">
-                                <x-slot:primaryMeta>{{ $user->name }}</x-slot:primaryMeta>
-                            </x-avatar-meta>
-                        </x-table.cell>
-                        <x-table.cell>
-                            <x-badge size="xs" :color="$user->status->color()">
-                                {{ $user->status->displayName() }}
-                            </x-badge>
-                        </x-table.cell>
-                    </x-table.row>
-                @endforeach
-            </x-slot:body>
-        </x-table>
-
-        <div class="px-4 py-2 border-t border-gray-3 sm:px-6 sm:py-3">
-            {{ $users->withQueryString()->links() }}
-        </div>
-    </x-panel>
-
-    <x-panel>
-        <div>
-            <x-content-box class="sm:hidden">
-                <select @change="window.location.replace($event.target.value)" aria-label="Selected tab" class="mt-1 form-select bg-gray-1 block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-200 sm:text-sm rounded-md">
-                    <option value="{{ route('users.index', 'status=active') }}" @selected(request()->status === 'active')>Active Users</option>
-                    <option value="{{ route('users.index', 'status=pending') }}" @selected(request()->status === 'pending')>Pending Users</option>
-                    <option value="{{ route('users.index', 'status=inactive') }}" @selected(request()->status === 'inactive')>Inactive Users</option>
-                    <option value="{{ route('users.index') }}" @selected(! request()->has('status'))>All Users</option>
-                </select>
-            </x-content-box>
-            <div class="hidden sm:block">
-                <div class="border-b border-gray-6 px-4 sm:px-6">
-                    <nav class="-mb-px flex">
-                        <a
-                            href="{{ route('users.index', 'status=active') }}"
-                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none {{ request()->status === 'active' ? 'border-blue-6 text-blue-9' : 'border-transparent text-gray-9 hover:text-gray-11 hover:border-gray-6' }}"
-                        >
-                            Active
-                        </a>
-                        <a
-                            href="{{ route('users.index', 'status=pending') }}"
-                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none {{ request()->status === 'pending' ? 'border-blue-6 text-blue-9' : 'border-transparent text-gray-9 hover:text-gray-11 hover:border-gray-6' }}"
-                        >
-                            Pending
-                        </a>
-                        <a
-                            href="{{ route('users.index', 'status=inactive') }}"
-                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none {{ request()->status === 'inactive' ? 'border-blue-6 text-blue-9' : 'border-transparent text-gray-9 hover:text-gray-11 hover:border-gray-6' }}"
-                        >
-                            Inactive
-                        </a>
-                        <a
-                            href="{{ route('users.index') }}"
-                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none {{ !request()->has('status') ? 'border-blue-6 text-blue-9' : 'border-transparent text-gray-9 hover:text-gray-11 hover:border-gray-6' }}"
-                        >
-                            All Users
-                        </a>
-                    </nav>
-                </div>
-            </div>
-        </div>
-
-        <x-content-box height="xs">
-            <x-search-filter placeholder="Find a user..." :search="$search" />
         </x-content-box>
 
         <ul>
+            <li class="border-t border-gray-6 bg-gray-2 text-xs leading-4 font-semibold text-gray-9 uppercase tracking-wider">
+                <div class="block">
+                    <div class="flex items-center px-4 py-3 sm:px-6">
+                        <div class="min-w-0 flex-1 pr-4 md:grid md:grid-cols-2 md:gap-4">
+                            Name
+
+                            <div class="hidden md:block">
+                                Activity
+                            </div>
+                        </div>
+                        <div class="w-6"></div>
+                    </div>
+                </div>
+            </li>
             @forelse ($users as $user)
                 <li class="border-t border-gray-6">
                     <div class="block hover:bg-gray-2 focus:outline-none focus:bg-gray-2 transition duration-200 ease-in-out">
@@ -211,7 +157,9 @@
         <div class="px-4 py-2 border-t border-gray-6 sm:px-6 sm:py-3">
             {{ $users->withQueryString()->links() }}
         </div>
-    </x-panel>
+    </x-panel> --}}
+
+    @livewire('users:list')
 
     <x-tips section="users" />
 
