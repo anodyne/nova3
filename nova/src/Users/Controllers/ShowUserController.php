@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Users\Controllers;
 
-use Illuminate\Http\Request;
 use Nova\Foundation\Controllers\Controller;
-use Nova\Users\Filters\UserFilters;
 use Nova\Users\Models\User;
 use Nova\Users\Responses\ShowAllUsersResponse;
 use Nova\Users\Responses\ShowUserResponse;
@@ -20,19 +18,11 @@ class ShowUserController extends Controller
         $this->middleware('auth');
     }
 
-    public function all(Request $request, UserFilters $filters)
+    public function all()
     {
         $this->authorize('viewAny', User::class);
 
-        $users = User::with('media', 'latestLogin')
-            ->filter($filters)
-            ->orderBy('name')
-            ->paginate();
-
-        return ShowAllUsersResponse::sendWith([
-            'search' => $request->search,
-            'users' => $users,
-        ]);
+        return ShowAllUsersResponse::send();
     }
 
     public function show(User $user)

@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Ranks\Controllers\Items;
 
-use Illuminate\Http\Request;
 use Nova\Foundation\Controllers\Controller;
-use Nova\Ranks\Filters\RankItemFilters;
-use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Models\RankItem;
 use Nova\Ranks\Responses\Items\ShowAllRankItemsResponse;
 use Nova\Ranks\Responses\Items\ShowRankItemResponse;
@@ -21,24 +18,12 @@ class ShowRankItemController extends Controller
         $this->middleware('auth');
     }
 
-    public function all(Request $request, RankItemFilters $filters)
+    public function all()
     {
         $this->authorize('viewAny', RankItem::class);
 
-        $items = RankItem::withRankName()
-            ->filter($filters)
-            ->orderBySort();
-
-        $items = ($request->has('reorder'))
-            ? $items->get()
-            : $items->paginate();
-
         return ShowAllRankItemsResponse::sendWith([
-            'groups' => RankGroup::orderBySort()->get(),
-            'isReordering' => $request->has('reorder'),
             'itemCount' => RankItem::count(),
-            'items' => $items,
-            'search' => $request->search,
         ]);
     }
 

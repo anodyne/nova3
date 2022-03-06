@@ -11,10 +11,10 @@ class ReorderRoles
 {
     use AsAction;
 
-    public function handle($sort): void
+    public function handle(array $items): void
     {
-        collect(explode(',', $sort))->each(function ($roleId, $index) {
-            Role::where('id', $roleId)->update(['sort' => $index]);
-        });
+        collect($items)
+            ->map(fn ($item) => $item['value'])
+            ->each(fn ($id, $index) => Role::where('id', $id)->update(['sort' => $index]));
     }
 }

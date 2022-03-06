@@ -54,6 +54,17 @@ class Application extends IlluminateApp
     }
 
     /**
+     * Get the path to the language files.
+     *
+     * @param  string  $path
+     * @return string
+     */
+    public function langPath($path = '')
+    {
+        return $this->novaPath('lang').($path != '' ? DIRECTORY_SEPARATOR.$path : '');
+    }
+
+    /**
      * Get the base path of the Nova installation.
      *
      * @param  string  $path Optionally, a path to append to the Nova path

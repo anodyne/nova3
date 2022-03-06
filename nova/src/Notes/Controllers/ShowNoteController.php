@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Notes\Controllers;
 
-use Illuminate\Http\Request;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Foundation\Responses\Responsable;
-use Nova\Notes\Filters\NoteFilters;
 use Nova\Notes\Models\Note;
 use Nova\Notes\Responses\ShowAllNotesResponse;
 use Nova\Notes\Responses\ShowNoteResponse;
@@ -21,18 +19,12 @@ class ShowNoteController extends Controller
         $this->middleware('auth');
     }
 
-    public function all(Request $request, NoteFilters $filters): Responsable
+    public function all(): Responsable
     {
         $this->authorize('viewAny', Note::class);
 
-        $notes = Note::whereAuthor(auth()->user())
-            ->filter($filters)
-            ->orderBy('title')
-            ->paginate();
-
         return ShowAllNotesResponse::sendWith([
-            'notes' => $notes,
-            'search' => $request->search,
+            'noteCount' => Note::whereAuthor(auth()->user())->count(),
         ]);
     }
 

@@ -6,18 +6,15 @@ namespace Nova\Ranks\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
 use Nova\Foundation\Filters\Filterable;
+use Nova\Foundation\Models\Concerns\Sortable;
 
 class RankGroupBuilder extends Builder
 {
     use Filterable;
+    use Sortable;
 
-    public function orderBySort()
+    public function searchFor($value): self
     {
-        return $this->orderBy('sort', 'asc');
-    }
-
-    public function whereActive()
-    {
-        return $this->where('active', true);
+        return $this->where('name', 'like', "%{$value}%");
     }
 }

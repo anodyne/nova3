@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Controllers;
 
-use Illuminate\Http\Request;
-use Nova\Characters\Filters\CharacterFilters;
 use Nova\Characters\Models\Character;
 use Nova\Characters\Responses\ShowAllCharactersResponse;
 use Nova\Characters\Responses\ShowCharacterResponse;
@@ -20,21 +18,9 @@ class ShowCharacterController extends Controller
         $this->middleware('auth');
     }
 
-    public function all(Request $request, CharacterFilters $filters)
+    public function all()
     {
-        $characters = Character::query()
-            ->with('media', 'positions', 'rank.name', 'users')
-            ->when($request->user()->cannot('viewAny', Character::class), function ($query) use ($request) {
-                return $query->whereRelation('users', 'users.id', '=', $request->user()->id);
-            })
-            ->filter($filters)
-            ->orderBy('name')
-            ->paginate();
-
-        return ShowAllCharactersResponse::sendWith([
-            'search' => $request->search,
-            'characters' => $characters,
-        ]);
+        return ShowAllCharactersResponse::send();
     }
 
     public function show(Character $character)

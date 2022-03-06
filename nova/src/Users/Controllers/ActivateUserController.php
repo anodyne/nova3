@@ -26,7 +26,7 @@ class ActivateUserController extends Controller
         UserActivated::dispatch($user);
 
         return redirect()
-            ->route('users.index', 'status=active')
+            ->route('users.index')
             ->withToast("{$user->name} has been activated");
     }
 }

@@ -11,10 +11,12 @@ class ReorderPostTypes
 {
     use AsAction;
 
-    public function handle(string $sort): void
+    public function handle(array $items): void
     {
-        collect(explode(',', $sort))->each(
-            fn ($id, $index) => PostType::where('id', $id)->update(['sort' => $index])
-        );
+        collect($items)
+            ->map(fn ($item) => $item['value'])
+            ->each(
+                fn ($id, $index) => PostType::where('id', $id)->update(['sort' => $index])
+            );
     }
 }

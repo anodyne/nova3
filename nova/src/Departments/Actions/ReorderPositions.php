@@ -11,10 +11,10 @@ class ReorderPositions
 {
     use AsAction;
 
-    public function handle(string $sort): void
+    public function handle(array $items): void
     {
-        collect(explode(',', $sort))->each(function ($id, $index) {
-            Position::where('id', $id)->update(['sort' => $index]);
-        });
+        collect($items)
+            ->map(fn ($item) => $item['value'])
+            ->each(fn ($id, $index) => Position::where('id', $id)->update(['sort' => $index]));
     }
 }

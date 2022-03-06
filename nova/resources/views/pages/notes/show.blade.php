@@ -20,5 +20,4 @@
             </div>
         </x-content-box>
     </x-panel>
-
 @endsection

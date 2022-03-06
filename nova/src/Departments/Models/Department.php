@@ -8,22 +8,25 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Nova\Departments\Events;
 use Nova\Departments\Models\Builders\DepartmentBuilder;
+use Nova\Departments\Models\States\DepartmentStatus;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\ModelStates\HasStates;
 
 class Department extends Model implements HasMedia
 {
     use HasFactory;
+    use HasStates;
     use InteractsWithMedia;
     use LogsActivity;
 
     public const MEDIA_DIRECTORY = 'departments/{model_id}/{media_id}/';
 
     protected $casts = [
-        'active' => 'boolean',
         'sort' => 'integer',
+        'status' => DepartmentStatus::class,
     ];
 
     protected $dispatchesEvents = [
@@ -32,7 +35,7 @@ class Department extends Model implements HasMedia
         'updated' => Events\DepartmentUpdated::class,
     ];
 
-    protected $fillable = ['name', 'description', 'sort', 'active'];
+    protected $fillable = ['name', 'description', 'sort', 'status'];
 
     protected $table = 'departments';
 

@@ -86,12 +86,12 @@
                         Notes
                     </x-nav.main-item>
 
-                    <x-nav.main-item :href="route('characters.index', 'status=active')" :active="$meta->subnavSection === 'characters'">
+                    <x-nav.main-item :href="route('characters.index')" :active="$meta->subnavSection === 'characters'">
                         Characters
                     </x-nav.main-item>
 
                     @if (auth()->user()->canManageUsers)
-                        <x-nav.main-item :href="route('users.index', 'status=active')" :active="$meta->subnavSection === 'users'">
+                        <x-nav.main-item :href="route('users.index')" :active="$meta->subnavSection === 'users'">
                             Users
                         </x-nav.main-item>
                     @endif
@@ -126,12 +126,12 @@
                         Notes
                     </x-nav.main-item-mobile>
 
-                    <x-nav.main-item-mobile :href="route('characters.index', 'status=active')" :active="$meta->subnavSection === 'characters'">
+                    <x-nav.main-item-mobile :href="route('characters.index')" :active="$meta->subnavSection === 'characters'">
                         Characters
                     </x-nav.main-item-mobile>
 
                     @if (auth()->user()->canManageUsers)
-                        <x-nav.main-item-mobile :href="route('users.index', 'status=active')" :active="$meta->subnavSection === 'users'">
+                        <x-nav.main-item-mobile :href="route('users.index')" :active="$meta->subnavSection === 'users'">
                             Users
                         </x-nav.main-item-mobile>
                     @endif
