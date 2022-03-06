@@ -16,8 +16,7 @@ class NoteBuilder extends Builder
     {
         return $this->where(function ($query) use ($search) {
             return $query->where('title', 'like', "%{$search}%")
-                ->orWhere('content', 'like', "%{$search}%")
-                ->orWhere('summary', 'like', "%{$search}%");
+                ->orWhere('content', 'like', "%{$search}%");
         });
     }
 

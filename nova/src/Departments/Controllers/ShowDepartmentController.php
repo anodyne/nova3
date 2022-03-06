@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Departments\Controllers;
 
-use Illuminate\Http\Request;
-use Nova\Departments\Filters\DepartmentFilters;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Responses\ShowAllDepartmentsResponse;
 use Nova\Departments\Responses\ShowDepartmentResponse;
@@ -20,23 +18,13 @@ class ShowDepartmentController extends Controller
         $this->middleware('auth');
     }
 
-    public function all(Request $request, DepartmentFilters $filters)
+    public function all()
     {
         $this->authorize('viewAny', Department::class);
 
-        $departments = Department::withCount('positions')
-            ->filter($filters)
-            ->orderBySort();
-
-        $departments = ($request->has('reorder'))
-            ? $departments->get()
-            : $departments->paginate();
-
         return ShowAllDepartmentsResponse::sendWith([
+            'department' => new Department(),
             'departmentCount' => Department::count(),
-            'departments' => $departments,
-            'isReordering' => $request->has('reorder'),
-            'search' => $request->search,
         ]);
     }
 

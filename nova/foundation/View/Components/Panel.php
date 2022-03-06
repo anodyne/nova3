@@ -24,7 +24,7 @@ class Panel extends Component
 
     public function render()
     {
-        return view('components.panel');
+        return view('components.panel.index');
     }
 
     protected function panelStyles(): string

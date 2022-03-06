@@ -12,4 +12,10 @@ class DepartmentBuilder extends Builder
 {
     use Filterable;
     use Sortable;
+
+    public function searchFor($value): self
+    {
+        return $this->where('name', 'like', "%{$value}%")
+            ->orWhereHas('positions', fn ($query) => $query->where('name', 'like', "%{$value}%"));
+    }
 }

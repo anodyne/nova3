@@ -13,7 +13,6 @@ class NoteData extends Data
     public function __construct(
         public string $title,
         public ?string $content,
-        public ?string $summary,
         public ?User $user
     ) {
     }
@@ -23,7 +22,6 @@ class NoteData extends Data
         return new self(
             title: $request->input('title'),
             content: $request->input('editor-content'),
-            summary: $request->input('summary'),
             user: auth()->user(),
         );
     }

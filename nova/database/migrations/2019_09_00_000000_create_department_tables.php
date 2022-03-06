@@ -15,7 +15,7 @@ class CreateDepartmentTables extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->unsignedInteger('sort')->nullable();
-            $table->boolean('active')->default(true);
+            $table->string('status');
             $table->timestamps();
         });
     }

@@ -43,6 +43,6 @@ class CreateUserController extends Controller
             return $redirect->route('users.edit', $user);
         }
 
-        return $redirect->route('users.index', 'status=active');
+        return $redirect->route('users.index');
     }
 }

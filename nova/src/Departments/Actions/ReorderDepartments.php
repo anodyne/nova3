@@ -11,10 +11,10 @@ class ReorderDepartments
 {
     use AsAction;
 
-    public function handle(string $sort): void
+    public function handle(array $items): void
     {
-        collect(explode(',', $sort))->each(function ($id, $index) {
-            Department::where('id', $id)->update(['sort' => $index]);
-        });
+        collect($items)
+            ->map(fn ($item) => $item['value'])
+            ->each(fn ($id, $index) => Department::where('id', $id)->update(['sort' => $index]));
     }
 }

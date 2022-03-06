@@ -21,19 +21,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | SMTP Host Address
-    |--------------------------------------------------------------------------
-    |
-    | Here you may provide the host address of the SMTP server used by your
-    | applications. A default option is provided that is compatible with
-    | the Mailgun mail service which will provide reliable deliveries.
-    |
-    */
-
-    'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
-
-    /*
-    |--------------------------------------------------------------------------
     | Mailer Configurations
     |--------------------------------------------------------------------------
     |
@@ -51,6 +38,7 @@ return [
     */
 
     'mailers' => [
+
         'smtp' => [
             'transport' => 'smtp',
             'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
@@ -58,6 +46,7 @@ return [
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
             'username' => env('MAIL_USERNAME'),
             'password' => env('MAIL_PASSWORD'),
+            'timeout' => null,
         ],
 
         'ses' => [
@@ -74,7 +63,7 @@ return [
 
         'sendmail' => [
             'transport' => 'sendmail',
-            'path' => '/usr/sbin/sendmail -bs',
+            'path' => env('MAIL_SENDMAIL_PATH', '/usr/sbin/sendmail -t -i'),
         ],
 
         'log' => [
@@ -85,6 +74,15 @@ return [
         'array' => [
             'transport' => 'array',
         ],
+
+        'failover' => [
+            'transport' => 'failover',
+            'mailers' => [
+                'smtp',
+                'log',
+            ],
+        ],
+
     ],
 
     /*
@@ -121,4 +119,5 @@ return [
             resource_path('views/vendor/mail'),
         ],
     ],
+
 ];
