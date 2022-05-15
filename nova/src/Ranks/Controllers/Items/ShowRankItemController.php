@@ -23,6 +23,7 @@ class ShowRankItemController extends Controller
         $this->authorize('viewAny', RankItem::class);
 
         return ShowAllRankItemsResponse::sendWith([
+            'item' => new RankItem(),
             'itemCount' => RankItem::count(),
         ]);
     }

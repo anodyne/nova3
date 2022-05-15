@@ -61,7 +61,7 @@
                     </x-slot:message>
 
                     @if ($settings->characters->autoLinkCharacter)
-                        <x-alert class="bg-gray-3 border-gray-6 text-gray-11">This character will automatically be linked to your account.</x-alert>
+                        <x-alert class="bg-gray-50 border-gray-300 text-gray-600">This character will automatically be linked to your account.</x-alert>
 
                         <input type="hidden" name="self_assign" value="true">
 
@@ -72,7 +72,7 @@
                                 </x-input.toggle>
                             </x-input.group>
                         @else
-                            <x-alert class="bg-gray-3 border-gray-6 text-gray-11">You will need contact the Game Master if you would like this character to be marked as your primary character.</x-alert>
+                            <x-alert class="bg-gray-50 border-gray-300 text-gray-600">You will need contact the Game Master if you would like this character to be marked as your primary character.</x-alert>
 
                             <input type="hidden" name="self_primary_assign" value="true">
                         @endif

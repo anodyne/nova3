@@ -3,7 +3,7 @@
         <input type="hidden" name="users[]" value="{{ $user['id'] }}">
 
         <div class="flex flex-col @if (! $loop->first) mt-4 @endif">
-            <div class="flex items-center w-full">
+            <div class="flex items-center w-full space-x-2">
                 @livewire(
                     'users:dropdown',
                     ['index' => $loop->index, 'user' => $user['id']],
@@ -11,14 +11,14 @@
                 )
 
                 @if (count($users) > 1)
-                    <button wire:click="removeUser({{ $loop->index }})" type="button" class="ml-3 inline-flex items-center text-gray-9 transition ease-in-out duration-200 hover:text-red-9 focus:outline-none">
+                    <x-button wire:click="removeUser({{ $loop->index }})" type="button" color="gray-red-text" size="none">
                         @icon('delete', 'h-6 w-6')
-                    </button>
+                    </x-button>
                 @endif
 
-                <button wire:click="addUser({{ $loop->index }})" type="button" class="ml-1 inline-flex items-center text-gray-9 transition ease-in-out duration-200 hover:text-gray-11 focus:outline-none">
+                <x-button wire:click="addUser({{ $loop->index }})" type="button" color="gray-text" size="none">
                     @icon('add', 'h-6 w-6')
-                </button>
+                </x-button>
             </div>
 
             @if ($user['id'] !== null)

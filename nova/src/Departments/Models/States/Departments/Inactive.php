@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Nova\Departments\Models\States;
+namespace Nova\Departments\Models\States\Departments;
 
 class Inactive extends DepartmentStatus
 {
@@ -11,6 +11,11 @@ class Inactive extends DepartmentStatus
     public function color(): string
     {
         return 'red';
+    }
+
+    public function bgColor(): string
+    {
+        return "bg-{$this->color()}-500";
     }
 
     public function name(): string

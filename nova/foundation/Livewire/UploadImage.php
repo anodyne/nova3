@@ -10,11 +10,16 @@ use Livewire\WithFileUploads;
 class UploadImage extends Component
 {
     use WithFileUploads;
+
     public $existingImage;
 
     public $image;
 
     public $path;
+
+    public $actionMessage = 'Upload a file';
+
+    public $supportMessage = 'PNG, JPG, GIF up to 5MB';
 
     public function updatedImage()
     {

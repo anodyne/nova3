@@ -34,9 +34,19 @@ class RankItemsList extends Component
             ->options(RankName::orderBySort()->get()->pluck('name', 'id')->all())
             ->meta(['label' => 'Rank Name']);
 
+        $statusFilter = Filter::make('status')
+            ->options(
+                RankItem::getStatesFor('status')
+                    ->flatMap(fn ($status) => [$status => ucfirst($status)])
+                    ->all()
+            )
+            ->default(['active', 'inactive'])
+            ->meta(['label' => 'Status']);
+
         return [
             $groupsFilter,
             $namesFilter,
+            $statusFilter,
         ];
     }
 
@@ -54,6 +64,7 @@ class RankItemsList extends Component
         $rankItems = RankItem::withRankName()
             ->when($this->getFilterValue('group'), fn ($query, $value) => $query->whereGroup($value))
             ->when($this->getFilterValue('name'), fn ($query, $value) => $query->whereName($value))
+            ->when($this->getFilterValue('status'), fn ($query, $values) => $query->whereIn('status', $values))
             ->when($this->search, fn ($query, $value) => $query->searchFor($value))
             ->orderBySort();
 

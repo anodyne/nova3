@@ -11,7 +11,7 @@
                 <x-slot:trigger>@icon('filter', 'h-7 w-7 md:h-6 md:w-6')</x-slot:trigger>
 
                 <x-dropdown.group>
-                    <x-dropdown.text class="uppercase tracking-wide font-semibold text-gray-11">
+                    <x-dropdown.text class="uppercase tracking-wide font-semibold text-gray-600">
                         Filter themes
                     </x-dropdown.text>
 
@@ -38,7 +38,7 @@
 
                     <x-content-box>
                         <div class="flex items-center justify-between">
-                            <h3 class="inline-flex items-center text-xl font-semibold text-gray-12">
+                            <h3 class="inline-flex items-center text-xl font-semibold text-gray-900 dark:text-gray-100">
                                 {{ $theme->name }}
                             </h3>
 
@@ -78,8 +78,8 @@
                                 @endif
                             </x-dropdown>
                         </div>
-                        <p class="mt-1 flex items-center text-base text-gray-11">
-                            @icon('folder', 'shrink-0 mr-2 h-5 w-5 text-gray-9')
+                        <p class="mt-1 flex items-center text-base text-gray-600 dark:text-gray-500">
+                            @icon('folder', 'shrink-0 mr-2 h-5 w-5 text-gray-500 dark:text-gray-600')
                             themes/{{ $theme->location }}
                         </p>
                         @if (! $theme->exists)
@@ -96,32 +96,24 @@
             @endforeach
         </div>
     @else
-        <div class="flex items-center w-full rounded-md px-4 py-4 bg-yellow-3 sm:px-6">
-            @icon('warning', 'h-6 w-6 shrink-0 mr-3 text-yellow-9')
-            <span class="font-medium text-yellow-11">
-                No themes found.
-            </span>
-        </div>
+        <x-search-not-found>
+            No themes found.
+        </x-search-not-found>
     @endif
 
     <div class="w-full max-w-2xl mx-auto mt-16">
-        <div class="sm:rounded-lg bg-blue-3 border-t border-b sm:border-l sm:border-r border-blue-6 p-4">
-            <div class="flex items-start">
-                <div class="shrink-0">
-                    @icon('info', 'h-7 w-7 md:h-6 md:w-6 text-blue-9')
-                </div>
-                <div class="ml-3 flex-1 md:flex md:justify-between">
-                    <p class="text-base md:text-sm text-blue-11">
-                        Looking for more themes? Check out the Nova Exchange!
-                    </p>
-                    <p class="mt-3 text-base md:text-sm md:mt-0 md:ml-6">
-                        <a href="{{ config('services.anodyne.links.exchange') }}" target="_blank" class="whitespace-nowrap font-medium text-blue-9 hover:text-blue-10 transition ease-in-out duration-200">
-                            Go &rarr;
-                        </a>
-                    </p>
-                </div>
+        <x-panel.blue icon="info">
+            <div class="flex-1 md:flex md:justify-between">
+                <p class="text-base md:text-sm text-blue-600">
+                    Looking for more themes? Check out the Nova Exchange!
+                </p>
+                <p class="mt-3 text-base md:text-sm md:mt-0 md:ml-6">
+                    <a href="{{ config('services.anodyne.links.exchange') }}" target="_blank" class="whitespace-nowrap font-medium text-blue-500 hover:text-blue-600 transition ease-in-out duration-200">
+                        Go &rarr;
+                    </a>
+                </p>
             </div>
-        </div>
+        </x-panel.blue>
     </div>
 
     <x-modal color="red" title="Delete Theme?" icon="warning" :url="route('themes.delete')">

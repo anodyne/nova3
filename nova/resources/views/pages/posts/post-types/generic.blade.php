@@ -18,7 +18,7 @@
             </x-dropdown.group>
 
             <x-dropdown.group>
-                <x-dropdown.text class="uppercase tracking-wide font-semibold text-gray-9">
+                <x-dropdown.text class="uppercase tracking-wide font-semibold text-gray-500">
                     Add a post
                 </x-dropdown.text>
 
@@ -46,28 +46,28 @@
                 @icon($post->type->icon, 'h-6 w-6 md:h-5 md:w-5')
             </div>
 
-            <h3 class="text-xl font-bold tracking-tight text-gray-12">{{ $post->title }}</h3>
+            <h3 class="text-xl font-bold tracking-tight text-gray-900">{{ $post->title }}</h3>
         </div>
 
         @if ($post->day || $post->time || $post->location)
             <div class="flex flex-col space-y-2 sm:space-y-0 sm:space-x-6 sm:flex-row">
                 @if ($post->location)
-                    <div class="flex items-center text-sm text-gray-11 space-x-1.5 font-medium">
-                        @icon('location', 'shrink-0 h-5 w-5 text-gray-9')
+                    <div class="flex items-center text-sm text-gray-600 space-x-1.5 font-medium">
+                        @icon('location', 'shrink-0 h-5 w-5 text-gray-500')
                         <span>{{ $post->location }}</span>
                     </div>
                 @endif
 
                 @if ($post->day)
-                    <div class="flex items-center text-sm text-gray-11 space-x-1.5 font-medium">
-                        @icon('calendar', 'shrink-0 h-5 w-5 text-gray-9')
+                    <div class="flex items-center text-sm text-gray-600 space-x-1.5 font-medium">
+                        @icon('calendar', 'shrink-0 h-5 w-5 text-gray-500')
                         <span>{{ $post->day }}</span>
                     </div>
                 @endif
 
                 @if ($post->time)
-                    <div class="flex items-center text-sm text-gray-11 space-x-1.5 font-medium">
-                        @icon('clock', 'shrink-0 h-5 w-5 text-gray-9')
+                    <div class="flex items-center text-sm text-gray-600 space-x-1.5 font-medium">
+                        @icon('clock', 'shrink-0 h-5 w-5 text-gray-500')
                         <span>{{ $post->time }}</span>
                     </div>
                 @endif
@@ -76,10 +76,10 @@
 
         <div class="block">
             <div class="flex -space-x-2 relative z-0 overflow-hidden">
-                <img class="relative z-30 inline-block h-8 w-8 rounded-full ring-2 ring-gray-1" src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-                <img class="relative z-20 inline-block h-8 w-8 rounded-full ring-2 ring-gray-1" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-                <img class="relative z-10 inline-block h-8 w-8 rounded-full ring-2 ring-gray-1" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80" alt="">
-                <img class="relative z-0 inline-block h-8 w-8 rounded-full ring-2 ring-gray-1" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                <img class="relative z-30 inline-block h-8 w-8 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                <img class="relative z-20 inline-block h-8 w-8 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                <img class="relative z-10 inline-block h-8 w-8 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80" alt="">
+                <img class="relative z-0 inline-block h-8 w-8 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
             </div>
         </div>
 
@@ -91,14 +91,14 @@
             </div>
 
             @if ($post->published_at)
-                <div class="flex items-center text-sm text-gray-11">
+                <div class="flex items-center text-sm text-gray-600">
                     Published&nbsp;
                     <time datetime="{{ $post->published_at }}">
                         {{ $post->published_at->format('M d, Y') }}
                     </time>
                 </div>
             @else
-                <div class="flex items-center text-sm text-gray-11">
+                <div class="flex items-center text-sm text-gray-600">
                     Last updated&nbsp;
                     <time datetime="{{ $post->updated_at }}">
                         {{ $post->updated_at->format('M d, Y') }}
@@ -130,7 +130,7 @@
                 </x-dropdown.group>
 
                 <x-dropdown.group>
-                    <x-dropdown.text class="uppercase tracking-wide font-semibold text-gray-9">
+                    <x-dropdown.text class="uppercase tracking-wide font-semibold text-gray-500">
                         Add a post
                     </x-dropdown.text>
 
@@ -158,29 +158,29 @@
 
         <div class="w-full space-y-4 sm:space-y-2 ml-4">
             <div>
-                <h3 class="uppercase tracking-wide text-xs text-gray-9 font-semibold">{{ $post->type->name }}</h3>
-                <h2 class="flex-wrap font-bold text-lg tracking-tight text-gray-12 sm:text-2xl">{{ $post->title }}</h2>
+                <h3 class="uppercase tracking-wide text-xs text-gray-500 font-semibold">{{ $post->type->name }}</h3>
+                <h2 class="flex-wrap font-bold text-lg tracking-tight text-gray-900 sm:text-2xl">{{ $post->title }}</h2>
             </div>
 
             @if ($post->day || $post->time || $post->location)
                 <div class="flex flex-col space-y-2 sm:space-y-0 sm:space-x-6 sm:flex-row">
                     @if ($post->location)
-                        <div class="flex items-center text-sm text-gray-11 space-x-1.5">
-                            @icon('location', 'shrink-0 h-5 w-5 text-gray-9')
+                        <div class="flex items-center text-sm text-gray-600 space-x-1.5">
+                            @icon('location', 'shrink-0 h-5 w-5 text-gray-500')
                             <span>{{ $post->location }}</span>
                         </div>
                     @endif
 
                     @if ($post->day)
-                        <div class="flex items-center text-sm text-gray-11 space-x-1.5">
-                            @icon('calendar', 'shrink-0 h-5 w-5 text-gray-9')
+                        <div class="flex items-center text-sm text-gray-600 space-x-1.5">
+                            @icon('calendar', 'shrink-0 h-5 w-5 text-gray-500')
                             <span>{{ $post->day }}</span>
                         </div>
                     @endif
 
                     @if ($post->time)
-                        <div class="flex items-center text-sm text-gray-11 space-x-1.5">
-                            @icon('clock', 'shrink-0 h-5 w-5 text-gray-9')
+                        <div class="flex items-center text-sm text-gray-600 space-x-1.5">
+                            @icon('clock', 'shrink-0 h-5 w-5 text-gray-500')
                             <span>{{ $post->time }}</span>
                         </div>
                     @endif
@@ -189,10 +189,10 @@
 
             <div class="block">
                 <div class="flex -space-x-2 relative z-0 overflow-hidden">
-                    <img class="relative z-30 inline-block h-8 w-8 rounded-full ring-2 ring-gray-1" src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-                    <img class="relative z-20 inline-block h-8 w-8 rounded-full ring-2 ring-gray-1" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-                    <img class="relative z-10 inline-block h-8 w-8 rounded-full ring-2 ring-gray-1" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80" alt="">
-                    <img class="relative z-0 inline-block h-8 w-8 rounded-full ring-2 ring-gray-1" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                    <img class="relative z-30 inline-block h-8 w-8 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                    <img class="relative z-20 inline-block h-8 w-8 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                    <img class="relative z-10 inline-block h-8 w-8 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80" alt="">
+                    <img class="relative z-0 inline-block h-8 w-8 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
                 </div>
             </div>
 
@@ -202,14 +202,14 @@
                 </div>
 
                 @if ($post->published_at)
-                    <div class="flex items-center text-sm text-gray-11">
+                    <div class="flex items-center text-sm text-gray-600">
                         Published&nbsp;
                         <time datetime="{{ $post->published_at }}">
                             {{ $post->published_at->format('M d, Y') }}
                         </time>
                     </div>
                 @else
-                    <div class="flex items-center text-sm text-gray-11">
+                    <div class="flex items-center text-sm text-gray-600">
                         Last updated&nbsp;
                         <time datetime="{{ $post->updated_at }}">
                             {{ $post->updated_at->format('M d, Y') }}

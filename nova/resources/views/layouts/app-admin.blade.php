@@ -4,30 +4,35 @@
 
 @section('layout')
     <div class="relative min-h-screen">
-        <header x-data="{ open: false }" class="bg-gray-1 shadow">
-            <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:divide-y lg:divide-gray-6 lg:px-8">
+        <header x-data="{ open: false }" class="bg-white dark:bg-gray-800 shadow dark:shadow-none">
+            <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:divide-y lg:divide-gray-100 dark:lg:divide-gray-700/50 lg:px-8">
                 <div class="relative h-16 flex justify-between">
-                    <div class="relative z-10 px-2 flex lg:px-0">
+                    <div class="relative px-2 flex lg:px-0">
                         <a href="{{ route('dashboard') }}" class="shrink-0 flex items-center">
-                            <x-logos.nova class="block h-8 w-auto" />
+                            @if (app('nova.settings')->getFirstMedia('logo'))
+                                <img src="{{ app('nova.settings')->getFirstMediaUrl('logo') }}" alt="logo" class="block h-8 w-auto">
+                            @else
+                                <x-logos.nova class="block h-8 w-auto" />
+                            @endif
                         </a>
                     </div>
 
-                    <div class="relative z-0 flex-1 px-4 md:px-2 flex items-center justify-center sm:absolute sm:inset-0">
+                    <div class="relative z-0 flex-1 px-4 md:px-2 flex items-center justify-center">
                         <div class="max-w-xs w-full">
                             <label for="search" class="sr-only">Search</label>
-                            <div class="relative">
-                                <div class="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
-                                    @icon('search', 'shrink-0 h-5 w-5 text-gray-9')
-                                </div>
-                                <input name="search" id="search" class="block w-full bg-gray-1 border border-gray-6 rounded-md py-2 pl-10 pr-3 text-sm placeholder-gray-9 focus:outline-none focus:text-gray-12 focus:placeholder-gray-9 focus:ring-1 focus:ring-gray-12 focus:border-gray-12 sm:text-sm" placeholder="Search" type="search">
-                            </div>
+                            <x-input.field>
+                                <x-slot:leadingAddOn>
+                                    @icon('search', 'h-5 w-5')
+                                </x-slot:leadingAddOn>
+
+                                <input name="search" id="search" placeholder="Search" type="search" class="flex-1 appearance-none bg-transparent border-none p-0 focus:ring-0 focus:outline-none focus:text-gray-900 dark:focus:text-gray-100">
+                            </x-input.field>
                         </div>
                     </div>
 
                     <div class="relative z-10 flex items-center lg:hidden">
                         <!-- Mobile menu button -->
-                        <button type="button" class="p-2 inline-flex items-center justify-center text-gray-9 focus:outline-none" aria-controls="mobile-menu" @click="open = !open" aria-expanded="false" :aria-expanded="open.toString()">
+                        <button type="button" class="p-2 inline-flex items-center justify-center text-gray-500 focus:outline-none" aria-controls="mobile-menu" @click="open = !open" aria-expanded="false" :aria-expanded="open.toString()">
                             <span class="sr-only">Open menu</span>
 
                             <svg x-description="Icon when menu is closed. Heroicon name: outline/menu" x-state:on="Menu open" x-state:off="Menu closed" class="block h-7 w-7" :class="{ 'hidden': open, 'block': !(open) }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
@@ -36,7 +41,7 @@
                         </button>
                     </div>
 
-                    <div class="hidden lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center space-x-4">
+                    <div class="hidden lg:relative lg:ml-4 lg:flex lg:items-center space-x-4">
                         @livewire('users:notifications')
 
                         @livewire('users:admin-theme-toggle')
@@ -77,7 +82,7 @@
                     </x-nav.main-item>
 
                     @if (auth()->user()->canWrite)
-                        <x-nav.main-item :href="route('writing-overview')" :active="$meta->subnavSection === 'writing'">
+                        <x-nav.main-item :href="route('writing-overview')" :active="$meta->subnavSection === 'writing' || $meta->subnavSection === 'posting'">
                             Writing
                         </x-nav.main-item>
                     @endif
@@ -149,34 +154,34 @@
                     @endif
                 </div>
 
-                <div class="border-t border-gray-6 pt-4 pb-3">
+                <div class="border-t border-gray-300 pt-4 pb-3">
                     <div class="px-4 flex items-center">
                         <div class="shrink-0">
                             <x-avatar size="xs" :src="auth()->user()->avatar_url" :tooltip="auth()->user()->name" />
                         </div>
 
                         <div class="ml-3">
-                            <div class="text-base font-medium text-gray-12">{{ auth()->user()->name }}</div>
-                            <div class="text-sm font-medium text-gray-11">{{ auth()->user()->email }}</div>
+                            <div class="text-base font-medium text-gray-900">{{ auth()->user()->name }}</div>
+                            <div class="text-sm font-medium text-gray-600">{{ auth()->user()->email }}</div>
                         </div>
 
-                        <button type="button" class="ml-auto shrink-0 bg-gray-1 rounded-full p-1 text-gray-9 hover:text-gray-11 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-12">
+                        <button type="button" class="ml-auto shrink-0 bg-white rounded-full p-1 text-gray-500 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900">
                             <span class="sr-only">Switch theme</span>
                             @icon('moon', 'h-6 w-6')
                         </button>
 
-                        <button type="button" class="ml-auto shrink-0 bg-gray-1 rounded-full p-1 text-gray-9 hover:text-gray-11 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-12">
+                        <button type="button" class="ml-auto shrink-0 bg-white rounded-full p-1 text-gray-500 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900">
                             <span class="sr-only">View notifications</span>
                             @icon('notification', 'h-6 w-6')
                         </button>
                     </div>
 
                     <div class="mt-3 px-2 space-y-1">
-                        <a href="#" class="block rounded-md py-2 px-3 text-base font-medium text-gray-11 hover:bg-gray-2 hover:text-gray-12">My account</a>
+                        <a href="#" class="block rounded-md py-2 px-3 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">My account</a>
 
-                        <a href="{{ route('whats-new') }}" class="block rounded-md py-2 px-3 text-base font-medium text-gray-11 hover:bg-gray-2 hover:text-gray-12">See what's new</a>
+                        <a href="{{ route('whats-new') }}" class="block rounded-md py-2 px-3 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">See what's new</a>
 
-                        <a href="#" class="block rounded-md py-2 px-3 text-base font-medium text-gray-11 hover:bg-gray-2 hover:text-gray-12">Sign out</a>
+                        <a href="#" class="block rounded-md py-2 px-3 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">Sign out</a>
                     </div>
                 </div>
             </nav>
@@ -194,7 +199,7 @@
                     @yield('template')
 
                     <footer class="mx-auto py-4">
-                        <div class="flex items-center justify-center text-sm text-gray-9">
+                        <div class="flex items-center justify-center text-sm text-gray-400 dark:text-gray-500">
                             <div class="flex items-center space-x-1.5 font-medium">
                                 <span>Powered by</span>
                                 <a href="https://anodyne-productions.com" target="_blank">

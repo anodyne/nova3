@@ -12,12 +12,13 @@
     </x-page-header>
 
     @if ($noteCount === 0)
-        <x-empty-state
-            image="notes"
+        <x-empty-state.large
+            icon="gauge"
             message="Notes help keep your thoughts organized about your game, a story idea, or even as a scratchpad for your next great story post."
             label="Add a note now"
             :link="route('notes.create')"
-        ></x-empty-state>
+            :link-access="true"
+        ></x-empty-state.large>
     @else
         @livewire('notes:list')
 

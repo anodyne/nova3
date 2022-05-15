@@ -13,6 +13,11 @@ class Active extends CharacterStatus
         return 'green';
     }
 
+    public function bgColor(): string
+    {
+        return "bg-{$this->color()}-500";
+    }
+
     public function name(): string
     {
         return 'active';

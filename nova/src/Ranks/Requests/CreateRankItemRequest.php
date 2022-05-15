@@ -15,6 +15,7 @@ class CreateRankItemRequest extends ValidatesRequest
             'name_id' => ['required', 'exists:rank_names,id'],
             'base_image' => ['required'],
             'overlay_image' => ['nullable'],
+            'status' => ['required'],
         ];
     }
 

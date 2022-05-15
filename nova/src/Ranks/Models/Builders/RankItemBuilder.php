@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Nova\Foundation\Filters\Filterable;
 use Nova\Foundation\Models\Concerns\Sortable;
 use Nova\Ranks\Models\RankName;
+use Nova\Ranks\Models\States\Items\Active;
 
 class RankItemBuilder extends Builder
 {
@@ -32,6 +33,11 @@ class RankItemBuilder extends Builder
     {
         return $this->orderBy('group_id', 'desc')
             ->orderBy('sort', 'desc');
+    }
+
+    public function whereActive()
+    {
+        return $this->whereState('status', Active::class);
     }
 
     public function whereGroup($group)

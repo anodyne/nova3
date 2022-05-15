@@ -112,7 +112,7 @@ class PopulatePagesTable extends Migration
             ['uri' => 'departments/confirm-duplicate', 'key' => 'departments.confirm-duplicate', 'verb' => 'post',  'resource' => 'Nova\\Departments\\Controllers\\DuplicateDepartmentController@confirm', 'layout' => 'admin'],
             ['uri' => 'departments/{original}/duplicate', 'key' => 'departments.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Departments\\Controllers\\DuplicateDepartmentController@duplicate', 'layout' => 'admin'],
 
-            ['uri' => 'departments/{department}/positions', 'key' => 'positions.index', 'resource' => 'Nova\\Departments\\Controllers\\ShowPositionController@all', 'layout' => 'admin'],
+            ['uri' => 'positions', 'key' => 'positions.index', 'resource' => 'Nova\\Departments\\Controllers\\ShowPositionController@all', 'layout' => 'admin'],
             ['uri' => 'positions/{position}/show', 'key' => 'positions.show', 'resource' => 'Nova\\Departments\\Controllers\\ShowPositionController@show', 'layout' => 'admin'],
             ['uri' => 'positions/create', 'key' => 'positions.create', 'resource' => 'Nova\\Departments\\Controllers\\CreatePositionController@create', 'layout' => 'admin'],
             ['uri' => 'positions', 'key' => 'positions.store', 'verb' => 'post', 'resource' => 'Nova\\Departments\\Controllers\\CreatePositionController@store', 'layout' => 'admin'],
@@ -122,7 +122,6 @@ class PopulatePagesTable extends Migration
             ['uri' => 'positions/{position}', 'key' => 'positions.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Departments\\Controllers\\DeletePositionController@destroy', 'layout' => 'admin'],
             ['uri' => 'positions/confirm-duplicate', 'key' => 'positions.confirm-duplicate', 'verb' => 'post',  'resource' => 'Nova\\Departments\\Controllers\\DuplicatePositionController@confirm', 'layout' => 'admin'],
             ['uri' => 'positions/{original}/duplicate', 'key' => 'positions.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Departments\\Controllers\\DuplicatePositionController@duplicate', 'layout' => 'admin'],
-            ['uri' => 'deparments/{department}/positions/reorder', 'key' => 'positions.reorder', 'verb' => 'post', 'resource' => 'Nova\\Departments\\Controllers\\ReorderPositionsController', 'layout' => 'admin'],
 
             ['uri' => 'characters', 'key' => 'characters.index', 'resource' => 'Nova\\Characters\\Controllers\\ShowCharacterController@all', 'layout' => 'admin'],
             ['uri' => 'characters/{character}/show', 'key' => 'characters.show', 'resource' => 'Nova\\Characters\\Controllers\\ShowCharacterController@show', 'layout' => 'admin'],

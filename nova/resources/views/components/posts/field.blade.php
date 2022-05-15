@@ -11,7 +11,7 @@
         <x-input.field>
             <x-slot:leadingAddOn>
                 @if ($icon)
-                    @icon($icon, 'h-5 w-5 text-gray-9 group-focus-within:text-gray-11')
+                    @icon($icon, 'h-5 w-5 text-gray-500 group-focus-within:text-gray-600')
                 @endif
             </x-slot:leadingAddOn>
 
@@ -20,7 +20,7 @@
 
         @if ($field->suggest && $suggestion && ! $value)
             <div class="text-xs">
-                <span class="font-medium text-gray-11">Suggested:</span>
+                <span class="font-medium text-gray-600">Suggested:</span>
                 <x-button
                     wire:click="$set('{{ $name }}', '{{ $suggestion->{$name} }}')"
                     color="blue-text"

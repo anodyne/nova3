@@ -1,8 +1,8 @@
 <div>
     <x-content-box width="sm">
         <div class="flex items-center space-x-2">
-            @icon('book', 'h-6 w-6 shrink-0 text-gray-11')
-            <h3 class="text-lg leading-6 font-medium text-gray-12" id="modal-title">Choose a story</h3>
+            @icon('book', 'h-6 w-6 shrink-0 text-gray-600 dark:text-gray-500')
+            <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100" id="modal-title">Choose a story</h3>
         </div>
     </x-content-box>
 
@@ -24,11 +24,11 @@
                 </x-input.text>
             </x-input.group>
 
-            <div class="mt-4 w-full max-h-60 h-60 overflow-auto bg-gray-1 text-base focus:outline-none sm:text-sm" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+            <div class="mt-4 w-full max-h-60 h-60 overflow-auto bg-white dark:bg-gray-800 text-base focus:outline-none sm:text-sm" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
                 <div class="space-y-1">
                     @if ($filteredStories->count() > 0)
                         @foreach ($filteredStories as $s)
-                            <div class="p-1.5 rounded-md odd:bg-gray-3">
+                            <div class="p-1.5 rounded-md odd:bg-gray-50 dark:odd:bg-gray-700/50">
                                 <x-input.radio id="story-{{ $s->id }}" for="story-{{ $s->id }}" :value="$s->id" :label="$s->title" wire:model="selected" />
                             </div>
                         @endforeach
@@ -38,7 +38,7 @@
         </div>
     </x-content-box>
 
-    <x-content-box class="z-20 sm:flex sm:flex-row-reverse sm:space-x-4 sm:space-x-reverse bg-gray-3 rounded-b-lg" height="sm" width="sm">
+    <x-content-box class="z-20 sm:flex sm:flex-row-reverse sm:space-x-4 sm:space-x-reverse bg-gray-50 dark:bg-gray-700/50 rounded-b-lg" height="sm" width="sm">
         @if ($selected)
             <x-button color="blue" wire:click="apply">Apply</x-button>
         @endif

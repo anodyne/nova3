@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Nova\Departments\Events;
 use Nova\Departments\Models\Builders\DepartmentBuilder;
-use Nova\Departments\Models\States\DepartmentStatus;
+use Nova\Departments\Models\States\Departments\DepartmentStatus;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\HasMedia;

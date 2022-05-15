@@ -24,6 +24,10 @@
                     <p class="font-semibold">{{ $item->group->name }}</p>
                 </x-input.group>
 
+                <x-input.group label="Status">
+                    <x-badge :color="$item->status->color()">{{ $item->status->displayName() }}</x-badge>
+                </x-input.group>
+
                 <x-input.group label="Preview">
                     <x-rank :rank="$item" />
                 </x-input.group>
@@ -32,7 +36,7 @@
             <x-form.section title="Characters" message="The following characters have this rank assigned to them.">
                 <div class="flex flex-col w-full space-y-2">
                     @foreach ($item->characters as $character)
-                        <div class="group flex items-center justify-between w-full py-2 px-4 rounded odd:bg-gray-3">
+                        <div class="group flex items-center justify-between w-full py-2 px-4 rounded odd:bg-gray-100 dark:odd:bg-gray-700/50">
                             <div class="flex items-center">
                                 <x-avatar-meta size="lg" :src="$character->avatar_url">
                                     <x-slot:primaryMeta>
@@ -47,9 +51,9 @@
                             </div>
 
                             @can('update', $character)
-                                <a href="{{ route('characters.edit', $character) }}" class="text-gray-11 transition ease-in-out duration-200 hover:text-gray-12 group-hover:visible sm:invisible">
+                                <x-link :href="route('characters.edit', $character)" color="gray-text" size="none" class="group-hover:visible sm:invisible">
                                     @icon('edit')
-                                </a>
+                                </x-link>
                             @endcan
                         </div>
                     @endforeach

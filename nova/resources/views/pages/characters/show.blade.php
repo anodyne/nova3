@@ -24,7 +24,7 @@
                     <x-input.group label="Rank">
                         <div class="flex items-center">
                             <x-rank :rank="$character->rank" />
-                            <span class="ml-3 font-medium">{{ optional(optional($character->rank)->name)->name }}</span>
+                            <span class="ml-3 font-medium">{{ $character->rank?->name?->name }}</span>
                         </div>
                     </x-input.group>
                 @endif
@@ -37,7 +37,7 @@
 
                         <div class="flex flex-col w-full">
                             @foreach ($character->positions as $position)
-                                <div class="group flex items-center justify-between py-2 px-4 rounded odd:bg-gray-100">
+                                <div class="group flex items-center justify-between py-2 px-4 rounded odd:bg-gray-100 dark:odd:bg-gray-700/50">
                                     {{ $position->name }}
                                 </div>
                             @endforeach
@@ -63,7 +63,7 @@
                     <x-input.group label="Played By">
                         <div class="flex flex-col w-full">
                             @foreach ($character->users as $user)
-                                <div class="group flex items-center justify-between py-2 px-4 rounded odd:bg-gray-3">
+                                <div class="group flex items-center justify-between py-2 px-4 rounded odd:bg-gray-50">
                                     <div class="flex items-center">
                                         <x-avatar-meta size="lg" :src="$user->avatar_url">
                                             <x-slot:primaryMeta>
@@ -77,7 +77,7 @@
                                     </div>
 
                                     @can('update', $user)
-                                        <a href="{{ route('users.edit', $user) }}" class="text-gray-11 transition ease-in-out duration-200 hover:text-gray-12 group-hover:visible sm:invisible">
+                                        <a href="{{ route('users.edit', $user) }}" class="text-gray-600 transition ease-in-out duration-200 hover:text-gray-900 group-hover:visible sm:invisible">
                                             @icon('edit')
                                         </a>
                                     @endcan

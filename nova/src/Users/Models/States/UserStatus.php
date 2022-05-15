@@ -11,6 +11,8 @@ abstract class UserStatus extends State
 {
     abstract public function color(): string;
 
+    abstract public function bgColor(): string;
+
     abstract public function name(): string;
 
     public function displayName(): string

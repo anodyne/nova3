@@ -10,10 +10,6 @@ use Nova\Foundation\Icons\IconSets;
 
 class IconsSelectMenu extends Component
 {
-    public $allIcons;
-
-    public $icons;
-
     public $search;
 
     public $selected;
@@ -22,36 +18,29 @@ class IconsSelectMenu extends Component
     {
         $this->selected = ($icon === '') ? null : $icon;
 
-        $this->resetIcons();
+        $this->dispatchBrowserEvent('icons-dropdown-close');
+
+        $this->reset('search');
     }
 
-    public function updatedSearch($search)
+    public function getFilteredIconsProperty(): array
     {
-        if ($search == null) {
-            $this->resetIcons();
+        $allIcons = app(IconSets::class)->getDefaultSet()->map();
+        ksort($allIcons);
+
+        if ($this->search === null) {
+            return $allIcons;
         } else {
-            $this->icons = collect($this->allIcons)
-                ->filter(fn ($value, $key) => Str::contains($key, trim(strtolower($search))))
+            return collect($allIcons)
+                ->filter(fn ($value, $key) => Str::contains($key, trim(strtolower($this->search))))
                 ->toArray();
         }
     }
 
-    public function mount()
-    {
-        $this->allIcons = app(IconSets::class)->getDefaultSet()->map();
-        ksort($this->allIcons);
-
-        $this->resetIcons();
-    }
-
     public function render()
     {
-        return view('livewire.icons');
-    }
-
-    protected function resetIcons()
-    {
-        $this->reset('search');
-        $this->icons = $this->allIcons;
+        return view('livewire.icons', [
+            'icons' => $this->filteredIcons,
+        ]);
     }
 }

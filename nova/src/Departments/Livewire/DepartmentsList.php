@@ -33,8 +33,17 @@ class DepartmentsList extends Component
             ->default(['active', 'inactive'])
             ->meta(['label' => 'Status']);
 
+        $positionCountFilter = Filter::make('position_count')
+            ->options([
+                'none' => 'None',
+                'one' => 'One',
+                'multiple' => 'More than one',
+            ])
+            ->meta(['label' => 'Number of positions']);
+
         return [
             $statusFilter,
+            $positionCountFilter,
         ];
     }
 
@@ -51,6 +60,13 @@ class DepartmentsList extends Component
     {
         $departments = Department::withCount('positions')
             ->when($this->getFilterValue('status'), fn ($query, $values) => $query->whereIn('status', $values))
+            ->when($this->getFilterValue('position_count'), function ($query, $value) {
+                return match ($value) {
+                    default => $query->has('positions', '=', 0),
+                    'one' => $query->has('positions', '=', 1),
+                    'multiple' => $query->has('positions', '>=', 2),
+                };
+            })
             ->when($this->search, fn ($query, $value) => $query->searchFor($value))
             ->orderBySort();
 

@@ -11,25 +11,28 @@ use Nova\PostTypes\Data\Fields;
 use Nova\PostTypes\Data\Options;
 use Nova\PostTypes\Events;
 use Nova\PostTypes\Models\Builders\PostTypeBuilder;
+use Nova\PostTypes\Models\States\PostTypeStatus;
 use Nova\Roles\Models\Role;
+use Spatie\ModelStates\HasStates;
 
 class PostType extends Model
 {
     use HasFactory;
+    use HasStates;
     use SoftDeletes;
 
     protected $table = 'post_types';
 
     protected $fillable = [
-        'name', 'description', 'key', 'active', 'visibility', 'fields',
+        'name', 'description', 'key', 'status', 'visibility', 'fields',
         'options', 'sort', 'icon', 'color',
     ];
 
     protected $casts = [
-        'active' => 'boolean',
         'fields' => Fields::class,
         'options' => Options::class,
         'sort' => 'int',
+        'status' => PostTypeStatus::class,
     ];
 
     protected $dispatchesEvents = [

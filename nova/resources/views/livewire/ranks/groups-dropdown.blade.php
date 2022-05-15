@@ -1,61 +1,47 @@
 <div
-    x-data="listBox({ value: {{ $selectedId ?? 0 }}, selected: {{ $selectedId ?? 0 }} })"
-    @listbox-close.window="open = false"
-    class="relative w-full"
+    x-data="{ open: false }"
+    @rank-groups-dropdown-close.window="open = false"
+    @keydown.window.escape="open = false"
+    @click.away="open = false"
+    class="relative inline-block text-left w-full leading-0"
 >
     <input type="hidden" name="group_id" value="{{ $selectedId }}">
 
-    <span class="relative flex w-full rounded-md shadow-sm">
-        <button
-            x-ref="button"
-            @keydown.arrow-up.stop.prevent="onButtonClick()"
-            @keydown.arrow-down.stop.prevent="onButtonClick()"
-            @click="onButtonClick()"
-            type="button"
-            aria-haspopup="listbox"
-            :aria-expanded="open"
-            aria-labelledby="listbox-label"
-            class="cursor-default relative w-full rounded-md border border-gray-6 bg-gray-1 pl-3 pr-10 py-2 text-left focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-200"
-        >
-            <span class="block truncate">
-                {{ optional($selected)->name ?? 'Select a rank group' }}
-            </span>
-            <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                <svg class="h-5 w-5 text-gray-9" viewBox="0 0 20 20" fill="none" stroke="currentColor">
-                    <path d="M7 7l3-3 3 3m0 6l-3 3-3-3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                </svg>
-            </span>
-        </button>
-    </span>
+    <div>
+        <span class="relative flex w-full rounded-md shadow-sm">
+            <button
+                @click="open = !open"
+                type="button"
+                class="flex items-center justify-between cursor-default relative w-full rounded-md ring-1 ring-gray-200 dark:ring-gray-200/[15%] focus-within:ring-2 focus-within:ring-blue-400 dark:focus-within:ring-blue-400 bg-gray-50 dark:bg-gray-700/50 py-2 px-3 text-left focus:outline-none focus:bg-white dark:focus:bg-gray-800 transition leading-normal space-x-4"
+                aria-haspopup="true"
+                aria-expanded="true"
+                :aria-expanded="open"
+            >
+                {{ $selected?->name ?? 'Select a rank group' }}
+
+                <x-icon.chevron-down class="h-5 w-5 text-gray-400 dark:text-gray-500" />
+            </button>
+        </span>
+    </div>
 
     <div
         x-show="open"
-        @click.away="open = false"
-        x-description="Select popover, show/hide based on select state."
-        x-transition:leave="transition ease-in duration-100"
-        x-transition:leave-start="opacity-100"
-        x-transition:leave-end="opacity-0"
-        class="absolute mt-1 w-full rounded-md bg-gray-1 shadow-lg z-10"
-        style="display: none;"
+        x-description="Dropdown panel, show/hide based on dropdown state."
+        x-transition:enter="transition ease-out duration-100"
+        x-transition:enter-start="opacity-0 scale-95"
+        x-transition:enter-end="opacity-100 scale-100"
+        x-transition:leave="transition ease-in duration-75"
+        x-transition:leave-start="opacity-100 scale-100"
+        x-transition:leave-end="opacity-0 scale-95"
+        class="absolute mt-2 rounded-lg shadow-lg origin-top-left left-0 w-full"
+        x-cloak
     >
-        <ul
-            @keydown.enter.stop.prevent="onOptionSelect()"
-            @keydown.escape="onEscape()"
-            @keydown.arrow-up.prevent="onArrowUp()"
-            @keydown.arrow-down.prevent="onArrowDown()"
-            x-ref="listbox"
-            tabindex="-1"
-            role="listbox"
-            aria-labelledby="listbox-label"
-            :aria-activedescendant="activeDescendant"
-            class="max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
-            aria-activedescendant="listbox-option-0"
-        >
-            <li class="p-2">
-                <div class="group flex items-center rounded-md bg-gray-100 border-2 border-gray-100 text-gray-600 px-2 py-2 space-x-3 focus-within:border-gray-6 focus-within:bg-gray-1 focus-within:text-gray-700">
-                    @icon('search', 'shrink-0 h-5 w-5 text-gray-9 group-focus-within:text-gray-11')
+        <div class="relative rounded-lg bg-white dark:bg-gray-700 ring-1 ring-gray-900/5 dark:ring-gray-200/10 z-10 divide-y divide-gray-100 dark:divide-gray-200/10 dark:highlight-white/10 max-h-60 overflow-auto">
+            <div class="p-1.5" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                <div class="group flex items-center rounded-md bg-gray-100 dark:bg-gray-600 border-2 border-gray-100 dark:border-gray-600 text-gray-500 dark:text-gray-400 mb-4 px-2 py-2 space-x-3 focus-within:border-gray-300 dark:focus-within:border-gray-500 focus-within:bg-white dark:focus-within:bg-gray-700 focus-within:text-gray-700">
+                    @icon('search', 'shrink-0 h-5 w-5 text-gray-500 group-focus-within:text-gray-600 dark:group-focus-within:text-gray-400')
 
-                    <input wire:model.debounce.250ms="search" type="text" placeholder="Find a rank group..." class="flex w-full appearance-none bg-transparent border-none p-0 focus:ring-0 focus:outline-none">
+                    <input wire:model.debounce.250ms="search" type="text" placeholder="Find a rank group..." class="flex w-full appearance-none bg-transparent border-none p-0 focus:ring-0 focus:outline-none dark:placeholder-gray-400">
 
                     @isset($search)
                         <x-button wire:click="$set('search', null)" color="gray-text" size="none">
@@ -63,54 +49,37 @@
                         </x-button>
                     @endisset
                 </div>
-            </li>
 
-            @forelse ($groups as $group)
-                <li
-                    x-description="Select option, manage highlight styles based on mouseenter/mouseleave and keyboard navigation."
-                    x-state:on="Highlighted"
-                    x-state:off="Not Highlighted"
-                    id="listbox-option-{{ $group->id }}"
-                    role="option"
-                    wire:click="selectGroup({{ $group->id }})"
-                    @mouseenter="selected = {{ $group->id }}"
-                    @mouseleave="selected = null"
-                    :class="{ 'text-white bg-blue-9': selected === {{ $group->id }}, 'text-gray-900': !(selected === {{ $group->id }}) }"
-                    class="cursor-default select-none relative py-2 pl-3 pr-9 text-gray-900"
-                >
-                    <span
-                        x-state:on="Selected"
-                        x-state:off="Not Selected"
-                        :class="{ 'font-semibold': value === {{ $group->id }}, 'font-normal': !(value === {{ $group->id }}) }"
-                        class="block truncate font-semibold"
-                    >
-                        {{ $group->name }}
-                    </span>
+                @forelse ($filteredGroups as $group)
+                    <button wire:click="selectGroup({{ $group->id }})" type="button" class="group rounded-md flex items-center justify-between w-full px-4 py-2 text-base md:text-sm font-medium transition text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600/50 dark:hover:text-gray-100 hover:text-gray-900 focus:outline-none" role="menuitem">
+                        <div class="flex items-center space-x-3">
+                            <x-status :status="$group->status"></x-status>
+                            <span>{{ $group->name }}</span>
+                        </div>
 
-                    @if ($selectedId === $group->id)
-                        <span
-                            x-description="Checkmark, only display for selected option."
-                            x-state:on="Highlighted"
-                            x-state:off="Not Highlighted"
-                            :class="{ 'text-white': selected === {{ $group->id }}, 'text-blue-9': !(selected === {{ $group->id }}) }"
-                            class="absolute inset-y-0 right-0 flex items-center pr-4 text-blue-9"
-                        >
-                            @icon('check', 'h-5 w-5')
-                        </span>
-                    @endif
-                </li>
-            @empty
-                <li class="py-4">
-                    <div class="text-center">
-                        <div class="text-gray-500">There is no rank group named</div>
-                        <div class="text-gray-800 font-medium mt-1 mb-6">&lsquo;{{ $search }}&rsquo;</div>
+                        @if ($selectedId === $group->id)
+                            <span
+                                x-description="Checkmark, only display for selected option."
+                                x-state:on="Highlighted"
+                                x-state:off="Not Highlighted"
+                                :class="{ 'text-white': selected === {{ $group->id }}, 'text-blue-500': !(selected === {{ $group->id }}) }"
+                                class="flex items-center text-blue-500"
+                            >
+                                @icon('check', 'h-6 w-6')
+                            </span>
+                        @endif
+                    </button>
+                @empty
+                    <div class="flex flex-col items-center pt-2 pb-6">
+                        <div class="text-base text-gray-500 dark:text-gray-400">There is no rank group named</div>
+                        <div class="text-base text-gray-900 dark:text-gray-100 font-medium mt-1 mb-6">&lsquo;{{ $search }}&rsquo;</div>
 
-                        <x-button wire:click="createAndSelectGroup" type="button" color="blue">
+                        <x-button wire:click="createAndSelectGroup" type="button" color="blue-outline">
                             Create this group
                         </x-button>
                     </div>
-                </li>
-            @endforelse
-        </ul>
+                @endforelse
+            </div>
+        </div>
     </div>
 </div>

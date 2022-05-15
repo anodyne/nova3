@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Departments\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Characters\Models\States\Statuses\Active;
 use Nova\Departments\Actions\CreateDepartment;
 use Nova\Departments\Data\DepartmentData;
 use Nova\Departments\Models\Department;
@@ -23,7 +24,7 @@ class CreateDepartmentActionTest extends TestCase
         $data = DepartmentData::from([
             'name' => 'Command',
             'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
-            'active' => true,
+            'status' => Active::class,
         ]);
 
         $department = CreateDepartment::run($data);
@@ -42,7 +43,7 @@ class CreateDepartmentActionTest extends TestCase
         $data = DepartmentData::from([
             'name' => 'Command',
             'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
-            'active' => true,
+            'status' => Active::class,
         ]);
 
         $department = CreateDepartment::run($data);

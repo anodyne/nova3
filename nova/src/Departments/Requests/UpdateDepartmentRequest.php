@@ -12,10 +12,10 @@ class UpdateDepartmentRequest extends ValidatesRequest
     public function rules(): array
     {
         return [
-            'active' => ['required'],
             'description' => ['nullable'],
             'image' => ['nullable', 'mimes:jpeg,png,gif', new MaxFileSize()],
             'name' => ['required'],
+            'status' => ['required'],
         ];
     }
 }

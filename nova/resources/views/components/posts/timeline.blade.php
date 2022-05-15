@@ -19,27 +19,27 @@
 
                         @if (request('sort', 'desc') === 'desc' && $post->getNextSibling())
                             <!-- Lower arm -->
-                            <path d="M 6 18 V 100000" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-6"></path>
+                            <path d="M 6 18 V 100000" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-400"></path>
                         @endif
 
                         @if (request('sort', 'desc') === 'asc' && $post->getPrevSibling())
                             <!-- Lower arm -->
-                            <path d="M 6 18 V 100000" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-6"></path>
+                            <path d="M 6 18 V 100000" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-400"></path>
                         @endif
 
                         @if (request('sort', 'desc') === 'desc' && $post->getPrevSibling())
                             <!-- Upper arm -->
-                            <path d="M 6 -6 V -10000" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-6"></path>
+                            <path d="M 6 -6 V -10000" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-400"></path>
                         @endif
 
                         @if (request('sort', 'desc') === 'asc' && $post->getNextSibling())
                             <!-- Upper arm -->
-                            <path d="M 6 -6 V -10000" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-6"></path>
+                            <path d="M 6 -6 V -10000" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-400"></path>
                         @endif
                     </svg>
                 </div>
 
-                <div class="col-start-2 col-span-11 ml-0 text-gray-11">
+                <div class="col-start-2 col-span-11 ml-0 text-gray-600">
                     @if (view()->exists("pages.posts.post-types.{$post->type->key}"))
                         @include("pages.posts.post-types.{$post->type->key}")
                     @else

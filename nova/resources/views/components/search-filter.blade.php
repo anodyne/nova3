@@ -2,7 +2,7 @@
 
 <div x-data="{ search: '{{ $search }}', isLoading: false }">
     <label for="email" class="sr-only">{{ $placeholder }}</label>
-    <div class="flex items-center py-1 text-gray-9 transition ease-in-out duration-200 focus-within:text-gray-11">
+    <div class="flex items-center py-1 text-gray-500 transition ease-in-out duration-200 focus-within:text-gray-600">
         @icon('search', 'mr-3 shrink-0')
 
         <input
@@ -10,7 +10,7 @@
             @keydown.debounce.150="isLoading = true"
             @keydown.debounce.500="refreshList($event.target.value)"
             autocomplete="off"
-            class="relative w-full appearance-none bg-transparent text-gray-11 border-none p-0 focus:ring-0 focus:outline-none"
+            class="relative w-full appearance-none bg-transparent text-gray-600 border-none p-0 focus:ring-0 focus:outline-none"
             name="search"
             type="text"
             value="{{ $search }}"
@@ -19,7 +19,7 @@
             role="searchbox"
         >
 
-        <x-loader-circle x-show="isLoading" x-cloak class="h-5 w-5 text-gray-9 ml-3" />
+        <x-loader-circle x-show="isLoading" x-cloak class="h-5 w-5 text-gray-500 ml-3" />
 
         <x-button
             x-show="!!search"

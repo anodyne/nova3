@@ -12,7 +12,7 @@
                             <div class="flex items-center justify-between w-full">
                                 <span>Sort by newest first</span>
                                 @if (request('sort', 'desc') === 'asc')
-                                    @icon('check', 'h-6 w-6 md:h-5 md:w-5 shrink-0 text-blue-9')
+                                    @icon('check', 'h-6 w-6 md:h-5 md:w-5 shrink-0 text-blue-500')
                                 @endif
                             </div>
                         </x-dropdown.item>
@@ -20,14 +20,14 @@
                             <div class="flex items-center justify-between w-full">
                                 <span>Sort by oldest first</span>
                                 @if (request('sort', 'desc') === 'desc')
-                                    @icon('check', 'h-6 w-6 md:h-5 md:w-5 shrink-0 text-blue-9')
+                                    @icon('check', 'h-6 w-6 md:h-5 md:w-5 shrink-0 text-blue-500')
                                 @endif
                             </div>
                         </x-dropdown.item>
                     </x-dropdown.group>
                 </x-dropdown>
 
-                @can('create', 'Nova\Stories\Models\Story')
+                @can('create', $story)
                     <x-link :href="route('stories.create')" color="blue" data-cy="create">
                         Add Story
                     </x-link>
@@ -37,12 +37,13 @@
     </x-page-header>
 
     @if ($storyCount === 0)
-        <x-empty-state
+        <x-empty-state.large
             image="book-lover"
             message="There is no greater power on this earth than story."
             label="Add your first story"
             :link="route('stories.create')"
-        ></x-empty-state>
+            :link-access="gate()->allows('create', $story)"
+        ></x-empty-state.large>
     @else
         @livewire('stories:timeline')
     @endif

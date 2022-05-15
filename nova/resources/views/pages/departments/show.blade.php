@@ -27,25 +27,32 @@
                 @endif
 
                 <x-input.group label="Status">
-                    @if ($department->active)
-                        <x-badge color="green">Active</x-badge>
-                    @else
-                        <x-badge color="gray">Inactive</x-badge>
-                    @endif
+                    <x-badge :color="$department->status->color()">{{ $department->status->displayName() }}</x-badge>
                 </x-input.group>
             </x-form.section>
 
-            <x-form.section title="Positions" message="These are all of the positions currently assigned to this department.">
+            <x-form.section title="Positions">
+                <x-slot:message>
+                    <p>These are all of the positions currently assigned to this department.</p>
+
+                    @can('viewAny', Nova\Departments\Models\Position::class)
+                        <x-link :href="route('positions.index', 'department='.$department->id)" size="xs">
+                            Manage department positions
+                        </x-link>
+                    @endcan
+                </x-slot:message>
+
                 <div class="flex flex-col w-full">
                     @foreach ($department->positions as $position)
-                        <div class="group flex items-center justify-between py-2 px-4 rounded odd:bg-gray-3">
-                            <div class="flex flex-col sm:flex-row sm:items-center">
-                                {{ $position->name }}
+                        <div class="group flex items-center justify-between py-2 px-4 rounded odd:bg-gray-100 dark:odd:bg-gray-700/50">
+                            <div class="flex flex-col sm:flex-row sm:items-center space-x-3">
+                                <x-status :status="$position->status"></x-status>
+                                <span>{{ $position->name }}</span>
                             </div>
                             @can('update', $position)
-                                <a href="{{ route('positions.edit', $position) }}" class="text-gray-9 transition ease-in-out duration-200 hover:text-gray-11 group-hover:visible sm:invisible">
+                                <x-link :href="route('positions.edit', $position)" size="none" color="gray-text" class="group-hover:visible sm:invisible">
                                     @icon('edit')
-                                </a>
+                                </x-link>
                             @endcan
                         </div>
                     @endforeach

@@ -26,6 +26,7 @@ class ShowStoryController extends Controller
         $this->authorize('viewAny', Story::class);
 
         return ShowAllStoriesResponse::sendWith([
+            'story' => new Story(),
             'storyCount' => Story::withDepth()->having('depth', '=', 1)->count(),
         ]);
     }

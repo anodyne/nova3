@@ -26,10 +26,10 @@
             x-transition:leave="ease-in duration-200"
             x-transition:leave-start="opacity-100"
             x-transition:leave-end="opacity-0"
-            class="fixed inset-0 transition-opacity z-[99]"
+            class="fixed inset-0 transition-opacity"
             x-cloak
         >
-            <div class="absolute inset-0 bg-gray-12 opacity-75"></div>
+            <div class="absolute inset-0 bg-black/25 backdrop-blur-sm z-20"></div>
         </div>
 
         <div
@@ -42,7 +42,7 @@
             x-transition:leave="ease-in duration-200"
             x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
             x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            class="relative bg-gray-1 rounded-lg px-4 pt-5 pb-4 overflow-hidden shadow-xl transition-all z-[999] sm:w-full sm:p-6 {{ $wide ? 'sm:max-w-lg' : 'sm:max-w-sm' }}"
+            class="relative bg-white dark:bg-gray-800 dark:shadow-none dark:highlight-white/5 ring-1 ring-gray-900/[.02] rounded-lg px-4 pt-5 pb-4 overflow-hidden shadow-xl transition-all z-[999] sm:w-full sm:p-6 {{ $wide ? 'sm:max-w-lg' : 'sm:max-w-sm' }} ring-1 ring-gray-900/5"
             role="dialog"
             aria-modal="true"
             aria-labelledby="modal-title"
@@ -50,17 +50,19 @@
         >
             <div>
                 @if ($icon)
-                    <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-{{ $color }}-3">
-                        @icon($icon, "h-6 w-6 text-{$color}-11")
+                    <div class="flex justify-center">
+                        <x-badge :color="$color" size="circle">
+                            @icon($icon, 'h-6 w-6')
+                        </x-badge>
                     </div>
                 @endif
 
                 <div class="mt-3 text-center sm:mt-5">
-                    <h3 class="text-lg font-medium text-gray-12" id="modal-title">
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100" id="modal-title">
                         {{ $title }}
                     </h3>
 
-                    <div class="mt-2 text-gray-11">
+                    <div class="mt-2 text-gray-500 dark:text-gray-400">
                         <div x-html="content"></div>
                         {{ $slot }}
                     </div>

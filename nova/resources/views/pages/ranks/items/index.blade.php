@@ -4,7 +4,7 @@
     <x-page-header title="Rank Items" pretitle="Ranks">
         <x-slot:controls>
             @if ($itemCount > 0)
-                @can('create', 'Nova\Ranks\Models\RankItem')
+                @can('create', $item)
                     <x-link :href="route('ranks.items.create')" color="blue" data-cy="create">
                         Add Rank Item
                     </x-link>
@@ -14,12 +14,13 @@
     </x-page-header>
 
     @if ($itemCount === 0)
-        <x-empty-state
+        <x-empty-state.large
             image="asset-selection"
             message="Rank items bring the rank group, rank name, and images together in a simple and easy-to-use rank experience."
             label="Add a rank item now"
             :link="route('ranks.items.create')"
-        ></x-empty-state>
+            :link-access="gate()->allows('create', $item)"
+        ></x-empty-state.large>
     @else
         @livewire('rank-items:list')
 

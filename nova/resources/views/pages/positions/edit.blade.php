@@ -4,8 +4,8 @@
     <x-page-header :title="$position->name">
         <x-slot:pretitle>
             <div class="flex items-center">
-                <a href="{{ route('departments.index') }}">Departments</a>
-                <x-icon.chevron-right class="h-4 w-4 text-gray-9 mx-1" />
+                <a href="{{ route('positions.index') }}">Positions</a>
+                <x-icon.chevron-right class="h-4 w-4 text-gray-500 mx-1" />
                 <a href="{{ route('positions.index', $position->department) }}">{{ $position->department->name }}</a>
             </div>
         </x-slot:pretitle>
@@ -33,7 +33,12 @@
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle field="active" :value="old('active', $position->active ?? '')">
+                    <x-input.toggle
+                        field="status"
+                        :value="old('status', $position->status ?? 'active')"
+                        active-value="active"
+                        inactive-value="inactive"
+                    >
                         Active
                     </x-input.toggle>
                 </x-input.group>

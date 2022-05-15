@@ -12,6 +12,7 @@ class UpdateRankGroupRequest extends ValidatesRequest
     {
         return [
             'name' => ['required'],
+            'status' => ['required'],
         ];
     }
 }

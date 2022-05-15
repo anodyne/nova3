@@ -9,14 +9,10 @@
     }
 
     .menu-button {
-        @apply relative inline-block h-full text-white mr-2 cursor-pointer px-1 pb-1;
+        @apply relative inline-block h-full text-white mr-2 cursor-pointer px-1 pb-1 hover:text-white;
 
         &:last-child {
             @apply mr-0;
-        }
-
-        &:hover {
-            @apply text-white;
         }
 
         &.is-active {

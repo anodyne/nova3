@@ -18,7 +18,7 @@
 
         <ul>
             @forelse ($forms as $form)
-                <li class="border-t border-gray-6 hover:bg-gray-2 transition ease-in-out duration-200" data-id="{{ $form->id }}">
+                <li class="border-t border-gray-300 hover:bg-gray-50 transition ease-in-out duration-200" data-id="{{ $form->id }}">
                     <div class="block">
                         <div class="px-4 py-4 flex items-center sm:px-6">
                             <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
@@ -28,11 +28,11 @@
                                     </div>
                                     {{-- <div class="mt-2 flex flex-col space-y-2 sm:flex-row sm:space-x-6 sm:space-y-0">
                                         @if ($form->active_users_count > 0)
-                                            <div class="flex items-center text-sm text-gray-11">
+                                            <div class="flex items-center text-sm text-gray-600">
                                                 @if ($form->active_users_count === 1)
-                                                    @icon('user', 'shrink-0 mr-1.5 h-5 w-5 text-gray-9')
+                                                    @icon('user', 'shrink-0 mr-1.5 h-5 w-5 text-gray-500')
                                                 @else
-                                                    @icon('users', 'shrink-0 mr-1.5 h-5 w-5 text-gray-9')
+                                                    @icon('users', 'shrink-0 mr-1.5 h-5 w-5 text-gray-500')
                                                 @endif
                                                 <span>
                                                     {{ $form->active_users_count }} active @choice('user|users', $form->active_users_count)
@@ -41,11 +41,11 @@
                                         @endif
 
                                         @if ($form->inactive_users_count > 0)
-                                            <div class="flex items-center text-sm text-gray-11">
+                                            <div class="flex items-center text-sm text-gray-600">
                                                 @if ($form->inactive_users_count === 1)
-                                                    @icon('user', 'shrink-0 mr-1.5 h-5 w-5 text-gray-9')
+                                                    @icon('user', 'shrink-0 mr-1.5 h-5 w-5 text-gray-500')
                                                 @else
-                                                    @icon('users', 'shrink-0 mr-1.5 h-5 w-5 text-gray-9')
+                                                    @icon('users', 'shrink-0 mr-1.5 h-5 w-5 text-gray-500')
                                                 @endif
                                                 <span>
                                                     {{ $form->inactive_users_count }} inactive @choice('user|users', $form->inactive_users_count)
@@ -54,8 +54,8 @@
                                         @endif
 
                                         @if ($form->default)
-                                            <div class="flex items-center text-sm text-gray-11">
-                                                @icon('check', 'shrink-0 mr-1.5 h-5 w-5 text-gray-9')
+                                            <div class="flex items-center text-sm text-gray-600">
+                                                @icon('check', 'shrink-0 mr-1.5 h-5 w-5 text-gray-500')
                                                 <span>Assigned to new users</span>
                                             </div>
                                         @endif
@@ -136,7 +136,7 @@
             @endforelse
         </ul>
 
-        <div class="px-4 py-2 border-t border-gray-6 sm:px-6 sm:py-3">
+        <div class="px-4 py-2 border-t border-gray-300 sm:px-6 sm:py-3">
             {{ $forms->withQueryString()->links() }}
         </div>
     </x-panel>

@@ -13,6 +13,7 @@ class SystemDefaults extends Data implements Arrayable
     public function __construct(
         public string $theme = 'pulsar',
         public string $iconSet = 'fluent',
+        public ?string $imagePath,
     ) {
     }
 
@@ -20,7 +21,8 @@ class SystemDefaults extends Data implements Arrayable
     {
         return new self(
             iconSet: $request->input('icon-set', 'fluent'),
-            theme: $request->input('theme', 'pulsar')
+            theme: $request->input('theme', 'pulsar'),
+            imagePath: $request->input('image_path'),
         );
     }
 }

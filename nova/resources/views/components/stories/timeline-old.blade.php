@@ -2,12 +2,12 @@
     'stories'
 ])
 
-<div class="border-r-2 border-gray-6 absolute z-0 h-full top-0" style="left:25px;"></div>
+<div class="border-r-2 border-gray-300 absolute z-0 h-full top-0" style="left:25px;"></div>
 <ul class="relative z-10 list-none m-0 p-0 space-y-8">
     @foreach ($stories as $story)
         <li class="relative">
             <div class="flex">
-                <div class="absolute shrink-0 bg-gray-6 rounded-full h-6 w-6 -mt-2" style="left:14px"></div>
+                <div class="absolute shrink-0 bg-gray-300 rounded-full h-6 w-6 -mt-2" style="left:14px"></div>
 
                 <div class="w-full">
                     <x-panel>
@@ -42,7 +42,7 @@
 
                                         @can('create', $story)
                                             <x-dropdown.group>
-                                                <x-dropdown.text class="uppercase tracking-wide font-semibold text-gray-9">
+                                                <x-dropdown.text class="uppercase tracking-wide font-semibold text-gray-500">
                                                     Add a story
                                                 </x-dropdown.text>
                                                 <x-dropdown.item :href='route("stories.create", "direction=before&neighbor={$story->id}")' icon="move-up">
@@ -68,9 +68,9 @@
                                 </div>
                             </div>
 
-                            <p class="text-gray-11 mt-2">{{ $story->description }}</p>
+                            <p class="text-gray-600 mt-2">{{ $story->description }}</p>
 
-                            <div class="flex items-center space-x-8 mt-3 text-sm text-gray-9">
+                            <div class="flex items-center space-x-8 mt-3 text-sm text-gray-500">
                                 <span>
                                     @livewire('stories:status', ['story' => $story])
                                 </span>

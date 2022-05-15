@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Ranks\Livewire;
 
+use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
 use Nova\Ranks\Actions\CreateRankName;
 use Nova\Ranks\Data\RankNameData;
@@ -13,58 +14,49 @@ class RankNamesDropdown extends Component
 {
     public $nameId;
 
-    public $names;
-
     public $search;
 
     public $selected;
 
     public $selectedId;
 
-    public function createAndSelectName(CreateRankName $action)
+    public function createAndSelectName()
     {
-        $newName = CreateRankName::run(RankNameData::from([
+        $name = CreateRankName::run(RankNameData::from([
             'name' => $this->search,
         ]));
 
-        $this->selectName($newName->id, $newName);
-    }
-
-    public function fetchNames()
-    {
-        $this->names = RankName::orderBySort()->get();
+        $this->selectName($name->id, $name);
     }
 
     public function selectName($nameId)
     {
-        $this->dispatchBrowserEvent('listbox-close');
+        $this->dispatchBrowserEvent('rank-names-dropdown-close');
 
         $this->reset('search');
 
-        $this->fetchNames();
-
         $this->selectedId = $nameId;
-        $this->selected = $this->names->where('id', $nameId)->first();
+        $this->selected = $this->filteredNames->where('id', $nameId)->first();
     }
 
-    public function updatedSearch($value)
+    public function getFilteredNamesProperty(): Collection
     {
-        $this->names = RankName::query()
-            ->where('name', 'like', "%{$value}%")
+        return RankName::query()
+            ->when($this->search, fn ($query, $value) => $query->searchFor($value))
             ->orderBySort()
             ->get();
     }
 
     public function mount($nameId = null)
     {
-        $this->fetchNames();
-
         $this->selectedId = $nameId;
-        $this->selected = $nameId ? $this->names->where('id', $nameId)->first() : null;
+        $this->selected = $nameId ? $this->filteredNames->where('id', $nameId)->first() : null;
     }
 
     public function render()
     {
-        return view('livewire.ranks.names-dropdown');
+        return view('livewire.ranks.names-dropdown', [
+            'filteredNames' => $this->filteredNames,
+        ]);
     }
 }

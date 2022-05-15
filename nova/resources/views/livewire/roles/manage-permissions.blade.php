@@ -1,6 +1,6 @@
 <div>
     <x-content-box>
-        <h3 class="font-bold text-xl text-gray-12 tracking-tight">Permissions Assigned to this Role</h3>
+        <h3 class="font-bold text-xl text-gray-900 dark:text-gray-100 tracking-tight">Permissions Assigned to this Role</h3>
 
         <div class="flex justify-between mt-4">
             @if ($permissions->total() > 0)
@@ -55,15 +55,15 @@
             <x-slot:body>
                 @if ($selectPage)
                     <x-table.row>
-                        <x-table.cell class="bg-blue-3" colspan="3">
+                        <x-table.cell class="bg-blue-50 dark:bg-blue-900" colspan="3">
                             @unless ($selectAll)
                                 <div>
-                                    <span class="text-blue-11">You've selected <strong>{{ $permissions->count() }}</strong> permissions assigned to this role. Do you want to select all <strong>{{ $permissions->total() }}</strong>?</span>
+                                    <span class="text-blue-600 dark:text-blue-400">You've selected <strong>{{ $permissions->count() }}</strong> permissions assigned to this role. Do you want to select all <strong>{{ $permissions->total() }}</strong>?</span>
 
                                     <x-button size="none" color="blue-text" wire:click="selectAll" class="ml-1">Select All</x-button>
                                 </div>
                             @else
-                                <span class="text-blue-11">You've selected all <strong>{{ $permissions->total() }}</strong> permissions assigned to this role.</span>
+                                <span class="text-blue-600 dark:text-blue-400">You've selected all <strong>{{ $permissions->total() }}</strong> permissions assigned to this role.</span>
                             @endunless
                         </x-table.cell>
                     </x-table.row>
@@ -85,18 +85,18 @@
         </x-table>
 
         @if ($permissions->total() > $permissions->perPage())
-            <x-content-box class="border-t border-gray-3" height="xs">
+            <x-content-box class="border-t border-gray-50" height="xs">
                 {{ $permissions->withQueryString()->links() }}
             </x-content-box>
         @endif
     @else
         <x-content-box class="text-center">
-            @icon('lock', 'mx-auto h-12 w-12 text-gray-9')
+            @icon('lock', 'mx-auto h-12 w-12 text-gray-500')
 
-            <h3 class="mt-2 text-sm font-medium text-gray-12">No permissions</h3>
+            <h3 class="mt-2 text-sm font-medium text-gray-900">No permissions</h3>
 
             @can('update', $role)
-                <p class="mt-1 text-sm text-gray-11">
+                <p class="mt-1 text-sm text-gray-600">
                     Get started by assigning permissions to this role.
                 </p>
 

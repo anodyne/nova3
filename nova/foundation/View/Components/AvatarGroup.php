@@ -8,14 +8,11 @@ use Illuminate\View\Component;
 
 class AvatarGroup extends Component
 {
-    public $size;
-
-    public $items;
-
-    public $limit;
-
-    public function __construct($size = 'md', $items = null, $limit = 4)
-    {
+    public function __construct(
+        public $size = 'md',
+        public $items = null,
+        public $limit = 4
+    ) {
         $this->size = $size;
         $this->items = $items;
         $this->limit = $limit;
@@ -23,7 +20,7 @@ class AvatarGroup extends Component
 
     public function styles()
     {
-        return 'ring-2 ring-gray-1';
+        return 'ring-2 ring-white dark:ring-gray-800';
     }
 
     public function render()

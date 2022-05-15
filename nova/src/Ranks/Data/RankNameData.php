@@ -9,7 +9,8 @@ use Spatie\LaravelData\Data;
 class RankNameData extends Data
 {
     public function __construct(
-        public string $name
+        public string $name,
+        public string $status
     ) {
     }
 }

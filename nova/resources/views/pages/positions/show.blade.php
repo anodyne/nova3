@@ -4,9 +4,9 @@
     <x-page-header :title="$position->name">
         <x-slot:pretitle>
             <div class="flex items-center">
-                <a href="{{ route('departments.index') }}">Departments</a>
-                <x-icon.chevron-right class="h-4 w-4 text-gray-9 mx-1" />
-                <a href="{{ route('positions.index', $position->department) }}">{{ $position->department->name }}</a>
+                <a href="{{ route('positions.index') }}">Positions</a>
+                <x-icon.chevron-right class="h-4 w-4 text-gray-500 mx-1" />
+                <a href="{{ route('positions.index', "department={$position->department->id}") }}">{{ $position->department->name }}</a>
             </div>
         </x-slot:pretitle>
 
@@ -39,18 +39,14 @@
                 </x-input.group>
 
                 <x-input.group label="Status">
-                    @if ($position->active)
-                        <x-badge color="green">Active</x-badge>
-                    @else
-                        <x-badge color="gray">Inactive</x-badge>
-                    @endif
+                    <x-badge :color="$position->status->color()">{{ $position->status->displayName() }}</x-badge>
                 </x-input.group>
             </x-form.section>
 
             <x-form.section title="Assigned Characters">
                 <div class="flex flex-col w-full space-y-2">
-                    @foreach ($position->characters as $character)
-                        <div class="group flex items-center justify-between w-full py-2 px-4 rounded odd:bg-gray-3">
+                    @forelse ($position->characters as $character)
+                        <div class="group flex items-center justify-between w-full py-2 px-4 rounded odd:bg-gray-100 dark:odd:bg-gray-700/50">
                             <div class="flex items-center space-x-3">
                                 <x-avatar-meta size="lg" :src="$character->avatar_url">
                                     <x-slot:primaryMeta>
@@ -65,12 +61,20 @@
                             </div>
 
                             @can('update', $character)
-                                <a href="{{ route('characters.edit', $character) }}" class="text-gray-9 transition ease-in-out duration-200 hover:text-gray-11 group-hover:visible sm:invisible">
+                                <x-link :href="route('characters.edit', $character)" color="gray-text" size="none" class="group-hover:visible sm:invisible">
                                     @icon('edit')
-                                </a>
+                                </x-link>
                             @endcan
                         </div>
-                    @endforeach
+                    @empty
+                        <x-empty-state.small
+                            icon="users"
+                            title="No assigned characters"
+                            :link="route('characters.index')"
+                            label="Assign characters"
+                            :link-access="gate()->allows('update', new Nova\Characters\Models\Character())"
+                        ></x-empty-state.small>
+                    @endforelse
                 </div>
             </x-form.section>
 

@@ -12,6 +12,7 @@ class CreateRankGroupRequest extends ValidatesRequest
     {
         return [
             'name' => ['required'],
+            'status' => ['required'],
         ];
     }
 }

@@ -18,13 +18,13 @@
                     <div class="flex w-full">
                         <div class="flex-1 text-left">
                             <span>Upcoming</span>
-                            <div class="text-sm text-gray-9 text-left font-normal mt-1">
+                            <div class="text-sm text-gray-500 text-left font-normal mt-1">
                                 Story or story arc that will happen in the future
                             </div>
                         </div>
                         <div class="flex justify-end shrink-0 w-8">
                             @if ($story->status->equals('upcoming'))
-                                @icon('check', 'h-6 w-6 text-blue-9')
+                                @icon('check', 'h-6 w-6 text-blue-500')
                             @endif
                         </div>
                     </div>
@@ -33,13 +33,13 @@
                     <div class="flex w-full">
                         <div class="flex-1 text-left">
                             <span>Ongoing</span>
-                            <div class="text-sm text-gray-9 text-left font-normal mt-1">
+                            <div class="text-sm text-gray-500 text-left font-normal mt-1">
                                 Active story or story arc that cannot be posted into
                             </div>
                         </div>
                         <div class="flex justify-end shrink-0 w-8">
                             @if ($story->status->equals('ongoing'))
-                                @icon('check', 'h-6 w-6 text-blue-9')
+                                @icon('check', 'h-6 w-6 text-blue-500')
                             @endif
                         </div>
                     </div>
@@ -48,13 +48,13 @@
                     <div class="flex w-full">
                         <div class="flex-1 text-left">
                             <span>Current</span>
-                            <div class="text-sm text-gray-9 text-left font-normal mt-1">
+                            <div class="text-sm text-gray-500 text-left font-normal mt-1">
                                 Story that is current running and players can post into
                             </div>
                         </div>
                         <div class="flex justify-end shrink-0 w-8">
                             @if ($story->status->equals('current'))
-                                @icon('check', 'h-6 w-6 text-blue-9')
+                                @icon('check', 'h-6 w-6 text-blue-500')
                             @endif
                         </div>
                     </div>
@@ -63,13 +63,13 @@
                     <div class="flex w-full">
                         <div class="flex-1 text-left">
                             <span>Completed</span>
-                            <div class="text-sm text-gray-9 text-left font-normal mt-1">
+                            <div class="text-sm text-gray-500 text-left font-normal mt-1">
                                 Story or story arc that has concluded
                             </div>
                         </div>
                         <div class="flex justify-end shrink-0 w-8">
                             @if ($story->status->equals('completed'))
-                                @icon('check', 'h-6 w-6 text-blue-9')
+                                @icon('check', 'h-6 w-6 text-blue-500')
                             @endif
                         </div>
                     </div>

@@ -5,7 +5,7 @@
                 <div class="flex items-start">
                     <div class="flex flex-col">
                         <div
-                            class="text-lg font-semibold text-gray-12"
+                            class="text-lg font-semibold text-gray-900 dark:text-gray-100"
                             x-data="{}"
                             @toggle-changed="livewire.emit('delete-story-toggle', $event.detail.value, {{ $story->id }})"
                         >
@@ -13,19 +13,20 @@
                                 field="active"
                                 :value="old('active', data_get($actions, $story->id.'.story.action') === 'delete')"
                                 :disabled="$loop->first"
-                                active-color="red-9"
+                                active-bg="bg-red-500"
+                                active-border="border-red-500"
                             >
-                                <span class="text-gray-12">Delete {{ $story->title }}</span>
+                                <span class="text-gray-900 dark:text-gray-100">Delete {{ $story->title }}</span>
                             </x-input.toggle>
                         </div>
 
                         @if ($story->parent && $story->parent_id > 1)
-                            <div class="mt-1 text-sm text-gray-11">
+                            <div class="mt-1 text-sm text-gray-600 dark:text-gray-400">
                                 This story is nested inside <span class="font-semibold">{{ optional($story->parent)->title }}</span>
                             </div>
                         @endif
 
-                        <div class="mt-2 max-w-xl text-gray-11 font-medium flex items-center space-x-6">
+                        <div class="mt-2 max-w-xl text-gray-600 dark:text-gray-400 font-medium flex items-center space-x-6">
                             @if (data_get($actions, "{$story->id}.story.action") === 'move')
                                 <x-badge color="purple">
                                     <x-slot:leadingIcon>
@@ -99,7 +100,7 @@
                                                 :checked="data_get($actions, $story->id.'.posts.action') === 'delete'"
                                                 wire:click="trackPostsAction({{ $story->id }}, 'delete')"
                                             />
-                                            <label for="delete-posts-{{ $story->id }}" class="ml-6 max-w-xl text-sm text-gray-11">
+                                            <label for="delete-posts-{{ $story->id }}" class="ml-6 max-w-xl text-sm text-gray-600 dark:text-gray-400">
                                                 Delete the posts along with the story. This action is permanent and cannot be undone!
                                             </label>
                                         </div>
@@ -114,7 +115,7 @@
                                                 :checked="data_get($actions, $story->id.'.posts.action') === 'move'"
                                                 wire:click="trackPostsAction({{ $story->id }}, 'move')"
                                             />
-                                            <label for="move-posts-{{ $story->id }}" class="ml-6 max-w-xl text-sm text-gray-11">
+                                            <label for="move-posts-{{ $story->id }}" class="ml-6 max-w-xl text-sm text-gray-600 dark:text-gray-400">
                                                 Move the posts in this story to another story. Everything else about the posts will remain the same.
                                             </label>
                                         </div>

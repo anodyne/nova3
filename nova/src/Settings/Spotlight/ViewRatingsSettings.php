@@ -16,7 +16,7 @@ class ViewRatingsSettings extends SpotlightCommand
 
     protected array $synonyms = [
         'language', 'sex', 'violence', 'content warnings', 'offensive', 'vulgar',
-        'violent',
+        'violent', 'mature',
     ];
 
     public function execute(Spotlight $spotlight): void

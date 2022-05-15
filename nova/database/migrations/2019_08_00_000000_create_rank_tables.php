@@ -13,6 +13,7 @@ class CreateRankTables extends Migration
         Schema::create('rank_groups', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('status');
             $table->unsignedInteger('sort')->nullable();
             $table->timestamps();
         });
@@ -20,6 +21,7 @@ class CreateRankTables extends Migration
         Schema::create('rank_names', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('status');
             $table->unsignedInteger('sort')->nullable();
             $table->timestamps();
         });
@@ -30,6 +32,7 @@ class CreateRankTables extends Migration
             $table->foreignId('name_id')->constrained('rank_names');
             $table->string('base_image');
             $table->string('overlay_image')->nullable();
+            $table->string('status');
             $table->unsignedInteger('sort')->nullable();
             $table->timestamps();
         });

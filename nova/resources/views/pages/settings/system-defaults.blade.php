@@ -36,6 +36,15 @@
                 </x-input.group>
             </x-form.section>
 
+            <x-form.section title="Logo" message="You can upload a logo that will be used in the header of the admin system as well as on the login pages.">
+                <x-input.group>
+                    @livewire('upload-image', [
+                        'existingImage' => settings()->getFirstMediaUrl('logo'),
+                        'supportMessage' => 'PNG, JPG, SVG up to 5MB',
+                    ])
+                </x-input.group>
+            </x-form.section>
+
             <x-form.footer>
                 <x-button type="submit" form="system-defaults" color="blue">Update</x-button>
             </x-form.footer>

@@ -4,7 +4,7 @@
     <x-page-header title="Rank Groups" pretitle="Ranks">
         <x-slot:controls>
             @if ($groupCount > 0)
-                @can('create', 'Nova\Ranks\Models\RankGroup')
+                @can('create', $group)
                     <x-link :href="route('ranks.groups.create')" color="blue" data-cy="create">
                         Add Rank Group
                     </x-link>
@@ -14,12 +14,13 @@
     </x-page-header>
 
     @if ($groupCount === 0)
-        <x-empty-state
+        <x-empty-state.large
             image="organizer"
             message="Rank groups are a simple way to collect related rank items together for simpler searching and selecting ranks in Nova."
             label="Add a rank group now"
             :link="route('ranks.groups.create')"
-        ></x-empty-state>
+            :link-access="gate()->allows('create', $group)"
+        ></x-empty-state.large>
     @else
         @livewire('rank-groups:list')
 

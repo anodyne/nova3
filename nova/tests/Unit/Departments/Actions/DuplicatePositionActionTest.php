@@ -36,7 +36,7 @@ class DuplicatePositionActionTest extends TestCase
         $position = DuplicatePosition::run($this->position, PositionData::from([
             'name' => 'Executive Officer',
             'description' => $this->position->description,
-            'active' => $this->position->active,
+            'status' => $this->position->status,
             'available' => $this->position->available,
             'department_id' => $this->position->department_id,
         ]));

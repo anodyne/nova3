@@ -1,8 +1,8 @@
 <x-panel>
     @if ($selectedStory)
-        <x-content-box height="sm" class="sticky top-0 z-30 bg-gray-2 backdrop-blur bg-opacity-50 border-t border-b border-gray-6 sm:rounded-t-lg sm:border-t-0">
+        <x-content-box height="sm" class="sticky top-0 z-30 bg-gray-50/50 dark:bg-gray-700/50 backdrop-blur border-y border-gray-500 sm:rounded-t-lg sm:border-t-0">
             <div class="flex md:hidden items-center justify-between">
-                <div class="text-xl sm:text-lg font-bold tracking-tight text-gray-12 flex-1 truncate">{{ $selectedStory->title }}</div>
+                <div class="text-xl sm:text-lg font-bold tracking-tight text-gray-900 dark:text-gray-100 flex-1 truncate">{{ $selectedStory->title }}</div>
 
                 <div class="flex items-center space-x-4">
                     @can('update', $selectedStory)
@@ -40,7 +40,7 @@
 
                         @can('create', $selectedStory)
                             <x-dropdown.group>
-                                <x-dropdown.text class="uppercase tracking-wide font-semibold text-gray-9">
+                                <x-dropdown.text class="uppercase tracking-wide font-semibold text-gray-500">
                                     Add a story
                                 </x-dropdown.text>
                                 <x-dropdown.item :href='route("stories.create", "direction=before&neighbor={$selectedStory->id}")' icon="move-up">
@@ -67,7 +67,7 @@
             </div>
 
             <div class="hidden md:flex items-center leading-0 space-x-8">
-                <span class="font-bold tracking-tight text-gray-12">{{ $selectedStory->title }}</span>
+                <span class="font-bold tracking-tight text-gray-900 dark:text-gray-100">{{ $selectedStory->title }}</span>
 
                 @can('view', $selectedStory)
                     <x-link :href="route('stories.show', $selectedStory)" size="none" color="gray-text">

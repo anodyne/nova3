@@ -25,7 +25,8 @@ class PositionsDropdown extends Component
 
     public function selectDepartment($departmentId)
     {
-        $this->positions = Position::whereDepartment($departmentId)
+        $this->positions = Position::query()
+            ->whereDepartment($departmentId)
             ->whereActive()
             ->orderBySort()
             ->get();

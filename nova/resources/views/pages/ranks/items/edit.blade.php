@@ -34,6 +34,17 @@
                     </div>
                 </x-input.group>
 
+                <x-input.group>
+                    <x-input.toggle
+                        field="status"
+                        :value="old('status', $item->status ?? 'active')"
+                        active-value="active"
+                        inactive-value="inactive"
+                    >
+                        Active
+                    </x-input.toggle>
+                </x-input.group>
+
                 <x-input.group label="Rank Preview" :error="$errors->first('base_image')">
                     <div x-show="overlay === '' && base === ''">
                         Make a selection below to see a live preview of your rank item
@@ -49,7 +60,7 @@
             <div class="border-t border-gray-100 mt-10 px-4 pt-4 sm:px-6 sm:pt-6">
                 <div>
                     <div class="sm:hidden">
-                        <select aria-label="Selected tab" class="form-select bg-gray-1 block w-full" @change="tab = $event.target.value">
+                        <select aria-label="Selected tab" class="form-select bg-white block w-full" @change="tab = $event.target.value">
                             <option value="base">Base Images</option>
                             <option value="overlay">Overlay Images</option>
                         </select>
@@ -60,7 +71,7 @@
                                 href="#"
                                 @click.prevent="tab = 'base'"
                                 class="ml-4 first:ml-0 px-3 py-2 font-medium text-sm rounded-md  focus:outline-none"
-                                :class="{ 'bg-blue-3 text-blue-11': tab === 'base', 'text-gray-500 hover:text-gray-700': tab !== 'base' }"
+                                :class="{ 'text-blue-600 dark:text-blue-400 bg-blue-100/75 dark:bg-blue-900/40': tab === 'base', 'hover:bg-gray-100 dark:hover:bg-gray-700/50 hover:text-gray-900 dark:hover:text-gray-100': tab !== 'base' }"
                             >
                                 Base Images
                             </a>
@@ -68,7 +79,7 @@
                                 href="#"
                                 @click.prevent="tab = 'overlay'"
                                 class="ml-4 first:ml-0 px-3 py-2 font-medium text-sm rounded-md  focus:outline-none"
-                                :class="{ 'bg-blue-3 text-blue-11': tab === 'overlay', 'text-gray-500 hover:text-gray-700': tab !== 'overlay' }"
+                                :class="{ 'text-blue-600 dark:text-blue-400 bg-blue-100/75 dark:bg-blue-900/40': tab === 'overlay', 'hover:bg-gray-100 dark:hover:bg-gray-700/50 hover:text-gray-900 dark:hover:text-gray-100': tab !== 'overlay' }"
                             >
                                 Overlay Images
                             </a>
@@ -83,7 +94,7 @@
                                 <a
                                     @click.prevent="base = '{{ $baseImage }}'"
                                     class="flex flex-col justify-center rounded-md border border-transparent py-2"
-                                    :class="{ 'bg-blue-4 border-blue-7 hover:bg-blue-5 hover:border-blue-8': base === '{{ $baseImage }}', 'hover:bg-gray-100 hover:border-gray-200': base !== '{{ $baseImage }}' }"
+                                    :class="{ 'bg-blue-50 border-blue-300': base === '{{ $baseImage }}', 'hover:bg-gray-50 hover:border-gray-300': base !== '{{ $baseImage }}' }"
                                     href="#"
                                 >
                                     <img src="{{ asset('ranks/base/' . $baseImage) }}" alt="" class="block h-10 w-36 mx-auto">
@@ -99,7 +110,7 @@
                                 <a
                                     @click.prevent="overlay = '{{ $overlayImage }}'"
                                     class="flex flex-col justify-center rounded-md border border-transparent py-2"
-                                    :class="{ 'bg-blue-4 border-blue-7 hover:bg-blue-5 hover:border-blue-8': overlay === '{{ $overlayImage }}', 'hover:bg-gray-100 hover:border-gray-200': overlay !== '{{ $overlayImage }}' }"
+                                    :class="{ 'bg-blue-50 border-blue-300': overlay === '{{ $overlayImage }}', 'hover:bg-gray-50 hover:border-gray-300': overlay !== '{{ $overlayImage }}' }"
                                     href="#"
                                 >
                                     <img src="{{ asset('ranks/overlay/' . $overlayImage) }}" alt="" class="block h-10 w-36 mx-auto">
