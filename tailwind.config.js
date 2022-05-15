@@ -1,7 +1,7 @@
 /* eslint-disable */
+const colors = require('tailwindcss/colors');
 const defaultTheme = require('tailwindcss/defaultTheme');
 const { default: flattenColorPalette } = require('tailwindcss/lib/util/flattenColorPalette');
-/* eslint-enable */
 
 const scale = Array.from({ length: 12 }, (_, i) => i + 1);
 
@@ -21,6 +21,7 @@ const createColorScale = (color) => ({
         })),
     ),
 });
+/* eslint-enable */
 
 module.exports = {
     content: [
@@ -28,7 +29,41 @@ module.exports = {
         './nova/foundation/View/Components/*.php',
         './nova/vendor/livewire-ui/modal/resources/views/*.blade.php',
         './storage/framework/views/*.php',
-        './safelist.txt',
+    ],
+    safelist: [
+        'max-w-none',
+        'text-yellow-400',
+        'text-[#f2634c]',
+        'text-[#f99c26]',
+        'text-[#130f32]',
+        {
+            pattern: /max-w-(lg|xl|2xl|3xl|4xl|5xl|6xl|7xl)/,
+            variants: ['sm', 'md', 'lg', 'xl', '2xl'],
+        },
+        {
+            pattern: /grid-cols-(1|2|3|4|5|6|7|8|9|10|11|12)/,
+            variants: ['md'],
+        },
+        {
+            pattern: /origin-(top|top-left|top-right|bottom|bottom-right|bottom-left)/,
+            variants: ['sm', 'md', 'lg'],
+        },
+        {
+            pattern: /left-(0|auto)/,
+            variants: ['sm', 'md', 'lg'],
+        },
+        {
+            pattern: /right-(0|auto)/,
+            variants: ['sm', 'md', 'lg'],
+        },
+        {
+            pattern: /border-(blue|red)-(500)/,
+            variants: ['sm', 'md', 'lg'],
+        },
+        {
+            pattern: /bg-(blue|red|gray)-(500)/,
+            variants: ['sm', 'md', 'lg'],
+        },
     ],
     darkMode: 'class',
     theme: {
@@ -37,14 +72,13 @@ module.exports = {
             current: 'currentColor',
             black: '#000',
             white: '#fff',
-
-            ...createColorScale('blue'),
-            ...createColorScale('gray'),
-            ...createColorScale('green'),
-            ...createColorScale('orange'),
-            ...createColorScale('purple'),
-            ...createColorScale('red'),
-            ...createColorScale('yellow'),
+            gray: colors.slate,
+            blue: colors.sky,
+            purple: colors.purple,
+            yellow: colors.amber,
+            green: colors.emerald,
+            red: colors.rose,
+            orange: colors.orange,
         },
         container: {
             center: true,

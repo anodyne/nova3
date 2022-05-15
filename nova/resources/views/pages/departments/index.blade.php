@@ -4,7 +4,7 @@
     <x-page-header title="Departments" x-data="{}">
         <x-slot:controls>
             @if ($departmentCount > 0)
-                @can('create', 'Nova\Departments\Models\Department')
+                @can('create', $department)
                     <x-link :href="route('departments.create')" color="blue" data-cy="create">
                         Add Department
                     </x-link>
@@ -14,12 +14,13 @@
     </x-page-header>
 
     @if ($departmentCount === 0)
-        <x-empty-state
+        <x-empty-state.large
             image="organizer"
             message="Departments allow you to organize character positions into logical groups that you can display on your manifests."
             label="Add a deparment now"
             :link="route('departments.create')"
-        ></x-empty-state>
+            :link-access="gate()->allows('create', $department)"
+        ></x-empty-state.large>
     @else
         @livewire('departments:list')
 

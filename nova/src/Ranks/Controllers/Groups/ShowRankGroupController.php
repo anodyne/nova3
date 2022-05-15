@@ -23,6 +23,7 @@ class ShowRankGroupController extends Controller
         $this->authorize('viewAny', RankGroup::class);
 
         return ShowAllRankGroupsResponse::sendWith([
+            'group' => new RankGroup(),
             'groupCount' => RankGroup::count(),
         ]);
     }

@@ -4,18 +4,18 @@
 
 @section('content')
     @if (session('status'))
-        <div class="rounded-lg bg-yellow-3 border border-yellow-6 text-yellow-11 px-4 py-3 font-medium md:text-sm mb-6" role="alert">
+        <div class="rounded-lg bg-yellow-50 border border-yellow-300 text-yellow-600 px-4 py-3 font-medium md:text-sm mb-6" role="alert">
             {{ session('status') }}
         </div>
     @endif
 
     @if (session('message'))
-        <div class="flex space-x-3 text-yellow-11 font-medium mb-6" role="alert">
-            @icon('alert', 'h-8 w-8 shrink-0 text-yellow-9')
+        <div class="flex space-x-3 text-yellow-600 font-medium mb-6" role="alert">
+            @icon('alert', 'h-8 w-8 shrink-0 text-yellow-500')
             <span>{{ session('message') }}</span>
         </div>
     @else
-        <p class="text-gray-11 mb-6">If you can't remember your password, please provide your email address and we will send you a link which you may use to change your password.</p>
+        <p class="text-gray-600 mb-6">If you can't remember your password, please provide your email address and we will send you a link which you may use to change your password.</p>
     @endif
 
     <x-form :action="route('password.email')" :divide="false">

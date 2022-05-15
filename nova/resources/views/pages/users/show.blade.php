@@ -28,9 +28,9 @@
                     <x-input.group label="Pronouns">
                         <div class="inline-flex items-center space-x-1">
                             <p class="font-semibold">{{ $user->pronouns->subject }}</p>
-                            <p class="text-gray-9">/</p>
+                            <p class="text-gray-500">/</p>
                             <p class="font-semibold">{{ $user->pronouns->object }}</p>
-                            <p class="text-gray-9">/</p>
+                            <p class="text-gray-500">/</p>
                             <p class="font-semibold">{{ $user->pronouns->possessive }}</p>
                         </div>
                     </x-input.group>

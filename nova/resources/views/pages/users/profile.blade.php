@@ -36,7 +36,7 @@
 
     <ul class="my-8 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
         @foreach ($user->characters as $character)
-            <li class="col-span-1 flex flex-col text-center bg-gray-1 rounded-lg shadow">
+            <li class="col-span-1 flex flex-col text-center bg-white rounded-lg shadow">
                 <div class="flex-1 flex flex-col p-8">
                     <div>
                         <x-avatar :src="$character->avatar_url" size="xl" />
@@ -61,13 +61,13 @@
                 {{-- <div class="border-t border-gray-200">
                     <div class="-mt-px flex">
                         <div class="w-0 flex-1 flex border-r border-gray-200">
-                            <a href="#" class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500 focus:outline-none focus:ring focus:border-blue-7 focus:z-10 transition ease-in-out duration-200">
+                            <a href="#" class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500 focus:outline-none focus:ring focus:border-blue-400 focus:z-10 transition ease-in-out duration-200">
                                 @icon('show', 'w-5 h-5 text-gray-400')
                                 <span class="ml-3">View</span>
                             </a>
                         </div>
                         <div class="-ml-px w-0 flex-1 flex">
-                            <a href="#" class="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500 focus:outline-none focus:ring focus:border-blue-7 focus:z-10 transition ease-in-out duration-200">
+                            <a href="#" class="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500 focus:outline-none focus:ring focus:border-blue-400 focus:z-10 transition ease-in-out duration-200">
                                 @icon('edit', 'w-5 h-5 text-gray-400')
                                 <span class="ml-3">Edit</span>
                             </a>
@@ -81,7 +81,7 @@
     <x-panel>
         <div class="pb-8">
             <div class="p-4 sm:hidden">
-                <select @change="window.location.replace($event.target.value)" aria-label="Selected tab" class="mt-1 form-select bg-gray-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring focus:border-blue-7 sm:text-sm transition ease-in-out duration-200">
+                <select @change="window.location.replace($event.target.value)" aria-label="Selected tab" class="mt-1 form-select bg-white block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring focus:border-blue-400 sm:text-sm transition ease-in-out duration-200">
                     <option value="{{ route('users.index', 'status=active') }}" @selected(request()->status === 'active')>Active Users</option>
                     <option value="{{ route('users.index', 'status=pending') }}" @selected(request()->status === 'pending')>Pending Users</option>
                     <option value="{{ route('users.index', 'status=inactive') }}" @selected(request()->status === 'inactive')>Inactive Users</option>
@@ -93,25 +93,25 @@
                     <nav class="-mb-px flex">
                         <a
                             href="{{ route('users.index', 'status=active') }}"
-                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'active') border-blue-6 text-blue-9 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
+                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'active') border-blue-300 text-blue-500 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
                         >
                             Basic Info
                         </a>
                         <a
                             href="{{ route('users.index', 'status=pending') }}"
-                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'pending') border-blue-6 text-blue-9 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
+                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'pending') border-blue-300 text-blue-500 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
                         >
                             Activity
                         </a>
                         <a
                             href="{{ route('users.index', 'status=inactive') }}"
-                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'inactive') border-blue-6 text-blue-9 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
+                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'inactive') border-blue-300 text-blue-500 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
                         >
                             Foo
                         </a>
                         <a
                             href="{{ route('users.index') }}"
-                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (!request()->has('status')) border-blue-6 text-blue-9 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
+                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (!request()->has('status')) border-blue-300 text-blue-500 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
                         >
                             Bar
                         </a>
@@ -174,7 +174,7 @@
                             {{ $role->display_name }}
                         </span>
                     @empty
-                        <div class="flex items-center font-semibold text-yellow-11">
+                        <div class="flex items-center font-semibold text-yellow-600">
                             @icon('warning', 'mr-3 shrink-0 h-6 w-6')
                             <span>This user does not have any roles.</span>
                         </div>

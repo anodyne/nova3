@@ -6,6 +6,8 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Nova\Ranks\Models\RankName;
+use Nova\Ranks\Models\States\Names\Active;
+use Nova\Ranks\Models\States\Names\Inactive;
 
 class RankNameFactory extends Factory
 {
@@ -15,6 +17,14 @@ class RankNameFactory extends Factory
     {
         return [
             'name' => ucfirst($this->faker->word),
+            'status' => Active::class,
         ];
+    }
+
+    public function inactive()
+    {
+        return $this->state([
+            'status' => Inactive::class,
+        ]);
     }
 }

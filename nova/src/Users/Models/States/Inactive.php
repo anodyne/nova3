@@ -13,6 +13,11 @@ class Inactive extends UserStatus
         return 'gray';
     }
 
+    public function bgColor(): string
+    {
+        return "bg-{$this->color()}-400 dark:bg-{$this->color()}-500";
+    }
+
     public function name(): string
     {
         return 'inactive';

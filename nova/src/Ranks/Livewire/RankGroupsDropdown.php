@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Ranks\Livewire;
 
+use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
 use Nova\Ranks\Actions\CreateRankGroup;
 use Nova\Ranks\Data\RankGroupData;
@@ -13,8 +14,6 @@ class RankGroupsDropdown extends Component
 {
     public $groupId;
 
-    public $groups;
-
     public $search;
 
     public $selected;
@@ -23,48 +22,41 @@ class RankGroupsDropdown extends Component
 
     public function createAndSelectGroup()
     {
-        $newGroup = CreateRankGroup::run(RankGroupData::from([
+        $group = CreateRankGroup::run(RankGroupData::from([
             'name' => $this->search,
         ]));
 
-        $this->selectGroup($newGroup->id, $newGroup);
-    }
-
-    public function fetchGroups()
-    {
-        $this->groups = RankGroup::orderBySort()->get();
+        $this->selectGroup($group->id, $group);
     }
 
     public function selectGroup($groupId)
     {
-        $this->dispatchBrowserEvent('listbox-close');
+        $this->dispatchBrowserEvent('rank-groups-dropdown-close');
 
         $this->reset('search');
 
-        $this->fetchGroups();
-
         $this->selectedId = $groupId;
-        $this->selected = $this->groups->where('id', $groupId)->first();
+        $this->selected = $this->filteredGroups->where('id', $groupId)->first();
     }
 
-    public function updatedSearch($value)
+    public function getFilteredGroupsProperty(): Collection
     {
-        $this->groups = RankGroup::query()
-            ->where('name', 'like', "%{$value}%")
+        return RankGroup::query()
+            ->when($this->search, fn ($query, $value) => $query->searchFor($value))
             ->orderBySort()
             ->get();
     }
 
     public function mount($groupId = null)
     {
-        $this->fetchGroups();
-
         $this->selectedId = $groupId;
-        $this->selected = $groupId ? $this->groups->where('id', $groupId)->first() : null;
+        $this->selected = $groupId ? $this->filteredGroups->where('id', $groupId)->first() : null;
     }
 
     public function render()
     {
-        return view('livewire.ranks.groups-dropdown');
+        return view('livewire.ranks.groups-dropdown', [
+            'filteredGroups' => $this->filteredGroups,
+        ]);
     }
 }

@@ -19,7 +19,5 @@
 
     <x-nav.sub-group>
         <x-nav.sub-item href="{{ route('settings.index', 'notifications') }}" :active="request()->is('settings/notifications')">Notifications</x-nav.sub-item>
-        <x-nav.sub-item href="{{ route('settings.index', 'notifications') }}" :active="request()->is('settings/group-notifications')">Group Notifications</x-nav.sub-item>
-        <x-nav.sub-item href="{{ route('settings.index', 'notifications') }}" :active="request()->is('settings/individual-notifications')">Individual Notifications</x-nav.sub-item>
     </x-nav.sub-group>
 </x-nav.sub>

@@ -1,7 +1,3 @@
 .form-field {
-    @apply flex-1 appearance-none bg-transparent text-gray-11 border-none p-0 focus:ring-0;
-
-    &:focus {
-        @apply outline-none text-gray-12;
-    }
+    @apply flex-1 appearance-none bg-transparent text-gray-600 border-none p-0 focus:ring-0 focus:outline-none focus:text-gray-900;
 }

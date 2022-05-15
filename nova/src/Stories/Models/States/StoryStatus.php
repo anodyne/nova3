@@ -11,6 +11,8 @@ abstract class StoryStatus extends State
 {
     abstract public function color(): string;
 
+    abstract public function textColor(): string;
+
     abstract public function name(): string;
 
     public function displayName(): string

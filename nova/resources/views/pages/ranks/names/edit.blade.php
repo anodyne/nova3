@@ -13,6 +13,17 @@
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
                     <x-input.text id="name" name="name" :value="old('name', $name->name)" data-cy="name" />
                 </x-input.group>
+
+                <x-input.group>
+                    <x-input.toggle
+                        field="status"
+                        :value="old('status', $name->status ?? 'active')"
+                        active-value="active"
+                        inactive-value="inactive"
+                    >
+                        Active
+                    </x-input.toggle>
+                </x-input.group>
             </x-form.section>
 
             <x-form.section title="Assigned Ranks" message="These are the rank items that have been assigned this rank name.">

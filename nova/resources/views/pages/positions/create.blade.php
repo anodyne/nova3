@@ -4,10 +4,10 @@
     <x-page-header title="Add Position">
         <x-slot:pretitle>
             <div class="flex items-center">
-                <a href="{{ route('departments.index') }}">Departments</a>
+                <a href="{{ route('positions.index') }}">Positions</a>
 
                 @if ($selectedDepartment)
-                    <x-icon.chevron-right class="h-4 w-4 text-gray-9 mx-1" />
+                    <x-icon.chevron-right class="h-4 w-4 text-gray-500 mx-1" />
                     <a href="{{ route('positions.index', $selectedDepartment) }}">{{ $selectedDepartment->name }}</a>
                 @endif
             </div>

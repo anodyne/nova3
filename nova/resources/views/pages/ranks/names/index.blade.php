@@ -4,7 +4,7 @@
     <x-page-header title="Rank Names" pretitle="Ranks">
         <x-slot:controls>
             @if ($nameCount > 0)
-                @can('create', 'Nova\Ranks\Models\RankName')
+                @can('create', $name)
                     <x-link :href="route('ranks.names.create')" color="blue" data-cy="create">
                         Add Rank Name
                     </x-link>
@@ -14,12 +14,13 @@
     </x-page-header>
 
     @if ($nameCount === 0)
-        <x-empty-state
+        <x-empty-state.large
             image="diary"
             message="Rank names eliminate the repetitive task of setting the name of a rank by letting you re-use names across all of your rank items."
             label="Add a rank name now"
             :link="route('ranks.names.create')"
-        ></x-empty-state>
+            :link-access="gate()->allows('create', $name)"
+        ></x-empty-state.large>
     @else
         @livewire('rank-names:list')
 

@@ -1,10 +1,10 @@
 <div class="leading-0" x-data="adminThemeToggle(@entangle('appearance'))" x-cloak>
     <x-dropdown placement="bottom-end">
         <x-slot:trigger>
-            <span x-show="isLightTheme" :class="{ 'text-blue-9': isLightThemeSelected() }">
+            <span x-show="isLightTheme" :class="{ 'text-blue-500': isLightThemeSelected() }">
                 @icon('sun', 'h-6 w-6')
             </span>
-            <span x-show="isDarkTheme" :class="{ 'text-blue-9': isDarkThemeSelected() }">
+            <span x-show="isDarkTheme" :class="{ 'text-blue-500': isDarkThemeSelected() }">
                 @icon('moon', 'h-6 w-6')
             </span>
         </x-slot:trigger>
@@ -12,26 +12,26 @@
         <x-dropdown.group>
             <x-dropdown.item href="#" @click.prevent="setTheme('light')">
                 <div class="flex items-center space-x-2">
-                    <span :class="{ 'text-blue-8': isLightThemeSelected() }">
+                    <span :class="{ 'text-blue-400 dark:text-blue-600': isLightThemeSelected() }">
                         @icon('sun', 'h-6 w-6')
                     </span>
-                    <span :class="{ 'text-blue-9 font-semibold': isLightThemeSelected() }">Light</span>
+                    <span :class="{ 'text-blue-500 font-semibold': isLightThemeSelected() }">Light</span>
                 </div>
             </x-dropdown.item>
             <x-dropdown.item href="#" @click.prevent="setTheme('dark')">
                 <div class="flex items-center space-x-2">
-                    <span :class="{ 'text-blue-8': isDarkThemeSelected() }">
+                    <span :class="{ 'text-blue-400 dark:text-blue-600': isDarkThemeSelected() }">
                         @icon('moon', 'h-6 w-6')
                     </span>
-                    <span :class="{ 'text-blue-9 font-semibold': isDarkThemeSelected() }">Dark</span>
+                    <span :class="{ 'text-blue-500 font-semibold': isDarkThemeSelected() }">Dark</span>
                 </div>
             </x-dropdown.item>
             <x-dropdown.item href="#" @click.prevent="setTheme()">
                 <div class="flex items-center space-x-2">
-                    <span :class="{ 'text-blue-8': isSystemThemeSelected() }">
+                    <span :class="{ 'text-blue-400 dark:text-blue-600': isSystemThemeSelected() }">
                         @icon('desktop', 'h-6 w-6')
                     </span>
-                    <span :class="{ 'text-blue-9 font-semibold': isSystemThemeSelected() }">System</span>
+                    <span :class="{ 'text-blue-500 font-semibold': isSystemThemeSelected() }">System</span>
                 </div>
             </x-dropdown.item>
         </x-dropdown.group>

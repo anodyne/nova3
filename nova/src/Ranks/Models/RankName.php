@@ -8,16 +8,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Nova\Ranks\Events;
 use Nova\Ranks\Models\Builders\RankNameBuilder;
+use Nova\Ranks\Models\States\Names\RankNameStatus;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\ModelStates\HasStates;
 
 class RankName extends Model
 {
     use HasFactory;
+    use HasStates;
     use LogsActivity;
 
     protected $casts = [
         'sort' => 'integer',
+        'status' => RankNameStatus::class,
     ];
 
     protected $dispatchesEvents = [
@@ -26,7 +30,7 @@ class RankName extends Model
         'deleted' => Events\RankNameDeleted::class,
     ];
 
-    protected $fillable = ['name', 'sort'];
+    protected $fillable = ['name', 'sort', 'status'];
 
     protected $table = 'rank_names';
 

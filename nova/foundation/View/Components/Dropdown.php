@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\View\Components;
 
-use Illuminate\Support\Str;
 use Illuminate\View\Component;
 
 class Dropdown extends Component
@@ -14,28 +13,9 @@ class Dropdown extends Component
         public bool $wide = false,
         public string $triggerColor = 'gray-text',
         public string $triggerSize = 'none',
-        public string $id = 'options-menu'
+        public string $id = 'options-menu',
+        public ?string $maxHeight = null
     ) {
-    }
-
-    public function divider(): string
-    {
-        return 'border-t border-gray-3 my-1';
-    }
-
-    public function icon(): string
-    {
-        return 'mr-3 h-6 w-6 md:h-5 md:w-5 text-gray-7 group-hover:text-gray-8 group-focus:text-gray-8';
-    }
-
-    public function link(): string
-    {
-        return 'group flex items-center w-full px-4 py-2 text-base md:text-sm font-medium text-gray-9 transition ease-in-out duration-200 hover:bg-gray-4 hover:text-gray-11 focus:outline-none';
-    }
-
-    public function text(): string
-    {
-        return 'block px-4 py-3 text-base md:text-sm';
     }
 
     public function placementStyles(): string

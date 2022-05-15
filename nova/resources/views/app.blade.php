@@ -16,7 +16,7 @@
     @novaScripts
     @stack('headScripts')
 </head>
-<body class="font-sans bg-gray-3 text-gray-12 antialiased">
+<body class="font-sans antialiased text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-900">
     <div id="nova">
         @yield('layout')
 

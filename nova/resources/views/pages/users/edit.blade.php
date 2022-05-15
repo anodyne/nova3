@@ -10,22 +10,22 @@
     <x-panel x-data="tabsList('details')">
         <div>
             <x-content-box class="sm:hidden">
-                <select @change="switchTab($event.target.value)" aria-label="Selected tab" class="mt-1 form-select bg-gray-1 block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-200 sm:text-sm rounded-md">
+                <select @change="switchTab($event.target.value)" aria-label="Selected tab" class="mt-1 form-select bg-white block w-full pl-3 pr-10 py-2 text-base border-gray-200 dark:border-gray-200/10 focus:outline-none focus:ring focus:border-blue-400 transition ease-in-out duration-200 sm:text-sm rounded-md">
                     <option value="details">Details</option>
                     <option value="characters">Characters</option>
                     <option value="roles">Roles</option>
                 </select>
             </x-content-box>
             <div class="hidden sm:block">
-                <div class="border-b border-gray-6 px-4 sm:px-6">
+                <div class="border-b border-gray-200 dark:border-gray-200/10 px-4 sm:px-6">
                     <nav class="-mb-px flex">
-                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none" :class="{ 'border-blue-7 text-blue-11': isTab('details'), 'text-gray-9 hover:text-gray-11 hover:border-gray-6': isNotTab('details') }" @click.prevent="switchTab('details')">
+                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none" :class="{ 'border-blue-400 text-blue-600': isTab('details'), 'text-gray-500 hover:text-gray-600 hover:border-gray-300': isNotTab('details') }" @click.prevent="switchTab('details')">
                             Details
                         </a>
-                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none" :class="{ 'border-blue-7 text-blue-11': isTab('characters'), 'text-gray-9 hover:text-gray-11 hover:border-gray-6': isNotTab('characters') }" @click.prevent="switchTab('characters')">
+                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none" :class="{ 'border-blue-400 text-blue-600': isTab('characters'), 'text-gray-500 hover:text-gray-600 hover:border-gray-300': isNotTab('characters') }" @click.prevent="switchTab('characters')">
                             Characters
                         </a>
-                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none" :class="{ 'border-blue-7 text-blue-11': isTab('roles'), 'text-gray-9 hover:text-gray-11 hover:border-gray-6': isNotTab('roles') }" @click.prevent="switchTab('roles')">
+                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none" :class="{ 'border-blue-400 text-blue-600': isTab('roles'), 'text-gray-500 hover:text-gray-600 hover:border-gray-300': isNotTab('roles') }" @click.prevent="switchTab('roles')">
                             Roles
                         </a>
                     </nav>
@@ -106,11 +106,11 @@
     @can('deactivate', $user)
         <x-panel class="mt-8">
             <x-content-box>
-                <h3 class="text-lg font-medium text-gray-12">
+                <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">
                     Deactivate User
                 </h3>
                 <div class="mt-2 sm:flex sm:items-start sm:justify-between">
-                    <div class="w-full text-gray-11">
+                    <div class="w-full">
                         <p>
                             When deactivating the user, all characters associated with the user that are not jointly owned with another user will be deactivated as well.
                         </p>
@@ -130,11 +130,11 @@
     @can('activate', $user)
         <x-panel class="mt-8">
             <x-content-box>
-                <h3 class="text-lg font-medium text-gray-12">
+                <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">
                     Activate User
                 </h3>
                 <div class="mt-2 sm:flex sm:items-start sm:justify-between">
-                    <div class="w-full text-gray-11">
+                    <div class="w-full">
                         <p>
                             When activating the user, their primary character will also be activated and their access roles will be set to the default roles for new users.
                         </p>
@@ -153,7 +153,7 @@
 
     <x-panel class="mt-8">
         <x-content-box>
-            <h3 class="text-lg font-medium text-gray-900">
+            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">
                 Account Security
             </h3>
 
@@ -163,9 +163,9 @@
                         <x-content-box>
                             <div class="sm:flex sm:items-start sm:justify-between">
                                 <div class="sm:flex sm:items-start">
-                                    @icon('lock', 'shrink-0 h-8 w-8 text-gray-9')
+                                    @icon('lock', 'shrink-0 h-8 w-8 text-gray-400 dark:text-gray-500')
                                     <div class="mt-3 sm:mt-0 sm:ml-4">
-                                        <div class="text-sm text-gray-12">
+                                        <div>
                                             If you believe this user should reset their password, you can force a password reset that will prompt them to change their password the next time they attempt to sign in.
                                         </div>
                                     </div>
@@ -196,7 +196,7 @@
                     <div class="mt-4 sm:mt-0 sm:ml-6 sm:shrink-0">
                         <x-form :action="route('users.force-password-reset', $user)">
                             <span class="inline-flex rounded-md shadow-sm">
-                                <button type="submit" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-gray-1 hover:text-gray-500 focus:outline-none focus:border-blue-7 focus:ring active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-200">
+                                <button type="submit" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-400 focus:ring active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-200">
                                     Sign This User Out
                                 </button>
                             </span>

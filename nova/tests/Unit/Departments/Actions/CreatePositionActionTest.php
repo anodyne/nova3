@@ -9,6 +9,7 @@ use Nova\Departments\Actions\CreatePosition;
 use Nova\Departments\Data\PositionData;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
+use Nova\Departments\Models\States\Positions\Active;
 use Tests\TestCase;
 
 /**
@@ -37,7 +38,7 @@ class CreatePositionActionTest extends TestCase
             'available' => 1,
             'department' => $this->department,
             'department_id' => $this->department->id,
-            'active' => true,
+            'status' => Active::class,
         ]);
 
         $position = CreatePosition::run($data);
@@ -67,7 +68,7 @@ class CreatePositionActionTest extends TestCase
             'available' => 1,
             'department' => $this->department,
             'department_id' => $this->department->id,
-            'active' => true,
+            'status' => Active::class,
         ]);
 
         $position = CreatePosition::run($data);

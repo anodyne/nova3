@@ -15,16 +15,16 @@
             <x-content-box class="relative">
                 <div class="absolute inset-0 w-full h-full text-center p-16 z-50">
                     <div class="flex items-center justify-center space-x-4">
-                        @icon('warning', 'h-8 w-8 text-red-9')
-                        <h1 class="block text-4xl leading-loose font-extrabold text-red-11 tracking-tight">Warning</h1>
-                        @icon('warning', 'h-8 w-8 text-red-9')
+                        @icon('warning', 'h-8 w-8 text-red-500')
+                        <h1 class="block text-4xl leading-loose font-extrabold text-red-600 tracking-tight">Warning</h1>
+                        @icon('warning', 'h-8 w-8 text-red-500')
                     </div>
 
-                    <p class="text-lg font-medium text-gray-12 mb-4">
+                    <p class="text-lg font-medium text-gray-900 mb-4">
                         This post contains mature content that may not be suitable for all audiences.
                     </p>
 
-                    <p class="text-sm font-medium text-gray-11 mb-8">
+                    <p class="text-sm font-medium text-gray-600 mb-8">
                         By continuing, you agree that you are of suitable age for this content.
                     </p>
 

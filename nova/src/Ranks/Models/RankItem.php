@@ -9,16 +9,20 @@ use Illuminate\Database\Eloquent\Model;
 use Nova\Characters\Models\Character;
 use Nova\Ranks\Events;
 use Nova\Ranks\Models\Builders\RankItemBuilder;
+use Nova\Ranks\Models\States\Items\RankItemStatus;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\ModelStates\HasStates;
 
 class RankItem extends Model
 {
     use HasFactory;
+    use HasStates;
     use LogsActivity;
 
     protected $casts = [
         'sort' => 'integer',
+        'status' => RankItemStatus::class,
     ];
 
     protected $dispatchesEvents = [
@@ -28,7 +32,7 @@ class RankItem extends Model
     ];
 
     protected $fillable = [
-        'base_image', 'overlay_image', 'group_id', 'name_id', 'sort'
+        'base_image', 'overlay_image', 'group_id', 'name_id', 'sort', 'status',
     ];
 
     protected $table = 'rank_items';

@@ -12,6 +12,7 @@ class CreateRankNameRequest extends ValidatesRequest
     {
         return [
             'name' => ['required'],
+            'status' => ['required'],
         ];
     }
 }

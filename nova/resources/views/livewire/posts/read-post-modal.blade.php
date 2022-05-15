@@ -5,30 +5,30 @@
         </x-page-header>
 
         <div class="flex items-center space-x-6">
-            <div class="flex items-center space-x-2 text-sm text-gray-11 font-medium">
-                @icon('location', 'h-6 w-6 text-gray-9 shrink-0')
+            <div class="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400 font-medium">
+                @icon('location', 'h-6 w-6 text-gray-400 dark:text-gray-500 shrink-0')
                 <span>{{ $post->location }}</span>
             </div>
 
-            <div class="flex items-center space-x-2 text-sm text-gray-11 font-medium">
-                @icon('calendar', 'h-6 w-6 text-gray-9 shrink-0')
+            <div class="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400 font-medium">
+                @icon('calendar', 'h-6 w-6 text-gray-400 dark:text-gray-500 shrink-0')
                 <span>{{ $post->day }}</span>
             </div>
 
-            <div class="flex items-center space-x-2 text-sm text-gray-11 font-medium">
-                @icon('clock', 'h-6 w-6 text-gray-9 shrink-0')
+            <div class="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400 font-medium">
+                @icon('clock', 'h-6 w-6 text-gray-400 dark:text-gray-500 shrink-0')
                 <span>{{ $post->time }}</span>
             </div>
         </div>
 
-        <div class="flex items-center space-x-2 text-sm text-gray-11 font-medium mt-4">
-            @icon('users', 'h-6 w-6 text-gray-9 shrink-0')
+        <div class="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400 font-medium mt-4">
+            @icon('users', 'h-6 w-6 text-gray-400 dark:text-gray-500 shrink-0')
             <span>Captain Jean-Luc Picard, Commander William Riker, and Dr. Beverly Crusher</span>
         </div>
 
-        <hr class="w-full max-w-xl mt-12 border-gray-6 mx-auto">
+        <hr class="w-full max-w-xl mt-8 border-gray-200 dark:border-gray-200/10 mx-auto">
 
-        <div class="prose max-w-none mt-12">
+        <div class="prose dark:prose-invert max-w-none mt-8">
             {!! $post->content !!}
         </div>
     </x-content-box>

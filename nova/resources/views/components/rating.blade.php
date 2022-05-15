@@ -12,11 +12,11 @@
                 @click="setCount({{ $i }})"
                 class="m-0 flex-1 py-1 md:py-0.5 text-center text-base md:text-sm font-semibold transition ease-in-out duration-200"
                 :class="{
-                    'bg-gray-6 hover:bg-gray-9': count < {{ $i }},
-                    'bg-green-9 hover:bg-green-9 text-gray-1': count >= {{ $i }} && count === 0,
-                    'bg-yellow-9 hover:bg-yellow-9 text-gray-12': count >= {{ $i }} && count === 1,
-                    'bg-orange-9 hover:bg-orange-9 text-gray-1': count >= {{ $i }} && count === 2,
-                    'bg-red-9 hover:bg-red-9 text-gray-1': count >= {{ $i }} && count === 3
+                    'bg-gray-200 dark:bg-gray-600 hover:bg-gray-200 dark:hover:bg-gray-600': count < {{ $i }},
+                    'bg-green-500 hover:bg-green-500 text-white': count >= {{ $i }} && count === 0,
+                    'bg-yellow-500 hover:bg-yellow-500 text-white': count >= {{ $i }} && count === 1,
+                    'bg-orange-500 hover:bg-orange-500 text-white': count >= {{ $i }} && count === 2,
+                    'bg-red-500 hover:bg-red-500 text-white': count >= {{ $i }} && count === 3
                 }"
             >
                 <span x-show="count === {{ $i }}" x-text="count"></span>
@@ -25,7 +25,7 @@
         @endfor
     </div>
 
-    {{-- <div class="mt-1 text-sm text-gray-11">
+    {{-- <div class="mt-1 text-sm text-gray-600">
         <span x-show="count === 0">Not permitted</span>
         <span x-show="count === 1">Infrequent and mild content is permitted</span>
         <span x-show="count === 2">Permitted, with some limitations</span>

@@ -1,6 +1,6 @@
 <div>
     <x-content-box>
-        <h3 class="font-bold text-xl text-gray-12 tracking-tight">Users Assigned this Role</h3>
+        <h3 class="font-bold text-xl text-gray-900 dark:text-gray-100 tracking-tight">Users Assigned this Role</h3>
 
         <div class="flex justify-between mt-4">
             @if ($users->total() > 0)
@@ -33,7 +33,7 @@
                                 <div class="flex items-center justify-between w-full">
                                     <span>All users</span>
                                     @if ($filters['status'] === '')
-                                        @icon('check', 'h-6 w-6 text-green-9')
+                                        @icon('check', 'h-6 w-6 text-green-500')
                                     @endif
                                 </div>
                             </x-dropdown.item>
@@ -41,7 +41,7 @@
                                 <div class="flex items-center justify-between w-full">
                                     <span>Only active users</span>
                                     @if ($filters['status'] === 'Nova\Users\Models\States\Active')
-                                        @icon('check', 'h-6 w-6 text-green-9')
+                                        @icon('check', 'h-6 w-6 text-green-500')
                                     @endif
                                 </div>
                             </x-dropdown.item>
@@ -49,7 +49,7 @@
                                 <div class="flex items-center justify-between w-full">
                                     <span>Only inactive users</span>
                                     @if ($filters['status'] === 'Nova\Users\Models\States\Inactive')
-                                        @icon('check', 'h-6 w-6 text-green-9')
+                                        @icon('check', 'h-6 w-6 text-green-500')
                                     @endif
                                 </div>
                             </x-dropdown.item>
@@ -87,13 +87,13 @@
             <x-slot:body>
                 @if ($selectPage)
                     <x-table.row>
-                        <x-table.cell class="bg-blue-3" colspan="3">
+                        <x-table.cell class="bg-blue-50 dark:bg-blue-900" colspan="3">
                             @unless ($selectAll)
-                                <span class="text-blue-11">You've selected <strong>{{ $users->count() }}</strong> users assigned this role. Do you want to select all <strong>{{ $users->total() }}</strong>?</span>
+                                <span class="text-blue-600 dark:text-blue-400">You've selected <strong>{{ $users->count() }}</strong> users assigned this role. Do you want to select all <strong>{{ $users->total() }}</strong>?</span>
 
                                 <x-button size="none" color="blue-text" wire:click="selectAll" class="ml-1">Select All</x-button>
                             @else
-                                <span class="text-blue-11">You've selected all <strong>{{ $users->total() }}</strong> users assigned this role.</span>
+                                <span class="text-blue-600 dark:text-blue-400">You've selected all <strong>{{ $users->total() }}</strong> users assigned this role.</span>
                             @endunless
                         </x-table.cell>
                     </x-table.row>
@@ -124,18 +124,18 @@
         </x-table>
 
         @if ($users->total() > $users->perPage())
-            <x-content-box class="border-t border-gray-3" height="xs">
+            <x-content-box class="border-t border-gray-50" height="xs">
                 {{ $users->withQueryString()->links() }}
             </x-content-box>
         @endif
     @else
         <x-content-box class="text-center">
-            @icon('users', 'mx-auto h-12 w-12 text-gray-9')
+            @icon('users', 'mx-auto h-12 w-12 text-gray-500')
 
-            <h3 class="mt-2 text-sm font-medium text-gray-12">No users</h3>
+            <h3 class="mt-2 text-sm font-medium text-gray-900">No users</h3>
 
             @can('update', $role)
-                <p class="mt-1 text-sm text-gray-11">
+                <p class="mt-1 text-sm text-gray-600">
                     Get started by assigning users this role.
                 </p>
 

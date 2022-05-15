@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Departments\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Characters\Models\States\Statuses\Inactive;
 use Nova\Departments\Actions\UpdateDepartment;
 use Nova\Departments\Data\DepartmentData;
 use Nova\Departments\Models\Department;
@@ -32,7 +33,7 @@ class UpdateDepartmentActionTest extends TestCase
         $data = DepartmentData::from([
             'name' => 'Operations',
             'description' => 'Lorem consectetur adipisicing elit.',
-            'active' => false,
+            'status' => Inactive::class,
         ]);
 
         $department = UpdateDepartment::run($this->department, $data);
@@ -40,6 +41,6 @@ class UpdateDepartmentActionTest extends TestCase
         $this->assertTrue($department->exists);
         $this->assertEquals('Operations', $department->name);
         $this->assertEquals('Lorem consectetur adipisicing elit.', $department->description);
-        $this->assertFalse($department->active);
+        $this->assertEquals(Inactive::class, $department->status);
     }
 }

@@ -1,6 +1,6 @@
 <div>
     <x-content-box>
-        <h3 class="font-bold text-xl text-gray-12 tracking-tight">Characters Assigned to this User</h3>
+        <h3 class="font-bold text-xl text-gray-900 tracking-tight">Characters Assigned to this User</h3>
 
         <div class="flex justify-between mt-4">
             @if ($characters->total() > 0)
@@ -56,15 +56,15 @@
             <x-slot:body>
                 @if ($selectPage)
                     <x-table.row>
-                        <x-table.cell class="bg-blue-3" colspan="3">
+                        <x-table.cell class="bg-blue-50" colspan="3">
                             @unless ($selectAll)
                                 <div>
-                                    <span class="text-blue-11">You've selected <strong>{{ $characters->count() }}</strong> characters assigned to this user. Do you want to select all <strong>{{ $characters->total() }}</strong>?</span>
+                                    <span class="text-blue-600">You've selected <strong>{{ $characters->count() }}</strong> characters assigned to this user. Do you want to select all <strong>{{ $characters->total() }}</strong>?</span>
 
                                     <x-button size="none" color="blue-text" wire:click="selectAll" class="ml-1">Select All</x-button>
                                 </div>
                             @else
-                                <span class="text-blue-11">You've selected all <strong>{{ $characters->total() }}</strong> characters assigned to this user.</span>
+                                <span class="text-blue-600">You've selected all <strong>{{ $characters->total() }}</strong> characters assigned to this user.</span>
                             @endunless
                         </x-table.cell>
                     </x-table.row>
@@ -99,11 +99,11 @@
                                     </x-badge>
                                 </div>
                                 @if ($character->users->count() > 0)
-                                    <div class="hidden mt-2 items-center text-sm text-gray-11 sm:flex">
+                                    <div class="hidden mt-2 items-center text-sm text-gray-600 sm:flex">
                                         @if ($character->users->count() === 1)
-                                            @icon('user', 'shrink-0 mr-1.5 h-5 w-5 text-gray-9')
+                                            @icon('user', 'shrink-0 mr-1.5 h-5 w-5 text-gray-500')
                                         @else
-                                            @icon('users', 'shrink-0 mr-1.5 h-5 w-5 text-gray-9')
+                                            @icon('users', 'shrink-0 mr-1.5 h-5 w-5 text-gray-500')
                                         @endif
 
                                         <span>
@@ -116,7 +116,7 @@
 
                         <x-table.cell>
                             @if ($character->type->name() === 'primary')
-                                @icon('star', 'h-6 w-6 text-blue-9')
+                                @icon('star', 'h-6 w-6 text-blue-500')
                             @else
                                 <x-button color="gray-text" size="none" wire:click="assignPrimaryCharacter({{ $character->id }})">
                                     @icon('star', 'h-6 w-6')
@@ -130,18 +130,18 @@
         </x-table>
 
         @if ($characters->total() > $characters->perPage())
-            <x-content-box class="border-t border-gray-3" height="xs">
+            <x-content-box class="border-t border-gray-50" height="xs">
                 {{ $characters->withQueryString()->links() }}
             </x-content-box>
         @endif
     @else
         <x-content-box class="text-center">
-            @icon('users', 'mx-auto h-12 w-12 text-gray-9')
+            @icon('users', 'mx-auto h-12 w-12 text-gray-500')
 
-            <h3 class="mt-2 text-sm font-medium text-gray-12">No characters</h3>
+            <h3 class="mt-2 text-sm font-medium text-gray-900">No characters</h3>
 
             @can('update', $user)
-                <p class="mt-1 text-sm text-gray-11">
+                <p class="mt-1 text-sm text-gray-600">
                     Get started by assigning characters to this user.
                 </p>
 

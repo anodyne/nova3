@@ -7,6 +7,7 @@ namespace Nova\Ranks\Models\Builders;
 use Illuminate\Database\Eloquent\Builder;
 use Nova\Foundation\Filters\Filterable;
 use Nova\Foundation\Models\Concerns\Sortable;
+use Nova\Ranks\Models\States\Groups\Active;
 
 class RankGroupBuilder extends Builder
 {
@@ -16,5 +17,10 @@ class RankGroupBuilder extends Builder
     public function searchFor($value): self
     {
         return $this->where('name', 'like', "%{$value}%");
+    }
+
+    public function whereActive()
+    {
+        return $this->whereState('status', Active::class);
     }
 }

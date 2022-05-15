@@ -27,7 +27,7 @@ export default (content) => ({
             inFocus: false,
             editorProps: {
                 attributes: {
-                    class: 'prose max-w-none py-4 px-3 max-h-[35rem] overflow-y-scroll focus:outline-none',
+                    class: 'prose dark:prose-invert max-w-none py-4 px-3 max-h-[35rem] overflow-y-scroll focus:outline-none',
                 },
             },
             onFocus: () => {

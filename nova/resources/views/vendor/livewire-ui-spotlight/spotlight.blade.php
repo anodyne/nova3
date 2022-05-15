@@ -30,7 +30,7 @@
             x-transition:leave-end="opacity-0"
             class="fixed inset-0 transition-opacity"
         >
-            <div class="absolute inset-0 bg-black opacity-[65%]"></div>
+            <div class="absolute inset-0 bg-black/[65%] backdrop-blur-sm"></div>
         </div>
 
         <div
@@ -44,10 +44,10 @@
             x-trap.noscroll="isOpen"
             class="relative transition-all max-w-xl w-full"
         >
-            <div class="mx-auto max-w-xl transform divide-y divide-gray-6 overflow-hidden rounded-xl bg-gray-1 dark:bg-gray-3 shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
+            <div class="mx-auto max-w-xl transform divide-y divide-gray-200 dark:divide-gray-200/10 overflow-hidden rounded-xl bg-white dark:bg-gray-800 dark:highlight-white/10 shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
                 <div class="relative flex items-center space-x-3 px-4 py-4">
                     <div class="shrink-0">
-                        @icon('arrow-right', 'h-6 w-6 text-gray-9')
+                        @icon('arrow-right', 'h-6 w-6 text-gray-400')
                     </div>
                     <input
                         @keydown.tab.prevent=""
@@ -58,7 +58,7 @@
                         x-model="input"
                         type="text"
                         style="caret-color: #6b7280; border: 0 !important;"
-                        class="appearance-none w-full bg-transparent text-gray-12 p-0 text-lg placeholder-gray-9 focus:border-0 focus:ring-0 focus:border-transparent focus:shadow-none outline-none focus:outline-none"
+                        class="appearance-none w-full bg-transparent text-gray-900 dark:text-gray-100 p-0 text-lg placeholder-gray-400 focus:border-0 focus:ring-0 focus:border-transparent focus:shadow-none outline-none focus:outline-none"
                         x-bind:placeholder="inputPlaceholder"
                     >
                     <div class="shrink-0">
@@ -72,17 +72,17 @@
                             <button
                                 @click="go(item[0].item.id)"
                                 class="group block w-full px-4 py-2 text-left rounded-lg"
-                                :class="{ 'bg-blue-3': selected === i, 'hover:bg-blue-3': selected !== i }"
+                                :class="{ 'bg-blue-50 dark:bg-blue-900': selected === i, 'hover:bg-blue-100 dark:hover:bg-blue-800': selected !== i }"
                             >
                                 <span
                                     x-text="item[0].item.name"
                                     class="font-medium"
-                                    :class="{ 'text-gray-12 group-hover:text-blue-12': selected !== i, 'text-blue-12': selected === i }"
+                                    :class="{ 'text-gray-900 dark:text-gray-100 group-hover:text-blue-900': selected !== i, 'text-blue-900 dark:text-blue-100': selected === i }"
                                 ></span>
                                 <span
                                     x-text="item[0].item.description"
                                     class="ml-3 text-base md:text-sm"
-                                    :class="{ 'text-gray-9 group-hover:text-blue-9': selected !== i, 'text-blue-9': selected === i }"
+                                    :class="{ 'text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500': selected !== i, 'text-blue-500': selected === i }"
                                 ></span>
                             </button>
                         </li>
@@ -90,11 +90,11 @@
                 </ul>
 
                 <div x-show="input === ''" class="flex flex-col space-y-4 py-14 px-6 text-center text-base sm:px-14">
-                    @icon('lightbulb', 'mx-auto h-8 w-8 text-gray-9')
-                    <p class="text-lg font-semibold text-gray-12">Move around Nova at warp speed</p>
-                    <ul class="text-gray-11 space-y-4">
-                        <li>Start typing any resource like <span class="text-blue-11 font-medium">story</span> or <span class="text-blue-11 font-medium">character</span> to see available actions you can take</li>
-                        <li>Start typing an action like <span class="text-blue-11 font-medium">create</span> or <span class="text-blue-11 font-medium">view</span> to see available actions you can take on resources</li>
+                    @icon('lightbulb', 'mx-auto h-8 w-8 text-gray-400 dark:text-gray-500')
+                    <p class="text-lg font-semibold text-gray-900 dark:text-gray-100">Move around Nova at warp speed</p>
+                    <ul class="text-gray-500 dark:text-gray-400 space-y-4">
+                        <li>Start typing any resource like <span class="text-blue-600 dark:text-blue-500 font-medium">story</span> or <span class="text-blue-600 dark:text-blue-500 font-medium">character</span> to see available actions you can take</li>
+                        <li>Start typing an action like <span class="text-blue-600 dark:text-blue-500 font-medium">create</span> or <span class="text-blue-600 dark:text-blue-500 font-medium">view</span> to see available actions you can take on resources</li>
                         <li>Not sure where to find a setting? Start typing what setting you want to change.</li>
                     </ul>
                 </div>

@@ -21,7 +21,8 @@ class PopulateSettingsTable extends Migration
             'email' => new Email(),
             'system_defaults' => new SystemDefaults(
                 iconSet: 'fluent',
-                theme: 'Pulsar'
+                theme: 'Pulsar',
+                imagePath: null
             ),
             'meta_tags' => new MetaTags(),
             'characters' => Characters::from([

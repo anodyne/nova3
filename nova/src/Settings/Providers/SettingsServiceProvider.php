@@ -6,6 +6,7 @@ namespace Nova\Settings\Providers;
 
 use Nova\DomainServiceProvider;
 use Nova\Foundation\Nova;
+use Nova\Settings\Actions\UpdateSystemDefaults;
 use Nova\Settings\Data\Characters;
 use Nova\Settings\Data\Discord;
 use Nova\Settings\Data\Email;
@@ -100,6 +101,7 @@ class SettingsServiceProvider extends DomainServiceProvider
                 response: PostingActivitySettingsResponse::class
             ));
             $manager->add('system-defaults', new SettingInfo(
+                action: UpdateSystemDefaults::class,
                 dto: SystemDefaults::class,
                 response: SystemDefaultsSettingsResponse::class
             ));

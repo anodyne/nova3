@@ -9,6 +9,7 @@ use Nova\Departments\Actions\UpdatePosition;
 use Nova\Departments\Data\PositionData;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
+use Nova\Departments\Models\States\Positions\Inactive;
 use Tests\TestCase;
 
 /**
@@ -36,7 +37,7 @@ class UpdatePositionActionTest extends TestCase
         $data = PositionData::from([
             'name' => 'Executive Officer',
             'description' => 'Lorem consectetur adipisicing elit.',
-            'active' => false,
+            'status' => Inactive::class,
             'available' => 5,
             'department_id' => $newDepartment->id,
             'department' => $newDepartment,
@@ -47,7 +48,7 @@ class UpdatePositionActionTest extends TestCase
         $this->assertTrue($position->exists);
         $this->assertEquals('Executive Officer', $position->name);
         $this->assertEquals('Lorem consectetur adipisicing elit.', $position->description);
-        $this->assertFalse($position->active);
+        $this->assertEquals(Inactive::class, $position->status);
         $this->assertEquals($newDepartment->id, $position->department_id);
         $this->assertEquals(5, $position->available);
     }

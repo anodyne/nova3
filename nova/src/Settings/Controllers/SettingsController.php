@@ -41,10 +41,16 @@ class SettingsController extends Controller
 
         $tabString = str($tab)->replace('-', ' ');
 
+        $info = $settingsManager->get($tab);
+
         UpdateSettings::run(
             $tabString->snake(),
-            $settingsManager->get($tab)->dto::fromRequest($request)
+            $data = $info->dto::fromRequest($request)
         );
+
+        if ($info->action !== null) {
+            $info->action::run($data);
+        }
 
         return redirect()
             ->route('settings.index', $tab)

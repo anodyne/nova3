@@ -3,7 +3,7 @@
         <input type="hidden" name="positions[]" value="{{ $position['id'] }}">
 
         <div class="flex flex-col @if (! $loop->first) mt-4 @endif">
-            <div class="flex items-center w-full" wire:model="positions">
+            <div class="flex items-center w-full space-x-2" wire:model="positions">
                 @livewire(
                     'positions:dropdown',
                     ['index' => $loop->index, 'position' => $position['id']],
@@ -11,12 +11,12 @@
                 )
 
                 @if (count($positions) > 1)
-                    <x-button wire:click="removePosition({{ $loop->index }})" type="button" color="gray-text" size="none" class="ml-3">
+                    <x-button wire:click="removePosition({{ $loop->index }})" type="button" color="gray-red-text" size="none">
                         @icon('delete', 'h-6 w-6')
                     </x-button>
                 @endif
 
-                <x-button wire:click="addPosition({{ $loop->index }})" type="button" color="gray-text" size="none" class="ml-1">
+                <x-button wire:click="addPosition({{ $loop->index }})" type="button" color="gray-text" size="none">
                     @icon('add', 'h-6 w-6')
                 </x-button>
             </div>

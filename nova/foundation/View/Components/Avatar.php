@@ -26,8 +26,8 @@ class Avatar extends Component
     {
         return Arr::toCssClasses([
             'inline-block relative rounded-full',
-            'bg-gray-1',
-            // 'ring-2 ring-gray-1',
+            'bg-white dark:bg-gray-800',
+            'ring-2 ring-white dark:ring-gray-800',
             $this->sizeStyles(),
         ]);
     }

@@ -11,7 +11,7 @@ class CreatePostTypeRequest extends ValidatesRequest
     public function rules(): array
     {
         return [
-            'active' => ['required'],
+            'status' => ['required'],
             'description' => ['nullable'],
             'color' => ['nullable'],
             'icon' => ['nullable'],

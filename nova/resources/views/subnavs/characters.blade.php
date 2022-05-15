@@ -13,7 +13,8 @@
 
     @can('viewAny', Nova\Departments\Models\Department::class)
         <x-nav.sub-group>
-            <x-nav.sub-item :href="route('departments.index')" :active="request()->routeIs('departments.*') || request()->routeIs('positions.*')">Departments</x-nav.sub-item>
+            <x-nav.sub-item :href="route('departments.index')" :active="request()->routeIs('departments.*')">Departments</x-nav.sub-item>
+            <x-nav.sub-item :href="route('positions.index')" :active="request()->routeIs('positions.*')">Positions</x-nav.sub-item>
         </x-nav.sub-group>
     @endcan
 

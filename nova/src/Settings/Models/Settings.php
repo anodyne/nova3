@@ -13,9 +13,15 @@ use Nova\Settings\Data\MetaTags;
 use Nova\Settings\Data\PostingActivity;
 use Nova\Settings\Data\SystemDefaults;
 use Nova\Settings\Models\Builders\SettingsBuilder;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Settings extends Model
+class Settings extends Model implements HasMedia
 {
+    use InteractsWithMedia;
+
+    public const MEDIA_DIRECTORY = 'settings/{model_id}/{media_id}/';
+
     protected $table = 'settings';
 
     protected $casts = [
@@ -42,5 +48,13 @@ class Settings extends Model
     public function newEloquentBuilder($query): SettingsBuilder
     {
         return new SettingsBuilder($query);
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('logo')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/svg+xml'])
+            ->singleFile()
+            ->useDisk('media');
     }
 }

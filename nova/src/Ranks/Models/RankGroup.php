@@ -8,12 +8,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Nova\Ranks\Events;
 use Nova\Ranks\Models\Builders\RankGroupBuilder;
+use Nova\Ranks\Models\States\Groups\RankGroupStatus;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\ModelStates\HasStates;
 
 class RankGroup extends Model
 {
     use HasFactory;
+    use HasStates;
     use LogsActivity;
 
     protected static $logFillable = true;
@@ -22,6 +25,7 @@ class RankGroup extends Model
 
     protected $casts = [
         'sort' => 'integer',
+        'status' => RankGroupStatus::class,
     ];
 
     protected $dispatchesEvents = [
@@ -30,7 +34,7 @@ class RankGroup extends Model
         'deleted' => Events\RankGroupDeleted::class,
     ];
 
-    protected $fillable = ['name', 'sort'];
+    protected $fillable = ['name', 'sort', 'status'];
 
     protected $table = 'rank_groups';
 

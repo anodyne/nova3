@@ -13,6 +13,11 @@ class Current extends StoryStatus
         return 'blue';
     }
 
+    public function textColor(): string
+    {
+        return "text-{$this->color()}-500";
+    }
+
     public function name(): string
     {
         return 'current';

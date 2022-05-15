@@ -29,10 +29,10 @@
         x-transition:leave="transition ease-in duration-75"
         x-transition:leave-start="opacity-100 scale-100"
         x-transition:leave-end="opacity-0 scale-95"
-        class="absolute mt-2 rounded-md shadow-lg z-[9999] {{ $placementStyles() }} {{ $wide ? 'w-72' : 'w-56'}}"
+        class="absolute mt-2 rounded-lg shadow-lg z-[9999] {{ $placementStyles() }} {{ $wide ? 'w-72' : 'w-56'}} {{ $maxHeight ?: '' }}"
         x-cloak
     >
-        <div class="rounded-lg bg-gray-1 ring-1 ring-gray-12 ring-opacity-5 z-10 divide-y divide-gray-3">
+        <div class="rounded-lg bg-white dark:bg-gray-700 ring-1 ring-gray-900/5 dark:ring-gray-200/10 z-10 divide-y divide-gray-100 dark:divide-gray-200/10 dark:highlight-white/10">
             {{ $slot }}
         </div>
     </div>

@@ -13,6 +13,11 @@ class Ongoing extends StoryStatus
         return 'green';
     }
 
+    public function textColor(): string
+    {
+        return "text-{$this->color()}-500";
+    }
+
     public function name(): string
     {
         return 'ongoing';

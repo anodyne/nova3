@@ -16,22 +16,22 @@
     <x-panel x-data="tabsList('details')">
         <div>
             <x-content-box class="sm:hidden">
-                <select @change="switchTab($event.target.value)" aria-label="Selected tab" class="mt-1 form-select bg-gray-1 block w-full pl-3 pr-10 py-2 text-base border-gray-6 focus:outline-none focus:ring focus:border-blue-7 transition ease-in-out duration-200 sm:text-sm rounded-md">
+                <select @change="switchTab($event.target.value)" aria-label="Selected tab" class="mt-1 form-select bg-white block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring focus:border-blue-400 transition ease-in-out duration-200 sm:text-sm rounded-md">
                     <option value="details">Details</option>
                     <option value="permissions">Permissions</option>
                     <option value="users">Users</option>
                 </select>
             </x-content-box>
             <div class="hidden sm:block">
-                <div class="border-b border-gray-6 px-4 sm:px-6">
+                <div class="border-b border-gray-200 dark:border-gray-200/10 px-4 sm:px-6">
                     <nav class="-mb-px flex">
-                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none" :class="{ 'border-blue-7 text-blue-11': isTab('details'), 'text-gray-9 hover:text-gray-11 hover:border-gray-6': isNotTab('details') }" @click.prevent="switchTab('details')">
+                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none transition" :class="{ 'border-blue-400 text-blue-500': isTab('details'), 'text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-500': isNotTab('details') }" @click.prevent="switchTab('details')">
                             Details
                         </a>
-                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none" :class="{ 'border-blue-7 text-blue-11': isTab('permissions'), 'text-gray-9 hover:text-gray-11 hover:border-gray-6': isNotTab('permissions') }" @click.prevent="switchTab('permissions')">
+                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none transition" :class="{ 'border-blue-400 text-blue-500': isTab('permissions'), 'text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-500': isNotTab('permissions') }" @click.prevent="switchTab('permissions')">
                             Permissions
                         </a>
-                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none" :class="{ 'border-blue-7 text-blue-11': isTab('users'), 'text-gray-9 hover:text-gray-11 hover:border-gray-6': isNotTab('users') }" @click.prevent="switchTab('users')">
+                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none transition" :class="{ 'border-blue-400 text-blue-500': isTab('users'), 'text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-500': isNotTab('users') }" @click.prevent="switchTab('users')">
                             Users
                         </a>
                     </nav>
@@ -50,13 +50,13 @@
                 </x-input.group>
 
                 @if ($role->default)
-                    <div class="flex items-center space-x-2 text-green-11 font-medium">
-                        @icon('check', 'h-6 w-6 shrink-0 text-green-9')
+                    <div class="flex items-center space-x-2 text-green-600 font-medium">
+                        @icon('check', 'h-6 w-6 shrink-0 text-green-500')
                         <span>Assigned to new users</span>
                     </div>
                 @else
-                    <div class="flex items-center space-x-2 text-red-11 font-medium">
-                        @icon('close', 'h-6 w-6 shrink-0 text-red-9')
+                    <div class="flex items-center space-x-2 text-red-600 font-medium">
+                        @icon('close', 'h-6 w-6 shrink-0 text-red-500')
                         <span>Not assigned to new users</span>
                     </div>
                 @endif

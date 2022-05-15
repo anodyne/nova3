@@ -8,7 +8,7 @@
 
 <form
     action="{{ $action }}"
-    method="{{ $method === 'GET' ? 'GET' : 'POST' }}"
+    method="{{ $method === 'GET' ?: 'POST' }}"
     role="form"
     {{ $attributes->merge(['data-cy' => 'form']) }}
 >
@@ -19,7 +19,7 @@
     @endif
 
     <div @class([
-        'divide-y divide-gray-3' => $divide,
+        'divide-y divide-gray-100 dark:divide-gray-200/10' => $divide,
         'space-y-4 md:space-y-8' => $space,
     ])>
         {{ $slot }}

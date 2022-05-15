@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\PostTypes\Data;
 
 use Illuminate\Http\Request;
+use Nova\PostTypes\Models\States\Active;
 use Spatie\LaravelData\Data;
 
 class PostTypeData extends Data
@@ -13,7 +14,7 @@ class PostTypeData extends Data
         public string $name,
         public string $key,
         public ?string $description,
-        public bool $active,
+        public string $status,
         public Fields $fields,
         public Options $options,
         public ?int $role_id,
@@ -26,7 +27,7 @@ class PostTypeData extends Data
     public static function fromRequest(Request $request): static
     {
         return new self(
-            active: (bool) $request->active,
+            status: $request->input('status', Active::class),
             color: $request->color,
             description: $request->description,
             fields: Fields::from($request->fields),

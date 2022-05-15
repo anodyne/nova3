@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Departments\Controllers;
 
-use Illuminate\Http\Request;
-use Nova\Departments\Filters\PositionFilters;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
 use Nova\Departments\Responses\ShowAllPositionsResponse;
@@ -21,25 +19,13 @@ class ShowPositionController extends Controller
         $this->middleware('auth');
     }
 
-    public function all(Request $request, PositionFilters $filters, $departmentId)
+    public function all()
     {
         $this->authorize('viewAny', Department::class);
 
-        $positions = Position::withCount('activeCharacters')
-            ->whereDepartment($departmentId)
-            ->filter($filters)
-            ->orderBySort();
-
-        $positions = ($request->has('reorder'))
-            ? $positions->get()
-            : $positions->paginate();
-
         return ShowAllPositionsResponse::sendWith([
-            'department' => Department::find($departmentId),
-            'isReordering' => $request->has('reorder'),
-            'positionCount' => ($request->has('reorder')) ? $positions->count() : $positions->total(),
-            'positions' => $positions,
-            'search' => $request->search,
+            'position' => new Position(),
+            'positionCount' => Position::count(),
         ]);
     }
 

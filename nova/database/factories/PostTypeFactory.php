@@ -9,6 +9,8 @@ use Nova\PostTypes\Data\Field;
 use Nova\PostTypes\Data\Fields;
 use Nova\PostTypes\Data\Options;
 use Nova\PostTypes\Models\PostType;
+use Nova\PostTypes\Models\States\Active;
+use Nova\PostTypes\Models\States\Inactive;
 
 class PostTypeFactory extends Factory
 {
@@ -19,7 +21,7 @@ class PostTypeFactory extends Factory
         $word = $this->faker->word;
 
         return [
-            'active' => $this->faker->randomElement([true, false]),
+            'status' => Active::class,
             'description' => $this->faker->sentence,
             'key' => $this->faker->lexify("{$word}-????"),
             'name' => ucfirst($word),
@@ -63,5 +65,12 @@ class PostTypeFactory extends Factory
                 'multipleAuthors' => true,
             ]),
         ];
+    }
+
+    public function inactive()
+    {
+        return $this->state([
+            'status' => Inactive::class,
+        ]);
     }
 }

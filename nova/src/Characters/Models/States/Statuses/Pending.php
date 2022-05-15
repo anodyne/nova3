@@ -13,6 +13,11 @@ class Pending extends CharacterStatus
         return 'yellow';
     }
 
+    public function bgColor(): string
+    {
+        return "bg-{$this->color()}-500";
+    }
+
     public function name(): string
     {
         return 'pending';

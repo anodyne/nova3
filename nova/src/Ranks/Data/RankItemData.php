@@ -13,6 +13,7 @@ class RankItemData extends Data
         public ?string $overlay_image,
         public ?int $group_id,
         public ?int $name_id,
+        public string $status
     ) {
     }
 }

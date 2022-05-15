@@ -7,25 +7,13 @@
         </x-slot:pretitle>
     </x-page-header>
 
-    <x-panel>
-        @if ($theme->name === 'Pulsar')
-            <x-content-box class="bg-purple-3 border-t border-b border-purple-6 sm:rounded-t-md sm:border-t-0">
-                <div class="flex">
-                    <div class="shrink-0">
-                        @icon('star', 'h-6 w-6 text-purple-9')
-                    </div>
-                    <div class="ml-3">
-                        <h3 class="font-medium text-purple-11">
-                            Default theme
-                        </h3>
-                        <div class="mt-2 text-sm text-purple-11">
-                            <p>{{ $theme->name }} is currently set as the system default theme. Be careful when making any updates to this theme as it could impact your public-facing site.</p>
-                        </div>
-                    </div>
-                </div>
-            </x-content-box>
-        @endif
+    @if ($theme->name === 'Pulsar')
+        <x-panel.purple icon="star" title="Default theme">
+            {{ $theme->name }} is currently set as the system default theme. Be careful when making any updates to this theme as it could impact your public-facing site.
+        </x-panel.purple>
+    @endif
 
+    <x-panel>
         <x-form :action="route('themes.update', $theme)" method="PUT">
             <x-form.section title="Theme Info" message="A theme allows you to give your public-facing site the look-and-feel you want to any visitors. Using tools like regular HTML and CSS, you can show visitors the personality of your game and put your own spin on Nova.">
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">

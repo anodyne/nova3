@@ -71,11 +71,9 @@ class NovaManager
     {
         $appUrl = url('');
         $appStylesPath = "{$appUrl}/dist/css/app.css";
-        $appThemesStylesPath = "{$appUrl}/dist/css/app-themes.css";
 
         return <<<HTML
 <link href="https://rsms.me/inter/inter.css" rel="stylesheet">
-<link href="{$appThemesStylesPath}" rel="stylesheet">
 <link href="{$appStylesPath}" rel="stylesheet">
 HTML;
     }

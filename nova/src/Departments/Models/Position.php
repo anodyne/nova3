@@ -9,17 +9,20 @@ use Illuminate\Database\Eloquent\Model;
 use Nova\Characters\Models\Character;
 use Nova\Departments\Events;
 use Nova\Departments\Models\Builders\PositionBuilder;
+use Nova\Departments\Models\States\Positions\PositionStatus;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\ModelStates\HasStates;
 
 class Position extends Model
 {
     use HasFactory;
+    use HasStates;
     use LogsActivity;
 
     protected $casts = [
-        'active' => 'boolean',
         'sort' => 'integer',
+        'status' => PositionStatus::class,
     ];
 
     protected $dispatchesEvents = [
@@ -29,7 +32,7 @@ class Position extends Model
     ];
 
     protected $fillable = [
-        'name', 'description', 'sort', 'active', 'available', 'department_id',
+        'name', 'description', 'sort', 'available', 'department_id', 'status',
     ];
 
     protected $table = 'positions';

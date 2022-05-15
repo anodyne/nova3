@@ -13,6 +13,11 @@ class Completed extends StoryStatus
         return 'gray';
     }
 
+    public function textColor(): string
+    {
+        return "text-{$this->color()}-400 dark:text-{$this->color()}-500";
+    }
+
     public function name(): string
     {
         return 'completed';

@@ -35,7 +35,7 @@ class DuplicateDepartmentActionTest extends TestCase
         $department = DuplicateDepartment::run($this->department, DepartmentData::from([
             'name' => 'New Name',
             'description' => $this->department->description,
-            'active' => $this->department->active,
+            'status' => $this->department->status,
         ]));
 
         $this->assertTrue($department->exists);
