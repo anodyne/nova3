@@ -50,6 +50,10 @@
                         <div class="flex items-center space-x-2 text-green-600 dark:text-green-500">
                             @icon('check', 'h-6 w-6 shrink-0 text-green-500 dark:text-green-400')
                             <span>Title field</span>
+
+                            @if ($postType->fields->title->required)
+                                <span class="text-sm">(required)</span>
+                            @endif
                         </div>
                     @else
                         <div class="flex items-center space-x-2 text-red-600 dark:text-red-500">
@@ -62,6 +66,10 @@
                         <div class="flex items-center space-x-2 text-green-600 dark:text-green-500">
                             @icon('check', 'h-6 w-6 shrink-0 text-green-500 dark:text-green-400')
                             <span>Day field</span>
+
+                            @if ($postType->fields->day->required)
+                                <span class="text-sm">(required)</span>
+                            @endif
                         </div>
                     @else
                         <div class="flex items-center space-x-2 text-red-600 dark:text-red-500">
@@ -74,6 +82,10 @@
                         <div class="flex items-center space-x-2 text-green-600 dark:text-green-500">
                             @icon('check', 'h-6 w-6 shrink-0 text-green-500 dark:text-green-400')
                             <span>Time field</span>
+
+                            @if ($postType->fields->time->required)
+                                <span class="text-sm">(required)</span>
+                            @endif
                         </div>
                     @else
                         <div class="flex items-center space-x-2 text-red-600 dark:text-red-500">
@@ -86,6 +98,10 @@
                         <div class="flex items-center space-x-2 text-green-600 dark:text-green-500">
                             @icon('check', 'h-6 w-6 shrink-0 text-green-500 dark:text-green-400')
                             <span>Location field</span>
+
+                            @if ($postType->fields->location->required)
+                                <span class="text-sm">(required)</span>
+                            @endif
                         </div>
                     @else
                         <div class="flex items-center space-x-2 text-red-600 dark:text-red-500">
@@ -98,6 +114,10 @@
                         <div class="flex items-center space-x-2 text-green-600 dark:text-green-500">
                             @icon('check', 'h-6 w-6 shrink-0 text-green-500 dark:text-green-400')
                             <span>Content field</span>
+
+                            @if ($postType->fields->content->required)
+                                <span class="text-sm">(required)</span>
+                            @endif
                         </div>
                     @else
                         <div class="flex items-center space-x-2 text-red-600 dark:text-red-500">
@@ -110,6 +130,10 @@
                         <div class="flex items-center space-x-2 text-green-600 dark:text-green-500">
                             @icon('check', 'h-6 w-6 shrink-0 text-green-500 dark:text-green-400')
                             <span>Rating field</span>
+
+                            @if ($postType->fields->rating->required)
+                                <span class="text-sm">(required)</span>
+                            @endif
                         </div>
                     @else
                         <div class="flex items-center space-x-2 text-red-600 dark:text-red-500">
@@ -122,6 +146,10 @@
                         <div class="flex items-center space-x-2 text-green-600 dark:text-green-500">
                             @icon('check', 'h-6 w-6 shrink-0 text-green-500 dark:text-green-400')
                             <span>Summary field</span>
+
+                            @if ($postType->fields->summary->required)
+                                <span class="text-sm">(required)</span>
+                            @endif
                         </div>
                     @else
                         <div class="flex items-center space-x-2 text-red-600 dark:text-red-500">
@@ -143,18 +171,6 @@
                         <div class="flex items-center space-x-2 text-red-600 dark:text-red-500">
                             @icon('close', 'h-6 w-6 shrink-0 text-red-500 dark:text-red-400')
                             <span>Does not send notifications to users when published</span>
-                        </div>
-                    @endif
-
-                    @if ($postType->options->notifyDiscord)
-                        <div class="flex items-center space-x-2 text-green-600 dark:text-green-500">
-                            @icon('check', 'h-6 w-6 shrink-0 text-green-500 dark:text-green-400')
-                            <span>Sends notifications to Discord when published</span>
-                        </div>
-                    @else
-                        <div class="flex items-center space-x-2 text-red-600 dark:text-red-500">
-                            @icon('close', 'h-6 w-6 shrink-0 text-red-500 dark:text-red-400')
-                            <span>Does not send notifications to Discord when published</span>
                         </div>
                     @endif
 

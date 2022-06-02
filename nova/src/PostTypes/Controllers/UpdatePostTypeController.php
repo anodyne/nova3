@@ -43,6 +43,6 @@ class UpdatePostTypeController extends Controller
 
         return redirect()
             ->route('post-types.edit', $postType)
-            ->withToast("{$postType->name} was updated");
+            ->withToast("{$postType->name} post type was updated");
     }
 }

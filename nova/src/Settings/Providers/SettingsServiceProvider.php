@@ -77,6 +77,7 @@ class SettingsServiceProvider extends DomainServiceProvider
             $manager = new SettingsManager();
 
             $manager->add('characters', new SettingInfo(
+                action: null,
                 dto: Characters::class,
                 response: CharactersSettingsResponse::class
             ));

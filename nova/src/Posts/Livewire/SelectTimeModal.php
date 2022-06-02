@@ -24,7 +24,7 @@ class SelectTimeModal extends ModalComponent
     public function apply(): void
     {
         $this->closeModalWithEvents([
-            'posts:compose' => ['timeSelected', [$this->selected]],
+            'posts:step:write-post' => ['timeSelected', [$this->selected]],
         ]);
     }
 

@@ -17,20 +17,20 @@
                 </x-input.group>
 
                 <x-input.group label="Position(s)" :error="$errors->first('positions')">
-                    @livewire('positions:collector', [
-                        'positions' => old('positions'),
-                        'primaryPosition' => old('primaryPosition'),
-                    ])
+                    <livewire:positions:collector
+                        :positions="old('positions')"
+                        :primaryPosition="old('primaryPosition')"
+                    />
                 </x-input.group>
 
                 <x-input.group label="Rank">
-                    @livewire('ranks:items-dropdown', ['rank' => old('rank_id')])
+                    <livewire:ranks:items-dropdown :rank="old('rank_id')" />
                 </x-input.group>
             </x-form.section>
 
             <x-form.section title="Avatar" message="Character avatars should be a square image at least 500 pixels tall by 500 pixels wide, but not more than 5MB in size.">
                 <x-input.group>
-                    @livewire('upload-avatar')
+                    <livewire:upload-avatar />
                 </x-input.group>
             </x-form.section>
 
@@ -38,10 +38,10 @@
                 <x-form.section title="Ownership" message="Characters can be assigned to any number of users and all assigned users will have the same rights with the character. Additionally, any notifications on behalf of the character will be sent to all users assigned to the character.">
 
                     <x-input.group label="Assign User(s)">
-                        @livewire('users:collector', [
-                            'users' => old('users'),
-                            'primaryCharacters' => old('primaryCharacters'),
-                        ])
+                        <livewire:users:collector
+                            :users="old('users')"
+                            :primaryCharacters="old('primaryCharacters')"
+                        />
                     </x-input.group>
                 </x-form.section>
             @else

@@ -47,8 +47,13 @@
                     <x-input.textarea id="description" name="description" data-cy="description" rows="3">{{ old('description', $postType->description) }}</x-input.textarea>
                 </x-input.group>
 
-                <x-input.group label="Accent Color" for="color">
-                    <x-buk-color-picker name="color" id="color" :value="old('color', $postType->color)" />
+                <x-input.group
+                    label="Accent Color"
+                    for="color"
+                    help="When setting the accent color for your post type icon, keep in mind that it could be displayed on either a light or dark background."
+                    :error="$errors->first('color')"
+                >
+                    <x-input.color name="color" id="color" :value="old('color', $postType->color)"></x-input.color>
                 </x-input.group>
 
                 <x-input.group label="Icon" for="icon">
@@ -101,14 +106,14 @@
                     <div x-data="{ '{{ $fieldType }}': {{ $postType->fields->{$fieldType}->enabled ? 'true' : 'false' }} }" class="px-4 py-5 bg-gray-50 dark:bg-gray-700/50 rounded border border-gray-200 dark:border-gray-200/10 sm:p-6">
                         <div @toggle-changed="{{ $fieldType }} = $event.detail.value">
                             <x-input.toggle field="fields[{{ $fieldType }}][enabled]" :value="old('fields[{{ $fieldType }}][enabled]', $postType->fields->{$fieldType}->enabled)">
-                                {{ ucfirst($fieldType) }} field
+                                Show the {{ $fieldType }} field
                             </x-input.toggle>
                         </div>
 
                         <div x-show="{{ $fieldType }}" class="mt-6 px-6 space-y-4">
                             <x-input.group>
-                                <x-input.toggle field="fields[{{ $fieldType }}][validate]" :value="old('fields[{{ $fieldType }}][validate]', $postType->fields->{$fieldType}->validate)">
-                                    Require value
+                                <x-input.toggle field="fields[{{ $fieldType }}][required]" :value="old('fields[{{ $fieldType }}][required]', $postType->fields->{$fieldType}->required)">
+                                    Required to have a value
                                 </x-input.toggle>
                             </x-input.group>
                         </div>
@@ -124,13 +129,13 @@
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle field="fields[includeInPostTracking]" :value="old('fields[includeInPostTracking]', $postType->options->includeInPostTracking)">
+                    <x-input.toggle field="options[includeInPostTracking]" :value="old('options[includeInPostTracking]', $postType->options->includeInPostTracking)">
                         Include in post tracking
                     </x-input.toggle>
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle field="fields[multipleAuthors]" :value="$postType->options->multipleAuthors">
+                    <x-input.toggle field="options[multipleAuthors]" :value="$postType->options->multipleAuthors">
                         Allow multiple authors
                     </x-input.toggle>
                 </x-input.group>

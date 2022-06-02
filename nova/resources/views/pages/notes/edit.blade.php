@@ -15,7 +15,7 @@
                 </x-input.group>
 
                 <x-input.group for="content" :error="$errors->first('content')">
-                    @livewire('nova:editor', ['content' => old('content', $note->content)])
+                    <livewire:nova:editor :content="old('content', $note->content)" />
                 </x-input.group>
             </x-content-box>
 

@@ -4,11 +4,11 @@
 
         <div class="flex flex-col @if (! $loop->first) mt-4 @endif">
             <div class="flex items-center w-full space-x-2" wire:model="positions">
-                @livewire(
-                    'positions:dropdown',
-                    ['index' => $loop->index, 'position' => $position['id']],
-                    key(Str::random())
-                )
+                <livewire:positions:dropdown
+                    :index="$loop->index"
+                    :position="$position['id']"
+                    :wire:key="Str::random()"
+                />
 
                 @if (count($positions) > 1)
                     <x-button wire:click="removePosition({{ $loop->index }})" type="button" color="gray-red-text" size="none">

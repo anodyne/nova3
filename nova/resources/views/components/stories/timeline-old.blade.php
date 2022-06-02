@@ -72,7 +72,7 @@
 
                             <div class="flex items-center space-x-8 mt-3 text-sm text-gray-500">
                                 <span>
-                                    @livewire('stories:status', ['story' => $story])
+                                    <livewire:stories:status :story="$story" />
                                 </span>
 
                                 <span>{{ $story->posts()->count() }} @choice('post|posts', $story->posts()->count())</span>

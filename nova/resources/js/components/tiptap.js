@@ -4,6 +4,7 @@ import Underline from '@tiptap/extension-underline';
 import TextAlign from '@tiptap/extension-text-align';
 import Link from '@tiptap/extension-link';
 import pretty from 'pretty';
+import debounce from 'lodash/debounce';
 
 export default (content) => ({
     content,
@@ -37,10 +38,10 @@ export default (content) => ({
             onSelectionUpdate: () => {
                 this.updatedAt = Date.now();
             },
-            onUpdate: ({ editor }) => {
+            onUpdate: debounce(({ editor }) => {
                 this.updatedAt = Date.now();
                 this.content = pretty(editor.getHTML(), { ocd: true });
-            },
+            }, 1000),
             onCreate: ({ editor }) => {
                 this.updatedAt = Date.now();
                 this.content = pretty(editor.getHTML(), { ocd: true });

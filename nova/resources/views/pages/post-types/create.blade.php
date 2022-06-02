@@ -54,8 +54,13 @@
                     <x-input.textarea id="description" name="description" data-cy="description" rows="3">{{ old('description') }}</x-input.textarea>
                 </x-input.group>
 
-                <x-input.group label="Accent Color" for="color">
-                    <x-buk-color-picker name="color" id="color" :value="old('color', '#000000')" />
+                <x-input.group
+                    label="Accent Color"
+                    for="color"
+                    help="When setting the accent color for your post type icon, keep in mind that it could be displayed on either a light or dark background."
+                    :error="$errors->first('color')"
+                >
+                    <x-input.color name="color" id="color" :value="old('color', '#0ea5e9')"></x-input.color>
                 </x-input.group>
 
                 <x-input.group label="Icon" for="icon">
@@ -92,14 +97,14 @@
                     <x-content-box class="px-4 py-5 bg-gray-50 dark:bg-gray-700/50 rounded border border-gray-200 dark:border-gray-200/10 sm:p-6" x-data="{ '{{ $fieldType }}': true }">
                         <div @toggle-changed="{{ $fieldType }} = $event.detail.value">
                             <x-input.toggle field="fields[{{ $fieldType }}][enabled]" :value="old('fields[{{ $fieldType }}][enabled]', true)">
-                                {{ ucfirst($fieldType) }} field
+                                Show the {{ $fieldType }} field
                             </x-input.toggle>
                         </div>
 
                         <div x-show="{{ $fieldType }}" class="mt-6 px-6 space-y-4">
                             <x-input.group>
-                                <x-input.toggle field="fields[{{ $fieldType }}][validate]" :value="old('fields[{{ $fieldType }}][validate]', true)">
-                                    Require value
+                                <x-input.toggle field="fields[{{ $fieldType }}][required]" :value="old('fields[{{ $fieldType }}][required]', false)">
+                                    Required to have a value
                                 </x-input.toggle>
                             </x-input.group>
                         </div>

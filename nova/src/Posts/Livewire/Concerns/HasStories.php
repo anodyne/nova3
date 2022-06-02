@@ -14,6 +14,8 @@ trait HasStories
 
     public function bootedHasStories()
     {
+        $this->allStories = Story::whereCurrent()->get();
+
         $this->story = $this->allStories->first();
     }
 

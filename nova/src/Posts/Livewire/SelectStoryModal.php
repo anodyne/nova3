@@ -24,7 +24,7 @@ class SelectStoryModal extends ModalComponent
     public function apply(): void
     {
         $this->closeModalWithEvents([
-            'posts:compose' => ['storySelected', [$this->selected]],
+            'posts:step:write-post' => ['storySelected', [$this->selected]],
         ]);
     }
 

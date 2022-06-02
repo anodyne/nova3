@@ -19,7 +19,7 @@ class EditPostType extends SpotlightCommand
     protected string $description = 'Edit a post type';
 
     protected array $synonyms = [
-        'update a post type',
+        'update existing post type',
     ];
 
     public function dependencies(): ?SpotlightCommandDependencies

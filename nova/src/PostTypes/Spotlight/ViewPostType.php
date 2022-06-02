@@ -20,6 +20,7 @@ class ViewPostType extends SpotlightCommand
 
     protected array $synonyms = [
         'show a post type',
+        'display a post type',
     ];
 
     public function dependencies(): ?SpotlightCommandDependencies

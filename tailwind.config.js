@@ -29,6 +29,7 @@ module.exports = {
         './nova/foundation/View/Components/*.php',
         './nova/vendor/livewire-ui/modal/resources/views/*.blade.php',
         './storage/framework/views/*.php',
+        './node_modules/flowbite/**/*.js',
     ],
     safelist: [
         'max-w-none',
@@ -137,6 +138,7 @@ module.exports = {
         require('@tailwindcss/forms'),
         require('@tailwindcss/typography'),
         require('@tailwindcss/aspect-ratio'),
+        require('flowbite/plugin'),
         function ({ matchUtilities, theme }) {
             matchUtilities(
                 {

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Posts\Data;
 
-use Illuminate\Support\Str;
 use Spatie\LaravelData\Data;
 
 class PostData extends Data
@@ -12,8 +11,8 @@ class PostData extends Data
     public function __construct(
         public ?int $id,
         public ?string $content,
-        public int $post_type_id,
-        public int $story_id,
+        public ?int $post_type_id,
+        public ?int $story_id,
         public ?string $title,
         public ?string $day,
         public ?string $time,

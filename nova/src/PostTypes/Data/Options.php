@@ -11,7 +11,6 @@ class Options extends Data implements Arrayable
 {
     public function __construct(
         public bool $notifyUsers,
-        public bool $notifyDiscord,
         public bool $includeInPostTracking,
         public bool $multipleAuthors,
     ) {
@@ -20,10 +19,9 @@ class Options extends Data implements Arrayable
     public static function fromArray(array $array): static
     {
         return new self(
-            notifyUsers: (bool) data_get($array, 'notifyUsers'),
-            notifyDiscord: (bool) data_get($array, 'notifyDiscord'),
-            includeInPostTracking: (bool) data_get($array, 'includeInPostTracking'),
-            multipleAuthors: (bool) data_get($array, 'multipleAuthors'),
+            notifyUsers: filter_var(data_get($array, 'notifyUsers'), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE),
+            includeInPostTracking: filter_var(data_get($array, 'includeInPostTracking'), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE),
+            multipleAuthors: filter_var(data_get($array, 'multipleAuthors'), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE),
         );
     }
 }

@@ -42,9 +42,9 @@
                     </div>
 
                     <div class="hidden lg:relative lg:ml-4 lg:flex lg:items-center space-x-4">
-                        @livewire('users:notifications')
+                        <livewire:users:notifications />
 
-                        @livewire('users:admin-theme-toggle')
+                        <livewire:users:admin-theme-toggle />
 
                         <x-dropdown placement="bottom-end">
                             <x-slot:trigger>

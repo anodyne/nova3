@@ -28,6 +28,6 @@ class DuplicatePostTypeController extends Controller
 
         return redirect()
             ->route('post-types.edit', $postType)
-            ->withToast("{$original->name} post type has been duplicated");
+            ->withToast("{$original->name} post type was duplicated");
     }
 }

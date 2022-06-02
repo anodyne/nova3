@@ -3,7 +3,7 @@
     x-init="() => init($refs.editor)"
     @click.away="inFocus = false"
 >
-    <div class="group flex flex-col relative w-full rounded-md border border-gray-300 dark:border-gray-200/10 shadow-sm bg-white dark:bg-gray-800 transition focus-within:border-blue-400 focus-within:ring-1 focus-within:ring-blue-400 overflow-hidden">
+    <div class="group flex flex-col relative w-full rounded-md border border-gray-200 dark:border-gray-200/10 shadow-sm bg-white dark:bg-gray-800 transition focus-within:border-blue-400 focus-within:ring-1 focus-within:ring-blue-400 overflow-hidden">
         <div class="{{ $codeView ? 'hidden' : '' }}">
             <div wire:ignore>
                 <template x-if="editor">

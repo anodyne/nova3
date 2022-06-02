@@ -13,13 +13,9 @@ class PostTypeDuplicated
     use Dispatchable;
     use SerializesModels;
 
-    public PostType $original;
-
-    public PostType $postType;
-
-    public function __construct(PostType $postType, PostType $original)
-    {
-        $this->original = $original;
-        $this->postType = $postType;
+    public function __construct(
+        public PostType $postType,
+        public PostType $original
+    ) {
     }
 }

@@ -1,13 +1,16 @@
 <x-panel>
     @if ($selectedStory)
-        <x-content-box height="sm" class="sticky top-0 z-30 bg-gray-50/50 dark:bg-gray-700/50 backdrop-blur border-y border-gray-500 sm:rounded-t-lg sm:border-t-0">
+        <x-content-box height="sm" class="sticky top-0 z-30 bg-gray-50/50 dark:bg-gray-700/50 backdrop-blur border-y border-gray-200 dark:border-gray-200/10 sm:rounded-t-lg sm:border-t-0">
             <div class="flex md:hidden items-center justify-between">
                 <div class="text-xl sm:text-lg font-bold tracking-tight text-gray-900 dark:text-gray-100 flex-1 truncate">{{ $selectedStory->title }}</div>
 
                 <div class="flex items-center space-x-4">
                     @can('update', $selectedStory)
                         <span>
-                            @livewire('stories:status', ['story' => $selectedStory], key("status-{{ $selectedStory->id }}"))
+                            <livewire:stories:status
+                                :story="$selectedStory"
+                                wire:key="status-{{ $selectedStory->id }}"
+                            />
                         </span>
                     @endcan
 
@@ -121,7 +124,10 @@
 
                 @can('update', $selectedStory)
                     <span>
-                        @livewire('stories:status', ['story' => $selectedStory], key("status-{{ $selectedStory->id }}"))
+                        <livewire:stories:status
+                            :story="$selectedStory"
+                            wire:key="status-{{ $selectedStory->id }}"
+                        />
                     </span>
                 @endcan
             </div>

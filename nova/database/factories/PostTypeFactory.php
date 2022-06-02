@@ -60,7 +60,6 @@ class PostTypeFactory extends Factory
             ]),
             'options' => Options::from([
                 'notifyUsers' => true,
-                'notifyDiscord' => true,
                 'includeInPostTracking' => true,
                 'multipleAuthors' => true,
             ]),

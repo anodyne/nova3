@@ -4,11 +4,11 @@
     @foreach ($characters as $character)
         <div class="flex flex-col @if (! $loop->first) mt-4 @endif">
             <div class="flex items-center w-full">
-                @livewire(
-                    'characters:dropdown',
-                    ['index' => $loop->index, 'character' => $character['id']],
-                    key(Str::random())
-                )
+                <livewire:characters:dropdown
+                    :index="$loop->index"
+                    :character="$character['id']"
+                    :wire:key="Str::random()"
+                />
 
                 @if (count($characters) > 1)
                     <x-button wire:click="removeCharacter({{ $loop->index }})" type="button" color="gray-text" size="none" class="ml-3">
