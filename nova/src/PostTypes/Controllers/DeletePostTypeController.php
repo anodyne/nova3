@@ -38,6 +38,6 @@ class DeletePostTypeController extends Controller
 
         return redirect()
             ->route('post-types.index')
-            ->withToast("{$name} was deleted");
+            ->withToast("{$name} post type was deleted");
     }
 }

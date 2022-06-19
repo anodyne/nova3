@@ -7,17 +7,31 @@
     class="relative inline-block text-left leading-0"
 >
     <div>
-        <x-button
-            @click="open = !open"
-            type="button"
-            :color="$triggerColor"
-            :size="$triggerSize"
-            aria-haspopup="true"
-            aria-expanded="true"
-            x-bind:aria-expanded="open"
-        >
-            {{ $trigger }}
-        </x-button>
+        @isset ($trigger)
+            <x-button
+                @click="open = !open"
+                type="button"
+                :color="$triggerColor"
+                :size="$triggerSize"
+                aria-haspopup="true"
+                aria-expanded="true"
+                x-bind:aria-expanded="open"
+            >
+                {{ $trigger }}
+            </x-button>
+        @endisset
+
+        @isset ($emptyTrigger)
+            <div
+                role="button"
+                @click="open = !open"
+                aria-haspopup="true"
+                aria-expanded="true"
+                x-bind:aria-expanded="open"
+            >
+                {{ $emptyTrigger }}
+            </div>
+        @endisset
     </div>
 
     <div

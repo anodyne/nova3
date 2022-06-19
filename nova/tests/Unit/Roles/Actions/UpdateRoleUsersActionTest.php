@@ -53,10 +53,10 @@ class UpdateRoleUsersActionTest extends TestCase
 
         $this->role->refresh();
 
-        $this->assertCount(2, $this->role->users);
-        $this->assertTrue($this->role->users->contains('id', $this->john->id));
-        $this->assertTrue($this->role->users->contains('id', $this->jane->id));
-        $this->assertFalse($this->role->users->contains('id', $this->ryan->id));
+        $this->assertCount(2, $this->role->user);
+        $this->assertTrue($this->role->user->contains('id', $this->john->id));
+        $this->assertTrue($this->role->user->contains('id', $this->jane->id));
+        $this->assertFalse($this->role->user->contains('id', $this->ryan->id));
     }
 
     /** @test **/
@@ -74,10 +74,10 @@ class UpdateRoleUsersActionTest extends TestCase
 
         $this->role->refresh();
 
-        $this->assertCount(1, $this->role->users);
-        $this->assertFalse($this->role->users->contains('id', $this->john->id));
-        $this->assertTrue($this->role->users->contains('id', $this->jane->id));
-        $this->assertFalse($this->role->users->contains('id', $this->ryan->id));
+        $this->assertCount(1, $this->role->user);
+        $this->assertFalse($this->role->user->contains('id', $this->john->id));
+        $this->assertTrue($this->role->user->contains('id', $this->jane->id));
+        $this->assertFalse($this->role->user->contains('id', $this->ryan->id));
     }
 
     /** @test **/
@@ -95,9 +95,9 @@ class UpdateRoleUsersActionTest extends TestCase
 
         $this->role->refresh();
 
-        $this->assertCount(2, $this->role->users);
-        $this->assertTrue($this->role->users->contains('id', $this->john->id));
-        $this->assertFalse($this->role->users->contains('id', $this->jane->id));
-        $this->assertTrue($this->role->users->contains('id', $this->ryan->id));
+        $this->assertCount(2, $this->role->user);
+        $this->assertTrue($this->role->user->contains('id', $this->john->id));
+        $this->assertFalse($this->role->user->contains('id', $this->jane->id));
+        $this->assertTrue($this->role->user->contains('id', $this->ryan->id));
     }
 }

@@ -57,16 +57,7 @@
         @forelse ($characters as $character)
             <x-table-list.row>
                 <div class="md:col-span-3 truncate">
-                    <x-avatar-meta :src="$character->avatar_url">
-                        <x-slot:primaryMeta>
-                            {{ optional(optional($character->rank)->name)->name }}
-                            {{ $character->name }}
-                        </x-slot:primaryMeta>
-
-                        <x-slot:secondaryMeta>
-                            {{ $character->positions->implode('name', ' & ') }}
-                        </x-slot:secondaryMeta>
-                    </x-avatar-meta>
+                    <x-avatar.character :character="$character"></x-avatar.character>
                 </div>
 
                 <div class="flex items-center md:col-span-2">

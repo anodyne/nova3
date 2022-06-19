@@ -8,6 +8,7 @@ use Nova\Foundation\Controllers\Controller;
 use Nova\Posts\Models\Post;
 use Nova\Posts\Responses\ShowPostResponse;
 use Nova\Stories\Models\Story;
+use Nova\Users\Models\User;
 
 class ShowPostController extends Controller
 {
@@ -23,7 +24,7 @@ class ShowPostController extends Controller
         $this->authorize('view', $post);
 
         return ShowPostResponse::sendWith([
-            'post' => $post->load('type'),
+            'post' => $post->load('type', 'characterAuthors', 'userAuthors'),
             'story' => $story,
             'previousPost' => $post->prevSiblings()->wherePublished()->first(),
             'nextPost' => $post->nextSiblings()->wherePublished()->first(),

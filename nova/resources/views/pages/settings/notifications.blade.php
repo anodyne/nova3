@@ -51,7 +51,7 @@
                 </x-input.group>
 
                 <x-input.group label="Accent Color" for="color">
-                    <x-buk-color-picker name="color" id="color" :value="old('color', $settings->discord->color)" />
+                    <x-input.color name="color" id="color" :value="old('color', $settings->discord->color)"></x-input.color>
                 </x-input.group>
             </x-form.section>
 

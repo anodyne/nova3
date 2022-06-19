@@ -170,8 +170,8 @@ class UpdateRoleTest extends TestCase
         );
         $response->assertSuccessful();
 
-        $this->assertTrue($this->role->refresh()->users->contains('id', $john->id));
-        $this->assertTrue($this->role->users->contains('id', $jane->id));
+        $this->assertTrue($this->role->refresh()->user->contains('id', $john->id));
+        $this->assertTrue($this->role->user->contains('id', $jane->id));
 
         $this->assertDatabaseHas('role_user', [
             'role_id' => $this->role->id,
@@ -210,8 +210,8 @@ class UpdateRoleTest extends TestCase
         );
         $response->assertSuccessful();
 
-        $this->assertFalse($this->role->refresh()->users->contains('id', $john->id));
-        $this->assertTrue($this->role->users->contains('id', $jane->id));
+        $this->assertFalse($this->role->refresh()->user->contains('id', $john->id));
+        $this->assertTrue($this->role->user->contains('id', $jane->id));
 
         $this->assertDatabaseMissing('role_user', [
             'role_id' => $this->role->id,

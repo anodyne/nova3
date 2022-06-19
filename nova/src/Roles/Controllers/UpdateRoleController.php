@@ -27,7 +27,7 @@ class UpdateRoleController extends Controller
 
         return UpdateRoleResponse::sendWith([
             'permissions' => Permission::get(),
-            'role' => $role->load('users.media', 'permissions'),
+            'role' => $role->load('user.media', 'permissions'),
         ]);
     }
 

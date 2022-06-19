@@ -26,12 +26,12 @@
                     <div class="flex items-center space-x-4">
                         @if (count($selected) > 0)
                             <x-button color="red-outline" size="sm" wire:click="detachSelectedPermissions">
-                                Remove {{ count($selected) }} @choice('permission|permissions', count($selected))
+                                Remove {{ count($selected) }} @choice('Permission|Permissions', count($selected))
                             </x-button>
                         @endif
 
                         <x-button type="button" color="blue" size="sm" wire:click="$emit('openModal', 'roles:select-permissions-modal')">
-                            Add permissions
+                            Add Permissions
                         </x-button>
                     </div>
                 @endcan

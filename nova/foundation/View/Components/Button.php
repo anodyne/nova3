@@ -25,7 +25,7 @@ class Button extends Component
             'transition ease-in-out duration-200',
             'focus:outline-none',
             'disabled:cursor-not-allowed disabled:opacity-75',
-            'uppercase tracking-wide font-semibold shadow-sm' => ! Str::endsWith($this->color, ['-text']),
+            'font-medium shadow-sm' => ! Str::endsWith($this->color, ['-text']),
             'font-medium border-transparent' => Str::endsWith($this->color, ['-text']),
             'w-full' => $this->fullWidth,
             $this->colorStyles(),
@@ -46,11 +46,11 @@ class Button extends Component
             'gray-red-text' => 'text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500',
 
             'blue' => 'border-transparent text-white bg-blue-500 hover:bg-blue-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-blue-300 dark:focus:ring-blue-800',
-            'blue-outline' => 'bg-blue-50 dark:bg-blue-900 border-blue-300 dark:border-blue-800 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900 hover:border-blue-400 dark:hover:border-blue-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-blue-300 dark:focus:ring-blue-800',
+            'blue-outline' => 'bg-blue-25 dark:bg-blue-900 border-blue-300 dark:border-blue-800 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900 hover:border-blue-400 dark:hover:border-blue-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-blue-300 dark:focus:ring-blue-800',
             'blue-text' => 'text-blue-500 hover:text-blue-600 dark:hover:text-blue-400',
 
             'purple' => 'border-transparent text-white bg-purple-500 hover:bg-purple-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-purple-300 dark:focus:ring-purple-800',
-            'purple-outline' => 'bg-purple-50 dark:bg-purple-900 border-purple-300 dark:border-purple-800 text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900 hover:border-purple-400 dark:hover:border-purple-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-purple-300 dark:focus:ring-purple-800',
+            'purple-outline' => 'bg-purple-25 dark:bg-purple-900 border-purple-300 dark:border-purple-800 text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900 hover:border-purple-400 dark:hover:border-purple-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-purple-300 dark:focus:ring-purple-800',
             'purple-text' => 'text-purple-500 hover:text-purple-600 dark:hover:text-purple-400',
 
             'red' => 'border-transparent text-white bg-red-500 hover:bg-red-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-red-300 dark:focus:ring-red-800',

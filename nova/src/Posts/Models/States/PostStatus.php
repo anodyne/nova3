@@ -21,8 +21,9 @@ abstract class PostStatus extends State
     public static function config(): StateConfig
     {
         return parent::config()
-            ->default(Draft::class)
+            ->default(Started::class)
             ->allowTransitions([
+                [Started::class, Draft::class, StartedToDraft::class],
                 [Draft::class, Pending::class, DraftToPending::class],
                 [Draft::class, Published::class, DraftToPublished::class],
                 [Pending::class, Published::class, PendingToPublished::class],

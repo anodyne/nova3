@@ -17,6 +17,8 @@ class ViewPostTypes extends SpotlightCommand
 
     protected array $synonyms = [
         'show all post types',
+        'display all post types',
+        'list all post types',
     ];
 
     public function execute(Spotlight $spotlight): void

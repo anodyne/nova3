@@ -17,9 +17,11 @@ use Nova\Foundation\Icons\FeatherIconSet;
 use Nova\Foundation\Icons\FluentIconSet;
 use Nova\Foundation\Icons\FontAwesomeSolidIconSet;
 use Nova\Foundation\Icons\IconSets;
+use Nova\Foundation\Icons\StreamlineCoreLineIconSet;
 use Nova\Foundation\Icons\StreamlineUiIconSet;
 use Nova\Foundation\Livewire\Editor;
 use Nova\Foundation\Livewire\IconsSelectMenu;
+use Nova\Foundation\Livewire\Rating;
 use Nova\Foundation\Livewire\UploadAvatar;
 use Nova\Foundation\Livewire\UploadImage;
 use Nova\Foundation\Macros;
@@ -76,9 +78,7 @@ class AppServiceProvider extends ServiceProvider
         $iconSets = new IconSets();
         $iconSets->add('fluent', new FluentIconSet());
         $iconSets->add('feather', new FeatherIconSet());
-        $iconSets->add('fas', new FontAwesomeSolidIconSet());
-        $iconSets->add('sui', new StreamlineUiIconSet());
-        // $iconSets->add('ic', new IconlyCurvedIconSet());
+        $iconSets->add('scl', new StreamlineCoreLineIconSet());
 
         $this->app->instance(IconSets::class, $iconSets);
     }
@@ -106,6 +106,7 @@ class AppServiceProvider extends ServiceProvider
     protected function registerLivewireComponents()
     {
         Livewire::component('nova:editor', Editor::class);
+        Livewire::component('rating', Rating::class);
         Livewire::component('icons-select-menu', IconsSelectMenu::class);
         Livewire::component('upload-avatar', UploadAvatar::class);
         Livewire::component('upload-image', UploadImage::class);

@@ -79,7 +79,7 @@ return [
     |
     */
     'user_models' => [
-        'users' => User::class,
+        'user' => User::class,
     ],
 
     /*

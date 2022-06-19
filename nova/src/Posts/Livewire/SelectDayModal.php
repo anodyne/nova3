@@ -24,7 +24,7 @@ class SelectDayModal extends ModalComponent
     public function apply(): void
     {
         $this->closeModalWithEvents([
-            'posts:compose' => ['daySelected', [$this->selected]],
+            'posts:step:write-post' => ['daySelected', [$this->selected]],
         ]);
     }
 

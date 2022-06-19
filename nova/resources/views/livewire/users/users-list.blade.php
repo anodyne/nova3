@@ -49,9 +49,7 @@
         @forelse ($users as $user)
             <x-table-list.row>
                 <div class="md:col-span-2">
-                    <x-avatar-meta :src="$user->avatar_url">
-                        <x-slot:primaryMeta>{{ $user->name }}</x-slot:primaryMeta>
-                    </x-avatar-meta>
+                    <x-avatar.user :user="$user"></x-avatar.user>
                 </div>
 
                 <div class="md:col-span-2">

@@ -73,7 +73,6 @@ class UpdatePostTypeActionTest extends TestCase
             ]),
             'options' => Options::from([
                 'notifyUsers' => true,
-                'notifyDiscord' => true,
                 'includeInPostTracking' => false,
                 'multipleAuthors' => true,
             ]),
@@ -99,7 +98,6 @@ class UpdatePostTypeActionTest extends TestCase
         $this->assertTrue($postType->fields->summary->enabled);
 
         $this->assertTrue($postType->options->notifyUsers);
-        $this->assertTrue($postType->options->notifyDiscord);
         $this->assertFalse($postType->options->includeInPostTracking);
         $this->assertTrue($postType->options->multipleAuthors);
     }

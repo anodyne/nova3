@@ -7,11 +7,15 @@ namespace Nova\Posts\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Kalnoy\Nestedset\NodeTrait;
+use Nova\Characters\Models\Character;
+use Nova\Posts\Data\PostData;
 use Nova\Posts\Events;
 use Nova\Posts\Models\Builders\PostBuilder;
 use Nova\Posts\Models\States\PostStatus;
 use Nova\PostTypes\Models\PostType;
 use Nova\Stories\Models\Story;
+use Nova\Users\Models\User;
+use Spatie\LaravelData\WithData;
 use Spatie\ModelStates\HasStates;
 
 class Post extends Model
@@ -19,13 +23,14 @@ class Post extends Model
     use HasFactory;
     use HasStates;
     use NodeTrait;
+    use WithData;
 
     protected $table = 'posts';
 
     protected $fillable = [
         'story_id', 'post_type_id', 'title', 'content', 'status', 'word_count',
         'day', 'time', 'location', 'parent_id', 'rating_language', 'rating_sex',
-        'rating_violence',
+        'rating_violence', 'summary',
     ];
 
     protected $casts = [
@@ -42,9 +47,18 @@ class Post extends Model
         'updated' => Events\PostUpdated::class,
     ];
 
-    public function authorable()
+    protected $dataClass = PostData::class;
+
+    public function characterAuthors()
     {
-        return $this->morphTo();
+        return $this->morphedByMany(Character::class, 'authorable', 'post_author')
+            ->withPivot('user_id');
+    }
+
+    public function userAuthors()
+    {
+        return $this->morphedByMany(User::class, 'authorable', 'post_author')
+            ->withPivot(['as', 'user_id']);
     }
 
     public function story()
@@ -54,7 +68,8 @@ class Post extends Model
 
     public function type()
     {
-        return $this->belongsTo(PostType::class, 'post_type_id');
+        return $this->belongsTo(PostType::class, 'post_type_id')
+            ->withTrashed();
     }
 
     public function newEloquentBuilder($query): PostBuilder

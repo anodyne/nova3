@@ -25,6 +25,6 @@ class AvatarGroup extends Component
 
     public function render()
     {
-        return view('components.avatar-group');
+        return view('components.avatar.group');
     }
 }

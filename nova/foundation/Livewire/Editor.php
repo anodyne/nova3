@@ -10,13 +10,13 @@ class Editor extends Component
 {
     public bool $codeView = false;
 
-    public string $content = '';
+    public ?string $content = '';
 
     public string $fieldName = 'editor-content';
 
     public function updatedContent($value): void
     {
-        $this->emit('postContentUpdated', $value);
+        $this->emit('editorUpdated', $value);
     }
 
     public function getWordCountProperty(): string

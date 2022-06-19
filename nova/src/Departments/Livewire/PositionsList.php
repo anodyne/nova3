@@ -106,11 +106,6 @@ class PositionsList extends Component
         ReorderPositions::run($items);
     }
 
-    public function booted()
-    {
-        $this->setFilterValue('department', request('department', ''));
-    }
-
     public function render()
     {
         return view('livewire.positions.positions-list', [

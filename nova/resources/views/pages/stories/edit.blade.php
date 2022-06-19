@@ -31,19 +31,21 @@
                 </x-input.group>
 
                 <x-input.group label="Start Date" for="start_date">
-                    <x-input.field>
-                        <x-slot:leadingAddOn>@icon('calendar')</x-slot:leadingAddOn>
-
-                        <x-buk-pikaday name="start_date" id="start_date" format="YYYY-MM-DD" :value="old('start_date', $story->start_date ?? '')" class="form-field w-full md:w-1/2" />
-                    </x-input.field>
+                    <x-input.date
+                        name="start_date"
+                        id="start_date"
+                        placeholder="Select a start date"
+                        :value="old('start_date', $story->start_date->format('Y-m-d') ?? '')"
+                    ></x-input.date>
                 </x-input.group>
 
                 <x-input.group label="End Date" for="end_date">
-                    <x-input.field>
-                        <x-slot:leadingAddOn>@icon('calendar')</x-slot:leadingAddOn>
-
-                        <x-buk-pikaday name="end_date" id="end_date" format="YYYY-MM-DD" :value="old('end_date', $story->end_date ?? '')" class="form-field" />
-                    </x-input.field>
+                    <x-input.date
+                        name="end_date"
+                        id="end_date"
+                        placeholder="Select an end date"
+                        :value="old('end_date', $story->end_date ?? '')"
+                    ></x-input.date>
                 </x-input.group>
             </x-form.section>
 
@@ -62,10 +64,7 @@
 
             <x-form.section>
                 <x-input.group label="Story Summary">
-                    @livewire('nova:editor', [
-                        'content' => old('summary', $story->summary ?? ''),
-                        'fieldName' => 'summary'
-                    ])
+                    <livewire:nova:editor :content="old('summary', $story->summary ?? '')" fieldName="summary" />
                 </x-input.group>
             </x-form.section>
 

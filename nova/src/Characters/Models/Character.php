@@ -7,6 +7,7 @@ namespace Nova\Characters\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Nova\Characters\Events;
 use Nova\Characters\Models\Builders\CharacterBuilder;
@@ -60,9 +61,9 @@ class Character extends Model implements HasMedia
         return $this->belongsToMany(Position::class)->withPivot('primary');
     }
 
-    public function posts()
+    public function posts(): MorphToMany
     {
-        return $this->morphMany(Post::class, 'authorable');
+        return $this->morphToMany(Post::class, 'authorable', 'post_author');
     }
 
     public function primaryPosition()

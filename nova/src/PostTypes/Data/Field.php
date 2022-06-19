@@ -11,15 +11,15 @@ class Field extends Data implements Arrayable
 {
     public function __construct(
         public bool $enabled,
-        public bool $validate,
+        public bool $required,
     ) {
     }
 
     public static function fromArray(array $array): static
     {
         return new self(
-            enabled: (bool) data_get($array, 'enabled'),
-            validate: (bool) data_get($array, 'validate'),
+            enabled: filter_var(data_get($array, 'enabled'), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE),
+            required: filter_var(data_get($array, 'required'), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE),
         );
     }
 }

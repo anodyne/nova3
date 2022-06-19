@@ -168,7 +168,6 @@ return [
          * Package Service Providers...
          */
         BladeUI\Icons\BladeIconsServiceProvider::class,
-        BladeUIKit\BladeUIKitServiceProvider::class,
         Kalnoy\Nestedset\NestedSetServiceProvider::class,
         Livewire\LivewireServiceProvider::class,
         LivewireUI\Spotlight\SpotlightServiceProvider::class,

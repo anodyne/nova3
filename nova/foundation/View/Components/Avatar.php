@@ -45,6 +45,6 @@ class Avatar extends Component
 
     public function render()
     {
-        return view('components.avatar');
+        return view('components.avatar.index');
     }
 }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Posts\Data;
 
-use Illuminate\Support\Str;
 use Spatie\LaravelData\Data;
 
 class PostData extends Data
@@ -12,8 +11,8 @@ class PostData extends Data
     public function __construct(
         public ?int $id,
         public ?string $content,
-        public int $post_type_id,
-        public int $story_id,
+        public ?int $post_type_id,
+        public ?int $story_id,
         public ?string $title,
         public ?string $day,
         public ?string $time,
@@ -41,5 +40,10 @@ class PostData extends Data
             rating_sex: (int) data_get($array, 'ratingSex', 1),
             rating_violence: (int) data_get($array, 'ratingViolence', 1),
         );
+    }
+
+    public function setWordCount(): void
+    {
+        $this->word_count = str($this->content)->pipe('strip_tags')->wordCount();
     }
 }

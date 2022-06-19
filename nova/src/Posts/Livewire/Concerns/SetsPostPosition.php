@@ -12,9 +12,9 @@ trait SetsPostPosition
 
     public $neighbor;
 
-    public ?Post $previousPost;
+    public mixed $previousPost;
 
-    public ?Post $nextPost;
+    public mixed $nextPost;
 
     public function bootedSetsPostPosition()
     {

@@ -28,8 +28,7 @@ class PostPolicy
 
     public function create(User $user): bool
     {
-        return $user->isAbleTo('post.create')
-            && Story::whereCurrent()->count() > 0;
+        return $user->isAbleTo('post.create');
     }
 
     public function update(User $user, Post $post): bool
@@ -39,7 +38,12 @@ class PostPolicy
 
     public function delete(User $user, Post $post): bool
     {
-        if ($post->status->equals(Draft::class)) {
+        if (! $post->exists) {
+            return false;
+        }
+
+        if ($post?->status->equals(Draft::class)) {
+            // TODO: need to make sure the user is an author on the post
             return true;
         }
 

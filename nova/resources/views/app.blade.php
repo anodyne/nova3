@@ -9,7 +9,6 @@
     <title>{{ config('app.name', 'Nova NextGen') }}</title>
 
     @livewireStyles
-    @bukStyles
     @novaStyles
     @stack('styles')
 
@@ -28,7 +27,6 @@
     @livewire('livewire-ui-spotlight')
 
     @livewireScripts
-    @bukScripts
     @stack('scripts')
 </body>
 </html>
