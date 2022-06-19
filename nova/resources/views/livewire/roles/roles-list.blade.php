@@ -136,7 +136,7 @@
                         'flex items-center',
                         'ml-8 md:ml-0' => $reordering
                     ])>
-                        <x-avatar-group size="xs" :items="$role->users->take(4)" />
+                        <x-avatar-group size="xs" :items="$role->user->take(4)" />
                     </div>
 
                     @if (! $reordering)

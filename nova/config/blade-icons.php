@@ -25,19 +25,9 @@ return [
             'prefix' => 'fluent',
             'class' => '',
         ],
-        'fas' => [
-            'path' => 'nova/resources/svg/fontawesome-solid',
-            'prefix' => 'fas',
-            'class' => '',
-        ],
-        'sui' => [
-            'path' => 'nova/resources/svg/streamline-ui',
-            'prefix' => 'sui',
-            'class' => '',
-        ],
-        'ic' => [
-            'path' => 'nova/resources/svg/iconly-curved',
-            'prefix' => 'ic',
+        'scl' => [
+            'path' => 'nova/resources/svg/streamline-core-line',
+            'prefix' => 'scl',
             'class' => '',
         ],
         'empty' => [

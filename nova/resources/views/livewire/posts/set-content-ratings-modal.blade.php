@@ -7,18 +7,18 @@
     </x-content-box>
 
     <x-content-box height="none" width="sm">
-        <div class="w-full max-h-60 h-60 overflow-auto bg-white dark:bg-gray-800 text-base focus:outline-none sm:text-sm" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+        <div class="w-full max-h-80 h-80 overflow-auto bg-white dark:bg-gray-800 text-base focus:outline-none sm:text-sm" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
             <div class="space-y-6">
                 <x-input.group label="Language" class="w-full">
-                    <x-rating :value="2" />
+                    <livewire:rating type="language" :rating="$language" />
                 </x-input.group>
 
                 <x-input.group label="Sex" class="w-full">
-                    <x-rating :value="1" />
+                    <livewire:rating type="sex" :rating="$sex" />
                 </x-input.group>
 
                 <x-input.group label="Violence" class="w-full">
-                    <x-rating :value="3" />
+                    <livewire:rating type="violence" :rating="$violence" />
                 </x-input.group>
             </div>
         </div>

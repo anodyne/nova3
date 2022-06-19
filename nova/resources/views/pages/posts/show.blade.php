@@ -44,16 +44,16 @@
             </p>
 
             <ul class="font-medium text-gray-600 dark:text-gray-400 mb-4">
-                @if ($post->rating_language >= 2)
-                    <li>Language</li>
+                @if ($post->rating_language >= settings()->ratings->language->warning_threshold)
+                    <li>{{ settings()->ratings->language->warning_threshold_message }}</li>
                 @endif
 
-                @if ($post->rating_sex >= 2)
-                    <li>Sex</li>
+                @if ($post->rating_sex >= settings()->ratings->sex->warning_threshold)
+                    <li>{{ settings()->ratings->sex->warning_threshold_message }}</li>
                 @endif
 
-                @if ($post->rating_violence >= 2)
-                    <li>Violence</li>
+                @if ($post->rating_violence >= settings()->ratings->violence->warning_threshold)
+                    <li>{{ settings()->ratings->violence->warning_threshold_message }}</li>
                 @endif
             </ul>
 
@@ -168,35 +168,19 @@
                     <x-panel as="light well">
                         <x-content-box>
                             <div class="grid md:grid-cols-2 md:gap-6">
-                                <x-avatar-meta :src="Nova\Characters\Models\Character::find(1)->avatar_url">
-                                    <x-slot:primaryMeta>
-                                        {{ optional(optional(Nova\Characters\Models\Character::find(1)->rank)->name)->name }}
-                                        {{ Nova\Characters\Models\Character::find(1)->name }}
-                                    </x-slot:primaryMeta>
+                                @foreach($post->characterAuthors as $character)
+                                    <x-avatar.character :character="$character"></x-avatar.character>
+                                @endforeach
 
-                                    <x-slot:secondaryMeta>
-                                        {{ Nova\Characters\Models\Character::find(1)->positions->implode('name', ' & ') }}
-                                    </x-slot:secondaryMeta>
-                                </x-avatar-meta>
-                                <x-avatar-meta :src="Nova\Characters\Models\Character::find(2)->avatar_url">
-                                    <x-slot:primaryMeta>
-                                        {{ optional(optional(Nova\Characters\Models\Character::find(2)->rank)->name)->name }}
-                                        {{ Nova\Characters\Models\Character::find(2)->name }}
-                                    </x-slot:primaryMeta>
-
-                                    <x-slot:secondaryMeta>
-                                        {{ Nova\Characters\Models\Character::find(2)->positions->implode('name', ' & ') }}
-                                    </x-slot:secondaryMeta>
-                                </x-avatar-meta>
-                                <x-avatar-meta :src="Nova\Users\Models\User::find(1)->avatar_url">
-                                    <x-slot:primaryMeta>
-                                        {{ Nova\Users\Models\User::find(1)->name }}
-                                    </x-slot:primaryMeta>
-
-                                    <x-slot:secondaryMeta>
-                                        as Admiral William Reardon
-                                    </x-slot:secondaryMeta>
-                                </x-avatar-meta>
+                                @foreach($post->userAuthors as $user)
+                                    <x-avatar.meta :src="$user->avatar_url" :primary="$user->name">
+                                        @if ($user->pivot->as)
+                                            <x-slot:secondary>
+                                                as {{ $user->pivot->as }}
+                                            </x-slot:secondary>
+                                        @endif
+                                    </x-avatar.meta>
+                                @endforeach
                             </div>
                         </x-content-box>
                     </x-panel>

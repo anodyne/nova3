@@ -15,7 +15,7 @@ class UserBuilder extends Builder
 {
     use Filterable;
 
-    public function searchFor($search): Builder
+    public function searchFor(string $search): self
     {
         return $this->where(function ($query) use ($search) {
             return $query->where('name', 'like', "%{$search}%")
@@ -26,27 +26,35 @@ class UserBuilder extends Builder
             });
     }
 
-    public function whereActive(): Builder
+    public function searchForWithoutCharacters(string $search): self
+    {
+        return $this->where(
+            fn (self $query) => $query->where('name', 'like', "%{$search}%")
+                ->orWhere('email', 'like', "%{$search}%")
+        );
+    }
+
+    public function whereActive(): self
     {
         return $this->whereState('status', Active::class);
     }
 
-    public function whereArchived(): Builder
+    public function whereArchived(): self
     {
         return $this->whereState('status', Archived::class);
     }
 
-    public function whereInactive(): Builder
+    public function whereInactive(): self
     {
         return $this->whereState('status', Inactive::class);
     }
 
-    public function wherePending(): Builder
+    public function wherePending(): self
     {
         return $this->whereState('status', Pending::class);
     }
 
-    public function whereNotPending(): Builder
+    public function whereNotPending(): self
     {
         return $this->whereNotState('status', Pending::class);
     }

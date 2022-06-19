@@ -197,6 +197,30 @@
                             <span>Does not allow multiple authors</span>
                         </div>
                     @endif
+
+                    @if ($postType->options->allowCharacterAuthors)
+                        <div class="flex items-center space-x-2 text-green-600 dark:text-green-500">
+                            @icon('check', 'h-6 w-6 shrink-0 text-green-500 dark:text-green-400')
+                            <span>Allows characters as authors</span>
+                        </div>
+                    @else
+                        <div class="flex items-center space-x-2 text-red-600 dark:text-red-500">
+                            @icon('close', 'h-6 w-6 shrink-0 text-red-500 dark:text-red-400')
+                            <span>Does not allow characters as authors</span>
+                        </div>
+                    @endif
+
+                    @if ($postType->options->allowUserAuthors)
+                        <div class="flex items-center space-x-2 text-green-600 dark:text-green-500">
+                            @icon('check', 'h-6 w-6 shrink-0 text-green-500 dark:text-green-400')
+                            <span>Allows users as authors</span>
+                        </div>
+                    @else
+                        <div class="flex items-center space-x-2 text-red-600 dark:text-red-500">
+                            @icon('close', 'h-6 w-6 shrink-0 text-red-500 dark:text-red-400')
+                            <span>Does not allow users as authors</span>
+                        </div>
+                    @endif
                 </div>
             </x-form.section>
 

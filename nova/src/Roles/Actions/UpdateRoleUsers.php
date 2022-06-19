@@ -13,6 +13,6 @@ class UpdateRoleUsers
 
     public function handle(RoleAssignmentData $data): void
     {
-        $data->role->users()->sync($data->users);
+        $data->role->user()->sync($data->users);
     }
 }

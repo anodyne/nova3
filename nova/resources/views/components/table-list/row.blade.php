@@ -12,7 +12,7 @@
             </div>
 
             @if ($controls)
-                <div class="ml-4 flex md:items-center">
+                <div class="ml-4 min-w-6 flex md:items-center">
                     {{ $controls }}
                 </div>
             @endif

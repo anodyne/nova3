@@ -2,26 +2,7 @@
     <x-content-box>
         <div class="space-y-8">
             <div class="flex items-center space-between">
-                <input type="text" wire:model="post.title" class="block w-full flex-1 appearance-none bg-transparent border-none focus:ring-0 text-3xl font-extrabold placeholder-gray-400 tracking-tight p-0.5" placeholder="Add a title">
-
-                <div class="flex items-center space-x-1 ml-8">
-                    <div class="block">
-                        <div class="flex -space-x-2 overflow-hidden">
-                            {{-- <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-                            <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-                            <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80" alt=""> --}}
-                            {{-- <span class="inline-flex items-center justify-center h-10 w-10 rounded-full bg-gray-200 dark:bg-gray-600">
-                                <span class="text-sm font-medium leading-none text-gray-600 dark:text-gray-300">AB</span>
-                            </span>
-
-                            <img class="inline-block h-10 w-10 rounded-full ring-4 ring-white dark:ring-gray-800" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt=""> --}}
-
-                            <x-button color="blue-outline" size="none" class="h-10 w-10 rounded-full ring-4 ring-white dark:ring-gray-800">
-                                @icon('user-add', 'h-6 w-6')
-                            </x-button>
-                        </div>
-                    </div>
-                </div>
+                <input type="text" wire:model.debounce.1s="post.title" class="block w-full flex-1 appearance-none bg-transparent border-none focus:ring-0 text-3xl font-extrabold placeholder-gray-400 tracking-tight p-0.5" placeholder="Add a title">
             </div>
 
             @if ($postType->fields->location->enabled || $postType->fields->day->enabled || $postType->fields->time->enabled)
@@ -52,7 +33,7 @@
             <livewire:nova:editor :content="old('post.content', $post->content)" />
 
             <div class="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4">
-                @if ($allStories->count() > 1)
+                @if ($this->allStories->count() > 1)
                     <button type="button" class="flex items-center space-x-1.5 rounded-full text-sm md:text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition duration-200 {{ $story ? 'bg-blue-50 hover:bg-blue-100 border-blue-300 hover:border-blue-400 text-blue-600' : 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900 border-gray-300 dark:border-gray-600 hover:border-gray-500/30 dark:hover:border-gray-600 text-gray-500 dark:text-gray-400' }}" wire:click='$emit("openModal", "posts:select-story-modal", {{ json_encode([$story->id]) }})'>
                         @icon('book', 'h-6 w-6 md:h-5 md:w-5 shrink-0 ' . ($story ? 'text-blue-500' : 'text-gray-400'))
                         <span class="font-medium">{{ $story->title ?? 'Choose a story' }}</span>
@@ -69,14 +50,55 @@
                     <span style="color:{{ $postType->color }}">@icon($postType->icon, 'h-6 w-6 md:h-5 md:w-5')</span>
                     <span class="font-medium">{{ $postType->name }}</span>
                 </button>
-
-                @if ($postType->fields->rating->enabled)
-                    <button type="button" class="flex items-center space-x-1.5 rounded-full text-sm md:text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition  {{ $post->time ? 'bg-blue-50 dark:bg-blue-900/50 border-blue-300 dark:border-blue-800 text-blue-600 dark:text-blue-400' : 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900 border-gray-300 dark:border-gray-600 hover:border-gray-500/30 dark:hover:border-gray-600 text-gray-500 dark:text-gray-400' }}" wire:click='$emit("openModal", "posts:set-content-ratings-modal")'>
-                        @icon('mature', 'h-6 w-6 md:h-5 md:w-5 ' . ($post->time ? 'text-blue-500' : 'text-gray-400'))
-                        <span class="font-medium">Set content ratings</span>
-                    </button>
-                @endif
             </div>
+
+            @if ($postType->fields->rating->enabled)
+                <x-input.group label="Post content ratings">
+                    <button type="button" class="appearance-none w-full md:w-1/3" wire:click='$emit("openModal", "posts:set-content-ratings-modal", {{ json_encode(["language" => $ratingLanguage, "sex" => $ratingSex, "violence" => $ratingViolence])  }})'>
+                        <div class="space-y-1">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-20 text-gray-500 text-left font-medium">Language</div>
+                                <div class="w-5 font-bold text-gray-900 dark:text-gray-100">{{ $ratingLanguage }}</div>
+                                <div class="flex-1">
+                                    <div @class([
+                                        'rounded-full h-2.5',
+                                        'bg-green-500 w-1/4' => $ratingLanguage === 0,
+                                        'bg-yellow-300 w-1/2' => $ratingLanguage === 1,
+                                        'bg-orange-500 w-3/4' => $ratingLanguage === 2,
+                                        'bg-red-500 w-full' => $ratingLanguage === 3,
+                                    ])></div>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="w-20 text-gray-500 text-left font-medium">Sex</div>
+                                <div class="w-5 font-bold text-gray-900 dark:text-gray-100">{{ $ratingSex }}</div>
+                                <div class="flex-1">
+                                    <div @class([
+                                        'rounded-full h-2.5',
+                                        'bg-green-500 w-1/4' => $ratingSex === 0,
+                                        'bg-yellow-300 w-1/2' => $ratingSex === 1,
+                                        'bg-orange-500 w-3/4' => $ratingSex === 2,
+                                        'bg-red-500 w-full' => $ratingSex === 3,
+                                    ])></div>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="w-20 text-gray-500 text-left font-medium">Violence</div>
+                                <div class="w-5 font-bold text-gray-900 dark:text-gray-100">{{ $ratingViolence }}</div>
+                                <div class="flex-1">
+                                    <div @class([
+                                        'rounded-full h-2.5',
+                                        'bg-green-500 w-1/4' => $ratingViolence === 0,
+                                        'bg-yellow-300 w-1/2' => $ratingViolence === 1,
+                                        'bg-orange-500 w-3/4' => $ratingViolence === 2,
+                                        'bg-red-500 w-full' => $ratingViolence === 3,
+                                    ])></div>
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+                </x-input.group>
+            @endif
 
             {{-- @if ($this->showPostPositionControl)
                 <x-input.group label="Post position">
@@ -198,7 +220,7 @@
 
             @if ($postType->fields->summary->enabled)
                 <x-input.group label="Post Summary" help="If your post contains content intended only for mature audiences or that could be difficult for some people to read, you can provide a summary of the post." class="w-full md:w-2/3">
-                    <x-input.textarea rows="3">{{ old('post.summary', '') }}</x-input.textarea>
+                    <x-input.textarea wire:model.debounce.1s="post.summary" rows="3">{{ old('post.summary', '') }}</x-input.textarea>
                 </x-input.group>
             @endif
         </div>
@@ -207,9 +229,9 @@
     @if ($this->canSave)
         <x-content-box height="sm" class="flex flex-col space-y-4 rounded-b-lg border-t border-gray-200 dark:border-gray-200/10 md:flex-row-reverse md:items-center md:space-y-0 md:space-x-6 md:space-x-reverse justify-between">
             <div class="flex flex-col md:flex-row-reverse md:items-center md:space-x-reverse space-y-4 md:space-y-0 md:space-x-6">
-                <x-button wire:click="nextStep" color="blue">Publish</x-button>
+                <x-button wire:click="goToNextStep" color="blue">Next: Publish Post</x-button>
 
-                <x-button wire:click="save" color="white">
+                <x-button type="button" wire:click="save" color="white">
                     Save
                 </x-button>
             </div>

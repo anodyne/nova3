@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 use Illuminate\Database\Migrations\Migration;
 use Nova\Settings\Data\Characters;
+use Nova\Settings\Data\ContentRating;
+use Nova\Settings\Data\ContentRatings;
 use Nova\Settings\Data\Discord;
 use Nova\Settings\Data\Email;
 use Nova\Settings\Data\General;
@@ -20,8 +22,8 @@ class PopulateSettingsTable extends Migration
             'general' => new General(),
             'email' => new Email(),
             'system_defaults' => new SystemDefaults(
-                iconSet: 'fluent',
                 theme: 'Pulsar',
+                iconSet: 'fluent',
                 imagePath: null
             ),
             'meta_tags' => new MetaTags(),
@@ -39,10 +41,39 @@ class PopulateSettingsTable extends Migration
             ]),
             'posting_activity' => new PostingActivity(
                 postsStrategy: 'author',
-                requiredActivity: 1000,
                 trackingStrategy: 'words',
+                requiredActivity: 1000,
                 wordCountPostConversion: 500,
                 wordCountStrategy: 'average'
+            ),
+            'ratings' => new ContentRatings(
+                language: new ContentRating(
+                    rating: 1,
+                    description_0: 'No profanity permitted.',
+                    description_1: 'Infrequent or mild profanity permitted.',
+                    description_2: 'Profanity permitted, with some limitations.',
+                    description_3: 'Heavy profanity and mature language permitted.',
+                    warning_threshold: 2,
+                    warning_threshold_message: 'May contain heavy profanity and mature language.',
+                ),
+                sex: new ContentRating(
+                    rating: 1,
+                    description_0: 'No sexual content permitted.',
+                    description_1: 'Mild sexual innuendo and references permitted.',
+                    description_2: 'Sexual content permitted, with some limitations.',
+                    description_3: 'Explicit sexual content permitted.',
+                    warning_threshold: 2,
+                    warning_threshold_message: 'May contain explicit sexual content.',
+                ),
+                violence: new ContentRating(
+                    rating: 1,
+                    description_0: 'No violence permitted.',
+                    description_1: 'Mild violence permitted.',
+                    description_2: 'Violence permitted, with some limitations.',
+                    description_3: 'Explicit violence permitted.',
+                    warning_threshold: 2,
+                    warning_threshold_message: 'May contain explicit violence.',
+                ),
             ),
         ];
 

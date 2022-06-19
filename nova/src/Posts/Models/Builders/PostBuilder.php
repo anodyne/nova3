@@ -8,6 +8,7 @@ use Kalnoy\Nestedset\QueryBuilder;
 use Nova\Foundation\Filters\Filterable;
 use Nova\Foundation\Models\Concerns\Sortable;
 use Nova\Posts\Models\Post;
+use Nova\Posts\Models\States\Draft;
 use Nova\Posts\Models\States\Published;
 
 class PostBuilder extends QueryBuilder
@@ -33,6 +34,11 @@ class PostBuilder extends QueryBuilder
     public function wherePostType($postTypeId): self
     {
         return $this->where('post_type_id', $postTypeId);
+    }
+
+    public function whereDraft(): self
+    {
+        return $this->whereState('status', Draft::class);
     }
 
     public function wherePublished(): self

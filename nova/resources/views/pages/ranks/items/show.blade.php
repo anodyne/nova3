@@ -38,16 +38,13 @@
                     @foreach ($item->characters as $character)
                         <div class="group flex items-center justify-between w-full py-2 px-4 rounded odd:bg-gray-100 dark:odd:bg-gray-700/50">
                             <div class="flex items-center">
-                                <x-avatar-meta size="lg" :src="$character->avatar_url">
-                                    <x-slot:primaryMeta>
-                                        <x-status :status="$character->status" />
-                                        <span class="ml-2">{{ $character->name }}</span>
-                                    </x-slot:primaryMeta>
-
-                                    <x-slot:secondaryMeta>
-                                        <x-badge :color="$character->type->color()" size="xs">{{ $character->type->displayName() }}</x-badge>
-                                    </x-slot:secondaryMeta>
-                                </x-avatar-meta>
+                                <x-avatar.character
+                                    :character="$character"
+                                    :primary-status="true"
+                                    :primary-rank="false"
+                                    :secondary-positions="false"
+                                    :secondary-type="true"
+                                ></x-avatar.character>
                             </div>
 
                             @can('update', $character)

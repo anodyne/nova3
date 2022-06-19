@@ -56,16 +56,16 @@ class RolesList extends Component
     {
         $roles = Role::query()
             ->withCount([
-                'users as active_users_count' => fn ($query) => $query->whereActive(),
-                'users as inactive_users_count' => fn ($query) => $query->whereInactive(),
+                'user as active_users_count' => fn ($query) => $query->whereActive(),
+                'user as inactive_users_count' => fn ($query) => $query->whereInactive(),
             ])
-            ->with(['users' => fn ($query) => $query->whereActive()->limit(4)])
+            ->with(['user' => fn ($query) => $query->whereActive()->limit(4)])
             ->when($this->getFilterValue('default_roles') === 'yes', fn ($query) => $query->where('default', true))
             ->when($this->getFilterValue('default_roles') === 'no', fn ($query) => $query->where('default', false))
             ->when($this->getFilterValue('has_permissions') === 'yes', fn ($query) => $query->whereHas('permissions'))
             ->when($this->getFilterValue('has_permissions') === 'no', fn ($query) => $query->whereDoesntHave('permissions'))
-            ->when($this->getFilterValue('has_users') === 'yes', fn ($query) => $query->whereHas('users'))
-            ->when($this->getFilterValue('has_users') === 'no', fn ($query) => $query->whereDoesntHave('users'))
+            ->when($this->getFilterValue('has_users') === 'yes', fn ($query) => $query->whereHas('user'))
+            ->when($this->getFilterValue('has_users') === 'no', fn ($query) => $query->whereDoesntHave('user'))
             ->when($this->search, fn ($query, $value) => $query->searchFor($value))
             ->orderBySort();
 

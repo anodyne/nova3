@@ -28,8 +28,7 @@ class PostPolicy
 
     public function create(User $user): bool
     {
-        return $user->isAbleTo('post.create')
-            && Story::whereCurrent()->count() > 0;
+        return $user->isAbleTo('post.create');
     }
 
     public function update(User $user, Post $post): bool

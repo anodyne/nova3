@@ -186,6 +186,10 @@
       <excludeFolder url="file://$MODULE_DIR$/nova/vendor/thecodingmachine/safe" />
       <excludeFolder url="file://$MODULE_DIR$/nova/vendor/livewire/livewire" />
       <excludeFolder url="file://$MODULE_DIR$/nova/vendor/egulias/email-validator" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/app" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/debugbar" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/clockwork" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/framework" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

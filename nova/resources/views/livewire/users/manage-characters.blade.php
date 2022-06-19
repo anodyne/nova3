@@ -79,16 +79,7 @@
                         @endcan
 
                         <x-table.cell>
-                            <x-avatar-meta :src="$character->avatar_url">
-                                <x-slot:primaryMeta>
-                                    {{ optional(optional($character->rank)->name)->name }}
-                                    {{ $character->name }}
-                                </x-slot:primaryMeta>
-
-                                <x-slot:secondaryMeta>
-                                    {{ $character->positions->implode('name', ' & ') }}
-                                </x-slot:secondaryMeta>
-                            </x-avatar-meta>
+                            <x-avatar.character :character="$character"></x-avatar.character>
                         </x-table.cell>
 
                         <x-table.cell>

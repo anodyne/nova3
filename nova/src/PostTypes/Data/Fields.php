@@ -38,13 +38,15 @@ class Fields extends Data implements Arrayable
     {
         return collect(get_object_vars($this))
             ->filter(fn ($var) => $var instanceof Field)
-            ->filter(fn ($field) => $field->enabled);
+            ->filter(fn (Field $field) => $field->enabled)
+            ->filter(fn (Field $field, $key) => $key !== 'rating');
     }
 
     public function requiredFields(): Collection
     {
         return collect(get_object_vars($this))
             ->filter(fn ($var) => $var instanceof Field)
-            ->filter(fn ($field) => $field->required);
+            ->filter(fn (Field $field) => $field->required)
+            ->filter(fn (Field $field, $key) => $key !== 'rating');
     }
 }

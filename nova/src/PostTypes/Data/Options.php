@@ -13,6 +13,8 @@ class Options extends Data implements Arrayable
         public bool $notifyUsers,
         public bool $includeInPostTracking,
         public bool $multipleAuthors,
+        public bool $allowCharacterAuthors,
+        public bool $allowUserAuthors,
     ) {
     }
 
@@ -22,6 +24,8 @@ class Options extends Data implements Arrayable
             notifyUsers: filter_var(data_get($array, 'notifyUsers'), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE),
             includeInPostTracking: filter_var(data_get($array, 'includeInPostTracking'), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE),
             multipleAuthors: filter_var(data_get($array, 'multipleAuthors'), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE),
+            allowCharacterAuthors: filter_var(data_get($array, 'allowCharacterAuthors'), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE),
+            allowUserAuthors: filter_var(data_get($array, 'allowUserAuthors'), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE),
         );
     }
 }

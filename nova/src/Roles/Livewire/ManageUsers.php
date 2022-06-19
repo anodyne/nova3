@@ -37,10 +37,10 @@ class ManageUsers extends Component
     public function assignSelectedUsers(array $users): void
     {
         $usersToAssign = collect($users)
-            ->diff($this->role->users()->pluck('id'));
+            ->diff($this->role->user()->pluck('id'));
 
         if ($usersToAssign->count() > 0) {
-            $this->role->users()->attach($users);
+            $this->role->user()->attach($users);
         }
     }
 
@@ -49,7 +49,7 @@ class ManageUsers extends Component
      */
     public function unassignSelectedUsers(): void
     {
-        $this->role->users()->detach($this->selected);
+        $this->role->user()->detach($this->selected);
 
         $this->selected = [];
     }
@@ -77,7 +77,7 @@ class ManageUsers extends Component
      */
     public function getRowsQueryProperty()
     {
-        $query = $this->role->users()
+        $query = $this->role->user()
             ->when($this->filters['search'], function ($query, $search) {
                 return $query->where(function ($q) use ($search) {
                     return $q->where('name', 'like', "%{$search}%")

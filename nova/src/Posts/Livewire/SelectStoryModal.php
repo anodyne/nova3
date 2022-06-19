@@ -14,7 +14,7 @@ class SelectStoryModal extends ModalComponent
 
     public string $search = '';
 
-    public int $selected = 0;
+    public mixed $selected = 0;
 
     public array $selectedDisplay = [];
 
@@ -43,14 +43,7 @@ class SelectStoryModal extends ModalComponent
     {
         return Story::query()
             ->whereCurrent()
-            ->when(
-                $this->search,
-                fn ($query, $search) => $query->where('title', 'like', "%{$search}%")
-            )
-            // ->when(
-            //     $this->story,
-            //     fn ($query, $story) => $query->where('id', '!=', $story)
-            // )
+            ->when($this->search, fn ($query, $search) => $query->searchFor($search))
             ->orderBy('_lft')
             ->get();
     }

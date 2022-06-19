@@ -7,6 +7,9 @@ namespace Nova\Users\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -14,7 +17,7 @@ use Laratrust\Traits\LaratrustUserTrait;
 use Nova\Characters\Models\Character;
 use Nova\Characters\Models\States\Statuses\Active as ActiveCharacter;
 use Nova\Notes\Models\Note;
-use Nova\Stories\Models\Post;
+use Nova\Posts\Models\Post;
 use Nova\Users\Data\PronounsData;
 use Nova\Users\Events;
 use Nova\Users\Models\Builders\UserBuilder;
@@ -95,9 +98,16 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
         return $this->hasMany(Note::class);
     }
 
-    public function posts()
+    public function posts(): MorphToMany
     {
-        return $this->morphMany(Post::class, 'authorable');
+        return $this->morphToMany(Post::class, 'authorable', 'post_author');
+    }
+
+    public function draftPosts(): BelongsToMany
+    {
+        return $this->belongsToMany(Post::class, 'post_author')
+            ->wherePivot('user_id', $this->id)
+            ->whereDraft();
     }
 
     public function getActivitylogOptions(): LogOptions

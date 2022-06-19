@@ -12,7 +12,6 @@
     <div
         x-data="modal('{{ $event }}', '{{ $url }}', '{{ csrf_token() }}')"
         x-show="open"
-        @keydown.window.escape="open = false"
         @modal-close.window="open = false"
         class="fixed bottom-0 inset-x-0 px-4 pb-6 z-50 sm:inset-0 sm:p-0 sm:flex sm:items-center sm:justify-center"
     >

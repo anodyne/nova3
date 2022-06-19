@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="LaravelIdeaMainSettings">
+    <option name="bladeComponentViewsDirectory" value="nova/resources/views/components" />
     <option name="frameworkFound" value="true" />
+    <option name="langDirectory" value="nova/resources/lang" />
+    <option name="moduleSystemName" value="package" />
+    <option name="packageModuleAppPath" value="nova/src" />
+    <option name="views">
+      <LaravelViews>
+        <option name="defaultViewsPath" value="nova/resources/views" />
+      </LaravelViews>
+    </option>
   </component>
 </project>

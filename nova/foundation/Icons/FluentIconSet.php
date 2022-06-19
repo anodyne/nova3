@@ -25,6 +25,7 @@ class FluentIconSet extends IconSet
             'drop' => 'drop',
             'edit' => 'edit',
             'email' => 'mail',
+            'emoji' => 'emoji-multiple',
             'filter' => 'filter',
             'folder' => 'folder',
             'hide' => 'eye-hide',

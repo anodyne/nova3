@@ -65,15 +65,7 @@
                             @foreach ($character->users as $user)
                                 <div class="group flex items-center justify-between py-2 px-4 rounded odd:bg-gray-50">
                                     <div class="flex items-center">
-                                        <x-avatar-meta size="lg" :src="$user->avatar_url">
-                                            <x-slot:primaryMeta>
-                                                {{ $user->name }}
-                                            </x-slot:primaryMeta>
-
-                                            <x-slot:secondaryMeta>
-                                                <x-badge :color="$user->status->color()" size="xs">{{ $user->status->displayName() }}</x-badge>
-                                            </x-slot:secondaryMeta>
-                                        </x-avatar-meta>
+                                        <x-avatar.user :user="$user" :secondary-status="true"></x-avatar.user>
                                     </div>
 
                                     @can('update', $user)

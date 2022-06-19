@@ -140,6 +140,18 @@
                     </x-input.toggle>
                 </x-input.group>
 
+                <x-input.group>
+                    <x-input.toggle field="options[allowCharacterAuthors]" :value="$postType->options->allowCharacterAuthors">
+                        Allow characters as authors
+                    </x-input.toggle>
+                </x-input.group>
+
+                <x-input.group>
+                    <x-input.toggle field="options[allowUserAuthors]" :value="$postType->options->allowUserAuthors">
+                        Allow users as authors
+                    </x-input.toggle>
+                </x-input.group>
+
                 <x-input.group label="Restrict posting" help="You can set a specific role a user must have in order to use certain post types.">
                     <x-input.select name="role_id" id="role_id" class="w-full md:w-2/3">
                         <option value="">No role restrictions</option>

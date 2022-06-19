@@ -20,6 +20,16 @@ class CharacterBuilder extends Builder
         return $this->whereHas('users', fn ($q) => $q->where('users.id', $user->id));
     }
 
+    public function searchForWithoutUsers($search): Builder
+    {
+        return $this->where(fn ($q) => $q->where('name', 'like', "%{$search}%"))
+            ->orWhereHas('positions', fn ($q) => $q->where('name', 'like', "%{$search}%"))
+            ->orWhereHas('positions.department', fn ($q) => $q->where('name', 'like', "%{$search}%"))
+            ->when(auth()->user()->isAbleTo('character.*'), function ($query) use ($search) {
+                return $query->orWhereHas('users', fn ($q) => $q->where('email', 'like', "%{$search}%"));
+            });
+    }
+
     public function searchFor($search): Builder
     {
         return $this->where(fn ($q) => $q->where('name', 'like', "%{$search}%"))

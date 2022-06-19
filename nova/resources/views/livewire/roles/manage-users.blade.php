@@ -108,15 +108,7 @@
                         @endcan
 
                         <x-table.cell>
-                            <x-avatar-meta :src="$user->avatar_url">
-                                <x-slot:primaryMeta>{{ $user->name }}</x-slot:primaryMeta>
-
-                                <x-slot:secondaryMeta>
-                                    <x-badge size="xs" :color="$user->status->color()">
-                                        {{ $user->status->displayName() }}
-                                    </x-badge>
-                                </x-slot:secondaryMeta>
-                            </x-avatar-meta>
+                            <x-avatar.user :user="$user" :primary="$user->name" :secondaryStatus="true"></x-avatar.user>
                         </x-table.cell>
                     </x-table.row>
                 @endforeach

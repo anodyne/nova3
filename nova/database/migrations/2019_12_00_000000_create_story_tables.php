@@ -5,6 +5,10 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Nova\Posts\Models\Post;
+use Nova\PostTypes\Models\PostType;
+use Nova\Stories\Models\Story;
+use Nova\Users\Models\User;
 
 class CreateStoryTables extends Migration
 {
@@ -31,7 +35,10 @@ class CreateStoryTables extends Migration
 
         Schema::create('post_author', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(Post::class);
             $table->morphs('authorable');
+            $table->foreignIdFor(User::class)->nullable();
+            $table->text('as')->nullable();
         });
 
         Schema::create('post_types', function (Blueprint $table) {
@@ -53,8 +60,8 @@ class CreateStoryTables extends Migration
 
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('story_id')->constrained('stories');
-            $table->foreignId('post_type_id')->nullable()->constrained('post_types');
+            $table->foreignIdFor(Story::class)->nullable();
+            $table->foreignIdFor(PostType::class)->nullable();
             $table->string('status');
             $table->string('title')->nullable();
             $table->longText('content')->nullable();
@@ -65,6 +72,7 @@ class CreateStoryTables extends Migration
             $table->unsignedSmallInteger('rating_language')->default(0);
             $table->unsignedSmallInteger('rating_sex')->default(0);
             $table->unsignedSmallInteger('rating_violence')->default(0);
+            $table->longText('summary')->nullable();
             $table->nestedSet();
             $table->timestamp('published_at')->nullable();
             $table->timestamps();

@@ -15,6 +15,11 @@ class StoryBuilder extends QueryBuilder
 {
     use Filterable;
 
+    public function searchFor($value): self
+    {
+        return $this->where('title', 'like', "%{$value}%");
+    }
+
     public function whereCompleted(): self
     {
         return $this->whereState('status', Completed::class);

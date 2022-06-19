@@ -8,22 +8,36 @@ use LivewireUI\Modal\ModalComponent;
 
 class SetContentRatingsModal extends ModalComponent
 {
-    /**
-     * Apply the the selected day to the post.
-     */
+    public $language;
+
+    public $sex;
+
+    public $violence;
+
+    protected $listeners = ['ratingUpdated'];
+
     public function apply(): void
     {
         $this->closeModalWithEvents([
-            'posts:step:write-post' => ['contentRatingsSet'],
+            'posts:step:write-post' => ['contentRatingsUpdated', [
+                $this->language, $this->sex, $this->violence,
+            ]]
         ]);
     }
 
-    /**
-     * Dismiss the modal.
-     */
     public function dismiss(): void
     {
         $this->forceClose()->closeModal();
+    }
+
+    public function ratingUpdated(array $payload): void
+    {
+        [
+            'rating' => $rating,
+            'type' => $type
+        ] = $payload;
+
+        $this->{$type} = $rating;
     }
 
     public function render()

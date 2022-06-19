@@ -41,4 +41,9 @@ class PostData extends Data
             rating_violence: (int) data_get($array, 'ratingViolence', 1),
         );
     }
+
+    public function setWordCount(): void
+    {
+        $this->word_count = str($this->content)->pipe('strip_tags')->wordCount();
+    }
 }

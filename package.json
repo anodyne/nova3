@@ -39,10 +39,10 @@
     "devDependencies": {
         "@danharrin/alpine-mousetrap": "^0.1.4",
         "@tailwindcss/aspect-ratio": "^0.4.0",
-        "@tailwindcss/forms": "^0.5.0",
-        "@tailwindcss/line-clamp": "^0.3.0",
-        "@tailwindcss/typography": "^0.5.0",
-        "autoprefixer": "^10.4.0",
+        "@tailwindcss/forms": "^0.5.2",
+        "@tailwindcss/line-clamp": "^0.4.0",
+        "@tailwindcss/typography": "^0.5.2",
+        "autoprefixer": "^10.4.7",
         "concurrently": "^6.3.0",
         "cssnano": "^5.0.8",
         "cypress": "^6.1.0",
@@ -51,8 +51,8 @@
         "eslint-config-airbnb-base": "^14.2.0",
         "eslint-import-resolver-webpack": "^0.13.1",
         "eslint-plugin-import": "^2.23.1",
-        "postcss": "^8.4.4",
+        "postcss": "^8.4.14",
         "postcss-cli": "^9.0.1",
-        "tailwindcss": "^3.0.0"
+        "tailwindcss": "^3.1.0"
     }
 }

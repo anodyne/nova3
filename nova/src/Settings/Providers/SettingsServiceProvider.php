@@ -8,6 +8,7 @@ use Nova\DomainServiceProvider;
 use Nova\Foundation\Nova;
 use Nova\Settings\Actions\UpdateSystemDefaults;
 use Nova\Settings\Data\Characters;
+use Nova\Settings\Data\ContentRatings;
 use Nova\Settings\Data\Discord;
 use Nova\Settings\Data\Email;
 use Nova\Settings\Data\General;
@@ -77,9 +78,9 @@ class SettingsServiceProvider extends DomainServiceProvider
             $manager = new SettingsManager();
 
             $manager->add('characters', new SettingInfo(
-                action: null,
                 dto: Characters::class,
-                response: CharactersSettingsResponse::class
+                response: CharactersSettingsResponse::class,
+                action: null,
             ));
             $manager->add('notifications', new SettingInfo(
                 dto: Discord::class,
@@ -102,13 +103,13 @@ class SettingsServiceProvider extends DomainServiceProvider
                 response: PostingActivitySettingsResponse::class
             ));
             $manager->add('system-defaults', new SettingInfo(
-                action: UpdateSystemDefaults::class,
                 dto: SystemDefaults::class,
-                response: SystemDefaultsSettingsResponse::class
+                response: SystemDefaultsSettingsResponse::class,
+                action: UpdateSystemDefaults::class,
             ));
             $manager->add('ratings', new SettingInfo(
-                dto: Ratings::class,
-                response: RatingsSettingsResponse::class
+                dto: ContentRatings::class,
+                response: RatingsSettingsResponse::class,
             ));
 
             return $manager;

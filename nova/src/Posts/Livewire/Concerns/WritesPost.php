@@ -5,33 +5,57 @@ declare(strict_types=1);
 namespace Nova\Posts\Livewire\Concerns;
 
 use Nova\Posts\Actions\DeletePost;
-use Nova\Posts\Actions\SavePost;
-use Nova\Posts\Actions\UpdatePostStatus;
+use Nova\Posts\Actions\SavePostManager;
+use Nova\Posts\Data\PostAuthorsData;
 use Nova\Posts\Data\PostData;
+use Nova\Posts\Data\PostPositionData;
 use Nova\Posts\Data\PostStatusData;
 use Nova\Posts\Models\States\Draft;
+use Nova\Posts\Models\States\Started;
 use Throwable;
 
 trait WritesPost
 {
+    public array $characterAuthors = [];
+
+    public array $userAuthors = [];
+
+    public function authorsSelected(array $authors): void
+    {
+        [$characterAuthors, $userAuthors] = $authors;
+
+        $this->characterAuthors = $characterAuthors;
+        $this->userAuthors = $userAuthors;
+    }
+
     public function daySelected($value): void
     {
-        $this->post->day = $value;
+        $this->post->update(['day' => $value]);
     }
 
     public function locationSelected($value): void
     {
-        $this->post->location = $value;
+        $this->post->update(['location' => $value]);
     }
 
     public function setPostContent($content): void
     {
-        $this->post->content = $content;
+        $this->post->update(['content' => $content]);
+    }
+
+    public function setPostTitle($value): void
+    {
+        $this->post->update(['title' => $value]);
+    }
+
+    public function setPostSummary($value): void
+    {
+        $this->post->update(['summary' => $value]);
     }
 
     public function timeSelected($value): void
     {
-        $this->post->time = $value;
+        $this->post->update(['time' => $value]);
     }
 
     public function getCanSaveProperty(): bool
@@ -58,7 +82,7 @@ trait WritesPost
         );
     }
 
-    public function delete()
+    public function delete(): void
     {
         $this->authorize('delete', $this->post);
 
@@ -71,29 +95,59 @@ trait WritesPost
         redirect()->route('posts.create')->withToast($message);
     }
 
-    public function save()
+    public function save($quiet = false): void
     {
         if ($this->canSave) {
-            // $this->authorize('write', [$post, $this->postType]);
+//             $this->authorize('write', [$this->post, $this->postType]);
 
-            $shouldRedirect = $this->postId === null;
+            $shouldRedirect = false;
 
-            $this->post = UpdatePostStatus::run(
-                SavePost::run($this->getPostData()),
-                $this->getPostStatusData('draft')
-            );
+            if ($this->post->status->equals(Started::class)) {
+                $shouldRedirect = true;
+
+                $this->post->status->transitionTo(Draft::class);
+            }
+
+//            $this->post = SavePostManager::run(
+//                $this->getPostData(),
+//                $this->getPostStatusData('draft'),
+//                $this->getPostPositionData(),
+//                $this->getPostAuthorsData()
+//            );
+
+//            $this->post = UpdatePostStatus::run(
+//                SavePost::run($this->getPostData()),
+//                $this->getPostStatusData('draft')
+//            );
+
+//            $this->post = SetPostPosition::run(
+//                $this->post,
+//                $this->getPostPositionData()
+//            );
+
+//            $this->post = SetPostAuthors::run(
+//                $this->post,
+//                $this->getPostAuthorsData()
+//            );
 
             $this->postId = $this->post->id;
 
-            $this->dispatchBrowserEvent('toast', [
-                'title' => $this->post->title . ' has been saved',
-                'message' => null,
-            ]);
+            if (! $quiet) {
+                $this->dispatchBrowserEvent('toast', [
+                    'title' => $this->post->title . ' has been saved',
+                    'message' => null,
+                ]);
+            }
 
             if ($shouldRedirect) {
                 redirect()->route('posts.create', $this->post);
             }
         }
+    }
+
+    public function saveQuietly(): void
+    {
+        $this->save(true);
     }
 
     protected function getPostData(): PostData
@@ -103,6 +157,12 @@ trait WritesPost
         $data->post_type_id = $this->postType->id;
         $data->story_id = $this->story->id;
 
+        $data->rating_language = $this->ratingLanguage;
+        $data->rating_sex = $this->ratingSex;
+        $data->rating_violence = $this->ratingViolence;
+
+        $data->setWordCount();
+
         return $data;
     }
 
@@ -110,6 +170,23 @@ trait WritesPost
     {
         return PostStatusData::from([
             'status' => $status,
+        ]);
+    }
+
+    protected function getPostPositionData(): PostPositionData
+    {
+        return PostPositionData::from([
+            'hasPositionChange' => false,
+            'displayDirection' => $this->state()->forStep('posts:step:publish-post')['direction'],
+            'displayNeighbor' => $this->state()->forStep('posts:step:publish-post')['neighbor'],
+        ]);
+    }
+
+    protected function getPostAuthorsData(): PostAuthorsData
+    {
+        return PostAuthorsData::from([
+            'characters' => $this->characterAuthors,
+            'users' => $this->userAuthors,
         ]);
     }
 }
