@@ -3,7 +3,7 @@
 @inject('iconSets', 'Nova\Foundation\Icons\IconSets')
 
 @section('content')
-    <x-page-header title="System Defaults Settings" x-data="{}">
+    <x-page-header title="Appearance Settings" x-data="{}">
         <x-slot:controls>
             <x-button type="button" color="white" size="sm" @click="$dispatch('toggle-spotlight')">
                 @icon('search', 'h-5 w-5')
