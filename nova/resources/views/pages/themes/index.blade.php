@@ -11,9 +11,7 @@
                 <x-slot:trigger>@icon('filter', 'h-7 w-7 md:h-6 md:w-6')</x-slot:trigger>
 
                 <x-dropdown.group>
-                    <x-dropdown.text class="uppercase tracking-wide font-semibold text-gray-600">
-                        Filter themes
-                    </x-dropdown.text>
+                    <x-dropdown.header>Filter Themes</x-dropdown.header>
 
                     <x-dropdown.item :href="route('themes.index')">All themes</x-dropdown.item>
                     <x-dropdown.item :href="route('themes.index', 'pending')">Pending themes</x-dropdown.item>
@@ -21,7 +19,7 @@
             </x-dropdown>
 
             @can('create', 'Nova\Themes\Models\Theme')
-                <x-link :href="route('themes.create')" color="blue">
+                <x-link :href="route('themes.create')" color="primary">
                     Add Theme
                 </x-link>
             @endcan
@@ -78,17 +76,17 @@
                                 @endif
                             </x-dropdown>
                         </div>
-                        <p class="mt-1 flex items-center text-base text-gray-600 dark:text-gray-500">
-                            @icon('folder', 'shrink-0 mr-2 h-5 w-5 text-gray-500 dark:text-gray-600')
+                        <p class="mt-1 flex items-center text-base text-gray-500">
+                            @icon('folder', 'shrink-0 mr-2 h-5 w-5 text-gray-500')
                             themes/{{ $theme->location }}
                         </p>
                         @if (! $theme->exists)
-                            <x-badge class="mt-2" size="xs" color="yellow">Pending</x-badge>
+                            <x-badge class="mt-2" color="warning">Pending</x-badge>
                         @else
                             @if ($theme->active)
-                                <x-badge class="mt-2" size="xs" color="green">Active</x-badge>
+                                <x-badge class="mt-2" color="success">Active</x-badge>
                             @else
-                                <x-badge class="mt-2" size="xs" color="gray">Inactive</x-badge>
+                                <x-badge class="mt-2" color="gray">Inactive</x-badge>
                             @endif
                         @endif
                     </x-content-box>
@@ -102,24 +100,24 @@
     @endif
 
     <div class="w-full max-w-2xl mx-auto mt-16">
-        <x-panel.blue icon="info">
+        <x-panel.primary icon="info">
             <div class="flex-1 md:flex md:justify-between">
-                <p class="text-base md:text-sm text-blue-600">
+                <p class="text-base md:text-sm">
                     Looking for more themes? Check out the Nova Exchange!
                 </p>
                 <p class="mt-3 text-base md:text-sm md:mt-0 md:ml-6">
-                    <a href="{{ config('services.anodyne.links.exchange') }}" target="_blank" class="whitespace-nowrap font-medium text-blue-500 hover:text-blue-600 transition ease-in-out duration-200">
+                    <x-link :href="config('services.anodyne.links.exchange')" target="_blank" color="primary-text" size="none">
                         Go &rarr;
-                    </a>
+                    </x-link>
                 </p>
             </div>
-        </x-panel.blue>
+        </x-panel.primary>
     </div>
 
-    <x-modal color="red" title="Delete Theme?" icon="warning" :url="route('themes.delete')">
+    <x-modal color="error" title="Delete Theme?" icon="warning" :url="route('themes.delete')">
         <x-slot:footer>
             <span class="flex w-full sm:col-start-2">
-                <x-button type="submit" form="form" color="red" full-width>
+                <x-button type="submit" form="form" color="error" full-width>
                     Delete
                 </x-button>
             </span>

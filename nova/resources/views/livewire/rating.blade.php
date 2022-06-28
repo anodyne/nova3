@@ -13,10 +13,10 @@
                     @class([
                         'm-0 flex-1 py-1 md:py-0.5 text-center text-base md:text-sm font-semibold transition',
                         'bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-700' => $rating < $i,
-                        'bg-green-500 hover:bg-green-500 text-white' => $rating >= $i && $rating === 0,
-                        'bg-yellow-300 hover:bg-yellow-300 text-yellow-700' => $rating >= $i && $rating === 1,
+                        'bg-success-500 hover:bg-success-500 text-white' => $rating >= $i && $rating === 0,
+                        'bg-warning-300 hover:bg-warning-300 text-warning-700' => $rating >= $i && $rating === 1,
                         'bg-orange-400 hover:bg-orange-400 text-white' => $rating >= $i && $rating === 2,
-                        'bg-red-500 hover:bg-red-500 text-white' => $rating >= $i && $rating === 3,
+                        'bg-error-500 hover:bg-error-500 text-white' => $rating >= $i && $rating === 3,
                     ])
                 >
                     @if ($rating === $i)

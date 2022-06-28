@@ -10,7 +10,7 @@ class Current extends StoryStatus
 
     public function color(): string
     {
-        return 'blue';
+        return 'primary';
     }
 
     public function textColor(): string

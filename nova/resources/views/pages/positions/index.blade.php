@@ -5,7 +5,7 @@
         <x-slot:controls>
             @if ($positionCount > 0)
                 @can('create', $position)
-                    <x-link :href="route('positions.create')" color="blue" data-cy="create">
+                    <x-link :href="route('positions.create')" color="primary" data-cy="create">
                         Add Position
                     </x-link>
                 @endcan
@@ -26,10 +26,10 @@
 
         <x-tips section="positions" />
 
-        <x-modal color="red" title="Delete Position?" icon="warning" :url="route('positions.delete')">
+        <x-modal color="error" title="Delete Position?" icon="warning" :url="route('positions.delete')">
             <x-slot:footer>
                 <span class="flex w-full sm:col-start-2">
-                    <x-button type="submit" form="form" color="red" full-width>
+                    <x-button type="submit" form="form" color="error" full-width>
                         Delete
                     </x-button>
                 </span>
@@ -41,10 +41,10 @@
             </x-slot:footer>
         </x-modal>
 
-        <x-modal color="blue" title="Duplicate position" icon="copy" :url="route('positions.confirm-duplicate')" event="modal-duplicate" :wide="true">
+        <x-modal color="primary" title="Duplicate position" icon="copy" :url="route('positions.confirm-duplicate')" event="modal-duplicate" :wide="true">
             <x-slot:footer>
                 <span class="flex w-full sm:col-start-2">
-                    <x-button type="submit" form="form-duplicate" color="blue" full-width>
+                    <x-button type="submit" form="form-duplicate" color="primary" full-width>
                         Duplicate
                     </x-button>
                 </span>

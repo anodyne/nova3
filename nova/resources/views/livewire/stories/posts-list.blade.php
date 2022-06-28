@@ -1,6 +1,28 @@
 <div>
     <x-content-box>
-        <h3 class="font-bold text-xl text-gray-900 dark:text-gray-100 tracking-tight">Story Posts</h3>
+        <div class="flex justify-between">
+            <div>
+                <div class="flex items-center space-x-4">
+                    <x-h2>Story Posts</x-h2>
+                    <x-badge color="primary" size="xs">{{ $story->post_count }}</x-badge>
+                </div>
+                <p class="text-gray-500 text-sm">Lorem ipsum dolor sit amet.</p>
+            </div>
+
+            @can('update', $story)
+                <div class="flex items-center space-x-4">
+                    @if (count($selected) > 0)
+                        <x-button color="error-outline" size="sm" wire:click="detachSelectedPermissions">
+                            Remove {{ count($selected) }} @choice('permission|permissions', count($selected))
+                        </x-button>
+                    @endif
+
+                    <x-link :href="route('posts.create')" color="primary-outline" size="sm">
+                        Write a Story Post
+                    </x-link>
+                </div>
+            @endcan
+        </div>
 
         <div class="flex justify-between mt-4">
             @if ($posts->total() > 0)
@@ -13,7 +35,7 @@
 
                             <x-slot:trailingAddOn>
                                 @if ($filters['search'])
-                                    <x-button color="gray-text" size="none" wire:click="$set('filters.search', '')">
+                                    <x-button color="light-gray-text" size="none" wire:click="$set('filters.search', '')">
                                         @icon('close')
                                     </x-button>
                                 @endif
@@ -22,19 +44,7 @@
                     </x-input.group>
                 </div>
 
-                @can('update', $story)
-                    <div class="flex items-center space-x-4">
-                        @if (count($selected) > 0)
-                            <x-button color="red-outline" size="sm" wire:click="detachSelectedPermissions">
-                                Remove {{ count($selected) }} @choice('permission|permissions', count($selected))
-                            </x-button>
-                        @endif
 
-                        <x-link :href="route('posts.create')" color="blue" size="sm">
-                            Write a Story Post
-                        </x-link>
-                    </div>
-                @endcan
             @endif
         </div>
     </x-content-box>
@@ -57,15 +67,15 @@
             <x-slot:body>
                 @if ($selectPage)
                     <x-table.row>
-                        <x-table.cell class="bg-blue-50" colspan="3">
+                        <x-table.cell class="bg-primary-50" colspan="3">
                             @unless ($selectAll)
                                 <div>
-                                    <span class="text-blue-600">You've selected <strong>{{ $posts->count() }}</strong> permissions assigned to this role. Do you want to select all <strong>{{ $posts->total() }}</strong>?</span>
+                                    <span class="text-primary-600">You've selected <strong>{{ $posts->count() }}</strong> permissions assigned to this role. Do you want to select all <strong>{{ $posts->total() }}</strong>?</span>
 
-                                    <x-button size="none" color="blue-text" wire:click="selectAll" class="ml-1">Select All</x-button>
+                                    <x-button size="none" color="primary-text" wire:click="selectAll" class="ml-1">Select All</x-button>
                                 </div>
                             @else
-                                <span class="text-blue-600">You've selected all <strong>{{ $posts->total() }}</strong> permissions assigned to this role.</span>
+                                <span class="text-primary-600">You've selected all <strong>{{ $posts->total() }}</strong> permissions assigned to this role.</span>
                             @endunless
                         </x-table.cell>
                     </x-table.row>
@@ -115,7 +125,7 @@
                 </p>
 
                 <div class="mt-6">
-                    <x-button color="blue" wire:click="$emit('openModal', 'roles:select-permissions-modal')">
+                    <x-button color="primary" wire:click="$emit('openModal', 'roles:select-permissions-modal')">
                         Add permissions
                     </x-button>
                 </div>

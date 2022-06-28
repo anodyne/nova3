@@ -1,16 +1,16 @@
 <div class="space-y-6" x-data="filtersPanel()">
     @if ($reordering)
-        <x-panel.purple icon="arrow-sort" title="Change Sorting Order">
+        <x-panel.info icon="arrow-sort" title="Change Sorting Order">
             <div class="space-y-4">
                 <p>Sorting roles allows for admins to control the hierarchy of roles in the system to ensure that users with a lower role cannot give themselves higher privileges.</p>
 
                 <p>Top roles have the greatest privileges &ndash; place the most important roles with the highest potential impact higher on the list, to ensure users can't gain unwanted access to areas of Nova.</p>
 
                 <div>
-                    <x-button type="button" wire:click="stopReordering" color="purple-outline">Finish</x-button>
+                    <x-button type="button" wire:click="stopReordering" color="info-outline">Finish</x-button>
                 </div>
             </div>
-        </x-panel.purple>
+        </x-panel.info>
     @endif
 
     <x-panel x-bind="parent" class="{{ $reordering ? 'overflow-hidden' : '' }}">
@@ -25,7 +25,7 @@
 
                             @if ($search)
                                 <x-slot:trailingAddOn>
-                                    <x-button size="none" color="gray-text" wire:click="$set('search', '')">
+                                    <x-button size="none" color="light-gray-text" wire:click="$set('search', '')">
                                         @icon('close', 'h-5 w-5')
                                     </x-button>
                                 </x-slot:trailingAddOn>
@@ -35,12 +35,12 @@
                 </div>
 
                 <div class="shrink flex justify-between md:justify-start items-center space-x-4">
-                    <x-button type="button" size="none" :color="$isFiltered ? 'blue-text' : 'gray-text'" x-bind="trigger">
+                    <x-button type="button" size="none" :color="$isFiltered ? 'primary-text' : 'gray-text'" x-bind="trigger">
                         <div class="flex items-center space-x-2">
                             @icon('filter', 'h-6 w-6 md:h-5 md:w-5')
                             <span>Filters</span>
                             @if ($activeFilterCount > 0)
-                                <x-badge color="blue" size="xs">{{ $activeFilterCount }}</x-badge>
+                                <x-badge color="primary">{{ $activeFilterCount }}</x-badge>
                             @endif
                         </div>
                     </x-button>
@@ -126,7 +126,7 @@
                     ])>
                         @if ($role->default)
                             <div class="flex items-center text-base md:text-sm text-gray-600 dark:text-gray-400 space-x-1.5">
-                                @icon('check', 'shrink-0 h-6 w-6 text-gray-500 md:text-green-500')
+                                @icon('check', 'shrink-0 h-6 w-6 text-gray-500 md:text-success-500')
                                 <span class="block md:hidden">Assigned to new users</span>
                             </div>
                         @endif

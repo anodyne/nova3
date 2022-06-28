@@ -33,7 +33,7 @@
                                 <div class="flex items-center justify-between w-full">
                                     <span>All users</span>
                                     @if ($filters['status'] === '')
-                                        @icon('check', 'h-6 w-6 text-green-500')
+                                        @icon('check', 'h-6 w-6 text-success-500')
                                     @endif
                                 </div>
                             </x-dropdown.item>
@@ -41,7 +41,7 @@
                                 <div class="flex items-center justify-between w-full">
                                     <span>Only active users</span>
                                     @if ($filters['status'] === 'Nova\Users\Models\States\Active')
-                                        @icon('check', 'h-6 w-6 text-green-500')
+                                        @icon('check', 'h-6 w-6 text-success-500')
                                     @endif
                                 </div>
                             </x-dropdown.item>
@@ -49,7 +49,7 @@
                                 <div class="flex items-center justify-between w-full">
                                     <span>Only inactive users</span>
                                     @if ($filters['status'] === 'Nova\Users\Models\States\Inactive')
-                                        @icon('check', 'h-6 w-6 text-green-500')
+                                        @icon('check', 'h-6 w-6 text-success-500')
                                     @endif
                                 </div>
                             </x-dropdown.item>
@@ -58,12 +58,12 @@
 
                     @can('update', $role)
                         @if (count($selected) > 0)
-                            <x-button color="red-outline" size="sm" wire:click="unassignSelectedUsers">
+                            <x-button color="error-outline" size="sm" wire:click="unassignSelectedUsers">
                                 Remove {{ count($selected) }} @choice('user|users', count($selected))
                             </x-button>
                         @endif
 
-                        <x-button type="button" color="blue" size="sm" wire:click="$emit('openModal', 'users:select-users-modal')">
+                        <x-button type="button" color="primary" size="sm" wire:click="$emit('openModal', 'users:select-users-modal')">
                             Add users
                         </x-button>
                     @endcan
@@ -87,13 +87,13 @@
             <x-slot:body>
                 @if ($selectPage)
                     <x-table.row>
-                        <x-table.cell class="bg-blue-50 dark:bg-blue-900" colspan="3">
+                        <x-table.cell class="bg-primary-50 dark:bg-primary-900" colspan="3">
                             @unless ($selectAll)
-                                <span class="text-blue-600 dark:text-blue-400">You've selected <strong>{{ $users->count() }}</strong> users assigned this role. Do you want to select all <strong>{{ $users->total() }}</strong>?</span>
+                                <span class="text-primary-600 dark:text-primary-400">You've selected <strong>{{ $users->count() }}</strong> users assigned this role. Do you want to select all <strong>{{ $users->total() }}</strong>?</span>
 
-                                <x-button size="none" color="blue-text" wire:click="selectAll" class="ml-1">Select All</x-button>
+                                <x-button size="none" color="primary-text" wire:click="selectAll" class="ml-1">Select All</x-button>
                             @else
-                                <span class="text-blue-600 dark:text-blue-400">You've selected all <strong>{{ $users->total() }}</strong> users assigned this role.</span>
+                                <span class="text-primary-600 dark:text-primary-400">You've selected all <strong>{{ $users->total() }}</strong> users assigned this role.</span>
                             @endunless
                         </x-table.cell>
                     </x-table.row>
@@ -132,7 +132,7 @@
                 </p>
 
                 <div class="mt-6">
-                    <x-button color="blue" wire:click="$emit('openModal', 'users:select-users-modal')">
+                    <x-button color="primary" wire:click="$emit('openModal', 'users:select-users-modal')">
                         Add users
                     </x-button>
                 </div>

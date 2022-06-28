@@ -11,7 +11,7 @@
         @livewire('stories:delete-story', ['stories' => $storiesToDelete])
 
         <x-form.footer>
-            <x-button type="submit" color="blue">Delete @choice('Story|Stories', $storiesToDelete)</x-button>
+            <x-button type="submit" color="primary">Delete @choice('Story|Stories', $storiesToDelete)</x-button>
             <x-link :href="route('stories.index')" color="white">Cancel</x-link>
         </x-form.footer>
     </x-form>

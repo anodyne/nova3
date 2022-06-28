@@ -49,18 +49,13 @@ class CharactersList extends Component
             ->options(['yes' => 'Yes'])
             ->meta(['label' => 'Only show my character(s)']);
 
-        $filters = [
+        return [
             $typeFilter,
             $statusFilter,
             $assignedUsersFilter,
             $assignedPositionsFilter,
+            $myCharactersFilter,
         ];
-
-        if (auth()->user()->can('viewAny', Character::class)) {
-            $filters[] = $myCharactersFilter;
-        }
-
-        return $filters;
     }
 
     public function clearAll()

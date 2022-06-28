@@ -8,9 +8,9 @@
     </x-page-header>
 
     @if ($theme->name === 'Pulsar')
-        <x-panel.purple icon="star" title="Default theme">
+        <x-panel.info icon="star" title="Default theme">
             {{ $theme->name }} is currently set as the system default theme. Be careful when making any updates to this theme as it could impact your public-facing site.
-        </x-panel.purple>
+        </x-panel.info>
     @endif
 
     <x-panel>
@@ -45,7 +45,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button type="submit" color="blue">Update Theme</x-button>
+                <x-button type="submit" color="primary">Update Theme</x-button>
                 <x-link :href="route('themes.index')" color="white">Cancel</x-link>
             </x-form.footer>
         </x-form>

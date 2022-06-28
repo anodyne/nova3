@@ -4,7 +4,7 @@
     <x-page-header title="Roles">
         <x-slot:controls>
             @can('create', 'Nova\Roles\Models\Role')
-                <x-link :href="route('roles.create')" color="blue" data-cy="create">
+                <x-link :href="route('roles.create')" color="primary" data-cy="create">
                     Add Role
                 </x-link>
             @endcan
@@ -15,10 +15,10 @@
 
     <x-tips section="roles" />
 
-    <x-modal color="red" title="Delete Role?" icon="warning" :url="route('roles.delete')">
+    <x-modal color="error" title="Delete Role?" icon="warning" :url="route('roles.delete')">
         <x-slot:footer>
             <span class="flex w-full sm:col-start-2">
-                <x-button type="submit" form="form" color="red" full-width>
+                <x-button type="submit" form="form" color="error" full-width>
                     Delete
                 </x-button>
             </span>

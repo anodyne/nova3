@@ -26,7 +26,7 @@
 
             <div class="mt-4 w-full max-h-60 h-60 overflow-auto bg-white dark:bg-gray-800 text-base focus:outline-none sm:text-sm" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
                 @if ($filteredLocations->count() > 0)
-                    <div class="mb-4 rounded-md py-2 px-3 font-medium bg-purple-50 dark:bg-purple-900/30 border border-purple-300 dark:border-purple-700 text-purple-600 dark:text-purple-500">
+                    <div class="mb-4 rounded-md py-2 px-3 font-medium bg-info-50 dark:bg-info-900/30 border border-info-300 dark:border-info-700 text-info-600 dark:text-info-500">
                         Don't see the location you want? Type it in the search field to add it to your post.
                     </div>
                 @endif
@@ -48,7 +48,7 @@
                             <div class="text-gray-900 dark:text-gray-100 font-medium text-base mt-1">&lsquo;{{ $search }}&rsquo;</div>
                             <div class="text-gray-600 dark:text-gray-500 mt-4 mb-6 text-sm">Double-check that you've correctly spelled and capitalized the location before using it for your post.</div>
 
-                            <x-button wire:click="setNewLocation" type="button" color="blue-outline">
+                            <x-button wire:click="setNewLocation" type="button" color="primary-outline">
                                 Use this location
                             </x-button>
                         </div>
@@ -66,7 +66,7 @@
 
     <x-content-box class="z-20 sm:flex sm:flex-row-reverse sm:space-x-4 sm:space-x-reverse bg-gray-50 dark:bg-gray-700/50 rounded-b-lg" height="sm" width="sm">
         @if ($selected)
-            <x-button color="blue" wire:click="apply">Apply</x-button>
+            <x-button color="primary" wire:click="apply">Apply</x-button>
         @endif
 
         <x-button color="white" wire:click="dismiss">Cancel</x-button>

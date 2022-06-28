@@ -25,7 +25,7 @@
     </x-content-box>
 
     <x-content-box class="z-20 sm:flex sm:flex-row-reverse sm:space-x-4 sm:space-x-reverse bg-gray-50 dark:bg-gray-700/50 rounded-b-lg" height="sm" width="sm">
-        <x-button color="blue" wire:click="apply">Apply</x-button>
+        <x-button color="primary" wire:click="apply">Apply</x-button>
 
         <x-button color="white" wire:click="dismiss">Cancel</x-button>
     </x-content-box>

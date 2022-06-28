@@ -3,7 +3,7 @@
 
     <x-nav.sub-group>
         <x-nav.sub-item href="{{ route('settings.index', 'general') }}" :active="request()->is('settings/general')">General</x-nav.sub-item>
-        <x-nav.sub-item href="{{ route('settings.index', 'system-defaults') }}" :active="request()->is('settings/system-defaults')">Defaults</x-nav.sub-item>
+        <x-nav.sub-item href="{{ route('settings.index', 'appearance') }}" :active="request()->is('settings/appearance')">Appearance</x-nav.sub-item>
         <x-nav.sub-item href="{{ route('settings.index', 'email') }}" :active="request()->is('settings/email')">Email</x-nav.sub-item>
         <x-nav.sub-item href="{{ route('settings.index', 'meta-tags') }}" :active="request()->is('settings/meta-tags')">Meta Tags</x-nav.sub-item>
     </x-nav.sub-group>

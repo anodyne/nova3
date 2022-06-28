@@ -23,7 +23,7 @@
                 <span class="font-medium text-gray-600">Suggested:</span>
                 <x-button
                     wire:click="$set('{{ $name }}', '{{ $suggestion->{$name} }}')"
-                    color="blue-text"
+                    color="primary-text"
                     size="none-xs"
                 >{{ $suggestion->{$name} }}</x-button>
             </div>

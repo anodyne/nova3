@@ -16,7 +16,7 @@
             </div>
 
             @if ($linkAccess)
-                <x-link :href="$link" color="blue" class="space-x-3">
+                <x-link :href="$link" color="primary" class="space-x-3">
                     <span>{{ $label }}</span>
                 </x-link>
             @endif

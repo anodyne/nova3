@@ -44,7 +44,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button type="submit" color="blue">Update Character</x-button>
+                <x-button type="submit" color="primary">Update Character</x-button>
                 <x-link :href='route("characters.index", "status={$character->status->name()}")'>Cancel</x-link>
             </x-form.footer>
         </x-form>
@@ -64,7 +64,7 @@
                     </div>
                     <div class="mt-5 sm:mt-0 sm:ml-8 sm:shrink-0 sm:flex sm:items-center">
                         <x-form :action="route('characters.deactivate', $character)">
-                            <x-button type="submit" color="red-outline">
+                            <x-button type="submit" color="error-outline">
                                 Deactivate
                             </x-button>
                         </x-form>
@@ -88,7 +88,7 @@
                     </div>
                     <div class="mt-5 sm:mt-0 sm:ml-8 sm:shrink-0 sm:flex sm:items-center">
                         <x-form :action="route('characters.activate', $character)">
-                            <x-button type="submit" color="blue-outline">
+                            <x-button type="submit" color="primary-outline">
                                 Activate
                             </x-button>
                         </x-form>

@@ -5,7 +5,7 @@
     'header' => false,
 ])
 
-<ul class="divide-y divide-gray-100 dark:divide-gray-200/10" {{ $attributes }}>
+<ul class="divide-y divide-gray-200 dark:divide-gray-200/10" {{ $attributes }}>
     @if ($header)
         <x-table-list.header>
             {{ $header }}
@@ -15,14 +15,14 @@
     {{ $slot }}
 
     @if ($emptyMessage)
-        <li class="border-t border-gray-100 dark:border-gray-200/10">
+        <li class="border-t border-gray-200 dark:border-gray-200/10">
             {{ $emptyMessage }}
         </li>
     @endif
 </ul>
 
 @if ($footer)
-    <x-content-box height="xs" class="border-t border-gray-100 dark:border-gray-200/10">
+    <x-content-box height="xs" class="border-t border-gray-200 dark:border-gray-200/10">
         {{ $footer }}
     </x-content-box>
 @endif

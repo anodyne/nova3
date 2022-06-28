@@ -4,7 +4,7 @@
     <x-page-header title="Forms">
         <x-slot:controls>
             @can('create', 'Nova\Forms\Models\Form')
-                <x-link :href="route('forms.create')" color="blue" data-cy="create">
+                <x-link :href="route('forms.create')" color="primary" data-cy="create">
                     Add Form
                 </x-link>
             @endcan
@@ -143,10 +143,10 @@
 
     <x-tips section="forms" />
 
-    <x-modal color="red" title="Delete Form?" icon="warning" :url="route('forms.delete')">
+    <x-modal color="error" title="Delete Form?" icon="warning" :url="route('forms.delete')">
         <x-slot:footer>
             <span class="flex w-full sm:col-start-2">
-                <x-button type="submit" form="form" color="red" full-width>
+                <x-button type="submit" form="form" color="error" full-width>
                     Delete
                 </x-button>
             </span>

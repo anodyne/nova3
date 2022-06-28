@@ -3,8 +3,8 @@
     'value' => false,
     'activeValue' => true,
     'inactiveValue' => false,
-    'activeBg' => 'bg-blue-500',
-    'activeBorder' => 'border-blue-500',
+    'activeBg' => 'bg-primary-500',
+    'activeBorder' => 'border-primary-500',
     'inactiveBg' => 'bg-gray-400 dark:bg-gray-600',
     'inactiveBorder' => 'border-gray-400 dark:border-gray-600',
     'disabled' => false,
@@ -52,7 +52,7 @@
             :aria-checked="value"
             :aria-labelledby="$id('toggle-label')"
             :class="{ '{{ $inactiveBg }}': value === inactiveValue, '{{ $activeBg }}': value === activeValue, 'opacity-50 cursor-not-allowed': disabled, 'cursor-pointer': !disabled }"
-            class="relative inline-flex shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-blue-400"
+            class="relative inline-flex shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-primary-400"
         >
             <span
                 :class="{ 'translate-x-5 {{ $activeBorder }}': value === activeValue, 'translate-x-1 {{ $inactiveBorder }}': value === inactiveValue }"

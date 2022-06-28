@@ -19,6 +19,8 @@ use Nova\Foundation\Icons\FontAwesomeSolidIconSet;
 use Nova\Foundation\Icons\IconSets;
 use Nova\Foundation\Icons\StreamlineCoreLineIconSet;
 use Nova\Foundation\Icons\StreamlineUiIconSet;
+use Nova\Foundation\Icons\UntitledUiIconSet;
+use Nova\Foundation\Livewire\ColorShadePicker;
 use Nova\Foundation\Livewire\Editor;
 use Nova\Foundation\Livewire\IconsSelectMenu;
 use Nova\Foundation\Livewire\Rating;
@@ -77,8 +79,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $iconSets = new IconSets();
         $iconSets->add('fluent', new FluentIconSet());
-        $iconSets->add('feather', new FeatherIconSet());
-        $iconSets->add('scl', new StreamlineCoreLineIconSet());
+        $iconSets->add('untitled', new UntitledUiIconSet());
 
         $this->app->instance(IconSets::class, $iconSets);
     }
@@ -110,6 +111,7 @@ class AppServiceProvider extends ServiceProvider
         Livewire::component('icons-select-menu', IconsSelectMenu::class);
         Livewire::component('upload-avatar', UploadAvatar::class);
         Livewire::component('upload-image', UploadImage::class);
+        Livewire::component('color-shade-picker', ColorShadePicker::class);
     }
 
     protected function registerResponseFilters(): void

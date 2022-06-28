@@ -7,7 +7,7 @@
                     <li>
                         <div class="relative group py-4 flex items-start space-x-3">
                             <div class="flex-shrink-0">
-                                <x-badge size="square" color="blue">
+                                <x-badge size="square" color="primary">
                                     @icon('emoji', 'h-7 w-7')
                                 </x-badge>
                             </div>
@@ -29,7 +29,7 @@
                     <li>
                         <div class="relative group py-4 flex items-start space-x-3">
                             <div class="flex-shrink-0">
-                                <x-badge size="square" color="purple">
+                                <x-badge size="square" color="info">
                                     @icon('users', 'h-7 w-7')
                                 </x-badge>
                             </div>
@@ -49,7 +49,7 @@
                     </li>
                 </ul>
                 <div class="mt-6 flex">
-                    <x-button color="blue-text" size="none" wire:click="nextStep">
+                    <x-button color="primary-text" size="none" wire:click="nextStep">
                         Or start writing your post and add authors later<span aria-hidden="true"> &rarr;</span>
                     </x-button>
                 </div>
@@ -61,7 +61,7 @@
                     <h3 class="font-bold text-xl text-gray-900 dark:text-gray-100 tracking-tight">Characters</h3>
 
                     @if ($this->canAddAuthors)
-                        <x-button color="blue-outline" size="xs" wire:click="$emit('openModal', 'posts:select-character-authors-modal')">Add characters</x-button>
+                        <x-button color="primary-outline" size="xs" wire:click="$emit('openModal', 'posts:select-character-authors-modal')">Add characters</x-button>
                     @endif
                 </div>
             </x-content-box>
@@ -124,7 +124,7 @@
                                 </div>
 
                                 <x-slot:controls>
-                                    <x-button type="button" color="gray-red-text" size="none" wire:click="removeCharacterAuthor({{ $character->id }})">
+                                    <x-button type="button" color="gray-error-text" size="none" wire:click="removeCharacterAuthor({{ $character->id }})">
                                         @icon('delete', 'h-6 w-6')
                                     </x-button>
                                 </x-slot:controls>
@@ -141,7 +141,7 @@
                     <h3 class="font-bold text-xl text-gray-900 dark:text-gray-100 tracking-tight">Users</h3>
 
                     @if ($this->canAddAuthors)
-                        <x-button color="blue-outline" size="xs" wire:click="$emit('openModal', 'posts:select-user-authors-modal')">Add users</x-button>
+                        <x-button color="primary-outline" size="xs" wire:click="$emit('openModal', 'posts:select-user-authors-modal')">Add users</x-button>
                     @endif
                 </div>
             </x-content-box>
@@ -186,7 +186,7 @@
                                 </div>
 
                                 <x-slot:controls>
-                                    <x-button type="button" color="gray-red-text" size="none" wire:click="removeUserAuthor({{ $user->id }})">
+                                    <x-button type="button" color="gray-error-text" size="none" wire:click="removeUserAuthor({{ $user->id }})">
                                         @icon('delete', 'h-6 w-6')
                                     </x-button>
                                 </x-slot:controls>
@@ -200,7 +200,7 @@
 
     <x-content-box height="sm" class="flex flex-col space-y-4 rounded-b-lg border-t border-gray-200 dark:border-gray-200/10 md:flex-row-reverse md:items-center md:space-y-0 md:space-x-6 md:space-x-reverse justify-between">
         <div class="flex flex-col md:flex-row-reverse md:items-center md:space-x-reverse space-y-4 md:space-y-0 md:space-x-6">
-            <x-button wire:click="nextStep" color="blue">Next: Write Post</x-button>
+            <x-button wire:click="nextStep" color="primary">Next: Write Post</x-button>
         </div>
     </x-content-box>
 </x-write-post-wizard-layout>

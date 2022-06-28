@@ -19,7 +19,7 @@
 
         <x-slot:controls>
             @can('update', $story)
-                <x-link :href="route('stories.edit', $story)" color="blue">
+                <x-link :href="route('stories.edit', $story)" color="primary">
                     Edit Story
                 </x-link>
             @endcan
@@ -29,30 +29,28 @@
     <x-panel x-data="tabsList('details')">
         <div>
             <x-content-box class="sm:hidden">
-                <select @change="switchTab($event.target.value)" aria-label="Selected tab" class="form-select bg-white dark:bg-gray-700/50 block w-full pl-3 pr-10 py-2 text-base border-gray-200 dark:border-gray-200/10 focus:outline-none focus:ring-1 focus:ring-blue-400 focus:border-blue-400 dark:focus:border-blue-400 transition rounded-md">
+                <x-input.select @change="switchTab($event.target.value)" aria-label="Selected tab">
                     <option value="details">Details</option>
-
                     @if ($story->post_count > 0)
                         <option value="posts">Posts</option>
                     @endif
-
                     <option value="summary">Summary</option>
-                </select>
+                </x-input.select>
             </x-content-box>
             <div class="hidden sm:block">
                 <x-content-box height="none" class="border-b border-gray-200 dark:border-gray-200/10">
                     <nav class="-mb-px flex">
-                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none transition" :class="{ 'border-blue-400 text-blue-500': isTab('details'), 'text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-500': isNotTab('details') }" @click.prevent="switchTab('details')">
+                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('details'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('details') }" @click.prevent="switchTab('details')">
                             Details
                         </a>
 
                         @if ($story->post_count > 0)
-                            <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none transition" :class="{ 'border-blue-400 text-blue-500': isTab('posts'), 'text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-500': isNotTab('posts') }" @click.prevent="switchTab('posts')">
+                            <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('posts'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('posts') }" @click.prevent="switchTab('posts')">
                                 Posts
                             </a>
                         @endif
 
-                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none transition" :class="{ 'border-blue-400 text-blue-500': isTab('summary'), 'text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-500': isNotTab('summary') }" @click.prevent="switchTab('summary')">
+                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('summary'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('summary') }" @click.prevent="switchTab('summary')">
                             Summary
                         </a>
                     </nav>
@@ -63,14 +61,14 @@
         <x-content-box class="space-y-8" x-show="isTab('details')">
             <div class="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-8">
                 <div>
-                    <x-badge :color="$story->status->color()" size="xs">
+                    <x-badge :color="$story->status->color()">
                         {{ $story->status->displayName() }}
                     </x-badge>
                 </div>
 
                 @if ($story->start_date)
-                    <div class="flex items-center space-x-2 text-gray-500 dark:text-gray-400 md:text-sm">
-                        @icon('calendar', 'h-6 w-6 text-gray-400 dark:text-gray-500')
+                    <div class="flex items-center space-x-2 text-gray-500 dark:text-gray-400 md:text-sm font-medium">
+                        @icon('calendar', 'h-6 w-6')
                         <span>
                             @if (! $story->end_date)
                                 Started on
@@ -84,8 +82,8 @@
                 @endif
 
                 @if ($ancestors->count() > 0)
-                    <div>
-                        <x-link :href="route('stories.show', $ancestors->last())" size="none" color="gray-blue-text">
+                    <div class="flex items-center">
+                        <x-link :href="route('stories.show', $ancestors->last())" size="none" color="gray-primary-text">
                             @icon('book', 'h-6 w-6 shrink-0')
                             <span class="ml-2">Part of {{ $ancestors->last()->title }}</span>
                         </x-link>
@@ -146,7 +144,7 @@
                                 </div>
 
                                 <x-content-box height="sm" width="sm">
-                                    <x-link :href="route('stories.show', $subStory)" color="blue-outline" size="sm" full-width>
+                                    <x-link :href="route('stories.show', $subStory)" color="primary-outline" size="sm" full-width>
                                         View story
                                     </x-link>
                                 </x-content-box>

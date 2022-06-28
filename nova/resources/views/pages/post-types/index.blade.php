@@ -4,7 +4,7 @@
     <x-page-header title="Post Types">
         <x-slot:controls>
             @can('create', 'Nova\PostTypes\Models\PostType')
-                <x-link :href="route('post-types.create')" color="blue" data-cy="create">
+                <x-link :href="route('post-types.create')" color="primary" data-cy="create">
                     Add Post Type
                 </x-link>
             @endcan
@@ -15,10 +15,10 @@
 
     <x-tips section="post-types" />
 
-    <x-modal color="red" title="Delete Post Type?" icon="warning" :url="route('post-types.delete')">
+    <x-modal color="error" title="Delete Post Type?" icon="warning" :url="route('post-types.delete')">
         <x-slot:footer>
             <span class="flex w-full sm:col-start-2">
-                <x-button type="submit" form="form" color="red" full-width>
+                <x-button type="submit" form="form" color="error" full-width>
                     Delete
                 </x-button>
             </span>

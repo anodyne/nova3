@@ -12,9 +12,7 @@
                 <x-avatar :src="$user->avatar_url" size="xl" />
             </div>
             <div class="flex flex-col ml-6">
-                <h1 class="block text-2xl font-extrabold text-gray-900 sm:text-4xl sm:truncate">
-                    {{ $user->name }}
-                </h1>
+                <x-h1>{{ $user->name }}</x-h1>
 
                 <div class="flex items-center text-gray-500 text-sm mt-1 space-x-8">
                     <div class="flex items-center leading-0">
@@ -53,21 +51,21 @@
 
                         <dt class="sr-only">Role</dt>
                         <dd class="mt-3 space-x-3">
-                            <x-badge size="xs" :color="$character->status->color()">{{ $character->status->displayName() }}</x-badge>
-                            <x-badge size="xs" :color="$character->type->color()">{{ $character->type->displayName() }}</x-badge>
+                            <x-badge :color="$character->status->color()">{{ $character->status->displayName() }}</x-badge>
+                            <x-badge :color="$character->type->color()">{{ $character->type->displayName() }}</x-badge>
                         </dd>
                     </dl>
                 </div>
                 {{-- <div class="border-t border-gray-200">
                     <div class="-mt-px flex">
                         <div class="w-0 flex-1 flex border-r border-gray-200">
-                            <a href="#" class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500 focus:outline-none focus:ring focus:border-blue-400 focus:z-10 transition ease-in-out duration-200">
+                            <a href="#" class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500 focus:outline-none focus:ring focus:border-primary-400 focus:z-10 transition ease-in-out duration-200">
                                 @icon('show', 'w-5 h-5 text-gray-400')
                                 <span class="ml-3">View</span>
                             </a>
                         </div>
                         <div class="-ml-px w-0 flex-1 flex">
-                            <a href="#" class="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500 focus:outline-none focus:ring focus:border-blue-400 focus:z-10 transition ease-in-out duration-200">
+                            <a href="#" class="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500 focus:outline-none focus:ring focus:border-primary-400 focus:z-10 transition ease-in-out duration-200">
                                 @icon('edit', 'w-5 h-5 text-gray-400')
                                 <span class="ml-3">Edit</span>
                             </a>
@@ -81,7 +79,7 @@
     <x-panel>
         <div class="pb-8">
             <div class="p-4 sm:hidden">
-                <select @change="window.location.replace($event.target.value)" aria-label="Selected tab" class="mt-1 form-select bg-white block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring focus:border-blue-400 sm:text-sm transition ease-in-out duration-200">
+                <select @change="window.location.replace($event.target.value)" aria-label="Selected tab" class="mt-1 form-select bg-white block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring focus:border-primary-400 sm:text-sm transition ease-in-out duration-200">
                     <option value="{{ route('users.index', 'status=active') }}" @selected(request()->status === 'active')>Active Users</option>
                     <option value="{{ route('users.index', 'status=pending') }}" @selected(request()->status === 'pending')>Pending Users</option>
                     <option value="{{ route('users.index', 'status=inactive') }}" @selected(request()->status === 'inactive')>Inactive Users</option>
@@ -93,25 +91,25 @@
                     <nav class="-mb-px flex">
                         <a
                             href="{{ route('users.index', 'status=active') }}"
-                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'active') border-blue-300 text-blue-500 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
+                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'active') border-primary-300 text-primary-500 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
                         >
                             Basic Info
                         </a>
                         <a
                             href="{{ route('users.index', 'status=pending') }}"
-                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'pending') border-blue-300 text-blue-500 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
+                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'pending') border-primary-300 text-primary-500 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
                         >
                             Activity
                         </a>
                         <a
                             href="{{ route('users.index', 'status=inactive') }}"
-                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'inactive') border-blue-300 text-blue-500 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
+                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (request()->status === 'inactive') border-primary-300 text-primary-500 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
                         >
                             Foo
                         </a>
                         <a
                             href="{{ route('users.index') }}"
-                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (!request()->has('status')) border-blue-300 text-blue-500 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
+                            class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none @if (!request()->has('status')) border-primary-300 text-primary-500 @else text-gray-500 hover:text-gray-700 hover:border-gray-300 @endif"
                         >
                             Bar
                         </a>
@@ -128,7 +126,7 @@
 
         <x-slot:controls>
             @can('update', $user)
-                <x-link :href="route('users.edit', $user)" color="blue">Edit User</x-link>
+                <x-link :href="route('users.edit', $user)" color="primary">Edit User</x-link>
             @endcan
         </x-slot:controls>
     </x-page-header>
@@ -174,7 +172,7 @@
                             {{ $role->display_name }}
                         </span>
                     @empty
-                        <div class="flex items-center font-semibold text-yellow-600">
+                        <div class="flex items-center font-semibold text-warning-600">
                             @icon('warning', 'mr-3 shrink-0 h-6 w-6')
                             <span>This user does not have any roles.</span>
                         </div>

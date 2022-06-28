@@ -4,14 +4,14 @@
 
 @section('content')
     @if (session('status'))
-        <div class="rounded-lg bg-yellow-50 border border-yellow-300 text-yellow-600 px-4 py-3 font-medium md:text-sm mb-6" role="alert">
+        <div class="rounded-lg bg-warning-50 border border-warning-300 text-warning-600 px-4 py-3 font-medium md:text-sm mb-6" role="alert">
             {{ session('status') }}
         </div>
     @endif
 
     @if (session('message'))
-        <div class="flex space-x-3 text-yellow-600 font-medium mb-6" role="alert">
-            @icon('alert', 'h-8 w-8 shrink-0 text-yellow-500')
+        <div class="flex space-x-3 text-warning-600 font-medium mb-6" role="alert">
+            @icon('alert', 'h-8 w-8 shrink-0 text-warning-500')
             <span>{{ session('message') }}</span>
         </div>
     @else
@@ -23,7 +23,7 @@
             <x-input.email id="email" name="email" :value="old('email')" data-cy="email" placeholder="john@example.com" required />
         </x-input.group>
 
-        <x-button type="submit" color="blue" full-width data-cy="submit">
+        <x-button type="submit" color="primary" full-width data-cy="submit">
             {{ __('Send Reset Link') }}
         </x-button>
     </x-form>

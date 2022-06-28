@@ -1,10 +1,10 @@
 <div class="space-y-6" x-data="filtersPanel()">
     @if ($reordering)
-        <x-panel.purple icon="arrow-sort" title="Change Sorting Order">
+        <x-panel.info icon="arrow-sort" title="Change Sorting Order">
             <p>Post types will appear in the order below whenever they're shown throughout Nova. To change the sorting of post types, drag them to the desired order. Click Finish to return to the management view.</p>
 
-            <x-button type="button" wire:click="stopReordering" color="purple-outline" class="mt-4">Finish</x-button>
-        </x-panel.purple>
+            <x-button type="button" wire:click="stopReordering" color="info-outline" class="mt-4">Finish</x-button>
+        </x-panel.info>
     @endif
 
     <x-panel class="{{ $reordering ? 'overflow-hidden' : '' }}">
@@ -19,7 +19,7 @@
 
                             @if ($search)
                                 <x-slot:trailingAddOn>
-                                    <x-button size="none" color="gray-text" wire:click="$set('search', '')">
+                                    <x-button size="none" color="light-gray-text" wire:click="$set('search', '')">
                                         @icon('close', 'h-5 w-5')
                                     </x-button>
                                 </x-slot:trailingAddOn>
@@ -29,18 +29,18 @@
                 </div>
 
                 <div class="shrink flex justify-between md:justify-start items-center space-x-4">
-                    <x-button type="button" size="none" :color="$isFiltered ? 'blue-text' : 'gray-text'" x-bind="trigger">
+                    <x-button type="button" size="none" :color="$isFiltered ? 'primary-text' : 'gray-text'" x-bind="trigger">
                         <div class="flex items-center space-x-2">
                             @icon('filter', 'h-6 w-6 md:h-5 md:w-5')
                             <span>Filters</span>
                             @if ($activeFilterCount > 0)
-                                <x-badge color="blue" size="xs">{{ $activeFilterCount }}</x-badge>
+                                <x-badge color="primary">{{ $activeFilterCount }}</x-badge>
                             @endif
                         </div>
                     </x-button>
 
                     @can('update', $postTypes->first())
-                        <div class="hidden md:block w-px h-6 border-l border-gray-100 dark:border-gray-200/10"></div>
+                        <div class="hidden md:block w-px h-6 border-l border-gray-200 dark:border-gray-200/10"></div>
 
                         <x-button type="button" size="none" color="gray-text" wire:click="startReordering">
                             <div class="flex items-center space-x-2">
@@ -96,7 +96,7 @@
                         'ml-8 md:ml-0' => $reordering
                     ])>
                         @if ($postType->role)
-                            <x-badge size="xs" color="gray">{{ $postType->role->display_name }}</x-badge>
+                            <x-badge color="gray">{{ $postType->role->display_name }}</x-badge>
                         @endif
                     </div>
 
@@ -104,7 +104,7 @@
                         'flex items-center',
                         'ml-8 md:ml-0' => $reordering
                     ])>
-                        <x-badge size="xs" :color="$postType->status->color()">
+                        <x-badge :color="$postType->status->color()">
                             {{ $postType->status->displayName() }}
                         </x-badge>
                     </div>

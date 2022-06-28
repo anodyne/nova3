@@ -12,11 +12,7 @@ class StoryTimeline extends Component
 {
     public $selectedStory;
 
-    protected $listeners = [
-        'storyStatusUpdated' => '$refresh',
-    ];
-
-    public function selectStory(Story $story)
+    public function selectStory(Story $story): void
     {
         $this->selectedStory = $story;
     }

@@ -52,7 +52,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button type="submit" color="blue">Add Position</x-button>
+                <x-button type="submit" color="primary">Add Position</x-button>
 
                 @if ($selectedDepartment)
                     <x-link :href="route('positions.index', $selectedDepartment)" color="white">Cancel</x-link>

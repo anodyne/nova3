@@ -5,7 +5,7 @@
         <x-slot:controls>
             @if ($groupCount > 0)
                 @can('create', $group)
-                    <x-link :href="route('ranks.groups.create')" color="blue" data-cy="create">
+                    <x-link :href="route('ranks.groups.create')" color="primary" data-cy="create">
                         Add Rank Group
                     </x-link>
                 @endcan
@@ -26,10 +26,10 @@
 
         <x-tips section="ranks" />
 
-        <x-modal color="red" title="Delete rank group?" icon="warning" :url="route('ranks.groups.delete')">
+        <x-modal color="error" title="Delete rank group?" icon="warning" :url="route('ranks.groups.delete')">
             <x-slot:footer>
                 <span class="flex w-full sm:col-start-2">
-                    <x-button type="submit" type="submit" form="form" color="red" full-width>
+                    <x-button type="submit" type="submit" form="form" color="error" full-width>
                         Delete
                     </x-button>
                 </span>
@@ -41,10 +41,10 @@
             </x-slot:footer>
         </x-modal>
 
-        <x-modal color="blue" title="Duplicate rank group" icon="copy" :url="route('ranks.groups.confirm-duplicate')" event="modal-duplicate" :wide="true">
+        <x-modal color="primary" title="Duplicate rank group" icon="copy" :url="route('ranks.groups.confirm-duplicate')" event="modal-duplicate" :wide="true">
             <x-slot:footer>
                 <span class="flex w-full sm:col-start-2">
-                    <x-button type="submit" form="form-duplicate" color="blue" full-width>
+                    <x-button type="submit" form="form-duplicate" color="primary" full-width>
                         Duplicate
                     </x-button>
                 </span>

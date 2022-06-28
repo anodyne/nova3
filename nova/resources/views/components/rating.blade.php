@@ -13,10 +13,10 @@
                 class="m-0 flex-1 py-1 md:py-0.5 text-center text-base md:text-sm font-semibold transition ease-in-out duration-200"
                 :class="{
                     'bg-gray-200 dark:bg-gray-600 hover:bg-gray-200 dark:hover:bg-gray-600': count < {{ $i }},
-                    'bg-green-500 hover:bg-green-500 text-white': count >= {{ $i }} && count === 0,
-                    'bg-yellow-500 hover:bg-yellow-500 text-white': count >= {{ $i }} && count === 1,
+                    'bg-success-500 hover:bg-success-500 text-white': count >= {{ $i }} && count === 0,
+                    'bg-warning-500 hover:bg-warning-500 text-white': count >= {{ $i }} && count === 1,
                     'bg-orange-500 hover:bg-orange-500 text-white': count >= {{ $i }} && count === 2,
-                    'bg-red-500 hover:bg-red-500 text-white': count >= {{ $i }} && count === 3
+                    'bg-error-500 hover:bg-error-500 text-white': count >= {{ $i }} && count === 3
                 }"
             >
                 <span x-show="count === {{ $i }}" x-text="count"></span>

@@ -4,7 +4,7 @@
     <x-page-header title="All Characters">
         <x-slot:controls>
             @can('createAny', Nova\Characters\Models\Character::class)
-                <x-link :href="route('characters.create')" color="blue" data-cy="create">
+                <x-link :href="route('characters.create')" color="primary" data-cy="create">
                     Add Character
                 </x-link>
             @endcan
@@ -15,10 +15,10 @@
 
     <x-tips section="characters" />
 
-    <x-modal color="red" title="Delete character?" icon="warning" :url="route('characters.delete')">
+    <x-modal color="error" title="Delete character?" icon="warning" :url="route('characters.delete')">
         <x-slot:footer>
             <span class="flex w-full sm:col-start-2">
-                <x-button type="submit" form="form" color="red" full-width>
+                <x-button type="submit" form="form" color="error" full-width>
                     Delete
                 </x-button>
             </span>
@@ -30,10 +30,10 @@
         </x-slot:footer>
     </x-modal>
 
-    <x-modal color="blue" title="Deactivate character?" icon="copy" :url="route('characters.confirm-deactivate')" event="modal-deactivate">
+    <x-modal color="primary" title="Deactivate character?" icon="copy" :url="route('characters.confirm-deactivate')" event="modal-deactivate">
         <x-slot:footer>
             <span class="flex w-full sm:col-start-2">
-                <x-button type="submit" form="form-deactivate" color="blue" full-width>
+                <x-button type="submit" form="form-deactivate" color="primary" full-width>
                     Deactivate
                 </x-button>
             </span>

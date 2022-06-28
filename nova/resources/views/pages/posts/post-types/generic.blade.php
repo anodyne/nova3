@@ -87,7 +87,7 @@
 
         <div class="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-6">
             <div>
-                <x-badge :color="$post->status->color()" size="xs">{{ $post->status->displayName() }}</x-badge>
+                <x-badge :color="$post->status->color()">{{ $post->status->displayName() }}</x-badge>
             </div>
 
             @if ($post->published_at)
@@ -198,7 +198,7 @@
 
             <div class="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-6">
                 <div>
-                    <x-badge :color="$post->status->color()" size="xs">{{ $post->status->displayName() }}</x-badge>
+                    <x-badge :color="$post->status->color()">{{ $post->status->displayName() }}</x-badge>
                 </div>
 
                 @if ($post->published_at)

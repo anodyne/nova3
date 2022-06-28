@@ -10,7 +10,7 @@
         <x-content-box height="none" class="mt-6">
             <div class="flex items-center justify-between">
                 <h3 class="font-bold text-xl text-gray-900 dark:text-gray-100 tracking-tight">Characters</h3>
-                <x-button color="blue-outline" size="xs" wire:click="$emit('openModal', 'posts:select-character-authors-modal')">Add characters</x-button>
+                <x-button color="primary-outline" size="xs" wire:click="$emit('openModal', 'posts:select-character-authors-modal')">Add characters</x-button>
             </div>
         </x-content-box>
 
@@ -122,7 +122,7 @@
         <x-content-box height="none" class="mt-6">
             <div class="flex items-center justify-between">
                 <h3 class="font-bold text-xl text-gray-900 dark:text-gray-100 tracking-tight">Users</h3>
-                <x-button color="blue-outline" size="xs">Add users</x-button>
+                <x-button color="primary-outline" size="xs">Add users</x-button>
             </div>
         </x-content-box>
 
@@ -174,7 +174,7 @@
     </div>
 
     <x-content-box class="z-20 sm:flex sm:flex-row-reverse sm:space-x-4 sm:space-x-reverse bg-gray-50 dark:bg-gray-700/50 rounded-b-lg" height="sm" width="sm">
-        <x-button color="blue" wire:click="apply">Apply</x-button>
+        <x-button color="primary" wire:click="apply">Apply</x-button>
 
         <x-button color="white" wire:click="dismiss">Cancel</x-button>
     </x-content-box>

@@ -5,7 +5,7 @@
         <x-slot:controls>
             @if ($departmentCount > 0)
                 @can('create', $department)
-                    <x-link :href="route('departments.create')" color="blue" data-cy="create">
+                    <x-link :href="route('departments.create')" color="primary" data-cy="create">
                         Add Department
                     </x-link>
                 @endcan
@@ -26,10 +26,10 @@
 
         <x-tips section="departments" />
 
-        <x-modal color="red" title="Delete Department?" icon="warning" :url="route('departments.delete')">
+        <x-modal color="error" title="Delete Department?" icon="warning" :url="route('departments.delete')">
             <x-slot:footer>
                 <span class="flex w-full sm:col-start-2">
-                    <x-button type="submit" form="form" color="red" full-width>
+                    <x-button type="submit" form="form" color="error" full-width>
                         Delete
                     </x-button>
                 </span>
@@ -41,10 +41,10 @@
             </x-slot:footer>
         </x-modal>
 
-        <x-modal color="blue" title="Duplicate department" icon="copy" :url="route('departments.confirm-duplicate')" event="modal-duplicate" :wide="true">
+        <x-modal color="primary" title="Duplicate department" icon="copy" :url="route('departments.confirm-duplicate')" event="modal-duplicate" :wide="true">
             <x-slot:footer>
                 <span class="flex w-full sm:col-start-2">
-                    <x-button type="submit" form="form-duplicate" color="blue" full-width>
+                    <x-button type="submit" form="form-duplicate" color="primary" full-width>
                         Duplicate
                     </x-button>
                 </span>

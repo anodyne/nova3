@@ -13,7 +13,7 @@
     <x-panel>
         <x-form :action="route('settings.update')" method="PUT" id="meta-tags">
             <x-form.footer>
-                <x-button type="submit" form="meta-tags" color="blue">Update</x-button>
+                <x-button type="submit" form="meta-tags" color="primary">Update</x-button>
             </x-form.footer>
         </x-form>
     </x-panel>

@@ -10,26 +10,26 @@
     <x-panel x-data="tabsList('details')">
         <div>
             <x-content-box class="sm:hidden">
-                <select @change="switchTab($event.target.value)" aria-label="Selected tab" class="mt-1 form-select bg-white block w-full pl-3 pr-10 py-2 text-base border-gray-200 dark:border-gray-200/10 focus:outline-none focus:ring focus:border-blue-400 transition ease-in-out duration-200 sm:text-sm rounded-md">
+                <x-input.select @change="switchTab($event.target.value)" aria-label="Selected tab">
                     <option value="details">Details</option>
                     <option value="characters">Characters</option>
                     <option value="roles">Roles</option>
-                </select>
+                </x-input.select>
             </x-content-box>
             <div class="hidden sm:block">
-                <div class="border-b border-gray-200 dark:border-gray-200/10 px-4 sm:px-6">
+                <x-content-box height="none" class="border-b border-gray-200 dark:border-gray-200/10">
                     <nav class="-mb-px flex">
-                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none" :class="{ 'border-blue-400 text-blue-600': isTab('details'), 'text-gray-500 hover:text-gray-600 hover:border-gray-300': isNotTab('details') }" @click.prevent="switchTab('details')">
+                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('details'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('details') }" @click.prevent="switchTab('details')">
                             Details
                         </a>
-                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none" :class="{ 'border-blue-400 text-blue-600': isTab('characters'), 'text-gray-500 hover:text-gray-600 hover:border-gray-300': isNotTab('characters') }" @click.prevent="switchTab('characters')">
+                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('characters'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('characters') }" @click.prevent="switchTab('characters')">
                             Characters
                         </a>
-                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none" :class="{ 'border-blue-400 text-blue-600': isTab('roles'), 'text-gray-500 hover:text-gray-600 hover:border-gray-300': isNotTab('roles') }" @click.prevent="switchTab('roles')">
+                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('roles'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('roles') }" @click.prevent="switchTab('roles')">
                             Roles
                         </a>
                     </nav>
-                </div>
+                </x-content-box>
             </div>
         </div>
 
@@ -89,7 +89,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button type="submit" color="blue">Update User</x-button>
+                <x-button type="submit" color="primary">Update User</x-button>
                 <x-link :href='route("users.index", "status={$user->status->name()}")' color="white">Cancel</x-link>
             </x-form.footer>
         </x-form>
@@ -117,7 +117,7 @@
                     </div>
                     <div class="mt-5 sm:mt-0 sm:ml-8 sm:shrink-0 sm:flex sm:items-center">
                         <x-form :action="route('users.deactivate', $user)">
-                            <x-button type="submit" color="red-outline">
+                            <x-button type="submit" color="error-outline">
                                 Deactivate
                             </x-button>
                         </x-form>
@@ -141,7 +141,7 @@
                     </div>
                     <div class="mt-5 sm:mt-0 sm:ml-8 sm:shrink-0 sm:flex sm:items-center">
                         <x-form :action="route('users.activate', $user)">
-                            <x-button type="submit" color="blue-outline">
+                            <x-button type="submit" color="primary-outline">
                                 Activate
                             </x-button>
                         </x-form>
@@ -196,7 +196,7 @@
                     <div class="mt-4 sm:mt-0 sm:ml-6 sm:shrink-0">
                         <x-form :action="route('users.force-password-reset', $user)">
                             <span class="inline-flex rounded-md shadow-sm">
-                                <button type="submit" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-400 focus:ring active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-200">
+                                <button type="submit" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-primary-400 focus:ring active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-200">
                                     Sign This User Out
                                 </button>
                             </span>

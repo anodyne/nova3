@@ -11,8 +11,8 @@
             <x-button
                 @click="open = !open"
                 type="button"
-                :color="$triggerColor"
-                :size="$triggerSize"
+                :color="$trigger->attributes->get('color', 'light-gray-text')"
+                :size="$trigger->attributes->get('size', 'none')"
                 aria-haspopup="true"
                 aria-expanded="true"
                 x-bind:aria-expanded="open"
@@ -46,7 +46,7 @@
         class="absolute mt-2 rounded-lg shadow-lg z-[9999] {{ $placementStyles() }} {{ $wide ? 'w-72' : 'w-56'}} {{ $maxHeight ?: '' }}"
         x-cloak
     >
-        <div class="rounded-lg bg-white dark:bg-gray-700 ring-1 ring-gray-900/5 dark:ring-gray-200/10 z-10 divide-y divide-gray-100 dark:divide-gray-200/10 dark:highlight-white/10">
+        <div class="rounded-lg bg-white dark:bg-gray-700 ring-1 ring-gray-100 dark:ring-gray-200/10 z-10 divide-y divide-gray-200 dark:divide-gray-200/10 dark:highlight-white/10">
             {{ $slot }}
         </div>
     </div>

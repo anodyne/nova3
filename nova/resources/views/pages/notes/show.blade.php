@@ -7,7 +7,7 @@
         </x-slot:pretitle>
 
         <x-slot:controls>
-            <x-link :href="route('notes.edit', $note)" color="blue">
+            <x-link :href="route('notes.edit', $note)" color="primary">
                 Edit Note
             </x-link>
         </x-slot:controls>

@@ -9,23 +9,23 @@
 
     <x-panel x-data="tabsList('details')">
         <div>
-            <x-content-box width="sm" class="sm:hidden">
-                <select @change="switchTab($event.target.value)" aria-label="Selected tab" class="form-select bg-white dark:bg-gray-700/50 block w-full pl-3 pr-10 py-2 text-base border-gray-200 dark:border-gray-200/10 focus:outline-none focus:ring-1 focus:ring-blue-400 focus:border-blue-400 dark:focus:border-blue-400 transition rounded-md">
+            <x-content-box class="sm:hidden">
+                <x-input.select @change="switchTab($event.target.value)" aria-label="Selected tab">
                     <option value="details">Details</option>
                     <option value="fields">Fields</option>
                     <option value="options">Options</option>
-                </select>
+                </x-input.select>
             </x-content-box>
             <div class="hidden sm:block">
                 <x-content-box height="none" class="border-b border-gray-200 dark:border-gray-200/10">
                     <nav class="-mb-px flex">
-                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none transition" :class="{ 'border-blue-400 text-blue-500': isTab('details'), 'text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-500': isNotTab('details') }" @click.prevent="switchTab('details')">
+                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('details'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('details') }" @click.prevent="switchTab('details')">
                             Details
                         </a>
-                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none transition" :class="{ 'border-blue-400 text-blue-500': isTab('fields'), 'text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-500': isNotTab('fields') }" @click.prevent="switchTab('fields')">
+                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('fields'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('fields') }" @click.prevent="switchTab('fields')">
                             Fields
                         </a>
-                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none transition" :class="{ 'border-blue-400 text-blue-500': isTab('options'), 'text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-500': isNotTab('options') }" @click.prevent="switchTab('options')">
+                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('options'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('options') }" @click.prevent="switchTab('options')">
                             Options
                         </a>
                     </nav>
@@ -34,7 +34,7 @@
         </div>
 
         <x-form :action="route('post-types.update', $postType)" method="PUT" :divide="false" :space="false">
-            <x-form.section title="Post Type Info" message="A post type defines how different types of story entries are displayed and used. Using post types, you can setup your writing features exactly how you want them for your game." x-show="isTab('details')">
+            <x-form.section title="Post Type Info" message="A post type defines how different types of story entries are displayed and used. Using post types, you can setup your writing features exactly how you want for your game." x-show="isTab('details')">
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
                     <x-input.text id="name" name="name" :value="old('name', $postType->name)" data-cy="name" />
                 </x-input.group>
@@ -163,7 +163,7 @@
             </x-form.section>
 
             <x-form.footer class="mt-4 md:mt-8">
-                <x-button type="submit" color="blue">Update Post Type</x-button>
+                <x-button type="submit" color="primary">Update Post Type</x-button>
                 <x-link :href="route('post-types.index')" color="white">Cancel</x-link>
             </x-form.footer>
         </x-form>

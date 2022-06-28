@@ -17,7 +17,7 @@ class StoryStatus extends Component
 
         UpdateStoryStatus::run($this->story, $status);
 
-        $this->emit('storyStatusUpdated');
+        $this->story->fresh();
 
         $this->dispatchBrowserEvent('toast', [
             'title' => $this->story->title . ' status updated',

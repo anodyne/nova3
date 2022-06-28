@@ -45,7 +45,7 @@
                     </x-input.group>
                 </x-form.section>
             @else
-                <x-form.section title="Ownership" class="border-purple-3">
+                <x-form.section title="Ownership" class="border-info-200">
                     <x-slot:message>
                         @if (! $settings->characters->autoLinkCharacter)
                             <p>Set whether this character should be automatically linked to your account.</p>
@@ -87,7 +87,7 @@
             @endcan
 
             <x-form.footer>
-                <x-button type="submit" color="blue">Add Character</x-button>
+                <x-button type="submit" color="primary">Add Character</x-button>
                 <x-link :href="route('characters.index', 'status=active')" color="white">Cancel</x-link>
             </x-form.footer>
         </x-form>

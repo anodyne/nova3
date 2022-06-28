@@ -16,7 +16,7 @@
             <x-input.password id="password-confirm" name="password_confirmation" placeholder="Confirm your password" data-cy="password-confirm" required />
         </x-input.group>
 
-        <x-button type="submit" color="blue" full-width data-cy="submit">
+        <x-button type="submit" color="primary" full-width data-cy="submit">
             {{ __('Reset Password') }}
         </x-button>
 

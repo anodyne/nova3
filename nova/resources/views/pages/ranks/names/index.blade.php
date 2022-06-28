@@ -5,7 +5,7 @@
         <x-slot:controls>
             @if ($nameCount > 0)
                 @can('create', $name)
-                    <x-link :href="route('ranks.names.create')" color="blue" data-cy="create">
+                    <x-link :href="route('ranks.names.create')" color="primary" data-cy="create">
                         Add Rank Name
                     </x-link>
                 @endcan
@@ -26,10 +26,10 @@
 
         <x-tips section="ranks" />
 
-        <x-modal color="red" title="Delete rank name?" icon="warning" :url="route('ranks.names.delete')">
+        <x-modal color="error" title="Delete rank name?" icon="warning" :url="route('ranks.names.delete')">
             <x-slot:footer>
                 <span class="flex w-full sm:col-start-2">
-                    <x-button type="submit" form="form" color="red" full-width>
+                    <x-button type="submit" form="form" color="error" full-width>
                         Delete
                     </x-button>
                 </span>

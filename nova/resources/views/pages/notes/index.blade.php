@@ -4,7 +4,7 @@
     <x-page-header title="My Notes">
         <x-slot:controls>
             @if ($noteCount > 0)
-                <x-link :href="route('notes.create')" color="blue" data-cy="create">
+                <x-link :href="route('notes.create')" color="primary" data-cy="create">
                     Add Note
                 </x-link>
             @endif
@@ -24,10 +24,10 @@
 
         <x-tips section="notes" />
 
-        <x-modal color="red" title="Delete Note?" icon="warning" :url="route('notes.delete')">
+        <x-modal color="error" title="Delete Note?" icon="warning" :url="route('notes.delete')">
             <x-slot:footer>
                 <span class="flex w-full sm:col-start-2">
-                    <x-button type="submit" form="form" color="red" full-width>
+                    <x-button type="submit" form="form" color="error" full-width>
                         Delete
                     </x-button>
                 </span>

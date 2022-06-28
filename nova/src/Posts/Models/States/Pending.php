@@ -10,7 +10,7 @@ class Pending extends PostStatus
 
     public function color(): string
     {
-        return 'yellow';
+        return 'warning';
     }
 
     public function name(): string

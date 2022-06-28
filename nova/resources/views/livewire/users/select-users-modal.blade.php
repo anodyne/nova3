@@ -69,7 +69,7 @@
 
     <x-content-box class="z-20 sm:flex sm:flex-row-reverse sm:space-x-4 sm:space-x-reverse bg-gray-50 dark:bg-gray-700/50 rounded-b-lg" height="sm" width="sm">
         @if (count($selected) > 0)
-            <x-button color="blue" wire:click="apply">Add</x-button>
+            <x-button color="primary" wire:click="apply">Add</x-button>
         @endif
 
         <x-button color="white" wire:click="dismiss">Cancel</x-button>

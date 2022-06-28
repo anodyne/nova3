@@ -84,7 +84,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button type="submit" form="character" color="blue">Update</x-button>
+                <x-button type="submit" form="character" color="primary">Update</x-button>
             </x-form.footer>
         </x-form>
     </x-panel>

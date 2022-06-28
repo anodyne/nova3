@@ -10,7 +10,7 @@ use Illuminate\View\Component;
 
 'field',
     'value' => false,
-    'activeColor' => 'blue-500',
+    'activeColor' => 'primary-500',
     'inactiveColor' => 'gray-400',
     'disabled' => false,
     'help' => false,
@@ -21,7 +21,7 @@ class Toggle extends Component
     public function __construct(
         public string $field,
         public string $value = false,
-        public string $activeColor = 'blue-500',
+        public string $activeColor = 'primary-500',
         public string $inactiveColor = 'gray-400',
         public
     ) {
@@ -52,20 +52,20 @@ class Toggle extends Component
             'gray-text' => 'text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400',
             'light-gray-text' => 'text-gray-400 hover:text-gray-500',
 
-            'gray-blue-text' => 'text-gray-500 hover:text-blue-600',
-            'gray-red-text' => 'text-gray-500 hover:text-red-600',
+            'gray-primary-text' => 'text-gray-500 hover:text-primary-600',
+            'gray-error-text' => 'text-gray-500 hover:text-error-600',
 
-            'blue' => 'border-transparent text-white bg-blue-500 hover:bg-blue-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-blue-400',
-            'blue-outline' => 'bg-blue-50 dark:bg-blue-900 border-blue-300 dark:border-blue-800 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900 hover:border-blue-400 dark:hover:border-blue-600 focus:ring-2 focus:ring-offset-2 focus:ring-blue-400',
-            'blue-text' => 'text-blue-500 hover:text-blue-600 dark:hover:text-blue-400',
+            'primary' => 'border-transparent text-white bg-primary-500 hover:bg-primary-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-primary-400',
+            'primary-outline' => 'bg-primary-50 dark:bg-primary-900 border-primary-300 dark:border-primary-800 text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900 hover:border-primary-400 dark:hover:border-primary-600 focus:ring-2 focus:ring-offset-2 focus:ring-primary-400',
+            'primary-text' => 'text-primary-500 hover:text-primary-600 dark:hover:text-primary-400',
 
-            'purple' => 'border-transparent text-white bg-purple-500 hover:bg-purple-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-purple-400',
-            'purple-outline' => 'bg-purple-50 dark:bg-purple-900 border-purple-300 dark:border-purple-800 text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900 hover:border-purple-400 dark:hover:border-purple-600 focus:ring-2 focus:ring-offset-2 focus:ring-purple-400',
-            'purple-text' => 'text-purple-500 hover:text-purple-600 dark:hover:text-purple-400',
+            'info' => 'border-transparent text-white bg-info-500 hover:bg-info-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-info-400',
+            'info-outline' => 'bg-info-50 dark:bg-info-900 border-info-300 dark:border-info-800 text-info-600 dark:text-info-400 hover:bg-info-50 dark:hover:bg-info-900 hover:border-info-400 dark:hover:border-info-600 focus:ring-2 focus:ring-offset-2 focus:ring-info-400',
+            'info-text' => 'text-info-500 hover:text-info-600 dark:hover:text-info-400',
 
-            'red' => 'border-transparent text-white bg-red-500 hover:bg-red-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-red-400',
-            'red-outline' => 'bg-red-50 dark:bg-red-900 border-red-300 dark:border-red-800 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900 hover:border-red-400 dark:hover:border-red-600 focus:ring-2 focus:ring-offset-2 focus:ring-red-400',
-            'red-text' => 'text-red-500 hover:text-red-600 dark:hover:text-red-400',
+            'error' => 'border-transparent text-white bg-error-500 hover:bg-error-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-error-400',
+            'error-outline' => 'bg-error-50 dark:bg-error-900 border-error-300 dark:border-error-800 text-error-600 dark:text-error-400 hover:bg-error-50 dark:hover:bg-error-900 hover:border-error-400 dark:hover:border-error-600 focus:ring-2 focus:ring-offset-2 focus:ring-error-400',
+            'error-text' => 'text-error-500 hover:text-error-600 dark:hover:text-error-400',
 
             'gray' => 'border-transparent text-gray-600 bg-gray-300 hover:bg-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-gray-400',
         };

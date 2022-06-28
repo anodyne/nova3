@@ -37,7 +37,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button type="submit" color="blue">Add Role</x-button>
+                <x-button type="submit" color="primary">Add Role</x-button>
                 <x-link :href="route('roles.index')" color="white">Cancel</x-link>
             </x-form.footer>
         </x-form>

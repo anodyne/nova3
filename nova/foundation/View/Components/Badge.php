@@ -21,7 +21,7 @@ class Badge extends Component
     {
         return Arr::toCssClasses([
             'inline-flex items-center space-x-1.5',
-            'font-medium uppercase tracking-wide border',
+            'font-medium leading-normal',
             $this->colorStyles(),
             $this->sizeStyles(),
             'rounded-full' => ! str($this->size)->contains('square'),
@@ -32,12 +32,12 @@ class Badge extends Component
     public function colorStyles(): string
     {
         return match ($this->color) {
-            default => 'bg-gray-50 dark:bg-gray-900 border-gray-300 dark:border-gray-600 text-gray-500 dark:text-gray-400',
-            'blue' => 'bg-blue-50 dark:bg-blue-900/50 border-blue-300 dark:border-blue-700 text-blue-600 dark:text-blue-500',
-            'green' => 'bg-green-50 dark:bg-green-900/30 border-green-300 dark:border-green-700 text-green-600 dark:text-green-500',
-            'purple' => 'bg-purple-50 dark:bg-purple-900/30 border-purple-300 dark:border-purple-700 text-purple-600 dark:text-purple-500',
-            'red' => 'bg-red-50 dark:bg-red-900/30 border-red-300 dark:border-red-700 text-red-600 dark:text-red-500',
-            'yellow' => 'bg-yellow-50 dark:bg-yellow-900/50 border-yellow-300 dark:border-yellow-700 text-yellow-600 dark:text-yellow-500',
+            default => 'bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-400',
+            'primary' => 'bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-400',
+            'success' => 'bg-success-100 dark:bg-success-900 text-success-700 dark:text-success-400',
+            'info' => 'bg-info-100 dark:bg-info-900 text-info-700 dark:text-info-400',
+            'error' => 'bg-error-100 dark:bg-error-900 text-error-700 dark:text-error-400',
+            'warning' => 'bg-warning-100 dark:bg-warning-900 text-warning-700 dark:text-warning-400',
         };
     }
 
@@ -53,11 +53,11 @@ class Badge extends Component
     {
         return match ($this->color) {
             default => 'text-gray-500',
-            'blue' => 'text-blue-500',
-            'green' => 'text-green-500',
-            'purple' => 'text-purple-500',
-            'red' => 'text-red-500',
-            'yellow' => 'text-yellow-500',
+            'primary' => 'text-primary-500',
+            'success' => 'text-success-500',
+            'info' => 'text-info-500',
+            'error' => 'text-error-500',
+            'warning' => 'text-warning-500',
         };
     }
 
@@ -72,14 +72,17 @@ class Badge extends Component
     public function sizeStyles(): string
     {
         return match ($this->size) {
-            default => 'px-4 py-1 text-base md:px-3 md:py-0.5 md:text-sm',
-            'xs' => 'px-3 py-0.5 text-sm md:px-2.5 md:py-0.5 md:text-xs',
-            'circle' => 'p-3',
-            'circle-sm' => 'p-2',
-            'circle-xs' => 'p-0.5',
+            default => 'px-3 py-0.5 text-sm',
+            'xs' => 'px-2 py-0.5 text-xs',
+            'lg' => 'px-4 py-1 text-base',
+
+            'circle' => 'p-2',
+            'circle-xs' => 'p-1',
+            'circle-lg' => 'p-4',
+
             'square' => 'p-3',
-            'square-sm' => 'p-2',
-            'square-xs' => 'p-0.5',
+            'square-xs' => 'p-1',
+            'square-lg' => 'p-4',
         };
     }
 

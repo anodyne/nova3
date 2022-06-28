@@ -10,7 +10,7 @@ class Ongoing extends StoryStatus
 
     public function color(): string
     {
-        return 'green';
+        return 'success';
     }
 
     public function textColor(): string

@@ -13,26 +13,26 @@
     <x-panel x-data="tabsList('settings')">
         <div>
             <x-content-box class="sm:hidden">
-                <select @change="switchTab($event.target.value)" aria-label="Selected tab" class="mt-1 form-select bg-white block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring focus:border-blue-400 transition ease-in-out duration-200 sm:text-sm rounded-md">
+                <x-input.select @change="switchTab($event.target.value)" aria-label="Selected tab">
                     <option value="settings">Settings</option>
                     <option value="group">Group Notifications</option>
                     <option value="individual">Individual Notifications</option>
-                </select>
+                </x-input.select>
             </x-content-box>
-            <div class="hidden sm:block">
-                <div class="border-b border-gray-200 dark:border-gray-200/10 px-4 sm:px-6">
+            <x-content-box class="hidden sm:block">
+                <x-content-box height="none" class="border-b border-gray-200 dark:border-gray-200/10">
                     <nav class="-mb-px flex">
-                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none transition" :class="{ 'border-blue-400 text-blue-500': isTab('settings'), 'text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-500': isNotTab('settings') }" @click.prevent="switchTab('settings')">
+                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('settings'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('settings') }" @click.prevent="switchTab('settings')">
                             Settings
                         </a>
-                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none transition" :class="{ 'border-blue-400 text-blue-500': isTab('group'), 'text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-500': isNotTab('group') }" @click.prevent="switchTab('group')">
+                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('group'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('group') }" @click.prevent="switchTab('group')">
                             Group Notifications
                         </a>
-                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none transition" :class="{ 'border-blue-400 text-blue-500': isTab('individual'), 'text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-500': isNotTab('individual') }" @click.prevent="switchTab('individual')">
+                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('individual'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('individual') }" @click.prevent="switchTab('individual')">
                             Individual Notifications
                         </a>
                     </nav>
-                </div>
+                </x-content-box>
             </div>
         </div>
 
@@ -66,9 +66,9 @@
                                             {{ $systemNotification->name }}
                                         </div>
                                         <div class="mt-2 flex flex-col space-y-2 sm:flex-row sm:items-center sm:space-x-6 sm:space-y-0 text-gray-500">
-                                            <x-badge size="xs" :color="$systemNotification->discordStatusBadgeColor">Discord</x-badge>
-                                            <x-badge size="xs" :color="$systemNotification->emailStatusBadgeColor">Email</x-badge>
-                                            <x-badge size="xs" :color="$systemNotification->webStatusBadgeColor">Web</x-badge>
+                                            <x-badge :color="$systemNotification->discordStatusBadgeColor">Discord</x-badge>
+                                            <x-badge :color="$systemNotification->emailStatusBadgeColor">Email</x-badge>
+                                            <x-badge :color="$systemNotification->webStatusBadgeColor">Web</x-badge>
                                         </div>
                                     </div>
                                     <div class="ml-5 shrink-0 leading-0">
@@ -94,8 +94,8 @@
                                             {{ $systemNotification->name }}
                                         </div>
                                         <div class="mt-2 flex flex-col space-y-2 sm:flex-row sm:items-center sm:space-x-6 sm:space-y-0 text-gray-500">
-                                            <x-badge size="xs" :color="$systemNotification->emailStatusBadgeColor">Email</x-badge>
-                                            <x-badge size="xs" :color="$systemNotification->webStatusBadgeColor">Web</x-badge>
+                                            <x-badge :color="$systemNotification->emailStatusBadgeColor">Email</x-badge>
+                                            <x-badge :color="$systemNotification->webStatusBadgeColor">Web</x-badge>
                                         </div>
                                     </div>
                                     <div class="ml-5 shrink-0 leading-0">
@@ -111,7 +111,7 @@
             </div>
 
             <x-form.footer>
-                <x-button type="submit" form="discord" color="blue">Update</x-button>
+                <x-button type="submit" form="discord" color="primary">Update</x-button>
             </x-form.footer>
         </x-form>
     </x-panel>

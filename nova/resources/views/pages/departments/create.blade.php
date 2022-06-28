@@ -37,7 +37,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button type="submit" color="blue">Add Department</x-button>
+                <x-button type="submit" color="primary">Add Department</x-button>
                 <x-link :href="route('departments.index', 'status=active')" color="white">Cancel</x-link>
             </x-form.footer>
         </x-form>

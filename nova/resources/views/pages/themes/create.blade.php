@@ -51,7 +51,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button type="submit" color="blue">Add Theme</x-button>
+                <x-button type="submit" color="primary">Add Theme</x-button>
                 <x-link :href="route('themes.index')" color="white">Cancel</x-link>
             </x-form.footer>
 

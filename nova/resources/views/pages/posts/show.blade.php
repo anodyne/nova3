@@ -24,7 +24,7 @@
             @endif
 
             @can('update', $post)
-                <x-link href="#" color="blue">
+                <x-link href="#" color="primary">
                     Edit post
                 </x-link>
             @endcan
@@ -34,9 +34,9 @@
     <x-panel x-data="{ showContent: {{ $post->shouldShowContentWarning() ? 'false' : 'true' }} }">
         <x-content-box class="text-center p-16" x-show="!showContent" x-cloak>
             <div class="flex items-center justify-center space-x-4">
-                @icon('warning', 'h-8 w-8 text-red-500')
-                <h1 class="block text-4xl leading-loose font-extrabold text-red-600 tracking-tight">Warning</h1>
-                @icon('warning', 'h-8 w-8 text-red-500')
+                @icon('warning', 'h-8 w-8 text-error-500')
+                <h1 class="block text-4xl leading-loose font-extrabold text-error-600 tracking-tight">Warning</h1>
+                @icon('warning', 'h-8 w-8 text-error-500')
             </div>
 
             <p class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
@@ -61,7 +61,7 @@
                 By continuing, you agree that you are of suitable age for this content.
             </p>
 
-            <x-button type="button" color="red-outline" @click="showContent = true">
+            <x-button type="button" color="error-outline" @click="showContent = true">
                 Continue
             </x-button>
         </x-content-box>
@@ -70,7 +70,7 @@
             <div class="grid md:grid-cols-4 md:gap-16">
                 <div class="order-1 mb-8 md:mb-0 md:order-2 md:col-span-1">
                     <div class="space-y-10">
-                        <div class="flex items-start space-x-2 text-gray-600 dark:text-gray-400 font-medium">
+                        <div class="flex items-start space-x-2 text-gray-500 dark:text-gray-400 font-medium">
                             <span style="color:{{ $post->type->color }}">
                                 @icon($post->type->icon, 'h-6 w-6 shrink-0')
                             </span>
@@ -136,7 +136,7 @@
 
                         <div class="flex flex-col space-y-3 text-gray-600 font-medium">
                             <div>
-                                <x-badge :color="$post->status->color()" size="xs">
+                                <x-badge :color="$post->status->color()">
                                     {{ $post->status->displayName() }}
                                 </x-badge>
                             </div>

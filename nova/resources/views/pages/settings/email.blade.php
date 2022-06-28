@@ -15,9 +15,9 @@
             <x-content-box class="relative">
                 <div class="absolute inset-0 w-full h-full text-center p-16 z-50">
                     <div class="flex items-center justify-center space-x-4">
-                        @icon('warning', 'h-8 w-8 text-red-500')
-                        <h1 class="block text-4xl leading-loose font-extrabold text-red-600 tracking-tight">Warning</h1>
-                        @icon('warning', 'h-8 w-8 text-red-500')
+                        @icon('warning', 'h-8 w-8 text-error-500')
+                        <h1 class="block text-4xl leading-loose font-extrabold text-error-600 tracking-tight">Warning</h1>
+                        @icon('warning', 'h-8 w-8 text-error-500')
                     </div>
 
                     <p class="text-lg font-medium text-gray-900 mb-4">
@@ -28,7 +28,7 @@
                         By continuing, you agree that you are of suitable age for this content.
                     </p>
 
-                    <x-button color="red-outline">
+                    <x-button color="error-outline">
                         Continue
                     </x-button>
                 </div>
@@ -46,7 +46,7 @@
         {{-- </div> --}}
         {{-- <x-form :action="route('settings.update')" method="PUT" id="email">
             <x-form.footer>
-                <x-button type="submit" form="email" color="blue">Update</x-button>
+                <x-button type="submit" form="email" color="primary">Update</x-button>
             </x-form.footer>
         </x-form> --}}
     </x-panel>

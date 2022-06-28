@@ -24,7 +24,7 @@ class SystemNotification extends Model
     {
         return [
             0 => 'gray',
-            1 => 'green',
+            1 => 'success',
         ][$this->discord];
     }
 
@@ -32,7 +32,7 @@ class SystemNotification extends Model
     {
         return [
             0 => 'gray',
-            1 => 'green',
+            1 => 'success',
         ][$this->email];
     }
 
@@ -40,7 +40,7 @@ class SystemNotification extends Model
     {
         return [
             0 => 'gray',
-            1 => 'green',
+            1 => 'success',
         ][$this->web];
     }
 }

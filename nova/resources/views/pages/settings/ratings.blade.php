@@ -13,26 +13,26 @@
     <x-panel x-data="tabsList('language')">
         <div>
             <x-content-box class="sm:hidden">
-                <select @change="switchTab($event.target.value)" aria-label="Selected tab" class="mt-1 form-select bg-white block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring focus:border-blue-400 transition ease-in-out duration-200 sm:text-sm rounded-md">
+                <x-input.select @change="switchTab($event.target.value)" aria-label="Selected tab">
                     <option value="language">Language</option>
                     <option value="sex">Sex</option>
                     <option value="violence">Violence</option>
-                </select>
+                </x-input.select>
             </x-content-box>
             <div class="hidden sm:block">
-                <div class="border-b border-gray-200 dark:border-gray-200/10 px-4 sm:px-6">
+                <x-content-box height="none" class="border-b border-gray-200 dark:border-gray-200/10">
                     <nav class="-mb-px flex">
-                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none transition" :class="{ 'border-blue-400 text-blue-500': isTab('language'), 'text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-500': isNotTab('language') }" @click.prevent="switchTab('language')">
+                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('language'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('language') }" @click.prevent="switchTab('language')">
                             Language
                         </a>
-                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none transition" :class="{ 'border-blue-400 text-blue-500': isTab('sex'), 'text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-500': isNotTab('sex') }" @click.prevent="switchTab('sex')">
+                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('sex'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('sex') }" @click.prevent="switchTab('sex')">
                             Sex
                         </a>
-                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 border-transparent font-medium text-sm focus:outline-none transition" :class="{ 'border-blue-400 text-blue-500': isTab('violence'), 'text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-500': isNotTab('violence') }" @click.prevent="switchTab('violence')">
+                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('violence'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('violence') }" @click.prevent="switchTab('violence')">
                             Violence
                         </a>
                     </nav>
-                </div>
+                </x-content-box>
             </div>
         </div>
 
@@ -46,7 +46,6 @@
             <x-form.section title="Rating threshold warning" message="You can choose to warn readers about potentially offensive content in a story post if that post meets certain thresholds.">
                 <x-input.group label="Warn readers when rating is at or above" help="You have chosen to warn readers about this content, but your threshold is set below the default rating for this category. This means that readers will have to manually agree before being allowed to read every story post unless an author specifically sets the rating lower for their post.">
                     <x-input.select name="language[warning_threshold]" class="w-full md:w-48">
-                        <option value="">Do not warn</option>
                         <option value="" @selected($settings->ratings->language->warning_threshold === null)>Do not warn</option>
                         <option value="0" @selected($settings->ratings->language->warning_threshold === 0)>0</option>
                         <option value="1" @selected($settings->ratings->language->warning_threshold === 1)>1</option>
@@ -79,7 +78,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button type="submit" form="language" color="blue">Update</x-button>
+                <x-button type="submit" form="language" color="primary">Update</x-button>
             </x-form.footer>
         </x-form>
 
@@ -125,7 +124,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button type="submit" form="sex" color="blue">Update</x-button>
+                <x-button type="submit" form="sex" color="primary">Update</x-button>
             </x-form.footer>
         </x-form>
 
@@ -171,7 +170,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button type="submit" form="violence" color="blue">Update</x-button>
+                <x-button type="submit" form="violence" color="primary">Update</x-button>
             </x-form.footer>
         </x-form>
     </x-panel>

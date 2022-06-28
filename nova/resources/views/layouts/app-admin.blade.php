@@ -12,7 +12,8 @@
                             @if (app('nova.settings')->getFirstMedia('logo'))
                                 <img src="{{ app('nova.settings')->getFirstMediaUrl('logo') }}" alt="logo" class="block h-8 w-auto">
                             @else
-                                <x-logos.nova class="block h-8 w-auto" />
+                                <x-logos.nova class="hidden md:block h-8 w-auto" />
+                                <x-logos.nova-mark class="block md:hidden h-8 w-auto" />
                             @endif
                         </a>
                     </div>
