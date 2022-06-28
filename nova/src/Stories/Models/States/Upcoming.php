@@ -10,7 +10,7 @@ class Upcoming extends StoryStatus
 
     public function color(): string
     {
-        return 'yellow';
+        return 'info';
     }
 
     public function textColor(): string

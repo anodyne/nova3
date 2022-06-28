@@ -69,7 +69,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button type="submit" color="blue">Update Story</x-button>
+                <x-button type="submit" color="primary">Update Story</x-button>
                 <x-link :href="route('stories.index')" color="white">Cancel</x-link>
             </x-form.footer>
         </x-form>

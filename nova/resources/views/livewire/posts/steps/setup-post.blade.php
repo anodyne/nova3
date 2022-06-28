@@ -56,7 +56,7 @@
 
                                         @if ($type->role)
                                             <div class="block mt-1">
-                                                <x-badge size="xs" color="gray" class="mt-1">{{ $type->role->display_name }}</x-badge>
+                                                <x-badge color="gray" class="mt-1">{{ $type->role->display_name }}</x-badge>
                                             </div>
                                         @endif
                                     </span>
@@ -65,7 +65,7 @@
                         </span>
                         <span id="post-type-{{ $type->id }}-description-1" class="mt-2 flex sm:items-center sm:mt-0 sm:flex-col sm:ml-4 sm:text-right">
                             @if ($postType?->id === $type->id)
-                                @icon('check', 'h-7 w-7 text-blue-500')
+                                @icon('check', 'h-7 w-7 text-primary-500')
                             @endif
                         </span>
 
@@ -73,7 +73,7 @@
                             @class([
                                 'absolute -inset-px rounded-lg pointer-events-none',
                                 'border border-transparent' => $postType?->id !== $type->id,
-                                'border-2 border-blue-500' => $postType?->id === $type->id,
+                                'border-2 border-primary-500' => $postType?->id === $type->id,
                             ])
                             aria-hidden="true"
                         ></span>
@@ -94,7 +94,7 @@
 
     @if ($postType && $story)
         <x-form.footer>
-            <x-button wire:click="nextStep" color="blue">Next: Select Authors</x-button>
+            <x-button wire:click="nextStep" color="primary">Next: Select Authors</x-button>
         </x-form.footer>
     @endif
 
@@ -125,7 +125,7 @@
 
 {{--                                    @if ($type->role)--}}
 {{--                                        <div class="block mt-1">--}}
-{{--                                            <x-badge size="xs" color="gray" class="mt-1">{{ $type->role->display_name }}</x-badge>--}}
+{{--                                            <x-badge color="gray" class="mt-1">{{ $type->role->display_name }}</x-badge>--}}
 {{--                                        </div>--}}
 {{--                                    @endif--}}
 {{--                                </span>--}}
@@ -133,7 +133,7 @@
 {{--                        </span>--}}
 {{--                        <span id="post-type-{{ $type->id }}-description-1" class="mt-2 flex sm:items-center sm:mt-0 sm:flex-col sm:ml-4 sm:text-right">--}}
 {{--                            @if ($postType?->id === $type->id)--}}
-{{--                                @icon('check', 'h-7 w-7 text-blue-500')--}}
+{{--                                @icon('check', 'h-7 w-7 text-primary-500')--}}
 {{--                            @endif--}}
 {{--                        </span>--}}
 
@@ -141,7 +141,7 @@
 {{--                            @class([--}}
 {{--                                'absolute -inset-px rounded-lg pointer-events-none',--}}
 {{--                                'border border-transparent' => $postType?->id !== $type->id,--}}
-{{--                                'border-2 border-blue-500' => $postType?->id === $type->id,--}}
+{{--                                'border-2 border-primary-500' => $postType?->id === $type->id,--}}
 {{--                            ])--}}
 {{--                            aria-hidden="true"--}}
 {{--                        ></span>--}}
@@ -174,7 +174,7 @@
 {{--                        </span>--}}
 {{--                        <span id="post-type-{{ $s->id }}-description-1" class="mt-2 flex sm:items-center sm:mt-0 sm:flex-col sm:ml-4 sm:text-right">--}}
 {{--                            @if ($story?->id === $s->id)--}}
-{{--                                @icon('check', 'h-7 w-7 text-blue-500')--}}
+{{--                                @icon('check', 'h-7 w-7 text-primary-500')--}}
 {{--                            @endif--}}
 {{--                        </span>--}}
 
@@ -182,7 +182,7 @@
 {{--                            @class([--}}
 {{--                                'absolute -inset-px rounded-lg pointer-events-none',--}}
 {{--                                'border border-transparent' => $story?->id !== $s->id,--}}
-{{--                                'border-2 border-blue-500' => $story?->id === $s->id,--}}
+{{--                                'border-2 border-primary-500' => $story?->id === $s->id,--}}
 {{--                            ])--}}
 {{--                            aria-hidden="true"--}}
 {{--                        ></span>--}}
@@ -202,7 +202,7 @@
 
 {{--        @if ($postType && $story)--}}
 {{--            <x-form.footer>--}}
-{{--                <x-button wire:click="nextStep" color="blue">Next: Select Authors</x-button>--}}
+{{--                <x-button wire:click="nextStep" color="primary">Next: Select Authors</x-button>--}}
 {{--            </x-form.footer>--}}
 {{--        @endif--}}
 {{--    </x-form>--}}

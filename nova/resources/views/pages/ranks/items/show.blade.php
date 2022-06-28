@@ -8,7 +8,7 @@
 
         <x-slot:controls>
             @can('update', $item)
-                <x-link :href="route('ranks.items.edit', $item)" color="blue">Edit Rank Item</x-link>
+                <x-link :href="route('ranks.items.edit', $item)" color="primary">Edit Rank Item</x-link>
             @endcan
         </x-slot:controls>
     </x-page-header>

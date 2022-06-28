@@ -13,7 +13,7 @@
 
                             <x-slot:trailingAddOn>
                                 @if ($filters['search'])
-                                    <x-button color="gray-text" size="none" wire:click="$set('filters.search', '')">
+                                    <x-button color="light-gray-text" size="none" wire:click="$set('filters.search', '')">
                                         @icon('close')
                                     </x-button>
                                 @endif
@@ -25,12 +25,12 @@
                 @can('update', $user)
                     <div class="flex items-center space-x-4">
                         @if (count($selected) > 0)
-                            <x-button color="red-outline" size="sm" wire:click="unassignSelectedCharacters">
+                            <x-button color="error-outline" size="sm" wire:click="unassignSelectedCharacters">
                                 Remove {{ count($selected) }} @choice('character|characters', count($selected))
                             </x-button>
                         @endif
 
-                        <x-button type="button" color="blue" size="sm" wire:click="$emit('openModal', 'characters:select-characters-modal')">
+                        <x-button type="button" color="primary" size="sm" wire:click="$emit('openModal', 'characters:select-characters-modal')">
                             Add characters
                         </x-button>
                     </div>
@@ -56,15 +56,15 @@
             <x-slot:body>
                 @if ($selectPage)
                     <x-table.row>
-                        <x-table.cell class="bg-blue-50" colspan="3">
+                        <x-table.cell class="bg-primary-50" colspan="3">
                             @unless ($selectAll)
                                 <div>
-                                    <span class="text-blue-600">You've selected <strong>{{ $characters->count() }}</strong> characters assigned to this user. Do you want to select all <strong>{{ $characters->total() }}</strong>?</span>
+                                    <span class="text-primary-600">You've selected <strong>{{ $characters->count() }}</strong> characters assigned to this user. Do you want to select all <strong>{{ $characters->total() }}</strong>?</span>
 
-                                    <x-button size="none" color="blue-text" wire:click="selectAll" class="ml-1">Select All</x-button>
+                                    <x-button size="none" color="primary-text" wire:click="selectAll" class="ml-1">Select All</x-button>
                                 </div>
                             @else
-                                <span class="text-blue-600">You've selected all <strong>{{ $characters->total() }}</strong> characters assigned to this user.</span>
+                                <span class="text-primary-600">You've selected all <strong>{{ $characters->total() }}</strong> characters assigned to this user.</span>
                             @endunless
                         </x-table.cell>
                     </x-table.row>
@@ -85,7 +85,7 @@
                         <x-table.cell>
                             <div>
                                 <div>
-                                    <x-badge size="xs" :color="$character->type->color()">
+                                    <x-badge :color="$character->type->color()">
                                         {{ $character->type->displayName() }}
                                     </x-badge>
                                 </div>
@@ -107,7 +107,7 @@
 
                         <x-table.cell>
                             @if ($character->type->name() === 'primary')
-                                @icon('star', 'h-6 w-6 text-blue-500')
+                                @icon('star', 'h-6 w-6 text-primary-500')
                             @else
                                 <x-button color="gray-text" size="none" wire:click="assignPrimaryCharacter({{ $character->id }})">
                                     @icon('star', 'h-6 w-6')
@@ -137,7 +137,7 @@
                 </p>
 
                 <div class="mt-6">
-                    <x-button color="blue" wire:click="$emit('openModal', 'characters:select-characters-modal')">
+                    <x-button color="primary" wire:click="$emit('openModal', 'characters:select-characters-modal')">
                         Add characters
                     </x-button>
                 </div>

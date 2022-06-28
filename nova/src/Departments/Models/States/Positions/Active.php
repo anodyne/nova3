@@ -10,7 +10,7 @@ class Active extends PositionStatus
 
     public function color(): string
     {
-        return 'green';
+        return 'success';
     }
 
     public function bgColor(): string

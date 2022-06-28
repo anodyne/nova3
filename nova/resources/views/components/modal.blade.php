@@ -1,5 +1,5 @@
 @props([
-    'color' => 'green',
+    'color' => 'success',
     'content' => false,
     'event' => 'modal-load',
     'icon' => false,

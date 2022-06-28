@@ -12,7 +12,7 @@
 
         <x-slot:controls>
             @can('update', $position)
-                <x-link :href="route('positions.edit', $position)" color="blue">Edit Position</x-link>
+                <x-link :href="route('positions.edit', $position)" color="primary">Edit Position</x-link>
             @endcan
         </x-slot:controls>
     </x-page-header>

@@ -8,8 +8,8 @@
 
         <x-slot:controls>
             @can('update', $form)
-                <x-link :href="route('forms.edit', $form)" color="blue-outline">Design Form</x-link>
-                <x-link :href="route('forms.edit', $form)" color="blue">Edit Form</x-link>
+                <x-link :href="route('forms.edit', $form)" color="primary-outline">Design Form</x-link>
+                <x-link :href="route('forms.edit', $form)" color="primary">Edit Form</x-link>
             @endcan
         </x-slot:controls>
     </x-page-header>

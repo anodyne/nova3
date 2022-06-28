@@ -29,11 +29,11 @@
             @endif
 
             @if ($secondaryStatus)
-                <x-badge :color="$character->status->color()" size="xs">{{ $character->status->displayName() }}</x-badge>
+                <x-badge :color="$character->status->color()">{{ $character->status->displayName() }}</x-badge>
             @endif
 
             @if ($secondaryType)
-                <x-badge :color="$character->type->color()" size="xs">{{ $character->type->displayName() }}</x-badge>
+                <x-badge :color="$character->type->color()">{{ $character->type->displayName() }}</x-badge>
             @endif
         </x-slot:secondary>
     @endif

@@ -8,6 +8,7 @@
     <meta name="theme-color" content="#0091ff" media="(prefers-color-scheme: dark)">
     <title>{{ config('app.name', 'Nova NextGen') }}</title>
 
+    <x-admin-theme :settings="settings()" />
     @livewireStyles
     @novaStyles
     @stack('styles')

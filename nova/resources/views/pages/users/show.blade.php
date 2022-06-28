@@ -8,7 +8,7 @@
 
         <x-slot:controls>
             @can('update', $user)
-                <x-link :href="route('users.edit', $user)" color="blue">Edit User</x-link>
+                <x-link :href="route('users.edit', $user)" color="primary">Edit User</x-link>
             @endcan
         </x-slot:controls>
     </x-page-header>

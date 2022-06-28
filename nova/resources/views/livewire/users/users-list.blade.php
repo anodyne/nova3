@@ -9,7 +9,7 @@
 
                     @if ($search)
                         <x-slot:trailingAddOn>
-                            <x-button size="none" color="gray-text" wire:click="$set('search', '')">
+                            <x-button size="none" color="light-gray-text" wire:click="$set('search', '')">
                                 @icon('close', 'h-5 w-5')
                             </x-button>
                         </x-slot:trailingAddOn>
@@ -19,12 +19,12 @@
         </div>
 
         <div class="shrink flex justify-between md:justify-start items-center space-x-4">
-            <x-button type="button" size="none" :color="$isFiltered ? 'blue-text' : 'gray-text'" x-bind="trigger">
+            <x-button type="button" size="none" :color="$isFiltered ? 'primary-text' : 'gray-text'" x-bind="trigger">
                 <div class="flex items-center space-x-2">
                     @icon('filter', 'h-5 w-5')
                     <span>Filters</span>
                     @if ($activeFilterCount > 0)
-                        <x-badge color="blue" size="xs">{{ $activeFilterCount }}</x-badge>
+                        <x-badge color="primary">{{ $activeFilterCount }}</x-badge>
                     @endif
                 </div>
             </x-button>
@@ -77,7 +77,7 @@
                 </div>
 
                 <div class="flex items-center">
-                    <x-badge size="xs" :color="$user->status->color()">
+                    <x-badge :color="$user->status->color()">
                         {{ $user->status->displayName() }}
                     </x-badge>
                 </div>

@@ -25,12 +25,12 @@
                 @can('update', $role)
                     <div class="flex items-center space-x-4">
                         @if (count($selected) > 0)
-                            <x-button color="red-outline" size="sm" wire:click="detachSelectedPermissions">
+                            <x-button color="error-outline" size="sm" wire:click="detachSelectedPermissions">
                                 Remove {{ count($selected) }} @choice('Permission|Permissions', count($selected))
                             </x-button>
                         @endif
 
-                        <x-button type="button" color="blue" size="sm" wire:click="$emit('openModal', 'roles:select-permissions-modal')">
+                        <x-button type="button" color="primary" size="sm" wire:click="$emit('openModal', 'roles:select-permissions-modal')">
                             Add Permissions
                         </x-button>
                     </div>
@@ -55,15 +55,15 @@
             <x-slot:body>
                 @if ($selectPage)
                     <x-table.row>
-                        <x-table.cell class="bg-blue-50 dark:bg-blue-900" colspan="3">
+                        <x-table.cell class="bg-primary-50 dark:bg-primary-900" colspan="3">
                             @unless ($selectAll)
                                 <div>
-                                    <span class="text-blue-600 dark:text-blue-400">You've selected <strong>{{ $permissions->count() }}</strong> permissions assigned to this role. Do you want to select all <strong>{{ $permissions->total() }}</strong>?</span>
+                                    <span class="text-primary-600 dark:text-primary-400">You've selected <strong>{{ $permissions->count() }}</strong> permissions assigned to this role. Do you want to select all <strong>{{ $permissions->total() }}</strong>?</span>
 
-                                    <x-button size="none" color="blue-text" wire:click="selectAll" class="ml-1">Select All</x-button>
+                                    <x-button size="none" color="primary-text" wire:click="selectAll" class="ml-1">Select All</x-button>
                                 </div>
                             @else
-                                <span class="text-blue-600 dark:text-blue-400">You've selected all <strong>{{ $permissions->total() }}</strong> permissions assigned to this role.</span>
+                                <span class="text-primary-600 dark:text-primary-400">You've selected all <strong>{{ $permissions->total() }}</strong> permissions assigned to this role.</span>
                             @endunless
                         </x-table.cell>
                     </x-table.row>
@@ -101,7 +101,7 @@
                 </p>
 
                 <div class="mt-6">
-                    <x-button color="blue" wire:click="$emit('openModal', 'roles:select-permissions-modal')">
+                    <x-button color="primary" wire:click="$emit('openModal', 'roles:select-permissions-modal')">
                         Add permissions
                     </x-button>
                 </div>

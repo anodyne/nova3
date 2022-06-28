@@ -71,7 +71,7 @@
                                 href="#"
                                 @click.prevent="tab = 'base'"
                                 class="ml-4 first:ml-0 px-3 py-2 font-medium text-sm rounded-md  focus:outline-none"
-                                :class="{ 'text-blue-600 dark:text-blue-400 bg-blue-100/75 dark:bg-blue-900/40': tab === 'base', 'hover:bg-gray-100 dark:hover:bg-gray-700/50 hover:text-gray-900 dark:hover:text-gray-100': tab !== 'base' }"
+                                :class="{ 'text-primary-600 dark:text-primary-400 bg-primary-100/75 dark:bg-primary-900/40': tab === 'base', 'hover:bg-gray-100 dark:hover:bg-gray-700/50 hover:text-gray-900 dark:hover:text-gray-100': tab !== 'base' }"
                             >
                                 Base Images
                             </a>
@@ -79,7 +79,7 @@
                                 href="#"
                                 @click.prevent="tab = 'overlay'"
                                 class="ml-4 first:ml-0 px-3 py-2 font-medium text-sm rounded-md  focus:outline-none"
-                                :class="{ 'text-blue-600 dark:text-blue-400 bg-blue-100/75 dark:bg-blue-900/40': tab === 'overlay', 'hover:bg-gray-100 dark:hover:bg-gray-700/50 hover:text-gray-900 dark:hover:text-gray-100': tab !== 'overlay' }"
+                                :class="{ 'text-primary-600 dark:text-primary-400 bg-primary-100/75 dark:bg-primary-900/40': tab === 'overlay', 'hover:bg-gray-100 dark:hover:bg-gray-700/50 hover:text-gray-900 dark:hover:text-gray-100': tab !== 'overlay' }"
                             >
                                 Overlay Images
                             </a>
@@ -94,7 +94,7 @@
                                 <a
                                     @click.prevent="base = '{{ $baseImage }}'"
                                     class="flex flex-col rounded-md border border-transparent py-2 justify-center"
-                                    :class="{ 'bg-blue-50 border-blue-300': base === '{{ $baseImage }}', 'hover:bg-gray-50 hover:border-gray-300': base !== '{{ $baseImage }}' }"
+                                    :class="{ 'bg-primary-50 border-primary-300': base === '{{ $baseImage }}', 'hover:bg-gray-50 hover:border-gray-300': base !== '{{ $baseImage }}' }"
                                     href="#"
                                 >
                                     <img src="{{ asset('ranks/base/' . $baseImage) }}" alt="" class="block h-10 w-36 mx-auto">
@@ -110,7 +110,7 @@
                                 <a
                                     @click.prevent="overlay = '{{ $overlayImage }}'"
                                     class="flex flex-col rounded-md border border-transparent py-2 justify-center"
-                                    :class="{ 'bg-blue-50 border-blue-300': overlay === '{{ $overlayImage }}', 'hover:bg-gray-50 hover:border-gray-300': overlay !== '{{ $overlayImage }}' }"
+                                    :class="{ 'bg-primary-50 border-primary-300': overlay === '{{ $overlayImage }}', 'hover:bg-gray-50 hover:border-gray-300': overlay !== '{{ $overlayImage }}' }"
                                     href="#"
                                 >
                                     <img src="{{ asset('ranks/overlay/' . $overlayImage) }}" alt="" class="block h-10 w-36 mx-auto">
@@ -124,7 +124,7 @@
             </div>
 
             <x-form.footer>
-                <x-button type="submit" color="blue">Add Rank Item</x-button>
+                <x-button type="submit" color="primary">Add Rank Item</x-button>
                 <x-link :href="route('ranks.items.index')" color="white">Cancel</x-link>
             </x-form.footer>
 

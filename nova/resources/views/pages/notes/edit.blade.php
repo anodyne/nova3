@@ -20,7 +20,7 @@
             </x-content-box>
 
             <x-form.footer>
-                <x-button type="submit" color="blue">Update Note</x-button>
+                <x-button type="submit" color="primary">Update Note</x-button>
                 <x-link :href="route('notes.index')" color="white">Cancel</x-link>
             </x-form.footer>
         </x-form>

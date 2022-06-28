@@ -15,19 +15,14 @@ return [
     */
 
     'sets' => [
-        'feather' => [
-            'path' => 'nova/resources/svg/feather',
-            'prefix' => 'feather',
-            'class' => 'stroke-current',
-        ],
         'fluent' => [
             'path' => 'nova/resources/svg/fluent',
             'prefix' => 'fluent',
             'class' => '',
         ],
-        'scl' => [
-            'path' => 'nova/resources/svg/streamline-core-line',
-            'prefix' => 'scl',
+        'untitled' => [
+            'path' => 'nova/resources/svg/untitled-ui-icons',
+            'prefix' => 'untitled',
             'class' => '',
         ],
         'empty' => [

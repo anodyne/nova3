@@ -6,7 +6,8 @@ namespace Nova\Settings\Providers;
 
 use Nova\DomainServiceProvider;
 use Nova\Foundation\Nova;
-use Nova\Settings\Actions\UpdateSystemDefaults;
+use Nova\Settings\Actions\UpdateAppearance;
+use Nova\Settings\Data\Appearance;
 use Nova\Settings\Data\Characters;
 use Nova\Settings\Data\ContentRatings;
 use Nova\Settings\Data\Discord;
@@ -16,15 +17,16 @@ use Nova\Settings\Data\MetaTags;
 use Nova\Settings\Data\PostingActivity;
 use Nova\Settings\Data\Ratings;
 use Nova\Settings\Data\SettingInfo;
-use Nova\Settings\Data\SystemDefaults;
 use Nova\Settings\Livewire\FindSettingsModal;
 use Nova\Settings\Models\Settings;
+use Nova\Settings\Responses\AppearanceSettingsResponse;
 use Nova\Settings\Responses\CharactersSettingsResponse;
 use Nova\Settings\Responses\EmailSettingsResponse;
 use Nova\Settings\Responses\GeneralSettingsResponse;
 use Nova\Settings\Responses\MetaTagsSettingsResponse;
 use Nova\Settings\Responses\NotificationSettingsResponse;
 use Nova\Settings\Responses\PostingActivitySettingsResponse;
+use Nova\Settings\Responses\PresentationSettingsResponse;
 use Nova\Settings\Responses\RatingsSettingsResponse;
 use Nova\Settings\Responses\SystemDefaultsSettingsResponse;
 use Nova\Settings\SettingsManager;
@@ -102,10 +104,10 @@ class SettingsServiceProvider extends DomainServiceProvider
                 dto: PostingActivity::class,
                 response: PostingActivitySettingsResponse::class
             ));
-            $manager->add('system-defaults', new SettingInfo(
-                dto: SystemDefaults::class,
-                response: SystemDefaultsSettingsResponse::class,
-                action: UpdateSystemDefaults::class,
+            $manager->add('appearance', new SettingInfo(
+                dto: Appearance::class,
+                response: AppearanceSettingsResponse::class,
+                action: UpdateAppearance::class,
             ));
             $manager->add('ratings', new SettingInfo(
                 dto: ContentRatings::class,

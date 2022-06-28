@@ -13,7 +13,7 @@
 
                             <x-slot:trailingAddOn>
                                 @if ($filters['search'])
-                                    <x-button color="gray-text" size="none" wire:click="$set('filters.search', '')">
+                                    <x-button color="light-gray-text" size="none" wire:click="$set('filters.search', '')">
                                         @icon('close')
                                     </x-button>
                                 @endif
@@ -25,12 +25,12 @@
                 @can('update', $user)
                     <div class="flex items-center space-x-4">
                         @if (count($selected) > 0)
-                            <x-button color="red-outline" size="sm" wire:click="detachSelectedRoles">
+                            <x-button color="error-outline" size="sm" wire:click="detachSelectedRoles">
                                 Remove {{ count($selected) }} @choice('role|roles', count($selected))
                             </x-button>
                         @endif
 
-                        <x-button type="button" color="blue" size="sm" wire:click="$emit('openModal', 'roles:select-roles-modal')">
+                        <x-button type="button" color="primary" size="sm" wire:click="$emit('openModal', 'roles:select-roles-modal')">
                             Add roles
                         </x-button>
                     </div>
@@ -55,15 +55,15 @@
             <x-slot:body>
                 @if ($selectPage)
                     <x-table.row>
-                        <x-table.cell class="bg-blue-50" colspan="3">
+                        <x-table.cell class="bg-primary-50" colspan="3">
                             @unless ($selectAll)
                                 <div>
-                                    <span class="text-blue-600">You've selected <strong>{{ $roles->count() }}</strong> roles assigned to this user. Do you want to select all <strong>{{ $roles->total() }}</strong>?</span>
+                                    <span class="text-primary-600">You've selected <strong>{{ $roles->count() }}</strong> roles assigned to this user. Do you want to select all <strong>{{ $roles->total() }}</strong>?</span>
 
-                                    <x-button size="none" color="blue-text" wire:click="selectAll" class="ml-1">Select All</x-button>
+                                    <x-button size="none" color="primary-text" wire:click="selectAll" class="ml-1">Select All</x-button>
                                 </div>
                             @else
-                                <span class="text-blue-600">You've selected all <strong>{{ $roles->total() }}</strong> roles assigned to this user.</span>
+                                <span class="text-primary-600">You've selected all <strong>{{ $roles->total() }}</strong> roles assigned to this user.</span>
                             @endunless
                         </x-table.cell>
                     </x-table.row>
@@ -77,8 +77,8 @@
                             </x-table.cell>
                         @endcan
 
-                        <x-table.cell>{{ $role->display_name }}</x-table.cell>
-                        <x-table.cell>{{ $role->description }}</x-table.cell>
+                        <x-table.cell class="font-medium text-sm text-gray-900 dark:text-gray-100">{{ $role->display_name }}</x-table.cell>
+                        <x-table.cell class="text-sm">{{ $role->description }}</x-table.cell>
                     </x-table.row>
                 @endforeach
             </x-slot:body>
@@ -101,7 +101,7 @@
                 </p>
 
                 <div class="mt-6">
-                    <x-button color="blue" wire:click="$emit('openModal', 'roles:select-roles-modal')">
+                    <x-button color="primary" wire:click="$emit('openModal', 'roles:select-roles-modal')">
                         Add roles
                     </x-button>
                 </div>

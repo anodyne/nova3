@@ -2,7 +2,7 @@
     @can('update', $story)
         <x-dropdown placement="bottom-end md:bottom-start" wide>
             <x-slot:trigger>
-                <x-badge :color="$story->status->color()" size="xs">
+                <x-badge :color="$story->status->color()">
                     {{ $story->status->displayName() }}
 
                     <x-slot:trailingIcon>
@@ -24,7 +24,7 @@
                         </div>
                         <div class="flex justify-end shrink-0 w-8">
                             @if ($story->status->equals('upcoming'))
-                                @icon('check', 'h-6 w-6 text-blue-500')
+                                @icon('check', 'h-6 w-6 text-primary-500')
                             @endif
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                         </div>
                         <div class="flex justify-end shrink-0 w-8">
                             @if ($story->status->equals('ongoing'))
-                                @icon('check', 'h-6 w-6 text-blue-500')
+                                @icon('check', 'h-6 w-6 text-primary-500')
                             @endif
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                         </div>
                         <div class="flex justify-end shrink-0 w-8">
                             @if ($story->status->equals('current'))
-                                @icon('check', 'h-6 w-6 text-blue-500')
+                                @icon('check', 'h-6 w-6 text-primary-500')
                             @endif
                         </div>
                     </div>
@@ -69,7 +69,7 @@
                         </div>
                         <div class="flex justify-end shrink-0 w-8">
                             @if ($story->status->equals('completed'))
-                                @icon('check', 'h-6 w-6 text-blue-500')
+                                @icon('check', 'h-6 w-6 text-primary-500')
                             @endif
                         </div>
                     </div>
@@ -79,7 +79,7 @@
     @endcan
 
     @cannot('update', $story)
-        <x-badge :color="$story->status->color()" size="xs">
+        <x-badge :color="$story->status->color()">
             @if ($story->canPost)
                 <x-slot:leadingIcon>
                     @icon('edit', $component->iconStyles())

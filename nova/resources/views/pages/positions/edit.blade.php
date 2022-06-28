@@ -59,7 +59,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button type="submit" color="blue">Update Position</x-button>
+                <x-button type="submit" color="primary">Update Position</x-button>
                 <x-link :href="route('positions.index', $position->department)" color="white">Cancel</x-link>
             </x-form.footer>
         </x-form>

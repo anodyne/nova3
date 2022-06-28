@@ -17,7 +17,7 @@
         }
 
         a {
-            @apply text-blue-500 underline cursor-pointer;
+            @apply text-primary-500 underline cursor-pointer;
         }
 
         ul {

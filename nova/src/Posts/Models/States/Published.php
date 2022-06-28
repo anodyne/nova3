@@ -10,7 +10,7 @@ class Published extends PostStatus
 
     public function color(): string
     {
-        return 'blue';
+        return 'primary';
     }
 
     public function name(): string

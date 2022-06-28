@@ -10,7 +10,10 @@
             <button
                 @click="open = !open"
                 type="button"
-                class="flex items-center justify-between cursor-default relative w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-left focus:outline-none focus:ring focus:border-blue-400 transition ease-in-out duration-200"
+                @class([
+                    'flex items-center justify-between cursor-default relative w-full rounded-md border border-gray-300 dark:border-gray-200/[15%] focus-within:ring-1 focus-within:ring-primary-400 focus-within:border-primary-400 dark:focus-within:border-primary-600 dark:focus-within:ring-primary-600 bg-white dark:bg-gray-700/50 py-2 px-3 text-left focus:outline-none dark:focus:bg-gray-800 transition leading-normal space-x-4',
+                    'text-gray-900 dark:text-gray-100' => $selected?->name,
+                ])
                 aria-haspopup="true"
                 aria-expanded="true"
                 :aria-expanded="open"
@@ -66,7 +69,7 @@
                                 <x-status :status="$character->status" />
                                 <span>{{ $character->name }}</span>
                             </div>
-                            <x-badge :color="$character->type->color()" size="xs">
+                            <x-badge :color="$character->type->color()">
                                 {{ $character->type->displayName() }}
                             </x-badge>
                         </div>

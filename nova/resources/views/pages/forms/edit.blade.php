@@ -29,7 +29,7 @@
             </x-form.section>
 
             <x-form.footer class="mt-4 md:mt-8">
-                <x-button type="submit" color="blue">Update Form</x-button>
+                <x-button type="submit" color="primary">Update Form</x-button>
                 <x-link :href="route('forms.index')" color="white">Cancel</x-link>
             </x-form.footer>
 

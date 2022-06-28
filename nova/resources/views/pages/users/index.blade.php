@@ -4,7 +4,7 @@
     <x-page-header title="All Users">
         <x-slot:controls>
             @can('create', 'Nova\Users\Models\User')
-                <x-link :href="route('users.create')" color="blue" data-cy="create">
+                <x-link :href="route('users.create')" color="primary" data-cy="create">
                     Add User
                 </x-link>
             @endcan
@@ -15,10 +15,10 @@
 
     <x-tips section="users" />
 
-    <x-modal color="red" title="Delete User?" icon="warning" :url="route('users.delete')">
+    <x-modal color="error" title="Delete User?" icon="warning" :url="route('users.delete')">
         <x-slot:footer>
             <span class="flex w-full sm:col-start-2">
-                <x-button type="submit" form="form" color="red" full-width>
+                <x-button type="submit" form="form" color="error" full-width>
                     Delete
                 </x-button>
             </span>
@@ -30,10 +30,10 @@
         </x-slot:footer>
     </x-modal>
 
-    <x-modal color="red" title="Deactivate User?" icon="remove" :url="route('users.confirm-deactivate')" event="modal-deactivate">
+    <x-modal color="error" title="Deactivate User?" icon="remove" :url="route('users.confirm-deactivate')" event="modal-deactivate">
         <x-slot:footer>
             <span class="flex w-full sm:col-start-2">
-                <x-button type="submit" form="form-deactivate" color="red" full-width>
+                <x-button type="submit" form="form-deactivate" color="error" full-width>
                     Deactivate
                 </x-button>
             </span>

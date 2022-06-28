@@ -10,7 +10,7 @@ class Primary extends CharacterType
 
     public function color(): string
     {
-        return 'blue';
+        return 'primary';
     }
 
     public function name(): string

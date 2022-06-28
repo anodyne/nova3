@@ -27,7 +27,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button type="submit" color="blue">Add Rank Name</x-button>
+                <x-button type="submit" color="primary">Add Rank Name</x-button>
                 <x-link :href="route('ranks.names.index')" color="white">Cancel</x-link>
             </x-form.footer>
         </x-form>

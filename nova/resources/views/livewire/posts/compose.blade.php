@@ -100,7 +100,7 @@
         </x-form.section>
 
         <x-form.footer>
-            <x-button wire:click="publish" color="blue">Publish</x-button>
+            <x-button wire:click="publish" color="primary">Publish</x-button>
 
             <x-button wire:click="save" wire:poll.30s="save" color="white">
                 Save
@@ -129,7 +129,7 @@
 
                             <img class="inline-block h-10 w-10 rounded-full ring-4 ring-white dark:ring-gray-800" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
 
-                            <x-button color="blue-outline" size="none" class="h-10 w-10 rounded-full ring-4 ring-white dark:ring-gray-800">
+                            <x-button color="primary-outline" size="none" class="h-10 w-10 rounded-full ring-4 ring-white dark:ring-gray-800">
                                 @icon('user-add', 'h-6 w-6')
                             </x-button>
                         </div>
@@ -140,22 +140,22 @@
             @if ($postType->fields->location->enabled || $postType->fields->day->enabled || $postType->fields->time->enabled)
                 <div class="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4">
                     @if ($postType->fields->location->enabled)
-                        <button type="button" class="flex items-center space-x-1.5 rounded-full text-sm md:text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition {{ $location ? 'bg-blue-50 dark:bg-blue-800 border-blue-300 dark:border-blue-600 text-blue-600 dark:text-blue-400' : 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900 border-gray-300 dark:border-gray-600 hover:border-gray-500/30 dark:hover:border-gray-600 text-gray-500 dark:text-gray-400' }}" wire:click='$emit("openModal", "posts:select-location-modal", {{ json_encode([$story->id, $location]) }})'>
-                            @icon('location', 'h-6 w-6 md:h-5 md:w-5 ' . ($location ? 'text-blue-500' : 'text-gray-400 dark:text-gray-500'))
+                        <button type="button" class="flex items-center space-x-1.5 rounded-full text-sm md:text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition {{ $location ? 'bg-primary-50 dark:bg-primary-800 border-primary-300 dark:border-primary-600 text-primary-600 dark:text-primary-400' : 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900 border-gray-300 dark:border-gray-600 hover:border-gray-500/30 dark:hover:border-gray-600 text-gray-500 dark:text-gray-400' }}" wire:click='$emit("openModal", "posts:select-location-modal", {{ json_encode([$story->id, $location]) }})'>
+                            @icon('location', 'h-6 w-6 md:h-5 md:w-5 ' . ($location ? 'text-primary-500' : 'text-gray-400 dark:text-gray-500'))
                             <span class="font-medium">{{ $location ?? 'Add a location' }}</span>
                         </button>
                     @endif
 
                     @if ($postType->fields->day->enabled)
-                        <button type="button" class="flex items-center space-x-1.5 rounded-full text-sm md:text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition  {{ $day ? 'bg-blue-50 hover:bg-blue-100 border-blue-300 hover:border-blue-400 text-blue-600' : 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900 border-gray-300 dark:border-gray-600 hover:border-gray-500/30 dark:hover:border-gray-600 text-gray-500 dark:text-gray-400' }}" wire:click='$emit("openModal", "posts:select-day-modal", {{ json_encode([$story->id, $day]) }})'>
-                            @icon('calendar', 'h-6 w-6 md:h-5 md:w-5 ' . ($day ? 'text-blue-500' : 'text-gray-400'))
+                        <button type="button" class="flex items-center space-x-1.5 rounded-full text-sm md:text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition  {{ $day ? 'bg-primary-50 hover:bg-primary-100 border-primary-300 hover:border-primary-400 text-primary-600' : 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900 border-gray-300 dark:border-gray-600 hover:border-gray-500/30 dark:hover:border-gray-600 text-gray-500 dark:text-gray-400' }}" wire:click='$emit("openModal", "posts:select-day-modal", {{ json_encode([$story->id, $day]) }})'>
+                            @icon('calendar', 'h-6 w-6 md:h-5 md:w-5 ' . ($day ? 'text-primary-500' : 'text-gray-400'))
                             <span class="font-medium">{{ $day ?? 'Add a day' }}</span>
                         </button>
                     @endif
 
                     @if ($postType->fields->time->enabled)
-                        <button type="button" class="flex items-center space-x-1.5 rounded-full text-sm md:text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition  {{ $time ? 'bg-blue-50 hover:bg-blue-100 border-blue-300 hover:border-blue-400 text-blue-600' : 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900 border-gray-300 dark:border-gray-600 hover:border-gray-500/30 dark:hover:border-gray-600 text-gray-500 dark:text-gray-400' }}" wire:click='$emit("openModal", "posts:select-time-modal", {{ json_encode([$story->id, $time]) }})'>
-                            @icon('clock', 'h-6 w-6 md:h-5 md:w-5 ' . ($time ? 'text-blue-500' : 'text-gray-400'))
+                        <button type="button" class="flex items-center space-x-1.5 rounded-full text-sm md:text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition  {{ $time ? 'bg-primary-50 hover:bg-primary-100 border-primary-300 hover:border-primary-400 text-primary-600' : 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900 border-gray-300 dark:border-gray-600 hover:border-gray-500/30 dark:hover:border-gray-600 text-gray-500 dark:text-gray-400' }}" wire:click='$emit("openModal", "posts:select-time-modal", {{ json_encode([$story->id, $time]) }})'>
+                            @icon('clock', 'h-6 w-6 md:h-5 md:w-5 ' . ($time ? 'text-primary-500' : 'text-gray-400'))
                             <span class="font-medium">{{ $time ?? 'Add a time' }}</span>
                         </button>
                     @endif
@@ -166,14 +166,14 @@
 
             <div class="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4">
                 @if ($allStories->count() > 1)
-                    <button type="button" class="flex items-center space-x-1.5 rounded-full text-sm md:text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition duration-200 {{ $story ? 'bg-blue-50 hover:bg-blue-100 border-blue-300 hover:border-blue-400 text-blue-600' : 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900 border-gray-300 dark:border-gray-600 hover:border-gray-500/30 dark:hover:border-gray-600 text-gray-500 dark:text-gray-400' }}" wire:click='$emit("openModal", "posts:select-story-modal", {{ json_encode([$story->id]) }})'>
-                        @icon('book', 'h-6 w-6 md:h-5 md:w-5 shrink-0 ' . ($story ? 'text-blue-500' : 'text-gray-400'))
+                    <button type="button" class="flex items-center space-x-1.5 rounded-full text-sm md:text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition duration-200 {{ $story ? 'bg-primary-50 hover:bg-primary-100 border-primary-300 hover:border-primary-400 text-primary-600' : 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900 border-gray-300 dark:border-gray-600 hover:border-gray-500/30 dark:hover:border-gray-600 text-gray-500 dark:text-gray-400' }}" wire:click='$emit("openModal", "posts:select-story-modal", {{ json_encode([$story->id]) }})'>
+                        @icon('book', 'h-6 w-6 md:h-5 md:w-5 shrink-0 ' . ($story ? 'text-primary-500' : 'text-gray-400'))
                         <span class="font-medium">{{ $story->title ?? 'Choose a story' }}</span>
-                        <x-icon.chevron-down class="text-blue-500 shrink-0 h-4 w-4" />
+                        <x-icon.chevron-down class="text-primary-500 shrink-0 h-4 w-4" />
                     </button>
                 @else
-                    <div class="flex items-center space-x-1.5 rounded-full text-sm md:text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition {{ $story ? 'bg-blue-50 dark:bg-blue-800 border-blue-300 dark:border-blue-600 text-blue-600 dark:text-blue-400' : 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900 border-gray-300 dark:border-gray-600 hover:border-gray-500/30 dark:hover:border-gray-600 text-gray-500 dark:text-gray-400' }}">
-                        @icon('book', 'h-6 w-6 md:h-5 md:w-5 ' . ($story ? 'text-blue-500' : 'text-gray-400'))
+                    <div class="flex items-center space-x-1.5 rounded-full text-sm md:text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition {{ $story ? 'bg-primary-50 dark:bg-primary-800 border-primary-300 dark:border-primary-600 text-primary-600 dark:text-primary-400' : 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900 border-gray-300 dark:border-gray-600 hover:border-gray-500/30 dark:hover:border-gray-600 text-gray-500 dark:text-gray-400' }}">
+                        @icon('book', 'h-6 w-6 md:h-5 md:w-5 ' . ($story ? 'text-primary-500' : 'text-gray-400'))
                         <span class="font-medium">{{ $story->title ?? 'Choose a story' }}</span>
                     </div>
                 @endif
@@ -236,9 +236,9 @@
                             <article>
                                 <button type="button" class="group w-full grid items-start relative rounded-md p-3 sm:p-5 overflow-hidden hover:bg-white dark:hover:bg-gray-900 transition">
                                     <div class="md:col-start-1 row-start-1 md:row-end-3 flex items-center font-medium mb-1 md:mb-0">
-                                        <svg viewBox="0 0 12 12" class="w-3 h-3 mr-6 overflow-visible text-blue-500">
+                                        <svg viewBox="0 0 12 12" class="w-3 h-3 mr-6 overflow-visible text-primary-500">
                                             <circle cx="6" cy="6" r="6" fill="currentColor"></circle>
-                                            <circle cx="6" cy="6" r="11" fill="none" stroke="currentColor" stroke-width="2" class="text-blue-500"></circle>
+                                            <circle cx="6" cy="6" r="11" fill="none" stroke="currentColor" stroke-width="2" class="text-primary-500"></circle>
 
                                             @if ($previousPost)
                                                 <path d="M 6 -6 V -30" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-400 dark:text-gray-500"></path>
@@ -314,7 +314,7 @@
 
     <div class="flex flex-col px-4 py-4 space-y-4 rounded-b-lg border-t border-gray-200 dark:border-gray-200/10 md:flex-row-reverse md:items-center md:px-6 md:py-6 md:space-y-0 md:space-x-6 md:space-x-reverse justify-between">
         <div class="flex flex-col md:flex-row-reverse md:items-center md:space-x-reverse space-y-4 md:space-y-0 md:space-x-6">
-            <x-button wire:click="publish" color="blue">Publish</x-button>
+            <x-button wire:click="publish" color="primary">Publish</x-button>
 
             <x-button wire:click="save" color="white">
                 Save
@@ -323,7 +323,7 @@
 
         {{-- @can('delete', $post) --}}
             <div>
-                <x-link href="#" color="gray-red-text" size="none">Discard draft</x-link>
+                <x-link href="#" color="gray-error-text" size="none">Discard draft</x-link>
             </div>
         {{-- @endcan --}}
     </div>

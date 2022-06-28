@@ -44,22 +44,22 @@
 
                 <div class="relative flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-8 mt-3 text-base md:text-sm">
                     <span>
-                        <x-badge :color="$story->status->color()" size="xs">
+                        <x-badge :color="$story->status->color()">
                             {{ $story->status->displayName() }}
                         </x-badge>
                     </span>
 
                     @if ($story->post_count > 0)
-                        <span class="font-medium text-gray-400 dark:text-gray-500">{{ number_format($story->post_count) }} @choice('post|posts', $story->post_count)</span>
+                        <span class="font-medium text-gray-500 dark:text-gray-400">{{ number_format($story->post_count) }} @choice('post|posts', $story->post_count)</span>
                     @endif
 
                     @if ($story->getDescendantCount() > 0)
-                        <span class="font-medium text-gray-400 dark:text-gray-500">{{ number_format($story->all_stories_post_count) }} posts in all stories</span>
+                        <span class="font-medium text-gray-500 dark:text-gray-400">{{ number_format($story->all_stories_post_count) }} posts in all stories</span>
                     @endif
 
                     @canany(['view', 'create', 'update', 'delete'], $story)
                         <span class="leading-0">
-                            <x-button type="button" size="none" color="gray-blue-text" wire:click="selectStory('{{ $story->id }}')">
+                            <x-button type="button" size="none" color="gray-primary-text" wire:click="selectStory('{{ $story->id }}')">
                                 @icon('settings', 'h-6 w-6 shrink-0 mr-1.5')
                                 <span>Manage</span>
                             </x-button>
@@ -68,7 +68,7 @@
 
                     @can('view', $story)
                         <span class="leading-0">
-                            <x-link :href="route('stories.show', $story)" size="none" color="gray-blue-text">
+                            <x-link :href="route('stories.show', $story)" size="none" color="gray-primary-text">
                                 @icon('arrow-right', 'h-6 w-6 shrink-0 mr-1.5')
                                 <span>Go to story</span>
                             </x-link>

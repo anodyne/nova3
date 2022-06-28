@@ -20,7 +20,7 @@
                     </div>
 
                     <div>
-                        <x-link :href="route('posts.create')" color="blue">
+                        <x-link :href="route('posts.create')" color="primary">
                             Start Writing
                         </x-link>
                     </div>

@@ -12,7 +12,7 @@
             <button
                 @click="open = !open"
                 type="button"
-                class="flex items-center justify-between cursor-default relative w-full rounded-md ring-1 ring-gray-200 dark:ring-gray-200/[15%] focus-within:ring-2 focus-within:ring-blue-400 dark:focus-within:ring-blue-400 bg-gray-50 dark:bg-gray-700/50 py-2 px-3 text-left focus:outline-none focus:bg-white dark:focus:bg-gray-800 transition leading-normal space-x-4"
+                class="flex items-center justify-between cursor-default relative w-full rounded-md ring-1 ring-gray-200 dark:ring-gray-200/[15%] focus-within:ring-2 focus-within:ring-primary-400 dark:focus-within:ring-primary-400 bg-gray-50 dark:bg-gray-700/50 py-2 px-3 text-left focus:outline-none focus:bg-white dark:focus:bg-gray-800 transition leading-normal space-x-4"
                 aria-haspopup="true"
                 aria-expanded="true"
                 :aria-expanded="open"

@@ -17,10 +17,11 @@
             aria-haspopup="true"
             aria-expanded="true"
             x-bind:aria-expanded="open"
-            class="group relative flex items-center space-x-4 ring-1 ring-gray-200 dark:ring-gray-200/[15%] py-2 px-3 bg-gray-50 dark:bg-gray-700/50 rounded-md w-full"
+            class="group relative flex items-center space-x-4 border border-gray-300 dark:border-gray-200/[15%] py-2 px-3 bg-white dark:bg-gray-700/50 rounded-md w-full"
+            :class="{ 'ring-4 ring-primary-100 border-primary-300 dark:border-primary-600 dark:ring-primary-900': open }"
         >
             <div class="h-4 w-4 rounded-full flex items-center shrink-0" x-bind:style=`background-color:${color}`></div>
-            <div class="flex-1 text-gray-500 dark:text-gray-400 text-left" x-text="color"></div>
+            <div class="flex-1 text-gray-900 dark:text-gray-100 text-left" x-text="color"></div>
             <div class="text-gray-400 dark:text-gray-500 flex items-center shrink-0">
                 @icon('paint-bucket', 'h-6 w-6')
             </div>

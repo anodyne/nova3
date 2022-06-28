@@ -45,7 +45,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button type="submit" color="blue">Update Rank Group</x-button>
+                <x-button type="submit" color="primary">Update Rank Group</x-button>
                 <x-link :href="route('ranks.groups.index')" color="white">Cancel</x-link>
             </x-form.footer>
         </x-form>

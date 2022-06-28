@@ -11,8 +11,6 @@ class Dropdown extends Component
     public function __construct(
         public string $placement = 'bottom-start',
         public bool $wide = false,
-        public string $triggerColor = 'gray-text',
-        public string $triggerSize = 'none',
         public string $id = 'options-menu',
         public ?string $maxHeight = null
     ) {

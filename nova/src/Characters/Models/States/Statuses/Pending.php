@@ -10,7 +10,7 @@ class Pending extends CharacterStatus
 
     public function color(): string
     {
-        return 'yellow';
+        return 'warning';
     }
 
     public function bgColor(): string

@@ -25,8 +25,8 @@ class Button extends Component
             'transition ease-in-out duration-200',
             'focus:outline-none',
             'disabled:cursor-not-allowed disabled:opacity-75',
-            'font-medium shadow-sm' => ! Str::endsWith($this->color, ['-text']),
-            'font-medium border-transparent' => Str::endsWith($this->color, ['-text']),
+            'font-medium shadow-sm' => ! Str::contains($this->color, ['-text']),
+            'font-medium border-transparent' => Str::contains($this->color, ['-text']),
             'w-full' => $this->fullWidth,
             $this->colorStyles(),
             $this->sizeStyles(),
@@ -39,23 +39,29 @@ class Button extends Component
             default => 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-200/10 hover:bg-gray-50 dark:hover:bg-gray-900/40 hover:border-gray-400/75 dark:hover:border-gray-200/20 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-gray-300 dark:focus:ring-gray-600',
 
             'dark-gray-text' => 'text-gray-600 hover:text-gray-700',
-            'gray-text' => 'text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400',
-            'light-gray-text' => 'text-gray-400 hover:text-gray-500',
+            'gray-text' => 'text-gray-500 hover:text-gray-600 dark:hover:text-gray-400',
+            'light-gray-text' => 'text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400',
 
-            'gray-blue-text' => 'text-gray-400 dark:text-gray-500 hover:text-blue-500 dark:hover:text-blue-500',
-            'gray-red-text' => 'text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500',
+            'light-gray-primary-text' => 'text-gray-400 dark:text-gray-500 hover:text-primary-500 dark:hover:text-primary-500',
+            'gray-primary-text' => 'text-gray-500 dark:text-gray-600 hover:text-primary-500 dark:hover:text-primary-500',
 
-            'blue' => 'border-transparent text-white bg-blue-500 hover:bg-blue-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-blue-300 dark:focus:ring-blue-800',
-            'blue-outline' => 'bg-blue-25 dark:bg-blue-900 border-blue-300 dark:border-blue-800 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900 hover:border-blue-400 dark:hover:border-blue-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-blue-300 dark:focus:ring-blue-800',
-            'blue-text' => 'text-blue-500 hover:text-blue-600 dark:hover:text-blue-400',
+            'light-gray-error-text' => 'text-gray-400 dark:text-gray-500 hover:text-error-500 dark:hover:text-error-500',
+            'gray-error-text' => 'text-gray-500 dark:text-gray-600 hover:text-error-500 dark:hover:text-error-500',
 
-            'purple' => 'border-transparent text-white bg-purple-500 hover:bg-purple-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-purple-300 dark:focus:ring-purple-800',
-            'purple-outline' => 'bg-purple-25 dark:bg-purple-900 border-purple-300 dark:border-purple-800 text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900 hover:border-purple-400 dark:hover:border-purple-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-purple-300 dark:focus:ring-purple-800',
-            'purple-text' => 'text-purple-500 hover:text-purple-600 dark:hover:text-purple-400',
+            'primary' => 'border-transparent text-white bg-primary-500 hover:bg-primary-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-primary-200 dark:focus:ring-primary-900',
+            'primary-outline' => 'bg-primary-25 dark:bg-primary-900 border-primary-300 dark:border-primary-800 text-primary-600 dark:text-primary-300 hover:bg-primary-50 dark:hover:bg-primary-900 hover:border-primary-400 dark:hover:border-primary-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-primary-200 dark:focus:ring-primary-900',
+            'primary-text' => 'text-primary-500 hover:text-primary-600 dark:hover:text-primary-400',
+            'primary-text-bg' => 'border-transparent text-primary-500 hover:text-primary-600 hover:bg-primary-50 dark:hover:bg-primary-900 dark:hover:text-primary-300',
 
-            'red' => 'border-transparent text-white bg-red-500 hover:bg-red-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-red-300 dark:focus:ring-red-800',
-            'red-outline' => 'bg-red-50 dark:bg-red-900 border-red-300 dark:border-red-800 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900 hover:border-red-400 dark:hover:border-red-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-red-300 dark:focus:ring-red-800',
-            'red-text' => 'text-red-500 hover:text-red-600 dark:hover:text-red-400',
+            'info' => 'border-transparent text-white bg-info-500 hover:bg-info-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-info-200 dark:focus:ring-info-900',
+            'info-outline' => 'bg-info-25 dark:bg-info-900 border-info-300 dark:border-info-800 text-info-600 dark:text-info-300 hover:bg-info-50 dark:hover:bg-info-900 hover:border-info-400 dark:hover:border-info-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-info-200 dark:focus:ring-info-900',
+            'info-text' => 'text-info-500 hover:text-info-600 dark:hover:text-info-400',
+            'info-text-bg' => 'border-transparent text-info-500 hover:text-info-600 hover:bg-info-50 dark:hover:bg-info-900 dark:hover:text-info-300',
+
+            'error' => 'border-transparent text-white bg-error-500 hover:bg-error-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-error-200 dark:focus:ring-error-900',
+            'error-outline' => 'bg-error-25 dark:bg-error-900 border-error-300 dark:border-error-800 text-error-600 dark:text-error-200 hover:bg-error-50 dark:hover:bg-error-900 hover:border-error-400 dark:hover:border-error-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-error-200 dark:focus:ring-error-900',
+            'error-text' => 'text-error-500 hover:text-error-600 dark:hover:text-error-400',
+            'error-text-bg' => 'border-transparent text-error-500 hover:text-error-600 hover:bg-error-50 dark:hover:bg-error-900 dark:hover:text-error-200',
 
             'gray' => 'border-transparent text-gray-600 bg-gray-300 hover:bg-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-gray-400',
         };

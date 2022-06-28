@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Illuminate\Database\Migrations\Migration;
+use Nova\Settings\Data\Appearance;
 use Nova\Settings\Data\Characters;
 use Nova\Settings\Data\ContentRating;
 use Nova\Settings\Data\ContentRatings;
@@ -11,7 +12,6 @@ use Nova\Settings\Data\Email;
 use Nova\Settings\Data\General;
 use Nova\Settings\Data\MetaTags;
 use Nova\Settings\Data\PostingActivity;
-use Nova\Settings\Data\SystemDefaults;
 use Nova\Settings\Models\Settings;
 
 class PopulateSettingsTable extends Migration
@@ -21,10 +21,16 @@ class PopulateSettingsTable extends Migration
         $settings = [
             'general' => new General(),
             'email' => new Email(),
-            'system_defaults' => new SystemDefaults(
+            'appearance' => new Appearance(
                 theme: 'Pulsar',
                 iconSet: 'fluent',
-                imagePath: null
+                imagePath: null,
+                colorsGray: 'gray',
+                colorsPrimary: 'blue',
+                colorsError: 'red',
+                colorsWarning: 'amber',
+                colorsSuccess: 'emerald',
+                colorsInfo: 'lilac',
             ),
             'meta_tags' => new MetaTags(),
             'characters' => Characters::from([

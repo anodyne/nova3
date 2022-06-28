@@ -13,8 +13,8 @@
                                 field="active"
                                 :value="old('active', data_get($actions, $story->id.'.story.action') === 'delete')"
                                 :disabled="$loop->first"
-                                active-bg="bg-red-500"
-                                active-border="border-red-500"
+                                active-bg="bg-error-500"
+                                active-border="border-error-500"
                             >
                                 <span class="text-gray-900 dark:text-gray-100">Delete {{ $story->title }}</span>
                             </x-input.toggle>
@@ -28,7 +28,7 @@
 
                         <div class="mt-2 max-w-xl text-gray-600 dark:text-gray-400 font-medium flex items-center space-x-6">
                             @if (data_get($actions, "{$story->id}.story.action") === 'move')
-                                <x-badge color="purple">
+                                <x-badge color="info">
                                     <x-slot:leadingIcon>
                                         @icon('arrow-right', 'h-5 w-5 shrink-0')
                                     </x-slot:leadingIcon>
@@ -37,7 +37,7 @@
                             @endif
 
                             @if (data_get($actions, "{$story->id}.story.action") === 'delete')
-                                <x-badge color="red">
+                                <x-badge color="error">
                                     <x-slot:leadingIcon>
                                         @icon('close', 'h-5 w-5 shrink-0')
                                     </x-slot:leadingIcon>
@@ -46,7 +46,7 @@
                             @endif
 
                             @if (data_get($actions, "{$story->id}.posts.action") === 'move')
-                                <x-badge color="purple">
+                                <x-badge color="info">
                                     <x-slot:leadingIcon>
                                         @icon('arrow-right', 'h-5 w-5 shrink-0')
                                     </x-slot:leadingIcon>
@@ -55,7 +55,7 @@
                             @endif
 
                             @if (data_get($actions, "{$story->id}.posts.action") === 'delete')
-                                <x-badge color="red">
+                                <x-badge color="error">
                                     <x-slot:leadingIcon>
                                         @icon('close', 'h-5 w-5 shrink-0')
                                     </x-slot:leadingIcon>

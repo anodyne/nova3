@@ -94,7 +94,7 @@
                 @endcan
 
                 @can('delete', $selectedStory)
-                    <x-link :href="route('stories.delete', $selectedStory)" size="none" color="gray-red-text">
+                    <x-link :href="route('stories.delete', $selectedStory)" size="none" color="gray-error-text">
                         @icon('delete', 'h-5 w-5 mr-1.5')
                         <span>Delete</span>
                     </x-link>
@@ -102,7 +102,7 @@
 
                 @can('create', $selectedStory)
                     <x-dropdown>
-                        <x-slot:trigger>
+                        <x-slot:trigger color="gray-text">
                             @icon('add', 'h-5 w-5 shrink-0 mr-1.5')
                             <span>Add story</span>
                             <x-icon.chevron-down class="h-4 w-4 shrink-0 ml-1.5" />
