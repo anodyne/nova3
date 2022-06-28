@@ -62,10 +62,10 @@
                                 <div class="flex-1">
                                     <div @class([
                                         'rounded-full h-2.5',
-                                        'bg-success-500 w-1/4' => $ratingLanguage === 0,
-                                        'bg-warning-300 w-1/2' => $ratingLanguage === 1,
+                                        'bg-green-500 w-1/4' => $ratingLanguage === 0,
+                                        'bg-yellow-300 w-1/2' => $ratingLanguage === 1,
                                         'bg-orange-500 w-3/4' => $ratingLanguage === 2,
-                                        'bg-error-500 w-full' => $ratingLanguage === 3,
+                                        'bg-red-500 w-full' => $ratingLanguage === 3,
                                     ])></div>
                                 </div>
                             </div>
@@ -75,10 +75,10 @@
                                 <div class="flex-1">
                                     <div @class([
                                         'rounded-full h-2.5',
-                                        'bg-success-500 w-1/4' => $ratingSex === 0,
-                                        'bg-warning-300 w-1/2' => $ratingSex === 1,
+                                        'bg-green-500 w-1/4' => $ratingSex === 0,
+                                        'bg-yellow-300 w-1/2' => $ratingSex === 1,
                                         'bg-orange-500 w-3/4' => $ratingSex === 2,
-                                        'bg-error-500 w-full' => $ratingSex === 3,
+                                        'bg-red-500 w-full' => $ratingSex === 3,
                                     ])></div>
                                 </div>
                             </div>
@@ -88,10 +88,10 @@
                                 <div class="flex-1">
                                     <div @class([
                                         'rounded-full h-2.5',
-                                        'bg-success-500 w-1/4' => $ratingViolence === 0,
-                                        'bg-warning-300 w-1/2' => $ratingViolence === 1,
+                                        'bg-green-500 w-1/4' => $ratingViolence === 0,
+                                        'bg-yellow-300 w-1/2' => $ratingViolence === 1,
                                         'bg-orange-500 w-3/4' => $ratingViolence === 2,
-                                        'bg-error-500 w-full' => $ratingViolence === 3,
+                                        'bg-red-500 w-full' => $ratingViolence === 3,
                                     ])></div>
                                 </div>
                             </div>

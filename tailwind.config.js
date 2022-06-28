@@ -160,6 +160,19 @@ module.exports = {
                     800: 'rgb(var(--color-info-800) / <alpha-value>)',
                     900: 'rgb(var(--color-info-900) / <alpha-value>)',
                 },
+                green: {
+                    500: '#12b76a',
+                },
+                yellow: {
+                    300: '#fec84b',
+                    700: '#b54708',
+                },
+                orange: {
+                    500: '#ef6820',
+                },
+                red: {
+                    500: '#f63d68',
+                },
                 preview: {
                     gray: '#667085',
                     'gray-blue': '#4e5ba6',
