@@ -95,7 +95,7 @@ class UntitledUiIconSet extends IconSet
 
     public function name(): string
     {
-        return 'Untitled UI Icons';
+        return 'Untitled UI';
     }
 
     public function prefix(): string

@@ -88,7 +88,7 @@
                         </label>
 
                         <label class="rounded-bl-md rounded-br-md relative border p-4 flex cursor-pointer focus:outline-none" :class="{ 'bg-primary-50 dark:bg-primary-900 border-primary-300 dark:border-primary-600 z-10': postsStrategy === 'post', 'border-gray-300 dark:border-gray-600': postsStrategy !== 'post' }">
-                            <input type="radio" name="posts-strategy" value="post" class="h-4 w-4 mt-0.5 cursor-pointer  border-gray-300 focus:ring-primary-500 bg-white focus:ring-offset-primary-50 dark:focus:ring-offset-primary-900" :class="{ 'text-primary-600 dark:text-primary-400': postsStrategy === 'author' }" aria-labelledby="posts-strategy-1-label" aria-describedby="posts-strategy-1-description" x-model="postsStrategy">
+                            <input type="radio" name="posts-strategy" value="post" class="shrink-0 h-4 w-4 mt-0.5 cursor-pointer border-gray-300 focus:ring-primary-500 bg-white focus:ring-offset-primary-50 dark:focus:ring-offset-primary-900" :class="{ 'text-primary-600 dark:text-primary-400': postsStrategy === 'author' }" aria-labelledby="posts-strategy-1-label" aria-describedby="posts-strategy-1-description" x-model="postsStrategy">
                             <div class="ml-3 flex flex-col">
                                 <span id="posts-strategy-1-label" class="block text-sm font-medium" :class="{ 'text-primary-900 dark:text-primary-100': postsStrategy === 'post', 'text-gray-900 dark:text-gray-100': postsStrategy !== 'post' }">
                                     Attribute a single post
@@ -110,7 +110,7 @@
                     <div class="bg-white dark:bg-gray-800 rounded-md -space-y-px">
                         <!-- Checked: "bg-indigo-50 border-indigo-200 z-10", Not Checked: "border-gray-200" -->
                         <label class="rounded-tl-md rounded-tr-md relative border p-4 flex cursor-pointer focus:outline-none" :class="{ 'bg-primary-50 dark:bg-primary-900 border-primary-300 dark:border-primary-600 z-10': wordCountStrategy === 'all', 'border-gray-300 dark:border-gray-600': wordCountStrategy !== 'all' }">
-                            <input type="radio" name="word-count-strategy" value="all" class="h-4 w-4 mt-0.5 cursor-pointer  border-gray-300 focus:ring-primary-500 bg-white focus:ring-offset-primary-50 dark:focus:ring-offset-primary-900" :class="{ 'text-primary-600 dark:text-primary-400': wordCountStrategy === 'all' }" aria-labelledby="word-count-strategy-0-label" aria-describedby="word-count-strategy-0-description" x-model="wordCountStrategy">
+                            <input type="radio" name="word-count-strategy" value="all" class="shrink-0 h-4 w-4 mt-0.5 cursor-pointer  border-gray-300 focus:ring-primary-500 bg-white focus:ring-offset-primary-50 dark:focus:ring-offset-primary-900" :class="{ 'text-primary-600 dark:text-primary-400': wordCountStrategy === 'all' }" aria-labelledby="word-count-strategy-0-label" aria-describedby="word-count-strategy-0-description" x-model="wordCountStrategy">
                             <div class="ml-3 flex flex-col">
                                 <!-- Checked: "text-indigo-900", Not Checked: "text-gray-900" -->
                                 <span id="word-count-strategy-0-label" class="block text-sm font-medium" :class="{ 'text-primary-900 dark:text-primary-100': wordCountStrategy === 'all', 'text-gray-900 dark:text-gray-100': wordCountStrategy !== 'all' }">
@@ -125,7 +125,7 @@
 
                         <!-- Checked: "bg-indigo-50 border-indigo-200 z-10", Not Checked: "border-gray-200" -->
                         <label class="rounded-bl-md rounded-br-md relative border p-4 flex cursor-pointer focus:outline-none" :class="{ 'bg-primary-50 dark:bg-primary-900 border-primary-300 dark:border-primary-600 z-10': wordCountStrategy === 'average', 'border-gray-300 dark:border-gray-600': wordCountStrategy !== 'average' }">
-                            <input type="radio" name="word-count-strategy" value="average" class="h-4 w-4 mt-0.5 cursor-pointer  border-gray-300 focus:ring-primary-500 bg-white focus:ring-offset-primary-50 dark:focus:ring-offset-primary-900" :class="{ 'text-primary-600 dark:text-primary-400': wordCountStrategy === 'average' }" aria-labelledby="word-count-strategy-1-label" aria-describedby="word-count-strategy-1-description" x-model="wordCountStrategy">
+                            <input type="radio" name="word-count-strategy" value="average" class="shrink-0 h-4 w-4 mt-0.5 cursor-pointer  border-gray-300 focus:ring-primary-500 bg-white focus:ring-offset-primary-50 dark:focus:ring-offset-primary-900" :class="{ 'text-primary-600 dark:text-primary-400': wordCountStrategy === 'average' }" aria-labelledby="word-count-strategy-1-label" aria-describedby="word-count-strategy-1-description" x-model="wordCountStrategy">
                             <div class="ml-3 flex flex-col">
                                 <!-- Checked: "text-indigo-900", Not Checked: "text-gray-900" -->
                                 <span id="word-count-strategy-1-label" class="block text-sm font-medium" :class="{ 'text-primary-900 dark:text-primary-100': wordCountStrategy === 'average', 'text-gray-900 dark:text-gray-100': wordCountStrategy !== 'average' }">

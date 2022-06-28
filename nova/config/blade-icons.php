@@ -25,6 +25,11 @@ return [
             'prefix' => 'untitled',
             'class' => '',
         ],
+        'fas' => [
+            'path' => 'nova/resources/svg/font-awesome',
+            'prefix' => 'fas',
+            'class' => '',
+        ],
         'empty' => [
             'path' => 'nova/resources/svg/empty-states',
             'prefix' => 'empty',

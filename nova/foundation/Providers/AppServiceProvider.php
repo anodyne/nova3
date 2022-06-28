@@ -80,6 +80,7 @@ class AppServiceProvider extends ServiceProvider
         $iconSets = new IconSets();
         $iconSets->add('fluent', new FluentIconSet());
         $iconSets->add('untitled', new UntitledUiIconSet());
+        $iconSets->add('fas', new FontAwesomeSolidIconSet());
 
         $this->app->instance(IconSets::class, $iconSets);
     }
