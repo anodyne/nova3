@@ -12,44 +12,55 @@ class PositionPolicy
 {
     use HandlesAuthorization;
 
-    public function viewAny(User $user): bool
+    public function viewAny(User $user)
     {
-        return $user->isAbleTo('department.*');
+        return $user->isAbleTo('department.*')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function view(User $user, Position $position): bool
+    public function view(User $user, Position $position)
     {
-        return $user->isAbleTo('department.view');
+        return $user->isAbleTo('department.view')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function create(User $user): bool
-    {
-        return $user->isAbleTo('department.create');
-    }
-
-    public function update(User $user, Position $position): bool
-    {
-        return $user->isAbleTo('department.update');
-    }
-
-    public function delete(User $user, Position $position): bool
-    {
-        return $user->isAbleTo('department.delete');
-    }
-
-    public function duplicate(User $user, Position $position): bool
+    public function create(User $user)
     {
         return $user->isAbleTo('department.create')
-            && $user->isAbleTo('department.update');
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function restore(User $user, Position $position): bool
+    public function update(User $user, Position $position)
     {
-        return false;
+        return $user->isAbleTo('department.update')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function forceDelete(User $user, Position $position): bool
+    public function delete(User $user, Position $position)
     {
-        return false;
+        return $user->isAbleTo('department.delete')
+            ? $this->allow()
+            : $this->denyAsNotFound();
+    }
+
+    public function duplicate(User $user, Position $position)
+    {
+        return $user->isAbleTo('department.create') && $user->isAbleTo('department.update')
+            ? $this->allow()
+            : $this->denyAsNotFound();
+    }
+
+    public function restore(User $user, Position $position)
+    {
+        return $this->denyWithStatus(418);
+    }
+
+    public function forceDelete(User $user, Position $position)
+    {
+        return $this->denyWithStatus(418);
     }
 }

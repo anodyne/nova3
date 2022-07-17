@@ -12,38 +12,48 @@ class ThemePolicy
 {
     use HandlesAuthorization;
 
-    public function viewAny(User $user): bool
+    public function viewAny(User $user)
     {
-        return $user->isAbleTo('theme.*');
+        return $user->isAbleTo('theme.*')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function view(User $user): bool
+    public function view(User $user)
     {
-        return $user->isAbleTo('theme.view');
+        return $user->isAbleTo('theme.view')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function create(User $user): bool
+    public function create(User $user)
     {
-        return $user->isAbleTo('theme.create');
+        return $user->isAbleTo('theme.create')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function update(User $user): bool
+    public function update(User $user)
     {
-        return $user->isAbleTo('theme.update');
+        return $user->isAbleTo('theme.update')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function delete(User $user): bool
+    public function delete(User $user)
     {
-        return $user->isAbleTo('theme.delete') && Theme::count() > 1;
+        return $user->isAbleTo('theme.delete') && Theme::count() > 1
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function restore(User $user, Theme $theme): bool
+    public function restore(User $user, Theme $theme)
     {
-        return false;
+        return $this->denyWithStatus(418);
     }
 
-    public function forceDelete(User $user, Theme $theme): bool
+    public function forceDelete(User $user, Theme $theme)
     {
-        return false;
+        return $this->denyWithStatus(418);
     }
 }

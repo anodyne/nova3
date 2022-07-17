@@ -23,7 +23,9 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->isAbleTo('user.*');
+        return $user->isAbleTo('user.*')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
     /**
@@ -36,7 +38,9 @@ class UserPolicy
      */
     public function view(User $user, User $actionableUser)
     {
-        return $user->isAbleTo('user.view');
+        return $user->isAbleTo('user.view')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
     /**
@@ -48,7 +52,9 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        return $user->isAbleTo('user.create');
+        return $user->isAbleTo('user.create')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
     /**
@@ -61,7 +67,9 @@ class UserPolicy
      */
     public function update(User $user, User $actionableUser)
     {
-        return $user->isAbleTo('user.update');
+        return $user->isAbleTo('user.update')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
     /**
@@ -74,12 +82,16 @@ class UserPolicy
      */
     public function delete(User $user, User $actionableUser)
     {
-        return $user->isAbleTo('user.delete') && $user->isNot($actionableUser);
+        return $user->isAbleTo('user.delete') && $user->isNot($actionableUser)
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
     public function restore(User $user, User $actionableUser)
     {
-        return $user->isAbleTo('user.create') || $user->isAbleTo('user.delete');
+        return $user->isAbleTo('user.create') || $user->isAbleTo('user.delete')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
     public function forceDelete(User $user, User $actionableUser)
@@ -89,20 +101,22 @@ class UserPolicy
 
     public function activate(User $user, User $actionableUser)
     {
-        return $this->update($user, $actionableUser)
-            && $actionableUser->status->equals(Inactive::class);
+        return $this->update($user, $actionableUser) && $actionableUser->status->equals(Inactive::class)
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
     public function deactivate(User $user, User $actionableUser)
     {
-        return $this->update($user, $actionableUser)
-            && $actionableUser->status->equals(Active::class)
-            && $actionableUser->isNot($user);
+        return $this->update($user, $actionableUser) && $actionableUser->status->equals(Active::class) && $actionableUser->isNot($user)
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
     public function forcePasswordReset(User $user, User $actionableUser)
     {
-        return $this->update($user, $actionableUser)
-            && ! $actionableUser->status->equals(Pending::class);
+        return $this->update($user, $actionableUser) && ! $actionableUser->status->equals(Pending::class)
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 }

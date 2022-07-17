@@ -21,7 +21,9 @@ class RankNamePolicy
      */
     public function viewAny(User $user)
     {
-        return $user->isAbleTo('rank.*');
+        return $user->isAbleTo('rank.*')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
     /**
@@ -34,7 +36,9 @@ class RankNamePolicy
      */
     public function view(User $user, RankName $name)
     {
-        return $user->isAbleTo('rank.view');
+        return $user->isAbleTo('rank.view')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
     /**
@@ -46,7 +50,9 @@ class RankNamePolicy
      */
     public function create(User $user)
     {
-        return $user->isAbleTo('rank.create');
+        return $user->isAbleTo('rank.create')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
     /**
@@ -59,7 +65,9 @@ class RankNamePolicy
      */
     public function update(User $user, RankName $name)
     {
-        return $user->isAbleTo('rank.update');
+        return $user->isAbleTo('rank.update')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
     /**
@@ -72,7 +80,9 @@ class RankNamePolicy
      */
     public function delete(User $user, RankName $name)
     {
-        return $user->isAbleTo('rank.delete');
+        return $user->isAbleTo('rank.delete')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
     /**
@@ -83,8 +93,9 @@ class RankNamePolicy
      */
     public function duplicate(User $user, RankName $name)
     {
-        return $user->isAbleTo('rank.create')
-            && $user->isAbleTo('rank.update');
+        return $user->isAbleTo('rank.create') && $user->isAbleTo('rank.update')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
     /**
@@ -97,7 +108,7 @@ class RankNamePolicy
      */
     public function restore(User $user, RankName $name)
     {
-        return false;
+        return $this->denyWithStatus(418);
     }
 
     /**
@@ -110,6 +121,6 @@ class RankNamePolicy
      */
     public function forceDelete(User $user, RankName $name)
     {
-        return false;
+        return $this->denyWithStatus(418);
     }
 }

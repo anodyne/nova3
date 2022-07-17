@@ -15,72 +15,90 @@ class CharacterPolicy
 {
     use HandlesAuthorization;
 
-    public function viewAny(User $user): bool
+    public function viewAny(User $user)
     {
-        return $user->isAbleTo('character.*');
+        return $user->isAbleTo('character.*')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function view(User $user, Character $character): bool
+    public function view(User $user, Character $character)
     {
-        return $user->isAbleTo('character.view');
+        return $user->isAbleTo('character.view')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function create(User $user): bool
+    public function create(User $user)
     {
-        return $user->isAbleTo('character.create');
+        return $user->isAbleTo('character.create')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function createAny(User $user): bool
+    public function createAny(User $user)
     {
-        return $this->create($user)
-            || $this->createWithoutPermissions($user);
+        return $this->create($user) || $this->createWithoutPermissions($user)
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function createWithoutPermissions(User $user): bool
+    public function createWithoutPermissions(User $user)
     {
-        return settings()->characters->allowCharacterCreation;
+        return settings()->characters->allowCharacterCreation
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function update(User $user, Character $character): bool
-    {
-        return $user->isAbleTo('character.update');
-    }
-
-    public function delete(User $user, Character $character): bool
-    {
-        return $user->isAbleTo('character.delete');
-    }
-
-    public function restore(User $user, Character $character): bool
-    {
-        return false;
-    }
-
-    public function forceDelete(User $user, Character $character): bool
-    {
-        return false;
-    }
-
-    public function activate(User $user, Character $character): bool
+    public function update(User $user, Character $character)
     {
         return $user->isAbleTo('character.update')
-            && $character->status->equals(Inactive::class);
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function deactivate(User $user, Character $character): bool
+    public function delete(User $user, Character $character)
+    {
+        return $user->isAbleTo('character.delete')
+            ? $this->allow()
+            : $this->denyAsNotFound();
+    }
+
+    public function restore(User $user, Character $character)
+    {
+        return $this->denyWithStatus(418);
+    }
+
+    public function forceDelete(User $user, Character $character)
+    {
+        return $this->denyWithStatus(418);
+    }
+
+    public function activate(User $user, Character $character)
+    {
+        return $user->isAbleTo('character.update') && $character->status->equals(Inactive::class)
+            ? $this->allow()
+            : $this->denyAsNotFound();
+    }
+
+    public function deactivate(User $user, Character $character)
+    {
+        return $user->isAbleTo('character.update') && $character->status->equals(Active::class)
+            ? $this->allow()
+            : $this->denyAsNotFound();
+    }
+
+    public function approve(User $user, Character $character)
+    {
+        return $this->approveAny($user) && $character->status->equals(Pending::class)
+            ? $this->allow()
+            : $this->denyAsNotFound();
+    }
+
+    public function approveAny(User $user)
     {
         return $user->isAbleTo('character.update')
-            && $character->status->equals(Active::class);
-    }
-
-    public function approve(User $user, Character $character): bool
-    {
-        return $this->approveAny($user)
-            && $character->status->equals(Pending::class);
-    }
-
-    public function approveAny(User $user): bool
-    {
-        return $user->isAbleTo('character.update');
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 }

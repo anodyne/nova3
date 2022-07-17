@@ -12,43 +12,49 @@ class SettingsPolicy
 {
     use HandlesAuthorization;
 
-    public function viewAny(User $user): bool
+    public function viewAny(User $user)
     {
-        return $user->isAbleTo('settings.*');
+        return $user->isAbleTo('settings.*')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function view(User $user, Settings $settings): bool
+    public function view(User $user, Settings $settings)
     {
-        return true;
+        return $user->isAbleTo('settings.*')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function create(User $user): bool
+    public function create(User $user)
     {
-        return false;
+        return $this->denyAsNotFound();
     }
 
-    public function update(User $user, Settings $settings): bool
+    public function update(User $user, Settings $settings)
     {
-        return $user->isAbleTo('settings.update');
+        return $user->isAbleTo('settings.update')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function delete(User $user, Settings $settings): bool
+    public function delete(User $user, Settings $settings)
     {
-        return false;
+        return $this->denyAsNotFound();
     }
 
-    public function duplicate(User $user, Settings $settings): bool
+    public function duplicate(User $user, Settings $settings)
     {
-        return false;
+        return $this->denyAsNotFound();
     }
 
-    public function restore(User $user, Settings $settings): bool
+    public function restore(User $user, Settings $settings)
     {
-        return false;
+        return $this->denyWithStatus(418);
     }
 
-    public function forceDelete(User $user, Settings $settings): bool
+    public function forceDelete(User $user, Settings $settings)
     {
-        return false;
+        return $this->denyWithStatus(418);
     }
 }

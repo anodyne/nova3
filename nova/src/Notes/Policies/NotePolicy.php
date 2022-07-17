@@ -12,43 +12,51 @@ class NotePolicy
 {
     use HandlesAuthorization;
 
-    public function viewAny(User $user): bool
+    public function viewAny(User $user)
     {
-        return true;
+        return $this->allow();
     }
 
-    public function view(User $user, Note $note): bool
+    public function view(User $user, Note $note)
     {
-        return $user->is($note->author);
+        return $user->is($note->author)
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function create(User $user): bool
+    public function create(User $user)
     {
-        return true;
+        return $this->allow();
     }
 
-    public function update(User $user, Note $note): bool
+    public function update(User $user, Note $note)
     {
-        return $user->is($note->author);
+        return $user->is($note->author)
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function delete(User $user, Note $note): bool
+    public function delete(User $user, Note $note)
     {
-        return $user->is($note->author);
+        return $user->is($note->author)
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function duplicate(User $user, Note $note): bool
+    public function duplicate(User $user, Note $note)
     {
-        return $user->is($note->author);
+        return $user->is($note->author)
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function restore(User $user, Note $note): bool
+    public function restore(User $user, Note $note)
     {
-        return false;
+        return $this->denyWithStatus(418);
     }
 
-    public function forceDelete(User $user, Note $note): bool
+    public function forceDelete(User $user, Note $note)
     {
-        return false;
+        return $this->denyWithStatus(418);
     }
 }

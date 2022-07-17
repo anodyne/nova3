@@ -12,45 +12,55 @@ class RolePolicy
 {
     use HandlesAuthorization;
 
-    public function viewAny(User $user): bool
+    public function viewAny(User $user)
     {
-        return $user->isAbleTo('role.*');
+        return $user->isAbleTo('role.*')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function view(User $user, Role $role): bool
+    public function view(User $user, Role $role)
     {
-        return $user->isAbleTo('role.view');
+        return $user->isAbleTo('role.view')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function create(User $user): bool
-    {
-        return $user->isAbleTo('role.create');
-    }
-
-    public function update(User $user, Role $role): bool
-    {
-        return $user->isAbleTo('role.update');
-    }
-
-    public function delete(User $user, Role $role): bool
-    {
-        return $user->isAbleTo('role.delete') && ! $role->locked;
-    }
-
-    public function duplicate(User $user, Role $role): bool
+    public function create(User $user)
     {
         return $user->isAbleTo('role.create')
-            && $user->isAbleTo('role.update')
-            && ! $role->locked;
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function restore(User $user, Role $role): bool
+    public function update(User $user, Role $role)
     {
-        return false;
+        return $user->isAbleTo('role.update')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function forceDelete(User $user, Role $role): bool
+    public function delete(User $user, Role $role)
     {
-        return false;
+        return $user->isAbleTo('role.delete') && ! $role->locked
+            ? $this->allow()
+            : $this->denyAsNotFound();
+    }
+
+    public function duplicate(User $user, Role $role)
+    {
+        return $user->isAbleTo('role.create') && $user->isAbleTo('role.update') && ! $role->locked
+            ? $this->allow()
+            : $this->denyAsNotFound();
+    }
+
+    public function restore(User $user, Role $role)
+    {
+        return $this->denyWithStatus(418);
+    }
+
+    public function forceDelete(User $user, Role $role)
+    {
+        return $this->denyWithStatus(418);
     }
 }
