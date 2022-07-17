@@ -15,7 +15,7 @@
 
     @if ($positionCount === 0)
         <x-empty-state.large
-            image="organizer"
+            icon="list"
             message="Positions are the jobs or stations that characters can be assigned to for display on your manifests."
             label="Add a position now"
             :link="route('positions.create')"

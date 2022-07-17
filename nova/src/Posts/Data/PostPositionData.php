@@ -11,16 +11,16 @@ class PostPositionData extends Data
 {
     public function __construct(
         public ?string $direction,
-        public bool $hasPositionChange,
         public ?Post $neighbor,
+        public bool $hasPositionChange,
     ) {
     }
 
     public static function fromArray(array $array): static
     {
         return new self(
-            direction: data_get($array, 'displayDirection'),
-            neighbor: Post::find(data_get($array, 'displayNeighbor')),
+            direction: data_get($array, 'direction'),
+            neighbor: Post::find(data_get($array, 'neighbor')),
             hasPositionChange: (bool) data_get($array, 'hasPositionChange', false),
         );
     }

@@ -46,7 +46,7 @@ class Button extends Component
             'gray-primary-text' => 'text-gray-500 dark:text-gray-600 hover:text-primary-500 dark:hover:text-primary-500',
 
             'light-gray-error-text' => 'text-gray-400 dark:text-gray-500 hover:text-error-500 dark:hover:text-error-500',
-            'gray-error-text' => 'text-gray-500 dark:text-gray-600 hover:text-error-500 dark:hover:text-error-500',
+            'gray-error-text' => 'text-gray-500 hover:text-error-500 dark:hover:text-error-500',
 
             'primary' => 'border-transparent text-white bg-primary-500 hover:bg-primary-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-primary-200 dark:focus:ring-primary-900',
             'primary-outline' => 'bg-primary-25 dark:bg-primary-900 border-primary-300 dark:border-primary-800 text-primary-600 dark:text-primary-300 hover:bg-primary-50 dark:hover:bg-primary-900 hover:border-primary-400 dark:hover:border-primary-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-primary-200 dark:focus:ring-primary-900',
@@ -63,6 +63,11 @@ class Button extends Component
             'error-text' => 'text-error-500 hover:text-error-600 dark:hover:text-error-400',
             'error-text-bg' => 'border-transparent text-error-500 hover:text-error-600 hover:bg-error-50 dark:hover:bg-error-900 dark:hover:text-error-200',
 
+            'warning' => 'border-transparent text-white bg-warning-500 hover:bg-warning-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-warning-200 dark:focus:ring-warning-900',
+            'warning-outline' => 'bg-warning-25 dark:bg-warning-900 border-warning-300 dark:border-warning-800 text-warning-600 dark:text-warning-300 hover:bg-warning-50 dark:hover:bg-warning-900 hover:border-warning-400 dark:hover:border-warning-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-warning-200 dark:focus:ring-warning-900',
+            'warning-text' => 'text-warning-500 hover:text-warning-600 dark:hover:text-warning-400',
+            'warning-text-bg' => 'border-transparent text-warning-500 hover:text-warning-600 hover:bg-warning-50 dark:hover:bg-warning-900 dark:hover:text-warning-300',
+
             'gray' => 'border-transparent text-gray-600 bg-gray-300 hover:bg-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-gray-400',
         };
     }
@@ -72,6 +77,7 @@ class Button extends Component
         return match ($this->size) {
             'none' => 'text-base md:text-sm',
             'none-xs' => 'text-sm md:text-xs',
+            'none-base' => 'text-base',
             'xs' => 'px-3 py-2 text-sm md:px-2.5 md:py-1.5 md:text-xs',
             'sm' => 'px-4 py-2 text-base md:px-3 md:py-2 md:text-sm',
             default => 'px-4 py-3 md:py-2 text-base md:text-sm',

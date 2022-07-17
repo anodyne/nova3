@@ -8,29 +8,29 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Nova\Stories\Models\Story;
 
-trait HasStories
+trait HasStory
 {
-    public mixed $storyId = null;
+    public ?int $storyId = null;
 
     public mixed $story = null;
 
-    public function mountHasStories(): void
+    public function mountHasStory(): void
     {
-        $data = Arr::get(
+        $data = data_get(
             $this->state()->forStep('posts:step:setup-post'),
             'storyId'
         );
 
-        $this->story = $this->allStories->where('id', $data)->first();
+        $this->story = $this->currentStories->where('id', $data)->first();
 
         $this->storyId = $data;
 
         if ($this->story === null) {
-            $this->setStory($this->allStories->first());
+            $this->setStory($this->currentStories->first());
         }
     }
 
-    public function getAllStoriesProperty(): Collection
+    public function getCurrentStoriesProperty(): Collection
     {
         return Story::whereCurrent()->get();
     }
@@ -41,5 +41,10 @@ trait HasStories
         $this->story = $story;
 
         $this->post->update(['story_id' => $this->storyId]);
+    }
+
+    public function updatedStoryId($value): void
+    {
+        $this->setStory($this->currentStories->where('id', $value)->first());
     }
 }

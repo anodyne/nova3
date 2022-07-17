@@ -39,20 +39,10 @@ class WritePostWizard extends WizardComponent
             ],
             'posts:step:write-post' => [
                 'postId' => $post?->id,
-                'day' => $post?->day,
-                'location' => $post?->location,
-                'time' => $post?->time,
-                'content' => $post?->content,
-
                 'storyId' => $post?->story_id,
-
                 'ratingLanguage' => $post?->rating_language ?? settings()->ratings->language->rating,
                 'ratingSex' => $post?->rating_sex ?? settings()->ratings->sex->rating,
                 'ratingViolence' => $post?->rating_violence ?? settings()->ratings->violence->rating,
-            ],
-            'posts:step:publish-post' => [
-                'direction' => request('direction'),
-                'neighbor' => request('neighbor'),
             ],
         ];
     }

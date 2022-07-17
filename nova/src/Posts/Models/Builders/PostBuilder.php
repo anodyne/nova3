@@ -31,6 +31,11 @@ class PostBuilder extends QueryBuilder
         return $this->where('id', '!=', $post->id);
     }
 
+    public function whereNotRootPost(): self
+    {
+        return $this->whereNotNull('parent_id');
+    }
+
     public function wherePostType($postTypeId): self
     {
         return $this->where('post_type_id', $postTypeId);

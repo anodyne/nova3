@@ -5,13 +5,11 @@ declare(strict_types=1);
 namespace Nova\Posts\Livewire\Steps;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Support\Collection;
+use Nova\Posts\Actions\SetPostPosition;
+use Nova\Posts\Data\PostPositionData;
 use Nova\Posts\Livewire\Concerns\HasPost;
 use Nova\Posts\Livewire\Concerns\HasPostType;
-use Nova\Posts\Livewire\Concerns\HasStories;
-use Nova\Posts\Models\Post;
-use Nova\PostTypes\Models\PostType;
-use Nova\Stories\Models\Story;
+use Nova\Posts\Livewire\Concerns\HasStory;
 use Spatie\LivewireWizard\Components\StepComponent;
 
 class SetupPostStep extends StepComponent
@@ -19,7 +17,7 @@ class SetupPostStep extends StepComponent
     use AuthorizesRequests;
     use HasPost;
     use HasPostType;
-    use HasStories;
+    use HasStory;
 
     public function stepInfo(): array
     {
@@ -28,9 +26,23 @@ class SetupPostStep extends StepComponent
         ];
     }
 
-    public function updatedStoryId($value): void
+    public function goToNextStep(): void
     {
-        $this->setStory(Story::find($value));
+        $this->post->update([
+            'direction' => request('direction'),
+            'neighbor' => request('neighbor'),
+        ]);
+
+        $this->post = SetPostPosition::run(
+            $this->post,
+            PostPositionData::from([
+                'direction' => request('direction'),
+                'neighbor' => request('neighbor'),
+                'hasPositionChange' => true,
+            ])
+        );
+
+        $this->nextStep();
     }
 
     public function render()

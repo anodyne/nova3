@@ -56,11 +56,7 @@ if (! function_exists('pipe')) {
 if (! function_exists('settings')) {
     function settings()
     {
-        if (Nova::isInstalled()) {
-            return Settings::custom()->first();
-        }
-
-        return null;
+        return app('nova.settings');
     }
 }
 

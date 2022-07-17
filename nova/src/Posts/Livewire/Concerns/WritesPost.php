@@ -11,7 +11,11 @@ use Nova\Posts\Data\PostData;
 use Nova\Posts\Data\PostPositionData;
 use Nova\Posts\Data\PostStatusData;
 use Nova\Posts\Models\States\Draft;
+use Nova\Posts\Models\States\Published;
 use Nova\Posts\Models\States\Started;
+use Nova\Posts\Notifications\DraftPostDiscarded;
+use Nova\Posts\Notifications\PostSaved;
+use Nova\Users\Models\User;
 use Throwable;
 
 trait WritesPost
@@ -40,7 +44,10 @@ trait WritesPost
 
     public function setPostContent($content): void
     {
-        $this->post->update(['content' => $content]);
+        $this->post->update([
+            'content' => $content,
+            'word_count' => str($content)->pipe('strip_tags')->wordCount(),
+        ]);
     }
 
     public function setPostTitle($value): void
@@ -86,49 +93,41 @@ trait WritesPost
     {
         $this->authorize('delete', $this->post);
 
+        $this->dispatchBrowserEvent('dropdown-close');
+
+        $this->post->participatingUsers
+            ->filter(fn (User $user) => $user->id !== auth()->id())
+            ->each->notify(new DraftPostDiscarded($this->post));
+
         DeletePost::run($this->post);
 
-        $message = $this->post->status === Draft::class
-            ? "{$this->post->title} {str($this->postType->name)->lower()} draft has been discarded."
-            : "{$this->post->title} {str($this->postType->name)->lower()} has been deleted.";
+        $message = $this->post->status->equals(Draft::class)
+            ? $this->post->title . ' ' . str($this->postType->name)->lower() . ' draft has been discarded.'
+            : $this->post->title . ' ' . str($this->postType->name)->lower() . ' has been deleted.';
 
-        redirect()->route('posts.create')->withToast($message);
+        redirect()->route('writing-overview')->withToast($message);
     }
 
-    public function save($quiet = false): void
+    public function save($quiet = false, $allowRedirect = true): void
     {
         if ($this->canSave) {
-//             $this->authorize('write', [$this->post, $this->postType]);
+            $this->authorize('write', [$this->post, $this->postType]);
 
             $shouldRedirect = false;
 
             if ($this->post->status->equals(Started::class)) {
-                $shouldRedirect = true;
+                if ($allowRedirect) {
+                    $shouldRedirect = true;
+                }
 
                 $this->post->status->transitionTo(Draft::class);
             }
 
-//            $this->post = SavePostManager::run(
-//                $this->getPostData(),
-//                $this->getPostStatusData('draft'),
-//                $this->getPostPositionData(),
-//                $this->getPostAuthorsData()
-//            );
+            $this->post->addParticipant(auth()->user());
 
-//            $this->post = UpdatePostStatus::run(
-//                SavePost::run($this->getPostData()),
-//                $this->getPostStatusData('draft')
-//            );
-
-//            $this->post = SetPostPosition::run(
-//                $this->post,
-//                $this->getPostPositionData()
-//            );
-
-//            $this->post = SetPostAuthors::run(
-//                $this->post,
-//                $this->getPostAuthorsData()
-//            );
+            $this->post->participatingUsers
+                ->filter(fn ($user) => $user->id !== auth()->id())
+                ->each->notify(new PostSaved($this->post, auth()->user()));
 
             $this->postId = $this->post->id;
 
@@ -150,43 +149,8 @@ trait WritesPost
         $this->save(true);
     }
 
-    protected function getPostData(): PostData
+    public function saveQuietlyWithoutRedirect(): void
     {
-        $data = $this->post->getData();
-
-        $data->post_type_id = $this->postType->id;
-        $data->story_id = $this->story->id;
-
-        $data->rating_language = $this->ratingLanguage;
-        $data->rating_sex = $this->ratingSex;
-        $data->rating_violence = $this->ratingViolence;
-
-        $data->setWordCount();
-
-        return $data;
-    }
-
-    protected function getPostStatusData(string $status): PostStatusData
-    {
-        return PostStatusData::from([
-            'status' => $status,
-        ]);
-    }
-
-    protected function getPostPositionData(): PostPositionData
-    {
-        return PostPositionData::from([
-            'hasPositionChange' => false,
-            'displayDirection' => $this->state()->forStep('posts:step:publish-post')['direction'],
-            'displayNeighbor' => $this->state()->forStep('posts:step:publish-post')['neighbor'],
-        ]);
-    }
-
-    protected function getPostAuthorsData(): PostAuthorsData
-    {
-        return PostAuthorsData::from([
-            'characters' => $this->characterAuthors,
-            'users' => $this->userAuthors,
-        ]);
+        $this->save(true, false);
     }
 }

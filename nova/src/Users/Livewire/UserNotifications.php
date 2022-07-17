@@ -9,70 +9,55 @@ use Nova\Users\Resources\NotificationResource;
 
 class UserNotifications extends Component
 {
-    public $notifications = [];
-
     public function clearAllNotifications(): void
     {
-        $this->getNotificationsAsBuilder()->delete();
-
-        $this->refreshNotifications();
+        auth()->user()->notifications()->delete();
     }
 
-    public function getNotifications()
+    public function getNotificationsProperty(): array
     {
-        return auth()->user()->notifications;
+        return NotificationResource::collection(
+            auth()->user()->notifications
+        )->toArray(request());
     }
 
-    public function getNotificationsAsBuilder()
+    public function getHasNotificationsProperty(): bool
     {
-        return auth()->user()->notifications();
+        return auth()->user()->notifications()->count() > 0;
     }
 
-    public function getUnreadNotifications()
+    public function getHasUnreadNotificationsProperty(): bool
     {
-        return auth()->user()->unreadNotifications;
-    }
-
-    public function hasNotifications(): bool
-    {
-        return $this->getNotifications()->count() > 0;
-    }
-
-    public function hasUnreadNotifications(): bool
-    {
-        return $this->getUnreadNotifications()->count() > 0;
+        return auth()->user()->unreadNotifications()->count() > 0;
     }
 
     public function markAllNotificationsAsRead(): void
     {
-        $this->getUnreadNotifications()->markAsRead();
+        auth()->user()->unreadNotifications->markAsRead();
+    }
 
-        $this->refreshNotifications();
+    public function clearNotification($notificationId)
+    {
+        auth()->user()
+            ->notifications()
+            ->where(['id' => $notificationId])
+            ->delete();
     }
 
     public function markNotificationAsRead($notificationId)
     {
-        $this->getNotificationsAsBuilder()
+        auth()->user()
+            ->notifications()
             ->where(['id' => $notificationId])
             ->update(['read_at' => now()]);
-
-        $this->refreshNotifications();
-    }
-
-    public function refreshNotifications(): void
-    {
-        $this->notifications = NotificationResource::collection(
-            $this->getNotifications()
-        )->toArray(request());
-    }
-
-    public function mount()
-    {
-        $this->refreshNotifications();
     }
 
     public function render()
     {
-        return view('livewire.users.notifications');
+        return view('livewire.users.notifications', [
+            'hasNotifications' => $this->hasNotifications,
+            'hasUnreadNotifications' => $this->hasUnreadNotifications,
+            'notifications' => $this->notifications,
+        ]);
     }
 }

@@ -35,7 +35,7 @@ class ShowStoryController extends Controller
     {
         $this->authorize('view', $story);
 
-        $posts = Post::with('type')
+        $posts = Post::with('postType')
             ->hasParent()
             ->whereStory($story->id)
             ->wherePublished()

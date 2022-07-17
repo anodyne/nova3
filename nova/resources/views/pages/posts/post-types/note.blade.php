@@ -44,8 +44,8 @@
         <div class="flex flex-col items-center flex-1">
             <div class="flex flex-col flex-1 w-full space-y-2">
                 <div class="flex items-center space-x-2 justify-center">
-                    <span style="color:{{ $post->type->color }}">
-                        @icon($post->type->icon, 'h-6 w-6')
+                    <span style="color:{{ $post->postType->color }}">
+                        @icon($post->postType->icon, 'h-6 w-6')
                     </span>
                     <div class="font-bold text-xl tracking-tight truncate text-gray-900">{{ $post->title ?? 'Story Note' }}</div>
                 </div>

@@ -71,29 +71,29 @@
                 <div class="order-1 mb-8 md:mb-0 md:order-2 md:col-span-1">
                     <div class="space-y-10">
                         <div class="flex items-start space-x-2 text-gray-500 dark:text-gray-400 font-medium">
-                            <span style="color:{{ $post->type->color }}">
-                                @icon($post->type->icon, 'h-6 w-6 shrink-0')
+                            <span style="color:{{ $post->postType->color }}">
+                                @icon($post->postType->icon, 'h-6 w-6 shrink-0')
                             </span>
-                            <span>{{ $post->type->name }}</span>
+                            <span>{{ $post->postType->name }}</span>
                         </div>
 
-                        @if ($post->type->fields->location->enabled || $post->type->fields->day->enabled || $post->type->fields->time->enabled)
+                        @if ($post->postType->fields->location->enabled || $post->postType->fields->day->enabled || $post->postType->fields->time->enabled)
                             <div class="flex flex-col space-y-3">
-                                @if ($post->type->fields->location->enabled && $post->location)
+                                @if ($post->postType->fields->location->enabled && $post->location)
                                     <div class="flex items-start space-x-2 text-gray-500 dark:text-gray-400 font-medium">
                                         @icon('location', 'h-6 w-6 text-gray-400 dark:text-gray-500 shrink-0')
                                         <span>{{ $post->location }}</span>
                                     </div>
                                 @endif
 
-                                @if ($post->type->fields->day->enabled && $post->day)
+                                @if ($post->postType->fields->day->enabled && $post->day)
                                     <div class="flex items-start space-x-2 text-gray-500 dark:text-gray-400 font-medium">
                                         @icon('calendar', 'h-6 w-6 text-gray-400 dark:text-gray-500 shrink-0')
                                         <span>{{ $post->day }}</span>
                                     </div>
                                 @endif
 
-                                @if ($post->type->fields->time->enabled && $post->time)
+                                @if ($post->postType->fields->time->enabled && $post->time)
                                     <div class="flex items-start space-x-2 text-gray-500 dark:text-gray-400 font-medium">
                                         @icon('clock', 'h-6 w-6 text-gray-400 dark:text-gray-500 shrink-0')
                                         <span>{{ $post->time }}</span>

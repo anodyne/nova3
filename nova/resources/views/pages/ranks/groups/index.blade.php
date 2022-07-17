@@ -15,7 +15,7 @@
 
     @if ($groupCount === 0)
         <x-empty-state.large
-            image="organizer"
+            icon="layer"
             message="Rank groups are a simple way to collect related rank items together for simpler searching and selecting ranks in Nova."
             label="Add a rank group now"
             :link="route('ranks.groups.create')"

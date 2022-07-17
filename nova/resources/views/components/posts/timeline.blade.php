@@ -10,7 +10,7 @@
                 <div class="col-start-1 col-span-1 row-start-1 md:row-end-3 flex items-center font-medium mb-1 md:mb-0">
                     <svg viewBox="0 0 12 12" class="w-3 h-3 mr-6 overflow-visible">
                         <!-- Circle -->
-                        <circle cx="6" cy="6" r="6" fill="{{ $post->type->color }}"></circle>
+                        <circle cx="6" cy="6" r="6" fill="{{ $post->postType->color }}"></circle>
 
                         {{-- @if ($post->is_current)
                             <!-- Ring -->
@@ -40,8 +40,8 @@
                 </div>
 
                 <div class="col-start-2 col-span-11 ml-0 text-gray-600">
-                    @if (view()->exists("pages.posts.post-types.{$post->type->key}"))
-                        @include("pages.posts.post-types.{$post->type->key}")
+                    @if (view()->exists("pages.posts.post-types.{$post->postType->key}"))
+                        @include("pages.posts.post-types.{$post->postType->key}")
                     @else
                         @include('pages.posts.post-types.generic')
                     @endif

@@ -15,7 +15,7 @@
 
     @if ($nameCount === 0)
         <x-empty-state.large
-            image="diary"
+            icon="layer"
             message="Rank names eliminate the repetitive task of setting the name of a rank by letting you re-use names across all of your rank items."
             label="Add a rank name now"
             :link="route('ranks.names.create')"
