@@ -21,7 +21,9 @@ class RankGroupPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->isAbleTo('rank.*');
+        return $user->isAbleTo('rank.*')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
     /**
@@ -34,7 +36,9 @@ class RankGroupPolicy
      */
     public function view(User $user, RankGroup $group)
     {
-        return $user->isAbleTo('rank.view');
+        return $user->isAbleTo('rank.view')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
     /**
@@ -46,7 +50,9 @@ class RankGroupPolicy
      */
     public function create(User $user)
     {
-        return $user->isAbleTo('rank.create');
+        return $user->isAbleTo('rank.create')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
     /**
@@ -59,7 +65,9 @@ class RankGroupPolicy
      */
     public function update(User $user, RankGroup $group)
     {
-        return $user->isAbleTo('rank.update');
+        return $user->isAbleTo('rank.update')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
     /**
@@ -72,7 +80,9 @@ class RankGroupPolicy
      */
     public function delete(User $user, RankGroup $group)
     {
-        return $user->isAbleTo('rank.delete');
+        return $user->isAbleTo('rank.delete')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
     /**
@@ -83,8 +93,9 @@ class RankGroupPolicy
      */
     public function duplicate(User $user, RankGroup $group)
     {
-        return $user->isAbleTo('rank.create')
-            && $user->isAbleTo('rank.update');
+        return $user->isAbleTo('rank.create') && $user->isAbleTo('rank.update')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
     /**
@@ -97,7 +108,7 @@ class RankGroupPolicy
      */
     public function restore(User $user, RankGroup $group)
     {
-        return false;
+        return $this->denyWithStatus(418);
     }
 
     /**
@@ -110,6 +121,6 @@ class RankGroupPolicy
      */
     public function forceDelete(User $user, RankGroup $group)
     {
-        return false;
+        return $this->denyWithStatus(418);
     }
 }

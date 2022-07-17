@@ -16,27 +16,35 @@ class PostPolicy
 {
     use HandlesAuthorization;
 
-    public function viewAny(User $user): bool
+    public function viewAny(User $user)
     {
-        return $user->isAbleTo('post.*');
+        return $user->isAbleTo('post.*')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function view(User $user, Post $post): bool
+    public function view(User $user, Post $post)
     {
-        return $user->isAbleTo('post.view');
+        return $user->isAbleTo('post.view')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function create(User $user): bool
+    public function create(User $user)
     {
-        return $user->isAbleTo('post.create');
+        return $user->isAbleTo('post.create')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function update(User $user, Post $post): bool
+    public function update(User $user, Post $post)
     {
-        return $user->isAbleTo('post.update');
+        return $user->isAbleTo('post.update')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function delete(User $user, Post $post): bool
+    public function delete(User $user, Post $post)
     {
         if (! $post->exists) {
             return false;
@@ -47,31 +55,34 @@ class PostPolicy
             return true;
         }
 
-        return $user->isAbleTo('post.delete');
+        return $user->isAbleTo('post.delete')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function duplicate(User $user, Post $post): bool
+    public function duplicate(User $user, Post $post)
     {
-        return $user->isAbleTo('post.create')
-            && $user->isAbleTo('post.update');
+        return $user->isAbleTo('post.create') && $user->isAbleTo('post.update')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function restore(User $user, Post $post): bool
+    public function restore(User $user, Post $post)
     {
-        return false;
+        return $this->denyWithStatus(418);
     }
 
-    public function forceDelete(User $user, Post $post): bool
+    public function forceDelete(User $user, Post $post)
     {
-        return false;
+        return $this->denyWithStatus(418);
     }
 
-    public function write(User $user, Post $post, ?PostType $postType): bool
+    public function write(User $user, Post $post, ?PostType $postType)
     {
         if ($postType === null || (isset($postType) && Gate::forUser($user)->allows('write', $postType))) {
             return $this->create($user, $post);
         }
 
-        return false;
+        return $this->denyAsNotFound();
     }
 }

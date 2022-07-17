@@ -12,53 +12,66 @@ class PostTypePolicy
 {
     use HandlesAuthorization;
 
-    public function viewAny(User $user): bool
+    public function viewAny(User $user)
     {
-        return $user->isAbleTo('post-type.*');
+        return $user->isAbleTo('post-type.*')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function view(User $user, PostType $postType): bool
+    public function view(User $user, PostType $postType)
     {
-        return $user->isAbleTo('post-type.view');
+        return $user->isAbleTo('post-type.view')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function create(User $user): bool
-    {
-        return $user->isAbleTo('post-type.create');
-    }
-
-    public function update(User $user, PostType $postType): bool
-    {
-        return $user->isAbleTo('post-type.update');
-    }
-
-    public function delete(User $user, PostType $postType): bool
-    {
-        return $user->isAbleTo('post-type.delete');
-    }
-
-    public function duplicate(User $user, PostType $postType): bool
+    public function create(User $user)
     {
         return $user->isAbleTo('post-type.create')
-            && $user->isAbleTo('post-type.update');
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function restore(User $user, PostType $postType): bool
+    public function update(User $user, PostType $postType)
     {
-        return false;
+        return $user->isAbleTo('post-type.update')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function forceDelete(User $user, PostType $postType): bool
+    public function delete(User $user, PostType $postType)
     {
-        return false;
+        return $user->isAbleTo('post-type.delete')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function write(User $user, PostType $postType): bool
+    public function duplicate(User $user, PostType $postType)
+    {
+        return $user->isAbleTo('post-type.create') && $user->isAbleTo('post-type.update')
+            ? $this->allow()
+            : $this->denyAsNotFound();
+    }
+
+    public function restore(User $user, PostType $postType)
+    {
+        return $this->denyWithStatus(418);
+    }
+
+    public function forceDelete(User $user, PostType $postType)
+    {
+        return $this->denyWithStatus(418);
+    }
+
+    public function write(User $user, PostType $postType)
     {
         if ($postType->role === null) {
-            return true;
+            return $this->allow();
         }
 
-        return $user->hasRole($postType->role->name);
+        return $user->hasRole($postType->role->name)
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 }

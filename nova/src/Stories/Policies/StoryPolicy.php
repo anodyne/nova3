@@ -12,44 +12,55 @@ class StoryPolicy
 {
     use HandlesAuthorization;
 
-    public function viewAny(User $user): bool
+    public function viewAny(User $user)
     {
-        return $user->isAbleTo('story.*');
+        return $user->isAbleTo('story.*')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function view(User $user, Story $story): bool
+    public function view(User $user, Story $story)
     {
-        return $user->isAbleTo('story.view');
+        return $user->isAbleTo('story.view')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function create(User $user): bool
-    {
-        return $user->isAbleTo('story.create');
-    }
-
-    public function update(User $user, Story $story): bool
-    {
-        return $user->isAbleTo('story.update');
-    }
-
-    public function delete(User $user, Story $story): bool
-    {
-        return $user->isAbleTo('story.delete');
-    }
-
-    public function duplicate(User $user, Story $story): bool
+    public function create(User $user)
     {
         return $user->isAbleTo('story.create')
-            && $user->isAbleTo('story.update');
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function restore(User $user, Story $story): bool
+    public function update(User $user, Story $story)
     {
-        return false;
+        return $user->isAbleTo('story.update')
+            ? $this->allow()
+            : $this->denyAsNotFound();
     }
 
-    public function forceDelete(User $user, Story $story): bool
+    public function delete(User $user, Story $story)
     {
-        return false;
+        return $user->isAbleTo('story.delete')
+            ? $this->allow()
+            : $this->denyAsNotFound();
+    }
+
+    public function duplicate(User $user, Story $story)
+    {
+        return $user->isAbleTo('story.create') && $user->isAbleTo('story.update')
+            ? $this->allow()
+            : $this->denyAsNotFound();
+    }
+
+    public function restore(User $user, Story $story)
+    {
+        return $this->denyWithStatus(418);
+    }
+
+    public function forceDelete(User $user, Story $story)
+    {
+        return $this->denyWithStatus(418);
     }
 }
