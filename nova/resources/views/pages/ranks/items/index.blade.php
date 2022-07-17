@@ -15,7 +15,7 @@
 
     @if ($itemCount === 0)
         <x-empty-state.large
-            image="asset-selection"
+            icon="layer"
             message="Rank items bring the rank group, rank name, and images together in a simple and easy-to-use rank experience."
             label="Add a rank item now"
             :link="route('ranks.items.create')"

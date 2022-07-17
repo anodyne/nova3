@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Posts\Livewire\Concerns;
 
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Nova\PostTypes\Models\PostType;
 
@@ -16,20 +15,20 @@ trait HasPostType
 
     public function mountHasPostType(): void
     {
-        $data = Arr::get(
+        $data = data_get(
             $this->state()->forStep('posts:step:setup-post'),
             'postTypeId'
         );
 
-        $this->postType = $this->postTypes->where('id', $data)->first();
+        $this->postType = $this->availablePostTypes->where('id', $data)->first();
 
         $this->postTypeId = $this->postType?->id;
     }
 
-    public function getPostTypesProperty(): Collection
+    public function getAvailablePostTypesProperty(): Collection
     {
-        return PostType::query()
-            ->whereUserHasAccess(auth()->user())
+        return PostType::with('role')
+            ->whereUserHasAccess(auth()->user()->loadMissing('roles'))
             ->orderBySort()
             ->get();
     }

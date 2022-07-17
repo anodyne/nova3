@@ -13,7 +13,7 @@
         </x-input.group>
 
         <x-input.group label="Password" for="password">
-            <x-input.password id="password" name="password" placeholder="********" data-cy="password" required>
+            <x-input.password id="password" name="password" placeholder="Your password" data-cy="password" required>
                 <x-slot:leadingAddOn>
                     @icon('lock', 'h-6 w-6')
                 </x-slot:leadingAddOn>

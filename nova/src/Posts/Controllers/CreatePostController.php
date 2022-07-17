@@ -6,10 +6,7 @@ namespace Nova\Posts\Controllers;
 
 use Nova\Foundation\Controllers\Controller;
 use Nova\Posts\Models\Post;
-use Nova\Posts\Responses\ComposePostResponse;
 use Nova\Posts\Responses\WritePostResponse;
-use Nova\PostTypes\Models\PostType;
-use Nova\Stories\Models\Story;
 
 class CreatePostController extends Controller
 {
@@ -22,15 +19,8 @@ class CreatePostController extends Controller
 
     public function create(Post $post)
     {
-        // $this->authorize('write', [new Post(), $postType]);
-
         return WritePostResponse::sendWith([
             'post' => $post,
         ]);
-
-        // return ComposePostResponse::sendWith([
-        //     'postType' => $postType,
-        //     'stories' => Story::whereCurrent()->get(),
-        // ]);
     }
 }

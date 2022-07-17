@@ -16,6 +16,6 @@ class SetUserRoles extends Action
     {
         $user->syncRoles($roles);
 
-        return $user->fresh();
+        return $user->refresh();
     }
 }

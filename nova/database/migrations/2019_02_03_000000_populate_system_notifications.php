@@ -12,40 +12,32 @@ class PopulateSystemNotifications extends Migration
     {
         activity()->disableLogging();
 
-        $this->populateGroupSystemNotifications();
-
-        $this->populateIndividualSystemNotifications();
+        $this->populateSystemNotifications();
 
         activity()->enableLogging();
     }
 
     public function down()
     {
-        Schema::dropIfExists('notifications');
-        Schema::dropIfExists('system_notifications');
+        SystemNotification::truncate();
     }
 
-    protected function populateGroupSystemNotifications(): void
+    protected function populateSystemNotifications(): void
     {
-        $notifications = [
-            ['name' => 'New story post published', 'key' => 'story-post-published', 'category' => 'group'],
-            ['name' => 'New user application received', 'key' => 'user-application-received', 'category' => 'group'],
-            ['name' => 'Created character pending approval', 'key' => 'character-pending-approval', 'category' => 'group'],
+        $groupNotifications = [
+            ['name' => 'Story post published', 'key' => 'story-post-published', 'category' => 'group'],
         ];
 
-        SystemNotification::unguarded(function () use ($notifications) {
-            collect($notifications)->each([SystemNotification::class, 'create']);
-        });
-    }
-
-    protected function populateIndividualSystemNotifications(): void
-    {
-        $notifications = [
+        $individualNotifications = [
             ['name' => 'Private message received', 'key' => 'private-message-received', 'category' => 'individual'],
+            ['name' => 'Story post saved', 'key' => 'story-post-saved', 'category' => 'individual'],
+            ['name' => 'Added as author on a story post', 'key' => 'author-added-post', 'category' => 'individual'],
+            ['name' => 'Removed as author on a story post', 'key' => 'author-removed-post', 'category' => 'individual'],
         ];
 
-        SystemNotification::unguarded(function () use ($notifications) {
-            collect($notifications)->each([SystemNotification::class, 'create']);
+        SystemNotification::unguarded(function () use ($groupNotifications, $individualNotifications) {
+            collect($groupNotifications)->each([SystemNotification::class, 'create']);
+            collect($individualNotifications)->each([SystemNotification::class, 'create']);
         });
     }
 }

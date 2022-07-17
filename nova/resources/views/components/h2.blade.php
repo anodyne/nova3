@@ -1,3 +1,3 @@
-<h1 class="block font-bold text-xl text-gray-900 dark:text-gray-100 tracking-tight" {{ $attributes }}>
+<h2 {{ $attributes->merge(['class' => 'block font-bold text-xl text-gray-900 dark:text-gray-100 tracking-tight']) }}>
     {{ $slot }}
-</h1>
+</h2>

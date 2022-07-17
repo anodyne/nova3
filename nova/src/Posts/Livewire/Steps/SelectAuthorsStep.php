@@ -31,7 +31,7 @@ class SelectAuthorsStep extends StepComponent
 
     public function getCanAddAuthorsProperty(): bool
     {
-        if ($this->post->type->options->multipleAuthors) {
+        if ($this->post->postType->options->multipleAuthors) {
             return true;
         }
 
@@ -40,6 +40,30 @@ class SelectAuthorsStep extends StepComponent
         }
 
         return true;
+    }
+
+    public function getCanGoToNextStepProperty(): bool
+    {
+        if (
+            $this->post->postType->options->allowCharacterAuthors &&
+            $this->characters->intersect(auth()->user()->characters)->count() > 0
+        ) {
+            return true;
+        }
+
+        if (
+            $this->post->postType->options->allowUserAuthors &&
+            $this->users->contains(auth()->user())
+        ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function getCanGoToNextStepMessageProperty(): string
+    {
+        return 'Please add one of your own characters or your user account as an author to continue.';
     }
 
     public function render()

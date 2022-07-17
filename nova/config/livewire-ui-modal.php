@@ -41,7 +41,7 @@ return [
     'component_defaults' => [
         'modal_max_width' => '2xl',
 
-        'close_modal_on_click_away' => false,
+        'close_modal_on_click_away' => true,
 
         'close_modal_on_escape' => false,
 

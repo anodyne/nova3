@@ -16,7 +16,7 @@
 
             <div class="flex-1 md:flex md:flex-col md:justify-between space-y-4">
                 @if ($title)
-                    <h3 class="text-lg md:text-base font-semibold">
+                    <h3 class="text-base font-medium text-warning-700 dark:text-warning-300">
                         {{ $title }}
                     </h3>
                 @endif

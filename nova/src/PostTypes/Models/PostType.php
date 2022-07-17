@@ -6,6 +6,8 @@ namespace Nova\PostTypes\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Nova\PostTypes\Data\Fields;
 use Nova\PostTypes\Data\Options;
@@ -41,12 +43,12 @@ class PostType extends Model
         'updated' => Events\PostTypeUpdated::class,
     ];
 
-    public function posts()
+    public function posts(): HasMany
     {
         return $this->hasMany(Post::class);
     }
 
-    public function role()
+    public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
     }

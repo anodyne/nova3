@@ -38,7 +38,7 @@
 
     @if ($storyCount === 0)
         <x-empty-state.large
-            image="book-lover"
+            icon="book"
             message="There is no greater power on this earth than story."
             label="Add your first story"
             :link="route('stories.create')"

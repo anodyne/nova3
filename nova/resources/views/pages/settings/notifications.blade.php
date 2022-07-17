@@ -19,7 +19,7 @@
                     <option value="individual">Individual Notifications</option>
                 </x-input.select>
             </x-content-box>
-            <x-content-box class="hidden sm:block">
+            <div class="hidden sm:block">
                 <x-content-box height="none" class="border-b border-gray-200 dark:border-gray-200/10">
                     <nav class="-mb-px flex">
                         <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('settings'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('settings') }" @click.prevent="switchTab('settings')">
@@ -68,11 +68,11 @@
                                         <div class="mt-2 flex flex-col space-y-2 sm:flex-row sm:items-center sm:space-x-6 sm:space-y-0 text-gray-500">
                                             <x-badge :color="$systemNotification->discordStatusBadgeColor">Discord</x-badge>
                                             <x-badge :color="$systemNotification->emailStatusBadgeColor">Email</x-badge>
-                                            <x-badge :color="$systemNotification->webStatusBadgeColor">Web</x-badge>
+                                            <x-badge :color="$systemNotification->webStatusBadgeColor">In-app</x-badge>
                                         </div>
                                     </div>
                                     <div class="ml-5 shrink-0 leading-0">
-                                        <x-button color="gray-text">
+                                        <x-button color="gray-text" @click="Livewire.emit('openModal', 'settings:notification-setting')">
                                             @icon('edit', 'h-5 w-5')
                                         </x-button>
                                     </div>
@@ -95,11 +95,11 @@
                                         </div>
                                         <div class="mt-2 flex flex-col space-y-2 sm:flex-row sm:items-center sm:space-x-6 sm:space-y-0 text-gray-500">
                                             <x-badge :color="$systemNotification->emailStatusBadgeColor">Email</x-badge>
-                                            <x-badge :color="$systemNotification->webStatusBadgeColor">Web</x-badge>
+                                            <x-badge :color="$systemNotification->webStatusBadgeColor">In-app</x-badge>
                                         </div>
                                     </div>
                                     <div class="ml-5 shrink-0 leading-0">
-                                        <x-button color="gray-text">
+                                        <x-button color="gray-text" @click="Livewire.emit('openModal', 'settings:notification-setting')">
                                             @icon('edit', 'h-5 w-5')
                                         </x-button>
                                     </div>

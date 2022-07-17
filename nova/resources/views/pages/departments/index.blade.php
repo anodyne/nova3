@@ -15,7 +15,7 @@
 
     @if ($departmentCount === 0)
         <x-empty-state.large
-            image="organizer"
+            icon="list"
             message="Departments allow you to organize character positions into logical groups that you can display on your manifests."
             label="Add a deparment now"
             :link="route('departments.create')"

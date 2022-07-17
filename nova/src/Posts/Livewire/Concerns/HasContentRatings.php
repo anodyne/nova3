@@ -16,9 +16,9 @@ trait HasContentRatings
     {
         $settings = settings();
 
-        $this->ratingLanguage = $this->post?->rating_language ?? $settings->ratings->language->rating;
-        $this->ratingSex = $this->post?->rating_sex ?? $settings->ratings->sex->rating;
-        $this->ratingViolence = $this->post?->rating_violence ?? $settings->ratings->violence->rating;
+        $this->ratingLanguage = $this->post->rating_language;
+        $this->ratingSex = $this->post->rating_sex;
+        $this->ratingViolence = $this->post->rating_violence;
     }
 
     public function contentRatingsUpdated(...$args): void

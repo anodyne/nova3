@@ -6,6 +6,8 @@ namespace Nova\Posts\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Kalnoy\Nestedset\NodeTrait;
 use Nova\Characters\Models\Character;
 use Nova\Posts\Data\PostData;
@@ -30,10 +32,11 @@ class Post extends Model
     protected $fillable = [
         'story_id', 'post_type_id', 'title', 'content', 'status', 'word_count',
         'day', 'time', 'location', 'parent_id', 'rating_language', 'rating_sex',
-        'rating_violence', 'summary',
+        'rating_violence', 'summary', 'participants', 'neighbor', 'direction',
     ];
 
     protected $casts = [
+        'participants' => 'array',
         'published_at' => 'datetime',
         'rating_language' => 'integer',
         'rating_sex' => 'integer',
@@ -42,12 +45,22 @@ class Post extends Model
     ];
 
     protected $dispatchesEvents = [
+        'creating' => Events\PostCreating::class,
         'created' => Events\PostCreated::class,
         'deleted' => Events\PostDeleted::class,
+        'saved' => Events\PostSaved::class,
+        'saving' => Events\PostSaving::class,
         'updated' => Events\PostUpdated::class,
     ];
 
     protected $dataClass = PostData::class;
+
+    public function participatingUsers(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'post_author')
+            ->wherePivot('post_id', $this->id)
+            ->groupBy('pivot_user_id', 'pivot_post_id');
+    }
 
     public function characterAuthors()
     {
@@ -66,15 +79,41 @@ class Post extends Model
         return $this->belongsTo(Story::class);
     }
 
-    public function type()
+    public function postType(): BelongsTo
     {
-        return $this->belongsTo(PostType::class, 'post_type_id')
+        return $this->belongsTo(PostType::class)
             ->withTrashed();
     }
 
     public function newEloquentBuilder($query): PostBuilder
     {
         return new PostBuilder($query);
+    }
+
+    public function addParticipant(User $user): void
+    {
+        $participants = collect($this->participants)
+            ->filter()
+            ->push($user->id)
+            ->unique()
+            ->all();
+
+        $this->fill(['participants' => $participants])->save();
+    }
+
+    public function removeParticipant(User $user): void
+    {
+        $this->characterAuthors()->wherePivot('user_id', $user->id)->detach();
+
+        $this->userAuthors()->wherePivot('user_id', $user->id)->detach();
+
+        $participants = collect($this->participants)
+            ->filter()
+            ->filter(fn ($participant) => $participant !== $user->id)
+            ->unique()
+            ->all();
+
+        $this->fill(['participants' => $participants])->save();
     }
 
     public function shouldShowContentWarning(): bool
