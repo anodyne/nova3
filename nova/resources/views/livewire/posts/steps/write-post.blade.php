@@ -2,27 +2,27 @@
     <x-content-box>
         <div class="space-y-8">
             <div class="flex items-center space-between">
-                <input type="text" wire:model.debounce.1s="post.title" class="block w-full flex-1 appearance-none bg-transparent border-none focus:ring-0 text-3xl font-extrabold placeholder-gray-400 tracking-tight p-0.5" placeholder="Add a title">
+                <input type="text" wire:model.debounce.1s="post.title" class="block w-full flex-1 appearance-none bg-transparent border-none focus:ring-0 text-3xl font-extrabold placeholder-gray-500 text-gray-900 dark:text-gray-100 tracking-tight p-0.5 focus:outline-none" placeholder="Add a title">
             </div>
 
             @if ($postType->fields->location->enabled || $postType->fields->day->enabled || $postType->fields->time->enabled)
                 <div class="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4">
                     @if ($postType->fields->location->enabled)
-                        <button type="button" class="flex items-center space-x-1.5 rounded-full text-sm md:text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition {{ $post->location ? 'bg-primary-50 dark:bg-primary-900/50 border-primary-300 dark:border-primary-800 text-primary-600 dark:text-primary-400' : 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900 border-gray-300 dark:border-gray-600 hover:border-gray-500/30 dark:hover:border-gray-600 text-gray-500 dark:text-gray-400' }}" wire:click='$emit("openModal", "posts:select-location-modal", {{ json_encode([$story->id, $post->location]) }})'>
+                        <button type="button" class="flex items-center space-x-1.5 rounded-full text-sm md:text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition {{ $post->location ? 'bg-primary-50 dark:bg-primary-900/50 border-primary-300 dark:border-primary-800 text-primary-600 dark:text-primary-400' : 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900 border-gray-300 dark:border-gray-600 hover:border-gray-500/30 dark:hover:border-gray-600 text-gray-500 dark:text-gray-400' }}" wire:click='$emit("openModal", "posts:select-location-modal", {{ json_encode([$post->story_id, $post->location]) }})'>
                             @icon('location', 'h-6 w-6 md:h-5 md:w-5 ' . ($post->location ? 'text-primary-500' : 'text-gray-400 dark:text-gray-500'))
                             <span class="font-medium">{{ $post->location ?? 'Add a location' }}</span>
                         </button>
                     @endif
 
                     @if ($postType->fields->day->enabled)
-                        <button type="button" class="flex items-center space-x-1.5 rounded-full text-sm md:text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition  {{ $post->day ? 'bg-primary-50 dark:bg-primary-900/50 border-primary-300 dark:border-primary-800 text-primary-600 dark:text-primary-400' : 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900 border-gray-300 dark:border-gray-600 hover:border-gray-500/30 dark:hover:border-gray-600 text-gray-500 dark:text-gray-400' }}" wire:click='$emit("openModal", "posts:select-day-modal", {{ json_encode([$story->id, $post->day]) }})'>
+                        <button type="button" class="flex items-center space-x-1.5 rounded-full text-sm md:text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition  {{ $post->day ? 'bg-primary-50 dark:bg-primary-900/50 border-primary-300 dark:border-primary-800 text-primary-600 dark:text-primary-400' : 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900 border-gray-300 dark:border-gray-600 hover:border-gray-500/30 dark:hover:border-gray-600 text-gray-500 dark:text-gray-400' }}" wire:click='$emit("openModal", "posts:select-day-modal", {{ json_encode([$post->story_id, $post->day]) }})'>
                             @icon('calendar', 'h-6 w-6 md:h-5 md:w-5 ' . ($post->day ? 'text-primary-500' : 'text-gray-400'))
                             <span class="font-medium">{{ $post->day ?? 'Add a day' }}</span>
                         </button>
                     @endif
 
                     @if ($postType->fields->time->enabled)
-                        <button type="button" class="flex items-center space-x-1.5 rounded-full text-sm md:text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition  {{ $post->time ? 'bg-primary-50 dark:bg-primary-900/50 border-primary-300 dark:border-primary-800 text-primary-600 dark:text-primary-400' : 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900 border-gray-300 dark:border-gray-600 hover:border-gray-500/30 dark:hover:border-gray-600 text-gray-500 dark:text-gray-400' }}" wire:click='$emit("openModal", "posts:select-time-modal", {{ json_encode([$story->id, $post->time]) }})'>
+                        <button type="button" class="flex items-center space-x-1.5 rounded-full text-sm md:text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition  {{ $post->time ? 'bg-primary-50 dark:bg-primary-900/50 border-primary-300 dark:border-primary-800 text-primary-600 dark:text-primary-400' : 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900 border-gray-300 dark:border-gray-600 hover:border-gray-500/30 dark:hover:border-gray-600 text-gray-500 dark:text-gray-400' }}" wire:click='$emit("openModal", "posts:select-time-modal", {{ json_encode([$post->story_id, $post->time]) }})'>
                             @icon('clock', 'h-6 w-6 md:h-5 md:w-5 ' . ($post->time ? 'text-primary-500' : 'text-gray-400'))
                             <span class="font-medium">{{ $post->time ?? 'Add a time' }}</span>
                         </button>
@@ -33,20 +33,12 @@
             <livewire:nova:editor :content="old('post.content', $post->content)" />
 
             <div class="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4">
-                @if ($this->allStories->count() > 1)
-                    <button type="button" class="flex items-center space-x-1.5 rounded-full text-sm md:text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition duration-200 {{ $story ? 'bg-primary-50 hover:bg-primary-100 border-primary-300 hover:border-primary-400 text-primary-600' : 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900 border-gray-300 dark:border-gray-600 hover:border-gray-500/30 dark:hover:border-gray-600 text-gray-500 dark:text-gray-400' }}" wire:click='$emit("openModal", "posts:select-story-modal", {{ json_encode([$story->id]) }})'>
-                        @icon('book', 'h-6 w-6 md:h-5 md:w-5 shrink-0 ' . ($story ? 'text-primary-500' : 'text-gray-400'))
-                        <span class="font-medium">{{ $story->title ?? 'Choose a story' }}</span>
-                        <x-icon.chevron-down class="text-primary-500 shrink-0 h-4 w-4" />
-                    </button>
-                @else
-                    <div class="flex items-center space-x-1.5 rounded-full text-sm md:text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition {{ $story ? 'bg-primary-50 dark:bg-primary-900/50 border-primary-300 dark:border-primary-800 text-primary-600 dark:text-primary-400' : 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900 border-gray-300 dark:border-gray-600 hover:border-gray-500/30 dark:hover:border-gray-600 text-gray-500 dark:text-gray-400' }}">
-                        @icon('book', 'h-6 w-6 md:h-5 md:w-5 ' . ($story ? 'text-primary-500' : 'text-gray-400'))
-                        <span class="font-medium">{{ $story->title ?? 'Choose a story' }}</span>
-                    </div>
-                @endif
+                <button class="flex items-center space-x-1.5 rounded-full text-sm md:text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900 border-gray-300 dark:border-gray-600 hover:border-gray-500/30 dark:hover:border-gray-600 text-gray-500 dark:text-gray-400" wire:click="showStep('posts:step:setup-post')">
+                    <span>@icon('book', 'h-6 w-6 md:h-5 md:w-5')</span>
+                    <span class="font-medium">{{ $post?->story->title }}</span>
+                </button>
 
-                <button class="flex items-center space-x-1.5 rounded-full text-sm md:text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900 border-gray-300 dark:border-gray-600 hover:border-gray-500/30 dark:hover:border-gray-600 text-gray-500 dark:text-gray-400" wire:click="previousStep">
+                <button class="flex items-center space-x-1.5 rounded-full text-sm md:text-xs py-1.5 md:py-0.5 px-3 md:px-2 border transition bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900 border-gray-300 dark:border-gray-600 hover:border-gray-500/30 dark:hover:border-gray-600 text-gray-500 dark:text-gray-400" wire:click="showStep('posts:step:setup-post')">
                     <span style="color:{{ $postType->color }}">@icon($postType->icon, 'h-6 w-6 md:h-5 md:w-5')</span>
                     <span class="font-medium">{{ $postType->name }}</span>
                 </button>
@@ -237,9 +229,22 @@
             </div>
 
             @can('delete', $post)
-                <div>
+                <x-dropdown>
+                    <x-slot:trigger color="gray-error-text">@icon('delete', 'h-7 w-7 md:h-6 md:w-6')</x-slot:trigger>
+
+                    <x-dropdown.group>
+                        <x-dropdown.text>Are you sure you want to discard this draft?</x-dropdown.text>
+                    </x-dropdown.group>
+                    <x-dropdown.group>
+                        <x-dropdown.item-danger type="button" icon="delete" wire:click="delete">
+                            Discard
+                        </x-dropdown.item-danger>
+                        <x-dropdown.item type="button" icon="prohibited" @click.prevent="$dispatch('dropdown-close')">Cancel</x-dropdown.item>
+                    </x-dropdown.group>
+                </x-dropdown>
+                {{-- <div>
                     <x-button wire:click="delete" color="gray-error-text" size="none">Discard draft</x-button>
-                </div>
+                </div> --}}
             @endcan
         </x-content-box>
     @else

@@ -42,8 +42,8 @@
 
     <div class="space-y-2">
         <div class="flex items-center space-x-2">
-            <div class="shrink-0" style="border-color:{{ $post->type->color }};color:{{ $post->type->color }}">
-                @icon($post->type->icon, 'h-6 w-6 md:h-5 md:w-5')
+            <div class="shrink-0" style="border-color:{{ $post->postType->color }};color:{{ $post->postType->color }}">
+                @icon($post->postType->icon, 'h-6 w-6 md:h-5 md:w-5')
             </div>
 
             <h3 class="text-xl font-bold tracking-tight text-gray-900">{{ $post->title }}</h3>
@@ -152,13 +152,13 @@
             </x-dropdown>
         </div>
 
-        <div class="shrink-0 rounded-full p-1.5 border-2" style="border-color:{{ $post->type->color }};color:{{ $post->type->color }}">
-            @icon($post->type->icon, 'h-5 w-5 sm:h-6 sm:w-6')
+        <div class="shrink-0 rounded-full p-1.5 border-2" style="border-color:{{ $post->postType->color }};color:{{ $post->postType->color }}">
+            @icon($post->postType->icon, 'h-5 w-5 sm:h-6 sm:w-6')
         </div>
 
         <div class="w-full space-y-4 sm:space-y-2 ml-4">
             <div>
-                <h3 class="uppercase tracking-wide text-xs text-gray-500 font-semibold">{{ $post->type->name }}</h3>
+                <h3 class="uppercase tracking-wide text-xs text-gray-500 font-semibold">{{ $post->postType->name }}</h3>
                 <h2 class="flex-wrap font-bold text-lg tracking-tight text-gray-900 sm:text-2xl">{{ $post->title }}</h2>
             </div>
 

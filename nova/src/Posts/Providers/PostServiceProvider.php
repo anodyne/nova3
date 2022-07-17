@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Nova\Posts\Providers;
 
 use Nova\DomainServiceProvider;
+use Nova\Posts\Events\PostCreating;
+use Nova\Posts\Listeners\SetDefaultContentRatings;
 use Nova\Posts\Livewire\ComposePost;
 use Nova\Posts\Livewire\ManageAuthorsModal;
 use Nova\Posts\Livewire\ReadPostModal;
@@ -12,6 +14,7 @@ use Nova\Posts\Livewire\SelectAuthorsModal;
 use Nova\Posts\Livewire\SelectCharacterAuthorsModal;
 use Nova\Posts\Livewire\SelectDayModal;
 use Nova\Posts\Livewire\SelectLocationModal;
+use Nova\Posts\Livewire\SelectPostPositionModal;
 use Nova\Posts\Livewire\SelectStoryModal;
 use Nova\Posts\Livewire\SelectTimeModal;
 use Nova\Posts\Livewire\SelectUserAuthorsModal;
@@ -34,6 +37,15 @@ class PostServiceProvider extends DomainServiceProvider
         ];
     }
 
+    public function eventListeners(): array
+    {
+        return [
+            PostCreating::class => [
+                SetDefaultContentRatings::class,
+            ],
+        ];
+    }
+
     public function livewireComponents(): array
     {
         return [
@@ -45,6 +57,7 @@ class PostServiceProvider extends DomainServiceProvider
             'posts:select-day-modal' => SelectDayModal::class,
             'posts:select-location-modal' => SelectLocationModal::class,
             'posts:select-story-modal' => SelectStoryModal::class,
+            'posts:select-post-position-modal' => SelectPostPositionModal::class,
             'posts:select-time-modal' => SelectTimeModal::class,
             'posts:set-content-ratings-modal' => SetContentRatingsModal::class,
             'posts:write' => WritePostWizard::class,

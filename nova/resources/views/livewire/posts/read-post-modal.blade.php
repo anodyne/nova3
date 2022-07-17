@@ -32,4 +32,8 @@
             {!! $post->content !!}
         </div>
     </x-content-box>
+
+    <x-content-box class="z-20 sm:flex sm:flex-row-reverse sm:space-x-4 sm:space-x-reverse bg-gray-50 dark:bg-gray-700/50 rounded-b-lg" height="sm" width="sm">
+        <x-button color="white" wire:click="dismiss">Close</x-button>
+    </x-content-box>
 </div>

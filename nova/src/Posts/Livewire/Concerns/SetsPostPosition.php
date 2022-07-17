@@ -4,49 +4,45 @@ declare(strict_types=1);
 
 namespace Nova\Posts\Livewire\Concerns;
 
+use Nova\Posts\Actions\SetPostPosition;
+use Nova\Posts\Data\PostPositionData;
 use Nova\Posts\Models\Post;
 
 trait SetsPostPosition
 {
-    public $direction;
-
-    public $neighbor;
-
     public mixed $previousPost;
 
     public mixed $nextPost;
 
-    public function bootedSetsPostPosition()
+    public function bootedSetsPostPosition(): void
     {
-        if ($this->story) {
-            if ($this->neighbor === null && $this->direction === null) {
-                $this->previousPost = $this->story->posts->last();
-            }
-
-            if ($this->neighbor) {
-                $neighbor = Post::find($this->neighbor);
-
-                if ($this->direction === 'before') {
-                    $this->nextPost = $neighbor;
-                    $this->previousPost = $neighbor->prevSiblings()->wherePublished()->reversed()->first();
-                } else {
-                    $this->previousPost = $neighbor;
-                    $this->nextPost = $neighbor->nextSiblings()->wherePublished()->first();
-                }
-            }
-        }
+        $this->previousPost = $this->post->prevSiblings()->wherePublished()->reversed()->first();
+        $this->nextPost = $this->post->nextSiblings()->wherePublished()->first();
     }
 
-    public function getShowPostPositionControlProperty(): bool
+    public function selectedPostPosition(...$args): void
     {
-        if ($this->story) {
-            if ($this->story->posts()->count() === 0) {
-                return false;
-            }
+        [$neighbor, $direction] = $args;
 
-            return true;
+        $this->setDirectionAndNeighbor($direction, $neighbor);
+
+        SetPostPosition::run($this->post, PostPositionData::from([
+            'direction' => $direction,
+            'neighbor' => $neighbor,
+            'hasPositionChange' => true,
+        ]));
+
+        $this->emit('refreshParticipatingUsers');
+    }
+
+    protected function setDirectionAndNeighbor(string $direction, int $neighbor): void
+    {
+        if ($direction === 'before') {
+            $this->nextPost = Post::find($neighbor);
+            $this->previousPost = $this->nextPost->prevSiblings()->wherePublished()->reversed()->first();
+        } else {
+            $this->previousPost = Post::find($neighbor);
+            $this->nextPost = $this->previousPost->nextSiblings()->wherePublished()->first();
         }
-
-        return false;
     }
 }

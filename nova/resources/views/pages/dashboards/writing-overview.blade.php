@@ -15,7 +15,7 @@
             <x-content-box height="sm">
                 <div class="flex justify-between">
                     <div>
-                        <h2 class="font-medium text-lg text-gray-900 dark:text-gray-100 tracking-tight">My draft posts</h2>
+                        <x-h2>My draft posts</x-h2>
                         <p class="mt-0.5 text-gray-500 text-sm">Drafts are posts currently in progress and that have not been published.</p>
                     </div>
 

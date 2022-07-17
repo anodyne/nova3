@@ -6,6 +6,8 @@ namespace Nova\Posts\Livewire\Concerns;
 
 use Illuminate\Support\Collection;
 use Nova\Characters\Models\Character;
+use Nova\Posts\Notifications\CharacterAuthorAddedToPost;
+use Nova\Posts\Notifications\CharacterAuthorRemovedFromPost;
 use Nova\Users\Models\User;
 
 trait HandlesCharacterAuthors
@@ -22,8 +24,9 @@ trait HandlesCharacterAuthors
         $characters = Character::with('activeUsers')
             ->whereIn('id', $authors)
             ->whereNotIn('id', $this->post->characterAuthors->fresh()->map(fn ($author) => $author->id)->all())
-            ->get()
-            ->mapWithKeys(fn (Character $character) => [
+            ->get();
+
+        $characterData = $characters->mapWithKeys(fn (Character $character) => [
                 $character->id => [
                     'user_id' => $character->activeUsers()->count() === 1
                         ? $character->activeUsers()->first()->id
@@ -32,11 +35,13 @@ trait HandlesCharacterAuthors
             ])
             ->all();
 
-        $this->post->characterAuthors()->attach($characters);
+        $this->post->characterAuthors()->attach($characterData);
 
         $this->refreshCharacterAuthors();
 
         $this->setCharacterPivotData();
+
+        $this->sendNotificationsToAddedCharacters($characters);
     }
 
     public function setCharacterPivotData(): void
@@ -60,9 +65,21 @@ trait HandlesCharacterAuthors
 
     public function removeCharacterAuthor(Character $character): void
     {
+        $this->dispatchBrowserEvent('dropdown-close');
+        
         $this->post->characterAuthors()->detach($character->id);
 
         $this->refreshCharacterAuthors();
+
+        $userForNotification = $this->post->characterAuthors()
+            ->wherePivot('authorable_type', 'character')
+            ->wherePivot('authorable_id', $character->id)
+            ->first();
+
+        if ($userForNotification) {
+            User::find($userForNotification->pivot->user_id)
+                ->notify(new CharacterAuthorRemovedFromPost($this->post, $character));
+        }
     }
 
     public function getAllUsersProperty(): Collection
@@ -73,5 +90,22 @@ trait HandlesCharacterAuthors
     protected function refreshCharacterAuthors(): void
     {
         $this->characters = $this->post->refresh()->characterAuthors;
+    }
+
+    protected function sendNotificationsToAddedCharacters($characters): void
+    {
+        $users = [];
+
+        foreach ($characters as $character) {
+            foreach ($character->activeUsers as $user) {
+                $users[$user->id][] = $character->displayName;
+            }
+        }
+
+        foreach ($users as $userId => $characterNames) {
+            if ($userId != auth()->id()) {
+                User::find($userId)?->notify(new CharacterAuthorAddedToPost($this->post, $characterNames));
+            }
+        }
     }
 }

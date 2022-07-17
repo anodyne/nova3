@@ -8,7 +8,6 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Nova\Posts\Livewire\Concerns\HasContentRatings;
 use Nova\Posts\Livewire\Concerns\HasPost;
 use Nova\Posts\Livewire\Concerns\HasPostType;
-use Nova\Posts\Livewire\Concerns\HasStories;
 use Nova\Posts\Livewire\Concerns\WritesPost;
 use Spatie\LivewireWizard\Components\StepComponent;
 
@@ -17,7 +16,6 @@ class WritePostStep extends StepComponent
     use AuthorizesRequests;
     use HasPost;
     use HasPostType;
-    use HasStories;
     use HasContentRatings;
     use WritesPost;
 
@@ -49,7 +47,7 @@ class WritePostStep extends StepComponent
 
     public function goToNextStep(): void
     {
-        $this->saveQuietly();
+        $this->saveQuietlyWithoutRedirect();
 
         $this->nextStep();
     }

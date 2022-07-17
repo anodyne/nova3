@@ -13,7 +13,7 @@
 
     @if ($noteCount === 0)
         <x-empty-state.large
-            icon="gauge"
+            icon="note"
             message="Notes help keep your thoughts organized about your game, a story idea, or even as a scratchpad for your next great story post."
             label="Add a note now"
             :link="route('notes.create')"

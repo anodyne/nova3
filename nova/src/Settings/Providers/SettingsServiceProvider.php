@@ -18,6 +18,7 @@ use Nova\Settings\Data\PostingActivity;
 use Nova\Settings\Data\Ratings;
 use Nova\Settings\Data\SettingInfo;
 use Nova\Settings\Livewire\FindSettingsModal;
+use Nova\Settings\Livewire\NotificationSetting;
 use Nova\Settings\Models\Settings;
 use Nova\Settings\Responses\AppearanceSettingsResponse;
 use Nova\Settings\Responses\CharactersSettingsResponse;
@@ -47,6 +48,7 @@ class SettingsServiceProvider extends DomainServiceProvider
     {
         return [
             'settings:find-settings' => FindSettingsModal::class,
+            'settings:notification-setting' => NotificationSetting::class,
         ];
     }
 
@@ -70,7 +72,7 @@ class SettingsServiceProvider extends DomainServiceProvider
     {
         $this->app->singleton('nova.settings', function ($app) {
             if (Nova::isInstalled()) {
-                return Settings::custom()->first();
+                return once(fn () => Settings::custom()->first());
             }
 
             return null;

@@ -12,11 +12,6 @@ use Nova\Users\Models\User;
 
 class CreateStoryTables extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('stories', function (Blueprint $table) {
@@ -73,19 +68,18 @@ class CreateStoryTables extends Migration
             $table->unsignedSmallInteger('rating_sex')->default(0);
             $table->unsignedSmallInteger('rating_violence')->default(0);
             $table->longText('summary')->nullable();
+            $table->text('participants')->nullable();
+            $table->integer('neighbor')->nullable();
+            $table->string('direction', 6)->nullable();
             $table->nestedSet();
             $table->timestamp('published_at')->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->index(['story_id', 'post_type_id', 'published_at']);
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('post_author');
