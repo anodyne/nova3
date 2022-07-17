@@ -186,6 +186,7 @@
       <path value="$PROJECT_DIR$/nova/vendor/thecodingmachine/safe" />
       <path value="$PROJECT_DIR$/nova/vendor/livewire/livewire" />
       <path value="$PROJECT_DIR$/nova/vendor/egulias/email-validator" />
+      <path value="$PROJECT_DIR$/nova/vendor/jean85/pretty-package-versions" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />
