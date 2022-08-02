@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Departments\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nova\Characters\Models\States\Statuses\Active;
+use Nova\Departments\Models\States\Departments\Active;
 use Nova\Departments\Actions\DuplicateDepartment;
 use Nova\Departments\Actions\DuplicateDepartmentPositions;
 use Nova\Departments\Data\DepartmentData;

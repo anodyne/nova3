@@ -35,7 +35,7 @@ class UpdateNoteController extends Controller
     {
         $this->authorize('update', $note);
 
-        $note = UpdateNote::run($note, NoteData::fromRequest($request));
+        $note = UpdateNote::run($note, NoteData::from($request));
 
         return back()->withToast("{$note->title} was updated");
     }

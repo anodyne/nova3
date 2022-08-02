@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Nova\Departments\Data;
 
 use Illuminate\Http\Request;
-use Nova\Departments\Models\States\Departments\Active;
 use Spatie\LaravelData\Data;
 
 class DepartmentData extends Data
@@ -20,9 +19,9 @@ class DepartmentData extends Data
     public static function fromRequest(Request $request): static
     {
         return new self(
-            status: $request->input('status', Active::class),
-            description: $request->description,
-            name: $request->name,
+            name: $request->input('name'),
+            description: $request->input('description'),
+            status: $request->input('status', 'active'),
         );
     }
 }

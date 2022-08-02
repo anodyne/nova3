@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature\Departments;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Event;
 use Nova\Departments\Events\DepartmentUpdated;
 use Nova\Departments\Models\Department;
@@ -41,17 +42,21 @@ class UpdateDepartmentTest extends TestCase
     {
         $this->signInWithPermission('department.update');
 
-        $department = Department::factory()->make();
+        $department = [
+            'name' => 'Command',
+            'description' => 'Lorem ipsum dolor sit amet',
+            'status' => 'active',
+        ];
 
         $this->followingRedirects();
 
         $response = $this->put(
             route('departments.update', $this->department),
-            $department->toArray()
+            $department
         );
         $response->assertSuccessful();
 
-        $this->assertDatabaseHas('departments', $department->only('name'));
+        $this->assertDatabaseHas('departments', Arr::only($department, 'name'));
 
         $this->assertRouteUsesFormRequest(
             'departments.update',
@@ -68,7 +73,11 @@ class UpdateDepartmentTest extends TestCase
 
         $this->put(
             route('departments.update', $this->department),
-            Department::factory()->make()->toArray()
+            [
+                'name' => 'Command',
+                'description' => 'Lorem ipsum dolor sit amet',
+                'status' => 'active',
+            ]
         );
 
         Event::assertDispatched(DepartmentUpdated::class);
@@ -80,7 +89,7 @@ class UpdateDepartmentTest extends TestCase
         $this->signIn();
 
         $response = $this->get(route('departments.edit', $this->department));
-        $response->assertForbidden();
+        $response->assertNotFound();
     }
 
     /** @test **/
@@ -92,7 +101,7 @@ class UpdateDepartmentTest extends TestCase
             route('departments.update', $this->department),
             Department::factory()->make()->toArray()
         );
-        $response->assertForbidden();
+        $response->assertNotFound();
     }
 
     /** @test **/

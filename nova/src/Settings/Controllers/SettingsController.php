@@ -45,7 +45,7 @@ class SettingsController extends Controller
 
         UpdateSettings::run(
             $tabString->snake(),
-            $data = $info->dto::fromRequest($request)
+            $data = $info->dto::from($request)
         );
 
         if ($info->action !== null) {

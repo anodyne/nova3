@@ -22,11 +22,11 @@ class ThemeData extends Data
     public static function fromRequest(Request $request): static
     {
         return new self(
-            active: (bool) ($request->active ?? true),
-            credits: $request->credits,
-            location: $request->location,
-            name: $request->name,
-            preview: $request->preview ?? 'preview.jpg',
+            active: $request->boolean('active', true),
+            credits: $request->input('credits'),
+            location: $request->input('location'),
+            name: $request->input('name'),
+            preview: $request->input('preview', 'preview.jpg'),
             variants: explode(',', $request->input('variants', '')),
         );
     }

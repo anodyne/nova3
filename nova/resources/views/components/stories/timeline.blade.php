@@ -49,8 +49,8 @@
                         </x-badge>
                     </span>
 
-                    @if ($story->post_count > 0)
-                        <span class="font-medium text-gray-500 dark:text-gray-400">{{ number_format($story->post_count) }} @choice('post|posts', $story->post_count)</span>
+                    @if ($story->postCount > 0)
+                        <span class="font-medium text-gray-500 dark:text-gray-400">{{ number_format($story->postCount) }} @choice('post|posts', $story->postCount)</span>
                     @endif
 
                     @if ($story->getDescendantCount() > 0)

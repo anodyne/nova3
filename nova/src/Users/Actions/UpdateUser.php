@@ -16,7 +16,7 @@ class UpdateUser
     public function handle(User $user, UserData $data): User
     {
         return tap($user)
-            ->update(Arr::except($data->all(), 'roles'))
+            ->update($data->except('roles')->all())
             ->fresh();
     }
 }

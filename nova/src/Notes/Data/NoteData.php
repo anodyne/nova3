@@ -6,13 +6,21 @@ namespace Nova\Notes\Data;
 
 use Illuminate\Http\Request;
 use Nova\Users\Models\User;
+use Spatie\LaravelData\Attributes\Validation\Nullable;
+use Spatie\LaravelData\Attributes\Validation\Required;
+use Spatie\LaravelData\Attributes\Validation\StringType;
 use Spatie\LaravelData\Data;
 
 class NoteData extends Data
 {
     public function __construct(
+        #[Required, StringType()]
         public string $title,
+
+        #[Nullable, StringType()]
         public ?string $content,
+
+        #[Nullable]
         public ?User $user
     ) {
     }

@@ -22,7 +22,7 @@ class StoryPositionData extends Data
         return new self(
             direction: $request->input('display_direction'),
             neighbor: Story::find($request->input('display_neighbor')),
-            hasPositionChange: (bool) $request->input('has_position_change')
+            hasPositionChange: $request->boolean('has_position_change', false)
         );
     }
 }

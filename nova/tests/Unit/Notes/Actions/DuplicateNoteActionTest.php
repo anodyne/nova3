@@ -25,7 +25,6 @@ class DuplicateNoteActionTest extends TestCase
         $this->originalNote = Note::factory()->create([
             'title' => 'My Note',
             'content' => 'Content',
-            'summary' => 'Summary',
         ]);
     }
 
@@ -36,6 +35,5 @@ class DuplicateNoteActionTest extends TestCase
 
         $this->assertEquals('Copy of My Note', $note->title);
         $this->assertEquals('Content', $note->content);
-        $this->assertEquals('Summary', $note->summary);
     }
 }

@@ -74,7 +74,7 @@ class DuplicateDepartmentTest extends TestCase
         $this->signIn();
 
         $response = $this->post(route('departments.duplicate', $this->department));
-        $response->assertForbidden();
+        $response->assertNotFound();
     }
 
     /** @test **/

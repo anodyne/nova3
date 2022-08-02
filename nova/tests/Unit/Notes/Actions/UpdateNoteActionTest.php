@@ -26,7 +26,6 @@ class UpdateNoteActionTest extends TestCase
         $this->note = Note::factory()->create([
             'title' => 'My First Note',
             'content' => 'Content',
-            'summary' => 'Summary',
         ]);
     }
 
@@ -36,13 +35,11 @@ class UpdateNoteActionTest extends TestCase
         $data = NoteData::from([
             'title' => 'My Note',
             'content' => 'New content',
-            'summary' => 'New summary',
         ]);
 
         $note = UpdateNote::run($this->note, $data);
 
         $this->assertEquals('My Note', $note->title);
         $this->assertEquals('New content', $note->content);
-        $this->assertEquals('New summary', $note->summary);
     }
 }

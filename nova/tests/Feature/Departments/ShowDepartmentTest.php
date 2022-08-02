@@ -40,7 +40,7 @@ class ShowDepartmentTest extends TestCase
         $this->signIn();
 
         $response = $this->get(route('departments.show', $this->department));
-        $response->assertForbidden();
+        $response->assertNotFound();
     }
 
     /** @test **/

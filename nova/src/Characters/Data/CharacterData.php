@@ -18,8 +18,8 @@ class CharacterData extends Data
     public static function fromRequest(Request $request): static
     {
         return new self(
-            name: $request->name,
-            rank_id: (int) $request->rank_id,
+            name: $request->input('name'),
+            rank_id: (int) $request->input('rank_id'),
         );
     }
 }

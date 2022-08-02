@@ -24,11 +24,11 @@ class PositionData extends Data
     public static function fromRequest(Request $request): static
     {
         return new self(
-            available: (int) $request->available,
-            department: Department::find($request->department_id),
-            department_id: (int) $request->department_id,
-            description: $request->description,
-            name: $request->name,
+            available: (int) $request->input('available', 0),
+            department: Department::find($request->input('department_id')),
+            department_id: (int) $request->input('department_id', 0),
+            description: $request->input('description'),
+            name: $request->input('name'),
             status: $request->input('status', Active::class),
         );
     }

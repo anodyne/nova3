@@ -16,7 +16,7 @@ class UpdateNote
     public function handle(Note $note, NoteData $data): Note
     {
         return tap($note)
-            ->update(Arr::except($data->all(), 'user'))
+            ->update($data->except('user')->all())
             ->refresh();
     }
 }

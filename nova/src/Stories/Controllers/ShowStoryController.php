@@ -46,7 +46,7 @@ class ShowStoryController extends Controller
         return ShowStoryResponse::sendWith([
             'posts' => $posts,
             'search' => $request->search,
-            'story' => $story->loadCount('posts'),
+            'story' => $story,
             'ancestors' => $story->ancestors->splice(1),
         ]);
     }

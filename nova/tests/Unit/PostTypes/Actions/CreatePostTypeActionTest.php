@@ -10,6 +10,7 @@ use Nova\PostTypes\Data\Field;
 use Nova\PostTypes\Data\Fields;
 use Nova\PostTypes\Data\Options;
 use Nova\PostTypes\Data\PostTypeData;
+use Nova\PostTypes\Models\States\Active;
 use Tests\TestCase;
 
 /**
@@ -23,15 +24,15 @@ class CreatePostTypeActionTest extends TestCase
     /** @test **/
     public function itCreatesAPostType()
     {
-        $data = PostTypeData::from([
-            'key' => 'foo',
-            'name' => 'Foo',
-            'description' => 'Description of foo',
-            'color' => '#000000',
-            'icon' => 'book',
-            'active' => true,
-            'visibility' => 'in-character',
-            'fields' => Fields::from([
+        $data = new PostTypeData(
+            key: 'foo',
+            name: 'Foo',
+            description: 'Description of foo',
+            color: '#000000',
+            icon: 'book',
+            status: Active::class,
+            visibility: 'in-character',
+            fields: Fields::from([
                 'title' => Field::From([
                     'enabled' => true,
                     'validate' => true,
@@ -61,12 +62,13 @@ class CreatePostTypeActionTest extends TestCase
                     'validate' => true,
                 ]),
             ]),
-            'options' => Options::from([
+            options: Options::from([
                 'notifyUsers' => true,
                 'includeInPostTracking' => false,
                 'multipleAuthors' => true,
             ]),
-        ]);
+            role_id: null
+        );
 
         $postType = CreatePostType::run($data);
 
@@ -77,7 +79,8 @@ class CreatePostTypeActionTest extends TestCase
         $this->assertEquals('book', $postType->icon);
         $this->assertEquals('#000000', $postType->color);
         $this->assertEquals('in-character', $postType->visibility);
-        $this->assertTrue($postType->active);
+        $this->assertTrue($postType->status->equals(Active::class));
+        $this->assertNull($postType->role_id);
 
         $this->assertTrue($postType->fields->title->enabled);
         $this->assertFalse($postType->fields->day->enabled);

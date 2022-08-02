@@ -73,9 +73,7 @@ class Story extends Model implements HasMedia
         return new Attribute(
             get: function ($value): int {
                 if ($this->getDescendantCount() > 0) {
-                    return Story::withCount('posts')
-                        ->descendantsAndSelf($this->id)
-                        ->sum('posts_count');
+                    return Story::descendantsAndSelf($this->id)->sum('postCount');
                 }
 
                 return 0;
@@ -107,7 +105,7 @@ class Story extends Model implements HasMedia
     public function postCount(): Attribute
     {
         return new Attribute(
-            get: fn ($value): int => $this->posts()->count()
+            get: fn ($value): int => $this->posts()->whereNotRootPost()->wherePublished()->count()
         );
     }
 

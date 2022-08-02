@@ -20,7 +20,7 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
 
-        $this->remapRouteCollection();
+        // $this->remapRouteCollection();
         $this->setupTestResponseMacros();
     }
 

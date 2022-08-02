@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Illuminate\Routing\Route;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
@@ -68,6 +69,7 @@ class AppServiceProvider extends ServiceProvider
 
     protected function registerMacros()
     {
+        Arr::mixin(new Macros\ArrMacros());
         Redirector::mixin(new Macros\ToastMacros());
         RedirectResponse::mixin(new Macros\ToastMacros());
         Route::mixin(new Macros\RouteMacros());
