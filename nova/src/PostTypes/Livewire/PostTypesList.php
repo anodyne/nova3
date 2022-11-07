@@ -9,7 +9,7 @@ use Kirschbaum\LivewireFilters\Filter;
 use Kirschbaum\LivewireFilters\HasFilters;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Nova\Foundation\Livewire\CanReorder;
+use Nova\Foundation\Livewire\Concerns\CanReorder;
 use Nova\PostTypes\Actions\ReorderPostTypes;
 use Nova\PostTypes\Models\PostType;
 
@@ -87,6 +87,8 @@ class PostTypesList extends Component
         return view('livewire.post-types.post-types-list', [
             'activeFilterCount' => $this->activeFilterCount,
             'isFiltered' => $this->isFiltered,
+            'postTypeClass' => PostType::class,
+            'postTypeCount' => PostType::count(),
             'postTypes' => $this->filteredPostTypes,
         ]);
     }

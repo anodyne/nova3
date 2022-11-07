@@ -9,7 +9,7 @@ use Kirschbaum\LivewireFilters\Filter;
 use Kirschbaum\LivewireFilters\HasFilters;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Nova\Foundation\Livewire\CanReorder;
+use Nova\Foundation\Livewire\Concerns\CanReorder;
 use Nova\Roles\Actions\ReorderRoles;
 use Nova\Roles\Models\Role;
 
@@ -88,6 +88,8 @@ class RolesList extends Component
         return view('livewire.roles.roles-list', [
             'activeFilterCount' => $this->activeFilterCount,
             'isFiltered' => $this->isFiltered,
+            'roleClass' => Role::class,
+            'roleCount' => Role::count(),
             'roles' => $this->filteredRoles,
         ]);
     }

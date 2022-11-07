@@ -23,9 +23,7 @@ class ShowNoteController extends Controller
     {
         $this->authorize('viewAny', Note::class);
 
-        return ShowAllNotesResponse::sendWith([
-            'noteCount' => Note::whereAuthor(auth()->user())->count(),
-        ]);
+        return ShowAllNotesResponse::send();
     }
 
     public function show(Note $note): Responsable

@@ -1,22 +1,49 @@
-<div class="space-y-6" x-data="filtersPanel()">
-    @if ($reordering)
-        <x-panel.info icon="arrow-sort" title="Change Sorting Order">
-            <div class="space-y-4">
-                <p>Rank names will appear in the order below whenever they're shown throughout Nova. To change the sorting of rank names, drag them to the desired order. Click Finish to return to the management view.</p>
-
-                <div>
-                    <x-button type="button" wire:click="stopReordering" color="info-outline">Finish</x-button>
-                </div>
-            </div>
-        </x-panel.info>
-    @endif
-
-    <x-panel class="{{ $reordering ? 'overflow-hidden' : '' }}">
+<x-panel class="{{ $reordering ? 'overflow-hidden' : '' }}" x-data="filtersPanel()">
+    <x-panel.header title="Rank names" description="Re-use basic rank information across all of your rank items.">
         @if (! $reordering)
-            <x-content-box height="sm" class="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-8">
+            <x-slot:controls>
+                @can('update', $rankNames->first())
+                    <x-button type="button" size="none" color="gray-text" wire:click="startReordering" leading="arrow-sort">
+                        Reorder
+                    </x-button>
+                @endcan
+
+                @can('create', $rankNameClass)
+                    <x-link :href="route('ranks.names.create')" color="primary" data-cy="create" leading="add">
+                        Add rank name
+                    </x-link>
+                @endcan
+            </x-slot:controls>
+        @else
+            <x-slot:description>
+                <x-panel.info icon="arrow-sort" title="Change sorting order" class="mt-4">
+                    <div class="space-y-4">
+                        <p>Rank names will appear in the order below whenever they're shown throughout Nova. To change the sorting of rank names, drag them to the desired order. Click Finish to return to the management view.</p>
+
+                        <div>
+                            <x-button type="button" wire:click="stopReordering" color="info">Finish</x-button>
+                        </div>
+                    </div>
+                </x-panel.info>
+            </x-slot:description>
+        @endif
+    </x-panel.header>
+
+    @if (! $reordering)
+        @if ($rankNameCount === 0)
+            <x-empty-state.large
+                icon="layer"
+                title="Start by creating a rank name"
+                message="Rank names eliminate the repetitive task of setting the name of a rank by letting you re-use names across all of your rank items."
+                label="Add rank name"
+                :link="route('ranks.names.create')"
+                :link-access="gate()->allows('create', $rankNameClass)"
+            ></x-empty-state.large>
+        @else
+            <x-content-box height="sm" class="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-6">
                 <div class="flex-1">
                     <x-input.group>
-                        <x-input.text placeholder="Find rank name..." wire:model="search">
+                        <x-input.text placeholder="Find rank name(s) by name" wire:model="search">
                             <x-slot:leadingAddOn>
                                 @icon('search', 'h-5 w-5')
                             </x-slot:leadingAddOn>
@@ -33,28 +60,17 @@
                 </div>
 
                 <div class="shrink flex justify-between md:justify-start items-center space-x-4">
-                    <x-button type="button" size="none" :color="$isFiltered ? 'primary-text' : 'gray-text'" x-bind="trigger">
-                        <div class="flex items-center space-x-2">
-                            @icon('filter', 'h-6 w-6 md:h-5 md:w-5')
-                            <span>Filters</span>
-                            @if ($activeFilterCount > 0)
-                                <x-badge color="primary">{{ $activeFilterCount }}</x-badge>
-                            @endif
-                        </div>
+                    <x-button
+                        size="none"
+                        :color="$isFiltered ? 'primary-text' : 'gray-text'"
+                        x-bind="trigger"
+                        leading="filter"
+                    >
+                        <span>Filters</span>
+                        @if ($activeFilterCount > 0)
+                            <x-badge color="primary" size="sm" class="ml-2">{{ $activeFilterCount }}</x-badge>
+                        @endif
                     </x-button>
-
-                    @can('update', $rankNames->first())
-                        <div class="hidden md:block w-px h-6 border-l border-gray-300 dark:border-gray-200/10"></div>
-
-                        <div class="shrink flex justify-between md:justify-start items-center space-x-4">
-                            <x-button type="button" size="none" color="gray-text" wire:click="startReordering">
-                                <div class="flex items-center space-x-2">
-                                    @icon('arrow-sort', 'h-6 w-6 md:h-5 md:w-5')
-                                    <span>Reorder</span>
-                                </div>
-                            </x-button>
-                        </div>
-                    @endcan
                 </div>
             </x-content-box>
 
@@ -63,8 +79,10 @@
                 <livewire:livewire-filters-radio :filter="$filters['rank_count']" />
             </x-panel.filters>
         @endif
+    @endif
 
-        <x-table-list columns="3" wire:sortable="reorder">
+    <x-table-list columns="3" wire:sortable="reorder">
+        @if ($rankNameCount > 0)
             @if ($rankNames->count() > 0 && ! $reordering)
                 <x-slot:header>
                     <div>Name</div>
@@ -82,16 +100,16 @@
                             </div>
                         @endif
 
-                        <div class="font-medium">
+                        <x-table-list.primary-column>
                             {{ $rankName->name }}
-                        </div>
+                        </x-table-list.primary-column>
                     </div>
 
                     <div @class([
                         'flex items-center',
                         'ml-8 md:ml-0' => $reordering
                     ])>
-                        <div class="w-full text-base md:text-lg md:font-medium md:text-center text-gray-600 dark:text-gray-400">
+                        <div class="w-full text-base md:text-center text-gray-600 dark:text-gray-400">
                             {{ $rankName->ranks_count }} <span class="inline md:hidden">@choice('rank item|rank items', $rankName->ranks_count)</span>
                         </div>
                     </div>
@@ -147,17 +165,29 @@
                 </x-table-list.row>
             @empty
                 <x-slot:emptyMessage>
-                    <x-search-not-found>
-                        No rank names found
-                    </x-search-not-found>
+                    <x-empty-state.not-found
+                        entity="rank name"
+                        :search="$search"
+                        :primary-access="gate()->allows('create', $rankNameClass)"
+                    >
+                        <x-slot:primary>
+                            <x-link :href="route('ranks.names.create')" color="primary">
+                                Add rank name
+                            </x-link>
+                        </x-slot:primary>
+
+                        <x-slot:secondary>
+                            <x-button wire:click="$set('search', '')">Clear search</x-button>
+                        </x-slot:secondary>
+                    </x-empty-state.not-found>
                 </x-slot:emptyMessage>
             @endforelse
 
-            @if (! $reordering)
+            @if (! $reordering && $rankNames->count() > 0)
                 <x-slot:footer>
                     {{ $rankNames->withQueryString()->links() }}
                 </x-slot:footer>
             @endif
-        </x-table-list>
-    </x-panel>
-</div>
+        @endif
+    </x-table-list>
+</x-panel>

@@ -12,7 +12,7 @@ use Livewire\WithPagination;
 use Nova\Departments\Actions\ReorderPositions;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
-use Nova\Foundation\Livewire\CanReorder;
+use Nova\Foundation\Livewire\Concerns\CanReorder;
 
 class PositionsList extends Component
 {
@@ -111,6 +111,8 @@ class PositionsList extends Component
         return view('livewire.positions.positions-list', [
             'activeFilterCount' => $this->activeFilterCount,
             'isFiltered' => $this->isFiltered,
+            'positionClass' => Position::class,
+            'positionCount' => Position::count(),
             'positions' => $this->filteredPositions,
         ]);
     }

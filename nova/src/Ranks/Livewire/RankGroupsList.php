@@ -9,7 +9,7 @@ use Kirschbaum\LivewireFilters\Filter;
 use Kirschbaum\LivewireFilters\HasFilters;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Nova\Foundation\Livewire\CanReorder;
+use Nova\Foundation\Livewire\Concerns\CanReorder;
 use Nova\Ranks\Actions\ReorderRankGroups;
 use Nova\Ranks\Models\RankGroup;
 
@@ -89,6 +89,8 @@ class RankGroupsList extends Component
         return view('livewire.ranks.rank-groups-list', [
             'activeFilterCount' => $this->activeFilterCount,
             'isFiltered' => $this->isFiltered,
+            'rankGroupClass' => RankGroup::class,
+            'rankGroupCount' => RankGroup::count(),
             'rankGroups' => $this->filteredRankGroups,
         ]);
     }

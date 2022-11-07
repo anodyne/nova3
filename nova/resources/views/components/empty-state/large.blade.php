@@ -1,25 +1,38 @@
 @props([
     'icon',
-    'message',
+    'title' => false,
+    'message' => false,
     'link',
     'label',
     'linkAccess' => false,
 ])
 
-<x-panel>
-    <div class="py-8 md:py-16">
-        @icon($icon, 'block h-20 w-20 mx-auto mb-8')
+<div class="py-8 md:py-16">
+    <div class="flex flex-col items-center max-w-xs mx-auto sm:max-w-sm md:max-w-xl space-y-6">
+        <div class="text-center">
+            <x-badge color="primary" size="circle">
+                @icon($icon, 'h-12 w-12')
+            </x-badge>
+        </div>
 
-        <div class="flex flex-col items-center max-w-xs mx-auto sm:max-w-sm md:max-w-xl">
-            <div class="block text-center text-gray-600 dark:text-gray-300 mb-8 text-lg leading-relaxed">
-                {{ $message }}
-            </div>
+        <div class="space-y-3">
+            @if ($title)
+                <h2 class="text-center font-semibold text-gray-900 dark:text-gray-100">
+                    {{ $title }}
+                </h2>
+            @endif
 
-            @if ($linkAccess)
-                <x-link :href="$link" color="primary" class="space-x-3">
-                    <span>{{ $label }}</span>
-                </x-link>
+            @if ($message)
+                <p class="text-center text-gray-600 dark:text-gray-300 leading-relaxed">
+                    {{ $message }}
+                </p>
             @endif
         </div>
+
+        @if ($linkAccess)
+            <x-link :href="$link" color="primary" class="space-x-3">
+                <span>{{ $label }}</span>
+            </x-link>
+        @endif
     </div>
-</x-panel>
+</div>

@@ -6,13 +6,15 @@ namespace Nova\Foundation\View\Components;
 
 class Link extends Button
 {
-    public $href;
-
-    public function __construct($href, $color = 'white', $size = 'md', $fullWidth = false)
-    {
-        parent::__construct($color, $size, $fullWidth);
-
-        $this->href = $href;
+    public function __construct(
+        public string $href,
+        public string $color = 'white',
+        public string $size = 'md',
+        public bool $fullWidth = false,
+        public ?string $leading = null,
+        public ?string $trailing = null
+    ) {
+        parent::__construct($color, $size, $fullWidth, $leading, $trailing);
     }
 
     public function render()

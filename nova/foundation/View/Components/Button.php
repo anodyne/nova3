@@ -13,7 +13,9 @@ class Button extends Component
     public function __construct(
         public string $color = 'white',
         public string $size = 'md',
-        public bool $fullWidth = false
+        public bool $fullWidth = false,
+        public ?string $leading = null,
+        public ?string $trailing = null
     ) {
     }
 
@@ -21,7 +23,7 @@ class Button extends Component
     {
         return Arr::toCssClasses([
             'group',
-            'inline-flex items-center text-center justify-center border rounded-md',
+            'inline-flex items-center text-center justify-center border rounded-md space-x-2',
             'transition ease-in-out duration-200',
             'focus:outline-none',
             'disabled:cursor-not-allowed disabled:opacity-75',
@@ -36,7 +38,7 @@ class Button extends Component
     public function colorStyles(): string
     {
         return match ($this->color) {
-            default => 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-200/10 hover:bg-gray-50 dark:hover:bg-gray-900/40 hover:border-gray-400/75 dark:hover:border-gray-200/20 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-gray-300 dark:focus:ring-gray-600',
+            default => 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border-gray-300 dark:border-gray-200/10 hover:bg-gray-50 dark:hover:bg-gray-900/40 hover:border-gray-400/75 dark:hover:border-gray-200/20 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-gray-300 dark:focus:ring-gray-600',
 
             'dark-gray-text' => 'text-gray-600 hover:text-gray-700',
             'gray-text' => 'text-gray-500 hover:text-gray-600 dark:hover:text-gray-400',

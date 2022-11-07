@@ -22,10 +22,7 @@ class ShowDepartmentController extends Controller
     {
         $this->authorize('viewAny', Department::class);
 
-        return ShowAllDepartmentsResponse::sendWith([
-            'department' => new Department(),
-            'departmentCount' => Department::count(),
-        ]);
+        return ShowAllDepartmentsResponse::send();
     }
 
     public function show(Department $department)

@@ -11,7 +11,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Nova\Departments\Actions\ReorderDepartments;
 use Nova\Departments\Models\Department;
-use Nova\Foundation\Livewire\CanReorder;
+use Nova\Foundation\Livewire\Concerns\CanReorder;
 
 class DepartmentsList extends Component
 {
@@ -89,6 +89,8 @@ class DepartmentsList extends Component
         return view('livewire.departments.departments-list', [
             'activeFilterCount' => $this->activeFilterCount,
             'isFiltered' => $this->isFiltered,
+            'departmentClass' => Department::class,
+            'departmentCount' => Department::count(),
             'departments' => $this->filteredDepartments,
         ]);
     }

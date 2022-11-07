@@ -1,24 +1,62 @@
-<div class="space-y-6" x-data="filtersPanel()">
-    @if ($reordering)
-        <x-panel.info icon="arrow-sort" title="Change Sorting Order">
-            <div class="space-y-4">
-                <p>Sorting roles allows for admins to control the hierarchy of roles in the system to ensure that users with a lower role cannot give themselves higher privileges.</p>
-
-                <p>Top roles have the greatest privileges &ndash; place the most important roles with the highest potential impact higher on the list, to ensure users can't gain unwanted access to areas of Nova.</p>
-
-                <div>
-                    <x-button type="button" wire:click="stopReordering" color="info-outline">Finish</x-button>
-                </div>
-            </div>
-        </x-panel.info>
-    @endif
-
-    <x-panel x-bind="parent" class="{{ $reordering ? 'overflow-hidden' : '' }}">
+<x-panel x-bind="parent" class="{{ $reordering ? 'overflow-hidden' : '' }}" x-data="filtersPanel()">
+    <x-panel.header title="Roles" description="Control what users can do throughout Nova.">
         @if (! $reordering)
-            <x-content-box height="sm" class="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-8">
+            <x-slot:controls>
+                @can('update', $roles->first())
+                    <x-button
+                        size="none"
+                        color="gray-text"
+                        wire:click="startReordering"
+                        leading="arrow-sort"
+                    >
+                        Reorder
+                    </x-button>
+                @endcan
+
+                @can('create', $roleClass)
+                    <x-link
+                        :href="route('roles.create')"
+                        color="primary"
+                        data-cy="create"
+                        class="order-first md:order-last"
+                        leading="add"
+                    >
+                        Add role
+                    </x-link>
+                @endcan
+            </x-slot:controls>
+        @else
+            <x-slot:description>
+                <x-panel.info icon="arrow-sort" title="Change sorting order" class="mt-4">
+                    <div class="space-y-4">
+                        <p>Sorting roles allows for admins to control the hierarchy of roles in the system to ensure that users with a lower role cannot give themselves higher privileges.</p>
+
+                        <p>Top roles have the greatest privileges &ndash; place the most important roles with the highest potential impact higher on the list, to ensure users can't gain unwanted access to areas of Nova.</p>
+
+                        <div>
+                            <x-button wire:click="stopReordering" color="info">Finish</x-button>
+                        </div>
+                    </div>
+                </x-panel.info>
+            </x-slot:description>
+        @endif
+    </x-panel.header>
+
+    @if (! $reordering)
+        @if ($roleCount === 0)
+            <x-empty-state.large
+                icon="lock"
+                title="Start by creating a role"
+                message="Roles allow you to control what users can and cannot access throughout Nova."
+                label="Add role"
+                :link="route('roles.create')"
+                :link-access="gate()->allows('create', $roleClass)"
+            ></x-empty-state.large>
+        @else
+            <x-content-box height="sm" class="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-6">
                 <div class="flex-1">
                     <x-input.group>
-                        <x-input.text placeholder="Find a role..." wire:model="search">
+                        <x-input.text placeholder="Find role(s) by name" wire:model="search">
                             <x-slot:leadingAddOn>
                                 @icon('search', 'h-5 w-5')
                             </x-slot:leadingAddOn>
@@ -35,26 +73,17 @@
                 </div>
 
                 <div class="shrink flex justify-between md:justify-start items-center space-x-4">
-                    <x-button type="button" size="none" :color="$isFiltered ? 'primary-text' : 'gray-text'" x-bind="trigger">
-                        <div class="flex items-center space-x-2">
-                            @icon('filter', 'h-6 w-6 md:h-5 md:w-5')
-                            <span>Filters</span>
-                            @if ($activeFilterCount > 0)
-                                <x-badge color="primary">{{ $activeFilterCount }}</x-badge>
-                            @endif
-                        </div>
+                    <x-button
+                        size="none"
+                        :color="$isFiltered ? 'primary-text' : 'gray-text'"
+                        x-bind="trigger"
+                        leading="filter"
+                    >
+                        <span>Filters</span>
+                        @if ($activeFilterCount > 0)
+                            <x-badge color="primary" size="sm" class="ml-2">{{ $activeFilterCount }}</x-badge>
+                        @endif
                     </x-button>
-
-                    @can('update', $roles->first())
-                        <div class="hidden md:block w-px h-6 border-l border-gray-200 dark:border-gray-200/10"></div>
-
-                        <x-button type="button" size="none" color="gray-text" wire:click="startReordering">
-                            <div class="flex items-center space-x-2">
-                                @icon('arrow-sort', 'h-6 w-6 md:h-5 md:w-5')
-                                <span>Reorder</span>
-                            </div>
-                        </x-button>
-                    @endcan
                 </div>
             </x-content-box>
 
@@ -64,8 +93,10 @@
                 <livewire:livewire-filters-radio :filter="$filters['has_users']" />
             </x-panel.filters>
         @endif
+    @endif
 
-        <x-table-list columns="4" wire:sortable="reorder">
+    <x-table-list columns="4" wire:sortable="reorder">
+        @if ($roleCount > 0)
             @if ($roles->count() > 0 && ! $reordering)
                 <x-slot:header>
                     <div>Name</div>
@@ -84,9 +115,9 @@
                             </div>
                         @endif
 
-                        <div class="font-medium">
+                        <x-table-list.primary-column>
                             {{ $role->display_name }}
-                        </div>
+                        </x-table-list.primary-column>
                     </div>
 
                     <div @class([
@@ -191,17 +222,29 @@
                 </x-table-list.row>
             @empty
                 <x-slot:emptyMessage>
-                    <x-search-not-found>
-                        No roles found
-                    </x-search-not-found>
+                    <x-empty-state.not-found
+                        entity="role"
+                        :search="$search"
+                        :primary-access="gate()->allows('create', $roleClass)"
+                    >
+                        <x-slot:primary>
+                            <x-link :href="route('roles.create')" color="primary">
+                                Add role
+                            </x-link>
+                        </x-slot:primary>
+
+                        <x-slot:secondary>
+                            <x-button wire:click="$set('search', '')">Clear search</x-button>
+                        </x-slot:secondary>
+                    </x-empty-state.not-found>
                 </x-slot:emptyMessage>
             @endforelse
 
-            @if (! $reordering)
+            @if (! $reordering && $roles->count() > 0)
                 <x-slot:footer>
                     {{ $roles->withQueryString()->links() }}
                 </x-slot:footer>
             @endif
-        </x-table-list>
-    </x-panel>
-</div>
+        @endif
+    </x-table-list>
+</x-panel>

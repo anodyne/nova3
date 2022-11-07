@@ -1,7 +1,7 @@
 @extends($meta->template)
 
 @section('content')
-    <x-page-header title="Post Types">
+    {{-- <x-page-header title="Post Types">
         <x-slot:controls>
             @can('create', 'Nova\PostTypes\Models\PostType')
                 <x-link :href="route('post-types.create')" color="primary" data-cy="create">
@@ -9,7 +9,7 @@
                 </x-link>
             @endcan
         </x-slot:controls>
-    </x-page-header>
+    </x-page-header> --}}
 
     @livewire('post-types:list')
 

@@ -94,6 +94,8 @@ class CharactersList extends Component
         return view('livewire.characters.characters-list', [
             'activeFilterCount' => $this->activeFilterCount,
             'isFiltered' => $this->isFiltered,
+            'characterClass' => Character::class,
+            'characterCount' => Character::count(),
             'characters' => $this->filteredCharacters,
         ]);
     }

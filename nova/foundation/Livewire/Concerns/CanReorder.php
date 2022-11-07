@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Nova\Foundation\Livewire;
+namespace Nova\Foundation\Livewire\Concerns;
 
 trait CanReorder
 {

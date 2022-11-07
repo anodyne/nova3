@@ -8,25 +8,16 @@
 @endphp
 
 <div>
-    <x-page-header>Writing Overview</x-page-header>
-
     <x-panel>
+        <x-panel.header title="My draft posts" description="Drafts are posts currently in progress and that have not been published.">
+            <x-slot:controls>
+                <x-link :href="route('posts.create')" color="primary">
+                    Start Writing
+                </x-link>
+            </x-slot:controls>
+        </x-panel.header>
+
         @if ($posts->count() > 0)
-            <x-content-box height="sm">
-                <div class="flex justify-between">
-                    <div>
-                        <x-h2>My draft posts</x-h2>
-                        <p class="mt-0.5 text-gray-500 text-sm">Drafts are posts currently in progress and that have not been published.</p>
-                    </div>
-
-                    <div>
-                        <x-link :href="route('posts.create')" color="primary">
-                            Start Writing
-                        </x-link>
-                    </div>
-                </div>
-            </x-content-box>
-
             <x-content-box width="none" height="none">
                 <x-table-list columns="3">
                     <x-slot:header>

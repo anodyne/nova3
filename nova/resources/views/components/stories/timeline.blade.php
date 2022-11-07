@@ -59,18 +59,21 @@
 
                     @canany(['view', 'create', 'update', 'delete'], $story)
                         <span class="leading-0">
-                            <x-button type="button" size="none" color="gray-primary-text" wire:click="selectStory('{{ $story->id }}')">
-                                @icon('settings', 'h-6 w-6 shrink-0 mr-1.5')
-                                <span>Manage</span>
+                            <x-button
+                                size="none"
+                                color="gray-primary-text"
+                                leading="settings"
+                                wire:click="selectStory('{{ $story->id }}')"
+                            >
+                                Manage
                             </x-button>
                         </span>
                     @endcanany
 
                     @can('view', $story)
                         <span class="leading-0">
-                            <x-link :href="route('stories.show', $story)" size="none" color="gray-primary-text">
-                                @icon('arrow-right', 'h-6 w-6 shrink-0 mr-1.5')
-                                <span>Go to story</span>
+                            <x-link :href="route('stories.show', $story)" size="none" color="gray-primary-text" leading="arrow-right">
+                                Go to story
                             </x-link>
                         </span>
                     @endcan
