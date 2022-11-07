@@ -1,18 +1,60 @@
-<div class="space-y-6" x-data="filtersPanel()">
-    @if ($reordering)
-        <x-panel.info icon="arrow-sort" title="Change Sorting Order">
-            <p>Post types will appear in the order below whenever they're shown throughout Nova. To change the sorting of post types, drag them to the desired order. Click Finish to return to the management view.</p>
-
-            <x-button type="button" wire:click="stopReordering" color="info-outline" class="mt-4">Finish</x-button>
-        </x-panel.info>
-    @endif
-
-    <x-panel class="{{ $reordering ? 'overflow-hidden' : '' }}">
+<x-panel class="{{ $reordering ? 'overflow-hidden' : '' }}" x-data="filtersPanel()">
+    <x-panel.header title="Post types" description="Control the content users post into stories.">
         @if (! $reordering)
-            <x-content-box height="sm" class="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-8">
+            <x-slot:controls>
+                @can('update', $postTypes->first())
+                    <x-button
+                        size="none"
+                        color="gray-text"
+                        wire:click="startReordering"
+                        leading="arrow-sort"
+                    >
+                        Reorder
+                    </x-button>
+                @endcan
+
+                @can('create', $postTypeClass)
+                    <x-link
+                        :href="route('post-types.create')"
+                        color="primary"
+                        data-cy="create"
+                        class="order-first md:order-last"
+                        leading="add"
+                    >
+                        Add post type
+                    </x-link>
+                @endcan
+            </x-slot:controls>
+        @else
+            <x-slot:description>
+                <x-panel.info icon="arrow-sort" title="Change sorting order" class="mt-4">
+                    <div class="space-y-4">
+                        <p>Post types will appear in the order below whenever they're shown throughout Nova. To change the sorting of post types, drag them to the desired order. Click Finish to return to the management view.</p>
+
+                        <div>
+                            <x-button wire:click="stopReordering" color="info">Finish</x-button>
+                        </div>
+                    </div>
+                </x-panel.info>
+            </x-slot:description>
+        @endif
+    </x-panel.header>
+
+    @if (! $reordering)
+        @if ($postTypeCount === 0)
+            <x-empty-state.large
+                icon="list"
+                title="Start by creating a post type"
+                message="Post types allow you to control the type of content users can create inside of stories."
+                label="Add post type"
+                :link="route('post-types.create')"
+                :link-access="gate()->allows('create', $postTypeClass)"
+            ></x-empty-state.large>
+        @else
+            <x-content-box height="sm" class="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-6">
                 <div class="flex-1">
                     <x-input.group>
-                        <x-input.text placeholder="Find post type..." wire:model="search">
+                        <x-input.text placeholder="Find post types(s) by name" wire:model="search">
                             <x-slot:leadingAddOn>
                                 @icon('search', 'h-5 w-5')
                             </x-slot:leadingAddOn>
@@ -29,26 +71,17 @@
                 </div>
 
                 <div class="shrink flex justify-between md:justify-start items-center space-x-4">
-                    <x-button type="button" size="none" :color="$isFiltered ? 'primary-text' : 'gray-text'" x-bind="trigger">
-                        <div class="flex items-center space-x-2">
-                            @icon('filter', 'h-6 w-6 md:h-5 md:w-5')
-                            <span>Filters</span>
-                            @if ($activeFilterCount > 0)
-                                <x-badge color="primary">{{ $activeFilterCount }}</x-badge>
-                            @endif
-                        </div>
+                    <x-button
+                        size="none"
+                        :color="$isFiltered ? 'primary-text' : 'gray-text'"
+                        x-bind="trigger"
+                        leading="filter"
+                    >
+                        <span>Filters</span>
+                        @if ($activeFilterCount > 0)
+                            <x-badge color="primary" size="sm" class="ml-2">{{ $activeFilterCount }}</x-badge>
+                        @endif
                     </x-button>
-
-                    @can('update', $postTypes->first())
-                        <div class="hidden md:block w-px h-6 border-l border-gray-200 dark:border-gray-200/10"></div>
-
-                        <x-button type="button" size="none" color="gray-text" wire:click="startReordering">
-                            <div class="flex items-center space-x-2">
-                                @icon('arrow-sort', 'h-6 w-6 md:h-5 md:w-5')
-                                <span>Reorder</span>
-                            </div>
-                        </x-button>
-                    @endcan
                 </div>
             </x-content-box>
 
@@ -57,8 +90,10 @@
                 <livewire:livewire-filters-radio :filter="$filters['requires_access_role']" />
             </x-panel.filters>
         @endif
+    @endif
 
-        <x-table-list columns="3" wire:sortable="reorder">
+    <x-table-list columns="3" wire:sortable="reorder">
+        @if ($postTypeCount > 0)
             @if ($postTypes->count() > 0 && ! $reordering)
                 <x-slot:header>
                     <div>Name</div>
@@ -85,9 +120,9 @@
                                 @endisset
                             </div>
 
-                            <div class="font-medium">
+                            <x-table-list.primary-column>
                                 {{ $postType->name }}
-                            </div>
+                            </x-table-list.primary-column>
                         </div>
                     </div>
 
@@ -153,17 +188,29 @@
                 </x-table-list.row>
             @empty
                 <x-slot:emptyMessage>
-                    <x-search-not-found>
-                        No post types found
-                    </x-search-not-found>
+                    <x-empty-state.not-found
+                        entity="post type"
+                        :search="$search"
+                        :primary-access="gate()->allows('create', $postTypeClass)"
+                    >
+                        <x-slot:primary>
+                            <x-link :href="route('post-types.create')" color="primary">
+                                Add post type
+                            </x-link>
+                        </x-slot:primary>
+
+                        <x-slot:secondary>
+                            <x-button wire:click="$set('search', '')">Clear search</x-button>
+                        </x-slot:secondary>
+                    </x-empty-state.not-found>
                 </x-slot:emptyMessage>
             @endforelse
 
-            @if (! $reordering)
+            @if (! $reordering && $postTypes->count() > 0)
                 <x-slot:footer>
                     {{ $postTypes->withQueryString()->links() }}
                 </x-slot:footer>
             @endif
-        </x-table-list>
-    </x-panel>
-</div>
+        @endif
+    </x-table-list>
+</x-panel>

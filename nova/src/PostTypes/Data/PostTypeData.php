@@ -28,15 +28,15 @@ class PostTypeData extends Data
     {
         return new self(
             status: $request->input('status', Active::class),
-            color: $request->color,
-            description: $request->description,
-            fields: Fields::from($request->fields),
-            icon: $request->icon,
-            key: $request->key,
-            name: $request->name,
-            options: Options::from($request->options),
-            role_id: (int) $request->role_id,
-            visibility: $request->visibility,
+            color: $request->input('color'),
+            description: $request->input('description'),
+            fields: Fields::from($request->input('fields')),
+            icon: $request->input('icon'),
+            key: $request->input('key'),
+            name: $request->input('name'),
+            options: Options::from($request->input('options')),
+            role_id: (int) $request->input('role_id'),
+            visibility: $request->input('visibility'),
         );
     }
 }

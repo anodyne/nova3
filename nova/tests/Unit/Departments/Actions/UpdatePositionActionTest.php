@@ -48,7 +48,7 @@ class UpdatePositionActionTest extends TestCase
         $this->assertTrue($position->exists);
         $this->assertEquals('Executive Officer', $position->name);
         $this->assertEquals('Lorem consectetur adipisicing elit.', $position->description);
-        $this->assertEquals(Inactive::class, $position->status);
+        $this->assertTrue($position->status->equals(Inactive::class));
         $this->assertEquals($newDepartment->id, $position->department_id);
         $this->assertEquals(5, $position->available);
     }

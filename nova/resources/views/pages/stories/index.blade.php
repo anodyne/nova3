@@ -1,7 +1,7 @@
 @extends($meta->template)
 
 @section('content')
-    <x-page-header title="Stories">
+    {{-- <x-page-header title="Stories">
         <x-slot:controls>
             @if ($storyCount > 0)
                 <x-dropdown placement="bottom-start md:bottom-end">
@@ -37,16 +37,19 @@
     </x-page-header>
 
     @if ($storyCount === 0)
-        <x-empty-state.large
-            icon="book"
-            message="There is no greater power on this earth than story."
-            label="Add your first story"
-            :link="route('stories.create')"
-            :link-access="gate()->allows('create', $story)"
-        ></x-empty-state.large>
+        <x-panel>
+            <x-empty-state.large
+                icon="book"
+                message="There is no greater power on this earth than story."
+                label="Add your first story"
+                :link="route('stories.create')"
+                :link-access="gate()->allows('create', $story)"
+            ></x-empty-state.large>
+        </x-panel>
     @else
-        @livewire('stories:timeline')
-    @endif
+    @endif --}}
+
+    @livewire('stories:timeline')
 
     <x-tips section="stories" />
 @endsection

@@ -20,7 +20,7 @@ class RoleData extends Data
     public static function fromRequest(Request $request): static
     {
         return new self(
-            default: (bool) $request->input('default', false),
+            default: $request->boolean('default', false),
             description: $request->input('description'),
             display_name: $request->input('display_name'),
             name: $request->input('name'),

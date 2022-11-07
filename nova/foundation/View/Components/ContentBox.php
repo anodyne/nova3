@@ -27,6 +27,7 @@ class ContentBox extends Component
     {
         return match ($this->height) {
             'none' => 'py-0',
+            '2xs' => 'py-1.5',
             'xs' => 'py-3',
             'sm' => 'py-4',
             default => 'py-6',
@@ -37,6 +38,7 @@ class ContentBox extends Component
     {
         return match ($this->width) {
             'none' => 'px-0',
+            '2xs' => 'px-1.5',
             'xs' => 'px-3',
             'sm' => 'px-4',
             default => 'px-6',

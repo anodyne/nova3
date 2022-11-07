@@ -1,16 +1,17 @@
 @extends($meta->template)
 
 @section('content')
-    <x-page-header title="Content Ratings Settings" x-data="{}">
-        <x-slot:controls>
-            <x-button type="button" color="white" size="sm" @click="$dispatch('toggle-spotlight')">
-                @icon('search', 'h-5 w-5')
-                <span class="ml-2">Find a setting</span>
-            </x-button>
-        </x-slot:controls>
-    </x-page-header>
-
     <x-panel x-data="tabsList('language')">
+        <x-panel.header title="Content ratings settings">
+            <x-slot:controls>
+                <div x-data="{}">
+                    <x-button color="primary-outline" @click="$dispatch('toggle-spotlight')" leading="search">
+                        Find a setting
+                    </x-button>
+                </div>
+            </x-slot:controls>
+        </x-panel.header>
+
         <div>
             <x-content-box class="sm:hidden">
                 <x-input.select @change="switchTab($event.target.value)" aria-label="Selected tab">
@@ -20,7 +21,18 @@
                 </x-input.select>
             </x-content-box>
             <div class="hidden sm:block">
-                <x-content-box height="none" class="border-b border-gray-200 dark:border-gray-200/10">
+                <x-content-box height="none" class="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-200/10">
+                    {{-- <nav class="flex space-x-2 px-1 py-1 rounded-lg bg-gray-100 dark:bg-gray-700/50 border-gray-200 dark:border-gray-200/10">
+                        <a href="#" class="flex items-center rounded-md px-4 py-1.5 font-medium text-sm transition" :class="{ 'bg-white dark:bg-gray-600 shadow dark:highlight-white/5 ring-1 ring-gray-900/5 text-gray-900 dark:text-gray-100': isTab('language'), 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('language') }" @click.prevent="switchTab('language')">
+                            Language
+                        </a>
+                        <a href="#" class="flex items-center rounded-md px-4 py-1.5 font-medium text-sm transition" :class="{ 'bg-white dark:bg-gray-600 shadow dark:highlight-white/5 ring-1 ring-gray-900/5 text-gray-900 dark:text-gray-100': isTab('sex'), 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('sex') }" @click.prevent="switchTab('sex')">
+                            Sex
+                        </a>
+                        <a href="#" class="flex items-center rounded-md px-4 py-1.5 font-medium text-sm transition" :class="{ 'bg-white dark:bg-gray-600 shadow dark:highlight-white/5 ring-1 ring-gray-900/5 text-gray-900 dark:text-gray-100': isTab('violence'), 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('violence') }" @click.prevent="switchTab('violence')">
+                            Violence
+                        </a>
+                    </nav> --}}
                     <nav class="-mb-px flex">
                         <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('language'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('language') }" @click.prevent="switchTab('language')">
                             Language

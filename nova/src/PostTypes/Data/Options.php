@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\PostTypes\Data;
 
+use Illuminate\Support\Arr;
 use Illuminate\Contracts\Support\Arrayable;
 use Spatie\LaravelData\Data;
 
@@ -21,11 +22,11 @@ class Options extends Data implements Arrayable
     public static function fromArray(array $array): static
     {
         return new self(
-            notifyUsers: filter_var(data_get($array, 'notifyUsers'), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE),
-            includeInPostTracking: filter_var(data_get($array, 'includeInPostTracking'), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE),
-            multipleAuthors: filter_var(data_get($array, 'multipleAuthors'), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE),
-            allowCharacterAuthors: filter_var(data_get($array, 'allowCharacterAuthors'), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE),
-            allowUserAuthors: filter_var(data_get($array, 'allowUserAuthors'), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE),
+            notifyUsers: Arr::boolean($array, 'notifyUsers'),
+            includeInPostTracking: Arr::boolean($array, 'includeInPostTracking'),
+            multipleAuthors: Arr::boolean($array, 'multipleAuthors'),
+            allowCharacterAuthors: Arr::boolean($array, 'allowCharacterAuthors'),
+            allowUserAuthors: Arr::boolean($array, 'allowUserAuthors'),
         );
     }
 }

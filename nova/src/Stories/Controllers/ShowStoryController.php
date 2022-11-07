@@ -25,10 +25,7 @@ class ShowStoryController extends Controller
     {
         $this->authorize('viewAny', Story::class);
 
-        return ShowAllStoriesResponse::sendWith([
-            'story' => new Story(),
-            'storyCount' => Story::withDepth()->having('depth', '=', 1)->count(),
-        ]);
+        return ShowAllStoriesResponse::send();
     }
 
     public function show(Request $request, PostFilters $filters, Story $story)
@@ -46,7 +43,7 @@ class ShowStoryController extends Controller
         return ShowStoryResponse::sendWith([
             'posts' => $posts,
             'search' => $request->search,
-            'story' => $story->loadCount('posts'),
+            'story' => $story,
             'ancestors' => $story->ancestors->splice(1),
         ]);
     }

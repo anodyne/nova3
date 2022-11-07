@@ -3,16 +3,17 @@
 @inject('iconSets', 'Nova\Foundation\Icons\IconSets')
 
 @section('content')
-    <x-page-header title="Appearance Settings" x-data="{}">
-        <x-slot:controls>
-            <x-button type="button" color="white" size="sm" @click="$dispatch('toggle-spotlight')">
-                @icon('search', 'h-5 w-5')
-                <span class="ml-2">Find a setting</span>
-            </x-button>
-        </x-slot:controls>
-    </x-page-header>
-
     <x-panel>
+        <x-panel.header title="Appearance settings">
+            <x-slot:controls>
+                <div x-data="{}">
+                    <x-button color="primary-outline" @click="$dispatch('toggle-spotlight')" leading="search">
+                        Find a setting
+                    </x-button>
+                </div>
+            </x-slot:controls>
+        </x-panel.header>
+
         <x-form
             :action="route('settings.update', $tab)"
             method="PUT"

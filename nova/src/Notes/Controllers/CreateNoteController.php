@@ -33,7 +33,7 @@ class CreateNoteController extends Controller
     {
         $this->authorize('create', Note::class);
 
-        $note = CreateNote::run(NoteData::fromRequest($request));
+        $note = CreateNote::run(NoteData::from($request));
 
         return redirect()
             ->route('notes.index')

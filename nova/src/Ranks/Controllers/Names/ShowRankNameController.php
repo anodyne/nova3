@@ -22,10 +22,7 @@ class ShowRankNameController extends Controller
     {
         $this->authorize('viewAny', RankName::class);
 
-        return ShowAllRankNamesResponse::sendWith([
-            'name' => new RankName(),
-            'nameCount' => RankName::count(),
-        ]);
+        return ShowAllRankNamesResponse::send();
     }
 
     public function show(RankName $name)

@@ -8,11 +8,13 @@ use Kirschbaum\LivewireFilters\Filter;
 use Kirschbaum\LivewireFilters\HasFilters;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Nova\Foundation\Livewire\Concerns\WithConfirmationModal;
 use Nova\Notes\Models\Note;
 
 class NotesList extends Component
 {
     use HasFilters;
+    use WithConfirmationModal;
     use WithPagination;
 
     public $search;
@@ -38,6 +40,23 @@ class NotesList extends Component
         $this->dispatchBrowserEvent('close-filters-panel');
     }
 
+    public function delete($id): void
+    {
+        $this->dispatchBrowserEvent('dropdown-close');
+
+        $note = Note::find($id);
+
+        $this->askForConfirmation(
+            callback: fn () => Note::find($note->id)?->delete(),
+            prompt: [
+                'title' => 'Delete note?',
+                'message' => "Are you sure you want to delete your <span class=\"font-semibold\">{$note->title}</span> note? This action is permanent and cannot be undone.",
+                'confirm' => 'Delete',
+            ],
+            theme: 'error',
+        );
+    }
+
     public function getFilteredNotesProperty()
     {
         return Note::whereAuthor(auth()->user())
@@ -52,6 +71,7 @@ class NotesList extends Component
             'activeFilterCount' => $this->activeFilterCount,
             'isFiltered' => $this->isFiltered,
             'notes' => $this->filteredNotes,
+            'noteCount' => Note::whereAuthor(auth()->user())->count(),
         ]);
     }
 }

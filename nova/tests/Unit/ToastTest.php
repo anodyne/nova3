@@ -3,39 +3,59 @@
 declare(strict_types=1);
 
 use Nova\Foundation\Toast;
+use Tests\TestCase;
 
-uses()->group('toast');
+/**
+ * @group toast
+ */
+class ToastTest extends TestCase
+{
+    protected Toast $toast;
 
-beforeEach(function () {
-    $this->toast = app(Toast::class);
-});
+    public function setUp(): void
+    {
+        parent::setUp();
 
-it('can set the toast message', function () {
-    $this->toast->withMessage('Message');
+        $this->toast = app(Toast::class);
+    }
 
-    expect($this->toast->message)->toBe('Message');
-});
+    /** @test */
+    public function itCanSetTheToastMessage()
+    {
+        $this->toast->withMessage('Message');
 
-it('can set the action text', function () {
-    $this->toast->withActionText('Save');
+        $this->assertSame($this->toast->message, 'Message');
+    }
 
-    expect($this->toast->actionText)->toBe('Save');
-});
+    /** @test */
+    public function itCanSetTheActionText()
+    {
+        $this->toast->withActionText('Save');
 
-it('can set the action url', function () {
-    $this->toast->withActionLink('https://google.com');
+        $this->assertSame($this->toast->actionText, 'Save');
+    }
 
-    expect($this->toast->actionLink)->toBe('https://google.com');
-});
+    /** @test */
+    public function itCanSetTheActionUrl()
+    {
+        $this->toast->withActionLink('https://google.com');
 
-it('can set an error type', function () {
-    $this->toast->error();
+        $this->assertSame($this->toast->actionLink, 'https://google.com');
+    }
 
-    expect($this->toast->type)->toBe('error');
-});
+    /** @test */
+    public function itCanSetAnErrorType()
+    {
+        $this->toast->error();
 
-it('can set a success type', function () {
-    $this->toast->success();
+        $this->assertEquals($this->toast->type, 'error');
+    }
 
-    expect($this->toast->type)->toBe('success');
-});
+    /** @test */
+    public function itCanSetASuccessType()
+    {
+        $this->toast->success();
+
+        $this->assertEquals($this->toast->type, 'success');
+    }
+}

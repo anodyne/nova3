@@ -63,6 +63,8 @@ class UsersList extends Component
         return view('livewire.users.users-list', [
             'activeFilterCount' => $this->activeFilterCount,
             'isFiltered' => $this->isFiltered,
+            'userClass' => User::class,
+            'userCount' => User::count(),
             'users' => $this->filteredUsers,
         ]);
     }

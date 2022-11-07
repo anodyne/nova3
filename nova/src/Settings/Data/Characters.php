@@ -23,12 +23,12 @@ class Characters extends Data implements Arrayable
     public static function fromRequest(Request $request): static
     {
         return new self(
-            allowCharacterCreation: (bool) $request->input('allow_character_creation', false),
-            allowSettingPrimaryCharacter: (bool) $request->input('allow_setting_primary_character', false),
-            autoLinkCharacter: (bool) $request->input('auto_link_character', false),
+            allowCharacterCreation: $request->boolean('allow_character_creation', false),
+            allowSettingPrimaryCharacter: $request->boolean('allow_setting_primary_character', false),
+            autoLinkCharacter: $request->boolean('auto_link_character', false),
             characterLimit: (int) $request->input('character_limit', 5),
-            enforceCharacterLimits: (bool) $request->input('enforce_character_limits', false),
-            requireApprovalForCharacterCreation: (bool) $request->input('require_approval_for_character_creation', false)
+            enforceCharacterLimits: $request->boolean('enforce_character_limits', false),
+            requireApprovalForCharacterCreation: $request->boolean('require_approval_for_character_creation', false)
         );
     }
 }

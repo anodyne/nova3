@@ -16,7 +16,7 @@ class UpdatePosition
     public function handle(Position $position, PositionData $data): Position
     {
         return tap($position)->update(
-            Arr::except($data->all(), 'department')
+            $data->except('department')->all()
         )->refresh();
     }
 }

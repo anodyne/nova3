@@ -12,9 +12,9 @@ class CreateDepartmentRequest extends ValidatesRequest
     public function rules(): array
     {
         return [
+            'name' => ['required'],
             'description' => ['nullable'],
             'image' => ['nullable', 'mimes:jpeg,png,gif', new MaxFileSize()],
-            'name' => ['required'],
         ];
     }
 }

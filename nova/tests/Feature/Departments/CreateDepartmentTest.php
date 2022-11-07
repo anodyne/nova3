@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature\Departments;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Event;
 use Nova\Departments\Events\DepartmentCreated;
 use Nova\Departments\Models\Department;
@@ -32,19 +33,23 @@ class CreateDepartmentTest extends TestCase
     {
         $this->signInWithPermission('department.create');
 
-        $department = Department::factory()->make();
+        $department = [
+            'name' => 'Command',
+            'description' => 'Lorem ipsum dolor sit amet',
+            'status' => 'active',
+        ];
 
         $this->followingRedirects();
 
         $response = $this->post(
             route('departments.store'),
-            $department->toArray()
+            $department
         );
         $response->assertSuccessful();
 
         $this->assertDatabaseHas(
             'departments',
-            $department->only('name', 'description')
+            Arr::only($department, ['name', 'description'])
         );
 
         $this->assertRouteUsesFormRequest(
@@ -62,7 +67,11 @@ class CreateDepartmentTest extends TestCase
 
         $this->post(
             route('departments.store'),
-            Department::factory()->make()->toArray()
+            [
+                'name' => 'Command',
+                'description' => 'Lorem ipsum dolor sit amet',
+                'status' => 'active',
+            ]
         );
 
         Event::assertDispatched(DepartmentCreated::class);
@@ -74,7 +83,7 @@ class CreateDepartmentTest extends TestCase
         $this->signIn();
 
         $response = $this->get(route('departments.create'));
-        $response->assertForbidden();
+        $response->assertNotFound();
     }
 
     /** @test **/
@@ -86,7 +95,7 @@ class CreateDepartmentTest extends TestCase
             route('departments.store'),
             Department::factory()->make()->toArray()
         );
-        $response->assertForbidden();
+        $response->assertNotFound();
     }
 
     /** @test **/

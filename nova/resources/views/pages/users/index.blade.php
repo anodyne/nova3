@@ -1,16 +1,6 @@
 @extends($meta->template)
 
 @section('content')
-    <x-page-header title="All Users">
-        <x-slot:controls>
-            @can('create', 'Nova\Users\Models\User')
-                <x-link :href="route('users.create')" color="primary" data-cy="create">
-                    Add User
-                </x-link>
-            @endcan
-        </x-slot:controls>
-    </x-page-header>
-
     @livewire('users:list')
 
     <x-tips section="users" />

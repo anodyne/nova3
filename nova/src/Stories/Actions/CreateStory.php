@@ -17,7 +17,9 @@ class CreateStory
     public function handle(StoryData $data): Story
     {
         return DB::transaction(function () use ($data) {
-            $story = Story::create(Arr::except($data->all(), ['parent', 'parent_id']));
+            $story = Story::create(
+                $data->except('parent', 'parent_id')->all()
+            );
 
             $story->appendToNode($data->parent)->save();
 

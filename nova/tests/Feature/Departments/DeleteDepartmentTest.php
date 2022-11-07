@@ -64,7 +64,7 @@ class DeleteDepartmentTest extends TestCase
         $response = $this->delete(
             route('departments.destroy', $this->department)
         );
-        $response->assertForbidden();
+        $response->assertNotFound();
     }
 
     /** @test **/

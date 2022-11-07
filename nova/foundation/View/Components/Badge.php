@@ -76,12 +76,14 @@ class Badge extends Component
             'xs' => 'px-2 py-0.5 text-xs',
             'lg' => 'px-4 py-1 text-base',
 
-            'circle' => 'p-2',
             'circle-xs' => 'p-1',
+            'circle-sm' => 'p-1.5',
+            'circle' => 'p-2',
             'circle-lg' => 'p-4',
 
-            'square' => 'p-3',
             'square-xs' => 'p-1',
+            'square-sm' => 'p-1.5',
+            'square' => 'p-2',
             'square-lg' => 'p-4',
         };
     }

@@ -23,10 +23,7 @@ class ShowPositionController extends Controller
     {
         $this->authorize('viewAny', Department::class);
 
-        return ShowAllPositionsResponse::sendWith([
-            'position' => new Position(),
-            'positionCount' => Position::count(),
-        ]);
+        return ShowAllPositionsResponse::send();
     }
 
     public function show(Position $position)

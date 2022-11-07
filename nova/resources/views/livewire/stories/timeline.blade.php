@@ -1,4 +1,39 @@
 <x-panel>
+    <x-panel.header title="Stories">
+        <x-slot:controls>
+            <x-dropdown placement="bottom-start md:bottom-end">
+                <x-slot:trigger leading="filter" color="gray-text">
+                    Sort
+                </x-slot:trigger>
+
+                <x-dropdown.group>
+                    <x-dropdown.item :href="route('stories.index', 'sort=asc')">
+                        <div class="flex items-center justify-between w-full">
+                            <span>Sort by newest first</span>
+                            @if (request('sort', 'desc') === 'asc')
+                                @icon('check', 'h-6 w-6 md:h-5 md:w-5 shrink-0 text-primary-500')
+                            @endif
+                        </div>
+                    </x-dropdown.item>
+                    <x-dropdown.item :href="route('stories.index', 'sort=desc')">
+                        <div class="flex items-center justify-between w-full">
+                            <span>Sort by oldest first</span>
+                            @if (request('sort', 'desc') === 'desc')
+                                @icon('check', 'h-6 w-6 md:h-5 md:w-5 shrink-0 text-primary-500')
+                            @endif
+                        </div>
+                    </x-dropdown.item>
+                </x-dropdown.group>
+            </x-dropdown>
+
+            @can('create', $storyClass)
+                <x-link :href="route('stories.create')" color="primary" data-cy="create" leading="add">
+                    Add story
+                </x-link>
+            @endcan
+        </x-slot:controls>
+    </x-panel.header>
+
     @if ($selectedStory)
         <x-content-box height="sm" class="sticky top-0 z-30 bg-gray-50/50 dark:bg-gray-700/50 backdrop-blur border-y border-gray-200 dark:border-gray-200/10 sm:rounded-t-lg sm:border-t-0">
             <div class="flex md:hidden items-center justify-between">
@@ -73,39 +108,36 @@
                 <span class="font-bold tracking-tight text-gray-900 dark:text-gray-100">{{ $selectedStory->title }}</span>
 
                 @can('view', $selectedStory)
-                    <x-link :href="route('stories.show', $selectedStory)" size="none" color="gray-text">
-                        @icon('show', 'h-5 w-5 mr-1.5')
-                        <span>View</span>
+                    <x-link :href="route('stories.show', $selectedStory)" size="none" color="gray-text" leading="show">
+                        View
                     </x-link>
                 @endcan
 
                 @can('update', $selectedStory)
-                    <x-link :href="route('stories.edit', $selectedStory)" size="none" color="gray-text">
-                        @icon('edit', 'h-5 w-5 mr-1.5')
-                        <span>Edit</span>
+                    <x-link :href="route('stories.edit', $selectedStory)" size="none" color="gray-text" leading="edit">
+                        Edit
                     </x-link>
                 @endcan
 
                 @can('view', $selectedStory)
-                    <x-link href="#" size="none" color="gray-text">
-                        @icon('list', 'h-5 w-5 mr-1.5')
-                        <span>Posts</span>
+                    <x-link href="#" size="none" color="gray-text" leading="list">
+                        Posts
                     </x-link>
                 @endcan
 
                 @can('delete', $selectedStory)
-                    <x-link :href="route('stories.delete', $selectedStory)" size="none" color="gray-error-text">
-                        @icon('delete', 'h-5 w-5 mr-1.5')
-                        <span>Delete</span>
+                    <x-link :href="route('stories.delete', $selectedStory)" size="none" color="gray-error-text" leading="delete">
+                        Delete
                     </x-link>
                 @endcan
 
                 @can('create', $selectedStory)
                     <x-dropdown>
-                        <x-slot:trigger color="gray-text">
-                            @icon('add', 'h-5 w-5 shrink-0 mr-1.5')
-                            <span>Add story</span>
-                            <x-icon.chevron-down class="h-4 w-4 shrink-0 ml-1.5" />
+                        <x-slot:trigger leading="add" color="gray-text">
+                            <div class="flex items-center">
+                                <span>Add story</span>
+                                <x-icon.chevron-down class="h-4 w-4 shrink-0 ml-1.5" />
+                            </div>
                         </x-slot:trigger>
 
                         <x-dropdown.group>

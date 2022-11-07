@@ -19,8 +19,8 @@ class AssignUserCharactersData extends Data
     public static function fromRequest(Request $request): static
     {
         return new self(
-            characters: ($request->characters) ? explode(',', $request->characters) : [],
-            primaryCharacter: Character::find($request->primary_character),
+            characters: explode(',', $request->input('characters', '')),
+            primaryCharacter: Character::find($request->input('primary_character')),
         );
     }
 }

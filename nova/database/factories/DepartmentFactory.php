@@ -19,14 +19,14 @@ class DepartmentFactory extends Factory
             'name' => ucfirst($this->faker->word),
             'description' => $this->faker->sentence,
             'sort' => 0,
-            'status' => Active::class,
+            'status' => 'active',
         ];
     }
 
     public function inactive()
     {
         return $this->state([
-            'status' => Inactive::class,
+            'status' => 'inactive',
         ]);
     }
 }

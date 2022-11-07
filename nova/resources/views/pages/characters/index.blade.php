@@ -1,16 +1,6 @@
 @extends($meta->template)
 
 @section('content')
-    <x-page-header title="All Characters">
-        <x-slot:controls>
-            @can('createAny', Nova\Characters\Models\Character::class)
-                <x-link :href="route('characters.create')" color="primary" data-cy="create">
-                    Add Character
-                </x-link>
-            @endcan
-        </x-slot:controls>
-    </x-page-header>
-
     @livewire('characters:list')
 
     <x-tips section="characters" />

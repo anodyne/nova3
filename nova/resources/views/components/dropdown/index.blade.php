@@ -13,6 +13,8 @@
                 type="button"
                 :color="$trigger->attributes->get('color', 'light-gray-text')"
                 :size="$trigger->attributes->get('size', 'none')"
+                :leading="$trigger->attributes->get('leading')"
+                :trailing="$trigger->attributes->get('trailing')"
                 aria-haspopup="true"
                 aria-expanded="true"
                 x-bind:aria-expanded="open"

@@ -1,16 +1,6 @@
 @extends($meta->template)
 
 @section('content')
-    <x-page-header title="Roles">
-        <x-slot:controls>
-            @can('create', 'Nova\Roles\Models\Role')
-                <x-link :href="route('roles.create')" color="primary" data-cy="create">
-                    Add Role
-                </x-link>
-            @endcan
-        </x-slot:controls>
-    </x-page-header>
-
     @livewire('roles:list')
 
     <x-tips section="roles" />

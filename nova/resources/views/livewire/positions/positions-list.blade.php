@@ -1,19 +1,46 @@
-<div class="space-y-6" x-data="filtersPanel()">
-    @if ($reordering)
-        <x-panel.info icon="arrow-sort" title="Change Sorting Order">
-            <div class="space-y-4">
-                <p>Positions will appear in the order below whenever they're shown throughout Nova. To change the sorting of the positions, drag them to the desired order. Click Finish to return to the management view.</p>
-
-                <div>
-                    <x-button type="button" wire:click="stopReordering" color="info-outline">Finish</x-button>
-                </div>
-            </div>
-        </x-panel.info>
-    @endif
-
-    <x-panel x-bind="parent" class="{{ $reordering ? 'overflow-hidden' : '' }}">
+<x-panel x-data="filtersPanel()" x-bind="parent" class="{{ $reordering ? 'overflow-hidden' : '' }}">
+    <x-panel.header title="Positions" description="The jobs or stations characters are assigned to for display on your manifests.">
         @if (! $reordering)
-            <x-content-box height="sm" class="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-8">
+            <x-slot:controls>
+                @can('update', $positions->first())
+                    <x-button type="button" size="none" color="gray-text" wire:click="startReordering" leading="arrow-sort">
+                        Reorder
+                    </x-button>
+                @endcan
+
+                @can('create', $positionClass)
+                    <x-link :href="route('positions.create')" color="primary" data-cy="create" leading="add">
+                        Add position
+                    </x-link>
+                @endcan
+            </x-slot:controls>
+        @else
+            <x-slot:description>
+                <x-panel.info icon="arrow-sort" title="Change sorting order" class="mt-4">
+                    <div class="space-y-4">
+                        <p>Positions will appear in the order below whenever they're shown throughout Nova. To change the sorting of the positions, drag them to the desired order. Click Finish to return to the management view.</p>
+
+                        <div>
+                            <x-button type="button" wire:click="stopReordering" color="info">Finish</x-button>
+                        </div>
+                    </div>
+                </x-panel.info>
+            </x-slot:description>
+        @endif
+    </x-panel.header>
+
+    @if (! $reordering)
+        @if ($positionCount === 0)
+            <x-empty-state.large
+                icon="list"
+                title="Start by creating a position"
+                message="Positions are the jobs or stations that characters can be assigned to for display on your manifests."
+                label="Add position"
+                :link="route('positions.create')"
+                :link-access="gate()->allows('create', $positionClass)"
+            ></x-empty-state.large>
+        @else
+            <x-content-box height="sm" class="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-6">
                 <div class="flex-1">
                     <x-input.group>
                         <x-input.text placeholder="Find position(s) by name or assigned department name" wire:model="search">
@@ -33,26 +60,17 @@
                 </div>
 
                 <div class="shrink flex justify-between md:justify-start items-center space-x-4">
-                    <x-button type="button" size="none" :color="$isFiltered ? 'primary-text' : 'gray-text'" x-bind="trigger">
-                        <div class="flex items-center space-x-2">
-                            @icon('filter', 'h-6 w-6 md:h-5 md:w-5')
-                            <span>Filters</span>
-                            @if ($activeFilterCount > 0)
-                                <x-badge color="primary">{{ $activeFilterCount }}</x-badge>
-                            @endif
-                        </div>
+                    <x-button
+                        size="none"
+                        :color="$isFiltered ? 'primary-text' : 'gray-text'"
+                        x-bind="trigger"
+                        leading="filter"
+                    >
+                        <span>Filters</span>
+                        @if ($activeFilterCount > 0)
+                            <x-badge color="primary" size="sm" class="ml-2">{{ $activeFilterCount }}</x-badge>
+                        @endif
                     </x-button>
-
-                    @can('update', $positions->first())
-                        <div class="hidden md:block w-px h-6 border-l border-gray-200 dark:border-gray-200/10"></div>
-
-                        <x-button type="button" size="none" color="gray-text" wire:click="startReordering">
-                            <div class="flex items-center space-x-2">
-                                @icon('arrow-sort', 'h-6 w-6 md:h-5 md:w-5')
-                                <span>Reorder</span>
-                            </div>
-                        </x-button>
-                    @endcan
                 </div>
             </x-content-box>
 
@@ -63,8 +81,10 @@
                 <livewire:livewire-filters-radio :filter="$filters['available_count']" />
             </x-panel.filters>
         @endif
+    @endif
 
-        <x-table-list columns="4" wire:sortable="reorder">
+    <x-table-list columns="4" wire:sortable="reorder">
+        @if ($positionCount > 0)
             @if ($positions->count() > 0 && ! $reordering)
                 <x-slot:header>
                     <div>Name</div>
@@ -83,16 +103,16 @@
                             </div>
                         @endif
 
-                        <div class="font-medium">
+                        <x-table-list.primary-column>
                             {{ $position->name }}
-                        </div>
+                        </x-table-list.primary-column>
                     </div>
 
                     <div @class([
                         'flex items-center',
                         'ml-8 md:ml-0' => $reordering
                     ])>
-                        <div class="w-full text-base md:text-lg md:font-medium md:text-center text-gray-600 dark:text-gray-400">
+                        <div class="w-full text-base md:text-center text-gray-600 dark:text-gray-400">
                             @if ($position->status->name() === 'active')
                                 {{ $position->available }} <span class="inline md:hidden">available @choice('slot|slots', $position->available)</span>
                             @else
@@ -105,7 +125,7 @@
                         'flex items-center',
                         'ml-8 md:ml-0' => $reordering
                     ])>
-                        <div class="w-full text-base md:text-lg md:font-medium md:text-center text-gray-600 dark:text-gray-400">
+                        <div class="w-full text-base md:text-center text-gray-600 dark:text-gray-400">
                             {{ $position->active_characters_count }} <span class="inline md:hidden">assigned @choice('character|characters', $position->active_characters_count)</span>
                         </div>
                     </div>
@@ -157,17 +177,29 @@
                 </x-table-list.row>
             @empty
                 <x-slot:emptyMessage>
-                    <x-search-not-found>
-                        No positions found
-                    </x-search-not-found>
+                    <x-empty-state.not-found
+                        entity="position"
+                        :search="$search"
+                        :primary-access="gate()->allows('create', $positionClass)"
+                    >
+                        <x-slot:primary>
+                            <x-link :href="route('positions.create')" color="primary">
+                                Add position
+                            </x-link>
+                        </x-slot:primary>
+
+                        <x-slot:secondary>
+                            <x-button wire:click="$set('search', '')">Clear search</x-button>
+                        </x-slot:secondary>
+                    </x-empty-state.not-found>
                 </x-slot:emptyMessage>
             @endforelse
 
-            @if (! $reordering)
+            @if (! $reordering && $positions->count() > 0)
                 <x-slot:footer>
                     {{ $positions->withQueryString()->links() }}
                 </x-slot:footer>
             @endif
-        </x-table-list>
-    </x-panel>
-</div>
+        @endif
+    </x-table-list>
+</x-panel>

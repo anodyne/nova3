@@ -32,20 +32,11 @@ class UploadDepartmentHeaderImageActionTest extends TestCase
     /** @test **/
     public function itStoresTheDepartmentHeader()
     {
-        $disk = Storage::fake('media');
-
-        $diskPathPrefix = $disk->getAdapter()->getPathPrefix();
+        Storage::fake('media');
 
         $this->assertCount(0, $this->department->getMedia('header'));
 
-        config()->set('filesystems.disks.media', [
-            'driver' => 'local',
-            'root' => $diskPathPrefix,
-        ]);
-
-        $path = $disk->put('tmp', UploadedFile::fake()->image('image.png'));
-
-        UploadDepartmentHeaderImage::run($this->department, $diskPathPrefix . $path);
+        UploadDepartmentHeaderImage::run($this->department, UploadedFile::fake()->image('image.png'));
 
         $this->assertCount(1, $this->department->refresh()->getMedia('header'));
     }

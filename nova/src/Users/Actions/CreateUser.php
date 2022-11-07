@@ -17,7 +17,7 @@ class CreateUser
     public function handle(UserData $data): User
     {
         return User::create(array_merge(
-            Arr::except($data->all(), 'roles'),
+            $data->except('roles')->all(),
             ['status' => Active::class]
         ));
     }

@@ -29,6 +29,9 @@ class StoryTimeline extends Component
 
     public function render()
     {
-        return view('livewire.stories.timeline');
+        return view('livewire.stories.timeline', [
+            'storyClass' => Story::class,
+            'storyCount' => Story::withDepth()->having('depth', '=', 1)->count(),
+        ]);
     }
 }

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Illuminate\Routing\Route;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
@@ -21,6 +22,7 @@ use Nova\Foundation\Icons\StreamlineCoreLineIconSet;
 use Nova\Foundation\Icons\StreamlineUiIconSet;
 use Nova\Foundation\Icons\UntitledUiIconSet;
 use Nova\Foundation\Livewire\ColorShadePicker;
+use Nova\Foundation\Livewire\ConfirmationModal;
 use Nova\Foundation\Livewire\Editor;
 use Nova\Foundation\Livewire\IconsSelectMenu;
 use Nova\Foundation\Livewire\Rating;
@@ -68,6 +70,7 @@ class AppServiceProvider extends ServiceProvider
 
     protected function registerMacros()
     {
+        Arr::mixin(new Macros\ArrMacros());
         Redirector::mixin(new Macros\ToastMacros());
         RedirectResponse::mixin(new Macros\ToastMacros());
         Route::mixin(new Macros\RouteMacros());
@@ -113,6 +116,7 @@ class AppServiceProvider extends ServiceProvider
         Livewire::component('upload-avatar', UploadAvatar::class);
         Livewire::component('upload-image', UploadImage::class);
         Livewire::component('color-shade-picker', ColorShadePicker::class);
+        Livewire::component('confirmation-modal', ConfirmationModal::class);
     }
 
     protected function registerResponseFilters(): void
