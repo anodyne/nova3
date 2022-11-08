@@ -40,11 +40,11 @@
     'bg-transparent border-[1.5px] border-warning-600 dark:border-warning-800 text-warning-700 dark:text-warning-200' => $color === 'warning-subtle' && $border === true,
     'bg-warning-50 dark:bg-warning-900 border-[1.5px] border-warning-600 text-warning-700 dark:text-warning-200' => ($color === 'warning' || $color === 'warning-bold') && $border === true,
 
-    'bg-white dark:bg-gray-800 text-error-700 dark:text-error-200' => $color === 'error-subtle' && $border === false,
-    'bg-error-100 dark:bg-error-900 text-error-700 dark:text-error-200' => $color === 'error' && $border === false,
-    'bg-error-600 dark:bg-error-700 text-white dark:text-error-100' => $color === 'error-bold' && $border === false,
-    'bg-transparent border-[1.5px] border-error-600 dark:border-error-800 text-error-700 dark:text-error-200' => $color === 'error-subtle' && $border === true,
-    'bg-error-50 dark:bg-error-900 border-[1.5px] border-error-600 text-error-700 dark:text-error-200' => ($color === 'error' || $color === 'error-bold') && $border === true,
+    'bg-white dark:bg-gray-800 text-danger-700 dark:text-danger-200' => $color === 'danger-subtle' && $border === false,
+    'bg-danger-100 dark:bg-danger-900 text-danger-700 dark:text-danger-200' => $color === 'danger' && $border === false,
+    'bg-danger-600 dark:bg-danger-700 text-white dark:text-danger-100' => $color === 'danger-bold' && $border === false,
+    'bg-transparent border-[1.5px] border-danger-600 dark:border-danger-800 text-danger-700 dark:text-danger-200' => $color === 'danger-subtle' && $border === true,
+    'bg-danger-50 dark:bg-danger-900 border-[1.5px] border-danger-600 text-danger-700 dark:text-danger-200' => ($color === 'danger' || $color === 'danger-bold') && $border === true,
 
     'bg-white dark:bg-gray-800 text-info-700 dark:text-info-200' => $color === 'info-subtle' && $border === false,
     'bg-info-100 dark:bg-info-900 text-info-700 dark:text-info-200' => $color === 'info' && $border === false,

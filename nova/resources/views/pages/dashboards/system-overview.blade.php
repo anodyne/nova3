@@ -32,8 +32,8 @@
                                         <span>Up-to-date</span>
                                     </div>
                                 @else
-                                    <div class="flex items-baseline text-sm font-medium text-error-600 dark:text-error-500 space-x-1">
-                                        @icon('alert', 'self-center shrink-0 h-5 w-5 text-error-500 dark:text-error-400')
+                                    <div class="flex items-baseline text-sm font-medium text-danger-600 dark:text-danger-500 space-x-1">
+                                        @icon('alert', 'self-center shrink-0 h-5 w-5 text-danger-500 dark:text-danger-400')
                                         <span>New version available</span>
                                     </div>
                                 @endif
@@ -62,8 +62,8 @@
                                         <span>Up-to-date</span>
                                     </div>
                                 @else
-                                    <div class="flex items-baseline text-sm font-medium text-error-600 dark:text-error-500 space-x-1">
-                                        @icon('alert', 'self-center shrink-0 h-5 w-5 text-error-500 dark:text-error-400')
+                                    <div class="flex items-baseline text-sm font-medium text-danger-600 dark:text-danger-500 space-x-1">
+                                        @icon('alert', 'self-center shrink-0 h-5 w-5 text-danger-500 dark:text-danger-400')
                                         <span>New version available</span>
                                     </div>
                                 @endif

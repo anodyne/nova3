@@ -1,5 +1,5 @@
 <x-panel x-bind="parent" class="{{ $reordering ? 'overflow-hidden' : '' }}" x-data="filtersPanel()">
-    <x-panel.header title="Rank items" description="Bring the rank group, rank name, and images together in a simple and easy-to-use rank experience.">
+    <x-panel.header title="Rank items" message="Bring the rank group, rank name, and images together in a simple and easy-to-use rank experience.">
         @if (! $reordering)
             <x-slot:controls>
                 @can('update', $rankItems->first())
@@ -15,7 +15,7 @@
                 @endcan
             </x-slot:controls>
         @else
-            <x-slot:description>
+            <x-slot:message>
                 <x-panel.info icon="arrow-sort" title="Change sorting order" class="mt-4">
                     <div class="space-y-4">
                         <p>Rank items will appear in the order below whenever they're shown throughout Nova. To change the sorting of rank items, drag them to the desired order. Click Finish to return to the management view.</p>
@@ -25,7 +25,7 @@
                         </div>
                     </div>
                 </x-panel.info>
-            </x-slot:description>
+            </x-slot:message>
         @endif
     </x-panel.header>
 

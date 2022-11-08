@@ -1,5 +1,5 @@
 <x-panel class="{{ $reordering ? 'overflow-hidden' : '' }}" x-data="filtersPanel()">
-    <x-panel.header title="Post types" description="Control the content users post into stories.">
+    <x-panel.header title="Post types" message="Control the content users post into stories.">
         @if (! $reordering)
             <x-slot:controls>
                 @can('update', $postTypes->first())
@@ -21,12 +21,12 @@
                         class="order-first md:order-last"
                         leading="add"
                     >
-                        Add post type
+                        Add a post type
                     </x-link>
                 @endcan
             </x-slot:controls>
         @else
-            <x-slot:description>
+            <x-slot:message>
                 <x-panel.info icon="arrow-sort" title="Change sorting order" class="mt-4">
                     <div class="space-y-4">
                         <p>Post types will appear in the order below whenever they're shown throughout Nova. To change the sorting of post types, drag them to the desired order. Click Finish to return to the management view.</p>
@@ -36,7 +36,7 @@
                         </div>
                     </div>
                 </x-panel.info>
-            </x-slot:description>
+            </x-slot:message>
         @endif
     </x-panel.header>
 
@@ -46,7 +46,7 @@
                 icon="list"
                 title="Start by creating a post type"
                 message="Post types allow you to control the type of content users can create inside of stories."
-                label="Add post type"
+                label="Add a post type"
                 :link="route('post-types.create')"
                 :link-access="gate()->allows('create', $postTypeClass)"
             ></x-empty-state.large>
@@ -195,7 +195,7 @@
                     >
                         <x-slot:primary>
                             <x-link :href="route('post-types.create')" color="primary">
-                                Add post type
+                                Add a post type
                             </x-link>
                         </x-slot:primary>
 

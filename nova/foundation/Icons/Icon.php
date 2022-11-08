@@ -24,7 +24,7 @@ class Icon
         );
     }
 
-    protected function getIconName($name): string
+    public function getIconName($name): string
     {
         return sprintf(
             '%s-%s',

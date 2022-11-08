@@ -13,7 +13,8 @@ class Badge extends Component
         public string $size = 'md',
         public string $color = 'gray',
         public ?string $leadingIcon = null,
-        public ?string $trailingIcon = null
+        public ?string $trailingIcon = null,
+        public bool $icon = false,
     ) {
     }
 
@@ -26,48 +27,71 @@ class Badge extends Component
             $this->sizeStyles(),
             'rounded-full' => ! str($this->size)->contains('square'),
             'rounded-md' => str($this->size)->contains('square'),
+            $this->iconSizeStyles() => $this->icon,
+            $this->iconStyles() => $this->icon,
         ]);
     }
 
     public function colorStyles(): string
     {
         return match ($this->color) {
-            default => 'bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-400',
-            'primary' => 'bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-400',
-            'success' => 'bg-success-100 dark:bg-success-900 text-success-700 dark:text-success-400',
-            'info' => 'bg-info-100 dark:bg-info-900 text-info-700 dark:text-info-400',
-            'error' => 'bg-error-100 dark:bg-error-900 text-error-700 dark:text-error-400',
-            'warning' => 'bg-warning-100 dark:bg-warning-900 text-warning-700 dark:text-warning-400',
+            default => 'bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-400',
+            'primary' => 'bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400',
+            'success' => 'bg-success-100 dark:bg-success-900 text-success-600 dark:text-success-400',
+            'info' => 'bg-info-100 dark:bg-info-900 text-info-600 dark:text-info-400',
+            'danger' => 'bg-danger-100 dark:bg-danger-900 text-danger-600 dark:text-danger-400',
+            'warning' => 'bg-warning-100 dark:bg-warning-900 text-warning-600 dark:text-warning-400',
         };
     }
 
     public function iconStyles(): string
     {
-        return Arr::toCssClasses([
-            $this->iconColorStyles(),
-            $this->iconSizeStyles(),
-        ]);
-    }
-
-    public function iconColorStyles(): string
-    {
         return match ($this->color) {
-            default => 'text-gray-500',
-            'primary' => 'text-primary-500',
-            'success' => 'text-success-500',
-            'info' => 'text-info-500',
-            'error' => 'text-error-500',
-            'warning' => 'text-warning-500',
+            default => 'ring-gray-50 dark:ring-gray-900/50',
+            'primary' => 'ring-primary-50 dark:ring-primary-900/50',
+            'success' => 'ring-success-50 dark:ring-success-900/50',
+            'info' => 'ring-info-50 dark:ring-info-900/50',
+            'danger' => 'ring-danger-50 dark:ring-danger-900/50',
+            'warning' => 'ring-warning-50 dark:ring-warning-900/50',
         };
     }
 
     public function iconSizeStyles(): string
     {
         return match ($this->size) {
-            default => 'h-6 w-6 md:h-5 md:w-5',
-            'xs' => 'h-5 w-5 md:h-4 md:w-4',
+            default => 'ring-4',
+            'circle', 'square' => 'ring-[6px]',
+            'circle', 'circle-lg', 'square', 'square-lg' => 'ring-8',
         };
     }
+
+    // public function iconStyles(): string
+    // {
+    //     return Arr::toCssClasses([
+    //         $this->iconColorStyles(),
+    //         $this->iconSizeStyles(),
+    //     ]);
+    // }
+
+    // public function iconColorStyles(): string
+    // {
+    //     return match ($this->color) {
+    //         default => 'text-gray-500',
+    //         'primary' => 'text-primary-500',
+    //         'success' => 'text-success-500',
+    //         'info' => 'text-info-500',
+    //         'danger' => 'text-danger-500',
+    //         'warning' => 'text-warning-500',
+    //     };
+    // }
+
+    // public function iconSizeStyles(): string
+    // {
+    //     return match ($this->size) {
+    //         default => 'h-6 w-6 md:h-5 md:w-5',
+    //         'xs' => 'h-5 w-5 md:h-4 md:w-4',
+    //     };
+    // }
 
     public function sizeStyles(): string
     {

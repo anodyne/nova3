@@ -14,9 +14,9 @@ use Nova\Notes\Models\Note;
 
 class EditNote extends SpotlightCommand
 {
-    protected string $name = 'Edit Note';
+    protected string $name = 'Edit a note';
 
-    protected string $description = 'Edit a note';
+    protected string $description = 'Edit one of my existing notes';
 
     protected array $synonyms = [
         'update note',

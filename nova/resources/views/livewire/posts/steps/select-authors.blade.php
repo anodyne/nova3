@@ -120,7 +120,7 @@
 
                                 <x-slot:controls>
                                     <x-dropdown placement="bottom-end">
-                                        <x-slot:trigger color="gray-error-text">@icon('delete', 'h-7 w-7 md:h-6 md:w-6')</x-slot:trigger>
+                                        <x-slot:trigger color="gray-danger-text">@icon('delete', 'h-7 w-7 md:h-6 md:w-6')</x-slot:trigger>
 
                                         <x-dropdown.group>
                                             <x-dropdown.text>Are you sure you want to remove <strong class="font-semibold text-gray-700 dark:text-gray-200">{{ $character->name }}</strong> as an author of this post?</x-dropdown.text>
@@ -192,7 +192,7 @@
 
                                 <x-slot:controls>
                                     <x-dropdown placement="bottom-end">
-                                        <x-slot:trigger color="gray-error-text">@icon('delete', 'h-7 w-7 md:h-6 md:w-6')</x-slot:trigger>
+                                        <x-slot:trigger color="gray-danger-text">@icon('delete', 'h-7 w-7 md:h-6 md:w-6')</x-slot:trigger>
 
                                         <x-dropdown.group>
                                             <x-dropdown.text>Are you sure you want to remove <strong class="font-semibold text-gray-700 dark:text-gray-200">{{ $user->name }}</strong> as an author of this post?</x-dropdown.text>

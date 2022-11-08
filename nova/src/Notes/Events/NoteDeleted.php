@@ -13,10 +13,8 @@ class NoteDeleted
     use Dispatchable;
     use SerializesModels;
 
-    public Note $note;
-
-    public function __construct(Note $note)
-    {
-        $this->note = $note;
+    public function __construct(
+        public Note $note
+    ) {
     }
 }

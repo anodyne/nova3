@@ -323,7 +323,7 @@
 
         {{-- @can('delete', $post) --}}
             <div>
-                <x-link href="#" color="gray-error-text" size="none">Discard draft</x-link>
+                <x-link href="#" color="gray-danger-text" size="none">Discard draft</x-link>
             </div>
         {{-- @endcan --}}
     </div>

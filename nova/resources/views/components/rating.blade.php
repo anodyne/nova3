@@ -16,7 +16,7 @@
                     'bg-success-500 hover:bg-success-500 text-white': count >= {{ $i }} && count === 0,
                     'bg-warning-500 hover:bg-warning-500 text-white': count >= {{ $i }} && count === 1,
                     'bg-orange-500 hover:bg-orange-500 text-white': count >= {{ $i }} && count === 2,
-                    'bg-error-500 hover:bg-error-500 text-white': count >= {{ $i }} && count === 3
+                    'bg-danger-500 hover:bg-danger-500 text-white': count >= {{ $i }} && count === 3
                 }"
             >
                 <span x-show="count === {{ $i }}" x-text="count"></span>

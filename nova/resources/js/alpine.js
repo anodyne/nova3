@@ -3,6 +3,8 @@ import Alpine from 'alpinejs';
 import Collapse from '@alpinejs/collapse';
 import Focus from '@alpinejs/focus';
 import Tooltip from '@ryangjchandler/alpine-tooltip';
+import AlpineFloatingUI from '@awcodes/alpine-floating-ui';
+import NotificationsAlpinePlugin from '../../vendor/filament/notifications/dist/module.esm';
 
 import AdminThemeToggle from './components/admin-theme-toggle';
 import ColorPicker from './components/color-picker';
@@ -20,6 +22,8 @@ import WordCount from './components/word-count';
 Alpine.plugin(Collapse);
 Alpine.plugin(Focus);
 Alpine.plugin(Tooltip);
+Alpine.plugin(AlpineFloatingUI);
+Alpine.plugin(NotificationsAlpinePlugin);
 
 Alpine.data('adminThemeToggle', AdminThemeToggle);
 Alpine.data('colorPicker', ColorPicker);

@@ -2,7 +2,7 @@
 
 @section('content')
     <x-panel>
-        <x-panel.header title="Posting activity settings">
+        <x-panel.header title="Posting activity settings" message="Set your game's posting activity requirements and how you want posts and words counted.">
             <x-slot:controls>
                 <div x-data="{}">
                     <x-button color="primary-outline" @click="$dispatch('toggle-spotlight')" leading="search">
@@ -19,7 +19,7 @@
             x-data="{ strategy: '{{ $settings->posting_activity->trackingStrategy }}', postsStrategy: '{{ $settings->posting_activity->postsStrategy }}', wordCountStrategy: '{{ $settings->posting_activity->wordCountStrategy }}' }"
             x-cloak
         >
-            <x-form.section title="Activity Level Tracking Strategy" message="Nova provides for two options to track posting activity: by entire posts or by word counts. You can specify whether a specific post type is included in the posting activity from each post type's settings.">
+            <x-form.section title="Activity level tracking strategy" message="Nova provides for two options to track posting activity: by entire posts or by word counts. You can specify whether a specific post type is included in the posting activity from each post type's settings.">
                 <fieldset>
                     <legend class="sr-only">
                         Activity Level Tracking Strategy
@@ -58,7 +58,7 @@
                 </fieldset>
             </x-form.section>
 
-            <x-form.section title="Monthly Required Activity Levels" message="Set the specific requirements your game has around posting activity for users.">
+            <x-form.section title="Monthly required activity level" message="Set the specific requirements your game has around posting activity for users.">
                 <x-input.group>
                     <x-slot:label>
                         <span x-show="strategy === 'posts'">Story posts</span>
@@ -70,7 +70,7 @@
                 </x-input.group>
             </x-form.section>
 
-            <x-form.section title="Per Story Post Tracking" message="Track user activity based purely on the number of posts that are published. This is traditionally how Nova has calculated posts and tracked user posting activity in the past." x-show="strategy === 'posts'">
+            <x-form.section title="Per story post tracking" message="Track user activity based purely on the number of posts that are published. This is traditionally how Nova has calculated posts and tracked user posting activity in the past." x-show="strategy === 'posts'">
                 <fieldset>
                     <legend class="sr-only">
                         Per Story Post Tracking
@@ -103,7 +103,7 @@
                 </fieldset>
             </x-form.section>
 
-            <x-form.section title="Story Post Word Count Tracking" message="Track user activity based on the number of words in published posts." x-show="strategy === 'words'">
+            <x-form.section title="Story post word count tracking" message="Track user activity based on the number of words in published posts." x-show="strategy === 'words'">
                 <fieldset>
                     <legend class="sr-only">
                         Story Post Word Count Tracking
@@ -141,7 +141,7 @@
                     </div>
                 </fieldset>
 
-                <x-input.group label="Word count post conversion">
+                <x-input.group label="Story post word count conversion">
                     <x-input.text
                         name="word-count-post-conversion"
                         value="{{ $settings->posting_activity->wordCountPostConversion }}"

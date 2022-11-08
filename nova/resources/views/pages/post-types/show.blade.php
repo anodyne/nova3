@@ -56,8 +56,8 @@
                             @endif
                         </div>
                     @else
-                        <div class="flex items-center space-x-2 text-error-600 dark:text-error-500">
-                            @icon('close', 'h-6 w-6 shrink-0 text-error-500 dark:text-error-400')
+                        <div class="flex items-center space-x-2 text-danger-600 dark:text-danger-500">
+                            @icon('close', 'h-6 w-6 shrink-0 text-danger-500 dark:text-danger-400')
                             <span>Title field</span>
                         </div>
                     @endif
@@ -72,8 +72,8 @@
                             @endif
                         </div>
                     @else
-                        <div class="flex items-center space-x-2 text-error-600 dark:text-error-500">
-                            @icon('close', 'h-6 w-6 shrink-0 text-error-500 dark:text-error-400')
+                        <div class="flex items-center space-x-2 text-danger-600 dark:text-danger-500">
+                            @icon('close', 'h-6 w-6 shrink-0 text-danger-500 dark:text-danger-400')
                             <span>Day field</span>
                         </div>
                     @endif
@@ -88,8 +88,8 @@
                             @endif
                         </div>
                     @else
-                        <div class="flex items-center space-x-2 text-error-600 dark:text-error-500">
-                            @icon('close', 'h-6 w-6 shrink-0 text-error-500 dark:text-error-400')
+                        <div class="flex items-center space-x-2 text-danger-600 dark:text-danger-500">
+                            @icon('close', 'h-6 w-6 shrink-0 text-danger-500 dark:text-danger-400')
                             <span>Time field</span>
                         </div>
                     @endif
@@ -104,8 +104,8 @@
                             @endif
                         </div>
                     @else
-                        <div class="flex items-center space-x-2 text-error-600 dark:text-error-500">
-                            @icon('close', 'h-6 w-6 shrink-0 text-error-500 dark:text-error-400')
+                        <div class="flex items-center space-x-2 text-danger-600 dark:text-danger-500">
+                            @icon('close', 'h-6 w-6 shrink-0 text-danger-500 dark:text-danger-400')
                             <span>Location field</span>
                         </div>
                     @endif
@@ -120,8 +120,8 @@
                             @endif
                         </div>
                     @else
-                        <div class="flex items-center space-x-2 text-error-600 dark:text-error-500">
-                            @icon('close', 'h-6 w-6 shrink-0 text-error-500 dark:text-error-400')
+                        <div class="flex items-center space-x-2 text-danger-600 dark:text-danger-500">
+                            @icon('close', 'h-6 w-6 shrink-0 text-danger-500 dark:text-danger-400')
                             <span>Content field</span>
                         </div>
                     @endif
@@ -136,8 +136,8 @@
                             @endif
                         </div>
                     @else
-                        <div class="flex items-center space-x-2 text-error-600 dark:text-error-500">
-                            @icon('close', 'h-6 w-6 shrink-0 text-error-500 dark:text-error-400')
+                        <div class="flex items-center space-x-2 text-danger-600 dark:text-danger-500">
+                            @icon('close', 'h-6 w-6 shrink-0 text-danger-500 dark:text-danger-400')
                             <span>Rating field</span>
                         </div>
                     @endif
@@ -152,8 +152,8 @@
                             @endif
                         </div>
                     @else
-                        <div class="flex items-center space-x-2 text-error-600 dark:text-error-500">
-                            @icon('close', 'h-6 w-6 shrink-0 text-error-500 dark:text-error-400')
+                        <div class="flex items-center space-x-2 text-danger-600 dark:text-danger-500">
+                            @icon('close', 'h-6 w-6 shrink-0 text-danger-500 dark:text-danger-400')
                             <span>Summary field</span>
                         </div>
                     @endif
@@ -168,8 +168,8 @@
                             <span>Sends notifications to users when published</span>
                         </div>
                     @else
-                        <div class="flex items-center space-x-2 text-error-600 dark:text-error-500">
-                            @icon('close', 'h-6 w-6 shrink-0 text-error-500 dark:text-error-400')
+                        <div class="flex items-center space-x-2 text-danger-600 dark:text-danger-500">
+                            @icon('close', 'h-6 w-6 shrink-0 text-danger-500 dark:text-danger-400')
                             <span>Does not send notifications to users when published</span>
                         </div>
                     @endif
@@ -180,8 +180,8 @@
                             <span>Is included in post tracking</span>
                         </div>
                     @else
-                        <div class="flex items-center space-x-2 text-error-600 dark:text-error-500">
-                            @icon('close', 'h-6 w-6 shrink-0 text-error-500 dark:text-error-400')
+                        <div class="flex items-center space-x-2 text-danger-600 dark:text-danger-500">
+                            @icon('close', 'h-6 w-6 shrink-0 text-danger-500 dark:text-danger-400')
                             <span>Is not included in post counts</span>
                         </div>
                     @endif
@@ -192,8 +192,8 @@
                             <span>Allows multiple authors</span>
                         </div>
                     @else
-                        <div class="flex items-center space-x-2 text-error-600 dark:text-error-500">
-                            @icon('close', 'h-6 w-6 shrink-0 text-error-500 dark:text-error-400')
+                        <div class="flex items-center space-x-2 text-danger-600 dark:text-danger-500">
+                            @icon('close', 'h-6 w-6 shrink-0 text-danger-500 dark:text-danger-400')
                             <span>Does not allow multiple authors</span>
                         </div>
                     @endif
@@ -204,8 +204,8 @@
                             <span>Allows characters as authors</span>
                         </div>
                     @else
-                        <div class="flex items-center space-x-2 text-error-600 dark:text-error-500">
-                            @icon('close', 'h-6 w-6 shrink-0 text-error-500 dark:text-error-400')
+                        <div class="flex items-center space-x-2 text-danger-600 dark:text-danger-500">
+                            @icon('close', 'h-6 w-6 shrink-0 text-danger-500 dark:text-danger-400')
                             <span>Does not allow characters as authors</span>
                         </div>
                     @endif
@@ -216,8 +216,8 @@
                             <span>Allows users as authors</span>
                         </div>
                     @else
-                        <div class="flex items-center space-x-2 text-error-600 dark:text-error-500">
-                            @icon('close', 'h-6 w-6 shrink-0 text-error-500 dark:text-error-400')
+                        <div class="flex items-center space-x-2 text-danger-600 dark:text-danger-500">
+                            @icon('close', 'h-6 w-6 shrink-0 text-danger-500 dark:text-danger-400')
                             <span>Does not allow users as authors</span>
                         </div>
                     @endif

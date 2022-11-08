@@ -39,18 +39,23 @@ class SettingsController extends Controller
     ) {
         $this->authorize('update', settings());
 
-        $tabString = str($tab)->replace('-', ' ');
+        try {
+            $tabString = str($tab)->replace('-', ' ');
 
-        $info = $settingsManager->get($tab);
+            $info = $settingsManager->get($tab);
 
-        UpdateSettings::run(
-            $tabString->snake(),
-            $data = $info->dto::from($request)
-        );
+            UpdateSettings::run(
+                $tabString->snake(),
+                $data = $info->dto::from($request)
+            );
 
-        if ($info->action !== null) {
-            $info->action::run($data);
+            if ($info->action !== null) {
+                $info->action::run($data);
+            }
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
         }
+
 
         return redirect()
             ->route('settings.index', $tab)

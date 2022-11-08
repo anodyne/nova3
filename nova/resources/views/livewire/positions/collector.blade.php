@@ -11,7 +11,7 @@
                 />
 
                 @if (count($positions) > 1)
-                    <x-button wire:click="removePosition({{ $loop->index }})" type="button" color="gray-error-text" size="none">
+                    <x-button wire:click="removePosition({{ $loop->index }})" type="button" color="gray-danger-text" size="none">
                         @icon('delete', 'h-6 w-6')
                     </x-button>
                 @endif

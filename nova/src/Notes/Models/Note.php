@@ -17,17 +17,13 @@ class Note extends Model
     use HasFactory;
     use LogsActivity;
 
-    protected $casts = [
-        'source' => 'array',
-    ];
+    protected $fillable = ['user_id', 'title', 'content'];
 
     protected $dispatchesEvents = [
         'created' => Events\NoteCreated::class,
         'deleted' => Events\NoteDeleted::class,
         'updated' => Events\NoteUpdated::class,
     ];
-
-    protected $fillable = ['user_id', 'title', 'content'];
 
     public function author()
     {

@@ -230,7 +230,7 @@
 
             @can('delete', $post)
                 <x-dropdown>
-                    <x-slot:trigger color="gray-error-text">@icon('delete', 'h-7 w-7 md:h-6 md:w-6')</x-slot:trigger>
+                    <x-slot:trigger color="gray-danger-text">@icon('delete', 'h-7 w-7 md:h-6 md:w-6')</x-slot:trigger>
 
                     <x-dropdown.group>
                         <x-dropdown.text>Are you sure you want to discard this draft?</x-dropdown.text>
@@ -243,7 +243,7 @@
                     </x-dropdown.group>
                 </x-dropdown>
                 {{-- <div>
-                    <x-button wire:click="delete" color="gray-error-text" size="none">Discard draft</x-button>
+                    <x-button wire:click="delete" color="gray-danger-text" size="none">Discard draft</x-button>
                 </div> --}}
             @endcan
         </x-content-box>

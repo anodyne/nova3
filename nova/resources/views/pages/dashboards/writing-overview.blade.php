@@ -9,10 +9,10 @@
 
 <div>
     <x-panel>
-        <x-panel.header title="My draft posts" description="Drafts are posts currently in progress and that have not been published.">
+        <x-panel.header title="My draft posts" message="Drafts are posts currently in progress and that have not been published.">
             <x-slot:controls>
-                <x-link :href="route('posts.create')" color="primary">
-                    Start Writing
+                <x-link :href="route('posts.create')" color="primary" leading="write">
+                    Start writing
                 </x-link>
             </x-slot:controls>
         </x-panel.header>

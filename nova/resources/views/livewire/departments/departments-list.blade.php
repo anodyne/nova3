@@ -1,5 +1,5 @@
 <x-panel x-data="filtersPanel()" x-bind="parent" class="{{ $reordering ? 'overflow-hidden' : '' }}">
-    <x-panel.header title="Departments" description="Organize character positions into logical groups that you can display on your manifests.">
+    <x-panel.header title="Departments" message="Organize character positions into logical groups that you can display on your manifests.">
         @if (! $reordering)
             <x-slot:controls>
                 @can('update', $departments->first())
@@ -26,7 +26,7 @@
                 @endcan
             </x-slot:controls>
         @else
-            <x-slot:description>
+            <x-slot:message>
                 <x-panel.info icon="arrow-sort" title="Change sorting order" class="mt-4">
                     <div class="space-y-4">
                         <p>Departments will appear in the order below whenever they're shown throughout Nova. To change the sorting of the departments, drag them to the desired order. Click Finish to return to the management view.</p>
@@ -36,7 +36,7 @@
                         </div>
                     </div>
                 </x-panel.info>
-            </x-slot:description>
+            </x-slot:message>
         @endif
     </x-panel.header>
 

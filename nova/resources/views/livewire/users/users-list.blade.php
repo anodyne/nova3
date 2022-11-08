@@ -1,5 +1,5 @@
 <x-panel x-data="filtersPanel()" x-bind="parent">
-    <x-panel.header title="Users" description="Manage all of the game's users.">
+    <x-panel.header title="Users" message="Manage all of the game's users.">
         <x-slot:controls>
             @can('create', $userClass)
                 <x-link :href="route('users.create')" color="primary" data-cy="create" leading="add">

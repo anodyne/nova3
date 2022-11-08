@@ -23,13 +23,13 @@ class Button extends Component
     {
         return Arr::toCssClasses([
             'group',
-            'inline-flex items-center text-center justify-center border rounded-md space-x-2',
+            'inline-flex items-center text-center justify-center border rounded-md space-x-2 w-full md:w-auto',
             'transition ease-in-out duration-200',
             'focus:outline-none',
             'disabled:cursor-not-allowed disabled:opacity-75',
             'font-medium shadow-sm' => ! Str::contains($this->color, ['-text']),
             'font-medium border-transparent' => Str::contains($this->color, ['-text']),
-            'w-full' => $this->fullWidth,
+            'w-full md:w-auto' => $this->fullWidth,
             $this->colorStyles(),
             $this->sizeStyles(),
         ]);
@@ -47,8 +47,8 @@ class Button extends Component
             'light-gray-primary-text' => 'text-gray-400 dark:text-gray-500 hover:text-primary-500 dark:hover:text-primary-500',
             'gray-primary-text' => 'text-gray-500 dark:text-gray-600 hover:text-primary-500 dark:hover:text-primary-500',
 
-            'light-gray-error-text' => 'text-gray-400 dark:text-gray-500 hover:text-error-500 dark:hover:text-error-500',
-            'gray-error-text' => 'text-gray-500 hover:text-error-500 dark:hover:text-error-500',
+            'light-gray-danger-text' => 'text-gray-400 dark:text-gray-500 hover:text-danger-500 dark:hover:text-danger-500',
+            'gray-danger-text' => 'text-gray-500 hover:text-danger-500 dark:hover:text-danger-500',
 
             'primary' => 'border-transparent text-white bg-primary-500 hover:bg-primary-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-primary-200 dark:focus:ring-primary-900',
             'primary-outline' => 'bg-primary-25 dark:bg-primary-900 border-primary-300 dark:border-primary-800 text-primary-600 dark:text-primary-300 hover:bg-primary-50 dark:hover:bg-primary-900 hover:border-primary-400 dark:hover:border-primary-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-primary-200 dark:focus:ring-primary-900',
@@ -60,10 +60,10 @@ class Button extends Component
             'info-text' => 'text-info-500 hover:text-info-600 dark:hover:text-info-400',
             'info-text-bg' => 'border-transparent text-info-500 hover:text-info-600 hover:bg-info-50 dark:hover:bg-info-900 dark:hover:text-info-300',
 
-            'error' => 'border-transparent text-white bg-error-500 hover:bg-error-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-error-200 dark:focus:ring-error-900',
-            'error-outline' => 'bg-error-25 dark:bg-error-900 border-error-300 dark:border-error-800 text-error-600 dark:text-error-200 hover:bg-error-50 dark:hover:bg-error-900 hover:border-error-400 dark:hover:border-error-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-error-200 dark:focus:ring-error-900',
-            'error-text' => 'text-error-500 hover:text-error-600 dark:hover:text-error-400',
-            'error-text-bg' => 'border-transparent text-error-500 hover:text-error-600 hover:bg-error-50 dark:hover:bg-error-900 dark:hover:text-error-200',
+            'danger' => 'border-transparent text-white bg-danger-500 hover:bg-danger-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-danger-200 dark:focus:ring-danger-900',
+            'danger-outline' => 'bg-danger-25 dark:bg-danger-900 border-danger-300 dark:border-danger-800 text-danger-600 dark:text-danger-200 hover:bg-danger-50 dark:hover:bg-danger-900 hover:border-danger-400 dark:hover:border-danger-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-danger-200 dark:focus:ring-danger-900',
+            'danger-text' => 'text-danger-500 hover:text-danger-600 dark:hover:text-danger-400',
+            'danger-text-bg' => 'border-transparent text-danger-500 hover:text-danger-600 hover:bg-danger-50 dark:hover:bg-danger-900 dark:hover:text-danger-200',
 
             'warning' => 'border-transparent text-white bg-warning-500 hover:bg-warning-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-warning-200 dark:focus:ring-warning-900',
             'warning-outline' => 'bg-warning-25 dark:bg-warning-900 border-warning-300 dark:border-warning-800 text-warning-600 dark:text-warning-300 hover:bg-warning-50 dark:hover:bg-warning-900 hover:border-warning-400 dark:hover:border-warning-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-warning-200 dark:focus:ring-warning-900',

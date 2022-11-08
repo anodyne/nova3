@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Macros;
 
-use Nova\Foundation\Toast;
+use Nova\Foundation\Notification;
 
 class ToastMacros
 {
     public function withToast()
     {
         return function ($title, $message = null) {
-            app(Toast::class)
-                ->withTitle($title)
-                ->withMessage($message)
-                ->success();
+            Notification::make()
+                ->title($title)
+                ->body($message)
+                ->success()
+                ->send();
 
             return $this;
         };
@@ -23,10 +24,11 @@ class ToastMacros
     public function withErrorToast()
     {
         return function ($title, $message = null) {
-            app(Toast::class)
-                ->withTitle($title)
-                ->withMessage($message)
-                ->error();
+            Notification::make()
+                ->title($title)
+                ->body($message)
+                ->danger()
+                ->send();
 
             return $this;
         };

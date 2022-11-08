@@ -1,6 +1,6 @@
 <x-notification
     :notification="$notification"
-    color="error"
+    color="danger"
     icon="remove"
     title="Author removed"
 >

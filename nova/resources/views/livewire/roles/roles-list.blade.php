@@ -1,5 +1,5 @@
 <x-panel x-bind="parent" class="{{ $reordering ? 'overflow-hidden' : '' }}" x-data="filtersPanel()">
-    <x-panel.header title="Roles" description="Control what users can do throughout Nova.">
+    <x-panel.header title="Roles" message="Control what users can do throughout Nova.">
         @if (! $reordering)
             <x-slot:controls>
                 @can('update', $roles->first())
@@ -26,7 +26,7 @@
                 @endcan
             </x-slot:controls>
         @else
-            <x-slot:description>
+            <x-slot:message>
                 <x-panel.info icon="arrow-sort" title="Change sorting order" class="mt-4">
                     <div class="space-y-4">
                         <p>Sorting roles allows for admins to control the hierarchy of roles in the system to ensure that users with a lower role cannot give themselves higher privileges.</p>
@@ -38,7 +38,7 @@
                         </div>
                     </div>
                 </x-panel.info>
-            </x-slot:description>
+            </x-slot:message>
         @endif
     </x-panel.header>
 

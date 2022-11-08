@@ -14,9 +14,7 @@ class DuplicateNote
     public function handle(Note $original): Note
     {
         $note = $original->replicate();
-
         $note->title = "Copy of {$note->title}";
-
         $note->save();
 
         return $note->refresh();

@@ -19,13 +19,12 @@
 <body class="font-sans antialiased text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-900">
     <div id="nova">
         @yield('layout')
-
-        <x-toasts />
     </div>
 
     @stack('modal')
     @livewire('livewire-ui-modal')
     @livewire('livewire-ui-spotlight')
+    @livewire('notifications')
 
     @livewireScripts
     @stack('scripts')

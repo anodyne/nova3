@@ -1,5 +1,5 @@
 <x-panel x-data="filtersPanel()" x-bind="parent">
-    <x-panel.header title="Characters" description="Manage all of the game's characters.">
+    <x-panel.header title="Characters" message="Manage all of the game's characters.">
         <x-slot:controls>
             @can('createAny', $characterClass)
                 <x-link :href="route('characters.create')" color="primary" data-cy="create" leading="add">

@@ -44,8 +44,8 @@
                         <a href="#" class="group flex items-center justify-center space-x-3 px-6 py-5 text-base md:text-sm font-medium text-center transition">
                             @icon('email', 'h-7 w-7 md:h-6 md:w-6 text-gray-400 dark:text-gray-500 group-hover:text-gray-500 dark:group-hover:text-gray-400')
                             <span class="group-hover:text-gray-900 dark:group-hover:text-gray-100">Messages</span>
-                            <x-badge color="error">3</x-badge>
-                            {{-- <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-error-50 text-error-600 border border-error-300">3</span> --}}
+                            <x-badge color="danger">3</x-badge>
+                            {{-- <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-danger-50 text-danger-600 border border-danger-300">3</span> --}}
                         </a>
                     </div>
                 </x-panel>

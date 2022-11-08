@@ -5,10 +5,10 @@
 
     <x-tips section="characters" />
 
-    <x-modal color="error" title="Delete character?" icon="warning" :url="route('characters.delete')">
+    <x-modal color="danger" title="Delete character?" icon="warning" :url="route('characters.delete')">
         <x-slot:footer>
             <span class="flex w-full sm:col-start-2">
-                <x-button type="submit" form="form" color="error" full-width>
+                <x-button type="submit" form="form" color="danger" full-width>
                     Delete
                 </x-button>
             </span>
