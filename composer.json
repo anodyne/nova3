@@ -13,6 +13,7 @@
         "php": "^8.1",
         "awssat/discord-notification-channel": "^1.4",
         "blade-ui-kit/blade-icons": "^1.0",
+        "filament/notifications": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
         "kalnoy/nestedset": "^6.0",
         "kirschbaum-development/livewire-filters": "^0.3",
@@ -91,6 +92,9 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "post-update-cmd": [
+            "@php artisan filament:upgrade"
         ]
     },
     "config": {
