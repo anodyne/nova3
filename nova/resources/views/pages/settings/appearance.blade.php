@@ -29,17 +29,11 @@
                 </x-input.group>
 
                 <x-input.group label="Icon Set" for="icon_set">
-                    <div class="flex items-center space-x-4">
-                        <x-input.select class="mt-1 block w-full" id="icon_set" name="icon-set">
-                            @foreach ($iconSets->getSets() as $alias => $set)
-                                <option value="{{ $alias }}" @selected($alias === $settings->appearance->iconSet)>{{ $set->name() }}</option>
-                            @endforeach
-                        </x-input.select>
-
-                        <div class="shrink-0">
-                            @icon('dashboard', 'h-6 w-6')
-                        </div>
-                    </div>
+                    <x-input.select class="mt-1 block w-full" id="icon_set" name="icon-set">
+                        @foreach ($iconSets->getSets() as $alias => $set)
+                            <option value="{{ $alias }}" @selected($alias === $settings->appearance->iconSet)>{{ $set->name() }}</option>
+                        @endforeach
+                    </x-input.select>
                 </x-input.group>
             </x-form.section>
 
