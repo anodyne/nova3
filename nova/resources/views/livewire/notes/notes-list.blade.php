@@ -19,7 +19,7 @@
         <x-content-box height="sm" class="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-8">
             <div class="flex-1">
                 <x-input.group>
-                    <x-input.text placeholder="Search for notes by their title or content" wire:model="search">
+                    <x-input.text placeholder="Find notes by title or content" wire:model="search">
                         <x-slot:leadingAddOn>
                             @icon('search', 'h-5 w-5')
                         </x-slot:leadingAddOn>
