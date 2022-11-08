@@ -10,43 +10,44 @@
                     </x-button>
                 </div>
             </x-slot:controls>
+
+            <div>
+                <x-content-box class="sm:hidden">
+                    <x-input.select @change="switchTab($event.target.value)" aria-label="Selected tab">
+                        <option value="language">Language</option>
+                        <option value="sex">Sex</option>
+                        <option value="violence">Violence</option>
+                    </x-input.select>
+                </x-content-box>
+                <div class="hidden sm:block">
+                    <x-content-box height="none">
+                        {{-- <nav class="flex space-x-2 px-1 py-1 rounded-lg bg-gray-100 dark:bg-gray-700/50 border-gray-200 dark:border-gray-200/10">
+                            <a href="#" class="flex items-center rounded-md px-4 py-1.5 font-medium text-sm transition" :class="{ 'bg-white dark:bg-gray-600 shadow dark:highlight-white/5 ring-1 ring-gray-900/5 text-gray-900 dark:text-gray-100': isTab('language'), 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('language') }" @click.prevent="switchTab('language')">
+                                Language
+                            </a>
+                            <a href="#" class="flex items-center rounded-md px-4 py-1.5 font-medium text-sm transition" :class="{ 'bg-white dark:bg-gray-600 shadow dark:highlight-white/5 ring-1 ring-gray-900/5 text-gray-900 dark:text-gray-100': isTab('sex'), 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('sex') }" @click.prevent="switchTab('sex')">
+                                Sex
+                            </a>
+                            <a href="#" class="flex items-center rounded-md px-4 py-1.5 font-medium text-sm transition" :class="{ 'bg-white dark:bg-gray-600 shadow dark:highlight-white/5 ring-1 ring-gray-900/5 text-gray-900 dark:text-gray-100': isTab('violence'), 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('violence') }" @click.prevent="switchTab('violence')">
+                                Violence
+                            </a>
+                        </nav> --}}
+                        <nav class="-mb-px flex">
+                            <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('language'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('language') }" @click.prevent="switchTab('language')">
+                                Language
+                            </a>
+                            <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('sex'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('sex') }" @click.prevent="switchTab('sex')">
+                                Sex
+                            </a>
+                            <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('violence'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('violence') }" @click.prevent="switchTab('violence')">
+                                Violence
+                            </a>
+                        </nav>
+                    </x-content-box>
+                </div>
+            </div>
         </x-panel.header>
 
-        <div>
-            <x-content-box class="sm:hidden">
-                <x-input.select @change="switchTab($event.target.value)" aria-label="Selected tab">
-                    <option value="language">Language</option>
-                    <option value="sex">Sex</option>
-                    <option value="violence">Violence</option>
-                </x-input.select>
-            </x-content-box>
-            <div class="hidden sm:block">
-                <x-content-box height="none" class="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-200/10">
-                    {{-- <nav class="flex space-x-2 px-1 py-1 rounded-lg bg-gray-100 dark:bg-gray-700/50 border-gray-200 dark:border-gray-200/10">
-                        <a href="#" class="flex items-center rounded-md px-4 py-1.5 font-medium text-sm transition" :class="{ 'bg-white dark:bg-gray-600 shadow dark:highlight-white/5 ring-1 ring-gray-900/5 text-gray-900 dark:text-gray-100': isTab('language'), 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('language') }" @click.prevent="switchTab('language')">
-                            Language
-                        </a>
-                        <a href="#" class="flex items-center rounded-md px-4 py-1.5 font-medium text-sm transition" :class="{ 'bg-white dark:bg-gray-600 shadow dark:highlight-white/5 ring-1 ring-gray-900/5 text-gray-900 dark:text-gray-100': isTab('sex'), 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('sex') }" @click.prevent="switchTab('sex')">
-                            Sex
-                        </a>
-                        <a href="#" class="flex items-center rounded-md px-4 py-1.5 font-medium text-sm transition" :class="{ 'bg-white dark:bg-gray-600 shadow dark:highlight-white/5 ring-1 ring-gray-900/5 text-gray-900 dark:text-gray-100': isTab('violence'), 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('violence') }" @click.prevent="switchTab('violence')">
-                            Violence
-                        </a>
-                    </nav> --}}
-                    <nav class="-mb-px flex">
-                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('language'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('language') }" @click.prevent="switchTab('language')">
-                            Language
-                        </a>
-                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('sex'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('sex') }" @click.prevent="switchTab('sex')">
-                            Sex
-                        </a>
-                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('violence'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('violence') }" @click.prevent="switchTab('violence')">
-                            Violence
-                        </a>
-                    </nav>
-                </x-content-box>
-            </div>
-        </div>
 
         <x-form :action="route('settings.update', $tab)" method="PUT" id="language" x-show="isTab('language')">
             <x-form.section title="Default language rating" message="This is the default language content rating for your game. This is a good way to show current and interested players the type and level of content they can expect from your game.">
