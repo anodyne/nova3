@@ -13,13 +13,9 @@ class NoteDuplicated
     use Dispatchable;
     use SerializesModels;
 
-    public Note $note;
-
-    public Note $original;
-
-    public function __construct(Note $note, Note $original)
-    {
-        $this->note = $note;
-        $this->original = $original;
+    public function __construct(
+        public Note $note,
+        public Note $original
+    ) {
     }
 }

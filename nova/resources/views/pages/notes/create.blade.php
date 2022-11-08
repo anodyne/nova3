@@ -1,13 +1,9 @@
 @extends($meta->template)
 
 @section('content')
-    <x-page-header title="Add Note">
-        <x-slot:pretitle>
-            <a href="{{ route('notes.index') }}">Notes</a>
-        </x-slot:pretitle>
-    </x-page-header>
-
     <x-panel>
+        <x-panel.header title="Add a new note" />
+
         <x-form :action="route('notes.store')">
             <x-content-box class="space-y-8">
                 <x-input.group label="Title" for="title" :error="$errors->first('title')" class="sm:w-1/2">
@@ -20,7 +16,7 @@
             </x-content-box>
 
             <x-form.footer>
-                <x-button type="submit" color="primary">Add Note</x-button>
+                <x-button type="submit" color="primary">Add</x-button>
                 <x-link :href="route('notes.index')" color="white">Cancel</x-link>
             </x-form.footer>
         </x-form>

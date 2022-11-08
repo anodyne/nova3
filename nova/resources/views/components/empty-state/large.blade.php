@@ -10,7 +10,7 @@
 <div class="py-8 md:py-16">
     <div class="flex flex-col items-center max-w-xs mx-auto sm:max-w-sm md:max-w-xl space-y-6">
         <div class="text-center">
-            <x-badge color="primary" size="circle">
+            <x-badge color="primary" size="circle-lg" icon>
                 @icon($icon, 'h-12 w-12')
             </x-badge>
         </div>

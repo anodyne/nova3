@@ -1,6 +1,6 @@
 @props([
     'title',
-    'description' => false,
+    'message' => false,
     'controls' => false,
 ])
 
@@ -9,8 +9,8 @@
         <div>
             <x-h2>{{ $title }}</x-h2>
 
-            @if ($description)
-                <p class="mt-0.5 text-gray-500 text-sm leading-5">{{ $description }}</p>
+            @if ($message)
+                <p class="mt-0.5 text-gray-500 text-sm leading-5">{{ $message }}</p>
             @endif
         </div>
 

@@ -3,7 +3,7 @@
 @php
     $gray = $settings->appearance->getColorShades('gray');
     $primary = $settings->appearance->getColorShades('primary');
-    $error = $settings->appearance->getColorShades('error');
+    $danger = $settings->appearance->getColorShades('danger');
     $warning = $settings->appearance->getColorShades('warning');
     $success = $settings->appearance->getColorShades('success');
     $info = $settings->appearance->getColorShades('info');
@@ -23,17 +23,17 @@
         --color-primary-800: {{ $primary::color800->value }};
         --color-primary-900: {{ $primary::color900->value }};
 
-        --color-error-25: {{ $error::color25->value }};
-        --color-error-50: {{ $error::color50->value }};
-        --color-error-100: {{ $error::color100->value }};
-        --color-error-200: {{ $error::color200->value }};
-        --color-error-300: {{ $error::color300->value }};
-        --color-error-400: {{ $error::color400->value }};
-        --color-error-500: {{ $error::color500->value }};
-        --color-error-600: {{ $error::color600->value }};
-        --color-error-700: {{ $error::color700->value }};
-        --color-error-800: {{ $error::color800->value }};
-        --color-error-900: {{ $error::color900->value }};
+        --color-danger-25: {{ $danger::color25->value }};
+        --color-danger-50: {{ $danger::color50->value }};
+        --color-danger-100: {{ $danger::color100->value }};
+        --color-danger-200: {{ $danger::color200->value }};
+        --color-danger-300: {{ $danger::color300->value }};
+        --color-danger-400: {{ $danger::color400->value }};
+        --color-danger-500: {{ $danger::color500->value }};
+        --color-danger-600: {{ $danger::color600->value }};
+        --color-danger-700: {{ $danger::color700->value }};
+        --color-danger-800: {{ $danger::color800->value }};
+        --color-danger-900: {{ $danger::color900->value }};
 
         --color-warning-25: {{ $warning::color25->value }};
         --color-warning-50: {{ $warning::color50->value }};

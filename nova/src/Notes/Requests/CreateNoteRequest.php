@@ -11,10 +11,8 @@ class CreateNoteRequest extends ValidatesRequest
     public function rules(): array
     {
         return [
-            'content' => ['nullable'],
-            'source' => ['nullable'],
-            'summary' => ['nullable'],
             'title' => ['required'],
+            'content' => ['nullable'],
         ];
     }
 }

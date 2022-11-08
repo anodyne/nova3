@@ -8,28 +8,26 @@ use Kirschbaum\LivewireFilters\Filter;
 use Kirschbaum\LivewireFilters\HasFilters;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Nova\Foundation\Livewire\Concerns\WithConfirmationModal;
 use Nova\Notes\Models\Note;
 
 class NotesList extends Component
 {
     use HasFilters;
-    use WithConfirmationModal;
     use WithPagination;
 
     public $search;
 
-    // public function filters(): array
-    // {
-    //     $orderByFilter = Filter::make('order_by')
-    //         ->options(['Recently created', 'Recently updated'])
-    //         ->default(['Recently updated'])
-    //         ->meta(['label' => 'Order by']);
+    public function filters(): array
+    {
+        $orderByFilter = Filter::make('order_by')
+            ->options(['created' => 'Created', 'updated' => 'Updated'])
+            ->default('updated')
+            ->meta(['label' => 'Order by']);
 
-    //     return [
-    //         $orderByFilter,
-    //     ];
-    // }
+        return [
+            $orderByFilter,
+        ];
+    }
 
     public function clearAll()
     {
@@ -40,27 +38,12 @@ class NotesList extends Component
         $this->dispatchBrowserEvent('close-filters-panel');
     }
 
-    public function delete($id): void
-    {
-        $this->dispatchBrowserEvent('dropdown-close');
-
-        $note = Note::find($id);
-
-        $this->askForConfirmation(
-            callback: fn () => Note::find($note->id)?->delete(),
-            prompt: [
-                'title' => 'Delete note?',
-                'message' => "Are you sure you want to delete your <span class=\"font-semibold\">{$note->title}</span> note? This action is permanent and cannot be undone.",
-                'confirm' => 'Delete',
-            ],
-            theme: 'error',
-        );
-    }
-
     public function getFilteredNotesProperty()
     {
         return Note::whereAuthor(auth()->user())
             ->when($this->search, fn ($query, $value) => $query->searchFor($value))
+            ->when($this->getFilterValue('order_by') === 'created', fn ($query) => $query->orderBy('created_at', 'desc'))
+            ->when($this->getFilterValue('order_by') === 'updated', fn ($query) => $query->orderBy('updated_at', 'desc'))
             ->latest()
             ->paginate();
     }

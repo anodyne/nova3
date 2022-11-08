@@ -134,7 +134,7 @@
                                     <span @class([
                                         'shrink-0 inline-block h-2 w-2 rounded-full mr-3',
                                         'bg-success-500' => in_array($participatingUser->id, $post->participants),
-                                        'bg-error-500' => ! in_array($participatingUser->id, $post->participants),
+                                        'bg-danger-500' => ! in_array($participatingUser->id, $post->participants),
                                     ])></span>
                                     <span class="font-medium">{{ $participatingUser->name }}</span>
                                 </div>
@@ -151,7 +151,7 @@
                         </div>
 
                         <x-dropdown placement="bottom-end">
-                            <x-slot:trigger color="gray-error-text">@icon('delete', 'h-7 w-7 md:h-6 md:w-6')</x-slot:trigger>
+                            <x-slot:trigger color="gray-danger-text">@icon('delete', 'h-7 w-7 md:h-6 md:w-6')</x-slot:trigger>
 
                             <x-dropdown.group>
                                 <x-dropdown.text>Are you sure you want to remove <strong class="font-semibold text-gray-700 dark:text-gray-200">{{ $participatingUser->name }}</strong> and any characters they're marked as writing as authors of this post?</x-dropdown.text>
@@ -176,7 +176,7 @@
 
         {{-- @can('delete', $post) --}}
             <div>
-                <x-link href="#" color="gray-error-text" size="none">Discard draft</x-link>
+                <x-link href="#" color="gray-danger-text" size="none">Discard draft</x-link>
             </div>
         {{-- @endcan --}}
     </x-content-box>

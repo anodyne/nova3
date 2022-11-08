@@ -55,8 +55,8 @@
                         <span>Assigned to new users</span>
                     </div>
                 @else
-                    <div class="flex items-center space-x-2 text-error-600 font-medium">
-                        @icon('close', 'h-6 w-6 shrink-0 text-error-500')
+                    <div class="flex items-center space-x-2 text-danger-600 font-medium">
+                        @icon('close', 'h-6 w-6 shrink-0 text-danger-500')
                         <span>Not assigned to new users</span>
                     </div>
                 @endif

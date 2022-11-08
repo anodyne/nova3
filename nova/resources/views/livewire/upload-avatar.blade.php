@@ -25,8 +25,8 @@
     </div>
 
     @error('avatar')
-        <p class="flex items-center w-full relative mt-2 ml-0.5 text-sm text-error-600 space-x-2" role="alert">
-            @icon('alert', 'h-5 w-5 shrink-0 text-error-500')
+        <p class="flex items-center w-full relative mt-2 ml-0.5 text-sm text-danger-600 space-x-2" role="alert">
+            @icon('alert', 'h-5 w-5 shrink-0 text-danger-500')
             <span>{{ $message }}</span>
         </p>
     @enderror

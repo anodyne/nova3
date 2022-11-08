@@ -126,7 +126,7 @@
                 @endcan
 
                 @can('delete', $selectedStory)
-                    <x-link :href="route('stories.delete', $selectedStory)" size="none" color="gray-error-text" leading="delete">
+                    <x-link :href="route('stories.delete', $selectedStory)" size="none" color="gray-danger-text" leading="delete">
                         Delete
                     </x-link>
                 @endcan

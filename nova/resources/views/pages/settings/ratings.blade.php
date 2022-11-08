@@ -2,7 +2,7 @@
 
 @section('content')
     <x-panel x-data="tabsList('language')">
-        <x-panel.header title="Content ratings settings">
+        <x-panel.header title="Content ratings" message="Let players and readers know what to expect from your game's content by setting content ratings and warnings.">
             <x-slot:controls>
                 <div x-data="{}">
                     <x-button color="primary-outline" @click="$dispatch('toggle-spotlight')" leading="search">
@@ -49,14 +49,14 @@
         </div>
 
         <x-form :action="route('settings.update', $tab)" method="PUT" id="language" x-show="isTab('language')">
-            <x-form.section title="Default rating" message="This is the default content rating for language for your game. This is a good way to show current and interested players the type and level of content they can expect from your game.">
+            <x-form.section title="Default language rating" message="This is the default language content rating for your game. This is a good way to show current and interested players the type and level of content they can expect from your game.">
                 <x-input.group label="Rating" class="w-full md:w-72">
                     <livewire:rating type="language" :rating="$settings->ratings->language->rating" />
                 </x-input.group>
             </x-form.section>
 
             <x-form.section title="Rating threshold warning" message="You can choose to warn readers about potentially offensive content in a story post if that post meets certain thresholds.">
-                <x-input.group label="Warn readers when rating is at or above" help="You have chosen to warn readers about this content, but your threshold is set below the default rating for this category. This means that readers will have to manually agree before being allowed to read every story post unless an author specifically sets the rating lower for their post.">
+                <x-input.group label="Warn readers when the post rating is at or above" help="You have chosen to warn readers about this content, but your threshold is set below the default rating for this category. This means that readers will have to manually agree before being allowed to read every story post unless an author specifically sets the rating lower for their post.">
                     <x-input.select name="language[warning_threshold]" class="w-full md:w-48">
                         <option value="" @selected($settings->ratings->language->warning_threshold === null)>Do not warn</option>
                         <option value="0" @selected($settings->ratings->language->warning_threshold === 0)>0</option>
@@ -95,14 +95,14 @@
         </x-form>
 
         <x-form :action="route('settings.update', $tab)" method="PUT" id="sex" x-show="isTab('sex')" x-cloak>
-            <x-form.section title="Default rating" message="This is the default content rating for sex for your game. This is a good way to show current and interested players the type and level of content they can expect from your game.">
+            <x-form.section title="Default sex rating" message="This is the default sex content rating for your game. This is a good way to show current and interested players the type and level of content they can expect from your game.">
                 <x-input.group label="Rating" class="w-full md:w-72">
                     <livewire:rating type="sex" :rating="$settings->ratings->sex->rating" />
                 </x-input.group>
             </x-form.section>
 
             <x-form.section title="Rating threshold warning" message="You can choose to warn readers about potentially offensive content in a story post if that post meets certain thresholds.">
-                <x-input.group label="Warn readers when rating is at or above" help="You have chosen to warn readers about this content, but your threshold is set below the default rating for this category. This means that readers will have to manually agree before being allowed to read every story post unless an author specifically sets the rating lower for their post.">
+                <x-input.group label="Warn readers when the post rating is at or above" help="You have chosen to warn readers about this content, but your threshold is set below the default rating for this category. This means that readers will have to manually agree before being allowed to read every story post unless an author specifically sets the rating lower for their post.">
                     <x-input.select name="sex[warning_threshold]" class="w-full md:w-48">
                         <option value="" @selected($settings->ratings->sex->warning_threshold === null)>Do not warn</option>
                         <option value="0" @selected($settings->ratings->sex->warning_threshold === 0)>0</option>
@@ -141,14 +141,14 @@
         </x-form>
 
         <x-form :action="route('settings.update', $tab)" method="PUT" id="violence" x-show="isTab('violence')" x-cloak>
-            <x-form.section title="Default rating" message="This is the default content rating for violence for your game. This is a good way to show current and interested players the type and level of content they can expect from your game.">
+            <x-form.section title="Default violence rating" message="This is the default sex content rating for your game. This is a good way to show current and interested players the type and level of content they can expect from your game.">
                 <x-input.group label="Rating" class="w-full md:w-72">
                     <livewire:rating type="violence" :rating="$settings->ratings->violence->rating" />
                 </x-input.group>
             </x-form.section>
 
             <x-form.section title="Rating threshold warning" message="You can choose to warn readers about potentially offensive content in a story post if that post meets certain thresholds.">
-                <x-input.group label="Warn readers when rating is at or above" help="You have chosen to warn readers about this content, but your threshold is set below the default rating for this category. This means that readers will have to manually agree before being allowed to read every story post unless an author specifically sets the rating lower for their post.">
+                <x-input.group label="Warn readers when the post rating is at or above" help="You have chosen to warn readers about this content, but your threshold is set below the default rating for this category. This means that readers will have to manually agree before being allowed to read every story post unless an author specifically sets the rating lower for their post.">
                     <x-input.select name="violence[warning_threshold]" class="w-full md:w-48">
                         <option value="" @selected($settings->ratings->violence->warning_threshold === null)>Do not warn</option>
                         <option value="0" @selected($settings->ratings->violence->warning_threshold === 0)>0</option>

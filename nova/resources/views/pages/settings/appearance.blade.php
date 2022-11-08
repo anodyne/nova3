@@ -4,7 +4,7 @@
 
 @section('content')
     <x-panel>
-        <x-panel.header title="Appearance settings">
+        <x-panel.header title="Appearance settings" message="Change the way Nova looks to match your game's design aesthetic.">
             <x-slot:controls>
                 <div x-data="{}">
                     <x-button color="primary-outline" @click="$dispatch('toggle-spotlight')" leading="search">
@@ -17,7 +17,7 @@
         <x-form
             :action="route('settings.update', $tab)"
             method="PUT"
-            id="system-defaults"
+            id="appearance"
         >
             <x-form.section title="Theme" message="Update the way your site looks through the theme and icon set defaults.">
                 <x-input.group label="Theme" for="theme">
@@ -29,11 +29,17 @@
                 </x-input.group>
 
                 <x-input.group label="Icon Set" for="icon_set">
-                    <x-input.select class="mt-1 block w-full" id="icon_set" name="icon-set">
-                        @foreach ($iconSets->getSets() as $alias => $set)
-                            <option value="{{ $alias }}" @selected($alias === $settings->appearance->iconSet)>{{ $set->name() }}</option>
-                        @endforeach
-                    </x-input.select>
+                    <div class="flex items-center space-x-4">
+                        <x-input.select class="mt-1 block w-full" id="icon_set" name="icon-set">
+                            @foreach ($iconSets->getSets() as $alias => $set)
+                                <option value="{{ $alias }}" @selected($alias === $settings->appearance->iconSet)>{{ $set->name() }}</option>
+                            @endforeach
+                        </x-input.select>
+
+                        <div class="shrink-0">
+                            @icon('dashboard', 'h-6 w-6')
+                        </div>
+                    </div>
                 </x-input.group>
             </x-form.section>
 
@@ -46,7 +52,7 @@
                 </x-input.group>
             </x-form.section>
 
-            <x-form.section title="Colors" message="Put your own personal touches on Nova by updating the colors used throughout the admin system.">
+            <x-form.section title="Colors" message="Put your own personal touch on Nova by changing the colors used throughout the admin system.">
                 <x-input.group label="Gray">
                     <livewire:color-shade-picker type="gray" name="colors_gray" :selected="$settings->appearance->colorsGray" />
                 </x-input.group>
@@ -55,8 +61,8 @@
                     <livewire:color-shade-picker type="colors" name="colors_primary" :selected="$settings->appearance->colorsPrimary" />
                 </x-input.group>
 
-                <x-input.group label="Error color">
-                    <livewire:color-shade-picker type="colors" name="colors_error" :selected="$settings->appearance->colorsError" />
+                <x-input.group label="Danger color">
+                    <livewire:color-shade-picker type="colors" name="colors_danger" :selected="$settings->appearance->colorsDanger" />
                 </x-input.group>
 
                 <x-input.group label="Warning color">
@@ -73,7 +79,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button type="submit" form="system-defaults" color="primary">Update</x-button>
+                <x-button type="submit" form="appearance" color="primary">Update</x-button>
             </x-form.footer>
         </x-form>
     </x-panel>

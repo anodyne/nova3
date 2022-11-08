@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Notes\Actions;
 
-use Illuminate\Support\Arr;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Notes\Data\NoteData;
 use Nova\Notes\Models\Note;

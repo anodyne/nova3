@@ -15,7 +15,7 @@
     {{ $slot }}
 
     @if ($error)
-        <p class="flex items-center w-full relative mt-2 ml-0.5 text-base md:text-sm text-error-500 space-x-1 font-medium" role="alert">
+        <p class="flex items-center w-full relative mt-2 ml-0.5 text-base md:text-sm text-danger-500 space-x-1 font-medium" role="alert">
             <span>{{ $error }}</span>
         </p>
     @endif

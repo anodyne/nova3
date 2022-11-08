@@ -5,10 +5,10 @@
 
     <x-tips section="users" />
 
-    <x-modal color="error" title="Delete User?" icon="warning" :url="route('users.delete')">
+    <x-modal color="danger" title="Delete User?" icon="warning" :url="route('users.delete')">
         <x-slot:footer>
             <span class="flex w-full sm:col-start-2">
-                <x-button type="submit" form="form" color="error" full-width>
+                <x-button type="submit" form="form" color="danger" full-width>
                     Delete
                 </x-button>
             </span>
@@ -20,10 +20,10 @@
         </x-slot:footer>
     </x-modal>
 
-    <x-modal color="error" title="Deactivate User?" icon="remove" :url="route('users.confirm-deactivate')" event="modal-deactivate">
+    <x-modal color="danger" title="Deactivate User?" icon="remove" :url="route('users.confirm-deactivate')" event="modal-deactivate">
         <x-slot:footer>
             <span class="flex w-full sm:col-start-2">
-                <x-button type="submit" form="form-deactivate" color="error" full-width>
+                <x-button type="submit" form="form-deactivate" color="danger" full-width>
                     Deactivate
                 </x-button>
             </span>

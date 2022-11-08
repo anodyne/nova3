@@ -53,7 +53,7 @@ class Toggle extends Component
             'light-gray-text' => 'text-gray-400 hover:text-gray-500',
 
             'gray-primary-text' => 'text-gray-500 hover:text-primary-600',
-            'gray-error-text' => 'text-gray-500 hover:text-error-600',
+            'gray-danger-text' => 'text-gray-500 hover:text-danger-600',
 
             'primary' => 'border-transparent text-white bg-primary-500 hover:bg-primary-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-primary-400',
             'primary-outline' => 'bg-primary-50 dark:bg-primary-900 border-primary-300 dark:border-primary-800 text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900 hover:border-primary-400 dark:hover:border-primary-600 focus:ring-2 focus:ring-offset-2 focus:ring-primary-400',
@@ -63,9 +63,9 @@ class Toggle extends Component
             'info-outline' => 'bg-info-50 dark:bg-info-900 border-info-300 dark:border-info-800 text-info-600 dark:text-info-400 hover:bg-info-50 dark:hover:bg-info-900 hover:border-info-400 dark:hover:border-info-600 focus:ring-2 focus:ring-offset-2 focus:ring-info-400',
             'info-text' => 'text-info-500 hover:text-info-600 dark:hover:text-info-400',
 
-            'error' => 'border-transparent text-white bg-error-500 hover:bg-error-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-error-400',
-            'error-outline' => 'bg-error-50 dark:bg-error-900 border-error-300 dark:border-error-800 text-error-600 dark:text-error-400 hover:bg-error-50 dark:hover:bg-error-900 hover:border-error-400 dark:hover:border-error-600 focus:ring-2 focus:ring-offset-2 focus:ring-error-400',
-            'error-text' => 'text-error-500 hover:text-error-600 dark:hover:text-error-400',
+            'danger' => 'border-transparent text-white bg-danger-500 hover:bg-danger-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 focus:ring-danger-400',
+            'danger-outline' => 'bg-danger-50 dark:bg-danger-900 border-danger-300 dark:border-danger-800 text-danger-600 dark:text-danger-400 hover:bg-danger-50 dark:hover:bg-danger-900 hover:border-danger-400 dark:hover:border-danger-600 focus:ring-2 focus:ring-offset-2 focus:ring-danger-400',
+            'danger-text' => 'text-danger-500 hover:text-danger-600 dark:hover:text-danger-400',
 
             'gray' => 'border-transparent text-gray-600 bg-gray-300 hover:bg-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-gray-400',
         };

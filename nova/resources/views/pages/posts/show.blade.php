@@ -34,9 +34,9 @@
     <x-panel x-data="{ showContent: {{ $post->shouldShowContentWarning() ? 'false' : 'true' }} }">
         <x-content-box class="text-center p-16" x-show="!showContent" x-cloak>
             <div class="flex items-center justify-center space-x-4">
-                @icon('warning', 'h-8 w-8 text-error-500')
-                <h1 class="block text-4xl leading-loose font-extrabold text-error-600 tracking-tight">Warning</h1>
-                @icon('warning', 'h-8 w-8 text-error-500')
+                @icon('warning', 'h-8 w-8 text-danger-500')
+                <h1 class="block text-4xl leading-loose font-extrabold text-danger-600 tracking-tight">Warning</h1>
+                @icon('warning', 'h-8 w-8 text-danger-500')
             </div>
 
             <p class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">

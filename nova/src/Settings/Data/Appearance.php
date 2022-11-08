@@ -5,38 +5,39 @@ declare(strict_types=1);
 namespace Nova\Settings\Data;
 
 use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Http\Request;
 use Nova\Foundation\ColorScales;
+use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Data;
 
 class Appearance extends Data implements Arrayable
 {
     public function __construct(
         public string $theme = 'pulsar',
+
+        #[MapInputName('icon-set')]
         public string $iconSet = 'fluent',
+
+        #[MapInputName('image_path')]
         public ?string $imagePath,
+
+        #[MapInputName('colors_gray')]
         public string $colorsGray,
+
+        #[MapInputName('colors_primary')]
         public string $colorsPrimary,
-        public string $colorsError,
+
+        #[MapInputName('colors_danger')]
+        public string $colorsDanger,
+
+        #[MapInputName('colors_warning')]
         public string $colorsWarning,
+
+        #[MapInputName('colors_success')]
         public string $colorsSuccess,
+
+        #[MapInputName('colors_info')]
         public string $colorsInfo,
     ) {
-    }
-
-    public static function fromRequest(Request $request): static
-    {
-        return new self(
-            theme: $request->input('theme', 'pulsar'),
-            iconSet: $request->input('icon-set', 'fluent'),
-            imagePath: $request->input('image_path'),
-            colorsGray: $request->input('colors_gray'),
-            colorsPrimary: $request->input('colors_primary'),
-            colorsError: $request->input('colors_error'),
-            colorsWarning: $request->input('colors_warning'),
-            colorsSuccess: $request->input('colors_success'),
-            colorsInfo: $request->input('colors_info'),
-        );
     }
 
     public function getColorShades($type)

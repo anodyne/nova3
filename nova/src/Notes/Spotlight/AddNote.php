@@ -11,7 +11,7 @@ use Nova\Notes\Models\Note;
 
 class AddNote extends SpotlightCommand
 {
-    protected string $name = 'Add Note';
+    protected string $name = 'Add a note';
 
     protected string $description = 'Add a new note';
 

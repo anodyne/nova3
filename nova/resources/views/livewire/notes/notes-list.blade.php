@@ -1,8 +1,8 @@
-<x-panel>
+<x-panel x-data="filtersPanel()" x-bind="parent">
     <x-panel.header title="My notes">
         <x-slot:controls>
             <x-link :href="route('notes.create')" color="primary" data-cy="create" leading="add">
-                Add note
+                Add a note
             </x-link>
         </x-slot:controls>
     </x-panel.header>
@@ -11,7 +11,7 @@
         <x-empty-state.large
             icon="note"
             message="Notes help keep your thoughts organized about your game, a story idea, or even as a scratchpad for your next great story post."
-            label="Add note"
+            label="Add a note"
             :link="route('notes.create')"
             :link-access="true"
         ></x-empty-state.large>
@@ -19,7 +19,7 @@
         <x-content-box height="sm" class="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-8">
             <div class="flex-1">
                 <x-input.group>
-                    <x-input.text placeholder="Find notes..." wire:model="search">
+                    <x-input.text placeholder="Search for notes by their title or content" wire:model="search">
                         <x-slot:leadingAddOn>
                             @icon('search', 'h-5 w-5')
                         </x-slot:leadingAddOn>
@@ -34,7 +34,25 @@
                     </x-input.text>
                 </x-input.group>
             </div>
+
+            <div class="shrink flex justify-between md:justify-start items-center space-x-4">
+                <x-button
+                    size="none"
+                    :color="$isFiltered ? 'primary-text' : 'gray-text'"
+                    x-bind="trigger"
+                    leading="filter"
+                >
+                    <span>Filters</span>
+                    @if ($activeFilterCount > 0)
+                        <x-badge color="primary" size="sm" class="ml-2">{{ $activeFilterCount }}</x-badge>
+                    @endif
+                </x-button>
+            </div>
         </x-content-box>
+
+        <x-panel.filters x-bind="panel" x-cloak>
+            <livewire:livewire-filters-radio :filter="$filters['order_by']" />
+        </x-panel.filters>
 
         <x-table-list columns="3">
             @if ($notes->total() > 0)
@@ -47,7 +65,9 @@
             @forelse ($notes as $note)
                 <x-table-list.row>
                     <div class="flex items-center md:col-span-2">
-                        <div class="font-medium truncate text-gray-900 dark:text-gray-100">{{ $note->title }}</div>
+                        <x-table-list.primary-column>
+                            {{ $note->title }}
+                        </x-table-list.primary-column>
                     </div>
 
                     <div class="flex items-center ">
@@ -83,7 +103,7 @@
                             </x-dropdown.group>
 
                             <x-dropdown.group>
-                                <x-dropdown.item-danger type="button" icon="delete" wire:click="delete({{ $note->id }})" data-cy="delete">
+                                <x-dropdown.item-danger icon="delete" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($note) }});" data-cy="delete">
                                     <span>Delete</span>
                                 </x-dropdown.item-danger>
                             </x-dropdown.group>
@@ -92,15 +112,29 @@
                 </x-table-list.row>
             @empty
                 <x-slot:emptyMessage>
-                    <x-search-not-found>
-                        No notes found
-                    </x-search-not-found>
+                    <x-empty-state.not-found
+                        entity="note"
+                        :search="$search"
+                        :primary-access="true"
+                    >
+                        <x-slot:primary>
+                            <x-link :href="route('notes.create')" color="primary">
+                                Add a note
+                            </x-link>
+                        </x-slot:primary>
+
+                        <x-slot:secondary>
+                            <x-button wire:click="$set('search', '')">Clear search</x-button>
+                        </x-slot:secondary>
+                    </x-empty-state.not-found>
                 </x-slot:emptyMessage>
             @endforelse
 
-            <x-slot:footer>
-                {{ $notes->withQueryString()->links() }}
-            </x-slot:footer>
+            @if ($notes->count() > 0)
+                <x-slot:footer>
+                    {{ $notes->withQueryString()->links() }}
+                </x-slot:footer>
+            @endif
         </x-table-list>
     @endif
 </x-panel>

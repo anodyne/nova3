@@ -11,7 +11,7 @@ use Nova\Notes\Models\Note;
 
 class ViewNotes extends SpotlightCommand
 {
-    protected string $name = 'View All Notes';
+    protected string $name = 'View all my notes';
 
     protected string $description = 'View all my notes';
 

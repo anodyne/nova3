@@ -14,10 +14,9 @@ class NoteBuilder extends Builder
 
     public function searchFor($search): Builder
     {
-        return $this->where(function ($query) use ($search) {
-            return $query->where('title', 'like', "%{$search}%")
-                ->orWhere('content', 'like', "%{$search}%");
-        });
+        return $this->where(
+            fn ($query) => $query->where('title', 'like', "%{$search}%")->orWhere('content', 'like', "%{$search}%")
+        );
     }
 
     public function whereAuthor(User $user): Builder

@@ -11,7 +11,7 @@
         @icon('notification', 'h-6 w-6')
 
         @if ($this->hasUnreadNotifications)
-            <span class="absolute top-0 right-0 block h-2.5 w-2.5 rounded-full text-white shadow-solid bg-error-500"></span>
+            <span class="absolute top-0 right-0 block h-2.5 w-2.5 rounded-full text-white shadow-solid bg-danger-500"></span>
         @endif
     </x-button>
 

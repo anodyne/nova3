@@ -27,7 +27,7 @@ class PopulateSettingsTable extends Migration
                 imagePath: null,
                 colorsGray: 'gray',
                 colorsPrimary: 'blue',
-                colorsError: 'red',
+                colorsDanger: 'red',
                 colorsWarning: 'amber',
                 colorsSuccess: 'emerald',
                 colorsInfo: 'lilac',
