@@ -19,7 +19,7 @@ trait HandlesPostSuggestion
         } else {
             $this->suggestion = Post::whereStory(optional($this->story)->id)
                 ->wherePostType(optional($this->postType)->id)
-                ->orderByDesc('_lft')
+                ->orderByDesc('sort')
                 ->first();
         }
     }

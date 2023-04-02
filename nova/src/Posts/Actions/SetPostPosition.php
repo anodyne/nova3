@@ -23,12 +23,17 @@ class SetPostPosition
         }
 
         if ($data->hasPositionChange) {
-            $post->refresh();
-
             if ($data->direction && $data->neighbor) {
-                $method = "{$data->direction}Node";
+                // $method = "{$data->direction}Node";
 
-                $post->{$method}($data->neighbor)->save();
+                // $post->{$method}($data->neighbor)->save();
+
+                Post::query()
+                    ->whereStory($post->story->id)
+                    ->where('sort', $data->direction === 'before' ? '>=' : '>', $data->neighbor->sort)
+                    ->increment('sort');
+
+                $post->update(['sort' => $data->direction === 'before' ? $data->neighbor->sort : $data->neighbor->sort + 1]);
             }
         }
 

@@ -8,8 +8,6 @@ use Nova\PostTypes\Data\Fields;
 use Nova\PostTypes\Data\Options;
 use Nova\PostTypes\Models\PostType;
 use Nova\Roles\Models\Role;
-use Nova\Stories\Models\States\Completed;
-use Nova\Stories\Models\Story;
 
 class PopulateStoryTables extends Migration
 {
@@ -18,8 +16,6 @@ class PopulateStoryTables extends Migration
         activity()->disableLogging();
 
         $this->populatePostTypes();
-
-        $this->populateStoryTimelineRoot();
 
         activity()->enableLogging();
     }
@@ -228,13 +224,5 @@ class PopulateStoryTables extends Migration
         PostType::unguarded(function () use ($postTypes) {
             collect($postTypes)->each([PostType::class, 'create']);
         });
-    }
-
-    protected function populateStoryTimelineRoot()
-    {
-        Story::create([
-            'title' => 'Main Timeline',
-            'status' => Completed::class,
-        ]);
     }
 }

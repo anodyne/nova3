@@ -24,7 +24,6 @@ class Post extends Model
 {
     use HasFactory;
     use HasStates;
-    use NodeTrait;
     use WithData;
 
     protected $table = 'posts';
@@ -33,6 +32,7 @@ class Post extends Model
         'story_id', 'post_type_id', 'title', 'content', 'status', 'word_count',
         'day', 'time', 'location', 'parent_id', 'rating_language', 'rating_sex',
         'rating_violence', 'summary', 'participants', 'neighbor', 'direction',
+        'sort',
     ];
 
     protected $casts = [

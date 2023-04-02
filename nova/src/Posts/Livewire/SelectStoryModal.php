@@ -44,7 +44,7 @@ class SelectStoryModal extends ModalComponent
         return Story::query()
             ->whereCurrent()
             ->when($this->search, fn ($query, $search) => $query->searchFor($search))
-            ->orderBy('_lft')
+            ->orderBy('sort')
             ->get();
     }
 

@@ -15,22 +15,22 @@
                         <circle cx="6" cy="6" r="11" fill="none" stroke="currentColor" stroke-width="2" class="{{ $story->status->textColor() }}"></circle>
                     @endif
 
-                    @if (request('sort', 'desc') === 'desc' && $story->getNextSibling())
+                    @if (request('sort', 'desc') === 'desc' && $story->nextSibling())
                         <!-- Lower arm -->
                         <path d="M 6 18 V 100000" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-300 dark:text-gray-600"></path>
                     @endif
 
-                    @if (request('sort', 'desc') === 'asc' && $story->getPrevSibling())
+                    @if (request('sort', 'desc') === 'asc' && $story->previousSibling())
                         <!-- Lower arm -->
                         <path d="M 6 18 V 100000" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-300 dark:text-gray-600"></path>
                     @endif
 
-                    @if (request('sort', 'desc') === 'desc' && $story->getPrevSibling())
+                    @if (request('sort', 'desc') === 'desc' && $story->previousSibling())
                         <!-- Upper arm -->
                         <path d="M 6 -6 V -30" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-300 dark:text-gray-600"></path>
                     @endif
 
-                    @if (request('sort', 'desc') === 'asc' && $story->getNextSibling())
+                    @if (request('sort', 'desc') === 'asc' && $story->nextSibling())
                         <!-- Upper arm -->
                         <path d="M 6 -6 V -30" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-300 dark:text-gray-600"></path>
                     @endif
@@ -53,9 +53,9 @@
                         <span class="font-medium text-gray-500 dark:text-gray-400">{{ number_format($story->postCount) }} @choice('post|posts', $story->postCount)</span>
                     @endif
 
-                    @if ($story->getDescendantCount() > 0)
+                    {{-- @if ($story->getDescendantCount() > 0)
                         <span class="font-medium text-gray-500 dark:text-gray-400">{{ number_format($story->all_stories_post_count) }} posts in all stories</span>
-                    @endif
+                    @endif --}}
 
                     @canany(['view', 'create', 'update', 'delete'], $story)
                         <span class="leading-0">
@@ -79,9 +79,9 @@
                     @endcan
                 </div>
 
-                @if ($story->getDescendantCount() > 0)
+                @if ($story->stories->count() > 0)
                     <div class="relative w-full">
-                        <x-stories.timeline :stories="$story->children" />
+                        <x-stories.timeline :stories="$story->stories" />
                     </div>
                 @endif
             </div>

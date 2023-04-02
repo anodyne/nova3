@@ -20,18 +20,18 @@ class StoryTimeline extends Component
     public function getStoriesProperty(StoryFilters $filters)
     {
         return Story::query()
-            ->hasParent()
-            ->defaultOrder()
+            ->whereNull('parent_id')
+            ->orderBy('sort')
             ->filter($filters)
-            ->get()
-            ->toTree();
+            ->get();
     }
 
     public function render()
     {
         return view('livewire.stories.timeline', [
             'storyClass' => Story::class,
-            'storyCount' => Story::withDepth()->having('depth', '=', 1)->count(),
+            // 'storyCount' => Story::withDepth()->having('depth', '=', 1)->count(),
+            'storyCount' => 1,
         ]);
     }
 }

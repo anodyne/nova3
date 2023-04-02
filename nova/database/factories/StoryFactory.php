@@ -21,7 +21,6 @@ class StoryFactory extends Factory
             'title' => ucfirst($this->faker->words($this->faker->numberBetween(1, 5), true)),
             'status' => $this->faker->randomElement([Upcoming::$name, Current::$name, Completed::$name]),
             'description' => $this->faker->sentences($this->faker->numberBetween(1, 5), true),
-            'parent_id' => 1,
         ];
     }
 

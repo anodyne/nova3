@@ -7,7 +7,6 @@ namespace Nova\Stories\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Kalnoy\Nestedset\NodeTrait;
 use Nova\Posts\Models\Post;
 use Nova\Stories\Events;
 use Nova\Stories\Models\Builders\StoryBuilder;
@@ -22,7 +21,6 @@ class Story extends Model implements HasMedia
     use HasFactory;
     use HasStates;
     use InteractsWithMedia;
-    use NodeTrait;
 
     public const MEDIA_DIRECTORY = 'stories/{model_id}/{media_id}/';
 
@@ -30,7 +28,7 @@ class Story extends Model implements HasMedia
 
     protected $fillable = [
         'title', 'status', 'parent_id', 'description', 'summary', 'start_date',
-        'end_date',
+        'end_date', 'sort',
     ];
 
     protected $casts = [
@@ -48,19 +46,14 @@ class Story extends Model implements HasMedia
 
     public function allPosts()
     {
-        return $this->hasMany(Post::class, 'story_id')->defaultOrder();
+        return $this->hasMany(Post::class, 'story_id')->orderBy('sort');
     }
 
     public function posts()
     {
         return $this->hasMany(Post::class, 'story_id')
             ->wherePublished()
-            ->defaultOrder();
-    }
-
-    public function rootPost()
-    {
-        return $this->hasOne(Post::class, 'story_id')->where('parent_id', null);
+            ->orderBy('sort');
     }
 
     public function stories()
@@ -95,17 +88,17 @@ class Story extends Model implements HasMedia
         );
     }
 
-    public function isMainTimeline(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value): bool => $this->id === 1
-        );
-    }
+    // public function isMainTimeline(): Attribute
+    // {
+    //     return new Attribute(
+    //         get: fn ($value): bool => $this->id === 1
+    //     );
+    // }
 
     public function postCount(): Attribute
     {
         return new Attribute(
-            get: fn ($value): int => $this->posts()->whereNotRootPost()->wherePublished()->count()
+            get: fn ($value): int => $this->posts()->wherePublished()->count()
         );
     }
 
@@ -119,5 +112,21 @@ class Story extends Model implements HasMedia
         $this->addMediaCollection('story-images')
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif'])
             ->singleFile();
+    }
+
+    public function previousSibling(): ?self
+    {
+        return self::query()
+            ->where('parent_id', $this->parent_id)
+            ->where('sort', '<', $this->sort)
+            ->first();
+    }
+
+    public function nextSibling(): ?self
+    {
+        return self::query()
+            ->where('parent_id', $this->parent_id)
+            ->where('sort', '>', $this->sort)
+            ->first();
     }
 }

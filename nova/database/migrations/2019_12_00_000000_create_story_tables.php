@@ -16,7 +16,8 @@ class CreateStoryTables extends Migration
     {
         Schema::create('stories', function (Blueprint $table) {
             $table->id();
-            $table->nestedSet();
+            $table->foreignIdFor(Story::class, 'parent_id')->nullable();
+            $table->unsignedBigInteger('sort')->default(0);
             $table->string('status');
             $table->string('title');
             $table->text('description')->nullable();
@@ -57,6 +58,7 @@ class CreateStoryTables extends Migration
             $table->id();
             $table->foreignIdFor(Story::class)->nullable();
             $table->foreignIdFor(PostType::class)->nullable();
+            $table->unsignedBigInteger('sort')->default(0);
             $table->string('status');
             $table->string('title')->nullable();
             $table->longText('content')->nullable();
@@ -71,7 +73,6 @@ class CreateStoryTables extends Migration
             $table->text('participants')->nullable();
             $table->integer('neighbor')->nullable();
             $table->string('direction', 6)->nullable();
-            $table->nestedSet();
             $table->timestamp('published_at')->nullable();
             $table->timestamps();
             $table->softDeletes();

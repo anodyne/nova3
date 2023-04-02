@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Models\Builders;
 
-use Kalnoy\Nestedset\QueryBuilder;
+use Illuminate\Database\Eloquent\Builder;
 use Nova\Foundation\Filters\Filterable;
 use Nova\Stories\Models\States\Completed;
 use Nova\Stories\Models\States\Current;
 use Nova\Stories\Models\States\Ongoing;
 use Nova\Stories\Models\States\Upcoming;
 
-class StoryBuilder extends QueryBuilder
+class StoryBuilder extends Builder
 {
     use Filterable;
 
@@ -28,11 +28,6 @@ class StoryBuilder extends QueryBuilder
     public function whereCurrent(): self
     {
         return $this->whereState('status', Current::class);
-    }
-
-    public function whereMainTimeline(): self
-    {
-        return $this->where('id', 1);
     }
 
     public function whereOngoing(): self

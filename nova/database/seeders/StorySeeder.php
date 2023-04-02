@@ -11,24 +11,14 @@ class StorySeeder extends Seeder
 {
     public function run()
     {
-        $timeline = Story::whereIsRoot()->first();
+        $season1 = Story::factory()->ongoing()->create(['title' => 'Season 1', 'sort' => 0]);
+        Story::factory()->upcoming()->create(['title' => 'Season 2', 'sort' => 1]);
 
-        $timeline->children()->createMany([
-            Story::factory()->ongoing()->make(['title' => 'Season 1'])->toArray(),
-            Story::factory()->upcoming()->make(['title' => 'Season 2'])->toArray(),
-        ]);
+        $episode1 = Story::factory()->completed()->create(['title' => 'Episode 1', 'parent_id' => $season1->id, 'sort' => 0]);
+        Story::factory()->current()->create(['title' => 'Episode 2', 'parent_id' => $season1->id, 'sort' => 1]);
+        Story::factory()->upcoming()->create(['title' => 'Episode 3', 'parent_id' => $season1->id, 'sort' => 2]);
 
-        $season1 = Story::whereTitle('Season 1')->first();
-        $season1->children()->createMany([
-            Story::factory()->completed()->make(['title' => 'Episode 1'])->toArray(),
-            Story::factory()->current()->make(['title' => 'Episode 2'])->toArray(),
-            Story::factory()->upcoming()->make(['title' => 'Episode 3'])->toArray(),
-        ]);
-
-        $episode1 = Story::whereTitle('Episode 1')->first();
-        $episode1->children()->createMany([
-            Story::factory()->completed()->make(['title' => 'Sub-Episode 1'])->toArray(),
-            Story::factory()->completed()->make(['title' => 'Sub-Episode 2'])->toArray(),
-        ]);
+        Story::factory()->completed()->create(['title' => 'Sub-Episode 1', 'parent_id' => $episode1->id, 'sort' => 0]);
+        Story::factory()->completed()->create(['title' => 'Sub-Episode 2', 'parent_id' => $episode1->id, 'sort' => 1]);
     }
 }
