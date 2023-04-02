@@ -6,11 +6,11 @@
             <a href="{{ route('post-types.index') }}">Post Types</a>
         </x-slot:pretitle>
 
-        <x-slot:controls>
+        <x-slot:actions>
             @can('update', $postType)
                 <x-link :href="route('post-types.edit', $postType)" color="primary">Edit Post Type</x-link>
             @endcan
-        </x-slot:controls>
+        </x-slot:actions>
     </x-page-header>
 
     <x-panel>

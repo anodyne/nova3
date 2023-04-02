@@ -6,7 +6,7 @@
             @if ($users->total() > 0)
                 <div class="w-full sm:w-1/3">
                     <x-input.group>
-                        <x-input.text wire:model.debounce.500ms="filters.search" placeholder="Find assigned users...">
+                        <x-input.text wire:model.debounce.500ms="filters.search" placeholder="Find assigned users">
                             <x-slot:leadingAddOn>
                                 @icon('search', 'h-5 w-5')
                             </x-slot:leadingAddOn>
@@ -58,12 +58,12 @@
 
                     @can('update', $role)
                         @if (count($selected) > 0)
-                            <x-button color="error-outline" size="sm" wire:click="unassignSelectedUsers">
+                            <x-button color="danger-outline" size="sm" wire:click="unassignSelectedUsers" leading="delete">
                                 Remove {{ count($selected) }} @choice('user|users', count($selected))
                             </x-button>
                         @endif
 
-                        <x-button type="button" color="primary" size="sm" wire:click="$emit('openModal', 'users:select-users-modal')">
+                        <x-button type="button" color="primary" size="sm" wire:click="$emit('openModal', 'users:select-users-modal')" leading="add">
                             Add users
                         </x-button>
                     @endcan

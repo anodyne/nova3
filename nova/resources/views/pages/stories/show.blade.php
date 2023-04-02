@@ -17,13 +17,13 @@
             </div>
         </x-slot:pretitle>
 
-        <x-slot:controls>
+        <x-slot:actions>
             @can('update', $story)
                 <x-link :href="route('stories.edit', $story)" color="primary">
                     Edit Story
                 </x-link>
             @endcan
-        </x-slot:controls>
+        </x-slot:actions>
     </x-page-header>
 
     <x-panel x-data="tabsList('details')">

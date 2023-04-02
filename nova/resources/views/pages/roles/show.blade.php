@@ -1,43 +1,45 @@
 @extends($meta->template)
 
 @section('content')
-    <x-page-header :title="$role->display_name">
-        <x-slot:pretitle>
-            <a href="{{ route('roles.index') }}">Roles</a>
-        </x-slot:pretitle>
-
-        <x-slot:controls>
-            @can('update', $role)
-                <x-link :href="route('roles.edit', $role)" color="primary">Edit Role</x-link>
-            @endcan
-        </x-slot:controls>
-    </x-page-header>
-
     <x-panel x-data="tabsList('details')">
-        <div>
-            <x-content-box class="sm:hidden">
-                <x-input.select @change="switchTab($event.target.value)" aria-label="Selected tab">
-                    <option value="details">Details</option>
-                    <option value="permissions">Permissions</option>
-                    <option value="users">Users</option>
-                </x-input.select>
-            </x-content-box>
-            <x-content-box class="hidden sm:block">
-                <x-content-box height="none" class="border-b border-gray-200 dark:border-gray-200/10">
-                    <nav class="-mb-px flex">
-                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('details'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('details') }" @click.prevent="switchTab('details')">
-                            Details
-                        </a>
-                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('permissions'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('permissions') }" @click.prevent="switchTab('permissions')">
-                            Permissions
-                        </a>
-                        <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('users'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('users') }" @click.prevent="switchTab('users')">
-                            Users
-                        </a>
-                    </nav>
+        <x-panel.header :title="$role->display_name">
+            <x-slot:actions>
+                @can('viewAny', $role::class)
+                    <x-link :href="route('roles.index')" leading="arrow-left" color="gray">
+                        Back to the roles list
+                    </x-link>
+                @endcan
+
+                @can('update', $role)
+                    <x-button-filled tag="a" :href="route('roles.edit', $role)" leading="edit">Edit</x-button-filled>
+                @endcan
+            </x-slot:actions>
+
+            <div>
+                <x-content-box class="sm:hidden">
+                    <x-input.select @change="switchTab($event.target.value)" aria-label="Selected tab">
+                        <option value="details">Details</option>
+                        <option value="permissions">Permissions</option>
+                        <option value="users">Users</option>
+                    </x-input.select>
                 </x-content-box>
+                <div class="hidden sm:block">
+                    <x-content-box height="none">
+                        <nav class="-mb-px flex">
+                            <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('details'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('details') }" @click.prevent="switchTab('details')">
+                                Details
+                            </a>
+                            <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('permissions'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('permissions') }" @click.prevent="switchTab('permissions')">
+                                Permissions
+                            </a>
+                            <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('users'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('users') }" @click.prevent="switchTab('users')">
+                                Users
+                            </a>
+                        </nav>
+                    </x-content-box>
+                </div>
             </div>
-        </div>
+        </x-panel.header>
 
         <x-form action="" :divide="false" :space="false" x-show="isTab('details')">
             <x-form.section title="Role Details" message="A role is a collection of permissions that allows a user to take certain actions throughout Nova. Since a user can have as many roles as you'd like, we recommend creating roles with fewer permissions to give yourself more freedom to add and remove access for a given user.">
@@ -63,7 +65,7 @@
             </x-form.section>
 
             <x-form.footer class="mt-4 md:mt-8">
-                <x-link :href="route('roles.index')" color="white">Back</x-link>
+                <x-link :href="route('roles.index')" color="gray">Back</x-link>
             </x-form.footer>
         </x-form>
 

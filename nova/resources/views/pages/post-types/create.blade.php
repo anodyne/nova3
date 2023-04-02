@@ -154,8 +154,8 @@
             </x-form.section>
 
             <x-form.footer class="mt-4 md:mt-8">
-                <x-button type="submit" color="primary">Add Post Type</x-button>
-                <x-link :href="route('post-types.index')" color="white">Cancel</x-link>
+                <x-button-filled type="submit">Add post type</x-button-filled>
+                <x-link :href="route('post-types.index')" color="gray">Cancel</x-link>
             </x-form.footer>
         </x-form>
     </x-panel>

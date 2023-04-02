@@ -6,25 +6,29 @@
         </div>
     </x-content-box>
 
-{{--    <x-panel.warning icon="warning" title="You are editing the global setting" class="mt-6 mx-6">--}}
-{{--        <div class="space-y-4">--}}
-{{--            <p>If you were intending to update your personal preference for this notification, you can click the button below to switch to your personal preference setting.</p>--}}
+    @if ($user === null)
+        <x-panel.warning icon="warning" title="You are editing the global setting" class="mt-6 mx-6">
+            <div class="space-y-4">
+                <p>If you were intending to update your personal preference for this notification, you can click the button below to switch to your personal preference setting.</p>
 
-{{--            <div>--}}
-{{--                <x-button type="button" color="warning-outline">Switch to personal preference setting</x-button>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </x-panel.warning>--}}
-
-    <x-panel.info icon="warning" title="You are editing your personal preference setting" class="mt-6 mx-6">
-        <div class="space-y-4">
-            <p>If you were intending to update the global setting for this notification, you can click the button below to switch to the global setting.</p>
-
-            <div>
-                <x-button type="button" color="info-outline">Switch to global setting</x-button>
+                <div>
+                    <x-button type="button" color="warning-outline">Switch to personal preference setting</x-button>
+                </div>
             </div>
-        </div>
-    </x-panel.info>
+        </x-panel.warning>
+    @endif
+
+    @if ($user !== null)
+        <x-panel.primary icon="warning" title="You are editing your personal preference setting" class="mt-6 mx-6">
+            <div class="space-y-4">
+                <p>If you were intending to update the global setting for this notification, you can click the button below to switch to the global setting.</p>
+
+                <div>
+                    <x-button-filled>Switch to global setting</x-button-filled>
+                </div>
+            </div>
+        </x-panel.primary>
+    @endif
 
     <x-content-box height="none">
         <x-content-box width="none">
@@ -51,7 +55,7 @@
             </div>
         </x-content-box>
 
-        @if ($notification->category === 'group')
+        @if ($notification->type !== Nova\Foundation\Enums\SystemNotificationType::personal)
             <x-content-box width="none" class="border-t border-gray-200">
                 <h3 class="text-lg leading-6 font-medium text-gray-900" id="renew-subscription-label">Discord</h3>
                 <div class="mt-2 sm:flex sm:items-start sm:justify-between">

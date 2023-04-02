@@ -1,5 +1,5 @@
 @props([
-    'controls' => false,
+    'actions' => null,
 ])
 
 @aware(['columns'])
@@ -11,9 +11,9 @@
                 {{ $slot }}
             </div>
 
-            @if ($controls)
+            @if ($actions?->isNotEmpty())
                 <div class="ml-4 min-w-6 flex md:items-center">
-                    {{ $controls }}
+                    {{ $actions }}
                 </div>
             @endif
         </x-content-box>

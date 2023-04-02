@@ -1,10 +1,9 @@
 <div x-data="{ open: false }" class="leading-none">
-    <x-button
+    <x-link
         @click.prevent="open = true"
         {{-- wire:poll.30s="refreshNotifications" --}}
-        type="button"
-        color="gray-text"
-        size="none"
+        tag="button"
+        color="gray"
         class="relative p-1 rounded-full"
         aria-label="Notifications"
     >
@@ -13,7 +12,7 @@
         @if ($this->hasUnreadNotifications)
             <span class="absolute top-0 right-0 block h-2.5 w-2.5 rounded-full text-white shadow-solid bg-danger-500"></span>
         @endif
-    </x-button>
+    </x-link>
 
     <div
         @sidebar-open.window="open = true"
@@ -39,7 +38,7 @@
 
             <section
                 @click.away="open = false"
-                class="absolute inset-y-0 right-0 pl-10 max-w-full flex"
+                class="absolute inset-y-4 right-4 pl-10 max-w-full flex"
                 aria-labelledby="slide-over-heading"
             >
                 <div
@@ -73,22 +72,20 @@
                         </button>
                     </div>
 
-                    <div class="h-full flex flex-col py-6 bg-white dark:bg-gray-800 shadow-xl overflow-y-scroll">
+                    <div class="h-full flex flex-col py-6 bg-white dark:bg-gray-800 ring-1 ring-gray-900/5 shadow-xl overflow-y-scroll rounded-xl">
                         <header class="flex items-center justify-between px-4 sm:px-6">
                             <x-h2>Notifications</x-h2>
 
                             @if ($this->hasUnreadNotifications)
-                                <x-button wire:click="markAllNotificationsAsRead" color="gray-text" size="none-xs">
-                                    @icon('check', 'h-5 w-5')
-                                    <span class="ml-1.5">Mark all as read</span>
-                                </x-button>
+                                <x-link tag="button" wire:click="markAllNotificationsAsRead" leading="check">
+                                    Mark all as read
+                                </x-link>
                             @endif
 
                             @if (! $this->hasUnreadNotifications && $this->hasNotifications)
-                                <button wire:click="clearAllNotifications" type="button" class="inline-flex items-center text-xs text-gray-500 hover:text-gray-600 transition ease-in-out duration-200 focus:outline-none">
-                                    @icon('check', 'h-5 w-5')
-                                    <span class="ml-1.5">Clear all</span>
-                                </button>
+                                <x-link tag="button" wire:click="clearAllNotifications" leading="check">
+                                    Clear all
+                                </x-link>
                             @endif
                         </header>
 
@@ -96,18 +93,9 @@
                             @forelse ($notifications as $notification)
                                 @include("livewire.users.notifications.{$notification['type']}", compact('notification'))
                             @empty
-                                <div class="rounded-md bg-primary-50 p-4">
-                                    <div class="flex items-center">
-                                        <div class="shrink-0">
-                                            @icon('check', 'h-6 w-6 text-primary-500')
-                                        </div>
-                                        <div class="ml-3">
-                                            <p class="font-medium text-primary-600">
-                                                No unread notifications
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
+                                <x-panel.primary icon="check" title="You're all caught up">
+                                    You don't have any unread notifications.
+                                </x-panel.primary>
                             @endforelse
                         </div>
                     </div>

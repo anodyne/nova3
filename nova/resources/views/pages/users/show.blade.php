@@ -6,11 +6,11 @@
             <a href="{{ route('users.index', "status={$user->status->name()}") }}">Users</a>
         </x-slot:pretitle>
 
-        <x-slot:controls>
+        <x-slot:actions>
             @can('update', $user)
                 <x-link :href="route('users.edit', $user)" color="primary">Edit User</x-link>
             @endcan
-        </x-slot:controls>
+        </x-slot:actions>
     </x-page-header>
 
     <x-panel>

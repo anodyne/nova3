@@ -69,12 +69,20 @@
                             @endif
 
                             @class([
-                                'group pl-4 py-2 flex flex-col border-l-4 md:pl-0 md:pt-4 md:pb-0 md:border-l-0 md:border-t-4',
+                                'group flex flex-col',
+                                'border-l-4 pl-4 py-2 md:pl-0 md:pt-4 md:pb-0 md:border-l-0 md:border-t-4' => false,
                                 'border-primary-500 hover:border-primary-600 dark:hover:border-primary-400' => $step->isPrevious(),
                                 'border-primary-500' => $step->isCurrent(),
                                 'border-gray-300 dark:border-gray-600' => $step->isNext(),
                             ])
                         >
+                            <div @class([
+                                'h-1.5 w-full rounded-full mb-4',
+                                'bg-primary-500 hover:bg-primary-600 dark:hover:bg-primary-400' => $step->isPrevious(),
+                                'bg-primary-500' => $step->isCurrent(),
+                                'bg-gray-300 dark:bg-gray-600' => $step->isNext(),
+                            ])></div>
+
                             <span
                                 @class([
                                     'text-xs font-semibold tracking-wide uppercase',

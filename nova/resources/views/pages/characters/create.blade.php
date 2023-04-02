@@ -3,13 +3,15 @@
 @php($settings = settings())
 
 @section('content')
-    <x-page-header title="Add Character">
-        <x-slot:pretitle>
-            <a href="{{ route('characters.index', 'status=active') }}">Characters</a>
-        </x-slot:pretitle>
-    </x-page-header>
-
     <x-panel>
+        <x-panel.header title="Add a new character">
+            <x-slot:actions>
+                <x-link :href="route('characters.index')" leading="arrow-left" color="gray">
+                    Back to the characters list
+                </x-link>
+            </x-slot:actions>
+        </x-panel.header>
+
         <x-form :action="route('characters.store')">
             <x-form.section title="Character Info">
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
@@ -87,8 +89,8 @@
             @endcan
 
             <x-form.footer>
-                <x-button type="submit" color="primary">Add Character</x-button>
-                <x-link :href="route('characters.index', 'status=active')" color="white">Cancel</x-link>
+                <x-button-filled type="submit">Add character</x-button-filled>
+                <x-link :href="route('characters.index')" color="gray">Cancel</x-link>
             </x-form.footer>
         </x-form>
     </x-panel>

@@ -12,7 +12,7 @@
             @can('update', $story)
                 <div class="flex items-center space-x-4">
                     @if (count($selected) > 0)
-                        <x-button color="error-outline" size="sm" wire:click="detachSelectedPermissions">
+                        <x-button color="danger-outline" size="sm" wire:click="detachSelectedPermissions">
                             Remove {{ count($selected) }} @choice('permission|permissions', count($selected))
                         </x-button>
                     @endif

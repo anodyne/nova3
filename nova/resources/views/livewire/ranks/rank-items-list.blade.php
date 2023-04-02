@@ -1,7 +1,7 @@
 <x-panel x-bind="parent" class="{{ $reordering ? 'overflow-hidden' : '' }}" x-data="filtersPanel()">
-    <x-panel.header title="Rank items" message="Bring the rank group, rank name, and images together in a simple and easy-to-use rank experience.">
+    <x-panel.header title="Rank items" message="Combine the rank group, rank name, and rank images to define your game's ranks.">
         @if (! $reordering)
-            <x-slot:controls>
+            <x-slot:actions>
                 @can('update', $rankItems->first())
                     <x-button type="button" size="none" color="gray-text" wire:click="startReordering" leading="arrow-sort">
                         Reorder
@@ -10,21 +10,21 @@
 
                 @can('create', $rankItemClass)
                     <x-link :href="route('ranks.items.create')" color="primary" data-cy="create" leading="add">
-                        Add rank item
+                        Add a rank item
                     </x-link>
                 @endcan
-            </x-slot:controls>
+            </x-slot:actions>
         @else
             <x-slot:message>
-                <x-panel.info icon="arrow-sort" title="Change sorting order" class="mt-4">
+                <x-panel.primary icon="arrow-sort" title="Change sorting order" class="mt-4">
                     <div class="space-y-4">
                         <p>Rank items will appear in the order below whenever they're shown throughout Nova. To change the sorting of rank items, drag them to the desired order. Click Finish to return to the management view.</p>
 
                         <div>
-                            <x-button type="button" wire:click="stopReordering" color="info">Finish</x-button>
+                            <x-button-filled wire:click="stopReordering">Finish</x-button-filled>
                         </div>
                     </div>
-                </x-panel.info>
+                </x-panel.primary>
             </x-slot:message>
         @endif
     </x-panel.header>
@@ -35,7 +35,7 @@
                 icon="layer"
                 title="Start by creating a rank item"
                 message="Rank items bring the rank group, rank name, and images together in a simple and easy-to-use rank experience."
-                label="Add rank item"
+                label="Add a rank item"
                 :link="route('ranks.items.create')"
                 :link-access="gate()->allows('create', $rankItemClass)"
             ></x-empty-state.large>
@@ -43,16 +43,16 @@
             <x-content-box height="sm" class="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-6">
                 <div class="flex-1">
                     <x-input.group>
-                        <x-input.text placeholder="Find rank item(s) by their rank name" wire:model="search">
+                        <x-input.text placeholder="Find rank items by their rank name" wire:model="search">
                             <x-slot:leadingAddOn>
                                 @icon('search', 'h-5 w-5')
                             </x-slot:leadingAddOn>
 
                             @if ($search)
                                 <x-slot:trailingAddOn>
-                                    <x-button size="none" color="light-gray-text" wire:click="$set('search', '')">
+                                    <x-link tag="button" color="gray" wire:click="$set('search', '')">
                                         @icon('close', 'h-5 w-5')
-                                    </x-button>
+                                    </x-link>
                                 </x-slot:trailingAddOn>
                             @endif
                         </x-input.text>
@@ -60,9 +60,9 @@
                 </div>
 
                 <div class="shrink flex justify-between md:justify-start items-center space-x-4">
-                    <x-button
-                        size="none"
-                        :color="$isFiltered ? 'primary-text' : 'gray-text'"
+                    <x-link
+                        tag="button"
+                        :color="$isFiltered ? 'primary' : 'gray'"
                         x-bind="trigger"
                         leading="filter"
                     >
@@ -70,7 +70,7 @@
                         @if ($activeFilterCount > 0)
                             <x-badge color="primary" size="sm" class="ml-2">{{ $activeFilterCount }}</x-badge>
                         @endif
-                    </x-button>
+                    </x-link>
                 </div>
             </x-content-box>
 
@@ -116,7 +116,7 @@
                     </div>
 
                     @if (! $reordering)
-                        <x-slot:controls>
+                        <x-slot:actions>
                             <x-dropdown placement="bottom-end">
                                 <x-slot:trigger>
                                     <x-icon.more class="h-6 w-6" />
@@ -144,7 +144,7 @@
                                     </x-dropdown.group>
                                 @endcan
                             </x-dropdown>
-                        </x-slot:controls>
+                        </x-slot:actions>
                     @endif
                 </x-table-list.row>
             @empty
@@ -156,7 +156,7 @@
                     >
                         <x-slot:primary>
                             <x-link :href="route('ranks.items.create')" color="primary">
-                                Add rank item
+                                Add a rank item
                             </x-link>
                         </x-slot:primary>
 

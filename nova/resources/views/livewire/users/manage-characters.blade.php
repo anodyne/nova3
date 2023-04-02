@@ -1,6 +1,6 @@
 <div>
     <x-content-box>
-        <h3 class="font-bold text-xl text-gray-900 tracking-tight">Characters Assigned to this User</h3>
+        <x-h3>Characters assigned to this user</x-h3>
 
         <div class="flex justify-between mt-4">
             @if ($characters->total() > 0)
@@ -13,9 +13,9 @@
 
                             <x-slot:trailingAddOn>
                                 @if ($filters['search'])
-                                    <x-button color="light-gray-text" size="none" wire:click="$set('filters.search', '')">
+                                    <x-link tag="button" color="gray" wire:click="$set('filters.search', '')">
                                         @icon('close')
-                                    </x-button>
+                                    </x-link>
                                 @endif
                             </x-slot:trailingAddOn>
                         </x-input.text>
@@ -25,14 +25,14 @@
                 @can('update', $user)
                     <div class="flex items-center space-x-4">
                         @if (count($selected) > 0)
-                            <x-button color="error-outline" size="sm" wire:click="unassignSelectedCharacters">
+                            <x-button-outline color="danger" leading="remove" wire:click="unassignSelectedCharacters">
                                 Remove {{ count($selected) }} @choice('character|characters', count($selected))
-                            </x-button>
+                            </x-button-outline>
                         @endif
 
-                        <x-button type="button" color="primary" size="sm" wire:click="$emit('openModal', 'characters:select-characters-modal')">
+                        <x-button-filled leading="add" wire:click="$emit('openModal', 'characters:select-characters-modal')">
                             Add characters
-                        </x-button>
+                        </x-button-filled>
                     </div>
                 @endcan
             @endif
@@ -90,7 +90,7 @@
                                     </x-badge>
                                 </div>
                                 @if ($character->users->count() > 0)
-                                    <div class="hidden mt-2 items-center text-sm text-gray-600 sm:flex">
+                                    <div class="hidden mt-2 items-center text-sm text-gray-600 dark:text-gray-400 sm:flex">
                                         @if ($character->users->count() === 1)
                                             @icon('user', 'shrink-0 mr-1.5 h-5 w-5 text-gray-500')
                                         @else
@@ -109,9 +109,9 @@
                             @if ($character->type->name() === 'primary')
                                 @icon('star', 'h-6 w-6 text-primary-500')
                             @else
-                                <x-button color="gray-text" size="none" wire:click="assignPrimaryCharacter({{ $character->id }})">
+                                <x-link tag="button" color="gray" wire:click="assignPrimaryCharacter({{ $character->id }})">
                                     @icon('star', 'h-6 w-6')
-                                </x-button>
+                                </x-link>
                             @endif
 
                         </x-table.cell>
@@ -137,9 +137,9 @@
                 </p>
 
                 <div class="mt-6">
-                    <x-button color="primary" wire:click="$emit('openModal', 'characters:select-characters-modal')">
+                    <x-button-filled wire:click="$emit('openModal', 'characters:select-characters-modal')">
                         Add characters
-                    </x-button>
+                    </x-button-filled>
                 </div>
             @endcan
         </x-content-box>

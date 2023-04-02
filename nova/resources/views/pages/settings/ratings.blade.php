@@ -3,13 +3,13 @@
 @section('content')
     <x-panel x-data="tabsList('language')">
         <x-panel.header title="Content ratings" message="Let players and readers know what to expect from your game's content by setting content ratings and warnings.">
-            <x-slot:controls>
+            <x-slot:actions>
                 <div x-data="{}">
-                    <x-button color="primary-outline" @click="$dispatch('toggle-spotlight')" leading="search">
+                    <x-button-outline leading="search" @click="$dispatch('toggle-spotlight')">
                         Find a setting
-                    </x-button>
+                    </x-button-outline>
                 </div>
-            </x-slot:controls>
+            </x-slot:actions>
 
             <div>
                 <x-content-box class="sm:hidden">
@@ -91,7 +91,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button type="submit" form="language" color="primary">Update</x-button>
+                <x-button-filled type="submit" form="language">Save settings</x-button-filled>
             </x-form.footer>
         </x-form>
 
@@ -137,7 +137,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button type="submit" form="sex" color="primary">Update</x-button>
+                <x-button-filled type="submit" form="sex">Save settings</x-button-filled>
             </x-form.footer>
         </x-form>
 
@@ -183,7 +183,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button type="submit" form="violence" color="primary">Update</x-button>
+                <x-button-filled type="submit" form="violence">Save settings</x-button-filled>
             </x-form.footer>
         </x-form>
     </x-panel>

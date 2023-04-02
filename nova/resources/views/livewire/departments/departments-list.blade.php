@@ -1,41 +1,32 @@
 <x-panel x-data="filtersPanel()" x-bind="parent" class="{{ $reordering ? 'overflow-hidden' : '' }}">
     <x-panel.header title="Departments" message="Organize character positions into logical groups that you can display on your manifests.">
         @if (! $reordering)
-            <x-slot:controls>
+            <x-slot:actions>
                 @can('update', $departments->first())
-                    <x-button
-                        size="none"
-                        color="gray-text"
-                        wire:click="startReordering"
-                        leading="arrow-sort"
-                    >
+                    <x-link tag="button" color="gray" leading="arrow-sort" wire:click="startReordering">
                         Reorder
-                    </x-button>
-                @endcan
-
-                @can('create', $departmentClass)
-                    <x-link
-                        :href="route('departments.create')"
-                        color="primary"
-                        data-cy="create"
-                        class="order-first md:order-last"
-                        leading="add"
-                    >
-                        Add department
                     </x-link>
                 @endcan
-            </x-slot:controls>
+
+                @if ($departments->count() > 0)
+                    @can('create', $departmentClass)
+                        <x-button-filled tag="a" :href="route('departments.create')" data-cy="create" class="order-first md:order-last" leading="add">
+                            Add a department
+                        </x-button-filled>
+                    @endcan
+                @endif
+            </x-slot:actions>
         @else
             <x-slot:message>
-                <x-panel.info icon="arrow-sort" title="Change sorting order" class="mt-4">
+                <x-panel.primary icon="arrow-sort" title="Change sorting order" class="mt-4">
                     <div class="space-y-4">
                         <p>Departments will appear in the order below whenever they're shown throughout Nova. To change the sorting of the departments, drag them to the desired order. Click Finish to return to the management view.</p>
 
                         <div>
-                            <x-button wire:click="stopReordering" color="info">Finish</x-button>
+                            <x-button-filled wire:click="stopReordering">Finish</x-button-filled>
                         </div>
                     </div>
-                </x-panel.info>
+                </x-panel.primary>
             </x-slot:message>
         @endif
     </x-panel.header>
@@ -46,7 +37,7 @@
                 icon="list"
                 title="Start by creating a department"
                 message="Departments allow you to organize character positions into logical groups that you can display on your manifests."
-                label="Add deparment"
+                label="Add a deparment"
                 :link="route('departments.create')"
                 :link-access="gate()->allows('create', $departmentClass)"
             ></x-empty-state.large>
@@ -61,9 +52,9 @@
 
                             @if ($search)
                                 <x-slot:trailingAddOn>
-                                    <x-button size="none" color="light-gray-text" wire:click="$set('search', '')">
+                                    <x-link tag="button" color="gray" wire:click="$set('search', '')">
                                         @icon('close', 'h-5 w-5')
-                                    </x-button>
+                                    </x-link>
                                 </x-slot:trailingAddOn>
                             @endif
                         </x-input.text>
@@ -71,9 +62,9 @@
                 </div>
 
                 <div class="shrink flex justify-between md:justify-start items-center space-x-4">
-                    <x-button
-                        size="none"
-                        :color="$isFiltered ? 'primary-text' : 'gray-text'"
+                    <x-link
+                        tag="button"
+                        :color="$isFiltered ? 'primary' : 'gray'"
                         x-bind="trigger"
                         leading="filter"
                     >
@@ -81,7 +72,7 @@
                         @if ($activeFilterCount > 0)
                             <x-badge color="primary" size="sm" class="ml-2">{{ $activeFilterCount }}</x-badge>
                         @endif
-                    </x-button>
+                    </x-link>
                 </div>
             </x-content-box>
 
@@ -135,7 +126,7 @@
                     </div>
 
                     @if (! $reordering)
-                        <x-slot:controls>
+                        <x-slot:actions>
                             <x-dropdown placement="bottom-end">
                                 <x-slot:trigger>
                                     <x-icon.more class="h-6 w-6" />
@@ -177,7 +168,7 @@
                                     </x-dropdown.group>
                                 @endcan
                             </x-dropdown>
-                        </x-slot:controls>
+                        </x-slot:actions>
                     @endif
                 </x-table-list.row>
             @empty
@@ -188,13 +179,13 @@
                         :primary-access="gate()->allows('create', $departmentClass)"
                     >
                         <x-slot:primary>
-                            <x-link :href="route('departments.create')" color="primary">
-                                Add department
-                            </x-link>
+                            <x-button-filled tag="a" :href="route('departments.create')">
+                                Add a department
+                            </x-button-filled>
                         </x-slot:primary>
 
                         <x-slot:secondary>
-                            <x-button wire:click="$set('search', '')">Clear search</x-button>
+                            <x-button-outline wire:click="$set('search', '')">Clear search</x-button-outline>
                         </x-slot:secondary>
                     </x-empty-state.not-found>
                 </x-slot:emptyMessage>

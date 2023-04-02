@@ -33,7 +33,7 @@ class EditCharacter extends SpotlightCommand
 
     public function searchCharacter($query)
     {
-        return Character::where('name', 'like', "%${query}%")
+        return Character::where('name', 'like', "%{$query}%")
             ->get()
             ->map(function (Character $character) {
                 return new SpotlightSearchResult(

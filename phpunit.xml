@@ -12,7 +12,7 @@
     processIsolation="false"
     stopOnFailure="false"
 >
-    <coverage processUncoveredFiles="true">
+    <coverage>
         <include>
             <directory suffix=".php">./app</directory>
         </include>

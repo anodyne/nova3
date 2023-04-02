@@ -1,17 +1,17 @@
 @extends($meta->template)
 
 @section('content')
-    <x-page-header :title="$position->name">
-        <x-slot:pretitle>
-            <div class="flex items-center">
-                <a href="{{ route('positions.index') }}">Positions</a>
-                <x-icon.chevron-right class="h-4 w-4 text-gray-500 mx-1" />
-                <a href="{{ route('positions.index', $position->department) }}">{{ $position->department->name }}</a>
-            </div>
-        </x-slot:pretitle>
-    </x-page-header>
-
     <x-panel>
+        <x-panel.header title="Edit position">
+            <x-slot:actions>
+                @can('viewAny', Nova\Departments\Models\Position::class)
+                    <x-link :href="route('positions.index', 'department='.$position->department->id)" leading="arrow-left" size="none" color="gray-text">
+                        Back to {{ $position->department->name }} positions
+                    </x-link>
+                @endcan
+            </x-slot:actions>
+        </x-panel.header>
+
         <x-form :action="route('positions.update', $position)" method="PUT">
             <x-form.section title="Position Info">
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
@@ -59,8 +59,8 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button type="submit" color="primary">Update Position</x-button>
-                <x-link :href="route('positions.index', $position->department)" color="white">Cancel</x-link>
+                <x-button-filled type="submit">Save position</x-button-filled>
+                <x-link :href="route('positions.index', $position->department)" color="gray">Cancel</x-link>
             </x-form.footer>
         </x-form>
     </x-panel>

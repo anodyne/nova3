@@ -1,13 +1,17 @@
 @extends($meta->template)
 
 @section('content')
-    <x-page-header :title="$group->name">
-        <x-slot:pretitle>
-            <a href="{{ route('ranks.groups.index') }}">Rank Groups</a>
-        </x-slot:pretitle>
-    </x-page-header>
-
     <x-panel>
+        <x-panel.header title="Edit rank group">
+            <x-slot:actions>
+                @can('viewAny', $group::class)
+                    <x-link :href="route('ranks.groups.index')" leading="arrow-left" size="none" color="gray-text">
+                        Back
+                    </x-link>
+                @endcan
+            </x-slot:actions>
+        </x-panel.header>
+
         <x-form :action="route('ranks.groups.update', $group)" method="PUT">
             <x-form.section title="Rank Group Info" message="A rank group is a collection of ranks that can be assigned to characters. We group ranks to make it easier to find the ranks that you need.">
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
@@ -45,7 +49,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button type="submit" color="primary">Update Rank Group</x-button>
+                <x-button type="submit" color="primary">Update</x-button>
                 <x-link :href="route('ranks.groups.index')" color="white">Cancel</x-link>
             </x-form.footer>
         </x-form>

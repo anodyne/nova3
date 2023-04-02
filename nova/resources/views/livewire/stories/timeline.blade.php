@@ -1,8 +1,8 @@
 <x-panel>
     <x-panel.header title="Stories">
-        <x-slot:controls>
+        <x-slot:actions>
             <x-dropdown placement="bottom-start md:bottom-end">
-                <x-slot:trigger leading="filter" color="gray-text">
+                <x-slot:trigger leading="filter" color="gray">
                     Sort
                 </x-slot:trigger>
 
@@ -27,11 +27,11 @@
             </x-dropdown>
 
             @can('create', $storyClass)
-                <x-link :href="route('stories.create')" color="primary" data-cy="create" leading="add">
-                    Add story
-                </x-link>
+                <x-button-filled tag="a" :href="route('stories.create')" leading="add" data-cy="create">
+                    Add a story
+                </x-button-filled>
             @endcan
-        </x-slot:controls>
+        </x-slot:actions>
     </x-panel.header>
 
     @if ($selectedStory)
@@ -108,7 +108,7 @@
                 <span class="font-bold tracking-tight text-gray-900 dark:text-gray-100">{{ $selectedStory->title }}</span>
 
                 @can('view', $selectedStory)
-                    <x-link :href="route('stories.show', $selectedStory)" size="none" color="gray-text" leading="show">
+                    <x-link :href="route('stories.show', $selectedStory)" size="none" color="primary" variant="text" leading="show">
                         View
                     </x-link>
                 @endcan

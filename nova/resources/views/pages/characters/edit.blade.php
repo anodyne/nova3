@@ -1,13 +1,15 @@
 @extends($meta->template)
 
 @section('content')
-    <x-page-header :title="$character->name">
-        <x-slot:pretitle>
-            <a href="{{ route('characters.index', "status={$character->status->name()}") }}">Characters</a>
-        </x-slot:pretitle>
-    </x-page-header>
-
     <x-panel>
+        <x-panel.header title="Edit character">
+            <x-slot:actions>
+                <x-link :href="route('characters.index')" leading="arrow-left" size="none" color="gray-text">
+                    Back to characters list
+                </x-link>
+            </x-slot:actions>
+        </x-panel.header>
+
         <x-form :action="route('characters.update', $character)" method="PUT">
             <x-form.section title="Character Info">
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
@@ -44,8 +46,8 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button type="submit" color="primary">Update Character</x-button>
-                <x-link :href='route("characters.index", "status={$character->status->name()}")'>Cancel</x-link>
+                <x-button-filled type="submit">Save character</x-button-filled>
+                <x-link :href="route('characters.index')" color="gray">Cancel</x-link>
             </x-form.footer>
         </x-form>
     </x-panel>
@@ -53,20 +55,19 @@
     @can('deactivate', $character)
         <x-panel class="mt-8">
             <x-content-box>
-                <h3 class="text-lg font-medium text-gray-900">
-                    Deactivate Character
-                </h3>
+                <x-h3>Deactivate character</x-h3>
+
                 <div class="mt-2 sm:flex sm:items-start sm:justify-between">
-                    <div class="w-full text-gray-600">
+                    <div class="w-full text-gray-500">
                         <p>
                             When deactivating the character, the owning user(s) will remain at their current status. Pay special attention to deactivating a character who is the only character assigned to a user as it may impede their ability to contribute to stories.
                         </p>
                     </div>
                     <div class="mt-5 sm:mt-0 sm:ml-8 sm:shrink-0 sm:flex sm:items-center">
                         <x-form :action="route('characters.deactivate', $character)">
-                            <x-button type="submit" color="error-outline">
+                            <x-button-outline type="submit" color="danger">
                                 Deactivate
-                            </x-button>
+                            </x-button-outline>
                         </x-form>
                     </div>
                 </div>
@@ -77,20 +78,19 @@
     @can('activate', $character)
         <x-panel class="mt-8">
             <x-content-box>
-                <h3 class="text-lg font-medium text-gray-900">
-                    Activate Character
-                </h3>
+                <x-h3>Activate character</x-h3>
+
                 <div class="mt-2 sm:flex sm:items-start sm:justify-between">
-                    <div class="w-full text-gray-600">
+                    <div class="w-full text-gray-500">
                         <p>
                             When activating the character, if they were previously a primary character for the user, but the user has since had a new primary character set for themselves, this character will be set as a secondary character for the user.
                         </p>
                     </div>
                     <div class="mt-5 sm:mt-0 sm:ml-8 sm:shrink-0 sm:flex sm:items-center">
                         <x-form :action="route('characters.activate', $character)">
-                            <x-button type="submit" color="primary-outline">
+                            <x-button-outline type="submit">
                                 Activate
-                            </x-button>
+                            </x-button-outline>
                         </x-form>
                     </div>
                 </div>

@@ -11,14 +11,14 @@
                 />
 
                 @if (count($users) > 1)
-                    <x-button wire:click="removeUser({{ $loop->index }})" type="button" color="gray-danger-text" size="none">
+                    <x-link tag="button" color="danger" wire:click="removeUser({{ $loop->index }})">
                         @icon('delete', 'h-6 w-6')
-                    </x-button>
+                    </x-link>
                 @endif
 
-                <x-button wire:click="addUser({{ $loop->index }})" type="button" color="gray-text" size="none">
+                <x-link tag="button" wire:click="addUser({{ $loop->index }})">
                     @icon('add', 'h-6 w-6')
-                </x-button>
+                </x-link>
             </div>
 
             @if ($user['id'] !== null)

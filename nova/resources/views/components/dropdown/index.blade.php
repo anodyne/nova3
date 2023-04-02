@@ -8,11 +8,10 @@
 >
     <div>
         @isset ($trigger)
-            <x-button
+            <x-link
+                tag="button"
                 @click="open = !open"
-                type="button"
-                :color="$trigger->attributes->get('color', 'light-gray-text')"
-                :size="$trigger->attributes->get('size', 'none')"
+                :color="$trigger->attributes->get('color', 'gray')"
                 :leading="$trigger->attributes->get('leading')"
                 :trailing="$trigger->attributes->get('trailing')"
                 aria-haspopup="true"
@@ -20,7 +19,7 @@
                 x-bind:aria-expanded="open"
             >
                 {{ $trigger }}
-            </x-button>
+            </x-link>
         @endisset
 
         @isset ($emptyTrigger)

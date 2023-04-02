@@ -34,7 +34,7 @@ class EditPosition extends SpotlightCommand
 
     public function searchPosition($query)
     {
-        return Position::where('name', 'like', "%${query}%")
+        return Position::where('name', 'like', "%{$query}%")
             ->get()
             ->map(function ($position) {
                 return new SpotlightSearchResult(

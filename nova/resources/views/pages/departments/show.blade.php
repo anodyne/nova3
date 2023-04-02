@@ -1,28 +1,30 @@
 @extends($meta->template)
 
 @section('content')
-    <x-page-header :title="$department->name">
-        <x-slot:pretitle>
-            <a href="{{ route('departments.index') }}">Departments</a>
-        </x-slot:pretitle>
-
-        <x-slot:controls>
-            @can('update', $department)
-                <x-link :href="route('departments.edit', $department)" color="primary">Edit Department</x-link>
-            @endcan
-        </x-slot:controls>
-    </x-page-header>
-
     <x-panel>
+        <x-panel.header :title="$department->name">
+            <x-slot:actions>
+                @can('viewAny', Nova\Departments\Models\Department::class)
+                    <x-link :href="route('departments.index')" leading="arrow-left" color="gray">
+                        Back to the departments list
+                    </x-link>
+                @endcan
+
+                @can('update', $department)
+                    <x-button-filled tag="a" :href="route('departments.edit', $department)" leading="edit">Edit</x-button-filled>
+                @endcan
+            </x-slot:actions>
+        </x-panel.header>
+
         <x-form action="">
             <x-form.section title="Department Info" message="Departments are collections of positions that characters can hold and help to provide some organization for your character manifest.">
                 <x-input.group label="Name">
-                    <p class="font-semibold">{{ $department->name }}</p>
+                    <p>{{ $department->name }}</p>
                 </x-input.group>
 
                 @if ($department->description)
                     <x-input.group label="Description">
-                        <p class="font-semibold">{{ $department->description }}</p>
+                        <p>{{ $department->description }}</p>
                     </x-input.group>
                 @endif
 
@@ -36,9 +38,9 @@
                     <p>These are all of the positions currently assigned to this department.</p>
 
                     @can('viewAny', Nova\Departments\Models\Position::class)
-                        <x-link :href="route('positions.index', 'department='.$department->id)" size="xs">
+                        <x-button-outline tag="a" :href="route('positions.index', 'department='.$department->id)" size="xs">
                             Manage department positions
-                        </x-link>
+                        </x-button-outline>
                     @endcan
                 </x-slot:message>
 
@@ -50,7 +52,7 @@
                                 <span>{{ $position->name }}</span>
                             </div>
                             @can('update', $position)
-                                <x-link :href="route('positions.edit', $position)" size="none" color="gray-text" class="group-hover:visible sm:invisible">
+                                <x-link :href="route('positions.edit', $position)" color="gray" class="group-hover:visible sm:invisible">
                                     @icon('edit')
                                 </x-link>
                             @endcan
@@ -58,10 +60,6 @@
                     @endforeach
                 </div>
             </x-form.section>
-
-            <x-form.footer>
-                <x-link :href="route('departments.index', 'status=active')" color="white">Back</x-link>
-            </x-form.footer>
         </x-form>
     </x-panel>
 @endsection

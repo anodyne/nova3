@@ -34,7 +34,7 @@ class ViewStory extends SpotlightCommand
 
     public function searchStory($query)
     {
-        return Story::where('title', 'like', "%${query}%")
+        return Story::where('title', 'like', "%{$query}%")
             ->get()
             ->map(function ($story) {
                 return new SpotlightSearchResult(

@@ -8,17 +8,18 @@ class Link extends Button
 {
     public function __construct(
         public string $href,
-        public string $color = 'white',
+        public string $color = 'primary',
         public string $size = 'md',
         public bool $fullWidth = false,
         public ?string $leading = null,
-        public ?string $trailing = null
+        public ?string $trailing = null,
+        public string $variant = 'filled'
     ) {
-        parent::__construct($color, $size, $fullWidth, $leading, $trailing);
+        parent::__construct($color, $size, $fullWidth, $leading, $trailing, $variant);
     }
 
     public function render()
     {
-        return view('components.link');
+        return view('components.link-old');
     }
 }

@@ -30,7 +30,7 @@ class ShowRoleController extends Controller
         $this->authorize('view', $role);
 
         return ShowRoleResponse::sendWith([
-            'role' => $role->load('permissions', 'users'),
+            'role' => $role->load('permissions', 'user'),
         ]);
     }
 }

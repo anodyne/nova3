@@ -5,7 +5,7 @@
                 <div class="flex items-center justify-between">
                     <span>{{ $label }}</span>
 
-                    <x-button wire:click="resetSelected" size="none" color="gray-text">
+                    <x-button wire:click="resetSelected" size="none" color="primary" variant="text">
                         @icon('close', 'h-5 w-5')
                         <span class="sr-only">Reset {{ $label }} filter</span>
                     </x-button>
