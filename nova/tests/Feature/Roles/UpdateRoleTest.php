@@ -75,7 +75,7 @@ class UpdateRoleTest extends TestCase
         $permission1 = Permission::find(1);
         $permission2 = Permission::find(2);
 
-        $this->role->attachPermission($permission1);
+        $this->role->givePermission($permission1);
 
         $role = Role::factory()->make();
 
@@ -115,7 +115,7 @@ class UpdateRoleTest extends TestCase
         $permission1 = Permission::find(1);
         $permission2 = Permission::find(2);
 
-        $this->role->attachPermissions([$permission1, $permission2]);
+        $this->role->givePermissions([$permission1, $permission2]);
 
         $role = Role::factory()->make();
 
@@ -155,7 +155,7 @@ class UpdateRoleTest extends TestCase
         $john = User::factory()->active()->create();
         $jane = User::factory()->active()->create();
 
-        $john->attachRole($this->role);
+        $john->addRole($this->role);
 
         $role = Role::factory()->make();
 
@@ -194,8 +194,8 @@ class UpdateRoleTest extends TestCase
         $john = User::factory()->active()->create();
         $jane = User::factory()->active()->create();
 
-        $john->attachRole($this->role);
-        $jane->attachRole($this->role);
+        $john->addRole($this->role);
+        $jane->addRole($this->role);
 
         $role = Role::factory()->make();
 
@@ -304,7 +304,7 @@ class UpdateRoleTest extends TestCase
         $this->signInWithPermission('role.update');
 
         $user = User::factory()->active()->create();
-        $user->attachRole($this->role);
+        $user->addRole($this->role);
 
         $this->assertTrue($user->hasRole($this->role->name));
 

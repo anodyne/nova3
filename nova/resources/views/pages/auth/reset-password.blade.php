@@ -1,4 +1,4 @@
-@extends($meta->template)
+@extends('layouts.auth-simple')
 
 @section('page-header', 'Reset your password')
 

@@ -42,7 +42,7 @@ class UpdateRoleUsersActionTest extends TestCase
     /** @test **/
     public function itCanAddUsers()
     {
-        $this->john->attachRole($this->role);
+        $this->john->addRole($this->role);
 
         $data = RoleAssignmentData::from([
             'role' => $this->role,
@@ -62,8 +62,8 @@ class UpdateRoleUsersActionTest extends TestCase
     /** @test **/
     public function itCanRemovePermissions()
     {
-        $this->john->attachRole($this->role);
-        $this->jane->attachRole($this->role);
+        $this->john->addRole($this->role);
+        $this->jane->addRole($this->role);
 
         $data = RoleAssignmentData::from([
             'role' => $this->role,
@@ -83,8 +83,8 @@ class UpdateRoleUsersActionTest extends TestCase
     /** @test **/
     public function itCanAddAndRemovePermissions()
     {
-        $this->john->attachRole($this->role);
-        $this->jane->attachRole($this->role);
+        $this->john->addRole($this->role);
+        $this->jane->addRole($this->role);
 
         $data = RoleAssignmentData::from([
             'role' => $this->role,

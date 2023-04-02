@@ -36,7 +36,7 @@ class PostsList extends Component
         if ($this->selectAll) {
             $this->role->syncPermissions([]);
         } else {
-            $this->role->detachPermissions($this->selected);
+            $this->role->removePermissions($this->selected);
         }
 
         $this->selected = [];

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Nova\Foundation\Middleware;
+namespace Nova\Foundation\Http\Middleware;
 
 use Illuminate\Foundation\Http\Middleware\TrimStrings as Middleware;
 

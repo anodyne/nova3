@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 return [
+
     /*
     |--------------------------------------------------------------------------
     | Default Filesystem Disk
@@ -23,7 +24,7 @@ return [
     |
     | Here you may configure as many filesystem "disks" as you wish, and you
     | may even configure multiple disks of the same driver. Defaults have
-    | been setup for each driver as an example of the required options.
+    | been set up for each driver as an example of the required values.
     |
     | Supported Drivers: "local", "ftp", "sftp", "s3"
     |
@@ -34,6 +35,7 @@ return [
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
+            'throw' => false,
         ],
 
         'public' => [
@@ -41,24 +43,31 @@ return [
             'root' => storage_path('app/public'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
+            'throw' => false,
         ],
 
         'media' => [
             'driver' => 'local',
             'root' => base_path('media'),
-            'url' => env('APP_URL') . '/media',
+            'url' => env('APP_URL').'/media',
+            'visibility' => 'public',
+            'throw' => false,
         ],
 
         'nova' => [
             'driver' => 'local',
             'root' => nova_path(),
-            'url' => env('APP_URL') . '/nova',
+            'url' => env('APP_URL').'/nova',
+            'visibility' => 'public',
+            'throw' => false,
         ],
 
         'themes' => [
             'driver' => 'local',
             'root' => base_path('themes'),
-            'url' => env('APP_URL') . '/themes',
+            'url' => env('APP_URL').'/themes',
+            'visibility' => 'public',
+            'throw' => false,
         ],
 
         's3' => [
@@ -70,6 +79,7 @@ return [
             'url' => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
+            'throw' => false,
         ],
 
     ],

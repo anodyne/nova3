@@ -19,7 +19,7 @@ trait ManagesTestUsers
     {
         $admin = $this->createUser($attributes);
 
-        $admin->attachRole('admin');
+        $admin->addRole('admin');
 
         return $admin;
     }
@@ -94,7 +94,7 @@ trait ManagesTestUsers
 
         $permissions = (is_string($permissions)) ? [$permissions] : $permissions;
 
-        $user->attachPermissions($permissions);
+        $user->givePermissions($permissions);
 
         $this->actingAs($user);
 

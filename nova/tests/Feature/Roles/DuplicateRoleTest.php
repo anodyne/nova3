@@ -37,7 +37,7 @@ class DuplicateRoleTest extends TestCase
     {
         $this->signInWithPermission(['role.create', 'role.update']);
 
-        $this->role->attachPermission($permission = Permission::first());
+        $this->role->givePermission($permission = Permission::first());
 
         $this->followingRedirects();
 

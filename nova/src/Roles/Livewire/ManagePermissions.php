@@ -35,7 +35,7 @@ class ManagePermissions extends Component
             ->diff($this->role->permissions()->pluck('id'));
 
         if ($permissionsToAdd->count() > 0) {
-            $this->role->attachPermissions($permissionsToAdd->all());
+            $this->role->givePermissions($permissionsToAdd->all());
         }
     }
 
@@ -47,7 +47,7 @@ class ManagePermissions extends Component
         if ($this->selectAll) {
             $this->role->syncPermissions([]);
         } else {
-            $this->role->detachPermissions($this->selected);
+            $this->role->removePermissions($this->selected);
         }
 
         $this->selected = [];

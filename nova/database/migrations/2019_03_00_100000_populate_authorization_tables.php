@@ -60,7 +60,7 @@ class PopulateAuthorizationTables extends Migration
         collect($permissions)->each(function ($permission, $role) {
             $role = Role::whereName($role)->first();
 
-            $role->attachPermissions(
+            $role->givePermissions(
                 Permission::whereIn('name', $permission)->get()->pluck('id')->all()
             );
         });

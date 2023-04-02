@@ -23,7 +23,7 @@ class DuplicateRoleActionTest extends TestCase
         parent::setUp();
 
         $this->role = Role::factory()->create();
-        $this->role->attachPermissions([1, 2]);
+        $this->role->givePermissions([1, 2]);
     }
 
     /** @test **/

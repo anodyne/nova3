@@ -50,7 +50,7 @@ class DeleteRoleTest extends TestCase
         $this->signInWithPermission('role.delete');
 
         $user = User::factory()->active()->create();
-        $user->attachRole($this->role->name);
+        $user->addRole($this->role->name);
 
         $this->delete(route('roles.destroy', $this->role));
 
