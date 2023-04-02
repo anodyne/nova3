@@ -41,12 +41,12 @@ use Nova\Foundation\View\Components\Tips;
 
 class AppServiceProvider extends ServiceProvider
 {
-    public function register()
+    public function register(): void
     {
         $this->registerNovaSingleton();
     }
 
-    public function boot()
+    public function boot(): void
     {
         // Make sure the file finder can find Javascript files
         $this->app['view']->addExtension('js', 'file');

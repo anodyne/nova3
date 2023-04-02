@@ -12,15 +12,6 @@ class PopulatePagesTable extends Migration
         activity()->disableLogging();
 
         $pages = [
-            ['uri' => 'login', 'key' => 'login', 'resource' => 'Nova\\Auth\\Controllers\\LoginController@showLoginForm', 'layout' => 'auth'],
-            ['uri' => 'login', 'verb' => 'post', 'resource' => 'Nova\\Auth\\Controllers\\LoginController@login', 'layout' => 'auth'],
-            ['uri' => 'logout', 'key' => 'logout', 'verb' => 'post', 'resource' => 'Nova\\Auth\\Controllers\\LoginController@logout', 'layout' => 'auth'],
-
-            ['uri' => 'password/reset', 'key' => 'password.request', 'resource' => 'Nova\\Auth\\Controllers\\ForgotPasswordController@showLinkRequestForm', 'layout' => 'auth'],
-            ['uri' => 'password/email', 'key' => 'password.email', 'verb' => 'post', 'resource' => 'Nova\\Auth\\Controllers\\ForgotPasswordController@sendResetLinkEmail', 'layout' => 'auth'],
-            ['uri' => 'password/reset/{token}', 'key' => 'password.reset', 'resource' => 'Nova\\Auth\\Controllers\\ResetPasswordController@showResetForm', 'layout' => 'auth'],
-            ['uri' => 'password/reset', 'key' => 'password.update', 'verb' => 'post', 'resource' => 'Nova\\Auth\\Controllers\\ResetPasswordController@reset', 'layout' => 'auth'],
-
             ['uri' => '/', 'key' => 'home', 'resource' => 'Nova\\Foundation\\Controllers\\WelcomeController'],
             ['uri' => 'dashboard', 'key' => 'dashboard', 'resource' => 'Nova\\Dashboards\\Controllers\\DashboardController', 'layout' => 'admin'],
             ['uri' => 'system-overview', 'key' => 'system-overview', 'resource' => 'Nova\\Dashboards\\Controllers\\SystemOverviewController', 'layout' => 'admin'],

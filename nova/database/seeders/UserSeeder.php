@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@admin.com',
         ]);
-        $admin->attachRoles(['owner', 'admin', 'active', 'writer', 'story-manager']);
+        $admin->addRoles(['owner', 'admin', 'active', 'writer', 'story-manager']);
 
         $activeUser = User::factory()
             ->active()
@@ -31,7 +31,7 @@ class UserSeeder extends Seeder
                 'name' => 'user',
                 'email' => 'user@user.com',
             ]);
-        $activeUser->attachRoles(['active', 'writer']);
+        $activeUser->addRoles(['active', 'writer']);
 
         $inactiveUser = User::factory()
             ->inactive()
@@ -39,7 +39,7 @@ class UserSeeder extends Seeder
                 'name' => 'inactive',
                 'email' => 'inactive@inactive.com',
             ]);
-        $inactiveUser->attachRoles(['inactive']);
+        $inactiveUser->addRoles(['inactive']);
 
         activity()->enableLogging();
     }

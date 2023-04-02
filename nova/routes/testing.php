@@ -31,7 +31,7 @@ Route::get('login-with-permissions', function () {
         ? [request()->get('permissions')]
         : request()->get('permissions');
 
-    $user->attachPermissions($permissions);
+    $user->givePermissions($permissions);
 
     auth()->login($user);
 });

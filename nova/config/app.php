@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Illuminate\Support\Facades\Facade;
 
 return [
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
@@ -16,7 +17,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Nova NextGen'),
+    'name' => env('APP_NAME', 'Laravel'),
 
     /*
     |--------------------------------------------------------------------------
@@ -42,7 +43,7 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG', false),
+    'debug' => (bool) env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -128,6 +129,24 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Maintenance Mode Driver
+    |--------------------------------------------------------------------------
+    |
+    | These configuration options determine the driver used to determine and
+    | manage Laravel's "maintenance mode" status. The "cache" driver will
+    | allow maintenance mode to be controlled across multiple machines.
+    |
+    | Supported drivers: "file", "cache"
+    |
+    */
+
+    'maintenance' => [
+        'driver' => 'file',
+        // 'store'  => 'redis',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Autoloaded Service Providers
     |--------------------------------------------------------------------------
     |
@@ -138,6 +157,7 @@ return [
     */
 
     'providers' => [
+
         /*
          * Laravel Framework Service Providers...
          */
@@ -181,12 +201,12 @@ return [
         Nova\Foundation\Providers\EventServiceProvider::class,
         Nova\Foundation\Providers\RouteServiceProvider::class,
         Nova\Foundation\Providers\ResponsesServiceProvider::class,
+        Nova\Foundation\Providers\FortifyServiceProvider::class,
 
         /**
          * Nova Module Service Provides.
          */
         Nova\Setup\Providers\SetupServiceProvider::class,
-        Nova\Auth\Providers\AuthServiceProvider::class,
         Nova\Characters\Providers\CharacterServiceProvider::class,
         Nova\Dashboards\Providers\DashboardsServiceProvider::class,
         Nova\Departments\Providers\DepartmentServiceProvider::class,
@@ -200,6 +220,7 @@ return [
         Nova\Stories\Providers\StoryServiceProvider::class,
         Nova\Themes\Providers\ThemeServiceProvider::class,
         Nova\Users\Providers\UserServiceProvider::class,
+
     ],
 
     /*
@@ -214,6 +235,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // ...
+        // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
+
 ];

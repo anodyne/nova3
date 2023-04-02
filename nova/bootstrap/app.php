@@ -43,9 +43,26 @@ $app->singleton(
     Nova\Foundation\Exceptions\Handler::class
 );
 
-if (isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] === 'nova3-acceptance.test') {
-    Dotenv\Dotenv::create(base_path(), '.env.acceptance')->overload();
-}
+/*
+|--------------------------------------------------------------------------
+| Bind Updated Paths
+|--------------------------------------------------------------------------
+|
+| Next, we need to bind the updated paths into the container so we will be
+| able to resolve them when needed.
+|
+*/
+
+$app->useNovaPath(path: $app->basePath('nova'));
+
+$app->useAppPath(path: $app->novaPath('src'));
+$app->useBootstrapPath(path: $app->novaPath('bootstrap'));
+$app->useConfigPath(path: $app->novaPath('config'));
+$app->useDatabasePath(path: $app->novaPath('database'));
+$app->useExtensionPath(path: $app->basePath('extensions'));
+$app->useLangPath(path: $app->novaPath('lang'));
+$app->usePublicPath(path: $app->basePath());
+$app->useThemePath(path: $app->basePath('themes'));
 
 /*
 |--------------------------------------------------------------------------

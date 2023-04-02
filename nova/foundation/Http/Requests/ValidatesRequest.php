@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Nova\Foundation\Requests;
+namespace Nova\Foundation\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-abstract class AuthorizesRequest extends FormRequest
+abstract class ValidatesRequest extends FormRequest
 {
     /**
      * Is the current user authorized to take the action on this request?
@@ -15,7 +15,7 @@ abstract class AuthorizesRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**

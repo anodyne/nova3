@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Nova\Roles\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Laratrust\Models\LaratrustRole;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Laratrust\Models\Role as LaratrustRole;
 use Nova\Roles\Events;
 use Nova\Roles\Models\Builders\RoleBuilder;
 use Nova\Users\Models\States\Active;
@@ -56,7 +57,7 @@ class Role extends LaratrustRole
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
      */
-    public function getMorphByUserRelation($relationship)
+    public function getMorphByUserRelation(string $relationship): MorphToMany
     {
         return parent::getMorphByUserRelation($relationship)
             // ->whereState('status', Active::class)
@@ -65,7 +66,7 @@ class Role extends LaratrustRole
 
     public function giveToUser(User $user): self
     {
-        $user->attachRole($this);
+        $user->addRole($this);
 
         return $this;
     }
