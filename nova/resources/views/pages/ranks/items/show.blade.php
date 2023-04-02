@@ -1,19 +1,21 @@
 @extends($meta->template)
 
 @section('content')
-    <x-page-header :title="$item->name->name">
-        <x-slot:pretitle>
-            <a href="{{ route('ranks.items.index') }}">Rank Items</a>
-        </x-slot:pretitle>
-
-        <x-slot:controls>
-            @can('update', $item)
-                <x-link :href="route('ranks.items.edit', $item)" color="primary">Edit Rank Item</x-link>
-            @endcan
-        </x-slot:controls>
-    </x-page-header>
-
     <x-panel>
+        <x-panel.header :title="$item->name->name">
+            <x-slot:actions>
+                @can('viewAny', Nova\Ranks\Models\RankItem::class)
+                    <x-link :href="route('ranks.items.index')" leading="arrow-left" size="none" color="gray-text">
+                        Back
+                    </x-link>
+                @endcan
+
+                @can('update', $item)
+                    <x-link :href="route('ranks.items.edit', $item)" color="primary" leading="edit">Edit</x-link>
+                @endcan
+            </x-slot:actions>
+        </x-panel.header>
+
         <x-form action="">
             <x-form.section title="Rank Info" message="You can build up your rank with a few clicks. Assign it to a group, set a name, and pick your base and overlay images to build your rank quickly and easily.">
                 <x-input.group label="Rank Name">

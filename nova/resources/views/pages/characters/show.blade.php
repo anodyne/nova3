@@ -1,19 +1,19 @@
 @extends($meta->template)
 
 @section('content')
-    <x-page-header :title="$character->name">
-        <x-slot:pretitle>
-            <a href="{{ route('characters.index', "status={$character->status->name()}") }}">Characters</a>
-        </x-slot:pretitle>
-
-        <x-slot:controls>
-            @can('update', $character)
-                <x-link :href="route('characters.edit', $character)" color="primary">Edit Character</x-link>
-            @endcan
-        </x-slot:controls>
-    </x-page-header>
-
     <x-panel>
+        <x-panel.header :title="$character->name">
+            <x-slot:actions>
+                <x-link :href="route('characters.index')" leading="arrow-left" color="gray">
+                    Back to characters list
+                </x-link>
+
+                @can('update', $character)
+                    <x-button-filled tag="a" :href="route('characters.edit', $character)" leading="edit">Edit</x-button-filled>
+                @endcan
+            </x-slot:actions>
+        </x-panel.header>
+
         <x-form action="">
             <x-form.section title="Character Info">
                 <x-input.group label="Name">

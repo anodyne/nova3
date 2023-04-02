@@ -3,13 +3,13 @@
 @section('content')
     <x-panel>
         <x-panel.header title="Email settings">
-            <x-slot:controls>
+            <x-slot:actions>
                 <div x-data="{}">
-                    <x-button color="primary-outline" @click="$dispatch('toggle-spotlight')" leading="search">
+                    <x-button-outline leading="search" @click="$dispatch('toggle-spotlight')">
                         Find a setting
-                    </x-button>
+                    </x-button-outline>
                 </div>
-            </x-slot:controls>
+            </x-slot:actions>
         </x-panel.header>
 
         {{-- <div class="absolute inset-0 w-full h-full rounded-lg overflow-hidden  transition-all duration-300"> --}}
@@ -29,7 +29,7 @@
                         By continuing, you agree that you are of suitable age for this content.
                     </p>
 
-                    <x-button color="error-outline">
+                    <x-button color="danger-outline">
                         Continue
                     </x-button>
                 </div>

@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Nova\Foundation\Enums\SystemNotificationType;
 use Nova\Foundation\Models\SystemNotification;
 use Nova\Users\Models\User;
 
@@ -25,7 +26,11 @@ class CreateNotificationsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('key')->unique();
-            $table->string('category')->default('single');
+            $table->text('description')->nullable();
+            $table->string('type')->default(SystemNotificationType::personal->value);
+            $table->boolean('web')->default(true);
+            $table->boolean('email')->default(true);
+            $table->boolean('discord')->default(false);
             $table->timestamps();
         });
 
@@ -33,7 +38,7 @@ class CreateNotificationsTable extends Migration
             $table->id();
             $table->foreignIdFor(User::class)->nullable();
             $table->foreignIdFor(SystemNotification::class);
-            $table->boolean('in-app')->default(true);
+            $table->boolean('web')->default(true);
             $table->boolean('email')->default(true);
             $table->boolean('discord')->default(false);
             $table->json('discord_settings')->nullable();

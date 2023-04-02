@@ -22,7 +22,7 @@ class Badge extends Component
     {
         return Arr::toCssClasses([
             'inline-flex items-center space-x-1.5',
-            'font-medium leading-normal',
+            'font-medium leading-normal no-underline',
             $this->colorStyles(),
             $this->sizeStyles(),
             'rounded-full' => ! str($this->size)->contains('square'),

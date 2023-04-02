@@ -23,9 +23,9 @@
                                 </div>
                             </div>
                             <div class="mt-5 md:mt-0 flex justify-center">
-                                <x-link href="#" size="xs" color="primary-outline">
-                                    My Account
-                                </x-link>
+                                <x-button-outline tag="a" href="#" size="xs">
+                                    Go to my account
+                                </x-button-outline>
                             </div>
                         </div>
                     </x-content-box>
@@ -204,7 +204,9 @@
                             </ul>
                         </div>
                         <div class="mt-6 flex flex-col justify-stretch">
-                            <x-link href="#">See all activity</x-link>
+                            <div>
+                                <x-button-outline tag="a" href="#" class="w-full">See all activity</x-button-outline>
+                            </div>
                         </div>
                     </x-content-box>
                 </x-panel>

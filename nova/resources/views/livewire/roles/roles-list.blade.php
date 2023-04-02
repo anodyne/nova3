@@ -1,43 +1,32 @@
 <x-panel x-bind="parent" class="{{ $reordering ? 'overflow-hidden' : '' }}" x-data="filtersPanel()">
     <x-panel.header title="Roles" message="Control what users can do throughout Nova.">
         @if (! $reordering)
-            <x-slot:controls>
+            <x-slot:actions>
                 @can('update', $roles->first())
-                    <x-button
-                        size="none"
-                        color="gray-text"
-                        wire:click="startReordering"
-                        leading="arrow-sort"
-                    >
+                    <x-link tag="button" color="gray" leading="arrow-sort" wire:click="startReordering">
                         Reorder
-                    </x-button>
+                    </x-link>
                 @endcan
 
                 @can('create', $roleClass)
-                    <x-link
-                        :href="route('roles.create')"
-                        color="primary"
-                        data-cy="create"
-                        class="order-first md:order-last"
-                        leading="add"
-                    >
-                        Add role
-                    </x-link>
+                    <x-button-filled tag="a" :href="route('roles.create')" data-cy="create" class="order-first md:order-last" leading="add">
+                        Add a role
+                    </x-button-filled>
                 @endcan
-            </x-slot:controls>
+            </x-slot:actions>
         @else
             <x-slot:message>
-                <x-panel.info icon="arrow-sort" title="Change sorting order" class="mt-4">
+                <x-panel.primary icon="arrow-sort" title="Change sorting order" class="mt-4">
                     <div class="space-y-4">
                         <p>Sorting roles allows for admins to control the hierarchy of roles in the system to ensure that users with a lower role cannot give themselves higher privileges.</p>
 
                         <p>Top roles have the greatest privileges &ndash; place the most important roles with the highest potential impact higher on the list, to ensure users can't gain unwanted access to areas of Nova.</p>
 
                         <div>
-                            <x-button wire:click="stopReordering" color="info">Finish</x-button>
+                            <x-button-filled wire:click="stopReordering">Finish</x-button-filled>
                         </div>
                     </div>
-                </x-panel.info>
+                </x-panel.primary>
             </x-slot:message>
         @endif
     </x-panel.header>
@@ -48,7 +37,7 @@
                 icon="lock"
                 title="Start by creating a role"
                 message="Roles allow you to control what users can and cannot access throughout Nova."
-                label="Add role"
+                label="Add a role"
                 :link="route('roles.create')"
                 :link-access="gate()->allows('create', $roleClass)"
             ></x-empty-state.large>
@@ -56,16 +45,16 @@
             <x-content-box height="sm" class="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-6">
                 <div class="flex-1">
                     <x-input.group>
-                        <x-input.text placeholder="Find role(s) by name" wire:model="search">
+                        <x-input.text placeholder="Find roles by name" wire:model="search">
                             <x-slot:leadingAddOn>
                                 @icon('search', 'h-5 w-5')
                             </x-slot:leadingAddOn>
 
                             @if ($search)
                                 <x-slot:trailingAddOn>
-                                    <x-button size="none" color="light-gray-text" wire:click="$set('search', '')">
+                                    <x-link tag="button" color="gray" wire:click="$set('search', '')">
                                         @icon('close', 'h-5 w-5')
-                                    </x-button>
+                                    </x-link>
                                 </x-slot:trailingAddOn>
                             @endif
                         </x-input.text>
@@ -73,9 +62,9 @@
                 </div>
 
                 <div class="shrink flex justify-between md:justify-start items-center space-x-4">
-                    <x-button
-                        size="none"
-                        :color="$isFiltered ? 'primary-text' : 'gray-text'"
+                    <x-link
+                        tag="button"
+                        :color="$isFiltered ? 'primary' : 'gray'"
                         x-bind="trigger"
                         leading="filter"
                     >
@@ -83,7 +72,7 @@
                         @if ($activeFilterCount > 0)
                             <x-badge color="primary" size="sm" class="ml-2">{{ $activeFilterCount }}</x-badge>
                         @endif
-                    </x-button>
+                    </x-link>
                 </div>
             </x-content-box>
 
@@ -171,7 +160,7 @@
                     </div>
 
                     @if (! $reordering)
-                        <x-slot:controls>
+                        <x-slot:actions>
                             <x-dropdown placement="bottom-end">
                                 <x-slot:trigger>
                                     <x-icon.more class="h-6 w-6" />
@@ -217,7 +206,7 @@
                                     </x-dropdown.group>
                                 @endif
                             </x-dropdown>
-                        </x-slot:controls>
+                        </x-slot:actions>
                     @endif
                 </x-table-list.row>
             @empty
@@ -228,13 +217,13 @@
                         :primary-access="gate()->allows('create', $roleClass)"
                     >
                         <x-slot:primary>
-                            <x-link :href="route('roles.create')" color="primary">
-                                Add role
-                            </x-link>
+                            <x-button-filled tag="a" :href="route('roles.create')">
+                                Add a role
+                            </x-button-filled>
                         </x-slot:primary>
 
                         <x-slot:secondary>
-                            <x-button wire:click="$set('search', '')">Clear search</x-button>
+                            <x-button-outline wire:click="$set('search', '')">Clear search</x-button-outline>
                         </x-slot:secondary>
                     </x-empty-state.not-found>
                 </x-slot:emptyMessage>

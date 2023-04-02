@@ -1,12 +1,14 @@
 <x-panel x-data="filtersPanel()" x-bind="parent">
     <x-panel.header title="Users" message="Manage all of the game's users.">
-        <x-slot:controls>
-            @can('create', $userClass)
-                <x-link :href="route('users.create')" color="primary" data-cy="create" leading="add">
-                    Add user
-                </x-link>
-            @endcan
-        </x-slot:controls>
+        <x-slot:actions>
+            @if ($users->count() > 0)
+                @can('create', $userClass)
+                    <x-button-filled tag="a" :href="route('users.create')" data-cy="create">
+                        Add a user
+                    </x-button-filled>
+                @endcan
+            @endif
+        </x-slot:actions>
     </x-panel.header>
 
     @if ($userCount === 0)
@@ -14,7 +16,7 @@
             icon="list"
             title="Start by creating a user"
             message="Departments allow you to organize character positions into logical groups that you can display on your manifests."
-            label="Add user"
+            label="Add a user"
             :link="route('users.create')"
             :link-access="gate()->allows('create', $userClass)"
         ></x-empty-state.large>
@@ -29,9 +31,9 @@
 
                         @if ($search)
                             <x-slot:trailingAddOn>
-                                <x-button size="none" color="light-gray-text" wire:click="$set('search', '')">
+                                <x-link tag="button" color="gray" wire:click="$set('search', '')">
                                     @icon('close', 'h-5 w-5')
-                                </x-button>
+                                </x-link>
                             </x-slot:trailingAddOn>
                         @endif
                     </x-input.text>
@@ -39,9 +41,9 @@
             </div>
 
             <div class="shrink flex justify-between md:justify-start items-center space-x-4">
-                <x-button
-                    size="none"
-                    :color="$isFiltered ? 'primary-text' : 'gray-text'"
+                <x-link
+                    tag="button"
+                    :color="$isFiltered ? 'primary' : 'gray'"
                     x-bind="trigger"
                     leading="filter"
                 >
@@ -49,7 +51,7 @@
                     @if ($activeFilterCount > 0)
                         <x-badge color="primary" size="sm" class="ml-2">{{ $activeFilterCount }}</x-badge>
                     @endif
-                </x-button>
+                </x-link>
             </div>
         </x-content-box>
 
@@ -105,7 +107,7 @@
                         </x-badge>
                     </div>
 
-                    <x-slot:controls>
+                    <x-slot:actions>
                         <x-dropdown placement="bottom-end">
                             <x-slot:trigger>
                                 <x-icon.more class="h-6 w-6" />
@@ -153,7 +155,7 @@
                                 </x-dropdown.group>
                             @endcan
                         </x-dropdown>
-                    </x-slot:controls>
+                    </x-slot:actions>
                 </x-table-list.row>
             @empty
                 <x-slot:emptyMessage>
@@ -163,13 +165,13 @@
                         :primary-access="gate()->allows('create', $userClass)"
                     >
                         <x-slot:primary>
-                            <x-link :href="route('users.create')" color="primary">
-                                Add user
-                            </x-link>
+                            <x-button-filled tag="a" :href="route('users.create')">
+                                Add a user
+                            </x-button-filled>
                         </x-slot:primary>
 
                         <x-slot:secondary>
-                            <x-button wire:click="$set('search', '')">Clear search</x-button>
+                            <x-button-outline wire:click="$set('search', '')">Clear search</x-button-outline>
                         </x-slot:secondary>
                     </x-empty-state.not-found>
                 </x-slot:emptyMessage>

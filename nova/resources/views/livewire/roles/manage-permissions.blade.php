@@ -6,7 +6,7 @@
             @if ($permissions->total() > 0)
                 <div class="w-full sm:w-1/3">
                     <x-input.group>
-                        <x-input.text wire:model.debounce.500ms="filters.search" placeholder="Find assigned permissions...">
+                        <x-input.text wire:model.debounce.500ms="filters.search" placeholder="Find assigned permissions">
                             <x-slot:leadingAddOn>
                                 @icon('search', 'h-5 w-5')
                             </x-slot:leadingAddOn>
@@ -25,13 +25,13 @@
                 @can('update', $role)
                     <div class="flex items-center space-x-4">
                         @if (count($selected) > 0)
-                            <x-button color="error-outline" size="sm" wire:click="detachSelectedPermissions">
-                                Remove {{ count($selected) }} @choice('Permission|Permissions', count($selected))
+                            <x-button color="danger-outline" size="sm" wire:click="detachSelectedPermissions" leading="delete">
+                                Remove {{ count($selected) }} @choice('permission|permissions', count($selected))
                             </x-button>
                         @endif
 
-                        <x-button type="button" color="primary" size="sm" wire:click="$emit('openModal', 'roles:select-permissions-modal')">
-                            Add Permissions
+                        <x-button type="button" color="primary" size="sm" wire:click="$emit('openModal', 'roles:select-permissions-modal')" leading="add">
+                            Add permissions
                         </x-button>
                     </div>
                 @endcan

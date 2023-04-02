@@ -1,13 +1,15 @@
 @extends($meta->template)
 
 @section('content')
-    <x-page-header title="Add User">
-        <x-slot:pretitle>
-            <a href="{{ route('users.index', 'status=active') }}">Users</a>
-        </x-slot:pretitle>
-    </x-page-header>
-
     <x-panel>
+        <x-panel.header title="Add a new user">
+            <x-slot:actions>
+                <x-link :href="route('users.index')" leading="arrow-left" color="gray">
+                    Back to the users list
+                </x-link>
+            </x-slot:actions>
+        </x-panel.header>
+
         <x-form :action="route('users.store')">
             <x-form.section
                 title="User Info"
@@ -25,7 +27,7 @@
                 <x-slot:message>
                     <p>For privacy reasons, we don't recommend using a user's real name. Instead, use a nickname to help protect their identity.</p>
 
-                    <p class="block"><strong class="font-semibold">Note:</strong> after the account is created, a password will be generated and emailed to the new user.</p>
+                    <p class="block"><strong class="font-semibold">Note:</strong> After the account is created, a password will be generated and emailed to the new user.</p>
                 </x-slot:message>
 
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
@@ -69,8 +71,8 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button type="submit" color="primary">Add User</x-button>
-                <x-link :href="route('users.index', 'status=active')" color="white">Cancel</x-link>
+                <x-button-filled type="submit">Add user</x-button-filled>
+                <x-link :href="route('users.index', 'status=active')" color="gray">Cancel</x-link>
             </x-form.footer>
         </x-form>
     </x-panel>

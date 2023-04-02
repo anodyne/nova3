@@ -8,7 +8,7 @@ class NovaBladeDirectives
 {
     public static function icon($expression)
     {
-        return "<?php echo e(icon(${expression})); ?>";
+        return "<?php echo e(icon({$expression})); ?>";
     }
 
     public static function novaScripts($expression)

@@ -1,13 +1,17 @@
 @extends($meta->template)
 
 @section('content')
-    <x-page-header :title="$name->name">
-        <x-slot:pretitle>
-            <a href="{{ route('ranks.names.index') }}">Rank Names</a>
-        </x-slot:pretitle>
-    </x-page-header>
-
     <x-panel>
+        <x-panel.header title="Edit rank name">
+            <x-slot:actions>
+                @can('viewAny', Nova\Ranks\Models\RankName::class)
+                    <x-link :href="route('ranks.names.index')" leading="arrow-left" size="none" color="gray-text">
+                        Back
+                    </x-link>
+                @endcan
+            </x-slot:actions>
+        </x-panel.header>
+
         <x-form :action="route('ranks.names.update', $name)" method="PUT">
             <x-form.section title="Rank Name Info" message="Rank names allow you to re-use basic rank information across all of your ranks to avoid unnecessary and tedious editing of the same information across every rank in the system.">
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
@@ -45,7 +49,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button type="submit" color="primary">Update Rank Name</x-button>
+                <x-button type="submit" color="primary">Update</x-button>
                 <x-link :href="route('ranks.names.index')" color="white">Cancel</x-link>
             </x-form.footer>
         </x-form>

@@ -8,7 +8,7 @@
             <div class="w-px h-5 border-l border-gray-200 dark:border-gray-200/10"></div>
         @endif
 
-        <x-button size="none" color="gray-text" wire:click="clearAll">Clear all</x-button>
+        <x-link tag="button" color="gray" wire:click="clearAll">Clear all</x-link>
     </div>
 
     <div class="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">

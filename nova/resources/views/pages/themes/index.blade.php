@@ -6,7 +6,7 @@
             {{ request()->has('pending') ? 'Pending ' : '' }}Themes
         </x-slot:title>
 
-        <x-slot:controls>
+        <x-slot:actions>
             <x-dropdown placement="bottom-start md:bottom-end">
                 <x-slot:trigger>@icon('filter', 'h-7 w-7 md:h-6 md:w-6')</x-slot:trigger>
 
@@ -23,7 +23,7 @@
                     Add Theme
                 </x-link>
             @endcan
-        </x-slot:controls>
+        </x-slot:actions>
     </x-page-header>
 
     @if ($themes->count() > 0)

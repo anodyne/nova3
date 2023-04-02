@@ -33,7 +33,7 @@ class ViewPositions extends SpotlightCommand
 
     public function searchDepartment($query)
     {
-        return Department::where('name', 'like', "%${query}%")
+        return Department::where('name', 'like', "%{$query}%")
             ->get()
             ->map(function ($department) {
                 return new SpotlightSearchResult(

@@ -1,14 +1,18 @@
 @extends($meta->template)
 
 @section('content')
-    <x-page-header :title="$form->name">
-        <x-slot:pretitle>
-            <a href="{{ route('forms.index') }}">Forms</a>
-        </x-slot:pretitle>
-    </x-page-header>
-
     <x-panel>
-        <x-form :action="route('forms.update', $form)" method="PUT" :divide="false" :space="false">
+        <x-panel.header title="Edit form">
+            <x-slot:actions>
+                @can('viewAny', Nova\Forms\Models\Form::class)
+                    <x-link :href="route('forms.index')" color="gray" leading="arrow-left">
+                        Back to the forms list
+                    </x-link>
+                @endcan
+            </x-slot:actions>
+        </x-panel.header>
+
+        <x-form :action="route('forms.update', $form)" method="PUT" :divide="false">
             <x-form.section title="Form Info" message="Officia voluptate adipisicing esse eiusmod incididunt ullamco cupidatat.">
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
                     <x-input.text
@@ -28,9 +32,9 @@
                 </x-input.group>
             </x-form.section>
 
-            <x-form.footer class="mt-4 md:mt-8">
-                <x-button type="submit" color="primary">Update Form</x-button>
-                <x-link :href="route('forms.index')" color="white">Cancel</x-link>
+            <x-form.footer>
+                <x-button-filled type="submit">Save form</x-button-filled>
+                <x-link :href="route('forms.index')" color="gray">Cancel</x-link>
             </x-form.footer>
 
             <input type="hidden" name="id" value="{{ $form->id }}">

@@ -1,12 +1,6 @@
 @extends($meta->template)
 
 @section('content')
-    <x-page-header title="Add Role">
-        <x-slot:pretitle>
-            <a href="{{ route('roles.index') }}">Roles</a>
-        </x-slot:pretitle>
-    </x-page-header>
-
     <x-panel
         x-data="{ displayName: '{{ old('display_name') }}', name: '{{ old('name') }}', suggestName: true }"
         x-init="$watch('displayName', value => {
@@ -15,6 +9,16 @@
             }
         })"
     >
+        <x-panel.header title="Add a new role">
+            <x-slot:actions>
+                @can('viewAny', Nova\Roles\Models\Role::class)
+                    <x-link :href="route('roles.index')" leading="arrow-left" color="gray">
+                        Back to the roles list
+                    </x-link>
+                @endcan
+            </x-slot:actions>
+        </x-panel.header>
+
         <x-form :action="route('roles.store')">
             <x-form.section title="Role Info" message="A role is a collection of permissions that allows a user to take certain actions throughout Nova. Since a user can have as many roles as you'd like, we recommend creating roles with fewer permissions to give yourself more freedom to add and remove access for a given user.">
                 <x-input.group label="Name" for="display_name" :error="$errors->first('display_name')">
@@ -37,8 +41,8 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button type="submit" color="primary">Add Role</x-button>
-                <x-link :href="route('roles.index')" color="white">Cancel</x-link>
+                <x-button-filled type="submit">Add role</x-button-filled>
+                <x-link :href="route('roles.index')" color="gray">Cancel</x-link>
             </x-form.footer>
         </x-form>
     </x-panel>

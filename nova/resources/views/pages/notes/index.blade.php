@@ -7,13 +7,13 @@
 
     <x-modal color="danger" title="Delete note?" icon="delete" :url="route('notes.delete')">
         <x-slot:footer>
-            <x-button type="submit" form="form" color="danger" full-width>
-                Delete
-            </x-button>
+            <x-button-filled type="submit" form="form" color="danger">
+                Delete note
+            </x-button-filled>
 
-            <x-button @click="$dispatch('modal-close')" type="button" color="white" full-width>
+            <x-button-outline color="danger" @click="$dispatch('modal-close')">
                 Cancel
-            </x-button>
+            </x-button-outline>
         </x-slot:footer>
     </x-modal>
 @endsection

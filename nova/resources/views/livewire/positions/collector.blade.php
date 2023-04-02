@@ -11,14 +11,14 @@
                 />
 
                 @if (count($positions) > 1)
-                    <x-button wire:click="removePosition({{ $loop->index }})" type="button" color="gray-danger-text" size="none">
+                    <x-link tag="button" color="danger" wire:click="removePosition({{ $loop->index }})">
                         @icon('delete', 'h-6 w-6')
-                    </x-button>
+                    </x-link>
                 @endif
 
-                <x-button wire:click="addPosition({{ $loop->index }})" type="button" color="gray-text" size="none">
+                <x-link tag="button" wire:click="addPosition({{ $loop->index }})">
                     @icon('add', 'h-6 w-6')
-                </x-button>
+                </x-link>
             </div>
 
             @if (count($positions) > 1)

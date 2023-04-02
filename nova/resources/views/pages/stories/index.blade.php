@@ -2,7 +2,7 @@
 
 @section('content')
     {{-- <x-page-header title="Stories">
-        <x-slot:controls>
+        <x-slot:actions>
             @if ($storyCount > 0)
                 <x-dropdown placement="bottom-start md:bottom-end">
                     <x-slot:trigger>@icon('filter', 'h-7 w-7 md:h-6 md:w-6')</x-slot:trigger>
@@ -33,7 +33,7 @@
                     </x-link>
                 @endcan
             @endif
-        </x-slot:controls>
+        </x-slot:actions>
     </x-page-header>
 
     @if ($storyCount === 0)

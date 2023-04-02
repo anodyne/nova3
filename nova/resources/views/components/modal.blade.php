@@ -48,21 +48,21 @@
             aria-labelledby="modal-title"
             x-cloak
         >
-            <x-content-box width="sm">
-                <div class="sm:flex sm:items-start">
+            <x-content-box>
+                <div class="flex flex-col items-start space-y-4">
                     @if ($icon)
-                        <div class="mx-auto flex shrink-0 items-center justify-center sm:mx-0">
+                        <div class="flex shrink-0 items-center justify-center">
                             <x-badge :color="$color" size="circle" icon>
                                 @icon($icon, 'h-6 w-6')
                             </x-badge>
                         </div>
                     @endif
 
-                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                    <div class="w-full text-left">
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100" id="modal-title">
                             {{ $title }}
                         </h3>
-                        <div class="mt-2 sm:text-sm sm:leading-6 text-gray-600 dark:text-gray-400">
+                        <div class="mt-2 text-gray-600 dark:text-gray-400">
                             <div x-html="content"></div>
                             {{ $slot }}
                         </div>
@@ -70,7 +70,7 @@
                 </div>
             </x-content-box>
 
-            <x-content-box class="z-20 sm:flex sm:flex-row-reverse space-y-4 sm:space-y-0 sm:space-x-4 sm:space-x-reverse" height="sm" width="sm">
+            <x-content-box class="z-20 sm:flex space-y-4 sm:space-y-0 sm:space-x-4" height="sm">
                 {{ $footer }}
             </x-content-box>
         </div>

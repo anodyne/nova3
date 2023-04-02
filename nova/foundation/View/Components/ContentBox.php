@@ -31,6 +31,8 @@ class ContentBox extends Component
             'xs' => 'py-3',
             'sm' => 'py-4',
             default => 'py-6',
+            'lg' => 'py-8',
+            'xl' => 'py-12',
         };
     }
 
@@ -42,6 +44,8 @@ class ContentBox extends Component
             'xs' => 'px-3',
             'sm' => 'px-4',
             default => 'px-6',
+            'lg' => 'px-8',
+            'xl' => 'px-12',
         };
     }
 

@@ -1,12 +1,6 @@
 @extends($meta->template)
 
 @section('content')
-    <x-page-header title="Add Form">
-        <x-slot:pretitle>
-            <a href="{{ route('forms.index') }}">Forms</a>
-        </x-slot:pretitle>
-    </x-page-header>
-
     <x-panel
         x-data="{ name: '{{ old('name') }}', key: '{{ old('key') }}', suggestKey: true }"
         x-init="$watch('name', value => {
@@ -15,6 +9,16 @@
             }
         })"
     >
+        <x-panel.header title="Add a new form">
+            <x-slot:actions>
+                @can('viewAny', Nova\Forms\Models\Form::class)
+                    <x-link :href="route('forms.index')" color="gray" leading="arrow-left">
+                        Back to the forms list
+                    </x-link>
+                @endcan
+            </x-slot:actions>
+        </x-panel.header>
+
         <x-form :action="route('forms.store')">
             <x-form.section title="Form Info" message="Laborum esse proident non officia laborum mollit aliqua ad ullamco nisi.">
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
@@ -31,8 +35,8 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button type="submit" color="primary">Add Form</x-button>
-                <x-link :href="route('forms.index')" color="white">Cancel</x-link>
+                <x-button-filled type="submit">Add form</x-button-filled>
+                <x-link :href="route('forms.index')" color="gray">Cancel</x-link>
             </x-form.footer>
         </x-form>
     </x-panel>

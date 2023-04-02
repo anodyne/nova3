@@ -10,7 +10,7 @@
 
         {{ $post->title }}
 
-        <x-slot:controls>
+        <x-slot:actions>
             @if ($previousPost)
                 <x-link :href="route('posts.show', [$story, $previousPost])" size="none" color="gray-text">
                     <x-icon.chevron-left class="h-7 w-7 md:h-6 md:w-6" />
@@ -28,7 +28,7 @@
                     Edit post
                 </x-link>
             @endcan
-        </x-slot:controls>
+        </x-slot:actions>
     </x-page-header>
 
     <x-panel x-data="{ showContent: {{ $post->shouldShowContentWarning() ? 'false' : 'true' }} }">
@@ -61,7 +61,7 @@
                 By continuing, you agree that you are of suitable age for this content.
             </p>
 
-            <x-button type="button" color="error-outline" @click="showContent = true">
+            <x-button type="button" color="danger-outline" @click="showContent = true">
                 Continue
             </x-button>
         </x-content-box>

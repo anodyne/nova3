@@ -5,7 +5,7 @@
                 <span>{{ $meta['label'] }}</span>
 
                 @if ($value !== $initialValue)
-                    <x-button wire:click="resetValue" size="none" color="gray-text">
+                    <x-button wire:click="resetValue" size="none" variant="text">
                         <span class="md:text-xs">Clear</span>
                     </x-button>
                 @endif

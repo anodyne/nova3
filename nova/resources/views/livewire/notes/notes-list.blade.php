@@ -1,10 +1,10 @@
 <x-panel x-data="filtersPanel()" x-bind="parent">
     <x-panel.header title="My notes">
-        <x-slot:controls>
-            <x-link :href="route('notes.create')" color="primary" data-cy="create" leading="add">
+        <x-slot:actions>
+            <x-button-filled tag="a" :href="route('notes.create')" leading="add" data-cy="create">
                 Add a note
-            </x-link>
-        </x-slot:controls>
+            </x-button-filled>
+        </x-slot:actions>
     </x-panel.header>
 
     @if ($noteCount === 0)
@@ -26,9 +26,9 @@
 
                         @if ($search)
                             <x-slot:trailingAddOn>
-                                <x-button size="none" color="light-gray-text" wire:click="$set('search', '')">
+                                <x-link tag="button" color="gray" wire:click="$set('search', '')">
                                     @icon('close', 'h-5 w-5')
-                                </x-button>
+                                </x-link>
                             </x-slot:trailingAddOn>
                         @endif
                     </x-input.text>
@@ -36,9 +36,9 @@
             </div>
 
             <div class="shrink flex justify-between md:justify-start items-center space-x-4">
-                <x-button
-                    size="none"
-                    :color="$isFiltered ? 'primary-text' : 'gray-text'"
+                <x-link
+                    tag="button"
+                    :color="$isFiltered ? 'primary' : 'gray'"
                     x-bind="trigger"
                     leading="filter"
                 >
@@ -46,7 +46,7 @@
                     @if ($activeFilterCount > 0)
                         <x-badge color="primary" size="sm" class="ml-2">{{ $activeFilterCount }}</x-badge>
                     @endif
-                </x-button>
+                </x-link>
             </div>
         </x-content-box>
 
@@ -78,7 +78,7 @@
                         </div>
                     </div>
 
-                    <x-slot:controls>
+                    <x-slot:actions>
                         <x-dropdown placement="bottom-end">
                             <x-slot:trigger>
                                 <x-icon.more class="h-6 w-6" />
@@ -108,7 +108,7 @@
                                 </x-dropdown.item-danger>
                             </x-dropdown.group>
                         </x-dropdown>
-                    </x-slot:controls>
+                    </x-slot:actions>
                 </x-table-list.row>
             @empty
                 <x-slot:emptyMessage>

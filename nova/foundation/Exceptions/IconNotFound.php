@@ -10,6 +10,6 @@ class IconNotFound extends Exception
 {
     public static function missing(string $set, string $name)
     {
-        return new static("Svg by name ${name} from set ${set} not found.");
+        return new static("Svg by name {$name} from set {$set} not found.");
     }
 }

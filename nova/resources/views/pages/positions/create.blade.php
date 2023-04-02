@@ -1,20 +1,23 @@
 @extends($meta->template)
 
 @section('content')
-    <x-page-header title="Add Position">
-        <x-slot:pretitle>
-            <div class="flex items-center">
-                <a href="{{ route('positions.index') }}">Positions</a>
-
-                @if ($selectedDepartment)
-                    <x-icon.chevron-right class="h-4 w-4 text-gray-500 mx-1" />
-                    <a href="{{ route('positions.index', $selectedDepartment) }}">{{ $selectedDepartment->name }}</a>
-                @endif
-            </div>
-        </x-slot:pretitle>
-    </x-page-header>
-
     <x-panel>
+        <x-panel.header title="Add a new position">
+            <x-slot:actions>
+                @can('viewAny', Nova\Departments\Models\Position::class)
+                    @if ($selectedDepartment)
+                        <x-link :href="route('positions.index', 'department='.$selectedDepartment?->id)" leading="arrow-left" size="none" color="gray-text">
+                            Back to {{ $selectedDepartment->name }} positions list
+                        </x-link>
+                    @else
+                        <x-link :href="route('positions.index')" leading="arrow-left" size="none" color="gray-text">
+                            Back to positions list
+                        </x-link>
+                    @endif
+                @endcan
+            </x-slot:actions>
+        </x-panel.header>
+
         <x-form :action="route('positions.store')">
             <x-form.section title="Position Info">
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
@@ -25,7 +28,7 @@
                     <x-input.select name="department_id" id="department_id" class="w-full sm:w-2/3">
                         <option value="">Select a department</option>
                         @foreach ($departments as $department)
-                            <option value="{{ $department->id }}" @if ($department->id == optional($selectedDepartment)->id) selected @endif>
+                            <option value="{{ $department->id }}" @selected($department->id === $selectedDepartment?->id)>
                                 {{ $department->name }}
                             </option>
                         @endforeach
@@ -39,9 +42,9 @@
 
             <x-form.section title="Availability">
                 <x-slot:message>
-                    You can allow or prevent prospective players from picking this position when applying to join by setting the number of available slots.
+                    <p>You can allow or prevent prospective players from picking this position when applying to join by setting the number of available slots.</p>
 
-                    <p class="block"><strong class="font-semibold">Note:</strong> after setting this number, Nova will manage keep the number updated for you as characters are assigned and un-assigned to this position.</p>
+                    <p class="block"><strong class="font-semibold">Note:</strong> After setting this number, Nova will keep the number updated for you as characters are assigned and un-assigned to this position.</p>
                 </x-slot:message>
 
                 <x-input.group label="Available Slots" for="available">
@@ -52,13 +55,8 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button type="submit" color="primary">Add Position</x-button>
-
-                @if ($selectedDepartment)
-                    <x-link :href="route('positions.index', $selectedDepartment)" color="white">Cancel</x-link>
-                @else
-                    <x-link :href="route('departments.index')" color="white">Cancel</x-link>
-                @endif
+                <x-button-filled type="submit">Add position</x-button-filled>
+                <x-link :href="route('positions.index', 'department='.$selectedDepartment?->id)" color="gray">Cancel</x-link>
             </x-form.footer>
         </x-form>
     </x-panel>

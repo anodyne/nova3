@@ -18,7 +18,13 @@
 
         <label for="avatar" class="block">
             <span class="sr-only">Choose profile photo</span>
-            <input type="file" id="avatar" wire:model="avatar" class="block w-full text-sm file:cursor-pointer file:uppercase file:tracking-wide file:shadow-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-1.5 file:px-2.5 file:rounded-md file:text-xs file:font-semibold file:bg-white dark:file:bg-gray-800 file:text-gray-500 file:border file:border-solid file:border-gray-300 dark:file:border-gray-200/10 hover:file:bg-gray-50 dark:hover:file:bg-gray-900/40 hover:file:border-gray-400/75 dark:hover:file:border-gray-200/20 file:transition focus:outline-none">
+            <input type="file" id="avatar" wire:model="avatar" @class([
+                'block w-full text-sm text-gray-600 dark:text-gray-400',
+                'file:mr-4 file:py-1.5 file:px-2.5 file:cursor-pointer',
+                'file:rounded-md file:shadow-sm file:text-sm file:font-medium file:border file:border-solid file:transition focus:outline-none file:bg-transparent',
+                'file:text-primary-500 hover:file:text-primary-600  file:border-primary-300 hover:file:border-primary-400',
+                'dark:file:hover:text-primary-400 dark:file:border-primary-700 dark:file:hover:border-primary-600',
+            ])>
         </label>
 
         <input type="hidden" name="avatar_path" wire:model="path">

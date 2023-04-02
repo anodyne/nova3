@@ -2,7 +2,13 @@
 
 @section('content')
     <x-panel>
-        <x-panel.header title="Add a new note" />
+        <x-panel.header title="Add a new note">
+            <x-slot:actions>
+                <x-link :href="route('notes.index')" color="gray" leading="arrow-left">
+                    Back to my notes
+                </x-link>
+            </x-slot:actions>
+        </x-panel.header>
 
         <x-form :action="route('notes.store')">
             <x-content-box class="space-y-8">
@@ -16,8 +22,8 @@
             </x-content-box>
 
             <x-form.footer>
-                <x-button type="submit" color="primary">Add</x-button>
-                <x-link :href="route('notes.index')" color="white">Cancel</x-link>
+                <x-button-filled type="submit">Add note</x-button-filled>
+                <x-link :href="route('notes.index')" color="gray">Cancel</x-link>
             </x-form.footer>
         </x-form>
     </x-panel>

@@ -23,17 +23,15 @@
         <div class="flex items-center justify-between text-sm">
             <x-input.checkbox label="Remember me" for="remember" id="remember" name="remember" class="h-4 w-4" />
 
-            <div class="text-sm">
-                <x-link :href="route('password.request')" color="primary-text" size="none">
-                    Forgot your password?
-                </x-link>
-            </div>
+            <x-link :href="route('password.request')">
+                Forgot your password?
+            </x-link>
         </div>
 
         <div>
-            <x-button type="submit" color="primary" full-width>
+            <x-button-filled type="submit" class="w-full">
                 Sign in
-            </x-button>
+            </x-button-filled>
         </div>
     </x-form>
 @endsection

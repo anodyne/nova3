@@ -1,6 +1,6 @@
 @props([
     'title',
-    'controls' => false,
+    'actions' => null,
     'pretitle' => false,
 ])
 
@@ -15,9 +15,9 @@
         <x-h1 data-cy="page-header-title">{{ $title ?? $slot }}</x-h1>
     </div>
 
-    @if ($controls)
+    @if ($actions?->isNotEmpty())
         <div class="inline-flex flex-row-reverse sm:flex-row items-center w-auto mt-4 md:mt-0 space-x-4 space-x-reverse sm:space-x-4" data-cy="page-header-controls">
-            {{ $controls }}
+            {{ $actions }}
         </div>
     @endif
 </div>

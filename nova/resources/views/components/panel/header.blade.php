@@ -1,7 +1,7 @@
 @props([
     'title',
     'message' => false,
-    'controls' => false,
+    'actions' => null,
 ])
 
 <div class="border-b border-gray-200 dark:border-gray-200/10">
@@ -11,13 +11,13 @@
                 <x-h2>{{ $title }}</x-h2>
 
                 @if ($message)
-                    <p class="mt-0.5 text-gray-500 md:text-sm">{{ $message }}</p>
+                    <p class="mt-1 text-gray-500 md:text-sm">{{ $message }}</p>
                 @endif
             </div>
 
-            @if ($controls)
+            @if ($actions?->isNotEmpty())
                 <div class="shrink-0 flex items-center space-x-reverse space-x-6 md:space-x-6">
-                    {{ $controls }}
+                    {{ $actions }}
                 </div>
             @endif
         </div>

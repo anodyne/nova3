@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Controllers;
 
-use Illuminate\Http\Request;
-use Nova\Forms\Filters\FormFilters;
 use Nova\Forms\Models\Form;
 use Nova\Forms\Responses\ShowAllFormsResponse;
 use Nova\Forms\Responses\ShowFormResponse;
@@ -20,16 +18,11 @@ class ShowFormController extends Controller
         $this->middleware('auth');
     }
 
-    public function all(Request $request, FormFilters $filters)
+    public function all()
     {
         $this->authorize('viewAny', Form::class);
 
-        $forms = Form::query()->filter($filters);
-
-        return ShowAllFormsResponse::sendWith([
-            'forms' => $forms->paginate(),
-            'search' => $request->search,
-        ]);
+        return ShowAllFormsResponse::send();
     }
 
     public function show(Form $form)

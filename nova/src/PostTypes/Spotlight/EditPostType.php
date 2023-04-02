@@ -33,7 +33,7 @@ class EditPostType extends SpotlightCommand
 
     public function searchPostType($query)
     {
-        return PostType::where('name', 'like', "%${query}%")
+        return PostType::where('name', 'like', "%{$query}%")
             ->get()
             ->map(function ($postType) {
                 return new SpotlightSearchResult(

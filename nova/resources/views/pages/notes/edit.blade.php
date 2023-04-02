@@ -16,8 +16,8 @@
             </x-content-box>
 
             <x-form.footer>
-                <x-button type="submit" color="primary">Update</x-button>
-                <x-link :href="route('notes.index')" color="white">Cancel</x-link>
+                <x-button-filled type="submit">Save note</x-button-filled>
+                <x-link :href="route('notes.index')" color="gray">Cancel</x-link>
             </x-form.footer>
         </x-form>
     </x-panel>

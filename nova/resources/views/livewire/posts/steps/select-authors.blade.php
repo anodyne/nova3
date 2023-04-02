@@ -118,7 +118,7 @@
                                     @endif
                                 </div>
 
-                                <x-slot:controls>
+                                <x-slot:actions>
                                     <x-dropdown placement="bottom-end">
                                         <x-slot:trigger color="gray-danger-text">@icon('delete', 'h-7 w-7 md:h-6 md:w-6')</x-slot:trigger>
 
@@ -132,7 +132,7 @@
                                             <x-dropdown.item type="button" icon="prohibited" @click.prevent="$dispatch('dropdown-close')">Cancel</x-dropdown.item>
                                         </x-dropdown.group>
                                     </x-dropdown>
-                                </x-slot:controls>
+                                </x-slot:actions>
                             </x-table-list.row>
                         @endforeach
                     </x-table-list>
@@ -190,7 +190,7 @@
                                     ></x-input.text>
                                 </div>
 
-                                <x-slot:controls>
+                                <x-slot:actions>
                                     <x-dropdown placement="bottom-end">
                                         <x-slot:trigger color="gray-danger-text">@icon('delete', 'h-7 w-7 md:h-6 md:w-6')</x-slot:trigger>
 
@@ -204,7 +204,7 @@
                                             <x-dropdown.item type="button" icon="prohibited" @click.prevent="$dispatch('dropdown-close')">Cancel</x-dropdown.item>
                                         </x-dropdown.group>
                                     </x-dropdown>
-                                </x-slot:controls>
+                                </x-slot:actions>
                             </x-table-list.row>
                         @endforeach
                     </x-table-list>

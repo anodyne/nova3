@@ -33,7 +33,7 @@ class EditUser extends SpotlightCommand
 
     public function searchUser($query)
     {
-        return User::where('name', 'like', "%${query}%")
+        return User::where('name', 'like', "%{$query}%")
             ->get()
             ->map(function ($user) {
                 return new SpotlightSearchResult(

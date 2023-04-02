@@ -1,13 +1,17 @@
 @extends($meta->template)
 
 @section('content')
-    <x-page-header title="Add Rank Item">
-        <x-slot:pretitle>
-            <a href="{{ route('ranks.items.index') }}">Rank Items</a>
-        </x-slot:pretitle>
-    </x-page-header>
-
     <x-panel x-data="{ tab: 'base', base: '{{ old('base_image') }}', overlay: '{{ old('overlay_image') }}' }">
+        <x-panel.header title="Add a new rank item">
+            <x-slot:actions>
+                @can('viewAny', Nova\Ranks\Models\RankItem::class)
+                    <x-link :href="route('ranks.items.index')" leading="arrow-left" size="none" color="gray-text">
+                        Back
+                    </x-link>
+                @endcan
+            </x-slot:actions>
+        </x-panel.header>
+
         <x-form :action="route('ranks.items.store')">
             <x-form.section title="Rank Info" message="You can build up your rank with a few clicks. Assign it to a group, set a name, and pick your base and overlay images to build your rank quickly and easily.">
                 <x-input.group label="Rank Group" for="group_id" :error="$errors->first('group_id')">
@@ -124,7 +128,7 @@
             </div>
 
             <x-form.footer>
-                <x-button type="submit" color="primary">Add Rank Item</x-button>
+                <x-button type="submit" color="primary">Add</x-button>
                 <x-link :href="route('ranks.items.index')" color="white">Cancel</x-link>
             </x-form.footer>
 

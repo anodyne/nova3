@@ -7,7 +7,7 @@
         <x-input.group label="Department" for="department_id">
             <x-input.select name="department_id" id="department_id" class="w-full">
                 @foreach ($departments as $department)
-                    <option value="{{ $department->id }}"{{ $department->id === $position->department_id ? ' selected' : '' }}>{{ $department->name }}</option>
+                    <option value="{{ $department->id }}" @selected($department->id === $position->department_id)>{{ $department->name }}</option>
                 @endforeach
             </x-input.select>
         </x-input.group>

@@ -1,21 +1,21 @@
 <div>
     <x-content-box>
-        <h3 class="font-bold text-xl text-gray-900 tracking-tight">Roles Assigned to this User</h3>
+        <x-h3>Roles assigned to this user</x-h3>
 
         <div class="flex justify-between mt-4">
             @if ($roles->total() > 0)
                 <div class="w-full sm:w-1/3">
                     <x-input.group>
-                        <x-input.text wire:model.debounce.500ms="filters.search" placeholder="Find assigned roles...">
+                        <x-input.text wire:model.debounce.500ms="filters.search" placeholder="Find assigned roles">
                             <x-slot:leadingAddOn>
                                 @icon('search', 'h-5 w-5')
                             </x-slot:leadingAddOn>
 
                             <x-slot:trailingAddOn>
                                 @if ($filters['search'])
-                                    <x-button color="light-gray-text" size="none" wire:click="$set('filters.search', '')">
+                                    <x-link tag="button" color="gray" wire:click="$set('filters.search', '')">
                                         @icon('close')
-                                    </x-button>
+                                    </x-link>
                                 @endif
                             </x-slot:trailingAddOn>
                         </x-input.text>
@@ -25,14 +25,14 @@
                 @can('update', $user)
                     <div class="flex items-center space-x-4">
                         @if (count($selected) > 0)
-                            <x-button color="error-outline" size="sm" wire:click="detachSelectedRoles">
+                            <x-button-outline color="danger" leading="remove" wire:click="detachSelectedRoles">
                                 Remove {{ count($selected) }} @choice('role|roles', count($selected))
-                            </x-button>
+                            </x-button-outline>
                         @endif
 
-                        <x-button type="button" color="primary" size="sm" wire:click="$emit('openModal', 'roles:select-roles-modal')">
+                        <x-button-filled leading="add" wire:click="$emit('openModal', 'roles:select-roles-modal')">
                             Add roles
-                        </x-button>
+                        </x-button-filled>
                     </div>
                 @endcan
             @endif

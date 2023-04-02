@@ -23,8 +23,8 @@
             <x-input.email id="email" name="email" :value="old('email')" data-cy="email" placeholder="john@example.com" required />
         </x-input.group>
 
-        <x-button type="submit" color="primary" full-width data-cy="submit">
+        <x-button-filled type="submit" class="w-full" data-cy="submit">
             {{ __('Send Reset Link') }}
-        </x-button>
+        </x-button-filled>
     </x-form>
 @endsection

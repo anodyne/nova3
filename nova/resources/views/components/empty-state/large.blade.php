@@ -30,9 +30,9 @@
         </div>
 
         @if ($linkAccess)
-            <x-link :href="$link" color="primary" class="space-x-3">
+            <x-button-filled tag="a" :href="$link" class="space-x-3">
                 <span>{{ $label }}</span>
-            </x-link>
+            </x-button-filled>
         @endif
     </div>
 </div>

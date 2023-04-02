@@ -13,30 +13,22 @@ class Appearance extends Data implements Arrayable
 {
     public function __construct(
         public string $theme = 'pulsar',
-
         #[MapInputName('icon-set')]
         public string $iconSet = 'fluent',
-
         #[MapInputName('image_path')]
         public ?string $imagePath,
-
         #[MapInputName('colors_gray')]
         public string $colorsGray,
-
         #[MapInputName('colors_primary')]
         public string $colorsPrimary,
-
         #[MapInputName('colors_danger')]
         public string $colorsDanger,
-
         #[MapInputName('colors_warning')]
         public string $colorsWarning,
-
         #[MapInputName('colors_success')]
         public string $colorsSuccess,
-
         #[MapInputName('colors_info')]
-        public string $colorsInfo,
+        public ?string $colorsInfo,
     ) {
     }
 

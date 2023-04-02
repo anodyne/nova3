@@ -19,9 +19,9 @@
 
                     <x-slot:trailingAddOn>
                         @if ($search)
-                            <x-button color="gray-text" size="none" wire:click="$set('search', '')">
-                                @icon('close')
-                            </x-button>
+                            <x-link tag="button" color="gray" wire:click="$set('search', '')">
+                                @icon('close', 'h-5 w-5')
+                            </x-link>
                         @endif
                     </x-slot:trailingAddOn>
                 </x-input.text>

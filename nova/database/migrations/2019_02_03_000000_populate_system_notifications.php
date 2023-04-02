@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Schema;
+use Nova\Foundation\Enums\SystemNotificationType;
 use Nova\Foundation\Models\SystemNotification;
 
 class PopulateSystemNotifications extends Migration
@@ -24,20 +25,25 @@ class PopulateSystemNotifications extends Migration
 
     protected function populateSystemNotifications(): void
     {
-        $groupNotifications = [
-            ['name' => 'Story post published', 'key' => 'story-post-published', 'category' => 'group'],
+        $administrativeNotifications = [
+            ['name' => 'Player application received', 'key' => 'application-received', 'type' => SystemNotificationType::admin],
         ];
 
-        $individualNotifications = [
-            ['name' => 'Private message received', 'key' => 'private-message-received', 'category' => 'individual'],
-            ['name' => 'Story post saved', 'key' => 'story-post-saved', 'category' => 'individual'],
-            ['name' => 'Added as author on a story post', 'key' => 'author-added-post', 'category' => 'individual'],
-            ['name' => 'Removed as author on a story post', 'key' => 'author-removed-post', 'category' => 'individual'],
+        $collectiveNotifications = [
+            ['name' => 'Story post published', 'key' => 'story-post-published', 'type' => SystemNotificationType::collective],
         ];
 
-        SystemNotification::unguarded(function () use ($groupNotifications, $individualNotifications) {
-            collect($groupNotifications)->each([SystemNotification::class, 'create']);
-            collect($individualNotifications)->each([SystemNotification::class, 'create']);
+        $personalNotifications = [
+            ['name' => 'Private message received', 'key' => 'private-message-received', 'type' => SystemNotificationType::personal],
+            ['name' => 'Story post saved', 'key' => 'story-post-saved', 'type' => SystemNotificationType::personal],
+            ['name' => 'Added as author on a story post', 'key' => 'author-added-post', 'type' => SystemNotificationType::personal],
+            ['name' => 'Removed as author on a story post', 'key' => 'author-removed-post', 'type' => SystemNotificationType::personal],
+        ];
+
+        SystemNotification::unguarded(function () use ($administrativeNotifications, $collectiveNotifications, $personalNotifications) {
+            collect($administrativeNotifications)->each([SystemNotification::class, 'create']);
+            collect($collectiveNotifications)->each([SystemNotification::class, 'create']);
+            collect($personalNotifications)->each([SystemNotification::class, 'create']);
         });
     }
 }

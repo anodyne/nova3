@@ -8,9 +8,9 @@
     </x-page-header>
 
     @if ($theme->name === 'Pulsar')
-        <x-panel.info icon="star" title="Default theme">
+        <x-panel.primary icon="star" title="Default theme">
             {{ $theme->name }} is currently set as the system default theme. Be careful when making any updates to this theme as it could impact your public-facing site.
-        </x-panel.info>
+        </x-panel.primary>
     @endif
 
     <x-panel>

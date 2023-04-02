@@ -1,13 +1,17 @@
 @extends($meta->template)
 
 @section('content')
-    <x-page-header :title="$department->name">
-        <x-slot:pretitle>
-            <a href="{{ route('departments.index') }}">Departments</a>
-        </x-slot:pretitle>
-    </x-page-header>
-
     <x-panel>
+        <x-panel.header title="Edit department">
+            <x-slot:actions>
+                @can('viewAny', Nova\Departments\Models\Department::class)
+                    <x-link :href="route('departments.index')" leading="arrow-left" color="gray">
+                        Back to the departments list
+                    </x-link>
+                @endcan
+            </x-slot:actions>
+        </x-panel.header>
+
         <x-form :action="route('departments.update', $department)" method="PUT">
             <x-form.section title="Department Info" message="Departments are collections of positions that characters can hold and help to provide some organization for your character manifest.">
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
@@ -37,8 +41,8 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button type="submit" color="primary">Update Department</x-button>
-                <x-link :href="route('departments.index')" color="white">Cancel</x-link>
+                <x-button-filled type="submit">Save department</x-button-filled>
+                <x-link :href="route('departments.index')" color="gray">Cancel</x-link>
             </x-form.footer>
         </x-form>
     </x-panel>

@@ -45,9 +45,9 @@
                             @endif
                         </div>
 
-                        <x-slot:controls>
+                        <x-slot:actions>
                             @icon('delete', 'h-6 w-6')
-                        </x-slot:controls>
+                        </x-slot:actions>
                     </x-table-list.row>
                 @endforeach
 
@@ -69,9 +69,9 @@
 {{--                        </x-input.select>--}}
 {{--                    </div>--}}
 
-{{--                    <x-slot:controls>--}}
+{{--                    <x-slot:actions>--}}
 {{--                        @icon('delete', 'h-6 w-6')--}}
-{{--                    </x-slot:controls>--}}
+{{--                    </x-slot:actions>--}}
 {{--                </x-table-list.row>--}}
 {{--                <x-table-list.row>--}}
 {{--                    <div class="flex items-center col-span-3">--}}
@@ -91,9 +91,9 @@
 {{--                        </x-input.select>--}}
 {{--                    </div>--}}
 
-{{--                    <x-slot:controls>--}}
+{{--                    <x-slot:actions>--}}
 {{--                        @icon('delete', 'h-6 w-6')--}}
-{{--                    </x-slot:controls>--}}
+{{--                    </x-slot:actions>--}}
 {{--                </x-table-list.row>--}}
 {{--                <x-table-list.row>--}}
 {{--                    <div class="flex items-center col-span-3">--}}
@@ -112,9 +112,9 @@
 {{--                        </x-input.select>--}}
 {{--                    </div>--}}
 
-{{--                    <x-slot:controls>--}}
+{{--                    <x-slot:actions>--}}
 {{--                        @icon('delete', 'h-6 w-6')--}}
-{{--                    </x-slot:controls>--}}
+{{--                    </x-slot:actions>--}}
 {{--                </x-table-list.row>--}}
             </x-table-list>
         </x-content-box>
@@ -147,9 +147,9 @@
                         <x-input.text placeholder="Who is this user playing?"></x-input.text>
                     </div>
 
-                    <x-slot:controls>
+                    <x-slot:actions>
                         @icon('delete', 'h-6 w-6')
-                    </x-slot:controls>
+                    </x-slot:actions>
                 </x-table-list.row>
                 <x-table-list.row>
                     <div class="flex items-center col-span-3">
@@ -165,9 +165,9 @@
                         <x-input.text value="Weyoun"></x-input.text>
                     </div>
 
-                    <x-slot:controls>
+                    <x-slot:actions>
                         @icon('delete', 'h-6 w-6')
-                    </x-slot:controls>
+                    </x-slot:actions>
                 </x-table-list.row>
             </x-table-list>
         </x-content-box>
