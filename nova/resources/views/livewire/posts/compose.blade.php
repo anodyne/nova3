@@ -162,7 +162,7 @@
                 </div>
             @endif
 
-            <livewire:nova:editor :content="old('content', '')" />
+            <livewire:nova:editor :content="old('editor-content', '')" />
 
             <div class="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4">
                 @if ($allStories->count() > 1)

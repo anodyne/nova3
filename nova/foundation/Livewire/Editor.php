@@ -10,7 +10,7 @@ class Editor extends Component
 {
     public bool $codeView = false;
 
-    public ?string $content = '';
+    public ?string $content = null;
 
     public string $fieldName = 'editor-content';
 
@@ -22,12 +22,6 @@ class Editor extends Component
     public function getWordCountProperty(): string
     {
         return number_format(str($this->content)->pipe('strip_tags')->wordCount());
-    }
-
-    public function mount($content = '', $fieldName = 'editor-content')
-    {
-        $this->content = $content;
-        $this->fieldName = $fieldName;
     }
 
     public function render()
