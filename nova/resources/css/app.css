@@ -42,7 +42,8 @@
     font-stretch: 75% 125%;
 }
 
-body {
+body,
+button {
     font-feature-settings: "ss01", "ss03", "cv11", "zero";
 }
 

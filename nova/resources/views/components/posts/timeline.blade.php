@@ -17,25 +17,15 @@
                             <circle cx="6" cy="6" r="11" fill="none" stroke="currentColor" stroke-width="2" class="text-{{ $post->status->color() }}-9"></circle>
                         @endif --}}
 
-                        @if (request('sort', 'desc') === 'desc' && $post->getNextSibling())
+                        @unless ($loop->last)
                             <!-- Lower arm -->
-                            <path d="M 6 18 V 100000" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-400"></path>
-                        @endif
+                            <path d="M 6 18 V 100000" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-300 dark:text-gray-600"></path>
+                        @endunless
 
-                        @if (request('sort', 'desc') === 'asc' && $post->getPrevSibling())
-                            <!-- Lower arm -->
-                            <path d="M 6 18 V 100000" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-400"></path>
-                        @endif
-
-                        @if (request('sort', 'desc') === 'desc' && $post->getPrevSibling())
+                        @unless ($loop->first)
                             <!-- Upper arm -->
-                            <path d="M 6 -6 V -10000" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-400"></path>
-                        @endif
-
-                        @if (request('sort', 'desc') === 'asc' && $post->getNextSibling())
-                            <!-- Upper arm -->
-                            <path d="M 6 -6 V -10000" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-400"></path>
-                        @endif
+                            <path d="M 6 -6 V -30" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-300 dark:text-gray-600"></path>
+                        @endunless
                     </svg>
                 </div>
 
