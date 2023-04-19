@@ -43,7 +43,7 @@ class SelectTimeModal extends ModalComponent
     {
         return Post::query()
             ->select('time')
-            ->whereStory($this->storyId)
+            ->story($this->storyId)
             ->wherePublished()
             ->when(
                 $this->search,

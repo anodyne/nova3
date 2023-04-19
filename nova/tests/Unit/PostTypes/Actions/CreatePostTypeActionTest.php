@@ -14,13 +14,11 @@ use Nova\PostTypes\Models\States\Active;
 use Tests\TestCase;
 
 /**
- * @group stories
+ * @group storytelling
  * @group post-types
  */
 class CreatePostTypeActionTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test **/
     public function itCreatesAPostType()
     {

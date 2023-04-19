@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Nova\Settings\Data;
 
 use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Http\Request;
 use Spatie\LaravelData\Data;
 
 class ContentRating extends Data implements Arrayable

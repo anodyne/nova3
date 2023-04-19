@@ -15,11 +15,12 @@ trait HandlesPostSuggestion
         if ($this->neighbor) {
             $startingPost = Post::find($this->neighbor);
 
-            $this->suggestion = $startingPost->getPrevSibling() ?? $startingPost->getNextSibling();
+            $this->suggestion = $startingPost->previousSibling() ?? $startingPost->nextSibling();
         } else {
-            $this->suggestion = Post::whereStory(optional($this->story)->id)
+            $this->suggestion = Post::query()
+                ->story($this->story?->id)
                 ->wherePostType(optional($this->postType)->id)
-                ->orderByDesc('_lft')
+                ->orderByDesc('sort')
                 ->first();
         }
     }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Characters;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Characters\Models\Character;
 use Tests\TestCase;
 
@@ -13,8 +12,6 @@ use Tests\TestCase;
  */
 class ManageCharactersTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test **/
     public function authorizedUserCanSeeAllCharactersOnManageCharactersPage()
     {

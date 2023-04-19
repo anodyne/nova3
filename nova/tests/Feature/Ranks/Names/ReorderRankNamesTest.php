@@ -13,8 +13,6 @@ use Tests\TestCase;
  */
 class ReorderRankNamesTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $name1;
 
     protected $name2;

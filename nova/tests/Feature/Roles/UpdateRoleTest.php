@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Roles;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\Roles\Events\RoleUpdated;
 use Nova\Roles\Models\Permission;
@@ -18,8 +17,6 @@ use Tests\TestCase;
  */
 class UpdateRoleTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $role;
 
     public function setUp(): void

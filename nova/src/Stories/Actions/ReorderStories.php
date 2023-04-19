@@ -13,8 +13,7 @@ class ReorderStories
 
     public function handle(string $sort): void
     {
-        collect(explode(',', $sort))->each(function ($id, $index) {
-            Story::where('id', $id)->update(['sort' => $index]);
-        });
+        collect(explode(',', $sort))
+            ->each(fn ($id, $index) => Story::find($id)->update(['order_column' => $index]));
     }
 }

@@ -12,9 +12,9 @@ use Spatie\LaravelData\Data;
 class Appearance extends Data implements Arrayable
 {
     public function __construct(
-        public string $theme = 'pulsar',
+        public string $theme,
         #[MapInputName('icon-set')]
-        public string $iconSet = 'fluent',
+        public string $iconSet,
         #[MapInputName('image_path')]
         public ?string $imagePath,
         #[MapInputName('colors_gray')]

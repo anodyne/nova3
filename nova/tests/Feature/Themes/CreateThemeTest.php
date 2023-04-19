@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Themes;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
@@ -18,8 +17,6 @@ use Tests\TestCase;
  */
 class CreateThemeTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $disk;
 
     protected $theme;

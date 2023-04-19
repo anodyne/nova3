@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Posts\Livewire\Concerns;
 
-use Illuminate\Support\Collection;
-use Nova\Characters\Models\Character;
-use Nova\Posts\Notifications\UserAddedToPost;
 use Nova\Posts\Notifications\UserAuthorAddedToPost;
 use Nova\Posts\Notifications\UserAuthorRemovedFromPost;
 use Nova\Users\Models\User;
@@ -30,7 +27,7 @@ trait HandlesUserAuthors
                 $user->id => [
                     'user_id' => $user->id,
                     'as' => null,
-                ]
+                ],
             ])
             ->all();
 
@@ -52,7 +49,7 @@ trait HandlesUserAuthors
                     $user->id => [
                         'user_id' => $user->pivot->user_id,
                         'as' => $user->pivot->as,
-                    ]
+                    ],
                 ]
             )
             ->all();
@@ -66,7 +63,7 @@ trait HandlesUserAuthors
     public function removeUserAuthor(User $user): void
     {
         $this->dispatchBrowserEvent('dropdown-close');
-        
+
         $this->post->userAuthors()->detach($user->id);
 
         $this->refreshUserAuthors();

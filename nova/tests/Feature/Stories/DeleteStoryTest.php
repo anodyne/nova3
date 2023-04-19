@@ -4,36 +4,25 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Stories;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\Posts\Models\Post;
 use Nova\Stories\Events\StoryDeleted;
-use Nova\Stories\Exceptions\StoryException;
 use Nova\Stories\Models\Story;
 use Tests\TestCase;
 
 /**
+ * @group storytelling
  * @group stories
  */
 class DeleteStoryTest extends TestCase
 {
-    use RefreshDatabase;
-
-    protected $story;
-
-    protected $mainTimeline;
+    protected Story $story;
 
     public function setUp(): void
     {
         parent::setUp();
 
         $this->story = Story::factory()->create();
-
-        $this->mainTimeline = Story::whereMainTimeline()->first();
-        $this->mainTimeline->appendNode($this->story);
-
-        $this->mainTimeline->refresh();
-        $this->story->refresh();
     }
 
     /** @test **/
@@ -89,10 +78,7 @@ class DeleteStoryTest extends TestCase
     /** @test **/
     public function nestedStoriesCanBeDeletedWhenDeletingTheParentStory()
     {
-        $this->withoutExceptionHandling();
-        $nestedStory = Story::factory()->create([
-            'parent_id' => $this->story,
-        ]);
+        $nestedStory = Story::factory()->withParent($this->story)->create();
 
         $this->signInWithPermission('story.delete');
 
@@ -124,11 +110,7 @@ class DeleteStoryTest extends TestCase
     /** @test **/
     public function nestedStoriesCanBeMovedWhenDeletingTheParentStory()
     {
-        $nestedStory = Story::factory()->create();
-        $this->story->appendNode($nestedStory);
-
-        $this->story->refresh();
-        $nestedStory->refresh();
+        $nestedStory = Story::factory()->withParent($this->story)->create();
 
         $this->signInWithPermission('story.delete');
 
@@ -141,7 +123,7 @@ class DeleteStoryTest extends TestCase
                     'posts' => ['action' => 'delete', 'actionId' => null],
                 ],
                 $nestedStory->id => [
-                    'story' => ['action' => 'move', 'actionId' => $this->mainTimeline->id],
+                    'story' => ['action' => 'move', 'actionId' => null],
                     'posts' => ['action' => 'nothing', 'actionId' => null],
                 ],
             ]),
@@ -154,20 +136,14 @@ class DeleteStoryTest extends TestCase
 
         $this->assertDatabaseHas('stories', [
             'id' => $nestedStory->id,
-            'parent_id' => 1,
         ]);
     }
 
     /** @test **/
     public function nestedStoriesCanBeMovedAndDeletedWhenDeletingTheParentStory()
     {
-        $nestedStory1 = Story::factory()->create([
-            'parent_id' => $this->story,
-        ]);
-
-        $nestedStory2 = Story::factory()->create([
-            'parent_id' => $this->story,
-        ]);
+        $nestedStory1 = Story::factory()->withParent($this->story)->create();
+        $nestedStory2 = Story::factory()->withParent($this->story)->create();
 
         $this->signInWithPermission('story.delete');
 
@@ -180,7 +156,7 @@ class DeleteStoryTest extends TestCase
                     'posts' => ['action' => 'delete', 'actionId' => null],
                 ],
                 $nestedStory1->id => [
-                    'story' => ['action' => 'move', 'actionId' => 1],
+                    'story' => ['action' => 'move', 'actionId' => null],
                     'posts' => ['action' => 'nothing', 'actionId' => null],
                 ],
                 $nestedStory2->id => [
@@ -197,7 +173,6 @@ class DeleteStoryTest extends TestCase
 
         $this->assertDatabaseHas('stories', [
             'id' => $nestedStory1->id,
-            'parent_id' => 1,
         ]);
 
         $this->assertDatabaseMissing('stories', [
@@ -323,43 +298,12 @@ class DeleteStoryTest extends TestCase
     }
 
     /** @test **/
-    public function mainTimelineCannotBeShownInTheDeleteStoriesPage()
-    {
-        $this->withoutExceptionHandling();
-
-        $this->signInWithPermission('story.delete');
-
-        $this->expectException(StoryException::class);
-
-        $response = $this->get(route('stories.delete', 1));
-    }
-
-    /** @test **/
-    public function cannotDeleteTheMainTimeline()
-    {
-        $this->withoutExceptionHandling();
-
-        $this->signInWithPermission('story.delete');
-
-        $this->expectException(StoryException::class);
-
-        $response = $this->deleteJson(route('stories.destroy'), [
-            'actions' => json_encode([
-                1 => [
-                    'story' => ['action' => 'delete', 'actionId' => null],
-                    'posts' => ['action' => 'delete', 'actionId' => null],
-                ],
-            ]),
-        ]);
-    }
-
-    /** @test **/
     public function unauthorizedUserCannotViewTheDeleteStoriesPage()
     {
         $this->signIn();
 
         $response = $this->get(route('stories.delete', $this->story));
-        $response->assertForbidden();
+        $response->assertNotFound();
     }
 
     /** @test **/
@@ -368,7 +312,7 @@ class DeleteStoryTest extends TestCase
         $this->signIn();
 
         $response = $this->delete(route('stories.destroy'));
-        $response->assertForbidden();
+        $response->assertNotFound();
     }
 
     /** @test **/

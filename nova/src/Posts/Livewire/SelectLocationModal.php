@@ -43,7 +43,7 @@ class SelectLocationModal extends ModalComponent
     {
         return Post::query()
             ->select('location')
-            ->whereStory($this->storyId)
+            ->story($this->storyId)
             ->wherePublished()
             ->when(
                 $this->search,

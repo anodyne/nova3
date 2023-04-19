@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Gate;
 use Nova\Posts\Models\Post;
 use Nova\Posts\Models\States\Draft;
 use Nova\PostTypes\Models\PostType;
-use Nova\Stories\Models\Story;
 use Nova\Users\Models\User;
 
 class PostPolicy

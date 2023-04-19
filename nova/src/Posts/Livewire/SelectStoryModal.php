@@ -42,9 +42,9 @@ class SelectStoryModal extends ModalComponent
     public function getFilteredStoriesProperty(): Collection
     {
         return Story::query()
-            ->whereCurrent()
+            ->current()
             ->when($this->search, fn ($query, $search) => $query->searchFor($search))
-            ->orderBy('_lft')
+            ->ordered()
             ->get();
     }
 

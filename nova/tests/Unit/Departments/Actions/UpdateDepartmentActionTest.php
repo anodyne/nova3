@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Tests\Unit\Departments\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nova\Departments\Models\States\Departments\Inactive;
 use Nova\Departments\Actions\UpdateDepartment;
 use Nova\Departments\Data\DepartmentData;
 use Nova\Departments\Models\Department;
+use Nova\Departments\Models\States\Departments\Inactive;
 use Tests\TestCase;
 
 /**

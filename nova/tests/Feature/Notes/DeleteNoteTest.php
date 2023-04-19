@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Notes;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\Notes\Events\NoteDeleted;
 use Nova\Notes\Models\Note;
@@ -15,8 +14,6 @@ use Tests\TestCase;
  */
 class DeleteNoteTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $note;
 
     public function setUp(): void

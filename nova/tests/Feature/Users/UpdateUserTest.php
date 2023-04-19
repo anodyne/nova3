@@ -17,8 +17,6 @@ use Tests\TestCase;
  */
 class UpdateUserTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $user;
 
     public function setUp(): void

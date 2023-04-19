@@ -21,7 +21,6 @@ class Page extends Model
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @param  string  $key
-     *
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeKey($query, $key)

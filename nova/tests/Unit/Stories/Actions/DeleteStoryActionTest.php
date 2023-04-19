@@ -4,18 +4,16 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Stories\Actions;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Stories\Actions\DeleteStory;
 use Nova\Stories\Models\Story;
 use Tests\TestCase;
 
 /**
+ * @group storytelling
  * @group stories
  */
 class DeleteStoryActionTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $story;
 
     public function setUp(): void

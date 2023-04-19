@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Departments;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\Departments\Events\PositionDeleted;
 use Nova\Departments\Models\Position;
@@ -15,8 +14,6 @@ use Tests\TestCase;
  */
 class DeletePositionTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $position;
 
     public function setUp(): void

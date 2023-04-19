@@ -27,12 +27,12 @@ trait HandlesCharacterAuthors
             ->get();
 
         $characterData = $characters->mapWithKeys(fn (Character $character) => [
-                $character->id => [
-                    'user_id' => $character->activeUsers()->count() === 1
-                        ? $character->activeUsers()->first()->id
-                        : null
-                ]
-            ])
+            $character->id => [
+                'user_id' => $character->activeUsers()->count() === 1
+                    ? $character->activeUsers()->first()->id
+                    : null,
+            ],
+        ])
             ->all();
 
         $this->post->characterAuthors()->attach($characterData);
@@ -52,7 +52,7 @@ trait HandlesCharacterAuthors
                 fn (Character $character) => [
                     $character->id => [
                         'user_id' => $character->pivot->user_id,
-                    ]
+                    ],
                 ]
             )
             ->all();
@@ -66,7 +66,7 @@ trait HandlesCharacterAuthors
     public function removeCharacterAuthor(Character $character): void
     {
         $this->dispatchBrowserEvent('dropdown-close');
-        
+
         $this->post->characterAuthors()->detach($character->id);
 
         $this->refreshCharacterAuthors();

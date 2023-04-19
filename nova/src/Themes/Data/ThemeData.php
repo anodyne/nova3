@@ -13,8 +13,8 @@ class ThemeData extends Data
         public string $name,
         public ?string $location,
         public ?string $credits,
-        public bool $active = true,
-        public string $preview = 'preview.jpg',
+        public bool $active,
+        public string $preview,
         public ?array $variants,
     ) {
     }

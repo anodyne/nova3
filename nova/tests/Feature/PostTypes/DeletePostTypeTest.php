@@ -4,20 +4,17 @@ declare(strict_types=1);
 
 namespace Tests\Feature\PostTypes;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\PostTypes\Events\PostTypeDeleted;
 use Nova\PostTypes\Models\PostType;
 use Tests\TestCase;
 
 /**
- * @group stories
+ * @group storytelling
  * @group post-types
  */
 class DeletePostTypeTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $postType;
 
     public function setUp(): void
@@ -60,7 +57,7 @@ class DeletePostTypeTest extends TestCase
         $this->signIn();
 
         $response = $this->delete(route('post-types.destroy', $this->postType));
-        $response->assertForbidden();
+        $response->assertNotFound();
     }
 
     /** @test **/

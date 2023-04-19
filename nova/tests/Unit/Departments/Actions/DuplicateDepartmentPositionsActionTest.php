@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Tests\Unit\Departments\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nova\Departments\Models\States\Departments\Active;
 use Nova\Departments\Actions\DuplicateDepartment;
 use Nova\Departments\Actions\DuplicateDepartmentPositions;
 use Nova\Departments\Data\DepartmentData;
 use Nova\Departments\Models\Department;
+use Nova\Departments\Models\States\Departments\Active;
 use Tests\TestCase;
 
 /**

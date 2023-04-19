@@ -10,10 +10,6 @@ trait ManagesTestUsers
 {
     /**
      * Create an admin user.
-     *
-     * @param  array  $attributes
-     *
-     * @return User
      */
     protected function createAdmin(array $attributes = []): User
     {
@@ -26,10 +22,6 @@ trait ManagesTestUsers
 
     /**
      * Create a user and persist it to the database.
-     *
-     * @param  array  $attributes
-     *
-     * @return User
      */
     protected function createUser(array $attributes = []): User
     {
@@ -38,10 +30,6 @@ trait ManagesTestUsers
 
     /**
      * Make a user.
-     *
-     * @param  array  $attributes
-     *
-     * @return User
      */
     protected function makeUser(array $attributes = []): User
     {
@@ -51,7 +39,6 @@ trait ManagesTestUsers
     /**
      * Sign in to the app.
      *
-     * @param  null|User  $user
      *
      * @return User
      */
@@ -67,7 +54,6 @@ trait ManagesTestUsers
     /**
      * Sign in to the app as an admin.
      *
-     * @param  null|User  $user
      *
      * @return User
      */
@@ -84,8 +70,6 @@ trait ManagesTestUsers
      * Sign in to the app with a specific permission.
      *
      * @param  string|array  $permissions
-     * @param  null|User  $user
-     *
      * @return User
      */
     protected function signInWithPermission($permissions, User $user = null): self
@@ -103,8 +87,6 @@ trait ManagesTestUsers
 
     /**
      * Sign out of the app.
-     *
-     * @return void
      */
     protected function signOut(): void
     {

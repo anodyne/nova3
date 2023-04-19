@@ -66,8 +66,6 @@ class RankItem extends Model
      * Use a custom Eloquent builder.
      *
      * @param  \Illuminate\Database\Query\Builder  $query
-     *
-     * @return RankItemBuilder
      */
     public function newEloquentBuilder($query): RankItemBuilder
     {

@@ -70,7 +70,7 @@ class WordGenerator
         }
 
         if ($totalWeight === 0) {
-            throw new \InvalidArgumentException("Total weight must exceed zero.");
+            throw new \InvalidArgumentException('Total weight must exceed zero.');
         } elseif ($totalWeight === 1) {
             return array_search(1, $list);
         }

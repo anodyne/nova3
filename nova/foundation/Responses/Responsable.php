@@ -58,8 +58,6 @@ abstract class Responsable implements LaravelResponsable
 
     /**
      * Handle preparing the data to be used by the view.
-     *
-     * @return array
      */
     public function prepareData(): array
     {
@@ -131,8 +129,8 @@ abstract class Responsable implements LaravelResponsable
      * Any data that should be sent with the response.
      *
      * @param  array  $data
-     * @param mixed $key
-     * @param null|mixed $value
+     * @param  mixed  $key
+     * @param  null|mixed  $value
      */
     public function with($key, $value = null): self
     {
@@ -149,7 +147,7 @@ abstract class Responsable implements LaravelResponsable
      * Dynamically bind parameters to the response.
      *
      * @param  string  $method
-     * @param  array   $parameters
+     * @param  array  $parameters
      *
      * @throws \BadMethodCallException
      */

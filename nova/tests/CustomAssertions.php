@@ -11,8 +11,6 @@ trait CustomAssertions
 {
     /**
      * Setup macros to test responses.
-     *
-     * @return void
      */
     protected function setupTestResponseMacros(): void
     {

@@ -15,8 +15,6 @@ use Tests\TestCase;
  */
 class DuplicateRankNameTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $name;
 
     public function setUp(): void

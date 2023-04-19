@@ -11,13 +11,11 @@ use Nova\Stories\Models\Story;
 use Tests\TestCase;
 
 /**
+ * @group storytelling
  * @group posts
- * @group stories
  */
 class MovePostActionTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected Story $story;
 
     protected Post $post;

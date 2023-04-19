@@ -4,28 +4,31 @@ declare(strict_types=1);
 
 namespace Nova\Posts\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Kalnoy\Nestedset\NodeTrait;
 use Nova\Characters\Models\Character;
+use Nova\Foundation\Concerns\SortableTrait;
 use Nova\Posts\Data\PostData;
 use Nova\Posts\Events;
 use Nova\Posts\Models\Builders\PostBuilder;
 use Nova\Posts\Models\States\PostStatus;
+use Nova\Posts\Models\States\Started;
 use Nova\PostTypes\Models\PostType;
 use Nova\Stories\Models\Story;
 use Nova\Users\Models\User;
+use Spatie\EloquentSortable\Sortable;
 use Spatie\LaravelData\WithData;
 use Spatie\ModelStates\HasStates;
 
-class Post extends Model
+class Post extends Model implements Sortable
 {
     use HasFactory;
     use HasStates;
-    use NodeTrait;
     use WithData;
+    use SortableTrait;
 
     protected $table = 'posts';
 
@@ -33,6 +36,7 @@ class Post extends Model
         'story_id', 'post_type_id', 'title', 'content', 'status', 'word_count',
         'day', 'time', 'location', 'parent_id', 'rating_language', 'rating_sex',
         'rating_violence', 'summary', 'participants', 'neighbor', 'direction',
+        'sort',
     ];
 
     protected $casts = [
@@ -54,6 +58,11 @@ class Post extends Model
     ];
 
     protected $dataClass = PostData::class;
+
+    public $sortable = [
+        'order_column_name' => 'order_column',
+        'sort_when_creating' => false,
+    ];
 
     public function participatingUsers(): BelongsToMany
     {
@@ -121,5 +130,37 @@ class Post extends Model
         return $this->rating_language >= 2
             || $this->rating_sex >= 2
             || $this->rating_violence >= 2;
+    }
+
+    public function buildSortQuery(): Builder
+    {
+        return static::query()
+            ->story($this->story_id)
+            ->whereNotState('status', Started::class);
+    }
+
+    public function nextSibling($status = null): ?self
+    {
+        return $this->getSibling('next', $status);
+    }
+
+    public function previousSibling($status = null): ?self
+    {
+        return $this->getSibling('previous', $status);
+    }
+
+    protected function getSibling($direction, $status)
+    {
+        $query = self::query()
+            ->story($this->story_id)
+            ->when($status, fn (Builder $query) => $query->whereState('status', $status));
+
+        $order = $this->order_column;
+
+        return match ($direction) {
+            'previous' => $query->where('order_column', $order - 1)->first(),
+            'next' => $query->where('order_column', $order + 1)->first(),
+            default => $query->first(),
+        };
     }
 }

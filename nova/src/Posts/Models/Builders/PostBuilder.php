@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace Nova\Posts\Models\Builders;
 
-use Kalnoy\Nestedset\QueryBuilder;
+use Illuminate\Database\Eloquent\Builder;
 use Nova\Foundation\Filters\Filterable;
 use Nova\Foundation\Models\Concerns\Sortable;
 use Nova\Posts\Models\Post;
 use Nova\Posts\Models\States\Draft;
 use Nova\Posts\Models\States\Published;
+use Nova\Posts\Models\States\Started;
 
-class PostBuilder extends QueryBuilder
+class PostBuilder extends Builder
 {
     use Filterable;
     use Sortable;
@@ -24,6 +25,12 @@ class PostBuilder extends QueryBuilder
                 ->orWhere('day', 'like', "%{$search}%")
                 ->orWhere('time', 'like', "%{$search}%");
         });
+    }
+
+    public function abandoned(): self
+    {
+        return $this->whereState('status', Started::class)
+            ->where('created_at', '<', now()->subDays(2)->startOfDay());
     }
 
     public function whereNotPost(Post $post): self
@@ -51,7 +58,7 @@ class PostBuilder extends QueryBuilder
         return $this->whereState('status', Published::class);
     }
 
-    public function whereStory($storyId): self
+    public function story($storyId): self
     {
         return $this->where('story_id', $storyId);
     }

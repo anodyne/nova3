@@ -216,7 +216,7 @@
     @if ($this->canGoToNextStep)
         <x-content-box height="sm" class="flex flex-col space-y-4 rounded-b-lg border-t border-gray-200 dark:border-gray-200/10 md:flex-row-reverse md:items-center md:space-y-0 md:space-x-6 md:space-x-reverse justify-between">
             <div class="flex flex-col md:flex-row-reverse md:items-center md:space-x-reverse space-y-4 md:space-y-0 md:space-x-6">
-                <x-button wire:click="nextStep" color="primary">Next: Write Post</x-button>
+                <x-button wire:click="nextStep" color="primary">Next: Write post</x-button>
             </div>
         </x-content-box>
     @else

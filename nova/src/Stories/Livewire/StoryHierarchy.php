@@ -17,9 +17,9 @@ class StoryHierarchy extends Component
 
     public $orderStories;
 
-    public $parent;
+    public ?Story $parent = null;
 
-    public $parentId;
+    public $parentId = null;
 
     public $parentStories;
 
@@ -45,7 +45,7 @@ class StoryHierarchy extends Component
     }
 
     public function mount(
-        $parentId = 1,
+        $parentId = null,
         $direction = 'after',
         $neighbor = null,
         $hasPositionChange = false,
@@ -56,28 +56,28 @@ class StoryHierarchy extends Component
         $this->neighbor = $neighbor;
         $this->hasPositionChange = $hasPositionChange;
         $this->story = $story;
-        $this->parentStories = Story::defaultOrder()->get();
+        $this->parentStories = Story::tree()->ordered()->get();
 
         $this->getOrderStories();
 
         if ($this->story !== null) {
-            $nextNeighbor = $this->story->getNextSibling();
+            $nextNeighbor = $this->story->nextSibling();
             $previousNeighbor = ($nextNeighbor === null)
-                ? $this->story->getPrevSibling()
+                ? $this->story->previousSibling()
                 : null;
 
-            $this->neighbor = optional($nextNeighbor)->id ?? optional($previousNeighbor)->id;
+            $this->neighbor = $nextNeighbor?->id ?? $previousNeighbor?->id;
             $this->direction = $nextNeighbor ? 'before' : 'after';
         }
 
-        if ($this->parentId > 1) {
+        if (filled($this->parentId)) {
             $this->parent = $this->getStory($this->parentId);
         }
 
         if ($this->neighbor === null) {
-            $this->neighbor = optional($this->orderStories->last())->id;
+            $this->neighbor = $this->orderStories->last()?->id;
         } else {
-            $this->parentId = optional($this->getStory($this->neighbor))->parent_id;
+            $this->parentId = $this->getStory($this->neighbor)?->parent_id;
         }
 
         $this->getOrderStories();
@@ -90,8 +90,10 @@ class StoryHierarchy extends Component
 
     protected function getOrderStories(): void
     {
-        $this->orderStories = Story::whereParent($this->parentId)
-            ->defaultOrder()
+        $this->orderStories = Story::query()
+            ->when(filled($this->parentId), fn ($query) => $query->parent($this->parentId))
+            ->when(blank($this->parentId), fn ($query) => $query->isRoot())
+            ->ordered()
             ->get();
     }
 

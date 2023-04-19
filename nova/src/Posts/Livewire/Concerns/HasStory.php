@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Posts\Livewire\Concerns;
 
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Nova\Stories\Models\Story;
 
@@ -32,7 +31,7 @@ trait HasStory
 
     public function getCurrentStoriesProperty(): Collection
     {
-        return Story::whereCurrent()->get();
+        return Story::current()->get();
     }
 
     public function setStory(?Story $story): void

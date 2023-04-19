@@ -17,8 +17,6 @@ use Tests\TestCase;
  */
 class ActivateUserTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $character;
 
     protected $user;

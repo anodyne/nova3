@@ -13,8 +13,6 @@ use Tests\TestCase;
  */
 class ShowRankNameTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $name;
 
     public function setUp(): void

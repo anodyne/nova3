@@ -7,6 +7,7 @@ namespace Nova\Stories\Livewire;
 use Livewire\Component;
 use Nova\Stories\Filters\StoryFilters;
 use Nova\Stories\Models\Story;
+use Staudenmeir\LaravelAdjacencyList\Eloquent\Collection;
 
 class StoryTimeline extends Component
 {
@@ -17,12 +18,11 @@ class StoryTimeline extends Component
         $this->selectedStory = $story;
     }
 
-    public function getStoriesProperty(StoryFilters $filters)
+    public function getStoriesProperty(StoryFilters $filters): Collection
     {
-        return Story::query()
-            ->hasParent()
-            ->defaultOrder()
-            ->filter($filters)
+        return Story::tree()
+            ->withCount('posts', 'recursivePosts')
+            ->ordered()
             ->get()
             ->toTree();
     }
@@ -31,7 +31,6 @@ class StoryTimeline extends Component
     {
         return view('livewire.stories.timeline', [
             'storyClass' => Story::class,
-            'storyCount' => Story::withDepth()->having('depth', '=', 1)->count(),
         ]);
     }
 }

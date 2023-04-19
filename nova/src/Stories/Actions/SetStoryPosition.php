@@ -16,9 +16,9 @@ class SetStoryPosition
     {
         if ($data->hasPositionChange) {
             if ($data->direction && $data->neighbor) {
-                $method = "{$data->direction}Node";
+                $method = 'move'.ucfirst($data->direction);
 
-                $story->{$method}($data->neighbor)->save();
+                $story->$method($data->neighbor);
             }
         }
     }

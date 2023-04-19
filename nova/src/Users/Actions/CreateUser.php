@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Users\Actions;
 
-use Illuminate\Support\Arr;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Users\Data\UserData;
 use Nova\Users\Models\States\Active;

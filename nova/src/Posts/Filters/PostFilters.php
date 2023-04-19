@@ -24,7 +24,7 @@ class PostFilters extends Filters
     public function sort($value): Builder
     {
         if ($value === 'desc') {
-            return $this->builder->defaultOrder();
+            return $this->builder->orderBy('sort');
         }
 
         if ($value === 'published') {

@@ -14,8 +14,8 @@ class PositionData extends Data
     public function __construct(
         public string $name,
         public ?string $description,
-        public ?int $available = 0,
-        public ?string $status = null,
+        public ?int $available,
+        public ?string $status,
         public ?Department $department,
         public int $department_id = 0
     ) {

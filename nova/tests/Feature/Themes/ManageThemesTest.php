@@ -14,8 +14,6 @@ use Tests\TestCase;
  */
 class ManageThemesTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $disk;
 
     public function setUp(): void

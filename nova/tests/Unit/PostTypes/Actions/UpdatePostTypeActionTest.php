@@ -15,13 +15,11 @@ use Nova\PostTypes\Models\States\Active;
 use Tests\TestCase;
 
 /**
- * @group stories
+ * @group storytelling
  * @group post-types
  */
 class UpdatePostTypeActionTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $postType;
 
     public function setUp(): void

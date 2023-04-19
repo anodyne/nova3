@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Nova\Foundation\Livewire;
 
 use Livewire\Component;
-use Livewire\WithFileUploads;
 
 class Rating extends Component
 {

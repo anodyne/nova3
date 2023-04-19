@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Roles;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\Roles\Events\RoleCreated;
 use Nova\Roles\Models\Role;
@@ -16,8 +15,6 @@ use Tests\TestCase;
  */
 class CreateRoleTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function setUp(): void
     {
         parent::setUp();

@@ -30,11 +30,9 @@ class StoryPostPublished extends Notification implements ShouldQueue
                     ->field('Story', 'Season 1 - Into the Deep')
                     ->field('Location', 'Federation Medical Corps Aid Station - Yuil XI')
                     ->field('Timeline', '6 months previous')
-                    ->field('Authors', "Lieutenant Commander Alwyn Llwyd, Captain Edward Drake, & Lieutenant Colonel Aaron Drake")
+                    ->field('Authors', 'Lieutenant Commander Alwyn Llwyd, Captain Edward Drake, & Lieutenant Colonel Aaron Drake');
                     // ->field('Post URL', "https://heresyourlink.com/story/into-the-deep/post/1")
                     // ->footer('This is a footer...')
-                    ;
-            })
-            ;
+            });
     }
 }

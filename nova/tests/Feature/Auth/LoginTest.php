@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Auth;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Users\Actions\ForcePasswordReset;
 use Nova\Users\Models\User;
 use Tests\TestCase;
@@ -14,8 +13,6 @@ use Tests\TestCase;
  */
 class LoginTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test **/
     public function unauthenticatedUserCanViewLoginPage()
     {

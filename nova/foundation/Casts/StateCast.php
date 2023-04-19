@@ -11,6 +11,6 @@ class StateCast implements Cast
 {
     public function cast(DataProperty $property, mixed $value, array $context): mixed
     {
-    	return $value->name();
+        return $value->name();
     }
 }

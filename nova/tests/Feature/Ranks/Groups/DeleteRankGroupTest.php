@@ -15,8 +15,6 @@ use Tests\TestCase;
  */
 class DeleteRankGroupTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $group;
 
     public function setUp(): void

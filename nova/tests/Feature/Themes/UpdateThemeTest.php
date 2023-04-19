@@ -15,8 +15,6 @@ use Tests\TestCase;
  */
 class UpdateThemeTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $theme;
 
     public function setUp(): void

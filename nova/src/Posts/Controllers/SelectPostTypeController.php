@@ -38,7 +38,7 @@ class SelectPostTypeController extends Controller
 
         return SelectPostTypeResponse::sendWith([
             'postTypes' => $usersPostTypes,
-            'stories' => Story::whereCurrent()->get(),
+            'stories' => Story::current()->get(),
         ]);
     }
 }

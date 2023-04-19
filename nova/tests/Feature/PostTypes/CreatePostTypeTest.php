@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\PostTypes;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\PostTypes\Events\PostTypeCreated;
 use Nova\PostTypes\Models\PostType;
@@ -12,13 +11,11 @@ use Nova\PostTypes\Requests\CreatePostTypeRequest;
 use Tests\TestCase;
 
 /**
- * @group stories
+ * @group storytelling
  * @group post-types
  */
 class CreatePostTypeTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test **/
     public function authorizedUserCanViewTheCreatePostTypePage()
     {
@@ -31,6 +28,7 @@ class CreatePostTypeTest extends TestCase
     /** @test **/
     public function authorizedUserCanCreatePostType()
     {
+        $this->withoutExceptionHandling();
         $this->signInWithPermission('post-type.create');
 
         $postType = PostType::factory()->make();
@@ -39,7 +37,9 @@ class CreatePostTypeTest extends TestCase
 
         $response = $this->post(
             route('post-types.store'),
-            $postType->toArray()
+            array_merge($postType->toArray(), [
+                'status' => 'active',
+            ])
         );
         $response->assertSuccessful();
 
@@ -56,7 +56,7 @@ class CreatePostTypeTest extends TestCase
     {
         Event::fake();
 
-        $this->signInWithPermission('post-type.create');
+        $this->signInWithPermission('post-types.create');
 
         $this->post(
             route('post-types.store'),
@@ -72,7 +72,7 @@ class CreatePostTypeTest extends TestCase
         $this->signIn();
 
         $response = $this->get(route('post-types.create'));
-        $response->assertForbidden();
+        $response->assertNotFound();
     }
 
     /** @test **/
@@ -84,7 +84,7 @@ class CreatePostTypeTest extends TestCase
             route('post-types.store'),
             PostType::factory()->make()->toArray()
         );
-        $response->assertForbidden();
+        $response->assertNotFound();
     }
 
     /** @test **/

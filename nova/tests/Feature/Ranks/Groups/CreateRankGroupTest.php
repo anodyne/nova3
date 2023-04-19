@@ -16,8 +16,6 @@ use Tests\TestCase;
  */
 class CreateRankGroupTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test **/
     public function authorizedUserCanViewTheCreateRankGroupPage()
     {

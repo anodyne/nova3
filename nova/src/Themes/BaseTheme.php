@@ -33,7 +33,6 @@ abstract class BaseTheme
     /**
      * Get the layout for a specific page.
      *
-     * @param  Page  $page
      *
      * @return string
      */

@@ -21,7 +21,7 @@ return [
         'The "Assigned to a user" filter will show you both primary and secondary characters.',
         "Primary characters are characters which are assigned to a user and have been marked as a user's primary character.",
         "Secondary characters are characters which are assigned to a user, but are not any user's primary character.",
-        "Support characters are characters which are not assigned to any user.",
+        'Support characters are characters which are not assigned to any user.',
         'If you want to make a character appear as a primary character, you can assign that character as the primary character of any one of its assigned users.',
         'If you want to make a character appear as a secondary character, you can unassign that character as the primary character of any one of its assigned users.',
         'If you want to make a character appear as a support character, you can unassign all users from the character.',
@@ -39,7 +39,7 @@ return [
 
     'roles' => [
         'You can specify as many roles as you want to be assigned to newly created users.',
-        'Our recommendation is to create small roles with fewer permissions. This allows you to add sets of permissions to a user by granting them a role instead of trying to put all of the permissions users may need into a single role.'
+        'Our recommendation is to create small roles with fewer permissions. This allows you to add sets of permissions to a user by granting them a role instead of trying to put all of the permissions users may need into a single role.',
     ],
 
     'settings' => [

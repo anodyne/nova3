@@ -107,7 +107,7 @@ class Character extends Model implements HasMedia
     public function displayName(): Attribute
     {
         return new Attribute(
-            get: fn ($value): string => trim($this?->rank?->name?->name . ' ' . $this->name)
+            get: fn ($value): string => trim($this?->rank?->name?->name.' '.$this->name)
         );
     }
 

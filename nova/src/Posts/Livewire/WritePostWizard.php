@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Posts\Livewire;
 
-use Nova\Posts\Livewire\Steps\ChoosePostTypeStep;
 use Nova\Posts\Livewire\Steps\PublishPostStep;
 use Nova\Posts\Livewire\Steps\SelectAuthorsStep;
 use Nova\Posts\Livewire\Steps\SetupPostStep;
 use Nova\Posts\Livewire\Steps\WritePostStep;
-use Nova\Posts\Models\Post;
 use Spatie\LivewireWizard\Components\WizardComponent;
 
 class WritePostWizard extends WizardComponent

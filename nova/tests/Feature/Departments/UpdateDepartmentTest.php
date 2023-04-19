@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Departments;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Event;
 use Nova\Departments\Events\DepartmentUpdated;
@@ -17,8 +16,6 @@ use Tests\TestCase;
  */
 class UpdateDepartmentTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $department;
 
     public function setUp(): void

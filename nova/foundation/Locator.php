@@ -25,10 +25,10 @@ class Locator
     {
         return collect($this->paths)
             ->map(function ($path) use ($view, $directory) {
-                return join('.', [
+                return implode('.', [
                     $path,
                     $directory,
-                    $view
+                    $view,
                 ]);
             });
     }

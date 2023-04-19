@@ -6,8 +6,6 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Nova\Departments\Models\Department;
-use Nova\Departments\Models\States\Departments\Active;
-use Nova\Departments\Models\States\Departments\Inactive;
 
 class DepartmentFactory extends Factory
 {

@@ -10,12 +10,11 @@ use Nova\Posts\Models\Post;
 use Tests\TestCase;
 
 /**
+ * @group storytelling
  * @group posts
  */
 class DeletePostActionTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected Post $post;
 
     public function setUp(): void

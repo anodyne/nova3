@@ -21,7 +21,6 @@ class StoryFactory extends Factory
             'title' => ucfirst($this->faker->words($this->faker->numberBetween(1, 5), true)),
             'status' => $this->faker->randomElement([Upcoming::$name, Current::$name, Completed::$name]),
             'description' => $this->faker->sentences($this->faker->numberBetween(1, 5), true),
-            'parent_id' => 1,
         ];
     }
 
@@ -68,6 +67,13 @@ class StoryFactory extends Factory
     {
         return $this->state([
             'end_date' => $this->faker->date(),
+        ]);
+    }
+
+    public function withParent(?Story $parent)
+    {
+        return $this->state([
+            'parent_id' => $parent?->id ?? Story::factory(),
         ]);
     }
 }

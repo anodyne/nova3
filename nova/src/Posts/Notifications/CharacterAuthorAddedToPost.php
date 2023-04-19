@@ -8,7 +8,6 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 use Nova\Posts\Models\Post;
-use Nova\Users\Models\User;
 
 class CharacterAuthorAddedToPost extends Notification implements ShouldQueue
 {
@@ -17,7 +16,8 @@ class CharacterAuthorAddedToPost extends Notification implements ShouldQueue
     public function __construct(
         protected Post $post,
         protected array $characterNames
-    ) {}
+    ) {
+    }
 
     public function via($notifiable)
     {

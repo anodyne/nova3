@@ -31,9 +31,6 @@ class Application extends IlluminateApplication
 
     /**
      * Get the path to the nova directory.
-     *
-     * @param  string  $path
-     * @return string
      */
     public function novaPath(string $path = ''): string
     {
@@ -43,7 +40,6 @@ class Application extends IlluminateApplication
     /**
      * Set the nova directory.
      *
-     * @param  string  $path
      * @return $this
      */
     public function useNovaPath(string $path): self
@@ -57,9 +53,6 @@ class Application extends IlluminateApplication
 
     /**
      * Get the path to the themes directory.
-     *
-     * @param  string  $path
-     * @return string
      */
     public function themePath(string $path = ''): string
     {
@@ -69,7 +62,6 @@ class Application extends IlluminateApplication
     /**
      * Set the themes directory.
      *
-     * @param  string  $path
      * @return $this
      */
     public function useThemePath(string $path): self
@@ -83,9 +75,6 @@ class Application extends IlluminateApplication
 
     /**
      * Get the path to the extensions directory.
-     *
-     * @param  string  $path
-     * @return string
      */
     public function extensionPath(string $path = ''): string
     {
@@ -95,7 +84,6 @@ class Application extends IlluminateApplication
     /**
      * Set the extensions directory.
      *
-     * @param  string  $path
      * @return $this
      */
     public function useExtensionPath(string $path): self

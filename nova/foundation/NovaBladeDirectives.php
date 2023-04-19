@@ -13,11 +13,11 @@ class NovaBladeDirectives
 
     public static function novaScripts($expression)
     {
-        return '{!! \Nova\Foundation\Nova::scripts(' . $expression . ') !!}';
+        return '{!! \Nova\Foundation\Nova::scripts('.$expression.') !!}';
     }
 
     public static function novaStyles($expression)
     {
-        return '{!! \Nova\Foundation\Nova::styles(' . $expression . ') !!}';
+        return '{!! \Nova\Foundation\Nova::styles('.$expression.') !!}';
     }
 }

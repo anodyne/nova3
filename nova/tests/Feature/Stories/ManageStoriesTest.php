@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Stories;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 /**
+ * @group storytelling
  * @group stories
  */
 class ManageStoriesTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test **/
     public function authorizedUserWithCreatePermissionCanViewManageStoriesPage()
     {
@@ -56,7 +54,7 @@ class ManageStoriesTest extends TestCase
         $this->signIn();
 
         $response = $this->get(route('stories.index'));
-        $response->assertForbidden();
+        $response->assertNotFound();
     }
 
     /** @test **/

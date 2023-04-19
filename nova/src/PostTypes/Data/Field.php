@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\PostTypes\Data;
 
-use Illuminate\Support\Arr;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Arr;
 use Spatie\LaravelData\Data;
 
 class Field extends Data implements Arrayable

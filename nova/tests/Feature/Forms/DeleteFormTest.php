@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Forms;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\Forms\Events\FormDeleted;
 use Nova\Forms\Models\Form;
@@ -15,8 +14,6 @@ use Tests\TestCase;
  */
 class DeleteFormTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $form;
 
     public function setUp(): void

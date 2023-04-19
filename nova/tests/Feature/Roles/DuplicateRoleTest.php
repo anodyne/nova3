@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Roles;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\Roles\Events\RoleDuplicated;
 use Nova\Roles\Models\Permission;
@@ -16,8 +15,6 @@ use Tests\TestCase;
  */
 class DuplicateRoleTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $role;
 
     public function setUp(): void

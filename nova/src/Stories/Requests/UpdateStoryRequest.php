@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Requests;
 
-use Nova\Foundation\Requests\ValidatesRequest;
+use Nova\Foundation\Http\Requests\ValidatesRequest;
 
 class UpdateStoryRequest extends ValidatesRequest
 {
@@ -16,7 +16,7 @@ class UpdateStoryRequest extends ValidatesRequest
             'start_date' => ['nullable'],
             'end_date' => ['nullable'],
             'summary' => ['nullable'],
-            'parent_id' => ['required', 'exists:stories,id'],
+            'parent_id' => ['nullable', 'exists:stories,id'],
             'display_direction' => ['nullable'],
             'display_neighbor' => ['nullable'],
         ];

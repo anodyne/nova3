@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Departments;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
 use Tests\TestCase;
@@ -14,8 +13,6 @@ use Tests\TestCase;
  */
 class ReorderPositionsTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $position1;
 
     protected $position2;

@@ -22,7 +22,7 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         Authenticated::class => [
-            \Nova\Users\Listeners\CheckForForcedPasswordReset::class
+            \Nova\Users\Listeners\CheckForForcedPasswordReset::class,
         ],
         Login::class => [
             \Nova\Users\Listeners\RecordLoginTime::class,

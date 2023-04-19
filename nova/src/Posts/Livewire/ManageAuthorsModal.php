@@ -45,22 +45,22 @@ class ManageAuthorsModal extends ModalComponent
             ->get();
 
         $this->selectedCharacters += $characters->mapWithKeys(fn (Character $character) => [
-                $character->id => [
-                    'user_id' => $character->activeUsers()->count() === 1
-                        ? $character->activeUsers()->first()->id
-                        : null
-                ]
-            ])
+            $character->id => [
+                'user_id' => $character->activeUsers()->count() === 1
+                    ? $character->activeUsers()->first()->id
+                    : null,
+            ],
+        ])
             ->all();
 
         $this->selectedCharactersDisplay += $characters->mapWithKeys(fn (Character $character) => [
-                $character->id => [
-                    'character' => $character->append('avatar_url'),
-                    'user' => $character->activeUsers()->count() === 1
-                        ? $character->activeUsers()->first()->name
-                        : null,
-                ]
-            ])
+            $character->id => [
+                'character' => $character->append('avatar_url'),
+                'user' => $character->activeUsers()->count() === 1
+                    ? $character->activeUsers()->first()->name
+                    : null,
+            ],
+        ])
             ->all();
     }
 

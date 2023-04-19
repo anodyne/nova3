@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\Feature\Auth;
 
 use Illuminate\Auth\Notifications\ResetPassword;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Nova\Users\Models\User;
@@ -16,8 +15,6 @@ use Tests\TestCase;
  */
 class ForgotPasswordTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test **/
     public function unauthenticatedUserCanViewEmailPasswordPage()
     {

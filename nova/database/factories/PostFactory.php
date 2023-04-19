@@ -92,4 +92,11 @@ class PostFactory extends Factory
             'post_type_id' => PostType::where('key', 'note')->first()->id,
         ]);
     }
+
+    public function withStory(?Story $story)
+    {
+        return $this->state([
+            'story_id' => $story?->id ?? Story::factory(),
+        ]);
+    }
 }

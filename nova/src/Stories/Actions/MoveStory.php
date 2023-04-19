@@ -11,10 +11,10 @@ class MoveStory
 {
     use AsAction;
 
-    public function handle(Story $story, Story $newParent): Story
+    public function handle(Story $story, ?Story $newParent): Story
     {
-        $newParent->appendNode($story);
-
-        return $story->refresh();
+        return tap($story)
+            ->update(['parent_id' => $newParent?->id])
+            ->refresh();
     }
 }

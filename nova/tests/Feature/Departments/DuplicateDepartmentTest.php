@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Departments;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\Departments\Events\DepartmentDuplicated;
 use Nova\Departments\Models\Department;
@@ -13,8 +12,6 @@ use Tests\TestCase;
  */
 class DuplicateDepartmentTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $department;
 
     public function setUp(): void

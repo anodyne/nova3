@@ -15,7 +15,7 @@ class UpdateStory
     public function handle(Story $story, StoryData $data): Story
     {
         return tap($story)
-            ->update($data->except('parent')->all())
+            ->update($data->all())
             ->refresh();
     }
 }

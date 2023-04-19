@@ -9,7 +9,11 @@
 
 <div>
     <x-panel>
-        <x-panel.header title="My draft posts" message="Drafts are posts currently in progress and that have not been published.">
+        <x-panel.header
+            title="My draft posts"
+            message="Drafts are posts currently in progress and that have not been published."
+            :bottom-border="false"
+        >
             @if ($posts->count() > 0)
                 <x-slot:actions>
                     <x-button-filled tag="a" :href="route('posts.create')" leading="write">

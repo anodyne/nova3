@@ -19,8 +19,6 @@ use Tests\TestCase;
  */
 class ActivateCharacterActionTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $character;
 
     public function setUp(): void

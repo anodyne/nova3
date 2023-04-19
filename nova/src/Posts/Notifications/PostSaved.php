@@ -17,7 +17,8 @@ class PostSaved extends Notification implements ShouldQueue
     public function __construct(
         protected Post $post,
         protected User $author,
-    ) {}
+    ) {
+    }
 
     public function via($notifiable)
     {

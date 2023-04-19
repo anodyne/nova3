@@ -36,8 +36,7 @@ class Settings implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
     /**
      * create a new settings instance from a json string
      *
-     * @param string $json
-     *
+     * @param  string  $json
      * @return self
      */
     public static function fromJson($json)
@@ -49,8 +48,7 @@ class Settings implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
      * Get a setting from the data.
      *
      * @param  string  $key
-     * @param null|mixed $default
-     *
+     * @param  null|mixed  $default
      * @return mixed
      */
     public function get($key, $default = null)
@@ -63,7 +61,6 @@ class Settings implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
      *
      * @param  string  $key
      * @param  mixed  $value
-     *
      * @return self
      */
     public function set($key, $value)
@@ -77,7 +74,6 @@ class Settings implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
      * Remove a value from settings
      *
      * @param  array|string  $keys
-     *
      * @return self
      */
     public function forget(...$keys)
@@ -92,7 +88,6 @@ class Settings implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
      *
      * @param  string  $key
      * @param  mixed  $value
-     *
      * @return self
      */
     public function add($key, $value)
@@ -106,7 +101,6 @@ class Settings implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
      * Get all of the settings except for a specified array of keys.
      *
      * @param  array|string  $keys
-     *
      * @return \Domain\Settings\Settings
      */
     public function except(...$keys)
@@ -118,7 +112,6 @@ class Settings implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
      * Get a subset of the settings.
      *
      * @param  array|string  $keys
-     *
      * @return \Domain\Settings\Settings
      */
     public function only(...$keys)
@@ -139,8 +132,7 @@ class Settings implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
     /**
      * Populate the settings values (merged on top of $defaults)
      *
-     * @param array $settings
-     *
+     * @param  array  $settings
      * @return mixed
      */
     public function fill($settings)
@@ -153,8 +145,7 @@ class Settings implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
     /**
      * merge new settings on top of current settings
      *
-     * @param array $settings
-     *
+     * @param  array  $settings
      * @return mixed
      */
     public function merge($settings)
@@ -167,8 +158,7 @@ class Settings implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
     /**
      * Recursively merge new settings on top of existing settings
      *
-     * @param array $settings
-     *
+     * @param  array  $settings
      * @return mixed
      */
     public function mergeRecursive($settings)
@@ -181,15 +171,14 @@ class Settings implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
     /**
      * Append a value to a specific (array) setting
      *
-     * @param string $key
-     * @param array $values
-     *
+     * @param  string  $key
+     * @param  array  $values
      * @return mixed
      */
     public function append($key, $values)
     {
         $existing = $this->get($key, []);
-        $appended = collect(is_array($existing) ? $existing : [ $existing ])
+        $appended = collect(is_array($existing) ? $existing : [$existing])
             ->concat($values)
             ->toArray();
 
@@ -203,7 +192,6 @@ class Settings implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
      *
      * @param  string  $key
      * @param  int  $by
-     *
      * @return $this
      */
     public function increment($key, $by = 1)
@@ -216,7 +204,6 @@ class Settings implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
      *
      * @param  string  $key
      * @param  int  $by
-     *
      * @return $this
      */
     public function decrement($key, $by = 1)
@@ -229,8 +216,7 @@ class Settings implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
      *  - merged _under_ the current settings
      *  - any subsequent set/fill merges on top of these defaults
      *
-     * @param array $defaultSettings
-     *
+     * @param  array  $defaultSettings
      * @return mixed
      */
     public function defaults($defaultSettings)
@@ -258,7 +244,6 @@ class Settings implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
      * Dynamically retrieve settings on the object.
      *
      * @param  string  $key
-     *
      * @return mixed
      */
     public function __get($key)
@@ -271,7 +256,6 @@ class Settings implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
      *
      * @param  string  $key
      * @param  mixed  $value
-     *
      * @return void
      */
     public function __set($key, $value)
@@ -283,7 +267,6 @@ class Settings implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
      * Determine if a setting exists on the object.
      *
      * @param  string  $key
-     *
      * @return bool
      */
     public function __isset($key)
@@ -295,7 +278,6 @@ class Settings implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
      * Unset a setting on the object.
      *
      * @param  string  $key
-     *
      * @return void
      */
     public function __unset($key)
@@ -307,7 +289,6 @@ class Settings implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
      * Determine if the given setting exists.
      *
      * @param  mixed  $offset
-     *
      * @return bool
      */
     public function offsetExists($offset)
@@ -319,7 +300,6 @@ class Settings implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
      * Get the value for a given offset.
      *
      * @param  mixed  $offset
-     *
      * @return mixed
      */
     public function offsetGet($offset)
@@ -332,7 +312,6 @@ class Settings implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
      *
      * @param  mixed  $offset
      * @param  mixed  $value
-     *
      * @return void
      */
     public function offsetSet($offset, $value)
@@ -344,7 +323,6 @@ class Settings implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
      * Unset the value for a given offset.
      *
      * @param  mixed  $offset
-     *
      * @return void
      */
     public function offsetUnset($offset)
@@ -356,7 +334,6 @@ class Settings implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
      * Convert the instance to JSON.
      *
      * @param  int  $options
-     *
      * @return string
      */
     public function toJson($options = 0)

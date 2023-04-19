@@ -18,8 +18,6 @@ use Tests\TestCase;
  */
 class CreateUserTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function setUp(): void
     {
         parent::setUp();

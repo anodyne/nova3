@@ -16,8 +16,6 @@ use Tests\TestCase;
  */
 class UpdateRankNameTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $name;
 
     public function setUp(): void

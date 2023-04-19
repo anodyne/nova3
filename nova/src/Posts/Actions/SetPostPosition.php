@@ -14,21 +14,11 @@ class SetPostPosition
 
     public function handle(Post $post, PostPositionData $data): Post
     {
-        $rootPost = Post::whereStory($post->story_id)
-            ->whereIsRoot()
-            ->first();
-
-        if (! $post->parent) {
-            $rootPost->appendNode($post);
-        }
-
         if ($data->hasPositionChange) {
-            $post->refresh();
-
             if ($data->direction && $data->neighbor) {
-                $method = "{$data->direction}Node";
+                $method = 'move'.ucfirst($data->direction);
 
-                $post->{$method}($data->neighbor)->save();
+                $post->$method($data->neighbor);
             }
         }
 

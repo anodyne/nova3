@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Departments;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\Departments\Events\PositionDuplicated;
 use Nova\Departments\Models\Department;
@@ -16,8 +15,6 @@ use Tests\TestCase;
  */
 class DuplicatePositionTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $postion;
 
     public function setUp(): void

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use JMac\Testing\Traits\AdditionalAssertions;
 use Nova\Foundation\Providers\RouteServiceProvider;
@@ -15,6 +16,7 @@ abstract class TestCase extends BaseTestCase
     use CustomAssertions;
     use ManagesTestUsers;
     use TestHelpers;
+    use RefreshDatabase;
 
     protected function setUp(): void
     {
@@ -33,8 +35,6 @@ abstract class TestCase extends BaseTestCase
      * Additionally, the RouteCollection name and action lookup lists are NOT
      * refreshed when the RouteCollection is re-mapped, so we have to manually
      * refresh the lists in order to be able to use named routes in our tests.
-     *
-     * @return void
      */
     protected function remapRouteCollection(): void
     {

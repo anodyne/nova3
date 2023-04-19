@@ -7,6 +7,7 @@
         </x-slot:help>
 
         <x-input.select name="parent_id" id="parent_id" wire:model="parentId">
+            <option value="">No parent story</option>
             @foreach ($parentStories as $parentStory)
                 <option value="{{ $parentStory->id }}">{{ $parentStory->title }}</option>
             @endforeach

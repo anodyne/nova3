@@ -20,7 +20,7 @@ class StoryStatus extends Component
         $this->story->fresh();
 
         $this->dispatchBrowserEvent('toast', [
-            'title' => $this->story->title . ' status updated',
+            'title' => $this->story->title.' status updated',
             'message' => null,
         ]);
     }

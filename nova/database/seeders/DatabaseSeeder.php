@@ -25,8 +25,8 @@ class DatabaseSeeder extends Seeder
 
             CharacterSeeder::class,
 
-            StorySeeder::class,
-            PostSeeder::class,
+            // StorySeeder::class,
+            // PostSeeder::class,
         ]);
 
         activity()->enableLogging();

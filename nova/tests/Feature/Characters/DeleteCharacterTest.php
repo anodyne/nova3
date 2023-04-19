@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Characters;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\Characters\Events\CharacterDeleted;
 use Nova\Characters\Events\CharacterDeletedByAdmin;
@@ -16,8 +15,6 @@ use Tests\TestCase;
  */
 class DeleteCharacterTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $character;
 
     public function setUp(): void

@@ -33,17 +33,16 @@ class ShowStoryController extends Controller
         $this->authorize('view', $story);
 
         $posts = Post::with('postType')
-            ->hasParent()
-            ->whereStory($story->id)
+            ->story($story->id)
             ->wherePublished()
-            ->defaultOrder()
+            ->ordered()
             ->filter($filters)
             ->paginate();
 
         return ShowStoryResponse::sendWith([
             'posts' => $posts,
             'search' => $request->search,
-            'story' => $story,
+            'story' => $story->loadCount('posts', 'recursivePosts')->loadSum('recursivePosts', 'word_count'),
             'ancestors' => $story->ancestors->splice(1),
         ]);
     }

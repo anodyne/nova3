@@ -21,7 +21,7 @@ class SetContentRatingsModal extends ModalComponent
         $this->closeModalWithEvents([
             'posts:step:write-post' => ['contentRatingsUpdated', [
                 $this->language, $this->sex, $this->violence,
-            ]]
+            ]],
         ]);
     }
 

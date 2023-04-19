@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Departments;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\Departments\Events\DepartmentDeleted;
 use Nova\Departments\Models\Department;
@@ -15,8 +14,6 @@ use Tests\TestCase;
  */
 class DeleteDepartmentTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $department;
 
     public function setUp(): void
