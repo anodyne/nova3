@@ -2,10 +2,10 @@
 
 namespace Nova\Foundation\Actions\Fortify;
 
-use Nova\Users\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\UpdatesUserPasswords;
+use Nova\Users\Models\User;
 
 class UpdateUserPassword implements UpdatesUserPasswords
 {

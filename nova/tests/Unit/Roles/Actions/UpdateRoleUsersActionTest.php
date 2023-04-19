@@ -46,7 +46,7 @@ class UpdateRoleUsersActionTest extends TestCase
 
         $data = RoleAssignmentData::from([
             'role' => $this->role,
-            'users' => User::whereIn('id', [$this->john->id, $this->jane->id])->get()
+            'users' => User::whereIn('id', [$this->john->id, $this->jane->id])->get(),
         ]);
 
         UpdateRoleUsers::run($data);

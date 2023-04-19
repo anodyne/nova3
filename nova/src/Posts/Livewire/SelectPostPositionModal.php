@@ -51,13 +51,11 @@ class SelectPostPositionModal extends ModalComponent
     public function getFilteredPostsProperty(): Collection
     {
         return Post::query()
-            ->whereStory($this->story)
+            ->story($this->story)
             ->wherePublished()
-            ->whereNotRootPost()
             ->when($this->search, fn ($query, $search) => $query->searchFor($search))
-            ->defaultOrder()
-            ->get()
-            ->toTree();
+            ->ordered()
+            ->get();
     }
 
     public function mount($story)

@@ -2,10 +2,10 @@
 
 namespace Nova\Foundation\Actions\Fortify;
 
-use Nova\Users\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\ResetsUserPasswords;
+use Nova\Users\Models\User;
 
 class ResetUserPassword implements ResetsUserPasswords
 {

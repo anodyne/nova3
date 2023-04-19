@@ -16,8 +16,6 @@ use Tests\TestCase;
  */
 class DeleteThemeTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $disk;
 
     protected $theme;

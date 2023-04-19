@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Departments\Requests;
 
-use Nova\Foundation\Requests\ValidatesRequest;
+use Nova\Foundation\Http\Requests\ValidatesRequest;
 
 class UpdatePositionRequest extends ValidatesRequest
 {

@@ -16,15 +16,9 @@ class SetStoryPosition
     {
         if ($data->hasPositionChange) {
             if ($data->direction && $data->neighbor) {
-                // $method = "{$data->direction}Node";
+                $method = 'move'.ucfirst($data->direction);
 
-                // $story->{$method}($data->neighbor)->save();
-
-                Story::query()
-                    ->where('sort', $data->direction === 'before' ? '>=' : '>', $data->neighbor->sort)
-                    ->increment('sort');
-
-                $story->update(['sort' => $data->direction === 'before' ? $data->neighbor->sort : $data->neighbor->sort + 1]);
+                $story->$method($data->neighbor);
             }
         }
     }

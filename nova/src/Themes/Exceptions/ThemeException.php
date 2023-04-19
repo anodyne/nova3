@@ -10,7 +10,7 @@ class ThemeException extends Exception
 {
     public static function missingQuickInstallFile()
     {
-        return new self("A Quick Install file could not be found.");
+        return new self('A Quick Install file could not be found.');
     }
 
     public static function themeAlreadyExists($location)

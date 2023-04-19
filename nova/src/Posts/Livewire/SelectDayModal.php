@@ -43,7 +43,7 @@ class SelectDayModal extends ModalComponent
     {
         return Post::query()
             ->select('day')
-            ->whereStory($this->storyId)
+            ->story($this->storyId)
             ->wherePublished()
             ->when(
                 $this->search,

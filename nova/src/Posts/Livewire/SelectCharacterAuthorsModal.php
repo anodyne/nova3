@@ -7,10 +7,6 @@ namespace Nova\Posts\Livewire;
 use Illuminate\Support\Collection;
 use LivewireUI\Modal\ModalComponent;
 use Nova\Characters\Models\Character;
-use Nova\Posts\Models\Post;
-use Nova\PostTypes\Models\PostType;
-use Nova\Stories\Models\Story;
-use Nova\Users\Models\User;
 
 class SelectCharacterAuthorsModal extends ModalComponent
 {

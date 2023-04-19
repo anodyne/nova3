@@ -17,7 +17,6 @@ class UserPolicy
     /**
      * Determine whether the user can view any user.
      *
-     * @param  \Nova\Users\Models\User  $user
      *
      * @return mixed
      */
@@ -31,8 +30,6 @@ class UserPolicy
     /**
      * Determine whether the user can view the theme.
      *
-     * @param  \Nova\Users\Models\User  $user
-     * @param  \Nova\Users\Models\User  $actionableUser
      *
      * @return mixed
      */
@@ -46,7 +43,6 @@ class UserPolicy
     /**
      * Determine whether the user can create users.
      *
-     * @param  \Nova\Users\Models\User  $user
      *
      * @return mixed
      */
@@ -60,8 +56,6 @@ class UserPolicy
     /**
      * Determine whether the user can update the theme.
      *
-     * @param  \Nova\Users\Models\User  $user
-     * @param  \Nova\Users\Models\User  $actionableUser
      *
      * @return mixed
      */
@@ -75,8 +69,6 @@ class UserPolicy
     /**
      * Determine whether the user can delete the theme.
      *
-     * @param  \Nova\Users\Models\User  $user
-     * @param  \Nova\Users\Models\User  $actionableUser
      *
      * @return mixed
      */

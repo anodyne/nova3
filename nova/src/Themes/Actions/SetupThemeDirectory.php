@@ -69,8 +69,6 @@ class SetupThemeDirectory
      * Create the theme directory.
      *
      * @throws \Nova\Themes\Exceptions\ThemeException
-     *
-     * @return void
      */
     protected function createThemeDirectory(): void
     {
@@ -91,7 +89,7 @@ class SetupThemeDirectory
      */
     protected function createThemeInstallFile()
     {
-        $stub = file_get_contents(__DIR__ . '/../stubs/theme.json.stub');
+        $stub = file_get_contents(__DIR__.'/../stubs/theme.json.stub');
 
         $stub = str_replace(
             ['DummyName', 'DummyLocation', 'DummyPreview'],
@@ -103,7 +101,7 @@ class SetupThemeDirectory
             $stub
         );
 
-        $this->files->put($this->getThemeLocation() . '/theme.json', $stub);
+        $this->files->put($this->getThemeLocation().'/theme.json', $stub);
     }
 
     /**
@@ -113,7 +111,7 @@ class SetupThemeDirectory
      */
     protected function createThemeClass()
     {
-        $stub = file_get_contents(__DIR__ . '/../stubs/theme.php.stub');
+        $stub = file_get_contents(__DIR__.'/../stubs/theme.php.stub');
 
         $stub = str_replace(
             ['DummyNamespace', 'DummyLocation'],
@@ -121,7 +119,7 @@ class SetupThemeDirectory
             $stub
         );
 
-        $this->files->put($this->getThemeLocation() . '/Theme.php', $stub);
+        $this->files->put($this->getThemeLocation().'/Theme.php', $stub);
     }
 
     /**
@@ -131,7 +129,7 @@ class SetupThemeDirectory
      */
     protected function createThemeDesignDirectoryAndStylesheet()
     {
-        $this->files->makeDirectory($this->getThemeLocation() . '/design');
+        $this->files->makeDirectory($this->getThemeLocation().'/design');
 
         $this->createStylesheet('custom.css');
     }
@@ -144,7 +142,7 @@ class SetupThemeDirectory
     protected function createThemeVariants()
     {
         if ($variants = $this->data->variants) {
-            $this->files->makeDirectory($this->getThemeLocation() . '/design/variants');
+            $this->files->makeDirectory($this->getThemeLocation().'/design/variants');
 
             collect($variants)
                 ->map(fn ($variant) => trim($variant))
@@ -156,20 +154,17 @@ class SetupThemeDirectory
      * Create a new stylesheet.
      *
      * @param  string  $stylesheet
-     *
      * @return void
      */
     protected function createStylesheet($stylesheet)
     {
-        $stub = file_get_contents(__DIR__ . '/../stubs/custom.css.stub');
+        $stub = file_get_contents(__DIR__.'/../stubs/custom.css.stub');
 
-        $this->files->put($this->getThemeLocation() . "/design/{$stylesheet}", $stub);
+        $this->files->put($this->getThemeLocation()."/design/{$stylesheet}", $stub);
     }
 
     /**
      * Get the location of the theme.
-     *
-     * @return string
      */
     protected function getThemeLocation(): string
     {
@@ -182,8 +177,6 @@ class SetupThemeDirectory
 
     /**
      * Get the name of the theme.
-     *
-     * @return string
      */
     protected function getThemeName(): string
     {

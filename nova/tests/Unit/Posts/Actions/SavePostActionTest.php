@@ -13,12 +13,11 @@ use Nova\Stories\Models\Story;
 use Tests\TestCase;
 
 /**
+ * @group storytelling
  * @group posts
  */
 class SavePostActionTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test **/
     public function itCreatesAPost()
     {

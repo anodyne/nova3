@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Departments;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Departments\Models\Department;
 use Tests\TestCase;
 
@@ -13,8 +12,6 @@ use Tests\TestCase;
  */
 class ShowDepartmentTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $department;
 
     public function setUp(): void

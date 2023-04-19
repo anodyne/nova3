@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\Feature\Departments;
 
 use Illuminate\Database\Eloquent\Factories\Sequence;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Nova\Departments\Livewire\DepartmentsList;
 use Nova\Departments\Models\Department;
@@ -18,8 +17,6 @@ use Tests\TestCase;
  */
 class ManageDepartmentsTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     public function emptyStateIsShownIfThereAreNoDepartments()
     {

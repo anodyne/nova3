@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Notes;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Notes\Models\Note;
 use Tests\TestCase;
 
@@ -13,8 +12,6 @@ use Tests\TestCase;
  */
 class ManageNotesTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $note;
 
     public function setUp(): void

@@ -10,13 +10,11 @@ use Nova\PostTypes\Models\PostType;
 use Tests\TestCase;
 
 /**
- * @group stories
+ * @group storytelling
  * @group post-types
  */
 class DuplicatePostTypeActionTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $postType;
 
     public function setUp(): void

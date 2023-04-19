@@ -15,8 +15,6 @@ use Tests\TestCase;
  */
 class ShowRankItemTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $group;
 
     protected $item;

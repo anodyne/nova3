@@ -56,7 +56,6 @@ class SettingsController extends Controller
             dd($th->getMessage());
         }
 
-
         return redirect()
             ->route('settings.index', $tab)
             ->withToast("{$tabString->ucfirst()} settings have been updated.");

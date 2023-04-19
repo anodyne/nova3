@@ -47,7 +47,7 @@ class UploadUserAvatarActionTest extends TestCase
 
         $path = $disk->put('tmp', UploadedFile::fake()->image('image.png'));
 
-        UploadUserAvatar::run($this->user, $diskPathPrefix . $path);
+        UploadUserAvatar::run($this->user, $diskPathPrefix.$path);
 
         $this->assertCount(1, $this->user->refresh()->getMedia('avatar'));
     }

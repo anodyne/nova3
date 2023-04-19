@@ -9,7 +9,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 use Nova\Characters\Models\Character;
 use Nova\Posts\Models\Post;
-use Nova\Users\Models\User;
 
 class CharacterAuthorRemovedFromPost extends Notification implements ShouldQueue
 {
@@ -18,7 +17,8 @@ class CharacterAuthorRemovedFromPost extends Notification implements ShouldQueue
     public function __construct(
         protected Post $post,
         protected Character $character
-    ) {}
+    ) {
+    }
 
     public function via($notifiable)
     {

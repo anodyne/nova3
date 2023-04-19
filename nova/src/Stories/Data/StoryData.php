@@ -16,9 +16,13 @@ class StoryData extends Data
         public ?string $start_date,
         public ?string $end_date,
         public ?int $parent_id,
-        public ?Story $parent,
         public ?string $summary
     ) {
+    }
+
+    public function parent(): Story
+    {
+        return Story::findOrFail($this->parent_id);
     }
 
     public static function fromRequest(Request $request): static
@@ -28,8 +32,7 @@ class StoryData extends Data
             description: $request->input('description'),
             start_date: $request->input('start_date'),
             end_date: $request->input('end_date'),
-            parent_id: (int) $request->input('parent_id'),
-            parent: ($id = $request->input('parent_id')) ? Story::find($id) : Story::first(),
+            parent_id: $request->whenFilled('parent_id', fn ($value) => (int) $value, fn () => null),
             summary: $request->input('summary')
         );
     }

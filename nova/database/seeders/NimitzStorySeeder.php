@@ -21,11 +21,11 @@ class NimitzStorySeeder extends Seeder
         $season1->children()->createMany([
             Story::factory()->current()->make([
                 'title' => 'To Boldly Go',
-                'description' => "The crew of the Nimitz, still reeling from the resignation of Will Reardon, find out they've been assigned to a new ship with secrets and dangers none of them can imagine..."
+                'description' => "The crew of the Nimitz, still reeling from the resignation of Will Reardon, find out they've been assigned to a new ship with secrets and dangers none of them can imagine...",
             ])->toArray(),
             Story::factory()->upcoming()->make([
                 'title' => 'Sojourner vs the Gods',
-                'description' => "When a shuttle accident leaves several Sojourner crew stranded on a planet, the planet's residents think they're deities, but an alien race doesn't appreciate the intrusion."
+                'description' => "When a shuttle accident leaves several Sojourner crew stranded on a planet, the planet's residents think they're deities, but an alien race doesn't appreciate the intrusion.",
             ])->toArray(),
             Story::factory()->upcoming()->make([
                 'title' => 'Salvaged',
@@ -33,7 +33,7 @@ class NimitzStorySeeder extends Seeder
             ])->toArray(),
             Story::factory()->upcoming()->make([
                 'title' => 'Search and Rescue',
-                'description' => "Following the cataclysmic events of the Hobus star supernova, the crew of the Sojourner rush to the aid of the Romulan Star Empire.",
+                'description' => 'Following the cataclysmic events of the Hobus star supernova, the crew of the Sojourner rush to the aid of the Romulan Star Empire.',
             ])->toArray(),
         ]);
     }

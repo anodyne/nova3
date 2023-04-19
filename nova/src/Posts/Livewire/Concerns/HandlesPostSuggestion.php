@@ -17,7 +17,8 @@ trait HandlesPostSuggestion
 
             $this->suggestion = $startingPost->getPrevSibling() ?? $startingPost->getNextSibling();
         } else {
-            $this->suggestion = Post::whereStory(optional($this->story)->id)
+            $this->suggestion = Post::query()
+                ->story($this->story?->id)
                 ->wherePostType(optional($this->postType)->id)
                 ->orderByDesc('sort')
                 ->first();

@@ -20,10 +20,9 @@ abstract class Action
      *
      *
      * @param  callable  $callback
+     * @return mixed
      *
      * @throws ActionException
-     *
-     * @return mixed
      */
     final public function call($callback)
     {
@@ -40,8 +39,6 @@ abstract class Action
      * Get the error message.
      *
      * @param  Throwable|null  $throwable
-     *
-     * @return string
      */
     protected function getErrorMessage($throwable = null): string
     {

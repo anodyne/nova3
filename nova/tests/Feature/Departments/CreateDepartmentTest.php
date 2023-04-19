@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Departments;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Event;
 use Nova\Departments\Events\DepartmentCreated;
@@ -17,8 +16,6 @@ use Tests\TestCase;
  */
 class CreateDepartmentTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test **/
     public function authorizedUserCanViewTheCreateDepartmentPage()
     {

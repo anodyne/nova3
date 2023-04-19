@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Characters;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\Characters\Events\CharacterUpdated;
 use Nova\Characters\Events\CharacterUpdatedByAdmin;
@@ -20,8 +19,6 @@ use Tests\TestCase;
  */
 class UpdateCharacterTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $character;
 
     public function setUp(): void

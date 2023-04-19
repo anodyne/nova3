@@ -15,8 +15,6 @@ use Tests\TestCase;
  */
 class DeleteRankItemTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $item;
 
     public function setUp(): void

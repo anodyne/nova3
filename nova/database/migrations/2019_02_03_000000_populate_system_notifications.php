@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Support\Facades\Schema;
 use Nova\Foundation\Enums\SystemNotificationType;
 use Nova\Foundation\Models\SystemNotification;
 

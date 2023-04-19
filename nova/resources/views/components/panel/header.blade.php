@@ -2,9 +2,14 @@
     'title',
     'message' => false,
     'actions' => null,
+    'bottomBorder' => true,
 ])
 
-<div class="border-b border-gray-200 dark:border-gray-200/10">
+<div
+    @class([
+        'border-b border-gray-200 dark:border-gray-200/10' => $bottomBorder
+    ])
+>
     <x-content-box height="sm">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0 md:space-x-6">
             <div>

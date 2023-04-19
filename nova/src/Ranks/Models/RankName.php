@@ -54,8 +54,6 @@ class RankName extends Model
      * Use a custom Eloquent builder.
      *
      * @param  \Illuminate\Database\Query\Builder  $query
-     *
-     * @return RankNameBuilder
      */
     public function newEloquentBuilder($query): RankNameBuilder
     {

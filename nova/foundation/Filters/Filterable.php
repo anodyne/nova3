@@ -9,7 +9,6 @@ trait Filterable
     /**
      * Apply the filters.
      *
-     * @param  Filters  $filters
      *
      * @return Filters
      */

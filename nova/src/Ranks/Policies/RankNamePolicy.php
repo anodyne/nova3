@@ -15,7 +15,6 @@ class RankNamePolicy
     /**
      * Determine whether the user can view any rank name.
      *
-     * @param  User  $user
      *
      * @return bool
      */
@@ -29,8 +28,6 @@ class RankNamePolicy
     /**
      * Determine whether the user can view the rank name.
      *
-     * @param  User  $user
-     * @param  RankName  $name
      *
      * @return bool
      */
@@ -44,7 +41,6 @@ class RankNamePolicy
     /**
      * Determine whether the user can create rank names.
      *
-     * @param  User  $user
      *
      * @return bool
      */
@@ -58,8 +54,6 @@ class RankNamePolicy
     /**
      * Determine whether the user can update the rank name.
      *
-     * @param  User  $user
-     * @param  RankName  $name
      *
      * @return bool
      */
@@ -73,8 +67,6 @@ class RankNamePolicy
     /**
      * Determine whether the user can delete the rank name.
      *
-     * @param  User  $user
-     * @param  RankName  $name
      *
      * @return bool
      */
@@ -87,9 +79,6 @@ class RankNamePolicy
 
     /**
      * Determine whether the user can duplicate the rank name.
-     *
-     * @param  User  $user
-     * @param  RankName  $name
      */
     public function duplicate(User $user, RankName $name)
     {
@@ -101,8 +90,6 @@ class RankNamePolicy
     /**
      * Determine whether the user can restore the rank name.
      *
-     * @param  User  $user
-     * @param  RankName  $name
      *
      * @return bool
      */
@@ -114,8 +101,6 @@ class RankNamePolicy
     /**
      * Determine whether the user can permanently delete the rank name.
      *
-     * @param  User  $user
-     * @param  RankName  $name
      *
      * @return bool
      */

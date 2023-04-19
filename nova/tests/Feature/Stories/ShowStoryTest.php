@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Stories;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Stories\Models\Story;
 use Tests\TestCase;
 
 /**
+ * @group storytelling
  * @group stories
  */
 class ShowStoryTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $story;
 
     public function setUp(): void
@@ -40,7 +38,7 @@ class ShowStoryTest extends TestCase
         $this->signIn();
 
         $response = $this->get(route('stories.show', $this->story));
-        $response->assertForbidden();
+        $response->assertNotFound();
     }
 
     /** @test **/

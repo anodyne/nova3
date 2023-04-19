@@ -15,8 +15,6 @@ use Tests\TestCase;
  */
 class ManageRankItemsTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test **/
     public function authorizedUserWithCreatePermissionCanViewManageRankItemsPage()
     {

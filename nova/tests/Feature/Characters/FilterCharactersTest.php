@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Characters;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Characters\Models\Character;
 use Nova\Characters\Models\States\Statuses\Active;
 use Nova\Characters\Models\States\Statuses\Inactive;
@@ -22,8 +21,6 @@ use Tests\TestCase;
  */
 class FilterCharactersTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test **/
     public function manageCharactersPageCanShowAllCharacters()
     {

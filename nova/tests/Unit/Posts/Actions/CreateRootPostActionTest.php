@@ -10,12 +10,11 @@ use Nova\Stories\Models\Story;
 use Tests\TestCase;
 
 /**
+ * @group storytelling
  * @group posts
  */
 class CreateRootPostActionTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test **/
     public function itCreatesARootPost()
     {

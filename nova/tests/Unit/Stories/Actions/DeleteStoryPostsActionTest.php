@@ -11,13 +11,12 @@ use Nova\Stories\Models\Story;
 use Tests\TestCase;
 
 /**
+ * @group storytelling
  * @group stories
  * @group posts
  */
 class DeleteStoryPostsActionTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $story;
 
     protected $posts;

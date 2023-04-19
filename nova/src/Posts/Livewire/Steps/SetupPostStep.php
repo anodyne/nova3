@@ -28,19 +28,26 @@ class SetupPostStep extends StepComponent
 
     public function goToNextStep(): void
     {
-        $this->post->update([
-            'direction' => request('direction'),
-            'neighbor' => request('neighbor'),
-        ]);
-
-        $this->post = SetPostPosition::run(
-            $this->post,
-            PostPositionData::from([
+        if (request()->has('direction') && request()->has('neighbor')) {
+            $this->post->update([
                 'direction' => request('direction'),
                 'neighbor' => request('neighbor'),
-                'hasPositionChange' => true,
-            ])
-        );
+            ]);
+
+            $this->post = SetPostPosition::run(
+                $this->post,
+                PostPositionData::from([
+                    'direction' => request('direction'),
+                    'neighbor' => request('neighbor'),
+                    'hasPositionChange' => true,
+                ])
+            );
+        }
+
+        if ($this->post->order_column === null) {
+            $this->post->setHighestOrderNumber();
+            $this->post->save();
+        }
 
         $this->nextStep();
     }

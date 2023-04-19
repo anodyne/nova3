@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Posts;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Livewire\Livewire;
 use Nova\Posts\Actions\CreateRootPost;
@@ -15,12 +14,11 @@ use Nova\Stories\Models\Story;
 use Tests\TestCase;
 
 /**
+ * @group storytelling
  * @group posts
  */
 class CreatePostTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function setUp(): void
     {
         parent::setUp();
@@ -49,7 +47,7 @@ class CreatePostTest extends TestCase
 
         Livewire::test(ComposePost::class, [
             'allPostTypes' => $postTypes = PostType::get(),
-            'allStories' => Story::whereCurrent()->get(),
+            'allStories' => Story::current()->get(),
         ])->set('postType', $postTypes->first())
             ->set('title', 'title')
             ->set('day', 'day')
@@ -76,7 +74,7 @@ class CreatePostTest extends TestCase
 
         Livewire::test(ComposePost::class, [
             'allPostTypes' => $postTypes = PostType::get(),
-            'allStories' => Story::whereCurrent()->get(),
+            'allStories' => Story::current()->get(),
         ])->set('postType', $postTypes->first())
             ->set('title', 'title')
             ->set('day', 'day')
@@ -104,7 +102,7 @@ class CreatePostTest extends TestCase
 
         Livewire::test(ComposePost::class, [
             'allPostTypes' => $postTypes = PostType::get(),
-            'allStories' => Story::whereCurrent()->get(),
+            'allStories' => Story::current()->get(),
         ])->set('postType', $postTypes->first())
             ->set('title', 'title')
             ->set('day', 'day')
@@ -127,7 +125,7 @@ class CreatePostTest extends TestCase
     {
         Livewire::test(ComposePost::class, [
             'allPostTypes' => $postTypes = PostType::get(),
-            'allStories' => Story::whereCurrent()->get(),
+            'allStories' => Story::current()->get(),
         ])->set('postType', $postTypes->first())
             ->set('title', 'title')
             ->set('day', 'day')

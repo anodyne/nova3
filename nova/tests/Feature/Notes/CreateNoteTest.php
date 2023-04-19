@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Notes;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\Notes\Events\NoteCreated;
 use Nova\Notes\Models\Note;
@@ -16,8 +15,6 @@ use Tests\TestCase;
  */
 class CreateNoteTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test **/
     public function authenticatedUserCanViewTheCreateNotePage()
     {

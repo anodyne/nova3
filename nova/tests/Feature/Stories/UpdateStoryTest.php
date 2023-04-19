@@ -4,20 +4,19 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Stories;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\Stories\Events\StoryUpdated;
 use Nova\Stories\Models\Story;
 use Nova\Stories\Requests\UpdateStoryRequest;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 /**
+ * @group storytelling
  * @group stories
  */
 class UpdateStoryTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $story;
 
     public function setUp(): void
@@ -79,12 +78,28 @@ class UpdateStoryTest extends TestCase
     }
 
     /** @test **/
+    #[DataProvider('additionProvider')]
+    public function requiredInputsAreRequired($field)
+    {
+        $this->signInWithPermission('story.update');
+
+        $data = Story::factory()->make();
+
+        $response = $this->putJson(
+            route('stories.update', $this->story),
+            array_merge($data->toArray(), [$field => ''])
+        );
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors($field);
+    }
+
+    /** @test **/
     public function unauthorizedUserCannotViewTheEditStoryPage()
     {
         $this->signIn();
 
         $response = $this->get(route('stories.edit', $this->story));
-        $response->assertForbidden();
+        $response->assertNotFound();
     }
 
     /** @test **/
@@ -98,7 +113,7 @@ class UpdateStoryTest extends TestCase
                 'status' => 'upcoming',
             ])
         );
-        $response->assertForbidden();
+        $response->assertNotFound();
     }
 
     /** @test **/
@@ -118,5 +133,12 @@ class UpdateStoryTest extends TestCase
             ])
         );
         $response->assertUnauthorized();
+    }
+
+    public static function clientFormValidationProvider(): array
+    {
+        return [
+            ['title'],
+        ];
     }
 }

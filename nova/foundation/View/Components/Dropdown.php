@@ -40,11 +40,11 @@ class Dropdown extends Component
     {
         $styles = match ((string) $placement) {
             'bottom-center' => ['left-0', 'right-auto', 'origin-top'],
-            'bottom-end' => ['right-0', 'left-auto','origin-top-right'],
-            default => ['left-0', 'right-auto','origin-top-left'],
-            'top-center' => ['left-0', 'right-auto','origin-bottom'],
-            'top-end' => ['right-0', 'left-auto','origin-bottom-right'],
-            'top-start' => ['left-0', 'right-auto','origin-bottom-left'],
+            'bottom-end' => ['right-0', 'left-auto', 'origin-top-right'],
+            default => ['left-0', 'right-auto', 'origin-top-left'],
+            'top-center' => ['left-0', 'right-auto', 'origin-bottom'],
+            'top-end' => ['right-0', 'left-auto', 'origin-bottom-right'],
+            'top-start' => ['left-0', 'right-auto', 'origin-bottom-left'],
         };
 
         $prefix = $breakpoint ? "{$breakpoint}:" : '';

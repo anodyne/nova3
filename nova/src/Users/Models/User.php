@@ -184,7 +184,6 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia, Laratru
     /**
      * Create a new Eloquent Collection instance.
      *
-     * @param  array  $models
      *
      * @return \Nova\Users\Models\UsersCollection
      */
@@ -197,8 +196,6 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia, Laratru
      * Use the customized Eloquent builder when working with users.
      *
      * @param  \Illuminate\Database\Query\Builder  $query
-     *
-     * @return UserBuilder
      */
     public function newEloquentBuilder($query): UserBuilder
     {
@@ -207,8 +204,6 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia, Laratru
 
     /**
      * Register the media collections for the model.
-     *
-     * @return void
      */
     public function registerMediaCollections(): void
     {

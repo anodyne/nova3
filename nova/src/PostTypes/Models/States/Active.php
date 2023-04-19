@@ -15,7 +15,7 @@ class Active extends PostTypeStatus
 
     public function bgColor(): string
     {
-        return "bg-success-500";
+        return 'bg-success-500';
     }
 
     public function name(): string

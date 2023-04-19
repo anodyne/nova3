@@ -23,8 +23,8 @@ class ReorderStoriesController extends Controller
     {
         $this->authorize('update', new Story());
 
-        $stories = Story::hasParent()
-            ->defaultOrder()
+        $stories = Story::query()
+            ->ordered()
             ->get()
             ->toTree();
 

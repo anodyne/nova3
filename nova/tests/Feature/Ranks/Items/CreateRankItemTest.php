@@ -16,8 +16,6 @@ use Tests\TestCase;
  */
 class CreateRankItemTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test **/
     public function authorizedUserCanViewTheCreateRankItemPage()
     {

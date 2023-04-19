@@ -4,18 +4,15 @@ declare(strict_types=1);
 
 namespace Tests\Feature\PostTypes;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\PostTypes\Models\PostType;
 use Tests\TestCase;
 
 /**
- * @group stories
+ * @group storytelling
  * @group post-types
  */
 class ReorderPostTypesTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $postType1;
 
     protected $postType2;

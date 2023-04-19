@@ -9,25 +9,14 @@ use Illuminate\Http\Request;
 
 abstract class Filters
 {
-    /**
-     * @var Request
-     */
     protected Request $request;
 
-    /**
-     * @var \Illuminate\Database\Eloquent\Builder
-     */
     protected Builder $builder;
 
-    /**
-     * @var array
-     */
     protected array $filters = [];
 
     /**
      * Create a new filters instance.
-     *
-     * @param  Request  $request
      */
     public function __construct(Request $request)
     {
@@ -36,10 +25,6 @@ abstract class Filters
 
     /**
      * Apply the filters.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $builder
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function apply(Builder $builder): Builder
     {
@@ -56,8 +41,6 @@ abstract class Filters
 
     /**
      * Fetch all relevant filters from the request.
-     *
-     * @return array
      */
     public function getFilters(): array
     {

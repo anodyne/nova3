@@ -13,12 +13,11 @@ use Nova\Stories\Models\Story;
 use Tests\TestCase;
 
 /**
+ * @group storytelling
  * @group stories
  */
 class UpdateStoryStatusActionTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $story;
 
     public function setUp(): void

@@ -35,16 +35,16 @@
                         name="start_date"
                         id="start_date"
                         placeholder="Select a start date"
-                        :value="old('start_date', $story->start_date->format('Y-m-d') ?? '')"
-                    ></x-input.date>
-                </x-input.group>
+                        :value="old('start_date', $story->start_date?->format('Y-m-d') ?? '')"
+                        ></x-input.date>
+                    </x-input.group>
 
-                <x-input.group label="End Date" for="end_date">
-                    <x-input.date
+                    <x-input.group label="End Date" for="end_date">
+                        <x-input.date
                         name="end_date"
                         id="end_date"
                         placeholder="Select an end date"
-                        :value="old('end_date', $story->end_date ?? '')"
+                        :value="old('end_date', $story->end_date?->format('Y-m-d') ?? '')"
                     ></x-input.date>
                 </x-input.group>
             </x-form.section>

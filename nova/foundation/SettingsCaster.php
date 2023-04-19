@@ -16,7 +16,6 @@ class SettingsCaster implements CastsAttributes
      * @param  string  $key
      * @param  mixed  $value
      * @param  array  $attributes
-     *
      * @return \Domain\Settings\Settings
      */
     public function get($model, $key, $value, $attributes)
@@ -31,9 +30,8 @@ class SettingsCaster implements CastsAttributes
      *
      * @param  \Illuminate\Database\Eloquent\Model  $model
      * @param  string  $key
-     * @param  \Domain\Settings\Settings $value
+     * @param  \Domain\Settings\Settings  $value
      * @param  array  $attributes
-     *
      * @return string
      */
     public function set($model, $key, $value, $attributes)

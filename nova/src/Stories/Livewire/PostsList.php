@@ -49,10 +49,9 @@ class PostsList extends Component
     {
         $query = $this->story
             ->posts()
-            ->hasParent()
             ->when($this->filters['search'], fn ($query, $search) => $query->searchFor($search))
             ->when($this->filters['types'], fn ($query, $types) => $query->whereIn('type', $types))
-            ->defaultOrder();
+            ->ordered();
 
         return $this->applySorting($query);
     }

@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Nova\Posts\Providers;
 
 use Nova\DomainServiceProvider;
+use Nova\Posts\Actions\PruneAbandonedPosts;
 use Nova\Posts\Events\PostCreating;
 use Nova\Posts\Listeners\SetDefaultContentRatings;
 use Nova\Posts\Livewire\ComposePost;
 use Nova\Posts\Livewire\ManageAuthorsModal;
 use Nova\Posts\Livewire\ReadPostModal;
-use Nova\Posts\Livewire\SelectAuthorsModal;
 use Nova\Posts\Livewire\SelectCharacterAuthorsModal;
 use Nova\Posts\Livewire\SelectDayModal;
 use Nova\Posts\Livewire\SelectLocationModal;
@@ -19,7 +19,6 @@ use Nova\Posts\Livewire\SelectStoryModal;
 use Nova\Posts\Livewire\SelectTimeModal;
 use Nova\Posts\Livewire\SelectUserAuthorsModal;
 use Nova\Posts\Livewire\SetContentRatingsModal;
-use Nova\Posts\Livewire\Steps\ChoosePostTypeStep;
 use Nova\Posts\Livewire\Steps\PublishPostStep;
 use Nova\Posts\Livewire\Steps\SelectAuthorsStep;
 use Nova\Posts\Livewire\Steps\SetupPostStep;
@@ -34,6 +33,13 @@ class PostServiceProvider extends DomainServiceProvider
     {
         return [
             'write-post-wizard-layout' => WritePostWizardLayout::class,
+        ];
+    }
+
+    public function consoleCommands(): array
+    {
+        return [
+            PruneAbandonedPosts::class,
         ];
     }
 

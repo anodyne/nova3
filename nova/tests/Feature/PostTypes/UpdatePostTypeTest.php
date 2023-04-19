@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\PostTypes;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\PostTypes\Events\PostTypeUpdated;
 use Nova\PostTypes\Models\PostType;
@@ -12,13 +11,11 @@ use Nova\PostTypes\Requests\UpdatePostTypeRequest;
 use Tests\TestCase;
 
 /**
- * @group stories
+ * @group storytelling
  * @group post-types
  */
 class UpdatePostTypeTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $postType;
 
     public function setUp(): void
@@ -81,7 +78,7 @@ class UpdatePostTypeTest extends TestCase
         $this->signIn();
 
         $response = $this->get(route('post-types.edit', $this->postType));
-        $response->assertForbidden();
+        $response->assertNotFound();
     }
 
     /** @test **/
@@ -93,7 +90,7 @@ class UpdatePostTypeTest extends TestCase
             route('post-types.update', $this->postType),
             PostType::factory()->make()->toArray()
         );
-        $response->assertForbidden();
+        $response->assertNotFound();
     }
 
     /** @test **/

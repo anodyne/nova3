@@ -5,13 +5,7 @@ declare(strict_types=1);
 namespace Nova\Posts\Livewire\Concerns;
 
 use Nova\Posts\Actions\DeletePost;
-use Nova\Posts\Actions\SavePostManager;
-use Nova\Posts\Data\PostAuthorsData;
-use Nova\Posts\Data\PostData;
-use Nova\Posts\Data\PostPositionData;
-use Nova\Posts\Data\PostStatusData;
 use Nova\Posts\Models\States\Draft;
-use Nova\Posts\Models\States\Published;
 use Nova\Posts\Models\States\Started;
 use Nova\Posts\Notifications\DraftPostDiscarded;
 use Nova\Posts\Notifications\PostSaved;
@@ -102,8 +96,8 @@ trait WritesPost
         DeletePost::run($this->post);
 
         $message = $this->post->status->equals(Draft::class)
-            ? $this->post->title . ' ' . str($this->postType->name)->lower() . ' draft has been discarded.'
-            : $this->post->title . ' ' . str($this->postType->name)->lower() . ' has been deleted.';
+            ? $this->post->title.' '.str($this->postType->name)->lower().' draft has been discarded.'
+            : $this->post->title.' '.str($this->postType->name)->lower().' has been deleted.';
 
         redirect()->route('writing-overview')->withToast($message);
     }
@@ -133,7 +127,7 @@ trait WritesPost
 
             if (! $quiet) {
                 $this->dispatchBrowserEvent('toast', [
-                    'title' => $this->post->title . ' has been saved',
+                    'title' => $this->post->title.' has been saved',
                     'message' => null,
                 ]);
             }

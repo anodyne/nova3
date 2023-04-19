@@ -6,7 +6,6 @@ namespace Nova\Stories\Actions;
 
 use Illuminate\Http\Request;
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Stories\Exceptions\StoryException;
 use Nova\Stories\Models\Story;
 
 class DeleteStoryManager
@@ -37,11 +36,6 @@ class DeleteStoryManager
     {
         $stories = collect(json_decode($request->actions, true));
 
-        throw_if(
-            $stories->keys()->contains(1),
-            StoryException::cannotDeleteMainTimeline()
-        );
-
         $stories->where('story.action', 'move')->each(function ($item, $id) {
             MoveStory::run(
                 Story::find($id),
@@ -67,7 +61,5 @@ class DeleteStoryManager
         $stories->where('story.action', 'delete')->reverse()->each(function ($item, $id) {
             DeleteStory::run(Story::find($id));
         });
-
-        Story::rebuildTree([]);
     }
 }

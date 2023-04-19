@@ -17,8 +17,6 @@ use Tests\TestCase;
  */
 class ManageUsersTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $activeUser;
 
     protected $pendingUser;

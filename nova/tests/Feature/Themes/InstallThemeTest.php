@@ -15,8 +15,6 @@ use Tests\TestCase;
  */
 class InstallThemeTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $disk;
 
     protected $theme;

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Posts\Livewire\Steps;
 
-use Illuminate\Database\Eloquent\Collection;
 use Livewire\Redirector;
 use Nova\Posts\Livewire\Concerns\HasPost;
 use Nova\Posts\Livewire\Concerns\HasPostType;
@@ -35,6 +34,21 @@ class PublishPostStep extends StepComponent
         ];
     }
 
+    public function getNumberOfPublishedPostsProperty(): int
+    {
+        return $this->story->posts()->count();
+    }
+
+    public function getShouldShowPositionPanelProperty(): bool
+    {
+        return $this->story->posts()->count() > 0;
+    }
+
+    public function getShouldShowParticipantsPanelProperty(): bool
+    {
+        return $this->post->characterAuthors()->count() + $this->post->userAuthors()->count() > 1;
+    }
+
     public function publish(): Redirector
     {
         if (! $this->post->status->equals(Published::class)) {
@@ -42,13 +56,13 @@ class PublishPostStep extends StepComponent
         }
 
         return redirect()->route('writing-overview')
-            ->withToast($this->post->title . ' has been published');
+            ->withToast($this->post->title.' has been published');
     }
 
     public function removeParticipant(User $user): void
     {
         $this->dispatchBrowserEvent('dropdown-close');
-        
+
         $this->post->removeParticipant($user);
 
         $this->refreshParticipatingUsers();

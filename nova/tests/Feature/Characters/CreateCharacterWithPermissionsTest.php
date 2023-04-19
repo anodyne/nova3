@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Characters;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\Characters\Events\CharacterCreated;
 use Nova\Characters\Events\CharacterCreatedByAdmin;
@@ -20,8 +19,6 @@ use Tests\TestCase;
  */
 class CreateCharacterWithPermissionsTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test **/
     public function userWithPermissionsCanViewTheCreateCharacterPage()
     {

@@ -4,45 +4,88 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Stories\Actions;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Stories\Actions\SetStoryPosition;
 use Nova\Stories\Data\StoryPositionData;
 use Nova\Stories\Models\Story;
 use Tests\TestCase;
 
 /**
+ * @group storytelling
  * @group stories
  */
 class SetStoryPositionActionTest extends TestCase
 {
-    use RefreshDatabase;
-
-    protected $story;
-
-    protected $mainTimeline;
+    protected Story $story;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->mainTimeline = Story::whereMainTimeline()->first();
-
         $this->story = Story::factory()->create();
-
-        $this->mainTimeline->appendNode($this->story);
-
-        $this->mainTimeline->refresh();
-        $this->story->refresh();
     }
 
     /** @test **/
-    public function itCreatesAStoryBeforeAnotherStory()
+    public function itMovesAStoryBeforeAnotherStory()
     {
-        $firstStory = Story::factory()->create([
-            'title' => 'First Story',
+        $this->assertEquals(1, $this->story->order_column);
+
+        $newFirstStory = Story::factory()->create();
+
+        $data = StoryPositionData::from([
+            'direction' => 'before',
+            'neighbor' => $this->story,
+            'hasPositionChange' => true,
         ]);
-        $this->mainTimeline->appendNode($firstStory);
+
+        SetStoryPosition::run($newFirstStory, $data);
+
+        $this->story->refresh();
+        $newFirstStory->refresh();
+
+        $this->assertEquals(1, $newFirstStory->order_column);
+        $this->assertEquals(2, $this->story->order_column);
+    }
+
+    /** @test **/
+    public function itMovesAStoryAfterAnotherStory()
+    {
+        $secondStory = Story::factory()->create();
+
+        $secondStory->refresh();
+
+        $this->assertEquals(1, $this->story->order_column);
+        $this->assertEquals(2, $secondStory->order_column);
+
+        $newSecondStory = Story::factory()->create();
+
+        $data = StoryPositionData::from([
+            'direction' => 'after',
+            'neighbor' => $this->story,
+            'hasPositionChange' => true,
+        ]);
+
+        SetStoryPosition::run($newSecondStory, $data);
+
+        $this->story->refresh();
+        $newSecondStory->refresh();
+        $secondStory->refresh();
+
+        $this->assertEquals(1, $this->story->order_column);
+        $this->assertEquals(2, $newSecondStory->order_column);
+        $this->assertEquals(3, $secondStory->order_column);
+    }
+
+    /** @test **/
+    public function itMovesANestedStoryBeforeAnotherStoryWithTheSameParent()
+    {
+        $secondRootStory = Story::factory()->create();
+
+        $firstStory = Story::factory()->withParent($this->story)->create();
+
+        $secondStory = Story::factory()->withParent($this->story)->create();
+
         $firstStory->refresh();
+        $secondStory->refresh();
 
         $data = StoryPositionData::from([
             'direction' => 'before',
@@ -50,24 +93,33 @@ class SetStoryPositionActionTest extends TestCase
             'hasPositionChange' => true,
         ]);
 
-        SetStoryPosition::run($this->story, $data);
+        SetStoryPosition::run($secondStory, $data);
 
         $this->story->refresh();
+        $secondRootStory->refresh();
         $firstStory->refresh();
+        $secondStory->refresh();
 
-        $this->assertEquals(2, $this->story->_lft);
-        $this->assertEquals(4, $firstStory->_lft);
+        $this->assertEquals(1, $this->story->order_column);
+        $this->assertEquals(2, $secondRootStory->order_column);
+        $this->assertEquals(1, $secondStory->order_column);
+        $this->assertEquals(2, $firstStory->order_column);
     }
 
     /** @test **/
-    public function itCreatesAStoryAfterAnotherStory()
+    public function itMovesANestedStoryAfterAnotherStoryWithTheSameParent()
     {
-        $mainTimeline = Story::whereMainTimeline()->first();
+        $secondRootStory = Story::factory()->create();
 
-        $firstStory = Story::factory()->create([
-            'title' => 'First Story',
-        ]);
-        $firstStory->appendToNode($mainTimeline)->save();
+        $firstStory = Story::factory()->withParent($this->story)->create();
+
+        $secondStory = Story::factory()->withParent($this->story)->create();
+
+        $thirdStory = Story::factory()->withParent($this->story)->create();
+
+        $firstStory->refresh();
+        $secondStory->refresh();
+        $thirdStory->refresh();
 
         $data = StoryPositionData::from([
             'direction' => 'after',
@@ -75,80 +127,18 @@ class SetStoryPositionActionTest extends TestCase
             'hasPositionChange' => true,
         ]);
 
-        SetStoryPosition::run($this->story, $data);
+        SetStoryPosition::run($thirdStory, $data);
 
         $this->story->refresh();
-        $firstStory->refresh();
-
-        $this->assertEquals(2, $firstStory->_lft);
-        $this->assertEquals(4, $this->story->_lft);
-    }
-
-    /** @test **/
-    public function itCreatesANestedStoryBeforeAnotherStory()
-    {
-        $mainTimeline = Story::whereMainTimeline()->first();
-
-        $firstStory = Story::factory()->create([
-            'title' => 'First Story',
-        ]);
-        $firstStory->appendToNode($mainTimeline)->save();
-        $firstStory->refresh();
-
-        $secondStory = Story::factory()->create([
-            'title' => 'Second Story',
-        ]);
-        $secondStory->appendToNode($firstStory)->save();
-
-        $data = StoryPositionData::from([
-            'parent_id' => $firstStory->id,
-            'direction' => 'before',
-            'neighbor' => $secondStory,
-            'hasPositionChange' => true,
-        ]);
-
-        SetStoryPosition::run($this->story, $data);
-
-        $this->story->refresh();
+        $secondRootStory->refresh();
         $firstStory->refresh();
         $secondStory->refresh();
+        $thirdStory->refresh();
 
-        $this->assertEquals($firstStory->id, $this->story->parent_id);
-        $this->assertEquals(3, $this->story->_lft);
-        $this->assertEquals(5, $secondStory->_lft);
-    }
-
-    /** @test **/
-    public function itCreatesANestedStoryAfterAnotherStory()
-    {
-        $mainTimeline = Story::whereMainTimeline()->first();
-
-        $firstStory = Story::factory()->create([
-            'title' => 'First Story',
-        ]);
-        $firstStory->appendToNode($mainTimeline)->save();
-        $firstStory->refresh();
-
-        $secondStory = Story::factory()->create([
-            'title' => 'Second Story',
-        ]);
-        $secondStory->appendToNode($firstStory)->save();
-
-        $data = StoryPositionData::from([
-            'parent_id' => $firstStory->id,
-            'direction' => 'after',
-            'neighbor' => $secondStory,
-            'hasPositionChange' => true,
-        ]);
-
-        SetStoryPosition::run($this->story, $data);
-
-        $this->story->refresh();
-        $firstStory->refresh();
-        $secondStory->refresh();
-
-        $this->assertEquals($firstStory->id, $this->story->parent_id);
-        $this->assertEquals(5, $this->story->_lft);
-        $this->assertEquals(3, $secondStory->_lft);
+        $this->assertEquals(1, $this->story->order_column);
+        $this->assertEquals(2, $secondRootStory->order_column);
+        $this->assertEquals(1, $firstStory->order_column);
+        $this->assertEquals(2, $thirdStory->order_column);
+        $this->assertEquals(3, $secondStory->order_column);
     }
 }

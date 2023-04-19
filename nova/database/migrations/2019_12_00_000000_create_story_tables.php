@@ -17,7 +17,7 @@ class CreateStoryTables extends Migration
         Schema::create('stories', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Story::class, 'parent_id')->nullable();
-            $table->unsignedBigInteger('sort')->default(0);
+            $table->unsignedBigInteger('order_column')->nullable();
             $table->string('status');
             $table->string('title');
             $table->text('description')->nullable();
@@ -58,7 +58,7 @@ class CreateStoryTables extends Migration
             $table->id();
             $table->foreignIdFor(Story::class)->nullable();
             $table->foreignIdFor(PostType::class)->nullable();
-            $table->unsignedBigInteger('sort')->default(0);
+            $table->unsignedBigInteger('order_column')->nullable();
             $table->string('status');
             $table->string('title')->nullable();
             $table->longText('content')->nullable();

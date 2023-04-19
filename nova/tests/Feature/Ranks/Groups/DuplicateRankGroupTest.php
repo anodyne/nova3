@@ -15,8 +15,6 @@ use Tests\TestCase;
  */
 class DuplicateRankGroupTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $group;
 
     public function setUp(): void

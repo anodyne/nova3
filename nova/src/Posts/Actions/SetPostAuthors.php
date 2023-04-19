@@ -6,7 +6,6 @@ namespace Nova\Posts\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Posts\Data\PostAuthorsData;
-use Nova\Posts\Data\PostPositionData;
 use Nova\Posts\Models\Post;
 
 class SetPostAuthors

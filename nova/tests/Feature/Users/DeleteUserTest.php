@@ -17,8 +17,6 @@ use Tests\TestCase;
  */
 class DeleteUserTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $user;
 
     public function setUp(): void

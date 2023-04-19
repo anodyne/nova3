@@ -14,7 +14,7 @@ class Characters extends Data implements Arrayable
         public bool $allowCharacterCreation,
         public bool $allowSettingPrimaryCharacter,
         public bool $autoLinkCharacter,
-        public int $characterLimit = 5,
+        public int $characterLimit,
         public bool $enforceCharacterLimits,
         public bool $requireApprovalForCharacterCreation,
     ) {

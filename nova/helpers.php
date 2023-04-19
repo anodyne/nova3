@@ -7,7 +7,6 @@ use Illuminate\Pipeline\Pipeline;
 use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Nova;
 use Nova\Foundation\Toast;
-use Nova\Settings\Models\Settings;
 
 if (! function_exists('blank')) {
     function blank($value)

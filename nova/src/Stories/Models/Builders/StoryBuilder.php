@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Models\Builders;
 
-use Illuminate\Database\Eloquent\Builder;
 use Nova\Foundation\Filters\Filterable;
 use Nova\Stories\Models\States\Completed;
 use Nova\Stories\Models\States\Current;
 use Nova\Stories\Models\States\Ongoing;
 use Nova\Stories\Models\States\Upcoming;
+use Staudenmeir\LaravelAdjacencyList\Eloquent\Builder;
 
 class StoryBuilder extends Builder
 {
@@ -20,32 +20,32 @@ class StoryBuilder extends Builder
         return $this->where('title', 'like', "%{$value}%");
     }
 
-    public function whereCompleted(): self
+    public function completed(): self
     {
         return $this->whereState('status', Completed::class);
     }
 
-    public function whereCurrent(): self
+    public function current(): self
     {
         return $this->whereState('status', Current::class);
     }
 
-    public function whereOngoing(): self
+    public function ongoing(): self
     {
         return $this->whereState('status', Ongoing::class);
     }
 
-    public function whereParent($parent = null): self
+    public function parent($parent = null): self
     {
         return $this->where('parent_id', $parent);
     }
 
-    public function whereUpcoming(): self
+    public function upcoming(): self
     {
         return $this->whereState('status', Upcoming::class);
     }
 
-    public function whereNotUpcoming(): self
+    public function notUpcoming(): self
     {
         return $this->whereNotState('status', Upcoming::class);
     }

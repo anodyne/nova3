@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Characters;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\Characters\Events\CharacterCreated;
 use Nova\Characters\Events\CharacterCreatedByAdmin;
@@ -23,7 +22,6 @@ use Tests\UsesSettings;
  */
 class CreateCharacterWithoutPermissionsTest extends TestCase
 {
-    use RefreshDatabase;
     use UsesSettings;
 
     /** @test **/

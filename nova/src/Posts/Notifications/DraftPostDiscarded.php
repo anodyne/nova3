@@ -15,7 +15,8 @@ class DraftPostDiscarded extends Notification implements ShouldQueue
 
     public function __construct(
         protected Post $post
-    ) {}
+    ) {
+    }
 
     public function via($notifiable)
     {

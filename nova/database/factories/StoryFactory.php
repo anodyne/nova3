@@ -69,4 +69,11 @@ class StoryFactory extends Factory
             'end_date' => $this->faker->date(),
         ]);
     }
+
+    public function withParent(?Story $parent)
+    {
+        return $this->state([
+            'parent_id' => $parent?->id ?? Story::factory(),
+        ]);
+    }
 }

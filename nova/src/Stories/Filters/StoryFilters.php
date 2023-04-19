@@ -22,9 +22,9 @@ class StoryFilters extends Filters
     public function sort($value): Builder
     {
         if ($value === 'desc') {
-            return $this->builder->defaultOrder();
+            return $this->builder->orderByDesc('order_column');
         }
 
-        return $this->builder->reorder()->reversed();
+        return $this->builder->reorder()->ordered();
     }
 }

@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-php /var/www/html/nova/vendor/bin/pest "$@"

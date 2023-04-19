@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Forms;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Forms\Models\Form;
 use Tests\TestCase;
 
@@ -13,8 +12,6 @@ use Tests\TestCase;
  */
 class ManageFormsTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test **/
     public function authorizedUserWithCreatePermissionCanViewManageFormsPage()
     {

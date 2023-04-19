@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Forms;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\Forms\Events\FormCreated;
 use Nova\Forms\Models\Form;
@@ -16,8 +15,6 @@ use Tests\TestCase;
  */
 class CreateFormTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test **/
     public function authorizedUserCanViewTheCreateFormPage()
     {

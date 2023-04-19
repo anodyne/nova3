@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Roles;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Roles\Models\Role;
 use Tests\TestCase;
 
@@ -13,8 +12,6 @@ use Tests\TestCase;
  */
 class ManageRolesTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test **/
     public function authorizedUserWithCreatePermissionCanViewManageRolesPage()
     {

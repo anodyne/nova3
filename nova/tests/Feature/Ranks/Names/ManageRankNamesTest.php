@@ -13,8 +13,6 @@ use Tests\TestCase;
  */
 class ManageRankNamesTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test **/
     public function authorizedUserWithCreatePermissionCanViewManageRankNamesPage()
     {

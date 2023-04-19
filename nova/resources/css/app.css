@@ -1,33 +1,49 @@
-@import 'tailwindcss/base';
+@import "tailwindcss/base";
 
-@import 'tailwindcss/components';
+@import "tailwindcss/components";
 
-@import 'components/form.css';
-@import 'components/icon.css';
-@import 'components/rank.css';
+@import "components/form.css";
+@import "components/icon.css";
+@import "components/rank.css";
 
-@import 'tailwindcss/utilities';
+@import "tailwindcss/utilities";
 
 @font-face {
-    font-family: 'Inter var';
+    font-family: "Inter var";
     font-style: normal;
     font-weight: 100 900;
     font-display: swap;
-    src: url('/dist/fonts/Inter-roman.var.woff2?v=3.18') format('woff2');
-    font-named-instance: 'Regular';
+    src: url("/dist/fonts/Inter-roman.var.woff2?v=3.18") format("woff2");
+    font-named-instance: "Regular";
 }
 
 @font-face {
-    font-family: 'Inter var';
+    font-family: "Inter var";
     font-style: italic;
     font-weight: 100 900;
     font-display: swap;
-    src: url('/dist/fonts/Inter-italic.var.woff2?v=3.18') format('woff2');
-    font-named-instance: 'Italic';
+    src: url("/dist/fonts/Inter-italic.var.woff2?v=3.18") format("woff2");
+    font-named-instance: "Italic";
+}
+
+@font-face {
+    font-family: "Hubot Sans";
+    src: url("/dist/fonts/Mona-Sans.woff2") format("woff2 supports variations"),
+        url("/dist/fonts/Mona-Sans.woff2") format("woff2-variations");
+    font-weight: 200 900;
+    font-stretch: 75% 125%;
+}
+
+@font-face {
+    font-family: "Mona Sans";
+    src: url("/dist/fonts/Mona-Sans.woff2") format("woff2 supports variations"),
+        url("/dist/fonts/Mona-Sans.woff2") format("woff2-variations");
+    font-weight: 200 900;
+    font-stretch: 75% 125%;
 }
 
 body {
-    font-feature-settings: 'ss01', 'ss03', 'cv11', 'zero';
+    font-feature-settings: "ss01", "ss03", "cv11", "zero";
 }
 
 [x-cloak] {
@@ -36,7 +52,24 @@ body {
 
 @layer components {
     .form-select {
-        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23667085' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23667085' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    }
+}
+
+@layer utilities {
+    .font-stretch-condensed,
+    .font-stretch-75 {
+        font-stretch: 75%;
+    }
+
+    .font-stretch-normal,
+    .font-stretch-100 {
+        font-stretch: 100%;
+    }
+
+    .font-stretch-expanded,
+    .font-stretch-125 {
+        font-stretch: 125%;
     }
 }
 

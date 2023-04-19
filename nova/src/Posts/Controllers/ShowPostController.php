@@ -8,7 +8,6 @@ use Nova\Foundation\Controllers\Controller;
 use Nova\Posts\Models\Post;
 use Nova\Posts\Responses\ShowPostResponse;
 use Nova\Stories\Models\Story;
-use Nova\Users\Models\User;
 
 class ShowPostController extends Controller
 {

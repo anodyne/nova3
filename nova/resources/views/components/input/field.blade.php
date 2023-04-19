@@ -7,9 +7,9 @@
 
 <div
     @class([
+        'group relative flex items-center w-full rounded-md py-2.5 px-3 bg-white dark:bg-gray-700/50 dark:focus-within:bg-gray-800 shadow-sm transition space-x-2 border-0 ring-1 ring-inset focus-within:ring-2 focus-within:ring-inset',
         'ring-gray-300 focus-within:ring-primary-400 dark:ring-gray-200/[15%] dark:focus-within:ring-primary-700' => !$error,
         'ring-danger-400 dark:ring-danger-600 focus-within:ring-danger-400 dark:focus-within:ring-danger-600' => $error,
-        'group relative flex items-center relative w-full rounded-md py-2 px-3 bg-white dark:bg-gray-700/50 dark:focus-within:bg-gray-800 shadow-sm transition space-x-2 ring-1 focus-within:ring-2'
     ])
     {{ $attributes }}
 >

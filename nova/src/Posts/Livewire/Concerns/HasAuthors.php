@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Posts\Livewire\Concerns;
 
-use Illuminate\Support\Collection;
-
 trait HasAuthors
 {
     public mixed $characters;

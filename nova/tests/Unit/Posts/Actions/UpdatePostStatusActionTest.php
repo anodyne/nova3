@@ -14,12 +14,11 @@ use Nova\Posts\Models\States\Published;
 use Tests\TestCase;
 
 /**
+ * @group storytelling
  * @group posts
  */
 class UpdatePostStatusActionTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected Post $post;
 
     public function setUp(): void

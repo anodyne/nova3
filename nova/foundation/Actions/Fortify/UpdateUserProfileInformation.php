@@ -2,11 +2,11 @@
 
 namespace Nova\Foundation\Actions\Fortify;
 
-use Nova\Users\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
+use Nova\Users\Models\User;
 
 class UpdateUserProfileInformation implements UpdatesUserProfileInformation
 {

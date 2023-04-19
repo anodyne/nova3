@@ -58,8 +58,6 @@ class RankGroup extends Model
      * Use a custom Eloquent builder.
      *
      * @param  \Illuminate\Database\Query\Builder  $query
-     *
-     * @return RankGroupBuilder
      */
     public function newEloquentBuilder($query): RankGroupBuilder
     {
