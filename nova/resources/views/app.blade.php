@@ -8,10 +8,8 @@
     <meta name="theme-color" content="#0091ff" media="(prefers-color-scheme: dark)">
     <title>{{ config('app.name', 'Nova NextGen') }}</title>
 
-    <link rel="preload" href="/dist/fonts/Hubot-Sans.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="/dist/fonts/Mona-Sans.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="/dist/fonts/Inter-roman.var.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="/dist/fonts/Inter-italic.var.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet preload prefetch" href="/dist/fonts/Inter-roman.var.woff2" as="style" crossorigin>
+    <link rel="stylesheet preload prefetch" href="/dist/fonts/Inter-italic.var.woff2" as="style" crossorigin>
 
     <x-admin-theme :settings="settings()" />
     @livewireStyles

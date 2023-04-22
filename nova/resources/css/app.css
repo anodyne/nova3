@@ -26,22 +26,6 @@
     font-named-instance: "Italic";
 }
 
-@font-face {
-    font-family: "Hubot Sans";
-    src: url("/dist/fonts/Mona-Sans.woff2") format("woff2 supports variations"),
-        url("/dist/fonts/Mona-Sans.woff2") format("woff2-variations");
-    font-weight: 200 900;
-    font-stretch: 75% 125%;
-}
-
-@font-face {
-    font-family: "Mona Sans";
-    src: url("/dist/fonts/Mona-Sans.woff2") format("woff2 supports variations"),
-        url("/dist/fonts/Mona-Sans.woff2") format("woff2-variations");
-    font-weight: 200 900;
-    font-stretch: 75% 125%;
-}
-
 body,
 button {
     font-feature-settings: "ss01", "ss03", "cv11", "zero";
