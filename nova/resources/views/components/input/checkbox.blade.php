@@ -12,7 +12,7 @@
             type="checkbox"
             @class([
                 'form-checkbox rounded h-4 w-4',
-                'bg-white checked:bg-primary-500 border-gray-300 focus:ring-primary-100 focus:ring-offset-white checked:hover:bg-primary-500 focus:text-primary-500',
+                'bg-white checked:bg-primary-500 border-gray-300 focus:ring-primary-200 focus:ring-offset-white checked:hover:bg-primary-500 focus:text-primary-500',
                 'dark:bg-gray-800 dark:checked:bg-primary-500 dark:border-gray-200/[15%] dark:checked:border-primary-500 dark:focus:ring-primary-900 dark:focus:ring-offset-gray-800 dark:checked:hover:bg-primary-500 dark:focus:text-primary-500',
             ])
             {{ $attributes }}

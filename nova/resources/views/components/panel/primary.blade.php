@@ -6,7 +6,7 @@
 ])
 
 <x-panel as="no-shadow" {{ $attributes }}>
-    <x-content-box :height="$height" :width="$width" class="sm:rounded-lg ring-1 bg-primary-25 dark:bg-primary-900/30 ring-primary-300 dark:ring-primary-700 text-primary-600 dark:text-primary-400">
+    <x-content-box :height="$height" :width="$width" class="sm:rounded-lg ring-1 ring-inset bg-primary-50 dark:bg-primary-900/30 ring-primary-300 dark:ring-primary-700 text-primary-600 dark:text-primary-400">
         <div class="flex items-start space-x-4">
             @if ($icon)
                 <div class="shrink-0">
