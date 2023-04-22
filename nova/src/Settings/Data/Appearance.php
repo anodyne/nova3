@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Settings\Data;
 
+use Filament\Support\Color;
 use Illuminate\Contracts\Support\Arrayable;
-use Nova\Foundation\ColorScales;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Data;
 
@@ -28,46 +28,32 @@ class Appearance extends Data implements Arrayable
         #[MapInputName('colors_success')]
         public string $colorsSuccess,
         #[MapInputName('colors_info')]
-        public ?string $colorsInfo,
+        public string $colorsInfo,
     ) {
     }
 
-    public function getColorShades($type)
+    public function getColors(): array
     {
-        $variable = str($type)->ucfirst()->prepend('colors');
-        $color = $this->$variable;
+        return [
+            'primary' => $this->processColor($this->colorsPrimary),
+            'gray' => $this->processColor($this->colorsGray),
+            'danger' => $this->processColor($this->colorsDanger),
+            'warning' => $this->processColor($this->colorsWarning),
+            'success' => $this->processColor($this->colorsSuccess),
+            'info' => $this->processColor($this->colorsInfo),
+        ];
+    }
 
-        return match ($color) {
-            default => ColorScales\Gray::class,
-            'amber' => ColorScales\Amber::class,
-            'blue' => ColorScales\Blue::class,
-            'blue-dark' => ColorScales\BlueDark::class,
-            'blue-light' => ColorScales\BlueLight::class,
-            'cyan' => ColorScales\Cyan::class,
-            'emerald' => ColorScales\Emerald::class,
-            'fuchsia' => ColorScales\Fuchsia::class,
-            'gray-blue' => ColorScales\GrayBlue::class,
-            'gray-cool' => ColorScales\GrayCool::class,
-            'gray-iron' => ColorScales\GrayIron::class,
-            'gray-modern' => ColorScales\GrayModern::class,
-            'gray-neutral' => ColorScales\GrayNeutral::class,
-            'gray-true' => ColorScales\GrayTrue::class,
-            'gray-warm' => ColorScales\GrayWarm::class,
-            'green' => ColorScales\Green::class,
-            'green-light' => ColorScales\GreenLight::class,
-            'green-monster' => ColorScales\GreenMonster::class,
-            'indigo' => ColorScales\Indigo::class,
-            'lilac' => ColorScales\Lilac::class,
-            'moss' => ColorScales\Moss::class,
-            'orange' => ColorScales\Orange::class,
-            'international-orange' => ColorScales\InternationalOrange::class,
-            'pink' => ColorScales\Pink::class,
-            'purple' => ColorScales\Purple::class,
-            'red' => ColorScales\Red::class,
-            'rose' => ColorScales\Rose::class,
-            'teal' => ColorScales\Teal::class,
-            'violet' => ColorScales\Violet::class,
-            'yellow' => ColorScales\Yellow::class,
-        };
+    protected function processColor(string $color): array
+    {
+        if (is_string($color) && str_starts_with($color, '#')) {
+            return Color::hex($color);
+        }
+
+        if (is_string($color) && str_starts_with($color, 'rgb')) {
+            return Color::rgb($color);
+        }
+
+        return constant('Filament\Support\Color::'.$color);
     }
 }

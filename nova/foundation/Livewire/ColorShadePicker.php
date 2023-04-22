@@ -14,45 +14,78 @@ class ColorShadePicker extends Component
 
     public string $selected = '';
 
+    public string $initial = '';
+
+    public function updatedSelected($value): void
+    {
+        if (! array_key_exists($this->selected, $this->colors)) {
+            if (! str_starts_with($this->selected, '#')) {
+                $this->selected = '#'.$this->selected;
+            }
+        }
+    }
+
+    public function getPreviewColorProperty(): string
+    {
+        if (str_starts_with($this->selected, '#')) {
+            return $this->selected;
+        }
+
+        if (filled($this->selected)) {
+            return sprintf('rgb(%s)', constant('Filament\Support\Color::'.$this->selected)[500]);
+        }
+
+        return $this->selected;
+    }
+
     public function getColorsProperty(): array
     {
         if ($this->type === 'gray') {
             return [
-                'gray' => 'Gray',
-                'gray-blue' => 'Blue Gray',
-                'gray-cool' => 'Cool Gray',
-                'gray-iron' => 'Iron Gray',
-                'gray-modern' => 'Modern Gray',
-                'gray-neutral' => 'Neutral Gray',
-                'gray-true' => 'True Gray',
-                'gray-warm' => 'Warm Gray',
+                'Slate' => 'Slate',
+                'Gray' => 'Gray',
+                'Zinc' => 'Zinc',
+                'Neutral' => 'Neutral',
+                'Stone' => 'Stone',
+                '#' => 'Custom color',
             ];
         }
 
         return [
-            'amber' => 'Amber',
-            'blue' => 'Blue',
-            'blue-dark' => 'Dark Blue',
-            'blue-light' => 'Light Blue',
-            'cyan' => 'Cyan',
-            'emerald' => 'Emerald',
-            'fuchsia' => 'Fuchsia',
-            'green' => 'Green',
-            'green-light' => 'Light Green',
-            'green-monster' => 'Green Monster',
-            'indigo' => 'Indigo',
-            'lilac' => 'Lilac',
-            'moss' => 'Moss',
-            'orange' => 'Orange',
-            'international-orange' => 'International Orange',
-            'pink' => 'Pink',
-            'purple' => 'Purple',
-            'red' => 'Red',
-            'rose' => 'Rose',
-            'teal' => 'Teal',
-            'violet' => 'Violet',
-            'yellow' => 'Yellow',
+            'Red' => 'Red',
+            'Orange' => 'Orange',
+            'Amber' => 'Amber',
+            'Yellow' => 'Yellow',
+            'Lime' => 'Lime',
+            'Green' => 'Green',
+            'Emerald' => 'Emerald',
+            'Teal' => 'Teal',
+            'Cyan' => 'Cyan',
+            'Sky' => 'Sky',
+            'Blue' => 'Blue',
+            'Indigo' => 'Indigo',
+            'Violet' => 'Violet',
+            'Purple' => 'Purple',
+            'Fuchsia' => 'Fuchsia',
+            'Pink' => 'Pink',
+            'Rose' => 'Rose',
+            '#' => 'Custom color',
         ];
+    }
+
+    public function resetField(): void
+    {
+        if ($this->initial === $this->selected) {
+            $this->selected = '';
+        } else {
+            $this->selected = $this->initial;
+        }
+    }
+
+    public function mount($selected): void
+    {
+        $this->selected = $selected;
+        $this->initial = $selected;
     }
 
     public function render()

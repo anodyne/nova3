@@ -46,7 +46,7 @@
                 </x-input.group>
             </x-form.section>
 
-            <x-form.section title="Colors" message="Put your own personal touch on Nova by changing the colors used throughout the admin system.">
+            <x-form.section title="Colors" message="Put your own personal touch on Nova by changing the colors used throughout the admin system. You can choose from a series of pre-defined color scales or specify your own color and a color scale will be created for you.">
                 <x-input.group label="Gray">
                     <livewire:color-shade-picker type="gray" name="colors_gray" :selected="$settings->appearance->colorsGray" />
                 </x-input.group>
@@ -65,6 +65,10 @@
 
                 <x-input.group label="Success color">
                     <livewire:color-shade-picker type="colors" name="colors_success" :selected="$settings->appearance->colorsSuccess" />
+                </x-input.group>
+
+                <x-input.group label="Info color">
+                    <livewire:color-shade-picker type="colors" name="colors_info" :selected="$settings->appearance->colorsInfo" />
                 </x-input.group>
             </x-form.section>
 
