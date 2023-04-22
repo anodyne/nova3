@@ -119,7 +119,7 @@
             <div x-show="isTab('personal')" x-cloak>
                 <ul>
                     @foreach ($systemNotifications->where('type', Nova\Foundation\Enums\SystemNotificationType::personal) as $systemNotification)
-                        <li class="border-t border-gray-300 hover:bg-gray-50/50 dark:hover:bg-gray-700/20 first:border-0 transition">
+                        <li class="border-t border-gray-200 dark:border-gray-200/10 hover:bg-gray-50/50 dark:hover:bg-gray-700/20 first:border-0 transition">
                             <div class="block">
                                 <div class="px-4 py-4 flex items-center sm:px-6">
                                     <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
