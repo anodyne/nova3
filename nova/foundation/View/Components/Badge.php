@@ -21,26 +21,25 @@ class Badge extends Component
     public function styles(): string
     {
         return Arr::toCssClasses([
-            'inline-flex items-center space-x-1.5',
-            'font-medium leading-normal no-underline',
+            'inline-flex items-center font-medium leading-normal no-underline ring-1 ring-inset',
+            'rounded-lg' => ! str($this->size)->contains('circle'),
+            'rounded-full' => str($this->size)->contains('circle'),
             $this->colorStyles(),
             $this->sizeStyles(),
-            'rounded-full' => ! str($this->size)->contains('square'),
-            'rounded-md' => str($this->size)->contains('square'),
-            $this->iconSizeStyles() => $this->icon,
-            $this->iconStyles() => $this->icon,
+            // $this->iconSizeStyles() => $this->icon,
+            // $this->iconStyles() => $this->icon,
         ]);
     }
 
     public function colorStyles(): string
     {
         return match ($this->color) {
-            default => 'bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-400',
-            'primary' => 'bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400',
-            'success' => 'bg-success-100 dark:bg-success-900 text-success-600 dark:text-success-400',
-            'info' => 'bg-info-100 dark:bg-info-900 text-info-600 dark:text-info-400',
-            'danger' => 'bg-danger-100 dark:bg-danger-900 text-danger-600 dark:text-danger-400',
-            'warning' => 'bg-warning-100 dark:bg-warning-900 text-warning-600 dark:text-warning-400',
+            default => 'bg-gray-50 dark:bg-gray-400/10 text-gray-600 dark:text-gray-400 ring-gray-500/10 dark:ring-gray-400/20',
+            'primary' => 'bg-primary-50 dark:bg-primary-400/10 text-primary-600 dark:text-primary-400 ring-primary-500/10 dark:ring-primary-400/20',
+            'success' => 'bg-success-50 dark:bg-success-400/10 text-success-600 dark:text-success-400 ring-success-500/10 dark:ring-success-400/20',
+            'info' => 'bg-info-50 dark:bg-info-400/10 text-info-600 dark:text-info-400 ring-info-500/10 dark:ring-info-400/20',
+            'danger' => 'bg-danger-50 dark:bg-danger-400/10 text-danger-600 dark:text-danger-400 ring-danger-500/10 dark:ring-danger-400/20',
+            'warning' => 'bg-warning-50 dark:bg-warning-400/10 text-warning-600 dark:text-warning-400 ring-warning-500/10 dark:ring-warning-400/20',
         };
     }
 
@@ -96,9 +95,9 @@ class Badge extends Component
     public function sizeStyles(): string
     {
         return match ($this->size) {
-            default => 'px-3 py-0.5 text-sm',
-            'xs' => 'px-2 py-0.5 text-xs',
-            'lg' => 'px-4 py-1 text-base',
+            default => 'px-2 py-1 text-xs',
+            'xs' => 'px-2 py-1 text-xs',
+            'lg' => 'px-2 py-1 text-xs',
 
             'circle-xs' => 'p-1',
             'circle-sm' => 'p-1.5',
