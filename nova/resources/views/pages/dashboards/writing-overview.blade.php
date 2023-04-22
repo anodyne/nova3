@@ -12,7 +12,7 @@
         <x-panel.header
             title="My draft posts"
             message="Drafts are posts currently in progress and that have not been published."
-            :bottom-border="false"
+            :bottom-border="$posts->count() === 0"
         >
             @if ($posts->count() > 0)
                 <x-slot:actions>
