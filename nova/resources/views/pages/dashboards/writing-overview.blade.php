@@ -11,7 +11,7 @@
     <x-panel>
         <x-panel.header
             title="My draft posts"
-            message="Drafts are posts currently in progress and that have not been published."
+            message="Drafts are posts in progress that have not been published"
             :bottom-border="$posts->count() === 0"
         >
             @if ($posts->count() > 0)

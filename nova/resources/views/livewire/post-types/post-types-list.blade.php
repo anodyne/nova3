@@ -1,5 +1,5 @@
 <x-panel class="{{ $reordering ? 'overflow-hidden' : '' }}" x-data="filtersPanel()">
-    <x-panel.header title="Post types" message="Control the content users post into stories.">
+    <x-panel.header title="Post types" message="Control the content users can post into stories">
         @if (! $reordering)
             <x-slot:actions>
                 @can('update', $postTypes->first())
@@ -192,7 +192,7 @@
                     >
                         <x-slot:primary>
                             <x-button-filled tag="a" :href="route('post-types.create')">
-                                Add a post type
+                                Create your first post type
                             </x-button-filled>
                         </x-slot:primary>
 

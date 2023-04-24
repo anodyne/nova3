@@ -29,7 +29,7 @@
             @endif
 
             @can('create', $storyClass)
-                <x-button-filled tag="a" :href="route('stories.create')" data-cy="create">
+                <x-button-filled tag="a" :href="route('stories.create')" data-cy="create" leading="add">
                     Add a story
                 </x-button-filled>
             @endcan
