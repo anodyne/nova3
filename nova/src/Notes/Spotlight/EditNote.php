@@ -34,10 +34,10 @@ class EditNote extends SpotlightCommand
     public function searchNote($query)
     {
         return Note::query()
-            ->whereAuthor(auth()->user())
+            ->currentUser()
             ->searchFor($query)
             ->get()
-            ->map(function ($note) {
+            ->map(function (Note $note) {
                 return new SpotlightSearchResult(
                     $note->id,
                     $note->title,

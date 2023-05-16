@@ -55,9 +55,6 @@ class PopulatePagesTable extends Migration
             ['uri' => 'notes', 'key' => 'notes.store', 'verb' => 'post', 'resource' => 'Nova\\Notes\\Controllers\\CreateNoteController@store', 'layout' => 'admin'],
             ['uri' => 'notes/{note}/edit', 'key' => 'notes.edit', 'resource' => 'Nova\\Notes\\Controllers\\UpdateNoteController@edit', 'layout' => 'admin'],
             ['uri' => 'notes/{note}', 'key' => 'notes.update', 'verb' => 'put', 'resource' => 'Nova\\Notes\\Controllers\\UpdateNoteController@update', 'layout' => 'admin'],
-            ['uri' => 'notes/delete', 'key' => 'notes.delete', 'verb' => 'post', 'resource' => 'Nova\\Notes\\Controllers\\DeleteNoteController@confirm', 'layout' => 'admin'],
-            ['uri' => 'notes/{note}', 'key' => 'notes.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Notes\\Controllers\\DeleteNoteController@destroy', 'layout' => 'admin'],
-            ['uri' => 'notes/{original}/duplicate', 'key' => 'notes.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Notes\\Controllers\\DuplicateNoteController', 'layout' => 'admin'],
 
             ['uri' => 'settings/{tab?}', 'key' => 'settings.index', 'resource' => 'Nova\\Settings\\Controllers\\SettingsController@index', 'layout' => 'admin'],
             ['uri' => 'settings/{tab?}', 'key' => 'settings.update', 'verb' => 'put', 'resource' => 'Nova\\Settings\\Controllers\\SettingsController@update', 'layout' => 'admin'],

@@ -4,9 +4,9 @@
     <x-panel>
         <x-panel.header title="Add a new note">
             <x-slot:actions>
-                <x-link :href="route('notes.index')" color="gray" leading="arrow-left">
-                    Back to my notes
-                </x-link>
+                <x-button.text :href="route('notes.index')" color="gray" leading="arrow-left">
+                    Back
+                </x-button.text>
             </x-slot:actions>
         </x-panel.header>
 
@@ -22,15 +22,9 @@
             </x-content-box>
 
             <x-form.footer>
-                <x-button-filled type="submit">Add note</x-button-filled>
-                <x-link :href="route('notes.index')" color="gray">Cancel</x-link>
+                <x-button.filled type="submit" color="primary">Add</x-button.filled>
+                <x-button.outline :href="route('notes.index')" color="gray">Cancel</x-button.outline>
             </x-form.footer>
         </x-form>
     </x-panel>
 @endsection
-
-@push('styles')
-    @once
-        <link rel="stylesheet" href="{{ asset('dist/css/tiptap.css') }}">
-    @endonce
-@endpush
