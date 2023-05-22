@@ -43,7 +43,7 @@ class RankNamesDropdown extends Component
     {
         return RankName::query()
             ->when($this->search, fn ($query, $value) => $query->searchFor($value))
-            ->orderBySort()
+            ->ordered()
             ->get();
     }
 

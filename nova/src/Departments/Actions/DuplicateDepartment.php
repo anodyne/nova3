@@ -7,6 +7,7 @@ namespace Nova\Departments\Actions;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Departments\Data\DepartmentData;
 use Nova\Departments\Models\Department;
+use Nova\Departments\Models\Position;
 
 class DuplicateDepartment
 {
@@ -18,6 +19,10 @@ class DuplicateDepartment
         $department->fill($data->all());
         $department->save();
 
-        return $department->fresh();
+        $original->positions->each(
+            fn (Position $position) => $department->positions()->create($position->toArray())
+        );
+
+        return $department->refresh();
     }
 }

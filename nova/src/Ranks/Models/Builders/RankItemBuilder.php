@@ -12,27 +12,12 @@ use Nova\Ranks\Models\States\Items\Active;
 
 class RankItemBuilder extends Builder
 {
-    use Filterable;
-    use Sortable;
-
     public function searchFor($value): self
     {
         return $this->whereHas(
             'name',
             fn ($query) => $query->where('name', 'like', "%{$value}%")
         );
-    }
-
-    public function orderBySort()
-    {
-        return $this->orderBy('group_id', 'asc')
-            ->orderBy('sort', 'asc');
-    }
-
-    public function orderBySortDesc()
-    {
-        return $this->orderBy('group_id', 'desc')
-            ->orderBy('sort', 'desc');
     }
 
     public function whereActive()

@@ -5,15 +5,13 @@
         <x-panel.header title="Add a new position">
             <x-slot:actions>
                 @can('viewAny', Nova\Departments\Models\Position::class)
-                    @if ($selectedDepartment)
-                        <x-link :href="route('positions.index', 'department='.$selectedDepartment?->id)" leading="arrow-left" size="none" color="gray-text">
-                            Back to {{ $selectedDepartment->name }} positions list
-                        </x-link>
-                    @else
-                        <x-link :href="route('positions.index')" leading="arrow-left" size="none" color="gray-text">
-                            Back to positions list
-                        </x-link>
-                    @endif
+                    <x-button.text
+                        :href="$selectedDepartment ? route('positions.index', 'department='.$selectedDepartment?->id) : route('positions.index')"
+                        leading="arrow-left"
+                        color="gray"
+                    >
+                        Back
+                    </x-button.text>
                 @endcan
             </x-slot:actions>
         </x-panel.header>
@@ -55,8 +53,8 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button-filled type="submit">Add position</x-button-filled>
-                <x-link :href="route('positions.index', 'department='.$selectedDepartment?->id)" color="gray">Cancel</x-link>
+                <x-button.filled type="submit" color="primary">Add</x-button.filled>
+                <x-button.outline :href="route('positions.index', 'department='.$selectedDepartment?->id)" color="gray">Cancel</x-button.outline>
             </x-form.footer>
         </x-form>
     </x-panel>

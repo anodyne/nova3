@@ -43,7 +43,7 @@ class RankGroupsDropdown extends Component
     {
         return RankGroup::query()
             ->when($this->search, fn ($query, $value) => $query->searchFor($value))
-            ->orderBySort()
+            ->ordered()
             ->get();
     }
 

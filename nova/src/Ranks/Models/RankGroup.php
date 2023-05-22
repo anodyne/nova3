@@ -6,25 +6,27 @@ namespace Nova\Ranks\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Nova\Ranks\Enums\RankGroupStatus;
 use Nova\Ranks\Events;
 use Nova\Ranks\Models\Builders\RankGroupBuilder;
-use Nova\Ranks\Models\States\Groups\RankGroupStatus;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
-use Spatie\ModelStates\HasStates;
+use Spatie\EloquentSortable\Sortable;
+use Spatie\EloquentSortable\SortableTrait;
 
-class RankGroup extends Model
+class RankGroup extends Model implements Sortable
 {
     use HasFactory;
-    use HasStates;
     use LogsActivity;
+    use SortableTrait;
 
-    protected static $logFillable = true;
+    protected $table = 'rank_groups';
 
-    protected static $logName = 'admin';
+    protected $fillable = ['name', 'order_column', 'status'];
 
     protected $casts = [
-        'sort' => 'integer',
+        'order_column' => 'integer',
         'status' => RankGroupStatus::class,
     ];
 
@@ -34,14 +36,10 @@ class RankGroup extends Model
         'deleted' => Events\RankGroupDeleted::class,
     ];
 
-    protected $fillable = ['name', 'sort', 'status'];
-
-    protected $table = 'rank_groups';
-
-    public function ranks()
+    public function ranks(): HasMany
     {
         return $this->hasMany(RankItem::class, 'group_id')
-            ->orderBy('sort', 'asc');
+            ->orderBy('order_column', 'asc');
     }
 
     public function getActivitylogOptions(): LogOptions
@@ -50,15 +48,10 @@ class RankGroup extends Model
             ->logFillable()
             ->useLogName('admin')
             ->setDescriptionForEvent(
-                fn (string $eventName) => ":subject.name rank group was {$eventName}"
+                fn (string $eventName): string => ":subject.name rank group was {$eventName}"
             );
     }
 
-    /**
-     * Use a custom Eloquent builder.
-     *
-     * @param  \Illuminate\Database\Query\Builder  $query
-     */
     public function newEloquentBuilder($query): RankGroupBuilder
     {
         return new RankGroupBuilder($query);

@@ -5,6 +5,8 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Nova\Ranks\Enums\RankGroupStatus;
+use Nova\Ranks\Enums\RankNameStatus;
 
 class CreateRankTables extends Migration
 {
@@ -13,16 +15,16 @@ class CreateRankTables extends Migration
         Schema::create('rank_groups', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('status');
-            $table->unsignedInteger('sort')->nullable();
+            $table->string('status')->default(RankGroupStatus::active->value);
+            $table->unsignedInteger('order_column')->nullable();
             $table->timestamps();
         });
 
         Schema::create('rank_names', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('status');
-            $table->unsignedInteger('sort')->nullable();
+            $table->string('status')->default(RankNameStatus::active->value);
+            $table->unsignedInteger('order_column')->nullable();
             $table->timestamps();
         });
 
@@ -33,7 +35,7 @@ class CreateRankTables extends Migration
             $table->string('base_image');
             $table->string('overlay_image')->nullable();
             $table->string('status');
-            $table->unsignedInteger('sort')->nullable();
+            $table->unsignedInteger('order_column')->nullable();
             $table->timestamps();
         });
     }

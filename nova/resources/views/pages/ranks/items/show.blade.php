@@ -5,13 +5,13 @@
         <x-panel.header :title="$item->name->name">
             <x-slot:actions>
                 @can('viewAny', Nova\Ranks\Models\RankItem::class)
-                    <x-link :href="route('ranks.items.index')" leading="arrow-left" size="none" color="gray-text">
+                    <x-button.text :href="route('ranks.items.index')" leading="arrow-left" color="gray">
                         Back
-                    </x-link>
+                    </x-button.text>
                 @endcan
 
                 @can('update', $item)
-                    <x-link :href="route('ranks.items.edit', $item)" color="primary" leading="edit">Edit</x-link>
+                    <x-button.filled :href="route('ranks.items.edit', $item)" color="primary" leading="edit">Edit</x-button.filled>
                 @endcan
             </x-slot:actions>
         </x-panel.header>
@@ -50,18 +50,14 @@
                             </div>
 
                             @can('update', $character)
-                                <x-link :href="route('characters.edit', $character)" color="gray-text" size="none" class="group-hover:visible sm:invisible">
-                                    @icon('edit')
-                                </x-link>
+                                <x-button.text :href="route('characters.edit', $character)" color="gray" class="group-hover:visible sm:invisible">
+                                    <x-icon name="edit" size="sm"></x-icon>
+                                </x-button.text>
                             @endcan
                         </div>
                     @endforeach
                 </div>
             </x-form.section>
-
-            <x-form.footer>
-                <x-link :href="route('ranks.items.index')" color="white">Back</x-link>
-            </x-form.footer>
         </x-form>
     </x-panel>
 @endsection

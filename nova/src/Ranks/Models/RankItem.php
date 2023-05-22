@@ -12,16 +12,19 @@ use Nova\Ranks\Models\Builders\RankItemBuilder;
 use Nova\Ranks\Models\States\Items\RankItemStatus;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\EloquentSortable\Sortable;
+use Spatie\EloquentSortable\SortableTrait;
 use Spatie\ModelStates\HasStates;
 
-class RankItem extends Model
+class RankItem extends Model implements Sortable
 {
     use HasFactory;
     use HasStates;
     use LogsActivity;
+    use SortableTrait;
 
     protected $casts = [
-        'sort' => 'integer',
+        'order_column' => 'integer',
         'status' => RankItemStatus::class,
     ];
 
@@ -32,7 +35,7 @@ class RankItem extends Model
     ];
 
     protected $fillable = [
-        'base_image', 'overlay_image', 'group_id', 'name_id', 'sort', 'status',
+        'base_image', 'overlay_image', 'group_id', 'name_id', 'order_column', 'status',
     ];
 
     protected $table = 'rank_items';

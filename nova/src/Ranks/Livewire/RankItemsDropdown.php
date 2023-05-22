@@ -26,7 +26,7 @@ class RankItemsDropdown extends Component
         $this->items = RankItem::query()
             ->whereActive()
             ->whereGroup($groupId)
-            ->orderBySort()
+            ->ordered()
             ->get();
     }
 
@@ -39,7 +39,7 @@ class RankItemsDropdown extends Component
 
     public function mount($rank = null)
     {
-        $this->groups = RankGroup::orderBySort()->get();
+        $this->groups = RankGroup::ordered()->get();
 
         if ($rank) {
             $this->selected = RankItem::find($rank);

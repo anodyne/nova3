@@ -14,10 +14,10 @@ class RankGroupSeeder extends Seeder
         activity()->disableLogging();
 
         $groups = [
-            ['name' => 'Command', 'sort' => 0],
-            ['name' => 'Operations', 'sort' => 1],
-            ['name' => 'Science', 'sort' => 2],
-            ['name' => 'Marines', 'sort' => 3],
+            ['name' => 'Command', 'order_column' => 0],
+            ['name' => 'Operations', 'order_column' => 1],
+            ['name' => 'Science', 'order_column' => 2],
+            ['name' => 'Marines', 'order_column' => 3],
         ];
 
         collect($groups)->each([RankGroup::class, 'create']);

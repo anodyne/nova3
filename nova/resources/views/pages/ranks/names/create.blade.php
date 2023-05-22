@@ -5,9 +5,9 @@
         <x-panel.header title="Add a new rank name">
             <x-slot:actions>
                 @can('viewAny', Nova\Ranks\Models\RankName::class)
-                    <x-link :href="route('ranks.names.index')" leading="arrow-left" size="none" color="gray-text">
+                    <x-button.text :href="route('ranks.names.index')" leading="arrow-left" color="gray">
                         Back
-                    </x-link>
+                    </x-button.text>
                 @endcan
             </x-slot:actions>
         </x-panel.header>
@@ -31,8 +31,8 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button type="submit" color="primary">Add</x-button>
-                <x-link :href="route('ranks.names.index')" color="white">Cancel</x-link>
+                <x-button.filled type="submit" color="primary">Add</x-button.filled>
+                <x-button.outline :href="route('ranks.names.index')" color="gray">Cancel</x-button.outline>
             </x-form.footer>
         </x-form>
     </x-panel>

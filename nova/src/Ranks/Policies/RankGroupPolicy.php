@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Ranks\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 use Nova\Ranks\Models\RankGroup;
 use Nova\Users\Models\User;
 
@@ -12,99 +13,59 @@ class RankGroupPolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * Determine whether the user can view any rank group.
-     *
-     *
-     * @return bool
-     */
-    public function viewAny(User $user)
+    public function viewAny(User $user): Response
     {
         return $user->isAbleTo('rank.*')
             ? $this->allow()
             : $this->denyAsNotFound();
     }
 
-    /**
-     * Determine whether the user can view the rank group.
-     *
-     *
-     * @return bool
-     */
-    public function view(User $user, RankGroup $group)
+    public function view(User $user, RankGroup $group): Response
     {
         return $user->isAbleTo('rank.view')
             ? $this->allow()
             : $this->denyAsNotFound();
     }
 
-    /**
-     * Determine whether the user can create rank groups.
-     *
-     *
-     * @return bool
-     */
-    public function create(User $user)
+    public function create(User $user): Response
     {
         return $user->isAbleTo('rank.create')
             ? $this->allow()
             : $this->denyAsNotFound();
     }
 
-    /**
-     * Determine whether the user can update the rank group.
-     *
-     *
-     * @return bool
-     */
-    public function update(User $user, RankGroup $group)
+    public function update(User $user, RankGroup $group): Response
     {
         return $user->isAbleTo('rank.update')
             ? $this->allow()
             : $this->denyAsNotFound();
     }
 
-    /**
-     * Determine whether the user can delete the rank group.
-     *
-     *
-     * @return bool
-     */
-    public function delete(User $user, RankGroup $group)
+    public function deleteAny(User $user): Response
     {
         return $user->isAbleTo('rank.delete')
             ? $this->allow()
             : $this->denyAsNotFound();
     }
 
-    /**
-     * Determine whether the user can duplicate the rank group.
-     */
-    public function duplicate(User $user, RankGroup $group)
+    public function delete(User $user, RankGroup $group): Response
+    {
+        return $this->deleteAny($user);
+    }
+
+    public function duplicate(User $user, RankGroup $group): Response
     {
         return $user->isAbleTo('rank.create') && $user->isAbleTo('rank.update')
             ? $this->allow()
             : $this->denyAsNotFound();
     }
 
-    /**
-     * Determine whether the user can restore the rank group.
-     *
-     *
-     * @return bool
-     */
-    public function restore(User $user, RankGroup $group)
+    public function restore(User $user, RankGroup $group): Response
     {
         return $this->denyWithStatus(418);
     }
 
-    /**
-     * Determine whether the user can permanently delete the rank group.
-     *
-     *
-     * @return bool
-     */
-    public function forceDelete(User $user, RankGroup $group)
+    public function forceDelete(User $user, RankGroup $group): Response
     {
         return $this->denyWithStatus(418);
     }

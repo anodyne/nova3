@@ -5,9 +5,9 @@
         <x-panel.header title="Edit position">
             <x-slot:actions>
                 @can('viewAny', Nova\Departments\Models\Position::class)
-                    <x-link :href="route('positions.index', 'department='.$position->department->id)" leading="arrow-left" size="none" color="gray-text">
-                        Back to {{ $position->department->name }} positions
-                    </x-link>
+                    <x-button.text :href="route('positions.index', 'department='.$position->department->id)" leading="arrow-left" color="gray">
+                        Back
+                    </x-button.text>
                 @endcan
             </x-slot:actions>
         </x-panel.header>
@@ -59,8 +59,8 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button-filled type="submit">Save position</x-button-filled>
-                <x-link :href="route('positions.index', $position->department)" color="gray">Cancel</x-link>
+                <x-button.filled type="submit" color="primary">Update</x-button.filled>
+                <x-button.outline :href="route('positions.index', $position->department)" color="gray">Cancel</x-button.outline>
             </x-form.footer>
         </x-form>
     </x-panel>

@@ -46,7 +46,7 @@
         class="absolute mt-2 rounded-lg shadow-lg origin-top-left left-0 w-full"
         x-cloak
     >
-        <div class="relative rounded-lg bg-white dark:bg-gray-700 ring-1 ring-gray-900/5 dark:ring-gray-200/10 z-10 divide-y divide-gray-100 dark:divide-gray-200/10 dark:highlight-white/10 max-h-60 overflow-auto">
+        <div class="relative rounded-lg bg-white dark:bg-gray-700 ring-1 ring-gray-900/5 dark:ring-gray-700 z-10 divide-y divide-gray-100 dark:divide-gray-700 dark:highlight-white/10 max-h-60 overflow-auto">
             @if (! isset($items))
                 <div class="p-1.5" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                     <div class="block px-2 pt-3 pb-1.5 text-xs text-gray-400 uppercase tracking-wide font-semibold">

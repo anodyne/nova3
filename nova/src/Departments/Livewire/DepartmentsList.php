@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Livewire\Component;
 use Nova\Departments\Actions\DeleteDepartment;
-use Nova\Departments\Actions\DuplicateDepartmentManager;
+use Nova\Departments\Actions\DuplicateDepartment;
 use Nova\Departments\Enums\DepartmentStatus;
 use Nova\Departments\Events\DepartmentDuplicated;
 use Nova\Departments\Models\Department;
@@ -78,7 +78,7 @@ class DepartmentsList extends Component implements HasForms, HasTable
                             )
                             ->modalSubmitActionLabel('Duplicate')
                             ->action(function (Model $record, array $data) {
-                                $replica = DuplicateDepartmentManager::run(
+                                $replica = DuplicateDepartment::run(
                                     $record,
                                     array_merge($record->toArray(), $data)
                                 );
@@ -134,7 +134,7 @@ class DepartmentsList extends Component implements HasForms, HasTable
                 SelectFilter::make('status')->options(DepartmentStatus::class),
             ])
             ->heading('Departments')
-            ->description("Organize character positions into logical groups that you can display on your manifests")
+            ->description('Organize character positions into logical groups that you can display on your manifests')
             ->headerActions([
                 CreateAction::make()
                     ->authorize('create')
@@ -145,7 +145,7 @@ class DepartmentsList extends Component implements HasForms, HasTable
             ->reorderable('order_column')
             ->emptyStateIcon(iconName('list'))
             ->emptyStateHeading('No departments found')
-            ->emptyStateDescription("Departments allow you to organize character positions into logical groups that you can display on your manifests.")
+            ->emptyStateDescription('Departments allow you to organize character positions into logical groups that you can display on your manifests.')
             ->emptyStateActions([
                 CreateAction::make()
                     ->authorize('create')

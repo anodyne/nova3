@@ -5,9 +5,9 @@
         <x-panel.header title="Edit rank name">
             <x-slot:actions>
                 @can('viewAny', Nova\Ranks\Models\RankName::class)
-                    <x-link :href="route('ranks.names.index')" leading="arrow-left" size="none" color="gray-text">
+                    <x-button.text :href="route('ranks.names.index')" leading="arrow-left" color="gray">
                         Back
-                    </x-link>
+                    </x-button.text>
                 @endcan
             </x-slot:actions>
         </x-panel.header>
@@ -40,7 +40,7 @@
                             </div>
                             @can('update', $rank)
                                 <a href="{{ route('ranks.items.edit', $rank) }}" class="text-gray-500 transition ease-in-out duration-200 hover:text-gray-700 group-hover:visible sm:invisible">
-                                    @icon('edit')
+                                    <x-icon name="edit" size="sm"></x-icon>
                                 </a>
                             @endcan
                         </div>
@@ -49,8 +49,8 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button type="submit" color="primary">Update</x-button>
-                <x-link :href="route('ranks.names.index')" color="white">Cancel</x-link>
+                <x-button.filled type="submit" color="primary">Update</x-button.filled>
+                <x-button.outline :href="route('ranks.names.index')" color="gray">Cancel</x-button.outline>
             </x-form.footer>
         </x-form>
     </x-panel>

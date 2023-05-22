@@ -1,27 +1,27 @@
 <x-panel class="{{ $reordering ? 'overflow-hidden' : '' }}" x-data="filtersPanel()">
-    <x-panel.header title="Rank names" message="Re-use basic rank information across all of your rank items.">
+    <x-panel.header title="Rank names" message="Re-use basic rank information across all of your rank items" :border="$reordering">
         @if (! $reordering)
             <x-slot:actions>
                 @can('update', $rankNames->first())
-                    <x-button type="button" size="none" color="gray-text" wire:click="startReordering" leading="arrow-sort">
+                    <x-button.text type="button" color="gray" wire:click="startReordering" leading="arrows-sort">
                         Reorder
-                    </x-button>
+                    </x-button.text>
                 @endcan
 
                 @can('create', $rankNameClass)
-                    <x-link :href="route('ranks.names.create')" color="primary" data-cy="create" leading="add">
-                        Add a rank name
-                    </x-link>
+                    <x-button.filled :href="route('ranks.names.create')" color="primary" leading="add">
+                        Add
+                    </x-button.filled>
                 @endcan
             </x-slot:actions>
         @else
             <x-slot:message>
-                <x-panel.primary icon="arrow-sort" title="Change sorting order" class="mt-4">
+                <x-panel.primary icon="arrows-sort" title="Change sorting order" class="mt-4">
                     <div class="space-y-4">
                         <p>Rank names will appear in the order below whenever they're shown throughout Nova. To change the sorting of rank names, drag them to the desired order. Click Finish to return to the management view.</p>
 
                         <div>
-                            <x-button-filled wire:click="stopReordering">Finish</x-button-filled>
+                            <x-button.filled wire:click="stopReordering">Finish</x-button.filled>
                         </div>
                     </div>
                 </x-panel.primary>
@@ -45,14 +45,14 @@
                     <x-input.group>
                         <x-input.text placeholder="Find rank names by name" wire:model="search">
                             <x-slot:leadingAddOn>
-                                @icon('search', 'h-5 w-5')
+                                <x-icon name="search" size="sm"></x-icon>
                             </x-slot:leadingAddOn>
 
                             @if ($search)
                                 <x-slot:trailingAddOn>
-                                    <x-link tag="button" color="gray" wire:click="$set('search', '')">
-                                        @icon('close', 'h-5 w-5')
-                                    </x-link>
+                                    <x-button.text tag="button" color="gray" wire:click="$set('search', '')">
+                                        <x-icon name="dismiss" size="sm"></x-icon>
+                                    </x-button.text>
                                 </x-slot:trailingAddOn>
                             @endif
                         </x-input.text>
@@ -60,7 +60,7 @@
                 </div>
 
                 <div class="shrink flex justify-between md:justify-start items-center space-x-4">
-                    <x-link
+                    <x-button.text
                         tag="button"
                         :color="$isFiltered ? 'primary' : 'gray'"
                         x-bind="trigger"
@@ -70,7 +70,7 @@
                         @if ($activeFilterCount > 0)
                             <x-badge color="primary" size="sm" class="ml-2">{{ $activeFilterCount }}</x-badge>
                         @endif
-                    </x-link>
+                    </x-button.text>
                 </div>
             </x-content-box>
 
@@ -154,7 +154,7 @@
 
                                 @can('delete', $rankName)
                                     <x-dropdown.group>
-                                        <x-dropdown.item-danger type="button" icon="delete" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($rankName) }});" data-cy="delete">
+                                        <x-dropdown.item-danger type="button" icon="trash" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($rankName) }});" data-cy="delete">
                                             <span>Delete</span>
                                         </x-dropdown.item-danger>
                                     </x-dropdown.group>
@@ -171,13 +171,13 @@
                         :primary-access="gate()->allows('create', $rankNameClass)"
                     >
                         <x-slot:primary>
-                            <x-link :href="route('ranks.names.create')" color="primary">
+                            <x-button.filled :href="route('ranks.names.create')" color="primary">
                                 Add a rank name
-                            </x-link>
+                            </x-button.filled>
                         </x-slot:primary>
 
                         <x-slot:secondary>
-                            <x-button wire:click="$set('search', '')">Clear search</x-button>
+                            <x-button.outline color="gray" wire:click="$set('search', '')">Clear search</x-button.outline>
                         </x-slot:secondary>
                     </x-empty-state.not-found>
                 </x-slot:emptyMessage>

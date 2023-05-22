@@ -39,17 +39,17 @@
         class="absolute mt-2 rounded-lg shadow-lg origin-top-left left-0 w-full"
         x-cloak
     >
-        <div class="relative rounded-lg bg-white dark:bg-gray-700 ring-1 ring-gray-900/5 dark:ring-gray-200/10 z-10 divide-y divide-gray-100 dark:divide-gray-200/10 dark:highlight-white/10 max-h-60 overflow-auto">
+        <div class="relative rounded-lg bg-white dark:bg-gray-700 ring-1 ring-gray-900/5 dark:ring-gray-700 z-10 divide-y divide-gray-100 dark:divide-gray-700 dark:highlight-white/10 max-h-60 overflow-auto">
             <div class="p-1.5" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                 <div class="group flex items-center rounded-md bg-gray-100 dark:bg-gray-600 border-2 border-gray-100 dark:border-gray-600 text-gray-500 dark:text-gray-400 mb-4 px-2 py-2 space-x-3 focus-within:border-gray-300 dark:focus-within:border-gray-500 focus-within:bg-white dark:focus-within:bg-gray-700 focus-within:text-gray-700">
-                    @icon('search', 'shrink-0 h-5 w-5 text-gray-500 group-focus-within:text-gray-600 dark:group-focus-within:text-gray-400')
+                    <x-icon name="search" size="sm" class="shrink-0 text-gray-500 group-focus-within:text-gray-600 dark:group-focus-within:text-gray-400"></x-icon>
 
                     <input wire:model.debounce.250ms="search" type="text" placeholder="Find a rank name..." class="flex w-full appearance-none bg-transparent border-none p-0 focus:ring-0 focus:outline-none dark:placeholder-gray-400">
 
                     @isset($search)
-                        <x-button wire:click="$set('search', null)" color="gray-text" size="none">
-                            @icon('close')
-                        </x-button>
+                        <x-button.text wire:click="$set('search', null)" color="gray">
+                            <x-icon name="dismiss" size="sm"></x-icon>
+                        </x-button.text>
                     @endisset
                 </div>
 
@@ -68,7 +68,7 @@
                                 :class="{ 'text-white': selected === {{ $name->id }}, 'text-primary-500': !(selected === {{ $name->id }}) }"
                                 class="flex items-center text-primary-500"
                             >
-                                @icon('check', 'h-6 w-6')
+                                <x-icon name="check" size="md"></x-icon>
                             </span>
                         @endif
                     </button>
@@ -77,9 +77,9 @@
                         <div class="text-base text-gray-500 dark:text-gray-400">There is no rank name named</div>
                         <div class="text-base text-gray-900 dark:text-gray-100 font-medium mt-1 mb-6">&lsquo;{{ $search }}&rsquo;</div>
 
-                        <x-button wire:click="createAndSelectName" type="button" color="primary-outline">
+                        <x-button.outline wire:click="createAndSelectName" type="button" color="primary">
                             Create this name
-                        </x-button>
+                        </x-button.outline>
                     </div>
                 @endforelse
             </div>

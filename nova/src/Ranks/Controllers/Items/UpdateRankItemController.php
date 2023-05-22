@@ -30,9 +30,9 @@ class UpdateRankItemController extends Controller
         $this->authorize('update', $item);
 
         return UpdateRankItemResponse::sendWith([
-            'groups' => RankGroup::orderBySort()->get(),
+            'groups' => RankGroup::ordered()->get(),
             'item' => $item,
-            'names' => RankName::orderBySort()->get(),
+            'names' => RankName::ordered()->get(),
             'baseImages' => $this->getRankBaseImages(),
             'overlayImages' => $this->getRankOverlayImages(),
         ]);

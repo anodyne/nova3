@@ -5,12 +5,12 @@
         <x-panel.header :title="$position->name">
             <x-slot:actions>
                 @can('viewAny', Nova\Departments\Models\Position::class)
-                    <x-link :href="route('positions.index', 'department='.$position->department->id)" leading="arrow-left" color="gray">
-                        Back to {{ $position->department->name }} positions list
-                    </x-link>
+                    <x-button.text :href="route('positions.index', 'department='.$position->department->id)" leading="arrow-left" color="gray">
+                        Back
+                    </x-button.text>
 
                     @can('update', $position)
-                        <x-button-filled tag="a" :href="route('positions.edit', $position)" leading="edit">Edit</x-button-filled>
+                        <x-button.filled :href="route('positions.edit', $position)" leading="edit" color="primary">Edit</x-button.filled>
                     @endcan
                 @endcan
             </x-slot:actions>
@@ -56,9 +56,9 @@
                             </div>
 
                             @can('update', $character)
-                                <x-link :href="route('characters.edit', $character)" color="gray-text" size="none" class="group-hover:visible sm:invisible">
-                                    @icon('edit')
-                                </x-link>
+                                <x-button.text :href="route('characters.edit', $character)" color="gray" class="group-hover:visible sm:invisible">
+                                    <x-icon name="edit" size="sm"></x-icon>
+                                </x-button.text>
                             @endcan
                         </div>
                     @empty
@@ -72,10 +72,6 @@
                     @endforelse
                 </div>
             </x-form.section>
-
-            <x-form.footer>
-                <x-link :href="route('positions.index', 'department='.$position->department->id)" color="white">Back</x-link>
-            </x-form.footer>
         </x-form>
     </x-panel>
 @endsection
