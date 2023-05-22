@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace Nova\Departments\Data;
 
 use Illuminate\Http\Request;
-use Nova\Departments\Models\Department;
-use Nova\Departments\Models\States\Positions\Active;
+use Nova\Departments\Enums\PositionStatus;
 use Spatie\LaravelData\Data;
 
 class PositionData extends Data
@@ -15,21 +14,30 @@ class PositionData extends Data
         public string $name,
         public ?string $description,
         public ?int $available,
-        public ?string $status,
-        public ?Department $department,
+        public ?PositionStatus $status,
         public int $department_id = 0
     ) {
+    }
+
+    public static function fromArray(array $data): static
+    {
+        return new self(
+            name: data_get($data, 'name'),
+            description: data_get($data, 'description'),
+            available: data_get($data, 'available'),
+            status: PositionStatus::tryFrom(data_get($data, 'status', PositionStatus::active->value)),
+            department_id: data_get($data, 'department_id', 0),
+        );
     }
 
     public static function fromRequest(Request $request): static
     {
         return new self(
             available: (int) $request->input('available', 0),
-            department: Department::find($request->input('department_id')),
             department_id: (int) $request->input('department_id', 0),
             description: $request->input('description'),
             name: $request->input('name'),
-            status: $request->input('status', Active::class),
+            status: PositionStatus::tryFrom($request->input('status', PositionStatus::active->value)),
         );
     }
 }

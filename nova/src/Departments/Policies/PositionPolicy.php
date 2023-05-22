@@ -40,11 +40,16 @@ class PositionPolicy
             : $this->denyAsNotFound();
     }
 
-    public function delete(User $user, Position $position)
+    public function deleteAny(User $user)
     {
         return $user->isAbleTo('department.delete')
             ? $this->allow()
             : $this->denyAsNotFound();
+    }
+
+    public function delete(User $user, Position $position)
+    {
+        return $this->deleteAny($user);
     }
 
     public function duplicate(User $user, Position $position)

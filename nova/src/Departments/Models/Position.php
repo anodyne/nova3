@@ -4,24 +4,32 @@ declare(strict_types=1);
 
 namespace Nova\Departments\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Nova\Characters\Models\Character;
+use Nova\Departments\Enums\PositionStatus;
 use Nova\Departments\Events;
 use Nova\Departments\Models\Builders\PositionBuilder;
-use Nova\Departments\Models\States\Positions\PositionStatus;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
-use Spatie\ModelStates\HasStates;
+use Spatie\EloquentSortable\Sortable;
+use Spatie\EloquentSortable\SortableTrait;
 
-class Position extends Model
+class Position extends Model implements Sortable
 {
     use HasFactory;
-    use HasStates;
     use LogsActivity;
+    use SortableTrait;
+
+    protected $table = 'positions';
+
+    protected $fillable = [
+        'name', 'description', 'order_column', 'available', 'department_id', 'status',
+    ];
 
     protected $casts = [
-        'sort' => 'integer',
+        'order_column' => 'integer',
         'status' => PositionStatus::class,
     ];
 
@@ -30,12 +38,6 @@ class Position extends Model
         'deleted' => Events\PositionDeleted::class,
         'updated' => Events\PositionUpdated::class,
     ];
-
-    protected $fillable = [
-        'name', 'description', 'sort', 'available', 'department_id', 'status',
-    ];
-
-    protected $table = 'positions';
 
     public function activeCharacters()
     {
@@ -60,6 +62,11 @@ class Position extends Model
             ->setDescriptionForEvent(
                 fn (string $eventName) => ":subject.name position was {$eventName}"
             );
+    }
+
+    public function buildSortQuery(): Builder
+    {
+        return static::query()->where('department_id', $this->department_id);
     }
 
     public function newEloquentBuilder($query): PositionBuilder

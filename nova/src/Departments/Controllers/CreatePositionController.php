@@ -27,7 +27,7 @@ class CreatePositionController extends Controller
         $this->authorize('create', Position::class);
 
         return CreatePositionResponse::sendWith([
-            'departments' => Department::orderBySort()->get(),
+            'departments' => Department::ordered()->get(),
             'selectedDepartment' => Department::find($request->department),
         ]);
     }

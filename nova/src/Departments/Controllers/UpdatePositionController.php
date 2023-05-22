@@ -26,7 +26,7 @@ class UpdatePositionController extends Controller
         $this->authorize('update', $position);
 
         return UpdatePositionResponse::sendWith([
-            'departments' => Department::orderBySort()->get(),
+            'departments' => Department::ordered()->get(),
             'position' => $position,
         ]);
     }
