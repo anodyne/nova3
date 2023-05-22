@@ -17,11 +17,11 @@ trait FindRankImages
 
         if ($finder->hasResults()) {
             foreach ($finder as $file) {
-                $baseImages[] = $file->getRelativePathname();
+                $baseImages[$file->getRelativePathname()] = $file->getRelativePathname();
             }
         }
 
-        sort($baseImages);
+        asort($baseImages);
 
         return $baseImages;
     }
@@ -35,11 +35,11 @@ trait FindRankImages
 
         if ($finder->hasResults()) {
             foreach ($finder as $file) {
-                $overlayImages[] = $file->getRelativePathname();
+                $overlayImages[$file->getRelativePathname()] = $file->getRelativePathname();
             }
         }
 
-        sort($overlayImages);
+        asort($overlayImages);
 
         return $overlayImages;
     }

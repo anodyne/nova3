@@ -14,9 +14,6 @@ class CreateRankName
 
     public function handle(RankNameData $data): RankName
     {
-        return RankName::create(array_merge(
-            $data->all(),
-            ['sort' => RankName::count()]
-        ));
+        return RankName::create($data->all());
     }
 }

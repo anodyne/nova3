@@ -27,8 +27,9 @@ use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ReplicateAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Ranks\Actions\DeleteRankGroup;
-use Nova\Ranks\Actions\DuplicateRankGroupManager;
+use Nova\Ranks\Actions\DuplicateRankGroup;
 use Nova\Ranks\Concerns\FindRankImages;
+use Nova\Ranks\Data\RankGroupData;
 use Nova\Ranks\Enums\RankGroupStatus;
 use Nova\Ranks\Events\RankGroupDuplicated;
 use Nova\Ranks\Models\RankGroup;
@@ -85,9 +86,9 @@ class RankGroupsList extends Component implements HasForms, HasTable
                             )
                             ->modalSubmitActionLabel('Duplicate')
                             ->action(function (Model $record, array $data) {
-                                $replica = DuplicateRankGroupManager::run(
+                                $replica = DuplicateRankGroup::run(
                                     $record,
-                                    array_merge($record->toArray(), $data)
+                                    RankGroupData::from(array_merge($record->toArray(), $data))
                                 );
 
                                 RankGroupDuplicated::dispatch($replica, $record);
@@ -142,7 +143,7 @@ class RankGroupsList extends Component implements HasForms, HasTable
             ])
             ->reorderable('order_column')
             ->heading('Rank groups')
-            ->description("Collections of related rank items for simpler searching and selecting")
+            ->description('Collections of related rank items for simpler searching and selecting')
             ->headerActions([
                 CreateAction::make()
                     ->authorize('create')
@@ -152,7 +153,7 @@ class RankGroupsList extends Component implements HasForms, HasTable
             ->header(fn () => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)
             ->emptyStateIcon(iconName('list'))
             ->emptyStateHeading('No rank groups found')
-            ->emptyStateDescription("Rank groups are a simple way to collect related rank items together for simpler searching and selecting ranks in Nova.")
+            ->emptyStateDescription('Rank groups are a simple way to collect related rank items together for simpler searching and selecting ranks in Nova.')
             ->emptyStateActions([
                 CreateAction::make()
                     ->authorize('create')

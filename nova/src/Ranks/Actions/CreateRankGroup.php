@@ -14,9 +14,6 @@ class CreateRankGroup
 
     public function handle(RankGroupData $data): RankGroup
     {
-        return RankGroup::create(array_merge(
-            $data->all(),
-            ['sort' => RankGroup::count()]
-        ));
+        return RankGroup::create($data->all());
     }
 }
