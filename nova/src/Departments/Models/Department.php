@@ -6,26 +6,27 @@ namespace Nova\Departments\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Nova\Departments\Enums\DepartmentStatus;
 use Nova\Departments\Events;
 use Nova\Departments\Models\Builders\DepartmentBuilder;
-use Nova\Departments\Models\States\Departments\DepartmentStatus;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\EloquentSortable\Sortable;
+use Spatie\EloquentSortable\SortableTrait;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\ModelStates\HasStates;
 
-class Department extends Model implements HasMedia
+class Department extends Model implements HasMedia, Sortable
 {
     use HasFactory;
-    use HasStates;
     use InteractsWithMedia;
     use LogsActivity;
+    use SortableTrait;
 
     public const MEDIA_DIRECTORY = 'departments/{model_id}/{media_id}/';
 
     protected $casts = [
-        'sort' => 'integer',
+        'order_column' => 'integer',
         'status' => DepartmentStatus::class,
     ];
 
@@ -35,13 +36,13 @@ class Department extends Model implements HasMedia
         'updated' => Events\DepartmentUpdated::class,
     ];
 
-    protected $fillable = ['name', 'description', 'sort', 'status'];
+    protected $fillable = ['name', 'description', 'order_column', 'status'];
 
     protected $table = 'departments';
 
     public function positions()
     {
-        return $this->hasMany(Position::class)->orderBySort();
+        return $this->hasMany(Position::class)->ordered();
     }
 
     public function getActivitylogOptions(): LogOptions

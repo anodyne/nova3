@@ -3,7 +3,7 @@
         @if (! $reordering)
             <x-slot:actions>
                 @can('update', $departments->first())
-                    <x-link tag="button" color="gray" leading="arrow-sort" wire:click="startReordering">
+                    <x-link tag="button" color="gray" leading="arrows-sort" wire:click="startReordering">
                         Reorder
                     </x-link>
                 @endcan
@@ -18,7 +18,7 @@
             </x-slot:actions>
         @else
             <x-slot:message>
-                <x-panel.primary icon="arrow-sort" title="Change sorting order" class="mt-4">
+                <x-panel.primary icon="arrows-sort" title="Change sorting order" class="mt-4">
                     <div class="space-y-4">
                         <p>Departments will appear in the order below whenever they're shown throughout Nova. To change the sorting of the departments, drag them to the desired order. Click Finish to return to the management view.</p>
 
@@ -47,13 +47,13 @@
                     <x-input.group>
                         <x-input.text placeholder="Find department(s) by name or assigned position names" wire:model="search">
                             <x-slot:leadingAddOn>
-                                @icon('search', 'h-5 w-5')
+                                <x-icon name="search" size="sm"></x-icon>
                             </x-slot:leadingAddOn>
 
                             @if ($search)
                                 <x-slot:trailingAddOn>
                                     <x-link tag="button" color="gray" wire:click="$set('search', '')">
-                                        @icon('close', 'h-5 w-5')
+                                        <x-icon name="dismiss" size="sm"></x-icon>
                                     </x-link>
                                 </x-slot:trailingAddOn>
                             @endif
@@ -162,7 +162,7 @@
 
                                 @can('delete', $department)
                                     <x-dropdown.group>
-                                        <x-dropdown.item-danger type="button" icon="delete" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($department) }});" data-cy="delete">
+                                        <x-dropdown.item-danger type="button" icon="trash" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($department) }});" data-cy="delete">
                                             <span>Delete</span>
                                         </x-dropdown.item-danger>
                                     </x-dropdown.group>

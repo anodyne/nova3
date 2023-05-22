@@ -14,10 +14,6 @@ class CreateDepartment
 
     public function handle(DepartmentData $data): Department
     {
-        return Department::create(
-            array_merge($data->all(), [
-                'sort' => Department::count(),
-            ])
-        );
+        return Department::create($data->all());
     }
 }

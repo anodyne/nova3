@@ -14,11 +14,6 @@ class CreatePosition
 
     public function handle(PositionData $data): Position
     {
-        return Position::create(array_merge(
-            $data->except('department')->all(),
-            [
-                'sort' => $data->department->positions()->count(),
-            ]
-        ));
+        return Position::create($data->all());
     }
 }

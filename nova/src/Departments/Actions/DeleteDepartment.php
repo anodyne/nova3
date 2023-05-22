@@ -6,6 +6,7 @@ namespace Nova\Departments\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Departments\Models\Department;
+use Nova\Departments\Models\Position;
 
 class DeleteDepartment
 {
@@ -14,7 +15,7 @@ class DeleteDepartment
     public function handle(Department $department): Department
     {
         $department->positions->each(
-            fn ($position) => DeletePosition::run($position)
+            fn (Position $position) => DeletePosition::run($position)
         );
 
         return tap($department)->delete();

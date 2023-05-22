@@ -6,6 +6,7 @@ namespace Nova\Departments\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Departments\Models\Department;
+use Nova\Departments\Models\Position;
 
 class DuplicateDepartmentPositions
 {
@@ -13,8 +14,8 @@ class DuplicateDepartmentPositions
 
     public function handle(Department $department, Department $original): void
     {
-        $original->positions->each(function ($position) use ($department) {
-            $department->positions()->create($position->toArray());
-        });
+        $original->positions->each(
+            fn (Position $position) => $department->positions()->create($position->toArray())
+        );
     }
 }

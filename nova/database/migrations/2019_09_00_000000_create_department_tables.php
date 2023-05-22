@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Nova\Departments\Enums\DepartmentStatus;
 
 class CreateDepartmentTables extends Migration
 {
@@ -14,8 +15,8 @@ class CreateDepartmentTables extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->unsignedInteger('sort')->nullable();
-            $table->string('status');
+            $table->unsignedInteger('order_column')->nullable();
+            $table->string('status')->default(DepartmentStatus::active->value);
             $table->timestamps();
         });
     }

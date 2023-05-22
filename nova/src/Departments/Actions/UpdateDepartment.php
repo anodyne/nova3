@@ -14,6 +14,8 @@ class UpdateDepartment
 
     public function handle(Department $department, DepartmentData $data): Department
     {
-        return tap($department)->update($data->toArray())->refresh();
+        return tap($department)
+            ->update($data->all())
+            ->refresh();
     }
 }

@@ -5,23 +5,18 @@ declare(strict_types=1);
 namespace Nova\Departments\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
-use Nova\Departments\Models\States\Departments\Active;
-use Nova\Foundation\Filters\Filterable;
-use Nova\Foundation\Models\Concerns\Sortable;
+use Nova\Departments\Enums\DepartmentStatus;
 
 class DepartmentBuilder extends Builder
 {
-    use Filterable;
-    use Sortable;
-
     public function searchFor($value): self
     {
         return $this->where('name', 'like', "%{$value}%")
             ->orWhereHas('positions', fn ($query) => $query->where('name', 'like', "%{$value}%"));
     }
 
-    public function whereActive()
+    public function active()
     {
-        return $this->whereState('status', Active::class);
+        return $this->where('status', DepartmentStatus::active);
     }
 }

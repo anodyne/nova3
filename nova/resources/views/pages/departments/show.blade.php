@@ -5,13 +5,13 @@
         <x-panel.header :title="$department->name">
             <x-slot:actions>
                 @can('viewAny', Nova\Departments\Models\Department::class)
-                    <x-link :href="route('departments.index')" leading="arrow-left" color="gray">
-                        Back to the departments list
-                    </x-link>
+                    <x-button.text :href="route('departments.index')" leading="arrow-left" color="gray">
+                        Back
+                    </x-button.text>
                 @endcan
 
                 @can('update', $department)
-                    <x-button-filled tag="a" :href="route('departments.edit', $department)" leading="edit">Edit</x-button-filled>
+                    <x-button.filled :href="route('departments.edit', $department)" leading="edit" color="primary">Edit</x-button.filled>
                 @endcan
             </x-slot:actions>
         </x-panel.header>
@@ -29,7 +29,7 @@
                 @endif
 
                 <x-input.group label="Status">
-                    <x-badge :color="$department->status->color()">{{ $department->status->displayName() }}</x-badge>
+                    <x-badge :color="$department->status->color()">{{ $department->status->getLabel() }}</x-badge>
                 </x-input.group>
             </x-form.section>
 
@@ -38,9 +38,9 @@
                     <p>These are all of the positions currently assigned to this department.</p>
 
                     @can('viewAny', Nova\Departments\Models\Position::class)
-                        <x-button-outline tag="a" :href="route('positions.index', 'department='.$department->id)" size="xs">
+                        <x-button.outline :href="route('positions.index', 'department='.$department->id)" color="gray">
                             Manage department positions
-                        </x-button-outline>
+                        </x-button.outline>
                     @endcan
                 </x-slot:message>
 
@@ -52,9 +52,9 @@
                                 <span>{{ $position->name }}</span>
                             </div>
                             @can('update', $position)
-                                <x-link :href="route('positions.edit', $position)" color="gray" class="group-hover:visible sm:invisible">
-                                    @icon('edit')
-                                </x-link>
+                                <x-button.text :href="route('positions.edit', $position)" color="gray" class="group-hover:visible sm:invisible">
+                                    <x-icon name="edit" size="sm"></x-icon>
+                                </x-button.text>
                             @endcan
                         </div>
                     @endforeach

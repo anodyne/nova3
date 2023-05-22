@@ -5,9 +5,9 @@
         <x-panel.header title="Edit department">
             <x-slot:actions>
                 @can('viewAny', Nova\Departments\Models\Department::class)
-                    <x-link :href="route('departments.index')" leading="arrow-left" color="gray">
-                        Back to the departments list
-                    </x-link>
+                    <x-button.text :href="route('departments.index')" leading="arrow-left" color="gray">
+                        Back
+                    </x-button.text>
                 @endcan
             </x-slot:actions>
         </x-panel.header>
@@ -25,7 +25,7 @@
                 <x-input.group>
                     <x-input.toggle
                         field="status"
-                        :value="old('status', $department->status->name())"
+                        :value="old('status', $department->status->value)"
                         active-value="active"
                         inactive-value="inactive"
                     >
@@ -41,8 +41,8 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button-filled type="submit">Save department</x-button-filled>
-                <x-link :href="route('departments.index')" color="gray">Cancel</x-link>
+                <x-button.filled type="submit" color="primary">Update</x-button.filled>
+                <x-button.outline :href="route('departments.index')" color="gray">Cancel</x-button.outline>
             </x-form.footer>
         </x-form>
     </x-panel>

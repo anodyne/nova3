@@ -5,9 +5,9 @@
         <x-panel.header title="Add a new department">
             <x-slot:actions>
                 @can('viewAny', Nova\Departments\Models\Department::class)
-                    <x-link :href="route('departments.index')" leading="arrow-left" color="gray">
-                        Back to departments list
-                    </x-link>
+                    <x-button.text :href="route('departments.index')" leading="arrow-left" color="gray">
+                        Back
+                    </x-button.text>
                 @endcan
             </x-slot:actions>
         </x-panel.header>
@@ -41,8 +41,8 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button-filled type="submit">Add department</x-button-filled>
-                <x-link :href="route('departments.index')" color="gray">Cancel</x-link>
+                <x-button.filled type="submit" color="primary">Add</x-button.filled>
+                <x-button.outline :href="route('departments.index')" color="gray">Cancel</x-button.outline>
             </x-form.footer>
         </x-form>
     </x-panel>
