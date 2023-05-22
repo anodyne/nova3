@@ -6,6 +6,7 @@ namespace Nova\Notes\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Nova\Notes\Events;
 use Nova\Notes\Models\Builders\NoteBuilder;
 use Nova\Users\Models\User;
@@ -25,7 +26,7 @@ class Note extends Model
         'updated' => Events\NoteUpdated::class,
     ];
 
-    public function author()
+    public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
@@ -36,7 +37,7 @@ class Note extends Model
             ->logFillable()
             ->useLogName('admin')
             ->setDescriptionForEvent(
-                fn (string $eventName) => ":subject.name note was {$eventName}"
+                fn (string $eventName): string => ":subject.name note was {$eventName}"
             );
     }
 

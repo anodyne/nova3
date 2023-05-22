@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Notes\Livewire;
 
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
@@ -24,14 +26,16 @@ use Nova\Notes\Actions\DuplicateNote;
 use Nova\Notes\Events\NoteDuplicated;
 use Nova\Notes\Models\Note;
 
-class NotesList extends Component implements HasTable
+class NotesList extends Component implements HasForms, HasTable
 {
+    use InteractsWithForms;
     use InteractsWithTable;
 
     public function table(Table $table): Table
     {
         return $table
             ->query(Note::query()->currentUser())
+            ->defaultSort('updated_at', 'desc')
             ->columns([
                 TextColumn::make('title')
                     ->titleColumn()
@@ -44,38 +48,43 @@ class NotesList extends Component implements HasTable
             ])
             ->actions([
                 ActionGroup::make([
-                    ViewAction::make()
-                        ->authorize('view')
-                        ->url(fn (Model $record) => route('notes.show', $record)),
-                    EditAction::make()
-                        ->authorize('update')
-                        ->url(fn (Model $record) => route('notes.edit', $record)),
-                    ReplicateAction::make()
-                        ->authorize('duplicate')
-                        ->close()
-                        ->successNotificationTitle(fn (Model $record) => "{$record->title} was duplicated")
-                        ->using(function (Model $record) {
-                            $replica = DuplicateNote::run($record);
+                    ActionGroup::make([
+                        ViewAction::make()
+                            ->authorize('view')
+                            ->url(fn (Model $record): string => route('notes.show', $record)),
+                        EditAction::make()
+                            ->authorize('update')
+                            ->url(fn (Model $record): string => route('notes.edit', $record)),
+                    ])->authorizeAny(['view', 'update'])->divided(),
+                    ActionGroup::make([
+                        ReplicateAction::make()
+                            ->close()
+                            ->successNotificationTitle(fn (Model $record): string => "{$record->title} was duplicated")
+                            ->using(function (Model $record): Model {
+                                $replica = DuplicateNote::run($record);
 
-                            NoteDuplicated::dispatch($replica, $record);
+                                NoteDuplicated::dispatch($replica, $record);
 
-                            return $replica;
-                        }),
-                    DeleteAction::make()
-                        ->authorize('delete')
-                        ->modalHeading('Delete note?')
-                        ->modalSubheading("Are you sure you want to delete this note? You won't be able to recover it.")
-                        ->modalSubmitActionLabel('Delete')
-                        ->successNotificationTitle('Note was deleted')
-                        ->using(fn (Model $record) => DeleteNote::run($record)),
+                                return $replica;
+                            }),
+                    ])->authorize('duplicate')->divided(),
+                    ActionGroup::make([
+                        DeleteAction::make()
+                            ->modalHeading('Delete note?')
+                            ->modalSubheading("Are you sure you want to delete this note? You won't be able to recover it.")
+                            ->modalSubmitActionLabel('Delete')
+                            ->successNotificationTitle('Note was deleted')
+                            ->using(fn (Model $record): Model => DeleteNote::run($record)),
+                    ])->authorize('delete')->divided(),
                 ]),
             ])
-            ->bulkActions([
+            ->groupedBulkActions([
                 DeleteBulkAction::make()
+                    ->authorize('deleteAny')
                     ->modalHeading(
-                        fn (Collection $records) => "Delete {$records->count()} selected ".str('note')->plural($records->count()).'?'
+                        fn (Collection $records): string => "Delete {$records->count()} selected ".str('note')->plural($records->count()).'?'
                     )
-                    ->modalSubheading(function (Collection $records) {
+                    ->modalSubheading(function (Collection $records): string {
                         $statement = ($records->count() === 1)
                             ? 'this 1 note'
                             : "these {$records->count()} notes";
@@ -86,20 +95,25 @@ class NotesList extends Component implements HasTable
                     })
                     ->modalSubmitActionLabel('Delete')
                     ->successNotificationTitle('Notes were deleted')
-                    ->using(fn (Collection $records) => $records->each(
-                        fn (Model $record) => DeleteNote::run($record)
+                    ->using(fn (Collection $records): Collection => $records->each(
+                        fn (Model $record): Model => DeleteNote::run($record)
                     )),
             ])
-            ->defaultSort('updated_at', 'desc')
             ->heading('My notes')
             ->headerActions([
-                CreateAction::make()->label('Add')->url(route('notes.create')),
+                CreateAction::make()
+                    ->authorize('create')
+                    ->label('Add')
+                    ->url(route('notes.create')),
             ])
             ->emptyStateIcon(iconName('note'))
             ->emptyStateHeading('No notes found')
             ->emptyStateDescription("Notes help keep your thoughts organized about your game, a story idea, or even as a scratchpad for your next story post.")
             ->emptyStateActions([
-                CreateAction::make()->label('Add a note')->url(route('notes.create')),
+                CreateAction::make()
+                    ->authorize('create')
+                    ->label('Add a note')
+                    ->url(route('notes.create')),
             ]);
     }
 

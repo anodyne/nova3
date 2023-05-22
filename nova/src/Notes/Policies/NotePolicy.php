@@ -37,6 +37,11 @@ class NotePolicy
             : $this->denyAsNotFound();
     }
 
+    public function deleteAny(User $user): Response
+    {
+        return $this->allow();
+    }
+
     public function delete(User $user, Note $note): Response
     {
         return $user->is($note->author)
