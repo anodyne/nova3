@@ -18,8 +18,6 @@
                 @endcan
             </x-slot:actions>
 
-            @json($errors)
-
             <div>
                 <x-content-box class="sm:hidden">
                     <x-input.select @change="switchTab($event.target.value)" aria-label="Selected tab">
