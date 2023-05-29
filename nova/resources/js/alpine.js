@@ -1,11 +1,4 @@
-import Alpine from 'alpinejs';
-
-import Collapse from '@alpinejs/collapse';
-import Focus from '@alpinejs/focus';
-import Tooltip from '@ryangjchandler/alpine-tooltip';
-import AlpineFloatingUI from '@awcodes/alpine-floating-ui';
-import '../../vendor/filament/notifications/dist';
-// import NotificationsAlpinePlugin from '../../vendor/filament/notifications/dist';
+import 'alpinejs/dist/cdn';
 
 import AdminThemeToggle from './components/admin-theme-toggle';
 import ColorPicker from './components/color-picker';
@@ -20,25 +13,17 @@ import TipTap from './components/tiptap';
 import ToggleSwitch from './components/toggle-switch';
 import WordCount from './components/word-count';
 
-Alpine.plugin(Collapse);
-Alpine.plugin(Focus);
-Alpine.plugin(Tooltip);
-Alpine.plugin(AlpineFloatingUI);
-// Alpine.plugin(NotificationsAlpinePlugin);
-
-Alpine.data('adminThemeToggle', AdminThemeToggle);
-Alpine.data('colorPicker', ColorPicker);
-Alpine.data('datePicker', DatePicker);
-Alpine.data('filtersPanel', FiltersPanel);
-Alpine.data('listBox', ListBox);
-Alpine.data('modal', Modal);
-Alpine.data('ratings', Ratings);
-Alpine.data('sortableList', SortableList);
-Alpine.data('tabsList', TabsList);
-Alpine.data('tipTap', TipTap);
-Alpine.data('toggleSwitch', ToggleSwitch);
-Alpine.data('wordCount', WordCount);
-
-window.Alpine = Alpine;
-
-Alpine.start();
+document.addEventListener('alpine:init', () => {
+    window.Alpine.data('adminThemeToggle', AdminThemeToggle);
+    window.Alpine.data('colorPicker', ColorPicker);
+    window.Alpine.data('datePicker', DatePicker);
+    window.Alpine.data('filtersPanel', FiltersPanel);
+    window.Alpine.data('listBox', ListBox);
+    window.Alpine.data('modal', Modal);
+    window.Alpine.data('ratings', Ratings);
+    window.Alpine.data('sortableList', SortableList);
+    window.Alpine.data('tabsList', TabsList);
+    window.Alpine.data('tipTap', TipTap);
+    window.Alpine.data('toggleSwitch', ToggleSwitch);
+    window.Alpine.data('wordCount', WordCount);
+});
