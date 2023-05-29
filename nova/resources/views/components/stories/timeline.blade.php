@@ -18,18 +18,18 @@
 
 					@unless ($loop->last)
 						<!-- Lower arm -->
-						<path d="M 6 18 V 100000" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-300 dark:text-gray-600"></path>
+						<path d="M 6 18 V 100000" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-300 dark:text-gray-700"></path>
 					@endunless
 
 					@unless ($loop->first)
 						<!-- Upper arm -->
-						<path d="M 6 -6 V -30" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-300 dark:text-gray-600"></path>
+						<path d="M 6 -6 V -30" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-300 dark:text-gray-700"></path>
 					@endunless
 				</svg>
 			</div>
 
 			<div class="col-start-2 col-span-11 ml-0">
-				<h3 class="text-xl font-bold tracking-tight text-gray-900 dark:text-gray-100">{{ $story->title }}</h3>
+				<h3 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">{{ $story->title }}</h3>
 
 				<p class="leading-7 mt-1">{{ $story->description }}</p>
 
@@ -48,22 +48,22 @@
 
 					@canany(['view', 'create', 'update', 'delete'], $story)
 						<span class="leading-0">
-							<x-link
+							<x-button.text
 								tag="button"
 								color="gray"
 								leading="settings"
 								wire:click="selectStory('{{ $story->id }}')"
 							>
 								Manage
-							</x-link>
+							</x-button.text>
 						</span>
 					@endcanany
 
 					@can('view', $story)
 						<span class="leading-0">
-							<x-link :href="route('stories.show', $story)" color="gray" leading="arrow-right">
+							<x-button.text :href="route('stories.show', $story)" color="gray" leading="arrow-right">
 								Go to story
-							</x-link>
+							</x-button.text>
 						</span>
 					@endcan
 				</div>

@@ -15,7 +15,7 @@ class Ongoing extends StoryStatus
 
     public function textColor(): string
     {
-        return "text-{$this->color()}-500";
+        return "text-success-500";
     }
 
     public function name(): string

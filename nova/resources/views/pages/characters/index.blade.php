@@ -7,23 +7,23 @@
 
     <x-modal color="danger" title="Delete character?" icon="warning" :url="route('characters.delete')">
         <x-slot:footer>
-            <x-button-filled type="submit" form="form" color="danger">
+            <x-button.filled type="submit" form="form" color="danger">
                 Delete
-            </x-button-filled>
-            <x-button-outline color="danger" @click="$dispatch('modal-close')">
+            </x-button.filled>
+            <x-button.outline @click="$dispatch('modal-close')" color="gray">
                 Cancel
-            </x-button-outline>
+            </x-button.outline>
         </x-slot:footer>
     </x-modal>
 
     <x-modal color="primary" title="Deactivate character?" icon="remove" :url="route('characters.confirm-deactivate')" event="modal-deactivate">
         <x-slot:footer>
-            <x-button-filled type="submit" form="form-deactivate">
+            <x-button.filled type="submit" form="form-deactivate" color="primary">
                 Deactivate
-            </x-button-filled>
-            <x-button-outline @click="$dispatch('modal-close')">
+            </x-button.filled>
+            <x-button.outline @click="$dispatch('modal-close')" color="gray">
                 Cancel
-            </x-button-outline>
+            </x-button.outline>
         </x-slot:footer>
     </x-modal>
 @endsection

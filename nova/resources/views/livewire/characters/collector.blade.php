@@ -11,14 +11,14 @@
                 />
 
                 @if (count($characters) > 1)
-                    <x-button wire:click="removeCharacter({{ $loop->index }})" type="button" color="gray-text" size="none" class="ml-3">
-                        @icon('delete', 'h-6 w-6')
-                    </x-button>
+                    <x-button.text wire:click="removeCharacter({{ $loop->index }})" type="button" color="gray-danger" class="ml-3">
+                        <x-icon name="trash" size="md"></x-icon>
+                    </x-button.text>
                 @endif
 
-                <x-button wire:click="addCharacter({{ $loop->index }})" type="button" color="gray-text" size="none" class="ml-1">
-                    @icon('add', 'h-6 w-6')
-                </x-button>
+                <x-button.text wire:click="addCharacter({{ $loop->index }})" type="button" color="gray" class="ml-1">
+                    <x-icon name="add" size="md"></x-icon>
+                </x-button.text>
             </div>
 
             @if ($character['id'] !== null)

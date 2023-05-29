@@ -46,11 +46,11 @@
     'bg-transparent border-[1.5px] border-danger-600 dark:border-danger-800 text-danger-700 dark:text-danger-200' => $color === 'danger-subtle' && $border === true,
     'bg-danger-50 dark:bg-danger-900 border-[1.5px] border-danger-600 text-danger-700 dark:text-danger-200' => ($color === 'danger' || $color === 'danger-bold') && $border === true,
 
-    'bg-white dark:bg-gray-800 text-info-700 dark:text-info-200' => $color === 'info-subtle' && $border === false,
-    'bg-info-100 dark:bg-info-900 text-info-700 dark:text-info-200' => $color === 'info' && $border === false,
-    'bg-info-600 dark:bg-info-700 text-white dark:text-info-100' => $color === 'info-bold' && $border === false,
-    'bg-transparent border-[1.5px] border-info-600 dark:border-info-800 text-info-700 dark:text-info-200' => $color === 'info-subtle' && $border === true,
-    'bg-info-50 dark:bg-info-900 border-[1.5px] border-info-600 text-info-700 dark:text-info-200' => ($color === 'info' || $color === 'info-bold') && $border === true,
+    'bg-white dark:bg-gray-800 text-secondary-700 dark:text-secondary-200' => $color === 'secondary-subtle' && $border === false,
+    'bg-secondary-100 dark:bg-secondary-900 text-secondary-700 dark:text-secondary-200' => $color === 'secondary' && $border === false,
+    'bg-secondary-600 dark:bg-secondary-700 text-white dark:text-secondary-100' => $color === 'secondary-bold' && $border === false,
+    'bg-transparent border-[1.5px] border-secondary-600 dark:border-secondary-800 text-secondary-700 dark:text-secondary-200' => $color === 'secondary-subtle' && $border === true,
+    'bg-secondary-50 dark:bg-secondary-900 border-[1.5px] border-secondary-600 text-secondary-700 dark:text-secondary-200' => ($color === 'secondary' || $color === 'secondary-bold') && $border === true,
 ])>
     @if ($leading)
         <div class="shrink-0 inline-flex items-center">

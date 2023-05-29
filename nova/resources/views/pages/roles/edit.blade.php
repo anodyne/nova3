@@ -2,16 +2,12 @@
 
 @section('content')
     <x-panel x-data="tabsList('details')">
-        <x-panel.header>
-            <x-slot:title>
-                Edit {{ $role->display_name }} role
-            </x-slot:title>
-
+        <x-panel.header :title="$role->display_name">
             <x-slot:actions>
                 @can('viewAny', Nova\Roles\Models\Role::class)
-                    <x-link :href="route('roles.index')" leading="arrow-left" color="gray">
-                        Back to the roles list
-                    </x-link>
+                    <x-button.text :href="route('roles.index')" leading="arrow-left" color="gray">
+                        Back
+                    </x-button.text>
                 @endcan
             </x-slot:actions>
 
@@ -68,8 +64,8 @@
             </x-form.section>
 
             <x-form.footer class="mt-4 md:mt-8">
-                <x-button-filled type="submit">Save role</x-button-filled>
-                <x-link :href="route('roles.index')" color="gray">Cancel</x-link>
+                <x-button.filled type="submit" color="primary">Update</x-button.filled>
+                <x-button.outline :href="route('roles.index')" color="gray">Cancel</x-button.outline>
             </x-form.footer>
 
             <input type="hidden" name="id" value="{{ $role->id }}">

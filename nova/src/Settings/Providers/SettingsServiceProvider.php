@@ -67,14 +67,6 @@ class SettingsServiceProvider extends DomainServiceProvider
 
     public function domainBooting(): void
     {
-        $this->app->singleton('nova.settings', function ($app) {
-            if (Nova::isInstalled()) {
-                return once(fn () => Settings::custom()->first());
-            }
-
-            return null;
-        });
-
         $this->app->singleton(SettingsManager::class, function ($app) {
             $manager = new SettingsManager();
 

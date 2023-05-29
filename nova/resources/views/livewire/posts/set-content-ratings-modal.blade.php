@@ -1,7 +1,7 @@
 <div>
     <x-content-box width="sm">
         <div class="flex items-center space-x-2">
-            @icon('mature', 'h-6 w-6 shrink-0 text-gray-600 dark:text-gray-500')
+            <x-icon name="mature" size="md" class="shrink-0 text-gray-600 dark:text-gray-500"></x-icon>
             <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100" id="modal-title">Set content ratings</h3>
         </div>
     </x-content-box>
@@ -25,8 +25,8 @@
     </x-content-box>
 
     <x-content-box class="z-20 sm:flex sm:flex-row-reverse sm:space-x-4 sm:space-x-reverse bg-gray-50 dark:bg-gray-700/50 rounded-b-lg" height="sm" width="sm">
-        <x-button color="primary" wire:click="apply">Apply</x-button>
+        <x-button.filled color="primary" wire:click="apply">Apply</x-button.filled>
 
-        <x-button color="white" wire:click="dismiss">Cancel</x-button>
+        <x-button.outline color="gray" wire:click="dismiss">Cancel</x-button.outline>
     </x-content-box>
 </div>

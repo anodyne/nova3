@@ -11,7 +11,7 @@
 
     @if (session('message'))
         <div class="flex space-x-3 text-warning-600 font-medium mb-6" role="alert">
-            @icon('alert', 'h-8 w-8 shrink-0 text-warning-500')
+            <x-icon name="alert" size="xl" class="shrink-0 text-warning-500"></x-icon>
             <span>{{ session('message') }}</span>
         </div>
     @else
@@ -23,8 +23,8 @@
             <x-input.email id="email" name="email" :value="old('email')" data-cy="email" placeholder="john@example.com" required />
         </x-input.group>
 
-        <x-button-filled type="submit" class="w-full" data-cy="submit">
+        <x-button.filled type="submit" class="w-full">
             {{ __('Send Reset Link') }}
-        </x-button-filled>
+        </x-button.filled>
     </x-form>
 @endsection

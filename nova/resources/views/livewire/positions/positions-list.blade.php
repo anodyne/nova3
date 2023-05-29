@@ -1,29 +1,29 @@
 <x-panel x-data="filtersPanel()" x-bind="parent" class="{{ $reordering ? 'overflow-hidden' : '' }}">
-    <x-panel.header title="Positions" message="The jobs or stations characters are assigned to for display on your manifests.">
+    <x-panel.header title="Positions" message="The jobs or stations characters are assigned to for display on your manifests" :border="$reordering">
         @if (! $reordering)
             <x-slot:actions>
                 @can('update', $positions->first())
-                    <x-link tag="button" color="gray" leading="arrow-sort" wire:click="startReordering">
+                    <x-button.text tag="button" color="gray" leading="arrows-sort" wire:click="startReordering">
                         Reorder
-                    </x-link>
+                    </x-button.text>
                 @endcan
 
                 @if ($positions->count() > 0)
                     @can('create', $positionClass)
-                        <x-button-filled tag="a" :href="route('positions.create', 'department='.request('department'))" leading="add" data-cy="create">
-                            Add a position
-                        </x-button-filled>
+                        <x-button.filled :href="route('positions.create', 'department='.request('department'))" leading="add" color="primary">
+                            Add
+                        </x-button.filled>
                     @endcan
                 @endif
             </x-slot:actions>
         @else
             <x-slot:message>
-                <x-panel.primary icon="arrow-sort" title="Change sorting order" class="mt-4">
+                <x-panel.primary icon="arrows-sort" title="Change sorting order" class="mt-4">
                     <div class="space-y-4">
                         <p>Positions will appear in the order below whenever they're shown throughout Nova. To change the sorting of the positions, drag them to the desired order. Click Finish to return to the management view.</p>
 
                         <div>
-                            <x-button-filled wire:click="stopReordering">Finish</x-button-filled>
+                            <x-button.filled wire:click="stopReordering">Finish</x-button.filled>
                         </div>
                     </div>
                 </x-panel.primary>
@@ -47,14 +47,14 @@
                     <x-input.group>
                         <x-input.text placeholder="Find position(s) by name or assigned department name" wire:model="search">
                             <x-slot:leadingAddOn>
-                                @icon('search', 'h-5 w-5')
+                                <x-icon name="search" size="sm"></x-icon>
                             </x-slot:leadingAddOn>
 
                             @if ($search)
                                 <x-slot:trailingAddOn>
-                                    <x-link tag="button" color="gray" wire:click="$set('search', '')">
-                                        @icon('close', 'h-5 w-5')
-                                    </x-link>
+                                    <x-button.text tag="button" color="gray" wire:click="$set('search', '')">
+                                        <x-icon name="dismiss" size="sm"></x-icon>
+                                    </x-button.text>
                                 </x-slot:trailingAddOn>
                             @endif
                         </x-input.text>
@@ -62,7 +62,7 @@
                 </div>
 
                 <div class="shrink flex justify-between md:justify-start items-center space-x-4">
-                    <x-link
+                    <x-button.text
                         tag="button"
                         :color="$isFiltered ? 'primary' : 'gray'"
                         x-bind="trigger"
@@ -72,7 +72,7 @@
                         @if ($activeFilterCount > 0)
                             <x-badge color="primary" size="sm" class="ml-2">{{ $activeFilterCount }}</x-badge>
                         @endif
-                    </x-link>
+                    </x-button.text>
                 </div>
             </x-content-box>
 
@@ -168,7 +168,7 @@
 
                                 @can('delete', $position)
                                     <x-dropdown.group>
-                                        <x-dropdown.item-danger type="button" icon="delete" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($position) }});" data-cy="delete">
+                                        <x-dropdown.item-danger type="button" icon="trash" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($position) }});" data-cy="delete">
                                             <span>Delete</span>
                                         </x-dropdown.item-danger>
                                     </x-dropdown.group>
@@ -185,13 +185,13 @@
                         :primary-access="gate()->allows('create', $positionClass)"
                     >
                         <x-slot:primary>
-                            <x-button-filled tag="a" :href="route('positions.create', 'department='.request('department'))">
+                            <x-button.filled :href="route('positions.create', 'department='.request('department'))" color="primary">
                                 Add a position
-                            </x-button-filled>
+                            </x-button.filled>
                         </x-slot:primary>
 
                         <x-slot:secondary>
-                            <x-button-outline wire:click="$set('search', '')">Clear search</x-button-outline>
+                            <x-button.outline wire:click="$set('search', '')" color="gray">Clear search</x-button.outline>
                         </x-slot:secondary>
                     </x-empty-state.not-found>
                 </x-slot:emptyMessage>

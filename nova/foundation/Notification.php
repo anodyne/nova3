@@ -35,6 +35,6 @@ class Notification extends BaseNotification
 
     protected function getIconName(string $icon): string
     {
-        return app(Icon::class)->getIconName($icon);
+        return app(Icon::class)->make($icon)->name();
     }
 }

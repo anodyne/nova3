@@ -2,12 +2,12 @@
 
 @section('content')
     <x-panel x-data="tabsList('language')">
-        <x-panel.header title="Content ratings" message="Let players and readers know what to expect from your game's content by setting content ratings and warnings.">
+        <x-panel.header title="Content ratings" message="Let players and readers know what to expect from your game's content by setting content ratings and warnings">
             <x-slot:actions>
                 <div x-data="{}">
-                    <x-button-outline leading="search" @click="$dispatch('toggle-spotlight')">
+                    <x-button.outline color="primary" leading="search" @click="$dispatch('toggle-spotlight')">
                         Find a setting
-                    </x-button-outline>
+                    </x-button.outline>
                 </div>
             </x-slot:actions>
 
@@ -21,7 +21,7 @@
                 </x-content-box>
                 <div class="hidden sm:block">
                     <x-content-box height="none">
-                        {{-- <nav class="flex space-x-2 px-1 py-1 rounded-lg bg-gray-100 dark:bg-gray-700/50 border-gray-200 dark:border-gray-200/10">
+                        {{-- <nav class="flex space-x-2 px-1 py-1 rounded-lg bg-gray-100 dark:bg-gray-700/50 border-gray-200 dark:border-gray-700">
                             <a href="#" class="flex items-center rounded-md px-4 py-1.5 font-medium text-sm transition" :class="{ 'bg-white dark:bg-gray-600 shadow dark:highlight-white/5 ring-1 ring-gray-900/5 text-gray-900 dark:text-gray-100': isTab('language'), 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('language') }" @click.prevent="switchTab('language')">
                                 Language
                             </a>
@@ -91,7 +91,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button-filled type="submit" form="language">Save settings</x-button-filled>
+                <x-button.filled type="submit" form="language" color="primary">Update</x-button.filled>
             </x-form.footer>
         </x-form>
 
@@ -137,7 +137,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button-filled type="submit" form="sex">Save settings</x-button-filled>
+                <x-button.filled type="submit" form="sex" color="primary">Update</x-button.filled>
             </x-form.footer>
         </x-form>
 
@@ -183,7 +183,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button-filled type="submit" form="violence">Save settings</x-button-filled>
+                <x-button.filled type="submit" form="violence" color="primary">Update</x-button.filled>
             </x-form.footer>
         </x-form>
     </x-panel>

@@ -25,7 +25,7 @@ class IconsSelectMenu extends Component
 
     public function getFilteredIconsProperty(): array
     {
-        $allIcons = app(IconSets::class)->getDefaultSet()->map();
+        $allIcons = app(IconSets::class)->getDefault()->map();
         ksort($allIcons);
 
         if ($this->search === null) {

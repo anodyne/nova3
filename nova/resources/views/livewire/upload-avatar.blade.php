@@ -9,7 +9,7 @@
                 @else
                     <div class="rounded-full bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-200/[15%]">
                         <div class="p-3">
-                            @icon('user', 'h-10 w-10 text-gray-400 dark:text-gray-500')
+                            <x-icon name="user" size="h-10 w-10" class="text-gray-400 dark:text-gray-500"></x-icon>
                         </div>
                     </div>
                 @endif
@@ -32,7 +32,7 @@
 
     @error('avatar')
         <p class="flex items-center w-full relative mt-2 ml-0.5 text-sm text-danger-600 space-x-2" role="alert">
-            @icon('alert', 'h-5 w-5 shrink-0 text-danger-500')
+            <x-icon name="alert" size="sm" class="shrink-0 text-danger-500"></x-icon>
             <span>{{ $message }}</span>
         </p>
     @enderror

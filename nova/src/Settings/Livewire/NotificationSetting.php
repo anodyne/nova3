@@ -17,10 +17,10 @@ class NotificationSetting extends ModalComponent
 
     public ?Notifiable $notifiable = null;
 
-    public function mount(SystemNotification $notification, ?User $user = null)
+    public function mount(SystemNotification $notification, $userId)
     {
         $this->notification = $notification;
-        $this->user = $user;
+        $this->user = $userId ? User::find($userId) : null;
         $this->setNotifiable();
     }
 
@@ -38,14 +38,14 @@ class NotificationSetting extends ModalComponent
         }
     }
 
-    protected function switchToGlobalSetting(): void
+    public function switchToGlobalSetting(): void
     {
         $this->user = null;
 
         $this->setNotifiable();
     }
 
-    protected function switchToPersonalSetting(): void
+    public function switchToPersonalSetting(): void
     {
         $this->user = auth()->user();
 

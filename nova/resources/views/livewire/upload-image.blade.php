@@ -8,7 +8,7 @@
                     @if ($existingImage)
                         <img src="{{ $existingImage }}" alt="image" class="h-16 w-16">
                     @else
-                        @icon('image', 'mx-auto h-12 w-12 text-gray-500')
+                        <x-icon name="image" size="h-12 w-12" class="mx-auto text-gray-500"></x-icon>
                     @endif
                 @endif
             </div>
@@ -43,7 +43,7 @@
 
     @error('image')
         <p class="flex items-center w-full relative mt-2 ml-0.5 text-sm text-danger-600 space-x-2" role="alert">
-            @icon('alert', 'h-5 w-5 shrink-0 text-danger-500')
+            <x-icon name="alert" size="sm" class="shrink-0 text-danger-500"></x-icon>
             <span>{{ $message }}</span>
         </p>
     @enderror

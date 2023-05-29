@@ -4,40 +4,15 @@
     <x-panel x-data="tabsList('details')">
         <x-panel.header :title="$user->name">
             <x-slot:actions>
-                <x-link :href="route('users.index')" leading="arrow-left" color="gray">
-                    Back to the users list
-                </x-link>
+                <x-button.text :href="route('users.index')" leading="arrow-left" color="gray">
+                    Back
+                </x-button.text>
             </x-slot:actions>
-
-            <div>
-                <x-content-box class="sm:hidden">
-                    <x-input.select @change="switchTab($event.target.value)" aria-label="Selected tab">
-                        <option value="details">Details</option>
-                        <option value="characters">Characters</option>
-                        <option value="roles">Roles</option>
-                    </x-input.select>
-                </x-content-box>
-                <div class="hidden sm:block">
-                    <x-content-box height="none">
-                        <nav class="-mb-px flex">
-                            <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('details'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('details') }" @click.prevent="switchTab('details')">
-                                Details
-                            </a>
-                            <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('characters'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('characters') }" @click.prevent="switchTab('characters')">
-                                Characters
-                            </a>
-                            <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('roles'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('roles') }" @click.prevent="switchTab('roles')">
-                                Roles
-                            </a>
-                        </nav>
-                    </x-content-box>
-                </div>
-            </div>
         </x-panel.header>
 
-        <x-form :action="route('users.update', $user)" method="PUT" x-show="isTab('details')">
+        <x-form :action="route('users.update', $user)" method="PUT">
             <x-form.section
-                title="User Info"
+                title="User info"
                 message="For privacy reasons, we don't recommend using a user's real name. Instead, use a nickname to help protect their identity."
                 x-data="{ pronouns: '{{ old('pronouns.value', $user->pronouns->value) }}', pronounSubject: '{{ old('pronouns.subject', $user->pronouns->subject) }}', pronounObject: '{{ old('pronouns.object', $user->pronouns->object) }}', pronounPossessive: '{{ old('pronouns.possessive', $user->pronouns->possessive) }}' }"
                 x-init="
@@ -90,19 +65,32 @@
                 </x-input.group>
             </x-form.section>
 
+            <x-form.section title="Characters assigned to this user">
+                <x-slot:message>
+                    <p><strong>Please note:</strong> changes to character assignment are immediate and will not be rolled back when pressing Cancel.</p>
+                </x-slot:message>
+
+                <x-panel>
+                    @livewire('users:manage-characters', ['user' => $user])
+                </x-panel>
+            </x-form.section>
+
+            <x-form.section title="Roles assigned to this user">
+                <x-slot:message>
+                    <p>Roles control what users can do inside of Nova. You can assign as many roles as needed to users.</p>
+                    <p><strong>Please note:</strong> changes to role assignment are immediate and will not be rolled back when pressing Cancel.</p>
+                </x-slot:message>
+
+                <x-panel>
+                    @livewire('users:manage-roles', ['user' => $user])
+                </x-panel>
+            </x-form.section>
+
             <x-form.footer>
-                <x-button-filled type="submit">Save user</x-button-filled>
-                <x-link :href='route("users.index", "status={$user->status->name()}")' color="gray">Cancel</x-link>
+                <x-button.filled type="submit" color="primary">Update</x-button.filled>
+                <x-button.outline :href='route("users.index", "status={$user->status->name()}")' color="gray">Cancel</x-button.outline>
             </x-form.footer>
         </x-form>
-
-        <div x-show="isTab('characters')" x-cloak>
-            @livewire('users:manage-characters', ['user' => $user])
-        </div>
-
-        <div x-show="isTab('roles')" x-cloak>
-            @livewire('users:manage-roles', ['user' => $user])
-        </div>
     </x-panel>
 
     @can('deactivate', $user)
@@ -118,9 +106,9 @@
                     </div>
                     <div class="mt-5 sm:mt-0 sm:ml-8 sm:shrink-0 sm:flex sm:items-center">
                         <x-form :action="route('users.deactivate', $user)">
-                            <x-button-outline type="submit" color="danger">
+                            <x-button.outline type="submit" color="danger">
                                 Deactivate user
-                            </x-button-outline>
+                            </x-button.outline>
                         </x-form>
                     </div>
                 </div>
@@ -141,9 +129,9 @@
                     </div>
                     <div class="mt-5 sm:mt-0 sm:ml-8 sm:shrink-0 sm:flex sm:items-center">
                         <x-form :action="route('users.activate', $user)">
-                            <x-button-outline type="submit">
+                            <x-button.outline type="submit" color="primary">
                                 Activate user
-                            </x-button-outline>
+                            </x-button.outline>
                         </x-form>
                     </div>
                 </div>
@@ -164,9 +152,9 @@
                     </div>
                     <div class="mt-5 sm:mt-0 sm:ml-8 sm:shrink-0 sm:flex sm:items-center">
                         <x-form :action="route('users.force-password-reset', $user)">
-                            <x-button-outline type="submit">
+                            <x-button.outline type="submit">
                                 Force password reset
-                            </x-button-outline>
+                            </x-button.outline>
                         </x-form>
                     </div>
                 </div>
@@ -174,7 +162,7 @@
                 {{-- <div class="mt-6">
                     <div class="rounded-md bg-gray-50 px-6 py-5 sm:flex sm:items-start sm:justify-between">
                         <div class="sm:flex sm:items-start">
-                            @icon('sign-out', 'shrink-0 h-8 w-8 text-gray-500')
+                            <x-icon name="logout" size="xl" class="shrink-0 text-gray-500"></x-icon>
                             <div class="mt-3 sm:mt-0 sm:ml-4">
                                 <div class="text-sm font-medium text-gray-600">
                                     If necessary, you can sign a user out of their account. Be warned, if they're actively doing anything when you initiate this action, any work will be lost on their next page load.

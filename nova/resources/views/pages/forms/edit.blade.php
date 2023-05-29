@@ -5,9 +5,9 @@
         <x-panel.header title="Edit form">
             <x-slot:actions>
                 @can('viewAny', Nova\Forms\Models\Form::class)
-                    <x-link :href="route('forms.index')" color="gray" leading="arrow-left">
+                    <x-button.text :href="route('forms.index')" color="gray" leading="arrow-left">
                         Back to the forms list
-                    </x-link>
+                    </x-button.text>
                 @endcan
             </x-slot:actions>
         </x-panel.header>
@@ -33,8 +33,8 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button-filled type="submit">Save form</x-button-filled>
-                <x-link :href="route('forms.index')" color="gray">Cancel</x-link>
+                <x-button.filled type="submit" color="primary">Update</x-button.filled>
+                <x-button.outline :href="route('forms.index')" color="gray">Cancel</x-button.outline>
             </x-form.footer>
 
             <input type="hidden" name="id" value="{{ $form->id }}">

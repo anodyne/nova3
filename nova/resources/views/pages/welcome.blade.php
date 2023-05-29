@@ -16,16 +16,16 @@
             </a>
             <div class="text-xs font-semibold uppercase tracking-wide text-gray-600 space-x-4">
                 @auth
-                    <a class="border border-transparent hover:bg-info-50 hover:border-info-300 hover:text-info-500 px-3 py-1 rounded-full" href="{{ route('dashboard') }}">Dashboard</a>
+                    <a class="border border-transparent hover:bg-secondary-50 hover:border-secondary-300 hover:text-secondary-500 px-3 py-1 rounded-full" href="{{ route('dashboard') }}">Dashboard</a>
                 @endauth
 
                 @guest
-                    <a class="border border-transparent hover:bg-info-50 hover:border-info-300 hover:text-info-500 px-3 py-1 rounded-full" href="{{ route('login') }}">Sign In</a>
+                    <a class="border border-transparent hover:bg-secondary-50 hover:border-secondary-300 hover:text-secondary-500 px-3 py-1 rounded-full" href="{{ route('login') }}">Sign In</a>
                 @endguest
 
-                <a class="border border-transparent hover:bg-info-50 hover:border-info-300 hover:text-info-500 px-3 py-1 rounded-full" href="https://anodyne-productions.com/docs" target="_blank" rel="noopener noreferrer">Documentation</a>
+                <a class="border border-transparent hover:bg-secondary-50 hover:border-secondary-300 hover:text-secondary-500 px-3 py-1 rounded-full" href="https://anodyne-productions.com/docs" target="_blank" rel="noopener noreferrer">Documentation</a>
 
-                <a class="border border-transparent hover:bg-info-50 hover:border-info-300 hover:text-info-500 px-3 py-1 rounded-full" href="https://anodyne-productions.com/support/chat" rel="noopener noreferrer">Support</a>
+                <a class="border border-transparent hover:bg-secondary-50 hover:border-secondary-300 hover:text-secondary-500 px-3 py-1 rounded-full" href="https://anodyne-productions.com/support/chat" rel="noopener noreferrer">Support</a>
             </div>
         </div>
     </div>

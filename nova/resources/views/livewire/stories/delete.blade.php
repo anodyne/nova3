@@ -32,9 +32,9 @@
 
                                 <div class="mt-2 max-w-xl text-gray-600 dark:text-gray-400 font-medium flex items-center space-x-6">
                                     @if (data_get($actions, "{$story->id}.story.action") === 'move')
-                                        <x-badge color="info">
+                                        <x-badge color="secondary">
                                             <x-slot:leadingIcon>
-                                                @icon('arrow-right', 'h-5 w-5 shrink-0')
+                                                <x-icon name="arrow-right" size="sm" class="shrink-0"></x-icon>
                                             </x-slot:leadingIcon>
                                             <span>Story will be moved</span>
                                         </x-badge>
@@ -43,16 +43,16 @@
                                     @if (data_get($actions, "{$story->id}.story.action") === 'delete')
                                         <x-badge color="danger">
                                             <x-slot:leadingIcon>
-                                                @icon('close', 'h-5 w-5 shrink-0')
+                                                <x-icon name="dismiss" size="sm" class="shrink-0"></x-icon>
                                             </x-slot:leadingIcon>
                                             <span>Story will be deleted</span>
                                         </x-badge>
                                     @endif
 
                                     @if (data_get($actions, "{$story->id}.posts.action") === 'move')
-                                        <x-badge color="info">
+                                        <x-badge color="secondary">
                                             <x-slot:leadingIcon>
-                                                @icon('arrow-right', 'h-5 w-5 shrink-0')
+                                                <x-icon name="arrow-right" size="sm" class="shrink-0"></x-icon>
                                             </x-slot:leadingIcon>
                                             <span>Story posts will be moved</span>
                                         </x-badge>
@@ -61,7 +61,7 @@
                                     @if (data_get($actions, "{$story->id}.posts.action") === 'delete')
                                         <x-badge color="danger">
                                             <x-slot:leadingIcon>
-                                                @icon('close', 'h-5 w-5 shrink-0')
+                                                <x-icon name="dismiss" size="sm" class="shrink-0"></x-icon>
                                             </x-slot:leadingIcon>
                                             <span>Story posts will be deleted</span>
                                         </x-badge>
@@ -70,7 +70,7 @@
                                     @if (data_get($actions, "{$story->id}.posts.action") === 'none')
                                         <x-badge>
                                             <x-slot:leadingIcon>
-                                                @icon('remove', 'h-5 w-5 shrink-0')
+                                                <x-icon name="remove" size="sm" class="shrink-0"></x-icon>
                                             </x-slot:leadingIcon>
                                             <span>Story posts will not be updated</span>
                                         </x-badge>
@@ -148,8 +148,8 @@
         </x-content-box>
 
         <x-form.footer>
-            <x-button type="submit" color="primary">Delete @choice('story|stories', $stories)</x-button>
-            <x-link :href="route('stories.index')" color="white">Cancel</x-link>
+            <x-button.filled type="submit" color="primary">Delete @choice('story|stories', $stories)</x-button.filled>
+            <x-button.outline :href="route('stories.index')" color="gray">Cancel</x-button.outline>
         </x-form.footer>
     </x-form>
 </x-panel>

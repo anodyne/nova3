@@ -6,7 +6,7 @@
                     {{ $story->status->displayName() }}
 
                     <x-slot:trailingIcon>
-                        <svg class="{{ $component->iconStyles() }} -mr-1" viewBox="0 0 20 20" fill="currentColor">
+                        <svg class="{{ $component->iconStyles() }} h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                         </svg>
                     </x-slot:trailingIcon>
@@ -24,7 +24,7 @@
                         </div>
                         <div class="flex justify-end shrink-0 w-8">
                             @if ($story->status->equals('upcoming'))
-                                @icon('check', 'h-6 w-6 text-primary-500')
+                                <x-icon name="check" size="md" class="text-primary-500"></x-icon>
                             @endif
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                         </div>
                         <div class="flex justify-end shrink-0 w-8">
                             @if ($story->status->equals('ongoing'))
-                                @icon('check', 'h-6 w-6 text-primary-500')
+                                <x-icon name="check" size="md" class="text-primary-500"></x-icon>
                             @endif
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                         </div>
                         <div class="flex justify-end shrink-0 w-8">
                             @if ($story->status->equals('current'))
-                                @icon('check', 'h-6 w-6 text-primary-500')
+                                <x-icon name="check" size="md" class="text-primary-500"></x-icon>
                             @endif
                         </div>
                     </div>
@@ -69,7 +69,7 @@
                         </div>
                         <div class="flex justify-end shrink-0 w-8">
                             @if ($story->status->equals('completed'))
-                                @icon('check', 'h-6 w-6 text-primary-500')
+                                <x-icon name="check" size="md" class="text-primary-500"></x-icon>
                             @endif
                         </div>
                     </div>
@@ -82,7 +82,7 @@
         <x-badge :color="$story->status->color()">
             @if ($story->canPost)
                 <x-slot:leadingIcon>
-                    @icon('edit', $component->iconStyles())
+                    <x-icon name="edit" size="sm" :class="$component->iconStyles()"></x-icon>
                 </x-slot:leadingIcon>
             @endif
 

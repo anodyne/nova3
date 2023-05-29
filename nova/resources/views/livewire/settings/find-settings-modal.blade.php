@@ -3,9 +3,9 @@
         <div class="flex items-center justify-between">
             <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">Find settings</h3>
 
-            <x-button color="gray-text" size="none" wire:click="dismiss">
-                @icon('close', 'h-5 w-5')
-            </x-button>
+            <x-button.text color="gray" wire:click="dismiss">
+                <x-icon name="dismiss" size="sm"></x-icon>
+            </x-button.text>
         </div>
     </x-content-box>
 
@@ -14,14 +14,14 @@
             <x-input.group>
                 <x-input.text placeholder="Search for settings" wire:model.debounce.500ms="search" autofocus>
                     <x-slot:leadingAddOn>
-                        @icon('search')
+                        <x-icon name="search" size="sm"></x-icon>
                     </x-slot:leadingAddOn>
 
                     <x-slot:trailingAddOn>
                         @if ($search)
-                            <x-link tag="button" color="gray" wire:click="$set('search', '')">
-                                @icon('close', 'h-5 w-5')
-                            </x-link>
+                            <x-button.text tag="button" color="gray" wire:click="$set('search', '')">
+                                <x-icon name="dismiss" size="sm"></x-icon>
+                            </x-button.text>
                         @endif
                     </x-slot:trailingAddOn>
                 </x-input.text>
@@ -31,7 +31,7 @@
                 @if ($filteredSettings->count() === 0)
                     <div class="flex flex-col items-center h-60">
                         <div class="flex flex-col flex-1 justify-center text-center">
-                            @icon('settings', 'mx-auto h-12 w-12 text-gray-500')
+                            <x-icon name="settings" size="h-12 w-12" class="mx-auto text-gray-500"></x-icon>
                             <h3 class="mt-2 text-sm font-medium text-gray-900">No settings found</h3>
                             <p class="mt-1 text-sm text-gray-600">
                                 Search for settings.

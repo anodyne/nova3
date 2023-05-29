@@ -12,21 +12,21 @@
 
         <x-slot:actions>
             @if ($previousPost)
-                <x-link :href="route('posts.show', [$story, $previousPost])" size="none" color="gray-text">
+                <x-button.text :href="route('posts.show', [$story, $previousPost])" color="gray">
                     <x-icon.chevron-left class="h-7 w-7 md:h-6 md:w-6" />
-                </x-link>
+                </x-button.text>
             @endif
 
             @if ($nextPost)
-                <x-link :href="route('posts.show', [$story, $nextPost])" size="none" color="gray-text">
+                <x-button.text :href="route('posts.show', [$story, $nextPost])" color="gray">
                     <x-icon.chevron-right class="h-7 w-7 md:h-6 md:w-6" />
-                </x-link>
+                </x-button.text>
             @endif
 
             @can('update', $post)
-                <x-link href="#" color="primary">
+                <x-button.filled href="#" color="primary">
                     Edit post
-                </x-link>
+                </x-button.filled>
             @endcan
         </x-slot:actions>
     </x-page-header>
@@ -34,9 +34,9 @@
     <x-panel x-data="{ showContent: {{ $post->shouldShowContentWarning() ? 'false' : 'true' }} }">
         <x-content-box class="text-center p-16" x-show="!showContent" x-cloak>
             <div class="flex items-center justify-center space-x-4">
-                @icon('warning', 'h-8 w-8 text-danger-500')
+                <x-icon name="warning" size="xl" class="text-danger-500"></x-icon>
                 <h1 class="block text-4xl leading-loose font-extrabold text-danger-600 tracking-tight">Warning</h1>
-                @icon('warning', 'h-8 w-8 text-danger-500')
+                <x-icon name="warning" size="xl" class="text-danger-500"></x-icon>
             </div>
 
             <p class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
@@ -61,9 +61,9 @@
                 By continuing, you agree that you are of suitable age for this content.
             </p>
 
-            <x-button type="button" color="danger-outline" @click="showContent = true">
+            <x-button.outline type="button" color="danger" @click="showContent = true">
                 Continue
-            </x-button>
+            </x-button.outline>
         </x-content-box>
 
         <x-content-box x-show="showContent" x-cloak>
@@ -72,7 +72,7 @@
                     <div class="space-y-10">
                         <div class="flex items-start space-x-2 text-gray-500 dark:text-gray-400 font-medium">
                             <span style="color:{{ $post->postType->color }}">
-                                @icon($post->postType->icon, 'h-6 w-6 shrink-0')
+                                <x-icon :name="$post->postType->icon" size="md" class="shrink-0"></x-icon>
                             </span>
                             <span>{{ $post->postType->name }}</span>
                         </div>
@@ -81,21 +81,21 @@
                             <div class="flex flex-col space-y-3">
                                 @if ($post->postType->fields->location->enabled && $post->location)
                                     <div class="flex items-start space-x-2 text-gray-500 dark:text-gray-400 font-medium">
-                                        @icon('location', 'h-6 w-6 text-gray-400 dark:text-gray-500 shrink-0')
+                                        <x-icon name="location" size="md" class="text-gray-400 dark:text-gray-500 shrink-0"></x-icon>
                                         <span>{{ $post->location }}</span>
                                     </div>
                                 @endif
 
                                 @if ($post->postType->fields->day->enabled && $post->day)
                                     <div class="flex items-start space-x-2 text-gray-500 dark:text-gray-400 font-medium">
-                                        @icon('calendar', 'h-6 w-6 text-gray-400 dark:text-gray-500 shrink-0')
+                                        <x-icon name="calendar" size="md" class="text-gray-400 dark:text-gray-500 shrink-0"></x-icon>
                                         <span>{{ $post->day }}</span>
                                     </div>
                                 @endif
 
                                 @if ($post->postType->fields->time->enabled && $post->time)
                                     <div class="flex items-start space-x-2 text-gray-500 dark:text-gray-400 font-medium">
-                                        @icon('clock', 'h-6 w-6 text-gray-400 dark:text-gray-500 shrink-0')
+                                        <x-icon name="clock" size="md" class="text-gray-400 dark:text-gray-500 shrink-0"></x-icon>
                                         <span>{{ $post->time }}</span>
                                     </div>
                                 @endif
@@ -104,12 +104,12 @@
 
                         <div class="flex flex-col space-y-3">
                             <div class="flex items-center space-x-2 text-gray-500 dark:text-gray-400 font-medium">
-                                @icon('number', 'h-6 w-6 text-gray-400 dark:text-gray-500 shrink-0')
+                                <x-icon name="number" size="md" class="text-gray-400 dark:text-gray-500 shrink-0"></x-icon>
                                 <span>{{ number_format($post->word_count) }} words</span>
                             </div>
 
                             <div class="flex items-center space-x-2 text-gray-500 dark:text-gray-400 font-medium">
-                                @icon('timer', 'h-6 w-6 text-gray-400 dark:text-gray-500 shrink-0')
+                                <x-icon name="alarm" size="md" class="text-gray-400 dark:text-gray-500 shrink-0"></x-icon>
                                 <span>{{ ceil($post->word_count / 200) }} min read</span>
                             </div>
                         </div>
@@ -165,7 +165,7 @@
                         {!! $post->content !!}
                     </div>
 
-                    <x-panel as="light well">
+                    <x-panel as="light-well">
                         <x-content-box>
                             <div class="grid md:grid-cols-2 md:gap-6">
                                 @foreach($post->characterAuthors as $character)

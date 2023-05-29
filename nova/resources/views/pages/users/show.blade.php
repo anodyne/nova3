@@ -8,7 +8,7 @@
 
         <x-slot:actions>
             @can('update', $user)
-                <x-link :href="route('users.edit', $user)" color="primary">Edit User</x-link>
+                <x-button.filled :href="route('users.edit', $user)" color="primary">Edit User</x-button.filled>
             @endcan
         </x-slot:actions>
     </x-page-header>
@@ -60,7 +60,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-link :href='route("users.index", "status={$user->status->name()}")' color="white">Back</x-link>
+                <x-button.outline :href='route("users.index", "status={$user->status->name()}")' color="gray">Back</x-button.outline>
             </x-form.footer>
         </x-form>
     </x-panel>

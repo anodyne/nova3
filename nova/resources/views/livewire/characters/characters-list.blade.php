@@ -1,10 +1,10 @@
 <x-panel x-data="filtersPanel()" x-bind="parent">
-    <x-panel.header title="Characters" message="Manage all of the game's characters.">
+    <x-panel.header title="Characters" message="Manage all of the game's characters" :border="false">
         <x-slot:actions>
             @can('createAny', $characterClass)
-                <x-button-filled tag="a" :href="route('characters.create')" leading="add" data-cy="create">
-                    Add a character
-                </x-button-filled>
+                <x-button.filled :href="route('characters.create')" leading="add">
+                    Add
+                </x-button.filled>
             @endcan
         </x-slot:actions>
     </x-panel.header>
@@ -24,14 +24,14 @@
                 <x-input.group>
                     <x-input.text placeholder="Find characters by name or assigned user name/email" wire:model="search">
                         <x-slot:leadingAddOn>
-                            @icon('search', 'h-5 w-5')
+                            <x-icon name="search" size="sm"></x-icon>
                         </x-slot:leadingAddOn>
 
                         @if ($search)
                             <x-slot:trailingAddOn>
-                                <x-link tag="button" color="gray" wire:click="$set('search', '')">
-                                    @icon('close', 'h-5 w-5')
-                                </x-link>
+                                <x-button.text tag="button" color="gray" wire:click="$set('search', '')">
+                                    <x-icon name="dismiss" size="sm"></x-icon>
+                                </x-button.text>
                             </x-slot:trailingAddOn>
                         @endif
                     </x-input.text>
@@ -39,7 +39,7 @@
             </div>
 
             <div class="shrink flex justify-between md:justify-start items-center space-x-4">
-                <x-link
+                <x-button.text
                     tag="button"
                     :color="$isFiltered ? 'primary' : 'gray'"
                     x-bind="trigger"
@@ -49,7 +49,7 @@
                     @if ($activeFilterCount > 0)
                         <x-badge color="primary" size="sm" class="ml-2">{{ $activeFilterCount }}</x-badge>
                     @endif
-                </x-link>
+                </x-button.text>
             </div>
         </x-content-box>
 
@@ -92,9 +92,9 @@
                             @if ($character->users->count() > 0)
                                 <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
                                     @if ($character->users->count() === 1)
-                                        @icon('user', 'shrink-0 mr-1.5 h-5 w-5 text-gray-500')
+                                        <x-icon name="user" size="sm" class="shrink-0 mr-1.5 text-gray-500"></x-icon>
                                     @else
-                                        @icon('users', 'shrink-0 mr-1.5 h-5 w-5 text-gray-500')
+                                        <x-icon name="users" size="sm" class="shrink-0 mr-1.5 text-gray-500"></x-icon>
                                     @endif
 
                                     <span class="truncate">
@@ -153,7 +153,7 @@
 
                             @can('delete', $character)
                                 <x-dropdown.group>
-                                    <x-dropdown.item-danger type="button" icon="delete" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($character) }});" data-cy="delete">
+                                    <x-dropdown.item-danger type="button" icon="trash" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($character) }});" data-cy="delete">
                                         <span>Delete</span>
                                     </x-dropdown.item-danger>
                                 </x-dropdown.group>
@@ -169,13 +169,13 @@
                         :primary-access="gate()->allows('createAny', $characterClass)"
                     >
                         <x-slot:primary>
-                            <x-link :href="route('characters.create')" color="primary">
+                            <x-button.filled :href="route('characters.create')" color="primary">
                                 Add a character
-                            </x-link>
+                            </x-button.filled>
                         </x-slot:primary>
 
                         <x-slot:secondary>
-                            <x-button wire:click="$set('search', '')">Clear search</x-button>
+                            <x-button.outline color="gray" wire:click="$set('search', '')">Clear search</x-button.outline>
                         </x-slot:secondary>
                     </x-empty-state.not-found>
                 </x-slot:emptyMessage>

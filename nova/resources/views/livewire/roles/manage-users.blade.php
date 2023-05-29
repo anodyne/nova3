@@ -8,14 +8,14 @@
                     <x-input.group>
                         <x-input.text wire:model.debounce.500ms="filters.search" placeholder="Find assigned users">
                             <x-slot:leadingAddOn>
-                                @icon('search', 'h-5 w-5')
+                                <x-icon name="search" size="sm"></x-icon>
                             </x-slot:leadingAddOn>
 
                             <x-slot:trailingAddOn>
                                 @if ($filters['search'])
-                                    <x-button color="gray-text" size="none" wire:click="$set('filters.search', '')">
-                                        @icon('close')
-                                    </x-button>
+                                    <x-button.text color="gray" wire:click="$set('filters.search', '')">
+                                        <x-icon name="dismiss" size="sm"></x-icon>
+                                    </x-button.text>
                                 @endif
                             </x-slot:trailingAddOn>
                         </x-input.text>
@@ -25,7 +25,7 @@
                 <div class="flex items-center space-x-4">
                     <x-dropdown placement="bottom-end">
                         <x-slot:trigger>
-                            @icon('filter', 'h-7 w-7 md:h-6 md:w-6')
+                            <x-icon name="filter" size="md"></x-icon>
                         </x-slot:trigger>
 
                         <x-dropdown.group>
@@ -33,7 +33,7 @@
                                 <div class="flex items-center justify-between w-full">
                                     <span>All users</span>
                                     @if ($filters['status'] === '')
-                                        @icon('check', 'h-6 w-6 text-success-500')
+                                        <x-icon name="check" size="md" class="text-success-500"></x-icon>
                                     @endif
                                 </div>
                             </x-dropdown.item>
@@ -41,7 +41,7 @@
                                 <div class="flex items-center justify-between w-full">
                                     <span>Only active users</span>
                                     @if ($filters['status'] === 'Nova\Users\Models\States\Active')
-                                        @icon('check', 'h-6 w-6 text-success-500')
+                                        <x-icon name="check" size="md" class="text-success-500"></x-icon>
                                     @endif
                                 </div>
                             </x-dropdown.item>
@@ -49,7 +49,7 @@
                                 <div class="flex items-center justify-between w-full">
                                     <span>Only inactive users</span>
                                     @if ($filters['status'] === 'Nova\Users\Models\States\Inactive')
-                                        @icon('check', 'h-6 w-6 text-success-500')
+                                        <x-icon name="check" size="md" class="text-success-500"></x-icon>
                                     @endif
                                 </div>
                             </x-dropdown.item>
@@ -58,14 +58,14 @@
 
                     @can('update', $role)
                         @if (count($selected) > 0)
-                            <x-button color="danger-outline" size="sm" wire:click="unassignSelectedUsers" leading="delete">
+                            <x-button.outline color="danger" wire:click="unassignSelectedUsers" leading="trash">
                                 Remove {{ count($selected) }} @choice('user|users', count($selected))
-                            </x-button>
+                            </x-button.outline>
                         @endif
 
-                        <x-button type="button" color="primary" size="sm" wire:click="$emit('openModal', 'users:select-users-modal')" leading="add">
+                        <x-button.filled type="button" color="primary" wire:click="$emit('openModal', 'users:select-users-modal')" leading="add">
                             Add users
-                        </x-button>
+                        </x-button.filled>
                     @endcan
                 </div>
             @endif
@@ -91,7 +91,7 @@
                             @unless ($selectAll)
                                 <span class="text-primary-600 dark:text-primary-400">You've selected <strong>{{ $users->count() }}</strong> users assigned this role. Do you want to select all <strong>{{ $users->total() }}</strong>?</span>
 
-                                <x-button size="none" color="primary-text" wire:click="selectAll" class="ml-1">Select All</x-button>
+                                <x-button.text color="primary" wire:click="selectAll" class="ml-1">Select All</x-button.text>
                             @else
                                 <span class="text-primary-600 dark:text-primary-400">You've selected all <strong>{{ $users->total() }}</strong> users assigned this role.</span>
                             @endunless
@@ -122,7 +122,7 @@
         @endif
     @else
         <x-content-box class="text-center">
-            @icon('users', 'mx-auto h-12 w-12 text-gray-500')
+            <x-icon name="users" size="h-12 w-12" class="mx-auto text-gray-500"></x-icon>
 
             <h3 class="mt-2 text-sm font-medium text-gray-900">No users</h3>
 
@@ -132,9 +132,9 @@
                 </p>
 
                 <div class="mt-6">
-                    <x-button color="primary" wire:click="$emit('openModal', 'users:select-users-modal')">
+                    <x-button.filled color="primary" wire:click="$emit('openModal', 'users:select-users-modal')">
                         Add users
-                    </x-button>
+                    </x-button.filled>
                 </div>
             @endcan
         </x-content-box>

@@ -45,8 +45,8 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button type="submit" color="primary">Update Theme</x-button>
-                <x-link :href="route('themes.index')" color="white">Cancel</x-link>
+                <x-button.filled type="submit" color="primary">Update Theme</x-button.filled>
+                <x-button.text :href="route('themes.index')" color="gray">Cancel</x-button.text>
             </x-form.footer>
         </x-form>
     </x-panel>

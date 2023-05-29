@@ -4,12 +4,12 @@
     <x-panel>
         <x-panel.header :title="$character->name">
             <x-slot:actions>
-                <x-link :href="route('characters.index')" leading="arrow-left" color="gray">
-                    Back to characters list
-                </x-link>
+                <x-button.text :href="route('characters.index')" leading="arrow-left" color="gray">
+                    Back
+                </x-button.text>
 
                 @can('update', $character)
-                    <x-button-filled tag="a" :href="route('characters.edit', $character)" leading="edit">Edit</x-button-filled>
+                    <x-button.filled :href="route('characters.edit', $character)" leading="edit" color="primary">Edit</x-button.filled>
                 @endcan
             </x-slot:actions>
         </x-panel.header>
@@ -70,7 +70,7 @@
 
                                     @can('update', $user)
                                         <a href="{{ route('users.edit', $user) }}" class="text-gray-600 transition ease-in-out duration-200 hover:text-gray-900 group-hover:visible sm:invisible">
-                                            @icon('edit')
+                                            <x-icon name="edit" size="sm"></x-icon>
                                         </a>
                                     @endcan
                                 </div>
@@ -79,10 +79,6 @@
                     </x-input.group>
                 </x-form.section>
             @endif
-
-            <x-form.footer>
-                <x-link :href='route("characters.index", "status={$character->status->name()}")' color="white">Back</x-link>
-            </x-form.footer>
         </x-form>
     </x-panel>
 @endsection

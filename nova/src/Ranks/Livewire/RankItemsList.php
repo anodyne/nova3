@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Ranks\Livewire;
 
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
@@ -24,8 +26,9 @@ use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Ranks\Actions\DeleteRankItem;
 use Nova\Ranks\Models\RankItem;
 
-class RankItemsList extends Component implements HasTable
+class RankItemsList extends Component implements HasForms, HasTable
 {
+    use InteractsWithForms;
     use InteractsWithTable;
 
     public function table(Table $table): Table
@@ -90,7 +93,7 @@ class RankItemsList extends Component implements HasTable
             })
             ->emptyStateIcon(iconName('rank'))
             ->emptyStateHeading('No ranks found')
-            ->emptyStateDescription("Rank items bring the rank group, rank name, and images together in a simple and easy-to-use rank experience.")
+            ->emptyStateDescription('Rank items bring the rank group, rank name, and images together in a simple and easy-to-use rank experience.')
             ->emptyStateActions([
                 CreateAction::make()
                     ->label('Add a rank')

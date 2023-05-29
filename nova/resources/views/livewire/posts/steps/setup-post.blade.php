@@ -5,7 +5,7 @@
                 <x-h2>Start writing your post</x-h2>
                 <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Choose your post type and the story you're writing in to get started.</p>
 
-                <div class="border-t border-b border-gray-200 dark:border-gray-200/10 my-6 py-6">
+                <div class="border-t border-b border-gray-200 dark:border-gray-700 my-6 py-6">
                     <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Pick your story</h3>
 
                     <x-input.select wire:model="storyId" class="mt-4">
@@ -33,7 +33,7 @@
                         >
                             @isset($type->icon)
                                 <span style="color:{{ $type->color }}">
-                                    @icon($type->icon, 'h-8 w-8')
+                                    <x-icon :name="$type->icon" size="xl"></x-icon>
                                 </span>
                             @else
                                 <div class="h-8 w-8"></div>
@@ -61,7 +61,7 @@
                         </span>
                         <span id="post-type-{{ $type->id }}-description-1" class="mt-2 flex sm:items-center sm:mt-0 sm:flex-col sm:ml-4 sm:text-right">
                             @if ($postType?->id === $type->id)
-                                @icon('check', 'h-7 w-7 text-primary-500')
+                                <x-icon name="check" size="lg" class="text-primary-500"></x-icon>
                             @endif
                         </span>
 
@@ -90,7 +90,7 @@
 
     @if ($postType && $story)
         <x-form.footer>
-            <x-button wire:click="goToNextStep" color="primary">Next: Select authors</x-button>
+            <x-button.filled wire:click="goToNextStep">Next: Select authors</x-button.filled>
         </x-form.footer>
     @endif
 </x-write-post-wizard-layout>

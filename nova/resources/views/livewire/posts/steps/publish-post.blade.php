@@ -20,21 +20,21 @@
                                                     <div class="flex items-center space-x-6">
                                                         @if ($previousPost->location)
                                                             <div class="flex items-center space-x-1 text-sm text-gray-500 dark:text-gray-400">
-                                                                @icon('location', 'h-5 w-5 text-gray-400 dark:text-gray-500 shrink-0')
+                                                                <x-icon name="location" size="sm" class="text-gray-400 dark:text-gray-500 shrink-0"></x-icon>
                                                                 <span>{{ $previousPost->location }}</span>
                                                             </div>
                                                         @endif
 
                                                         @if ($previousPost->day)
                                                             <div class="flex items-center space-x-1 text-sm text-gray-500 dark:text-gray-400">
-                                                                @icon('calendar', 'h-5 w-5 text-gray-400 dark:text-gray-500 shrink-0')
+                                                                <x-icon name="calendar" size="sm" class="text-gray-400 dark:text-gray-500 shrink-0"></x-icon>
                                                                 <span>{{ $previousPost->day }}</span>
                                                             </div>
                                                         @endif
 
                                                         @if ($previousPost->time)
                                                             <div class="flex items-center space-x-1 text-sm text-gray-500 dark:text-gray-400">
-                                                                @icon('clock', 'h-5 w-5 text-gray-400 dark:text-gray-500 shrink-0')
+                                                                <x-icon name="clock" size="sm" class="text-gray-400 dark:text-gray-500 shrink-0"></x-icon>
                                                                 <span>{{ $previousPost->time }}</span>
                                                             </div>
                                                         @endif
@@ -69,7 +69,7 @@
                                             class="shrink-0 inline-flex items-center space-x-1 invisible group-hover:visible text-sm text-gray-400 ml-12"
                                             wire:click='$emit("openModal", "posts:select-post-position-modal", {{ json_encode([$post->story_id]) }})'
                                         >
-                                            @icon('arrow-sort', 'h-5 w-5 text-gray-400 shrink-0')
+                                            <x-icon name="arrows-sort" size="sm" class="text-gray-400 shrink-0"></x-icon>
                                             <span>Change post position</span>
                                         </a>
                                     </div>
@@ -93,21 +93,21 @@
                                                     <div class="flex items-center space-x-6">
                                                         @if ($nextPost->location)
                                                             <div class="flex items-center space-x-1 text-sm text-gray-500 dark:text-gray-400">
-                                                                @icon('location', 'h-5 w-5 text-gray-400 dark:text-gray-500 shrink-0')
+                                                                <x-icon name="location" size="sm" class="text-gray-400 dark:text-gray-500 shrink-0"></x-icon>
                                                                 <span>{{ $nextPost->location }}</span>
                                                             </div>
                                                         @endif
 
                                                         @if ($nextPost->day)
                                                             <div class="flex items-center space-x-1 text-sm text-gray-500 dark:text-gray-400">
-                                                                @icon('calendar', 'h-5 w-5 text-gray-400 dark:text-gray-500 shrink-0')
+                                                                <x-icon name="calendar" size="sm" class="text-gray-400 dark:text-gray-500 shrink-0"></x-icon>
                                                                 <span>{{ $nextPost->day }}</span>
                                                             </div>
                                                         @endif
 
                                                         @if ($nextPost->time)
                                                             <div class="flex items-center space-x-1 text-sm text-gray-500 dark:text-gray-400">
-                                                                @icon('clock', 'h-5 w-5 text-gray-400 dark:text-gray-500 shrink-0')
+                                                                <x-icon name="clock" size="sm" class="text-gray-400 dark:text-gray-500 shrink-0"></x-icon>
                                                                 <span>{{ $nextPost->time }}</span>
                                                             </div>
                                                         @endif
@@ -126,7 +126,7 @@
             @if ($this->shouldShowParticipantsPanel)
                 <x-form.section title="Review participants">
                     <x-slot:message>
-                        You can review participants to ensure that everyone who should receive credit for authoring the post gets it. If there is someone here who did not participate, you can remove them. If there is someone who did participate and isn't listed here, you can add them from the <x-link href="#" wire:click.prevent="showStep('posts:step:select-authors')" color="primary-text" size="none-base">Select Authors</x-link> screen.
+                        You can review participants to ensure that everyone who should receive credit for authoring the post gets it. If there is someone here who did not participate, you can remove them. If there is someone who did participate and isn't listed here, you can add them from the <x-button.text href="#" wire:click.prevent="showStep('posts:step:select-authors')" color="primary">Select Authors</x-button.text> screen.
                     </x-slot:message>
 
                     <div class="flex flex-col w-full">
@@ -155,13 +155,15 @@
                                 </div>
 
                                 <x-dropdown placement="bottom-end">
-                                    <x-slot:trigger color="gray-danger-text">@icon('delete', 'h-7 w-7 md:h-6 md:w-6')</x-slot:trigger>
+                                    <x-slot:trigger color="gray-danger">
+                                        <x-icon name="trash" size="md"></x-icon>
+                                    </x-slot:trigger>
 
                                     <x-dropdown.group>
                                         <x-dropdown.text>Are you sure you want to remove <strong class="font-semibold text-gray-700 dark:text-gray-200">{{ $participatingUser->name }}</strong> and any characters they're marked as writing as authors of this post?</x-dropdown.text>
                                     </x-dropdown.group>
                                     <x-dropdown.group>
-                                        <x-dropdown.item-danger type="button" icon="delete" wire:click="removeParticipant({{ $participatingUser }})">
+                                        <x-dropdown.item-danger type="button" icon="trash" wire:click="removeParticipant({{ $participatingUser }})">
                                             Remove
                                         </x-dropdown.item-danger>
                                         <x-dropdown.item type="button" icon="prohibited" @click.prevent="$dispatch('dropdown-close')">Cancel</x-dropdown.item>
@@ -181,14 +183,14 @@
         ></x-empty-state.large>
     @endif
 
-    <x-content-box height="sm" class="flex flex-col space-y-4 rounded-b-lg border-t border-gray-200 dark:border-gray-200/10 md:flex-row-reverse md:items-center md:space-y-0 md:space-x-6 md:space-x-reverse justify-between">
+    <x-content-box height="sm" class="flex flex-col space-y-4 rounded-b-lg border-t border-gray-200 dark:border-gray-700 md:flex-row-reverse md:items-center md:space-y-0 md:space-x-6 md:space-x-reverse justify-between">
         <div class="flex flex-col md:flex-row-reverse md:items-center md:space-x-reverse space-y-4 md:space-y-0 md:space-x-6">
-            <x-button wire:click="publish" color="primary">Publish</x-button>
+            <x-button.filled wire:click="publish">Publish</x-button.filled>
         </div>
 
         {{-- @can('delete', $post) --}}
             <div>
-                <x-link href="#" color="gray-danger-text" size="none">Discard draft</x-link>
+                <x-button.text href="#" color="gray-danger">Discard draft</x-button.text>
             </div>
         {{-- @endcan --}}
     </x-content-box>

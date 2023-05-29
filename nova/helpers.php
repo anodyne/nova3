@@ -39,9 +39,21 @@ if (! function_exists('gate')) {
 }
 
 if (! function_exists('icon')) {
-    function icon($name, $class = '', array $attributes = [])
+    function icon(string $name, string $size = 'md', string $class = '', array $attributes = [])
     {
-        return app(Icon::class)->make($name, $class, $attributes);
+        return app(Icon::class)->make(
+            name: $name,
+            size: $size,
+            class: $class,
+            attributes: $attributes
+        );
+    }
+}
+
+if (! function_exists('iconName')) {
+    function iconName(string $name)
+    {
+        return icon($name)->name();
     }
 }
 

@@ -1,5 +1,5 @@
 <div x-data="{ open: false }" class="leading-none">
-    <x-link
+    <x-button.text
         @click.prevent="open = true"
         {{-- wire:poll.30s="refreshNotifications" --}}
         tag="button"
@@ -7,12 +7,12 @@
         class="relative p-1 rounded-full"
         aria-label="Notifications"
     >
-        @icon('notification', 'h-6 w-6')
+        <x-icon name="bell" size="md"></x-icon>
 
         @if ($this->hasUnreadNotifications)
             <span class="absolute top-0 right-0 block h-2.5 w-2.5 rounded-full text-white shadow-solid bg-danger-500"></span>
         @endif
-    </x-link>
+    </x-button.text>
 
     <div
         @sidebar-open.window="open = true"
@@ -68,7 +68,7 @@
                             class="rounded-md text-gray-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-white transition ease-in-out duration-200"
                         >
                             <span class="sr-only">Close panel</span>
-                            @icon('close', 'h-6 w-6')
+                            <x-icon name="dismiss" size="md"></x-icon>
                         </button>
                     </div>
 
@@ -77,15 +77,15 @@
                             <x-h2>Notifications</x-h2>
 
                             @if ($this->hasUnreadNotifications)
-                                <x-link tag="button" wire:click="markAllNotificationsAsRead" leading="check">
+                                <x-button.text tag="button" color="gray" wire:click="markAllNotificationsAsRead" leading="check">
                                     Mark all as read
-                                </x-link>
+                                </x-button.text>
                             @endif
 
                             @if (! $this->hasUnreadNotifications && $this->hasNotifications)
-                                <x-link tag="button" wire:click="clearAllNotifications" leading="check">
+                                <x-button.text tag="button" color="gray" wire:click="clearAllNotifications" leading="check">
                                     Clear all
-                                </x-link>
+                                </x-button.text>
                             @endif
                         </header>
 

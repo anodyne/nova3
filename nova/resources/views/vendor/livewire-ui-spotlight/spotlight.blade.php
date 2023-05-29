@@ -44,10 +44,10 @@
             x-trap.noscroll="isOpen"
             class="relative transition-all max-w-xl w-full"
         >
-            <div class="mx-auto max-w-xl transform divide-y divide-gray-200 dark:divide-gray-200/10 overflow-hidden rounded-xl bg-white dark:bg-gray-800 dark:highlight-white/10 shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
+            <div class="mx-auto max-w-xl transform divide-y divide-gray-200 dark:divide-gray-700 overflow-hidden rounded-xl bg-white dark:bg-gray-800 dark:highlight-white/10 shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
                 <div class="relative flex items-center space-x-3 px-4 py-4">
                     <div class="shrink-0">
-                        @icon('arrow-right', 'h-6 w-6 text-gray-400')
+                        <x-icon name="arrow-right" size="md" class="text-gray-400"></x-icon>
                     </div>
                     <input
                         @keydown.tab.prevent=""
@@ -90,7 +90,7 @@
                 </ul>
 
                 <div x-show="input === ''" class="flex flex-col space-y-4 py-14 px-6 text-center text-base sm:px-14">
-                    @icon('lightbulb', 'mx-auto h-8 w-8 text-gray-400 dark:text-gray-500')
+                    <x-icon name="bulb" size="xl" class="text-gray-400 dark:text-gray-500"></x-icon>
                     <p class="text-lg font-semibold text-gray-900 dark:text-gray-100">Move around Nova at warp speed</p>
                     <ul class="text-gray-500 dark:text-gray-400 space-y-4">
                         <li>Start typing any resource like <span class="text-blue-600 dark:text-blue-500 font-medium">story</span> or <span class="text-blue-600 dark:text-blue-500 font-medium">character</span> to see available actions you can take</li>

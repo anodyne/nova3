@@ -4,9 +4,9 @@
 
 <x-input.field x-data="{ value: '{{ $value }}' }">
     <x-slot:leadingAddOn>
-        <x-link tag="button" color="gray" @click.prevent="value--">
-            @icon('remove', 'h-6 w-6')
-        </x-link>
+        <x-button.text tag="button" color="gray" @click.prevent="value--">
+            <x-icon name="remove" size="md"></x-icon>
+        </x-button.text>
     </x-slot:leadingAddOn>
 
     <input
@@ -19,8 +19,8 @@
     >
 
     <x-slot:trailingAddOn>
-        <x-link tag="button" color="gray" @click.prevent="value++">
-            @icon('add', 'h-6 w-6')
-        </x-link>
+        <x-button.text tag="button" color="gray" @click.prevent="value++">
+            <x-icon name="add" size="md"></x-icon>
+        </x-button.text>
     </x-slot:trailingAddOn>
 </x-input.field>

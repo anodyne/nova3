@@ -6,11 +6,11 @@
 ])
 
 <x-panel as="no-shadow" {{ $attributes }}>
-    <x-content-box :height="$height" :width="$width" class="sm:rounded-lg border-y sm:border-x bg-warning-50 dark:bg-warning-900/50 border-warning-300 dark:border-warning-700 text-warning-600 dark:text-warning-500">
+    <x-content-box :height="$height" :width="$width" class="sm:rounded-lg border-y sm:border-x bg-warning-50 dark:bg-warning-950 border-warning-300 dark:border-warning-700 text-warning-600 dark:text-warning-500">
         <div class="flex items-start space-x-4">
             @if ($icon)
                 <div class="shrink-0">
-                    @icon($icon, 'h-7 w-7 md:h-6 md:w-6 text-warning-500 dark:text-warning-600')
+                    <x-icon :name="$icon" size="xl" class="text-warning-600 dark:text-warning-400"></x-icon>
                 </div>
             @endif
 

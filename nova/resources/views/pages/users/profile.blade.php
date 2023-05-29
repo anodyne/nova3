@@ -16,15 +16,15 @@
 
                 <div class="flex items-center text-gray-500 text-sm mt-1 space-x-8">
                     <div class="flex items-center leading-0">
-                        @icon('email', 'text-gray-400')
+                        <x-icon name="mail" size="sm" class="text-gray-400"></x-icon>
                         <span class="ml-2">{{ $user->email }}</span>
                     </div>
                     <div class="flex items-center leading-0">
-                        @icon('clock', 'text-gray-400')
+                        <x-icon name="clock" size="sm" class="text-gray-400"></x-icon>
                         <span class="ml-2">Last activity</span>
                     </div>
                     <div class="flex items-center leading-0">
-                        @icon('sign-out', 'text-gray-400')
+                        <x-icon name="login" size="sm" class="text-gray-400"></x-icon>
                         <span class="ml-2">Last sign in</span>
                     </div>
                 </div>
@@ -60,13 +60,13 @@
                     <div class="-mt-px flex">
                         <div class="w-0 flex-1 flex border-r border-gray-200">
                             <a href="#" class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500 focus:outline-none focus:ring focus:border-primary-400 focus:z-10 transition ease-in-out duration-200">
-                                @icon('show', 'w-5 h-5 text-gray-400')
+                                <x-icon name="show" size="sm" class="text-gray-400"></x-icon>
                                 <span class="ml-3">View</span>
                             </a>
                         </div>
                         <div class="-ml-px w-0 flex-1 flex">
                             <a href="#" class="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500 focus:outline-none focus:ring focus:border-primary-400 focus:z-10 transition ease-in-out duration-200">
-                                @icon('edit', 'w-5 h-5 text-gray-400')
+                                <x-icon name="edit" size="sm" class="text-gray-400"></x-icon>
                                 <span class="ml-3">Edit</span>
                             </a>
                         </div>
@@ -126,7 +126,7 @@
 
         <x-slot:actions>
             @can('update', $user)
-                <x-link :href="route('users.edit', $user)" color="primary">Edit User</x-link>
+                <x-button.filled :href="route('users.edit', $user)" color="primary">Edit User</x-button.filled>
             @endcan
         </x-slot:actions>
     </x-page-header>
@@ -173,7 +173,7 @@
                         </span>
                     @empty
                         <div class="flex items-center font-semibold text-warning-600">
-                            @icon('warning', 'mr-3 shrink-0 h-6 w-6')
+                            <x-icon name="warning" size="md" class="mr-3 shrink-0"></x-icon>
                             <span>This user does not have any roles.</span>
                         </div>
                     @endforelse
@@ -182,7 +182,7 @@
         </x-form.section>
 
         <x-form.footer>
-            <x-link :href='route("users.index", "status={$user->status->name()}")' color="white">Back</x-link>
+            <x-button.outline :href='route("users.index", "status={$user->status->name()}")' color="gray">Back</x-button.outline>
         </x-form.footer>
     </x-panel> --}}
 @endsection

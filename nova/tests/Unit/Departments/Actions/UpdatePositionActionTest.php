@@ -7,9 +7,9 @@ namespace Tests\Unit\Departments\Actions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Departments\Actions\UpdatePosition;
 use Nova\Departments\Data\PositionData;
+use Nova\Departments\Enums\PositionStatus;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
-use Nova\Departments\Models\States\Positions\Inactive;
 use Tests\TestCase;
 
 /**
@@ -37,7 +37,7 @@ class UpdatePositionActionTest extends TestCase
         $data = PositionData::from([
             'name' => 'Executive Officer',
             'description' => 'Lorem consectetur adipisicing elit.',
-            'status' => Inactive::class,
+            'status' => PositionStatus::inactive,
             'available' => 5,
             'department_id' => $newDepartment->id,
             'department' => $newDepartment,
@@ -48,7 +48,7 @@ class UpdatePositionActionTest extends TestCase
         $this->assertTrue($position->exists);
         $this->assertEquals('Executive Officer', $position->name);
         $this->assertEquals('Lorem consectetur adipisicing elit.', $position->description);
-        $this->assertTrue($position->status->equals(Inactive::class));
+        $this->assertTrue($position->status === PositionStatus::inactive);
         $this->assertEquals($newDepartment->id, $position->department_id);
         $this->assertEquals(5, $position->available);
     }

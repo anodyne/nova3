@@ -1,7 +1,7 @@
 <x-notification
     :notification="$notification"
     color="danger"
-    icon="delete"
+    icon="trash"
     title="{{ data_get($notification, 'data.post_type_name') }} Draft Discarded"
 >
     <p class="mt-1">

@@ -119,7 +119,7 @@
                         :class="{ 'text-white': selected === {{ $item->id }}, 'text-primary-500': !(selected === {{ $item->id }}) }"
                         class="absolute inset-y-0 right-0 flex items-center pr-4 text-primary-500"
                     >
-                        @icon('check', 'h-5 w-5')
+                        <x-icon name="check" size="sm"></x-icon>
                     </span>
                 </li>
             @endforeach

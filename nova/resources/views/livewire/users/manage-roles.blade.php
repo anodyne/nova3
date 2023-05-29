@@ -1,111 +1,82 @@
 <div>
-    <x-content-box>
-        <x-h3>Roles assigned to this user</x-h3>
-
-        <div class="flex justify-between mt-4">
-            @if ($roles->total() > 0)
-                <div class="w-full sm:w-1/3">
+    @can('update', $user)
+        <x-content-box height="xs" width="xs" class="bg-gray-50 dark:bg-gray-950/30 rounded-t-lg">
+            <div class="flex justify-between space-x-4">
+                <div class="relative w-full">
                     <x-input.group>
-                        <x-input.text wire:model.debounce.500ms="filters.search" placeholder="Find assigned roles">
+                        <x-input.text wire:model.debounce.500ms="search" placeholder="Find role to assign (type * to see all roles)">
                             <x-slot:leadingAddOn>
-                                @icon('search', 'h-5 w-5')
+                                <x-icon name="search" size="sm"></x-icon>
                             </x-slot:leadingAddOn>
 
                             <x-slot:trailingAddOn>
-                                @if ($filters['search'])
-                                    <x-link tag="button" color="gray" wire:click="$set('filters.search', '')">
-                                        @icon('close')
-                                    </x-link>
+                                @if ($search)
+                                    <x-button.text tag="button" color="gray" wire:click="$set('search', '')">
+                                        <x-icon name="dismiss" size="sm"></x-icon>
+                                    </x-button.text>
                                 @endif
                             </x-slot:trailingAddOn>
                         </x-input.text>
                     </x-input.group>
+
+                    @if (filled($search))
+                        <div class="absolute z-10 mt-2 bg-white dark:bg-gray-800 ring-1 ring-gray-900/5 p-1.5 rounded-md shadow-lg w-full">
+                            @forelse ($filteredRoles as $role)
+                                <x-dropdown.item type="button" class="group rounded-md flex items-center w-full px-4 py-2 text-base md:text-sm font-medium transition text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600/50 focus:outline-none" wire:click="assignRole({{ $role->id }})">
+                                    {{ $role->display_name }}
+                                </x-dropdown.item>
+                            @empty
+                                <x-empty-state.small
+                                    icon="lock-closed"
+                                    title="No roles found"
+                                ></x-empty-state.small>
+                            @endforelse
+                        </div>
+                    @endif
                 </div>
+            </div>
+        </x-content-box>
+    @endcan
 
-                @can('update', $user)
-                    <div class="flex items-center space-x-4">
-                        @if (count($selected) > 0)
-                            <x-button-outline color="danger" leading="remove" wire:click="detachSelectedRoles">
-                                Remove {{ count($selected) }} @choice('role|roles', count($selected))
-                            </x-button-outline>
-                        @endif
+    @if ($roles->count() > 0)
+        <div
+            @class([
+                'rounded-b-lg divide-y divide-gray-200 dark:divide-gray-800',
+                'rounded-t-lg' => ! gate()->allows('update', $user),
+                'border-t border-gray-200 dark:border-gray-800' => gate()->allows('update', $user),
+            ])
+        >
+            @foreach ($roles as $role)
+                <div class="flex items-center justify-between bg-white dark:bg-gray-900 px-6 py-3 last:rounded-b-lg" wire:key="row-{{ $role->id }}">
+                    <div class="truncate font-medium text-gray-900 dark:text-gray-100">{{ $role->display_name }}</div>
 
-                        <x-button-filled leading="add" wire:click="$emit('openModal', 'roles:select-roles-modal')">
-                            Add roles
-                        </x-button-filled>
-                    </div>
-                @endcan
-            @endif
-        </div>
-    </x-content-box>
-
-    @if ($roles->total() > 0)
-        <x-table class="rounded-b-lg">
-            <x-slot:head>
-                @can('update', $user)
-                    <x-table.heading class="pr-0 w-8 leading-0">
-                        <x-input.checkbox wire:model="selectPage" />
-                    </x-table.heading>
-                @endcan
-
-                <x-table.heading>Name</x-table.heading>
-                <x-table.heading>Description</x-table.heading>
-            </x-slot:head>
-
-            <x-slot:body>
-                @if ($selectPage)
-                    <x-table.row>
-                        <x-table.cell class="bg-primary-50" colspan="3">
-                            @unless ($selectAll)
-                                <div>
-                                    <span class="text-primary-600">You've selected <strong>{{ $roles->count() }}</strong> roles assigned to this user. Do you want to select all <strong>{{ $roles->total() }}</strong>?</span>
-
-                                    <x-button size="none" color="primary-text" wire:click="selectAll" class="ml-1">Select All</x-button>
-                                </div>
-                            @else
-                                <span class="text-primary-600">You've selected all <strong>{{ $roles->total() }}</strong> roles assigned to this user.</span>
-                            @endunless
-                        </x-table.cell>
-                    </x-table.row>
-                @endif
-
-                @foreach ($roles as $role)
-                    <x-table.row wire:key="row-{{ $role->id }}">
+                    <div class="flex items-center justify-end space-x-3">
                         @can('update', $user)
-                            <x-table.cell class="pr-0 leading-0">
-                                <x-input.checkbox wire:model="selected" value="{{ $role->id }}" />
-                            </x-table.cell>
+                            <x-dropdown placement="bottom-end">
+                                <x-slot:trigger color="gray-danger">
+                                    <x-icon name="trash" size="sm"></x-icon>
+                                </x-slot:trigger>
+
+                                <x-dropdown.group>
+                                    <x-dropdown.text>Are you sure you want to unassign the <strong class="font-semibold text-gray-700 dark:text-gray-200">{{ $role->display_name }}</strong> role from {{ $user->name }}?</x-dropdown.text>
+                                </x-dropdown.group>
+                                <x-dropdown.group>
+                                    <x-dropdown.item-danger type="button" icon="trash" wire:click="unassignRole({{ $role->id }})">
+                                        Remove
+                                    </x-dropdown.item-danger>
+                                    <x-dropdown.item type="button" icon="prohibited" @click.prevent="$dispatch('dropdown-close')">Cancel</x-dropdown.item>
+                                </x-dropdown.group>
+                            </x-dropdown>
                         @endcan
-
-                        <x-table.cell class="font-medium text-sm text-gray-900 dark:text-gray-100">{{ $role->display_name }}</x-table.cell>
-                        <x-table.cell class="text-sm">{{ $role->description }}</x-table.cell>
-                    </x-table.row>
-                @endforeach
-            </x-slot:body>
-        </x-table>
-
-        @if ($roles->total() > $roles->perPage())
-            <x-content-box class="border-t border-gray-50" height="xs">
-                {{ $roles->withQueryString()->links() }}
-            </x-content-box>
-        @endif
-    @else
-        <x-content-box class="text-center">
-            @icon('lock', 'mx-auto h-12 w-12 text-gray-500')
-
-            <h3 class="mt-2 text-sm font-medium text-gray-900">No roles</h3>
-
-            @can('update', $user)
-                <p class="mt-1 text-sm text-gray-600">
-                    Get started by assigning roles to this user.
-                </p>
-
-                <div class="mt-6">
-                    <x-button color="primary" wire:click="$emit('openModal', 'roles:select-roles-modal')">
-                        Add roles
-                    </x-button>
+                    </div>
                 </div>
-            @endcan
+            @endforeach
+        </div>
+    @else
+        <x-content-box class="text-center border-t border-gray-200 dark:border-gray-800">
+            <x-icon name="lock-closed" size="h-12 w-12" class="mx-auto text-gray-500"></x-icon>
+            <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-white">No roles assigned</h3>
+            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">Get started by assigning roles to this user</p>
         </x-content-box>
     @endif
 </div>

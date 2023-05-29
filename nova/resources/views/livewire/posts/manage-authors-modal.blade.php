@@ -1,7 +1,7 @@
 <div>
     <x-content-box width="sm">
         <div class="flex items-center space-x-2">
-            @icon('users', 'h-6 w-6 shrink-0 text-gray-600 dark:text-gray-500')
+            <x-icon name="users" size="md" class="shrink-0 text-gray-600 dark:text-gray-500"></x-icon>
             <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100" id="modal-title">Manage post authors</h3>
         </div>
     </x-content-box>
@@ -10,7 +10,7 @@
         <x-content-box height="none" class="mt-6">
             <div class="flex items-center justify-between">
                 <h3 class="font-bold text-xl text-gray-900 dark:text-gray-100 tracking-tight">Characters</h3>
-                <x-button color="primary-outline" size="xs" wire:click="$emit('openModal', 'posts:select-character-authors-modal')">Add characters</x-button>
+                <x-button.outline color="primary" wire:click="$emit('openModal', 'posts:select-character-authors-modal')">Add characters</x-button.outline>
             </div>
         </x-content-box>
 
@@ -46,7 +46,7 @@
                         </div>
 
                         <x-slot:actions>
-                            @icon('delete', 'h-6 w-6')
+                            <x-icon name="trash" size="md"></x-icon>
                         </x-slot:actions>
                     </x-table-list.row>
                 @endforeach
@@ -70,7 +70,7 @@
 {{--                    </div>--}}
 
 {{--                    <x-slot:actions>--}}
-{{--                        @icon('delete', 'h-6 w-6')--}}
+{{--                        <x-icon name="trash" size="md"></x-icon>--}}
 {{--                    </x-slot:actions>--}}
 {{--                </x-table-list.row>--}}
 {{--                <x-table-list.row>--}}
@@ -92,7 +92,7 @@
 {{--                    </div>--}}
 
 {{--                    <x-slot:actions>--}}
-{{--                        @icon('delete', 'h-6 w-6')--}}
+{{--                        <x-icon name="trash" size="md"></x-icon>--}}
 {{--                    </x-slot:actions>--}}
 {{--                </x-table-list.row>--}}
 {{--                <x-table-list.row>--}}
@@ -113,7 +113,7 @@
 {{--                    </div>--}}
 
 {{--                    <x-slot:actions>--}}
-{{--                        @icon('delete', 'h-6 w-6')--}}
+{{--                        <x-icon name="trash" size="md"></x-icon>--}}
 {{--                    </x-slot:actions>--}}
 {{--                </x-table-list.row>--}}
             </x-table-list>
@@ -122,7 +122,7 @@
         <x-content-box height="none" class="mt-6">
             <div class="flex items-center justify-between">
                 <h3 class="font-bold text-xl text-gray-900 dark:text-gray-100 tracking-tight">Users</h3>
-                <x-button color="primary-outline" size="xs">Add users</x-button>
+                <x-button.outline color="primary">Add users</x-button.outline>
             </div>
         </x-content-box>
 
@@ -148,7 +148,7 @@
                     </div>
 
                     <x-slot:actions>
-                        @icon('delete', 'h-6 w-6')
+                        <x-icon name="trash" size="md"></x-icon>
                     </x-slot:actions>
                 </x-table-list.row>
                 <x-table-list.row>
@@ -166,7 +166,7 @@
                     </div>
 
                     <x-slot:actions>
-                        @icon('delete', 'h-6 w-6')
+                        <x-icon name="trash" size="md"></x-icon>
                     </x-slot:actions>
                 </x-table-list.row>
             </x-table-list>
@@ -174,8 +174,8 @@
     </div>
 
     <x-content-box class="z-20 sm:flex sm:flex-row-reverse sm:space-x-4 sm:space-x-reverse bg-gray-50 dark:bg-gray-700/50 rounded-b-lg" height="sm" width="sm">
-        <x-button color="primary" wire:click="apply">Apply</x-button>
+        <x-button.filled color="primary" wire:click="apply">Apply</x-button.filled>
 
-        <x-button color="white" wire:click="dismiss">Cancel</x-button>
+        <x-button.outline color="gray" wire:click="dismiss">Cancel</x-button.outline>
     </x-content-box>
 </div>

@@ -11,8 +11,8 @@
                 @click="open = !open"
                 type="button"
                 @class([
-                    'flex items-center justify-between cursor-default relative w-full rounded-md border border-gray-300 dark:border-gray-200/[15%] focus-within:ring-1 focus-within:ring-primary-400 focus-within:border-primary-400 dark:focus-within:border-primary-600 dark:focus-within:ring-primary-600 bg-white dark:bg-gray-700/50 py-2 px-3 text-left focus:outline-none dark:focus:bg-gray-800 transition leading-normal space-x-4',
-                    'text-gray-900 dark:text-gray-100' => $selected?->name,
+                    'flex items-center justify-between cursor-default relative w-full rounded-md ring-1 ring-inset ring-gray-300 dark:ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary-600 dark:focus-within:ring-primary-500 bg-white dark:bg-opacity-5 py-2.5 px-3 text-left focus:outline-none transition leading-normal space-x-4',
+                    'text-gray-900 dark:text-white' => $selected?->name,
                 ])
                 aria-haspopup="true"
                 aria-expanded="true"
@@ -44,18 +44,18 @@
         class="absolute mt-2 rounded-lg shadow-lg origin-top-left left-0 w-full"
         x-cloak
     >
-        <div class="relative rounded-lg bg-white dark:bg-gray-700 ring-1 ring-gray-900/5 dark:ring-gray-200/10 z-10 divide-y divide-gray-100 dark:divide-gray-200/10 dark:highlight-white/10 max-h-60 overflow-auto">
+        <div class="relative rounded-lg bg-white dark:bg-gray-700 ring-1 ring-gray-900/5 dark:ring-gray-700 z-10 divide-y divide-gray-100 dark:divide-gray-700 dark:highlight-white/10 max-h-60 overflow-auto">
             <div class="p-1.5" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                 <div class="mb-2">
                     <div class="group flex items-center rounded-md bg-gray-100 dark:bg-gray-600 border-2 border-gray-100 dark:border-gray-600 text-gray-500 dark:text-gray-400 mb-4 px-2 py-2 space-x-3 focus-within:border-gray-300 dark:focus-within:border-gray-500 focus-within:bg-white dark:focus-within:bg-gray-700 focus-within:text-gray-700">
-                        @icon('search', 'shrink-0 h-5 w-5 text-gray-500 group-focus-within:text-gray-600 dark:group-focus-within:text-gray-400')
+                        <x-icon name="search" size="sm" class="shrink-0 text-gray-500 group-focus-within:text-gray-600 dark:group-focus-within:text-gray-400"></x-icon>
 
                         <input wire:model.debounce.250ms="search" type="text" placeholder="Find a user..." class="flex w-full appearance-none bg-transparent border-none p-0 focus:ring-0 focus:outline-none dark:placeholder-gray-400">
 
                         @isset($search)
-                            <x-button wire:click="$set('search', null)" color="gray-text" size="none">
-                                @icon('close')
-                            </x-button>
+                            <x-button.text wire:click="$set('search', null)" color="gray">
+                                <x-icon name="dismiss" size="sm"></x-icon>
+                            </x-button.text>
                         @endisset
                     </div>
                 </div>

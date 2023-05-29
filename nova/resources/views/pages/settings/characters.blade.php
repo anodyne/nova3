@@ -5,9 +5,9 @@
         <x-panel.header title="Character settings">
             <x-slot:actions>
                 <div x-data="{}">
-                    <x-button-outline leading="search" @click="$dispatch('toggle-spotlight')">
+                    <x-button.outline color="primary" leading="search" @click="$dispatch('toggle-spotlight')">
                         Find a setting
-                    </x-button-outline>
+                    </x-button.outline>
                 </div>
             </x-slot:actions>
         </x-panel.header>
@@ -85,7 +85,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button-filled type="submit" form="character">Save settings</x-button-filled>
+                <x-button.filled type="submit" form="character" color="primary">Update</x-button.filled>
             </x-form.footer>
         </x-form>
     </x-panel>

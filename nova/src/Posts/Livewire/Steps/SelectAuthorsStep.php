@@ -31,7 +31,7 @@ class SelectAuthorsStep extends StepComponent
 
     public function getCanAddAuthorsProperty(): bool
     {
-        if ($this->post->postType->options->multipleAuthors) {
+        if ($this->post->postType->options->allowsMultipleAuthors) {
             return true;
         }
 
@@ -45,14 +45,14 @@ class SelectAuthorsStep extends StepComponent
     public function getCanGoToNextStepProperty(): bool
     {
         if (
-            $this->post->postType->options->allowCharacterAuthors &&
+            $this->post->postType->options->allowsCharacterAuthors &&
             $this->characters->intersect(auth()->user()->characters)->count() > 0
         ) {
             return true;
         }
 
         if (
-            $this->post->postType->options->allowUserAuthors &&
+            $this->post->postType->options->allowsUserAuthors &&
             $this->users->contains(auth()->user())
         ) {
             return true;

@@ -6,9 +6,9 @@
     <x-panel>
         <x-panel.header title="Add a new character">
             <x-slot:actions>
-                <x-link :href="route('characters.index')" leading="arrow-left" color="gray">
-                    Back to the characters list
-                </x-link>
+                <x-button.text :href="route('characters.index')" leading="arrow-left" color="gray">
+                    Back
+                </x-button.text>
             </x-slot:actions>
         </x-panel.header>
 
@@ -47,7 +47,7 @@
                     </x-input.group>
                 </x-form.section>
             @else
-                <x-form.section title="Ownership" class="border-info-200">
+                <x-form.section title="Ownership" class="border-secondary-200">
                     <x-slot:message>
                         @if (! $settings->characters->autoLinkCharacter)
                             <p>Set whether this character should be automatically linked to your account.</p>
@@ -89,8 +89,8 @@
             @endcan
 
             <x-form.footer>
-                <x-button-filled type="submit">Add character</x-button-filled>
-                <x-link :href="route('characters.index')" color="gray">Cancel</x-link>
+                <x-button.filled type="submit" color="primary">Add</x-button.filled>
+                <x-button.outline :href="route('characters.index')" color="gray">Cancel</x-button.outline>
             </x-form.footer>
         </x-form>
     </x-panel>

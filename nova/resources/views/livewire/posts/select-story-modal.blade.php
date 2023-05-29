@@ -1,7 +1,7 @@
 <div>
     <x-content-box width="sm">
         <div class="flex items-center space-x-2">
-            @icon('book', 'h-6 w-6 shrink-0 text-gray-600 dark:text-gray-500')
+            <x-icon name="book" size="md" class="shrink-0 text-gray-600 dark:text-gray-500"></x-icon>
             <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100" id="modal-title">Choose a story</h3>
         </div>
     </x-content-box>
@@ -11,14 +11,14 @@
             <x-input.group>
                 <x-input.text placeholder="Search stories" wire:model.debounce.500ms="search" autofocus>
                     <x-slot:leadingAddOn>
-                        @icon('search')
+                        <x-icon name="search" size="sm"></x-icon>
                     </x-slot:leadingAddOn>
 
                     <x-slot:trailingAddOn>
                         @if ($search)
-                            <x-link tag="button" color="gray" wire:click="$set('search', '')">
-                                @icon('close', 'h-5 w-5')
-                            </x-link>
+                            <x-button.text tag="button" color="gray" wire:click="$set('search', '')">
+                                <x-icon name="dismiss" size="sm"></x-icon>
+                            </x-button.text>
                         @endif
                     </x-slot:trailingAddOn>
                 </x-input.text>
@@ -40,9 +40,9 @@
 
     <x-content-box class="z-20 sm:flex sm:flex-row-reverse sm:space-x-4 sm:space-x-reverse bg-gray-50 dark:bg-gray-700/50 rounded-b-lg" height="sm" width="sm">
         @if ($selected)
-            <x-button color="primary" wire:click="apply">Apply</x-button>
+            <x-button.filled color="primary" wire:click="apply">Apply</x-button.filled>
         @endif
 
-        <x-button color="white" wire:click="dismiss">Cancel</x-button>
+        <x-button.outline color="gray" wire:click="dismiss">Cancel</x-button.outline>
     </x-content-box>
 </div>

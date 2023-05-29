@@ -4,7 +4,7 @@
 ])
 
 <span
-    aria-label="{{ $status->displayName() }}"
+    aria-label="{{ $status->getLabel() }}"
     @class([
         'h-1 w-1' => $size === 'xs',
         'h-1.5 w-1.5' => $size === 'sm',

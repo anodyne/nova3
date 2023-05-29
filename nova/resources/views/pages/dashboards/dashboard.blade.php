@@ -19,30 +19,30 @@
                                 </div>
                                 <div class="pt-1">
                                     <p class="text-sm font-medium text-gray-500">Welcome back,</p>
-                                    <p class="text-xl font-medium text-gray-900 dark:text-gray-100 sm:text-2xl">{{ auth()->user()->name }}</p>
+                                    <p class="text-xl font-medium text-gray-900 dark:text-white sm:text-2xl">{{ auth()->user()->name }}</p>
                                 </div>
                             </div>
                             <div class="mt-5 md:mt-0 flex justify-center">
-                                <x-button-outline tag="a" href="#" size="xs">
+                                <x-button.outline href="#" color="gray">
                                     Go to my account
-                                </x-button-outline>
+                                </x-button.outline>
                             </div>
                         </div>
                     </x-content-box>
 
-                    <div class="sm:rounded-b-md border-t border-gray-900/5 dark:border-gray-200/10 bg-gray-50 dark:bg-gray-900/40 grid grid-cols-1 divide-y divide-gray-900/5 dark:divide-gray-200/10 sm:grid-cols-3 sm:divide-y-0 sm:divide-x">
+                    <div class="sm:rounded-b-md border-t border-gray-900/5 dark:border-gray-800 bg-gray-50 dark:bg-gray-950/30 grid grid-cols-1 divide-y divide-gray-900/5 dark:divide-gray-800 sm:grid-cols-3 sm:divide-y-0 sm:divide-x">
                         <a href="{{ route('characters.index') }}" class="group flex items-center justify-center space-x-3 px-6 py-5 text-base md:text-sm font-medium text-center transition">
-                            @icon('users', 'h-7 w-7 md:h-6 md:w-6 text-gray-400 dark:text-gray-500 group-hover:text-gray-500 dark:group-hover:text-gray-400')
+                            <x-icon name="characters" size="lg" class="text-gray-400 dark:text-gray-500 group-hover:text-gray-500 dark:group-hover:text-gray-400"></x-icon>
                             <span class="group-hover:text-gray-900 dark:group-hover:text-gray-100">Characters</span>
                         </a>
 
                         <a href="#" class="group flex items-center justify-center space-x-3 px-6 py-5 text-base md:text-sm font-medium text-center transition">
-                            @icon('settings', 'h-7 w-7 md:h-6 md:w-6 text-gray-400 dark:text-gray-500 group-hover:text-gray-500 dark:group-hover:text-gray-400')
+                            <x-icon name="settings" size="lg" class="text-gray-400 dark:text-gray-500 group-hover:text-gray-500 dark:group-hover:text-gray-400"></x-icon>
                             <span class="group-hover:text-gray-900 dark:group-hover:text-gray-100">Preferences</span>
                         </a>
 
                         <a href="#" class="group flex items-center justify-center space-x-3 px-6 py-5 text-base md:text-sm font-medium text-center transition">
-                            @icon('email', 'h-7 w-7 md:h-6 md:w-6 text-gray-400 dark:text-gray-500 group-hover:text-gray-500 dark:group-hover:text-gray-400')
+                            <x-icon name="mail" size="lg" class="text-gray-400 dark:text-gray-500 group-hover:text-gray-500 dark:group-hover:text-gray-400"></x-icon>
                             <span class="group-hover:text-gray-900 dark:group-hover:text-gray-100">Messages</span>
                             <x-badge color="danger">3</x-badge>
                             {{-- <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-danger-50 text-danger-600 border border-danger-300">3</span> --}}
@@ -59,8 +59,8 @@
                         <x-content-box>
                             <div class="flex space-x-2">
                                 <div>
-                                    <x-badge color="info" size="square">
-                                        @icon('users', 'h-7 w-7')
+                                    <x-badge color="secondary" size="square">
+                                        <x-icon name="users" size="lg"></x-icon>
                                     </x-badge>
                                 </div>
                                 <div>
@@ -77,8 +77,8 @@
                         <x-content-box>
                             <div class="flex space-x-2">
                                 <div>
-                                    <x-badge color="info" size="square">
-                                        @icon('users', 'h-7 w-7')
+                                    <x-badge color="secondary" size="square">
+                                        <x-icon name="users" size="lg"></x-icon>
                                     </x-badge>
                                 </div>
                                 <div>
@@ -95,8 +95,8 @@
                         <x-content-box>
                             <div class="flex space-x-2">
                                 <div>
-                                    <x-badge color="info" size="square">
-                                        @icon('users', 'h-7 w-7')
+                                    <x-badge color="secondary" size="square">
+                                        <x-icon name="users" size="lg"></x-icon>
                                     </x-badge>
                                 </div>
                                 <div>
@@ -117,7 +117,7 @@
             <section aria-labelledby="timeline-title">
                 <x-panel>
                     <x-content-box>
-                        <h2 id="timeline-title" class="text-lg font-medium text-gray-900 dark:text-gray-100">Recent Activity</h2>
+                        <h2 id="timeline-title" class="text-lg font-medium text-gray-900 dark:text-white">Recent Activity</h2>
 
                         <!-- Activity Feed -->
                         <div class="mt-6 flow-root">
@@ -128,7 +128,7 @@
                                         <div class="relative flex space-x-3">
                                             <div>
                                                 <x-badge size="circle" color="gray" class="ring-8 ring-white dark:ring-gray-800">
-                                                    @icon('user', 'h-6 w-6')
+                                                    <x-icon name="user" size="md"></x-icon>
                                                 </x-badge>
                                             </div>
                                             <div class="min-w-0 flex-1 text-base md:text-sm">
@@ -148,7 +148,7 @@
                                         <div class="relative flex space-x-3">
                                             <div>
                                                 <x-badge size="circle" color="primary" class="ring-8 ring-white dark:ring-gray-800">
-                                                    @icon('book', 'h-6 w-6')
+                                                    <x-icon name="book" size="md"></x-icon>
                                                 </x-badge>
                                             </div>
                                             <div class="min-w-0 flex-1 text-base md:text-sm">
@@ -156,7 +156,7 @@
                                                     <p class="text-gray-700 dark:text-gray-300 font-medium">Bethany Blake</p>
                                                     <time class="text-gray-500" datetime="2020-09-22">Sep 22</time>
                                                 </div>
-                                                <p class="text-gray-500">Published <x-link href="#" color="primary-text" size="none">Reckoning</x-link> story post in <x-link href="#" color="primary-text" size="none">Episode 2</x-link></p>
+                                                <p class="text-gray-500">Published <x-button.text href="#" color="primary">Reckoning</x-button.text> story post in <x-button.text href="#" color="primary">Episode 2</x-button.text></p>
                                             </div>
                                         </div>
                                     </div>
@@ -168,7 +168,7 @@
                                         <div class="relative flex space-x-3">
                                             <div>
                                                 <x-badge size="circle" color="success" class="ring-8 ring-white dark:ring-gray-800">
-                                                    @icon('email', 'h-6 w-6')
+                                                    <x-icon name="mail" size="md"></x-icon>
                                                 </x-badge>
                                             </div>
                                             <div class="min-w-0 flex-1 text-base md:text-sm">
@@ -188,7 +188,7 @@
                                         <div class="relative flex space-x-3">
                                             <div>
                                                 <x-badge size="circle" color="primary" class="ring-8 ring-white dark:ring-gray-800">
-                                                    @icon('location', 'h-6 w-6')
+                                                    <x-icon name="location" size="md"></x-icon>
                                                 </x-badge>
                                             </div>
                                             <div class="min-w-0 flex-1 text-base md:text-sm">
@@ -196,7 +196,7 @@
                                                     <p class="text-gray-700 dark:text-gray-300 font-medium">Bethany Blake</p>
                                                     <time class="text-gray-500" datetime="2020-09-22">Sep 22</time>
                                                 </div>
-                                                <p class="text-gray-500">Published <x-link href="#" color="primary-text" size="none">Start of Day 3</x-link> marker in <x-link href="#" color="primary-text" size="none">Episode 2</x-link></p>
+                                                <p class="text-gray-500">Published <x-button.text href="#" color="primary">Start of Day 3</x-button.text> marker in <x-button.text href="#" color="primary">Episode 2</x-button.text></p>
                                             </div>
                                         </div>
                                     </div>
@@ -205,7 +205,7 @@
                         </div>
                         <div class="mt-6 flex flex-col justify-stretch">
                             <div>
-                                <x-button-outline tag="a" href="#" class="w-full">See all activity</x-button-outline>
+                                <x-button.outline color="primary" href="#" class="w-full">See all activity</x-button.outline>
                             </div>
                         </div>
                     </x-content-box>

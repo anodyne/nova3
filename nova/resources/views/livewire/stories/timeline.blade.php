@@ -1,7 +1,7 @@
 <x-panel>
     <x-panel.header title="Stories" message="Manage the stories and timeline of your game">
         <x-slot:actions>
-            @if ($this->stories->count() > 0)
+            {{-- @if ($this->stories->count() > 0)
                 <x-dropdown placement="bottom-start md:bottom-end">
                     <x-slot:trigger leading="filter" color="gray">
                         Sort
@@ -12,7 +12,7 @@
                             <div class="flex items-center justify-between w-full">
                                 <span>Sort by newest first</span>
                                 @if (request('sort', 'desc') === 'asc')
-                                    @icon('check', 'h-6 w-6 md:h-5 md:w-5 shrink-0 text-primary-500')
+                                    <x-icon name="check" size="sm" class="shrink-0 text-primary-500"></x-icon>
                                 @endif
                             </div>
                         </x-dropdown.item>
@@ -20,18 +20,18 @@
                             <div class="flex items-center justify-between w-full">
                                 <span>Sort by oldest first</span>
                                 @if (request('sort', 'desc') === 'desc')
-                                    @icon('check', 'h-6 w-6 md:h-5 md:w-5 shrink-0 text-primary-500')
+                                    <x-icon name="check" size="sm" class="shrink-0 text-primary-500"></x-icon>
                                 @endif
                             </div>
                         </x-dropdown.item>
                     </x-dropdown.group>
                 </x-dropdown>
-            @endif
+            @endif --}}
 
             @can('create', $storyClass)
-                <x-button-filled tag="a" :href="route('stories.create')" data-cy="create" leading="add">
-                    Add a story
-                </x-button-filled>
+                <x-button.filled :href="route('stories.create')" leading="add" color="primary">
+                    Add
+                </x-button.filled>
             @endcan
         </x-slot:actions>
     </x-panel.header>
@@ -46,9 +46,9 @@
         ></x-empty-state.large>
     @else
         @if ($selectedStory)
-            <x-content-box height="sm" class="sticky top-0 z-30 bg-gray-50/50 dark:bg-gray-700/50 backdrop-blur border-y border-gray-200 dark:border-gray-200/10 sm:rounded-t-lg sm:border-t-0">
+            <x-content-box height="sm" class="sticky top-0 z-30 bg-gray-50/50 dark:bg-gray-700/25 backdrop-blur border-y border-gray-200 dark:border-gray-800 sm:border-t-0">
                 <div class="flex md:hidden items-center justify-between">
-                    <div class="text-xl sm:text-lg font-bold tracking-tight text-gray-900 dark:text-gray-100 flex-1 truncate">{{ $selectedStory->title }}</div>
+                    <div class="text-xl sm:text-lg font-bold tracking-tight text-gray-900 dark:text-white flex-1 truncate">{{ $selectedStory->title }}</div>
 
                     <div class="flex items-center space-x-4">
                         @can('update', $selectedStory)
@@ -106,7 +106,7 @@
 
                             @can('delete', $selectedStory)
                                 <x-dropdown.group>
-                                    <x-dropdown.item-danger :href="route('stories.delete', $selectedStory)" icon="delete">
+                                    <x-dropdown.item-danger :href="route('stories.delete', $selectedStory)" icon="trash">
                                         <span>Delete</span>
                                     </x-dropdown.item-danger>
                                 </x-dropdown.group>
@@ -116,35 +116,35 @@
                 </div>
 
                 <div class="hidden md:flex items-center leading-0 space-x-8">
-                    <span class="font-bold tracking-tight text-gray-900 dark:text-gray-100">{{ $selectedStory->title }}</span>
+                    <span class="font-bold tracking-tight text-gray-900 dark:text-white">{{ $selectedStory->title }}</span>
 
                     @can('view', $selectedStory)
-                        <x-link :href="route('stories.show', $selectedStory)" size="none" color="primary" variant="text" leading="show">
+                        <x-button.text :href="route('stories.show', $selectedStory)" color="gray" leading="eye">
                             View
-                        </x-link>
+                        </x-button.text>
                     @endcan
 
                     @can('update', $selectedStory)
-                        <x-link :href="route('stories.edit', $selectedStory)" size="none" color="gray-text" leading="edit">
+                        <x-button.text :href="route('stories.edit', $selectedStory)" color="gray" leading="edit">
                             Edit
-                        </x-link>
+                        </x-button.text>
                     @endcan
 
                     @can('view', $selectedStory)
-                        <x-link href="#" size="none" color="gray-text" leading="list">
+                        <x-button.text href="#" color="gray" leading="list">
                             Posts
-                        </x-link>
+                        </x-button.text>
                     @endcan
 
                     @can('delete', $selectedStory)
-                        <x-link :href="route('stories.delete', $selectedStory)" size="none" color="gray-danger-text" leading="delete">
+                        <x-button.text :href="route('stories.delete', $selectedStory)" color="gray-danger" leading="trash">
                             Delete
-                        </x-link>
+                        </x-button.text>
                     @endcan
 
                     @can('create', $selectedStory)
                         <x-dropdown>
-                            <x-slot:trigger leading="add" color="gray-text">
+                            <x-slot:trigger leading="add" color="gray">
                                 <div class="flex items-center">
                                     <span>Add story</span>
                                     <x-icon.chevron-down class="h-4 w-4 shrink-0 ml-1.5" />

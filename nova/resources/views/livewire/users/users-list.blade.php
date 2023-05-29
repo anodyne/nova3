@@ -1,11 +1,11 @@
 <x-panel x-data="filtersPanel()" x-bind="parent">
-    <x-panel.header title="Users" message="Manage all of the game's users.">
+    <x-panel.header title="Users" message="Manage all of the game's users" :border="false">
         <x-slot:actions>
             @if ($users->count() > 0)
                 @can('create', $userClass)
-                    <x-button-filled tag="a" :href="route('users.create')" data-cy="create">
-                        Add a user
-                    </x-button-filled>
+                    <x-button.filled :href="route('users.create')" leading="add">
+                        Add
+                    </x-button.filled>
                 @endcan
             @endif
         </x-slot:actions>
@@ -26,14 +26,14 @@
                 <x-input.group>
                     <x-input.text placeholder="Find users by name, email, or assigned character(s) name" wire:model="search">
                         <x-slot:leadingAddOn>
-                            @icon('search', 'h-5 w-5')
+                            <x-icon name="search" size="sm"></x-icon>
                         </x-slot:leadingAddOn>
 
                         @if ($search)
                             <x-slot:trailingAddOn>
-                                <x-link tag="button" color="gray" wire:click="$set('search', '')">
-                                    @icon('close', 'h-5 w-5')
-                                </x-link>
+                                <x-button.text tag="button" color="gray" wire:click="$set('search', '')">
+                                    <x-icon name="dismiss" size="sm"></x-icon>
+                                </x-button.text>
                             </x-slot:trailingAddOn>
                         @endif
                     </x-input.text>
@@ -41,7 +41,7 @@
             </div>
 
             <div class="shrink flex justify-between md:justify-start items-center space-x-4">
-                <x-link
+                <x-button.text
                     tag="button"
                     :color="$isFiltered ? 'primary' : 'gray'"
                     x-bind="trigger"
@@ -51,7 +51,7 @@
                     @if ($activeFilterCount > 0)
                         <x-badge color="primary" size="sm" class="ml-2">{{ $activeFilterCount }}</x-badge>
                     @endif
-                </x-link>
+                </x-button.text>
             </div>
         </x-content-box>
 
@@ -81,17 +81,17 @@
                         <div class="space-y-2">
                             @if ($user->updated_at !== null)
                                 <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
-                                    @icon('clock', 'shrink-0 mr-1.5 h-5 w-5 text-gray-500')
+                                    <x-icon name="clock" size="sm" class="shrink-0 mr-1.5 text-gray-500"></x-icon>
                                     Last activity&nbsp;
                                     <time datetime="{{ $user->updated_at }}">
                                         {{ $user->updated_at?->diffForHumans() }}
                                     </time>
                                 </div>
-                            @endif
+                                @endif
 
-                            @if ($user->latestLogin !== null)
+                                @if ($user->latestLogin !== null)
                                 <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
-                                    @icon('sign-in', 'shrink-0 mr-1.5 h-5 w-5 text-gray-500')
+                                    <x-icon name="login" size="sm" class="shrink-0 mr-1.5 text-gray-500"></x-icon>
                                     Last signed in&nbsp;
                                     <time datetime="{{ $user->latestLogin->created_at }}">
                                         {{ $user->latestLogin->created_at?->diffForHumans() }}
@@ -149,7 +149,7 @@
 
                             @can('delete', $user)
                                 <x-dropdown.group>
-                                    <x-dropdown.item-danger type="button" icon="delete" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($user) }});" data-cy="delete">
+                                    <x-dropdown.item-danger type="button" icon="trash" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($user) }});" data-cy="delete">
                                         <span>Delete</span>
                                     </x-dropdown.item-danger>
                                 </x-dropdown.group>
@@ -165,13 +165,13 @@
                         :primary-access="gate()->allows('create', $userClass)"
                     >
                         <x-slot:primary>
-                            <x-button-filled tag="a" :href="route('users.create')">
+                            <x-button.filled :href="route('users.create')" color="primary">
                                 Add a user
-                            </x-button-filled>
+                            </x-button.filled>
                         </x-slot:primary>
 
                         <x-slot:secondary>
-                            <x-button-outline wire:click="$set('search', '')">Clear search</x-button-outline>
+                            <x-button.outline wire:click="$set('search', '')" color="gray">Clear search</x-button.outline>
                         </x-slot:secondary>
                     </x-empty-state.not-found>
                 </x-slot:emptyMessage>

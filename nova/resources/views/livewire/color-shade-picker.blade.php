@@ -4,7 +4,7 @@
             <x-input.text name="{{ $name }}" wire:model.debounce.500ms="selected">
                 <x-slot:trailingAddOn>
                     <button type="button" wire:click="resetField">
-                        @icon('close', 'h-5 w-5')
+                        <x-icon name="dismiss" size="sm"></x-icon>
                     </button>
                 </x-slot:trailingAddOn>
             </x-input.text>

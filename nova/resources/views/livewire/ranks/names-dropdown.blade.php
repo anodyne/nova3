@@ -13,8 +13,8 @@
                 @click="open = !open"
                 type="button"
                 @class([
-                    'flex items-center justify-between cursor-default relative w-full rounded-md border border-gray-300 dark:border-gray-200/[15%] focus-within:ring-1 focus-within:ring-primary-400 focus-within:border-primary-400 dark:focus-within:border-primary-600 dark:focus-within:ring-primary-600 bg-white dark:bg-gray-700/50 py-2 px-3 text-left focus:outline-none dark:focus:bg-gray-800 transition leading-normal space-x-4',
-                    'text-gray-900 dark:text-gray-100' => $selected?->name,
+                    'flex items-center justify-between cursor-default relative w-full rounded-md ring-1 ring-inset ring-gray-300 dark:ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary-600 dark:focus-within:ring-primary-500 bg-white dark:bg-opacity-5 py-2.5 px-3 text-left focus:outline-none transition leading-normal space-x-4',
+                    'text-gray-900 dark:text-white' => $selected?->name,
                 ])
                 aria-haspopup="true"
                 aria-expanded="true"

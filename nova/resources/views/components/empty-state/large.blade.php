@@ -10,12 +10,12 @@
 <div class="py-8 md:py-16">
     <div class="flex flex-col items-center max-w-xs mx-auto sm:max-w-sm md:max-w-xl space-y-6">
         <div class="text-center">
-            @icon($icon, 'h-16 w-16 text-primary-500 dark:text-primary-400')
+            <x-icon :name="$icon" size="h-16 w-16" class="text-primary-500 dark:text-primary-400"></x-icon>
         </div>
 
         <div class="space-y-3">
             @if ($title)
-                <h2 class="text-center font-semibold text-gray-900 dark:text-gray-100">
+                <h2 class="text-center font-semibold text-gray-900 dark:text-white">
                     {{ $title }}
                 </h2>
             @endif
@@ -28,9 +28,9 @@
         </div>
 
         @if ($linkAccess)
-            <x-button-filled tag="a" :href="$link" class="space-x-3">
-                <span>{{ $label }}</span>
-            </x-button-filled>
+            <x-button.filled :href="$link" class="space-x-3">
+                {{ $label }}
+            </x-button.filled>
         @endif
     </div>
 </div>

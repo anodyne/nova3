@@ -12,9 +12,9 @@
         <x-panel.header title="Add a new role">
             <x-slot:actions>
                 @can('viewAny', Nova\Roles\Models\Role::class)
-                    <x-link :href="route('roles.index')" leading="arrow-left" color="gray">
+                    <x-button.text :href="route('roles.index')" leading="arrow-left" color="gray">
                         Back to the roles list
-                    </x-link>
+                    </x-button.text>
                 @endcan
             </x-slot:actions>
         </x-panel.header>
@@ -41,8 +41,8 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button-filled type="submit">Add role</x-button-filled>
-                <x-link :href="route('roles.index')" color="gray">Cancel</x-link>
+                <x-button.filled type="submit" color="primary">Add</x-button.filled>
+                <x-button.outline :href="route('roles.index')" color="gray">Cancel</x-button.outline>
             </x-form.footer>
         </x-form>
     </x-panel>

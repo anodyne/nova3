@@ -3,12 +3,12 @@
         <div class="max-w-lg mx-auto py-8">
             <x-h2>Add authors to your post</x-h2>
             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Get started by selecting the characters and/or users who will be authors of your post.</p>
-            <ul role="list" class="mt-6 border-t border-b border-gray-200 dark:border-gray-200/10 divide-y divide-gray-200 dark:divide-gray-200/10">
+            <ul role="list" class="mt-6 border-t border-b border-gray-200 dark:border-gray-700 divide-y divide-gray-200 dark:divide-gray-700">
                 <li>
                     <div class="relative group py-4 flex items-start space-x-3">
                         <div class="flex-shrink-0">
                             <x-badge size="square" color="primary">
-                                @icon('emoji', 'h-7 w-7')
+                                <x-icon name="characters" size="lg"></x-icon>
                             </x-badge>
                         </div>
                         <div class="min-w-0 flex-1">
@@ -29,8 +29,8 @@
                 <li>
                     <div class="relative group py-4 flex items-start space-x-3">
                         <div class="flex-shrink-0">
-                            <x-badge size="square" color="info">
-                                @icon('users', 'h-7 w-7')
+                            <x-badge size="square" color="secondary">
+                                <x-icon name="users" size="lg"></x-icon>
                             </x-badge>
                         </div>
                         <div class="min-w-0 flex-1">
@@ -50,7 +50,7 @@
             </ul>
         </div>
     @else
-        @if (! $post->postType->options->multipleAuthors && $users->count() === 0 || $post->postType->options->multipleAuthors)
+        @if (! $post->postType->options->allowsMultipleAuthors && $users->count() === 0 || $post->postType->options->allowsMultipleAuthors)
             <x-content-box height="none" class="mt-6">
                 <div class="flex justify-between">
                     <div class="max-w-2xl">
@@ -60,7 +60,7 @@
 
                     @if ($this->canAddAuthors)
                         <div class="shrink-0 ml-6">
-                            <x-button color="primary-outline" wire:click="$emit('openModal', 'posts:select-character-authors-modal')">Add characters</x-button>
+                            <x-button.outline color="primary" wire:click="$emit('openModal', 'posts:select-character-authors-modal')">Add characters</x-button.outline>
                         </div>
                     @endif
                 </div>
@@ -68,9 +68,9 @@
 
             <x-content-box width="none" height="none">
                 @if ($characters->count() === 0)
-                    <x-panel as="light well" class="max-w-xl mx-auto">
+                    <x-panel as="light-well" class="max-w-xl mx-auto">
                         <x-content-box class="text-center">
-                            @icon('emoji', 'mx-auto h-12 w-12 text-gray-400 dark:text-gray-500')
+                            <x-icon name="characters" size="h-12 w-12" class="mx-auto text-gray-400 dark:text-gray-500"></x-icon>
                             <x-h3 class="mt-2">No character authors</x-h3>
                         </x-content-box>
                     </x-panel>
@@ -120,13 +120,15 @@
 
                                 <x-slot:actions>
                                     <x-dropdown placement="bottom-end">
-                                        <x-slot:trigger color="gray-danger-text">@icon('delete', 'h-7 w-7 md:h-6 md:w-6')</x-slot:trigger>
+                                        <x-slot:trigger color="gray-danger">
+                                            <x-icon name="trash" size="md"></x-icon>
+                                        </x-slot:trigger>
 
                                         <x-dropdown.group>
                                             <x-dropdown.text>Are you sure you want to remove <strong class="font-semibold text-gray-700 dark:text-gray-200">{{ $character->name }}</strong> as an author of this post?</x-dropdown.text>
                                         </x-dropdown.group>
                                         <x-dropdown.group>
-                                            <x-dropdown.item-danger type="button" icon="delete" wire:click="removeCharacterAuthor({{ $character->id }})">
+                                            <x-dropdown.item-danger type="button" icon="trash" wire:click="removeCharacterAuthor({{ $character->id }})">
                                                 Delete
                                             </x-dropdown.item-danger>
                                             <x-dropdown.item type="button" icon="prohibited" @click.prevent="$dispatch('dropdown-close')">Cancel</x-dropdown.item>
@@ -140,7 +142,7 @@
             </x-content-box>
         @endif
 
-        @if (! $post->postType->options->multipleAuthors && $characters->count() === 0 || $post->postType->options->multipleAuthors)
+        @if (! $post->postType->options->allowsMultipleAuthors && $characters->count() === 0 || $post->postType->options->allowsMultipleAuthors)
             <x-content-box height="none" class="mt-6">
                 <div class="flex justify-between">
                     <div class="max-w-2xl">
@@ -150,7 +152,7 @@
 
                     @if ($this->canAddAuthors)
                         <div class="shrink-0 ml-6">
-                            <x-button color="primary-outline" wire:click="$emit('openModal', 'posts:select-user-authors-modal')">Add users</x-button>
+                            <x-button.outline color="primary" wire:click="$emit('openModal', 'posts:select-user-authors-modal')">Add users</x-button.outline>
                         </div>
                     @endif
                 </div>
@@ -158,9 +160,9 @@
 
             <x-content-box width="none" height="none">
                 @if ($users->count() === 0)
-                    <x-panel as="light well" class="max-w-xl mx-auto">
+                    <x-panel as="light-well" class="max-w-xl mx-auto">
                         <x-content-box class="text-center">
-                            @icon('users', 'mx-auto h-12 w-12 text-gray-400 dark:text-gray-500')
+                            <x-icon name="users" size="h-12 w-12" class="mx-auto text-gray-400 dark:text-gray-500"></x-icon>
                             <x-h3 class="mt-2">No user authors</x-h3>
                         </x-content-box>
                     </x-panel>
@@ -192,13 +194,15 @@
 
                                 <x-slot:actions>
                                     <x-dropdown placement="bottom-end">
-                                        <x-slot:trigger color="gray-danger-text">@icon('delete', 'h-7 w-7 md:h-6 md:w-6')</x-slot:trigger>
+                                        <x-slot:trigger color="gray-danger">
+                                            <x-icon name="trash" size="md"></x-icon>
+                                        </x-slot:trigger>
 
                                         <x-dropdown.group>
                                             <x-dropdown.text>Are you sure you want to remove <strong class="font-semibold text-gray-700 dark:text-gray-200">{{ $user->name }}</strong> as an author of this post?</x-dropdown.text>
                                         </x-dropdown.group>
                                         <x-dropdown.group>
-                                            <x-dropdown.item-danger type="button" icon="delete" wire:click="removeUserAuthor({{ $user->id }})">
+                                            <x-dropdown.item-danger type="button" icon="trash" wire:click="removeUserAuthor({{ $user->id }})">
                                                 Delete
                                             </x-dropdown.item-danger>
                                             <x-dropdown.item type="button" icon="prohibited" @click.prevent="$dispatch('dropdown-close')">Cancel</x-dropdown.item>
@@ -214,13 +218,13 @@
     @endif
 
     @if ($this->canGoToNextStep)
-        <x-content-box height="sm" class="flex flex-col space-y-4 rounded-b-lg border-t border-gray-200 dark:border-gray-200/10 md:flex-row-reverse md:items-center md:space-y-0 md:space-x-6 md:space-x-reverse justify-between">
+        <x-content-box height="sm" class="flex flex-col space-y-4 rounded-b-lg border-t border-gray-200 dark:border-gray-700 md:flex-row-reverse md:items-center md:space-y-0 md:space-x-6 md:space-x-reverse justify-between">
             <div class="flex flex-col md:flex-row-reverse md:items-center md:space-x-reverse space-y-4 md:space-y-0 md:space-x-6">
-                <x-button wire:click="nextStep" color="primary">Next: Write post</x-button>
+                <x-button.filled wire:click="nextStep">Next: Write post</x-button.filled>
             </div>
         </x-content-box>
     @else
-        <x-content-box class="flex justify-end bg-gray-50 dark:bg-gray-700/50 border-t border-gray-200 dark:border-gray-200/10 text-gray-400 dark:text-gray-500 font-medium rounded-b-lg">
+        <x-content-box class="flex justify-end bg-gray-50 dark:bg-gray-700/50 border-t border-gray-200 dark:border-gray-700 text-gray-400 dark:text-gray-500 font-medium rounded-b-lg">
             {{ $this->canGoToNextStepMessage }}
         </x-content-box>
     @endif

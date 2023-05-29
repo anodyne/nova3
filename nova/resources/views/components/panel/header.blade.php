@@ -2,12 +2,12 @@
     'title',
     'message' => false,
     'actions' => null,
-    'bottomBorder' => true,
+    'border' => true,
 ])
 
 <div
     @class([
-        'border-b border-gray-200 dark:border-gray-200/10' => $bottomBorder
+        'border-b border-gray-200 dark:border-gray-800' => $border
     ])
 >
     <x-content-box height="sm">
@@ -16,12 +16,12 @@
                 <x-h2>{{ $title }}</x-h2>
 
                 @if ($message)
-                    <p class="mt-1 text-gray-500 md:text-sm">{{ $message }}</p>
+                    <p class="mt-1 text-gray-500 dark:text-gray-400 md:text-sm">{{ $message }}</p>
                 @endif
             </div>
 
             @if ($actions?->isNotEmpty())
-                <div class="shrink-0 flex items-center space-x-reverse space-x-6 md:space-x-6">
+                <div class="shrink-0 flex flex-row-reverse justify-end md:flex-row items-center space-x-reverse space-x-6 md:space-x-6">
                     {{ $actions }}
                 </div>
             @endif

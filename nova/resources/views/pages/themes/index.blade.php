@@ -8,7 +8,9 @@
 
         <x-slot:actions>
             <x-dropdown placement="bottom-start md:bottom-end">
-                <x-slot:trigger>@icon('filter', 'h-7 w-7 md:h-6 md:w-6')</x-slot:trigger>
+                <x-slot:trigger>
+                    <x-icon name="filter" size="md"></x-icon>
+                </x-slot:trigger>
 
                 <x-dropdown.group>
                     <x-dropdown.header>Filter Themes</x-dropdown.header>
@@ -19,9 +21,9 @@
             </x-dropdown>
 
             @can('create', 'Nova\Themes\Models\Theme')
-                <x-link :href="route('themes.create')" color="primary">
+                <x-button.filled :href="route('themes.create')" color="primary">
                     Add Theme
-                </x-link>
+                </x-button.filled>
             @endcan
         </x-slot:actions>
     </x-page-header>
@@ -68,7 +70,7 @@
 
                                     @can('delete', $theme)
                                         <x-dropdown.group>
-                                            <x-dropdown.item-danger type="button" icon="delete" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($theme) }});">
+                                            <x-dropdown.item-danger type="button" icon="trash" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($theme) }});">
                                                 <span>Delete</span>
                                             </x-dropdown.item-danger>
                                         </x-dropdown.group>
@@ -77,7 +79,7 @@
                             </x-dropdown>
                         </div>
                         <p class="mt-1 flex items-center text-base text-gray-500">
-                            @icon('folder', 'shrink-0 mr-2 h-5 w-5 text-gray-500')
+                            <x-icon name="folder" size="sm" class="shrink-0 mr-2 text-gray-500"></x-icon>
                             themes/{{ $theme->location }}
                         </p>
                         @if (! $theme->exists)
@@ -106,9 +108,9 @@
                     Looking for more themes? Check out the Nova Exchange!
                 </p>
                 <p class="mt-3 text-base md:text-sm md:mt-0 md:ml-6">
-                    <x-link :href="config('services.anodyne.links.exchange')" target="_blank" color="primary-text" size="none">
+                    <x-button.text :href="config('services.anodyne.links.exchange')" target="_blank" color="primary">
                         Go &rarr;
-                    </x-link>
+                    </x-button.text>
                 </p>
             </div>
         </x-panel.primary>
@@ -117,14 +119,14 @@
     <x-modal color="danger" title="Delete Theme?" icon="warning" :url="route('themes.delete')">
         <x-slot:footer>
             <span class="flex w-full sm:col-start-2">
-                <x-button type="submit" form="form" color="danger" full-width>
+                <x-button.filled type="submit" form="form" color="danger" class="w-full">
                     Delete
-                </x-button>
+                </x-button.filled>
             </span>
             <span class="mt-3 flex w-full sm:mt-0 sm:col-start-1">
-                <x-button @click="$dispatch('modal-close')" type="button" color="white" full-width>
+                <x-button.outline @click="$dispatch('modal-close')" type="button" color="gray" class="w-full">
                     Cancel
-                </x-button>
+                </x-button.outline>
             </span>
         </x-slot:footer>
     </x-modal>

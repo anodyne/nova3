@@ -48,7 +48,7 @@
             <div class="rounded-md bg-warning-50 border border-warning-300 p-4">
                 <div class="flex">
                     <div class="shrink-0">
-                        @icon('warning', 'h-8 w-8 text-warning-500')
+                        <x-icon name="warning" size="xl" class="text-warning-500"></x-icon>
                     </div>
                     <div class="ml-4 flex-1 md:flex md:justify-between text-warning-600">
                         <p class="text-warning-600 font-medium">

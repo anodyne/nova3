@@ -1,29 +1,29 @@
 <x-panel x-bind="parent" class="{{ $reordering ? 'overflow-hidden' : '' }}" x-data="filtersPanel()">
-    <x-panel.header title="Roles" message="Control what users can do throughout Nova.">
+    <x-panel.header title="Roles" message="Control what users can do throughout Nova" :border="false">
         @if (! $reordering)
             <x-slot:actions>
                 @can('update', $roles->first())
-                    <x-link tag="button" color="gray" leading="arrow-sort" wire:click="startReordering">
+                    <x-button.text tag="button" color="gray" leading="arrows-sort" wire:click="startReordering">
                         Reorder
-                    </x-link>
+                    </x-button.text>
                 @endcan
 
                 @can('create', $roleClass)
-                    <x-button-filled tag="a" :href="route('roles.create')" data-cy="create" class="order-first md:order-last" leading="add">
-                        Add a role
-                    </x-button-filled>
+                    <x-button.filled :href="route('roles.create')" class="order-first md:order-last" leading="add" color="primary">
+                        Add
+                    </x-button.filled>
                 @endcan
             </x-slot:actions>
         @else
             <x-slot:message>
-                <x-panel.primary icon="arrow-sort" title="Change sorting order" class="mt-4">
+                <x-panel.primary icon="arrows-sort" title="Change sorting order" class="mt-4">
                     <div class="space-y-4">
                         <p>Sorting roles allows for admins to control the hierarchy of roles in the system to ensure that users with a lower role cannot give themselves higher privileges.</p>
 
                         <p>Top roles have the greatest privileges &ndash; place the most important roles with the highest potential impact higher on the list, to ensure users can't gain unwanted access to areas of Nova.</p>
 
                         <div>
-                            <x-button-filled wire:click="stopReordering">Finish</x-button-filled>
+                            <x-button.filled wire:click="stopReordering">Finish</x-button.filled>
                         </div>
                     </div>
                 </x-panel.primary>
@@ -34,7 +34,7 @@
     @if (! $reordering)
         @if ($roleCount === 0)
             <x-empty-state.large
-                icon="lock"
+                icon="lock-closed"
                 title="Start by creating a role"
                 message="Roles allow you to control what users can and cannot access throughout Nova."
                 label="Add a role"
@@ -47,14 +47,14 @@
                     <x-input.group>
                         <x-input.text placeholder="Find roles by name" wire:model="search">
                             <x-slot:leadingAddOn>
-                                @icon('search', 'h-5 w-5')
+                                <x-icon name="search" size="sm"></x-icon>
                             </x-slot:leadingAddOn>
 
                             @if ($search)
                                 <x-slot:trailingAddOn>
-                                    <x-link tag="button" color="gray" wire:click="$set('search', '')">
-                                        @icon('close', 'h-5 w-5')
-                                    </x-link>
+                                    <x-button.text tag="button" color="gray" wire:click="$set('search', '')">
+                                        <x-icon name="dismiss" size="sm"></x-icon>
+                                    </x-button.text>
                                 </x-slot:trailingAddOn>
                             @endif
                         </x-input.text>
@@ -62,7 +62,7 @@
                 </div>
 
                 <div class="shrink flex justify-between md:justify-start items-center space-x-4">
-                    <x-link
+                    <x-button.text
                         tag="button"
                         :color="$isFiltered ? 'primary' : 'gray'"
                         x-bind="trigger"
@@ -72,7 +72,7 @@
                         @if ($activeFilterCount > 0)
                             <x-badge color="primary" size="sm" class="ml-2">{{ $activeFilterCount }}</x-badge>
                         @endif
-                    </x-link>
+                    </x-button.text>
                 </div>
             </x-content-box>
 
@@ -116,9 +116,9 @@
                         @if ($role->active_users_count > 0)
                             <div class="flex items-center text-base md:text-sm text-gray-600 dark:text-gray-400">
                                 @if ($role->active_users_count === 1)
-                                    @icon('user', 'block md:hidden shrink-0 mr-1.5 h-6 w-6 md:h-5 md:w-5 text-gray-500')
+                                    <x-icon name="user" size="sm" class="block md:hidden shrink-0 mr-1.5 text-gray-500"></x-icon>
                                 @else
-                                    @icon('users', 'block md:hidden shrink-0 mr-1.5 h-6 w-6 md:h-5 md:w-5 text-gray-500')
+                                    <x-icon name="users" size="sm" class="block md:hidden shrink-0 mr-1.5 text-gray-500"></x-icon>
                                 @endif
                                 <span>
                                     {{ $role->active_users_count }} active @choice('user|users', $role->active_users_count)
@@ -129,9 +129,9 @@
                         @if ($role->inactive_users_count > 0)
                             <div class="flex items-center text-base md:text-sm text-gray-600 dark:text-gray-400">
                                 @if ($role->inactive_users_count === 1)
-                                    @icon('user', 'block md:hidden shrink-0 mr-1.5 h-6 w-6 md:h-5 md:w-5 text-gray-500')
+                                    <x-icon name="user" size="sm" class="block md:hidden shrink-0 mr-1.5 text-gray-500"></x-icon>
                                 @else
-                                    @icon('users', 'block md:hidden shrink-0 mr-1.5 h-6 w-6 md:h-5 md:w-5 text-gray-500')
+                                    <x-icon name="users" size="sm" class="block md:hidden shrink-0 mr-1.5 text-gray-500"></x-icon>
                                 @endif
                                 <span>
                                     {{ $role->inactive_users_count }} inactive @choice('user|users', $role->inactive_users_count)
@@ -146,7 +146,7 @@
                     ])>
                         @if ($role->default)
                             <div class="flex items-center text-base md:text-sm text-gray-600 dark:text-gray-400 space-x-1.5">
-                                @icon('check', 'shrink-0 h-6 w-6 text-gray-500 md:text-success-500')
+                                <x-icon name="check" size="md" class="shrink-0 text-gray-500 md:text-success-500"></x-icon>
                                 <span class="block md:hidden">Assigned to new users</span>
                             </div>
                         @endif
@@ -156,7 +156,7 @@
                         'flex items-center',
                         'ml-8 md:ml-0' => $reordering
                     ])>
-                        <x-avatar-group size="xs" :items="$role->user->take(4)" />
+                        <x-avatar.group size="xs" :items="$role->user->take(4)"></x-avatar.group>
                     </div>
 
                     @if (! $reordering)
@@ -192,7 +192,7 @@
 
                                 @can('delete', $role)
                                     <x-dropdown.group>
-                                        <x-dropdown.item-danger type="button" icon="delete" data-cy="delete" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($role) }});">
+                                        <x-dropdown.item-danger type="button" icon="trash" data-cy="delete" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($role) }});">
                                             <span>Delete</span>
                                         </x-dropdown.item-danger>
                                     </x-dropdown.group>
@@ -217,13 +217,13 @@
                         :primary-access="gate()->allows('create', $roleClass)"
                     >
                         <x-slot:primary>
-                            <x-button-filled tag="a" :href="route('roles.create')">
+                            <x-button.filled :href="route('roles.create')" color="primary">
                                 Add a role
-                            </x-button-filled>
+                            </x-button.filled>
                         </x-slot:primary>
 
                         <x-slot:secondary>
-                            <x-button-outline wire:click="$set('search', '')">Clear search</x-button-outline>
+                            <x-button.outline wire:click="$set('search', '')" color="gray">Clear search</x-button.outline>
                         </x-slot:secondary>
                     </x-empty-state.not-found>
                 </x-slot:emptyMessage>

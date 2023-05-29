@@ -15,7 +15,7 @@ class Completed extends StoryStatus
 
     public function textColor(): string
     {
-        return "text-{$this->color()}-400 dark:text-{$this->color()}-500";
+        return "text-gray-400 dark:text-gray-500";
     }
 
     public function name(): string

@@ -4,7 +4,7 @@
 
 @section('layout')
     <div class="relative min-h-screen">
-        <header x-data="{ open: false }" class="bg-white dark:bg-gray-800 shadow dark:shadow-none">
+        <header x-data="{ open: false }" class="bg-white dark:bg-gray-900 shadow dark:shadow-md">
             <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:divide-y lg:divide-gray-100 dark:lg:divide-gray-700/50 lg:px-8">
                 <div class="relative h-16 flex justify-between">
                     <div class="relative px-2 flex lg:px-0">
@@ -23,7 +23,7 @@
                             <label for="search" class="sr-only">Search</label>
                             <x-input.field>
                                 <x-slot:leadingAddOn>
-                                    @icon('search', 'h-5 w-5')
+                                    <x-icon name="search" size="sm"></x-icon>
                                 </x-slot:leadingAddOn>
 
                                 <input name="search" id="search" placeholder="Search" type="search" class="flex-1 appearance-none bg-transparent border-none p-0 focus:ring-0 focus:outline-none focus:text-gray-900 dark:focus:text-gray-100">
@@ -65,7 +65,7 @@
                             </x-dropdown.group>
 
                             <x-dropdown.group>
-                                <x-dropdown.item type="submit" icon="sign-out" form="logout-form">
+                                <x-dropdown.item type="submit" icon="logout" form="logout-form">
                                     <span>Sign out</span>
 
                                     <x-slot:buttonForm>
@@ -168,12 +168,12 @@
 
                         <button type="button" class="ml-auto shrink-0 bg-white rounded-full p-1 text-gray-500 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900">
                             <span class="sr-only">Switch theme</span>
-                            @icon('moon', 'h-6 w-6')
+                            <x-icon name="moon" size="md"></x-icon>
                         </button>
 
                         <button type="button" class="ml-auto shrink-0 bg-white rounded-full p-1 text-gray-500 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900">
                             <span class="sr-only">View notifications</span>
-                            @icon('notification', 'h-6 w-6')
+                            <x-icon name="bell" size="md"></x-icon>
                         </button>
                     </div>
 

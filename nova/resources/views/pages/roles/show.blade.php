@@ -5,13 +5,13 @@
         <x-panel.header :title="$role->display_name">
             <x-slot:actions>
                 @can('viewAny', $role::class)
-                    <x-link :href="route('roles.index')" leading="arrow-left" color="gray">
-                        Back to the roles list
-                    </x-link>
+                    <x-button.text :href="route('roles.index')" leading="arrow-left" color="gray">
+                        Back
+                    </x-button.text>
                 @endcan
 
                 @can('update', $role)
-                    <x-button-filled tag="a" :href="route('roles.edit', $role)" leading="edit">Edit</x-button-filled>
+                    <x-button.filled :href="route('roles.edit', $role)" leading="edit" color="primary">Edit</x-button.filled>
                 @endcan
             </x-slot:actions>
 
@@ -53,20 +53,16 @@
 
                 @if ($role->default)
                     <div class="flex items-center space-x-2 text-success-600 font-medium">
-                        @icon('check', 'h-6 w-6 shrink-0 text-success-500')
+                        <x-icon name="check" size="md" class="shrink-0 text-success-500"></x-icon>
                         <span>Assigned to new users</span>
                     </div>
                 @else
                     <div class="flex items-center space-x-2 text-danger-600 font-medium">
-                        @icon('close', 'h-6 w-6 shrink-0 text-danger-500')
+                        <x-icon name="dismiss" size="md" class="shrink-0 text-danger-500"></x-icon>
                         <span>Not assigned to new users</span>
                     </div>
                 @endif
             </x-form.section>
-
-            <x-form.footer class="mt-4 md:mt-8">
-                <x-link :href="route('roles.index')" color="gray">Back</x-link>
-            </x-form.footer>
         </x-form>
 
         <div x-show="isTab('permissions')" x-cloak>

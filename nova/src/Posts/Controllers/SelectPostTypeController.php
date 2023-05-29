@@ -24,7 +24,7 @@ class SelectPostTypeController extends Controller
     {
         $this->authorize('create', new Post());
 
-        $usersPostTypes = PostType::orderBySort()
+        $usersPostTypes = PostType::ordered()
             ->get()
             ->filter(fn ($postType) => Gate::allows('write', $postType));
 

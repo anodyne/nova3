@@ -7,7 +7,7 @@
 
 <div class="flex items-start space-x-4">
     <x-badge :color="$color" size="circle">
-        @icon($icon, 'h-6 w-6')
+        <x-icon :name="$icon" size="md"></x-icon>
     </x-badge>
 
     <div class="flex flex-col w-full">
@@ -22,9 +22,9 @@
                 </div>
             @else
                 <div>
-                    <x-button wire:click="clearNotification('{{ $notification['id'] }}')" color="light-gray-text" size="none-xs" class="shrink-0 ml-6">
+                    <x-button.text wire:click="clearNotification('{{ $notification['id'] }}')" color="light-gray" class="shrink-0 ml-6">
                         <x-icon.x-circle class="h-4 w-4"></x-icon.x-circle>
-                    </x-button>
+                    </x-button.text>
                 </div>
             @endif
         </div>
@@ -34,4 +34,3 @@
         <p class="mt-2 text-sm text-gray-500">{{ data_get($notification, 'date') }}</p>
     </div>
 </div>
-

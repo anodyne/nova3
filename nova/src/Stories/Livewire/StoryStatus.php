@@ -15,6 +15,8 @@ class StoryStatus extends Component
     {
         $this->dispatchBrowserEvent('dropdown-close');
 
+        $this->emitTo(StoryTimeline::class, 'storyStatusUpdated');
+
         UpdateStoryStatus::run($this->story, $status);
 
         $this->story->fresh();

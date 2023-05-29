@@ -133,8 +133,8 @@ class RankGroupsList extends Component implements HasForms, HasTable
                     )),
             ])
             ->filters([
-                TernaryFilter::make('assigned_ranks')
-                    ->label('Has assigned ranks')
+                TernaryFilter::make('ranks_assigned')
+                    ->label('Has ranks assigned')
                     ->queries(
                         true: fn (Builder $query) => $query->whereHas('ranks'),
                         false: fn (Builder $query) => $query->whereDoesntHave('ranks')

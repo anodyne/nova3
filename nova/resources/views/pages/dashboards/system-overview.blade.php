@@ -16,7 +16,7 @@
                 <x-content-box height="sm" width="sm">
                     <div class="flex items-start space-x-4">
                         <x-badge color="primary" size="square">
-                            @icon('rocket', 'h-8 w-8')
+                            <x-icon name="rocket" size="xl"></x-icon>
                         </x-badge>
 
                         <div class="flex flex-col">
@@ -28,12 +28,12 @@
                                 </p>
                                 @if (version_compare($filesVersion, $serverVersion, '>='))
                                     <div class="flex items-baseline text-sm font-medium text-success-600 dark:text-success-500 space-x-1">
-                                        @icon('check', 'self-center shrink-0 h-5 w-5 text-success-500 dark:text-success-400')
+                                        <x-icon name="check" size="sm" class="self-center shrink-0 text-success-500 dark:text-success-400"></x-icon>
                                         <span>Up-to-date</span>
                                     </div>
                                 @else
                                     <div class="flex items-baseline text-sm font-medium text-danger-600 dark:text-danger-500 space-x-1">
-                                        @icon('alert', 'self-center shrink-0 h-5 w-5 text-danger-500 dark:text-danger-400')
+                                        <x-icon name="alert" size="sm" class="self-center shrink-0 text-danger-500 dark:text-danger-400"></x-icon>
                                         <span>New version available</span>
                                     </div>
                                 @endif
@@ -46,7 +46,7 @@
                 <x-content-box height="sm" width="sm">
                     <div class="flex items-start space-x-4">
                         <x-badge color="primary" size="square">
-                            @icon('database', 'h-8 w-8')
+                            <x-icon name="database" size="xl"></x-icon>
                         </x-badge>
 
                         <div class="flex flex-col">
@@ -58,12 +58,12 @@
                                 </p>
                                 @if (version_compare($databaseVersion, $serverVersion, '>='))
                                     <div class="flex items-baseline text-sm font-medium text-success-600 dark:text-success-500 space-x-1">
-                                        @icon('check', 'self-center shrink-0 h-5 w-5 text-success-500 dark:text-success-400')
+                                        <x-icon name="check" size="sm" class="self-center shrink-0 text-success-500 dark:text-success-400"></x-icon>
                                         <span>Up-to-date</span>
                                     </div>
                                 @else
                                     <div class="flex items-baseline text-sm font-medium text-danger-600 dark:text-danger-500 space-x-1">
-                                        @icon('alert', 'self-center shrink-0 h-5 w-5 text-danger-500 dark:text-danger-400')
+                                        <x-icon name="alert" size="sm" class="self-center shrink-0 text-danger-500 dark:text-danger-400"></x-icon>
                                         <span>New version available</span>
                                     </div>
                                 @endif

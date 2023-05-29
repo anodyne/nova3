@@ -27,8 +27,8 @@ class Appearance extends Data implements Arrayable
         public string $colorsWarning,
         #[MapInputName('colors_success')]
         public string $colorsSuccess,
-        #[MapInputName('colors_info')]
-        public string $colorsInfo,
+        #[MapInputName('colors_secondary')]
+        public string $colorsSecondary,
     ) {
     }
 
@@ -40,7 +40,7 @@ class Appearance extends Data implements Arrayable
             'danger' => $this->processColor($this->colorsDanger),
             'warning' => $this->processColor($this->colorsWarning),
             'success' => $this->processColor($this->colorsSuccess),
-            'info' => $this->processColor($this->colorsInfo),
+            'secondary' => $this->processColor($this->colorsSecondary),
         ];
     }
 

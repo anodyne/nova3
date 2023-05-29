@@ -12,14 +12,14 @@
             @can('update', $story)
                 <div class="flex items-center space-x-4">
                     @if (count($selected) > 0)
-                        <x-button color="danger-outline" size="sm" wire:click="detachSelectedPermissions">
+                        <x-button.outline color="danger" wire:click="detachSelectedPermissions">
                             Remove {{ count($selected) }} @choice('permission|permissions', count($selected))
-                        </x-button>
+                        </x-button.outline>
                     @endif
 
-                    <x-link :href="route('posts.create')" color="primary-outline" size="sm">
+                    <x-button.outline :href="route('posts.create')" color="primary">
                         Write a Story Post
-                    </x-link>
+                    </x-button.outline>
                 </div>
             @endcan
         </div>
@@ -30,21 +30,19 @@
                     <x-input.group>
                         <x-input.text wire:model.debounce.500ms="filters.search" placeholder="Find story post...">
                             <x-slot:leadingAddOn>
-                                @icon('search', 'h-5 w-5')
+                                <x-icon name="search" size="sm"></x-icon>
                             </x-slot:leadingAddOn>
 
                             <x-slot:trailingAddOn>
                                 @if ($filters['search'])
-                                    <x-button color="light-gray-text" size="none" wire:click="$set('filters.search', '')">
-                                        @icon('close')
-                                    </x-button>
+                                    <x-button.text color="light-gray" wire:click="$set('filters.search', '')">
+                                        <x-icon name="dismiss" size="sm"></x-icon>
+                                    </x-button.text>
                                 @endif
                             </x-slot:trailingAddOn>
                         </x-input.text>
                     </x-input.group>
                 </div>
-
-
             @endif
         </div>
     </x-content-box>
@@ -72,7 +70,7 @@
                                 <div>
                                     <span class="text-primary-600">You've selected <strong>{{ $posts->count() }}</strong> permissions assigned to this role. Do you want to select all <strong>{{ $posts->total() }}</strong>?</span>
 
-                                    <x-button size="none" color="primary-text" wire:click="selectAll" class="ml-1">Select All</x-button>
+                                    <x-button.text color="primary" wire:click="selectAll" class="ml-1">Select All</x-button.text>
                                 </div>
                             @else
                                 <span class="text-primary-600">You've selected all <strong>{{ $posts->total() }}</strong> permissions assigned to this role.</span>
@@ -91,7 +89,7 @@
 
                         <x-table.cell class="pr-0 leading-0">
                             <span style="color:{{ $post->postType->color }}">
-                                @icon($post->postType->icon, 'h-5 w-5 shrink-0')
+                                <x-icon :name="$post->postType->icon" size="sm" class="shrink-0"></x-icon>
                             </span>
                         </x-table.cell>
                         <x-table.cell>{{ $post->title }}</x-table.cell>
@@ -115,7 +113,7 @@
         @endif
     @else
         <x-content-box class="text-center">
-            @icon('lock', 'mx-auto h-12 w-12 text-gray-500')
+            <x-icon name="lock-closed" size="h-12 w-12" class="mx-auto text-gray-500"></x-icon>
 
             <h3 class="mt-2 text-sm font-medium text-gray-900">No posts</h3>
 
@@ -125,9 +123,9 @@
                 </p>
 
                 <div class="mt-6">
-                    <x-button color="primary" wire:click="$emit('openModal', 'roles:select-permissions-modal')">
+                    <x-button.filled color="primary" wire:click="$emit('openModal', 'roles:select-permissions-modal')">
                         Add permissions
-                    </x-button>
+                    </x-button.filled>
                 </div>
             @endcan
         </x-content-box>

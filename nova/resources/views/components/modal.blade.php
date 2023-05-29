@@ -53,13 +53,13 @@
                     @if ($icon)
                         <div class="flex shrink-0 items-center justify-center">
                             <x-badge :color="$color" size="circle" icon>
-                                @icon($icon, 'h-6 w-6')
+                                <x-icon :name="$icon" size="md"></x-icon>
                             </x-badge>
                         </div>
                     @endif
 
                     <div class="w-full text-left">
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100" id="modal-title">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white" id="modal-title">
                             {{ $title }}
                         </h3>
                         <div class="mt-2 text-gray-600 dark:text-gray-400">

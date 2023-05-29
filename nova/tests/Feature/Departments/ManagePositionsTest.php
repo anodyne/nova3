@@ -6,11 +6,10 @@ namespace Tests\Feature\Departments;
 
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Livewire\Livewire;
+use Nova\Departments\Enums\PositionStatus;
 use Nova\Departments\Livewire\PositionsList;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
-use Nova\Departments\Models\States\Positions\Active;
-use Nova\Departments\Models\States\Positions\Inactive;
 use Tests\TestCase;
 
 /**
@@ -119,12 +118,12 @@ class ManagePositionsTest extends TestCase
 
         $component->call('setFilterValue', 'status', ['active'])
             ->assertSet('filteredPositions', fn ($data) => $data->total() === 1)
-            ->assertSet('filteredPositions', fn ($data) => $data->items()[0]->status->equals(Active::class))
+            ->assertSet('filteredPositions', fn ($data) => $data->items()[0]->status === PositionStatus::active)
             ->assertSet('filteredPositions', fn ($data) => $data->items()[0]->name === 'Commanding Officer');
 
         $component->call('setFilterValue', 'status', ['inactive'])
             ->assertSet('filteredPositions', fn ($data) => $data->total() === 1)
-            ->assertSet('filteredPositions', fn ($data) => $data->items()[0]->status->equals(Inactive::class))
+            ->assertSet('filteredPositions', fn ($data) => $data->items()[0]->status === PositionStatus::inactive)
             ->assertSet('filteredPositions', fn ($data) => $data->items()[0]->name === 'Executive Officer');
     }
 

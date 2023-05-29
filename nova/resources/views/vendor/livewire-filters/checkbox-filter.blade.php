@@ -16,8 +16,8 @@
     </div>
 
     @if ($value !== $initialValue)
-        <x-button wire:click="resetValue" size="xs" class="mt-6 md:mt-4" variant="outline">
+        <x-button.outline wire:click="resetValue" size="sm" class="mt-6 md:mt-4" color="gray">
             Reset filter
-        </x-button>
+        </x-button.outline>
     @endif
 </x-input.group>

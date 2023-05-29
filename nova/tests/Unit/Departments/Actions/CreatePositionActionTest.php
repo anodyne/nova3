@@ -7,9 +7,9 @@ namespace Tests\Unit\Departments\Actions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Departments\Actions\CreatePosition;
 use Nova\Departments\Data\PositionData;
+use Nova\Departments\Enums\PositionStatus;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
-use Nova\Departments\Models\States\Positions\Active;
 use Tests\TestCase;
 
 /**
@@ -38,7 +38,7 @@ class CreatePositionActionTest extends TestCase
             'available' => 1,
             'department' => $this->department,
             'department_id' => $this->department->id,
-            'status' => Active::class,
+            'status' => PositionStatus::active,
         ]);
 
         $position = CreatePosition::run($data);
@@ -68,7 +68,7 @@ class CreatePositionActionTest extends TestCase
             'available' => 1,
             'department' => $this->department,
             'department_id' => $this->department->id,
-            'status' => Active::class,
+            'status' => PositionStatus::active,
         ]);
 
         $position = CreatePosition::run($data);

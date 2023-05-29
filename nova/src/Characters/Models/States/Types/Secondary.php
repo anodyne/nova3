@@ -10,7 +10,7 @@ class Secondary extends CharacterType
 
     public function color(): string
     {
-        return 'info';
+        return 'secondary';
     }
 
     public function name(): string

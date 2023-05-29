@@ -16,12 +16,12 @@
     <div class="flex flex-col items-center max-w-xs mx-auto sm:max-w-sm md:max-w-xl space-y-8">
         <div class="text-center">
             <x-badge color="warning" size="circle" icon>
-                @icon('warning', 'h-12 w-12')
+                <x-icon name="warning" size="h-12 w-12"></x-icon>
             </x-badge>
         </div>
 
         <div class="space-y-3">
-            <h2 class="text-center font-semibold text-gray-900 dark:text-gray-100">
+            <h2 class="text-center font-semibold text-gray-900 dark:text-white">
                 @if ($message)
                     {{ $message }}
                 @else
@@ -29,7 +29,7 @@
                 @endif
             </h2>
 
-            <p class="text-center text-gray-600 dark:text-gray-300 leading-relaxed">
+            <p class="text-center text-gray-600 dark:text-gray-400 leading-relaxed">
                 Your search &ldquo;{{ $search }}&rdquo; did not match any {{ $entityPlural }}. Please try again{{ $primaryAccess ? " or add a new {$entity}" : '' }}.
             </p>
         </div>

@@ -4,9 +4,9 @@
     <x-panel>
         <x-panel.header title="Add a new user">
             <x-slot:actions>
-                <x-link :href="route('users.index')" leading="arrow-left" color="gray">
-                    Back to the users list
-                </x-link>
+                <x-button.text :href="route('users.index')" leading="arrow-left" color="gray">
+                    Back
+                </x-button.text>
             </x-slot:actions>
         </x-panel.header>
 
@@ -71,8 +71,8 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button-filled type="submit">Add user</x-button-filled>
-                <x-link :href="route('users.index', 'status=active')" color="gray">Cancel</x-link>
+                <x-button.filled type="submit" color="primary">Add</x-button.filled>
+                <x-button.outline :href="route('users.index', 'status=active')" color="gray">Cancel</x-button.outline>
             </x-form.footer>
         </x-form>
     </x-panel>

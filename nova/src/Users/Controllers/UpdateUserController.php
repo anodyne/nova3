@@ -25,7 +25,7 @@ class UpdateUserController extends Controller
         $this->authorize('update', $user);
 
         return UpdateUserResponse::sendWith([
-            'user' => $user->load('roles'),
+            'user' => $user->load('roles', 'characters'),
         ]);
     }
 

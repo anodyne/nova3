@@ -4,111 +4,77 @@ declare(strict_types=1);
 
 namespace Nova\Users\Livewire;
 
+use Filament\Notifications\Notification;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Livewire\Component;
 use Nova\Characters\Models\Character;
-use Nova\Foundation\Livewire\DataTable\WithBulkActions;
-use Nova\Foundation\Livewire\DataTable\WithPerPagePagination;
-use Nova\Foundation\Livewire\DataTable\WithSorting;
 use Nova\Users\Actions\SetUserCharacters;
 use Nova\Users\Actions\SetUserPrimaryCharacter;
 use Nova\Users\Models\User;
 
 class ManageCharacters extends Component
 {
-    use WithBulkActions;
-    use WithPerPagePagination;
-    use WithSorting;
-
-    public $filters = [
-        'search' => '',
-    ];
-
-    public $listeners = [
-        'charactersSelected' => 'assignSelectedCharacters',
-    ];
+    public string $search = '';
 
     public User $user;
 
-    /**
-     * Assign the character as the user's primary character.
-     */
     public function assignPrimaryCharacter(Character $character): void
     {
         SetUserPrimaryCharacter::run($this->user, $character);
+
+        Notification::make()
+            ->title('New primary character set for user')
+            ->body($character->displayName.' has been set as the new primary character for '.$this->user->name)
+            ->success()
+            ->send();
     }
 
-    /**
-     * Assign the characters to the user that we get from the modal.
-     */
-    public function assignSelectedCharacters(array $characters): void
+    public function assignCharacter(Character $character): void
     {
-        $charactersToSync = collect($this->user->characters()->pluck('id')->all())
-            ->concat($characters)
-            ->unique()
-            ->all();
+        $this->search = '';
 
-        SetUserCharacters::run($this->user, $charactersToSync);
-    }
-
-    /**
-     * Unassign selected characters from the user.
-     */
-    public function unassignSelectedCharacters(): void
-    {
-        $charactersToSync = $this->selectAll
-            ? []
-            : $this->user->characters()->pluck('id')->diff($this->selected)->all();
-
-        SetUserCharacters::run($this->user, $charactersToSync);
-
-        $this->selected = [];
-    }
-
-    /**
-     * Get the query for the rows to be displayed in the data table.
-     */
-    public function getRowsQueryProperty()
-    {
-        $query = $this->user
-            ->characters()
-            ->when(
-                $this->filters['search'],
-                fn ($query, $search) => $query->searchFor($search)
-            );
-
-        return $this->applySorting($query);
-    }
-
-    /**
-     * Get the paginated rows to be displayed in the data table.
-     */
-    public function getRowsProperty()
-    {
-        return $this->applyPagination(
-            $this->rowsQuery,
-            $this->columns,
-            'charactersPage'
+        SetUserCharacters::run(
+            $this->user,
+            $this->user->characters->pluck('id')->concat([$character->id])->all()
         );
+
+        Notification::make()
+            ->title('Character assigned to user')
+            ->body($character->displayName.' has been assigned to '.$this->user->name)
+            ->success()
+            ->send();
     }
 
-    public function selectAll()
+    public function unassignCharacter($characterId): void
     {
-        $this->selectAll = true;
+        SetUserCharacters::run(
+            $this->user,
+            $this->user->characters->pluck('id')->diff($characterId)->all()
+        );
 
-        $this->selected = $this->user->characters
-            ->pluck('id')
-            ->map(fn ($id) => (string) $id);
+        Notification::make()
+            ->title('Character unassigned from user')
+            ->success()
+            ->send();
     }
 
-    public function mount(User $user)
+    public function getCharactersProperty()
     {
-        $this->user = $user;
+        return $this->user->characters;
+    }
+
+    public function getFilteredCharactersProperty()
+    {
+        return Character::query()
+            ->when(filled($this->search), fn (Builder $query) => $query->searchFor($this->search))
+            ->get();
     }
 
     public function render()
     {
         return view('livewire.users.manage-characters', [
-            'characters' => $this->rows,
+            'characters' => $this->characters,
+            'filteredCharacters' => $this->filteredCharacters,
         ]);
     }
 }

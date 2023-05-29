@@ -51,8 +51,8 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button type="submit" color="primary">Add Theme</x-button>
-                <x-link :href="route('themes.index')" color="white">Cancel</x-link>
+                <x-button.filled type="submit" color="primary">Add Theme</x-button.filled>
+                <x-button.outline :href="route('themes.index')" color="gray">Cancel</x-button.outline>
             </x-form.footer>
 
             <input type="hidden" name="active" value="0">

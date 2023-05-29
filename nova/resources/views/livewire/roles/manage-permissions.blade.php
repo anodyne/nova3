@@ -8,14 +8,14 @@
                     <x-input.group>
                         <x-input.text wire:model.debounce.500ms="filters.search" placeholder="Find assigned permissions">
                             <x-slot:leadingAddOn>
-                                @icon('search', 'h-5 w-5')
+                                <x-icon name="search" size="sm"></x-icon>
                             </x-slot:leadingAddOn>
 
                             <x-slot:trailingAddOn>
                                 @if ($filters['search'])
-                                    <x-button color="gray-text" size="none" wire:click="$set('filters.search', '')">
-                                        @icon('close')
-                                    </x-button>
+                                    <x-button.text color="gray" wire:click="$set('filters.search', '')">
+                                        <x-icon name="dismiss" size="sm"></x-icon>
+                                    </x-button.text>
                                 @endif
                             </x-slot:trailingAddOn>
                         </x-input.text>
@@ -25,14 +25,14 @@
                 @can('update', $role)
                     <div class="flex items-center space-x-4">
                         @if (count($selected) > 0)
-                            <x-button color="danger-outline" size="sm" wire:click="detachSelectedPermissions" leading="delete">
+                            <x-button.outline color="danger" wire:click="detachSelectedPermissions" leading="trash">
                                 Remove {{ count($selected) }} @choice('permission|permissions', count($selected))
-                            </x-button>
+                            </x-button.outline>
                         @endif
 
-                        <x-button type="button" color="primary" size="sm" wire:click="$emit('openModal', 'roles:select-permissions-modal')" leading="add">
+                        <x-button.filled type="button" color="primary" wire:click="$emit('openModal', 'roles:select-permissions-modal')" leading="add">
                             Add permissions
-                        </x-button>
+                        </x-button.filled>
                     </div>
                 @endcan
             @endif
@@ -60,7 +60,7 @@
                                 <div>
                                     <span class="text-primary-600 dark:text-primary-400">You've selected <strong>{{ $permissions->count() }}</strong> permissions assigned to this role. Do you want to select all <strong>{{ $permissions->total() }}</strong>?</span>
 
-                                    <x-button size="none" color="primary-text" wire:click="selectAll" class="ml-1">Select All</x-button>
+                                    <x-button.text color="primary" wire:click="selectAll" class="ml-1">Select All</x-button.text>
                                 </div>
                             @else
                                 <span class="text-primary-600 dark:text-primary-400">You've selected all <strong>{{ $permissions->total() }}</strong> permissions assigned to this role.</span>
@@ -91,7 +91,7 @@
         @endif
     @else
         <x-content-box class="text-center">
-            @icon('lock', 'mx-auto h-12 w-12 text-gray-500')
+            <x-icon name="lock-closed" size="h-12 w-12" class="mx-auto text-gray-500"></x-icon>
 
             <h3 class="mt-2 text-sm font-medium text-gray-900">No permissions</h3>
 
@@ -101,9 +101,9 @@
                 </p>
 
                 <div class="mt-6">
-                    <x-button color="primary" wire:click="$emit('openModal', 'roles:select-permissions-modal')">
+                    <x-button.filled color="primary" wire:click="$emit('openModal', 'roles:select-permissions-modal')">
                         Add permissions
-                    </x-button>
+                    </x-button.filled>
                 </div>
             @endcan
         </x-content-box>

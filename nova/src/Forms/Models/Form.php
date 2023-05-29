@@ -32,8 +32,8 @@ class Form extends Model
     {
         return $this->belongsToMany(Block::class, 'form_block')
             ->using(FormBlock::class)
-            ->withPivot('id', 'sort', 'parent_id', 'settings')
-            ->orderBy('pivot_sort');
+            ->withPivot('id', 'order_column', 'parent_id', 'settings')
+            ->orderBy('pivot_order_column');
     }
 
     public function getActivitylogOptions(): LogOptions

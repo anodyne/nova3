@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
-use Nova\Stories\Models\Story;
+use Nova\PostTypes\Data\Options;
 
 try {
     $pages = cache()->rememberForever('nova.pages', fn () => Nova\Pages\Page::get());
@@ -16,16 +16,15 @@ try {
 }
 
 Route::get('test', function () {
-    $stories = Story::tree()
-        ->withCount('posts', 'recursivePosts')
-        ->orderBy('sort')
-        ->get();
+    $options = [
+        'notifiesUsers' => 'true',
+        'includedInPostTracking' => 'true',
+        'allowsMultipleAuthors' => 'true',
+        'allowsCharacterAuthors' => 'true',
+        'allowsUserAuthors' => 'true',
+    ];
 
-    // foreach ($stories as $story) {
-    // 	dump($story->title, $story->children);
-    // }
-
-    dump($stories->toTree()->toArray());
+    dd(Options::from($options));
 
     return 'done';
 });

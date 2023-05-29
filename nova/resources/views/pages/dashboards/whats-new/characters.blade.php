@@ -12,7 +12,7 @@
             <dt><x-badge color="primary">primary</x-badge></dt>
             <dd class="italic ml-1 mt-1">A character that is assigned to one or more users, and is marked as a primary character of one or more of those users.</dd>
 
-            <dt class="mt-6"><x-badge color="info">secondary</x-badge></dt>
+            <dt class="mt-6"><x-badge color="secondary">secondary</x-badge></dt>
             <dd class="italic ml-1 mt-1">A character that is assigned to one or more users, but is not marked as a primary character of any of those users.</dd>
 
             <dt class="mt-6"><x-badge color="gray">support</x-badge></dt>

@@ -4,7 +4,7 @@
     'controls' => false,
 ])
 
-<x-content-box height="sm" class="border-b border-gray-200 dark:border-gray-200/10">
+<x-content-box height="sm" class="border-b border-gray-200 dark:border-gray-700">
     <div class="flex justify-between">
         <div>
             <x-h2>{{ $title }}</x-h2>

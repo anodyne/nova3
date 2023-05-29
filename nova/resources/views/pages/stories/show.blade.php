@@ -5,9 +5,9 @@
         <x-panel.header :title="$story->title">
             <x-slot:actions>
                 @can('update', $story)
-                    <x-button-filled :href="route('stories.edit', $story)" color="primary">
+                    <x-button.filled :href="route('stories.edit', $story)" color="primary">
                         Edit story
-                    </x-button-filled>
+                    </x-button.filled>
                 @endcan
             </x-slot:actions>
 
@@ -54,7 +54,7 @@
 
                 @if ($story->start_date)
                     <div class="flex items-center space-x-2 text-gray-500 dark:text-gray-400 md:text-sm font-medium">
-                        @icon('calendar', 'h-6 w-6')
+                        <x-icon name="calendar" size="md"></x-icon>
                         <span>
                             @if (! $story->end_date)
                                 Started on
@@ -69,12 +69,12 @@
 
                 @if ($ancestors->count() > 0)
                     <div class="flex items-center">
-                        <x-link :href="route('stories.show', $ancestors->last())" size="none" color="gray-primary-text">
+                        <x-button.text :href="route('stories.show', $ancestors->last())" color="gray-primary">
                             <div class="flex items-center space-x-2">
-                                @icon('book', 'h-6 w-6 shrink-0')
+                                <x-icon name="book" size="md" class="shrink-0"></x-icon>
                                 <span>Part of {{ $ancestors->last()->title }}</span>
                             </div>
-                        </x-link>
+                        </x-button.text>
                     </div>
                 @endif
             </div>
@@ -134,7 +134,7 @@
 
                     <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6 mt-4">
                         @foreach ($story->children as $subStory)
-                            <x-panel as="light well" class="flex flex-col justify-between">
+                            <x-panel as="light-well" class="flex flex-col justify-between">
                                 <div>
                                     <img class="h-48 w-full object-cover sm:rounded-t-lg" src="{{ asset("dist/test".$loop->iteration.".jpg") }}" alt="" />
 
@@ -146,9 +146,9 @@
                                 </div>
 
                                 <x-content-box height="sm" width="sm">
-                                    <x-link :href="route('stories.show', $subStory)" color="primary-outline" size="sm" full-width>
+                                    <x-button.outline :href="route('stories.show', $subStory)" color="primary" class="w-full">
                                         View story
-                                    </x-link>
+                                    </x-button.outline>
                                 </x-content-box>
                             </x-panel>
                         @endforeach

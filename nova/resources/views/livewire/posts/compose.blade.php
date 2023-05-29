@@ -64,7 +64,7 @@
                 Select your character(s)
             </x-input.group>
 
-            @if ($postType->options->multipleAuthors)
+            @if ($postType->options->allowsMultipleAuthors)
                 <x-input.group label="Other characters">
                     Add more characters
                 </x-input.group>
@@ -100,11 +100,11 @@
         </x-form.section>
 
         <x-form.footer>
-            <x-button wire:click="publish" color="primary">Publish</x-button>
+            <x-button.filled wire:click="publish" color="primary">Publish</x-button.filled>
 
-            <x-button wire:click="save" wire:poll.30s="save" color="white">
+            <x-button.outline wire:click="save" wire:poll.30s="save" color="gray">
                 Save
-            </x-button>
+            </x-button.outline>
 
             <div class="text-gray-40000" wire:loading.delay>Saving...</div>
         </x-form.footer>
@@ -129,9 +129,9 @@
 
                             <img class="inline-block h-10 w-10 rounded-full ring-4 ring-white dark:ring-gray-800" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
 
-                            <x-button color="primary-outline" size="none" class="h-10 w-10 rounded-full ring-4 ring-white dark:ring-gray-800">
+                            <x-button.outline color="primary" class="h-10 w-10 rounded-full ring-4 ring-white dark:ring-gray-800">
                                 @icon('user-add', 'h-6 w-6')
-                            </x-button>
+                            </x-button.outline>
                         </div>
                     </div>
                 </div>
@@ -199,7 +199,7 @@
                                                 <path d="M 6 18 V 500" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-400 dark:text-gray-500"></path>
                                             </svg>
                                             <div class="flex flex-col space-y-1 items-start">
-                                                <div class="text-gray-900 dark:text-gray-100">{{ $previousPost->title }}</div>
+                                                <div class="text-gray-900 dark:text-white">{{ $previousPost->title }}</div>
 
                                                 @if ($previousPost->location || $previousPost->day || $previousPost->time)
                                                     <div class="flex items-center space-x-6">
@@ -248,9 +248,9 @@
                                                 <path d="M 6 18 V 500" fill="none" stroke-width="2" stroke="currentColor" class="text-gray-400 dark:text-gray-500"></path>
                                             @endif
                                         </svg>
-                                        <span class="text-gray-900 dark:text-gray-100 font-bold">{{ $title ?? 'This ' . strtolower($postType->name) }}</span>
+                                        <span class="text-gray-900 dark:text-white font-bold">{{ $title ?? 'This ' . strtolower($postType->name) }}</span>
                                         <div class="inline-flex items-center space-x-1 invisible group-hover:visible text-sm text-gray-400 ml-12">
-                                            @icon('arrow-sort', 'h-5 w-5 text-gray-400 shrink-0')
+                                            @icon('arrows-sort', 'h-5 w-5 text-gray-400 shrink-0')
                                             <span>Change post position</span>
                                         </div>
                                     </div>
@@ -312,18 +312,18 @@
         </div>
     </x-content-box>
 
-    <div class="flex flex-col px-4 py-4 space-y-4 rounded-b-lg border-t border-gray-200 dark:border-gray-200/10 md:flex-row-reverse md:items-center md:px-6 md:py-6 md:space-y-0 md:space-x-6 md:space-x-reverse justify-between">
+    <div class="flex flex-col px-4 py-4 space-y-4 rounded-b-lg border-t border-gray-200 dark:border-gray-700 md:flex-row-reverse md:items-center md:px-6 md:py-6 md:space-y-0 md:space-x-6 md:space-x-reverse justify-between">
         <div class="flex flex-col md:flex-row-reverse md:items-center md:space-x-reverse space-y-4 md:space-y-0 md:space-x-6">
-            <x-button wire:click="publish" color="primary">Publish</x-button>
+            <x-button.filled wire:click="publish" color="primary">Publish</x-button.filled>
 
-            <x-button wire:click="save" color="white">
+            <x-button.outline wire:click="save" color="gray">
                 Save
-            </x-button>
+            </x-button.outline>
         </div>
 
         {{-- @can('delete', $post) --}}
             <div>
-                <x-link href="#" color="gray-danger-text" size="none">Discard draft</x-link>
+                <x-button.text href="#" color="gray-danger" size="none">Discard draft</x-button.text>
             </div>
         {{-- @endcan --}}
     </div>

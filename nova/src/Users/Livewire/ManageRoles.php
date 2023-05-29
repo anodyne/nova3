@@ -4,104 +4,67 @@ declare(strict_types=1);
 
 namespace Nova\Users\Livewire;
 
+use Filament\Notifications\Notification;
+use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
-use Nova\Foundation\Livewire\DataTable\WithBulkActions;
-use Nova\Foundation\Livewire\DataTable\WithPerPagePagination;
-use Nova\Foundation\Livewire\DataTable\WithSorting;
+use Nova\Roles\Models\Role;
 use Nova\Users\Actions\SetUserRoles;
 use Nova\Users\Models\User;
 
 class ManageRoles extends Component
 {
-    use WithBulkActions;
-    use WithPerPagePagination;
-    use WithSorting;
-
-    public $filters = [
-        'search' => '',
-    ];
-
-    public $listeners = [
-        'rolesSelected' => 'attachSelectedRoles',
-    ];
+    public string $search = '';
 
     public User $user;
 
-    /**
-     * Attach the roles to the user that we get from the modal.
-     */
-    public function attachSelectedRoles(array $roles): void
+    public function assignRole(Role $role): void
     {
-        $rolesToSync = collect($this->user->roles()->pluck('id')->all())
-            ->concat($roles)
-            ->unique()
-            ->all();
+        $this->search = '';
 
-        SetUserRoles::run($this->user, $rolesToSync);
-    }
-
-    /**
-     * Detach selected roles from the user.
-     */
-    public function detachSelectedRoles(): void
-    {
-        $rolesToSync = $this->selectAll
-            ? []
-            : $this->user->roles()->pluck('id')->diff($this->selected)->all();
-
-        SetUserRoles::run($this->user, $rolesToSync);
-
-        $this->selected = [];
-    }
-
-    /**
-     * Get the query for the rows to be displayed in the data table.
-     */
-    public function getRowsQueryProperty()
-    {
-        $query = $this->user
-            ->roles()
-            ->when(
-                $this->filters['search'],
-                fn ($query, $search) => $query->searchFor($search)
-            );
-
-        return $this->applySorting($query);
-    }
-
-    /**
-     * Get the paginated rows to be displayed in the data table.
-     */
-    public function getRowsProperty()
-    {
-        return $this->applyPagination(
-            $this->rowsQuery,
-            $this->columns,
-            'rolesPage'
+        SetUserRoles::run(
+            $this->user,
+            $this->user->roles->pluck('id')->concat([$role->id])->all()
         );
+
+        Notification::make()
+            ->title('Role assigned to user')
+            ->body($role->display_name.' role has been given to '.$this->user->name)
+            ->success()
+            ->send();
     }
 
-    /**
-     * Select all rows.
-     */
-    public function selectAll()
+    public function unassignRole(Role $role): void
     {
-        $this->selectAll = true;
+        SetUserRoles::run(
+            $this->user,
+            $this->user->roles->pluck('id')->diff($role->id)->all()
+        );
 
-        $this->selected = $this->user->roles
-            ->pluck('id')
-            ->map(fn ($id) => (string) $id);
+        Notification::make()
+            ->title('Role unassigned from user')
+            ->body($role->display_name.' role has been removed from '.$this->user->name)
+            ->success()
+            ->send();
     }
 
-    public function mount(User $user)
+    public function getRolesProperty()
     {
-        $this->user = $user;
+        return $this->user->roles;
+    }
+
+    public function getFilteredRolesProperty()
+    {
+        return Role::query()
+            ->when(filled($this->search) && $this->search !== '*', fn (Builder $query) => $query->searchFor($this->search))
+            ->when(filled($this->search) && $this->search === '*', fn (Builder $query) => $query)
+            ->get();
     }
 
     public function render()
     {
         return view('livewire.users.manage-roles', [
-            'roles' => $this->rows,
+            'roles' => $this->roles,
+            'filteredRoles' => $this->filteredRoles,
         ]);
     }
 }

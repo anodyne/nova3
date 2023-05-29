@@ -11,6 +11,11 @@ class NovaManager
 {
     public $version = '3.0.0';
 
+    public function getVersion(): string
+    {
+        return $this->version;
+    }
+
     public function isInstalled(): bool
     {
         try {

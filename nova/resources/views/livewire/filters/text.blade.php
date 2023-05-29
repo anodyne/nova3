@@ -4,9 +4,9 @@
             <x-input.text wire:model="value">
                 @if ($value)
                     <x-slot:trailingAddOn>
-                        <x-button size="none" color="gray-text" wire:click="resetValue">
-                            @icon('close', 'h-5 w-5')
-                        </x-button>
+                        <x-button.text color="gray" wire:click="resetValue">
+                            <x-icon name="dismiss" size="sm"></x-icon>
+                        </x-button.text>
                     </x-slot:trailingAddOn>
                 @endif
             </x-input.text>

@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Block extends Model
 {
-    protected $fillable = ['name', 'key', 'category', 'type', 'sort', 'settings'];
+    protected $fillable = ['name', 'key', 'category', 'type', 'order_column', 'settings'];
 }

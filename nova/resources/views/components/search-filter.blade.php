@@ -3,7 +3,7 @@
 <div x-data="{ search: '{{ $search }}', isLoading: false }">
     <label for="email" class="sr-only">{{ $placeholder }}</label>
     <div class="flex items-center py-1 text-gray-500 transition ease-in-out duration-200 focus-within:text-gray-600">
-        @icon('search', 'mr-3 shrink-0')
+        <x-icon name="search" size="sm" class="mr-3 shrink-0"></x-icon>
 
         <input
             x-model="search"
@@ -21,20 +21,20 @@
 
         <x-loader-circle x-show="isLoading" x-cloak class="h-5 w-5 text-gray-500 ml-3" />
 
-        <x-button
+        <x-button.text
             x-show="!!search"
             @click.prevent="isLoading = true; search = ''; refreshList(null);"
             x-cloak
             id="clear-search"
             class="ml-3"
-            color="gray-text"
+            color="gray"
             size="none"
             data-cy="search-clear"
             role="button"
             aria-label="Reset"
         >
-            @icon('close', 'h-5 w-5')
-        </x-button>
+            <x-icon name="dismiss" size="sm"></x-icon>
+        </x-button.text>
     </div>
 </div>
 

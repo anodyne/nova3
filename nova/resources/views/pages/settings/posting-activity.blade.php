@@ -2,12 +2,12 @@
 
 @section('content')
     <x-panel>
-        <x-panel.header title="Posting activity settings" message="Set your game's posting activity requirements and how you want posts and words counted.">
+        <x-panel.header title="Posting activity settings" message="Set your game's posting activity requirements and how you want posts and words counted">
             <x-slot:actions>
                 <div x-data="{}">
-                    <x-button-outline leading="search" @click="$dispatch('toggle-spotlight')">
+                    <x-button.outline color="primary" leading="search" @click="$dispatch('toggle-spotlight')">
                         Find a setting
-                    </x-button-outline>
+                    </x-button.outline>
                 </div>
             </x-slot:actions>
         </x-panel.header>
@@ -152,7 +152,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button-filled type="submit" form="posting">Save settings</x-button-filled>
+                <x-button.filled type="submit" form="posting" color="primary">Update</x-button.filled>
             </x-form.footer>
         </x-form>
     </x-panel>

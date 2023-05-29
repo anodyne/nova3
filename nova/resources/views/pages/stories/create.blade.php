@@ -5,9 +5,9 @@
 		<x-panel.header title="Add a new story">
 			<x-slot:actions>
 				@can('viewAny', Nova\Stories\Models\Story::class)
-					<x-link :href="route('stories.index')" leading="arrow-left" color="gray">
+					<x-button.text :href="route('stories.index')" leading="arrow-left" color="gray">
 						Back to the stories list
-					</x-link>
+					</x-button.text>
 				@endcan
 			</x-slot:actions>
 		</x-panel.header>
@@ -63,8 +63,8 @@
 			</x-form.section>
 
 			<x-form.footer>
-				<x-button type="submit">Add story</x-button>
-				<x-link :href="route('stories.index')" variant="outline">Cancel</x-link>
+				<x-button.filled type="submit" color="primary">Add story</x-button.filled>
+				<x-button.outline :href="route('stories.index')" color="gray">Cancel</x-button.outline>
 			</x-form.footer>
 		</x-form>
 	</x-panel>

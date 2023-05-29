@@ -19,7 +19,7 @@
 	@endunless
 
 	<div @class([
-		'divide-y divide-gray-100 dark:divide-gray-200/10' => $divide,
+		'divide-y divide-gray-100 dark:divide-gray-800' => $divide,
 		'space-y-8' => $space,
 	])>
 		{{ $slot }}

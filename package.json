@@ -35,7 +35,8 @@
         "numeral": "^2.0.6",
         "pretty": "^2.0",
         "resolve-url-loader": "^5.0.0",
-        "sortablejs": "^1.15.0"
+        "sortablejs": "^1.15.0",
+        "tippy.js": "^6.3.7"
     },
     "devDependencies": {
         "@danharrin/alpine-mousetrap": "^0.1.5",

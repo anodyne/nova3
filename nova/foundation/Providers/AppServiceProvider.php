@@ -4,7 +4,12 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Providers;
 
+use Filament\Support\Icons\Icon;
+use Filament\Support\Icons\IconManager;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Illuminate\Routing\Route;
@@ -14,10 +19,10 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\View\Factory as ViewFactory;
 use Livewire\Livewire;
-use Nova\Foundation\Icons\FluentIconSet;
-use Nova\Foundation\Icons\FontAwesomeSolidIconSet;
+use Nova\Foundation\Icons\FluentFilledIconSet;
+use Nova\Foundation\Icons\FluentOutlineIconSet;
 use Nova\Foundation\Icons\IconSets;
-use Nova\Foundation\Icons\UntitledUiIconSet;
+use Nova\Foundation\Icons\TablerIconSet;
 use Nova\Foundation\Livewire\ColorShadePicker;
 use Nova\Foundation\Livewire\ConfirmationModal;
 use Nova\Foundation\Livewire\Editor;
@@ -26,18 +31,15 @@ use Nova\Foundation\Livewire\Rating;
 use Nova\Foundation\Livewire\UploadAvatar;
 use Nova\Foundation\Livewire\UploadImage;
 use Nova\Foundation\Macros;
+use Nova\Foundation\Nova;
 use Nova\Foundation\NovaBladeDirectives;
 use Nova\Foundation\NovaManager;
 use Nova\Foundation\Responses\FiltersManager;
-use Nova\Foundation\View\Components\Avatar;
-use Nova\Foundation\View\Components\AvatarGroup;
 use Nova\Foundation\View\Components\Badge;
-use Nova\Foundation\View\Components\Button;
 use Nova\Foundation\View\Components\ContentBox;
 use Nova\Foundation\View\Components\Dropdown;
-use Nova\Foundation\View\Components\Link;
-use Nova\Foundation\View\Components\Panel;
 use Nova\Foundation\View\Components\Tips;
+use Nova\Settings\Models\Settings;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -51,18 +53,31 @@ class AppServiceProvider extends ServiceProvider
         // Make sure the file finder can find Javascript files
         $this->app['view']->addExtension('js', 'file');
 
+        $this->app->scoped('nova.settings', function () {
+            if (Nova::isInstalled()) {
+                return once(fn () => Settings::custom()->first());
+            }
+
+            return null;
+        });
+
         $this->registerMacros();
-        $this->registerIcons();
-        $this->registerBladeDirectives();
-        $this->registerBladeComponents();
-        $this->registerLivewireComponents();
-        $this->registerResponseFilters();
-        $this->setupFactories();
+        $this->updateAboutCommand();
+
+        if (Nova::isInstalled()) {
+            $this->registerIcons();
+            $this->registerBladeDirectives();
+            $this->registerBladeComponents();
+            $this->registerLivewireComponents();
+            $this->registerResponseFilters();
+            $this->setupFactories();
+            $this->setupFilament();
+        }
     }
 
     protected function registerNovaSingleton()
     {
-        $this->app->singleton('nova', NovaManager::class);
+        $this->app->scoped('nova', NovaManager::class);
     }
 
     protected function registerMacros()
@@ -72,29 +87,25 @@ class AppServiceProvider extends ServiceProvider
         RedirectResponse::mixin(new Macros\ToastMacros());
         Route::mixin(new Macros\RouteMacros());
         Str::mixin(new Macros\StrMacros());
+        TextColumn::mixin(new Macros\TextColumnMacros());
         ViewFactory::mixin(new Macros\ViewMacros());
     }
 
     protected function registerIcons()
     {
         $iconSets = new IconSets();
-        $iconSets->add('fluent', new FluentIconSet());
-        $iconSets->add('untitled', new UntitledUiIconSet());
-        $iconSets->add('fas', new FontAwesomeSolidIconSet());
+        $iconSets->addDefault('tabler', new TablerIconSet());
+        $iconSets->add('fluent-outline', new FluentOutlineIconSet());
+        $iconSets->add('fluent-filled', new FluentFilledIconSet());
 
-        $this->app->instance(IconSets::class, $iconSets);
+        $this->app->scoped(IconSets::class, fn () => $iconSets);
     }
 
     protected function registerBladeComponents()
     {
-        Blade::component('avatar', Avatar::class);
-        Blade::component('avatar-group', AvatarGroup::class);
         Blade::component('badge', Badge::class);
-        Blade::component('button', Button::class);
         Blade::component('content-box', ContentBox::class);
-        // Blade::component('link', Link::class);
         Blade::component('dropdown', Dropdown::class);
-        Blade::component('panel', Panel::class);
         Blade::component('tips', Tips::class);
     }
 
@@ -129,5 +140,42 @@ class AppServiceProvider extends ServiceProvider
         Factory::guessFactoryNamesUsing(
             fn ($model) => 'Database\\Factories\\'.Str::afterLast($model, '\\').'Factory'
         );
+    }
+
+    protected function setupFilament(): void
+    {
+        $this->app->bind(
+            \Filament\Support\Assets\Js::class,
+            \Nova\Foundation\Filament\Assets\Js::class
+        );
+
+        $this->app->bind(
+            \Filament\Support\Assets\Css::class,
+            \Nova\Foundation\Filament\Assets\Css::class
+        );
+
+        $this->app->bind(
+            \Filament\Support\Assets\AlpineComponent::class,
+            \Nova\Foundation\Filament\Assets\AlpineComponent::class
+        );
+
+        app(IconManager::class)->register([
+            'filament-tables::search-input.prefix' => Icon::make(iconName('search')),
+            'tables::column-toggling.trigger' => Icon::make(iconName('columns')),
+            'support::modal.close-button' => Icon::make(iconName('dismiss')),
+        ]);
+
+        Table::configureUsing(function (Table $table) {
+            $table->filtersTriggerAction(fn ($action) => $action->icon(iconName('filter'))->size('lg'));
+        });
+    }
+
+    protected function updateAboutCommand(): void
+    {
+        if (class_exists(AboutCommand::class)) {
+            AboutCommand::add('Nova', [
+                'Version' => Nova::getVersion(),
+            ]);
+        }
     }
 }

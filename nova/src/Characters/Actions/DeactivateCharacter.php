@@ -14,12 +14,14 @@ class DeactivateCharacter
 
     public function handle(Character $character): Character
     {
-        activity()
-            ->causedBy(auth()->user())
-            ->performedOn($character)
-            ->log(':subject.name was deactivated');
+        if ($character->status->canTransitionTo(Inactive::class)) {
+            activity()
+                ->causedBy(auth()->user())
+                ->performedOn($character)
+                ->log(':subject.name was deactivated');
 
-        $character->status->transitionTo(Inactive::class);
+            $character->status->transitionTo(Inactive::class);
+        }
 
         return $character->refresh();
     }

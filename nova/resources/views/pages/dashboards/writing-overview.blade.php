@@ -16,9 +16,9 @@
         >
             @if ($posts->count() > 0)
                 <x-slot:actions>
-                    <x-button-filled tag="a" :href="route('posts.create')" leading="write">
+                    <x-button.filled :href="route('posts.create')" leading="write" color="primary">
                         Start writing
-                    </x-button-filled>
+                    </x-button.filled>
                 </x-slot:actions>
             @endif
         </x-panel.header>
@@ -39,9 +39,9 @@
                             <div class="flex items-center w-full">{{ $post->day }} {{ $post->time }}</div>
 
                             <x-slot:actions>
-                                <x-link :href="route('posts.create', $post)" color="gray-text" size="none">
-                                    @icon('edit', 'h-6 w-6')
-                                </x-link>
+                                <x-button.text :href="route('posts.create', $post)" color="gray">
+                                    <x-icon name="edit" size="md"></x-icon>
+                                </x-button.text>
                             </x-slot:actions>
                         </x-table-list.row>
                     @endforeach

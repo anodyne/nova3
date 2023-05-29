@@ -5,9 +5,9 @@
         <x-panel.header title="Notification settings">
             <x-slot:actions>
                 <div x-data="{}">
-                    <x-button-outline leading="search" @click="$dispatch('toggle-spotlight')">
+                    <x-button.outline color="primary" leading="search" @click="$dispatch('toggle-spotlight')">
                         Find a setting
-                    </x-button-outline>
+                    </x-button.outline>
                 </div>
             </x-slot:actions>
 
@@ -63,7 +63,7 @@
             <div x-show="isTab('admin')" x-cloak>
                 <ul>
                     @foreach ($systemNotifications->where('type', Nova\Foundation\Enums\SystemNotificationType::admin) as $systemNotification)
-                        <li class="border-t border-gray-200 dark:border-gray-200/10 hover:bg-gray-50/50 dark:hover:bg-gray-700/20 first:border-0 transition">
+                        <li class="border-t border-gray-200 dark:border-gray-700 hover:bg-gray-50/50 dark:hover:bg-gray-700/20 first:border-0 transition">
                             <div class="block">
                                 <div class="px-4 py-4 flex items-center sm:px-6">
                                     <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
@@ -77,9 +77,12 @@
                                         </div>
                                     </div>
                                     <div class="ml-5 shrink-0 leading-0">
-                                        <x-button color="gray-text" @click='Livewire.emit("openModal", "settings:notification-setting", {{ json_encode(["notification" => $systemNotification->id]) }})'>
-                                            @icon('edit', 'h-5 w-5')
-                                        </x-button>
+                                        <x-button.text
+                                            color="gray"
+                                            x-on:click="Livewire.emit('openModal', 'settings:notification-setting', {{ json_encode([$systemNotification, null]) }})"
+                                        >
+                                            <x-icon name="edit" size="sm"></x-icon>
+                                        </x-button.text>
                                     </div>
                                 </div>
                             </div>
@@ -91,7 +94,7 @@
             <div x-show="isTab('collective')" x-cloak>
                 <ul>
                     @foreach ($systemNotifications->where('type', Nova\Foundation\Enums\SystemNotificationType::collective) as $systemNotification)
-                        <li class="border-t border-gray-200 dark:border-gray-200/10 hover:bg-gray-50/50 dark:hover:bg-gray-700/20 first:border-0 transition">
+                        <li class="border-t border-gray-200 dark:border-gray-700 hover:bg-gray-50/50 dark:hover:bg-gray-700/20 first:border-0 transition">
                             <div class="block">
                                 <div class="px-4 py-4 flex items-center sm:px-6">
                                     <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
@@ -105,9 +108,12 @@
                                         </div>
                                     </div>
                                     <div class="ml-5 shrink-0 leading-0">
-                                        <x-button color="gray-text" @click="Livewire.emit('openModal', 'settings:notification-setting')">
-                                            @icon('edit', 'h-5 w-5')
-                                        </x-button>
+                                        <x-button.text
+                                            color="gray"
+                                            x-on:click="Livewire.emit('openModal', 'settings:notification-setting', {{ json_encode([$systemNotification, null]) }})"
+                                        >
+                                            <x-icon name="edit" size="sm"></x-icon>
+                                        </x-button.text>
                                     </div>
                                 </div>
                             </div>
@@ -119,7 +125,7 @@
             <div x-show="isTab('personal')" x-cloak>
                 <ul>
                     @foreach ($systemNotifications->where('type', Nova\Foundation\Enums\SystemNotificationType::personal) as $systemNotification)
-                        <li class="border-t border-gray-200 dark:border-gray-200/10 hover:bg-gray-50/50 dark:hover:bg-gray-700/20 first:border-0 transition">
+                        <li class="border-t border-gray-200 dark:border-gray-700 hover:bg-gray-50/50 dark:hover:bg-gray-700/20 first:border-0 transition">
                             <div class="block">
                                 <div class="px-4 py-4 flex items-center sm:px-6">
                                     <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
@@ -132,9 +138,12 @@
                                         </div>
                                     </div>
                                     <div class="ml-5 shrink-0 leading-0">
-                                        <x-button color="gray-text" @click="Livewire.emit('openModal', 'settings:notification-setting')">
-                                            @icon('edit', 'h-5 w-5')
-                                        </x-button>
+                                        <x-button.text
+                                            color="gray"
+                                            x-on:click="Livewire.emit('openModal', 'settings:notification-setting', {{ json_encode([$systemNotification, null]) }})"
+                                        >
+                                            <x-icon name="edit" size="sm"></x-icon>
+                                        </x-button.text>
                                     </div>
                                 </div>
                             </div>
@@ -144,7 +153,7 @@
             </div>
 
             <x-form.footer>
-                <x-button type="submit" form="discord" color="primary">Update</x-button>
+                <x-button.filled type="submit" form="discord" color="primary">Update</x-button.filled>
             </x-form.footer>
         </x-form>
     </x-panel>

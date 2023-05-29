@@ -12,7 +12,7 @@
                 type="button"
                 @class([
                     'flex items-center justify-between cursor-default relative w-full rounded-md border border-gray-300 dark:border-gray-200/[15%] focus-within:ring-1 focus-within:ring-primary-400 focus-within:border-primary-400 dark:focus-within:border-primary-600 dark:focus-within:ring-primary-600 bg-white dark:bg-gray-700/50 py-2 px-3 text-left focus:outline-none dark:focus:bg-gray-800 transition leading-normal space-x-4',
-                    'text-gray-900 dark:text-gray-100' => $selected?->name,
+                    'text-gray-900 dark:text-white' => $selected?->name,
                 ])
                 aria-haspopup="true"
                 aria-expanded="true"
@@ -50,14 +50,14 @@
             <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                 <div class="p-2">
                     <div class="group flex items-center rounded-md bg-gray-100 border-2 border-gray-100 text-gray-600 px-2 py-2 space-x-3 focus-within:border-gray-300 focus-within:bg-white focus-within:text-gray-700">
-                        @icon('search', 'h-5 w-5 shrink-0 text-gray-500 group-focus-within:text-gray-600')
+                        <x-icon name="search" size="sm" class="shrink-0 text-gray-500 group-focus-within:text-gray-600"></x-icon>
 
                         <input wire:model.debounce.250ms="search" type="text" placeholder="Find a character..." class="flex w-full appearance-none bg-transparent border-none p-0 focus:ring-0 focus:outline-none">
 
                         @isset($search)
-                            <x-button wire:click="$set('search', null)" color="gray-text" size="none">
-                                @icon('close')
-                            </x-button>
+                            <x-button.text wire:click="$set('search', null)" color="gray">
+                                <x-icon name="dismiss" size="sm"></x-icon>
+                            </x-button.text>
                         @endisset
                     </div>
                 </div>

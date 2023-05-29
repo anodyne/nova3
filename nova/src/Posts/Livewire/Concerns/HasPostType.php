@@ -29,7 +29,7 @@ trait HasPostType
     {
         return PostType::with('role')
             ->whereUserHasAccess(auth()->user()->loadMissing('roles'))
-            ->orderBySort()
+            ->ordered()
             ->get();
     }
 

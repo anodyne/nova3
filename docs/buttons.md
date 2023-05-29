@@ -1,0 +1,10 @@
+-   Filled button
+    -   primary color
+    -   danger color
+-   Outline button
+    -   primary color
+    -   danger color
+    -   white
+-   Text button
+    -   medium gray with hover
+    -   light gray with hover

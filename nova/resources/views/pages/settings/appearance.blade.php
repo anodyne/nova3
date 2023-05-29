@@ -4,12 +4,12 @@
 
 @section('content')
     <x-panel>
-        <x-panel.header title="Appearance settings" message="Change the way Nova looks to match your game's design aesthetic.">
+        <x-panel.header title="Appearance settings" message="Change the way Nova looks to match your game's design aesthetic">
             <x-slot:actions>
                 <div x-data="{}">
-                    <x-button-outline leading="search" @click="$dispatch('toggle-spotlight')">
+                    <x-button.outline color="primary" leading="search" @click="$dispatch('toggle-spotlight')">
                         Find a setting
-                    </x-button-outline>
+                    </x-button.outline>
                 </div>
             </x-slot:actions>
         </x-panel.header>
@@ -67,13 +67,13 @@
                     <livewire:color-shade-picker type="colors" name="colors_success" :selected="$settings->appearance->colorsSuccess" />
                 </x-input.group>
 
-                <x-input.group label="Info color">
-                    <livewire:color-shade-picker type="colors" name="colors_info" :selected="$settings->appearance->colorsInfo" />
+                <x-input.group label="Secondary color">
+                    <livewire:color-shade-picker type="colors" name="colors_secondary" :selected="$settings->appearance->colorsSecondary" />
                 </x-input.group>
             </x-form.section>
 
             <x-form.footer>
-                <x-button-filled type="submit" form="appearance">Save settings</x-button-filled>
+                <x-button.filled type="submit" form="appearance" color="primary">Update</x-button.filled>
             </x-form.footer>
         </x-form>
     </x-panel>

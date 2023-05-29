@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Tests\Unit\PostTypes\Actions;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\PostTypes\Actions\UpdatePostType;
 use Nova\PostTypes\Data\Field;
 use Nova\PostTypes\Data\Fields;
 use Nova\PostTypes\Data\Options;
 use Nova\PostTypes\Data\PostTypeData;
+use Nova\PostTypes\Enums\PostTypeStatus;
 use Nova\PostTypes\Models\PostType;
-use Nova\PostTypes\Models\States\Active;
 use Tests\TestCase;
 
 /**
@@ -38,7 +37,7 @@ class UpdatePostTypeActionTest extends TestCase
             description: 'Description of foo',
             color: '#000000',
             icon: 'book',
-            status: Active::class,
+            status: PostTypeStatus::active,
             visibility: 'in-character',
             fields: Fields::from([
                 'title' => Field::from([
@@ -71,9 +70,9 @@ class UpdatePostTypeActionTest extends TestCase
                 ]),
             ]),
             options: Options::from([
-                'notifyUsers' => true,
-                'includeInPostTracking' => false,
-                'multipleAuthors' => true,
+                'notifiesUsers' => true,
+                'includedInPostTracking' => false,
+                'allowsMultipleAuthors' => true,
             ]),
             role_id: null
         );
@@ -87,7 +86,7 @@ class UpdatePostTypeActionTest extends TestCase
         $this->assertEquals('book', $postType->icon);
         $this->assertEquals('#000000', $postType->color);
         $this->assertEquals('in-character', $postType->visibility);
-        $this->assertTrue($postType->status->equals(Active::class));
+        $this->assertTrue($postType->status === PostTypeStatus::active);
         $this->assertNull($postType->role_id);
 
         $this->assertTrue($postType->fields->title->enabled);
@@ -98,8 +97,8 @@ class UpdatePostTypeActionTest extends TestCase
         $this->assertTrue($postType->fields->rating->enabled);
         $this->assertTrue($postType->fields->summary->enabled);
 
-        $this->assertTrue($postType->options->notifyUsers);
-        $this->assertFalse($postType->options->includeInPostTracking);
-        $this->assertTrue($postType->options->multipleAuthors);
+        $this->assertTrue($postType->options->notifiesUsers);
+        $this->assertFalse($postType->options->includedInPostTracking);
+        $this->assertTrue($postType->options->allowsMultipleAuthors);
     }
 }

@@ -4,9 +4,9 @@
     <x-panel>
         <x-panel.header title="Edit character">
             <x-slot:actions>
-                <x-link :href="route('characters.index')" leading="arrow-left" size="none" color="gray-text">
-                    Back to characters list
-                </x-link>
+                <x-button.text :href="route('characters.index')" leading="arrow-left" color="gray">
+                    Back
+                </x-button.text>
             </x-slot:actions>
         </x-panel.header>
 
@@ -46,8 +46,8 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button-filled type="submit">Save character</x-button-filled>
-                <x-link :href="route('characters.index')" color="gray">Cancel</x-link>
+                <x-button.filled type="submit" color="primary">Update</x-button.filled>
+                <x-button.outline :href="route('characters.index')" color="gray">Cancel</x-button.outline>
             </x-form.footer>
         </x-form>
     </x-panel>
@@ -65,9 +65,9 @@
                     </div>
                     <div class="mt-5 sm:mt-0 sm:ml-8 sm:shrink-0 sm:flex sm:items-center">
                         <x-form :action="route('characters.deactivate', $character)">
-                            <x-button-outline type="submit" color="danger">
+                            <x-button.outline type="submit" color="danger">
                                 Deactivate
-                            </x-button-outline>
+                            </x-button.outline>
                         </x-form>
                     </div>
                 </div>
@@ -88,9 +88,9 @@
                     </div>
                     <div class="mt-5 sm:mt-0 sm:ml-8 sm:shrink-0 sm:flex sm:items-center">
                         <x-form :action="route('characters.activate', $character)">
-                            <x-button-outline type="submit">
+                            <x-button.outline type="submit" color="primary">
                                 Activate
-                            </x-button-outline>
+                            </x-button.outline>
                         </x-form>
                     </div>
                 </div>

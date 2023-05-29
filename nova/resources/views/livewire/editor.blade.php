@@ -3,11 +3,11 @@
     x-init="() => init($refs.editor)"
     @click.away="inFocus = false"
 >
-    <div class="group flex flex-col relative w-full rounded-md border border-gray-200 dark:border-gray-200/10 shadow-sm bg-white dark:bg-gray-800 transition focus-within:border-primary-400 focus-within:ring-1 focus-within:ring-primary-400 overflow-hidden">
+    <div class="group flex flex-col relative w-full rounded-md border border-gray-300 dark:border-gray-700 shadow-sm bg-white dark:bg-gray-800 transition focus-within:border-primary-400 dark:focus-within:border-primary-700 focus-within:ring-1 dark:focus-within:ring-1 focus-within:ring-primary-400 dark:focus-within:ring-primary-700 overflow-hidden">
         <div class="{{ $codeView ? 'hidden' : '' }}">
             <div wire:ignore>
                 <template x-if="editor">
-                    <nav class="menu flex items-center flex-wrap divide-x divide-gray-100 dark:divide-gray-200/10 border-b border-gray-200 dark:border-gray-200/10 py-1.5 px-3 bg-gray-50 dark:bg-gray-900/50">
+                    <nav class="menu flex items-center flex-wrap divide-x divide-gray-100 dark:divide-gray-700 border-b border-gray-200 dark:border-gray-700 py-1.5 px-3 bg-gray-50 dark:bg-gray-900/50">
                         <div class="flex items-center space-x-3 md:space-x-2 my-1 md:my-0 pr-3">
                             <button
                                 type="button"
@@ -179,7 +179,7 @@
         </div>
 
         @if ($codeView)
-            <nav class="menu flex items-center space-x-3 border-b border-gray-200 dark:border-gray-200/10 py-2 px-3 bg-gray-50 dark:bg-gray-900/50">
+            <nav class="menu flex items-center space-x-3 border-b border-gray-200 dark:border-gray-700 py-2 px-3 bg-gray-50 dark:bg-gray-900/50">
                 <button
                     type="button"
                     class="leading-0 transition text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 text-sm h-5 font-medium"
@@ -197,7 +197,7 @@
             wire:model="content"
         ></textarea>
 
-        <div class="text-gray-500 dark:text-gray-400 text-sm px-3 py-1.5 border-t border-gray-200 dark:border-gray-200/10 bg-gray-50 dark:bg-gray-900/50">{{ $this->wordCount }} @choice('word|words', $this->wordCount)</div>
+        <div class="text-gray-400 dark:text-gray-500 text-sm px-3 py-1.5">{{ $this->wordCount }} @choice('word|words', $this->wordCount)</div>
     </div>
 </div>
 

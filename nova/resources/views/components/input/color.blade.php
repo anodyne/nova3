@@ -21,9 +21,9 @@
             :class="{ 'ring-2 ring-primary-400 dark:ring-primary-700': open }"
         >
             <div class="h-4 w-4 rounded-full flex items-center shrink-0" x-bind:style=`background-color:${color}`></div>
-            <div class="flex-1 text-gray-900 dark:text-gray-100 text-left" x-text="color"></div>
+            <div class="flex-1 text-gray-900 dark:text-white text-left" x-text="color"></div>
             <div class="text-gray-400 dark:text-gray-500 flex items-center shrink-0">
-                @icon('paint-bucket', 'h-6 w-6')
+                <x-icon name="paint-brush" size="md"></x-icon>
             </div>
         </button>
     </div>
@@ -40,7 +40,7 @@
         class="absolute mt-2 rounded-lg shadow-lg z-[9999] left-0 right-auto origin-bottom-left"
         x-cloak
     >
-        <div class="rounded-lg bg-white dark:bg-gray-700 ring-1 ring-gray-900/5 dark:ring-gray-200/10 z-10 divide-y divide-gray-100 dark:divide-gray-200/10 dark:highlight-white/10">
+        <div class="rounded-lg bg-white dark:bg-gray-700 ring-1 ring-gray-900/5 dark:ring-gray-700 z-10 divide-y divide-gray-100 dark:divide-gray-700 dark:highlight-white/10">
             <x-dropdown.group>
                 <x-dropdown.text>
                     <div x-ref="colorPicker" class="flex items-center justify-center"></div>
@@ -54,7 +54,7 @@
 
                         <x-slot:trailingAddOn>
                             <button type="button" @click="colorPicker.color.set(inputColor)" class="shrink-0">
-                                @icon('check', 'h-6 w-6')
+                                <x-icon name="check" size="md"></x-icon>
                             </button>
                         </x-slot:trailingAddOn>
                     </x-input.field>

@@ -3,9 +3,9 @@
         <x-slot:actions>
             @if ($forms->count() > 0)
                 @can('create', $formClass)
-                    <x-button-filled tag="a" :href="route('forms.create')" class="order-first md:order-last" leading="add" data-cy="create">
-                        Add a form
-                    </x-button-filled>
+                    <x-button.filled :href="route('forms.create')" class="order-first md:order-last" leading="add">
+                        Add
+                    </x-button.filled>
                 @endcan
             @endif
         </x-slot:actions>
@@ -26,14 +26,14 @@
                 <x-input.group>
                     <x-input.text placeholder="Find forms by name" wire:model="search">
                         <x-slot:leadingAddOn>
-                            @icon('search', 'h-5 w-5')
+                            <x-icon name="search" size="sm"></x-icon>
                         </x-slot:leadingAddOn>
 
                         @if ($search)
                             <x-slot:trailingAddOn>
-                                <x-link tag="button" color="gray" wire:click="$set('search', '')">
-                                    @icon('close', 'h-5 w-5')
-                                </x-link>
+                                <x-button.text tag="button" color="gray" wire:click="$set('search', '')">
+                                    <x-icon name="dismiss" size="sm"></x-icon>
+                                </x-button.text>
                             </x-slot:trailingAddOn>
                         @endif
                     </x-input.text>
@@ -106,7 +106,7 @@
 
                         @can('update', $form)
                             <x-dropdown.group>
-                                <x-dropdown.item :href="route('forms.edit', $form)" icon="wrench" data-cy="edit">
+                                <x-dropdown.item :href="route('forms.edit', $form)" icon="tools" data-cy="edit">
                                     <span>Design</span>
                                 </x-dropdown.item>
                             </x-dropdown.group>
@@ -114,7 +114,7 @@
 
                         @can('delete', $form)
                             <x-dropdown.group>
-                                <x-dropdown.item-danger type="button" icon="delete" data-cy="delete" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($form) }});">
+                                <x-dropdown.item-danger type="button" icon="trash" data-cy="delete" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($form) }});">
                                     <span>Delete</span>
                                 </x-dropdown.item-danger>
                             </x-dropdown.group>
@@ -138,13 +138,13 @@
                     :primary-access="gate()->allows('create', $formClass)"
                 >
                     <x-slot:primary>
-                        <x-button-filled tag="a" :href="route('forms.create')">
+                        <x-button.filled :href="route('forms.create')" color="primary">
                             Add a form
-                        </x-button-filled>
+                        </x-button.filled>
                     </x-slot:primary>
 
                     <x-slot:secondary>
-                        <x-button-outline wire:click="$set('search', '')">Clear search</x-button-outline>
+                        <x-button.outline wire:click="$set('search', '')" color="gray">Clear search</x-button.outline>
                     </x-slot:secondary>
                 </x-empty-state.not-found>
             </x-slot:emptyMessage>

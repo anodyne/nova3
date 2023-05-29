@@ -10,12 +10,12 @@ class Upcoming extends StoryStatus
 
     public function color(): string
     {
-        return 'info';
+        return 'secondary';
     }
 
     public function textColor(): string
     {
-        return "text-{$this->color()}-500";
+        return "text-secondary-500";
     }
 
     public function name(): string

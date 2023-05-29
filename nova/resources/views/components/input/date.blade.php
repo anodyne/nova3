@@ -7,7 +7,7 @@
 <div x-data="datePicker($refs.date)" class="relative">
     <x-input.field>
         <x-slot:leadingAddOn>
-            @icon('calendar')
+            <x-icon name="calendar" size="md"></x-icon>
         </x-slot:leadingAddOn>
 
         <input

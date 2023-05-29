@@ -13,17 +13,21 @@ use Nova\Users\Models\States\Active;
 use Nova\Users\Models\User;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\EloquentSortable\Sortable;
+use Spatie\EloquentSortable\SortableTrait;
 use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
-class Role extends LaratrustRole
+class Role extends LaratrustRole implements Sortable
 {
     use HasEagerLimit;
     use HasFactory;
     use LogsActivity;
+    use SortableTrait;
 
     protected $casts = [
         'default' => 'boolean',
         'locked' => 'boolean',
+        'order_column' => 'integer',
     ];
 
     protected $dispatchesEvents = [
@@ -33,7 +37,7 @@ class Role extends LaratrustRole
     ];
 
     protected $fillable = [
-        'name', 'display_name', 'description', 'default', 'sort',
+        'name', 'display_name', 'description', 'default', 'order_column',
     ];
 
     public function getActivitylogOptions(): LogOptions

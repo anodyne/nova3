@@ -32,7 +32,7 @@
 
             @can('delete', $post)
                 <x-dropdown.group>
-                    <x-dropdown.item-danger type="button" icon="delete" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($post) }});" data-cy="delete">
+                    <x-dropdown.item-danger type="button" icon="trash" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($post) }});" data-cy="delete">
                         <span>Delete</span>
                     </x-dropdown.item-danger>
                 </x-dropdown.group>
@@ -43,7 +43,7 @@
     <div class="space-y-2">
         <div class="flex items-center space-x-2">
             <div class="shrink-0" style="border-color:{{ $post->postType->color }};color:{{ $post->postType->color }}">
-                @icon($post->postType->icon, 'h-6 w-6 md:h-5 md:w-5')
+                <x-icon :name="$post->postType->icon" size="sm"></x-icon>
             </div>
 
             <h3 class="text-xl font-bold tracking-tight text-gray-900">{{ $post->title }}</h3>
@@ -53,21 +53,21 @@
             <div class="flex flex-col space-y-2 sm:space-y-0 sm:space-x-6 sm:flex-row">
                 @if ($post->location)
                     <div class="flex items-center text-sm text-gray-600 space-x-1.5 font-medium">
-                        @icon('location', 'shrink-0 h-5 w-5 text-gray-500')
+                        <x-icon name="location" size="sm" class="shrink-0 text-gray-500"></x-icon>
                         <span>{{ $post->location }}</span>
                     </div>
                 @endif
 
                 @if ($post->day)
                     <div class="flex items-center text-sm text-gray-600 space-x-1.5 font-medium">
-                        @icon('calendar', 'shrink-0 h-5 w-5 text-gray-500')
+                        <x-icon name="calendar" size="sm" class="shrink-0 text-gray-500"></x-icon>
                         <span>{{ $post->day }}</span>
                     </div>
                 @endif
 
                 @if ($post->time)
                     <div class="flex items-center text-sm text-gray-600 space-x-1.5 font-medium">
-                        @icon('clock', 'shrink-0 h-5 w-5 text-gray-500')
+                        <x-icon name="clock" size="sm" class="shrink-0 text-gray-500"></x-icon>
                         <span>{{ $post->time }}</span>
                     </div>
                 @endif
@@ -144,7 +144,7 @@
 
                 @can('delete', $post)
                     <x-dropdown.group>
-                        <x-dropdown.item-danger type="button" icon="delete" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($post) }});" data-cy="delete">
+                        <x-dropdown.item-danger type="button" icon="trash" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($post) }});" data-cy="delete">
                             <span>Delete</span>
                         </x-dropdown.item-danger>
                     </x-dropdown.group>
@@ -153,7 +153,7 @@
         </div>
 
         <div class="shrink-0 rounded-full p-1.5 border-2" style="border-color:{{ $post->postType->color }};color:{{ $post->postType->color }}">
-            @icon($post->postType->icon, 'h-5 w-5 sm:h-6 sm:w-6')
+            <x-icon :name="$post->postType->icon" size="md"></x-icon>
         </div>
 
         <div class="w-full space-y-4 sm:space-y-2 ml-4">
@@ -166,21 +166,21 @@
                 <div class="flex flex-col space-y-2 sm:space-y-0 sm:space-x-6 sm:flex-row">
                     @if ($post->location)
                         <div class="flex items-center text-sm text-gray-600 space-x-1.5">
-                            @icon('location', 'shrink-0 h-5 w-5 text-gray-500')
+                            <x-icon name="location" size="sm" class="shrink-0 text-gray-500"></x-icon>
                             <span>{{ $post->location }}</span>
                         </div>
                     @endif
 
                     @if ($post->day)
                         <div class="flex items-center text-sm text-gray-600 space-x-1.5">
-                            @icon('calendar', 'shrink-0 h-5 w-5 text-gray-500')
+                            <x-icon name="calendar" size="sm" class="shrink-0 text-gray-500"></x-icon>
                             <span>{{ $post->day }}</span>
                         </div>
                     @endif
 
                     @if ($post->time)
                         <div class="flex items-center text-sm text-gray-600 space-x-1.5">
-                            @icon('clock', 'shrink-0 h-5 w-5 text-gray-500')
+                            <x-icon name="clock" size="sm" class="shrink-0 text-gray-500"></x-icon>
                             <span>{{ $post->time }}</span>
                         </div>
                     @endif
