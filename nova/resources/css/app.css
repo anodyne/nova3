@@ -1,3 +1,5 @@
+@import "../../vendor/filament/forms/dist/index.css";
+
 @import "tailwindcss/base";
 
 @import "tailwindcss/components";
@@ -6,7 +8,11 @@
 @import "components/icon.css";
 @import "components/rank.css";
 
+@import "plugins/tippy.css";
+
 @import "tailwindcss/utilities";
+
+@import "filament.css";
 
 @font-face {
     font-family: "Inter var";
@@ -27,7 +33,8 @@
 }
 
 body,
-button {
+button,
+input {
     font-feature-settings: "ss01", "ss03", "cv11", "zero";
 }
 
