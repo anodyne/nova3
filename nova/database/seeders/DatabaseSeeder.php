@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             UserSeeder::class,
-            // NoteSeeder::class,
+            NoteSeeder::class,
 
             RankGroupSeeder::class,
             RankNameSeeder::class,
@@ -25,8 +25,8 @@ class DatabaseSeeder extends Seeder
 
             CharacterSeeder::class,
 
-            // StorySeeder::class,
-            // PostSeeder::class,
+            StorySeeder::class,
+            PostSeeder::class,
         ]);
 
         activity()->enableLogging();
