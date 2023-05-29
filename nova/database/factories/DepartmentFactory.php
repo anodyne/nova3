@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Nova\Departments\Enums\DepartmentStatus;
 use Nova\Departments\Models\Department;
 
 class DepartmentFactory extends Factory
@@ -17,14 +18,14 @@ class DepartmentFactory extends Factory
             'name' => ucfirst($this->faker->word),
             'description' => $this->faker->sentence,
             'sort' => 0,
-            'status' => 'active',
+            'status' => DepartmentStatus::active,
         ];
     }
 
     public function inactive()
     {
         return $this->state([
-            'status' => 'inactive',
+            'status' => DepartmentStatus::inactive,
         ]);
     }
 }
