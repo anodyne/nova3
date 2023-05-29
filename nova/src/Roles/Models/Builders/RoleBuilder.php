@@ -5,14 +5,9 @@ declare(strict_types=1);
 namespace Nova\Roles\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
-use Nova\Foundation\Filters\Filterable;
-use Nova\Foundation\Models\Concerns\Sortable;
 
 class RoleBuilder extends Builder
 {
-    use Filterable;
-    use Sortable;
-
     public function searchFor($search): Builder
     {
         return $this->where(function ($query) use ($search) {

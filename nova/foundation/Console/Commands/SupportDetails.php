@@ -24,7 +24,7 @@ class SupportDetails extends Command
 
     private function extensions()
     {
-        return $this->line('No addons installed');
+        return $this->line('No add-ons installed');
 
         // foreach ($addons as $addon) {
         //     $this->line(sprintf('<info>%s</info> %s', $addon->package(), $addon->version()));

@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Foundation\Concerns;
 
-use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
 use Spatie\EloquentSortable\Sortable;
@@ -14,7 +15,7 @@ trait SortableTrait
 
     public function moveBefore(Sortable $otherModel): static
     {
-        if (!$otherModel instanceof Model) {
+        if (! $otherModel instanceof Model) {
             throw new InvalidArgumentException();
         }
 
@@ -41,7 +42,7 @@ trait SortableTrait
 
     public function moveAfter(Sortable $otherModel): static
     {
-        if (!$otherModel instanceof Model) {
+        if (! $otherModel instanceof Model) {
             throw new InvalidArgumentException();
         }
 

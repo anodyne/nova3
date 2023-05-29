@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Nova\Users\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
-use Nova\Foundation\Filters\Filterable;
 use Nova\Users\Models\States\Active;
 use Nova\Users\Models\States\Archived;
 use Nova\Users\Models\States\Inactive;
@@ -13,8 +12,6 @@ use Nova\Users\Models\States\Pending;
 
 class UserBuilder extends Builder
 {
-    use Filterable;
-
     public function searchFor(string $search): self
     {
         return $this->where(function ($query) use ($search) {

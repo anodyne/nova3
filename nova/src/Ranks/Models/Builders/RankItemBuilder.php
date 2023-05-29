@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Nova\Ranks\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
-use Nova\Foundation\Filters\Filterable;
-use Nova\Foundation\Models\Concerns\Sortable;
 use Nova\Ranks\Models\RankName;
 use Nova\Ranks\Models\States\Items\Active;
 
