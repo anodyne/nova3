@@ -28,7 +28,7 @@ class UpdatePostTypeController extends Controller
         return UpdatePostTypeResponse::sendWith([
             'fieldTypes' => ['title', 'location', 'day', 'time', 'content', 'rating', 'summary'],
             'postType' => $postType,
-            'roles' => Role::orderBySort()->get(),
+            'roles' => Role::ordered()->get(),
         ]);
     }
 

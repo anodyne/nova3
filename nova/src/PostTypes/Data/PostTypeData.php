@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\PostTypes\Data;
 
-use Illuminate\Http\Request;
-use Nova\PostTypes\Models\States\Active;
+use Nova\PostTypes\Enums\PostTypeStatus;
+use Spatie\LaravelData\Attributes\Validation\Enum;
+use Spatie\LaravelData\Attributes\Validation\In;
 use Spatie\LaravelData\Data;
 
 class PostTypeData extends Data
@@ -14,7 +15,7 @@ class PostTypeData extends Data
         public string $name,
         public string $key,
         public ?string $description,
-        public string $status,
+        public ?PostTypeStatus $status,
         public Fields $fields,
         public Options $options,
         public ?int $role_id,
@@ -24,19 +25,11 @@ class PostTypeData extends Data
     ) {
     }
 
-    public static function fromRequest(Request $request): static
+    public static function rules(): array
     {
-        return new self(
-            status: $request->input('status', Active::class),
-            color: $request->input('color'),
-            description: $request->input('description'),
-            fields: Fields::from($request->input('fields')),
-            icon: $request->input('icon'),
-            key: $request->input('key'),
-            name: $request->input('name'),
-            options: Options::from($request->input('options')),
-            role_id: (int) $request->input('role_id'),
-            visibility: $request->input('visibility'),
-        );
+        return [
+            'status' => [new Enum(PostTypeStatus::class)],
+            'visibility' => [new In('in-character', 'out-of-character')],
+        ];
     }
 }

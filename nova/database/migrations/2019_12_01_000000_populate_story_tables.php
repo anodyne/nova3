@@ -68,13 +68,13 @@ class PopulateStoryTables extends Migration
                     ]),
                 ]),
                 'options' => Options::from([
-                    'notifyUsers' => true,
-                    'includeInPostTracking' => true,
-                    'multipleAuthors' => true,
-                    'allowCharacterAuthors' => true,
-                    'allowUserAuthors' => true,
+                    'notifiesUsers' => true,
+                    'includedInPostTracking' => true,
+                    'allowsMultipleAuthors' => true,
+                    'allowsCharacterAuthors' => true,
+                    'allowsUserAuthors' => true,
                 ]),
-                'sort' => 0,
+                'order_column' => 0,
             ],
 
             [
@@ -115,13 +115,13 @@ class PopulateStoryTables extends Migration
                     ]),
                 ]),
                 'options' => Options::from([
-                    'notifyUsers' => true,
-                    'includeInPostTracking' => true,
-                    'multipleAuthors' => false,
-                    'allowCharacterAuthors' => true,
-                    'allowUserAuthors' => true,
+                    'notifiesUsers' => true,
+                    'includedInPostTracking' => true,
+                    'allowsMultipleAuthors' => false,
+                    'allowsCharacterAuthors' => true,
+                    'allowsUserAuthors' => true,
                 ]),
-                'sort' => 1,
+                'order_column' => 1,
             ],
 
             [
@@ -162,14 +162,14 @@ class PopulateStoryTables extends Migration
                     ]),
                 ]),
                 'options' => Options::from([
-                    'notifyUsers' => false,
-                    'includeInPostTracking' => false,
-                    'multipleAuthors' => false,
-                    'allowCharacterAuthors' => false,
-                    'allowUserAuthors' => true,
+                    'notifiesUsers' => false,
+                    'includedInPostTracking' => false,
+                    'allowsMultipleAuthors' => false,
+                    'allowsCharacterAuthors' => false,
+                    'allowsUserAuthors' => true,
                 ]),
                 'role_id' => $storyManager->id,
-                'sort' => 2,
+                'order_column' => 2,
             ],
 
             [
@@ -177,7 +177,7 @@ class PopulateStoryTables extends Migration
                 'key' => 'note',
                 'description' => 'Inform players of key pieces of information about the story in a single place. Players will be able to see all notes when composing a new story post.',
                 'color' => '#a855f7',
-                'icon' => 'lightbulb',
+                'icon' => 'bulb',
                 'visibility' => 'out-of-character',
                 'fields' => Fields::from([
                     'title' => Field::from([
@@ -210,14 +210,14 @@ class PopulateStoryTables extends Migration
                     ]),
                 ]),
                 'options' => Options::from([
-                    'notifyUsers' => false,
-                    'includeInPostTracking' => false,
-                    'multipleAuthors' => false,
-                    'allowCharacterAuthors' => false,
-                    'allowUserAuthors' => true,
+                    'notifiesUsers' => false,
+                    'includedInPostTracking' => false,
+                    'allowsMultipleAuthors' => false,
+                    'allowsCharacterAuthors' => false,
+                    'allowsUserAuthors' => true,
                 ]),
                 'role_id' => $storyManager->id,
-                'sort' => 3,
+                'order_column' => 3,
             ],
         ];
 

@@ -21,19 +21,6 @@ class Fields extends Data implements Arrayable
     ) {
     }
 
-    public static function fromArray(array $array): static
-    {
-        return new self(
-            title: Field::from(data_get($array, 'title', [])),
-            day: Field::from(data_get($array, 'day', [])),
-            time: Field::from(data_get($array, 'time', [])),
-            location: Field::from(data_get($array, 'location', [])),
-            content: Field::from(data_get($array, 'content', [])),
-            rating: Field::from(data_get($array, 'rating', [])),
-            summary: Field::from(data_get($array, 'summary', [])),
-        );
-    }
-
     public function enabledFields(): Collection
     {
         return collect(get_object_vars($this))

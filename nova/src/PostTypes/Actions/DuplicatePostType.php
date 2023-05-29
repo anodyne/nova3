@@ -14,15 +14,14 @@ class DuplicatePostType
 
     public function handle(PostType $original): PostType
     {
-        $postType = $original->replicate();
+        $replica = $original->replicate();
 
-        $postType->key = implode('-', (new WordGenerator())->words(2));
-        $postType->name = "Copy of {$original->name}";
-        $postType->sort = PostType::count();
-        // $postType->role_id = $original->role_id;
+        $replica->key = implode('-', (new WordGenerator())->words(2));
+        $replica->name = "Copy of {$original->name}";
+        $replica->role_id = $original->role_id;
 
-        $postType->save();
+        $replica->save();
 
-        return $postType->refresh();
+        return $replica->refresh();
     }
 }

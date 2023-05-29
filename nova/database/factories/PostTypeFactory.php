@@ -8,9 +8,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Nova\PostTypes\Data\Field;
 use Nova\PostTypes\Data\Fields;
 use Nova\PostTypes\Data\Options;
+use Nova\PostTypes\Enums\PostTypeStatus;
 use Nova\PostTypes\Models\PostType;
-use Nova\PostTypes\Models\States\Active;
-use Nova\PostTypes\Models\States\Inactive;
 
 class PostTypeFactory extends Factory
 {
@@ -21,7 +20,7 @@ class PostTypeFactory extends Factory
         $word = $this->faker->word;
 
         return [
-            'status' => Active::class,
+            'status' => PostTypeStatus::active,
             'description' => $this->faker->sentence,
             'key' => $this->faker->lexify("{$word}-????"),
             'name' => ucfirst($word),
@@ -59,9 +58,9 @@ class PostTypeFactory extends Factory
                 ]),
             ]),
             'options' => Options::from([
-                'notifyUsers' => true,
-                'includeInPostTracking' => true,
-                'multipleAuthors' => true,
+                'notifiesUsers' => true,
+                'includedInPostTracking' => true,
+                'allowsMultipleAuthors' => true,
             ]),
         ];
     }
@@ -69,7 +68,7 @@ class PostTypeFactory extends Factory
     public function inactive()
     {
         return $this->state([
-            'status' => Inactive::class,
+            'status' => PostTypeStatus::inactive,
         ]);
     }
 }

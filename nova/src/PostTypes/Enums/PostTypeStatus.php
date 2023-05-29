@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Nova\Departments\Enums;
+namespace Nova\PostTypes\Enums;
 
 use Filament\Support\Contracts\HasLabel;
 
-enum DepartmentStatus: string implements HasLabel
+enum PostTypeStatus: string implements HasLabel
 {
     case active = 'active';
 

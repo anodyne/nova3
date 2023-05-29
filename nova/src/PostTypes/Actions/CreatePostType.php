@@ -14,13 +14,6 @@ class CreatePostType
 
     public function handle(PostTypeData $data): PostType
     {
-        return PostType::create(array_merge(
-            $data->except('fields', 'options')->all(),
-            [
-                'fields' => $data->fields,
-                'options' => $data->options,
-                'sort' => PostType::count(),
-            ]
-        ));
+        return PostType::create($data->all());
     }
 }

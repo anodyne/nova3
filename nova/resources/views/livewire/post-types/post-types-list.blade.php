@@ -1,35 +1,33 @@
 <x-panel class="{{ $reordering ? 'overflow-hidden' : '' }}" x-data="filtersPanel()">
-    <x-panel.header title="Post types" message="Control the content users can post into stories">
+    <x-panel.header title="Post types" message="Control the content users can post into stories" :border="false">
         @if (! $reordering)
             <x-slot:actions>
                 @can('update', $postTypes->first())
-                    <x-link tag="button" color="gray" leading="arrow-sort" wire:click="startReordering">
+                    <x-button.text tag="button" color="gray" leading="arrows-sort" wire:click="startReordering">
                         Reorder
-                    </x-link>
+                    </x-button.text>
                 @endcan
 
                 @if ($postTypes->count() > 0)
                     @can('create', $postTypeClass)
-                        <x-button-filled
-                            tag="a"
+                        <x-button.filled
                             :href="route('post-types.create')"
-                            data-cy="create"
                             class="order-first md:order-last"
                             leading="add"
                         >
-                            Add a post type
-                        </x-button-filled>
+                            Add
+                        </x-button.filled>
                     @endcan
                 @endif
             </x-slot:actions>
         @else
             <x-slot:message>
-                <x-panel.primary icon="arrow-sort" title="Change sorting order" class="mt-4">
+                <x-panel.primary icon="arrows-sort" title="Change sorting order" class="mt-4">
                     <div class="space-y-4">
                         <p>Post types will appear in the order below whenever they're shown throughout Nova. To change the sorting of post types, drag them to the desired order. Click Finish to return to the management view.</p>
 
                         <div>
-                            <x-button-filled wire:click="stopReordering">Finish</x-button-filled>
+                            <x-button.filled wire:click="stopReordering">Finish</x-button.filled>
                         </div>
                     </div>
                 </x-panel.primary>
@@ -53,14 +51,14 @@
                     <x-input.group>
                         <x-input.text placeholder="Find post types(s) by name" wire:model="search">
                             <x-slot:leadingAddOn>
-                                @icon('search', 'h-5 w-5')
+                                <x-icon name="search" size="sm"></x-icon>
                             </x-slot:leadingAddOn>
 
                             @if ($search)
                                 <x-slot:trailingAddOn>
-                                    <x-link tag="button" color="gray" wire:click="$set('search', '')">
-                                        @icon('close', 'h-5 w-5')
-                                    </x-link>
+                                    <x-button.text tag="button" color="gray" wire:click="$set('search', '')">
+                                        <x-icon name="dismiss" size="sm"></x-icon>
+                                    </x-button.text>
                                 </x-slot:trailingAddOn>
                             @endif
                         </x-input.text>
@@ -68,7 +66,7 @@
                 </div>
 
                 <div class="shrink flex justify-between md:justify-start items-center space-x-4">
-                    <x-link
+                    <x-button.text
                         tag="button"
                         :color="$isFiltered ? 'primary' : 'gray'"
                         x-bind="trigger"
@@ -78,7 +76,7 @@
                         @if ($activeFilterCount > 0)
                             <x-badge color="primary" size="sm" class="ml-2">{{ $activeFilterCount }}</x-badge>
                         @endif
-                    </x-link>
+                    </x-button.text>
                 </div>
             </x-content-box>
 
@@ -111,7 +109,7 @@
                         <div class="flex items-center space-x-3">
                             <div class="shrink-0 mt-0.5" style="color:{{ $postType->color }}">
                                 @isset($postType->icon)
-                                    @icon($postType->icon, 'h-6 w-6')
+                                    <x-icon :name="$postType->icon" size="md"></x-icon>
                                 @else
                                     <div class="h-6 w-6"></div>
                                 @endisset
@@ -174,7 +172,7 @@
 
                                 @can('delete', $postType)
                                     <x-dropdown.group>
-                                        <x-dropdown.item-danger type="button" icon="delete" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($postType) }});" data-cy="delete">
+                                        <x-dropdown.item-danger type="button" icon="trash" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($postType) }});" data-cy="delete">
                                             <span>Delete</span>
                                         </x-dropdown.item-danger>
                                     </x-dropdown.group>
@@ -191,13 +189,13 @@
                         :primary-access="gate()->allows('create', $postTypeClass)"
                     >
                         <x-slot:primary>
-                            <x-button-filled tag="a" :href="route('post-types.create')">
+                            <x-button.filled :href="route('post-types.create')" color="primary">
                                 Create your first post type
-                            </x-button-filled>
+                            </x-button.filled>
                         </x-slot:primary>
 
                         <x-slot:secondary>
-                            <x-button-outline wire:click="$set('search', '')">Clear search</x-button-outline>
+                            <x-button.outline wire:click="$set('search', '')" color="gray">Clear search</x-button.outline>
                         </x-slot:secondary>
                     </x-empty-state.not-found>
                 </x-slot:emptyMessage>

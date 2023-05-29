@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Nova\Posts\Models\Post;
+use Nova\PostTypes\Enums\PostTypeStatus;
 use Nova\PostTypes\Models\PostType;
 use Nova\Stories\Models\Story;
 use Nova\Users\Models\User;
@@ -45,13 +46,12 @@ class CreateStoryTables extends Migration
             $table->string('color')->nullable();
             $table->string('icon')->nullable();
             $table->foreignId('role_id')->nullable()->constrained();
-            $table->string('status');
+            $table->string('status')->default(PostTypeStatus::active->value);
             $table->string('visibility')->default('in-character');
             $table->json('fields')->nullable();
             $table->json('options')->nullable();
-            $table->unsignedBigInteger('sort')->nullable();
+            $table->unsignedBigInteger('order_column')->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
 
         Schema::create('posts', function (Blueprint $table) {

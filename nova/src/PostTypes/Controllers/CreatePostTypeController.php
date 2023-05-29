@@ -27,7 +27,7 @@ class CreatePostTypeController extends Controller
 
         return CreatePostTypeResponse::sendWith([
             'fieldTypes' => ['title', 'location', 'day', 'time', 'content', 'rating', 'summary'],
-            'roles' => Role::orderBySort()->get(),
+            'roles' => Role::ordered()->get(),
         ]);
     }
 
