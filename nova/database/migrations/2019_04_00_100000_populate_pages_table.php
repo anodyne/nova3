@@ -95,10 +95,6 @@ class PopulatePagesTable extends Migration
             ['uri' => 'departments', 'key' => 'departments.store', 'verb' => 'post', 'resource' => 'Nova\\Departments\\Controllers\\CreateDepartmentController@store', 'layout' => 'admin'],
             ['uri' => 'departments/{department}/edit', 'key' => 'departments.edit', 'resource' => 'Nova\\Departments\\Controllers\\UpdateDepartmentController@edit', 'layout' => 'admin'],
             ['uri' => 'departments/{department}', 'key' => 'departments.update', 'verb' => 'put', 'resource' => 'Nova\\Departments\\Controllers\\UpdateDepartmentController@update', 'layout' => 'admin'],
-            ['uri' => 'departments/delete', 'key' => 'departments.delete', 'verb' => 'post', 'resource' => 'Nova\\Departments\\Controllers\\DeleteDepartmentController@confirm', 'layout' => 'admin'],
-            ['uri' => 'departments/{department}', 'key' => 'departments.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Departments\\Controllers\\DeleteDepartmentController@destroy', 'layout' => 'admin'],
-            ['uri' => 'departments/confirm-duplicate', 'key' => 'departments.confirm-duplicate', 'verb' => 'post',  'resource' => 'Nova\\Departments\\Controllers\\DuplicateDepartmentController@confirm', 'layout' => 'admin'],
-            ['uri' => 'departments/{original}/duplicate', 'key' => 'departments.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Departments\\Controllers\\DuplicateDepartmentController@duplicate', 'layout' => 'admin'],
 
             ['uri' => 'positions', 'key' => 'positions.index', 'resource' => 'Nova\\Departments\\Controllers\\ShowPositionController@all', 'layout' => 'admin'],
             ['uri' => 'positions/{position}/show', 'key' => 'positions.show', 'resource' => 'Nova\\Departments\\Controllers\\ShowPositionController@show', 'layout' => 'admin'],
@@ -129,9 +125,6 @@ class PopulatePagesTable extends Migration
             ['uri' => 'post-types', 'key' => 'post-types.store', 'verb' => 'post', 'resource' => 'Nova\\PostTypes\\Controllers\\CreatePostTypeController@store', 'layout' => 'admin'],
             ['uri' => 'post-types/{postType}/edit', 'key' => 'post-types.edit', 'resource' => 'Nova\\PostTypes\\Controllers\\UpdatePostTypeController@edit', 'layout' => 'admin'],
             ['uri' => 'post-types/{postType}', 'key' => 'post-types.update', 'verb' => 'put', 'resource' => 'Nova\\PostTypes\\Controllers\\UpdatePostTypeController@update', 'layout' => 'admin'],
-            ['uri' => 'post-types/delete', 'key' => 'post-types.delete', 'verb' => 'post', 'resource' => 'Nova\\PostTypes\\Controllers\\DeletePostTypeController@confirm', 'layout' => 'admin'],
-            ['uri' => 'post-types/{postType}', 'key' => 'post-types.destroy', 'verb' => 'delete', 'resource' => 'Nova\\PostTypes\\Controllers\\DeletePostTypeController@destroy', 'layout' => 'admin'],
-            ['uri' => 'post-types/{original}/duplicate', 'key' => 'post-types.duplicate', 'verb' => 'post', 'resource' => 'Nova\\PostTypes\\Controllers\\DuplicatePostTypeController', 'layout' => 'admin'],
 
             ['uri' => 'stories', 'key' => 'stories.index', 'resource' => 'Nova\\Stories\\Controllers\\ShowStoryController@all', 'layout' => 'admin'],
             ['uri' => 'stories/{story}/show', 'key' => 'stories.show', 'resource' => 'Nova\\Stories\\Controllers\\ShowStoryController@show', 'layout' => 'admin'],

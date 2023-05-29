@@ -31,7 +31,7 @@ class CreateFormTables extends Migration
             $table->string('key');
             $table->string('category');
             $table->string('type')->nullable();
-            $table->integer('sort')->nullable();
+            $table->integer('order_column')->nullable();
             $table->json('settings')->nullable();
             $table->timestamps();
         });
@@ -40,7 +40,7 @@ class CreateFormTables extends Migration
             $table->id();
             $table->foreignIdFor(Form::class);
             $table->foreignIdFor(Block::class);
-            $table->integer('sort')->nullable();
+            $table->integer('order_column')->nullable();
             $table->unsignedInteger('parent_id')->nullable();
             $table->json('settings')->nullable();
             $table->timestamps();

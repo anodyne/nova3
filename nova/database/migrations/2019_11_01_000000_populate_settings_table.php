@@ -23,14 +23,14 @@ class PopulateSettingsTable extends Migration
             'email' => new Email(),
             'appearance' => new Appearance(
                 theme: 'Pulsar',
-                iconSet: 'fluent',
+                iconSet: 'tabler',
                 imagePath: null,
                 colorsGray: 'Gray',
                 colorsPrimary: 'Sky',
                 colorsDanger: 'Rose',
                 colorsWarning: 'Amber',
                 colorsSuccess: 'Emerald',
-                colorsInfo: 'Purple',
+                colorsSecondary: 'Purple',
             ),
             'meta_tags' => new MetaTags(),
             'characters' => Characters::from([

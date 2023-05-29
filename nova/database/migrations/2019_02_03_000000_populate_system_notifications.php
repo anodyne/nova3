@@ -40,9 +40,18 @@ class PopulateSystemNotifications extends Migration
         ];
 
         SystemNotification::unguarded(function () use ($administrativeNotifications, $collectiveNotifications, $personalNotifications) {
-            collect($administrativeNotifications)->each([SystemNotification::class, 'create']);
-            collect($collectiveNotifications)->each([SystemNotification::class, 'create']);
-            collect($personalNotifications)->each([SystemNotification::class, 'create']);
+            $notifications = collect($administrativeNotifications);
+            $notifications = $notifications->merge($collectiveNotifications);
+            $notifications = $notifications->merge($personalNotifications);
+
+            $notifications->each(function ($notification) {
+                $systemNotification = SystemNotification::create($notification);
+                $systemNotification->notifiables()->create([
+                    'web' => true,
+                    'email' => false,
+                    'discord' => false,
+                ]);
+            });
         });
     }
 }

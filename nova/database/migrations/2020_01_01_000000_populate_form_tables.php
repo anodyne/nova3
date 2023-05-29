@@ -68,9 +68,9 @@ class PopulateFormTables extends Migration
         ]);
 
         $form->blocks()->attach([
-            1 => ['sort' => 1],
-            2 => ['sort' => 2, 'parent_id' => 1],
-            3 => ['sort' => 1, 'parent_id' => 2],
+            1 => ['order_column' => 1],
+            2 => ['order_column' => 2, 'parent_id' => 1],
+            3 => ['order_column' => 1, 'parent_id' => 2],
         ]);
     }
 
@@ -83,9 +83,9 @@ class PopulateFormTables extends Migration
         ]);
 
         $form->blocks()->attach([
-            1 => ['sort' => 1],
-            2 => ['sort' => 2, 'parent_id' => 5],
-            3 => ['sort' => 1, 'parent_id' => 6],
+            1 => ['order_column' => 1],
+            2 => ['order_column' => 2, 'parent_id' => 5],
+            3 => ['order_column' => 1, 'parent_id' => 6],
         ]);
     }
 
@@ -98,9 +98,9 @@ class PopulateFormTables extends Migration
         ]);
 
         $form->blocks()->attach([
-            1 => ['sort' => 1],
-            2 => ['sort' => 2, 'parent_id' => 7],
-            3 => ['sort' => 1, 'parent_id' => 8],
+            1 => ['order_column' => 1],
+            2 => ['order_column' => 2, 'parent_id' => 7],
+            3 => ['order_column' => 1, 'parent_id' => 8],
         ]);
     }
 }
