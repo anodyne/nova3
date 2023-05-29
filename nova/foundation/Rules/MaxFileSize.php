@@ -4,21 +4,15 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
+use Closure;
+use Illuminate\Contracts\Validation\ValidationRule;
 
-class MaxFileSize implements Rule
+class MaxFileSize implements ValidationRule
 {
-    public function passes($attribute, $value)
+    public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if ($value === null) {
-            return true;
+        if ($value && $value->getSize() > config('medialibrary.max_file_size')) {
+            $fail('The file size is too large');
         }
-
-        return $value->getSize() <= config('medialibrary.max_file_size');
-    }
-
-    public function message()
-    {
-        return 'The file size is too large.';
     }
 }
