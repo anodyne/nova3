@@ -34,10 +34,23 @@ return [
      */
     'rule_inferrers' => [
         Spatie\LaravelData\RuleInferrers\SometimesRuleInferrer::class,
-        Spatie\LaravelData\RuleInferrers\BuiltInTypesRuleInferrer::class,
-        Spatie\LaravelData\RuleInferrers\AttributesRuleInferrer::class,
         Spatie\LaravelData\RuleInferrers\NullableRuleInferrer::class,
         Spatie\LaravelData\RuleInferrers\RequiredRuleInferrer::class,
+        Spatie\LaravelData\RuleInferrers\BuiltInTypesRuleInferrer::class,
+        Spatie\LaravelData\RuleInferrers\AttributesRuleInferrer::class,
+    ],
+
+    /**
+     * Normalizers return an array representation of the payload, or null if
+     * it cannot normalize the payload. The normalizers below are used for
+     * every data object, unless overridden in a specific data object class.
+     */
+    'normalizers' => [
+        Spatie\LaravelData\Normalizers\ModelNormalizer::class,
+        Spatie\LaravelData\Normalizers\ArrayableNormalizer::class,
+        Spatie\LaravelData\Normalizers\ObjectNormalizer::class,
+        Spatie\LaravelData\Normalizers\ArrayNormalizer::class,
+        Spatie\LaravelData\Normalizers\JsonNormalizer::class,
     ],
 
     /*
@@ -46,4 +59,12 @@ return [
      * `null` if you want to disable wrapping.
      */
     'wrap' => null,
+
+    /**
+     * Adds a specific caster to the Symphony VarDumper component which hides
+     * some properties from data objects and collections when being dumped
+     * by `dump` or `dd`. Can be 'enabled', 'disabled' or 'development'
+     * which will only enable the caster locally.
+     */
+    'var_dumper_caster_mode' => 'development',
 ];

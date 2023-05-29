@@ -15,21 +15,6 @@ return [
     */
 
     'sets' => [
-        'fluent' => [
-            'path' => 'nova/resources/svg/fluent',
-            'prefix' => 'fluent',
-            'class' => '',
-        ],
-        'untitled' => [
-            'path' => 'nova/resources/svg/untitled-ui-icons',
-            'prefix' => 'untitled',
-            'class' => '',
-        ],
-        'fas' => [
-            'path' => 'nova/resources/svg/font-awesome',
-            'prefix' => 'fas',
-            'class' => '',
-        ],
         'empty' => [
             'path' => 'nova/resources/svg/empty-states',
             'prefix' => 'empty',
@@ -39,13 +24,80 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Default Class
+    | Global Default Classes
     |--------------------------------------------------------------------------
     |
-    | This config option allows you to define some classes which will be
-    | applied to all icons by default.
+    | This config option allows you to define some classes which
+    | will be applied by default to all icons.
     |
     */
 
     'class' => 'icon',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Global Default Attributes
+    |--------------------------------------------------------------------------
+    |
+    | This config option allows you to define some attributes which
+    | will be applied by default to all icons.
+    |
+    */
+
+    'attributes' => [
+        // 'width' => 50,
+        // 'height' => 50,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Global Fallback Icon
+    |--------------------------------------------------------------------------
+    |
+    | This config option allows you to define a global fallback
+    | icon when an icon in any set cannot be found. It can
+    | reference any icon from any configured set.
+    |
+    */
+
+    'fallback' => '',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Components
+    |--------------------------------------------------------------------------
+    |
+    | These config options allow you to define some
+    | settings related to Blade Components.
+    |
+    */
+
+    'components' => [
+
+        /*
+        |----------------------------------------------------------------------
+        | Disable Components
+        |----------------------------------------------------------------------
+        |
+        | This config option allows you to disable Blade components
+        | completely. It's useful to avoid performance problems
+        | when working with large icon libraries.
+        |
+        */
+
+        'disabled' => false,
+
+        /*
+        |----------------------------------------------------------------------
+        | Default Icon Component Name
+        |----------------------------------------------------------------------
+        |
+        | This config option allows you to define the name
+        | for the default Icon class component.
+        |
+        */
+
+        'default' => 'bukicon',
+
+    ],
 ];
