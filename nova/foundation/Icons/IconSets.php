@@ -6,11 +6,22 @@ namespace Nova\Foundation\Icons;
 
 class IconSets
 {
-    protected $sets = [];
+    protected ?IconSet $default;
+
+    protected array $sets = [];
 
     public function add($alias, $class): self
     {
         $this->sets[$alias] = $class;
+
+        return $this;
+    }
+
+    public function addDefault($alias, $class): self
+    {
+        $this->add($alias, $class);
+
+        $this->default = $class;
 
         return $this;
     }
@@ -20,11 +31,14 @@ class IconSets
         return $this->sets[$alias];
     }
 
-    public function getDefaultSet(): IconSet
+    public function getCurrentSet(): IconSet
     {
-        $default = settings()?->appearance->iconSet ?? 'fluent';
+        return $this->get(settings()->appearance->iconSet) ?? $this->getDefault();
+    }
 
-        return $this->sets[$default];
+    public function getDefault(): IconSet
+    {
+        return $this->default;
     }
 
     public function getSets(): array

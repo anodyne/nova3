@@ -4,22 +4,29 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Icons;
 
-use Nova\Foundation\Exceptions\IconNotFound;
-
 abstract class IconSet
 {
-    abstract public function map(): array;
+    abstract public function icons(): array;
 
     abstract public function name(): string;
 
     abstract public function prefix(): string;
 
+    public function additionalClasses(): ?string
+    {
+        return null;
+    }
+
     public function getIcon(string $alias): string
     {
-        if (! array_key_exists($alias, $this->map())) {
-            throw IconNotFound::missing($this->name(), $alias);
-        }
+        return data_get($this->map(), $alias, $alias);
+    }
 
-        return data_get($this->map(), $alias);
+    final public function map(): array
+    {
+        return array_merge(
+            app(IconSets::class)->getDefault()->icons(),
+            $this->icons()
+        );
     }
 }

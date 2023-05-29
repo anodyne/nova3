@@ -6,19 +6,19 @@ namespace Nova\Foundation\Icons;
 
 class FontAwesomeSolidIconSet extends IconSet
 {
-    public function map(): array
+    public function icons(): array
     {
         return [
-            'add' => 'circle-plus-solid',
-            'alert' => 'circle-exclamation-solid',
-            'arrow-down' => 'circle-arrow-down-solid',
-            'arrow-left' => 'circle-arrow-left-solid',
-            'arrow-right' => 'circle-arrow-right-solid',
-            'arrow-up' => 'circle-arrow-up-solid',
-            'arrow-sort' => 'arrow-down-short-wide-solid',
-            'book' => 'book-solid',
+            'add' => 'plus',
+            'alert' => 'circle-exclamation',
+            'arrow-down' => 'arrow-down',
+            'arrow-left' => 'arrow-left',
+            'arrow-right' => 'arrow-right',
+            'arrow-up' => 'arrow-up',
+            'arrow-sort' => 'arrow-down-short-wide',
+            'book' => 'book-bookmark',
             'bookmark' => 'bookmark-solid',
-            'calendar' => 'calendar-solid',
+            'calendar' => 'calendar',
             'chart' => 'chart-line-solid',
             'chat' => 'comments-solid',
             'check' => 'circle-check-solid',
@@ -60,7 +60,7 @@ class FontAwesomeSolidIconSet extends IconSet
             'move-up' => 'angles-up-solid',
             'note' => 'note-sticky-solid',
             'notification' => 'bell-solid',
-            'paint-bucket' => 'fill-drip-solid',
+            'paint' => 'fill-drip-solid',
             'phone' => 'mobile-solid',
             'prohibited' => 'ban-solid',
             'question' => 'circle-question-solid',
@@ -101,5 +101,10 @@ class FontAwesomeSolidIconSet extends IconSet
     public function prefix(): string
     {
         return 'fas';
+    }
+
+    public function additionalClasses(): ?string
+    {
+        return 'p-0.5';
     }
 }
