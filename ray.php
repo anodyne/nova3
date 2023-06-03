@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     /*
     * This setting controls whether data should be sent to Ray.
@@ -66,7 +68,7 @@ return [
     * When using Homestead with the VirtualBox provider, you can replace localhost with '10.0.2.2'
     * When using Homestead with the Parallels provider, you can replace localhost with '10.211.55.2'
     */
-    'host' => env('RAY_HOST', 'host.docker.internal'),
+    'host' => env('RAY_HOST', 'localhost'),
 
     /*
     * The port number used to communicate with the Ray app.
