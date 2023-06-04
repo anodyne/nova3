@@ -63,7 +63,7 @@ class NotesList extends Component implements HasForms, HasTable
                             ->using(function (Model $record): Model {
                                 $replica = DuplicateNote::run($record);
 
-                                NoteDuplicated::dispatch($replica, $record);
+                                dispatch(new NoteDuplicated($replica, $record));
 
                                 return $replica;
                             }),
@@ -108,7 +108,7 @@ class NotesList extends Component implements HasForms, HasTable
             ])
             ->emptyStateIcon(iconName('note'))
             ->emptyStateHeading('No notes found')
-            ->emptyStateDescription("Notes help keep your thoughts organized about your game, a story idea, or even as a scratchpad for your next story post.")
+            ->emptyStateDescription('Notes help keep your thoughts organized about your game, a story idea, or even as a scratchpad for your next story post.')
             ->emptyStateActions([
                 CreateAction::make()
                     ->authorize('create')

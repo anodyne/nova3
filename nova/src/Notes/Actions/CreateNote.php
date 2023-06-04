@@ -14,8 +14,6 @@ class CreateNote
 
     public function handle(NoteData $data): Note
     {
-        return $data->user->notes()->create(
-            $data->except('user')->all()
-        );
+        return $data->user()->notes()->create($data->all());
     }
 }

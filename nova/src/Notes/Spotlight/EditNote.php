@@ -37,13 +37,13 @@ class EditNote extends SpotlightCommand
             ->currentUser()
             ->searchFor($query)
             ->get()
-            ->map(function (Note $note) {
-                return new SpotlightSearchResult(
+            ->map(
+                fn (Note $note): SpotlightSearchResult => new SpotlightSearchResult(
                     $note->id,
                     $note->title,
                     sprintf('Edit %s note', $note->title)
-                );
-            });
+                )
+            );
     }
 
     public function execute(Spotlight $spotlight, Note $note): void

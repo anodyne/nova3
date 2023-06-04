@@ -5,7 +5,7 @@
         <x-panel.header title="Edit note">
             <x-slot:actions>
                 <x-button.text :href="route('notes.index')" leading="arrow-left" color="gray">
-                    Back to my notes
+                    Back
                 </x-button.text>
             </x-slot:actions>
         </x-panel.header>

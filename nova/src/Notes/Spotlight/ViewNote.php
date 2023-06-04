@@ -37,13 +37,13 @@ class ViewNote extends SpotlightCommand
             ->currentUser()
             ->searchFor($query)
             ->get()
-            ->map(function ($note) {
-                return new SpotlightSearchResult(
+            ->map(
+                fn (Note $note): SpotlightSearchResult => new SpotlightSearchResult(
                     $note->id,
                     $note->title,
                     sprintf('View %s note', $note->title)
-                );
-            });
+                )
+            );
     }
 
     public function execute(Spotlight $spotlight, Note $note): void
