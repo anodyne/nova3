@@ -144,7 +144,7 @@ class PostTypesList extends Component implements HasForms, HasTable
             ])
             ->filters([
                 TernaryFilter::make('requires_role')
-                    ->label('Requires role')
+                    ->label('Requires a role')
                     ->queries(
                         true: fn (Builder $query): Builder => $query->whereHas('role'),
                         false: fn (Builder $query): Builder => $query->whereDoesntHave('role')

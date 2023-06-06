@@ -56,6 +56,9 @@ class PostType extends Model implements Sortable
         return $this->belongsTo(Role::class);
     }
 
+    /**
+     * This attribute exists to allow for the table to have a column for this data.
+     */
     public function includedInPostTracking(): Attribute
     {
         return Attribute::make(
@@ -63,6 +66,9 @@ class PostType extends Model implements Sortable
         );
     }
 
+    /**
+     * This attribute exists to allow for the table to have a column for this data.
+     */
     public function notifiesUsers(): Attribute
     {
         return Attribute::make(

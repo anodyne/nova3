@@ -28,7 +28,8 @@ trait HasPostType
     public function getAvailablePostTypesProperty(): Collection
     {
         return PostType::with('role')
-            ->whereUserHasAccess(auth()->user()->loadMissing('roles'))
+            ->active()
+            ->userHasAccess(auth()->user()->loadMissing('roles'))
             ->ordered()
             ->get();
     }
