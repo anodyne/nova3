@@ -10,17 +10,21 @@
         })"
     >
         <x-panel.header title="Add a new role">
-            <x-slot:actions>
+            <x-slot name="actions">
                 @can('viewAny', Nova\Roles\Models\Role::class)
-                    <x-button.text :href="route('roles.index')" leading="arrow-left" color="gray">
-                        Back to the roles list
-                    </x-button.text>
+                    <x-button.text :href="route('roles.index')" leading="arrow-left" color="gray">Back</x-button.text>
                 @endcan
-            </x-slot:actions>
+            </x-slot>
         </x-panel.header>
 
         <x-form :action="route('roles.store')">
-            <x-form.section title="Role Info" message="A role is a collection of permissions that allows a user to take certain actions throughout Nova. Since a user can have as many roles as you'd like, we recommend creating roles with fewer permissions to give yourself more freedom to add and remove access for a given user.">
+            <x-form.section title="Role Info">
+                <x-slot name="message">
+                    <p>A role is a collection of permissions that allows a user to take certain actions throughout Nova. Since a user can have as many roles as you'd like, we recommend creating roles with fewer permissions to give yourself more freedom to add and remove access for a given user.</p>
+
+                    <x-panel.primary icon="info">You will be able to assign permissions and users to your new role after creating it.</x-panel.primary>
+                </x-slot>
+
                 <x-input.group label="Name" for="display_name" :error="$errors->first('display_name')">
                     <x-input.text x-model="displayName" id="display_name" name="display_name" data-cy="display_name" />
                 </x-input.group>
@@ -34,9 +38,7 @@
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle field="default" :value="old('default')">
-                        Assign this role to new users
-                    </x-input.toggle>
+                    <x-input.toggle field="default" :value="old('default')">Assign this role to new users</x-input.toggle>
                 </x-input.group>
             </x-form.section>
 
