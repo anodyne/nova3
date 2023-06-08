@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Roles\Livewire;
 
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Notifications\Notification;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
@@ -22,10 +25,13 @@ use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ReplicateAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Roles\Actions\DeleteRole;
+use Nova\Roles\Actions\DuplicateRole;
+use Nova\Roles\Events\RoleDuplicated;
 use Nova\Roles\Models\Role;
 
-class RolesList extends Component implements HasTable
+class RolesList extends Component implements HasForms, HasTable
 {
+    use InteractsWithForms;
     use InteractsWithTable;
 
     public function table(Table $table): Table
@@ -33,17 +39,17 @@ class RolesList extends Component implements HasTable
         return $table
             ->query(
                 Role::withCount([
-                    'user as active_users_count' => fn ($query) => $query->whereActive(),
-                    'user as inactive_users_count' => fn ($query) => $query->whereInactive(),
+                    'user as active_users_count' => fn (Builder $query): Builder => $query->active(),
+                    'user as inactive_users_count' => fn (Builder $query): Builder => $query->inactive(),
                 ])
             )
             ->columns([
                 TextColumn::make('display_name')
                     ->titleColumn()
                     ->label('Name')
-                    ->icon(fn (Model $record) => $record->locked ? iconName('lock-closed') : null)
+                    ->icon(fn (Model $record): ?string => $record->locked ? iconName('lock-closed') : null)
                     ->iconPosition('after')
-                    ->searchable(query: fn (Builder $query, string $search) => $query->searchFor($search)),
+                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search)),
                 TextColumn::make('active_users_count')
                     ->label('# of active users')
                     ->alignCenter()
@@ -67,65 +73,103 @@ class RolesList extends Component implements HasTable
             ])
             ->actions([
                 ActionGroup::make([
-                    ViewAction::make()
-                        ->url(fn (Model $record) => route('departments.show', $record))
-                        ->authorize('view'),
-                    EditAction::make()
-                        ->url(fn (Model $record) => route('departments.edit', $record))
-                        ->authorize('update'),
-                    ReplicateAction::make(),
-                    DeleteAction::make()
-                        ->authorize('delete')
-                        ->modalHeading('Delete department?')
-                        ->modalSubheading("Are you sure you want to delete this department? You won't be able to recover it.")
-                        ->modalSubmitActionLabel('Delete')
-                        ->using(fn (Model $record) => DeleteRole::run($record)),
+                    ActionGroup::make([
+                        ViewAction::make()
+                            ->authorize('view')
+                            ->url(fn (Model $record): string => route('roles.show', $record)),
+                        EditAction::make()
+                            ->authorize('update')
+                            ->url(fn (Model $record): string => route('roles.edit', $record)),
+                    ])->authorizeAny(['view', 'update'])->divided(),
+                    ActionGroup::make([
+                        ReplicateAction::make()
+                            ->modalHeading('Duplicate role?')
+                            ->modalSubheading(
+                                fn (Model $record): string => "Are you sure you want to duplicate the {$record->name} role?"
+                            )
+                            ->modalSubmitActionLabel('Duplicate')
+                            ->action(function (Model $record): void {
+                                $replica = DuplicateRole::run($record);
+
+                                dispatch(new RoleDuplicated($replica, $record));
+
+                                Notification::make()->success()
+                                    ->title("{$record->name} role has been duplicated")
+                                    ->send();
+                            }),
+                    ])->authorize('duplicate')->divided(),
+                    ActionGroup::make([
+                        DeleteAction::make()
+                            ->close()
+                            ->modalHeading('Delete role?')
+                            ->modalSubheading(
+                                fn (Model $record): string => "Are you sure you want to delete the {$record->name} role? You won't be able to recover it. Any user assigned this role will lose access to what this role provides."
+                            )
+                            ->modalSubmitActionLabel('Delete')
+                            ->successNotificationTitle('Role was deleted')
+                            ->using(fn (Model $record): Model => DeleteRole::run($record)),
+                    ])->authorize('delete')->divided(),
                 ]),
             ])
-            ->bulkActions([
+            ->groupedBulkActions([
                 DeleteBulkAction::make()
-                    ->requiresConfirmation()
-                    ->action(
-                        fn (Collection $records) => $records->each(
-                            fn (Model $record) => DeleteRole::run($record)
-                        )
-                    ),
+                    ->authorize('deleteAny')
+                    ->modalHeading(
+                        fn (Collection $records): string => "Delete {$records->count()} selected ".str('role')->plural($records->count()).'?'
+                    )
+                    ->modalSubheading(function (Collection $records): string {
+                        $statement = ($records->count() === 1)
+                            ? 'this 1 role'
+                            : "these {$records->count()} roles";
+
+                        $notice = ($records->count() === 1) ? 'it' : 'them';
+
+                        return "Are you sure you want to delete {$statement}? You won't be able to recover {$notice}. Any user assigned to {$statement} will lose access to what permissions {$statement} provides.";
+                    })
+                    ->modalSubmitActionLabel('Delete')
+                    ->successNotificationTitle('Roles were deleted')
+                    ->using(fn (Collection $records): Collection => $records->each(
+                        fn (Model $record): Model => DeleteRole::run($record)
+                    )),
             ])
-            ->checkIfRecordIsSelectableUsing(fn (Model $record): bool => $record->locked !== true)
             ->filters([
                 TernaryFilter::make('default')
                     ->label('Assigned to new users')
                     ->queries(
-                        true: fn (Builder $query) => $query->where('default', true),
-                        false: fn (Builder $query) => $query->where('default', false),
+                        true: fn (Builder $query): Builder => $query->where('default', true),
+                        false: fn (Builder $query): Builder => $query->where('default', false),
                     ),
                 TernaryFilter::make('has_permissions')
                     ->label('Has assigned permissions')
                     ->queries(
-                        true: fn (Builder $query) => $query->whereHas('permissions'),
-                        false: fn (Builder $query) => $query->whereDoesntHave('permissions'),
+                        true: fn (Builder $query): Builder => $query->whereHas('permissions'),
+                        false: fn (Builder $query): Builder => $query->whereDoesntHave('permissions'),
                     ),
                 TernaryFilter::make('has_users')
                     ->label('Has assigned users')
                     ->queries(
-                        true: fn (Builder $query) => $query->whereHas('user'),
-                        false: fn (Builder $query) => $query->whereDoesntHave('user'),
+                        true: fn (Builder $query): Builder => $query->whereHas('user'),
+                        false: fn (Builder $query): Builder => $query->whereDoesntHave('user'),
                     ),
             ])
             ->reorderable('order_column')
             ->heading('Roles')
-            ->description("Control what users can do throughout Nova")
+            ->description('Control what users can do throughout Nova')
             ->headerActions([
-                CreateAction::make()->label('Add')->url(route('roles.create')),
+                CreateAction::make()
+                    ->authorize('create')
+                    ->label('Add')
+                    ->url(route('roles.create')),
             ])
             ->header(fn () => $this->isTableReordering() ? view('filament.tables.roles-reordering-notice') : null)
-            ->emptyStateIcon(iconName('list'))
-            ->emptyStateHeading('No departments found')
-            ->emptyStateDescription("Departments allow you to organize character positions into logical groups that you can display on your manifests.")
+            ->emptyStateIcon(iconName('key'))
+            ->emptyStateHeading('No roles found')
+            ->emptyStateDescription('Roles allow you to control what users can and cannot access throughout Nova.')
             ->emptyStateActions([
                 CreateAction::make()
-                    ->label('Add a department')
-                    ->url(route('departments.create')),
+                    ->authorize('create')
+                    ->label('Add a role')
+                    ->url(route('roles.create')),
             ]);
     }
 
@@ -133,83 +177,4 @@ class RolesList extends Component implements HasTable
     {
         return view('livewire.filament-table');
     }
-
-    // use AuthorizesRequests;
-    // use CanReorder;
-    // use HasFilters;
-    // use WithPagination;
-
-    // public $search;
-
-    // public function filters(): array
-    // {
-    //     $defaultRoles = Filter::make('default_roles')
-    //         ->options(['yes' => 'Yes', 'no' => 'No'])
-    //         ->meta(['label' => 'Assigned to new user(s)']);
-
-    //     $hasPermissions = Filter::make('has_permissions')
-    //         ->options(['yes' => 'Yes', 'no' => 'No'])
-    //         ->meta(['label' => 'Has assigned permissions']);
-
-    //     $hasUsers = Filter::make('has_users')
-    //         ->options(['yes' => 'Yes', 'no' => 'No'])
-    //         ->meta(['label' => 'Has assigned users']);
-
-    //     return [
-    //         $defaultRoles,
-    //         $hasPermissions,
-    //         $hasUsers,
-    //     ];
-    // }
-
-    // public function clearAll()
-    // {
-    //     $this->reset('search');
-
-    //     $this->emit('livewire-filters-reset');
-
-    //     $this->dispatchBrowserEvent('close-filters-panel');
-    // }
-
-    // public function getFilteredRolesProperty()
-    // {
-    //     $roles = Role::query()
-    //         ->withCount([
-    //             'user as active_users_count' => fn ($query) => $query->whereActive(),
-    //             'user as inactive_users_count' => fn ($query) => $query->whereInactive(),
-    //         ])
-    //         ->with(['user' => fn ($query) => $query->whereActive()->limit(4)])
-    //         ->when($this->getFilterValue('default_roles') === 'yes', fn ($query) => $query->where('default', true))
-    //         ->when($this->getFilterValue('default_roles') === 'no', fn ($query) => $query->where('default', false))
-    //         ->when($this->getFilterValue('has_permissions') === 'yes', fn ($query) => $query->whereHas('permissions'))
-    //         ->when($this->getFilterValue('has_permissions') === 'no', fn ($query) => $query->whereDoesntHave('permissions'))
-    //         ->when($this->getFilterValue('has_users') === 'yes', fn ($query) => $query->whereHas('user'))
-    //         ->when($this->getFilterValue('has_users') === 'no', fn ($query) => $query->whereDoesntHave('user'))
-    //         ->when($this->search, fn ($query, $value) => $query->searchFor($value))
-    //         ->orderBySort();
-
-    //     if ($this->reordering) {
-    //         return $roles->get();
-    //     }
-
-    //     return $roles->paginate();
-    // }
-
-    // public function reorder(array $items): void
-    // {
-    //     $this->authorize('update', new Role());
-
-    //     ReorderRoles::run($items);
-    // }
-
-    // public function render()
-    // {
-    //     return view('livewire.roles.roles-list', [
-    //         'activeFilterCount' => $this->activeFilterCount,
-    //         'isFiltered' => $this->isFiltered,
-    //         'roleClass' => Role::class,
-    //         'roleCount' => Role::count(),
-    //         'roles' => $this->filteredRoles,
-    //     ]);
-    // }
 }

@@ -14,14 +14,16 @@ class DuplicateRole
 
     public function handle(Role $original): Role
     {
-        $role = $original->replicate();
+        if (! $original->locked) {
+            $role = $original->replicate();
 
-        $role->name = implode('-', (new WordGenerator())->words(2));
-        $role->display_name = "Copy of {$role->display_name}";
+            $role->name = implode('-', (new WordGenerator())->words(2));
+            $role->display_name = "Copy of {$role->display_name}";
 
-        $role->save();
+            $role->save();
 
-        $role->syncPermissions($original->permissions);
+            $role->syncPermissions($original->permissions);
+        }
 
         return $role->refresh();
     }

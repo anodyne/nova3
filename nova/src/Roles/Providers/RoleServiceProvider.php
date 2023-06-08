@@ -8,8 +8,10 @@ use Nova\DomainServiceProvider;
 use Nova\Roles\Livewire\ManagePermissions;
 use Nova\Roles\Livewire\ManageUsers;
 use Nova\Roles\Livewire\RolesList;
-use Nova\Roles\Livewire\SelectPermissionsModal;
-use Nova\Roles\Livewire\SelectRolesModal;
+use Nova\Roles\Spotlight\AddRole;
+use Nova\Roles\Spotlight\EditRole;
+use Nova\Roles\Spotlight\ViewRole;
+use Nova\Roles\Spotlight\ViewRoles;
 
 class RoleServiceProvider extends DomainServiceProvider
 {
@@ -19,8 +21,16 @@ class RoleServiceProvider extends DomainServiceProvider
             'roles:list' => RolesList::class,
             'roles:manage-permissions' => ManagePermissions::class,
             'roles:manage-users' => ManageUsers::class,
-            'roles:select-permissions-modal' => SelectPermissionsModal::class,
-            'roles:select-roles-modal' => SelectRolesModal::class,
+        ];
+    }
+
+    public function spotlightCommands(): array
+    {
+        return [
+            AddRole::class,
+            EditRole::class,
+            ViewRole::class,
+            ViewRoles::class,
         ];
     }
 }

@@ -10,7 +10,6 @@ use Laratrust\Models\Role as LaratrustRole;
 use Nova\Roles\Events;
 use Nova\Roles\Models\Builders\RoleBuilder;
 use Nova\Users\Models\States\Active;
-use Nova\Users\Models\User;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\EloquentSortable\Sortable;
@@ -24,6 +23,10 @@ class Role extends LaratrustRole implements Sortable
     use LogsActivity;
     use SortableTrait;
 
+    protected $fillable = [
+        'name', 'display_name', 'description', 'default', 'order_column',
+    ];
+
     protected $casts = [
         'default' => 'boolean',
         'locked' => 'boolean',
@@ -34,10 +37,6 @@ class Role extends LaratrustRole implements Sortable
         'created' => Events\RoleCreated::class,
         'deleted' => Events\RoleDeleted::class,
         'updated' => Events\RoleUpdated::class,
-    ];
-
-    protected $fillable = [
-        'name', 'display_name', 'description', 'default', 'order_column',
     ];
 
     public function getActivitylogOptions(): LogOptions
@@ -62,13 +61,6 @@ class Role extends LaratrustRole implements Sortable
         return parent::getMorphByUserRelation($relationship)
             // ->whereState('status', Active::class)
             ->orderBy('name');
-    }
-
-    public function giveToUser(User $user): self
-    {
-        $user->addRole($this);
-
-        return $this;
     }
 
     public function newEloquentBuilder($query): RoleBuilder

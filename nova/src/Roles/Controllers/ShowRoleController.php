@@ -31,6 +31,7 @@ class ShowRoleController extends Controller
 
         return ShowRoleResponse::sendWith([
             'role' => $role->load('permissions', 'user'),
+            'users' => $role->user()->active()->get(),
         ]);
     }
 }

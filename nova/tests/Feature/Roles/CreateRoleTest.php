@@ -64,7 +64,7 @@ class CreateRoleTest extends TestCase
         $response->assertSuccessful();
 
         $this->assertTrue(
-            Role::whereDefault()->get()->contains('name', $role->name)
+            Role::default()->get()->contains('name', $role->name)
         );
 
         $this->assertDatabaseHas(

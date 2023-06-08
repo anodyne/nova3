@@ -13,6 +13,10 @@ class DeleteRole
 
     public function handle(Role $role): Role
     {
-        return tap($role)->delete();
+        if (! $role->locked) {
+            return tap($role)->delete();
+        }
+
+        return $role;
     }
 }

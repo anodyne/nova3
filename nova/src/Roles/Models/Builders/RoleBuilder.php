@@ -8,6 +8,16 @@ use Illuminate\Database\Eloquent\Builder;
 
 class RoleBuilder extends Builder
 {
+    public function atOrBelowOrderColumn($maxSortValue): Builder
+    {
+        return $this->where('order_column', '>=', $maxSortValue);
+    }
+
+    public function default(): Builder
+    {
+        return $this->where('default', true);
+    }
+
     public function searchFor($search): Builder
     {
         return $this->where(function ($query) use ($search) {
@@ -15,15 +25,5 @@ class RoleBuilder extends Builder
                 ->orWhere('display_name', 'like', "%{$search}%")
                 ->orWhere('description', 'like', "%{$search}%");
         });
-    }
-
-    public function whereAtOrBelowSortOrder($maxSortValue): Builder
-    {
-        return $this->where('sort', '>=', $maxSortValue);
-    }
-
-    public function whereDefault(): Builder
-    {
-        return $this->where('default', true);
     }
 }
