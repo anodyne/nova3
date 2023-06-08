@@ -10,13 +10,11 @@
         })"
     >
         <x-panel.header title="Add a post type">
-            <x-slot:actions>
+            <x-slot name="actions">
                 @can('viewAny', Nova\PostTypes\Models\PostType::class)
-                    <x-button.text :href="route('post-types.index')" leading="arrow-left" color="gray">
-                        Back
-                    </x-button.text>
+                    <x-button.text :href="route('post-types.index')" leading="arrow-left" color="gray">Back</x-button.text>
                 @endcan
-            </x-slot:actions>
+            </x-slot>
 
             <div>
                 <x-content-box class="sm:hidden">
@@ -29,15 +27,9 @@
                 <div class="hidden sm:block">
                     <x-content-box height="none">
                         <nav class="-mb-px flex">
-                            <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('details'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('details') }" @click.prevent="switchTab('details')">
-                                Details
-                            </a>
-                            <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('fields'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('fields') }" @click.prevent="switchTab('fields')">
-                                Fields
-                            </a>
-                            <a href="#" class="whitespace-nowrap ml-8 first:ml-0 py-4 px-1 border-b-2 font-medium text-sm focus:outline-none transition" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('options'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('options') }" @click.prevent="switchTab('options')">
-                                Options
-                            </a>
+                            <a href="#" class="ml-8 whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition first:ml-0 focus:outline-none" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('details'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('details') }" @click.prevent="switchTab('details')">Details</a>
+                            <a href="#" class="ml-8 whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition first:ml-0 focus:outline-none" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('fields'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('fields') }" @click.prevent="switchTab('fields')">Fields</a>
+                            <a href="#" class="ml-8 whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition first:ml-0 focus:outline-none" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('options'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('options') }" @click.prevent="switchTab('options')">Options</a>
                         </nav>
                     </x-content-box>
                 </div>
@@ -58,12 +50,7 @@
                     <x-input.textarea id="description" name="description" data-cy="description" rows="3">{{ old('description') }}</x-input.textarea>
                 </x-input.group>
 
-                <x-input.group
-                    label="Accent Color"
-                    for="color"
-                    help="When setting the accent color for your post type icon, keep in mind that it could be displayed on either a light or dark background."
-                    :error="$errors->first('color')"
-                >
+                <x-input.group label="Accent Color" for="color" help="When setting the accent color for your post type icon, keep in mind that it could be displayed on either a light or dark background." :error="$errors->first('color')">
                     <x-input.color name="color" id="color" :value="old('color', '#0ea5e9')"></x-input.color>
                 </x-input.group>
 
@@ -71,12 +58,7 @@
                     @livewire('icons-select-menu', ['selected' => old('icon')])
                 </x-input.group>
 
-                <x-input.group
-                    label="Visibility"
-                    for="visibility"
-                    help="When displayed on the public site, only in character posts will be visible. Out of character posts will still be visible in the admin panel."
-                    :error="$errors->first('visibility')"
-                >
+                <x-input.group label="Visibility" for="visibility" help="When displayed on the public site, only in character posts will be visible. Out of character posts will still be visible in the admin panel." :error="$errors->first('visibility')">
                     <x-input.radio label="In character" for="in_character" name="visibility" id="in_character" :value="old('visibility', 'in-character')" />
 
                     <span class="ml-6">
@@ -85,66 +67,83 @@
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle
-                        field="status"
-                        :value="old('status', 'active')"
-                        active-value="active"
-                        inactive-value="inactive"
-                    >
-                        Active
-                    </x-input.toggle>
+                    <x-input.toggle field="status" :value="old('status', 'active')" active-value="active" inactive-value="inactive">Active</x-input.toggle>
                 </x-input.group>
             </x-form.section>
 
             <x-form.section title="Fields" message="Post types control which fields are available when creating a post of that type. You can turn any of these fields on/off to suit your game's needs." x-show="isTab('fields')" x-cloak>
-                @foreach ($fieldTypes as $fieldType)
-                    <x-content-box class="px-4 py-5 bg-gray-50 dark:bg-gray-700/50 rounded border border-gray-200 dark:border-gray-700 sm:p-6" x-data="{ '{{ $fieldType }}': true }">
-                        <div @toggle-changed="{{ $fieldType }} = $event.detail.value">
-                            <x-input.toggle field="fields[{{ $fieldType }}][enabled]" :value="old('fields[{{ $fieldType }}][enabled]', true)">
-                                Show the {{ $fieldType }} field
-                            </x-input.toggle>
-                        </div>
+                <div class="space-y-4">
+                    @foreach ($fieldTypes as $fieldType)
+                        <div
+                            x-data="{
+                                expanded: false,
+                                enabled: true,
+                                required: false
+                            }"
+                            class="rounded-lg px-6 py-4"
+                            :class="{
+                                'shadow-md ring-1 ring-inset ring-gray-900/10': expanded,
+                                'transition hover:bg-gray-100': ! expanded,
+                            }"
+                        >
+                            <button type="button" class="flex w-full appearance-none items-center justify-between" @click="expanded = !expanded">
+                                <div class="flex items-center space-x-1">
+                                    <h3 class="text-left text-base font-semibold text-gray-900 dark:text-white">{{ str($fieldType)->ucfirst() }} field</h3>
+                                    <p class="text-lg font-medium text-danger-500" x-show="required">*</p>
+                                </div>
+                                <div class="ml-8 flex shrink-0 items-center space-x-3">
+                                    <x-badge color="success" x-show="enabled">Enabled</x-badge>
+                                    <x-badge color="gray" x-show="!enabled">Disabled</x-badge>
 
-                        <div x-show="{{ $fieldType }}" class="mt-6 px-6 space-y-4">
-                            <x-input.group>
-                                <x-input.toggle field="fields[{{ $fieldType }}][required]" :value="old('fields[{{ $fieldType }}][required]', false)">
-                                    Required to have a value
-                                </x-input.toggle>
-                            </x-input.group>
+                                    <x-icon name="chevron-down" size="md" class="text-gray-400 dark:text-gray-500" x-show="!expanded"></x-icon>
+                                    <x-icon name="chevron-up" size="md" class="text-gray-400 dark:text-gray-500" x-show="expanded"></x-icon>
+                                </div>
+                            </button>
+
+                            <div x-show="expanded" x-collapse x-cloak>
+                                <div class="mt-6 flex justify-between border-t border-gray-100 pt-6 dark:border-gray-800">
+                                    <div class="space-y-0.5">
+                                        <h3 class="text-base font-medium text-gray-700 dark:text-gray-300">Enable</h3>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400">Use the title field for this post type</p>
+                                    </div>
+                                    <div class="ml-8 shrink-0 pt-0.5" x-on:toggle-changed="enabled = !enabled">
+                                        <x-input.toggle field="fields[{{ $fieldType }}][enabled]" :value="old('fields[{{ $fieldType }}][enabled]', true)"></x-input.toggle>
+                                    </div>
+                                </div>
+                                <div class="mt-6 flex justify-between border-t border-gray-100 pt-6">
+                                    <div class="space-y-0.5">
+                                        <h3 class="text-base font-medium text-gray-700 dark:text-gray-300">Require</h3>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400">The field must have a value</p>
+                                    </div>
+                                    <div class="ml-8 shrink-0 pt-0.5" x-on:toggle-changed="required = !required">
+                                        <x-input.toggle field="fields[{{ $fieldType }}][required]" :value="old('fields[{{ $fieldType }}][required]', false)"></x-input.toggle>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </x-content-box>
-                @endforeach
+                    @endforeach
+                </div>
             </x-form.section>
 
             <x-form.section title="Options" message="Post types control the behavior of a post of that type with a wide range of options. You can turn any of these fields on/off to suit your game's needs." x-show="isTab('options')" x-cloak>
                 <x-input.group>
-                    <x-input.toggle field="options[notifiesUsers]" :value="old('options[notifiesUsers]', true)">
-                        Send notification to users when published
-                    </x-input.toggle>
+                    <x-input.toggle field="options[notifiesUsers]" :value="old('options[notifiesUsers]', true)">Send notification to users when published</x-input.toggle>
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle field="options[includedInPostTracking]" :value="old('options[includedInPostTracking]', true)">
-                        Include in post tracking
-                    </x-input.toggle>
+                    <x-input.toggle field="options[includedInPostTracking]" :value="old('options[includedInPostTracking]', true)">Include in post tracking</x-input.toggle>
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle field="options[allowsMultipleAuthors]" :value="old('options[allowsMultipleAuthors]', true)">
-                        Allow multiple authors
-                    </x-input.toggle>
+                    <x-input.toggle field="options[allowsMultipleAuthors]" :value="old('options[allowsMultipleAuthors]', true)">Allow multiple authors</x-input.toggle>
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle field="options[allowsCharacterAuthors]" :value="old('options[allowsCharacterAuthors]', true)">
-                        Allow characters as authors
-                    </x-input.toggle>
+                    <x-input.toggle field="options[allowsCharacterAuthors]" :value="old('options[allowsCharacterAuthors]', true)">Allow characters as authors</x-input.toggle>
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle field="options[allowsUserAuthors]" :value="old('options[allowsUserAuthors]', true)">
-                        Allow users as authors
-                    </x-input.toggle>
+                    <x-input.toggle field="options[allowsUserAuthors]" :value="old('options[allowsUserAuthors]', true)">Allow users as authors</x-input.toggle>
                 </x-input.group>
 
                 <x-input.group label="Restrict posting" help="You can set a specific role a user must have in order to use certain post types.">
