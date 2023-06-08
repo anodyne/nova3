@@ -82,14 +82,14 @@
                             }"
                             class="rounded-lg px-6 py-4"
                             :class="{
-                                'shadow-md ring-1 ring-inset ring-gray-900/10': expanded,
-                                'transition hover:bg-gray-100': ! expanded,
+                                'shadow-md ring-1 ring-inset ring-gray-900/10 dark:bg-gray-800 dark:ring-white/5 dark:shadow-lg': expanded,
+                                'transition hover:bg-gray-100 dark:hover:bg-gray-800': ! expanded,
                             }"
                         >
                             <button type="button" class="flex w-full appearance-none items-center justify-between" @click="expanded = !expanded">
                                 <div class="flex items-center space-x-1">
                                     <h3 class="text-left text-base font-semibold text-gray-900 dark:text-white">{{ str($fieldType)->ucfirst() }} field</h3>
-                                    <p class="text-lg font-medium text-danger-500" x-show="required">*</p>
+                                    <p class="font-medium text-danger-500" x-show="required">*</p>
                                 </div>
                                 <div class="ml-8 flex shrink-0 items-center space-x-3">
                                     <x-badge color="success" x-show="enabled">Enabled</x-badge>
@@ -101,18 +101,18 @@
                             </button>
 
                             <div x-show="expanded" x-collapse x-cloak>
-                                <div class="mt-6 flex justify-between border-t border-gray-100 pt-6 dark:border-gray-800">
+                                <div class="mt-6 flex justify-between border-t border-gray-900/10 pt-6 dark:border-white/5">
                                     <div class="space-y-0.5">
-                                        <h3 class="text-base font-medium text-gray-700 dark:text-gray-300">Enable</h3>
+                                        <h3 class="text-base font-medium text-gray-700 dark:text-gray-200">Enable</h3>
                                         <p class="text-sm text-gray-500 dark:text-gray-400">Use the title field for this post type</p>
                                     </div>
                                     <div class="ml-8 shrink-0 pt-0.5" x-on:toggle-changed="enabled = !enabled">
                                         <x-input.toggle field="fields[{{ $fieldType }}][enabled]" :value="old('fields[{{ $fieldType }}][enabled]', true)"></x-input.toggle>
                                     </div>
                                 </div>
-                                <div class="mt-6 flex justify-between border-t border-gray-100 pt-6">
+                                <div class="mt-6 flex justify-between border-t border-gray-900/10 pt-6 dark:border-white/5">
                                     <div class="space-y-0.5">
-                                        <h3 class="text-base font-medium text-gray-700 dark:text-gray-300">Require</h3>
+                                        <h3 class="text-base font-medium text-gray-700 dark:text-gray-200">Require</h3>
                                         <p class="text-sm text-gray-500 dark:text-gray-400">The field must have a value</p>
                                     </div>
                                     <div class="ml-8 shrink-0 pt-0.5" x-on:toggle-changed="required = !required">
