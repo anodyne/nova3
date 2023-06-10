@@ -15,6 +15,7 @@ use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TrashedFilter;
+use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -127,20 +128,20 @@ class CharactersList extends Component implements HasForms, HasTable
                 ViewColumn::make('name')
                     ->view('filament.tables.columns.character-avatar')
                     ->searchable(query: fn (Builder $query, string $search) => $query->searchFor($search)),
-                TextColumn::make('type')
-                    ->badge()
-                    ->color(fn (Model $record) => $record->type->color())
-                    ->formatStateUsing(fn (Model $record) => $record->type->displayName())
-                    ->toggleable(),
                 TextColumn::make('activeUsers.name')
                     ->visible(auth()->user()->can('viewAny', Character::class))
                     ->label('Played by')
                     ->listWithLineBreaks()
                     ->toggleable(),
+                TextColumn::make('type')
+                    ->badge()
+                    ->color(fn (Model $record) => $record->type->color())
+                    ->formatStateUsing(fn (Model $record) => $record->type->getLabel())
+                    ->toggleable(),
                 TextColumn::make('status')
                     ->badge()
                     ->color(fn (Model $record) => $record->status->color())
-                    ->formatStateUsing(fn (Model $record) => $record->status->displayName())
+                    ->formatStateUsing(fn (Model $record) => $record->status->getLabel())
                     ->toggleable(),
             ])
             ->actions([
@@ -169,7 +170,7 @@ class CharactersList extends Component implements HasForms, HasTable
                         ->using(fn (Model $record) => DeleteCharacter::run($record)),
                 ]),
             ])
-            ->bulkActions([
+            ->groupedBulkActions([
                 BulkAction::make('bulk_activate')
                     ->icon(iconName('check'))
                     ->color('gray')
@@ -210,6 +211,10 @@ class CharactersList extends Component implements HasForms, HasTable
                     ->query(fn (Builder $query) => $query->whereRelation('users', 'users.id', '=', auth()->id())),
                 TrashedFilter::make()->label('Deleted characters'),
             ])
+            ->groups([
+                Group::make('status')->collapsible(),
+                Group::make('type')->collapsible(),
+            ])
             ->heading('Characters')
             ->description("Manage all of the game's characters")
             ->headerActions([
@@ -220,7 +225,7 @@ class CharactersList extends Component implements HasForms, HasTable
             ])
             ->emptyStateIcon(iconName('characters'))
             ->emptyStateHeading('No characters found')
-            ->emptyStateDescription("Departments allow you to organize character positions into logical groups that you can display on your manifests.")
+            ->emptyStateDescription('Departments allow you to organize character positions into logical groups that you can display on your manifests.')
             ->emptyStateActions([
                 CreateAction::make()
                     ->label('Add a character')

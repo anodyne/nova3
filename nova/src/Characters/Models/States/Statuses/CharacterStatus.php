@@ -15,7 +15,7 @@ abstract class CharacterStatus extends State
 
     abstract public function name(): string;
 
-    public function displayName(): string
+    public function getLabel(): string
     {
         return ucfirst($this->name());
     }
