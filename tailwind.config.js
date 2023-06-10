@@ -30,6 +30,9 @@ module.exports = {
         './nova/foundation/View/Components/*.php',
         './nova/vendor/filament/**/*.blade.php',
         './nova/vendor/livewire-ui/modal/resources/views/*.blade.php',
+        './nova/vendor/rawilk/laravel-form-components/src/**/*.php',
+        './nova/vendor/rawilk/laravel-form-components/resources/**/*.php',
+        './nova/vendor/rawilk/laravel-form-components/resources/js/*.js',
         './storage/framework/views/*.php',
     ],
     safelist: [
@@ -39,6 +42,9 @@ module.exports = {
         'text-[#f2634c]',
         'text-[#f99c26]',
         'text-[#130f32]',
+        {
+            pattern: /switch-toggle--*/,
+        },
         {
             pattern: /max-w-(lg|xl|2xl|3xl|4xl|5xl|6xl|7xl)/,
             variants: ['sm', 'md', 'lg', 'xl', '2xl'],

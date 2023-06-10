@@ -1,6 +1,5 @@
 import axios from 'axios';
 import 'alpinejs/dist/cdn';
-import 'flowbite';
 
 import AdminThemeToggle from './components/admin-theme-toggle';
 import ColorPicker from './components/color-picker';
@@ -9,7 +8,7 @@ import Modal from './components/modal';
 import Ratings from './components/ratings';
 import TabsList from './components/tabs-list';
 import TipTap from './components/tiptap';
-import ToggleSwitch from './components/toggle-switch';
+import SwitchToggle from './components/switch-toggle';
 import WordCount from './components/word-count';
 
 document.addEventListener('alpine:init', () => {
@@ -20,7 +19,7 @@ document.addEventListener('alpine:init', () => {
     window.Alpine.data('ratings', Ratings);
     window.Alpine.data('tabsList', TabsList);
     window.Alpine.data('tipTap', TipTap);
-    window.Alpine.data('toggleSwitch', ToggleSwitch);
+    window.Alpine.data('switchToggle', SwitchToggle);
     window.Alpine.data('wordCount', WordCount);
 });
 

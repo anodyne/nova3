@@ -27,6 +27,7 @@
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.12",
         "lorisleiva/laravel-actions": "^2.1",
+        "rawilk/laravel-form-components": "^8.1",
         "saade/blade-iconsax": "^1.1",
         "santigarcor/laratrust": "^8.0",
         "spatie/eloquent-sortable": "^4.0",

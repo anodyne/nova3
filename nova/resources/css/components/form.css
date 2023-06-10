@@ -1,3 +1,43 @@
+@import "../../../vendor/rawilk/laravel-form-components/resources/css/index.css";
+
 .form-field {
-    @apply block flex-1 border-0 bg-transparent text-gray-900 dark:text-white placeholder:text-gray-400 p-0 focus:ring-0 focus:outline-none;
+    @apply block flex-1 border-0 bg-transparent p-0 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-0 dark:text-white;
+}
+
+@layer components {
+    .switch-toggle__label {
+        @apply text-base text-gray-700 dark:text-gray-300;
+    }
+
+    .switch-toggle {
+        @apply bg-gray-200 dark:bg-white/10;
+    }
+
+    .switch-toggle:after {
+        @apply border-white shadow;
+    }
+
+    .peer:focus ~ .switch-toggle {
+        @apply ring-2 ring-offset-2 ring-offset-white dark:ring-offset-gray-900;
+    }
+
+    .peer:checked ~ .switch-toggle {
+        @apply bg-primary-500;
+    }
+
+    .peer:focus ~ .switch-toggle {
+        @apply ring-primary-300 dark:ring-primary-800;
+    }
+
+    .peer:checked ~ .switch-toggle--danger {
+        @apply bg-danger-500;
+    }
+
+    .peer:focus ~ .switch-toggle--danger {
+        @apply ring-danger-300 dark:ring-danger-800;
+    }
+
+    .switch-toggle--sm + .switch-toggle__label {
+        @apply text-sm;
+    }
 }
