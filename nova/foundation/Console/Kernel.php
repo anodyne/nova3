@@ -16,7 +16,10 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('cache:prune-stale-tags')->hourly();
 
+        // Delete any posts that are considered abandoned
         $schedule->command('nova:prune-abandoned-posts')->daily();
+
+        // Send a notification to users if they haven't posted in X days
     }
 
     /**
