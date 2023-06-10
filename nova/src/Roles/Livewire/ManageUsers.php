@@ -14,6 +14,8 @@ class ManageUsers extends Component
 {
     public string $search = '';
 
+    public bool $onlyActive = true;
+
     public Role $role;
 
     public function assignUser(User $user): void
@@ -42,13 +44,15 @@ class ManageUsers extends Component
 
     public function getUsersProperty()
     {
-        return $this->role->user()->active()->get();
+        return $this->role->user()
+            ->when($this->onlyActive, fn (Builder $query) => $query->active())
+            ->get();
     }
 
     public function getFilteredUsersProperty()
     {
         return User::query()
-            ->active()
+            ->when($this->onlyActive, fn (Builder $query) => $query->active())
             ->when(filled($this->search) && $this->search !== '*', fn (Builder $query) => $query->searchFor($this->search))
             ->when(filled($this->search) && $this->search === '*', fn (Builder $query) => $query)
             ->get();
