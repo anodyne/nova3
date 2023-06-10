@@ -64,7 +64,3 @@ input {
         font-stretch: 125%;
     }
 }
-
-.filament-notifications-notification {
-    @apply rounded-lg dark:highlight-white/5 dark:border-none dark:bg-gray-600;
-}

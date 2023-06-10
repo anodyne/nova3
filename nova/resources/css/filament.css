@@ -1,9 +1,9 @@
 .filament-tables-container {
-    @apply rounded-lg bg-white dark:!bg-gray-900 shadow dark:shadow-md ring-1 ring-gray-900/5 dark:!ring-gray-800;
+    @apply rounded-lg bg-white shadow ring-1 ring-gray-900/5 dark:!bg-gray-900 dark:shadow-md dark:!ring-gray-800;
 }
 
 .filament-tables-header-hr-wrapper {
-    @apply pt-0 px-0;
+    @apply px-0 pt-0;
 }
 
 .filament-tables-header-container-content {
@@ -11,14 +11,14 @@
 }
 
 .filament-tables-header {
-    @apply py-4 px-6 mb-0;
+    @apply mb-0 px-6 py-4;
 }
 .filament-tables-header > div {
     @apply md:items-center;
 }
 
 .filament-tables-header-heading {
-    @apply block font-bold text-xl text-gray-900 dark:text-white tracking-tight;
+    @apply block text-xl font-bold tracking-tight text-gray-900 dark:text-white;
 }
 
 .filament-tables-header-description {
@@ -34,25 +34,20 @@
 }
 
 .filament-tables-header-toolbar {
-    @apply py-4 px-6;
+    @apply px-6 py-4;
 }
 
 .filament-tables-search-input > label {
-    @apply inline-flex rounded-md py-2.5 px-3 bg-white dark:bg-white/5 dark:focus-within:bg-white/5 shadow-sm transition space-x-2 border-0 ring-1 ring-inset focus-within:ring-2 focus-within:ring-inset ring-gray-300 focus-within:ring-primary-600 dark:ring-white/10 dark:focus-within:ring-primary-500;
+    @apply inline-flex space-x-2 rounded-md border-0 bg-white px-3 py-2.5 shadow-sm ring-1 ring-inset ring-gray-300 transition focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary-600 dark:bg-white/5 dark:ring-white/10 dark:focus-within:bg-white/5 dark:focus-within:ring-primary-500;
 }
-.filament-tables-search-input
-    > label
-    > .filament-tables-search-input-icon-wrapper {
-    @apply relative shrink-0 h-auto w-auto;
+.filament-tables-search-input > label > .filament-tables-search-input-icon-wrapper {
+    @apply relative h-auto w-auto shrink-0;
 }
-.filament-tables-search-input
-    > label
-    > .filament-tables-search-input-icon-wrapper
-    > svg {
+.filament-tables-search-input > label > .filament-tables-search-input-icon-wrapper > svg {
     @apply text-gray-400 dark:text-gray-500;
 }
 .filament-tables-search-input > label > input {
-    @apply flex-1 appearance-none bg-transparent dark:bg-transparent placeholder-gray-400 dark:placeholder-gray-500 text-gray-900 dark:text-white border-none p-0 focus:ring-0 focus:outline-none focus:text-gray-900 dark:focus:text-white h-auto shadow-none rounded-none;
+    @apply h-auto flex-1 appearance-none rounded-none border-none bg-transparent p-0 text-gray-900 placeholder-gray-400 shadow-none focus:text-gray-900 focus:outline-none focus:ring-0 dark:bg-transparent dark:text-white dark:placeholder-gray-500 dark:focus:text-white;
 }
 
 .filament-tables-filters + .filament-tables-column-toggling {
@@ -78,7 +73,7 @@
     @apply bg-gray-50 dark:bg-gray-700/25;
 }
 .filament-tables-header-cell > button {
-    @apply py-3 px-6 text-gray-500 dark:text-gray-400;
+    @apply px-6 py-3 text-gray-500 dark:text-gray-400;
 }
 
 .filament-tables-table > tbody {
@@ -96,7 +91,7 @@
 }
 .filament-tables-checkbox-cell > label > input[type="checkbox"],
 .filament-forms-checkbox-component {
-    @apply form-checkbox rounded h-4 w-4 bg-white checked:bg-primary-500 border-gray-300 focus:ring-primary-200 focus:ring-offset-white checked:hover:bg-primary-500 focus:text-primary-500 dark:bg-gray-800 dark:checked:bg-primary-500 dark:border-gray-200/[15%] dark:checked:border-primary-500 dark:focus:ring-primary-900 dark:focus:ring-offset-gray-800 dark:checked:hover:bg-primary-500 dark:focus:text-primary-500;
+    @apply form-checkbox h-4 w-4 rounded border-gray-300 bg-white checked:bg-primary-500 checked:hover:bg-primary-500 focus:text-primary-500 focus:ring-primary-200 focus:ring-offset-white dark:border-gray-200/[15%] dark:bg-gray-800 dark:checked:border-primary-500 dark:checked:bg-primary-500 dark:checked:hover:bg-primary-500 dark:focus:text-primary-500 dark:focus:ring-primary-900 dark:focus:ring-offset-gray-800;
 }
 
 .filament-tables-actions-cell {
@@ -104,25 +99,25 @@
 }
 
 .filament-tables-text-column-badge {
-    @apply py-1 rounded-lg ring-1 ring-inset font-medium;
+    @apply rounded-lg py-1 font-medium ring-1 ring-inset;
 }
 .filament-tables-text-column-badge-color-danger {
-    @apply bg-danger-50 dark:bg-danger-400/10 text-danger-600 dark:text-danger-400 ring-danger-500/10 dark:ring-danger-400/20;
+    @apply bg-danger-50 text-danger-600 ring-danger-500/10 dark:bg-danger-400/10 dark:text-danger-400 dark:ring-danger-400/20;
 }
 .filament-tables-text-column-badge-color-gray {
-    @apply bg-gray-50 dark:bg-gray-400/10 text-gray-600 dark:text-gray-400 ring-gray-500/10 dark:ring-gray-400/20;
+    @apply bg-gray-50 text-gray-600 ring-gray-500/10 dark:bg-gray-400/10 dark:text-gray-400 dark:ring-gray-400/20;
 }
 .filament-tables-text-column-badge-color-primary {
-    @apply bg-primary-50 dark:bg-primary-400/10 text-primary-600 dark:text-primary-400 ring-primary-500/10 dark:ring-primary-400/20;
+    @apply bg-primary-50 text-primary-600 ring-primary-500/10 dark:bg-primary-400/10 dark:text-primary-400 dark:ring-primary-400/20;
 }
 .filament-tables-text-column-badge-color-secondary {
-    @apply bg-secondary-50 dark:bg-secondary-400/10 text-secondary-600 dark:text-secondary-400 ring-secondary-500/10 dark:ring-secondary-400/20;
+    @apply bg-secondary-50 text-secondary-600 ring-secondary-500/10 dark:bg-secondary-400/10 dark:text-secondary-400 dark:ring-secondary-400/20;
 }
 .filament-tables-text-column-badge-color-success {
-    @apply bg-success-50 dark:bg-success-400/10 text-success-600 dark:text-success-400 ring-success-500/10 dark:ring-success-400/20;
+    @apply bg-success-50 text-success-600 ring-success-500/10 dark:bg-success-400/10 dark:text-success-400 dark:ring-success-400/20;
 }
 .filament-tables-text-column-badge-color-warning {
-    @apply bg-warning-50 dark:bg-warning-400/10 text-warning-600 dark:text-warning-400 ring-warning-500/10 dark:ring-warning-400/20;
+    @apply bg-warning-50 text-warning-600 ring-warning-500/10 dark:bg-warning-400/10 dark:text-warning-400 dark:ring-warning-400/20;
 }
 
 .filament-tables-group-header-row {
@@ -130,7 +125,7 @@
 }
 
 .filament-tables-pagination-container {
-    @apply px-4 py-4 border-gray-200 dark:!border-gray-800;
+    @apply border-gray-200 px-4 py-4 dark:!border-gray-800;
 }
 .filament-tables-pagination-records-per-page-selector > label {
     @apply flex items-center space-x-2;
@@ -139,7 +134,7 @@
     @apply shrink-0;
 }
 .filament-tables-pagination-records-per-page-selector > label > select {
-    @apply form-select block h-auto w-full pl-3 pr-10 py-1.5 border-0 ring-1 ring-inset text-sm bg-white dark:bg-gray-700/50 text-gray-900 dark:text-white dark:focus:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-inset rounded-md shadow-sm ring-gray-300 dark:ring-gray-200/[15%] focus:ring-primary-400 dark:focus:ring-primary-600;
+    @apply form-select block h-auto w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-400 dark:bg-gray-700/50 dark:text-white dark:ring-gray-200/[15%] dark:focus:bg-gray-800 dark:focus:ring-primary-600;
 }
 
 .filament-tables-empty-state {
@@ -158,41 +153,41 @@
     @apply font-semibold text-gray-900 dark:text-white;
 }
 .filament-tables-empty-state-description {
-    @apply text-base text-gray-600 dark:text-gray-300 leading-relaxed;
+    @apply text-base leading-relaxed text-gray-600 dark:text-gray-300;
 }
 
 .filament-button {
-    @apply rounded-md font-semibold transition px-4 py-2.5 text-sm border-0 ring-1 ring-inset shadow-sm ring-black/10 dark:ring-white/10 text-white;
+    @apply rounded-md border-0 px-4 py-2.5 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-black/10 transition dark:ring-white/10;
 }
 .filament-button-color-primary {
     @apply bg-primary-500 hover:!bg-primary-600;
 }
 .filament-button-color-gray {
-    @apply bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-950/50 text-gray-600 dark:text-gray-400 ring-gray-300 dark:ring-gray-700;
+    @apply bg-white text-gray-600 ring-gray-300 hover:bg-gray-50 dark:bg-gray-900 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-gray-950/50;
 }
 .filament-button-icon {
     @apply ms-0;
 }
 
 .filament-select-input {
-    @apply form-select block h-auto w-full pl-3 pr-10 py-2.5 border-0 ring-1 ring-inset text-sm bg-white dark:bg-gray-700/50 text-gray-900 dark:text-white dark:focus:bg-gray-800 focus:outline-none focus:!ring-2 rounded-md shadow-sm ring-gray-300 dark:ring-gray-200/[15%] focus:ring-primary-400 dark:focus:ring-primary-600;
+    @apply form-select block h-auto w-full rounded-md border-0 bg-white py-2.5 pl-3 pr-10 text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:!ring-2 focus:ring-primary-400 dark:bg-gray-700/50 dark:text-white dark:ring-gray-200/[15%] dark:focus:bg-gray-800 dark:focus:ring-primary-600;
 }
 
 .filament-dropdown-trigger > .filament-icon-button {
-    @apply w-auto h-auto transition text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-transparent dark:hover:!bg-transparent focus:bg-transparent;
+    @apply h-auto w-auto text-gray-500 transition hover:bg-transparent hover:text-gray-600 focus:bg-transparent dark:text-gray-400 dark:hover:!bg-transparent dark:hover:text-gray-300;
 }
 
 .filament-dropdown-panel {
-    @apply ring-gray-900/5 dark:ring-gray-800 divide-gray-200 dark:divide-gray-600/50;
+    @apply divide-gray-200 ring-gray-900/5 dark:divide-gray-600/50 dark:ring-gray-800;
 }
 .filament-dropdown-list {
     @apply p-1.5;
 }
 .filament-dropdown-list-item {
-    @apply gap-3 px-4 py-2 text-base md:text-sm font-medium;
+    @apply gap-3 px-4 py-2 text-base font-medium md:text-sm;
 }
 .filament-dropdown-list-item-color-gray {
-    @apply text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600/50;
+    @apply text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600/50;
 }
 
 .filament-modal .filament-hr {
@@ -202,10 +197,10 @@
     @apply backdrop-blur-sm;
 }
 .filament-modal-window {
-    @apply rounded-lg dark:!bg-gray-900 shadow-xl ring-1 ring-gray-900/5 dark:ring-gray-800 py-0;
+    @apply rounded-lg py-0 shadow-xl ring-1 ring-gray-900/5 dark:!bg-gray-900 dark:ring-gray-800;
 }
 .filament-modal-window > button:first-child {
-    @apply top-6 end-6;
+    @apply end-6 top-6;
 }
 .filament-modal-window > button:first-child > .filament-modal-close-button {
     @apply h-6 w-6;
@@ -214,7 +209,7 @@
     @apply p-0;
 }
 .filament-modal-content > div {
-    @apply text-left space-y-4 px-6 py-6;
+    @apply space-y-4 px-6 py-6 text-left;
 }
 .filament-modal-heading {
     @apply font-semibold text-gray-900 dark:text-white;
@@ -228,10 +223,10 @@
 
 .filament-forms-text-input-component,
 .choices__inner {
-    @apply rounded-md py-2.5 px-3 bg-white dark:bg-gray-800 dark:focus-within:bg-gray-900 shadow-sm border-0 ring-1 ring-inset focus-within:ring-2 focus-within:ring-inset ring-gray-300 focus-within:ring-primary-400 dark:ring-gray-700 dark:focus-within:ring-primary-700;
+    @apply rounded-md border-0 bg-white px-3 py-2.5 shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary-400 dark:bg-gray-800 dark:ring-gray-700 dark:focus-within:bg-gray-900 dark:focus-within:ring-primary-700;
 }
 .filament-forms-text-input-component .filament-forms-input {
-    @apply border-0 shadow-none appearance-none p-0 focus:outline-none focus:border-0 focus:ring-0 rounded-none focus:text-gray-900 dark:focus:text-white;
+    @apply appearance-none rounded-none border-0 p-0 shadow-none focus:border-0 focus:text-gray-900 focus:outline-none focus:ring-0 dark:focus:text-white;
 }
 
 .choices__list--dropdown,
@@ -241,8 +236,12 @@
 
 .choices__list--single .choices__item,
 .choices__input {
-    @apply text-gray-900 dark:text-white placeholder-gray-500;
+    @apply text-gray-900 placeholder-gray-500 dark:text-white;
 }
 .choices__placeholder {
     @apply opacity-100;
+}
+
+.filament-notifications-notification {
+    @apply rounded-lg dark:border-none dark:bg-gray-600 dark:highlight-white/5;
 }
