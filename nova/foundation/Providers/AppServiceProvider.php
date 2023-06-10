@@ -46,6 +46,8 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->registerNovaSingleton();
+        $this->registerResponseFilters();
+        $this->registerFilamentBindings();
     }
 
     public function boot(): void
@@ -144,21 +146,6 @@ class AppServiceProvider extends ServiceProvider
 
     protected function setupFilament(): void
     {
-        $this->app->bind(
-            \Filament\Support\Assets\Js::class,
-            \Nova\Foundation\Filament\Assets\Js::class
-        );
-
-        $this->app->bind(
-            \Filament\Support\Assets\Css::class,
-            \Nova\Foundation\Filament\Assets\Css::class
-        );
-
-        $this->app->bind(
-            \Filament\Support\Assets\AlpineComponent::class,
-            \Nova\Foundation\Filament\Assets\AlpineComponent::class
-        );
-
         app(IconManager::class)->register([
             'filament-tables::search-input.prefix' => Icon::make(iconName('search')),
             'tables::column-toggling.trigger' => Icon::make(iconName('columns')),
@@ -177,5 +164,23 @@ class AppServiceProvider extends ServiceProvider
                 'Version' => Nova::getVersion(),
             ]);
         }
+    }
+
+    protected function registerFilamentBindings(): void
+    {
+        $this->app->bind(
+            \Filament\Support\Assets\Js::class,
+            \Nova\Foundation\Filament\Assets\Js::class
+        );
+
+        $this->app->bind(
+            \Filament\Support\Assets\Css::class,
+            \Nova\Foundation\Filament\Assets\Css::class
+        );
+
+        $this->app->bind(
+            \Filament\Support\Assets\AlpineComponent::class,
+            \Nova\Foundation\Filament\Assets\AlpineComponent::class
+        );
     }
 }

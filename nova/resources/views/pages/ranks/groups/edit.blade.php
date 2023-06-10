@@ -3,13 +3,11 @@
 @section('content')
     <x-panel>
         <x-panel.header title="Edit rank group">
-            <x-slot:actions>
+            <x-slot name="actions">
                 @can('viewAny', $group::class)
-                    <x-button.text :href="route('ranks.groups.index')" leading="arrow-left" color="gray">
-                        Back
-                    </x-button.text>
+                    <x-button.text :href="route('ranks.groups.index')" leading="arrow-left" color="gray">Back</x-button.text>
                 @endcan
-            </x-slot:actions>
+            </x-slot>
         </x-panel.header>
 
         <x-form :action="route('ranks.groups.update', $group)" method="PUT">
@@ -19,27 +17,20 @@
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle
-                        field="status"
-                        :value="old('status', $group->status ?? 'active')"
-                        active-value="active"
-                        inactive-value="inactive"
-                    >
-                        Active
-                    </x-input.toggle>
+                    <x-switch-toggle name="status" :value="old('status', $group->status ?? 'active')" on-value="active" off-value="inactive">Active</x-switch-toggle>
                 </x-input.group>
             </x-form.section>
 
             <x-form.section title="Assigned Ranks" message="These are the ranks that have been assigned to this group.">
-                <div class="flex flex-col w-full">
+                <div class="flex w-full flex-col">
                     @foreach ($group->ranks as $rank)
-                        <div class="group flex items-center justify-between py-2 px-4 rounded odd:bg-gray-50">
+                        <div class="group flex items-center justify-between rounded px-4 py-2 odd:bg-gray-50">
                             <div class="flex items-center">
                                 <x-rank :rank="$rank" />
-                                <span class="font-medium text-sm ml-3">{{ optional($rank->name)->name }}</span>
+                                <span class="ml-3 text-sm font-medium">{{ optional($rank->name)->name }}</span>
                             </div>
                             @can('update', $rank)
-                                <a href="{{ route('ranks.items.edit', $rank) }}" class="text-gray-600 transition ease-in-out duration-200 hover:text-gray-900 group-hover:visible sm:invisible">
+                                <a href="{{ route('ranks.items.edit', $rank) }}" class="text-gray-600 transition duration-200 ease-in-out hover:text-gray-900 group-hover:visible sm:invisible">
                                     <x-icon name="edit" size="sm"></x-icon>
                                 </a>
                             @endcan

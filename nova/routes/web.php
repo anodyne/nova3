@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
-use Nova\PostTypes\Data\Options;
+use Nova\Users\Models\User;
 
 try {
     $pages = cache()->rememberForever('nova.pages', fn () => Nova\Pages\Page::get());
@@ -16,15 +16,12 @@ try {
 }
 
 Route::get('test', function () {
-    $options = [
-        'notifiesUsers' => 'true',
-        'includedInPostTracking' => 'true',
-        'allowsMultipleAuthors' => 'true',
-        'allowsCharacterAuthors' => 'true',
-        'allowsUserAuthors' => 'true',
-    ];
+    $user = User::first();
 
-    dd(Options::from($options));
+    dd(User::query()->whereHas('latestPost', fn ($query) => $query->where('published_at', '<', now()->addDays(2)))->dd()->get());
+
+    dump($user->latestPost()->toSql());
+    dump(data_get($user->latestPost, '0.title'));
 
     return 'done';
 });

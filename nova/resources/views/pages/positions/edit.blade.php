@@ -3,13 +3,11 @@
 @section('content')
     <x-panel>
         <x-panel.header title="Edit position">
-            <x-slot:actions>
+            <x-slot name="actions">
                 @can('viewAny', Nova\Departments\Models\Position::class)
-                    <x-button.text :href="route('positions.index', 'department='.$position->department->id)" leading="arrow-left" color="gray">
-                        Back
-                    </x-button.text>
+                    <x-button.text :href="route('positions.index', 'department='.$position->department->id)" leading="arrow-left" color="gray">Back</x-button.text>
                 @endcan
-            </x-slot:actions>
+            </x-slot>
         </x-panel.header>
 
         <x-form :action="route('positions.update', $position)" method="PUT">
@@ -33,23 +31,19 @@
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle
-                        field="status"
-                        :value="old('status', $position->status ?? 'active')"
-                        active-value="active"
-                        inactive-value="inactive"
-                    >
-                        Active
-                    </x-input.toggle>
+                    <x-switch-toggle name="status" :value="old('status', $position->status ?? 'active')" on-value="active" off-value="inactive">Active</x-switch-toggle>
                 </x-input.group>
             </x-form.section>
 
             <x-form.section title="Availability">
-                <x-slot:message>
+                <x-slot name="message">
                     You can allow or prevent prospective players from picking this position when applying to join by setting the number of available slots.
 
-                    <p class="block"><strong class="font-semibold">Note:</strong> after setting this number, Nova will manage keep the number updated for you as characters are assigned and un-assigned to this position.</p>
-                </x-slot:message>
+                    <p class="block">
+                        <strong class="font-semibold">Note:</strong>
+                        after setting this number, Nova will manage keep the number updated for you as characters are assigned and un-assigned to this position.
+                    </p>
+                </x-slot>
 
                 <x-input.group label="Available Slots" for="available">
                     <div class="w-full sm:w-1/3">

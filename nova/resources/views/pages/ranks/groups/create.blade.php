@@ -3,13 +3,11 @@
 @section('content')
     <x-panel>
         <x-panel.header title="Add a new rank group">
-            <x-slot:actions>
+            <x-slot name="actions">
                 @can('viewAny', Nova\Ranks\Models\RankGroup::class)
-                    <x-button.text :href="route('ranks.groups.index')" leading="arrow-left" color="gray">
-                        Back
-                    </x-button.text>
+                    <x-button.text :href="route('ranks.groups.index')" leading="arrow-left" color="gray">Back</x-button.text>
                 @endcan
-            </x-slot:actions>
+            </x-slot>
         </x-panel.header>
 
         <x-form :action="route('ranks.groups.store')">
@@ -19,14 +17,7 @@
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle
-                        field="status"
-                        :value="old('status', 'active')"
-                        active-value="active"
-                        inactive-value="inactive"
-                    >
-                        Active
-                    </x-input.toggle>
+                    <x-switch-toggle name="status" :value="old('status', 'active')" on-value="active" off-value="inactive">Active</x-switch-toggle>
                 </x-input.group>
             </x-form.section>
 

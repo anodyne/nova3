@@ -44,7 +44,7 @@
                     @endif
                 </div>
                 <div class="mt-5 sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:flex sm:items-center">
-                    <x-input.toggle field="default" :value="old('default')"></x-input.toggle>
+                    <x-switch-toggle name="default" :value="old('default')"></x-switch-toggle>
                 </div>
             </div>
         </x-content-box>
@@ -60,7 +60,7 @@
                     @endif
                 </div>
                 <div class="mt-5 sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:flex sm:items-center">
-                    <x-input.toggle field="default" :value="old('default')"></x-input.toggle>
+                    <x-swtich-toggle name="default" :value="old('default')"></x-swtich-toggle>
                 </div>
             </div>
         </x-content-box>
@@ -73,7 +73,7 @@
                         <p>When triggered, this notification will be sent to the Discord server specified with the settings below.</p>
                     </div>
                     <div class="mt-5 sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:flex sm:items-center">
-                        <x-input.toggle field="default" :value="old('default')"></x-input.toggle>
+                        <x-switch-toggle name="default" :value="old('default')"></x-switch-toggle>
                     </div>
                 </div>
             </x-content-box>

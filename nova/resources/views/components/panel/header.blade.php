@@ -5,13 +5,11 @@
     'border' => true,
 ])
 
-<div
-    @class([
-        'border-b border-gray-200 dark:border-gray-800' => $border
-    ])
->
+<div @class([
+    'border-b border-gray-200 dark:border-gray-800' => $border,
+])>
     <x-content-box height="sm">
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0 md:space-x-6">
+        <div class="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-x-6 md:space-y-0">
             <div>
                 <x-h2>{{ $title }}</x-h2>
 
@@ -21,7 +19,7 @@
             </div>
 
             @if ($actions?->isNotEmpty())
-                <div class="shrink-0 flex flex-row-reverse justify-end md:flex-row items-center space-x-reverse space-x-6 md:space-x-6">
+                <div class="flex shrink-0 flex-row-reverse items-center justify-end space-x-6 space-x-reverse md:flex-row md:space-x-6">
                     {{ $actions }}
                 </div>
             @endif

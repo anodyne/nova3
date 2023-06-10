@@ -29,7 +29,7 @@
             @endif
 
             @if ($secondaryStatus)
-                <x-badge :color="$character->status->color()">{{ $character->status->displayName() }}</x-badge>
+                <x-badge :color="$character->status->color()">{{ $character->status->getLabel() }}</x-badge>
             @endif
 
             @if ($secondaryType)

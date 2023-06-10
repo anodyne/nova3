@@ -6,7 +6,7 @@
 ])
 
 <x-panel as="no-shadow" {{ $attributes }}>
-    <x-content-box :height="$height" :width="$width" class="sm:rounded-lg ring-1 bg-danger-25 dark:bg-danger-950 ring-danger-300 dark:ring-danger-700 text-danger-600 dark:text-danger-400">
+    <x-content-box :height="$height" :width="$width" class="bg-danger-25 text-danger-600 ring-1 ring-danger-300 dark:bg-danger-950 dark:text-danger-400 dark:ring-danger-700 sm:rounded-lg">
         <div class="flex items-start space-x-4">
             @if ($icon)
                 <div class="shrink-0">
@@ -14,7 +14,7 @@
                 </div>
             @endif
 
-            <div class="flex-1 md:flex md:flex-col md:justify-between space-y-2">
+            <div class="flex-1 space-y-2 md:flex md:flex-col md:justify-between">
                 @if ($title)
                     <h3 class="text-base font-medium text-danger-700 dark:text-danger-300">
                         {{ $title }}

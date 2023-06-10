@@ -8,70 +8,61 @@
                     <x-content-box>
                         <div class="flex items-start">
                             <div class="flex flex-col">
-                                <div
-                                    class="text-lg font-semibold text-gray-900 dark:text-gray-100"
-                                    x-data="{}"
-                                    @toggle-changed="livewire.emit('delete-story-toggle', $event.detail.value, {{ $story->id }})"
-                                >
-                                    <x-input.toggle
-                                        field="active"
-                                        :value="old('active', data_get($actions, $story->id.'.story.action') === 'delete')"
-                                        :disabled="$loop->first"
-                                        active-bg="bg-danger-500"
-                                        active-border="border-danger-500"
-                                    >
+                                <div class="text-lg font-semibold text-gray-900 dark:text-gray-100" x-data="{}" @toggle-switch-changed="livewire.emit('delete-story-toggle', $event.detail.value, {{ $story->id }})">
+                                    <x-switch-toggle name="active" :value="old('active', data_get($actions, $story->id.'.story.action') === 'delete')" :disabled="$loop->first" color="danger">
                                         <span class="text-gray-900 dark:text-gray-100">Delete {{ $story->title }}</span>
-                                    </x-input.toggle>
+                                    </x-switch-toggle>
                                 </div>
 
                                 @if ($story->parent && $story->parent_id > 1)
                                     <div class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                                        This story is nested inside <span class="font-semibold">{{ optional($story->parent)->title }}</span>
+                                        This story is nested inside
+                                        <span class="font-semibold">{{ optional($story->parent)->title }}</span>
                                     </div>
                                 @endif
 
-                                <div class="mt-2 max-w-xl text-gray-600 dark:text-gray-400 font-medium flex items-center space-x-6">
+                                <div class="mt-2 flex max-w-xl items-center space-x-6 font-medium text-gray-600 dark:text-gray-400">
                                     @if (data_get($actions, "{$story->id}.story.action") === 'move')
                                         <x-badge color="secondary">
-                                            <x-slot:leadingIcon>
+                                            <x-slot name="leadingIcon">
                                                 <x-icon name="arrow-right" size="sm" class="shrink-0"></x-icon>
-                                            </x-slot:leadingIcon>
+                                            </x-slot>
                                             <span>Story will be moved</span>
                                         </x-badge>
                                     @endif
 
                                     @if (data_get($actions, "{$story->id}.story.action") === 'delete')
                                         <x-badge color="danger">
-                                            <x-slot:leadingIcon>
+                                            <x-slot name="leadingIcon">
                                                 <x-icon name="dismiss" size="sm" class="shrink-0"></x-icon>
-                                            </x-slot:leadingIcon>
+                                            </x-slot>
                                             <span>Story will be deleted</span>
                                         </x-badge>
                                     @endif
 
                                     @if (data_get($actions, "{$story->id}.posts.action") === 'move')
                                         <x-badge color="secondary">
-                                            <x-slot:leadingIcon>
+                                            <x-slot name="leadingIcon">
                                                 <x-icon name="arrow-right" size="sm" class="shrink-0"></x-icon>
-                                            </x-slot:leadingIcon>
+                                            </x-slot>
                                             <span>Story posts will be moved</span>
                                         </x-badge>
                                     @endif
 
                                     @if (data_get($actions, "{$story->id}.posts.action") === 'delete')
                                         <x-badge color="danger">
-                                            <x-slot:leadingIcon>
+                                            <x-slot name="leadingIcon">
                                                 <x-icon name="dismiss" size="sm" class="shrink-0"></x-icon>
-                                            </x-slot:leadingIcon>
+                                            </x-slot>
                                             <span>Story posts will be deleted</span>
                                         </x-badge>
                                     @endif
 
                                     @if (data_get($actions, "{$story->id}.posts.action") === 'none')
                                         <x-badge>
-                                            <x-slot:leadingIcon>
+                                            <x-slot name="leadingIcon">
                                                 <x-icon name="remove" size="sm" class="shrink-0"></x-icon>
-                                            </x-slot:leadingIcon>
+                                            </x-slot>
                                             <span>Story posts will not be updated</span>
                                         </x-badge>
                                     @endif
@@ -95,33 +86,13 @@
                                         <x-input.group>
                                             <div class="flex flex-col space-y-6">
                                                 <div class="flex flex-col space-y-1">
-                                                    <x-input.radio
-                                                        label="Delete story posts"
-                                                        for="delete-posts-{{ $story->id }}"
-                                                        name="posts_action[{{ $story->id }}]"
-                                                        id="delete-posts-{{ $story->id }}"
-                                                        value="delete"
-                                                        :checked="data_get($actions, $story->id.'.posts.action') === 'delete'"
-                                                        wire:click="trackPostsAction({{ $story->id }}, 'delete')"
-                                                    />
-                                                    <label for="delete-posts-{{ $story->id }}" class="ml-6 max-w-xl text-sm text-gray-600 dark:text-gray-400">
-                                                        Delete the posts along with the story. This action is permanent and cannot be undone!
-                                                    </label>
+                                                    <x-input.radio label="Delete story posts" for="delete-posts-{{ $story->id }}" name="posts_action[{{ $story->id }}]" id="delete-posts-{{ $story->id }}" value="delete" :checked="data_get($actions, $story->id.'.posts.action') === 'delete'" wire:click="trackPostsAction({{ $story->id }}, 'delete')" />
+                                                    <label for="delete-posts-{{ $story->id }}" class="ml-6 max-w-xl text-sm text-gray-600 dark:text-gray-400">Delete the posts along with the story. This action is permanent and cannot be undone!</label>
                                                 </div>
 
                                                 <div class="flex flex-col space-y-1">
-                                                    <x-input.radio
-                                                        label="Move story posts"
-                                                        for="move-posts-{{ $story->id }}"
-                                                        name="posts_action[{{ $story->id }}]"
-                                                        id="move-posts-{{ $story->id }}"
-                                                        value="move"
-                                                        :checked="data_get($actions, $story->id.'.posts.action') === 'move'"
-                                                        wire:click="trackPostsAction({{ $story->id }}, 'move')"
-                                                    />
-                                                    <label for="move-posts-{{ $story->id }}" class="ml-6 max-w-xl text-sm text-gray-600 dark:text-gray-400">
-                                                        Move the posts in this story to another story. Everything else about the posts will remain the same.
-                                                    </label>
+                                                    <x-input.radio label="Move story posts" for="move-posts-{{ $story->id }}" name="posts_action[{{ $story->id }}]" id="move-posts-{{ $story->id }}" value="move" :checked="data_get($actions, $story->id.'.posts.action') === 'move'" wire:click="trackPostsAction({{ $story->id }}, 'move')" />
+                                                    <label for="move-posts-{{ $story->id }}" class="ml-6 max-w-xl text-sm text-gray-600 dark:text-gray-400">Move the posts in this story to another story. Everything else about the posts will remain the same.</label>
                                                 </div>
                                             </div>
                                         </x-input.group>
@@ -143,12 +114,15 @@
                     </x-content-box>
                 @endforeach
 
-                <input type="hidden" name="actions" value="{{ json_encode($actions) }}">
+                <input type="hidden" name="actions" value="{{ json_encode($actions) }}" />
             </div>
         </x-content-box>
 
         <x-form.footer>
-            <x-button.filled type="submit" color="primary">Delete @choice('story|stories', $stories)</x-button.filled>
+            <x-button.filled type="submit" color="primary">
+                Delete
+                @choice('story|stories', $stories)
+            </x-button.filled>
             <x-button.outline :href="route('stories.index')" color="gray">Cancel</x-button.outline>
         </x-form.footer>
     </x-form>

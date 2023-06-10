@@ -2,15 +2,15 @@
 
 @section('content')
     <x-page-header :title="$user->name">
-        <x-slot:pretitle>
+        <x-slot name="pretitle">
             <a href="{{ route('users.index', "status={$user->status->name()}") }}">Users</a>
-        </x-slot:pretitle>
+        </x-slot>
 
-        <x-slot:actions>
+        <x-slot name="actions">
             @can('update', $user)
                 <x-button.filled :href="route('users.edit', $user)" color="primary">Edit User</x-button.filled>
             @endcan
-        </x-slot:actions>
+        </x-slot>
     </x-page-header>
 
     <x-panel>
@@ -37,7 +37,7 @@
                 @endif
 
                 <x-input.group label="Status">
-                    <x-badge :color="$user->status->color()">{{ $user->status->displayName() }}</x-badge>
+                    <x-badge :color="$user->status->color()">{{ $user->status->getLabel() }}</x-badge>
                 </x-input.group>
 
                 <x-input.group label="Avatar">
@@ -50,12 +50,16 @@
                     <p class="font-semibold">{{ $user->created_at }}</p>
                 </x-input.group>
 
-                <x-input.group label="Last update">
+                <x-input.group label="Last activity">
                     <p class="font-semibold">{{ $user->updated_at }}</p>
                 </x-input.group>
 
                 <x-input.group label="Last sign in">
-                    <p class="font-semibold"></p>
+                    <p class="font-semibold">{{ $user->latestLogin->created_at }}</p>
+                </x-input.group>
+
+                <x-input.group label="Last posted">
+                    <p class="font-semibold">{{ $user->latestPost[0]->published_at }}</p>
                 </x-input.group>
             </x-form.section>
 

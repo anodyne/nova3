@@ -2,15 +2,13 @@
 
 @section('content')
     <x-page-header :title="$theme->name">
-        <x-slot:pretitle>
+        <x-slot name="pretitle">
             <a href="{{ route('themes.index') }}">Themes</a>
-        </x-slot:pretitle>
+        </x-slot>
     </x-page-header>
 
     @if ($theme->name === 'Pulsar')
-        <x-panel.primary icon="star" title="Default theme">
-            {{ $theme->name }} is currently set as the system default theme. Be careful when making any updates to this theme as it could impact your public-facing site.
-        </x-panel.primary>
+        <x-panel.primary icon="star" title="Default theme">{{ $theme->name }} is currently set as the system default theme. Be careful when making any updates to this theme as it could impact your public-facing site.</x-panel.primary>
     @endif
 
     <x-panel>
@@ -21,12 +19,7 @@
                 </x-input.group>
 
                 <x-input.group label="Location" for="location" :error="$errors->first('location')">
-                    <x-input.text
-                        id="location"
-                        name="location"
-                        :value="old('location', $theme->location)"
-                        leading-add-on="themes/"
-                    />
+                    <x-input.text id="location" name="location" :value="old('location', $theme->location)" leading-add-on="themes/" />
                 </x-input.group>
 
                 <x-input.group label="Preview image" for="preview" :error="$errors->first('preview')">
@@ -38,9 +31,7 @@
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle field="active" :value="old('active', $theme->active ?? '')">
-                        Active
-                    </x-input.toggle>
+                    <x-switch-toggle name="active" :value="old('active', $theme->active ?? false)">Active</x-switch-toggle>
                 </x-input.group>
             </x-form.section>
 

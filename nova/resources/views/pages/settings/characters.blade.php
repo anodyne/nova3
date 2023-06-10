@@ -3,64 +3,44 @@
 @section('content')
     <x-panel>
         <x-panel.header title="Character settings">
-            <x-slot:actions>
+            <x-slot name="actions">
                 <div x-data="{}">
-                    <x-button.outline color="primary" leading="search" @click="$dispatch('toggle-spotlight')">
-                        Find a setting
-                    </x-button.outline>
+                    <x-button.outline color="primary" leading="search" @click="$dispatch('toggle-spotlight')">Find a setting</x-button.outline>
                 </div>
-            </x-slot:actions>
+            </x-slot>
         </x-panel.header>
 
-        <x-form
-            :action="route('settings.update', $tab)"
-            method="PUT"
-            id="character"
-        >
+        <x-form :action="route('settings.update', $tab)" method="PUT" id="character">
             <x-form.section title="Character Creation">
-                <x-slot:message>
+                <x-slot name="message">
                     <p>Change how character creation is handled for users who do not have the Create Character permission.</p>
 
-                    <p class="block"><strong class="font-semibold">Note:</strong> users with the Create Character permission will always be able to create characters regardless of these settings.</p>
-                </x-slot:message>
+                    <p class="block">
+                        <strong class="font-semibold">Note:</strong>
+                        users with the Create Character permission will always be able to create characters regardless of these settings.
+                    </p>
+                </x-slot>
 
                 <x-input.group>
-                    <x-input.toggle
-                        field="allow_character_creation"
-                        :value="old('allow_character_creation', $settings->characters->allowCharacterCreation)"
-                    >
-                        Allow creating characters
-                    </x-input.toggle>
+                    <x-switch-toggle name="allow_character_creation" :value="old('allow_character_creation', $settings->characters->allowCharacterCreation)">Allow creating characters</x-switch-toggle>
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle field="auto_link_character" :value="old('auto_link_character', $settings->characters->autoLinkCharacter)">
-                        Auto-link created character to the creating user
-                    </x-input.toggle>
+                    <x-switch-toggle name="auto_link_character" :value="old('auto_link_character', $settings->characters->autoLinkCharacter)">Auto-link created character to the creating user</x-switch-toggle>
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle field="allow_setting_primary_character" :value="old('allow_setting_primary_character', $settings->characters->allowSettingPrimaryCharacter)" help="Requires auto-linking created characters to be enabled.">
-                        Allow setting created character as a primary character
-                    </x-input.toggle>
-
+                    <x-switch-toggle name="allow_setting_primary_character" :value="old('allow_setting_primary_character', $settings->characters->allowSettingPrimaryCharacter)" help="Requires auto-linking created characters to be enabled.">Allow setting created character as a primary character</x-switch-toggle>
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle
-                        field="require_approval_for_character_creation"
-                        :value="old('require_approval_for_character_creation', $settings->characters->requireApprovalForCharacterCreation)"
-                    >
-                        Require approval for created characters
-                    </x-input.toggle>
+                    <x-switch-toggle name="require_approval_for_character_creation" :value="old('require_approval_for_character_creation', $settings->characters->requireApprovalForCharacterCreation)">Require approval for created characters</x-switch-toggle>
                 </x-input.group>
             </x-form.section>
 
             <x-form.section title="Character Limits" message="Define how many characters a user can have linked to their account. Additional characters beyond the limit can still be created, but will require GM approval to be activated.">
                 <x-input.group>
-                    <x-input.toggle field="enforce_character_limits" :value="old('enforce_character_limits', $settings->characters->enforceCharacterLimits)">
-                        Enforce character limits
-                    </x-input.toggle>
+                    <x-switch-toggle name="enforce_character_limits" :value="old('enforce_character_limits', $settings->characters->enforceCharacterLimits)">Enforce character limits</x-switch-toggle>
                 </x-input.group>
 
                 <x-input.group label="Character Limit">
@@ -75,7 +55,7 @@
                     <div class="block">
                         <x-input.checkbox label="Primary characters" id="primary" value="Nova\Characters\Models\States\Statuses\Primary" for="primary" name="foo[]" />
                     </div>
-                    <div class="block my-2">
+                    <div class="my-2 block">
                         <x-input.checkbox label="Secondary characters" id="secondary" value="Nova\Characters\Models\States\Statuses\Secondary" for="secondary" name="foo[]" />
                     </div>
                     <div class="block">

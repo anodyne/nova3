@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Carbon\CarbonInterface;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Pipeline\Pipeline;
 use Nova\Foundation\Icons\Icon;
@@ -28,6 +29,13 @@ if (! function_exists('blank')) {
         }
 
         return empty($value);
+    }
+}
+
+if (! function_exists('format_date')) {
+    function format_date(CarbonInterface $date)
+    {
+        return $date->format('Y');
     }
 }
 

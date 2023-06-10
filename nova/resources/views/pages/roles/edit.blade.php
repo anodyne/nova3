@@ -25,7 +25,7 @@
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle field="default" :value="old('default', $role->default ?? '')">Assign this role to new users</x-input.toggle>
+                    <x-switch-toggle name="default" :value="old('default', $role->default ?? false)">Assign this role to new users</x-switch-toggle>
                 </x-input.group>
             </x-form.section>
 
@@ -42,7 +42,7 @@
                 </x-panel>
             </x-form.section>
 
-            <x-form.section title="Active users assigned to this role">
+            <x-form.section title="Users assigned to this role">
                 <x-slot name="message">
                     <p>
                         <strong>Please note:</strong>
@@ -50,9 +50,7 @@
                     </p>
                 </x-slot>
 
-                <x-panel>
-                    @livewire('roles:manage-users', ['role' => $role])
-                </x-panel>
+                @livewire('roles:manage-users', ['role' => $role])
             </x-form.section>
 
             <x-form.footer class="mt-4 md:mt-8">

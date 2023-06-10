@@ -5,20 +5,14 @@
 @section('content')
     <x-panel>
         <x-panel.header title="Appearance settings" message="Change the way Nova looks to match your game's design aesthetic">
-            <x-slot:actions>
+            <x-slot name="actions">
                 <div x-data="{}">
-                    <x-button.outline color="primary" leading="search" @click="$dispatch('toggle-spotlight')">
-                        Find a setting
-                    </x-button.outline>
+                    <x-button.outline color="primary" leading="search" @click="$dispatch('toggle-spotlight')">Find a setting</x-button.outline>
                 </div>
-            </x-slot:actions>
+            </x-slot>
         </x-panel.header>
 
-        <x-form
-            :action="route('settings.update', $tab)"
-            method="PUT"
-            id="appearance"
-        >
+        <x-form :action="route('settings.update', $tab)" method="PUT" id="appearance">
             <x-form.section title="Theme" message="Update the way your site looks through the theme and icon set defaults.">
                 <x-input.group label="Theme" for="theme">
                     <x-input.select class="mt-1 block w-full" id="theme" name="theme">
@@ -43,6 +37,12 @@
                         'existingImage' => settings()->getFirstMediaUrl('logo'),
                         'supportMessage' => 'PNG, JPG, SVG up to 5MB',
                     ])
+                </x-input.group>
+            </x-form.section>
+
+            <x-form.section title="Date format" message="You can set how dates are formatted throughout Nova here.">
+                <x-input.group>
+                    <x-input.text placeholder="Set date format"></x-input.text>
                 </x-input.group>
             </x-form.section>
 

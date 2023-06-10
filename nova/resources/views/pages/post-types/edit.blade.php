@@ -59,8 +59,8 @@
                     </span>
                 </x-input.group>
 
-                <x-input.group>
-                    <x-input.toggle field="status" :value="old('status', $postType->status ?? 'active')" active-value="active" inactive-value="inactive">Active</x-input.toggle>
+                <x-input.group :error="$errors->first('status')">
+                    <x-switch-toggle name="status" :value="old('status', $postType->status ?? 'active')" on-value="active" off-value="inactive">Active</x-switch-toggle>
                 </x-input.group>
             </x-form.section>
 
@@ -99,8 +99,8 @@
                                         <h3 class="text-base font-medium text-gray-700 dark:text-gray-200">Enable</h3>
                                         <p class="text-sm text-gray-500 dark:text-gray-400">Use the title field for this post type</p>
                                     </div>
-                                    <div class="ml-8 shrink-0 pt-0.5" x-on:toggle-changed="enabled = !enabled">
-                                        <x-input.toggle field="fields[{{ $fieldType }}][enabled]" :value="old('fields[{{ $fieldType }}][enabled]', $postType->fields->{$fieldType}->enabled)"></x-input.toggle>
+                                    <div class="ml-8 shrink-0 pt-0.5" x-on:toggle-switch-changed="enabled = !enabled">
+                                        <x-switch-toggle name="fields[{{ $fieldType }}][enabled]" :value="old('fields[{{ $fieldType }}][enabled]', $postType->fields->{$fieldType}->enabled)"></x-switch-toggle>
                                     </div>
                                 </div>
                                 <div class="mt-6 flex justify-between border-t border-gray-900/10 pt-6 dark:border-white/5">
@@ -108,8 +108,8 @@
                                         <h3 class="text-base font-medium text-gray-700 dark:text-gray-200">Require</h3>
                                         <p class="text-sm text-gray-500 dark:text-gray-400">The field must have a value</p>
                                     </div>
-                                    <div class="ml-8 shrink-0 pt-0.5" x-on:toggle-changed="required = !required">
-                                        <x-input.toggle field="fields[{{ $fieldType }}][required]" :value="old('fields[{{ $fieldType }}][required]', $postType->fields->{$fieldType}->required)"></x-input.toggle>
+                                    <div class="ml-8 shrink-0 pt-0.5" x-on:toggle-switch-changed="required = !required">
+                                        <x-switch-toggle name="fields[{{ $fieldType }}][required]" :value="old('fields[{{ $fieldType }}][required]', $postType->fields->{$fieldType}->required)"></x-switch-toggle>
                                     </div>
                                 </div>
                             </div>
@@ -120,23 +120,23 @@
 
             <x-form.section title="Options" message="Post types control the behavior of a post of that type with a wide range of options. You can turn any of these fields on/off to suit your game's needs." x-show="isTab('options')" x-cloak>
                 <x-input.group>
-                    <x-input.toggle field="options[notifiesUsers]" :value="old('options[notifiesUsers]', $postType->options->notifiesUsers)">Send notification to users when published</x-input.toggle>
+                    <x-switch-toggle name="options[notifiesUsers]" :value="old('options[notifiesUsers]', $postType->options->notifiesUsers)">Send notification to users when published</x-switch-toggle>
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle field="options[includedInPostTracking]" :value="old('options[includedInPostTracking]', $postType->options->includedInPostTracking)">Include in post tracking</x-input.toggle>
+                    <x-switch-toggle name="options[includedInPostTracking]" :value="old('options[includedInPostTracking]', $postType->options->includedInPostTracking)">Include in post tracking</x-switch-toggle>
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle field="options[allowsMultipleAuthors]" :value="$postType->options->allowsMultipleAuthors">Allow multiple authors</x-input.toggle>
+                    <x-switch-toggle name="options[allowsMultipleAuthors]" :value="$postType->options->allowsMultipleAuthors">Allow multiple authors</x-switch-toggle>
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle field="options[allowsCharacterAuthors]" :value="$postType->options->allowsCharacterAuthors">Allow characters as authors</x-input.toggle>
+                    <x-switch-toggle name="options[allowsCharacterAuthors]" :value="$postType->options->allowsCharacterAuthors">Allow characters as authors</x-switch-toggle>
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle field="options[allowsUserAuthors]" :value="$postType->options->allowsUserAuthors">Allow users as authors</x-input.toggle>
+                    <x-switch-toggle name="options[allowsUserAuthors]" :value="$postType->options->allowsUserAuthors">Allow users as authors</x-switch-toggle>
                 </x-input.group>
 
                 <x-input.group label="Restrict posting" help="You can set a specific role a user must have in order to use certain post types.">

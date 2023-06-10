@@ -3,13 +3,11 @@
 @section('content')
     <x-panel>
         <x-panel.header title="Edit department">
-            <x-slot:actions>
+            <x-slot name="actions">
                 @can('viewAny', Nova\Departments\Models\Department::class)
-                    <x-button.text :href="route('departments.index')" leading="arrow-left" color="gray">
-                        Back
-                    </x-button.text>
+                    <x-button.text :href="route('departments.index')" leading="arrow-left" color="gray">Back</x-button.text>
                 @endcan
-            </x-slot:actions>
+            </x-slot>
         </x-panel.header>
 
         <x-form :action="route('departments.update', $department)" method="PUT">
@@ -23,14 +21,7 @@
                 </x-input.group>
 
                 <x-input.group>
-                    <x-input.toggle
-                        field="status"
-                        :value="old('status', $department->status->value)"
-                        active-value="active"
-                        inactive-value="inactive"
-                    >
-                        Active
-                    </x-input.toggle>
+                    <x-switch-toggle name="status" :value="old('status', $department->status->value)" on-value="active" off-value="inactive">Active</x-switch-toggle>
                 </x-input.group>
             </x-form.section>
 
