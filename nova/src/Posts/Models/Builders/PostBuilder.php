@@ -11,6 +11,7 @@ use Nova\Posts\Models\Post;
 use Nova\Posts\Models\States\Draft;
 use Nova\Posts\Models\States\Published;
 use Nova\Posts\Models\States\Started;
+use Nova\Users\Models\User;
 
 class PostBuilder extends Builder
 {
@@ -33,6 +34,11 @@ class PostBuilder extends Builder
             ->where('created_at', '<', now()->subDays(2)->startOfDay());
     }
 
+    public function whereHasUser(User $user): self
+    {
+        return $this->whereHas('userAuthors', fn (Builder $query) => $query->where('users.id', $user->id));
+    }
+
     public function whereNotPost(Post $post): self
     {
         return $this->where('id', '!=', $post->id);
@@ -53,7 +59,7 @@ class PostBuilder extends Builder
         return $this->whereState('status', Draft::class);
     }
 
-    public function wherePublished(): self
+    public function published(): self
     {
         return $this->whereState('status', Published::class);
     }

@@ -22,9 +22,11 @@ use Nova\Users\Models\User;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\LaravelData\WithData;
 use Spatie\ModelStates\HasStates;
+use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
 class Post extends Model implements Sortable
 {
+    use HasEagerLimit;
     use HasFactory;
     use HasStates;
     use WithData;
@@ -67,7 +69,7 @@ class Post extends Model implements Sortable
     public function participatingUsers(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'post_author')
-            ->wherePivot('post_id', $this->id)
+            ->withPivot(['post_id', 'user_id'])
             ->groupBy('pivot_user_id', 'pivot_post_id');
     }
 
@@ -90,8 +92,7 @@ class Post extends Model implements Sortable
 
     public function postType(): BelongsTo
     {
-        return $this->belongsTo(PostType::class)
-            ->withTrashed();
+        return $this->belongsTo(PostType::class);
     }
 
     public function newEloquentBuilder($query): PostBuilder
