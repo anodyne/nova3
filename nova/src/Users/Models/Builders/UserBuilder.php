@@ -31,27 +31,27 @@ class UserBuilder extends Builder
         );
     }
 
-    public function whereActive(): self
+    public function active(): self
     {
         return $this->whereState('status', Active::class);
     }
 
-    public function whereArchived(): self
+    public function archived(): self
     {
         return $this->whereState('status', Archived::class);
     }
 
-    public function whereInactive(): self
+    public function inactive(): self
     {
         return $this->whereState('status', Inactive::class);
     }
 
-    public function wherePending(): self
+    public function pending(): self
     {
         return $this->whereState('status', Pending::class);
     }
 
-    public function whereNotPending(): self
+    public function notPending(): self
     {
         return $this->whereNotState('status', Pending::class);
     }

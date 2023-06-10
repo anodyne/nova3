@@ -63,4 +63,17 @@ class PronounsData extends Data
             'other' => strtolower($alternate),
         };
     }
+
+    public function __toString()
+    {
+        if ($this->value === 'none') {
+            return '';
+        }
+
+        return implode('/', [
+            $this->subject,
+            $this->object,
+            $this->possessive,
+        ]);
+    }
 }

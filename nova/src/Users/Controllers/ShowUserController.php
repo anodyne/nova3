@@ -30,7 +30,7 @@ class ShowUserController extends Controller
         $this->authorize('view', $user);
 
         return ShowUserResponse::sendWith([
-            'user' => $user->load('roles', 'logins'),
+            'user' => $user->load('roles', 'latestLogin', 'latestPost'),
         ]);
     }
 }

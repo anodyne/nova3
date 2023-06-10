@@ -8,6 +8,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -66,34 +68,42 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia, Laratru
         'password', 'remember_token', 'force_password_reset',
     ];
 
-    public function characters()
+    public function characters(): BelongsToMany
     {
         return $this->belongsToMany(Character::class)
             ->withPivot('primary')
             ->withTimestamps();
     }
 
-    public function activeCharacters()
+    public function activeCharacters(): BelongsToMany
     {
         return $this->characters()->whereState('status', ActiveCharacter::class);
     }
 
-    public function primaryCharacter()
+    public function primaryCharacter(): BelongsToMany
     {
         return $this->activeCharacters()->wherePivot('primary', true);
     }
 
-    public function logins()
+    public function logins(): HasMany
     {
         return $this->hasMany(Login::class);
     }
 
-    public function latestLogin()
+    public function latestLogin(): HasOne
     {
-        return $this->hasOne(Login::class)->ofMany();
+        return $this->logins()->one()->ofMany();
     }
 
-    public function notes()
+    public function latestPost(): BelongsToMany
+    {
+        return $this->belongsToMany(Post::class, 'post_author')
+            ->published()
+            ->latest('published_at')
+            ->limit(1);
+    }
+
+    public function notes(): HasMany
     {
         return $this->hasMany(Note::class);
     }
@@ -133,11 +143,6 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia, Laratru
         );
     }
 
-    /**
-     * Can the user do any management in the app?
-     *
-     * @return bool
-     */
     public function canManage(): Attribute
     {
         return new Attribute(
@@ -181,30 +186,16 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia, Laratru
         );
     }
 
-    /**
-     * Create a new Eloquent Collection instance.
-     *
-     *
-     * @return \Nova\Users\Models\UsersCollection
-     */
     public function newCollection(array $models = []): UsersCollection
     {
         return new UsersCollection($models);
     }
 
-    /**
-     * Use the customized Eloquent builder when working with users.
-     *
-     * @param  \Illuminate\Database\Query\Builder  $query
-     */
     public function newEloquentBuilder($query): UserBuilder
     {
         return new UserBuilder($query);
     }
 
-    /**
-     * Register the media collections for the model.
-     */
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('avatar')

@@ -15,7 +15,7 @@ class Pending extends UserStatus
 
     public function bgColor(): string
     {
-        return "bg-{$this->color()}-500";
+        return 'bg-warning-500';
     }
 
     public function name(): string
