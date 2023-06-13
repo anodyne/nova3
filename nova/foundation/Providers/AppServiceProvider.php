@@ -65,6 +65,7 @@ class AppServiceProvider extends ServiceProvider
 
         $this->registerMacros();
         $this->updateAboutCommand();
+        $this->setupFactories();
 
         if (Nova::isInstalled()) {
             $this->registerIcons();
@@ -72,7 +73,6 @@ class AppServiceProvider extends ServiceProvider
             $this->registerBladeComponents();
             $this->registerLivewireComponents();
             $this->registerResponseFilters();
-            $this->setupFactories();
             $this->setupFilament();
         }
     }
