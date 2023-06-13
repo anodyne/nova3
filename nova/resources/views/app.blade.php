@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="bg-gray-100 dark:bg-gray-950 xl:bg-gray-100">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full bg-white dark:bg-gray-950 xl:bg-gray-100">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
@@ -17,7 +17,7 @@
 
         @stack('headScripts')
     </head>
-    <body class="font-sans text-gray-500 antialiased dark:text-gray-400">
+    <body class="h-full font-sans text-gray-500 antialiased dark:text-gray-400">
         <div id="nova">
             @yield('layout')
         </div>
