@@ -15,21 +15,20 @@
 @import "filament.css";
 
 @font-face {
-    font-family: "Inter var";
+    font-family: "InterVar";
+    font-weight: 100 900;
+    font-display: swap;
     font-style: normal;
-    font-weight: 100 900;
-    font-display: swap;
-    src: url("/dist/fonts/Inter-roman.var.woff2?v=3.18") format("woff2");
-    font-named-instance: "Regular";
+    src: url("/dist/fonts/InterVariable.woff2?v=4.0") format("woff2-variations"), url("/dist/fonts/InterVariable.woff2?v=4.0") format("woff2");
+    src: url("/dist/fonts/InterVariable.woff2?v=4.0") format("woff2") tech("variations");
 }
-
 @font-face {
-    font-family: "Inter var";
-    font-style: italic;
+    font-family: "InterVar";
     font-weight: 100 900;
     font-display: swap;
-    src: url("/dist/fonts/Inter-italic.var.woff2?v=3.18") format("woff2");
-    font-named-instance: "Italic";
+    font-style: italic;
+    src: url("/dist/fonts/InterVariable-Italic.woff2?v=4.0") format("woff2-variations"), url("/dist/fonts/InterVariable-Italic.woff2?v=4.0") format("woff2");
+    src: url("/dist/fonts/InterVariable-Italic.woff2?v=4.0") format("woff2") tech("variations");
 }
 
 body,
