@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Nova\Ranks\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
+use Nova\Ranks\Enums\RankItemStatus;
 use Nova\Ranks\Models\RankName;
-use Nova\Ranks\Models\States\Items\Active;
 
 class RankItemBuilder extends Builder
 {
@@ -18,9 +18,9 @@ class RankItemBuilder extends Builder
         );
     }
 
-    public function whereActive()
+    public function active()
     {
-        return $this->whereState('status', Active::class);
+        return $this->where('status', RankItemStatus::active);
     }
 
     public function whereGroup($group)

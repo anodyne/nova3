@@ -41,7 +41,7 @@ class Position extends Model implements Sortable
 
     public function activeCharacters()
     {
-        return $this->characters()->whereActive();
+        return $this->characters()->active();
     }
 
     public function characters()

@@ -33,7 +33,7 @@ class SelectCharacterAuthorsModal extends ModalComponent
     public function getFilteredCharactersProperty(): Collection
     {
         return Character::query()
-            ->whereActive()
+            ->active()
             ->when($this->search, fn ($query, $search) => $query->searchFor($search))
             ->whereNotIn('id', $this->selected)
             ->get();

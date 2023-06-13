@@ -48,7 +48,7 @@ class RankGroupsList extends Component implements HasForms, HasTable
             ->columns([
                 TextColumn::make('name')
                     ->titleColumn()
-                    ->searchable(query: fn (Builder $query, string $search) => $query->searchFor($search))
+                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search))
                     ->sortable(),
                 TextColumn::make('ranks_count')
                     ->counts('ranks')
@@ -58,7 +58,7 @@ class RankGroupsList extends Component implements HasForms, HasTable
                     ->toggleable(),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (Model $record) => $record->status->color())
+                    ->color(fn (Model $record): string => $record->status->color())
                     ->toggleable(),
             ])
             ->actions([
@@ -66,11 +66,12 @@ class RankGroupsList extends Component implements HasForms, HasTable
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (Model $record) => route('ranks.groups.show', $record)),
+                            ->url(fn (Model $record): string => route('ranks.groups.show', $record)),
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (Model $record) => route('ranks.groups.edit', $record)),
+                            ->url(fn (Model $record): string => route('ranks.groups.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
+
                     ActionGroup::make([
                         ReplicateAction::make()
                             ->form([
@@ -82,16 +83,16 @@ class RankGroupsList extends Component implements HasForms, HasTable
                             ])
                             ->modalHeading('Duplicate rank group?')
                             ->modalSubheading(
-                                fn (Model $record) => "Are you sure you want to duplicate the {$record->name} rank group and all of its ranks?"
+                                fn (Model $record): string => "Are you sure you want to duplicate the {$record->name} rank group and all of its ranks?"
                             )
                             ->modalSubmitActionLabel('Duplicate')
-                            ->action(function (Model $record, array $data) {
+                            ->action(function (Model $record, array $data): void {
                                 $replica = DuplicateRankGroup::run(
                                     $record,
                                     RankGroupData::from(array_merge($record->toArray(), $data))
                                 );
 
-                                RankGroupDuplicated::dispatch($replica, $record);
+                                dispatch(new RankGroupDuplicated($replica, $record));
 
                                 Notification::make()->success()
                                     ->title("{$replica->name} rank group has been created")
@@ -99,15 +100,16 @@ class RankGroupsList extends Component implements HasForms, HasTable
                                     ->send();
                             }),
                     ])->authorize('duplicate')->divided(),
+
                     ActionGroup::make([
                         DeleteAction::make()
                             ->modalHeading('Delete rank group?')
                             ->modalSubheading(
-                                fn (Model $record) => "Are you sure you want to delete the {$record->name} rank group? This will also delete all ranks within the group and any characters with those ranks will need to have new ranks assigned to them."
+                                fn (Model $record): string => "Are you sure you want to delete the {$record->name} rank group? This will also delete all ranks within the group and any characters with those ranks will need to have new ranks assigned to them."
                             )
                             ->modalSubmitActionLabel('Delete')
                             ->successNotificationTitle('Rank group was deleted')
-                            ->using(fn (Model $record) => DeleteRankGroup::run($record)),
+                            ->using(fn (Model $record): Model => DeleteRankGroup::run($record)),
                     ])->authorize('delete')->divided(),
                 ]),
             ])
@@ -115,9 +117,9 @@ class RankGroupsList extends Component implements HasForms, HasTable
                 DeleteBulkAction::make()
                     ->authorize('deleteAny')
                     ->modalHeading(
-                        fn (Collection $records) => "Delete {$records->count()} selected ".str('rank group')->plural($records->count()).'?'
+                        fn (Collection $records): string => "Delete {$records->count()} selected ".str('rank group')->plural($records->count()).'?'
                     )
-                    ->modalSubheading(function (Collection $records) {
+                    ->modalSubheading(function (Collection $records): string {
                         $statement = ($records->count() === 1)
                             ? 'this 1 rank group'
                             : "these {$records->count()} rank groups";
@@ -128,16 +130,16 @@ class RankGroupsList extends Component implements HasForms, HasTable
                     })
                     ->modalSubmitActionLabel('Delete')
                     ->successNotificationTitle('Rank groups were deleted')
-                    ->using(fn (Collection $records) => $records->each(
-                        fn (Model $record) => DeleteRankGroup::run($record)
+                    ->using(fn (Collection $records): Collection => $records->each(
+                        fn (Model $record): Model => DeleteRankGroup::run($record)
                     )),
             ])
             ->filters([
                 TernaryFilter::make('ranks_assigned')
                     ->label('Has ranks assigned')
                     ->queries(
-                        true: fn (Builder $query) => $query->whereHas('ranks'),
-                        false: fn (Builder $query) => $query->whereDoesntHave('ranks')
+                        true: fn (Builder $query): Builder => $query->whereHas('ranks'),
+                        false: fn (Builder $query): Builder => $query->whereDoesntHave('ranks')
                     ),
                 SelectFilter::make('status')->options(RankGroupStatus::class),
             ])

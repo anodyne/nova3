@@ -31,6 +31,11 @@ class UserNotifications extends Component
         return auth()->user()->unreadNotifications()->count() > 0;
     }
 
+    public function getUnreadNotificationsCountProperty(): int
+    {
+        return auth()->user()->unreadNotifications()->count();
+    }
+
     public function markAllNotificationsAsRead(): void
     {
         auth()->user()->unreadNotifications->markAsRead();
@@ -58,6 +63,7 @@ class UserNotifications extends Component
             'hasNotifications' => $this->hasNotifications,
             'hasUnreadNotifications' => $this->hasUnreadNotifications,
             'notifications' => $this->notifications,
+            'unreadNotificationsCount' => $this->unreadNotificationsCount,
         ]);
     }
 }

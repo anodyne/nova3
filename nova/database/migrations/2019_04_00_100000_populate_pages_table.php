@@ -62,10 +62,6 @@ class PopulatePagesTable extends Migration
             ['uri' => 'ranks/groups', 'key' => 'ranks.groups.store', 'verb' => 'post', 'resource' => 'Nova\\Ranks\\Controllers\\Groups\\CreateRankGroupController@store', 'layout' => 'admin'],
             ['uri' => 'ranks/groups/{group}/edit', 'key' => 'ranks.groups.edit', 'resource' => 'Nova\\Ranks\\Controllers\\Groups\\UpdateRankGroupController@edit', 'layout' => 'admin'],
             ['uri' => 'ranks/groups/{group}', 'key' => 'ranks.groups.update', 'verb' => 'put', 'resource' => 'Nova\\Ranks\\Controllers\\Groups\\UpdateRankGroupController@update', 'layout' => 'admin'],
-            ['uri' => 'ranks/groups/delete', 'key' => 'ranks.groups.delete', 'verb' => 'post', 'resource' => 'Nova\\Ranks\\Controllers\\Groups\\DeleteRankGroupController@confirm', 'layout' => 'admin'],
-            ['uri' => 'ranks/groups/{group}', 'key' => 'ranks.groups.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Ranks\\Controllers\\Groups\\DeleteRankGroupController@destroy', 'layout' => 'admin'],
-            ['uri' => 'ranks/groups/confirm-duplicate', 'key' => 'ranks.groups.confirm-duplicate', 'verb' => 'post',  'resource' => 'Nova\\Ranks\\Controllers\\Groups\\DuplicateRankGroupController@confirm', 'layout' => 'admin'],
-            ['uri' => 'ranks/groups/{original}/duplicate', 'key' => 'ranks.groups.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Ranks\\Controllers\\Groups\\DuplicateRankGroupController@duplicate', 'layout' => 'admin'],
 
             ['uri' => 'ranks/names', 'key' => 'ranks.names.index', 'resource' => 'Nova\\Ranks\\Controllers\\Names\\ShowRankNameController@all', 'layout' => 'admin'],
             ['uri' => 'ranks/names/{name}/show', 'key' => 'ranks.names.show', 'resource' => 'Nova\\Ranks\\Controllers\\Names\\ShowRankNameController@show', 'layout' => 'admin'],
@@ -73,9 +69,6 @@ class PopulatePagesTable extends Migration
             ['uri' => 'ranks/names', 'key' => 'ranks.names.store', 'verb' => 'post', 'resource' => 'Nova\\Ranks\\Controllers\\Names\\CreateRankNameController@store', 'layout' => 'admin'],
             ['uri' => 'ranks/names/{name}/edit', 'key' => 'ranks.names.edit', 'resource' => 'Nova\\Ranks\\Controllers\\Names\\UpdateRankNameController@edit', 'layout' => 'admin'],
             ['uri' => 'ranks/names/{name}', 'key' => 'ranks.names.update', 'verb' => 'put', 'resource' => 'Nova\\Ranks\\Controllers\\Names\\UpdateRankNameController@update', 'layout' => 'admin'],
-            ['uri' => 'ranks/names/delete', 'key' => 'ranks.names.delete', 'verb' => 'post', 'resource' => 'Nova\\Ranks\\Controllers\\Names\\DeleteRankNameController@confirm', 'layout' => 'admin'],
-            ['uri' => 'ranks/names/{name}', 'key' => 'ranks.names.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Ranks\\Controllers\\Names\\DeleteRankNameController@destroy', 'layout' => 'admin'],
-            ['uri' => 'ranks/names/{original}/duplicate', 'key' => 'ranks.names.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Ranks\\Controllers\\Names\\DuplicateRankNameController', 'layout' => 'admin'],
 
             ['uri' => 'ranks/items', 'key' => 'ranks.items.index', 'resource' => 'Nova\\Ranks\\Controllers\\Items\\ShowRankItemController@all', 'layout' => 'admin'],
             ['uri' => 'ranks/items/{item}/show', 'key' => 'ranks.items.show', 'resource' => 'Nova\\Ranks\\Controllers\\Items\\ShowRankItemController@show', 'layout' => 'admin'],
@@ -83,8 +76,6 @@ class PopulatePagesTable extends Migration
             ['uri' => 'ranks/items', 'key' => 'ranks.items.store', 'verb' => 'post', 'resource' => 'Nova\\Ranks\\Controllers\\Items\\CreateRankItemController@store', 'layout' => 'admin'],
             ['uri' => 'ranks/items/{item}/edit', 'key' => 'ranks.items.edit', 'resource' => 'Nova\\Ranks\\Controllers\\Items\\UpdateRankItemController@edit', 'layout' => 'admin'],
             ['uri' => 'ranks/items/{item}', 'key' => 'ranks.items.update', 'verb' => 'put', 'resource' => 'Nova\\Ranks\\Controllers\\Items\\UpdateRankItemController@update', 'layout' => 'admin'],
-            ['uri' => 'ranks/items/delete', 'key' => 'ranks.items.delete', 'verb' => 'post', 'resource' => 'Nova\\Ranks\\Controllers\\Items\\DeleteRankItemController@confirm', 'layout' => 'admin'],
-            ['uri' => 'ranks/items/{item}', 'key' => 'ranks.items.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Ranks\\Controllers\\Items\\DeleteRankItemController@destroy', 'layout' => 'admin'],
 
             ['uri' => 'departments', 'key' => 'departments.index', 'resource' => 'Nova\\Departments\\Controllers\\ShowDepartmentController@all', 'layout' => 'admin'],
             ['uri' => 'departments/{department}/show', 'key' => 'departments.show', 'resource' => 'Nova\\Departments\\Controllers\\ShowDepartmentController@show', 'layout' => 'admin'],

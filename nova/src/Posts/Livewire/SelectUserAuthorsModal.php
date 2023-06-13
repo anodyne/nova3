@@ -33,7 +33,7 @@ class SelectUserAuthorsModal extends ModalComponent
     public function getFilteredUsersProperty(): Collection
     {
         return User::query()
-            ->whereActive()
+            ->active()
             ->when($this->search, fn ($query, $search) => $query->searchFor($search))
             ->whereNotIn('id', $this->selected)
             ->get();

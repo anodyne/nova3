@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Ranks\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 use Nova\Ranks\Models\RankItem;
 use Nova\Users\Models\User;
 
@@ -64,17 +65,16 @@ class RankItemPolicy
             : $this->denyAsNotFound();
     }
 
-    /**
-     * Determine whether the user can delete the rank name.
-     *
-     *
-     * @return bool
-     */
-    public function delete(User $user, RankItem $name)
+    public function deleteAny(User $user): Response
     {
         return $user->isAbleTo('rank.delete')
             ? $this->allow()
             : $this->denyAsNotFound();
+    }
+
+    public function delete(User $user, RankItem $name): Response
+    {
+        return $this->deleteAny($user);
     }
 
     /**

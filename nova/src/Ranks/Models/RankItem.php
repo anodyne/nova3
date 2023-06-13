@@ -7,19 +7,17 @@ namespace Nova\Ranks\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Nova\Characters\Models\Character;
+use Nova\Ranks\Enums\RankItemStatus;
 use Nova\Ranks\Events;
 use Nova\Ranks\Models\Builders\RankItemBuilder;
-use Nova\Ranks\Models\States\Items\RankItemStatus;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
-use Spatie\ModelStates\HasStates;
 
 class RankItem extends Model implements Sortable
 {
     use HasFactory;
-    use HasStates;
     use LogsActivity;
     use SortableTrait;
 
@@ -65,11 +63,6 @@ class RankItem extends Model implements Sortable
             );
     }
 
-    /**
-     * Use a custom Eloquent builder.
-     *
-     * @param  \Illuminate\Database\Query\Builder  $query
-     */
     public function newEloquentBuilder($query): RankItemBuilder
     {
         return new RankItemBuilder($query);

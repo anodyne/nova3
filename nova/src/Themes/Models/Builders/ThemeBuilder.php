@@ -11,7 +11,7 @@ class ThemeBuilder extends Builder
 {
     use Filterable;
 
-    public function whereActive(): Builder
+    public function active(): Builder
     {
         return $this->where('active', true);
     }

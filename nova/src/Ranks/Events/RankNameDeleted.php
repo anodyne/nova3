@@ -13,10 +13,8 @@ class RankNameDeleted
     use Dispatchable;
     use SerializesModels;
 
-    public RankName $name;
-
-    public function __construct(RankName $name)
-    {
-        $this->name = $name;
+    public function __construct(
+        public RankName $name
+    ) {
     }
 }

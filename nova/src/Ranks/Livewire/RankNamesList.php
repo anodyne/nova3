@@ -43,7 +43,7 @@ class RankNamesList extends Component implements HasForms, HasTable
             ->columns([
                 TextColumn::make('name')
                     ->titleColumn()
-                    ->searchable(query: fn (Builder $query, string $search) => $query->searchFor($search))
+                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search))
                     ->sortable(),
                 TextColumn::make('ranks_count')
                     ->counts('ranks')
@@ -61,17 +61,17 @@ class RankNamesList extends Component implements HasForms, HasTable
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (Model $record) => route('ranks.names.show', $record)),
+                            ->url(fn (Model $record): string => route('ranks.names.show', $record)),
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (Model $record) => route('ranks.names.edit', $record)),
+                            ->url(fn (Model $record): string => route('ranks.names.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
                     ActionGroup::make([
                         ReplicateAction::make()
-                            ->action(function (Model $record) {
+                            ->action(function (Model $record): void {
                                 $replica = DuplicateRankName::run($record);
 
-                                RankNameDuplicated::dispatch($replica, $record);
+                                dispatch(new RankNameDuplicated($replica, $record));
 
                                 Notification::make()->success()
                                     ->title("{$replica->name} rank name has been created")
@@ -82,11 +82,11 @@ class RankNamesList extends Component implements HasForms, HasTable
                         DeleteAction::make()
                             ->modalHeading('Delete rank name?')
                             ->modalSubheading(
-                                fn (Model $record) => "Are you sure you want to delete the {$record->name} rank name? This will also delete all ranks associated with the name and any characters with those ranks will need to have new ranks assigned to them."
+                                fn (Model $record): string => "Are you sure you want to delete the {$record->name} rank name? This will also delete all ranks associated with the name and any characters with those ranks will need to have new ranks assigned to them."
                             )
                             ->modalSubmitActionLabel('Delete')
                             ->successNotificationTitle('Rank name was deleted')
-                            ->using(fn (Model $record) => DeleteRankName::run($record)),
+                            ->using(fn (Model $record): Model => DeleteRankName::run($record)),
                     ])->authorize('delete')->divided(),
                 ]),
             ])
@@ -94,9 +94,9 @@ class RankNamesList extends Component implements HasForms, HasTable
                 DeleteBulkAction::make()
                     ->authorize('deleteAny')
                     ->modalHeading(
-                        fn (Collection $records) => "Delete {$records->count()} selected ".str('rank name')->plural($records->count()).'?'
+                        fn (Collection $records): string => "Delete {$records->count()} selected ".str('rank name')->plural($records->count()).'?'
                     )
-                    ->modalSubheading(function (Collection $records) {
+                    ->modalSubheading(function (Collection $records): string {
                         $statement = ($records->count() === 1)
                             ? 'this 1 rank name'
                             : "these {$records->count()} rank names";
@@ -107,22 +107,22 @@ class RankNamesList extends Component implements HasForms, HasTable
                     })
                     ->modalSubmitActionLabel('Delete')
                     ->successNotificationTitle('Rank names were deleted')
-                    ->using(fn (Collection $records) => $records->each(
-                        fn (Model $record) => DeleteRankName::run($record)
+                    ->using(fn (Collection $records): Collection => $records->each(
+                        fn (Model $record): Model => DeleteRankName::run($record)
                     )),
             ])
             ->filters([
                 TernaryFilter::make('assigned_ranks')
                     ->label('Has assigned ranks')
                     ->queries(
-                        true: fn (Builder $query) => $query->whereHas('ranks'),
-                        false: fn (Builder $query) => $query->whereDoesntHave('ranks')
+                        true: fn (Builder $query): Builder => $query->whereHas('ranks'),
+                        false: fn (Builder $query): Builder => $query->whereDoesntHave('ranks')
                     ),
                 SelectFilter::make('status')->options(RankNameStatus::class),
             ])
             ->reorderable('order_column')
             ->heading('Rank names')
-            ->description("Re-use basic rank information across all of your rank items")
+            ->description('Re-use basic rank information across all of your rank items')
             ->headerActions([
                 CreateAction::make()
                     ->authorize('create')
@@ -132,7 +132,7 @@ class RankNamesList extends Component implements HasForms, HasTable
             ->header(fn () => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)
             ->emptyStateIcon(iconName('info'))
             ->emptyStateHeading('No rank names found')
-            ->emptyStateDescription("Rank names eliminate the repetitive task of setting the name of a rank by letting you re-use names across all of your rank items.")
+            ->emptyStateDescription('Rank names eliminate the repetitive task of setting the name of a rank by letting you re-use names across all of your rank items.')
             ->emptyStateActions([
                 CreateAction::make()
                     ->authorize('create')

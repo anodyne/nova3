@@ -84,7 +84,7 @@ trait HandlesCharacterAuthors
 
     public function getAllUsersProperty(): Collection
     {
-        return User::whereActive()->get();
+        return User::active()->get();
     }
 
     protected function refreshCharacterAuthors(): void

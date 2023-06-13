@@ -14,6 +14,8 @@ class UpdateRankGroup
 
     public function handle(RankGroup $group, RankGroupData $data): RankGroup
     {
-        return tap($group)->update($data->all())->fresh();
+        return tap($group)
+            ->update($data->all())
+            ->refresh();
     }
 }

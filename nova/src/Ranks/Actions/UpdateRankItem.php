@@ -14,6 +14,8 @@ class UpdateRankItem
 
     public function handle(RankItem $item, RankItemData $data): RankItem
     {
-        return tap($item)->update($data->all())->fresh();
+        return tap($item)
+            ->update($data->all())
+            ->refresh();
     }
 }

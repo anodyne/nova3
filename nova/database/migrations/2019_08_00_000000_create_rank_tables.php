@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Nova\Ranks\Enums\RankGroupStatus;
+use Nova\Ranks\Enums\RankItemStatus;
 use Nova\Ranks\Enums\RankNameStatus;
 
 class CreateRankTables extends Migration
@@ -34,7 +35,7 @@ class CreateRankTables extends Migration
             $table->foreignId('name_id')->constrained('rank_names');
             $table->string('base_image');
             $table->string('overlay_image')->nullable();
-            $table->string('status');
+            $table->string('status')->default(RankItemStatus::active->value);
             $table->unsignedInteger('order_column')->nullable();
             $table->timestamps();
         });

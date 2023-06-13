@@ -14,9 +14,7 @@ class DuplicateRankName
     public function handle(RankName $original): RankName
     {
         $name = $original->replicate();
-
         $name->name = "Copy of {$original->name}";
-
         $name->save();
 
         return $name->refresh();

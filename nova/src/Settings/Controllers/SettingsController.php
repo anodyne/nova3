@@ -28,7 +28,7 @@ class SettingsController extends Controller
             'settings' => $settings,
             'systemNotifications' => SystemNotification::get(),
             'tab' => $tab,
-            'themes' => Theme::whereActive()->orderBy('name')->get(),
+            'themes' => Theme::active()->orderBy('name')->get(),
         ]);
     }
 

@@ -13,10 +13,8 @@ class RankGroupUpdated
     use Dispatchable;
     use SerializesModels;
 
-    public RankGroup $group;
-
-    public function __construct(RankGroup $group)
-    {
-        $this->group = $group;
+    public function __construct(
+        public RankGroup $group
+    ) {
     }
 }

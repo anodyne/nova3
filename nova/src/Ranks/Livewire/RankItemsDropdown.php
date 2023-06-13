@@ -24,7 +24,7 @@ class RankItemsDropdown extends Component
     public function selectRankGroup($groupId)
     {
         $this->items = RankItem::query()
-            ->whereActive()
+            ->active()
             ->whereGroup($groupId)
             ->ordered()
             ->get();

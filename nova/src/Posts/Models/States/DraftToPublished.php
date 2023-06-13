@@ -23,7 +23,7 @@ class DraftToPublished extends Transition
         $this->post->published_at = now();
         $this->post->save();
 
-        User::whereActive()->get()->each->notify(new PostPublished($this->post));
+        User::active()->get()->each->notify(new PostPublished($this->post));
 
         PruneAbandonedPosts::run();
 

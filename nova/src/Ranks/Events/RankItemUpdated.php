@@ -13,10 +13,8 @@ class RankItemUpdated
     use Dispatchable;
     use SerializesModels;
 
-    public RankItem $item;
-
-    public function __construct(RankItem $item)
-    {
-        $this->item = $item;
+    public function __construct(
+        public RankItem $item
+    ) {
     }
 }

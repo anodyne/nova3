@@ -24,6 +24,7 @@ use Nova\Foundation\Filament\Actions\DeleteBulkAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Ranks\Actions\DeleteRankItem;
+use Nova\Ranks\Enums\RankItemStatus;
 use Nova\Ranks\Models\RankItem;
 
 class RankItemsList extends Component implements HasForms, HasTable
@@ -35,44 +36,73 @@ class RankItemsList extends Component implements HasForms, HasTable
     {
         return $table
             ->query(RankItem::query()->withRankName())
+            ->defaultSort('order_column', 'asc')
             ->columns([
                 ViewColumn::make('name')
                     ->view('filament.tables.columns.rank')
-                    ->searchable(query: fn (Builder $query, string $search) => $query->searchFor($search)),
+                    ->searchable(query: fn (Builder $query, string $search) => $query->searchFor($search))
+                    ->sortable(),
                 TextColumn::make('status')
                     ->badge()
                     ->color(fn (Model $record) => $record->status->color())
-                    ->formatStateUsing(fn (Model $record) => $record->status->displayName()),
+                    ->toggleable(),
             ])
             ->groups([
                 Group::make('group.name')->label('Rank group')->collapsible(),
                 Group::make('name.name')->label('Rank name')->collapsible(),
             ])
             ->defaultGroup('group.name')
-            ->defaultSort('order_column', 'asc')
             ->actions([
                 ActionGroup::make([
-                    ViewAction::make()->url(fn (Model $record) => route('ranks.items.show', $record)),
-                    EditAction::make()->url(fn (Model $record) => route('ranks.items.edit', $record)),
-                    DeleteAction::make()
-                        ->modalHeading('Delete rank item?')
-                        ->modalSubheading("Are you sure you want to delete this rank? You won't be able to recover it.")
-                        ->modalSubmitActionLabel('Delete')
-                        ->using(fn (Model $record) => DeleteRankItem::run($record)),
+                    ActionGroup::make([
+                        ViewAction::make()
+                            ->authorize('view')
+                            ->url(fn (Model $record): string => route('ranks.items.show', $record)),
+                        EditAction::make()
+                            ->authorize('update')
+                            ->url(fn (Model $record): string => route('ranks.items.edit', $record)),
+                    ])->authorizeAny(['view', 'update'])->divided(),
+                    ActionGroup::make([
+                        DeleteAction::make()
+                            ->modalHeading('Delete rank item?')
+                            ->modalSubheading("Are you sure you want to delete this rank? You won't be able to recover it. Any character with this rank will need to have a new rank assigned to them.")
+                            ->modalSubmitActionLabel('Delete')
+                            ->successNotificationTitle('Rank name was deleted')
+                            ->using(fn (Model $record): Model => DeleteRankItem::run($record)),
+                    ])->authorize('delete')->divided(),
                 ]),
             ])
-            ->bulkActions([
+            ->groupedBulkActions([
                 DeleteBulkAction::make()
-                    ->action(
-                        fn (Collection $records) => $records->each(
-                            fn (Model $record) => DeleteRankItem::run($record)
-                        )
-                    ),
+                    ->authorize('deleteAny')
+                    ->modalHeading(
+                        fn (Collection $records): string => "Delete {$records->count()} selected ".str('rank item')->plural($records->count()).'?'
+                    )
+                    ->modalSubheading(function (Collection $records): string {
+                        $statement = ($records->count() === 1)
+                            ? 'this 1 rank item'
+                            : "these {$records->count()} rank items";
+
+                        $notice = ($records->count() === 1) ? 'it' : 'them';
+
+                        return "Are you sure you want to delete {$statement}? You won't be able to recover {$notice}. Any characters with those ranks will need to have new ranks assigned to them.";
+                    })
+                    ->modalSubmitActionLabel('Delete')
+                    ->successNotificationTitle('Rank items were deleted')
+                    ->using(fn (Collection $records): Collection => $records->each(
+                        fn (Model $record): Model => DeleteRankItem::run($record)
+                    )),
             ])
             ->filters([
-                SelectFilter::make('group_id')->relationship('group', 'name')->label('Rank group'),
-                SelectFilter::make('name_id')->relationship('name', 'name')->label('Rank name'),
-                SelectFilter::make('status')->options(fn () => RankItem::getStatesFor('status')),
+                SelectFilter::make('group_id')
+                    ->relationship('group', 'name')
+                    ->multiple()
+                    ->label('Rank group'),
+                SelectFilter::make('name_id')
+                    ->relationship('name', 'name')
+                    ->multiple()
+                    ->label('Rank name'),
+                SelectFilter::make('status')->options(RankItemStatus::class),
             ])
             ->reorderable('order_column')
             ->heading('Rank items')

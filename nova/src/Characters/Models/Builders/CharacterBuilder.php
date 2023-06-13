@@ -38,7 +38,7 @@ class CharacterBuilder extends Builder
             });
     }
 
-    public function whereActive(): Builder
+    public function active(): Builder
     {
         return $this->whereState('status', Active::class);
     }
