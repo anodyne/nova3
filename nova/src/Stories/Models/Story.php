@@ -61,14 +61,14 @@ class Story extends Model implements HasMedia, Sortable
     public function posts()
     {
         return $this->hasMany(Post::class, 'story_id')
-            ->wherePublished()
+            ->published()
             ->ordered();
     }
 
     public function recursivePosts()
     {
         return $this->hasManyOfDescendantsAndSelf(Post::class)
-            ->wherePublished()
+            ->published()
             ->ordered();
     }
 

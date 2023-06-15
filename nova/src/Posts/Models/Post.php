@@ -22,15 +22,15 @@ use Nova\Users\Models\User;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\LaravelData\WithData;
 use Spatie\ModelStates\HasStates;
-use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
+use Staudenmeir\EloquentEagerLimitXLaravelAdjacencyList\Eloquent\HasEagerLimitAndRecursiveRelationships;
 
 class Post extends Model implements Sortable
 {
-    use HasEagerLimit;
     use HasFactory;
     use HasStates;
     use WithData;
     use SortableTrait;
+    use HasEagerLimitAndRecursiveRelationships;
 
     protected $table = 'posts';
 
