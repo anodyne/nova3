@@ -15,7 +15,7 @@ class Inactive extends CharacterStatus
 
     public function bgColor(): string
     {
-        return "bg-{$this->color()}-400 dark:bg-{$this->color()}->500";
+        return 'bg-gray-400 dark:bg-gray->500';
     }
 
     public function name(): string

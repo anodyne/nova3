@@ -6,9 +6,8 @@ namespace Tests\Unit\Characters\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Characters\Actions\SetCharacterType;
+use Nova\Characters\Enums\CharacterType;
 use Nova\Characters\Models\Character;
-use Nova\Characters\Models\States\Types\Primary;
-use Nova\Characters\Models\States\Types\Secondary;
 use Nova\Users\Models\User;
 use Tests\TestCase;
 
@@ -36,7 +35,7 @@ class SetCharacterTypeActionTest extends TestCase
 
         $character = SetCharacterType::run($this->character);
 
-        $this->assertInstanceOf(Secondary::class, $character->type);
+        $this->assertEquals(CharacterType::secondary, $character->type);
     }
 
     /** @test **/
@@ -47,6 +46,6 @@ class SetCharacterTypeActionTest extends TestCase
 
         $character = SetCharacterType::run($this->character);
 
-        $this->assertInstanceOf(Primary::class, $character->type);
+        $this->assertEquals(CharacterType::primary, $character->type);
     }
 }

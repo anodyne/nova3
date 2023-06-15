@@ -5,13 +5,11 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Nova\Characters\Enums\CharacterType;
 use Nova\Characters\Models\Character;
 use Nova\Characters\Models\States\Statuses\Active;
 use Nova\Characters\Models\States\Statuses\Inactive;
 use Nova\Characters\Models\States\Statuses\Pending;
-use Nova\Characters\Models\States\Types\Primary;
-use Nova\Characters\Models\States\Types\Secondary;
-use Nova\Characters\Models\States\Types\Support;
 
 class CharacterFactory extends Factory
 {
@@ -21,7 +19,7 @@ class CharacterFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'type' => Support::class,
+            'type' => CharacterType::support,
             'status' => Active::class,
         ];
     }
@@ -50,21 +48,21 @@ class CharacterFactory extends Factory
     public function primary()
     {
         return $this->state([
-            'type' => Primary::class,
+            'type' => CharacterType::primary,
         ]);
     }
 
     public function secondary()
     {
         return $this->state([
-            'type' => Secondary::class,
+            'type' => CharacterType::secondary,
         ]);
     }
 
     public function support()
     {
         return $this->state([
-            'type' => Support::class,
+            'type' => CharacterType::support,
         ]);
     }
 }

@@ -13,10 +13,8 @@ class CharacterDeactivated
     use Dispatchable;
     use SerializesModels;
 
-    public Character $character;
-
-    public function __construct(Character $character)
-    {
-        $this->character = $character;
+    public function __construct(
+        public Character $character
+    ) {
     }
 }

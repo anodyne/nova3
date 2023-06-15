@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace Tests\Unit\Users\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nova\Characters\Enums\CharacterType;
 use Nova\Characters\Models\Character;
-use Nova\Characters\Models\States\Types\Primary;
-use Nova\Characters\Models\States\Types\Secondary;
-use Nova\Characters\Models\States\Types\Support;
 use Nova\Users\Actions\AssignUserCharacters;
 use Nova\Users\Data\AssignUserCharactersData;
 use Nova\Users\Models\User;
@@ -42,7 +40,7 @@ class AssignUserCharactersActionTest extends TestCase
 
         $this->assertCount(1, $user->characters);
         $this->assertCount(1, $user->characters->where('id', $jackSparrow->id));
-        $this->assertTrue($jackSparrow->type->equals(Secondary::class));
+        $this->assertEquals(CharacterType::secondary, $jackSparrow->type);
     }
 
     /** @test **/
@@ -62,7 +60,7 @@ class AssignUserCharactersActionTest extends TestCase
         $this->assertCount(1, $user->characters);
         $this->assertCount(1, $user->characters->where('id', $jackSparrow->id));
         $this->assertTrue((bool) $user->primaryCharacter[0]->pivot->primary);
-        $this->assertTrue($jackSparrow->type->equals(Primary::class));
+        $this->assertEquals(CharacterType::primary, $jackSparrow->type);
     }
 
     /** @test **/
@@ -85,11 +83,11 @@ class AssignUserCharactersActionTest extends TestCase
 
         $this->assertCount(1, $user->characters->where('id', $jackSparrow->id));
         $this->assertTrue((bool) $user->characters->where('id', $jackSparrow->id)->first()->pivot->primary);
-        $this->assertTrue($jackSparrow->type->equals(Primary::class));
+        $this->assertEquals(CharacterType::primary, $jackSparrow->type);
 
         $this->assertCount(1, $user->characters->where('id', $willTurner->id));
         $this->assertFalse((bool) $user->characters->where('id', $willTurner->id)->first()->pivot->primary);
-        $this->assertTrue($willTurner->type->equals(Secondary::class));
+        $this->assertEquals(CharacterType::secondary, $willTurner->type);
     }
 
     /** @test **/
@@ -112,11 +110,11 @@ class AssignUserCharactersActionTest extends TestCase
 
         $this->assertCount(1, $user->characters->where('id', $jackSparrow->id));
         $this->assertFalse((bool) $user->characters->where('id', $jackSparrow->id)->first()->pivot->primary);
-        $this->assertTrue($jackSparrow->type->equals(Secondary::class));
+        $this->assertEquals(CharacterType::secondary, $jackSparrow->type);
 
         $this->assertCount(1, $user->characters->where('id', $willTurner->id));
         $this->assertTrue((bool) $user->characters->where('id', $willTurner->id)->first()->pivot->primary);
-        $this->assertTrue($willTurner->type->equals(Primary::class));
+        $this->assertEquals(CharacterType::primary, $willTurner->type);
     }
 
     /** @test **/
@@ -139,11 +137,11 @@ class AssignUserCharactersActionTest extends TestCase
         $this->assertCount(1, $user->characters);
 
         $this->assertCount(0, $user->characters->where('id', $jackSparrow->id));
-        $this->assertTrue($jackSparrow->type->equals(Support::class));
+        $this->assertEquals(CharacterType::support, $jackSparrow->type);
 
         $this->assertCount(1, $user->characters->where('id', $willTurner->id));
         $this->assertFalse((bool) $user->characters->where('id', $willTurner->id)->first()->pivot->primary);
-        $this->assertTrue($willTurner->type->equals(Secondary::class));
+        $this->assertEquals(CharacterType::secondary, $willTurner->type);
     }
 
     /** @test **/
@@ -169,14 +167,14 @@ class AssignUserCharactersActionTest extends TestCase
         $this->assertCount(2, $user->characters);
 
         $this->assertCount(0, $user->characters->where('id', $jackSparrow->id));
-        $this->assertTrue($jackSparrow->type->equals(Support::class));
+        $this->assertEquals(CharacterType::support, $jackSparrow->type);
 
         $this->assertCount(1, $user->characters->where('id', $willTurner->id));
         $this->assertFalse((bool) $user->characters->where('id', $willTurner->id)->first()->pivot->primary);
-        $this->assertTrue($willTurner->type->equals(Secondary::class));
+        $this->assertEquals(CharacterType::secondary, $willTurner->type);
 
         $this->assertCount(1, $user->characters->where('id', $elizabethSwann->id));
         $this->assertTrue((bool) $user->characters->where('id', $elizabethSwann->id)->first()->pivot->primary);
-        $this->assertTrue($elizabethSwann->type->equals(Primary::class));
+        $this->assertEquals(CharacterType::primary, $elizabethSwann->type);
     }
 }

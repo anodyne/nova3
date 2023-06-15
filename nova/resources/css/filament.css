@@ -1,5 +1,5 @@
 .filament-tables-container {
-    @apply rounded-lg bg-white shadow ring-1 ring-gray-900/5 dark:!bg-gray-900 dark:shadow-md dark:!ring-gray-800;
+    @apply rounded-none bg-white shadow ring-1 ring-gray-900/5 dark:!bg-gray-900 dark:shadow-md dark:ring-inset dark:!ring-white/[.03] md:rounded-lg;
 }
 
 .filament-tables-header-hr-wrapper {
@@ -25,8 +25,11 @@
     @apply mt-1 text-gray-500 dark:text-gray-400 md:text-sm;
 }
 
-.filament-tables-actions-container {
+.filament-tables-header .filament-tables-actions-container {
     @apply md:!me-0;
+}
+.filament-tables-actions-container .filament-button {
+    @apply w-full text-base md:w-auto md:text-sm;
 }
 
 .filament-tables-header + .filament-hr {
@@ -40,10 +43,15 @@
 .filament-tables-search-input > label {
     @apply inline-flex space-x-2 rounded-md border-0 bg-white px-3 py-2.5 shadow-sm ring-1 ring-inset ring-gray-300 transition focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary-600 dark:bg-white/5 dark:ring-white/10 dark:focus-within:bg-white/5 dark:focus-within:ring-primary-500;
 }
-.filament-tables-search-input > label > .filament-tables-search-input-icon-wrapper {
+.filament-tables-search-input
+    > label
+    > .filament-tables-search-input-icon-wrapper {
     @apply relative h-auto w-auto shrink-0;
 }
-.filament-tables-search-input > label > .filament-tables-search-input-icon-wrapper > svg {
+.filament-tables-search-input
+    > label
+    > .filament-tables-search-input-icon-wrapper
+    > svg {
     @apply text-gray-400 dark:text-gray-500;
 }
 .filament-tables-search-input > label > input {
@@ -173,8 +181,19 @@
     @apply form-select block h-auto w-full rounded-md border-0 bg-white py-2.5 pl-3 pr-10 text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:!ring-2 focus:ring-primary-400 dark:bg-gray-700/50 dark:text-white dark:ring-gray-200/[15%] dark:focus:bg-gray-800 dark:focus:ring-primary-600;
 }
 
-.filament-dropdown-trigger > .filament-icon-button {
-    @apply h-auto w-auto text-gray-500 transition hover:bg-transparent hover:text-gray-600 focus:bg-transparent dark:text-gray-400 dark:hover:!bg-transparent dark:hover:text-gray-300;
+.filament-dropdown-trigger > .filament-icon-button,
+.filament-tables-header-toolbar .filament-icon-button {
+    @apply h-auto w-auto transition hover:bg-transparent focus:bg-transparent dark:hover:!bg-transparent;
+}
+
+.filament-icon-button-gray {
+    @apply text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300;
+}
+.filament-icon-button-primary {
+    @apply text-primary-500 hover:text-primary-600 dark:hover:text-primary-400;
+}
+.filament-icon-button-danger {
+    @apply text-danger-500 hover:text-danger-600 dark:hover:text-danger-400;
 }
 
 .filament-dropdown-panel {
@@ -205,6 +224,9 @@
 .filament-modal-window > button:first-child > .filament-modal-close-button {
     @apply h-6 w-6;
 }
+.filament-modal-header {
+    @apply space-y-2 px-6 pt-6;
+}
 .filament-modal-content {
     @apply p-0;
 }
@@ -220,6 +242,15 @@
 .filament-modal-footer {
     @apply py-3;
 }
+.filament-modal-actions {
+    @apply grid-cols-1 md:grid-cols-2;
+}
+/* .filament-modal-actions .filament-button:first-child {
+    @apply order-last md:order-first;
+}
+.filament-modal-actions .filament-button:last-child {
+    @apply order-first md:order-last;
+} */
 
 .filament-forms-text-input-component,
 .choices__inner {

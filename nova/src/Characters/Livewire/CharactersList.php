@@ -6,6 +6,7 @@ namespace Nova\Characters\Livewire;
 
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Notifications\Notification;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Columns\TextColumn;
@@ -24,6 +25,10 @@ use Livewire\Component;
 use Nova\Characters\Actions\ActivateCharacter;
 use Nova\Characters\Actions\DeactivateCharacter;
 use Nova\Characters\Actions\DeleteCharacter;
+use Nova\Characters\Enums\CharacterType;
+use Nova\Characters\Events\CharacterActivated;
+use Nova\Characters\Events\CharacterDeactivated;
+use Nova\Characters\Events\CharacterDeletedByAdmin;
 use Nova\Characters\Models\Character;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
@@ -34,83 +39,6 @@ use Nova\Foundation\Filament\Actions\ViewAction;
 
 class CharactersList extends Component implements HasForms, HasTable
 {
-    // use HasFilters;
-    // use WithPagination;
-
-    // public $search;
-
-    // public function filters(): array
-    // {
-    //     $statusFilter = Filter::make('status')
-    //         ->options(
-    //             Character::getStatesFor('status')
-    //                 ->flatMap(fn ($status) => [$status => ucfirst($status)])
-    //                 ->all()
-    //         )
-    //         ->default(['active'])
-    //         ->meta(['label' => 'Status']);
-
-    //     $typeFilter = Filter::make('type')
-    //         ->options(
-    //             Character::getStatesFor('type')
-    //                 ->flatMap(fn ($type) => [$type => ucfirst($type)])
-    //                 ->all()
-    //         )
-    //         ->default(['primary', 'secondary', 'support'])
-    //         ->meta(['label' => 'Type']);
-
-    //     $assignedUsersFilter = Filter::make('assigned_users')
-    //         ->options(['yes' => 'Yes', 'no' => 'No'])
-    //         ->meta(['label' => 'Has assigned user(s)']);
-
-    //     $assignedPositionsFilter = Filter::make('assigned_positions')
-    //         ->options(['yes' => 'Yes', 'no' => 'No'])
-    //         ->meta(['label' => 'Has assigned position(s)']);
-
-    //     $myCharactersFilter = Filter::make('my_characters')
-    //         ->options(['yes' => 'Yes'])
-    //         ->meta(['label' => 'Only show my character(s)']);
-
-    //     return [
-    //         $typeFilter,
-    //         $statusFilter,
-    //         $assignedUsersFilter,
-    //         $assignedPositionsFilter,
-    //         $myCharactersFilter,
-    //     ];
-    // }
-
-    // public function clearAll()
-    // {
-    //     $this->reset('search');
-
-    //     $this->emit('livewire-filters-reset');
-
-    //     $this->dispatchBrowserEvent('close-filters-panel');
-    // }
-
-    // public function getFilteredCharactersProperty()
-    // {
-    //     return Character::with('media', 'positions', 'rank.name', 'users')
-    //         ->when(
-    //             auth()->user()->cannot('viewAny', Character::class),
-    //             fn ($query) => $query->whereRelation('users', 'users.id', '=', auth()->id())
-    //         )
-    //         ->when(
-    //             $this->getFilterValue('my_characters') === 'yes',
-    //             fn ($query) => $query->whereRelation('users', 'users.id', '=', auth()->id())
-    //         )
-    //         ->when($this->getFilterValue('status'), fn ($query, $values) => $query->whereIn('status', $values))
-    //         ->when($this->getFilterValue('type'), fn ($query, $values) => $query->whereIn('type', $values))
-    //         ->when($this->getFilterValue('assigned_users') === 'yes', fn ($query) => $query->whereHas('users'))
-    //         ->when($this->getFilterValue('assigned_users') === 'no', fn ($query) => $query->doesntHave('users'))
-    //         ->when($this->getFilterValue('assigned_positions') === 'yes', fn ($query) => $query->whereHas('positions'))
-    //         ->when($this->getFilterValue('assigned_positions') === 'no', fn ($query) => $query->doesntHave('positions'))
-    //         ->when($this->search, fn ($query, $value) => $query->searchFor($value))
-    //         ->orderBy('name')
-    //         ->paginate();
-    // }
-
     use InteractsWithForms;
     use InteractsWithTable;
 
@@ -136,7 +64,6 @@ class CharactersList extends Component implements HasForms, HasTable
                 TextColumn::make('type')
                     ->badge()
                     ->color(fn (Model $record) => $record->type->color())
-                    ->formatStateUsing(fn (Model $record) => $record->type->getLabel())
                     ->toggleable(),
                 TextColumn::make('status')
                     ->badge()
@@ -146,28 +73,65 @@ class CharactersList extends Component implements HasForms, HasTable
             ])
             ->actions([
                 ActionGroup::make([
-                    ViewAction::make()
-                        ->authorize('view')
-                        ->url(fn (Model $record) => route('characters.show', $record)),
-                    EditAction::make()
-                        ->authorize('update')
-                        ->url(fn (Model $record) => route('characters.edit', $record)),
-                    Action::make('activate')
-                        ->authorize('activate')
-                        ->icon(iconName('check'))
-                        ->color('gray')
-                        ->requiresConfirmation(),
-                    Action::make('deactivate')
-                        ->authorize('deactivate')
-                        ->icon(iconName('remove'))
-                        ->color('gray')
-                        ->requiresConfirmation(),
-                    DeleteAction::make()
-                        ->authorize('delete')
-                        ->modalHeading('Delete character?')
-                        ->modalSubheading("Are you sure you want to delete this character? You won't be able to recover it.")
-                        ->modalSubmitActionLabel('Delete')
-                        ->using(fn (Model $record) => DeleteCharacter::run($record)),
+                    ActionGroup::make([
+                        ViewAction::make()
+                            ->authorize('view')
+                            ->url(fn (Model $record) => route('characters.show', $record)),
+                        EditAction::make()
+                            ->authorize('update')
+                            ->url(fn (Model $record) => route('characters.edit', $record)),
+                    ])->authorizeAny(['view', 'update'])->divided(),
+                    ActionGroup::make([
+                        Action::make('activate')
+                            ->authorize('activate')
+                            ->icon(iconName('check'))
+                            ->color('gray')
+                            ->modalHeading('Activate character?')
+                            ->modalSubheading(fn (Model $record): string => "Are you sure you want to activate {$record->name}?")
+                            ->modalSubmitActionLabel('Activate')
+                            ->modalWidth('xl')
+                            ->action(function (Model $record): void {
+                                $character = ActivateCharacter::run($record);
+
+                                CharacterActivated::dispatch($character);
+
+                                Notification::make()->success()
+                                    ->title($record->name.' has been activated')
+                                    ->send();
+                            }),
+                        Action::make('deactivate')
+                            ->authorize('deactivate')
+                            ->icon(iconName('remove'))
+                            ->color('gray')
+                            ->modalHeading('Deactivate character?')
+                            ->modalSubheading(fn (Model $record): string => "Are you sure you want to deactivate {$record->name}?")
+                            ->modalSubmitActionLabel('Deactivate')
+                            ->modalWidth('xl')
+                            ->action(function (Model $record): void {
+                                $character = DeactivateCharacter::run($record);
+
+                                CharacterDeactivated::dispatch($character);
+
+                                Notification::make()->success()
+                                    ->title($record->name.' has been deactivated')
+                                    ->send();
+                            }),
+                    ])->authorizeAny(['activate', 'deactivate'])->divided(),
+                    ActionGroup::make([
+                        DeleteAction::make()
+                            ->modalHeading('Delete character?')
+                            ->modalSubheading("Are you sure you want to delete this character? You won't be able to recover it.")
+                            ->modalSubmitActionLabel('Delete')
+                            ->using(function (Model $record): void {
+                                $character = DeleteCharacter::run($record);
+
+                                CharacterDeletedByAdmin::dispatch($character);
+
+                                Notification::make()->success()
+                                    ->title($record->name.' was deleted')
+                                    ->send();
+                            }),
+                    ])->authorize('delete')->divided(),
                 ]),
             ])
             ->groupedBulkActions([
@@ -205,7 +169,7 @@ class CharactersList extends Component implements HasForms, HasTable
                     ->options(fn () => Character::getStatesFor('status')),
                 SelectFilter::make('type')
                     ->multiple()
-                    ->options(fn () => Character::getStatesFor('type')),
+                    ->options(CharacterType::class),
                 Filter::make('only_my_characters')
                     ->toggle()
                     ->query(fn (Builder $query) => $query->whereRelation('users', 'users.id', '=', auth()->id())),

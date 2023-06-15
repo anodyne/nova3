@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Characters\Actions;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Characters\Actions\ActivateCharacter;
+use Nova\Characters\Enums\CharacterType;
 use Nova\Characters\Models\Character;
 use Nova\Characters\Models\States\Statuses\Active;
 use Nova\Characters\Models\States\Statuses\Inactive;
-use Nova\Characters\Models\States\Types\Primary;
-use Nova\Characters\Models\States\Types\Secondary;
 use Nova\Users\Models\User;
 use Tests\TestCase;
 
@@ -45,12 +43,12 @@ class ActivateCharacterActionTest extends TestCase
 
         $character1 = Character::factory()->inactive()->create();
         $character1->users()->attach($user, ['primary' => true]);
-        $character1->type = Primary::class;
+        $character1->type = CharacterType::primary;
         $character1->save();
 
         $character2 = Character::factory()->active()->create();
         $character2->users()->attach($user, ['primary' => true]);
-        $character2->type = Primary::class;
+        $character2->type = CharacterType::primary;
         $character2->save();
 
         $user->refresh();
@@ -60,8 +58,8 @@ class ActivateCharacterActionTest extends TestCase
         $this->assertCount(1, $user->primaryCharacter);
         $this->assertInstanceOf(Inactive::class, $character1->status);
         $this->assertInstanceOf(Active::class, $character2->status);
-        $this->assertInstanceOf(Primary::class, $character1->type);
-        $this->assertInstanceOf(Primary::class, $character2->type);
+        $this->assertEquals(CharacterType::primary, $character1->type);
+        $this->assertEquals(CharacterType::primary, $character2->type);
 
         ActivateCharacter::run($character1);
 
@@ -74,8 +72,8 @@ class ActivateCharacterActionTest extends TestCase
         $this->assertCount(1, $user->primaryCharacter);
         $this->assertInstanceOf(Active::class, $character1->status);
         $this->assertInstanceOf(Active::class, $character2->status);
-        $this->assertInstanceOf(Secondary::class, $character1->type);
-        $this->assertInstanceOf(Primary::class, $character2->type);
+        $this->assertEquals(CharacterType::secondary, $character1->type);
+        $this->assertEquals(CharacterType::primary, $character2->type);
     }
 
     /** @test **/

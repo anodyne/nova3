@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Characters;
 
+use Nova\Characters\Enums\CharacterType;
 use Nova\Characters\Models\Character;
 use Nova\Characters\Models\States\Statuses\Active;
 use Nova\Characters\Models\States\Statuses\Inactive;
 use Nova\Characters\Models\States\Statuses\Pending;
-use Nova\Characters\Models\States\Types\Primary;
-use Nova\Characters\Models\States\Types\Secondary;
-use Nova\Characters\Models\States\Types\Support;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
 use Nova\Users\Models\User;
@@ -83,7 +81,7 @@ class FilterCharactersTest extends TestCase
         $response->assertSuccessful();
 
         $this->assertEquals(
-            Character::whereState('type', Primary::class)->count(),
+            Character::where('type', CharacterType::primary)->count(),
             $response['characters']->total()
         );
     }
@@ -97,7 +95,7 @@ class FilterCharactersTest extends TestCase
         $response->assertSuccessful();
 
         $this->assertEquals(
-            Character::whereState('type', Support::class)->count(),
+            Character::where('type', CharacterType::support)->count(),
             $response['characters']->total()
         );
     }
@@ -111,7 +109,7 @@ class FilterCharactersTest extends TestCase
         $response->assertSuccessful();
 
         $this->assertEquals(
-            Character::whereState('type', Secondary::class)->count(),
+            Character::where('type', CharacterType::secondary)->count(),
             $response['characters']->total()
         );
     }

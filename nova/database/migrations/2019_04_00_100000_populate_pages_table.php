@@ -101,11 +101,6 @@ class PopulatePagesTable extends Migration
             ['uri' => 'characters', 'key' => 'characters.store', 'verb' => 'post', 'resource' => 'Nova\\Characters\\Controllers\\CreateCharacterController@store', 'layout' => 'admin'],
             ['uri' => 'characters/{character}/edit', 'key' => 'characters.edit', 'resource' => 'Nova\\Characters\\Controllers\\UpdateCharacterController@edit', 'layout' => 'admin'],
             ['uri' => 'characters/{character}', 'key' => 'characters.update', 'verb' => 'put', 'resource' => 'Nova\\Characters\\Controllers\\UpdateCharacterController@update', 'layout' => 'admin'],
-            ['uri' => 'characters/delete', 'key' => 'characters.delete', 'verb' => 'post', 'resource' => 'Nova\\Characters\\Controllers\\DeleteCharacterController@confirm', 'layout' => 'admin'],
-            ['uri' => 'characters/{character}', 'key' => 'characters.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Characters\\Controllers\\DeleteCharacterController@destroy', 'layout' => 'admin'],
-            ['uri' => 'characters/{character}/activate', 'key' => 'characters.activate', 'verb' => 'post', 'resource' => 'Nova\\Characters\\Controllers\\ActivateCharacterController', 'layout' => 'admin'],
-            ['uri' => 'characters/confirm-deactivate', 'key' => 'characters.confirm-deactivate', 'verb' => 'post',  'resource' => 'Nova\\Characters\\Controllers\\DeactivateCharacterController@confirm', 'layout' => 'admin'],
-            ['uri' => 'characters/{character}/deactivate', 'key' => 'characters.deactivate', 'verb' => 'post', 'resource' => 'Nova\\Characters\\Controllers\\DeactivateCharacterController@deactivate', 'layout' => 'admin'],
 
             ['uri' => 'post-types', 'key' => 'post-types.index', 'resource' => 'Nova\\PostTypes\\Controllers\\ShowPostTypeController@all', 'layout' => 'admin'],
             ['uri' => 'post-types/{postType}/show', 'key' => 'post-types.show', 'resource' => 'Nova\\PostTypes\\Controllers\\ShowPostTypeController@show', 'layout' => 'admin'],
