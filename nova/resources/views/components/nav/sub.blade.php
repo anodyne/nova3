@@ -1,3 +1,3 @@
-<nav class="space-y-8">
+<nav class="my-2">
     {{ $slot }}
 </nav>

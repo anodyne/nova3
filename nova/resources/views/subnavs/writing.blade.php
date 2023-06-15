@@ -1,6 +1,4 @@
 <x-nav.sub>
-    <x-nav.sub-header>Writing</x-nav.sub-header>
-
     <x-nav.sub-group>
         <x-nav.sub-item :href="route('writing-overview')" :active="request()->routeIs('writing-overview')">Overview</x-nav.sub-item>
     </x-nav.sub-group>

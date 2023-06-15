@@ -1,6 +1,4 @@
 <x-nav.sub>
-    <x-nav.sub-header>System</x-nav.sub-header>
-
     <x-nav.sub-group>
         <x-nav.sub-item href="{{ route('system-overview') }}" :active="request()->routeIs('system-overview')">Overview</x-nav.sub-item>
     </x-nav.sub-group>

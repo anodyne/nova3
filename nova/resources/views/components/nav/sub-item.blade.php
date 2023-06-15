@@ -2,13 +2,16 @@
     'active' => false,
 ])
 
-<a
-    @class([
-        'group -ml-0.5 px-3 py-1 flex border-l-2 items-center text-base md:text-sm transition',
-        'text-primary-500 border-primary-400 dark:border-primary-500 font-semibold' => $active,
-        'hover:text-gray-900 dark:hover:text-gray-100 hover:border-gray-400 dark:hover:border-gray-600 border-transparent' => ! $active,
-    ])
-    {{ $attributes }}
->
+<a @class([
+    'group relative -ml-0.5 flex items-center px-4 py-2 text-base transition md:text-sm',
+    'font-semibold text-primary-500' => $active,
+    'hover:text-gray-900 dark:hover:text-gray-100' => ! $active,
+]) {{ $attributes }}>
+    <div @class([
+        'absolute -left-[3px] h-2 w-2 rounded-full pt-px ring-4 ring-gray-100 dark:ring-gray-900',
+        'hidden bg-gray-400 group-hover:block dark:bg-gray-600' => ! $active,
+        'bg-primary-500' => $active,
+    ])></div>
+
     <span class="truncate">{{ $slot }}</span>
 </a>

@@ -1,6 +1,4 @@
 <x-nav.sub>
-    <x-nav.sub-header>Settings</x-nav.sub-header>
-
     <x-nav.sub-group>
         <x-nav.sub-item href="{{ route('settings.index', 'general') }}" :active="request()->is('settings/general')">General</x-nav.sub-item>
         <x-nav.sub-item href="{{ route('settings.index', 'appearance') }}" :active="request()->is('settings/appearance')">Appearance</x-nav.sub-item>

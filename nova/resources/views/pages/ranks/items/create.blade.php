@@ -53,15 +53,15 @@
             <div class="mt-10 border-t border-gray-100 px-4 pt-4 sm:px-6 sm:pt-6">
                 <div>
                     <div class="sm:hidden">
-                        <select aria-label="Selected tab" class="block w-full bg-white form-select" @change="tab = $event.target.value">
+                        <select aria-label="Selected tab" class="form-select block w-full bg-white" @change="tab = $event.target.value">
                             <option value="base">Base Images</option>
                             <option value="overlay">Overlay Images</option>
                         </select>
                     </div>
                     <div class="hidden sm:block">
                         <nav class="flex">
-                            <a href="#" @click.prevent="tab = 'base'" class="ml-4 rounded-md px-3 py-2 text-sm font-medium first:ml-0 focus:outline-none" :class="{ 'text-primary-600 dark:text-primary-400 bg-primary-100/75 dark:bg-primary-900/40': tab === 'base', 'hover:bg-gray-100 dark:hover:bg-gray-700/50 hover:text-gray-900 dark:hover:text-gray-100': tab !== 'base' }">Base Images</a>
-                            <a href="#" @click.prevent="tab = 'overlay'" class="ml-4 rounded-md px-3 py-2 text-sm font-medium first:ml-0 focus:outline-none" :class="{ 'text-primary-600 dark:text-primary-400 bg-primary-100/75 dark:bg-primary-900/40': tab === 'overlay', 'hover:bg-gray-100 dark:hover:bg-gray-700/50 hover:text-gray-900 dark:hover:text-gray-100': tab !== 'overlay' }">Overlay Images</a>
+                            <a href="#" x-on:click.prevent="tab = 'base'" class="ml-4 rounded-md px-3 py-2 text-sm font-medium first:ml-0 focus:outline-none" :class="{ 'text-primary-600 dark:text-primary-400 bg-primary-100/75 dark:bg-primary-900/40': tab === 'base', 'hover:bg-gray-100 dark:hover:bg-gray-700/50 hover:text-gray-900 dark:hover:text-gray-100': tab !== 'base' }">Base Images</a>
+                            <a href="#" x-on:click.prevent="tab = 'overlay'" class="ml-4 rounded-md px-3 py-2 text-sm font-medium first:ml-0 focus:outline-none" :class="{ 'text-primary-600 dark:text-primary-400 bg-primary-100/75 dark:bg-primary-900/40': tab === 'overlay', 'hover:bg-gray-100 dark:hover:bg-gray-700/50 hover:text-gray-900 dark:hover:text-gray-100': tab !== 'overlay' }">Overlay Images</a>
                         </nav>
                     </div>
                 </div>
@@ -70,10 +70,10 @@
                     <div x-show="tab === 'base'">
                         <div class="mx-auto grid max-w-lg grid-cols-2 gap-6 lg:max-w-none lg:grid-cols-4">
                             @foreach ($baseImages as $baseImage)
-                            <a @click.prevent="base = '{{ $baseImage }}'" class="flex flex-col justify-center rounded-md border border-transparent py-2" :class="{ 'bg-primary-50 border-primary-300': base === '{{ $baseImage }}', 'hover:bg-gray-50 hover:border-gray-300': base !== '{{ $baseImage }}' }" href="#">
-                                <img src="{{ asset('ranks/base/'.$baseImage) }}" alt="" class="mx-auto block h-10 w-36" />
-                                <span class="text-center text-xs text-gray-500">{{ $baseImage }}</span>
-                            </a>
+                                <a x-on:click.prevent="base = '{{ $baseImage }}'" class="flex flex-col justify-center rounded-md border border-transparent py-2" :class="{ 'bg-primary-50 border-primary-300': base === '{{ $baseImage }}', 'hover:bg-gray-50 hover:border-gray-300': base !== '{{ $baseImage }}' }" href="#">
+                                    <img src="{{ asset('ranks/base/'.$baseImage) }}" alt="" class="mx-auto block h-10 w-36" />
+                                    <span class="text-center text-xs text-gray-500">{{ $baseImage }}</span>
+                                </a>
                             @endforeach
                         </div>
                     </div>
@@ -81,7 +81,7 @@
                     <div x-show="tab === 'overlay'">
                         <div class="mx-auto grid max-w-lg grid-cols-2 gap-6 lg:max-w-none lg:grid-cols-4">
                             @foreach ($overlayImages as $overlayImage)
-                                <a @click.prevent="overlay = '{{ $overlayImage }}'" class="flex flex-col justify-center rounded-md border border-transparent py-2" :class="{ 'bg-primary-50 border-primary-300': overlay === '{{ $overlayImage }}', 'hover:bg-gray-50 hover:border-gray-300': overlay !== '{{ $overlayImage }}' }" href="#">
+                                <a x-on:click.prevent="overlay = '{{ $overlayImage }}'" class="flex flex-col justify-center rounded-md border border-transparent py-2" :class="{ 'bg-primary-50 border-primary-300': overlay === '{{ $overlayImage }}', 'hover:bg-gray-50 hover:border-gray-300': overlay !== '{{ $overlayImage }}' }" href="#">
                                     <img src="{{ asset('ranks/overlay/'.$overlayImage) }}" alt="" class="mx-auto block h-10 w-36" />
                                     <span class="text-center text-xs text-gray-500">{{ $overlayImage }}</span>
                                 </a>

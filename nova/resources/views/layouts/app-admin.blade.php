@@ -33,7 +33,7 @@
 
                     <div class="relative z-10 flex items-center lg:hidden">
                         <!-- Mobile menu button -->
-                        <button type="button" class="p-2 inline-flex items-center justify-center text-gray-500 focus:outline-none" aria-controls="mobile-menu" @click="open = !open" aria-expanded="false" :aria-expanded="open.toString()">
+                        <button type="button" class="p-2 inline-flex items-center justify-center text-gray-500 focus:outline-none" aria-controls="mobile-menu" x-on:click="open = !open" aria-expanded="false" :aria-expanded="open.toString()">
                             <span class="sr-only">Open menu</span>
 
                             <svg x-description="Icon when menu is closed. Heroicon name: outline/menu" x-state:on="Menu open" x-state:off="Menu closed" class="block h-7 w-7" :class="{ 'hidden': open, 'block': !(open) }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>

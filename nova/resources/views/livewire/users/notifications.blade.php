@@ -1,25 +1,29 @@
 <div x-data="{ open: false }" class="leading-none">
     <x-button.text
-        @click.prevent="open = true"
-        {{-- wire:poll.30s="refreshNotifications" --}}
+        x-on:click.prevent="open = true"
         tag="button"
         color="gray"
-        class="relative p-1 rounded-full"
         aria-label="Notifications"
+        class="w-full"
     >
-        <x-icon name="bell" size="md"></x-icon>
+        <div class="relative flex items-center justify-between space-x-4">
+            <div class="flex items-center space-x-2">
+                <x-icon name="bell" size="md"></x-icon>
+                <span class="font-medium">Notifications</span>
+            </div>
 
-        @if ($this->hasUnreadNotifications)
-            <span class="absolute top-0 right-0 block h-2.5 w-2.5 rounded-full text-white shadow-solid bg-danger-500"></span>
-        @endif
+            <span>
+                <x-badge>{{ $unreadNotificationsCount }}</x-badge>
+            </span>
+        </div>
     </x-button.text>
 
     <div
-        @sidebar-open.window="open = true"
-        @sidebar-close.window="open = false"
-        @keydown.window.escape="open = false"
+        x-on:sidebar-open.window="open = true"
+        x-on:sidebar-close.window="open = false"
+        x-on:keydown.window.escape="open = false"
         x-show="open"
-        class="fixed inset-0 overflow-hidden z-20"
+        class="fixed inset-0 z-20 overflow-hidden"
         x-cloak
     >
         <div x-show="open" class="absolute inset-0 overflow-hidden">
@@ -32,13 +36,13 @@
                 x-transition:leave="ease-in-out duration-500"
                 x-transition:leave-start="opacity-100"
                 x-transition:leave-end="opacity-0"
-                class="absolute inset-0 bg-black/25 transition-opacity backdrop-blur"
+                class="absolute inset-0 bg-black/25 backdrop-blur transition-opacity"
                 aria-hidden="true"
             ></div>
 
             <section
-                @click.away="open = false"
-                class="absolute inset-y-4 right-4 pl-10 max-w-full flex"
+                x-on:click.away="open = false"
+                class="absolute inset-y-4 right-4 flex max-w-full pl-10"
                 aria-labelledby="slide-over-heading"
             >
                 <div
@@ -61,39 +65,58 @@
                         x-transition:leave="ease-in-out duration-500"
                         x-transition:leave-start="opacity-100"
                         x-transition:leave-end="opacity-0"
-                        class="absolute top-0 left-0 -ml-8 pt-4 pr-2 flex sm:-ml-10 sm:pr-4"
+                        class="absolute left-0 top-0 -ml-8 flex pr-2 pt-4 sm:-ml-10 sm:pr-4"
                     >
                         <button
-                            @click="open = false"
-                            class="rounded-md text-gray-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-white transition ease-in-out duration-200"
+                            x-on:click="open = false"
+                            class="rounded-md text-gray-500 transition duration-200 ease-in-out hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
                         >
                             <span class="sr-only">Close panel</span>
                             <x-icon name="dismiss" size="md"></x-icon>
                         </button>
                     </div>
 
-                    <div class="h-full flex flex-col py-6 bg-white dark:bg-gray-800 ring-1 ring-gray-900/5 shadow-xl overflow-y-scroll rounded-xl">
-                        <header class="flex items-center justify-between px-4 sm:px-6">
+                    <div
+                        class="flex h-full flex-col overflow-y-scroll rounded-lg bg-white py-6 shadow-xl ring-1 ring-gray-900/5 dark:bg-gray-800"
+                    >
+                        <header
+                            class="flex items-center justify-between px-4 sm:px-6"
+                        >
                             <x-h2>Notifications</x-h2>
 
                             @if ($this->hasUnreadNotifications)
-                                <x-button.text tag="button" color="gray" wire:click="markAllNotificationsAsRead" leading="check">
+                                <x-button.text
+                                    tag="button"
+                                    color="gray"
+                                    wire:click="markAllNotificationsAsRead"
+                                    leading="check"
+                                >
                                     Mark all as read
                                 </x-button.text>
                             @endif
 
                             @if (! $this->hasUnreadNotifications && $this->hasNotifications)
-                                <x-button.text tag="button" color="gray" wire:click="clearAllNotifications" leading="check">
+                                <x-button.text
+                                    tag="button"
+                                    color="gray"
+                                    wire:click="clearAllNotifications"
+                                    leading="check"
+                                >
                                     Clear all
                                 </x-button.text>
                             @endif
                         </header>
 
-                        <div class="mt-6 relative w-full leading-normal px-4 space-y-8 sm:px-6">
+                        <div
+                            class="relative mt-6 w-full space-y-8 px-4 leading-normal sm:px-6"
+                        >
                             @forelse ($notifications as $notification)
                                 @include("livewire.users.notifications.{$notification['type']}", compact('notification'))
                             @empty
-                                <x-panel.primary icon="check" title="You're all caught up">
+                                <x-panel.primary
+                                    icon="check"
+                                    title="You're all caught up"
+                                >
                                     You don't have any unread notifications.
                                 </x-panel.primary>
                             @endforelse

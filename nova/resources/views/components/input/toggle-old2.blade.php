@@ -31,7 +31,7 @@
         ])
     >
         <label
-            @click="toggle()"
+            x-on:click="toggle()"
             :id="$id('toggle-label')"
             class="flex flex-col font-medium text-gray-600 dark:text-gray-300"
         >
@@ -46,7 +46,7 @@
 
         <button
             x-ref="toggle"
-            @click="toggle()"
+            x-on:click="toggle()"
             type="button"
             role="switch"
             :aria-checked="value"

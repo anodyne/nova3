@@ -27,9 +27,9 @@
                 <div class="hidden sm:block">
                     <x-content-box height="none">
                         <nav class="-mb-px flex">
-                            <a href="#" class="ml-8 whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition first:ml-0 focus:outline-none" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('details'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('details') }" @click.prevent="switchTab('details')">Details</a>
-                            <a href="#" class="ml-8 whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition first:ml-0 focus:outline-none" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('fields'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('fields') }" @click.prevent="switchTab('fields')">Fields</a>
-                            <a href="#" class="ml-8 whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition first:ml-0 focus:outline-none" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('options'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('options') }" @click.prevent="switchTab('options')">Options</a>
+                            <a href="#" class="ml-8 whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition first:ml-0 focus:outline-none" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('details'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('details') }" x-on:click.prevent="switchTab('details')">Details</a>
+                            <a href="#" class="ml-8 whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition first:ml-0 focus:outline-none" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('fields'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('fields') }" x-on:click.prevent="switchTab('fields')">Fields</a>
+                            <a href="#" class="ml-8 whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition first:ml-0 focus:outline-none" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('options'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('options') }" x-on:click.prevent="switchTab('options')">Options</a>
                         </nav>
                     </x-content-box>
                 </div>
@@ -86,7 +86,7 @@
                                 'transition hover:bg-gray-100 dark:hover:bg-gray-800': ! expanded,
                             }"
                         >
-                            <button type="button" class="flex w-full appearance-none items-center justify-between" @click="expanded = !expanded">
+                            <button type="button" class="flex w-full appearance-none items-center justify-between" x-on:click="expanded = !expanded">
                                 <div class="flex items-center space-x-1">
                                     <h3 class="text-left text-base font-semibold text-gray-900 dark:text-white">{{ str($fieldType)->ucfirst() }} field</h3>
                                     <p class="font-medium text-danger-500" x-show="required">*</p>

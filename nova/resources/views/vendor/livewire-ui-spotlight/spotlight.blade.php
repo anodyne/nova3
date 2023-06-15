@@ -12,16 +12,16 @@
         x-show="isOpen"
         x-cloak
         @foreach(config('livewire-ui-spotlight.shortcuts') as $key)
-            @keydown.window.prevent.cmd.{{ $key }}="toggleOpen()"
-            @keydown.window.prevent.ctrl.{{ $key }}="toggleOpen()"
+            x-on:keydown.window.prevent.cmd.{{ $key }}="toggleOpen()"
+            x-on:keydown.window.prevent.ctrl.{{ $key }}="toggleOpen()"
         @endforeach
-        @keydown.window.escape="isOpen = false"
-        @toggle-spotlight.window="toggleOpen()"
+        x-on:keydown.window.escape="isOpen = false"
+        x-on:toggle-spotlight.window="toggleOpen()"
         class="fixed z-50 px-4 pt-16 flex items-start justify-center inset-0 sm:pt-24"
     >
         <div
             x-show="isOpen"
-            @click="isOpen = false"
+            x-on:click="isOpen = false"
             x-transition:enter="ease-out duration-200"
             x-transition:enter-start="opacity-0"
             x-transition:enter-end="opacity-100"
@@ -50,10 +50,10 @@
                         <x-icon name="arrow-right" size="md" class="text-gray-400"></x-icon>
                     </div>
                     <input
-                        @keydown.tab.prevent=""
-                        @keydown.prevent.stop.enter="go()"
-                        @keydown.prevent.arrow-up="selectUp()"
-                        @keydown.prevent.arrow-down="selectDown()"
+                        x-on:keydown.tab.prevent=""
+                        x-on:keydown.prevent.stop.enter="go()"
+                        x-on:keydown.prevent.arrow-up="selectUp()"
+                        x-on:keydown.prevent.arrow-down="selectDown()"
                         x-ref="input"
                         x-model="input"
                         type="text"
@@ -70,19 +70,19 @@
                     <template x-for="(item, i) in filteredItems()" :key>
                         <li>
                             <button
-                                @click="go(item[0].item.id)"
+                                x-on:click="go(item[0].item.id)"
                                 class="group block w-full px-4 py-2 text-left rounded-lg"
-                                :class="{ 'bg-blue-50 dark:bg-blue-900': selected === i, 'hover:bg-blue-100 dark:hover:bg-blue-800': selected !== i }"
+                                :class="{ 'bg-primary-50 dark:bg-primary-900': selected === i, 'hover:bg-primary-100 dark:hover:bg-primary-800': selected !== i }"
                             >
                                 <span
                                     x-text="item[0].item.name"
                                     class="font-medium"
-                                    :class="{ 'text-gray-900 dark:text-gray-100 group-hover:text-blue-900': selected !== i, 'text-blue-900 dark:text-blue-100': selected === i }"
+                                    :class="{ 'text-gray-900 dark:text-gray-100 group-hover:text-primary-900': selected !== i, 'text-primary-900 dark:text-primary-100': selected === i }"
                                 ></span>
                                 <span
                                     x-text="item[0].item.description"
                                     class="ml-3 text-base md:text-sm"
-                                    :class="{ 'text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500': selected !== i, 'text-blue-500': selected === i }"
+                                    :class="{ 'text-gray-500 dark:text-gray-400 group-hover:text-primary-600 dark:group-hover:text-primary-500': selected !== i, 'text-primary-500': selected === i }"
                                 ></span>
                             </button>
                         </li>
@@ -93,8 +93,8 @@
                     <x-icon name="bulb" size="xl" class="text-gray-400 dark:text-gray-500"></x-icon>
                     <p class="text-lg font-semibold text-gray-900 dark:text-gray-100">Move around Nova at warp speed</p>
                     <ul class="text-gray-500 dark:text-gray-400 space-y-4">
-                        <li>Start typing any resource like <span class="text-blue-600 dark:text-blue-500 font-medium">story</span> or <span class="text-blue-600 dark:text-blue-500 font-medium">character</span> to see available actions you can take</li>
-                        <li>Start typing an action like <span class="text-blue-600 dark:text-blue-500 font-medium">create</span> or <span class="text-blue-600 dark:text-blue-500 font-medium">view</span> to see available actions you can take on resources</li>
+                        <li>Start typing any resource like <span class="text-primary-600 dark:text-primary-500 font-medium">story</span> or <span class="text-primary-600 dark:text-primary-500 font-medium">character</span> to see available actions you can take</li>
+                        <li>Start typing an action like <span class="text-primary-600 dark:text-primary-500 font-medium">create</span> or <span class="text-primary-600 dark:text-primary-500 font-medium">view</span> to see available actions you can take on resources</li>
                         <li>Not sure where to find a setting? Start typing what setting you want to change.</li>
                     </ul>
                 </div>

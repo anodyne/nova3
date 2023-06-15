@@ -166,7 +166,7 @@
                                         <x-dropdown.item-danger type="button" icon="trash" wire:click="removeParticipant({{ $participatingUser }})">
                                             Remove
                                         </x-dropdown.item-danger>
-                                        <x-dropdown.item type="button" icon="prohibited" @click.prevent="$dispatch('dropdown-close')">Cancel</x-dropdown.item>
+                                        <x-dropdown.item type="button" icon="prohibited" x-on:click.prevent="$dispatch('dropdown-close')">Cancel</x-dropdown.item>
                                     </x-dropdown.group>
                                 </x-dropdown>
                             </div>

@@ -44,7 +44,7 @@ class Dropdown extends Component
             default => ['left-0', 'right-auto', 'origin-top-left'],
             'top-center' => ['left-0', 'right-auto', 'origin-bottom'],
             'top-end' => ['right-0', 'left-auto', 'origin-bottom-right'],
-            'top-start' => ['left-0', 'right-auto', 'origin-bottom-left'],
+            'top-start' => ['left-0', 'top-0', 'right-auto', 'origin-bottom-left'],
         };
 
         $prefix = $breakpoint ? "{$breakpoint}:" : '';

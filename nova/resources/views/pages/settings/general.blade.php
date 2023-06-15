@@ -3,13 +3,11 @@
 @section('content')
     <x-panel>
         <x-panel.header title="General settings">
-            <x-slot:actions>
+            <x-slot name="actions">
                 <div x-data="{}">
-                    <x-button.outline color="primary" leading="search" @click="$dispatch('toggle-spotlight')">
-                        Find a setting
-                    </x-button.outline>
+                    <x-button.outline color="primary" leading="search" x-on:click="$dispatch('toggle-spotlight')">Find a setting</x-button.outline>
                 </div>
-            </x-slot:actions>
+            </x-slot>
         </x-panel.header>
 
         <x-form :action="route('settings.update')" method="PUT" id="general">

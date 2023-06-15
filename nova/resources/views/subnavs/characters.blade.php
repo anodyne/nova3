@@ -1,6 +1,4 @@
 <x-nav.sub>
-    <x-nav.sub-header>Characters</x-nav.sub-header>
-
     <x-nav.sub-group>
         <x-nav.sub-item :href="route('characters.index')" :active="request()->routeIs('characters.*')">
             @can('viewAny', Nova\Characters\Models\Character::class)

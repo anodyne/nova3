@@ -1,6 +1,4 @@
 <x-nav.sub>
-    <x-nav.sub-header>Users</x-nav.sub-header>
-
     <x-nav.sub-group>
         @can('viewAny', Nova\Users\Models\User::class)
             <x-nav.sub-item :href="route('users.index')" :active="request()->routeIs('users.*')">All Users</x-nav.sub-item>

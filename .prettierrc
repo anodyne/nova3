@@ -12,6 +12,5 @@
         "parser": "blade"
       }
     }
-  ],
-  "printWidth": 999999
+  ]
 }

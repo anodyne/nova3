@@ -107,7 +107,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Blade::component('badge', Badge::class);
         Blade::component('content-box', ContentBox::class);
-        Blade::component('dropdown', Dropdown::class);
+        // Blade::component('dropdown', Dropdown::class);
         Blade::component('tips', Tips::class);
     }
 
@@ -148,12 +148,18 @@ class AppServiceProvider extends ServiceProvider
     {
         app(IconManager::class)->register([
             'filament-tables::search-input.prefix' => Icon::make(iconName('search')),
-            'tables::column-toggling.trigger' => Icon::make(iconName('columns')),
             'support::modal.close-button' => Icon::make(iconName('dismiss')),
         ]);
 
         Table::configureUsing(function (Table $table) {
-            $table->filtersTriggerAction(fn ($action) => $action->icon(iconName('filter'))->size('lg'));
+            $table
+                ->filtersTriggerAction(fn ($action) => $action->icon(iconName('filter'))->size('lg')->color('gray'))
+                ->toggleColumnsTriggerAction(fn ($action) => $action->icon(iconName('columns'))->size('lg')->color('gray'))
+                ->reorderRecordsTriggerAction(fn ($action, bool $isReordering) => $action
+                    ->icon($isReordering ? iconName('check') : iconName('arrows-sort'))
+                    ->size('lg')
+                    ->color($isReordering ? 'primary' : 'gray')
+                );
         });
     }
 

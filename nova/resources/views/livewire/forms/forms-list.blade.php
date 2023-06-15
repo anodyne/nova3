@@ -88,7 +88,7 @@
                             @endcan
 
                             @can('duplicate', $form)
-                                <x-dropdown.item type="button" icon="copy" @click="$dispatch('dropdown-toggle');$dispatch('modal-duplicate', {{ json_encode($form) }});" data-cy="duplicate">
+                                <x-dropdown.item type="button" icon="copy" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-duplicate', {{ json_encode($form) }});" data-cy="duplicate">
                                     <span>Duplicate</span>
                                 </x-dropdown.item>
                             @endcan
@@ -114,7 +114,7 @@
 
                         @can('delete', $form)
                             <x-dropdown.group>
-                                <x-dropdown.item-danger type="button" icon="trash" data-cy="delete" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($form) }});">
+                                <x-dropdown.item-danger type="button" icon="trash" data-cy="delete" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($form) }});">
                                     <span>Delete</span>
                                 </x-dropdown.item-danger>
                             </x-dropdown.group>

@@ -21,7 +21,7 @@
         'flex-row-reverse justify-end space-x-reverse' => $labelPosition === 'after',
     ])>
         @if (! $slot->isEmpty())
-            <label @click="toggle()" :id="$id('toggle-label')" class="flex flex-col font-medium text-gray-700 dark:text-gray-300">
+            <label x-on:click="toggle()" :id="$id('toggle-label')" class="flex flex-col font-medium text-gray-700 dark:text-gray-300">
                 {{ $slot }}
 
                 @if ($help)
@@ -34,7 +34,7 @@
 
         <button
             x-ref="toggle"
-            @click="toggle()"
+            x-on:click="toggle()"
             type="button"
             role="switch"
             :aria-checked="value"

@@ -1,7 +1,23 @@
 @props([
     'active' => false,
+    'icon' => false,
+    'meta',
 ])
 
-<a class="{{ $active ? 'text-primary-600 dark:text-primary-400 bg-primary-100/75 dark:bg-primary-900/40' : 'hover:bg-gray-100 dark:hover:bg-gray-700/50 hover:text-gray-900 dark:hover:text-gray-100' }} block rounded-md py-2 px-3 text-base font-medium transition" {{ $attributes }}>
-    {{ $slot }}
+<a @class([
+    'group flex items-center gap-x-3 rounded-md p-2 text-sm font-semibold',
+    'text-gray-400 hover:bg-gray-800 hover:text-white' => ! $active,
+    'bg-gray-800 text-white' => $active,
+]) {{ $attributes }}>
+    @if ($icon)
+        <x-icon :name="$icon" size="sm"></x-icon>
+    @endif
+
+    <span class="w-full">{{ $slot }}</span>
 </a>
+
+@if ($active && $meta->subnav)
+    <aside class="pl-4">
+        @include($meta->subnav)
+    </aside>
+@endif

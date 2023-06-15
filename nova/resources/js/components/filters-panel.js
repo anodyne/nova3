@@ -11,13 +11,13 @@ export default () => ({
     },
 
     parent: {
-        '@close-filters-panel.window': function () {
+        'x-on:close-filters-panel.window': function () {
             this.filtersPanelOpen = false;
         },
     },
 
     trigger: {
-        '@click': function () {
+        'x-on:click': function () {
             this.filtersPanelOpen = !this.filtersPanelOpen;
         },
     },

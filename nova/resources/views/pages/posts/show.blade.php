@@ -2,15 +2,15 @@
 
 @section('content')
     <x-page-header>
-        <x-slot:pretitle>
+        <x-slot name="pretitle">
             <a href="{{ route('stories.show', $story) }}">
                 {{ $story->title }}
             </a>
-        </x-slot:pretitle>
+        </x-slot>
 
         {{ $post->title }}
 
-        <x-slot:actions>
+        <x-slot name="actions">
             @if ($previousPost)
                 <x-button.text :href="route('posts.show', [$story, $previousPost])" color="gray">
                     <x-icon.chevron-left class="h-7 w-7 md:h-6 md:w-6" />
@@ -24,26 +24,22 @@
             @endif
 
             @can('update', $post)
-                <x-button.filled href="#" color="primary">
-                    Edit post
-                </x-button.filled>
+                <x-button.filled href="#" color="primary">Edit post</x-button.filled>
             @endcan
-        </x-slot:actions>
+        </x-slot>
     </x-page-header>
 
     <x-panel x-data="{ showContent: {{ $post->shouldShowContentWarning() ? 'false' : 'true' }} }">
-        <x-content-box class="text-center p-16" x-show="!showContent" x-cloak>
+        <x-content-box class="p-16 text-center" x-show="!showContent" x-cloak>
             <div class="flex items-center justify-center space-x-4">
                 <x-icon name="warning" size="xl" class="text-danger-500"></x-icon>
-                <h1 class="block text-4xl leading-loose font-extrabold text-danger-600 tracking-tight">Warning</h1>
+                <h1 class="block text-4xl font-extrabold leading-loose tracking-tight text-danger-600">Warning</h1>
                 <x-icon name="warning" size="xl" class="text-danger-500"></x-icon>
             </div>
 
-            <p class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
-                This post contains mature content that may not be suitable for all audiences.
-            </p>
+            <p class="mb-4 text-lg font-medium text-gray-900 dark:text-gray-100">This post contains mature content that may not be suitable for all audiences.</p>
 
-            <ul class="font-medium text-gray-600 dark:text-gray-400 mb-4">
+            <ul class="mb-4 font-medium text-gray-600 dark:text-gray-400">
                 @if ($post->rating_language >= settings()->ratings->language->warning_threshold)
                     <li>{{ settings()->ratings->language->warning_threshold_message }}</li>
                 @endif
@@ -57,21 +53,17 @@
                 @endif
             </ul>
 
-            <p class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-8">
-                By continuing, you agree that you are of suitable age for this content.
-            </p>
+            <p class="mb-8 text-sm font-medium text-gray-600 dark:text-gray-400">By continuing, you agree that you are of suitable age for this content.</p>
 
-            <x-button.outline type="button" color="danger" @click="showContent = true">
-                Continue
-            </x-button.outline>
+            <x-button.outline type="button" color="danger" x-on:click="showContent = true">Continue</x-button.outline>
         </x-content-box>
 
         <x-content-box x-show="showContent" x-cloak>
             <div class="grid md:grid-cols-4 md:gap-16">
-                <div class="order-1 mb-8 md:mb-0 md:order-2 md:col-span-1">
+                <div class="order-1 mb-8 md:order-2 md:col-span-1 md:mb-0">
                     <div class="space-y-10">
-                        <div class="flex items-start space-x-2 text-gray-500 dark:text-gray-400 font-medium">
-                            <span style="color:{{ $post->postType->color }}">
+                        <div class="flex items-start space-x-2 font-medium text-gray-500 dark:text-gray-400">
+                            <span style="color: {{ $post->postType->color }}">
                                 <x-icon :name="$post->postType->icon" size="md" class="shrink-0"></x-icon>
                             </span>
                             <span>{{ $post->postType->name }}</span>
@@ -80,22 +72,22 @@
                         @if ($post->postType->fields->location->enabled || $post->postType->fields->day->enabled || $post->postType->fields->time->enabled)
                             <div class="flex flex-col space-y-3">
                                 @if ($post->postType->fields->location->enabled && $post->location)
-                                    <div class="flex items-start space-x-2 text-gray-500 dark:text-gray-400 font-medium">
-                                        <x-icon name="location" size="md" class="text-gray-400 dark:text-gray-500 shrink-0"></x-icon>
+                                    <div class="flex items-start space-x-2 font-medium text-gray-500 dark:text-gray-400">
+                                        <x-icon name="location" size="md" class="shrink-0 text-gray-400 dark:text-gray-500"></x-icon>
                                         <span>{{ $post->location }}</span>
                                     </div>
                                 @endif
 
                                 @if ($post->postType->fields->day->enabled && $post->day)
-                                    <div class="flex items-start space-x-2 text-gray-500 dark:text-gray-400 font-medium">
-                                        <x-icon name="calendar" size="md" class="text-gray-400 dark:text-gray-500 shrink-0"></x-icon>
+                                    <div class="flex items-start space-x-2 font-medium text-gray-500 dark:text-gray-400">
+                                        <x-icon name="calendar" size="md" class="shrink-0 text-gray-400 dark:text-gray-500"></x-icon>
                                         <span>{{ $post->day }}</span>
                                     </div>
                                 @endif
 
                                 @if ($post->postType->fields->time->enabled && $post->time)
-                                    <div class="flex items-start space-x-2 text-gray-500 dark:text-gray-400 font-medium">
-                                        <x-icon name="clock" size="md" class="text-gray-400 dark:text-gray-500 shrink-0"></x-icon>
+                                    <div class="flex items-start space-x-2 font-medium text-gray-500 dark:text-gray-400">
+                                        <x-icon name="clock" size="md" class="shrink-0 text-gray-400 dark:text-gray-500"></x-icon>
                                         <span>{{ $post->time }}</span>
                                     </div>
                                 @endif
@@ -103,45 +95,43 @@
                         @endif
 
                         <div class="flex flex-col space-y-3">
-                            <div class="flex items-center space-x-2 text-gray-500 dark:text-gray-400 font-medium">
-                                <x-icon name="number" size="md" class="text-gray-400 dark:text-gray-500 shrink-0"></x-icon>
+                            <div class="flex items-center space-x-2 font-medium text-gray-500 dark:text-gray-400">
+                                <x-icon name="number" size="md" class="shrink-0 text-gray-400 dark:text-gray-500"></x-icon>
                                 <span>{{ number_format($post->word_count) }} words</span>
                             </div>
 
-                            <div class="flex items-center space-x-2 text-gray-500 dark:text-gray-400 font-medium">
-                                <x-icon name="alarm" size="md" class="text-gray-400 dark:text-gray-500 shrink-0"></x-icon>
+                            <div class="flex items-center space-x-2 font-medium text-gray-500 dark:text-gray-400">
+                                <x-icon name="alarm" size="md" class="shrink-0 text-gray-400 dark:text-gray-500"></x-icon>
                                 <span>{{ ceil($post->word_count / 200) }} min read</span>
                             </div>
                         </div>
 
-                        <div class="flex flex-col space-y-3 text-gray-500 dark:text-gray-400 font-medium">
-                            <div class="text-xs uppercase font-semibold tracking-wide text-gray-400 dark:text-gray-500">
-                                Content Rating
-                            </div>
+                        <div class="flex flex-col space-y-3 font-medium text-gray-500 dark:text-gray-400">
+                            <div class="text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">Content Rating</div>
                             <span>{{ $post->rating_language }} {{ $post->rating_sex }} {{ $post->rating_violence }}</span>
                         </div>
 
-                        <div class="flex flex-col space-y-3 text-gray-500 dark:text-gray-400 font-medium">
-                            <div class="text-xs uppercase font-semibold tracking-wide text-gray-400 dark:text-gray-500">Authors</div>
+                        <div class="flex flex-col space-y-3 font-medium text-gray-500 dark:text-gray-400">
+                            <div class="text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">Authors</div>
 
                             <div class="flex items-center space-x-2">
-                                <img class="inline-block h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                <img class="inline-block h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
                                 <span>Tom Cook</span>
                             </div>
                             <div class="flex items-center space-x-2">
-                                <img class="inline-block h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                <img class="inline-block h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
                                 <span>Melon Dusk</span>
                             </div>
                         </div>
 
-                        <div class="flex flex-col space-y-3 text-gray-600 font-medium">
+                        <div class="flex flex-col space-y-3 font-medium text-gray-600">
                             <div>
                                 <x-badge :color="$post->status->color()">
                                     {{ $post->status->displayName() }}
                                 </x-badge>
                             </div>
 
-                            <div class="flex flex-col space-y-1 text-base md:text-sm text-gray-500 dark:text-gray-400 font-medium ml-1">
+                            <div class="ml-1 flex flex-col space-y-1 text-base font-medium text-gray-500 dark:text-gray-400 md:text-sm">
                                 {{-- <span class="text-gray-500 uppercase tracking-wide text-sm md:text-xs">Published</span> --}}
                                 <time datetime="{{ $post->published_at }}">
                                     {{ $post->published_at->format('M dS, Y @ g:ma') }}
@@ -149,8 +139,8 @@
                             </div>
 
                             @if (! $post->updated_at->eq($post->published_at))
-                                <div class="flex flex-col space-y-1 text-base md:text-sm text-gray-600 font-medium ml-1">
-                                    <span class="text-gray-500 uppercase tracking-wide text-sm md:text-xs">Last Updated</span>
+                                <div class="ml-1 flex flex-col space-y-1 text-base font-medium text-gray-600 md:text-sm">
+                                    <span class="text-sm uppercase tracking-wide text-gray-500 md:text-xs">Last Updated</span>
                                     <time datetime="{{ $post->updated_at }}">
                                         {{ $post->updated_at->format('M dS, Y @ g:ma') }}
                                     </time>
@@ -160,24 +150,22 @@
                     </div>
                 </div>
 
-                <div class="order-2 md:order-1 md:col-span-3 space-y-8">
-                    <div class="prose dark:prose-invert prose-lg max-w-none">
+                <div class="order-2 space-y-8 md:order-1 md:col-span-3">
+                    <div class="prose prose-lg max-w-none dark:prose-invert">
                         {!! $post->content !!}
                     </div>
 
                     <x-panel as="light-well">
                         <x-content-box>
                             <div class="grid md:grid-cols-2 md:gap-6">
-                                @foreach($post->characterAuthors as $character)
+                                @foreach ($post->characterAuthors as $character)
                                     <x-avatar.character :character="$character"></x-avatar.character>
                                 @endforeach
 
-                                @foreach($post->userAuthors as $user)
+                                @foreach ($post->userAuthors as $user)
                                     <x-avatar.meta :src="$user->avatar_url" :primary="$user->name">
                                         @if ($user->pivot->as)
-                                            <x-slot:secondary>
-                                                as {{ $user->pivot->as }}
-                                            </x-slot:secondary>
+                                            <x-slot name="secondary">as {{ $user->pivot->as }}</x-slot>
                                         @endif
                                     </x-avatar.meta>
                                 @endforeach

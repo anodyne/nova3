@@ -1,10 +1,10 @@
 <div class="block bg-gray-50">
-    <div class="flex items-center relative px-4 py-4 sm:px-6">
-        <div class="absolute top-0 right-0 pt-4 pr-4 sm:pr-6">
+    <div class="relative flex items-center px-4 py-4 sm:px-6">
+        <div class="absolute right-0 top-0 pr-4 pt-4 sm:pr-6">
             <x-dropdown placement="bottom-end">
-                <x-slot:trigger>
+                <x-slot name="trigger">
                     <x-icon.more class="h-6 w-6" />
-                </x-slot:trigger>
+                </x-slot>
 
                 <x-dropdown.group>
                     <x-dropdown.item icon="show" data-cy="view">
@@ -19,9 +19,7 @@
                 </x-dropdown.group>
 
                 <x-dropdown.group>
-                    <x-dropdown.text class="uppercase tracking-wide font-semibold text-gray-500">
-                        Add a post
-                    </x-dropdown.text>
+                    <x-dropdown.text class="font-semibold uppercase tracking-wide text-gray-500">Add a post</x-dropdown.text>
 
                     <x-dropdown.item :href='route("posts.create", "direction=before&neighbor={$post->id}")' icon="move-up">
                         <span>Before this post</span>
@@ -33,7 +31,7 @@
 
                 @can('delete', $post)
                     <x-dropdown.group>
-                        <x-dropdown.item-danger type="button" icon="trash" @click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($post) }});" data-cy="delete">
+                        <x-dropdown.item-danger type="button" icon="trash" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($post) }});" data-cy="delete">
                             <span>Delete</span>
                         </x-dropdown.item-danger>
                     </x-dropdown.group>
@@ -41,33 +39,33 @@
             </x-dropdown>
         </div>
 
-        <div class="flex flex-col items-center flex-1">
-            <div class="flex flex-col items-center flex-1 w-full space-y-1">
+        <div class="flex flex-1 flex-col items-center">
+            <div class="flex w-full flex-1 flex-col items-center space-y-1">
                 <div class="flex items-center space-x-2">
-                    <span style="color:{{ $post->postType->color }}">
+                    <span style="color: {{ $post->postType->color }}">
                         <x-icon :name="$post->postType->icon" size="md"></x-icon>
                     </span>
-                    <div class="font-bold text-xl tracking-tight truncate text-gray-900">{{ $post->title }}</div>
+                    <div class="truncate text-xl font-bold tracking-tight text-gray-900">{{ $post->title }}</div>
                 </div>
 
                 @if ($post->day || $post->time || $post->location)
                     <div class="flex space-x-4">
                         @if ($post->location)
-                            <div class="flex items-center text-sm text-gray-600 space-x-1.5">
+                            <div class="flex items-center space-x-1.5 text-sm text-gray-600">
                                 <x-icon name="location" size="sm" class="shrink-0 text-gray-500"></x-icon>
                                 <span>{{ $post->location }}</span>
                             </div>
                         @endif
 
                         @if ($post->day)
-                            <div class="flex items-center text-sm text-gray-600 space-x-1.5">
+                            <div class="flex items-center space-x-1.5 text-sm text-gray-600">
                                 <x-icon name="calendar" size="sm" class="shrink-0 text-gray-500"></x-icon>
                                 <span>{{ $post->day }}</span>
                             </div>
                         @endif
 
                         @if ($post->time)
-                            <div class="flex items-center text-sm text-gray-600 space-x-1.5">
+                            <div class="flex items-center space-x-1.5 text-sm text-gray-600">
                                 <x-icon name="clock" size="sm" class="shrink-0 text-gray-500"></x-icon>
                                 <span>{{ $post->time }}</span>
                             </div>

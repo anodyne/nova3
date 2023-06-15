@@ -1,0 +1,4 @@
+**/dist
+**/vendor
+**/nova/vendor
+composer.lock

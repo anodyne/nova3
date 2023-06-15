@@ -5,7 +5,7 @@
         <x-panel.header title="Character settings">
             <x-slot name="actions">
                 <div x-data="{}">
-                    <x-button.outline color="primary" leading="search" @click="$dispatch('toggle-spotlight')">Find a setting</x-button.outline>
+                    <x-button.outline color="primary" leading="search" x-on:click="$dispatch('toggle-spotlight')">Find a setting</x-button.outline>
                 </div>
             </x-slot>
         </x-panel.header>
