@@ -6,10 +6,10 @@ use Illuminate\Support\Facades\Route;
 use Nova\Users\Models\User;
 
 try {
-    $pages = cache()->rememberForever('nova.pages', fn () => Nova\Pages\Page::get());
+    $pages = cache()->rememberForever('nova.pages', fn () => Nova\Pages\Models\Page::get());
 
     $pages->each(
-        fn ($page) => $router->{$page->verb}($page->uri, $page->resource)->name($page->key)
+        fn ($page) => $router->{$page->verb->value}($page->uri, $page->resource)->name($page->key)
     );
 } catch (Exception $ex) {
     // We're not going to do anything here yet
