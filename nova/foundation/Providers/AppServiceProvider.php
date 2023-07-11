@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Providers;
 
+use Filament\Support\Colors\ColorManager;
 use Filament\Support\Icons\Icon;
 use Filament\Support\Icons\IconManager;
 use Filament\Tables\Columns\TextColumn;
@@ -28,8 +29,6 @@ use Nova\Foundation\Livewire\ConfirmationModal;
 use Nova\Foundation\Livewire\Editor;
 use Nova\Foundation\Livewire\IconsSelectMenu;
 use Nova\Foundation\Livewire\Rating;
-use Nova\Foundation\Livewire\UploadAvatar;
-use Nova\Foundation\Livewire\UploadImage;
 use Nova\Foundation\Macros;
 use Nova\Foundation\Nova;
 use Nova\Foundation\NovaBladeDirectives;
@@ -39,6 +38,7 @@ use Nova\Foundation\View\Components\Badge;
 use Nova\Foundation\View\Components\ContentBox;
 use Nova\Foundation\View\Components\Dropdown;
 use Nova\Foundation\View\Components\Tips;
+use Nova\Navigation\Models\Navigation;
 use Nova\Settings\Models\Settings;
 
 class AppServiceProvider extends ServiceProvider
@@ -68,6 +68,16 @@ class AppServiceProvider extends ServiceProvider
         $this->setupFactories();
 
         if (Nova::isInstalled()) {
+            // cache()->rememberForever(
+            //     'nova.nav.admin',
+            //     fn () => Navigation::with('children.page', 'page', 'authorization')->admin()->topLevel()->get()
+            // );
+
+            // cache()->rememberForever(
+            //     'nova.nav.public',
+            //     fn () => Navigation::with('children.page', 'page', 'authorization')->public()->topLevel()->get()
+            // );
+
             $this->registerIcons();
             $this->registerBladeDirectives();
             $this->registerBladeComponents();
@@ -123,8 +133,6 @@ class AppServiceProvider extends ServiceProvider
         Livewire::component('nova:editor', Editor::class);
         Livewire::component('rating', Rating::class);
         Livewire::component('icons-select-menu', IconsSelectMenu::class);
-        Livewire::component('upload-avatar', UploadAvatar::class);
-        Livewire::component('upload-image', UploadImage::class);
         Livewire::component('color-shade-picker', ColorShadePicker::class);
         Livewire::component('confirmation-modal', ConfirmationModal::class);
     }
@@ -146,6 +154,8 @@ class AppServiceProvider extends ServiceProvider
 
     protected function setupFilament(): void
     {
+        app(ColorManager::class)->register($this->app['nova.settings']->appearance->getColors());
+
         app(IconManager::class)->register([
             'filament-tables::search-input.prefix' => Icon::make(iconName('search')),
             'support::modal.close-button' => Icon::make(iconName('dismiss')),

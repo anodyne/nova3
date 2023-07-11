@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Nova\Foundation\Enums\AuthorizationType;
 
 class CreateLaratrustTables extends Migration
 {
@@ -51,10 +52,19 @@ class CreateLaratrustTables extends Migration
 
             $table->primary(['permission_id', 'role_id']);
         });
+
+        // Schema::create('authorizations', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->morphs('authorizable');
+        //     $table->string('type')->default(AuthorizationType::policy->value);
+        //     $table->string('value')->nullable();
+        //     $table->timestamps();
+        // });
     }
 
     public function down()
     {
+        // Schema::dropIfExists('authorizations');
         Schema::dropIfExists('permission_user');
         Schema::dropIfExists('permission_role');
         Schema::dropIfExists('permissions');
