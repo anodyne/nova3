@@ -34,7 +34,7 @@ class RankItemsDropdown extends Component
     {
         $this->dispatchBrowserEvent('rank-items-dropdown-close');
 
-        $this->selected = $this->items->where('id', $rankId)->first();
+        $this->selected = $this->items?->where('id', $rankId)->first();
     }
 
     public function mount($rank = null)

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Settings\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Settings\Data\Appearance;
 use Nova\Settings\Data\Characters;
 use Nova\Settings\Data\ContentRatings;
@@ -15,13 +16,10 @@ use Nova\Settings\Data\MetaTags;
 use Nova\Settings\Data\PostingActivity;
 use Nova\Settings\Models\Builders\SettingsBuilder;
 use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Settings extends Model implements HasMedia
 {
     use InteractsWithMedia;
-
-    public const MEDIA_DIRECTORY = 'settings/{model_id}/{media_id}/';
 
     protected $table = 'settings';
 
@@ -59,5 +57,15 @@ class Settings extends Model implements HasMedia
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/svg+xml'])
             ->singleFile()
             ->useDisk('media');
+
+        $this->addMediaCollection('email_logo')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/svg+xml'])
+            ->singleFile()
+            ->useDisk('media');
+    }
+
+    public static function getMediaPath(): string
+    {
+        return 'settings/{model_id}/{media_id}/';
     }
 }

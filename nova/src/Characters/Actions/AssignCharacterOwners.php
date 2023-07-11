@@ -13,16 +13,14 @@ class AssignCharacterOwners
 {
     use AsAction;
 
-    public function handle(
-        Character $character,
-        AssignCharacterOwnersData $data
-    ): Character {
+    public function handle(Character $character, AssignCharacterOwnersData $data): Character
+    {
         $users = collect($data->users)
             ->filter()
             ->mapWithKeys(function ($user) use ($data) {
-                $primary = (! isset($data->primaryCharacters))
+                $primary = (! isset($data->primaryUsers))
                     ? ['primary' => false]
-                    : ['primary' => in_array($user, $data->primaryCharacters)];
+                    : ['primary' => in_array($user, $data->primaryUsers)];
 
                 return [$user => $primary];
             })
@@ -35,23 +33,25 @@ class AssignCharacterOwners
         return $character->refresh();
     }
 
-    protected function updateExistingPrimaryCharacterForUsers(
-        Character $character,
-        AssignCharacterOwnersData $data
-    ): void {
-        collect($data->primaryCharacters)->each(function ($userId) use ($character) {
-            $user = User::find($userId);
+    protected function updateExistingPrimaryCharacterForUsers(Character $character, AssignCharacterOwnersData $data): void
+    {
+        collect($data->primaryUsers)
+            ->filter()
+            ->each(function ($userId) use ($character) {
+                $user = User::find($userId);
 
-            $oldPrimaryCharacter = $user->primaryCharacter->first();
+                $oldPrimaryCharacter = $user?->primaryCharacter->first();
 
-            if ($oldPrimaryCharacter && $oldPrimaryCharacter->isNot($character)) {
-                $user->primaryCharacter()->updateExistingPivot(
-                    $oldPrimaryCharacter->id,
-                    ['primary' => false]
-                );
+                if ($oldPrimaryCharacter && $oldPrimaryCharacter->isNot($character)) {
+                    $user->primaryCharacter()->updateExistingPivot(
+                        $oldPrimaryCharacter->id,
+                        ['primary' => false]
+                    );
 
-                SetCharacterType::run($oldPrimaryCharacter);
-            }
-        });
+                    $oldPrimaryCharacter->refresh();
+
+                    SetCharacterType::run($oldPrimaryCharacter);
+                }
+            });
     }
 }

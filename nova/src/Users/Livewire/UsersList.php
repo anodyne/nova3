@@ -43,6 +43,9 @@ class UsersList extends Component implements HasForms, HasTable
     {
         return $table
             ->query(User::with('media', 'latestLogin', 'latestPost', 'primaryCharacter', 'characters', 'activeCharacters'))
+            ->groups([
+                Group::make('status')->collapsible(),
+            ])
             ->columns([
                 ViewColumn::make('name')
                     ->view('filament.tables.columns.user-avatar')
@@ -102,9 +105,11 @@ class UsersList extends Component implements HasForms, HasTable
                                     ->default(true),
                             ])
                             ->modalHeading('Activate user?')
-                            ->modalSubheading(
+                            ->modalDescription(
                                 fn (Model $record): string => "Are you sure you want to activate {$record->name}? You can choose below whether to activate the user's previous character as well."
                             )
+                            ->modalIcon(iconName('check'))
+                            ->modalIconColor('primary')
                             ->modalSubmitActionLabel('Activate')
                             ->modalWidth('lg')
                             ->action(function (Model $record, array $data): void {
@@ -122,13 +127,15 @@ class UsersList extends Component implements HasForms, HasTable
                             }),
                         Action::make('deactivate')
                             ->authorize('deactivate')
+                            ->requiresConfirmation()
                             ->icon(iconName('remove'))
                             ->color('gray')
-                            ->requiresConfirmation()
                             ->modalHeading('Deactivate user?')
-                            ->modalSubheading(
+                            ->modalDescription(
                                 fn (Model $record): string => "Are you sure you want to deactivate {$record->name}? This will also deactivate all characters assigned to the user who are not jointly owned with another user."
                             )
+                            ->modalIcon(iconName('warning'))
+                            ->modalIconColor('primary')
                             ->modalSubmitActionLabel('Deactivate')
                             ->modalWidth('lg')
                             ->action(function (Model $record): void {
@@ -145,7 +152,7 @@ class UsersList extends Component implements HasForms, HasTable
                         Actions\DeleteAction::make()
                             ->close()
                             ->modalHeading('Delete user?')
-                            ->modalSubheading(
+                            ->modalDescription(
                                 fn (Model $record): string => "Are you sure you want to delete {$record->name}? You won't be able to recover the user record."
                             )
                             ->modalSubmitActionLabel('Delete')
@@ -229,9 +236,6 @@ class UsersList extends Component implements HasForms, HasTable
 
                         return 'Last posted: > '.$data['last_posted'].' days ago';
                     }),
-            ])
-            ->groups([
-                Group::make('status')->collapsible(),
             ])
             ->heading('Users')
             ->description("Manage all of the game's users")

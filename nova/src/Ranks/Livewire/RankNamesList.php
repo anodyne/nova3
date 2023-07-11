@@ -81,7 +81,7 @@ class RankNamesList extends Component implements HasForms, HasTable
                     ActionGroup::make([
                         DeleteAction::make()
                             ->modalHeading('Delete rank name?')
-                            ->modalSubheading(
+                            ->modalDescription(
                                 fn (Model $record): string => "Are you sure you want to delete the {$record->name} rank name? This will also delete all ranks associated with the name and any characters with those ranks will need to have new ranks assigned to them."
                             )
                             ->modalSubmitActionLabel('Delete')
@@ -96,7 +96,7 @@ class RankNamesList extends Component implements HasForms, HasTable
                     ->modalHeading(
                         fn (Collection $records): string => "Delete {$records->count()} selected ".str('rank name')->plural($records->count()).'?'
                     )
-                    ->modalSubheading(function (Collection $records): string {
+                    ->modalDescription(function (Collection $records): string {
                         $statement = ($records->count() === 1)
                             ? 'this 1 rank name'
                             : "these {$records->count()} rank names";

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Nova\Departments\Requests;
 
 use Nova\Foundation\Http\Requests\ValidatesRequest;
-use Nova\Foundation\Rules\MaxFileSize;
+use Nova\Media\Rules\MaxFileSize;
 
 class CreateDepartmentRequest extends ValidatesRequest
 {

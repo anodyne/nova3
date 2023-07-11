@@ -73,7 +73,7 @@ class DepartmentsList extends Component implements HasForms, HasTable
                                 TextInput::make('name')->label('New department name'),
                             ])
                             ->modalHeading('Duplicate department?')
-                            ->modalSubheading(
+                            ->modalDescription(
                                 fn (Model $record) => "Are you sure you want to duplicate the {$record->name} department and all of its positions?"
                             )
                             ->modalSubmitActionLabel('Duplicate')
@@ -95,7 +95,7 @@ class DepartmentsList extends Component implements HasForms, HasTable
                         DeleteAction::make()
                             ->close()
                             ->modalHeading('Delete department?')
-                            ->modalSubheading(
+                            ->modalDescription(
                                 fn (Model $record) => "Are you sure you want to delete the {$record->name} department? You won't be able to recover it. All positions assigned to this department will be removed. As a result, any characters assigned to a position that is removed will need to be re-assigned to another position."
                             )
                             ->modalSubmitActionLabel('Delete')
@@ -110,7 +110,7 @@ class DepartmentsList extends Component implements HasForms, HasTable
                     ->modalHeading(
                         fn (Collection $records) => "Delete {$records->count()} selected ".str('department')->plural($records->count()).'?'
                     )
-                    ->modalSubheading(function (Collection $records) {
+                    ->modalDescription(function (Collection $records) {
                         $statement = ($records->count() === 1)
                             ? 'this 1 department'
                             : "these {$records->count()} departments";

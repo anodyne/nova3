@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Builder;
 
 class RoleBuilder extends Builder
 {
+    public function atOrAboveOrderColumn($maxSortValue): Builder
+    {
+        return $this->where('order_column', '<=', $maxSortValue);
+    }
+
     public function atOrBelowOrderColumn($maxSortValue): Builder
     {
         return $this->where('order_column', '>=', $maxSortValue);

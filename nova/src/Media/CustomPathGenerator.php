@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Nova\Foundation\Media;
+namespace Nova\Media;
 
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\Support\PathGenerator\PathGenerator;
@@ -11,8 +11,10 @@ class CustomPathGenerator implements PathGenerator
 {
     public function getPath(Media $media): string
     {
-        if ($media->model::MEDIA_DIRECTORY) {
-            return strtr($media->model::MEDIA_DIRECTORY, [
+        $model = $media::getActualClassNameForMorph($media->model_type);
+
+        if (method_exists($model, 'getMediaPath')) {
+            return strtr($model::getMediaPath(), [
                 '{media_id}' => $media->id,
                 '{model_id}' => $media->model_id,
             ]);
@@ -28,6 +30,6 @@ class CustomPathGenerator implements PathGenerator
 
     public function getPathForResponsiveImages(Media $media): string
     {
-        return $this->getPath($media).'responsive/';
+        return $this->getPath($media).'responsive-images/';
     }
 }

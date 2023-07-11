@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Macros;
 
-use Nova\Pages\Page;
+use Nova\Pages\Models\Page;
 
 class RouteMacros
 {

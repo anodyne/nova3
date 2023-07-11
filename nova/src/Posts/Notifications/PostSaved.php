@@ -20,12 +20,12 @@ class PostSaved extends Notification implements ShouldQueue
     ) {
     }
 
-    public function via($notifiable)
+    public function via(object $notifiable): array
     {
         return ['database'];
     }
 
-    public function toArray($notifiable)
+    public function toArray(object $notifiable): array
     {
         return [
             'post_id' => $this->post->id,

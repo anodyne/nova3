@@ -18,7 +18,7 @@ enum CharacterType: string implements HasLabel
     {
         return match ($this) {
             self::primary => 'primary',
-            self::secondary => 'secondary',
+            self::secondary => 'info',
             self::support => 'gray',
         };
     }
@@ -30,8 +30,8 @@ enum CharacterType: string implements HasLabel
 
     public static function toOptions(): array
     {
-        return collect(static::cases())
-            ->flatMap(fn ($case) => [$case->value => $case->label()])
+        return collect(self::cases())
+            ->flatMap(fn ($case) => [$case->value => $case->getLabel()])
             ->all();
     }
 }

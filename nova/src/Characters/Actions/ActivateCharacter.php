@@ -15,12 +15,7 @@ class ActivateCharacter
     public function handle(Character $character): Character
     {
         if ($character->status->canTransitionTo(Active::class)) {
-            activity()
-                ->causedBy(auth()->user())
-                ->performedOn($character)
-                ->log(':subject.name was activated');
-
-            $usersWithThisCharacterAsPrimary = $character->users()->wherePivot('primary', true)->get();
+            $usersWithThisCharacterAsPrimary = $character->primaryUsers;
 
             $usersWithThisCharacterAsPrimary->reject(
                 fn ($user) => $user->characters()->wherePivot('primary', true)->count() === 1
@@ -36,6 +31,11 @@ class ActivateCharacter
             });
 
             $character->status->transitionTo(Active::class);
+
+            activity()
+                ->causedBy(auth()->user())
+                ->performedOn($character)
+                ->log(':subject.name was activated');
         }
 
         return $character->refresh();

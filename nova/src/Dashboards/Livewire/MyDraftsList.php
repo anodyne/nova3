@@ -86,7 +86,7 @@ class MyDraftsList extends Component implements HasForms, HasTable
                         DeleteAction::make()
                             ->label('Discard draft')
                             ->modalHeading('Delete note?')
-                            ->modalSubheading("Are you sure you want to delete this note? You won't be able to recover it.")
+                            ->modalDescription("Are you sure you want to delete this note? You won't be able to recover it.")
                             ->modalSubmitActionLabel('Delete')
                             ->successNotificationTitle('Note was deleted')
                             ->using(fn (Model $record): Model => DeleteNote::run($record)),

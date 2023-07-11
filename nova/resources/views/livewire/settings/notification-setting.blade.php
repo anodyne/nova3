@@ -60,7 +60,7 @@
                     @endif
                 </div>
                 <div class="mt-5 sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:flex sm:items-center">
-                    <x-swtich-toggle name="default" :value="old('default')"></x-swtich-toggle>
+                    <x-switch-toggle name="default" :value="old('default')"></x-switch-toggle>
                 </div>
             </div>
         </x-content-box>

@@ -73,9 +73,15 @@ if (! function_exists('pipe')) {
 }
 
 if (! function_exists('settings')) {
-    function settings()
+    function settings($key = null)
     {
-        return app('nova.settings');
+        $settings = app('nova.settings');
+
+        if ($key) {
+            return data_get($settings, $key);
+        }
+
+        return $settings;
     }
 }
 

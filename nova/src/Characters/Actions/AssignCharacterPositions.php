@@ -12,11 +12,9 @@ class AssignCharacterPositions
 {
     use AsAction;
 
-    public function handle(
-        Character $character,
-        AssignCharacterPositionsData $data
-    ): Character {
-        $positions = collect($data->positions);
+    public function handle(Character $character, AssignCharacterPositionsData $data): Character
+    {
+        $positions = collect($data->positions)->filter();
 
         $characterMap = $positions->mapWithKeys(function ($position) use ($positions, $data) {
             $primary = ($positions->count() === 1)

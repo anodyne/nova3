@@ -4,7 +4,10 @@
             <div class="flex justify-between space-x-4">
                 <div class="relative w-full">
                     <x-input.group>
-                        <x-input.text wire:model.debounce.500ms="search" placeholder="Find permission to assign (type * to see all permissions)">
+                        <x-input.text
+                            wire:model.debounce.500ms="search"
+                            placeholder="Find permission to assign (type * to see all permissions)"
+                        >
                             <x-slot name="leadingAddOn">
                                 <x-icon name="search" size="sm"></x-icon>
                             </x-slot>
@@ -20,13 +23,22 @@
                     </x-input.group>
 
                     @if (filled($search))
-                        <div class="absolute z-10 mt-2 w-full rounded-md bg-white p-1.5 shadow-lg ring-1 ring-gray-900/5 dark:bg-gray-800">
+                        <div
+                            class="absolute z-10 mt-2 w-full rounded-md bg-white p-1.5 shadow-lg ring-1 ring-gray-950/5 dark:bg-gray-800"
+                        >
                             @forelse ($filteredPermissions as $permission)
-                                <x-dropdown.item type="button" class="group flex w-full items-center rounded-md px-4 py-2 text-base font-medium text-gray-700 transition hover:bg-gray-50 focus:outline-none dark:text-gray-300 dark:hover:bg-gray-600/50 md:text-sm" wire:click="addPermission({{ $permission->id }})">
+                                <x-dropdown.item
+                                    type="button"
+                                    class="group flex w-full items-center rounded-md px-4 py-2 text-base font-medium text-gray-700 transition hover:bg-gray-50 focus:outline-none dark:text-gray-300 dark:hover:bg-gray-600/50 md:text-sm"
+                                    wire:click="addPermission({{ $permission->id }})"
+                                >
                                     {{ $permission->display_name }}
                                 </x-dropdown.item>
                             @empty
-                                <x-empty-state.small icon="lock-closed" title="No permissions found"></x-empty-state.small>
+                                <x-empty-state.small
+                                    icon="lock-closed"
+                                    title="No permissions found"
+                                ></x-empty-state.small>
                             @endforelse
                         </div>
                     @endif
@@ -36,14 +48,21 @@
     @endcan
 
     @if ($permissions->count() > 0)
-        <div @class([
-            'divide-y divide-gray-200 rounded-b-lg dark:divide-gray-800',
-            'rounded-t-lg' => ! gate()->allows('update', $role),
-            'border-t border-gray-200 dark:border-gray-800' => gate()->allows('update', $role),
-        ])>
+        <div
+            @class([
+                'divide-y divide-gray-200 rounded-b-lg dark:divide-gray-800',
+                'rounded-t-lg' => ! gate()->allows('update', $role),
+                'border-t border-gray-200 dark:border-gray-800' => gate()->allows('update', $role),
+            ])
+        >
             @foreach ($permissions as $permission)
-                <div class="flex items-center justify-between bg-white px-6 py-3 last:rounded-b-lg dark:bg-gray-900" wire:key="row-{{ $permission->id }}">
-                    <div class="truncate font-medium text-gray-900 dark:text-gray-100">{{ $permission->display_name }}</div>
+                <div
+                    class="flex items-center justify-between bg-white px-6 py-3 last:rounded-b-lg dark:bg-gray-900"
+                    wire:key="row-{{ $permission->id }}"
+                >
+                    <div class="truncate font-medium text-gray-900 dark:text-gray-100">
+                        {{ $permission->display_name }}
+                    </div>
 
                     <div class="flex items-center justify-end space-x-3">
                         @can('update', $role)
@@ -55,13 +74,27 @@
                                 <x-dropdown.group>
                                     <x-dropdown.text>
                                         Are you sure you want to unassign the
-                                        <strong class="font-semibold text-gray-700 dark:text-gray-200">{{ $permission->display_name }}</strong>
+                                        <strong class="font-semibold text-gray-700 dark:text-gray-200">
+                                            {{ $permission->display_name }}
+                                        </strong>
                                         permission from {{ $role->display_name }}?
                                     </x-dropdown.text>
                                 </x-dropdown.group>
                                 <x-dropdown.group>
-                                    <x-dropdown.item-danger type="button" icon="trash" wire:click="removePermission({{ $permission->id }})">Remove</x-dropdown.item-danger>
-                                    <x-dropdown.item type="button" icon="prohibited" x-on:click.prevent="$dispatch('dropdown-close')">Cancel</x-dropdown.item>
+                                    <x-dropdown.item-danger
+                                        type="button"
+                                        icon="trash"
+                                        wire:click="removePermission({{ $permission->id }})"
+                                    >
+                                        Remove
+                                    </x-dropdown.item-danger>
+                                    <x-dropdown.item
+                                        type="button"
+                                        icon="prohibited"
+                                        x-on:click.prevent="$dispatch('dropdown-close')"
+                                    >
+                                        Cancel
+                                    </x-dropdown.item>
                                 </x-dropdown.group>
                             </x-dropdown>
                         @endcan
@@ -73,7 +106,9 @@
         <x-content-box class="border-t border-gray-200 text-center dark:border-gray-800">
             <x-icon name="lock-closed" size="h-12 w-12" class="mx-auto text-gray-500"></x-icon>
             <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-white">No permissions assigned</h3>
-            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">Get started by assigning permissions to this role</p>
+            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                Get started by assigning permissions to this role
+            </p>
         </x-content-box>
     @endif
 </div>

@@ -4,10 +4,8 @@
     <x-panel>
         <x-panel.header title="Add a new user">
             <x-slot:actions>
-                <x-button.text :href="route('users.index')" leading="arrow-left" color="gray">
-                    Back
-                </x-button.text>
-            </x-slot:actions>
+                <x-button.text :href="route('users.index')" leading="arrow-left" color="gray">Back</x-button.text>
+            </x-slot>
         </x-panel.header>
 
         <x-form :action="route('users.store')">
@@ -25,10 +23,16 @@
                 "
             >
                 <x-slot:message>
-                    <p>For privacy reasons, we don't recommend using a user's real name. Instead, use a nickname to help protect their identity.</p>
+                    <p>
+                        For privacy reasons, we don't recommend using a user's real name. Instead, use a nickname to
+                        help protect their identity.
+                    </p>
 
-                    <p class="block"><strong class="font-semibold">Note:</strong> After the account is created, a password will be generated and emailed to the new user.</p>
-                </x-slot:message>
+                    <p class="block">
+                        <strong class="font-semibold">Note:</strong>
+                        After the account is created, a password will be generated and emailed to the new user.
+                    </p>
+                </x-slot>
 
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
                     <x-input.text id="name" name="name" :value="old('name')" data-cy="name" />
@@ -50,23 +54,53 @@
                 </x-input.group>
 
                 <div x-show="pronouns === 'other'" class="space-y-6" x-cloak>
-                    <x-input.group label="What is your subject pronoun?" for="pronouns-subject" :error="$errors->first('pronouns.subject')">
-                        <x-input.text id="pronouns-subject" name="pronouns[subject]" x-model="pronounSubject" placeholder="He, she, they, ze, etc." />
+                    <x-input.group
+                        label="What is your subject pronoun?"
+                        for="pronouns-subject"
+                        :error="$errors->first('pronouns.subject')"
+                    >
+                        <x-input.text
+                            id="pronouns-subject"
+                            name="pronouns[subject]"
+                            x-model="pronounSubject"
+                            placeholder="He, she, they, ze, etc."
+                        />
                     </x-input.group>
 
-                    <x-input.group label="What is your object pronoun?" for="pronouns-object" :error="$errors->first('pronouns.object')">
-                        <x-input.text id="pronouns-object" name="pronouns[object]" x-model="pronounObject" placeholder="Him, her, them, zir, etc." />
+                    <x-input.group
+                        label="What is your object pronoun?"
+                        for="pronouns-object"
+                        :error="$errors->first('pronouns.object')"
+                    >
+                        <x-input.text
+                            id="pronouns-object"
+                            name="pronouns[object]"
+                            x-model="pronounObject"
+                            placeholder="Him, her, them, zir, etc."
+                        />
                     </x-input.group>
 
-                    <x-input.group label="What is your possessive pronoun?" for="pronouns-possessive" :error="$errors->first('pronouns.possessive')">
-                        <x-input.text id="pronouns-possessive" name="pronouns[possessive]" x-model="pronounPossessive" placeholder="His, hers, theirs, zirs, etc." />
+                    <x-input.group
+                        label="What is your possessive pronoun?"
+                        for="pronouns-possessive"
+                        :error="$errors->first('pronouns.possessive')"
+                    >
+                        <x-input.text
+                            id="pronouns-possessive"
+                            name="pronouns[possessive]"
+                            x-model="pronounPossessive"
+                            placeholder="His, hers, theirs, zirs, etc."
+                        />
                     </x-input.group>
                 </div>
             </x-form.section>
 
-            <x-form.section title="Avatar" message="User avatars should be a square image at least 500 pixels tall by 500 pixels wide, but not more than 5MB in size.">
+            <x-form.section
+                title="Avatar"
+                message="User avatars should be a square image at least 500 pixels tall by 500 pixels wide, but not more than 5MB in size."
+            >
                 <x-input.group>
-                    @livewire('upload-avatar')
+                    @livewire('media:upload-avatar')
                 </x-input.group>
             </x-form.section>
 

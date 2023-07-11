@@ -2,47 +2,55 @@
 
 @section('content')
     <x-panel>
-        <x-panel.header title="Email settings">
+        <x-panel.header title="Email settings" message="Change the way Nova sends email">
             <x-slot name="actions">
                 <div x-data="{}">
-                    <x-button.outline color="primary" leading="search" x-on:click="$dispatch('toggle-spotlight')">Find a setting</x-button.outline>
+                    <x-button.outline color="primary" leading="search" x-on:click="$dispatch('toggle-spotlight')">
+                        Find a setting
+                    </x-button.outline>
                 </div>
             </x-slot>
         </x-panel.header>
 
-        {{-- <div class="absolute inset-0 w-full h-full rounded-lg overflow-hidden  transition-all duration-300"> --}}
-        <x-content-box class="relative">
-            <div class="absolute inset-0 z-50 h-full w-full p-16 text-center">
-                <div class="flex items-center justify-center space-x-4">
-                    <x-icon name="warning" size="xl" class="text-danger-500"></x-icon>
-                    <h1 class="block text-4xl font-extrabold leading-loose tracking-tight text-danger-600">Warning</h1>
-                    <x-icon name="warning" size="xl" class="text-danger-500"></x-icon>
-                </div>
+        <x-form :action="route('settings.update', $tab)" method="PUT" id="email">
+            <x-form.section title="Basic settings">
+                <x-input.group label="Subject prefix">
+                    <x-input.text placeholder="[USS Nova]"></x-input.text>
+                </x-input.group>
 
-                <p class="mb-4 text-lg font-medium text-gray-900">This post contains mature content that may not be suitable for all audiences.</p>
+                <x-input.group label="Reply to email address">
+                    <x-input.text placeholder="reply-to-nova@example.com"></x-input.text>
+                </x-input.group>
+            </x-form.section>
 
-                <p class="mb-8 text-sm font-medium text-gray-600">By continuing, you agree that you are of suitable age for this content.</p>
+            <x-form.section
+                title="Global from address"
+                message="You can define the email address and name used for all emails."
+            >
+                <x-input.group label="From email address">
+                    <x-input.text placeholder="nova@example.com"></x-input.text>
+                </x-input.group>
 
-                <x-button.outline color="danger">Continue</x-button.outline>
-            </div>
+                <x-input.group label="From email name">
+                    <x-input.text placeholder="USS Nova"></x-input.text>
+                </x-input.group>
+            </x-form.section>
 
-            <div class="prose max-w-none opacity-75 blur filter">
-                <h1>My Title</h1>
+            <x-form.section
+                title="Logo"
+                message="You can upload a logo that will be used in the header of the emails sent from Nova."
+            >
+                <x-input.group>
+                    @livewire('media:upload-image', [
+                        'existingImage' => settings()->getFirstMediaUrl('email_logo'),
+                        'supportMessage' => 'PNG, JPG, SVG up to 5MB',
+                    ])
+                </x-input.group>
+            </x-form.section>
 
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias fugiat sapiente nobis autem ducimus necessitatibus, fuga dolorem. Esse veniam nisi nesciunt rerum dolores porro aperiam repellendus, quia similique deserunt! Tempore? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus, quasi illo. Reiciendis quaerat necessitatibus dolor autem, consectetur tempore blanditiis quod exercitationem deleniti aperiam dicta? Reprehenderit omnis culpa officia totam dolorem? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, enim expedita qui illo, nesciunt consequuntur est saepe nobis rerum dolorum, neque ab mollitia earum aut perferendis quo unde dolores dolorem!</p>
-
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias fugiat sapiente nobis autem ducimus necessitatibus, fuga dolorem. Esse veniam nisi nesciunt rerum dolores porro aperiam repellendus, quia similique deserunt! Tempore? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus, quasi illo. Reiciendis quaerat necessitatibus dolor autem, consectetur tempore blanditiis quod exercitationem deleniti aperiam dicta? Reprehenderit omnis culpa officia totam dolorem? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, enim expedita qui illo, nesciunt consequuntur est saepe nobis rerum dolorum, neque ab mollitia earum aut perferendis quo unde dolores dolorem!</p>
-
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias fugiat sapiente nobis autem ducimus necessitatibus, fuga dolorem. Esse veniam nisi nesciunt rerum dolores porro aperiam repellendus, quia similique deserunt! Tempore? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus, quasi illo. Reiciendis quaerat necessitatibus dolor autem, consectetur tempore blanditiis quod exercitationem deleniti aperiam dicta? Reprehenderit omnis culpa officia totam dolorem? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, enim expedita qui illo, nesciunt consequuntur est saepe nobis rerum dolorum, neque ab mollitia earum aut perferendis quo unde dolores dolorem!</p>
-            </div>
-        </x-content-box>
-        {{-- </div> --}}
-        {{--
-            <x-form :action="route('settings.update')" method="PUT" id="email">
             <x-form.footer>
-            <x-button.filled type="submit" form="email" color="primary">Update</x-button.filled>
+                <x-button.filled type="submit" form="email" color="primary">Update</x-button.filled>
             </x-form.footer>
-            </x-form>
-        --}}
+        </x-form>
     </x-panel>
 @endsection

@@ -19,16 +19,21 @@
     font-weight: 100 900;
     font-display: swap;
     font-style: normal;
-    src: url("/dist/fonts/InterVariable.woff2?v=4.0") format("woff2-variations"), url("/dist/fonts/InterVariable.woff2?v=4.0") format("woff2");
-    src: url("/dist/fonts/InterVariable.woff2?v=4.0") format("woff2") tech("variations");
+    src: url("/dist/fonts/InterVariable.woff2?v=4.0") format("woff2-variations"),
+        url("/dist/fonts/InterVariable.woff2?v=4.0") format("woff2");
+    src: url("/dist/fonts/InterVariable.woff2?v=4.0") format("woff2")
+        tech("variations");
 }
 @font-face {
     font-family: "InterVar";
     font-weight: 100 900;
     font-display: swap;
     font-style: italic;
-    src: url("/dist/fonts/InterVariable-Italic.woff2?v=4.0") format("woff2-variations"), url("/dist/fonts/InterVariable-Italic.woff2?v=4.0") format("woff2");
-    src: url("/dist/fonts/InterVariable-Italic.woff2?v=4.0") format("woff2") tech("variations");
+    src: url("/dist/fonts/InterVariable-Italic.woff2?v=4.0")
+            format("woff2-variations"),
+        url("/dist/fonts/InterVariable-Italic.woff2?v=4.0") format("woff2");
+    src: url("/dist/fonts/InterVariable-Italic.woff2?v=4.0") format("woff2")
+        tech("variations");
 }
 
 body,
@@ -61,5 +66,20 @@ input {
     .font-stretch-expanded,
     .font-stretch-125 {
         font-stretch: 125%;
+    }
+
+    .mask {
+        mask-size: contain;
+        mask-repeat: no-repeat;
+        mask-position: center;
+    }
+    .mask-squircle {
+        mask-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjAwJyBoZWlnaHQ9JzIwMCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz48cGF0aCBkPSdNMTAwIDBDMjAgMCAwIDIwIDAgMTAwczIwIDEwMCAxMDAgMTAwIDEwMC0yMCAxMDAtMTAwUzE4MCAwIDEwMCAwWicvPjwvc3ZnPg==);
+    }
+    .mask-hexagon {
+        mask-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMTgyJyBoZWlnaHQ9JzIwMScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz48cGF0aCBkPSdNLjMgNjUuNDg2YzAtOS4xOTYgNi42ODctMjAuMDYzIDE0LjIxMS0yNS4wNzhsNjEuODYtMzUuOTQ2YzguMzYtNS4wMTYgMjAuODk5LTUuMDE2IDI5LjI1OCAwbDYxLjg2IDM1Ljk0NmM4LjM2IDUuMDE1IDE0LjIxMSAxNS44ODIgMTQuMjExIDI1LjA3OHY3MS4wNTVjMCA5LjE5Ni02LjY4NyAyMC4wNjMtMTQuMjExIDI1LjA3OWwtNjEuODYgMzUuOTQ1Yy04LjM2IDQuMTgtMjAuODk5IDQuMTgtMjkuMjU4IDBMMTQuNTEgMTYxLjYyQzYuMTUxIDE1Ny40NC4zIDE0NS43MzcuMyAxMzYuNTRWNjUuNDg2WicgZmlsbD0nYmxhY2snIGZpbGwtcnVsZT0nbm9uemVybycvPjwvc3ZnPg==);
+    }
+    .mask-hexagon-alt {
+        mask-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjAwJyBoZWlnaHQ9JzE4MicgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz48cGF0aCBkPSdNNjQuNzg2IDE4MS40Yy05LjE5NiAwLTIwLjA2My02LjY4Ny0yNS4wNzktMTQuMjFMMy43NjIgMTA1LjMzYy01LjAxNi04LjM2LTUuMDE2LTIwLjkgMC0yOS4yNTlsMzUuOTQ1LTYxLjg2QzQ0LjcyMyA1Ljg1MSA1NS41OSAwIDY0Ljc4NiAwaDcxLjA1NWM5LjE5NiAwIDIwLjA2MyA2LjY4OCAyNS4wNzkgMTQuMjExbDM1Ljk0NSA2MS44NmM0LjE4IDguMzYgNC4xOCAyMC44OTkgMCAyOS4yNThsLTM1Ljk0NSA2MS44NmMtNC4xOCA4LjM2LTE1Ljg4MyAxNC4yMTEtMjUuMDc5IDE0LjIxMUg2NC43ODZaJyBmaWxsPSdibGFjaycgZmlsbC1ydWxlPSdub256ZXJvJy8+PC9zdmc+);
     }
 }

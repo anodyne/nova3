@@ -6,7 +6,7 @@ namespace Nova\Users\Requests;
 
 use Illuminate\Validation\Rule;
 use Nova\Foundation\Http\Requests\ValidatesRequest;
-use Nova\Foundation\Rules\MaxFileSize;
+use Nova\Media\Rules\MaxFileSize;
 
 class UpdateUserRequest extends ValidatesRequest
 {

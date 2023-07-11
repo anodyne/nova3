@@ -9,7 +9,7 @@ use Illuminate\Contracts\Support\Responsable as LaravelResponsable;
 use Illuminate\Http\Response;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Str;
-use Nova\Pages\Page;
+use Nova\Pages\Models\Page;
 
 abstract class Responsable implements LaravelResponsable
 {

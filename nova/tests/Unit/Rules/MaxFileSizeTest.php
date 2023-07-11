@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Rules;
 
 use Illuminate\Http\UploadedFile;
-use Nova\Foundation\Rules\MaxFileSize;
+use Nova\Media\Rules\MaxFileSize;
 use Tests\TestCase;
 
 /**

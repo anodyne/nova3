@@ -38,9 +38,9 @@ class WritePostWizard extends WizardComponent
             'posts:step:write-post' => [
                 'postId' => $post?->id,
                 'storyId' => $post?->story_id,
-                'ratingLanguage' => $post?->rating_language ?? settings()->ratings->language->rating,
-                'ratingSex' => $post?->rating_sex ?? settings()->ratings->sex->rating,
-                'ratingViolence' => $post?->rating_violence ?? settings()->ratings->violence->rating,
+                'ratingLanguage' => $post?->rating_language ?? settings('ratings.language.rating'),
+                'ratingSex' => $post?->rating_sex ?? settings('ratings.sex.rating'),
+                'ratingViolence' => $post?->rating_violence ?? settings('ratings.violence.rating'),
             ],
         ];
     }

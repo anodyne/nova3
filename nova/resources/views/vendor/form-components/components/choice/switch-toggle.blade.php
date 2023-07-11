@@ -15,6 +15,7 @@
         x-modelable="value"
         {{ $attributes->whereStartsWith('x-model') }}
     @endif
+    class="flex items-center"
 >
     <label class="{{ $containerClass() }}">
         <input type="hidden" value="{{ $offValue }}" @if ($name) name="{{ $name }}" @endif />

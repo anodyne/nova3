@@ -1,13 +1,13 @@
 @extends('app')
 
 @section('layout')
-    <div class="min-h-screen bg-gray-200 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div class="flex min-h-screen flex-col justify-center bg-gray-200 py-12 sm:px-6 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <x-logos.nova class="mx-auto h-12 w-auto" />
         </div>
 
         <div class="mt-12 sm:mx-auto sm:w-full sm:max-w-2xl">
-            <div class="bg-white shadow-xl sm:rounded-xl ring-1 ring-gray-900/5">
+            <div class="bg-white shadow-xl ring-1 ring-gray-950/5 sm:rounded-xl">
                 @yield('content')
             </div>
 

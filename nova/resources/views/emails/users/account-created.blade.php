@@ -1,14 +1,13 @@
-@component('mail::message')
-# Introduction
+{{-- format-ignore-start --}}
+<x-mail::message>
+# User account created
 
-An account has been created for you.
+A new user account has been created for you. We recommend that you reset the generated password to something you can remember.
 
-We recommend that you reset the generated password to something you can remember.
+<x-mail::panel>
+**Password:** {{ $password }}
+</x-mail::panel>
 
-@component('mail::button', ['url' => ''])
-Button Text
-@endcomponent
-
-Thanks,<br>
-{{ config('app.name') }}
-@endcomponent
+<x-mail::button :href="route('login')">Sign in now</x-mail::button>
+</x-mail::message>
+{{-- format-ignore-end --}}

@@ -6,20 +6,21 @@ namespace Nova\Characters\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Characters\Models\Character;
+use Nova\Characters\Models\States\Statuses\Inactive;
 
-class SelfAssignCharacter
+class DenyCharacter
 {
     use AsAction;
 
     public function handle(Character $character): Character
     {
-        if (settings()->characters->autoLinkCharacter) {
+        if ($character->status->canTransitionTo(Inactive::class)) {
+            $character->status->transitionTo(Inactive::class);
+
             activity()
                 ->causedBy(auth()->user())
                 ->performedOn($character)
-                ->log(':subject.name was self-assigned ownership to :causer.name');
-
-            $character->users()->sync([auth()->id()]);
+                ->log(':subject.name was denied');
         }
 
         return $character->refresh();

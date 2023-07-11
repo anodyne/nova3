@@ -44,7 +44,8 @@ class PositionsList extends Component implements HasForms, HasTable
         return $table
             ->query(Position::with('department'))
             ->groups([
-                Group::make('department.name')->collapsible(),
+                Group::make('department.name')
+                    ->collapsible(),
             ])
             ->defaultGroup('department.name')
             ->defaultSort('order_column', 'asc')
@@ -86,7 +87,7 @@ class PositionsList extends Component implements HasForms, HasTable
                                 Select::make('department_id')->relationship('department', 'name'),
                             ])
                             ->modalHeading('Duplicate position?')
-                            ->modalSubheading(
+                            ->modalDescription(
                                 fn (Model $record) => "Are you sure you want to duplicate the {$record->name} position?"
                             )
                             ->modalSubmitActionLabel('Duplicate')
@@ -107,7 +108,7 @@ class PositionsList extends Component implements HasForms, HasTable
                     ActionGroup::make([
                         DeleteAction::make()
                             ->modalHeading('Delete position?')
-                            ->modalSubheading(
+                            ->modalDescription(
                                 fn (Model $record) => "Are you sure you want to delete the {$record->name} position from the {$record->department->name} department? You won't be able to recover it. Any characters assigned to this position will need to be re-assigned to another position."
                             )
                             ->modalSubmitActionLabel('Delete')
@@ -122,7 +123,7 @@ class PositionsList extends Component implements HasForms, HasTable
                     ->modalHeading(
                         fn (Collection $records) => "Delete {$records->count()} selected ".str('position')->plural($records->count()).'?'
                     )
-                    ->modalSubheading(function (Collection $records) {
+                    ->modalDescription(function (Collection $records) {
                         $statement = ($records->count() === 1)
                             ? 'this 1 position'
                             : "these {$records->count()} positions";
@@ -158,7 +159,7 @@ class PositionsList extends Component implements HasForms, HasTable
                 SelectFilter::make('status')->options(PositionStatus::class),
             ])
             ->heading('Positions')
-            ->description("The jobs or stations characters are assigned to for display on your manifests")
+            ->description('The jobs or stations characters are assigned to for display on your manifests')
             ->headerActions([
                 CreateAction::make()
                     ->authorize('create')
@@ -169,7 +170,7 @@ class PositionsList extends Component implements HasForms, HasTable
             ->reorderable('order_column')
             ->emptyStateIcon(iconName('list'))
             ->emptyStateHeading('No positions found')
-            ->emptyStateDescription("Positions are the jobs or stations that characters can be assigned to for display on your manifests.")
+            ->emptyStateDescription('Positions are the jobs or stations that characters can be assigned to for display on your manifests.')
             ->emptyStateActions([
                 CreateAction::make()
                     ->authorize('create')

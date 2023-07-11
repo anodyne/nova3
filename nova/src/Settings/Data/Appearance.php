@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Settings\Data;
 
-use Filament\Support\Color;
+use Filament\Support\Colors\Color;
 use Illuminate\Contracts\Support\Arrayable;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Data;
@@ -13,8 +13,10 @@ class Appearance extends Data implements Arrayable
 {
     public function __construct(
         public string $theme,
-        #[MapInputName('icon-set')]
+        #[MapInputName('icon_set')]
         public string $iconSet,
+        #[MapInputName('avatar_shape')]
+        public string $avatarShape,
         #[MapInputName('image_path')]
         public ?string $imagePath,
         #[MapInputName('colors_gray')]
@@ -27,8 +29,8 @@ class Appearance extends Data implements Arrayable
         public string $colorsWarning,
         #[MapInputName('colors_success')]
         public string $colorsSuccess,
-        #[MapInputName('colors_secondary')]
-        public string $colorsSecondary,
+        #[MapInputName('colors_info')]
+        public string $colorsInfo,
     ) {
     }
 
@@ -40,7 +42,7 @@ class Appearance extends Data implements Arrayable
             'danger' => $this->processColor($this->colorsDanger),
             'warning' => $this->processColor($this->colorsWarning),
             'success' => $this->processColor($this->colorsSuccess),
-            'secondary' => $this->processColor($this->colorsSecondary),
+            'info' => $this->processColor($this->colorsInfo),
         ];
     }
 
@@ -54,6 +56,6 @@ class Appearance extends Data implements Arrayable
             return Color::rgb($color);
         }
 
-        return constant('Filament\Support\Color::'.$color);
+        return constant('Filament\Support\Colors\Color::'.$color);
     }
 }

@@ -5,28 +5,34 @@
     'help' => false,
 ])
 
-<div class="relative flex items-start">
-    <div class="flex items-center h-5">
+<label class="flex items-center space-x-2" for="{{ $for }}">
+    <div class="relative">
         <input
-            aria-describedby="{{ $attributes->get('id', $for) }}-description"
             type="checkbox"
-            @class([
-                'form-checkbox rounded h-4 w-4',
-                'bg-white checked:bg-primary-500 border-gray-300 focus:ring-primary-200 focus:ring-offset-white checked:hover:bg-primary-500 focus:text-primary-500',
-                'dark:bg-gray-800 dark:checked:bg-primary-500 dark:border-gray-200/[15%] dark:checked:border-primary-500 dark:focus:ring-primary-900 dark:focus:ring-offset-gray-800 dark:checked:hover:bg-primary-500 dark:focus:text-primary-500',
-            ])
-            {{ $attributes }}
+            id="{{ $for }}"
+            {{ $attributes->merge(['class' => 'peer sr-only']) }}
             @checked($checked)
+        />
+
+        <div
+            class="h-4 w-4 rounded border-[1.5px] border-gray-300 bg-white peer-checked:border-primary-500 peer-checked:bg-primary-100 dark:border-gray-200/[15%] dark:bg-gray-800"
+        ></div>
+
+        <svg
+            viewBox="0 0 16 16"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+            class="absolute left-0 top-0 hidden h-4 w-4 text-primary-500 peer-checked:block"
         >
+            <path
+                d="M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z"
+            />
+        </svg>
     </div>
 
-    @if ($label || $help)
-        <div class="ml-3 text-sm">
-            <label for="{{ $attributes->get('id', $for) }}" class="font-medium text-gray-700 dark:text-gray-300">{{ $label }}</label>
-
-            @if ($help)
-                <p id="{{ $attributes->get('id', $for) }}-description" class="text-gray-500">{{ $help }}</p>
-            @endif
+    @if ($label)
+        <div class="text-sm font-medium">
+            {{ $label }}
         </div>
     @endif
-</div>
+</label>

@@ -7,6 +7,9 @@ namespace Nova\Characters\Providers;
 use Nova\Characters\Livewire\CharactersCollector;
 use Nova\Characters\Livewire\CharactersDropdown;
 use Nova\Characters\Livewire\CharactersList;
+use Nova\Characters\Livewire\ManageOwnership;
+use Nova\Characters\Livewire\ManagePositions;
+use Nova\Characters\Livewire\ManageUsers;
 use Nova\Characters\Livewire\SelectCharactersModal;
 use Nova\Characters\Models\Character;
 use Nova\Characters\Spotlight\AddCharacter;
@@ -23,6 +26,9 @@ class CharacterServiceProvider extends DomainServiceProvider
             'characters:dropdown' => CharactersDropdown::class,
             'characters:list' => CharactersList::class,
             'characters:select-characters-modal' => SelectCharactersModal::class,
+            'characters:manage-ownership' => ManageOwnership::class,
+            'characters:manage-positions' => ManagePositions::class,
+            'characters:manage-users' => ManageUsers::class,
         ];
     }
 

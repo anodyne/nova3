@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Nova\Foundation\Concerns\SortableTrait;
+use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Posts\Models\Post;
 use Nova\Stories\Events;
 use Nova\Stories\Models\Builders\StoryBuilder;
@@ -17,7 +18,6 @@ use Nova\Stories\Models\States\Current;
 use Nova\Stories\Models\States\StoryStatus;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\ModelStates\HasStates;
 use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
 
@@ -28,8 +28,6 @@ class Story extends Model implements HasMedia, Sortable
     use HasStates;
     use InteractsWithMedia;
     use SortableTrait;
-
-    public const MEDIA_DIRECTORY = 'stories/{model_id}/{media_id}/';
 
     protected $table = 'stories';
 
@@ -157,5 +155,10 @@ class Story extends Model implements HasMedia, Sortable
             'next' => $query->where('order_column', $this->order_column++)->first(),
             default => $query->first(),
         };
+    }
+
+    public static function getMediaPath(): string
+    {
+        return 'stories/{model_id}/{media_id}/';
     }
 }

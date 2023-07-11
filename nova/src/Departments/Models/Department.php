@@ -9,12 +9,12 @@ use Illuminate\Database\Eloquent\Model;
 use Nova\Departments\Enums\DepartmentStatus;
 use Nova\Departments\Events;
 use Nova\Departments\Models\Builders\DepartmentBuilder;
+use Nova\Media\Concerns\InteractsWithMedia;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Department extends Model implements HasMedia, Sortable
 {
@@ -22,8 +22,6 @@ class Department extends Model implements HasMedia, Sortable
     use InteractsWithMedia;
     use LogsActivity;
     use SortableTrait;
-
-    public const MEDIA_DIRECTORY = 'departments/{model_id}/{media_id}/';
 
     protected $casts = [
         'order_column' => 'integer',
@@ -65,5 +63,10 @@ class Department extends Model implements HasMedia, Sortable
         $this->addMediaCollection('department-header')
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif'])
             ->singleFile();
+    }
+
+    public static function getMediaPath(): string
+    {
+        return 'departments/{model_id}/{media_id}/';
     }
 }

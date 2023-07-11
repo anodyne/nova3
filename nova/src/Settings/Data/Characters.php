@@ -11,24 +11,28 @@ use Spatie\LaravelData\Data;
 class Characters extends Data implements Arrayable
 {
     public function __construct(
-        public bool $allowCharacterCreation,
-        public bool $allowSettingPrimaryCharacter,
-        public bool $autoLinkCharacter,
-        public int $characterLimit,
+        public bool $approvePrimary,
+        public bool $approveSecondary,
+        public bool $approveSupport,
         public bool $enforceCharacterLimits,
-        public bool $requireApprovalForCharacterCreation,
+        public ?int $characterLimit,
+        public bool $autoAvailabilityForPrimary,
+        public bool $autoAvailabilityForSecondary,
+        public bool $autoAvailabilityForSupport
     ) {
     }
 
     public static function fromRequest(Request $request): static
     {
         return new self(
-            allowCharacterCreation: $request->boolean('allow_character_creation', false),
-            allowSettingPrimaryCharacter: $request->boolean('allow_setting_primary_character', false),
-            autoLinkCharacter: $request->boolean('auto_link_character', false),
-            characterLimit: (int) $request->input('character_limit', 5),
-            enforceCharacterLimits: $request->boolean('enforce_character_limits', false),
-            requireApprovalForCharacterCreation: $request->boolean('require_approval_for_character_creation', false)
+            approvePrimary: $request->boolean('approve_primary', true),
+            approveSecondary: $request->boolean('approve_secondary', true),
+            approveSupport: $request->boolean('approve_support', true),
+            enforceCharacterLimits: $request->boolean('enforce_character_limits', true),
+            characterLimit: $request->integer('character_limit', 5),
+            autoAvailabilityForPrimary: $request->boolean('auto_availability_primary', true),
+            autoAvailabilityForSecondary: $request->boolean('auto_availability_secondary', true),
+            autoAvailabilityForSupport: $request->boolean('auto_availability_support', false)
         );
     }
 }

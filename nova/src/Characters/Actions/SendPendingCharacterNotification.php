@@ -17,13 +17,13 @@ class SendPendingCharacterNotification
 
     public function handle(Character $character, User $user): void
     {
-        if ($character->status->is(Pending::class)) {
-            $users = User::wherePermissionIs('character.update')->get();
-
-            Notification::send(
-                $users,
-                new CharacterRequiresApproval(character: $character, user: $user)
-            );
+        if (! $user->can('create', $character)) {
+            if ($character->status->equals(Pending::class)) {
+                Notification::send(
+                    User::whereHasPermission('character.update')->get(),
+                    new CharacterRequiresApproval(character: $character, user: $user)
+                );
+            }
         }
     }
 }

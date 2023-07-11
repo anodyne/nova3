@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Themes;
 
-use Nova\Pages\Page;
+use Nova\Pages\Models\Page;
 use Nova\Themes\Concerns\InteractsWithModel;
 use Nova\Themes\Concerns\RendersTheme;
 

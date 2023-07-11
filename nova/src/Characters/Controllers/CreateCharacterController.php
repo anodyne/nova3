@@ -39,7 +39,7 @@ class CreateCharacterController extends Controller
         );
 
         return redirect()
-            ->route('characters.index', 'status=active')
+            ->route('characters.index')
             ->withToast("{$character->name} was created");
     }
 }

@@ -10,9 +10,9 @@
     <x-avatar :src="$src" :tooltip="$tooltip" :size="$size"></x-avatar>
 
     @if ($primary || $secondary)
-        <div class="flex flex-col ml-4">
+        <div class="ml-4 flex flex-col">
             @if ($primary)
-                <div class="flex items-center font-medium truncate text-gray-900 dark:text-white">
+                <div class="flex items-center truncate font-medium text-gray-900 dark:text-white">
                     {{ $primary }}
                 </div>
             @endif

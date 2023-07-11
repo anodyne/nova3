@@ -71,7 +71,7 @@ class NotesList extends Component implements HasForms, HasTable
                     ActionGroup::make([
                         DeleteAction::make()
                             ->modalHeading('Delete note?')
-                            ->modalSubheading("Are you sure you want to delete this note? You won't be able to recover it.")
+                            ->modalDescription("Are you sure you want to delete this note? You won't be able to recover it.")
                             ->modalSubmitActionLabel('Delete')
                             ->successNotificationTitle('Note was deleted')
                             ->using(fn (Model $record): Model => DeleteNote::run($record)),
@@ -84,7 +84,7 @@ class NotesList extends Component implements HasForms, HasTable
                     ->modalHeading(
                         fn (Collection $records): string => "Delete {$records->count()} selected ".str('note')->plural($records->count()).'?'
                     )
-                    ->modalSubheading(function (Collection $records): string {
+                    ->modalDescription(function (Collection $records): string {
                         $statement = ($records->count() === 1)
                             ? 'this 1 note'
                             : "these {$records->count()} notes";

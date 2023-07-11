@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Actions;
 
-use Illuminate\Http\Request;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Characters\Data\AssignCharacterOwnersData;
-use Nova\Characters\Data\AssignCharacterPositionsData;
-use Nova\Characters\Data\CharacterData;
+use Nova\Characters\Enums\CharacterType;
 use Nova\Characters\Models\Character;
+use Nova\Characters\Requests\CreateCharacterRequest;
+use Nova\Departments\Models\Position;
 
 class CreateCharacterManager
 {
     use AsAction;
 
-    public function handle(Request $request): Character
+    public function handle(CreateCharacterRequest $request): Character
     {
-        $character = CreateCharacter::run(CharacterData::from($request));
+        $character = CreateCharacter::run($request->getCharacterData());
 
         $character = $request->user()->can('create', Character::class)
             ? $this->assignCharacterOwnersWithPermissions($character, $request)
@@ -25,39 +25,45 @@ class CreateCharacterManager
 
         $character = AssignCharacterPositions::run(
             $character,
-            AssignCharacterPositionsData::from($request)
+            $request->getCharacterPositionsData()
         );
 
         $character = SetCharacterType::run($character);
 
+        // if (
+        //     ($character->type === CharacterType::primary && settings()->characters->manageAvailabilityForPrimaryCharacters) ||
+        //     ($character->type === CharacterType::secondary && settings()->characters->manageAvailabilityForSecondaryCharacters) ||
+        //     ($character->type === CharacterType::support && settings()->characters->manageAvailabilityForSupportCharacters)
+        // ) {
+        //     Position::whereIn('id', $request->getCharacterPositionsData()->positions)->decrement('availability');
+        // }
+
         UploadCharacterAvatar::run($character, $request->avatar_path);
 
-        if ($request->user()->cannot('create', Character::class)) {
-            // SendPendingCharacterNotification::run($character, auth()->user());
-        }
+        SendPendingCharacterNotification::run($character, $request->user());
 
         return $character->refresh();
     }
 
     protected function assignCharacterOwnersWithPermissions(
         Character $character,
-        Request $request
+        CreateCharacterRequest $request
     ): Character {
         return AssignCharacterOwners::run(
             $character,
-            AssignCharacterOwnersData::from($request)
+            $request->getCharacterOwnersData()
         );
     }
 
     protected function assignCharacterOwnersWithoutPermissions(
         Character $character,
-        Request $request
+        CreateCharacterRequest $request
     ): Character {
         return AssignCharacterOwners::run(
             $character,
             AssignCharacterOwnersData::from([
-                'users' => (bool) $request->self_assign ? [auth()->id()] : '',
-                'primaryCharacters' => (bool) $request->self_primary_assign ? [auth()->id()] : [],
+                'users' => $request->boolean('self_assign') ? [auth()->id()] : [],
+                'primaryUsers' => $request->boolean('self_primary_assign') ? [auth()->id()] : [],
             ])
         );
     }

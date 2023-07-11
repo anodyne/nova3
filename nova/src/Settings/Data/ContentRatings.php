@@ -20,9 +20,9 @@ class ContentRatings extends Data implements Arrayable
     public static function fromRequest(Request $request): static
     {
         return new self(
-            language: ContentRating::from($request->get('language', settings()->ratings->language)),
-            sex: ContentRating::from($request->get('sex', settings()->ratings->sex)),
-            violence: ContentRating::from($request->get('violence', settings()->ratings->violence)),
+            language: ContentRating::from($request->get('language', settings('ratings.language'))),
+            sex: ContentRating::from($request->get('sex', settings('ratings.sex'))),
+            violence: ContentRating::from($request->get('violence', settings('ratings.violence'))),
         );
     }
 }

@@ -14,6 +14,7 @@ use Nova\Characters\Events;
 use Nova\Characters\Models\Builders\CharacterBuilder;
 use Nova\Characters\Models\States\Statuses\CharacterStatus;
 use Nova\Departments\Models\Position;
+use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Ranks\Models\RankItem;
 use Nova\Stories\Models\Post;
 use Nova\Users\Models\States\Active as ActiveUser;
@@ -21,7 +22,6 @@ use Nova\Users\Models\User;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\ModelStates\HasStates;
 use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
@@ -33,8 +33,6 @@ class Character extends Model implements HasMedia
     use InteractsWithMedia;
     use LogsActivity;
     use SoftDeletes;
-
-    public const MEDIA_DIRECTORY = 'characters/{model_id}/{media_id}/';
 
     protected $casts = [
         'status' => CharacterStatus::class,
@@ -48,7 +46,7 @@ class Character extends Model implements HasMedia
     ];
 
     protected $fillable = [
-        'name', 'status', 'rank_id',
+        'name', 'status', 'rank_id', 'type',
     ];
 
     public function activeUsers()
@@ -71,9 +69,14 @@ class Character extends Model implements HasMedia
         return $this->positions()->wherePivot('primary', true);
     }
 
-    public function primaryUsers()
+    public function activePrimaryUsers()
     {
         return $this->activeUsers()->wherePivot('primary', true);
+    }
+
+    public function primaryUsers()
+    {
+        return $this->users()->wherePivot('primary', true);
     }
 
     public function rank()
@@ -118,6 +121,13 @@ class Character extends Model implements HasMedia
         );
     }
 
+    public function rankId(): Attribute
+    {
+        return new Attribute(
+            set: fn ($value): ?int => $value === 0 ? null : $value
+        );
+    }
+
     public function newEloquentBuilder($query): CharacterBuilder
     {
         return new CharacterBuilder($query);
@@ -127,7 +137,13 @@ class Character extends Model implements HasMedia
     {
         $this->addMediaCollection('avatar')
             ->useFallbackUrl("https://avatars.dicebear.com/api/bottts/{str_replace(' ', '', {$this->name})}.svg")
+            ->useDisk('media')
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif'])
             ->singleFile();
+    }
+
+    public static function getMediaPath(): string
+    {
+        return 'characters/{model_id}/{media_id}/';
     }
 }

@@ -12,8 +12,8 @@ class SetDefaultContentRatings
     {
         $post = $event->post;
 
-        $post->rating_language = settings()->ratings->language->rating;
-        $post->rating_sex = settings()->ratings->sex->rating;
-        $post->rating_violence = settings()->ratings->violence->rating;
+        $post->rating_language = settings('ratings.language.rating');
+        $post->rating_sex = settings('ratings.sex.rating');
+        $post->rating_violence = settings('ratings.violence.rating');
     }
 }

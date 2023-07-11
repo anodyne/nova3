@@ -15,50 +15,63 @@ class CharacterSeeder extends Seeder
     {
         activity()->disableLogging();
 
-        $picard = Character::factory()->primary()->create([
+        $picard = Character::factory()->secondary()->create([
             'name' => 'Jean-Luc Picard',
             'rank_id' => 1,
         ]);
-        $picard->users()->save(User::find(1), ['primary' => true]);
-        $picard->positions()->save(Position::find(1), ['primary' => true]);
+        $picard->users()->save(User::find(1));
 
         $riker = Character::factory()->primary()->create([
             'name' => 'William Riker',
-            'rank_id' => 2,
+            'rank_id' => 1,
         ]);
-        $riker->users()->save(User::find(2), ['primary' => true]);
-        $riker->positions()->save(Position::find(2), ['primary' => true]);
+        $riker->users()->save(User::find(2));
+        $riker->users()->save(User::find(4), ['primary' => true]);
 
-        $data = Character::factory()->create([
-            'name' => 'Data',
-            'rank_id' => 17,
-        ]);
-        $data->positions()->save(Position::find(5), ['primary' => true]);
-
-        $laforge = Character::factory()->create([
+        $laforge = Character::factory()->primary()->create([
             'name' => 'Geordi LaForge',
-            'rank_id' => 17,
+            'rank_id' => 4,
         ]);
-        $laforge->positions()->save(Position::find(10), ['primary' => true]);
+        $laforge->users()->save(User::find(2), ['primary' => true]);
 
         $worf = Character::factory()->create([
             'name' => 'Worf',
-            'rank_id' => 18,
         ]);
-        $worf->positions()->save(Position::find(7), ['primary' => true]);
 
         $crusher = Character::factory()->create([
             'name' => 'Beverly Crusher',
-            'rank_id' => 30,
+            'rank_id' => 4,
         ]);
-        $crusher->positions()->save(Position::find(15), ['primary' => true]);
 
-        $guinan = Character::factory()->secondary()->create([
-            'name' => 'Guinan',
+        $shaw = Character::factory()->primary()->create([
+            'name' => 'Liam Shaw',
+            'rank_id' => 5,
         ]);
-        $guinan->users()->saveMany([
-            User::find(1),
-            User::find(2),
+        $shaw->positions()->save(Position::find(1), ['primary' => true]);
+        $shaw->users()->save(User::find(1), ['primary' => true]);
+
+        $seven = Character::factory()->primary()->create([
+            'name' => 'Seven of Nine',
+            'rank_id' => 6,
+        ]);
+        $seven->positions()->save(Position::find(2), ['primary' => true]);
+        $seven->users()->save(User::find(2), ['primary' => true]);
+
+        $sidney = Character::factory()->secondary()->create([
+            'name' => 'Sidney LaForge',
+            'rank_id' => 10,
+        ]);
+        $sidney->users()->save(User::find(2));
+        $sidney->positions()->save(Position::find(5));
+
+        $alandra = Character::factory()->secondary()->create([
+            'name' => 'Alandra LaForge',
+            'rank_id' => 24,
+        ]);
+        $alandra->users()->save(User::find(2));
+
+        $jack = Character::factory()->pending()->create([
+            'name' => 'Jack Crusher',
         ]);
 
         activity()->enableLogging();

@@ -10,24 +10,24 @@ class ArrMacros
     {
         return function (array $array, $key, $default = false) {
             if ($default === null) {
-                filter_var(data_get($array, $key, $default), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+                return filter_var(data_get($array, $key, $default), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
             }
 
             return filter_var(data_get($array, $key, $default), FILTER_VALIDATE_BOOLEAN);
         };
     }
 
-//    public static function enum()
-//    {
-//        return function ($key, $enumClass) {
-//            if ($this->isNotFilled($key) ||
-//                ! function_exists('enum_exists') ||
-//                ! enum_exists($enumClass) ||
-//                ! method_exists($enumClass, 'tryFrom')) {
-//                return null;
-//            }
-//
-//            return $enumClass::tryFrom($this->input($key));
-//        };
-//    }
+    //    public static function enum()
+    //    {
+    //        return function ($key, $enumClass) {
+    //            if ($this->isNotFilled($key) ||
+    //                ! function_exists('enum_exists') ||
+    //                ! enum_exists($enumClass) ||
+    //                ! method_exists($enumClass, 'tryFrom')) {
+    //                return null;
+    //            }
+    //
+    //            return $enumClass::tryFrom($this->input($key));
+    //        };
+    //    }
 }

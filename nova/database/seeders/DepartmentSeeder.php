@@ -27,6 +27,8 @@ class DepartmentSeeder extends Seeder
             ['name' => 'Medical', 'description' => 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci, totam numquam voluptatem cum repellat quos commodi sed repudiandae ut ducimus illo culpa voluptate saepe ipsam nostrum unde ab. Facilis, ipsum?', 'order_column' => 6],
 
             ['name' => 'Marines', 'description' => 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci, totam numquam voluptatem cum repellat quos commodi sed repudiandae ut ducimus illo culpa voluptate saepe ipsam nostrum unde ab. Facilis, ipsum?', 'order_column' => 7],
+
+            ['name' => 'Civilians', 'description' => 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci, totam numquam voluptatem cum repellat quos commodi sed repudiandae ut ducimus illo culpa voluptate saepe ipsam nostrum unde ab. Facilis, ipsum?', 'order_column' => 8],
         ];
 
         activity()->disableLogging();

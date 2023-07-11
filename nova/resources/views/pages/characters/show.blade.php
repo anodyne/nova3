@@ -1,84 +1,89 @@
 @extends($meta->template)
 
 @section('content')
-    <x-panel>
-        <x-panel.header :title="$character->name">
-            <x-slot:actions>
-                <x-button.text :href="route('characters.index')" leading="arrow-left" color="gray">
-                    Back
-                </x-button.text>
-
-                @can('update', $character)
-                    <x-button.filled :href="route('characters.edit', $character)" leading="edit" color="primary">Edit</x-button.filled>
-                @endcan
-            </x-slot:actions>
-        </x-panel.header>
-
-        <x-form action="">
-            <x-form.section title="Character Info">
-                <x-input.group label="Name">
-                    <p class="font-semibold">{{ $character->name }}</p>
-                </x-input.group>
-
-                @if ($character->rank)
-                    <x-input.group label="Rank">
-                        <div class="flex items-center">
-                            <x-rank :rank="$character->rank" />
-                            <span class="ml-3 font-medium">{{ $character->rank?->name?->name }}</span>
+    <div class="grid grid-cols-1 items-start gap-4 lg:grid-cols-3 lg:gap-8">
+        <div class="space-y-8 lg:col-span-2">
+            <x-panel>
+                <x-content-box>
+                    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between lg:space-x-8">
+                        <div>
+                            <x-avatar.character :character="$character" size="xl" :secondary-positions="false">
+                                @if ($character->rank)
+                                    <x-slot name="secondary">
+                                        <x-rank :rank="$character->rank" />
+                                    </x-slot>
+                                @endif
+                            </x-avatar.character>
                         </div>
-                    </x-input.group>
-                @endif
 
+                        <div class="flex items-center space-x-4">
+                            <x-badge :color="$character->status->color()">
+                                {{ $character->status->getLabel() }}
+                            </x-badge>
+
+                            <x-badge :color="$character->type->color()">
+                                {{ $character->type->getLabel() }}
+                            </x-badge>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 space-x-4">
+                        @can('update', $character)
+                            <x-button.filled
+                                :href="route('characters.edit', $character)"
+                                leading="edit"
+                                color="primary"
+                            >
+                                Edit
+                            </x-button.filled>
+                        @endcan
+
+                        <x-button.text :href="route('characters.index')" leading="arrow-left" color="gray">
+                            Back
+                        </x-button.text>
+                    </div>
+                </x-content-box>
+            </x-panel>
+
+            <x-panel>
+                <x-content-box>Dynamic form content will go here</x-content-box>
+            </x-panel>
+        </div>
+
+        <div>
+            <x-panel class="divide-y divide-gray-200 dark:divide-gray-600/50">
                 @if ($character->positions->count() > 0)
-                    <x-input.group>
-                        <x-slot:label>
-                            @choice('Position|Positions', $character->positions)
-                        </x-slot:label>
-
-                        <div class="flex flex-col w-full">
+                    <x-content-box>
+                        <div class="text-sm font-medium text-gray-500">
+                            Assigned
+                            @choice('position|positions', $character->positions)
+                        </div>
+                        <div class="mt-2 flex w-full flex-col space-y-1.5">
                             @foreach ($character->positions as $position)
-                                <div class="group flex items-center justify-between py-2 px-4 rounded odd:bg-gray-100 dark:odd:bg-gray-700/50">
+                                <div class="group flex items-center font-medium text-gray-600 dark:text-gray-400">
                                     {{ $position->name }}
                                 </div>
                             @endforeach
                         </div>
-                    </x-input.group>
+                    </x-content-box>
                 @endif
 
-                <x-input.group label="Status">
-                    <x-badge :color="$character->status->color()">{{ $character->status->displayName() }}</x-badge>
-                </x-input.group>
-
-                <x-input.group label="Character Type">
-                    <x-badge :color="$character->type->color()">{{ $character->type->displayName() }}</x-badge>
-                </x-input.group>
-
-                <x-input.group label="Avatar">
-                    <x-avatar :src="$character->avatar_url" size="lg" />
-                </x-input.group>
-            </x-form.section>
-
-            @if ($character->users->count() > 0)
-                <x-form.section title="Ownership" message="Characters can be assigned to any number of users and all assigned users will have the same rights with the character. Additionally, any notifications on behalf of the character will be sent to all users assigned to the character.">
-                    <x-input.group label="Played By">
-                        <div class="flex flex-col w-full">
+                @if ($character->users->count() > 0)
+                    <x-content-box>
+                        <div class="flex w-full flex-col space-y-4">
                             @foreach ($character->users as $user)
-                                <div class="group flex items-center justify-between py-2 px-4 rounded odd:bg-gray-50">
-                                    <div class="flex items-center">
-                                        <x-avatar.user :user="$user" :secondary-status="true"></x-avatar.user>
-                                    </div>
+                                <div class="flex items-center justify-between">
+                                    <x-avatar.user :user="$user" :secondary-status="true"></x-avatar.user>
 
-                                    @can('update', $user)
-                                        <a href="{{ route('users.edit', $user) }}" class="text-gray-600 transition ease-in-out duration-200 hover:text-gray-900 group-hover:visible sm:invisible">
-                                            <x-icon name="edit" size="sm"></x-icon>
-                                        </a>
-                                    @endcan
+                                    @if ($user->pivot->primary)
+                                        <x-badge color="primary">Primary</x-badge>
+                                    @endif
                                 </div>
                             @endforeach
                         </div>
-                    </x-input.group>
-                </x-form.section>
-            @endif
-        </x-form>
-    </x-panel>
+                    </x-content-box>
+                @endif
+            </x-panel>
+        </div>
+    </div>
 @endsection

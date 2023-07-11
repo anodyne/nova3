@@ -53,7 +53,7 @@ class SettingsController extends Controller
                 $info->action::run($data);
             }
         } catch (\Throwable $th) {
-            dd($th->getMessage());
+            dd($th->getMessage(), $th->getTrace());
         }
 
         return redirect()

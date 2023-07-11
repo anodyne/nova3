@@ -1,11 +1,5 @@
 <div x-data="{ open: false }" class="leading-none">
-    <x-button.text
-        x-on:click.prevent="open = true"
-        tag="button"
-        color="gray"
-        aria-label="Notifications"
-        class="w-full"
-    >
+    <x-button.text x-on:click.prevent="open = true" tag="button" color="gray" aria-label="Notifications" class="w-full">
         <div class="relative flex items-center justify-between space-x-4">
             <div class="flex items-center space-x-2">
                 <x-icon name="bell" size="md"></x-icon>
@@ -30,10 +24,10 @@
             <div
                 x-show="open"
                 x-description="Background overlay, show/hide based on slide-over state."
-                x-transition:enter="ease-in-out duration-500"
+                x-transition:enter="duration-500 ease-in-out"
                 x-transition:enter-start="opacity-0"
                 x-transition:enter-end="opacity-100"
-                x-transition:leave="ease-in-out duration-500"
+                x-transition:leave="duration-500 ease-in-out"
                 x-transition:leave-start="opacity-100"
                 x-transition:leave-end="opacity-0"
                 class="absolute inset-0 bg-black/25 backdrop-blur transition-opacity"
@@ -49,20 +43,20 @@
                     class="relative w-screen max-w-md"
                     x-description="Slide-over panel, show/hide based on slide-over state."
                     x-show="open"
-                    x-transition:enter="transition ease-in-out duration-500"
+                    x-transition:enter="transition duration-500 ease-in-out"
                     x-transition:enter-start="translate-x-full"
                     x-transition:enter-end="translate-x-0"
-                    x-transition:leave="transition ease-in-out duration-500"
+                    x-transition:leave="transition duration-500 ease-in-out"
                     x-transition:leave-start="translate-x-0"
                     x-transition:leave-end="translate-x-full"
                 >
                     <div
                         x-description="Close button, show/hide based on slide-over state."
                         x-show="open"
-                        x-transition:enter="ease-in-out duration-500"
+                        x-transition:enter="duration-500 ease-in-out"
                         x-transition:enter-start="opacity-0"
                         x-transition:enter-end="opacity-100"
-                        x-transition:leave="ease-in-out duration-500"
+                        x-transition:leave="duration-500 ease-in-out"
                         x-transition:leave-start="opacity-100"
                         x-transition:leave-end="opacity-0"
                         class="absolute left-0 top-0 -ml-8 flex pr-2 pt-4 sm:-ml-10 sm:pr-4"
@@ -77,11 +71,9 @@
                     </div>
 
                     <div
-                        class="flex h-full flex-col overflow-y-scroll rounded-lg bg-white py-6 shadow-xl ring-1 ring-gray-900/5 dark:bg-gray-800"
+                        class="flex h-full flex-col overflow-y-scroll rounded-lg bg-white py-6 shadow-xl ring-1 ring-gray-950/5 dark:bg-gray-800"
                     >
-                        <header
-                            class="flex items-center justify-between px-4 sm:px-6"
-                        >
+                        <header class="flex items-center justify-between px-4 sm:px-6">
                             <x-h2>Notifications</x-h2>
 
                             @if ($this->hasUnreadNotifications)
@@ -107,16 +99,11 @@
                             @endif
                         </header>
 
-                        <div
-                            class="relative mt-6 w-full space-y-8 px-4 leading-normal sm:px-6"
-                        >
+                        <div class="relative mt-6 w-full space-y-8 px-4 leading-normal sm:px-6">
                             @forelse ($notifications as $notification)
                                 @include("livewire.users.notifications.{$notification['type']}", compact('notification'))
                             @empty
-                                <x-panel.primary
-                                    icon="check"
-                                    title="You're all caught up"
-                                >
+                                <x-panel.primary icon="check" title="You're all caught up">
                                     You don't have any unread notifications.
                                 </x-panel.primary>
                             @endforelse

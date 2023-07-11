@@ -1,5 +1,8 @@
 <x-panel>
-    <x-panel.header title="Delete story" message="Manage story deletion and how nested stories and story posts should be handled."></x-panel.header>
+    <x-panel.header
+        title="Delete story"
+        message="Manage story deletion and how nested stories and story posts should be handled."
+    ></x-panel.header>
 
     <x-form :action="route('stories.destroy')" method="DELETE" :divide="false">
         <x-content-box width="none" height="none">
@@ -8,9 +11,20 @@
                     <x-content-box>
                         <div class="flex items-start">
                             <div class="flex flex-col">
-                                <div class="text-lg font-semibold text-gray-900 dark:text-gray-100" x-data="{}" @toggle-switch-changed="livewire.emit('delete-story-toggle', $event.detail.value, {{ $story->id }})">
-                                    <x-switch-toggle name="active" :value="old('active', data_get($actions, $story->id.'.story.action') === 'delete')" :disabled="$loop->first" color="danger">
-                                        <span class="text-gray-900 dark:text-gray-100">Delete {{ $story->title }}</span>
+                                <div
+                                    class="text-lg font-semibold text-gray-900 dark:text-gray-100"
+                                    x-data="{}"
+                                    @toggle-switch-changed="livewire.emit('delete-story-toggle', $event.detail.value, {{ $story->id }})"
+                                >
+                                    <x-switch-toggle
+                                        name="active"
+                                        :value="old('active', data_get($actions, $story->id.'.story.action') === 'delete')"
+                                        :disabled="$loop->first"
+                                        color="danger"
+                                    >
+                                        <span class="text-gray-900 dark:text-gray-100">
+                                            Delete {{ $story->title }}
+                                        </span>
                                     </x-switch-toggle>
                                 </div>
 
@@ -21,9 +35,11 @@
                                     </div>
                                 @endif
 
-                                <div class="mt-2 flex max-w-xl items-center space-x-6 font-medium text-gray-600 dark:text-gray-400">
+                                <div
+                                    class="mt-2 flex max-w-xl items-center space-x-6 font-medium text-gray-600 dark:text-gray-400"
+                                >
                                     @if (data_get($actions, "{$story->id}.story.action") === 'move')
-                                        <x-badge color="secondary">
+                                        <x-badge color="info">
                                             <x-slot name="leadingIcon">
                                                 <x-icon name="arrow-right" size="sm" class="shrink-0"></x-icon>
                                             </x-slot>
@@ -41,7 +57,7 @@
                                     @endif
 
                                     @if (data_get($actions, "{$story->id}.posts.action") === 'move')
-                                        <x-badge color="secondary">
+                                        <x-badge color="info">
                                             <x-slot name="leadingIcon">
                                                 <x-icon name="arrow-right" size="sm" class="shrink-0"></x-icon>
                                             </x-slot>
@@ -72,10 +88,17 @@
                                     @if (! $loop->first)
                                         @if (data_get($actions, "{$story->id}.story.action") === 'move')
                                             <x-input.group label="Move this story to:">
-                                                <x-input.select wire:change="trackStoryAction({{ $story->id }}, 'move', $event.target.value)">
+                                                <x-input.select
+                                                    wire:change="trackStoryAction({{ $story->id }}, 'move', $event.target.value)"
+                                                >
                                                     <option value="">Choose a story</option>
                                                     @foreach ($this->getStoriesForMovingStories($story->id) as $moveStoriesStory)
-                                                        <option value="{{ $moveStoriesStory->id }}" @if(data_get($actions, "{$story->id}.story.actionId") === $moveStoriesStory->id) selected @endif>{{ $moveStoriesStory->title }}</option>
+                                                        <option
+                                                            value="{{ $moveStoriesStory->id }}"
+                                                            @if(data_get($actions, "{$story->id}.story.actionId") === $moveStoriesStory->id) selected @endif
+                                                        >
+                                                            {{ $moveStoriesStory->title }}
+                                                        </option>
                                                     @endforeach
                                                 </x-input.select>
                                             </x-input.group>
@@ -86,13 +109,41 @@
                                         <x-input.group>
                                             <div class="flex flex-col space-y-6">
                                                 <div class="flex flex-col space-y-1">
-                                                    <x-input.radio label="Delete story posts" for="delete-posts-{{ $story->id }}" name="posts_action[{{ $story->id }}]" id="delete-posts-{{ $story->id }}" value="delete" :checked="data_get($actions, $story->id.'.posts.action') === 'delete'" wire:click="trackPostsAction({{ $story->id }}, 'delete')" />
-                                                    <label for="delete-posts-{{ $story->id }}" class="ml-6 max-w-xl text-sm text-gray-600 dark:text-gray-400">Delete the posts along with the story. This action is permanent and cannot be undone!</label>
+                                                    <x-input.radio
+                                                        label="Delete story posts"
+                                                        for="delete-posts-{{ $story->id }}"
+                                                        name="posts_action[{{ $story->id }}]"
+                                                        id="delete-posts-{{ $story->id }}"
+                                                        value="delete"
+                                                        :checked="data_get($actions, $story->id.'.posts.action') === 'delete'"
+                                                        wire:click="trackPostsAction({{ $story->id }}, 'delete')"
+                                                    />
+                                                    <label
+                                                        for="delete-posts-{{ $story->id }}"
+                                                        class="ml-6 max-w-xl text-sm text-gray-600 dark:text-gray-400"
+                                                    >
+                                                        Delete the posts along with the story. This action is permanent
+                                                        and cannot be undone!
+                                                    </label>
                                                 </div>
 
                                                 <div class="flex flex-col space-y-1">
-                                                    <x-input.radio label="Move story posts" for="move-posts-{{ $story->id }}" name="posts_action[{{ $story->id }}]" id="move-posts-{{ $story->id }}" value="move" :checked="data_get($actions, $story->id.'.posts.action') === 'move'" wire:click="trackPostsAction({{ $story->id }}, 'move')" />
-                                                    <label for="move-posts-{{ $story->id }}" class="ml-6 max-w-xl text-sm text-gray-600 dark:text-gray-400">Move the posts in this story to another story. Everything else about the posts will remain the same.</label>
+                                                    <x-input.radio
+                                                        label="Move story posts"
+                                                        for="move-posts-{{ $story->id }}"
+                                                        name="posts_action[{{ $story->id }}]"
+                                                        id="move-posts-{{ $story->id }}"
+                                                        value="move"
+                                                        :checked="data_get($actions, $story->id.'.posts.action') === 'move'"
+                                                        wire:click="trackPostsAction({{ $story->id }}, 'move')"
+                                                    />
+                                                    <label
+                                                        for="move-posts-{{ $story->id }}"
+                                                        class="ml-6 max-w-xl text-sm text-gray-600 dark:text-gray-400"
+                                                    >
+                                                        Move the posts in this story to another story. Everything else
+                                                        about the posts will remain the same.
+                                                    </label>
                                                 </div>
                                             </div>
                                         </x-input.group>
@@ -100,10 +151,17 @@
 
                                     @if (data_get($actions, "{$story->id}.posts.action") === 'move')
                                         <x-input.group label="Move this story's posts to:">
-                                            <x-input.select wire:change="trackPostsAction({{ $story->id }}, 'move', $event.target.value)">
+                                            <x-input.select
+                                                wire:change="trackPostsAction({{ $story->id }}, 'move', $event.target.value)"
+                                            >
                                                 <option value="">Choose a story</option>
                                                 @foreach ($this->getStoriesForMovingPosts($story->id) as $movePostsStory)
-                                                    <option value="{{ $movePostsStory->id }}" @if(data_get($actions, "{$story->id}.posts.actionId") === $movePostsStory->id) selected @endif>{{ $movePostsStory->title }}</option>
+                                                    <option
+                                                        value="{{ $movePostsStory->id }}"
+                                                        @if(data_get($actions, "{$story->id}.posts.actionId") === $movePostsStory->id) selected @endif
+                                                    >
+                                                        {{ $movePostsStory->title }}
+                                                    </option>
                                                 @endforeach
                                             </x-input.select>
                                         </x-input.group>

@@ -44,7 +44,7 @@
                 x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
                 x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                 x-bind:class="modalWidth"
-                class="relative inline-block w-full align-bottom bg-white dark:bg-gray-800 dark:shadow-none dark:highlight-white/5 ring-1 ring-gray-900/5 rounded-lg text-left shadow-xl transition-all sm:my-8 sm:align-middle sm:w-full z-30"
+                class="relative inline-block w-full align-bottom bg-white dark:bg-gray-800 dark:shadow-none dark:highlight-white/5 ring-1 ring-gray-950/5 rounded-lg text-left shadow-xl transition-all sm:my-8 sm:align-middle sm:w-full z-30"
                 id="modal-container"
             >
                 @forelse($components as $id => $component)

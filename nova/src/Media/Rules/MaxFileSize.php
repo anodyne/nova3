@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Nova\Foundation\Rules;
+namespace Nova\Media\Rules;
 
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;

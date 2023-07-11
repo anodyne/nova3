@@ -6,7 +6,7 @@ namespace Nova\Themes\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Nova\Pages\Page;
+use Nova\Pages\Models\Page;
 use Nova\Themes\Events;
 use Nova\Themes\Models\Builders\ThemeBuilder;
 use Nova\Themes\Models\Collections\ThemesCollection;

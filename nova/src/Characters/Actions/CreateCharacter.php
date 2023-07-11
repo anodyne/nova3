@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Actions;
 
-use Illuminate\Support\Facades\Gate;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Characters\Data\CharacterData;
 use Nova\Characters\Models\Character;
@@ -19,22 +18,35 @@ class CreateCharacter
     {
         $status = $this->requiresApproval() ? Pending::class : Active::class;
 
+        ray($status);
+
         return Character::create(array_merge(
-            $data->toArray(),
+            $data->all(),
             ['status' => $status]
         ));
     }
 
     protected function requiresApproval(): bool
     {
-        if (Gate::allows('create', Character::class)) {
+        $user = auth()->user();
+
+        if ($user->can('create', Character::class)) {
             return false;
         }
 
-        $settings = settings();
+        if (settings('characters.allowCharacterCreation')) {
+            if (! settings('characters.requireApprovalForCharacterCreation')) {
+                return false;
+            }
 
-        if ($settings->characters->allowCharacterCreation) {
-            if (! $settings->characters->requireApprovalForCharacterCreation) {
+            ray(
+                settings('characters.enforceCharacterLimits'),
+                $user->activeCharacters()->count(),
+                settings('characters.characterLimit'),
+                $user->activeCharacters()->count() < settings('characters.characterLimit')
+            );
+
+            if (settings('characters.enforceCharacterLimits') && $user->activeCharacters()->count() < settings('characters.characterLimit')) {
                 return false;
             }
         }

@@ -5,7 +5,11 @@
         <div class="relative z-10 sm:mx-auto sm:w-full sm:max-w-md">
             @if (app('nova.settings')->getFirstMedia('logo'))
                 <div>
-                    <img src="{{ app('nova.settings')->getFirstMediaUrl('logo') }}" alt="logo" class="mx-auto h-12 w-auto" />
+                    <img
+                        src="{{ app('nova.settings')->getFirstMediaUrl('logo') }}"
+                        alt="logo"
+                        class="mx-auto h-12 w-auto"
+                    />
                 </div>
             @else
                 <x-logos.nova class="mx-auto h-12 w-auto" />
@@ -17,7 +21,7 @@
         </div>
 
         <div class="z-10 mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-            <div class="bg-white px-4 py-8 shadow-xl ring-1 ring-gray-900/5 sm:rounded-xl sm:px-10">
+            <div class="bg-white px-4 py-8 shadow-xl ring-1 ring-gray-950/5 sm:rounded-xl sm:px-10">
                 @yield('content')
             </div>
         </div>

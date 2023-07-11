@@ -20,7 +20,7 @@ class SetCharacterType
 
         $character->refresh();
 
-        if ($character->primaryUsers()->count() > 0) {
+        if ($character->activePrimaryUsers()->count() > 0) {
             $character->update(['type' => CharacterType::primary]);
         }
 

@@ -17,6 +17,7 @@ class PositionSeeder extends Seeder
         $positions = [
             ['name' => 'Commanding Officer', 'department_id' => 1, 'status' => PositionStatus::active, 'order_column' => 0],
             ['name' => 'Executive Officer', 'department_id' => 1, 'status' => PositionStatus::active, 'order_column' => 1],
+            ['name' => 'Second Officer', 'department_id' => 1, 'status' => PositionStatus::active, 'order_column' => 2],
 
             ['name' => 'Chief Flight Control Officer', 'department_id' => 2, 'status' => PositionStatus::active, 'order_column' => 0],
             ['name' => 'Flight Control Pilot', 'department_id' => 2, 'status' => PositionStatus::active, 'order_column' => 1],
@@ -30,17 +31,23 @@ class PositionSeeder extends Seeder
 
             ['name' => 'Chief Engineer', 'department_id' => 5, 'status' => PositionStatus::active, 'order_column' => 0],
             ['name' => 'Assistant Chief Engineer', 'department_id' => 5, 'status' => PositionStatus::active, 'order_column' => 1],
-            ['name' => 'Damage Control Specialist', 'department_id' => 5, 'status' => PositionStatus::active, 'order_column' => 2],
+            ['name' => 'Engineer', 'department_id' => 5, 'status' => PositionStatus::active, 'order_column' => 2],
+            ['name' => 'Damage Control Specialist', 'department_id' => 5, 'status' => PositionStatus::active, 'order_column' => 3],
 
             ['name' => 'Chief Science Officer', 'department_id' => 6, 'status' => PositionStatus::active, 'order_column' => 0],
             ['name' => 'Scientist', 'department_id' => 6, 'status' => PositionStatus::active, 'order_column' => 1],
 
             ['name' => 'Chief Medical Officer', 'department_id' => 7, 'status' => PositionStatus::active, 'order_column' => 0],
             ['name' => 'Chief Surgeon', 'department_id' => 7, 'status' => PositionStatus::active, 'order_column' => 1],
+            ['name' => 'Chief Counselor', 'department_id' => 7, 'status' => PositionStatus::active, 'order_column' => 2],
 
             ['name' => 'Marine CO', 'department_id' => 8, 'status' => PositionStatus::active, 'order_column' => 0],
             ['name' => 'Marine XO', 'department_id' => 8, 'status' => PositionStatus::active, 'order_column' => 1],
             ['name' => 'Marine', 'department_id' => 8, 'status' => PositionStatus::active, 'order_column' => 2],
+
+            ['name' => 'Bartender', 'department_id' => 9, 'status' => PositionStatus::active, 'order_column' => 0],
+            ['name' => 'Barber', 'department_id' => 9, 'status' => PositionStatus::active, 'order_column' => 1],
+            ['name' => 'School teacher', 'department_id' => 9, 'status' => PositionStatus::active, 'order_column' => 2],
         ];
 
         collect($positions)->each([Position::class, 'create']);

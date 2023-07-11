@@ -5,12 +5,13 @@
     'secondaryPositions' => true,
     'secondaryStatus' => false,
     'secondaryType' => false,
+    'secondary' => false,
 ])
 
 <x-avatar.meta :src="$character->avatar_url" {{ $attributes }}>
-    <x-slot:primary>
+    <x-slot name="primary">
         @if ($primaryStatus)
-            <div class="flex items-center mr-2">
+            <div class="mr-2 flex items-center">
                 <x-status :status="$character->status"></x-status>
             </div>
         @endif
@@ -20,10 +21,10 @@
         @endif
 
         {{ $character->name }}
-    </x-slot:primary>
+    </x-slot>
 
-    @if ($secondaryPositions || $secondaryStatus || $secondaryType)
-        <x-slot:secondary>
+    @if ($secondaryPositions || $secondaryStatus || $secondaryType || $secondary)
+        <x-slot name="secondary">
             @if ($secondaryPositions)
                 {{ $character?->positions->implode('name', ' & ') }}
             @endif
@@ -35,6 +36,8 @@
             @if ($secondaryType)
                 <x-badge :color="$character->type->color()">{{ $character->type->displayName() }}</x-badge>
             @endif
-        </x-slot:secondary>
+
+            {{ $secondary }}
+        </x-slot>
     @endif
 </x-avatar.meta>

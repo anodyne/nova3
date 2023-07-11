@@ -49,13 +49,13 @@
     <div
         x-ref="panel"
         x-float{{ $placement ? ".placement.{$placement}" : '' }}.flip{{ $shift ? '.shift' : '' }}{{ $teleport ? '.teleport' : '' }}{{ $offset ? '.offset' : '' }}="{ offset: {{ $offset }} }"
-        x-transition:enter-start="opacity-0 scale-95"
-        x-transition:leave-end="opacity-0 scale-95"
+        x-transition:enter-start="scale-95 opacity-0"
+        x-transition:leave-end="scale-95 opacity-0"
         @if ($maxHeight)
             style="max-height: {{ $maxHeight }}"
         @endif
         @class([
-            'absolute z-10 w-screen divide-y divide-gray-200 rounded-lg bg-white shadow-lg ring-1 ring-gray-900/5 transition dark:divide-gray-600/50 dark:bg-gray-800 dark:ring-white/20',
+            'absolute z-10 w-screen divide-y divide-gray-200 rounded-lg bg-white shadow-lg ring-1 ring-gray-950/5 transition dark:divide-gray-600/50 dark:bg-gray-800 dark:ring-white/20',
             match ($width) {
                 'xs' => 'max-w-xs',
                 'sm' => 'max-w-sm',

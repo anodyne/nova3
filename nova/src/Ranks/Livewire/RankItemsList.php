@@ -37,6 +37,11 @@ class RankItemsList extends Component implements HasForms, HasTable
         return $table
             ->query(RankItem::query()->withRankName())
             ->defaultSort('order_column', 'asc')
+            ->groups([
+                Group::make('group.name')->label('Rank group')->collapsible(),
+                Group::make('name.name')->label('Rank name')->collapsible(),
+            ])
+            ->defaultGroup('group.name')
             ->columns([
                 ViewColumn::make('name')
                     ->view('filament.tables.columns.rank')
@@ -47,11 +52,6 @@ class RankItemsList extends Component implements HasForms, HasTable
                     ->color(fn (Model $record) => $record->status->color())
                     ->toggleable(),
             ])
-            ->groups([
-                Group::make('group.name')->label('Rank group')->collapsible(),
-                Group::make('name.name')->label('Rank name')->collapsible(),
-            ])
-            ->defaultGroup('group.name')
             ->actions([
                 ActionGroup::make([
                     ActionGroup::make([
@@ -65,7 +65,7 @@ class RankItemsList extends Component implements HasForms, HasTable
                     ActionGroup::make([
                         DeleteAction::make()
                             ->modalHeading('Delete rank item?')
-                            ->modalSubheading("Are you sure you want to delete this rank? You won't be able to recover it. Any character with this rank will need to have a new rank assigned to them.")
+                            ->modalDescription("Are you sure you want to delete this rank? You won't be able to recover it. Any character with this rank will need to have a new rank assigned to them.")
                             ->modalSubmitActionLabel('Delete')
                             ->successNotificationTitle('Rank name was deleted')
                             ->using(fn (Model $record): Model => DeleteRankItem::run($record)),
@@ -78,7 +78,7 @@ class RankItemsList extends Component implements HasForms, HasTable
                     ->modalHeading(
                         fn (Collection $records): string => "Delete {$records->count()} selected ".str('rank item')->plural($records->count()).'?'
                     )
-                    ->modalSubheading(function (Collection $records): string {
+                    ->modalDescription(function (Collection $records): string {
                         $statement = ($records->count() === 1)
                             ? 'this 1 rank item'
                             : "these {$records->count()} rank items";

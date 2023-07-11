@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full bg-white dark:bg-gray-950 xl:bg-gray-100">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
@@ -8,8 +8,6 @@
         <meta name="theme-color" content="#0091ff" media="(prefers-color-scheme: dark)" />
         <title>{{ config('app.name', 'Nova NextGen') }}</title>
 
-        <x-admin-theme :settings="settings()" />
-
         @livewireStyles
         @filamentStyles
         @novaStyles
@@ -17,7 +15,9 @@
 
         @stack('headScripts')
     </head>
-    <body class="h-full font-sans text-gray-500 antialiased dark:text-gray-400">
+    <body
+        class="h-full bg-white font-sans text-gray-500 antialiased dark:bg-gray-950 dark:text-gray-400 xl:bg-gray-100 dark:xl:bg-gray-950"
+    >
         <div id="nova">
             @yield('layout')
         </div>

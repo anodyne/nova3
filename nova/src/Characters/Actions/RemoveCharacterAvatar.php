@@ -11,10 +11,8 @@ class RemoveCharacterAvatar
 {
     use AsAction;
 
-    public function handle(
-        Character $character,
-        bool $removeAvatar = false
-    ): Character {
+    public function handle(Character $character, bool $removeAvatar = false): Character
+    {
         if ($removeAvatar) {
             $character->clearMediaCollection('avatar');
         }

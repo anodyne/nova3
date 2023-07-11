@@ -25,7 +25,7 @@ class UpdateCharacterController extends Controller
         $this->authorize('update', $character);
 
         return UpdateCharacterResponse::sendWith([
-            'character' => $character->load('positions', 'users'),
+            'character' => $character->load('media', 'positions', 'users'),
         ]);
     }
 

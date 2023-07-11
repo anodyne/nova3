@@ -51,7 +51,7 @@ class UsersCollector extends Component
                         'id' => $user,
                         'primary' => ($character === null)
                             ? in_array($user, $primaryCharacters)
-                            : $character->primaryUsers->where('id', $user)->count() > 0,
+                            : $character->activePrimaryUsers->where('id', $user)->count() > 0,
                     ];
                 })
                 ->toArray();

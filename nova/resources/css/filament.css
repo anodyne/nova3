@@ -1,5 +1,5 @@
 .filament-tables-container {
-    @apply rounded-none bg-white shadow ring-1 ring-gray-900/5 dark:!bg-gray-900 dark:shadow-md dark:ring-inset dark:!ring-white/[.03] md:rounded-lg;
+    @apply rounded-none bg-white shadow ring-1 ring-gray-950/5 dark:!bg-gray-900 dark:shadow-md dark:ring-inset dark:!ring-white/[.03] md:rounded-lg;
 }
 
 .filament-tables-header-hr-wrapper {
@@ -65,6 +65,9 @@
 .filament-tables-filter-indicators {
     @apply dark:border-gray-800;
 }
+.filament-icon-button-indicator {
+    @apply bg-primary-600 dark:bg-primary-500;
+}
 
 .filament-tables-table-container {
     @apply border-gray-200 dark:!border-gray-800;
@@ -118,8 +121,8 @@
 .filament-tables-text-column-badge-color-primary {
     @apply bg-primary-50 text-primary-600 ring-primary-500/10 dark:bg-primary-400/10 dark:text-primary-400 dark:ring-primary-400/20;
 }
-.filament-tables-text-column-badge-color-secondary {
-    @apply bg-secondary-50 text-secondary-600 ring-secondary-500/10 dark:bg-secondary-400/10 dark:text-secondary-400 dark:ring-secondary-400/20;
+.filament-tables-text-column-badge-color-info {
+    @apply bg-info-50 text-info-600 ring-info-500/10 dark:bg-info-400/10 dark:text-info-400 dark:ring-info-400/20;
 }
 .filament-tables-text-column-badge-color-success {
     @apply bg-success-50 text-success-600 ring-success-500/10 dark:bg-success-400/10 dark:text-success-400 dark:ring-success-400/20;
@@ -197,7 +200,7 @@
 }
 
 .filament-dropdown-panel {
-    @apply divide-gray-200 ring-gray-900/5 dark:divide-gray-600/50 dark:ring-gray-800;
+    @apply divide-gray-200 ring-gray-950/5 dark:divide-gray-600/50 dark:ring-gray-800;
 }
 .filament-dropdown-list {
     @apply p-1.5;
@@ -209,14 +212,27 @@
     @apply text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600/50;
 }
 
-.filament-modal .filament-hr {
+.filament-modal-window {
+    @apply rounded-lg shadow-xl ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-gray-800;
+}
+.filament-modal-close-overlay {
+    @apply backdrop-blur-sm;
+}
+.filament-modal-heading {
+    @apply text-lg text-gray-900 dark:text-white;
+}
+.filament-modal-description {
+    @apply text-gray-600;
+}
+
+/* .filament-modal .filament-hr {
     @apply hidden;
 }
 .filament-modal-close-overlay {
     @apply backdrop-blur-sm;
 }
 .filament-modal-window {
-    @apply rounded-lg py-0 shadow-xl ring-1 ring-gray-900/5 dark:!bg-gray-900 dark:ring-gray-800;
+    @apply rounded-lg py-0 shadow-xl ring-1 ring-gray-950/5 dark:!bg-gray-900 dark:ring-gray-800;
 }
 .filament-modal-window > button:first-child {
     @apply end-6 top-6;
@@ -245,7 +261,7 @@
 .filament-modal-actions {
     @apply grid-cols-1 md:grid-cols-2;
 }
-/* .filament-modal-actions .filament-button:first-child {
+.filament-modal-actions .filament-button:first-child {
     @apply order-last md:order-first;
 }
 .filament-modal-actions .filament-button:last-child {
@@ -257,7 +273,10 @@
     @apply rounded-md border-0 bg-white px-3 py-2.5 shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary-400 dark:bg-gray-800 dark:ring-gray-700 dark:focus-within:bg-gray-900 dark:focus-within:ring-primary-700;
 }
 .filament-forms-text-input-component .filament-forms-input {
-    @apply appearance-none rounded-none border-0 p-0 shadow-none focus:border-0 focus:text-gray-900 focus:outline-none focus:ring-0 dark:focus:text-white;
+    @apply appearance-none rounded-none border-0 !bg-transparent p-0 shadow-none focus:border-0 focus:text-gray-900 focus:outline-none focus:ring-0 dark:focus:text-white;
+}
+.filament-select-input {
+    @apply bg-white dark:!bg-gray-800;
 }
 
 .choices__list--dropdown,
@@ -275,4 +294,10 @@
 
 .filament-notifications-notification {
     @apply rounded-lg dark:border-none dark:bg-gray-600 dark:highlight-white/5;
+}
+
+.filament-modal-slide-over-window {
+    @apply my-4 mr-4;
+
+    height: calc(100vh - 2rem);
 }

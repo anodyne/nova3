@@ -94,7 +94,7 @@ class PostTypesList extends Component implements HasForms, HasTable
                     ActionGroup::make([
                         ReplicateAction::make()
                             ->modalHeading('Duplicate post type?')
-                            ->modalSubheading(
+                            ->modalDescription(
                                 fn (Model $record): string => "Are you sure you want to duplicate the {$record->name} post type?"
                             )
                             ->modalSubmitActionLabel('Duplicate')
@@ -112,7 +112,7 @@ class PostTypesList extends Component implements HasForms, HasTable
                         DeleteAction::make()
                             ->close()
                             ->modalHeading('Delete post type?')
-                            ->modalSubheading(
+                            ->modalDescription(
                                 fn (Model $record): string => "Are you sure you want to delete the {$record->name} post type? You won't be able to recover it. Users will no longer be able to create story posts with this post type."
                             )
                             ->modalSubmitActionLabel('Delete')
@@ -127,7 +127,7 @@ class PostTypesList extends Component implements HasForms, HasTable
                     ->modalHeading(
                         fn (Collection $records): string => "Delete {$records->count()} selected ".str('post type')->plural($records->count()).'?'
                     )
-                    ->modalSubheading(function (Collection $records): string {
+                    ->modalDescription(function (Collection $records): string {
                         $statement = ($records->count() === 1)
                             ? 'this 1 post type'
                             : "these {$records->count()} post types";
@@ -160,6 +160,7 @@ class PostTypesList extends Component implements HasForms, HasTable
                     ),
                 SelectFilter::make('status')->options(PostTypeStatus::class),
             ])
+            ->columnToggleFormWidth('sm')
             ->heading('Post types')
             ->description('Control the content users can post into stories')
             ->headerActions([

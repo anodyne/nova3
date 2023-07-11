@@ -84,7 +84,7 @@ class RolesList extends Component implements HasForms, HasTable
                     ActionGroup::make([
                         ReplicateAction::make()
                             ->modalHeading('Duplicate role?')
-                            ->modalSubheading(
+                            ->modalDescription(
                                 fn (Model $record): string => "Are you sure you want to duplicate the {$record->name} role?"
                             )
                             ->modalSubmitActionLabel('Duplicate')
@@ -102,7 +102,7 @@ class RolesList extends Component implements HasForms, HasTable
                         DeleteAction::make()
                             ->close()
                             ->modalHeading('Delete role?')
-                            ->modalSubheading(
+                            ->modalDescription(
                                 fn (Model $record): string => "Are you sure you want to delete the {$record->name} role? You won't be able to recover it. Any user assigned this role will lose access to what this role provides."
                             )
                             ->modalSubmitActionLabel('Delete')
@@ -117,7 +117,7 @@ class RolesList extends Component implements HasForms, HasTable
                     ->modalHeading(
                         fn (Collection $records): string => "Delete {$records->count()} selected ".str('role')->plural($records->count()).'?'
                     )
-                    ->modalSubheading(function (Collection $records): string {
+                    ->modalDescription(function (Collection $records): string {
                         $statement = ($records->count() === 1)
                             ? 'this 1 role'
                             : "these {$records->count()} roles";

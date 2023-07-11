@@ -14,10 +14,12 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Notifications\Notification;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
 use Nova\Characters\Models\Character;
 use Nova\Characters\Models\States\Statuses\Active as ActiveCharacter;
+use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Notes\Models\Note;
 use Nova\Posts\Models\Post;
 use Nova\Users\Data\PronounsData;
@@ -29,7 +31,6 @@ use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\ModelStates\HasStates;
 use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
@@ -44,8 +45,6 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia, Laratru
     use LogsActivity;
     use Notifiable;
     use SoftDeletes;
-
-    public const MEDIA_DIRECTORY = 'users/{model_id}/{media_id}/';
 
     protected $casts = [
         'force_password_reset' => 'boolean',
@@ -186,6 +185,11 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia, Laratru
         );
     }
 
+    public function hasRead(Notification $notification): bool
+    {
+        return $this->unreadNotifications()->where('id', $notification->id)->count() > 0;
+    }
+
     public function newCollection(array $models = []): UsersCollection
     {
         return new UsersCollection($models);
@@ -200,7 +204,13 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia, Laratru
     {
         $this->addMediaCollection('avatar')
             ->useFallbackUrl("https://avatars.dicebear.com/api/bottts/{$this->email}.svg")
+            ->useDisk('media')
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif'])
             ->singleFile();
+    }
+
+    public static function getMediaPath(): string
+    {
+        return 'users/{model_id}/{media_id}/';
     }
 }

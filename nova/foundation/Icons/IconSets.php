@@ -33,7 +33,7 @@ class IconSets
 
     public function getCurrentSet(): IconSet
     {
-        return $this->get(settings()->appearance->iconSet) ?? $this->getDefault();
+        return $this->get(settings('appearance.iconSet')) ?? $this->getDefault();
     }
 
     public function getDefault(): IconSet

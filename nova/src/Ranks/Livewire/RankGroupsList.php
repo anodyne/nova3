@@ -82,7 +82,7 @@ class RankGroupsList extends Component implements HasForms, HasTable
                                     ->options($this->getRankBaseImages()),
                             ])
                             ->modalHeading('Duplicate rank group?')
-                            ->modalSubheading(
+                            ->modalDescription(
                                 fn (Model $record): string => "Are you sure you want to duplicate the {$record->name} rank group and all of its ranks?"
                             )
                             ->modalSubmitActionLabel('Duplicate')
@@ -104,7 +104,7 @@ class RankGroupsList extends Component implements HasForms, HasTable
                     ActionGroup::make([
                         DeleteAction::make()
                             ->modalHeading('Delete rank group?')
-                            ->modalSubheading(
+                            ->modalDescription(
                                 fn (Model $record): string => "Are you sure you want to delete the {$record->name} rank group? This will also delete all ranks within the group and any characters with those ranks will need to have new ranks assigned to them."
                             )
                             ->modalSubmitActionLabel('Delete')
@@ -119,7 +119,7 @@ class RankGroupsList extends Component implements HasForms, HasTable
                     ->modalHeading(
                         fn (Collection $records): string => "Delete {$records->count()} selected ".str('rank group')->plural($records->count()).'?'
                     )
-                    ->modalSubheading(function (Collection $records): string {
+                    ->modalDescription(function (Collection $records): string {
                         $statement = ($records->count() === 1)
                             ? 'this 1 rank group'
                             : "these {$records->count()} rank groups";
