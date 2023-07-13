@@ -30,4 +30,9 @@ class Page extends Model
                 fn (string $eventName) => ":subject.key page was {$eventName}"
             );
     }
+
+    public function newEloquentBuilder($query): Builders\PageBuilder
+    {
+        return new Builders\PageBuilder($query);
+    }
 }

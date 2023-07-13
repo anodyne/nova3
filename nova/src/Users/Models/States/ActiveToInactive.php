@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Users\Models\States;
 
-use Nova\Characters\Models\States\Statuses\Inactive as InactiveCharacter;
+use Nova\Characters\Models\States\Status\Inactive as InactiveCharacter;
 use Nova\Users\Models\User;
 use Spatie\ModelStates\Transition;
 

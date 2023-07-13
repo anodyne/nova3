@@ -5,16 +5,19 @@ declare(strict_types=1);
 namespace Nova\Characters\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
-use Nova\Characters\Models\States\Statuses\Active;
-use Nova\Characters\Models\States\Statuses\Inactive;
-use Nova\Characters\Models\States\Statuses\Pending;
+use Nova\Characters\Models\States\Status\Active;
+use Nova\Characters\Models\States\Status\Inactive;
+use Nova\Characters\Models\States\Status\Pending;
 use Nova\Users\Models\User;
 
 class CharacterBuilder extends Builder
 {
     public function isAssignedTo(User $user): Builder
     {
-        return $this->whereHas('users', fn ($q) => $q->where('users.id', $user->id));
+        return $this->whereHas(
+            'users',
+            fn ($query) => $query->whereRelation('users', 'users.id', '=', $user->id)
+        );
     }
 
     public function searchForWithoutUsers($search): Builder

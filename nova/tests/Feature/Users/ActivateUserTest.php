@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Users;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Characters\Models\Character;
-use Nova\Characters\Models\States\Statuses\Active as ActiveCharacter;
+use Nova\Characters\Models\States\Status\Active as ActiveCharacter;
 use Nova\Users\Models\States\Active as ActiveUser;
 use Nova\Users\Models\User;
 use Tests\TestCase;

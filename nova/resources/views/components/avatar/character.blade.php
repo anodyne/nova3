@@ -34,7 +34,7 @@
             @endif
 
             @if ($secondaryType)
-                <x-badge :color="$character->type->color()">{{ $character->type->displayName() }}</x-badge>
+                <x-badge :color="$character->type->color()">{{ $character->type->getLabel() }}</x-badge>
             @endif
 
             {{ $secondary }}

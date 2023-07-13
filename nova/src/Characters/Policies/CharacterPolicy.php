@@ -7,9 +7,9 @@ namespace Nova\Characters\Policies;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
 use Nova\Characters\Models\Character;
-use Nova\Characters\Models\States\Statuses\Active;
-use Nova\Characters\Models\States\Statuses\Inactive;
-use Nova\Characters\Models\States\Statuses\Pending;
+use Nova\Characters\Models\States\Status\Active;
+use Nova\Characters\Models\States\Status\Inactive;
+use Nova\Characters\Models\States\Status\Pending;
 use Nova\Users\Models\User;
 
 class CharacterPolicy
@@ -123,19 +123,12 @@ class CharacterPolicy
 
     public function selfAssign(User $user): Response
     {
-        if ($this->create($user)->allowed()) {
-            return $this->allow();
-        }
-
-        if ($this->createSecondary($user)->allowed() && ! settings('characters.autoLink')) {
-            return $this->allow();
-        }
-
-        if ($this->createSecondary($user)->denied() && $this->createPrimary($user)->allowed()) {
-            return $this->allow();
-        }
-
-        return $this->denyAsNotFound();
+        return match (true) {
+            $this->create($user)->allowed() => $this->allow(),
+            $this->createSecondary($user)->allowed() => $this->allow(),
+            $this->createSecondary($user)->denied() && $this->createPrimary($user)->allowed() => $this->allow(),
+            default => $this->denyAsNotFound(),
+        };
     }
 
     public function assignAsPrimary(User $user): Response
@@ -145,5 +138,15 @@ class CharacterPolicy
         }
 
         return $this->createPrimary($user);
+    }
+
+    public function manage(User $user, Character $character): Response
+    {
+        return match (true) {
+            $this->create($user)->allowed() => $this->allow(),
+            $this->update($user, $character)->allowed() => $this->allow(),
+            $this->delete($user, $character)->allowed() => $this->allow(),
+            default => $this->denyAsNotFound()
+        };
     }
 }

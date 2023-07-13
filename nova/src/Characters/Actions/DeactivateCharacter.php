@@ -6,7 +6,7 @@ namespace Nova\Characters\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Characters\Models\Character;
-use Nova\Characters\Models\States\Statuses\Inactive;
+use Nova\Characters\Models\States\Status\Inactive;
 
 class DeactivateCharacter
 {

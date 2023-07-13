@@ -52,10 +52,6 @@
                     message="Characters can be assigned to any number of users and all assigned users will have the same rights with the character. Additionally, any notifications on behalf of the character will be sent to all users assigned to the character."
                 >
                     <livewire:characters:manage-ownership />
-
-                    @json(auth()->user()->can('createPrimary', Nova\Characters\Models\Character::class))
-                    @json(auth()->user()->can('createSecondary', Nova\Characters\Models\Character::class))
-                    @json(auth()->user()->can('createSupport', Nova\Characters\Models\Character::class))
                 </x-form.section>
             @endcan
 

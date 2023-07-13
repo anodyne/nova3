@@ -7,7 +7,7 @@ namespace Tests\Unit\Characters\Actions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Characters\Actions\DeactivateCharacter;
 use Nova\Characters\Models\Character;
-use Nova\Characters\Models\States\Statuses\Inactive;
+use Nova\Characters\Models\States\Status\Inactive;
 use Tests\TestCase;
 
 /**

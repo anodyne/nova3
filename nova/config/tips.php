@@ -24,6 +24,9 @@ return [
         'If you want to make a character appear as a secondary character, you can unassign that character as the primary character of any one of its assigned users.',
         'If you want to make a character appear as a support character, you can unassign all users from the character.',
         'You can group characters in the table by their status or their type for easier viewing.',
+        'Users with Create Primary Characters permission will be able to create new primary character(s) for themselves. Admins can choose whether to require approval for created primary characters from Character Settings.',
+        'Users with Create Secondary Characters permission will be able to create new secondary character(s) for themselves. Admins can choose whether to require approval for created secondary characters from Character Settings.',
+        'Users with Create Support Characters permission will be able to create new support character(s) for the game. Admins can choose whether to require approval for created support characters from Character Settings.',
     ],
 
     'positions' => [

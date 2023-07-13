@@ -30,6 +30,11 @@ class CreateCharacterManager
 
         $character = SetCharacterType::run($character);
 
+        SetCharacterStatus::runIf(
+            $request->user()->cannot('create', Character::class),
+            $character
+        );
+
         // if (
         //     ($character->type === CharacterType::primary && settings()->characters->manageAvailabilityForPrimaryCharacters) ||
         //     ($character->type === CharacterType::secondary && settings()->characters->manageAvailabilityForSecondaryCharacters) ||
@@ -40,7 +45,11 @@ class CreateCharacterManager
 
         UploadCharacterAvatar::run($character, $request->avatar_path);
 
-        SendPendingCharacterNotification::run($character, $request->user());
+        SendPendingCharacterNotification::runIf(
+            $request->user()->cannot('create', Character::class),
+            $character,
+            $request->user()
+        );
 
         return $character->refresh();
     }
@@ -62,8 +71,8 @@ class CreateCharacterManager
         return AssignCharacterOwners::run(
             $character,
             AssignCharacterOwnersData::from([
-                'users' => $request->boolean('self_assign') ? [auth()->id()] : [],
-                'primaryUsers' => $request->boolean('self_primary_assign') ? [auth()->id()] : [],
+                'users' => $request->boolean('link_to_user') ? [auth()->id()] : [],
+                'primaryUsers' => $request->boolean('assign_as_primary') ? [auth()->id()] : [],
             ])
         );
     }

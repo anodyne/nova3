@@ -23,12 +23,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Livewire\Component;
 use Nova\Characters\Actions\ActivateCharacter;
-use Nova\Characters\Actions\ApproveCharacter;
 use Nova\Characters\Actions\DeactivateCharacter;
 use Nova\Characters\Actions\DeleteCharacter;
 use Nova\Characters\Enums\CharacterType;
 use Nova\Characters\Events\CharacterActivated;
-use Nova\Characters\Events\CharacterApproved;
 use Nova\Characters\Events\CharacterDeactivated;
 use Nova\Characters\Events\CharacterDeletedByAdmin;
 use Nova\Characters\Models\Character;
@@ -49,9 +47,9 @@ class CharactersList extends Component implements HasForms, HasTable
         return $table
             ->query(
                 Character::with('media', 'positions', 'rank.name', 'users')
-                    ->when(
-                        auth()->user()->cannot('viewAny', Character::class),
-                        fn ($query) => $query->whereRelation('users', 'users.id', '=', auth()->id())
+                    ->unless(
+                        auth()->user()->can('manage', new Character()),
+                        fn ($query): Builder => $query->isAssignedTo(auth()->user())
                     )
             )
             ->groups([
@@ -108,29 +106,6 @@ class CharactersList extends Component implements HasForms, HasTable
                                     ->title($record->name.' has been activated')
                                     ->send();
                             }),
-                        Action::make('approve')
-                            ->authorize('approve')
-                            ->requiresConfirmation()
-                            ->icon(iconName('check'))
-                            ->color('gray')
-                            ->modalHeading('Approve pending character?')
-                            ->modalDescription(fn (Model $record): string => "Are you sure you want to approve {$record->name}?")
-                            ->modalIcon(iconName('check'))
-                            ->modalIconColor('primary')
-                            ->modalSubmitActionLabel('Approve')
-                            ->modalWidth('lg')
-                            ->action(function (Model $record): void {
-                                $character = ApproveCharacter::run($record);
-
-                                CharacterApproved::dispatch($character);
-
-                                Notification::make()->success()
-                                    ->title($record->name.' has been approved')
-                                    ->send();
-                            })
-                            ->slideOver()
-                            ->modalAlignment(null)
-                            ->modalContent(fn (Model $record) => view('pages.characters.approve', ['record' => $record])),
                         Action::make('deactivate')
                             ->authorize('deactivate')
                             ->requiresConfirmation()
@@ -151,7 +126,7 @@ class CharactersList extends Component implements HasForms, HasTable
                                     ->title($record->name.' has been deactivated')
                                     ->send();
                             }),
-                    ])->authorizeAny(['activate', 'deactivate', 'approve'])->divided(),
+                    ])->authorizeAny(['activate', 'deactivate'])->divided(),
                     ActionGroup::make([
                         DeleteAction::make()
                             ->modalHeading('Delete character?')

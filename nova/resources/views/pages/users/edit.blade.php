@@ -3,7 +3,7 @@
 @section('content')
     <x-panel x-data="tabsList('details')">
         <x-panel.header :title="$user->name">
-            <x-slot:actions>
+            <x-slot>
                 <x-button.text :href="route('users.index')" leading="arrow-left" color="gray">Back</x-button.text>
             </x-slot>
         </x-panel.header>
@@ -12,7 +12,12 @@
             <x-form.section
                 title="User info"
                 message="For privacy reasons, we don't recommend using a user's real name. Instead, use a nickname to help protect their identity."
-                x-data="{ pronouns: '{{ old('pronouns.value', $user->pronouns->value) }}', pronounSubject: '{{ old('pronouns.subject', $user->pronouns->subject) }}', pronounObject: '{{ old('pronouns.object', $user->pronouns->object) }}', pronounPossessive: '{{ old('pronouns.possessive', $user->pronouns->possessive) }}' }"
+                x-data="{
+                    pronouns: '{{ old('pronouns.value', $user->pronouns->value) }}',
+                    pronounSubject: '{{ old('pronouns.subject', $user->pronouns->subject) }}',
+                    pronounObject: '{{ old('pronouns.object', $user->pronouns->object) }}',
+                    pronounPossessive: '{{ old('pronouns.possessive', $user->pronouns->possessive) }}'
+                }"
                 x-init="
                     $watch('pronouns', (value, oldValue) => {
                         if (value !== oldValue) {
@@ -94,7 +99,7 @@
             </x-form.section>
 
             <x-form.section title="Characters assigned to this user">
-                <x-slot:message>
+                <x-slot>
                     <p>
                         <strong>Please note:</strong>
                         changes to character assignment are immediate and will not be rolled back when pressing Cancel.
@@ -107,7 +112,7 @@
             </x-form.section>
 
             <x-form.section title="Roles assigned to this user">
-                <x-slot:message>
+                <x-slot>
                     <p>
                         Roles control what users can do inside of Nova. You can assign as many roles as needed to users.
                     </p>
@@ -124,9 +129,7 @@
 
             <x-form.footer>
                 <x-button.filled type="submit" color="primary">Update</x-button.filled>
-                <x-button.outline :href="route('users.index', "status={$user->status->name()}")" color="gray">
-                    Cancel
-                </x-button.outline>
+                <x-button.outline :href="route('users.index')" color="gray">Cancel</x-button.outline>
             </x-form.footer>
         </x-form>
     </x-panel>
@@ -193,30 +196,6 @@
                         </x-form>
                     </div>
                 </div>
-
-                {{--
-                    <div class="mt-6">
-                    <div class="rounded-md bg-gray-50 px-6 py-5 sm:flex sm:items-start sm:justify-between">
-                    <div class="sm:flex sm:items-start">
-                    <x-icon name="logout" size="xl" class="shrink-0 text-gray-500"></x-icon>
-                    <div class="mt-3 sm:mt-0 sm:ml-4">
-                    <div class="text-sm font-medium text-gray-600">
-                    If necessary, you can sign a user out of their account. Be warned, if they're actively doing anything when you initiate this action, any work will be lost on their next page load.
-                    </div>
-                    </div>
-                    </div>
-                    <div class="mt-4 sm:mt-0 sm:ml-6 sm:shrink-0">
-                    <x-form :action="route('users.force-password-reset', $user)">
-                    <span class="inline-flex rounded-md shadow-sm">
-                    <button type="submit" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-primary-400 focus:ring active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-200">
-                    Sign This User Out
-                    </button>
-                    </span>
-                    </x-form>
-                    </div>
-                    </div>
-                    </div>
-                --}}
             </x-content-box>
         </x-panel>
     @endcan

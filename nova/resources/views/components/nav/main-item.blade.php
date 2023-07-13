@@ -4,13 +4,16 @@
     'meta',
 ])
 
-<a @class([
-    'relative inline-flex w-full items-center px-6 text-sm font-medium transition',
-    'text-gray-900 dark:text-white' => $active,
-    'hover:text-gray-700 dark:hover:text-gray-300' => ! $active,
-]) {{ $attributes }}>
+<a
+    @class([
+        'relative inline-flex w-full items-center px-6 text-sm font-medium transition',
+        'text-gray-900 dark:text-white' => $active,
+        'hover:text-gray-700 dark:hover:text-gray-300' => ! $active,
+    ])
+    {{ $attributes }}
+>
     @if ($active)
-        <div class="absolute left-0 h-full w-[2px] rounded-full bg-gray-900"></div>
+        <div class="absolute left-0 h-full w-[3px] rounded-full rounded-l bg-primary-500"></div>
     @endif
 
     @if ($icon)

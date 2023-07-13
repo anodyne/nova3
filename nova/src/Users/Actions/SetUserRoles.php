@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace Nova\Users\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Foundation\Action;
 use Nova\Users\Models\User;
 
-class SetUserRoles extends Action
+class SetUserRoles
 {
     use AsAction;
 

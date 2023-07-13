@@ -7,9 +7,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Nova\Characters\Enums\CharacterType;
 use Nova\Characters\Models\Character;
-use Nova\Characters\Models\States\Statuses\Active;
-use Nova\Characters\Models\States\Statuses\Inactive;
-use Nova\Characters\Models\States\Statuses\Pending;
+use Nova\Characters\Models\States\Status\Active;
+use Nova\Characters\Models\States\Status\Inactive;
+use Nova\Characters\Models\States\Status\Pending;
 
 class CharacterFactory extends Factory
 {

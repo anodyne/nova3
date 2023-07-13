@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace Nova\Characters\Enums;
 
 use Filament\Support\Contracts\HasLabel;
+use Nova\Foundation\Concerns\HasSelectOptions;
 
 enum CharacterType: string implements HasLabel
 {
+    use HasSelectOptions;
+
     case primary = 'primary';
 
     case secondary = 'secondary';
@@ -26,12 +29,5 @@ enum CharacterType: string implements HasLabel
     public function getLabel(): ?string
     {
         return ucfirst($this->value);
-    }
-
-    public static function toOptions(): array
-    {
-        return collect(self::cases())
-            ->flatMap(fn ($case) => [$case->value => $case->getLabel()])
-            ->all();
     }
 }

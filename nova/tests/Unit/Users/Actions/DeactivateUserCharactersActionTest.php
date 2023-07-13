@@ -6,8 +6,8 @@ namespace Tests\Unit\Users\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Characters\Models\Character;
-use Nova\Characters\Models\States\Statuses\Active;
-use Nova\Characters\Models\States\Statuses\Inactive;
+use Nova\Characters\Models\States\Status\Active;
+use Nova\Characters\Models\States\Status\Inactive;
 use Nova\Users\Actions\DeactivateUser;
 use Nova\Users\Models\User;
 use Tests\TestCase;

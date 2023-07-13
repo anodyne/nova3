@@ -6,7 +6,7 @@ namespace Nova\Characters\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Characters\Models\Character;
-use Nova\Characters\Models\States\Statuses\Active;
+use Nova\Characters\Models\States\Status\Active;
 use Nova\Characters\Notifications\PendingCharacterApproved;
 
 class ApproveCharacter

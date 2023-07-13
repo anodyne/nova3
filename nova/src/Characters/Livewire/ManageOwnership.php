@@ -56,11 +56,43 @@ class ManageOwnership extends Component
     {
         $user = auth()->user();
 
-        if ($user->can('createPrimary', Character::class) && $user->cannot(['createSecondary', 'createSupport'], Character::class)) {
+        if (
+            $user->can('createPrimary', Character::class) &&
+            $user->cannot('createSecondary', Character::class) &&
+            $user->cannot('createSupport', Character::class)
+        ) {
             return true;
         }
 
-        if ($user->can(['createPrimary', 'createSecondary', 'createSupport'], Character::class)) {
+        if (
+            $user->can('createPrimary', Character::class) &&
+            $user->cannot('createSecondary', Character::class) &&
+            $user->can('createSupport', Character::class)
+        ) {
+            return false;
+        }
+
+        if (
+            $user->can('createPrimary', Character::class) &&
+            $user->can('createSecondary', Character::class) &&
+            $user->can('createSupport', Character::class)
+        ) {
+            return false;
+        }
+
+        if (
+            $user->cannot('createPrimary', Character::class) &&
+            $user->cannot('createSecondary', Character::class) &&
+            $user->can('createSupport', Character::class)
+        ) {
+            return false;
+        }
+
+        if (
+            $user->cannot('createPrimary', Character::class) &&
+            $user->can('createSecondary', Character::class) &&
+            $user->can('createSupport', Character::class)
+        ) {
             return false;
         }
 
@@ -78,10 +110,6 @@ class ManageOwnership extends Component
             return true;
         }
 
-        // if ($user->can('createPrimary', Character::class) && $user->cannot('createSecondary', Character::class)) {
-        //     return true;
-        // }
-
         return auth()->user()->cannot('selfAssign', Character::class);
     }
 
@@ -89,22 +117,55 @@ class ManageOwnership extends Component
     {
         $user = auth()->user();
 
-        if ($user->can('createPrimary', Character::class) && $user->cannot('createSecondary', Character::class)) {
+        if (
+            $user->can('createPrimary', Character::class) &&
+            $user->can('createSupport', Character::class) &&
+            $user->cannot('createSecondary', Character::class)
+        ) {
+            return false;
+        }
+
+        if (
+            $user->can('createPrimary', Character::class) &&
+            $user->cannot('createSecondary', Character::class)
+        ) {
             return true;
         }
 
-        if ($user->can(['createPrimary', 'createSecondary'], Character::class)) {
+        if (
+            $user->can('createPrimary', Character::class) &&
+            $user->can('createSecondary', Character::class)
+        ) {
             return false;
         }
 
         return $user->can('createPrimary', Character::class);
     }
 
+    public function updatedAssignAsPrimary($value)
+    {
+        $user = auth()->user();
+
+        if (
+            $user->can('createPrimary', Character::class) &&
+            $user->can('createSecondary', Character::class) &&
+            $this->linkToUser === false &&
+            (bool) $value === true
+        ) {
+            $this->assignAsPrimary = (bool) $value;
+            $this->linkToUser = (bool) $value;
+        }
+    }
+
     public function updatedLinkToUser($value)
     {
         $user = auth()->user();
 
-        if ($user->can(['createPrimary', 'createSupport'], Character::class) && $user->cannot('createSecondary', Character::class)) {
+        if (
+            $user->can('createPrimary', Character::class) &&
+            $user->cannot('createSecondary', Character::class) &&
+            $user->can('createSupport', Character::class)
+        ) {
             $this->assignAsPrimary = (bool) $value;
         }
     }

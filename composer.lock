@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "anodyne/blade-fluentui-icons",
-            "version": "1.1.204",
+            "version": "1.1.206",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anodyne/blade-fluentui-icons.git",
-                "reference": "f7a4647a1809cc6f9efce90fd74a73c85039ef9b"
+                "reference": "05f177661aa3a339bc266af4f3d2b9e1d18875b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anodyne/blade-fluentui-icons/zipball/f7a4647a1809cc6f9efce90fd74a73c85039ef9b",
-                "reference": "f7a4647a1809cc6f9efce90fd74a73c85039ef9b",
+                "url": "https://api.github.com/repos/anodyne/blade-fluentui-icons/zipball/05f177661aa3a339bc266af4f3d2b9e1d18875b2",
+                "reference": "05f177661aa3a339bc266af4f3d2b9e1d18875b2",
                 "shasum": ""
             },
             "require": {
@@ -26,7 +26,7 @@
                 "php": "~8.1.0|~8.2.0"
             },
             "require-dev": {
-                "microsoft/fluentui-system-icons": "1.1.204",
+                "microsoft/fluentui-system-icons": "1.1.206",
                 "orchestra/testbench": "^7.0|^8.0",
                 "phpunit/phpunit": "^9.0"
             },
@@ -61,22 +61,22 @@
             ],
             "support": {
                 "issues": "https://github.com/anodyne/blade-fluentui-icons/issues",
-                "source": "https://github.com/anodyne/blade-fluentui-icons/tree/1.1.204"
+                "source": "https://github.com/anodyne/blade-fluentui-icons/tree/1.1.206"
             },
-            "time": "2023-06-19T14:00:18+00:00"
+            "time": "2023-07-07T14:18:49+00:00"
         },
         {
             "name": "anodyne/blade-tabler-icons",
-            "version": "2.23",
+            "version": "2.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anodyne/blade-tabler-icons.git",
-                "reference": "831386a9a9deba301a82d933c93853b8a37b6c84"
+                "reference": "e3243c11d7ee548a87ef4962074a7f3f1e9810e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anodyne/blade-tabler-icons/zipball/831386a9a9deba301a82d933c93853b8a37b6c84",
-                "reference": "831386a9a9deba301a82d933c93853b8a37b6c84",
+                "url": "https://api.github.com/repos/anodyne/blade-tabler-icons/zipball/e3243c11d7ee548a87ef4962074a7f3f1e9810e3",
+                "reference": "e3243c11d7ee548a87ef4962074a7f3f1e9810e3",
                 "shasum": ""
             },
             "require": {
@@ -128,9 +128,9 @@
                 "tabler"
             ],
             "support": {
-                "source": "https://github.com/anodyne/blade-tabler-icons/tree/2.23"
+                "source": "https://github.com/anodyne/blade-tabler-icons/tree/2.24"
             },
-            "time": "2023-06-27T20:09:20+00:00"
+            "time": "2023-07-07T14:26:04+00:00"
         },
         {
             "name": "awssat/discord-notification-channel",
@@ -2225,16 +2225,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v10.14.1",
+            "version": "v10.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "6f89a2b74b232d8bf2e1d9ed87e311841263dfcb"
+                "reference": "c7599dc92e04532824bafbd226c2936ce6a905b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/6f89a2b74b232d8bf2e1d9ed87e311841263dfcb",
-                "reference": "6f89a2b74b232d8bf2e1d9ed87e311841263dfcb",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/c7599dc92e04532824bafbd226c2936ce6a905b8",
+                "reference": "c7599dc92e04532824bafbd226c2936ce6a905b8",
                 "shasum": ""
             },
             "require": {
@@ -2421,7 +2421,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2023-06-28T14:25:16+00:00"
+            "time": "2023-07-11T13:43:52+00:00"
         },
         {
             "name": "laravel/sanctum",
@@ -3016,16 +3016,16 @@
         },
         {
             "name": "league/glide",
-            "version": "2.2.4",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/glide.git",
-                "reference": "d31132bf5651d5abeef345ff523cd9cf2575b971"
+                "reference": "2ff92c8f1edc80b74e2d3c5efccfc7223f74d407"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/glide/zipball/d31132bf5651d5abeef345ff523cd9cf2575b971",
-                "reference": "d31132bf5651d5abeef345ff523cd9cf2575b971",
+                "url": "https://api.github.com/repos/thephpleague/glide/zipball/2ff92c8f1edc80b74e2d3c5efccfc7223f74d407",
+                "reference": "2ff92c8f1edc80b74e2d3c5efccfc7223f74d407",
                 "shasum": ""
             },
             "require": {
@@ -3075,9 +3075,9 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/glide/issues",
-                "source": "https://github.com/thephpleague/glide/tree/2.2.4"
+                "source": "https://github.com/thephpleague/glide/tree/2.3.0"
             },
-            "time": "2023-04-18T18:42:22+00:00"
+            "time": "2023-07-08T06:26:07+00:00"
         },
         {
             "name": "league/mime-type-detection",
@@ -5139,16 +5139,16 @@
         },
         {
             "name": "rawilk/laravel-form-components",
-            "version": "v8.1.3",
+            "version": "v8.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rawilk/laravel-form-components.git",
-                "reference": "69d76e1df6a7fd21f97f8aa08502385bbc917a93"
+                "reference": "3ad7b7ae66ee02dbe1764aa1a669f3af20241064"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rawilk/laravel-form-components/zipball/69d76e1df6a7fd21f97f8aa08502385bbc917a93",
-                "reference": "69d76e1df6a7fd21f97f8aa08502385bbc917a93",
+                "url": "https://api.github.com/repos/rawilk/laravel-form-components/zipball/3ad7b7ae66ee02dbe1764aa1a669f3af20241064",
+                "reference": "3ad7b7ae66ee02dbe1764aa1a669f3af20241064",
                 "shasum": ""
             },
             "require": {
@@ -5218,7 +5218,7 @@
             ],
             "support": {
                 "issues": "https://github.com/rawilk/laravel-form-components/issues",
-                "source": "https://github.com/rawilk/laravel-form-components/tree/v8.1.3"
+                "source": "https://github.com/rawilk/laravel-form-components/tree/v8.1.4"
             },
             "funding": [
                 {
@@ -5226,7 +5226,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-05-24T18:49:16+00:00"
+            "time": "2023-07-10T12:42:01+00:00"
         },
         {
             "name": "ryangjchandler/blade-capture-directive",
@@ -7065,16 +7065,16 @@
         },
         {
             "name": "staudenmeir/laravel-adjacency-list",
-            "version": "v1.13.7",
+            "version": "v1.13.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/staudenmeir/laravel-adjacency-list.git",
-                "reference": "87d081e9f5a24a91f15c75dbabf32016a1f5b721"
+                "reference": "15735749a50e7aa6f1922e09dde3341ffdf92bac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/staudenmeir/laravel-adjacency-list/zipball/87d081e9f5a24a91f15c75dbabf32016a1f5b721",
-                "reference": "87d081e9f5a24a91f15c75dbabf32016a1f5b721",
+                "url": "https://api.github.com/repos/staudenmeir/laravel-adjacency-list/zipball/15735749a50e7aa6f1922e09dde3341ffdf92bac",
+                "reference": "15735749a50e7aa6f1922e09dde3341ffdf92bac",
                 "shasum": ""
             },
             "require": {
@@ -7112,7 +7112,7 @@
             "description": "Recursive Laravel Eloquent relationships with CTEs",
             "support": {
                 "issues": "https://github.com/staudenmeir/laravel-adjacency-list/issues",
-                "source": "https://github.com/staudenmeir/laravel-adjacency-list/tree/v1.13.7"
+                "source": "https://github.com/staudenmeir/laravel-adjacency-list/tree/v1.13.8"
             },
             "funding": [
                 {
@@ -7120,7 +7120,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2023-06-20T18:27:11+00:00"
+            "time": "2023-07-10T21:42:59+00:00"
         },
         {
             "name": "staudenmeir/laravel-cte",
@@ -10961,16 +10961,16 @@
         },
         {
             "name": "friendsofphp/php-cs-fixer",
-            "version": "v3.20.0",
+            "version": "v3.21.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer.git",
-                "reference": "0e8249e0b15e2bc022fbbd1090ce29d071481e69"
+                "reference": "229b55b3eae4729a8e2a321441ba40fcb3720b86"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/0e8249e0b15e2bc022fbbd1090ce29d071481e69",
-                "reference": "0e8249e0b15e2bc022fbbd1090ce29d071481e69",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/229b55b3eae4729a8e2a321441ba40fcb3720b86",
+                "reference": "229b55b3eae4729a8e2a321441ba40fcb3720b86",
                 "shasum": ""
             },
             "require": {
@@ -10980,7 +10980,7 @@
                 "doctrine/lexer": "^2 || ^3",
                 "ext-json": "*",
                 "ext-tokenizer": "*",
-                "php": "^7.4 || ^8.0",
+                "php": "^8.0.1",
                 "sebastian/diff": "^4.0 || ^5.0",
                 "symfony/console": "^5.4 || ^6.0",
                 "symfony/event-dispatcher": "^5.4 || ^6.0",
@@ -11045,7 +11045,7 @@
             ],
             "support": {
                 "issues": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/issues",
-                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.20.0"
+                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.21.1"
             },
             "funding": [
                 {
@@ -11053,7 +11053,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-06-27T20:22:39+00:00"
+            "time": "2023-07-05T21:50:25+00:00"
         },
         {
             "name": "hamcrest/hamcrest-php",
@@ -11355,16 +11355,16 @@
         },
         {
             "name": "laravel/pint",
-            "version": "v1.10.3",
+            "version": "v1.10.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/pint.git",
-                "reference": "c472786bca01e4812a9bb7933b23edfc5b6877b7"
+                "reference": "f56798088068af8bd75a8f2c4ecae022990fdf75"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/pint/zipball/c472786bca01e4812a9bb7933b23edfc5b6877b7",
-                "reference": "c472786bca01e4812a9bb7933b23edfc5b6877b7",
+                "url": "https://api.github.com/repos/laravel/pint/zipball/f56798088068af8bd75a8f2c4ecae022990fdf75",
+                "reference": "f56798088068af8bd75a8f2c4ecae022990fdf75",
                 "shasum": ""
             },
             "require": {
@@ -11375,7 +11375,7 @@
                 "php": "^8.1.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.18.0",
+                "friendsofphp/php-cs-fixer": "^3.21.1",
                 "illuminate/view": "^10.5.1",
                 "laravel-zero/framework": "^10.0.2",
                 "mockery/mockery": "^1.5.1",
@@ -11417,7 +11417,7 @@
                 "issues": "https://github.com/laravel/pint/issues",
                 "source": "https://github.com/laravel/pint"
             },
-            "time": "2023-06-20T15:55:03+00:00"
+            "time": "2023-07-11T15:18:27+00:00"
         },
         {
             "name": "league/container",
@@ -12330,16 +12330,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "10.2.3",
+            "version": "10.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "35c8cac1734ede2ae354a6644f7088356ff5b08e"
+                "reference": "68484779b5a2ed711fbdeba6ca01910d87acdff2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/35c8cac1734ede2ae354a6644f7088356ff5b08e",
-                "reference": "35c8cac1734ede2ae354a6644f7088356ff5b08e",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/68484779b5a2ed711fbdeba6ca01910d87acdff2",
+                "reference": "68484779b5a2ed711fbdeba6ca01910d87acdff2",
                 "shasum": ""
             },
             "require": {
@@ -12411,7 +12411,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.2.3"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.2.4"
             },
             "funding": [
                 {
@@ -12427,7 +12427,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-06-30T06:17:38+00:00"
+            "time": "2023-07-10T04:06:08+00:00"
         },
         {
             "name": "psr/cache",
@@ -13455,16 +13455,16 @@
         },
         {
             "name": "spatie/flare-client-php",
-            "version": "1.4.0",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/flare-client-php.git",
-                "reference": "82138174d5fe2829a7f085a6bdb2a06f6def9f7a"
+                "reference": "943894c6a6b00501365ac0b91ae0dce56f2226fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/flare-client-php/zipball/82138174d5fe2829a7f085a6bdb2a06f6def9f7a",
-                "reference": "82138174d5fe2829a7f085a6bdb2a06f6def9f7a",
+                "url": "https://api.github.com/repos/spatie/flare-client-php/zipball/943894c6a6b00501365ac0b91ae0dce56f2226fa",
+                "reference": "943894c6a6b00501365ac0b91ae0dce56f2226fa",
                 "shasum": ""
             },
             "require": {
@@ -13513,7 +13513,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/flare-client-php/issues",
-                "source": "https://github.com/spatie/flare-client-php/tree/1.4.0"
+                "source": "https://github.com/spatie/flare-client-php/tree/1.4.1"
             },
             "funding": [
                 {
@@ -13521,7 +13521,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-06-28T11:08:09+00:00"
+            "time": "2023-07-06T09:29:49+00:00"
         },
         {
             "name": "spatie/ignition",

@@ -7,7 +7,7 @@ namespace Nova\Characters\Actions;
 use Illuminate\Support\Facades\Notification;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Characters\Models\Character;
-use Nova\Characters\Models\States\Statuses\Pending;
+use Nova\Characters\Models\States\Status\Pending;
 use Nova\Characters\Notifications\CharacterRequiresApproval;
 use Nova\Users\Models\User;
 
@@ -17,13 +17,11 @@ class SendPendingCharacterNotification
 
     public function handle(Character $character, User $user): void
     {
-        if (! $user->can('create', $character)) {
-            if ($character->status->equals(Pending::class)) {
-                Notification::send(
-                    User::whereHasPermission('character.update')->get(),
-                    new CharacterRequiresApproval(character: $character, user: $user)
-                );
-            }
+        if ($character->status->equals(Pending::class)) {
+            Notification::send(
+                User::whereHasPermission('character.update')->get(),
+                new CharacterRequiresApproval(character: $character, user: $user)
+            );
         }
     }
 }

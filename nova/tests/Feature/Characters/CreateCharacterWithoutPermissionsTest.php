@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Event;
 use Nova\Characters\Events\CharacterCreated;
 use Nova\Characters\Events\CharacterCreatedByAdmin;
 use Nova\Characters\Models\Character;
-use Nova\Characters\Models\States\Statuses\Active;
-use Nova\Characters\Models\States\Statuses\Pending;
+use Nova\Characters\Models\States\Status\Active;
+use Nova\Characters\Models\States\Status\Pending;
 use Nova\Characters\Requests\CreateCharacterRequest;
 use Nova\Departments\Models\Position;
 use Nova\Ranks\Models\RankItem;
@@ -80,7 +80,7 @@ class CreateCharacterWithoutPermissionsTest extends TestCase
             'name' => 'Jack Sparrow',
             'rank_id' => "{$rank->id}",
             'assigned_positions' => "{$position->id}",
-            'self_assign' => true,
+            'link_to_user' => true,
         ]);
         $response->assertSuccessful();
 
@@ -138,7 +138,7 @@ class CreateCharacterWithoutPermissionsTest extends TestCase
 
         $this->post(route('characters.store'), [
             'name' => 'Jack Sparrow',
-            'self_assign' => true,
+            'link_to_user' => true,
         ]);
 
         $character = Character::latest()->first();
@@ -159,7 +159,7 @@ class CreateCharacterWithoutPermissionsTest extends TestCase
 
         $this->post(route('characters.store'), [
             'name' => 'Jack Sparrow',
-            'self_assign' => false,
+            'link_to_user' => false,
         ]);
 
         $character = Character::latest()->first();
@@ -182,8 +182,8 @@ class CreateCharacterWithoutPermissionsTest extends TestCase
 
         $response = $this->post(route('characters.store'), [
             'name' => 'Jack Sparrow',
-            'self_assign' => true,
-            'self_primary_assign' => true,
+            'link_to_user' => true,
+            'assign_as_primary' => true,
         ]);
         $response->assertSuccessful();
 
@@ -210,7 +210,7 @@ class CreateCharacterWithoutPermissionsTest extends TestCase
 
         $response = $this->post(route('characters.store'), [
             'name' => 'Jack Sparrow',
-            'self_assign' => true,
+            'link_to_user' => true,
         ]);
 
         Event::assertDispatched(CharacterCreated::class);
@@ -230,7 +230,7 @@ class CreateCharacterWithoutPermissionsTest extends TestCase
 
         $response = $this->post(route('characters.store'), [
             'name' => 'Jack Sparrow',
-            'self_assign' => true,
+            'link_to_user' => true,
         ]);
 
         $character = Character::latest()->first();
@@ -250,7 +250,7 @@ class CreateCharacterWithoutPermissionsTest extends TestCase
 
         $response = $this->post(route('characters.store'), [
             'name' => 'Jack Sparrow',
-            'self_assign' => true,
+            'link_to_user' => true,
         ]);
 
         $character = Character::latest()->first();
@@ -279,7 +279,7 @@ class CreateCharacterWithoutPermissionsTest extends TestCase
 
         $response = $this->post(route('characters.store'), [
             'name' => 'Jack Sparrow',
-            'self_assign' => true,
+            'link_to_user' => true,
         ]);
 
         $character = Character::latest('id')->first();

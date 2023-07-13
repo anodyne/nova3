@@ -9,7 +9,7 @@ trait HasSelectOptions
     public static function toOptions(): array
     {
         return collect(static::cases())
-            ->flatMap(fn ($case) => [$case->value => $case->label()])
+            ->flatMap(fn ($case) => [$case->value => $case->getLabel()])
             ->all();
     }
 }

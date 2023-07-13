@@ -32,13 +32,13 @@
 
                 @cannot('selfAssign', Nova\Characters\Models\Character::class)
                     <div class="mt-1 text-sm font-normal text-gray-500">
-                        This character will be automatically linked to your account
+                        Contact the game master(s) to have this character assigned to your account
                     </div>
                 @endcannot
             </div>
             <div class="flex items-start justify-end">
                 <x-switch-toggle
-                    name="self_assign"
+                    name="link_to_user"
                     wire:model="linkToUser"
                     :disabled="$linkToUserDisabled"
                 ></x-switch-toggle>
@@ -56,7 +56,7 @@
             </div>
             <div class="flex items-start justify-end">
                 <x-switch-toggle
-                    name="self_assign_primary"
+                    name="assign_as_primary"
                     wire:model="assignAsPrimary"
                     :disabled="auth()->user()->cannot(['createSecondary', 'createPrimary'], Nova\Characters\Models\Character::class)"
                 ></x-switch-toggle>

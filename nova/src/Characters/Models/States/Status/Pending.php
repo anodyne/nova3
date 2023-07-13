@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Nova\Characters\Models\States\Statuses;
+namespace Nova\Characters\Models\States\Status;
 
 class Pending extends CharacterStatus
 {

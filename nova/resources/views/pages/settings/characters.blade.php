@@ -13,7 +13,7 @@
         </x-panel.header>
 
         <x-form :action="route('settings.update', $tab)" method="PUT" id="character">
-            <x-form.section title="Character creation approval">
+            <x-form.section title="Require approval for character creation">
                 <x-slot name="message">
                     <p>Set whether characters of certain types require approval before being activated.</p>
 

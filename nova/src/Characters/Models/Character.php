@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Nova\Characters\Enums\CharacterType;
 use Nova\Characters\Events;
 use Nova\Characters\Models\Builders\CharacterBuilder;
-use Nova\Characters\Models\States\Statuses\CharacterStatus;
+use Nova\Characters\Models\States\Status\CharacterStatus;
 use Nova\Departments\Models\Position;
 use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Ranks\Models\RankItem;

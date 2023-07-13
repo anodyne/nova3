@@ -5,15 +5,21 @@
         <x-panel.header :title="$position->name">
             <x-slot:actions>
                 @can('viewAny', Nova\Departments\Models\Position::class)
-                    <x-button.text :href="route('positions.index', 'department='.$position->department->id)" leading="arrow-left" color="gray">
+                    <x-button.text
+                        :href="route('positions.index', 'department='.$position->department->id)"
+                        leading="arrow-left"
+                        color="gray"
+                    >
                         Back
                     </x-button.text>
 
                     @can('update', $position)
-                        <x-button.filled :href="route('positions.edit', $position)" leading="edit" color="primary">Edit</x-button.filled>
+                        <x-button.filled :href="route('positions.edit', $position)" leading="edit" color="primary">
+                            Edit
+                        </x-button.filled>
                     @endcan
                 @endcan
-            </x-slot:actions>
+            </x-slot>
         </x-panel.header>
 
         <x-form action="">
@@ -37,14 +43,16 @@
                 </x-input.group>
 
                 <x-input.group label="Status">
-                    <x-badge :color="$position->status->color()">{{ $position->status->displayName() }}</x-badge>
+                    <x-badge :color="$position->status->color()">{{ $position->status->getLabel() }}</x-badge>
                 </x-input.group>
             </x-form.section>
 
             <x-form.section title="Assigned Characters">
-                <div class="flex flex-col w-full space-y-2">
+                <div class="flex w-full flex-col space-y-2">
                     @forelse ($position->characters as $character)
-                        <div class="group flex items-center justify-between w-full py-2 px-4 rounded odd:bg-gray-100 dark:odd:bg-gray-700/50">
+                        <div
+                            class="group flex w-full items-center justify-between rounded px-4 py-2 odd:bg-gray-100 dark:odd:bg-gray-700/50"
+                        >
                             <div class="flex items-center space-x-3">
                                 <x-avatar.character
                                     :character="$character"
@@ -56,7 +64,11 @@
                             </div>
 
                             @can('update', $character)
-                                <x-button.text :href="route('characters.edit', $character)" color="gray" class="group-hover:visible sm:invisible">
+                                <x-button.text
+                                    :href="route('characters.edit', $character)"
+                                    color="gray"
+                                    class="group-hover:visible sm:invisible"
+                                >
                                     <x-icon name="edit" size="sm"></x-icon>
                                 </x-button.text>
                             @endcan

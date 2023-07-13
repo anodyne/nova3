@@ -18,7 +18,7 @@ use Illuminate\Notifications\Notification;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
 use Nova\Characters\Models\Character;
-use Nova\Characters\Models\States\Statuses\Active as ActiveCharacter;
+use Nova\Characters\Models\States\Status\Active as ActiveCharacter;
 use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Notes\Models\Note;
 use Nova\Posts\Models\Post;
