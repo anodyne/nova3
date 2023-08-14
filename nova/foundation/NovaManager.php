@@ -4,12 +4,38 @@ declare(strict_types=1);
 
 namespace Nova\Foundation;
 
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Facades\Schema;
+use Nova\Foundation\Fonts\BunnyFontProvider;
+use Nova\Foundation\Fonts\Contracts\FontProvider;
+use Nova\Foundation\Fonts\GoogleFontProvider;
+use Nova\Foundation\Fonts\LocalFontProvider;
 use Throwable;
 
 class NovaManager
 {
     public string $version = '3.0.0';
+
+    public function getFontFamily(): string
+    {
+        return settings('appearance.fontFamily') ?? 'Inter var';
+    }
+
+    public function getFontHtml(): Htmlable
+    {
+        return $this->getFontProvider()->getHtml(
+            $this->getFontFamily()
+        );
+    }
+
+    public function getFontProvider(): FontProvider
+    {
+        return match (settings('appearance.fontProvider')) {
+            'bunny' => new BunnyFontProvider(),
+            'google' => new GoogleFontProvider(),
+            default => new LocalFontProvider(),
+        };
+    }
 
     public function getVersion(): string
     {
@@ -78,7 +104,6 @@ class NovaManager
         $appStylesPath = "{$appUrl}/dist/css/app.css";
 
         return <<<HTML
-<link href="https://rsms.me/inter/inter.css" rel="stylesheet">
 <link href="{$appStylesPath}" rel="stylesheet">
 HTML;
     }
