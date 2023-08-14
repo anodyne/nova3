@@ -181,7 +181,8 @@ module.exports = {
                 },
             },
             fontFamily: {
-                sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+                sans: ['var(--font-family)', ...defaultTheme.fontFamily.sans],
+                // sans: ['Inter var', ...defaultTheme.fontFamily.sans],
             },
             lineHeight: {
                 0: '0',
@@ -234,6 +235,7 @@ module.exports = {
         }),
         require('@tailwindcss/typography'),
         require('@tailwindcss/aspect-ratio'),
+        require('@tailwindcss/container-queries'),
         function ({ matchUtilities, theme }) {
             matchUtilities(
                 {

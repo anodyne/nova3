@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'Hubot Sans';
+  src:
+    url('/dist/fonts/hubot-sans/Hubot-Sans.woff2') format('woff2 supports variations'),
+    url('/dist/fonts/hubot-sans/Hubot-Sans.woff2') format('woff2-variations');
+  font-weight: 200 900;
+  font-stretch: 75% 125%;
+}

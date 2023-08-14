@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Nova\Settings\Providers;
 
 use Nova\DomainServiceProvider;
-use Nova\Foundation\Nova;
 use Nova\Settings\Actions\UpdateAppearance;
 use Nova\Settings\Data\Appearance;
 use Nova\Settings\Data\Characters;
@@ -17,6 +16,7 @@ use Nova\Settings\Data\MetaTags;
 use Nova\Settings\Data\PostingActivity;
 use Nova\Settings\Data\SettingInfo;
 use Nova\Settings\Livewire\FindSettingsModal;
+use Nova\Settings\Livewire\FontSelector;
 use Nova\Settings\Livewire\NotificationSetting;
 use Nova\Settings\Models\Settings;
 use Nova\Settings\Responses\AppearanceSettingsResponse;
@@ -45,7 +45,15 @@ class SettingsServiceProvider extends DomainServiceProvider
     {
         return [
             'settings:find-settings' => FindSettingsModal::class,
+            'settings-font-selector' => FontSelector::class,
             'settings:notification-setting' => NotificationSetting::class,
+        ];
+    }
+
+    public function morphMaps(): array
+    {
+        return [
+            'setting' => Settings::class,
         ];
     }
 

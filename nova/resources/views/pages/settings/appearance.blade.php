@@ -10,9 +10,9 @@
         >
             <x-slot name="actions">
                 <div x-data="{}">
-                    <x-button.outline color="primary" leading="search" x-on:click="$dispatch('toggle-spotlight')">
+                    <x-button.filled color="gray" leading="search" x-on:click="$dispatch('toggle-spotlight')">
                         Find a setting
-                    </x-button.outline>
+                    </x-button.filled>
                 </div>
             </x-slot>
         </x-panel.header>
@@ -117,8 +117,15 @@
                 </x-input.group>
             </x-form.section>
 
+            <x-form.section
+                title="Font family"
+                message="Customize Nova by changing the font used throughout the admin system."
+            >
+                <livewire:settings-font-selector />
+            </x-form.section>
+
             <x-form.section title="Avatar shape" message="Update the shape of avatars throughout Nova.">
-                <x-slot:message>
+                <x-slot name="message">
                     <p>Update the shape of avatars throughout Nova.</p>
 
                     <div
@@ -133,6 +140,7 @@
                         ])
                     ></div>
                 </x-slot>
+
                 <x-input.group label="Shape" for="avatar_shape">
                     <x-input.select class="mt-1 block w-full" id="avatar_shape" name="avatar_shape">
                         <option value="rounded-full" @selected($settings->appearance->avatarShape === 'rounded-full')>

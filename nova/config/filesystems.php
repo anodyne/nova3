@@ -46,6 +46,14 @@ return [
             'throw' => false,
         ],
 
+        'dist' => [
+            'driver' => 'local',
+            'root' => base_path('dist'),
+            'url' => env('APP_URL').'/dist',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         'media' => [
             'driver' => 'local',
             'root' => base_path('media'),

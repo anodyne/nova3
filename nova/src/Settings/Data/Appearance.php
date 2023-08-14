@@ -31,6 +31,10 @@ class Appearance extends Data implements Arrayable
         public string $colorsSuccess,
         #[MapInputName('colors_info')]
         public string $colorsInfo,
+        #[MapInputName('font_provider')]
+        public string $fontProvider,
+        #[MapInputName('font_family')]
+        public string $fontFamily,
     ) {
     }
 
