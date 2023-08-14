@@ -10,16 +10,14 @@ use Spatie\LaravelData\Data;
 class AssignCharacterPositionsData extends Data
 {
     public function __construct(
-        public ?array $positions,
-        public ?int $primaryPosition
+        public ?array $positions
     ) {
     }
 
     public static function fromRequest(Request $request): static
     {
         return new self(
-            positions: explode(',', $request->input('assigned_positions', '') ?? ''),
-            primaryPosition: $request->integer('primary_position', null),
+            positions: explode(',', $request->input('assigned_positions', '') ?? '')
         );
     }
 }

@@ -10,6 +10,7 @@ use Nova\Stories\Livewire\PostsList;
 use Nova\Stories\Livewire\StoryHierarchy;
 use Nova\Stories\Livewire\StoryStatus;
 use Nova\Stories\Livewire\StoryTimeline;
+use Nova\Stories\Models\Story;
 use Nova\Stories\Spotlight\AddStory;
 use Nova\Stories\Spotlight\EditStory;
 use Nova\Stories\Spotlight\ViewStories;
@@ -25,6 +26,13 @@ class StoryServiceProvider extends DomainServiceProvider
             'stories:posts-list' => PostsList::class,
             'stories:status' => StoryStatus::class,
             'stories:timeline' => StoryTimeline::class,
+        ];
+    }
+
+    public function morphMaps(): array
+    {
+        return [
+            'story' => Story::class,
         ];
     }
 

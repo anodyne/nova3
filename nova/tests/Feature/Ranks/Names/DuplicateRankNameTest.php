@@ -1,73 +1,45 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\Ranks\Names;
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\Ranks\Events\RankNameDuplicated;
 use Nova\Ranks\Models\RankName;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->name = RankName::factory()->create([
+        'name' => 'Captain',
+    ]);
+});
+test('authorized user can duplicate rank name', function () {
+    $this->signInWithPermission(['rank.create', 'rank.update']);
 
-/**
- * @group ranks
- */
-class DuplicateRankNameTest extends TestCase
-{
-    protected $name;
+    $this->followingRedirects();
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $response = $this->post(route('ranks.names.duplicate', $this->name));
+    $response->assertSuccessful();
 
-        $this->name = RankName::factory()->create([
-            'name' => 'Captain',
-        ]);
-    }
+    $this->assertDatabaseHas('rank_names', [
+        'name' => "Copy of {$this->name->name}",
+    ]);
+});
+test('event is dispatched when rank name is duplicated', function () {
+    Event::fake();
 
-    /** @test **/
-    public function authorizedUserCanDuplicateRankName()
-    {
-        $this->signInWithPermission(['rank.create', 'rank.update']);
+    $this->signInWithPermission(['rank.create', 'rank.update']);
 
-        $this->followingRedirects();
+    $this->post(route('ranks.names.duplicate', $this->name));
 
-        $response = $this->post(route('ranks.names.duplicate', $this->name));
-        $response->assertSuccessful();
+    Event::assertDispatched(RankNameDuplicated::class);
+});
+test('unauthorized user cannot duplicate rank name', function () {
+    $this->signIn();
 
-        $this->assertDatabaseHas('rank_names', [
-            'name' => "Copy of {$this->name->name}",
-        ]);
-    }
-
-    /** @test **/
-    public function eventIsDispatchedWhenRankNameIsDuplicated()
-    {
-        Event::fake();
-
-        $this->signInWithPermission(['rank.create', 'rank.update']);
-
-        $this->post(route('ranks.names.duplicate', $this->name));
-
-        Event::assertDispatched(RankNameDuplicated::class);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotDuplicateRankName()
-    {
-        $this->signIn();
-
-        $response = $this->post(route('ranks.names.duplicate', $this->name));
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotDuplicateRankName()
-    {
-        $response = $this->postJson(
-            route('ranks.names.duplicate', $this->name)
-        );
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->post(route('ranks.names.duplicate', $this->name));
+    $response->assertForbidden();
+});
+test('unauthenticated user cannot duplicate rank name', function () {
+    $response = $this->postJson(
+        route('ranks.names.duplicate', $this->name)
+    );
+    $response->assertUnauthorized();
+});

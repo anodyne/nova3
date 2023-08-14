@@ -2,67 +2,96 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Characters;
-
 use Illuminate\Support\Facades\Event;
 use Nova\Characters\Events\CharacterDeleted;
 use Nova\Characters\Events\CharacterDeletedByAdmin;
+use Nova\Characters\Livewire\CharactersList;
 use Nova\Characters\Models\Character;
-use Tests\TestCase;
+use Nova\Foundation\Filament\Actions\DeleteAction;
+use Nova\Foundation\Filament\Actions\DeleteBulkAction;
+use function Pest\Laravel\assertSoftDeleted;
+use function Pest\Laravel\getJson;
+use function Pest\Livewire\livewire;
 
-/**
- * @group characters
- */
-class DeleteCharacterTest extends TestCase
-{
-    protected $character;
+uses()->group('characters');
 
-    public function setUp(): void
-    {
-        parent::setUp();
+beforeEach(function () {
+    $this->character = Character::factory()->active()->create();
+});
 
-        $this->character = Character::factory()->active()->create();
-    }
-
-    /** @test **/
-    public function authorizedUserCanDeleteCharacter()
-    {
-        $this->signInWithPermission('character.delete');
-
-        $this->followingRedirects();
-
-        $response = $this->delete(route('characters.destroy', $this->character));
-        $response->assertSuccessful();
-
-        $this->assertSoftDeleted('characters', $this->character->only('id'));
-    }
-
-    /** @test **/
-    public function eventsAreDispatchedWhenUserIsDeleted()
-    {
+describe('authorized user', function () {
+    test('can delete a single character', function () {
         Event::fake();
 
         $this->signInWithPermission('character.delete');
 
-        $this->delete(route('characters.destroy', $this->character));
+        livewire(CharactersList::class)
+            ->callTableAction(DeleteAction::class, $this->character)
+            ->assertNotified();
+
+        assertSoftDeleted(Character::class, [
+            'id' => $this->character->id,
+        ]);
 
         Event::assertDispatched(CharacterDeleted::class);
         Event::assertDispatched(CharacterDeletedByAdmin::class);
-    }
+    });
 
-    /** @test **/
-    public function unauthorizedUserCannotDeleteCharacter()
-    {
-        $this->signIn();
+    test('can delete multiple characters', function () {
+        Event::fake();
 
-        $response = $this->delete(route('characters.destroy', $this->character));
-        $response->assertForbidden();
-    }
+        $this->signInWithPermission('character.delete');
 
-    /** @test **/
-    public function unauthenticatedUserCannotDeleteCharacter()
-    {
-        $response = $this->deleteJson(route('characters.destroy', $this->character));
-        $response->assertUnauthorized();
-    }
-}
+        $characters = Character::factory()->count(3)->active()->create();
+
+        livewire(CharactersList::class)
+            ->callTableBulkAction(DeleteBulkAction::class, $characters)
+            ->assertNotified();
+
+        foreach ($characters as $character) {
+            assertSoftDeleted(Character::class, [
+                'id' => $character->id,
+            ]);
+
+            Event::assertDispatched(CharacterDeleted::class);
+            Event::assertDispatched(CharacterDeletedByAdmin::class);
+        }
+    });
+
+    test('can filter the list of characters to only deleted characters', function () {
+        $this->signInWithPermission('character.delete');
+
+        $deletedCharacter = Character::factory()->create();
+        $deletedCharacter->delete();
+
+        livewire(CharactersList::class)
+            ->assertCountTableRecords(1)
+            ->filterTable('trashed', false)
+            ->assertCountTableRecords(1);
+    });
+
+    test('can filter the list of characters to include deleted characters', function () {
+        $this->signInWithPermission('character.delete');
+
+        $deletedCharacter = Character::factory()->create();
+        $deletedCharacter->delete();
+
+        livewire(CharactersList::class)
+            ->assertCountTableRecords(1)
+            ->filterTable('trashed', true)
+            ->assertCountTableRecords(2);
+    });
+});
+
+test('unauthorized user cannot delete a character', function () {
+    $this->signIn();
+
+    livewire(CharactersList::class)
+        ->assertCanNotSeeTableRecords([$this->character])
+        ->assertCountTableRecords(0)
+        ->assertTableActionHidden(DeleteAction::class, $this->character);
+})->skip(message: 'Fixed in Filament 3.0');
+
+test('unauthenticated user cannot delete a character', function () {
+    getJson(route('characters.index'))->assertUnauthorized();
+});

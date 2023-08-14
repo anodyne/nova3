@@ -1,78 +1,54 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Departments\Actions;
-
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Departments\Actions\CreatePosition;
 use Nova\Departments\Data\PositionData;
 use Nova\Departments\Enums\PositionStatus;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
-use Tests\TestCase;
+uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
-/**
- * @group departments
- * @group positions
- */
-class CreatePositionActionTest extends TestCase
-{
-    use RefreshDatabase;
+beforeEach(function () {
+    $this->department = Department::factory()->create();
+});
+it('creates a position', function () {
+    $data = PositionData::from([
+        'name' => 'Captain',
+        'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+        'available' => 1,
+        'department' => $this->department,
+        'department_id' => $this->department->id,
+        'status' => PositionStatus::active,
+    ]);
 
-    protected $department;
+    $position = CreatePosition::run($data);
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    expect($position->exists)->toBeTrue();
+    expect($position->name)->toEqual('Captain');
+    expect($position->description)->toEqual('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
+    expect($position->available)->toEqual(1);
+    expect($position->department_id)->toEqual($this->department->id);
+});
+it('sets the correct sort order for a newly created position', function () {
+    Position::factory()->create([
+        'department_id' => $this->department,
+        'sort' => 0,
+    ]);
+    Position::factory()->create([
+        'department_id' => $this->department,
+        'sort' => 1,
+    ]);
 
-        $this->department = Department::factory()->create();
-    }
+    $data = PositionData::from([
+        'name' => 'Captain',
+        'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+        'available' => 1,
+        'department' => $this->department,
+        'department_id' => $this->department->id,
+        'status' => PositionStatus::active,
+    ]);
 
-    /** @test **/
-    public function itCreatesAPosition()
-    {
-        $data = PositionData::from([
-            'name' => 'Captain',
-            'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
-            'available' => 1,
-            'department' => $this->department,
-            'department_id' => $this->department->id,
-            'status' => PositionStatus::active,
-        ]);
+    $position = CreatePosition::run($data);
 
-        $position = CreatePosition::run($data);
-
-        $this->assertTrue($position->exists);
-        $this->assertEquals('Captain', $position->name);
-        $this->assertEquals('Lorem ipsum dolor sit amet, consectetur adipisicing elit.', $position->description);
-        $this->assertEquals(1, $position->available);
-        $this->assertEquals($this->department->id, $position->department_id);
-    }
-
-    /** @test **/
-    public function itSetsTheCorrectSortOrderForANewlyCreatedPosition()
-    {
-        Position::factory()->create([
-            'department_id' => $this->department,
-            'sort' => 0,
-        ]);
-        Position::factory()->create([
-            'department_id' => $this->department,
-            'sort' => 1,
-        ]);
-
-        $data = PositionData::from([
-            'name' => 'Captain',
-            'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
-            'available' => 1,
-            'department' => $this->department,
-            'department_id' => $this->department->id,
-            'status' => PositionStatus::active,
-        ]);
-
-        $position = CreatePosition::run($data);
-
-        $this->assertEquals(2, $position->sort);
-    }
-}
+    expect($position->sort)->toEqual(2);
+});

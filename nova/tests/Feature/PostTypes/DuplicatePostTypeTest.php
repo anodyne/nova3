@@ -1,72 +1,43 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\PostTypes;
-
 use Illuminate\Support\Facades\Event;
 use Nova\PostTypes\Events\PostTypeDuplicated;
 use Nova\PostTypes\Models\PostType;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->postType = PostType::factory()->create([
+        'key' => 'foo',
+        'name' => 'Foo',
+    ]);
+});
+test('authorized user can duplicate post type', function () {
+    $this->signInWithPermission(['post-type.create', 'post-type.update']);
 
-/**
- * @group storytelling
- * @group post-types
- */
-class DuplicatePostTypeTest extends TestCase
-{
-    protected $postType;
+    $this->followingRedirects();
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $response = $this->post(route('post-types.duplicate', $this->postType));
+    $response->assertSuccessful();
 
-        $this->postType = PostType::factory()->create([
-            'key' => 'foo',
-            'name' => 'Foo',
-        ]);
-    }
+    $this->assertDatabaseHas('post_types', [
+        'name' => "Copy of {$this->postType->name}",
+    ]);
+});
+test('event is dispatched when post type is duplicated', function () {
+    Event::fake();
 
-    /** @test **/
-    public function authorizedUserCanDuplicatePostType()
-    {
-        $this->signInWithPermission(['post-type.create', 'post-type.update']);
+    $this->signInWithPermission(['post-type.create', 'post-type.update']);
 
-        $this->followingRedirects();
+    $this->post(route('post-types.duplicate', $this->postType));
 
-        $response = $this->post(route('post-types.duplicate', $this->postType));
-        $response->assertSuccessful();
+    Event::assertDispatched(PostTypeDuplicated::class);
+});
+test('unauthorized user cannot duplicate post type', function () {
+    $this->signIn();
 
-        $this->assertDatabaseHas('post_types', [
-            'name' => "Copy of {$this->postType->name}",
-        ]);
-    }
-
-    /** @test **/
-    public function eventIsDispatchedWhenPostTypeIsDuplicated()
-    {
-        Event::fake();
-
-        $this->signInWithPermission(['post-type.create', 'post-type.update']);
-
-        $this->post(route('post-types.duplicate', $this->postType));
-
-        Event::assertDispatched(PostTypeDuplicated::class);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotDuplicatePostType()
-    {
-        $this->signIn();
-
-        $response = $this->post(route('post-types.duplicate', $this->postType));
-        $response->assertNotFound();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotDuplicatePostType()
-    {
-        $response = $this->postJson(route('post-types.duplicate', $this->postType));
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->post(route('post-types.duplicate', $this->postType));
+    $response->assertNotFound();
+});
+test('unauthenticated user cannot duplicate post type', function () {
+    $response = $this->postJson(route('post-types.duplicate', $this->postType));
+    $response->assertUnauthorized();
+});

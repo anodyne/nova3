@@ -1,96 +1,65 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\Forms;
-
 use Illuminate\Support\Facades\Event;
 use Nova\Forms\Events\FormCreated;
 use Nova\Forms\Models\Form;
 use Nova\Forms\Requests\CreateFormRequest;
-use Tests\TestCase;
+test('authorized user can view the create form page', function () {
+    $this->signInWithPermission('form.create');
 
-/**
- * @group forms
- */
-class CreateFormTest extends TestCase
-{
-    /** @test **/
-    public function authorizedUserCanViewTheCreateFormPage()
-    {
-        $this->signInWithPermission('form.create');
+    $response = $this->get(route('forms.create'));
+    $response->assertSuccessful();
+});
+test('authorized user can create form', function () {
+    $this->signInWithPermission('form.create');
 
-        $response = $this->get(route('forms.create'));
-        $response->assertSuccessful();
-    }
+    $form = Form::factory()->make();
 
-    /** @test **/
-    public function authorizedUserCanCreateForm()
-    {
-        $this->signInWithPermission('form.create');
+    $this->followingRedirects();
 
-        $form = Form::factory()->make();
+    $response = $this->post(route('forms.store'), $form->toArray());
+    $response->assertSuccessful();
 
-        $this->followingRedirects();
+    $this->assertDatabaseHas('forms', $form->only('name', 'key'));
 
-        $response = $this->post(route('forms.store'), $form->toArray());
-        $response->assertSuccessful();
+    $this->assertRouteUsesFormRequest(
+        'forms.store',
+        CreateFormRequest::class
+    );
+});
+test('event is dispatched when form is created', function () {
+    Event::fake();
 
-        $this->assertDatabaseHas('forms', $form->only('name', 'key'));
+    $this->signInWithPermission('form.create');
 
-        $this->assertRouteUsesFormRequest(
-            'forms.store',
-            CreateFormRequest::class
-        );
-    }
+    $this->post(route('forms.store'), Form::factory()->make()->toArray());
 
-    /** @test **/
-    public function eventIsDispatchedWhenFormIsCreated()
-    {
-        Event::fake();
+    Event::assertDispatched(FormCreated::class);
+});
+test('unauthorized user cannot view the create form page', function () {
+    $this->signIn();
 
-        $this->signInWithPermission('form.create');
+    $response = $this->get(route('forms.create'));
+    $response->assertForbidden();
+});
+test('unauthorized user cannot create form', function () {
+    $this->signIn();
 
-        $this->post(route('forms.store'), Form::factory()->make()->toArray());
-
-        Event::assertDispatched(FormCreated::class);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotViewTheCreateFormPage()
-    {
-        $this->signIn();
-
-        $response = $this->get(route('forms.create'));
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotCreateForm()
-    {
-        $this->signIn();
-
-        $response = $this->postJson(
-            route('forms.store'),
-            Form::factory()->make()->toArray()
-        );
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotViewTheCreateFormPage()
-    {
-        $response = $this->getJson(route('forms.create'));
-        $response->assertUnauthorized();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotCreateForm()
-    {
-        $response = $this->postJson(
-            route('forms.store'),
-            Form::factory()->make()->toArray()
-        );
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->postJson(
+        route('forms.store'),
+        Form::factory()->make()->toArray()
+    );
+    $response->assertForbidden();
+});
+test('unauthenticated user cannot view the create form page', function () {
+    $response = $this->getJson(route('forms.create'));
+    $response->assertUnauthorized();
+});
+test('unauthenticated user cannot create form', function () {
+    $response = $this->postJson(
+        route('forms.store'),
+        Form::factory()->make()->toArray()
+    );
+    $response->assertUnauthorized();
+});

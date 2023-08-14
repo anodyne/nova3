@@ -8,6 +8,8 @@
         <meta name="theme-color" content="#0091ff" media="(prefers-color-scheme: dark)" />
         <title>{{ config('app.name', 'Nova NextGen') }}</title>
 
+        <x-fonts />
+
         @livewireStyles
         @filamentStyles
         @novaStyles
@@ -16,7 +18,7 @@
         @stack('headScripts')
     </head>
     <body
-        class="h-full bg-white font-sans text-gray-500 antialiased dark:bg-gray-950 dark:text-gray-400 xl:bg-gray-100 dark:xl:bg-gray-950"
+        class="h-full bg-white font-sans text-gray-600 antialiased dark:bg-gray-950 dark:text-gray-400 xl:bg-gray-100 dark:xl:bg-gray-950"
     >
         <div id="nova">
             @yield('layout')

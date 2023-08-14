@@ -18,7 +18,7 @@ class ApproveCharacter
         if ($character->status->canTransitionTo(Active::class)) {
             $character->status->transitionTo(Active::class);
 
-            $character->users->each->notify(new PendingCharacterApproved($character));
+            $character->activeUsers->each->notify(new PendingCharacterApproved($character));
 
             activity()
                 ->causedBy(auth()->user())

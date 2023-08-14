@@ -1,9 +1,6 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\Users;
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Mail;
@@ -11,104 +8,72 @@ use Nova\Users\Events\UserCreated;
 use Nova\Users\Events\UserCreatedByAdmin;
 use Nova\Users\Models\User;
 use Nova\Users\Requests\CreateUserRequest;
-use Tests\TestCase;
+beforeEach(function () {
+    Mail::fake();
 
-/**
- * @group users
- */
-class CreateUserTest extends TestCase
-{
-    public function setUp(): void
-    {
-        parent::setUp();
+    User::truncate();
+});
+test('authorized user can view the create user page', function () {
+    $this->signInWithPermission('user.create');
 
-        Mail::fake();
+    $response = $this->get(route('users.create'));
+    $response->assertSuccessful();
+});
+test('authorized user can create user', function () {
+    $this->signInWithPermission('user.create');
 
-        User::truncate();
-    }
+    $data = User::factory()->make([
+        'name' => 'Jack Sparrow',
+    ]);
 
-    /** @test **/
-    public function authorizedUserCanViewTheCreateUserPage()
-    {
-        $this->signInWithPermission('user.create');
+    $this->followingRedirects();
 
-        $response = $this->get(route('users.create'));
-        $response->assertSuccessful();
-    }
+    $response = $this->post(route('users.store'), $data->toArray());
+    $response->assertSuccessful();
 
-    /** @test **/
-    public function authorizedUserCanCreateUser()
-    {
-        $this->signInWithPermission('user.create');
+    $this->assertDatabaseHas('users', $data->only('name', 'email'));
 
-        $data = User::factory()->make([
-            'name' => 'Jack Sparrow',
-        ]);
+    $this->assertRouteUsesFormRequest(
+        'users.store',
+        CreateUserRequest::class
+    );
+});
+test('events are dispatched when user is created', function () {
+    Event::fake();
 
-        $this->followingRedirects();
+    $this->signInWithPermission('user.create');
 
-        $response = $this->post(route('users.store'), $data->toArray());
-        $response->assertSuccessful();
+    $this->post(
+        route('users.store'),
+        User::factory()->make()->toArray()
+    );
 
-        $this->assertDatabaseHas('users', $data->only('name', 'email'));
+    Event::assertDispatched(UserCreated::class);
+    Event::assertDispatched(UserCreatedByAdmin::class);
+});
+test('unauthorized user cannot view create user page', function () {
+    $this->signIn();
 
-        $this->assertRouteUsesFormRequest(
-            'users.store',
-            CreateUserRequest::class
-        );
-    }
+    $response = $this->get(route('users.create'));
+    $response->assertForbidden();
+});
+test('unauthorized user cannot create user', function () {
+    $this->signIn();
 
-    /** @test **/
-    public function eventsAreDispatchedWhenUserIsCreated()
-    {
-        Event::fake();
-
-        $this->signInWithPermission('user.create');
-
-        $this->post(
-            route('users.store'),
-            User::factory()->make()->toArray()
-        );
-
-        Event::assertDispatched(UserCreated::class);
-        Event::assertDispatched(UserCreatedByAdmin::class);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotViewCreateUserPage()
-    {
-        $this->signIn();
-
-        $response = $this->get(route('users.create'));
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotCreateUser()
-    {
-        $this->signIn();
-
-        $response = $this->post(
-            route('users.store'),
-            User::factory()->make()->toArray()
-        );
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotViewCreateUserPage()
-    {
-        $response = $this->getJson(route('users.create'));
-        $response->assertUnauthorized();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotCreateUser()
-    {
-        $response = $this->postJson(
-            route('users.store'),
-            User::factory()->make()->toArray()
-        );
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->post(
+        route('users.store'),
+        User::factory()->make()->toArray()
+    );
+    $response->assertForbidden();
+});
+test('unauthenticated user cannot view create user page', function () {
+    $response = $this->getJson(route('users.create'));
+    $response->assertUnauthorized();
+});
+test('unauthenticated user cannot create user', function () {
+    $response = $this->postJson(
+        route('users.store'),
+        User::factory()->make()->toArray()
+    );
+    $response->assertUnauthorized();
+});

@@ -1,9 +1,6 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Posts\Actions;
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Posts\Actions\UpdatePostStatus;
 use Nova\Posts\Data\PostStatusData;
@@ -11,81 +8,52 @@ use Nova\Posts\Models\Post;
 use Nova\Posts\Models\States\Draft;
 use Nova\Posts\Models\States\Pending;
 use Nova\Posts\Models\States\Published;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->post = Post::factory()->draft()->create();
+});
+it('can update the post status', function () {
+    expect($this->post->status->equals(Draft::class))->toBeTrue();
 
-/**
- * @group storytelling
- * @group posts
- */
-class UpdatePostStatusActionTest extends TestCase
-{
-    protected Post $post;
+    $post = UpdatePostStatus::run($this->post, PostStatusData::from([
+        'status' => 'published',
+    ]));
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    expect($post->status->equals(Published::class))->toBeTrue();
+});
+it('cannot transition to the status its in now', function () {
+    $post = UpdatePostStatus::run($this->post, PostStatusData::from([
+        'status' => 'draft',
+    ]));
 
-        $this->post = Post::factory()->draft()->create();
-    }
+    expect($post->status->equals(Draft::class))->toBeTrue();
+});
+it('can transition from draft to published', function () {
+    $post = Post::factory()->draft()->create();
 
-    /** @test **/
-    public function itCanUpdateThePostStatus()
-    {
-        $this->assertTrue($this->post->status->equals(Draft::class));
+    $post = UpdatePostStatus::run($post, PostStatusData::from([
+        'status' => 'published',
+    ]));
 
-        $post = UpdatePostStatus::run($this->post, PostStatusData::from([
-            'status' => 'published',
-        ]));
+    expect($post->status->equals(Published::class))->toBeTrue();
+    expect($post->published_at)->not->toBeNull();
+});
+it('can transition from draft to pending', function () {
+    $post = Post::factory()->draft()->create();
 
-        $this->assertTrue($post->status->equals(Published::class));
-    }
+    $post = UpdatePostStatus::run($post, PostStatusData::from([
+        'status' => 'pending',
+    ]));
 
-    /** @test **/
-    public function itCannotTransitionToTheStatusItsInNow()
-    {
-        $post = UpdatePostStatus::run($this->post, PostStatusData::from([
-            'status' => 'draft',
-        ]));
+    expect($post->status->equals(Pending::class))->toBeTrue();
+    expect($post->published_at)->toBeNull();
+});
+it('can transition from pending to published', function () {
+    $post = Post::factory()->pending()->create();
 
-        $this->assertTrue($post->status->equals(Draft::class));
-    }
+    $post = UpdatePostStatus::run($post, PostStatusData::from([
+        'status' => 'published',
+    ]));
 
-    /** @test **/
-    public function itCanTransitionFromDraftToPublished()
-    {
-        $post = Post::factory()->draft()->create();
-
-        $post = UpdatePostStatus::run($post, PostStatusData::from([
-            'status' => 'published',
-        ]));
-
-        $this->assertTrue($post->status->equals(Published::class));
-        $this->assertNotNull($post->published_at);
-    }
-
-    /** @test **/
-    public function itCanTransitionFromDraftToPending()
-    {
-        $post = Post::factory()->draft()->create();
-
-        $post = UpdatePostStatus::run($post, PostStatusData::from([
-            'status' => 'pending',
-        ]));
-
-        $this->assertTrue($post->status->equals(Pending::class));
-        $this->assertNull($post->published_at);
-    }
-
-    /** @test **/
-    public function itCanTransitionFromPendingToPublished()
-    {
-        $post = Post::factory()->pending()->create();
-
-        $post = UpdatePostStatus::run($post, PostStatusData::from([
-            'status' => 'published',
-        ]));
-
-        $this->assertTrue($post->status->equals(Published::class));
-        $this->assertNotNull($post->published_at);
-    }
-}
+    expect($post->status->equals(Published::class))->toBeTrue();
+    expect($post->published_at)->not->toBeNull();
+});

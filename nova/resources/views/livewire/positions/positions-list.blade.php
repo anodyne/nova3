@@ -1,14 +1,26 @@
 <x-panel x-data="filtersPanel()" x-bind="parent" class="{{ $reordering ? 'overflow-hidden' : '' }}">
-    <x-panel.header title="Positions" message="The jobs or stations characters are assigned to for display on your manifests" :border="$reordering">
+    <x-panel.header
+        title="Positions"
+        message="The jobs or stations characters are assigned to for display on your manifests"
+        :border="$reordering"
+    >
         @if (! $reordering)
             <x-slot name="actions">
                 @can('update', $positions->first())
-                    <x-button.text tag="button" color="gray" leading="arrows-sort" wire:click="startReordering">Reorder</x-button.text>
+                    <x-button.text tag="button" color="gray" leading="arrows-sort" wire:click="startReordering">
+                        Reorder
+                    </x-button.text>
                 @endcan
 
                 @if ($positions->count() > 0)
                     @can('create', $positionClass)
-                        <x-button.filled :href="route('positions.create', 'department='.request('department'))" leading="add" color="primary">Add</x-button.filled>
+                        <x-button.filled
+                            :href="route('positions.create', 'department='.request('department'))"
+                            leading="add"
+                            color="primary"
+                        >
+                            Add
+                        </x-button.filled>
                     @endcan
                 @endif
             </x-slot>
@@ -16,7 +28,11 @@
             <x-slot name="message">
                 <x-panel.primary icon="arrows-sort" title="Change sorting order" class="mt-4">
                     <div class="space-y-4">
-                        <p>Positions will appear in the order below whenever they're shown throughout Nova. To change the sorting of the positions, drag them to the desired order. Click Finish to return to the management view.</p>
+                        <p>
+                            Positions will appear in the order below whenever they're shown throughout Nova. To change
+                            the sorting of the positions, drag them to the desired order. Click Finish to return to the
+                            management view.
+                        </p>
 
                         <div>
                             <x-button.filled wire:click="stopReordering">Finish</x-button.filled>
@@ -29,12 +45,25 @@
 
     @if (! $reordering)
         @if ($positionCount === 0)
-            <x-empty-state.large icon="list" title="Start by creating a position" message="Positions are the jobs or stations that characters can be assigned to for display on your manifests." label="Add a position" :link="route('positions.create', 'department='.request('department'))" :link-access="gate()->allows('create', $positionClass)"></x-empty-state.large>
+            <x-empty-state.large
+                icon="list"
+                title="Start by creating a position"
+                message="Positions are the jobs or stations that characters can be assigned to for display on your manifests."
+                label="Add a position"
+                :link="route('positions.create', 'department='.request('department'))"
+                :link-access="gate()->allows('create', $positionClass)"
+            ></x-empty-state.large>
         @else
-            <x-content-box height="sm" class="flex flex-col space-y-4 md:flex-row md:items-center md:space-x-6 md:space-y-0">
+            <x-content-box
+                height="sm"
+                class="flex flex-col space-y-4 md:flex-row md:items-center md:space-x-6 md:space-y-0"
+            >
                 <div class="flex-1">
                     <x-input.group>
-                        <x-input.text placeholder="Find position(s) by name or assigned department name" wire:model="search">
+                        <x-input.text
+                            placeholder="Find position(s) by name or assigned department name"
+                            wire:model="search"
+                        >
                             <x-slot name="leadingAddOn">
                                 <x-icon name="search" size="sm"></x-icon>
                             </x-slot>
@@ -51,7 +80,12 @@
                 </div>
 
                 <div class="flex shrink items-center justify-between space-x-4 md:justify-start">
-                    <x-button.text tag="button" :color="$isFiltered ? 'primary' : 'gray'" x-bind="trigger" leading="filter">
+                    <x-button.text
+                        tag="button"
+                        :color="$isFiltered ? 'primary' : 'gray'"
+                        x-bind="trigger"
+                        leading="filter"
+                    >
                         <span>Filters</span>
                         @if ($activeFilterCount > 0)
                             <x-badge color="primary" size="sm" class="ml-2">{{ $activeFilterCount }}</x-badge>
@@ -94,10 +128,12 @@
                         </x-table-list.primary-column>
                     </div>
 
-                    <div @class([
-                        'flex items-center',
-                        'ml-8 md:ml-0' => $reordering,
-                    ])>
+                    <div
+                        @class([
+                            'flex items-center',
+                            'ml-8 md:ml-0' => $reordering,
+                        ])
+                    >
                         <div class="w-full text-base text-gray-600 dark:text-gray-400 md:text-center">
                             @if ($position->status->name() === 'active')
                                 {{ $position->available }}
@@ -111,10 +147,12 @@
                         </div>
                     </div>
 
-                    <div @class([
-                        'flex items-center',
-                        'ml-8 md:ml-0' => $reordering,
-                    ])>
+                    <div
+                        @class([
+                            'flex items-center',
+                            'ml-8 md:ml-0' => $reordering,
+                        ])
+                    >
                         <div class="w-full text-base text-gray-600 dark:text-gray-400 md:text-center">
                             {{ $position->active_characters_count }}
                             <span class="inline md:hidden">
@@ -124,11 +162,15 @@
                         </div>
                     </div>
 
-                    <div @class([
-                        'flex items-center',
-                        'ml-8 md:ml-0' => $reordering,
-                    ])>
-                        <x-badge :color="$position->status->color()">{{ $position->status->displayName() }}</x-badge>
+                    <div
+                        @class([
+                            'flex items-center',
+                            'ml-8 md:ml-0' => $reordering,
+                        ])
+                    >
+                        <x-badge :color="$position->status->color()">
+                            {{ $position->status->displayName() }}
+                        </x-badge>
                     </div>
 
                     @if (! $reordering)
@@ -140,19 +182,32 @@
 
                                 <x-dropdown.group>
                                     @can('view', $position)
-                                        <x-dropdown.item :href="route('positions.show', $position)" icon="show" data-cy="view">
+                                        <x-dropdown.item
+                                            :href="route('positions.show', $position)"
+                                            icon="show"
+                                            data-cy="view"
+                                        >
                                             <span>View</span>
                                         </x-dropdown.item>
                                     @endcan
 
                                     @can('update', $position)
-                                        <x-dropdown.item :href="route('positions.edit', $position)" icon="edit" data-cy="edit">
+                                        <x-dropdown.item
+                                            :href="route('positions.edit', $position)"
+                                            icon="edit"
+                                            data-cy="edit"
+                                        >
                                             <span>Edit</span>
                                         </x-dropdown.item>
                                     @endcan
 
                                     @can('duplicate', $position)
-                                        <x-dropdown.item type="button" icon="copy" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-duplicate', {{ json_encode($position) }});" data-cy="duplicate">
+                                        <x-dropdown.item
+                                            type="button"
+                                            icon="copy"
+                                            x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-duplicate', {{ json_encode($position) }});"
+                                            data-cy="duplicate"
+                                        >
                                             <span>Duplicate</span>
                                         </x-dropdown.item>
                                     @endcan
@@ -160,7 +215,12 @@
 
                                 @can('delete', $position)
                                     <x-dropdown.group>
-                                        <x-dropdown.item-danger type="button" icon="trash" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($position) }});" data-cy="delete">
+                                        <x-dropdown.item-danger
+                                            type="button"
+                                            icon="trash"
+                                            x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($position) }});"
+                                            data-cy="delete"
+                                        >
                                             <span>Delete</span>
                                         </x-dropdown.item-danger>
                                     </x-dropdown.group>
@@ -171,13 +231,22 @@
                 </x-table-list.row>
             @empty
                 <x-slot name="emptyMessage">
-                    <x-empty-state.not-found entity="position" :search="$search" :primary-access="gate()->allows('create', $positionClass)">
+                    <x-empty-state.not-found
+                        entity="position"
+                        :search="$search"
+                        :primary-access="gate()->allows('create', $positionClass)"
+                    >
                         <x-slot name="primary">
-                            <x-button.filled :href="route('positions.create', 'department='.request('department'))" color="primary">Add a position</x-button.filled>
+                            <x-button.filled
+                                :href="route('positions.create', 'department='.request('department'))"
+                                color="primary"
+                            >
+                                Add a position
+                            </x-button.filled>
                         </x-slot>
 
                         <x-slot name="secondary">
-                            <x-button.outline wire:click="$set('search', '')" color="gray">Clear search</x-button.outline>
+                            <x-button.filled wire:click="$set('search', '')" color="gray">Clear search</x-button.filled>
                         </x-slot>
                     </x-empty-state.not-found>
                 </x-slot>

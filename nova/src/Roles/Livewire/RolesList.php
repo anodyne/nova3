@@ -7,6 +7,7 @@ namespace Nova\Roles\Livewire;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
@@ -156,6 +157,13 @@ class RolesList extends Component implements HasForms, HasTable
             ->heading('Roles')
             ->description('Control what users can do throughout Nova')
             ->headerActions([
+                Action::make('permissions')
+                    ->url(route('permissions.index'))
+                    ->link()
+                    ->label('View permissions')
+                    ->color('gray')
+                    ->icon(iconName('key'))
+                    ->size('md'),
                 CreateAction::make()
                     ->authorize('create')
                     ->label('Add')

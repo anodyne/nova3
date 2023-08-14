@@ -1,44 +1,26 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Roles\Actions;
-
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Roles\Actions\CreateRole;
 use Nova\Roles\Data\RoleData;
-use Tests\TestCase;
+uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
-/**
- * @group roles
- */
-class CreateRoleActionTest extends TestCase
-{
-    use RefreshDatabase;
+beforeEach(function () {
+    $this->disableRoleCaching();
+});
+it('creates a role', function () {
+    $data = RoleData::from([
+        'name' => 'foo',
+        'display_name' => 'Foo',
+        'description' => 'Description of foo',
+        'default' => false,
+    ]);
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $role = CreateRole::run($data);
 
-        $this->disableRoleCaching();
-    }
-
-    /** @test **/
-    public function itCreatesARole()
-    {
-        $data = RoleData::from([
-            'name' => 'foo',
-            'display_name' => 'Foo',
-            'description' => 'Description of foo',
-            'default' => false,
-        ]);
-
-        $role = CreateRole::run($data);
-
-        $this->assertTrue($role->exists);
-        $this->assertEquals('Foo', $role->display_name);
-        $this->assertEquals('foo', $role->name);
-        $this->assertEquals('Description of foo', $role->description);
-        $this->assertFalse($role->default);
-    }
-}
+    expect($role->exists)->toBeTrue();
+    expect($role->display_name)->toEqual('Foo');
+    expect($role->name)->toEqual('foo');
+    expect($role->description)->toEqual('Description of foo');
+    expect($role->default)->toBeFalse();
+});

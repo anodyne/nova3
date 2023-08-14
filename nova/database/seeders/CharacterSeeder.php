@@ -47,14 +47,14 @@ class CharacterSeeder extends Seeder
             'name' => 'Liam Shaw',
             'rank_id' => 5,
         ]);
-        $shaw->positions()->save(Position::find(1), ['primary' => true]);
+        $shaw->positions()->save(Position::find(1));
         $shaw->users()->save(User::find(1), ['primary' => true]);
 
         $seven = Character::factory()->primary()->create([
             'name' => 'Seven of Nine',
             'rank_id' => 6,
         ]);
-        $seven->positions()->save(Position::find(2), ['primary' => true]);
+        $seven->positions()->save(Position::find(2));
         $seven->users()->save(User::find(2), ['primary' => true]);
 
         $sidney = Character::factory()->secondary()->create([

@@ -2,67 +2,67 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Notes;
-
 use Illuminate\Support\Facades\Event;
+use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Notes\Events\NoteDeleted;
+use Nova\Notes\Livewire\NotesList;
 use Nova\Notes\Models\Note;
-use Tests\TestCase;
+use function Pest\Laravel\assertDatabaseHas;
+use function Pest\Laravel\assertDatabaseMissing;
+use function Pest\Livewire\livewire;
 
-/**
- * @group notes
- */
-class DeleteNoteTest extends TestCase
-{
-    protected $note;
+uses()->group('notes');
 
-    public function setUp(): void
-    {
-        parent::setUp();
+beforeEach(function () {
+    $this->note1 = Note::factory()->create();
+    $this->note2 = Note::factory()->create();
+});
 
-        $this->note = Note::factory()->create();
-    }
-
-    /** @test **/
-    public function authenticatedUserCanDeleteNote()
-    {
-        $this->signIn($this->note->author);
-
-        $this->followingRedirects();
-
-        $response = $this->delete(route('notes.destroy', $this->note));
-        $response->assertSuccessful();
-
-        $this->assertDatabaseMissing('notes', [
-            'id' => $this->note->id,
-        ]);
-    }
-
-    /** @test **/
-    public function eventIsDispatchedWhenNoteIsDeleted()
-    {
+describe('authenticated user', function () {
+    test('can delete a note they created', function () {
         Event::fake();
 
-        $this->signIn($this->note->author);
+        $this->signIn($this->note1->author);
 
-        $this->delete(route('notes.destroy', $this->note));
+        livewire(NotesList::class)
+            ->assertCanSeeTableRecords([$this->note1])
+            ->assertCountTableRecords(1)
+            ->assertTableActionVisible(DeleteAction::class, $this->note1)
+            ->callTableAction(DeleteAction::class, $this->note1)
+            ->assertNotified();
 
         Event::assertDispatched(NoteDeleted::class);
-    }
 
-    /** @test **/
-    public function authenticatedUserCannotDeleteNoteTheyDidNotCreate()
-    {
-        $this->signIn();
+        assertDatabaseMissing(Note::class, [
+            'id' => $this->note1->id,
+        ]);
+    });
 
-        $response = $this->delete(route('notes.destroy', $this->note));
-        $response->assertForbidden();
-    }
+    test('cannot delete a note they did not create', function () {
+        $this->signIn($this->note2->author);
 
-    /** @test **/
-    public function unauthenticatedUserCannotDeleteNote()
-    {
-        $response = $this->deleteJson(route('notes.destroy', $this->note));
-        $response->assertUnauthorized();
-    }
-}
+        livewire(NotesList::class)
+            ->assertCanNotSeeTableRecords([$this->note1])
+            ->assertTableActionHidden(DeleteAction::class, $this->note1);
+
+        assertDatabaseHas(Note::class, [
+            'id' => $this->note1->id,
+        ]);
+    });
+});
+
+test('unauthenticated user cannot delete note', function () {
+    livewire(NotesList::class)
+        ->assertCanNotSeeTableRecords([$this->note1, $this->note2])
+        ->assertCountTableRecords(0)
+        ->assertTableActionHidden(DeleteAction::class, $this->note1)
+        ->assertTableActionHidden(DeleteAction::class, $this->note2);
+
+    assertDatabaseHas(Note::class, [
+        'id' => $this->note1->id,
+    ]);
+
+    assertDatabaseHas(Note::class, [
+        'id' => $this->note2->id,
+    ]);
+});

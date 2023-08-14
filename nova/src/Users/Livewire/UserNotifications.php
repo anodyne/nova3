@@ -23,17 +23,12 @@ class UserNotifications extends Component
 
     public function getHasNotificationsProperty(): bool
     {
-        return auth()->user()->notifications()->count() > 0;
-    }
-
-    public function getHasUnreadNotificationsProperty(): bool
-    {
-        return auth()->user()->unreadNotifications()->count() > 0;
+        return count($this->notifications) > 0;
     }
 
     public function getUnreadNotificationsCountProperty(): int
     {
-        return auth()->user()->unreadNotifications()->count();
+        return once(fn () => auth()->user()->unreadNotifications)->count();
     }
 
     public function markAllNotificationsAsRead(): void
@@ -61,7 +56,6 @@ class UserNotifications extends Component
     {
         return view('livewire.users.notifications', [
             'hasNotifications' => $this->hasNotifications,
-            'hasUnreadNotifications' => $this->hasUnreadNotifications,
             'notifications' => $this->notifications,
             'unreadNotificationsCount' => $this->unreadNotificationsCount,
         ]);

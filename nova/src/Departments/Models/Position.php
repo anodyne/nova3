@@ -46,7 +46,7 @@ class Position extends Model implements Sortable
 
     public function characters()
     {
-        return $this->belongsToMany(Character::class)->withPivot('primary');
+        return $this->belongsToMany(Character::class);
     }
 
     public function department()
@@ -56,11 +56,18 @@ class Position extends Model implements Sortable
 
     public function getActivitylogOptions(): LogOptions
     {
-        return LogOptions::defaults()
-            ->logFillable()
-            ->useLogName('admin')
+        $logOptions = LogOptions::defaults()->logFillable();
+
+        if (app('impersonate')->isImpersonating()) {
+            return $logOptions->useLogName('impersonation')
+                ->setDescriptionForEvent(
+                    fn (string $eventName): string => ":subject.name position was {$eventName} during impersonation by ".app('impersonate')->getImpersonator()->name
+                );
+        }
+
+        return $logOptions
             ->setDescriptionForEvent(
-                fn (string $eventName) => ":subject.name position was {$eventName}"
+                fn (string $eventName): string => ":subject.name position was {$eventName}"
             );
     }
 

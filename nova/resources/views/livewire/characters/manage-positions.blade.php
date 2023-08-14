@@ -68,26 +68,11 @@
                     class="flex items-center justify-between bg-white px-6 py-3 last:rounded-b-lg dark:bg-gray-900"
                     wire:key="row-{{ $position->id }}"
                 >
-                    <div class="truncate font-medium text-gray-900 dark:text-gray-100">
+                    <div class="truncate font-medium text-gray-900 dark:text-white">
                         {{ $position->name }}
                     </div>
 
                     <div class="flex items-center justify-end space-x-3">
-                        {{--
-                            @if ($primaryPosition === $position->id)
-                            <x-badge color="primary">Primary</x-badge>
-                            @else
-                            <x-button.outline
-                            tag="button"
-                            color="gray"
-                            size="xs"
-                            wire:click="setPrimaryPosition({{ $position->id }})"
-                            >
-                            Make primary
-                            </x-button.outline>
-                            @endif
-                        --}}
-
                         <x-dropdown placement="bottom-end">
                             <x-slot name="trigger" color="gray-danger">
                                 <x-icon name="trash" size="sm"></x-icon>
@@ -134,5 +119,4 @@
     @endif
 
     <input type="hidden" name="assigned_positions" value="{{ $assignedPositions }}" />
-    {{-- <input type="hidden" name="primary_position" value="{{ $primaryPosition }}" /> --}}
 </div>

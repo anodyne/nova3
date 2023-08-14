@@ -1,84 +1,53 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\Forms;
-
 use Illuminate\Support\Facades\Event;
 use Nova\Forms\Events\FormDeleted;
 use Nova\Forms\Models\Form;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->form = Form::factory()->create();
+});
+test('authorized user can delete form', function () {
+    $this->signInWithPermission('form.delete');
 
-/**
- * @group forms
- */
-class DeleteFormTest extends TestCase
-{
-    protected $form;
+    $this->followingRedirects();
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $response = $this->delete(route('forms.destroy', $this->form));
+    $response->assertSuccessful();
 
-        $this->form = Form::factory()->create();
-    }
+    $this->assertDatabaseMissing('forms', [
+        'id' => $this->form->id,
+    ]);
+});
+test('event is dispatched when role is deleted', function () {
+    Event::fake();
 
-    /** @test **/
-    public function authorizedUserCanDeleteForm()
-    {
-        $this->signInWithPermission('form.delete');
+    $this->signInWithPermission('form.delete');
 
-        $this->followingRedirects();
+    $this->delete(route('forms.destroy', $this->form));
 
-        $response = $this->delete(route('forms.destroy', $this->form));
-        $response->assertSuccessful();
+    Event::assertDispatched(FormDeleted::class);
+});
+test('locked form cannot be deleted', function () {
+    $this->signInWithPermission('form.delete');
 
-        $this->assertDatabaseMissing('forms', [
-            'id' => $this->form->id,
-        ]);
-    }
+    $form = Form::factory()->locked()->create();
 
-    /** @test **/
-    public function eventIsDispatchedWhenRoleIsDeleted()
-    {
-        Event::fake();
+    $response = $this->delete(route('forms.destroy', $form));
+    $response->assertForbidden();
 
-        $this->signInWithPermission('form.delete');
+    $this->assertDatabaseHas('forms', [
+        'id' => $form->id,
+        'locked' => true,
+    ]);
+});
+test('unauthorized user cannot delete form', function () {
+    $this->signIn();
 
-        $this->delete(route('forms.destroy', $this->form));
-
-        Event::assertDispatched(FormDeleted::class);
-    }
-
-    /** @test **/
-    public function lockedFormCannotBeDeleted()
-    {
-        $this->signInWithPermission('form.delete');
-
-        $form = Form::factory()->locked()->create();
-
-        $response = $this->delete(route('forms.destroy', $form));
-        $response->assertForbidden();
-
-        $this->assertDatabaseHas('forms', [
-            'id' => $form->id,
-            'locked' => true,
-        ]);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotDeleteForm()
-    {
-        $this->signIn();
-
-        $response = $this->delete(route('forms.destroy', $this->form));
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotDeleteForm()
-    {
-        $response = $this->deleteJson(route('forms.destroy', $this->form));
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->delete(route('forms.destroy', $this->form));
+    $response->assertForbidden();
+});
+test('unauthenticated user cannot delete form', function () {
+    $response = $this->deleteJson(route('forms.destroy', $this->form));
+    $response->assertUnauthorized();
+});

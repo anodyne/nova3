@@ -115,6 +115,7 @@ class MyDraftsList extends Component implements HasForms, HasTable
                 CreateAction::make()
                     ->authorize('create')
                     ->label('Start writing')
+                    ->icon(iconName('write'))
                     ->url(route('posts.create')),
             ]);
     }

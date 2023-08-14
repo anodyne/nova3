@@ -2,52 +2,32 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Notes;
-
 use Nova\Notes\Models\Note;
-use Tests\TestCase;
+use function Pest\Laravel\get;
+use function Pest\Laravel\getJson;
 
-/**
- * @group notes
- */
-class ShowNoteTest extends TestCase
-{
-    protected $note;
+uses()->group('notes');
 
-    public function setUp(): void
-    {
-        parent::setUp();
+beforeEach(function () {
+    $this->note = Note::factory()->create();
+});
 
-        $this->note = Note::factory()->create();
-    }
+describe('authenticated user', function () {
+    test('can view one of their notes', function () {
+        $this->signIn($this->note->author);
 
-    /** @test **/
-    public function authenticatedUserCanViewOneOfTheirNotes()
-    {
+        get(route('notes.show', $this->note))
+            ->assertSuccessful()
+            ->assertViewHas('note', $this->note);
+    });
+
+    test('cannot view a note they did not create', function () {
         $this->signIn();
 
-        $note = Note::factory()->create([
-            'user_id' => auth()->user(),
-        ]);
+        get(route('notes.show', $this->note))->assertForbidden();
+    });
+});
 
-        $response = $this->get(route('notes.show', $note));
-        $response->assertSuccessful();
-        $response->assertViewHas('note', $note);
-    }
-
-    /** @test **/
-    public function authenticatedUserCannotViewANoteTheyDidNotCreate()
-    {
-        $this->signIn();
-
-        $response = $this->get(route('notes.show', $this->note));
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotViewANote()
-    {
-        $response = $this->getJson(route('notes.show', $this->note));
-        $response->assertUnauthorized();
-    }
-}
+test('unauthenticated user cannot view a note', function () {
+    getJson(route('notes.show', $this->note))->assertUnauthorized();
+});

@@ -38,17 +38,19 @@ class Form extends Model
 
     public function getActivitylogOptions(): LogOptions
     {
-        return LogOptions::defaults()
-            ->logFillable()
-            ->useLogName('admin')
-            ->setDescriptionForEvent(
-                fn (string $eventName) => ":subject.name was {$eventName}"
-            );
-    }
+        $logOptions = LogOptions::defaults()->logFillable();
 
-    public function getDescriptionForEvent(string $eventName): string
-    {
-        return ":subject.name was {$eventName}";
+        if (app('impersonate')->isImpersonating()) {
+            return $logOptions->useLogName('impersonation')
+                ->setDescriptionForEvent(
+                    fn (string $eventName): string => ":subject.name form was {$eventName} during impersonation by ".app('impersonate')->getImpersonator()->name
+                );
+        }
+
+        return $logOptions
+            ->setDescriptionForEvent(
+                fn (string $eventName): string => ":subject.name form was {$eventName}"
+            );
     }
 
     public function newEloquentBuilder($query): FormBuilder

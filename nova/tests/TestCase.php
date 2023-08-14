@@ -22,7 +22,7 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
 
-        // $this->remapRouteCollection();
+        $this->remapRouteCollection();
         $this->setupTestResponseMacros();
     }
 
@@ -38,7 +38,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected function remapRouteCollection(): void
     {
-        $this->app->getProvider(RouteServiceProvider::class)->map();
+        // $this->app->getProvider(RouteServiceProvider::class)->map();
 
         $this->app['router']->getRoutes()->refreshNameLookups();
         $this->app['router']->getRoutes()->refreshActionLookups();

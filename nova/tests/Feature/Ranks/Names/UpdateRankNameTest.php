@@ -1,110 +1,73 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\Ranks\Names;
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\Ranks\Events\RankNameUpdated;
 use Nova\Ranks\Models\RankName;
 use Nova\Ranks\Requests\UpdateRankNameRequest;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->name = RankName::factory()->create();
+});
+test('authorized user can view the edit rank name page', function () {
+    $this->signInWithPermission('rank.update');
 
-/**
- * @group ranks
- */
-class UpdateRankNameTest extends TestCase
-{
-    protected $name;
+    $response = $this->get(route('ranks.names.edit', $this->name));
+    $response->assertSuccessful();
+});
+test('authorized user can update a rank name', function () {
+    $this->signInWithPermission('rank.update');
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $this->followingRedirects();
 
-        $this->name = RankName::factory()->create();
-    }
+    $response = $this->put(
+        route('ranks.names.update', $this->name),
+        $rankNameData = RankName::factory()->make()->toArray()
+    );
+    $response->assertSuccessful();
 
-    /** @test **/
-    public function authorizedUserCanViewTheEditRankNamePage()
-    {
-        $this->signInWithPermission('rank.update');
+    $this->assertRouteUsesFormRequest(
+        'ranks.names.update',
+        UpdateRankNameRequest::class
+    );
 
-        $response = $this->get(route('ranks.names.edit', $this->name));
-        $response->assertSuccessful();
-    }
+    $this->assertDatabaseHas('rank_names', $rankNameData);
+});
+test('event is dispatched when rank name is updated', function () {
+    Event::fake();
 
-    /** @test **/
-    public function authorizedUserCanUpdateARankName()
-    {
-        $this->signInWithPermission('rank.update');
+    $this->signInWithPermission('rank.update');
 
-        $this->followingRedirects();
+    $this->put(
+        route('ranks.names.update', $this->name),
+        RankName::factory()->make()->toArray()
+    );
 
-        $response = $this->put(
-            route('ranks.names.update', $this->name),
-            $rankNameData = RankName::factory()->make()->toArray()
-        );
-        $response->assertSuccessful();
+    Event::assertDispatched(RankNameUpdated::class);
+});
+test('unauthorized user cannot view the edit rank name page', function () {
+    $this->signIn();
 
-        $this->assertRouteUsesFormRequest(
-            'ranks.names.update',
-            UpdateRankNameRequest::class
-        );
+    $response = $this->get(route('ranks.names.edit', $this->name));
+    $response->assertForbidden();
+});
+test('unauthorized user cannot update a rank name', function () {
+    $this->signIn();
 
-        $this->assertDatabaseHas('rank_names', $rankNameData);
-    }
-
-    /** @test **/
-    public function eventIsDispatchedWhenRankNameIsUpdated()
-    {
-        Event::fake();
-
-        $this->signInWithPermission('rank.update');
-
-        $this->put(
-            route('ranks.names.update', $this->name),
-            RankName::factory()->make()->toArray()
-        );
-
-        Event::assertDispatched(RankNameUpdated::class);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotViewTheEditRankNamePage()
-    {
-        $this->signIn();
-
-        $response = $this->get(route('ranks.names.edit', $this->name));
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotUpdateARankName()
-    {
-        $this->signIn();
-
-        $response = $this->put(
-            route('ranks.names.update', $this->name),
-            RankName::factory()->make()->toArray()
-        );
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotViewTheEditRankNamePage()
-    {
-        $response = $this->getJson(route('ranks.names.edit', $this->name));
-        $response->assertUnauthorized();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotUpdateARankName()
-    {
-        $response = $this->putJson(
-            route('ranks.names.update', $this->name),
-            RankName::factory()->make()->toArray()
-        );
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->put(
+        route('ranks.names.update', $this->name),
+        RankName::factory()->make()->toArray()
+    );
+    $response->assertForbidden();
+});
+test('unauthenticated user cannot view the edit rank name page', function () {
+    $response = $this->getJson(route('ranks.names.edit', $this->name));
+    $response->assertUnauthorized();
+});
+test('unauthenticated user cannot update a rank name', function () {
+    $response = $this->putJson(
+        route('ranks.names.update', $this->name),
+        RankName::factory()->make()->toArray()
+    );
+    $response->assertUnauthorized();
+});

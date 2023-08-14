@@ -1,56 +1,31 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Themes\Actions;
-
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
 use Nova\Themes\Actions\DeleteTheme;
 use Nova\Themes\Models\Theme;
-use Tests\TestCase;
+uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
-/**
- * @group themes
- */
-class DeleteThemeActionTest extends TestCase
-{
-    use RefreshDatabase;
+beforeEach(function () {
+    $this->disk = Storage::fake('themes');
+    $this->disk->makeDirectory('slate');
+    $this->disk->put('slate/theme.json', json_encode([
+        'name' => 'Slate',
+        'location' => 'slate',
+    ]));
 
-    protected $disk;
+    $this->theme = Theme::factory()->create([
+        'name' => 'Slate',
+        'location' => 'slate',
+    ]);
+});
+it('deletes a theme', function () {
+    $theme = DeleteTheme::run($this->theme);
 
-    protected $theme;
+    expect($theme->exists)->toBeFalse();
+});
+it('does not remove the theme directory when the theme is deleted', function () {
+    DeleteTheme::run($this->theme);
 
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->disk = Storage::fake('themes');
-        $this->disk->makeDirectory('slate');
-        $this->disk->put('slate/theme.json', json_encode([
-            'name' => 'Slate',
-            'location' => 'slate',
-        ]));
-
-        $this->theme = Theme::factory()->create([
-            'name' => 'Slate',
-            'location' => 'slate',
-        ]);
-    }
-
-    /** @test **/
-    public function itDeletesATheme()
-    {
-        $theme = DeleteTheme::run($this->theme);
-
-        $this->assertFalse($theme->exists);
-    }
-
-    /** @test **/
-    public function itDoesNotRemoveTheThemeDirectoryWhenTheThemeIsDeleted()
-    {
-        DeleteTheme::run($this->theme);
-
-        $this->assertCount(1, $this->disk->directories());
-    }
-}
+    expect($this->disk->directories())->toHaveCount(1);
+});

@@ -5,9 +5,9 @@
         <x-panel.header title="Character settings">
             <x-slot name="actions">
                 <div x-data="{}">
-                    <x-button.outline color="primary" leading="search" x-on:click="$dispatch('toggle-spotlight')">
+                    <x-button.filled color="gray" leading="search" x-on:click="$dispatch('toggle-spotlight')">
                         Find a setting
-                    </x-button.outline>
+                    </x-button.filled>
                 </div>
             </x-slot>
         </x-panel.header>

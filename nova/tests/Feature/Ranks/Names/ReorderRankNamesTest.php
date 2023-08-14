@@ -1,101 +1,72 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\Ranks\Names;
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Ranks\Models\RankName;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->name1 = RankName::factory()->create(['sort' => 0]);
+    $this->name2 = RankName::factory()->create(['sort' => 1]);
+    $this->name3 = RankName::factory()->create(['sort' => 2]);
+});
+test('authorized user can reorder rank names', function () {
+    $this->signInWithPermission('rank.update');
 
-/**
- * @group ranks
- */
-class ReorderRankNamesTest extends TestCase
-{
-    protected $name1;
+    $this->followingRedirects();
 
-    protected $name2;
+    $response = $this->post(
+        route('ranks.names.reorder'),
+        [
+            'sort' => implode(',', [
+                $this->name3->id,
+                $this->name2->id,
+                $this->name1->id,
+            ]),
+        ]
+    );
+    $response->assertSuccessful();
 
-    protected $name3;
+    $this->name1->fresh();
+    $this->name2->fresh();
+    $this->name3->fresh();
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $this->assertDatabaseHas('rank_names', [
+        'id' => $this->name1->id,
+        'sort' => 2,
+    ]);
+    $this->assertDatabaseHas('rank_names', [
+        'id' => $this->name2->id,
+        'sort' => 1,
+    ]);
+    $this->assertDatabaseHas('rank_names', [
+        'id' => $this->name3->id,
+        'sort' => 0,
+    ]);
+});
+test('unauthorized user cannot reorder rank names', function () {
+    $this->signIn();
 
-        $this->name1 = RankName::factory()->create(['sort' => 0]);
-        $this->name2 = RankName::factory()->create(['sort' => 1]);
-        $this->name3 = RankName::factory()->create(['sort' => 2]);
-    }
-
-    /** @test **/
-    public function authorizedUserCanReorderRankNames()
-    {
-        $this->signInWithPermission('rank.update');
-
-        $this->followingRedirects();
-
-        $response = $this->post(
-            route('ranks.names.reorder'),
-            [
-                'sort' => implode(',', [
-                    $this->name3->id,
-                    $this->name2->id,
-                    $this->name1->id,
-                ]),
-            ]
-        );
-        $response->assertSuccessful();
-
-        $this->name1->fresh();
-        $this->name2->fresh();
-        $this->name3->fresh();
-
-        $this->assertDatabaseHas('rank_names', [
-            'id' => $this->name1->id,
-            'sort' => 2,
-        ]);
-        $this->assertDatabaseHas('rank_names', [
-            'id' => $this->name2->id,
-            'sort' => 1,
-        ]);
-        $this->assertDatabaseHas('rank_names', [
-            'id' => $this->name3->id,
-            'sort' => 0,
-        ]);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotReorderRankNames()
-    {
-        $this->signIn();
-
-        $response = $this->post(
-            route('ranks.names.reorder'),
-            [
-                'sort' => implode(',', [
-                    $this->name3->id,
-                    $this->name2->id,
-                    $this->name1->id,
-                ]),
-            ]
-        );
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotReorderRankNames()
-    {
-        $response = $this->postJson(
-            route('ranks.names.reorder'),
-            [
-                'sort' => implode(',', [
-                    $this->name3->id,
-                    $this->name2->id,
-                    $this->name1->id,
-                ]),
-            ]
-        );
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->post(
+        route('ranks.names.reorder'),
+        [
+            'sort' => implode(',', [
+                $this->name3->id,
+                $this->name2->id,
+                $this->name1->id,
+            ]),
+        ]
+    );
+    $response->assertForbidden();
+});
+test('unauthenticated user cannot reorder rank names', function () {
+    $response = $this->postJson(
+        route('ranks.names.reorder'),
+        [
+            'sort' => implode(',', [
+                $this->name3->id,
+                $this->name2->id,
+                $this->name1->id,
+            ]),
+        ]
+    );
+    $response->assertUnauthorized();
+});

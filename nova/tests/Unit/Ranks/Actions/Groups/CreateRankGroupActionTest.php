@@ -1,47 +1,30 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Ranks\Actions\Groups;
-
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Ranks\Actions\CreateRankGroup;
 use Nova\Ranks\Data\RankGroupData;
 use Nova\Ranks\Models\RankGroup;
-use Tests\TestCase;
+uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
-/**
- * @group ranks
- */
-class CreateRankGroupActionTest extends TestCase
-{
-    use RefreshDatabase;
+it('creates a rank group', function () {
+    $data = RankGroupData::from([
+        'name' => 'Command',
+    ]);
 
-    /** @test **/
-    public function itCreatesARankGroup()
-    {
-        $data = RankGroupData::from([
-            'name' => 'Command',
-        ]);
+    $group = CreateRankGroup::run($data);
 
-        $group = CreateRankGroup::run($data);
+    expect($group->exists)->toBeTrue();
+    expect($group->name)->toEqual('Command');
+});
+it('creates a rank group with the proper sort order', function () {
+    RankGroup::factory()->create(['sort' => 0]);
+    RankGroup::factory()->create(['sort' => 1]);
 
-        $this->assertTrue($group->exists);
-        $this->assertEquals('Command', $group->name);
-    }
+    $data = RankGroupData::from([
+        'name' => 'Command',
+    ]);
 
-    /** @test **/
-    public function itCreatesARankGroupWithTheProperSortOrder()
-    {
-        RankGroup::factory()->create(['sort' => 0]);
-        RankGroup::factory()->create(['sort' => 1]);
+    $group = CreateRankGroup::run($data);
 
-        $data = RankGroupData::from([
-            'name' => 'Command',
-        ]);
-
-        $group = CreateRankGroup::run($data);
-
-        $this->assertEquals(2, $group->sort);
-    }
-}
+    expect($group->sort)->toEqual(2);
+});

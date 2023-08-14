@@ -10,17 +10,20 @@
         })"
     >
         <x-panel.header title="Add a new form">
-            <x-slot:actions>
+            <x-slot>
                 @can('viewAny', Nova\Forms\Models\Form::class)
                     <x-button.text :href="route('forms.index')" color="gray" leading="arrow-left">
                         Back to the forms list
                     </x-button.text>
                 @endcan
-            </x-slot:actions>
+            </x-slot>
         </x-panel.header>
 
         <x-form :action="route('forms.store')">
-            <x-form.section title="Form Info" message="Laborum esse proident non officia laborum mollit aliqua ad ullamco nisi.">
+            <x-form.section
+                title="Form Info"
+                message="Laborum esse proident non officia laborum mollit aliqua ad ullamco nisi."
+            >
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
                     <x-input.text x-model="name" id="name" name="name" data-cy="name" />
                 </x-input.group>
@@ -30,13 +33,15 @@
                 </x-input.group>
 
                 <x-input.group label="Description" for="description">
-                    <x-input.textarea id="description" name="description" data-cy="description" rows="3">{{ old('description') }}</x-input.textarea>
+                    <x-input.textarea id="description" name="description" data-cy="description" rows="3">
+                        {{ old('description') }}
+                    </x-input.textarea>
                 </x-input.group>
             </x-form.section>
 
             <x-form.footer>
                 <x-button.filled type="submit" color="primary">Add</x-button.filled>
-                <x-button.outline :href="route('forms.index')" color="gray">Cancel</x-button.outline>
+                <x-button.filled :href="route('forms.index')" color="gray">Cancel</x-button.filled>
             </x-form.footer>
         </x-form>
     </x-panel>

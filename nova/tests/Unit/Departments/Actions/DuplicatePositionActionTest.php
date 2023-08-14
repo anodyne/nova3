@@ -1,50 +1,29 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Departments\Actions;
-
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Departments\Actions\DuplicatePosition;
 use Nova\Departments\Data\PositionData;
 use Nova\Departments\Models\Position;
-use Tests\TestCase;
+uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
-/**
- * @group departments
- * @group positions
- */
-class DuplicatePositionActionTest extends TestCase
-{
-    use RefreshDatabase;
+beforeEach(function () {
+    $this->position = Position::factory()->create([
+        'name' => 'Commanding Officer',
+        'description' => 'My original description',
+    ]);
+});
+it('duplicates a position', function () {
+    $position = DuplicatePosition::run($this->position, PositionData::from([
+        'name' => 'Executive Officer',
+        'description' => $this->position->description,
+        'status' => $this->position->status,
+        'available' => $this->position->available,
+        'department_id' => $this->position->department_id,
+    ]));
 
-    protected $position;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->position = Position::factory()->create([
-            'name' => 'Commanding Officer',
-            'description' => 'My original description',
-        ]);
-    }
-
-    /** @test **/
-    public function itDuplicatesAPosition()
-    {
-        $position = DuplicatePosition::run($this->position, PositionData::from([
-            'name' => 'Executive Officer',
-            'description' => $this->position->description,
-            'status' => $this->position->status,
-            'available' => $this->position->available,
-            'department_id' => $this->position->department_id,
-        ]));
-
-        $this->assertTrue($position->exists);
-        $this->assertEquals('Executive Officer', $position->name);
-        $this->assertEquals('My original description', $position->description);
-        $this->assertEquals($this->position->department_id, $position->department_id);
-        $this->assertEquals($this->position->available, $position->available);
-    }
-}
+    expect($position->exists)->toBeTrue();
+    expect($position->name)->toEqual('Executive Officer');
+    expect($position->description)->toEqual('My original description');
+    expect($position->department_id)->toEqual($this->position->department_id);
+    expect($position->available)->toEqual($this->position->available);
+});

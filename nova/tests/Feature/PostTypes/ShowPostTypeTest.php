@@ -1,50 +1,24 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\PostTypes;
-
 use Nova\PostTypes\Models\PostType;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->postType = PostType::factory()->create();
+});
+test('authorized user can view a post type', function () {
+    $this->signInWithPermission('post-type.view');
 
-/**
- * @group storytelling
- * @group post-types
- */
-class ShowPostTypeTest extends TestCase
-{
-    protected $postType;
+    $response = $this->get(route('post-types.show', $this->postType));
+    $response->assertSuccessful();
+    $response->assertViewHas('postType', $this->postType);
+});
+test('unauthorized user cannot view a post type', function () {
+    $this->signIn();
 
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->postType = PostType::factory()->create();
-    }
-
-    /** @test **/
-    public function authorizedUserCanViewAPostType()
-    {
-        $this->signInWithPermission('post-type.view');
-
-        $response = $this->get(route('post-types.show', $this->postType));
-        $response->assertSuccessful();
-        $response->assertViewHas('postType', $this->postType);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotViewAPostType()
-    {
-        $this->signIn();
-
-        $response = $this->get(route('post-types.show', $this->postType));
-        $response->assertNotFound();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotViewAPostType()
-    {
-        $response = $this->getJson(route('post-types.show', $this->postType));
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->get(route('post-types.show', $this->postType));
+    $response->assertNotFound();
+});
+test('unauthenticated user cannot view a post type', function () {
+    $response = $this->getJson(route('post-types.show', $this->postType));
+    $response->assertUnauthorized();
+});

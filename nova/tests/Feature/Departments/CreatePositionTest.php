@@ -1,105 +1,74 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\Departments;
-
 use Illuminate\Support\Facades\Event;
 use Nova\Departments\Events\PositionCreated;
 use Nova\Departments\Models\Position;
 use Nova\Departments\Requests\CreatePositionRequest;
-use Tests\TestCase;
+test('authorized user can view the create position', function () {
+    $this->signInWithPermission('department.create');
 
-/**
- * @group positions
- */
-class CreatePositionTest extends TestCase
-{
-    /** @test **/
-    public function authorizedUserCanViewTheCreatePosition()
-    {
-        $this->signInWithPermission('department.create');
+    $response = $this->get(route('positions.create'));
+    $response->assertSuccessful();
+});
+test('authorized user can create position', function () {
+    $this->signInWithPermission('department.create');
 
-        $response = $this->get(route('positions.create'));
-        $response->assertSuccessful();
-    }
+    $position = Position::factory()->make();
 
-    /** @test **/
-    public function authorizedUserCanCreatePosition()
-    {
-        $this->signInWithPermission('department.create');
+    $this->followingRedirects();
 
-        $position = Position::factory()->make();
+    $response = $this->post(
+        route('positions.store'),
+        $position->toArray()
+    );
+    $response->assertSuccessful();
 
-        $this->followingRedirects();
+    $this->assertDatabaseHas(
+        'positions',
+        $position->only('name', 'description')
+    );
 
-        $response = $this->post(
-            route('positions.store'),
-            $position->toArray()
-        );
-        $response->assertSuccessful();
+    $this->assertRouteUsesFormRequest(
+        'positions.store',
+        CreatePositionRequest::class
+    );
+});
+test('event is dispatched when position is created', function () {
+    Event::fake();
 
-        $this->assertDatabaseHas(
-            'positions',
-            $position->only('name', 'description')
-        );
+    $this->signInWithPermission('department.create');
 
-        $this->assertRouteUsesFormRequest(
-            'positions.store',
-            CreatePositionRequest::class
-        );
-    }
+    $this->post(
+        route('positions.store'),
+        Position::factory()->make()->toArray()
+    );
 
-    /** @test **/
-    public function eventIsDispatchedWhenPositionIsCreated()
-    {
-        Event::fake();
+    Event::assertDispatched(PositionCreated::class);
+});
+test('unauthorized user cannot view the create position page', function () {
+    $this->signIn();
 
-        $this->signInWithPermission('department.create');
+    $response = $this->get(route('positions.create'));
+    $response->assertForbidden();
+});
+test('unauthorized user cannot create position', function () {
+    $this->signIn();
 
-        $this->post(
-            route('positions.store'),
-            Position::factory()->make()->toArray()
-        );
-
-        Event::assertDispatched(PositionCreated::class);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotViewTheCreatePositionPage()
-    {
-        $this->signIn();
-
-        $response = $this->get(route('positions.create'));
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotCreatePosition()
-    {
-        $this->signIn();
-
-        $response = $this->postJson(
-            route('positions.store'),
-            Position::factory()->make()->toArray()
-        );
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotViewTheCreatePositionPage()
-    {
-        $response = $this->getJson(route('positions.create'));
-        $response->assertUnauthorized();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotCreatePosition()
-    {
-        $response = $this->postJson(
-            route('positions.store'),
-            Position::factory()->make()->toArray()
-        );
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->postJson(
+        route('positions.store'),
+        Position::factory()->make()->toArray()
+    );
+    $response->assertForbidden();
+});
+test('unauthenticated user cannot view the create position page', function () {
+    $response = $this->getJson(route('positions.create'));
+    $response->assertUnauthorized();
+});
+test('unauthenticated user cannot create position', function () {
+    $response = $this->postJson(
+        route('positions.store'),
+        Position::factory()->make()->toArray()
+    );
+    $response->assertUnauthorized();
+});

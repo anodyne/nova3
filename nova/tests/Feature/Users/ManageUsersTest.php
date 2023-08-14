@@ -1,212 +1,144 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\Users;
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Characters\Models\Character;
 use Nova\Users\Models\States\Active;
 use Nova\Users\Models\States\Inactive;
 use Nova\Users\Models\States\Pending;
 use Nova\Users\Models\User;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->activeUser = User::factory()->active()->create();
 
-/**
- * @group users
- */
-class ManageUsersTest extends TestCase
-{
-    protected $activeUser;
+    $this->pendingUser = User::factory()->create();
 
-    protected $pendingUser;
+    $this->inactiveUser = User::factory()->inactive()->create();
+});
+test('authorized user with create permission can view manage users page', function () {
+    $this->signInWithPermission('user.create');
 
-    protected $inactiveUser;
+    $response = $this->get(route('users.index'));
+    $response->assertSuccessful();
+});
+test('authorized user with update permission can view manage users page', function () {
+    $this->signInWithPermission('user.update');
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $response = $this->get(route('users.index'));
+    $response->assertSuccessful();
+});
+test('authorized user with delete permission can view manage users page', function () {
+    $this->signInWithPermission('user.delete');
 
-        $this->activeUser = User::factory()->active()->create();
+    $response = $this->get(route('users.index'));
+    $response->assertSuccessful();
+});
+test('authorized user with view permission can view manage users page', function () {
+    $this->signInWithPermission('user.view');
 
-        $this->pendingUser = User::factory()->create();
+    $response = $this->get(route('users.index'));
+    $response->assertSuccessful();
+});
+test('manage users page can show all users', function () {
+    $this->signInWithPermission('user.view');
 
-        $this->inactiveUser = User::factory()->inactive()->create();
-    }
+    $response = $this->get(route('users.index'));
+    $response->assertSuccessful();
 
-    /** @test **/
-    public function authorizedUserWithCreatePermissionCanViewManageUsersPage()
-    {
-        $this->signInWithPermission('user.create');
+    expect($response['users']->total())->toEqual(User::count());
+});
+test('manage users page can show only active users', function () {
+    $this->signInWithPermission('user.view');
 
-        $response = $this->get(route('users.index'));
-        $response->assertSuccessful();
-    }
+    $response = $this->get(route('users.index', 'status=active'));
+    $response->assertSuccessful();
 
-    /** @test **/
-    public function authorizedUserWithUpdatePermissionCanViewManageUsersPage()
-    {
-        $this->signInWithPermission('user.update');
+    expect($response['users']->total())->toEqual(User::whereState('status', Active::class)->count());
+});
+test('manage users page can show only pending users', function () {
+    $this->signInWithPermission('user.view');
 
-        $response = $this->get(route('users.index'));
-        $response->assertSuccessful();
-    }
+    $response = $this->get(route('users.index', 'status=pending'));
+    $response->assertSuccessful();
 
-    /** @test **/
-    public function authorizedUserWithDeletePermissionCanViewManageUsersPage()
-    {
-        $this->signInWithPermission('user.delete');
+    expect($response['users']->total())->toEqual(User::whereState('status', Pending::class)->count());
+});
+test('manage users page can show only inactive users', function () {
+    $this->signInWithPermission('user.view');
 
-        $response = $this->get(route('users.index'));
-        $response->assertSuccessful();
-    }
+    $response = $this->get(route('users.index', 'status=inactive'));
+    $response->assertSuccessful();
 
-    /** @test **/
-    public function authorizedUserWithViewPermissionCanViewManageUsersPage()
-    {
-        $this->signInWithPermission('user.view');
+    expect($response['users']->total())->toEqual(User::whereState('status', Inactive::class)->count());
+});
+test('users can be filtered by name', function () {
+    $this->signInWithPermission('user.create');
 
-        $response = $this->get(route('users.index'));
-        $response->assertSuccessful();
-    }
+    User::factory()->active()->create([
+        'name' => 'Sparrow Capitan',
+    ]);
 
-    /** @test **/
-    public function manageUsersPageCanShowAllUsers()
-    {
-        $this->signInWithPermission('user.view');
+    User::factory()->active()->create();
 
-        $response = $this->get(route('users.index'));
-        $response->assertSuccessful();
+    $response = $this->get(route('users.index'));
+    $response->assertSuccessful();
 
-        $this->assertEquals(User::count(), $response['users']->total());
-    }
+    expect($response['users']->total())->toEqual(User::count());
 
-    /** @test **/
-    public function manageUsersPageCanShowOnlyActiveUsers()
-    {
-        $this->signInWithPermission('user.view');
+    $response = $this->get(route('users.index', 'search=sparrow'));
+    $response->assertSuccessful();
 
-        $response = $this->get(route('users.index', 'status=active'));
-        $response->assertSuccessful();
+    expect($response['users'])->toHaveCount(1);
+});
+test('users can be filtered by email', function () {
+    $this->signInWithPermission('user.create');
 
-        $this->assertEquals(
-            User::whereState('status', Active::class)->count(),
-            $response['users']->total()
-        );
-    }
+    User::factory()->active()->create([
+        'email' => 'sparrow@example.com',
+    ]);
 
-    /** @test **/
-    public function manageUsersPageCanShowOnlyPendingUsers()
-    {
-        $this->signInWithPermission('user.view');
+    User::factory()->active()->create();
 
-        $response = $this->get(route('users.index', 'status=pending'));
-        $response->assertSuccessful();
+    $response = $this->get(route('users.index'));
+    $response->assertSuccessful();
 
-        $this->assertEquals(
-            User::whereState('status', Pending::class)->count(),
-            $response['users']->total()
-        );
-    }
+    expect($response['users']->total())->toEqual(User::count());
 
-    /** @test **/
-    public function manageUsersPageCanShowOnlyInactiveUsers()
-    {
-        $this->signInWithPermission('user.view');
+    $response = $this->get(route('users.index', 'search=sparrow@example.com'));
+    $response->assertSuccessful();
 
-        $response = $this->get(route('users.index', 'status=inactive'));
-        $response->assertSuccessful();
+    expect($response['users'])->toHaveCount(1);
+});
+test('users can be filtered by any of their assigned character names', function () {
+    $this->signInWithPermission('user.create');
 
-        $this->assertEquals(
-            User::whereState('status', Inactive::class)->count(),
-            $response['users']->total()
-        );
-    }
+    $depp = User::factory()->active()->create([
+        'name' => 'Johnny Depp',
+    ]);
 
-    /** @test **/
-    public function usersCanBeFilteredByName()
-    {
-        $this->signInWithPermission('user.create');
+    User::factory()->active()->create();
 
-        User::factory()->active()->create([
-            'name' => 'Sparrow Capitan',
-        ]);
+    $character = Character::factory()->active()->create([
+        'name' => 'Jack Sparrow',
+    ]);
+    $character->users()->attach($depp);
 
-        User::factory()->active()->create();
+    $response = $this->get(route('users.index'));
+    $response->assertSuccessful();
 
-        $response = $this->get(route('users.index'));
-        $response->assertSuccessful();
+    expect($response['users']->total())->toEqual(User::count());
 
-        $this->assertEquals(User::count(), $response['users']->total());
+    $response = $this->get(route('users.index', 'search=sparrow'));
+    $response->assertSuccessful();
 
-        $response = $this->get(route('users.index', 'search=sparrow'));
-        $response->assertSuccessful();
+    expect($response['users'])->toHaveCount(1);
+});
+test('unauthorized user cannot view manage users page', function () {
+    $this->signIn();
 
-        $this->assertCount(1, $response['users']);
-    }
-
-    /** @test **/
-    public function usersCanBeFilteredByEmail()
-    {
-        $this->signInWithPermission('user.create');
-
-        User::factory()->active()->create([
-            'email' => 'sparrow@example.com',
-        ]);
-
-        User::factory()->active()->create();
-
-        $response = $this->get(route('users.index'));
-        $response->assertSuccessful();
-
-        $this->assertEquals(User::count(), $response['users']->total());
-
-        $response = $this->get(route('users.index', 'search=sparrow@example.com'));
-        $response->assertSuccessful();
-
-        $this->assertCount(1, $response['users']);
-    }
-
-    /** @test **/
-    public function usersCanBeFilteredByAnyOfTheirAssignedCharacterNames()
-    {
-        $this->signInWithPermission('user.create');
-
-        $depp = User::factory()->active()->create([
-            'name' => 'Johnny Depp',
-        ]);
-
-        User::factory()->active()->create();
-
-        $character = Character::factory()->active()->create([
-            'name' => 'Jack Sparrow',
-        ]);
-        $character->users()->attach($depp);
-
-        $response = $this->get(route('users.index'));
-        $response->assertSuccessful();
-
-        $this->assertEquals(User::count(), $response['users']->total());
-
-        $response = $this->get(route('users.index', 'search=sparrow'));
-        $response->assertSuccessful();
-
-        $this->assertCount(1, $response['users']);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotViewManageUsersPage()
-    {
-        $this->signIn();
-
-        $response = $this->get(route('users.index'));
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotViewManageUsersPage()
-    {
-        $response = $this->getJson(route('users.index'));
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->get(route('users.index'));
+    $response->assertForbidden();
+});
+test('unauthenticated user cannot view manage users page', function () {
+    $response = $this->getJson(route('users.index'));
+    $response->assertUnauthorized();
+});

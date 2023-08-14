@@ -1,87 +1,55 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\PostTypes;
-
 use Nova\PostTypes\Models\PostType;
-use Tests\TestCase;
+test('authorized user with create permission can view manage post types page', function () {
+    $this->signInWithPermission('post-type.create');
 
-/**
- * @group storytelling
- * @group post-types
- */
-class ManagePostTypesTest extends TestCase
-{
-    /** @test **/
-    public function authorizedUserWithCreatePermissionCanViewManagePostTypesPage()
-    {
-        $this->signInWithPermission('post-type.create');
+    $response = $this->get(route('post-types.index'));
+    $response->assertSuccessful();
+});
+test('authorized user with update permission can view manage post types page', function () {
+    $this->signInWithPermission('post-type.update');
 
-        $response = $this->get(route('post-types.index'));
-        $response->assertSuccessful();
-    }
+    $response = $this->get(route('post-types.index'));
+    $response->assertSuccessful();
+});
+test('authorized user with delete permission can view manage post types page', function () {
+    $this->signInWithPermission('post-type.delete');
 
-    /** @test **/
-    public function authorizedUserWithUpdatePermissionCanViewManagePostTypesPage()
-    {
-        $this->signInWithPermission('post-type.update');
+    $response = $this->get(route('post-types.index'));
+    $response->assertSuccessful();
+});
+test('authorized user with view permission can view manage post types page', function () {
+    $this->signInWithPermission('post-type.view');
 
-        $response = $this->get(route('post-types.index'));
-        $response->assertSuccessful();
-    }
+    $response = $this->get(route('post-types.index'));
+    $response->assertSuccessful();
+});
+test('post types can be filtered by name', function () {
+    $this->signInWithPermission('post-type.create');
 
-    /** @test **/
-    public function authorizedUserWithDeletePermissionCanViewManagePostTypesPage()
-    {
-        $this->signInWithPermission('post-type.delete');
+    PostType::factory()->create([
+        'name' => 'barbaz',
+    ]);
 
-        $response = $this->get(route('post-types.index'));
-        $response->assertSuccessful();
-    }
+    $response = $this->get(route('post-types.index'));
+    $response->assertSuccessful();
 
-    /** @test **/
-    public function authorizedUserWithViewPermissionCanViewManagePostTypesPage()
-    {
-        $this->signInWithPermission('post-type.view');
+    expect($response['postTypes']->total())->toEqual(PostType::count());
 
-        $response = $this->get(route('post-types.index'));
-        $response->assertSuccessful();
-    }
+    $response = $this->get(route('post-types.index', 'search=barbaz'));
+    $response->assertSuccessful();
 
-    /** @test **/
-    public function postTypesCanBeFilteredByName()
-    {
-        $this->signInWithPermission('post-type.create');
+    expect($response['postTypes'])->toHaveCount(1);
+});
+test('unauthorized user cannot view manage post types page', function () {
+    $this->signIn();
 
-        PostType::factory()->create([
-            'name' => 'barbaz',
-        ]);
-
-        $response = $this->get(route('post-types.index'));
-        $response->assertSuccessful();
-
-        $this->assertEquals(PostType::count(), $response['postTypes']->total());
-
-        $response = $this->get(route('post-types.index', 'search=barbaz'));
-        $response->assertSuccessful();
-
-        $this->assertCount(1, $response['postTypes']);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotViewManagePostTypesPage()
-    {
-        $this->signIn();
-
-        $response = $this->get(route('post-types.index'));
-        $response->assertNotFound();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotViewManagePostTypesPage()
-    {
-        $response = $this->getJson(route('post-types.index'));
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->get(route('post-types.index'));
+    $response->assertNotFound();
+});
+test('unauthenticated user cannot view manage post types page', function () {
+    $response = $this->getJson(route('post-types.index'));
+    $response->assertUnauthorized();
+});

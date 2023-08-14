@@ -1,106 +1,72 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\Forms;
-
 use Nova\Forms\Models\Form;
-use Tests\TestCase;
+test('authorized user with create permission can view manage forms page', function () {
+    $this->signInWithPermission('form.create');
 
-/**
- * @group forms
- */
-class ManageFormsTest extends TestCase
-{
-    /** @test **/
-    public function authorizedUserWithCreatePermissionCanViewManageFormsPage()
-    {
-        $this->signInWithPermission('form.create');
+    $response = $this->get(route('forms.index'));
+    $response->assertSuccessful();
+});
+test('authorized user with update permission can view manage forms page', function () {
+    $this->signInWithPermission('form.update');
 
-        $response = $this->get(route('forms.index'));
-        $response->assertSuccessful();
-    }
+    $response = $this->get(route('forms.index'));
+    $response->assertSuccessful();
+});
+test('authorized user with delete permission can view manage forms page', function () {
+    $this->signInWithPermission('form.delete');
 
-    /** @test **/
-    public function authorizedUserWithUpdatePermissionCanViewManageFormsPage()
-    {
-        $this->signInWithPermission('form.update');
+    $response = $this->get(route('forms.index'));
+    $response->assertSuccessful();
+});
+test('authorized user with view permission can view manage forms page', function () {
+    $this->signInWithPermission('form.view');
 
-        $response = $this->get(route('forms.index'));
-        $response->assertSuccessful();
-    }
+    $response = $this->get(route('forms.index'));
+    $response->assertSuccessful();
+});
+test('forms can be filtered by name', function () {
+    $this->signInWithPermission('form.create');
 
-    /** @test **/
-    public function authorizedUserWithDeletePermissionCanViewManageFormsPage()
-    {
-        $this->signInWithPermission('form.delete');
+    Form::factory()->create([
+        'name' => 'barbaz',
+    ]);
 
-        $response = $this->get(route('forms.index'));
-        $response->assertSuccessful();
-    }
+    $response = $this->get(route('forms.index'));
+    $response->assertSuccessful();
 
-    /** @test **/
-    public function authorizedUserWithViewPermissionCanViewManageFormsPage()
-    {
-        $this->signInWithPermission('form.view');
+    expect($response['forms']->total())->toEqual(Form::count());
 
-        $response = $this->get(route('forms.index'));
-        $response->assertSuccessful();
-    }
+    $response = $this->get(route('forms.index', 'search=barbaz'));
+    $response->assertSuccessful();
 
-    /** @test **/
-    public function formsCanBeFilteredByName()
-    {
-        $this->signInWithPermission('form.create');
+    expect($response['forms'])->toHaveCount(1);
+});
+test('forms can be filtered by key', function () {
+    $this->signInWithPermission('form.create');
 
-        Form::factory()->create([
-            'name' => 'barbaz',
-        ]);
+    Form::factory()->create([
+        'key' => 'foobar',
+    ]);
 
-        $response = $this->get(route('forms.index'));
-        $response->assertSuccessful();
+    $response = $this->get(route('forms.index'));
+    $response->assertSuccessful();
 
-        $this->assertEquals(Form::count(), $response['forms']->total());
+    expect($response['forms']->total())->toEqual(Form::count());
 
-        $response = $this->get(route('forms.index', 'search=barbaz'));
-        $response->assertSuccessful();
+    $response = $this->get(route('forms.index', 'search=foobar'));
+    $response->assertSuccessful();
 
-        $this->assertCount(1, $response['forms']);
-    }
+    expect($response['forms'])->toHaveCount(1);
+});
+test('unauthorized user cannot view manage forms page', function () {
+    $this->signIn();
 
-    /** @test **/
-    public function formsCanBeFilteredByKey()
-    {
-        $this->signInWithPermission('form.create');
-
-        Form::factory()->create([
-            'key' => 'foobar',
-        ]);
-
-        $response = $this->get(route('forms.index'));
-        $response->assertSuccessful();
-
-        $this->assertEquals(Form::count(), $response['forms']->total());
-
-        $response = $this->get(route('forms.index', 'search=foobar'));
-        $response->assertSuccessful();
-
-        $this->assertCount(1, $response['forms']);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotViewManageFormsPage()
-    {
-        $this->signIn();
-
-        $response = $this->get(route('forms.index'));
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotViewManageFormsPage()
-    {
-        $response = $this->getJson(route('forms.index'));
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->get(route('forms.index'));
+    $response->assertForbidden();
+});
+test('unauthenticated user cannot view manage forms page', function () {
+    $response = $this->getJson(route('forms.index'));
+    $response->assertUnauthorized();
+});

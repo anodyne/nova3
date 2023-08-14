@@ -15,21 +15,6 @@ class ActivateCharacter
     public function handle(Character $character): Character
     {
         if ($character->status->canTransitionTo(Active::class)) {
-            $usersWithThisCharacterAsPrimary = $character->primaryUsers;
-
-            $usersWithThisCharacterAsPrimary->reject(
-                fn ($user) => $user->characters()->wherePivot('primary', true)->count() === 1
-            )->each(function ($user) use ($character) {
-                $user->characters()->wherePivot('primary', true)->updateExistingPivot(
-                    $character->id,
-                    ['primary' => false]
-                );
-
-                $character->refresh();
-
-                SetCharacterType::run($character);
-            });
-
             $character->status->transitionTo(Active::class);
 
             activity()

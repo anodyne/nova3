@@ -1,37 +1,23 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Themes\Actions;
-
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Themes\Actions\CreateTheme;
 use Nova\Themes\Data\ThemeData;
-use Tests\TestCase;
+uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
-/**
- * @group themes
- */
-class CreateThemeActionTest extends TestCase
-{
-    use RefreshDatabase;
+it('creates a theme', function () {
+    $data = ThemeData::from([
+        'name' => 'Foo',
+        'location' => 'foo',
+        'active' => true,
+        'preview' => 'preview.jpg',
+    ]);
 
-    /** @test **/
-    public function itCreatesATheme()
-    {
-        $data = ThemeData::from([
-            'name' => 'Foo',
-            'location' => 'foo',
-            'active' => true,
-            'preview' => 'preview.jpg',
-        ]);
+    $theme = CreateTheme::run($data);
 
-        $theme = CreateTheme::run($data);
-
-        $this->assertTrue($theme->exists);
-        $this->assertEquals('Foo', $theme->name);
-        $this->assertEquals('foo', $theme->location);
-        $this->assertTrue($theme->active);
-        $this->assertEquals('preview.jpg', $theme->preview);
-    }
-}
+    expect($theme->exists)->toBeTrue();
+    expect($theme->name)->toEqual('Foo');
+    expect($theme->location)->toEqual('foo');
+    expect($theme->active)->toBeTrue();
+    expect($theme->preview)->toEqual('preview.jpg');
+});

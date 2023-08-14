@@ -16,15 +16,7 @@ class AssignCharacterPositions
     {
         $positions = collect($data->positions)->filter();
 
-        $characterMap = $positions->mapWithKeys(function ($position) use ($positions, $data) {
-            $primary = ($positions->count() === 1)
-                ? ['primary' => true]
-                : ['primary' => (int) $data->primaryPosition === (int) $position];
-
-            return [$position => $primary];
-        })->all();
-
-        $character->positions()->sync($characterMap);
+        $character->positions()->sync($positions);
 
         return $character->refresh();
     }

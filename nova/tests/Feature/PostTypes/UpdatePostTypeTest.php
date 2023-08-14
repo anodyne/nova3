@@ -1,112 +1,74 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\PostTypes;
-
 use Illuminate\Support\Facades\Event;
 use Nova\PostTypes\Events\PostTypeUpdated;
 use Nova\PostTypes\Models\PostType;
 use Nova\PostTypes\Requests\UpdatePostTypeRequest;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->postType = PostType::factory()->create();
+});
+test('authorized user can view the edit post type page', function () {
+    $this->signInWithPermission('post-type.update');
 
-/**
- * @group storytelling
- * @group post-types
- */
-class UpdatePostTypeTest extends TestCase
-{
-    protected $postType;
+    $response = $this->get(route('post-types.edit', $this->postType));
+    $response->assertSuccessful();
+});
+test('authorized user can update post type', function () {
+    $this->signInWithPermission('post-type.update');
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $this->followingRedirects();
 
-        $this->postType = PostType::factory()->create();
-    }
+    $postType = PostType::factory()->make();
 
-    /** @test **/
-    public function authorizedUserCanViewTheEditPostTypePage()
-    {
-        $this->signInWithPermission('post-type.update');
+    $response = $this->put(
+        route('post-types.update', $this->postType),
+        $postType->toArray()
+    );
+    $response->assertSuccessful();
 
-        $response = $this->get(route('post-types.edit', $this->postType));
-        $response->assertSuccessful();
-    }
+    $this->assertDatabaseHas('post_types', $postType->only('name', 'key'));
 
-    /** @test **/
-    public function authorizedUserCanUpdatePostType()
-    {
-        $this->signInWithPermission('post-type.update');
+    $this->assertRouteUsesFormRequest(
+        'post-types.update',
+        UpdatePostTypeRequest::class
+    );
+});
+test('event is dispatched when post type is updated', function () {
+    Event::fake();
 
-        $this->followingRedirects();
+    $this->signInWithPermission('post-type.update');
 
-        $postType = PostType::factory()->make();
+    $this->put(
+        route('post-types.update', $this->postType),
+        PostType::factory()->make()->toArray()
+    );
 
-        $response = $this->put(
-            route('post-types.update', $this->postType),
-            $postType->toArray()
-        );
-        $response->assertSuccessful();
+    Event::assertDispatched(PostTypeUpdated::class);
+});
+test('unauthorized user cannot view the edit post type page', function () {
+    $this->signIn();
 
-        $this->assertDatabaseHas('post_types', $postType->only('name', 'key'));
+    $response = $this->get(route('post-types.edit', $this->postType));
+    $response->assertNotFound();
+});
+test('unauthorized user cannot update post type', function () {
+    $this->signIn();
 
-        $this->assertRouteUsesFormRequest(
-            'post-types.update',
-            UpdatePostTypeRequest::class
-        );
-    }
-
-    /** @test **/
-    public function eventIsDispatchedWhenPostTypeIsUpdated()
-    {
-        Event::fake();
-
-        $this->signInWithPermission('post-type.update');
-
-        $this->put(
-            route('post-types.update', $this->postType),
-            PostType::factory()->make()->toArray()
-        );
-
-        Event::assertDispatched(PostTypeUpdated::class);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotViewTheEditPostTypePage()
-    {
-        $this->signIn();
-
-        $response = $this->get(route('post-types.edit', $this->postType));
-        $response->assertNotFound();
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotUpdatePostType()
-    {
-        $this->signIn();
-
-        $response = $this->putJson(
-            route('post-types.update', $this->postType),
-            PostType::factory()->make()->toArray()
-        );
-        $response->assertNotFound();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotViewTheEditPostTypePage()
-    {
-        $response = $this->getJson(route('post-types.edit', $this->postType));
-        $response->assertUnauthorized();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotUpdatePostType()
-    {
-        $response = $this->putJson(
-            route('post-types.update', $this->postType),
-            PostType::factory()->make()->toArray()
-        );
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->putJson(
+        route('post-types.update', $this->postType),
+        PostType::factory()->make()->toArray()
+    );
+    $response->assertNotFound();
+});
+test('unauthenticated user cannot view the edit post type page', function () {
+    $response = $this->getJson(route('post-types.edit', $this->postType));
+    $response->assertUnauthorized();
+});
+test('unauthenticated user cannot update post type', function () {
+    $response = $this->putJson(
+        route('post-types.update', $this->postType),
+        PostType::factory()->make()->toArray()
+    );
+    $response->assertUnauthorized();
+});

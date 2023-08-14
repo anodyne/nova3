@@ -1,50 +1,33 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Themes;
-
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
 use Nova\Themes\Models\Theme;
-use Tests\TestCase;
+uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
-/**
- * @group themes
- */
-class ThemeTest extends TestCase
-{
-    use RefreshDatabase;
+it('can get a list of themes to be installed', function () {
+    Storage::fake('themes');
 
-    /** @test **/
-    public function itCanGetAListOfThemesToBeInstalled()
-    {
-        Storage::fake('themes');
+    $disk = Storage::disk('themes');
 
-        $disk = Storage::disk('themes');
+    $disk->makeDirectory('foo');
+    $disk->put('foo/theme.json', json_encode(Theme::factory()->make()));
 
-        $disk->makeDirectory('foo');
-        $disk->put('foo/theme.json', json_encode(Theme::factory()->make()));
+    $themes = Theme::get();
 
-        $themes = Theme::get();
+    expect($themes->onlyPending())->toHaveCount(1);
+});
+it('ignores pending themes without a quick install file', function () {
+    Storage::fake('themes');
 
-        $this->assertCount(1, $themes->onlyPending());
-    }
+    $disk = Storage::disk('themes');
 
-    /** @test **/
-    public function itIgnoresPendingThemesWithoutAQuickInstallFile()
-    {
-        Storage::fake('themes');
+    $disk->makeDirectory('bar');
 
-        $disk = Storage::disk('themes');
+    $disk->makeDirectory('foo');
+    $disk->put('foo/theme.json', json_encode(Theme::factory()->make()));
 
-        $disk->makeDirectory('bar');
+    $themes = Theme::get();
 
-        $disk->makeDirectory('foo');
-        $disk->put('foo/theme.json', json_encode(Theme::factory()->make()));
-
-        $themes = Theme::get();
-
-        $this->assertCount(1, $themes->onlyPending());
-    }
-}
+    expect($themes->onlyPending())->toHaveCount(1);
+});

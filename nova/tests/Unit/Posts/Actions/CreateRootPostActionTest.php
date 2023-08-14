@@ -1,29 +1,15 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Posts\Actions;
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Posts\Actions\CreateRootPost;
 use Nova\Stories\Models\Story;
-use Tests\TestCase;
+it('creates a root post', function () {
+    $post = CreateRootPost::run($story = Story::factory()->create());
 
-/**
- * @group storytelling
- * @group posts
- */
-class CreateRootPostActionTest extends TestCase
-{
-    /** @test **/
-    public function itCreatesARootPost()
-    {
-        $post = CreateRootPost::run($story = Story::factory()->create());
+    expect($post->exists)->toBeTrue();
 
-        $this->assertTrue($post->exists);
-
-        $this->assertEquals("{$story->title} Root Post", $post->title);
-        $this->assertEquals($story->id, $post->story_id);
-        $this->assertNull($post->parent_id);
-    }
-}
+    expect($post->title)->toEqual("{$story->title} Root Post");
+    expect($post->story_id)->toEqual($story->id);
+    expect($post->parent_id)->toBeNull();
+});

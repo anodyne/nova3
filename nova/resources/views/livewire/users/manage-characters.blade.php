@@ -67,14 +67,14 @@
                             </x-badge>
                         @else
                             @can('update', $user)
-                                <x-button.outline
+                                <x-button.filled
                                     tag="button"
                                     color="gray"
                                     size="xs"
                                     wire:click="assignPrimaryCharacter({{ $character->id }})"
                                 >
                                     Make primary
-                                </x-button.outline>
+                                </x-button.filled>
                             @else
                                 <x-badge :color="$character->type->color()">
                                     {{ $character->type->displayName() }}

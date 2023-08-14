@@ -2,38 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Notes\Actions;
-
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Notes\Actions\DuplicateNote;
 use Nova\Notes\Models\Note;
-use Tests\TestCase;
 
-/**
- * @group notes
- */
-class DuplicateNoteActionTest extends TestCase
-{
-    use RefreshDatabase;
+uses()->group('notes');
 
-    protected $originalNote;
+it('duplicates a note', function () {
+    $original = Note::factory()->create([
+        'title' => 'My Note',
+        'content' => 'Content',
+    ]);
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $note = DuplicateNote::run($original);
 
-        $this->originalNote = Note::factory()->create([
-            'title' => 'My Note',
-            'content' => 'Content',
-        ]);
-    }
-
-    /** @test **/
-    public function itDuplicatesANote()
-    {
-        $note = DuplicateNote::run($this->originalNote);
-
-        $this->assertEquals('Copy of My Note', $note->title);
-        $this->assertEquals('Content', $note->content);
-    }
-}
+    expect($note->title)->toEqual('Copy of My Note');
+    expect($note->content)->toEqual('Content');
+});

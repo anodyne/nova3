@@ -17,7 +17,7 @@ class AdminThemeToggle extends Component
 
         UpdateAdminTheme::run($this->appearance);
 
-        $this->dispatchBrowserEvent('dropdown-close');
+        // $this->dispatchBrowserEvent('dropdown-close');
 
         // $this->dispatchBrowserEvent('refresh-page');
     }

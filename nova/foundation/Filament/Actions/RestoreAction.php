@@ -13,5 +13,8 @@ class RestoreAction extends FilamentRestoreAction
         parent::setUp();
 
         $this->icon(iconName('history'));
+
+        $this->modalIcon(iconName('history'));
+        $this->modalIconColor('primary');
     }
 }

@@ -1,48 +1,28 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Roles\Actions;
-
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Roles\Actions\UpdateRole;
 use Nova\Roles\Data\RoleData;
 use Nova\Roles\Models\Role;
-use Tests\TestCase;
+uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
-/**
- * @group roles
- */
-class UpdateRoleActionTest extends TestCase
-{
-    use RefreshDatabase;
+beforeEach(function () {
+    $this->disableRoleCaching();
 
-    protected $role;
+    $this->role = Role::factory()->create();
+});
+it('can update a role', function () {
+    $data = RoleData::from([
+        'name' => 'foo',
+        'display_name' => 'Foo',
+        'description' => 'New description of foo',
+        'default' => true,
+    ]);
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $role = UpdateRole::run($this->role, $data);
 
-        $this->disableRoleCaching();
-
-        $this->role = Role::factory()->create();
-    }
-
-    /** @test **/
-    public function itCanUpdateARole()
-    {
-        $data = RoleData::from([
-            'name' => 'foo',
-            'display_name' => 'Foo',
-            'description' => 'New description of foo',
-            'default' => true,
-        ]);
-
-        $role = UpdateRole::run($this->role, $data);
-
-        $this->assertEquals('foo', $role->name);
-        $this->assertEquals('Foo', $role->display_name);
-        $this->assertEquals('New description of foo', $role->description);
-        $this->assertTrue($role->default);
-    }
-}
+    expect($role->name)->toEqual('foo');
+    expect($role->display_name)->toEqual('Foo');
+    expect($role->description)->toEqual('New description of foo');
+    expect($role->default)->toBeTrue();
+});

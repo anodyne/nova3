@@ -16,6 +16,8 @@ use Nova\PostTypes\Enums\PostTypeStatus;
 use Nova\PostTypes\Events;
 use Nova\PostTypes\Models\Builders\PostTypeBuilder;
 use Nova\Roles\Models\Role;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 use Spatie\ModelStates\HasStates;
@@ -25,6 +27,7 @@ class PostType extends Model implements Sortable
     use HasFactory;
     use HasStates;
     use SortableTrait;
+    use LogsActivity;
 
     protected $table = 'post_types';
 
@@ -79,5 +82,22 @@ class PostType extends Model implements Sortable
     public function newEloquentBuilder($query): PostTypeBuilder
     {
         return new PostTypeBuilder($query);
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        $logOptions = LogOptions::defaults()->logFillable();
+
+        if (app('impersonate')->isImpersonating()) {
+            return $logOptions->useLogName('impersonation')
+                ->setDescriptionForEvent(
+                    fn (string $eventName): string => ":subject.name post type was {$eventName} during impersonation by ".app('impersonate')->getImpersonator()->name
+                );
+        }
+
+        return $logOptions
+            ->setDescriptionForEvent(
+                fn (string $eventName): string => ":subject.name post type was {$eventName}"
+            );
     }
 }

@@ -16,6 +16,8 @@ use Nova\Stories\Events;
 use Nova\Stories\Models\Builders\StoryBuilder;
 use Nova\Stories\Models\States\Current;
 use Nova\Stories\Models\States\StoryStatus;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\ModelStates\HasStates;
@@ -28,6 +30,7 @@ class Story extends Model implements HasMedia, Sortable
     use HasStates;
     use InteractsWithMedia;
     use SortableTrait;
+    use LogsActivity;
 
     protected $table = 'stories';
 
@@ -119,6 +122,23 @@ class Story extends Model implements HasMedia, Sortable
         );
     }
 
+    public function getActivitylogOptions(): LogOptions
+    {
+        $logOptions = LogOptions::defaults()->logFillable();
+
+        if (app('impersonate')->isImpersonating()) {
+            return $logOptions->useLogName('impersonation')
+                ->setDescriptionForEvent(
+                    fn (string $eventName): string => ":subject.title story was {$eventName} during impersonation by ".app('impersonate')->getImpersonator()->name
+                );
+        }
+
+        return $logOptions
+            ->setDescriptionForEvent(
+                fn (string $eventName): string => ":subject.title story was {$eventName}"
+            );
+    }
+
     public function newEloquentBuilder($query): StoryBuilder
     {
         return new StoryBuilder($query);
@@ -127,7 +147,7 @@ class Story extends Model implements HasMedia, Sortable
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('story-images')
-            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif'])
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'])
             ->singleFile();
     }
 

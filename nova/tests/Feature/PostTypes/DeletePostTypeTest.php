@@ -1,69 +1,40 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\PostTypes;
-
 use Illuminate\Support\Facades\Event;
 use Nova\PostTypes\Events\PostTypeDeleted;
 use Nova\PostTypes\Models\PostType;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->postType = PostType::factory()->create();
+});
+test('authorized user can delete post type', function () {
+    $this->signInWithPermission('post-type.delete');
 
-/**
- * @group storytelling
- * @group post-types
- */
-class DeletePostTypeTest extends TestCase
-{
-    protected $postType;
+    $this->followingRedirects();
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $response = $this->delete(route('post-types.destroy', $this->postType));
+    $response->assertSuccessful();
 
-        $this->postType = PostType::factory()->create();
-    }
+    $this->assertSoftDeleted('post_types', [
+        'id' => $this->postType->id,
+    ]);
+});
+test('event is dispatched when post type is deleted', function () {
+    Event::fake();
 
-    /** @test **/
-    public function authorizedUserCanDeletePostType()
-    {
-        $this->signInWithPermission('post-type.delete');
+    $this->signInWithPermission('post-type.delete');
 
-        $this->followingRedirects();
+    $this->delete(route('post-types.destroy', $this->postType));
 
-        $response = $this->delete(route('post-types.destroy', $this->postType));
-        $response->assertSuccessful();
+    Event::assertDispatched(PostTypeDeleted::class);
+});
+test('unauthorized user cannot delete post type', function () {
+    $this->signIn();
 
-        $this->assertSoftDeleted('post_types', [
-            'id' => $this->postType->id,
-        ]);
-    }
-
-    /** @test **/
-    public function eventIsDispatchedWhenPostTypeIsDeleted()
-    {
-        Event::fake();
-
-        $this->signInWithPermission('post-type.delete');
-
-        $this->delete(route('post-types.destroy', $this->postType));
-
-        Event::assertDispatched(PostTypeDeleted::class);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotDeletePostType()
-    {
-        $this->signIn();
-
-        $response = $this->delete(route('post-types.destroy', $this->postType));
-        $response->assertNotFound();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotDeletePostType()
-    {
-        $response = $this->deleteJson(route('post-types.destroy', $this->postType));
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->delete(route('post-types.destroy', $this->postType));
+    $response->assertNotFound();
+});
+test('unauthenticated user cannot delete post type', function () {
+    $response = $this->deleteJson(route('post-types.destroy', $this->postType));
+    $response->assertUnauthorized();
+});

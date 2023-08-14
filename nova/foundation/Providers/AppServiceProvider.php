@@ -45,13 +45,19 @@ class AppServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
+        clock()->event('app service provider register')->color('purple')->begin();
+
         $this->registerNovaSingleton();
         $this->registerResponseFilters();
         $this->registerFilamentBindings();
+
+        clock()->event('app service provider register')->end();
     }
 
     public function boot(): void
     {
+        clock()->event('app service provider boot')->color('green')->begin();
+
         // Make sure the file finder can find Javascript files
         $this->app['view']->addExtension('js', 'file');
 
@@ -85,6 +91,8 @@ class AppServiceProvider extends ServiceProvider
             $this->registerResponseFilters();
             $this->setupFilament();
         }
+
+        clock()->event('app service provider boot')->end();
     }
 
     protected function registerNovaSingleton()

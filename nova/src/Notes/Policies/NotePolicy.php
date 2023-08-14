@@ -20,9 +20,9 @@ class NotePolicy
 
     public function view(User $user, Note $note): Response
     {
-        return $user->is($note->author)
+        return $note->user_id === $user->id
             ? $this->allow()
-            : $this->denyAsNotFound();
+            : $this->deny();
     }
 
     public function create(User $user): Response
@@ -32,9 +32,9 @@ class NotePolicy
 
     public function update(User $user, Note $note): Response
     {
-        return $user->is($note->author)
+        return $note->user_id === $user->id
             ? $this->allow()
-            : $this->denyAsNotFound();
+            : $this->deny();
     }
 
     public function deleteAny(User $user): Response
@@ -44,16 +44,16 @@ class NotePolicy
 
     public function delete(User $user, Note $note): Response
     {
-        return $user->is($note->author)
+        return $note->user_id === $user->id
             ? $this->allow()
-            : $this->denyAsNotFound();
+            : $this->deny();
     }
 
     public function duplicate(User $user, Note $note): Response
     {
-        return $user->is($note->author)
+        return $note->user_id === $user->id
             ? $this->allow()
-            : $this->denyAsNotFound();
+            : $this->deny();
     }
 
     public function restore(User $user, Note $note): Response

@@ -1,46 +1,23 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Stories\Actions;
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Posts\Models\Post;
 use Nova\Stories\Actions\DeleteStoryPosts;
 use Nova\Stories\Models\Story;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->story = Story::factory()->create();
 
-/**
- * @group storytelling
- * @group stories
- * @group posts
- */
-class DeleteStoryPostsActionTest extends TestCase
-{
-    protected $story;
+    $this->posts = Post::factory()->count(5)->create([
+        'story_id' => $this->story,
+    ]);
 
-    protected $posts;
+    $this->story->refresh();
+});
+it('deletes the posts in a story', function () {
+    expect($this->story->posts)->toHaveCount(5);
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $story = DeleteStoryPosts::run($this->story);
 
-        $this->story = Story::factory()->create();
-
-        $this->posts = Post::factory()->count(5)->create([
-            'story_id' => $this->story,
-        ]);
-
-        $this->story->refresh();
-    }
-
-    /** @test **/
-    public function itDeletesThePostsInAStory()
-    {
-        $this->assertCount(5, $this->story->posts);
-
-        $story = DeleteStoryPosts::run($this->story);
-
-        $this->assertCount(0, $story->posts);
-    }
-}
+    expect($story->posts)->toHaveCount(0);
+});

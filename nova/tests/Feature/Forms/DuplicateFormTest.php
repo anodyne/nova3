@@ -1,86 +1,55 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\Forms;
-
 use Illuminate\Support\Facades\Event;
 use Nova\Forms\Events\FormDuplicated;
 use Nova\Forms\Models\Form;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->form = Form::factory()->create([
+        'key' => 'foo',
+        'name' => 'Foo',
+    ]);
+});
+test('authorized user can duplicate form', function () {
+    $this->signInWithPermission(['form.create', 'form.update']);
 
-/**
- * @group forms
- */
-class DuplicateFormTest extends TestCase
-{
-    protected $form;
+    $this->followingRedirects();
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $response = $this->post(route('forms.duplicate', $this->form));
+    $response->assertSuccessful();
 
-        $this->form = Form::factory()->create([
-            'key' => 'foo',
-            'name' => 'Foo',
-        ]);
-    }
+    $this->assertDatabaseHas('forms', [
+        'name' => "Copy of {$this->form->name}",
+    ]);
+});
+test('event is dispatched when form is duplicated', function () {
+    Event::fake();
 
-    /** @test **/
-    public function authorizedUserCanDuplicateForm()
-    {
-        $this->signInWithPermission(['form.create', 'form.update']);
+    $this->signInWithPermission(['form.create', 'form.update']);
 
-        $this->followingRedirects();
+    $this->post(route('forms.duplicate', $this->form));
 
-        $response = $this->post(route('forms.duplicate', $this->form));
-        $response->assertSuccessful();
+    Event::assertDispatched(FormDuplicated::class);
+});
+test('locked form cannot be duplicated', function () {
+    $form = Form::factory()->locked()->create();
 
-        $this->assertDatabaseHas('forms', [
-            'name' => "Copy of {$this->form->name}",
-        ]);
-    }
+    $this->signInWithPermission(['form.create', 'form.update']);
 
-    /** @test **/
-    public function eventIsDispatchedWhenFormIsDuplicated()
-    {
-        Event::fake();
+    $formCount = Form::count();
 
-        $this->signInWithPermission(['form.create', 'form.update']);
+    $response = $this->postJson(route('forms.duplicate', $form));
+    $response->assertForbidden();
 
-        $this->post(route('forms.duplicate', $this->form));
+    expect(Form::count())->toEqual($formCount);
+});
+test('unauthorized user cannot duplicate form', function () {
+    $this->signIn();
 
-        Event::assertDispatched(FormDuplicated::class);
-    }
-
-    /** @test **/
-    public function lockedFormCannotBeDuplicated()
-    {
-        $form = Form::factory()->locked()->create();
-
-        $this->signInWithPermission(['form.create', 'form.update']);
-
-        $formCount = Form::count();
-
-        $response = $this->postJson(route('forms.duplicate', $form));
-        $response->assertForbidden();
-
-        $this->assertEquals($formCount, Form::count());
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotDuplicateForm()
-    {
-        $this->signIn();
-
-        $response = $this->post(route('forms.duplicate', $this->form));
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotDuplicateForm()
-    {
-        $response = $this->postJson(route('forms.duplicate', $this->form));
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->post(route('forms.duplicate', $this->form));
+    $response->assertForbidden();
+});
+test('unauthenticated user cannot duplicate form', function () {
+    $response = $this->postJson(route('forms.duplicate', $this->form));
+    $response->assertUnauthorized();
+});

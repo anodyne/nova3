@@ -1,225 +1,67 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Characters\Actions;
-
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Characters\Actions\AssignCharacterPositions;
 use Nova\Characters\Data\AssignCharacterPositionsData;
 use Nova\Characters\Models\Character;
 use Nova\Departments\Models\Position;
-use Tests\TestCase;
 
-/**
- * @group characters
- * @group positions
- */
-class AssignCharacterPositionsActionTest extends TestCase
-{
-    use RefreshDatabase;
+uses()->group('characters');
 
-    protected $character;
+beforeEach(function () {
+    $this->character = Character::factory()->active()->create();
+});
+it('assigns one position to a character without any positions', function () {
+    $position = Position::factory()->create();
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $data = AssignCharacterPositionsData::from([
+        'positions' => [$position->id],
+    ]);
 
-        $this->character = Character::factory()->active()->create();
-    }
+    $character = AssignCharacterPositions::run($this->character, $data);
 
-    /** @test **/
-    public function itAssignsOnePositionToACharacterWithoutAnyPositionsAndSetsItAsThePrimaryPosition()
-    {
-        $position = Position::factory()->create();
+    $position->refresh();
 
-        $data = AssignCharacterPositionsData::from([
-            'positions' => [$position->id],
-        ]);
+    expect($character->positions)->toHaveCount(1);
+    expect($character->positions->first()->is($position))->toBeTrue();
+});
+it('assigns multiple positions to a character without any positions', function () {
+    $first = Position::factory()->create();
+    $second = Position::factory()->create();
 
-        $character = AssignCharacterPositions::run($this->character, $data);
+    $data = AssignCharacterPositionsData::from([
+        'positions' => [$first->id, $second->id],
+    ]);
 
-        $position->refresh();
+    $character = AssignCharacterPositions::run($this->character, $data);
 
-        $this->assertCount(1, $character->positions);
-        $this->assertCount(1, $character->primaryPosition);
-        $this->assertTrue($character->positions->first()->is($position));
-        $this->assertTrue($character->primaryPosition->first()->is($position));
-    }
+    $first->refresh();
+    $second->refresh();
 
-    /** @test **/
-    public function itAssignsMultiplePositionsToACharacterWithoutAnyPositions()
-    {
-        $first = Position::factory()->create();
-        $second = Position::factory()->create();
+    expect($character->positions)->toHaveCount(2);
+    expect($first->characters->first()->is($character))->toBeTrue();
+    expect($second->characters->first()->is($character))->toBeTrue();
+});
+it('assigns one position to a character with a different position', function () {
+    $first = Position::factory()->create();
+    $second = Position::factory()->create();
 
-        $data = AssignCharacterPositionsData::from([
-            'positions' => [$first->id, $second->id],
-        ]);
+    $this->character->positions()->attach($first);
 
-        $character = AssignCharacterPositions::run($this->character, $data);
+    $this->character->refresh();
 
-        $first->refresh();
-        $second->refresh();
+    expect($this->character->positions)->toHaveCount(1);
 
-        $this->assertCount(2, $character->positions);
-        $this->assertCount(0, $character->primaryPosition);
-        $this->assertTrue($first->characters->first()->is($character));
-        $this->assertTrue($second->characters->first()->is($character));
-    }
+    $data = AssignCharacterPositionsData::from([
+        'positions' => [$second->id],
+    ]);
 
-    /** @test **/
-    public function itAssignsMultiplePositionsToACharacterWithoutAnyPositionsAndSetsAPrimaryPosition()
-    {
-        $first = Position::factory()->create();
-        $second = Position::factory()->create();
+    $character = AssignCharacterPositions::run($this->character, $data);
 
-        $data = AssignCharacterPositionsData::from([
-            'positions' => [$first->id, $second->id],
-            'primaryPosition' => $first->id,
-        ]);
+    $first->refresh();
+    $second->refresh();
 
-        $character = AssignCharacterPositions::run($this->character, $data);
-
-        $first->refresh();
-        $second->refresh();
-
-        $this->assertCount(2, $character->positions);
-        $this->assertTrue($first->characters->first()->is($character));
-        $this->assertTrue($second->characters->first()->is($character));
-        $this->assertTrue($character->primaryPosition->first()->is($first));
-        $this->assertFalse($character->primaryPosition->first()->is($second));
-    }
-
-    /** @test **/
-    public function itAssignsOnePositionToACharacterWithADifferentPositionsAndSetsItAsThePrimaryPosition()
-    {
-        $first = Position::factory()->create();
-        $second = Position::factory()->create();
-
-        $this->character->positions()->attach($first);
-
-        $data = AssignCharacterPositionsData::from([
-            'positions' => [$second->id],
-        ]);
-
-        $character = AssignCharacterPositions::run($this->character, $data);
-
-        $first->refresh();
-        $second->refresh();
-
-        $characterPositions = $character->positions;
-
-        $this->assertCount(1, $character->positions);
-        $this->assertCount(1, $character->primaryPosition);
-        $this->assertFalse($character->positions->first()->is($first));
-        $this->assertTrue($character->positions->first()->is($second));
-        $this->assertFalse($character->primaryPosition->first()->is($first));
-        $this->assertTrue($character->primaryPosition->first()->is($second));
-    }
-
-    /** @test **/
-    public function itChangesOnePositionOfACharacterWithMultiplePositionsWithoutChangingThePrimaryPosition()
-    {
-        $first = Position::factory()->create();
-        $second = Position::factory()->create();
-        $third = Position::factory()->create();
-
-        $this->character->positions()->attach($first);
-        $this->character->positions()->attach($second, ['primary' => true]);
-        $this->character->refresh();
-
-        $this->assertCount(2, $this->character->positions);
-        $this->assertCount(1, $this->character->primaryPosition);
-        $this->assertFalse($this->character->primaryPosition->first()->is($first));
-        $this->assertTrue($this->character->primaryPosition->first()->is($second));
-
-        $data = AssignCharacterPositionsData::from([
-            'positions' => [$second->id, $third->id],
-            'primaryPosition' => $second->id,
-        ]);
-
-        $character = AssignCharacterPositions::run($this->character, $data);
-
-        $first->refresh();
-        $second->refresh();
-        $third->refresh();
-
-        $this->assertCount(2, $character->positions);
-        $this->assertCount(1, $character->primaryPosition);
-        $this->assertCount(0, $first->characters);
-        $this->assertCount(1, $second->characters);
-        $this->assertCount(1, $third->characters);
-        $this->assertTrue($character->primaryPosition->first()->is($second));
-        $this->assertFalse($character->primaryPosition->first()->is($third));
-    }
-
-    /** @test **/
-    public function itChangesOnePositionOfACharacterWithMultiplePositionsWhileChangingThePrimaryPosition()
-    {
-        $first = Position::factory()->create();
-        $second = Position::factory()->create();
-        $third = Position::factory()->create();
-
-        $this->character->positions()->attach($first);
-        $this->character->positions()->attach($second, ['primary' => true]);
-        $this->character->refresh();
-
-        $this->assertCount(2, $this->character->positions);
-        $this->assertCount(1, $this->character->primaryPosition);
-        $this->assertFalse($this->character->primaryPosition->first()->is($first));
-        $this->assertTrue($this->character->primaryPosition->first()->is($second));
-
-        $data = AssignCharacterPositionsData::from([
-            'positions' => [$second->id, $third->id],
-            'primaryPosition' => $third->id,
-        ]);
-
-        $character = AssignCharacterPositions::run($this->character, $data);
-
-        $first->refresh();
-        $second->refresh();
-        $third->refresh();
-
-        $this->assertCount(2, $character->positions);
-        $this->assertCount(1, $character->primaryPosition);
-        $this->assertCount(0, $first->characters);
-        $this->assertCount(1, $second->characters);
-        $this->assertCount(1, $third->characters);
-        $this->assertFalse($character->primaryPosition->first()->is($second));
-        $this->assertTrue($character->primaryPosition->first()->is($third));
-    }
-
-    /** @test **/
-    public function itChangesPositionsAndRemovesThePrimaryPosition()
-    {
-        $first = Position::factory()->create();
-        $second = Position::factory()->create();
-        $third = Position::factory()->create();
-
-        $this->character->positions()->attach($first);
-        $this->character->positions()->attach($second, ['primary' => true]);
-        $this->character->refresh();
-
-        $this->assertCount(2, $this->character->positions);
-        $this->assertCount(1, $this->character->primaryPosition);
-        $this->assertFalse($this->character->primaryPosition->first()->is($first));
-        $this->assertTrue($this->character->primaryPosition->first()->is($second));
-
-        $data = AssignCharacterPositionsData::from([
-            'positions' => [$second->id, $third->id],
-        ]);
-
-        $character = AssignCharacterPositions::run($this->character, $data);
-
-        $first->refresh();
-        $second->refresh();
-        $third->refresh();
-
-        $this->assertCount(2, $character->positions);
-        $this->assertCount(0, $character->primaryPosition);
-        $this->assertCount(0, $first->characters);
-        $this->assertCount(1, $second->characters);
-        $this->assertCount(1, $third->characters);
-    }
-}
+    expect($character->positions)->toHaveCount(1);
+    expect($character->positions->first()->is($first))->toBeFalse();
+    expect($character->positions->first()->is($second))->toBeTrue();
+});

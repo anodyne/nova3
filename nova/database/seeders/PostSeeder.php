@@ -12,6 +12,8 @@ class PostSeeder extends Seeder
 {
     public function run()
     {
+        activity()->disableLogging();
+
         Story::get()
             ->each(function ($story) {
                 $post = Post::factory()->published()->post()->create([
@@ -60,5 +62,7 @@ class PostSeeder extends Seeder
                     'order_column' => 6,
                 ]);
             });
+
+        activity()->enableLogging();
     }
 }

@@ -27,8 +27,8 @@
                                         </p>
                                     </div>
                                 </div>
-                                <div class="mt-5 flex justify-center md:mt-0">
-                                    <x-button.outline href="#" color="gray">Go to my account</x-button.outline>
+                                <div class="mt-5 flex justify-center gap-2 md:mt-0">
+                                    <x-button.filled href="#" color="gray">Go to my account</x-button.filled>
                                 </div>
                             </div>
                         </x-content-box>
@@ -37,7 +37,7 @@
                             class="grid grid-cols-1 divide-y divide-gray-900/5 border-t border-gray-950/5 bg-gray-50 dark:divide-gray-800 dark:border-gray-800 dark:bg-gray-950/30 sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:rounded-b-md"
                         >
                             <a
-                                href="{{ route('characters.index') }}"
+                                href="{{ route('characters.index', ['tableFilters' => ['only_my_characters' => ['isActive' => true]]]) }}"
                                 class="group flex items-center justify-center space-x-3 px-6 py-5 text-center text-base font-medium transition md:text-sm"
                             >
                                 <x-icon
@@ -206,7 +206,7 @@
                                                     </div>
                                                     <p class="text-gray-500">
                                                         Published
-                                                        <x-button.text href="#" color="primary">
+                                                        <x-button.text href="#" color="primary" size="none">
                                                             Reckoning
                                                         </x-button.text>
                                                         story post in
@@ -286,9 +286,9 @@
                             </div>
                             <div class="mt-6 flex flex-col justify-stretch">
                                 <div>
-                                    <x-button.outline color="primary" href="#" class="w-full">
+                                    <x-button.filled color="gray" href="#" class="w-full">
                                         See all activity
-                                    </x-button.outline>
+                                    </x-button.filled>
                                 </div>
                             </div>
                         </x-content-box>

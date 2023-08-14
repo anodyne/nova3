@@ -21,6 +21,7 @@
         "filament/tables": "^3.0.0-alpha",
         "guzzlehttp/guzzle": "^7.2",
         "kirschbaum-development/livewire-filters": "^0.5",
+        "lab404/laravel-impersonate": "^1.7",
         "laravel/fortify": "^1.16",
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
@@ -56,6 +57,10 @@
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^7.0",
         "nunomaduro/phpinsights": "^2.0",
+        "pestphp/pest": "^2.9",
+        "pestphp/pest-plugin-drift": "^2.2",
+        "pestphp/pest-plugin-laravel": "^2.1",
+        "pestphp/pest-plugin-livewire": "^2.1",
         "phpunit/phpunit": "^10.0",
         "spatie/laravel-ignition": "^2.0"
     },
@@ -111,7 +116,8 @@
         "sort-packages": true,
         "vendor-dir": "nova/vendor",
         "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "pestphp/pest-plugin": true
         }
     },
     "minimum-stability": "dev",

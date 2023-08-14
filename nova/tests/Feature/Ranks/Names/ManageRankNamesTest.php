@@ -1,87 +1,56 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\Ranks\Names;
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Ranks\Models\RankName;
-use Tests\TestCase;
+test('authorized user with create permission can view manage rank names page', function () {
+    $this->signInWithPermission('rank.create');
 
-/**
- * @group ranks
- */
-class ManageRankNamesTest extends TestCase
-{
-    /** @test **/
-    public function authorizedUserWithCreatePermissionCanViewManageRankNamesPage()
-    {
-        $this->signInWithPermission('rank.create');
+    $response = $this->get(route('ranks.names.index'));
+    $response->assertSuccessful();
+});
+test('authorized user with update permission can view manage rank names page', function () {
+    $this->signInWithPermission('rank.update');
 
-        $response = $this->get(route('ranks.names.index'));
-        $response->assertSuccessful();
-    }
+    $response = $this->get(route('ranks.names.index'));
+    $response->assertSuccessful();
+});
+test('authorized user with delete permission can view manage rank names page', function () {
+    $this->signInWithPermission('rank.delete');
 
-    /** @test **/
-    public function authorizedUserWithUpdatePermissionCanViewManageRankNamesPage()
-    {
-        $this->signInWithPermission('rank.update');
+    $response = $this->get(route('ranks.names.index'));
+    $response->assertSuccessful();
+});
+test('authorized user with view permission can view manage rank names page', function () {
+    $this->signInWithPermission('rank.view');
 
-        $response = $this->get(route('ranks.names.index'));
-        $response->assertSuccessful();
-    }
+    $response = $this->get(route('ranks.names.index'));
+    $response->assertSuccessful();
+});
+test('rank names can be filtered by name', function () {
+    $this->signInWithPermission('rank.create');
 
-    /** @test **/
-    public function authorizedUserWithDeletePermissionCanViewManageRankNamesPage()
-    {
-        $this->signInWithPermission('rank.delete');
+    RankName::factory()->create([
+        'name' => 'Captain',
+    ]);
 
-        $response = $this->get(route('ranks.names.index'));
-        $response->assertSuccessful();
-    }
+    $response = $this->get(route('ranks.names.index'));
+    $response->assertSuccessful();
 
-    /** @test **/
-    public function authorizedUserWithViewPermissionCanViewManageRankNamesPage()
-    {
-        $this->signInWithPermission('rank.view');
+    expect($response['names']->total())->toEqual(RankName::count());
 
-        $response = $this->get(route('ranks.names.index'));
-        $response->assertSuccessful();
-    }
+    $response = $this->get(route('ranks.names.index', 'search=captain'));
+    $response->assertSuccessful();
 
-    /** @test **/
-    public function rankNamesCanBeFilteredByName()
-    {
-        $this->signInWithPermission('rank.create');
+    expect($response['names'])->toHaveCount(1);
+});
+test('unauthorized user cannot view manage rank names page', function () {
+    $this->signIn();
 
-        RankName::factory()->create([
-            'name' => 'Captain',
-        ]);
-
-        $response = $this->get(route('ranks.names.index'));
-        $response->assertSuccessful();
-
-        $this->assertEquals(RankName::count(), $response['names']->total());
-
-        $response = $this->get(route('ranks.names.index', 'search=captain'));
-        $response->assertSuccessful();
-
-        $this->assertCount(1, $response['names']);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotViewManageRankNamesPage()
-    {
-        $this->signIn();
-
-        $response = $this->get(route('ranks.names.index'));
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotViewManageRankNamesPage()
-    {
-        $response = $this->getJson(route('ranks.names.index'));
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->get(route('ranks.names.index'));
+    $response->assertForbidden();
+});
+test('unauthenticated user cannot view manage rank names page', function () {
+    $response = $this->getJson(route('ranks.names.index'));
+    $response->assertUnauthorized();
+});

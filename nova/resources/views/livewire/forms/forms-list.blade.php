@@ -144,7 +144,7 @@
                     </x-slot:primary>
 
                     <x-slot:secondary>
-                        <x-button.outline wire:click="$set('search', '')" color="gray">Clear search</x-button.outline>
+                        <x-button.filled wire:click="$set('search', '')" color="gray">Clear search</x-button.filled>
                     </x-slot:secondary>
                 </x-empty-state.not-found>
             </x-slot:emptyMessage>

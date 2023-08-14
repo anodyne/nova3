@@ -14,7 +14,7 @@
     {{ $attributes }}
 >
     @if ($leadingAddOn)
-        <div class="flex shrink-0 items-center text-gray-500 sm:text-sm">
+        <div class="flex shrink-0 items-center text-gray-400 sm:text-sm">
             {{ $leadingAddOn }}
         </div>
     @endif

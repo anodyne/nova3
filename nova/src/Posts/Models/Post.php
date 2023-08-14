@@ -19,6 +19,8 @@ use Nova\Posts\Models\States\Started;
 use Nova\PostTypes\Models\PostType;
 use Nova\Stories\Models\Story;
 use Nova\Users\Models\User;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\LaravelData\WithData;
 use Spatie\ModelStates\HasStates;
@@ -31,6 +33,7 @@ class Post extends Model implements Sortable
     use WithData;
     use SortableTrait;
     use HasEagerLimitAndRecursiveRelationships;
+    use LogsActivity;
 
     protected $table = 'posts';
 
@@ -163,5 +166,22 @@ class Post extends Model implements Sortable
             'next' => $query->where('order_column', $order + 1)->first(),
             default => $query->first(),
         };
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        $logOptions = LogOptions::defaults()->logFillable();
+
+        if (app('impersonate')->isImpersonating()) {
+            return $logOptions->useLogName('impersonation')
+                ->setDescriptionForEvent(
+                    fn (string $eventName): string => ":subject.title post was {$eventName} during impersonation by ".app('impersonate')->getImpersonator()->name
+                );
+        }
+
+        return $logOptions
+            ->setDescriptionForEvent(
+                fn (string $eventName): string => ":subject.title post was {$eventName}"
+            );
     }
 }

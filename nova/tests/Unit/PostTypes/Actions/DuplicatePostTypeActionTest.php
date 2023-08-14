@@ -1,42 +1,19 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\PostTypes\Actions;
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\PostTypes\Actions\DuplicatePostType;
 use Nova\PostTypes\Models\PostType;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->postType = PostType::factory()->create([
+        'sort' => 0,
+        'role_id' => 1,
+    ]);
+});
+it('duplicates a post type', function () {
+    $postType = DuplicatePostType::run($this->postType);
 
-/**
- * @group storytelling
- * @group post-types
- */
-class DuplicatePostTypeActionTest extends TestCase
-{
-    protected $postType;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->postType = PostType::factory()->create([
-            'sort' => 0,
-            'role_id' => 1,
-        ]);
-    }
-
-    /** @test **/
-    public function itDuplicatesAPostType()
-    {
-        $postType = DuplicatePostType::run($this->postType);
-
-        $this->assertEquals(
-            "Copy of {$this->postType->name}",
-            $postType->name
-        );
-        $this->assertEquals(PostType::count() - 1, $postType->sort);
-        $this->assertEquals(1, $postType->role_id);
-    }
-}
+    expect($postType->name)->toEqual("Copy of {$this->postType->name}");
+    expect($postType->sort)->toEqual(PostType::count() - 1);
+    expect($postType->role_id)->toEqual(1);
+});

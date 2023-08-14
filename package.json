@@ -16,6 +16,7 @@
         "@jaames/iro": "^5.5.2",
         "@nextapps-be/livewire-sortablejs": "^0.2.0",
         "@ryangjchandler/alpine-tooltip": "^1.2.0",
+        "@tailwindcss/container-queries": "^0.1.1",
         "@tiptap/core": "^2.0",
         "@tiptap/extension-link": "^2.0",
         "@tiptap/extension-text-align": "^2.0",

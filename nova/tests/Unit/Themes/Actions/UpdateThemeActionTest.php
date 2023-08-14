@@ -1,49 +1,29 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Themes\Actions;
-
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Themes\Actions\UpdateTheme;
 use Nova\Themes\Data\ThemeData;
 use Nova\Themes\Models\Theme;
-use Tests\TestCase;
+uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
-/**
- * @group themes
- */
-class UpdateThemeActionTest extends TestCase
-{
-    use RefreshDatabase;
+beforeEach(function () {
+    $this->theme = Theme::factory()->create();
+});
+it('updates a theme', function () {
+    $data = ThemeData::from([
+        'name' => 'Slate',
+        'location' => 'slate',
+        'credits' => 'Slate credits',
+        'preview' => 'new-preview.jpg',
+        'active' => false,
+    ]);
 
-    protected $theme;
+    $theme = UpdateTheme::run($this->theme, $data);
 
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->theme = Theme::factory()->create();
-    }
-
-    /** @test **/
-    public function itUpdatesATheme()
-    {
-        $data = ThemeData::from([
-            'name' => 'Slate',
-            'location' => 'slate',
-            'credits' => 'Slate credits',
-            'preview' => 'new-preview.jpg',
-            'active' => false,
-        ]);
-
-        $theme = UpdateTheme::run($this->theme, $data);
-
-        $this->assertTrue($theme->exists);
-        $this->assertEquals('Slate', $theme->name);
-        $this->assertEquals('slate', $theme->location);
-        $this->assertEquals('Slate credits', $theme->credits);
-        $this->assertEquals('new-preview.jpg', $theme->preview);
-        $this->assertFalse($theme->active);
-    }
-}
+    expect($theme->exists)->toBeTrue();
+    expect($theme->name)->toEqual('Slate');
+    expect($theme->location)->toEqual('slate');
+    expect($theme->credits)->toEqual('Slate credits');
+    expect($theme->preview)->toEqual('new-preview.jpg');
+    expect($theme->active)->toBeFalse();
+});

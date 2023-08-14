@@ -56,17 +56,12 @@ class Character extends Model implements HasMedia
 
     public function positions()
     {
-        return $this->belongsToMany(Position::class)->withPivot('primary');
+        return $this->belongsToMany(Position::class);
     }
 
     public function posts(): MorphToMany
     {
         return $this->morphToMany(Post::class, 'authorable', 'post_author');
-    }
-
-    public function primaryPosition()
-    {
-        return $this->positions()->wherePivot('primary', true);
     }
 
     public function activePrimaryUsers()
@@ -93,10 +88,18 @@ class Character extends Model implements HasMedia
 
     public function getActivitylogOptions(): LogOptions
     {
-        return LogOptions::defaults()
-            ->logFillable()
+        $logOptions = LogOptions::defaults()->logFillable();
+
+        if (app('impersonate')->isImpersonating()) {
+            return $logOptions->useLogName('impersonation')
+                ->setDescriptionForEvent(
+                    fn (string $eventName): string => ":subject.name was {$eventName} during impersonation by ".app('impersonate')->getImpersonator()->name
+                );
+        }
+
+        return $logOptions
             ->setDescriptionForEvent(
-                fn (string $eventName) => ":subject.name was {$eventName}"
+                fn (string $eventName): string => ":subject.name was {$eventName}"
             );
     }
 
@@ -128,6 +131,11 @@ class Character extends Model implements HasMedia
         );
     }
 
+    public function canBeDeleted(): bool
+    {
+        return $this->posts()->count() === 0;
+    }
+
     public function newEloquentBuilder($query): CharacterBuilder
     {
         return new CharacterBuilder($query);
@@ -138,7 +146,7 @@ class Character extends Model implements HasMedia
         $this->addMediaCollection('avatar')
             ->useFallbackUrl("https://avatars.dicebear.com/api/bottts/{str_replace(' ', '', {$this->name})}.svg")
             ->useDisk('media')
-            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif'])
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'])
             ->singleFile();
     }
 

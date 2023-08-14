@@ -1,124 +1,84 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\Themes;
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
 use Nova\Themes\Models\Theme;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->disk = Storage::fake('themes');
+});
+test('authorized user with create permission can view manage themes page', function () {
+    $this->signInWithPermission('theme.create');
 
-/**
- * @group themes
- */
-class ManageThemesTest extends TestCase
-{
-    protected $disk;
+    $response = $this->get(route('themes.index'));
+    $response->assertSuccessful();
+});
+test('authorized user with update permission can view manage themes page', function () {
+    $this->signInWithPermission('theme.update');
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $response = $this->get(route('themes.index'));
+    $response->assertSuccessful();
+});
+test('authorized user with delete permission can view manage themes page', function () {
+    $this->signInWithPermission('theme.delete');
 
-        $this->disk = Storage::fake('themes');
-    }
+    $response = $this->get(route('themes.index'));
+    $response->assertSuccessful();
+});
+test('authorized user with view permission can view manage themes page', function () {
+    $this->signInWithPermission('theme.view');
 
-    /** @test **/
-    public function authorizedUserWithCreatePermissionCanViewManageThemesPage()
-    {
-        $this->signInWithPermission('theme.create');
+    $response = $this->get(route('themes.index'));
+    $response->assertSuccessful();
+});
+test('installable themes are shown with installed themes', function () {
+    $this->signInWithPermission('theme.create');
 
-        $response = $this->get(route('themes.index'));
-        $response->assertSuccessful();
-    }
+    Theme::factory()->create([
+        'name' => 'Foobar',
+        'location' => 'foobar',
+    ]);
 
-    /** @test **/
-    public function authorizedUserWithUpdatePermissionCanViewManageThemesPage()
-    {
-        $this->signInWithPermission('theme.update');
+    $this->disk->makeDirectory('bar');
+    $this->disk->put('bar/theme.json', json_encode([
+        'name' => 'Bar',
+        'location' => 'bar',
+    ]));
 
-        $response = $this->get(route('themes.index'));
-        $response->assertSuccessful();
-    }
+    $this->disk->makeDirectory('foo');
 
-    /** @test **/
-    public function authorizedUserWithDeletePermissionCanViewManageThemesPage()
-    {
-        $this->signInWithPermission('theme.delete');
+    $response = $this->get(route('themes.index'));
+    $response->assertSuccessful();
 
-        $response = $this->get(route('themes.index'));
-        $response->assertSuccessful();
-    }
+    expect($response['themes']->where('name', 'Bar'))->toHaveCount(1);
+});
+test('themes can be filtered to show only themes to be installed', function () {
+    $this->signInWithPermission('theme.create');
 
-    /** @test **/
-    public function authorizedUserWithViewPermissionCanViewManageThemesPage()
-    {
-        $this->signInWithPermission('theme.view');
+    Theme::factory()->create([
+        'name' => 'Foobar',
+        'location' => 'foobar',
+    ]);
 
-        $response = $this->get(route('themes.index'));
-        $response->assertSuccessful();
-    }
+    $this->disk->makeDirectory('bar');
+    $this->disk->put('bar/theme.json', json_encode([
+        'name' => 'Bar',
+        'location' => 'bar',
+    ]));
 
-    /** @test **/
-    public function installableThemesAreShownWithInstalledThemes()
-    {
-        $this->signInWithPermission('theme.create');
+    $response = $this->get(route('themes.index', 'pending'));
+    $response->assertSuccessful();
 
-        Theme::factory()->create([
-            'name' => 'Foobar',
-            'location' => 'foobar',
-        ]);
+    expect($response['themes']->where('name', 'Bar'))->toHaveCount(1);
+    expect($response['themes']->where('name', 'Foobar'))->toHaveCount(0);
+});
+test('unauthorized user cannot view manage themes page', function () {
+    $this->signIn();
 
-        $this->disk->makeDirectory('bar');
-        $this->disk->put('bar/theme.json', json_encode([
-            'name' => 'Bar',
-            'location' => 'bar',
-        ]));
-
-        $this->disk->makeDirectory('foo');
-
-        $response = $this->get(route('themes.index'));
-        $response->assertSuccessful();
-
-        $this->assertCount(1, $response['themes']->where('name', 'Bar'));
-    }
-
-    /** @test **/
-    public function themesCanBeFilteredToShowOnlyThemesToBeInstalled()
-    {
-        $this->signInWithPermission('theme.create');
-
-        Theme::factory()->create([
-            'name' => 'Foobar',
-            'location' => 'foobar',
-        ]);
-
-        $this->disk->makeDirectory('bar');
-        $this->disk->put('bar/theme.json', json_encode([
-            'name' => 'Bar',
-            'location' => 'bar',
-        ]));
-
-        $response = $this->get(route('themes.index', 'pending'));
-        $response->assertSuccessful();
-
-        $this->assertCount(1, $response['themes']->where('name', 'Bar'));
-        $this->assertCount(0, $response['themes']->where('name', 'Foobar'));
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotViewManageThemesPage()
-    {
-        $this->signIn();
-
-        $response = $this->get(route('themes.index'));
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotViewManageThemesPage()
-    {
-        $response = $this->getJson(route('themes.index'));
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->get(route('themes.index'));
+    $response->assertForbidden();
+});
+test('unauthenticated user cannot view manage themes page', function () {
+    $response = $this->getJson(route('themes.index'));
+    $response->assertUnauthorized();
+});

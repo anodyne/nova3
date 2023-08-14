@@ -1,78 +1,45 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Users\Actions;
-
 use Nova\Users\Actions\UpdateUserStatus;
 use Nova\Users\Models\States\Active;
 use Nova\Users\Models\States\Inactive;
 use Nova\Users\Models\States\Pending;
 use Nova\Users\Models\User;
 use Spatie\ModelStates\Exceptions\TransitionNotFound;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->user = User::factory()->active()->create();
+});
+it('can transition from pending to active', function () {
+    $user = User::factory()->create();
 
-/**
- * @group users
- */
-class UpdateUserStatusActionTest extends TestCase
-{
-    protected $action;
+    UpdateUserStatus::run($user, Active::class);
 
-    protected $user;
+    expect($user->status)->toBeInstanceOf(Active::class);
+});
+it('can transition from pending to inactive', function () {
+    $user = User::factory()->create();
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    UpdateUserStatus::run($user, Inactive::class);
 
-        $this->user = User::factory()->active()->create();
-    }
+    expect($user->status)->toBeInstanceOf(Inactive::class);
+});
+it('can transition from active to inactive', function () {
+    UpdateUserStatus::run($this->user, Inactive::class);
 
-    /** @test **/
-    public function itCanTransitionFromPendingToActive()
-    {
-        $user = User::factory()->create();
+    expect($this->user->status)->toBeInstanceOf(Inactive::class);
+});
+it('can transition from inactive to active', function () {
+    $user = User::factory()->inactive()->create();
 
-        UpdateUserStatus::run($user, Active::class);
+    UpdateUserStatus::run($user, Active::class);
 
-        $this->assertInstanceOf(Active::class, $user->status);
-    }
+    expect($user->status)->toBeInstanceOf(Active::class);
+});
+it('throws an exception if the user cannot be transitioned to the status', function () {
+    $this->expectException(TransitionNotFound::class);
 
-    /** @test **/
-    public function itCanTransitionFromPendingToInactive()
-    {
-        $user = User::factory()->create();
+    UpdateUserStatus::run($this->user, Pending::class);
 
-        UpdateUserStatus::run($user, Inactive::class);
-
-        $this->assertInstanceOf(Inactive::class, $user->status);
-    }
-
-    /** @test **/
-    public function itCanTransitionFromActiveToInactive()
-    {
-        UpdateUserStatus::run($this->user, Inactive::class);
-
-        $this->assertInstanceOf(Inactive::class, $this->user->status);
-    }
-
-    /** @test **/
-    public function itCanTransitionFromInactiveToActive()
-    {
-        $user = User::factory()->inactive()->create();
-
-        UpdateUserStatus::run($user, Active::class);
-
-        $this->assertInstanceOf(Active::class, $user->status);
-    }
-
-    /** @test **/
-    public function itThrowsAnExceptionIfTheUserCannotBeTransitionedToTheStatus()
-    {
-        $this->expectException(TransitionNotFound::class);
-
-        UpdateUserStatus::run($this->user, Pending::class);
-
-        $this->assertNotEquals(Pending::class, $this->user->status);
-    }
-}
+    $this->assertNotEquals(Pending::class, $this->user->status);
+});

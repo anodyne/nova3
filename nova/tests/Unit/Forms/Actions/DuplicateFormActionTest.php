@@ -1,38 +1,15 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Forms\Actions;
-
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Forms\Actions\DuplicateForm;
 use Nova\Forms\Models\Form;
-use Tests\TestCase;
+uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
-/**
- * @group forms
- */
-class DuplicateFormActionTest extends TestCase
-{
-    use RefreshDatabase;
+beforeEach(function () {
+    $this->form = Form::factory()->create();
+});
+it('duplicates a form', function () {
+    $form = DuplicateForm::run($this->form);
 
-    protected $form;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->form = Form::factory()->create();
-    }
-
-    /** @test **/
-    public function itDuplicatesAForm()
-    {
-        $form = DuplicateForm::run($this->form);
-
-        $this->assertEquals(
-            "Copy of {$this->form->name}",
-            $form->name
-        );
-    }
-}
+    expect($form->name)->toEqual("Copy of {$this->form->name}");
+});

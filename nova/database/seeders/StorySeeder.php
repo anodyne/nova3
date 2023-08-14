@@ -11,6 +11,8 @@ class StorySeeder extends Seeder
 {
     public function run()
     {
+        activity()->disableLogging();
+
         $season1 = Story::factory()->ongoing()->create(['title' => 'Season 1', 'order_column' => 1]);
         Story::factory()->upcoming()->create(['title' => 'Season 2', 'order_column' => 2]);
 
@@ -20,5 +22,7 @@ class StorySeeder extends Seeder
 
         Story::factory()->completed()->create(['title' => 'Sub-Episode 1', 'parent_id' => $episode1->id, 'order_column' => 1]);
         Story::factory()->completed()->create(['title' => 'Sub-Episode 2', 'parent_id' => $episode1->id, 'order_column' => 2]);
+
+        activity()->enableLogging();
     }
 }

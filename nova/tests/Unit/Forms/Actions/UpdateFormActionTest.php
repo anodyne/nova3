@@ -1,64 +1,41 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Forms\Actions;
-
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Forms\Actions\UpdateForm;
 use Nova\Forms\Data\FormData;
 use Nova\Forms\Models\Form;
-use Tests\TestCase;
+uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
-/**
- * @group forms
- */
-class UpdateFormActionTest extends TestCase
-{
-    use RefreshDatabase;
+beforeEach(function () {
+    $this->form = Form::factory()->create();
+});
+it('can update a form', function () {
+    $data = FormData::from([
+        'key' => 'foo',
+        'name' => 'Foo',
+        'description' => 'New description of foo',
+        'locked' => $this->form->locked,
+    ]);
 
-    protected $form;
+    $form = UpdateForm::run($this->form, $data);
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    expect($form->key)->toEqual('foo');
+    expect($form->name)->toEqual('Foo');
+    expect($form->description)->toEqual('New description of foo');
+});
+it('cannot update the key of a locked form', function () {
+    $lockedForm = Form::factory()->locked()->create();
 
-        $this->form = Form::factory()->create();
-    }
+    $data = FormData::from([
+        'key' => 'foo',
+        'name' => 'Foo',
+        'description' => 'New description of foo',
+        'locked' => $lockedForm->locked,
+    ]);
 
-    /** @test **/
-    public function itCanUpdateAForm()
-    {
-        $data = FormData::from([
-            'key' => 'foo',
-            'name' => 'Foo',
-            'description' => 'New description of foo',
-            'locked' => $this->form->locked,
-        ]);
+    $form = UpdateForm::run($lockedForm, $data);
 
-        $form = UpdateForm::run($this->form, $data);
-
-        $this->assertEquals('foo', $form->key);
-        $this->assertEquals('Foo', $form->name);
-        $this->assertEquals('New description of foo', $form->description);
-    }
-
-    /** @test **/
-    public function itCannotUpdateTheKeyOfALockedForm()
-    {
-        $lockedForm = Form::factory()->locked()->create();
-
-        $data = FormData::from([
-            'key' => 'foo',
-            'name' => 'Foo',
-            'description' => 'New description of foo',
-            'locked' => $lockedForm->locked,
-        ]);
-
-        $form = UpdateForm::run($lockedForm, $data);
-
-        $this->assertEquals($lockedForm->key, $form->key);
-        $this->assertEquals('Foo', $form->name);
-        $this->assertEquals('New description of foo', $form->description);
-    }
-}
+    expect($form->key)->toEqual($lockedForm->key);
+    expect($form->name)->toEqual('Foo');
+    expect($form->description)->toEqual('New description of foo');
+});

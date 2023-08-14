@@ -1,39 +1,19 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Themes\Actions;
-
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
 use Nova\Themes\Actions\SetupThemeDirectory;
 use Nova\Themes\Data\ThemeData;
 use Nova\Themes\Models\Theme;
-use Tests\TestCase;
+uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
-/**
- * @group themes
- */
-class SetupThemeDirectoryActionTest extends TestCase
-{
-    use RefreshDatabase;
+beforeEach(function () {
+    $this->disk = Storage::fake('themes');
+});
+it('creates the new theme directory', function () {
+    SetupThemeDirectory::run(ThemeData::from(
+        Theme::factory()->make()->toArray()
+    ));
 
-    protected $disk;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->disk = Storage::fake('themes');
-    }
-
-    /** @test **/
-    public function itCreatesTheNewThemeDirectory()
-    {
-        SetupThemeDirectory::run(ThemeData::from(
-            Theme::factory()->make()->toArray()
-        ));
-
-        $this->assertCount(1, $this->disk->directories());
-    }
-}
+    expect($this->disk->directories())->toHaveCount(1);
+});

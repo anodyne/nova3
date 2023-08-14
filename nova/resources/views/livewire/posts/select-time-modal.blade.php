@@ -77,9 +77,9 @@
                                 your post.
                             </div>
 
-                            <x-button.outline wire:click="setNewTime" type="button" color="primary">
+                            <x-button.filled wire:click="setNewTime" type="button" color="primary">
                                 Use this time
-                            </x-button.outline>
+                            </x-button.filled>
                         </div>
                     @endforelse
 
@@ -109,6 +109,6 @@
             <x-button.filled color="primary" wire:click="apply">Apply</x-button.filled>
         @endif
 
-        <x-button.outline color="gray" wire:click="dismiss">Cancel</x-button.outline>
+        <x-button.filled color="gray" wire:click="dismiss">Cancel</x-button.filled>
     </x-content-box>
 </div>

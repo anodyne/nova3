@@ -1,38 +1,18 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Ranks\Actions\Names;
-
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Ranks\Actions\DuplicateRankName;
 use Nova\Ranks\Models\RankName;
-use Tests\TestCase;
+uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
-/**
- * @group ranks
- */
-class DuplicateRankNameActionTest extends TestCase
-{
-    use RefreshDatabase;
+beforeEach(function () {
+    $this->name = RankName::factory()->create([
+        'name' => 'Captain',
+    ]);
+});
+it('duplicates a rank name', function () {
+    $name = DuplicateRankName::run($this->name);
 
-    protected $name;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->name = RankName::factory()->create([
-            'name' => 'Captain',
-        ]);
-    }
-
-    /** @test **/
-    public function itDuplicatesARankName()
-    {
-        $name = DuplicateRankName::run($this->name);
-
-        $this->assertTrue($name->exists);
-        $this->assertEquals('Copy of Captain', $name->name);
-    }
-}
+    expect($name->exists)->toBeTrue();
+    expect($name->name)->toEqual('Copy of Captain');
+});

@@ -11,7 +11,9 @@
                 <x-button.filled type="submit" form="form" color="danger" class="w-full">Delete</x-button.filled>
             </span>
             <span class="mt-3 flex w-full sm:col-start-1 sm:mt-0">
-                <x-button.outline x-on:click="$dispatch('modal-close')" type="button" color="gray" class="w-full">Cancel</x-button.outline>
+                <x-button.filled x-on:click="$dispatch('modal-close')" type="button" color="gray" class="w-full">
+                    Cancel
+                </x-button.filled>
             </span>
         </x-slot>
     </x-modal>

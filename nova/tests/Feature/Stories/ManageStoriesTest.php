@@ -1,66 +1,37 @@
 <?php
 
 declare(strict_types=1);
+test('authorized user with create permission can view manage stories page', function () {
+    $this->signInWithPermission('story.create');
 
-namespace Tests\Feature\Stories;
+    $response = $this->get(route('stories.index'));
+    $response->assertSuccessful();
+});
+test('authorized user with update permission can view manage stories page', function () {
+    $this->signInWithPermission('story.update');
 
-use Tests\TestCase;
+    $response = $this->get(route('stories.index'));
+    $response->assertSuccessful();
+});
+test('authorized user with delete permission can view manage stories page', function () {
+    $this->signInWithPermission('story.delete');
 
-/**
- * @group storytelling
- * @group stories
- */
-class ManageStoriesTest extends TestCase
-{
-    /** @test **/
-    public function authorizedUserWithCreatePermissionCanViewManageStoriesPage()
-    {
-        $this->signInWithPermission('story.create');
+    $response = $this->get(route('stories.index'));
+    $response->assertSuccessful();
+});
+test('authorized user with view permission can view manage stories page', function () {
+    $this->signInWithPermission('story.view');
 
-        $response = $this->get(route('stories.index'));
-        $response->assertSuccessful();
-    }
+    $response = $this->get(route('stories.index'));
+    $response->assertSuccessful();
+});
+test('unauthorized user cannot view manage stories page', function () {
+    $this->signIn();
 
-    /** @test **/
-    public function authorizedUserWithUpdatePermissionCanViewManageStoriesPage()
-    {
-        $this->signInWithPermission('story.update');
-
-        $response = $this->get(route('stories.index'));
-        $response->assertSuccessful();
-    }
-
-    /** @test **/
-    public function authorizedUserWithDeletePermissionCanViewManageStoriesPage()
-    {
-        $this->signInWithPermission('story.delete');
-
-        $response = $this->get(route('stories.index'));
-        $response->assertSuccessful();
-    }
-
-    /** @test **/
-    public function authorizedUserWithViewPermissionCanViewManageStoriesPage()
-    {
-        $this->signInWithPermission('story.view');
-
-        $response = $this->get(route('stories.index'));
-        $response->assertSuccessful();
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotViewManageStoriesPage()
-    {
-        $this->signIn();
-
-        $response = $this->get(route('stories.index'));
-        $response->assertNotFound();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotViewManageStoriesPage()
-    {
-        $response = $this->getJson(route('stories.index'));
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->get(route('stories.index'));
+    $response->assertNotFound();
+});
+test('unauthenticated user cannot view manage stories page', function () {
+    $response = $this->getJson(route('stories.index'));
+    $response->assertUnauthorized();
+});

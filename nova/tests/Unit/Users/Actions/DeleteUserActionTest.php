@@ -1,43 +1,21 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Users\Actions;
-
 use Nova\Users\Actions\DeleteUser;
 use Nova\Users\Exceptions\UserException;
 use Nova\Users\Models\User;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->user = User::factory()->active()->create();
+});
+it('deletes a user', function () {
+    $user = DeleteUser::run($this->user);
 
-/**
- * @group users
- */
-class DeleteUserActionTest extends TestCase
-{
-    protected $user;
+    expect($user->deleted_at)->not->toBeNull();
+});
+it('throws an exception if the current user tries to delete their account', function () {
+    $this->expectException(UserException::class);
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $this->signIn($this->user);
 
-        $this->user = User::factory()->active()->create();
-    }
-
-    /** @test **/
-    public function itDeletesAUser()
-    {
-        $user = DeleteUser::run($this->user);
-
-        $this->assertNotNull($user->deleted_at);
-    }
-
-    /** @test **/
-    public function itThrowsAnExceptionIfTheCurrentUserTriesToDeleteTheirAccount()
-    {
-        $this->expectException(UserException::class);
-
-        $this->signIn($this->user);
-
-        DeleteUser::run($this->user);
-    }
-}
+    DeleteUser::run($this->user);
+});

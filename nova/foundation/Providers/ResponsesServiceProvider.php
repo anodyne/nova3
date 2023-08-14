@@ -10,7 +10,11 @@ class ResponsesServiceProvider extends ServiceProvider
 {
     public function register()
     {
+        clock()->event('responses service provider register')->color('purple')->begin();
+
         $this->registerResponseClasses();
+
+        clock()->event('fortify service provider register')->end();
     }
 
     public function provides()

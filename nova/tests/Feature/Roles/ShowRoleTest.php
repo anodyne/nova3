@@ -1,49 +1,24 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\Roles;
-
 use Nova\Roles\Models\Role;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->role = Role::factory()->create();
+});
+test('authorized user can view a role', function () {
+    $this->signInWithPermission('role.view');
 
-/**
- * @group roles
- */
-class ShowRoleTest extends TestCase
-{
-    protected $role;
+    $response = $this->get(route('roles.show', $this->role));
+    $response->assertSuccessful();
+    $response->assertViewHas('role', $this->role);
+});
+test('unauthorized user cannot view a role', function () {
+    $this->signIn();
 
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->role = Role::factory()->create();
-    }
-
-    /** @test **/
-    public function authorizedUserCanViewARole()
-    {
-        $this->signInWithPermission('role.view');
-
-        $response = $this->get(route('roles.show', $this->role));
-        $response->assertSuccessful();
-        $response->assertViewHas('role', $this->role);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotViewARole()
-    {
-        $this->signIn();
-
-        $response = $this->get(route('roles.show', $this->role));
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotViewARole()
-    {
-        $response = $this->getJson(route('roles.show', $this->role));
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->get(route('roles.show', $this->role));
+    $response->assertForbidden();
+});
+test('unauthenticated user cannot view a role', function () {
+    $response = $this->getJson(route('roles.show', $this->role));
+    $response->assertUnauthorized();
+});

@@ -1,85 +1,57 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Themes;
-
 use Illuminate\Support\Facades\Storage;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->disk = Storage::fake('themes');
 
-/**
- * @group themes
- */
-class MakeThemeCommandTest extends TestCase
-{
-    protected $disk;
+    $this->withoutExceptionHandling();
+    $this->markTestSkipped();
+});
+it('can scaffold a theme directory', function () {
+    $this->artisan('nova:make-theme', [
+        'name' => 'Foo',
+    ]);
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $files = $this->disk->allFiles('foo');
 
-        $this->disk = Storage::fake('themes');
+    expect($this->disk->directories())->toHaveCount(1);
+    expect($files)->toContain('foo/theme.json');
+    expect($files)->toContain('foo/Theme.php');
+    expect($files)->toContain('foo/design/custom.css');
+});
+it('can scaffold a theme directory at a custom location', function () {
+    $this->artisan('nova:make-theme', [
+        'name' => 'Foo',
+        '--location' => 'bar',
+    ]);
 
-        $this->withoutExceptionHandling();
-        $this->markTestSkipped();
-    }
+    $directories = $this->disk->directories();
 
-    /** @test **/
-    public function itCanScaffoldAThemeDirectory()
-    {
-        $this->artisan('nova:make-theme', [
-            'name' => 'Foo',
-        ]);
+    expect($directories)->toContain('bar');
+    expect($directories)->not->toContain('foo');
+});
+it('can scaffold a theme directory with variant stylesheets', function () {
+    $this->artisan('nova:make-theme', [
+        'name' => 'Foo',
+        '--variants' => ['blue', 'red'],
+    ]);
 
-        $files = $this->disk->allFiles('foo');
+    $files = $this->disk->allFiles('foo');
 
-        $this->assertCount(1, $this->disk->directories());
-        $this->assertContains('foo/theme.json', $files);
-        $this->assertContains('foo/Theme.php', $files);
-        $this->assertContains('foo/design/custom.css', $files);
-    }
+    expect($files)->toContain('foo/design/variants/blue.css');
+    expect($files)->toContain('foo/design/variants/red.css');
+});
+it('strips unnecessary whitespace from variant filenames', function () {
+    $this->artisan('nova:make-theme', [
+        'name' => 'Foo',
+        '--variants' => ['blue', ' red', 'green ', ' purple '],
+    ]);
 
-    /** @test **/
-    public function itCanScaffoldAThemeDirectoryAtACustomLocation()
-    {
-        $this->artisan('nova:make-theme', [
-            'name' => 'Foo',
-            '--location' => 'bar',
-        ]);
+    $files = $this->disk->allFiles('foo');
 
-        $directories = $this->disk->directories();
-
-        $this->assertContains('bar', $directories);
-        $this->assertNotContains('foo', $directories);
-    }
-
-    /** @test **/
-    public function itCanScaffoldAThemeDirectoryWithVariantStylesheets()
-    {
-        $this->artisan('nova:make-theme', [
-            'name' => 'Foo',
-            '--variants' => ['blue', 'red'],
-        ]);
-
-        $files = $this->disk->allFiles('foo');
-
-        $this->assertContains('foo/design/variants/blue.css', $files);
-        $this->assertContains('foo/design/variants/red.css', $files);
-    }
-
-    /** @test **/
-    public function itStripsUnnecessaryWhitespaceFromVariantFilenames()
-    {
-        $this->artisan('nova:make-theme', [
-            'name' => 'Foo',
-            '--variants' => ['blue', ' red', 'green ', ' purple '],
-        ]);
-
-        $files = $this->disk->allFiles('foo');
-
-        $this->assertContains('foo/design/variants/blue.css', $files);
-        $this->assertContains('foo/design/variants/red.css', $files);
-        $this->assertContains('foo/design/variants/green.css', $files);
-        $this->assertContains('foo/design/variants/purple.css', $files);
-    }
-}
+    expect($files)->toContain('foo/design/variants/blue.css');
+    expect($files)->toContain('foo/design/variants/red.css');
+    expect($files)->toContain('foo/design/variants/green.css');
+    expect($files)->toContain('foo/design/variants/purple.css');
+});

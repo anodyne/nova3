@@ -1,106 +1,74 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\PostTypes;
-
 use Illuminate\Support\Facades\Event;
 use Nova\PostTypes\Events\PostTypeCreated;
 use Nova\PostTypes\Models\PostType;
 use Nova\PostTypes\Requests\CreatePostTypeRequest;
-use Tests\TestCase;
+test('authorized user can view the create post type page', function () {
+    $this->signInWithPermission('post-type.create');
 
-/**
- * @group storytelling
- * @group post-types
- */
-class CreatePostTypeTest extends TestCase
-{
-    /** @test **/
-    public function authorizedUserCanViewTheCreatePostTypePage()
-    {
-        $this->signInWithPermission('post-type.create');
+    $response = $this->get(route('post-types.create'));
+    $response->assertSuccessful();
+});
+test('authorized user can create post type', function () {
+    $this->withoutExceptionHandling();
+    $this->signInWithPermission('post-type.create');
 
-        $response = $this->get(route('post-types.create'));
-        $response->assertSuccessful();
-    }
+    $postType = PostType::factory()->make();
 
-    /** @test **/
-    public function authorizedUserCanCreatePostType()
-    {
-        $this->withoutExceptionHandling();
-        $this->signInWithPermission('post-type.create');
+    $this->followingRedirects();
 
-        $postType = PostType::factory()->make();
+    $response = $this->post(
+        route('post-types.store'),
+        array_merge($postType->toArray(), [
+            'status' => 'active',
+        ])
+    );
+    $response->assertSuccessful();
 
-        $this->followingRedirects();
+    $this->assertDatabaseHas('post_types', $postType->only('name', 'key'));
 
-        $response = $this->post(
-            route('post-types.store'),
-            array_merge($postType->toArray(), [
-                'status' => 'active',
-            ])
-        );
-        $response->assertSuccessful();
+    $this->assertRouteUsesFormRequest(
+        'post-types.store',
+        CreatePostTypeRequest::class
+    );
+});
+test('event is dispatched when post type is created', function () {
+    Event::fake();
 
-        $this->assertDatabaseHas('post_types', $postType->only('name', 'key'));
+    $this->signInWithPermission('post-types.create');
 
-        $this->assertRouteUsesFormRequest(
-            'post-types.store',
-            CreatePostTypeRequest::class
-        );
-    }
+    $this->post(
+        route('post-types.store'),
+        PostType::factory()->make()->toArray()
+    );
 
-    /** @test **/
-    public function eventIsDispatchedWhenPostTypeIsCreated()
-    {
-        Event::fake();
+    Event::assertDispatched(PostTypeCreated::class);
+});
+test('unauthorized user cannot view the create post type page', function () {
+    $this->signIn();
 
-        $this->signInWithPermission('post-types.create');
+    $response = $this->get(route('post-types.create'));
+    $response->assertNotFound();
+});
+test('unauthorized user cannot create post type', function () {
+    $this->signIn();
 
-        $this->post(
-            route('post-types.store'),
-            PostType::factory()->make()->toArray()
-        );
-
-        Event::assertDispatched(PostTypeCreated::class);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotViewTheCreatePostTypePage()
-    {
-        $this->signIn();
-
-        $response = $this->get(route('post-types.create'));
-        $response->assertNotFound();
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotCreatePostType()
-    {
-        $this->signIn();
-
-        $response = $this->postJson(
-            route('post-types.store'),
-            PostType::factory()->make()->toArray()
-        );
-        $response->assertNotFound();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotViewTheCreatePostTypePage()
-    {
-        $response = $this->getJson(route('post-types.create'));
-        $response->assertUnauthorized();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotCreatePostType()
-    {
-        $response = $this->postJson(
-            route('post-types.store'),
-            PostType::factory()->make()->toArray()
-        );
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->postJson(
+        route('post-types.store'),
+        PostType::factory()->make()->toArray()
+    );
+    $response->assertNotFound();
+});
+test('unauthenticated user cannot view the create post type page', function () {
+    $response = $this->getJson(route('post-types.create'));
+    $response->assertUnauthorized();
+});
+test('unauthenticated user cannot create post type', function () {
+    $response = $this->postJson(
+        route('post-types.store'),
+        PostType::factory()->make()->toArray()
+    );
+    $response->assertUnauthorized();
+});

@@ -1,51 +1,60 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Characters\Actions;
-
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Characters\Actions\SetCharacterType;
 use Nova\Characters\Enums\CharacterType;
 use Nova\Characters\Models\Character;
 use Nova\Users\Models\User;
-use Tests\TestCase;
 
-/**
- * @group characters
- */
-class SetCharacterTypeActionTest extends TestCase
-{
-    use RefreshDatabase;
+uses()->group('characters');
 
-    protected $character;
+it('can set a primary character as a secondary character', function () {
+    $character = Character::factory()->primary()->create();
+    $user = User::factory()->active()->create();
+    $character->users()->attach($user);
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $character = SetCharacterType::run($character);
 
-        $this->character = Character::factory()->create();
-    }
+    expect($character->type)->toEqual(CharacterType::secondary);
+});
+it('can set a support character as a secondary character', function () {
+    $character = Character::factory()->support()->create();
+    $user = User::factory()->active()->create();
+    $character->users()->attach($user);
 
-    /** @test **/
-    public function itCanSetCharacterAsSecondaryCharacter()
-    {
-        $user = User::factory()->active()->create();
-        $this->character->users()->attach($user);
+    $character = SetCharacterType::run($character);
 
-        $character = SetCharacterType::run($this->character);
+    expect($character->type)->toEqual(CharacterType::secondary);
+});
+it('can set a secondary character as a primary character', function () {
+    $character = Character::factory()->secondary()->create();
+    $user = User::factory()->active()->create();
+    $character->users()->attach($user, ['primary' => true]);
 
-        $this->assertEquals(CharacterType::secondary, $character->type);
-    }
+    $character = SetCharacterType::run($character);
 
-    /** @test **/
-    public function itCanSetCharacterAsPrimaryCharacter()
-    {
-        $user = User::factory()->active()->create();
-        $this->character->users()->attach($user, ['primary' => true]);
+    expect($character->type)->toEqual(CharacterType::primary);
+});
+it('can set a support character as a primary character', function () {
+    $character = Character::factory()->support()->create();
+    $user = User::factory()->active()->create();
+    $character->users()->attach($user, ['primary' => true]);
 
-        $character = SetCharacterType::run($this->character);
+    $character = SetCharacterType::run($character);
 
-        $this->assertEquals(CharacterType::primary, $character->type);
-    }
-}
+    expect($character->type)->toEqual(CharacterType::primary);
+});
+it('can set a primary character as a support character', function () {
+    $character = Character::factory()->primary()->create();
+
+    $character = SetCharacterType::run($character);
+
+    expect($character->type)->toEqual(CharacterType::support);
+});
+it('can set a secondary character as a support character', function () {
+    $character = Character::factory()->secondary()->create();
+
+    $character = SetCharacterType::run($character);
+
+    expect($character->type)->toEqual(CharacterType::support);
+});

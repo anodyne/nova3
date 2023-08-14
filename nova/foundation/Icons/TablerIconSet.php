@@ -85,6 +85,7 @@ class TablerIconSet extends IconSet
             'share' => 'tabler-share-3',
             'shield' => 'tabler-shield',
             'show' => 'tabler-eye',
+            'spy' => 'tabler-spy',
             'star' => 'tabler-star',
             'sun' => 'tabler-sun',
             'tag' => 'tabler-tag',

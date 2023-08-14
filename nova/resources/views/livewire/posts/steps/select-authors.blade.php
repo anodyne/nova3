@@ -78,12 +78,12 @@
 
                     @if ($this->canAddAuthors)
                         <div class="ml-6 shrink-0">
-                            <x-button.outline
-                                color="primary"
+                            <x-button.filled
+                                color="gray"
                                 wire:click="$emit('openModal', 'posts:select-character-authors-modal')"
                             >
                                 Add characters
-                            </x-button.outline>
+                            </x-button.filled>
                         </div>
                     @endif
                 </div>
@@ -206,12 +206,12 @@
 
                     @if ($this->canAddAuthors)
                         <div class="ml-6 shrink-0">
-                            <x-button.outline
-                                color="primary"
+                            <x-button.filled
+                                color="gray"
                                 wire:click="$emit('openModal', 'posts:select-user-authors-modal')"
                             >
                                 Add users
-                            </x-button.outline>
+                            </x-button.filled>
                         </div>
                     @endif
                 </div>

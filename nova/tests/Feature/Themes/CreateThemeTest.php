@@ -1,115 +1,76 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\Themes;
-
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
 use Nova\Themes\Events\ThemeCreated;
 use Nova\Themes\Models\Theme;
 use Nova\Themes\Requests\CreateThemeRequest;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->disk = Storage::fake('themes');
 
-/**
- * @group themes
- */
-class CreateThemeTest extends TestCase
-{
-    protected $disk;
+    $this->theme = Theme::factory()->create();
+});
+test('authorized user can view the create theme page', function () {
+    $this->signInWithPermission('theme.create');
 
-    protected $theme;
+    $response = $this->get(route('themes.index'));
+    $response->assertSuccessful();
+});
+test('authorized user can create theme', function () {
+    $this->signInWithPermission('theme.create');
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $this->followingRedirects();
 
-        $this->disk = Storage::fake('themes');
+    $response = $this->post(
+        route('themes.store'),
+        $theme = Theme::factory()->make()->toArray()
+    );
+    $response->assertSuccessful();
 
-        $this->theme = Theme::factory()->create();
-    }
+    $this->assertDatabaseHas('themes', Arr::only($theme, [
+        'name',
+        'location',
+    ]));
 
-    /** @test **/
-    public function authorizedUserCanViewTheCreateThemePage()
-    {
-        $this->signInWithPermission('theme.create');
+    $this->assertRouteUsesFormRequest(
+        'themes.store',
+        CreateThemeRequest::class
+    );
+});
+test('event is dispatched when theme is created', function () {
+    Event::fake();
 
-        $response = $this->get(route('themes.index'));
-        $response->assertSuccessful();
-    }
+    $this->signInWithPermission('theme.create');
 
-    /** @test **/
-    public function authorizedUserCanCreateTheme()
-    {
-        $this->signInWithPermission('theme.create');
+    $this->post(route('themes.store'), Theme::factory()->make()->toArray());
 
-        $this->followingRedirects();
+    Event::assertDispatched(ThemeCreated::class);
+});
+test('unauthorized user cannot view the create theme page', function () {
+    $this->signIn();
 
-        $response = $this->post(
-            route('themes.store'),
-            $theme = Theme::factory()->make()->toArray()
-        );
-        $response->assertSuccessful();
+    $response = $this->get(route('themes.create'));
+    $response->assertForbidden();
+});
+test('unauthorized user cannot create theme', function () {
+    $this->signIn();
 
-        $this->assertDatabaseHas('themes', Arr::only($theme, [
-            'name',
-            'location',
-        ]));
-
-        $this->assertRouteUsesFormRequest(
-            'themes.store',
-            CreateThemeRequest::class
-        );
-    }
-
-    /** @test **/
-    public function eventIsDispatchedWhenThemeIsCreated()
-    {
-        Event::fake();
-
-        $this->signInWithPermission('theme.create');
-
-        $this->post(route('themes.store'), Theme::factory()->make()->toArray());
-
-        Event::assertDispatched(ThemeCreated::class);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotViewTheCreateThemePage()
-    {
-        $this->signIn();
-
-        $response = $this->get(route('themes.create'));
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotCreateTheme()
-    {
-        $this->signIn();
-
-        $response = $this->post(
-            route('themes.store'),
-            Theme::factory()->make()->toArray()
-        );
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotViewTheCreateThemePage()
-    {
-        $response = $this->getJson(route('themes.create'));
-        $response->assertUnauthorized();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotCreateTheme()
-    {
-        $response = $this->postJson(
-            route('themes.store'),
-            Theme::factory()->make()->toArray()
-        );
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->post(
+        route('themes.store'),
+        Theme::factory()->make()->toArray()
+    );
+    $response->assertForbidden();
+});
+test('unauthenticated user cannot view the create theme page', function () {
+    $response = $this->getJson(route('themes.create'));
+    $response->assertUnauthorized();
+});
+test('unauthenticated user cannot create theme', function () {
+    $response = $this->postJson(
+        route('themes.store'),
+        Theme::factory()->make()->toArray()
+    );
+    $response->assertUnauthorized();
+});

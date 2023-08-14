@@ -50,56 +50,69 @@
 
             <x-form.footer>
                 <x-button.filled type="submit" color="primary">Update</x-button.filled>
-                <x-button.outline :href="route('characters.index')" color="gray">Cancel</x-button.outline>
+                <x-button.filled :href="route('characters.index')" color="gray">Cancel</x-button.filled>
             </x-form.footer>
         </x-form>
     </x-panel>
 
-    {{--
-        @can('deactivate', $character)
-        <x-panel class="mt-8">
-        <x-content-box>
-        <x-h3>Deactivate character</x-h3>
-        
-        <div class="mt-2 sm:flex sm:items-start sm:justify-between">
-        <div class="w-full text-gray-500">
-        <p>
-        When deactivating the character, the owning user(s) will remain at their current status. Pay special attention to deactivating a character who is the only character assigned to a user as it may impede their ability to contribute to stories.
-        </p>
-        </div>
-        <div class="mt-5 sm:mt-0 sm:ml-8 sm:shrink-0 sm:flex sm:items-center">
-        <x-form :action="route('characters.deactivate', $character)">
-        <x-button.outline type="submit" color="danger">
-        Deactivate
-        </x-button.outline>
-        </x-form>
-        </div>
-        </div>
-        </x-content-box>
+    @canany(['activate', 'deactivate'], $character)
+        <x-panel>
+            <x-content-box class="flex flex-col gap-6">
+                <h3 class="text-base/6 font-semibold text-gray-900 dark:text-white">Actions</h3>
+
+                @can('activate', $character)
+                    <x-panel as="light-well">
+                        <x-content-box class="sm:flex sm:items-start sm:justify-between">
+                            <h4 class="sr-only">Visa</h4>
+                            <div class="sm:flex sm:items-start">
+                                <x-icon name="check" size="lg"></x-icon>
+                                <div class="mt-3 sm:ml-4 sm:mt-0">
+                                    <div class="text-sm font-medium text-gray-900 dark:text-white">
+                                        Activate character
+                                    </div>
+                                    <div
+                                        class="mt-1 max-w-2xl text-sm text-gray-600 dark:text-gray-400 sm:flex sm:items-center"
+                                    >
+                                        When activating the character, if they were previously a primary character for
+                                        the user, but the user has since had a new primary character set for themselves,
+                                        this character will be set as a secondary character for the user.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 sm:ml-6 sm:mt-0 sm:flex-shrink-0">
+                                <x-button.filled type="button" color="gray">Activate</x-button.filled>
+                            </div>
+                        </x-content-box>
+                    </x-panel>
+                @endcan
+
+                @can('deactivate', $character)
+                    <x-panel as="light-well">
+                        <x-content-box class="sm:flex sm:items-start sm:justify-between">
+                            <h4 class="sr-only">Visa</h4>
+                            <div class="sm:flex sm:items-start">
+                                <x-icon name="remove" size="lg"></x-icon>
+                                <div class="mt-3 sm:ml-4 sm:mt-0">
+                                    <div class="text-sm font-medium text-gray-900 dark:text-white">
+                                        Deactivate character
+                                    </div>
+                                    <div
+                                        class="mt-1 max-w-2xl text-sm text-gray-600 dark:text-gray-400 sm:flex sm:items-center"
+                                    >
+                                        When deactivating the character, the owning user(s) will remain at their current
+                                        status. Pay special attention to deactivating a character who is the only
+                                        character assigned to a user as it may impede their ability to contribute to
+                                        stories.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 sm:ml-6 sm:mt-0 sm:flex-shrink-0">
+                                <x-button.filled type="button" color="gray">Deactivate</x-button.filled>
+                            </div>
+                        </x-content-box>
+                    </x-panel>
+                @endcan
+            </x-content-box>
         </x-panel>
-        @endcan
-        
-        @can('activate', $character)
-        <x-panel class="mt-8">
-        <x-content-box>
-        <x-h3>Activate character</x-h3>
-        
-        <div class="mt-2 sm:flex sm:items-start sm:justify-between">
-        <div class="w-full text-gray-500">
-        <p>
-        When activating the character, if they were previously a primary character for the user, but the user has since had a new primary character set for themselves, this character will be set as a secondary character for the user.
-        </p>
-        </div>
-        <div class="mt-5 sm:mt-0 sm:ml-8 sm:shrink-0 sm:flex sm:items-center">
-        <x-form :action="route('characters.activate', $character)">
-        <x-button.outline type="submit" color="primary">
-        Activate
-        </x-button.outline>
-        </x-form>
-        </div>
-        </div>
-        </x-content-box>
-        </x-panel>
-        @endcan
-    --}}
+    @endcanany
 @endsection

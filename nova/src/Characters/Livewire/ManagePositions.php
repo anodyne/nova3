@@ -18,17 +18,11 @@ class ManagePositions extends Component
 
     public Collection $assigned;
 
-    public ?int $primaryPosition = null;
-
     public function assignPosition(Position $position): void
     {
         $this->search = '';
 
         $this->assigned->push($position);
-
-        // if ($this->primaryPosition === null) {
-        //     $this->primaryPosition = $position->id;
-        // }
     }
 
     public function unassignPosition(Position $position): void
@@ -36,18 +30,6 @@ class ManagePositions extends Component
         $this->assigned = $this->assigned->reject(
             fn (Position $collectionPosition) => $collectionPosition->id === $position->id
         );
-
-        // if ($this->primaryPosition === $position->id) {
-        //     $this->primaryPosition = match (true) {
-        //         $this->assigned->count() === 1 => $this->assigned->first()?->id,
-        //         default => null,
-        //     };
-        // }
-    }
-
-    public function setPrimaryPosition(Position $position): void
-    {
-        $this->primaryPosition = $position->id;
     }
 
     public function getPositionsProperty(): Collection
@@ -74,8 +56,6 @@ class ManagePositions extends Component
     public function mount(): void
     {
         $this->assigned = $this->character?->positions ?? Collection::make();
-
-        // $this->primaryPosition = $this->character?->positions()->wherePivot('primary', true)->first()?->id;
     }
 
     public function render()

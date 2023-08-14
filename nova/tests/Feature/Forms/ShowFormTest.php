@@ -1,49 +1,24 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\Forms;
-
 use Nova\Forms\Models\Form;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->form = Form::factory()->create();
+});
+test('authorized user can view a form', function () {
+    $this->signInWithPermission('form.view');
 
-/**
- * @group forms
- */
-class ShowFormTest extends TestCase
-{
-    protected $form;
+    $response = $this->get(route('forms.show', $this->form));
+    $response->assertSuccessful();
+    $response->assertViewHas('form', $this->form);
+});
+test('unauthorized user cannot view a form', function () {
+    $this->signIn();
 
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->form = Form::factory()->create();
-    }
-
-    /** @test **/
-    public function authorizedUserCanViewAForm()
-    {
-        $this->signInWithPermission('form.view');
-
-        $response = $this->get(route('forms.show', $this->form));
-        $response->assertSuccessful();
-        $response->assertViewHas('form', $this->form);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotViewAForm()
-    {
-        $this->signIn();
-
-        $response = $this->get(route('forms.show', $this->form));
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotViewAForm()
-    {
-        $response = $this->getJson(route('forms.show', $this->form));
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->get(route('forms.show', $this->form));
+    $response->assertForbidden();
+});
+test('unauthenticated user cannot view a form', function () {
+    $response = $this->getJson(route('forms.show', $this->form));
+    $response->assertUnauthorized();
+});

@@ -20,6 +20,11 @@ class PendingToPublished extends Transition
         $this->post->published_at = now();
         $this->post->save();
 
+        activity()
+            ->performedOn($this->post)
+            ->event('published')
+            ->log(':subject.title post was published from a pending state');
+
         return $this->post->refresh();
     }
 }

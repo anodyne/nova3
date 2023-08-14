@@ -2,44 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Notes\Actions;
-
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Notes\Actions\UpdateNote;
 use Nova\Notes\Data\NoteData;
 use Nova\Notes\Models\Note;
-use Tests\TestCase;
 
-/**
- * @group notes
- */
-class UpdateNoteActionTest extends TestCase
-{
-    use RefreshDatabase;
+uses()->group('notes');
 
-    protected $note;
+it('updates a note', function () {
+    $note = Note::factory()->create([
+        'title' => 'My First Note',
+        'content' => 'Content',
+    ]);
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $data = NoteData::from([
+        'title' => 'My Note',
+        'content' => 'New content',
+    ]);
 
-        $this->note = Note::factory()->create([
-            'title' => 'My First Note',
-            'content' => 'Content',
-        ]);
-    }
+    $note = UpdateNote::run($note, $data);
 
-    /** @test **/
-    public function itUpdatesANote()
-    {
-        $data = NoteData::from([
-            'title' => 'My Note',
-            'content' => 'New content',
-        ]);
-
-        $note = UpdateNote::run($this->note, $data);
-
-        $this->assertEquals('My Note', $note->title);
-        $this->assertEquals('New content', $note->content);
-    }
-}
+    expect($note->title)->toEqual('My Note');
+    expect($note->content)->toEqual('New content');
+});

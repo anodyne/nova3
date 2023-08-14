@@ -1,9 +1,6 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\Posts;
-
 use Illuminate\Support\Facades\Event;
 use Livewire\Livewire;
 use Nova\Posts\Actions\CreateRootPost;
@@ -11,128 +8,95 @@ use Nova\Posts\Events\PostCreated;
 use Nova\Posts\Livewire\ComposePost;
 use Nova\PostTypes\Models\PostType;
 use Nova\Stories\Models\Story;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->markTestSkipped();
 
-/**
- * @group storytelling
- * @group posts
- */
-class CreatePostTest extends TestCase
-{
-    public function setUp(): void
-    {
-        parent::setUp();
+    app(CreateRootPost::class)->execute(
+        Story::factory()->current()->create()
+    );
+});
+test('authorized user can view the create post page', function () {
+    $this->signInWithPermission('post.create');
 
-        $this->markTestSkipped();
+    $response = $this->get(route('posts.create'));
+    $response->assertSuccessful();
+    $response->assertSeeLivewire('posts:compose');
+});
+test('authorized user can create a post', function () {
+    $this->signInWithPermission('post.create');
 
-        app(CreateRootPost::class)->execute(
-            Story::factory()->current()->create()
-        );
-    }
+    Livewire::test(ComposePost::class, [
+        'allPostTypes' => $postTypes = PostType::get(),
+        'allStories' => Story::current()->get(),
+    ])->set('postType', $postTypes->first())
+        ->set('title', 'title')
+        ->set('day', 'day')
+        ->set('time', 'time')
+        ->set('location', 'location')
+        ->set('content', 'content')
+        ->call('publish');
 
-    /** @test **/
-    public function authorizedUserCanViewTheCreatePostPage()
-    {
-        $this->signInWithPermission('post.create');
+    $this->assertDatabaseHas('posts', [
+        'title' => 'title',
+        'day' => 'day',
+        'time' => 'time',
+        'location' => 'location',
+        'content' => 'content',
+    ]);
+});
+test('event is dispatched when post is created', function () {
+    Event::fake();
 
-        $response = $this->get(route('posts.create'));
-        $response->assertSuccessful();
-        $response->assertSeeLivewire('posts:compose');
-    }
+    $this->signInWithPermission('post.create');
 
-    /** @test **/
-    public function authorizedUserCanCreateAPost()
-    {
-        $this->signInWithPermission('post.create');
+    Livewire::test(ComposePost::class, [
+        'allPostTypes' => $postTypes = PostType::get(),
+        'allStories' => Story::current()->get(),
+    ])->set('postType', $postTypes->first())
+        ->set('title', 'title')
+        ->set('day', 'day')
+        ->set('time', 'time')
+        ->set('location', 'location')
+        ->set('content', 'content')
+        ->call('publish');
 
-        Livewire::test(ComposePost::class, [
-            'allPostTypes' => $postTypes = PostType::get(),
-            'allStories' => Story::current()->get(),
-        ])->set('postType', $postTypes->first())
-            ->set('title', 'title')
-            ->set('day', 'day')
-            ->set('time', 'time')
-            ->set('location', 'location')
-            ->set('content', 'content')
-            ->call('publish');
+    Event::assertDispatched(PostCreated::class);
+});
+test('unauthorized user cannot view the create post page', function () {
+    $this->signIn();
 
-        $this->assertDatabaseHas('posts', [
-            'title' => 'title',
-            'day' => 'day',
-            'time' => 'time',
-            'location' => 'location',
-            'content' => 'content',
-        ]);
-    }
+    $response = $this->get(route('posts.create'));
+    $response->assertForbidden();
+});
+test('unauthorized user cannot create a post', function () {
+    $this->signIn();
 
-    /** @test **/
-    public function eventIsDispatchedWhenPostIsCreated()
-    {
-        Event::fake();
-
-        $this->signInWithPermission('post.create');
-
-        Livewire::test(ComposePost::class, [
-            'allPostTypes' => $postTypes = PostType::get(),
-            'allStories' => Story::current()->get(),
-        ])->set('postType', $postTypes->first())
-            ->set('title', 'title')
-            ->set('day', 'day')
-            ->set('time', 'time')
-            ->set('location', 'location')
-            ->set('content', 'content')
-            ->call('publish');
-
-        Event::assertDispatched(PostCreated::class);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotViewTheCreatePostPage()
-    {
-        $this->signIn();
-
-        $response = $this->get(route('posts.create'));
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotCreateAPost()
-    {
-        $this->signIn();
-
-        Livewire::test(ComposePost::class, [
-            'allPostTypes' => $postTypes = PostType::get(),
-            'allStories' => Story::current()->get(),
-        ])->set('postType', $postTypes->first())
-            ->set('title', 'title')
-            ->set('day', 'day')
-            ->set('time', 'time')
-            ->set('location', 'location')
-            ->set('content', 'content')
-            ->call('publish')
-            ->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotViewTheCreatePostPage()
-    {
-        $response = $this->getJson(route('posts.create'));
-        $response->assertUnauthorized();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotCreateAPost()
-    {
-        Livewire::test(ComposePost::class, [
-            'allPostTypes' => $postTypes = PostType::get(),
-            'allStories' => Story::current()->get(),
-        ])->set('postType', $postTypes->first())
-            ->set('title', 'title')
-            ->set('day', 'day')
-            ->set('time', 'time')
-            ->set('location', 'location')
-            ->set('content', 'content')
-            ->call('publish')
-            ->assertForbidden();
-    }
-}
+    Livewire::test(ComposePost::class, [
+        'allPostTypes' => $postTypes = PostType::get(),
+        'allStories' => Story::current()->get(),
+    ])->set('postType', $postTypes->first())
+        ->set('title', 'title')
+        ->set('day', 'day')
+        ->set('time', 'time')
+        ->set('location', 'location')
+        ->set('content', 'content')
+        ->call('publish')
+        ->assertForbidden();
+});
+test('unauthenticated user cannot view the create post page', function () {
+    $response = $this->getJson(route('posts.create'));
+    $response->assertUnauthorized();
+});
+test('unauthenticated user cannot create a post', function () {
+    Livewire::test(ComposePost::class, [
+        'allPostTypes' => $postTypes = PostType::get(),
+        'allStories' => Story::current()->get(),
+    ])->set('postType', $postTypes->first())
+        ->set('title', 'title')
+        ->set('day', 'day')
+        ->set('time', 'time')
+        ->set('location', 'location')
+        ->set('content', 'content')
+        ->call('publish')
+        ->assertForbidden();
+});

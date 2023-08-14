@@ -153,7 +153,7 @@
                         </x-slot>
 
                         <x-slot name="secondary">
-                            <x-button.outline color="gray" wire:click="$set('search', '')">Clear search</x-button.outline>
+                            <x-button.filled color="gray" wire:click="$set('search', '')">Clear search</x-button.filled>
                         </x-slot>
                     </x-empty-state.not-found>
                 </x-slot>

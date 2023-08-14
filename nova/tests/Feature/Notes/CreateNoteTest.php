@@ -2,84 +2,65 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Notes;
-
 use Illuminate\Support\Facades\Event;
 use Nova\Notes\Events\NoteCreated;
 use Nova\Notes\Models\Note;
 use Nova\Notes\Requests\CreateNoteRequest;
-use Tests\TestCase;
+use function Pest\Laravel\assertDatabaseHas;
+use function Pest\Laravel\assertDatabaseMissing;
+use function Pest\Laravel\get;
+use function Pest\Laravel\getJson;
+use function Pest\Laravel\post;
+use function Pest\Laravel\postJson;
 
-/**
- * @group notes
- */
-class CreateNoteTest extends TestCase
-{
-    /** @test **/
-    public function authenticatedUserCanViewTheCreateNotePage()
-    {
+uses()->group('notes');
+
+describe('authenticated user', function () {
+    test('can view the create note page', function () {
         $this->signIn();
 
-        $response = $this->get(route('notes.create'));
-        $response->assertSuccessful();
-    }
+        get(route('notes.create'))->assertSuccessful();
+    });
 
-    /** @test **/
-    public function authenticatedUserCanCreateNote()
-    {
+    test('can create a note', function () {
+        Event::fake();
+
         $this->signIn();
 
-        $data = Note::factory()->make([
-            'user_id' => auth()->id(),
-        ]);
+        $data = Note::factory()->make();
 
         $this->followingRedirects();
 
-        $response = $this->post(route('notes.store'), array_merge(
-            $data->toArray(),
-            ['editor-content' => $data->content]
-        ));
-        $response->assertSuccessful();
+        post(route('notes.store'), array_merge($data->toArray(), [
+            'editor-content' => $data->content,
+        ]))->assertSuccessful();
+
+        Event::assertDispatched(NoteCreated::class);
 
         $this->assertRouteUsesFormRequest(
             'notes.store',
             CreateNoteRequest::class
         );
 
-        $this->assertDatabaseHas('notes', [
+        assertDatabaseHas(Note::class, [
             'user_id' => auth()->id(),
             'title' => $data->title,
             'content' => $data->content,
-            'summary' => $data->summary,
         ]);
-    }
+    });
+});
 
-    /** @test **/
-    public function eventIsDispatchedWhenNoteIsCreated()
-    {
-        Event::fake();
+describe('unauthenticated user', function () {
+    test('cannot view the create note page', function () {
+        getJson(route('notes.create'))->assertUnauthorized();
+    });
 
-        $this->signIn();
+    test('cannot create a note', function () {
+        postJson(route('notes.store'), $note = Note::factory()->make()->toArray())
+            ->assertUnauthorized();
 
-        $this->post(route('notes.store'), Note::factory()->make()->toArray());
-
-        Event::assertDispatched(NoteCreated::class);
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotViewCreateNotePage()
-    {
-        $response = $this->getJson(route('notes.create'));
-        $response->assertUnauthorized();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotCreateNote()
-    {
-        $response = $this->postJson(
-            route('notes.store'),
-            Note::factory()->make()->toArray()
-        );
-        $response->assertUnauthorized();
-    }
-}
+        assertDatabaseMissing(Note::class, [
+            'title' => $note['title'],
+        ]);
+    });
+});

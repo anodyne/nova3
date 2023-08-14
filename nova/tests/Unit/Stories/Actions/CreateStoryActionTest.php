@@ -1,55 +1,38 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Stories\Actions;
-
 use Nova\Stories\Actions\CreateStory;
 use Nova\Stories\Data\StoryData;
 use Nova\Stories\Models\Story;
-use Tests\TestCase;
+it('creates a story', function () {
+    $data = StoryData::from([
+        'title' => 'Story Title',
+        'description' => 'Lorem ipsum dolor sit amet consectetur, adipisicing elit.',
+        'end_date' => '2020-02-01',
+        'start_date' => '2020-01-01',
+        'summary' => 'Lorem ipsum dolor sit amet consectetur, adipisicing elit.',
+    ]);
 
-/**
- * @group storytelling
- * @group stories
- */
-class CreateStoryActionTest extends TestCase
-{
-    /** @test **/
-    public function itCreatesAStory()
-    {
-        $data = StoryData::from([
-            'title' => 'Story Title',
-            'description' => 'Lorem ipsum dolor sit amet consectetur, adipisicing elit.',
-            'end_date' => '2020-02-01',
-            'start_date' => '2020-01-01',
-            'summary' => 'Lorem ipsum dolor sit amet consectetur, adipisicing elit.',
-        ]);
+    $story = CreateStory::run($data);
 
-        $story = CreateStory::run($data);
+    expect($story->exists)->toBeTrue();
 
-        $this->assertTrue($story->exists);
+    expect($story->title)->toEqual('Story Title');
+    expect($story->description)->toEqual('Lorem ipsum dolor sit amet consectetur, adipisicing elit.');
+    expect($story->summary)->toEqual('Lorem ipsum dolor sit amet consectetur, adipisicing elit.');
+    expect($story->parent_id)->toBeNull();
+    expect($story->start_date->format('Y-m-d'))->toEqual('2020-01-01');
+    expect($story->end_date->format('Y-m-d'))->toEqual('2020-02-01');
+});
+it('creates a nested story', function () {
+    $newStory = Story::factory()->create();
 
-        $this->assertEquals('Story Title', $story->title);
-        $this->assertEquals('Lorem ipsum dolor sit amet consectetur, adipisicing elit.', $story->description);
-        $this->assertEquals('Lorem ipsum dolor sit amet consectetur, adipisicing elit.', $story->summary);
-        $this->assertNull($story->parent_id);
-        $this->assertEquals('2020-01-01', $story->start_date->format('Y-m-d'));
-        $this->assertEquals('2020-02-01', $story->end_date->format('Y-m-d'));
-    }
+    $data = StoryData::from([
+        'title' => 'Story Title',
+        'parent_id' => $newStory->id,
+    ]);
 
-    /** @test **/
-    public function itCreatesANestedStory()
-    {
-        $newStory = Story::factory()->create();
+    $story = CreateStory::run($data);
 
-        $data = StoryData::from([
-            'title' => 'Story Title',
-            'parent_id' => $newStory->id,
-        ]);
-
-        $story = CreateStory::run($data);
-
-        $this->assertEquals($newStory->id, $story->parent_id);
-    }
-}
+    expect($story->parent_id)->toEqual($newStory->id);
+});

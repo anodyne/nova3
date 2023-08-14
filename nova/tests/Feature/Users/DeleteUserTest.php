@@ -1,101 +1,67 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\Users;
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\Characters\Models\Character;
 use Nova\Users\Events\UserDeleted;
 use Nova\Users\Events\UserDeletedByAdmin;
 use Nova\Users\Models\User;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->user = User::factory()->active()->create();
+});
+test('authorized user can delete user', function () {
+    $this->signInWithPermission('user.delete');
 
-/**
- * @group users
- */
-class DeleteUserTest extends TestCase
-{
-    protected $user;
+    $this->followingRedirects();
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $response = $this->delete(route('users.destroy', $this->user));
+    $response->assertSuccessful();
 
-        $this->user = User::factory()->active()->create();
-    }
+    $this->assertSoftDeleted('users', $this->user->only('id'));
+});
+test('events are dispatched when user is deleted', function () {
+    Event::fake();
 
-    /** @test **/
-    public function authorizedUserCanDeleteUser()
-    {
-        $this->signInWithPermission('user.delete');
+    $this->signInWithPermission('user.delete');
 
-        $this->followingRedirects();
+    $this->delete(route('users.destroy', $this->user));
 
-        $response = $this->delete(route('users.destroy', $this->user));
-        $response->assertSuccessful();
+    Event::assertDispatched(UserDeleted::class);
+    Event::assertDispatched(UserDeletedByAdmin::class);
+});
+test('characters assigned to the user are deleted when the user is deleted', function () {
+    $character = Character::factory()->active()->create();
+    $this->user->characters()->attach($character);
 
-        $this->assertSoftDeleted('users', $this->user->only('id'));
-    }
+    $this->signInWithPermission('user.delete');
 
-    /** @test **/
-    public function eventsAreDispatchedWhenUserIsDeleted()
-    {
-        Event::fake();
+    $response = $this->delete(route('users.destroy', $this->user));
 
-        $this->signInWithPermission('user.delete');
+    $this->assertSoftDeleted('users', $this->user->only('id'));
 
-        $this->delete(route('users.destroy', $this->user));
+    $this->assertSoftDeleted('characters', $character->only('id'));
+});
+test('current user cannot delete their account from user management', function () {
+    $this->signInWithPermission('user.delete');
 
-        Event::assertDispatched(UserDeleted::class);
-        Event::assertDispatched(UserDeletedByAdmin::class);
-    }
+    $response = $this->delete(
+        route('users.destroy', $user = auth()->user())
+    );
+    $response->assertForbidden();
 
-    /** @test **/
-    public function charactersAssignedToTheUserAreDeletedWhenTheUserIsDeleted()
-    {
-        $character = Character::factory()->active()->create();
-        $this->user->characters()->attach($character);
+    $this->assertDatabaseHas('users', [
+        'id' => $user->id,
+        'deleted_at' => null,
+    ]);
+});
+test('unauthorized user cannot delete user', function () {
+    $this->signIn();
 
-        $this->signInWithPermission('user.delete');
-
-        $response = $this->delete(route('users.destroy', $this->user));
-
-        $this->assertSoftDeleted('users', $this->user->only('id'));
-
-        $this->assertSoftDeleted('characters', $character->only('id'));
-    }
-
-    /** @test **/
-    public function currentUserCannotDeleteTheirAccountFromUserManagement()
-    {
-        $this->signInWithPermission('user.delete');
-
-        $response = $this->delete(
-            route('users.destroy', $user = auth()->user())
-        );
-        $response->assertForbidden();
-
-        $this->assertDatabaseHas('users', [
-            'id' => $user->id,
-            'deleted_at' => null,
-        ]);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotDeleteUser()
-    {
-        $this->signIn();
-
-        $response = $this->delete(route('users.destroy', $this->user));
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotDeleteUser()
-    {
-        $response = $this->deleteJson(route('users.destroy', $this->user));
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->delete(route('users.destroy', $this->user));
+    $response->assertForbidden();
+});
+test('unauthenticated user cannot delete user', function () {
+    $response = $this->deleteJson(route('users.destroy', $this->user));
+    $response->assertUnauthorized();
+});

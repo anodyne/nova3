@@ -1,125 +1,85 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\Roles;
-
 use Illuminate\Support\Facades\Event;
 use Nova\Roles\Events\RoleCreated;
 use Nova\Roles\Models\Role;
 use Nova\Roles\Requests\CreateRoleRequest;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->disableRoleCaching();
+});
+test('authorized user can view the create role page', function () {
+    $this->signInWithPermission('role.create');
 
-/**
- * @group roles
- */
-class CreateRoleTest extends TestCase
-{
-    public function setUp(): void
-    {
-        parent::setUp();
+    $response = $this->get(route('roles.create'));
+    $response->assertSuccessful();
+});
+test('authorized user can create role', function () {
+    $this->signInWithPermission('role.create');
 
-        $this->disableRoleCaching();
-    }
+    $role = Role::factory()->make();
 
-    /** @test **/
-    public function authorizedUserCanViewTheCreateRolePage()
-    {
-        $this->signInWithPermission('role.create');
+    $this->followingRedirects();
 
-        $response = $this->get(route('roles.create'));
-        $response->assertSuccessful();
-    }
+    $response = $this->post(route('roles.store'), $role->toArray());
+    $response->assertSuccessful();
 
-    /** @test **/
-    public function authorizedUserCanCreateRole()
-    {
-        $this->signInWithPermission('role.create');
+    $this->assertDatabaseHas('roles', $role->only('name', 'display_name'));
 
-        $role = Role::factory()->make();
+    $this->assertRouteUsesFormRequest(
+        'roles.store',
+        CreateRoleRequest::class
+    );
+});
+test('role can be created as a default role for new users', function () {
+    $this->signInWithPermission('role.create');
 
-        $this->followingRedirects();
+    $role = Role::factory()->default()->make();
 
-        $response = $this->post(route('roles.store'), $role->toArray());
-        $response->assertSuccessful();
+    $this->followingRedirects();
 
-        $this->assertDatabaseHas('roles', $role->only('name', 'display_name'));
+    $response = $this->post(route('roles.store'), $role->toArray());
+    $response->assertSuccessful();
 
-        $this->assertRouteUsesFormRequest(
-            'roles.store',
-            CreateRoleRequest::class
-        );
-    }
+    expect(Role::default()->get()->contains('name', $role->name))->toBeTrue();
 
-    /** @test **/
-    public function roleCanBeCreatedAsADefaultRoleForNewUsers()
-    {
-        $this->signInWithPermission('role.create');
+    $this->assertDatabaseHas(
+        'roles',
+        $role->only('name', 'display_name', 'default')
+    );
+});
+test('event is dispatched when role is created', function () {
+    Event::fake();
 
-        $role = Role::factory()->default()->make();
+    $this->signInWithPermission('role.create');
 
-        $this->followingRedirects();
+    $this->post(route('roles.store'), Role::factory()->make()->toArray());
 
-        $response = $this->post(route('roles.store'), $role->toArray());
-        $response->assertSuccessful();
+    Event::assertDispatched(RoleCreated::class);
+});
+test('unauthorized user cannot view the create role page', function () {
+    $this->signIn();
 
-        $this->assertTrue(
-            Role::default()->get()->contains('name', $role->name)
-        );
+    $response = $this->get(route('roles.create'));
+    $response->assertForbidden();
+});
+test('unauthorized user cannot create role', function () {
+    $this->signIn();
 
-        $this->assertDatabaseHas(
-            'roles',
-            $role->only('name', 'display_name', 'default')
-        );
-    }
-
-    /** @test **/
-    public function eventIsDispatchedWhenRoleIsCreated()
-    {
-        Event::fake();
-
-        $this->signInWithPermission('role.create');
-
-        $this->post(route('roles.store'), Role::factory()->make()->toArray());
-
-        Event::assertDispatched(RoleCreated::class);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotViewTheCreateRolePage()
-    {
-        $this->signIn();
-
-        $response = $this->get(route('roles.create'));
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotCreateRole()
-    {
-        $this->signIn();
-
-        $response = $this->postJson(
-            route('roles.store'),
-            Role::factory()->make()->toArray()
-        );
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotViewTheCreateRolePage()
-    {
-        $response = $this->getJson(route('roles.create'));
-        $response->assertUnauthorized();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotCreateRole()
-    {
-        $response = $this->postJson(
-            route('roles.store'),
-            Role::factory()->make()->toArray()
-        );
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->postJson(
+        route('roles.store'),
+        Role::factory()->make()->toArray()
+    );
+    $response->assertForbidden();
+});
+test('unauthenticated user cannot view the create role page', function () {
+    $response = $this->getJson(route('roles.create'));
+    $response->assertUnauthorized();
+});
+test('unauthenticated user cannot create role', function () {
+    $response = $this->postJson(
+        route('roles.store'),
+        Role::factory()->make()->toArray()
+    );
+    $response->assertUnauthorized();
+});

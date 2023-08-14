@@ -1,120 +1,86 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\Ranks\Items;
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Models\RankItem;
 use Nova\Ranks\Models\RankName;
-use Tests\TestCase;
+test('authorized user with create permission can view manage rank items page', function () {
+    $this->signInWithPermission('rank.create');
 
-/**
- * @group ranks
- */
-class ManageRankItemsTest extends TestCase
-{
-    /** @test **/
-    public function authorizedUserWithCreatePermissionCanViewManageRankItemsPage()
-    {
-        $this->signInWithPermission('rank.create');
+    $response = $this->get(route('ranks.items.index'));
+    $response->assertSuccessful();
+});
+test('authorized user with update permission can view manage rank items page', function () {
+    $this->signInWithPermission('rank.update');
 
-        $response = $this->get(route('ranks.items.index'));
-        $response->assertSuccessful();
-    }
+    $response = $this->get(route('ranks.items.index'));
+    $response->assertSuccessful();
+});
+test('authorized user with delete permission can view manage rank items page', function () {
+    $this->signInWithPermission('rank.delete');
 
-    /** @test **/
-    public function authorizedUserWithUpdatePermissionCanViewManageRankItemsPage()
-    {
-        $this->signInWithPermission('rank.update');
+    $response = $this->get(route('ranks.items.index'));
+    $response->assertSuccessful();
+});
+test('authorized user with view permission can view manage rank items page', function () {
+    $this->signInWithPermission('rank.view');
 
-        $response = $this->get(route('ranks.items.index'));
-        $response->assertSuccessful();
-    }
+    $response = $this->get(route('ranks.items.index'));
+    $response->assertSuccessful();
+});
+test('rank items can be filtered by rank name', function () {
+    $this->signInWithPermission('rank.create');
 
-    /** @test **/
-    public function authorizedUserWithDeletePermissionCanViewManageRankItemsPage()
-    {
-        $this->signInWithPermission('rank.delete');
+    $group = RankGroup::factory()->create(['name' => 'Command']);
+    $name = RankName::factory()->create(['name' => 'Captain']);
 
-        $response = $this->get(route('ranks.items.index'));
-        $response->assertSuccessful();
-    }
+    RankItem::factory()->create([
+        'group_id' => $group,
+        'name_id' => $name,
+    ]);
+    RankItem::factory()->create(['group_id' => $group]);
 
-    /** @test **/
-    public function authorizedUserWithViewPermissionCanViewManageRankItemsPage()
-    {
-        $this->signInWithPermission('rank.view');
+    $response = $this->get(route('ranks.items.index'));
+    $response->assertSuccessful();
 
-        $response = $this->get(route('ranks.items.index'));
-        $response->assertSuccessful();
-    }
+    expect($response['items']->total())->toEqual(RankItem::count());
 
-    /** @test **/
-    public function rankItemsCanBeFilteredByRankName()
-    {
-        $this->signInWithPermission('rank.create');
+    $response = $this->get(route('ranks.items.index', 'search=captain'));
+    $response->assertSuccessful();
+    $response->assertSee('Captain');
 
-        $group = RankGroup::factory()->create(['name' => 'Command']);
-        $name = RankName::factory()->create(['name' => 'Captain']);
+    expect($response['items'])->toHaveCount(1);
+});
+test('rank items can be filtered by rank group', function () {
+    $this->signInWithPermission('rank.create');
 
-        RankItem::factory()->create([
-            'group_id' => $group,
-            'name_id' => $name,
-        ]);
-        RankItem::factory()->create(['group_id' => $group]);
+    $command = RankGroup::factory()->create(['name' => 'Command']);
+    $ops = RankGroup::factory()->create(['name' => 'Operations']);
 
-        $response = $this->get(route('ranks.items.index'));
-        $response->assertSuccessful();
+    RankItem::factory()->create(['group_id' => $command]);
+    RankItem::factory()->create(['group_id' => $command]);
 
-        $this->assertEquals(RankItem::count(), $response['items']->total());
+    RankItem::factory()->create(['group_id' => $ops]);
+    RankItem::factory()->create(['group_id' => $ops]);
 
-        $response = $this->get(route('ranks.items.index', 'search=captain'));
-        $response->assertSuccessful();
-        $response->assertSee('Captain');
+    $response = $this->get(route('ranks.items.index'));
+    $response->assertSuccessful();
 
-        $this->assertCount(1, $response['items']);
-    }
+    expect($response['items']->total())->toEqual(RankItem::count());
 
-    /** @test **/
-    public function rankItemsCanBeFilteredByRankGroup()
-    {
-        $this->signInWithPermission('rank.create');
+    $response = $this->get(route('ranks.items.index', 'group=command'));
+    $response->assertSuccessful();
 
-        $command = RankGroup::factory()->create(['name' => 'Command']);
-        $ops = RankGroup::factory()->create(['name' => 'Operations']);
+    expect($response['items'])->toHaveCount(2);
+});
+test('unauthorized user cannot view manage rank items page', function () {
+    $this->signIn();
 
-        RankItem::factory()->create(['group_id' => $command]);
-        RankItem::factory()->create(['group_id' => $command]);
-
-        RankItem::factory()->create(['group_id' => $ops]);
-        RankItem::factory()->create(['group_id' => $ops]);
-
-        $response = $this->get(route('ranks.items.index'));
-        $response->assertSuccessful();
-
-        $this->assertEquals(RankItem::count(), $response['items']->total());
-
-        $response = $this->get(route('ranks.items.index', 'group=command'));
-        $response->assertSuccessful();
-
-        $this->assertCount(2, $response['items']);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotViewManageRankItemsPage()
-    {
-        $this->signIn();
-
-        $response = $this->get(route('ranks.items.index'));
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotViewManageRankItemsPage()
-    {
-        $response = $this->getJson(route('ranks.items.index'));
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->get(route('ranks.items.index'));
+    $response->assertForbidden();
+});
+test('unauthenticated user cannot view manage rank items page', function () {
+    $response = $this->getJson(route('ranks.items.index'));
+    $response->assertUnauthorized();
+});

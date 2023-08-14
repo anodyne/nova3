@@ -5,7 +5,9 @@
         <x-panel.header title="Notification settings">
             <x-slot name="actions">
                 <div x-data="{}">
-                    <x-button.outline color="primary" leading="search" x-on:click="$dispatch('toggle-spotlight')">Find a setting</x-button.outline>
+                    <x-button.filled color="gray" leading="search" x-on:click="$dispatch('toggle-spotlight')">
+                        Find a setting
+                    </x-button.filled>
                 </div>
             </x-slot>
 
@@ -21,10 +23,38 @@
                 <div class="hidden sm:block">
                     <x-content-box height="none">
                         <nav class="-mb-px flex">
-                            <a href="#" class="ml-8 whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition first:ml-0 focus:outline-none" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('settings'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('settings') }" x-on:click.prevent="switchTab('settings')">Settings</a>
-                            <a href="#" class="ml-8 whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition first:ml-0 focus:outline-none" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('admin'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('admin') }" x-on:click.prevent="switchTab('admin')">Administrative Notifications</a>
-                            <a href="#" class="ml-8 whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition first:ml-0 focus:outline-none" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('collective'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('collective') }" x-on:click.prevent="switchTab('collective')">Collective Notifications</a>
-                            <a href="#" class="ml-8 whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition first:ml-0 focus:outline-none" :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('personal'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('personal') }" x-on:click.prevent="switchTab('personal')">Personal Notifications</a>
+                            <a
+                                href="#"
+                                class="ml-8 whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition first:ml-0 focus:outline-none"
+                                :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('settings'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('settings') }"
+                                x-on:click.prevent="switchTab('settings')"
+                            >
+                                Settings
+                            </a>
+                            <a
+                                href="#"
+                                class="ml-8 whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition first:ml-0 focus:outline-none"
+                                :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('admin'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('admin') }"
+                                x-on:click.prevent="switchTab('admin')"
+                            >
+                                Administrative Notifications
+                            </a>
+                            <a
+                                href="#"
+                                class="ml-8 whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition first:ml-0 focus:outline-none"
+                                :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('collective'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('collective') }"
+                                x-on:click.prevent="switchTab('collective')"
+                            >
+                                Collective Notifications
+                            </a>
+                            <a
+                                href="#"
+                                class="ml-8 whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition first:ml-0 focus:outline-none"
+                                :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('personal'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('personal') }"
+                                x-on:click.prevent="switchTab('personal')"
+                            >
+                                Personal Notifications
+                            </a>
                         </nav>
                     </x-content-box>
                 </div>
@@ -32,9 +62,18 @@
         </x-panel.header>
 
         <x-form :action="route('settings.update')" method="PUT" id="discord" :divide="false" :space="false">
-            <x-form.section title="Discord Settings" message="You can set global settings for the Discord webhook and accent color to use for all Discord notifications. These settings can be used instead of duplicating the values in each of your notifications." x-show="isTab('settings')">
+            <x-form.section
+                title="Discord Settings"
+                message="You can set global settings for the Discord webhook and accent color to use for all Discord notifications. These settings can be used instead of duplicating the values in each of your notifications."
+                x-show="isTab('settings')"
+            >
                 <x-input.group label="Discord Webhook" for="webhook" :error="$errors->first('webhook')">
-                    <x-input.text id="webhook" name="webhook" :value="old('webhook', $settings->discord->webhook)" placeholder="https://discordapp.com/api/webhooks/..." />
+                    <x-input.text
+                        id="webhook"
+                        name="webhook"
+                        :value="old('webhook', $settings->discord->webhook)"
+                        placeholder="https://discordapp.com/api/webhooks/..."
+                    />
 
                     <x-slot name="help">
                         <ol class="ml-0.5 list-inside list-decimal space-y-1 text-sm">
@@ -46,28 +85,43 @@
                 </x-input.group>
 
                 <x-input.group label="Accent Color" for="color">
-                    <x-input.color name="color" id="color" :value="old('color', $settings->discord->color)"></x-input.color>
+                    <x-input.color
+                        name="color"
+                        id="color"
+                        :value="old('color', $settings->discord->color)"
+                    ></x-input.color>
                 </x-input.group>
             </x-form.section>
 
             <div x-show="isTab('admin')" x-cloak>
                 <ul>
                     @foreach ($systemNotifications->where('type', Nova\Foundation\Enums\SystemNotificationType::admin) as $systemNotification)
-                        <li class="border-t border-gray-200 transition first:border-0 hover:bg-gray-50/50 dark:border-gray-700 dark:hover:bg-gray-700/20">
+                        <li
+                            class="border-t border-gray-200 transition first:border-0 hover:bg-gray-50/50 dark:border-gray-700 dark:hover:bg-gray-700/20"
+                        >
                             <div class="block">
                                 <div class="flex items-center px-4 py-4 sm:px-6">
                                     <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
                                         <div class="flex flex-1 items-center space-x-3 font-medium">
                                             {{ $systemNotification->name }}
                                         </div>
-                                        <div class="mt-2 flex flex-col space-y-2 text-gray-500 sm:flex-row sm:items-center sm:space-x-6 sm:space-y-0">
-                                            <x-badge :color="$systemNotification->discordStatusBadgeColor">Discord</x-badge>
-                                            <x-badge :color="$systemNotification->emailStatusBadgeColor">Email</x-badge>
+                                        <div
+                                            class="mt-2 flex flex-col space-y-2 text-gray-500 sm:flex-row sm:items-center sm:space-x-6 sm:space-y-0"
+                                        >
+                                            <x-badge :color="$systemNotification->discordStatusBadgeColor">
+                                                Discord
+                                            </x-badge>
+                                            <x-badge :color="$systemNotification->emailStatusBadgeColor">
+                                                Email
+                                            </x-badge>
                                             <x-badge :color="$systemNotification->webStatusBadgeColor">In-app</x-badge>
                                         </div>
                                     </div>
                                     <div class="ml-5 shrink-0 leading-0">
-                                        <x-button.text color="gray" x-on:click="Livewire.emit('openModal', 'settings:notification-setting', {{ json_encode([$systemNotification, null]) }})">
+                                        <x-button.text
+                                            color="gray"
+                                            x-on:click="Livewire.emit('openModal', 'settings:notification-setting', {{ json_encode([$systemNotification, null]) }})"
+                                        >
                                             <x-icon name="edit" size="sm"></x-icon>
                                         </x-button.text>
                                     </div>
@@ -81,21 +135,32 @@
             <div x-show="isTab('collective')" x-cloak>
                 <ul>
                     @foreach ($systemNotifications->where('type', Nova\Foundation\Enums\SystemNotificationType::collective) as $systemNotification)
-                        <li class="border-t border-gray-200 transition first:border-0 hover:bg-gray-50/50 dark:border-gray-700 dark:hover:bg-gray-700/20">
+                        <li
+                            class="border-t border-gray-200 transition first:border-0 hover:bg-gray-50/50 dark:border-gray-700 dark:hover:bg-gray-700/20"
+                        >
                             <div class="block">
                                 <div class="flex items-center px-4 py-4 sm:px-6">
                                     <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
                                         <div class="flex flex-1 items-center space-x-3 font-medium">
                                             {{ $systemNotification->name }}
                                         </div>
-                                        <div class="mt-2 flex flex-col space-y-2 text-gray-500 sm:flex-row sm:items-center sm:space-x-6 sm:space-y-0">
-                                            <x-badge :color="$systemNotification->discordStatusBadgeColor">Discord</x-badge>
-                                            <x-badge :color="$systemNotification->emailStatusBadgeColor">Email</x-badge>
+                                        <div
+                                            class="mt-2 flex flex-col space-y-2 text-gray-500 sm:flex-row sm:items-center sm:space-x-6 sm:space-y-0"
+                                        >
+                                            <x-badge :color="$systemNotification->discordStatusBadgeColor">
+                                                Discord
+                                            </x-badge>
+                                            <x-badge :color="$systemNotification->emailStatusBadgeColor">
+                                                Email
+                                            </x-badge>
                                             <x-badge :color="$systemNotification->webStatusBadgeColor">In-app</x-badge>
                                         </div>
                                     </div>
                                     <div class="ml-5 shrink-0 leading-0">
-                                        <x-button.text color="gray" x-on:click="Livewire.emit('openModal', 'settings:notification-setting', {{ json_encode([$systemNotification, null]) }})">
+                                        <x-button.text
+                                            color="gray"
+                                            x-on:click="Livewire.emit('openModal', 'settings:notification-setting', {{ json_encode([$systemNotification, null]) }})"
+                                        >
                                             <x-icon name="edit" size="sm"></x-icon>
                                         </x-button.text>
                                     </div>
@@ -109,20 +174,29 @@
             <div x-show="isTab('personal')" x-cloak>
                 <ul>
                     @foreach ($systemNotifications->where('type', Nova\Foundation\Enums\SystemNotificationType::personal) as $systemNotification)
-                        <li class="border-t border-gray-200 transition first:border-0 hover:bg-gray-50/50 dark:border-gray-700 dark:hover:bg-gray-700/20">
+                        <li
+                            class="border-t border-gray-200 transition first:border-0 hover:bg-gray-50/50 dark:border-gray-700 dark:hover:bg-gray-700/20"
+                        >
                             <div class="block">
                                 <div class="flex items-center px-4 py-4 sm:px-6">
                                     <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
                                         <div class="flex flex-1 items-center space-x-3 font-medium">
                                             {{ $systemNotification->name }}
                                         </div>
-                                        <div class="mt-2 flex flex-col space-y-2 text-gray-500 sm:flex-row sm:items-center sm:space-x-6 sm:space-y-0">
-                                            <x-badge :color="$systemNotification->emailStatusBadgeColor">Email</x-badge>
+                                        <div
+                                            class="mt-2 flex flex-col space-y-2 text-gray-500 sm:flex-row sm:items-center sm:space-x-6 sm:space-y-0"
+                                        >
+                                            <x-badge :color="$systemNotification->emailStatusBadgeColor">
+                                                Email
+                                            </x-badge>
                                             <x-badge :color="$systemNotification->webStatusBadgeColor">In-app</x-badge>
                                         </div>
                                     </div>
                                     <div class="ml-5 shrink-0 leading-0">
-                                        <x-button.text color="gray" x-on:click="Livewire.emit('openModal', 'settings:notification-setting', {{ json_encode([$systemNotification, null]) }})">
+                                        <x-button.text
+                                            color="gray"
+                                            x-on:click="Livewire.emit('openModal', 'settings:notification-setting', {{ json_encode([$systemNotification, null]) }})"
+                                        >
                                             <x-icon name="edit" size="sm"></x-icon>
                                         </x-button.text>
                                     </div>

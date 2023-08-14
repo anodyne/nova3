@@ -1,55 +1,34 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Departments\Actions;
-
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Departments\Actions\UpdatePosition;
 use Nova\Departments\Data\PositionData;
 use Nova\Departments\Enums\PositionStatus;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
-use Tests\TestCase;
+uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
-/**
- * @group departments
- * @group positions
- */
-class UpdatePositionActionTest extends TestCase
-{
-    use RefreshDatabase;
+beforeEach(function () {
+    $this->position = Position::factory()->create();
+});
+it('updates a position', function () {
+    $newDepartment = Department::factory()->create();
 
-    protected $position;
+    $data = PositionData::from([
+        'name' => 'Executive Officer',
+        'description' => 'Lorem consectetur adipisicing elit.',
+        'status' => PositionStatus::inactive,
+        'available' => 5,
+        'department_id' => $newDepartment->id,
+        'department' => $newDepartment,
+    ]);
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $position = UpdatePosition::run($this->position, $data);
 
-        $this->position = Position::factory()->create();
-    }
-
-    /** @test **/
-    public function itUpdatesAPosition()
-    {
-        $newDepartment = Department::factory()->create();
-
-        $data = PositionData::from([
-            'name' => 'Executive Officer',
-            'description' => 'Lorem consectetur adipisicing elit.',
-            'status' => PositionStatus::inactive,
-            'available' => 5,
-            'department_id' => $newDepartment->id,
-            'department' => $newDepartment,
-        ]);
-
-        $position = UpdatePosition::run($this->position, $data);
-
-        $this->assertTrue($position->exists);
-        $this->assertEquals('Executive Officer', $position->name);
-        $this->assertEquals('Lorem consectetur adipisicing elit.', $position->description);
-        $this->assertTrue($position->status === PositionStatus::inactive);
-        $this->assertEquals($newDepartment->id, $position->department_id);
-        $this->assertEquals(5, $position->available);
-    }
-}
+    expect($position->exists)->toBeTrue();
+    expect($position->name)->toEqual('Executive Officer');
+    expect($position->description)->toEqual('Lorem consectetur adipisicing elit.');
+    expect($position->status === PositionStatus::inactive)->toBeTrue();
+    expect($position->department_id)->toEqual($newDepartment->id);
+    expect($position->available)->toEqual(5);
+});

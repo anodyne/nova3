@@ -1,44 +1,18 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Roles\Actions;
-
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Roles\Actions\DuplicateRole;
 use Nova\Roles\Models\Role;
-use Tests\TestCase;
+uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
-/**
- * @group roles
- */
-class DuplicateRoleActionTest extends TestCase
-{
-    use RefreshDatabase;
+beforeEach(function () {
+    $this->role = Role::factory()->create();
+    $this->role->givePermissions([1, 2]);
+});
+it('duplicates a role', function () {
+    $role = DuplicateRole::run($this->role);
 
-    protected $role;
+    expect($role->display_name)->toEqual("Copy of {$this->role->display_name}");
 
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->role = Role::factory()->create();
-        $this->role->givePermissions([1, 2]);
-    }
-
-    /** @test **/
-    public function itDuplicatesARole()
-    {
-        $role = DuplicateRole::run($this->role);
-
-        $this->assertEquals(
-            "Copy of {$this->role->display_name}",
-            $role->display_name
-        );
-
-        $this->assertEquals(
-            $this->role->permissions->count(),
-            $role->permissions->count()
-        );
-    }
-}
+    expect($role->permissions->count())->toEqual($this->role->permissions->count());
+});

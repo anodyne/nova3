@@ -27,7 +27,7 @@ class SendRequestForCharacterApproval extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Newly created character requires approval',
+            subject: 'Character requires approval',
         );
     }
 

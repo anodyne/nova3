@@ -4,10 +4,8 @@
     <x-panel>
         <x-panel.header title="Edit note">
             <x-slot:actions>
-                <x-button.text :href="route('notes.index')" leading="arrow-left" color="gray">
-                    Back
-                </x-button.text>
-            </x-slot:actions>
+                <x-button.text :href="route('notes.index')" leading="arrow-left" color="gray">Back</x-button.text>
+            </x-slot>
         </x-panel.header>
 
         <x-form :action="route('notes.update', $note)" method="PUT">
@@ -23,7 +21,7 @@
 
             <x-form.footer>
                 <x-button.filled type="submit" color="primary">Update</x-button.filled>
-                <x-button.outline :href="route('notes.index')" color="gray">Cancel</x-button.outline>
+                <x-button.filled :href="route('notes.index')" color="gray">Cancel</x-button.filled>
             </x-form.footer>
         </x-form>
     </x-panel>

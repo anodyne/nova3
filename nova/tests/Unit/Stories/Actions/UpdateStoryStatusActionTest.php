@@ -1,128 +1,87 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Stories\Actions;
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Stories\Actions\UpdateStoryStatus;
 use Nova\Stories\Models\States\Completed;
 use Nova\Stories\Models\States\Current;
 use Nova\Stories\Models\States\Upcoming;
 use Nova\Stories\Models\Story;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->story = Story::factory()->upcoming()->create();
+});
+it('can update the story status', function () {
+    expect($this->story->status->equals(Upcoming::class))->toBeTrue();
 
-/**
- * @group storytelling
- * @group stories
- */
-class UpdateStoryStatusActionTest extends TestCase
-{
-    protected $story;
+    $story = UpdateStoryStatus::run($this->story, 'current');
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    expect($story->status->equals(Current::class))->toBeTrue();
+});
+it('cannot transition to the status its in now', function () {
+    $story = UpdateStoryStatus::run($this->story, 'upcoming');
 
-        $this->story = Story::factory()->upcoming()->create();
-    }
+    expect($story->status->equals(Upcoming::class))->toBeTrue();
+});
+it('can transition from upcoming to current', function () {
+    $story = Story::factory()->upcoming()->create();
 
-    /** @test **/
-    public function itCanUpdateTheStoryStatus()
-    {
-        $this->assertTrue($this->story->status->equals(Upcoming::class));
+    $story = UpdateStoryStatus::run($story, 'current');
 
-        $story = UpdateStoryStatus::run($this->story, 'current');
+    expect($story->status->equals(Current::class))->toBeTrue();
+    expect($story->start_date)->not->toBeNull();
+});
+it('can transition from upcoming to completed', function () {
+    $story = Story::factory()->upcoming()->create();
 
-        $this->assertTrue($story->status->equals(Current::class));
-    }
+    $story = UpdateStoryStatus::run($story, 'completed');
 
-    /** @test **/
-    public function itCannotTransitionToTheStatusItsInNow()
-    {
-        $story = UpdateStoryStatus::run($this->story, 'upcoming');
+    expect($story->status->equals(Completed::class))->toBeTrue();
+    expect($story->start_date)->not->toBeNull();
+    expect($story->end_date)->not->toBeNull();
+});
+it('can transition from current to upcoming', function () {
+    $story = Story::factory()->current()->create([
+        'start_date' => now(),
+    ]);
 
-        $this->assertTrue($story->status->equals(Upcoming::class));
-    }
+    $story = UpdateStoryStatus::run($story, 'upcoming');
 
-    /** @test **/
-    public function itCanTransitionFromUpcomingToCurrent()
-    {
-        $story = Story::factory()->upcoming()->create();
+    expect($story->status->equals(Upcoming::class))->toBeTrue();
+    expect($story->start_date)->toBeNull();
+    expect($story->end_date)->toBeNull();
+});
+it('can transition from current to completed', function () {
+    $story = Story::factory()->current()->create([
+        'start_date' => now(),
+    ]);
 
-        $story = UpdateStoryStatus::run($story, 'current');
+    $story = UpdateStoryStatus::run($story, 'completed');
 
-        $this->assertTrue($story->status->equals(Current::class));
-        $this->assertNotNull($story->start_date);
-    }
+    expect($story->status->equals(Completed::class))->toBeTrue();
+    expect($story->start_date)->not->toBeNull();
+    expect($story->end_date)->not->toBeNull();
+});
+it('can transition from completed to upcoming', function () {
+    $story = Story::factory()->completed()->create([
+        'start_date' => now(),
+        'end_date' => now(),
+    ]);
 
-    /** @test **/
-    public function itCanTransitionFromUpcomingToCompleted()
-    {
-        $story = Story::factory()->upcoming()->create();
+    $story = UpdateStoryStatus::run($story, 'upcoming');
 
-        $story = UpdateStoryStatus::run($story, 'completed');
+    expect($story->status->equals(Upcoming::class))->toBeTrue();
+    expect($story->start_date)->toBeNull();
+    expect($story->end_date)->toBeNull();
+});
+it('can transition from completed to current', function () {
+    $story = Story::factory()->completed()->create([
+        'start_date' => now(),
+        'end_date' => now(),
+    ]);
 
-        $this->assertTrue($story->status->equals(Completed::class));
-        $this->assertNotNull($story->start_date);
-        $this->assertNotNull($story->end_date);
-    }
+    $story = UpdateStoryStatus::run($story, 'current');
 
-    /** @test **/
-    public function itCanTransitionFromCurrentToUpcoming()
-    {
-        $story = Story::factory()->current()->create([
-            'start_date' => now(),
-        ]);
-
-        $story = UpdateStoryStatus::run($story, 'upcoming');
-
-        $this->assertTrue($story->status->equals(Upcoming::class));
-        $this->assertNull($story->start_date);
-        $this->assertNull($story->end_date);
-    }
-
-    /** @test **/
-    public function itCanTransitionFromCurrentToCompleted()
-    {
-        $story = Story::factory()->current()->create([
-            'start_date' => now(),
-        ]);
-
-        $story = UpdateStoryStatus::run($story, 'completed');
-
-        $this->assertTrue($story->status->equals(Completed::class));
-        $this->assertNotNull($story->start_date);
-        $this->assertNotNull($story->end_date);
-    }
-
-    /** @test **/
-    public function itCanTransitionFromCompletedToUpcoming()
-    {
-        $story = Story::factory()->completed()->create([
-            'start_date' => now(),
-            'end_date' => now(),
-        ]);
-
-        $story = UpdateStoryStatus::run($story, 'upcoming');
-
-        $this->assertTrue($story->status->equals(Upcoming::class));
-        $this->assertNull($story->start_date);
-        $this->assertNull($story->end_date);
-    }
-
-    /** @test **/
-    public function itCanTransitionFromCompletedToCurrent()
-    {
-        $story = Story::factory()->completed()->create([
-            'start_date' => now(),
-            'end_date' => now(),
-        ]);
-
-        $story = UpdateStoryStatus::run($story, 'current');
-
-        $this->assertTrue($story->status->equals(Current::class));
-        $this->assertNotNull($story->start_date);
-        $this->assertNull($story->end_date);
-    }
-}
+    expect($story->status->equals(Current::class))->toBeTrue();
+    expect($story->start_date)->not->toBeNull();
+    expect($story->end_date)->toBeNull();
+});

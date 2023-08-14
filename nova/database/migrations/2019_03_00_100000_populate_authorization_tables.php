@@ -36,13 +36,14 @@ class PopulateAuthorizationTables extends Migration
                 'settings.update',
             ],
             'admin' => [
-                'user.create', 'user.delete', 'user.update', 'user.view',
+                'user.create', 'user.delete', 'user.update', 'user.view', 'user.impersonate',
                 'rank.create', 'rank.delete', 'rank.update', 'rank.view',
                 'department.create', 'department.delete', 'department.update', 'department.view',
-                'character.create', 'character.delete', 'character.update', 'character.view',
+                'character.create', 'character.delete', 'character.update', 'character.view', 'character.activate', 'character.deactivate', 'character.restore',
                 'post-type.create', 'post-type.delete', 'post-type.update', 'post-type.view',
                 'form.create', 'form.delete', 'form.update',
                 'page.create', 'page.delete', 'page.update', 'page.view',
+                'system.activity',
             ],
             'story-manager' => [
                 'story.create', 'story.delete', 'story.update',
@@ -89,6 +90,7 @@ class PopulateAuthorizationTables extends Migration
                 ['name' => 'user.delete', 'display_name' => 'Delete users', 'description' => 'Allows a user to remove users'],
                 ['name' => 'user.update', 'display_name' => 'Update users', 'description' => 'Allows a user to edit users'],
                 ['name' => 'user.view', 'display_name' => 'View users', 'description' => 'Allows a user to view any users'],
+                ['name' => 'user.impersonate', 'display_name' => 'Impersonate users', 'description' => 'Allows a user to impersonate other users for support purposes'],
 
                 ['name' => 'rank.create', 'display_name' => 'Create ranks', 'description' => 'Allows a user to add new ranks'],
                 ['name' => 'rank.delete', 'display_name' => 'Delete ranks', 'description' => 'Allows a user to remove ranks'],
@@ -108,6 +110,9 @@ class PopulateAuthorizationTables extends Migration
                 ['name' => 'character.update', 'display_name' => 'Update all characters', 'description' => 'Allows a user to edit all characters'],
                 ['name' => 'character.update-support', 'display_name' => 'Update support characters', 'description' => 'Allows a user to edit any support characters'],
                 ['name' => 'character.view', 'display_name' => 'View characters', 'description' => 'Allows a user to view any characters'],
+                ['name' => 'character.activate', 'display_name' => 'Activate characters', 'description' => 'Allows a user to activate any inactive characters'],
+                ['name' => 'character.deactivate', 'display_name' => 'Deactivate characters', 'description' => 'Allows a user to deactivate any active characters'],
+                ['name' => 'character.restore', 'display_name' => 'Restore characters', 'description' => 'Allows a user to restore any deleted characters'],
 
                 ['name' => 'story.create', 'display_name' => 'Create stories', 'description' => 'Allows a user to add new stories'],
                 ['name' => 'story.delete', 'display_name' => 'Delete stories', 'description' => 'Allows a user to remove stories'],
@@ -135,6 +140,8 @@ class PopulateAuthorizationTables extends Migration
                 ['name' => 'page.delete', 'display_name' => 'Delete pages', 'description' => 'Allows a user to remove pages'],
                 ['name' => 'page.update', 'display_name' => 'Update pages', 'description' => 'Allows a user to edit pages'],
                 ['name' => 'page.view', 'display_name' => 'View pages', 'description' => 'Allows a user to view any pages'],
+
+                ['name' => 'system.activity', 'display_name' => 'View activity log', 'description' => 'Allows a user to view the activity log for the site'],
             ];
 
             collect($permissions)->each(function ($permission) {

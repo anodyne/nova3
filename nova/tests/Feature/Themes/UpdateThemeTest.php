@@ -1,109 +1,72 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\Themes;
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\Themes\Events\ThemeUpdated;
 use Nova\Themes\Models\Theme;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->theme = Theme::factory()->create();
+});
+test('authorized user can view the edit theme page', function () {
+    $this->signInWithPermission('theme.update');
 
-/**
- * @group themes
- */
-class UpdateThemeTest extends TestCase
-{
-    protected $theme;
+    $response = $this->get(route('themes.edit', $this->theme));
+    $response->assertSuccessful();
+});
+test('authorized user can update theme', function () {
+    $this->signInWithPermission('theme.update');
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $this->followingRedirects();
 
-        $this->theme = Theme::factory()->create();
-    }
+    $response = $this->put(route('themes.update', $this->theme), [
+        'name' => 'New Name',
+        'active' => true,
+        'location' => $this->theme->location,
+        'preview' => $this->theme->preview,
+    ]);
+    $response->assertSuccessful();
 
-    /** @test **/
-    public function authorizedUserCanViewTheEditThemePage()
-    {
-        $this->signInWithPermission('theme.update');
+    $this->assertDatabaseHas('themes', [
+        'id' => $this->theme->id,
+        'name' => 'New Name',
+    ]);
+});
+test('event is dispatched when theme is updated', function () {
+    Event::fake();
 
-        $response = $this->get(route('themes.edit', $this->theme));
-        $response->assertSuccessful();
-    }
+    $this->signInWithPermission('theme.update');
 
-    /** @test **/
-    public function authorizedUserCanUpdateTheme()
-    {
-        $this->signInWithPermission('theme.update');
+    $this->put(
+        route('themes.update', $this->theme),
+        Theme::factory()->make()->toArray()
+    );
 
-        $this->followingRedirects();
+    Event::assertDispatched(ThemeUpdated::class);
+});
+test('unauthorized user cannot view the edit theme page', function () {
+    $this->signIn();
 
-        $response = $this->put(route('themes.update', $this->theme), [
-            'name' => 'New Name',
-            'active' => true,
-            'location' => $this->theme->location,
-            'preview' => $this->theme->preview,
-        ]);
-        $response->assertSuccessful();
+    $response = $this->get(route('themes.edit', $this->theme));
+    $response->assertForbidden();
+});
+test('unauthorized user cannot update theme', function () {
+    $this->signIn();
 
-        $this->assertDatabaseHas('themes', [
-            'id' => $this->theme->id,
-            'name' => 'New Name',
-        ]);
-    }
-
-    /** @test **/
-    public function eventIsDispatchedWhenThemeIsUpdated()
-    {
-        Event::fake();
-
-        $this->signInWithPermission('theme.update');
-
-        $this->put(
-            route('themes.update', $this->theme),
-            Theme::factory()->make()->toArray()
-        );
-
-        Event::assertDispatched(ThemeUpdated::class);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotViewTheEditThemePage()
-    {
-        $this->signIn();
-
-        $response = $this->get(route('themes.edit', $this->theme));
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotUpdateTheme()
-    {
-        $this->signIn();
-
-        $response = $this->putJson(
-            route('themes.update', $this->theme),
-            Theme::factory()->make()->toArray()
-        );
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotViewTheEditThemePage()
-    {
-        $response = $this->getJson(route('themes.edit', $this->theme));
-        $response->assertUnauthorized();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotUpdateTheme()
-    {
-        $response = $this->putJson(
-            route('themes.update', $this->theme),
-            Theme::factory()->make()->toArray()
-        );
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->putJson(
+        route('themes.update', $this->theme),
+        Theme::factory()->make()->toArray()
+    );
+    $response->assertForbidden();
+});
+test('unauthenticated user cannot view the edit theme page', function () {
+    $response = $this->getJson(route('themes.edit', $this->theme));
+    $response->assertUnauthorized();
+});
+test('unauthenticated user cannot update theme', function () {
+    $response = $this->putJson(
+        route('themes.update', $this->theme),
+        Theme::factory()->make()->toArray()
+    );
+    $response->assertUnauthorized();
+});

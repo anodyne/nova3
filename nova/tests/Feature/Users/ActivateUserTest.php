@@ -1,89 +1,58 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\Users;
-
 use Nova\Characters\Models\Character;
 use Nova\Characters\Models\States\Status\Active as ActiveCharacter;
 use Nova\Users\Models\States\Active as ActiveUser;
 use Nova\Users\Models\User;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->user = User::factory()->inactive()->create();
 
-/**
- * @group users
- * @group characters
- */
-class ActivateUserTest extends TestCase
-{
-    protected $character;
+    $this->character = Character::factory()->inactive()->create();
+    $this->character->users()->attach($this->user, ['primary' => true]);
+});
+test('authorized user can activate user', function () {
+    $this->signInWithPermission('user.update');
 
-    protected $user;
+    $this->followingRedirects();
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $response = $this->post(route('users.activate', $this->user));
+    $response->assertSuccessful();
 
-        $this->user = User::factory()->inactive()->create();
+    $this->assertDatabaseHas('users', [
+        'id' => $this->user->id,
+        'status' => ActiveUser::$name,
+    ]);
+});
+test('user can be activated with previous primary character', function () {
+    $this->signInWithPermission('user.update');
 
-        $this->character = Character::factory()->inactive()->create();
-        $this->character->users()->attach($this->user, ['primary' => true]);
-    }
+    $this->followingRedirects();
 
-    /** @test **/
-    public function authorizedUserCanActivateUser()
-    {
-        $this->signInWithPermission('user.update');
+    $response = $this->post(route('users.activate', $this->user), [
+        'activate_primary_character' => '1',
+    ]);
+    $response->assertSuccessful();
 
-        $this->followingRedirects();
+    $this->assertDatabaseHas('users', [
+        'id' => $this->user->id,
+        'status' => ActiveUser::$name,
+    ]);
 
-        $response = $this->post(route('users.activate', $this->user));
-        $response->assertSuccessful();
+    $this->assertDatabaseHas('characters', [
+        'id' => $this->character->id,
+        'status' => ActiveCharacter::$name,
+    ]);
+});
+test('unauthorized user cannot activate user', function () {
+    $this->signIn();
 
-        $this->assertDatabaseHas('users', [
-            'id' => $this->user->id,
-            'status' => ActiveUser::$name,
-        ]);
-    }
+    $this->followingRedirects();
 
-    /** @test **/
-    public function userCanBeActivatedWithPreviousPrimaryCharacter()
-    {
-        $this->signInWithPermission('user.update');
-
-        $this->followingRedirects();
-
-        $response = $this->post(route('users.activate', $this->user), [
-            'activate_primary_character' => '1',
-        ]);
-        $response->assertSuccessful();
-
-        $this->assertDatabaseHas('users', [
-            'id' => $this->user->id,
-            'status' => ActiveUser::$name,
-        ]);
-
-        $this->assertDatabaseHas('characters', [
-            'id' => $this->character->id,
-            'status' => ActiveCharacter::$name,
-        ]);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotActivateUser()
-    {
-        $this->signIn();
-
-        $this->followingRedirects();
-
-        $response = $this->post(route('users.activate', $this->user));
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotActivateUser()
-    {
-        $response = $this->postJson(route('users.activate', $this->user));
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->post(route('users.activate', $this->user));
+    $response->assertForbidden();
+});
+test('unauthenticated user cannot activate user', function () {
+    $response = $this->postJson(route('users.activate', $this->user));
+    $response->assertUnauthorized();
+});

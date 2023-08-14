@@ -1,7 +1,7 @@
 @extends($meta->template)
 
 @section('content')
-    @livewire('roles:list')
+    <livewire:roles-list />
 
     <x-tips section="roles" />
 @endsection

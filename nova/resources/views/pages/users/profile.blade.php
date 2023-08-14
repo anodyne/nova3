@@ -182,7 +182,7 @@
         </x-form.section>
 
         <x-form.footer>
-            <x-button.outline :href='route("users.index", "status={$user->status->name()}")' color="gray">Back</x-button.outline>
+            <x-button.filled :href='route("users.index", "status={$user->status->name()}")' color="gray">Back</x-button.filled>
         </x-form.footer>
     </x-panel> --}}
 @endsection

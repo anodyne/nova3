@@ -2,34 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Notes\Actions;
-
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Notes\Actions\DeleteNote;
 use Nova\Notes\Models\Note;
-use Tests\TestCase;
 
-/**
- * @group notes
- */
-class DeleteNoteActionTest extends TestCase
-{
-    use RefreshDatabase;
+uses()->group('notes');
 
-    protected $note;
+it('deletes a note', function () {
+    $note = Note::factory()->create();
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $note = DeleteNote::run($note);
 
-        $this->note = Note::factory()->create();
-    }
-
-    /** @test **/
-    public function itDeletesANote()
-    {
-        $note = DeleteNote::run($this->note);
-
-        $this->assertFalse($note->exists);
-    }
-}
+    expect($note->exists)->toBeFalse();
+});

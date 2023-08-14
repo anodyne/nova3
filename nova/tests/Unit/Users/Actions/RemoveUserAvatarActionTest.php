@@ -1,66 +1,39 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Users\Actions;
-
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Nova\Users\Actions\RemoveUserAvatar;
 use Nova\Users\Actions\UploadUserAvatar;
 use Nova\Users\Models\User;
-use Tests\TestCase;
+beforeEach(function () {
+    Storage::fake('media');
 
-/**
- * @group users
- * @group uploads
- * @group media
- */
-class RemoveUserAvatarActionTest extends TestCase
-{
-    protected $user;
+    $this->user = User::factory()->active()->create();
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    UploadUserAvatar::run(
+        $this->user,
+        UploadedFile::fake()->image('image.png')
+    );
+});
+it('removes the user avatar', function () {
+    expect($this->user->getMedia('avatar'))->toHaveCount(1);
 
-        Storage::fake('media');
+    RemoveUserAvatar::run($this->user, true);
 
-        $this->user = User::factory()->active()->create();
+    expect($this->user->refresh()->getMedia('avatar'))->toHaveCount(0);
+});
+it('does not remove the user avatar with a false value', function () {
+    expect($this->user->getMedia('avatar'))->toHaveCount(1);
 
-        UploadUserAvatar::run(
-            $this->user,
-            UploadedFile::fake()->image('image.png')
-        );
-    }
+    RemoveUserAvatar::run($this->user, false);
 
-    /** @test **/
-    public function itRemovesTheUserAvatar()
-    {
-        $this->assertCount(1, $this->user->getMedia('avatar'));
+    expect($this->user->refresh()->getMedia('avatar'))->toHaveCount(1);
+});
+it('does not remove the user avatar with a null value', function () {
+    expect($this->user->getMedia('avatar'))->toHaveCount(1);
 
-        RemoveUserAvatar::run($this->user, true);
+    RemoveUserAvatar::run($this->user);
 
-        $this->assertCount(0, $this->user->refresh()->getMedia('avatar'));
-    }
-
-    /** @test **/
-    public function itDoesNotRemoveTheUserAvatarWithAFalseValue()
-    {
-        $this->assertCount(1, $this->user->getMedia('avatar'));
-
-        RemoveUserAvatar::run($this->user, false);
-
-        $this->assertCount(1, $this->user->refresh()->getMedia('avatar'));
-    }
-
-    /** @test **/
-    public function itDoesNotRemoveTheUserAvatarWithANullValue()
-    {
-        $this->assertCount(1, $this->user->getMedia('avatar'));
-
-        RemoveUserAvatar::run($this->user);
-
-        $this->assertCount(1, $this->user->refresh()->getMedia('avatar'));
-    }
-}
+    expect($this->user->refresh()->getMedia('avatar'))->toHaveCount(1);
+});

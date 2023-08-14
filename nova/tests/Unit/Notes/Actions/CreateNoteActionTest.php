@@ -2,35 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Notes\Actions;
-
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Notes\Actions\CreateNote;
 use Nova\Notes\Data\NoteData;
-use Nova\Users\Models\User;
-use Tests\TestCase;
 
-/**
- * @group notes
- */
-class CreateNoteActionTest extends TestCase
-{
-    use RefreshDatabase;
+uses()->group('notes');
 
-    /** @test **/
-    public function itCreatesANewNote()
-    {
-        $data = NoteData::from([
-            'title' => 'My Note',
-            'content' => 'Content of my note',
-            'user' => $user = User::factory()->active()->create(),
-        ]);
+it('creates a new note', function () {
+    $this->signIn();
 
-        $note = CreateNote::run($data);
+    $data = NoteData::from([
+        'title' => 'My Note',
+        'content' => 'Content of my note',
+    ]);
 
-        $this->assertTrue($note->exists);
-        $this->assertEquals('My Note', $note->title);
-        $this->assertEquals('Content of my note', $note->content);
-        $this->assertEquals($user->id, $note->user_id);
-    }
-}
+    $note = CreateNote::run($data);
+
+    expect($note->exists)->toBeTrue();
+    expect($note->title)->toEqual('My Note');
+    expect($note->content)->toEqual('Content of my note');
+    expect($note->user_id)->toEqual(auth()->id());
+});

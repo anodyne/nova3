@@ -1,53 +1,28 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Stories\Actions;
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Posts\Models\Post;
 use Nova\Stories\Actions\MoveStoryPosts;
 use Nova\Stories\Models\Story;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->newStory = Story::factory()->create();
 
-/**
- * @group storytelling
- * @group stories
- * @group posts
- */
-class MoveStoryPostsActionTest extends TestCase
-{
-    protected $newStory;
+    $this->story = Story::factory()->create();
 
-    protected $story;
+    Post::factory()->count(5)->create([
+        'story_id' => $this->story,
+    ]);
 
-    protected $posts;
+    $this->story->refresh();
+});
+it('moves posts to another story', function () {
+    expect($this->story->posts)->toHaveCount(5);
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $story = MoveStoryPosts::run($this->story, $this->newStory);
 
-        $this->newStory = Story::factory()->create();
+    $this->story->refresh();
 
-        $this->story = Story::factory()->create();
-
-        Post::factory()->count(5)->create([
-            'story_id' => $this->story,
-        ]);
-
-        $this->story->refresh();
-    }
-
-    /** @test **/
-    public function itMovesPostsToAnotherStory()
-    {
-        $this->assertCount(5, $this->story->posts);
-
-        $story = MoveStoryPosts::run($this->story, $this->newStory);
-
-        $this->story->refresh();
-
-        $this->assertCount(0, $this->story->posts);
-        $this->assertCount(5, $story->posts);
-    }
-}
+    expect($this->story->posts)->toHaveCount(0);
+    expect($story->posts)->toHaveCount(5);
+});

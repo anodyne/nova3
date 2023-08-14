@@ -5,9 +5,9 @@
         <x-panel.header title="Email settings" message="Change the way Nova sends email">
             <x-slot name="actions">
                 <div x-data="{}">
-                    <x-button.outline color="primary" leading="search" x-on:click="$dispatch('toggle-spotlight')">
+                    <x-button.filled color="gray" leading="search" x-on:click="$dispatch('toggle-spotlight')">
                         Find a setting
-                    </x-button.outline>
+                    </x-button.filled>
                 </div>
             </x-slot>
         </x-panel.header>
@@ -42,7 +42,7 @@
             >
                 <x-input.group>
                     @livewire('media:upload-image', [
-                        'existingImage' => settings()->getFirstMediaUrl('email_logo'),
+                        'existingImage' => settings()->getFirstMediaUrl('email-logo'),
                         'supportMessage' => 'PNG, JPG, SVG up to 5MB',
                     ])
                 </x-input.group>

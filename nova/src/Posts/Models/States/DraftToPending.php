@@ -19,6 +19,11 @@ class DraftToPending extends Transition
         $this->post->status = Pending::class;
         $this->post->save();
 
+        activity()
+            ->performedOn($this->post)
+            ->event('pending')
+            ->log(':subject.title post was moved to a pending state');
+
         return $this->post->refresh();
     }
 }

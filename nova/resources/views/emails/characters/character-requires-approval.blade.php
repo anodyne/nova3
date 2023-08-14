@@ -2,7 +2,7 @@
 <x-mail::message>
 # Pending character requires approval
 
-A new charcter has been created by {{ $creatingUser->name }} that requires approval. Please sign in to review the pending character.
+A pending character owned by {{ $creatingUser->name }} requires approval. Please sign in to review the pending character.
 
 <x-mail::panel>
 **Name:** {{ $character->name }}

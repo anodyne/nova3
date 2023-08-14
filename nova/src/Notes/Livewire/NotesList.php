@@ -6,6 +6,7 @@ namespace Nova\Notes\Livewire;
 
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Notifications\Notification;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
@@ -58,21 +59,20 @@ class NotesList extends Component implements HasForms, HasTable
                     ])->authorizeAny(['view', 'update'])->divided(),
                     ActionGroup::make([
                         ReplicateAction::make()
-                            ->close()
-                            ->successNotificationTitle(fn (Model $record): string => "{$record->title} was duplicated")
-                            ->using(function (Model $record): Model {
+                            ->modalContentView('pages.notes.duplicate')
+                            ->action(function (Model $record): void {
                                 $replica = DuplicateNote::run($record);
 
-                                dispatch(new NoteDuplicated($replica, $record));
+                                NoteDuplicated::dispatch($replica, $record);
 
-                                return $replica;
+                                Notification::make()->success()
+                                    ->title("{$record->title} note was duplicated")
+                                    ->send();
                             }),
                     ])->authorize('duplicate')->divided(),
                     ActionGroup::make([
                         DeleteAction::make()
-                            ->modalHeading('Delete note?')
-                            ->modalDescription("Are you sure you want to delete this note? You won't be able to recover it.")
-                            ->modalSubmitActionLabel('Delete')
+                            ->modalContentView('pages.notes.delete')
                             ->successNotificationTitle('Note was deleted')
                             ->using(fn (Model $record): Model => DeleteNote::run($record)),
                     ])->authorize('delete')->divided(),

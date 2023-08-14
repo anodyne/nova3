@@ -24,7 +24,7 @@ class CharacterServiceProvider extends DomainServiceProvider
         return [
             'characters:collector' => CharactersCollector::class,
             'characters:dropdown' => CharactersDropdown::class,
-            'characters:list' => CharactersList::class,
+            'characters-list' => CharactersList::class,
             'characters:select-characters-modal' => SelectCharactersModal::class,
             'characters:manage-ownership' => ManageOwnership::class,
             'characters:manage-positions' => ManagePositions::class,

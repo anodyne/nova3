@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Notifications\Notification;
+use Lab404\Impersonate\Models\Impersonate;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
 use Nova\Characters\Models\Character;
@@ -45,6 +46,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia, Laratru
     use LogsActivity;
     use Notifiable;
     use SoftDeletes;
+    use Impersonate;
 
     protected $casts = [
         'force_password_reset' => 'boolean',
@@ -121,10 +123,18 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia, Laratru
 
     public function getActivitylogOptions(): LogOptions
     {
-        return LogOptions::defaults()
-            ->logFillable()
+        $logOptions = LogOptions::defaults()->logFillable();
+
+        if (app('impersonate')->isImpersonating()) {
+            return $logOptions->useLogName('impersonation')
+                ->setDescriptionForEvent(
+                    fn (string $eventName): string => ":subject.name was {$eventName} during impersonation by ".app('impersonate')->getImpersonator()->name
+                );
+        }
+
+        return $logOptions
             ->setDescriptionForEvent(
-                fn (string $eventName) => ":subject.name was {$eventName}"
+                fn (string $eventName): string => ":subject.name was {$eventName}"
             );
     }
 
@@ -169,7 +179,10 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia, Laratru
     {
         return new Attribute(
             get: function ($value): bool {
-                return $this->isAbleTo('theme.*');
+                return $this->isAbleTo('theme.*')
+                    || $this->isAbleTo('system.activity')
+                    || $this->isAbleTo('forms.*')
+                    || $this->isAbleTo('pages.*');
             }
         );
     }
@@ -190,6 +203,11 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia, Laratru
         return $this->unreadNotifications()->where('id', $notification->id)->count() > 0;
     }
 
+    public function canImpersonate()
+    {
+        return $this->isAbleTo('user.impersonate');
+    }
+
     public function newCollection(array $models = []): UsersCollection
     {
         return new UsersCollection($models);
@@ -205,7 +223,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia, Laratru
         $this->addMediaCollection('avatar')
             ->useFallbackUrl("https://avatars.dicebear.com/api/bottts/{$this->email}.svg")
             ->useDisk('media')
-            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif'])
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'])
             ->singleFile();
     }
 

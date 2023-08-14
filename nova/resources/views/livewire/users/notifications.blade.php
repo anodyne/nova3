@@ -76,7 +76,7 @@
                         <header class="flex items-center justify-between px-4 sm:px-6">
                             <x-h2>Notifications</x-h2>
 
-                            @if ($this->hasUnreadNotifications)
+                            @if ($unreadNotificationsCount > 0)
                                 <x-button.text
                                     tag="button"
                                     color="gray"
@@ -87,7 +87,7 @@
                                 </x-button.text>
                             @endif
 
-                            @if (! $this->hasUnreadNotifications && $this->hasNotifications)
+                            @if ($unreadNotificationsCount === 0 && $hasNotifications)
                                 <x-button.text
                                     tag="button"
                                     color="gray"

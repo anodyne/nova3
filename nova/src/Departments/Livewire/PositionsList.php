@@ -39,6 +39,14 @@ class PositionsList extends Component implements HasForms, HasTable
     use InteractsWithForms;
     use InteractsWithTable;
 
+    protected $queryString = [
+        'tableFilters',
+    ];
+
+    // public ?array $tableFilters = [
+    //     'only_my_characters',
+    // ];
+
     public function table(Table $table): Table
     {
         return $table

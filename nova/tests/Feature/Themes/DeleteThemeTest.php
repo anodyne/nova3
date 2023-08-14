@@ -1,119 +1,78 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\Themes;
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
 use Nova\Themes\Events\ThemeDeleted;
 use Nova\Themes\Models\Theme;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->disk = Storage::fake('themes');
 
-/**
- * @group themes
- */
-class DeleteThemeTest extends TestCase
-{
-    protected $disk;
+    $this->theme = Theme::factory()->create();
+    $this->secondTheme = Theme::factory()->create();
+});
+test('authorized user can delete theme', function () {
+    $this->signInWithPermission('theme.delete');
 
-    protected $theme;
+    $this->followingRedirects();
 
-    protected $secondTheme;
+    $response = $this->delete(route('themes.destroy', $this->theme));
+    $response->assertSuccessful();
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $this->assertDatabaseMissing(
+        'themes',
+        $this->theme->only('name', 'location')
+    );
+});
+test('the theme directory is not removed when a theme is deleted', function () {
+    $this->disk->makeDirectory($this->theme->location);
 
-        $this->disk = Storage::fake('themes');
+    $this->signInWithPermission('theme.delete');
 
-        $this->theme = Theme::factory()->create();
-        $this->secondTheme = Theme::factory()->create();
-    }
+    $this->delete(route('themes.destroy', $this->theme));
 
-    /** @test **/
-    public function authorizedUserCanDeleteTheme()
-    {
-        $this->signInWithPermission('theme.delete');
+    expect(in_array(
+        $this->theme->location,
+        $this->disk->directories()
+    ))->toBeTrue();
+});
+test('when the default theme is deleted another theme is set as the default', function () {
+    $this->markTestIncomplete('Default themes not implemented yet');
 
-        $this->followingRedirects();
+    $this->signInWithPermission('theme.delete');
 
-        $response = $this->delete(route('themes.destroy', $this->theme));
-        $response->assertSuccessful();
+    $this->delete(route('themes.destroy', $this->theme));
+});
+test('event is dispatched when theme is deleted', function () {
+    Event::fake();
 
-        $this->assertDatabaseMissing(
-            'themes',
-            $this->theme->only('name', 'location')
-        );
-    }
+    $this->signInWithPermission('theme.delete');
 
-    /** @test **/
-    public function theThemeDirectoryIsNotRemovedWhenAThemeIsDeleted()
-    {
-        $this->disk->makeDirectory($this->theme->location);
+    $this->delete(route('themes.destroy', $this->theme));
 
-        $this->signInWithPermission('theme.delete');
+    Event::assertDispatched(ThemeDeleted::class);
+});
+test('if there is only one theme it cannot be deleted', function () {
+    $this->signInWithPermission('theme.delete');
 
-        $this->delete(route('themes.destroy', $this->theme));
+    Theme::where('id', '!=', $this->theme->id)->delete();
 
-        $this->assertTrue(in_array(
-            $this->theme->location,
-            $this->disk->directories()
-        ));
-    }
+    $response = $this->delete(route('themes.destroy', $this->theme));
+    $response->assertForbidden();
 
-    /** @test **/
-    public function whenTheDefaultThemeIsDeletedAnotherThemeIsSetAsTheDefault()
-    {
-        $this->markTestIncomplete('Default themes not implemented yet');
+    $this->assertDatabaseHas(
+        'themes',
+        $this->theme->only('name', 'location')
+    );
+});
+test('unauthorized user cannot delete theme', function () {
+    $this->signIn();
 
-        $this->signInWithPermission('theme.delete');
-
-        $this->delete(route('themes.destroy', $this->theme));
-    }
-
-    /** @test **/
-    public function eventIsDispatchedWhenThemeIsDeleted()
-    {
-        Event::fake();
-
-        $this->signInWithPermission('theme.delete');
-
-        $this->delete(route('themes.destroy', $this->theme));
-
-        Event::assertDispatched(ThemeDeleted::class);
-    }
-
-    /** @test **/
-    public function ifThereIsOnlyOneThemeItCannotBeDeleted()
-    {
-        $this->signInWithPermission('theme.delete');
-
-        Theme::where('id', '!=', $this->theme->id)->delete();
-
-        $response = $this->delete(route('themes.destroy', $this->theme));
-        $response->assertForbidden();
-
-        $this->assertDatabaseHas(
-            'themes',
-            $this->theme->only('name', 'location')
-        );
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotDeleteTheme()
-    {
-        $this->signIn();
-
-        $response = $this->delete(route('themes.destroy', $this->theme));
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotDeleteTheme()
-    {
-        $response = $this->deleteJson(route('themes.destroy', $this->theme));
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->delete(route('themes.destroy', $this->theme));
+    $response->assertForbidden();
+});
+test('unauthenticated user cannot delete theme', function () {
+    $response = $this->deleteJson(route('themes.destroy', $this->theme));
+    $response->assertUnauthorized();
+});

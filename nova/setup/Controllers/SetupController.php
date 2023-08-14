@@ -53,6 +53,10 @@ class SetupController
         Artisan::call('optimize:clear');
         Artisan::call('package:discover');
 
+        activity('admin')
+            ->event('installed')
+            ->log('Fresh install completed');
+
         return redirect('/login');
     }
 }

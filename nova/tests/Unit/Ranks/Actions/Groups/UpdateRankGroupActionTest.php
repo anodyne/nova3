@@ -1,41 +1,21 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Ranks\Actions\Groups;
-
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Ranks\Actions\UpdateRankGroup;
 use Nova\Ranks\Data\RankGroupData;
 use Nova\Ranks\Models\RankGroup;
-use Tests\TestCase;
+uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
-/**
- * @group ranks
- */
-class UpdateRankGroupActionTest extends TestCase
-{
-    use RefreshDatabase;
+beforeEach(function () {
+    $this->group = RankGroup::factory()->create();
+});
+it('updates a rank group', function () {
+    $data = RankGroupData::from([
+        'name' => 'Command',
+    ]);
 
-    protected $group;
+    $group = UpdateRankGroup::run($this->group, $data);
 
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->group = RankGroup::factory()->create();
-    }
-
-    /** @test **/
-    public function itUpdatesARankGroup()
-    {
-        $data = RankGroupData::from([
-            'name' => 'Command',
-        ]);
-
-        $group = UpdateRankGroup::run($this->group, $data);
-
-        $this->assertTrue($group->exists);
-        $this->assertEquals('Command', $group->name);
-    }
-}
+    expect($group->exists)->toBeTrue();
+    expect($group->name)->toEqual('Command');
+});

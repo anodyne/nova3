@@ -37,23 +37,15 @@ class PositionsCollector extends Component
         $this->positions = array_values($this->positions);
     }
 
-    public function mount($positions = null, $primaryPosition = null, $character = null)
+    public function mount($positions = null, $character = null)
     {
         if ($positions === null || (is_array($positions) && count($positions) === 0)) {
             $this->positions[0] = [
                 'id' => null,
-                'primary' => false,
             ];
         } else {
             $this->positions = collect($positions)
-                ->map(function ($position) use ($character, $primaryPosition) {
-                    return [
-                        'id' => $position,
-                        'primary' => ($character === null)
-                            ? (int) $primaryPosition === (int) $position
-                            : $position == optional($character->primaryPosition->first())->id,
-                    ];
-                })
+                ->map(fn ($position) => ['id' => $position])
                 ->toArray();
         }
     }

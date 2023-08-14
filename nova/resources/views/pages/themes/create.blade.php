@@ -2,9 +2,9 @@
 
 @section('content')
     <x-page-header title="Add Theme">
-        <x-slot:pretitle>
+        <x-slot>
             <a href="{{ route('themes.index') }}">Themes</a>
-        </x-slot:pretitle>
+        </x-slot>
     </x-page-header>
 
     <x-panel
@@ -16,7 +16,10 @@
         })"
     >
         <x-form :action="route('themes.store')">
-            <x-form.section title="Theme Info" message="A theme allows you to give your public-facing site the look-and-feel you want to any visitors. Using tools like regular HTML and CSS, you can show visitors the personality of your game and put your own spin on Nova.">
+            <x-form.section
+                title="Theme Info"
+                message="A theme allows you to give your public-facing site the look-and-feel you want to any visitors. Using tools like regular HTML and CSS, you can show visitors the personality of your game and put your own spin on Nova."
+            >
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
                     <x-input.text x-model="name" id="name" name="name" />
                 </x-input.group>
@@ -35,12 +38,19 @@
                     <x-input.text id="preview" name="preview" />
                 </x-input.group>
 
-                <x-input.group label="Credits" for="credits" help="We strongly encourage providing detailed credits for your theme. If you used an icon set or borrowed code from someone or even got inspiration from another site, this is the place to provide the appropriate credit.">
+                <x-input.group
+                    label="Credits"
+                    for="credits"
+                    help="We strongly encourage providing detailed credits for your theme. If you used an icon set or borrowed code from someone or even got inspiration from another site, this is the place to provide the appropriate credit."
+                >
                     <x-input.textarea id="credits" name="credits">{{ old('credits') }}</x-input.textarea>
                 </x-input.group>
             </x-form.section>
 
-            <x-form.section title="Scaffolding" message="When you create your theme, Nova will create all of the necessary directories and files for your theme. These options allow you to specify additional files you want created during scaffolding.">
+            <x-form.section
+                title="Scaffolding"
+                message="When you create your theme, Nova will create all of the necessary directories and files for your theme. These options allow you to specify additional files you want created during scaffolding."
+            >
                 <x-input.group
                     label="Variants"
                     for="variants"
@@ -52,10 +62,10 @@
 
             <x-form.footer>
                 <x-button.filled type="submit" color="primary">Add Theme</x-button.filled>
-                <x-button.outline :href="route('themes.index')" color="gray">Cancel</x-button.outline>
+                <x-button.filled :href="route('themes.index')" color="gray">Cancel</x-button.filled>
             </x-form.footer>
 
-            <input type="hidden" name="active" value="0">
+            <input type="hidden" name="active" value="0" />
         </x-form>
     </x-panel>
 @endsection

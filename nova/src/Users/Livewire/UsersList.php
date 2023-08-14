@@ -20,6 +20,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -94,6 +95,21 @@ class UsersList extends Component implements HasForms, HasTable
                             ->authorize('update')
                             ->url(fn (Model $record): string => route('users.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
+                    Actions\ActionGroup::make([
+                        Action::make('impersonate')
+                            ->requiresConfirmation()
+                            ->modalContent(fn (Model $record): View => view('pages.users.impersonate-warning', [
+                                'record' => $record,
+                            ]))
+                            ->modalHeading('')
+                            ->modalDescription(null)
+                            ->modalIcon(null)
+                            ->modalWidth('xl')
+                            ->modalSubmitActionLabel('Impersonate')
+                            ->color('gray')
+                            ->icon(iconName('spy'))
+                            ->action(fn (Model $record) => to_route('impersonate', $record->id)),
+                    ])->authorize('impersonate')->divided(),
                     Actions\ActionGroup::make([
                         Action::make('activate')
                             ->authorize('activate')

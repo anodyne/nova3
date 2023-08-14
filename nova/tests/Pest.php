@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -12,6 +14,8 @@ declare(strict_types=1);
 | need to change it using the "uses()" function to bind a different classes or traits.
 |
 */
+
+uses(RefreshDatabase::class);
 
 uses(Tests\TestCase::class)->in('Feature');
 uses(Tests\TestCase::class)->in('Unit');

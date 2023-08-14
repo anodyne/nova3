@@ -7,6 +7,7 @@ namespace Nova\Roles\Providers;
 use Nova\DomainServiceProvider;
 use Nova\Roles\Livewire\ManagePermissions;
 use Nova\Roles\Livewire\ManageUsers;
+use Nova\Roles\Livewire\PermissionsList;
 use Nova\Roles\Livewire\RolesList;
 use Nova\Roles\Spotlight\AddRole;
 use Nova\Roles\Spotlight\EditRole;
@@ -18,7 +19,8 @@ class RoleServiceProvider extends DomainServiceProvider
     public function livewireComponents(): array
     {
         return [
-            'roles:list' => RolesList::class,
+            'permissions-list' => PermissionsList::class,
+            'roles-list' => RolesList::class,
             'roles:manage-permissions' => ManagePermissions::class,
             'roles:manage-users' => ManageUsers::class,
         ];

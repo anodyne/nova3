@@ -19,15 +19,7 @@ class ActiveToInactive extends Transition
         $this->character->status = Inactive::class;
         $this->character->save();
 
-        $this->character->positions->each(function ($position) {
-            if (in_array($this->character->status->name(), ['primary', 'secondary', 'support'])) {
-                $position->increment('available');
-            }
-
-            if ($position->pivot->primary) {
-                $position->increment('available');
-            }
-        });
+        // TODO: Increment the available positions as needed
 
         return $this->character->refresh();
     }

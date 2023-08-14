@@ -8,7 +8,7 @@ use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Characters\Enums\CharacterType;
 use Nova\Characters\Models\Character;
 use Nova\Characters\Requests\UpdateCharacterRequest;
-use Nova\Departments\Models\Position;
+use Nova\Departments\Actions\AutoAvailabilityManager;
 
 class UpdateCharacterManager
 {
@@ -38,17 +38,17 @@ class UpdateCharacterManager
 
         $character = SetCharacterType::run($character);
 
-        // if ($character->type === CharacterType::primary && settings()->characters->manageAvailabilityForPrimaryCharacters) {
-        //     Position::whereIn(
-        //         'id',
-        //         array_diff($request->getCharacterPositionsData()->positions, $oldPositionIds)
-        //     )->decrement('available');
-
-        //     Position::whereIn(
-        //         'id',
-        //         array_diff($oldPositionIds, $request->getCharacterPositionsData()->positions)
-        //     )->increment('available');
-        // }
+        AutoAvailabilityManager::runIf(
+            match (true) {
+                $character->type === CharacterType::primary && settings('characters.autoAvailabilityForPrimary') => true,
+                $character->type === CharacterType::secondary && settings('characters.autoAvailabilityForSecondary') => true,
+                $character->type === CharacterType::support && settings('characters.autoAvailabilityForSupport') => true,
+                default => false,
+            },
+            $character,
+            $request->getCharacterPositionsData(),
+            $oldPositionIds
+        );
 
         UploadCharacterAvatar::run($character, $request->avatar_path);
 

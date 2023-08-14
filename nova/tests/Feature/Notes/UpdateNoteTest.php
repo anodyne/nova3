@@ -2,115 +2,79 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Notes;
-
 use Illuminate\Support\Facades\Event;
 use Nova\Notes\Events\NoteUpdated;
 use Nova\Notes\Models\Note;
 use Nova\Notes\Requests\UpdateNoteRequest;
-use Tests\TestCase;
+use function Pest\Laravel\assertDatabaseHas;
+use function Pest\Laravel\get;
+use function Pest\Laravel\getJson;
+use function Pest\Laravel\put;
+use function Pest\Laravel\putJson;
 
-/**
- * @group notes
- */
-class UpdateNoteTest extends TestCase
-{
-    protected $note;
+uses()->group('notes');
 
-    public function setUp(): void
-    {
-        parent::setUp();
+beforeEach(function () {
+    $this->note1 = Note::factory()->create();
+    $this->note2 = Note::factory()->create();
+});
 
-        $this->note = Note::factory()->create();
-    }
+describe('authenticated user', function () {
+    test('can view the edit note page', function () {
+        $this->signIn($this->note1->author);
 
-    /** @test **/
-    public function authenticatedUserCanViewTheEditNotePage()
-    {
-        $this->signIn($this->note->author);
+        get(route('notes.edit', $this->note1))->assertSuccessful();
+    });
 
-        $response = $this->get(route('notes.edit', $this->note));
-        $response->assertSuccessful();
-    }
+    test('can update a note they created', function () {
+        Event::fake();
 
-    /** @test **/
-    public function authenticatedUserCanUpdateNote()
-    {
-        $this->signIn($this->note->author);
-
-        $data = [
-            'id' => $this->note->id,
-            'title' => 'New Title',
-            'editor-content' => 'New content',
-            'summary' => 'New summary',
-        ];
+        $this->signIn($this->note1->author);
 
         $this->followingRedirects();
 
-        $response = $this->put(route('notes.update', $this->note), $data);
-        $response->assertSuccessful();
+        put(route('notes.update', $this->note1), [
+            'title' => 'New Title',
+            'editor-content' => 'New content',
+        ])
+            ->assertSuccessful();
+
+        Event::assertDispatched(NoteUpdated::class);
 
         $this->assertRouteUsesFormRequest(
             'notes.update',
             UpdateNoteRequest::class
         );
 
-        $this->assertDatabaseHas('notes', [
-            'id' => $this->note->id,
+        assertDatabaseHas('notes', [
+            'id' => $this->note1->id,
             'title' => 'New Title',
             'content' => 'New content',
-            'summary' => 'New summary',
         ]);
-    }
+    });
 
-    /** @test **/
-    public function eventIsDispatchedWhenNoteIsUpdated()
-    {
-        Event::fake();
+    test('cannot view the edit page of a note they did not create', function () {
+        $this->signIn($this->note2->author);
 
-        $this->signIn($this->note->author);
+        get(route('notes.edit', $this->note1))->assertForbidden();
+    });
 
-        $this->put(route('notes.update', $this->note), [
-            'id' => $this->note->id,
-            'title' => 'New Title',
-            'editor-content' => 'New content',
-            'summary' => 'New summary',
-        ]);
+    test('cannot update a note they did not create', function () {
+        $this->signIn($this->note2->author);
 
-        Event::assertDispatched(NoteUpdated::class);
-    }
-
-    /** @test **/
-    public function authenticatedUserCannotViewTheEditPageOfANoteTheyDidNotCreate()
-    {
-        $this->signIn();
-
-        $response = $this->get(route('notes.edit', $this->note));
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function authenticatedUserCannotUpdateNoteTheyDidNotCreate()
-    {
-        $this->signIn();
-
-        $response = $this->putJson(route('notes.update', $this->note), [
+        putJson(route('notes.update', $this->note1), [
             'title' => 'Foo',
-        ]);
-        $response->assertForbidden();
-    }
+        ])
+            ->assertForbidden();
+    });
+});
 
-    /** @test **/
-    public function unauthenticatedUserCannotViewTheEditNotePage()
-    {
-        $response = $this->getJson(route('notes.edit', $this->note));
-        $response->assertUnauthorized();
-    }
+describe('unauthenticated user', function () {
+    test('cannot view the edit note page', function () {
+        getJson(route('notes.edit', $this->note1))->assertUnauthorized();
+    });
 
-    /** @test **/
-    public function unauthenticatedUserCannotUpdateNote()
-    {
-        $response = $this->putJson(route('notes.update', $this->note), []);
-        $response->assertUnauthorized();
-    }
-}
+    test('cannot update a note', function () {
+        putJson(route('notes.update', $this->note1), [])->assertUnauthorized();
+    });
+});

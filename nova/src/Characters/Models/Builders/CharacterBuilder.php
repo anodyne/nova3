@@ -12,12 +12,9 @@ use Nova\Users\Models\User;
 
 class CharacterBuilder extends Builder
 {
-    public function isAssignedTo(User $user): Builder
+    public function isAssignedTo(User $user): self
     {
-        return $this->whereHas(
-            'users',
-            fn ($query) => $query->whereRelation('users', 'users.id', '=', $user->id)
-        );
+        return $this->whereRelation('users', 'users.id', '=', $user->id);
     }
 
     public function searchForWithoutUsers($search): Builder

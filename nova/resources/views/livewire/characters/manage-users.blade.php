@@ -72,14 +72,14 @@
                         @if ($primary->where('id', $user->id)->count() === 1)
                             <x-badge color="primary">Primary</x-badge>
                         @else
-                            <x-button.outline
+                            <x-button.filled
                                 tag="button"
                                 color="gray"
                                 size="xs"
                                 wire:click="setPrimaryCharacterForUser({{ $user->id }})"
                             >
                                 Make primary
-                            </x-button.outline>
+                            </x-button.filled>
                         @endif
 
                         <x-dropdown placement="bottom-end">

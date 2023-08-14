@@ -1,101 +1,70 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\Ranks\Items;
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\Ranks\Events\RankItemCreated;
 use Nova\Ranks\Models\RankItem;
 use Nova\Ranks\Requests\CreateRankItemRequest;
-use Tests\TestCase;
+test('authorized user can view the create rank item page', function () {
+    $this->signInWithPermission('rank.create');
 
-/**
- * @group ranks
- */
-class CreateRankItemTest extends TestCase
-{
-    /** @test **/
-    public function authorizedUserCanViewTheCreateRankItemPage()
-    {
-        $this->signInWithPermission('rank.create');
+    $response = $this->get(route('ranks.items.create'));
+    $response->assertSuccessful();
+});
+test('authorized user can create a rank item', function () {
+    $this->signInWithPermission('rank.create');
 
-        $response = $this->get(route('ranks.items.create'));
-        $response->assertSuccessful();
-    }
+    $this->followingRedirects();
 
-    /** @test **/
-    public function authorizedUserCanCreateARankItem()
-    {
-        $this->signInWithPermission('rank.create');
+    $response = $this->post(
+        route('ranks.items.store'),
+        $rankItemData = RankItem::factory()->make()->toArray()
+    );
+    $response->assertSuccessful();
 
-        $this->followingRedirects();
+    $this->assertRouteUsesFormRequest(
+        'ranks.items.store',
+        CreateRankItemRequest::class
+    );
 
-        $response = $this->post(
-            route('ranks.items.store'),
-            $rankItemData = RankItem::factory()->make()->toArray()
-        );
-        $response->assertSuccessful();
+    $this->assertDatabaseHas('rank_items', $rankItemData);
+});
+test('event is dispatched when rank item is created', function () {
+    Event::fake();
 
-        $this->assertRouteUsesFormRequest(
-            'ranks.items.store',
-            CreateRankItemRequest::class
-        );
+    $this->signInWithPermission('rank.create');
 
-        $this->assertDatabaseHas('rank_items', $rankItemData);
-    }
+    $this->post(
+        route('ranks.items.store'),
+        RankItem::factory()->make()->toArray()
+    );
 
-    /** @test **/
-    public function eventIsDispatchedWhenRankItemIsCreated()
-    {
-        Event::fake();
+    Event::assertDispatched(RankItemCreated::class);
+});
+test('unauthorized user cannot view the create rank item page', function () {
+    $this->signIn();
 
-        $this->signInWithPermission('rank.create');
+    $response = $this->get(route('ranks.items.create'));
+    $response->assertForbidden();
+});
+test('unauthorized user cannot create a rank item', function () {
+    $this->signIn();
 
-        $this->post(
-            route('ranks.items.store'),
-            RankItem::factory()->make()->toArray()
-        );
-
-        Event::assertDispatched(RankItemCreated::class);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotViewTheCreateRankItemPage()
-    {
-        $this->signIn();
-
-        $response = $this->get(route('ranks.items.create'));
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotCreateARankItem()
-    {
-        $this->signIn();
-
-        $response = $this->post(
-            route('ranks.items.store'),
-            RankItem::factory()->make()->toArray()
-        );
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotViewTheCreateRankItemPage()
-    {
-        $response = $this->getJson(route('ranks.items.create'));
-        $response->assertUnauthorized();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotCreateARankItem()
-    {
-        $response = $this->postJson(
-            route('ranks.items.store'),
-            RankItem::factory()->make()->toArray()
-        );
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->post(
+        route('ranks.items.store'),
+        RankItem::factory()->make()->toArray()
+    );
+    $response->assertForbidden();
+});
+test('unauthenticated user cannot view the create rank item page', function () {
+    $response = $this->getJson(route('ranks.items.create'));
+    $response->assertUnauthorized();
+});
+test('unauthenticated user cannot create a rank item', function () {
+    $response = $this->postJson(
+        route('ranks.items.store'),
+        RankItem::factory()->make()->toArray()
+    );
+    $response->assertUnauthorized();
+});

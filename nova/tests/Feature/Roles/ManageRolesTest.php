@@ -1,106 +1,72 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\Roles;
-
 use Nova\Roles\Models\Role;
-use Tests\TestCase;
+test('authorized user with create permission can view manage roles page', function () {
+    $this->signInWithPermission('role.create');
 
-/**
- * @group roles
- */
-class ManageRolesTest extends TestCase
-{
-    /** @test **/
-    public function authorizedUserWithCreatePermissionCanViewManageRolesPage()
-    {
-        $this->signInWithPermission('role.create');
+    $response = $this->get(route('roles.index'));
+    $response->assertSuccessful();
+});
+test('authorized user with update permission can view manage roles page', function () {
+    $this->signInWithPermission('role.update');
 
-        $response = $this->get(route('roles.index'));
-        $response->assertSuccessful();
-    }
+    $response = $this->get(route('roles.index'));
+    $response->assertSuccessful();
+});
+test('authorized user with delete permission can view manage roles page', function () {
+    $this->signInWithPermission('role.delete');
 
-    /** @test **/
-    public function authorizedUserWithUpdatePermissionCanViewManageRolesPage()
-    {
-        $this->signInWithPermission('role.update');
+    $response = $this->get(route('roles.index'));
+    $response->assertSuccessful();
+});
+test('authorized user with view permission can view manage roles page', function () {
+    $this->signInWithPermission('role.view');
 
-        $response = $this->get(route('roles.index'));
-        $response->assertSuccessful();
-    }
+    $response = $this->get(route('roles.index'));
+    $response->assertSuccessful();
+});
+test('roles can be filtered by display name', function () {
+    $this->signInWithPermission('role.create');
 
-    /** @test **/
-    public function authorizedUserWithDeletePermissionCanViewManageRolesPage()
-    {
-        $this->signInWithPermission('role.delete');
+    Role::factory()->create([
+        'display_name' => 'barbaz',
+    ]);
 
-        $response = $this->get(route('roles.index'));
-        $response->assertSuccessful();
-    }
+    $response = $this->get(route('roles.index'));
+    $response->assertSuccessful();
 
-    /** @test **/
-    public function authorizedUserWithViewPermissionCanViewManageRolesPage()
-    {
-        $this->signInWithPermission('role.view');
+    expect($response['roles']->total())->toEqual(Role::count());
 
-        $response = $this->get(route('roles.index'));
-        $response->assertSuccessful();
-    }
+    $response = $this->get(route('roles.index', 'search=barbaz'));
+    $response->assertSuccessful();
 
-    /** @test **/
-    public function rolesCanBeFilteredByDisplayName()
-    {
-        $this->signInWithPermission('role.create');
+    expect($response['roles'])->toHaveCount(1);
+});
+test('roles can be filtered by name', function () {
+    $this->signInWithPermission('role.create');
 
-        Role::factory()->create([
-            'display_name' => 'barbaz',
-        ]);
+    Role::factory()->create([
+        'name' => 'foobar',
+    ]);
 
-        $response = $this->get(route('roles.index'));
-        $response->assertSuccessful();
+    $response = $this->get(route('roles.index'));
+    $response->assertSuccessful();
 
-        $this->assertEquals(Role::count(), $response['roles']->total());
+    expect($response['roles']->total())->toEqual(Role::count());
 
-        $response = $this->get(route('roles.index', 'search=barbaz'));
-        $response->assertSuccessful();
+    $response = $this->get(route('roles.index', 'search=foobar'));
+    $response->assertSuccessful();
 
-        $this->assertCount(1, $response['roles']);
-    }
+    expect($response['roles'])->toHaveCount(1);
+});
+test('unauthorized user cannot view manage roles page', function () {
+    $this->signIn();
 
-    /** @test **/
-    public function rolesCanBeFilteredByName()
-    {
-        $this->signInWithPermission('role.create');
-
-        Role::factory()->create([
-            'name' => 'foobar',
-        ]);
-
-        $response = $this->get(route('roles.index'));
-        $response->assertSuccessful();
-
-        $this->assertEquals(Role::count(), $response['roles']->total());
-
-        $response = $this->get(route('roles.index', 'search=foobar'));
-        $response->assertSuccessful();
-
-        $this->assertCount(1, $response['roles']);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotViewManageRolesPage()
-    {
-        $this->signIn();
-
-        $response = $this->get(route('roles.index'));
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotViewManageRolesPage()
-    {
-        $response = $this->getJson(route('roles.index'));
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->get(route('roles.index'));
+    $response->assertForbidden();
+});
+test('unauthenticated user cannot view manage roles page', function () {
+    $response = $this->getJson(route('roles.index'));
+    $response->assertUnauthorized();
+});

@@ -1,101 +1,70 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\Ranks\Groups;
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\Ranks\Events\RankGroupCreated;
 use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Requests\CreateRankGroupRequest;
-use Tests\TestCase;
+test('authorized user can view the create rank group page', function () {
+    $this->signInWithPermission('rank.create');
 
-/**
- * @group ranks
- */
-class CreateRankGroupTest extends TestCase
-{
-    /** @test **/
-    public function authorizedUserCanViewTheCreateRankGroupPage()
-    {
-        $this->signInWithPermission('rank.create');
+    $response = $this->get(route('ranks.groups.create'));
+    $response->assertSuccessful();
+});
+test('authorized user can create a rank group', function () {
+    $this->signInWithPermission('rank.create');
 
-        $response = $this->get(route('ranks.groups.create'));
-        $response->assertSuccessful();
-    }
+    $this->followingRedirects();
 
-    /** @test **/
-    public function authorizedUserCanCreateARankGroup()
-    {
-        $this->signInWithPermission('rank.create');
+    $response = $this->post(
+        route('ranks.groups.store'),
+        $rankGroupData = RankGroup::factory()->make()->toArray()
+    );
+    $response->assertSuccessful();
 
-        $this->followingRedirects();
+    $this->assertRouteUsesFormRequest(
+        'ranks.groups.store',
+        CreateRankGroupRequest::class
+    );
 
-        $response = $this->post(
-            route('ranks.groups.store'),
-            $rankGroupData = RankGroup::factory()->make()->toArray()
-        );
-        $response->assertSuccessful();
+    $this->assertDatabaseHas('rank_groups', $rankGroupData);
+});
+test('event is dispatched when rank group is created', function () {
+    Event::fake();
 
-        $this->assertRouteUsesFormRequest(
-            'ranks.groups.store',
-            CreateRankGroupRequest::class
-        );
+    $this->signInWithPermission('rank.create');
 
-        $this->assertDatabaseHas('rank_groups', $rankGroupData);
-    }
+    $this->post(
+        route('ranks.groups.store'),
+        RankGroup::factory()->make()->toArray()
+    );
 
-    /** @test **/
-    public function eventIsDispatchedWhenRankGroupIsCreated()
-    {
-        Event::fake();
+    Event::assertDispatched(RankGroupCreated::class);
+});
+test('unauthorized user cannot view the create rank group page', function () {
+    $this->signIn();
 
-        $this->signInWithPermission('rank.create');
+    $response = $this->get(route('ranks.groups.create'));
+    $response->assertForbidden();
+});
+test('unauthorized user cannot create a rank group', function () {
+    $this->signIn();
 
-        $this->post(
-            route('ranks.groups.store'),
-            RankGroup::factory()->make()->toArray()
-        );
-
-        Event::assertDispatched(RankGroupCreated::class);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotViewTheCreateRankGroupPage()
-    {
-        $this->signIn();
-
-        $response = $this->get(route('ranks.groups.create'));
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotCreateARankGroup()
-    {
-        $this->signIn();
-
-        $response = $this->post(
-            route('ranks.groups.store'),
-            RankGroup::factory()->make()->toArray()
-        );
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotViewTheCreateRankGroupPage()
-    {
-        $response = $this->getJson(route('ranks.groups.create'));
-        $response->assertUnauthorized();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotCreateARankGroup()
-    {
-        $response = $this->postJson(
-            route('ranks.groups.store'),
-            RankGroup::factory()->make()->toArray()
-        );
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->post(
+        route('ranks.groups.store'),
+        RankGroup::factory()->make()->toArray()
+    );
+    $response->assertForbidden();
+});
+test('unauthenticated user cannot view the create rank group page', function () {
+    $response = $this->getJson(route('ranks.groups.create'));
+    $response->assertUnauthorized();
+});
+test('unauthenticated user cannot create a rank group', function () {
+    $response = $this->postJson(
+        route('ranks.groups.store'),
+        RankGroup::factory()->make()->toArray()
+    );
+    $response->assertUnauthorized();
+});

@@ -23,6 +23,11 @@ class DraftToPublished extends Transition
         $this->post->published_at = now();
         $this->post->save();
 
+        activity()
+            ->performedOn($this->post)
+            ->event('published')
+            ->log(':subject.title post was published from a draft state');
+
         User::active()->get()->each->notify(new PostPublished($this->post));
 
         PruneAbandonedPosts::run();

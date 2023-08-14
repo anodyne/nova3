@@ -54,12 +54,12 @@ class Settings extends Model implements HasMedia
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('logo')
-            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/svg+xml'])
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'])
             ->singleFile()
             ->useDisk('media');
 
-        $this->addMediaCollection('email_logo')
-            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/svg+xml'])
+        $this->addMediaCollection('email-logo')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'])
             ->singleFile()
             ->useDisk('media');
     }

@@ -1,75 +1,47 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\Departments;
-
 use Illuminate\Support\Facades\Event;
 use Nova\Departments\Events\PositionDeleted;
 use Nova\Departments\Models\Position;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->position = Position::factory()->create();
+});
+test('authorized user can delete a position', function () {
+    $this->signInWithPermission('department.delete');
 
-/**
- * @group positions
- */
-class DeletePositionTest extends TestCase
-{
-    protected $position;
+    $this->followingRedirects();
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $response = $this->delete(
+        route('positions.destroy', $this->position)
+    );
+    $response->assertSuccessful();
 
-        $this->position = Position::factory()->create();
-    }
+    $this->assertDatabaseMissing(
+        'positions',
+        $this->position->only('id')
+    );
+});
+test('event is dispatched when position is deleted', function () {
+    Event::fake();
 
-    /** @test **/
-    public function authorizedUserCanDeleteAPosition()
-    {
-        $this->signInWithPermission('department.delete');
+    $this->signInWithPermission('department.delete');
 
-        $this->followingRedirects();
+    $this->delete(route('positions.destroy', $this->position));
 
-        $response = $this->delete(
-            route('positions.destroy', $this->position)
-        );
-        $response->assertSuccessful();
+    Event::assertDispatched(PositionDeleted::class);
+});
+test('unauthorized user cannot delete a position', function () {
+    $this->signIn();
 
-        $this->assertDatabaseMissing(
-            'positions',
-            $this->position->only('id')
-        );
-    }
-
-    /** @test **/
-    public function eventIsDispatchedWhenPositionIsDeleted()
-    {
-        Event::fake();
-
-        $this->signInWithPermission('department.delete');
-
-        $this->delete(route('positions.destroy', $this->position));
-
-        Event::assertDispatched(PositionDeleted::class);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotDeleteAPosition()
-    {
-        $this->signIn();
-
-        $response = $this->delete(
-            route('positions.destroy', $this->position)
-        );
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotDeleteAPosition()
-    {
-        $response = $this->deleteJson(
-            route('positions.destroy', $this->position)
-        );
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->delete(
+        route('positions.destroy', $this->position)
+    );
+    $response->assertForbidden();
+});
+test('unauthenticated user cannot delete a position', function () {
+    $response = $this->deleteJson(
+        route('positions.destroy', $this->position)
+    );
+    $response->assertUnauthorized();
+});

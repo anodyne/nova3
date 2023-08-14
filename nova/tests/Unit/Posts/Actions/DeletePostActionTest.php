@@ -1,34 +1,14 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Posts\Actions;
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Posts\Actions\DeletePost;
 use Nova\Posts\Models\Post;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->post = Post::factory()->create();
+});
+it('deletes a post', function () {
+    $post = DeletePost::run($this->post);
 
-/**
- * @group storytelling
- * @group posts
- */
-class DeletePostActionTest extends TestCase
-{
-    protected Post $post;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->post = Post::factory()->create();
-    }
-
-    /** @test **/
-    public function itDeletesAPost()
-    {
-        $post = DeletePost::run($this->post);
-
-        $this->assertFalse($post->exists);
-    }
-}
+    expect($post->exists)->toBeFalse();
+});

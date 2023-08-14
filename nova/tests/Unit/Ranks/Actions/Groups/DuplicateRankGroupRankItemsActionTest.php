@@ -1,54 +1,34 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Ranks\Actions\Groups;
-
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Ranks\Actions\DuplicateRankGroup;
 use Nova\Ranks\Actions\DuplicateRankGroupRankItems;
 use Nova\Ranks\Data\RankGroupData;
 use Nova\Ranks\Data\RankItemData;
 use Nova\Ranks\Models\RankGroup;
-use Tests\TestCase;
+uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
-/**
- * @group ranks
- */
-class DuplicateRankGroupRankItemsActionTest extends TestCase
-{
-    use RefreshDatabase;
+beforeEach(function () {
+    $this->group = RankGroup::factory()
+        ->hasRanks(2, function (array $attributes, RankGroup $group) {
+            return ['group_id' => $group->id];
+        })
+        ->create([
+            'name' => 'Command',
+        ]);
+});
+it('duplicates the rank items from another rank group', function () {
+    $group = DuplicateRankGroup::run(
+        $this->group,
+        RankGroupData::from(['name' => 'New Name'])
+    );
 
-    protected $group;
+    DuplicateRankGroupRankItems::run($group, $this->group, RankItemData::from([
+        'base_image' => 'new.png',
+    ]));
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $group->refresh();
 
-        $this->group = RankGroup::factory()
-            ->hasRanks(2, function (array $attributes, RankGroup $group) {
-                return ['group_id' => $group->id];
-            })
-            ->create([
-                'name' => 'Command',
-            ]);
-    }
-
-    /** @test **/
-    public function itDuplicatesTheRankItemsFromAnotherRankGroup()
-    {
-        $group = DuplicateRankGroup::run(
-            $this->group,
-            RankGroupData::from(['name' => 'New Name'])
-        );
-
-        DuplicateRankGroupRankItems::run($group, $this->group, RankItemData::from([
-            'base_image' => 'new.png',
-        ]));
-
-        $group->refresh();
-
-        $this->assertCount(2, $group->ranks);
-        $this->assertEquals('new.png', $group->ranks->first()->base_image);
-    }
-}
+    expect($group->ranks)->toHaveCount(2);
+    expect($group->ranks->first()->base_image)->toEqual('new.png');
+});

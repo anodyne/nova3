@@ -1,144 +1,115 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Stories\Actions;
-
 use Nova\Stories\Actions\SetStoryPosition;
 use Nova\Stories\Data\StoryPositionData;
 use Nova\Stories\Models\Story;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->story = Story::factory()->create();
+});
+it('moves a story before another story', function () {
+    expect($this->story->order_column)->toEqual(1);
 
-/**
- * @group storytelling
- * @group stories
- */
-class SetStoryPositionActionTest extends TestCase
-{
-    protected Story $story;
+    $newFirstStory = Story::factory()->create();
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $data = StoryPositionData::from([
+        'direction' => 'before',
+        'neighbor' => $this->story,
+        'hasPositionChange' => true,
+    ]);
 
-        $this->story = Story::factory()->create();
-    }
+    SetStoryPosition::run($newFirstStory, $data);
 
-    /** @test **/
-    public function itMovesAStoryBeforeAnotherStory()
-    {
-        $this->assertEquals(1, $this->story->order_column);
+    $this->story->refresh();
+    $newFirstStory->refresh();
 
-        $newFirstStory = Story::factory()->create();
+    expect($newFirstStory->order_column)->toEqual(1);
+    expect($this->story->order_column)->toEqual(2);
+});
+it('moves a story after another story', function () {
+    $secondStory = Story::factory()->create();
 
-        $data = StoryPositionData::from([
-            'direction' => 'before',
-            'neighbor' => $this->story,
-            'hasPositionChange' => true,
-        ]);
+    $secondStory->refresh();
 
-        SetStoryPosition::run($newFirstStory, $data);
+    expect($this->story->order_column)->toEqual(1);
+    expect($secondStory->order_column)->toEqual(2);
 
-        $this->story->refresh();
-        $newFirstStory->refresh();
+    $newSecondStory = Story::factory()->create();
 
-        $this->assertEquals(1, $newFirstStory->order_column);
-        $this->assertEquals(2, $this->story->order_column);
-    }
+    $data = StoryPositionData::from([
+        'direction' => 'after',
+        'neighbor' => $this->story,
+        'hasPositionChange' => true,
+    ]);
 
-    /** @test **/
-    public function itMovesAStoryAfterAnotherStory()
-    {
-        $secondStory = Story::factory()->create();
+    SetStoryPosition::run($newSecondStory, $data);
 
-        $secondStory->refresh();
+    $this->story->refresh();
+    $newSecondStory->refresh();
+    $secondStory->refresh();
 
-        $this->assertEquals(1, $this->story->order_column);
-        $this->assertEquals(2, $secondStory->order_column);
+    expect($this->story->order_column)->toEqual(1);
+    expect($newSecondStory->order_column)->toEqual(2);
+    expect($secondStory->order_column)->toEqual(3);
+});
+it('moves a nested story before another story with the same parent', function () {
+    $secondRootStory = Story::factory()->create();
 
-        $newSecondStory = Story::factory()->create();
+    $firstStory = Story::factory()->withParent($this->story)->create();
 
-        $data = StoryPositionData::from([
-            'direction' => 'after',
-            'neighbor' => $this->story,
-            'hasPositionChange' => true,
-        ]);
+    $secondStory = Story::factory()->withParent($this->story)->create();
 
-        SetStoryPosition::run($newSecondStory, $data);
+    $firstStory->refresh();
+    $secondStory->refresh();
 
-        $this->story->refresh();
-        $newSecondStory->refresh();
-        $secondStory->refresh();
+    $data = StoryPositionData::from([
+        'direction' => 'before',
+        'neighbor' => $firstStory,
+        'hasPositionChange' => true,
+    ]);
 
-        $this->assertEquals(1, $this->story->order_column);
-        $this->assertEquals(2, $newSecondStory->order_column);
-        $this->assertEquals(3, $secondStory->order_column);
-    }
+    SetStoryPosition::run($secondStory, $data);
 
-    /** @test **/
-    public function itMovesANestedStoryBeforeAnotherStoryWithTheSameParent()
-    {
-        $secondRootStory = Story::factory()->create();
+    $this->story->refresh();
+    $secondRootStory->refresh();
+    $firstStory->refresh();
+    $secondStory->refresh();
 
-        $firstStory = Story::factory()->withParent($this->story)->create();
+    expect($this->story->order_column)->toEqual(1);
+    expect($secondRootStory->order_column)->toEqual(2);
+    expect($secondStory->order_column)->toEqual(1);
+    expect($firstStory->order_column)->toEqual(2);
+});
+it('moves a nested story after another story with the same parent', function () {
+    $secondRootStory = Story::factory()->create();
 
-        $secondStory = Story::factory()->withParent($this->story)->create();
+    $firstStory = Story::factory()->withParent($this->story)->create();
 
-        $firstStory->refresh();
-        $secondStory->refresh();
+    $secondStory = Story::factory()->withParent($this->story)->create();
 
-        $data = StoryPositionData::from([
-            'direction' => 'before',
-            'neighbor' => $firstStory,
-            'hasPositionChange' => true,
-        ]);
+    $thirdStory = Story::factory()->withParent($this->story)->create();
 
-        SetStoryPosition::run($secondStory, $data);
+    $firstStory->refresh();
+    $secondStory->refresh();
+    $thirdStory->refresh();
 
-        $this->story->refresh();
-        $secondRootStory->refresh();
-        $firstStory->refresh();
-        $secondStory->refresh();
+    $data = StoryPositionData::from([
+        'direction' => 'after',
+        'neighbor' => $firstStory,
+        'hasPositionChange' => true,
+    ]);
 
-        $this->assertEquals(1, $this->story->order_column);
-        $this->assertEquals(2, $secondRootStory->order_column);
-        $this->assertEquals(1, $secondStory->order_column);
-        $this->assertEquals(2, $firstStory->order_column);
-    }
+    SetStoryPosition::run($thirdStory, $data);
 
-    /** @test **/
-    public function itMovesANestedStoryAfterAnotherStoryWithTheSameParent()
-    {
-        $secondRootStory = Story::factory()->create();
+    $this->story->refresh();
+    $secondRootStory->refresh();
+    $firstStory->refresh();
+    $secondStory->refresh();
+    $thirdStory->refresh();
 
-        $firstStory = Story::factory()->withParent($this->story)->create();
-
-        $secondStory = Story::factory()->withParent($this->story)->create();
-
-        $thirdStory = Story::factory()->withParent($this->story)->create();
-
-        $firstStory->refresh();
-        $secondStory->refresh();
-        $thirdStory->refresh();
-
-        $data = StoryPositionData::from([
-            'direction' => 'after',
-            'neighbor' => $firstStory,
-            'hasPositionChange' => true,
-        ]);
-
-        SetStoryPosition::run($thirdStory, $data);
-
-        $this->story->refresh();
-        $secondRootStory->refresh();
-        $firstStory->refresh();
-        $secondStory->refresh();
-        $thirdStory->refresh();
-
-        $this->assertEquals(1, $this->story->order_column);
-        $this->assertEquals(2, $secondRootStory->order_column);
-        $this->assertEquals(1, $firstStory->order_column);
-        $this->assertEquals(2, $thirdStory->order_column);
-        $this->assertEquals(3, $secondStory->order_column);
-    }
-}
+    expect($this->story->order_column)->toEqual(1);
+    expect($secondRootStory->order_column)->toEqual(2);
+    expect($firstStory->order_column)->toEqual(1);
+    expect($thirdStory->order_column)->toEqual(2);
+    expect($secondStory->order_column)->toEqual(3);
+});

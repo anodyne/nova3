@@ -10,7 +10,7 @@
         'bg-gray-100 dark:bg-gray-800' => $as === 'light-well',
         'bg-gray-50 dark:bg-gray-900/50' => $as === 'extra-light-well',
         'bg-gray-200 dark:bg-gray-700' => $as === 'well',
-    ])
+    ]);
 @endphp
 
 <div data-cy="{{ $as }}" {{ $attributes->merge(['class' => $styles]) }}>

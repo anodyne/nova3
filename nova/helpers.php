@@ -6,7 +6,6 @@ use Carbon\CarbonInterface;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Pipeline\Pipeline;
 use Nova\Foundation\Icons\Icon;
-use Nova\Foundation\Nova;
 use Nova\Foundation\Toast;
 
 if (! function_exists('blank')) {
@@ -95,7 +94,7 @@ if (! function_exists('toast')) {
 if (! function_exists('nova')) {
     function nova()
     {
-        return app(Nova::class);
+        return app('nova');
     }
 }
 

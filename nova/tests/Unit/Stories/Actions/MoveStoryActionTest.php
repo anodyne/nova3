@@ -1,41 +1,19 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Stories\Actions;
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Stories\Actions\MoveStory;
 use Nova\Stories\Models\Story;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->newStory = Story::factory()->create();
 
-/**
- * @group storytelling
- * @group stories
- */
-class MoveStoryActionTest extends TestCase
-{
-    protected $newStory;
+    $this->story = Story::factory()->create();
 
-    protected $story;
+    $this->story->refresh();
+    $this->newStory->refresh();
+});
+it('moves a story', function () {
+    $story = MoveStory::run($this->story, $this->newStory);
 
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->newStory = Story::factory()->create();
-
-        $this->story = Story::factory()->create();
-
-        $this->story->refresh();
-        $this->newStory->refresh();
-    }
-
-    /** @test **/
-    public function itMovesAStory()
-    {
-        $story = MoveStory::run($this->story, $this->newStory);
-
-        $this->assertEquals($this->newStory->id, $story->parent_id);
-    }
-}
+    expect($story->parent_id)->toEqual($this->newStory->id);
+});

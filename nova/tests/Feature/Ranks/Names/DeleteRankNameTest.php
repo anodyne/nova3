@@ -1,69 +1,41 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\Ranks\Names;
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\Ranks\Events\RankNameDeleted;
 use Nova\Ranks\Models\RankName;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->name = RankName::factory()->create();
+});
+test('authorized user can delete a rank group', function () {
+    $this->signInWithPermission('rank.delete');
 
-/**
- * @group ranks
- */
-class DeleteRankNameTest extends TestCase
-{
-    protected $name;
+    $this->followingRedirects();
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $response = $this->delete(route('ranks.names.destroy', $this->name));
+    $response->assertSuccessful();
 
-        $this->name = RankName::factory()->create();
-    }
+    $this->assertDatabaseMissing('rank_names', $this->name->only('id'));
+});
+test('event is dispatched when rank name is deleted', function () {
+    Event::fake();
 
-    /** @test **/
-    public function authorizedUserCanDeleteARankGroup()
-    {
-        $this->signInWithPermission('rank.delete');
+    $this->signInWithPermission('rank.delete');
 
-        $this->followingRedirects();
+    $this->delete(route('ranks.names.destroy', $this->name));
 
-        $response = $this->delete(route('ranks.names.destroy', $this->name));
-        $response->assertSuccessful();
+    Event::assertDispatched(RankNameDeleted::class);
+});
+test('unauthorized user cannot delete a rank name', function () {
+    $this->signIn();
 
-        $this->assertDatabaseMissing('rank_names', $this->name->only('id'));
-    }
-
-    /** @test **/
-    public function eventIsDispatchedWhenRankNameIsDeleted()
-    {
-        Event::fake();
-
-        $this->signInWithPermission('rank.delete');
-
-        $this->delete(route('ranks.names.destroy', $this->name));
-
-        Event::assertDispatched(RankNameDeleted::class);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotDeleteARankName()
-    {
-        $this->signIn();
-
-        $response = $this->delete(route('ranks.names.destroy', $this->name));
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotDeleteARankName()
-    {
-        $response = $this->deleteJson(
-            route('ranks.names.destroy', $this->name)
-        );
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->delete(route('ranks.names.destroy', $this->name));
+    $response->assertForbidden();
+});
+test('unauthenticated user cannot delete a rank name', function () {
+    $response = $this->deleteJson(
+        route('ranks.names.destroy', $this->name)
+    );
+    $response->assertUnauthorized();
+});

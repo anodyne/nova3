@@ -15,7 +15,10 @@
 
     <x-panel>
         <x-form action="">
-            <x-form.section title="User Info" message="For privacy reasons, users are encouraged to use a nickname instead of their real name. Additionally, user email addresses should be safeguarded at all costs and not shared with other players without the express permission of this user.">
+            <x-form.section
+                title="User Info"
+                message="For privacy reasons, users are encouraged to use a nickname instead of their real name. Additionally, user email addresses should be safeguarded at all costs and not shared with other players without the express permission of this user."
+            >
                 <x-input.group label="Name">
                     <p class="font-semibold">{{ $user->name }}</p>
                 </x-input.group>
@@ -45,7 +48,10 @@
                 </x-input.group>
             </x-form.section>
 
-            <x-form.section title="Activity" message="Keep track of milestones and latest activity of a user in the system.">
+            <x-form.section
+                title="Activity"
+                message="Keep track of milestones and latest activity of a user in the system."
+            >
                 <x-input.group label="Joined">
                     <p class="font-semibold">{{ $user->created_at }}</p>
                 </x-input.group>
@@ -64,7 +70,9 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button.outline :href='route("users.index", "status={$user->status->name()}")' color="gray">Back</x-button.outline>
+                <x-button.filled :href="route('users.index', "status={$user->status->name()}")" color="gray">
+                    Back
+                </x-button.filled>
             </x-form.footer>
         </x-form>
     </x-panel>

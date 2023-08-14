@@ -14,15 +14,11 @@ class SetCharacterType
 
     public function handle(Character $character): Character
     {
-        if ($character->activeUsers()->count() > 0) {
-            $character->update(['type' => CharacterType::secondary]);
-        }
-
-        $character->refresh();
-
-        if ($character->activePrimaryUsers()->count() > 0) {
-            $character->update(['type' => CharacterType::primary]);
-        }
+        $character->update(['type' => match (true) {
+            $character->activePrimaryUsers()->count() > 0 => CharacterType::primary,
+            $character->activeUsers()->count() > 0 => CharacterType::secondary,
+            default => CharacterType::support,
+        }]);
 
         return $character->refresh();
     }

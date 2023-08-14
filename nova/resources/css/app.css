@@ -14,28 +14,6 @@
 
 @import "filament.css";
 
-@font-face {
-    font-family: "InterVar";
-    font-weight: 100 900;
-    font-display: swap;
-    font-style: normal;
-    src: url("/dist/fonts/InterVariable.woff2?v=4.0") format("woff2-variations"),
-        url("/dist/fonts/InterVariable.woff2?v=4.0") format("woff2");
-    src: url("/dist/fonts/InterVariable.woff2?v=4.0") format("woff2")
-        tech("variations");
-}
-@font-face {
-    font-family: "InterVar";
-    font-weight: 100 900;
-    font-display: swap;
-    font-style: italic;
-    src: url("/dist/fonts/InterVariable-Italic.woff2?v=4.0")
-            format("woff2-variations"),
-        url("/dist/fonts/InterVariable-Italic.woff2?v=4.0") format("woff2");
-    src: url("/dist/fonts/InterVariable-Italic.woff2?v=4.0") format("woff2")
-        tech("variations");
-}
-
 body,
 button,
 input {

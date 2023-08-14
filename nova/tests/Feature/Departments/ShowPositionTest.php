@@ -1,49 +1,24 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\Departments;
-
 use Nova\Departments\Models\Position;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->position = Position::factory()->create();
+});
+test('authorized user can view a position', function () {
+    $this->signInWithPermission('department.view');
 
-/**
- * @group positions
- */
-class ShowPositionTest extends TestCase
-{
-    protected $position;
+    $response = $this->get(route('positions.show', $this->position));
+    $response->assertSuccessful();
+    $response->assertViewHas('position', $this->position);
+});
+test('unauthorized user cannot view a position', function () {
+    $this->signIn();
 
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->position = Position::factory()->create();
-    }
-
-    /** @test **/
-    public function authorizedUserCanViewAPosition()
-    {
-        $this->signInWithPermission('department.view');
-
-        $response = $this->get(route('positions.show', $this->position));
-        $response->assertSuccessful();
-        $response->assertViewHas('position', $this->position);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotViewAPosition()
-    {
-        $this->signIn();
-
-        $response = $this->get(route('positions.show', $this->position));
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotViewAPosition()
-    {
-        $response = $this->getJson(route('positions.show', $this->position));
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->get(route('positions.show', $this->position));
+    $response->assertForbidden();
+});
+test('unauthenticated user cannot view a position', function () {
+    $response = $this->getJson(route('positions.show', $this->position));
+    $response->assertUnauthorized();
+});

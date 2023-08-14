@@ -1,110 +1,73 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\Ranks\Groups;
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Nova\Ranks\Events\RankGroupUpdated;
 use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Requests\UpdateRankGroupRequest;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->group = RankGroup::factory()->create();
+});
+test('authorized user can view the edit rank group page', function () {
+    $this->signInWithPermission('rank.update');
 
-/**
- * @group ranks
- */
-class UpdateRankGroupTest extends TestCase
-{
-    protected $group;
+    $response = $this->get(route('ranks.groups.edit', $this->group));
+    $response->assertSuccessful();
+});
+test('authorized user can update a rank group', function () {
+    $this->signInWithPermission('rank.update');
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $this->followingRedirects();
 
-        $this->group = RankGroup::factory()->create();
-    }
+    $response = $this->put(
+        route('ranks.groups.update', $this->group),
+        $rankGroupData = RankGroup::factory()->make()->toArray()
+    );
+    $response->assertSuccessful();
 
-    /** @test **/
-    public function authorizedUserCanViewTheEditRankGroupPage()
-    {
-        $this->signInWithPermission('rank.update');
+    $this->assertRouteUsesFormRequest(
+        'ranks.groups.update',
+        UpdateRankGroupRequest::class
+    );
 
-        $response = $this->get(route('ranks.groups.edit', $this->group));
-        $response->assertSuccessful();
-    }
+    $this->assertDatabaseHas('rank_groups', $rankGroupData);
+});
+test('event is dispatched when rank group is updated', function () {
+    Event::fake();
 
-    /** @test **/
-    public function authorizedUserCanUpdateARankGroup()
-    {
-        $this->signInWithPermission('rank.update');
+    $this->signInWithPermission('rank.update');
 
-        $this->followingRedirects();
+    $this->put(
+        route('ranks.groups.update', $this->group),
+        RankGroup::factory()->make()->toArray()
+    );
 
-        $response = $this->put(
-            route('ranks.groups.update', $this->group),
-            $rankGroupData = RankGroup::factory()->make()->toArray()
-        );
-        $response->assertSuccessful();
+    Event::assertDispatched(RankGroupUpdated::class);
+});
+test('unauthorized user cannot view the edit rank group page', function () {
+    $this->signIn();
 
-        $this->assertRouteUsesFormRequest(
-            'ranks.groups.update',
-            UpdateRankGroupRequest::class
-        );
+    $response = $this->get(route('ranks.groups.edit', $this->group));
+    $response->assertForbidden();
+});
+test('unauthorized user cannot update a rank group', function () {
+    $this->signIn();
 
-        $this->assertDatabaseHas('rank_groups', $rankGroupData);
-    }
-
-    /** @test **/
-    public function eventIsDispatchedWhenRankGroupIsUpdated()
-    {
-        Event::fake();
-
-        $this->signInWithPermission('rank.update');
-
-        $this->put(
-            route('ranks.groups.update', $this->group),
-            RankGroup::factory()->make()->toArray()
-        );
-
-        Event::assertDispatched(RankGroupUpdated::class);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotViewTheEditRankGroupPage()
-    {
-        $this->signIn();
-
-        $response = $this->get(route('ranks.groups.edit', $this->group));
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotUpdateARankGroup()
-    {
-        $this->signIn();
-
-        $response = $this->put(
-            route('ranks.groups.update', $this->group),
-            RankGroup::factory()->make()->toArray()
-        );
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotViewTheEditRankGroupPage()
-    {
-        $response = $this->getJson(route('ranks.groups.edit', $this->group));
-        $response->assertUnauthorized();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotUpdateARankGroup()
-    {
-        $response = $this->putJson(
-            route('ranks.groups.update', $this->group),
-            RankGroup::factory()->make()->toArray()
-        );
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->put(
+        route('ranks.groups.update', $this->group),
+        RankGroup::factory()->make()->toArray()
+    );
+    $response->assertForbidden();
+});
+test('unauthenticated user cannot view the edit rank group page', function () {
+    $response = $this->getJson(route('ranks.groups.edit', $this->group));
+    $response->assertUnauthorized();
+});
+test('unauthenticated user cannot update a rank group', function () {
+    $response = $this->putJson(
+        route('ranks.groups.update', $this->group),
+        RankGroup::factory()->make()->toArray()
+    );
+    $response->assertUnauthorized();
+});

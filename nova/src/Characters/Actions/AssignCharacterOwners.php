@@ -7,7 +7,6 @@ namespace Nova\Characters\Actions;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Characters\Data\AssignCharacterOwnersData;
 use Nova\Characters\Models\Character;
-use Nova\Users\Models\User;
 
 class AssignCharacterOwners
 {
@@ -26,32 +25,8 @@ class AssignCharacterOwners
             })
             ->all();
 
-        $this->updateExistingPrimaryCharacterForUsers($character, $data);
-
         $character->users()->sync($users);
 
         return $character->refresh();
-    }
-
-    protected function updateExistingPrimaryCharacterForUsers(Character $character, AssignCharacterOwnersData $data): void
-    {
-        collect($data->primaryUsers)
-            ->filter()
-            ->each(function ($userId) use ($character) {
-                $user = User::find($userId);
-
-                $oldPrimaryCharacter = $user?->primaryCharacter->first();
-
-                if ($oldPrimaryCharacter && $oldPrimaryCharacter->isNot($character)) {
-                    $user->primaryCharacter()->updateExistingPivot(
-                        $oldPrimaryCharacter->id,
-                        ['primary' => false]
-                    );
-
-                    $oldPrimaryCharacter->refresh();
-
-                    SetCharacterType::run($oldPrimaryCharacter);
-                }
-            });
     }
 }

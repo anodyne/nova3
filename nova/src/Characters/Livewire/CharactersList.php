@@ -25,16 +25,19 @@ use Livewire\Component;
 use Nova\Characters\Actions\ActivateCharacter;
 use Nova\Characters\Actions\DeactivateCharacter;
 use Nova\Characters\Actions\DeleteCharacter;
+use Nova\Characters\Actions\RestoreCharacter;
 use Nova\Characters\Enums\CharacterType;
 use Nova\Characters\Events\CharacterActivated;
 use Nova\Characters\Events\CharacterDeactivated;
 use Nova\Characters\Events\CharacterDeletedByAdmin;
+use Nova\Characters\Events\CharacterRestored;
 use Nova\Characters\Models\Character;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\DeleteBulkAction;
 use Nova\Foundation\Filament\Actions\EditAction;
+use Nova\Foundation\Filament\Actions\RestoreAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 
 class CharactersList extends Component implements HasForms, HasTable
@@ -42,11 +45,20 @@ class CharactersList extends Component implements HasForms, HasTable
     use InteractsWithForms;
     use InteractsWithTable;
 
+    protected $queryString = [
+        'tableFilters',
+    ];
+
+    // public ?array $tableFilters = [
+    //     'only_my_characters',
+    // ];
+
     public function table(Table $table): Table
     {
         return $table
             ->query(
-                Character::with('media', 'positions', 'rank.name', 'users')
+                Character::with('media', 'positions', 'rank.name', 'users', 'activeUsers')
+                    ->withTrashed()
                     ->unless(
                         auth()->user()->can('manage', new Character()),
                         fn ($query): Builder => $query->isAssignedTo(auth()->user())
@@ -59,7 +71,7 @@ class CharactersList extends Component implements HasForms, HasTable
             ->columns([
                 ViewColumn::make('name')
                     ->view('filament.tables.columns.character-avatar')
-                    ->searchable(query: fn (Builder $query, string $search) => $query->searchFor($search)),
+                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search)),
                 TextColumn::make('activeUsers.name')
                     ->visible(auth()->user()->can('viewAny', Character::class))
                     ->label('Played by')
@@ -129,8 +141,9 @@ class CharactersList extends Component implements HasForms, HasTable
                     ])->authorizeAny(['activate', 'deactivate'])->divided(),
                     ActionGroup::make([
                         DeleteAction::make()
+                            ->authorize('delete')
                             ->modalHeading('Delete character?')
-                            ->modalDescription("Are you sure you want to delete this character? You won't be able to recover it.")
+                            ->modalDescription('Are you sure you want to delete this character?')
                             ->modalSubmitActionLabel('Delete')
                             ->using(function (Model $record): void {
                                 $character = DeleteCharacter::run($record);
@@ -141,7 +154,21 @@ class CharactersList extends Component implements HasForms, HasTable
                                     ->title($record->name.' was deleted')
                                     ->send();
                             }),
-                    ])->authorize('delete')->divided(),
+                        RestoreAction::make()
+                            ->authorize('restore')
+                            ->modalHeading('Restore character?')
+                            ->modalDescription(fn (Model $record): string => "Are you sure you want to restore {$record->name}?")
+                            ->modalSubmitActionLabel('Restore')
+                            ->action(function (Model $record): void {
+                                $character = RestoreCharacter::run($record);
+
+                                CharacterRestored::dispatch($character);
+
+                                Notification::make()->success()
+                                    ->title($record->name.' was restored')
+                                    ->send();
+                            }),
+                    ])->authorizeAny(['delete', 'forceDelete', 'restore'])->divided(),
                 ]),
             ])
             ->groupedBulkActions([
@@ -150,28 +177,52 @@ class CharactersList extends Component implements HasForms, HasTable
                     ->icon(iconName('check'))
                     ->color('gray')
                     ->label('Activate selected')
+                    ->successNotificationTitle('Characters were activated')
                     ->action(
-                        fn (Collection $records) => $records->each(
-                            fn (Model $record) => ActivateCharacter::run($record)
-                        )
+                        fn (Collection $records) => $records->each(function (Model $record) {
+                            $character = ActivateCharacter::run($record);
+
+                            CharacterActivated::dispatch($character);
+                        })
                     ),
                 BulkAction::make('bulk_deactivate')
                     ->requiresConfirmation()
                     ->icon(iconName('remove'))
                     ->color('gray')
                     ->label('Deactivate selected')
+                    ->successNotificationTitle('Characters were deactivated')
                     ->action(
-                        fn (Collection $records) => $records->each(
-                            fn (Model $record) => DeactivateCharacter::run($record)
-                        )
+                        fn (Collection $records) => $records->each(function (Model $record) {
+                            $character = DeactivateCharacter::run($record);
+
+                            CharacterDeactivated::dispatch($character);
+                        })
                     ),
                 DeleteBulkAction::make()
-                    ->requiresConfirmation()
-                    ->action(
-                        fn (Collection $records) => $records->each(
-                            fn (Model $record) => DeleteCharacter::run($record)
-                        )
-                    ),
+                    ->authorize('deleteAny')
+                    ->modalHeading(
+                        fn (Collection $records) => "Delete {$records->count()} selected ".str('character')->plural($records->count()).'?'
+                    )
+                    ->modalDescription(function (Collection $records) {
+                        $statement = ($records->count() === 1)
+                            ? 'this character'
+                            : "these {$records->count()} characters";
+
+                        return "Are you sure you want to delete {$statement}?";
+                    })
+                    ->modalSubmitActionLabel('Delete')
+                    ->action(function (Collection $records) {
+                        foreach ($records as $record) {
+                            /** @var Model $record */
+                            $character = DeleteCharacter::run($record);
+
+                            CharacterDeletedByAdmin::dispatch($character);
+                        }
+
+                        Notification::make()->success()
+                            ->title($records->count().' '.str('character')->plural($records->count()).' were deleted')
+                            ->send();
+                    }),
             ])
             ->filters([
                 SelectFilter::make('status')
@@ -182,7 +233,8 @@ class CharactersList extends Component implements HasForms, HasTable
                     ->options(CharacterType::class),
                 Filter::make('only_my_characters')
                     ->toggle()
-                    ->query(fn (Builder $query) => $query->whereRelation('users', 'users.id', '=', auth()->id())),
+                    ->query(fn (Builder $query) => $query->whereRelation('users', 'users.id', '=', auth()->id()))
+                    ->visible(auth()->user()->can('manage', new Character())),
                 TrashedFilter::make()->label('Deleted characters'),
             ])
             ->heading('Characters')

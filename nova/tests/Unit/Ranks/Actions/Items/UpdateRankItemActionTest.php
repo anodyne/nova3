@@ -1,52 +1,32 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Ranks\Actions\Items;
-
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Ranks\Actions\UpdateRankItem;
 use Nova\Ranks\Data\RankItemData;
 use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Models\RankItem;
 use Nova\Ranks\Models\RankName;
-use Tests\TestCase;
+uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
-/**
- * @group ranks
- */
-class UpdateRankItemActionTest extends TestCase
-{
-    use RefreshDatabase;
+beforeEach(function () {
+    $this->item = RankItem::factory()->create();
+});
+it('updates a rank item', function () {
+    $group = RankGroup::factory()->create();
+    $name = RankName::factory()->create();
 
-    protected $item;
+    $data = RankItemData::from([
+        'group_id' => $group->id,
+        'name_id' => $name->id,
+        'base_image' => 'new-base.png',
+        'overlay_image' => 'new-overlay.png',
+    ]);
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $item = UpdateRankItem::run($this->item, $data);
 
-        $this->item = RankItem::factory()->create();
-    }
-
-    /** @test **/
-    public function itUpdatesARankItem()
-    {
-        $group = RankGroup::factory()->create();
-        $name = RankName::factory()->create();
-
-        $data = RankItemData::from([
-            'group_id' => $group->id,
-            'name_id' => $name->id,
-            'base_image' => 'new-base.png',
-            'overlay_image' => 'new-overlay.png',
-        ]);
-
-        $item = UpdateRankItem::run($this->item, $data);
-
-        $this->assertTrue($item->exists);
-        $this->assertEquals($group->id, $item->group_id);
-        $this->assertEquals($name->id, $item->name_id);
-        $this->assertEquals('new-base.png', $item->base_image);
-        $this->assertEquals('new-overlay.png', $item->overlay_image);
-    }
-}
+    expect($item->exists)->toBeTrue();
+    expect($item->group_id)->toEqual($group->id);
+    expect($item->name_id)->toEqual($name->id);
+    expect($item->base_image)->toEqual('new-base.png');
+    expect($item->overlay_image)->toEqual('new-overlay.png');
+});

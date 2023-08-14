@@ -1,54 +1,30 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Users\Actions;
-
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Nova\Users\Actions\UploadUserAvatar;
 use Nova\Users\Models\User;
-use Tests\TestCase;
+uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
-/**
- * @group users
- * @group uploads
- * @group media
- */
-class UploadUserAvatarActionTest extends TestCase
-{
-    use RefreshDatabase;
+beforeEach(function () {
+    $this->user = User::factory()->active()->create();
+});
+it('stores the user avatar', function () {
+    $disk = Storage::fake('media');
 
-    protected $action;
+    $diskPathPrefix = $disk->getAdapter()->getPathPrefix();
 
-    protected $user;
+    expect($this->user->getMedia('avatar'))->toHaveCount(0);
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    config()->set('filesystems.disks.media', [
+        'driver' => 'local',
+        'root' => $diskPathPrefix,
+    ]);
 
-        $this->user = User::factory()->active()->create();
-    }
+    $path = $disk->put('tmp', UploadedFile::fake()->image('image.png'));
 
-    /** @test **/
-    public function itStoresTheUserAvatar()
-    {
-        $disk = Storage::fake('media');
+    UploadUserAvatar::run($this->user, $diskPathPrefix.$path);
 
-        $diskPathPrefix = $disk->getAdapter()->getPathPrefix();
-
-        $this->assertCount(0, $this->user->getMedia('avatar'));
-
-        config()->set('filesystems.disks.media', [
-            'driver' => 'local',
-            'root' => $diskPathPrefix,
-        ]);
-
-        $path = $disk->put('tmp', UploadedFile::fake()->image('image.png'));
-
-        UploadUserAvatar::run($this->user, $diskPathPrefix.$path);
-
-        $this->assertCount(1, $this->user->refresh()->getMedia('avatar'));
-    }
-}
+    expect($this->user->refresh()->getMedia('avatar'))->toHaveCount(1);
+});

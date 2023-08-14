@@ -30,7 +30,6 @@ class CreateCharacterTables extends Migration
             $table->id();
             $table->foreignId('character_id')->constrained('characters');
             $table->foreignId('position_id')->constrained('positions');
-            $table->boolean('primary')->default(false);
         });
 
         Schema::create('character_user', function (Blueprint $table) {

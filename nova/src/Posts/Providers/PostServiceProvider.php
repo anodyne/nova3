@@ -24,6 +24,7 @@ use Nova\Posts\Livewire\Steps\SelectAuthorsStep;
 use Nova\Posts\Livewire\Steps\SetupPostStep;
 use Nova\Posts\Livewire\Steps\WritePostStep;
 use Nova\Posts\Livewire\WritePostWizard;
+use Nova\Posts\Models\Post;
 use Nova\Posts\Spotlight\WritePost;
 use Nova\Posts\View\Components\WritePostWizardLayout;
 
@@ -71,6 +72,13 @@ class PostServiceProvider extends DomainServiceProvider
             'posts:step:select-authors' => SelectAuthorsStep::class,
             'posts:step:write-post' => WritePostStep::class,
             'posts:step:publish-post' => PublishPostStep::class,
+        ];
+    }
+
+    public function morphMaps(): array
+    {
+        return [
+            'post' => Post::class,
         ];
     }
 

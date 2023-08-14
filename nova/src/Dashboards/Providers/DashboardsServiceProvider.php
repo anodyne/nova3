@@ -4,18 +4,29 @@ declare(strict_types=1);
 
 namespace Nova\Dashboards\Providers;
 
+use Nova\Dashboards\Livewire\ActivityLogList;
 use Nova\Dashboards\Livewire\MyDraftsList;
+use Nova\Dashboards\Policies\ActivityPolicy;
 use Nova\Dashboards\Spotlight\ViewSystemDashboard;
 use Nova\Dashboards\Spotlight\ViewUserDashboard;
 use Nova\Dashboards\Spotlight\ViewWritingDashboard;
 use Nova\DomainServiceProvider;
+use Spatie\Activitylog\Models\Activity;
 
 class DashboardsServiceProvider extends DomainServiceProvider
 {
     public function livewireComponents(): array
     {
         return [
+            'dashboard:activity-log-list' => ActivityLogList::class,
             'dashboard:my-drafts-list' => MyDraftsList::class,
+        ];
+    }
+
+    public function policies(): array
+    {
+        return [
+            Activity::class => ActivityPolicy::class,
         ];
     }
 
