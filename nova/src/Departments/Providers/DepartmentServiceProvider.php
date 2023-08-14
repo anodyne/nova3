@@ -8,6 +8,8 @@ use Nova\Departments\Livewire\DepartmentsList;
 use Nova\Departments\Livewire\PositionsCollector;
 use Nova\Departments\Livewire\PositionsDropdown;
 use Nova\Departments\Livewire\PositionsList;
+use Nova\Departments\Models\Department;
+use Nova\Departments\Models\Position;
 use Nova\Departments\Spotlight\AddDepartment;
 use Nova\Departments\Spotlight\AddPosition;
 use Nova\Departments\Spotlight\EditDepartment;
@@ -22,10 +24,18 @@ class DepartmentServiceProvider extends DomainServiceProvider
     public function livewireComponents(): array
     {
         return [
-            'departments:list' => DepartmentsList::class,
+            'departments-list' => DepartmentsList::class,
             'positions:collector' => PositionsCollector::class,
             'positions:dropdown' => PositionsDropdown::class,
             'positions:list' => PositionsList::class,
+        ];
+    }
+
+    public function morphMaps(): array
+    {
+        return [
+            'department' => Department::class,
+            'position' => Position::class,
         ];
     }
 

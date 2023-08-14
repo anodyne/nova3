@@ -13,10 +13,8 @@ class DepartmentCreated
     use Dispatchable;
     use SerializesModels;
 
-    public Department $department;
-
-    public function __construct(Department $department)
-    {
-        $this->department = $department;
+    public function __construct(
+        public Department $department
+    ) {
     }
 }

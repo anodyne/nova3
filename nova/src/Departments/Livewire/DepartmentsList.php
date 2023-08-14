@@ -14,12 +14,14 @@ use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Livewire\Component;
 use Nova\Departments\Actions\DeleteDepartment;
 use Nova\Departments\Actions\DuplicateDepartment;
+use Nova\Departments\Data\DepartmentData;
 use Nova\Departments\Enums\DepartmentStatus;
 use Nova\Departments\Events\DepartmentDuplicated;
 use Nova\Departments\Models\Department;
@@ -44,7 +46,7 @@ class DepartmentsList extends Component implements HasForms, HasTable
             ->columns([
                 TextColumn::make('name')
                     ->titleColumn()
-                    ->searchable(query: fn (Builder $query, string $search) => $query->searchFor($search))
+                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search))
                     ->sortable(),
                 TextColumn::make('positions_count')
                     ->counts('positions')
@@ -54,7 +56,7 @@ class DepartmentsList extends Component implements HasForms, HasTable
                     ->toggleable(),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (Model $record) => $record->status->color())
+                    ->color(fn (Model $record): string => $record->status->color())
                     ->toggleable(),
             ])
             ->actions([
@@ -62,25 +64,21 @@ class DepartmentsList extends Component implements HasForms, HasTable
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (Model $record) => route('departments.show', $record)),
+                            ->url(fn (Model $record): string => route('departments.show', $record)),
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (Model $record) => route('departments.edit', $record)),
+                            ->url(fn (Model $record): string => route('departments.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
                     ActionGroup::make([
                         ReplicateAction::make()
                             ->form([
                                 TextInput::make('name')->label('New department name'),
                             ])
-                            ->modalHeading('Duplicate department?')
-                            ->modalDescription(
-                                fn (Model $record) => "Are you sure you want to duplicate the {$record->name} department and all of its positions?"
-                            )
-                            ->modalSubmitActionLabel('Duplicate')
-                            ->action(function (Model $record, array $data) {
+                            ->modalContentView('pages.departments.duplicate')
+                            ->action(function (Model $record, array $data): void {
                                 $replica = DuplicateDepartment::run(
                                     $record,
-                                    array_merge($record->toArray(), $data)
+                                    DepartmentData::from(array_merge($record->toArray(), $data))
                                 );
 
                                 DepartmentDuplicated::dispatch($replica, $record);
@@ -93,36 +91,19 @@ class DepartmentsList extends Component implements HasForms, HasTable
                     ])->authorize('duplicate')->divided(),
                     ActionGroup::make([
                         DeleteAction::make()
-                            ->close()
-                            ->modalHeading('Delete department?')
-                            ->modalDescription(
-                                fn (Model $record) => "Are you sure you want to delete the {$record->name} department? You won't be able to recover it. All positions assigned to this department will be removed. As a result, any characters assigned to a position that is removed will need to be re-assigned to another position."
-                            )
-                            ->modalSubmitActionLabel('Delete')
+                            ->modalContentView('pages.departments.delete')
                             ->successNotificationTitle('Department was deleted')
-                            ->using(fn (Model $record) => DeleteDepartment::run($record)),
+                            ->using(fn (Model $record): Model => DeleteDepartment::run($record)),
                     ])->authorize('delete')->divided(),
                 ]),
             ])
             ->groupedBulkActions([
                 DeleteBulkAction::make()
                     ->authorize('deleteAny')
-                    ->modalHeading(
-                        fn (Collection $records) => "Delete {$records->count()} selected ".str('department')->plural($records->count()).'?'
-                    )
-                    ->modalDescription(function (Collection $records) {
-                        $statement = ($records->count() === 1)
-                            ? 'this 1 department'
-                            : "these {$records->count()} departments";
-
-                        $notice = ($records->count() === 1) ? 'it' : 'them';
-
-                        return "Are you sure you want to delete {$statement}? You won't be able to recover {$notice}. Any positions assigned to {$statement} will also be deleted. As a result, any characters assigned to a position that is removed will need to be re-assigned to another position.";
-                    })
-                    ->modalSubmitActionLabel('Delete')
+                    ->modalContentView('pages.departments.delete-bulk')
                     ->successNotificationTitle('Departments were deleted')
-                    ->using(fn (Collection $records) => $records->each(
-                        fn (Model $record) => DeleteDepartment::run($record)
+                    ->using(fn (Collection $records): Collection => $records->each(
+                        fn (Model $record): Model => DeleteDepartment::run($record)
                     )),
             ])
             ->filters([
@@ -141,7 +122,7 @@ class DepartmentsList extends Component implements HasForms, HasTable
                     ->label('Add')
                     ->url(route('departments.create')),
             ])
-            ->header(fn () => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)
+            ->header(fn (): ?View => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)
             ->reorderable('order_column')
             ->emptyStateIcon(iconName('list'))
             ->emptyStateHeading('No departments found')

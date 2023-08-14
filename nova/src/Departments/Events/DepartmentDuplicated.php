@@ -13,13 +13,9 @@ class DepartmentDuplicated
     use Dispatchable;
     use SerializesModels;
 
-    public Department $department;
-
-    public Department $original;
-
-    public function __construct(Department $department, Department $original)
-    {
-        $this->department = $department;
-        $this->original = $original;
+    public function __construct(
+        public Department $department,
+        public Department $original
+    ) {
     }
 }

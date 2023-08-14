@@ -4,20 +4,17 @@ declare(strict_types=1);
 
 namespace Nova\Departments\Actions;
 
-use Illuminate\Http\Request;
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Departments\Data\DepartmentData;
 use Nova\Departments\Models\Department;
+use Nova\Departments\Requests\StoreDepartmentRequest;
 
 class CreateDepartmentManager
 {
     use AsAction;
 
-    public function handle(Request $request): Department
+    public function handle(StoreDepartmentRequest $request): Department
     {
-        $department = CreateDepartment::run(
-            DepartmentData::from($request)
-        );
+        $department = CreateDepartment::run($request->getDepartmentData());
 
         UploadDepartmentHeaderImage::run($department, $request->image_path);
 

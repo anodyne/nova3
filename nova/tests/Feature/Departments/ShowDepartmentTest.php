@@ -1,49 +1,24 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\Departments;
-
 use Nova\Departments\Models\Department;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->department = Department::factory()->create();
+});
+test('authorized user can view a department', function () {
+    $this->signInWithPermission('department.view');
 
-/**
- * @group departments
- */
-class ShowDepartmentTest extends TestCase
-{
-    protected $department;
+    $response = $this->get(route('departments.show', $this->department));
+    $response->assertSuccessful();
+    $response->assertViewHas('department', $this->department);
+});
+test('unauthorized user cannot view a department', function () {
+    $this->signIn();
 
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->department = Department::factory()->create();
-    }
-
-    /** @test **/
-    public function authorizedUserCanViewADepartment()
-    {
-        $this->signInWithPermission('department.view');
-
-        $response = $this->get(route('departments.show', $this->department));
-        $response->assertSuccessful();
-        $response->assertViewHas('department', $this->department);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotViewADepartment()
-    {
-        $this->signIn();
-
-        $response = $this->get(route('departments.show', $this->department));
-        $response->assertNotFound();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotViewADepartment()
-    {
-        $response = $this->getJson(route('departments.show', $this->department));
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->get(route('departments.show', $this->department));
+    $response->assertNotFound();
+});
+test('unauthenticated user cannot view a department', function () {
+    $response = $this->getJson(route('departments.show', $this->department));
+    $response->assertUnauthorized();
+});

@@ -45,11 +45,18 @@ class Department extends Model implements HasMedia, Sortable
 
     public function getActivitylogOptions(): LogOptions
     {
-        return LogOptions::defaults()
-            ->logFillable()
-            ->useLogName('admin')
+        $logOptions = LogOptions::defaults()->logFillable();
+
+        if (app('impersonate')->isImpersonating()) {
+            return $logOptions->useLogName('impersonation')
+                ->setDescriptionForEvent(
+                    fn (string $eventName): string => ":subject.name department was {$eventName} during impersonation by ".app('impersonate')->getImpersonator()->name
+                );
+        }
+
+        return $logOptions
             ->setDescriptionForEvent(
-                fn (string $eventName) => ":subject.name department was {$eventName}"
+                fn (string $eventName): string => ":subject.name department was {$eventName}"
             );
     }
 
@@ -60,9 +67,10 @@ class Department extends Model implements HasMedia, Sortable
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('department-header')
-            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif'])
-            ->singleFile();
+        $this->addMediaCollection('header')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'])
+            ->singleFile()
+            ->useDisk('media');
     }
 
     public static function getMediaPath(): string

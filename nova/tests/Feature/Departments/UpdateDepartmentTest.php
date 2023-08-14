@@ -1,120 +1,83 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\Departments;
-
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Event;
 use Nova\Departments\Events\DepartmentUpdated;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Requests\UpdateDepartmentRequest;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->department = Department::factory()->create();
+});
+test('authorized user can view the edit department page', function () {
+    $this->signInWithPermission('department.update');
 
-/**
- * @group departments
- */
-class UpdateDepartmentTest extends TestCase
-{
-    protected $department;
+    $response = $this->get(route('departments.edit', $this->department));
+    $response->assertSuccessful();
+});
+test('authorized user can update department', function () {
+    $this->signInWithPermission('department.update');
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $department = [
+        'name' => 'Command',
+        'description' => 'Lorem ipsum dolor sit amet',
+        'status' => 'active',
+    ];
 
-        $this->department = Department::factory()->create();
-    }
+    $this->followingRedirects();
 
-    /** @test **/
-    public function authorizedUserCanViewTheEditDepartmentPage()
-    {
-        $this->signInWithPermission('department.update');
+    $response = $this->put(
+        route('departments.update', $this->department),
+        $department
+    );
+    $response->assertSuccessful();
 
-        $response = $this->get(route('departments.edit', $this->department));
-        $response->assertSuccessful();
-    }
+    $this->assertDatabaseHas('departments', Arr::only($department, 'name'));
 
-    /** @test **/
-    public function authorizedUserCanUpdateDepartment()
-    {
-        $this->signInWithPermission('department.update');
+    $this->assertRouteUsesFormRequest(
+        'departments.update',
+        UpdateDepartmentRequest::class
+    );
+});
+test('event is dispatched when department is updated', function () {
+    Event::fake();
 
-        $department = [
+    $this->signInWithPermission('department.update');
+
+    $this->put(
+        route('departments.update', $this->department),
+        [
             'name' => 'Command',
             'description' => 'Lorem ipsum dolor sit amet',
             'status' => 'active',
-        ];
+        ]
+    );
 
-        $this->followingRedirects();
+    Event::assertDispatched(DepartmentUpdated::class);
+});
+test('unauthorized user cannot view the edit department page', function () {
+    $this->signIn();
 
-        $response = $this->put(
-            route('departments.update', $this->department),
-            $department
-        );
-        $response->assertSuccessful();
+    $response = $this->get(route('departments.edit', $this->department));
+    $response->assertNotFound();
+});
+test('unauthorized user cannot update department', function () {
+    $this->signIn();
 
-        $this->assertDatabaseHas('departments', Arr::only($department, 'name'));
-
-        $this->assertRouteUsesFormRequest(
-            'departments.update',
-            UpdateDepartmentRequest::class
-        );
-    }
-
-    /** @test **/
-    public function eventIsDispatchedWhenDepartmentIsUpdated()
-    {
-        Event::fake();
-
-        $this->signInWithPermission('department.update');
-
-        $this->put(
-            route('departments.update', $this->department),
-            [
-                'name' => 'Command',
-                'description' => 'Lorem ipsum dolor sit amet',
-                'status' => 'active',
-            ]
-        );
-
-        Event::assertDispatched(DepartmentUpdated::class);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotViewTheEditDepartmentPage()
-    {
-        $this->signIn();
-
-        $response = $this->get(route('departments.edit', $this->department));
-        $response->assertNotFound();
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotUpdateDepartment()
-    {
-        $this->signIn();
-
-        $response = $this->putJson(
-            route('departments.update', $this->department),
-            Department::factory()->make()->toArray()
-        );
-        $response->assertNotFound();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotViewTheEditDepartmentPage()
-    {
-        $response = $this->getJson(route('departments.edit', $this->department));
-        $response->assertUnauthorized();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotUpdateDepartment()
-    {
-        $response = $this->putJson(
-            route('departments.update', $this->department),
-            Department::factory()->make()->toArray()
-        );
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->putJson(
+        route('departments.update', $this->department),
+        Department::factory()->make()->toArray()
+    );
+    $response->assertNotFound();
+});
+test('unauthenticated user cannot view the edit department page', function () {
+    $response = $this->getJson(route('departments.edit', $this->department));
+    $response->assertUnauthorized();
+});
+test('unauthenticated user cannot update department', function () {
+    $response = $this->putJson(
+        route('departments.update', $this->department),
+        Department::factory()->make()->toArray()
+    );
+    $response->assertUnauthorized();
+});

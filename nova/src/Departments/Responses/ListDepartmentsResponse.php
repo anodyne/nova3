@@ -6,7 +6,7 @@ namespace Nova\Departments\Responses;
 
 use Nova\Foundation\Responses\Responsable;
 
-class ShowAllDepartmentsResponse extends Responsable
+class ListDepartmentsResponse extends Responsable
 {
     public ?string $subnav = 'characters';
 

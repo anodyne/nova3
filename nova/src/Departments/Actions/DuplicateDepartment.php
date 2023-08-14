@@ -16,7 +16,7 @@ class DuplicateDepartment
     public function handle(Department $original, DepartmentData $data): Department
     {
         $department = $original->replicate();
-        $department->fill($data->all());
+        $department->forceFill($data->all());
         $department->save();
 
         $original->positions->each(

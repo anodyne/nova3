@@ -1,53 +1,36 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Departments\Actions;
-
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Departments\Actions\CreateDepartment;
 use Nova\Departments\Data\DepartmentData;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\States\Departments\Active;
-use Tests\TestCase;
+uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
-/**
- * @group departments
- */
-class CreateDepartmentActionTest extends TestCase
-{
-    use RefreshDatabase;
+it('creates a department', function () {
+    $data = DepartmentData::from([
+        'name' => 'Command',
+        'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+        'status' => Active::class,
+    ]);
 
-    /** @test **/
-    public function itCreatesADepartment()
-    {
-        $data = DepartmentData::from([
-            'name' => 'Command',
-            'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
-            'status' => Active::class,
-        ]);
+    $department = CreateDepartment::run($data);
 
-        $department = CreateDepartment::run($data);
+    expect($department->exists)->toBeTrue();
+    expect($department->name)->toEqual('Command');
+    expect($department->description)->toEqual('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
+});
+it('sets the correct sort order for a newly created department', function () {
+    Department::factory()->create(['sort' => 0]);
+    Department::factory()->create(['sort' => 1]);
 
-        $this->assertTrue($department->exists);
-        $this->assertEquals('Command', $department->name);
-        $this->assertEquals('Lorem ipsum dolor sit amet, consectetur adipisicing elit.', $department->description);
-    }
+    $data = DepartmentData::from([
+        'name' => 'Command',
+        'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+        'status' => Active::class,
+    ]);
 
-    /** @test **/
-    public function itSetsTheCorrectSortOrderForANewlyCreatedDepartment()
-    {
-        Department::factory()->create(['sort' => 0]);
-        Department::factory()->create(['sort' => 1]);
+    $department = CreateDepartment::run($data);
 
-        $data = DepartmentData::from([
-            'name' => 'Command',
-            'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
-            'status' => Active::class,
-        ]);
-
-        $department = CreateDepartment::run($data);
-
-        $this->assertEquals(2, $department->sort);
-    }
-}
+    expect($department->sort)->toEqual(2);
+});

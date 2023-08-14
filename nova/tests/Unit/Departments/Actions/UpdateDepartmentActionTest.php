@@ -1,46 +1,26 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Unit\Departments\Actions;
-
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Departments\Actions\UpdateDepartment;
 use Nova\Departments\Data\DepartmentData;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\States\Departments\Inactive;
-use Tests\TestCase;
+uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
-/**
- * @group departments
- */
-class UpdateDepartmentActionTest extends TestCase
-{
-    use RefreshDatabase;
+beforeEach(function () {
+    $this->department = Department::factory()->create();
+});
+it('updates a department', function () {
+    $data = DepartmentData::from([
+        'name' => 'Operations',
+        'description' => 'Lorem consectetur adipisicing elit.',
+        'status' => Inactive::class,
+    ]);
 
-    protected $department;
+    $department = UpdateDepartment::run($this->department, $data);
 
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->department = Department::factory()->create();
-    }
-
-    /** @test **/
-    public function itUpdatesADepartment()
-    {
-        $data = DepartmentData::from([
-            'name' => 'Operations',
-            'description' => 'Lorem consectetur adipisicing elit.',
-            'status' => Inactive::class,
-        ]);
-
-        $department = UpdateDepartment::run($this->department, $data);
-
-        $this->assertTrue($department->exists);
-        $this->assertEquals('Operations', $department->name);
-        $this->assertEquals('Lorem consectetur adipisicing elit.', $department->description);
-        $this->assertTrue($department->status->equals(Inactive::class));
-    }
-}
+    expect($department->exists)->toBeTrue();
+    expect($department->name)->toEqual('Operations');
+    expect($department->description)->toEqual('Lorem consectetur adipisicing elit.');
+    expect($department->status->equals(Inactive::class))->toBeTrue();
+});

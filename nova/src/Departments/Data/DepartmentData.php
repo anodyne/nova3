@@ -7,21 +7,14 @@ namespace Nova\Departments\Data;
 use Illuminate\Http\Request;
 use Nova\Departments\Enums\DepartmentStatus;
 use Spatie\LaravelData\Attributes\Validation\Enum;
-use Spatie\LaravelData\Attributes\Validation\Nullable;
-use Spatie\LaravelData\Attributes\Validation\Required;
-use Spatie\LaravelData\Attributes\Validation\StringType;
 use Spatie\LaravelData\Data;
 
 class DepartmentData extends Data
 {
     public function __construct(
-        #[Required, StringType()]
         public string $name,
-
-        #[Nullable, StringType()]
         public ?string $description,
-
-        #[Nullable, Enum(DepartmentStatus::class)]
+        #[Enum(DepartmentStatus::class)]
         public ?DepartmentStatus $status
     ) {
     }

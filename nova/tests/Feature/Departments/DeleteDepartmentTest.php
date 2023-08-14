@@ -1,75 +1,47 @@
 <?php
 
 declare(strict_types=1);
-
-namespace Tests\Feature\Departments;
-
 use Illuminate\Support\Facades\Event;
 use Nova\Departments\Events\DepartmentDeleted;
 use Nova\Departments\Models\Department;
-use Tests\TestCase;
+beforeEach(function () {
+    $this->department = Department::factory()->create();
+});
+test('authorized user can delete a department', function () {
+    $this->signInWithPermission('department.delete');
 
-/**
- * @group departments
- */
-class DeleteDepartmentTest extends TestCase
-{
-    protected $department;
+    $this->followingRedirects();
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    $response = $this->delete(
+        route('departments.destroy', $this->department)
+    );
+    $response->assertSuccessful();
 
-        $this->department = Department::factory()->create();
-    }
+    $this->assertDatabaseMissing(
+        'departments',
+        $this->department->only('id')
+    );
+});
+test('event is dispatched when department is deleted', function () {
+    Event::fake();
 
-    /** @test **/
-    public function authorizedUserCanDeleteADepartment()
-    {
-        $this->signInWithPermission('department.delete');
+    $this->signInWithPermission('department.delete');
 
-        $this->followingRedirects();
+    $this->delete(route('departments.destroy', $this->department));
 
-        $response = $this->delete(
-            route('departments.destroy', $this->department)
-        );
-        $response->assertSuccessful();
+    Event::assertDispatched(DepartmentDeleted::class);
+});
+test('unauthorized user cannot delete a department', function () {
+    $this->signIn();
 
-        $this->assertDatabaseMissing(
-            'departments',
-            $this->department->only('id')
-        );
-    }
-
-    /** @test **/
-    public function eventIsDispatchedWhenDepartmentIsDeleted()
-    {
-        Event::fake();
-
-        $this->signInWithPermission('department.delete');
-
-        $this->delete(route('departments.destroy', $this->department));
-
-        Event::assertDispatched(DepartmentDeleted::class);
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotDeleteADepartment()
-    {
-        $this->signIn();
-
-        $response = $this->delete(
-            route('departments.destroy', $this->department)
-        );
-        $response->assertNotFound();
-    }
-
-    /** @test **/
-    public function unauthenticatedUserCannotDeleteADepartment()
-    {
-        $response = $this->deleteJson(
-            route('departments.destroy', $this->department)
-        );
-        $response->assertUnauthorized();
-    }
-}
+    $response = $this->delete(
+        route('departments.destroy', $this->department)
+    );
+    $response->assertNotFound();
+});
+test('unauthenticated user cannot delete a department', function () {
+    $response = $this->deleteJson(
+        route('departments.destroy', $this->department)
+    );
+    $response->assertUnauthorized();
+});

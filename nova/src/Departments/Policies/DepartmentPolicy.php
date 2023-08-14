@@ -17,35 +17,35 @@ class DepartmentPolicy
     {
         return $user->isAbleTo('department.*')
             ? $this->allow()
-            : $this->denyAsNotFound();
+            : $this->deny();
     }
 
     public function view(User $user, Department $department): Response
     {
         return $user->isAbleTo('department.view')
             ? $this->allow()
-            : $this->denyAsNotFound();
+            : $this->deny();
     }
 
     public function create(User $user): Response
     {
         return $user->isAbleTo('department.create')
             ? $this->allow()
-            : $this->denyAsNotFound();
+            : $this->deny();
     }
 
     public function update(User $user, Department $department): Response
     {
         return $user->isAbleTo('department.update')
             ? $this->allow()
-            : $this->denyAsNotFound();
+            : $this->deny();
     }
 
     public function deleteAny(User $user): Response
     {
         return $user->isAbleTo('department.delete')
             ? $this->allow()
-            : $this->denyAsNotFound();
+            : $this->deny();
     }
 
     public function delete(User $user, Department $department): Response
@@ -57,7 +57,7 @@ class DepartmentPolicy
     {
         return $user->isAbleTo('department.create') && $user->isAbleTo('department.update')
             ? $this->allow()
-            : $this->denyAsNotFound();
+            : $this->deny();
     }
 
     public function restore(User $user, Department $department): Response
