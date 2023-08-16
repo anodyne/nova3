@@ -49,7 +49,11 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+function updateSetting($callback): void
 {
-    // ..
+    $settings = settings();
+
+    $callback($settings);
+
+    $settings->save();
 }

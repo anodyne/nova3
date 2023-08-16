@@ -54,6 +54,20 @@ class DepartmentsList extends Component implements HasForms, HasTable
                     ->alignCenter()
                     ->sortable()
                     ->toggleable(),
+                TextColumn::make('active_characters_count')
+                    ->counts('activeCharacters')
+                    ->label('# of characters')
+                    ->alignCenter()
+                    ->sortable()
+                    ->toggleable(),
+                TextColumn::make('active_users_count')
+                    ->counts([
+                        'activeUsers' => fn (Builder $query): Builder => $query->countDistinct(),
+                    ])
+                    ->label('# of users')
+                    ->alignCenter()
+                    ->sortable()
+                    ->toggleable(),
                 TextColumn::make('status')
                     ->badge()
                     ->color(fn (Model $record): string => $record->status->color())

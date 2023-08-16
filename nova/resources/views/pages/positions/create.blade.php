@@ -3,7 +3,7 @@
 @section('content')
     <x-panel>
         <x-panel.header title="Add a new position">
-            <x-slot>
+            <x-slot name="actions">
                 @can('viewAny', Nova\Departments\Models\Position::class)
                     <x-button.text
                         :href="$selectedDepartment ? route('positions.index', 'department='.$selectedDepartment?->id) : route('positions.index')"
@@ -17,7 +17,10 @@
         </x-panel.header>
 
         <x-form :action="route('positions.store')">
-            <x-form.section title="Position Info">
+            <x-form.section
+                title="Position Info"
+                message="Positions are the jobs or stations that characters can be assigned to for display on your manifests."
+            >
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
                     <x-input.text id="name" name="name" :value="old('name')" data-cy="name" />
                 </x-input.group>
@@ -28,7 +31,7 @@
                         @foreach ($departments as $department)
                             <option
                                 value="{{ $department->id }}"
-                                @selected($department->id === $selectedDepartment?->id)
+                                @selected($department->id === old('department_id', $selectedDepartment?->id))
                             >
                                 {{ $department->name }}
                             </option>
@@ -41,20 +44,37 @@
                         {{ old('description') }}
                     </x-input.textarea>
                 </x-input.group>
+
+                <x-input.group>
+                    <x-switch-toggle
+                        name="status"
+                        :value="old('status', 'active')"
+                        on-value="active"
+                        off-value="inactive"
+                    >
+                        Active
+                    </x-switch-toggle>
+                </x-input.group>
             </x-form.section>
 
             <x-form.section title="Availability">
-                <x-slot:message>
+                <x-slot name="message">
                     <p>
                         You can allow or prevent prospective players from picking this position when applying to join by
                         setting the number of available slots.
                     </p>
 
-                    <p class="block">
-                        <strong class="font-semibold">Note:</strong>
-                        After setting this number, Nova will keep the number updated for you as characters are assigned
-                        and un-assigned to this position.
-                    </p>
+                    @can('update', settings())
+                        <p class="block">
+                            <strong class="font-semibold">Note:</strong>
+                            After setting this number, Nova can keep the number updated for you as characters are
+                            assigned and un-assigned to this position.
+                        </p>
+
+                        <x-button.filled :href="route('settings.index', 'characters')" color="gray">
+                            Manage character settings
+                        </x-button.filled>
+                    @endcan
                 </x-slot>
 
                 <x-input.group label="Available Slots" for="available">

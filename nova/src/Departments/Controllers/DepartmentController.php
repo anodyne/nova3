@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Departments\Controllers;
 
+use Illuminate\Database\Eloquent\Builder;
 use Nova\Departments\Actions\CreateDepartmentManager;
 use Nova\Departments\Actions\UpdateDepartmentManager;
 use Nova\Departments\Models\Department;
@@ -33,8 +34,20 @@ class DepartmentController extends Controller
 
     public function show(Department $department)
     {
+        $department->load([
+            'positions' => [
+                'activeCharacters',
+                'activeUsers',
+            ],
+        ]);
+        $department->loadCount([
+            'positions',
+            'activeCharacters',
+            'activeUsers' => fn (Builder $query): Builder => $query->countDistinct(),
+        ]);
+
         return ShowDepartmentResponse::sendWith([
-            'department' => $department->load('positions'),
+            'department' => $department,
         ]);
     }
 

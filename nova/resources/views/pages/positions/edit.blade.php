@@ -17,7 +17,10 @@
         </x-panel.header>
 
         <x-form :action="route('positions.update', $position)" method="PUT">
-            <x-form.section title="Position Info">
+            <x-form.section
+                title="Position Info"
+                message="Positions are the jobs or stations that characters can be assigned to for display on your manifests."
+            >
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
                     <x-input.text id="name" name="name" :value="old('name', $position->name)" data-cy="name" />
                 </x-input.group>

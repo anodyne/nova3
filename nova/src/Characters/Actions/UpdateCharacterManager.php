@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Nova\Characters\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Characters\Enums\CharacterType;
+use Nova\Characters\Data\CharacterPositionsData;
 use Nova\Characters\Models\Character;
 use Nova\Characters\Requests\UpdateCharacterRequest;
-use Nova\Departments\Actions\AutoAvailabilityManager;
+use Nova\Departments\Actions\UpdatePositionAvailability;
 
 class UpdateCharacterManager
 {
@@ -18,8 +18,11 @@ class UpdateCharacterManager
         Character $character,
         UpdateCharacterRequest $request
     ): Character {
-        $oldPositionIds = $character->positions()->pluck('position_id')->all();
-        ray($oldPositionIds);
+        $positions = new CharacterPositionsData(
+            character: $character,
+            previousType: $character->type,
+            previousPositions: $character->positions
+        );
 
         $character = UpdateCharacter::run(
             $character,
@@ -38,17 +41,10 @@ class UpdateCharacterManager
 
         $character = SetCharacterType::run($character);
 
-        AutoAvailabilityManager::runIf(
-            match (true) {
-                $character->type === CharacterType::primary && settings('characters.autoAvailabilityForPrimary') => true,
-                $character->type === CharacterType::secondary && settings('characters.autoAvailabilityForSecondary') => true,
-                $character->type === CharacterType::support && settings('characters.autoAvailabilityForSupport') => true,
-                default => false,
-            },
-            $character,
-            $request->getCharacterPositionsData(),
-            $oldPositionIds
-        );
+        $positions->currentType = $character->type;
+        $positions->currentPositions = $character->positions;
+
+        UpdatePositionAvailability::run($positions);
 
         UploadCharacterAvatar::run($character, $request->avatar_path);
 

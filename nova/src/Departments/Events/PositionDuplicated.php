@@ -13,13 +13,9 @@ class PositionDuplicated
     use Dispatchable;
     use SerializesModels;
 
-    public Position $position;
-
-    public Position $original;
-
-    public function __construct(Position $position, Position $original)
-    {
-        $this->position = $position;
-        $this->original = $original;
+    public function __construct(
+        public Position $position,
+        public Position $original
+    ) {
     }
 }

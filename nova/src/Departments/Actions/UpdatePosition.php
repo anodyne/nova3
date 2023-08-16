@@ -14,6 +14,8 @@ class UpdatePosition
 
     public function handle(Position $position, PositionData $data): Position
     {
-        return tap($position)->update($data->all())->refresh();
+        return tap($position)
+            ->update($data->all())
+            ->refresh();
     }
 }

@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace Nova\Departments\Enums;
 
 use Filament\Support\Contracts\HasLabel;
+use Nova\Foundation\Concerns\HasSelectOptions;
 
 enum DepartmentStatus: string implements HasLabel
 {
+    use HasSelectOptions;
+
     case active = 'active';
 
     case inactive = 'inactive';
@@ -31,12 +34,5 @@ enum DepartmentStatus: string implements HasLabel
     public function getLabel(): ?string
     {
         return ucfirst($this->value);
-    }
-
-    public static function toOptions(): array
-    {
-        return collect(static::cases())
-            ->flatMap(fn ($case) => [$case->value => $case->label()])
-            ->all();
     }
 }

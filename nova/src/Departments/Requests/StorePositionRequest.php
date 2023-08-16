@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Departments\Requests;
 
-use Nova\Foundation\Http\Requests\ValidatesRequest;
+use Illuminate\Foundation\Http\FormRequest;
+use Nova\Departments\Data\PositionData;
 
-class CreatePositionRequest extends ValidatesRequest
+class StorePositionRequest extends FormRequest
 {
     public function rules(): array
     {
@@ -15,6 +16,7 @@ class CreatePositionRequest extends ValidatesRequest
             'department_id' => ['required', 'exists:departments,id'],
             'description' => ['nullable'],
             'name' => ['required'],
+            'status' => ['required'],
         ];
     }
 
@@ -23,5 +25,10 @@ class CreatePositionRequest extends ValidatesRequest
         return [
             'department_id' => 'department ID',
         ];
+    }
+
+    public function getPositionData(): PositionData
+    {
+        return PositionData::from($this);
     }
 }

@@ -1,7 +1,7 @@
 @php($count = $records->count())
 
 <x-filament.modal-content icon="trash">
-    <x-slot name="title">Delete {{ $count }} selected {{ trans_choice('record|records', $count) }}?</x-slot>
+    <x-slot name="title">Delete {{ $count }} selected {{ str('department')->plural($count) }}?</x-slot>
 
     <p>Are you sure you want to delete the following departments?</p>
 

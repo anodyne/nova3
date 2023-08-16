@@ -6,22 +6,34 @@ namespace Nova\Departments\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Nova\Characters\Models\Character;
+use Nova\Characters\Models\States\Status\Active as CharacterActive;
 use Nova\Departments\Enums\DepartmentStatus;
 use Nova\Departments\Events;
 use Nova\Departments\Models\Builders\DepartmentBuilder;
 use Nova\Media\Concerns\InteractsWithMedia;
+use Nova\Users\Models\States\Active as UserActive;
+use Nova\Users\Models\User;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 use Spatie\MediaLibrary\HasMedia;
+use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 class Department extends Model implements HasMedia, Sortable
 {
     use HasFactory;
+    use HasRelationships;
     use InteractsWithMedia;
     use LogsActivity;
     use SortableTrait;
+
+    protected $table = 'departments';
+
+    protected $fillable = ['name', 'description', 'order_column', 'status'];
 
     protected $casts = [
         'order_column' => 'integer',
@@ -34,13 +46,35 @@ class Department extends Model implements HasMedia, Sortable
         'updated' => Events\DepartmentUpdated::class,
     ];
 
-    protected $fillable = ['name', 'description', 'order_column', 'status'];
+    public function activeCharacters(): HasManyDeep
+    {
+        return $this->characters()->whereState('characters.status', CharacterActive::class);
+    }
 
-    protected $table = 'departments';
+    public function activeUsers(): HasManyDeep
+    {
+        return $this->users()->whereState('users.status', UserActive::class);
+    }
 
-    public function positions()
+    public function characters(): HasManyDeep
+    {
+        return $this->hasManyDeep(
+            Character::class,
+            [Position::class, 'character_position']
+        );
+    }
+
+    public function positions(): HasMany
     {
         return $this->hasMany(Position::class)->ordered();
+    }
+
+    public function users(): HasManyDeep
+    {
+        return $this->hasManyDeep(
+            User::class,
+            [Position::class, 'character_position', Character::class, 'character_user']
+        )->distinct();
     }
 
     public function getActivitylogOptions(): LogOptions

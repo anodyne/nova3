@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Users\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 use Nova\Users\Models\States\Active;
 use Nova\Users\Models\States\Archived;
 use Nova\Users\Models\States\Inactive;
@@ -12,6 +13,11 @@ use Nova\Users\Models\States\Pending;
 
 class UserBuilder extends Builder
 {
+    public function countDistinct(): self
+    {
+        return $this->select(DB::raw('count(distinct(users.id))'));
+    }
+
     public function searchFor(string $search): self
     {
         return $this->where(function ($query) use ($search) {

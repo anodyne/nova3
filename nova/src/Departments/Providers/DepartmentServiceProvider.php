@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Nova\Departments\Providers;
 
 use Nova\Departments\Livewire\DepartmentsList;
-use Nova\Departments\Livewire\PositionsCollector;
-use Nova\Departments\Livewire\PositionsDropdown;
 use Nova\Departments\Livewire\PositionsList;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
@@ -25,9 +23,7 @@ class DepartmentServiceProvider extends DomainServiceProvider
     {
         return [
             'departments-list' => DepartmentsList::class,
-            'positions:collector' => PositionsCollector::class,
-            'positions:dropdown' => PositionsDropdown::class,
-            'positions:list' => PositionsList::class,
+            'positions-list' => PositionsList::class,
         ];
     }
 

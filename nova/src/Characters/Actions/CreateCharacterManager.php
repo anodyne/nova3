@@ -5,15 +5,17 @@ declare(strict_types=1);
 namespace Nova\Characters\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Characters\Data\CharacterPositionsData;
 use Nova\Characters\Models\Character;
 use Nova\Characters\Models\States\Status\Active;
-use Nova\Characters\Requests\CreateCharacterRequest;
+use Nova\Characters\Requests\StoreCharacterRequest;
+use Nova\Departments\Actions\UpdatePositionAvailability;
 
 class CreateCharacterManager
 {
     use AsAction;
 
-    public function handle(CreateCharacterRequest $request): Character
+    public function handle(StoreCharacterRequest $request): Character
     {
         $character = CreateCharacter::run($request->getCharacterData());
 
@@ -35,6 +37,14 @@ class CreateCharacterManager
         }
 
         $character = SetCharacterType::run($character);
+
+        $positions = new CharacterPositionsData(
+            character: $character,
+            currentType: $character->type,
+            currentPositions: $character->positions
+        );
+
+        UpdatePositionAvailability::run($positions);
 
         UploadCharacterAvatar::run($character, $request->avatar_path);
 

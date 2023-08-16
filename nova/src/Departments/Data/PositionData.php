@@ -6,6 +6,7 @@ namespace Nova\Departments\Data;
 
 use Illuminate\Http\Request;
 use Nova\Departments\Enums\PositionStatus;
+use Spatie\LaravelData\Attributes\Validation\Enum;
 use Spatie\LaravelData\Data;
 
 class PositionData extends Data
@@ -14,6 +15,7 @@ class PositionData extends Data
         public string $name,
         public ?string $description,
         public ?int $available,
+        #[Enum(PositionStatus::class)]
         public ?PositionStatus $status,
         public int $department_id = 0
     ) {
@@ -33,11 +35,11 @@ class PositionData extends Data
     public static function fromRequest(Request $request): static
     {
         return new self(
-            available: (int) $request->input('available', 0),
-            department_id: (int) $request->input('department_id', 0),
-            description: $request->input('description'),
             name: $request->input('name'),
+            description: $request->input('description'),
+            available: $request->integer('available'),
             status: PositionStatus::tryFrom($request->input('status', PositionStatus::active->value)),
+            department_id: $request->integer('department_id'),
         );
     }
 }
