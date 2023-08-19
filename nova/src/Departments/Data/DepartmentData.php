@@ -13,7 +13,9 @@ class DepartmentData extends Data
 {
     public function __construct(
         public string $name,
+
         public ?string $description,
+
         #[Enum(DepartmentStatus::class)]
         public ?DepartmentStatus $status
     ) {

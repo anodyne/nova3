@@ -83,6 +83,7 @@ class DepartmentsList extends Component implements HasForms, HasTable
                             ->authorize('update')
                             ->url(fn (Model $record): string => route('departments.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
+
                     ActionGroup::make([
                         ReplicateAction::make()
                             ->form([
@@ -103,10 +104,11 @@ class DepartmentsList extends Component implements HasForms, HasTable
                                     ->send();
                             }),
                     ])->authorize('duplicate')->divided(),
+
                     ActionGroup::make([
                         DeleteAction::make()
                             ->modalContentView('pages.departments.delete')
-                            ->successNotificationTitle('Department was deleted')
+                            ->successNotificationTitle(fn (Model $record): string => $record->name.' department was deleted')
                             ->using(fn (Model $record): Model => DeleteDepartment::run($record)),
                     ])->authorize('delete')->divided(),
                 ]),
