@@ -54,7 +54,10 @@ class PositionsList extends Component implements HasForms, HasTable
             ->query(Position::with('department', 'activeCharacters', 'activeUsers'))
             ->groups([
                 Group::make('department.name')->label('Department name')->collapsible(),
-                Group::make('department.order_column')->label('Department order')->collapsible(),
+                Group::make('department.order_column')
+                    ->label('Department order')
+                    ->getTitleFromRecordUsing(fn (Model $record): string => $record->department->name)
+                    ->collapsible(),
             ])
             ->defaultGroup('department.order_column')
             ->defaultSort('order_column', 'asc')
@@ -97,6 +100,7 @@ class PositionsList extends Component implements HasForms, HasTable
                             ->authorize('update')
                             ->url(fn (Model $record): string => route('positions.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
+
                     ActionGroup::make([
                         ReplicateAction::make()
                             ->form([
@@ -118,6 +122,7 @@ class PositionsList extends Component implements HasForms, HasTable
                                     ->send();
                             }),
                     ])->authorize('duplicate')->divided(),
+
                     ActionGroup::make([
                         DeleteAction::make()
                             ->modalContentView('pages.positions.delete')

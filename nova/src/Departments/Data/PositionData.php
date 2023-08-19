@@ -13,10 +13,14 @@ class PositionData extends Data
 {
     public function __construct(
         public string $name,
+
         public ?string $description,
+
         public ?int $available,
+
         #[Enum(PositionStatus::class)]
         public ?PositionStatus $status,
+
         public int $department_id = 0
     ) {
     }
