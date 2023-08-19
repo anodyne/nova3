@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Ranks\Requests;
 
-use Nova\Foundation\Http\Requests\ValidatesRequest;
+use Illuminate\Foundation\Http\FormRequest;
+use Nova\Ranks\Data\RankItemData;
 
-class CreateRankItemRequest extends ValidatesRequest
+class StoreRankItemRequest extends FormRequest
 {
     public function rules(): array
     {
@@ -27,5 +28,10 @@ class CreateRankItemRequest extends ValidatesRequest
             'base_image' => 'base image',
             'overlay_image' => 'overlay image',
         ];
+    }
+
+    public function getRankItemData(): RankItemData
+    {
+        return RankItemData::from($this);
     }
 }

@@ -12,15 +12,11 @@ class RankGroupData extends Data
 {
     public function __construct(
         public string $name,
+
+        #[Enum(RankGroupStatus::class)]
         public ?RankGroupStatus $status,
+
         public ?string $base_image
     ) {
-    }
-
-    public static function rules(): array
-    {
-        return [
-            'status' => [new Enum(RankGroupStatus::class)],
-        ];
     }
 }

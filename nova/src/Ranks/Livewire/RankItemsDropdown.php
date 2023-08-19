@@ -4,40 +4,42 @@ declare(strict_types=1);
 
 namespace Nova\Ranks\Livewire;
 
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Collection;
 use Livewire\Component;
 use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Models\RankItem;
 
 class RankItemsDropdown extends Component
 {
-    public $groups;
+    public ?Collection $groups;
 
-    public $items;
+    public ?Collection $items;
 
-    public $selected;
+    public ?RankItem $selected;
 
-    public function clearRankItems()
+    public function clearRankItems(): void
     {
         $this->items = null;
     }
 
-    public function selectRankGroup($groupId)
+    public function selectRankGroup(int $groupId): void
     {
         $this->items = RankItem::query()
             ->active()
-            ->whereGroup($groupId)
+            ->group($groupId)
             ->ordered()
             ->get();
     }
 
-    public function selectRankItem($rankId)
+    public function selectRankItem($rankId): void
     {
         $this->dispatchBrowserEvent('rank-items-dropdown-close');
 
         $this->selected = $this->items?->where('id', $rankId)->first();
     }
 
-    public function mount($rank = null)
+    public function mount(int $rank = null): void
     {
         $this->groups = RankGroup::ordered()->get();
 
@@ -48,8 +50,8 @@ class RankItemsDropdown extends Component
         }
     }
 
-    public function render()
+    public function render(): View
     {
-        return view('livewire.ranks.items-dropdown');
+        return view('livewire.ranks.rank-items-dropdown');
     }
 }

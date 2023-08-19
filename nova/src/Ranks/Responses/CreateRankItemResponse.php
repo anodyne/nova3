@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Nova\Ranks\Responses\Items;
+namespace Nova\Ranks\Responses;
 
 use Nova\Foundation\Responses\Responsable;
 

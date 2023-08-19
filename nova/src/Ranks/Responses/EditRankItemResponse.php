@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Nova\Ranks\Responses\Items;
+namespace Nova\Ranks\Responses;
 
 use Nova\Foundation\Responses\Responsable;
 
-class UpdateRankItemResponse extends Responsable
+class EditRankItemResponse extends Responsable
 {
     public ?string $subnav = 'characters';
 

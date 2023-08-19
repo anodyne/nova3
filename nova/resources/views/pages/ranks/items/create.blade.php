@@ -1,7 +1,7 @@
 @extends($meta->template)
 
 @section('content')
-    <x-panel x-data="{ tab: 'base', base: '{{ old('base_image') }}', overlay: '{{ old('overlay_image') }}' }">
+    <x-panel x-data="{ ...tabsList('base'), base: '{{ old('base_image') }}', overlay: '{{ old('overlay_image') }}' }">
         <x-panel.header title="Add a new rank item">
             <x-slot name="actions">
                 @can('viewAny', Nova\Ranks\Models\RankItem::class)
@@ -14,12 +14,12 @@
 
         <x-form :action="route('ranks.items.store')">
             <x-form.section
-                title="Rank Info"
+                title="Rank info"
                 message="You can build up your rank with a few clicks. Assign it to a group, set a name, and pick your base and overlay images to build your rank quickly and easily."
             >
-                <x-input.group label="Rank Group" for="group_id" :error="$errors->first('group_id')">
+                <x-input.group label="Rank group" for="group_id" :error="$errors->first('group_id')">
                     <div class="flex w-full items-center">
-                        @livewire('ranks:groups-dropdown', ['groupId' => old('group_id')])
+                        <livewire:rank-groups-dropdown :group-id="old('group_id')" />
 
                         @can('create', 'Nova\Ranks\Models\RankGroup')
                             <x-button.text :href="route('ranks.groups.index')" color="gray" class="ml-3">
@@ -29,9 +29,9 @@
                     </div>
                 </x-input.group>
 
-                <x-input.group label="Rank Name" for="name_id" :error="$errors->first('name_id')">
+                <x-input.group label="Rank name" for="name_id" :error="$errors->first('name_id')">
                     <div class="flex w-full items-center">
-                        @livewire('ranks:names-dropdown', ['nameId' => old('name_id')])
+                        <livewire:rank-names-dropdown :name-id="old('name_id')" />
 
                         @can('create', 'Nova\Ranks\Models\RankName')
                             <x-button.text :href="route('ranks.names.index')" color="gray" class="ml-3">
@@ -52,8 +52,8 @@
                     </x-switch-toggle>
                 </x-input.group>
 
-                <x-input.group label="Rank Preview" :error="$errors->first('base_image')">
-                    <div x-show="overlay === '' && base === ''">
+                <x-input.group label="Rank preview" :error="$errors->first('base_image')">
+                    <div x-show="overlay === '' && base === ''" class="h-10">
                         Make a selection below to see a live preview of your rank item
                     </div>
 
@@ -64,48 +64,51 @@
                 </x-input.group>
             </x-form.section>
 
-            <div class="mt-10 border-t border-gray-100 px-4 pt-4 sm:px-6 sm:pt-6">
-                <div>
-                    <div class="sm:hidden">
-                        <select
-                            aria-label="Selected tab"
-                            class="form-select block w-full bg-white"
-                            @change="tab = $event.target.value"
+            <x-content-box class="mt-10">
+                <x-content-box height="none" width="none" class="sm:hidden">
+                    <x-input.select @change="switchTab($event.target.value)" aria-label="Selected tab">
+                        <option value="base">Base images</option>
+                        <option value="overlay">Overlay images</option>
+                    </x-input.select>
+                </x-content-box>
+                <div class="hidden sm:block">
+                    <nav class="flex">
+                        <a
+                            href="#"
+                            x-on:click.prevent="switchTab('base')"
+                            class="ml-4 rounded-md px-3 py-2 text-sm font-medium first:ml-0 focus:outline-none"
+                            :class="{
+                                'text-primary-600 dark:text-primary-400 bg-primary-100/75 dark:bg-primary-900/40': isTab('base'),
+                                'hover:bg-gray-100 dark:hover:bg-gray-700/50 hover:text-gray-900 dark:hover:text-gray-100': isNotTab('base'),
+                            }"
                         >
-                            <option value="base">Base Images</option>
-                            <option value="overlay">Overlay Images</option>
-                        </select>
-                    </div>
-                    <div class="hidden sm:block">
-                        <nav class="flex">
-                            <a
-                                href="#"
-                                x-on:click.prevent="tab = 'base'"
-                                class="ml-4 rounded-md px-3 py-2 text-sm font-medium first:ml-0 focus:outline-none"
-                                :class="{ 'text-primary-600 dark:text-primary-400 bg-primary-100/75 dark:bg-primary-900/40': tab === 'base', 'hover:bg-gray-100 dark:hover:bg-gray-700/50 hover:text-gray-900 dark:hover:text-gray-100': tab !== 'base' }"
-                            >
-                                Base Images
-                            </a>
-                            <a
-                                href="#"
-                                x-on:click.prevent="tab = 'overlay'"
-                                class="ml-4 rounded-md px-3 py-2 text-sm font-medium first:ml-0 focus:outline-none"
-                                :class="{ 'text-primary-600 dark:text-primary-400 bg-primary-100/75 dark:bg-primary-900/40': tab === 'overlay', 'hover:bg-gray-100 dark:hover:bg-gray-700/50 hover:text-gray-900 dark:hover:text-gray-100': tab !== 'overlay' }"
-                            >
-                                Overlay Images
-                            </a>
-                        </nav>
-                    </div>
+                            Base images
+                        </a>
+                        <a
+                            href="#"
+                            x-on:click.prevent="switchTab('overlay')"
+                            class="ml-4 rounded-md px-3 py-2 text-sm font-medium first:ml-0 focus:outline-none"
+                            :class="{
+                                'text-primary-600 dark:text-primary-400 bg-primary-100/75 dark:bg-primary-900/40': isTab('overlay'),
+                                'hover:bg-gray-100 dark:hover:bg-gray-700/50 hover:text-gray-900 dark:hover:text-gray-100': isNotTab('overlay'),
+                            }"
+                        >
+                            Overlay images
+                        </a>
+                    </nav>
                 </div>
 
-                <div class="mt-6 sm:h-72 sm:overflow-y-scroll">
-                    <div x-show="tab === 'base'">
+                <div class="mt-6 sm:h-80 sm:overflow-y-scroll">
+                    <div x-show="isTab('base')">
                         <div class="mx-auto grid max-w-lg grid-cols-2 gap-6 lg:max-w-none lg:grid-cols-4">
                             @foreach ($baseImages as $baseImage)
                                 <a
                                     x-on:click.prevent="base = '{{ $baseImage }}'"
-                                    class="flex flex-col justify-center rounded-md border border-transparent py-2"
-                                    :class="{ 'bg-primary-50 border-primary-300': base === '{{ $baseImage }}', 'hover:bg-gray-50 hover:border-gray-300': base !== '{{ $baseImage }}' }"
+                                    class="flex flex-col justify-center rounded-md py-2 ring-1 ring-inset"
+                                    :class="{
+                                        'bg-primary-50 dark:bg-primary-400/10 text-primary-600 dark:text-primary-400 ring-primary-500/10 dark:ring-primary-400/20 font-medium': base === '{{ $baseImage }}',
+                                        'ring-transparent hover:bg-gray-50 dark:hover:bg-gray-400/10 text-gray-600 dark:text-gray-400 hover:ring-gray-500/10 dark:hover:ring-gray-400/20': base !== '{{ $baseImage }}'
+                                    }"
                                     href="#"
                                 >
                                     <img
@@ -113,19 +116,22 @@
                                         alt=""
                                         class="mx-auto block h-10 w-36"
                                     />
-                                    <span class="text-center text-xs text-gray-500">{{ $baseImage }}</span>
+                                    <span class="text-center text-xs">{{ $baseImage }}</span>
                                 </a>
                             @endforeach
                         </div>
                     </div>
 
-                    <div x-show="tab === 'overlay'">
+                    <div x-show="isTab('overlay')" x-cloak>
                         <div class="mx-auto grid max-w-lg grid-cols-2 gap-6 lg:max-w-none lg:grid-cols-4">
                             @foreach ($overlayImages as $overlayImage)
                                 <a
                                     x-on:click.prevent="overlay = '{{ $overlayImage }}'"
-                                    class="flex flex-col justify-center rounded-md border border-transparent py-2"
-                                    :class="{ 'bg-primary-50 border-primary-300': overlay === '{{ $overlayImage }}', 'hover:bg-gray-50 hover:border-gray-300': overlay !== '{{ $overlayImage }}' }"
+                                    class="flex flex-col justify-center rounded-md py-2 ring-1 ring-inset"
+                                    :class="{
+                                        'bg-primary-50 dark:bg-primary-400/10 text-primary-600 dark:text-primary-400 ring-primary-500/10 dark:ring-primary-400/20 font-medium': overlay === '{{ $overlayImage }}',
+                                        'ring-transparent hover:bg-gray-50 dark:hover:bg-gray-400/10 text-gray-600 dark:text-gray-400 hover:ring-gray-500/10 dark:hover:ring-gray-400/20': overlay !== '{{ $overlayImage }}'
+                                    }"
                                     href="#"
                                 >
                                     <img
@@ -133,13 +139,13 @@
                                         alt=""
                                         class="mx-auto block h-10 w-36"
                                     />
-                                    <span class="text-center text-xs text-gray-500">{{ $overlayImage }}</span>
+                                    <span class="text-center text-xs">{{ $overlayImage }}</span>
                                 </a>
                             @endforeach
                         </div>
                     </div>
                 </div>
-            </div>
+            </x-content-box>
 
             <x-form.footer>
                 <x-button.filled type="submit" color="primary">Add</x-button.filled>

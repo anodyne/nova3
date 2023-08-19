@@ -15,6 +15,7 @@ use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -81,18 +82,14 @@ class RankGroupsList extends Component implements HasForms, HasTable
                                     ->placeholder('Select a base image')
                                     ->options($this->getRankBaseImages()),
                             ])
-                            ->modalHeading('Duplicate rank group?')
-                            ->modalDescription(
-                                fn (Model $record): string => "Are you sure you want to duplicate the {$record->name} rank group and all of its ranks?"
-                            )
-                            ->modalSubmitActionLabel('Duplicate')
+                            ->modalContentView('pages.ranks.groups.duplicate')
                             ->action(function (Model $record, array $data): void {
                                 $replica = DuplicateRankGroup::run(
                                     $record,
                                     RankGroupData::from(array_merge($record->toArray(), $data))
                                 );
 
-                                dispatch(new RankGroupDuplicated($replica, $record));
+                                RankGroupDuplicated::dispatch($replica, $record);
 
                                 Notification::make()->success()
                                     ->title("{$replica->name} rank group has been created")
@@ -103,12 +100,8 @@ class RankGroupsList extends Component implements HasForms, HasTable
 
                     ActionGroup::make([
                         DeleteAction::make()
-                            ->modalHeading('Delete rank group?')
-                            ->modalDescription(
-                                fn (Model $record): string => "Are you sure you want to delete the {$record->name} rank group? This will also delete all ranks within the group and any characters with those ranks will need to have new ranks assigned to them."
-                            )
-                            ->modalSubmitActionLabel('Delete')
-                            ->successNotificationTitle('Rank group was deleted')
+                            ->modalContentView('pages.ranks.groups.delete')
+                            ->successNotificationTitle(fn (Model $record): string => $record->name.' rank group was deleted')
                             ->using(fn (Model $record): Model => DeleteRankGroup::run($record)),
                     ])->authorize('delete')->divided(),
                 ]),
@@ -116,19 +109,7 @@ class RankGroupsList extends Component implements HasForms, HasTable
             ->groupedBulkActions([
                 DeleteBulkAction::make()
                     ->authorize('deleteAny')
-                    ->modalHeading(
-                        fn (Collection $records): string => "Delete {$records->count()} selected ".str('rank group')->plural($records->count()).'?'
-                    )
-                    ->modalDescription(function (Collection $records): string {
-                        $statement = ($records->count() === 1)
-                            ? 'this 1 rank group'
-                            : "these {$records->count()} rank groups";
-
-                        $notice = ($records->count() === 1) ? 'it' : 'them';
-
-                        return "Are you sure you want to delete {$statement}? You won't be able to recover {$notice}. This will also delete all ranks within the group(s) and any characters with those ranks will need to have new ranks assigned to them.";
-                    })
-                    ->modalSubmitActionLabel('Delete')
+                    ->modalContentView('pages.ranks.groups.delete-bulk')
                     ->successNotificationTitle('Rank groups were deleted')
                     ->using(fn (Collection $records): Collection => $records->each(
                         fn (Model $record): Model => DeleteRankGroup::run($record)
@@ -152,7 +133,7 @@ class RankGroupsList extends Component implements HasForms, HasTable
                     ->label('Add')
                     ->url(route('ranks.groups.create')),
             ])
-            ->header(fn () => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)
+            ->header(fn (): ?View => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)
             ->emptyStateIcon(iconName('list'))
             ->emptyStateHeading('No rank groups found')
             ->emptyStateDescription('Rank groups are a simple way to collect related rank items together for simpler searching and selecting ranks in Nova.')
@@ -164,7 +145,7 @@ class RankGroupsList extends Component implements HasForms, HasTable
             ]);
     }
 
-    public function render()
+    public function render(): ?View
     {
         return view('livewire.filament-table');
     }

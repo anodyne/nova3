@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Ranks\Livewire;
 
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
@@ -13,6 +14,7 @@ use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -26,6 +28,7 @@ use Nova\Foundation\Filament\Actions\ReplicateAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Ranks\Actions\DeleteRankName;
 use Nova\Ranks\Actions\DuplicateRankName;
+use Nova\Ranks\Data\RankNameData;
 use Nova\Ranks\Enums\RankNameStatus;
 use Nova\Ranks\Events\RankNameDuplicated;
 use Nova\Ranks\Models\RankName;
@@ -53,7 +56,7 @@ class RankNamesList extends Component implements HasForms, HasTable
                     ->toggleable(),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (Model $record) => $record->status->color())
+                    ->color(fn (Model $record): string => $record->status->color())
                     ->toggleable(),
             ])
             ->actions([
@@ -66,26 +69,31 @@ class RankNamesList extends Component implements HasForms, HasTable
                             ->authorize('update')
                             ->url(fn (Model $record): string => route('ranks.names.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
+
                     ActionGroup::make([
                         ReplicateAction::make()
-                            ->action(function (Model $record): void {
-                                $replica = DuplicateRankName::run($record);
+                            ->form([
+                                TextInput::make('name')->label('New rank name'),
+                            ])
+                            ->modalContentView('pages.ranks.names.duplicate')
+                            ->action(function (Model $record, array $data): void {
+                                $replica = DuplicateRankName::run(
+                                    $record,
+                                    RankNameData::from(array_merge($record->toArray(), $data))
+                                );
 
-                                dispatch(new RankNameDuplicated($replica, $record));
+                                RankNameDuplicated::dispatch($replica, $record);
 
                                 Notification::make()->success()
                                     ->title("{$replica->name} rank name has been created")
                                     ->send();
                             }),
                     ])->authorize('duplicate')->divided(),
+
                     ActionGroup::make([
                         DeleteAction::make()
-                            ->modalHeading('Delete rank name?')
-                            ->modalDescription(
-                                fn (Model $record): string => "Are you sure you want to delete the {$record->name} rank name? This will also delete all ranks associated with the name and any characters with those ranks will need to have new ranks assigned to them."
-                            )
-                            ->modalSubmitActionLabel('Delete')
-                            ->successNotificationTitle('Rank name was deleted')
+                            ->modalContentView('pages.ranks.names.delete')
+                            ->successNotificationTitle(fn (Model $record): string => $record->name.' rank name was deleted')
                             ->using(fn (Model $record): Model => DeleteRankName::run($record)),
                     ])->authorize('delete')->divided(),
                 ]),
@@ -93,19 +101,7 @@ class RankNamesList extends Component implements HasForms, HasTable
             ->groupedBulkActions([
                 DeleteBulkAction::make()
                     ->authorize('deleteAny')
-                    ->modalHeading(
-                        fn (Collection $records): string => "Delete {$records->count()} selected ".str('rank name')->plural($records->count()).'?'
-                    )
-                    ->modalDescription(function (Collection $records): string {
-                        $statement = ($records->count() === 1)
-                            ? 'this 1 rank name'
-                            : "these {$records->count()} rank names";
-
-                        $notice = ($records->count() === 1) ? 'it' : 'them';
-
-                        return "Are you sure you want to delete {$statement}? You won't be able to recover {$notice}. This will also delete all ranks within the group(s) and any characters with those ranks will need to have new ranks assigned to them.";
-                    })
-                    ->modalSubmitActionLabel('Delete')
+                    ->modalContentView('pages.ranks.names.delete-bulk')
                     ->successNotificationTitle('Rank names were deleted')
                     ->using(fn (Collection $records): Collection => $records->each(
                         fn (Model $record): Model => DeleteRankName::run($record)
@@ -129,7 +125,7 @@ class RankNamesList extends Component implements HasForms, HasTable
                     ->label('Add')
                     ->url(route('ranks.names.create')),
             ])
-            ->header(fn () => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)
+            ->header(fn (): ?View => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)
             ->emptyStateIcon(iconName('info'))
             ->emptyStateHeading('No rank names found')
             ->emptyStateDescription('Rank names eliminate the repetitive task of setting the name of a rank by letting you re-use names across all of your rank items.')
@@ -141,7 +137,7 @@ class RankNamesList extends Component implements HasForms, HasTable
             ]);
     }
 
-    public function render()
+    public function render(): ?View
     {
         return view('livewire.filament-table');
     }

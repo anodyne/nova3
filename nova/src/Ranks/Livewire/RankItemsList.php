@@ -14,6 +14,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Livewire\Component;
@@ -45,11 +46,16 @@ class RankItemsList extends Component implements HasForms, HasTable
             ->columns([
                 ViewColumn::make('name')
                     ->view('filament.tables.columns.rank')
-                    ->searchable(query: fn (Builder $query, string $search) => $query->searchFor($search))
+                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search))
                     ->sortable(),
+                TextColumn::make('characters_count')
+                    ->counts('characters')
+                    ->label('# of characters')
+                    ->alignCenter()
+                    ->toggleable(),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (Model $record) => $record->status->color())
+                    ->color(fn (Model $record): string => $record->status->color())
                     ->toggleable(),
             ])
             ->actions([
@@ -62,12 +68,11 @@ class RankItemsList extends Component implements HasForms, HasTable
                             ->authorize('update')
                             ->url(fn (Model $record): string => route('ranks.items.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
+
                     ActionGroup::make([
                         DeleteAction::make()
-                            ->modalHeading('Delete rank item?')
-                            ->modalDescription("Are you sure you want to delete this rank? You won't be able to recover it. Any character with this rank will need to have a new rank assigned to them.")
-                            ->modalSubmitActionLabel('Delete')
-                            ->successNotificationTitle('Rank name was deleted')
+                            ->modalContentView('pages.ranks.items.delete')
+                            ->successNotificationTitle(fn (Model $record): string => $record->name->name.' rank item was deleted')
                             ->using(fn (Model $record): Model => DeleteRankItem::run($record)),
                     ])->authorize('delete')->divided(),
                 ]),
@@ -75,19 +80,7 @@ class RankItemsList extends Component implements HasForms, HasTable
             ->groupedBulkActions([
                 DeleteBulkAction::make()
                     ->authorize('deleteAny')
-                    ->modalHeading(
-                        fn (Collection $records): string => "Delete {$records->count()} selected ".str('rank item')->plural($records->count()).'?'
-                    )
-                    ->modalDescription(function (Collection $records): string {
-                        $statement = ($records->count() === 1)
-                            ? 'this 1 rank item'
-                            : "these {$records->count()} rank items";
-
-                        $notice = ($records->count() === 1) ? 'it' : 'them';
-
-                        return "Are you sure you want to delete {$statement}? You won't be able to recover {$notice}. Any characters with those ranks will need to have new ranks assigned to them.";
-                    })
-                    ->modalSubmitActionLabel('Delete')
+                    ->modalContentView('pages.ranks.items.delete-bulk')
                     ->successNotificationTitle('Rank items were deleted')
                     ->using(fn (Collection $records): Collection => $records->each(
                         fn (Model $record): Model => DeleteRankItem::run($record)
@@ -109,29 +102,23 @@ class RankItemsList extends Component implements HasForms, HasTable
             ->description("Combine the rank group, rank name, and rank images to define your game's ranks")
             ->headerActions([
                 CreateAction::make()
+                    ->authorize('create')
                     ->label('Add')
                     ->url(route('ranks.items.create')),
             ])
-            ->header(function () use ($table) {
-                if ($this->isTableReordering()) {
-                    return view('filament.tables.reordering-notice', [
-                        'heading' => $table->getHeading(),
-                        'description' => $table->getDescription(),
-                        'entity' => str('rank items'),
-                    ]);
-                }
-            })
+            ->header(fn (): ?View => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)
             ->emptyStateIcon(iconName('rank'))
             ->emptyStateHeading('No ranks found')
             ->emptyStateDescription('Rank items bring the rank group, rank name, and images together in a simple and easy-to-use rank experience.')
             ->emptyStateActions([
                 CreateAction::make()
+                    ->authorize('create')
                     ->label('Add a rank')
                     ->url(route('ranks.items.create')),
             ]);
     }
 
-    public function render()
+    public function render(): ?View
     {
         return view('livewire.filament-table');
     }

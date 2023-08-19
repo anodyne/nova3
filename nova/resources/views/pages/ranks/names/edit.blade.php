@@ -14,7 +14,7 @@
 
         <x-form :action="route('ranks.names.update', $name)" method="PUT">
             <x-form.section
-                title="Rank Name Info"
+                title="Rank name info"
                 message="Rank names allow you to re-use basic rank information across all of your ranks to avoid unnecessary and tedious editing of the same information across every rank in the system."
             >
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
@@ -39,18 +39,27 @@
             >
                 <div class="flex w-full flex-col">
                     @foreach ($name->ranks as $rank)
-                        <div class="group flex items-center justify-between rounded px-4 py-2 odd:bg-gray-100">
+                        <div
+                            class="group flex items-center justify-between rounded-md px-4 py-2 odd:bg-gray-100 dark:odd:bg-gray-700/50"
+                        >
                             <div class="flex flex-col sm:flex-row sm:items-center">
-                                <x-rank :rank="$rank" />
-                                <span class="ml-3 font-medium">{{ optional($rank->group)->name }}</span>
+                                <div class="flex items-center gap-2">
+                                    <x-status :status="$rank->status"></x-status>
+                                    <x-rank :rank="$rank" />
+                                </div>
+                                <span class="ml-3 font-medium text-gray-600 dark:text-gray-300">
+                                    {{ $rank->group?->name }}
+                                </span>
                             </div>
+
                             @can('update', $rank)
-                                <a
-                                    href="{{ route('ranks.items.edit', $rank) }}"
-                                    class="text-gray-500 transition duration-200 ease-in-out hover:text-gray-700 group-hover:visible sm:invisible"
+                                <x-button.text
+                                    :href="route('ranks.items.edit', $rank)"
+                                    color="gray"
+                                    class="group-hover:visible sm:invisible"
                                 >
                                     <x-icon name="edit" size="sm"></x-icon>
-                                </a>
+                                </x-button.text>
                             @endcan
                         </div>
                     @endforeach

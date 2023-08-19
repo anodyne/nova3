@@ -6,6 +6,7 @@ namespace Nova\Ranks\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Ranks\Models\RankGroup;
+use Nova\Ranks\Models\RankItem;
 
 class DeleteRankGroup
 {
@@ -13,6 +14,8 @@ class DeleteRankGroup
 
     public function handle(RankGroup $group): RankGroup
     {
+        $group->ranks->each(fn (RankItem $item) => DeleteRankItem::run($item));
+
         return tap($group)->delete();
     }
 }

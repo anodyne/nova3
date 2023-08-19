@@ -10,37 +10,29 @@ trait FindRankImages
 {
     protected function getRankBaseImages(): array
     {
-        $finder = new Finder();
-        $finder->in(base_path('ranks/base'))->files();
-
-        $baseImages = [];
-
-        if ($finder->hasResults()) {
-            foreach ($finder as $file) {
-                $baseImages[$file->getRelativePathname()] = $file->getRelativePathname();
-            }
-        }
-
-        asort($baseImages);
-
-        return $baseImages;
+        return $this->getRankImages('base');
     }
 
-    protected function getRankOverlayImages()
+    protected function getRankOverlayImages(): array
+    {
+        return $this->getRankImages('overlay');
+    }
+
+    protected function getRankImages(string $path): array
     {
         $finder = new Finder();
-        $finder->in(base_path('ranks/overlay'))->files();
+        $finder->in(base_path("ranks/{$path}"))->files();
 
-        $overlayImages = [];
+        $images = [];
 
         if ($finder->hasResults()) {
             foreach ($finder as $file) {
-                $overlayImages[$file->getRelativePathname()] = $file->getRelativePathname();
+                $images[$file->getRelativePathname()] = $file->getRelativePathname();
             }
         }
 
-        asort($overlayImages);
+        asort($images);
 
-        return $overlayImages;
+        return $images;
     }
 }

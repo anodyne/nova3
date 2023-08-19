@@ -14,7 +14,7 @@
 
         <x-form :action="route('ranks.groups.store')">
             <x-form.section
-                title="Rank Group Info"
+                title="Rank group info"
                 message="A rank group is a collection of ranks that can be assigned to characters. We group ranks to make it easier to find the ranks that you need."
             >
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">

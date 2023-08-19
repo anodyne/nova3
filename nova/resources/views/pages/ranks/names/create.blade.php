@@ -14,7 +14,7 @@
 
         <x-form :action="route('ranks.names.store')">
             <x-form.section
-                title="Rank Name Info"
+                title="Rank name info"
                 message="Rank names allow you to re-use basic rank information across all of your ranks to avoid unnecessary and tedious editing of the same information across every rank in the system."
             >
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">

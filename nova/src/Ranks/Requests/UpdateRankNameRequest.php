@@ -4,15 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Ranks\Requests;
 
-use Nova\Foundation\Http\Requests\ValidatesRequest;
-
-class UpdateRankNameRequest extends ValidatesRequest
+class UpdateRankNameRequest extends StoreRankNameRequest
 {
-    public function rules()
-    {
-        return [
-            'name' => ['required'],
-            'status' => ['required'],
-        ];
-    }
 }

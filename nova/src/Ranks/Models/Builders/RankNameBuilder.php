@@ -9,13 +9,18 @@ use Nova\Ranks\Enums\RankNameStatus;
 
 class RankNameBuilder extends Builder
 {
-    public function searchFor($value): self
-    {
-        return $this->where('name', 'like', "%{$value}%");
-    }
-
     public function active()
     {
         return $this->where('status', RankNameStatus::active);
+    }
+
+    public function inactive()
+    {
+        return $this->where('status', RankNameStatus::inactive);
+    }
+
+    public function searchFor($value): self
+    {
+        return $this->where('name', 'like', "%{$value}%");
     }
 }

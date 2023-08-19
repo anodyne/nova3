@@ -17,35 +17,35 @@ class RankNamePolicy
     {
         return $user->isAbleTo('rank.*')
             ? $this->allow()
-            : $this->denyAsNotFound();
+            : $this->deny();
     }
 
     public function view(User $user, RankName $name): Response
     {
         return $user->isAbleTo('rank.view')
             ? $this->allow()
-            : $this->denyAsNotFound();
+            : $this->deny();
     }
 
     public function create(User $user): Response
     {
         return $user->isAbleTo('rank.create')
             ? $this->allow()
-            : $this->denyAsNotFound();
+            : $this->deny();
     }
 
     public function update(User $user, RankName $name): Response
     {
         return $user->isAbleTo('rank.update')
             ? $this->allow()
-            : $this->denyAsNotFound();
+            : $this->deny();
     }
 
     public function deleteAny(User $user): Response
     {
         return $user->isAbleTo('rank.delete')
             ? $this->allow()
-            : $this->denyAsNotFound();
+            : $this->deny();
     }
 
     public function delete(User $user, RankName $name): Response
@@ -57,7 +57,7 @@ class RankNamePolicy
     {
         return $user->isAbleTo('rank.create') && $user->isAbleTo('rank.update')
             ? $this->allow()
-            : $this->denyAsNotFound();
+            : $this->deny();
     }
 
     public function restore(User $user, RankName $name): Response

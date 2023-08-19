@@ -6,6 +6,8 @@ namespace Nova\Ranks\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Nova\Characters\Models\Character;
 use Nova\Ranks\Enums\RankItemStatus;
 use Nova\Ranks\Events;
@@ -21,6 +23,12 @@ class RankItem extends Model implements Sortable
     use LogsActivity;
     use SortableTrait;
 
+    protected $table = 'rank_items';
+
+    protected $fillable = [
+        'base_image', 'overlay_image', 'group_id', 'name_id', 'order_column', 'status',
+    ];
+
     protected $casts = [
         'order_column' => 'integer',
         'status' => RankItemStatus::class,
@@ -32,23 +40,17 @@ class RankItem extends Model implements Sortable
         'updated' => Events\RankItemUpdated::class,
     ];
 
-    protected $fillable = [
-        'base_image', 'overlay_image', 'group_id', 'name_id', 'order_column', 'status',
-    ];
-
-    protected $table = 'rank_items';
-
-    public function characters()
+    public function characters(): HasMany
     {
         return $this->hasMany(Character::class, 'rank_id');
     }
 
-    public function group()
+    public function group(): BelongsTo
     {
         return $this->belongsTo(RankGroup::class, 'group_id');
     }
 
-    public function name()
+    public function name(): BelongsTo
     {
         return $this->belongsTo(RankName::class, 'name_id');
     }
