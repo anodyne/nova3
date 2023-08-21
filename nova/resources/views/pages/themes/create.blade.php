@@ -1,12 +1,6 @@
 @extends($meta->template)
 
 @section('content')
-    <x-page-header title="Add Theme">
-        <x-slot>
-            <a href="{{ route('themes.index') }}">Themes</a>
-        </x-slot>
-    </x-page-header>
-
     <x-panel
         x-data="{ name: '{{ old('name') }}', location: '{{ old('location') }}', suggestLocation: true }"
         x-init="$watch('name', value => {
@@ -15,9 +9,17 @@
             }
         })"
     >
+        <x-panel.header title="Add a new theme">
+            <x-slot name="actions">
+                @can('viewAny', Nova\Themes\Models\Theme::class)
+                    <x-button.text :href="route('themes.index')" leading="arrow-left" color="gray">Back</x-button.text>
+                @endcan
+            </x-slot>
+        </x-panel.header>
+
         <x-form :action="route('themes.store')">
             <x-form.section
-                title="Theme Info"
+                title="Theme info"
                 message="A theme allows you to give your public-facing site the look-and-feel you want to any visitors. Using tools like regular HTML and CSS, you can show visitors the personality of your game and put your own spin on Nova."
             >
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
@@ -27,14 +29,14 @@
                 <x-input.group label="Location" for="location" :error="$errors->first('location')">
                     <x-input.text
                         x-model="location"
-                        @change="suggestLocation = false"
+                        x-on:change="suggestLocation = false"
                         id="location"
                         name="location"
                         leading-add-on="themes/"
                     />
                 </x-input.group>
 
-                <x-input.group label="Preview image" for="preview" :error="$errors->first('preview')">
+                <x-input.group label="Preview image filename" for="preview" :error="$errors->first('preview')">
                     <x-input.text id="preview" name="preview" />
                 </x-input.group>
 
@@ -44,6 +46,17 @@
                     help="We strongly encourage providing detailed credits for your theme. If you used an icon set or borrowed code from someone or even got inspiration from another site, this is the place to provide the appropriate credit."
                 >
                     <x-input.textarea id="credits" name="credits">{{ old('credits') }}</x-input.textarea>
+                </x-input.group>
+
+                <x-input.group>
+                    <x-switch-toggle
+                        name="status"
+                        :value="old('status', 'active')"
+                        on-value="active"
+                        off-value="inactive"
+                    >
+                        Active
+                    </x-switch-toggle>
                 </x-input.group>
             </x-form.section>
 
@@ -61,11 +74,9 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button.filled type="submit" color="primary">Add Theme</x-button.filled>
+                <x-button.filled type="submit" color="primary">Add</x-button.filled>
                 <x-button.filled :href="route('themes.index')" color="gray">Cancel</x-button.filled>
             </x-form.footer>
-
-            <input type="hidden" name="active" value="0" />
         </x-form>
     </x-panel>
 @endsection

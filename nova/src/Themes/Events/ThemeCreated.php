@@ -13,10 +13,8 @@ class ThemeCreated
     use Dispatchable;
     use SerializesModels;
 
-    public $theme;
-
-    public function __construct(Theme $theme)
-    {
-        $this->theme = $theme;
+    public function __construct(
+        public Theme $theme
+    ) {
     }
 }

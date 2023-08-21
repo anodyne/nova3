@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Themes\Requests;
 
-use Nova\Foundation\Http\Requests\ValidatesRequest;
+use Illuminate\Foundation\Http\FormRequest;
+use Nova\Themes\Data\ThemeData;
 
-class CreateThemeRequest extends ValidatesRequest
+class StoreThemeRequest extends FormRequest
 {
     public function rules(): array
     {
@@ -17,5 +18,10 @@ class CreateThemeRequest extends ValidatesRequest
             'name' => ['required'],
             'variants' => ['nullable'],
         ];
+    }
+
+    public function getThemeData(): ThemeData
+    {
+        return ThemeData::from($this);
     }
 }

@@ -6,9 +6,9 @@ namespace Nova\Themes\Responses;
 
 use Nova\Foundation\Responses\Responsable;
 
-class ShowAllThemesResponse extends Responsable
+class ShowThemeResponse extends Responsable
 {
     public ?string $subnav = 'system';
 
-    public string $view = 'themes.index';
+    public string $view = 'themes.show';
 }

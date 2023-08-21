@@ -48,7 +48,7 @@ trait RendersTheme
         $output = [];
 
         foreach ($scripts as $script) {
-            if (starts_with($script, ['http://', 'https://', '//'])) {
+            if (str($script)->startsWith(['http://', 'https://', '//'])) {
                 $path = $script;
             } else {
                 $filePath = view()->getFinder()->find("scripts.{$script}");

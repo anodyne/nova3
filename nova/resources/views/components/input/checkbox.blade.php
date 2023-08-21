@@ -31,7 +31,7 @@
     </div>
 
     @if ($label)
-        <div class="text-sm font-medium">
+        <div {{ $label->attributes->merge(['class' => 'text-sm font-medium']) }}>
             {{ $label }}
         </div>
     @endif

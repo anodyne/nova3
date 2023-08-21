@@ -6,7 +6,10 @@ namespace Nova\Themes\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Storage;
 use Nova\Pages\Models\Page;
+use Nova\Themes\Enums\ThemeStatus;
 use Nova\Themes\Events;
 use Nova\Themes\Models\Builders\ThemeBuilder;
 use Nova\Themes\Models\Collections\ThemesCollection;
@@ -18,13 +21,15 @@ class Theme extends Model
     use HasFactory;
     use LogsActivity;
 
+    protected $table = 'themes';
+
     protected $fillable = [
-        'name', 'location', 'credits', 'active', 'preview', 'layout_auth',
+        'name', 'location', 'credits', 'status', 'preview', 'layout_auth',
         'layout_public', 'layout_admin', 'icon_set',
     ];
 
     protected $casts = [
-        'active' => 'boolean',
+        'status' => ThemeStatus::class,
     ];
 
     protected $dispatchesEvents = [
@@ -33,7 +38,7 @@ class Theme extends Model
         'updated' => Events\ThemeUpdated::class,
     ];
 
-    public function getLayoutForPage(Page $page)
+    public function getLayoutForPage(Page $page): string
     {
         return $this->getAttribute("layout_{$page->layout}");
     }
@@ -55,7 +60,7 @@ class Theme extends Model
             );
     }
 
-    public function newCollection(array $models = [])
+    public function newCollection(array $models = []): ThemesCollection
     {
         return new ThemesCollection($models);
     }
@@ -63,5 +68,16 @@ class Theme extends Model
     public function newEloquentBuilder($query): ThemeBuilder
     {
         return new ThemeBuilder($query);
+    }
+
+    public static function getInstallableThemes(): Collection
+    {
+        return collect(Storage::disk('themes')->directories())
+            ->diff(static::pluck('location')->all());
+    }
+
+    public static function hasInstallableThemes(): bool
+    {
+        return static::getInstallableThemes()->count() > 0;
     }
 }

@@ -85,6 +85,7 @@ class FluentOutlineIconSet extends IconSet
             'share' => 'fluent-o-share',
             'shield' => 'fluent-o-shield',
             'show' => 'fluent-o-eye',
+            'sparkles' => 'fluent-o-sparkle',
             'spy' => 'fluent-o-incognito',
             'star' => 'fluent-o-star',
             'sun' => 'fluent-o-weather-sunny',

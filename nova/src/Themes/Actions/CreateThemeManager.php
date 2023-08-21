@@ -4,22 +4,19 @@ declare(strict_types=1);
 
 namespace Nova\Themes\Actions;
 
-use Illuminate\Http\Request;
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Themes\Data\ThemeData;
 use Nova\Themes\Models\Theme;
+use Nova\Themes\Requests\StoreThemeRequest;
 
 class CreateThemeManager
 {
     use AsAction;
 
-    public function handle(Request $request): Theme
+    public function handle(StoreThemeRequest $request): Theme
     {
-        $theme = CreateTheme::run(
-            $data = ThemeData::from($request)
-        );
+        $theme = CreateTheme::run($request->getThemeData());
 
-        SetupThemeDirectory::run($data);
+        SetupThemeDirectory::run($request->getThemeData());
 
         return $theme;
     }

@@ -34,7 +34,7 @@ trait InteractsWithModel
     public function getModel()
     {
         return once(function () {
-            return Theme::whereLocation($this->location)->firstOrFail();
+            return Theme::location($this->location)->firstOrFail();
         });
     }
 
