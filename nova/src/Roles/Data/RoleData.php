@@ -4,34 +4,29 @@ declare(strict_types=1);
 
 namespace Nova\Roles\Data;
 
-use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Nova\Foundation\Rules\Boolean;
+use Spatie\LaravelData\Attributes\MapName;
 use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Mappers\SnakeCaseMapper;
+use Spatie\LaravelData\Support\Validation\ValidationContext;
 
+#[MapName(SnakeCaseMapper::class)]
 class RoleData extends Data
 {
     public function __construct(
         public string $name,
-        public string $display_name,
+        public string $displayName,
         public ?string $description,
-        public bool $default,
+        public bool $isDefault = false,
     ) {
     }
 
-    public static function fromRequest(Request $request): static
-    {
-        return new self(
-            name: $request->input('name'),
-            display_name: $request->input('display_name'),
-            description: $request->input('description'),
-            default: $request->boolean('default', false),
-        );
-    }
-
-    public static function rules(): array
+    public static function rules(ValidationContext $context): array
     {
         return [
-            'default' => [new Boolean()],
+            'name' => Rule::unique('roles')->ignore(request()->role),
+            'isDefault' => new Boolean(),
         ];
     }
 }

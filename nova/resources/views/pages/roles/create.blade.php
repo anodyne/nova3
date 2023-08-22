@@ -18,19 +18,12 @@
         </x-panel.header>
 
         <x-form :action="route('roles.store')">
-            <x-form.section title="Role Info">
-                <x-slot name="message">
-                    <p>
-                        A role is a collection of permissions that allows a user to take certain actions throughout
-                        Nova. Since a user can have as many roles as you'd like, we recommend creating roles with fewer
-                        permissions to give yourself more freedom to add and remove access for a given user.
-                    </p>
-
-                    <x-panel.primary icon="info">
-                        You will be able to assign permissions and users to your new role after creating it.
-                    </x-panel.primary>
-                </x-slot>
-
+            <x-form.section
+                title="Role info"
+                message="A role is a collection of permissions that allows a user to take certain actions throughout
+            Nova. Since a user can have as many roles as you'd like, we recommend creating roles with fewer
+            permissions to give yourself more freedom to add and remove access for a given user."
+            >
                 <x-input.group label="Name" for="display_name" :error="$errors->first('display_name')">
                     <x-input.text x-model="displayName" id="display_name" name="display_name" data-cy="display_name" />
                 </x-input.group>
@@ -46,10 +39,24 @@
                 </x-input.group>
 
                 <x-input.group>
-                    <x-switch-toggle name="default" :value="old('default')">
+                    <x-switch-toggle name="is_default" :value="old('is_default')">
                         Assign this role to new users
                     </x-switch-toggle>
                 </x-input.group>
+            </x-form.section>
+
+            <x-form.section
+                title="Permissions to assign to this role"
+                message="These permissions will be assigned to this role."
+            >
+                <livewire:roles-manage-permissions />
+            </x-form.section>
+
+            <x-form.section
+                title="Users to assign to this role"
+                message="These users will be assigned this role and have all of the permissions listed above."
+            >
+                <livewire:roles-manage-users />
             </x-form.section>
 
             <x-form.footer>

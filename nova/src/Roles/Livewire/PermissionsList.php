@@ -29,13 +29,10 @@ class PermissionsList extends Component implements HasForms, HasTable
                 TextColumn::make('display_name')
                     ->titleColumn()
                     ->label('Name')
-                    ->description(fn (Model $record) => $record->name)
+                    ->description(fn (Model $record): string => $record->name)
                     ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search)),
                 TextColumn::make('description')->wrap(),
             ])
-            ->actions([])
-            ->groupedBulkActions([])
-            ->filters([])
             ->heading('Permissions')
             ->description('View all of the available permissions in Nova')
             ->headerActions([

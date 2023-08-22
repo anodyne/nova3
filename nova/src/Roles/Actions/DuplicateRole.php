@@ -5,21 +5,18 @@ declare(strict_types=1);
 namespace Nova\Roles\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Foundation\WordGenerator;
+use Nova\Roles\Data\RoleData;
 use Nova\Roles\Models\Role;
 
 class DuplicateRole
 {
     use AsAction;
 
-    public function handle(Role $original): Role
+    public function handle(Role $original, RoleData $data): Role
     {
         if (! $original->locked) {
-            $role = $original->replicate();
-
-            $role->name = implode('-', (new WordGenerator())->words(2));
-            $role->display_name = "Copy of {$role->display_name}";
-
+            $role = $original->replicate(['active_users_count', 'inactive_users_count']);
+            $role->fill($data->all());
             $role->save();
 
             $role->syncPermissions($original->permissions);

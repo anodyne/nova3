@@ -2,56 +2,66 @@
 
 @section('content')
     <x-panel>
-        <x-panel.header :title="$role->display_name">
+        <x-panel.header :message="$role->name">
+            <x-slot name="title">
+                <div class="flex items-center gap-4">
+                    <span>{{ $role->display_name }}</span>
+
+                    @if ($role->is_default)
+                        <div class="flex items-center">
+                            <x-badge color="success">Assigned to new users</x-badge>
+                        </div>
+                    @endif
+                </div>
+            </x-slot>
+
             <x-slot name="actions">
                 @can('viewAny', $role::class)
                     <x-button.text :href="route('roles.index')" leading="arrow-left" color="gray">Back</x-button.text>
                 @endcan
 
                 @can('update', $role)
-                    <x-button.filled :href="route('roles.edit', $role)" leading="edit" color="primary">Edit</x-button.filled>
+                    <x-button.filled :href="route('roles.edit', $role)" leading="edit" color="primary">
+                        Edit
+                    </x-button.filled>
                 @endcan
             </x-slot>
         </x-panel.header>
 
-        <x-form action="">
-            <x-form.section title="Role Details" message="A role is a collection of permissions that allows a user to take certain actions throughout Nova. Since a user can have as many roles as you'd like, we recommend creating roles with fewer permissions to give yourself more freedom to add and remove access for a given user.">
-                <x-input.group label="Name">
-                    <p class="font-semibold">{{ $role->display_name }}</p>
-                </x-input.group>
+        <div class="flex flex-col divide-gray-200 lg:flex-row lg:divide-x">
+            <div class="flex flex-1 flex-col gap-6 divide-y divide-gray-200">
+                <x-content-box class="flex flex-col gap-4">
+                    <x-h3>Users</x-h3>
 
-                <x-input.group label="Key">
-                    <p class="font-semibold">{{ $role->name }}</p>
-                </x-input.group>
-
-                @if ($role->default)
-                    <div class="flex items-center space-x-2 font-medium text-success-600">
-                        <x-icon name="check" size="md" class="shrink-0 text-success-500"></x-icon>
-                        <span>Assigned to new users</span>
+                    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+                        @foreach ($role->user as $user)
+                            <x-panel as="light-well" class="group flex w-full items-center justify-between">
+                                <x-content-box height="sm" width="sm">
+                                    <x-avatar.user :user="$user"></x-avatar.user>
+                                </x-content-box>
+                            </x-panel>
+                        @endforeach
                     </div>
-                @else
-                    <div class="flex items-center space-x-2 font-medium text-danger-600">
-                        <x-icon name="dismiss" size="md" class="shrink-0 text-danger-500"></x-icon>
-                        <span>Not assigned to new users</span>
+                </x-content-box>
+            </div>
+
+            <div class="w-full lg:w-1/3">
+                <div class="flex w-full flex-col">
+                    <div class="flex items-center justify-between px-4 py-4">
+                        <x-h3>Permissions</x-h3>
                     </div>
-                @endif
-            </x-form.section>
 
-            <x-form.section title="Assigned permissions" message="Any user assigned this role will have these permissions.">
-                <div>
-                    @foreach ($role->permissions as $permission)
-                        <x-badge color="gray">{{ $permission->display_name }}</x-badge>
-                    @endforeach
+                    <div>
+                        @foreach ($role->permissions as $permission)
+                            <div
+                                class="group flex items-center justify-between px-4 py-2 odd:bg-gray-100 dark:odd:bg-gray-700/50"
+                            >
+                                {{ $permission->display_name }}
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
-            </x-form.section>
-
-            <x-form.section title="Assigned active users" message="The active users who are currently assigned this role.">
-                <div class="grid grid-cols-1 gap-2 md:grid-cols-2">
-                    @foreach ($users as $user)
-                        <x-avatar.user :user="$user"></x-avatar.user>
-                    @endforeach
-                </div>
-            </x-form.section>
-        </x-form>
+            </div>
+        </div>
     </x-panel>
 @endsection

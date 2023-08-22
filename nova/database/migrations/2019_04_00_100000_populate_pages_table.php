@@ -28,12 +28,12 @@ class PopulatePagesTable extends Migration
             ['uri' => 'site-themes/{theme}/edit', 'key' => 'themes.edit', 'resource' => 'Nova\\Themes\\Controllers\\ThemeController@edit', 'layout' => 'admin'],
             ['uri' => 'site-themes/{theme}', 'key' => 'themes.update', 'verb' => PageVerb::put, 'resource' => 'Nova\\Themes\\Controllers\\ThemeController@update', 'layout' => 'admin'],
 
-            ['uri' => 'roles', 'key' => 'roles.index', 'resource' => 'Nova\\Roles\\Controllers\\ShowRoleController@all', 'layout' => 'admin'],
-            ['uri' => 'roles/{role}/show', 'key' => 'roles.show', 'resource' => 'Nova\\Roles\\Controllers\\ShowRoleController@show', 'layout' => 'admin'],
-            ['uri' => 'roles/create', 'key' => 'roles.create', 'resource' => 'Nova\\Roles\\Controllers\\CreateRoleController@create', 'layout' => 'admin'],
-            ['uri' => 'roles', 'key' => 'roles.store', 'verb' => PageVerb::post, 'resource' => 'Nova\\Roles\\Controllers\\CreateRoleController@store', 'layout' => 'admin'],
-            ['uri' => 'roles/{role}/edit', 'key' => 'roles.edit', 'resource' => 'Nova\\Roles\\Controllers\\UpdateRoleController@edit', 'layout' => 'admin'],
-            ['uri' => 'roles/{role}', 'key' => 'roles.update', 'verb' => PageVerb::put, 'resource' => 'Nova\\Roles\\Controllers\\UpdateRoleController@update', 'layout' => 'admin'],
+            ['uri' => 'roles', 'key' => 'roles.index', 'resource' => 'Nova\\Roles\\Controllers\\RoleController@index', 'layout' => 'admin'],
+            ['uri' => 'roles/{role}/show', 'key' => 'roles.show', 'resource' => 'Nova\\Roles\\Controllers\\RoleController@show', 'layout' => 'admin'],
+            ['uri' => 'roles/create', 'key' => 'roles.create', 'resource' => 'Nova\\Roles\\Controllers\\RoleController@create', 'layout' => 'admin'],
+            ['uri' => 'roles', 'key' => 'roles.store', 'verb' => PageVerb::post, 'resource' => 'Nova\\Roles\\Controllers\\RoleController@store', 'layout' => 'admin'],
+            ['uri' => 'roles/{role}/edit', 'key' => 'roles.edit', 'resource' => 'Nova\\Roles\\Controllers\\RoleController@edit', 'layout' => 'admin'],
+            ['uri' => 'roles/{role}', 'key' => 'roles.update', 'verb' => PageVerb::put, 'resource' => 'Nova\\Roles\\Controllers\\RoleController@update', 'layout' => 'admin'],
 
             ['uri' => 'permissions', 'key' => 'permissions.index', 'resource' => 'Nova\\Roles\\Controllers\\PermissionController@index', 'layout' => 'admin'],
 

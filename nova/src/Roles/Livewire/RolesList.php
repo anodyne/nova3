@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Roles\Livewire;
 
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
@@ -14,6 +15,7 @@ use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -27,6 +29,7 @@ use Nova\Foundation\Filament\Actions\ReplicateAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Roles\Actions\DeleteRole;
 use Nova\Roles\Actions\DuplicateRole;
+use Nova\Roles\Data\RoleData;
 use Nova\Roles\Events\RoleDuplicated;
 use Nova\Roles\Models\Role;
 
@@ -38,12 +41,7 @@ class RolesList extends Component implements HasForms, HasTable
     public function table(Table $table): Table
     {
         return $table
-            ->query(
-                Role::withCount([
-                    'user as active_users_count' => fn (Builder $query): Builder => $query->active(),
-                    'user as inactive_users_count' => fn (Builder $query): Builder => $query->inactive(),
-                ])
-            )
+            ->query(Role::with('user', 'permissions'))
             ->columns([
                 TextColumn::make('display_name')
                     ->titleColumn()
@@ -51,20 +49,18 @@ class RolesList extends Component implements HasForms, HasTable
                     ->icon(fn (Model $record): ?string => $record->locked ? iconName('lock-closed') : null)
                     ->iconPosition('after')
                     ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search)),
-                TextColumn::make('active_users_count')
+                TextColumn::make('user_count')
+                    ->counts('user')
                     ->label('# of active users')
                     ->alignCenter()
                     ->toggleable(),
-                TextColumn::make('inactive_users_count')
-                    ->label('# of inactive users')
-                    ->alignCenter()
-                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('permissions_count')
                     ->counts('permissions')
                     ->label('# of permissions')
                     ->alignCenter()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                IconColumn::make('default')
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
+                IconColumn::make('is_default')
                     ->label('Assigned to new users')
                     ->alignCenter()
                     ->icons([
@@ -82,32 +78,36 @@ class RolesList extends Component implements HasForms, HasTable
                             ->authorize('update')
                             ->url(fn (Model $record): string => route('roles.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
+
                     ActionGroup::make([
                         ReplicateAction::make()
-                            ->modalHeading('Duplicate role?')
-                            ->modalDescription(
-                                fn (Model $record): string => "Are you sure you want to duplicate the {$record->name} role?"
-                            )
-                            ->modalSubmitActionLabel('Duplicate')
-                            ->action(function (Model $record): void {
-                                $replica = DuplicateRole::run($record);
+                            ->modalContentView('pages.roles.duplicate')
+                            ->form([
+                                TextInput::make('display_name')->label('New role name'),
+                            ])
+                            ->action(function (Model $record, array $data): void {
+                                $replica = DuplicateRole::run(
+                                    $record,
+                                    RoleData::from([
+                                        'display_name' => $displayName = data_get($data, 'display_name'),
+                                        'name' => str($displayName)->slug(),
+                                        'default' => false,
+                                    ])
+                                );
 
-                                dispatch(new RoleDuplicated($replica, $record));
+                                RoleDuplicated::dispatch($replica, $record);
 
                                 Notification::make()->success()
-                                    ->title("{$record->name} role has been duplicated")
+                                    ->title("{$replica->display_name} role has been created")
+                                    ->body('Any permissions assigned to the '.$record->display_name.' role have been added to your new role.')
                                     ->send();
                             }),
                     ])->authorize('duplicate')->divided(),
+
                     ActionGroup::make([
                         DeleteAction::make()
-                            ->close()
-                            ->modalHeading('Delete role?')
-                            ->modalDescription(
-                                fn (Model $record): string => "Are you sure you want to delete the {$record->name} role? You won't be able to recover it. Any user assigned this role will lose access to what this role provides."
-                            )
-                            ->modalSubmitActionLabel('Delete')
-                            ->successNotificationTitle('Role was deleted')
+                            ->modalContentView('pages.roles.delete')
+                            ->successNotificationTitle(fn (Model $record): string => $record->display_name.' role was deleted')
                             ->using(fn (Model $record): Model => DeleteRole::run($record)),
                     ])->authorize('delete')->divided(),
                 ]),
@@ -115,30 +115,18 @@ class RolesList extends Component implements HasForms, HasTable
             ->groupedBulkActions([
                 DeleteBulkAction::make()
                     ->authorize('deleteAny')
-                    ->modalHeading(
-                        fn (Collection $records): string => "Delete {$records->count()} selected ".str('role')->plural($records->count()).'?'
-                    )
-                    ->modalDescription(function (Collection $records): string {
-                        $statement = ($records->count() === 1)
-                            ? 'this 1 role'
-                            : "these {$records->count()} roles";
-
-                        $notice = ($records->count() === 1) ? 'it' : 'them';
-
-                        return "Are you sure you want to delete {$statement}? You won't be able to recover {$notice}. Any user assigned to {$statement} will lose access to what permissions {$statement} provides.";
-                    })
-                    ->modalSubmitActionLabel('Delete')
+                    ->modalContentView('pages.roles.delete-bulk')
                     ->successNotificationTitle('Roles were deleted')
                     ->using(fn (Collection $records): Collection => $records->each(
                         fn (Model $record): Model => DeleteRole::run($record)
                     )),
             ])
             ->filters([
-                TernaryFilter::make('default')
+                TernaryFilter::make('is_default')
                     ->label('Assigned to new users')
                     ->queries(
-                        true: fn (Builder $query): Builder => $query->where('default', true),
-                        false: fn (Builder $query): Builder => $query->where('default', false),
+                        true: fn (Builder $query): Builder => $query->where('is_default', true),
+                        false: fn (Builder $query): Builder => $query->where('is_default', false),
                     ),
                 TernaryFilter::make('has_permissions')
                     ->label('Has assigned permissions')
@@ -169,7 +157,7 @@ class RolesList extends Component implements HasForms, HasTable
                     ->label('Add')
                     ->url(route('roles.create')),
             ])
-            ->header(fn () => $this->isTableReordering() ? view('filament.tables.roles-reordering-notice') : null)
+            ->header(fn (): ?View => $this->isTableReordering() ? view('filament.tables.roles-reordering-notice') : null)
             ->emptyStateIcon(iconName('key'))
             ->emptyStateHeading('No roles found')
             ->emptyStateDescription('Roles allow you to control what users can and cannot access throughout Nova.')

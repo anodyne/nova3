@@ -21,8 +21,8 @@ class RoleServiceProvider extends DomainServiceProvider
         return [
             'permissions-list' => PermissionsList::class,
             'roles-list' => RolesList::class,
-            'roles:manage-permissions' => ManagePermissions::class,
-            'roles:manage-users' => ManageUsers::class,
+            'roles-manage-permissions' => ManagePermissions::class,
+            'roles-manage-users' => ManageUsers::class,
         ];
     }
 

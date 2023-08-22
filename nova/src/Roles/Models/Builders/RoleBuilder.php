@@ -18,9 +18,9 @@ class RoleBuilder extends Builder
         return $this->where('order_column', '>=', $maxSortValue);
     }
 
-    public function default(): Builder
+    public function isDefault(): Builder
     {
-        return $this->where('default', true);
+        return $this->where('is_default', true);
     }
 
     public function searchFor($search): Builder

@@ -156,14 +156,14 @@ class PopulateAuthorizationTables extends Migration
             $roles = [
                 ['name' => 'owner', 'display_name' => 'Site Owner', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'locked' => true, 'order_column' => 0],
                 ['name' => 'admin', 'display_name' => 'Site Admin', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'locked' => true, 'order_column' => 1],
-                ['name' => 'active', 'display_name' => 'Active User', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'default' => true, 'order_column' => 2],
-                ['name' => 'story-manager', 'display_name' => 'Story Manager', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'default' => false, 'order_column' => 3],
-                ['name' => 'writer', 'display_name' => 'Writer', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'default' => true, 'order_column' => 4],
-                ['name' => 'create-primary-characters', 'display_name' => 'Create Primary Characters', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'default' => false, 'order_column' => 5],
-                ['name' => 'create-secondary-characters', 'display_name' => 'Create Secondary Characters', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'default' => false, 'order_column' => 6],
-                ['name' => 'create-support-characters', 'display_name' => 'Create Support Characters', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'default' => false, 'order_column' => 7],
-                ['name' => 'update-support-characters', 'display_name' => 'Update Support Characters', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'default' => false, 'order_column' => 8],
-                ['name' => 'inactive', 'display_name' => 'Inactive User', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'default' => false, 'order_column' => 9],
+                ['name' => 'active', 'display_name' => 'Active User', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'is_default' => true, 'order_column' => 2],
+                ['name' => 'story-manager', 'display_name' => 'Story Manager', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'is_default' => false, 'order_column' => 3],
+                ['name' => 'writer', 'display_name' => 'Writer', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'is_default' => true, 'order_column' => 4],
+                ['name' => 'create-primary-characters', 'display_name' => 'Create Primary Characters', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'is_default' => false, 'order_column' => 5],
+                ['name' => 'create-secondary-characters', 'display_name' => 'Create Secondary Characters', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'is_default' => false, 'order_column' => 6],
+                ['name' => 'create-support-characters', 'display_name' => 'Create Support Characters', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'is_default' => false, 'order_column' => 7],
+                ['name' => 'update-support-characters', 'display_name' => 'Update Support Characters', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'is_default' => false, 'order_column' => 8],
+                ['name' => 'inactive', 'display_name' => 'Inactive User', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'is_default' => false, 'order_column' => 9],
             ];
 
             collect($roles)->each(function ($role) {

@@ -6,7 +6,7 @@ namespace Nova\Roles\Responses;
 
 use Nova\Foundation\Responses\Responsable;
 
-class UpdateRoleResponse extends Responsable
+class EditRoleResponse extends Responsable
 {
     public ?string $subnav = 'users';
 

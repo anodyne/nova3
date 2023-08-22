@@ -17,49 +17,49 @@ class RolePolicy
     {
         return $user->isAbleTo('role.*')
             ? $this->allow()
-            : $this->denyAsNotFound();
+            : $this->deny();
     }
 
     public function view(User $user, Role $role): Response
     {
         return $user->isAbleTo('role.view')
             ? $this->allow()
-            : $this->denyAsNotFound();
+            : $this->deny();
     }
 
     public function create(User $user): Response
     {
         return $user->isAbleTo('role.create')
             ? $this->allow()
-            : $this->denyAsNotFound();
+            : $this->deny();
     }
 
     public function update(User $user, Role $role): Response
     {
         return $user->isAbleTo('role.update')
             ? $this->allow()
-            : $this->denyAsNotFound();
+            : $this->deny();
     }
 
     public function deleteAny(User $user): Response
     {
         return $user->isAbleTo('role.delete')
             ? $this->allow()
-            : $this->denyAsNotFound();
+            : $this->deny();
     }
 
     public function delete(User $user, Role $role): Response
     {
         return $user->isAbleTo('role.delete') && ! $role->locked
             ? $this->allow()
-            : $this->denyAsNotFound();
+            : $this->deny();
     }
 
     public function duplicate(User $user, Role $role): Response
     {
         return $user->isAbleTo('role.create') && $user->isAbleTo('role.update') && ! $role->locked
             ? $this->allow()
-            : $this->denyAsNotFound();
+            : $this->deny();
     }
 
     public function restore(User $user, Role $role): Response
