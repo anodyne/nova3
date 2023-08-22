@@ -84,7 +84,7 @@ class ThemesList extends Component implements HasForms, HasTable
                     ->link()
                     ->icon(iconName('sparkles'))
                     ->iconSize('md')
-                    ->visible(fn () => Theme::hasInstallableThemes())
+                    ->visible(fn (): bool => Theme::hasInstallableThemes())
                     ->modalWidth('xl')
                     ->modalIcon(null)
                     ->modalHeading('')
@@ -93,7 +93,7 @@ class ThemesList extends Component implements HasForms, HasTable
                     ->modalContent(fn (): View => view('pages.themes.pending-themes'))
                     ->form([
                         CheckboxList::make('themes')
-                            ->options(Theme::getInstallableThemes()->flatMap(fn ($theme) => [$theme => $theme]))
+                            ->options(Theme::getInstallableThemes()->flatMap(fn ($theme): array => [$theme => $theme]))
                             ->label("Select the pending themes you'd like to install:"),
                     ])
                     ->action(function (array $data): void {
