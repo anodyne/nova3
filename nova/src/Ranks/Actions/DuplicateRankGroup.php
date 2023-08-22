@@ -15,17 +15,17 @@ class DuplicateRankGroup
 
     public function handle(RankGroup $original, RankGroupData $data): RankGroup
     {
-        $group = $original->replicate();
-        $group->fill($data->all());
-        $group->save();
+        $replica = $original->replicate();
+        $replica->fill($data->all());
+        $replica->save();
 
         $original->ranks->each(
-            fn (RankItem $rank) => $group->ranks()->create(array_merge(
+            fn (RankItem $rank) => $replica->ranks()->create(array_merge(
                 $rank->toArray(),
                 $data->only('base_image')->all()
             ))
         );
 
-        return $group->refresh();
+        return $replica->refresh();
     }
 }

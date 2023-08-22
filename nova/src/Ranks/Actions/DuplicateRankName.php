@@ -14,10 +14,10 @@ class DuplicateRankName
 
     public function handle(RankName $original, RankNameData $data): RankName
     {
-        $name = $original->replicate();
-        $name->fill($data->all());
-        $name->save();
+        $replica = $original->replicate();
+        $replica->fill($data->all());
+        $replica->save();
 
-        return $name->refresh();
+        return $replica->refresh();
     }
 }

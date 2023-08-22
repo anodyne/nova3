@@ -13,10 +13,10 @@ class DuplicateNote
 
     public function handle(Note $original): Note
     {
-        $note = $original->replicate();
-        $note->title = "Copy of {$note->title}";
-        $note->save();
+        $replica = $original->replicate();
+        $replica->title = "Copy of {$replica->title}";
+        $replica->save();
 
-        return $note->refresh();
+        return $replica->refresh();
     }
 }

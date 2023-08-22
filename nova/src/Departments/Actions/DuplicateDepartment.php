@@ -15,14 +15,14 @@ class DuplicateDepartment
 
     public function handle(Department $original, DepartmentData $data): Department
     {
-        $department = $original->replicate();
-        $department->forceFill($data->all());
-        $department->save();
+        $replica = $original->replicate();
+        $replica->forceFill($data->all());
+        $replica->save();
 
         $original->positions->each(
-            fn (Position $position) => $department->positions()->create($position->toArray())
+            fn (Position $position) => $replica->positions()->create($position->toArray())
         );
 
-        return $department->refresh();
+        return $replica->refresh();
     }
 }
