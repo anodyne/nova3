@@ -12,8 +12,8 @@ class Badge extends Component
     public function __construct(
         public string $size = 'md',
         public string $color = 'gray',
-        public ?string $leadingIcon = null,
-        public ?string $trailingIcon = null,
+        public ?string $leading = null,
+        public ?string $trailing = null,
         public bool $icon = false,
     ) {
     }

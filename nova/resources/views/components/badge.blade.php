@@ -1,15 +1,15 @@
 <span {{ $attributes->merge(['class' => $styles()]) }}>
-    @isset($leadingIcon)
-        <div class="{{ $iconStyles() }} shrink-0 mr-1">
-            {{ $leadingIcon }}
+    @isset($leading)
+        <div class="{{ $iconStyles() }} mr-1 shrink-0">
+            {{ $leading }}
         </div>
     @endisset
 
     <span>{{ $slot }}</span>
 
-    @isset($trailingIcon)
-        <div class="{{ $iconStyles() }} shrink-0 ml-1">
-            {{ $trailingIcon }}
+    @isset($trailing)
+        <div class="{{ $iconStyles() }} ml-1 shrink-0">
+            {{ $trailing }}
         </div>
     @endisset
 </span>
