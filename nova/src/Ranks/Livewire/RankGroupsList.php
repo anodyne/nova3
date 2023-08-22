@@ -27,7 +27,7 @@ use Nova\Foundation\Filament\Actions\DeleteBulkAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ReplicateAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
-use Nova\Ranks\Actions\DeleteRankGroup;
+use Nova\Ranks\Actions\DeleteRankGroupManager;
 use Nova\Ranks\Actions\DuplicateRankGroup;
 use Nova\Ranks\Concerns\FindRankImages;
 use Nova\Ranks\Data\RankGroupData;
@@ -102,7 +102,7 @@ class RankGroupsList extends Component implements HasForms, HasTable
                         DeleteAction::make()
                             ->modalContentView('pages.ranks.groups.delete')
                             ->successNotificationTitle(fn (Model $record): string => $record->name.' rank group was deleted')
-                            ->using(fn (Model $record): Model => DeleteRankGroup::run($record)),
+                            ->using(fn (Model $record): Model => DeleteRankGroupManager::run($record)),
                     ])->authorize('delete')->divided(),
                 ]),
             ])
@@ -112,7 +112,7 @@ class RankGroupsList extends Component implements HasForms, HasTable
                     ->modalContentView('pages.ranks.groups.delete-bulk')
                     ->successNotificationTitle('Rank groups were deleted')
                     ->using(fn (Collection $records): Collection => $records->each(
-                        fn (Model $record): Model => DeleteRankGroup::run($record)
+                        fn (Model $record): Model => DeleteRankGroupManager::run($record)
                     )),
             ])
             ->filters([

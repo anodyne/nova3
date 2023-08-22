@@ -24,7 +24,7 @@ use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\DeleteBulkAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
-use Nova\Ranks\Actions\DeleteRankItem;
+use Nova\Ranks\Actions\DeleteRankItemManager;
 use Nova\Ranks\Enums\RankItemStatus;
 use Nova\Ranks\Models\RankItem;
 
@@ -73,7 +73,7 @@ class RankItemsList extends Component implements HasForms, HasTable
                         DeleteAction::make()
                             ->modalContentView('pages.ranks.items.delete')
                             ->successNotificationTitle(fn (Model $record): string => $record->name->name.' rank item was deleted')
-                            ->using(fn (Model $record): Model => DeleteRankItem::run($record)),
+                            ->using(fn (Model $record): Model => DeleteRankItemManager::run($record)),
                     ])->authorize('delete')->divided(),
                 ]),
             ])
@@ -83,7 +83,7 @@ class RankItemsList extends Component implements HasForms, HasTable
                     ->modalContentView('pages.ranks.items.delete-bulk')
                     ->successNotificationTitle('Rank items were deleted')
                     ->using(fn (Collection $records): Collection => $records->each(
-                        fn (Model $record): Model => DeleteRankItem::run($record)
+                        fn (Model $record): Model => DeleteRankItemManager::run($record)
                     )),
             ])
             ->filters([
