@@ -72,6 +72,7 @@ class AppServiceProvider extends ServiceProvider
         $this->registerMacros();
         $this->updateAboutCommand();
         $this->setupFactories();
+        $this->registerIcons();
 
         if (Nova::isInstalled()) {
             // cache()->rememberForever(
@@ -84,7 +85,6 @@ class AppServiceProvider extends ServiceProvider
             //     fn () => Navigation::with('children.page', 'page', 'authorization')->public()->topLevel()->get()
             // );
 
-            $this->registerIcons();
             $this->registerBladeDirectives();
             $this->registerBladeComponents();
             $this->registerLivewireComponents();
