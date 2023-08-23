@@ -1,7 +1,7 @@
 @extends($meta->template)
 
 @section('content')
-    <x-panel>
+    <x-panel class="overflow-hidden">
         <x-panel.header :title="$group->name">
             <x-slot name="title">
                 <div class="flex items-center gap-4">
