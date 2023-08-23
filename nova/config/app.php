@@ -201,7 +201,7 @@ return [
         Nova\Foundation\Providers\RouteServiceProvider::class,
         // Nova\Foundation\Providers\ResponsesServiceProvider::class,
         Nova\Foundation\Providers\FortifyServiceProvider::class,
-        Nova\Foundation\Providers\TelescopeServiceProvider::class,
+        // Nova\Foundation\Providers\TelescopeServiceProvider::class,
 
         /**
          * Nova Module Service Provides.
