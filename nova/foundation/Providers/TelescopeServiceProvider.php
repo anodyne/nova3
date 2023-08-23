@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Nova\Providers;
+namespace Nova\Foundation\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Laravel\Telescope\IncomingEntry;
