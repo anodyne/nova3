@@ -18,7 +18,7 @@ class NovaManager
 
     public function getFontFamily(): string
     {
-        return settings('appearance.fontFamily') ?? 'Inter var';
+        return settings('appearance.fontFamily') ?? 'Inter';
     }
 
     public function getFontHtml(): Htmlable
