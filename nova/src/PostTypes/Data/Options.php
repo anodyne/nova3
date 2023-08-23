@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Nova\PostTypes\Data;
 
 use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Nova\Foundation\Rules\Boolean;
 use Spatie\LaravelData\Data;
@@ -21,6 +20,17 @@ class Options extends Data implements Arrayable
     ) {
     }
 
+    public static function fromArray(array $data): static
+    {
+        return new self(
+            notifiesUsers: Arr::boolean($data, 'notifiesUsers'),
+            includedInPostTracking: Arr::boolean($data, 'includedInPostTracking'),
+            allowsMultipleAuthors: Arr::boolean($data, 'allowsMultipleAuthors'),
+            allowsCharacterAuthors: Arr::boolean($data, 'allowsCharacterAuthors'),
+            allowsUserAuthors: Arr::boolean($data, 'allowsUserAuthors')
+        );
+    }
+
     public static function rules(): array
     {
         return [
@@ -30,27 +40,5 @@ class Options extends Data implements Arrayable
             'allowsCharacterAuthors' => [new Boolean()],
             'allowsUserAuthors' => [new Boolean()],
         ];
-    }
-
-    public static function fromArray(array $array): static
-    {
-        return new self(
-            notifiesUsers: Arr::boolean($array, 'notifiesUsers'),
-            includedInPostTracking: Arr::boolean($array, 'includedInPostTracking'),
-            allowsMultipleAuthors: Arr::boolean($array, 'allowsMultipleAuthors'),
-            allowsCharacterAuthors: Arr::boolean($array, 'allowsCharacterAuthors'),
-            allowsUserAuthors: Arr::boolean($array, 'allowsUserAuthors'),
-        );
-    }
-
-    public static function fromRequest(Request $request): static
-    {
-        return new self(
-            notifiesUsers: $request->boolean('notifiesUsers'),
-            includedInPostTracking: $request->boolean('includedInPostTracking'),
-            allowsMultipleAuthors: $request->boolean('allowsMultipleAuthors'),
-            allowsCharacterAuthors: $request->boolean('allowsCharacterAuthors'),
-            allowsUserAuthors: $request->boolean('allowsUserAuthors'),
-        );
     }
 }

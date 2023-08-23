@@ -61,7 +61,7 @@
 
         <x-form :action="route('post-types.store')" :divide="false" :space="false">
             <x-form.section
-                title="Post Type Info"
+                title="Post type info"
                 message="A post type defines how different types of story entries are displayed and used. Using post types, you can setup your writing features exactly how you want for your game."
                 x-show="isTab('details')"
             >
@@ -80,7 +80,7 @@
                 </x-input.group>
 
                 <x-input.group
-                    label="Accent Color"
+                    label="Accent color"
                     for="color"
                     help="When setting the accent color for your post type icon, keep in mind that it could be displayed on either a light or dark background."
                     :error="$errors->first('color')"
@@ -89,7 +89,7 @@
                 </x-input.group>
 
                 <x-input.group label="Icon" for="icon">
-                    @livewire('icons-select-menu', ['selected' => old('icon')])
+                    <livewire:icon-picker :selected="old('icon')" />
                 </x-input.group>
 
                 <x-input.group
@@ -241,7 +241,7 @@
                         name="options[includedInPostTracking]"
                         :value="old('options[includedInPostTracking]', true)"
                     >
-                        Include in post tracking
+                        Include in post tracking stats
                     </x-switch-toggle>
                 </x-input.group>
 

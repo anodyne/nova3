@@ -8,11 +8,11 @@ use Illuminate\Support\Str;
 use Livewire\Component;
 use Nova\Foundation\Icons\IconSets;
 
-class IconsSelectMenu extends Component
+class IconPicker extends Component
 {
-    public $search;
+    public ?string $search = null;
 
-    public $selected;
+    public ?string $selected = null;
 
     public function selectIcon($icon)
     {
@@ -30,16 +30,16 @@ class IconsSelectMenu extends Component
 
         if ($this->search === null) {
             return $allIcons;
-        } else {
-            return collect($allIcons)
-                ->filter(fn ($value, $key) => Str::contains($key, trim(strtolower($this->search))))
-                ->toArray();
         }
+
+        return collect($allIcons)
+            ->filter(fn ($value, $key) => Str::contains($key, trim(strtolower($this->search))))
+            ->all();
     }
 
     public function render()
     {
-        return view('livewire.icons', [
+        return view('livewire.icon-picker', [
             'icons' => $this->filteredIcons,
         ]);
     }

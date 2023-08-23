@@ -27,7 +27,7 @@ use Nova\Foundation\Icons\TablerIconSet;
 use Nova\Foundation\Livewire\ColorShadePicker;
 use Nova\Foundation\Livewire\ConfirmationModal;
 use Nova\Foundation\Livewire\Editor;
-use Nova\Foundation\Livewire\IconsSelectMenu;
+use Nova\Foundation\Livewire\IconPicker;
 use Nova\Foundation\Livewire\Rating;
 use Nova\Foundation\Macros;
 use Nova\Foundation\Nova;
@@ -140,7 +140,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Livewire::component('nova:editor', Editor::class);
         Livewire::component('rating', Rating::class);
-        Livewire::component('icons-select-menu', IconsSelectMenu::class);
+        Livewire::component('icon-picker', IconPicker::class);
         Livewire::component('color-shade-picker', ColorShadePicker::class);
         Livewire::component('confirmation-modal', ConfirmationModal::class);
     }

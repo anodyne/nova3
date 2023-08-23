@@ -52,6 +52,7 @@ class CreateStoryTables extends Migration
             $table->json('options')->nullable();
             $table->unsignedBigInteger('order_column')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('posts', function (Blueprint $table) {

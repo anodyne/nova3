@@ -6,9 +6,9 @@ namespace Nova\PostTypes\Responses;
 
 use Nova\Foundation\Responses\Responsable;
 
-class UpdatePostTypeResponse extends Responsable
+class ListPostTypesResponse extends Responsable
 {
     public ?string $subnav = 'writing';
 
-    public string $view = 'post-types.edit';
+    public string $view = 'post-types.index';
 }

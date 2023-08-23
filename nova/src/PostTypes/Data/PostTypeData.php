@@ -13,23 +13,26 @@ class PostTypeData extends Data
 {
     public function __construct(
         public string $name,
+
         public string $key,
+
         public ?string $description,
+
+        #[Enum(PostTypeStatus::class)]
         public ?PostTypeStatus $status,
+
         public Fields $fields,
+
         public Options $options,
+
         public ?int $role_id,
+
+        #[In('in-character', 'out-of-character')]
         public string $visibility,
+
         public ?string $icon,
+
         public ?string $color,
     ) {
-    }
-
-    public static function rules(): array
-    {
-        return [
-            'status' => [new Enum(PostTypeStatus::class)],
-            'visibility' => [new In('in-character', 'out-of-character')],
-        ];
     }
 }

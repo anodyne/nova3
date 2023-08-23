@@ -18,7 +18,7 @@
                 ])
                 aria-haspopup="true"
                 aria-expanded="true"
-                :aria-expanded="open"
+                x-bind:aria-expanded="open"
             >
                 <span class="flex items-center space-x-2 truncate">
                     @isset($selected)
@@ -81,7 +81,7 @@
                             <button
                                 type="button"
                                 wire:click="selectIcon('')"
-                                class="group flex w-full flex-col items-center rounded-md px-4 py-2 text-xs font-medium leading-tight text-gray-500 transition hover:bg-gray-100 hover:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-600/50 dark:hover:text-gray-100"
+                                class="group flex w-full flex-col items-center rounded-md px-4 py-2 text-xs font-medium leading-tight text-gray-600 transition hover:bg-gray-100 hover:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-600/50 dark:hover:text-gray-100"
                             >
                                 <span class="h-8 w-8 shrink-0">
                                     No
@@ -96,7 +96,7 @@
                                 <button
                                     wire:click="selectIcon('{{ $icon }}')"
                                     type="button"
-                                    class="group flex w-full items-center rounded-md px-4 py-2 text-base font-medium text-gray-500 transition hover:bg-gray-100 hover:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-600/50 dark:hover:text-gray-100 md:text-sm"
+                                    class="group flex w-full items-center rounded-md px-4 py-2 text-base font-medium text-gray-600 transition hover:bg-gray-100 hover:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-600/50 dark:hover:text-gray-100 md:text-sm"
                                     role="menuitem"
                                 >
                                     <x-icon :name="$icon" size="xl" class="shrink-0"></x-icon>

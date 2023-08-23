@@ -13,6 +13,10 @@ class DeletePostType
 
     public function handle(PostType $postType): PostType
     {
+        if ($postType->can_be_deleted) {
+            return tap($postType)->forceDelete();
+        }
+
         return tap($postType)->delete();
     }
 }

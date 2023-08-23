@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\PostTypes\Requests;
 
-use Nova\Foundation\Http\Requests\ValidatesRequest;
+use Illuminate\Foundation\Http\FormRequest;
+use Nova\PostTypes\Data\PostTypeData;
 
-class CreatePostTypeRequest extends ValidatesRequest
+class StorePostTypeRequest extends FormRequest
 {
     public function rules(): array
     {
@@ -22,5 +23,10 @@ class CreatePostTypeRequest extends ValidatesRequest
             'role_id' => ['nullable'],
             'visibility' => ['required', 'in:in-character,out-of-character'],
         ];
+    }
+
+    public function getPostTypeData(): PostTypeData
+    {
+        return PostTypeData::from($this);
     }
 }

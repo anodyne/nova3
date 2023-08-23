@@ -17,35 +17,35 @@ class PostTypePolicy
     {
         return $user->isAbleTo('post-type.*')
             ? $this->allow()
-            : $this->denyAsNotFound();
+            : $this->deny();
     }
 
     public function view(User $user, PostType $postType): Response
     {
         return $user->isAbleTo('post-type.view')
             ? $this->allow()
-            : $this->denyAsNotFound();
+            : $this->deny();
     }
 
     public function create(User $user): Response
     {
         return $user->isAbleTo('post-type.create')
             ? $this->allow()
-            : $this->denyAsNotFound();
+            : $this->deny();
     }
 
     public function update(User $user, PostType $postType): Response
     {
         return $user->isAbleTo('post-type.update')
             ? $this->allow()
-            : $this->denyAsNotFound();
+            : $this->deny();
     }
 
     public function deleteAny(User $user): Response
     {
         return $user->isAbleTo('post-type.delete')
             ? $this->allow()
-            : $this->denyAsNotFound();
+            : $this->deny();
     }
 
     public function delete(User $user, PostType $postType): Response
@@ -57,12 +57,14 @@ class PostTypePolicy
     {
         return $user->isAbleTo('post-type.create') && $user->isAbleTo('post-type.update')
             ? $this->allow()
-            : $this->denyAsNotFound();
+            : $this->deny();
     }
 
     public function restore(User $user, PostType $postType): Response
     {
-        return $this->denyWithStatus(418);
+        return $user->isAbleTo('post-type.restore')
+            ? $this->allow()
+            : $this->deny();
     }
 
     public function forceDelete(User $user, PostType $postType): Response
@@ -78,6 +80,6 @@ class PostTypePolicy
 
         return $user->hasRole($postType->role->name)
             ? $this->allow()
-            : $this->denyAsNotFound();
+            : $this->deny();
     }
 }

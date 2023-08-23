@@ -82,7 +82,7 @@
                 </x-input.group>
 
                 <x-input.group label="Icon" for="icon">
-                    @livewire('icons-select-menu', ['selected' => old('icon', $postType->icon)])
+                    <livewire:icon-picker :selected="old('icon', $postType->icon)" />
                 </x-input.group>
 
                 <x-input.group
@@ -241,7 +241,7 @@
                         name="options[includedInPostTracking]"
                         :value="old('options[includedInPostTracking]', $postType->options->includedInPostTracking)"
                     >
-                        Include in post tracking
+                        Include in post tracking stats
                     </x-switch-toggle>
                 </x-input.group>
 

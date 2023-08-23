@@ -15,6 +15,11 @@ class PostTypeBuilder extends Builder
         return $this->where('status', PostTypeStatus::active);
     }
 
+    public function inactive(): Builder
+    {
+        return $this->where('status', PostTypeStatus::inactive);
+    }
+
     public function searchFor($search): Builder
     {
         return $this->where('name', 'like', "%{$search}%");

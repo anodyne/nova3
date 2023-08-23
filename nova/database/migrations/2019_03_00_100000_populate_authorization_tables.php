@@ -40,7 +40,7 @@ class PopulateAuthorizationTables extends Migration
                 'rank.create', 'rank.delete', 'rank.update', 'rank.view',
                 'department.create', 'department.delete', 'department.update', 'department.view',
                 'character.create', 'character.delete', 'character.update', 'character.view', 'character.activate', 'character.deactivate', 'character.restore',
-                'post-type.create', 'post-type.delete', 'post-type.update', 'post-type.view',
+                'post-type.create', 'post-type.delete', 'post-type.update', 'post-type.view', 'post-type.restore',
                 'form.create', 'form.delete', 'form.update',
                 'page.create', 'page.delete', 'page.update', 'page.view',
                 'system.activity',
@@ -123,6 +123,7 @@ class PopulateAuthorizationTables extends Migration
                 ['name' => 'post-type.delete', 'display_name' => 'Delete post types', 'description' => 'Allows a user to remove post types'],
                 ['name' => 'post-type.update', 'display_name' => 'Update post types', 'description' => 'Allows a user to edit post types'],
                 ['name' => 'post-type.view', 'display_name' => 'View post types', 'description' => 'Allows a user to view any post types'],
+                ['name' => 'post-type.restore', 'display_name' => 'Restore post types', 'description' => 'Allows a user to restory any deleted post types'],
 
                 ['name' => 'post.create', 'display_name' => 'Create posts', 'description' => 'Allows a user to add new posts'],
                 ['name' => 'post.delete', 'display_name' => 'Delete posts', 'description' => 'Allows a user to remove posts'],

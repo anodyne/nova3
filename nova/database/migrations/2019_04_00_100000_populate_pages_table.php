@@ -101,12 +101,12 @@ class PopulatePagesTable extends Migration
             ['uri' => 'characters/{character}/edit', 'key' => 'characters.edit', 'resource' => 'Nova\\Characters\\Controllers\\CharacterController@edit', 'layout' => 'admin'],
             ['uri' => 'characters/{character}', 'key' => 'characters.update', 'verb' => PageVerb::put, 'resource' => 'Nova\\Characters\\Controllers\\CharacterController@update', 'layout' => 'admin'],
 
-            ['uri' => 'post-types', 'key' => 'post-types.index', 'resource' => 'Nova\\PostTypes\\Controllers\\ShowPostTypeController@all', 'layout' => 'admin'],
-            ['uri' => 'post-types/{postType}/show', 'key' => 'post-types.show', 'resource' => 'Nova\\PostTypes\\Controllers\\ShowPostTypeController@show', 'layout' => 'admin'],
-            ['uri' => 'post-types/create', 'key' => 'post-types.create', 'resource' => 'Nova\\PostTypes\\Controllers\\CreatePostTypeController@create', 'layout' => 'admin'],
-            ['uri' => 'post-types', 'key' => 'post-types.store', 'verb' => PageVerb::post, 'resource' => 'Nova\\PostTypes\\Controllers\\CreatePostTypeController@store', 'layout' => 'admin'],
-            ['uri' => 'post-types/{postType}/edit', 'key' => 'post-types.edit', 'resource' => 'Nova\\PostTypes\\Controllers\\UpdatePostTypeController@edit', 'layout' => 'admin'],
-            ['uri' => 'post-types/{postType}', 'key' => 'post-types.update', 'verb' => PageVerb::put, 'resource' => 'Nova\\PostTypes\\Controllers\\UpdatePostTypeController@update', 'layout' => 'admin'],
+            ['uri' => 'post-types', 'key' => 'post-types.index', 'resource' => 'Nova\\PostTypes\\Controllers\\PostTypeController@index', 'layout' => 'admin'],
+            ['uri' => 'post-types/{postType}/show', 'key' => 'post-types.show', 'resource' => 'Nova\\PostTypes\\Controllers\\PostTypeController@show', 'layout' => 'admin'],
+            ['uri' => 'post-types/create', 'key' => 'post-types.create', 'resource' => 'Nova\\PostTypes\\Controllers\\PostTypeController@create', 'layout' => 'admin'],
+            ['uri' => 'post-types', 'key' => 'post-types.store', 'verb' => PageVerb::post, 'resource' => 'Nova\\PostTypes\\Controllers\\PostTypeController@store', 'layout' => 'admin'],
+            ['uri' => 'post-types/{postType}/edit', 'key' => 'post-types.edit', 'resource' => 'Nova\\PostTypes\\Controllers\\PostTypeController@edit', 'layout' => 'admin'],
+            ['uri' => 'post-types/{postType}', 'key' => 'post-types.update', 'verb' => PageVerb::put, 'resource' => 'Nova\\PostTypes\\Controllers\\PostTypeController@update', 'layout' => 'admin'],
 
             ['uri' => 'stories', 'key' => 'stories.index', 'resource' => 'Nova\\Stories\\Controllers\\ShowStoryController@all', 'layout' => 'admin'],
             ['uri' => 'stories/{story}/show', 'key' => 'stories.show', 'resource' => 'Nova\\Stories\\Controllers\\ShowStoryController@show', 'layout' => 'admin'],

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Nova\Posts\Models\Post;
 use Nova\PostTypes\Data\Fields;
 use Nova\PostTypes\Data\Options;
@@ -28,6 +29,7 @@ class PostType extends Model implements Sortable
     use HasStates;
     use SortableTrait;
     use LogsActivity;
+    use SoftDeletes;
 
     protected $table = 'post_types';
 
@@ -54,9 +56,21 @@ class PostType extends Model implements Sortable
         return $this->hasMany(Post::class);
     }
 
+    public function publishedPosts(): HasMany
+    {
+        return $this->posts()->published();
+    }
+
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function canBeDeleted(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): bool => $this->posts()->count() === 0
+        );
     }
 
     /**
