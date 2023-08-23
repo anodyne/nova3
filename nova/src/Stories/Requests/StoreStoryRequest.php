@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Requests;
 
-use Nova\Foundation\Http\Requests\ValidatesRequest;
+use Illuminate\Foundation\Http\FormRequest;
+use Nova\Stories\Data\StoryData;
+use Nova\Stories\Data\StoryPositionData;
 
-class CreateStoryRequest extends ValidatesRequest
+class StoreStoryRequest extends FormRequest
 {
     public function rules(): array
     {
@@ -20,5 +22,15 @@ class CreateStoryRequest extends ValidatesRequest
             'display_direction' => ['nullable'],
             'display_neighbor' => ['nullable'],
         ];
+    }
+
+    public function getStoryData(): StoryData
+    {
+        return StoryData::from($this);
+    }
+
+    public function getStoryPositionData(): StoryPositionData
+    {
+        return StoryPositionData::from($this);
     }
 }

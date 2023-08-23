@@ -6,9 +6,9 @@ namespace Nova\Stories\Responses;
 
 use Nova\Foundation\Responses\Responsable;
 
-class ShowAllStoriesResponse extends Responsable
+class EditStoryResponse extends Responsable
 {
     public ?string $subnav = 'writing';
 
-    public string $view = 'stories.index';
+    public string $view = 'stories.edit';
 }

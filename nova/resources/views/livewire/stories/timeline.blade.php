@@ -1,3 +1,4 @@
+{{-- format-ignore-start --}}
 <x-panel>
     <x-panel.header
         title="Stories"
@@ -10,7 +11,7 @@
                 <x-slot:trigger leading="filter" color="gray">
                 Sort
                 </x-slot:trigger>
-                
+
                 <x-dropdown.group>
                 <x-dropdown.item :href="route('stories.index', 'sort=asc')">
                 <div class="flex items-center justify-between w-full">
@@ -54,6 +55,14 @@
             message="Stories live on a timeline to give you and your players incredible flexibility in how you tell your game's adventures."
         ></x-empty-state.large>
     @else
+        <div class="sticky top-4">
+            <div class="relative w-auto mx-auto z-50 rounded-lg bg-gray-900/90 text-white py-1.5 px-4 flex items-center gap-4">
+                <x-icon name="edit"></x-icon>
+                <x-icon name="trash"></x-icon>
+                <x-icon name="arrow-right"></x-icon>
+            </div>
+        </div>
+
         @if ($selectedStory)
             <x-content-box
                 height="sm"
@@ -250,3 +259,4 @@
         </x-content-box>
     @endif
 </x-panel>
+{{-- format-ignore-end --}}

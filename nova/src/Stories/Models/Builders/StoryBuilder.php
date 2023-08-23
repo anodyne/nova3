@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Models\Builders;
 
-use Nova\Foundation\Filters\Filterable;
 use Nova\Stories\Models\States\Completed;
 use Nova\Stories\Models\States\Current;
 use Nova\Stories\Models\States\Ongoing;
@@ -13,8 +12,6 @@ use Staudenmeir\LaravelAdjacencyList\Eloquent\Builder;
 
 class StoryBuilder extends Builder
 {
-    use Filterable;
-
     public function searchFor($value): self
     {
         return $this->where('title', 'like', "%{$value}%");
