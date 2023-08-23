@@ -34,7 +34,7 @@
 
             <x-form.footer>
                 <x-button.filled type="submit" color="primary">Update</x-button.filled>
-                <x-button.filled :href="route('forms.index')" color="gray">Cancel</x-button.filled>
+                <x-button.filled :href="route('forms.index')" color="neutral">Cancel</x-button.filled>
             </x-form.footer>
 
             <input type="hidden" name="id" value="{{ $form->id }}" />

@@ -4,7 +4,7 @@
     'leading' => false,
     'trailing' => false,
     'size' => 'md',
-    'color' => 'primary',
+    'color' => 'neutral',
 ])
 
 @php($tag = $attributes->has('href') ? 'a' : $tag)

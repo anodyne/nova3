@@ -50,7 +50,7 @@
 
             <x-form.footer>
                 <x-button.filled type="submit" color="primary">Update</x-button.filled>
-                <x-button.filled :href="route('characters.index')" color="gray">Cancel</x-button.filled>
+                <x-button.filled :href="route('characters.index')" color="neutral">Cancel</x-button.filled>
             </x-form.footer>
         </x-form>
     </x-panel>
@@ -80,7 +80,7 @@
                                 </div>
                             </div>
                             <div class="mt-4 sm:ml-6 sm:mt-0 sm:flex-shrink-0">
-                                <x-button.filled type="button" color="gray">Activate</x-button.filled>
+                                <x-button.filled type="button" color="neutral">Activate</x-button.filled>
                             </div>
                         </x-content-box>
                     </x-panel>
@@ -107,7 +107,7 @@
                                 </div>
                             </div>
                             <div class="mt-4 sm:ml-6 sm:mt-0 sm:flex-shrink-0">
-                                <x-button.filled type="button" color="gray">Deactivate</x-button.filled>
+                                <x-button.filled type="button" color="neutral">Deactivate</x-button.filled>
                             </div>
                         </x-content-box>
                     </x-panel>

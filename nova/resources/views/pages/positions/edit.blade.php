@@ -81,7 +81,7 @@
 
             <x-form.footer>
                 <x-button.filled type="submit" color="primary">Update</x-button.filled>
-                <x-button.filled :href="route('positions.index', $position->department)" color="gray">
+                <x-button.filled :href="route('positions.index', $position->department)" color="neutral">
                     Cancel
                 </x-button.filled>
             </x-form.footer>

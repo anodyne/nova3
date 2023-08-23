@@ -28,7 +28,7 @@
                                     </div>
                                 </div>
                                 <div class="mt-5 flex justify-center gap-2 md:mt-0">
-                                    <x-button.filled href="#" color="gray">Go to my account</x-button.filled>
+                                    <x-button.filled href="#" color="neutral">Go to my account</x-button.filled>
                                 </div>
                             </div>
                         </x-content-box>
@@ -286,7 +286,7 @@
                             </div>
                             <div class="mt-6 flex flex-col justify-stretch">
                                 <div>
-                                    <x-button.filled color="gray" href="#" class="w-full">
+                                    <x-button.filled color="neutral" href="#" class="w-full">
                                         See all activity
                                     </x-button.filled>
                                 </div>

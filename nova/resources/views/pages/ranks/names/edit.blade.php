@@ -68,7 +68,7 @@
 
             <x-form.footer>
                 <x-button.filled type="submit" color="primary">Update</x-button.filled>
-                <x-button.filled :href="route('ranks.names.index')" color="gray">Cancel</x-button.filled>
+                <x-button.filled :href="route('ranks.names.index')" color="neutral">Cancel</x-button.filled>
             </x-form.footer>
         </x-form>
     </x-panel>

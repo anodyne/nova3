@@ -57,7 +57,7 @@
 
             <x-form.footer>
                 <x-button.filled type="submit" color="primary">Add</x-button.filled>
-                <x-button.filled :href="route('characters.index')" color="gray">Cancel</x-button.filled>
+                <x-button.filled :href="route('characters.index')" color="neutral">Cancel</x-button.filled>
             </x-form.footer>
         </x-form>
     </x-panel>

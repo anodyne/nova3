@@ -149,7 +149,7 @@
 
             <x-form.footer>
                 <x-button.filled type="submit" color="primary">Add</x-button.filled>
-                <x-button.filled :href="route('ranks.items.index')" color="gray">Cancel</x-button.filled>
+                <x-button.filled :href="route('ranks.items.index')" color="neutral">Cancel</x-button.filled>
             </x-form.footer>
 
             <input type="hidden" name="base_image" x-model="base" />

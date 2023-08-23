@@ -79,7 +79,7 @@
                     @if ($this->canAddAuthors)
                         <div class="ml-6 shrink-0">
                             <x-button.filled
-                                color="gray"
+                                color="neutral"
                                 wire:click="$emit('openModal', 'posts:select-character-authors-modal')"
                             >
                                 Add characters
@@ -207,7 +207,7 @@
                     @if ($this->canAddAuthors)
                         <div class="ml-6 shrink-0">
                             <x-button.filled
-                                color="gray"
+                                color="neutral"
                                 wire:click="$emit('openModal', 'posts:select-user-authors-modal')"
                             >
                                 Add users
@@ -303,7 +303,7 @@
             <div
                 class="flex flex-col space-y-4 md:flex-row-reverse md:items-center md:space-x-6 md:space-y-0 md:space-x-reverse"
             >
-                <x-button.filled wire:click="nextStep">Next: Write post</x-button.filled>
+                <x-button.filled wire:click="nextStep" color="primary">Next: Write post</x-button.filled>
             </div>
         </x-content-box>
     @else

@@ -150,7 +150,7 @@
 
     @if ($postType && $story)
         <x-form.footer>
-            <x-button.filled wire:click="goToNextStep">Next: Select authors</x-button.filled>
+            <x-button.filled wire:click="goToNextStep" color="primary">Next: Select authors</x-button.filled>
         </x-form.footer>
     @endif
 </x-write-post-wizard-layout>

@@ -38,8 +38,8 @@
 
                                 @if ($selected === $post->id)
                                     <div class="mt-2 ml-7 space-x-1.5">
-                                        <x-button.filled :color="$direction === 'before' ? 'primary' : 'white'" size="xs" wire:click="beforePost">Before this post</x-button.filled>
-                                        <x-button.filled :color="$direction === 'after' ? 'primary' : 'white'" size="xs" wire:click="afterPost">After this post</x-button.filled>
+                                        <x-button.filled :color="$direction === 'before' ? 'primary' : 'neutral'" size="xs" wire:click="beforePost">Before this post</x-button.filled>
+                                        <x-button.filled :color="$direction === 'after' ? 'primary' : 'neutral'" size="xs" wire:click="afterPost">After this post</x-button.filled>
                                     </div>
                                 @endif
                             </div>
@@ -55,6 +55,6 @@
             <x-button.filled color="primary" wire:click="apply">Apply</x-button.filled>
         @endif
 
-        <x-button.filled color="gray" wire:click="dismiss">Cancel</x-button.filled>
+        <x-button.filled color="neutral" wire:click="dismiss">Cancel</x-button.filled>
     </x-content-box>
 </div>

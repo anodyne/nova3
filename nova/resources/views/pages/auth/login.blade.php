@@ -35,7 +35,7 @@
         </div>
 
         <div>
-            <x-button.filled type="submit" class="w-full">Sign in</x-button.filled>
+            <x-button.filled type="submit" class="w-full" color="primary">Sign in</x-button.filled>
         </div>
     </x-form>
 @endsection

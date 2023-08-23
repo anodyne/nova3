@@ -37,7 +37,7 @@
             {{ $prompt['confirm'] }}
         </x-button.filled>
 
-        <x-button.filled wire:click="dismiss" type="button" color="gray">
+        <x-button.filled wire:click="dismiss" type="button" color="neutral">
             {{ $prompt['cancel'] }}
         </x-button.filled>
     </x-content-box>

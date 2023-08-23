@@ -107,7 +107,7 @@
                         @can('viewAny', Nova\Departments\Models\Position::class)
                             <x-button.filled
                                 :href="route('positions.index', ['tableFilters' => ['department_id' => ['values' => [$department->id]]]])"
-                                color="gray"
+                                color="neutral"
                                 size="xs"
                             >
                                 Manage

@@ -292,9 +292,9 @@
             <div
                 class="flex flex-col space-y-4 md:flex-row-reverse md:items-center md:space-x-6 md:space-y-0 md:space-x-reverse"
             >
-                <x-button.filled wire:click="goToNextStep">Next: Publish post</x-button.filled>
+                <x-button.filled wire:click="goToNextStep" color="primary">Next: Publish post</x-button.filled>
 
-                <x-button.filled type="button" wire:click="save" color="gray">Save</x-button.filled>
+                <x-button.filled type="button" wire:click="save" color="neutral">Save</x-button.filled>
             </div>
 
             @can('delete', $post)

@@ -103,7 +103,7 @@
     <x-form.footer>
     <x-button.filled wire:click="publish" color="primary">Publish</x-button.filled>
     
-    <x-button.filled wire:click="save" wire:poll.30s="save" color="gray">
+    <x-button.filled wire:click="save" wire:poll.30s="save" color="neutral">
     Save
     </x-button.filled>
     
@@ -439,7 +439,7 @@
         >
             <x-button.filled wire:click="publish" color="primary">Publish</x-button.filled>
 
-            <x-button.filled wire:click="save" color="gray">Save</x-button.filled>
+            <x-button.filled wire:click="save" color="neutral">Save</x-button.filled>
         </div>
 
         {{-- @can('delete', $post) --}}

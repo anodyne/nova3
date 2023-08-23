@@ -38,6 +38,6 @@
         height="sm"
         width="sm"
     >
-        <x-button.filled color="gray" wire:click="dismiss">Close</x-button.filled>
+        <x-button.filled color="neutral" wire:click="dismiss">Close</x-button.filled>
     </x-content-box>
 </div>

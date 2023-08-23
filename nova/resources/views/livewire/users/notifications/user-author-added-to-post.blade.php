@@ -5,7 +5,7 @@
             {{ str(data_get($notification, 'data.post_type_name'))->lower() }}.
         </p>
         <p class="mt-2">
-            <x-button.filled :href="route('posts.create', data_get($notification, 'data.post_id'))" color="gray">
+            <x-button.filled :href="route('posts.create', data_get($notification, 'data.post_id'))" color="neutral">
                 Start writing
             </x-button.filled>
         </p>

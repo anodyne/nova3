@@ -8,7 +8,7 @@
         >
             <x-slot name="actions">
                 <div x-data="{}">
-                    <x-button.filled color="gray" leading="search" x-on:click="$dispatch('toggle-spotlight')">
+                    <x-button.filled color="neutral" leading="search" x-on:click="$dispatch('toggle-spotlight')">
                         Find a setting
                     </x-button.filled>
                 </div>

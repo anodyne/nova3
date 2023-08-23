@@ -58,6 +58,6 @@
             <x-button.filled color="primary" wire:click="apply">Add</x-button.filled>
         @endif
 
-        <x-button.filled color="gray" wire:click="dismiss">Cancel</x-button.filled>
+        <x-button.filled color="neutral" wire:click="dismiss">Cancel</x-button.filled>
     </x-content-box>
 </div>

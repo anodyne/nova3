@@ -70,7 +70,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button.filled :href="route('users.index', "status={$user->status->name()}")" color="gray">
+                <x-button.filled :href="route('users.index', "status={$user->status->name()}")" color="neutral">
                     Back
                 </x-button.filled>
             </x-form.footer>

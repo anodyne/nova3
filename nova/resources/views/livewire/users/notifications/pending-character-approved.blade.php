@@ -6,7 +6,7 @@
     <div class="mt-3">
         <x-button.filled
             :href="route('characters.show', data_get($notification, 'data.character_id'))"
-            color="gray"
+            color="neutral"
             size="sm"
         >
             View bio

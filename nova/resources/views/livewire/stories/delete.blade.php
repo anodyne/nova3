@@ -181,7 +181,7 @@
                 Delete
                 @choice('story|stories', $stories)
             </x-button.filled>
-            <x-button.filled :href="route('stories.index')" color="gray">Cancel</x-button.filled>
+            <x-button.filled :href="route('stories.index')" color="neutral">Cancel</x-button.filled>
         </x-form.footer>
     </x-form>
 </x-panel>

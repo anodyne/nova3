@@ -74,7 +74,7 @@
                         @else
                             <x-button.filled
                                 tag="button"
-                                color="gray"
+                                color="neutral"
                                 size="xs"
                                 wire:click="setPrimaryCharacterForUser({{ $user->id }})"
                             >

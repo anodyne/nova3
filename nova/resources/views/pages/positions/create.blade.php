@@ -71,7 +71,7 @@
                             assigned and un-assigned to this position.
                         </p>
 
-                        <x-button.filled :href="route('settings.index', 'characters')" color="gray">
+                        <x-button.filled :href="route('settings.index', 'characters')" color="neutral">
                             Manage character settings
                         </x-button.filled>
                     @endcan
@@ -86,7 +86,10 @@
 
             <x-form.footer>
                 <x-button.filled type="submit" color="primary">Add</x-button.filled>
-                <x-button.filled :href="route('positions.index', 'department='.$selectedDepartment?->id)" color="gray">
+                <x-button.filled
+                    :href="route('positions.index', 'department='.$selectedDepartment?->id)"
+                    color="neutral"
+                >
                     Cancel
                 </x-button.filled>
             </x-form.footer>

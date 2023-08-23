@@ -3,7 +3,7 @@
         <x-slot name="actions">
             @if ($users->count() > 0)
                 @can('create', $userClass)
-                    <x-button.filled :href="route('users.create')" leading="add">Add</x-button.filled>
+                    <x-button.filled :href="route('users.create')" leading="add" color="primary">Add</x-button.filled>
                 @endcan
             @endif
         </x-slot>
@@ -184,7 +184,9 @@
                         </x-slot>
 
                         <x-slot name="secondary">
-                            <x-button.filled wire:click="$set('search', '')" color="gray">Clear search</x-button.filled>
+                            <x-button.filled wire:click="$set('search', '')" color="neutral">
+                                Clear search
+                            </x-button.filled>
                         </x-slot>
                     </x-empty-state.not-found>
                 </x-slot>
