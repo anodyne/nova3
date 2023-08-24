@@ -1,4 +1,4 @@
-@import "../../../vendor/rawilk/laravel-form-components/resources/css/index.css";
+@import "../../../../vendor/rawilk/laravel-form-components/resources/css/index.css";
 
 .form-field {
     @apply block flex-1 border-0 bg-transparent p-0 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-0 dark:text-white;
