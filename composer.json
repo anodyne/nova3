@@ -96,7 +96,6 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php -r \"file_exists('nova/vendor') && !file_exists('vendor') && symlink('nova/vendor', 'vendor');\"",
             "@php artisan optimize:clear --ansi",
             "@php artisan package:discover --ansi"
         ],
@@ -111,11 +110,9 @@
         ]
     },
     "config": {
-        "bin-dir": "nova/vendor/bin",
         "optimize-autoloader": true,
         "preferred-install": "dist",
         "sort-packages": true,
-        "vendor-dir": "nova/vendor",
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "pestphp/pest-plugin": true

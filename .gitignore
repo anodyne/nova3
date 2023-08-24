@@ -3,7 +3,6 @@
 /dist/mix-manifest.json
 /dist/storage
 /node_modules
-/nova/vendor
 /public/hot
 /public/storage
 /public/mix-manifest.json
