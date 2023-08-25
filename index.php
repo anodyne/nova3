@@ -5,6 +5,21 @@ declare(strict_types=1);
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
 
+if (version_compare(PHP_VERSION, '8.2', '<')) {
+    header('Location: message.php?type=php');
+    exit();
+}
+
+if (! is_dir('vendor')) {
+    if (! function_exists('exec')) {
+        header('Location: message.php?type=vendor-error');
+        exit();
+    }
+
+    header('Location: message.php?type=vendor-install');
+    exit();
+}
+
 define('LARAVEL_START', microtime(true));
 
 /*
@@ -34,6 +49,20 @@ if (file_exists($maintenance = __DIR__.'/storage/framework/maintenance.php')) {
 */
 
 require __DIR__.'/vendor/autoload.php';
+
+/*
+|--------------------------------------------------------------------------
+| Turn On The Lights
+|--------------------------------------------------------------------------
+|
+| We need to illuminate PHP development, so let us turn on the lights.
+| This bootstraps the framework and gets it ready for use, then it
+| will load up this application so that we can run it and send
+| the responses back to the browser and delight our users.
+|
+*/
+
+$app = require_once __DIR__.'/nova/bootstrap/app.php';
 
 /*
 |--------------------------------------------------------------------------

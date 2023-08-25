@@ -13,8 +13,8 @@ try {
     $pages->each(
         fn ($page) => $router->{$page->verb->value}($page->uri, $page->resource)->name($page->key)
     );
-} catch (Exception $ex) {
-    // We're not going to do anything here yet
+} catch (Throwable $th) {
+    Route::view('/', 'pages.welcome');
 }
 
 Route::impersonate();

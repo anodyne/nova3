@@ -8,8 +8,9 @@ use Filament\Support\Colors\ColorManager;
 use Nova\DomainServiceProvider;
 use Nova\Foundation\Colors\Color;
 use Nova\Foundation\Nova;
+use Nova\Pages\Enums\PageVerb;
+use Nova\Setup\Actions\InstallNova;
 use Nova\Setup\Actions\SeedRealStories;
-use Nova\Setup\Commands\RefreshNovaCommand;
 
 class SetupServiceProvider extends DomainServiceProvider
 {
@@ -23,8 +24,8 @@ class SetupServiceProvider extends DomainServiceProvider
     public function consoleCommands(): array
     {
         return [
-            RefreshNovaCommand::class,
             SeedRealStories::class,
+            InstallNova::class,
         ];
     }
 
@@ -32,11 +33,11 @@ class SetupServiceProvider extends DomainServiceProvider
     {
         return [
             'setup' => [
-                'verb' => 'get',
+                'verb' => PageVerb::get->value,
                 'uses' => 'Nova\Setup\Controllers\SetupController@index',
             ],
             'setup/install' => [
-                'verb' => 'post',
+                'verb' => PageVerb::post->value,
                 'uses' => 'Nova\Setup\Controllers\SetupController@install',
             ],
         ];

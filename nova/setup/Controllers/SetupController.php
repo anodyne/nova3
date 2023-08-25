@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Nova\Setup\Controllers;
 
 use Illuminate\Pipeline\Pipeline;
-use Illuminate\Support\Facades\Artisan;
+use Nova\Setup\Actions\InstallNova;
 use Nova\Setup\Environment;
 
 class SetupController
@@ -48,10 +48,7 @@ class SetupController
 
     public function install()
     {
-        Artisan::call('migrate:fresh', ['--force' => true]);
-        Artisan::call('db:seed');
-        Artisan::call('optimize:clear');
-        Artisan::call('package:discover');
+        InstallNova::run();
 
         activity('admin')
             ->event('installed')
