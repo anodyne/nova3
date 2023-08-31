@@ -29,8 +29,6 @@
         "cross-env": "^7.0",
         "date-fns": "^2.29",
         "esbuild": "^0.15",
-        "flowbite": "^1.5",
-        "flowbite-datepicker": "^1.2",
         "hex-to-rgba": "^2.0",
         "lodash": "^4.17.21",
         "numeral": "^2.0.6",
