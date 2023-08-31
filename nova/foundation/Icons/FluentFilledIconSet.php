@@ -85,6 +85,8 @@ class FluentFilledIconSet extends IconSet
             'share' => 'fluent-f-share',
             'shield' => 'fluent-f-shield',
             'show' => 'fluent-f-eye',
+            'sort-ascending' => 'fluent-f-arrow-sort-up',
+            'sort-descending' => 'fluent-f-arrow-sort-down',
             'sparkles' => 'fluent-f-sparkle',
             'spy' => 'fluent-f-incognito',
             'star' => 'fluent-f-star',
