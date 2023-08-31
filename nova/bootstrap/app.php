@@ -61,7 +61,6 @@ $app->useConfigPath(path: $app->novaPath('config'));
 $app->useDatabasePath(path: $app->novaPath('database'));
 $app->useExtensionPath(path: $app->basePath('extensions'));
 $app->useLangPath(path: $app->novaPath('lang'));
-$app->usePublicPath(path: $app->basePath());
 $app->useThemePath(path: $app->basePath('themes'));
 
 /*
