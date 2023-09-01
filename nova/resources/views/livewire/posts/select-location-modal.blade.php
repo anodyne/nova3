@@ -12,11 +12,11 @@
         <div>
             <x-input.group>
                 <x-input.text placeholder="Search locations" wire:model.debounce.500ms="search" autofocus>
-                    <x-slot:leadingAddOn>
+                    <x-slot name="leading">
                         <x-icon name="search" size="sm"></x-icon>
                     </x-slot>
 
-                    <x-slot:trailingAddOn>
+                    <x-slot name="trailing">
                         @if ($search)
                             <x-button.text tag="button" color="gray" wire:click="$set('search', '')">
                                 <x-icon name="dismiss" size="sm"></x-icon>

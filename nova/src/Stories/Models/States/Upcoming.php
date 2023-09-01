@@ -18,6 +18,11 @@ class Upcoming extends StoryStatus
         return 'text-info-500';
     }
 
+    public function timelineMarker(): string
+    {
+        return 'bg-info-500 ring-white dark:ring-gray-900';
+    }
+
     public function name(): string
     {
         return 'upcoming';

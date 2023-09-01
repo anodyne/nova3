@@ -13,6 +13,7 @@ return [
         'Ongoing stories are meant for story arcs that are actively running and have postable stories within them.',
         'Upcoming stories are stories that are going to be told in the future.',
         'Completed stories are intended for stories or story arcs that are finished.',
+        "Stories live on a timeline that make it easier to visualize and understand the context of the game's world.",
     ],
 
     'characters' => [

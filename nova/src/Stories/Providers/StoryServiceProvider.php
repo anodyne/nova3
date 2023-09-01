@@ -25,7 +25,7 @@ class StoryServiceProvider extends DomainServiceProvider
             'stories:hierarchy' => StoryHierarchy::class,
             'stories:posts-list' => PostsList::class,
             'stories:status' => StoryStatus::class,
-            'stories:timeline' => StoryTimeline::class,
+            'stories-timeline' => StoryTimeline::class,
         ];
     }
 

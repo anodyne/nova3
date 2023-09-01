@@ -65,7 +65,7 @@
                             class="flex-1 appearance-none border-none bg-transparent p-0 focus:text-gray-900 focus:outline-none focus:ring-0 dark:focus:text-gray-100"
                         />
 
-                        <x-slot name="trailingAddOn">
+                        <x-slot name="trailing">
                             <button type="button" x-on:click="colorPicker.color.set(inputColor)" class="shrink-0">
                                 <x-icon name="check" size="md"></x-icon>
                             </button>

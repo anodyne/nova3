@@ -19,7 +19,7 @@
     <x-input.group label="Display order" for="display_neighbor">
         @if ($orderStories->count() > 0)
             <x-input.field>
-                <x-slot name="leadingAddOn">
+                <x-slot name="leading">
                     <select
                         name="display_direction"
                         id="display_direction"

@@ -24,12 +24,12 @@
             <div class="flex-1">
                 <x-input.group>
                     <x-input.text placeholder="Find characters by name or assigned user name/email" wire:model="search">
-                        <x-slot name="leadingAddOn">
+                        <x-slot name="leading">
                             <x-icon name="search" size="sm"></x-icon>
                         </x-slot>
 
                         @if ($search)
-                            <x-slot name="trailingAddOn">
+                            <x-slot name="trailing">
                                 <x-button.text tag="button" color="gray" wire:click="$set('search', '')">
                                     <x-icon name="dismiss" size="sm"></x-icon>
                                 </x-button.text>

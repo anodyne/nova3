@@ -32,7 +32,7 @@
                         x-on:change="suggestLocation = false"
                         id="location"
                         name="location"
-                        leading-add-on="themes/"
+                        leading="themes/"
                     />
                 </x-input.group>
 

@@ -1,6 +1,6 @@
 @props([
-    'leadingAddOn' => false,
-    'trailingAddOn' => false,
+    'leading' => false,
+    'trailing' => false,
 ])
 
 @aware(['error'])
@@ -13,15 +13,15 @@
     ])
     {{ $attributes }}
 >
-    @if ($leadingAddOn)
+    @if ($leading)
         <div class="flex shrink-0 items-center text-gray-400 sm:text-sm">
-            {{ $leadingAddOn }}
+            {{ $leading }}
         </div>
     @endif
 
     {{ $slot }}
 
-    @if ($trailingAddOn || $error)
+    @if ($trailing || $error)
         <div
             @class([
                 'text-danger-500' => $error,
@@ -32,7 +32,7 @@
             @if ($error)
                 <x-icon name="alert" size="sm" class="shrink-0"></x-icon>
             @else
-                {{ $trailingAddOn }}
+                {{ $trailing }}
             @endif
         </div>
     @endif

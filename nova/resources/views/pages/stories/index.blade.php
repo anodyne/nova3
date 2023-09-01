@@ -1,7 +1,7 @@
 @extends($meta->template)
 
 @section('content')
-    @livewire('stories:timeline')
+    <livewire:stories-timeline />
 
     <x-tips section="stories" />
 @endsection

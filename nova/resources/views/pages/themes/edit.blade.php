@@ -33,7 +33,7 @@
                         id="location"
                         name="location"
                         :value="old('location', $theme->location)"
-                        leading-add-on="themes/"
+                        leading="themes/"
                     />
                 </x-input.group>
 

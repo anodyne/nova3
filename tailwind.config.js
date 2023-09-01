@@ -30,11 +30,12 @@ module.exports = {
     content: [
         './nova/resources/**/*.{js,ts,blade.php,css}',
         './nova/foundation/View/Components/*.php',
-        './nova/vendor/filament/**/*.blade.php',
-        './nova/vendor/livewire-ui/modal/resources/views/*.blade.php',
-        './nova/vendor/rawilk/laravel-form-components/src/**/*.php',
-        './nova/vendor/rawilk/laravel-form-components/resources/**/*.php',
-        './nova/vendor/rawilk/laravel-form-components/resources/js/*.js',
+        './nova/src/**/Models/**/*.php',
+        './vendor/filament/**/*.blade.php',
+        './vendor/livewire-ui/modal/resources/views/*.blade.php',
+        './vendor/rawilk/laravel-form-components/src/**/*.php',
+        './vendor/rawilk/laravel-form-components/resources/**/*.php',
+        './vendor/rawilk/laravel-form-components/resources/js/*.js',
         './storage/framework/views/*.php',
     ],
     safelist: [
@@ -76,7 +77,7 @@ module.exports = {
             variants: ['sm', 'md', 'lg'],
         },
         {
-            pattern: /bg-(primary|danger|gray)-(500)/,
+            pattern: /bg-(primary|danger|gray|info)-(500)/,
             variants: ['sm', 'md', 'lg'],
         },
     ],

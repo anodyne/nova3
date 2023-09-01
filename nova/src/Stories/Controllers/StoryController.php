@@ -31,7 +31,13 @@ class StoryController extends Controller
 
     public function index()
     {
-        return ListStoriesResponse::send();
+        return ListStoriesResponse::sendWith([
+            'stories' => Story::tree()
+                ->withCount('posts', 'recursivePosts')
+                ->ordered()
+                ->get()
+                ->toTree(),
+        ]);
     }
 
     public function show(Story $story)
