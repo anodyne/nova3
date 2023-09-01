@@ -18,6 +18,9 @@ module.exports = {
         'func-names': ['error', 'as-needed'],
         'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
         'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+        'no-plusplus': ['error', {
+            allowForLoopAfterthoughts: true,
+        }],
         'no-return-assign': ['error', 'except-parens'],
     },
 };
