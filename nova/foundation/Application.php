@@ -114,7 +114,7 @@ class Application extends IlluminateApplication
      */
     public function usesSecureSkeleton(): bool
     {
-        return file_exists(base_path('skeleton-secure.md'));
+        return is_dir(base_path('public'));
     }
 
     /**
@@ -122,6 +122,6 @@ class Application extends IlluminateApplication
      */
     public function usesSimpleSkeleton(): bool
     {
-        return file_exists(base_path('skeleton-simple.md'));
+        return ! $this->usesSecureSkeleton();
     }
 }
