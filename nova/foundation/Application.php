@@ -108,4 +108,20 @@ class Application extends IlluminateApplication
     {
         return $this->joinPaths($this->novaPath('resources'), $path);
     }
+
+    /**
+     * Are we using the secure skeleton?
+     */
+    public function usesSecureSkeleton(): bool
+    {
+        return file_exists(base_path('skeleton-secure.md'));
+    }
+
+    /**
+     * Are we using the simple skeleton?
+     */
+    public function usesSimpleSkeleton(): bool
+    {
+        return file_exists(base_path('skeleton-simple.md'));
+    }
 }

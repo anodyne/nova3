@@ -63,6 +63,10 @@ $app->useExtensionPath(path: $app->basePath('extensions'));
 $app->useLangPath(path: $app->novaPath('lang'));
 $app->useThemePath(path: $app->basePath('themes'));
 
+if ($app->usesSimpleSkeleton()) {
+    $app->usePublicPath(path: $app->basePath());
+}
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application

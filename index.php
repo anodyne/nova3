@@ -48,8 +48,6 @@ require __DIR__.'/vendor/autoload.php';
 
 $app = require_once __DIR__.'/nova/bootstrap/app.php';
 
-$app->usePublicPath(path: $app->basePath());
-
 $kernel = $app->make(Kernel::class);
 
 $response = $kernel->handle(
