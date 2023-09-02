@@ -95,6 +95,7 @@ class FluentFilledIconSet extends IconSet
             'tags' => 'fluent-f-tag-multiple',
             'thumbs-down' => 'fluent-f-thumb-dislike',
             'thumbs-up' => 'fluent-f-thumb-like',
+            'timeline' => 'fluent-f-timeline',
             'tools' => 'fluent-f-wrench-screwdriver',
             'trash' => 'fluent-f-delete',
             'user' => 'fluent-f-person',

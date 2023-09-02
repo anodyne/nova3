@@ -95,6 +95,7 @@ class FluentOutlineIconSet extends IconSet
             'tags' => 'fluent-o-tag-multiple',
             'thumbs-down' => 'fluent-o-thumb-dislike',
             'thumbs-up' => 'fluent-o-thumb-like',
+            'timeline' => 'fluent-o-timeline',
             'tools' => 'fluent-o-wrench-screwdriver',
             'trash' => 'fluent-o-delete',
             'user' => 'fluent-o-person',

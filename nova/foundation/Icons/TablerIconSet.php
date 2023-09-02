@@ -95,6 +95,7 @@ class TablerIconSet extends IconSet
             'tags' => 'tabler-tags',
             'thumbs-down' => 'tabler-thumb-down',
             'thumbs-up' => 'tabler-thumb-up',
+            'timeline' => 'tabler-timeline-event',
             'tools' => 'tabler-tool',
             'trash' => 'tabler-trash',
             'user' => 'tabler-user',
