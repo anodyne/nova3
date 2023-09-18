@@ -36,7 +36,7 @@
 
                             <x-slot name="trailing">
                                 @if ($filters['search'])
-                                    <x-button.text color="light-gray" wire:click="$set('filters.search', '')">
+                                    <x-button.text color="subtle-neutral" wire:click="$set('filters.search', '')">
                                         <x-icon name="dismiss" size="sm"></x-icon>
                                     </x-button.text>
                                 @endif

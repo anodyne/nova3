@@ -9,6 +9,8 @@ use Spatie\ModelStates\Transition;
 
 class OngoingToCurrent extends Transition
 {
+    use ManageParentStoryStatus;
+
     public function __construct(
         protected Story $story
     ) {
@@ -18,6 +20,8 @@ class OngoingToCurrent extends Transition
     {
         $this->story->status = Current::class;
         $this->story->save();
+
+        $this->updateParentStoryToOngoing();
 
         return $this->story->refresh();
     }

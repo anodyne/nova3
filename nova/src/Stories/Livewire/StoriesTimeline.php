@@ -9,14 +9,15 @@ use Livewire\Component;
 use Nova\Stories\Models\Story;
 use Staudenmeir\LaravelAdjacencyList\Eloquent\Collection;
 
-class StoryTimeline extends Component
+class StoriesTimeline extends Component
 {
-    public string $sort = 'oldest';
+    public string $sort = 'latest';
 
     public function getStoriesProperty(): Collection
     {
         return Story::tree()
-            ->withCount('posts', 'recursivePosts')
+            ->withCount('posts', 'recursivePosts', 'children')
+            ->withSum('posts', 'word_count')
             ->when($this->sort === 'oldest', fn (Builder $query) => $query->ordered())
             ->when($this->sort === 'latest', fn (Builder $query) => $query->ordered('desc'))
             ->get()

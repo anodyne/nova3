@@ -14,7 +14,7 @@ class UploadStoryImages
     public function handle(Story $story, $imagePath): Story
     {
         if ($imagePath !== null) {
-            $story->addMedia($imagePath)->toMediaCollection('story-images');
+            $story->addMedia($imagePath)->toMediaCollection('story-image');
         }
 
         return $story->refresh();

@@ -1,56 +1,70 @@
 @extends($meta->template)
 
 @section('content')
-    <x-panel x-data="tabsList('details')">
-        <x-panel.header :title="$story->title">
-            <x-slot name="actions">
-                @can('update', $story)
-                    <x-button.filled
-                        :href="route('stories.edit', $story)"
-                        color="primary"
-                    >
-                        Edit story
-                    </x-button.filled>
-                @endcan
-            </x-slot>
+    <x-panel class="relative overflow-hidden" x-data="tabsList('details')">
+        @if ($story->hasMedia('story-image'))
+            <img class="h-72 w-full object-cover" src="{{ $story->getFirstMediaUrl('story-image') }}" alt="" />
+        @endif
 
-            <div>
-                <x-content-box class="sm:hidden">
-                    <x-input.select
-                        @change="switchTab($event.target.value)"
-                        aria-label="Selected tab"
-                    >
-                        <option value="details">Details</option>
-                        @if ($story->post_count > 0)
-                            <option value="posts">Posts</option>
-                        @endif
+        <x-content-box height="none" class="pt-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-6">
+                    <x-h1>{{ $story->title }}</x-h1>
 
+                    <x-badge :color="$story->status->color()">
+                        {{ $story->status->displayName() }}
+                    </x-badge>
+                </div>
+
+                <div class="flex items-center gap-6">
+                    <x-button.text x-on:click="window.history.back()" leading="arrow-left" color="neutral">
+                        Back
+                    </x-button.text>
+
+                    @can('update', $story)
+                        <x-button.filled :href="route('stories.edit', $story)" color="primary">Edit</x-button.filled>
+                    @endcan
+                </div>
+            </div>
+        </x-content-box>
+
+        <div>
+            <x-content-box class="sm:hidden">
+                <x-input.select @change="switchTab($event.target.value)" aria-label="Selected tab">
+                    <option value="details">Details</option>
+                    <option value="posts">Posts</option>
+
+                    @if ($story->has_summary)
                         <option value="summary">Summary</option>
-                    </x-input.select>
-                </x-content-box>
-                <div class="hidden sm:block">
-                    <x-content-box height="none">
-                        <nav class="-mb-px flex">
-                            <a
-                                href="#"
-                                class="ml-8 whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition first:ml-0 focus:outline-none"
-                                :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('details'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('details') }"
-                                x-on:click.prevent="switchTab('details')"
-                            >
-                                Details
-                            </a>
+                    @endif
 
-                            @if ($story->post_count > 0)
-                                <a
-                                    href="#"
-                                    class="ml-8 whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition first:ml-0 focus:outline-none"
-                                    :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('posts'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('posts') }"
-                                    x-on:click.prevent="switchTab('posts')"
-                                >
-                                    Posts
-                                </a>
-                            @endif
+                    @if ($story->children->count() > 0)
+                        <option value="stories">Additional stories</option>
+                    @endif
+                </x-input.select>
+            </x-content-box>
+            <div class="hidden sm:block">
+                <x-content-box height="none" class="border-b border-gray-200 dark:border-gray-800">
+                    <nav class="-mb-px flex">
+                        <a
+                            href="#"
+                            class="ml-8 whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition first:ml-0 focus:outline-none"
+                            :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('details'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('details') }"
+                            x-on:click.prevent="switchTab('details')"
+                        >
+                            Details
+                        </a>
 
+                        <a
+                            href="#"
+                            class="ml-8 whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition first:ml-0 focus:outline-none"
+                            :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('posts'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('posts') }"
+                            x-on:click.prevent="switchTab('posts')"
+                        >
+                            Posts
+                        </a>
+
+                        @if ($story->has_summary)
                             <a
                                 href="#"
                                 class="ml-8 whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition first:ml-0 focus:outline-none"
@@ -59,203 +73,105 @@
                             >
                                 Summary
                             </a>
-                        </nav>
-                    </x-content-box>
-                </div>
-            </div>
-        </x-panel.header>
+                        @endif
 
-        <x-content-box class="space-y-8" x-show="isTab('details')">
-            <div
-                class="flex flex-col space-y-4 md:flex-row md:items-center md:space-x-8 md:space-y-0"
-            >
-                <div>
-                    <x-badge :color="$story->status->color()">
-                        {{ $story->status->displayName() }}
-                    </x-badge>
-                </div>
-
-                @if ($story->start_date)
-                    <div
-                        class="flex items-center space-x-2 font-medium text-gray-500 dark:text-gray-400 md:text-sm"
-                    >
-                        <x-icon name="calendar" size="md"></x-icon>
-                        <span>
-                            @if (! $story->end_date)
-                                Started on
-                            @endif
-
-                            {{ $story->start_date->format('M dS, Y') }}
-                            @if ($story->end_date)
-                                    &ndash;
-                                    {{ $story->end_date->format('M dS, Y') }}
-                            @endif
-                        </span>
-                    </div>
-                @endif
-
-                @if ($ancestors->count() > 0)
-                    <div class="flex items-center">
-                        <x-button.text
-                            :href="route('stories.show', $ancestors->last())"
-                            color="gray-primary"
-                        >
-                            <div class="flex items-center space-x-2">
-                                <x-icon
-                                    name="book"
-                                    size="md"
-                                    class="shrink-0"
-                                ></x-icon>
-                                <span>
-                                    Part of {{ $ancestors->last()->title }}
-                                </span>
-                            </div>
-                        </x-button.text>
-                    </div>
-                @endif
-            </div>
-
-            <div class="grid gap-8 md:grid-cols-8">
-                <div class="md:col-span-5">
-                    <img
-                        class="h-60 w-full rounded-lg object-cover"
-                        src="{{ asset('dist/test5.jpg') }}"
-                        alt=""
-                    />
-                </div>
-                <div class="md:col-span-3">
-                    <p class="text-lg text-gray-500 dark:text-gray-400">
-                        {{ $story->description }}
-                    </p>
-                </div>
-            </div>
-
-            <div
-                class="grid grid-cols-1 gap-px py-6 sm:grid-cols-2 lg:grid-cols-4"
-            >
-                <div>
-                    <p
-                        class="text-sm font-medium leading-6 text-gray-600 dark:text-gray-400"
-                    >
-                        Total posts
-                    </p>
-                    <p class="mt-2 flex items-baseline gap-x-2">
-                        <span
-                            class="text-4xl font-semibold tracking-tight text-gray-900 dark:text-white"
-                        >
-                            {{ number_format((int) $story->posts_count) }}
-                        </span>
-                    </p>
-                </div>
-
-                <div>
-                    <p
-                        class="text-sm font-medium leading-6 text-gray-600 dark:text-gray-400"
-                    >
-                        Total words
-                    </p>
-                    <p class="mt-2 flex items-baseline gap-x-2">
-                        <span
-                            class="text-4xl font-semibold tracking-tight text-gray-900 dark:text-white"
-                        >
-                            {{ number_format((int) $story->words_count) }}
-                        </span>
-                    </p>
-                </div>
-
-                @if ($story->children->count() > 0)
-                    <div>
-                        <p
-                            class="text-sm font-medium leading-6 text-gray-600 dark:text-gray-400"
-                        >
-                            Total posts in all stories
-                        </p>
-                        <p class="mt-2 flex items-baseline gap-x-2">
-                            <span
-                                class="text-4xl font-semibold tracking-tight text-gray-900 dark:text-white"
+                        @if ($story->children->count() > 0)
+                            <a
+                                href="#"
+                                class="ml-8 whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition first:ml-0 focus:outline-none"
+                                :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('stories'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('stories') }"
+                                x-on:click.prevent="switchTab('stories')"
                             >
-                                {{ number_format((int) $story->recursive_posts_count) }}
-                            </span>
-                        </p>
-                    </div>
-
-                    <div>
-                        <p
-                            class="text-sm font-medium leading-6 text-gray-600 dark:text-gray-400"
-                        >
-                            Total words in all stories
-                        </p>
-                        <p class="mt-2 flex items-baseline gap-x-2">
-                            <span
-                                class="text-4xl font-semibold tracking-tight text-gray-900 dark:text-white"
-                            >
-                                {{ number_format((int) $story->recursive_posts_sum_word_count) }}
-                            </span>
-                        </p>
-                    </div>
-                @endif
+                                Additional stories
+                            </a>
+                        @endif
+                    </nav>
+                </x-content-box>
             </div>
-
-            @if ($story->children->count() > 0)
-                <div>
-                    <h2
-                        class="text-xl font-extrabold tracking-tight text-gray-900 dark:text-gray-100"
-                    >
-                        Stories Within {{ $story->title }}
-                    </h2>
-
-                    <div class="mt-4 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-                        @foreach ($story->children as $subStory)
-                            <x-panel
-                                as="light-well"
-                                class="flex flex-col justify-between"
-                            >
-                                <div>
-                                    <img
-                                        class="h-48 w-full object-cover sm:rounded-t-lg"
-                                        src="{{ asset('dist/test'.$loop->iteration.'.jpg') }}"
-                                        alt=""
-                                    />
-
-                                    <x-content-box height="xs" width="sm">
-                                        <h3
-                                            class="text-lg font-extrabold tracking-tight text-gray-600 dark:text-gray-400"
-                                        >
-                                            {{ $subStory->title }}
-                                        </h3>
-
-                                        <p
-                                            class="mt-2 text-base text-gray-600 dark:text-gray-400 md:text-sm"
-                                        >
-                                            {{ $subStory->description }}
-                                        </p>
-                                    </x-content-box>
-                                </div>
-
-                                <x-content-box height="sm" width="sm">
-                                    <x-button.outline
-                                        :href="route('stories.show', $subStory)"
-                                        color="primary"
-                                        class="w-full"
-                                    >
-                                        View story
-                                    </x-button.outline>
-                                </x-content-box>
-                            </x-panel>
-                        @endforeach
-                    </div>
-                </div>
-            @endif
-        </x-content-box>
-
-        <div x-show="isTab('posts')" x-cloak>
-            @livewire('stories:posts-list', ['story' => $story])
         </div>
 
-        <x-content-box x-show="isTab('summary')" x-cloak>
-            <div class="prose prose-lg max-w-none">
-                {!! $story->summary !!}
+        <x-content-box x-show="isTab('details')" class="space-y-12">
+            <div class="space-y-4">
+                <div
+                    class="prose prose-lg max-w-3xl dark:prose-invert prose-a:text-primary-500 hover:prose-a:text-primary-600 dark:hover:prose-a:text-primary-400"
+                >
+                    {!! $story->description !!}
+                </div>
+
+                <div class="flex flex-col space-y-4 md:flex-row md:items-center md:space-x-8 md:space-y-0">
+                    @if ($story->started_at)
+                        <div
+                            class="flex items-center space-x-2 font-medium text-gray-600 dark:text-gray-400 md:text-sm"
+                        >
+                            <x-icon name="calendar" size="md" class="text-gray-500"></x-icon>
+                            <span>
+                                @if (blank($story->ended_at))
+                                    Started on
+                                @endif
+
+                                {{ format_date($story->started_at, false) }}
+                                @if ($story->ended_at)
+                                    &ndash;
+                                    {{ format_date($story->ended_at) }}
+                                @endif
+                            </span>
+                        </div>
+
+                        <div
+                            class="flex items-center space-x-2 font-medium text-gray-600 dark:text-gray-400 md:text-sm"
+                        >
+                            <x-icon name="clock" size="md" class="text-gray-500"></x-icon>
+                            <span>
+                                @php($daysRunning = $story->started_at->diffInDays($story->ended_at ?? now()))
+                                {{ trans_choice('Running for|Ran for', blank($story->ended_at)) }}
+                                {{ number_format($daysRunning) }} {{ str('day')->plural($daysRunning) }}
+                            </span>
+                        </div>
+                    @endif
+
+                    @if ($ancestors->count() > 0)
+                        <div class="flex items-center">
+                            <x-button.text :href="route('stories.show', $ancestors->last())" color="neutral-primary">
+                                <div class="flex items-center space-x-2">
+                                    <x-icon name="book" size="md" class="shrink-0"></x-icon>
+                                    <span>Part of {{ $ancestors->last()->title }}</span>
+                                </div>
+                            </x-button.text>
+                        </div>
+                    @endif
+                </div>
             </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-4">
+                <x-panel.stat label="Total posts" :value="$story->posts_count"></x-panel.stat>
+                <x-panel.stat label="Total words" :value="$story->posts_sum_word_count ?? 0"></x-panel.stat>
+
+                @if ($story->children->count() > 0)
+                    <x-panel.stat
+                        label="Total posts (all stories within)"
+                        :value="$story->recursive_posts_count"
+                    ></x-panel.stat>
+                    <x-panel.stat
+                        label="Total words (all stories within)"
+                        :value="$story->recursive_posts_sum_word_count"
+                    ></x-panel.stat>
+                @endif
+            </div>
+        </x-content-box>
+
+        <x-content-box height="none" x-show="isTab('stories')">
+            <x-stories.timeline :stories="$story->children->loadCount('posts')" expanded></x-stories.timeline>
+        </x-content-box>
+
+        <x-content-box height="none" width="none" x-show="isTab('posts')">
+            <livewire:stories-posts-list simple />
+        </x-content-box>
+
+        <x-content-box
+            x-show="isTab('summary')"
+            class="prose prose-lg max-w-none dark:prose-invert prose-a:text-primary-500 hover:prose-a:text-primary-600 dark:hover:prose-a:text-primary-400"
+        >
+            {!! $story->summary !!}
         </x-content-box>
     </x-panel>
 @endsection

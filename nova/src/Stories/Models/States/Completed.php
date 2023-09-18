@@ -13,6 +13,11 @@ class Completed extends StoryStatus
         return 'gray';
     }
 
+    public function description(): string
+    {
+        return 'Story or story arc that has concluded';
+    }
+
     public function textColor(): string
     {
         return 'text-gray-400 dark:text-gray-500';
@@ -26,5 +31,10 @@ class Completed extends StoryStatus
     public function name(): string
     {
         return 'completed';
+    }
+
+    public function order(): int
+    {
+        return 4;
     }
 }

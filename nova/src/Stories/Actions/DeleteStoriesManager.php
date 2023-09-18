@@ -8,31 +8,11 @@ use Illuminate\Http\Request;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Stories\Models\Story;
 
-class DeleteStoryManager
+class DeleteStoriesManager
 {
     use AsAction;
 
-    protected $deleteStory;
-
-    protected $deleteStoryPosts;
-
-    protected $moveStory;
-
-    protected $moveStoryPosts;
-
-    public function __construct(
-        DeleteStory $deleteStory,
-        DeleteStoryPosts $deleteStoryPosts,
-        MoveStory $moveStory,
-        MoveStoryPosts $moveStoryPosts
-    ) {
-        $this->deleteStory = $deleteStory;
-        $this->deleteStoryPosts = $deleteStoryPosts;
-        $this->moveStory = $moveStory;
-        $this->moveStoryPosts = $moveStoryPosts;
-    }
-
-    public function handle(Request $request): void
+    public function handle(Request $request): int
     {
         $stories = collect(json_decode($request->actions, true));
 
@@ -61,5 +41,7 @@ class DeleteStoryManager
         $stories->where('story.action', 'delete')->reverse()->each(function ($item, $id) {
             DeleteStory::run(Story::find($id));
         });
+
+        return $stories->where('story.action', 'delete')->count();
     }
 }

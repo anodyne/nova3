@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Nova\Stories\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Posts\Actions\DeletePost;
 use Nova\Stories\Models\Story;
 
 class DeleteStoryPosts
@@ -14,7 +13,7 @@ class DeleteStoryPosts
 
     public function handle(Story $story): Story
     {
-        $story->posts->each(fn ($post) => DeletePost::run($post));
+        $story->allPosts()->where('story_id', $story->id)->delete();
 
         return $story->refresh();
     }

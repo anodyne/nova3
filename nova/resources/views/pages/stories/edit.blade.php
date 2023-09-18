@@ -29,56 +29,42 @@
             </x-form.section>
 
             <x-form.section
-                title="Story status & dates"
+                title="Story status"
                 message="Setting the status of a story lets you control the stories that players are able to write within. You can have as many currently running stories as you want. If you have more than 1 current story, players will be given the option to choose which story they want to write their post within."
             >
-                <x-input.group label="Status">
-                    <x-input.select name="status" id="status">
-                        @foreach (Nova\Stories\Models\Story::getStatesFor('status') as $status)
-                            <option
-                                value="{{ $status }}"
-                                @if (old('status', $story->status->name()) === $status) selected @endif
-                            >
-                                {{ ucfirst($status) }}
-                            </option>
+                <fieldset>
+                    <legend class="sr-only">Status</legend>
+                    <div class="space-y-4">
+                        @foreach (Nova\Stories\Models\Story::getStatuses() as $status)
+                            <x-input.radio
+                                id="{{ $status->name() }}"
+                                aria-describedby="{{ $status->name() }}-description"
+                                name="status"
+                                value="{{ $status->name() }}"
+                                :checked="old('status', $story->status->name()) === $status->name()"
+                                :label="$status->displayName()"
+                                :help="$status->description()"
+                            ></x-input.radio>
                         @endforeach
-                    </x-input.select>
-                </x-input.group>
-
-                <x-input.group label="Start date" for="start_date">
-                    <x-input.date
-                        name="start_date"
-                        id="start_date"
-                        placeholder="Select a start date"
-                        :value="old('start_date', $story->start_date?->format('Y-m-d') ?? '')"
-                    ></x-input.date>
-                </x-input.group>
-
-                <x-input.group label="End date" for="end_date">
-                    <x-input.date
-                        name="end_date"
-                        id="end_date"
-                        placeholder="Select an end date"
-                        :value="old('end_date', $story->end_date?->format('Y-m-d') ?? '')"
-                    ></x-input.date>
-                </x-input.group>
+                    </div>
+                </fieldset>
             </x-form.section>
 
             <x-form.section
                 title="Story hierarchy"
                 message="Stories can be organized inside any story on the timeline and then ordered within the parent story in whatever order you'd like."
             >
-                @livewire('stories:hierarchy', [
-                    'parentId' => old('parent_id', $story->parent_id),
-                    'direction' => old('direction', request()->direction ?? 'after'),
-                    'neighbor' => old('neighbor', request()->neighbor),
-                    'story' => $story,
-                ])
+                <livewire:stories-hierarchy
+                    :parent-id="old('parent_id', $story->parent_id)"
+                    :direction="old('direction', request('direction', 'after'))"
+                    :neighbor="old('neghbor', request('neighbor'))"
+                    :story="$story"
+                />
             </x-form.section>
 
             <x-form.section
                 title="Story image"
-                message="The story image should be 4 times larger than the size you want to display it at (for high resolution displays), but not more than 5MB in size."
+                message="The story image should be 4 times larger than the size you want to display it at (for high resolution displays), but not more than 10MB in size."
             >
                 @livewire('media:upload-image')
             </x-form.section>

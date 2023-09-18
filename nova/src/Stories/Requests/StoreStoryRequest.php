@@ -15,8 +15,8 @@ class StoreStoryRequest extends FormRequest
         return [
             'title' => ['required'],
             'description' => ['nullable'],
-            'start_date' => ['nullable'],
-            'end_date' => ['nullable'],
+            'started_at' => ['nullable'],
+            'ended_at' => ['nullable'],
             'summary' => ['nullable'],
             'parent_id' => ['nullable', 'exists:stories,id'],
             'display_direction' => ['nullable'],

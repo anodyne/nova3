@@ -1,8 +1,18 @@
 <x-panel>
     <x-panel.header
         title="Delete story"
-        message="Manage story deletion and how nested stories and story posts should be handled."
-    ></x-panel.header>
+        message="Manage story deletion and how nested stories and story posts should be handled"
+    >
+        <x-slot name="title">
+            Delete
+            @choice('story|stories', $stories->count())
+        </x-slot>
+        <x-slot name="actions">
+            @can('viewAny', $stories->first())
+                <x-button.text :href="route('stories.index')" color="neutral" leading="arrow-left">Back</x-button.text>
+            @endcan
+        </x-slot>
+    </x-panel.header>
 
     <x-form :action="route('stories.destroy')" method="DELETE" :divide="false">
         <x-content-box width="none" height="none">
@@ -12,7 +22,7 @@
                         <div class="flex items-start">
                             <div class="flex flex-col">
                                 <div
-                                    class="text-lg font-semibold text-gray-900 dark:text-gray-100"
+                                    class="text-lg font-semibold text-gray-900 dark:text-white"
                                     x-data="{}"
                                     @toggle-switch-changed="livewire.emit('delete-story-toggle', $event.detail.value, {{ $story->id }})"
                                 >
@@ -22,21 +32,19 @@
                                         :disabled="$loop->first"
                                         color="danger"
                                     >
-                                        <span class="text-gray-900 dark:text-gray-100">
-                                            Delete {{ $story->title }}
-                                        </span>
+                                        <span class="text-gray-900 dark:text-white">Delete {{ $story->title }}</span>
                                     </x-switch-toggle>
                                 </div>
 
-                                @if ($story->parent && $story->parent_id > 1)
-                                    <div class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                                @if ($story->parent)
+                                    <div class="mt-1.5 text-sm text-gray-600 dark:text-gray-400">
                                         This story is nested inside
                                         <span class="font-semibold">{{ optional($story->parent)->title }}</span>
                                     </div>
                                 @endif
 
                                 <div
-                                    class="mt-2 flex max-w-xl items-center space-x-6 font-medium text-gray-600 dark:text-gray-400"
+                                    class="mt-4 flex max-w-xl items-center space-x-6 font-medium text-gray-600 dark:text-gray-400"
                                 >
                                     @if (data_get($actions, "{$story->id}.story.action") === 'move')
                                         <x-badge color="info">
@@ -84,7 +92,7 @@
                                     @endif
                                 </div>
 
-                                <div class="mt-8">
+                                <div class="mt-8 flex flex-col gap-6">
                                     @if (! $loop->first)
                                         @if (data_get($actions, "{$story->id}.story.action") === 'move')
                                             <x-input.group label="Move this story to:">
@@ -120,7 +128,7 @@
                                                     />
                                                     <label
                                                         for="delete-posts-{{ $story->id }}"
-                                                        class="ml-6 max-w-xl text-sm text-gray-600 dark:text-gray-400"
+                                                        class="ml-7 max-w-xl text-sm text-gray-600 dark:text-gray-400"
                                                     >
                                                         Delete the posts along with the story. This action is permanent
                                                         and cannot be undone!
@@ -139,7 +147,7 @@
                                                     />
                                                     <label
                                                         for="move-posts-{{ $story->id }}"
-                                                        class="ml-6 max-w-xl text-sm text-gray-600 dark:text-gray-400"
+                                                        class="ml-7 max-w-xl text-sm text-gray-600 dark:text-gray-400"
                                                     >
                                                         Move the posts in this story to another story. Everything else
                                                         about the posts will remain the same.
@@ -177,10 +185,7 @@
         </x-content-box>
 
         <x-form.footer>
-            <x-button.filled type="submit" color="primary">
-                Delete
-                @choice('story|stories', $stories)
-            </x-button.filled>
+            <x-button.filled type="submit" color="primary">Delete</x-button.filled>
             <x-button.filled :href="route('stories.index')" color="neutral">Cancel</x-button.filled>
         </x-form.footer>
     </x-form>

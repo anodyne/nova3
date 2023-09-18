@@ -1,12 +1,12 @@
 <?php
 
 declare(strict_types=1);
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Stories\Actions\UpdateStoryStatus;
 use Nova\Stories\Models\States\Completed;
 use Nova\Stories\Models\States\Current;
 use Nova\Stories\Models\States\Upcoming;
 use Nova\Stories\Models\Story;
+
 beforeEach(function () {
     $this->story = Story::factory()->upcoming()->create();
 });
@@ -28,7 +28,7 @@ it('can transition from upcoming to current', function () {
     $story = UpdateStoryStatus::run($story, 'current');
 
     expect($story->status->equals(Current::class))->toBeTrue();
-    expect($story->start_date)->not->toBeNull();
+    expect($story->started_at)->not->toBeNull();
 });
 it('can transition from upcoming to completed', function () {
     $story = Story::factory()->upcoming()->create();
@@ -36,52 +36,52 @@ it('can transition from upcoming to completed', function () {
     $story = UpdateStoryStatus::run($story, 'completed');
 
     expect($story->status->equals(Completed::class))->toBeTrue();
-    expect($story->start_date)->not->toBeNull();
-    expect($story->end_date)->not->toBeNull();
+    expect($story->started_at)->not->toBeNull();
+    expect($story->ended_at)->not->toBeNull();
 });
 it('can transition from current to upcoming', function () {
     $story = Story::factory()->current()->create([
-        'start_date' => now(),
+        'started_at' => now(),
     ]);
 
     $story = UpdateStoryStatus::run($story, 'upcoming');
 
     expect($story->status->equals(Upcoming::class))->toBeTrue();
-    expect($story->start_date)->toBeNull();
-    expect($story->end_date)->toBeNull();
+    expect($story->started_at)->toBeNull();
+    expect($story->ended_at)->toBeNull();
 });
 it('can transition from current to completed', function () {
     $story = Story::factory()->current()->create([
-        'start_date' => now(),
+        'started_at' => now(),
     ]);
 
     $story = UpdateStoryStatus::run($story, 'completed');
 
     expect($story->status->equals(Completed::class))->toBeTrue();
-    expect($story->start_date)->not->toBeNull();
-    expect($story->end_date)->not->toBeNull();
+    expect($story->started_at)->not->toBeNull();
+    expect($story->ended_at)->not->toBeNull();
 });
 it('can transition from completed to upcoming', function () {
     $story = Story::factory()->completed()->create([
-        'start_date' => now(),
-        'end_date' => now(),
+        'started_at' => now(),
+        'ended_at' => now(),
     ]);
 
     $story = UpdateStoryStatus::run($story, 'upcoming');
 
     expect($story->status->equals(Upcoming::class))->toBeTrue();
-    expect($story->start_date)->toBeNull();
-    expect($story->end_date)->toBeNull();
+    expect($story->started_at)->toBeNull();
+    expect($story->ended_at)->toBeNull();
 });
 it('can transition from completed to current', function () {
     $story = Story::factory()->completed()->create([
-        'start_date' => now(),
-        'end_date' => now(),
+        'started_at' => now(),
+        'ended_at' => now(),
     ]);
 
     $story = UpdateStoryStatus::run($story, 'current');
 
     expect($story->status->equals(Current::class))->toBeTrue();
-    expect($story->start_date)->not->toBeNull();
-    expect($story->end_date)->toBeNull();
+    expect($story->started_at)->not->toBeNull();
+    expect($story->ended_at)->toBeNull();
 });

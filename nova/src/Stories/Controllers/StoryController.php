@@ -7,7 +7,7 @@ namespace Nova\Stories\Controllers;
 use Illuminate\Http\Request;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Stories\Actions\CreateStoryManager;
-use Nova\Stories\Actions\DeleteStoryManager;
+use Nova\Stories\Actions\DeleteStoriesManager;
 use Nova\Stories\Actions\UpdateStoryManager;
 use Nova\Stories\Models\Story;
 use Nova\Stories\Requests\StoreStoryRequest;
@@ -25,36 +25,38 @@ class StoryController extends Controller
         parent::__construct();
 
         $this->middleware('auth');
-
-        $this->authorizeResource(Story::class);
     }
 
     public function index()
     {
-        return ListStoriesResponse::sendWith([
-            'stories' => Story::tree()
-                ->withCount('posts', 'recursivePosts')
-                ->ordered()
-                ->get()
-                ->toTree(),
-        ]);
+        $this->authorize('viewAny', Story::class);
+
+        return ListStoriesResponse::send();
     }
 
     public function show(Story $story)
     {
+        $this->authorize('view', $story);
+
         return ShowStoryResponse::sendWith([
-            'story' => $story->loadCount('posts', 'recursivePosts')->loadSum('recursivePosts', 'word_count'),
+            'story' => $story
+                ->loadCount('posts', 'recursivePosts')
+                ->loadSum(['recursivePosts', 'posts'], 'word_count'),
             'ancestors' => $story->ancestors->splice(1),
         ]);
     }
 
     public function create()
     {
+        $this->authorize('create', Story::class);
+
         return CreateStoryResponse::send();
     }
 
     public function store(StoreStoryRequest $request)
     {
+        $this->authorize('create', Story::class);
+
         $story = CreateStoryManager::run($request);
 
         return redirect()
@@ -64,6 +66,8 @@ class StoryController extends Controller
 
     public function edit(Story $story)
     {
+        $this->authorize('update', $story);
+
         return EditStoryResponse::sendWith([
             'story' => $story,
         ]);
@@ -71,6 +75,8 @@ class StoryController extends Controller
 
     public function update(UpdateStoryRequest $request, Story $story)
     {
+        $this->authorize('update', $story);
+
         $story = UpdateStoryManager::run($story, $request);
 
         return redirect()
@@ -91,10 +97,12 @@ class StoryController extends Controller
 
     public function destroy(Request $request)
     {
-        DeleteStoryManager::run($request);
+        $this->authorize('delete', new Story());
+
+        $deletedStories = DeleteStoriesManager::run($request);
 
         return redirect()
             ->route('stories.index')
-            ->withToast('Story was deleted', 'All posts in this story have been deleted as well.');
+            ->withToast($deletedStories.' '.trans_choice('story was|stories were', $deletedStories).' deleted');
     }
 }

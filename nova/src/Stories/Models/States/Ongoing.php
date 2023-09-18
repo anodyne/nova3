@@ -13,6 +13,11 @@ class Ongoing extends StoryStatus
         return 'success';
     }
 
+    public function description(): string
+    {
+        return 'Active story or story arc that cannot be posted into';
+    }
+
     public function textColor(): string
     {
         return 'text-success-500';
@@ -26,5 +31,10 @@ class Ongoing extends StoryStatus
     public function name(): string
     {
         return 'ongoing';
+    }
+
+    public function order(): int
+    {
+        return 2;
     }
 }

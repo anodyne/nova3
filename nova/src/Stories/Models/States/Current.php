@@ -13,6 +13,11 @@ class Current extends StoryStatus
         return 'primary';
     }
 
+    public function description(): string
+    {
+        return 'Story that is currently running and players can post into';
+    }
+
     public function textColor(): string
     {
         return 'text-primary-500';
@@ -26,5 +31,10 @@ class Current extends StoryStatus
     public function name(): string
     {
         return 'current';
+    }
+
+    public function order(): int
+    {
+        return 3;
     }
 }

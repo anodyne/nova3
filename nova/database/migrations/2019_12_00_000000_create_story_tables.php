@@ -23,8 +23,8 @@ class CreateStoryTables extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->text('summary')->nullable();
-            $table->timestamp('start_date')->nullable();
-            $table->timestamp('end_date')->nullable();
+            $table->dateTime('started_at')->nullable();
+            $table->dateTime('ended_at')->nullable();
             $table->timestamps();
 
             $table->index('status');

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
 use Nova\Stories\Models\Story;
 
@@ -15,51 +17,45 @@ class StoryHierarchy extends Component
 
     public $neighbor;
 
-    public $orderStories;
-
     public ?Story $parent = null;
 
     public $parentId = null;
 
-    public $parentStories;
+    public ?Story $story = null;
 
-    public $story;
-
-    public function updatedDirection($value)
+    public function updatedDirection($value): void
     {
         $this->hasPositionChange = true;
     }
 
-    public function updatedParentId($value)
+    public function updatedParentId($value): void
     {
         $this->hasPositionChange = true;
 
         $this->parent = Story::find($value);
-
-        $this->getOrderStories();
     }
 
-    public function updatedNeighbor($value)
+    public function updatedNeighbor($value): void
     {
         $this->hasPositionChange = true;
     }
 
-    public function mount(
-        $parentId = null,
-        $direction = 'after',
-        $neighbor = null,
-        $hasPositionChange = false,
-        $story = null
-    ) {
-        $this->parentId = $parentId;
-        $this->direction = $direction;
-        $this->neighbor = $neighbor;
-        $this->hasPositionChange = $hasPositionChange;
-        $this->story = $story;
-        $this->parentStories = Story::tree()->ordered()->get();
+    public function getOrderStoriesProperty(): Collection
+    {
+        return Story::query()
+            ->when(filled($this->parentId), fn (Builder $query): Builder => $query->parent((int) $this->parentId))
+            ->when(blank($this->parentId), fn (Builder $query): Builder => $query->whereNull('parent_id'))
+            ->ordered()
+            ->get();
+    }
 
-        $this->getOrderStories();
+    public function getParentStoriesProperty(): Collection
+    {
+        return Story::tree()->ordered()->get();
+    }
 
+    public function mount()
+    {
         if ($this->story !== null) {
             $nextNeighbor = $this->story->nextSibling();
             $previousNeighbor = ($nextNeighbor === null)
@@ -79,22 +75,16 @@ class StoryHierarchy extends Component
         } else {
             $this->parentId = $this->getStory($this->neighbor)?->parent_id;
         }
-
-        $this->getOrderStories();
     }
 
     public function render()
     {
-        return view('livewire.stories.hierarchy');
-    }
+        // dd($this->orderStories);
 
-    protected function getOrderStories(): void
-    {
-        $this->orderStories = Story::query()
-            ->when(filled($this->parentId), fn ($query) => $query->parent($this->parentId))
-            ->when(blank($this->parentId), fn ($query) => $query->isRoot())
-            ->ordered()
-            ->get();
+        return view('livewire.stories.hierarchy', [
+            'orderStories' => $this->orderStories,
+            'parentStories' => $this->parentStories,
+        ]);
     }
 
     protected function getStory($id): Story

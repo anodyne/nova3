@@ -8,10 +8,14 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
+use Nova\Foundation\Casts\DateTimeCast;
 use Nova\Foundation\Concerns\SortableTrait;
 use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Posts\Models\Post;
+use Nova\Stories\Data\StoryData;
 use Nova\Stories\Events;
 use Nova\Stories\Models\Builders\StoryBuilder;
 use Nova\Stories\Models\States\Current;
@@ -19,6 +23,7 @@ use Nova\Stories\Models\States\StoryStatus;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\EloquentSortable\Sortable;
+use Spatie\LaravelData\WithData;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\ModelStates\HasStates;
 use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
@@ -31,20 +36,20 @@ class Story extends Model implements HasMedia, Sortable
     use InteractsWithMedia;
     use SortableTrait;
     use LogsActivity;
+    use WithData;
 
     protected $table = 'stories';
 
     protected $fillable = [
-        'title', 'status', 'parent_id', 'description', 'summary', 'start_date',
-        'end_date', 'order_column',
+        'title', 'status', 'parent_id', 'description', 'summary', 'started_at',
+        'ended_at', 'order_column',
     ];
 
     protected $casts = [
-        'end_date' => 'datetime',
+        'ended_at' => DateTimeCast::class,
         'parent_id' => 'integer',
         'order_column' => 'integer',
-        'start_date' => 'datetime',
-        'end_data' => 'datetime',
+        'started_at' => DateTimeCast::class,
         'status' => StoryStatus::class,
     ];
 
@@ -54,12 +59,19 @@ class Story extends Model implements HasMedia, Sortable
         'updated' => Events\StoryUpdated::class,
     ];
 
-    public function allPosts()
+    protected $dataClass = StoryData::class;
+
+    public function allPosts(): HasMany
     {
         return $this->hasMany(Post::class, 'story_id')->ordered();
     }
 
-    public function posts()
+    public function parentStory(): BelongsTo
+    {
+        return $this->belongsTo(self::class, 'parent_id');
+    }
+
+    public function posts(): HasMany
     {
         return $this->hasMany(Post::class, 'story_id')
             ->published()
@@ -73,7 +85,7 @@ class Story extends Model implements HasMedia, Sortable
             ->ordered();
     }
 
-    public function stories()
+    public function stories(): HasMany
     {
         return $this->hasMany(self::class, 'parent_id');
     }
@@ -83,28 +95,10 @@ class Story extends Model implements HasMedia, Sortable
         return $this->stories()->with('recursiveStories');
     }
 
-    public function allStoriesPostCount(): Attribute
+    public function hasSummary(): Attribute
     {
         return new Attribute(
-            get: function ($value): int {
-                if ($this->stories()->count() > 0) {
-                    return Story::query()
-                        ->where('id', $this->id)
-                        ->descendantsAndSelf()
-                        ->sum('postCount');
-                }
-
-                return 0;
-            }
-        );
-    }
-
-    public function wordsCount(): Attribute
-    {
-        return new Attribute(
-            get: function ($value): int {
-                return (int) $this->posts()->sum('word_count');
-            }
+            get: fn (): bool => $this->summary && filled(strip_tags($this->summary))
         );
     }
 
@@ -146,9 +140,10 @@ class Story extends Model implements HasMedia, Sortable
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('story-images')
+        $this->addMediaCollection('story-image')
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'])
-            ->singleFile();
+            ->singleFile()
+            ->useDisk('media');
     }
 
     public function buildSortQuery(): Builder
@@ -180,5 +175,14 @@ class Story extends Model implements HasMedia, Sortable
     public static function getMediaPath(): string
     {
         return 'stories/{model_id}/{media_id}/';
+    }
+
+    public static function getStatuses(): Collection
+    {
+        $model = new static();
+
+        return StoryStatus::all()
+            ->flatMap(fn (string $className): array => [new $className($model)])
+            ->sortBy(fn ($status) => $status->order());
     }
 }
