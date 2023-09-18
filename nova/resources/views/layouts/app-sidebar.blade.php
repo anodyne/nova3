@@ -130,6 +130,17 @@
 
                                         <li>
                                             <x-nav.main-item-mobile
+                                                :href="route('stories.timeline')"
+                                                :active="request()->routeIs('stories.timeline')"
+                                                icon="timeline"
+                                                :meta="$meta"
+                                            >
+                                                Story Timeline
+                                            </x-nav.main-item-mobile>
+                                        </li>
+
+                                        <li>
+                                            <x-nav.main-item-mobile
                                                 :href="route('notes.index')"
                                                 :active="request()->routeIs('notes.*')"
                                                 icon="note"
@@ -331,6 +342,17 @@
                                         </x-nav.main-item>
                                     </li>
                                 @endif
+
+                                <li>
+                                    <x-nav.main-item
+                                        :href="route('stories.timeline')"
+                                        :active="request()->routeIs('stories.timeline')"
+                                        icon="timeline"
+                                        :meta="$meta"
+                                    >
+                                        Story Timeline
+                                    </x-nav.main-item>
+                                </li>
 
                                 <li>
                                     <x-nav.main-item

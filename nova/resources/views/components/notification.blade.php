@@ -30,7 +30,7 @@
                 <div>
                     <x-button.text
                         wire:click="clearNotification('{{ $notification['id'] }}')"
-                        color="light-gray"
+                        color="subtle-neutral"
                         class="ml-6 shrink-0"
                     >
                         <x-icon.x-circle class="h-4 w-4"></x-icon.x-circle>

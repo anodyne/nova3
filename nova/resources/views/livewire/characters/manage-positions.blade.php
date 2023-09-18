@@ -74,7 +74,7 @@
 
                     <div class="flex items-center justify-end space-x-3">
                         <x-dropdown placement="bottom-end">
-                            <x-slot name="trigger" color="gray-danger">
+                            <x-slot name="trigger" color="neutral-danger">
                                 <x-icon name="trash" size="sm"></x-icon>
                             </x-slot>
 

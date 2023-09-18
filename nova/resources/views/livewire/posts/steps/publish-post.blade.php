@@ -271,7 +271,7 @@
                                 </div>
 
                                 <x-dropdown placement="bottom-end">
-                                    <x-slot:trigger color="gray-danger">
+                                    <x-slot name="trigger" color="neutral-danger">
                                         <x-icon name="trash" size="md"></x-icon>
                                     </x-slot>
 
@@ -327,7 +327,7 @@
 
         {{-- @can('delete', $post) --}}
         <div>
-            <x-button.text href="#" color="gray-danger">Discard draft</x-button.text>
+            <x-button.text href="#" color="neutral-danger">Discard draft</x-button.text>
         </div>
         {{-- @endcan --}}
     </x-content-box>

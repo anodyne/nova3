@@ -13,7 +13,7 @@
         @endisset
     </div>
 
-    <div class="font-medium">
+    <div class="whitespace-normal font-medium">
         {{ $post->title }}
     </div>
 </div>

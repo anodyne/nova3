@@ -1,6 +1,6 @@
 @props([
     'stories',
-    'selectedStory' => null,
+    'expanded' => false,
 ])
 
 <ul>
@@ -8,9 +8,7 @@
         <li class="relative flex w-full items-baseline gap-10">
             <div
                 @class([
-                    'before:absolute before:bottom-0 before:left-[5px] before:top-[54px] before:h-full before:w-0.5 before:bg-gray-300 dark:before:bg-gray-700' => ! $loop->last,
-                    // 'after:absolute after:left-[5px] after:top-[52px] after:w-0.5 after:bg-gray-200 dark:after:bg-gray-700' => ! $loop->last,
-                    '' => false,
+                    'before:absolute before:bottom-0 before:left-[5px] before:top-[51px] before:h-full before:w-0.5 before:bg-gray-300 dark:before:bg-gray-700' => ! $loop->last,
                 ])
             >
                 <div
@@ -20,102 +18,98 @@
                     ])
                 ></div>
             </div>
-            <div class="flex-1">
-                <div class="flex-1">
-                    <x-content-box width="none" height="none" class="my-6 flex items-baseline gap-6">
-                        <div class="flex-1">
-                            <x-h2 class="mb-1">{{ $story->title }}</x-h2>
-                            <div class="leading-7 text-gray-600 dark:text-gray-400">{{ $story->description }}</div>
-                            <div
-                                class="relative mt-3 flex flex-col space-y-3 text-base md:flex-row md:items-center md:space-x-8 md:space-y-0 md:text-sm"
-                            >
-                                <span>
-                                    <x-badge :color="$story->status->color()">
-                                        {{ $story->status->displayName() }}
-                                    </x-badge>
-                                </span>
+            <div
+                class="flex-1 pt-6"
+                @if ($story->children_count === 0)
+                    x-data="{ expanded: true }"
+                @endif
+                @if ($story->children_count > 0 && ! $expanded)
+                    x-data="{ expanded: @js($story->status != 'completed') }"
+                @endif
+            >
+                <div
+                    @class([
+                        'flex items-center justify-between gap-6',
+                        'cursor-pointer' => $story->children_count > 0 && ! $expanded,
+                    ])
+                    @if ($story->children_count > 0 && ! $expanded)
+                        x-on:click="expanded = !expanded"
+                    @endif
+                >
+                    <div class="flex items-center gap-6">
+                        <x-h2>{{ $story->title }}</x-h2>
 
-                                <span class="font-medium text-gray-500 dark:text-gray-400">
-                                    {{ number_format((int) $story->posts_count) }}
-                                    @choice('post|posts', $story->posts_count)
-                                </span>
+                        <x-badge :color="$story->status->color()">
+                            {{ $story->status->displayName() }}
+                        </x-badge>
+                    </div>
 
-                                @if ($story->children->count() > 0)
-                                    <span class="font-medium text-gray-500 dark:text-gray-400">
-                                        {{ number_format((int) $story->recursive_posts_count) }} posts in all stories
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+                    @if ($story->children_count > 0)
                         <div class="shrink-0">
-                            <x-dropdown placement="bottom-end">
-                                <x-slot name="trigger">
-                                    <x-icon.more class="h-7 w-7 md:h-6 md:w-6" />
-                                </x-slot>
-
-                                <x-dropdown.group>
-                                    @can('view', $story)
-                                        <x-dropdown.item :href="route('stories.show', $story)" icon="show">
-                                            <span>View</span>
-                                        </x-dropdown.item>
-                                    @endcan
-
-                                    @can('update', $story)
-                                        <x-dropdown.item :href="route('stories.edit', $story)" icon="edit">
-                                            <span>Edit</span>
-                                        </x-dropdown.item>
-                                    @endcan
-                                </x-dropdown.group>
-
-                                @can('view', $story)
-                                    <x-dropdown.group>
-                                        <x-dropdown.item icon="list">
-                                            <span>Posts</span>
-                                        </x-dropdown.item>
-                                    </x-dropdown.group>
-                                @endcan
-
-                                @can('create', $story)
-                                    <x-dropdown.group>
-                                        <x-dropdown.header>Add a story</x-dropdown.header>
-                                        <x-dropdown.item
-                                            :href="route('stories.create', 'direction=before&neighbor='.$story->id)"
-                                            icon="move-up"
-                                        >
-                                            Before this story
-                                        </x-dropdown.item>
-                                        <x-dropdown.item
-                                            :href="route('stories.create', 'direction=after&neighbor='.$story->id)"
-                                            icon="move-down"
-                                        >
-                                            <span>After this story</span>
-                                        </x-dropdown.item>
-                                        <x-dropdown.item
-                                            :href="route('stories.create', 'parent='.$story->id)"
-                                            icon="move-right"
-                                        >
-                                            <span>Inside this story</span>
-                                        </x-dropdown.item>
-                                    </x-dropdown.group>
-                                @endcan
-
-                                @can('delete', $story)
-                                    <x-dropdown.group>
-                                        <x-dropdown.item-danger :href="route('stories.delete', $story)" icon="trash">
-                                            <span>Delete</span>
-                                        </x-dropdown.item-danger>
-                                    </x-dropdown.group>
-                                @endcan
-                            </x-dropdown>
+                            <x-icon
+                                name="add"
+                                size="md"
+                                class="text-gray-400 dark:text-gray-500"
+                                x-show="!expanded"
+                            ></x-icon>
+                            <x-icon
+                                name="remove"
+                                size="md"
+                                class="text-gray-400 dark:text-gray-500"
+                                x-show="expanded"
+                            ></x-icon>
                         </div>
-                    </x-content-box>
+                    @endif
                 </div>
 
-                @if ($story->children->count() > 0)
-                    <div class="relative w-full">
-                        <x-stories.timeline :stories="$story->children" />
+                <div
+                    @if ($story->children_count === 0 || ! $expanded)
+                        x-show="expanded"
+                        x-collapse
+                    @endif
+                >
+                    <div class="mt-3 flex-1">
+                        <x-content-box width="none" height="none" class="mb-6 flex flex-col gap-6">
+                            <div class="flex-1">
+                                <div
+                                    class="prose max-w-none dark:prose-invert prose-a:text-primary-500 hover:prose-a:text-primary-600 dark:hover:prose-a:text-primary-400"
+                                >
+                                    {!! $story->description !!}
+                                </div>
+                                <div
+                                    class="relative mt-3 flex flex-col space-y-3 text-base md:flex-row md:items-center md:space-x-8 md:space-y-0 md:text-sm"
+                                >
+                                    <span class="font-medium text-gray-500 dark:text-gray-400">
+                                        {{ number_format((int) $story->posts_count) }}
+                                        @choice('post|posts', $story->posts_count)
+                                    </span>
+
+                                    <span class="font-medium text-gray-500 dark:text-gray-400">
+                                        {{ number_format((int) $story->posts_sum_word_count) }}
+                                        @choice('word|words', $story->posts_sum_word_count)
+                                    </span>
+
+                                    @if ($story->children_count > 0)
+                                        <span class="font-medium text-gray-500 dark:text-gray-400">
+                                            {{ number_format((int) $story->recursive_posts_count) }} posts (all
+                                            contained stories)
+                                        </span>
+                                    @endif
+
+                                    <x-button.text :href="route('stories.show', $story)" color="neutral-primary">
+                                        Go to story &rarr;
+                                    </x-button.text>
+                                </div>
+                            </div>
+                        </x-content-box>
                     </div>
-                @endif
+
+                    @if ($story->children_count > 0)
+                        <div class="relative w-full">
+                            <x-stories.timeline :stories="$story->children" />
+                        </div>
+                    @endif
+                </div>
             </div>
         </li>
     @endforeach

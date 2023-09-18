@@ -13,15 +13,17 @@
         toggle: function (event) {
             $refs.panel.toggle(event)
         },
+
         open: function (event) {
             $refs.panel.open(event)
         },
+
         close: function (event) {
             $refs.panel.close(event)
         },
     }"
-    x-on:keydown.window.escape="close"
-    x-on:click.away="close"
+    {{-- x-on:keydown.window.escape="close" --}}
+    {{-- x-on:click.away="close" --}}
     x-on:dropdown-toggle="toggle"
     x-on:dropdown-close.window="close"
     class="relative inline-block text-left leading-0"

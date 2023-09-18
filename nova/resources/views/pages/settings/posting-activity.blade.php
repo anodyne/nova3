@@ -62,13 +62,13 @@
                                 </div>
                                 <div class="ml-8 flex shrink-0 space-x-3">
                                     <x-icon
-                                        name="chevron-down"
+                                        name="add"
                                         size="md"
                                         class="text-gray-400 dark:text-gray-500"
                                         x-show="strategy !== 'posts'"
                                     ></x-icon>
                                     <x-icon
-                                        name="chevron-up"
+                                        name="remove"
                                         size="md"
                                         class="text-gray-400 dark:text-gray-500"
                                         x-show="strategy === 'posts'"
