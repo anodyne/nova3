@@ -19,7 +19,7 @@ class UploadImage extends Component
 
     public $actionMessage = 'Upload a file';
 
-    public $supportMessage = 'PNG, JPG, GIF up to 5MB';
+    public $supportMessage = 'PNG, JPG, GIF up to 10MB';
 
     public function updatedImage()
     {
