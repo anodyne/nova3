@@ -4,15 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Livewire;
 
-use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
-use Filament\Tables\Concerns\InteractsWithTable;
-use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TrashedFilter;
@@ -21,7 +17,6 @@ use Filament\Tables\Table;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Livewire\Component;
 use Nova\Characters\Actions\ActivateCharacter;
 use Nova\Characters\Actions\DeactivateCharacter;
 use Nova\Characters\Actions\DeleteCharacter;
@@ -39,12 +34,10 @@ use Nova\Foundation\Filament\Actions\DeleteBulkAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\RestoreAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
+use Nova\Foundation\Livewire\TableComponent;
 
-class CharactersList extends Component implements HasForms, HasTable
+class CharactersList extends TableComponent
 {
-    use InteractsWithForms;
-    use InteractsWithTable;
-
     protected $queryString = [
         'tableFilters',
     ];
@@ -227,7 +220,7 @@ class CharactersList extends Component implements HasForms, HasTable
             ->filters([
                 SelectFilter::make('status')
                     ->multiple()
-                    ->options(fn () => Character::getStatesFor('status')),
+                    ->options(fn () => Character::getStatesFor('status')->flatMap(fn ($state) => [$state => ucfirst($state)])->all()),
                 SelectFilter::make('type')
                     ->multiple()
                     ->options(CharacterType::class),
@@ -254,10 +247,5 @@ class CharactersList extends Component implements HasForms, HasTable
                     ->url(route('characters.create'))
                     ->authorize('createAny'),
             ]);
-    }
-
-    public function render()
-    {
-        return view('livewire.filament-table');
     }
 }

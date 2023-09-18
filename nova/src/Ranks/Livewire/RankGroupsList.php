@@ -6,12 +6,8 @@ namespace Nova\Ranks\Livewire;
 
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Concerns\InteractsWithTable;
-use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
@@ -19,7 +15,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Livewire\Component;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
@@ -27,6 +22,7 @@ use Nova\Foundation\Filament\Actions\DeleteBulkAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ReplicateAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
+use Nova\Foundation\Livewire\TableComponent;
 use Nova\Ranks\Actions\DeleteRankGroupManager;
 use Nova\Ranks\Actions\DuplicateRankGroup;
 use Nova\Ranks\Concerns\FindRankImages;
@@ -35,10 +31,8 @@ use Nova\Ranks\Enums\RankGroupStatus;
 use Nova\Ranks\Events\RankGroupDuplicated;
 use Nova\Ranks\Models\RankGroup;
 
-class RankGroupsList extends Component implements HasForms, HasTable
+class RankGroupsList extends TableComponent
 {
-    use InteractsWithForms;
-    use InteractsWithTable;
     use FindRankImages;
 
     public function table(Table $table): Table
@@ -143,10 +137,5 @@ class RankGroupsList extends Component implements HasForms, HasTable
                     ->label('Add a rank group')
                     ->url(route('ranks.groups.create')),
             ]);
-    }
-
-    public function render(): ?View
-    {
-        return view('livewire.filament-table');
     }
 }

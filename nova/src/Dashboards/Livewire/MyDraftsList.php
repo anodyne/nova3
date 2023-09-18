@@ -4,31 +4,24 @@ declare(strict_types=1);
 
 namespace Nova\Dashboards\Livewire;
 
-use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
-use Filament\Tables\Concerns\InteractsWithTable;
-use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Livewire\Component;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
+use Nova\Foundation\Livewire\TableComponent;
 use Nova\Notes\Actions\DeleteNote;
 use Nova\Posts\Models\Post;
 use Nova\Stories\Models\Story;
 
-class MyDraftsList extends Component implements HasForms, HasTable
+class MyDraftsList extends TableComponent
 {
-    use InteractsWithForms;
-    use InteractsWithTable;
-
     public function table(Table $table): Table
     {
         return $table
@@ -118,10 +111,5 @@ class MyDraftsList extends Component implements HasForms, HasTable
                     ->icon(iconName('write'))
                     ->url(route('posts.create')),
             ]);
-    }
-
-    public function render()
-    {
-        return view('livewire.filament-table');
     }
 }

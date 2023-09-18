@@ -4,17 +4,12 @@ declare(strict_types=1);
 
 namespace Nova\Notes\Livewire;
 
-use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Concerns\InteractsWithTable;
-use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Livewire\Component;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
@@ -22,16 +17,14 @@ use Nova\Foundation\Filament\Actions\DeleteBulkAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ReplicateAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
+use Nova\Foundation\Livewire\TableComponent;
 use Nova\Notes\Actions\DeleteNote;
 use Nova\Notes\Actions\DuplicateNote;
 use Nova\Notes\Events\NoteDuplicated;
 use Nova\Notes\Models\Note;
 
-class NotesList extends Component implements HasForms, HasTable
+class NotesList extends TableComponent
 {
-    use InteractsWithForms;
-    use InteractsWithTable;
-
     public function table(Table $table): Table
     {
         return $table
@@ -115,10 +108,5 @@ class NotesList extends Component implements HasForms, HasTable
                     ->label('Add a note')
                     ->url(route('notes.create')),
             ]);
-    }
-
-    public function render()
-    {
-        return view('livewire.filament-table');
     }
 }
