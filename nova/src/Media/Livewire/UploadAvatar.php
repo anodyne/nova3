@@ -6,6 +6,7 @@ namespace Nova\Media\Livewire;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Nova\Media\Rules\MaxFileSize;
 
 class UploadAvatar extends Component
 {
@@ -24,7 +25,7 @@ class UploadAvatar extends Component
     public function updatedAvatar()
     {
         $this->validate([
-            'avatar' => ['image', 'max:5000'],
+            'avatar' => ['image', new MaxFileSize()],
         ]);
 
         $this->path = $this->avatar->getRealPath();
