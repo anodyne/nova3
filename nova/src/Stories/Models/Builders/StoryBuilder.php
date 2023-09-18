@@ -4,22 +4,15 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Models\Builders;
 
-use Nova\Foundation\Filters\Filterable;
 use Nova\Stories\Models\States\Completed;
 use Nova\Stories\Models\States\Current;
 use Nova\Stories\Models\States\Ongoing;
 use Nova\Stories\Models\States\Upcoming;
+use Nova\Stories\Models\Story;
 use Staudenmeir\LaravelAdjacencyList\Eloquent\Builder;
 
 class StoryBuilder extends Builder
 {
-    use Filterable;
-
-    public function searchFor($value): self
-    {
-        return $this->where('title', 'like', "%{$value}%");
-    }
-
     public function completed(): self
     {
         return $this->whereState('status', Completed::class);
@@ -35,18 +28,23 @@ class StoryBuilder extends Builder
         return $this->whereState('status', Ongoing::class);
     }
 
-    public function parent($parent = null): self
+    public function parent(Story|int|null $parent): self
     {
-        return $this->where('parent_id', $parent);
+        return $this
+            ->when(is_int($parent), fn (Builder $query): Builder => $query->where('parent_id', $parent))
+            ->unless(is_int($parent), fn (Builder $query): Builder => $query->where('parent_id', $parent?->id));
+    }
+
+    public function searchFor($value): self
+    {
+        return $this->where(function (Builder $query) use ($value): Builder {
+            return $query->where('title', 'like', "%{$value}%")
+                ->orWhere('description', 'like', "%{$value}%");
+        });
     }
 
     public function upcoming(): self
     {
         return $this->whereState('status', Upcoming::class);
-    }
-
-    public function notUpcoming(): self
-    {
-        return $this->whereNotState('status', Upcoming::class);
     }
 }

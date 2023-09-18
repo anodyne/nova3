@@ -6,15 +6,11 @@ namespace Nova\Users\Livewire;
 
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
-use Filament\Tables\Concerns\InteractsWithTable;
-use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
@@ -24,8 +20,8 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Livewire\Component;
 use Nova\Foundation\Filament\Actions;
+use Nova\Foundation\Livewire\TableComponent;
 use Nova\Users\Actions\ActivateUser;
 use Nova\Users\Actions\ActivateUserPreviousCharacter;
 use Nova\Users\Actions\DeactivateUser;
@@ -35,11 +31,8 @@ use Nova\Users\Events\UserActivated;
 use Nova\Users\Events\UserDeactivated;
 use Nova\Users\Models\User;
 
-class UsersList extends Component implements HasForms, HasTable
+class UsersList extends TableComponent
 {
-    use InteractsWithForms;
-    use InteractsWithTable;
-
     public function table(Table $table): Table
     {
         return $table
@@ -269,10 +262,5 @@ class UsersList extends Component implements HasForms, HasTable
                     ->label('Add a user')
                     ->url(route('users.create')),
             ]);
-    }
-
-    public function render()
-    {
-        return view('livewire.filament-table');
     }
 }

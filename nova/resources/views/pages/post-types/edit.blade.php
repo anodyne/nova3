@@ -162,13 +162,13 @@
                                     <x-badge color="gray" x-show="!enabled">Disabled</x-badge>
 
                                     <x-icon
-                                        name="chevron-down"
+                                        name="add"
                                         size="md"
                                         class="text-gray-400 dark:text-gray-500"
                                         x-show="!expanded"
                                     ></x-icon>
                                     <x-icon
-                                        name="chevron-up"
+                                        name="remove"
                                         size="md"
                                         class="text-gray-400 dark:text-gray-500"
                                         x-show="expanded"

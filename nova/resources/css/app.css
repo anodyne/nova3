@@ -8,6 +8,7 @@
 @import "components/icon.css";
 @import "components/rank.css";
 
+@import "plugins/tagify.css";
 @import "plugins/tippy.css";
 
 @import "tailwindcss/utilities";

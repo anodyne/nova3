@@ -444,7 +444,7 @@
 
         {{-- @can('delete', $post) --}}
         <div>
-            <x-button.text href="#" color="gray-danger" size="none">Discard draft</x-button.text>
+            <x-button.text href="#" color="neutral-danger" size="none">Discard draft</x-button.text>
         </div>
         {{-- @endcan --}}
     </div>

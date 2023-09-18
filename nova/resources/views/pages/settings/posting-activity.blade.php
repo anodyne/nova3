@@ -62,13 +62,13 @@
                                 </div>
                                 <div class="ml-8 flex shrink-0 space-x-3">
                                     <x-icon
-                                        name="chevron-down"
+                                        name="add"
                                         size="md"
                                         class="text-gray-400 dark:text-gray-500"
                                         x-show="strategy !== 'posts'"
                                     ></x-icon>
                                     <x-icon
-                                        name="chevron-up"
+                                        name="remove"
                                         size="md"
                                         class="text-gray-400 dark:text-gray-500"
                                         x-show="strategy === 'posts'"
@@ -82,7 +82,7 @@
                                 >
                                     <div class="space-y-3">
                                         <x-input.group label="Required number of published story posts">
-                                            <x-input.text trailing-add-on="per month"></x-input.text>
+                                            <x-input.text trailing="per month"></x-input.text>
                                         </x-input.group>
                                     </div>
                                 </div>
@@ -162,7 +162,7 @@
                                 >
                                     <div class="space-y-3">
                                         <x-input.group label="Required number of published story post words">
-                                            <x-input.text trailing-add-on="per month"></x-input.text>
+                                            <x-input.text trailing="per month"></x-input.text>
                                         </x-input.group>
                                     </div>
                                 </div>
@@ -196,10 +196,7 @@
                                 >
                                     <div class="space-y-3">
                                         <x-input.group label="Story post word count conversion">
-                                            <x-input.text
-                                                leading-add-on="1 story post equals"
-                                                trailing-add-on="words"
-                                            ></x-input.text>
+                                            <x-input.text leading="1 story post equals" trailing="words"></x-input.text>
                                         </x-input.group>
                                     </div>
                                 </div>
@@ -469,8 +466,8 @@
                     <x-input.text
                         name="word-count-post-conversion"
                         value="{{ $settings->posting_activity->wordCountPostConversion }}"
-                        leading-add-on="1 story post equals"
-                        trailing-add-on="words"
+                        leading="1 story post equals"
+                        trailing="words"
                     />
                 </x-input.group>
             </x-form.section>

@@ -53,19 +53,19 @@
                 message="Keep track of milestones and latest activity of a user in the system."
             >
                 <x-input.group label="Joined">
-                    <p class="font-semibold">{{ $user->created_at }}</p>
+                    <p class="font-semibold">{{ format_date($user->created_at) }}</p>
                 </x-input.group>
 
                 <x-input.group label="Last activity">
-                    <p class="font-semibold">{{ $user->updated_at }}</p>
+                    <p class="font-semibold">{{ format_date($user->updated_at) }}</p>
                 </x-input.group>
 
                 <x-input.group label="Last sign in">
-                    <p class="font-semibold">{{ $user->latestLogin->created_at }}</p>
+                    <p class="font-semibold">{{ format_date($user->latestLogin->created_at) }}</p>
                 </x-input.group>
 
                 <x-input.group label="Last posted">
-                    <p class="font-semibold">{{ $user->latestPost[0]->published_at }}</p>
+                    <p class="font-semibold">{{ format_date($user->latestPost[0]->published_at) }}</p>
                 </x-input.group>
             </x-form.section>
 

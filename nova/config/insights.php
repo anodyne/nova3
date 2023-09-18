@@ -74,7 +74,6 @@ return [
         'nova/config/',
         'nova/database/',
         'nova/resources/',
-        'nova/vendor/',
         'storage/',
         'themes/',
         'vendor/',

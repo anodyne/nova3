@@ -38,31 +38,13 @@
                 @endif
 
                 <x-content-box>
-                    <div class="grid grid-cols-1 gap-px bg-white/5 lg:grid-cols-3">
-                        <div class="px-4 sm:px-6">
-                            <p class="text-sm font-medium leading-6">Assigned positions</p>
-                            <p class="mt-2 flex items-baseline gap-x-2">
-                                <span class="text-4xl font-semibold tracking-tight text-gray-900">
-                                    {{ $department->positions_count }}
-                                </span>
-                            </p>
-                        </div>
-                        <div class="px-4 sm:px-6">
-                            <p class="text-sm font-medium leading-6">Assigned characters</p>
-                            <p class="mt-2 flex items-baseline gap-x-2">
-                                <span class="text-4xl font-semibold tracking-tight text-gray-900">
-                                    {{ $department->active_characters_count }}
-                                </span>
-                            </p>
-                        </div>
-                        <div class="px-4 sm:px-6">
-                            <p class="text-sm font-medium leading-6">Playing users</p>
-                            <p class="mt-2 flex items-baseline gap-x-2">
-                                <span class="text-4xl font-semibold tracking-tight text-gray-900">
-                                    {{ $department->active_users_count }}
-                                </span>
-                            </p>
-                        </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-3">
+                        <x-panel.stat label="Assigned positions" :value="$department->positions_count"></x-panel.stat>
+                        <x-panel.stat
+                            label="Assigned characters"
+                            :value="$department->active_characters_count"
+                        ></x-panel.stat>
+                        <x-panel.stat label="Playing users" :value="$department->active_users_count"></x-panel.stat>
                     </div>
                 </x-content-box>
 

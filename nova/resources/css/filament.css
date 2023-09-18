@@ -2,6 +2,10 @@
     @apply rounded-none bg-white shadow ring-1 ring-gray-950/5 dark:!bg-gray-900 dark:shadow-md dark:ring-inset dark:!ring-white/[.03] md:rounded-lg;
 }
 
+.fi-simple-table .filament-tables-container {
+    @apply shadow-none ring-0 dark:shadow-none md:rounded-none;
+}
+
 .filament-tables-header-hr-wrapper {
     @apply px-0 pt-0;
 }
@@ -26,7 +30,7 @@
 }
 
 .filament-tables-header .filament-tables-actions-container {
-    @apply md:!me-0;
+    @apply gap-6 md:!me-0;
 }
 .filament-tables-actions-container .filament-button {
     @apply w-full text-base md:w-auto md:text-sm/6;
@@ -146,6 +150,10 @@
 }
 .filament-tables-pagination-records-per-page-selector > label > select {
     @apply form-select block h-auto w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-400 dark:bg-gray-700/50 dark:text-white dark:ring-gray-200/[15%] dark:focus:bg-gray-800 dark:focus:ring-primary-600;
+}
+
+.filament-tables-summary-row > td:first-child > div {
+    @apply px-6 py-3;
 }
 
 .filament-tables-empty-state {

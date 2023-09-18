@@ -32,7 +32,7 @@ class ColorShadePicker extends Component
         }
 
         if (filled($this->selected)) {
-            return sprintf('rgb(%s)', constant('Filament\Support\Colors\Color::'.$this->selected)[500]);
+            return sprintf('rgb(%s)', constant('Nova\Foundation\Colors\Color::'.$this->selected)[500]);
         }
 
         return $this->selected;
@@ -50,11 +50,14 @@ class ColorShadePicker extends Component
 
         $colors = [
             'Red' => 'Red',
+            'RadicalRed' => 'Radical Red',
+            'ImperialRed' => 'Imperial Red',
             'Orange' => 'Orange',
             'Amber' => 'Amber',
             'Yellow' => 'Yellow',
             'Lime' => 'Lime',
             'Green' => 'Green',
+            'SeaGreen' => 'Sea Green',
             'Emerald' => 'Emerald',
             'Teal' => 'Teal',
             'Cyan' => 'Cyan',
@@ -63,7 +66,9 @@ class ColorShadePicker extends Component
             'Indigo' => 'Indigo',
             'Violet' => 'Violet',
             'Purple' => 'Purple',
+            'Orchid' => 'Orchid',
             'Fuchsia' => 'Fuchsia',
+            'Phlox' => 'Phlox',
             'Pink' => 'Pink',
             'Rose' => 'Rose',
         ];
@@ -79,27 +84,6 @@ class ColorShadePicker extends Component
             $grays,
             ['#' => 'Custom color']
         );
-
-        return [
-            'Red' => 'Red',
-            'Orange' => 'Orange',
-            'Amber' => 'Amber',
-            'Yellow' => 'Yellow',
-            'Lime' => 'Lime',
-            'Green' => 'Green',
-            'Emerald' => 'Emerald',
-            'Teal' => 'Teal',
-            'Cyan' => 'Cyan',
-            'Sky' => 'Sky',
-            'Blue' => 'Blue',
-            'Indigo' => 'Indigo',
-            'Violet' => 'Violet',
-            'Purple' => 'Purple',
-            'Fuchsia' => 'Fuchsia',
-            'Pink' => 'Pink',
-            'Rose' => 'Rose',
-            '#' => 'Custom color',
-        ];
     }
 
     public function resetField(): void

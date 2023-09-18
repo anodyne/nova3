@@ -5,12 +5,8 @@ declare(strict_types=1);
 namespace Nova\Ranks\Livewire;
 
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Concerns\InteractsWithTable;
-use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
@@ -18,7 +14,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Livewire\Component;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
@@ -26,6 +21,7 @@ use Nova\Foundation\Filament\Actions\DeleteBulkAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ReplicateAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
+use Nova\Foundation\Livewire\TableComponent;
 use Nova\Ranks\Actions\DeleteRankNameManager;
 use Nova\Ranks\Actions\DuplicateRankName;
 use Nova\Ranks\Data\RankNameData;
@@ -33,11 +29,8 @@ use Nova\Ranks\Enums\RankNameStatus;
 use Nova\Ranks\Events\RankNameDuplicated;
 use Nova\Ranks\Models\RankName;
 
-class RankNamesList extends Component implements HasForms, HasTable
+class RankNamesList extends TableComponent
 {
-    use InteractsWithForms;
-    use InteractsWithTable;
-
     public function table(Table $table): Table
     {
         return $table
@@ -135,10 +128,5 @@ class RankNamesList extends Component implements HasForms, HasTable
                     ->label('Add a rank name')
                     ->url(route('ranks.names.create')),
             ]);
-    }
-
-    public function render(): ?View
-    {
-        return view('livewire.filament-table');
     }
 }

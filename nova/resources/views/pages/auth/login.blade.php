@@ -14,7 +14,7 @@
                 required
                 autofocus
             >
-                <x-slot:leadingAddOn>
+                <x-slot name="leading">
                     <x-icon name="mail" size="md"></x-icon>
                 </x-slot>
             </x-input.email>
@@ -22,7 +22,7 @@
 
         <x-input.group label="Password" for="password">
             <x-input.password id="password" name="password" placeholder="Your password" data-cy="password" required>
-                <x-slot:leadingAddOn>
+                <x-slot name="leading">
                     <x-icon name="key" size="md"></x-icon>
                 </x-slot>
             </x-input.password>

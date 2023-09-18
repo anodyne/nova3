@@ -7,11 +7,11 @@
                         wire:model.debounce.500ms="search"
                         placeholder="Find a user to assign (type * to see all users)"
                     >
-                        <x-slot name="leadingAddOn">
+                        <x-slot name="leading">
                             <x-icon name="search" size="sm"></x-icon>
                         </x-slot>
 
-                        <x-slot name="trailingAddOn">
+                        <x-slot name="trailing">
                             @if ($search)
                                 <x-button.text tag="button" color="gray" wire:click="$set('search', '')">
                                     <x-icon name="dismiss" size="sm"></x-icon>
@@ -83,7 +83,7 @@
                         @endif
 
                         <x-dropdown placement="bottom-end">
-                            <x-slot name="trigger" color="gray-danger">
+                            <x-slot name="trigger" color="neutral-danger">
                                 <x-icon name="trash" size="sm"></x-icon>
                             </x-slot>
 

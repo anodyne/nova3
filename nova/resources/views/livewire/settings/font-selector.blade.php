@@ -38,13 +38,13 @@
                 </div>
                 <div class="ml-8 flex shrink-0 items-center space-x-3">
                     <x-icon
-                        name="chevron-down"
+                        name="add"
                         size="md"
                         class="text-gray-400 dark:text-gray-500"
                         x-show="provider !== 'local'"
                     ></x-icon>
                     <x-icon
-                        name="chevron-up"
+                        name="remove"
                         size="md"
                         class="text-gray-400 dark:text-gray-500"
                         x-show="provider === 'local'"
@@ -105,13 +105,13 @@
                 </div>
                 <div class="ml-8 flex shrink-0 items-center space-x-3">
                     <x-icon
-                        name="chevron-down"
+                        name="add"
                         size="md"
                         class="text-gray-400 dark:text-gray-500"
                         x-show="provider !== 'bunny'"
                     ></x-icon>
                     <x-icon
-                        name="chevron-up"
+                        name="remove"
                         size="md"
                         class="text-gray-400 dark:text-gray-500"
                         x-show="provider === 'bunny'"
@@ -174,13 +174,13 @@
                 </div>
                 <div class="ml-8 flex shrink-0 items-center space-x-3">
                     <x-icon
-                        name="chevron-down"
+                        name="add"
                         size="md"
                         class="text-gray-400 dark:text-gray-500"
                         x-show="provider !== 'google'"
                     ></x-icon>
                     <x-icon
-                        name="chevron-up"
+                        name="remove"
                         size="md"
                         class="text-gray-400 dark:text-gray-500"
                         x-show="provider === 'google'"

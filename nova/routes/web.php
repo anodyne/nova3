@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
+use Carbon\CarbonImmutable;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Route;
-use Nova\Characters\Models\Character;
-use Nova\Users\Models\User;
+use Nova\Stories\Models\Story;
 
 try {
     $pages = cache()->rememberForever('nova.pages', fn () => Nova\Pages\Models\Page::get());
@@ -19,23 +20,27 @@ try {
 Route::impersonate();
 
 Route::get('test', function () {
-    $user = User::first();
-    $character = Character::find(6);
+    // dd(Date::createFromFormat('Y-m-d H:i:s', '2005-02-21 19:00:00', 'America/New_York'));
+    // $now = Date::now('America/New_York');
+    $date = Date::createFromFormat('Y-m-d H:i:s', '2005-02-21 19:00:00', 'America/New_York');
 
-    // dd(User::query()->whereHas('latestPost', fn ($query) => $query->where('published_at', '<', now()->addDays(2)))->dd()->get());
+    // dd($date);
 
-    // dump($user->latestPost()->toSql());
-    // dump(data_get($user->latestPost, '0.title'));
+    // $story = Story::create([
+    //     'title' => 'Test',
+    //     'started_at' => $now,
+    // ]);
 
-    // ray($user->primaryCharacter->each(fn ($c) => ray($c->toArray())));
+    $story = Story::find(6);
+    // $story->update(['started_at' => $date]);
 
-    $user->primaryCharacter()
-        ->wherePivot('character_id', '!=', $character->id)
-        ->get()
-        ->each(fn (Character $c) => $user->primaryCharacter()->updateExistingPivot($c->id, ['primary' => false]))
-        ->refresh();
+    dd(
+        $story->started_at,
+        $story->ended_at
+        // CarbonImmutable::parse($story->started_at)->setTimezone('America/New_York')
+    );
 
-    ray($user->primaryCharacter->each(fn ($c) => ray($c->toArray())));
+    dd($story->started_at);
 
     return 'done';
 });

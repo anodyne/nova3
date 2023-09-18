@@ -1,5 +1,5 @@
 @extends($meta->template)
 
 @section('content')
-    @livewire('stories:delete-story', ['stories' => $storiesToDelete])
+    <livewire:stories-delete :stories="$storiesToDelete" />
 @endsection

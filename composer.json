@@ -20,7 +20,6 @@
         "filament/support": "^3.0.0-alpha",
         "filament/tables": "^3.0.0-alpha",
         "guzzlehttp/guzzle": "^7.2",
-        "kirschbaum-development/livewire-filters": "^0.5",
         "lab404/laravel-impersonate": "^1.7",
         "laravel/fortify": "^1.16",
         "laravel/framework": "^10.0",

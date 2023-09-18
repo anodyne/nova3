@@ -3,15 +3,22 @@
 ])
 
 <x-input.field x-data="{ value: '{{ $value }}' }">
-    <x-slot name="leadingAddOn">
+    <x-slot name="leading">
         <x-button.text tag="button" color="gray" x-on:click.prevent="value--">
             <x-icon name="remove" size="md"></x-icon>
         </x-button.text>
     </x-slot>
 
-    <input x-model="value" type="text" inputmode="numeric" pattern="[0-9]*" class="w-full appearance-none border-none bg-transparent p-0 text-center focus:outline-none focus:ring-0" {{ $attributes->merge(['step' => 1]) }} />
+    <input
+        x-model="value"
+        type="text"
+        inputmode="numeric"
+        pattern="[0-9]*"
+        class="w-full appearance-none border-none bg-transparent p-0 text-center focus:outline-none focus:ring-0"
+        {{ $attributes->merge(['step' => 1]) }}
+    />
 
-    <x-slot name="trailingAddOn">
+    <x-slot name="trailing">
         <x-button.text tag="button" color="gray" x-on:click.prevent="value++">
             <x-icon name="add" size="md"></x-icon>
         </x-button.text>

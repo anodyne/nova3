@@ -5,12 +5,8 @@ declare(strict_types=1);
 namespace Nova\Departments\Livewire;
 
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Concerns\InteractsWithTable;
-use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
@@ -18,7 +14,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Livewire\Component;
 use Nova\Departments\Actions\DeleteDepartment;
 use Nova\Departments\Actions\DuplicateDepartment;
 use Nova\Departments\Data\DepartmentData;
@@ -32,12 +27,10 @@ use Nova\Foundation\Filament\Actions\DeleteBulkAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ReplicateAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
+use Nova\Foundation\Livewire\TableComponent;
 
-class DepartmentsList extends Component implements HasForms, HasTable
+class DepartmentsList extends TableComponent
 {
-    use InteractsWithForms;
-    use InteractsWithTable;
-
     public function table(Table $table): Table
     {
         return $table
@@ -149,10 +142,5 @@ class DepartmentsList extends Component implements HasForms, HasTable
                     ->label('Add a department')
                     ->url(route('departments.create')),
             ]);
-    }
-
-    public function render()
-    {
-        return view('livewire.filament-table');
     }
 }

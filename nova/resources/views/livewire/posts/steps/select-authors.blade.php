@@ -155,7 +155,7 @@
 
                                 <x-slot name="actions">
                                     <x-dropdown placement="bottom-end">
-                                        <x-slot name="trigger" color="gray-danger">
+                                        <x-slot name="trigger" color="neutral-danger">
                                             <x-icon name="trash" size="md"></x-icon>
                                         </x-slot>
 
@@ -256,7 +256,7 @@
 
                                 <x-slot name="actions">
                                     <x-dropdown placement="bottom-end">
-                                        <x-slot name="trigger" color="gray-danger">
+                                        <x-slot name="trigger" color="neutral-danger">
                                             <x-icon name="trash" size="md"></x-icon>
                                         </x-slot>
 

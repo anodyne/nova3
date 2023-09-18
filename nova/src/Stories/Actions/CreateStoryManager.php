@@ -4,21 +4,19 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Actions;
 
-use Illuminate\Http\Request;
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Stories\Data\StoryData;
-use Nova\Stories\Data\StoryPositionData;
 use Nova\Stories\Models\Story;
+use Nova\Stories\Requests\StoreStoryRequest;
 
 class CreateStoryManager
 {
     use AsAction;
 
-    public function handle(Request $request): Story
+    public function handle(StoreStoryRequest $request): Story
     {
-        $story = CreateStory::run(StoryData::from($request));
+        $story = CreateStory::run($request->getStoryData());
 
-        SetStoryPosition::run($story, StoryPositionData::from($request));
+        SetStoryPosition::run($story, $request->getStoryPositionData());
 
         UpdateStoryStatus::run($story, $request->status);
 

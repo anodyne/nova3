@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Settings\Data;
 
-use Filament\Support\Colors\Color;
 use Illuminate\Contracts\Support\Arrayable;
+use Nova\Foundation\Colors\Color;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Data;
 
@@ -60,6 +60,6 @@ class Appearance extends Data implements Arrayable
             return Color::rgb($color);
         }
 
-        return constant('Filament\Support\Colors\Color::'.$color);
+        return constant('Nova\Foundation\Colors\Color::'.$color);
     }
 }

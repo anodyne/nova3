@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Setup\Providers;
 
-use Filament\Support\Colors\Color;
 use Filament\Support\Colors\ColorManager;
 use Nova\DomainServiceProvider;
+use Nova\Foundation\Colors\Color;
 use Nova\Foundation\Nova;
+use Nova\Setup\Actions\SeedRealStories;
 use Nova\Setup\Commands\RefreshNovaCommand;
 
 class SetupServiceProvider extends DomainServiceProvider
@@ -23,6 +24,7 @@ class SetupServiceProvider extends DomainServiceProvider
     {
         return [
             RefreshNovaCommand::class,
+            SeedRealStories::class,
         ];
     }
 

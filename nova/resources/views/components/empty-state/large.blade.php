@@ -2,8 +2,8 @@
     'icon',
     'title' => false,
     'message' => false,
-    'link',
-    'label',
+    'link' => false,
+    'label' => false,
     'linkAccess' => false,
 ])
 

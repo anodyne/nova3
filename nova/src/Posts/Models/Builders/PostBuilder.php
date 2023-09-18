@@ -9,6 +9,7 @@ use Nova\Posts\Models\Post;
 use Nova\Posts\Models\States\Draft;
 use Nova\Posts\Models\States\Published;
 use Nova\Posts\Models\States\Started;
+use Nova\Stories\Models\Story;
 use Nova\Users\Models\User;
 
 class PostBuilder extends Builder
@@ -59,8 +60,8 @@ class PostBuilder extends Builder
         return $this->whereState('status', Published::class);
     }
 
-    public function story($storyId): self
+    public function story(Story $story): self
     {
-        return $this->where('story_id', $storyId);
+        return $this->where('story_id', $story->id);
     }
 }

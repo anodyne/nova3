@@ -71,7 +71,7 @@
                 <div>
                     <x-button.text
                         type="button"
-                        color="gray-danger"
+                        color="neutral-danger"
                         leading="trash"
                         size="none-xs"
                         wire:click="removeAvatar"

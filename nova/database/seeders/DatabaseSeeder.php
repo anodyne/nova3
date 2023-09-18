@@ -25,7 +25,8 @@ class DatabaseSeeder extends Seeder
 
             CharacterSeeder::class,
 
-            StorySeeder::class,
+            // StorySeeder::class,
+            NimitzStorySeeder::class,
             PostSeeder::class,
         ]);
 

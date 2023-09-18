@@ -58,12 +58,6 @@
                 </x-input.group>
             </x-form.section>
 
-            <x-form.section title="Date format" message="You can set how dates are formatted throughout Nova here.">
-                <x-input.group>
-                    <x-input.text placeholder="Set date format"></x-input.text>
-                </x-input.group>
-            </x-form.section>
-
             <x-form.section
                 title="Colors"
                 message="Put your own personal touch on Nova by changing the colors used throughout the admin system. You can choose from a series of pre-defined color scales or specify your own color and a color scale will be created for you."

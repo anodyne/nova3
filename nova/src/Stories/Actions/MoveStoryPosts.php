@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Nova\Stories\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Posts\Actions\MovePost;
 use Nova\Stories\Models\Story;
 
 class MoveStoryPosts
@@ -14,7 +13,7 @@ class MoveStoryPosts
 
     public function handle(Story $oldStory, Story $newStory): Story
     {
-        $oldStory->posts->each(fn ($post) => MovePost::run($post, $newStory));
+        $oldStory->allPosts()->update(['story_id', $newStory->id]);
 
         return $newStory->refresh();
     }

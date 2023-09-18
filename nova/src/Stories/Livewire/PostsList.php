@@ -4,88 +4,104 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
-use Livewire\Component;
-use Nova\Foundation\Livewire\DataTable\WithBulkActions;
-use Nova\Foundation\Livewire\DataTable\WithPerPagePagination;
-use Nova\Foundation\Livewire\DataTable\WithSorting;
-use Nova\Roles\Models\Role;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ViewColumn;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Nova\Foundation\Filament\Actions\ActionGroup;
+use Nova\Foundation\Filament\Actions\DeleteAction;
+use Nova\Foundation\Filament\Actions\EditAction;
+use Nova\Foundation\Filament\Actions\ViewAction;
+use Nova\Foundation\Livewire\TableComponent;
+use Nova\Posts\Actions\DeletePost;
+use Nova\Posts\Models\Post;
 use Nova\Stories\Models\Story;
 
-class PostsList extends Component
+class PostsList extends TableComponent
 {
-    use WithBulkActions;
-    use WithPerPagePagination;
-    use WithSorting;
-
-    public $filters = [
-        'search' => '',
-        'types' => [],
-    ];
-
-    public $listeners = [
-        'permissionsSelected' => 'attachSelectedPermissions',
-    ];
-
-    public Story $story;
-
-    /**
-     * Detach selected permissions from the role.
-     */
-    public function detachSelectedPermissions(): void
+    public function table(Table $table): Table
     {
-        if ($this->selectAll) {
-            $this->role->syncPermissions([]);
-        } else {
-            $this->role->removePermissions($this->selected);
-        }
+        return $table
+            ->query(
+                Post::with('postType', 'story')
+                    ->when(request()->route('story'), fn (Builder $query, Story $story): Builder => $query->story($story))
+                    ->when(request()->route('story'), fn (Builder $query): Builder => $query->published())
+            )
+            ->defaultSort('order_column', 'desc')
+            ->paginationPageOptions([10, 25, 50])
+            ->defaultPaginationPageOption(25)
+            ->columns([
+                ViewColumn::make('title')
+                    ->view('filament.tables.columns.post-title')
+                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search))
+                    ->sortable(),
+                TextColumn::make('postType.name')
+                    ->wrap()
+                    ->sortable()
+                    ->toggleable(),
+                TextColumn::make('story.title')
+                    ->wrap()
+                    ->sortable()
+                    ->toggleable()
+                    ->visible(request()->route('story') === null),
+                TextColumn::make('location')
+                    ->wrap()
+                    ->sortable()
+                    ->toggleable(),
+                TextColumn::make('day')
+                    ->wrap()
+                    ->sortable()
+                    ->toggleable(),
+                TextColumn::make('time')
+                    ->wrap()
+                    ->sortable()
+                    ->toggleable(),
+                TextColumn::make('characterAuthors.name')
+                    ->listWithLineBreaks()
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
+                TextColumn::make('userAuthors.name')
+                    ->listWithLineBreaks()
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
+                TextColumn::make('updated_at')
+                    ->label('Last modified')
+                    ->since()
+                    ->sortable()
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
+            ])
+            ->actions([
+                ActionGroup::make([
+                    ActionGroup::make([
+                        ViewAction::make()
+                            ->authorize('view')
+                            ->url(fn (Model $record): string => route('posts.show', [$record->story, $record])),
+                        EditAction::make()
+                            ->authorize('update')
+                            ->url(fn (Model $record): string => route('posts.edit', $record)),
+                    ])->authorizeAny(['view', 'update'])->divided(),
 
-        $this->selected = [];
-    }
-
-    /**
-     * Get the query for the rows to be displayed in the data table.
-     */
-    public function getRowsQueryProperty()
-    {
-        $query = $this->story
-            ->posts()
-            ->when($this->filters['search'], fn ($query, $search) => $query->searchFor($search))
-            ->when($this->filters['types'], fn ($query, $types) => $query->whereIn('type', $types))
-            ->ordered();
-
-        return $this->applySorting($query);
-    }
-
-    /**
-     * Get the paginated rows to be displayed in the data table.
-     */
-    public function getRowsProperty()
-    {
-        return $this->applyPagination(
-            $this->rowsQuery,
-            $this->columns
-        );
-    }
-
-    /**
-     * Select all permissions.
-     */
-    public function selectAll()
-    {
-        $this->selectAll = true;
-
-        $this->selected = $this->role->permissions->pluck('id')->map(fn ($id) => (string) $id);
-    }
-
-    public function mount(Story $story)
-    {
-        $this->story = $story;
-    }
-
-    public function render()
-    {
-        return view('livewire.stories.posts-list', [
-            'posts' => $this->rows,
-        ]);
+                    ActionGroup::make([
+                        DeleteAction::make()
+                            ->modalContentView('pages.posts.delete')
+                            ->successNotificationTitle(fn (Model $record): string => $record->title.' post was deleted')
+                            ->using(fn (Model $record): Model => DeletePost::run($record)),
+                    ])->authorize('delete')->divided(),
+                ]),
+            ])
+            ->filters([
+                SelectFilter::make('postType')
+                    ->relationship('postType', 'name')
+                    ->multiple(),
+                SelectFilter::make('story')
+                    ->relationship('story', 'title')
+                    ->multiple()
+                    ->visible(request()->route('story') === null),
+            ])
+            ->emptyStateIcon(iconName('write'))
+            ->emptyStateHeading('No posts found');
     }
 }

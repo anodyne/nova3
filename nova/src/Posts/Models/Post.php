@@ -51,6 +51,7 @@ class Post extends Model implements Sortable
         'rating_sex' => 'integer',
         'rating_violence' => 'integer',
         'status' => PostStatus::class,
+        'word_count' => 'integer',
     ];
 
     protected $dispatchesEvents = [
@@ -139,7 +140,7 @@ class Post extends Model implements Sortable
     public function buildSortQuery(): Builder
     {
         return static::query()
-            ->story($this->story_id)
+            ->story($this->story)
             ->whereNotState('status', Started::class);
     }
 

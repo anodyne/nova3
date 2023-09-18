@@ -2,11 +2,11 @@
     <div class="flex items-center space-x-3">
         @if (str($selected)->startsWith('#'))
             <x-input.text name="{{ $name }}" wire:model.debounce.500ms="selected">
-                <x-slot:trailingAddOn>
+                <x-slot name="trailing">
                     <button type="button" wire:click="resetField">
                         <x-icon name="dismiss" size="sm"></x-icon>
                     </button>
-                </x-slot:trailingAddOn>
+                </x-slot>
             </x-input.text>
         @else
             <x-input.select name="{{ $name }}" wire:model="selected">
@@ -18,7 +18,7 @@
         @endif
 
         <div class="shrink-0">
-            <div class="h-8 w-8 rounded-full" style="background-color:{{ $this->previewColor }}"></div>
+            <div class="h-8 w-8 rounded-full" style="background-color: {{ $this->previewColor }}"></div>
         </div>
     </div>
 </div>

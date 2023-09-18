@@ -35,7 +35,7 @@ class StoryFactory extends Factory
     {
         return $this->state([
             'status' => Current::$name,
-            'start_date' => now()->subMonths(mt_rand(1, 6)),
+            'started_at' => now()->subMonths(mt_rand(1, 6)),
         ]);
     }
 
@@ -43,8 +43,8 @@ class StoryFactory extends Factory
     {
         return $this->state([
             'status' => Completed::$name,
-            'start_date' => now()->subMonths(mt_rand(1, 6)),
-            'end_date' => now(),
+            'started_at' => now()->subMonths(mt_rand(1, 6)),
+            'ended_at' => now(),
         ]);
     }
 
@@ -52,21 +52,21 @@ class StoryFactory extends Factory
     {
         return $this->state([
             'status' => Ongoing::$name,
-            'start_date' => now()->subMonths(mt_rand(1, 6)),
+            'started_at' => now()->subMonths(mt_rand(1, 6)),
         ]);
     }
 
     public function withStartDate()
     {
         return $this->state([
-            'start_date' => $this->faker->date(),
+            'started_at' => $this->faker->date(),
         ]);
     }
 
     public function withEndDate()
     {
         return $this->state([
-            'end_date' => $this->faker->date(),
+            'ended_at' => $this->faker->date(),
         ]);
     }
 

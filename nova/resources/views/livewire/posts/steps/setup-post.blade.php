@@ -113,17 +113,9 @@
                             </div>
                             <div class="ml-8 flex shrink-0 items-center space-x-3">
                                 @if ($postType?->id !== $type->id)
-                                    <x-icon
-                                        name="chevron-down"
-                                        size="md"
-                                        class="text-gray-400 dark:text-gray-500"
-                                    ></x-icon>
+                                    <x-icon name="add" size="md" class="text-gray-400 dark:text-gray-500"></x-icon>
                                 @else
-                                    <x-icon
-                                        name="chevron-up"
-                                        size="md"
-                                        class="text-gray-400 dark:text-gray-500"
-                                    ></x-icon>
+                                    <x-icon name="remove" size="md" class="text-gray-400 dark:text-gray-500"></x-icon>
                                 @endif
                             </div>
                         </button>

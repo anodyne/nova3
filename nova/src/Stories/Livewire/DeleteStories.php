@@ -32,7 +32,7 @@ class DeleteStories extends Component
             ->toArray();
 
         return Story::whereNotIn('id', array_merge(
-            [1, $storyId],
+            [$storyId],
             $storiesBeingDeleted
         ))->get();
     }

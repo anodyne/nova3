@@ -38,37 +38,24 @@
                 @endif
 
                 <x-content-box>
-                    <div class="grid grid-cols-1 gap-px bg-white/5 lg:grid-cols-3">
-                        <div class="px-4 sm:px-6">
-                            <p class="text-sm font-medium leading-6">Total posts</p>
-                            <p class="mt-2 flex items-baseline gap-x-2">
+                    <div class="grid grid-cols-1 lg:grid-cols-3">
+                        <x-panel.stat label="Total posts" :value="$postType->published_posts_count"></x-panel.stat>
+                        <x-panel.stat label="Icon">
+                            @if (filled($postType->icon))
+                                <x-icon :name="$postType->icon" size="h-11 w-11 md:h-10 md:w-10"></x-icon>
+                            @else
                                 <span class="text-4xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                                    {{ $postType->published_posts_count }}
+                                    &ndash;
                                 </span>
-                            </p>
-                        </div>
-                        <div class="px-4 sm:px-6">
-                            <p class="text-sm font-medium leading-6">Icon</p>
-                            <p class="mt-2 flex items-baseline gap-x-2">
-                                @if (filled($postType->icon))
-                                    <x-icon :name="$postType->icon" size="h-11 w-11 md:h-10 md:w-10"></x-icon>
-                                @else
-                                    <span class="text-4xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                                        &ndash;
-                                    </span>
-                                @endif
-                            </p>
-                        </div>
-                        <div class="px-4 sm:px-6">
-                            <p class="text-sm font-medium leading-6">Accent color</p>
-                            <p class="mt-2 flex items-baseline gap-x-2">
-                                <div
-                                    class="flex items-center gap-2 text-4xl font-semibold tracking-tight text-gray-900 dark:text-white"
-                                >
-                                    <span style="color: {{ $postType->color }}">{{ $postType->color }}</span>
-                                </div>
-                            </p>
-                        </div>
+                            @endif
+                        </x-panel.stat>
+                        <x-panel.stat label="Accent color">
+                            <div
+                                class="flex items-center gap-2 text-4xl font-semibold tracking-tight text-gray-900 dark:text-white"
+                            >
+                                <span style="color: {{ $postType->color }}">{{ $postType->color }}</span>
+                            </div>
+                        </x-panel.stat>
                     </div>
                 </x-content-box>
             </div>
@@ -82,7 +69,9 @@
                     <div>
                         @foreach ($fieldTypes as $fieldType)
                             @if ($postType->fields->{$fieldType}->enabled)
-                                <div class="flex items-center gap-3 px-4 py-4 odd:bg-gray-100 dark:odd:bg-gray-700/50 font-medium">
+                                <div
+                                    class="flex items-center gap-3 px-4 py-4 font-medium odd:bg-gray-100 dark:odd:bg-gray-700/50"
+                                >
                                     <div class="flex items-center">
                                         <div class="h-2 w-2 rounded-full bg-success-500"></div>
                                     </div>
@@ -105,7 +94,9 @@
 
                     <div class="font-medium">
                         @if ($postType->options->notifiesUsers)
-                            <div class="flex items-center gap-3 px-4 py-4 odd:bg-gray-100 dark:odd:bg-gray-700/50 font-medium">
+                            <div
+                                class="flex items-center gap-3 px-4 py-4 font-medium odd:bg-gray-100 dark:odd:bg-gray-700/50"
+                            >
                                 <div class="flex items-center">
                                     <div class="h-2 w-2 rounded-full bg-success-500"></div>
                                 </div>
@@ -115,7 +106,9 @@
                         @endif
 
                         @if ($postType->options->includedInPostTracking)
-                            <div class="flex items-center gap-3 px-4 py-4 odd:bg-gray-100 dark:odd:bg-gray-700/50 font-medium">
+                            <div
+                                class="flex items-center gap-3 px-4 py-4 font-medium odd:bg-gray-100 dark:odd:bg-gray-700/50"
+                            >
                                 <div class="flex items-center">
                                     <div class="h-2 w-2 rounded-full bg-success-500"></div>
                                 </div>
@@ -125,7 +118,9 @@
                         @endif
 
                         @if ($postType->options->allowsMultipleAuthors)
-                            <div class="flex items-center gap-3 px-4 py-4 odd:bg-gray-100 dark:odd:bg-gray-700/50 font-medium">
+                            <div
+                                class="flex items-center gap-3 px-4 py-4 font-medium odd:bg-gray-100 dark:odd:bg-gray-700/50"
+                            >
                                 <div class="flex items-center">
                                     <div class="h-2 w-2 rounded-full bg-success-500"></div>
                                 </div>
@@ -135,7 +130,9 @@
                         @endif
 
                         @if ($postType->options->allowsCharacterAuthors)
-                            <div class="flex items-center gap-3 px-4 py-4 odd:bg-gray-100 dark:odd:bg-gray-700/50 font-medium">
+                            <div
+                                class="flex items-center gap-3 px-4 py-4 font-medium odd:bg-gray-100 dark:odd:bg-gray-700/50"
+                            >
                                 <div class="flex items-center">
                                     <div class="h-2 w-2 rounded-full bg-success-500"></div>
                                 </div>
@@ -145,7 +142,9 @@
                         @endif
 
                         @if ($postType->options->allowsUserAuthors)
-                            <div class="flex items-center gap-3 px-4 py-4 odd:bg-gray-100 dark:odd:bg-gray-700/50 font-medium">
+                            <div
+                                class="flex items-center gap-3 px-4 py-4 font-medium odd:bg-gray-100 dark:odd:bg-gray-700/50"
+                            >
                                 <div class="flex items-center">
                                     <div class="h-2 w-2 rounded-full bg-success-500"></div>
                                 </div>
@@ -155,7 +154,9 @@
                         @endif
 
                         @if ($postType->role)
-                            <div class="flex items-center gap-3 px-4 py-4 odd:bg-gray-100 dark:odd:bg-gray-700/50 font-medium">
+                            <div
+                                class="flex items-center gap-3 px-4 py-4 font-medium odd:bg-gray-100 dark:odd:bg-gray-700/50"
+                            >
                                 <div class="flex items-center">
                                     <div class="h-2 w-2 rounded-full bg-success-500"></div>
                                 </div>
