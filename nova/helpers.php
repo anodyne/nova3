@@ -32,9 +32,22 @@ if (! function_exists('blank')) {
 }
 
 if (! function_exists('format_date')) {
-    function format_date(CarbonInterface $date)
+    function format_date(?CarbonInterface $date, bool $tooltip = true)
     {
-        return $date->format('Y');
+        if (blank($date)) {
+            return $date;
+        }
+
+        $html = html()
+            ->element('time')
+            ->text($date?->format(settings('general')->phpDateFormat()))
+            ->attribute('datetime', $date);
+
+        if ($tooltip) {
+            return $html->attribute('x-tooltip.delay.1000-100.raw', $date);
+        }
+
+        return $html;
     }
 }
 

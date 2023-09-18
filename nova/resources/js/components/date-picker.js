@@ -1,8 +1,11 @@
 import format from 'date-fns/format';
+import formatISO from 'date-fns/formatISO';
+import parseISO from 'date-fns/parseISO';
 
 export default (value = '', dateFormat = 'M d, Y') => ({
     datePickerOpen: false,
     datePickerValue: value,
+    datePickerDisplayValue: '',
     datePickerFormat: dateFormat,
     datePickerMonth: '',
     datePickerYear: '',
@@ -32,7 +35,7 @@ export default (value = '', dateFormat = 'M d, Y') => ({
             day,
         );
         this.datePickerDay = day;
-        this.datePickerValue = this.datePickerFormatDate(selectedDate);
+        this.setDatePickerValue(selectedDate);
         this.datePickerIsSelectedDate(day);
         this.datePickerOpen = false;
     },
@@ -58,7 +61,7 @@ export default (value = '', dateFormat = 'M d, Y') => ({
 
     datePickerIsSelectedDate(day) {
         const d = new Date(this.datePickerYear, this.datePickerMonth, day);
-        return this.datePickerValue === this.datePickerFormatDate(d);
+        return this.datePickerDisplayValue === this.datePickerFormatDate(d);
     },
 
     datePickerIsToday(day) {
@@ -92,41 +95,20 @@ export default (value = '', dateFormat = 'M d, Y') => ({
 
     datePickerFormatDate(date) {
         return format(date, this.datePickerFormat);
+    },
 
-        const formattedDay = this.datePickerDays[date.getDay()];
-        const formattedDate = (`0${date.getDate()}`).slice(-2); // appends 0 (zero) in single digit date
-        const formattedMonth = this.datePickerMonthNames[date.getMonth()];
-        const formattedMonthShortName = this.datePickerMonthNames[
-            date.getMonth()
-        ].substring(0, 3);
-        const formattedMonthInNumber = (
-            `0${parseInt(date.getMonth(), 10) + 1}`
-        ).slice(-2);
-        const formattedYear = date.getFullYear();
+    setDatePickerValue(date) {
+        this.datePickerDisplayValue = this.datePickerFormatDate(date);
+        this.datePickerValue = formatISO(date);
 
-        if (this.datePickerFormat === 'M d, Y') {
-            return `${formattedMonthShortName} ${formattedDate}, ${formattedYear}`;
-        }
-        if (this.datePickerFormat === 'MM-DD-YYYY') {
-            return `${formattedMonthInNumber}-${formattedDate}-${formattedYear}`;
-        }
-        if (this.datePickerFormat === 'DD-MM-YYYY') {
-            return `${formattedDate}-${formattedMonthInNumber}-${formattedYear}`;
-        }
-        if (this.datePickerFormat === 'YYYY-MM-DD') {
-            return `${formattedYear}-${formattedMonthInNumber}-${formattedDate}`;
-        }
-        if (this.datePickerFormat === 'D d M, Y') {
-            return `${formattedDay} ${formattedDate} ${formattedMonthShortName} ${formattedYear}`;
-        }
-
-        return `${formattedMonth} ${formattedDate}, ${formattedYear}`;
+        this.$dispatch('input', this.datePickerValue);
     },
 
     init() {
         let currentDate = new Date();
         if (this.datePickerValue) {
-            currentDate = new Date(Date.parse(this.datePickerValue));
+            currentDate = parseISO(this.datePickerValue);
+            this.setDatePickerValue(currentDate);
         }
         this.datePickerMonth = currentDate.getMonth();
         this.datePickerYear = currentDate.getFullYear();

@@ -1,10 +1,28 @@
 @props([
-    'format' => 'MMMM dd, yyyy',
     'icon' => 'calendar',
     'value' => '',
 ])
 
-<div class="relative" x-data="datePicker(@js($value), @js($format))" x-cloak>
+@php($format = settings('general')->jsDateFormat())
+
+<div
+    class="relative"
+    x-data="datePicker(
+        @if ($attributes->hasStartsWith('wire:model'))
+            @entangle($attributes->wire('model'))
+        @elseif ($attributes->hasStartsWith('x-model'))
+            {{ $attributes->first('x-model') }}
+        @else
+            @js($value)
+        @endif,
+        @js($format)
+    )"
+    @if ($attributes->hasStartsWith('x-model'))
+        {{ $attributes->whereStartsWith('x-model') }}
+        x-modelable="datePickerValue"
+    @endif
+    x-cloak
+>
     <x-input.field>
         <x-slot name="leading">
             <div
@@ -23,11 +41,16 @@
             x-ref="datePickerInput"
             type="text"
             x-on:click="datePickerOpen = !datePickerOpen"
-            x-model="datePickerValue"
+            x-model="datePickerDisplayValue"
             x-on:keydown.escape="datePickerOpen=false"
             class="flex-1 appearance-none border-none bg-transparent p-0 focus:text-gray-900 focus:outline-none focus:ring-0 dark:focus:text-gray-100"
-            {{ $attributes }}
+            {{ $attributes->except('name') }}
             readonly
+        />
+        <input
+            type="hidden"
+            {{ $attributes->only('name') }}
+            x-model="datePickerValue"
         />
     </x-input.field>
 
