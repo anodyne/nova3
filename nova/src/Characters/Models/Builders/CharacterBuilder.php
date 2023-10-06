@@ -43,7 +43,7 @@ class CharacterBuilder extends Builder
         return $this->whereState('status', Active::class);
     }
 
-    public function whereInactive(): Builder
+    public function inactive(): Builder
     {
         return $this->whereState('status', Inactive::class);
     }

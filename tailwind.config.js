@@ -88,6 +88,9 @@ module.exports = {
             padding: '1rem',
         },
         extend: {
+            animation: {
+                'reverse-spin': 'reverse-spin 1s linear infinite',
+            },
             colors: {
                 // gray: {
                 //     50: 'rgba(var(--gray-50), <alpha-value>)',
@@ -184,6 +187,13 @@ module.exports = {
             fontFamily: {
                 sans: ['var(--font-family)', ...defaultTheme.fontFamily.sans],
                 // sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+            },
+            keyframes: {
+                'reverse-spin': {
+                    from: {
+                        transform: 'rotate(360deg)',
+                    },
+                },
             },
             lineHeight: {
                 0: '0',

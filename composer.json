@@ -15,16 +15,15 @@
         "anodyne/blade-tabler-icons": "^2.18",
         "awssat/discord-notification-channel": "^1.4",
         "blade-ui-kit/blade-icons": "^1.0",
-        "filament/forms": "^3.0.0-alpha",
-        "filament/notifications": "^3.0.0-alpha",
-        "filament/support": "^3.0.0-alpha",
-        "filament/tables": "^3.0.0-alpha",
+        "filament/forms": "3.0.0-alpha128",
+        "filament/notifications": "3.0.0-alpha128",
+        "filament/support": "3.0.0-alpha128",
+        "filament/tables": "3.0.0-alpha128",
         "guzzlehttp/guzzle": "^7.2",
         "lab404/laravel-impersonate": "^1.7",
         "laravel/fortify": "^1.16",
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
-        "laravel/telescope": "^4.16",
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.12",
         "lorisleiva/laravel-actions": "^2.1",
@@ -68,7 +67,6 @@
         "laravel": {
             "dont-discover": [
                 "blade-ui-kit/blade-icons",
-                "livewire/livewire",
                 "livewire-ui/spotlight"
             ]
         }

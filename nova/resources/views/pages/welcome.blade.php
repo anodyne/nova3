@@ -18,7 +18,7 @@
                     <div class="px-6 lg:px-0 lg:pt-4">
                         <div class="mx-auto max-w-2xl">
                             <div class="max-w-lg">
-                                <x-logos.nova class="h-11" />
+                                <x-logos.nova class="h-12" />
                                 {{--
                                     <div class="mt-24 sm:mt-32 lg:mt-16">
                                     <a href="#" class="inline-flex space-x-6">
@@ -61,22 +61,22 @@
                                     @if (nova()->isInstalled())
                                         <a
                                             href="{{ auth()->check() ? route('dashboard') : route('login') }}"
-                                            class="rounded-md bg-primary-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
+                                            class="inline-flex items-center justify-center gap-2 rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-gray-700"
                                         >
                                             @auth
                                                 Dashboard
                                             @else
                                                 Sign in
                                             @endauth
-                                            <span aria-hidden="true">→</span>
+                                            <span aria-hidden="true">&rarr;</span>
                                         </a>
                                     @else
                                         <a
                                             href="{{ url('setup') }}"
-                                            class="rounded-md bg-primary-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
+                                            class="inline-flex items-center justify-center gap-2 rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-gray-700"
                                         >
                                             Install
-                                            <span aria-hidden="true">→</span>
+                                            <span aria-hidden="true">&rarr;</span>
                                         </a>
                                     @endif
                                     <a

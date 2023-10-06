@@ -1,6 +1,7 @@
 import axios from 'axios';
 import 'alpinejs/dist/cdn';
 
+import Clipboard from '@ryangjchandler/alpine-clipboard';
 import AdminThemeToggle from './components/admin-theme-toggle';
 import ColorPicker from './components/color-picker';
 import DatePicker from './components/date-picker';
@@ -23,6 +24,8 @@ document.addEventListener('alpine:init', () => {
     window.Alpine.data('tipTap', TipTap);
     window.Alpine.data('switchToggle', SwitchToggle);
     window.Alpine.data('wordCount', WordCount);
+
+    window.Alpine.plugin(Clipboard);
 });
 
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
