@@ -27,6 +27,6 @@ class MigrateNova extends Component
     public function render()
     {
         return view('setup.migrate-nova.index')
-            ->extends('layouts.setup');
+            ->layout('layouts.setup');
     }
 }

@@ -23,6 +23,6 @@ class UserAccess extends Component
     {
         return view('setup.migrate-nova.user-access', [
             'roles' => $this->roles,
-        ])->extends('layouts.setup');
+        ])->layout('layouts.setup');
     }
 }

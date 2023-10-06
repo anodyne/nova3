@@ -112,13 +112,15 @@
         </div>
 
         <div class="flex items-center justify-center gap-8">
-            <x-button.setup href="{{ url('setup/migrate') }}" leading="tabler-arrow-forward-up-double">
+            {{--
+                <x-button.setup href="{{ url('setup/migrate') }}" leading="tabler-arrow-forward-up-double">
                 Migrate your Nova 2 data
-            </x-button.setup>
+                </x-button.setup>
+                
+                <span class="text-sm font-semibold uppercase text-gray-500">or</span>
+            --}}
 
-            <span class="text-sm font-semibold uppercase text-gray-500">or</span>
-
-            <x-button.setup href="{{ url('setup/migrate') }}" leading="tabler-circle-arrow-right">
+            <x-button.setup href="{{ url('setup/setup-account') }}" leading="tabler-circle-arrow-right">
                 Continue as a fresh install
             </x-button.setup>
         </div>

@@ -64,6 +64,6 @@ class SetupAccount extends Component
         return view('setup.account.index', [
             'shouldShowForm' => $this->shouldShowForm,
             'shouldShowSuccessTable' => $this->shouldShowSuccessTable,
-        ])->extends('layouts.setup');
+        ])->layout('layouts.setup');
     }
 }

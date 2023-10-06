@@ -31,6 +31,6 @@ class MigrateNovaSteps extends Component
     public function render()
     {
         return view('setup.migrate-nova.steps.index')
-            ->extends('layouts.setup');
+            ->layout('layouts.setup');
     }
 }

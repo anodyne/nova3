@@ -6,6 +6,7 @@ namespace Nova\Setup\Livewire;
 
 use Illuminate\Support\Facades\Artisan;
 use Livewire\Component;
+use Nova\Foundation\Nova;
 use Nova\Setup\Enums\NovaInstallStatus;
 use Throwable;
 
@@ -62,7 +63,7 @@ class InstallNova extends Component
             $this->shouldSeed = true;
         }
 
-        if (nova()->isInstalled()) {
+        if (Nova::isInstalled()) {
             $this->status = NovaInstallStatus::alreadyInstalled;
         }
     }
@@ -72,7 +73,7 @@ class InstallNova extends Component
         return view('setup.install-nova.index', [
             'shouldShowForm' => $this->shouldShowForm,
             'shouldShowSuccess' => $this->shouldShowSuccess,
-        ])->extends('layouts.setup');
+        ])->layout('layouts.setup');
     }
 
     protected function runInstaller(): void

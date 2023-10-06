@@ -10,12 +10,9 @@ use Livewire\Commands\DiscoverCommand;
 use Nova\DomainServiceProvider;
 use Nova\Foundation\Colors\Color;
 use Nova\Foundation\Nova;
-use Nova\Pages\Enums\PageVerb;
 use Nova\Setup\Actions\SeedRealStories;
-use Nova\Setup\Controllers\StartSetupController;
 use Nova\Setup\Livewire\ConfigureDatabase;
 use Nova\Setup\Livewire\InstallNova;
-use Nova\Setup\Livewire\MigrateNova;
 use Nova\Setup\Livewire\MigrateNovaSteps;
 use Nova\Setup\Livewire\Migration\MigrateCharacters;
 use Nova\Setup\Livewire\Migration\MigrateDepartments;
@@ -26,10 +23,17 @@ use Nova\Setup\Livewire\Migration\MigratePositions;
 use Nova\Setup\Livewire\Migration\MigratePosts;
 use Nova\Setup\Livewire\Migration\MigrateUsers;
 use Nova\Setup\Livewire\SetupAccount;
-use Nova\Setup\Livewire\UserAccess;
+use Nova\Setup\View\Components\SetupLayout;
 
 class SetupServiceProvider extends DomainServiceProvider
 {
+    public function bladeComponents(): array
+    {
+        return [
+            'setup-layout' => SetupLayout::class,
+        ];
+    }
+
     public function domainBooted(): void
     {
         if (! Nova::isInstalled()) {
@@ -70,45 +74,8 @@ class SetupServiceProvider extends DomainServiceProvider
         ];
     }
 
-    public function routes(): array
+    public function routes(): ?string
     {
-        return [
-            'setup' => [
-                'verb' => PageVerb::get->value,
-                'uses' => StartSetupController::class,
-            ],
-
-            'setup/configure-database' => [
-                'verb' => PageVerb::get->value,
-                'uses' => ConfigureDatabase::class,
-            ],
-
-            'setup/install' => [
-                'verb' => PageVerb::get->value,
-                'uses' => InstallNova::class,
-            ],
-
-            'setup/migrate' => [
-                'verb' => PageVerb::get->value,
-                'uses' => MigrateNova::class,
-            ],
-            'setup/migrate/configure-database' => [
-                'verb' => PageVerb::get->value,
-                'uses' => ConfigureDatabase::class,
-            ],
-            'setup/migrate/steps' => [
-                'verb' => PageVerb::get->value,
-                'uses' => MigrateNovaSteps::class,
-            ],
-            'setup/migrate/set-user-access' => [
-                'verb' => PageVerb::get->value,
-                'uses' => UserAccess::class,
-            ],
-
-            'setup/user-account' => [
-                'verb' => PageVerb::get->value,
-                'uses' => SetupAccount::class,
-            ],
-        ];
+        return nova_path('setup/routes.php');
     }
 }

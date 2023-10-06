@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use LivewireUI\Spotlight\Spotlight;
+use Nova\Foundation\Nova;
 
 abstract class DomainServiceProvider extends ServiceProvider
 {
@@ -45,9 +46,9 @@ abstract class DomainServiceProvider extends ServiceProvider
         return [];
     }
 
-    public function routes(): array
+    public function routes(): ?string
     {
-        return [];
+        return null;
     }
 
     public function boot()
@@ -109,8 +110,9 @@ abstract class DomainServiceProvider extends ServiceProvider
 
     private function registerSpotlightCommands(): void
     {
-        collect($this->spotlightCommands())
-            ->each(fn ($command) => Spotlight::registerCommand($command));
+        if (Nova::isInstalled()) {
+            collect($this->spotlightCommands())->each(fn ($command) => Spotlight::registerCommand($command));
+        }
     }
 
     private function registerBladeComponents(): void
@@ -152,12 +154,8 @@ abstract class DomainServiceProvider extends ServiceProvider
 
     private function registerRoutes(): void
     {
-        Route::middleware('web')->group(function () {
-            collect($this->routes())->each(function ($route, $uri) {
-                $verb = $route['verb'];
-                unset($route['verb']);
-                Route::{$verb}($uri, $route);
-            });
-        });
+        if ($routePath = $this->routes()) {
+            Route::middleware('web')->group([$routePath]);
+        }
     }
 }

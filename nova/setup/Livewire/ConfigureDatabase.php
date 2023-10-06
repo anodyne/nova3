@@ -143,7 +143,7 @@ class ConfigureDatabase extends Component
             'shouldShowForm' => $this->shouldShowForm,
             'shouldShowManualInstructions' => $this->shouldShowManualInstructions,
             'shouldShowSuccessTable' => $this->shouldShowSuccessTable,
-        ])->extends('layouts.setup');
+        ])->layout('layouts.setup');
     }
 
     protected function setErrorMessage(Throwable $th): void

@@ -1,10 +1,8 @@
-@extends('layouts.setup')
+@php
+    $e = nova()->environment();
+@endphp
 
-@section('content')
-    @php
-        $e = nova()->environment();
-    @endphp
-
+<x-setup-layout>
     <div class="mx-auto max-w-7xl space-y-16">
         <header class="mx-auto max-w-2xl space-y-6 text-center">
             <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">Welcome to Nova</h1>
@@ -40,4 +38,4 @@
             </x-panel>
         </div>
     </div>
-@endsection
+</x-setup-layout>
