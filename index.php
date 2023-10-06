@@ -5,6 +5,21 @@ declare(strict_types=1);
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
 
+if (version_compare(PHP_VERSION, '8.2', '<')) {
+    header('Location: message.php?type=php');
+    exit();
+}
+
+if (! is_dir('vendor')) {
+    if (! function_exists('exec')) {
+        header('Location: message.php?type=vendor-error');
+        exit();
+    }
+
+    header('Location: message.php?type=vendor-install');
+    exit();
+}
+
 define('LARAVEL_START', microtime(true));
 
 /*

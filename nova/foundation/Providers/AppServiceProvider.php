@@ -20,6 +20,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\View\Factory as ViewFactory;
 use Livewire\Livewire;
+use Nova\Foundation\Environment\Environment;
 use Nova\Foundation\Icons\FluentFilledIconSet;
 use Nova\Foundation\Icons\FluentOutlineIconSet;
 use Nova\Foundation\Icons\IconSets;
@@ -61,6 +62,12 @@ class AppServiceProvider extends ServiceProvider
         // Make sure the file finder can find Javascript files
         $this->app['view']->addExtension('js', 'file');
 
+        $this->app->scoped('nova.environment', function () {
+            $environment = Environment::make();
+
+            return $environment;
+        });
+
         $this->app->scoped('nova.settings', function () {
             if (Nova::isInstalled()) {
                 return once(fn () => Settings::custom()->first());
@@ -74,6 +81,7 @@ class AppServiceProvider extends ServiceProvider
         $this->setupFactories();
         $this->registerIcons();
         $this->registerBladeDirectives();
+        $this->registerBladeComponents();
 
         if (Nova::isInstalled()) {
             // cache()->rememberForever(
@@ -86,7 +94,6 @@ class AppServiceProvider extends ServiceProvider
             //     fn () => Navigation::with('children.page', 'page', 'authorization')->public()->topLevel()->get()
             // );
 
-            $this->registerBladeComponents();
             $this->registerLivewireComponents();
             $this->registerResponseFilters();
             $this->setupFilament();

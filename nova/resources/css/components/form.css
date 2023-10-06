@@ -37,6 +37,14 @@
         @apply ring-danger-300 dark:ring-danger-800;
     }
 
+    .peer:checked ~ .switch-toggle--gray {
+        @apply bg-gray-900;
+    }
+
+    .peer:focus ~ .switch-toggle--gray {
+        @apply ring-gray-200 dark:ring-gray-800;
+    }
+
     .switch-toggle--sm + .switch-toggle__label {
         @apply text-sm;
     }

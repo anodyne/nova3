@@ -14,17 +14,17 @@
         $attributes->merge([
             'type' => ($tag === 'button') ? $type : null,
         ])->class([
-            'relative isolate inline-flex items-center justify-center gap-1.5 rounded-md text-center transition',
+            'relative isolate inline-flex items-center justify-center gap-1.5 rounded-lg text-center transition',
             match ($size) {
                 'xs' => 'px-[calc(theme(spacing.2)-1px)] py-[calc(theme(spacing.[0.5])-1px)] text-xs/5 font-medium',
                 'sm' => 'px-[calc(theme(spacing.[2.5])-1px)] py-[calc(theme(spacing.1)-1px)] text-sm/5 font-semibold',
                 default => 'px-[calc(theme(spacing.3)-1px)] py-[calc(theme(spacing.[1.5])-1px)] text-sm/6 font-semibold',
             },
             'border border-transparent bg-[--button-border] dark:bg-[--button-bg]',
-            'before:absolute before:inset-0 before:-z-10 before:rounded-[calc(theme(borderRadius.md)-1px)] before:bg-[--button-bg]',
+            'before:absolute before:inset-0 before:-z-10 before:rounded-[calc(theme(borderRadius.lg)-1px)] before:bg-[--button-bg]',
             'before:shadow dark:shadow dark:before:hidden',
             'dark:border-white/10 dark:ring-1 dark:ring-black/50',
-            'after:absolute after:inset-0 after:-z-10 after:rounded-[calc(theme(borderRadius.md)-1px)] after:shadow-[inset_0_1px_theme(colors.white/15%)] after:hover:bg-white/10 dark:after:-inset-px dark:after:rounded-md',
+            'after:absolute after:inset-0 after:-z-10 after:rounded-[calc(theme(borderRadius.lg)-1px)] after:shadow-[inset_0_1px_theme(colors.white/15%)] after:hover:bg-white/10 dark:after:-inset-px dark:after:rounded-lg',
             'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500',
             match ($color) {
                 'primary' => 'text-white [--button-bg:theme(colors.primary.500)] [--button-border:theme(colors.primary.600/80%)]',

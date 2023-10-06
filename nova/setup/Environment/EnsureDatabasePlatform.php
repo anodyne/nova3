@@ -11,8 +11,12 @@ class EnsureDatabasePlatform
 {
     public function handle(array $content, Closure $next)
     {
+        $content['items']['db']['header'] = 'MySQL 8.0+';
+
         if (! in_array('mysql', PDO::getAvailableDrivers())) {
-            $content['db'] = "Your server doesn't appear to have a MySQL driver for PDO available. As a result, Nova will not be able to connect to the database.";
+            $content['errors'] += 1;
+
+            $content['items']['db']['fail'] = "Your server doesn't appear to have a MySQL driver for PDO available. Nova will not be able to connect to your database.";
         }
 
         return $next($content);

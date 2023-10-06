@@ -54,16 +54,16 @@ class UserServiceProvider extends DomainServiceProvider
         ];
     }
 
-    public function routes(): array
-    {
-        return [
-            'users/force-password-reset/{user}' => [
-                'verb' => 'put',
-                'uses' => ForcePasswordResetController::class,
-                'as' => 'users.force-password-reset',
-            ],
-        ];
-    }
+    // public function routes(): array
+    // {
+    //     return [
+    //         'users/force-password-reset/{user}' => [
+    //             'verb' => 'put',
+    //             'uses' => ForcePasswordResetController::class,
+    //             'as' => 'users.force-password-reset',
+    //         ],
+    //     ];
+    // }
 
     public function spotlightCommands(): array
     {

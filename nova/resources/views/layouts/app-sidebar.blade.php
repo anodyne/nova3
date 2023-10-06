@@ -318,7 +318,7 @@
                 <nav class="flex flex-1 flex-col">
                     <ul role="list" class="flex flex-1 flex-col gap-y-7">
                         <li>
-                            <ul role="list" class="space-y-1.5">
+                            <ul role="list" class="space-y-3">
                                 <li>
                                     <x-nav.main-item
                                         :href="route('dashboard')"

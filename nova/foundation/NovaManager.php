@@ -6,6 +6,7 @@ namespace Nova\Foundation;
 
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Facades\Schema;
+use Nova\Foundation\Environment\Environment;
 use Nova\Foundation\Fonts\BunnyFontProvider;
 use Nova\Foundation\Fonts\Contracts\FontProvider;
 use Nova\Foundation\Fonts\GoogleFontProvider;
@@ -15,6 +16,11 @@ use Throwable;
 class NovaManager
 {
     public string $version = '3.0.0';
+
+    public function environment(): Environment
+    {
+        return once(fn () => Environment::make());
+    }
 
     public function getFontFamily(): string
     {

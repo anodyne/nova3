@@ -2,10 +2,8 @@
 
 declare(strict_types=1);
 
-use Carbon\CarbonImmutable;
-use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Route;
-use Nova\Stories\Models\Story;
+use Nova\Departments\Models\Department;
 
 try {
     $pages = cache()->rememberForever('nova.pages', fn () => Nova\Pages\Models\Page::get());
@@ -13,34 +11,101 @@ try {
     $pages->each(
         fn ($page) => $router->{$page->verb->value}($page->uri, $page->resource)->name($page->key)
     );
-} catch (Exception $ex) {
-    // We're not going to do anything here yet
+} catch (Throwable $th) {
+    Route::view('/', 'pages.welcome');
 }
 
 Route::impersonate();
 
 Route::get('test', function () {
-    // dd(Date::createFromFormat('Y-m-d H:i:s', '2005-02-21 19:00:00', 'America/New_York'));
-    // $now = Date::now('America/New_York');
-    $date = Date::createFromFormat('Y-m-d H:i:s', '2005-02-21 19:00:00', 'America/New_York');
+    $active = Department::query()
+        ->with([
+            'positions' => fn ($query) => $query->whereHas('characters'),
+            'positions.characters',
+        ])
+        ->whereHas('positions', fn ($query) => $query->whereHas('characters', fn ($q) => $q->active()))
+        ->get();
+    $inactive = Department::query()
+        ->with([
+            'positions' => fn ($query) => $query->whereHas('characters'),
+            'positions.characters',
+        ])
+        ->whereHas('positions', fn ($query) => $query->whereHas('characters', fn ($q) => $q->inactive()))
+        ->get();
+    $depts = Department::query()
+        ->with([
+            'positions' => fn ($query) => $query->active(),
+            'positions.characters',
+        ])
+        ->get();
+    // dd($manifest);
 
-    // dd($date);
+    echo '<h1>Active</h1>';
+    echo '<ul>';
+    foreach ($active as $department) {
+        echo '<li>';
+        echo $department->name;
 
-    // $story = Story::create([
-    //     'title' => 'Test',
-    //     'started_at' => $now,
-    // ]);
+        echo '<ul>';
+        foreach ($department->positions as $position) {
+            echo '<li>';
+            echo $position->name;
 
-    $story = Story::find(6);
-    // $story->update(['started_at' => $date]);
+            echo '<ul>';
+            foreach ($position->characters as $character) {
+                echo '<li>';
+                echo $character->name;
+                echo '</li>';
+            }
+            echo '</ul>';
+            echo '</li>';
+        }
+        echo '</ul>';
+        echo '</li>';
+    }
+    echo '</ul>';
 
-    dd(
-        $story->started_at,
-        $story->ended_at
-        // CarbonImmutable::parse($story->started_at)->setTimezone('America/New_York')
-    );
+    echo '<h1>Inactive</h1>';
+    echo '<ul>';
+    foreach ($inactive as $department) {
+        echo '<li>';
+        echo $department->name;
 
-    dd($story->started_at);
+        echo '<ul>';
+        foreach ($department->positions as $position) {
+            echo '<li>';
+            echo $position->name;
+
+            echo '<ul>';
+            foreach ($position->characters as $character) {
+                echo '<li>';
+                echo $character->name;
+                echo '</li>';
+            }
+            echo '</ul>';
+            echo '</li>';
+        }
+        echo '</ul>';
+        echo '</li>';
+    }
+    echo '</ul>';
+
+    echo '<h1>Positions</h1>';
+    echo '<ul>';
+    foreach ($depts as $department) {
+        echo '<li>';
+        echo $department->name;
+
+        echo '<ul>';
+        foreach ($department->positions as $position) {
+            echo '<li>';
+            echo $position->name;
+            echo '</li>';
+        }
+        echo '</ul>';
+        echo '</li>';
+    }
+    echo '</ul>';
 
     return 'done';
 });

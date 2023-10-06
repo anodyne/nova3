@@ -48,7 +48,7 @@ return [
 
         'dist' => [
             'driver' => 'local',
-            'root' => base_path('dist'),
+            'root' => public_path('dist'),
             'url' => env('APP_URL').'/dist',
             'visibility' => 'public',
             'throw' => false,
@@ -56,7 +56,7 @@ return [
 
         'media' => [
             'driver' => 'local',
-            'root' => base_path('media'),
+            'root' => public_path('media'),
             'url' => env('APP_URL').'/media',
             'visibility' => 'public',
             'throw' => false,
@@ -74,6 +74,14 @@ return [
             'driver' => 'local',
             'root' => base_path('themes'),
             'url' => env('APP_URL').'/themes',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'root' => [
+            'driver' => 'local',
+            'root' => base_path(),
+            'url' => env('APP_URL'),
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -105,6 +113,8 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        public_path('ranks') => base_path('ranks'),
+        public_path('themes') => base_path('themes'),
     ],
 
 ];

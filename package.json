@@ -15,6 +15,7 @@
         "@awcodes/alpine-floating-ui": "^3.4",
         "@jaames/iro": "^5.5",
         "@nextapps-be/livewire-sortablejs": "^0.2.0",
+        "@ryangjchandler/alpine-clipboard": "^2.2",
         "@ryangjchandler/alpine-tooltip": "^1.2",
         "@tiptap/core": "^2.0",
         "@tiptap/extension-link": "^2.0",

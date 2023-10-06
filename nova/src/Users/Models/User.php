@@ -35,18 +35,18 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\ModelStates\HasStates;
 use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
-class User extends Authenticatable implements MustVerifyEmail, HasMedia, LaratrustUser
+class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerifyEmail
 {
     use CausesActivity;
     use HasEagerLimit;
     use HasFactory;
     use HasRolesAndPermissions;
     use HasStates;
+    use Impersonate;
     use InteractsWithMedia;
     use LogsActivity;
     use Notifiable;
     use SoftDeletes;
-    use Impersonate;
 
     protected $casts = [
         'force_password_reset' => 'boolean',
@@ -221,7 +221,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia, Laratru
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('avatar')
-            ->useFallbackUrl("https://avatars.dicebear.com/api/bottts/{$this->email}.svg")
+            ->useFallbackUrl("https://api.dicebear.com/7.x/bottts/svg?seed={$this->email}")
             ->useDisk('media')
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'])
             ->singleFile();
