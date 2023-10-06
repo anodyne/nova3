@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Providers;
 
-use Filament\Support\Colors\ColorManager;
-use Filament\Support\Icons\Icon;
-use Filament\Support\Icons\IconManager;
+use Filament\Support\Facades\FilamentColor;
+use Filament\Support\Facades\FilamentIcon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -169,11 +168,11 @@ class AppServiceProvider extends ServiceProvider
 
     protected function setupFilament(): void
     {
-        app(ColorManager::class)->register($this->app['nova.settings']->appearance->getColors());
+        FilamentColor::register($this->app['nova.settings']->appearance->getColors());
 
-        app(IconManager::class)->register([
-            'filament-tables::search-input.prefix' => Icon::make(iconName('search')),
-            'support::modal.close-button' => Icon::make(iconName('dismiss')),
+        FilamentIcon::register([
+            'tables::search-field' => iconName('search'),
+            'modal.close-button' => iconName('dismiss'),
         ]);
 
         Table::configureUsing(function (Table $table) {

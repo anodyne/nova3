@@ -50,7 +50,7 @@ class SetupServiceProvider extends DomainServiceProvider
     {
         return [
             SeedRealStories::class,
-            DiscoverCommand::class, // Livewire only registers this in the console
+            // DiscoverCommand::class, // Livewire only registers this in the console
             CacheCommand::class, // Blade Icons only registers this in the console
         ];
     }
