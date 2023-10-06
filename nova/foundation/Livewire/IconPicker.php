@@ -18,7 +18,7 @@ class IconPicker extends Component
     {
         $this->selected = ($icon === '') ? null : $icon;
 
-        $this->dispatchBrowserEvent('icons-dropdown-close');
+        $this->dispatch('icons-dropdown-close');
 
         $this->reset('search');
     }

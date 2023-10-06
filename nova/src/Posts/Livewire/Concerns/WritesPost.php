@@ -87,7 +87,7 @@ trait WritesPost
     {
         $this->authorize('delete', $this->post);
 
-        $this->dispatchBrowserEvent('dropdown-close');
+        $this->dispatch('dropdown-close');
 
         $this->post->participatingUsers
             ->filter(fn (User $user) => $user->id !== auth()->id())
@@ -126,10 +126,7 @@ trait WritesPost
             $this->postId = $this->post->id;
 
             if (! $quiet) {
-                $this->dispatchBrowserEvent('toast', [
-                    'title' => $this->post->title.' has been saved',
-                    'message' => null,
-                ]);
+                $this->dispatch('toast', title: $this->post->title.' has been saved', message: null);
             }
 
             if ($shouldRedirect) {

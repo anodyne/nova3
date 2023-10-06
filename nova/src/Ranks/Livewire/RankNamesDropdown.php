@@ -35,7 +35,7 @@ class RankNamesDropdown extends Component
 
     public function selectName(int $nameId)
     {
-        $this->dispatchBrowserEvent('rank-names-dropdown-close');
+        $this->dispatch('rank-names-dropdown-close');
 
         $this->reset('search');
 

@@ -135,7 +135,10 @@
                 <p class="mt-1 text-sm text-gray-600">Get started by assigning permissions to this role.</p>
 
                 <div class="mt-6">
-                    <x-button.filled color="primary" wire:click="$emit('openModal', 'roles:select-permissions-modal')">
+                    <x-button.filled
+                        color="primary"
+                        wire:click="$dispatch('openModal', 'roles:select-permissions-modal')"
+                    >
                         Add permissions
                     </x-button.filled>
                 </div>

@@ -194,7 +194,7 @@
             name="{{ $fieldName }}"
             class="appearance-none bg-transparent font-mono w-full border-none py-4 px-3 focus:outline-none focus:ring-0 leading-relaxed {{ $codeView ? '' : 'hidden' }}"
             rows="20"
-            wire:model="content"
+            wire:model.live="content"
         ></textarea>
 
         <div class="text-gray-400 dark:text-gray-500 text-sm px-3 py-1.5">{{ $this->wordCount }} @choice('word|words', $this->wordCount)</div>

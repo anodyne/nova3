@@ -45,7 +45,7 @@ abstract class MigrationStep extends Component
                 $this->isRunning = true;
             }
 
-            $this->dispatchBrowserEvent('run-migration-step', ['id' => $this->id]);
+            $this->dispatch('run-migration-step', id: $this->id());
         }
     }
 
@@ -74,9 +74,9 @@ abstract class MigrationStep extends Component
         $this->isFinished = true;
 
         if ($receiver = data_get($migrationEventMap, static::class)) {
-            $this->emit('startMigrationStep', ['step' => $receiver]);
+            $this->dispatch('startMigrationStep', ['step' => $receiver]);
         } else {
-            $this->emit('finishMigration');
+            $this->dispatch('finishMigration');
         }
     }
 

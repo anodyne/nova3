@@ -19,7 +19,7 @@ class MigrateNovaSteps extends Component
     {
         $this->isRunning = true;
 
-        $this->emit('startMigrationStep', ['step' => MigrateUsers::class]);
+        $this->dispatch('startMigrationStep', ['step' => MigrateUsers::class]);
     }
 
     public function finishMigration(): void

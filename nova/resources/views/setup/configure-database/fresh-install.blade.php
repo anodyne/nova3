@@ -58,7 +58,7 @@
                             id="db-username"
                             class="mt-1 block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                             placeholder="Your database username"
-                            wire:model.defer="username"
+                            wire:model="username"
                         />
                         @error('username')
                             <div class="mt-1 flex items-center gap-1 text-xs text-danger-600">
@@ -89,7 +89,7 @@
                             id="db-password"
                             class="mt-1 block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                             placeholder="Your database password"
-                            wire:model.defer="password"
+                            wire:model="password"
                         />
                         @error('password')
                             <div class="mt-1 flex items-center gap-1 text-xs text-danger-600">
@@ -125,7 +125,7 @@
                             id="db-name"
                             class="mt-1 block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                             placeholder="The name of your database"
-                            wire:model.defer="database"
+                            wire:model="database"
                         />
                         @error('database')
                             <div class="mt-1 flex items-center gap-1 text-xs text-danger-600">
@@ -147,7 +147,7 @@
                             id="db-prefix"
                             class="mt-1 block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                             placeholder="The table prefix (optional)"
-                            wire:model.defer="prefix"
+                            wire:model="prefix"
                         />
                     </div>
                 </div>
@@ -202,7 +202,7 @@
                                 name="db-host"
                                 id="db-host"
                                 class="mt-1 block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                wire:model.defer="host"
+                                wire:model="host"
                             />
                             @error('host')
                                 <div class="mt-1 flex items-center gap-1 text-xs text-danger-600">
@@ -232,7 +232,7 @@
                                 name="db-port"
                                 id="db-port"
                                 class="mt-1 block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                wire:model.defer="port"
+                                wire:model="port"
                             />
                             @error('port')
                                 <div class="mt-1 flex items-center gap-1 text-xs text-danger-600">
@@ -262,7 +262,7 @@
                                 name="db-socket"
                                 id="db-socket"
                                 class="mt-1 block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                wire:model.defer="socket"
+                                wire:model="socket"
                                 placeholder="The UNIX socket path (generally not needed)"
                             />
                             @error('socket')

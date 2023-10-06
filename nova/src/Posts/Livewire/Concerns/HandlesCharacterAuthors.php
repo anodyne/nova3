@@ -65,7 +65,7 @@ trait HandlesCharacterAuthors
 
     public function removeCharacterAuthor(Character $character): void
     {
-        $this->dispatchBrowserEvent('dropdown-close');
+        $this->dispatch('dropdown-close');
 
         $this->post->characterAuthors()->detach($character->id);
 

@@ -37,7 +37,7 @@ class SetupAccount extends Component
 
         $this->isFinished = true;
 
-        $this->dispatchBrowserEvent('confetti');
+        $this->dispatch('confetti');
     }
 
     public function getShouldShowFormProperty(): bool
@@ -55,7 +55,7 @@ class SetupAccount extends Component
         if (User::count() > 0) {
             $this->isFinished = true;
 
-            $this->dispatchBrowserEvent('confetti');
+            $this->dispatch('confetti');
         }
     }
 

@@ -16,7 +16,7 @@
                         <button
                             type="button"
                             class="{{ $post->location ? 'border-primary-300 bg-primary-50 text-primary-600 dark:border-primary-800 dark:bg-primary-900/50 dark:text-primary-400' : 'border-gray-300 bg-white text-gray-500 hover:border-gray-500/30 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:border-gray-600 dark:hover:bg-gray-900' }} flex items-center space-x-1.5 rounded-full border px-3 py-1.5 text-sm transition md:px-2 md:py-0.5 md:text-xs"
-                            wire:click='$emit("openModal", "posts:select-location-modal", {{ json_encode([$post->story_id, $post->location]) }})'
+                            wire:click='$dispatch("openModal", "posts:select-location-modal", {{ json_encode([$post->story_id, $post->location]) }})'
                         >
                             <x-icon
                                 name="location"
@@ -34,7 +34,7 @@
                         <button
                             type="button"
                             class="{{ $post->day ? 'border-primary-300 bg-primary-50 text-primary-600 dark:border-primary-800 dark:bg-primary-900/50 dark:text-primary-400' : 'border-gray-300 bg-white text-gray-500 hover:border-gray-500/30 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:border-gray-600 dark:hover:bg-gray-900' }} flex items-center space-x-1.5 rounded-full border px-3 py-1.5 text-sm transition md:px-2 md:py-0.5 md:text-xs"
-                            wire:click='$emit("openModal", "posts:select-day-modal", {{ json_encode([$post->story_id, $post->day]) }})'
+                            wire:click='$dispatch("openModal", "posts:select-day-modal", {{ json_encode([$post->story_id, $post->day]) }})'
                         >
                             <x-icon
                                 name="calendar"
@@ -52,7 +52,7 @@
                         <button
                             type="button"
                             class="{{ $post->time ? 'border-primary-300 bg-primary-50 text-primary-600 dark:border-primary-800 dark:bg-primary-900/50 dark:text-primary-400' : 'border-gray-300 bg-white text-gray-500 hover:border-gray-500/30 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:border-gray-600 dark:hover:bg-gray-900' }} flex items-center space-x-1.5 rounded-full border px-3 py-1.5 text-sm transition md:px-2 md:py-0.5 md:text-xs"
-                            wire:click='$emit("openModal", "posts:select-time-modal", {{ json_encode([$post->story_id, $post->time]) }})'
+                            wire:click='$dispatch("openModal", "posts:select-time-modal", {{ json_encode([$post->story_id, $post->time]) }})'
                         >
                             <x-icon
                                 name="clock"
@@ -97,7 +97,7 @@
                     <button
                         type="button"
                         class="w-full appearance-none md:w-1/3"
-                        wire:click='$emit("openModal", "posts:set-content-ratings-modal", {{ json_encode(['language' => $ratingLanguage, 'sex' => $ratingSex, 'violence' => $ratingViolence]) }})'
+                        wire:click='$dispatch("openModal", "posts:set-content-ratings-modal", {{ json_encode(['language' => $ratingLanguage, 'sex' => $ratingSex, 'violence' => $ratingViolence]) }})'
                     >
                         <div class="space-y-1">
                             <div class="flex items-center space-x-3">
@@ -157,7 +157,7 @@
                 @if ($previousPost)
                 <li>
                 <article>
-                <a href="#" class="grid items-start relative rounded-md p-3 sm:p-5 overflow-hidden hover:bg-white dark:hover:bg-gray-900 transition ease-in-out duration-200" wire:click.prevent='$emit("openModal", "posts:read-post-modal", {{ json_encode([$previousPost->id]) }})'>
+                <a href="#" class="grid items-start relative rounded-md p-3 sm:p-5 overflow-hidden hover:bg-white dark:hover:bg-gray-900 transition ease-in-out duration-200" wire:click.prevent='$dispatch("openModal", "posts:read-post-modal", {{ json_encode([$previousPost->id]) }})'>
                 <div class="md:col-start-1 row-start-1 md:row-end-3 flex items-baseline font-medium mb-1 md:mb-0">
                 <svg viewBox="0 0 12 12" class="w-3 h-3 mr-6 overflow-visible text-gray-400 dark:text-gray-500">
                 <circle cx="6" cy="6" r="6" fill="currentColor"></circle>
@@ -226,7 +226,7 @@
                 @if ($nextPost)
                 <li>
                 <article>
-                <a href="#" class="grid items-start relative rounded-md p-3 sm:p-5 overflow-hidden hover:bg-white transition" wire:click.prevent='$emit("openModal", "posts:read-post-modal", {{ json_encode([$nextPost->id]) }})'>
+                <a href="#" class="grid items-start relative rounded-md p-3 sm:p-5 overflow-hidden hover:bg-white transition" wire:click.prevent='$dispatch("openModal", "posts:read-post-modal", {{ json_encode([$nextPost->id]) }})'>
                 <div class="md:col-start-1 row-start-1 md:row-end-3 flex items-baseline font-medium mb-1 md:mb-0">
                 <svg viewBox="0 0 12 12" class="w-3 h-3 mr-6 overflow-visible text-gray-400">
                 <circle cx="6" cy="6" r="6" fill="currentColor"></circle>

@@ -69,10 +69,7 @@ class ComposePost extends Component
 
             $this->saving = false;
 
-            $this->dispatchBrowserEvent('toast', [
-                'title' => $this->title.' has been saved',
-                'message' => null,
-            ]);
+            $this->dispatch('toast', title: $this->title.' has been saved', message: null);
         }
     }
 

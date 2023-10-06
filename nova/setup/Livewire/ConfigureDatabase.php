@@ -64,7 +64,7 @@ class ConfigureDatabase extends Component
             $this->status = DatabaseConfigStatus::success;
         } catch (ValidationException $ex) {
             if ($ex->validator->errors()->hasAny(['host', 'port', 'socket'])) {
-                $this->dispatchBrowserEvent('advanced-settings-validation-error');
+                $this->dispatch('advanced-settings-validation-error');
             }
 
             $this->validate();

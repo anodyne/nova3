@@ -16,7 +16,7 @@ class Editor extends Component
 
     public function updatedContent($value): void
     {
-        $this->emit('editorUpdated', $value);
+        $this->dispatch('editorUpdated', value: $value);
     }
 
     public function getWordCountProperty(): string

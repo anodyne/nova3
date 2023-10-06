@@ -19,11 +19,11 @@ class CharactersDropdown extends Component
 
     public function selectCharacter($characterId)
     {
-        $this->dispatchBrowserEvent('characters-dropdown-close');
+        $this->dispatch('characters-dropdown-close');
 
         $this->selected = $this->characters->where('id', $characterId)->first();
 
-        $this->emitUp('characterSelected', $characterId, $this->index);
+        $this->dispatch('characterSelected', characterId: $characterId, index: $this->index);
 
         $this->resetCharacters();
     }

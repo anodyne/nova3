@@ -42,7 +42,7 @@
                             name="user-name"
                             id="user-name"
                             class="mt-1 block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                            wire:model.defer="name"
+                            wire:model="name"
                             placeholder="For privacy reasons, we recommend using a nickname or alias"
                         />
                         @error('name')
@@ -73,7 +73,7 @@
                             name="user-email"
                             id="user-email"
                             class="mt-1 block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                            wire:model.defer="email"
+                            wire:model="email"
                             placeholder="me@example.com"
                         />
                         @error('email')
@@ -104,7 +104,7 @@
                             name="user-password"
                             id="user-password"
                             class="mt-1 block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                            wire:model.defer="password"
+                            wire:model="password"
                             placeholder="Your password or a passphrase"
                         />
                         @error('password')

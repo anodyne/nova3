@@ -23,7 +23,7 @@
         >
             <div class="flex-1">
                 <x-input.group>
-                    <x-input.text placeholder="Find characters by name or assigned user name/email" wire:model="search">
+                    <x-input.text placeholder="Find characters by name or assigned user name/email" wire:model.live="search">
                         <x-slot name="leading">
                             <x-icon name="search" size="sm"></x-icon>
                         </x-slot>

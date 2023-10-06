@@ -35,7 +35,7 @@ class RankGroupsDropdown extends Component
 
     public function selectGroup(int $groupId): void
     {
-        $this->dispatchBrowserEvent('rank-groups-dropdown-close');
+        $this->dispatch('rank-groups-dropdown-close');
 
         $this->reset('search');
 

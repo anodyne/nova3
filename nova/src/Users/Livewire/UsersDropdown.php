@@ -18,11 +18,11 @@ class UsersDropdown extends Component
 
     public function selectUser($userId)
     {
-        $this->dispatchBrowserEvent('users-dropdown-close');
+        $this->dispatch('users-dropdown-close');
 
         $this->selected = $this->filteredUsers->where('id', $userId)->first();
 
-        $this->emitUp('userSelected', $userId, $this->index);
+        $this->dispatch('userSelected', userId: $userId, index: $this->index);
 
         $this->reset('search');
     }

@@ -19,7 +19,7 @@ class Rating extends Component
         if (! $this->static) {
             $this->rating = $value;
 
-            $this->emit('ratingUpdated', [
+            $this->dispatch('ratingUpdated', [
                 'rating' => $this->rating,
                 'type' => $this->type,
             ]);
