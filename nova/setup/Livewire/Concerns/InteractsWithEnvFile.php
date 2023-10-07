@@ -7,6 +7,7 @@ namespace Nova\Setup\Livewire\Concerns;
 use Dotenv\Dotenv;
 use Illuminate\Support\Env;
 use Illuminate\Support\Facades\App;
+use Livewire\Attributes\Computed;
 use Nova\Setup\Enums\DatabaseConfigStatus;
 
 trait InteractsWithEnvFile
@@ -75,7 +76,8 @@ trait InteractsWithEnvFile
         DotEnv::create(Env::getRepository(), App::environmentPath(), App::environmentFile())->load();
     }
 
-    public function getCodeForEnvProperty(): string
+    #[Computed]
+    public function codeForEnv(): string
     {
         $keyPrefix = $this->isMigrating ? 'DB_NOVA2_' : 'DB_';
 

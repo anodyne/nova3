@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Stories\Livewire;
 
 use Illuminate\Database\Eloquent\Builder;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Stories\Models\Story;
 use Staudenmeir\LaravelAdjacencyList\Eloquent\Collection;
@@ -13,7 +14,8 @@ class StoriesTimeline extends Component
 {
     public string $sort = 'latest';
 
-    public function getStoriesProperty(): Collection
+    #[Computed]
+    public function stories(): Collection
     {
         return Story::tree()
             ->withCount('posts', 'recursivePosts', 'children')
@@ -26,7 +28,7 @@ class StoriesTimeline extends Component
 
     public function render()
     {
-        return view('livewire.stories.timeline', [
+        return view('pages.stories.livewire.timeline', [
             'stories' => $this->stories,
             'storyClass' => Story::class,
         ]);

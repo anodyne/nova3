@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Livewire;
 
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class ColorShadePicker extends Component
@@ -16,7 +17,7 @@ class ColorShadePicker extends Component
 
     public string $initial = '';
 
-    public function updatedSelected($value): void
+    public function updatedSelected(): void
     {
         if (! array_key_exists($this->selected, $this->colors)) {
             if (! str_starts_with($this->selected, '#')) {
@@ -25,20 +26,8 @@ class ColorShadePicker extends Component
         }
     }
 
-    public function getPreviewColorProperty(): string
-    {
-        if (str_starts_with($this->selected, '#')) {
-            return $this->selected;
-        }
-
-        if (filled($this->selected)) {
-            return sprintf('rgb(%s)', constant('Nova\Foundation\Colors\Color::'.$this->selected)[500]);
-        }
-
-        return $this->selected;
-    }
-
-    public function getColorsProperty(): array
+    #[Computed]
+    public function colors(): array
     {
         $grays = [
             'Slate' => 'Slate',
@@ -86,6 +75,20 @@ class ColorShadePicker extends Component
         );
     }
 
+    #[Computed]
+    public function previewColor(): string
+    {
+        if (str_starts_with($this->selected, '#')) {
+            return $this->selected;
+        }
+
+        if (filled($this->selected)) {
+            return sprintf('rgb(%s)', constant('Nova\Foundation\Colors\Color::'.$this->selected)[500]);
+        }
+
+        return $this->selected;
+    }
+
     public function resetField(): void
     {
         if ($this->initial === $this->selected) {
@@ -105,6 +108,7 @@ class ColorShadePicker extends Component
     {
         return view('livewire.color-shade-picker', [
             'colors' => $this->colors,
+            'previewColor' => $this->previewColor,
         ]);
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Posts\Livewire;
 
+use Livewire\Attributes\On;
 use LivewireUI\Modal\ModalComponent;
 
 class SetContentRatingsModal extends ModalComponent
@@ -13,8 +14,6 @@ class SetContentRatingsModal extends ModalComponent
     public $sex;
 
     public $violence;
-
-    protected $listeners = ['ratingUpdated'];
 
     public function apply(): void
     {
@@ -30,7 +29,8 @@ class SetContentRatingsModal extends ModalComponent
         $this->forceClose()->closeModal();
     }
 
-    public function ratingUpdated(array $payload): void
+    #[On('ratingUpdated')]
+    public function setRating(array $payload): void
     {
         [
             'rating' => $rating,

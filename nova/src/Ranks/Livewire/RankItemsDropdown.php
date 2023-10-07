@@ -12,11 +12,11 @@ use Nova\Ranks\Models\RankItem;
 
 class RankItemsDropdown extends Component
 {
-    public ?Collection $groups;
+    public ?Collection $groups = null;
 
-    public ?Collection $items;
+    public ?Collection $items = null;
 
-    public ?RankItem $selected;
+    public ?RankItem $selected = null;
 
     public function clearRankItems(): void
     {
@@ -52,6 +52,6 @@ class RankItemsDropdown extends Component
 
     public function render(): View
     {
-        return view('livewire.ranks.rank-items-dropdown');
+        return view('pages.ranks.livewire.rank-items-dropdown');
     }
 }

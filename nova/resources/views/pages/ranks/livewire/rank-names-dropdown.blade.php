@@ -1,11 +1,11 @@
 <div
     x-data="{ open: false }"
-    x-on:rank-groups-dropdown-close.window="open = false"
+    x-on:rank-names-dropdown-close.window="open = false"
     x-on:keydown.window.escape="open = false"
     x-on:click.away="open = false"
     class="relative inline-block w-full text-left leading-0"
 >
-    <input type="hidden" name="group_id" value="{{ $selectedId }}" />
+    <input type="hidden" name="name_id" value="{{ $selectedId }}" />
 
     <div>
         <span class="relative flex w-full rounded-md shadow-sm">
@@ -20,7 +20,7 @@
                 aria-expanded="true"
                 :aria-expanded="open"
             >
-                {{ $selected?->name ?? 'Select a rank group' }}
+                {{ $selected?->name ?? 'Select a rank name' }}
 
                 <x-icon.chevron-down class="h-5 w-5 text-gray-400 dark:text-gray-500" />
             </button>
@@ -53,37 +53,37 @@
                     ></x-icon>
 
                     <input
-                        wire:model.debounce.250ms="search"
+                        wire:model.live.debounce.250ms="search"
                         type="text"
-                        placeholder="Find a rank group..."
+                        placeholder="Find a rank name..."
                         class="flex w-full appearance-none border-none bg-transparent p-0 focus:outline-none focus:ring-0 dark:placeholder-gray-400"
                     />
 
-                    @isset($search)
-                        <x-button.text wire:click="$set('search', null)" color="gray">
+                    @if (filled($search))
+                        <x-button.text wire:click="$set('search', '')" color="gray">
                             <x-icon name="dismiss" size="sm"></x-icon>
                         </x-button.text>
-                    @endisset
+                    @endif
                 </div>
 
-                @forelse ($filteredGroups as $group)
+                @forelse ($filteredNames as $name)
                     <button
-                        wire:click="selectGroup({{ $group->id }})"
+                        wire:click="selectName({{ $name->id }})"
                         type="button"
                         class="group flex w-full items-center justify-between rounded-md px-4 py-2 text-base font-medium text-gray-500 transition hover:bg-gray-100 hover:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-600/50 dark:hover:text-gray-100 md:text-sm"
                         role="menuitem"
                     >
                         <div class="flex items-center space-x-3">
-                            <x-status :status="$group->status"></x-status>
-                            <span>{{ $group->name }}</span>
+                            <x-status :status="$name->status"></x-status>
+                            <span>{{ $name->name }}</span>
                         </div>
 
-                        @if ($selectedId === $group->id)
+                        @if ($selectedId === $name->id)
                             <span
                                 x-description="Checkmark, only display for selected option."
                                 x-state:on="Highlighted"
                                 x-state:off="Not Highlighted"
-                                :class="{ 'text-white': selected === {{ $group->id }}, 'text-primary-500': !(selected === {{ $group->id }}) }"
+                                :class="{ 'text-white': selected === {{ $name->id }}, 'text-primary-500': !(selected === {{ $name->id }}) }"
                                 class="flex items-center text-primary-500"
                             >
                                 <x-icon name="check" size="md"></x-icon>
@@ -92,13 +92,13 @@
                     </button>
                 @empty
                     <div class="flex flex-col items-center pb-6 pt-2">
-                        <div class="text-base text-gray-500 dark:text-gray-400">There is no rank group named</div>
+                        <div class="text-base text-gray-500 dark:text-gray-400">There is no rank name named</div>
                         <div class="mb-6 mt-1 text-base font-medium text-gray-900 dark:text-gray-100">
                             &lsquo;{{ $search }}&rsquo;
                         </div>
 
-                        <x-button.outline wire:click="createAndSelectGroup" type="button" color="primary">
-                            Create this group
+                        <x-button.outline wire:click="createAndSelectName" type="button" color="primary">
+                            Create this name
                         </x-button.outline>
                     </div>
                 @endforelse

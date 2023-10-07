@@ -26,7 +26,7 @@ class NotificationSetting extends ModalComponent
 
     public function render()
     {
-        return view('livewire.settings.notification-setting');
+        return view('pages.settings.livewire.notification-setting');
     }
 
     protected function setNotifiable(): void

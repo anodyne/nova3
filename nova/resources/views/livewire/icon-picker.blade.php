@@ -14,19 +14,19 @@
                 type="button"
                 @class([
                     'relative flex w-full cursor-default items-center justify-between space-x-4 rounded-md bg-white px-3 py-2.5 text-left leading-normal ring-1 ring-inset ring-gray-300 transition focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary-600 focus:outline-none dark:bg-opacity-5 dark:ring-white/10 dark:focus-within:ring-primary-500',
-                    'text-gray-900 dark:text-white' => $selected,
+                    'text-gray-900 dark:text-white' => filled($selected),
                 ])
                 aria-haspopup="true"
                 aria-expanded="true"
                 x-bind:aria-expanded="open"
             >
                 <span class="flex items-center space-x-2 truncate">
-                    @isset($selected)
+                    @if (filled($selected))
                         <x-icon :name="$selected" size="md" class="shrink-0"></x-icon>
                         <span>{{ $selected }}</span>
                     @else
                         Select an icon
-                    @endisset
+                    @endif
                 </span>
 
                 <x-icon.chevron-down class="h-5 w-5 text-gray-400 dark:text-gray-500" />
@@ -61,17 +61,17 @@
                         ></x-icon>
 
                         <input
-                            wire:model.debounce.250ms="search"
+                            wire:model.live.debounce.250ms="search"
                             type="text"
                             placeholder="Find an icon"
                             class="flex w-full appearance-none border-none bg-transparent p-0 focus:outline-none focus:ring-0 dark:placeholder-gray-400"
                         />
 
-                        @isset($search)
-                            <x-button.text wire:click="$set('search', null)" color="gray">
+                        @if (filled($search))
+                            <x-button.text wire:click="$set('search', '')" color="gray">
                                 <x-icon name="dismiss" size="sm"></x-icon>
                             </x-button.text>
-                        @endisset
+                        @endif
                     </div>
                 </div>
 

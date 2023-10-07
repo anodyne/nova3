@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Settings\Livewire;
 
 use Illuminate\Support\Facades\Storage;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class FontSelector extends Component
@@ -13,7 +14,8 @@ class FontSelector extends Component
 
     public ?string $family = null;
 
-    public function getLocalFontsProperty(): array
+    #[Computed]
+    public function localFonts(): array
     {
         return collect(Storage::disk('dist')->directories('fonts'))
             ->flatMap(function (string $dir) {
@@ -33,7 +35,7 @@ class FontSelector extends Component
 
     public function render()
     {
-        return view('livewire.settings.font-selector', [
+        return view('pages.settings.livewire.font-selector', [
             'localFonts' => $this->localFonts,
         ]);
     }

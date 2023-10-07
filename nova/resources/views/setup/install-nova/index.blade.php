@@ -100,7 +100,7 @@
         </div>
     @endif
 
-    @if ($shouldShowSuccess)
+    @if ($shouldShowSuccessTable)
         <div class="mx-auto max-w-lg space-y-8">
             <x-panel class="overflow-hidden">
                 <div class="divide-y divide-gray-200">

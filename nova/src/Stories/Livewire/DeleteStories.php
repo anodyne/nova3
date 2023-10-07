@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Nova\Stories\Models\Story;
 
@@ -13,8 +14,7 @@ class DeleteStories extends Component
 
     public $stories;
 
-    protected $listeners = ['delete-story-toggle' => 'deleteStoryToggle'];
-
+    #[On('delete-story-toggle')]
     public function deleteStoryToggle($value, $storyId): void
     {
         if ($value) {
@@ -94,6 +94,6 @@ class DeleteStories extends Component
 
     public function render()
     {
-        return view('livewire.stories.delete');
+        return view('pages.stories.livewire.delete');
     }
 }

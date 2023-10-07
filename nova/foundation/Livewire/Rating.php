@@ -10,7 +10,7 @@ class Rating extends Component
 {
     public int $rating = 0;
 
-    public string $type;
+    public string $type = '';
 
     public bool $static = false;
 
@@ -19,10 +19,11 @@ class Rating extends Component
         if (! $this->static) {
             $this->rating = $value;
 
-            $this->dispatch('ratingUpdated', [
-                'rating' => $this->rating,
-                'type' => $this->type,
-            ]);
+            $this->dispatch(
+                'ratingUpdated',
+                rating: $this->rating,
+                type: $this->type
+            );
         }
     }
 

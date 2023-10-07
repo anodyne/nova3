@@ -23,7 +23,7 @@
                 @if (isset($selected))
                     <div class="flex items-center">
                         <x-rank :rank="$selected" />
-                        <span class="ml-3">{{ $selected->name->name }}</span>
+                        <span class="ml-3">{{ $selected?->name?->name }}</span>
                     </div>
                 @else
                     Pick a rank

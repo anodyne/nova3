@@ -11,10 +11,7 @@ use Nova\Users\Listeners\GeneratePassword;
 use Nova\Users\Livewire\AdminThemeToggle;
 use Nova\Users\Livewire\ManageCharacters;
 use Nova\Users\Livewire\ManageRoles;
-use Nova\Users\Livewire\SelectUsersModal;
 use Nova\Users\Livewire\UserNotifications;
-use Nova\Users\Livewire\UsersCollector;
-use Nova\Users\Livewire\UsersDropdown;
 use Nova\Users\Livewire\UsersList;
 use Nova\Users\Models\User;
 use Nova\Users\Spotlight\AddUser;
@@ -36,14 +33,11 @@ class UserServiceProvider extends DomainServiceProvider
     public function livewireComponents(): array
     {
         return [
-            'users:collector' => UsersCollector::class,
-            'users:admin-theme-toggle' => AdminThemeToggle::class,
-            'users:dropdown' => UsersDropdown::class,
-            'users:list' => UsersList::class,
-            'users:manage-characters' => ManageCharacters::class,
-            'users:manage-roles' => ManageRoles::class,
-            'users:notifications' => UserNotifications::class,
-            'users:select-users-modal' => SelectUsersModal::class,
+            'users-admin-theme-toggle' => AdminThemeToggle::class,
+            'users-list' => UsersList::class,
+            'users-manage-characters' => ManageCharacters::class,
+            'users-manage-roles' => ManageRoles::class,
+            'users-notifications' => UserNotifications::class,
         ];
     }
 

@@ -7,6 +7,7 @@ namespace Nova\Ranks\Livewire;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Ranks\Actions\CreateRankName;
 use Nova\Ranks\Data\RankNameData;
@@ -15,13 +16,13 @@ use Nova\Ranks\Models\RankName;
 
 class RankNamesDropdown extends Component
 {
-    public ?int $nameId;
+    public ?int $nameId = null;
 
-    public ?string $search = null;
+    public string $search = '';
 
-    public ?RankName $selected;
+    public ?RankName $selected = null;
 
-    public ?int $selectedId;
+    public ?int $selectedId = null;
 
     public function createAndSelectName(): void
     {
@@ -43,7 +44,8 @@ class RankNamesDropdown extends Component
         $this->selected = $this->filteredNames->where('id', $nameId)->first();
     }
 
-    public function getFilteredNamesProperty(): Collection
+    #[Computed]
+    public function filteredNames(): Collection
     {
         return RankName::query()
             ->when($this->search, fn (Builder $query, string $value): Builder => $query->searchFor($value))
@@ -59,7 +61,7 @@ class RankNamesDropdown extends Component
 
     public function render(): View
     {
-        return view('livewire.ranks.rank-names-dropdown', [
+        return view('pages.ranks.livewire.rank-names-dropdown', [
             'filteredNames' => $this->filteredNames,
         ]);
     }

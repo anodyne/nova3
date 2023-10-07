@@ -146,25 +146,25 @@ class StoriesList extends TableComponent
                             }),
                         ActionGroup::make([
                             Action::make('status_current')
-                                ->closeParentActions()
+                                ->cancelParentActions()
                                 ->color('gray')
                                 ->label('Current')
                                 ->hidden(fn (Model $record): bool => $record->status->equals(States\Current::class))
                                 ->action(fn (Model $record): Model => UpdateStoryStatus::run($record, 'current')),
                             Action::make('status_ongoing')
-                                ->closeParentActions()
+                                ->cancelParentActions()
                                 ->color('gray')
                                 ->label('Ongoing')
                                 ->hidden(fn (Model $record): bool => $record->status->equals(States\Ongoing::class))
                                 ->action(fn (Model $record): Model => UpdateStoryStatus::run($record, 'ongoing')),
                             Action::make('status_completed')
-                                ->closeParentActions()
+                                ->cancelParentActions()
                                 ->color('gray')
                                 ->label('Completed')
                                 ->hidden(fn (Model $record): bool => $record->status->equals(States\Completed::class))
                                 ->action(fn (Model $record): Model => UpdateStoryStatus::run($record, 'completed')),
                             Action::make('status_upcoming')
-                                ->closeParentActions()
+                                ->cancelParentActions()
                                 ->color('gray')
                                 ->label('Upcoming')
                                 ->hidden(fn (Model $record): bool => $record->status->equals(States\Upcoming::class))

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Users\Livewire;
 
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Users\Resources\NotificationResource;
 
@@ -14,19 +15,22 @@ class UserNotifications extends Component
         auth()->user()->notifications()->delete();
     }
 
-    public function getNotificationsProperty(): array
+    #[Computed]
+    public function notifications(): array
     {
         return NotificationResource::collection(
             auth()->user()->notifications
         )->toArray(request());
     }
 
-    public function getHasNotificationsProperty(): bool
+    #[Computed]
+    public function hasNotifications(): bool
     {
         return count($this->notifications) > 0;
     }
 
-    public function getUnreadNotificationsCountProperty(): int
+    #[Computed]
+    public function unreadNotificationsCount(): int
     {
         return once(fn () => auth()->user()->unreadNotifications)->count();
     }
@@ -54,7 +58,7 @@ class UserNotifications extends Component
 
     public function render()
     {
-        return view('livewire.users.notifications', [
+        return view('pages.users.livewire.notifications', [
             'hasNotifications' => $this->hasNotifications,
             'notifications' => $this->notifications,
             'unreadNotificationsCount' => $this->unreadNotificationsCount,

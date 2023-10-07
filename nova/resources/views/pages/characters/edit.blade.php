@@ -33,7 +33,7 @@
                 message="Characters can be assigned to any number of positions. On the manifest, the character will be displayed for each position they're assigned to."
             >
                 <x-panel>
-                    <livewire:characters:manage-positions :character="$character" />
+                    <livewire:characters-manage-positions :character="$character" />
                 </x-panel>
             </x-form.section>
 
@@ -44,7 +44,7 @@
                 sent to all users assigned to the character."
             >
                 <x-panel>
-                    <livewire:characters:manage-users :character="$character" />
+                    <livewire:characters-manage-users :character="$character" />
                 </x-panel>
             </x-form.section>
 

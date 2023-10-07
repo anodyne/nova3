@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Setup\Livewire\Migration;
 
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 abstract class MigrationStep extends Component
@@ -16,20 +18,20 @@ abstract class MigrationStep extends Component
 
     public bool $shouldMigrate = true;
 
-    protected $listeners = ['startMigrationStep'];
+    abstract public function pendingMigrationCount(): int;
 
-    abstract public function getPendingMigrationCountProperty(): int;
-
-    abstract public function getCompletedMigrationCountProperty(): int;
+    abstract public function completedMigrationCount(): int;
 
     abstract public function runMigrationStep(): void;
 
-    public function getWasSuccessfullyMigratedProperty(): bool
+    #[Computed]
+    public function wasSuccessfullyMigrated(): bool
     {
         return $this->pendingMigrationCount === $this->completedMigrationCount;
     }
 
-    public function getMigrationCountBadgeColorProperty(): string
+    #[Computed]
+    public function migrationCountBadgeColor(): string
     {
         return match (true) {
             $this->isFinished && $this->wasSuccessfullyMigrated => 'success',
@@ -38,6 +40,7 @@ abstract class MigrationStep extends Component
         };
     }
 
+    #[On('startMigrationStep')]
     public function startMigrationStep(array $payload): void
     {
         if (data_get($payload, 'step') === static::class) {

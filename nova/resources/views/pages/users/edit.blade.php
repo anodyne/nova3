@@ -107,7 +107,7 @@
                 </x-slot>
 
                 <x-panel>
-                    @livewire('users:manage-characters', ['user' => $user])
+                    <livewire:users-manage-characters :user="$user" />
                 </x-panel>
             </x-form.section>
 
@@ -123,7 +123,7 @@
                 </x-slot>
 
                 <x-panel>
-                    @livewire('users:manage-roles', ['user' => $user])
+                    <livewire:users-manage-roles :user="$user" />
                 </x-panel>
             </x-form.section>
 
