@@ -28,7 +28,7 @@
         @livewire('livewire-ui-spotlight')
         @livewire('notifications')
 
-        @filamentScripts
+        @filamentScripts(withCore: true)
         @novaScripts
         @stack('scripts')
     </body>
