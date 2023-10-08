@@ -14,7 +14,7 @@ class DeleteStories extends Component
 
     public $stories;
 
-    #[On('delete-story-toggle')]
+    #[On('deleteStoryToggle')]
     public function deleteStoryToggle($value, $storyId): void
     {
         if ($value) {

@@ -24,7 +24,12 @@
                                 <div
                                     class="text-lg font-semibold text-gray-900 dark:text-white"
                                     x-data="{}"
-                                    @toggle-switch-changed="livewire.emit('delete-story-toggle', $event.detail.value, {{ $story->id }})"
+                                    x-on:toggle-switch-changed="
+                                        $dispatch('deleteStoryToggle', {
+                                            value: $event.detail.value,
+                                            storyId: {{ $story->id }},
+                                        })
+                                    "
                                 >
                                     <x-switch-toggle
                                         name="active"
