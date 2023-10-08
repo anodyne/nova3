@@ -1317,7 +1317,7 @@
         },
         {
             "name": "filament/actions",
-            "version": "v3.0.68",
+            "version": "v3.0.69",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/actions.git",
@@ -1367,16 +1367,16 @@
         },
         {
             "name": "filament/forms",
-            "version": "v3.0.68",
+            "version": "v3.0.69",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/forms.git",
-                "reference": "91fbc1e7db12ae6ee2956259922fc26a6079eeef"
+                "reference": "81ee2d2ef6322f53442fd27c8e40d925e1594ce2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/forms/zipball/91fbc1e7db12ae6ee2956259922fc26a6079eeef",
-                "reference": "91fbc1e7db12ae6ee2956259922fc26a6079eeef",
+                "url": "https://api.github.com/repos/filamentphp/forms/zipball/81ee2d2ef6322f53442fd27c8e40d925e1594ce2",
+                "reference": "81ee2d2ef6322f53442fd27c8e40d925e1594ce2",
                 "shasum": ""
             },
             "require": {
@@ -1419,20 +1419,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2023-10-05T15:18:17+00:00"
+            "time": "2023-10-06T15:56:53+00:00"
         },
         {
             "name": "filament/infolists",
-            "version": "v3.0.68",
+            "version": "v3.0.69",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/infolists.git",
-                "reference": "bd43e4c60eff6fbdc4deef8a79597eddff778085"
+                "reference": "76bd92dff0c7798e09bcd7b6905e76ecaef193d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/infolists/zipball/bd43e4c60eff6fbdc4deef8a79597eddff778085",
-                "reference": "bd43e4c60eff6fbdc4deef8a79597eddff778085",
+                "url": "https://api.github.com/repos/filamentphp/infolists/zipball/76bd92dff0c7798e09bcd7b6905e76ecaef193d5",
+                "reference": "76bd92dff0c7798e09bcd7b6905e76ecaef193d5",
                 "shasum": ""
             },
             "require": {
@@ -1470,11 +1470,11 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2023-10-05T15:18:19+00:00"
+            "time": "2023-10-06T15:56:51+00:00"
         },
         {
             "name": "filament/notifications",
-            "version": "v3.0.68",
+            "version": "v3.0.69",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/notifications.git",
@@ -1526,16 +1526,16 @@
         },
         {
             "name": "filament/support",
-            "version": "v3.0.68",
+            "version": "v3.0.69",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/support.git",
-                "reference": "7daa798f1ff2f1101f63374935d4f368a06239e7"
+                "reference": "6c4358cf11b8f09effcaaa995b4e553e7c1a94c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/support/zipball/7daa798f1ff2f1101f63374935d4f368a06239e7",
-                "reference": "7daa798f1ff2f1101f63374935d4f368a06239e7",
+                "url": "https://api.github.com/repos/filamentphp/support/zipball/6c4358cf11b8f09effcaaa995b4e553e7c1a94c8",
+                "reference": "6c4358cf11b8f09effcaaa995b4e553e7c1a94c8",
                 "shasum": ""
             },
             "require": {
@@ -1579,20 +1579,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2023-10-05T15:18:20+00:00"
+            "time": "2023-10-06T15:56:48+00:00"
         },
         {
             "name": "filament/tables",
-            "version": "v3.0.68",
+            "version": "v3.0.69",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/tables.git",
-                "reference": "52af209018655bcc1a6d52b20d24fb3688d2cd22"
+                "reference": "f661731442a1af2819f3581b05cca38c91db54d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/tables/zipball/52af209018655bcc1a6d52b20d24fb3688d2cd22",
-                "reference": "52af209018655bcc1a6d52b20d24fb3688d2cd22",
+                "url": "https://api.github.com/repos/filamentphp/tables/zipball/f661731442a1af2819f3581b05cca38c91db54d0",
+                "reference": "f661731442a1af2819f3581b05cca38c91db54d0",
                 "shasum": ""
             },
             "require": {
@@ -1632,7 +1632,7 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2023-10-05T15:18:23+00:00"
+            "time": "2023-10-06T15:57:10+00:00"
         },
         {
             "name": "fruitcake/php-cors",
@@ -11391,7 +11391,7 @@
         },
         {
             "name": "filament/upgrade",
-            "version": "v3.0.68",
+            "version": "v3.0.69",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/upgrade.git",
@@ -14508,32 +14508,32 @@
         },
         {
             "name": "slevomat/coding-standard",
-            "version": "8.13.4",
+            "version": "8.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/slevomat/coding-standard.git",
-                "reference": "4b2af2fb17773656d02fbfb5d18024ebd19fe322"
+                "reference": "5cb40fa9c1808efad471f8db5ee795ef36720d5f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/4b2af2fb17773656d02fbfb5d18024ebd19fe322",
-                "reference": "4b2af2fb17773656d02fbfb5d18024ebd19fe322",
+                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/5cb40fa9c1808efad471f8db5ee795ef36720d5f",
+                "reference": "5cb40fa9c1808efad471f8db5ee795ef36720d5f",
                 "shasum": ""
             },
             "require": {
                 "dealerdirect/phpcodesniffer-composer-installer": "^0.6.2 || ^0.7 || ^1.0",
                 "php": "^7.2 || ^8.0",
-                "phpstan/phpdoc-parser": "^1.23.0",
+                "phpstan/phpdoc-parser": "^1.23.1",
                 "squizlabs/php_codesniffer": "^3.7.1"
             },
             "require-dev": {
                 "phing/phing": "2.17.4",
                 "php-parallel-lint/php-parallel-lint": "1.3.2",
-                "phpstan/phpstan": "1.10.26",
-                "phpstan/phpstan-deprecation-rules": "1.1.3",
-                "phpstan/phpstan-phpunit": "1.3.13",
+                "phpstan/phpstan": "1.10.37",
+                "phpstan/phpstan-deprecation-rules": "1.1.4",
+                "phpstan/phpstan-phpunit": "1.3.14",
                 "phpstan/phpstan-strict-rules": "1.5.1",
-                "phpunit/phpunit": "7.5.20|8.5.21|9.6.8|10.2.6"
+                "phpunit/phpunit": "8.5.21|9.6.8|10.3.5"
             },
             "type": "phpcodesniffer-standard",
             "extra": {
@@ -14557,7 +14557,7 @@
             ],
             "support": {
                 "issues": "https://github.com/slevomat/coding-standard/issues",
-                "source": "https://github.com/slevomat/coding-standard/tree/8.13.4"
+                "source": "https://github.com/slevomat/coding-standard/tree/8.14.0"
             },
             "funding": [
                 {
@@ -14569,7 +14569,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-07-25T10:28:55+00:00"
+            "time": "2023-10-07T09:18:52+00:00"
         },
         {
             "name": "spatie/flare-client-php",
