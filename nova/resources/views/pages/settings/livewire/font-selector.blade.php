@@ -1,6 +1,6 @@
 <fieldset x-data="{
-    provider: @entangle('provider'),
-    family: @entangle('family'),
+    provider: @entangle('provider').live,
+    family: @entangle('family').live,
 }">
     <legend class="sr-only">Font options</legend>
 
