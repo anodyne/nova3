@@ -6,6 +6,7 @@ namespace Nova\Departments\Livewire;
 
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
@@ -20,6 +21,7 @@ use Nova\Departments\Data\DepartmentData;
 use Nova\Departments\Enums\DepartmentStatus;
 use Nova\Departments\Events\DepartmentDuplicated;
 use Nova\Departments\Models\Department;
+use Nova\Departments\Models\Position;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
@@ -76,6 +78,12 @@ class DepartmentsList extends TableComponent
                             ->authorize('update')
                             ->url(fn (Model $record): string => route('departments.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
+
+                    ActionGroup::make([
+                        Action::make('positions')
+                            ->icon(iconName('list'))
+                            ->url(fn (Model $record): string => route('positions.index', ['tableFilters' => ['department_id' => ['values' => [$record->id]]]])),
+                    ])->authorize('viewAny', Position::class)->divided(),
 
                     ActionGroup::make([
                         ReplicateAction::make()
