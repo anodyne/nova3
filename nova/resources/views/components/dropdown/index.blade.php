@@ -33,7 +33,7 @@
             <x-button.text
                 tag="button"
                 x-on:click="toggle"
-                :color="$trigger->attributes->get('color', 'gray')"
+                :color="$trigger->attributes->get('color', 'subtle-neutral')"
                 :leading="$trigger->attributes->get('leading')"
                 :trailing="$trigger->attributes->get('trailing')"
             >

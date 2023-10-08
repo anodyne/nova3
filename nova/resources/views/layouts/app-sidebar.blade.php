@@ -483,7 +483,7 @@
                                 --}}
                                 <li class="!mt-4 px-6 py-4 leading-none">
                                     <x-dropdown placement="bottom-end" class="w-full">
-                                        <x-slot name="trigger">
+                                        <x-slot name="trigger" color="heavy-neutral">
                                             <x-avatar
                                                 size="xs"
                                                 :src="auth()->user()->avatar_url"

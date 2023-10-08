@@ -45,8 +45,4 @@
             </div>
         </x-panel.primary>
     </x-content-box>
-
-    <x-filament::hr
-        :x-show="\Illuminate\Support\Js::from($isReorderable || count($groups) || $isGlobalSearchVisible || $hasFilters || $isColumnToggleFormVisible).' || (selectedRecords.length && '.\Illuminate\Support\Js::from(count($bulkActions)).')'"
-    />
 </div>
