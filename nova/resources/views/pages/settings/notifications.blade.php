@@ -120,7 +120,7 @@
                                     <div class="ml-5 shrink-0 leading-0">
                                         <x-button.text
                                             color="gray"
-                                            x-on:click="Livewire.emit('openModal', 'settings:notification-setting', {{ json_encode([$systemNotification, null]) }})"
+                                            x-on:click="Livewire.dispatch('openModal', { component: 'settings:notification-setting', arguments: { notification: {{ json_encode([$systemNotification, null]) }} }})"
                                         >
                                             <x-icon name="edit" size="sm"></x-icon>
                                         </x-button.text>
@@ -159,7 +159,7 @@
                                     <div class="ml-5 shrink-0 leading-0">
                                         <x-button.text
                                             color="gray"
-                                            x-on:click="Livewire.emit('openModal', 'settings:notification-setting', {{ json_encode([$systemNotification, null]) }})"
+                                            x-on:click="Livewire.dispatch('openModal', { component: 'settings:notification-setting', arguments: { notification: {{ json_encode([$systemNotification, null]) }} }})"
                                         >
                                             <x-icon name="edit" size="sm"></x-icon>
                                         </x-button.text>
@@ -195,7 +195,7 @@
                                     <div class="ml-5 shrink-0 leading-0">
                                         <x-button.text
                                             color="gray"
-                                            x-on:click="Livewire.emit('openModal', 'settings:notification-setting', {{ json_encode([$systemNotification, null]) }})"
+                                            x-on:click="Livewire.dispatch('openModal', { component: 'settings:notification-setting', arguments: { notification: {{ json_encode([$systemNotification, null]) }} }})"
                                         >
                                             <x-icon name="edit" size="sm"></x-icon>
                                         </x-button.text>

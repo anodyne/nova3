@@ -17,7 +17,12 @@ class NotificationSetting extends ModalComponent
 
     public ?Notifiable $notifiable = null;
 
-    public function mount(SystemNotification $notification, $userId)
+    public function dismiss(): void
+    {
+        $this->forceClose()->closeModal();
+    }
+
+    public function mount(SystemNotification $notification, $userId = null)
     {
         $this->notification = $notification;
         $this->user = $userId ? User::find($userId) : null;
