@@ -52,7 +52,7 @@
                     <x-h3>Characters</x-h3>
 
                     <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
-                        @foreach ($department->activeCharacters as $character)
+                        @forelse ($department->activeCharacters as $character)
                             <x-panel as="light-well" class="group flex w-full items-center justify-between">
                                 <x-content-box height="sm" width="sm">
                                     <x-avatar.character
@@ -62,7 +62,15 @@
                                     ></x-avatar.character>
                                 </x-content-box>
                             </x-panel>
-                        @endforeach
+                        @empty
+                            <div class="col-span-2">
+                                <x-empty-state.small
+                                    icon="characters"
+                                    title="No characters assigned"
+                                    message="There aren't any characters assigned to any positions within this department. Assign some characters to positions within this department to populate this list."
+                                ></x-empty-state.small>
+                            </div>
+                        @endforelse
                     </div>
                 </x-content-box>
 
@@ -70,13 +78,21 @@
                     <x-h3>Users</x-h3>
 
                     <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
-                        @foreach ($department->activeUsers as $user)
+                        @forelse ($department->activeUsers as $user)
                             <x-panel as="light-well" class="group flex w-full items-center justify-between">
                                 <x-content-box height="sm" width="sm">
                                     <x-avatar.user :user="$user"></x-avatar.user>
                                 </x-content-box>
                             </x-panel>
-                        @endforeach
+                        @empty
+                            <div class="col-span-2">
+                                <x-empty-state.small
+                                    icon="users"
+                                    title="No active users assigned"
+                                    message="There aren't any active users who have a character assigned to any positions within this department. Assign some characters to positions within this department to populate this list."
+                                ></x-empty-state.small>
+                            </div>
+                        @endforelse
                     </div>
                 </x-content-box>
             </div>
@@ -98,7 +114,7 @@
                     </div>
 
                     <div>
-                        @foreach ($department->positions as $position)
+                        @forelse ($department->positions as $position)
                             <div
                                 class="group flex items-center justify-between px-4 py-2 odd:bg-gray-100 dark:odd:bg-gray-700/50"
                             >
@@ -116,7 +132,18 @@
                                     </x-button.text>
                                 @endcan
                             </div>
-                        @endforeach
+                        @empty
+                            <div class="px-4">
+                                <x-empty-state.small
+                                    icon="list"
+                                    title="No positions assigned"
+                                    message="There aren't any positions assigned to this department. Assign some positions to this department to populate this list."
+                                    :link-access="gate()->allows('viewAny', Nova\Departments\Models\Position::class)"
+                                    :link="route('positions.index')"
+                                    label="Assign positions"
+                                ></x-empty-state.small>
+                            </div>
+                        @endforelse
                     </div>
                 </div>
             </div>
