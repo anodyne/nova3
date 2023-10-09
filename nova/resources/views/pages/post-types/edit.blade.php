@@ -82,7 +82,7 @@
                 </x-input.group>
 
                 <x-input.group label="Icon" for="icon">
-                    <livewire:icon-picker :selected="old('icon', $postType->icon)" />
+                    <livewire:icon-picker :selected="old('icon', $postType->icon ?? '')" />
                 </x-input.group>
 
                 <x-input.group
