@@ -28,12 +28,12 @@ use Staudenmeir\EloquentEagerLimitXLaravelAdjacencyList\Eloquent\HasEagerLimitAn
 
 class Post extends Model implements Sortable
 {
+    use HasEagerLimitAndRecursiveRelationships;
     use HasFactory;
     use HasStates;
-    use WithData;
-    use SortableTrait;
-    use HasEagerLimitAndRecursiveRelationships;
     use LogsActivity;
+    use SortableTrait;
+    use WithData;
 
     protected $table = 'posts';
 

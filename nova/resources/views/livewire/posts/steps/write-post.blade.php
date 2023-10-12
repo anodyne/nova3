@@ -4,7 +4,7 @@
             <div class="space-between flex items-center">
                 <input
                     type="text"
-                    wire:model.debounce.1s="post.title"
+                    wire:model.live.debounce.500ms="post.title"
                     class="block w-full flex-1 appearance-none border-none bg-transparent p-0.5 text-3xl font-extrabold tracking-tight text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-0 dark:text-gray-100"
                     placeholder="Add a title"
                 />
@@ -276,7 +276,7 @@
                     help="If your post contains content intended only for mature audiences or that could be difficult for some people to read, you can provide a summary of the post."
                     class="w-full md:w-2/3"
                 >
-                    <x-input.textarea wire:model.debounce.1s="post.summary" rows="3">
+                    <x-input.textarea wire:model.live.debounce.500ms="post.summary" rows="3">
                         {{ old('post.summary', '') }}
                     </x-input.textarea>
                 </x-input.group>

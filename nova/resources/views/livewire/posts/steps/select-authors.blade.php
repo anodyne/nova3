@@ -249,7 +249,7 @@
                                 >
                                     <x-input.text
                                         placeholder="Who is this user playing? (optional)"
-                                        wire:model.debounce.1s="selectedUsers.{{ $user->id }}.as"
+                                        wire:model.live.debounce.500ms="selectedUsers.{{ $user->id }}.as"
                                         wire:key="u-{{ $user->id }}-as"
                                     ></x-input.text>
                                 </div>

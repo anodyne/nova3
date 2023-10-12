@@ -118,7 +118,7 @@ class PopulatePagesTable extends Migration
             ['uri' => 'stories', 'key' => 'stories.destroy', 'verb' => PageVerb::delete, 'resource' => 'Nova\\Stories\\Controllers\\StoryController@destroy', 'layout' => 'admin'],
             ['uri' => 'story-timeline', 'key' => 'stories.timeline', 'resource' => 'Nova\\Stories\\Controllers\\ShowStoryTimelineController', 'layout' => 'admin'],
 
-            ['uri' => 'stories/{story}/posts/{post}/show', 'key' => 'posts.show', 'resource' => 'Nova\\Posts\\Controllers\\ShowPostController@show', 'layout' => 'admin'],
+            ['uri' => 'stories/{story}/posts/{post}/show', 'key' => 'posts.show', 'resource' => 'Nova\\Posts\\Controllers\\PostController@show', 'layout' => 'admin'],
             ['uri' => 'posts/write/{post?}', 'key' => 'posts.create', 'resource' => 'Nova\\Posts\\Controllers\\PostController@create', 'layout' => 'admin'],
             ['uri' => 'posts/{post}/edit', 'key' => 'posts.edit', 'resource' => 'Nova\\Posts\\Controllers\\PostController@edit', 'layout' => 'admin'],
             ['uri' => 'posts/{post}', 'key' => 'posts.update', 'verb' => PageVerb::put, 'resource' => 'Nova\\Posts\\Controllers\\PostController@update', 'layout' => 'admin'],

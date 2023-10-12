@@ -67,7 +67,7 @@
                                 <x-empty-state.small
                                     icon="characters"
                                     title="No characters assigned"
-                                    message="There aren't any characters assigned to any positions within this department. Assign some characters to positions within this department to populate this list."
+                                    message="There aren’t any characters assigned to any positions within this department. Assign some characters to positions within this department to populate this list."
                                 ></x-empty-state.small>
                             </div>
                         @endforelse
@@ -89,7 +89,7 @@
                                 <x-empty-state.small
                                     icon="users"
                                     title="No active users assigned"
-                                    message="There aren't any active users who have a character assigned to any positions within this department. Assign some characters to positions within this department to populate this list."
+                                    message="There aren’t any active users who have a character assigned to any positions within this department. Assign some characters to positions within this department to populate this list."
                                 ></x-empty-state.small>
                             </div>
                         @endforelse
@@ -137,7 +137,7 @@
                                 <x-empty-state.small
                                     icon="list"
                                     title="No positions assigned"
-                                    message="There aren't any positions assigned to this department. Assign some positions to this department to populate this list."
+                                    message="There aren’t any positions assigned to this department. Assign some positions to this department to populate this list."
                                     :link-access="gate()->allows('viewAny', Nova\Departments\Models\Position::class)"
                                     :link="route('positions.index')"
                                     label="Assign positions"

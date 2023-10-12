@@ -60,8 +60,10 @@ class PostBuilder extends Builder
         return $this->whereState('status', Published::class);
     }
 
-    public function story(Story $story): self
+    public function story(Story|int $story): self
     {
-        return $this->where('story_id', $story->id);
+        $storyId = is_int($story) ? $story : $story->id;
+
+        return $this->where('story_id', $storyId);
     }
 }

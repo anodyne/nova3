@@ -62,7 +62,8 @@ class DepartmentsList extends TableComponent
                     ->label('# of users')
                     ->alignCenter()
                     ->sortable()
-                    ->toggleable(),
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
                 TextColumn::make('status')
                     ->badge()
                     ->color(fn (Model $record): string => $record->status->color())

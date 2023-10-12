@@ -29,7 +29,7 @@
             @if ($posts->total() > 0)
                 <div class="w-full sm:w-1/3">
                     <x-input.group>
-                        <x-input.text wire:model.debounce.500ms="filters.search" placeholder="Find story post...">
+                        <x-input.text wire:model.live.debounce.500ms="filters.search" placeholder="Find story post...">
                             <x-slot name="leading">
                                 <x-icon name="search" size="sm"></x-icon>
                             </x-slot>
