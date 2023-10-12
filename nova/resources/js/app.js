@@ -1,5 +1,4 @@
 import axios from 'axios';
-import 'alpinejs/dist/cdn';
 
 import Clipboard from '@ryangjchandler/alpine-clipboard';
 import AdminThemeToggle from './components/admin-theme-toggle';

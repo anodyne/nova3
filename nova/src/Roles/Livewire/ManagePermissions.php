@@ -6,6 +6,7 @@ namespace Nova\Roles\Livewire;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Roles\Models\Permission;
 use Nova\Roles\Models\Role;
@@ -32,19 +33,22 @@ class ManagePermissions extends Component
         );
     }
 
-    public function getAssignedPermissionsProperty(): string
+    #[Computed]
+    public function assignedPermissions(): string
     {
         return $this->assigned
             ->map(fn (Permission $permission) => $permission->id)
             ->join(',');
     }
 
-    public function getPermissionsProperty()
+    #[Computed]
+    public function permissions(): Collection
     {
         return $this->assigned;
     }
 
-    public function getFilteredPermissionsProperty()
+    #[Computed]
+    public function filteredPermissions(): Collection
     {
         return Permission::query()
             ->when(filled($this->search) && $this->search !== '*', fn (Builder $query): Builder => $query->searchFor($this->search))
@@ -59,7 +63,7 @@ class ManagePermissions extends Component
 
     public function render()
     {
-        return view('livewire.roles.manage-permissions', [
+        return view('pages.roles.livewire.manage-permissions', [
             'assignedPermissions' => $this->assignedPermissions,
             'filteredPermissions' => $this->filteredPermissions,
             'permissions' => $this->permissions,

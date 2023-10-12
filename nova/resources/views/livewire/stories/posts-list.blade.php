@@ -29,7 +29,7 @@
             @if ($posts->total() > 0)
                 <div class="w-full sm:w-1/3">
                     <x-input.group>
-                        <x-input.text wire:model.debounce.500ms="filters.search" placeholder="Find story post...">
+                        <x-input.text wire:model.live.debounce.500ms="filters.search" placeholder="Find story post...">
                             <x-slot name="leading">
                                 <x-icon name="search" size="sm"></x-icon>
                             </x-slot>
@@ -135,7 +135,10 @@
                 <p class="mt-1 text-sm text-gray-600">Get started by assigning permissions to this role.</p>
 
                 <div class="mt-6">
-                    <x-button.filled color="primary" wire:click="$emit('openModal', 'roles:select-permissions-modal')">
+                    <x-button.filled
+                        color="primary"
+                        wire:click="$dispatch('openModal', 'roles:select-permissions-modal')"
+                    >
                         Add permissions
                     </x-button.filled>
                 </div>

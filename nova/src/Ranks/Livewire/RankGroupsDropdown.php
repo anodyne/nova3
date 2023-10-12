@@ -7,6 +7,7 @@ namespace Nova\Ranks\Livewire;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Ranks\Actions\CreateRankGroup;
 use Nova\Ranks\Data\RankGroupData;
@@ -15,13 +16,13 @@ use Nova\Ranks\Models\RankGroup;
 
 class RankGroupsDropdown extends Component
 {
-    public ?int $groupId;
+    public ?int $groupId = null;
 
     public ?string $search = null;
 
-    public ?RankGroup $selected;
+    public ?RankGroup $selected = null;
 
-    public ?int $selectedId;
+    public ?int $selectedId = null;
 
     public function createAndSelectGroup(): void
     {
@@ -35,7 +36,7 @@ class RankGroupsDropdown extends Component
 
     public function selectGroup(int $groupId): void
     {
-        $this->dispatchBrowserEvent('rank-groups-dropdown-close');
+        $this->dispatch('rank-groups-dropdown-close');
 
         $this->reset('search');
 
@@ -43,7 +44,8 @@ class RankGroupsDropdown extends Component
         $this->selected = $this->filteredGroups->where('id', $groupId)->first();
     }
 
-    public function getFilteredGroupsProperty(): Collection
+    #[Computed]
+    public function filteredGroups(): Collection
     {
         return RankGroup::query()
             ->when($this->search, fn (Builder $query, ?string $value): Builder => $query->searchFor($value))
@@ -59,7 +61,7 @@ class RankGroupsDropdown extends Component
 
     public function render(): View
     {
-        return view('livewire.ranks.rank-groups-dropdown', [
+        return view('pages.ranks.livewire.rank-groups-dropdown', [
             'filteredGroups' => $this->filteredGroups,
         ]);
     }

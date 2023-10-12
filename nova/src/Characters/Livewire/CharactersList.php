@@ -17,6 +17,7 @@ use Filament\Tables\Table;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Livewire\Attributes\Url;
 use Nova\Characters\Actions\ActivateCharacter;
 use Nova\Characters\Actions\DeactivateCharacter;
 use Nova\Characters\Actions\DeleteCharacter;
@@ -38,13 +39,10 @@ use Nova\Foundation\Livewire\TableComponent;
 
 class CharactersList extends TableComponent
 {
-    protected $queryString = [
-        'tableFilters',
+    #[Url]
+    public ?array $tableFilters = [
+        'only_my_characters',
     ];
-
-    // public ?array $tableFilters = [
-    //     'only_my_characters',
-    // ];
 
     public function table(Table $table): Table
     {

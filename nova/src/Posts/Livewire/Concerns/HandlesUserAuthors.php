@@ -62,7 +62,7 @@ trait HandlesUserAuthors
 
     public function removeUserAuthor(User $user): void
     {
-        $this->dispatchBrowserEvent('dropdown-close');
+        $this->dispatch('dropdown-close');
 
         $this->post->userAuthors()->detach($user->id);
 

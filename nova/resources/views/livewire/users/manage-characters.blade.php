@@ -5,7 +5,10 @@
                 @if ($characters->count() > 0)
                     <div class="relative w-full">
                         <x-input.group>
-                            <x-input.text wire:model.debounce.500ms="search" placeholder="Find character to assign">
+                            <x-input.text
+                                wire:model.live.debounce.500ms="search"
+                                placeholder="Find character to assign"
+                            >
                                 <x-slot name="leading">
                                     <x-icon name="search" size="sm"></x-icon>
                                 </x-slot>

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Settings\Livewire;
 
 use Illuminate\Support\Collection;
+use Livewire\Attributes\Computed;
 use LivewireUI\Modal\ModalComponent;
 
 class FindSettingsModal extends ModalComponent
@@ -13,18 +14,13 @@ class FindSettingsModal extends ModalComponent
 
     public Collection $settings;
 
-    /**
-     * Dismiss the modal.
-     */
     public function dismiss(): void
     {
         $this->forceClose()->closeModal();
     }
 
-    /**
-     * Get a subset of all settings based on the search.
-     */
-    public function getFilteredSettingsProperty(): Collection
+    #[Computed]
+    public function filteredSettings(): Collection
     {
         return $this->search === ''
             ? collect()
@@ -38,7 +34,7 @@ class FindSettingsModal extends ModalComponent
 
     public function render()
     {
-        return view('livewire.settings.find-settings-modal', [
+        return view('pages.settings.livewire.find-settings-modal', [
             'filteredSettings' => $this->filteredSettings,
         ]);
     }

@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Nova\Setup\Livewire;
 
 use Illuminate\Database\Eloquent\Collection;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Roles\Models\Role;
 
 class UserAccess extends Component
 {
-    public function getRolesProperty(): Collection
+    #[Computed]
+    public function roles(): Collection
     {
         return Role::query()
             ->with('user')

@@ -1,5 +1,5 @@
 <div @class([
-    'fi-simple-table' => $simpleTable,
+    'fi-ta-simple' => $simpleTable,
 ])>
     {{ $this->table }}
 </div>

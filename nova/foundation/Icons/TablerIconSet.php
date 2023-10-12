@@ -67,7 +67,7 @@ class TablerIconSet extends IconSet
             'mature' => 'tabler-explicit',
             'menu' => 'tabler-menu-2',
             'moon' => 'tabler-moon-stars',
-            'more' => 'tabler-dots',
+            'more' => 'tabler-dots-vertical',
             'move-down' => 'tabler-arrow-down-square',
             'move-right' => 'tabler-arrow-right-square',
             'move-up' => 'tabler-arrow-up-square',

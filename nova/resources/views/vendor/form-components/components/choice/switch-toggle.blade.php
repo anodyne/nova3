@@ -24,7 +24,7 @@
              @endif @class([
             'sr-only peer',
             'input-error' => $hasErrorsAndShow($name),
-        ]) x-bind:checked="isPressed" x-on:change="toggle" {{ $attributes->except(['type', 'x-model', 'wire:model', 'wire:model.defer', 'wire:model.lazy', 'aria-describedby', 'class']) }} @if ($name) name="{{ $name }}" @endif @if ($id) id="{{ $id }}" @endif @if ($disabled) disabled @endif @if ($hasErrorsAndShow($name))
+        ]) x-bind:checked="isPressed" x-on:change="toggle" {{ $attributes->except(['type', 'x-model', 'wire:model', 'wire:model.live', 'wire:model.blur', 'aria-describedby', 'class']) }} @if ($name) name="{{ $name }}" @endif @if ($id) id="{{ $id }}" @endif @if ($disabled) disabled @endif @if ($hasErrorsAndShow($name))
                  aria-invalid="true"
              @endif {!! $ariaDescribedBy() !!} />
 

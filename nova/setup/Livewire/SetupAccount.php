@@ -6,6 +6,7 @@ namespace Nova\Setup\Livewire;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Users\Data\PronounsData;
 use Nova\Users\Models\User;
@@ -37,15 +38,17 @@ class SetupAccount extends Component
 
         $this->isFinished = true;
 
-        $this->dispatchBrowserEvent('confetti');
+        $this->dispatch('confetti');
     }
 
-    public function getShouldShowFormProperty(): bool
+    #[Computed]
+    public function shouldShowForm(): bool
     {
         return ! $this->isFinished;
     }
 
-    public function getShouldShowSuccessTableProperty(): bool
+    #[Computed]
+    public function shouldShowSuccessTable(): bool
     {
         return $this->isFinished;
     }
@@ -55,7 +58,7 @@ class SetupAccount extends Component
         if (User::count() > 0) {
             $this->isFinished = true;
 
-            $this->dispatchBrowserEvent('confetti');
+            $this->dispatch('confetti');
         }
     }
 

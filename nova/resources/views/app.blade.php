@@ -10,7 +10,6 @@
 
         <x-fonts />
 
-        @livewireStyles
         @filamentStyles
         @novaStyles
         @stack('styles')
@@ -29,8 +28,7 @@
         @livewire('livewire-ui-spotlight')
         @livewire('notifications')
 
-        @livewireScripts
-        @filamentScripts
+        @filamentScripts(withCore: true)
         @novaScripts
         @stack('scripts')
     </body>

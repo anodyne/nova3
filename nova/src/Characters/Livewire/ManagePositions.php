@@ -6,6 +6,7 @@ namespace Nova\Characters\Livewire;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Characters\Models\Character;
 use Nova\Departments\Models\Position;
@@ -32,12 +33,14 @@ class ManagePositions extends Component
         );
     }
 
-    public function getPositionsProperty(): Collection
+    #[Computed]
+    public function positions(): Collection
     {
         return $this->assigned;
     }
 
-    public function getFilteredPositionsProperty(): Collection
+    #[Computed]
+    public function filteredPositions(): Collection
     {
         return Position::query()
             ->unless(auth()->user()->can('create', Character::class), fn (Builder $query) => $query->where('available', '>', 0))
@@ -46,7 +49,8 @@ class ManagePositions extends Component
             ->get();
     }
 
-    public function getAssignedPositionsProperty(): string
+    #[Computed]
+    public function assignedPositions(): string
     {
         return $this->assigned
             ->map(fn (Position $position) => $position->id)
@@ -60,7 +64,7 @@ class ManagePositions extends Component
 
     public function render()
     {
-        return view('livewire.characters.manage-positions', [
+        return view('pages.characters.livewire.manage-positions', [
             'assignedPositions' => $this->assignedPositions,
             'filteredPositions' => $this->filteredPositions,
             'positions' => $this->positions,

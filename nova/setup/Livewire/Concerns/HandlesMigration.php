@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Setup\Livewire\Concerns;
 
+use Livewire\Attributes\Computed;
+
 trait HandlesMigration
 {
     public bool $isMigrating = false;
@@ -15,7 +17,8 @@ trait HandlesMigration
         $this->isMigrating = request()->is('setup/migrate*');
     }
 
-    public function getShouldShowDatabaseOptionsProperty(): bool
+    #[Computed]
+    public function shouldShowDatabaseOptions(): bool
     {
         return $this->status === null && $this->isMigrating && $this->useSameDatabase === null;
     }

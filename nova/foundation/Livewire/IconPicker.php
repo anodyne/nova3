@@ -5,30 +5,32 @@ declare(strict_types=1);
 namespace Nova\Foundation\Livewire;
 
 use Illuminate\Support\Str;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Foundation\Icons\IconSets;
 
 class IconPicker extends Component
 {
-    public ?string $search = null;
+    public string $search = '';
 
-    public ?string $selected = null;
+    public string $selected = '';
 
-    public function selectIcon($icon)
+    public function selectIcon(string $icon): void
     {
-        $this->selected = ($icon === '') ? null : $icon;
+        $this->selected = $icon;
 
-        $this->dispatchBrowserEvent('icons-dropdown-close');
+        $this->dispatch('icons-dropdown-close');
 
         $this->reset('search');
     }
 
-    public function getFilteredIconsProperty(): array
+    #[Computed]
+    public function filteredIcons(): array
     {
         $allIcons = app(IconSets::class)->getDefault()->map();
         ksort($allIcons);
 
-        if ($this->search === null) {
+        if (blank($this->search)) {
             return $allIcons;
         }
 

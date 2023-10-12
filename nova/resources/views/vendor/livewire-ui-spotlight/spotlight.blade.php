@@ -7,7 +7,12 @@
     @endisset
 
     <div
-        x-data="LivewireUISpotlight({ componentId: '{{ $this->id }}', placeholder: '{{ trans('livewire-ui-spotlight::spotlight.placeholder') }}', commands: {{ $commands }} })"
+        x-data="LivewireUISpotlight({
+            componentId: '{{ $this->id() }}',
+            placeholder: '{{ trans('livewire-ui-spotlight::spotlight.placeholder') }}',
+            commands: @js($commands),
+            showResultsWithoutInput: '{{ config('livewire-ui-spotlight.show_results_without_input') }}',
+        })"
         x-init="init()"
         x-show="isOpen"
         x-cloak

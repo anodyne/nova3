@@ -6,16 +6,18 @@ namespace Nova\Stories\Livewire;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
+use Nova\Stories\Enums\StoryPosition;
 use Nova\Stories\Models\Story;
 
 class StoryHierarchy extends Component
 {
-    public $direction;
+    public ?StoryPosition $position = null;
 
     public $hasPositionChange = false;
 
-    public $neighbor;
+    public $neighbor = null;
 
     public ?Story $parent = null;
 
@@ -23,16 +25,16 @@ class StoryHierarchy extends Component
 
     public ?Story $story = null;
 
-    public function updatedDirection($value): void
+    public function updatedPosition(): void
     {
         $this->hasPositionChange = true;
     }
 
-    public function updatedParentId($value): void
+    public function updatedParentId(): void
     {
         $this->hasPositionChange = true;
 
-        $this->parent = Story::find($value);
+        $this->parent = Story::find($this->parentId);
     }
 
     public function updatedNeighbor($value): void
@@ -40,7 +42,8 @@ class StoryHierarchy extends Component
         $this->hasPositionChange = true;
     }
 
-    public function getOrderStoriesProperty(): Collection
+    #[Computed]
+    public function orderStories(): Collection
     {
         return Story::query()
             ->when(filled($this->parentId), fn (Builder $query): Builder => $query->parent((int) $this->parentId))
@@ -49,7 +52,8 @@ class StoryHierarchy extends Component
             ->get();
     }
 
-    public function getParentStoriesProperty(): Collection
+    #[Computed]
+    public function parentStories(): Collection
     {
         return Story::tree()->ordered()->get();
     }
@@ -63,7 +67,7 @@ class StoryHierarchy extends Component
                 : null;
 
             $this->neighbor = $nextNeighbor?->id ?? $previousNeighbor?->id;
-            $this->direction = $nextNeighbor ? 'before' : 'after';
+            $this->position = $nextNeighbor ? StoryPosition::before : StoryPosition::after;
         }
 
         if (filled($this->parentId)) {
@@ -79,9 +83,7 @@ class StoryHierarchy extends Component
 
     public function render()
     {
-        // dd($this->orderStories);
-
-        return view('livewire.stories.hierarchy', [
+        return view('pages.stories.livewire.hierarchy', [
             'orderStories' => $this->orderStories,
             'parentStories' => $this->parentStories,
         ]);

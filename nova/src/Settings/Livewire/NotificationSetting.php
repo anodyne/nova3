@@ -17,7 +17,12 @@ class NotificationSetting extends ModalComponent
 
     public ?Notifiable $notifiable = null;
 
-    public function mount(SystemNotification $notification, $userId)
+    public function dismiss(): void
+    {
+        $this->forceClose()->closeModal();
+    }
+
+    public function mount(SystemNotification $notification, $userId = null)
     {
         $this->notification = $notification;
         $this->user = $userId ? User::find($userId) : null;
@@ -26,7 +31,7 @@ class NotificationSetting extends ModalComponent
 
     public function render()
     {
-        return view('livewire.settings.notification-setting');
+        return view('pages.settings.livewire.notification-setting');
     }
 
     protected function setNotifiable(): void

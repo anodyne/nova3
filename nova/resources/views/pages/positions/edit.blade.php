@@ -58,8 +58,10 @@
 
             <x-form.section title="Availability">
                 <x-slot name="message">
-                    You can allow or prevent prospective players from picking this position when applying to join by
-                    setting the number of available slots.
+                    <p>
+                        You can allow or prevent prospective players from picking this position when applying to join by
+                        setting the number of available slots.
+                    </p>
 
                     <p class="block">
                         <strong class="font-semibold">Note:</strong>

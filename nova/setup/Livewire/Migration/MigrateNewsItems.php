@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Setup\Livewire\Migration;
 
+use Livewire\Attributes\Computed;
 use Nova\Setup\Models\Legacy\News as LegacyNews;
 
 class MigrateNewsItems extends MigrationStep
@@ -15,12 +16,14 @@ class MigrateNewsItems extends MigrationStep
         sleep(5);
     }
 
-    public function getPendingMigrationCountProperty(): int
+    #[Computed]
+    public function pendingMigrationCount(): int
     {
         return LegacyNews::count();
     }
 
-    public function getCompletedMigrationCountProperty(): int
+    #[Computed]
+    public function completedMigrationCount(): int
     {
         return 0;
     }

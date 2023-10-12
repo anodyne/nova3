@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Livewire;
 
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class Editor extends Component
@@ -14,18 +15,21 @@ class Editor extends Component
 
     public string $fieldName = 'editor-content';
 
-    public function updatedContent($value): void
+    public function updatedContent(): void
     {
-        $this->emit('editorUpdated', $value);
+        $this->dispatch('editorUpdated', value: $this->content);
     }
 
-    public function getWordCountProperty(): string
+    #[Computed]
+    public function wordCount(): string
     {
         return number_format(str($this->content)->pipe('strip_tags')->wordCount());
     }
 
     public function render()
     {
-        return view('livewire.editor');
+        return view('livewire.editor', [
+            'wordCount' => $this->wordCount,
+        ]);
     }
 }

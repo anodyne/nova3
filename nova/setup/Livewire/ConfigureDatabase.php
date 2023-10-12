@@ -7,6 +7,7 @@ namespace Nova\Setup\Livewire;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Setup\Enums\DatabaseConfigStatus;
 use PDO;
@@ -64,7 +65,7 @@ class ConfigureDatabase extends Component
             $this->status = DatabaseConfigStatus::success;
         } catch (ValidationException $ex) {
             if ($ex->validator->errors()->hasAny(['host', 'port', 'socket'])) {
-                $this->dispatchBrowserEvent('advanced-settings-validation-error');
+                $this->dispatch('advanced-settings-validation-error');
             }
 
             $this->validate();
@@ -88,7 +89,8 @@ class ConfigureDatabase extends Component
         }
     }
 
-    public function getShouldShowFormProperty(): bool
+    #[Computed]
+    public function shouldShowForm(): bool
     {
         return match ($this->status) {
             DatabaseConfigStatus::failedToVerify => false,
@@ -101,7 +103,8 @@ class ConfigureDatabase extends Component
         };
     }
 
-    public function getShouldShowManualInstructionsProperty(): bool
+    #[Computed]
+    public function shouldShowManualInstructions(): bool
     {
         return match ($this->status) {
             DatabaseConfigStatus::failedToWriteEnv => true,
@@ -110,7 +113,8 @@ class ConfigureDatabase extends Component
         };
     }
 
-    public function getShouldShowSuccessTableProperty(): bool
+    #[Computed]
+    public function shouldShowSuccessTable(): bool
     {
         return match ($this->status) {
             DatabaseConfigStatus::incompatibleDriver => true,

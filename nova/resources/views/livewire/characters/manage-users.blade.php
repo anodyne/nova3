@@ -4,7 +4,7 @@
             <div class="relative w-full">
                 <x-input.group>
                     <x-input.text
-                        wire:model.debounce.500ms="search"
+                        wire:model.live.debounce.500ms="search"
                         placeholder="Find a user to assign (type * to see all users)"
                     >
                         <x-slot name="leading">

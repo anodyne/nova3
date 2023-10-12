@@ -16,6 +16,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Livewire\Attributes\Url;
 use Nova\Departments\Actions\DeletePosition;
 use Nova\Departments\Actions\DuplicatePosition;
 use Nova\Departments\Data\PositionData;
@@ -33,13 +34,10 @@ use Nova\Foundation\Livewire\TableComponent;
 
 class PositionsList extends TableComponent
 {
-    protected $queryString = [
-        'tableFilters',
+    #[Url]
+    public ?array $tableFilters = [
+        'department_id',
     ];
-
-    // public ?array $tableFilters = [
-    //     'only_my_characters',
-    // ];
 
     public function table(Table $table): Table
     {

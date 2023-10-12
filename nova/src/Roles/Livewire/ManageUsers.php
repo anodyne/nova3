@@ -6,6 +6,7 @@ namespace Nova\Roles\Livewire;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Roles\Models\Role;
 use Nova\Users\Models\User;
@@ -32,12 +33,14 @@ class ManageUsers extends Component
         );
     }
 
-    public function getUsersProperty(): Collection
+    #[Computed]
+    public function users(): Collection
     {
         return $this->assigned;
     }
 
-    public function getFilteredUsersProperty(): Collection
+    #[Computed]
+    public function filteredUsers(): Collection
     {
         return User::query()
             ->when(filled($this->search) && $this->search !== '*', fn (Builder $query): Builder => $query->searchFor($this->search))
@@ -45,7 +48,8 @@ class ManageUsers extends Component
             ->get();
     }
 
-    public function getAssignedUsersProperty(): string
+    #[Computed]
+    public function assignedUsers(): string
     {
         return $this->assigned
             ->map(fn (User $user) => $user->id)
@@ -59,7 +63,7 @@ class ManageUsers extends Component
 
     public function render()
     {
-        return view('livewire.roles.manage-users', [
+        return view('pages.roles.livewire.manage-users', [
             'assignedUsers' => $this->assignedUsers,
             'filteredUsers' => $this->filteredUsers,
             'users' => $this->users,

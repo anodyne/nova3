@@ -13,7 +13,7 @@
                                     <a
                                         href="#"
                                         class="relative grid items-start overflow-hidden rounded-md p-3 transition duration-200 ease-in-out hover:bg-gray-100 dark:hover:bg-gray-900 sm:p-5"
-                                        wire:click.prevent='$emit("openModal", "posts:read-post-modal", {{ json_encode([$previousPost->id]) }})'
+                                        wire:click.prevent='$dispatch("openModal", "posts:read-post-modal", {{ json_encode([$previousPost->id]) }})'
                                     >
                                         <div
                                             class="row-start-1 mb-1 flex items-baseline font-medium md:col-start-1 md:row-end-3 md:mb-0"
@@ -132,7 +132,7 @@
                                         <a
                                             role="button"
                                             class="invisible ml-12 inline-flex shrink-0 items-center space-x-1 text-sm text-gray-400 group-hover:visible"
-                                            wire:click='$emit("openModal", "posts:select-post-position-modal", {{ json_encode([$post->story_id]) }})'
+                                            wire:click='$dispatch("openModal", "posts:select-post-position-modal", {{ json_encode([$post->story_id]) }})'
                                         >
                                             <x-icon
                                                 name="arrows-sort"
@@ -152,7 +152,7 @@
                                     <a
                                         href="#"
                                         class="relative grid items-start overflow-hidden rounded-md p-3 transition duration-200 ease-in-out hover:bg-gray-100 dark:hover:bg-gray-900 sm:p-5"
-                                        wire:click.prevent='$emit("openModal", "posts:read-post-modal", {{ json_encode([$nextPost->id]) }})'
+                                        wire:click.prevent='$dispatch("openModal", "posts:read-post-modal", {{ json_encode([$nextPost->id]) }})'
                                     >
                                         <div
                                             class="row-start-1 mb-1 flex items-baseline font-medium md:col-start-1 md:row-end-3 md:mb-0"

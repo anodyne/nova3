@@ -5,7 +5,7 @@
                 <div class="relative w-full">
                     <x-input.group>
                         <x-input.text
-                            wire:model.debounce.500ms="search"
+                            wire:model.live.debounce.500ms="search"
                             placeholder="Find role to assign (type * to see all roles)"
                         >
                             <x-slot name="leading">

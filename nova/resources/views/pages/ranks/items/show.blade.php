@@ -34,7 +34,7 @@
             <x-h3>Assigned characters</x-h3>
 
             <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
-                @foreach ($item->characters as $character)
+                @forelse ($item->characters as $character)
                     <x-panel as="light-well" class="group flex w-full items-center justify-between">
                         <x-content-box height="sm" width="sm" class="w-full">
                             <div class="group flex items-center justify-between">
@@ -60,7 +60,15 @@
                             </div>
                         </x-content-box>
                     </x-panel>
-                @endforeach
+                @empty
+                    <div class="col-span-2">
+                        <x-empty-state.small
+                            icon="characters"
+                            title="No characters assigned"
+                            message="There aren't any characters assigned to this rank item. Assign some characters to this rank item to populate this list."
+                        ></x-empty-state.small>
+                    </div>
+                @endforelse
             </div>
         </x-content-box>
     </x-panel>

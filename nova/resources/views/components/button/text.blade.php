@@ -31,7 +31,7 @@
                 'heavy-neutral' => 'text-gray-600 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-200',
                 'neutral-primary' => 'text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-500',
                 'neutral-danger' => 'text-gray-500 hover:text-danger-500 dark:text-gray-400 dark:hover:text-danger-500',
-                'subtle-neutral' => 'text-gray-400 hover:text-gray-500 dark:text-gray-600 dark:hover:text-gray-500',
+                'subtle-neutral' => 'text-gray-400 hover:text-gray-500 dark:text-gray-500 dark:hover:text-gray-400',
                 'subtle-neutral-primary' => 'text-gray-400 hover:text-primary-500 dark:text-gray-600 dark:hover:text-primary-500',
                 'subtle-neutral-danger' => 'text-gray-400 hover:text-danger-500 dark:text-gray-600 dark:hover:text-danger-500',
                 default => 'text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300',

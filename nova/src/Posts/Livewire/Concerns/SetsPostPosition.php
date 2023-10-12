@@ -33,7 +33,7 @@ trait SetsPostPosition
             'hasPositionChange' => true,
         ]));
 
-        $this->emit('refreshParticipatingUsers');
+        $this->dispatch('refreshParticipatingUsers');
     }
 
     protected function setDirectionAndNeighbor(string $direction, int $neighbor): void

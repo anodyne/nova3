@@ -7,6 +7,7 @@ namespace Nova\Posts\Controllers;
 use Illuminate\Http\Request;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Posts\Models\Post;
+use Nova\Posts\Models\States\Published;
 use Nova\Posts\Responses\ShowPostResponse;
 use Nova\Posts\Responses\WritePostResponse;
 use Nova\Stories\Actions\CreateStoryManager;
@@ -35,13 +36,13 @@ class PostController extends Controller
         return ListStoriesResponse::send();
     }
 
-    public function show(Post $post)
+    public function show(Story $story, Post $post)
     {
         return ShowPostResponse::sendWith([
-            'post' => $post->load('type', 'characterAuthors', 'userAuthors', 'story'),
-            'story' => $post->story,
-            'previousPost' => $post->prevSiblings()->published()->first(),
-            'nextPost' => $post->nextSiblings()->published()->first(),
+            'post' => $post->load('postType', 'characterAuthors', 'userAuthors', 'story'),
+            'story' => $story,
+            'previousPost' => $post->previousSibling(Published::class),
+            'nextPost' => $post->nextSibling(Published::class),
         ]);
     }
 

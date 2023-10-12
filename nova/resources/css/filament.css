@@ -1,226 +1,92 @@
-.filament-tables-container {
-    @apply rounded-none bg-white shadow ring-1 ring-gray-950/5 dark:!bg-gray-900 dark:shadow-md dark:ring-inset dark:!ring-white/[.03] md:rounded-lg;
+.fi-ta-ctn {
+    @apply shadow;
 }
 
-.fi-simple-table .filament-tables-container {
-    @apply shadow-none ring-0 dark:shadow-none md:rounded-none;
+.fi-ta-simple .fi-ta-ctn {
+    @apply rounded-none shadow-none ring-0;
 }
 
-.filament-tables-header-hr-wrapper {
-    @apply px-0 pt-0;
+.fi-ta-header-heading {
+    @apply block text-xl font-bold tracking-tight;
+}
+.fi-ta-header-description {
+    @apply text-gray-500 dark:text-gray-400;
 }
 
-.filament-tables-header-container-content {
-    @apply p-0;
+/* TODO: this should be something that can be done from Filament */
+.fi-ac-icon-btn-group .fi-icon-btn-icon {
+    @apply h-7 w-7;
 }
 
-.filament-tables-header {
-    @apply mb-0 px-6 py-4;
-}
-.filament-tables-header > div {
-    @apply md:items-center;
+.fi-ta-search-field .fi-input-wrp {
+    @apply rounded-md;
 }
 
-.filament-tables-header-heading {
-    @apply block text-xl font-bold tracking-tight text-gray-900 dark:text-white;
+.fi-ta-header-cell-label {
+    @apply font-medium !text-gray-500 dark:!text-gray-400;
 }
 
-.filament-tables-header-description {
-    @apply mt-1 text-gray-500 dark:text-gray-400 md:text-sm;
+.fi-ta-cell .fi-ta-title-column .fi-ta-text-item {
+    @apply text-gray-950 dark:text-white;
 }
-
-.filament-tables-header .filament-tables-actions-container {
-    @apply gap-6 md:!me-0;
-}
-.filament-tables-actions-container .filament-button {
-    @apply w-full text-base md:w-auto md:text-sm/6;
-}
-
-.filament-tables-header + .filament-hr {
-    @apply border-gray-200 dark:border-gray-800;
-}
-
-.filament-tables-header-toolbar {
-    @apply px-6 py-4;
-}
-
-.filament-tables-search-input > label {
-    @apply inline-flex space-x-2 rounded-md border-0 bg-white px-3 py-2.5 shadow-sm ring-1 ring-inset ring-gray-300 transition focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary-600 dark:bg-white/5 dark:ring-white/10 dark:focus-within:bg-white/5 dark:focus-within:ring-primary-500;
-}
-.filament-tables-search-input
-    > label
-    > .filament-tables-search-input-icon-wrapper {
-    @apply relative h-auto w-auto shrink-0;
-}
-.filament-tables-search-input
-    > label
-    > .filament-tables-search-input-icon-wrapper
-    > svg {
-    @apply text-gray-400 dark:text-gray-500;
-}
-.filament-tables-search-input > label > input {
-    @apply h-auto flex-1 appearance-none rounded-none border-none bg-transparent p-0 text-gray-900 placeholder-gray-400 shadow-none focus:text-gray-900 focus:outline-none focus:ring-0 dark:bg-transparent dark:text-white dark:placeholder-gray-500 dark:focus:text-white;
-}
-
-.filament-tables-filters + .filament-tables-column-toggling {
-    @apply ml-3;
-}
-
-.filament-tables-filter-indicators {
-    @apply dark:border-gray-800;
-}
-.filament-icon-button-indicator {
-    @apply bg-primary-600 dark:bg-primary-500;
-}
-
-.filament-tables-table-container {
-    @apply border-gray-200 dark:!border-gray-800;
-}
-
-.filament-tables-reorder-handle {
-    @apply h-5 w-5;
-}
-
-.filament-tables-table {
-    @apply divide-gray-200 dark:!divide-gray-800;
-}
-.filament-tables-table > thead > tr {
-    @apply bg-gray-50 dark:bg-gray-700/25;
-}
-.filament-tables-header-cell > button {
-    @apply px-6 py-3 text-gray-500 dark:text-gray-400;
-}
-
-.filament-tables-table > tbody {
-    @apply divide-gray-200 dark:divide-gray-800;
-}
-.filament-tables-cell {
+.fi-ta-cell .fi-ta-text-item {
     @apply text-gray-600 dark:text-gray-400;
 }
-.filament-tables-text-column {
-    @apply px-6 py-4;
-}
 
-.filament-tables-checkbox-cell {
-    @apply pl-6 pr-0;
-}
-.filament-tables-checkbox-cell > label > input[type="checkbox"],
-.filament-forms-checkbox-component {
-    @apply form-checkbox h-4 w-4 rounded border-gray-300 bg-white checked:bg-primary-500 checked:hover:bg-primary-500 focus:text-primary-500 focus:ring-primary-200 focus:ring-offset-white dark:border-gray-200/[15%] dark:bg-gray-800 dark:checked:border-primary-500 dark:checked:bg-primary-500 dark:checked:hover:bg-primary-500 dark:focus:text-primary-500 dark:focus:ring-primary-900 dark:focus:ring-offset-gray-800;
-}
-
-.filament-tables-actions-cell {
-    @apply px-6 py-4;
-}
-
-.filament-tables-text-column-badge {
-    @apply rounded-lg py-1 font-medium ring-1 ring-inset;
-}
-.filament-tables-text-column-badge-color-danger {
-    @apply bg-danger-50 text-danger-600 ring-danger-500/10 dark:bg-danger-400/10 dark:text-danger-400 dark:ring-danger-400/20;
-}
-.filament-tables-text-column-badge-color-gray {
-    @apply bg-gray-50 text-gray-600 ring-gray-500/10 dark:bg-gray-400/10 dark:text-gray-400 dark:ring-gray-400/20;
-}
-.filament-tables-text-column-badge-color-primary {
-    @apply bg-primary-50 text-primary-600 ring-primary-500/10 dark:bg-primary-400/10 dark:text-primary-400 dark:ring-primary-400/20;
-}
-.filament-tables-text-column-badge-color-info {
-    @apply bg-info-50 text-info-600 ring-info-500/10 dark:bg-info-400/10 dark:text-info-400 dark:ring-info-400/20;
-}
-.filament-tables-text-column-badge-color-success {
-    @apply bg-success-50 text-success-600 ring-success-500/10 dark:bg-success-400/10 dark:text-success-400 dark:ring-success-400/20;
-}
-.filament-tables-text-column-badge-color-warning {
-    @apply bg-warning-50 text-warning-600 ring-warning-500/10 dark:bg-warning-400/10 dark:text-warning-400 dark:ring-warning-400/20;
-}
-
-.filament-tables-group-header-row {
-    @apply bg-gray-50 dark:bg-gray-700/25;
-}
-
-.filament-tables-pagination-container {
-    @apply border-gray-200 px-4 py-4 dark:!border-gray-800;
-}
-.filament-tables-pagination-records-per-page-selector > label {
-    @apply flex items-center space-x-2;
-}
-.filament-tables-pagination-records-per-page-selector > label > span {
-    @apply shrink-0;
-}
-.filament-tables-pagination-records-per-page-selector > label > select {
-    @apply form-select block h-auto w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-400 dark:bg-gray-700/50 dark:text-white dark:ring-gray-200/[15%] dark:focus:bg-gray-800 dark:focus:ring-primary-600;
-}
-
-.filament-tables-summary-row > td:first-child > div {
-    @apply px-6 py-3;
-}
-
-.filament-tables-empty-state {
-    @apply dark:!bg-transparent;
-}
-.filament-tables-empty-state > .filament-tables-empty-state-icon-wrapper {
-    @apply h-24 w-24;
-}
-.filament-tables-empty-state > .filament-tables-empty-state-icon-wrapper .icon {
+.fi-ta-empty-state-icon {
     @apply h-16 w-16;
 }
-.filament-tables-empty-state > .filament-tables-empty-state-content {
+.fi-ta-empty-state-content {
     @apply space-y-3;
 }
-.filament-tables-empty-state-heading {
-    @apply font-semibold text-gray-900 dark:text-white;
+.fi-ta-empty-state-heading {
+    @apply font-semibold;
 }
-.filament-tables-empty-state-description {
+.fi-ta-empty-state-description {
     @apply text-base leading-relaxed text-gray-600 dark:text-gray-300;
 }
 
-.filament-button {
+.fi-btn {
     @apply relative isolate inline-flex items-center justify-center gap-1.5 rounded-md border border-transparent bg-[--button-border] px-[calc(theme(spacing.3)-1px)] py-[calc(theme(spacing.[1.5])-1px)] text-center text-sm/6 font-semibold shadow-none ring-0 transition before:absolute before:inset-0 before:-z-10 before:rounded-[calc(theme(borderRadius.md)-1px)] before:bg-[--button-bg] before:shadow after:absolute after:inset-0 after:-z-10 after:rounded-[calc(theme(borderRadius.md)-1px)] after:shadow-[inset_0_1px_theme(colors.white/15%)] hover:!bg-[--button-border] after:hover:bg-white/10 focus:!ring-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 dark:border-white/10 dark:bg-[--button-bg] dark:shadow dark:ring-1 dark:ring-black/50 dark:before:hidden dark:after:-inset-px dark:after:rounded-md;
 }
-.filament-button-color-primary {
+.fi-btn-color-primary {
     @apply text-white [--button-bg:theme(colors.primary.500)] [--button-border:theme(colors.primary.600/80%)];
 }
-.filament-button-color-danger {
+.fi-btn-color-danger {
     @apply text-white [--button-bg:theme(colors.danger.500)] [--button-border:theme(colors.danger.600/80%)];
 }
-.filament-button-color-gray {
+.fi-btn-color-gray {
     @apply text-gray-950 [--button-bg:theme(colors.white)] [--button-border:theme(colors.gray.950/10%)] hover:[--button-border:theme(colors.gray.950/20%)] dark:text-white dark:[--button-bg:theme(colors.gray.600)] dark:[--button-border:theme(colors.gray.800/90%)] dark:hover:[--button-border:theme(colors.gray.800/70%)];
 }
-.filament-button-icon {
-    @apply ms-0;
+
+.fi-input-wrp {
+    @apply rounded-md;
 }
 
-.filament-select-input {
-    @apply form-select block h-auto w-full rounded-md border-0 bg-white py-2.5 pl-3 pr-10 text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:!ring-2 focus:ring-primary-400 dark:bg-gray-700/50 dark:text-white dark:ring-gray-200/[15%] dark:focus:bg-gray-800 dark:focus:ring-primary-600;
+.fi-icon-btn {
+    @apply focus:!ring-0;
 }
-
-.filament-dropdown-trigger > .filament-icon-button,
-.filament-tables-header-toolbar .filament-icon-button {
-    @apply h-auto w-auto transition hover:bg-transparent focus:bg-transparent dark:hover:!bg-transparent;
-}
-
-.filament-icon-button-gray {
+.fi-icon-btn-gray {
     @apply text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300;
 }
-.filament-icon-button-primary {
+.fi-icon-btn-primary {
     @apply text-primary-500 hover:text-primary-600 dark:hover:text-primary-400;
 }
-.filament-icon-button-danger {
+.fi-icon-btn-danger {
     @apply text-danger-500 hover:text-danger-600 dark:hover:text-danger-400;
 }
 
-.filament-dropdown-panel {
-    @apply divide-gray-200 ring-gray-950/5 dark:divide-gray-600/50 dark:ring-gray-800;
-}
-.filament-dropdown-list {
+.fi-dropdown-list {
     @apply p-1.5;
 }
-.filament-dropdown-list-item {
-    @apply gap-3 px-4 py-2 text-base font-medium md:text-sm;
+.fi-dropdown-list-item {
+    @apply gap-3 px-3 text-base font-medium md:text-sm;
 }
-.filament-dropdown-list-item-color-gray {
-    @apply text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600/50;
+.fi-dropdown-list-item-color-gray {
+    @apply text-gray-700 dark:text-gray-300;
+}
+.fi-dropdown-list-item-color-gray .fi-dropdown-list-item-icon {
+    @apply text-gray-500 dark:text-gray-400;
 }
 
 .filament-modal-window {
@@ -239,58 +105,14 @@
     @apply text-gray-600;
 }
 
-/* .filament-modal .filament-hr {
-    @apply hidden;
-}
-.filament-modal-close-overlay {
-    @apply backdrop-blur-sm;
-}
-.filament-modal-window {
-    @apply rounded-lg py-0 shadow-xl ring-1 ring-gray-950/5 dark:!bg-gray-900 dark:ring-gray-800;
-}
-.filament-modal-window > button:first-child {
-    @apply end-6 top-6;
-}
-.filament-modal-window > button:first-child > .filament-modal-close-button {
-    @apply h-6 w-6;
-}
-.filament-modal-header {
-    @apply space-y-2 px-6 pt-6;
-}
-.filament-modal-content {
-    @apply p-0;
-}
-.filament-modal-content > div {
-    @apply space-y-4 px-6 py-6 text-left;
-}
-.filament-modal-heading {
-    @apply font-semibold text-gray-900 dark:text-white;
-}
-.filament-modal-subheading {
-    @apply text-gray-600 dark:text-gray-400;
-}
-.filament-modal-footer {
-    @apply py-3;
-}
-.filament-modal-actions {
-    @apply grid-cols-1 md:grid-cols-2;
-}
-.filament-modal-actions .filament-button:first-child {
-    @apply order-last md:order-first;
-}
-.filament-modal-actions .filament-button:last-child {
-    @apply order-first md:order-last;
-} */
-
 .filament-forms-text-input-component,
 .choices__inner {
-    @apply rounded-md border-0 bg-white px-3 py-2.5 shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary-400 dark:bg-gray-800 dark:ring-gray-700 dark:focus-within:bg-gray-900 dark:focus-within:ring-primary-700;
+    @apply rounded-md py-1.5 text-base;
+
+    background-size: 1.25em 1.25em;
 }
 .filament-forms-text-input-component .filament-forms-input {
     @apply appearance-none rounded-none border-0 !bg-transparent p-0 shadow-none focus:border-0 focus:text-gray-900 focus:outline-none focus:ring-0 dark:focus:text-white;
-}
-.filament-select-input {
-    @apply bg-white dark:!bg-gray-800;
 }
 
 .choices__list--dropdown,

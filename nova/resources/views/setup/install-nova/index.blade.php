@@ -37,7 +37,7 @@
                             name="game-name"
                             id="game-name"
                             class="mt-1 block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                            wire:model.defer="name"
+                            wire:model="name"
                             placeholder="What's the name of your game?"
                         />
                         @error('name')
@@ -68,7 +68,7 @@
                             name="game-genre"
                             id="game-genre"
                             class="mt-1 block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                            wire:model.defer="genre"
+                            wire:model="genre"
                         />
                         @error('genre')
                             <div class="mt-1 flex items-center gap-1 text-xs text-danger-600">
@@ -100,7 +100,7 @@
         </div>
     @endif
 
-    @if ($shouldShowSuccess)
+    @if ($shouldShowSuccessTable)
         <div class="mx-auto max-w-lg space-y-8">
             <x-panel class="overflow-hidden">
                 <div class="divide-y divide-gray-200">

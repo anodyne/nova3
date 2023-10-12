@@ -14,7 +14,7 @@
                 <h3 class="text-xl font-bold tracking-tight text-gray-900 dark:text-gray-100">Characters</h3>
                 <x-button.filled
                     color="primary"
-                    wire:click="$emit('openModal', 'posts:select-character-authors-modal')"
+                    wire:click="$dispatch('openModal', 'posts:select-character-authors-modal')"
                 >
                     Add characters
                 </x-button.filled>

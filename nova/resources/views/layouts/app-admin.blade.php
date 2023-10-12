@@ -98,9 +98,9 @@
                     </div>
 
                     <div class="hidden space-x-4 lg:relative lg:ml-4 lg:flex lg:items-center">
-                        <livewire:users:notifications />
+                        <livewire:users-notifications />
 
-                        <livewire:users:admin-theme-toggle />
+                        <livewire:users-admin-theme-toggle />
 
                         <x-dropdown placement="bottom-end">
                             <x-slot:trigger>

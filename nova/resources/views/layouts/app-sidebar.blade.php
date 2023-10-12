@@ -203,7 +203,7 @@
                                 <li class="mt-auto">
                                     <ul role="list" class="space-y-2">
                                         <li class="p-2 leading-none">
-                                            <livewire:users:notifications />
+                                            <livewire:users-notifications />
                                         </li>
                                         <li class="leading-none">
                                             <x-nav.main-item-mobile href="#" icon="search" :meta="$meta">
@@ -242,7 +242,7 @@
                                         </li>
                                         {{--
                                             <li class="px-6 leading-none">
-                                            <livewire:users:admin-theme-toggle />
+                                            <livewire:users-admin-theme-toggle />
                                             </li>
                                         --}}
                                         <li class="!mt-4 border-t border-gray-900/5 px-6 py-4 leading-none">
@@ -441,7 +441,7 @@
                                     </x-panel>
                                 </li>
                                 <li class="px-6 leading-none">
-                                    <livewire:users:notifications />
+                                    <livewire:users-notifications />
                                 </li>
                                 <li class="leading-none">
                                     <x-nav.main-item href="#" icon="search" :meta="$meta">Search</x-nav.main-item>
@@ -473,17 +473,17 @@
                                     </div>
                                     </div>
                                     
-                                    <livewire:users:admin-theme-toggle />
+                                    <livewire:users-admin-theme-toggle />
                                     </li>
                                 --}}
                                 {{--
                                     <li class="px-6 leading-none">
-                                    <livewire:users:admin-theme-toggle />
+                                    <livewire:users-admin-theme-toggle />
                                     </li>
                                 --}}
                                 <li class="!mt-4 px-6 py-4 leading-none">
                                     <x-dropdown placement="bottom-end" class="w-full">
-                                        <x-slot name="trigger">
+                                        <x-slot name="trigger" color="heavy-neutral">
                                             <x-avatar
                                                 size="xs"
                                                 :src="auth()->user()->avatar_url"
@@ -495,7 +495,7 @@
                                         </x-slot>
 
                                         <x-dropdown.group>
-                                            <livewire:users:admin-theme-toggle />
+                                            <livewire:users-admin-theme-toggle />
                                         </x-dropdown.group>
 
                                         <x-dropdown.group>

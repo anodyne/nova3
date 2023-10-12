@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Livewire;
 
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Characters\Enums\CharacterType;
 use Nova\Characters\Models\Character;
@@ -14,13 +15,15 @@ class ManageOwnership extends Component
 
     public bool $assignAsPrimary = false;
 
-    public function getHasReachedCharacterLimitProperty(): bool
+    #[Computed]
+    public function hasReachedCharacterLimit(): bool
     {
         return settings('characters.enforceCharacterLimits') &&
             auth()->user()->activeCharacters()->count() >= settings('characters.characterLimit');
     }
 
-    public function getCharacterStatusProperty(): array
+    #[Computed]
+    public function characterStatus(): array
     {
         if (
             ($this->characterType === CharacterType::primary && settings('characters.approvePrimary')) ||
@@ -39,7 +42,8 @@ class ManageOwnership extends Component
         ];
     }
 
-    public function getCharacterTypeProperty(): CharacterType
+    #[Computed]
+    public function characterType(): CharacterType
     {
         if ($this->assignAsPrimary) {
             return CharacterType::primary;
@@ -52,7 +56,8 @@ class ManageOwnership extends Component
         return CharacterType::support;
     }
 
-    public function getLinkToUserValueProperty(): bool
+    #[Computed]
+    public function linkToUserValue(): bool
     {
         $user = auth()->user();
 
@@ -99,7 +104,8 @@ class ManageOwnership extends Component
         return true;
     }
 
-    public function getLinkToUserDisabledProperty(): bool
+    #[Computed]
+    public function linkToUserDisabled(): bool
     {
         $user = auth()->user();
 
@@ -113,7 +119,8 @@ class ManageOwnership extends Component
         return auth()->user()->cannot('selfAssign', Character::class);
     }
 
-    public function getAssignAsPrimaryValueProperty(): bool
+    #[Computed]
+    public function assignAsPrimaryValue(): bool
     {
         $user = auth()->user();
 
@@ -142,7 +149,7 @@ class ManageOwnership extends Component
         return $user->can('createPrimary', Character::class);
     }
 
-    public function updatedAssignAsPrimary($value)
+    public function updatedAssignAsPrimary(): void
     {
         $user = auth()->user();
 
@@ -150,14 +157,14 @@ class ManageOwnership extends Component
             $user->can('createPrimary', Character::class) &&
             $user->can('createSecondary', Character::class) &&
             $this->linkToUser === false &&
-            (bool) $value === true
+            (bool) $this->assignAsPrimary === true
         ) {
-            $this->assignAsPrimary = (bool) $value;
-            $this->linkToUser = (bool) $value;
+            // TODO: test this scenario
+            $this->linkToUser = (bool) $this->assignAsPrimary;
         }
     }
 
-    public function updatedLinkToUser($value)
+    public function updatedLinkToUser(): void
     {
         $user = auth()->user();
 
@@ -166,7 +173,7 @@ class ManageOwnership extends Component
             $user->cannot('createSecondary', Character::class) &&
             $user->can('createSupport', Character::class)
         ) {
-            $this->assignAsPrimary = (bool) $value;
+            $this->assignAsPrimary = (bool) $this->linkToUser;
         }
     }
 
@@ -178,7 +185,7 @@ class ManageOwnership extends Component
 
     public function render()
     {
-        return view('livewire.characters.manage-ownership', [
+        return view('pages.characters.livewire.manage-ownership', [
             'hasReachedCharacterLimit' => $this->hasReachedCharacterLimit,
             'characterStatus' => $this->characterStatus,
             'characterType' => $this->characterType,

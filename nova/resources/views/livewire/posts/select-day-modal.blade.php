@@ -9,7 +9,7 @@
     <x-content-box height="none" width="sm">
         <div>
             <x-input.group>
-                <x-input.text placeholder="Search days" wire:model.debounce.500ms="search" autofocus>
+                <x-input.text placeholder="Search days" wire:model.live.debounce.500ms="search" autofocus>
                     <x-slot>
                         <x-icon name="search" size="sm"></x-icon>
                     </x-slot>

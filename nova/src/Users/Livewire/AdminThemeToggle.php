@@ -16,10 +16,6 @@ class AdminThemeToggle extends Component
         $this->appearance = $appearance;
 
         UpdateAdminTheme::run($this->appearance);
-
-        // $this->dispatchBrowserEvent('dropdown-close');
-
-        // $this->dispatchBrowserEvent('refresh-page');
     }
 
     public function mount()
@@ -29,6 +25,6 @@ class AdminThemeToggle extends Component
 
     public function render()
     {
-        return view('livewire.users.admin-theme-toggle');
+        return view('pages.users.livewire.admin-theme-toggle');
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Setup\Livewire;
 
 use Illuminate\Support\Facades\Artisan;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Foundation\Nova;
 use Nova\Setup\Enums\NovaInstallStatus;
@@ -39,7 +40,8 @@ class InstallNova extends Component
         }
     }
 
-    public function getShouldShowFormProperty(): bool
+    #[Computed]
+    public function shouldShowForm(): bool
     {
         return match ($this->status) {
             NovaInstallStatus::alreadyInstalled => false,
@@ -48,7 +50,8 @@ class InstallNova extends Component
         };
     }
 
-    public function getShouldShowSuccessProperty(): bool
+    #[Computed]
+    public function shouldShowSuccessTable(): bool
     {
         return match ($this->status) {
             NovaInstallStatus::alreadyInstalled => true,
@@ -72,7 +75,7 @@ class InstallNova extends Component
     {
         return view('setup.install-nova.index', [
             'shouldShowForm' => $this->shouldShowForm,
-            'shouldShowSuccess' => $this->shouldShowSuccess,
+            'shouldShowSuccessTable' => $this->shouldShowSuccessTable,
         ])->layout('layouts.setup');
     }
 

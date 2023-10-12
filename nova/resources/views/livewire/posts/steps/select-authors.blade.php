@@ -20,7 +20,7 @@
                             <div class="font-medium text-gray-900 dark:text-gray-100">
                                 <a
                                     role="button"
-                                    wire:click="$emit('openModal', 'posts:select-character-authors-modal')"
+                                    wire:click="$dispatch('openModal', 'posts:select-character-authors-modal')"
                                 >
                                     <span class="absolute inset-0" aria-hidden="true"></span>
                                     Characters
@@ -45,7 +45,7 @@
                         </div>
                         <div class="min-w-0 flex-1">
                             <div class="font-medium text-gray-900 dark:text-gray-100">
-                                <a role="button" wire:click="$emit('openModal', 'posts:select-user-authors-modal')">
+                                <a role="button" wire:click="$dispatch('openModal', 'posts:select-user-authors-modal')">
                                     <span class="absolute inset-0" aria-hidden="true"></span>
                                     Users
                                 </a>
@@ -80,7 +80,7 @@
                         <div class="ml-6 shrink-0">
                             <x-button.filled
                                 color="neutral"
-                                wire:click="$emit('openModal', 'posts:select-character-authors-modal')"
+                                wire:click="$dispatch('openModal', 'posts:select-character-authors-modal')"
                             >
                                 Add characters
                             </x-button.filled>
@@ -208,7 +208,7 @@
                         <div class="ml-6 shrink-0">
                             <x-button.filled
                                 color="neutral"
-                                wire:click="$emit('openModal', 'posts:select-user-authors-modal')"
+                                wire:click="$dispatch('openModal', 'posts:select-user-authors-modal')"
                             >
                                 Add users
                             </x-button.filled>
@@ -249,7 +249,7 @@
                                 >
                                     <x-input.text
                                         placeholder="Who is this user playing? (optional)"
-                                        wire:model.debounce.1s="selectedUsers.{{ $user->id }}.as"
+                                        wire:model.live.debounce.500ms="selectedUsers.{{ $user->id }}.as"
                                         wire:key="u-{{ $user->id }}-as"
                                     ></x-input.text>
                                 </div>

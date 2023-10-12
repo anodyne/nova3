@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Setup\Livewire\Migration;
 
+use Livewire\Attributes\Computed;
 use Nova\Posts\Models\Post;
 use Nova\PostTypes\Models\PostType;
 use Nova\Setup\Models\Legacy\PersonalLog as LegacyPersonalLog;
@@ -17,12 +18,14 @@ class MigratePersonalLogs extends MigrationStep
         sleep(5);
     }
 
-    public function getPendingMigrationCountProperty(): int
+    #[Computed]
+    public function pendingMigrationCount(): int
     {
         return LegacyPersonalLog::count();
     }
 
-    public function getCompletedMigrationCountProperty(): int
+    #[Computed]
+    public function completedMigrationCount(): int
     {
         return Post::query()
             ->where('post_type_id', PostType::where('key', 'personal')->first()->id)

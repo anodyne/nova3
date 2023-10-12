@@ -7,6 +7,6 @@
 
     <p>
         All positions assigned to this department will be removed. Any characters assigned to a position that is removed
-        will need to be re-assigned to another position.
+        will need to be re-assigned to a new position.
     </p>
 </x-filament.modal-content>

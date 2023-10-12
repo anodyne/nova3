@@ -10,103 +10,103 @@
     </x-input.select>
     </div>
     </x-form.section>
-    
+
     <x-form.section title="Post Info" message="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur autem sapiente, eum exercitationem ullam debitis doloremque necessitatibus tempora quasi possimus quaerat asperiores repellat ab nulla pariatur non nisi voluptatibus. Commodi!">
     <x-posts.field
     :field="$postType->fields->title"
     name="title"
     :suggestion="$suggestion"
     :value="$title"
-    wire:model.lazy="title"
+    wire:model.blur="title"
     placeholder="Add your title"
     tabindex="1"
     class="w-2/3"
     ></x-posts.field>
-    
+
     <x-posts.field
     :field="$postType->fields->day"
     icon="calendar"
     name="day"
     :suggestion="$suggestion"
     :value="$day"
-    wire:model.lazy="day"
+    wire:model.blur="day"
     placeholder="Add a day"
     tabindex="2"
     class="w-2/3"
     ></x-posts.field>
-    
+
     <x-posts.field
     :field="$postType->fields->time"
     icon="clock"
     name="time"
     :suggestion="$suggestion"
     :value="$time"
-    wire:model.lazy="time"
+    wire:model.blur="time"
     placeholder="Add a time"
     tabindex="3"
     class="w-2/3"
     ></x-posts.field>
-    
+
     <x-posts.field
     :field="$postType->fields->location"
     icon="location"
     name="location"
     :suggestion="$suggestion"
     :value="$location"
-    wire:model.lazy="location"
+    wire:model.blur="location"
     placeholder="Add a location"
     tabindex="4"
     class="w-2/3"
     ></x-posts.field>
     </x-form.section>
-    
+
     <x-form.section title="Author(s)" message="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur autem sapiente, eum exercitationem ullam debitis doloremque necessitatibus tempora quasi possimus quaerat asperiores repellat ab nulla pariatur non nisi voluptatibus. Commodi!">
     <x-input.group label="Your character(s)">
     Select your character(s)
     </x-input.group>
-    
+
     @if ($postType->options->allowsMultipleAuthors)
     <x-input.group label="Other characters">
     Add more characters
     </x-input.group>
-    
+
     <x-input.group label="Other contributors">
     Add other contributors
     </x-input.group>
     @endif
     </x-form.section>
-    
+
     <x-form.section>
     @livewire('nova:editor', ['content' => $content])
     </x-form.section>
-    
+
     <x-form.section title="Ratings">
     <x-slot:message>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia quam eius provident ex modi nam, at ullam quia labore similique.</p>
-    
+
     <p><strong>Note:</strong> Your post's ratings will match the game's overall ratings until you change them for this post.</p>
     </x-slot:message>
-    
+
     <x-input.group label="Language" class="w-72">
     <x-rating :value="1" wire:model="ratingLanguage" />
     </x-input.group>
-    
+
     <x-input.group label="Sex" class="w-72">
     <x-rating :value="1" name="ratings_sex" />
     </x-input.group>
-    
+
     <x-input.group label="Violence" class="w-72">
     <x-rating :value="3" name="ratings_violence" />
     </x-input.group>
     </x-form.section>
-    
+
     <x-form.footer>
     <x-button.filled wire:click="publish" color="primary">Publish</x-button.filled>
-    
+
     <x-button.filled wire:click="save" wire:poll.30s="save" color="neutral">
     Save
     </x-button.filled>
-    
+
     <div class="text-gray-40000" wire:loading.delay>Saving...</div>
     </x-form.footer>
     </x-form>
@@ -163,7 +163,7 @@
                         <button
                             type="button"
                             class="{{ $location ? 'border-primary-300 bg-primary-50 text-primary-600 dark:border-primary-600 dark:bg-primary-800 dark:text-primary-400' : 'border-gray-300 bg-white text-gray-500 hover:border-gray-500/30 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:border-gray-600 dark:hover:bg-gray-900' }} flex items-center space-x-1.5 rounded-full border px-3 py-1.5 text-sm transition md:px-2 md:py-0.5 md:text-xs"
-                            wire:click='$emit("openModal", "posts:select-location-modal", {{ json_encode([$story->id, $location]) }})'
+                            wire:click='$dispatch("openModal", "posts:select-location-modal", {{ json_encode([$story->id, $location]) }})'
                         >
                             @icon('location', 'h-6 w-6 md:h-5 md:w-5 ' . ($location ? 'text-primary-500' : 'text-gray-400 dark:text-gray-500'))
                             <span class="font-medium">{{ $location ?? 'Add a location' }}</span>
@@ -174,7 +174,7 @@
                         <button
                             type="button"
                             class="{{ $day ? 'border-primary-300 bg-primary-50 text-primary-600 hover:border-primary-400 hover:bg-primary-100' : 'border-gray-300 bg-white text-gray-500 hover:border-gray-500/30 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:border-gray-600 dark:hover:bg-gray-900' }} flex items-center space-x-1.5 rounded-full border px-3 py-1.5 text-sm transition md:px-2 md:py-0.5 md:text-xs"
-                            wire:click='$emit("openModal", "posts:select-day-modal", {{ json_encode([$story->id, $day]) }})'
+                            wire:click='$dispatch("openModal", "posts:select-day-modal", {{ json_encode([$story->id, $day]) }})'
                         >
                             @icon('calendar', 'h-6 w-6 md:h-5 md:w-5 ' . ($day ? 'text-primary-500' : 'text-gray-400'))
                             <span class="font-medium">{{ $day ?? 'Add a day' }}</span>
@@ -185,7 +185,7 @@
                         <button
                             type="button"
                             class="{{ $time ? 'border-primary-300 bg-primary-50 text-primary-600 hover:border-primary-400 hover:bg-primary-100' : 'border-gray-300 bg-white text-gray-500 hover:border-gray-500/30 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:border-gray-600 dark:hover:bg-gray-900' }} flex items-center space-x-1.5 rounded-full border px-3 py-1.5 text-sm transition md:px-2 md:py-0.5 md:text-xs"
-                            wire:click='$emit("openModal", "posts:select-time-modal", {{ json_encode([$story->id, $time]) }})'
+                            wire:click='$dispatch("openModal", "posts:select-time-modal", {{ json_encode([$story->id, $time]) }})'
                         >
                             @icon('clock', 'h-6 w-6 md:h-5 md:w-5 ' . ($time ? 'text-primary-500' : 'text-gray-400'))
                             <span class="font-medium">{{ $time ?? 'Add a time' }}</span>
@@ -201,7 +201,7 @@
                     <button
                         type="button"
                         class="{{ $story ? 'border-primary-300 bg-primary-50 text-primary-600 hover:border-primary-400 hover:bg-primary-100' : 'border-gray-300 bg-white text-gray-500 hover:border-gray-500/30 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:border-gray-600 dark:hover:bg-gray-900' }} flex items-center space-x-1.5 rounded-full border px-3 py-1.5 text-sm transition duration-200 md:px-2 md:py-0.5 md:text-xs"
-                        wire:click='$emit("openModal", "posts:select-story-modal", {{ json_encode([$story->id]) }})'
+                        wire:click='$dispatch("openModal", "posts:select-story-modal", {{ json_encode([$story->id]) }})'
                     >
                         @icon('book', 'h-6 w-6 md:h-5 md:w-5 shrink-0 ' . ($story ? 'text-primary-500' : 'text-gray-400'))
                         <span class="font-medium">{{ $story->title ?? 'Choose a story' }}</span>
@@ -237,7 +237,7 @@
                                     <a
                                         href="#"
                                         class="relative grid items-start overflow-hidden rounded-md p-3 transition duration-200 ease-in-out hover:bg-white dark:hover:bg-gray-900 sm:p-5"
-                                        wire:click.prevent='$emit("openModal", "posts:read-post-modal", {{ json_encode([$previousPost->id]) }})'
+                                        wire:click.prevent='$dispatch("openModal", "posts:read-post-modal", {{ json_encode([$previousPost->id]) }})'
                                     >
                                         <div
                                             class="row-start-1 mb-1 flex items-baseline font-medium md:col-start-1 md:row-end-3 md:mb-0"
@@ -358,7 +358,7 @@
                                     <a
                                         href="#"
                                         class="relative grid items-start overflow-hidden rounded-md p-3 transition hover:bg-white sm:p-5"
-                                        wire:click.prevent='$emit("openModal", "posts:read-post-modal", {{ json_encode([$nextPost->id]) }})'
+                                        wire:click.prevent='$dispatch("openModal", "posts:read-post-modal", {{ json_encode([$nextPost->id]) }})'
                                     >
                                         <div
                                             class="row-start-1 mb-1 flex items-baseline font-medium md:col-start-1 md:row-end-3 md:mb-0"

@@ -11,7 +11,7 @@
     <x-content-box height="none" width="sm">
         <div>
             <x-input.group>
-                <x-input.text placeholder="Search locations" wire:model.debounce.500ms="search" autofocus>
+                <x-input.text placeholder="Search locations" wire:model.live.debounce.500ms="search" autofocus>
                     <x-slot name="leading">
                         <x-icon name="search" size="sm"></x-icon>
                     </x-slot>

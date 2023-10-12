@@ -61,7 +61,7 @@ class PublishPostStep extends StepComponent
 
     public function removeParticipant(User $user): void
     {
-        $this->dispatchBrowserEvent('dropdown-close');
+        $this->dispatch('dropdown-close');
 
         $this->post->removeParticipant($user);
 
