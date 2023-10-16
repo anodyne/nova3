@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
-use Filament\Notifications\Notification;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\Summarizers\Average;
 use Filament\Tables\Columns\Summarizers\Sum;
@@ -21,6 +20,7 @@ use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Forms\Components\DatePicker;
+use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Stories\Actions\UpdateStory;
 use Nova\Stories\Actions\UpdateStoryStatus;

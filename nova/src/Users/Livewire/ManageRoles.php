@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Users\Livewire;
 
-use Filament\Notifications\Notification;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
+use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Roles\Models\Role;
 use Nova\Users\Actions\SetUserRoles;
 use Nova\Users\Models\User;

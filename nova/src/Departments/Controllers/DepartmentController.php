@@ -62,7 +62,7 @@ class DepartmentController extends Controller
 
         return redirect()
             ->route('departments.index')
-            ->withToast("{$department->name} department was created");
+            ->notify("{$department->name} department was created");
     }
 
     public function edit(Department $department)
@@ -76,6 +76,6 @@ class DepartmentController extends Controller
     {
         $department = UpdateDepartmentManager::run($department, $request);
 
-        return back()->withToast("{$department->name} department was updated");
+        return back()->notify("{$department->name} department was updated");
     }
 }

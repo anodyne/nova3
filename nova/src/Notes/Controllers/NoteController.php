@@ -52,7 +52,7 @@ class NoteController extends Controller
 
         return redirect()
             ->route('notes.index')
-            ->withToast("{$note->title} was created");
+            ->notify("{$note->title} was created");
     }
 
     public function edit(Note $note): Responsable
@@ -70,6 +70,6 @@ class NoteController extends Controller
 
         $note = UpdateNote::run($note, NoteData::from($request));
 
-        return back()->withToast("{$note->title} was updated");
+        return back()->notify("{$note->title} was updated");
     }
 }

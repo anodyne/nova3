@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Nova\Themes\Livewire;
 
 use Filament\Forms\Components\CheckboxList;
-use Filament\Notifications\Notification;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -19,6 +18,7 @@ use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
+use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Themes\Actions\CreateTheme;
 use Nova\Themes\Actions\DeleteTheme;

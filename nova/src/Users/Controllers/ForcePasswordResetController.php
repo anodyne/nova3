@@ -24,6 +24,6 @@ class ForcePasswordResetController extends Controller
         ForcePasswordReset::run($user);
 
         return back()
-            ->withToast("Password reset initiated for {$user->name}", 'The user will be forced to reset their password the next time they sign in.');
+            ->notify("Password reset initiated for {$user->name}", 'The user will be forced to reset their password the next time they sign in.');
     }
 }

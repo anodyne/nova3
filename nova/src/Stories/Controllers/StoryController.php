@@ -61,7 +61,7 @@ class StoryController extends Controller
 
         return redirect()
             ->route('stories.index')
-            ->withToast("{$story->title} story was created");
+            ->notify("{$story->title} story was created");
     }
 
     public function edit(Story $story)
@@ -81,7 +81,7 @@ class StoryController extends Controller
 
         return redirect()
             ->route('stories.edit', $story)
-            ->withToast("{$story->title} was updated");
+            ->notify("{$story->title} was updated");
     }
 
     public function delete($id)
@@ -103,6 +103,6 @@ class StoryController extends Controller
 
         return redirect()
             ->route('stories.index')
-            ->withToast($deletedStories.' '.trans_choice('story was|stories were', $deletedStories).' deleted');
+            ->notify($deletedStories.' '.trans_choice('story was|stories were', $deletedStories).' deleted');
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Providers;
 
+use Filament\Notifications\Notification as FilamentNotification;
 use Filament\Support\Facades\FilamentColor;
 use Filament\Support\Facades\FilamentIcon;
 use Filament\Tables\Columns\TextColumn;
@@ -20,6 +21,7 @@ use Illuminate\Support\Str;
 use Illuminate\View\Factory as ViewFactory;
 use Livewire\Livewire;
 use Nova\Foundation\Environment\Environment;
+use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Icons\FluentFilledIconSet;
 use Nova\Foundation\Icons\FluentOutlineIconSet;
 use Nova\Foundation\Icons\IconSets;
@@ -109,8 +111,8 @@ class AppServiceProvider extends ServiceProvider
     protected function registerMacros()
     {
         Arr::mixin(new Macros\ArrMacros());
-        Redirector::mixin(new Macros\ToastMacros());
-        RedirectResponse::mixin(new Macros\ToastMacros());
+        Redirector::mixin(new Macros\NotificationMacros());
+        RedirectResponse::mixin(new Macros\NotificationMacros());
         Route::mixin(new Macros\RouteMacros());
         Str::mixin(new Macros\StrMacros());
         TextColumn::mixin(new Macros\TextColumnMacros());
@@ -185,6 +187,8 @@ class AppServiceProvider extends ServiceProvider
                     ->color($isReordering ? 'primary' : 'gray')
                 );
         });
+
+        $this->app->bind(FilamentNotification::class, Notification::class);
     }
 
     protected function updateAboutCommand(): void

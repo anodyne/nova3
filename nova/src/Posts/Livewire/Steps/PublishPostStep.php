@@ -56,7 +56,7 @@ class PublishPostStep extends StepComponent
         }
 
         return redirect()->route('writing-overview')
-            ->withToast($this->post->title.' has been published');
+            ->notify($this->post->title.' has been published');
     }
 
     public function removeParticipant(User $user): void

@@ -37,6 +37,6 @@ class DeactivateUserController extends Controller
 
         return redirect()
             ->route('users.index')
-            ->withToast("{$user->name} has been deactivated");
+            ->notify("{$user->name} has been deactivated");
     }
 }

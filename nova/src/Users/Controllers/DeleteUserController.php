@@ -39,6 +39,6 @@ class DeleteUserController extends Controller
 
         return redirect()
             ->route('users.index')
-            ->withToast("{$user->name}'s account was deleted");
+            ->notify("{$user->name}'s account was deleted");
     }
 }

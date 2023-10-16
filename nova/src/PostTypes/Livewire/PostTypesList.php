@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Nova\PostTypes\Livewire;
 
 use Filament\Forms\Components\TextInput;
-use Filament\Notifications\Notification;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
@@ -24,6 +23,7 @@ use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ReplicateAction;
 use Nova\Foundation\Filament\Actions\RestoreAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
+use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\PostTypes\Actions\DeletePostType;
 use Nova\PostTypes\Actions\DuplicatePostType;

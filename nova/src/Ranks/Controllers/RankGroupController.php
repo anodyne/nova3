@@ -49,7 +49,7 @@ class RankGroupController extends Controller
 
         return redirect()
             ->route('ranks.groups.index')
-            ->withToast("{$group->name} rank group was created");
+            ->notify("{$group->name} rank group was created");
     }
 
     public function edit(RankGroup $group)
@@ -63,6 +63,6 @@ class RankGroupController extends Controller
     {
         $group = UpdateRankGroup::run($group, $request->getRankGroupData());
 
-        return back()->withToast("{$group->name} was updated");
+        return back()->notify("{$group->name} was updated");
     }
 }

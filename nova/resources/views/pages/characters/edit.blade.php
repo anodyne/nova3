@@ -80,7 +80,7 @@
                                 </div>
                             </div>
                             <div class="mt-4 sm:ml-6 sm:mt-0 sm:flex-shrink-0">
-                                <x-button.filled type="button" color="neutral">Activate</x-button.filled>
+                                <livewire:characters-activate-button :character="$character" />
                             </div>
                         </x-content-box>
                     </x-panel>
@@ -107,7 +107,7 @@
                                 </div>
                             </div>
                             <div class="mt-4 sm:ml-6 sm:mt-0 sm:flex-shrink-0">
-                                <x-button.filled type="button" color="neutral">Deactivate</x-button.filled>
+                                <livewire:characters-deactivate-button :character="$character" />
                             </div>
                         </x-content-box>
                     </x-panel>

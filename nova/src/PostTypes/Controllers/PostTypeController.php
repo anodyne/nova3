@@ -64,7 +64,7 @@ class PostTypeController extends Controller
 
         return redirect()
             ->route('post-types.index')
-            ->withToast("{$postType->name} post type was created");
+            ->notify("{$postType->name} post type was created");
     }
 
     public function edit(PostType $postType)
@@ -85,6 +85,6 @@ class PostTypeController extends Controller
 
         return redirect()
             ->route('post-types.edit', $postType)
-            ->withToast("{$postType->name} post type was updated");
+            ->notify("{$postType->name} post type was updated");
     }
 }

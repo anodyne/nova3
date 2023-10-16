@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Providers;
 
+use Nova\Characters\Livewire\ActivateCharacterButton;
 use Nova\Characters\Livewire\CharactersList;
+use Nova\Characters\Livewire\DeactivateCharacterButton;
 use Nova\Characters\Livewire\ManageOwnership;
 use Nova\Characters\Livewire\ManagePositions;
 use Nova\Characters\Livewire\ManageUsers;
@@ -23,6 +25,8 @@ class CharacterServiceProvider extends DomainServiceProvider
             'characters-manage-ownership' => ManageOwnership::class,
             'characters-manage-positions' => ManagePositions::class,
             'characters-manage-users' => ManageUsers::class,
+            'characters-activate-button' => ActivateCharacterButton::class,
+            'characters-deactivate-button' => DeactivateCharacterButton::class,
         ];
     }
 

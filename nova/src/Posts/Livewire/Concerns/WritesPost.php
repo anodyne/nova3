@@ -99,7 +99,7 @@ trait WritesPost
             ? $this->post->title.' '.str($this->postType->name)->lower().' draft has been discarded.'
             : $this->post->title.' '.str($this->postType->name)->lower().' has been deleted.';
 
-        redirect()->route('writing-overview')->withToast($message);
+        redirect()->route('writing-overview')->notify($message);
     }
 
     public function save($quiet = false, $allowRedirect = true): void

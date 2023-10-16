@@ -10,6 +10,6 @@ class ActionException extends Exception
 {
     public function render($request)
     {
-        return back()->withErrorToast($this->message);
+        return back()->notifyOfError($this->message);
     }
 }

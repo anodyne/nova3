@@ -60,7 +60,7 @@ class CharacterController extends Controller
 
         return redirect()
             ->route('characters.index')
-            ->withToast("{$character->name} was created");
+            ->notify("{$character->name} was created");
     }
 
     public function edit(Character $character)
@@ -82,6 +82,6 @@ class CharacterController extends Controller
 
         CharacterUpdatedByAdmin::dispatch($character);
 
-        return back()->withToast("{$character->name} was updated");
+        return back()->notify("{$character->name} was updated");
     }
 }

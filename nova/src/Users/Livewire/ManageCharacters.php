@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Users\Livewire;
 
-use Filament\Notifications\Notification;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Livewire\Component;
 use Nova\Characters\Models\Character;
+use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Users\Actions\SetUserCharacters;
 use Nova\Users\Actions\SetUserPrimaryCharacter;
 use Nova\Users\Models\User;

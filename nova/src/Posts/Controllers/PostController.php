@@ -59,7 +59,7 @@ class PostController extends Controller
 
         return redirect()
             ->route('stories.index')
-            ->withToast("{$story->title} story was created");
+            ->notify("{$story->title} story was created");
     }
 
     public function edit(Story $story)
@@ -75,7 +75,7 @@ class PostController extends Controller
 
         return redirect()
             ->route('stories.edit', $story)
-            ->withToast("{$story->title} was updated");
+            ->notify("{$story->title} was updated");
     }
 
     public function delete($id)
@@ -95,6 +95,6 @@ class PostController extends Controller
 
         return redirect()
             ->route('stories.index')
-            ->withToast('Story was deleted', 'All posts in this story have been deleted as well.');
+            ->notify('Story was deleted', 'All posts in this story have been deleted as well.');
     }
 }

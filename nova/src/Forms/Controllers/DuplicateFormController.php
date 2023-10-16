@@ -28,6 +28,6 @@ class DuplicateFormController extends Controller
 
         return redirect()
             ->route('forms.edit', $form)
-            ->withToast("{$original->name} has been duplicated");
+            ->notify("{$original->name} has been duplicated");
     }
 }

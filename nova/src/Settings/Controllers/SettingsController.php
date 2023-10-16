@@ -58,6 +58,6 @@ class SettingsController extends Controller
 
         return redirect()
             ->route('settings.index', $tab)
-            ->withToast("{$tabString->ucfirst()} settings have been updated.");
+            ->notify("{$tabString->ucfirst()} settings have been updated.");
     }
 }

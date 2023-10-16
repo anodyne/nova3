@@ -6,7 +6,6 @@ namespace Nova\Users\Livewire;
 
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Select;
-use Filament\Notifications\Notification;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Columns\TextColumn;
@@ -21,6 +20,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Nova\Foundation\Filament\Actions;
+use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Users\Actions\ActivateUser;
 use Nova\Users\Actions\ActivateUserPreviousCharacter;

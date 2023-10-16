@@ -37,6 +37,6 @@ class UpdateUserController extends Controller
 
         UserUpdatedByAdmin::dispatch($user);
 
-        return back()->withToast("{$user->name}'s account was updated");
+        return back()->notify("{$user->name}'s account was updated");
     }
 }

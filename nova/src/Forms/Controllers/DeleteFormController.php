@@ -36,6 +36,6 @@ class DeleteFormController extends Controller
 
         return redirect()
             ->route('forms.index')
-            ->withToast("{$form->name} was deleted");
+            ->notify("{$form->name} was deleted");
     }
 }

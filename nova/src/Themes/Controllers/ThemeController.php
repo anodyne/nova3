@@ -55,7 +55,7 @@ class ThemeController extends Controller
 
         return redirect()
             ->route('themes.index')
-            ->withToast("{$theme->name} theme was created", 'A folder has been created in the themes directory to help you get started creating your theme.');
+            ->notify("{$theme->name} theme was created", 'A folder has been created in the themes directory to help you get started creating your theme.');
     }
 
     public function edit(Theme $theme)
@@ -71,6 +71,6 @@ class ThemeController extends Controller
 
         return redirect()
             ->route('themes.edit', $theme)
-            ->withToast("{$theme->name} theme was updated");
+            ->notify("{$theme->name} theme was updated");
     }
 }

@@ -418,7 +418,7 @@
 
                         <li class="mt-auto">
                             <ul role="list" class="space-y-2">
-                                <li class="px-6 leading-none">
+                                <li class="hidden px-6 leading-none">
                                     <x-panel class="mb-8">
                                         <x-content-box height="sm" width="sm" class="flex flex-col gap-3">
                                             <h3 class="text-sm/5 font-medium text-gray-900 dark:text-white">

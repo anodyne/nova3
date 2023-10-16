@@ -6,6 +6,7 @@ namespace Nova\Characters\Livewire;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Characters\Models\Character;
 use Nova\Users\Models\User;
@@ -39,12 +40,14 @@ class ManageUsers extends Component
         $this->primary->push($user);
     }
 
-    public function getUsersProperty(): Collection
+    #[Computed]
+    public function users(): Collection
     {
         return $this->assigned;
     }
 
-    public function getFilteredUsersProperty(): Collection
+    #[Computed]
+    public function filteredUsers(): Collection
     {
         return User::query()
             ->when(filled($this->search) && $this->search !== '*', fn (Builder $query) => $query->searchFor($this->search))
@@ -52,14 +55,16 @@ class ManageUsers extends Component
             ->get();
     }
 
-    public function getAssignedUsersProperty(): string
+    #[Computed]
+    public function assignedUsers(): string
     {
         return $this->assigned
             ->map(fn (User $user) => $user->id)
             ->join(',');
     }
 
-    public function getPrimaryUsersProperty(): string
+    #[Computed]
+    public function primaryUsers(): string
     {
         return $this->primary
             ->map(fn (User $user) => $user->id)
@@ -75,7 +80,7 @@ class ManageUsers extends Component
 
     public function render()
     {
-        return view('livewire.characters.manage-users', [
+        return view('pages.characters.livewire.manage-users', [
             'assignedUsers' => $this->assignedUsers,
             'filteredUsers' => $this->filteredUsers,
             'primaryUsers' => $this->primaryUsers,

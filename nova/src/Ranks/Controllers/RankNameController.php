@@ -49,7 +49,7 @@ class RankNameController extends Controller
 
         return redirect()
             ->route('ranks.names.index')
-            ->withToast("{$name->name} rank name was created");
+            ->notify("{$name->name} rank name was created");
     }
 
     public function edit(RankName $name)
@@ -63,6 +63,6 @@ class RankNameController extends Controller
     {
         $name = UpdateRankName::run($name, $request->getRankNameData());
 
-        return back()->withToast("{$name->name} was updated");
+        return back()->notify("{$name->name} was updated");
     }
 }

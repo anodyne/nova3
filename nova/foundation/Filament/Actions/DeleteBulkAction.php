@@ -18,15 +18,17 @@ class DeleteBulkAction extends FilamentDeleteBulkAction
 
         $this->icon(iconName('trash'));
 
-        $this->requiresConfirmation(false);
+        if (filled($this->modalContentView)) {
+            $this->requiresConfirmation(false);
 
-        $this->modalWidth('lg');
-        $this->modalIcon(null);
-        $this->modalHeading('');
-        $this->modalDescription(null);
-        $this->modalSubmitActionLabel('Delete');
-        $this->modalContent(fn (Collection $records): View => view($this->modalContentView, [
-            'records' => $records,
-        ]));
+            $this->modalWidth('lg');
+            $this->modalIcon(null);
+            $this->modalHeading('');
+            $this->modalDescription(null);
+            $this->modalSubmitActionLabel('Delete');
+            $this->modalContent(fn (Collection $records): View => view($this->modalContentView, [
+                'records' => $records,
+            ]));
+        }
     }
 }

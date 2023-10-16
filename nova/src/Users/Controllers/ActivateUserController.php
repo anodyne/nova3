@@ -27,6 +27,6 @@ class ActivateUserController extends Controller
 
         return redirect()
             ->route('users.index')
-            ->withToast("{$user->name} has been activated");
+            ->notify("{$user->name} has been activated");
     }
 }

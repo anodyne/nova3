@@ -8,7 +8,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Nova\Characters\Models\Character;
 
-class CharacterUpdated
+class CharacterForceDeleted
 {
     use Dispatchable;
     use SerializesModels;

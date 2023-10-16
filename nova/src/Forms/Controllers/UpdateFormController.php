@@ -35,6 +35,6 @@ class UpdateFormController extends Controller
 
         $form = UpdateForm::run($form, FormData::from($request));
 
-        return back()->withToast("{$form->name} was updated");
+        return back()->notify("{$form->name} was updated");
     }
 }

@@ -59,7 +59,7 @@ class RankItemController extends Controller
 
         return redirect()
             ->route('ranks.items.index')
-            ->withToast('Rank item was created');
+            ->notify('Rank item was created');
     }
 
     public function edit(RankItem $item)
@@ -77,6 +77,6 @@ class RankItemController extends Controller
     {
         $item = UpdateRankItem::run($item, $request->getRankItemData());
 
-        return back()->withToast('Rank item was updated');
+        return back()->notify('Rank item was updated');
     }
 }

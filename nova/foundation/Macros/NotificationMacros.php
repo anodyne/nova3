@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Macros;
 
-use Nova\Foundation\Notification;
+use Nova\Foundation\Filament\Notifications\Notification;
 
-class ToastMacros
+class NotificationMacros
 {
-    public function withToast()
+    public function notify()
     {
         return function ($title, $message = null) {
             Notification::make()
@@ -21,13 +21,26 @@ class ToastMacros
         };
     }
 
-    public function withErrorToast()
+    public function notifyOfError()
     {
         return function ($title, $message = null) {
             Notification::make()
                 ->title($title)
                 ->body($message)
                 ->danger()
+                ->send();
+
+            return $this;
+        };
+    }
+
+    public function notifyOfWarning()
+    {
+        return function ($title, $message = null) {
+            Notification::make()
+                ->title($title)
+                ->body($message)
+                ->warning()
                 ->send();
 
             return $this;

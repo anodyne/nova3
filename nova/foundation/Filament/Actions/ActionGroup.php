@@ -14,7 +14,7 @@ class ActionGroup extends FilamentActionGroup
 
         $this->color('gray');
         $this->icon(iconName('more'));
-        // $this->size('h-7 w-7');
+        $this->iconSize('h-7 w-7');
         $this->dropdownPlacement('bottom-end');
     }
 

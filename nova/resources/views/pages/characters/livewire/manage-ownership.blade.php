@@ -6,6 +6,7 @@
                 <x-badge :color="$characterType->color()">{{ $characterType->getLabel() }}</x-badge>
             </div>
         </x-content-box>
+
         <x-content-box height="sm" class="grid grid-cols-4 gap-4 bg-white dark:bg-gray-900">
             <div class="col-span-3 font-medium text-gray-900 dark:text-gray-100">
                 Character status
@@ -26,6 +27,7 @@
                 <x-badge :color="$characterStatus['color']">{{ $characterStatus['label'] }}</x-badge>
             </div>
         </x-content-box>
+
         <x-content-box height="sm" class="grid grid-cols-4 gap-4 bg-white dark:bg-gray-900">
             <div class="col-span-3 font-medium text-gray-900 dark:text-gray-100">
                 Link this character to me
@@ -39,11 +41,12 @@
             <div class="flex items-start justify-end">
                 <x-switch-toggle
                     name="link_to_user"
-                    wire:model="linkToUser"
+                    wire:model.live="linkToUser"
                     :disabled="$linkToUserDisabled"
                 ></x-switch-toggle>
             </div>
         </x-content-box>
+
         <x-content-box height="sm" class="grid grid-cols-4 gap-4 bg-white dark:bg-gray-900">
             <div class="col-span-3 font-medium text-gray-900 dark:text-gray-100">
                 Set as my primary character
@@ -57,7 +60,7 @@
             <div class="flex items-start justify-end">
                 <x-switch-toggle
                     name="assign_as_primary"
-                    wire:model="assignAsPrimary"
+                    wire:model.live="assignAsPrimary"
                     :disabled="auth()->user()->cannot(['createSecondary', 'createPrimary'], Nova\Characters\Models\Character::class)"
                 ></x-switch-toggle>
             </div>

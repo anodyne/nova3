@@ -34,7 +34,7 @@ class CreateFormController extends Controller
 
         $form = CreateForm::run(FormData::from($request));
 
-        $redirect = redirect()->withToast("{$form->name} was created");
+        $redirect = redirect()->notify("{$form->name} was created");
 
         if (Gate::allows('update', $form)) {
             return $redirect->route('forms.edit', $form);

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Filament\Actions;
 
-use Filament\Tables\Actions\DeleteAction as FilamentDeleteAction;
+use Filament\Tables\Actions\Action as FilamentAction;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 
-class DeleteAction extends FilamentDeleteAction
+class Action extends FilamentAction
 {
     use Concerns\HasModalContentView;
 
@@ -16,11 +16,7 @@ class DeleteAction extends FilamentDeleteAction
     {
         parent::setUp();
 
-        $this->icon(iconName('trash'));
-
         if (filled($this->modalContentView)) {
-            $this->requiresConfirmation(false);
-
             $this->modalWidth('lg');
             $this->modalIcon(null);
             $this->modalHeading('');

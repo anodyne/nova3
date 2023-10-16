@@ -50,7 +50,7 @@ class RoleController extends Controller
 
         return redirect()
             ->route('roles.index')
-            ->withToast("{$role->display_name} role was created");
+            ->notify("{$role->display_name} role was created");
     }
 
     public function edit(Role $role)
@@ -67,6 +67,6 @@ class RoleController extends Controller
 
         return redirect()
             ->route('roles.edit', $role)
-            ->withToast("{$role->display_name} role was updated");
+            ->notify("{$role->display_name} role was updated");
     }
 }

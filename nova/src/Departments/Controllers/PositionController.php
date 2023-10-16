@@ -61,7 +61,7 @@ class PositionController extends Controller
 
         return redirect()
             ->route('positions.index')
-            ->withToast("{$position->name} was created");
+            ->notify("{$position->name} was created");
     }
 
     public function edit(Position $position)
@@ -79,6 +79,6 @@ class PositionController extends Controller
             $request->getPositionData()
         );
 
-        return back()->withToast("{$position->name} position was updated");
+        return back()->notify("{$position->name} position was updated");
     }
 }

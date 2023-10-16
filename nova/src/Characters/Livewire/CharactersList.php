@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Livewire;
 
-use Filament\Notifications\Notification;
-use Filament\Tables\Actions\Action;
-use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
 use Filament\Tables\Filters\Filter;
@@ -21,20 +18,26 @@ use Livewire\Attributes\Url;
 use Nova\Characters\Actions\ActivateCharacter;
 use Nova\Characters\Actions\DeactivateCharacter;
 use Nova\Characters\Actions\DeleteCharacter;
+use Nova\Characters\Actions\ForceDeleteCharacter;
 use Nova\Characters\Actions\RestoreCharacter;
 use Nova\Characters\Enums\CharacterType;
 use Nova\Characters\Events\CharacterActivated;
 use Nova\Characters\Events\CharacterDeactivated;
 use Nova\Characters\Events\CharacterDeletedByAdmin;
+use Nova\Characters\Events\CharacterForceDeleted;
 use Nova\Characters\Events\CharacterRestored;
 use Nova\Characters\Models\Character;
+use Nova\Foundation\Filament\Actions\Action;
 use Nova\Foundation\Filament\Actions\ActionGroup;
+use Nova\Foundation\Filament\Actions\BulkAction;
 use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\DeleteBulkAction;
 use Nova\Foundation\Filament\Actions\EditAction;
+use Nova\Foundation\Filament\Actions\ForceDeleteAction;
 use Nova\Foundation\Filament\Actions\RestoreAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
+use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
 
 class CharactersList extends TableComponent
@@ -52,7 +55,7 @@ class CharactersList extends TableComponent
                     ->withTrashed()
                     ->unless(
                         auth()->user()->can('manage', new Character()),
-                        fn ($query): Builder => $query->isAssignedTo(auth()->user())
+                        fn (Builder $query): Builder => $query->isAssignedTo(auth()->user())
                     )
             )
             ->groups([
@@ -70,12 +73,12 @@ class CharactersList extends TableComponent
                     ->toggleable(),
                 TextColumn::make('type')
                     ->badge()
-                    ->color(fn (Model $record) => $record->type->color())
+                    ->color(fn (Model $record): string => $record->type->color())
                     ->toggleable(),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (Model $record) => $record->status->color())
-                    ->formatStateUsing(fn (Model $record) => $record->status->getLabel())
+                    ->color(fn (Model $record): string => $record->status->color())
+                    ->formatStateUsing(fn (Model $record): string => $record->status->getLabel())
                     ->toggleable(),
             ])
             ->actions([
@@ -83,23 +86,19 @@ class CharactersList extends TableComponent
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (Model $record) => route('characters.show', $record)),
+                            ->url(fn (Model $record): string => route('characters.show', $record)),
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (Model $record) => route('characters.edit', $record)),
+                            ->url(fn (Model $record): string => route('characters.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
+
                     ActionGroup::make([
                         Action::make('activate')
                             ->authorize('activate')
-                            ->requiresConfirmation()
                             ->icon(iconName('check'))
                             ->color('gray')
-                            ->modalHeading('Activate character?')
-                            ->modalDescription(fn (Model $record): string => "Are you sure you want to activate {$record->name}?")
-                            ->modalIcon(iconName('check'))
-                            ->modalIconColor('primary')
+                            ->modalContentView('pages.characters.activate')
                             ->modalSubmitActionLabel('Activate')
-                            ->modalWidth('lg')
                             ->action(function (Model $record): void {
                                 $character = ActivateCharacter::run($record);
 
@@ -111,15 +110,10 @@ class CharactersList extends TableComponent
                             }),
                         Action::make('deactivate')
                             ->authorize('deactivate')
-                            ->requiresConfirmation()
                             ->icon(iconName('remove'))
                             ->color('gray')
-                            ->modalHeading('Deactivate character?')
-                            ->modalDescription(fn (Model $record): string => "Are you sure you want to deactivate {$record->name}?")
-                            ->modalIcon(iconName('warning'))
-                            ->modalIconColor('primary')
+                            ->modalContentView('pages.characters.deactivate')
                             ->modalSubmitActionLabel('Deactivate')
-                            ->modalWidth('lg')
                             ->action(function (Model $record): void {
                                 $character = DeactivateCharacter::run($record);
 
@@ -130,26 +124,11 @@ class CharactersList extends TableComponent
                                     ->send();
                             }),
                     ])->authorizeAny(['activate', 'deactivate'])->divided(),
+
                     ActionGroup::make([
-                        DeleteAction::make()
-                            ->authorize('delete')
-                            ->modalHeading('Delete character?')
-                            ->modalDescription('Are you sure you want to delete this character?')
-                            ->modalSubmitActionLabel('Delete')
-                            ->using(function (Model $record): void {
-                                $character = DeleteCharacter::run($record);
-
-                                CharacterDeletedByAdmin::dispatch($character);
-
-                                Notification::make()->success()
-                                    ->title($record->name.' was deleted')
-                                    ->send();
-                            }),
                         RestoreAction::make()
                             ->authorize('restore')
-                            ->modalHeading('Restore character?')
-                            ->modalDescription(fn (Model $record): string => "Are you sure you want to restore {$record->name}?")
-                            ->modalSubmitActionLabel('Restore')
+                            ->modalContentView('pages.characters.restore')
                             ->action(function (Model $record): void {
                                 $character = RestoreCharacter::run($record);
 
@@ -159,49 +138,73 @@ class CharactersList extends TableComponent
                                     ->title($record->name.' was restored')
                                     ->send();
                             }),
+                        DeleteAction::make()
+                            ->authorize('delete')
+                            ->modalContentView('pages.characters.delete')
+                            ->using(function (Model $record): void {
+                                $character = DeleteCharacter::run($record);
+
+                                CharacterDeletedByAdmin::dispatch($character);
+
+                                Notification::make()->success()
+                                    ->title($record->name.' was deleted')
+                                    ->send();
+                            }),
+                        ForceDeleteAction::make()
+                            ->authorize('forceDelete')
+                            ->modalContentView('pages.characters.force-delete')
+                            ->using(function (Model $record): void {
+                                $character = ForceDeleteCharacter::run($record);
+
+                                CharacterForceDeleted::dispatch($character);
+
+                                Notification::make()->success()
+                                    ->title($record->name.' was force deleted')
+                                    ->send();
+                            }),
                     ])->authorizeAny(['delete', 'forceDelete', 'restore'])->divided(),
                 ]),
             ])
             ->groupedBulkActions([
                 BulkAction::make('bulk_activate')
-                    ->requiresConfirmation()
                     ->icon(iconName('check'))
                     ->color('gray')
                     ->label('Activate selected')
-                    ->successNotificationTitle('Characters were activated')
-                    ->action(
-                        fn (Collection $records) => $records->each(function (Model $record) {
+                    ->modalContentView('pages.characters.activate-bulk')
+                    ->modalSubmitActionLabel('Activate')
+                    ->deselectRecordsAfterCompletion()
+                    ->action(function (Collection $records): void {
+                        $records->each(function (Model $record): void {
                             $character = ActivateCharacter::run($record);
 
                             CharacterActivated::dispatch($character);
-                        })
-                    ),
+                        });
+
+                        Notification::make()->success()
+                            ->title(str('character')->plural(count($records))->prepend(count($records).' ').' were activated')
+                            ->send();
+                    }),
                 BulkAction::make('bulk_deactivate')
-                    ->requiresConfirmation()
                     ->icon(iconName('remove'))
                     ->color('gray')
                     ->label('Deactivate selected')
-                    ->successNotificationTitle('Characters were deactivated')
-                    ->action(
-                        fn (Collection $records) => $records->each(function (Model $record) {
+                    ->modalContentView('pages.characters.deactivate-bulk')
+                    ->modalSubmitActionLabel('Deactivate')
+                    ->deselectRecordsAfterCompletion()
+                    ->action(function (Collection $records): void {
+                        $records->each(function (Model $record): void {
                             $character = DeactivateCharacter::run($record);
 
                             CharacterDeactivated::dispatch($character);
-                        })
-                    ),
+                        });
+
+                        Notification::make()->success()
+                            ->title(str('character')->plural(count($records))->prepend(count($records).' ').' were deactivated')
+                            ->send();
+                    }),
                 DeleteBulkAction::make()
                     ->authorize('deleteAny')
-                    ->modalHeading(
-                        fn (Collection $records) => "Delete {$records->count()} selected ".str('character')->plural($records->count()).'?'
-                    )
-                    ->modalDescription(function (Collection $records) {
-                        $statement = ($records->count() === 1)
-                            ? 'this character'
-                            : "these {$records->count()} characters";
-
-                        return "Are you sure you want to delete {$statement}?";
-                    })
-                    ->modalSubmitActionLabel('Delete')
+                    ->modalContentView('pages.characters.delete-bulk')
                     ->action(function (Collection $records) {
                         foreach ($records as $record) {
                             /** @var Model $record */
@@ -218,13 +221,13 @@ class CharactersList extends TableComponent
             ->filters([
                 SelectFilter::make('status')
                     ->multiple()
-                    ->options(fn () => Character::getStatesFor('status')->flatMap(fn ($state) => [$state => ucfirst($state)])->all()),
+                    ->options(fn (): array => Character::getStatesFor('status')->flatMap(fn ($state) => [$state => ucfirst($state)])->all()),
                 SelectFilter::make('type')
                     ->multiple()
                     ->options(CharacterType::class),
                 Filter::make('only_my_characters')
                     ->toggle()
-                    ->query(fn (Builder $query) => $query->whereRelation('users', 'users.id', '=', auth()->id()))
+                    ->query(fn (Builder $query): Builder => $query->whereRelation('users', 'users.id', '=', auth()->id()))
                     ->visible(auth()->user()->can('manage', new Character())),
                 TrashedFilter::make()->label('Deleted characters'),
             ])
@@ -238,7 +241,7 @@ class CharactersList extends TableComponent
             ])
             ->emptyStateIcon(iconName('characters'))
             ->emptyStateHeading('No characters found')
-            ->emptyStateDescription('Departments allow you to organize character positions into logical groups that you can display on your manifests.')
+            ->emptyStateDescription('')
             ->emptyStateActions([
                 CreateAction::make()
                     ->label('Add a character')

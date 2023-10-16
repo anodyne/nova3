@@ -20,13 +20,15 @@ class ReplicateAction extends FilamentReplicateAction
         $this->icon(iconName('copy'));
         $this->label('Duplicate');
 
-        $this->modalWidth('xl');
-        $this->modalIcon(null);
-        $this->modalHeading('');
-        $this->modalDescription(null);
-        $this->modalSubmitActionLabel('Duplicate');
-        $this->modalContent(fn (Model $record): View => view($this->modalContentView, [
-            'record' => $record,
-        ]));
+        if (filled($this->modalContentView)) {
+            $this->modalWidth('xl');
+            $this->modalIcon(null);
+            $this->modalHeading('');
+            $this->modalDescription(null);
+            $this->modalSubmitActionLabel('Duplicate');
+            $this->modalContent(fn (Model $record): View => view($this->modalContentView, [
+                'record' => $record,
+            ]));
+        }
     }
 }
