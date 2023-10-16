@@ -36,6 +36,7 @@ use Nova\Foundation\Filament\Actions\DeleteBulkAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ForceDeleteAction;
 use Nova\Foundation\Filament\Actions\RestoreAction;
+use Nova\Foundation\Filament\Actions\RestoreBulkAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
@@ -77,8 +78,8 @@ class CharactersList extends TableComponent
                     ->toggleable(),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (Model $record): string => $record->status->color())
-                    ->formatStateUsing(fn (Model $record): string => $record->status->getLabel())
+                    ->color(fn (Model $record): string => $record->trashed() ? 'danger' : $record->status->color())
+                    ->formatStateUsing(fn (Model $record): string => $record->trashed() ? 'Deleted' : $record->status->getLabel())
                     ->toggleable(),
             ])
             ->actions([
@@ -200,6 +201,21 @@ class CharactersList extends TableComponent
 
                         Notification::make()->success()
                             ->title(str('character')->plural(count($records))->prepend(count($records).' ').' were deactivated')
+                            ->send();
+                    }),
+                RestoreBulkAction::make()
+                    ->authorize('restoreAny')
+                    ->modalContentView('pages.characters.restore-bulk')
+                    ->action(function (Collection $records) {
+                        foreach ($records as $record) {
+                            /** @var Model $record */
+                            $character = RestoreCharacter::run($record);
+
+                            CharacterRestored::dispatch($character);
+                        }
+
+                        Notification::make()->success()
+                            ->title($records->count().' '.str('character')->plural($records->count()).' were restored')
                             ->send();
                     }),
                 DeleteBulkAction::make()

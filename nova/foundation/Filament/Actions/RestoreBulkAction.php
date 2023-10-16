@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Filament\Actions;
 
-use Filament\Tables\Actions\DeleteBulkAction as FilamentDeleteBulkAction;
+use Filament\Tables\Actions\RestoreBulkAction as FilamentRestoreBulkAction;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 
-class DeleteBulkAction extends FilamentDeleteBulkAction
+class RestoreBulkAction extends FilamentRestoreBulkAction
 {
     use Concerns\HasModalContentView;
 
@@ -16,7 +16,7 @@ class DeleteBulkAction extends FilamentDeleteBulkAction
     {
         parent::setUp();
 
-        $this->icon(iconName('trash'));
+        $this->icon(iconName('history'));
 
         $this->requiresConfirmation(false);
 
@@ -24,7 +24,7 @@ class DeleteBulkAction extends FilamentDeleteBulkAction
         $this->modalIcon(null);
         $this->modalHeading('');
         $this->modalDescription(null);
-        $this->modalSubmitActionLabel('Delete');
+        $this->modalSubmitActionLabel('Restore');
         $this->modalContent(fn (Collection $records): View => view($this->modalContentView, [
             'records' => $records,
         ]));

@@ -20,17 +20,15 @@ class ForceDeleteAction extends FilamentForceDeleteAction
         $this->color('danger');
         $this->icon(iconName('trash'));
 
-        if (filled($this->modalContentView)) {
-            $this->requiresConfirmation(false);
+        $this->requiresConfirmation(false);
 
-            $this->modalWidth('lg');
-            $this->modalIcon(null);
-            $this->modalHeading('');
-            $this->modalDescription(null);
-            $this->modalSubmitActionLabel('Force delete');
-            $this->modalContent(fn (Model $record): View => view($this->modalContentView, [
-                'record' => $record,
-            ]));
-        }
+        $this->modalWidth('lg');
+        $this->modalIcon(null);
+        $this->modalHeading('');
+        $this->modalDescription(null);
+        $this->modalSubmitActionLabel('Force delete');
+        $this->modalContent(fn (Model $record): View => view($this->modalContentView, [
+            'record' => $record,
+        ]));
     }
 }

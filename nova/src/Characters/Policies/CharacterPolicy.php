@@ -89,9 +89,16 @@ class CharacterPolicy
         return $this->deleteAny($user);
     }
 
+    public function restoreAny(User $user): Response
+    {
+        return $user->isAbleTo('character.restore')
+            ? $this->allow()
+            : $this->deny();
+    }
+
     public function restore(User $user, Character $character): Response
     {
-        return $user->isAbleTo('character.restore') && $character->trashed()
+        return $this->restoreAny($user)->allowed() && $character->trashed()
             ? $this->allow()
             : $this->deny();
     }

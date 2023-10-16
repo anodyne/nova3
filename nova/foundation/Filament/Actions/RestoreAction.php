@@ -19,17 +19,15 @@ class RestoreAction extends FilamentRestoreAction
 
         $this->icon(iconName('history'));
 
-        if (filled($this->modalContentView)) {
-            $this->requiresConfirmation(false);
+        $this->requiresConfirmation(false);
 
-            $this->modalWidth('lg');
-            $this->modalIcon(null);
-            $this->modalHeading('');
-            $this->modalDescription(null);
-            $this->modalSubmitActionLabel('Restore');
-            $this->modalContent(fn (Model $record): View => view($this->modalContentView, [
-                'record' => $record,
-            ]));
-        }
+        $this->modalWidth('lg');
+        $this->modalIcon(null);
+        $this->modalHeading('');
+        $this->modalDescription(null);
+        $this->modalSubmitActionLabel('Restore');
+        $this->modalContent(fn (Model $record): View => view($this->modalContentView, [
+            'record' => $record,
+        ]));
     }
 }
