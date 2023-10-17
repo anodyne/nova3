@@ -14,6 +14,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Gate;
 use Nova\Departments\Actions\DeleteDepartment;
 use Nova\Departments\Actions\DuplicateDepartment;
 use Nova\Departments\Data\DepartmentData;
@@ -119,10 +120,32 @@ class DepartmentsList extends TableComponent
                 DeleteBulkAction::make()
                     ->authorize('deleteAny')
                     ->modalContentView('pages.departments.delete-bulk')
-                    ->successNotificationTitle('Departments were deleted')
-                    ->using(fn (Collection $records): Collection => $records->each(
-                        fn (Model $record): Model => DeleteDepartment::run($record)
-                    )),
+                    ->action(function (Collection $records): void {
+                        $ignoredRecords = 0;
+
+                        $records = $records
+                            ->filter(function (Model $record) use (&$ignoredRecords): bool {
+                                if (Gate::allows('delete', $record)) {
+                                    return true;
+                                }
+
+                                $ignoredRecords += 1;
+
+                                return false;
+                            })
+                            ->each(fn (Model $record): Model => DeleteDepartment::run($record));
+
+                        Notification::make()->success()
+                            ->title(count($records).' '.trans_choice('department was|departments were', count($records)).' deleted')
+                            ->when($ignoredRecords > 0, function (Notification $notification) use ($ignoredRecords) {
+                                return $notification->body(sprintf(
+                                    '%d %s ignored due to being ineligible for this action.',
+                                    $ignoredRecords,
+                                    trans_choice('record was|records were', $ignoredRecords)
+                                ));
+                            })
+                            ->send();
+                    }),
             ])
             ->filters([
                 TernaryFilter::make('has_positions')

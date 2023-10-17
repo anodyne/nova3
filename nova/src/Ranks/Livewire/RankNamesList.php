@@ -13,6 +13,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Gate;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
@@ -95,10 +96,32 @@ class RankNamesList extends TableComponent
                 DeleteBulkAction::make()
                     ->authorize('deleteAny')
                     ->modalContentView('pages.ranks.names.delete-bulk')
-                    ->successNotificationTitle('Rank names were deleted')
-                    ->using(fn (Collection $records): Collection => $records->each(
-                        fn (Model $record): Model => DeleteRankNameManager::run($record)
-                    )),
+                    ->action(function (Collection $records): void {
+                        $ignoredRecords = 0;
+
+                        $records = $records
+                            ->filter(function (Model $record) use (&$ignoredRecords): bool {
+                                if (Gate::allows('delete', $record)) {
+                                    return true;
+                                }
+
+                                $ignoredRecords += 1;
+
+                                return false;
+                            })
+                            ->each(fn (Model $record): Model => DeleteRankNameManager::run($record));
+
+                        Notification::make()->success()
+                            ->title(count($records).' '.trans_choice('rank name was|rank names were', count($records)).' deleted')
+                            ->when($ignoredRecords > 0, function (Notification $notification) use ($ignoredRecords) {
+                                return $notification->body(sprintf(
+                                    '%d %s ignored due to being ineligible for this action.',
+                                    $ignoredRecords,
+                                    trans_choice('record was|records were', $ignoredRecords)
+                                ));
+                            })
+                            ->send();
+                    }),
             ])
             ->filters([
                 TernaryFilter::make('assigned_ranks')

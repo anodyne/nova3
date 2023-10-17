@@ -9,6 +9,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Gate;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
@@ -74,23 +75,33 @@ class NotesList extends TableComponent
             ->groupedBulkActions([
                 DeleteBulkAction::make()
                     ->authorize('deleteAny')
-                    ->modalHeading(
-                        fn (Collection $records): string => "Delete {$records->count()} selected ".str('note')->plural($records->count()).'?'
-                    )
-                    ->modalDescription(function (Collection $records): string {
-                        $statement = ($records->count() === 1)
-                            ? 'this 1 note'
-                            : "these {$records->count()} notes";
+                    ->modalContentView('pages.notes.delete-bulk')
+                    ->action(function (Collection $records): void {
+                        $ignoredRecords = 0;
 
-                        $notice = ($records->count() === 1) ? 'it' : 'them';
+                        $records = $records
+                            ->filter(function (Model $record) use (&$ignoredRecords): bool {
+                                if (Gate::allows('delete', $record)) {
+                                    return true;
+                                }
 
-                        return "Are you sure you want to delete {$statement}? You won't be able to recover {$notice}.";
-                    })
-                    ->modalSubmitActionLabel('Delete')
-                    ->successNotificationTitle('Notes were deleted')
-                    ->using(fn (Collection $records): Collection => $records->each(
-                        fn (Model $record): Model => DeleteNote::run($record)
-                    )),
+                                $ignoredRecords += 1;
+
+                                return false;
+                            })
+                            ->each(fn (Model $record): Model => DeleteNote::run($record));
+
+                        Notification::make()->success()
+                            ->title(count($records).' '.trans_choice('note was|notes were', count($records)).' deleted')
+                            ->when($ignoredRecords > 0, function (Notification $notification) use ($ignoredRecords) {
+                                return $notification->body(sprintf(
+                                    '%d %s ignored due to being ineligible for this action.',
+                                    $ignoredRecords,
+                                    trans_choice('record was|records were', $ignoredRecords)
+                                ));
+                            })
+                            ->send();
+                    }),
             ])
             ->heading('My notes')
             ->headerActions([

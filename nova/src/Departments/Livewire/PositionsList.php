@@ -15,6 +15,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Attributes\Url;
 use Nova\Departments\Actions\DeletePosition;
 use Nova\Departments\Actions\DuplicatePosition;
@@ -126,10 +127,32 @@ class PositionsList extends TableComponent
                 DeleteBulkAction::make()
                     ->authorize('deleteAny')
                     ->modalContentView('pages.positions.delete-bulk')
-                    ->successNotificationTitle('Positions were deleted')
-                    ->using(fn (Collection $records): Collection => $records->each(
-                        fn (Model $record): Model => DeletePosition::run($record)
-                    )),
+                    ->action(function (Collection $records): void {
+                        $ignoredRecords = 0;
+
+                        $records = $records
+                            ->filter(function (Model $record) use (&$ignoredRecords): bool {
+                                if (Gate::allows('delete', $record)) {
+                                    return true;
+                                }
+
+                                $ignoredRecords += 1;
+
+                                return false;
+                            })
+                            ->each(fn (Model $record): Model => DeletePosition::run($record));
+
+                        Notification::make()->success()
+                            ->title(count($records).' '.trans_choice('position was|positions were', count($records)).' deleted')
+                            ->when($ignoredRecords > 0, function (Notification $notification) use ($ignoredRecords) {
+                                return $notification->body(sprintf(
+                                    '%d %s ignored due to being ineligible for this action.',
+                                    $ignoredRecords,
+                                    trans_choice('record was|records were', $ignoredRecords)
+                                ));
+                            })
+                            ->send();
+                    }),
             ])
             ->filters([
                 SelectFilter::make('department_id')
