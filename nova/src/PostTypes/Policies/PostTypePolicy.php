@@ -50,7 +50,9 @@ class PostTypePolicy
 
     public function delete(User $user, PostType $postType): Response
     {
-        return $this->deleteAny($user);
+        return $this->deleteAny($user)->allowed() && ! $postType->trashed()
+            ? $this->allow()
+            : $this->deny();
     }
 
     public function duplicate(User $user, PostType $postType): Response
@@ -60,16 +62,25 @@ class PostTypePolicy
             : $this->deny();
     }
 
-    public function restore(User $user, PostType $postType): Response
+    public function restoreAny(User $user): Response
     {
         return $user->isAbleTo('post-type.restore')
             ? $this->allow()
             : $this->deny();
     }
 
+    public function restore(User $user, PostType $postType): Response
+    {
+        return $this->restoreAny($user)->allowed() && $postType->trashed()
+            ? $this->allow()
+            : $this->deny();
+    }
+
     public function forceDelete(User $user, PostType $postType): Response
     {
-        return $this->denyWithStatus(418);
+        return $this->deleteAny($user)->allowed() && $postType->trashed()
+            ? $this->allow()
+            : $this->deny();
     }
 
     public function write(User $user, PostType $postType): Response

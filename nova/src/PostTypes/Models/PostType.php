@@ -27,9 +27,9 @@ class PostType extends Model implements Sortable
 {
     use HasFactory;
     use HasStates;
-    use SortableTrait;
     use LogsActivity;
     use SoftDeletes;
+    use SortableTrait;
 
     protected $table = 'post_types';
 
@@ -49,6 +49,8 @@ class PostType extends Model implements Sortable
         'created' => Events\PostTypeCreated::class,
         'deleted' => Events\PostTypeDeleted::class,
         'updated' => Events\PostTypeUpdated::class,
+        'forceDeleted' => Events\PostTypeForceDeleted::class,
+        'restored' => Events\PostTypeRestored::class,
     ];
 
     public function posts(): HasMany
@@ -64,13 +66,6 @@ class PostType extends Model implements Sortable
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
-    }
-
-    public function canBeDeleted(): Attribute
-    {
-        return Attribute::make(
-            get: fn (): bool => $this->posts()->count() === 0
-        );
     }
 
     /**

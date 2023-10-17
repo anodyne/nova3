@@ -39,7 +39,10 @@
 
                 <x-content-box>
                     <div class="grid grid-cols-1 lg:grid-cols-3">
-                        <x-panel.stat label="Total posts" :value="$postType->published_posts_count"></x-panel.stat>
+                        <x-panel.stat
+                            label="Total published posts"
+                            :value="$postType->published_posts_count"
+                        ></x-panel.stat>
                         <x-panel.stat label="Icon">
                             @if (filled($postType->icon))
                                 <x-icon :name="$postType->icon" size="h-11 w-11 md:h-10 md:w-10"></x-icon>

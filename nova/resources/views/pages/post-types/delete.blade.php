@@ -2,8 +2,15 @@
     <p>
         Are you sure you want to delete the
         <strong class="font-semibold">{{ $record->name }}</strong>
-        post type? {{ $record->can_be_deleted ? "You won't be able to recover it." : null }}
+        post type? Users will no longer be able to create posts with this post type.
     </p>
 
-    <p>Users will no longer be able to create story posts with this post type.</p>
+    @if ($record->posts_count === 0)
+        <p>This action is permanent and cannot be undone.</p>
+    @else
+        <p>
+            Posts assigned to this post type will still be able to be viewed. You can choose to move posts from this
+            post type to a new one if you wish.
+        </p>
+    @endif
 </x-filament.modal-content>
