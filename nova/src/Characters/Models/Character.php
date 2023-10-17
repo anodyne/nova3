@@ -43,6 +43,8 @@ class Character extends Model implements HasMedia
         'created' => Events\CharacterCreated::class,
         'deleted' => Events\CharacterDeleted::class,
         'updated' => Events\CharacterUpdated::class,
+        'forceDeleted' => Events\CharacterForceDeleted::class,
+        'restored' => Events\CharacterRestored::class,
     ];
 
     protected $fillable = [

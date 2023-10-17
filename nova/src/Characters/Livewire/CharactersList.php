@@ -25,8 +25,6 @@ use Nova\Characters\Enums\CharacterType;
 use Nova\Characters\Events\CharacterActivated;
 use Nova\Characters\Events\CharacterDeactivated;
 use Nova\Characters\Events\CharacterDeletedByAdmin;
-use Nova\Characters\Events\CharacterForceDeleted;
-use Nova\Characters\Events\CharacterRestored;
 use Nova\Characters\Models\Character;
 use Nova\Foundation\Filament\Actions\Action;
 use Nova\Foundation\Filament\Actions\ActionGroup;
@@ -133,9 +131,7 @@ class CharactersList extends TableComponent
                             ->authorize('restore')
                             ->modalContentView('pages.characters.restore')
                             ->action(function (Model $record): void {
-                                $character = RestoreCharacter::run($record);
-
-                                CharacterRestored::dispatch($character);
+                                RestoreCharacter::run($record);
 
                                 Notification::make()->success()
                                     ->title($record->name.' was restored')
@@ -144,7 +140,7 @@ class CharactersList extends TableComponent
                         DeleteAction::make()
                             ->authorize('delete')
                             ->modalContentView('pages.characters.delete')
-                            ->using(function (Model $record): void {
+                            ->action(function (Model $record): void {
                                 $character = DeleteCharacter::run($record);
 
                                 CharacterDeletedByAdmin::dispatch($character);
@@ -156,10 +152,8 @@ class CharactersList extends TableComponent
                         ForceDeleteAction::make()
                             ->authorize('forceDelete')
                             ->modalContentView('pages.characters.force-delete')
-                            ->using(function (Model $record): void {
-                                $character = ForceDeleteCharacter::run($record);
-
-                                CharacterForceDeleted::dispatch($character);
+                            ->action(function (Model $record): void {
+                                ForceDeleteCharacter::run($record);
 
                                 Notification::make()->success()
                                     ->title($record->name.' was force deleted')
@@ -199,13 +193,11 @@ class CharactersList extends TableComponent
                         Notification::make()->success()
                             ->title(count($records).' '.trans_choice('character was|characters were', count($records)).' activated')
                             ->when($ignoredRecords > 0, function (Notification $notification) use ($ignoredRecords) {
-                                $content = sprintf(
+                                return $notification->body(sprintf(
                                     '%d %s ignored due to being ineligible for this action.',
                                     $ignoredRecords,
                                     trans_choice('record was|records were', $ignoredRecords)
-                                );
-
-                                return $notification->body($content);
+                                ));
                             })
                             ->send();
                     }),
@@ -239,13 +231,11 @@ class CharactersList extends TableComponent
                         Notification::make()->success()
                             ->title(count($records).' '.trans_choice('character was|characters were', count($records)).' deactivated')
                             ->when($ignoredRecords > 0, function (Notification $notification) use ($ignoredRecords) {
-                                $content = sprintf(
+                                return $notification->body(sprintf(
                                     '%d %s ignored due to being ineligible for this action.',
                                     $ignoredRecords,
                                     trans_choice('record was|records were', $ignoredRecords)
-                                );
-
-                                return $notification->body($content);
+                                ));
                             })
                             ->send();
                     }),
@@ -265,22 +255,16 @@ class CharactersList extends TableComponent
 
                                 return false;
                             })
-                            ->each(function (Model $record): void {
-                                $character = RestoreCharacter::run($record);
-
-                                CharacterRestored::dispatch($character);
-                            });
+                            ->each(fn (Model $record): Model => RestoreCharacter::run($record));
 
                         Notification::make()->success()
                             ->title(count($records).' '.trans_choice('character was|characters were', count($records)).' restored')
                             ->when($ignoredRecords > 0, function (Notification $notification) use ($ignoredRecords) {
-                                $content = sprintf(
+                                return $notification->body(sprintf(
                                     '%d %s ignored due to being ineligible for this action.',
                                     $ignoredRecords,
                                     trans_choice('record was|records were', $ignoredRecords)
-                                );
-
-                                return $notification->body($content);
+                                ));
                             })
                             ->send();
                     }),
@@ -309,13 +293,11 @@ class CharactersList extends TableComponent
                         Notification::make()->success()
                             ->title(count($records).' '.trans_choice('character was|characters were', count($records)).' deleted')
                             ->when($ignoredRecords > 0, function (Notification $notification) use ($ignoredRecords) {
-                                $content = sprintf(
+                                return $notification->body(sprintf(
                                     '%d %s ignored due to being ineligible for this action.',
                                     $ignoredRecords,
                                     trans_choice('record was|records were', $ignoredRecords)
-                                );
-
-                                return $notification->body($content);
+                                ));
                             })
                             ->send();
                     }),
@@ -335,22 +317,16 @@ class CharactersList extends TableComponent
 
                                 return false;
                             })
-                            ->each(function (Model $record): void {
-                                $character = ForceDeleteCharacter::run($record);
-
-                                CharacterForceDeleted::dispatch($character);
-                            });
+                            ->each(fn (Model $record): Model => ForceDeleteCharacter::run($record));
 
                         Notification::make()->success()
                             ->title(count($records).' '.trans_choice('character was|characters were', count($records)).' force deleted')
                             ->when($ignoredRecords > 0, function (Notification $notification) use ($ignoredRecords) {
-                                $content = sprintf(
+                                return $notification->body(sprintf(
                                     '%d %s ignored due to being ineligible for this action.',
                                     $ignoredRecords,
                                     trans_choice('record was|records were', $ignoredRecords)
-                                );
-
-                                return $notification->body($content);
+                                ));
                             })
                             ->send();
                     }),
