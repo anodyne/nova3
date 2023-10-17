@@ -14,6 +14,7 @@ use Filament\Tables\Table;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Attributes\Url;
 use Nova\Characters\Actions\ActivateCharacter;
 use Nova\Characters\Actions\DeactivateCharacter;
@@ -35,6 +36,7 @@ use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\DeleteBulkAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ForceDeleteAction;
+use Nova\Foundation\Filament\Actions\ForceDeleteBulkAction;
 use Nova\Foundation\Filament\Actions\RestoreAction;
 use Nova\Foundation\Filament\Actions\RestoreBulkAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
@@ -168,6 +170,7 @@ class CharactersList extends TableComponent
             ])
             ->groupedBulkActions([
                 BulkAction::make('bulk_activate')
+                    ->authorize('activateAny')
                     ->icon(iconName('check'))
                     ->color('gray')
                     ->label('Activate selected')
@@ -175,17 +178,39 @@ class CharactersList extends TableComponent
                     ->modalSubmitActionLabel('Activate')
                     ->deselectRecordsAfterCompletion()
                     ->action(function (Collection $records): void {
-                        $records->each(function (Model $record): void {
-                            $character = ActivateCharacter::run($record);
+                        $ignoredRecords = 0;
 
-                            CharacterActivated::dispatch($character);
-                        });
+                        $records = $records
+                            ->filter(function (Model $record) use (&$ignoredRecords): bool {
+                                if (Gate::allows('activate', $record)) {
+                                    return true;
+                                }
+
+                                $ignoredRecords += 1;
+
+                                return false;
+                            })
+                            ->each(function (Model $record): void {
+                                $character = ActivateCharacter::run($record);
+
+                                CharacterActivated::dispatch($character);
+                            });
 
                         Notification::make()->success()
-                            ->title(str('character')->plural(count($records))->prepend(count($records).' ').' were activated')
+                            ->title(count($records).' '.trans_choice('character was|characters were', count($records)).' activated')
+                            ->when($ignoredRecords > 0, function (Notification $notification) use ($ignoredRecords) {
+                                $content = sprintf(
+                                    '%d %s ignored due to being ineligible for this action.',
+                                    $ignoredRecords,
+                                    trans_choice('record was|records were', $ignoredRecords)
+                                );
+
+                                return $notification->body($content);
+                            })
                             ->send();
                     }),
                 BulkAction::make('bulk_deactivate')
+                    ->authorize('deactivateAny')
                     ->icon(iconName('remove'))
                     ->color('gray')
                     ->label('Deactivate selected')
@@ -193,44 +218,140 @@ class CharactersList extends TableComponent
                     ->modalSubmitActionLabel('Deactivate')
                     ->deselectRecordsAfterCompletion()
                     ->action(function (Collection $records): void {
-                        $records->each(function (Model $record): void {
-                            $character = DeactivateCharacter::run($record);
+                        $ignoredRecords = 0;
 
-                            CharacterDeactivated::dispatch($character);
-                        });
+                        $records = $records
+                            ->filter(function (Model $record) use (&$ignoredRecords): bool {
+                                if (Gate::allows('deactivate', $record)) {
+                                    return true;
+                                }
+
+                                $ignoredRecords += 1;
+
+                                return false;
+                            })
+                            ->each(function (Model $record): void {
+                                $character = DeactivateCharacter::run($record);
+
+                                CharacterDeactivated::dispatch($character);
+                            });
 
                         Notification::make()->success()
-                            ->title(str('character')->plural(count($records))->prepend(count($records).' ').' were deactivated')
+                            ->title(count($records).' '.trans_choice('character was|characters were', count($records)).' deactivated')
+                            ->when($ignoredRecords > 0, function (Notification $notification) use ($ignoredRecords) {
+                                $content = sprintf(
+                                    '%d %s ignored due to being ineligible for this action.',
+                                    $ignoredRecords,
+                                    trans_choice('record was|records were', $ignoredRecords)
+                                );
+
+                                return $notification->body($content);
+                            })
                             ->send();
                     }),
                 RestoreBulkAction::make()
                     ->authorize('restoreAny')
                     ->modalContentView('pages.characters.restore-bulk')
-                    ->action(function (Collection $records) {
-                        foreach ($records as $record) {
-                            /** @var Model $record */
-                            $character = RestoreCharacter::run($record);
+                    ->action(function (Collection $records): void {
+                        $ignoredRecords = 0;
 
-                            CharacterRestored::dispatch($character);
-                        }
+                        $records = $records
+                            ->filter(function (Model $record) use (&$ignoredRecords): bool {
+                                if (Gate::allows('restore', $record)) {
+                                    return true;
+                                }
+
+                                $ignoredRecords += 1;
+
+                                return false;
+                            })
+                            ->each(function (Model $record): void {
+                                $character = RestoreCharacter::run($record);
+
+                                CharacterRestored::dispatch($character);
+                            });
 
                         Notification::make()->success()
-                            ->title($records->count().' '.str('character')->plural($records->count()).' were restored')
+                            ->title(count($records).' '.trans_choice('character was|characters were', count($records)).' restored')
+                            ->when($ignoredRecords > 0, function (Notification $notification) use ($ignoredRecords) {
+                                $content = sprintf(
+                                    '%d %s ignored due to being ineligible for this action.',
+                                    $ignoredRecords,
+                                    trans_choice('record was|records were', $ignoredRecords)
+                                );
+
+                                return $notification->body($content);
+                            })
                             ->send();
                     }),
                 DeleteBulkAction::make()
                     ->authorize('deleteAny')
                     ->modalContentView('pages.characters.delete-bulk')
-                    ->action(function (Collection $records) {
-                        foreach ($records as $record) {
-                            /** @var Model $record */
-                            $character = DeleteCharacter::run($record);
+                    ->action(function (Collection $records): void {
+                        $ignoredRecords = 0;
 
-                            CharacterDeletedByAdmin::dispatch($character);
-                        }
+                        $records = $records
+                            ->filter(function (Model $record) use (&$ignoredRecords): bool {
+                                if (Gate::allows('delete', $record)) {
+                                    return true;
+                                }
+
+                                $ignoredRecords += 1;
+
+                                return false;
+                            })
+                            ->each(function (Model $record): void {
+                                $character = DeleteCharacter::run($record);
+
+                                CharacterDeletedByAdmin::dispatch($character);
+                            });
 
                         Notification::make()->success()
-                            ->title($records->count().' '.str('character')->plural($records->count()).' were deleted')
+                            ->title(count($records).' '.trans_choice('character was|characters were', count($records)).' deleted')
+                            ->when($ignoredRecords > 0, function (Notification $notification) use ($ignoredRecords) {
+                                $content = sprintf(
+                                    '%d %s ignored due to being ineligible for this action.',
+                                    $ignoredRecords,
+                                    trans_choice('record was|records were', $ignoredRecords)
+                                );
+
+                                return $notification->body($content);
+                            })
+                            ->send();
+                    }),
+                ForceDeleteBulkAction::make()
+                    ->authorize('deleteAny')
+                    ->modalContentView('pages.characters.force-delete-bulk')
+                    ->action(function (Collection $records): void {
+                        $ignoredRecords = 0;
+
+                        $records = $records
+                            ->filter(function (Model $record) use (&$ignoredRecords): bool {
+                                if (Gate::allows('forceDelete', $record)) {
+                                    return true;
+                                }
+
+                                $ignoredRecords += 1;
+
+                                return false;
+                            })
+                            ->each(function (Model $record): void {
+                                $character = ForceDeleteCharacter::run($record);
+
+                                CharacterForceDeleted::dispatch($character);
+                            });
+
+                        Notification::make()->success()
+                            ->title(count($records).' '.trans_choice('character was|characters were', count($records)).' force deleted')
+                            ->when($ignoredRecords > 0, function (Notification $notification) use ($ignoredRecords) {
+                                $content = sprintf(
+                                    '%d %s ignored due to being ineligible for this action.',
+                                    $ignoredRecords,
+                                    trans_choice('record was|records were', $ignoredRecords)
+                                );
+
+                                return $notification->body($content);
+                            })
                             ->send();
                     }),
             ])

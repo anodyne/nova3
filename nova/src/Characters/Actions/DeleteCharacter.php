@@ -13,6 +13,10 @@ class DeleteCharacter
 
     public function handle(Character $character): Character
     {
-        return tap($character)->delete();
+        if (! $character->trashed()) {
+            $character = tap($character)->delete();
+        }
+
+        return $character;
     }
 }
