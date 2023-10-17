@@ -135,7 +135,7 @@
                                                 icon="timeline"
                                                 :meta="$meta"
                                             >
-                                                Story Timeline
+                                                Story timeline
                                             </x-nav.main-item-mobile>
                                         </li>
 
@@ -350,7 +350,7 @@
                                         icon="timeline"
                                         :meta="$meta"
                                     >
-                                        Story Timeline
+                                        Story timeline
                                     </x-nav.main-item>
                                 </li>
 

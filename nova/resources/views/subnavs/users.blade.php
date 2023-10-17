@@ -2,7 +2,7 @@
     <x-nav.sub-group>
         @can('viewAny', Nova\Users\Models\User::class)
             <x-nav.sub-item :href="route('users.index')" :active="request()->routeIs('users.*')">
-                All Users
+                All users
             </x-nav.sub-item>
         @endcan
     </x-nav.sub-group>
