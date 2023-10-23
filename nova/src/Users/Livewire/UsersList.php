@@ -6,8 +6,6 @@ namespace Nova\Users\Livewire;
 
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Select;
-use Filament\Tables\Actions\Action;
-use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
 use Filament\Tables\Filters\Filter;
@@ -15,17 +13,24 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
-use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Nova\Foundation\Filament\Actions;
+use Illuminate\Support\Facades\Gate;
+use Nova\Foundation\Filament\Actions\Action;
+use Nova\Foundation\Filament\Actions\ActionGroup;
+use Nova\Foundation\Filament\Actions\BulkAction;
+use Nova\Foundation\Filament\Actions\CreateAction;
+use Nova\Foundation\Filament\Actions\DeleteAction;
+use Nova\Foundation\Filament\Actions\EditAction;
+use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
-use Nova\Users\Actions\ActivateUser;
-use Nova\Users\Actions\ActivateUserPreviousCharacter;
+use Nova\Users\Actions\ActivateUserManager;
 use Nova\Users\Actions\DeactivateUser;
-use Nova\Users\Actions\DeleteUser;
+use Nova\Users\Actions\DeleteUserManager;
 use Nova\Users\Actions\ForcePasswordReset;
 use Nova\Users\Events\UserActivated;
 use Nova\Users\Events\UserDeactivated;
@@ -50,16 +55,19 @@ class UsersList extends TableComponent
                 TextColumn::make('activeCharacters.name')
                     ->label('Active character(s)')
                     ->listWithLineBreaks()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
                 TextColumn::make('characters.name')
                     ->label('Assigned character(s)')
                     ->listWithLineBreaks()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
                 TextColumn::make('updated_at')
                     ->label('Last activity')
                     ->since()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
                 TextColumn::make('latestLogin.created_at')
                     ->label('Last sign in')
                     ->since()
@@ -79,56 +87,44 @@ class UsersList extends TableComponent
                     ->toggleable(),
             ])
             ->actions([
-                Actions\ActionGroup::make([
-                    Actions\ActionGroup::make([
-                        Actions\ViewAction::make()
+                ActionGroup::make([
+                    ActionGroup::make([
+                        ViewAction::make()
                             ->authorize('view')
                             ->url(fn (Model $record): string => route('users.show', $record)),
-                        Actions\EditAction::make()
+                        EditAction::make()
                             ->authorize('update')
                             ->url(fn (Model $record): string => route('users.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
-                    Actions\ActionGroup::make([
+
+                    ActionGroup::make([
                         Action::make('impersonate')
-                            ->requiresConfirmation()
-                            ->modalContent(fn (Model $record): View => view('pages.users.impersonate-warning', [
-                                'record' => $record,
-                            ]))
-                            ->modalHeading('')
-                            ->modalDescription(null)
-                            ->modalIcon(null)
-                            ->modalWidth('xl')
+                            ->modalContentView('pages.users.impersonate-warning')
                             ->modalSubmitActionLabel('Impersonate')
                             ->color('gray')
                             ->icon(iconName('spy'))
-                            ->action(fn (Model $record) => to_route('impersonate', $record->id)),
+                            ->action(fn (Model $record): RedirectResponse => to_route('impersonate', $record->id)),
                     ])->authorize('impersonate')->divided(),
-                    Actions\ActionGroup::make([
+
+                    ActionGroup::make([
                         Action::make('activate')
                             ->authorize('activate')
                             ->icon(iconName('check'))
                             ->color('gray')
+                            ->modalContentView('pages.users.activate')
+                            ->modalSubmitActionLabel('Activate')
                             ->form([
                                 Checkbox::make('activate_previous_character')
                                     ->label('Activate previous character')
                                     ->default(true),
                             ])
-                            ->modalHeading('Activate user?')
-                            ->modalDescription(
-                                fn (Model $record): string => "Are you sure you want to activate {$record->name}? You can choose below whether to activate the user's previous character as well."
-                            )
-                            ->modalIcon(iconName('check'))
-                            ->modalIconColor('primary')
-                            ->modalSubmitActionLabel('Activate')
-                            ->modalWidth('lg')
                             ->action(function (Model $record, array $data): void {
-                                ActivateUser::run($record);
+                                ActivateUserManager::run(
+                                    $record,
+                                    activatePreviousCharacter: Arr::boolean($data, 'activate_previous_character')
+                                );
 
-                                if (data_get($data, 'activate_previous_character') === true) {
-                                    ActivateUserPreviousCharacter::run($record);
-                                }
-
-                                dispatch(new UserActivated($record));
+                                UserActivated::dispatch($record);
 
                                 Notification::make()->success()
                                     ->title("{$record->name} has been activated")
@@ -136,57 +132,51 @@ class UsersList extends TableComponent
                             }),
                         Action::make('deactivate')
                             ->authorize('deactivate')
-                            ->requiresConfirmation()
                             ->icon(iconName('remove'))
                             ->color('gray')
-                            ->modalHeading('Deactivate user?')
-                            ->modalDescription(
-                                fn (Model $record): string => "Are you sure you want to deactivate {$record->name}? This will also deactivate all characters assigned to the user who are not jointly owned with another user."
-                            )
-                            ->modalIcon(iconName('warning'))
-                            ->modalIconColor('primary')
+                            ->modalContentView('pages.users.deactivate')
                             ->modalSubmitActionLabel('Deactivate')
-                            ->modalWidth('lg')
                             ->action(function (Model $record): void {
                                 DeactivateUser::run($record);
 
-                                dispatch(new UserDeactivated($record));
+                                UserDeactivated::dispatch($record);
 
                                 Notification::make()->success()
                                     ->title("{$record->name} has been deactivated")
                                     ->send();
                             }),
                     ])->authorizeAny(['activate', 'deactivate'])->divided(),
-                    Actions\ActionGroup::make([
-                        Actions\DeleteAction::make()
-                            ->close()
-                            ->modalHeading('Delete user?')
-                            ->modalDescription(
-                                fn (Model $record): string => "Are you sure you want to delete {$record->name}? You won't be able to recover the user record."
-                            )
-                            ->modalSubmitActionLabel('Delete')
+
+                    ActionGroup::make([
+                        DeleteAction::make()
+                            ->modalContentView('pages.users.delete')
                             ->successNotificationTitle('User was deleted')
-                            ->using(fn (Model $record): Model => DeleteUser::run($record)),
+                            ->using(fn (Model $record): Model => DeleteUserManager::run($record)),
                     ])->authorize('delete')->divided(),
                 ]),
             ])
             ->groupedBulkActions([
                 BulkAction::make('force-password-reset')
                     ->authorize('updateAny')
-                    ->requiresConfirmation()
+                    ->modalContentView('pages.users.force-password-reset-bulk')
+                    ->modalSubmitActionLabel('Force password reset')
                     ->icon(iconName('key'))
                     ->color('gray')
-                    ->modalHeading('Force password reset?')
-                    ->action(
-                        fn (Collection $records): Collection => $records->each(
-                            fn (Model $record): Model => ForcePasswordReset::run($record)
-                        )
-                    ),
+                    ->action(function (Collection $records): void {
+                        $records = $records
+                            ->filter(fn (Model $record): bool => Gate::allows('forcePasswordReset', $record))
+                            ->each(fn (Model $record): Model => ForcePasswordReset::run($record));
+
+                        Notification::make()->success()
+                            ->title(count($records).' '.trans_choice('user was|users were', count($records)).' updated')
+                            ->body("The next time they log in, they'll be prompted to reset their password.")
+                            ->send();
+                    }),
             ])
             ->filters([
                 SelectFilter::make('status')
                     ->multiple()
-                    ->options(fn () => User::getStatesFor('status')),
+                    ->options(fn (): Collection => User::getStatesFor('status')),
                 TernaryFilter::make('assigned_characters')
                     ->label('Has assigned characters')
                     ->queries(
@@ -206,9 +196,9 @@ class UsersList extends TableComponent
                     ->query(
                         fn (Builder $query, array $data): Builder => $query->when(
                             $data['last_login'],
-                            fn (Builder $query, $date) => $query->whereHas(
+                            fn (Builder $query, $date): Builder => $query->whereHas(
                                 'latestLogin',
-                                fn (Builder $query) => $query->where('created_at', '<', now()->sub($date))
+                                fn (Builder $query): Builder => $query->where('created_at', '<', now()->sub($date))
                             )
                         )
                     )
@@ -232,9 +222,9 @@ class UsersList extends TableComponent
                     ->query(
                         fn (Builder $query, array $data): Builder => $query->when(
                             $data['last_posted'],
-                            fn (Builder $query, $date) => $query->whereHas(
+                            fn (Builder $query, $date): Builder => $query->whereHas(
                                 'latestPost',
-                                fn (Builder $query) => $query->where('published_at', '<', now()->sub($date))
+                                fn (Builder $query): Builder => $query->where('published_at', '<', now()->sub($date))
                             )
                         )
                     )
@@ -249,15 +239,16 @@ class UsersList extends TableComponent
             ->heading('Users')
             ->description("Manage all of the game's users")
             ->headerActions([
-                Actions\CreateAction::make()
+                CreateAction::make()
                     ->authorize('create')
                     ->label('Add')
                     ->url(route('users.create')),
             ])
             ->emptyStateIcon(iconName('users'))
             ->emptyStateHeading('No users found')
+            ->emptyStateDescription('')
             ->emptyStateActions([
-                Actions\CreateAction::make()
+                CreateAction::make()
                     ->authorize('create')
                     ->label('Add a user')
                     ->url(route('users.create')),

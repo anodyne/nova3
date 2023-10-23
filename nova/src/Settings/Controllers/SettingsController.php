@@ -6,7 +6,7 @@ namespace Nova\Settings\Controllers;
 
 use Illuminate\Http\Request;
 use Nova\Foundation\Controllers\Controller;
-use Nova\Foundation\Models\SystemNotification;
+use Nova\Foundation\Models\NotificationType;
 use Nova\Settings\Actions\UpdateSettings;
 use Nova\Settings\SettingsManager;
 use Nova\Themes\Models\Theme;
@@ -26,7 +26,7 @@ class SettingsController extends Controller
 
         return $settingsManager->get($tab)->response::sendWith([
             'settings' => $settings,
-            'systemNotifications' => SystemNotification::get(),
+            'notificationTypes' => NotificationType::get(),
             'tab' => $tab,
             'themes' => Theme::active()->orderBy('name')->get(),
         ]);

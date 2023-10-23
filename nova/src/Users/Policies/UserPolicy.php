@@ -6,9 +6,9 @@ namespace Nova\Users\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
-use Nova\Users\Models\States\Active;
-use Nova\Users\Models\States\Inactive;
-use Nova\Users\Models\States\Pending;
+use Nova\Users\Models\States\Status\Active;
+use Nova\Users\Models\States\Status\Inactive;
+use Nova\Users\Models\States\Status\Pending;
 use Nova\Users\Models\User;
 
 class UserPolicy
@@ -71,29 +71,34 @@ class UserPolicy
 
     public function activate(User $user, User $actionableUser): Response
     {
-        return $this->update($user, $actionableUser) && $actionableUser->status->equals(Inactive::class)
-            ? $this->allow()
-            : $this->deny();
+        return $this->update($user, $actionableUser)
+            && $actionableUser->status->equals(Inactive::class)
+                ? $this->allow()
+                : $this->deny();
     }
 
     public function deactivate(User $user, User $actionableUser): Response
     {
-        return $this->update($user, $actionableUser) && $actionableUser->status->equals(Active::class) && $actionableUser->isNot($user)
-            ? $this->allow()
-            : $this->deny();
+        return $this->update($user, $actionableUser)
+            && $actionableUser->status->equals(Active::class)
+            && $actionableUser->isNot($user)
+                ? $this->allow()
+                : $this->deny();
     }
 
     public function forcePasswordReset(User $user, User $actionableUser): Response
     {
-        return $this->update($user, $actionableUser) && ! $actionableUser->status->equals(Pending::class)
-            ? $this->allow()
-            : $this->deny();
+        return $this->update($user, $actionableUser)
+            && ! $actionableUser->status->equals(Pending::class)
+                ? $this->allow()
+                : $this->deny();
     }
 
     public function impersonate(User $user, User $actionableUser): Response
     {
-        return $user->isAbleTo('user.impersonate') && $user->isNot($actionableUser)
-            ? $this->allow()
-            : $this->deny();
+        return $user->isAbleTo('user.impersonate')
+            && $user->isNot($actionableUser)
+                ? $this->allow()
+                : $this->deny();
     }
 }

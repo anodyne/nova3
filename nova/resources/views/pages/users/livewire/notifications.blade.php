@@ -101,7 +101,7 @@
 
                         <div class="relative mt-6 w-full space-y-8 px-4 leading-normal sm:px-6">
                             @forelse ($notifications as $notification)
-                                @include("livewire.users.notifications.{$notification['type']}", compact('notification'))
+                                @include("pages.users.livewire.notifications.{$notification['type']}", compact('notification'))
                             @empty
                                 <x-panel.primary icon="check" title="You're all caught up">
                                     You don't have any unread notifications.

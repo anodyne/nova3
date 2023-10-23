@@ -5,8 +5,9 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Nova\Foundation\Enums\SystemNotificationType;
-use Nova\Foundation\Models\SystemNotification;
+use Nova\Foundation\Enums\NotificationAudience;
+use Nova\Foundation\Enums\NotificationChannelStatus;
+use Nova\Foundation\Models\NotificationType;
 use Nova\Users\Models\User;
 
 class CreateNotificationsTable extends Migration
@@ -22,33 +23,33 @@ class CreateNotificationsTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('system_notifications', function (Blueprint $table) {
+        Schema::create('notification_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('key')->unique();
             $table->text('description')->nullable();
-            $table->string('type')->default(SystemNotificationType::personal->value);
-            $table->boolean('web')->default(true);
-            $table->boolean('email')->default(true);
-            $table->boolean('discord')->default(false);
+            $table->string('audience')->default(NotificationAudience::personal->value);
+            $table->string('database')->default(NotificationChannelStatus::enabled->value);
+            $table->string('mail')->default(NotificationChannelStatus::enabled->value);
+            $table->string('discord')->default(NotificationChannelStatus::disabled->value);
             $table->timestamps();
         });
 
-        Schema::create('notifiables', function (Blueprint $table) {
+        Schema::create('user_notification_preferences', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(NotificationType::class);
             $table->foreignIdFor(User::class)->nullable();
-            $table->foreignIdFor(SystemNotification::class);
-            $table->boolean('web')->default(true);
-            $table->boolean('email')->default(true);
-            $table->boolean('discord')->default(false);
+            $table->string('database')->default(NotificationChannelStatus::enabled->value);
+            $table->string('mail')->default(NotificationChannelStatus::enabled->value);
+            $table->string('discord')->default(NotificationChannelStatus::disabled->value);
             $table->json('discord_settings')->nullable();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('notifiables');
+        Schema::dropIfExists('user_notification_preferences');
         Schema::dropIfExists('notifications');
-        Schema::dropIfExists('system_notifications');
+        Schema::dropIfExists('notification_types');
     }
 }

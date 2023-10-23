@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 use Nova\Users\Actions\DeactivateUser;
-use Nova\Users\Models\States\Inactive;
+use Nova\Users\Models\States\Status\Inactive;
 use Nova\Users\Models\User;
+
 uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
 beforeEach(function () {

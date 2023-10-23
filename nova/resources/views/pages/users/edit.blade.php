@@ -98,34 +98,82 @@
                 </x-input.group>
             </x-form.section>
 
-            <x-form.section title="Characters assigned to this user">
-                <x-slot name="message">
-                    <p>
-                        <strong>Please note:</strong>
-                        changes to character assignment are immediate and will not be rolled back when pressing Cancel.
-                    </p>
-                </x-slot>
-
-                <x-panel>
-                    <livewire:users-manage-characters :user="$user" />
-                </x-panel>
+            <x-form.section
+                title="Characters assigned to this user"
+                message="Users can be assigned as many characters as you want."
+            >
+                <livewire:users-manage-characters :user="$user" />
             </x-form.section>
 
-            <x-form.section title="Roles assigned to this user">
-                <x-slot name="message">
-                    <p>
-                        Roles control what users can do inside of Nova. You can assign as many roles as needed to users.
-                    </p>
-                    <p>
-                        <strong>Please note:</strong>
-                        changes to role assignment are immediate and will not be rolled back when pressing Cancel.
-                    </p>
-                </x-slot>
-
-                <x-panel>
-                    <livewire:users-manage-roles :user="$user" />
-                </x-panel>
+            <x-form.section
+                title="Roles assigned to this user"
+                message="Roles control what users can do inside of Nova. You can assign as many roles as needed to users."
+            >
+                <livewire:users-manage-roles :user="$user" />
             </x-form.section>
+
+            @canany(['activate', 'deactivate', 'forcePasswordReset'], $user)
+                <x-form.section title="Admin actions">
+                    <x-panel class="overflow-hidden">
+                        <div class="divide-y divide-gray-200 dark:divide-gray-800">
+                            @can('activate', $user)
+                                <x-content-box height="sm" class="grid grid-cols-3 gap-6 bg-white dark:bg-gray-900">
+                                    <div class="col-span-2">
+                                        <div class="flex items-center gap-2">
+                                            <x-icon name="check" size="md" class="text-gray-500"></x-icon>
+                                            <x-h3>Activate character</x-h3>
+                                        </div>
+                                        <p class="mt-2 text-sm/6 text-gray-600 dark:text-gray-400">
+                                            When activating the user, their primary character will also be activated and
+                                            their access roles will be set to the default roles for new users.
+                                        </p>
+                                    </div>
+                                    <div class="flex items-start justify-end">
+                                        <livewire:users-activate-button :user="$user" />
+                                    </div>
+                                </x-content-box>
+                            @endcan
+
+                            @can('deactivate', $user)
+                                <x-content-box height="sm" class="grid grid-cols-3 gap-6 bg-white dark:bg-gray-900">
+                                    <div class="col-span-2">
+                                        <div class="flex items-center gap-2">
+                                            <x-icon name="remove" size="md" class="text-gray-500"></x-icon>
+                                            <x-h3>Deactivate user</x-h3>
+                                        </div>
+                                        <p class="mt-2 text-sm/6 text-gray-600 dark:text-gray-400">
+                                            When deactivating this user, all characters associated with their account
+                                            that are not jointly owned with another user will be deactivated as well.
+                                        </p>
+                                    </div>
+                                    <div class="flex items-start justify-end">
+                                        <livewire:users-deactivate-button :user="$user" />
+                                    </div>
+                                </x-content-box>
+                            @endcan
+
+                            @can('forcePasswordReset', $user)
+                                <x-content-box height="sm" class="grid grid-cols-3 gap-6 bg-white dark:bg-gray-900">
+                                    <div class="col-span-2">
+                                        <div class="flex items-center gap-2">
+                                            <x-icon name="lock-closed" size="md" class="text-gray-500"></x-icon>
+                                            <x-h3>Force password reset</x-h3>
+                                        </div>
+                                        <p class="mt-2 text-sm/6 text-gray-600 dark:text-gray-400">
+                                            If you believe this user should reset their password, you can force a
+                                            password reset that will prompt them to change their password the next time
+                                            they sign in.
+                                        </p>
+                                    </div>
+                                    <div class="flex items-start justify-end">
+                                        <livewire:users-force-password-reset-button :user="$user" />
+                                    </div>
+                                </x-content-box>
+                            @endcan
+                        </div>
+                    </x-panel>
+                </x-form.section>
+            @endcanany
 
             <x-form.footer>
                 <x-button.filled type="submit" color="primary">Update</x-button.filled>
@@ -133,65 +181,4 @@
             </x-form.footer>
         </x-form>
     </x-panel>
-
-    @canany(['activate', 'deactivate', 'forcePasswordReset'], $user)
-        <x-panel>
-            <x-content-box class="flex flex-col gap-6">
-                <h3 class="text-base font-semibold leading-6 text-gray-900">Actions</h3>
-
-                @can('activate', $user)
-                    <x-panel as="light-well">
-                        <x-content-box class="sm:flex sm:items-start sm:justify-between">
-                            <h4 class="sr-only">Visa</h4>
-                            <div class="sm:flex sm:items-start">
-                                <x-icon name="check" size="lg"></x-icon>
-                                <div class="mt-3 sm:ml-4 sm:mt-0">
-                                    <div class="text-sm font-medium text-gray-900">Activate user</div>
-                                    <div class="mt-1 max-w-2xl text-sm text-gray-600 sm:flex sm:items-center">
-                                        When activating the user, their primary character will also be activated and
-                                        their access roles will be set to the default roles for new users.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mt-4 sm:ml-6 sm:mt-0 sm:flex-shrink-0">
-                                <x-button.filled type="button" color="neutral">Activate</x-button.filled>
-                            </div>
-                        </x-content-box>
-                    </x-panel>
-                @endcan
-
-                @can('deactivate', $user)
-                    <x-panel as="light-well">
-                        <x-content-box>
-                            <div class="text-base font-semibold text-gray-900 dark:text-white">Deactivate user</div>
-                            <div class="mt-1 max-w-3xl text-sm/6 text-gray-600 sm:flex sm:items-center">
-                                When deactivating this user, all characters associated with their account that are not
-                                jointly owned with another user will be deactivated as well.
-                            </div>
-                            <div class="mt-5">
-                                <x-button.filled type="button" color="neutral">Deactivate</x-button.filled>
-                            </div>
-                        </x-content-box>
-                    </x-panel>
-                @endcan
-
-                @can('forcePasswordReset', $user)
-                    <x-panel as="light-well">
-                        <x-content-box>
-                            <div class="text-base font-semibold text-gray-900 dark:text-white">
-                                Force password reset
-                            </div>
-                            <div class="mt-1 max-w-3xl text-sm/6 text-gray-600 sm:flex sm:items-center">
-                                If you believe this user should reset their password, you can force a password reset
-                                that will prompt them to change their password the next time they attempt to sign in.
-                            </div>
-                            <div class="mt-5">
-                                <x-button.filled type="button" color="neutral">Force password reset</x-button.filled>
-                            </div>
-                        </x-content-box>
-                    </x-panel>
-                @endcan
-            </x-content-box>
-        </x-panel>
-    @endcanany
 @endsection

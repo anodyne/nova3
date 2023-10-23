@@ -4,13 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Providers;
 
-use Illuminate\Auth\Events\Authenticated;
-use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Lab404\Impersonate\Events\LeaveImpersonation;
-use Lab404\Impersonate\Events\TakeImpersonation;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -22,18 +18,6 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
-        ],
-        Authenticated::class => [
-            \Nova\Users\Listeners\CheckForForcedPasswordReset::class,
-        ],
-        Login::class => [
-            \Nova\Users\Listeners\RecordLoginTime::class,
-        ],
-        LeaveImpersonation::class => [
-            \Nova\Foundation\Listeners\LogImpersonationEnd::class,
-        ],
-        TakeImpersonation::class => [
-            \Nova\Foundation\Listeners\LogImpersonationStart::class,
         ],
     ];
 

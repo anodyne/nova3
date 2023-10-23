@@ -6,7 +6,7 @@ namespace Nova\Users\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Users\Data\UserData;
-use Nova\Users\Models\States\Active;
+use Nova\Users\Models\States\Status\Active;
 use Nova\Users\Models\User;
 
 class CreateUser

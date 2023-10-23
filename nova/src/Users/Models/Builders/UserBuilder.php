@@ -6,10 +6,9 @@ namespace Nova\Users\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
-use Nova\Users\Models\States\Active;
-use Nova\Users\Models\States\Archived;
-use Nova\Users\Models\States\Inactive;
-use Nova\Users\Models\States\Pending;
+use Nova\Users\Models\States\Status\Active;
+use Nova\Users\Models\States\Status\Inactive;
+use Nova\Users\Models\States\Status\Pending;
 
 class UserBuilder extends Builder
 {
@@ -40,11 +39,6 @@ class UserBuilder extends Builder
     public function active(): self
     {
         return $this->whereState('status', Active::class);
-    }
-
-    public function archived(): self
-    {
-        return $this->whereState('status', Archived::class);
     }
 
     public function inactive(): self

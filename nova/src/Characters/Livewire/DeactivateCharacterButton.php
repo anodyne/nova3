@@ -14,6 +14,8 @@ class DeactivateCharacterButton extends Component
 
     public function deactivate(): void
     {
+        $this->authorize('deactivate', $this->character);
+
         DeactivateCharacter::run($this->character);
 
         redirect()

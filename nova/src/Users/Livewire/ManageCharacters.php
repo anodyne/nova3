@@ -5,76 +5,84 @@ declare(strict_types=1);
 namespace Nova\Users\Livewire;
 
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Characters\Models\Character;
-use Nova\Foundation\Filament\Notifications\Notification;
-use Nova\Users\Actions\SetUserCharacters;
-use Nova\Users\Actions\SetUserPrimaryCharacter;
 use Nova\Users\Models\User;
 
 class ManageCharacters extends Component
 {
     public string $search = '';
 
-    public User $user;
+    public ?User $user = null;
 
-    public function assignPrimaryCharacter(Character $character): void
-    {
-        SetUserPrimaryCharacter::run($this->user, $character);
+    public Collection $assigned;
 
-        Notification::make()
-            ->title('New primary character set for user')
-            ->body($character->displayName.' has been set as the new primary character for '.$this->user->name)
-            ->success()
-            ->send();
-    }
+    public ?Character $primary = null;
 
     public function assignCharacter(Character $character): void
     {
         $this->search = '';
 
-        SetUserCharacters::run(
-            $this->user,
-            $this->user->characters->pluck('id')->concat([$character->id])->all()
-        );
-
-        Notification::make()
-            ->title('Character assigned to user')
-            ->body($character->displayName.' has been assigned to '.$this->user->name)
-            ->success()
-            ->send();
+        $this->assigned->push($character);
     }
 
-    public function unassignCharacter($characterId): void
+    public function unassignCharacter(Character $character): void
     {
-        SetUserCharacters::run(
-            $this->user,
-            $this->user->characters->pluck('id')->diff($characterId)->all()
+        $this->assigned = $this->assigned->reject(
+            fn (Character $collectionCharacter) => $collectionCharacter->id === $character->id
         );
-
-        Notification::make()
-            ->title('Character unassigned from user')
-            ->success()
-            ->send();
     }
 
-    public function getCharactersProperty()
+    public function setAsPrimaryCharacter(Character $character): void
     {
-        return $this->user->characters;
+        $this->primary = $character;
     }
 
-    public function getFilteredCharactersProperty()
+    #[Computed]
+    public function characters(): Collection
+    {
+        return $this->assigned;
+    }
+
+    #[Computed]
+    public function filteredCharacters(): Collection
     {
         return Character::query()
-            ->when(filled($this->search), fn (Builder $query) => $query->searchFor($this->search))
+            ->when(filled($this->search) && $this->search !== '*', fn (Builder $query) => $query->searchFor($this->search))
+            ->when(filled($this->search) && $this->search === '*', fn (Builder $query) => $query)
             ->get();
+    }
+
+    #[Computed]
+    public function assignedCharacters(): string
+    {
+        return $this->assigned
+            ->map(fn (Character $character) => $character->id)
+            ->join(',');
+    }
+
+    #[Computed]
+    public function primaryCharacter(): string
+    {
+        return (string) $this->primary?->id;
+    }
+
+    public function mount(): void
+    {
+        $this->assigned = $this->user?->characters ?? Collection::make();
+
+        $this->primary = $this->user?->primaryCharacter->first();
     }
 
     public function render()
     {
-        return view('livewire.users.manage-characters', [
-            'characters' => $this->characters,
+        return view('pages.users.livewire.manage-characters', [
+            'assignedCharacters' => $this->assignedCharacters,
             'filteredCharacters' => $this->filteredCharacters,
+            'primaryCharacter' => $this->primaryCharacter,
+            'characters' => $this->characters,
         ]);
     }
 }

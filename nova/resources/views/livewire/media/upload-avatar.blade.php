@@ -33,7 +33,7 @@
                 @else
                     <div
                         @class([
-                            'border border-gray-200 bg-gray-50 dark:border-gray-200/[15%] dark:bg-gray-700/50',
+                            'bg-gray-100 dark:border-gray-200/[15%] dark:bg-gray-700/50',
                             match (settings('appearance.avatarShape')) {
                                 'squircle' => 'mask mask-squircle',
                                 'hexagon' => 'mask mask-hexagon',

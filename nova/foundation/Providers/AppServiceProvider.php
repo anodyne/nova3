@@ -22,8 +22,6 @@ use Illuminate\View\Factory as ViewFactory;
 use Livewire\Livewire;
 use Nova\Foundation\Environment\Environment;
 use Nova\Foundation\Filament\Notifications\Notification;
-use Nova\Foundation\Icons\FluentFilledIconSet;
-use Nova\Foundation\Icons\FluentOutlineIconSet;
 use Nova\Foundation\Icons\IconSets;
 use Nova\Foundation\Icons\TablerIconSet;
 use Nova\Foundation\Livewire\ColorShadePicker;
@@ -123,8 +121,6 @@ class AppServiceProvider extends ServiceProvider
     {
         $iconSets = new IconSets();
         $iconSets->addDefault('tabler', new TablerIconSet());
-        $iconSets->add('fluent-outline', new FluentOutlineIconSet());
-        $iconSets->add('fluent-filled', new FluentFilledIconSet());
 
         $this->app->scoped(IconSets::class, fn () => $iconSets);
     }

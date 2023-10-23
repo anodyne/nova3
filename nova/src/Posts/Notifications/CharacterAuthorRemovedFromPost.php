@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace Nova\Posts\Notifications;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Notification;
 use Nova\Characters\Models\Character;
+use Nova\Foundation\Notifications\PreferenceBasedNotification;
 use Nova\Posts\Models\Post;
 
-class CharacterAuthorRemovedFromPost extends Notification implements ShouldQueue
+class CharacterAuthorRemovedFromPost extends PreferenceBasedNotification
 {
-    use Queueable;
+    protected string $key = 'character-author-removed-from-post';
 
     public function __construct(
         protected Post $post,
@@ -20,12 +18,7 @@ class CharacterAuthorRemovedFromPost extends Notification implements ShouldQueue
     ) {
     }
 
-    public function via($notifiable)
-    {
-        return ['database'];
-    }
-
-    public function toArray($notifiable)
+    public function toArray(object $notifiable): array
     {
         return [
             'post_id' => $this->post->id,

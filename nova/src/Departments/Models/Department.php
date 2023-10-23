@@ -13,7 +13,7 @@ use Nova\Departments\Enums\DepartmentStatus;
 use Nova\Departments\Events;
 use Nova\Departments\Models\Builders\DepartmentBuilder;
 use Nova\Media\Concerns\InteractsWithMedia;
-use Nova\Users\Models\States\Active as UserActive;
+use Nova\Users\Models\States\Status\Active as UserActive;
 use Nova\Users\Models\User;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;

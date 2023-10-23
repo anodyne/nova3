@@ -1,12 +1,12 @@
 <?php
 
 declare(strict_types=1);
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Characters\Models\Character;
-use Nova\Users\Models\States\Active;
-use Nova\Users\Models\States\Inactive;
-use Nova\Users\Models\States\Pending;
+use Nova\Users\Models\States\Status\Active;
+use Nova\Users\Models\States\Status\Inactive;
+use Nova\Users\Models\States\Status\Pending;
 use Nova\Users\Models\User;
+
 beforeEach(function () {
     $this->activeUser = User::factory()->active()->create();
 

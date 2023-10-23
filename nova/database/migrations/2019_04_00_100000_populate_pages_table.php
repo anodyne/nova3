@@ -37,17 +37,12 @@ class PopulatePagesTable extends Migration
 
             ['uri' => 'permissions', 'key' => 'permissions.index', 'resource' => 'Nova\\Roles\\Controllers\\PermissionController@index', 'layout' => 'admin'],
 
-            ['uri' => 'users', 'key' => 'users.index', 'resource' => 'Nova\\Users\\Controllers\\ShowUserController@all', 'layout' => 'admin'],
-            ['uri' => 'users/{user}/show', 'key' => 'users.show', 'resource' => 'Nova\\Users\\Controllers\\ShowUserController@show', 'layout' => 'admin'],
-            ['uri' => 'users/create', 'key' => 'users.create', 'resource' => 'Nova\\Users\\Controllers\\CreateUserController@create', 'layout' => 'admin'],
-            ['uri' => 'users', 'key' => 'users.store', 'verb' => PageVerb::post, 'resource' => 'Nova\\Users\\Controllers\\CreateUserController@store', 'layout' => 'admin'],
-            ['uri' => 'users/{user}/edit', 'key' => 'users.edit', 'resource' => 'Nova\\Users\\Controllers\\UpdateUserController@edit', 'layout' => 'admin'],
-            ['uri' => 'users/{user}', 'key' => 'users.update', 'verb' => PageVerb::put, 'resource' => 'Nova\\Users\\Controllers\\UpdateUserController@update', 'layout' => 'admin'],
-            ['uri' => 'users/delete', 'key' => 'users.delete', 'verb' => PageVerb::post, 'resource' => 'Nova\\Users\\Controllers\\DeleteUserController@confirm', 'layout' => 'admin'],
-            ['uri' => 'users/{user}', 'key' => 'users.destroy', 'verb' => PageVerb::delete, 'resource' => 'Nova\\Users\\Controllers\\DeleteUserController@destroy', 'layout' => 'admin'],
-            ['uri' => 'users/{user}/activate', 'key' => 'users.activate', 'verb' => PageVerb::post, 'resource' => 'Nova\\Users\\Controllers\\ActivateUserController', 'layout' => 'admin'],
-            ['uri' => 'users/confirm-deactivate', 'key' => 'users.confirm-deactivate', 'verb' => PageVerb::post,  'resource' => 'Nova\\Users\\Controllers\\DeactivateUserController@confirm', 'layout' => 'admin'],
-            ['uri' => 'users/{user}/deactivate', 'key' => 'users.deactivate', 'verb' => PageVerb::post, 'resource' => 'Nova\\Users\\Controllers\\DeactivateUserController@deactivate', 'layout' => 'admin'],
+            ['uri' => 'users', 'key' => 'users.index', 'resource' => 'Nova\\Users\\Controllers\\UserController@index', 'layout' => 'admin'],
+            ['uri' => 'users/{user}/show', 'key' => 'users.show', 'resource' => 'Nova\\Users\\Controllers\\UserController@show', 'layout' => 'admin'],
+            ['uri' => 'users/create', 'key' => 'users.create', 'resource' => 'Nova\\Users\\Controllers\\UserController@create', 'layout' => 'admin'],
+            ['uri' => 'users', 'key' => 'users.store', 'verb' => PageVerb::post, 'resource' => 'Nova\\Users\\Controllers\\UserController@store', 'layout' => 'admin'],
+            ['uri' => 'users/{user}/edit', 'key' => 'users.edit', 'resource' => 'Nova\\Users\\Controllers\\UserController@edit', 'layout' => 'admin'],
+            ['uri' => 'users/{user}', 'key' => 'users.update', 'verb' => PageVerb::put, 'resource' => 'Nova\\Users\\Controllers\\UserController@update', 'layout' => 'admin'],
 
             ['uri' => 'notes', 'key' => 'notes.index', 'resource' => 'Nova\\Notes\\Controllers\\NoteController@index', 'layout' => 'admin'],
             ['uri' => 'notes/{note}/show', 'key' => 'notes.show', 'resource' => 'Nova\\Notes\\Controllers\\NoteController@show', 'layout' => 'admin'],

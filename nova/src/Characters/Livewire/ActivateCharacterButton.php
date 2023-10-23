@@ -14,6 +14,8 @@ class ActivateCharacterButton extends Component
 
     public function activate(): void
     {
+        $this->authorize('activate', $this->character);
+
         ActivateCharacter::run($this->character);
 
         redirect()

@@ -50,7 +50,7 @@ class PostBuilder extends Builder
         return $this->where('post_type_id', $postTypeId);
     }
 
-    public function whereDraft(): self
+    public function draft(): self
     {
         return $this->whereState('status', Draft::class);
     }

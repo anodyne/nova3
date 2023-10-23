@@ -13,7 +13,7 @@ use Nova\Characters\Models\Character;
 use Nova\Departments\Enums\PositionStatus;
 use Nova\Departments\Events;
 use Nova\Departments\Models\Builders\PositionBuilder;
-use Nova\Users\Models\States\Active;
+use Nova\Users\Models\States\Status\Active;
 use Nova\Users\Models\User;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;

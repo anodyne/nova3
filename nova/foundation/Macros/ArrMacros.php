@@ -8,12 +8,12 @@ class ArrMacros
 {
     public static function boolean()
     {
-        return function (array $array, $key, $default = false) {
+        return function (array $target, $key, $default = false) {
             if ($default === null) {
-                return filter_var(data_get($array, $key, $default), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+                return filter_var(data_get($target, $key, $default), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
             }
 
-            return filter_var(data_get($array, $key, $default), FILTER_VALIDATE_BOOLEAN);
+            return filter_var(data_get($target, $key, $default), FILTER_VALIDATE_BOOLEAN);
         };
     }
 

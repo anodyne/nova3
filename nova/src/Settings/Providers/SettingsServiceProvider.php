@@ -18,6 +18,7 @@ use Nova\Settings\Data\SettingInfo;
 use Nova\Settings\Livewire\FindSettingsModal;
 use Nova\Settings\Livewire\FontSelector;
 use Nova\Settings\Livewire\NotificationSetting;
+use Nova\Settings\Livewire\NotificationTypesList;
 use Nova\Settings\Models\Settings;
 use Nova\Settings\Responses\AppearanceSettingsResponse;
 use Nova\Settings\Responses\CharactersSettingsResponse;
@@ -47,6 +48,7 @@ class SettingsServiceProvider extends DomainServiceProvider
             'settings:find-settings' => FindSettingsModal::class,
             'settings-font-selector' => FontSelector::class,
             'settings:notification-setting' => NotificationSetting::class,
+            'settings-notification-types-list' => NotificationTypesList::class,
         ];
     }
 

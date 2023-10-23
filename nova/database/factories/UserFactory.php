@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Nova\Users\Data\PronounsData;
-use Nova\Users\Models\States\Active;
-use Nova\Users\Models\States\Inactive;
-use Nova\Users\Models\States\Pending;
+use Nova\Users\Models\States\Status\Active;
+use Nova\Users\Models\States\Status\Inactive;
+use Nova\Users\Models\States\Status\Pending;
 use Nova\Users\Models\User;
 
 class UserFactory extends Factory

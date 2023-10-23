@@ -5,24 +5,24 @@ declare(strict_types=1);
 namespace Nova\Settings\Livewire;
 
 use LivewireUI\Modal\ModalComponent;
-use Nova\Foundation\Models\Notifiable;
-use Nova\Foundation\Models\SystemNotification;
+use Nova\Foundation\Models\NotificationType;
+use Nova\Foundation\Models\UserNotificationPreference;
 use Nova\Users\Models\User;
 
 class NotificationSetting extends ModalComponent
 {
-    public SystemNotification $notification;
+    public NotificationType $notification;
 
     public ?User $user = null;
 
-    public ?Notifiable $notifiable = null;
+    public ?UserNotificationPreference $notifiable = null;
 
     public function dismiss(): void
     {
         $this->forceClose()->closeModal();
     }
 
-    public function mount(SystemNotification $notification, $userId = null)
+    public function mount(NotificationType $notification, $userId = null)
     {
         $this->notification = $notification;
         $this->user = $userId ? User::find($userId) : null;
@@ -36,11 +36,7 @@ class NotificationSetting extends ModalComponent
 
     protected function setNotifiable(): void
     {
-        if ($this->user === null) {
-            $this->notifiable = $this->notification->notifiables()->whereNull('user_id')->first();
-        } else {
-            $this->notifiable = $this->notification->notifiables()->where('user_id', $this->user->id)->first();
-        }
+        $this->notifiable = $this->notification->getPreferenceForUser($this->user);
     }
 
     public function switchToGlobalSetting(): void

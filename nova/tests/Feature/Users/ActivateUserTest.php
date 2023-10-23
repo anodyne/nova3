@@ -3,8 +3,9 @@
 declare(strict_types=1);
 use Nova\Characters\Models\Character;
 use Nova\Characters\Models\States\Status\Active as ActiveCharacter;
-use Nova\Users\Models\States\Active as ActiveUser;
+use Nova\Users\Models\States\Status\Active as ActiveUser;
 use Nova\Users\Models\User;
+
 beforeEach(function () {
     $this->user = User::factory()->inactive()->create();
 

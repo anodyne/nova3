@@ -4,26 +4,19 @@ declare(strict_types=1);
 
 namespace Nova\Posts\Notifications;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Notification;
+use Nova\Foundation\Notifications\PreferenceBasedNotification;
 use Nova\Posts\Models\Post;
 
-class PostPublished extends Notification implements ShouldQueue
+class PostPublished extends PreferenceBasedNotification
 {
-    use Queueable;
+    protected string $key = 'post-published';
 
     public function __construct(
         protected Post $post
     ) {
     }
 
-    public function via($notifiable)
-    {
-        return ['database'];
-    }
-
-    public function toArray($notifiable)
+    public function toArray(object $notifiable): array
     {
         return [
             'post_id' => $this->post->id,

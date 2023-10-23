@@ -8,7 +8,7 @@
         </div>
     </x-content-box>
 
-    @if ($notification->type === Nova\Foundation\Enums\SystemNotificationType::personal)
+    @if ($notification->type === Nova\Foundation\Enums\NotificationAudience::personal)
         @if ($user === null)
             <x-panel.warning icon="warning" title="You are editing the global setting" class="mx-6 mt-6">
                 <div class="space-y-4">
@@ -92,7 +92,7 @@
             </div>
         </x-content-box>
 
-        @if ($notification->type !== Nova\Foundation\Enums\SystemNotificationType::personal)
+        @if ($notification->type !== Nova\Foundation\Enums\NotificationAudience::personal)
             <x-content-box width="none" class="border-t border-gray-200 dark:border-gray-700">
                 <x-h3>Discord</x-h3>
                 <div class="mt-2 sm:flex sm:items-start sm:justify-between">

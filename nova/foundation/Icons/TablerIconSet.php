@@ -59,8 +59,10 @@ class TablerIconSet extends IconSet
             'link' => 'tabler-link',
             'list' => 'tabler-list',
             'location' => 'tabler-map-pin',
+            'lock-check' => 'tabler-lock-check',
             'lock-closed' => 'tabler-lock',
             'lock-open' => 'tabler-lock-open',
+            'lock-x' => 'tabler-lock-x',
             'login' => 'tabler-login',
             'logout' => 'tabler-logout',
             'mail' => 'tabler-mail',
@@ -103,6 +105,7 @@ class TablerIconSet extends IconSet
             'wand' => 'tabler-wand',
             'warning' => 'tabler-alert-triangle',
             'write' => 'tabler-edit',
+            'x' => 'tabler-square-rounded-x',
         ];
     }
 

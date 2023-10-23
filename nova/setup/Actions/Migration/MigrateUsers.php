@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Date;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Setup\Models\Legacy\User as LegacyUser;
 use Nova\Setup\Models\Upgrade;
-use Nova\Users\Models\States\Active;
-use Nova\Users\Models\States\Inactive;
-use Nova\Users\Models\States\Pending;
+use Nova\Users\Models\States\Status\Active;
+use Nova\Users\Models\States\Status\Inactive;
+use Nova\Users\Models\States\Status\Pending;
 use Nova\Users\Models\User;
 
 class MigrateUsers

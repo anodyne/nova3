@@ -17,7 +17,7 @@ use Nova\Departments\Models\Position;
 use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Ranks\Models\RankItem;
 use Nova\Stories\Models\Post;
-use Nova\Users\Models\States\Active as ActiveUser;
+use Nova\Users\Models\States\Status\Active as ActiveUser;
 use Nova\Users\Models\User;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;

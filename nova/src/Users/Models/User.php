@@ -19,15 +19,13 @@ use Lab404\Impersonate\Models\Impersonate;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
 use Nova\Characters\Models\Character;
-use Nova\Characters\Models\States\Status\Active as ActiveCharacter;
 use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Notes\Models\Note;
 use Nova\Posts\Models\Post;
 use Nova\Users\Data\PronounsData;
 use Nova\Users\Events;
 use Nova\Users\Models\Builders\UserBuilder;
-use Nova\Users\Models\Collections\UsersCollection;
-use Nova\Users\Models\States\UserStatus;
+use Nova\Users\Models\States\Status\UserStatus;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -78,7 +76,7 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
 
     public function activeCharacters(): BelongsToMany
     {
-        return $this->characters()->whereState('status', ActiveCharacter::class);
+        return $this->characters()->active();
     }
 
     public function primaryCharacter(): BelongsToMany
@@ -96,6 +94,22 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
         return $this->logins()->one()->ofMany();
     }
 
+    public function notes(): HasMany
+    {
+        return $this->hasMany(Note::class);
+    }
+
+    public function posts(): BelongsToMany
+    {
+        return $this->belongsToMany(Post::class, 'post_author')
+            ->wherePivot('user_id', $this->id);
+    }
+
+    public function draftPosts(): BelongsToMany
+    {
+        return $this->posts()->draft();
+    }
+
     public function latestPost(): BelongsToMany
     {
         return $this->belongsToMany(Post::class, 'post_author')
@@ -104,21 +118,89 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
             ->limit(1);
     }
 
-    public function notes(): HasMany
-    {
-        return $this->hasMany(Note::class);
-    }
-
-    public function posts(): MorphToMany
+    public function postsAsUser(): MorphToMany
     {
         return $this->morphToMany(Post::class, 'authorable', 'post_author');
     }
 
-    public function draftPosts(): BelongsToMany
+    public function publishedPosts(): BelongsToMany
     {
-        return $this->belongsToMany(Post::class, 'post_author')
-            ->wherePivot('user_id', $this->id)
-            ->whereDraft();
+        return $this->posts()->published();
+    }
+
+    public function avatarUrl(): Attribute
+    {
+        return new Attribute(
+            get: fn (): string => $this->getFirstMediaUrl('avatar')
+        );
+    }
+
+    public function hasAvatar(): Attribute
+    {
+        return new Attribute(
+            get: fn (): bool => $this->getFirstMedia('avatar') !== null
+        );
+    }
+
+    public function canManage(): Attribute
+    {
+        return new Attribute(
+            get: function (): bool {
+                return $this->isAbleTo('department.*')
+                    || $this->isAbleTo('rank.*')
+                    || $this->isAbleTo('role.*')
+                    || $this->isAbleTo('theme.*')
+                    || $this->isAbleTo('user.*');
+            }
+        );
+    }
+
+    public function canManageUsers(): Attribute
+    {
+        return new Attribute(
+            get: function (): bool {
+                return $this->isAbleTo('user.*')
+                    || $this->isAbleTo('role.*');
+            }
+        );
+    }
+
+    public function canManageSystem(): Attribute
+    {
+        return new Attribute(
+            get: function (): bool {
+                return $this->isAbleTo('theme.*')
+                    || $this->isAbleTo('system.activity')
+                    || $this->isAbleTo('forms.*')
+                    || $this->isAbleTo('pages.*');
+            }
+        );
+    }
+
+    public function canWrite(): Attribute
+    {
+        return new Attribute(
+            get: function (): bool {
+                return $this->isAbleTo('post.*')
+                    || $this->isAbleTo('story.*')
+                    || $this->isAbleTo('post-type.*');
+            }
+        );
+    }
+
+    public function hasRead(Notification $notification): bool
+    {
+        return $this->unreadNotifications()->where('id', $notification->id)->count() > 0;
+    }
+
+    public function canImpersonate(): bool
+    {
+        return $this->isAbleTo('user.impersonate');
+    }
+
+    public function newEloquentBuilder($query): UserBuilder
+    {
+        return new UserBuilder($query);
     }
 
     public function getActivitylogOptions(): LogOptions
@@ -136,86 +218,6 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
             ->setDescriptionForEvent(
                 fn (string $eventName): string => ":subject.name was {$eventName}"
             );
-    }
-
-    public function avatarUrl(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value): string => $this->getFirstMediaUrl('avatar')
-        );
-    }
-
-    public function hasAvatar(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value): bool => $this->getFirstMedia('avatar') !== null
-        );
-    }
-
-    public function canManage(): Attribute
-    {
-        return new Attribute(
-            get: function ($value): bool {
-                return $this->isAbleTo('department.*')
-                    || $this->isAbleTo('rank.*')
-                    || $this->isAbleTo('role.*')
-                    || $this->isAbleTo('theme.*')
-                    || $this->isAbleTo('user.*');
-            }
-        );
-    }
-
-    public function canManageUsers(): Attribute
-    {
-        return new Attribute(
-            get: function ($value): bool {
-                return $this->isAbleTo('user.*')
-                    || $this->isAbleTo('role.*');
-            }
-        );
-    }
-
-    public function canManageSystem(): Attribute
-    {
-        return new Attribute(
-            get: function ($value): bool {
-                return $this->isAbleTo('theme.*')
-                    || $this->isAbleTo('system.activity')
-                    || $this->isAbleTo('forms.*')
-                    || $this->isAbleTo('pages.*');
-            }
-        );
-    }
-
-    public function canWrite(): Attribute
-    {
-        return new Attribute(
-            get: function ($value): bool {
-                return $this->isAbleTo('post.*')
-                    || $this->isAbleTo('story.*')
-                    || $this->isAbleTo('post-type.*');
-            }
-        );
-    }
-
-    public function hasRead(Notification $notification): bool
-    {
-        return $this->unreadNotifications()->where('id', $notification->id)->count() > 0;
-    }
-
-    public function canImpersonate()
-    {
-        return $this->isAbleTo('user.impersonate');
-    }
-
-    public function newCollection(array $models = []): UsersCollection
-    {
-        return new UsersCollection($models);
-    }
-
-    public function newEloquentBuilder($query): UserBuilder
-    {
-        return new UserBuilder($query);
     }
 
     public function registerMediaCollections(): void

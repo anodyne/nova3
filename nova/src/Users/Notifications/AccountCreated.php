@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Nova\Users\Notifications;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Notification;
+use Illuminate\Contracts\Mail\Mailable;
+use Nova\Foundation\Notifications\PreferenceBasedNotification;
 use Nova\Users\Mail\SendAccountCreation;
 
-class AccountCreated extends Notification implements ShouldQueue
+class AccountCreated extends PreferenceBasedNotification
 {
-    use Queueable;
+    protected string $key = 'account-created';
 
     /**
      * @var  string
@@ -23,12 +22,7 @@ class AccountCreated extends Notification implements ShouldQueue
         $this->password = $password;
     }
 
-    public function via($notifiable)
-    {
-        return ['mail'];
-    }
-
-    public function toMail($notifiable)
+    public function toMail(object $notifiable): Mailable
     {
         return new SendAccountCreation($notifiable, $this->password);
     }

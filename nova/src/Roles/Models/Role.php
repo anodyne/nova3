@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Laratrust\Models\Role as LaratrustRole;
 use Nova\Roles\Events;
 use Nova\Roles\Models\Builders\RoleBuilder;
-use Nova\Users\Models\States\Active;
+use Nova\Users\Models\States\Status\Active;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\EloquentSortable\Sortable;

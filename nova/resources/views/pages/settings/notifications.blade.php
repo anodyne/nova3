@@ -1,6 +1,8 @@
 @extends($meta->template)
 
 @section('content')
+    <livewire:settings-notification-types-list />
+
     <x-panel x-data="tabsList('settings')">
         <x-panel.header title="Notification settings">
             <x-slot name="actions">
@@ -15,9 +17,9 @@
                 <x-content-box class="sm:hidden">
                     <x-input.select @change="switchTab($event.target.value)" aria-label="Selected tab">
                         <option value="settings">Settings</option>
-                        <option value="admin">Administrative Notifications</option>
-                        <option value="collective">Collective Notifications</option>
-                        <option value="personal">Personal Notifications</option>
+                        <option value="admin">Admin notifications</option>
+                        <option value="group">Group notifications</option>
+                        <option value="personal">Personal notifications</option>
                     </x-input.select>
                 </x-content-box>
                 <div class="hidden sm:block">
@@ -37,15 +39,15 @@
                                 :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('admin'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('admin') }"
                                 x-on:click.prevent="switchTab('admin')"
                             >
-                                Administrative Notifications
+                                Admin notifications
                             </a>
                             <a
                                 href="#"
                                 class="ml-8 whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition first:ml-0 focus:outline-none"
-                                :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('collective'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('collective') }"
-                                x-on:click.prevent="switchTab('collective')"
+                                :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('group'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('group') }"
+                                x-on:click.prevent="switchTab('group')"
                             >
-                                Collective Notifications
+                                Group notifications
                             </a>
                             <a
                                 href="#"
@@ -53,7 +55,7 @@
                                 :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('personal'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('personal') }"
                                 x-on:click.prevent="switchTab('personal')"
                             >
-                                Personal Notifications
+                                Personal notifications
                             </a>
                         </nav>
                     </x-content-box>
@@ -95,7 +97,7 @@
 
             <div x-show="isTab('admin')" x-cloak>
                 <ul>
-                    @foreach ($systemNotifications->where('type', Nova\Foundation\Enums\SystemNotificationType::admin) as $systemNotification)
+                    @foreach ($notificationTypes->where('audience', Nova\Foundation\Enums\NotificationAudience::admin) as $notificationType)
                         <li
                             class="border-t border-gray-200 transition first:border-0 hover:bg-gray-50/50 dark:border-gray-700 dark:hover:bg-gray-700/20"
                         >
@@ -103,24 +105,24 @@
                                 <div class="flex items-center px-4 py-4 sm:px-6">
                                     <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
                                         <div class="flex flex-1 items-center space-x-3 font-medium">
-                                            {{ $systemNotification->name }}
+                                            {{ $notificationType->name }}
                                         </div>
                                         <div
                                             class="mt-2 flex flex-col space-y-2 text-gray-500 sm:flex-row sm:items-center sm:space-x-6 sm:space-y-0"
                                         >
-                                            <x-badge :color="$systemNotification->discordStatusBadgeColor">
+                                            <x-badge :color="$notificationType->discordStatusBadgeColor">
                                                 Discord
                                             </x-badge>
-                                            <x-badge :color="$systemNotification->emailStatusBadgeColor">
-                                                Email
+                                            <x-badge :color="$notificationType->mailStatusBadgeColor">Email</x-badge>
+                                            <x-badge :color="$notificationType->databaseStatusBadgeColor">
+                                                In-app
                                             </x-badge>
-                                            <x-badge :color="$systemNotification->webStatusBadgeColor">In-app</x-badge>
                                         </div>
                                     </div>
                                     <div class="ml-5 shrink-0 leading-0">
                                         <x-button.text
                                             color="gray"
-                                            x-on:click="Livewire.dispatch('openModal', { component: 'settings:notification-setting', arguments: { notification: {{ json_encode([$systemNotification, null]) }} }})"
+                                            x-on:click="Livewire.dispatch('openModal', { component: 'settings:notification-setting', arguments: { notification: {{ json_encode([$notificationType, null]) }} }})"
                                         >
                                             <x-icon name="edit" size="sm"></x-icon>
                                         </x-button.text>
@@ -132,9 +134,9 @@
                 </ul>
             </div>
 
-            <div x-show="isTab('collective')" x-cloak>
+            <div x-show="isTab('group')" x-cloak>
                 <ul>
-                    @foreach ($systemNotifications->where('type', Nova\Foundation\Enums\SystemNotificationType::collective) as $systemNotification)
+                    @foreach ($notificationTypes->where('audience', Nova\Foundation\Enums\NotificationAudience::group) as $notificationType)
                         <li
                             class="border-t border-gray-200 transition first:border-0 hover:bg-gray-50/50 dark:border-gray-700 dark:hover:bg-gray-700/20"
                         >
@@ -142,24 +144,24 @@
                                 <div class="flex items-center px-4 py-4 sm:px-6">
                                     <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
                                         <div class="flex flex-1 items-center space-x-3 font-medium">
-                                            {{ $systemNotification->name }}
+                                            {{ $notificationType->name }}
                                         </div>
                                         <div
                                             class="mt-2 flex flex-col space-y-2 text-gray-500 sm:flex-row sm:items-center sm:space-x-6 sm:space-y-0"
                                         >
-                                            <x-badge :color="$systemNotification->discordStatusBadgeColor">
+                                            <x-badge :color="$notificationType->discordStatusBadgeColor">
                                                 Discord
                                             </x-badge>
-                                            <x-badge :color="$systemNotification->emailStatusBadgeColor">
-                                                Email
+                                            <x-badge :color="$notificationType->mailStatusBadgeColor">Email</x-badge>
+                                            <x-badge :color="$notificationType->databaseStatusBadgeColor">
+                                                In-app
                                             </x-badge>
-                                            <x-badge :color="$systemNotification->webStatusBadgeColor">In-app</x-badge>
                                         </div>
                                     </div>
                                     <div class="ml-5 shrink-0 leading-0">
                                         <x-button.text
                                             color="gray"
-                                            x-on:click="Livewire.dispatch('openModal', { component: 'settings:notification-setting', arguments: { notification: {{ json_encode([$systemNotification, null]) }} }})"
+                                            x-on:click="Livewire.dispatch('openModal', { component: 'settings:notification-setting', arguments: { notification: {{ json_encode([$notificationType, null]) }} }})"
                                         >
                                             <x-icon name="edit" size="sm"></x-icon>
                                         </x-button.text>
@@ -173,7 +175,7 @@
 
             <div x-show="isTab('personal')" x-cloak>
                 <ul>
-                    @foreach ($systemNotifications->where('type', Nova\Foundation\Enums\SystemNotificationType::personal) as $systemNotification)
+                    @foreach ($notificationTypes->where('audience', Nova\Foundation\Enums\NotificationAudience::personal) as $notificationType)
                         <li
                             class="border-t border-gray-200 transition first:border-0 hover:bg-gray-50/50 dark:border-gray-700 dark:hover:bg-gray-700/20"
                         >
@@ -181,21 +183,21 @@
                                 <div class="flex items-center px-4 py-4 sm:px-6">
                                     <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
                                         <div class="flex flex-1 items-center space-x-3 font-medium">
-                                            {{ $systemNotification->name }}
+                                            {{ $notificationType->name }}
                                         </div>
                                         <div
                                             class="mt-2 flex flex-col space-y-2 text-gray-500 sm:flex-row sm:items-center sm:space-x-6 sm:space-y-0"
                                         >
-                                            <x-badge :color="$systemNotification->emailStatusBadgeColor">
-                                                Email
+                                            <x-badge :color="$notificationType->mailStatusBadgeColor">Email</x-badge>
+                                            <x-badge :color="$notificationType->databaseStatusBadgeColor">
+                                                In-app
                                             </x-badge>
-                                            <x-badge :color="$systemNotification->webStatusBadgeColor">In-app</x-badge>
                                         </div>
                                     </div>
                                     <div class="ml-5 shrink-0 leading-0">
                                         <x-button.text
                                             color="gray"
-                                            x-on:click="Livewire.dispatch('openModal', { component: 'settings:notification-setting', arguments: { notification: {{ json_encode([$systemNotification, null]) }} }})"
+                                            x-on:click="Livewire.dispatch('openModal', { component: 'settings:notification-setting', arguments: { notification: {{ json_encode([$notificationType, null]) }} }})"
                                         >
                                             <x-icon name="edit" size="sm"></x-icon>
                                         </x-button.text>

@@ -32,9 +32,7 @@
                 title="Positions"
                 message="Characters can be assigned to any number of positions. On the manifest, the character will be displayed for each position they're assigned to."
             >
-                <x-panel>
-                    <livewire:characters-manage-positions />
-                </x-panel>
+                <livewire:characters-manage-positions />
             </x-form.section>
 
             @can('create', Nova\Characters\Models\Character::class)
@@ -42,9 +40,7 @@
                     title="Ownership"
                     message="Characters can be assigned to any number of users and all assigned users will have the same rights with the character. Additionally, any notifications on behalf of the character will be sent to all users assigned to the character."
                 >
-                    <x-panel>
-                        <livewire:characters-manage-users />
-                    </x-panel>
+                    <livewire:characters-manage-users />
                 </x-form.section>
             @else
                 <x-form.section

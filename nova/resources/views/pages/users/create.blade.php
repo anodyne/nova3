@@ -104,6 +104,20 @@
                 </x-input.group>
             </x-form.section>
 
+            <x-form.section
+                title="Characters assigned to this user"
+                message="Users can be assigned as many characters as you want."
+            >
+                <livewire:users-manage-characters />
+            </x-form.section>
+
+            <x-form.section
+                title="Roles assigned to this user"
+                message="Roles control what users can do inside of Nova. You can assign as many roles as needed to users."
+            >
+                <livewire:users-manage-roles />
+            </x-form.section>
+
             <x-form.footer>
                 <x-button.filled type="submit" color="primary">Add</x-button.filled>
                 <x-button.filled :href="route('users.index')" color="neutral">Cancel</x-button.filled>

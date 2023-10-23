@@ -174,7 +174,7 @@ class RolesList extends TableComponent
                     ->url(route('roles.create')),
             ])
             ->header(fn (): ?View => $this->isTableReordering() ? view('filament.tables.roles-reordering-notice') : null)
-            ->emptyStateIcon(iconName('key'))
+            ->emptyStateIcon(iconName('shield'))
             ->emptyStateHeading('No roles found')
             ->emptyStateDescription('Roles allow you to control what users can and cannot access throughout Nova.')
             ->emptyStateActions([

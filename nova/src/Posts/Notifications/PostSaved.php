@@ -4,25 +4,18 @@ declare(strict_types=1);
 
 namespace Nova\Posts\Notifications;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Notification;
+use Nova\Foundation\Notifications\PreferenceBasedNotification;
 use Nova\Posts\Models\Post;
 use Nova\Users\Models\User;
 
-class PostSaved extends Notification implements ShouldQueue
+class PostSaved extends PreferenceBasedNotification
 {
-    use Queueable;
+    protected string $key = 'post-saved';
 
     public function __construct(
         protected Post $post,
         protected User $author,
     ) {
-    }
-
-    public function via(object $notifiable): array
-    {
-        return ['database'];
     }
 
     public function toArray(object $notifiable): array

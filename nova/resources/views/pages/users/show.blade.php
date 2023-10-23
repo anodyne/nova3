@@ -1,79 +1,153 @@
 @extends($meta->template)
 
 @section('content')
-    <x-page-header :title="$user->name">
-        <x-slot name="pretitle">
-            <a href="{{ route('users.index', "status={$user->status->name()}") }}">Users</a>
-        </x-slot>
+    <x-panel class="overflow-hidden">
+        <x-panel.header>
+            <x-slot name="title">
+                <div class="flex items-center gap-4">
+                    <span>{{ $user->name }}</span>
+                    <div class="flex items-center">
+                        <x-badge :color="$user->status->color()">
+                            {{ $user->status->getLabel() }}
+                        </x-badge>
+                    </div>
+                </div>
+            </x-slot>
 
-        <x-slot name="actions">
-            @can('update', $user)
-                <x-button.filled :href="route('users.edit', $user)" color="primary">Edit User</x-button.filled>
-            @endcan
-        </x-slot>
-    </x-page-header>
+            <x-slot name="actions">
+                @can('viewAny', Nova\Users\Models\User::class)
+                    <x-button.text :href="route('users.index')" leading="arrow-left" color="gray">Back</x-button.text>
+                @endcan
 
-    <x-panel>
-        <x-form action="">
-            <x-form.section
-                title="User Info"
-                message="For privacy reasons, users are encouraged to use a nickname instead of their real name. Additionally, user email addresses should be safeguarded at all costs and not shared with other players without the express permission of this user."
-            >
-                <x-input.group label="Name">
-                    <p class="font-semibold">{{ $user->name }}</p>
-                </x-input.group>
+                @can('update', $user)
+                    <x-button.filled :href="route('users.edit', $user)" leading="edit" color="primary">
+                        Edit
+                    </x-button.filled>
+                @endcan
+            </x-slot>
+        </x-panel.header>
 
-                <x-input.group label="Email address">
-                    <p class="font-semibold">{{ $user->email }}</p>
-                </x-input.group>
+        <div class="flex flex-col divide-gray-200 lg:flex-row lg:divide-x">
+            <div class="flex flex-1 flex-col gap-6 divide-y divide-gray-200">
+                <x-content-box>
+                    <div class="grid grid-cols-1 gap-y-8 lg:grid-cols-3">
+                        <x-panel.stat label="Active characters" :value="$user->active_characters_count"></x-panel.stat>
+                        <x-panel.stat label="Total characters" :value="$user->characters_count"></x-panel.stat>
+                        <x-panel.stat
+                            label="Total published posts"
+                            :value="$user->published_posts_count"
+                        ></x-panel.stat>
+                        <x-panel.stat label="Joined">
+                            {{ $user->created_at->diffForHumans() }}
+                        </x-panel.stat>
+                        <x-panel.stat label="Last signed in">
+                            {{ $user->latestLogin?->created_at->diffForHumans() ?? '-' }}
+                        </x-panel.stat>
+                        <x-panel.stat label="Last posted">
+                            {{ $user->latestPost->first()?->published_at?->diffForHumans() }}
+                        </x-panel.stat>
+                    </div>
+                </x-content-box>
 
-                @if ($user->pronouns->value !== null)
-                    <x-input.group label="Pronouns">
-                        <div class="inline-flex items-center space-x-1">
-                            <p class="font-semibold">{{ $user->pronouns->subject }}</p>
-                            <p class="text-gray-500">/</p>
-                            <p class="font-semibold">{{ $user->pronouns->object }}</p>
-                            <p class="text-gray-500">/</p>
-                            <p class="font-semibold">{{ $user->pronouns->possessive }}</p>
-                        </div>
-                    </x-input.group>
-                @endif
+                <x-content-box class="flex flex-col gap-4">Dynamic form content will go here.</x-content-box>
+            </div>
 
-                <x-input.group label="Status">
-                    <x-badge :color="$user->status->color()">{{ $user->status->getLabel() }}</x-badge>
-                </x-input.group>
+            <div class="w-full lg:w-1/3">
+                <div class="flex w-full flex-col">
+                    <div class="flex items-center justify-between px-4 py-4">
+                        <x-h3>Characters</x-h3>
+                    </div>
 
-                <x-input.group label="Avatar">
-                    <x-avatar :src="$user->avatar_url" size="lg" />
-                </x-input.group>
-            </x-form.section>
-
-            <x-form.section
-                title="Activity"
-                message="Keep track of milestones and latest activity of a user in the system."
-            >
-                <x-input.group label="Joined">
-                    <p class="font-semibold">{{ format_date($user->created_at) }}</p>
-                </x-input.group>
-
-                <x-input.group label="Last activity">
-                    <p class="font-semibold">{{ format_date($user->updated_at) }}</p>
-                </x-input.group>
-
-                <x-input.group label="Last sign in">
-                    <p class="font-semibold">{{ format_date($user->latestLogin->created_at) }}</p>
-                </x-input.group>
-
-                <x-input.group label="Last posted">
-                    <p class="font-semibold">{{ format_date($user->latestPost[0]->published_at) }}</p>
-                </x-input.group>
-            </x-form.section>
-
-            <x-form.footer>
-                <x-button.filled :href="route('users.index', "status={$user->status->name()}")" color="neutral">
-                    Back
-                </x-button.filled>
-            </x-form.footer>
-        </x-form>
+                    <div>
+                        @forelse ($user->characters as $character)
+                            <div
+                                class="group flex items-center justify-between px-4 py-2 odd:bg-gray-100 dark:odd:bg-gray-700/50"
+                            >
+                                <div class="flex items-center gap-3">
+                                    <x-status :status="$character->status"></x-status>
+                                    <span>{{ $character->display_name }}</span>
+                                </div>
+                                @can('update', $character)
+                                    <x-button.text
+                                        :href="route('characters.edit', $character)"
+                                        color="gray"
+                                        class="shrink-0 group-hover:visible sm:invisible"
+                                    >
+                                        <x-icon name="edit" size="sm"></x-icon>
+                                    </x-button.text>
+                                @endcan
+                            </div>
+                        @empty
+                            <div class="px-4">
+                                <x-empty-state.small
+                                    icon="list"
+                                    title="No positions assigned"
+                                    message="There aren’t any positions assigned to this department. Assign some positions to this department to populate this list."
+                                    :link-access="gate()->allows('viewAny', Nova\Departments\Models\Position::class)"
+                                    :link="route('positions.index')"
+                                    label="Assign positions"
+                                ></x-empty-state.small>
+                            </div>
+                        @endforelse
+                    </div>
+                </div>
+            </div>
+        </div>
     </x-panel>
+
+    <div class="grid hidden grid-cols-1 items-start gap-4 lg:grid-cols-3 lg:gap-8">
+        <div class="space-y-8 lg:col-span-2">
+            <x-panel>
+                <x-content-box>
+                    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between lg:space-x-8">
+                        <div>
+                            <x-avatar.user :user="$user" size="xl" :secondary-pronouns="true"></x-avatar.user>
+                        </div>
+
+                        <div class="flex items-center space-x-4">
+                            <x-badge :color="$user->status->color()">
+                                {{ $user->status->getLabel() }}
+                            </x-badge>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 space-x-4">
+                        @can('update', $user)
+                            <x-button.filled :href="route('users.edit', $user)" leading="edit" color="primary">
+                                Edit
+                            </x-button.filled>
+                        @endcan
+
+                        <x-button.text :href="route('users.index')" leading="arrow-left" color="gray">
+                            Back
+                        </x-button.text>
+                    </div>
+                </x-content-box>
+            </x-panel>
+
+            <x-panel>
+                <x-content-box>Dynamic form content will go here</x-content-box>
+            </x-panel>
+        </div>
+
+        <div>
+            <x-panel class="divide-y divide-gray-200 dark:divide-gray-600/50">
+                @if ($user->characters->count() > 0)
+                    <x-content-box>
+                        <div class="flex w-full flex-col space-y-4">
+                            @foreach ($user->characters as $character)
+                                <div class="flex items-center justify-between">
+                                    <x-avatar.character :character="$character"></x-avatar.character>
+
+                                    @if ($character->pivot->primary)
+                                        <x-badge color="primary">Primary</x-badge>
+                                    @endif
+                                </div>
+                            @endforeach
+                        </div>
+                    </x-content-box>
+                @endif
+            </x-panel>
+        </div>
+    </div>
 @endsection
