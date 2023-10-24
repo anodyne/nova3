@@ -27,7 +27,7 @@ class MyDraftsList extends TableComponent
         return $table
             ->query(
                 Post::with('postType', 'story')
-                    ->whereDraft()
+                    ->draft()
                     ->whereHas('story', fn (Builder $query): Builder => $query->current())
                     ->whereHas('participatingUsers', fn (Builder $query): Builder => $query->where('post_author.user_id', auth()->id()))
             )
