@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 use Nova\PostTypes\Data\Field;
 use Nova\PostTypes\Data\Fields;
 use Nova\PostTypes\Data\Options;
+use Nova\PostTypes\Enums\PostEditTimeframe;
 use Nova\PostTypes\Models\PostType;
 use Nova\Roles\Models\Role;
 
@@ -73,6 +74,8 @@ class PopulateStoryTables extends Migration
                     'allowsMultipleAuthors' => true,
                     'allowsCharacterAuthors' => true,
                     'allowsUserAuthors' => true,
+                    'showContentInTimelineView' => false,
+                    'editTimeframe' => PostEditTimeframe::hour4->value,
                 ]),
                 'order_column' => 0,
             ],
@@ -120,6 +123,8 @@ class PopulateStoryTables extends Migration
                     'allowsMultipleAuthors' => false,
                     'allowsCharacterAuthors' => true,
                     'allowsUserAuthors' => true,
+                    'showContentInTimelineView' => false,
+                    'editTimeframe' => PostEditTimeframe::hour4->value,
                 ]),
                 'order_column' => 1,
             ],
@@ -167,6 +172,8 @@ class PopulateStoryTables extends Migration
                     'allowsMultipleAuthors' => false,
                     'allowsCharacterAuthors' => false,
                     'allowsUserAuthors' => true,
+                    'showContentInTimelineView' => true,
+                    'editTimeframe' => PostEditTimeframe::hour4->value,
                 ]),
                 'role_id' => $storyManager->id,
                 'order_column' => 2,
@@ -215,6 +222,8 @@ class PopulateStoryTables extends Migration
                     'allowsMultipleAuthors' => false,
                     'allowsCharacterAuthors' => false,
                     'allowsUserAuthors' => true,
+                    'showContentInTimelineView' => true,
+                    'editTimeframe' => PostEditTimeframe::hour4->value,
                 ]),
                 'role_id' => $storyManager->id,
                 'order_column' => 3,

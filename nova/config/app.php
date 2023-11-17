@@ -238,7 +238,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'ExampleClass' => App\Example\ExampleClass::class,
+        'NovaView' => Nova\Foundation\Facades\NovaView::class,
     ])->toArray(),
 
 ];

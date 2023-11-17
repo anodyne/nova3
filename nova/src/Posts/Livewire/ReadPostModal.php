@@ -26,7 +26,7 @@ class ReadPostModal extends ModalComponent
 
     public function render()
     {
-        return view('livewire.posts.read-post-modal');
+        return view('pages.posts.livewire.read-post-modal');
     }
 
     public static function modalMaxWidth(): string

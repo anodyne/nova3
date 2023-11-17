@@ -142,7 +142,7 @@ class AppServiceProvider extends ServiceProvider
 
     protected function registerLivewireComponents()
     {
-        Livewire::component('nova:editor', Editor::class);
+        // Livewire::component('nova:editor', Editor::class);
         Livewire::component('rating', Rating::class);
         Livewire::component('icon-picker', IconPicker::class);
         Livewire::component('color-shade-picker', ColorShadePicker::class);
@@ -170,7 +170,7 @@ class AppServiceProvider extends ServiceProvider
 
         FilamentIcon::register([
             'tables::search-field' => iconName('search'),
-            'modal.close-button' => iconName('dismiss'),
+            'modal.close-button' => iconName('x'),
         ]);
 
         Table::configureUsing(function (Table $table) {

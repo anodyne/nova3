@@ -9,7 +9,8 @@ use Illuminate\View\Component;
 class WritePostWizardLayout extends Component
 {
     public function __construct(
-        public $steps
+        public $steps,
+        public string $message
     ) {
     }
 

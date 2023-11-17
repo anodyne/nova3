@@ -6,9 +6,6 @@ namespace Nova\Users\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
-use Nova\Users\Models\States\Status\Active;
-use Nova\Users\Models\States\Status\Inactive;
-use Nova\Users\Models\States\Status\Pending;
 use Nova\Users\Models\User;
 
 class UserPolicy
@@ -72,7 +69,7 @@ class UserPolicy
     public function activate(User $user, User $actionableUser): Response
     {
         return $this->update($user, $actionableUser)
-            && $actionableUser->status->equals(Inactive::class)
+            && $actionableUser->is_inactive
                 ? $this->allow()
                 : $this->deny();
     }
@@ -80,7 +77,7 @@ class UserPolicy
     public function deactivate(User $user, User $actionableUser): Response
     {
         return $this->update($user, $actionableUser)
-            && $actionableUser->status->equals(Active::class)
+            && $actionableUser->is_active
             && $actionableUser->isNot($user)
                 ? $this->allow()
                 : $this->deny();
@@ -89,7 +86,7 @@ class UserPolicy
     public function forcePasswordReset(User $user, User $actionableUser): Response
     {
         return $this->update($user, $actionableUser)
-            && ! $actionableUser->status->equals(Pending::class)
+            && ! $actionableUser->is_pending
                 ? $this->allow()
                 : $this->deny();
     }

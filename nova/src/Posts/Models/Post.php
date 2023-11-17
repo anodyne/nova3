@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Posts\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -14,7 +15,10 @@ use Nova\Foundation\Concerns\SortableTrait;
 use Nova\Posts\Data\PostData;
 use Nova\Posts\Events;
 use Nova\Posts\Models\Builders\PostBuilder;
+use Nova\Posts\Models\States\Draft;
+use Nova\Posts\Models\States\Pending;
 use Nova\Posts\Models\States\PostStatus;
+use Nova\Posts\Models\States\Published;
 use Nova\Posts\Models\States\Started;
 use Nova\PostTypes\Models\PostType;
 use Nova\Stories\Models\Story;
@@ -43,6 +47,8 @@ class Post extends Model implements Sortable
         'rating_violence', 'summary', 'participants', 'neighbor', 'direction',
         'sort',
     ];
+
+    protected $with = ['postType', 'story'];
 
     protected $casts = [
         'participants' => 'array',
@@ -80,13 +86,15 @@ class Post extends Model implements Sortable
     public function characterAuthors()
     {
         return $this->morphedByMany(Character::class, 'authorable', 'post_author')
-            ->withPivot('user_id');
+            ->withPivot('user_id')
+            ->using(PostAuthor::class);
     }
 
     public function userAuthors()
     {
         return $this->morphedByMany(User::class, 'authorable', 'post_author')
-            ->withPivot(['as', 'user_id']);
+            ->withPivot(['as', 'user_id'])
+            ->using(PostAuthor::class);
     }
 
     public function story()
@@ -96,7 +104,35 @@ class Post extends Model implements Sortable
 
     public function postType(): BelongsTo
     {
-        return $this->belongsTo(PostType::class);
+        return $this->belongsTo(PostType::class)->withTrashed();
+    }
+
+    public function isDraft(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): bool => $this->status->equals(Draft::class)
+        );
+    }
+
+    public function isPending(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): bool => $this->status->equals(Pending::class)
+        );
+    }
+
+    public function isPublished(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): bool => $this->status->equals(Published::class)
+        );
+    }
+
+    public function isStarted(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): bool => $this->status->equals(Started::class)
+        );
     }
 
     public function newEloquentBuilder($query): PostBuilder
@@ -130,6 +166,15 @@ class Post extends Model implements Sortable
         $this->fill(['participants' => $participants])->save();
     }
 
+    public function removeAllNonParticipants(): void
+    {
+        $this->participatingUsers()
+            ->newPivotStatement()
+            ->where('post_id', $this->id)
+            ->whereNotIn('user_id', $this->participants)
+            ->delete();
+    }
+
     public function shouldShowContentWarning(): bool
     {
         return $this->rating_language >= 2
@@ -160,11 +205,9 @@ class Post extends Model implements Sortable
             ->story($this->story_id)
             ->when($status, fn (Builder $query) => $query->whereState('status', $status));
 
-        $order = $this->order_column;
-
         return match ($direction) {
-            'previous' => $query->where('order_column', $order - 1)->first(),
-            'next' => $query->where('order_column', $order + 1)->first(),
+            'previous' => $query->where('order_column', '<', $this->order_column)->orderByDesc('order_column')->first(),
+            'next' => $query->where('order_column', '>', $this->order_column)->orderBy('order_column')->first(),
             default => $query->first(),
         };
     }

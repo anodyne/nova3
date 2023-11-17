@@ -18,7 +18,6 @@ use Nova\Posts\Models\Post;
 use Nova\Stories\Data\StoryData;
 use Nova\Stories\Events;
 use Nova\Stories\Models\Builders\StoryBuilder;
-use Nova\Stories\Models\States\Current;
 use Nova\Stories\Models\States\StoryStatus;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -34,8 +33,8 @@ class Story extends Model implements HasMedia, Sortable
     use HasRecursiveRelationships;
     use HasStates;
     use InteractsWithMedia;
-    use SortableTrait;
     use LogsActivity;
+    use SortableTrait;
     use WithData;
 
     protected $table = 'stories';
@@ -105,14 +104,35 @@ class Story extends Model implements HasMedia, Sortable
     public function canPost(): Attribute
     {
         return new Attribute(
-            get: fn ($value): bool => $this->status->equals(Current::class)
+            get: fn (): bool => $this->status->equals(States\Current::class)
+        );
+    }
+
+    public function isCompleted(): Attribute
+    {
+        return new Attribute(
+            get: fn (): bool => $this->status->equals(States\Completed::class)
         );
     }
 
     public function isCurrent(): Attribute
     {
         return new Attribute(
-            get: fn ($value): bool => $this->status->equals(Current::class)
+            get: fn (): bool => $this->status->equals(States\Current::class)
+        );
+    }
+
+    public function isOngoing(): Attribute
+    {
+        return new Attribute(
+            get: fn (): bool => $this->status->equals(States\Ongoing::class)
+        );
+    }
+
+    public function isUpcoming(): Attribute
+    {
+        return new Attribute(
+            get: fn (): bool => $this->status->equals(States\Upcoming::class)
         );
     }
 

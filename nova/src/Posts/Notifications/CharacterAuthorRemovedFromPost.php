@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Posts\Notifications;
 
+use Illuminate\Contracts\Mail\Mailable;
 use Nova\Characters\Models\Character;
 use Nova\Foundation\Notifications\PreferenceBasedNotification;
+use Nova\Posts\Mail\SendCharacterAuthorRemovedFromPost;
 use Nova\Posts\Models\Post;
 
 class CharacterAuthorRemovedFromPost extends PreferenceBasedNotification
@@ -24,7 +26,15 @@ class CharacterAuthorRemovedFromPost extends PreferenceBasedNotification
             'post_id' => $this->post->id,
             'post_title' => $this->post->title,
             'post_type_name' => $this->post->postType->name,
-            'character_name' => $this->character->displayName,
+            'character_name' => $this->character->name,
         ];
+    }
+
+    public function mailable(): Mailable
+    {
+        return new SendCharacterAuthorRemovedFromPost(
+            post: $this->post,
+            character: $this->character
+        );
     }
 }

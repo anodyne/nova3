@@ -9,11 +9,11 @@ use Nova\Users\Actions\UpdateAdminTheme;
 
 class AdminThemeToggle extends Component
 {
-    public $appearance;
+    public string $appearance = '';
 
-    public function toggle($appearance = null)
+    public function updatedAppearance(): void
     {
-        $this->appearance = $appearance;
+        $this->dispatch('dropdown-close');
 
         UpdateAdminTheme::run($this->appearance);
     }

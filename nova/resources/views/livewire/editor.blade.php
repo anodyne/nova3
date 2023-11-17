@@ -373,7 +373,7 @@
         ></textarea>
 
         <div class="px-3 py-1.5 text-sm text-gray-400 dark:text-gray-500">
-            {{ str('word')->plural($wordCount)->prepend($wordCount.' ') }}
+            <span x-text="wordCount"></span>
         </div>
     </div>
 </div>

@@ -1,4 +1,4 @@
-<div x-on:click.away="$wire.set('search', '')">
+<div>
     <x-panel>
         <x-content-box height="xs" width="xs" class="rounded-t-lg bg-gray-50 dark:bg-gray-950/30">
             <div class="flex justify-between space-x-4">
@@ -15,7 +15,7 @@
                             <x-slot name="trailing">
                                 @if ($search)
                                     <x-button.text tag="button" color="gray" wire:click="$set('search', '')">
-                                        <x-icon name="dismiss" size="sm"></x-icon>
+                                        <x-icon name="x" size="sm"></x-icon>
                                     </x-button.text>
                                 @endif
                             </x-slot>

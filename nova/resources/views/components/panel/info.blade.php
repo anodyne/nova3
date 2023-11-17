@@ -25,7 +25,7 @@
                     </h3>
                 @endif
 
-                <div class="text-base md:text-sm">
+                <div class="text-base/7 md:text-sm/6">
                     {{ $slot }}
                 </div>
             </div>

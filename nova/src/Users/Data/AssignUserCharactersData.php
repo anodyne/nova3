@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Nova\Characters\Data;
+namespace Nova\Users\Data;
 
 use Illuminate\Http\Request;
 use Spatie\LaravelData\Data;

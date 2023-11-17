@@ -6,7 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Nova\Foundation\Enums\NotificationAudience;
-use Nova\Foundation\Enums\NotificationChannelStatus;
 use Nova\Foundation\Models\NotificationType;
 use Nova\Users\Models\User;
 
@@ -29,19 +28,22 @@ class CreateNotificationsTable extends Migration
             $table->string('key')->unique();
             $table->text('description')->nullable();
             $table->string('audience')->default(NotificationAudience::personal->value);
-            $table->string('database')->default(NotificationChannelStatus::enabled->value);
-            $table->string('mail')->default(NotificationChannelStatus::enabled->value);
-            $table->string('discord')->default(NotificationChannelStatus::disabled->value);
+            $table->boolean('database')->default(true);
+            $table->boolean('database_default')->default(true);
+            $table->boolean('mail')->default(false);
+            $table->boolean('mail_default')->default(false);
+            $table->boolean('discord')->default(false);
+            $table->json('discord_settings')->nullable();
             $table->timestamps();
         });
 
         Schema::create('user_notification_preferences', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(NotificationType::class);
-            $table->foreignIdFor(User::class)->nullable();
-            $table->string('database')->default(NotificationChannelStatus::enabled->value);
-            $table->string('mail')->default(NotificationChannelStatus::enabled->value);
-            $table->string('discord')->default(NotificationChannelStatus::disabled->value);
+            $table->foreignIdFor(User::class);
+            $table->boolean('database')->default(true);
+            $table->boolean('mail')->default(false);
+            $table->boolean('discord')->default(false);
             $table->json('discord_settings')->nullable();
         });
     }

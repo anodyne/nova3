@@ -1,7 +1,7 @@
 @php
     $originalCount = $records->count();
 
-    $records = $records->filter(fn ($model) => $model->status->equals(Nova\Characters\Models\States\Status\Active::class));
+    $records = $records->filter(fn ($model) => $model->is_active);
 
     $count = $records->count();
 @endphp

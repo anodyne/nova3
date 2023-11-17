@@ -4,28 +4,28 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Livewire;
 
+use Livewire\Attributes\Modelable;
 use Livewire\Component;
 
 class Rating extends Component
 {
-    public int $rating = 0;
+    #[Modelable]
+    public int $value = 0;
 
-    public string $type = '';
+    public string $area = '';
 
-    public bool $static = false;
+    // public function setRating(int $value): void
+    // {
+    //     if (! $this->static) {
+    //         $this->value = $value;
 
-    public function setRating(int $value): void
-    {
-        if (! $this->static) {
-            $this->rating = $value;
-
-            $this->dispatch(
-                'ratingUpdated',
-                rating: $this->rating,
-                type: $this->type
-            );
-        }
-    }
+    //         $this->dispatch(
+    //             'ratingUpdated',
+    //             rating: $this->rating,
+    //             type: $this->type
+    //         );
+    //     }
+    // }
 
     public function render()
     {

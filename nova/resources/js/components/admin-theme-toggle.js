@@ -3,26 +3,8 @@ export default (appearance) => ({
 
     init() {
         this.update(this.appearance);
-    },
 
-    isDarkTheme() {
-        return localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    },
-
-    isDarkThemeSelected() {
-        return localStorage.theme === 'dark';
-    },
-
-    isLightTheme() {
-        return localStorage.theme === 'light' || (!('theme' in localStorage) && !window.matchMedia('(prefers-color-scheme: dark)').matches);
-    },
-
-    isLightThemeSelected() {
-        return localStorage.theme === 'light';
-    },
-
-    isSystemThemeSelected() {
-        return !('theme' in localStorage);
+        this.$watch('appearance', (value) => this.setTheme(value));
     },
 
     refreshTheme() {
@@ -36,7 +18,7 @@ export default (appearance) => ({
     setTheme(theme = null) {
         this.update(theme);
 
-        this.$wire.toggle(theme);
+        this.$wire.set('appearance', theme, true);
 
         this.refreshTheme();
     },

@@ -8,9 +8,6 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
 use Nova\Characters\Enums\CharacterType;
 use Nova\Characters\Models\Character;
-use Nova\Characters\Models\States\Status\Active;
-use Nova\Characters\Models\States\Status\Inactive;
-use Nova\Characters\Models\States\Status\Pending;
 use Nova\Users\Models\User;
 
 class CharacterPolicy
@@ -119,7 +116,7 @@ class CharacterPolicy
 
     public function activate(User $user, Character $character): Response
     {
-        return $this->activateAny($user)->allowed() && $character->status->equals(Inactive::class)
+        return $this->activateAny($user)->allowed() && $character->is_inactive
             ? $this->allow()
             : $this->deny();
     }
@@ -166,14 +163,14 @@ class CharacterPolicy
 
     public function deactivate(User $user, Character $character): Response
     {
-        return $this->deactivateAny($user)->allowed() && $character->status->equals(Active::class)
+        return $this->deactivateAny($user)->allowed() && $character->is_active
             ? $this->allow()
             : $this->deny();
     }
 
     public function approve(User $user, Character $character): Response
     {
-        return $this->approveAny($user)->allowed() && $character->status->equals(Pending::class)
+        return $this->approveAny($user)->allowed() && $character->is_pending
             ? $this->allow()
             : $this->deny();
     }

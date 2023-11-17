@@ -3,7 +3,7 @@
         <x-input.text name="{{ $name }}" wire:model.live.debounce.500ms="selected">
             <x-slot name="trailing">
                 <button type="button" wire:click="resetField">
-                    <x-icon name="dismiss" size="sm"></x-icon>
+                    <x-icon name="x" size="sm"></x-icon>
                 </button>
             </x-slot>
         </x-input.text>

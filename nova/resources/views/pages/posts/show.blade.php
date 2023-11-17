@@ -59,7 +59,7 @@
                 By continuing, you agree that you are of suitable age for this content.
             </p>
 
-            <x-button.outline type="button" color="danger" x-on:click="showContent = true">Continue</x-button.outline>
+            <x-button.outlined type="button" color="danger" x-on:click="showContent = true">Continue</x-button.outlined>
         </x-content-box>
 
         <x-content-box x-show="showContent" x-cloak>

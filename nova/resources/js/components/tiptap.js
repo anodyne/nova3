@@ -1,13 +1,17 @@
 import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
-import TextAlign from '@tiptap/extension-text-align';
 import Link from '@tiptap/extension-link';
-import pretty from 'pretty';
+import TextAlign from '@tiptap/extension-text-align';
+import CharacterCount from '@tiptap/extension-character-count';
 import debounce from 'lodash/debounce';
+import pluralize from 'pluralize';
+import pretty from 'pretty';
 
 export default (content) => ({
+    editor: null,
     content,
+    codeView: false,
     updatedAt: Date.now(), // force Alpine to re-render on selection change
 
     init(element) {
@@ -16,23 +20,22 @@ export default (content) => ({
             extensions: [
                 StarterKit,
                 Underline,
+                Link.configure({
+                    openOnClick: false,
+                }),
                 TextAlign.configure({
                     alignments: ['left', 'center', 'right'],
                     types: ['heading', 'paragraph'],
                 }),
-                Link.configure({
-                    openOnClick: false,
-                }),
+                CharacterCount,
             ],
             content: this.content,
-            inFocus: false,
             editorProps: {
                 attributes: {
-                    class: 'prose dark:prose-invert max-w-none py-4 px-3 max-h-[35rem] overflow-y-scroll focus:outline-none',
+                    class: 'prose dark:prose-invert max-w-none py-4 px-4 max-h-[35rem] overflow-y-scroll focus:outline-none',
                 },
             },
             onFocus: () => {
-                this.inFocus = true;
                 this.updatedAt = Date.now();
             },
             onSelectionUpdate: () => {
@@ -41,28 +44,28 @@ export default (content) => ({
             onUpdate: debounce(({ editor }) => {
                 this.updatedAt = Date.now();
                 this.content = pretty(editor.getHTML(), { ocd: true });
-            }, 1000),
+            }, 500),
             onCreate: ({ editor }) => {
                 this.updatedAt = Date.now();
                 this.content = pretty(editor.getHTML(), { ocd: true });
             },
         });
-    },
 
-    isActive(type, opts = {}, updatedAt) {
-        return window.editor.isActive(type, opts);
-    },
+        this.$watch('content', (content) => {
+            // If the new content matches TipTap's then we just skip.
+            if (content === window.editor.getHTML()) return;
 
-    removeLink() {
-        return window.editor.chain().unsetLink().focus().run();
-    },
-
-    setContent(newContent) {
-        return window.editor.commands.setContent(newContent);
-    },
-
-    setHorizontalRule() {
-        return window.editor.chain().setHorizontalRule().focus().run();
+            /*
+            Otherwise, it means that a force external to TipTap
+            is modifying the data on this Alpine component,
+            which could be Livewire itself.
+            In this case, we just need to update TipTap's
+            content and we're good to do.
+            For more information on the `setContent()` method, see:
+            https://www.tiptap.dev/api/commands/set-content
+            */
+            window.editor.commands.setContent(content, false);
+        });
     },
 
     setLink() {
@@ -87,39 +90,9 @@ export default (content) => ({
             .run();
     },
 
-    setParagraph() {
-        return window.editor.commands.setParagraph();
-    },
+    wordCount() {
+        const count = window.editor.storage.characterCount.words();
 
-    setTextAlign(direction) {
-        return window.editor.chain().setTextAlign(direction).focus().run();
-    },
-
-    toggleBlockquote() {
-        return window.editor.chain().toggleBlockquote().focus().run();
-    },
-
-    toggleBold() {
-        return window.editor.chain().toggleBold().focus().run();
-    },
-
-    toggleBulletList() {
-        return window.editor.chain().toggleBulletList().focus().run();
-    },
-
-    toggleHeading(level) {
-        return window.editor.chain().toggleHeading({ level }).focus().run();
-    },
-
-    toggleItalic() {
-        return window.editor.chain().toggleItalic().focus().run();
-    },
-
-    toggleOrderedList() {
-        return window.editor.chain().toggleOrderedList().focus().run();
-    },
-
-    toggleUnderline() {
-        return window.editor.chain().toggleUnderline().focus().run();
+        return `${count} ${pluralize('word', count)}`;
     },
 });

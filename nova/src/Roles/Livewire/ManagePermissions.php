@@ -53,6 +53,7 @@ class ManagePermissions extends Component
         return Permission::query()
             ->when(filled($this->search) && $this->search !== '*', fn (Builder $query): Builder => $query->searchFor($this->search))
             ->when(filled($this->search) && $this->search === '*', fn (Builder $query): Builder => $query)
+            ->whereNotIn('id', $this->assigned->map(fn (Permission $permission) => $permission->id)->all())
             ->get();
     }
 

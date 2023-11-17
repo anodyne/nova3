@@ -163,7 +163,7 @@ class RolesList extends TableComponent
             ->headerActions([
                 Action::make('permissions')
                     ->url(route('permissions.index'))
-                    ->link()
+                    ->button()
                     ->label('View permissions')
                     ->color('gray')
                     ->icon(iconName('key'))

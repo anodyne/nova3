@@ -17,7 +17,7 @@ class RolePermissionsData extends Data
     public static function fromRequest(Request $request): static
     {
         return new self(
-            permissions: explode(',', $request->input('assigned_permissions', '') ?? '')
+            permissions: collect(explode(',', $request->input('assigned_permissions') ?? ''))->filter()->all()
         );
     }
 }

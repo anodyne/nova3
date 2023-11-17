@@ -4,21 +4,14 @@ declare(strict_types=1);
 
 namespace Nova\Posts\Controllers;
 
-use Illuminate\Http\Request;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Posts\Models\Post;
 use Nova\Posts\Models\States\Published;
+use Nova\Posts\Responses\CreatePostResponse;
+use Nova\Posts\Responses\EditPostResponse;
+use Nova\Posts\Responses\ListPostsResponse;
 use Nova\Posts\Responses\ShowPostResponse;
-use Nova\Posts\Responses\WritePostResponse;
-use Nova\Stories\Actions\CreateStoryManager;
-use Nova\Stories\Actions\DeleteStoryManager;
-use Nova\Stories\Actions\UpdateStoryManager;
 use Nova\Stories\Models\Story;
-use Nova\Stories\Requests\StoreStoryRequest;
-use Nova\Stories\Requests\UpdateStoryRequest;
-use Nova\Stories\Responses\DeleteStoryResponse;
-use Nova\Stories\Responses\EditStoryResponse;
-use Nova\Stories\Responses\ListStoriesResponse;
 
 class PostController extends Controller
 {
@@ -33,68 +26,28 @@ class PostController extends Controller
 
     public function index()
     {
-        return ListStoriesResponse::send();
+        return ListPostsResponse::send();
     }
 
     public function show(Story $story, Post $post)
     {
         return ShowPostResponse::sendWith([
-            'post' => $post->load('postType', 'characterAuthors', 'userAuthors', 'story'),
+            'post' => $post->load('characterAuthors', 'userAuthors'),
             'story' => $story,
             'previousPost' => $post->previousSibling(Published::class),
             'nextPost' => $post->nextSibling(Published::class),
         ]);
     }
 
-    public function create(Post $post)
+    public function create($neighbor = null, $direction = 'after')
     {
-        return WritePostResponse::sendWith([
+        return CreatePostResponse::send();
+    }
+
+    public function edit(Post $post)
+    {
+        return EditPostResponse::sendWith([
             'post' => $post,
         ]);
-    }
-
-    public function store(StoreStoryRequest $request)
-    {
-        $story = CreateStoryManager::run($request);
-
-        return redirect()
-            ->route('stories.index')
-            ->notify("{$story->title} story was created");
-    }
-
-    public function edit(Story $story)
-    {
-        return EditStoryResponse::sendWith([
-            'story' => $story,
-        ]);
-    }
-
-    public function update(UpdateStoryRequest $request, Story $story)
-    {
-        $story = UpdateStoryManager::run($story, $request);
-
-        return redirect()
-            ->route('stories.edit', $story)
-            ->notify("{$story->title} was updated");
-    }
-
-    public function delete($id)
-    {
-        $this->authorize('delete', new Story());
-
-        $stories = Story::ordered()->find($id)->descendantsAndSelf;
-
-        return DeleteStoryResponse::sendWith([
-            'storiesToDelete' => $stories,
-        ]);
-    }
-
-    public function destroy(Request $request)
-    {
-        DeleteStoryManager::run($request);
-
-        return redirect()
-            ->route('stories.index')
-            ->notify('Story was deleted', 'All posts in this story have been deleted as well.');
     }
 }

@@ -6,7 +6,7 @@
             wire:click="dismiss"
         >
             <span class="sr-only">Close</span>
-            <x-icon name="dismiss" size="md"></x-icon>
+            <x-icon name="x" size="md"></x-icon>
         </button>
     </div>
 

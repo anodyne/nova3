@@ -19,12 +19,12 @@ abstract class TableComponent extends Component implements HasForms, HasTable
 
     public bool $simple = false;
 
+    public bool $rounded = false;
+
     abstract public function table(Table $table): Table;
 
     public function render(): ?View
     {
-        return view('livewire.filament-table', [
-            'simpleTable' => $this->simple,
-        ]);
+        return view('livewire.filament-table');
     }
 }

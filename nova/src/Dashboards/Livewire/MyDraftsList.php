@@ -73,7 +73,7 @@ class MyDraftsList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->label('Continue writing')
-                            ->url(fn (Model $record): string => route('notes.edit', $record)),
+                            ->url(fn (Model $record): string => route('posts.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
                     ActionGroup::make([
                         DeleteAction::make()

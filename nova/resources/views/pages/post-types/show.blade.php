@@ -156,6 +156,18 @@
                             </div>
                         @endif
 
+                        @if ($postType->options->showContentInTimelineView)
+                            <div
+                                class="flex items-center gap-3 px-4 py-4 font-medium odd:bg-gray-100 dark:odd:bg-gray-700/50"
+                            >
+                                <div class="flex items-center">
+                                    <div class="h-2 w-2 rounded-full bg-success-500"></div>
+                                </div>
+
+                                <span>Show content in timeline view</span>
+                            </div>
+                        @endif
+
                         @if ($postType->role)
                             <div
                                 class="flex items-center gap-3 px-4 py-4 font-medium odd:bg-gray-100 dark:odd:bg-gray-700/50"
@@ -167,6 +179,29 @@
                                 <span>Requires {{ $postType->role->display_name }} role</span>
                             </div>
                         @endif
+
+                        <div
+                            class="flex items-center gap-3 px-4 py-4 font-medium odd:bg-gray-100 dark:odd:bg-gray-700/50"
+                        >
+                            <div class="flex items-center">
+                                <div
+                                    @class([
+                                        'h-2 w-2 rounded-full',
+                                        'bg-success-500' => $postType->options->editTimeframe->value !== 'never',
+                                        'bg-danger-500' => $postType->options->editTimeframe->value === 'never',
+                                    ])
+                                ></div>
+                            </div>
+
+                            @if ($postType->options->editTimeframe->value === 'never')
+                                <span>{{ $postType->options->editTimeframe->getLabel() }}</span>
+                            @else
+                                <span>
+                                    Can be edited for {{ $postType->options->editTimeframe->getLabel() }} after
+                                    publishing
+                                </span>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>

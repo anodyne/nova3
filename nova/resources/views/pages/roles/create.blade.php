@@ -17,6 +17,8 @@
             </x-slot>
         </x-panel.header>
 
+        @json($errors)
+
         <x-form :action="route('roles.store')">
             <x-form.section
                 title="Role info"
@@ -39,7 +41,7 @@
                 </x-input.group>
 
                 <x-input.group>
-                    <x-switch-toggle name="is_default" :value="old('is_default')">
+                    <x-switch-toggle name="is_default" :value="old('is_default')" :on-value="1" :off-value="0">
                         Assign this role to new users
                     </x-switch-toggle>
                 </x-input.group>

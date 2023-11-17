@@ -7,6 +7,9 @@ namespace Nova\PostTypes\Data;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;
 use Nova\Foundation\Rules\Boolean;
+use Nova\PostTypes\Enums\PostEditTimeframe;
+use Spatie\LaravelData\Attributes\WithCast;
+use Spatie\LaravelData\Casts\EnumCast;
 use Spatie\LaravelData\Data;
 
 class Options extends Data implements Arrayable
@@ -17,6 +20,10 @@ class Options extends Data implements Arrayable
         public bool $allowsMultipleAuthors,
         public bool $allowsCharacterAuthors,
         public bool $allowsUserAuthors,
+        public bool $showContentInTimelineView,
+
+        #[WithCast(EnumCast::class, type: PostEditTimeframe::class)]
+        public PostEditTimeframe $editTimeframe,
     ) {
     }
 
@@ -27,7 +34,9 @@ class Options extends Data implements Arrayable
             includedInPostTracking: Arr::boolean($data, 'includedInPostTracking'),
             allowsMultipleAuthors: Arr::boolean($data, 'allowsMultipleAuthors'),
             allowsCharacterAuthors: Arr::boolean($data, 'allowsCharacterAuthors'),
-            allowsUserAuthors: Arr::boolean($data, 'allowsUserAuthors')
+            allowsUserAuthors: Arr::boolean($data, 'allowsUserAuthors'),
+            showContentInTimelineView: Arr::boolean($data, 'showContentInTimelineView'),
+            editTimeframe: PostEditTimeframe::tryFrom(data_get($data, 'editTimeframe', PostEditTimeframe::never))
         );
     }
 
@@ -39,6 +48,7 @@ class Options extends Data implements Arrayable
             'allowsMultipleAuthors' => [new Boolean()],
             'allowsCharacterAuthors' => [new Boolean()],
             'allowsUserAuthors' => [new Boolean()],
+            'showContentInTimelineView' => [new Boolean()],
         ];
     }
 }

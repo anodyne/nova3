@@ -28,6 +28,11 @@ class UserBuilder extends Builder
             });
     }
 
+    public function searchForBasic($search): self
+    {
+        return $this->where('name', 'like', "%{$search}%");
+    }
+
     public function searchForWithoutCharacters(string $search): self
     {
         return $this->where(

@@ -15,7 +15,7 @@ class Notification extends FilamentNotification
     {
         parent::danger();
 
-        $this->icon(iconName('dismiss'));
+        $this->icon(iconName('alert'));
 
         return $this;
     }

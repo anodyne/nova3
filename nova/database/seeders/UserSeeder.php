@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Nova\Users\Actions\PopulateNotificationPreferences;
 use Nova\Users\Models\User;
 
 class UserSeeder extends Seeder
@@ -23,6 +24,7 @@ class UserSeeder extends Seeder
             'email' => 'admin@admin.com',
         ]);
         $admin->addRoles(['owner', 'admin', 'active', 'writer', 'story-manager']);
+        PopulateNotificationPreferences::run($admin);
 
         for ($i = 1; $i <= 5; $i++) {
             $activeUser = User::factory()
@@ -33,6 +35,7 @@ class UserSeeder extends Seeder
                     'email' => "user{$i}@user.com",
                 ]);
             $activeUser->addRoles(['active', 'writer']);
+            PopulateNotificationPreferences::run($activeUser);
         }
 
         $inactiveUser = User::factory()
@@ -42,6 +45,7 @@ class UserSeeder extends Seeder
                 'email' => 'inactive@inactive.com',
             ]);
         $inactiveUser->addRoles(['inactive']);
+        PopulateNotificationPreferences::run($inactiveUser);
 
         $pendingUser = User::factory()
             ->pending()
@@ -50,6 +54,7 @@ class UserSeeder extends Seeder
                 'email' => 'pending@pending.com',
             ]);
         $pendingUser->addRoles(['inactive']);
+        PopulateNotificationPreferences::run($pendingUser);
 
         foreach (['p', 'ps', 'pu', 'psu', 's', 'su', 'u'] as $item) {
             $user = User::factory()->active()->create([
@@ -65,6 +70,8 @@ class UserSeeder extends Seeder
                 $str->contains('u') => $user->addRole('create-support-characters'),
                 default => $user,
             };
+
+            PopulateNotificationPreferences::run($user);
         }
 
         activity()->enableLogging();

@@ -8,6 +8,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Mail\Mailable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
+use Nova\Foundation\Enums\NotificationAudience;
 use Nova\Foundation\Enums\NotificationChannel;
 use Nova\Foundation\Models\NotificationType;
 
@@ -17,31 +18,61 @@ abstract class PreferenceBasedNotification extends Notification implements Shoul
 
     protected string $key;
 
+    protected ?NotificationType $notificationType = null;
+
     public function via(object $notifiable): array
+    {
+        $this->getNotificationType();
+
+        return match ($this->notificationType->audience) {
+            NotificationAudience::admin => $this->setAdminAudienceChannels(),
+            default => $this->setNonAdminAudienceChannels($notifiable),
+        };
+    }
+
+    abstract public function toArray(object $notifiable): array;
+
+    // abstract public function toDiscord(object $notifiable);
+
+    abstract public function mailable(): Mailable;
+
+    public function toMail(object $notifiable): Mailable
+    {
+        return $this->mailable()->to($notifiable->email);
+    }
+
+    protected function getNotificationType(): NotificationType
+    {
+        $this->notificationType = NotificationType::where('key', $this->key)->first();
+
+        return $this->notificationType;
+    }
+
+    protected function setAdminAudienceChannels(): array
     {
         $channels = [];
 
-        $preference = $this->getPreference($notifiable);
-
         foreach (NotificationChannel::cases() as $channel) {
-            if ($preference->{$channel}) {
-                $channels[] = $channel;
+            if ($this->notificationType->{$channel->value}) {
+                $channels[] = $channel->value;
             }
         }
 
         return $channels;
     }
 
-    abstract public function toArray(object $notifiable): array;
-
-    abstract public function toMail(object $notifiable): Mailable;
-
-    // abstract public function toDiscord(object $notifiable);
-
-    protected function getPreference(object $notifiable)
+    protected function setNonAdminAudienceChannels(object $notifiable): array
     {
-        $notification = NotificationType::where('key', $this->key)->first();
+        $channels = [];
 
-        return $notification->preferencesForUser($notifiable);
+        $preference = $this->notificationType->preferenceForUser($notifiable);
+
+        foreach (NotificationChannel::cases() as $channel) {
+            if ($this->notificationType->{$channel->value} && $preference->{$channel->value}) {
+                $channels[] = $channel->value;
+            }
+        }
+
+        return $channels;
     }
 }

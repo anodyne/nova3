@@ -1,7 +1,7 @@
 @extends($meta->template)
 
 @section('content')
-    <x-panel class="relative overflow-hidden" x-data="tabsList('details')">
+    <x-panel class="relative" x-data="tabsList('details')">
         @if ($story->hasMedia('story-image'))
             <img class="h-72 w-full object-cover" src="{{ $story->getFirstMediaUrl('story-image') }}" alt="" />
         @endif
@@ -159,17 +159,18 @@
             </div>
         </x-content-box>
 
-        <x-content-box height="none" x-show="isTab('stories')">
+        <x-content-box height="none" x-show="isTab('stories')" x-cloak>
             <x-stories.timeline :stories="$story->children->loadCount('posts')" expanded></x-stories.timeline>
         </x-content-box>
 
-        <x-content-box height="none" width="none" x-show="isTab('posts')">
-            <livewire:stories-posts-list simple />
-        </x-content-box>
+        <div x-show="isTab('posts')" x-cloak>
+            <livewire:stories-posts-list :story="$story" />
+        </div>
 
         <x-content-box
             x-show="isTab('summary')"
             class="prose prose-lg max-w-none dark:prose-invert prose-a:text-primary-500 hover:prose-a:text-primary-600 dark:hover:prose-a:text-primary-400"
+            x-cloak
         >
             {!! $story->summary !!}
         </x-content-box>

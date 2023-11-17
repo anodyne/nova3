@@ -1,9 +1,0 @@
-@font-face {
-  font-family: 'General Sans';
-  src: url('/dist/fonts/sentient/Sentient-Variable.woff2') format('woff2'),
-       url('/dist/fonts/sentient/Sentient-Variable.woff') format('woff'),
-       url('/dist/fonts/sentient/Sentient-Variable.ttf') format('truetype');
-       font-weight: 200 700;
-       font-display: swap;
-       font-style: normal;
-}

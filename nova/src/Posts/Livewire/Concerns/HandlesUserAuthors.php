@@ -4,46 +4,48 @@ declare(strict_types=1);
 
 namespace Nova\Posts\Livewire\Concerns;
 
-use Nova\Posts\Notifications\UserAuthorAddedToPost;
-use Nova\Posts\Notifications\UserAuthorRemovedFromPost;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Livewire\Attributes\Computed;
 use Nova\Users\Models\User;
 
 trait HandlesUserAuthors
 {
-    public ?array $selectedUsers;
+    public Collection $users;
+
+    public array $selectedUsers = [];
 
     public function mountHandlesUserAuthors()
     {
         $this->setUserPivotData();
     }
 
-    public function selectedUserAuthors(array $authors): void
+    public function addUserAuthor(User $user): void
     {
-        $users = User::query()
-            ->whereIn('id', $authors)
-            ->whereNotIn('id', $this->post->userAuthors->fresh()->map(fn ($author) => $author->id)->all())
-            ->get()
-            ->mapWithKeys(fn (User $user) => [
-                $user->id => [
-                    'user_id' => $user->id,
-                    'as' => null,
-                ],
-            ])
-            ->all();
+        $this->search = '';
 
-        $this->post->userAuthors()->attach($users);
+        $this->users->push($user);
 
-        $this->refreshUserAuthors();
+        $this->selectedUsers[$user->id] = [
+            'user_id' => $user->id,
+            'as' => null,
+        ];
+    }
 
-        $this->setUserPivotData();
+    public function removeUserAuthor(User $user): void
+    {
+        $this->dispatch('dropdown-close');
 
-        $this->sendNotificationsToAddedUsers($authors);
+        $this->users = $this->users->reject(
+            fn (User $collectionUser) => $collectionUser->id === $user->id
+        );
+
+        unset($this->selectedUsers[$user->id]);
     }
 
     public function setUserPivotData(): void
     {
-        $this->selectedUsers = $this->post
-            ->userAuthors
+        $this->selectedUsers = $this->post?->userAuthors
             ->mapWithKeys(
                 fn (User $user) => [
                     $user->id => [
@@ -52,36 +54,20 @@ trait HandlesUserAuthors
                     ],
                 ]
             )
-            ->all();
+            ->all() ?? [];
     }
 
-    public function updatedSelectedUsers(): void
+    #[Computed]
+    public function filteredUsers(): Collection
     {
-        $this->post->userAuthors()->sync($this->selectedUsers);
-    }
+        if ($this->postType?->options?->allowsUserAuthors) {
+            return User::query()
+                ->active()
+                ->whereNotIn('id', array_keys($this->selectedUsers))
+                ->when(filled($this->search), fn (Builder $query): Builder => $query->searchForBasic($this->search))
+                ->get();
+        }
 
-    public function removeUserAuthor(User $user): void
-    {
-        $this->dispatch('dropdown-close');
-
-        $this->post->userAuthors()->detach($user->id);
-
-        $this->refreshUserAuthors();
-
-        $user->notify(new UserAuthorRemovedFromPost($this->post));
-    }
-
-    protected function refreshUserAuthors(): void
-    {
-        $this->users = $this->post->refresh()->userAuthors;
-    }
-
-    protected function sendNotificationsToAddedUsers(array $authors): void
-    {
-        User::query()
-            ->whereIn('id', $authors)
-            ->whereNotIn('id', [auth()->id()])
-            ->get()
-            ->each->notify(new UserAuthorAddedToPost($this->post));
+        return Collection::make();
     }
 }

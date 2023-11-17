@@ -7,7 +7,6 @@ namespace Nova\Characters\Actions;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Characters\Data\CharacterPositionsData;
 use Nova\Characters\Models\Character;
-use Nova\Characters\Models\States\Status\Active;
 use Nova\Characters\Requests\StoreCharacterRequest;
 use Nova\Departments\Actions\UpdatePositionAvailability;
 
@@ -53,7 +52,7 @@ class CreateCharacterManager
         }
 
         SendPendingCharacterNotification::runUnless(
-            $character->status->equals(Active::class),
+            $character->is_active,
             $character,
             $request->user()
         );

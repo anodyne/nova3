@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 use Nova\Characters\Enums\CharacterType;
 use Nova\Characters\Models\Character;
-use Nova\Characters\Models\States\Status\Active;
-use Nova\Characters\Models\States\Status\Inactive;
-use Nova\Characters\Models\States\Status\Pending;
 use Nova\Users\Models\User;
 
 uses()->group('characters');
@@ -141,12 +138,12 @@ test('with approval required user cannot create additional secondary characters 
 
     $oldPrimaryCharacter->refresh();
 
-    expect($oldPrimaryCharacter->status->equals(Active::class))->toBeTrue();
+    expect($oldPrimaryCharacter->is_active)->toBeTrue();
     expect(CharacterType::primary)->toEqual($oldPrimaryCharacter->type);
 
     $newPrimaryCharacter = Character::latest('id')->first();
 
-    expect($newPrimaryCharacter->status->equals(Pending::class))->toBeTrue();
+    expect($newPrimaryCharacter->is_pending)->toBeTrue();
     expect(CharacterType::primary)->toEqual($newPrimaryCharacter->type);
 });
 test('without approval required user cannot create additional secondary characters by creating new primary character', function () {
@@ -182,7 +179,7 @@ test('without approval required user cannot create additional secondary characte
 
     $oldPrimaryCharacter->refresh();
 
-    expect($oldPrimaryCharacter->status->equals(Inactive::class))->toBeTrue();
+    expect($oldPrimaryCharacter->is_inactive)->toBeTrue();
     expect(CharacterType::primary)->toEqual($oldPrimaryCharacter->type);
 });
 test('user cannot create primary character for another user', function () {

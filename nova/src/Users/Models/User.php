@@ -25,6 +25,9 @@ use Nova\Posts\Models\Post;
 use Nova\Users\Data\PronounsData;
 use Nova\Users\Events;
 use Nova\Users\Models\Builders\UserBuilder;
+use Nova\Users\Models\States\Status\Active;
+use Nova\Users\Models\States\Status\Inactive;
+use Nova\Users\Models\States\Status\Pending;
 use Nova\Users\Models\States\Status\UserStatus;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\CausesActivity;
@@ -139,6 +142,34 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
     {
         return new Attribute(
             get: fn (): bool => $this->getFirstMedia('avatar') !== null
+        );
+    }
+
+    public function isActive(): Attribute
+    {
+        return new Attribute(
+            get: fn (): bool => $this->status->equals(Active::class)
+        );
+    }
+
+    public function isDeleted(): Attribute
+    {
+        return new Attribute(
+            get: fn (): bool => $this->trashed()
+        );
+    }
+
+    public function isInactive(): Attribute
+    {
+        return new Attribute(
+            get: fn (): bool => $this->status->equals(Inactive::class)
+        );
+    }
+
+    public function isPending(): Attribute
+    {
+        return new Attribute(
+            get: fn (): bool => $this->status->equals(Pending::class)
         );
     }
 

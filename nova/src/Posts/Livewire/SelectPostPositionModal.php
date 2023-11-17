@@ -6,11 +6,12 @@ namespace Nova\Posts\Livewire;
 
 use Illuminate\Support\Collection;
 use LivewireUI\Modal\ModalComponent;
+use Nova\Posts\Livewire\Steps\PublishPostStep;
 use Nova\Posts\Models\Post;
 
 class SelectPostPositionModal extends ModalComponent
 {
-    public ?int $story = 0;
+    public int $story = 0;
 
     public string $search = '';
 
@@ -21,7 +22,7 @@ class SelectPostPositionModal extends ModalComponent
     public function apply(): void
     {
         $this->closeModalWithEvents([
-            'posts:step:publish-post' => ['selectedPostPosition', [$this->selected, $this->direction]],
+            PublishPostStep::class => ['selectedNewPostPosition', [$this->selected, $this->direction]],
         ]);
     }
 
@@ -52,7 +53,7 @@ class SelectPostPositionModal extends ModalComponent
     {
         return Post::query()
             ->story($this->story)
-            ->wherePublished()
+            ->published()
             ->when($this->search, fn ($query, $search) => $query->searchFor($search))
             ->ordered()
             ->get();
@@ -65,7 +66,7 @@ class SelectPostPositionModal extends ModalComponent
 
     public function render()
     {
-        return view('livewire.posts.select-post-position-modal', [
+        return view('pages.posts.livewire.select-post-position-modal', [
             'posts' => $this->filteredPosts,
         ]);
     }

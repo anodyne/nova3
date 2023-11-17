@@ -4,28 +4,46 @@ declare(strict_types=1);
 
 namespace Nova\Posts\Livewire\Steps;
 
-use Livewire\Redirector;
-use Nova\Posts\Livewire\Concerns\HasPost;
-use Nova\Posts\Livewire\Concerns\HasPostType;
-use Nova\Posts\Livewire\Concerns\HasStory;
-use Nova\Posts\Livewire\Concerns\SetsPostPosition;
+use Illuminate\Database\Eloquent\Collection;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
+use Livewire\Features\SupportRedirects\Redirector;
+use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Posts\Actions\SetPostPosition;
+use Nova\Posts\Data\PostPositionData;
+use Nova\Posts\Livewire\Concerns\HasParentState;
+use Nova\Posts\Livewire\PostForm;
+use Nova\Posts\Models\Post;
 use Nova\Posts\Models\States\Published;
 use Nova\Users\Models\User;
-use Spatie\LivewireWizard\Components\StepComponent;
 
-class PublishPostStep extends StepComponent
+class PublishPostStep extends WizardStep
 {
-    use HasPost;
-    use HasPostType;
-    use HasStory;
-    use SetsPostPosition;
+    use HasParentState;
 
-    public $participatingUsers;
+    public ?Post $post = null;
 
-    protected $listeners = [
-        'selectedPostPosition',
-        'refreshParticipatingUsers',
-    ];
+    public PostForm $form;
+
+    public ?Post $previousPost = null;
+
+    public ?Post $nextPost = null;
+
+    public ?Collection $participatingUsers = null;
+
+    public function goToNextStep(): void
+    {
+    }
+
+    public function save(): void
+    {
+        $this->form->save();
+
+        Notification::make()
+            ->success()
+            ->title($this->post->title.' has been saved')
+            ->send();
+    }
 
     public function stepInfo(): array
     {
@@ -34,24 +52,53 @@ class PublishPostStep extends StepComponent
         ];
     }
 
-    public function getNumberOfPublishedPostsProperty(): int
+    #[On('selectedNewPostPosition')]
+    public function setNewPostPosition(...$args): void
+    {
+        [$neighbor, $direction] = $args;
+
+        $this->setDirectionAndNeighbor($direction, $neighbor);
+
+        SetPostPosition::run($this->post, PostPositionData::from([
+            'direction' => $direction,
+            'neighbor' => $neighbor,
+            'hasPositionChange' => true,
+        ]));
+    }
+
+    #[Computed]
+    public function numberOfPublishedPosts(): int
     {
         return $this->story->posts()->count();
     }
 
-    public function getShouldShowPositionPanelProperty(): bool
+    #[Computed]
+    public function shouldShowPositionPanel(): bool
     {
         return $this->story->posts()->count() > 0;
     }
 
-    public function getShouldShowParticipantsPanelProperty(): bool
+    #[Computed]
+    public function shouldShowParticipantsPanel(): bool
     {
         return $this->post->characterAuthors()->count() + $this->post->userAuthors()->count() > 1;
     }
 
+    #[Computed]
+    public function hasNonParticipants(): bool
+    {
+        return $this->post->participatingUsers()
+            ->newPivotStatement()
+            ->where('post_id', $this->post->id)
+            ->whereNotIn('user_id', $this->post->participants)
+            ->count() > 0;
+    }
+
     public function publish(): Redirector
     {
-        if (! $this->post->status->equals(Published::class)) {
+        $this->form->save();
+
+        if (! $this->post->is_published) {
             $this->post->status->transitionTo(Published::class);
         }
 
@@ -68,18 +115,49 @@ class PublishPostStep extends StepComponent
         $this->refreshParticipatingUsers();
     }
 
+    public function removeAllNonParticipants(): void
+    {
+        $this->dispatch('dropdown-close');
+
+        $this->post->removeAllNonParticipants();
+
+        $this->refreshParticipatingUsers();
+    }
+
     public function refreshParticipatingUsers(): void
     {
         $this->participatingUsers = $this->post->fresh()->participatingUsers;
     }
 
-    public function booted(): void
+    public function mount(): void
     {
+        $this->post = Post::findOrFail($this->postId);
+
+        $this->form->setPost($this->post);
+
         $this->participatingUsers = $this->post->participatingUsers;
+
+        $this->previousPost = $this->post->previousSibling(Published::class);
+        $this->nextPost = $this->post->nextSibling(Published::class);
     }
 
     public function render()
     {
-        return view('livewire.posts.steps.publish-post');
+        return view('pages.posts.livewire.steps.publish-post', [
+            'shouldShowPositionPanel' => $this->shouldShowPositionPanel,
+            'shouldShowParticipantsPanel' => $this->shouldShowParticipantsPanel,
+            'hasNonParticipants' => $this->hasNonParticipants,
+        ]);
+    }
+
+    protected function setDirectionAndNeighbor(string $direction, int $neighbor): void
+    {
+        if ($direction === 'before') {
+            $this->nextPost = Post::find($neighbor);
+            $this->previousPost = $this->nextPost->previousSibling(Published::class);
+        } else {
+            $this->previousPost = Post::find($neighbor);
+            $this->nextPost = $this->previousPost->nextSibling(Published::class);
+        }
     }
 }

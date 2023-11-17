@@ -58,7 +58,7 @@
                             class="group flex w-full items-center space-x-2 rounded-md px-4 py-2 text-base font-medium text-gray-600 transition hover:bg-gray-100 hover:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-600/50 dark:hover:text-gray-100 md:text-sm"
                             role="menuitem"
                         >
-                            <x-icon name="dismiss" size="sm" class="text-gray-500"></x-icon>
+                            <x-icon name="x" size="sm" class="text-gray-500"></x-icon>
                             <span>Clear selected rank</span>
                         </button>
                     </div>

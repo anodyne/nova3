@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Posts\Notifications;
 
+use Illuminate\Contracts\Mail\Mailable;
 use Nova\Foundation\Notifications\PreferenceBasedNotification;
+use Nova\Posts\Mail\SendUserAuthorAddedToPost;
 use Nova\Posts\Models\Post;
 
 class UserAuthorAddedToPost extends PreferenceBasedNotification
@@ -23,5 +25,12 @@ class UserAuthorAddedToPost extends PreferenceBasedNotification
             'post_title' => $this->post->title,
             'post_type_name' => $this->post->postType->name,
         ];
+    }
+
+    public function mailable(): Mailable
+    {
+        return new SendUserAuthorAddedToPost(
+            post: $this->post
+        );
     }
 }

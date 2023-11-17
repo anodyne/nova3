@@ -16,7 +16,7 @@ class StoreRoleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'default' => ['sometimes', new Boolean()],
+            'is_default' => ['sometimes', new Boolean()],
             'description' => ['nullable'],
             'display_name' => ['required'],
             'name' => ['required', Rule::unique('roles')->ignore($this->role)],

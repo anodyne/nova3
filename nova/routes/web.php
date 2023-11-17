@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 use Nova\Departments\Models\Department;
 
@@ -17,7 +18,7 @@ try {
 
 Route::impersonate();
 
-Route::get('test', function () {
+Route::get('manifest-test', function () {
     $active = Department::query()
         ->with([
             'positions' => fn ($query) => $query->whereHas('characters'),
@@ -108,4 +109,11 @@ Route::get('test', function () {
     echo '</ul>';
 
     return 'done';
+});
+
+Route::get('test', function () {
+    dd(Arr::build([
+        'foo' => false,
+        'bar' => false,
+    ]));
 });

@@ -23,8 +23,12 @@
 
             <x-form.footer class="mt-4 md:mt-8">
                 @can('update', $form)
-                    <x-button.filled :href="route('forms.edit', $form)" leading="edit" color="primary">Edit</x-button.filled>
-                    <x-button.outline :href="route('forms.edit', $form)" leading="tools" color="primary">Design</x-button.outline>
+                    <x-button.filled :href="route('forms.edit', $form)" leading="edit" color="primary">
+                        Edit
+                    </x-button.filled>
+                    <x-button.outlined :href="route('forms.edit', $form)" leading="tools" color="primary">
+                        Design
+                    </x-button.outlined>
                 @endcan
 
                 @can('viewAny', $form::class)

@@ -20,8 +20,7 @@ class Action extends FilamentAction
         $this->modalIcon(null);
         $this->modalHeading('');
         $this->modalDescription(null);
-        $this->modalSubmitActionLabel('Delete');
-        $this->modalContent(fn (Model $record): View => view($this->modalContentView, [
+        $this->modalContent(fn (?Model $record): View => view($this->modalContentView, [
             'record' => $record,
         ]));
     }

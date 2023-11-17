@@ -7,6 +7,7 @@ namespace Nova\PostTypes\Controllers;
 use Nova\Foundation\Controllers\Controller;
 use Nova\PostTypes\Actions\CreatePostType;
 use Nova\PostTypes\Actions\UpdatePostType;
+use Nova\PostTypes\Enums\PostEditTimeframe;
 use Nova\PostTypes\Models\PostType;
 use Nova\PostTypes\Requests\StorePostTypeRequest;
 use Nova\PostTypes\Requests\UpdatePostTypeRequest;
@@ -53,6 +54,7 @@ class PostTypeController extends Controller
     public function create()
     {
         return CreatePostTypeResponse::sendWith([
+            'editTimeframes' => PostEditTimeframe::toOptions(),
             'fieldTypes' => $this->fieldTypes,
             'roles' => Role::ordered()->get(),
         ]);
@@ -70,6 +72,7 @@ class PostTypeController extends Controller
     public function edit(PostType $postType)
     {
         return EditPostTypeResponse::sendWith([
+            'editTimeframes' => PostEditTimeframe::toOptions(),
             'fieldTypes' => $this->fieldTypes,
             'postType' => $postType,
             'roles' => Role::ordered()->get(),

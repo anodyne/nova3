@@ -20,7 +20,7 @@ document.addEventListener('alpine:init', () => {
     window.Alpine.data('modal', Modal);
     window.Alpine.data('ratings', Ratings);
     window.Alpine.data('tabsList', TabsList);
-    window.Alpine.data('tipTap', TipTap);
+    window.Alpine.data('tiptap', TipTap);
     window.Alpine.data('switchToggle', SwitchToggle);
     window.Alpine.data('wordCount', WordCount);
 

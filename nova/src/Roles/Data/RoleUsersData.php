@@ -17,7 +17,7 @@ class RoleUsersData extends Data
     public static function fromRequest(Request $request): static
     {
         return new self(
-            users: explode(',', $request->input('assigned_users', '') ?? '')
+            users: collect(explode(',', $request->input('assigned_users') ?? ''))->filter()->all()
         );
     }
 }

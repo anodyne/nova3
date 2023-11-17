@@ -20,6 +20,8 @@ class CreateUserManager
 
         $user = SyncUserRoles::run($user, $request->getUserRolesData());
 
+        $user = PopulateNotificationPreferences::run($user);
+
         UploadUserAvatar::run($user, $request->avatar_path);
 
         return $user->fresh();

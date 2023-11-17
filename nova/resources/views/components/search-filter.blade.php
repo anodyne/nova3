@@ -2,9 +2,7 @@
 
 <div x-data="{ search: '{{ $search }}', isLoading: false }">
     <label for="email" class="sr-only">{{ $placeholder }}</label>
-    <div
-        class="flex items-center py-1 text-gray-500 transition duration-200 ease-in-out focus-within:text-gray-600"
-    >
+    <div class="flex items-center py-1 text-gray-500 transition duration-200 ease-in-out focus-within:text-gray-600">
         <x-icon name="search" size="sm" class="mr-3 shrink-0"></x-icon>
 
         <input
@@ -21,11 +19,7 @@
             role="searchbox"
         />
 
-        <x-loader-circle
-            x-show="isLoading"
-            x-cloak
-            class="ml-3 h-5 w-5 text-gray-500"
-        />
+        <x-loader-circle x-show="isLoading" x-cloak class="ml-3 h-5 w-5 text-gray-500" />
 
         <x-button.text
             x-show="!!search"
@@ -39,7 +33,7 @@
             role="button"
             aria-label="Reset"
         >
-            <x-icon name="dismiss" size="sm"></x-icon>
+            <x-icon name="x" size="sm"></x-icon>
         </x-button.text>
     </div>
 </div>

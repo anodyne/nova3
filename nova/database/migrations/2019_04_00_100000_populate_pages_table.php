@@ -44,6 +44,9 @@ class PopulatePagesTable extends Migration
             ['uri' => 'users/{user}/edit', 'key' => 'users.edit', 'resource' => 'Nova\\Users\\Controllers\\UserController@edit', 'layout' => 'admin'],
             ['uri' => 'users/{user}', 'key' => 'users.update', 'verb' => PageVerb::put, 'resource' => 'Nova\\Users\\Controllers\\UserController@update', 'layout' => 'admin'],
 
+            ['uri' => 'profile', 'key' => 'profile.edit', 'resource' => 'Nova\\Users\\Controllers\\ProfileController@edit', 'layout' => 'admin'],
+            ['uri' => 'profile', 'key' => 'profile.update', 'verb' => PageVerb::put, 'resource' => 'Nova\\Users\\Controllers\\ProfileController@update', 'layout' => 'admin'],
+
             ['uri' => 'notes', 'key' => 'notes.index', 'resource' => 'Nova\\Notes\\Controllers\\NoteController@index', 'layout' => 'admin'],
             ['uri' => 'notes/{note}/show', 'key' => 'notes.show', 'resource' => 'Nova\\Notes\\Controllers\\NoteController@show', 'layout' => 'admin'],
             ['uri' => 'notes/create', 'key' => 'notes.create', 'resource' => 'Nova\\Notes\\Controllers\\NoteController@create', 'layout' => 'admin'],
@@ -111,12 +114,12 @@ class PopulatePagesTable extends Migration
             ['uri' => 'stories/{story}', 'key' => 'stories.update', 'verb' => PageVerb::put, 'resource' => 'Nova\\Stories\\Controllers\\StoryController@update', 'layout' => 'admin'],
             ['uri' => 'stories/{id}/delete', 'key' => 'stories.delete', 'verb' => 'get', 'resource' => 'Nova\\Stories\\Controllers\\StoryController@delete', 'layout' => 'admin'],
             ['uri' => 'stories', 'key' => 'stories.destroy', 'verb' => PageVerb::delete, 'resource' => 'Nova\\Stories\\Controllers\\StoryController@destroy', 'layout' => 'admin'],
-            ['uri' => 'story-timeline', 'key' => 'stories.timeline', 'resource' => 'Nova\\Stories\\Controllers\\ShowStoryTimelineController', 'layout' => 'admin'],
+            ['uri' => 'timeline/{type}', 'key' => 'stories.timeline', 'resource' => 'Nova\\Stories\\Controllers\\ShowTimelineController', 'layout' => 'admin'],
 
+            ['uri' => 'posts', 'key' => 'posts.index', 'resource' => 'Nova\\Posts\\Controllers\\PostController@index', 'layout' => 'admin'],
             ['uri' => 'stories/{story}/posts/{post}/show', 'key' => 'posts.show', 'resource' => 'Nova\\Posts\\Controllers\\PostController@show', 'layout' => 'admin'],
-            ['uri' => 'posts/write/{post?}', 'key' => 'posts.create', 'resource' => 'Nova\\Posts\\Controllers\\PostController@create', 'layout' => 'admin'],
+            ['uri' => 'posts/create/{neighbor?}/{direction?}', 'key' => 'posts.create', 'resource' => 'Nova\\Posts\\Controllers\\PostController@create', 'layout' => 'admin'],
             ['uri' => 'posts/{post}/edit', 'key' => 'posts.edit', 'resource' => 'Nova\\Posts\\Controllers\\PostController@edit', 'layout' => 'admin'],
-            ['uri' => 'posts/{post}', 'key' => 'posts.update', 'verb' => PageVerb::put, 'resource' => 'Nova\\Posts\\Controllers\\PostController@update', 'layout' => 'admin'],
 
             ['uri' => 'forms', 'key' => 'forms.index', 'resource' => 'Nova\\Forms\\Controllers\\ShowFormController@all', 'layout' => 'admin'],
             ['uri' => 'forms/{form}/show', 'key' => 'forms.show', 'resource' => 'Nova\\Forms\\Controllers\\ShowFormController@show', 'layout' => 'admin'],

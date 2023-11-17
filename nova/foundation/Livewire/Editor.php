@@ -17,7 +17,7 @@ class Editor extends Component
 
     public function updatedContent(): void
     {
-        $this->dispatch('editorUpdated', value: $this->content);
+        $this->dispatch('editorUpdated', $this->content);
     }
 
     #[Computed]

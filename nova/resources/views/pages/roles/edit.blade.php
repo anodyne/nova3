@@ -26,6 +26,7 @@
                         </x-panel.warning>
                     @endif
                 </x-slot>
+
                 <x-input.group label="Name" for="display_name" :error="$errors->first('display_name')">
                     <x-input.text
                         id="display_name"
@@ -46,7 +47,12 @@
                 </x-input.group>
 
                 <x-input.group>
-                    <x-switch-toggle name="is_default" :value="old('is_default', $role->is_default ?? false)">
+                    <x-switch-toggle
+                        name="is_default"
+                        :value="old('is_default', (int) $role->is_default ?? (int) false)"
+                        :on-value="1"
+                        :off-value="0"
+                    >
                         Assign this role to new users
                     </x-switch-toggle>
                 </x-input.group>

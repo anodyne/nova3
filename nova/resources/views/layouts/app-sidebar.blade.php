@@ -130,12 +130,12 @@
 
                                         <li>
                                             <x-nav.main-item-mobile
-                                                :href="route('stories.timeline')"
+                                                :href="route('stories.timeline', 'stories')"
                                                 :active="request()->routeIs('stories.timeline')"
                                                 icon="timeline"
                                                 :meta="$meta"
                                             >
-                                                Story timeline
+                                                Timeline
                                             </x-nav.main-item-mobile>
                                         </li>
 
@@ -345,12 +345,12 @@
 
                                 <li>
                                     <x-nav.main-item
-                                        :href="route('stories.timeline')"
+                                        :href="route('stories.timeline', 'stories')"
                                         :active="request()->routeIs('stories.timeline')"
                                         icon="timeline"
                                         :meta="$meta"
                                     >
-                                        Story timeline
+                                        Timeline
                                     </x-nav.main-item>
                                 </li>
 
@@ -443,11 +443,15 @@
                                 <li class="px-6 leading-none">
                                     <livewire:users-notifications />
                                 </li>
-                                <li class="leading-none">
+                                {{--
+                                    <li class="leading-none">
                                     <x-nav.main-item href="#" icon="search" :meta="$meta">Search</x-nav.main-item>
-                                </li>
+                                    </li>
+                                --}}
                                 <li class="leading-none">
-                                    <x-nav.main-item href="#" icon="help" :meta="$meta">Get help</x-nav.main-item>
+                                    <x-nav.main-item href="https://discord.gg/7WmKUks" icon="help" :meta="$meta">
+                                        Get help
+                                    </x-nav.main-item>
                                 </li>
                                 {{--
                                     <li class="px-6 leading-none">
@@ -495,24 +499,44 @@
                                         </x-slot>
 
                                         <x-dropdown.group>
-                                            <livewire:users-admin-theme-toggle />
-                                        </x-dropdown.group>
-
-                                        <x-dropdown.group>
-                                            <x-dropdown.item href="#" icon="user">My account</x-dropdown.item>
+                                            <x-dropdown.item :href="route('profile.edit')" icon="user">
+                                                My account
+                                            </x-dropdown.item>
                                             <x-dropdown.item
                                                 :href="route('characters.index', ['tableFilters' => ['only_my_characters' => ['isActive' => true]]])"
                                                 icon="characters"
                                             >
                                                 My characters
                                             </x-dropdown.item>
+                                            <div
+                                                class="flex items-center px-4 py-3 text-base text-gray-700 dark:text-gray-300 md:text-sm"
+                                            >
+                                                <x-icon
+                                                    name="moon"
+                                                    size="sm"
+                                                    class="mr-3 text-gray-500 dark:text-gray-400"
+                                                ></x-icon>
+                                                <div class="flex w-full items-center justify-between">
+                                                    <div class="flex-1 font-medium">Dark mode</div>
+                                                    <livewire:users-admin-theme-toggle />
+                                                </div>
+                                            </div>
                                         </x-dropdown.group>
 
-                                        <x-dropdown.group>
+                                        {{--
+                                            <x-dropdown.group>
                                             <x-dropdown.item :href="route('whats-new')" icon="star">
-                                                See what's new
+                                            See what's new
                                             </x-dropdown.item>
-                                        </x-dropdown.group>
+                                            <x-dropdown.item
+                                            href="https://discord.gg/7WmKUks"
+                                            target="_blank"
+                                            icon="help"
+                                            >
+                                            Get help
+                                            </x-dropdown.item>
+                                            </x-dropdown.group>
+                                        --}}
 
                                         <x-dropdown.group>
                                             <x-dropdown.item type="submit" icon="logout" form="logout-form">
@@ -574,40 +598,27 @@
             ])
             tabindex="0"
         >
+            {{ NovaView::renderHook('admin::content.start') }}
+
             <div class="space-y-6 px-4 sm:px-6 lg:px-8">
                 @yield('template')
             </div>
+
+            {{ NovaView::renderHook('admin::content.end') }}
+
+            <footer class="mb-4 mt-8">
+                {{ NovaView::renderHook('admin::footer.start') }}
+
+                <div class="mx-auto text-sm text-gray-400 dark:text-gray-600">
+                    <div class="flex items-center justify-center space-x-2">
+                        <span>Powered by Nova</span>
+                        <span>&bull;</span>
+                        <span>Built with &hearts; by Anodyne</span>
+                    </div>
+                </div>
+
+                {{ NovaView::renderHook('admin::footer.end') }}
+            </footer>
         </main>
-        {{--
-            <div class="">
-            <!-- Activity feed -->
-            <aside class="bg-black/10 lg:fixed lg:bottom-0 lg:right-0 lg:top-16 lg:w-96 lg:overflow-y-auto lg:border-l lg:border-white/5">
-            <header class="flex items-center justify-between border-b border-white/5 px-4 py-4 sm:px-6 sm:py-6 lg:px-8">
-            <h2 class="text-base font-semibold leading-7 text-white">Activity feed</h2>
-            <a href="#" class="text-sm font-semibold leading-6 text-indigo-400">View all</a>
-            </header>
-            <ul role="list" class="divide-y divide-white/5">
-            <li class="px-4 py-4 sm:px-6 lg:px-8">
-            <div class="flex items-center gap-x-3">
-            <img src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" class="h-6 w-6 flex-none rounded-full bg-gray-800" />
-            <h3 class="flex-auto truncate text-sm font-semibold leading-6 text-white">Michael Foster</h3>
-            <time datetime="2023-01-23T11:00" class="flex-none text-xs text-gray-600">1h</time>
-            </div>
-            <p class="mt-3 truncate text-sm text-gray-500">
-            Pushed to
-            <span class="text-gray-400">ios-app</span>
-            (
-            <span class="font-mono text-gray-400">2d89f0c8</span>
-            on
-            <span class="text-gray-400">main</span>
-            )
-            </p>
-            </li>
-            
-            <!-- More items... -->
-            </ul>
-            </aside>
-            </div>
-        --}}
     </div>
 @endsection

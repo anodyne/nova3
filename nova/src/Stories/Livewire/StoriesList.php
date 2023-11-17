@@ -24,7 +24,6 @@ use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Stories\Actions\UpdateStory;
 use Nova\Stories\Actions\UpdateStoryStatus;
-use Nova\Stories\Models\States;
 use Nova\Stories\Models\Story;
 
 class StoriesList extends TableComponent
@@ -121,8 +120,8 @@ class StoriesList extends TableComponent
                                 'end_date' => $record->ended_at->toIso8601String(),
                             ])
                             ->form([
-                                DatePicker::make('start_date'),
-                                DatePicker::make('end_date'),
+                                DatePicker::make('start_date')->prefixIcon(iconName('calendar')),
+                                DatePicker::make('end_date')->prefixIcon(iconName('calendar')),
                             ])
                             ->modalWidth('lg')
                             ->modalIcon(null)
@@ -148,28 +147,31 @@ class StoriesList extends TableComponent
                             Action::make('status_current')
                                 ->cancelParentActions()
                                 ->color('gray')
-                                ->label('Current')
-                                ->hidden(fn (Model $record): bool => $record->status->equals(States\Current::class))
+                                ->label('Mark as current')
+                                ->hidden(fn (Model $record): bool => $record->is_current)
                                 ->action(fn (Model $record): Model => UpdateStoryStatus::run($record, 'current')),
                             Action::make('status_ongoing')
                                 ->cancelParentActions()
                                 ->color('gray')
-                                ->label('Ongoing')
-                                ->hidden(fn (Model $record): bool => $record->status->equals(States\Ongoing::class))
+                                ->label('Mark as ongoing')
+                                ->hidden(fn (Model $record): bool => $record->is_ongoing)
                                 ->action(fn (Model $record): Model => UpdateStoryStatus::run($record, 'ongoing')),
                             Action::make('status_completed')
                                 ->cancelParentActions()
                                 ->color('gray')
-                                ->label('Completed')
-                                ->hidden(fn (Model $record): bool => $record->status->equals(States\Completed::class))
+                                ->label('Mark as completed')
+                                ->hidden(fn (Model $record): bool => $record->is_completed)
                                 ->action(fn (Model $record): Model => UpdateStoryStatus::run($record, 'completed')),
                             Action::make('status_upcoming')
                                 ->cancelParentActions()
                                 ->color('gray')
-                                ->label('Upcoming')
-                                ->hidden(fn (Model $record): bool => $record->status->equals(States\Upcoming::class))
+                                ->label('Mark as upcoming')
+                                ->hidden(fn (Model $record): bool => $record->is_upcoming)
                                 ->action(fn (Model $record): Model => UpdateStoryStatus::run($record, 'upcoming')),
-                        ])->label('Change status'),
+                        ])
+                            ->grouped()
+                            ->icon(iconName('change'))
+                            ->label('Change status'),
                     ])->authorizeAny(['view', 'update', 'updateDates'])->divided(),
 
                     ActionGroup::make([
@@ -215,8 +217,8 @@ class StoriesList extends TableComponent
                 Action::make('timeline')
                     ->icon(iconName('timeline'))
                     ->iconSize('md')
-                    ->color('gray')
-                    ->link()
+                    ->color('primary')
+                    ->outlined()
                     ->label('Story timeline')
                     ->url(route('stories.timeline')),
                 CreateAction::make()

@@ -4,7 +4,7 @@
             <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">Find settings</h3>
 
             <x-button.text color="gray" wire:click="dismiss">
-                <x-icon name="dismiss" size="sm"></x-icon>
+                <x-icon name="x" size="sm"></x-icon>
             </x-button.text>
         </div>
     </x-content-box>
@@ -20,7 +20,7 @@
                     <x-slot name="trailing">
                         @if ($search)
                             <x-button.text tag="button" color="gray" wire:click="$set('search', '')">
-                                <x-icon name="dismiss" size="sm"></x-icon>
+                                <x-icon name="x" size="sm"></x-icon>
                             </x-button.text>
                         @endif
                     </x-slot>

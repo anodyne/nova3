@@ -4,7 +4,7 @@
 
 <a
     @class([
-        'group relative -ml-0.5 flex items-center px-4 py-2 text-base transition md:text-sm',
+        'group relative -ml-0.5 flex items-center py-2 pl-6 pr-4 text-base transition md:text-sm',
         'font-semibold text-primary-500' => $active,
         'hover:text-gray-900 dark:hover:text-gray-100' => ! $active,
     ])

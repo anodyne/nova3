@@ -74,7 +74,7 @@
                 message="This is the default language content rating for your game. This is a good way to show current and interested players the type and level of content they can expect from your game."
             >
                 <x-input.group label="Rating" class="w-full md:w-72">
-                    <livewire:rating type="language" :rating="$settings->ratings->language->rating" />
+                    <livewire:rating area="language" :value="$settings->ratings->language->rating" />
                 </x-input.group>
             </x-form.section>
 
@@ -145,7 +145,7 @@
                 message="This is the default sex content rating for your game. This is a good way to show current and interested players the type and level of content they can expect from your game."
             >
                 <x-input.group label="Rating" class="w-full md:w-72">
-                    <livewire:rating type="sex" :rating="$settings->ratings->sex->rating" />
+                    <livewire:rating area="sex" :value="$settings->ratings->sex->rating" />
                 </x-input.group>
             </x-form.section>
 
@@ -216,7 +216,7 @@
                 message="This is the default sex content rating for your game. This is a good way to show current and interested players the type and level of content they can expect from your game."
             >
                 <x-input.group label="Rating" class="w-full md:w-72">
-                    <livewire:rating type="violence" :rating="$settings->ratings->violence->rating" />
+                    <livewire:rating area="violence" :value="$settings->ratings->violence->rating" />
                 </x-input.group>
             </x-form.section>
 

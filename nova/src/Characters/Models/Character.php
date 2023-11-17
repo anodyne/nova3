@@ -12,7 +12,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Nova\Characters\Enums\CharacterType;
 use Nova\Characters\Events;
 use Nova\Characters\Models\Builders\CharacterBuilder;
+use Nova\Characters\Models\States\Status\Active;
 use Nova\Characters\Models\States\Status\CharacterStatus;
+use Nova\Characters\Models\States\Status\Inactive;
+use Nova\Characters\Models\States\Status\Pending;
 use Nova\Departments\Models\Position;
 use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Ranks\Models\RankItem;
@@ -123,6 +126,34 @@ class Character extends Model implements HasMedia
     {
         return new Attribute(
             get: fn ($value): bool => $this->getFirstMedia('avatar') !== null
+        );
+    }
+
+    public function isActive(): Attribute
+    {
+        return new Attribute(
+            get: fn (): bool => $this->status->equals(Active::class)
+        );
+    }
+
+    public function isDeleted(): Attribute
+    {
+        return new Attribute(
+            get: fn (): bool => $this->trashed()
+        );
+    }
+
+    public function isInactive(): Attribute
+    {
+        return new Attribute(
+            get: fn (): bool => $this->status->equals(Inactive::class)
+        );
+    }
+
+    public function isPending(): Attribute
+    {
+        return new Attribute(
+            get: fn (): bool => $this->status->equals(Pending::class)
         );
     }
 

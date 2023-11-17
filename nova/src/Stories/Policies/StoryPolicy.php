@@ -6,7 +6,6 @@ namespace Nova\Stories\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
-use Nova\Stories\Models\States\Completed;
 use Nova\Stories\Models\Story;
 use Nova\Users\Models\User;
 
@@ -44,7 +43,7 @@ class StoryPolicy
 
     public function updateDates(User $user, Story $story): Response
     {
-        return $this->update($user, $story)->allowed() && $story->status->equals(Completed::class)
+        return $this->update($user, $story)->allowed() && $story->is_completed
             ? $this->allow()
             : $this->deny();
     }

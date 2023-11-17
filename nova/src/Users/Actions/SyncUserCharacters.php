@@ -6,8 +6,8 @@ namespace Nova\Users\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Characters\Actions\SetCharacterType;
-use Nova\Characters\Data\AssignUserCharactersData;
 use Nova\Characters\Models\Character;
+use Nova\Users\Data\AssignUserCharactersData;
 use Nova\Users\Models\User;
 
 class SyncUserCharacters

@@ -16,6 +16,7 @@ use Nova\Users\Livewire\DeactivateUserButton;
 use Nova\Users\Livewire\ForcePasswordResetButton;
 use Nova\Users\Livewire\ManageCharacters;
 use Nova\Users\Livewire\ManageRoles;
+use Nova\Users\Livewire\UserNotificationPreferencesList;
 use Nova\Users\Livewire\UserNotifications;
 use Nova\Users\Livewire\UsersList;
 use Nova\Users\Models\User;
@@ -58,6 +59,7 @@ class UserServiceProvider extends DomainServiceProvider
             'users-activate-button' => ActivateUserButton::class,
             'users-deactivate-button' => DeactivateUserButton::class,
             'users-force-password-reset-button' => ForcePasswordResetButton::class,
+            'profile-notification-preferences' => UserNotificationPreferencesList::class,
         ];
     }
 

@@ -226,7 +226,7 @@
 
             <x-form.section
                 title="Options"
-                message="Post types control the behavior of a post of that type with a wide range of options. You can turn any of these fields on/off to suit your game's needs."
+                message="Post types control the behavior of a post of that type with a wide range of options. You can turn any of these options on/off to suit your game's needs."
                 x-show="isTab('options')"
                 x-cloak
             >
@@ -273,13 +273,40 @@
                 </x-input.group>
 
                 <x-input.group
+                    help="Use caution when enabling this for post types that have large amounts of content as there could be a negative impact on page performance. This works best for post types that do not have a large amount of content."
+                >
+                    <x-switch-toggle
+                        name="options[showContentInTimelineView]"
+                        :value="old('options[showContentInTimelineView]', false)"
+                    >
+                        Show content in timeline view
+                    </x-switch-toggle>
+                </x-input.group>
+
+                <x-input.group
                     label="Restrict posting"
-                    help="You can set a specific role a user must have in order to use certain post types."
+                    help="You can set a specific role a user must have in order to use certain post types"
                 >
                     <x-input.select name="role_id" id="roles" class="w-full md:w-2/3">
                         <option value="">No role restrictions</option>
                         @foreach ($roles as $role)
                             <option value="{{ $role->id }}">{{ $role->display_name }}</option>
+                        @endforeach
+                    </x-input.select>
+                </x-input.group>
+
+                <x-input.group
+                    label="Published post editing timeframe"
+                    help="You can set how long after publishing authors can edit the post"
+                >
+                    <x-input.select name="options[editTimeframe]" id="editTimeframe" class="w-full md:w-2/3">
+                        @foreach ($editTimeframes as $timeframe => $text)
+                            <option
+                                value="{{ $timeframe }}"
+                                @selected($postType->options->editTimeframe === $timeframe)
+                            >
+                                {{ $text }}
+                            </option>
                         @endforeach
                     </x-input.select>
                 </x-input.group>

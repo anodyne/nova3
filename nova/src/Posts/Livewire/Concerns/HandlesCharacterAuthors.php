@@ -4,50 +4,57 @@ declare(strict_types=1);
 
 namespace Nova\Posts\Livewire\Concerns;
 
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Livewire\Attributes\Computed;
 use Nova\Characters\Models\Character;
-use Nova\Posts\Notifications\CharacterAuthorAddedToPost;
-use Nova\Posts\Notifications\CharacterAuthorRemovedFromPost;
 use Nova\Users\Models\User;
 
 trait HandlesCharacterAuthors
 {
-    public ?array $selectedCharacters;
+    public Collection $characters;
+
+    public array $selectedCharacters = [];
+
+    public array $validateSelectedCharacters = [];
 
     public function mountHandlesCharacterAuthors()
     {
         $this->setCharacterPivotData();
     }
 
-    public function selectedCharacterAuthors(array $authors): void
+    public function addCharacterAuthor(Character $character): void
     {
-        $characters = Character::with('activeUsers')
-            ->whereIn('id', $authors)
-            ->whereNotIn('id', $this->post->characterAuthors->fresh()->map(fn ($author) => $author->id)->all())
-            ->get();
+        $this->search = '';
 
-        $characterData = $characters->mapWithKeys(fn (Character $character) => [
-            $character->id => [
-                'user_id' => $character->activeUsers()->count() === 1
-                    ? $character->activeUsers()->first()->id
-                    : null,
-            ],
-        ])
-            ->all();
+        $this->characters->push($character);
 
-        $this->post->characterAuthors()->attach($characterData);
+        $numberOfActiveUsers = $character->activeUsers()->count();
 
-        $this->refreshCharacterAuthors();
+        $this->selectedCharacters[$character->id] = [
+            'user_id' => $numberOfActiveUsers === 1 ? $character->activeUsers->first()->id : null,
+        ];
 
-        $this->setCharacterPivotData();
+        if ($numberOfActiveUsers > 1) {
+            $this->validateSelectedCharacters[$character->id] = $character->id;
+        }
+    }
 
-        $this->sendNotificationsToAddedCharacters($characters);
+    public function removeCharacterAuthor(Character $character): void
+    {
+        $this->dispatch('dropdown-close');
+
+        $this->characters = $this->characters->reject(
+            fn (Character $collectionCharacter) => $collectionCharacter->id === $character->id
+        );
+
+        unset($this->selectedCharacters[$character->id]);
+        unset($this->validateSelectedCharacters[$character->id]);
     }
 
     public function setCharacterPivotData(): void
     {
-        $this->selectedCharacters = $this->post
-            ->characterAuthors
+        $this->selectedCharacters = $this->post?->characterAuthors
             ->mapWithKeys(
                 fn (Character $character) => [
                     $character->id => [
@@ -55,57 +62,26 @@ trait HandlesCharacterAuthors
                     ],
                 ]
             )
-            ->all();
+            ->all() ?? [];
     }
 
-    public function updatedSelectedCharacters(): void
-    {
-        $this->post->characterAuthors()->sync($this->selectedCharacters);
-    }
-
-    public function removeCharacterAuthor(Character $character): void
-    {
-        $this->dispatch('dropdown-close');
-
-        $this->post->characterAuthors()->detach($character->id);
-
-        $this->refreshCharacterAuthors();
-
-        $userForNotification = $this->post->characterAuthors()
-            ->wherePivot('authorable_type', 'character')
-            ->wherePivot('authorable_id', $character->id)
-            ->first();
-
-        if ($userForNotification) {
-            User::find($userForNotification->pivot->user_id)
-                ->notify(new CharacterAuthorRemovedFromPost($this->post, $character));
-        }
-    }
-
-    public function getAllUsersProperty(): Collection
+    #[Computed]
+    public function allUsers(): Collection
     {
         return User::active()->get();
     }
 
-    protected function refreshCharacterAuthors(): void
+    #[Computed]
+    public function filteredCharacters(): Collection
     {
-        $this->characters = $this->post->refresh()->characterAuthors;
-    }
-
-    protected function sendNotificationsToAddedCharacters($characters): void
-    {
-        $users = [];
-
-        foreach ($characters as $character) {
-            foreach ($character->activeUsers as $user) {
-                $users[$user->id][] = $character->displayName;
-            }
+        if ($this->postType?->options?->allowsCharacterAuthors) {
+            return Character::query()
+                ->active()
+                ->whereNotIn('id', array_keys($this->selectedCharacters))
+                ->when(filled($this->search), fn (Builder $query): Builder => $query->searchForBasic($this->search))
+                ->get();
         }
 
-        foreach ($users as $userId => $characterNames) {
-            if ($userId != auth()->id()) {
-                User::find($userId)?->notify(new CharacterAuthorAddedToPost($this->post, $characterNames));
-            }
-        }
+        return Collection::make();
     }
 }

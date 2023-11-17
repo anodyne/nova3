@@ -1,82 +1,86 @@
-<div class="block bg-gray-50">
-    <div class="flex items-center relative px-4 py-4 sm:px-6">
-        <div class="absolute top-0 right-0 pt-4 pr-4 sm:pr-6">
-            <x-dropdown placement="bottom-end">
-                <x-slot:trigger>
-                    <x-icon.more class="h-6 w-6" />
-                </x-slot:trigger>
-
-                <x-dropdown.group>
-                    <x-dropdown.item icon="show" data-cy="view">
-                        <span>View</span>
-                    </x-dropdown.item>
-
-                    @can('update', $post)
-                        <x-dropdown.item icon="edit" data-cy="edit">
-                            <span>Edit</span>
-                        </x-dropdown.item>
-                    @endcan
-                </x-dropdown.group>
-
-                <x-dropdown.group>
-                    <x-dropdown.text class="uppercase tracking-wide font-semibold text-gray-500>
-                        Add a post
-                    </x-dropdown.text>
-
-                    <x-dropdown.item :href='route("posts.create", "direction=before&neighbor={$post->id}")' icon="move-up">
-                        <span>Before this post</span>
-                    </x-dropdown.item>
-                    <x-dropdown.item :href='route("posts.create", "direction=after&neighbor={$post->id}")' icon="move-down">
-                        <span>After this post</span>
-                    </x-dropdown.item>
-                </x-dropdown.group>
-
-                @can('delete', $post)
-                    <x-dropdown.group>
-                        <x-dropdown.item-danger type="button" icon="trash" x-on:click="$dispatch('dropdown-toggle');$dispatch('modal-load', {{ json_encode($post) }});" data-cy="delete">
-                            <span>Delete</span>
-                        </x-dropdown.item-danger>
-                    </x-dropdown.group>
-                @endcan
-            </x-dropdown>
+<div>
+    <div class="flex cursor-pointer items-center justify-between gap-6">
+        <div class="flex items-center gap-6">
+            <x-h2>{{ $post->title }}</x-h2>
         </div>
+    </div>
+    <div class="mt-3 flex-1">
+        <x-content-box width="none" height="none" class="mb-6 flex flex-col gap-6">
+            <div class="flex-1">
+                <div
+                    class="relative mt-2 flex flex-col space-y-3 text-base md:flex-row md:items-center md:space-x-8 md:space-y-0 md:text-sm"
+                >
+                    @if ($post->postType->fields->location->enabled && filled($post->location))
+                        <div class="flex items-center gap-2 font-medium text-gray-500 dark:text-gray-400">
+                            <div class="text-gray-400 dark:text-gray-500">
+                                <x-icon name="location"></x-icon>
+                            </div>
+                            <div>{{ $post->location }}</div>
+                        </div>
+                    @endif
 
-        <div class="flex flex-col items-center flex-1">
-            <div class="flex flex-col flex-1 w-full space-y-2">
-                <div class="flex items-center space-x-2 justify-center">
-                    <span style="color:{{ $post->postType->color }}">
-                        <x-icon :name="$post->postType->icon" size="md"></x-icon>
-                    </span>
-                    <div class="font-bold text-xl tracking-tight truncate text-gray-900">{{ $post->title ?? 'Story Note' }}</div>
+                    @if ($post->postType->fields->day->enabled && filled($post->day))
+                        <div class="flex items-center gap-2 font-medium text-gray-500 dark:text-gray-400">
+                            <div class="text-gray-400 dark:text-gray-500">
+                                <x-icon name="calendar"></x-icon>
+                            </div>
+                            <div>{{ $post->day }}</div>
+                        </div>
+                    @endif
+
+                    @if ($post->postType->fields->time->enabled && filled($post->time))
+                        <div class="flex items-center gap-2 font-medium text-gray-500 dark:text-gray-400">
+                            <div class="text-gray-400 dark:text-gray-500">
+                                <x-icon name="clock"></x-icon>
+                            </div>
+                            <div>{{ $post->time }}</div>
+                        </div>
+                    @endif
+
+                    <div class="flex items-center gap-2 font-medium text-gray-500 dark:text-gray-400">
+                        <div class="text-gray-400 dark:text-gray-500">
+                            <x-icon :name="$post->postType->icon"></x-icon>
+                        </div>
+                        <div>{{ $post->postType->name }}</div>
+                    </div>
+
+                    <x-button.text
+                        :href="route('posts.show', ['story' => $post->story, 'post' => $post])"
+                        color="neutral-primary"
+                    >
+                        Read post &rarr;
+                    </x-button.text>
                 </div>
 
-                @if ($post->day || $post->time || $post->location)
-                    <div class="flex justify-center space-x-4">
-                        @if ($post->location)
-                            <div class="flex items-center text-sm text-gray-600 space-x-1.5">
-                                <x-icon name="location" size="sm" class="shrink-0 text-gray-500"></x-icon>
-                                <span>{{ $post->location }}</span>
-                            </div>
-                        @endif
-
-                        @if ($post->day)
-                            <div class="flex items-center text-sm text-gray-600 space-x-1.5">
-                                <x-icon name="calendar" size="sm" class="shrink-0 text-gray-500"></x-icon>
-                                <span>{{ $post->day }}</span>
-                            </div>
-                        @endif
-
-                        @if ($post->time)
-                            <div class="flex items-center text-sm text-gray-600 space-x-1.5">
-                                <x-icon name="clock" size="sm" class="shrink-0 text-gray-500"></x-icon>
-                                <span>{{ $post->time }}</span>
-                            </div>
-                        @endif
+                <div class="relative mt-4">
+                    <div class="flex -space-x-2 overflow-hidden">
+                        <img
+                            class="inline-block h-10 w-10 rounded-full ring-2 ring-white"
+                            src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                            alt=""
+                        />
+                        <img
+                            class="inline-block h-10 w-10 rounded-full ring-2 ring-white"
+                            src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                            alt=""
+                        />
+                        <img
+                            class="inline-block h-10 w-10 rounded-full ring-2 ring-white"
+                            src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80"
+                            alt=""
+                        />
+                        <img
+                            class="inline-block h-10 w-10 rounded-full ring-2 ring-white"
+                            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                            alt=""
+                        />
                     </div>
-                @endif
+                </div>
 
-                <div class="prose prose-sm max-w-full text-gray-900">{!! $post->content !!}</div>
+                <div class="prose prose-lg relative mt-4 max-w-none dark:prose-invert">
+                    {!! $post->content !!}
+                </div>
             </div>
-        </div>
+        </x-content-box>
     </div>
 </div>

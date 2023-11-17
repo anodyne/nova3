@@ -1,16 +1,33 @@
 <div x-data="{ open: false }" class="leading-none">
-    <x-button.text x-on:click.prevent="open = true" tag="button" color="gray" aria-label="Notifications" class="w-full">
-        <div class="relative flex items-center justify-between space-x-4">
-            <div class="flex items-center space-x-2">
-                <x-icon name="bell" size="md"></x-icon>
-                <span class="font-medium">Notifications</span>
-            </div>
-
-            <span>
-                <x-badge>{{ $unreadNotificationsCount }}</x-badge>
-            </span>
+    <button
+        x-on:click.prevent="open = true"
+        type="button"
+        aria-label="Notifications"
+        class="relative flex w-full appearance-none items-center gap-4 text-sm font-medium transition hover:text-gray-700 dark:hover:text-gray-300"
+    >
+        <div class="flex items-center gap-2.5">
+            {{-- format-ignore-start --}}
+            <svg class="icon tabler-icon h-7 w-7 md:h-6 md:w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10 6h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3"></path>
+                <path
+                    d="M17 7m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"
+                    @class([
+                        'stroke-primary-500' => $unreadNotificationsCount > 0
+                    ])
+                ></path>
+            </svg>
+            {{-- format-ignore-end --}}
+            <span class="font-medium">Notifications</span>
         </div>
-    </x-button.text>
+
+        @if ($unreadNotificationsCount > 0)
+            <span>
+                <x-badge color="primary">
+                    {{ $unreadNotificationsCount }}
+                </x-badge>
+            </span>
+        @endif
+    </button>
 
     <div
         x-on:sidebar-open.window="open = true"
@@ -66,7 +83,7 @@
                             class="rounded-md text-gray-500 transition duration-200 ease-in-out hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
                         >
                             <span class="sr-only">Close panel</span>
-                            <x-icon name="dismiss" size="md"></x-icon>
+                            <x-icon name="x" size="md"></x-icon>
                         </button>
                     </div>
 
@@ -99,15 +116,19 @@
                             @endif
                         </header>
 
-                        <div class="relative mt-6 w-full space-y-8 px-4 leading-normal sm:px-6">
+                        <div class="relative mt-6 w-full flex-1 space-y-8 px-4 leading-normal sm:px-6">
                             @forelse ($notifications as $notification)
-                                @include("pages.users.livewire.notifications.{$notification['type']}", compact('notification'))
+                                @include("pages.users.notifications.{$notification['type']}", compact('notification'))
                             @empty
                                 <x-panel.primary icon="check" title="You're all caught up">
                                     You don't have any unread notifications.
                                 </x-panel.primary>
                             @endforelse
                         </div>
+
+                        <footer class="text-center">
+                            <x-button.text color="neutral" leading="bell">Manage your notifications</x-button.text>
+                        </footer>
                     </div>
                 </div>
             </section>

@@ -69,7 +69,7 @@
 
                         @if (filled($search))
                             <x-button.text wire:click="$set('search', '')" color="gray">
-                                <x-icon name="dismiss" size="sm"></x-icon>
+                                <x-icon name="x" size="sm"></x-icon>
                             </x-button.text>
                         @endif
                     </div>

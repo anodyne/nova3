@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Posts\Notifications;
 
+use Illuminate\Contracts\Mail\Mailable;
 use Nova\Foundation\Notifications\PreferenceBasedNotification;
+use Nova\Posts\Mail\SendPostSaved;
 use Nova\Posts\Models\Post;
 use Nova\Users\Models\User;
 
@@ -27,5 +29,12 @@ class PostSaved extends PreferenceBasedNotification
             'post_type_icon' => $this->post->postType->icon,
             'author_name' => $this->author->name,
         ];
+    }
+
+    public function mailable(): Mailable
+    {
+        return new SendPostSaved(
+            post: $this->post
+        );
     }
 }

@@ -71,7 +71,7 @@
 
             <x-form.section>
                 <x-input.group label="Story summary">
-                    <livewire:nova:editor :content="old('summary', $story->summary ?? '')" fieldName="summary" />
+                    <x-editor :value="old('summary', $story->summary ?? '')" field-name="summary"></x-editor>
                 </x-input.group>
             </x-form.section>
 

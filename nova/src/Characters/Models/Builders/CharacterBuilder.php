@@ -17,22 +17,27 @@ class CharacterBuilder extends Builder
         return $this->whereRelation('users', 'users.id', '=', $user->id);
     }
 
-    public function searchForWithoutUsers($search): Builder
-    {
-        return $this->where(fn ($q) => $q->where('name', 'like', "%{$search}%"))
-            ->orWhereHas('positions', fn ($q) => $q->where('name', 'like', "%{$search}%"))
-            ->orWhereHas('positions.department', fn ($q) => $q->where('name', 'like', "%{$search}%"))
-            ->when(auth()->user()->isAbleTo('character.*'), function ($query) use ($search) {
-                return $query->orWhereHas('users', fn ($q) => $q->where('email', 'like', "%{$search}%"));
-            });
-    }
-
     public function searchFor($search): Builder
     {
         return $this->where(fn ($q) => $q->where('name', 'like', "%{$search}%"))
             ->orWhereHas('positions', fn ($q) => $q->where('name', 'like', "%{$search}%"))
             ->orWhereHas('positions.department', fn ($q) => $q->where('name', 'like', "%{$search}%"))
             ->orWhereHas('users', fn ($q) => $q->where('name', 'like', "%{$search}%"))
+            ->when(auth()->user()->isAbleTo('character.*'), function ($query) use ($search) {
+                return $query->orWhereHas('users', fn ($q) => $q->where('email', 'like', "%{$search}%"));
+            });
+    }
+
+    public function searchForBasic($search): self
+    {
+        return $this->where('name', 'like', "%{$search}%");
+    }
+
+    public function searchForWithoutUsers($search): Builder
+    {
+        return $this->where(fn ($q) => $q->where('name', 'like', "%{$search}%"))
+            ->orWhereHas('positions', fn ($q) => $q->where('name', 'like', "%{$search}%"))
+            ->orWhereHas('positions.department', fn ($q) => $q->where('name', 'like', "%{$search}%"))
             ->when(auth()->user()->isAbleTo('character.*'), function ($query) use ($search) {
                 return $query->orWhereHas('users', fn ($q) => $q->where('email', 'like', "%{$search}%"));
             });

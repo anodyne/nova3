@@ -17,6 +17,23 @@ class ArrMacros
         };
     }
 
+    public static function build()
+    {
+        return function (array $array) {
+            $items = [];
+
+            foreach ($array as $value => $constraint) {
+                if (is_numeric($value)) {
+                    $items[] = $constraint;
+                } elseif ($constraint) {
+                    $items[] = $value;
+                }
+            }
+
+            return $items;
+        };
+    }
+
     //    public static function enum()
     //    {
     //        return function ($key, $enumClass) {

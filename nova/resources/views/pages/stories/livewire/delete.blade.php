@@ -63,7 +63,7 @@
                                     @if (data_get($actions, "{$story->id}.story.action") === 'delete')
                                         <x-badge color="danger">
                                             <x-slot name="leadingIcon">
-                                                <x-icon name="dismiss" size="sm" class="shrink-0"></x-icon>
+                                                <x-icon name="x" size="sm" class="shrink-0"></x-icon>
                                             </x-slot>
                                             <span>Story will be deleted</span>
                                         </x-badge>
@@ -81,7 +81,7 @@
                                     @if (data_get($actions, "{$story->id}.posts.action") === 'delete')
                                         <x-badge color="danger">
                                             <x-slot name="leadingIcon">
-                                                <x-icon name="dismiss" size="sm" class="shrink-0"></x-icon>
+                                                <x-icon name="x" size="sm" class="shrink-0"></x-icon>
                                             </x-slot>
                                             <span>Story posts will be deleted</span>
                                         </x-badge>

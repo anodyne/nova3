@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Nova\Users\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Characters\Data\AssignUserRolesData;
+use Nova\Users\Data\AssignUserRolesData;
 use Nova\Users\Models\User;
 
 class SyncUserRoles

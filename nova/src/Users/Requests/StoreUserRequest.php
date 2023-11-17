@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Users\Requests;
 
-use Nova\Characters\Data\AssignUserCharactersData;
-use Nova\Characters\Data\AssignUserRolesData;
 use Nova\Foundation\Http\Requests\ValidatesRequest;
+use Nova\Users\Data\AssignUserCharactersData;
+use Nova\Users\Data\AssignUserRolesData;
 use Nova\Users\Data\UserData;
 
 class StoreUserRequest extends ValidatesRequest

@@ -8,19 +8,31 @@
         <meta name="theme-color" content="#0091ff" media="(prefers-color-scheme: dark)" />
         <title>{{ config('app.name', 'Nova NextGen') }}</title>
 
-        <x-fonts />
+        {{ NovaView::renderHook('admin::styles.before') }}
 
+        <x-fonts />
         @filamentStyles
         @novaStyles
         @stack('styles')
 
+        {{ NovaView::renderHook('admin::styles.after') }}
+        {{ NovaView::renderHook('admin::head-scripts.before') }}
+
         @stack('headScripts')
+
+        {{ NovaView::renderHook('admin::head-scripts.after') }}
     </head>
     <body
         class="h-full bg-white font-sans text-gray-600 antialiased dark:bg-gray-950 dark:text-gray-400 xl:bg-gray-100 dark:xl:bg-gray-950"
     >
+        {{ NovaView::renderHook('admin::body.start') }}
+
         <div id="nova">
+            {{ NovaView::renderHook('admin::page.start') }}
+
             @yield('layout')
+
+            {{ NovaView::renderHook('admin::page.end') }}
         </div>
 
         @stack('modal')
@@ -28,8 +40,13 @@
         @livewire('livewire-ui-spotlight')
         @livewire('notifications')
 
+        {{ NovaView::renderHook('admin::scripts.before') }}
+
         @filamentScripts(withCore: true)
         @novaScripts
         @stack('scripts')
+
+        {{ NovaView::renderHook('admin::scripts.after') }}
+        {{ NovaView::renderHook('admin::body.end') }}
     </body>
 </html>

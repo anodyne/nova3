@@ -3,8 +3,6 @@
 declare(strict_types=1);
 use Nova\Characters\Enums\CharacterType;
 use Nova\Characters\Models\Character;
-use Nova\Characters\Models\States\Status\Active;
-use Nova\Characters\Models\States\Status\Pending;
 
 uses()->group('characters');
 uses(\Tests\UsesSettings::class);
@@ -46,12 +44,12 @@ test('without primary and secondary approvals required user can create additiona
 
     $oldPrimaryCharacter->refresh();
 
-    expect($oldPrimaryCharacter->status->equals(Active::class))->toBeTrue();
+    expect($oldPrimaryCharacter->is_active)->toBeTrue();
     expect(CharacterType::secondary)->toEqual($oldPrimaryCharacter->type);
 
     $newPrimaryCharacter = Character::latest('id')->first();
 
-    expect($newPrimaryCharacter->status->equals(Active::class))->toBeTrue();
+    expect($newPrimaryCharacter->is_active)->toBeTrue();
     expect(CharacterType::primary)->toEqual($newPrimaryCharacter->type);
 });
 test('with primary approval and secondary without approval user can create additional secondary characters by creating new primary character', function () {
@@ -91,12 +89,12 @@ test('with primary approval and secondary without approval user can create addit
 
     $oldPrimaryCharacter->refresh();
 
-    expect($oldPrimaryCharacter->status->equals(Active::class))->toBeTrue();
+    expect($oldPrimaryCharacter->is_active)->toBeTrue();
     expect(CharacterType::primary)->toEqual($oldPrimaryCharacter->type);
 
     $newPrimaryCharacter = Character::latest('id')->first();
 
-    expect($newPrimaryCharacter->status->equals(Pending::class))->toBeTrue();
+    expect($newPrimaryCharacter->is_pending)->toBeTrue();
     expect(CharacterType::primary)->toEqual($newPrimaryCharacter->type);
 });
 test('with primary without approval and secondary with approval user can create additional secondary characters by creating new primary character', function () {
@@ -136,12 +134,12 @@ test('with primary without approval and secondary with approval user can create 
 
     $oldPrimaryCharacter->refresh();
 
-    expect($oldPrimaryCharacter->status->equals(Pending::class))->toBeTrue();
+    expect($oldPrimaryCharacter->is_pending)->toBeTrue();
     expect(CharacterType::secondary)->toEqual($oldPrimaryCharacter->type);
 
     $newPrimaryCharacter = Character::latest('id')->first();
 
-    expect($newPrimaryCharacter->status->equals(Active::class))->toBeTrue();
+    expect($newPrimaryCharacter->is_active)->toBeTrue();
     expect(CharacterType::primary)->toEqual($newPrimaryCharacter->type);
 });
 test('with primary and secondary approval user can create additional secondary characters by creating new primary character', function () {
@@ -181,12 +179,12 @@ test('with primary and secondary approval user can create additional secondary c
 
     $oldPrimaryCharacter->refresh();
 
-    expect($oldPrimaryCharacter->status->equals(Active::class))->toBeTrue();
+    expect($oldPrimaryCharacter->is_active)->toBeTrue();
     expect(CharacterType::primary)->toEqual($oldPrimaryCharacter->type);
 
     $newPrimaryCharacter = Character::latest('id')->first();
 
-    expect($newPrimaryCharacter->status->equals(Pending::class))->toBeTrue();
+    expect($newPrimaryCharacter->is_pending)->toBeTrue();
     expect(CharacterType::primary)->toEqual($newPrimaryCharacter->type);
 });
 test('user cannot directly create support character', function () {

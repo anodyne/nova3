@@ -6,6 +6,10 @@
     @apply rounded-none shadow-none ring-0;
 }
 
+.fi-ta-simple-rounded .fi-ta-ctn {
+    @apply rounded-b-lg rounded-t-none shadow-none ring-0;
+}
+
 .fi-ta-header-heading {
     @apply block text-xl font-bold tracking-tight;
 }
@@ -47,7 +51,7 @@
 }
 
 .fi-btn {
-    @apply relative isolate inline-flex items-center justify-center gap-1.5 rounded-md border border-transparent bg-[--button-border] px-[calc(theme(spacing.3)-1px)] py-[calc(theme(spacing.[1.5])-1px)] text-center text-sm/6 font-semibold shadow-none ring-0 transition before:absolute before:inset-0 before:-z-10 before:rounded-[calc(theme(borderRadius.md)-1px)] before:bg-[--button-bg] before:shadow after:absolute after:inset-0 after:-z-10 after:rounded-[calc(theme(borderRadius.md)-1px)] after:shadow-[inset_0_1px_theme(colors.white/15%)] hover:!bg-[--button-border] after:hover:bg-white/10 focus:!ring-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 dark:border-white/10 dark:bg-[--button-bg] dark:shadow dark:ring-1 dark:ring-black/50 dark:before:hidden dark:after:-inset-px dark:after:rounded-md;
+    @apply relative isolate inline-flex items-center justify-center gap-1.5 rounded-lg border border-transparent bg-[--button-border] px-[calc(theme(spacing.3)-1px)] py-[calc(theme(spacing.[1.5])-1px)] text-center text-sm/6 font-semibold shadow-none ring-0 transition before:absolute before:inset-0 before:-z-10 before:rounded-[calc(theme(borderRadius.lg)-1px)] before:bg-[--button-bg] before:shadow after:absolute after:inset-0 after:-z-10 after:rounded-[calc(theme(borderRadius.lg)-1px)] after:shadow-[inset_0_1px_theme(colors.white/15%)] hover:!bg-[--button-border] after:hover:bg-white/10 focus:!ring-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 dark:border-white/10 dark:bg-[--button-bg] dark:shadow dark:ring-1 dark:ring-black/50 dark:before:hidden dark:after:-inset-px dark:after:rounded-md;
 }
 .fi-btn-color-primary {
     @apply text-white [--button-bg:theme(colors.primary.500)] [--button-border:theme(colors.primary.600/80%)];
@@ -57,6 +61,18 @@
 }
 .fi-btn-color-gray {
     @apply text-gray-950 [--button-bg:theme(colors.white)] [--button-border:theme(colors.gray.950/10%)] hover:[--button-border:theme(colors.gray.950/20%)] dark:text-white dark:[--button-bg:theme(colors.gray.600)] dark:[--button-border:theme(colors.gray.800/90%)] dark:hover:[--button-border:theme(colors.gray.800/70%)];
+}
+.fi-btn-outlined {
+    @apply after:bg-white after:bg-opacity-50 after:hover:bg-opacity-0 dark:border-white/[15%] dark:bg-[--button-border] dark:ring-black/50 dark:after:rounded-lg dark:after:bg-gray-950 dark:after:bg-opacity-[65%] dark:after:shadow-[inset_0_1px_theme(colors.white/10%)] dark:after:hover:bg-opacity-50;
+}
+.fi-btn-outlined.fi-btn-color-primary {
+    @apply text-primary-600 [--button-bg:theme(colors.primary.50)] [--button-border:theme(colors.primary.300/80%)] before:shadow-primary-500/20 dark:[--button-bg:theme(colors.primary.900)] dark:[--button-border:theme(colors.primary.300/80%)];
+}
+.fi-btn-outlined.fi-btn-color-danger {
+    @apply text-danger-600 [--button-bg:theme(colors.danger.50)] [--button-border:theme(colors.danger.300/80%)] before:shadow-danger-500/20 dark:[--button-bg:theme(colors.danger.950)];
+}
+.fi-btn-outlined.fi-btn-color-warning {
+    @apply text-warning-600 [--button-bg:theme(colors.warning.50)] [--button-border:theme(colors.warning.300/80%)] before:shadow-warning-500/20 dark:[--button-bg:theme(colors.warning.950)];
 }
 
 .fi-input-wrp {
