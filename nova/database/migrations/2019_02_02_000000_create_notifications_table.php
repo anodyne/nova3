@@ -27,6 +27,7 @@ class CreateNotificationsTable extends Migration
             $table->string('name');
             $table->string('key')->unique();
             $table->text('description')->nullable();
+            $table->text('notes')->nullable();
             $table->string('audience')->default(NotificationAudience::personal->value);
             $table->boolean('database')->default(true);
             $table->boolean('database_default')->default(true);

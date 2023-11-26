@@ -23,8 +23,8 @@ class PopulateNotificationPreferences
             ->get()
             ->each(fn (NotificationType $notification) => $notification->userNotificationPreferences()->create([
                 'user_id' => $user->id,
-                'database' => $notification->database,
-                'mail' => $notification->mail,
+                'database' => $notification->database_default,
+                'mail' => $notification->mail_default,
                 'discord' => false,
             ]));
 

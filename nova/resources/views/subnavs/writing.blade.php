@@ -5,7 +5,7 @@
         </x-nav.sub-item>
     </x-nav.sub-group>
 
-    @can('create', Nova\Posts\Models\Post::class)
+    @can('create', Nova\Stories\Models\Post::class)
         <x-nav.sub-group>
             <x-nav.sub-item
                 :href="route('posts.create')"
@@ -23,13 +23,13 @@
             </x-nav.sub-item>
         @endcan
 
-        @can('viewAny', Nova\PostTypes\Models\PostType::class)
+        @can('viewAny', Nova\Stories\Models\PostType::class)
             <x-nav.sub-item :href="route('post-types.index')" :active="request()->routeIs('post-types.*')">
                 Post types
             </x-nav.sub-item>
         @endcan
 
-        @can('viewAny', Nova\Posts\Models\Post::class)
+        @can('viewAny', Nova\Stories\Models\Post::class)
             <x-nav.sub-item :href="route('posts.index')" :active="request()->routeIs('posts.index')">
                 Posts
             </x-nav.sub-item>

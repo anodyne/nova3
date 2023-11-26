@@ -14,7 +14,6 @@ use Illuminate\Support\Collection;
 use Nova\Foundation\Casts\DateTimeCast;
 use Nova\Foundation\Concerns\SortableTrait;
 use Nova\Media\Concerns\InteractsWithMedia;
-use Nova\Posts\Models\Post;
 use Nova\Stories\Data\StoryData;
 use Nova\Stories\Events;
 use Nova\Stories\Models\Builders\StoryBuilder;
@@ -49,7 +48,7 @@ class Story extends Model implements HasMedia, Sortable
         'parent_id' => 'integer',
         'order_column' => 'integer',
         'started_at' => DateTimeCast::class,
-        'status' => StoryStatus::class,
+        'status' => StoryStatus\StoryStatus::class,
     ];
 
     protected $dispatchesEvents = [
@@ -104,35 +103,35 @@ class Story extends Model implements HasMedia, Sortable
     public function canPost(): Attribute
     {
         return new Attribute(
-            get: fn (): bool => $this->status->equals(States\Current::class)
+            get: fn (): bool => $this->status->equals(StoryStatus\Current::class)
         );
     }
 
     public function isCompleted(): Attribute
     {
         return new Attribute(
-            get: fn (): bool => $this->status->equals(States\Completed::class)
+            get: fn (): bool => $this->status->equals(StoryStatus\Completed::class)
         );
     }
 
     public function isCurrent(): Attribute
     {
         return new Attribute(
-            get: fn (): bool => $this->status->equals(States\Current::class)
+            get: fn (): bool => $this->status->equals(StoryStatus\Current::class)
         );
     }
 
     public function isOngoing(): Attribute
     {
         return new Attribute(
-            get: fn (): bool => $this->status->equals(States\Ongoing::class)
+            get: fn (): bool => $this->status->equals(StoryStatus\Ongoing::class)
         );
     }
 
     public function isUpcoming(): Attribute
     {
         return new Attribute(
-            get: fn (): bool => $this->status->equals(States\Upcoming::class)
+            get: fn (): bool => $this->status->equals(StoryStatus\Upcoming::class)
         );
     }
 
@@ -201,7 +200,7 @@ class Story extends Model implements HasMedia, Sortable
     {
         $model = new static();
 
-        return StoryStatus::all()
+        return StoryStatus\StoryStatus::all()
             ->flatMap(fn (string $className): array => [new $className($model)])
             ->sortBy(fn ($status) => $status->order());
     }

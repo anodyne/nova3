@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 use Illuminate\Support\Facades\Event;
-use Nova\PostTypes\Events\PostTypeCreated;
-use Nova\PostTypes\Models\PostType;
-use Nova\PostTypes\Requests\CreatePostTypeRequest;
+use Nova\Stories\Events\PostTypeCreated;
+use Nova\Stories\Models\PostType;
+use Nova\Stories\Requests\CreatePostTypeRequest;
+
 test('authorized user can view the create post type page', function () {
     $this->signInWithPermission('post-type.create');
 

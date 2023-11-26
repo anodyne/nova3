@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace Nova\Stories\Providers;
 
 use Nova\DomainServiceProvider;
+use Nova\Stories\Events\StoryEnded;
+use Nova\Stories\Events\StoryStarted;
+use Nova\Stories\Listeners\SendStoryEndedNotificationToDiscord;
+use Nova\Stories\Listeners\SendStoryStartedNotificationToDiscord;
 use Nova\Stories\Livewire\DeleteStories;
 use Nova\Stories\Livewire\StoriesList;
 use Nova\Stories\Livewire\StoriesTimeline;
@@ -18,6 +22,18 @@ use Nova\Stories\Spotlight\ViewStory;
 
 class StoryServiceProvider extends DomainServiceProvider
 {
+    public function eventListeners(): array
+    {
+        return [
+            StoryStarted::class => [
+                SendStoryStartedNotificationToDiscord::class,
+            ],
+            StoryEnded::class => [
+                SendStoryEndedNotificationToDiscord::class,
+            ],
+        ];
+    }
+
     public function livewireComponents(): array
     {
         return [

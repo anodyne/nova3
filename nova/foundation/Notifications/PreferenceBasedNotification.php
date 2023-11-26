@@ -32,8 +32,6 @@ abstract class PreferenceBasedNotification extends Notification implements Shoul
 
     abstract public function toArray(object $notifiable): array;
 
-    // abstract public function toDiscord(object $notifiable);
-
     abstract public function mailable(): Mailable;
 
     public function toMail(object $notifiable): Mailable

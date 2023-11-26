@@ -16,8 +16,8 @@ use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Livewire\TableComponent;
-use Nova\Posts\Actions\DeletePost;
-use Nova\Posts\Models\Post;
+use Nova\Stories\Actions\DeletePost;
+use Nova\Stories\Models\Post;
 use Nova\Stories\Models\Story;
 
 class StoryPostsList extends TableComponent

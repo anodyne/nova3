@@ -1,6 +1,6 @@
 <span {{ $attributes->merge(['class' => $styles()]) }}>
     @isset($leading)
-        <div class="{{ $iconStyles() }} mr-1 shrink-0">
+        <div class="{{ $iconColorStyles() }} mr-1 flex shrink-0 items-center">
             {{ $leading }}
         </div>
     @endisset

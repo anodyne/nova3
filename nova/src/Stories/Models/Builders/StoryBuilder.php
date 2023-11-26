@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Models\Builders;
 
-use Nova\Stories\Models\States\Completed;
-use Nova\Stories\Models\States\Current;
-use Nova\Stories\Models\States\Ongoing;
-use Nova\Stories\Models\States\Upcoming;
+use Nova\Stories\Models\States\StoryStatus\Completed;
+use Nova\Stories\Models\States\StoryStatus\Current;
+use Nova\Stories\Models\States\StoryStatus\Ongoing;
+use Nova\Stories\Models\States\StoryStatus\Upcoming;
 use Nova\Stories\Models\Story;
 use Staudenmeir\LaravelAdjacencyList\Eloquent\Builder;
 

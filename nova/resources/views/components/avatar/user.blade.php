@@ -2,10 +2,11 @@
     'user',
     'secondaryStatus' => false,
     'secondaryPronouns' => false,
+    'secondary' => false,
 ])
 
 <x-avatar.meta :src="$user->avatar_url" :primary="$user->name" {{ $attributes }}>
-    @if ($secondaryStatus || $secondaryPronouns)
+    @if ($secondaryStatus || $secondaryPronouns || $secondary)
         <x-slot name="secondary">
             @if ($secondaryStatus)
                 <x-badge :color="$user->status->color()">{{ $user->status->getLabel() }}</x-badge>
@@ -16,6 +17,8 @@
                     {{ $user->pronouns }}
                 </div>
             @endif
+
+            {{ $secondary }}
         </x-slot>
     @endif
 </x-avatar.meta>

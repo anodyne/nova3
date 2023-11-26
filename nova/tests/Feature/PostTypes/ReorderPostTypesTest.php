@@ -1,7 +1,8 @@
 <?php
 
 declare(strict_types=1);
-use Nova\PostTypes\Models\PostType;
+use Nova\Stories\Models\PostType;
+
 beforeEach(function () {
     $this->postType1 = PostType::factory()->create(['name' => 'One', 'sort' => 0]);
     $this->postType2 = PostType::factory()->create(['name' => 'Two', 'sort' => 1]);

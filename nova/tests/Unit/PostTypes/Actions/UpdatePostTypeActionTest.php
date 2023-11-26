@@ -1,13 +1,14 @@
 <?php
 
 declare(strict_types=1);
-use Nova\PostTypes\Actions\UpdatePostType;
-use Nova\PostTypes\Data\Field;
-use Nova\PostTypes\Data\Fields;
-use Nova\PostTypes\Data\Options;
-use Nova\PostTypes\Data\PostTypeData;
-use Nova\PostTypes\Enums\PostTypeStatus;
-use Nova\PostTypes\Models\PostType;
+use Nova\Stories\Actions\UpdatePostType;
+use Nova\Stories\Data\Field;
+use Nova\Stories\Data\Fields;
+use Nova\Stories\Data\Options;
+use Nova\Stories\Data\PostTypeData;
+use Nova\Stories\Enums\PostTypeStatus;
+use Nova\Stories\Models\PostType;
+
 beforeEach(function () {
     $this->postType = PostType::factory()->create();
 });

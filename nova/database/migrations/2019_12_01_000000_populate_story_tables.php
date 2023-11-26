@@ -3,12 +3,12 @@
 declare(strict_types=1);
 
 use Illuminate\Database\Migrations\Migration;
-use Nova\PostTypes\Data\Field;
-use Nova\PostTypes\Data\Fields;
-use Nova\PostTypes\Data\Options;
-use Nova\PostTypes\Enums\PostEditTimeframe;
-use Nova\PostTypes\Models\PostType;
 use Nova\Roles\Models\Role;
+use Nova\Stories\Data\Field;
+use Nova\Stories\Data\Fields;
+use Nova\Stories\Data\Options;
+use Nova\Stories\Enums\PostEditTimeframe;
+use Nova\Stories\Models\PostType;
 
 class PopulateStoryTables extends Migration
 {

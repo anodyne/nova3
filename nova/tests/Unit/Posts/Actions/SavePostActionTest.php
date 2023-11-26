@@ -1,12 +1,12 @@
 <?php
 
 declare(strict_types=1);
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nova\Posts\Actions\SavePost;
-use Nova\Posts\Data\PostData;
-use Nova\Posts\Models\Post;
-use Nova\PostTypes\Models\PostType;
+use Nova\Stories\Actions\SavePost;
+use Nova\Stories\Data\PostData;
+use Nova\Stories\Models\Post;
+use Nova\Stories\Models\PostType;
 use Nova\Stories\Models\Story;
+
 it('creates a post', function () {
     $data = PostData::from([
         'content' => 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Blanditiis, tempore? Officia eos iusto vitae cum quam laboriosam blanditiis autem ullam enim eligendi distinctio totam, porro nesciunt a quos, culpa at!',

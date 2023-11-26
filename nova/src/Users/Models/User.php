@@ -21,7 +21,7 @@ use Laratrust\Traits\HasRolesAndPermissions;
 use Nova\Characters\Models\Character;
 use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Notes\Models\Note;
-use Nova\Posts\Models\Post;
+use Nova\Stories\Models\Post;
 use Nova\Users\Data\PronounsData;
 use Nova\Users\Events;
 use Nova\Users\Models\Builders\UserBuilder;

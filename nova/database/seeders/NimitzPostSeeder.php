@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Nova\Posts\Actions\CreateRootPost;
-use Nova\Posts\Models\Post;
+use Nova\Stories\Models\Post;
 use Nova\Stories\Models\Story;
 
 class NimitzPostSeeder extends Seeder

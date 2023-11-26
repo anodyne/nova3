@@ -26,17 +26,19 @@ class PopulateNotifications extends Migration
     {
         $admin = collect([
             ['name' => 'Character requires approval', 'key' => 'character-requires-approval'],
+            ['name' => 'User deleted their account', 'key' => 'user-deleted-account'],
         ]);
 
         $group = collect([
-            ['name' => 'New story started', 'key' => 'new-story-started'],
-            ['name' => 'Post published', 'key' => 'post-published'],
+            ['name' => 'New story started', 'key' => 'story-started', 'notes' => 'A Discord notification (if enabled) will only be sent when a story is moved from a status of Upcoming to a status of Current OR if a new story is created with an initial status of Current. No other status transitions will trigger this Discord notification.'],
+            ['name' => 'Running story ended', 'key' => 'story-ended', 'notes' => 'A Discord notification (if enabled) will only be sent when a story is moved from a status of Current to a status of Completed. No other status transitions will trigger this Discord notification.'],
+            ['name' => 'Post published', 'key' => 'post-published', 'notes' => "Any accent color set for this notification will be ignored in favor of the post type's accent color."],
         ]);
 
         $personal = collect([
             ['name' => 'Pending character approved', 'key' => 'pending-character-approved'],
             ['name' => 'Pending character denied', 'key' => 'pending-character-denied'],
-            ['name' => 'Account created', 'key' => 'account-created'],
+            ['name' => 'Account created', 'key' => 'account-created', 'mail' => true, 'mail_default' => true, 'database' => false, 'database_default' => false],
             ['name' => 'Character author added to post', 'key' => 'character-author-added-to-post'],
             ['name' => 'Character author removed from post', 'key' => 'character-author-removed-from-post'],
             ['name' => 'User author added to post', 'key' => 'user-author-added-to-post'],

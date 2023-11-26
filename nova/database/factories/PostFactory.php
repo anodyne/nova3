@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Nova\Posts\Models\Post;
-use Nova\Posts\Models\States\Draft;
-use Nova\Posts\Models\States\Pending;
-use Nova\Posts\Models\States\Published;
-use Nova\PostTypes\Models\PostType;
+use Nova\Stories\Models\Post;
+use Nova\Stories\Models\PostType;
+use Nova\Stories\Models\States\PostStatus\Draft;
+use Nova\Stories\Models\States\PostStatus\Pending;
+use Nova\Stories\Models\States\PostStatus\Published;
 use Nova\Stories\Models\Story;
 
 class PostFactory extends Factory

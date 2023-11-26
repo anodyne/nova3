@@ -4,24 +4,24 @@ declare(strict_types=1);
 
 namespace Nova\Setup\Livewire\Concerns;
 
-use Dotenv\Dotenv;
-use Illuminate\Support\Env;
-use Illuminate\Support\Facades\App;
 use Livewire\Attributes\Computed;
+use Nova\Foundation\EnvWriter;
 use Nova\Setup\Enums\DatabaseConfigStatus;
 
 trait InteractsWithEnvFile
 {
     protected function writeEnvironmentFile(): void
     {
-        if ($this->checkEnvIsWritable()) {
-            $path = base_path('.env');
+        $envWriter = app(EnvWriter::class);
+
+        if ($envWriter->isEnvWritable()) {
+            $path = $envWriter->envFilePath();
 
             if (file_exists($path)) {
                 $keyPrefix = $this->isMigrating ? 'DB_NOVA2_' : 'DB_';
                 $connection = $this->isMigrating ? 'nova2' : 'mysql';
 
-                $keys = [
+                $write = $envWriter->write([
                     $keyPrefix.'HOST' => $this->host,
                     $keyPrefix.'PORT' => $this->port,
                     $keyPrefix.'DATABASE' => $this->database,
@@ -29,18 +29,12 @@ trait InteractsWithEnvFile
                     $keyPrefix.'PASSWORD' => $this->password,
                     $keyPrefix.'PREFIX' => $this->prefix,
                     $keyPrefix.'SOCKET' => $this->socket,
-                ];
+                ]);
 
-                foreach ($keys as $key => $value) {
-                    $write = file_put_contents($path, str_replace(
-                        "{$key}=", "{$key}=".$value, file_get_contents($path)
-                    ));
+                if (! $write) {
+                    $this->status = DatabaseConfigStatus::failedToWriteEnv;
 
-                    if ($write === 0 || $write == false) {
-                        $this->status = DatabaseConfigStatus::failedToWriteEnv;
-
-                        return;
-                    }
+                    return;
                 }
 
                 config([
@@ -56,24 +50,6 @@ trait InteractsWithEnvFile
         } else {
             $this->status = DatabaseConfigStatus::failedToWriteEnv;
         }
-    }
-
-    protected function checkEnvIsWritable(): bool
-    {
-        $path = base_path('.env');
-
-        if (! file_exists($path)) {
-            copy(nova_path('.env.example'), $path);
-
-            $this->refreshEnvVars();
-        }
-
-        return is_writable($path);
-    }
-
-    protected function refreshEnvVars()
-    {
-        DotEnv::create(Env::getRepository(), App::environmentPath(), App::environmentFile())->load();
     }
 
     #[Computed]

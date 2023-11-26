@@ -159,7 +159,7 @@
             </div>
         </x-content-box>
 
-        <x-content-box height="none" x-show="isTab('stories')" x-cloak>
+        <x-content-box x-show="isTab('stories')" x-cloak>
             <x-stories.timeline :stories="$story->children->loadCount('posts')" expanded></x-stories.timeline>
         </x-content-box>
 

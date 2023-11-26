@@ -72,17 +72,17 @@ class Badge extends Component
     //     ]);
     // }
 
-    // public function iconColorStyles(): string
-    // {
-    //     return match ($this->color) {
-    //         default => 'text-gray-500',
-    //         'primary' => 'text-primary-500',
-    //         'success' => 'text-success-500',
-    //         'info' => 'text-info-500',
-    //         'danger' => 'text-danger-500',
-    //         'warning' => 'text-warning-500',
-    //     };
-    // }
+    public function iconColorStyles(): string
+    {
+        return match ($this->color) {
+            default => 'text-gray-500',
+            'primary' => 'text-primary-500',
+            'success' => 'text-success-500',
+            'info' => 'text-info-500',
+            'danger' => 'text-danger-500',
+            'warning' => 'text-warning-500',
+        };
+    }
 
     // public function iconSizeStyles(): string
     // {

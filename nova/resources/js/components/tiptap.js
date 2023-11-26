@@ -7,6 +7,7 @@ import CharacterCount from '@tiptap/extension-character-count';
 import debounce from 'lodash/debounce';
 import pluralize from 'pluralize';
 import pretty from 'pretty';
+import numeral from 'numeral';
 
 export default (content) => ({
     editor: null,
@@ -91,7 +92,7 @@ export default (content) => ({
     },
 
     wordCount() {
-        const count = window.editor.storage.characterCount.words();
+        const count = numeral(window.editor.storage.characterCount.words()).format('0,0');
 
         return `${count} ${pluralize('word', count)}`;
     },

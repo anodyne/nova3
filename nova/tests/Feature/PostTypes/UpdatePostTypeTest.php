@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 use Illuminate\Support\Facades\Event;
-use Nova\PostTypes\Events\PostTypeUpdated;
-use Nova\PostTypes\Models\PostType;
-use Nova\PostTypes\Requests\UpdatePostTypeRequest;
+use Nova\Stories\Events\PostTypeUpdated;
+use Nova\Stories\Models\PostType;
+use Nova\Stories\Requests\UpdatePostTypeRequest;
+
 beforeEach(function () {
     $this->postType = PostType::factory()->create();
 });

@@ -11,7 +11,7 @@
     >
         <x-panel.header title="Add a post type">
             <x-slot name="actions">
-                @can('viewAny', Nova\PostTypes\Models\PostType::class)
+                @can('viewAny', Nova\Stories\Models\PostType::class)
                     <x-button.text :href="route('post-types.index')" leading="arrow-left" color="gray">
                         Back
                     </x-button.text>

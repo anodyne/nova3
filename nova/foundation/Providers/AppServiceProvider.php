@@ -37,6 +37,7 @@ use Nova\Foundation\Responses\FiltersManager;
 use Nova\Foundation\View\Components\Badge;
 use Nova\Foundation\View\Components\ContentBox;
 use Nova\Foundation\View\Components\Dropdown;
+use Nova\Foundation\View\Components\EmailLayout;
 use Nova\Foundation\View\Components\Tips;
 use Nova\Navigation\Models\Navigation;
 use Nova\Settings\Models\Settings;
@@ -131,6 +132,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('content-box', ContentBox::class);
         // Blade::component('dropdown', Dropdown::class);
         Blade::component('tips', Tips::class);
+        Blade::component('email-layout', EmailLayout::class);
     }
 
     protected function registerBladeDirectives()

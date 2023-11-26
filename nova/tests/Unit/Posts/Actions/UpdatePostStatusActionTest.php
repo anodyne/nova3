@@ -1,9 +1,9 @@
 <?php
 
 declare(strict_types=1);
-use Nova\Posts\Actions\UpdatePostStatus;
-use Nova\Posts\Data\PostStatusData;
-use Nova\Posts\Models\Post;
+use Nova\Stories\Actions\UpdatePostStatus;
+use Nova\Stories\Data\PostStatusData;
+use Nova\Stories\Models\Post;
 
 beforeEach(function () {
     $this->post = Post::factory()->draft()->create();

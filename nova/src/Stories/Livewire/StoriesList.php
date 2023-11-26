@@ -145,25 +145,25 @@ class StoriesList extends TableComponent
                             }),
                         ActionGroup::make([
                             Action::make('status_current')
-                                ->cancelParentActions()
+                                ->close()
                                 ->color('gray')
                                 ->label('Mark as current')
                                 ->hidden(fn (Model $record): bool => $record->is_current)
                                 ->action(fn (Model $record): Model => UpdateStoryStatus::run($record, 'current')),
                             Action::make('status_ongoing')
-                                ->cancelParentActions()
+                                ->close()
                                 ->color('gray')
                                 ->label('Mark as ongoing')
                                 ->hidden(fn (Model $record): bool => $record->is_ongoing)
                                 ->action(fn (Model $record): Model => UpdateStoryStatus::run($record, 'ongoing')),
                             Action::make('status_completed')
-                                ->cancelParentActions()
+                                ->close()
                                 ->color('gray')
                                 ->label('Mark as completed')
                                 ->hidden(fn (Model $record): bool => $record->is_completed)
                                 ->action(fn (Model $record): Model => UpdateStoryStatus::run($record, 'completed')),
                             Action::make('status_upcoming')
-                                ->cancelParentActions()
+                                ->close()
                                 ->color('gray')
                                 ->label('Mark as upcoming')
                                 ->hidden(fn (Model $record): bool => $record->is_upcoming)
@@ -220,7 +220,7 @@ class StoriesList extends TableComponent
                     ->color('primary')
                     ->outlined()
                     ->label('Story timeline')
-                    ->url(route('stories.timeline')),
+                    ->url(route('stories.timeline', 'stories')),
                 CreateAction::make()
                     ->authorize('create')
                     ->label('Add')

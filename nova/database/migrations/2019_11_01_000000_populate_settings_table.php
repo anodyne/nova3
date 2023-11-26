@@ -23,7 +23,9 @@ class PopulateSettingsTable extends Migration
                 dateFormat: '#month_short# #day_num2#, #year_long#',
                 dateFormatTags: '[[{"value":"#month_short#","text":"Month, short (Sep)","prefix":"#"}]] [[{"value":"#day_num2#","text":"Day, numeric leading zero (12)","prefix":"#"}]], [[{"value":"#year_long#","text":"Year, long (2023)","prefix":"#"}]]'
             ),
-            'email' => new Email(),
+            'email' => new Email(
+                imagePath: null,
+            ),
             'appearance' => new Appearance(
                 theme: 'Pulsar',
                 iconSet: 'tabler',
@@ -64,7 +66,7 @@ class PopulateSettingsTable extends Migration
                 language: new ContentRating(
                     rating: 1,
                     description_0: 'Does not contain profanity',
-                    description_1: 'Infrequent profanity',
+                    description_1: 'Infrequent, light profanity',
                     description_2: 'Mild profanity',
                     description_3: 'Heavy profanity and mature language',
                     warning_threshold: 2,

@@ -186,224 +186,93 @@
                     </p>
                 </x-content-box>
                 <x-content-box class="col-span-2">
-                    <ul
-                        class="w-full rounded-lg bg-white dark:border-none dark:bg-gray-700 dark:highlight-white/5 lg:w-3/4"
-                    >
+                    <x-timeline>
                         @if ($previousPost)
-                            <li>
-                                <article>
-                                    <button
+                            <x-timeline.item class="bg-gray-400 ring-white dark:bg-gray-500 dark:ring-gray-900">
+                                <x-slot name="title">
+                                    <div class="flex items-center gap-x-6">
+                                        <x-h3>{{ $previousPost?->title }}</x-h3>
+                                        <x-badge>{{ $previousPost?->postType?->name }}</x-badge>
+                                    </div>
+                                </x-slot>
+
+                                <div>
+                                    <x-timeline.post-meta-fields
+                                        :post="$previousPost"
+                                        class="mt-1.5"
+                                    ></x-timeline.post-meta-fields>
+
+                                    <x-button.filled
                                         type="button"
-                                        class="relative grid items-start overflow-hidden rounded-md p-3 transition duration-200 ease-in-out hover:bg-gray-100 dark:hover:bg-gray-900 sm:p-5"
                                         wire:click="$dispatch('openModal', { component: 'posts-read-post-modal', arguments: { post: {{ $previousPost->id }}}})"
+                                        color="neutral"
+                                        class="mt-5"
                                     >
-                                        <div
-                                            class="row-start-1 mb-1 flex items-baseline font-medium md:col-start-1 md:row-end-3 md:mb-0"
-                                        >
-                                            <svg
-                                                viewBox="0 0 12 12"
-                                                class="mr-6 h-3 w-3 overflow-visible text-gray-400 dark:text-gray-500"
-                                            >
-                                                <circle cx="6" cy="6" r="6" fill="currentColor"></circle>
-                                                <path
-                                                    d="M 6 18 V 500"
-                                                    fill="none"
-                                                    stroke-width="2"
-                                                    stroke="currentColor"
-                                                    class="text-gray-400 dark:text-gray-500"
-                                                ></path>
-                                            </svg>
-                                            <div class="flex flex-col items-start space-y-1">
-                                                <div class="text-gray-900 dark:text-gray-100">
-                                                    {{ $previousPost->title }}
-                                                </div>
-
-                                                @if ($previousPost->location || $previousPost->day || $previousPost->time)
-                                                    <div class="flex items-center space-x-6">
-                                                        @if ($previousPost->location)
-                                                            <div
-                                                                class="flex items-center space-x-1 text-sm text-gray-500 dark:text-gray-400"
-                                                            >
-                                                                <x-icon
-                                                                    name="location"
-                                                                    size="sm"
-                                                                    class="shrink-0 text-gray-400 dark:text-gray-500"
-                                                                ></x-icon>
-                                                                <span>{{ $previousPost->location }}</span>
-                                                            </div>
-                                                        @endif
-
-                                                        @if ($previousPost->day)
-                                                            <div
-                                                                class="flex items-center space-x-1 text-sm text-gray-500 dark:text-gray-400"
-                                                            >
-                                                                <x-icon
-                                                                    name="calendar"
-                                                                    size="sm"
-                                                                    class="shrink-0 text-gray-400 dark:text-gray-500"
-                                                                ></x-icon>
-                                                                <span>{{ $previousPost->day }}</span>
-                                                            </div>
-                                                        @endif
-
-                                                        @if ($previousPost->time)
-                                                            <div
-                                                                class="flex items-center space-x-1 text-sm text-gray-500 dark:text-gray-400"
-                                                            >
-                                                                <x-icon
-                                                                    name="clock"
-                                                                    size="sm"
-                                                                    class="shrink-0 text-gray-400 dark:text-gray-500"
-                                                                ></x-icon>
-                                                                <span>{{ $previousPost->time }}</span>
-                                                            </div>
-                                                        @endif
-                                                    </div>
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </button>
-                                </article>
-                            </li>
+                                        Read &rarr;
+                                    </x-button.filled>
+                                </div>
+                            </x-timeline.item>
                         @endif
 
-                        <li>
-                            <article>
-                                <button
+                        <x-timeline.item
+                            class="bg-primary-500 ring-primary-500"
+                            highlighted
+                            :last="$nextPost === null"
+                        >
+                            <x-slot name="title">
+                                <div class="flex items-center gap-x-6">
+                                    <x-h2>{{ $post?->title }}</x-h2>
+                                    <x-badge>{{ $post?->postType?->name }}</x-badge>
+                                </div>
+                            </x-slot>
+
+                            <div>
+                                <x-timeline.post-meta-fields
+                                    :post="$post"
+                                    class="mt-1.5"
+                                ></x-timeline.post-meta-fields>
+
+                                <x-button.filled
                                     type="button"
-                                    class="group relative grid w-full items-start overflow-hidden rounded-md p-3 transition hover:bg-white dark:hover:bg-gray-900 sm:p-5"
+                                    wire:click="$dispatch('openModal', { component: 'posts-select-post-position-modal', arguments: { story: {{ $post->story_id }}}})"
+                                    color="neutral"
+                                    class="mt-5"
                                 >
-                                    <div
-                                        class="row-start-1 mb-1 flex items-center text-left font-medium md:col-start-1 md:row-end-3 md:mb-0"
-                                    >
-                                        <svg viewBox="0 0 12 12" class="mr-6 h-3 w-3 overflow-visible text-primary-500">
-                                            <circle cx="6" cy="6" r="6" fill="currentColor"></circle>
-                                            <circle
-                                                cx="6"
-                                                cy="6"
-                                                r="11"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                stroke-width="2"
-                                                class="text-primary-500"
-                                            ></circle>
-
-                                            @if ($previousPost)
-                                                <path
-                                                    d="M 6 -6 V -100000"
-                                                    fill="none"
-                                                    stroke-width="2"
-                                                    stroke="currentColor"
-                                                    class="text-gray-400 dark:text-gray-500"
-                                                ></path>
-                                            @endif
-
-                                            @if ($nextPost)
-                                                <path
-                                                    d="M 6 18 V 100000"
-                                                    fill="none"
-                                                    stroke-width="2"
-                                                    stroke="currentColor"
-                                                    class="text-gray-400 dark:text-gray-500"
-                                                ></path>
-                                            @endif
-                                        </svg>
-                                        <span class="font-bold text-gray-900 dark:text-gray-100">
-                                            {{ $post->title ?? 'This '.strtolower($postType->name) }}
-                                        </span>
-                                        <a
-                                            role="button"
-                                            class="invisible ml-12 inline-flex shrink-0 items-center space-x-1 text-sm text-gray-400 group-hover:visible"
-                                            wire:click="$dispatch('openModal', { component: 'posts-select-post-position-modal', arguments: { story: {{ $post->story_id }}}})"
-                                        >
-                                            <x-icon
-                                                name="arrows-sort"
-                                                size="sm"
-                                                class="shrink-0 text-gray-400"
-                                            ></x-icon>
-                                            <span>Change post position</span>
-                                        </a>
+                                    <div class="flex items-center gap-x-2">
+                                        <x-icon name="arrows-sort" size="sm" class="shrink-0 text-gray-400"></x-icon>
+                                        <span>Change post position</span>
                                     </div>
-                                </button>
-                            </article>
-                        </li>
+                                </x-button.filled>
+                            </div>
+                        </x-timeline.item>
 
                         @if ($nextPost)
-                            <li>
-                                <article>
-                                    <button
+                            <x-timeline.item class="bg-gray-400 ring-white dark:bg-gray-500 dark:ring-gray-900" last>
+                                <x-slot name="title">
+                                    <div class="flex items-center gap-x-6">
+                                        <x-h3>{{ $nextPost?->title }}</x-h3>
+                                        <x-badge>{{ $nextPost?->postType?->name }}</x-badge>
+                                    </div>
+                                </x-slot>
+
+                                <div>
+                                    <x-timeline.post-meta-fields
+                                        :post="$nextPost"
+                                        class="mt-1.5"
+                                    ></x-timeline.post-meta-fields>
+
+                                    <x-button.filled
                                         type="button"
-                                        class="relative grid items-start overflow-hidden rounded-md p-3 transition duration-200 ease-in-out hover:bg-gray-100 dark:hover:bg-gray-900 sm:p-5"
                                         wire:click="$dispatch('openModal', { component: 'posts-read-post-modal', arguments: { post: {{ $nextPost->id }}}})"
+                                        color="neutral"
+                                        class="mt-5"
                                     >
-                                        <div
-                                            class="row-start-1 mb-1 flex items-baseline font-medium md:col-start-1 md:row-end-3 md:mb-0"
-                                        >
-                                            <svg
-                                                viewBox="0 0 12 12"
-                                                class="mr-6 h-3 w-3 overflow-visible text-gray-400"
-                                            >
-                                                <circle cx="6" cy="6" r="6" fill="currentColor"></circle>
-                                                <path
-                                                    d="M 6 -6 V -30"
-                                                    fill="none"
-                                                    stroke-width="2"
-                                                    stroke="currentColor"
-                                                    class="text-gray-400"
-                                                ></path>
-                                            </svg>
-                                            <div class="flex flex-col items-start space-y-1">
-                                                <div class="text-gray-900">{{ $nextPost->title }}</div>
-
-                                                @if ($nextPost->location || $nextPost->day || $nextPost->time)
-                                                    <div class="flex items-center space-x-6">
-                                                        @if ($nextPost->location)
-                                                            <div
-                                                                class="flex items-center space-x-1 text-sm text-gray-500 dark:text-gray-400"
-                                                            >
-                                                                <x-icon
-                                                                    name="location"
-                                                                    size="sm"
-                                                                    class="shrink-0 text-gray-400 dark:text-gray-500"
-                                                                ></x-icon>
-                                                                <span>{{ $nextPost->location }}</span>
-                                                            </div>
-                                                        @endif
-
-                                                        @if ($nextPost->day)
-                                                            <div
-                                                                class="flex items-center space-x-1 text-sm text-gray-500 dark:text-gray-400"
-                                                            >
-                                                                <x-icon
-                                                                    name="calendar"
-                                                                    size="sm"
-                                                                    class="shrink-0 text-gray-400 dark:text-gray-500"
-                                                                ></x-icon>
-                                                                <span>{{ $nextPost->day }}</span>
-                                                            </div>
-                                                        @endif
-
-                                                        @if ($nextPost->time)
-                                                            <div
-                                                                class="flex items-center space-x-1 text-sm text-gray-500 dark:text-gray-400"
-                                                            >
-                                                                <x-icon
-                                                                    name="clock"
-                                                                    size="sm"
-                                                                    class="shrink-0 text-gray-400 dark:text-gray-500"
-                                                                ></x-icon>
-                                                                <span>{{ $nextPost->time }}</span>
-                                                            </div>
-                                                        @endif
-                                                    </div>
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </button>
-                                </article>
-                            </li>
+                                        Read &rarr;
+                                    </x-button.filled>
+                                </div>
+                            </x-timeline.item>
                         @endif
-                    </ul>
+                    </x-timeline>
                 </x-content-box>
             </div>
         @endif
@@ -439,7 +308,9 @@
 
             @can('delete', $post)
                 <x-dropdown placement="bottom-start">
-                    <x-slot name="trigger" color="neutral-danger" leading="trash" size="none">Delete draft</x-slot>
+                    <x-slot name="trigger" color="neutral-danger" leading="trash" size="none">
+                        Delete {{ str($postType->name)->lower() }}
+                    </x-slot>
 
                     <x-dropdown.group>
                         <x-dropdown.text>
@@ -463,8 +334,12 @@
         </div>
 
         <div class="flex items-center gap-4">
-            <x-button.filled wire:click="save" color="neutral">Save</x-button.filled>
-            <x-button.filled wire:click="publish" color="primary">Publish post</x-button.filled>
+            @if ($post->is_published)
+                <x-button.filled wire:click="save" color="primary">Update post</x-button.filled>
+            @else
+                <x-button.filled wire:click="save" color="neutral">Save</x-button.filled>
+                <x-button.filled wire:click="publish" color="primary">Publish post</x-button.filled>
+            @endif
         </div>
     </div>
 </x-write-post-wizard-layout>

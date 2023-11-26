@@ -21,6 +21,6 @@ class GeneratePassword implements ShouldQueue
 
         $event->user->update(['password' => Hash::make($password)]);
 
-        $event->user->notify(new AccountCreated($password));
+        $event->user->notify(new AccountCreated($event->user, $password));
     }
 }

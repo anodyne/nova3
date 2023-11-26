@@ -3,11 +3,12 @@
 declare(strict_types=1);
 use Illuminate\Support\Facades\Event;
 use Livewire\Livewire;
-use Nova\Posts\Actions\CreateRootPost;
-use Nova\Posts\Events\PostCreated;
-use Nova\Posts\Livewire\ComposePost;
-use Nova\PostTypes\Models\PostType;
+use Nova\Stories\Actions\CreateRootPost;
+use Nova\Stories\Events\PostCreated;
+use Nova\Stories\Livewire\ComposePost;
+use Nova\Stories\Models\PostType;
 use Nova\Stories\Models\Story;
+
 beforeEach(function () {
     $this->markTestSkipped();
 

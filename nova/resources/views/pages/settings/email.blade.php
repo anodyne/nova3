@@ -28,11 +28,11 @@
                 message="You can define the email address and name used for all emails."
             >
                 <x-input.group label="From email address">
-                    <x-input.text placeholder="nova@example.com"></x-input.text>
+                    <x-input.text :value="config('mail.from.address')"></x-input.text>
                 </x-input.group>
 
                 <x-input.group label="From email name">
-                    <x-input.text placeholder="USS Nova"></x-input.text>
+                    <x-input.text :value="config('mail.from.name')"></x-input.text>
                 </x-input.group>
             </x-form.section>
 
@@ -43,8 +43,33 @@
                 <x-input.group>
                     @livewire('media:upload-image', [
                         'existingImage' => settings()->getFirstMediaUrl('email-logo'),
-                        'supportMessage' => 'PNG, JPG, SVG up to 5MB',
+                        'supportMessage' => 'PNG or JPG up to 5MB',
                     ])
+                </x-input.group>
+            </x-form.section>
+
+            <x-form.section
+                title="Configuration"
+                message="You can set your email configuration values and they'll be written to the configuration file for you."
+            >
+                <x-input.group label="Host">
+                    <x-input.text :value="config('mail.mailers.smtp.host')"></x-input.text>
+                </x-input.group>
+
+                <x-input.group label="Port">
+                    <x-input.text :value="config('mail.mailers.smtp.port')"></x-input.text>
+                </x-input.group>
+
+                <x-input.group label="Username">
+                    <x-input.text :value="config('mail.mailers.smtp.username')"></x-input.text>
+                </x-input.group>
+
+                <x-input.group label="Password">
+                    <x-input.text :value="config('mail.mailers.smtp.password')"></x-input.text>
+                </x-input.group>
+
+                <x-input.group label="Encryption">
+                    <x-input.text :value="config('mail.mailers.smtp.encryption')"></x-input.text>
                 </x-input.group>
             </x-form.section>
 

@@ -11,9 +11,9 @@ use Spatie\LaravelData\Data;
 class ContentRatings extends Data implements Arrayable
 {
     public function __construct(
-        public ContentRating $language,
-        public ContentRating $sex,
-        public ContentRating $violence,
+        public ?ContentRating $language,
+        public ?ContentRating $sex,
+        public ?ContentRating $violence,
     ) {
     }
 

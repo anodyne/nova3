@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Nova\Setup\Livewire\Migration;
 
 use Livewire\Attributes\Computed;
-use Nova\Posts\Models\Post;
-use Nova\PostTypes\Models\PostType;
 use Nova\Setup\Models\Legacy\PersonalLog as LegacyPersonalLog;
+use Nova\Stories\Models\Post;
+use Nova\Stories\Models\PostType;
 
 class MigratePersonalLogs extends MigrationStep
 {

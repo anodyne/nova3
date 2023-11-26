@@ -1,10 +1,10 @@
 <?php
 
 declare(strict_types=1);
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nova\Posts\Actions\MovePost;
-use Nova\Posts\Models\Post;
+use Nova\Stories\Actions\MovePost;
+use Nova\Stories\Models\Post;
 use Nova\Stories\Models\Story;
+
 beforeEach(function () {
     $this->story = Story::factory()->create();
 

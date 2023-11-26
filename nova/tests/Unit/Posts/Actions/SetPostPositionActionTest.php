@@ -1,10 +1,11 @@
 <?php
 
 declare(strict_types=1);
-use Nova\Posts\Actions\SetPostPosition;
-use Nova\Posts\Data\PostPositionData;
-use Nova\Posts\Models\Post;
+use Nova\Stories\Actions\SetPostPosition;
+use Nova\Stories\Data\PostPositionData;
+use Nova\Stories\Models\Post;
 use Nova\Stories\Models\Story;
+
 beforeEach(function () {
     $this->story = Story::factory()->create();
 });

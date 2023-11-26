@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Foundation\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Nova\Foundation\Data\DiscordSettings;
@@ -19,6 +20,7 @@ class NotificationType extends Model
         'name',
         'key',
         'description',
+        'notes',
         'audience',
         'database',
         'database_default',
@@ -37,6 +39,40 @@ class NotificationType extends Model
         'discord' => 'boolean',
         'discord_settings' => DiscordSettings::class,
     ];
+
+    public function discordColor(): Attribute
+    {
+        return Attribute::make(
+            get: function (): ?string {
+                if (filled($this->discord_settings)) {
+                    return $this->discord_settings->color;
+                }
+
+                if (filled(settings('discord.color'))) {
+                    return settings('discord.color');
+                }
+
+                return null;
+            }
+        );
+    }
+
+    public function discordWebhook(): Attribute
+    {
+        return Attribute::make(
+            get: function (): ?string {
+                if (filled($this->discord_settings)) {
+                    return $this->discord_settings->webhook;
+                }
+
+                if (filled(settings('discord.webhook'))) {
+                    return settings('discord.webhook');
+                }
+
+                return null;
+            }
+        );
+    }
 
     public function userNotificationPreferences(): HasMany
     {

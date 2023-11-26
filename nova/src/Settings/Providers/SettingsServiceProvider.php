@@ -6,6 +6,7 @@ namespace Nova\Settings\Providers;
 
 use Nova\DomainServiceProvider;
 use Nova\Settings\Actions\UpdateAppearance;
+use Nova\Settings\Actions\UpdateEmail;
 use Nova\Settings\Data\Appearance;
 use Nova\Settings\Data\Characters;
 use Nova\Settings\Data\ContentRatings;
@@ -91,7 +92,8 @@ class SettingsServiceProvider extends DomainServiceProvider
             ));
             $manager->add('email', new SettingInfo(
                 dto: Email::class,
-                response: EmailSettingsResponse::class
+                response: EmailSettingsResponse::class,
+                action: UpdateEmail::class
             ));
             $manager->add('general', new SettingInfo(
                 dto: General::class,

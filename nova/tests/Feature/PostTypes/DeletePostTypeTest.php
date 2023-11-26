@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 use Illuminate\Support\Facades\Event;
-use Nova\PostTypes\Events\PostTypeDeleted;
-use Nova\PostTypes\Models\PostType;
+use Nova\Stories\Events\PostTypeDeleted;
+use Nova\Stories\Models\PostType;
+
 beforeEach(function () {
     $this->postType = PostType::factory()->create();
 });

@@ -111,21 +111,21 @@ class Character extends Model implements HasMedia
     public function avatarUrl(): Attribute
     {
         return new Attribute(
-            get: fn ($value): string => $this->getFirstMediaUrl('avatar')
+            get: fn (): string => $this->getFirstMediaUrl('avatar')
         );
     }
 
     public function displayName(): Attribute
     {
         return new Attribute(
-            get: fn ($value): string => trim($this?->rank?->name?->name.' '.$this->name)
+            get: fn (): string => trim($this?->rank?->name?->name.' '.$this->name)
         );
     }
 
     public function hasAvatar(): Attribute
     {
         return new Attribute(
-            get: fn ($value): bool => $this->getFirstMedia('avatar') !== null
+            get: fn (): bool => $this->getFirstMedia('avatar') !== null
         );
     }
 

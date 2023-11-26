@@ -1,5 +1,5 @@
 @extends($meta->template)
 
 @section('content')
-    @livewire('dashboard:my-drafts-list')
+    <livewire:posts-my-drafts-list />
 @endsection

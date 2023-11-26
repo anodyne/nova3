@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 use Illuminate\Support\Facades\Event;
-use Nova\Posts\Models\Post;
 use Nova\Stories\Events\StoryDeleted;
+use Nova\Stories\Models\Post;
 use Nova\Stories\Models\Story;
+
 beforeEach(function () {
     $this->story = Story::factory()->create();
 });

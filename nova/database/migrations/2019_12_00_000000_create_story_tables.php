@@ -5,9 +5,9 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Nova\Posts\Models\Post;
-use Nova\PostTypes\Enums\PostTypeStatus;
-use Nova\PostTypes\Models\PostType;
+use Nova\Stories\Enums\PostTypeStatus;
+use Nova\Stories\Models\Post;
+use Nova\Stories\Models\PostType;
 use Nova\Stories\Models\Story;
 use Nova\Users\Models\User;
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Notifications;
 
-use Illuminate\Mail\Mailable;
+use Illuminate\Contracts\Mail\Mailable;
 use Nova\Characters\Mail\SendRequestForCharacterApproval;
 use Nova\Characters\Models\Character;
 use Nova\Foundation\Notifications\PreferenceBasedNotification;
@@ -31,13 +31,11 @@ class CharacterRequiresApproval extends PreferenceBasedNotification
         ];
     }
 
-    public function toMail(object $notifiable): Mailable
+    public function mailable(): Mailable
     {
-        $mailable = new SendRequestForCharacterApproval(
+        return new SendRequestForCharacterApproval(
             character: $this->character,
             creatingUser: $this->user
         );
-
-        return $mailable->to($notifiable->email);
     }
 }

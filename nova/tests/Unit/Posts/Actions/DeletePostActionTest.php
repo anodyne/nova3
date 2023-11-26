@@ -1,9 +1,9 @@
 <?php
 
 declare(strict_types=1);
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nova\Posts\Actions\DeletePost;
-use Nova\Posts\Models\Post;
+use Nova\Stories\Actions\DeletePost;
+use Nova\Stories\Models\Post;
+
 beforeEach(function () {
     $this->post = Post::factory()->create();
 });

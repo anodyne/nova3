@@ -5,5 +5,11 @@
         notification below.
     </p>
 
+    @if (filled($record->notes))
+        <x-panel.primary title="Please note">
+            {{ $record->notes }}
+        </x-panel.primary>
+    @endif
+
     <hr class="my-6" />
 </x-filament.modal-content>

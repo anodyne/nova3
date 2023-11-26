@@ -4,7 +4,7 @@
     <x-panel x-data="tabsList('details')">
         <x-panel.header :title="$postType->name">
             <x-slot name="actions">
-                @can('viewAny', Nova\PostTypes\Models\PostType::class)
+                @can('viewAny', Nova\Stories\Models\PostType::class)
                     <x-button.text :href="route('post-types.index')" leading="arrow-left" color="gray">
                         Back
                     </x-button.text>

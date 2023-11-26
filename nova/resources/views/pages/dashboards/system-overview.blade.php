@@ -115,12 +115,20 @@
 
                 <x-content-box class="bg-gray-50 dark:bg-gray-950/30">
                     <div class="grid grid-cols-1 lg:grid-cols-4">
-                        <x-panel.stat label="PHP version">
-                            {{ PHP_VERSION }}
-                        </x-panel.stat>
-                        <x-panel.stat label="Laravel version">
-                            {{ app()::VERSION }}
-                        </x-panel.stat>
+                        <div class="flex">
+                            <x-icon name="tabler-brand-php" size="2xl" class="text-[#777bb3]"></x-icon>
+
+                            <x-panel.stat label="PHP version">
+                                {{ PHP_VERSION }}
+                            </x-panel.stat>
+                        </div>
+                        <div class="flex">
+                            <x-icon name="tabler-brand-laravel" size="2xl" class="text-[#f9322c]"></x-icon>
+
+                            <x-panel.stat label="Laravel version">
+                                {{ app()::VERSION }}
+                            </x-panel.stat>
+                        </div>
                         <x-panel.stat label="Current theme">
                             {{ app('nova.theme')->name }}
                         </x-panel.stat>

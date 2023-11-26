@@ -6,18 +6,18 @@ namespace Nova\Setup\Actions\Migration;
 
 use Illuminate\Support\Facades\Date;
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Posts\Models\Post;
-use Nova\Posts\Models\States\Draft;
-use Nova\Posts\Models\States\Pending;
-use Nova\Posts\Models\States\Published;
-use Nova\PostTypes\Models\PostType;
 use Nova\Setup\Models\Legacy\Mission as LegacyMission;
 use Nova\Setup\Models\Legacy\MissionGroup as LegacyMissionGroup;
 use Nova\Setup\Models\Legacy\Post as LegacyPost;
 use Nova\Setup\Models\Upgrade;
-use Nova\Stories\Models\States\Completed;
-use Nova\Stories\Models\States\Ongoing;
-use Nova\Stories\Models\States\Upcoming;
+use Nova\Stories\Models\Post;
+use Nova\Stories\Models\PostType;
+use Nova\Stories\Models\States\PostStatus\Draft;
+use Nova\Stories\Models\States\PostStatus\Pending;
+use Nova\Stories\Models\States\PostStatus\Published;
+use Nova\Stories\Models\States\StoryStatus\Completed;
+use Nova\Stories\Models\States\StoryStatus\Ongoing;
+use Nova\Stories\Models\States\StoryStatus\Upcoming;
 use Nova\Stories\Models\Story;
 
 class MigrateMissionsAndPosts

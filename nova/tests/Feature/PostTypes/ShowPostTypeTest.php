@@ -1,7 +1,8 @@
 <?php
 
 declare(strict_types=1);
-use Nova\PostTypes\Models\PostType;
+use Nova\Stories\Models\PostType;
+
 beforeEach(function () {
     $this->postType = PostType::factory()->create();
 });

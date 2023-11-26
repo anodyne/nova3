@@ -130,7 +130,7 @@
 
                                         <li>
                                             <x-nav.main-item-mobile
-                                                :href="route('stories.timeline', 'stories')"
+                                                :href="route('stories.timeline', 'posts')"
                                                 :active="request()->routeIs('stories.timeline')"
                                                 icon="timeline"
                                                 :meta="$meta"
@@ -259,7 +259,9 @@
                                                 </x-slot>
 
                                                 <x-dropdown.group>
-                                                    <x-dropdown.item href="#" icon="user">My account</x-dropdown.item>
+                                                    <x-dropdown.item :href="route('account.edit')" icon="user">
+                                                        My account
+                                                    </x-dropdown.item>
                                                 </x-dropdown.group>
 
                                                 <x-dropdown.group>
@@ -345,7 +347,7 @@
 
                                 <li>
                                     <x-nav.main-item
-                                        :href="route('stories.timeline', 'stories')"
+                                        :href="route('stories.timeline', 'posts')"
                                         :active="request()->routeIs('stories.timeline')"
                                         icon="timeline"
                                         :meta="$meta"
@@ -499,7 +501,7 @@
                                         </x-slot>
 
                                         <x-dropdown.group>
-                                            <x-dropdown.item :href="route('profile.edit')" icon="user">
+                                            <x-dropdown.item :href="route('account.edit')" icon="user">
                                                 My account
                                             </x-dropdown.item>
                                             <x-dropdown.item

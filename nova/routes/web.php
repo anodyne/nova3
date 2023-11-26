@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 use Nova\Departments\Models\Department;
 
@@ -112,8 +111,5 @@ Route::get('manifest-test', function () {
 });
 
 Route::get('test', function () {
-    dd(Arr::build([
-        'foo' => false,
-        'bar' => false,
-    ]));
+    //
 });

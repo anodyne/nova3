@@ -74,7 +74,7 @@
                         message="You do not have any post types available to you. Please contact a game master to add a post type or update an existing post type to use."
                         :link="route('post-types.index')"
                         label="Manage post types"
-                        :link-access="gate()->allows('viewAny', Nova\PostTypes\Models\PostType::class)"
+                        :link-access="gate()->allows('viewAny', Nova\Stories\Models\PostType::class)"
                     ></x-empty-state.small>
                 @else
                     <div class="flex w-1/2 items-center gap-2">
@@ -94,7 +94,7 @@
                             @endforeach
                         </x-input.select>
 
-                        @can('viewAny', Nova\PostTypes\Models\PostType::class)
+                        @can('viewAny', Nova\Stories\Models\PostType::class)
                             <x-button.text :href="route('post-types.index')" color="subtle-neutral">
                                 <x-icon name="settings" size="md"></x-icon>
                             </x-button.text>
@@ -418,7 +418,9 @@
 
             @can('delete', $post)
                 <x-dropdown placement="bottom-start">
-                    <x-slot name="trigger" color="neutral-danger" leading="trash" size="none">Delete post</x-slot>
+                    <x-slot name="trigger" color="neutral-danger" leading="trash" size="none">
+                        Delete {{ str($postType->name)->lower() }}
+                    </x-slot>
 
                     <x-dropdown.group>
                         <x-dropdown.text>

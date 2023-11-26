@@ -1,30 +1,43 @@
 @if ($stories->count() > 0)
     <x-content-box width="lg">
-        <div class="flex items-center gap-4">
-            <div class="flex items-center gap-1">
-                <x-button.text
-                    :color="$sort === 'latest' ? 'subtle-neutral' : 'primary'"
-                    wire:click="$set('sort', 'oldest')"
-                >
-                    <x-icon name="sort-descending" size="md"></x-icon>
-                </x-button.text>
+        <div class="flex items-center gap-x-8">
+            <div class="flex items-center">
+                <x-input.field>
+                    <x-slot name="leading">
+                        <select
+                            aria-label="Story sort field"
+                            class="form-select -ml-3 h-full border-none bg-transparent py-0 text-gray-900 focus:shadow-none focus:outline-none focus:ring-0 dark:text-white sm:text-sm"
+                            wire:model.live="sortField"
+                        >
+                            <option value="order_column">Sort by timeline order</option>
+                            <option value="started_at">Sort by start date</option>
+                            <option value="ended_at">Sort by end date</option>
+                        </select>
+                    </x-slot>
 
-                <x-button.text
-                    :color="$sort === 'oldest' ? 'subtle-neutral' : 'primary'"
-                    wire:click="$set('sort', 'latest')"
-                >
-                    <x-icon name="sort-ascending" size="md"></x-icon>
-                </x-button.text>
+                    <select
+                        aria-label="Story sort direction"
+                        class="form-select -ml-3 h-full border-none bg-transparent py-0 text-gray-900 focus:shadow-none focus:outline-none focus:ring-0 dark:text-white sm:text-sm"
+                        wire:model.live="sortDirection"
+                    >
+                        <option value="desc">Newest first</option>
+                        <option value="asc">Oldest first</option>
+                    </select>
+                </x-input.field>
             </div>
 
             @can('viewAny', $storyClass)
-                <x-button.filled :href="route('stories.index')" leading="settings" color="primary">
-                    Manage stories
-                </x-button.filled>
+                <div class="flex items-center">
+                    <x-button.filled :href="route('stories.index')" leading="settings" color="primary">
+                        Manage stories
+                    </x-button.filled>
+                </div>
             @endcan
         </div>
 
-        <x-stories.timeline :stories="$stories" />
+        <div class="mt-12">
+            <x-stories.timeline :stories="$stories" />
+        </div>
     </x-content-box>
 @else
     <x-empty-state.large

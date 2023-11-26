@@ -4,7 +4,7 @@
     <x-panel x-data="tabsList('language')">
         <x-panel.header
             title="Content ratings"
-            message="Let players and readers know what to expect from your game's content by setting content ratings and warnings"
+            message="Let players and readers know what to expect from your game's content with content ratings and warnings"
         >
             <x-slot name="actions">
                 <div x-data="{}">

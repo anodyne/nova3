@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Nova\Posts\Models\Post;
+use Nova\Stories\Models\Post;
 use Nova\Stories\Models\Story;
 
 class PostSeeder extends Seeder

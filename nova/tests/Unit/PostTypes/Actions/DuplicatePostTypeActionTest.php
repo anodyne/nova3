@@ -1,9 +1,9 @@
 <?php
 
 declare(strict_types=1);
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nova\PostTypes\Actions\DuplicatePostType;
-use Nova\PostTypes\Models\PostType;
+use Nova\Stories\Actions\DuplicatePostType;
+use Nova\Stories\Models\PostType;
+
 beforeEach(function () {
     $this->postType = PostType::factory()->create([
         'sort' => 0,

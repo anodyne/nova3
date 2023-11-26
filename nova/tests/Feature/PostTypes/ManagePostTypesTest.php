@@ -1,7 +1,8 @@
 <?php
 
 declare(strict_types=1);
-use Nova\PostTypes\Models\PostType;
+use Nova\Stories\Models\PostType;
+
 test('authorized user with create permission can view manage post types page', function () {
     $this->signInWithPermission('post-type.create');
 

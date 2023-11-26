@@ -6,13 +6,13 @@ namespace Nova\Setup\Actions\Migration;
 
 use Illuminate\Support\Facades\Date;
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Posts\Models\Post;
-use Nova\Posts\Models\States\Draft;
-use Nova\Posts\Models\States\Pending;
-use Nova\Posts\Models\States\Published;
-use Nova\PostTypes\Models\PostType;
 use Nova\Setup\Models\Legacy\PersonalLog as LegacyPersonalLog;
 use Nova\Setup\Models\Upgrade;
+use Nova\Stories\Models\Post;
+use Nova\Stories\Models\PostType;
+use Nova\Stories\Models\States\PostStatus\Draft;
+use Nova\Stories\Models\States\PostStatus\Pending;
+use Nova\Stories\Models\States\PostStatus\Published;
 use Nova\Stories\Models\Story;
 
 class MigratePersonalLogs

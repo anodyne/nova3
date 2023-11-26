@@ -13,6 +13,7 @@ use Nova\Users\Listeners;
 use Nova\Users\Livewire\ActivateUserButton;
 use Nova\Users\Livewire\AdminThemeToggle;
 use Nova\Users\Livewire\DeactivateUserButton;
+use Nova\Users\Livewire\DeleteAccountButton;
 use Nova\Users\Livewire\ForcePasswordResetButton;
 use Nova\Users\Livewire\ManageCharacters;
 use Nova\Users\Livewire\ManageRoles;
@@ -58,6 +59,7 @@ class UserServiceProvider extends DomainServiceProvider
             'users-notifications' => UserNotifications::class,
             'users-activate-button' => ActivateUserButton::class,
             'users-deactivate-button' => DeactivateUserButton::class,
+            'users-delete-account-button' => DeleteAccountButton::class,
             'users-force-password-reset-button' => ForcePasswordResetButton::class,
             'profile-notification-preferences' => UserNotificationPreferencesList::class,
         ];
