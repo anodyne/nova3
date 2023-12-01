@@ -30,9 +30,9 @@ class PopulateNotifications extends Migration
         ]);
 
         $group = collect([
-            ['name' => 'New story started', 'key' => 'story-started', 'notes' => 'A Discord notification (if enabled) will only be sent when a story is moved from a status of Upcoming to a status of Current OR if a new story is created with an initial status of Current. No other status transitions will trigger this Discord notification.'],
-            ['name' => 'Running story ended', 'key' => 'story-ended', 'notes' => 'A Discord notification (if enabled) will only be sent when a story is moved from a status of Current to a status of Completed. No other status transitions will trigger this Discord notification.'],
-            ['name' => 'Post published', 'key' => 'post-published', 'notes' => "Any accent color set for this notification will be ignored in favor of the post type's accent color."],
+            ['name' => 'New story started', 'key' => 'story-started', 'description' => "When a story's status has been changed to current", 'notes' => 'A Discord notification (if enabled) will only be sent when a story is moved from a status of Upcoming to a status of Current OR if a new story is created with an initial status of Current. No other status transitions will trigger this Discord notification.'],
+            ['name' => 'Running story ended', 'key' => 'story-ended', 'description' => "When a story's status has been changed from current to completed", 'notes' => 'A Discord notification (if enabled) will only be sent when a story is moved from a status of Current to a status of Completed. No other status transitions will trigger this Discord notification.'],
+            ['name' => 'Post published', 'key' => 'post-published', 'description' => 'When a post has been finished and published for players', 'notes' => "Any accent color set for this notification will be ignored in favor of the post type's accent color."],
         ]);
 
         $personal = collect([

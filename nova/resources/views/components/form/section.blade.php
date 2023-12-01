@@ -5,9 +5,9 @@
 
 <x-content-box height="lg" class="flex flex-col md:flex-row" {{ $attributes }}>
     @if ($title || $message)
-        <div class="mb-8 w-full md:w-2/5 md:mr-16 md:mb-0">
+        <div class="mb-8 w-full md:mb-0 md:mr-16 md:w-2/5">
             @if ($title)
-                <x-h3>{{ $title }}</x-h3>
+                <x-heading level="3">{{ $title }}</x-heading>
             @endif
 
             @if ($message)

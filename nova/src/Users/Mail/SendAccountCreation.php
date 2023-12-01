@@ -33,7 +33,7 @@ class SendAccountCreation extends Mailable implements ShouldQueue
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.users.account-created',
+            markdown: 'emails.account-created',
         );
     }
 

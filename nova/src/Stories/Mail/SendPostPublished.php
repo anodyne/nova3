@@ -25,14 +25,14 @@ class SendPostPublished extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Post has been published',
+            subject: 'New post published - '.$this->post->title,
         );
     }
 
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.posts.post-published',
+            markdown: 'emails.post-published',
         );
     }
 

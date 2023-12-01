@@ -50,7 +50,7 @@ class SettingsController extends Controller
             );
 
             if ($info->action !== null) {
-                $info->action::run($data);
+                $info->action::run($data, $request);
             }
         } catch (\Throwable $th) {
             dd($th->getMessage(), $th->getTrace());

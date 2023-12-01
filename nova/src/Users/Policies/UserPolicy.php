@@ -54,6 +54,13 @@ class UserPolicy
             : $this->deny();
     }
 
+    public function deleteAccount(User $user, User $actionableUser): Response
+    {
+        return $user->is($actionableUser)
+            ? $this->allow()
+            : $this->deny();
+    }
+
     public function restore(User $user, User $actionableUser): Response
     {
         return $user->isAbleTo('user.create') || $user->isAbleTo('user.delete')

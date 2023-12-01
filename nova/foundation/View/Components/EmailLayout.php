@@ -12,18 +12,17 @@ class EmailLayout extends Component
     {
         return view('emails.layouts.html.email', [
             'logo' => $this->getBase64EncodedLogo(),
+            'gameName' => settings('general.gameName'),
         ]);
     }
 
-    protected function getBase64EncodedLogo(): string
+    protected function getBase64EncodedLogo(): ?string
     {
         $userUploadedLogo = settings()->getFirstMedia('email-logo');
 
-        $path = match (filled($userUploadedLogo)) {
-            true => $userUploadedLogo->getPath(),
-            false => public_path('dist/email.png'),
+        return match (filled($userUploadedLogo)) {
+            true => base64_encode(file_get_contents($userUploadedLogo->getPath())),
+            false => null,
         };
-
-        return base64_encode(file_get_contents($path));
     }
 }

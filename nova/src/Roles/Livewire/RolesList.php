@@ -57,10 +57,9 @@ class RolesList extends TableComponent
                 IconColumn::make('is_default')
                     ->label('Assigned to new users')
                     ->alignCenter()
-                    ->icons([
-                        iconName('check') => fn ($state): bool => $state === true,
-                    ])
-                    ->color('success'),
+                    ->trueColor('success')
+                    ->trueIcon(iconName('check'))
+                    ->falseIcon(''),
             ])
             ->actions([
                 ActionGroup::make([

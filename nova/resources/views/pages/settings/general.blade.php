@@ -13,6 +13,16 @@
         </x-panel.header>
 
         <x-form :action="route('settings.update')" method="PUT" id="general">
+            <x-form.section title="Game info">
+                <x-input.group label="Game name">
+                    <x-input.text
+                        name="game_name"
+                        :value="$settings->general->gameName"
+                        placeholder="Set your game's name"
+                    ></x-input.text>
+                </x-input.group>
+            </x-form.section>
+
             <x-form.section
                 title="Date format"
                 message="You can set what format you would like dates displayed in throughout Nova."

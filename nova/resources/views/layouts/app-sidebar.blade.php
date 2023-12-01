@@ -442,6 +442,16 @@
                                         </x-content-box>
                                     </x-panel>
                                 </li>
+                                {{--
+                                    <li class="leading-none">
+                                    <x-nav.main-item href="#" icon="messages" :meta="$meta">Messages</x-nav.main-item>
+                                    </li>
+                                    <li class="leading-none">
+                                    <x-nav.main-item href="#" icon="megaphone" :meta="$meta">
+                                    Announcements
+                                    </x-nav.main-item>
+                                    </li>
+                                --}}
                                 <li class="px-6 leading-none">
                                     <livewire:users-notifications />
                                 </li>

@@ -27,14 +27,14 @@ class SendCharacterAuthorRemovedFromPost extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'One of your characters has been removed from a post',
+            subject: 'Character removed as author from a post',
         );
     }
 
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.posts.character-author-removed',
+            markdown: 'emails.character-author-removed-from-post',
         );
     }
 

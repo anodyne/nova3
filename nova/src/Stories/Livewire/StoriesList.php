@@ -149,25 +149,49 @@ class StoriesList extends TableComponent
                                 ->color('gray')
                                 ->label('Mark as current')
                                 ->hidden(fn (Model $record): bool => $record->is_current)
-                                ->action(fn (Model $record): Model => UpdateStoryStatus::run($record, 'current')),
+                                ->action(function (Model $record): void {
+                                    UpdateStoryStatus::run($record, 'current');
+
+                                    Notification::make()->success()
+                                        ->title("{$record->title} status has been updated")
+                                        ->send();
+                                }),
                             Action::make('status_ongoing')
                                 ->close()
                                 ->color('gray')
                                 ->label('Mark as ongoing')
                                 ->hidden(fn (Model $record): bool => $record->is_ongoing)
-                                ->action(fn (Model $record): Model => UpdateStoryStatus::run($record, 'ongoing')),
+                                ->action(function (Model $record): void {
+                                    UpdateStoryStatus::run($record, 'ongoing');
+
+                                    Notification::make()->success()
+                                        ->title("{$record->title} status has been updated")
+                                        ->send();
+                                }),
                             Action::make('status_completed')
                                 ->close()
                                 ->color('gray')
                                 ->label('Mark as completed')
                                 ->hidden(fn (Model $record): bool => $record->is_completed)
-                                ->action(fn (Model $record): Model => UpdateStoryStatus::run($record, 'completed')),
+                                ->action(function (Model $record): void {
+                                    UpdateStoryStatus::run($record, 'completed');
+
+                                    Notification::make()->success()
+                                        ->title("{$record->title} status has been updated")
+                                        ->send();
+                                }),
                             Action::make('status_upcoming')
                                 ->close()
                                 ->color('gray')
                                 ->label('Mark as upcoming')
                                 ->hidden(fn (Model $record): bool => $record->is_upcoming)
-                                ->action(fn (Model $record): Model => UpdateStoryStatus::run($record, 'upcoming')),
+                                ->action(function (Model $record): void {
+                                    UpdateStoryStatus::run($record, 'upcoming');
+
+                                    Notification::make()->success()
+                                        ->title("{$record->title} status has been updated")
+                                        ->send();
+                                }),
                         ])
                             ->grouped()
                             ->icon(iconName('change'))

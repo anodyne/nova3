@@ -75,19 +75,17 @@ class PostTypesList extends TableComponent
                 IconColumn::make('includedInPostTracking')
                     ->label('Included in post tracking')
                     ->alignCenter()
-                    ->icons([
-                        iconName('check') => fn ($state): bool => $state === true,
-                    ])
-                    ->color('success')
+                    ->trueColor('success')
+                    ->trueIcon(iconName('check'))
+                    ->falseIcon('')
                     ->toggleable()
                     ->toggledHiddenByDefault(),
                 IconColumn::make('notifiesUsers')
                     ->label('Sends published notifications')
                     ->alignCenter()
-                    ->icons([
-                        iconName('check') => fn ($state): bool => $state === true,
-                    ])
-                    ->color('success')
+                    ->trueColor('success')
+                    ->trueIcon(iconName('check'))
+                    ->falseIcon('')
                     ->toggleable()
                     ->toggledHiddenByDefault(),
                 TextColumn::make('status')

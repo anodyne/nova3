@@ -21,14 +21,18 @@
                                         />
                                     </div>
                                     <div class="pt-1">
-                                        <p class="text-sm font-medium text-gray-500">Welcome back,</p>
-                                        <p class="text-xl font-medium text-gray-900 dark:text-white sm:text-2xl">
-                                            {{ auth()->user()->name }}
+                                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">
+                                            Welcome back,
                                         </p>
+                                        <h2 class="text-xl font-medium text-gray-900 dark:text-white sm:text-2xl">
+                                            {{ auth()->user()->name }}
+                                        </h2>
                                     </div>
                                 </div>
                                 <div class="mt-5 flex justify-center gap-2 md:mt-0">
-                                    <x-button.filled href="#" color="neutral">Go to my account</x-button.filled>
+                                    <x-button.filled :href="route('account.edit')" color="neutral">
+                                        Go to my account
+                                    </x-button.filled>
                                 </div>
                             </div>
                         </x-content-box>
@@ -49,7 +53,7 @@
                             </a>
 
                             <a
-                                href="#"
+                                href="{{ route('account.edit', 'preferences') }}"
                                 class="group flex items-center justify-center space-x-3 px-6 py-5 text-center text-base font-medium transition md:text-sm"
                             >
                                 <x-icon
@@ -67,7 +71,7 @@
                                 class="group flex items-center justify-center space-x-3 px-6 py-5 text-center text-base font-medium transition md:text-sm"
                             >
                                 <x-icon
-                                    name="mail"
+                                    name="messages"
                                     size="lg"
                                     class="text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-400"
                                 ></x-icon>
@@ -145,144 +149,109 @@
                 <section aria-labelledby="timeline-title">
                     <x-panel>
                         <x-content-box>
+                            <x-heading level="2">Announcements</x-heading>
+                        </x-content-box>
+
+                        <x-content-box width="xs" height="none">
+                            <!-- Activity Feed -->
+                            <div class="flow-root space-y-2 pb-4">
+                                <a
+                                    href="#"
+                                    class="flex w-full items-baseline justify-between gap-x-2 rounded-md px-3 py-3 hover:bg-gray-100"
+                                >
+                                    <x-heading level="4" class="flex-1">Announcement title</x-heading>
+                                    <p class="text-sm text-gray-500">Nov 28</p>
+                                </a>
+                                <a
+                                    href="#"
+                                    class="flex w-full items-baseline justify-between gap-x-2 rounded-md px-3 py-3 hover:bg-gray-100"
+                                >
+                                    <x-heading level="4" class="flex-1">
+                                        A longer announcement title that wraps to multiple lines
+                                    </x-heading>
+                                    <p class="text-sm text-gray-500">Nov 28</p>
+                                </a>
+                            </div>
+                            {{--
+                                <div class="mt-6 flex flex-col justify-stretch">
+                                <div>
+                                <x-button.filled color="neutral" href="#" class="w-full">
+                                See all activity
+                                </x-button.filled>
+                                </div>
+                                </div>
+                            --}}
+                        </x-content-box>
+                    </x-panel>
+                </section>
+
+                <section class="hidden" aria-labelledby="timeline-title">
+                    <x-panel>
+                        <x-content-box>
                             <h2 id="timeline-title" class="text-lg font-medium text-gray-900 dark:text-white">
                                 Recent Activity
                             </h2>
 
                             <!-- Activity Feed -->
                             <div class="mt-6 flow-root">
-                                <ul class="-mb-8">
-                                    <li>
-                                        <div class="relative pb-8">
-                                            <span
-                                                class="absolute left-5 top-4 -ml-px h-full w-0.5 bg-gray-400/20 dark:bg-gray-600/50"
-                                                aria-hidden="true"
-                                            ></span>
-                                            <div class="relative flex space-x-3">
-                                                <div>
-                                                    <x-badge
-                                                        size="circle"
-                                                        color="gray"
-                                                        class="ring-8 ring-white dark:ring-gray-800"
-                                                    >
-                                                        <x-icon name="user" size="md"></x-icon>
-                                                    </x-badge>
-                                                </div>
-                                                <div class="min-w-0 flex-1 text-base md:text-sm">
-                                                    <div class="flex justify-between">
-                                                        <p class="font-medium text-gray-700 dark:text-gray-300">
-                                                            Stanley Maura
-                                                        </p>
-                                                        <time class="text-gray-500" datetime="2020-09-20">Sep 20</time>
-                                                    </div>
-                                                    <p class="text-gray-500">Character bio updated</p>
-                                                </div>
+                                <x-timeline class="-mb-8">
+                                    <x-timeline.item class="bg-gray-400 dark:bg-gray-600">
+                                        <x-slot name="title">
+                                            <div class="flex w-full justify-between text-base md:text-sm">
+                                                <p class="font-medium text-gray-700 dark:text-gray-300">
+                                                    Stanley Maura
+                                                </p>
+                                                <time class="text-gray-500" datetime="2020-09-20">Sep 20</time>
                                             </div>
-                                        </div>
-                                    </li>
+                                        </x-slot>
 
-                                    <li>
-                                        <div class="relative pb-8">
-                                            <span
-                                                class="absolute left-5 top-4 -ml-px h-full w-0.5 bg-gray-400/20 dark:bg-gray-600/50"
-                                                aria-hidden="true"
-                                            ></span>
-                                            <div class="relative flex space-x-3">
-                                                <div>
-                                                    <x-badge
-                                                        size="circle"
-                                                        color="primary"
-                                                        class="ring-8 ring-white dark:ring-gray-800"
-                                                    >
-                                                        <x-icon name="book" size="md"></x-icon>
-                                                    </x-badge>
-                                                </div>
-                                                <div class="min-w-0 flex-1 text-base md:text-sm">
-                                                    <div class="flex justify-between">
-                                                        <p class="font-medium text-gray-700 dark:text-gray-300">
-                                                            Bethany Blake
-                                                        </p>
-                                                        <time class="text-gray-500" datetime="2020-09-22">Sep 22</time>
-                                                    </div>
-                                                    <p class="text-gray-500">
-                                                        Published
-                                                        <x-button.text href="#" color="primary" size="none">
-                                                            Reckoning
-                                                        </x-button.text>
-                                                        story post in
-                                                        <x-button.text href="#" color="primary">
-                                                            Episode 2
-                                                        </x-button.text>
-                                                    </p>
-                                                </div>
-                                            </div>
+                                        <div class="text-base md:text-sm">
+                                            <p class="text-gray-500">Character bio updated</p>
                                         </div>
-                                    </li>
+                                    </x-timeline.item>
+                                    <x-timeline.item class="bg-primary-500">
+                                        <x-slot name="title">
+                                            <div class="flex w-full justify-between text-base md:text-sm">
+                                                <p class="font-medium text-gray-700 dark:text-gray-300">
+                                                    Bethany Blake
+                                                </p>
+                                                <time class="text-gray-500" datetime="2020-09-20">Sep 22</time>
+                                            </div>
+                                        </x-slot>
 
-                                    <li>
-                                        <div class="relative pb-8">
-                                            <span
-                                                class="absolute left-5 top-4 -ml-px h-full w-0.5 bg-gray-400/20 dark:bg-gray-600/50"
-                                                aria-hidden="true"
-                                            ></span>
-                                            <div class="relative flex space-x-3">
-                                                <div>
-                                                    <x-badge
-                                                        size="circle"
-                                                        color="success"
-                                                        class="ring-8 ring-white dark:ring-gray-800"
-                                                    >
-                                                        <x-icon name="mail" size="md"></x-icon>
-                                                    </x-badge>
-                                                </div>
-                                                <div class="min-w-0 flex-1 text-base md:text-sm">
-                                                    <div class="flex justify-between">
-                                                        <p class="font-medium text-gray-700 dark:text-gray-300">
-                                                            Martha Gardner
-                                                        </p>
-                                                        <time class="text-gray-500" datetime="2020-09-28">Sep 28</time>
-                                                    </div>
-                                                    <p class="text-gray-500">Received new private message</p>
-                                                </div>
-                                            </div>
+                                        <div class="text-base md:text-sm">
+                                            <p class="text-gray-500">Published Reckoning in Episode 2</p>
                                         </div>
-                                    </li>
+                                    </x-timeline.item>
+                                    <x-timeline.item class="bg-success-500">
+                                        <x-slot name="title">
+                                            <div class="flex w-full justify-between text-base md:text-sm">
+                                                <p class="font-medium text-gray-700 dark:text-gray-300">
+                                                    Martha Gardner
+                                                </p>
+                                                <time class="text-gray-500" datetime="2020-09-20">Sep 22</time>
+                                            </div>
+                                        </x-slot>
 
-                                    <li>
-                                        <div class="relative pb-8">
-                                            {{-- <span class="absolute top-4 left-5 -ml-px h-full w-0.5 bg-gray-300" aria-hidden="true"></span> --}}
-                                            <div class="relative flex space-x-3">
-                                                <div>
-                                                    <x-badge
-                                                        size="circle"
-                                                        color="primary"
-                                                        class="ring-8 ring-white dark:ring-gray-800"
-                                                    >
-                                                        <x-icon name="location" size="md"></x-icon>
-                                                    </x-badge>
-                                                </div>
-                                                <div class="min-w-0 flex-1 text-base md:text-sm">
-                                                    <div class="flex justify-between">
-                                                        <p class="font-medium text-gray-700 dark:text-gray-300">
-                                                            Bethany Blake
-                                                        </p>
-                                                        <time class="text-gray-500" datetime="2020-09-22">Sep 22</time>
-                                                    </div>
-                                                    <p class="text-gray-500">
-                                                        Published
-                                                        <x-button.text href="#" color="primary">
-                                                            Start of Day 3
-                                                        </x-button.text>
-                                                        marker in
-                                                        <x-button.text href="#" color="primary">
-                                                            Episode 2
-                                                        </x-button.text>
-                                                    </p>
-                                                </div>
-                                            </div>
+                                        <div class="text-base md:text-sm">
+                                            <p class="text-gray-500">Received a private message</p>
                                         </div>
-                                    </li>
-                                </ul>
+                                    </x-timeline.item>
+                                    <x-timeline.item class="bg-info-500" last>
+                                        <x-slot name="title">
+                                            <div class="flex w-full justify-between text-base md:text-sm">
+                                                <p class="font-medium text-gray-700 dark:text-gray-300">
+                                                    Bethany Blake
+                                                </p>
+                                                <time class="text-gray-500" datetime="2020-09-20">Sep 22</time>
+                                            </div>
+                                        </x-slot>
+
+                                        <div class="text-base md:text-sm">
+                                            <p class="text-gray-500">Published a new marker in Episode 2</p>
+                                        </div>
+                                    </x-timeline.item>
+                                </x-timeline>
                             </div>
                             <div class="mt-6 flex flex-col justify-stretch">
                                 <div>

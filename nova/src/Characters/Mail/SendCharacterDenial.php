@@ -32,7 +32,7 @@ class SendCharacterDenial extends Mailable implements ShouldQueue
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.characters.character-denied',
+            markdown: 'emails.pending-character-denied',
         );
     }
 

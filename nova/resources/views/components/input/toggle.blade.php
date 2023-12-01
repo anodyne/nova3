@@ -1,53 +1,85 @@
 @props([
-    'field',
+    'name',
     'value' => false,
-    'activeValue' => true,
-    'inactiveValue' => false,
+    'onValue' => true,
+    'offValue' => false,
     'activeBg' => 'bg-primary-500',
+    'label' => null,
     'disabled' => false,
     'help' => false,
     'labelPosition' => 'after',
 ])
 
-<div x-data="toggleSwitch(@js($value), @js($disabled), @js($activeValue), @js($inactiveValue))" @class([
-    'cursor-not-allowed' => $disabled,
-    'cursor-pointer' => ! $disabled,
-]) x-id="['toggle-label']" x-cloak>
-    <input type="hidden" name="{{ $field }}" :value="value" />
-
-    <div @class([
-        'flex space-x-4',
-        'flex-row' => $labelPosition !== 'after',
-        'flex-row-reverse justify-end space-x-reverse' => $labelPosition === 'after',
-    ])>
-        @if (! $slot->isEmpty())
-            <label x-on:click="toggle()" :id="$id('toggle-label')" class="flex flex-col font-medium text-gray-700 dark:text-gray-300">
-                {{ $slot }}
-
-                @if ($help)
-                    <span class="text-sm font-normal">
-                        {{ $help }}
-                    </span>
-                @endif
-            </label>
+<div
+    x-data="{
+        @if ($attributes->hasStartsWith('wire:model'))
+            value: $wire.entangle('{{ $attributes->wire('model')->value() }}').live,
+        @elseif ($attributes->hasStartsWith('x-model'))
+            value: {{ $attributes->first('x-model') }},
+        @else
+            value: {{ Illuminate\Support\Js::from($value) }},
         @endif
+        onValue: {{ Illuminate\Support\Js::from($onValue) }},
+        offValue: {{ Illuminate\Support\Js::from($offValue) }},
+        disabled: {{ Illuminate\Support\Js::from($disabled) }},
+        toggle () {
+            if (this.disabled) {
+                return;
+            }
 
-        <button
-            x-ref="toggle"
-            x-on:click="toggle()"
-            type="button"
-            role="switch"
-            :aria-checked="value"
-            :aria-labelledby="$id('toggle-label')"
-            :class="{
-                'bg-gray-200 dark:bg-white/10': value === inactiveValue,
-                '{{ $activeBg }}': value === activeValue,
-                'opacity-50 cursor-not-allowed': disabled,
-                'cursor-pointer': !disabled
-            }"
-            class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-200 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-primary-900 dark:focus:ring-offset-gray-800"
+            if (this.value == this.onValue) {
+                this.value = this.offValue;
+            } else {
+                this.value = this.onValue;
+            }
+
+            this.$dispatch('toggle-switch-changed', { value: this.value });
+        },
+        isChecked () {
+            return this.value == this.onValue;
+        }
+    }"
+    class="flex items-center justify-center"
+    x-id="['toggle-label']"
+>
+    <input type="hidden" name="{{ $name }}" :value="value" />
+
+    @if (filled($label))
+        <label
+            x-on:click="
+                $refs.toggle.click()
+                $refs.toggle.focus()
+            "
+            :id="$id('toggle-label')"
+            class="mr-3 text-sm font-medium text-gray-900 dark:text-white"
         >
-            <span :class="{ 'translate-x-5': value === activeValue, 'translate-x-0': value === inactiveValue }" class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out" aria-hidden="true"></span>
-        </button>
-    </div>
+            {{ $label }}
+        </label>
+    @endif
+
+    <button
+        x-ref="toggle"
+        type="button"
+        x-on:click="toggle"
+        role="switch"
+        x-bind:aria-checked="isChecked()"
+        x-bind:aria-labelledby="$id('toggle-label')"
+        x-bind:class="{
+            '{{ $activeBg }}': isChecked(),
+            'bg-gray-200': ! isChecked(),
+            'opacity-75 cursor-not-allowed': disabled,
+            'cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2':
+                ! disabled,
+        }"
+        class="relative inline-flex h-6 w-11 flex-shrink-0 rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out"
+    >
+        <span
+            x-bind:class="{
+                'translate-x-5': isChecked(),
+                'translate-x-0': ! isChecked(),
+            }"
+            class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
+            aria-hidden="true"
+        ></span>
+    </button>
 </div>

@@ -36,6 +36,7 @@ class PostPublished extends PreferenceBasedNotification
             'story_title' => $this->post->story->title,
             'post_type_name' => $this->post->postType->name,
             'post_type_icon' => $this->post->postType->icon,
+            'post_type_color' => $this->post->postType->color,
         ];
     }
 

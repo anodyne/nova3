@@ -34,7 +34,7 @@ class SendRequestForCharacterApproval extends Mailable implements ShouldQueue
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.characters.character-requires-approval',
+            markdown: 'emails.character-requires-approval',
         );
     }
 

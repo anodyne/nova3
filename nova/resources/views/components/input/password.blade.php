@@ -14,7 +14,13 @@
     />
 
     <x-slot name="trailing">
-        <button x-on:click="showPassword = !showPassword" type="button" class="focus:outline-none" x-cloak>
+        <button
+            x-on:click="showPassword = !showPassword"
+            type="button"
+            class="focus:outline-none"
+            tabindex="-1"
+            x-cloak
+        >
             <div x-show="showPassword" class="leading-0">
                 <x-icon name="hide" size="sm"></x-icon>
             </div>

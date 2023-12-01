@@ -2,7 +2,11 @@
 <x-mail::layout>
 <x-slot:header>
 <x-mail::header url="{{ config('app.url') }}">
+@if (filled($logo))
 <img src="data:image/png;base64,{{ $logo }}" class="logo" alt="">
+@else
+<h1>{{ $gameName }}</h1>
+@endif
 </x-mail::header>
 </x-slot:header>
 
@@ -20,7 +24,7 @@
 
 <x-slot:footer>
 <x-mail::footer>
-Click here to unsubscribe from these emails
+This is an automated email sent by Nova
 </x-mail::footer>
 </x-slot:footer>
 </x-mail::layout>

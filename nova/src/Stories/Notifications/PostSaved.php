@@ -16,7 +16,7 @@ class PostSaved extends PreferenceBasedNotification
 
     public function __construct(
         protected Post $post,
-        protected User $author,
+        protected User $user,
     ) {
     }
 
@@ -27,14 +27,17 @@ class PostSaved extends PreferenceBasedNotification
             'post_title' => $this->post->title,
             'post_type_name' => $this->post->postType->name,
             'post_type_icon' => $this->post->postType->icon,
-            'author_name' => $this->author->name,
+            'post_type_color' => $this->post->postType->color,
+            'user_avatar' => $this->user->avatar_url,
+            'user_name' => $this->user->name,
         ];
     }
 
     public function mailable(): Mailable
     {
         return new SendPostSaved(
-            post: $this->post
+            post: $this->post,
+            user: $this->user
         );
     }
 }

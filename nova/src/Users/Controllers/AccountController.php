@@ -16,9 +16,10 @@ class AccountController extends Controller
         $this->middleware('auth');
     }
 
-    public function edit()
+    public function edit($tab = 'info')
     {
         return EditUserAccountResponse::sendWith([
+            'tab' => $tab,
             'user' => auth()->user(),
         ]);
     }

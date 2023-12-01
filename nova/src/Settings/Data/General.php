@@ -7,11 +7,15 @@ namespace Nova\Settings\Data;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Data;
 
 class General extends Data implements Arrayable
 {
     public function __construct(
+        #[MapInputName('game_name')]
+        public string $gameName = '',
+
         public string $dateFormat = '',
         public string $dateFormatTags = '',
     ) {

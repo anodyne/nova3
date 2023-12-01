@@ -32,7 +32,7 @@ class SendStoryStarted extends Mailable implements ShouldQueue
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.stories.story-started',
+            markdown: 'emails.story-started',
         );
     }
 

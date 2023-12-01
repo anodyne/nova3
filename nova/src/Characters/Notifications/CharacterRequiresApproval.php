@@ -28,6 +28,7 @@ class CharacterRequiresApproval extends PreferenceBasedNotification
             'position_count' => $this->character->positions->count(),
             'position_names' => $this->character->positions?->pluck('name')?->join(',', ', and '),
             'rank_name' => $this->character->rank?->name->name,
+            'creator_name' => $this->user->name,
         ];
     }
 

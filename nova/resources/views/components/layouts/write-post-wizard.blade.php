@@ -54,7 +54,7 @@
         </x-content-box>
     </x-panel.header>
 
-    <div class="space-y-6 sm:px-6 lg:px-0">
+    <div class="sm:px-6 lg:px-0">
         {{ $slot }}
     </div>
 </x-panel>

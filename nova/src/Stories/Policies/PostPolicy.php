@@ -43,7 +43,12 @@ class PostPolicy
             return $this->allow();
         }
 
+        if ($post->is_draft && $post->participatingUsers->contains('id', $user->id)) {
+            return $this->allow();
+        }
+
         if (
+            $post->is_published &&
             $post->participatingUsers->contains('id', $user->id) &&
             $post->postType->options->editTimeframe !== PostEditTimeframe::never &&
             $post->published_at->copy()->add($post->postType->options->editTimeframe->value)->gte(now())

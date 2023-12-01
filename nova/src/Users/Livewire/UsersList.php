@@ -176,7 +176,7 @@ class UsersList extends TableComponent
             ->filters([
                 SelectFilter::make('status')
                     ->multiple()
-                    ->options(fn (): Collection => User::getStatesFor('status')),
+                    ->options(fn (): array => User::getStatesFor('status')->flatMap(fn ($state) => [$state => ucfirst($state)])->all()),
                 TernaryFilter::make('assigned_characters')
                     ->label('Has assigned characters')
                     ->queries(

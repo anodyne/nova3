@@ -20,10 +20,13 @@ class PopulateSettingsTable extends Migration
     {
         $settings = [
             'general' => new General(
+                gameName: 'USS Nova',
                 dateFormat: '#month_short# #day_num2#, #year_long#',
                 dateFormatTags: '[[{"value":"#month_short#","text":"Month, short (Sep)","prefix":"#"}]] [[{"value":"#day_num2#","text":"Day, numeric leading zero (12)","prefix":"#"}]], [[{"value":"#year_long#","text":"Year, long (2023)","prefix":"#"}]]'
             ),
             'email' => new Email(
+                subjectPrefix: null,
+                replyTo: null,
                 imagePath: null,
             ),
             'appearance' => new Appearance(

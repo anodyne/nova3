@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Models\States\StoryStatus;
 
-use Nova\Stories\Events\StoryEnded;
+use Nova\Stories\Events\StoryEnded as StoryEndedEvent;
 use Nova\Stories\Models\Story;
+use Nova\Stories\Notifications\StoryEnded;
+use Nova\Users\Models\User;
 use Spatie\ModelStates\Transition;
 
 class CurrentToCompleted extends Transition
@@ -23,7 +25,9 @@ class CurrentToCompleted extends Transition
         $this->story->ended_at = now();
         $this->story->save();
 
-        StoryEnded::dispatch($this->story);
+        User::active()->get()->each->notify(new StoryEnded($this->story));
+
+        StoryEndedEvent::dispatch($this->story);
 
         $this->updateParentStoryToCompletedIfAble();
 

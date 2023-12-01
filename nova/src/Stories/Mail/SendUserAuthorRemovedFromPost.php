@@ -32,7 +32,7 @@ class SendUserAuthorRemovedFromPost extends Mailable implements ShouldQueue
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.posts.user-author-removed',
+            markdown: 'emails.user-author-removed-from-post',
         );
     }
 

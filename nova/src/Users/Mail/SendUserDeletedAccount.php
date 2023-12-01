@@ -32,7 +32,7 @@ class SendUserDeletedAccount extends Mailable implements ShouldQueue
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.users.user-deleted-account',
+            markdown: 'emails.user-deleted-account',
         );
     }
 

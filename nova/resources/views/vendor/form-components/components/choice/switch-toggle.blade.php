@@ -18,7 +18,7 @@
     class="flex items-center"
 >
     <label class="{{ $containerClass() }}">
-        <input type="hidden" value="{{ $offValue }}" @if ($name) name="{{ $name }}" @endif />
+        <input type="hidden" x-bind:value="offValue" @if ($name) name="{{ $name }}" @endif />
         <input type="checkbox" @if ($onValue && ! is_bool($onValue))
                  value="{{ $onValue }}"
              @endif @class([

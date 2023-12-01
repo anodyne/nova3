@@ -27,14 +27,14 @@ class SendCharacterAuthorAddedToPost extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'One of your characters has been added to a post',
+            subject: 'Character added as author to a post',
         );
     }
 
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.posts.character-author-added',
+            markdown: 'emails.character-author-added-to-post',
         );
     }
 

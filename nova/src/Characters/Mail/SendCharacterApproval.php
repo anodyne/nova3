@@ -25,14 +25,14 @@ class SendCharacterApproval extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'New character approved',
+            subject: 'Pending character approved',
         );
     }
 
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.characters.character-approved',
+            markdown: 'emails.pending-character-approved',
         );
     }
 

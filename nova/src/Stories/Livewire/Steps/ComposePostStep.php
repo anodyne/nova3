@@ -29,16 +29,6 @@ class ComposePostStep extends WizardStep
         ];
     }
 
-    public function rules()
-    {
-        return $this->postType
-            ->fields
-            ->enabledFields()
-            ->filter(fn ($item, $key) => in_array($key, ['title', 'location', 'day', 'time', 'content']))
-            ->mapWithKeys(fn ($item, $key) => ["form.{$key}" => $item->required ? 'required' : 'nullable'])
-            ->all();
-    }
-
     #[Computed]
     public function canSave(): bool
     {
@@ -63,11 +53,11 @@ class ComposePostStep extends WizardStep
 
     public function save($quiet = false, $allowRedirect = true): void
     {
-        // $this->authorize('write', [$this->post, $this->postType]);
+        $this->authorize('write', [$this->post, $this->post->postType]);
 
         $shouldRedirect = false;
 
-        $this->validate();
+        $this->form->validate();
 
         $this->form->save();
 

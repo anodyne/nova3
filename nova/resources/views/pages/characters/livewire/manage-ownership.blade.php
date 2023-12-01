@@ -39,11 +39,18 @@
                 @endcannot
             </div>
             <div class="flex items-start justify-end">
-                <x-switch-toggle
+                {{--
+                    <x-switch-toggle
                     name="link_to_user"
                     wire:model.live="linkToUser"
                     :disabled="$linkToUserDisabled"
-                ></x-switch-toggle>
+                    ></x-switch-toggle>
+                --}}
+                <x-input.toggle
+                    name="link_to_user"
+                    wire:model.live="linkToUser"
+                    :disabled="$linkToUserDisabled"
+                ></x-input.toggle>
             </div>
         </x-content-box>
 
@@ -58,11 +65,18 @@
                 @endcannot
             </div>
             <div class="flex items-start justify-end">
-                <x-switch-toggle
+                {{--
+                    <x-switch-toggle
                     name="assign_as_primary"
                     wire:model.live="assignAsPrimary"
                     :disabled="auth()->user()->cannot(['createSecondary', 'createPrimary'], Nova\Characters\Models\Character::class)"
-                ></x-switch-toggle>
+                    ></x-switch-toggle>
+                --}}
+                <x-input.toggle
+                    name="assign_as_primary"
+                    wire:model.live="assignAsPrimary"
+                    :disabled="auth()->user()->cannot(['createSecondary', 'createPrimary'], Nova\Characters\Models\Character::class)"
+                ></x-input.toggle>
             </div>
         </x-content-box>
     </div>

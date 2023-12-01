@@ -44,7 +44,7 @@ class PopulatePagesTable extends Migration
             ['uri' => 'users/{user}/edit', 'key' => 'users.edit', 'resource' => 'Nova\\Users\\Controllers\\UserController@edit', 'layout' => 'admin'],
             ['uri' => 'users/{user}', 'key' => 'users.update', 'verb' => PageVerb::put, 'resource' => 'Nova\\Users\\Controllers\\UserController@update', 'layout' => 'admin'],
 
-            ['uri' => 'account', 'key' => 'account.edit', 'resource' => 'Nova\\Users\\Controllers\\AccountController@edit', 'layout' => 'admin'],
+            ['uri' => 'account/{tab?}', 'key' => 'account.edit', 'resource' => 'Nova\\Users\\Controllers\\AccountController@edit', 'layout' => 'admin'],
             ['uri' => 'account', 'key' => 'account.update', 'verb' => PageVerb::put, 'resource' => 'Nova\\Users\\Controllers\\AccountController@update', 'layout' => 'admin'],
 
             ['uri' => 'notes', 'key' => 'notes.index', 'resource' => 'Nova\\Notes\\Controllers\\NoteController@index', 'layout' => 'admin'],

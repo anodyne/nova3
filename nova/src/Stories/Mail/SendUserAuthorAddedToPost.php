@@ -32,7 +32,7 @@ class SendUserAuthorAddedToPost extends Mailable implements ShouldQueue
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.posts.user-author-added',
+            markdown: 'emails.user-author-added-to-post',
         );
     }
 

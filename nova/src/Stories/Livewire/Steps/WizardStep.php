@@ -8,6 +8,7 @@ use Livewire\Attributes\Renderless;
 use Livewire\Component;
 use Livewire\Mechanisms\ComponentRegistry;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Stories\Notifications\DraftPostDiscarded;
 use Nova\Stories\Wizard\Step;
 use Nova\Stories\Wizard\StepStatus;
 
@@ -61,6 +62,8 @@ abstract class WizardStep extends Component
     public function discardDraft(): void
     {
         $this->authorize('discardDraft', $this->post);
+
+        $this->post->participatingUsers->each->notify(new DraftPostDiscarded(post: $this->post, user: auth()->user()));
 
         $this->post->delete();
 

@@ -60,7 +60,7 @@ class EnvWriter
         return true;
     }
 
-    public function writeLine(string $key, string $value): bool
+    public function writeLine(string $key, ?string $value): bool
     {
         $newValue = "{$key}={$value}";
 

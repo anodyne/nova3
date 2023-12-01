@@ -138,5 +138,7 @@
                 <div class="absolute inset-x-0 bottom-0 -z-10 h-24 bg-gradient-to-t from-white sm:h-32"></div>
             </div>
         </div>
+
+        @livewire('notifications')
     </body>
 </html>
