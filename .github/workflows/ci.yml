@@ -61,6 +61,7 @@ jobs:
         env:
           DB_PORT: ${{ job.services.mysql.ports[3306] }}
           DB_USERNAME: root
+          DB_DATABASE: database_ci
         run: ./vendor/bin/pest --parallel
 
       - name: Deploy to Forge
