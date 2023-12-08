@@ -95,6 +95,7 @@ class PositionsList extends TableComponent
 
                     ActionGroup::make([
                         ReplicateAction::make()
+                            ->authorize('duplicate')
                             ->form([
                                 TextInput::make('name')->label('New position name'),
                                 Select::make('department_id')->relationship('department', 'name'),
@@ -117,6 +118,7 @@ class PositionsList extends TableComponent
 
                     ActionGroup::make([
                         DeleteAction::make()
+                            ->authorize('delete')
                             ->modalContentView('pages.positions.delete')
                             ->successNotificationTitle(fn (Model $record): string => $record->name.' position was deleted')
                             ->using(fn (Model $record): Model => DeletePosition::run($record)),

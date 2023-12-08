@@ -66,6 +66,7 @@ class RankNamesList extends TableComponent
 
                     ActionGroup::make([
                         ReplicateAction::make()
+                            ->authorize('duplicate')
                             ->form([
                                 TextInput::make('name')->label('New rank name'),
                             ])
@@ -86,6 +87,7 @@ class RankNamesList extends TableComponent
 
                     ActionGroup::make([
                         DeleteAction::make()
+                            ->authorize('delete')
                             ->modalContentView('pages.ranks.names.delete')
                             ->successNotificationTitle(fn (Model $record): string => $record->name.' rank name was deleted')
                             ->using(fn (Model $record): Model => DeleteRankNameManager::run($record)),
@@ -124,7 +126,7 @@ class RankNamesList extends TableComponent
                     }),
             ])
             ->filters([
-                TernaryFilter::make('assigned_ranks')
+                TernaryFilter::make('ranks_assigned')
                     ->label('Has assigned ranks')
                     ->queries(
                         true: fn (Builder $query): Builder => $query->whereHas('ranks'),

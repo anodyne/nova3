@@ -12,7 +12,7 @@ use Nova\Stories\Listeners\SendStoryStartedNotificationToDiscord;
 use Nova\Stories\Livewire\DeleteStories;
 use Nova\Stories\Livewire\StoriesList;
 use Nova\Stories\Livewire\StoriesTimeline;
-use Nova\Stories\Livewire\StoryHierarchy;
+use Nova\Stories\Livewire\StoryPosition;
 use Nova\Stories\Livewire\StoryPostsList;
 use Nova\Stories\Models\Story;
 use Nova\Stories\Spotlight\AddStory;
@@ -38,7 +38,7 @@ class StoryServiceProvider extends DomainServiceProvider
     {
         return [
             'stories-delete' => DeleteStories::class,
-            'stories-hierarchy' => StoryHierarchy::class,
+            'stories-position' => StoryPosition::class,
             'stories-list' => StoriesList::class,
             'stories-posts-list' => StoryPostsList::class,
             'stories-timeline' => StoriesTimeline::class,

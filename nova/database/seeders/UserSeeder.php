@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Nova\Users\Actions\PopulateAccountPreferences;
 use Nova\Users\Actions\PopulateNotificationPreferences;
 use Nova\Users\Models\User;
 
@@ -24,6 +25,7 @@ class UserSeeder extends Seeder
             'email' => 'admin@admin.com',
         ]);
         $admin->addRoles(['owner', 'admin', 'active', 'writer', 'story-manager']);
+        PopulateAccountPreferences::run($admin);
         PopulateNotificationPreferences::run($admin);
 
         for ($i = 1; $i <= 5; $i++) {
@@ -35,6 +37,7 @@ class UserSeeder extends Seeder
                     'email' => "user{$i}@user.com",
                 ]);
             $activeUser->addRoles(['active', 'writer']);
+            PopulateAccountPreferences::run($activeUser);
             PopulateNotificationPreferences::run($activeUser);
         }
 
@@ -45,6 +48,7 @@ class UserSeeder extends Seeder
                 'email' => 'inactive@inactive.com',
             ]);
         $inactiveUser->addRoles(['inactive']);
+        PopulateAccountPreferences::run($inactiveUser);
         PopulateNotificationPreferences::run($inactiveUser);
 
         $pendingUser = User::factory()
@@ -54,6 +58,7 @@ class UserSeeder extends Seeder
                 'email' => 'pending@pending.com',
             ]);
         $pendingUser->addRoles(['inactive']);
+        PopulateAccountPreferences::run($pendingUser);
         PopulateNotificationPreferences::run($pendingUser);
 
         foreach (['p', 'ps', 'pu', 'psu', 's', 'su', 'u'] as $item) {
@@ -71,6 +76,7 @@ class UserSeeder extends Seeder
                 default => $user,
             };
 
+            PopulateAccountPreferences::run($user);
             PopulateNotificationPreferences::run($user);
         }
 

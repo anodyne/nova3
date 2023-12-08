@@ -14,7 +14,10 @@ class DuplicatePosition
 
     public function handle(Position $original, PositionData $data): Position
     {
-        $replica = $original->replicate();
+        $replica = $original->replicate([
+            'active_characters_count',
+            'active_users_count',
+        ]);
         $replica->forceFill(collect($data->all())->filter()->toArray());
         $replica->save();
 

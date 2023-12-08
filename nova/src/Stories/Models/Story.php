@@ -170,12 +170,12 @@ class Story extends Model implements HasMedia, Sortable
         return static::query()->parent($this->parent_id);
     }
 
-    public function nextSibling(): self
+    public function nextSibling(): ?self
     {
         return $this->getSibling('next');
     }
 
-    public function previousSibling(): self
+    public function previousSibling(): ?self
     {
         return $this->getSibling('previous');
     }
@@ -185,8 +185,8 @@ class Story extends Model implements HasMedia, Sortable
         $query = self::query()->parent($this->parent_id);
 
         return match ($direction) {
-            'previous' => $query->where('order_column', $this->order_column--)->first(),
-            'next' => $query->where('order_column', $this->order_column++)->first(),
+            'previous' => $query->where('order_column', $this->order_column - 1)->first(),
+            'next' => $query->where('order_column', $this->order_column + 1)->first(),
             default => $query->first(),
         };
     }

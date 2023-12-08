@@ -130,16 +130,6 @@ class PopulatePagesTable extends Migration
             ['uri' => 'forms/delete', 'key' => 'forms.delete', 'verb' => PageVerb::post, 'resource' => 'Nova\\Forms\\Controllers\\DeleteFormController@confirm', 'layout' => 'admin'],
             ['uri' => 'forms/{form}', 'key' => 'forms.destroy', 'verb' => PageVerb::delete, 'resource' => 'Nova\\Forms\\Controllers\\DeleteFormController@destroy', 'layout' => 'admin'],
             ['uri' => 'forms/{original}/duplicate', 'key' => 'forms.duplicate', 'verb' => PageVerb::post, 'resource' => 'Nova\\Forms\\Controllers\\DuplicateFormController', 'layout' => 'admin'],
-
-            ['uri' => 'pages', 'key' => 'pages.index', 'resource' => 'Nova\\Pages\\Controllers\\ShowPageController@all', 'layout' => 'admin'],
-            ['uri' => 'pages/{page}/show', 'key' => 'pages.show', 'resource' => 'Nova\\Pages\\Controllers\\ShowPageController@show', 'layout' => 'admin'],
-            ['uri' => 'pages/create', 'key' => 'pages.create', 'resource' => 'Nova\\Pages\\Controllers\\CreatePageController@create', 'layout' => 'admin'],
-            ['uri' => 'forms', 'key' => 'pages.store', 'verb' => PageVerb::post, 'resource' => 'Nova\\Pages\\Controllers\\CreatePageController@store', 'layout' => 'admin'],
-            ['uri' => 'pages/{form}/edit', 'key' => 'pages.edit', 'resource' => 'Nova\\Pages\\Controllers\\UpdatePageController@edit', 'layout' => 'admin'],
-            ['uri' => 'pages/{form}', 'key' => 'pages.update', 'verb' => PageVerb::put, 'resource' => 'Nova\\Pages\\Controllers\\UpdatePageController@update', 'layout' => 'admin'],
-            ['uri' => 'pages/delete', 'key' => 'pages.delete', 'verb' => PageVerb::post, 'resource' => 'Nova\\Pages\\Controllers\\DeletePageController@confirm', 'layout' => 'admin'],
-            ['uri' => 'pages/{form}', 'key' => 'pages.destroy', 'verb' => PageVerb::delete, 'resource' => 'Nova\\Pages\\Controllers\\DeletePageController@destroy', 'layout' => 'admin'],
-            ['uri' => 'pages/{original}/duplicate', 'key' => 'pages.duplicate', 'verb' => PageVerb::post, 'resource' => 'Nova\\Pages\\Controllers\\DuplicatePageController', 'layout' => 'admin'],
         ];
 
         collect($pages)->each([Page::class, 'create']);

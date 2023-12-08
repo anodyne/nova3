@@ -83,12 +83,14 @@ class DepartmentsList extends TableComponent
 
                     ActionGroup::make([
                         Action::make('positions')
+                            ->authorize('viewAny', Position::class)
                             ->icon(iconName('list'))
                             ->url(fn (Model $record): string => route('positions.index', ['tableFilters' => ['department_id' => ['values' => [$record->id]]]])),
                     ])->authorize('viewAny', Position::class)->divided(),
 
                     ActionGroup::make([
                         ReplicateAction::make()
+                            ->authorize('duplicate')
                             ->form([
                                 TextInput::make('name')->label('New department name'),
                             ])
@@ -110,6 +112,7 @@ class DepartmentsList extends TableComponent
 
                     ActionGroup::make([
                         DeleteAction::make()
+                            ->authorize('delete')
                             ->modalContentView('pages.departments.delete')
                             ->successNotificationTitle(fn (Model $record): string => $record->name.' department was deleted')
                             ->using(fn (Model $record): Model => DeleteDepartment::run($record)),

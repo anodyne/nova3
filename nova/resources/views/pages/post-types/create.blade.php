@@ -301,10 +301,7 @@
                 >
                     <x-input.select name="options[editTimeframe]" id="editTimeframe" class="w-full md:w-2/3">
                         @foreach ($editTimeframes as $timeframe => $text)
-                            <option
-                                value="{{ $timeframe }}"
-                                @selected($postType->options->editTimeframe === $timeframe)
-                            >
+                            <option value="{{ $timeframe }}" @selected(old('options[editTimeframe]') === $timeframe)>
                                 {{ $text }}
                             </option>
                         @endforeach

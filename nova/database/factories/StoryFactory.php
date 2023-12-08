@@ -18,9 +18,9 @@ class StoryFactory extends Factory
     public function definition()
     {
         return [
-            'title' => ucfirst($this->faker->words($this->faker->numberBetween(1, 5), true)),
+            'title' => ucfirst($this->faker->words($this->faker->numberBetween(1, 5), asText: true)),
             'status' => $this->faker->randomElement([Upcoming::$name, Current::$name, Completed::$name]),
-            'description' => $this->faker->sentences($this->faker->numberBetween(1, 5), true),
+            'description' => $this->faker->sentences($this->faker->numberBetween(1, 5), asText: true),
         ];
     }
 
@@ -70,7 +70,7 @@ class StoryFactory extends Factory
         ]);
     }
 
-    public function withParent(?Story $parent)
+    public function withParent(Story $parent = null)
     {
         return $this->state([
             'parent_id' => $parent?->id ?? Story::factory(),

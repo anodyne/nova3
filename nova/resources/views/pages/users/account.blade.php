@@ -54,11 +54,7 @@
             </div>
 
             <div x-show="isTab('preferences')" x-cloak>
-                <x-empty-state.large
-                    icon="tabler-barrier-block"
-                    title="Nothing to see here"
-                    message="...yet"
-                ></x-empty-state.large>
+                <livewire:my-account-preferences />
             </div>
         </x-form>
     </x-panel>

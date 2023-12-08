@@ -155,8 +155,8 @@ class PopulateAuthorizationTables extends Migration
     {
         Role::unguarded(function () {
             $roles = [
-                ['name' => 'owner', 'display_name' => 'Site Owner', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'locked' => true, 'order_column' => 0],
-                ['name' => 'admin', 'display_name' => 'Site Admin', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'locked' => true, 'order_column' => 1],
+                ['name' => 'owner', 'display_name' => 'Site Owner', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'is_locked' => true, 'order_column' => 0],
+                ['name' => 'admin', 'display_name' => 'Site Admin', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'is_locked' => true, 'order_column' => 1],
                 ['name' => 'active', 'display_name' => 'Active User', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'is_default' => true, 'order_column' => 2],
                 ['name' => 'story-manager', 'display_name' => 'Story Manager', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'is_default' => false, 'order_column' => 3],
                 ['name' => 'writer', 'display_name' => 'Writer', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'is_default' => true, 'order_column' => 4],

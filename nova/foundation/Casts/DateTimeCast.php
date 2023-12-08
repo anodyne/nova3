@@ -7,6 +7,7 @@ namespace Nova\Foundation\Casts;
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class DateTimeCast implements CastsAttributes
 {
@@ -22,7 +23,7 @@ class DateTimeCast implements CastsAttributes
         }
 
         return CarbonImmutable::parse($value)
-            ->setTimezone('America/New_York');
+            ->setTimezone(Auth::user()?->preferences?->timezone ?? 'UTC');
     }
 
     /**
@@ -37,7 +38,7 @@ class DateTimeCast implements CastsAttributes
         }
 
         return CarbonImmutable::parse($value)
-            ->shiftTimezone('America/New_York')
+            ->shiftTimezone(Auth::user()?->preferences?->timezone ?? 'UTC')
             ->setTimezone('UTC');
     }
 }

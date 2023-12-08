@@ -14,7 +14,7 @@ class DuplicatePostType
 
     public function handle(PostType $original, PostTypeData $data): PostType
     {
-        $replica = $original->replicate();
+        $replica = $original->replicate(['posts_count', 'published_posts_count']);
         $replica->fill([
             'name' => $data->name,
             'key' => $data->key,

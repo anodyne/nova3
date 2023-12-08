@@ -15,7 +15,7 @@ class UpdateRole
     public function handle(Role $role, RoleData $data): Role
     {
         $role->update(
-            $data->exceptWhen('name', $role->locked)->all()
+            $data->exceptWhen('name', $role->is_locked)->all()
         );
 
         return $role->refresh();

@@ -13,7 +13,7 @@ class MoveStoryPosts
 
     public function handle(Story $oldStory, Story $newStory): Story
     {
-        $oldStory->allPosts()->update(['story_id', $newStory->id]);
+        $oldStory->allPosts()->update(['story_id' => $newStory->id]);
 
         return $newStory->refresh();
     }

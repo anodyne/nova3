@@ -107,6 +107,7 @@ class PostTypesList extends TableComponent
 
                     ActionGroup::make([
                         ReplicateAction::make()
+                            ->authorize('duplicate')
                             ->modalContentView('pages.post-types.duplicate')
                             ->form([
                                 TextInput::make('name')->label('Post type name'),

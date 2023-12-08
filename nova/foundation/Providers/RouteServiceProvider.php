@@ -35,12 +35,6 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(nova_path('routes/web.php'));
-
-            if ($this->app->environment('acceptance')) {
-                Route::prefix('__testing__')
-                    ->middleware('web')
-                    ->group(nova_path('routes/testing.php'));
-            }
         });
     }
 

@@ -32,7 +32,6 @@
                 :value="old('email')"
                 data-cy="email"
                 placeholder="john@example.com"
-                required
             />
         </x-input.group>
 

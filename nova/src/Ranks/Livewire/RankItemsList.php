@@ -66,6 +66,7 @@ class RankItemsList extends TableComponent
 
                     ActionGroup::make([
                         DeleteAction::make()
+                            ->authorize('delete')
                             ->modalContentView('pages.ranks.items.delete')
                             ->successNotificationTitle(fn (Model $record): string => $record->name->name.' rank item was deleted')
                             ->using(fn (Model $record): Model => DeleteRankItemManager::run($record)),

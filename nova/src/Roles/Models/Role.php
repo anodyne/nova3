@@ -29,7 +29,7 @@ class Role extends LaratrustRole implements Sortable
 
     protected $casts = [
         'is_default' => 'boolean',
-        'locked' => 'boolean',
+        'is_locked' => 'boolean',
         'order_column' => 'integer',
     ];
 

@@ -53,6 +53,7 @@ class NotesList extends TableComponent
                     ])->authorizeAny(['view', 'update'])->divided(),
                     ActionGroup::make([
                         ReplicateAction::make()
+                            ->authorize('duplicate')
                             ->modalContentView('pages.notes.duplicate')
                             ->action(function (Model $record): void {
                                 $replica = DuplicateNote::run($record);
@@ -66,6 +67,7 @@ class NotesList extends TableComponent
                     ])->authorize('duplicate')->divided(),
                     ActionGroup::make([
                         DeleteAction::make()
+                            ->authorize('delete')
                             ->modalContentView('pages.notes.delete')
                             ->successNotificationTitle('Note was deleted')
                             ->using(fn (Model $record): Model => DeleteNote::run($record)),

@@ -50,14 +50,14 @@ class RolePolicy
 
     public function delete(User $user, Role $role): Response
     {
-        return $user->isAbleTo('role.delete') && ! $role->locked
+        return $user->isAbleTo('role.delete') && ! $role->is_locked
             ? $this->allow()
             : $this->deny();
     }
 
     public function duplicate(User $user, Role $role): Response
     {
-        return $user->isAbleTo('role.create') && $user->isAbleTo('role.update') && ! $role->locked
+        return $user->isAbleTo('role.create') && $user->isAbleTo('role.update') && ! $role->is_locked
             ? $this->allow()
             : $this->deny();
     }

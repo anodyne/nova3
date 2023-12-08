@@ -15,7 +15,7 @@ class DuplicateRankGroup
 
     public function handle(RankGroup $original, RankGroupData $data): RankGroup
     {
-        $replica = $original->replicate();
+        $replica = $original->replicate(['ranks_count']);
         $replica->fill($data->all());
         $replica->save();
 

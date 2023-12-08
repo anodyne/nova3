@@ -40,7 +40,7 @@ class RolesList extends TableComponent
                 TextColumn::make('display_name')
                     ->titleColumn()
                     ->label('Name')
-                    ->icon(fn (Model $record): ?string => $record->locked ? iconName('lock-closed') : null)
+                    ->icon(fn (Model $record): ?string => $record->is_locked ? iconName('lock-closed') : null)
                     ->iconPosition('after')
                     ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search)),
                 TextColumn::make('user_count')
@@ -74,6 +74,7 @@ class RolesList extends TableComponent
 
                     ActionGroup::make([
                         ReplicateAction::make()
+                            ->authorize('duplicate')
                             ->modalContentView('pages.roles.duplicate')
                             ->form([
                                 TextInput::make('display_name')->label('New role name'),
@@ -84,7 +85,7 @@ class RolesList extends TableComponent
                                     RoleData::from([
                                         'display_name' => $displayName = data_get($data, 'display_name'),
                                         'name' => str($displayName)->slug(),
-                                        'default' => false,
+                                        'is_default' => false,
                                     ])
                                 );
 
@@ -99,6 +100,7 @@ class RolesList extends TableComponent
 
                     ActionGroup::make([
                         DeleteAction::make()
+                            ->authorize('delete')
                             ->modalContentView('pages.roles.delete')
                             ->successNotificationTitle(fn (Model $record): string => $record->display_name.' role was deleted')
                             ->using(fn (Model $record): Model => DeleteRole::run($record)),

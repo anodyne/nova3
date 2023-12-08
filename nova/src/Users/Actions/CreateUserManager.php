@@ -16,9 +16,13 @@ class CreateUserManager
     {
         $user = CreateUser::run($request->getUserData());
 
-        $user = SyncUserCharacters::run($user, $request->getUserCharactersData());
+        if (filled($request->assigned_characters)) {
+            $user = SyncUserCharacters::run($user, $request->getUserCharactersData());
+        }
 
-        $user = SyncUserRoles::run($user, $request->getUserRolesData());
+        if (filled($request->assigned_roles)) {
+            $user = SyncUserRoles::run($user, $request->getUserRolesData());
+        }
 
         $user = PopulateNotificationPreferences::run($user);
 

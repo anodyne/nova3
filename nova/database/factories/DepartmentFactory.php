@@ -17,7 +17,6 @@ class DepartmentFactory extends Factory
         return [
             'name' => ucfirst($this->faker->word),
             'description' => $this->faker->sentence,
-            'order_column' => 0,
             'status' => DepartmentStatus::active,
         ];
     }

@@ -70,6 +70,7 @@ class RankGroupsList extends TableComponent
 
                     ActionGroup::make([
                         ReplicateAction::make()
+                            ->authorize('duplicate')
                             ->form([
                                 TextInput::make('name')->label('New rank group name'),
                                 Select::make('base_image')
@@ -95,6 +96,7 @@ class RankGroupsList extends TableComponent
 
                     ActionGroup::make([
                         DeleteAction::make()
+                            ->authorize('delete')
                             ->modalContentView('pages.ranks.groups.delete')
                             ->successNotificationTitle(fn (Model $record): string => $record->name.' rank group was deleted')
                             ->using(fn (Model $record): Model => DeleteRankGroupManager::run($record)),

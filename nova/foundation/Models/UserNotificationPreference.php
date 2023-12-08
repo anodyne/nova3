@@ -12,6 +12,8 @@ class UserNotificationPreference extends Model
 {
     public $timestamps = false;
 
+    protected $fillable = ['user_id', 'database', 'mail'];
+
     public function notificationType(): BelongsTo
     {
         return $this->belongsTo(NotificationType::class);

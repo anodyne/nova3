@@ -61,6 +61,10 @@ class PostTypeFactory extends Factory
                 'notifiesUsers' => true,
                 'includedInPostTracking' => true,
                 'allowsMultipleAuthors' => true,
+                'allowsCharacterAuthors' => true,
+                'allowedUserAuthors' => true,
+                'showContentInTimelineView' => false,
+                'editTimeframe' => '4h',
             ]),
         ];
     }

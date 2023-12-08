@@ -15,7 +15,7 @@ class RankNameFactory extends Factory
     public function definition()
     {
         return [
-            'name' => ucfirst($this->faker->word),
+            'name' => ucfirst($this->faker->words(3, asText: true)),
             'status' => RankNameStatus::active,
         ];
     }

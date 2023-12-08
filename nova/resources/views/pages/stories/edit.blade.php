@@ -51,13 +51,13 @@
             </x-form.section>
 
             <x-form.section
-                title="Story hierarchy"
+                title="Story position"
                 message="Stories can be organized inside any story on the timeline and then ordered within the parent story in whatever order you'd like."
             >
-                <livewire:stories-hierarchy
+                <livewire:stories-position
                     :parent-id="old('parent_id', $story->parent_id)"
                     :direction="old('direction', request('direction', 'after'))"
-                    :neighbor="old('neghbor', request('neighbor'))"
+                    :neighbor-id="old('neghbor', request('neighbor'))"
                     :story="$story"
                 />
             </x-form.section>

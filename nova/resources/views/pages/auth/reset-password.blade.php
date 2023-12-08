@@ -8,7 +8,7 @@
             <x-input.email
                 id="email"
                 name="email"
-                :value="old('email', $email)"
+                :value="old('email')"
                 placeholder="john@example.com"
                 data-cy="email"
                 required
@@ -34,6 +34,6 @@
             {{ __('Reset Password') }}
         </x-button.filled>
 
-        <input type="hidden" name="token" value="{{ $token }}" />
+        <input type="hidden" name="token" value="{{ request()->route('token') }}" />
     </x-form>
 @endsection

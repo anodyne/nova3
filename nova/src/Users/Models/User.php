@@ -19,10 +19,12 @@ use Lab404\Impersonate\Models\Impersonate;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
 use Nova\Characters\Models\Character;
+use Nova\Foundation\Models\UserNotificationPreference;
 use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Notes\Models\Note;
 use Nova\Stories\Models\Post;
 use Nova\Users\Data\PronounsData;
+use Nova\Users\Data\UserPreferences;
 use Nova\Users\Events;
 use Nova\Users\Models\Builders\UserBuilder;
 use Nova\Users\Models\States\Status\Active;
@@ -51,6 +53,7 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
 
     protected $casts = [
         'force_password_reset' => 'boolean',
+        'preferences' => UserPreferences::class,
         'pronouns' => PronounsData::class,
         'status' => UserStatus::class,
     ];
@@ -63,7 +66,7 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
 
     protected $fillable = [
         'name', 'email', 'password', 'force_password_reset', 'status',
-        'pronouns', 'appearance',
+        'pronouns', 'appearance', 'preferences',
     ];
 
     protected $hidden = [
@@ -100,6 +103,11 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
     public function notes(): HasMany
     {
         return $this->hasMany(Note::class);
+    }
+
+    public function notificationPreferences(): HasMany
+    {
+        return $this->hasMany(UserNotificationPreference::class);
     }
 
     public function posts(): BelongsToMany

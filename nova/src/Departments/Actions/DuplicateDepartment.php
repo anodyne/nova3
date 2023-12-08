@@ -15,7 +15,11 @@ class DuplicateDepartment
 
     public function handle(Department $original, DepartmentData $data): Department
     {
-        $replica = $original->replicate();
+        $replica = $original->replicate([
+            'positions_count',
+            'active_characters_count',
+            'active_users_count',
+        ]);
         $replica->forceFill($data->all());
         $replica->save();
 

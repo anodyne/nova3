@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->boolean('force_password_reset')->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('appearance', 5)->nullable()->default('light');
+            $table->json('preferences')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -45,6 +46,6 @@ class CreateUsersTable extends Migration
     {
         Schema::dropIfExists('logins');
         Schema::dropIfExists('users');
-        Schema::dropIfExists('password_resets');
+        Schema::dropIfExists('password_reset_tokens');
     }
 }

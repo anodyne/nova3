@@ -145,6 +145,7 @@ class StoriesList extends TableComponent
                             }),
                         ActionGroup::make([
                             Action::make('status_current')
+                                ->authorize('update')
                                 ->close()
                                 ->color('gray')
                                 ->label('Mark as current')
@@ -157,6 +158,7 @@ class StoriesList extends TableComponent
                                         ->send();
                                 }),
                             Action::make('status_ongoing')
+                                ->authorize('update')
                                 ->close()
                                 ->color('gray')
                                 ->label('Mark as ongoing')
@@ -169,6 +171,7 @@ class StoriesList extends TableComponent
                                         ->send();
                                 }),
                             Action::make('status_completed')
+                                ->authorize('update')
                                 ->close()
                                 ->color('gray')
                                 ->label('Mark as completed')
@@ -181,6 +184,7 @@ class StoriesList extends TableComponent
                                         ->send();
                                 }),
                             Action::make('status_upcoming')
+                                ->authorize('update')
                                 ->close()
                                 ->color('gray')
                                 ->label('Mark as upcoming')
@@ -200,16 +204,19 @@ class StoriesList extends TableComponent
 
                     ActionGroup::make([
                         Action::make('create-before')
+                            ->authorize('create')
                             ->icon(iconName('move-up'))
                             ->color('gray')
                             ->label('Before this story')
                             ->url(fn (Model $record): string => route('stories.create', 'direction=before&neighbor='.$record->id)),
                         Action::make('create-after')
+                            ->authorize('create')
                             ->icon(iconName('move-down'))
                             ->color('gray')
                             ->label('After this story')
                             ->url(fn (Model $record): string => route('stories.create', 'direction=after&neighbor='.$record->id)),
                         Action::make('create-inside')
+                            ->authorize('create')
                             ->icon(iconName('move-right'))
                             ->color('gray')
                             ->label('Inside this story')
@@ -218,6 +225,7 @@ class StoriesList extends TableComponent
 
                     ActionGroup::make([
                         Action::make('delete')
+                            ->authorize('delete')
                             ->icon(iconName('trash'))
                             ->color('danger')
                             ->url(fn (Model $record): string => route('stories.delete', $record)),

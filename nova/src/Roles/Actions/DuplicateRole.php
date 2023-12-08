@@ -14,8 +14,13 @@ class DuplicateRole
 
     public function handle(Role $original, RoleData $data): Role
     {
-        if (! $original->locked) {
-            $replica = $original->replicate(['active_users_count', 'inactive_users_count']);
+        if (! $original->is_locked) {
+            $replica = $original->replicate([
+                'active_users_count',
+                'inactive_users_count',
+                'user_count',
+                'permissions_count',
+            ]);
             $replica->fill($data->all());
             $replica->save();
 

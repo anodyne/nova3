@@ -14,7 +14,7 @@ use Nova\Users\Notifications\UserDeletedAccount;
 
 class MyAccountInfo extends Component
 {
-    public MyAccountForm $form;
+    public MyAccountInfoForm $form;
 
     public function delete(): void
     {

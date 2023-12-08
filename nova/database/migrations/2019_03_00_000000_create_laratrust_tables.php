@@ -17,7 +17,7 @@ class CreateLaratrustTables extends Migration
             $table->string('display_name')->nullable();
             $table->string('description')->nullable();
             $table->boolean('is_default')->default(false);
-            $table->boolean('locked')->default(false);
+            $table->boolean('is_locked')->default(false);
             $table->unsignedInteger('order_column')->nullable();
             $table->timestamps();
         });
