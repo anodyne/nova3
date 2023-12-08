@@ -1,7 +1,6 @@
 name: CI
 
-on:
-  push
+on: push
 
 jobs:
   php-tests:
@@ -19,7 +18,7 @@ jobs:
 
     strategy:
       matrix:
-        php: [8.0, 8.1]
+        php: [8.2]
         dependency-version: [prefer-stable]
         os: [ubuntu-latest]
 
@@ -32,9 +31,9 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-            php-version: ${{ matrix.php }}
-            extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
-            coverage: none
+          php-version: ${{ matrix.php }}
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
+          coverage: none
 
       - name: Verify MySQL connection
         run: |
@@ -48,7 +47,7 @@ jobs:
       - name: Install NPM dependencies
         run: |
           npm --version
-          npm install
+          npm ci
 
       - name: Compile assets
         run: npm run dev
@@ -62,7 +61,7 @@ jobs:
         env:
           DB_PORT: ${{ job.services.mysql.ports[3306] }}
           DB_USERNAME: root
-        run: php artisan test
+        run: ./vendor/bin/pest --parallel
 
       - name: Deploy to Forge
         if: github.ref == 'refs/heads/dev'
