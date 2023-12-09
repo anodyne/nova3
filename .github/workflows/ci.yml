@@ -38,9 +38,10 @@ jobs:
           cp .env.ci .env.testing
           npm ci && npm run dev
           php artisan key:generate
+          php artisan key:generate --env=testing
 
       - name: Run Testsuite
-        run: ./vendor/bin/pest
+        run: ./vendor/bin/pest --parallel
 
       - name: Deploy to Forge
         if: github.ref == 'refs/heads/dev'
