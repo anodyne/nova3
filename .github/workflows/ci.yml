@@ -1,13 +1,10 @@
-name: CI
+name: Tests
 
-on: push
+on: ["push", "pull_request"]
 
 jobs:
-  php-tests:
+  run-tests:
     runs-on: ubuntu-latest
-
-    container:
-      image: kirschbaumdevelopment/laravel-test-runner:8.2
 
     services:
       mysql:
@@ -22,23 +19,27 @@ jobs:
     name: PHP 8.2
 
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
         with:
-          fetch-depth: 1
+          php-version: 8.2
+          tools: composer:v2
+          coverage: xdebug
 
       - name: Install Composer dependencies
-        run: composer install --prefer-dist --no-interaction --no-suggest --no-scripts
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
       - name: Prepare Laravel Application
         run: |
-          cp .env.ci .env
           cp .env.ci .env.testing
           npm ci && npm run dev
-          composer dump
           php artisan key:generate
 
       - name: Run Testsuite
-        run: vendor/bin/pest --parallel
+        run: ./vendor/bin/pest --parallel
 
       - name: Deploy to Forge
         if: github.ref == 'refs/heads/dev'
