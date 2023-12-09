@@ -4,65 +4,41 @@ on: push
 
 jobs:
   php-tests:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
+
+    container:
+      image: kirschbaumdevelopment/laravel-test-runner:8.2
 
     services:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_DATABASE: database_ci
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: test
         ports:
           - 33306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
-    strategy:
-      matrix:
-        php: [8.2]
-        dependency-version: [prefer-stable]
-        os: [ubuntu-latest]
-
-    name: PHP ${{ matrix.php }}
+    name: PHP 8.2
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+      - uses: actions/checkout@v1
         with:
-          php-version: ${{ matrix.php }}
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
-          coverage: none
-
-      - name: Verify MySQL connection
-        run: |
-          mysql --version
-          sudo apt-get install -y mysql-client
-          mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports[3306] }} -uroot -e "SHOW DATABASES"
+          fetch-depth: 1
 
       - name: Install Composer dependencies
-        run: composer install --prefer-dist --no-interaction --no-suggest
+        run: composer install --prefer-dist --no-interaction --no-suggest --no-scripts
 
-      - name: Install NPM dependencies
+      - name: Prepare Laravel Application
         run: |
-          npm --version
-          npm ci
-
-      - name: Compile assets
-        run: npm run dev
-
-      - name: Prepare Laravel app
-        run: |
+          cp .env.ci .env
           cp .env.ci .env.testing
-          php artisan key:generate --env=testing
+          npm ci && npm run dev
+          composer dump
+          php artisan key:generate
 
-      - name: Execute tests
-        env:
-          DB_PORT: ${{ job.services.mysql.ports[3306] }}
-          DB_USERNAME: root
-          DB_DATABASE: database_ci
-        run: ./vendor/bin/pest --parallel
+      - name: Run Testsuite
+        run: vendor/bin/pest --parallel
 
       - name: Deploy to Forge
         if: github.ref == 'refs/heads/dev'
