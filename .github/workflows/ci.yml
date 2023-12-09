@@ -34,12 +34,13 @@ jobs:
 
       - name: Prepare Laravel Application
         run: |
+          cp .env.ci .env
           cp .env.ci .env.testing
           npm ci && npm run dev
           php artisan key:generate
 
       - name: Run Testsuite
-        run: ./vendor/bin/pest --parallel
+        run: ./vendor/bin/pest
 
       - name: Deploy to Forge
         if: github.ref == 'refs/heads/dev'
