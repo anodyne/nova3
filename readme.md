@@ -1,6 +1,9 @@
-# Nova NextGen
+# Nova 3
 
-[![Actions Status](https://github.com/anodyne/nova3/workflows/Tests/badge.svg)](https://github.com/anodyne/nova3/actions)
+[![Actions Status](https://img.shields.io/badge/Tests-passing-green?logo=github)](https://github.com/anodyne/nova3/actions)
+[![Laravel](https://img.shields.io/badge/Laravel-v10.x-FF2D20?logo=laravel)](https://laravel.com)
+[![Livewire](https://img.shields.io/badge/Livewire-v3.x-FB70A9)](https://livewire.laravel.com)
+[![PHP](https://img.shields.io/badge/PHP-8.2-777BB4?logo=php)](https://php.net)
 
 ## Installation
 
@@ -18,20 +21,17 @@ composer install
 php artisan key:generate --ansi
 php artisan migrate:fresh --seed
 
-yarn install && yarn dev
+npm ci && npm dev
 ```
-
-_Note:_ You should be able to use `npm` in place of `yarn`.
 
 ## Staying In Sync
 
 ```bash
 git pull origin dev
 
-composer dump
 composer install
 
-yarn install && yarn dev
+npm ci && npm dev
 
-php artisan nova:refresh
+php artisan migrate:refresh --seed
 ```
