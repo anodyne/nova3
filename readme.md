@@ -1,6 +1,6 @@
 # Nova NextGen
 
-[![Actions Status](https://github.com/anodyne/nova3/workflows/CI/badge.svg)](https://github.com/anodyne/nova3/actions)
+[![Actions Status](https://github.com/anodyne/nova3/workflows/Tests/badge.svg)](https://github.com/anodyne/nova3/actions)
 
 ## Installation
 
@@ -21,7 +21,7 @@ php artisan migrate:fresh --seed
 yarn install && yarn dev
 ```
 
-*Note:* You should be able to use `npm` in place of `yarn`.
+_Note:_ You should be able to use `npm` in place of `yarn`.
 
 ## Staying In Sync
 
