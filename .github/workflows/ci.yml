@@ -4,44 +4,62 @@ on: ["push", "pull_request"]
 
 jobs:
   run-tests:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-latest]
+        php: [8.2]
+        laravel: [10]
 
     services:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_ROOT_PASSWORD: password
           MYSQL_DATABASE: test
+          MYSQL_ROOT_PASSWORD: password
         ports:
-          - 33306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
 
-    name: PHP 8.2
+    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.os }}
 
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.2
-          tools: composer:v2
-          coverage: xdebug
+          php-version: ${{ matrix.php }}
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
+          coverage: none
 
-      - name: Install Composer dependencies
-        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+      - name: Install Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
-      - name: Prepare Laravel Application
+      - name: Copy .env
         run: |
           cp .env.ci .env
           cp .env.ci .env.testing
-          npm ci && npm run dev
+
+      - name: Generate key
+        run: |
           php artisan key:generate
           php artisan key:generate --env=testing
 
+      - name: Directory Permissions
+        run: chmod -R 777 storage bootstrap/cache
+
       - name: Run Testsuite
-        run: ./vendor/bin/pest --parallel
+        run: |
+          php artisan migrate
+          ./vendor/bin/pest --parallel
 
       - name: Deploy to Forge
         if: github.ref == 'refs/heads/dev'
