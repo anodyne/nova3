@@ -14,6 +14,7 @@ use Nova\Users\Listeners;
 use Nova\Users\Livewire\ActivateUserButton;
 use Nova\Users\Livewire\AdminThemeToggle;
 use Nova\Users\Livewire\DeactivateUserButton;
+use Nova\Users\Livewire\DeleteMyAccount;
 use Nova\Users\Livewire\ForcePasswordResetButton;
 use Nova\Users\Livewire\ManageCharacters;
 use Nova\Users\Livewire\ManageRoles;
@@ -65,6 +66,7 @@ class UserServiceProvider extends DomainServiceProvider
             'profile-notification-preferences' => UserNotificationPreferencesList::class,
             'my-account-info' => MyAccountInfo::class,
             'my-account-preferences' => MyAccountPreferences::class,
+            'delete-my-account' => DeleteMyAccount::class,
         ];
     }
 

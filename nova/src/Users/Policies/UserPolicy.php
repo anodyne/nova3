@@ -47,6 +47,13 @@ class UserPolicy
             : $this->deny();
     }
 
+    public function updateAccount(User $user, User $actionableUser): Response
+    {
+        return $user->is($actionableUser)
+            ? $this->allow()
+            : $this->deny();
+    }
+
     public function delete(User $user, User $actionableUser): Response
     {
         return $user->isAbleTo('user.delete') && $user->isNot($actionableUser)
@@ -75,7 +82,7 @@ class UserPolicy
 
     public function activate(User $user, User $actionableUser): Response
     {
-        return $this->update($user, $actionableUser)
+        return $this->update($user, $actionableUser)->allowed()
             && $actionableUser->is_inactive
                 ? $this->allow()
                 : $this->deny();
@@ -83,7 +90,7 @@ class UserPolicy
 
     public function deactivate(User $user, User $actionableUser): Response
     {
-        return $this->update($user, $actionableUser)
+        return $this->update($user, $actionableUser)->allowed()
             && $actionableUser->is_active
             && $actionableUser->isNot($user)
                 ? $this->allow()
@@ -92,7 +99,7 @@ class UserPolicy
 
     public function forcePasswordReset(User $user, User $actionableUser): Response
     {
-        return $this->update($user, $actionableUser)
+        return $this->update($user, $actionableUser)->allowed()
             && ! $actionableUser->is_pending
                 ? $this->allow()
                 : $this->deny();

@@ -6,6 +6,7 @@ namespace Nova\Users\Livewire;
 
 use Livewire\Component;
 use Nova\Users\Actions\ActivateUser;
+use Nova\Users\Events\UserActivated;
 use Nova\Users\Models\User;
 
 class ActivateUserButton extends Component
@@ -17,6 +18,8 @@ class ActivateUserButton extends Component
         $this->authorize('activate', $this->user);
 
         ActivateUser::run($this->user);
+
+        UserActivated::dispatch($this->user);
 
         redirect()
             ->route('users.edit', $this->user)

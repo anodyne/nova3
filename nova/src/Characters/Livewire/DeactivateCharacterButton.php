@@ -6,6 +6,7 @@ namespace Nova\Characters\Livewire;
 
 use Livewire\Component;
 use Nova\Characters\Actions\DeactivateCharacter;
+use Nova\Characters\Events\CharacterDeactivated;
 use Nova\Characters\Models\Character;
 
 class DeactivateCharacterButton extends Component
@@ -17,6 +18,8 @@ class DeactivateCharacterButton extends Component
         $this->authorize('deactivate', $this->character);
 
         DeactivateCharacter::run($this->character);
+
+        CharacterDeactivated::dispatch($this->character);
 
         redirect()
             ->route('characters.edit', $this->character)

@@ -4,37 +4,17 @@ declare(strict_types=1);
 
 namespace Nova\Users\Livewire;
 
-use Illuminate\Support\Facades\Notification as NotificationFacade;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Foundation\Filament\Notifications\Notification;
-use Nova\Users\Actions\DeleteAccount;
-use Nova\Users\Models\User;
-use Nova\Users\Notifications\UserDeletedAccount;
 
 class MyAccountInfo extends Component
 {
     public MyAccountInfoForm $form;
 
-    public function delete(): void
-    {
-        $this->authorize('deleteAccount', $user = auth()->user());
-
-        DeleteAccount::run($user);
-
-        NotificationFacade::send(
-            User::whereHasPermission('character.update')->get(),
-            new UserDeletedAccount(user: $user)
-        );
-
-        auth()->logout();
-
-        redirect('/')->notify('Your user account has been deleted');
-    }
-
     public function save(): void
     {
-        $this->authorize('update', auth()->user());
+        $this->authorize('updateAccount', auth()->user());
 
         $this->form->save();
 

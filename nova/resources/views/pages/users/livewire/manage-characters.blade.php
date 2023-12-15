@@ -26,18 +26,18 @@
                         <div
                             class="absolute z-10 mt-2 max-h-60 w-full divide-y divide-gray-200 overflow-y-scroll rounded-md bg-white shadow-lg ring-1 ring-gray-950/5 dark:divide-gray-600/50 dark:bg-gray-800"
                         >
-                            @if ($filteredCharacters->count() === 0)
+                            @if ($searchResults->count() === 0)
                                 <x-empty-state.small
                                     icon="characters"
                                     title="No character(s) found"
                                 ></x-empty-state.small>
                             @else
                                 <x-dropdown.group>
-                                    @foreach ($filteredCharacters as $character)
+                                    @foreach ($searchResults as $character)
                                         <x-dropdown.item
                                             type="button"
                                             class="group flex w-full items-center rounded-md px-4 py-2 text-base font-medium text-gray-700 transition hover:bg-gray-50 focus:outline-none dark:text-gray-300 dark:hover:bg-gray-600/50 md:text-sm"
-                                            wire:click="assignCharacter({{ $character->id }})"
+                                            wire:click="add({{ $character->id }})"
                                         >
                                             {{ $character->name }}
                                         </x-dropdown.item>
@@ -73,7 +73,7 @@
                         </div>
 
                         <div class="flex items-center justify-end space-x-3">
-                            @if ($primary->id === $character->id)
+                            @if ($primary?->id === $character->id)
                                 <x-badge color="primary">Primary</x-badge>
                             @else
                                 <x-button.filled
@@ -104,7 +104,7 @@
                                     <x-dropdown.item-danger
                                         type="button"
                                         icon="trash"
-                                        wire:click="unassignCharacter({{ $character->id }})"
+                                        wire:click="remove({{ $character->id }})"
                                     >
                                         Unassign
                                     </x-dropdown.item-danger>

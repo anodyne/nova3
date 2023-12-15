@@ -19,3 +19,9 @@
     src: url("/dist/fonts/inter/InterVariable-Italic.woff2?v=4.0") format("woff2")
         tech("variations");
 }
+
+body,
+button,
+input {
+    font-feature-settings: "ss01", "ss03", "cv11", "zero";
+}

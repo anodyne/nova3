@@ -44,7 +44,7 @@ class MyAccountInfoForm extends Form
         return [
             'name' => ['required'],
             'email' => ['required', 'email'],
-            'currentPassword' => ['required_with:form.newPassword', 'current_password'],
+            'currentPassword' => ['nullable', 'required_with:form.newPassword', 'current_password'],
             'newPassword' => ['sometimes'],
             'newPasswordConfirmation' => ['required_with:form.newPassword', 'same:newPassword'],
             'pronounSubject' => ['required_if:form.pronouns,other'],

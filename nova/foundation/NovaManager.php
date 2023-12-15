@@ -22,6 +22,15 @@ class NovaManager
         return once(fn () => Environment::make());
     }
 
+    public function getAvatarUrl(?string $seed = null): string
+    {
+        return sprintf(
+            'https://api.dicebear.com/7.x/%s/svg?seed=%s',
+            settings('appearance.avatarStyle'),
+            str_replace(' ', '', $seed ?? 'nova3')
+        );
+    }
+
     public function getFontFamily(): string
     {
         return settings('appearance.fontFamily') ?? 'Inter';

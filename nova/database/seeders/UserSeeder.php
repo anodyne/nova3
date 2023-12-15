@@ -31,7 +31,6 @@ class UserSeeder extends Seeder
         for ($i = 1; $i <= 5; $i++) {
             $activeUser = User::factory()
                 ->active()
-                ->unverifiedEmail()
                 ->create([
                     'name' => 'user'.$i,
                     'email' => "user{$i}@user.com",

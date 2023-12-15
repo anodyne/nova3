@@ -44,7 +44,7 @@
                 message="Header images are used on the public-facing site to give you more control over the look and feel of your manifest. Header images should be 4 times larger than the size you want to display it at (for high resolution displays), but not more than 5MB in size."
             >
                 <x-input.group>
-                    @livewire('media:upload-image')
+                    <livewire:media-upload-image />
                 </x-input.group>
             </x-form.section>
 

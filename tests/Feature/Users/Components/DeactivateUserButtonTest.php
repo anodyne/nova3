@@ -1,0 +1,46 @@
+<?php
+
+declare(strict_types=1);
+
+use Illuminate\Support\Facades\Event;
+use Nova\Characters\Models\Character;
+use Nova\Users\Events\UserDeactivated;
+use Nova\Users\Livewire\DeactivateUserButton;
+use Nova\Users\Models\User;
+
+use function Pest\Laravel\assertDatabaseHas;
+use function Pest\Livewire\livewire;
+
+uses()->group('users');
+uses()->group('components');
+
+beforeEach(function () {
+    signIn(permissions: 'user.update');
+
+    $this->user = User::factory()->active()->create();
+
+    $this->character = Character::factory()
+        ->hasAttached($this->user)
+        ->active()
+        ->create();
+});
+
+test('an active user can be deactivated with the button', function () {
+    Event::fake();
+
+    livewire(DeactivateUserButton::class)
+        ->set('user', $this->user)
+        ->call('deactivate');
+
+    assertDatabaseHas(User::class, [
+        'id' => $this->user->id,
+        'status' => 'inactive',
+    ]);
+
+    assertDatabaseHas(Character::class, [
+        'id' => $this->character->id,
+        'status' => 'inactive',
+    ]);
+
+    Event::assertDispatched(UserDeactivated::class);
+});

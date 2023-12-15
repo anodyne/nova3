@@ -21,14 +21,14 @@ class ManageCharacters extends Component
 
     public ?Character $primary = null;
 
-    public function assignCharacter(Character $character): void
+    public function add(Character $character): void
     {
         $this->search = '';
 
         $this->assigned->push($character);
     }
 
-    public function unassignCharacter(Character $character): void
+    public function remove(Character $character): void
     {
         $this->assigned = $this->assigned->reject(
             fn (Character $collectionCharacter) => $collectionCharacter->id === $character->id
@@ -47,7 +47,7 @@ class ManageCharacters extends Component
     }
 
     #[Computed]
-    public function filteredCharacters(): Collection
+    public function searchResults(): Collection
     {
         return Character::query()
             ->when(filled($this->search) && $this->search !== '*', fn (Builder $query) => $query->searchFor($this->search))
@@ -80,7 +80,7 @@ class ManageCharacters extends Component
     {
         return view('pages.users.livewire.manage-characters', [
             'assignedCharacters' => $this->assignedCharacters,
-            'filteredCharacters' => $this->filteredCharacters,
+            'searchResults' => $this->searchResults,
             'primaryCharacter' => $this->primaryCharacter,
             'characters' => $this->characters,
         ]);

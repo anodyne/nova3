@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Users\Livewire;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 use Nova\Users\Models\User;
@@ -29,6 +30,6 @@ class MyAccountPreferencesForm extends Form
     {
         $this->validate();
 
-        auth()->user()->update($this->all());
+        Auth::user()->update(['preferences' => $this->all()]);
     }
 }

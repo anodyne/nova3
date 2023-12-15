@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace Nova\Users\Livewire;
 
 use Filament\Forms\Components\Checkbox;
-use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
-use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Grouping\Group;
@@ -99,6 +97,7 @@ class UsersList extends TableComponent
 
                     ActionGroup::make([
                         Action::make('impersonate')
+                            ->authorize('impersonate')
                             ->modalContentView('pages.users.impersonate-warning')
                             ->modalSubmitActionLabel('Impersonate')
                             ->color('gray')
@@ -149,6 +148,7 @@ class UsersList extends TableComponent
 
                     ActionGroup::make([
                         DeleteAction::make()
+                            ->authorize('delete')
                             ->modalContentView('pages.users.delete')
                             ->successNotificationTitle('User was deleted')
                             ->using(fn (Model $record): Model => DeleteUserManager::run($record)),
@@ -183,57 +183,49 @@ class UsersList extends TableComponent
                         true: fn (Builder $query): Builder => $query->whereHas('activeCharacters'),
                         false: fn (Builder $query): Builder => $query->whereDoesntHave('activeCharacters')
                     ),
-                Filter::make('latestLogin')
+                SelectFilter::make('last_login')
                     ->label('Last signed in')
-                    ->form([
-                        Select::make('last_login')
-                            ->options([
-                                '1 week' => '1 week ago',
-                                '2 weeks' => '2 weeks ago',
-                                '1 month' => '1 month ago',
-                            ]),
+                    ->options([
+                        '7 days' => 'Within 1 week',
+                        '14 days' => 'Within 2 weeks',
+                        '30 days' => 'In the last month',
                     ])
-                    ->query(
-                        fn (Builder $query, array $data): Builder => $query->when(
-                            $data['last_login'],
-                            fn (Builder $query, $date): Builder => $query->whereHas(
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query->when($data['value'], function (Builder $query, string $date): Builder {
+                            return $query->whereHas(
                                 'latestLogin',
-                                fn (Builder $query): Builder => $query->where('created_at', '<', now()->sub($date))
-                            )
-                        )
-                    )
+                                fn (Builder $query): Builder => $query->whereBetween('created_at', [now()->sub($date), now()])
+                            );
+                        });
+                    })
                     ->indicateUsing(function (array $data): ?string {
-                        if (! $data['last_login']) {
+                        if (! $data['value']) {
                             return null;
                         }
 
-                        return 'Last signed in: > '.$data['last_login'].' days ago';
+                        return 'Last signed in: within '.$data['value'];
                     }),
-                Filter::make('latestPost')
+                SelectFilter::make('last_post')
                     ->label('Last posted')
-                    ->form([
-                        Select::make('last_posted')
-                            ->options([
-                                '1 week' => '1 week ago',
-                                '2 weeks' => '2 weeks ago',
-                                '1 month' => '1 month ago',
-                            ]),
+                    ->options([
+                        '7 days' => 'Within 1 week',
+                        '14 days' => 'Within 2 weeks',
+                        '30 days' => 'In the last month',
                     ])
-                    ->query(
-                        fn (Builder $query, array $data): Builder => $query->when(
-                            $data['last_posted'],
-                            fn (Builder $query, $date): Builder => $query->whereHas(
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query->when($data['value'], function (Builder $query, string $date): Builder {
+                            return $query->whereHas(
                                 'latestPost',
-                                fn (Builder $query): Builder => $query->where('published_at', '<', now()->sub($date))
-                            )
-                        )
-                    )
+                                fn (Builder $query): Builder => $query->whereBetween('published_at', [now()->sub($date), now()])
+                            );
+                        });
+                    })
                     ->indicateUsing(function (array $data): ?string {
-                        if (! $data['last_posted']) {
+                        if (! $data['value']) {
                             return null;
                         }
 
-                        return 'Last posted: > '.$data['last_posted'].' days ago';
+                        return 'Last posted: within '.$data['value'];
                     }),
             ])
             ->heading('Users')

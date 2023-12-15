@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Livewire;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Characters\Enums\CharacterType;
@@ -19,7 +20,7 @@ class ManageOwnership extends Component
     public function hasReachedCharacterLimit(): bool
     {
         return settings('characters.enforceCharacterLimits') &&
-            auth()->user()->activeCharacters()->count() >= settings('characters.characterLimit');
+            Auth::user()->activeCharacters()->count() >= settings('characters.characterLimit');
     }
 
     #[Computed]
@@ -59,7 +60,7 @@ class ManageOwnership extends Component
     #[Computed]
     public function linkToUserValue(): bool
     {
-        $user = auth()->user();
+        $user = Auth::user();
 
         if (
             $user->can('createPrimary', Character::class) &&
@@ -107,7 +108,7 @@ class ManageOwnership extends Component
     #[Computed]
     public function linkToUserDisabled(): bool
     {
-        $user = auth()->user();
+        $user = Auth::user();
 
         if (
             $user->canAny(['createSecondary', 'createPrimary'], Character::class) &&
@@ -116,13 +117,13 @@ class ManageOwnership extends Component
             return true;
         }
 
-        return auth()->user()->cannot('selfAssign', Character::class);
+        return Auth::user()->cannot('selfAssign', Character::class);
     }
 
     #[Computed]
     public function assignAsPrimaryValue(): bool
     {
-        $user = auth()->user();
+        $user = Auth::user();
 
         if (
             $user->can('createPrimary', Character::class) &&
@@ -151,7 +152,7 @@ class ManageOwnership extends Component
 
     public function updatedAssignAsPrimary(): void
     {
-        $user = auth()->user();
+        $user = Auth::user();
 
         if (
             $user->can('createPrimary', Character::class) &&
@@ -166,7 +167,7 @@ class ManageOwnership extends Component
 
     public function updatedLinkToUser(): void
     {
-        $user = auth()->user();
+        $user = Auth::user();
 
         if (
             $user->can('createPrimary', Character::class) &&

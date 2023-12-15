@@ -9,6 +9,7 @@
                         <option value="info">User info</option>
                         <option value="notifications">Notifications</option>
                         <option value="preferences">Preferences</option>
+                        <option value="delete">Delete my account</option>
                     </x-input.select>
                 </x-content-box>
                 <div class="hidden sm:block">
@@ -38,6 +39,14 @@
                             >
                                 Preferences
                             </a>
+                            <a
+                                href="#"
+                                class="ml-8 whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition first:ml-0 focus:outline-none"
+                                :class="{ 'border-danger-500 text-danger-600 dark:text-danger-500': isTab('delete'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('delete') }"
+                                x-on:click.prevent="switchTab('delete')"
+                            >
+                                Delete my account
+                            </a>
                         </nav>
                     </x-content-box>
                 </div>
@@ -45,7 +54,7 @@
         </x-panel.header>
 
         <x-form :action="route('account.update')" :divide="false" :space="false">
-            <div x-show="isTab('info')">
+            <div x-show="isTab('info')" x-cloak>
                 <livewire:my-account-info />
             </div>
 
@@ -55,6 +64,10 @@
 
             <div x-show="isTab('preferences')" x-cloak>
                 <livewire:my-account-preferences />
+            </div>
+
+            <div x-show="isTab('delete')" x-cloak>
+                <livewire:delete-my-account />
             </div>
         </x-form>
     </x-panel>

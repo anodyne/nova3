@@ -95,12 +95,21 @@
                 </div>
             </x-form.section>
 
-            <x-form.section
-                title="Avatar"
-                message="User avatars should be a square image at least 500 pixels tall by 500 pixels wide, but not more than 5MB in size."
-            >
+            <x-form.section title="Image">
+                <x-slot name="message">
+                    <p>
+                        User images should be a square image at least 500 pixels tall by 500 pixels wide, but not more
+                        than 10MB in size.
+                    </p>
+
+                    <p>
+                        <strong class="font-semibold">Note:</strong>
+                        if a user image isn't uploaded, a unique placeholder will be generated for the account.
+                    </p>
+                </x-slot>
+
                 <x-input.group>
-                    @livewire('media:upload-avatar')
+                    <livewire:media-upload-avatar />
                 </x-input.group>
             </x-form.section>
 

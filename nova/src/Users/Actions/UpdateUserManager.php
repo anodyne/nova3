@@ -16,13 +16,17 @@ class UpdateUserManager
     {
         $user = UpdateUser::run($user, $request->getUserData());
 
-        $user = SyncUserCharacters::run($user, $request->getUserCharactersData());
+        if (filled($request->assigned_characters)) {
+            $user = SyncUserCharacters::run($user, $request->getUserCharactersData());
+        }
 
-        $user = SyncUserRoles::run($user, $request->getUserRolesData());
+        if (filled($request->assigned_roles)) {
+            $user = SyncUserRoles::run($user, $request->getUserRolesData());
+        }
 
-        UploadUserAvatar::run($user, $request->avatar_path);
+        UploadUserAvatar::run($user, $request->image_path);
 
-        // RemoveUserAvatar::run($user, $request->input('remove_avatar', false));
+        RemoveUserAvatar::run($user, $request->boolean('remove_existing_image', false));
 
         return $user->refresh();
     }

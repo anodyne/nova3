@@ -66,7 +66,7 @@
                 title="Story image"
                 message="The story image should be 4 times larger than the size you want to display it at (for high resolution displays), but not more than 10MB in size."
             >
-                @livewire('media:upload-image')
+                <livewire:media-upload-image />
             </x-form.section>
 
             <x-form.section>

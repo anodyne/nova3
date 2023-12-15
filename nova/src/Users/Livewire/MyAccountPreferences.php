@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Users\Livewire;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Foundation\Filament\Notifications\Notification;
@@ -14,7 +15,7 @@ class MyAccountPreferences extends Component
 
     public function save(): void
     {
-        $this->authorize('update', auth()->user());
+        $this->authorize('updateAccount', Auth::user());
 
         $this->form->save();
 
@@ -29,6 +30,12 @@ class MyAccountPreferences extends Component
         return $this->getErrorBag();
     }
 
+    #[Computed]
+    public function timezones()
+    {
+        return collect(json_decode(file_get_contents(nova_path('timezones.json'))));
+    }
+
     public function mount(): void
     {
         $this->form->setAccount(auth()->user());
@@ -38,6 +45,7 @@ class MyAccountPreferences extends Component
     {
         return view('pages.users.livewire.my-account-preferences', [
             'errors' => $this->errors,
+            'timezones' => $this->timezones,
         ]);
     }
 }

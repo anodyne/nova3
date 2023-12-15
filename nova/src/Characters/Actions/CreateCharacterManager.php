@@ -45,7 +45,7 @@ class CreateCharacterManager
 
         UpdatePositionAvailability::run($positions);
 
-        UploadCharacterAvatar::run($character, $request->avatar_path);
+        UploadCharacterAvatar::run($character, $request->image_path);
 
         if ($request->user()->can('activateOnCreation', $character)) {
             $character = ActivateCharacter::run($character);

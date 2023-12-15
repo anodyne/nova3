@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\Notification;
 use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
@@ -12,6 +14,8 @@ use Nova\Stories\Models\States\StoryStatus\Completed;
 use Nova\Stories\Models\States\StoryStatus\Current;
 use Nova\Stories\Models\States\StoryStatus\Upcoming;
 use Nova\Stories\Models\Story;
+use Nova\Stories\Notifications\StoryEnded;
+use Nova\Stories\Notifications\StoryStarted;
 
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\get;
@@ -183,6 +187,8 @@ describe('authorized user with story update permissions', function () {
     });
 
     test('can update the status of a story to current', function () {
+        Notification::fake();
+
         $story = Story::factory()->upcoming()->create();
 
         livewire(StoriesList::class)
@@ -193,9 +199,13 @@ describe('authorized user with story update permissions', function () {
             'title' => $story->title,
             'status' => 'current',
         ]);
+
+        Notification::assertSentTo(Auth::user(), StoryStarted::class);
     });
 
     test('can update the status of a story to completed', function () {
+        Notification::fake();
+
         $story = Story::factory()->current()->create();
 
         livewire(StoriesList::class)
@@ -206,6 +216,8 @@ describe('authorized user with story update permissions', function () {
             'title' => $story->title,
             'status' => 'completed',
         ]);
+
+        Notification::assertSentTo(Auth::user(), StoryEnded::class);
     });
 
     test('can update the status of a story to ongoing', function () {

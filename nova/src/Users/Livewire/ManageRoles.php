@@ -19,14 +19,14 @@ class ManageRoles extends Component
 
     public Collection $assigned;
 
-    public function assignRole(Role $role): void
+    public function add(Role $role): void
     {
         $this->search = '';
 
         $this->assigned->push($role);
     }
 
-    public function unassignRole(Role $role): void
+    public function remove(Role $role): void
     {
         $this->assigned = $this->assigned->reject(
             fn (Role $collectionRole) => $collectionRole->id === $role->id
@@ -48,7 +48,7 @@ class ManageRoles extends Component
     }
 
     #[Computed]
-    public function filteredRoles(): Collection
+    public function searchResults(): Collection
     {
         return Role::query()
             ->when(filled($this->search) && $this->search !== '*', fn (Builder $query) => $query->searchFor($this->search))
@@ -66,7 +66,7 @@ class ManageRoles extends Component
         return view('pages.users.livewire.manage-roles', [
             'assignedRoles' => $this->assignedRoles,
             'roles' => $this->roles,
-            'filteredRoles' => $this->filteredRoles,
+            'searchResults' => $this->searchResults,
         ]);
     }
 }

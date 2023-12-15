@@ -11,10 +11,10 @@ class UploadUserAvatar
 {
     use AsAction;
 
-    public function handle(User $user, $imagePath): User
+    public function handle(User $user, ?string $path = null): User
     {
-        if ($imagePath !== null) {
-            $user->addMedia($imagePath)->toMediaCollection('avatar');
+        if (filled($path)) {
+            $user->addMedia($path)->toMediaCollection('avatar');
         }
 
         return $user->refresh();

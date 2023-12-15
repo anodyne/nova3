@@ -51,10 +51,11 @@
                 message="You can upload a logo that will be used in the header of the admin system as well as on the login pages."
             >
                 <x-input.group>
-                    @livewire('media:upload-image', [
-                        'existingImage' => settings()->getFirstMediaUrl('logo'),
-                        'supportMessage' => 'PNG, JPG, SVG up to 5MB',
-                    ])
+                    <livewire:media-upload-image
+                        :model="settings()"
+                        media-collection-name="logo"
+                        support-message="PNG, JPG, or SVG (max. 5MB)"
+                    />
                 </x-input.group>
             </x-form.section>
 
@@ -118,11 +119,12 @@
                 <livewire:settings-font-selector />
             </x-form.section>
 
-            <x-form.section title="Avatar shape" message="Update the shape of avatars throughout Nova.">
+            <x-form.section title="Avatars">
                 <x-slot name="message">
-                    <p>Update the shape of avatars throughout Nova.</p>
+                    <p>Update the shape and style of avatars throughout Nova.</p>
 
-                    <div
+                    <img
+                        src="https://api.dicebear.com/7.x/{{ $settings->appearance->avatarStyle }}/svg?seed=nova3"
                         @class([
                             'h-16 w-16 bg-gray-400 dark:bg-gray-600',
                             match ($settings->appearance->avatarShape) {
@@ -132,11 +134,11 @@
                                 default => $settings->appearance->avatarShape,
                             },
                         ])
-                    ></div>
+                    />
                 </x-slot>
 
                 <x-input.group label="Shape" for="avatar_shape">
-                    <x-input.select class="mt-1 block w-full" id="avatar_shape" name="avatar_shape">
+                    <x-input.select class="block w-full" id="avatar_shape" name="avatar_shape">
                         <option value="rounded-full" @selected($settings->appearance->avatarShape === 'rounded-full')>
                             Circle
                         </option>
@@ -161,6 +163,24 @@
                         <option value="hexagon-alt" @selected($settings->appearance->avatarShape === 'hexagon-alt')>
                             Alternate hexagon
                         </option>
+                    </x-input.select>
+                </x-input.group>
+
+                <x-input.group label="Style" for="avatar_style">
+                    <x-slot name="help">
+                        Nova uses the
+                        <x-button.text href="https://www.dicebear.com/" target="_blank">
+                            DiceBear avatar library
+                        </x-button.text>
+                        for generated avatars when a user or character has not had one uploaded.
+                    </x-slot>
+
+                    <x-input.select class="block w-full" id="avatar_style" name="avatar_style">
+                        @foreach ($settings->appearance->getAvatarStyles() as $value => $name)
+                            <option value="{{ $value }}" @selected($settings->appearance->avatarStyle === $value)>
+                                {{ $name }}
+                            </option>
+                        @endforeach
                     </x-input.select>
                 </x-input.group>
             </x-form.section>

@@ -26,15 +26,15 @@
                         <div
                             class="absolute z-10 mt-2 max-h-60 w-full divide-y divide-gray-200 overflow-y-scroll rounded-md bg-white shadow-lg ring-1 ring-gray-950/5 dark:divide-gray-600/50 dark:bg-gray-800"
                         >
-                            @if ($filteredUsers->count() === 0)
+                            @if ($searchResults->count() === 0)
                                 <x-empty-state.small icon="users" title="No user(s) found"></x-empty-state.small>
                             @else
                                 <x-dropdown.group>
-                                    @foreach ($filteredUsers as $user)
+                                    @foreach ($searchResults as $user)
                                         <x-dropdown.item
                                             type="button"
                                             class="group flex w-full items-center rounded-md px-4 py-2 text-base font-medium text-gray-700 transition hover:bg-gray-50 focus:outline-none dark:text-gray-300 dark:hover:bg-gray-600/50 md:text-sm"
-                                            wire:click="assignUser({{ $user->id }})"
+                                            wire:click="add({{ $user->id }})"
                                         >
                                             {{ $user->name }}
                                         </x-dropdown.item>
@@ -89,7 +89,7 @@
                                     <x-dropdown.item-danger
                                         type="button"
                                         icon="trash"
-                                        wire:click="unassignUser({{ $user->id }})"
+                                        wire:click="remove({{ $user->id }})"
                                     >
                                         Remove
                                     </x-dropdown.item-danger>

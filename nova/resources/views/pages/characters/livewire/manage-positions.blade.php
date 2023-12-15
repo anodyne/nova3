@@ -27,11 +27,11 @@
                             class="absolute z-10 mt-2 max-h-60 w-full divide-y divide-gray-200 overflow-y-scroll rounded-md bg-white shadow-lg ring-1 ring-gray-950/5 dark:divide-gray-600/50 dark:bg-gray-800"
                         >
                             <x-dropdown.group>
-                                @forelse ($filteredPositions as $position)
+                                @forelse ($searchResults as $position)
                                     <x-dropdown.item
                                         type="button"
                                         class="group flex w-full items-center rounded-md px-4 py-2 text-base font-medium text-gray-700 transition hover:bg-gray-50 focus:outline-none dark:text-gray-300 dark:hover:bg-gray-600/50 md:text-sm"
-                                        wire:click="assignPosition({{ $position->id }})"
+                                        wire:click="add({{ $position->id }})"
                                     >
                                         {{ $position->name }}
                                         <span class="ml-4 text-sm text-gray-500 dark:text-gray-400">
@@ -45,7 +45,7 @@
 
                             @can('viewAny', Nova\Departments\Models\Position::class)
                                 <x-dropdown.group>
-                                    @if ($filteredPositions->count() > 0)
+                                    @if ($searchResults->count() > 0)
                                         <x-dropdown.text>Don't see the position you're looking for?</x-dropdown.text>
                                     @endif
 
@@ -92,7 +92,7 @@
                                     <x-dropdown.item-danger
                                         type="button"
                                         icon="trash"
-                                        wire:click="unassignPosition({{ $position->id }})"
+                                        wire:click="remove({{ $position->id }})"
                                     >
                                         Unassign
                                     </x-dropdown.item-danger>

@@ -19,14 +19,14 @@ class ManagePermissions extends Component
 
     public Collection $assigned;
 
-    public function addPermission(Permission $permission): void
+    public function add(Permission $permission): void
     {
         $this->search = '';
 
         $this->assigned->push($permission);
     }
 
-    public function removePermission(Permission $permission): void
+    public function remove(Permission $permission): void
     {
         $this->assigned = $this->assigned->reject(
             fn (Permission $collectionPermission) => $collectionPermission->id === $permission->id
@@ -48,7 +48,7 @@ class ManagePermissions extends Component
     }
 
     #[Computed]
-    public function filteredPermissions(): Collection
+    public function searchResults(): Collection
     {
         return Permission::query()
             ->when(filled($this->search) && $this->search !== '*', fn (Builder $query): Builder => $query->searchFor($this->search))
@@ -66,7 +66,7 @@ class ManagePermissions extends Component
     {
         return view('pages.roles.livewire.manage-permissions', [
             'assignedPermissions' => $this->assignedPermissions,
-            'filteredPermissions' => $this->filteredPermissions,
+            'searchResults' => $this->searchResults,
             'permissions' => $this->permissions,
         ]);
     }

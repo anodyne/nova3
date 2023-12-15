@@ -58,7 +58,7 @@ describe('authorized user', function () {
         $user = User::factory()->create();
 
         $assignedUsers = livewire(ManageUsers::class)
-            ->call('assignUser', $user->id)
+            ->call('add', $user->id)
             ->get('assignedUsers');
 
         $data = array_merge(
@@ -83,7 +83,7 @@ describe('authorized user', function () {
         $permission = Permission::first();
 
         $assignedPermissions = livewire(ManagePermissions::class)
-            ->call('addPermission', $permission->id)
+            ->call('add', $permission->id)
             ->get('assignedPermissions');
 
         $data = array_merge(

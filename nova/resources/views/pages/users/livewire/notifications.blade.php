@@ -9,12 +9,11 @@
             {{-- format-ignore-start --}}
             <svg class="icon tabler-icon h-7 w-7 md:h-6 md:w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M10 6h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3"></path>
-                <path
-                    d="M17 7m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"
-                    @class([
-                        'stroke-primary-500' => $unreadNotificationsCount > 0
-                    ])
-                ></path>
+                @if ($unreadNotificationsCount === 0)
+                    <path d="M17 7m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                @else
+                    <path d="M17 7m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" fill="currentColor" class="text-primary-500"></path>
+                @endif
             </svg>
             {{-- format-ignore-end --}}
             <span class="font-medium">Notifications</span>

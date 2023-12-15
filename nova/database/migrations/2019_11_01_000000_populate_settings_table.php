@@ -33,6 +33,7 @@ class PopulateSettingsTable extends Migration
                 theme: 'Pulsar',
                 iconSet: 'tabler',
                 avatarShape: 'squircle',
+                avatarStyle: 'bottts-neutral',
                 imagePath: null,
                 colorsGray: 'Gray',
                 colorsPrimary: 'Sky',

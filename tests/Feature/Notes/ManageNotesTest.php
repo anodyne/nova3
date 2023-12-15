@@ -36,10 +36,15 @@ describe('authenticated user', function () {
     });
 
     test('can search notes by title', function () {
+        Note::factory()->create([
+            'title' => 'Test note',
+            'user_id' => Auth::id(),
+        ]);
+
         livewire(NotesList::class)
             ->searchTable('banana')
             ->assertCountTableRecords(0)
-            ->searchTable($this->notes->where('user_id', Auth::id())->first()->title)
+            ->searchTable('test note')
             ->assertCountTableRecords(1);
     });
 });

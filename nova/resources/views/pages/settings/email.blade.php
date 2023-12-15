@@ -51,10 +51,11 @@
                 message="You can upload a logo that will be used in the header of the emails sent from Nova."
             >
                 <x-input.group>
-                    @livewire('media:upload-image', [
-                        'existingImage' => settings()->getFirstMediaUrl('email-logo'),
-                        'supportMessage' => 'PNG or JPG up to 5MB',
-                    ])
+                    <livewire:media-upload-image
+                        :model="settings()"
+                        media-collection-name="email-logo"
+                        support-message="PNG or JPG (max. 5MB)"
+                    />
                 </x-input.group>
             </x-form.section>
 

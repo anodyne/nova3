@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Nova\Users\Actions\PopulateAccountPreferences;
+use Nova\Users\Actions\PopulateNotificationPreferences;
 use Nova\Users\Models\User;
 
 /*
@@ -45,7 +47,10 @@ expect()->extend('toBeOne', function () {
 
 function createUser(array $attributes = [], mixed $permissions = '', bool $admin = false)
 {
-    $user = User::factory()->create($attributes);
+    $user = User::factory()->active()->create($attributes);
+
+    PopulateAccountPreferences::run($user);
+    PopulateNotificationPreferences::run($user);
 
     if ($admin) {
         $user->addRole('admin');

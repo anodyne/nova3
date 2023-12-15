@@ -39,15 +39,15 @@ test('it can search users', function () {
 
     livewire(ManageUsers::class)
         ->set('search', 'John')
-        ->assertSet('filteredUsers', $users = User::searchFor('John')->get())
-        ->assertCount('filteredUsers', $users->count());
+        ->assertSet('searchResults', $users = User::searchFor('John')->get())
+        ->assertCount('searchResults', $users->count());
 });
 
 test('it can list all users in the search results', function () {
     livewire(ManageUsers::class)
         ->set('search', '*')
-        ->assertSet('filteredUsers', $users = User::get())
-        ->assertCount('filteredUsers', $users->count());
+        ->assertSet('searchResults', $users = User::get())
+        ->assertCount('searchResults', $users->count());
 });
 
 test('it can assign a user', function () {
@@ -55,8 +55,8 @@ test('it can assign a user', function () {
     $user2 = User::factory()->create();
 
     livewire(ManageUsers::class)
-        ->call('assignUser', $user1->id)
-        ->call('assignUser', $user2->id)
+        ->call('add', $user1->id)
+        ->call('add', $user2->id)
         ->assertSet('assignedUsers', "{$user1->id},{$user2->id}");
 });
 
@@ -65,9 +65,9 @@ test('it can unassign a user', function () {
     $user2 = User::factory()->create();
 
     livewire(ManageUsers::class)
-        ->call('assignUser', $user1->id)
-        ->call('assignUser', $user2->id)
+        ->call('add', $user1->id)
+        ->call('add', $user2->id)
         ->assertSet('assignedUsers', "{$user1->id},{$user2->id}")
-        ->call('unassignUser', $user1->id)
+        ->call('remove', $user1->id)
         ->assertSet('assignedUsers', "{$user2->id}");
 });

@@ -15,7 +15,14 @@ Artisan::command('nova:get-timezones {token}', function (string $token) {
     $response = Http::withToken($token)
         ->get('https://api.savvycal.com/v1/time_zones');
 
-    File::put(nova_path('timezones.json'), json_encode($response->json()));
+    $collection = collect($response->json())
+        ->filter(fn ($tz) => $tz['golden'])
+        ->map(fn ($tz) => [
+            'id' => $tz['id'],
+            'name' => $tz['long_name'],
+        ]);
+
+    File::put(nova_path('timezones.json'), json_encode($collection));
 
     $this->info('Timezones updated');
 });

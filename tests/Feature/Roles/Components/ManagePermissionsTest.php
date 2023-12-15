@@ -31,15 +31,15 @@ test('it can mount with a role', function () {
 test('it can search permissions', function () {
     livewire(ManagePermissions::class)
         ->set('search', 'create')
-        ->assertSet('filteredPermissions', $permissions = Permission::searchFor('create')->get())
-        ->assertCount('filteredPermissions', $permissions->count());
+        ->assertSet('searchResults', $permissions = Permission::searchFor('create')->get())
+        ->assertCount('searchResults', $permissions->count());
 });
 
 test('it can list all permissions in the search results', function () {
     livewire(ManagePermissions::class)
         ->set('search', '*')
-        ->assertSet('filteredPermissions', $permissions = Permission::get())
-        ->assertCount('filteredPermissions', $permissions->count());
+        ->assertSet('searchResults', $permissions = Permission::get())
+        ->assertCount('searchResults', $permissions->count());
 });
 
 test('it can add a permission', function () {
@@ -47,8 +47,8 @@ test('it can add a permission', function () {
     $permission2 = Permission::find(2);
 
     livewire(ManagePermissions::class)
-        ->call('addPermission', $permission1->id)
-        ->call('addPermission', $permission2->id)
+        ->call('add', $permission1->id)
+        ->call('add', $permission2->id)
         ->assertSet('assignedPermissions', '1,2');
 });
 
@@ -57,9 +57,9 @@ test('it can remove a permission', function () {
     $permission2 = Permission::find(2);
 
     livewire(ManagePermissions::class)
-        ->call('addPermission', $permission1->id)
-        ->call('addPermission', $permission2->id)
+        ->call('add', $permission1->id)
+        ->call('add', $permission2->id)
         ->assertSet('assignedPermissions', '1,2')
-        ->call('removePermission', $permission1->id)
+        ->call('remove', $permission1->id)
         ->assertSet('assignedPermissions', '2');
 });

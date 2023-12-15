@@ -208,6 +208,8 @@ class CharacterPolicy
             $user->isAbleTo('character.update') => $this->allow(),
             $this->delete($user, $character)->allowed() => $this->allow(),
             $this->restore($user, $character)->allowed() => $this->allow(),
+            $this->activateAny($user, $character)->allowed() => $this->allow(),
+            $this->deactivateAny($user, $character)->allowed() => $this->allow(),
             default => $this->deny()
         };
     }

@@ -6,6 +6,7 @@ namespace Nova\Users\Livewire;
 
 use Livewire\Component;
 use Nova\Users\Actions\DeactivateUser;
+use Nova\Users\Events\UserDeactivated;
 use Nova\Users\Models\User;
 
 class DeactivateUserButton extends Component
@@ -17,6 +18,8 @@ class DeactivateUserButton extends Component
         $this->authorize('deactivate', $this->user);
 
         DeactivateUser::run($this->user);
+
+        UserDeactivated::dispatch($this->user);
 
         redirect()
             ->route('users.edit', $this->user)

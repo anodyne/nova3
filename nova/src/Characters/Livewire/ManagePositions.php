@@ -6,6 +6,7 @@ namespace Nova\Characters\Livewire;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Characters\Models\Character;
@@ -19,14 +20,14 @@ class ManagePositions extends Component
 
     public Collection $assigned;
 
-    public function assignPosition(Position $position): void
+    public function add(Position $position): void
     {
         $this->search = '';
 
         $this->assigned->push($position);
     }
 
-    public function unassignPosition(Position $position): void
+    public function remove(Position $position): void
     {
         $this->assigned = $this->assigned->reject(
             fn (Position $collectionPosition) => $collectionPosition->id === $position->id
@@ -40,10 +41,10 @@ class ManagePositions extends Component
     }
 
     #[Computed]
-    public function filteredPositions(): Collection
+    public function searchResults(): Collection
     {
         return Position::query()
-            ->unless(auth()->user()->can('create', Character::class), fn (Builder $query) => $query->where('available', '>', 0))
+            ->unless(Auth::user()?->can('create', Character::class), fn (Builder $query) => $query->where('available', '>', 0))
             ->when(filled($this->search) && $this->search !== '*', fn (Builder $query) => $query->searchFor($this->search))
             ->when(filled($this->search) && $this->search === '*', fn (Builder $query) => $query)
             ->get();
@@ -66,7 +67,7 @@ class ManagePositions extends Component
     {
         return view('pages.characters.livewire.manage-positions', [
             'assignedPositions' => $this->assignedPositions,
-            'filteredPositions' => $this->filteredPositions,
+            'searchResults' => $this->searchResults,
             'positions' => $this->positions,
         ]);
     }

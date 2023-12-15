@@ -21,14 +21,14 @@ class ManageUsers extends Component
 
     public Collection $primary;
 
-    public function assignUser(User $user): void
+    public function add(User $user): void
     {
         $this->search = '';
 
         $this->assigned->push($user);
     }
 
-    public function unassignUser(User $user): void
+    public function remove(User $user): void
     {
         $this->assigned = $this->assigned->reject(
             fn (User $collectionUser) => $collectionUser->id === $user->id
@@ -47,7 +47,7 @@ class ManageUsers extends Component
     }
 
     #[Computed]
-    public function filteredUsers(): Collection
+    public function searchResults(): Collection
     {
         return User::query()
             ->when(filled($this->search) && $this->search !== '*', fn (Builder $query) => $query->searchFor($this->search))
@@ -82,7 +82,7 @@ class ManageUsers extends Component
     {
         return view('pages.characters.livewire.manage-users', [
             'assignedUsers' => $this->assignedUsers,
-            'filteredUsers' => $this->filteredUsers,
+            'searchResults' => $this->searchResults,
             'primaryUsers' => $this->primaryUsers,
             'users' => $this->users,
         ]);

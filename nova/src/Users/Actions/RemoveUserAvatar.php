@@ -11,9 +11,9 @@ class RemoveUserAvatar
 {
     use AsAction;
 
-    public function handle(User $user, bool $removeAvatar = false): User
+    public function handle(User $user, bool $remove = false): User
     {
-        if ($removeAvatar) {
+        if ($remove) {
             $user->clearMediaCollection('avatar');
         }
 

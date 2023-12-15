@@ -20,6 +20,7 @@ use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
 use Nova\Characters\Models\Character;
 use Nova\Foundation\Models\UserNotificationPreference;
+use Nova\Foundation\Nova;
 use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Notes\Models\Note;
 use Nova\Stories\Models\Post;
@@ -153,6 +154,61 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
         );
     }
 
+    public function initials(): Attribute
+    {
+        return new Attribute(
+            get: function (): ?string {
+                $segments = explode(' ', $this->name);
+
+                // Only 1 segment, so try to explode on a dash
+                if (count($segments) === 1) {
+                    $segments = explode('-', $this->name);
+
+                    // Only 1 segment, so try to explode on an underscore
+                    if (count($segments) === 1) {
+                        $segments = explode('_', $this->name);
+
+                        // Only 1 segment, so try to explode at capital letters
+                        if (count($segments) === 1) {
+                            $segments = preg_split('/(?=[A-Z])/', $this->name, -1, PREG_SPLIT_NO_EMPTY);
+
+                            // Only 1 segment, so finally split the string and grab the first 2 letters
+                            if (count($segments) === 1) {
+                                $string = str_split($segments[0]);
+
+                                $segments = [
+                                    $string[0],
+                                    $string[1],
+                                ];
+                            }
+                        }
+                    }
+                }
+
+                // Exactly 2 segments, which makes this one easy
+                if (count($segments) === 2) {
+                    return strtoupper(trim(
+                        collect($segments)
+                            ->map(fn ($segment) => mb_substr($segment, 0, 1))
+                            ->join('')
+                    ));
+                }
+
+                // More than 2 segments, so grab the first and last items
+                if (count($segments) > 2) {
+                    return strtoupper(trim(
+                        collect([
+                            $segments[array_key_first($segments)],
+                            $segments[array_key_last($segments)],
+                        ])
+                            ->map(fn ($segment) => mb_substr($segment, 0, 1))
+                            ->join('')
+                    ));
+                }
+            }
+        );
+    }
+
     public function isActive(): Attribute
     {
         return new Attribute(
@@ -262,7 +318,7 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('avatar')
-            ->useFallbackUrl("https://api.dicebear.com/7.x/bottts/svg?seed={$this->email}")
+            ->useFallbackUrl(Nova::getAvatarUrl($this->name))
             ->useDisk('media')
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'])
             ->singleFile();

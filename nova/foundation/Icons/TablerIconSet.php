@@ -109,6 +109,7 @@ class TablerIconSet extends IconSet
             'tools' => 'tabler-tool',
             'trash' => 'tabler-trash',
             'user' => 'tabler-user',
+            'user-profile' => 'tabler-user-circle',
             'users' => 'tabler-users',
             'wand' => 'tabler-wand',
             'warning' => 'tabler-alert-triangle',

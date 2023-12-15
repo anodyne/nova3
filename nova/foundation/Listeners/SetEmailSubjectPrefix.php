@@ -12,6 +12,14 @@ class SetEmailSubjectPrefix
     {
         $message = $event->message;
 
-        $message->subject(trim(settings('email.subjectPrefix')).' '.$message->getSubject());
+        $subject = [];
+
+        if (filled($prefix = settings('email.subjectPrefix'))) {
+            $subject[] = trim($prefix);
+        }
+
+        $subject[] = $message->getSubject();
+
+        $message->subject(implode(' ', $subject));
     }
 }

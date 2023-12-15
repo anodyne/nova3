@@ -26,7 +26,7 @@ class CreateUserManager
 
         $user = PopulateNotificationPreferences::run($user);
 
-        UploadUserAvatar::run($user, $request->avatar_path);
+        UploadUserAvatar::run($user, $request->image_path);
 
         return $user->fresh();
     }

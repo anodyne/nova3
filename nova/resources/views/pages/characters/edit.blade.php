@@ -24,7 +24,7 @@
                 message="Character avatars should be a square image at least 500 pixels tall by 500 pixels wide, but not more than 5MB in size."
             >
                 <x-input.group>
-                    @livewire('media:upload-avatar', ['existingAvatar' => $character->avatarUrl, 'hasAvatar' => $character->hasAvatar])
+                    <livewire:media-upload-avatar :model="$character" />
                 </x-input.group>
             </x-form.section>
 

@@ -46,9 +46,9 @@ class UpdateCharacterManager
 
         UpdatePositionAvailability::run($positions);
 
-        UploadCharacterAvatar::run($character, $request->avatar_path);
+        UploadCharacterAvatar::run($character, $request->image_path);
 
-        // RemoveCharacterAvatar::run($character, $request->input('remove_avatar', false));
+        RemoveCharacterAvatar::run($character, $request->boolean('remove_existing_image', false));
 
         return $character->refresh();
     }

@@ -17,6 +17,8 @@ class Appearance extends Data implements Arrayable
         public string $iconSet,
         #[MapInputName('avatar_shape')]
         public string $avatarShape,
+        #[MapInputName('avatar_style')]
+        public ?string $avatarStyle,
         #[MapInputName('image_path')]
         public ?string $imagePath,
         #[MapInputName('colors_gray')]
@@ -47,6 +49,40 @@ class Appearance extends Data implements Arrayable
             'warning' => $this->processColor($this->colorsWarning),
             'success' => $this->processColor($this->colorsSuccess),
             'info' => $this->processColor($this->colorsInfo),
+        ];
+    }
+
+    public function getAvatarStyles(): array
+    {
+        return [
+            'adventurer' => 'Adventurer',
+            'adventurer-neutral' => 'Adventurer Neutral',
+            'avataaars' => 'Avataaars',
+            'avataaars-neutral' => 'Avataaars Neutral',
+            'big-ears' => 'Big Ears',
+            'big-ears-neutral' => 'Big Ears Neutral',
+            'big-smile' => 'Big Smile',
+            'bottts' => 'Bottts',
+            'bottts-neutral' => 'Bottts Neutral',
+            'croodles' => 'Croodles',
+            'croodles-neutral' => 'Croodles Neutral',
+            'fun-emoji' => 'Fun Emoji',
+            'icons' => 'Icons',
+            'identicon' => 'Identicon',
+            'initials' => 'Initials',
+            'lorelei' => 'Lorelei',
+            'lorelei-neutral' => 'Lorelei Neutral',
+            'micah' => 'Micah',
+            'miniavs' => 'Miniavs',
+            'notionists' => 'Notionists',
+            'notionists-neutral' => 'Notionists Neutral',
+            'open-peeps' => 'Open Peeps',
+            'personas' => 'Personas',
+            'pixel-art' => 'Pixel Art',
+            'pixel-art-neutral' => 'Pixel Art Neutral',
+            'rings' => 'Rings',
+            'shapes' => 'Shapes',
+            'thumbs' => 'Thumbs',
         ];
     }
 

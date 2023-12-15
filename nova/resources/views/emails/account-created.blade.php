@@ -8,6 +8,6 @@ Welcome to the game! A new user account has been created for you. We recommend t
 **Password:** {{ $password }}
 </x-mail::panel>
 
-<x-mail::button :href="route('login')">Sign in now</x-mail::button>
+<x-mail::button :url="route('login')">Sign in now</x-mail::button>
 </x-email-layout>
 {{-- format-ignore-end --}}

@@ -6,6 +6,7 @@ namespace Nova\Characters\Livewire;
 
 use Livewire\Component;
 use Nova\Characters\Actions\ActivateCharacter;
+use Nova\Characters\Events\CharacterActivated;
 use Nova\Characters\Models\Character;
 
 class ActivateCharacterButton extends Component
@@ -17,6 +18,8 @@ class ActivateCharacterButton extends Component
         $this->authorize('activate', $this->character);
 
         ActivateCharacter::run($this->character);
+
+        CharacterActivated::dispatch($this->character);
 
         redirect()
             ->route('characters.edit', $this->character)

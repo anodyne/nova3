@@ -15,12 +15,6 @@
 
 @import "filament.css";
 
-body,
-button,
-input {
-    font-feature-settings: "ss01", "ss03", "cv11", "zero";
-}
-
 [x-cloak] {
     @apply hidden;
 }

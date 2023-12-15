@@ -17,6 +17,7 @@ use Nova\Characters\Models\States\Status\CharacterStatus;
 use Nova\Characters\Models\States\Status\Inactive;
 use Nova\Characters\Models\States\Status\Pending;
 use Nova\Departments\Models\Position;
+use Nova\Foundation\Nova;
 use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Ranks\Models\RankItem;
 use Nova\Stories\Models\Post;
@@ -177,7 +178,7 @@ class Character extends Model implements HasMedia
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('avatar')
-            ->useFallbackUrl('https://api.dicebear.com/7.x/bottts/svg?seed='.str_replace(' ', '', $this->name))
+            ->useFallbackUrl(Nova::getAvatarUrl($this->name))
             ->useDisk('media')
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'])
             ->singleFile();

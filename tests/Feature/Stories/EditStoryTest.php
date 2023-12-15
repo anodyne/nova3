@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Nova\Media\Livewire\UploadImage;
 use Nova\Stories\Events\StoryUpdated;
 use Nova\Stories\Models\Story;
+use Nova\Stories\Notifications\StoryEnded;
+use Nova\Stories\Notifications\StoryStarted;
 
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\from;
@@ -76,21 +79,10 @@ describe('authorized user', function () {
         Storage::fake('media');
         Storage::fake('tmp-for-tests');
 
-        $imagePath = livewire(UploadImage::class)
-            ->set('image', UploadedFile::fake()->image('story-image.png'))
-            ->get('path');
-
-        $data = array_merge(
-            Story::factory()->upcoming()->make()->toArray(),
-            ['image_path' => $imagePath]
-        );
-
-        assertCount(0, $this->story->getMedia('story-image'));
-
-        from(route('stories.edit', $this->story))
-            ->put(route('stories.update', $this->story), $data);
-
-        $this->story->refresh();
+        $this->story
+            ->addMedia(base_path('tests/assets/image.jpg'))
+            ->preservingOriginal()
+            ->toMediaCollection('story-image');
 
         assertCount(1, $this->story->getMedia('story-image'));
 
@@ -111,6 +103,46 @@ describe('authorized user', function () {
         $this->story->refresh();
 
         assertCount(1, $this->story->getMedia('story-image'));
+    });
+
+    test('a notification is sent when a story is changed from upcoming to current', function () {
+        Notification::fake();
+
+        $story = Story::factory()->upcoming()->create();
+
+        from(route('stories.edit', $story))
+            ->put(route('stories.update', $story), [
+                'title' => $story->title,
+                'description' => $story->description,
+                'status' => 'current',
+            ]);
+
+        assertDatabaseHas(Story::class, [
+            'title' => $story->title,
+            'status' => 'current',
+        ]);
+
+        Notification::assertSentTo(auth()->user(), StoryStarted::class);
+    });
+
+    test('a notification is sent when a story is changed from current to completed', function () {
+        Notification::fake();
+
+        $story = Story::factory()->current()->create();
+
+        from(route('stories.edit', $story))
+            ->put(route('stories.update', $story), [
+                'title' => $story->title,
+                'description' => $story->description,
+                'status' => 'completed',
+            ]);
+
+        assertDatabaseHas(Story::class, [
+            'title' => $story->title,
+            'status' => 'completed',
+        ]);
+
+        Notification::assertSentTo(auth()->user(), StoryEnded::class);
     });
 });
 

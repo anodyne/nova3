@@ -13,8 +13,8 @@ class MediaServiceProvider extends DomainServiceProvider
     public function livewireComponents(): array
     {
         return [
-            'media:upload-avatar' => UploadAvatar::class,
-            'media:upload-image' => UploadImage::class,
+            'media-upload-avatar' => UploadAvatar::class,
+            'media-upload-image' => UploadImage::class,
         ];
     }
 }
