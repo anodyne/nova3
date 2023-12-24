@@ -67,7 +67,7 @@ describe('authorized user', function () {
     test('can filter post types by those that have posts', function () {
         $postType = PostType::factory()->create();
 
-        Post::factory()->create(['post_type_id' => $postType->id]);
+        Post::factory()->published()->create(['post_type_id' => $postType->id]);
 
         livewire(PostTypesList::class)
             ->filterTable('has_posts', true)
@@ -158,6 +158,6 @@ describe('unauthorized user', function () {
 describe('unauthenticated user', function () {
     test('cannot view the manage post types page', function () {
         get(route('post-types.index'))
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 });

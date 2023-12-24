@@ -18,7 +18,7 @@
         @stack('headScripts')
     </head>
     <body
-        class="h-full bg-white font-sans text-gray-600 antialiased dark:bg-gray-950 dark:text-gray-400 xl:bg-gray-100 dark:xl:bg-gray-950"
+        class="h-full bg-white font-sans text-gray-600 antialiased xl:bg-gray-100 dark:bg-gray-950 dark:text-gray-400 dark:xl:bg-gray-950"
     >
         <div id="nova">
             <div class="relative flex min-h-screen flex-col bg-gray-100">
@@ -96,7 +96,7 @@
                                         <a href="#" class="group">
                                             <span class="flex items-start">
                                                 <span
-                                                    class="relative flex h-5 w-5 flex-shrink-0 items-center justify-center"
+                                                    class="relative flex size-5 flex-shrink-0 items-center justify-center"
                                                 >
                                                     <svg
                                                         class="h-full w-full text-primary-600 group-hover:text-primary-800"
@@ -123,10 +123,10 @@
                                         <!-- Current Step -->
                                         <a href="#" class="flex items-start" aria-current="step">
                                             <span
-                                                class="relative flex h-5 w-5 flex-shrink-0 items-center justify-center"
+                                                class="relative flex size-5 flex-shrink-0 items-center justify-center"
                                                 aria-hidden="true"
                                             >
-                                                <span class="absolute h-4 w-4 rounded-full bg-primary-200"></span>
+                                                <span class="absolute size-4 rounded-full bg-primary-200"></span>
                                                 <span class="relative block h-2 w-2 rounded-full bg-primary-600"></span>
                                             </span>
                                             <span class="ml-3 text-sm font-medium text-primary-600">Install Nova</span>
@@ -137,7 +137,7 @@
                                         <a href="#" class="group">
                                             <div class="flex items-start">
                                                 <div
-                                                    class="relative flex h-5 w-5 flex-shrink-0 items-center justify-center"
+                                                    class="relative flex size-5 flex-shrink-0 items-center justify-center"
                                                     aria-hidden="true"
                                                 >
                                                     <div
@@ -157,7 +157,7 @@
                                         <a href="#" class="group">
                                             <div class="flex items-start">
                                                 <div
-                                                    class="relative flex h-5 w-5 flex-shrink-0 items-center justify-center"
+                                                    class="relative flex size-5 flex-shrink-0 items-center justify-center"
                                                     aria-hidden="true"
                                                 >
                                                     <div

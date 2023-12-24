@@ -135,11 +135,11 @@ describe('unauthorized user', function () {
 describe('unauthenticated user', function () {
     test('cannot view the edit department page', function () {
         get(route('departments.edit', $this->department))
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 
     test('cannot update a department', function () {
         put(route('departments.update', $this->department), [])
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 });

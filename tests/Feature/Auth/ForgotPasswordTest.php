@@ -41,7 +41,7 @@ test('user does not receive an email with a password reset link if they are not 
         ->post(route('password.email'), [
             'email' => 'nobody@example.com',
         ])
-        ->assertRedirect(route('password.email'))
+        ->assertRedirectToRoute('password.email')
         ->assertSessionHasErrors('email');
 
     Notification::assertNotSentTo(makeUser(['email' => 'nobody@example.com']), ResetPassword::class);
@@ -50,7 +50,7 @@ test('user does not receive an email with a password reset link if they are not 
 test('email is required', function () {
     from(route('password.email'))
         ->post(route('password.email'), [])
-        ->assertRedirect(route('password.email'))
+        ->assertRedirectToRoute('password.email')
         ->assertSessionHasErrors('email');
 });
 
@@ -59,6 +59,6 @@ test('email is a valid email address', function () {
         ->post(route('password.email'), [
             'email' => 'invalid-email',
         ])
-        ->assertRedirect(route('password.email'))
+        ->assertRedirectToRoute('password.email')
         ->assertSessionHasErrors('email');
 });

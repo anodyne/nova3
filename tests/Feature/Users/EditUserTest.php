@@ -6,11 +6,15 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
 use Nova\Characters\Models\Character;
+use Nova\Foundation\Filament\Actions\DeleteAction;
+use Nova\Foundation\Filament\Actions\EditAction;
+use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Media\Livewire\UploadAvatar;
 use Nova\Roles\Models\Role;
 use Nova\Users\Events\UserUpdated;
 use Nova\Users\Livewire\ManageCharacters;
 use Nova\Users\Livewire\ManageRoles;
+use Nova\Users\Livewire\UsersList;
 use Nova\Users\Models\User;
 
 use function Pest\Laravel\assertDatabaseHas;
@@ -51,6 +55,62 @@ describe('authorized user', function () {
         ]);
 
         Event::assertDispatched(UserUpdated::class);
+    });
+
+    test('has the correct permissions for list users page', function () {
+        $activeUser = User::factory()->active()->create();
+        $inactiveUser = User::factory()->inactive()->create();
+
+        livewire(UsersList::class)
+            ->assertTableHeaderActionsExistInOrder([])
+            ->assertTableActionHidden(ViewAction::class, $activeUser)
+            ->assertTableActionVisible(EditAction::class, $activeUser)
+            ->assertTableActionHidden(DeleteAction::class, $activeUser)
+            ->assertTableActionHidden('impersonate', $activeUser)
+            ->assertTableActionHidden('activate', $activeUser)
+            ->assertTableActionVisible('deactivate', $activeUser)
+            ->assertTableActionHidden(ViewAction::class, $inactiveUser)
+            ->assertTableActionVisible(EditAction::class, $inactiveUser)
+            ->assertTableActionHidden(DeleteAction::class, $inactiveUser)
+            ->assertTableActionHidden('impersonate', $inactiveUser)
+            ->assertTableActionVisible('activate', $inactiveUser)
+            ->assertTableActionHidden('deactivate', $inactiveUser);
+    });
+});
+
+describe('unauthorized user', function () {
+    beforeEach(function () {
+        signIn();
+    });
+
+    test('cannot view the edit user page', function () {
+        get(route('users.edit', $this->user))
+            ->assertForbidden();
+    });
+
+    test('cannot update a user', function () {
+        $data = User::factory()->make();
+
+        put(route('users.update', $this->user), $data->toArray())
+            ->assertForbidden();
+    });
+});
+
+describe('unauthenticated user', function () {
+    test('cannot view the edit user page', function () {
+        get(route('users.edit', $this->user))
+            ->assertRedirectToRoute('login');
+    });
+
+    test('cannot update a user', function () {
+        put(route('users.update', $this->user), [])
+            ->assertRedirectToRoute('login');
+    });
+});
+
+describe('user updates', function () {
+    beforeEach(function () {
+        signIn(permissions: 'user.update');
     });
 
     test('can add a user avatar', function () {
@@ -224,35 +284,5 @@ describe('authorized user', function () {
             'role_id' => $role->id,
             'user_id' => $this->user->id,
         ]);
-    });
-});
-
-describe('unauthorized user', function () {
-    beforeEach(function () {
-        signIn();
-    });
-
-    test('cannot view the edit user page', function () {
-        get(route('users.edit', $this->user))
-            ->assertForbidden();
-    });
-
-    test('cannot update a user', function () {
-        $data = User::factory()->make();
-
-        put(route('users.update', $this->user), $data->toArray())
-            ->assertForbidden();
-    });
-});
-
-describe('unauthenticated user', function () {
-    test('cannot view the edit user page', function () {
-        get(route('users.edit', $this->user))
-            ->assertRedirect(route('login'));
-    });
-
-    test('cannot update a user', function () {
-        put(route('users.update', $this->user), [])
-            ->assertRedirect(route('login'));
     });
 });

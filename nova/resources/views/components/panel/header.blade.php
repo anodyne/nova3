@@ -14,7 +14,7 @@
                 <x-h2>{{ $title }}</x-h2>
 
                 @if ($message)
-                    <p class="mt-1 max-w-2xl text-gray-500 dark:text-gray-400 md:text-sm/6">{{ $message }}</p>
+                    <p class="mt-1 max-w-2xl text-gray-500 md:text-sm/6 dark:text-gray-400">{{ $message }}</p>
                 @endif
             </div>
 

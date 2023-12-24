@@ -51,16 +51,16 @@
                     </x-input.textarea>
                 </x-input.group>
 
-                <x-input.group>
-                    <x-switch-toggle
+                <div class="flex items-center gap-x-2.5">
+                    <x-switch
                         name="status"
-                        :value="old('status', $theme->status->value)"
+                        :value="old('status', $theme->status->value ?? 'active')"
                         on-value="active"
                         off-value="inactive"
-                    >
-                        Active
-                    </x-switch-toggle>
-                </x-input.group>
+                        id="status"
+                    ></x-switch>
+                    <x-fieldset.label for="status">Active</x-fieldset.label>
+                </div>
             </x-form.section>
 
             <x-form.footer>

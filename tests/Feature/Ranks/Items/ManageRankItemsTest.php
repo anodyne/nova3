@@ -146,6 +146,6 @@ describe('unauthorized user', function () {
 describe('unauthenticated user', function () {
     test('cannot view the manage rank items page', function () {
         get(route('ranks.items.index'))
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 });

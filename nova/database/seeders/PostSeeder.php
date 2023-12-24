@@ -16,13 +16,13 @@ class PostSeeder extends Seeder
 
         Story::get()
             ->each(function ($story) {
-                $post = Post::factory()->published()->post()->create([
+                $post = Post::factory()->published()->storyPost()->create([
                     'story_id' => $story->id,
                     'day' => 'Day 1',
                     'order_column' => 0,
                 ]);
 
-                $post = Post::factory()->published()->marker()->create([
+                $post = Post::factory()->published()->markerPost()->create([
                     'story_id' => $story->id,
                     'title' => 'Start of Day 2',
                     'day' => 'Day 2',
@@ -31,32 +31,32 @@ class PostSeeder extends Seeder
                     'order_column' => 1,
                 ]);
 
-                $post = Post::factory()->draft()->personal()->create([
+                $post = Post::factory()->personalPost()->create([
                     'story_id' => $story->id,
                     'day' => 'Day 2',
                     'order_column' => 2,
                 ]);
 
-                $post = Post::factory()->published()->note()->create([
+                $post = Post::factory()->published()->notePost()->create([
                     'story_id' => $story->id,
                     'title' => 'Story Note',
                     'content' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, incidunt laboriosam ea vero natus porro veniam consectetur officiis, doloribus temporibus aperiam autem voluptatibus ad recusandae quia! Ratione dicta eaque at!',
                     'order_column' => 3,
                 ]);
 
-                $post = Post::factory()->published()->post()->create([
+                $post = Post::factory()->published()->storyPost()->create([
                     'story_id' => $story->id,
                     'day' => 'Day 2',
                     'order_column' => 4,
                 ]);
 
-                $post = Post::factory()->draft()->post()->create([
+                $post = Post::factory()->storyPost()->create([
                     'story_id' => $story->id,
                     'day' => 'Day 2',
                     'order_column' => 5,
                 ]);
 
-                $post = Post::factory()->published()->post()->create([
+                $post = Post::factory()->published()->storyPost()->create([
                     'story_id' => $story->id,
                     'day' => 'Day 2',
                     'order_column' => 6,

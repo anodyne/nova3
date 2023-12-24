@@ -174,6 +174,6 @@ describe('unauthorized user', function () {
 describe('unauthenticated user', function () {
     test('cannot view the manage positions page', function () {
         get(route('positions.index'))
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 });

@@ -47,16 +47,16 @@
                     </div>
                 </x-input.group>
 
-                <x-input.group>
-                    <x-switch-toggle
+                <div class="flex items-center gap-x-2.5">
+                    <x-switch
                         name="status"
-                        :value="old('status', $item->status ?? 'active')"
+                        :value="old('status', $item->status->value ?? 'active')"
                         on-value="active"
                         off-value="inactive"
-                    >
-                        Active
-                    </x-switch-toggle>
-                </x-input.group>
+                        id="status"
+                    ></x-switch>
+                    <x-fieldset.label for="status">Active</x-fieldset.label>
+                </div>
 
                 <x-input.group label="Rank preview" :error="$errors->first('base_image')">
                     <div x-show="overlay === '' && base === ''" class="h-10">

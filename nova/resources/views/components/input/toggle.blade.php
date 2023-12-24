@@ -78,7 +78,7 @@
                 'translate-x-5': isChecked(),
                 'translate-x-0': ! isChecked(),
             }"
-            class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
+            class="pointer-events-none inline-block size-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
             aria-hidden="true"
         ></span>
     </button>

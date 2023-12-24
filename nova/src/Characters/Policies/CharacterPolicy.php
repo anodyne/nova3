@@ -116,7 +116,7 @@ class CharacterPolicy
 
     public function activate(User $user, Character $character): Response
     {
-        return $this->activateAny($user)->allowed() && $character->is_inactive
+        return $this->activateAny($user)->allowed() && $character->is_inactive && ! $character->trashed()
             ? $this->allow()
             : $this->deny();
     }
@@ -163,7 +163,7 @@ class CharacterPolicy
 
     public function deactivate(User $user, Character $character): Response
     {
-        return $this->deactivateAny($user)->allowed() && $character->is_active
+        return $this->deactivateAny($user)->allowed() && $character->is_active && ! $character->trashed()
             ? $this->allow()
             : $this->deny();
     }
@@ -206,8 +206,8 @@ class CharacterPolicy
         return match (true) {
             $this->create($user)->allowed() => $this->allow(),
             $user->isAbleTo('character.update') => $this->allow(),
-            $this->delete($user, $character)->allowed() => $this->allow(),
-            $this->restore($user, $character)->allowed() => $this->allow(),
+            $this->deleteAny($user, $character)->allowed() => $this->allow(),
+            $this->restoreAny($user, $character)->allowed() => $this->allow(),
             $this->activateAny($user, $character)->allowed() => $this->allow(),
             $this->deactivateAny($user, $character)->allowed() => $this->allow(),
             default => $this->deny()

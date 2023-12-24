@@ -106,7 +106,7 @@
                                         class="ml-8 shrink-0 pt-0.5"
                                         x-on:toggle-switch-changed="enabled = !enabled"
                                     >
-                                        <x-switch-toggle></x-switch-toggle>
+                                        <x-switch></x-switch>
                                     </div>
                                 </div>
                             </div>
@@ -187,7 +187,7 @@
                                         class="ml-8 shrink-0 pt-0.5"
                                         x-on:toggle-switch-changed="enabled = !enabled"
                                     >
-                                        <x-switch-toggle></x-switch-toggle>
+                                        <x-switch></x-switch>
                                     </div>
                                 </div>
 
@@ -214,7 +214,7 @@
                     <legend class="sr-only">Activity Level Tracking Strategy</legend>
                     <div class="space-y-4">
                         <label
-                            class="relative block cursor-pointer rounded-md border border-gray-300 bg-white px-6 py-4 shadow-sm transition hover:border-gray-400 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:shadow-none sm:flex sm:justify-between"
+                            class="relative block cursor-pointer rounded-md border border-gray-300 bg-white px-6 py-4 shadow-sm transition hover:border-gray-400 focus:outline-none sm:flex sm:justify-between dark:border-gray-600 dark:bg-gray-800 dark:shadow-none"
                         >
                             <input
                                 type="radio"
@@ -249,7 +249,7 @@
                         </label>
 
                         <label
-                            class="relative block cursor-pointer rounded-md border border-gray-300 bg-white px-6 py-4 shadow-sm transition hover:border-gray-400 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:shadow-none sm:flex sm:justify-between"
+                            class="relative block cursor-pointer rounded-md border border-gray-300 bg-white px-6 py-4 shadow-sm transition hover:border-gray-400 focus:outline-none sm:flex sm:justify-between dark:border-gray-600 dark:bg-gray-800 dark:shadow-none"
                         >
                             <input
                                 type="radio"
@@ -320,7 +320,7 @@
                                 type="radio"
                                 name="posts-strategy"
                                 value="author"
-                                class="mt-0.5 h-4 w-4 cursor-pointer border-gray-300 bg-white focus:ring-primary-500 focus:ring-offset-primary-50 dark:focus:ring-offset-primary-900"
+                                class="mt-0.5 size-4 cursor-pointer border-gray-300 bg-white focus:ring-primary-500 focus:ring-offset-primary-50 dark:focus:ring-offset-primary-900"
                                 :class="{ 'text-primary-600': postsStrategy === 'author' }"
                                 aria-labelledby="posts-strategy-0-label"
                                 aria-describedby="posts-strategy-0-description"
@@ -353,7 +353,7 @@
                                 type="radio"
                                 name="posts-strategy"
                                 value="post"
-                                class="mt-0.5 h-4 w-4 shrink-0 cursor-pointer border-gray-300 bg-white focus:ring-primary-500 focus:ring-offset-primary-50 dark:focus:ring-offset-primary-900"
+                                class="mt-0.5 size-4 shrink-0 cursor-pointer border-gray-300 bg-white focus:ring-primary-500 focus:ring-offset-primary-50 dark:focus:ring-offset-primary-900"
                                 :class="{ 'text-primary-600 dark:text-primary-400': postsStrategy === 'author' }"
                                 aria-labelledby="posts-strategy-1-label"
                                 aria-describedby="posts-strategy-1-description"
@@ -397,7 +397,7 @@
                                 type="radio"
                                 name="word-count-strategy"
                                 value="all"
-                                class="mt-0.5 h-4 w-4 shrink-0 cursor-pointer border-gray-300 bg-white focus:ring-primary-500 focus:ring-offset-primary-50 dark:focus:ring-offset-primary-900"
+                                class="mt-0.5 size-4 shrink-0 cursor-pointer border-gray-300 bg-white focus:ring-primary-500 focus:ring-offset-primary-50 dark:focus:ring-offset-primary-900"
                                 :class="{ 'text-primary-600 dark:text-primary-400': wordCountStrategy === 'all' }"
                                 aria-labelledby="word-count-strategy-0-label"
                                 aria-describedby="word-count-strategy-0-description"
@@ -433,7 +433,7 @@
                                 type="radio"
                                 name="word-count-strategy"
                                 value="average"
-                                class="mt-0.5 h-4 w-4 shrink-0 cursor-pointer border-gray-300 bg-white focus:ring-primary-500 focus:ring-offset-primary-50 dark:focus:ring-offset-primary-900"
+                                class="mt-0.5 size-4 shrink-0 cursor-pointer border-gray-300 bg-white focus:ring-primary-500 focus:ring-offset-primary-50 dark:focus:ring-offset-primary-900"
                                 :class="{ 'text-primary-600 dark:text-primary-400': wordCountStrategy === 'average' }"
                                 aria-labelledby="word-count-strategy-1-label"
                                 aria-describedby="word-count-strategy-1-description"

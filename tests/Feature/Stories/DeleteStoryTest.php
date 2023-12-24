@@ -136,11 +136,11 @@ describe('unauthorized user', function () {
 describe('unauthenticated user', function () {
     test('cannot view the delete story page', function () {
         get(route('stories.delete', $this->story))
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 
     test('cannot delete a story', function () {
         delete(route('stories.destroy'), [])
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 });

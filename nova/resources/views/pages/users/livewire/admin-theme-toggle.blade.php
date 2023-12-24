@@ -1,5 +1,5 @@
 <div x-data="adminThemeToggle(@entangle('appearance'))">
-    <x-switch-toggle x-model="appearance" on-value="dark" off-value="light" size="sm"></x-switch-toggle>
+    <x-switch x-model="appearance" on-value="dark" off-value="light" id="appearance"></x-switch>
 </div>
 
 @once

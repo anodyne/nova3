@@ -13,10 +13,14 @@
         </x-panel.header>
 
         <x-form :action="route('departments.update', $department)" method="PUT">
-            <x-form.section
-                title="Department Info"
-                message="Departments are collections of positions that characters can hold and help to provide some organization for your character manifest."
-            >
+            <x-form.section title="Department info">
+                <x-slot name="message">
+                    <x-text>
+                        Departments are collections of positions that characters can hold and help to provide some
+                        organization for your character manifest.
+                    </x-text>
+                </x-slot>
+
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
                     <x-input.text id="name" name="name" :value="old('name', $department->name)" data-cy="name" />
                 </x-input.group>
@@ -27,22 +31,27 @@
                     </x-input.textarea>
                 </x-input.group>
 
-                <x-input.group>
-                    <x-switch-toggle
+                <div class="flex items-center gap-x-2.5">
+                    <x-switch
                         name="status"
-                        :value="old('status', $department->status->value)"
+                        :value="old('status', $department->status->value ?? 'active')"
                         on-value="active"
                         off-value="inactive"
-                    >
-                        Active
-                    </x-switch-toggle>
-                </x-input.group>
+                        id="status"
+                    ></x-switch>
+                    <x-fieldset.label for="status">Active</x-fieldset.label>
+                </div>
             </x-form.section>
 
-            <x-form.section
-                title="Header Image"
-                message="Header images are used on the public-facing site to give you more control over the look and feel of your manifest. Header images should be 4 times larger than the size you want to display it at (for high resolution displays), but not more than 5MB in size."
-            >
+            <x-form.section title="Header image">
+                <x-slot name="message">
+                    <x-text>
+                        Header images are used on the public-facing site to give you more control over the look and feel
+                        of your manifest. Header images should be 4 times larger than the size you want to display it at
+                        (for high resolution displays), but not more than 5MB in size.
+                    </x-text>
+                </x-slot>
+
                 <x-input.group>
                     <livewire:media-upload-image :model="$department" media-collection-name="header" />
                 </x-input.group>

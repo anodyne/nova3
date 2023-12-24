@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Nova\Characters\Models\Character;
+use Nova\Foundation\Filament\Actions\CreateAction;
+use Nova\Foundation\Filament\Actions\DeleteAction;
+use Nova\Foundation\Filament\Actions\EditAction;
+use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Models\UserNotificationPreference;
 use Nova\Media\Livewire\UploadAvatar;
 use Nova\Roles\Models\Role;
@@ -15,6 +19,7 @@ use Nova\Users\Events\UserCreated;
 use Nova\Users\Events\UserCreatedByAdmin;
 use Nova\Users\Livewire\ManageCharacters;
 use Nova\Users\Livewire\ManageRoles;
+use Nova\Users\Livewire\UsersList;
 use Nova\Users\Models\User;
 use Nova\Users\Notifications\AccountCreated;
 
@@ -50,6 +55,54 @@ describe('authorized user', function () {
 
         Event::assertDispatched(UserCreated::class);
         Event::assertDispatched(UserCreatedByAdmin::class);
+    });
+
+    test('has the correct permissions for list users page', function () {
+        $activeUser = User::factory()->active()->create();
+        $inactiveUser = User::factory()->inactive()->create();
+
+        livewire(UsersList::class)
+            ->assertTableHeaderActionsExistInOrder([
+                CreateAction::class,
+            ])
+            ->assertTableActionHidden(ViewAction::class, $activeUser)
+            ->assertTableActionHidden(EditAction::class, $activeUser)
+            ->assertTableActionHidden(DeleteAction::class, $activeUser)
+            ->assertTableActionHidden('impersonate', $activeUser)
+            ->assertTableActionHidden('activate', $activeUser)
+            ->assertTableActionHidden('deactivate', $activeUser)
+            ->assertTableActionHidden(ViewAction::class, $inactiveUser)
+            ->assertTableActionHidden(EditAction::class, $inactiveUser)
+            ->assertTableActionHidden(DeleteAction::class, $inactiveUser)
+            ->assertTableActionHidden('impersonate', $inactiveUser)
+            ->assertTableActionHidden('activate', $inactiveUser)
+            ->assertTableActionHidden('deactivate', $inactiveUser);
+    });
+});
+
+describe('unauthorized user', function () {
+    beforeEach(function () {
+        signIn();
+    });
+
+    test('cannot view the create user page', function () {
+        get(route('users.create'))->assertForbidden();
+    });
+
+    test('cannot create a user', function () {
+        post(route('users.store'), [])->assertForbidden();
+    });
+});
+
+describe('unauthenticated user', function () {
+    test('cannot view the create user page', function () {
+        get(route('users.create'))
+            ->assertRedirectToRoute('login');
+    });
+
+    test('cannot create a user', function () {
+        post(route('users.store'), [])
+            ->assertRedirectToRoute('login');
     });
 });
 
@@ -188,31 +241,5 @@ describe('user creation', function () {
         assertDatabaseHas(UserNotificationPreference::class, [
             'user_id' => $newUser->id,
         ]);
-    });
-});
-
-describe('unauthorized user', function () {
-    beforeEach(function () {
-        signIn();
-    });
-
-    test('cannot view the create user page', function () {
-        get(route('users.create'))->assertForbidden();
-    });
-
-    test('cannot create a user', function () {
-        post(route('users.store'), [])->assertForbidden();
-    });
-});
-
-describe('unauthenticated user', function () {
-    test('cannot view the create user page', function () {
-        get(route('users.create'))
-            ->assertRedirect(route('login'));
-    });
-
-    test('cannot create a user', function () {
-        post(route('users.store'), [])
-            ->assertRedirect(route('login'));
     });
 });

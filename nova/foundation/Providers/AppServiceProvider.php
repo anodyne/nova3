@@ -34,9 +34,7 @@ use Nova\Foundation\Nova;
 use Nova\Foundation\NovaBladeDirectives;
 use Nova\Foundation\NovaManager;
 use Nova\Foundation\Responses\FiltersManager;
-use Nova\Foundation\View\Components\Badge;
 use Nova\Foundation\View\Components\ContentBox;
-use Nova\Foundation\View\Components\Dropdown;
 use Nova\Foundation\View\Components\EmailLayout;
 use Nova\Foundation\View\Components\Tips;
 use Nova\Navigation\Models\Navigation;
@@ -128,9 +126,7 @@ class AppServiceProvider extends ServiceProvider
 
     protected function registerBladeComponents()
     {
-        Blade::component('badge', Badge::class);
         Blade::component('content-box', ContentBox::class);
-        // Blade::component('dropdown', Dropdown::class);
         Blade::component('tips', Tips::class);
         Blade::component('email-layout', EmailLayout::class);
     }
@@ -169,6 +165,12 @@ class AppServiceProvider extends ServiceProvider
     protected function setupFilament(): void
     {
         FilamentColor::register($this->app['nova.settings']->appearance->getColors());
+
+        FilamentColor::addShades('badge', [200, 300, 400, 700, 800, 950]);
+        FilamentColor::addShades('tables::columns.toggle-column.on', [500, 900]);
+        FilamentColor::addShades('forms::components.toggle.on', [500, 900]);
+        FilamentColor::addShades('tables::columns.toggle-column.off', [500, 900]);
+        FilamentColor::addShades('forms::components.toggle.off', [500, 900]);
 
         FilamentIcon::register([
             'tables::search-field' => iconName('search'),

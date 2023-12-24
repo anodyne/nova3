@@ -63,11 +63,11 @@ describe('unauthorized user', function () {
 describe('unauthenticated user', function () {
     test('cannot view the edit post type page', function () {
         get(route('post-types.edit', $this->postType))
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 
     test('cannot update a post type', function () {
         put(route('post-types.update', $this->postType), [])
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 });

@@ -42,7 +42,7 @@
             x-transition:leave="duration-200 ease-in"
             x-transition:leave-start="translate-y-0 opacity-100 sm:scale-100"
             x-transition:leave-end="translate-y-4 opacity-0 sm:translate-y-0 sm:scale-95"
-            class="sm:max-w-{{ $width }} relative z-[999] overflow-hidden rounded-lg bg-white shadow-xl ring-1 ring-gray-950/5 transition-all dark:bg-gray-800 dark:shadow-none dark:highlight-white/5 sm:w-full"
+            class="sm:max-w-{{ $width }} relative z-[999] overflow-hidden rounded-lg bg-white shadow-xl ring-1 ring-gray-950/5 transition-all sm:w-full dark:bg-gray-800 dark:shadow-none dark:highlight-white/5"
             role="dialog"
             aria-modal="true"
             aria-labelledby="modal-title"
@@ -52,7 +52,7 @@
                 <div class="flex flex-col items-start space-y-4">
                     @if ($icon)
                         <div class="flex shrink-0 items-center justify-center">
-                            <x-badge :color="$color" size="circle" icon>
+                            <x-badge :color="$color">
                                 <x-icon :name="$icon" size="md"></x-icon>
                             </x-badge>
                         </div>

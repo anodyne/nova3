@@ -7,10 +7,16 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
 use Nova\Characters\Events\CharacterUpdated;
 use Nova\Characters\Events\CharacterUpdatedByAdmin;
+use Nova\Characters\Livewire\CharactersList;
 use Nova\Characters\Livewire\ManagePositions;
 use Nova\Characters\Livewire\ManageUsers;
 use Nova\Characters\Models\Character;
 use Nova\Departments\Models\Position;
+use Nova\Foundation\Filament\Actions\DeleteAction;
+use Nova\Foundation\Filament\Actions\EditAction;
+use Nova\Foundation\Filament\Actions\ForceDeleteAction;
+use Nova\Foundation\Filament\Actions\RestoreAction;
+use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Media\Livewire\UploadAvatar;
 use Nova\Users\Models\User;
 
@@ -47,12 +53,106 @@ describe('authorized user', function () {
             ->put(route('characters.update', $this->character), $data->toArray())
             ->assertSuccessful();
 
-        assertDatabaseHas(Character::class, [
-            'id' => $this->character->id,
-        ]);
+        assertDatabaseHas(Character::class, $this->character->only('id'));
 
         Event::assertDispatched(CharacterUpdated::class);
         Event::assertDispatched(CharacterUpdatedByAdmin::class);
+    });
+
+    it('has the correct permissions for list characters page', function () {
+        $activeCharacter = Character::factory()->active()->create();
+        $inactiveCharacter = Character::factory()->inactive()->create();
+        $deletedCharacter = Character::factory()->active()->trashed()->create();
+
+        livewire(CharactersList::class)
+            ->assertTableHeaderActionsExistInOrder([])
+            ->assertTableActionHidden(ViewAction::class, $activeCharacter)
+            ->assertTableActionVisible(EditAction::class, $activeCharacter)
+            ->assertTableActionHidden(DeleteAction::class, $activeCharacter)
+            ->assertTableActionHidden(ForceDeleteAction::class, $activeCharacter)
+            ->assertTableActionHidden(RestoreAction::class, $activeCharacter)
+            ->assertTableActionHidden('activate', $activeCharacter)
+            ->assertTableActionHidden('deactivate', $activeCharacter)
+            ->assertTableActionHidden(ViewAction::class, $inactiveCharacter)
+            ->assertTableActionVisible(EditAction::class, $inactiveCharacter)
+            ->assertTableActionHidden(DeleteAction::class, $inactiveCharacter)
+            ->assertTableActionHidden(ForceDeleteAction::class, $inactiveCharacter)
+            ->assertTableActionHidden(RestoreAction::class, $inactiveCharacter)
+            ->assertTableActionHidden('activate', $inactiveCharacter)
+            ->assertTableActionHidden('deactivate', $inactiveCharacter)
+            ->assertTableActionHidden(ViewAction::class, $deletedCharacter)
+            ->assertTableActionVisible(EditAction::class, $deletedCharacter)
+            ->assertTableActionHidden(DeleteAction::class, $deletedCharacter)
+            ->assertTableActionHidden(ForceDeleteAction::class, $deletedCharacter)
+            ->assertTableActionHidden(RestoreAction::class, $deletedCharacter)
+            ->assertTableActionHidden('activate', $deletedCharacter)
+            ->assertTableActionHidden('deactivate', $deletedCharacter);
+    });
+});
+
+describe('unauthorized user', function () {
+    beforeEach(function () {
+        signIn();
+    });
+
+    test('cannot view the edit character page', function () {
+        get(route('characters.edit', $this->character))
+            ->assertForbidden();
+    });
+
+    test('cannot update a character', function () {
+        $data = Character::factory()->make();
+
+        put(route('characters.update', $this->character), $data->toArray())
+            ->assertForbidden();
+    });
+
+    it('has the correct permissions for list characters page', function () {
+        $activeCharacter = Character::factory()->active()->create();
+        $inactiveCharacter = Character::factory()->inactive()->create();
+        $deletedCharacter = Character::factory()->active()->trashed()->create();
+
+        livewire(CharactersList::class)
+            ->assertTableHeaderActionsExistInOrder([])
+            ->assertTableActionHidden(ViewAction::class, $activeCharacter)
+            ->assertTableActionHidden(EditAction::class, $activeCharacter)
+            ->assertTableActionHidden(DeleteAction::class, $activeCharacter)
+            ->assertTableActionHidden(ForceDeleteAction::class, $activeCharacter)
+            ->assertTableActionHidden(RestoreAction::class, $activeCharacter)
+            ->assertTableActionHidden('activate', $activeCharacter)
+            ->assertTableActionHidden('deactivate', $activeCharacter)
+            ->assertTableActionHidden(ViewAction::class, $inactiveCharacter)
+            ->assertTableActionHidden(EditAction::class, $inactiveCharacter)
+            ->assertTableActionHidden(DeleteAction::class, $inactiveCharacter)
+            ->assertTableActionHidden(ForceDeleteAction::class, $inactiveCharacter)
+            ->assertTableActionHidden(RestoreAction::class, $inactiveCharacter)
+            ->assertTableActionHidden('activate', $inactiveCharacter)
+            ->assertTableActionHidden('deactivate', $inactiveCharacter)
+            ->assertTableActionHidden(ViewAction::class, $deletedCharacter)
+            ->assertTableActionHidden(EditAction::class, $deletedCharacter)
+            ->assertTableActionHidden(DeleteAction::class, $deletedCharacter)
+            ->assertTableActionHidden(ForceDeleteAction::class, $deletedCharacter)
+            ->assertTableActionHidden(RestoreAction::class, $deletedCharacter)
+            ->assertTableActionHidden('activate', $deletedCharacter)
+            ->assertTableActionHidden('deactivate', $deletedCharacter);
+    });
+});
+
+describe('unauthenticated user', function () {
+    test('cannot view the edit character page', function () {
+        get(route('characters.edit', $this->character))
+            ->assertRedirectToRoute('login');
+    });
+
+    test('cannot update a character', function () {
+        put(route('characters.update', $this->character), [])
+            ->assertRedirectToRoute('login');
+    });
+});
+
+describe('character updating', function () {
+    beforeEach(function () {
+        signIn(permissions: 'character.update');
     });
 
     test('can add a character avatar', function () {
@@ -212,35 +312,5 @@ describe('authorized user', function () {
             'position_id' => $position->id,
             'character_id' => $this->character->id,
         ]);
-    });
-});
-
-describe('unauthorized user', function () {
-    beforeEach(function () {
-        signIn();
-    });
-
-    test('cannot view the edit character page', function () {
-        get(route('characters.edit', $this->character))
-            ->assertForbidden();
-    });
-
-    test('cannot update a character', function () {
-        $data = Character::factory()->make();
-
-        put(route('characters.update', $this->character), $data->toArray())
-            ->assertForbidden();
-    });
-});
-
-describe('unauthenticated user', function () {
-    test('cannot view the edit character page', function () {
-        get(route('characters.edit', $this->character))
-            ->assertRedirect(route('login'));
-    });
-
-    test('cannot update a character', function () {
-        put(route('characters.update', $this->character), [])
-            ->assertRedirect(route('login'));
     });
 });

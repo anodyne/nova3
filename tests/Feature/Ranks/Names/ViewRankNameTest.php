@@ -35,6 +35,6 @@ describe('unauthorized user', function () {
 describe('unauthenticated user', function () {
     test('cannot view the view rank name page', function () {
         get(route('ranks.names.show', $this->rankName))
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 });

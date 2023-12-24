@@ -29,7 +29,10 @@
         </x-input.group>
 
         <div class="flex items-center justify-between text-sm">
-            <x-switch-toggle name="remember" size="sm">Remember me</x-switch-toggle>
+            <div class="flex items-center gap-x-2">
+                <x-switch name="remember" id="remember"></x-switch>
+                <x-fieldset.label for="remember">Remember me</x-fieldset.label>
+            </div>
 
             <x-button.text color="gray" :href="route('password.request')">Forgot your password?</x-button.text>
         </div>

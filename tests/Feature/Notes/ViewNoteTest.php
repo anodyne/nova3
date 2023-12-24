@@ -36,6 +36,6 @@ describe('unauthenticated user', function () {
 
     test('cannot view a note', function () {
         get(route('notes.show', $this->note))
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 });

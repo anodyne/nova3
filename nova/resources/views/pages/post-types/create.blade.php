@@ -117,24 +117,26 @@
                     </span>
                 </x-input.group>
 
-                <x-input.group>
-                    <x-switch-toggle
+                <div class="flex items-center gap-x-2.5">
+                    <x-switch
                         name="status"
                         :value="old('status', 'active')"
                         on-value="active"
                         off-value="inactive"
-                    >
-                        Active
-                    </x-switch-toggle>
-                </x-input.group>
+                        id="status"
+                    ></x-switch>
+                    <x-fieldset.label for="status">Active</x-fieldset.label>
+                </div>
             </x-form.section>
 
-            <x-form.section
-                title="Fields"
-                message="Post types control which fields are available when creating a post of that type. You can turn any of these fields on/off to suit your game's needs."
-                x-show="isTab('fields')"
-                x-cloak
-            >
+            <x-form.section title="Fields" x-show="isTab('fields')" x-cloak>
+                <x-slot name="message">
+                    <x-text>
+                        Post types control which fields are available when creating a post of that type. You can turn
+                        any of these fields on/off to suit your game's needs.
+                    </x-text>
+                </x-slot>
+
                 <div class="space-y-4">
                     @foreach ($fieldTypes as $fieldType)
                         <div
@@ -180,43 +182,33 @@
                             </button>
 
                             <div x-show="expanded" x-collapse x-cloak>
-                                <div
-                                    class="mt-6 flex justify-between border-t border-gray-900/10 pt-6 dark:border-white/5"
-                                >
-                                    <div class="space-y-0.5">
-                                        <h3 class="text-base font-medium text-gray-700 dark:text-gray-200">Enable</h3>
-                                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                                <div class="mt-6 border-t border-gray-950/10 pt-6 dark:border-white/5">
+                                    @php($enabledId = "field_enabled_{$fieldType}")
+
+                                    <x-switch.field x-on:toggle-switch-changed="enabled = !enabled">
+                                        <x-fieldset.label :for="$enabledId">Enabled</x-fieldset.label>
+                                        <x-fieldset.description>
                                             Use the {{ $fieldType }} field for this post type
-                                        </p>
-                                    </div>
-                                    <div
-                                        class="ml-8 shrink-0 pt-0.5"
-                                        x-on:toggle-switch-changed="enabled = !enabled"
-                                    >
-                                        <x-switch-toggle
+                                        </x-fieldset.description>
+                                        <x-switch
                                             name="fields[{{ $fieldType }}][enabled]"
+                                            :id="$enabledId"
                                             :value="old('fields[{{ $fieldType }}][enabled]', true)"
-                                        ></x-switch-toggle>
-                                    </div>
+                                        ></x-switch>
+                                    </x-switch.field>
                                 </div>
-                                <div
-                                    class="mt-6 flex justify-between border-t border-gray-900/10 pt-6 dark:border-white/5"
-                                >
-                                    <div class="space-y-0.5">
-                                        <h3 class="text-base font-medium text-gray-700 dark:text-gray-200">Require</h3>
-                                        <p class="text-sm text-gray-500 dark:text-gray-400">
-                                            The field must have a value
-                                        </p>
-                                    </div>
-                                    <div
-                                        class="ml-8 shrink-0 pt-0.5"
-                                        x-on:toggle-switch-changed="required = !required"
-                                    >
-                                        <x-switch-toggle
+                                <div class="mt-6 border-t border-gray-950/10 pt-6 dark:border-white/5">
+                                    @php($requiredId = "field_required_{$fieldType}")
+
+                                    <x-switch.field x-on:toggle-switch-changed="required = !required">
+                                        <x-fieldset.label :for="$requiredId">Required</x-fieldset.label>
+                                        <x-fieldset.description>The field must have a value</x-fieldset.description>
+                                        <x-switch
                                             name="fields[{{ $fieldType }}][required]"
+                                            :id="$requiredId"
                                             :value="old('fields[{{ $fieldType }}][required]', false)"
-                                        ></x-switch-toggle>
-                                    </div>
+                                        ></x-switch>
+                                    </x-switch.field>
                                 </div>
                             </div>
                         </div>
@@ -224,64 +216,84 @@
                 </div>
             </x-form.section>
 
-            <x-form.section
-                title="Options"
-                message="Post types control the behavior of a post of that type with a wide range of options. You can turn any of these options on/off to suit your game's needs."
-                x-show="isTab('options')"
-                x-cloak
-            >
-                <x-input.group>
-                    <x-switch-toggle name="options[notifiesUsers]" :value="old('options[notifiesUsers]', true)">
-                        Send notification to users when published
-                    </x-switch-toggle>
-                </x-input.group>
+            <x-form.section title="Options" x-show="isTab('options')" x-cloak>
+                <x-slot name="message">
+                    <x-text>
+                        Post types control the behavior of a post of that type with a wide range of options. You can
+                        turn any of these options on/off to suit your game's needs.
+                    </x-text>
+                </x-slot>
 
-                <x-input.group>
-                    <x-switch-toggle
-                        name="options[includedInPostTracking]"
-                        :value="old('options[includedInPostTracking]', true)"
-                    >
-                        Include in post tracking stats
-                    </x-switch-toggle>
-                </x-input.group>
+                <x-switch.group class="w-full max-w-md">
+                    <x-switch.field>
+                        <x-fieldset.label for="options_notifies_users">
+                            Send notification to users when published
+                        </x-fieldset.label>
+                        <x-switch
+                            name="options[notifiesUsers]"
+                            id="options_notifies_users"
+                            :value="old('options[notifiesUsers]', true)"
+                        >
+                            Send notification to users when published
+                        </x-switch>
+                    </x-switch.field>
 
-                <x-input.group>
-                    <x-switch-toggle
-                        name="options[allowsMultipleAuthors]"
-                        :value="old('options[allowsMultipleAuthors]', true)"
-                    >
-                        Allow multiple authors
-                    </x-switch-toggle>
-                </x-input.group>
+                    <x-switch.field>
+                        <x-fieldset.label for="options_included_in_post_tracking">
+                            Include in post tracking stats
+                        </x-fieldset.label>
+                        <x-switch
+                            name="options[includedInPostTracking]"
+                            id="options_included_in_post_tracking"
+                            :value="old('options[includedInPostTracking]', true)"
+                        ></x-switch>
+                    </x-switch.field>
 
-                <x-input.group>
-                    <x-switch-toggle
-                        name="options[allowsCharacterAuthors]"
-                        :value="old('options[allowsCharacterAuthors]', true)"
-                    >
-                        Allow characters as authors
-                    </x-switch-toggle>
-                </x-input.group>
+                    <x-switch.field>
+                        <x-fieldset.label for="options_allow_multiple_authors">Allow multiple authors</x-fieldset.label>
+                        <x-switch
+                            name="options[allowsMultipleAuthors]"
+                            id="options_allow_multiple_authors"
+                            :value="old('options[allowsMultipleAuthors]', true)"
+                        ></x-switch>
+                    </x-switch.field>
 
-                <x-input.group>
-                    <x-switch-toggle
-                        name="options[allowsUserAuthors]"
-                        :value="old('options[allowsUserAuthors]', true)"
-                    >
-                        Allow users as authors
-                    </x-switch-toggle>
-                </x-input.group>
+                    <x-switch.field>
+                        <x-fieldset.label for="options_allow_character_authors">
+                            Allow characters as authors
+                        </x-fieldset.label>
+                        <x-switch
+                            name="options[allowsCharacterAuthors]"
+                            id="options_allow_character_authors"
+                            :value="old('options[allowsCharacterAuthors]', true)"
+                        ></x-switch>
+                    </x-switch.field>
 
-                <x-input.group
-                    help="Use caution when enabling this for post types that have large amounts of content as there could be a negative impact on page performance. This works best for post types that do not have a large amount of content."
-                >
-                    <x-switch-toggle
-                        name="options[showContentInTimelineView]"
-                        :value="old('options[showContentInTimelineView]', false)"
-                    >
-                        Show content in timeline view
-                    </x-switch-toggle>
-                </x-input.group>
+                    <x-switch.field>
+                        <x-fieldset.label for="options_allow_user_authors">Allow users as authors</x-fieldset.label>
+                        <x-switch
+                            name="options[allowsUserAuthors]"
+                            id="options_allow_user_authors"
+                            :value="old('options[allowsUserAuthors]', true)"
+                        ></x-switch>
+                    </x-switch.field>
+
+                    <x-switch.field>
+                        <x-fieldset.label for="options_show_content_in_timeline">
+                            Show content in timeline view
+                        </x-fieldset.label>
+                        <x-fieldset.description>
+                            Use caution when enabling this for post types that have large amounts of content as there
+                            could be a negative impact on page performance. This works best for post types with small
+                            amounts of content.
+                        </x-fieldset.description>
+                        <x-switch
+                            name="options[showContentInTimelineView]"
+                            id="options_show_content_in_timeline"
+                            :value="old('options[showContentInTimelineView]', false)"
+                        ></x-switch>
+                    </x-switch.field>
+                </x-switch.group>
 
                 <x-input.group
                     label="Restrict posting"

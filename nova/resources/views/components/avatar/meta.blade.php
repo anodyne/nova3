@@ -1,13 +1,13 @@
 @props([
     'src',
-    'tooltip' => '',
+    'initials' => '',
     'size' => 'md',
     'primary' => '',
     'secondary' => '',
 ])
 
 <div class="inline-flex items-center">
-    <x-avatar :src="$src" :tooltip="$tooltip" :size="$size"></x-avatar>
+    <x-avatar :src="$src" :initials="$initials" :size="$size"></x-avatar>
 
     @if ($primary || $secondary)
         <div class="ml-4 flex flex-col">

@@ -52,6 +52,6 @@ describe('authenticated user', function () {
 describe('unauthenticated user', function () {
     test('cannot view the manage notes page', function () {
         get(route('notes.index'))
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 });

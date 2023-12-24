@@ -35,6 +35,6 @@ describe('unauthorized user', function () {
 describe('unauthenticated user', function () {
     test('cannot view the view department page', function () {
         get(route('departments.show', $this->department))
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 });

@@ -72,7 +72,7 @@
                 <x-button.setup type="button" wire:click="verifyDatabase" size="sm">
                     <div class="flex items-center gap-3">
                         <div class="flex items-center" wire:loading.delay.longest>
-                            <x-icon.loader class="h-5 w-5 animate-spin text-white"></x-icon.loader>
+                            <x-icon.loader class="size-5 animate-spin text-white"></x-icon.loader>
                         </div>
                         <div>Verify database connection</div>
                     </div>

@@ -78,7 +78,7 @@
                     class="focus:shadow-outline inline-flex cursor-pointer rounded-full p-1 transition duration-100 ease-in-out hover:bg-gray-100 focus:outline-none dark:hover:bg-gray-700"
                 >
                     <svg
-                        class="inline-flex h-6 w-6 text-gray-400 dark:text-gray-500"
+                        class="inline-flex size-6 text-gray-400 dark:text-gray-500"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -92,7 +92,7 @@
                     class="focus:shadow-outline inline-flex cursor-pointer rounded-full p-1 transition duration-100 ease-in-out hover:bg-gray-100 focus:outline-none dark:hover:bg-gray-700"
                 >
                     <svg
-                        class="inline-flex h-6 w-6 text-gray-400 dark:text-gray-500"
+                        class="inline-flex size-6 text-gray-400 dark:text-gray-500"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"

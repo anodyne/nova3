@@ -59,11 +59,11 @@ describe('unauthorized user', function () {
 describe('unauthenticated user', function () {
     test('cannot view the edit rank group page', function () {
         get(route('ranks.groups.edit', $this->rankGroup))
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 
     test('cannot update a rank group', function () {
         put(route('ranks.groups.update', $this->rankGroup), [])
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 });

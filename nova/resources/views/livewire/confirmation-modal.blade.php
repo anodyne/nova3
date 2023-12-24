@@ -13,7 +13,7 @@
     <x-content-box width="sm">
         <div class="sm:flex sm:items-start">
             <div class="mx-auto flex shrink-0 items-center justify-center sm:mx-0">
-                <x-badge :color="$theme" size="circle" icon>
+                <x-badge :color="$theme">
                     <x-icon name="warning" size="md" class="shrink-0"></x-icon>
                 </x-badge>
             </div>
@@ -22,7 +22,7 @@
                     {{ $prompt['title'] }}
                 </h3>
                 <div class="mt-2">
-                    <p class="text-gray-600 dark:text-gray-400 sm:text-sm">{!! $prompt['message'] !!}</p>
+                    <p class="text-gray-600 sm:text-sm dark:text-gray-400">{!! $prompt['message'] !!}</p>
                 </div>
             </div>
         </div>

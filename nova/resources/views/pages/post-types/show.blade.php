@@ -6,7 +6,7 @@
             <x-slot name="title">
                 <div class="flex items-center gap-4">
                     <span>{{ $postType->name }}</span>
-                    <div class="flex items-center">
+                    <div class="flex items-center space-x-4">
                         <x-badge :color="$postType->status->color()">
                             {{ $postType->status->getLabel() }}
                         </x-badge>
@@ -16,15 +16,17 @@
 
             <x-slot name="actions">
                 @can('viewAny', $postType)
-                    <x-button.text :href="route('post-types.index')" color="gray" leading="arrow-left">
+                    <x-button :href="route('post-types.index')" plain>
+                        <x-icon name="arrow-left" size="sm"></x-icon>
                         Back
-                    </x-button.text>
+                    </x-button>
                 @endcan
 
                 @can('update', $postType)
-                    <x-button.filled :href="route('post-types.edit', $postType)" color="primary" leading="edit">
+                    <x-button :href="route('post-types.edit', $postType)" color="primary">
+                        <x-icon name="edit" size="sm"></x-icon>
                         Edit
-                    </x-button.filled>
+                    </x-button>
                 @endcan
             </x-slot>
         </x-panel.header>

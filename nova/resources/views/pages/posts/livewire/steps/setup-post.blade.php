@@ -6,9 +6,7 @@
         <div class="grid grid-cols-3 gap-8">
             <x-content-box class="space-y-2">
                 <x-h2>Story</x-h2>
-                <p class="text-sm/6 text-gray-600 dark:text-gray-400">
-                    Choose which currently running story you’d like to create your post in.
-                </p>
+                <x-text>Choose which currently running story you’d like to create your post in.</x-text>
             </x-content-box>
             <x-content-box class="col-span-2">
                 @if ($currentStories->count() === 0)
@@ -62,9 +60,7 @@
         <div class="grid grid-cols-3 gap-8">
             <x-content-box class="space-y-2">
                 <x-h2>Post type</x-h2>
-                <p class="text-sm/6 text-gray-600 dark:text-gray-400">
-                    Post types allow you to control the type of content that can create inside of stories.
-                </p>
+                <x-text>Post types allow you to control the type of content that can create inside of stories.</x-text>
             </x-content-box>
             <x-content-box class="col-span-2">
                 @if ($availablePostTypes->count() === 0)
@@ -124,16 +120,16 @@
             <x-content-box class="space-y-2">
                 <x-h2>Authors</x-h2>
                 <div class="space-y-4 text-sm/6 text-gray-600 dark:text-gray-400">
-                    <p>
+                    <x-text>
                         Any character on the manifest can be added as an author. If the character is assigned to
                         multiple users, you can select which user will be playing the character. If the character is a
                         support character, you can assign any users to play that character.
-                    </p>
+                    </x-text>
 
-                    <p>
+                    <x-text>
                         Users can also be added as authors to allow collaborative writing with characters that may not
                         be on the manifest or may be story specific.
-                    </p>
+                    </x-text>
                 </div>
             </x-content-box>
             <x-content-box class="col-span-2">
@@ -185,7 +181,7 @@
                                                         @foreach ($filteredCharacters as $character)
                                                             <x-dropdown.item
                                                                 type="button"
-                                                                class="group flex w-full items-center rounded-md px-4 py-2 text-base font-medium text-gray-700 transition hover:bg-gray-50 focus:outline-none dark:text-gray-300 dark:hover:bg-gray-600/50 md:text-sm"
+                                                                class="group flex w-full items-center rounded-md px-4 py-2 text-base font-medium text-gray-700 transition hover:bg-gray-50 focus:outline-none md:text-sm dark:text-gray-300 dark:hover:bg-gray-600/50"
                                                                 wire:click="addCharacterAuthor({{ $character->id }})"
                                                             >
                                                                 {{ $character->display_name }}
@@ -201,7 +197,7 @@
                                                         @foreach ($filteredUsers as $user)
                                                             <x-dropdown.item
                                                                 type="button"
-                                                                class="group flex w-full items-center rounded-md px-4 py-2 text-base font-medium text-gray-700 transition hover:bg-gray-50 focus:outline-none dark:text-gray-300 dark:hover:bg-gray-600/50 md:text-sm"
+                                                                class="group flex w-full items-center rounded-md px-4 py-2 text-base font-medium text-gray-700 transition hover:bg-gray-50 focus:outline-none md:text-sm dark:text-gray-300 dark:hover:bg-gray-600/50"
                                                                 wire:click="addUserAuthor({{ $user->id }})"
                                                             >
                                                                 {{ $user->name }}
@@ -387,7 +383,7 @@
 
     <div
         @class([
-            'flex flex-col rounded-b-lg border-t border-gray-200 px-4 py-4 dark:border-gray-800 md:flex-row md:items-center md:justify-between md:px-6 md:py-6',
+            'flex flex-col rounded-b-lg border-t border-gray-200 px-4 py-4 md:flex-row md:items-center md:justify-between md:px-6 md:py-6 dark:border-gray-800',
             'bg-gray-50 font-medium text-gray-500 dark:bg-gray-950/30' => ! $canGoToNextStep,
         ])
     >

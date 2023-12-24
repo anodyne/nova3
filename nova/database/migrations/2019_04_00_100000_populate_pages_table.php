@@ -56,6 +56,8 @@ class PopulatePagesTable extends Migration
 
             ['uri' => 'settings/{tab?}', 'key' => 'settings.index', 'resource' => 'Nova\\Settings\\Controllers\\SettingsController@index', 'layout' => 'admin'],
             ['uri' => 'settings/{tab?}', 'key' => 'settings.update', 'verb' => PageVerb::put, 'resource' => 'Nova\\Settings\\Controllers\\SettingsController@update', 'layout' => 'admin'],
+            ['uri' => 'settings/appearance', 'key' => 'settings.appearance.edit', 'resource' => 'Nova\\Settings\\Controllers\\AppearanceSettingsController@edit', 'layout' => 'admin'],
+            ['uri' => 'settings/appearance', 'key' => 'settings.appearance.update', 'verb' => PageVerb::put, 'resource' => 'Nova\\Settings\\Controllers\\AppearanceSettingsController@update', 'layout' => 'admin'],
 
             ['uri' => 'ranks/groups', 'key' => 'ranks.groups.index', 'resource' => 'Nova\\Ranks\\Controllers\\RankGroupController@index', 'layout' => 'admin'],
             ['uri' => 'ranks/groups/{group}/show', 'key' => 'ranks.groups.show', 'resource' => 'Nova\\Ranks\\Controllers\\RankGroupController@show', 'layout' => 'admin'],

@@ -24,7 +24,7 @@
                                         <p class="text-sm font-medium text-gray-600 dark:text-gray-400">
                                             Welcome back,
                                         </p>
-                                        <h2 class="text-xl font-medium text-gray-900 dark:text-white sm:text-2xl">
+                                        <h2 class="text-xl font-medium text-gray-900 sm:text-2xl dark:text-white">
                                             {{ auth()->user()->name }}
                                         </h2>
                                     </div>
@@ -38,7 +38,7 @@
                         </x-content-box>
 
                         <div
-                            class="grid grid-cols-1 divide-y divide-gray-900/5 border-t border-gray-950/5 bg-gray-50 dark:divide-gray-800 dark:border-gray-800 dark:bg-gray-950/30 sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:rounded-b-md"
+                            class="grid grid-cols-1 divide-y divide-gray-900/5 border-t border-gray-950/5 bg-gray-50 sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:rounded-b-md dark:divide-gray-800 dark:border-gray-800 dark:bg-gray-950/30"
                         >
                             <a
                                 href="{{ route('characters.index', ['tableFilters' => ['only_my_characters' => ['isActive' => true]]]) }}"
@@ -91,7 +91,7 @@
                             <x-content-box>
                                 <div class="flex space-x-2">
                                     <div>
-                                        <x-badge color="info" size="square">
+                                        <x-badge color="info" size="lg">
                                             <x-icon name="users" size="lg"></x-icon>
                                         </x-badge>
                                     </div>
@@ -109,7 +109,7 @@
                             <x-content-box>
                                 <div class="flex space-x-2">
                                     <div>
-                                        <x-badge color="info" size="square">
+                                        <x-badge color="info" size="lg">
                                             <x-icon name="users" size="lg"></x-icon>
                                         </x-badge>
                                     </div>
@@ -127,7 +127,7 @@
                             <x-content-box>
                                 <div class="flex space-x-2">
                                     <div>
-                                        <x-badge color="info" size="square">
+                                        <x-badge color="info" size="lg">
                                             <x-icon name="users" size="lg"></x-icon>
                                         </x-badge>
                                     </div>

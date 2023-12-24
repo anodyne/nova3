@@ -144,11 +144,11 @@ describe('unauthorized user', function () {
 describe('unauthenticated user', function () {
     test('cannot view the create story page', function () {
         get(route('stories.create'))
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 
     test('cannot create a story', function () {
         post(route('stories.store'), [])
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 });

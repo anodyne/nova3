@@ -16,36 +16,36 @@ class SettingsPolicy
     {
         return $user->isAbleTo('settings.*')
             ? $this->allow()
-            : $this->denyAsNotFound();
+            : $this->deny();
     }
 
     public function view(User $user, Settings $settings)
     {
         return $user->isAbleTo('settings.*')
             ? $this->allow()
-            : $this->denyAsNotFound();
+            : $this->deny();
     }
 
     public function create(User $user)
     {
-        return $this->denyAsNotFound();
+        return $this->deny();
     }
 
     public function update(User $user, Settings $settings)
     {
         return $user->isAbleTo('settings.update')
             ? $this->allow()
-            : $this->denyAsNotFound();
+            : $this->deny();
     }
 
     public function delete(User $user, Settings $settings)
     {
-        return $this->denyAsNotFound();
+        return $this->deny();
     }
 
     public function duplicate(User $user, Settings $settings)
     {
-        return $this->denyAsNotFound();
+        return $this->deny();
     }
 
     public function restore(User $user, Settings $settings)

@@ -36,6 +36,6 @@ describe('unauthorized user', function () {
 describe('unauthenticated user', function () {
     test('cannot view the view position page', function () {
         get(route('positions.show', $this->position))
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 });

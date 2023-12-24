@@ -36,6 +36,6 @@ describe('unauthorized user', function () {
 describe('unauthenticated user', function () {
     test('cannot view the view post types page', function () {
         get(route('post-types.show', $this->postType))
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 });

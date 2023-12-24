@@ -266,6 +266,6 @@ describe('unauthorized user', function () {
 describe('unauthenticated user', function () {
     test('cannot view the manage stories page', function () {
         get(route('stories.index'))
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 });

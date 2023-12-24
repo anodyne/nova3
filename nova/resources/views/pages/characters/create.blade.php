@@ -19,41 +19,59 @@
                 </x-input.group>
             </x-form.section>
 
-            <x-form.section
-                title="Avatar"
-                message="Character avatars should be a square image at least 500 pixels tall by 500 pixels wide, but not more than 5MB in size."
-            >
+            <x-form.section title="Avatar">
+                <x-slot name="message">
+                    <x-text>
+                        Character avatars should be a square image at least 500 pixels tall by 500 pixels wide, but not
+                        more than 5MB in size.
+                    </x-text>
+                </x-slot>
+
                 <x-input.group>
                     <livewire:media-upload-avatar />
                 </x-input.group>
             </x-form.section>
 
-            <x-form.section
-                title="Positions"
-                message="Characters can be assigned to any number of positions. On the manifest, the character will be displayed for each position they're assigned to."
-            >
+            <x-form.section title="Positions">
+                <x-slot name="message">
+                    <x-text>
+                        Characters can be assigned to any number of positions. On the manifest, the character will be
+                        displayed for each position they're assigned to.
+                    </x-text>
+                </x-slot>
+
                 <livewire:characters-manage-positions />
             </x-form.section>
 
             @can('create', Nova\Characters\Models\Character::class)
-                <x-form.section
-                    title="Ownership"
-                    message="Characters can be assigned to any number of users and all assigned users will have the same rights with the character. Additionally, any notifications on behalf of the character will be sent to all users assigned to the character."
-                >
+                <x-form.section title="Ownership">
+                    <x-slot name="message">
+                        <x-text>
+                            Characters can be assigned to any number of users and all assigned users will have the same
+                            rights with the character. Additionally, any notifications on behalf of the character will
+                            be sent to all users assigned to the character.
+                        </x-text>
+                    </x-slot>
+
                     <livewire:characters-manage-users />
                 </x-form.section>
             @else
-                <x-form.section
-                    title="Ownership"
-                    message="Characters can be assigned to any number of users and all assigned users will have the same rights with the character. Additionally, any notifications on behalf of the character will be sent to all users assigned to the character."
-                >
+                <x-form.section title="Ownership">
+                    <x-slot name="message">
+                        <x-text>
+                            Characters can be assigned to any number of users and all assigned users will have the same
+                            rights with the character. Additionally, any notifications on behalf of the character will
+                            be sent to all users assigned to the character.
+                        </x-text>
+                    </x-slot>
+
                     <livewire:characters-manage-ownership />
                 </x-form.section>
             @endcan
 
             <x-form.footer>
-                <x-button.filled type="submit" color="primary">Add</x-button.filled>
-                <x-button.filled :href="route('characters.index')" color="neutral">Cancel</x-button.filled>
+                <x-button.solid type="submit" color="primary">Add</x-button.solid>
+                <x-button.solid :href="route('characters.index')" color="neutral">Cancel</x-button.solid>
             </x-form.footer>
         </x-form>
     </x-panel>

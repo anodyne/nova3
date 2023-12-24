@@ -21,16 +21,16 @@
                     <x-input.text id="name" name="name" :value="old('name', $group->name)" data-cy="name" />
                 </x-input.group>
 
-                <x-input.group>
-                    <x-switch-toggle
+                <div class="flex items-center gap-x-2.5">
+                    <x-switch
                         name="status"
-                        :value="old('status', $group->status ?? 'active')"
+                        :value="old('status', $group->status->value ?? 'active')"
                         on-value="active"
                         off-value="inactive"
-                    >
-                        Active
-                    </x-switch-toggle>
-                </x-input.group>
+                        id="status"
+                    ></x-switch>
+                    <x-fieldset.label for="status">Active</x-fieldset.label>
+                </div>
             </x-form.section>
 
             <x-form.section title="Assigned ranks" message="These are the ranks that have been assigned to this group.">

@@ -22,7 +22,7 @@
                         <div class="flex items-start">
                             <div class="flex flex-col">
                                 <div
-                                    class="text-lg font-semibold text-gray-900 dark:text-white"
+                                    class="flex items-center gap-x-3 text-lg font-semibold text-gray-900 dark:text-white"
                                     x-data="{}"
                                     x-on:toggle-switch-changed="
                                         $dispatch('deleteStoryToggle', {
@@ -31,20 +31,23 @@
                                         })
                                     "
                                 >
-                                    <x-switch-toggle
+                                    <x-switch
                                         name="active"
+                                        id="story-{{ $story->id }}"
                                         :value="old('active', data_get($actions, $story->id.'.story.action') === 'delete')"
                                         :disabled="$loop->first"
                                         color="danger"
-                                    >
-                                        <span class="text-gray-900 dark:text-white">Delete {{ $story->title }}</span>
-                                    </x-switch-toggle>
+                                    ></x-switch>
+                                    <x-fieldset.label for="story-{{ $story->id }}">
+                                        Delete {{ $story->title }}
+                                    </x-fieldset.label>
                                 </div>
 
                                 @if ($story->parent)
-                                    <div class="mt-1.5 text-sm text-gray-600 dark:text-gray-400">
-                                        This story is nested inside
-                                        <span class="font-semibold">{{ optional($story->parent)->title }}</span>
+                                    <div class="mt-2">
+                                        <x-badge color="gray" size="lg" pill>
+                                            This story is nested inside {{ optional($story->parent)->title }}
+                                        </x-badge>
                                     </div>
                                 @endif
 
@@ -52,46 +55,36 @@
                                     class="mt-4 flex max-w-xl items-center space-x-6 font-medium text-gray-600 dark:text-gray-400"
                                 >
                                     @if (data_get($actions, "{$story->id}.story.action") === 'move')
-                                        <x-badge color="info">
-                                            <x-slot name="leadingIcon">
-                                                <x-icon name="arrow-right" size="sm" class="shrink-0"></x-icon>
-                                            </x-slot>
+                                        <x-badge color="info" size="md">
+                                            <x-icon name="arrow-right" size="sm"></x-icon>
                                             <span>Story will be moved</span>
                                         </x-badge>
                                     @endif
 
                                     @if (data_get($actions, "{$story->id}.story.action") === 'delete')
-                                        <x-badge color="danger">
-                                            <x-slot name="leadingIcon">
-                                                <x-icon name="x" size="sm" class="shrink-0"></x-icon>
-                                            </x-slot>
+                                        <x-badge color="danger" size="md">
+                                            <x-icon name="trash" size="sm"></x-icon>
                                             <span>Story will be deleted</span>
                                         </x-badge>
                                     @endif
 
                                     @if (data_get($actions, "{$story->id}.posts.action") === 'move')
-                                        <x-badge color="info">
-                                            <x-slot name="leadingIcon">
-                                                <x-icon name="arrow-right" size="sm" class="shrink-0"></x-icon>
-                                            </x-slot>
+                                        <x-badge color="info" size="md">
+                                            <x-icon name="arrow-right" size="sm"></x-icon>
                                             <span>Story posts will be moved</span>
                                         </x-badge>
                                     @endif
 
                                     @if (data_get($actions, "{$story->id}.posts.action") === 'delete')
-                                        <x-badge color="danger">
-                                            <x-slot name="leadingIcon">
-                                                <x-icon name="x" size="sm" class="shrink-0"></x-icon>
-                                            </x-slot>
+                                        <x-badge color="danger" size="md">
+                                            <x-icon name="trash" size="sm"></x-icon>
                                             <span>Story posts will be deleted</span>
                                         </x-badge>
                                     @endif
 
                                     @if (data_get($actions, "{$story->id}.posts.action") === 'none')
-                                        <x-badge>
-                                            <x-slot name="leadingIcon">
-                                                <x-icon name="remove" size="sm" class="shrink-0"></x-icon>
-                                            </x-slot>
+                                        <x-badge size="md">
+                                            <x-icon name="remove" size="sm"></x-icon>
                                             <span>Story posts will not be updated</span>
                                         </x-badge>
                                     @endif

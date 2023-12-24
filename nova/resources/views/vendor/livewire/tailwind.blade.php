@@ -47,12 +47,12 @@
                             @if ($paginator->onFirstPage())
                                 <span aria-disabled="true" aria-label="{{ __('pagination.previous') }}">
                                     <span class="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 cursor-default rounded-l-md" aria-hidden="true">
-                                        <x-icon.chevron-left class="h-5 w-5" />
+                                        <x-icon.chevron-left class="size-5" />
                                     </span>
                                 </span>
                             @else
                                 <button type="button" wire:click="previousPage('{{ $paginator->getPageName() }}')" dusk="previousPage{{ $paginator->getPageName() == 'page' ? '' : '.' . $paginator->getPageName() }}.after" rel="prev" class="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-l-md hover:text-gray-12 focus:z-10 focus:outline-none focus:border-blue-7 focus:ring active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-200" aria-label="{{ __('pagination.previous') }}">
-                                    <x-icon.chevron-left class="h-5 w-5" />
+                                    <x-icon.chevron-left class="size-5" />
                                 </button>
                             @endif
                         </span>
@@ -88,12 +88,12 @@
                             {{-- Next Page Link --}}
                             @if ($paginator->hasMorePages())
                                 <button type="button" wire:click="nextPage('{{ $paginator->getPageName() }}')" dusk="nextPage{{ $paginator->getPageName() == 'page' ? '' : '.' . $paginator->getPageName() }}.after" rel="next" class="relative inline-flex items-center px-2 py-2 -ml-px text-sm font-medium text-gray-500 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-r-md hover:text-gray-12 focus:z-10 focus:outline-none focus:border-blue-7 focus:ring active:bg-gray-3 active:text-gray-12 transition ease-in-out duration-200" aria-label="{{ __('pagination.next') }}">
-                                    <x-icon.chevron-right class="h-5 w-5" />
+                                    <x-icon.chevron-right class="size-5" />
                                 </button>
                             @else
                                 <span aria-disabled="true" aria-label="{{ __('pagination.next') }}">
                                     <span class="relative inline-flex items-center px-2 py-2 -ml-px text-sm font-medium text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 cursor-default rounded-r-md" aria-hidden="true">
-                                        <x-icon.chevron-right class="h-5 w-5" />
+                                        <x-icon.chevron-right class="size-5" />
                                     </span>
                                 </span>
                             @endif

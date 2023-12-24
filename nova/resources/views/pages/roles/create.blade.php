@@ -40,11 +40,10 @@
                     </x-input.textarea>
                 </x-input.group>
 
-                <x-input.group>
-                    <x-switch-toggle name="is_default" :value="old('is_default')" :on-value="1" :off-value="0">
-                        Assign this role to new users
-                    </x-switch-toggle>
-                </x-input.group>
+                <div class="flex items-center gap-x-2.5">
+                    <x-switch name="is_default" :value="old('is_default')" id="is_default"></x-switch>
+                    <x-fieldset.label for="is_default">Assign this role to new users</x-fieldset.label>
+                </div>
             </x-form.section>
 
             <x-form.section

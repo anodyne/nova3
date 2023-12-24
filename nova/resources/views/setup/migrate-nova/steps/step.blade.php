@@ -11,7 +11,7 @@
     <div class="col-span-3 flex items-center font-medium text-gray-900">
         <div class="flex items-center gap-4">
             <div class="shrink-0">
-                <x-switch-toggle wire:model="shouldMigrate" color="gray"></x-switch-toggle>
+                <x-switch wire:model="shouldMigrate"></x-switch>
             </div>
             <div class="flex flex-1 items-center gap-3">
                 <x-h4>{{ $label }}</x-h4>

@@ -24,7 +24,7 @@
             :class="{ 'ring-2 ring-primary-400 dark:ring-primary-700': open }"
         >
             <div
-                class="flex h-4 w-4 shrink-0 items-center rounded-full"
+                class="flex size-4 shrink-0 items-center rounded-full"
                 x-bind:style="`background-color:${color}`"
             ></div>
             <div class="flex-1 text-left text-gray-900 dark:text-white" x-text="color"></div>

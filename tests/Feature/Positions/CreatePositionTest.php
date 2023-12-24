@@ -58,11 +58,11 @@ describe('unauthorized user', function () {
 describe('unauthenticated user', function () {
     test('cannot view the create position page', function () {
         get(route('positions.create'))
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 
     test('cannot create a position', function () {
         post(route('positions.store'), [])
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 });

@@ -13,57 +13,59 @@ use function Pest\Livewire\livewire;
 
 uses()->group('users');
 
-beforeEach(function () {
-    signIn(permissions: 'user.update');
+describe('authorized user', function () {
+    beforeEach(function () {
+        signIn(permissions: 'user.update');
 
-    $this->user = User::factory()->active()->create();
+        $this->user = User::factory()->active()->create();
 
-    $this->character = Character::factory()
-        ->hasAttached($this->user)
-        ->active()
-        ->create();
-});
+        $this->character = Character::factory()
+            ->hasAttached($this->user)
+            ->active()
+            ->create();
+    });
 
-test('an active user can be deactivated', function () {
-    Event::fake();
+    test('an active user can be deactivated', function () {
+        Event::fake();
 
-    livewire(UsersList::class)
-        ->callTableAction('deactivate', $this->user);
+        livewire(UsersList::class)
+            ->callTableAction('deactivate', $this->user);
 
-    assertDatabaseHas(User::class, [
-        'id' => $this->user->id,
-        'status' => 'inactive',
-    ]);
+        assertDatabaseHas(User::class, [
+            'id' => $this->user->id,
+            'status' => 'inactive',
+        ]);
 
-    assertDatabaseHas(Character::class, [
-        'id' => $this->character->id,
-        'status' => 'inactive',
-    ]);
+        assertDatabaseHas(Character::class, [
+            'id' => $this->character->id,
+            'status' => 'inactive',
+        ]);
 
-    Event::assertDispatched(UserDeactivated::class);
-});
+        Event::assertDispatched(UserDeactivated::class);
+    });
 
-test('a character with multiple users remains active if only one user is deactivated', function () {
-    $user = User::factory()->active()->create();
+    test('a character with multiple users remains active if only one user is deactivated', function () {
+        $user = User::factory()->active()->create();
 
-    $user->characters()->attach($this->character->id);
+        $user->characters()->attach($this->character->id);
 
-    livewire(UsersList::class)
-        ->callTableAction('deactivate', $this->user)
-        ->assertNotified();
+        livewire(UsersList::class)
+            ->callTableAction('deactivate', $this->user)
+            ->assertNotified();
 
-    assertDatabaseHas(User::class, [
-        'id' => $this->user->id,
-        'status' => 'inactive',
-    ]);
+        assertDatabaseHas(User::class, [
+            'id' => $this->user->id,
+            'status' => 'inactive',
+        ]);
 
-    assertDatabaseHas(User::class, [
-        'id' => $user->id,
-        'status' => 'active',
-    ]);
+        assertDatabaseHas(User::class, [
+            'id' => $user->id,
+            'status' => 'active',
+        ]);
 
-    assertDatabaseHas(Character::class, [
-        'id' => $this->character->id,
-        'status' => 'active',
-    ]);
+        assertDatabaseHas(Character::class, [
+            'id' => $this->character->id,
+            'status' => 'active',
+        ]);
+    });
 });

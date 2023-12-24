@@ -32,7 +32,7 @@ class PopulateSettingsTable extends Migration
             'appearance' => new Appearance(
                 theme: 'Pulsar',
                 iconSet: 'tabler',
-                avatarShape: 'squircle',
+                avatarShape: 'circle',
                 avatarStyle: 'bottts-neutral',
                 imagePath: null,
                 colorsGray: 'Gray',

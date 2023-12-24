@@ -13,57 +13,71 @@
         </x-panel.header>
 
         <x-form :action="route('settings.update', $tab)" method="PUT" id="character">
-            <x-form.section title="Require approval for character creation">
+            <x-form.section title="Character creation approvals">
                 <x-slot name="message">
-                    <p>Set whether characters of certain types require approval before being activated.</p>
-
-                    <p>
-                        <span class="font-semibold">Note:</span>
-                        these settings apply to any user who has the Create Primary Characters, Create Secondary
-                        Charcters, or Create Support Characters permissions.
-                    </p>
+                    <x-text>Set whether characters of certain types require approval before being activated.</x-text>
                 </x-slot>
 
-                <x-input.group>
-                    <x-switch-toggle
-                        name="approve_primary"
-                        :value="old('approve_primary', $settings->characters->approvePrimary)"
-                    >
-                        Primary characters
-                    </x-switch-toggle>
-                </x-input.group>
+                <div class="w-full max-w-md">
+                    <x-switch.group>
+                        <x-switch.field>
+                            <x-fieldset.label for="approve_primary">Primary characters</x-fieldset.label>
+                            <x-fieldset.description>
+                                Require approval for creating primary characters for users with the Create Primary
+                                Characters permission in one of their roles.
+                            </x-fieldset.description>
+                            <x-switch
+                                name="approve_primary"
+                                :value="old('approve_primary', $settings->characters->approvePrimary)"
+                                id="approve_primary"
+                            ></x-switch>
+                        </x-switch.field>
 
-                <x-input.group>
-                    <x-switch-toggle
-                        name="approve_secondary"
-                        :value="old('approve_secondary', $settings->characters->approveSecondary)"
-                    >
-                        Secondary characters
-                    </x-switch-toggle>
-                </x-input.group>
+                        <x-switch.field>
+                            <x-fieldset.label for="approve_secondary">Secondary characters</x-fieldset.label>
+                            <x-fieldset.description>
+                                Require approval for creating secondary characters for users with the Create Secondary
+                                Characters permission in one of their roles.
+                            </x-fieldset.description>
+                            <x-switch
+                                name="approve_secondary"
+                                :value="old('approve_secondary', $settings->characters->approveSecondary)"
+                                id="approve_secondary"
+                            ></x-switch>
+                        </x-switch.field>
 
-                <x-input.group>
-                    <x-switch-toggle
-                        name="approve_support"
-                        :value="old('approve_support', $settings->characters->approveSupport)"
-                    >
-                        Support characters
-                    </x-switch-toggle>
-                </x-input.group>
+                        <x-switch.field>
+                            <x-fieldset.label for="approve_support">Support characters</x-fieldset.label>
+                            <x-fieldset.description>
+                                Require approval for creating support characters for users with the Create Support
+                                Characters permission in one of their roles.
+                            </x-fieldset.description>
+                            <x-switch
+                                name="approve_support"
+                                :value="old('approve_support', $settings->characters->approveSupport)"
+                                id="approve_support"
+                            ></x-switch>
+                        </x-switch.field>
+                    </x-switch.group>
+                </div>
             </x-form.section>
 
-            <x-form.section
-                title="Character limits"
-                message="Define how many active characters a user can have linked to their account. Additional characters beyond the limit can still be created, but will require approval to be activated."
-            >
-                <x-input.group>
-                    <x-switch-toggle
+            <x-form.section title="Character limits">
+                <x-slot name="message">
+                    <x-text>
+                        Define how many active characters a user can have linked to their account. Additional characters
+                        beyond the limit can still be created, but will require approval to be activated.
+                    </x-text>
+                </x-slot>
+
+                <div class="flex items-center gap-x-2.5">
+                    <x-switch
                         name="enforce_character_limits"
                         :value="old('enforce_character_limits', $settings->characters->enforceCharacterLimits)"
-                    >
-                        Enforce character limits
-                    </x-switch-toggle>
-                </x-input.group>
+                        id="enforce_character_limits"
+                    ></x-switch>
+                    <x-fieldset.label for="enforce_character_limits">Enforce character limits</x-fieldset.label>
+                </div>
 
                 <x-input.group label="Character limit">
                     <div class="w-full sm:w-2/3 md:w-2/5">
@@ -76,36 +90,41 @@
                 </x-input.group>
             </x-form.section>
 
-            <x-form.section
-                title="Automatic position availability"
-                message="You can pick which character statuses will trigger Nova to automatically update position availability. If none are selected, you will need to manage the availability of positions manually."
-            >
-                <x-input.group>
-                    <x-switch-toggle
+            <x-form.section title="Automatic position availability">
+                <x-slot name="message">
+                    <x-text>
+                        You can pick which character statuses will trigger Nova to automatically update position
+                        availability. If none are selected, you will need to manage the availability of positions
+                        manually.
+                    </x-text>
+                </x-slot>
+
+                <div class="flex items-center gap-x-2.5">
+                    <x-switch
                         name="auto_availability_primary"
                         :value="old('auto_availability_primary', $settings->characters->autoAvailabilityForPrimary)"
-                    >
-                        Primary characters
-                    </x-switch-toggle>
-                </x-input.group>
+                        id="auto_availability_primary"
+                    ></x-switch>
+                    <x-fieldset.label for="auto_availability_primary">Primary characters</x-fieldset.label>
+                </div>
 
-                <x-input.group>
-                    <x-switch-toggle
+                <div class="flex items-center gap-x-2.5">
+                    <x-switch
                         name="auto_availability_secondary"
                         :value="old('auto_availability_secondary', $settings->characters->autoAvailabilityForSecondary)"
-                    >
-                        Secondary characters
-                    </x-switch-toggle>
-                </x-input.group>
+                        id="auto_availability_secondary"
+                    ></x-switch>
+                    <x-fieldset.label for="auto_availability_secondary">Secondary characters</x-fieldset.label>
+                </div>
 
-                <x-input.group>
-                    <x-switch-toggle
+                <div class="flex items-center gap-x-2.5">
+                    <x-switch
                         name="auto_availability_support"
                         :value="old('auto_availability_support', $settings->characters->autoAvailabilityForSupport)"
-                    >
-                        Support characters
-                    </x-switch-toggle>
-                </x-input.group>
+                        id="auto_availability_support"
+                    ></x-switch>
+                    <x-fieldset.label for="auto_availability_support">Support characters</x-fieldset.label>
+                </div>
             </x-form.section>
 
             <x-form.footer>

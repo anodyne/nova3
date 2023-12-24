@@ -10,8 +10,8 @@
         @class([
             'flex items-center justify-center font-bold ring-1 ring-inset',
             match ($size) {
-                'xs' => 'h-5 w-5 rounded text-xs',
-                'sm' => 'h-6 w-6 rounded-md text-sm',
+                'xs' => 'size-5 rounded text-xs',
+                'sm' => 'size-6 rounded-md text-sm',
                 'lg' => 'h-10 w-10 rounded-md text-xl',
                 default => 'h-8 w-8 rounded-md text-lg',
             },

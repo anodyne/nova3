@@ -35,6 +35,6 @@ describe('unauthorized user', function () {
 describe('unauthenticated user', function () {
     test('cannot view the view role page', function () {
         get(route('roles.show', $this->role))
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 });

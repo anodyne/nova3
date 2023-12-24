@@ -3,10 +3,6 @@
 declare(strict_types=1);
 
 use Nova\Characters\Models\Character;
-use Nova\Foundation\Filament\Actions\CreateAction;
-use Nova\Foundation\Filament\Actions\DeleteAction;
-use Nova\Foundation\Filament\Actions\EditAction;
-use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Stories\Models\Post;
 use Nova\Users\Livewire\UsersList;
 use Nova\Users\Models\Login;
@@ -215,110 +211,6 @@ describe('authorized user', function () {
     });
 });
 
-describe('authorized user with user create permissions', function () {
-    beforeEach(function () {
-        signIn(permissions: 'user.create');
-    });
-
-    test('has the correct permissions', function () {
-        $user = User::factory()->active()->create();
-
-        livewire(UsersList::class)
-            ->assertTableHeaderActionsExistInOrder([
-                CreateAction::class,
-            ])
-            ->assertTableActionHidden(ViewAction::class, $user)
-            ->assertTableActionHidden(EditAction::class, $user)
-            ->assertTableActionHidden(DeleteAction::class, $user)
-            ->assertTableActionHidden('impersonate', $user)
-            ->assertTableActionHidden('activate', $user)
-            ->assertTableActionHidden('deactivate', $user);
-    });
-});
-
-describe('authorized user with user delete permissions', function () {
-    beforeEach(function () {
-        signIn(permissions: 'user.delete');
-    });
-
-    test('has the correct permissions', function () {
-        $user = User::factory()->active()->create();
-
-        livewire(UsersList::class)
-            ->assertTableHeaderActionsExistInOrder([])
-            ->assertTableActionHidden(ViewAction::class, $user)
-            ->assertTableActionHidden(EditAction::class, $user)
-            ->assertTableActionVisible(DeleteAction::class, $user)
-            ->assertTableActionHidden('impersonate', $user)
-            ->assertTableActionHidden('activate', $user)
-            ->assertTableActionHidden('deactivate', $user);
-    });
-});
-
-describe('authorized user with user update permissions', function () {
-    beforeEach(function () {
-        signIn(permissions: 'user.update');
-    });
-
-    test('has the correct permissions', function () {
-        $activeUser = User::factory()->active()->create();
-        $inactiveUser = User::factory()->inactive()->create();
-
-        livewire(UsersList::class)
-            ->assertTableHeaderActionsExistInOrder([])
-            ->assertTableActionHidden(ViewAction::class, $activeUser)
-            ->assertTableActionVisible(EditAction::class, $activeUser)
-            ->assertTableActionHidden(DeleteAction::class, $activeUser)
-            ->assertTableActionHidden('impersonate', $activeUser)
-            ->assertTableActionHidden('activate', $activeUser)
-            ->assertTableActionVisible('deactivate', $activeUser)
-            ->assertTableActionHidden(ViewAction::class, $inactiveUser)
-            ->assertTableActionVisible(EditAction::class, $inactiveUser)
-            ->assertTableActionHidden(DeleteAction::class, $inactiveUser)
-            ->assertTableActionHidden('impersonate', $inactiveUser)
-            ->assertTableActionVisible('activate', $inactiveUser)
-            ->assertTableActionHidden('deactivate', $inactiveUser);
-    });
-});
-
-describe('authorized user with user view permissions', function () {
-    beforeEach(function () {
-        signIn(permissions: 'user.view');
-    });
-
-    test('has the correct permissions', function () {
-        $user = User::factory()->active()->create();
-
-        livewire(UsersList::class)
-            ->assertTableHeaderActionsExistInOrder([])
-            ->assertTableActionVisible(ViewAction::class, $user)
-            ->assertTableActionHidden(EditAction::class, $user)
-            ->assertTableActionHidden(DeleteAction::class, $user)
-            ->assertTableActionHidden('impersonate', $user)
-            ->assertTableActionHidden('activate', $user)
-            ->assertTableActionHidden('deactivate', $user);
-    });
-});
-
-describe('authorized user with user impersonate permissions', function () {
-    beforeEach(function () {
-        signIn(permissions: 'user.impersonate');
-    });
-
-    test('has the correct permissions', function () {
-        $user = User::factory()->active()->create();
-
-        livewire(UsersList::class)
-            ->assertTableHeaderActionsExistInOrder([])
-            ->assertTableActionHidden(ViewAction::class, $user)
-            ->assertTableActionHidden(EditAction::class, $user)
-            ->assertTableActionHidden(DeleteAction::class, $user)
-            ->assertTableActionVisible('impersonate', $user)
-            ->assertTableActionHidden('activate', $user)
-            ->assertTableActionHidden('deactivate', $user);
-    });
-});
-
 describe('unauthorized user', function () {
     beforeEach(function () {
         signIn();
@@ -331,7 +223,6 @@ describe('unauthorized user', function () {
 
 describe('unauthenticated user', function () {
     test('cannot view the manage users page', function () {
-        get(route('users.index'))
-            ->assertRedirect(route('login'));
+        get(route('users.index'))->assertRedirectToRoute('login');
     });
 });

@@ -3,7 +3,7 @@
 ])
 
 <div
-    {{ $attributes->merge(['class' => 'inline-flex items-center gap-x-8 text-sm']) }}
+    {{ $attributes->merge(['class' => 'inline-flex items-center gap-x-8 rounded-md bg-gray-50 px-3 py-1.5 text-sm ring-1 ring-inset ring-gray-950/5']) }}
 >
     <div class="flex items-center gap-x-1.5 text-gray-500">
         <span>Reading time</span>

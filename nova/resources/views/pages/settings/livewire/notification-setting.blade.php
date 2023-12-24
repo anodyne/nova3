@@ -63,7 +63,7 @@
                     @endif
                 </div>
                 <div class="mt-5 sm:ml-6 sm:mt-0 sm:flex sm:flex-shrink-0 sm:items-center">
-                    <x-switch-toggle name="default" :value="old('default')"></x-switch-toggle>
+                    <x-switch name="default" id="default1" :value="old('default')"></x-switch>
                 </div>
             </div>
         </x-content-box>
@@ -87,7 +87,7 @@
                     @endif
                 </div>
                 <div class="mt-5 sm:ml-6 sm:mt-0 sm:flex sm:flex-shrink-0 sm:items-center">
-                    <x-switch-toggle name="default" :value="old('default')"></x-switch-toggle>
+                    <x-switch name="default" id="default2" :value="old('default')"></x-switch>
                 </div>
             </div>
         </x-content-box>
@@ -103,7 +103,7 @@
                         </p>
                     </div>
                     <div class="mt-5 sm:ml-6 sm:mt-0 sm:flex sm:flex-shrink-0 sm:items-center">
-                        <x-switch-toggle name="default" :value="old('default')"></x-switch-toggle>
+                        <x-switch name="default" id="default3" :value="old('default')"></x-switch>
                     </div>
                 </div>
             </x-content-box>
@@ -111,7 +111,7 @@
     </x-content-box>
 
     <x-content-box
-        class="z-20 rounded-b-lg bg-gray-50 dark:bg-gray-700/50 sm:flex sm:flex-row-reverse sm:space-x-4 sm:space-x-reverse"
+        class="z-20 rounded-b-lg bg-gray-50 sm:flex sm:flex-row-reverse sm:space-x-4 sm:space-x-reverse dark:bg-gray-700/50"
         height="sm"
         width="sm"
     >

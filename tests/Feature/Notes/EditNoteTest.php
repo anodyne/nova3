@@ -56,11 +56,11 @@ describe('unauthenticated user', function () {
 
     test('cannot view the edit note page', function () {
         get(route('notes.edit', $this->note))
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 
     test('cannot update a note', function () {
         put(route('notes.update', $this->note), [])
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 });

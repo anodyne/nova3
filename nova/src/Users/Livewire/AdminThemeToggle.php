@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Users\Livewire;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Nova\Users\Actions\UpdateAdminTheme;
 
@@ -20,7 +21,7 @@ class AdminThemeToggle extends Component
 
     public function mount()
     {
-        $this->appearance = auth()->user()->appearance;
+        $this->appearance = Auth::user()->appearance;
     }
 
     public function render()

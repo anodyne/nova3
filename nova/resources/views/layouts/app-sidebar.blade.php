@@ -19,7 +19,7 @@
             class="group -m-3 flex items-center p-3 focus-visible:outline-offset-[-4px]"
         >
             <span class="mr-2 hidden text-sm font-medium text-gray-300 group-hover:block">Leave impersonation</span>
-            <svg class="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <svg class="size-5 text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path
                     d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"
                 />
@@ -73,7 +73,7 @@
                         <button type="button" class="-m-2.5 p-2.5" x-on:click="open = false">
                             <span class="sr-only">Close sidebar</span>
                             <svg
-                                class="h-6 w-6 text-white"
+                                class="size-6 text-white"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke-width="1.5"
@@ -271,14 +271,18 @@
                                                 </x-dropdown.group>
 
                                                 <x-dropdown.group>
-                                                    <x-dropdown.item type="submit" icon="logout" form="logout-form">
+                                                    <x-dropdown.item
+                                                        type="submit"
+                                                        icon="logout"
+                                                        form="logout-form-mobile"
+                                                    >
                                                         <span>Sign out</span>
 
                                                         <x-slot name="buttonForm">
                                                             <x-form
                                                                 :action="route('logout')"
                                                                 class="hidden"
-                                                                id="logout-form"
+                                                                id="logout-form-mobile"
                                                             />
                                                         </x-slot>
                                                     </x-dropdown.item>
@@ -521,7 +525,7 @@
                                                 My characters
                                             </x-dropdown.item>
                                             <div
-                                                class="flex items-center px-4 py-3 text-base text-gray-700 dark:text-gray-300 md:text-sm"
+                                                class="flex items-center px-4 py-3 text-base text-gray-700 md:text-sm dark:text-gray-300"
                                             >
                                                 <x-icon
                                                     name="moon"
@@ -578,7 +582,7 @@
             <button type="button" class="-m-2.5 p-2.5 text-gray-700 xl:hidden" x-on:click="open = true">
                 <span class="sr-only">Open sidebar</span>
                 <svg
-                    class="h-6 w-6"
+                    class="size-6"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke-width="1.5"

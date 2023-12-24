@@ -40,7 +40,7 @@ test('user can reset password with a valid token', function () {
         'password' => 'new-awesome-password',
         'password_confirmation' => 'new-awesome-password',
     ])
-        ->assertRedirect(route('login'));
+        ->assertRedirectToRoute('login');
 
     assertEquals($user->email, $user->fresh()->email);
     assertTrue(Hash::check('new-awesome-password', $user->fresh()->password));
@@ -62,7 +62,7 @@ test('user cannot reset password with an invalid token', function () {
             'password' => 'new-awesome-password',
             'password_confirmation' => 'new-awesome-password',
         ])
-        ->assertRedirect(route('password.reset', 'invalid-token'));
+        ->assertRedirectToRoute('password.reset', 'invalid-token');
 
     assertEquals($user->email, $user->fresh()->email);
     assertTrue(Hash::check('old-password', $user->fresh()->password));
@@ -82,7 +82,7 @@ test('user cannot reset password without providing a new password', function () 
             'password' => '',
             'password_confirmation' => '',
         ])
-        ->assertRedirect(route('password.reset', $token))
+        ->assertRedirectToRoute('password.reset', $token)
         ->assertSessionHasErrors('password');
 
     assertTrue(session()->hasOldInput('email'));
@@ -105,7 +105,7 @@ test('user cannot reset password without providing an email', function () {
             'password' => 'new-awesome-password',
             'password_confirmation' => 'new-awesome-password',
         ])
-        ->assertRedirect(route('password.reset', $token))
+        ->assertRedirectToRoute('password.reset', $token)
         ->assertSessionHasErrors('email');
 
     assertFalse(session()->hasOldInput('password'));

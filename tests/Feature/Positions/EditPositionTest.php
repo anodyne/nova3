@@ -64,11 +64,11 @@ describe('unauthorized user', function () {
 describe('unauthenticated user', function () {
     test('cannot view the edit position page', function () {
         get(route('positions.edit', $this->position))
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 
     test('cannot update a position', function () {
         put(route('positions.update', $this->position), [])
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 });

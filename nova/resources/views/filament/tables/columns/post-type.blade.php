@@ -9,7 +9,7 @@
         @isset($postType->icon)
             <x-icon :name="$postType->icon" size="md"></x-icon>
         @else
-            <div class="h-6 w-6"></div>
+            <div class="size-6"></div>
         @endisset
     </div>
 

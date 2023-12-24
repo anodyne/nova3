@@ -122,11 +122,11 @@ describe('unauthorized user', function () {
 describe('unauthenticated user', function () {
     test('cannot view the create role page', function () {
         get(route('roles.create'))
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 
     test('cannot create a role', function () {
         post(route('roles.store'), [])
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 });

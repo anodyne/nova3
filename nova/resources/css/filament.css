@@ -153,3 +153,38 @@
 
     height: calc(100vh - 2rem);
 }
+
+.fi-badge {
+    @apply inline-flex items-center gap-x-1.5 rounded-md bg-gray-50 px-1.5 py-0.5 text-xs/5 font-medium text-gray-700 ring-1 ring-inset ring-gray-200 dark:bg-gray-900 dark:text-gray-300 dark:ring-gray-700;
+}
+.fi-badge.fi-color-custom {
+    @apply bg-custom-50 text-custom-700 ring-custom-200 dark:bg-custom-950 dark:text-custom-300 dark:ring-custom-800;
+}
+.fi-icon-btn-badge-ctn > .fi-badge {
+    @apply py-0;
+}
+
+.fi-ta-toggle > div,
+.fi-fo-toggle {
+    @apply relative isolate inline-flex h-6 w-10 cursor-default rounded-full border-none bg-gray-200 p-[3px] ring-1 ring-inset ring-black/5 hover:ring-black/15 focus:outline-none sm:h-5 sm:w-8 dark:ring-white/15 dark:hover:ring-white/25;
+}
+.fi-ta-toggle > div > span,
+.fi-fo-toggle > span {
+    @apply pointer-events-none relative inline-block size-[1.125rem] rounded-full border border-transparent bg-white shadow ring-1 ring-black/5 sm:size-3.5;
+}
+.fi-ta-toggle > div.fi-color-gray,
+.fi-fo-toggle.fi-color-gray {
+    @apply bg-gray-200 ring-black/5 hover:ring-black/15 dark:bg-white/5 dark:ring-transparent;
+}
+.fi-ta-toggle > div.fi-color-gray > span,
+.fi-fo-toggle.fi-color-gray > span {
+    @apply translate-x-0 ring-black/5;
+}
+.fi-ta-toggle > div.fi-color-custom,
+.fi-fo-toggle.fi-color-custom {
+    @apply bg-custom-500 ring-custom-600/80 hover:ring-black/15 dark:ring-transparent;
+}
+.fi-ta-toggle > div.fi-color-custom > span,
+.fi-fo-toggle.fi-color-custom > span {
+    @apply translate-x-4 shadow shadow-custom-900/20 ring-custom-600/80 sm:translate-x-3;
+}

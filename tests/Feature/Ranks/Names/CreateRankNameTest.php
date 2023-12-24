@@ -55,11 +55,11 @@ describe('unauthorized user', function () {
 describe('unauthenticated user', function () {
     test('cannot view the create rank name page', function () {
         get(route('ranks.names.create'))
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 
     test('cannot create a rank name', function () {
         post(route('ranks.names.store'), [])
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 });

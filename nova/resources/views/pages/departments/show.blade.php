@@ -33,7 +33,9 @@
             <div class="flex flex-1 flex-col gap-6 divide-y divide-gray-200">
                 @if (filled($department->description))
                     <x-content-box>
-                        <p class="max-w-xl text-lg">{{ $department->description }}</p>
+                        <div class="max-w-xl">
+                            <x-text size="xl">{{ $department->description }}</x-text>
+                        </div>
                     </x-content-box>
                 @endif
 

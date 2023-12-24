@@ -35,6 +35,6 @@ describe('unauthorized user', function () {
 describe('unauthenticated user', function () {
     test('cannot view the view story page', function () {
         get(route('stories.show', $this->story))
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 });

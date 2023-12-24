@@ -17,10 +17,14 @@
         </x-panel.header>
 
         <x-form :action="route('positions.update', $position)" method="PUT">
-            <x-form.section
-                title="Position Info"
-                message="Positions are the jobs or stations that characters can be assigned to for display on your manifests."
-            >
+            <x-form.section title="Position info">
+                <x-slot name="message">
+                    <x-text>
+                        Positions are the jobs or stations that characters can be assigned to for display on your
+                        manifests.
+                    </x-text>
+                </x-slot>
+
                 <x-input.group label="Name" for="name" :error="$errors->first('name')">
                     <x-input.text id="name" name="name" :value="old('name', $position->name)" data-cy="name" />
                 </x-input.group>
@@ -44,30 +48,30 @@
                     </x-input.textarea>
                 </x-input.group>
 
-                <x-input.group>
-                    <x-switch-toggle
+                <div class="flex items-center gap-x-2.5">
+                    <x-switch
                         name="status"
-                        :value="old('status', $position->status ?? 'active')"
+                        :value="old('status', $position->status->value ?? 'active')"
                         on-value="active"
                         off-value="inactive"
-                    >
-                        Active
-                    </x-switch-toggle>
-                </x-input.group>
+                        id="status"
+                    ></x-switch>
+                    <x-fieldset.label for="status">Active</x-fieldset.label>
+                </div>
             </x-form.section>
 
             <x-form.section title="Availability">
                 <x-slot name="message">
-                    <p>
+                    <x-text>
                         You can allow or prevent prospective players from picking this position when applying to join by
                         setting the number of available slots.
-                    </p>
+                    </x-text>
 
-                    <p class="block">
-                        <strong class="font-semibold">Note:</strong>
+                    <x-text>
+                        <x-text.strong>Note:</x-text.strong>
                         after setting this number, Nova will manage keep the number updated for you as characters are
                         assigned and un-assigned to this position.
-                    </p>
+                    </x-text>
                 </x-slot>
 
                 <x-input.group label="Available Slots" for="available">

@@ -19,7 +19,7 @@
             role="searchbox"
         />
 
-        <x-loader-circle x-show="isLoading" x-cloak class="ml-3 h-5 w-5 text-gray-500" />
+        <x-loader-circle x-show="isLoading" x-cloak class="ml-3 size-5 text-gray-500" />
 
         <x-button.text
             x-show="!!search"

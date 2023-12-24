@@ -17,7 +17,7 @@
             </x-slot>
         </x-panel.header>
 
-        <x-form :action="route('settings.update', $tab)" method="PUT" id="appearance">
+        <x-form :action="route('settings.appearance.update')" method="PUT">
             <x-form.section
                 title="Theme"
                 message="Update the way your site looks through the theme and icon set defaults."
@@ -121,47 +121,21 @@
 
             <x-form.section title="Avatars">
                 <x-slot name="message">
-                    <p>Update the shape and style of avatars throughout Nova.</p>
+                    <x-text>Update the shape and style of avatars throughout Nova.</x-text>
 
-                    <img
+                    <x-avatar
                         src="https://api.dicebear.com/7.x/{{ $settings->appearance->avatarStyle }}/svg?seed=nova3"
-                        @class([
-                            'h-16 w-16 bg-gray-400 dark:bg-gray-600',
-                            match ($settings->appearance->avatarShape) {
-                                'squircle' => 'mask mask-squircle',
-                                'hexagon' => 'mask mask-hexagon',
-                                'hexagon-alt' => 'mask mask-hexagon-alt',
-                                default => $settings->appearance->avatarShape,
-                            },
-                        ])
-                    />
+                        size="lg"
+                    ></x-avatar>
                 </x-slot>
 
                 <x-input.group label="Shape" for="avatar_shape">
                     <x-input.select class="block w-full" id="avatar_shape" name="avatar_shape">
-                        <option value="rounded-full" @selected($settings->appearance->avatarShape === 'rounded-full')>
+                        <option value="circle" @selected($settings->appearance->avatarShape === 'circle')>
                             Circle
                         </option>
-                        <option value="rounded-none" @selected($settings->appearance->avatarShape === 'rounded-none')>
+                        <option value="square" @selected($settings->appearance->avatarShape === 'square')>
                             Square
-                        </option>
-                        <option value="rounded-md" @selected($settings->appearance->avatarShape === 'rounded-md')>
-                            Rounded square (medium)
-                        </option>
-                        <option value="rounded-lg" @selected($settings->appearance->avatarShape === 'rounded-lg')>
-                            Rounded square (large)
-                        </option>
-                        <option value="rounded-xl" @selected($settings->appearance->avatarShape === 'rounded-xl')>
-                            Rounded square (extra large)
-                        </option>
-                        <option value="squircle" @selected($settings->appearance->avatarShape === 'squircle')>
-                            Squircle
-                        </option>
-                        <option value="hexagon" @selected($settings->appearance->avatarShape === 'hexagon')>
-                            Hexagon
-                        </option>
-                        <option value="hexagon-alt" @selected($settings->appearance->avatarShape === 'hexagon-alt')>
-                            Alternate hexagon
                         </option>
                     </x-input.select>
                 </x-input.group>
@@ -186,7 +160,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button.filled type="submit" form="appearance" color="primary">Update</x-button.filled>
+                <x-button.filled type="submit" color="primary">Update</x-button.filled>
             </x-form.footer>
         </x-form>
     </x-panel>

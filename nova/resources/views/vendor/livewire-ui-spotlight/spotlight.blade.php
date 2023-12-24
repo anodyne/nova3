@@ -62,12 +62,13 @@
                         x-ref="input"
                         x-model="input"
                         type="text"
+                        name="spotlight-search"
                         style="caret-color: #6b7280; border: 0 !important;"
                         class="appearance-none w-full bg-transparent text-gray-900 dark:text-gray-100 p-0 text-lg placeholder-gray-400 focus:border-0 focus:ring-0 focus:border-transparent focus:shadow-none outline-none focus:outline-none"
                         x-bind:placeholder="inputPlaceholder"
                     >
                     <div class="shrink-0">
-                        <svg class="animate-spin h-6 w-6 text-gray-9" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" wire:loading.delay><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                        <svg class="animate-spin size-6 text-gray-9" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" wire:loading.delay><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
                     </div>
                 </div>
 

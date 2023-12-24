@@ -8,10 +8,17 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
 use Nova\Characters\Events\CharacterCreated;
 use Nova\Characters\Events\CharacterCreatedByAdmin;
+use Nova\Characters\Livewire\CharactersList;
 use Nova\Characters\Livewire\ManagePositions;
 use Nova\Characters\Livewire\ManageUsers;
 use Nova\Characters\Models\Character;
 use Nova\Departments\Models\Position;
+use Nova\Foundation\Filament\Actions\CreateAction;
+use Nova\Foundation\Filament\Actions\DeleteAction;
+use Nova\Foundation\Filament\Actions\EditAction;
+use Nova\Foundation\Filament\Actions\ForceDeleteAction;
+use Nova\Foundation\Filament\Actions\RestoreAction;
+use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Media\Livewire\UploadAvatar;
 use Nova\Users\Models\User;
 
@@ -47,6 +54,96 @@ describe('authorized user', function () {
 
         Event::assertDispatched(CharacterCreated::class);
         Event::assertDispatched(CharacterCreatedByAdmin::class);
+    });
+
+    test('has the correct permissions for list characters page', function () {
+        $activeCharacter = Character::factory()->active()->create();
+        $inactiveCharacter = Character::factory()->inactive()->create();
+        $deletedCharacter = Character::factory()->active()->trashed()->create();
+
+        livewire(CharactersList::class)
+            ->assertTableHeaderActionsExistInOrder([
+                CreateAction::class,
+            ])
+            ->assertTableActionHidden(ViewAction::class, $activeCharacter)
+            ->assertTableActionHidden(EditAction::class, $activeCharacter)
+            ->assertTableActionHidden(DeleteAction::class, $activeCharacter)
+            ->assertTableActionHidden(ForceDeleteAction::class, $activeCharacter)
+            ->assertTableActionHidden(RestoreAction::class, $activeCharacter)
+            ->assertTableActionHidden('activate', $activeCharacter)
+            ->assertTableActionHidden('deactivate', $activeCharacter)
+            ->assertTableActionHidden(ViewAction::class, $inactiveCharacter)
+            ->assertTableActionHidden(EditAction::class, $inactiveCharacter)
+            ->assertTableActionHidden(DeleteAction::class, $inactiveCharacter)
+            ->assertTableActionHidden(ForceDeleteAction::class, $inactiveCharacter)
+            ->assertTableActionHidden(RestoreAction::class, $inactiveCharacter)
+            ->assertTableActionHidden('activate', $inactiveCharacter)
+            ->assertTableActionHidden('deactivate', $inactiveCharacter)
+            ->assertTableActionHidden(ViewAction::class, $deletedCharacter)
+            ->assertTableActionHidden(EditAction::class, $deletedCharacter)
+            ->assertTableActionHidden(DeleteAction::class, $deletedCharacter)
+            ->assertTableActionHidden(ForceDeleteAction::class, $deletedCharacter)
+            ->assertTableActionHidden(RestoreAction::class, $deletedCharacter)
+            ->assertTableActionHidden('activate', $deletedCharacter)
+            ->assertTableActionHidden('deactivate', $deletedCharacter);
+    });
+});
+
+describe('unauthorized user', function () {
+    beforeEach(function () {
+        signIn();
+    });
+
+    test('cannot view the create character page', function () {
+        get(route('characters.create'))
+            ->assertForbidden();
+    });
+
+    test('cannot create a character', function () {
+        post(route('characters.store'), [])
+            ->assertForbidden();
+    });
+
+    test('has the correct permissions for list characters page', function () {
+        $activeCharacter = Character::factory()->active()->create();
+        $inactiveCharacter = Character::factory()->inactive()->create();
+        $deletedCharacter = Character::factory()->active()->trashed()->create();
+
+        livewire(CharactersList::class)
+            ->assertTableHeaderActionsExistInOrder([])
+            ->assertTableActionHidden(ViewAction::class, $activeCharacter)
+            ->assertTableActionHidden(EditAction::class, $activeCharacter)
+            ->assertTableActionHidden(DeleteAction::class, $activeCharacter)
+            ->assertTableActionHidden(ForceDeleteAction::class, $activeCharacter)
+            ->assertTableActionHidden(RestoreAction::class, $activeCharacter)
+            ->assertTableActionHidden('activate', $activeCharacter)
+            ->assertTableActionHidden('deactivate', $activeCharacter)
+            ->assertTableActionHidden(ViewAction::class, $inactiveCharacter)
+            ->assertTableActionHidden(EditAction::class, $inactiveCharacter)
+            ->assertTableActionHidden(DeleteAction::class, $inactiveCharacter)
+            ->assertTableActionHidden(ForceDeleteAction::class, $inactiveCharacter)
+            ->assertTableActionHidden(RestoreAction::class, $inactiveCharacter)
+            ->assertTableActionHidden('activate', $inactiveCharacter)
+            ->assertTableActionHidden('deactivate', $inactiveCharacter)
+            ->assertTableActionHidden(ViewAction::class, $deletedCharacter)
+            ->assertTableActionHidden(EditAction::class, $deletedCharacter)
+            ->assertTableActionHidden(DeleteAction::class, $deletedCharacter)
+            ->assertTableActionHidden(ForceDeleteAction::class, $deletedCharacter)
+            ->assertTableActionHidden(RestoreAction::class, $deletedCharacter)
+            ->assertTableActionHidden('activate', $deletedCharacter)
+            ->assertTableActionHidden('deactivate', $deletedCharacter);
+    });
+});
+
+describe('unauthenticated user', function () {
+    test('cannot view the create character page', function () {
+        get(route('characters.create'))
+            ->assertRedirectToRoute('login');
+    });
+
+    test('cannot create a character', function () {
+        post(route('characters.store'), [])
+            ->assertRedirectToRoute('login');
     });
 });
 
@@ -155,31 +252,5 @@ describe('character creation', function () {
         $newCharacter = Character::latest('id')->first();
 
         assertCount(1, $newCharacter->getMedia('avatar'));
-    });
-});
-
-describe('unauthorized user', function () {
-    beforeEach(function () {
-        signIn();
-    });
-
-    test('cannot view the create character page', function () {
-        get(route('characters.create'))->assertForbidden();
-    });
-
-    test('cannot create a character', function () {
-        post(route('characters.store'), [])->assertForbidden();
-    });
-});
-
-describe('unauthenticated user', function () {
-    test('cannot view the create character page', function () {
-        get(route('characters.create'))
-            ->assertRedirect(route('login'));
-    });
-
-    test('cannot create a character', function () {
-        post(route('characters.store'), [])
-            ->assertRedirect(route('login'));
     });
 });

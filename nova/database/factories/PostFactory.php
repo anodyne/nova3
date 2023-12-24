@@ -25,22 +25,13 @@ class PostFactory extends Factory
             ->implode('');
 
         return [
-            'title' => ucwords($this->faker->words(3, true)),
+            'title' => ucwords($this->faker->words(3, asText: true)),
             'post_type_id' => $this->faker->numberBetween(1, PostType::count()),
             'story_id' => fn () => Story::factory(),
             'content' => $content,
-            'status' => Published::class,
-            'word_count' => str_word_count($content),
-            'published_at' => $this->faker->dateTimeThisYear(),
-        ];
-    }
-
-    public function draft()
-    {
-        return $this->state([
             'status' => Draft::class,
-            'published_at' => null,
-        ]);
+            'word_count' => str_word_count($content),
+        ];
     }
 
     public function pending()
@@ -59,7 +50,7 @@ class PostFactory extends Factory
         ]);
     }
 
-    public function post()
+    public function storyPost()
     {
         return $this->state([
             'post_type_id' => PostType::where('key', 'post')->first()->id,
@@ -69,7 +60,7 @@ class PostFactory extends Factory
         ]);
     }
 
-    public function personal()
+    public function personalPost()
     {
         return $this->state([
             'post_type_id' => PostType::where('key', 'personal')->first()->id,
@@ -79,14 +70,14 @@ class PostFactory extends Factory
         ]);
     }
 
-    public function marker()
+    public function markerPost()
     {
         return $this->state([
             'post_type_id' => PostType::where('key', 'marker')->first()->id,
         ]);
     }
 
-    public function note()
+    public function notePost()
     {
         return $this->state([
             'post_type_id' => PostType::where('key', 'note')->first()->id,

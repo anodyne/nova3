@@ -12,7 +12,7 @@ use function Pest\Livewire\livewire;
 
 uses()->group('users');
 
-describe('force password reset from manage users page', function () {
+describe('authorized user', function () {
     beforeEach(function () {
         signIn(permissions: 'user.update');
 
@@ -21,7 +21,7 @@ describe('force password reset from manage users page', function () {
         $this->pendingUser = User::factory()->pending()->create();
     });
 
-    test('an active user can be forced to update their password at next sign in', function () {
+    test('can force a password reset for an active user', function () {
         livewire(UsersList::class)
             ->callTableBulkAction('force-password-reset', [$this->activeUser])
             ->assertNotified();
@@ -32,7 +32,7 @@ describe('force password reset from manage users page', function () {
         ]);
     });
 
-    test('an inactive user can be forced to update their password at next sign in', function () {
+    test('can force a password reset for an inactive user', function () {
         livewire(UsersList::class)
             ->callTableBulkAction('force-password-reset', [$this->inactiveUser])
             ->assertNotified();
@@ -43,7 +43,7 @@ describe('force password reset from manage users page', function () {
         ]);
     });
 
-    test('a pending user cannot be forced to update their password at next sign in', function () {
+    test('cannot force a password reset for a pending user', function () {
         livewire(UsersList::class)
             ->callTableBulkAction('force-password-reset', [$this->pendingUser])
             ->assertNotified();
@@ -51,6 +51,25 @@ describe('force password reset from manage users page', function () {
         assertDatabaseHas(User::class, [
             'id' => $this->pendingUser->id,
             'force_password_reset' => false,
+        ]);
+    });
+
+    test('can force a password reset for multiple users', function () {
+        livewire(UsersList::class)
+            ->callTableBulkAction('force-password-reset', [
+                $this->activeUser,
+                $this->inactiveUser,
+            ])
+            ->assertNotified();
+
+        assertDatabaseHas(User::class, [
+            'id' => $this->activeUser->id,
+            'force_password_reset' => true,
+        ]);
+
+        assertDatabaseHas(User::class, [
+            'id' => $this->inactiveUser->id,
+            'force_password_reset' => true,
         ]);
     });
 });

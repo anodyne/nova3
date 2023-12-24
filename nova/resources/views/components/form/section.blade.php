@@ -11,7 +11,7 @@
             @endif
 
             @if ($message)
-                <div class="mt-2 space-y-6 text-gray-600 dark:text-gray-400">{{ $message }}</div>
+                <div class="mt-2 space-y-6">{{ $message }}</div>
             @endif
         </div>
     @endif

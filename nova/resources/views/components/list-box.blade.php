@@ -21,15 +21,8 @@
             >
                 Wade Cooper
             </span>
-            <span
-                class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
-            >
-                <svg
-                    class="h-5 w-5 text-gray-400"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    stroke="currentColor"
-                >
+            <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                <svg class="size-5 text-gray-400" viewBox="0 0 20 20" fill="none" stroke="currentColor">
                     <path
                         d="M7 7l3-3 3 3m0 6l-3 3-3-3"
                         stroke-width="1.5"
@@ -45,7 +38,7 @@
         x-show="open"
         x-on:click.away="open = false"
         x-description="Select popover, show/hide based on select state."
-        x-transition:leave="transition ease-in duration-100"
+        x-transition:leave="transition duration-100 ease-in"
         x-transition:leave-start="opacity-100"
         x-transition:leave-end="opacity-0"
         class="absolute mt-1 w-full rounded-md bg-white shadow-lg"
@@ -95,7 +88,7 @@
                 :class="{ 'text-white': selected === item.id, 'text-primary-300': !(selected === item.id) }"
                 class="absolute inset-y-0 right-0 flex items-center pr-4 text-primary-300"
                 >
-                <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <svg class="size-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                 </svg>
                 </span>

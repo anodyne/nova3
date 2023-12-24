@@ -44,11 +44,11 @@ describe('authenticated user', function () {
 describe('unauthenticated user', function () {
     test('cannot view the create note page', function () {
         get(route('notes.create'))
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 
     test('cannot create a note', function () {
         post(route('notes.store'), [])
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 });

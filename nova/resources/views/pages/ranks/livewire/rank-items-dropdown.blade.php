@@ -29,7 +29,7 @@
                     Pick a rank
                 @endif
 
-                <x-icon.chevron-down class="h-5 w-5 text-gray-400 dark:text-gray-500" />
+                <x-icon.chevron-down class="size-5 text-gray-400 dark:text-gray-500" />
             </button>
         </span>
     </div>
@@ -55,7 +55,7 @@
                         <button
                             wire:click="selectRankItem(null)"
                             type="button"
-                            class="group flex w-full items-center space-x-2 rounded-md px-4 py-2 text-base font-medium text-gray-600 transition hover:bg-gray-100 hover:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-600/50 dark:hover:text-gray-100 md:text-sm"
+                            class="group flex w-full items-center space-x-2 rounded-md px-4 py-2 text-base font-medium text-gray-600 transition hover:bg-gray-100 hover:text-gray-900 focus:outline-none md:text-sm dark:text-gray-400 dark:hover:bg-gray-600/50 dark:hover:text-gray-100"
                             role="menuitem"
                         >
                             <x-icon name="x" size="sm" class="text-gray-500"></x-icon>
@@ -70,7 +70,7 @@
                         <button
                             wire:click="selectRankGroup({{ $group->id }})"
                             type="button"
-                            class="group flex w-full items-center rounded-md px-4 py-2 text-base font-medium text-gray-600 transition hover:bg-gray-100 hover:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-600/50 dark:hover:text-gray-100 md:text-sm"
+                            class="group flex w-full items-center rounded-md px-4 py-2 text-base font-medium text-gray-600 transition hover:bg-gray-100 hover:text-gray-900 focus:outline-none md:text-sm dark:text-gray-400 dark:hover:bg-gray-600/50 dark:hover:text-gray-100"
                             role="menuitem"
                         >
                             {{ $group->name }}
@@ -91,7 +91,7 @@
                         <button
                             wire:click="selectRankItem({{ $item->id }})"
                             type="button"
-                            class="group flex w-full items-center rounded-md px-4 py-2 text-base font-medium text-gray-500 transition hover:bg-gray-100 hover:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-600/50 dark:hover:text-gray-100 md:text-sm"
+                            class="group flex w-full items-center rounded-md px-4 py-2 text-base font-medium text-gray-500 transition hover:bg-gray-100 hover:text-gray-900 focus:outline-none md:text-sm dark:text-gray-400 dark:hover:bg-gray-600/50 dark:hover:text-gray-100"
                             role="menuitem"
                         >
                             <x-rank :rank="$item" />

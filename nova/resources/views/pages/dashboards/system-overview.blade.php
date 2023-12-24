@@ -99,11 +99,13 @@
                         </div>
 
                         <div class="ml-[2.75rem] mt-4">
-                            <p class="max-w-2xl text-lg/8">
-                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cum quos corporis suscipit
-                                odio rerum illo porro officiis quod quis fugiat aliquid, esse, culpa, repellat dicta
-                                nemo minus ipsam iusto nihil?
-                            </p>
+                            <div class="max-w-2xl">
+                                <x-text size="xl">
+                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cum quos corporis suscipit
+                                    odio rerum illo porro officiis quod quis fugiat aliquid, esse, culpa, repellat dicta
+                                    nemo minus ipsam iusto nihil?
+                                </x-text>
+                            </div>
 
                             <div class="mt-8 flex items-center gap-4">
                                 <x-button.filled color="primary">Get the update files &rarr;</x-button.filled>
@@ -136,6 +138,53 @@
                             {{ config('mail.default') }}
                         </x-panel.stat>
                     </div>
+                </x-content-box>
+            </div>
+        </x-panel>
+
+        <x-panel>
+            <div class="grid grid-cols-1 sm:grid-cols-2">
+                <x-content-box class="space-y-2">
+                    <form class="w-full max-w-sm">
+                        <x-switch.group>
+                            <x-switch.field>
+                                <x-fieldset.label for="foo">Show on events page</x-fieldset.label>
+                                <x-fieldset.description>
+                                    Make this event visible on your profile.
+                                </x-fieldset.description>
+                                <x-switch name="foo" id="foo"></x-switch>
+                            </x-switch.field>
+
+                            <x-switch.field disabled>
+                                <x-fieldset.label data-disabled>Allow embedding</x-fieldset.label>
+                                <x-fieldset.description data-disabled>
+                                    Allow others to embed your event details on their own site.
+                                </x-fieldset.description>
+                                <x-switch name="bar" disabled></x-switch>
+                            </x-switch.field>
+                        </x-switch.group>
+                    </form>
+                </x-content-box>
+                <x-content-box class="dark space-y-2 bg-gray-950">
+                    <form class="w-full max-w-sm">
+                        <x-switch.group>
+                            <x-switch.field>
+                                <x-fieldset.label for="foo">Show on events page</x-fieldset.label>
+                                <x-fieldset.description>
+                                    Make this event visible on your profile.
+                                </x-fieldset.description>
+                                <x-switch name="foo" id="foo"></x-switch>
+                            </x-switch.field>
+
+                            <x-switch.field disabled>
+                                <x-fieldset.label data-disabled>Allow embedding</x-fieldset.label>
+                                <x-fieldset.description data-disabled>
+                                    Allow others to embed your event details on their own site.
+                                </x-fieldset.description>
+                                <x-switch name="bar" disabled></x-switch>
+                            </x-switch.field>
+                        </x-switch.group>
+                    </form>
                 </x-content-box>
             </div>
         </x-panel>

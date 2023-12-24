@@ -65,4 +65,11 @@ class CharacterFactory extends Factory
             'type' => CharacterType::support,
         ]);
     }
+
+    public function trashed()
+    {
+        return $this->state([
+            'deleted_at' => now(),
+        ]);
+    }
 }

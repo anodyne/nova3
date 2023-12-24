@@ -80,3 +80,12 @@ function signIn(array $attributes = [], mixed $permissions = '', bool $admin = f
         )
     );
 }
+
+function updateSettings(callable $callback)
+{
+    $settings = settings();
+
+    $callback($settings);
+
+    $settings->save();
+}

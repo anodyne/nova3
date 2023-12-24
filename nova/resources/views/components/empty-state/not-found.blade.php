@@ -15,7 +15,7 @@
 <div class="py-8 md:py-16 space-y-6">
     <div class="flex flex-col items-center max-w-xs mx-auto sm:max-w-sm md:max-w-xl space-y-8">
         <div class="text-center">
-            <x-badge color="warning" size="circle" icon>
+            <x-badge color="warning">
                 <x-icon name="warning" size="h-12 w-12"></x-icon>
             </x-badge>
         </div>

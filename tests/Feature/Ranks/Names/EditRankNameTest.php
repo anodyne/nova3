@@ -59,11 +59,11 @@ describe('unauthorized user', function () {
 describe('unauthenticated user', function () {
     test('cannot view the edit rank name page', function () {
         get(route('ranks.names.edit', $this->rankName))
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 
     test('cannot update a rank name', function () {
         put(route('ranks.names.update', $this->rankName), [])
-            ->assertRedirect(route('login'));
+            ->assertRedirectToRoute('login');
     });
 });

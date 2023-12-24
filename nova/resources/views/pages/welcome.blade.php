@@ -32,7 +32,7 @@
                                     >
                                     <span>Just shipped v0.1.0</span>
                                     <svg
-                                    class="h-5 w-5 text-gray-400"
+                                    class="size-5 text-gray-400"
                                     viewBox="0 0 20 20"
                                     fill="currentColor"
                                     aria-hidden="true"

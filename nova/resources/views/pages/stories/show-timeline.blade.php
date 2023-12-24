@@ -20,9 +20,7 @@
                 </div>
                 <div class="flex flex-col gap-1 text-left">
                     <x-h2>Posts timeline</x-h2>
-                    <p class="text-sm text-gray-500">
-                        Posts follow a linear path that helps better organize your story chronologically
-                    </p>
+                    <x-text>Posts follow a linear path that helps better organize your story chronologically</x-text>
                 </div>
             </a>
 
@@ -43,9 +41,7 @@
                 </div>
                 <div class="flex flex-col gap-1 text-left">
                     <x-h2>Stories timeline</x-h2>
-                    <p class="text-sm text-gray-500">
-                        Stories live on a timeline and provide important historical context for the game
-                    </p>
+                    <x-text>Stories live on a timeline and provide important historical context for the game</x-text>
                 </div>
             </a>
         </div>
