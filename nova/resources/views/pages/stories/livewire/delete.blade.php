@@ -9,12 +9,12 @@
         </x-slot>
         <x-slot name="actions">
             @can('viewAny', $stories->first())
-                <x-button.text :href="route('stories.index')" color="neutral" leading="arrow-left">Back</x-button.text>
+                <x-button :href="route('stories.index')" color="neutral" plain>&larr; Back</x-button>
             @endcan
         </x-slot>
     </x-panel.header>
 
-    <x-form :action="route('stories.destroy')" method="DELETE" :divide="false">
+    <x-form :action="route('stories.destroy')" method="DELETE">
         <x-content-box width="none" height="none">
             <div class="divide-y divide-gray-200 dark:divide-gray-200/20">
                 @foreach ($stories as $story)
@@ -112,47 +112,41 @@
                                     @endif
 
                                     @if (data_get($actions, "{$story->id}.story.action") === 'delete')
-                                        <x-input.group>
-                                            <div class="flex flex-col space-y-6">
-                                                <div class="flex flex-col space-y-1">
-                                                    <x-input.radio
-                                                        label="Delete story posts"
-                                                        for="delete-posts-{{ $story->id }}"
-                                                        name="posts_action[{{ $story->id }}]"
-                                                        id="delete-posts-{{ $story->id }}"
-                                                        value="delete"
-                                                        :checked="data_get($actions, $story->id.'.posts.action') === 'delete'"
-                                                        wire:click="trackPostsAction({{ $story->id }}, 'delete')"
-                                                    />
-                                                    <label
-                                                        for="delete-posts-{{ $story->id }}"
-                                                        class="ml-7 max-w-xl text-sm text-gray-600 dark:text-gray-400"
-                                                    >
-                                                        Delete the posts along with the story. This action is permanent
-                                                        and cannot be undone!
-                                                    </label>
-                                                </div>
+                                        <x-radio.group class="w-full max-w-lg">
+                                            <x-radio.field>
+                                                <x-fieldset.label for="delete-posts-{{ $story->id }}">
+                                                    Delete story posts
+                                                </x-fieldset.label>
+                                                <x-fieldset.description>
+                                                    Delete the posts along with the story. This action is permanent and
+                                                    cannot be undone!
+                                                </x-fieldset.description>
+                                                <x-radio
+                                                    name="posts_action[{{ $story->id }}]"
+                                                    id="delete-posts-{{ $story->id }}"
+                                                    value="delete"
+                                                    :checked="data_get($actions, $story->id.'.posts.action') === 'delete'"
+                                                    wire:click="trackPostsAction({{ $story->id }}, 'delete')"
+                                                ></x-radio>
+                                            </x-radio.field>
 
-                                                <div class="flex flex-col space-y-1">
-                                                    <x-input.radio
-                                                        label="Move story posts"
-                                                        for="move-posts-{{ $story->id }}"
-                                                        name="posts_action[{{ $story->id }}]"
-                                                        id="move-posts-{{ $story->id }}"
-                                                        value="move"
-                                                        :checked="data_get($actions, $story->id.'.posts.action') === 'move'"
-                                                        wire:click="trackPostsAction({{ $story->id }}, 'move')"
-                                                    />
-                                                    <label
-                                                        for="move-posts-{{ $story->id }}"
-                                                        class="ml-7 max-w-xl text-sm text-gray-600 dark:text-gray-400"
-                                                    >
-                                                        Move the posts in this story to another story. Everything else
-                                                        about the posts will remain the same.
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </x-input.group>
+                                            <x-radio.field>
+                                                <x-fieldset.label for="move-posts-{{ $story->id }}">
+                                                    Move story posts
+                                                </x-fieldset.label>
+                                                <x-fieldset.description>
+                                                    Move the posts in this story to another story. Everything else about
+                                                    the posts will remain the same.
+                                                </x-fieldset.description>
+                                                <x-radio
+                                                    name="posts_action[{{ $story->id }}]"
+                                                    id="move-posts-{{ $story->id }}"
+                                                    value="move"
+                                                    :checked="data_get($actions, $story->id.'.posts.action') === 'move'"
+                                                    wire:click="trackPostsAction({{ $story->id }}, 'move')"
+                                                ></x-radio>
+                                            </x-radio.field>
+                                        </x-radio.group>
                                     @endif
 
                                     @if (data_get($actions, "{$story->id}.posts.action") === 'move')
@@ -183,8 +177,8 @@
         </x-content-box>
 
         <x-form.footer>
-            <x-button.filled type="submit" color="primary">Delete</x-button.filled>
-            <x-button.filled :href="route('stories.index')" color="neutral">Cancel</x-button.filled>
+            <x-button type="submit" color="primary">Delete</x-button>
+            <x-button :href="route('stories.index')" plain>Cancel</x-button>
         </x-form.footer>
     </x-form>
 </x-panel>

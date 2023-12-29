@@ -39,6 +39,7 @@ class DepartmentsList extends TableComponent
         return $table
             ->query(Department::query())
             ->defaultSort('order_column', 'asc')
+            ->reorderable('order_column')
             ->columns([
                 TextColumn::make('name')
                     ->titleColumn()
@@ -158,16 +159,7 @@ class DepartmentsList extends TableComponent
                     ),
                 SelectFilter::make('status')->options(DepartmentStatus::class),
             ])
-            ->heading('Departments')
-            ->description('Organize character positions into logical groups that you can display on your manifests')
-            ->headerActions([
-                CreateAction::make()
-                    ->authorize('create')
-                    ->label('Add')
-                    ->url(route('departments.create')),
-            ])
             ->header(fn (): ?View => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)
-            ->reorderable('order_column')
             ->emptyStateIcon(iconName('list'))
             ->emptyStateHeading('No departments found')
             ->emptyStateDescription('Departments allow you to organize character positions into logical groups that you can display on your manifests.')

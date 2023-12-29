@@ -29,7 +29,7 @@ class ForcePasswordResetButton extends Component
     public function render()
     {
         return <<<'blade'
-            <x-button.filled type="button" color="neutral" wire:click="forcePasswordReset">Force password reset</x-button.filled>
+            <x-button type="button" color="neutral" wire:click="forcePasswordReset">Force password reset</x-button>
         blade;
     }
 }

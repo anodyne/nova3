@@ -12,9 +12,7 @@
         <x-panel.header title="Add a post type">
             <x-slot name="actions">
                 @can('viewAny', Nova\Stories\Models\PostType::class)
-                    <x-button.text :href="route('post-types.index')" leading="arrow-left" color="gray">
-                        Back
-                    </x-button.text>
+                    <x-button :href="route('post-types.index')" color="neutral" plain>&larr; Back</x-button>
                 @endcan
             </x-slot>
 
@@ -59,7 +57,7 @@
             </div>
         </x-panel.header>
 
-        <x-form :action="route('post-types.store')" :divide="false" :space="false">
+        <x-form :action="route('post-types.store')" :space="false">
             <x-form.section
                 title="Post type info"
                 message="A post type defines how different types of story entries are displayed and used. Using post types, you can setup your writing features exactly how you want for your game."
@@ -92,30 +90,35 @@
                     <livewire:icon-picker :selected="old('icon', '')" />
                 </x-input.group>
 
-                <x-input.group
-                    label="Visibility"
-                    for="visibility"
-                    help="When displayed on the public site, only in character posts will be visible. Out of character posts will still be visible in the admin panel."
-                    :error="$errors->first('visibility')"
-                >
-                    <x-input.radio
-                        label="In character"
-                        for="in_character"
-                        name="visibility"
-                        id="in_character"
-                        :value="old('visibility', 'in-character')"
-                    />
+                <x-fieldset>
+                    <x-fieldset.legend>Visibility</x-fieldset.legend>
+                    <x-fieldset.description>
+                        When displayed on the public site, only in character posts will be visible. Out of character
+                        posts will still be visible in the admin panel.
+                    </x-fieldset.description>
 
-                    <span class="ml-6">
-                        <x-input.radio
-                            label="Out of character"
-                            for="out_of_character"
-                            name="visibility"
-                            id="out_of_character"
-                            :value="old('visibility', 'out-of-character')"
-                        />
-                    </span>
-                </x-input.group>
+                    <x-radio.group>
+                        <x-radio.field>
+                            <x-fieldset.label for="in_character">In character</x-fieldset.label>
+                            <x-radio
+                                name="visibility"
+                                id="in_character"
+                                value="in-character"
+                                :checked="old('visibility', 'in-character')"
+                            ></x-radio>
+                        </x-radio.field>
+
+                        <x-radio.field>
+                            <x-fieldset.label for="out_of_character">Out of character</x-fieldset.label>
+                            <x-radio
+                                name="visibility"
+                                id="out_of_character"
+                                value="out-of-character"
+                                :checked="old('visibility')"
+                            ></x-radio>
+                        </x-radio.field>
+                    </x-radio.group>
+                </x-fieldset>
 
                 <div class="flex items-center gap-x-2.5">
                     <x-switch
@@ -322,8 +325,8 @@
             </x-form.section>
 
             <x-form.footer class="mt-4 md:mt-8">
-                <x-button.filled type="submit" color="primary">Add</x-button.filled>
-                <x-button.filled :href="route('post-types.index')" color="neutral">Cancel</x-button.filled>
+                <x-button type="submit" color="primary">Add</x-button>
+                <x-button :href="route('post-types.index')" plain>Cancel</x-button>
             </x-form.footer>
         </x-form>
     </x-panel>

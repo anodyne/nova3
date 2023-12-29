@@ -12,7 +12,6 @@ use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Nova\Foundation\Filament\Actions\Action;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
@@ -126,22 +125,6 @@ class PostsList extends TableComponent
                 TernaryFilter::make('published')
                     ->nullable()
                     ->attribute('published_at'),
-            ])
-            ->heading('Posts')
-            ->description('Manage the chapters and entries in your game’s stories')
-            ->headerActions([
-                Action::make('timeline')
-                    ->icon(iconName('timeline'))
-                    ->iconSize('md')
-                    ->color('primary')
-                    ->outlined()
-                    ->label('Posts timeline')
-                    ->url(route('stories.timeline', 'posts')),
-                CreateAction::make()
-                    ->authorize('create')
-                    ->label('Start writing')
-                    ->icon(iconName('write'))
-                    ->url(route('posts.create')),
             ])
             ->emptyStateIcon(iconName('write'))
             ->emptyStateHeading('No story posts found')

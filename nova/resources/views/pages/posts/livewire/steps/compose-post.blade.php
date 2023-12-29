@@ -68,14 +68,14 @@
             </div>
 
             <div class="flex items-center">
-                <x-button.text
+                <x-button
                     wire:click="$dispatch('showStep', { toStepName: 'posts-wizard-step-setup' })"
-                    leading="edit"
-                    size="none"
                     color="neutral-primary"
+                    text
                 >
+                    <x-icon name="edit" size="md"></x-icon>
                     Edit post details
-                </x-button.text>
+                </x-button>
             </div>
         </div>
 
@@ -102,14 +102,14 @@
 
     <div
         @class([
-            'flex flex-col rounded-b-lg border-t border-gray-200 px-4 py-4 dark:border-gray-800 md:flex-row md:items-center md:justify-between md:px-6 md:py-6',
+            'flex flex-col rounded-b-lg border-t border-gray-200 px-4 py-4 md:flex-row md:items-center md:justify-between md:px-6 md:py-6 dark:border-gray-800',
             'bg-gray-50 font-medium text-gray-500 dark:bg-gray-950/30' => ! $canSave,
         ])
     >
         <div class="flex items-center">
             @can('discardDraft', $post)
                 <x-dropdown placement="bottom-start">
-                    <x-slot name="trigger" color="neutral-danger" leading="trash" size="none">Discard draft</x-slot>
+                    <x-slot name="trigger" color="neutral-danger" leading="trash">Discard draft</x-slot>
 
                     <x-dropdown.group>
                         <x-dropdown.text>
@@ -133,7 +133,7 @@
 
             @can('delete', $post)
                 <x-dropdown placement="bottom-start">
-                    <x-slot name="trigger" color="neutral-danger" leading="trash" size="none">
+                    <x-slot name="trigger" color="neutral-danger" leading="trash">
                         Delete {{ str($postType->name)->lower() }}
                     </x-slot>
 
@@ -162,10 +162,8 @@
 
         <div class="flex items-center gap-4">
             @if ($canSave)
-                <x-button.filled wire:click="save" color="neutral">Save</x-button.filled>
-                <x-button.outlined wire:click="goToNextStep" color="primary">
-                    Next: Publish post &rarr;
-                </x-button.outlined>
+                <x-button wire:click="save" color="neutral">Save</x-button>
+                <x-button wire:click="goToNextStep" color="primary">Next: Publish post &rarr;</x-button>
             @else
                 {{ $canSaveMessage }}
             @endif

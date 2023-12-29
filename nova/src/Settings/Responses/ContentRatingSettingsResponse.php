@@ -6,9 +6,9 @@ namespace Nova\Settings\Responses;
 
 use Nova\Foundation\Responses\Responsable;
 
-class RatingsSettingsResponse extends Responsable
+class ContentRatingSettingsResponse extends Responsable
 {
     public ?string $subnav = 'settings';
 
-    public string $view = 'settings.ratings';
+    public string $view = 'settings.content-ratings';
 }

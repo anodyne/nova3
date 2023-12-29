@@ -31,6 +31,7 @@ class Database
     public function driverName(): string
     {
         return match ($this->driver) {
+            'mysql' => 'MySQL',
             'mariadb' => 'MariaDB',
             'pgsql' => 'Postgres',
             'sqlsrv' => 'SQL Server',

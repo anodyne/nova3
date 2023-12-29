@@ -16,9 +16,9 @@
 
                     <x-slot name="trailing">
                         @if ($search)
-                            <x-button.text tag="button" color="gray" wire:click="$set('search', '')">
+                            <x-button tag="button" color="neutral" wire:click="$set('search', '')" text>
                                 <x-icon name="x" size="sm"></x-icon>
-                            </x-button.text>
+                            </x-button>
                         @endif
                     </x-slot>
                 </x-input.text>
@@ -38,8 +38,8 @@
 
                                 @if ($selected === $post->id)
                                     <div class="mt-2 ml-7 space-x-1.5">
-                                        <x-button.filled :color="$direction === 'before' ? 'primary' : 'neutral'" size="xs" wire:click="beforePost">Before this post</x-button.filled>
-                                        <x-button.filled :color="$direction === 'after' ? 'primary' : 'neutral'" size="xs" wire:click="afterPost">After this post</x-button.filled>
+                                        <x-button :color="$direction === 'before' ? 'primary' : 'neutral'" size="xs" wire:click="beforePost">Before this post</x-button>
+                                        <x-button<x-icon name="edit" size="sm"></x-icon> :color="$direction === 'after' ? 'primary' : 'neutral'" size="xs" wire:click="afterPost">After this post</x-button>
                                     </div>
                                 @endif
                             </div>
@@ -52,9 +52,9 @@
 
     <x-content-box class="z-20 sm:flex sm:flex-row-reverse sm:space-x-4 sm:space-x-reverse bg-gray-50 dark:bg-gray-700/50 rounded-b-lg" height="sm" width="sm">
         @if ($selected && $direction)
-            <x-button.filled color="primary" wire:click="apply">Apply</x-button.filled>
+            <x-button color="primary" wire:click="apply">Apply</x-button>
         @endif
 
-        <x-button.filled color="neutral" wire:click="dismiss">Cancel</x-button.filled>
+        <x-button wire:click="dismiss" plain>Cancel</x-button>
     </x-content-box>
 </div>

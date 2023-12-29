@@ -1,24 +1,30 @@
 <x-nav.sub>
     <x-nav.sub-group>
-        <x-nav.sub-item href="{{ route('settings.index', 'general') }}" :active="request()->is('settings/general')">
+        <x-nav.sub-item :href="route('settings.general.edit')" :active="request()->routeIs('settings.general.edit')">
             General
         </x-nav.sub-item>
-        <x-nav.sub-item :href="route('settings.appearance.edit')" :active="request()->is('settings/appearance')">
+        <x-nav.sub-item
+            :href="route('settings.appearance.edit')"
+            :active="request()->routeIs('settings.appearance.edit')"
+        >
             Appearance
         </x-nav.sub-item>
-        <x-nav.sub-item href="{{ route('settings.index', 'email') }}" :active="request()->is('settings/email')">
+        <x-nav.sub-item :href="route('settings.email.edit')" :active="request()->routeIs('settings.email.edit')">
             Email
         </x-nav.sub-item>
         {{-- <x-nav.sub-item href="{{ route('settings.index', 'meta-tags') }}" :active="request()->is('settings/meta-tags')">Meta tags</x-nav.sub-item> --}}
     </x-nav.sub-group>
 
     <x-nav.sub-group>
-        <x-nav.sub-item href="{{ route('settings.index', 'ratings') }}" :active="request()->is('settings/ratings')">
+        <x-nav.sub-item
+            :href="route('settings.content-ratings.edit')"
+            :active="request()->routeIs('settings.content-ratings.edit')"
+        >
             Content ratings
         </x-nav.sub-item>
         <x-nav.sub-item
-            href="{{ route('settings.index', 'posting-activity') }}"
-            :active="request()->is('settings/posting-activity')"
+            :href="route('settings.posting-activity.edit')"
+            :active="request()->routeIs('settings.posting-activity.edit')"
         >
             Posting activity
         </x-nav.sub-item>
@@ -26,8 +32,8 @@
 
     <x-nav.sub-group>
         <x-nav.sub-item
-            href="{{ route('settings.index', 'characters') }}"
-            :active="request()->is('settings/characters')"
+            :href="route('settings.characters.edit')"
+            :active="request()->routeIs('settings.characters.edit')"
         >
             Characters
         </x-nav.sub-item>
@@ -35,8 +41,8 @@
 
     <x-nav.sub-group>
         <x-nav.sub-item
-            href="{{ route('settings.index', 'notifications') }}"
-            :active="request()->is('settings/notifications')"
+            :href="route('settings.notifications.edit')"
+            :active="request()->routeIs('settings.notifications.edit')"
         >
             Notifications
         </x-nav.sub-item>

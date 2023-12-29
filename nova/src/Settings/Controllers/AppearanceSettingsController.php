@@ -35,13 +35,9 @@ class AppearanceSettingsController extends Controller
     {
         $this->authorize('update', settings());
 
-        try {
-            UpdateSettings::run('appearance', $data = Appearance::from($request));
+        UpdateSettings::run('appearance', $data = Appearance::from($request));
 
-            UpdateAppearance::run($data, $request);
-        } catch (\Throwable $th) {
-            dd($th->getMessage(), $th->getTrace());
-        }
+        UpdateAppearance::run($data, $request);
 
         return redirect()
             ->route('settings.appearance.edit')

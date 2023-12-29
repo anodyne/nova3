@@ -32,12 +32,13 @@ class RankItemsList extends TableComponent
     {
         return $table
             ->query(RankItem::query()->withRankName())
-            ->defaultSort('order_column', 'asc')
             ->groups([
                 Group::make('group.name')->label('Rank group')->collapsible(),
                 Group::make('name.name')->label('Rank name')->collapsible(),
             ])
             ->defaultGroup('group.name')
+            ->defaultSort('order_column', 'asc')
+            ->reorderable('order_column')
             ->columns([
                 ViewColumn::make('name')
                     ->view('filament.tables.columns.rank')
@@ -114,15 +115,6 @@ class RankItemsList extends TableComponent
                     ->multiple()
                     ->label('Rank name'),
                 SelectFilter::make('status')->options(RankItemStatus::class),
-            ])
-            ->reorderable('order_column')
-            ->heading('Rank items')
-            ->description("Combine the rank group, rank name, and rank images to define your game's ranks")
-            ->headerActions([
-                CreateAction::make()
-                    ->authorize('create')
-                    ->label('Add')
-                    ->url(route('ranks.items.create')),
             ])
             ->header(fn (): ?View => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)
             ->emptyStateIcon(iconName('rank'))

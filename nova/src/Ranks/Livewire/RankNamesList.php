@@ -37,6 +37,7 @@ class RankNamesList extends TableComponent
         return $table
             ->query(RankName::query())
             ->defaultSort('order_column', 'asc')
+            ->reorderable('order_column')
             ->columns([
                 TextColumn::make('name')
                     ->titleColumn()
@@ -133,15 +134,6 @@ class RankNamesList extends TableComponent
                         false: fn (Builder $query): Builder => $query->whereDoesntHave('ranks')
                     ),
                 SelectFilter::make('status')->options(RankNameStatus::class),
-            ])
-            ->reorderable('order_column')
-            ->heading('Rank names')
-            ->description('Re-use basic rank information across all of your rank items')
-            ->headerActions([
-                CreateAction::make()
-                    ->authorize('create')
-                    ->label('Add')
-                    ->url(route('ranks.names.create')),
             ])
             ->header(fn (): ?View => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)
             ->emptyStateIcon(iconName('info'))

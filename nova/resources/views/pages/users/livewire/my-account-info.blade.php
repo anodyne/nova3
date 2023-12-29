@@ -90,6 +90,6 @@
     </x-form.section>
 
     <x-form.footer>
-        <x-button.filled type="button" wire:click="save" color="primary">Update</x-button.filled>
+        <x-button type="button" wire:click="save" color="primary">Update</x-button>
     </x-form.footer>
 </div>

@@ -55,18 +55,18 @@
                         You can review players who participated in writing this post to ensure that the proper authors
                         are credited.
                     </p>
-                    <p class="text-sm/6 text-gray-600 dark:text-gray-400">
+                    <x-text>
                         If there is someone here who did not participate (indicated by a red status badge), you can
                         remove them. If there is someone who did participate and isn’t listed here, you can add them
                         from the
-                        <x-button.text
+                        <x-text.link
                             type="button"
                             wire:click="$dispatch('showStep', { toStepName: 'posts-wizard-step-setup' })"
                         >
                             Setup Post
-                        </x-button.text>
+                        </x-text.link>
                         screen.
-                    </p>
+                    </x-text>
                 </x-content-box>
                 <x-content-box class="col-span-2">
                     <x-panel class="w-full lg:w-3/4">
@@ -202,14 +202,14 @@
                                         class="mt-1.5"
                                     ></x-timeline.post-meta-fields>
 
-                                    <x-button.filled
+                                    <x-button
                                         type="button"
                                         wire:click="$dispatch('openModal', { component: 'posts-read-post-modal', arguments: { post: {{ $previousPost->id }}}})"
                                         color="neutral"
                                         class="mt-5"
                                     >
                                         Read &rarr;
-                                    </x-button.filled>
+                                    </x-button>
                                 </div>
                             </x-timeline.item>
                         @endif
@@ -232,7 +232,7 @@
                                     class="mt-1.5"
                                 ></x-timeline.post-meta-fields>
 
-                                <x-button.filled
+                                <x-button
                                     type="button"
                                     wire:click="$dispatch('openModal', { component: 'posts-select-post-position-modal', arguments: { story: {{ $post->story_id }}}})"
                                     color="neutral"
@@ -242,7 +242,7 @@
                                         <x-icon name="arrows-sort" size="sm" class="shrink-0 text-gray-400"></x-icon>
                                         <span>Change post position</span>
                                     </div>
-                                </x-button.filled>
+                                </x-button>
                             </div>
                         </x-timeline.item>
 
@@ -261,14 +261,14 @@
                                         class="mt-1.5"
                                     ></x-timeline.post-meta-fields>
 
-                                    <x-button.filled
+                                    <x-button
                                         type="button"
                                         wire:click="$dispatch('openModal', { component: 'posts-read-post-modal', arguments: { post: {{ $nextPost->id }}}})"
                                         color="neutral"
                                         class="mt-5"
                                     >
                                         Read &rarr;
-                                    </x-button.filled>
+                                    </x-button>
                                 </div>
                             </x-timeline.item>
                         @endif
@@ -279,12 +279,12 @@
     </div>
 
     <div
-        class="flex flex-col rounded-b-lg border-t border-gray-200 px-4 py-4 dark:border-gray-800 md:flex-row md:items-center md:justify-between md:px-6 md:py-6"
+        class="flex flex-col rounded-b-lg border-t border-gray-200 px-4 py-4 md:flex-row md:items-center md:justify-between md:px-6 md:py-6 dark:border-gray-800"
     >
         <div class="flex items-center">
             @can('discardDraft', $post)
                 <x-dropdown placement="bottom-start">
-                    <x-slot name="trigger" color="neutral-danger" leading="trash" size="none">Discard draft</x-slot>
+                    <x-slot name="trigger" color="neutral-danger" leading="trash">Discard draft</x-slot>
 
                     <x-dropdown.group>
                         <x-dropdown.text>
@@ -308,7 +308,7 @@
 
             @can('delete', $post)
                 <x-dropdown placement="bottom-start">
-                    <x-slot name="trigger" color="neutral-danger" leading="trash" size="none">
+                    <x-slot name="trigger" color="neutral-danger" leading="trash">
                         Delete {{ str($postType->name)->lower() }}
                     </x-slot>
 
@@ -335,10 +335,10 @@
 
         <div class="flex items-center gap-4">
             @if ($post->is_published)
-                <x-button.filled wire:click="save" color="primary">Update post</x-button.filled>
+                <x-button wire:click="save" color="primary">Update post</x-button>
             @else
-                <x-button.filled wire:click="save" color="neutral">Save</x-button.filled>
-                <x-button.filled wire:click="publish" color="primary">Publish post</x-button.filled>
+                <x-button wire:click="save" color="neutral">Save</x-button>
+                <x-button wire:click="publish" color="primary">Publish post</x-button>
             @endif
         </div>
     </div>

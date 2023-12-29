@@ -1,192 +1,289 @@
 @extends($meta->template)
 
+@use('Composer\InstalledVersions')
+
 @section('content')
     @php
-        $filesVersion = '3.0.1';
+        $filesVersion = app()->novaVersion();
         $databaseVersion = '3.0.1';
-        $serverVersion = '3.0.1';
+        $serverVersion = '3.0.2';
     @endphp
 
-    <div>
-        <x-page-header>System Overview</x-page-header>
+    <x-page-header>System Overview</x-page-header>
 
-        <x-panel class="overflow-hidden">
-            <div class="divide-y divide-gray-200 dark:divide-gray-800">
-                <x-content-box>
-                    <div class="grid grid-cols-1 lg:grid-cols-2">
-                        <div class="flex space-x-4">
-                            <x-icon name="tabler-atom" size="2xl" class="text-primary-500"></x-icon>
+    <div class="space-y-8">
+        <div class="grid gap-8 lg:grid-cols-2">
+            <x-panel well>
+                <x-content-box height="xs" width="sm">
+                    <div class="flex items-center justify-between">
+                        <x-fieldset.legend>Nova version</x-fieldset.legend>
 
-                            <div class="flex flex-col">
-                                <p class="truncate text-sm font-medium text-gray-600 dark:text-gray-400">
-                                    Nova Version
-                                </p>
-
-                                <div class="flex items-center gap-6">
-                                    <h2 class="text-4xl font-bold text-gray-900 dark:text-white">
-                                        {{ $filesVersion }}
-                                    </h2>
-                                    <div>
-                                        @if (version_compare($filesVersion, $serverVersion, '>='))
-                                            <x-badge color="success">Up-to-date</x-badge>
-                                        @else
-                                            <x-badge color="danger">New version available</x-badge>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start space-x-4">
-                            <x-icon name="database" size="2xl" class="text-primary-500"></x-icon>
-
-                            <div class="flex flex-col">
-                                <p class="truncate text-sm font-medium text-gray-600 dark:text-gray-400">
-                                    Database Version
-                                </p>
-
-                                <div class="flex items-center gap-6">
-                                    <h2 class="text-4xl font-bold text-gray-900 dark:text-white">
-                                        {{ $databaseVersion }}
-                                    </h2>
-                                    <div>
-                                        @if (version_compare($databaseVersion, $serverVersion, '>='))
-                                            <x-badge color="success">Up-to-date</x-badge>
-                                        @else
-                                            <x-badge color="danger">New version available</x-badge>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
+                        <div>
+                            @if (version_compare($filesVersion, $serverVersion, '>='))
+                                <x-badge color="success">Up-to-date</x-badge>
+                            @else
+                                <x-badge color="danger">New version available</x-badge>
+                            @endif
                         </div>
                     </div>
                 </x-content-box>
 
-                @if (version_compare($filesVersion, $serverVersion, '!='))
-                    <x-content-box class="relative">
-                        <div class="absolute right-6 top-6">
-                            <x-dropdown placement="bottom-end">
-                                <x-slot name="trigger" color="subtle-neutral">
-                                    <x-icon name="x" size="lg"></x-icon>
-                                </x-slot>
+                <x-content-box height="2xs" width="2xs">
+                    <x-panel>
+                        <x-content-box>
+                            <div class="flex flex-col gap-6">
+                                <h2 class="text-3xl font-bold text-gray-900 dark:text-white">
+                                    {{ $filesVersion }}
+                                </h2>
+                            </div>
+                        </x-content-box>
+                    </x-panel>
+                </x-content-box>
+            </x-panel>
 
-                                <x-dropdown.group>
-                                    <x-dropdown.text>
-                                        Are you sure you want to ignore this update? You won't be prompted to update
-                                        again until a new version is released.
-                                    </x-dropdown.text>
-                                </x-dropdown.group>
-                                <x-dropdown.group>
-                                    <x-dropdown.item-danger type="button" icon="tabler-bell-off">
-                                        Ignore
-                                    </x-dropdown.item-danger>
-                                    <x-dropdown.item
-                                        type="button"
-                                        icon="prohibited"
-                                        x-on:click.prevent="$dispatch('dropdown-close')"
-                                    >
-                                        Cancel
-                                    </x-dropdown.item>
-                                </x-dropdown.group>
-                            </x-dropdown>
+            <x-panel well>
+                <x-content-box height="xs" width="sm">
+                    <div class="flex items-center justify-between">
+                        <x-fieldset.legend>Database version</x-fieldset.legend>
+
+                        <div>
+                            @if (version_compare($databaseVersion, $serverVersion, '>='))
+                                <x-badge color="success">Up-to-date</x-badge>
+                            @else
+                                <x-badge color="danger">New version available</x-badge>
+                            @endif
                         </div>
+                    </div>
+                </x-content-box>
 
-                        <div class="flex items-center gap-3">
-                            <div class="shrink-0">
-                                <x-icon name="tabler-refresh-dot" size="xl"></x-icon>
+                <x-content-box height="2xs" width="2xs">
+                    <x-panel>
+                        <x-content-box>
+                            <div class="flex items-center gap-6">
+                                <h2 class="text-3xl font-bold text-gray-900 dark:text-white">
+                                    {{ $databaseVersion }}
+                                </h2>
                             </div>
-                            <x-h1>Nova {{ $serverVersion }}</x-h1>
-                        </div>
+                        </x-content-box>
+                    </x-panel>
+                </x-content-box>
+            </x-panel>
+        </div>
 
-                        <div class="ml-[2.75rem] mt-4">
-                            <div class="max-w-2xl">
-                                <x-text size="xl">
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cum quos corporis suscipit
-                                    odio rerum illo porro officiis quod quis fugiat aliquid, esse, culpa, repellat dicta
-                                    nemo minus ipsam iusto nihil?
-                                </x-text>
-                            </div>
+        <div class="space-y-6">
+            <div class="w-full max-w-2xl">
+                <x-h2>Diagnostics</x-h2>
+                <x-text class="mt-2">
+                    The following information shows various version, environment, and driver information about your
+                    system that may be useful.
+                </x-text>
+                <x-text class="mt-4">
+                    If you're having issues with Nova, you can use the button below to copy the diagnostic information
+                    and paste it into a Discord thread in the support channel. This will potentially help the support
+                    staff immensely with resolving any issue.
+                </x-text>
+                <div class="mt-6 flex items-center gap-x-4">
+                    <livewire:copy-diagnostic-data-button />
+                </div>
+            </div>
 
-                            <div class="mt-8 flex items-center gap-4">
-                                <x-button.filled color="primary">Get the update files &rarr;</x-button.filled>
-                                <x-button.filled color="neutral">Learn more</x-button.filled>
-                            </div>
+            <div class="grid gap-8 lg:grid-cols-2">
+                <x-panel well>
+                    <x-content-box height="xs" width="sm">
+                        <div class="flex items-center justify-between">
+                            <x-fieldset.legend>Environment</x-fieldset.legend>
                         </div>
                     </x-content-box>
-                @endif
 
-                <x-content-box class="bg-gray-50 dark:bg-gray-950/30">
-                    <div class="grid grid-cols-1 lg:grid-cols-4">
-                        <div class="flex">
-                            <x-icon name="tabler-brand-php" size="2xl" class="text-[#777bb3]"></x-icon>
+                    <x-content-box height="2xs" width="2xs">
+                        <x-panel>
+                            <x-content-box>
+                                <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+                                    <div
+                                        class="flex flex-col gap-y-2 rounded-md bg-gray-950/[.04] p-3 lg:col-span-2 dark:bg-white/[.04]"
+                                    >
+                                        <x-icon name="tabler-world" size="lg"></x-icon>
+                                        <x-fieldset.label>URL</x-fieldset.label>
+                                        <p class="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                                            {{ str(config('app.url'))->replace(['http://', 'https://'], '') }}
+                                        </p>
+                                    </div>
 
-                            <x-panel.stat label="PHP version">
-                                {{ PHP_VERSION }}
-                            </x-panel.stat>
+                                    <a
+                                        href="{{ route('settings.general.edit') }}"
+                                        @class([
+                                            'group relative flex flex-col gap-y-2 rounded-md p-3',
+                                            'bg-gray-950/[.04] ring-1 ring-inset ring-transparent transition',
+                                            'hover:bg-gradient-to-b hover:from-white hover:to-primary-50 hover:text-primary-600 hover:shadow-md hover:shadow-primary-600/10 hover:ring-primary-600/20',
+                                            'dark:bg-white/[.04]',
+                                        ])
+                                    >
+                                        <div
+                                            class="absolute right-3 top-3 text-gray-400 group-hover:text-primary-400 dark:text-gray-600 dark:group-hover:text-primary-600"
+                                        >
+                                            <x-icon name="settings" size="xs"></x-icon>
+                                        </div>
+                                        <x-icon name="tabler-code" size="lg"></x-icon>
+                                        <x-fieldset.label>Debug mode</x-fieldset.label>
+                                        <p class="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                                            {{ config('app.debug') ? 'Enabled' : 'Off' }}
+                                        </p>
+                                    </a>
+                                    <a
+                                        href="{{ route('settings.general.edit') }}"
+                                        @class([
+                                            'group relative flex flex-col gap-y-2 rounded-md p-3',
+                                            'bg-gray-950/[.04] ring-1 ring-inset ring-transparent transition',
+                                            'hover:bg-gradient-to-b hover:from-white hover:to-primary-50 hover:text-primary-600 hover:shadow-md hover:shadow-primary-600/10 hover:ring-primary-600/20',
+                                            'dark:bg-white/[.04]',
+                                        ])
+                                    >
+                                        <div
+                                            class="absolute right-3 top-3 text-gray-400 group-hover:text-primary-400 dark:text-gray-600 dark:group-hover:text-primary-600"
+                                        >
+                                            <x-icon name="settings" size="xs"></x-icon>
+                                        </div>
+                                        <x-icon name="tabler-leaf" size="lg"></x-icon>
+                                        <x-fieldset.label>Environment</x-fieldset.label>
+                                        <p class="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                                            {{ config('app.env') }}
+                                        </p>
+                                    </a>
+
+                                    <div
+                                        class="flex flex-col gap-y-2 rounded-md bg-gray-950/[.04] p-3 dark:bg-white/[.04]"
+                                    >
+                                        <x-icon name="tabler-brand-php" size="lg"></x-icon>
+                                        <x-fieldset.label>PHP version</x-fieldset.label>
+                                        <p class="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                                            {{ PHP_VERSION }}
+                                        </p>
+                                    </div>
+                                    <div
+                                        class="flex flex-col gap-y-2 rounded-md bg-gray-950/[.04] p-3 dark:bg-white/[.04]"
+                                    >
+                                        <x-icon name="tabler-brand-laravel" size="lg"></x-icon>
+                                        <x-fieldset.label>Laravel version</x-fieldset.label>
+                                        <p class="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                                            {{ app()->version() }}
+                                        </p>
+                                    </div>
+                                    <div
+                                        class="flex flex-col gap-y-2 rounded-md bg-gray-950/[.04] p-3 dark:bg-white/[.04]"
+                                    >
+                                        <x-icon name="tabler-bolt" size="lg"></x-icon>
+                                        <x-fieldset.label>Livewire version</x-fieldset.label>
+                                        <p class="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                                            {{ app()->livewireVersion() }}
+                                        </p>
+                                    </div>
+                                    <div
+                                        class="flex flex-col gap-y-2 rounded-md bg-gray-950/[.04] p-3 dark:bg-white/[.04]"
+                                    >
+                                        <x-icon name="tabler-table" size="lg"></x-icon>
+                                        <x-fieldset.label>Filament version</x-fieldset.label>
+                                        <p class="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                                            {{ app()->filamentVersion() }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </x-content-box>
+                        </x-panel>
+                    </x-content-box>
+                </x-panel>
+
+                <x-panel well>
+                    <x-content-box height="xs" width="sm">
+                        <div class="flex items-center justify-between">
+                            <x-fieldset.legend>Drivers</x-fieldset.legend>
                         </div>
-                        <div class="flex">
-                            <x-icon name="tabler-brand-laravel" size="2xl" class="text-[#f9322c]"></x-icon>
+                    </x-content-box>
 
-                            <x-panel.stat label="Laravel version">
-                                {{ app()::VERSION }}
-                            </x-panel.stat>
-                        </div>
-                        <x-panel.stat label="Current theme">
-                            {{ app('nova.theme')->name }}
-                        </x-panel.stat>
-                        <x-panel.stat label="Email driver">
-                            {{ config('mail.default') }}
-                        </x-panel.stat>
-                    </div>
-                </x-content-box>
+                    <x-content-box height="2xs" width="2xs">
+                        <x-panel>
+                            <x-content-box>
+                                <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+                                    <div
+                                        class="flex flex-col gap-y-2 rounded-md bg-gray-950/[.04] p-3 lg:col-span-2 dark:bg-white/[.04]"
+                                    >
+                                        <x-icon name="tabler-database" size="lg"></x-icon>
+                                        <x-fieldset.label>Database</x-fieldset.label>
+                                        <p class="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                                            {{ app('nova.environment')->database->driverName().' '.app('nova.environment')->database->version }}
+                                        </p>
+                                    </div>
+
+                                    <a
+                                        href="{{ route('settings.email.edit') }}"
+                                        @class([
+                                            'group relative flex flex-col gap-y-2 rounded-md p-3',
+                                            'bg-gray-950/[.04] ring-1 ring-inset ring-transparent transition',
+                                            'hover:bg-gradient-to-b hover:from-white hover:to-primary-50 hover:text-primary-600 hover:shadow-md hover:shadow-primary-600/10 hover:ring-primary-600/20',
+                                            'dark:bg-white/[.04]',
+                                        ])
+                                    >
+                                        <div
+                                            class="absolute right-3 top-3 text-gray-400 group-hover:text-primary-400 dark:text-gray-600 dark:group-hover:text-primary-600"
+                                        >
+                                            <x-icon name="settings" size="xs"></x-icon>
+                                        </div>
+                                        <x-icon name="tabler-send" size="lg"></x-icon>
+                                        <x-fieldset.label>Email</x-fieldset.label>
+                                        <p class="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                                            {{ config('mail.default') }}
+                                        </p>
+                                    </a>
+                                    <div
+                                        class="flex flex-col gap-y-2 rounded-md bg-gray-950/[.04] p-3 dark:bg-white/[.04]"
+                                    >
+                                        <x-icon name="tabler-bug" size="lg"></x-icon>
+                                        <x-fieldset.label>Logging</x-fieldset.label>
+                                        <p class="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                                            {{ config('logging.default') }}
+                                        </p>
+                                    </div>
+                                    <div
+                                        class="flex flex-col gap-y-2 rounded-md bg-gray-950/[.04] p-3 dark:bg-white/[.04]"
+                                    >
+                                        <x-icon name="tabler-rocket" size="lg"></x-icon>
+                                        <x-fieldset.label>Cache</x-fieldset.label>
+                                        <p class="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                                            {{ config('cache.default') }}
+                                        </p>
+                                    </div>
+                                    <div
+                                        class="flex flex-col gap-y-2 rounded-md bg-gray-950/[.04] p-3 dark:bg-white/[.04]"
+                                    >
+                                        <x-icon name="tabler-box" size="lg"></x-icon>
+                                        <x-fieldset.label>Session</x-fieldset.label>
+                                        <p class="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                                            {{ config('session.driver') }}
+                                        </p>
+                                    </div>
+                                    <div
+                                        class="flex flex-col gap-y-2 rounded-md bg-gray-950/[.04] p-3 dark:bg-white/[.04]"
+                                    >
+                                        <x-icon name="tabler-list-details" size="lg"></x-icon>
+                                        <x-fieldset.label>Queue</x-fieldset.label>
+                                        <p class="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                                            {{ config('queue.default') }}
+                                        </p>
+                                    </div>
+                                    <div
+                                        class="flex flex-col gap-y-2 rounded-md bg-gray-950/[.04] p-3 dark:bg-white/[.04]"
+                                    >
+                                        <x-icon name="tabler-speakerphone" size="lg"></x-icon>
+                                        <x-fieldset.label>Broadcasting</x-fieldset.label>
+                                        <p class="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                                            {{ config('broadcasting.default') }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </x-content-box>
+                        </x-panel>
+                    </x-content-box>
+                </x-panel>
             </div>
-        </x-panel>
-
-        <x-panel>
-            <div class="grid grid-cols-1 sm:grid-cols-2">
-                <x-content-box class="space-y-2">
-                    <form class="w-full max-w-sm">
-                        <x-switch.group>
-                            <x-switch.field>
-                                <x-fieldset.label for="foo">Show on events page</x-fieldset.label>
-                                <x-fieldset.description>
-                                    Make this event visible on your profile.
-                                </x-fieldset.description>
-                                <x-switch name="foo" id="foo"></x-switch>
-                            </x-switch.field>
-
-                            <x-switch.field disabled>
-                                <x-fieldset.label data-disabled>Allow embedding</x-fieldset.label>
-                                <x-fieldset.description data-disabled>
-                                    Allow others to embed your event details on their own site.
-                                </x-fieldset.description>
-                                <x-switch name="bar" disabled></x-switch>
-                            </x-switch.field>
-                        </x-switch.group>
-                    </form>
-                </x-content-box>
-                <x-content-box class="dark space-y-2 bg-gray-950">
-                    <form class="w-full max-w-sm">
-                        <x-switch.group>
-                            <x-switch.field>
-                                <x-fieldset.label for="foo">Show on events page</x-fieldset.label>
-                                <x-fieldset.description>
-                                    Make this event visible on your profile.
-                                </x-fieldset.description>
-                                <x-switch name="foo" id="foo"></x-switch>
-                            </x-switch.field>
-
-                            <x-switch.field disabled>
-                                <x-fieldset.label data-disabled>Allow embedding</x-fieldset.label>
-                                <x-fieldset.description data-disabled>
-                                    Allow others to embed your event details on their own site.
-                                </x-fieldset.description>
-                                <x-switch name="bar" disabled></x-switch>
-                            </x-switch.field>
-                        </x-switch.group>
-                    </form>
-                </x-content-box>
-            </div>
-        </x-panel>
+        </div>
     </div>
 @endsection

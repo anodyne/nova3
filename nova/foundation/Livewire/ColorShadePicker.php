@@ -17,6 +17,10 @@ class ColorShadePicker extends Component
 
     public string $initial = '';
 
+    public bool $allowPanda = false;
+
+    public ?int $panda = 0;
+
     public function updatedSelected(): void
     {
         if (! array_key_exists($this->selected, $this->colors)) {
@@ -57,7 +61,6 @@ class ColorShadePicker extends Component
             'Purple' => 'Purple',
             'Orchid' => 'Orchid',
             'Fuchsia' => 'Fuchsia',
-            'Phlox' => 'Phlox',
             'Pink' => 'Pink',
             'Rose' => 'Rose',
         ];
@@ -102,6 +105,7 @@ class ColorShadePicker extends Component
     {
         $this->selected = $selected;
         $this->initial = $selected;
+        $this->panda = settings('appearance.panda') ? 1 : 0;
     }
 
     public function render()

@@ -8,86 +8,75 @@
             <div class="grid grid-cols-1 gap-8 lg:col-span-2">
                 <!-- Welcome panel -->
                 <section aria-labelledby="profile-overview-title">
-                    <x-panel class="overflow-hidden">
-                        <h2 class="sr-only" id="profile-overview-title">Profile Overview</h2>
-                        <x-content-box>
-                            <div class="flex flex-col items-center md:flex-row md:justify-between">
-                                <div class="flex items-center space-x-5">
-                                    <div class="shrink-0">
-                                        <x-avatar
-                                            size="lg"
-                                            :src="auth()->user()->avatar_url"
-                                            :tooltip="auth()->user()->name"
-                                        />
-                                    </div>
-                                    <div class="pt-1">
-                                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">
-                                            Welcome back,
-                                        </p>
-                                        <h2 class="text-xl font-medium text-gray-900 sm:text-2xl dark:text-white">
-                                            {{ auth()->user()->name }}
-                                        </h2>
-                                    </div>
-                                </div>
-                                <div class="mt-5 flex justify-center gap-2 md:mt-0">
-                                    <x-button.filled :href="route('account.edit')" color="neutral">
-                                        Go to my account
-                                    </x-button.filled>
-                                </div>
+                    <h2 class="sr-only" id="profile-overview-title">Profile Overview</h2>
+
+                    <div class="flex flex-col items-center md:flex-row md:justify-between">
+                        <div class="flex items-center space-x-5">
+                            <div class="shrink-0">
+                                <x-avatar
+                                    size="lg"
+                                    :src="auth()->user()->avatar_url"
+                                    :tooltip="auth()->user()->name"
+                                />
                             </div>
-                        </x-content-box>
-
-                        <div
-                            class="grid grid-cols-1 divide-y divide-gray-900/5 border-t border-gray-950/5 bg-gray-50 sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:rounded-b-md dark:divide-gray-800 dark:border-gray-800 dark:bg-gray-950/30"
-                        >
-                            <a
-                                href="{{ route('characters.index', ['tableFilters' => ['only_my_characters' => ['isActive' => true]]]) }}"
-                                class="group flex items-center justify-center space-x-3 px-6 py-5 text-center text-base font-medium transition md:text-sm"
-                            >
-                                <x-icon
-                                    name="characters"
-                                    size="lg"
-                                    class="text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-400"
-                                ></x-icon>
-                                <span class="group-hover:text-gray-900 dark:group-hover:text-gray-100">Characters</span>
-                            </a>
-
-                            <a
-                                href="{{ route('account.edit', 'preferences') }}"
-                                class="group flex items-center justify-center space-x-3 px-6 py-5 text-center text-base font-medium transition md:text-sm"
-                            >
-                                <x-icon
-                                    name="settings"
-                                    size="lg"
-                                    class="text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-400"
-                                ></x-icon>
-                                <span class="group-hover:text-gray-900 dark:group-hover:text-gray-100">
-                                    Preferences
-                                </span>
-                            </a>
-
-                            <a
-                                href="#"
-                                class="group flex items-center justify-center space-x-3 px-6 py-5 text-center text-base font-medium transition md:text-sm"
-                            >
-                                <x-icon
-                                    name="messages"
-                                    size="lg"
-                                    class="text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-400"
-                                ></x-icon>
-                                <span class="group-hover:text-gray-900 dark:group-hover:text-gray-100">Messages</span>
-                                <x-badge color="danger">3</x-badge>
-                                {{-- <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-danger-50 text-danger-600 border border-danger-300">3</span> --}}
-                            </a>
+                            <div>
+                                <x-text>Welcome back,</x-text>
+                                <x-h1>{{ auth()->user()->name }}</x-h1>
+                            </div>
                         </div>
-                    </x-panel>
+                        <div class="mt-5 flex justify-center gap-2 md:mt-0">
+                            <x-button :href="route('account.edit')" color="neutral">Go to my account</x-button>
+                        </div>
+                    </div>
+
+                    <div
+                        class="grid grid-cols-1 divide-y divide-gray-900/5 border-t border-gray-950/5 bg-gray-50 sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:rounded-b-md dark:divide-gray-800 dark:border-gray-800 dark:bg-gray-950/30"
+                    >
+                        <a
+                            href="{{ route('characters.index', ['tableFilters' => ['only_my_characters' => ['isActive' => true]]]) }}"
+                            class="group flex items-center justify-center space-x-3 px-6 py-5 text-center text-base font-medium transition md:text-sm"
+                        >
+                            <x-icon
+                                name="characters"
+                                size="lg"
+                                class="text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-400"
+                            ></x-icon>
+                            <span class="group-hover:text-gray-900 dark:group-hover:text-gray-100">Characters</span>
+                        </a>
+
+                        <a
+                            href="{{ route('account.edit', 'preferences') }}"
+                            class="group flex items-center justify-center space-x-3 px-6 py-5 text-center text-base font-medium transition md:text-sm"
+                        >
+                            <x-icon
+                                name="settings"
+                                size="lg"
+                                class="text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-400"
+                            ></x-icon>
+                            <span class="group-hover:text-gray-900 dark:group-hover:text-gray-100">Preferences</span>
+                        </a>
+
+                        <a
+                            href="#"
+                            class="group flex items-center justify-center space-x-3 px-6 py-5 text-center text-base font-medium transition md:text-sm"
+                        >
+                            <x-icon
+                                name="messages"
+                                size="lg"
+                                class="text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-400"
+                            ></x-icon>
+                            <span class="group-hover:text-gray-900 dark:group-hover:text-gray-100">Messages</span>
+                            <x-badge color="danger">3</x-badge>
+                            {{-- <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-danger-50 text-danger-600 border border-danger-300">3</span> --}}
+                        </a>
+                    </div>
                 </section>
 
                 <section aria-labelledby="dashboard-stats-title">
                     <h2 class="sr-only" id="dashboard-stats-title">Stats</h2>
 
                     <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
-                        <x-panel>
+                        <x-panel well>
                             <x-content-box>
                                 <div class="flex space-x-2">
                                     <div>
@@ -105,7 +94,7 @@
                             </x-content-box>
                         </x-panel>
 
-                        <x-panel>
+                        <x-panel well>
                             <x-content-box>
                                 <div class="flex space-x-2">
                                     <div>
@@ -123,7 +112,7 @@
                             </x-content-box>
                         </x-panel>
 
-                        <x-panel>
+                        <x-panel well>
                             <x-content-box>
                                 <div class="flex space-x-2">
                                     <div>
@@ -147,12 +136,27 @@
             <!-- Right column -->
             <div class="grid grid-cols-1 gap-4">
                 <section aria-labelledby="timeline-title">
-                    <x-panel>
-                        <x-content-box>
-                            <x-heading level="2">Announcements</x-heading>
-                        </x-content-box>
+                    <x-panel class="overflow-hidden rounded-2xl">
+                        <div class="p-1 pb-0">
+                            <img
+                                src="{{ asset('dist/test4.jpg') }}"
+                                alt=""
+                                class="h-32 w-full rounded-md object-cover"
+                            />
+                        </div>
 
-                        <x-content-box width="xs" height="none">
+                        <div class="px-4 py-4">
+                            <x-h2>Current story title</x-h2>
+                            <x-text>
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequatur explicabo sint
+                                cupiditate veritatis eaque nam modi? Soluta repellendus magnam, modi molestiae
+                                aspernatur deleniti necessitatibus placeat, excepturi autem incidunt blanditiis nemo?
+                            </x-text>
+                        </div>
+                    </x-panel>
+
+                    <x-panel class="hidden overflow-hidden">
+                        <x-content-box width="xs" height="xs">
                             <!-- Activity Feed -->
                             <div class="flow-root space-y-2 pb-4">
                                 <a
@@ -172,15 +176,6 @@
                                     <p class="text-sm text-gray-500">Nov 28</p>
                                 </a>
                             </div>
-                            {{--
-                                <div class="mt-6 flex flex-col justify-stretch">
-                                <div>
-                                <x-button.filled color="neutral" href="#" class="w-full">
-                                See all activity
-                                </x-button.filled>
-                                </div>
-                                </div>
-                            --}}
                         </x-content-box>
                     </x-panel>
                 </section>
@@ -255,9 +250,7 @@
                             </div>
                             <div class="mt-6 flex flex-col justify-stretch">
                                 <div>
-                                    <x-button.filled color="neutral" href="#" class="w-full">
-                                        See all activity
-                                    </x-button.filled>
+                                    <x-button color="neutral" href="#" class="w-full">See all activity</x-button>
                                 </div>
                             </div>
                         </x-content-box>

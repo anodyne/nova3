@@ -3,9 +3,9 @@
         <div class="flex items-center justify-between">
             <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">Find settings</h3>
 
-            <x-button.text color="gray" wire:click="dismiss">
+            <x-button color="neutral" wire:click="dismiss" text>
                 <x-icon name="x" size="sm"></x-icon>
-            </x-button.text>
+            </x-button>
         </div>
     </x-content-box>
 
@@ -19,9 +19,9 @@
 
                     <x-slot name="trailing">
                         @if ($search)
-                            <x-button.text tag="button" color="gray" wire:click="$set('search', '')">
+                            <x-button tag="button" color="neutral" wire:click="$set('search', '')" text>
                                 <x-icon name="x" size="sm"></x-icon>
-                            </x-button.text>
+                            </x-button>
                         @endif
                     </x-slot>
                 </x-input.text>

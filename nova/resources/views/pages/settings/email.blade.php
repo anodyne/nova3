@@ -7,14 +7,15 @@
         <x-panel.header title="Email settings" message="Change the way Nova sends email">
             <x-slot name="actions">
                 <div x-data="{}">
-                    <x-button.filled color="neutral" leading="search" x-on:click="$dispatch('toggle-spotlight')">
+                    <x-button x-on:click="$dispatch('toggle-spotlight')" plain>
+                        <x-icon name="search" size="sm"></x-icon>
                         Find a setting
-                    </x-button.filled>
+                    </x-button>
                 </div>
             </x-slot>
         </x-panel.header>
 
-        <x-form :action="route('settings.update', $tab)" method="PUT" id="email">
+        <x-form :action="route('settings.email.update')" method="PUT">
             <x-form.section title="Basic settings">
                 <x-input.group label="Subject prefix">
                     <x-input.text
@@ -33,10 +34,11 @@
                 </x-input.group>
             </x-form.section>
 
-            <x-form.section
-                title="Global from address"
-                message="You can define the email address and name used for all emails."
-            >
+            <x-form.section title="Global from address">
+                <x-slot name="message">
+                    <x-text>You can define the email address and name used for all emails.</x-text>
+                </x-slot>
+
                 <x-input.group label="From email address">
                     <x-input.text name="from_address" :value="config('mail.from.address')"></x-input.text>
                 </x-input.group>
@@ -46,10 +48,11 @@
                 </x-input.group>
             </x-form.section>
 
-            <x-form.section
-                title="Logo"
-                message="You can upload a logo that will be used in the header of the emails sent from Nova."
-            >
+            <x-form.section title="Logo">
+                <x-slot name="message">
+                    <x-text>You can upload a logo that will be used in the header of the emails sent from Nova.</x-text>
+                </x-slot>
+
                 <x-input.group>
                     <livewire:media-upload-image
                         :model="settings()"
@@ -59,11 +62,14 @@
                 </x-input.group>
             </x-form.section>
 
-            <x-form.section
-                title="Configuration"
-                message="You can set your email configuration values and they'll be written to the configuration file for you."
-                x-data="{ mailer: '{{ config('mail.default') }}' }"
-            >
+            <x-form.section title="Configuration" x-data="{ mailer: '{{ config('mail.default') }}' }">
+                <x-slot name="message">
+                    <x-text>
+                        You can set your email configuration values and they'll be written to the configuration file for
+                        you.
+                    </x-text>
+                </x-slot>
+
                 <x-input.group label="Mailer">
                     <x-input.select name="mailer" x-model="mailer">
                         <option value="sendmail">Sendmail</option>
@@ -189,7 +195,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button.filled type="submit" form="email" color="primary">Update</x-button.filled>
+                <x-button type="submit" color="primary">Update</x-button>
             </x-form.footer>
         </x-form>
     </x-panel>

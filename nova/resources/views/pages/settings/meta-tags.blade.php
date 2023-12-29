@@ -5,16 +5,17 @@
         <x-panel.header title="Meta tags settings">
             <x-slot name="actions">
                 <div x-data="{}">
-                    <x-button.filled color="neutral" leading="search" x-on:click="$dispatch('toggle-spotlight')">
+                    <x-button x-on:click="$dispatch('toggle-spotlight')" plain>
+                        <x-icon name="search" size="sm"></x-icon>
                         Find a setting
-                    </x-button.filled>
+                    </x-button>
                 </div>
             </x-slot>
         </x-panel.header>
 
-        <x-form :action="route('settings.update')" method="PUT" id="meta-tags">
+        <x-form :action="route('settings.update')" method="PUT">
             <x-form.footer>
-                <x-button.filled type="submit" form="meta-tags" color="primary">Update</x-button.filled>
+                <x-button type="submit" color="primary">Update</x-button>
             </x-form.footer>
         </x-form>
     </x-panel>

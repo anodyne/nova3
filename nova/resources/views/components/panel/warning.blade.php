@@ -5,11 +5,11 @@
     'width' => 'sm',
 ])
 
-<x-panel as="no-shadow" {{ $attributes }}>
-    <x-content-box
+<x-panel {{ $attributes }} no-shadow>
+    <x-container
         :height="$height"
         :width="$width"
-        class="border-y border-warning-300 bg-warning-50 text-warning-600 dark:border-warning-700 dark:bg-warning-950 dark:text-warning-500 sm:rounded-lg sm:border-x"
+        class="border-y border-warning-300 bg-warning-50 text-warning-600 sm:rounded-lg sm:border-x dark:border-warning-700 dark:bg-warning-950 dark:text-warning-500"
     >
         <div class="flex items-start space-x-4">
             @if ($icon)
@@ -30,5 +30,5 @@
                 </div>
             </div>
         </div>
-    </x-content-box>
+    </x-container>
 </x-panel>

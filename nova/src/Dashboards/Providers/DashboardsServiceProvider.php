@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Dashboards\Providers;
 
 use Nova\Dashboards\Livewire\ActivityLogList;
+use Nova\Dashboards\Livewire\DiagnosticDataButton;
 use Nova\Dashboards\Policies\ActivityPolicy;
 use Nova\Dashboards\Spotlight\ViewSystemDashboard;
 use Nova\Dashboards\Spotlight\ViewUserDashboard;
@@ -17,6 +18,7 @@ class DashboardsServiceProvider extends DomainServiceProvider
     {
         return [
             'dashboard:activity-log-list' => ActivityLogList::class,
+            'copy-diagnostic-data-button' => DiagnosticDataButton::class,
         ];
     }
 

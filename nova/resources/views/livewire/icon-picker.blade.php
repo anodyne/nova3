@@ -68,9 +68,9 @@
                         />
 
                         @if (filled($search))
-                            <x-button.text wire:click="$set('search', '')" color="gray">
+                            <x-button wire:click="$set('search', '')" color="neutral" text>
                                 <x-icon name="x" size="sm"></x-icon>
-                            </x-button.text>
+                            </x-button>
                         @endif
                     </div>
                 </div>

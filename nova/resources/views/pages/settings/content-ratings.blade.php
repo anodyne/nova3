@@ -8,9 +8,10 @@
         >
             <x-slot name="actions">
                 <div x-data="{}">
-                    <x-button.filled color="neutral" leading="search" x-on:click="$dispatch('toggle-spotlight')">
+                    <x-button x-on:click="$dispatch('toggle-spotlight')" plain>
+                        <x-icon name="search" size="sm"></x-icon>
                         Find a setting
-                    </x-button.filled>
+                    </x-button>
                 </div>
             </x-slot>
 
@@ -24,19 +25,6 @@
                 </x-content-box>
                 <div class="hidden sm:block">
                     <x-content-box height="none">
-                        {{--
-                            <nav class="flex space-x-2 px-1 py-1 rounded-lg bg-gray-100 dark:bg-gray-700/50 border-gray-200 dark:border-gray-700">
-                            <a href="#" class="flex items-center rounded-md px-4 py-1.5 font-medium text-sm transition" :class="{ 'bg-white dark:bg-gray-600 shadow dark:highlight-white/5 ring-1 ring-gray-950/5 text-gray-900 dark:text-gray-100': isTab('language'), 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('language') }" x-on:click.prevent="switchTab('language')">
-                            Language
-                            </a>
-                            <a href="#" class="flex items-center rounded-md px-4 py-1.5 font-medium text-sm transition" :class="{ 'bg-white dark:bg-gray-600 shadow dark:highlight-white/5 ring-1 ring-gray-950/5 text-gray-900 dark:text-gray-100': isTab('sex'), 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('sex') }" x-on:click.prevent="switchTab('sex')">
-                            Sex
-                            </a>
-                            <a href="#" class="flex items-center rounded-md px-4 py-1.5 font-medium text-sm transition" :class="{ 'bg-white dark:bg-gray-600 shadow dark:highlight-white/5 ring-1 ring-gray-950/5 text-gray-900 dark:text-gray-100': isTab('violence'), 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('violence') }" x-on:click.prevent="switchTab('violence')">
-                            Violence
-                            </a>
-                            </nav>
-                        --}}
                         <nav class="-mb-px flex">
                             <a
                                 href="#"
@@ -68,13 +56,13 @@
             </div>
         </x-panel.header>
 
-        <x-form :action="route('settings.update', $tab)" method="PUT" id="language" x-show="isTab('language')">
+        <x-form :action="route('settings.content-ratings.update')" method="PUT" x-show="isTab('language')">
             <x-form.section
                 title="Default language rating"
                 message="This is the default language content rating for your game. This is a good way to show current and interested players the type and level of content they can expect from your game."
             >
                 <x-input.group label="Rating" class="w-full md:w-72">
-                    <livewire:rating area="language" :value="$settings->ratings->language->rating" />
+                    <livewire:rating area="language" :value="$settings->language->rating" />
                 </x-input.group>
             </x-form.section>
 
@@ -87,20 +75,20 @@
                     help="You have chosen to warn readers about this content, but your threshold is set below the default rating for this category. This means that readers will have to manually agree before being allowed to read every story post unless an author specifically sets the rating lower for their post."
                 >
                     <x-input.select name="language[warning_threshold]" class="w-full md:w-48">
-                        <option value="" @selected($settings->ratings->language->warning_threshold === null)>
+                        <option value="" @selected($settings->language->warning_threshold === null)>
                             Do not warn
                         </option>
-                        <option value="0" @selected($settings->ratings->language->warning_threshold === 0)>0</option>
-                        <option value="1" @selected($settings->ratings->language->warning_threshold === 1)>1</option>
-                        <option value="2" @selected($settings->ratings->language->warning_threshold === 2)>2</option>
-                        <option value="3" @selected($settings->ratings->language->warning_threshold === 3)>3</option>
+                        <option value="0" @selected($settings->language->warning_threshold === 0)>0</option>
+                        <option value="1" @selected($settings->language->warning_threshold === 1)>1</option>
+                        <option value="2" @selected($settings->language->warning_threshold === 2)>2</option>
+                        <option value="3" @selected($settings->language->warning_threshold === 3)>3</option>
                     </x-input.select>
                 </x-input.group>
 
                 <x-input.group label="Warning message">
                     <x-input.text
                         name="language[warning_threshold_message]"
-                        :value="$settings->ratings->language->warning_threshold_message"
+                        :value="$settings->language->warning_threshold_message"
                     ></x-input.text>
                 </x-input.group>
             </x-form.section>
@@ -111,41 +99,41 @@
             >
                 <x-input.group label="Description (Level 0)">
                     <x-input.textarea rows="1" name="language[description_0]">
-                        {{ $settings->ratings->language->description_0 }}
+                        {{ $settings->language->description_0 }}
                     </x-input.textarea>
                 </x-input.group>
 
                 <x-input.group label="Description (Level 1)">
                     <x-input.textarea rows="1" name="language[description_1]">
-                        {{ $settings->ratings->language->description_1 }}
+                        {{ $settings->language->description_1 }}
                     </x-input.textarea>
                 </x-input.group>
 
                 <x-input.group label="Description (Level 2)">
                     <x-input.textarea rows="1" name="language[description_2]">
-                        {{ $settings->ratings->language->description_2 }}
+                        {{ $settings->language->description_2 }}
                     </x-input.textarea>
                 </x-input.group>
 
                 <x-input.group label="Description (Level 3)">
                     <x-input.textarea rows="1" name="language[description_3]">
-                        {{ $settings->ratings->language->description_3 }}
+                        {{ $settings->language->description_3 }}
                     </x-input.textarea>
                 </x-input.group>
             </x-form.section>
 
             <x-form.footer>
-                <x-button.filled type="submit" form="language" color="primary">Update</x-button.filled>
+                <x-button type="submit" color="primary">Update</x-button>
             </x-form.footer>
         </x-form>
 
-        <x-form :action="route('settings.update', $tab)" method="PUT" id="sex" x-show="isTab('sex')" x-cloak>
+        <x-form :action="route('settings.content-ratings.update')" method="PUT" x-show="isTab('sex')" x-cloak>
             <x-form.section
                 title="Default sex rating"
                 message="This is the default sex content rating for your game. This is a good way to show current and interested players the type and level of content they can expect from your game."
             >
                 <x-input.group label="Rating" class="w-full md:w-72">
-                    <livewire:rating area="sex" :value="$settings->ratings->sex->rating" />
+                    <livewire:rating area="sex" :value="$settings->sex->rating" />
                 </x-input.group>
             </x-form.section>
 
@@ -158,20 +146,18 @@
                     help="You have chosen to warn readers about this content, but your threshold is set below the default rating for this category. This means that readers will have to manually agree before being allowed to read every story post unless an author specifically sets the rating lower for their post."
                 >
                     <x-input.select name="sex[warning_threshold]" class="w-full md:w-48">
-                        <option value="" @selected($settings->ratings->sex->warning_threshold === null)>
-                            Do not warn
-                        </option>
-                        <option value="0" @selected($settings->ratings->sex->warning_threshold === 0)>0</option>
-                        <option value="1" @selected($settings->ratings->sex->warning_threshold === 1)>1</option>
-                        <option value="2" @selected($settings->ratings->sex->warning_threshold === 2)>2</option>
-                        <option value="3" @selected($settings->ratings->sex->warning_threshold === 3)>3</option>
+                        <option value="" @selected($settings->sex->warning_threshold === null)>Do not warn</option>
+                        <option value="0" @selected($settings->sex->warning_threshold === 0)>0</option>
+                        <option value="1" @selected($settings->sex->warning_threshold === 1)>1</option>
+                        <option value="2" @selected($settings->sex->warning_threshold === 2)>2</option>
+                        <option value="3" @selected($settings->sex->warning_threshold === 3)>3</option>
                     </x-input.select>
                 </x-input.group>
 
                 <x-input.group label="Warning message">
                     <x-input.text
                         name="sex[warning_threshold_message]"
-                        :value="$settings->ratings->sex->warning_threshold_message"
+                        :value="$settings->sex->warning_threshold_message"
                     ></x-input.text>
                 </x-input.group>
             </x-form.section>
@@ -182,41 +168,41 @@
             >
                 <x-input.group label="Description (Level 0)">
                     <x-input.textarea rows="1" name="sex[description_0]">
-                        {{ $settings->ratings->sex->description_0 }}
+                        {{ $settings->sex->description_0 }}
                     </x-input.textarea>
                 </x-input.group>
 
                 <x-input.group label="Description (Level 1)">
                     <x-input.textarea rows="1" name="sex[description_1]">
-                        {{ $settings->ratings->sex->description_1 }}
+                        {{ $settings->sex->description_1 }}
                     </x-input.textarea>
                 </x-input.group>
 
                 <x-input.group label="Description (Level 2)">
                     <x-input.textarea rows="1" name="sex[description_2]">
-                        {{ $settings->ratings->sex->description_2 }}
+                        {{ $settings->sex->description_2 }}
                     </x-input.textarea>
                 </x-input.group>
 
                 <x-input.group label="Description (Level 3)">
                     <x-input.textarea rows="1" name="sex[description_3]">
-                        {{ $settings->ratings->sex->description_3 }}
+                        {{ $settings->sex->description_3 }}
                     </x-input.textarea>
                 </x-input.group>
             </x-form.section>
 
             <x-form.footer>
-                <x-button.filled type="submit" form="sex" color="primary">Update</x-button.filled>
+                <x-button type="submit" color="primary">Update</x-button>
             </x-form.footer>
         </x-form>
 
-        <x-form :action="route('settings.update', $tab)" method="PUT" id="violence" x-show="isTab('violence')" x-cloak>
+        <x-form :action="route('settings.content-ratings.update')" method="PUT" x-show="isTab('violence')" x-cloak>
             <x-form.section
                 title="Default violence rating"
                 message="This is the default sex content rating for your game. This is a good way to show current and interested players the type and level of content they can expect from your game."
             >
                 <x-input.group label="Rating" class="w-full md:w-72">
-                    <livewire:rating area="violence" :value="$settings->ratings->violence->rating" />
+                    <livewire:rating area="violence" :value="$settings->violence->rating" />
                 </x-input.group>
             </x-form.section>
 
@@ -229,20 +215,20 @@
                     help="You have chosen to warn readers about this content, but your threshold is set below the default rating for this category. This means that readers will have to manually agree before being allowed to read every story post unless an author specifically sets the rating lower for their post."
                 >
                     <x-input.select name="violence[warning_threshold]" class="w-full md:w-48">
-                        <option value="" @selected($settings->ratings->violence->warning_threshold === null)>
+                        <option value="" @selected($settings->violence->warning_threshold === null)>
                             Do not warn
                         </option>
-                        <option value="0" @selected($settings->ratings->violence->warning_threshold === 0)>0</option>
-                        <option value="1" @selected($settings->ratings->violence->warning_threshold === 1)>1</option>
-                        <option value="2" @selected($settings->ratings->violence->warning_threshold === 2)>2</option>
-                        <option value="3" @selected($settings->ratings->violence->warning_threshold === 3)>3</option>
+                        <option value="0" @selected($settings->violence->warning_threshold === 0)>0</option>
+                        <option value="1" @selected($settings->violence->warning_threshold === 1)>1</option>
+                        <option value="2" @selected($settings->violence->warning_threshold === 2)>2</option>
+                        <option value="3" @selected($settings->violence->warning_threshold === 3)>3</option>
                     </x-input.select>
                 </x-input.group>
 
                 <x-input.group label="Warning message">
                     <x-input.text
                         name="violence[warning_threshold_message]"
-                        :value="$settings->ratings->violence->warning_threshold_message"
+                        :value="$settings->violence->warning_threshold_message"
                     ></x-input.text>
                 </x-input.group>
             </x-form.section>
@@ -253,31 +239,31 @@
             >
                 <x-input.group label="Description (Level 0)">
                     <x-input.textarea rows="1" name="violence[description_0]">
-                        {{ $settings->ratings->violence->description_0 }}
+                        {{ $settings->violence->description_0 }}
                     </x-input.textarea>
                 </x-input.group>
 
                 <x-input.group label="Description (Level 1)">
                     <x-input.textarea rows="1" name="violence[description_1]">
-                        {{ $settings->ratings->violence->description_1 }}
+                        {{ $settings->violence->description_1 }}
                     </x-input.textarea>
                 </x-input.group>
 
                 <x-input.group label="Description (Level 2)">
                     <x-input.textarea rows="1" name="violence[description_2]">
-                        {{ $settings->ratings->violence->description_2 }}
+                        {{ $settings->violence->description_2 }}
                     </x-input.textarea>
                 </x-input.group>
 
                 <x-input.group label="Description (Level 3)">
                     <x-input.textarea rows="1" name="violence[description_3]">
-                        {{ $settings->ratings->violence->description_3 }}
+                        {{ $settings->violence->description_3 }}
                     </x-input.textarea>
                 </x-input.group>
             </x-form.section>
 
             <x-form.footer>
-                <x-button.filled type="submit" form="violence" color="primary">Update</x-button.filled>
+                <x-button type="submit" color="primary">Update</x-button>
             </x-form.footer>
         </x-form>
     </x-panel>

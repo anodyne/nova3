@@ -77,9 +77,9 @@
             </div>
 
             @if ($hasImage)
-                <x-button.text color="neutral-danger" wire:click="removeImage">
+                <x-button color="neutral-danger" wire:click="removeImage" text>
                     <x-icon name="trash" size="sm"></x-icon>
-                </x-button.text>
+                </x-button>
             @endif
         </div>
 

@@ -12,6 +12,7 @@
             'xl' => 'text-xl/8 sm:text-lg/8',
             default => 'text-base/6 sm:text-sm/6',
         },
+        $attributes->get('class'),
     ])
 >
     {{ $slot }}

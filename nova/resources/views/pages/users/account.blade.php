@@ -53,14 +53,12 @@
             </div>
         </x-panel.header>
 
-        <x-form :action="route('account.update')" :divide="false" :space="false">
+        <x-form :action="route('account.update')" :space="false">
             <div x-show="isTab('info')" x-cloak>
                 <livewire:my-account-info />
             </div>
 
             <div x-show="isTab('notifications')" x-cloak>
-                <x-switch name="foo" id="foo"></x-switch>
-                <x-switch name="bar" id="bar" :value="true"></x-switch>
                 <livewire:profile-notification-preferences />
             </div>
 

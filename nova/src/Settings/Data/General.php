@@ -9,13 +9,13 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 
+#[MapInputName(SnakeCaseMapper::class)]
 class General extends Data implements Arrayable
 {
     public function __construct(
-        #[MapInputName('game_name')]
         public string $gameName = '',
-
         public string $dateFormat = '',
         public string $dateFormatTags = '',
     ) {

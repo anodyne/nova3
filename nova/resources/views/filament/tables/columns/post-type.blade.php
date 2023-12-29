@@ -13,7 +13,7 @@
         @endisset
     </div>
 
-    <div class="font-medium">
+    <div class="text-base font-medium sm:text-sm">
         {{ $postType->name }}
     </div>
 </div>

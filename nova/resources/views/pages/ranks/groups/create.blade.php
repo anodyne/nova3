@@ -5,9 +5,7 @@
         <x-panel.header title="Add a new rank group">
             <x-slot name="actions">
                 @can('viewAny', Nova\Ranks\Models\RankGroup::class)
-                    <x-button.text :href="route('ranks.groups.index')" leading="arrow-left" color="gray">
-                        Back
-                    </x-button.text>
+                    <x-button :href="route('ranks.groups.index')" color="neutral" plain>&larr; Back</x-button>
                 @endcan
             </x-slot>
         </x-panel.header>
@@ -34,8 +32,8 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button.filled type="submit" color="primary">Add</x-button.filled>
-                <x-button.filled :href="route('ranks.groups.index')" color="neutral">Cancel</x-button.filled>
+                <x-button type="submit" color="primary">Add</x-button>
+                <x-button :href="route('ranks.groups.index')" plain>Cancel</x-button>
             </x-form.footer>
         </x-form>
     </x-panel>

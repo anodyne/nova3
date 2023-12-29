@@ -16,15 +16,14 @@
 
             <x-slot name="actions">
                 @can('viewAny', Nova\Departments\Models\Department::class)
-                    <x-button.text :href="route('departments.index')" leading="arrow-left" color="gray">
-                        Back
-                    </x-button.text>
+                    <x-button :href="route('departments.index')" color="neutral" plain>&larr; Back</x-button>
                 @endcan
 
                 @can('update', $department)
-                    <x-button.filled :href="route('departments.edit', $department)" leading="edit" color="primary">
+                    <x-button :href="route('departments.edit', $department)" color="primary">
+                        <x-icon name="edit" size="sm"></x-icon>
                         Edit
-                    </x-button.filled>
+                    </x-button>
                 @endcan
             </x-slot>
         </x-panel.header>
@@ -105,13 +104,13 @@
                         <x-h3>Positions</x-h3>
 
                         @can('viewAny', Nova\Departments\Models\Position::class)
-                            <x-button.filled
+                            <x-button
                                 :href="route('positions.index', ['tableFilters' => ['department_id' => ['values' => [$department->id]]]])"
-                                color="neutral"
                                 size="xs"
+                                outline
                             >
                                 Manage
-                            </x-button.filled>
+                            </x-button>
                         @endcan
                     </div>
 
@@ -125,13 +124,14 @@
                                     <span>{{ $position->name }}</span>
                                 </div>
                                 @can('update', $position)
-                                    <x-button.text
+                                    <x-button
                                         :href="route('positions.edit', $position)"
-                                        color="gray"
-                                        class="shrink-0 group-hover:visible sm:invisible"
+                                        class="group-hover:visible sm:invisible"
+                                        color="neutral"
+                                        text
                                     >
                                         <x-icon name="edit" size="sm"></x-icon>
-                                    </x-button.text>
+                                    </x-button>
                                 @endcan
                             </div>
                         @empty

@@ -8,27 +8,29 @@
         >
             <x-slot name="actions">
                 <div x-data="{}">
-                    <x-button.filled color="neutral" leading="search" x-on:click="$dispatch('toggle-spotlight')">
+                    <x-button x-on:click="$dispatch('toggle-spotlight')" plain>
+                        <x-icon name="search" size="sm"></x-icon>
                         Find a setting
-                    </x-button.filled>
+                    </x-button>
                 </div>
             </x-slot>
         </x-panel.header>
 
         <x-form
-            :action="route('settings.update', $tab)"
+            :action="route('settings.posting-activity.update')"
             method="PUT"
-            id="posting"
-            x-data="{ strategy: '{{ $settings->posting_activity->trackingStrategy }}', postsStrategy: '{{ $settings->posting_activity->postsStrategy }}', wordCountStrategy: '{{ $settings->posting_activity->wordCountStrategy }}' }"
+            x-data="{
+                strategy: '{{ $settings->trackingStrategy }}',
+                postsStrategy: '{{ $settings->postsStrategy }}',
+                wordCountStrategy: '{{ $settings->wordCountStrategy }}'
+            }"
             x-cloak
         >
             <x-form.section
                 title="Activity tracking strategy"
                 message="Nova provides for two options to track posting activity: by entire posts or by word counts. You can specify whether a specific post type is included in the posting activity from each post type's settings."
             >
-                <fieldset x-data="{
-                    strategy: 'posts',
-                }">
+                <fieldset x-data="{ strategy: 'posts' }">
                     <legend class="sr-only">Activity tracking strategy</legend>
 
                     <div class="space-y-4">
@@ -297,10 +299,7 @@
                         <span>per month</span>
                     </x-slot>
 
-                    <x-input.text
-                        name="required-activity"
-                        value="{{ $settings->posting_activity->requiredActivity }}"
-                    />
+                    <x-input.text name="required-activity" value="{{ $settings->requiredActivity }}" />
                 </x-input.group>
             </x-form.section>
 
@@ -465,7 +464,7 @@
                 <x-input.group label="Story post word count conversion">
                     <x-input.text
                         name="word-count-post-conversion"
-                        value="{{ $settings->posting_activity->wordCountPostConversion }}"
+                        value="{{ $settings->wordCountPostConversion }}"
                         leading="1 story post equals"
                         trailing="words"
                     />
@@ -473,7 +472,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button.filled type="submit" form="posting" color="primary">Update</x-button.filled>
+                <x-button type="submit" color="primary">Update</x-button>
             </x-form.footer>
         </x-form>
     </x-panel>

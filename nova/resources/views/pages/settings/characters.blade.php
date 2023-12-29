@@ -5,14 +5,15 @@
         <x-panel.header title="Character settings">
             <x-slot name="actions">
                 <div x-data="{}">
-                    <x-button.filled color="neutral" leading="search" x-on:click="$dispatch('toggle-spotlight')">
+                    <x-button x-on:click="$dispatch('toggle-spotlight')" plain>
+                        <x-icon name="search" size="sm"></x-icon>
                         Find a setting
-                    </x-button.filled>
+                    </x-button>
                 </div>
             </x-slot>
         </x-panel.header>
 
-        <x-form :action="route('settings.update', $tab)" method="PUT" id="character">
+        <x-form :action="route('settings.characters.update')" method="PUT">
             <x-form.section title="Character creation approvals">
                 <x-slot name="message">
                     <x-text>Set whether characters of certain types require approval before being activated.</x-text>
@@ -28,7 +29,7 @@
                             </x-fieldset.description>
                             <x-switch
                                 name="approve_primary"
-                                :value="old('approve_primary', $settings->characters->approvePrimary)"
+                                :value="old('approve_primary', $settings->approvePrimary)"
                                 id="approve_primary"
                             ></x-switch>
                         </x-switch.field>
@@ -41,7 +42,7 @@
                             </x-fieldset.description>
                             <x-switch
                                 name="approve_secondary"
-                                :value="old('approve_secondary', $settings->characters->approveSecondary)"
+                                :value="old('approve_secondary', $settings->approveSecondary)"
                                 id="approve_secondary"
                             ></x-switch>
                         </x-switch.field>
@@ -54,7 +55,7 @@
                             </x-fieldset.description>
                             <x-switch
                                 name="approve_support"
-                                :value="old('approve_support', $settings->characters->approveSupport)"
+                                :value="old('approve_support', $settings->approveSupport)"
                                 id="approve_support"
                             ></x-switch>
                         </x-switch.field>
@@ -73,7 +74,7 @@
                 <div class="flex items-center gap-x-2.5">
                     <x-switch
                         name="enforce_character_limits"
-                        :value="old('enforce_character_limits', $settings->characters->enforceCharacterLimits)"
+                        :value="old('enforce_character_limits', $settings->enforceCharacterLimits)"
                         id="enforce_character_limits"
                     ></x-switch>
                     <x-fieldset.label for="enforce_character_limits">Enforce character limits</x-fieldset.label>
@@ -84,7 +85,7 @@
                         <x-input.number
                             id="character_limit"
                             name="character_limit"
-                            :value="old('character_limit', $settings->characters->characterLimit)"
+                            :value="old('character_limit', $settings->characterLimit)"
                         />
                     </div>
                 </x-input.group>
@@ -102,7 +103,7 @@
                 <div class="flex items-center gap-x-2.5">
                     <x-switch
                         name="auto_availability_primary"
-                        :value="old('auto_availability_primary', $settings->characters->autoAvailabilityForPrimary)"
+                        :value="old('auto_availability_primary', $settings->autoAvailabilityForPrimary)"
                         id="auto_availability_primary"
                     ></x-switch>
                     <x-fieldset.label for="auto_availability_primary">Primary characters</x-fieldset.label>
@@ -111,7 +112,7 @@
                 <div class="flex items-center gap-x-2.5">
                     <x-switch
                         name="auto_availability_secondary"
-                        :value="old('auto_availability_secondary', $settings->characters->autoAvailabilityForSecondary)"
+                        :value="old('auto_availability_secondary', $settings->autoAvailabilityForSecondary)"
                         id="auto_availability_secondary"
                     ></x-switch>
                     <x-fieldset.label for="auto_availability_secondary">Secondary characters</x-fieldset.label>
@@ -120,7 +121,7 @@
                 <div class="flex items-center gap-x-2.5">
                     <x-switch
                         name="auto_availability_support"
-                        :value="old('auto_availability_support', $settings->characters->autoAvailabilityForSupport)"
+                        :value="old('auto_availability_support', $settings->autoAvailabilityForSupport)"
                         id="auto_availability_support"
                     ></x-switch>
                     <x-fieldset.label for="auto_availability_support">Support characters</x-fieldset.label>
@@ -128,7 +129,7 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button.filled type="submit" form="character" color="primary">Update</x-button.filled>
+                <x-button type="submit" color="primary">Update</x-button>
             </x-form.footer>
         </x-form>
     </x-panel>

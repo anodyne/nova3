@@ -23,8 +23,6 @@ class UpdateEmail
         if ($envWriter->isEnvWritable()) {
             $emailConfigData = EmailConfiguration::from($request);
 
-            // dd($emailConfigData);
-
             $path = $envWriter->envFilePath();
 
             if (file_exists($path)) {

@@ -10,9 +10,9 @@
                     Looking for more themes for your game? Check out the Nova Add-on Exchange!
                 </p>
                 <p class="mt-3 shrink-0 text-base md:ml-6 md:mt-0 md:text-sm">
-                    <x-button.text :href="config('services.anodyne.links.exchange')" target="_blank" color="primary">
+                    <x-button :href="config('services.anodyne.links.exchange')" target="_blank" color="primary" text>
                         Go &rarr;
-                    </x-button.text>
+                    </x-button>
                 </p>
             </div>
         </x-panel.primary>

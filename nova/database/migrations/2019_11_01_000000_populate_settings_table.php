@@ -42,7 +42,8 @@ class PopulateSettingsTable extends Migration
                 colorsSuccess: 'Emerald',
                 colorsInfo: 'Purple',
                 fontProvider: 'local',
-                fontFamily: 'Inter'
+                fontFamily: 'Inter',
+                panda: false
             ),
             'meta_tags' => new MetaTags(),
             'characters' => new Characters(

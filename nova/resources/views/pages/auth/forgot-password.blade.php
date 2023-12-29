@@ -24,7 +24,7 @@
         </p>
     @endif
 
-    <x-form :action="route('password.email')" :divide="false">
+    <x-form :action="route('password.email')">
         <x-input.group label="Email" for="email" :error="$errors->first('email')">
             <x-input.email
                 id="email"
@@ -35,8 +35,8 @@
             />
         </x-input.group>
 
-        <x-button.filled type="submit" class="w-full" color="primary">
+        <x-button type="submit" class="w-full" color="primary">
             {{ __('Send Reset Link') }}
-        </x-button.filled>
+        </x-button>
     </x-form>
 @endsection

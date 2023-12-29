@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Nova\Roles\Livewire;
 
 use Filament\Forms\Components\TextInput;
-use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TernaryFilter;
@@ -36,6 +35,7 @@ class RolesList extends TableComponent
     {
         return $table
             ->query(Role::with('user', 'permissions'))
+            ->reorderable('order_column')
             ->columns([
                 TextColumn::make('display_name')
                     ->titleColumn()
@@ -157,22 +157,6 @@ class RolesList extends TableComponent
                         true: fn (Builder $query): Builder => $query->whereHas('user'),
                         false: fn (Builder $query): Builder => $query->whereDoesntHave('user'),
                     ),
-            ])
-            ->reorderable('order_column')
-            ->heading('Roles')
-            ->description('Control what users can do throughout Nova')
-            ->headerActions([
-                Action::make('permissions')
-                    ->url(route('permissions.index'))
-                    ->button()
-                    ->label('View permissions')
-                    ->color('gray')
-                    ->icon(iconName('key'))
-                    ->size('md'),
-                CreateAction::make()
-                    ->authorize('create')
-                    ->label('Add')
-                    ->url(route('roles.create')),
             ])
             ->header(fn (): ?View => $this->isTableReordering() ? view('filament.tables.roles-reordering-notice') : null)
             ->emptyStateIcon(iconName('shield'))

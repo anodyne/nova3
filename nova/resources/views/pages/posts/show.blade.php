@@ -15,21 +15,22 @@
 
                         <div class="flex items-center gap-x-4">
                             @if ($previousPost)
-                                <x-button.text :href="route('posts.show', [$story, $previousPost])" color="neutral">
+                                <x-button :href="route('posts.show', [$story, $previousPost])" color="neutral" text>
                                     <x-icon name="arrow-left" size="lg"></x-icon>
-                                </x-button.text>
+                                </x-button>
                             @endif
 
                             @if ($nextPost)
-                                <x-button.text :href="route('posts.show', [$story, $nextPost])" color="neutral">
+                                <x-button :href="route('posts.show', [$story, $nextPost])" color="neutral" text>
                                     <x-icon name="arrow-right" size="lg"></x-icon>
-                                </x-button.text>
+                                </x-button>
                             @endif
 
                             @can('update', $post)
-                                <x-button.filled href="{{ route('posts.edit', $post) }}" color="primary" leading="edit">
+                                <x-button href="{{ route('posts.edit', $post) }}" color="primary">
+                                    <x-icon name="edit" size="sm"></x-icon>
                                     Edit
-                                </x-button.filled>
+                                </x-button>
                             @endcan
                         </div>
                     </div>
@@ -190,9 +191,7 @@
                         By continuing, you agree that you are of suitable age for this content.
                     </p>
 
-                    <x-button.outlined type="button" color="danger" x-on:click="showContentWarning = false">
-                        Continue
-                    </x-button.outlined>
+                    <x-button type="button" color="neutral" x-on:click="showContentWarning = false">Continue</x-button>
 
                     @if (filled($post->summary))
                         <div class="mx-auto mt-12 max-w-2xl">

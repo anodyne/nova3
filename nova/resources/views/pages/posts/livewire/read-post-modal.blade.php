@@ -34,10 +34,10 @@
     </x-content-box>
 
     <x-content-box
-        class="z-20 rounded-b-lg bg-gray-50 dark:bg-gray-700/50 sm:flex sm:flex-row-reverse sm:space-x-4 sm:space-x-reverse"
+        class="z-20 rounded-b-lg bg-gray-50 sm:flex sm:flex-row-reverse sm:space-x-4 sm:space-x-reverse dark:bg-gray-700/50"
         height="sm"
         width="sm"
     >
-        <x-button.filled color="neutral" wire:click="dismiss">Close</x-button.filled>
+        <x-button color="neutral" wire:click="dismiss">Close</x-button>
     </x-content-box>
 </div>

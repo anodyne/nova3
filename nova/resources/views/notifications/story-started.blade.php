@@ -9,7 +9,7 @@
     has been started and is now available to post into.
 
     <x-slot name="actions">
-        <x-button.filled :href="route('posts.create')" color="primary">Start writing &rarr;</x-button.filled>
-        <x-button.filled :href="route('stories.show', $story_id)" color="neutral">Go to story</x-button.filled>
+        <x-button :href="route('posts.create')" color="primary">Start writing &rarr;</x-button>
+        <x-button :href="route('stories.show', $story_id)" color="neutral">Go to story</x-button>
     </x-slot>
 </x-notification>

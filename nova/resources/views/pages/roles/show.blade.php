@@ -1,67 +1,93 @@
 @extends($meta->template)
 
 @section('content')
-    <x-panel class="overflow-hidden">
-        <x-panel.header :message="$role->name">
-            <x-slot name="title">
-                <div class="flex items-center gap-4">
-                    <span>{{ $role->display_name }}</span>
+    <x-container.narrow>
+        <x-page-header>
+            <x-slot name="heading">{{ $role->display_name }}</x-slot>
 
-                    @if ($role->is_default)
-                        <div class="flex items-center">
-                            <x-badge color="success">Assigned to new users</x-badge>
-                        </div>
-                    @endif
-                </div>
-            </x-slot>
+            @if ($role->is_default)
+                <x-slot name="description">
+                    <div class="mt-2">
+                        <x-badge color="success" size="md">Assigned to new users</x-badge>
+                    </div>
+                </x-slot>
+            @endif
 
             <x-slot name="actions">
                 @can('viewAny', $role::class)
-                    <x-button.text :href="route('roles.index')" leading="arrow-left" color="gray">Back</x-button.text>
+                    <x-button :href="route('roles.index')" color="neutral" plain>&larr; Back</x-button>
                 @endcan
 
                 @can('update', $role)
-                    <x-button.filled :href="route('roles.edit', $role)" leading="edit" color="primary">
+                    <x-button :href="route('roles.edit', $role)" color="primary">
+                        <x-icon name="edit" size="sm"></x-icon>
                         Edit
-                    </x-button.filled>
+                    </x-button>
                 @endcan
             </x-slot>
-        </x-panel.header>
+        </x-page-header>
 
-        <div class="flex flex-col divide-gray-200 lg:flex-row lg:divide-x">
-            <div class="flex flex-1 flex-col gap-6 divide-y divide-gray-200">
-                <x-content-box class="flex flex-col gap-4">
-                    <x-h3>Users</x-h3>
+        <x-form action="">
+            <x-fieldset>
+                <x-panel well>
+                    <x-container width="sm" height="sm">
+                        <x-fieldset.legend>Permissions for this role</x-fieldset.legend>
+                    </x-container>
 
-                    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
-                        @foreach ($role->user as $user)
-                            <x-panel as="light-well" class="group flex w-full items-center justify-between">
-                                <x-content-box height="sm" width="sm">
-                                    <x-avatar.user :user="$user"></x-avatar.user>
-                                </x-content-box>
-                            </x-panel>
-                        @endforeach
-                    </div>
-                </x-content-box>
-            </div>
+                    <x-container height="2xs" width="2xs">
+                        <x-panel>
+                            <x-container>
+                                <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+                                    @forelse ($role->permissions as $permission)
+                                        <div>
+                                            <x-fieldset.legend>{{ $permission->display_name }}</x-fieldset.legend>
+                                            <x-fieldset.description>
+                                                {{ $permission->description }}
+                                            </x-fieldset.description>
+                                        </div>
+                                    @empty
+                                        <div class="lg:col-span-2">
+                                            <x-empty-state.small
+                                                icon="key"
+                                                title="No permissions assigned"
+                                                message="There are no permissions assigned this role"
+                                            ></x-empty-state.small>
+                                        </div>
+                                    @endforelse
+                                </div>
+                            </x-container>
+                        </x-panel>
+                    </x-container>
+                </x-panel>
+            </x-fieldset>
 
-            <div class="w-full lg:w-1/3">
-                <div class="flex w-full flex-col">
-                    <div class="flex items-center justify-between px-4 py-4">
-                        <x-h3>Permissions</x-h3>
-                    </div>
+            <x-fieldset>
+                <x-panel well>
+                    <x-container width="sm" height="sm">
+                        <x-fieldset.legend>Users with this role</x-fieldset.legend>
+                    </x-container>
 
-                    <div>
-                        @foreach ($role->permissions as $permission)
-                            <div
-                                class="group flex items-center justify-between px-4 py-2 odd:bg-gray-100 dark:odd:bg-gray-700/50"
-                            >
-                                {{ $permission->display_name }}
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    </x-panel>
+                    <x-container height="2xs" width="2xs">
+                        <x-panel>
+                            <x-container>
+                                <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+                                    @forelse ($role->user as $user)
+                                        <x-avatar.user :user="$user"></x-avatar.user>
+                                    @empty
+                                        <div class="lg:col-span-2">
+                                            <x-empty-state.small
+                                                icon="users"
+                                                title="No users assigned"
+                                                message="There are no users assigned this role"
+                                            ></x-empty-state.small>
+                                        </div>
+                                    @endforelse
+                                </div>
+                            </x-container>
+                        </x-panel>
+                    </x-container>
+                </x-panel>
+            </x-fieldset>
+        </x-form>
+    </x-container.narrow>
 @endsection

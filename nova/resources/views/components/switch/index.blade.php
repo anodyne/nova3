@@ -7,6 +7,10 @@
     'color' => 'primary',
 ])
 
+@php
+    $color = ($color === 'primary' && settings('appearance.panda')) ? 'panda' : $color;
+@endphp
+
 <div
     x-data="{
         @if ($attributes->hasStartsWith('wire:model'))
@@ -84,6 +88,7 @@
             // Colors
             match ($color) {
                 'danger' => '[--switch-bg-ring:theme(colors.danger.600/80%)] [--switch-bg:theme(colors.danger.500)] [--switch-ring:theme(colors.danger.600/80%)] [--switch-shadow:theme(colors.danger.900/20%)] [--switch:white] dark:[--switch-bg-ring:transparent]',
+                'panda' => '[--switch:white] [--switch-bg-ring:theme(colors.gray.950/90%)] [--switch-bg:theme(colors.gray.900)] [--switch-ring:theme(colors.gray.950/90%)] [--switch-shadow:theme(colors.black/10%)] dark:[--switch-bg-ring:transparent] dark:[--switch-bg-ring:theme(colors.gray.700/90%)] dark:[--switch-bg:theme(colors.white/25%)] dark:[--switch-ring:theme(colors.gray.700/90%)]',
                 default => '[--switch:white] [--switch-bg-ring:theme(colors.primary.600/80%)] [--switch-bg:theme(colors.primary.500)] [--switch-ring:theme(colors.primary.600/80%)] [--switch-shadow:theme(colors.primary.900/20%)] dark:[--switch-bg-ring:transparent]',
             },
         ])

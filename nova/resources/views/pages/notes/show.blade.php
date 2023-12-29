@@ -4,11 +4,12 @@
     <x-panel>
         <x-panel.header :title="$note->title">
             <x-slot name="actions">
-                <x-button.text :href="route('notes.index')" leading="arrow-left" color="gray">Back</x-button.text>
+                <x-button :href="route('notes.index')" color="neutral" plain>&larr; Back</x-button>
 
-                <x-button.filled :href="route('notes.edit', $note)" leading="edit" color="primary">
+                <x-button :href="route('notes.edit', $note)" color="primary">
+                    <x-icon name="edit" size="sm"></x-icon>
                     Edit
-                </x-button.filled>
+                </x-button>
             </x-slot>
         </x-panel.header>
 

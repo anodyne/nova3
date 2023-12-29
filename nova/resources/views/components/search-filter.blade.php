@@ -21,20 +21,20 @@
 
         <x-loader-circle x-show="isLoading" x-cloak class="ml-3 size-5 text-gray-500" />
 
-        <x-button.text
+        <x-button
             x-show="!!search"
             x-on:click.prevent="isLoading = true; search = ''; refreshList(null);"
             x-cloak
             id="clear-search"
             class="ml-3"
-            color="gray"
-            size="none"
+            color="neutral"
             data-cy="search-clear"
             role="button"
             aria-label="Reset"
+            text
         >
             <x-icon name="x" size="sm"></x-icon>
-        </x-button.text>
+        </x-button>
     </div>
 </div>
 

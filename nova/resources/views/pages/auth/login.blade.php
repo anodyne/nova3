@@ -3,7 +3,7 @@
 @section('page-header', 'Sign in to your account')
 
 @section('content')
-    <x-form :action="route('login')" :divide="false">
+    <x-form :action="route('login')">
         <x-input.group label="Email" for="email" :error="$errors->first('email')">
             <x-input.email
                 id="email"
@@ -34,11 +34,11 @@
                 <x-fieldset.label for="remember">Remember me</x-fieldset.label>
             </div>
 
-            <x-button.text color="gray" :href="route('password.request')">Forgot your password?</x-button.text>
+            <x-button :href="route('password.request')" color="neutral" text>Forgot your password?</x-button>
         </div>
 
         <div>
-            <x-button.filled type="submit" class="w-full" color="primary">Sign in</x-button.filled>
+            <x-button type="submit" class="w-full" color="primary">Sign in</x-button>
         </div>
     </x-form>
 @endsection

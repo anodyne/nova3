@@ -34,7 +34,6 @@ use Nova\Foundation\Nova;
 use Nova\Foundation\NovaBladeDirectives;
 use Nova\Foundation\NovaManager;
 use Nova\Foundation\Responses\FiltersManager;
-use Nova\Foundation\View\Components\ContentBox;
 use Nova\Foundation\View\Components\EmailLayout;
 use Nova\Foundation\View\Components\Tips;
 use Nova\Navigation\Models\Navigation;
@@ -126,7 +125,6 @@ class AppServiceProvider extends ServiceProvider
 
     protected function registerBladeComponents()
     {
-        Blade::component('content-box', ContentBox::class);
         Blade::component('tips', Tips::class);
         Blade::component('email-layout', EmailLayout::class);
     }
@@ -144,7 +142,7 @@ class AppServiceProvider extends ServiceProvider
         Livewire::component('rating', Rating::class);
         Livewire::component('icon-picker', IconPicker::class);
         Livewire::component('color-shade-picker', ColorShadePicker::class);
-        Livewire::component('confirmation-modal', ConfirmationModal::class);
+        // Livewire::component('confirmation-modal', ConfirmationModal::class);
     }
 
     protected function registerResponseFilters(): void
@@ -169,8 +167,6 @@ class AppServiceProvider extends ServiceProvider
         FilamentColor::addShades('badge', [200, 300, 400, 700, 800, 950]);
         FilamentColor::addShades('tables::columns.toggle-column.on', [500, 900]);
         FilamentColor::addShades('forms::components.toggle.on', [500, 900]);
-        FilamentColor::addShades('tables::columns.toggle-column.off', [500, 900]);
-        FilamentColor::addShades('forms::components.toggle.off', [500, 900]);
 
         FilamentIcon::register([
             'tables::search-field' => iconName('search'),
@@ -179,13 +175,18 @@ class AppServiceProvider extends ServiceProvider
 
         Table::configureUsing(function (Table $table) {
             $table
-                ->filtersTriggerAction(fn ($action) => $action->icon(iconName('filter'))->size('lg')->color('gray'))
-                ->toggleColumnsTriggerAction(fn ($action) => $action->icon(iconName('columns'))->size('lg')->color('gray'))
-                ->reorderRecordsTriggerAction(fn ($action, bool $isReordering) => $action
-                    ->icon($isReordering ? iconName('check') : iconName('arrows-sort'))
-                    ->size('lg')
-                    ->color($isReordering ? 'primary' : 'gray')
-                );
+                ->filtersTriggerAction(function ($action) {
+                    return $action->icon(iconName('filter'))->size('lg')->color('gray');
+                })
+                ->toggleColumnsTriggerAction(function ($action) {
+                    return $action->icon(iconName('columns'))->size('lg')->color('gray');
+                })
+                ->reorderRecordsTriggerAction(function ($action, bool $isReordering) {
+                    return $action
+                        ->icon($isReordering ? iconName('check') : iconName('arrows-sort'))
+                        ->size('lg')
+                        ->color($isReordering ? 'primary' : 'gray');
+                });
         });
 
         $this->app->bind(FilamentNotification::class, Notification::class);

@@ -12,9 +12,7 @@
         <x-panel.header title="Add a new form">
             <x-slot>
                 @can('viewAny', Nova\Forms\Models\Form::class)
-                    <x-button.text :href="route('forms.index')" color="gray" leading="arrow-left">
-                        Back to the forms list
-                    </x-button.text>
+                    <x-button :href="route('forms.index')" color="neutral" plain>&larr; Back</x-button>
                 @endcan
             </x-slot>
         </x-panel.header>
@@ -40,8 +38,8 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button.filled type="submit" color="primary">Add</x-button.filled>
-                <x-button.filled :href="route('forms.index')" color="neutral">Cancel</x-button.filled>
+                <x-button type="submit" color="primary">Add</x-button>
+                <x-button :href="route('forms.index')" plain>Cancel</x-button>
             </x-form.footer>
         </x-form>
     </x-panel>

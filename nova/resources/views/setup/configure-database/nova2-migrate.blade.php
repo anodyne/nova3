@@ -40,7 +40,7 @@
     @if ($shouldShowDatabaseOptions)
         <div class="mx-auto max-w-2xl space-y-8">
             <div class="grid grid-cols-2 gap-8">
-                <x-button.filled color="neutral" wire:click="useSameDatabaseForMigration">
+                <x-button color="neutral" wire:click="useSameDatabaseForMigration">
                     <x-content-box class="space-y-2 text-left">
                         <x-icon name="tabler-database" size="xl" class="text-gray-600"></x-icon>
                         <x-h3>Use the same database</x-h3>
@@ -48,9 +48,9 @@
                             Your Nova 2 database tables live in the same database that you are installing Nova 3 into.
                         </p>
                     </x-content-box>
-                </x-button.filled>
+                </x-button>
 
-                <x-button.filled color="neutral" wire:click="useDifferentDatabaseForMigration">
+                <x-button color="neutral" wire:click="useDifferentDatabaseForMigration">
                     <x-content-box class="space-y-2 text-left">
                         <x-icon name="tabler-database-export" size="xl" class="text-gray-600"></x-icon>
                         <x-h3>Use a different database</x-h3>
@@ -59,13 +59,11 @@
                             3 into.
                         </p>
                     </x-content-box>
-                </x-button.filled>
+                </x-button>
             </div>
 
             <div class="flex flex-col items-center">
-                <x-button.filled :href="url('setup/migrate')" color="neutral">
-                    Back to migration center
-                </x-button.filled>
+                <x-button :href="url('setup/migrate')" color="neutral">Back to migration center</x-button>
             </div>
         </div>
     @else

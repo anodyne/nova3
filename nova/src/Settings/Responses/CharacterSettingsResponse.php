@@ -6,7 +6,7 @@ namespace Nova\Settings\Responses;
 
 use Nova\Foundation\Responses\Responsable;
 
-class CharactersSettingsResponse extends Responsable
+class CharacterSettingsResponse extends Responsable
 {
     public ?string $subnav = 'settings';
 

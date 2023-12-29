@@ -5,9 +5,7 @@
         <x-panel.header title="Add a new rank item">
             <x-slot name="actions">
                 @can('viewAny', Nova\Ranks\Models\RankItem::class)
-                    <x-button.text :href="route('ranks.items.index')" leading="arrow-left" color="gray">
-                        Back
-                    </x-button.text>
+                    <x-button :href="route('ranks.items.index')" color="neutral" plain>&larr; Back</x-button>
                 @endcan
             </x-slot>
         </x-panel.header>
@@ -22,9 +20,9 @@
                         <livewire:rank-groups-dropdown :group-id="old('group_id')" />
 
                         @can('create', 'Nova\Ranks\Models\RankGroup')
-                            <x-button.text :href="route('ranks.groups.index')" color="gray" class="ml-3">
+                            <x-button :href="route('ranks.groups.index')" color="neutral" class="ml-3" text>
                                 <x-icon name="settings" size="md"></x-icon>
-                            </x-button.text>
+                            </x-button>
                         @endcan
                     </div>
                 </x-input.group>
@@ -34,9 +32,9 @@
                         <livewire:rank-names-dropdown :name-id="old('name_id')" />
 
                         @can('create', 'Nova\Ranks\Models\RankName')
-                            <x-button.text :href="route('ranks.names.index')" color="gray" class="ml-3">
+                            <x-button :href="route('ranks.names.index')" color="neutral" class="ml-3" text>
                                 <x-icon name="settings" size="md"></x-icon>
-                            </x-button.text>
+                            </x-button>
                         @endcan
                     </div>
                 </x-input.group>
@@ -148,8 +146,8 @@
             </x-content-box>
 
             <x-form.footer>
-                <x-button.filled type="submit" color="primary">Add</x-button.filled>
-                <x-button.filled :href="route('ranks.items.index')" color="neutral">Cancel</x-button.filled>
+                <x-button type="submit" color="primary">Add</x-button>
+                <x-button :href="route('ranks.items.index')" plain>Cancel</x-button>
             </x-form.footer>
 
             <input type="hidden" name="base_image" x-model="base" />

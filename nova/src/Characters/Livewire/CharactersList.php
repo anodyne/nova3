@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Livewire;
 
+use Filament\Forms\Components\Toggle;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
 use Filament\Tables\Filters\Filter;
@@ -339,18 +340,20 @@ class CharactersList extends TableComponent
                     ->multiple()
                     ->options(CharacterType::class),
                 Filter::make('only_my_characters')
-                    ->toggle()
-                    ->query(fn (Builder $query): Builder => $query->whereRelation('users', 'users.id', '=', auth()->id()))
+                    ->form([
+                        Toggle::make('my_characters')
+                            ->label('Only my characters')
+                            ->onColor(fn () => settings('appearance.panda') ? 'panda' : 'primary')
+                            ->extraAttributes(['data-panda' => settings('appearance.panda')]),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query->when(
+                            $data['my_characters'],
+                            fn (Builder $query): Builder => $query->whereRelation('users', 'users.id', '=', auth()->id())
+                        );
+                    })
                     ->visible(auth()->user()->can('manage', new Character())),
                 TrashedFilter::make()->label('Deleted characters'),
-            ])
-            ->heading('Characters')
-            ->description("Manage all of the game's characters")
-            ->headerActions([
-                CreateAction::make()
-                    ->authorize('createAny')
-                    ->label('Add')
-                    ->url(route('characters.create')),
             ])
             ->emptyStateIcon(iconName('characters'))
             ->emptyStateHeading('No characters found')

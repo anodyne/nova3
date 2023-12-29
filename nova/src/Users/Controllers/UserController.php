@@ -38,6 +38,7 @@ class UserController extends Controller
     {
         return ShowUserResponse::sendWith([
             'user' => $user->load('roles', 'latestLogin', 'latestPost')->loadCount('activeCharacters', 'characters', 'publishedPosts'),
+            'publishedPosts' => $user->publishedPosts()->take(5)->get(),
         ]);
     }
 

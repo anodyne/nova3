@@ -3,7 +3,7 @@
 @section('page-header', 'Reset your password')
 
 @section('content')
-    <x-form :action="route('password.update')" :divide="false">
+    <x-form :action="route('password.update')">
         <x-input.group label="Email" for="email" :error="$errors->first('email')">
             <x-input.email
                 id="email"
@@ -30,9 +30,9 @@
             />
         </x-input.group>
 
-        <x-button.filled type="submit" class="w-full" color="primary">
+        <x-button type="submit" class="w-full" color="primary">
             {{ __('Reset Password') }}
-        </x-button.filled>
+        </x-button>
 
         <input type="hidden" name="token" value="{{ request()->route('token') }}" />
     </x-form>

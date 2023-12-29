@@ -16,32 +16,22 @@
     $pluralModelLabel = $table->getPluralModelLabel();
 @endphp
 
-<div>
-    <x-filament-tables::header
-        :actions="[]"
-        :actions-position="$headerActionsPosition"
-        class="mb-2"
-        :heading="$heading"
-        :description="$description"
-    />
+<x-content-box height="none" width="none">
+    <x-panel.primary icon="arrows-sort" title="Change sorting order">
+        <div class="space-y-4">
+            <p>
+                Sorting roles allows for admins to control the hierarchy of roles in the system to ensure that users
+                with a lower role cannot give themselves higher privileges.
+            </p>
 
-    <x-content-box height="none" class="mb-6">
-        <x-panel.primary icon="arrows-sort" title="Change sorting order">
-            <div class="space-y-4">
-                <p>
-                    Sorting roles allows for admins to control the hierarchy of roles in the system to ensure that users
-                    with a lower role cannot give themselves higher privileges.
-                </p>
+            <p>
+                Top roles have the greatest privileges &ndash; place the most important roles with the highest potential
+                impact higher on the list, to ensure users can't gain unwanted access to areas of Nova.
+            </p>
 
-                <p>
-                    Top roles have the greatest privileges &ndash; place the most important roles with the highest
-                    potential impact higher on the list, to ensure users can't gain unwanted access to areas of Nova.
-                </p>
-
-                <div>
-                    <x-button.filled wire:click="toggleTableReordering" color="primary">Finish</x-button.filled>
-                </div>
+            <div>
+                <x-button wire:click="toggleTableReordering" color="primary">Finish</x-button>
             </div>
-        </x-panel.primary>
-    </x-content-box>
-</div>
+        </div>
+    </x-panel.primary>
+</x-content-box>

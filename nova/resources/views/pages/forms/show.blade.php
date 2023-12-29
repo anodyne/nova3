@@ -4,7 +4,7 @@
     <x-panel>
         <x-panel.header :title="$form->name" />
 
-        <x-form action="" :divide="false" :space="false">
+        <x-form action="" :space="false">
             <x-form.section title="Form Info" message="Ad in nostrud nostrud laboris in qui aliquip velit.">
                 <x-input.group label="Name">
                     <p class="font-semibold">{{ $form->name }}</p>
@@ -23,16 +23,18 @@
 
             <x-form.footer class="mt-4 md:mt-8">
                 @can('update', $form)
-                    <x-button.filled :href="route('forms.edit', $form)" leading="edit" color="primary">
+                    <x-button :href="route('forms.edit', $form)" color="primary">
+                        <x-icon name="edit" size="sm"></x-icon>
                         Edit
-                    </x-button.filled>
-                    <x-button.outlined :href="route('forms.edit', $form)" leading="tools" color="primary">
+                    </x-button>
+                    <x-button :href="route('forms.edit', $form)" color="neutral">
+                        <x-icon name="tools" size="sm"></x-icon>
                         Design
-                    </x-button.outlined>
+                    </x-button>
                 @endcan
 
                 @can('viewAny', $form::class)
-                    <x-button.text :href="route('forms.index')" color="gray" leading="arrow-left">Back</x-button.text>
+                    <x-button :href="route('forms.index')" color="neutral" plain>&larr; Back</x-button>
                 @endcan
             </x-form.footer>
         </x-form>

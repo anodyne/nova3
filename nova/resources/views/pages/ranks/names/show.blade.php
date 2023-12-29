@@ -14,15 +14,14 @@
 
             <x-slot name="actions">
                 @can('viewAny', Nova\Ranks\Models\RankName::class)
-                    <x-button.text :href="route('ranks.names.index')" leading="arrow-left" color="gray">
-                        Back
-                    </x-button.text>
+                    <x-button :href="route('ranks.names.index')" color="neutral" plain>&larr; Back</x-button>
                 @endcan
 
                 @can('update', $name)
-                    <x-button.filled :href="route('ranks.names.edit', $name)" color="primary" leading="edit">
+                    <x-button :href="route('ranks.names.edit', $name)" color="primary">
+                        <x-icon name="edit" size="sm"></x-icon>
                         Edit
-                    </x-button.filled>
+                    </x-button>
                 @endcan
             </x-slot>
         </x-panel.header>
@@ -46,13 +45,14 @@
                                 </div>
 
                                 @can('update', $rank)
-                                    <x-button.text
+                                    <x-button
                                         :href="route('ranks.items.edit', $rank)"
-                                        color="gray"
+                                        color="neutral"
                                         class="group-hover:visible sm:invisible"
+                                        text
                                     >
                                         <x-icon name="edit" size="sm"></x-icon>
-                                    </x-button.text>
+                                    </x-button>
                                 @endcan
                             </div>
                         </x-content-box>

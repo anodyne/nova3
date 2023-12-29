@@ -1,153 +1,139 @@
 @extends($meta->template)
 
+@use('Nova\Users\Models\User')
+
 @section('content')
-    <x-panel class="overflow-hidden">
-        <x-panel.header>
-            <x-slot name="title">
-                <div class="flex items-center gap-4">
-                    <span>{{ $user->name }}</span>
-                    <div class="flex items-center">
-                        <x-badge :color="$user->status->color()">
-                            {{ $user->status->getLabel() }}
-                        </x-badge>
-                    </div>
+    <x-container.narrow>
+        <x-page-header>
+            <x-slot name="heading">{{ $user->name }}</x-slot>
+            <x-slot name="description">
+                <div class="mt-2">
+                    <x-badge :color="$user->status->color()" size="md">
+                        {{ $user->status->getLabel() }}
+                    </x-badge>
                 </div>
             </x-slot>
 
             <x-slot name="actions">
-                @can('viewAny', Nova\Users\Models\User::class)
-                    <x-button.text :href="route('users.index')" leading="arrow-left" color="gray">Back</x-button.text>
+                @can('viewAny', User::class)
+                    <x-button :href="route('users.index')" plain>&larr; Back</x-button>
                 @endcan
 
                 @can('update', $user)
-                    <x-button.filled :href="route('users.edit', $user)" leading="edit" color="primary">
+                    <x-button :href="route('users.edit', $user)" color="primary">
+                        <x-icon name="edit" size="sm"></x-icon>
                         Edit
-                    </x-button.filled>
+                    </x-button>
                 @endcan
             </x-slot>
-        </x-panel.header>
+        </x-page-header>
 
-        <div class="flex flex-col divide-gray-200 lg:flex-row lg:divide-x">
-            <div class="flex flex-1 flex-col gap-6 divide-y divide-gray-200">
-                <x-content-box>
-                    <div class="grid grid-cols-1 gap-y-8 lg:grid-cols-3">
-                        <x-panel.stat label="Active characters" :value="$user->active_characters_count"></x-panel.stat>
-                        <x-panel.stat label="Total characters" :value="$user->characters_count"></x-panel.stat>
-                        <x-panel.stat
-                            label="Total published posts"
-                            :value="$user->published_posts_count"
-                        ></x-panel.stat>
-                        <x-panel.stat label="Joined">
-                            {{ $user->created_at->diffForHumans() }}
-                        </x-panel.stat>
-                        <x-panel.stat label="Last signed in">
-                            {{ $user->latestLogin?->created_at->diffForHumans() ?? '-' }}
-                        </x-panel.stat>
-                        <x-panel.stat label="Last posted">
-                            {{ $user->latestPost->first()?->published_at?->diffForHumans() }}
-                        </x-panel.stat>
-                    </div>
-                </x-content-box>
+        <ul data-slot="tabs" class="mb-6 flex items-center gap-x-4">
+            <li
+                @class([
+                    'rounded-full px-4 py-0.5 text-sm/6 font-semibold ',
+                    'text-gray-500 dark:text-gray-400' => true,
+                    'bg-gray-950/10 text-gray-900 dark:bg-white/10 dark:text-white' => false,
+                ])
+            >
+                Details
+            </li>
+            <li
+                @class([
+                    'rounded-full px-4 py-0.5 text-sm/6 font-semibold ',
+                    'text-gray-500 dark:text-gray-400' => false,
+                    'bg-gray-950/10 text-gray-900 dark:bg-white/10 dark:text-white' => true,
+                ])
+            >
+                Stats
+            </li>
+        </ul>
 
-                <x-content-box class="flex flex-col gap-4">Dynamic form content will go here.</x-content-box>
-            </div>
+        <div class="space-y-8">
+            <x-panel well>
+                <x-container height="xs" width="xs">
+                    <x-fieldset.legend>Characters</x-fieldset.legend>
+                </x-container>
 
-            <div class="w-full lg:w-1/3">
-                <div class="flex w-full flex-col">
-                    <div class="flex items-center justify-between px-4 py-4">
-                        <x-h3>Characters</x-h3>
-                    </div>
+                <x-container height="2xs" width="2xs">
+                    <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
+                        <x-container height="sm" width="sm" class="grid lg:grid-cols-2">
+                            <x-panel.stat
+                                label="Active characters"
+                                :value="$user->active_characters_count"
+                            ></x-panel.stat>
+                            <x-panel.stat label="Total characters" :value="$user->characters_count"></x-panel.stat>
+                        </x-container>
 
-                    <div>
-                        @forelse ($user->characters as $character)
-                            <div
-                                class="group flex items-center justify-between px-4 py-2 odd:bg-gray-100 dark:odd:bg-gray-700/50"
-                            >
-                                <div class="flex items-center gap-3">
-                                    <x-status :status="$character->status"></x-status>
-                                    <span>{{ $character->display_name }}</span>
+                        <x-container class="grid gap-4 lg:grid-cols-2">
+                            @forelse ($user->characters as $character)
+                                <x-avatar.character :character="$character"></x-avatar.character>
+                            @empty
+                                <div class="lg:col-span-2">
+                                    <x-empty-state.small
+                                        icon="characters"
+                                        title="No characters assigned"
+                                        message="There aren’t any positions assigned to this department. Assign some positions to this department to populate this list."
+                                        :link-access="gate()->allows('viewAny', Nova\Departments\Models\Position::class)"
+                                        :link="route('positions.index')"
+                                        label="Assign positions"
+                                    ></x-empty-state.small>
                                 </div>
-                                @can('update', $character)
-                                    <x-button.text
-                                        :href="route('characters.edit', $character)"
-                                        color="gray"
-                                        class="shrink-0 group-hover:visible sm:invisible"
-                                    >
-                                        <x-icon name="edit" size="sm"></x-icon>
-                                    </x-button.text>
-                                @endcan
-                            </div>
-                        @empty
-                            <div class="px-4">
-                                <x-empty-state.small
-                                    icon="list"
-                                    title="No positions assigned"
-                                    message="There aren’t any positions assigned to this department. Assign some positions to this department to populate this list."
-                                    :link-access="gate()->allows('viewAny', Nova\Departments\Models\Position::class)"
-                                    :link="route('positions.index')"
-                                    label="Assign positions"
-                                ></x-empty-state.small>
-                            </div>
-                        @endforelse
-                    </div>
-                </div>
-            </div>
-        </div>
-    </x-panel>
-
-    <div class="grid hidden grid-cols-1 items-start gap-4 lg:grid-cols-3 lg:gap-8">
-        <div class="space-y-8 lg:col-span-2">
-            <x-panel>
-                <x-content-box>
-                    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between lg:space-x-8">
-                        <div>
-                            <x-avatar.user :user="$user" size="xl" :secondary-pronouns="true"></x-avatar.user>
-                        </div>
-
-                        <div class="flex items-center space-x-4">
-                            <x-badge :color="$user->status->color()">
-                                {{ $user->status->getLabel() }}
-                            </x-badge>
-                        </div>
-                    </div>
-
-                    <div class="mt-4 space-x-4">
-                        @can('update', $user)
-                            <x-button.filled :href="route('users.edit', $user)" leading="edit" color="primary">
-                                Edit
-                            </x-button.filled>
-                        @endcan
-
-                        <x-button.text :href="route('users.index')" leading="arrow-left" color="gray">
-                            Back
-                        </x-button.text>
-                    </div>
-                </x-content-box>
+                            @endforelse
+                        </x-container>
+                    </x-panel>
+                </x-container>
             </x-panel>
 
-            <x-panel>
-                <x-content-box>Dynamic form content will go here</x-content-box>
-            </x-panel>
-        </div>
+            <x-panel well>
+                <x-container height="xs" width="xs">
+                    <x-fieldset.legend>Posting</x-fieldset.legend>
+                </x-container>
 
-        <div>
-            <x-panel class="divide-y divide-gray-200 dark:divide-gray-600/50">
-                @if ($user->characters->count() > 0)
-                    <x-content-box>
-                        <div class="flex w-full flex-col space-y-4">
-                            @foreach ($user->characters as $character)
-                                <div class="flex items-center justify-between">
-                                    <x-avatar.character :character="$character"></x-avatar.character>
+                <x-container height="2xs" width="2xs">
+                    <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
+                        <x-container height="sm" width="sm" class="grid lg:grid-cols-2">
+                            <x-panel.stat label="Published posts" :value="$user->published_posts_count"></x-panel.stat>
+                            <x-panel.stat label="Last posted">
+                                {{ $user->latestPost->first()?->published_at?->diffForHumans() ?? '-' }}
+                            </x-panel.stat>
+                        </x-container>
 
-                                    @if ($character->pivot->primary)
-                                        <x-badge color="primary">Primary</x-badge>
-                                    @endif
+                        <x-container class="grid gap-4 lg:grid-cols-2">
+                            @forelse ($publishedPosts as $post)
+                                {{ $post->title }}
+                            @empty
+                                <div class="lg:col-span-2">
+                                    <x-empty-state.small
+                                        icon="books"
+                                        title="No published posts"
+                                        message="There aren’t any published posts by this user"
+                                    ></x-empty-state.small>
                                 </div>
-                            @endforeach
-                        </div>
-                    </x-content-box>
-                @endif
+                            @endforelse
+                        </x-container>
+                    </x-panel>
+                </x-container>
+            </x-panel>
+
+            <x-panel class="lg:col-span-3" well>
+                <x-container height="xs" width="xs">
+                    <x-fieldset.legend>History / activity</x-fieldset.legend>
+                </x-container>
+
+                <x-container height="2xs" width="2xs">
+                    <x-panel>
+                        <x-container height="sm" width="sm" class="grid lg:grid-cols-2">
+                            <x-panel.stat label="Joined">
+                                {{ $user->created_at->diffForHumans() }}
+                            </x-panel.stat>
+                            <x-panel.stat label="Last signed in">
+                                {{ $user->latestLogin?->created_at->diffForHumans() ?? '-' }}
+                            </x-panel.stat>
+                        </x-container>
+                    </x-panel>
+                </x-container>
             </x-panel>
         </div>
-    </div>
+    </x-container.narrow>
 @endsection

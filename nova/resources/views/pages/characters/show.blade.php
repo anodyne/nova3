@@ -27,20 +27,15 @@
                         </div>
                     </div>
 
-                    <div class="mt-4 space-x-4">
+                    <div class="mt-4 flex items-center space-x-4">
                         @can('update', $character)
-                            <x-button.filled
-                                :href="route('characters.edit', $character)"
-                                leading="edit"
-                                color="primary"
-                            >
+                            <x-button :href="route('characters.edit', $character)" color="primary">
+                                <x-icon name="edit" size="sm"></x-icon>
                                 Edit
-                            </x-button.filled>
+                            </x-button>
                         @endcan
 
-                        <x-button.text :href="route('characters.index')" leading="arrow-left" color="gray">
-                            Back
-                        </x-button.text>
+                        <x-button :href="route('characters.index')" plain>&larr; Back</x-button>
                     </div>
                 </x-content-box>
             </x-panel>

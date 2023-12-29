@@ -12,7 +12,7 @@
         <x-panel.header title="Add a new theme">
             <x-slot name="actions">
                 @can('viewAny', Nova\Themes\Models\Theme::class)
-                    <x-button.text :href="route('themes.index')" leading="arrow-left" color="gray">Back</x-button.text>
+                    <x-button :href="route('themes.index')" color="neutral" plain>&larr; Back</x-button>
                 @endcan
             </x-slot>
         </x-panel.header>
@@ -74,8 +74,8 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button.filled type="submit" color="primary">Add</x-button.filled>
-                <x-button.filled :href="route('themes.index')" color="neutral">Cancel</x-button.filled>
+                <x-button type="submit" color="primary">Add</x-button>
+                <x-button :href="route('themes.index')" plain>Cancel</x-button>
             </x-form.footer>
         </x-form>
     </x-panel>

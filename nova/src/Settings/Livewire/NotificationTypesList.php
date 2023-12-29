@@ -46,12 +46,24 @@ class NotificationTypesList extends TableComponent
                     ->badge()
                     ->color(fn (Model $record): string => $record->audience->color())
                     ->toggleable(),
-                ToggleColumn::make('database')->label('Allow in-app')->alignCenter(),
-                ToggleColumn::make('mail')->label('Allow email')->alignCenter(),
+                ToggleColumn::make('database')
+                    ->label('Allow in-app')
+                    ->alignCenter()
+                    ->onColor(fn () => settings('appearance.panda') ? 'panda' : 'primary')
+                    ->extraAttributes(['data-panda' => settings('appearance.panda')]),
+                ToggleColumn::make('mail')
+                    ->label('Allow email')
+                    ->alignCenter()
+                    ->onColor(fn () => settings('appearance.panda') ? 'panda' : 'primary')
+                    ->extraAttributes(['data-panda' => settings('appearance.panda')]),
                 ToggleColumn::make('discord')
                     ->label('Allow Discord')
-                    ->extraAttributes(fn (Model $record): array => ['class' => $record->audience->canUseDiscord() ? '' : 'hidden'])
-                    ->alignCenter(),
+                    ->extraAttributes(fn (Model $record): array => [
+                        'class' => $record->audience->canUseDiscord() ? '' : 'hidden',
+                        'data-panda' => settings('appearance.panda'),
+                    ])
+                    ->alignCenter()
+                    ->onColor(fn () => settings('appearance.panda') ? 'panda' : 'primary'),
             ])
             ->actions([
                 ActionGroup::make([
@@ -81,9 +93,13 @@ class NotificationTypesList extends TableComponent
                             ->form([
                                 Toggle::make('database_default')
                                     ->label('In-app')
+                                    ->onColor(fn () => settings('appearance.panda') ? 'panda' : 'primary')
+                                    ->extraAttributes(['data-panda' => settings('appearance.panda')])
                                     ->helperText('When triggered, this notification will be sent to the Notifications panel inside of Nova. Any user who has enabled it in their preferences will see an indicator on the notifications icon in the header.'),
                                 Toggle::make('mail_default')
                                     ->label('Email')
+                                    ->onColor(fn () => settings('appearance.panda') ? 'panda' : 'primary')
+                                    ->extraAttributes(['data-panda' => settings('appearance.panda')])
                                     ->helperText('When triggered, this notification will be emailed to any user who has enabled it in their preferences.'),
                             ])
                             ->visible(fn (Model $record): bool => $record->audience === NotificationAudience::personal)
@@ -113,6 +129,8 @@ class NotificationTypesList extends TableComponent
                             ->form([
                                 Toggle::make('use_global')
                                     ->label('Use global settings')
+                                    ->onColor(fn () => settings('appearance.panda') ? 'panda' : 'primary')
+                                    ->extraAttributes(['data-panda' => settings('appearance.panda')])
                                     ->live(),
                                 TextInput::make('webhook')
                                     ->label('Discord webhook')

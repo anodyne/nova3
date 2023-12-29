@@ -1,23 +1,26 @@
 @props([
-    'title',
+    'heading',
+    'description' => null,
     'actions' => null,
-    'pretitle' => false,
 ])
 
-<div class="mb-8 px-4 sm:px-0 md:flex md:items-center md:justify-between" data-cy="page-header" {{ $attributes }}>
-    <div class="flex-1 min-w-0">
-        @if ($pretitle)
-            <div class="block mb-2 leading-none text-base md:text-sm text-gray-500 font-semibold uppercase tracking-wide">
-                {{ $pretitle }}
+<div class="mb-8 px-4 sm:px-0" data-cy="page-header" {{ $attributes }}>
+    <div class="md:flex md:items-center md:justify-between">
+        <div class="min-w-0 flex-1">
+            <x-h1>{{ $heading ?? $slot }}</x-h1>
+        </div>
+
+        @if ($actions?->isNotEmpty())
+            <div
+                class="mt-4 inline-flex w-auto flex-row-reverse items-center space-x-4 space-x-reverse sm:flex-row sm:space-x-4 md:mt-0"
+                data-cy="page-header-controls"
+            >
+                {{ $actions }}
             </div>
         @endif
-
-        <x-h1 data-cy="page-header-title">{{ $title ?? $slot }}</x-h1>
     </div>
 
-    @if ($actions?->isNotEmpty())
-        <div class="inline-flex flex-row-reverse sm:flex-row items-center w-auto mt-4 md:mt-0 space-x-4 space-x-reverse sm:space-x-4" data-cy="page-header-controls">
-            {{ $actions }}
-        </div>
+    @if ($description?->isNotEmpty())
+        <x-text>{{ $description }}</x-text>
     @endif
 </div>

@@ -105,13 +105,6 @@ class NotesList extends TableComponent
                             ->send();
                     }),
             ])
-            ->heading('My notes')
-            ->headerActions([
-                CreateAction::make()
-                    ->authorize('create')
-                    ->label('Add')
-                    ->url(route('notes.create')),
-            ])
             ->emptyStateIcon(iconName('note'))
             ->emptyStateHeading('No notes found')
             ->emptyStateDescription('Notes help keep your thoughts organized about your game, a story idea, or even as a scratchpad for your next story post.')

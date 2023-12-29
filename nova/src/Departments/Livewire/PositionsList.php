@@ -53,6 +53,7 @@ class PositionsList extends TableComponent
             ])
             ->defaultGroup('department.order_column')
             ->defaultSort('order_column', 'asc')
+            ->reorderable('order_column')
             ->columns([
                 TextColumn::make('name')
                     ->titleColumn()
@@ -176,16 +177,7 @@ class PositionsList extends TableComponent
                     ),
                 SelectFilter::make('status')->options(PositionStatus::class),
             ])
-            ->heading('Positions')
-            ->description('The jobs or stations characters are assigned to for display on your manifests')
-            ->headerActions([
-                CreateAction::make()
-                    ->authorize('create')
-                    ->label('Add')
-                    ->url(route('positions.create')),
-            ])
             ->header(fn (): ?View => $this->isTableReordering() ? view('filament.tables.positions-reordering-notice') : null)
-            ->reorderable('order_column')
             ->emptyStateIcon(iconName('list'))
             ->emptyStateHeading('No positions found')
             ->emptyStateDescription('Positions are the jobs or stations that characters can be assigned to for display on your manifests.')

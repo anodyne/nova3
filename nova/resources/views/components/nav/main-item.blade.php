@@ -13,7 +13,13 @@
     {{ $attributes }}
 >
     @if ($active)
-        <div class="absolute left-0 h-full w-[3px] rounded-full rounded-l bg-primary-500"></div>
+        <div
+            @class([
+                'absolute left-0 h-full w-[3px] rounded-full rounded-l',
+                'bg-gray-900 dark:bg-white' => settings('appearance.panda'),
+                'bg-primary-500' => ! settings('appearance.panda'),
+            ])
+        ></div>
     @endif
 
     @if ($icon)

@@ -4,7 +4,7 @@
     <x-panel>
         <x-panel.header title="Edit character">
             <x-slot name="actions">
-                <x-button.text :href="route('characters.index')" leading="arrow-left" color="gray">Back</x-button.text>
+                <x-button :href="route('characters.index')" plain>&larr; Back</x-button>
             </x-slot>
         </x-panel.header>
 
@@ -104,8 +104,8 @@
             @endcanany
 
             <x-form.footer>
-                <x-button.filled type="submit" color="primary">Update</x-button.filled>
-                <x-button.filled :href="route('characters.index')" color="neutral">Cancel</x-button.filled>
+                <x-button type="submit" color="primary">Update</x-button>
+                <x-button :href="route('characters.index')" plain>Cancel</x-button>
             </x-form.footer>
         </x-form>
     </x-panel>

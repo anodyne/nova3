@@ -1,5 +1,5 @@
 .fi-ta-ctn {
-    @apply shadow;
+    @apply divide-y-0 rounded-none shadow-none ring-0;
 }
 
 .fi-ta-simple .fi-ta-ctn {
@@ -10,6 +10,13 @@
     @apply rounded-b-lg rounded-t-none shadow-none ring-0;
 }
 
+.fi-ta-header-ctn {
+    @apply divide-y-0;
+}
+
+.fi-ta-header-toolbar {
+    @apply !px-0.5 pb-4;
+}
 .fi-ta-header-heading {
     @apply block text-xl font-bold tracking-tight;
 }
@@ -17,9 +24,44 @@
     @apply text-gray-500 dark:text-gray-400;
 }
 
-/* TODO: this should be something that can be done from Filament */
-.fi-ac-icon-btn-group .fi-icon-btn-icon {
-    @apply h-7 w-7;
+.fi-ta-content {
+    @apply rounded-t-xl bg-gray-950/[.04] px-1.5 pb-px has-[.fi-ta-empty-state]:rounded-b-xl dark:bg-white/[.04];
+}
+
+.fi-ta-reorder-indicator + .fi-ta-content {
+    @apply rounded-b-xl pb-1.5;
+}
+
+.fi-ta-filter-indicators,
+.fi-ta-reorder-indicator,
+.fi-ta-selection-indicator {
+    @apply mb-4 rounded-xl bg-gray-950/[.04] py-2.5 dark:bg-white/[.04];
+}
+
+.fi-ta-table {
+    @apply divide-y-0;
+}
+.fi-ta-table thead {
+    @apply bg-transparent;
+}
+.fi-ta-table tbody {
+    @apply divide-gray-950/5 rounded-lg bg-white ring-1 ring-gray-950/5 dark:divide-white/5 dark:bg-gray-900 dark:ring-white/5;
+}
+.fi-ta-table tbody tr:first-child td:first-child {
+    @apply rounded-tl-lg;
+}
+.fi-ta-table tbody tr:first-child td:last-child {
+    @apply rounded-tr-lg;
+}
+.fi-ta-table tbody tr:last-child td:first-child {
+    @apply rounded-bl-lg;
+}
+.fi-ta-table tbody tr:last-child td:last-child {
+    @apply rounded-br-lg;
+}
+
+.fi-pagination {
+    @apply rounded-b-xl bg-gray-950/[.04] px-1.5 dark:bg-white/[.04];
 }
 
 .fi-ta-search-field .fi-input-wrp {
@@ -174,7 +216,7 @@
 }
 .fi-ta-toggle > div.fi-color-gray,
 .fi-fo-toggle.fi-color-gray {
-    @apply bg-gray-200 ring-black/5 hover:ring-black/15 dark:bg-white/5 dark:ring-transparent;
+    @apply bg-gray-200 ring-black/5 hover:ring-black/15 dark:bg-white/[.04] dark:ring-white/15 dark:hover:ring-white/25;
 }
 .fi-ta-toggle > div.fi-color-gray > span,
 .fi-fo-toggle.fi-color-gray > span {
@@ -182,9 +224,28 @@
 }
 .fi-ta-toggle > div.fi-color-custom,
 .fi-fo-toggle.fi-color-custom {
-    @apply bg-custom-500 ring-custom-600/80 hover:ring-black/15 dark:ring-transparent;
+    @apply bg-custom-500 ring-custom-600/80 hover:ring-black/15 dark:ring-transparent dark:hover:ring-transparent;
 }
 .fi-ta-toggle > div.fi-color-custom > span,
 .fi-fo-toggle.fi-color-custom > span {
     @apply translate-x-4 shadow shadow-custom-900/20 ring-custom-600/80 sm:translate-x-3;
+}
+
+.fi-ta-toggle[data-panda] > div.fi-color-custom,
+.fi-fo-toggle[data-panda].fi-color-custom {
+    @apply bg-gray-900 ring-gray-950/90 hover:ring-black/15 dark:bg-gray-600 dark:ring-transparent dark:hover:ring-transparent;
+}
+
+.fi-checkbox-input {
+    @apply checked:bg-primary-500 checked:hover:bg-primary-500 checked:focus:bg-primary-500;
+}
+body[data-panda] .fi-checkbox-input {
+    @apply checked:bg-gray-900 checked:hover:bg-gray-900 dark:checked:bg-gray-600 dark:checked:hover:bg-gray-600;
+}
+
+.fi-radio-input {
+    @apply checked:bg-primary-500 checked:hover:bg-primary-500;
+}
+body[data-panda] .fi-radio-input {
+    @apply checked:bg-gray-900 checked:hover:bg-gray-900 dark:checked:bg-gray-600 dark:checked:hover:bg-gray-600;
 }

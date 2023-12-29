@@ -95,8 +95,6 @@ class ActivityLogList extends TableComponent
                     ->options(fn () => Activity::whereNotNull('event')->groupBy('event')->orderBy('event')->pluck('event'))
                     ->multiple()
                     ->searchable(),
-            ])
-            ->heading('Activity log')
-            ->description('Track all user activity in Nova');
+            ]);
     }
 }

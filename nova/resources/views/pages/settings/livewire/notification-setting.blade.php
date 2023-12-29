@@ -18,9 +18,9 @@
                     </p>
 
                     <div>
-                        <x-button.text type="button" wire:click="switchToPersonalSetting" color="warning">
+                        <x-button type="button" wire:click="switchToPersonalSetting" color="warning" text>
                             Switch to personal preference setting &rarr;
-                        </x-button.text>
+                        </x-button>
                     </div>
                 </div>
             </x-panel.warning>
@@ -35,9 +35,9 @@
                     </p>
 
                     <div>
-                        <x-button.text type="button" wire:click="switchToGlobalSetting" color="primary">
+                        <x-button type="button" wire:click="switchToGlobalSetting" color="primary" text>
                             Switch to global setting &rarr;
-                        </x-button.text>
+                        </x-button>
                     </div>
                 </div>
             </x-panel.primary>
@@ -115,7 +115,7 @@
         height="sm"
         width="sm"
     >
-        <x-button.filled color="primary" wire:click="apply">Apply</x-button.filled>
-        <x-button.filled color="neutral" wire:click="dismiss">Cancel</x-button.filled>
+        <x-button wire:click="apply" color="primary">Apply</x-button>
+        <x-button wire:click="dismiss" plain>Cancel</x-button>
     </x-content-box>
 </div>

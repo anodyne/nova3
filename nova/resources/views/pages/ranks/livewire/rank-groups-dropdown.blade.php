@@ -60,9 +60,9 @@
                     />
 
                     @if (filled($search))
-                        <x-button.text wire:click="$set('search', '')" color="gray">
+                        <x-button wire:click="$set('search', '')" color="neutral" text>
                             <x-icon name="x" size="sm"></x-icon>
-                        </x-button.text>
+                        </x-button>
                     @endif
                 </div>
 
@@ -97,9 +97,9 @@
                             &lsquo;{{ $search }}&rsquo;
                         </div>
 
-                        <x-button.outlined wire:click="createAndSelectGroup" type="button" color="primary">
+                        <x-button wire:click="createAndSelectGroup" type="button" color="neutral">
                             Create this group
-                        </x-button.outlined>
+                        </x-button>
                     </div>
                 @endforelse
             </div>

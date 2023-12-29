@@ -30,15 +30,16 @@
 >
     <div>
         @isset($trigger)
-            <x-button.text
+            <x-button
                 tag="button"
                 x-on:click="toggle"
                 :color="$trigger->attributes->get('color', 'subtle-neutral')"
                 :leading="$trigger->attributes->get('leading')"
                 :trailing="$trigger->attributes->get('trailing')"
+                text
             >
                 {{ $trigger }}
-            </x-button.text>
+            </x-button>
         @endisset
 
         @isset($emptyTrigger)

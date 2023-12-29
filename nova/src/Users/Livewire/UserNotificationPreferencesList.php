@@ -39,9 +39,13 @@ class UserNotificationPreferencesList extends TableComponent
                     ->color(fn (Model $record): string => $record->notificationType->audience->color()),
                 ToggleColumn::make('database')
                     ->label('In-app')
+                    ->onColor(fn () => settings('appearance.panda') ? 'panda' : 'primary')
+                    ->extraAttributes(['data-panda' => settings('appearance.panda')])
                     ->disabled(fn (Model $record): bool => ! $record->notificationType->database),
                 ToggleColumn::make('mail')
                     ->label('Email')
+                    ->onColor(fn () => settings('appearance.panda') ? 'panda' : 'primary')
+                    ->extraAttributes(['data-panda' => settings('appearance.panda')])
                     ->disabled(fn (Model $record): bool => ! $record->notificationType->mail),
             ])
             ->emptyStateIcon(iconName('notification'))

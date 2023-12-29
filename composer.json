@@ -15,6 +15,7 @@
         "aws/aws-sdk-php": "^3.293",
         "awssat/discord-notification-channel": "^1.4",
         "blade-ui-kit/blade-icons": "^1.0",
+        "denniseilander/pulse-about-application": "^0.1.1",
         "filament/forms": "^3.0-stable",
         "filament/notifications": "^3.0-stable",
         "filament/support": "^3.0-stable",

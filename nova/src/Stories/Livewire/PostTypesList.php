@@ -318,14 +318,6 @@ class PostTypesList extends TableComponent
                 TrashedFilter::make()->label('Deleted post types'),
             ])
             ->columnToggleFormWidth('sm')
-            ->heading('Post types')
-            ->description('Control the content users can post into stories')
-            ->headerActions([
-                CreateAction::make()
-                    ->authorize('create')
-                    ->label('Add')
-                    ->url(route('post-types.create')),
-            ])
             ->header(fn () => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)
             ->emptyStateIcon(iconName('list'))
             ->emptyStateHeading('No post types found')

@@ -185,8 +185,8 @@
                                 Check out the install guide or join the Discord server to get help with setting up Nova.
                             </p>
                             <div class="grid grid-cols-2 gap-4">
-                                <x-button.filled color="neutral">Install guide</x-button.filled>
-                                <x-button.filled color="neutral">Join Discord</x-button.filled>
+                                <x-button color="neutral">Install guide</x-button>
+                                <x-button color="neutral">Join Discord</x-button>
                             </div>
                         </div>
                     </div>

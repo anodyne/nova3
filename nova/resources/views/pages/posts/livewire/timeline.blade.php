@@ -14,7 +14,7 @@
                 <x-slot name="leading">
                     <select
                         aria-label="Post sort field"
-                        class="form-select -ml-3 h-full border-none bg-transparent py-0 text-gray-900 focus:shadow-none focus:outline-none focus:ring-0 dark:text-white sm:text-sm"
+                        class="form-select -ml-3 h-full border-none bg-transparent py-0 text-gray-900 focus:shadow-none focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
                         wire:model.live="sortField"
                     >
                         <option value="order_column">Sort by timeline order</option>
@@ -24,7 +24,7 @@
 
                 <select
                     aria-label="Post sort direction"
-                    class="form-select -ml-3 h-full border-none bg-transparent py-0 text-gray-900 focus:shadow-none focus:outline-none focus:ring-0 dark:text-white sm:text-sm"
+                    class="form-select -ml-3 h-full border-none bg-transparent py-0 text-gray-900 focus:shadow-none focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
                     wire:model.live="sortDirection"
                 >
                     <option value="desc">Newest first</option>
@@ -35,9 +35,10 @@
 
         @can('viewAny', $postClass)
             <div class="flex items-center">
-                <x-button.filled :href="route('posts.index')" leading="settings" color="primary">
+                <x-button :href="route('posts.index')" color="primary">
+                    <x-icon name="settings" size="sm"></x-icon>
                     Manage posts
-                </x-button.filled>
+                </x-button>
             </div>
         @endcan
     </div>
@@ -95,12 +96,12 @@
                         </div>
 
                         <div class="mt-8">
-                            <x-button.filled
+                            <x-button
                                 :href="route('posts.show', ['story' => $post->story, 'post' => $post])"
                                 color="neutral"
                             >
                                 Read {{ str($post->postType->name)->lower() }} &rarr;
-                            </x-button.filled>
+                            </x-button>
                         </div>
                     </div>
                 </x-timeline.item>

@@ -14,18 +14,19 @@
 
             <x-slot name="actions">
                 @can('viewAny', Nova\Departments\Models\Position::class)
-                    <x-button.text
+                    <x-button
                         :href="route('positions.index', 'department='.$position->department->id)"
-                        leading="arrow-left"
-                        color="gray"
+                        color="neutral"
+                        plain
                     >
-                        Back
-                    </x-button.text>
+                        &larr; Back
+                    </x-button>
 
                     @can('update', $position)
-                        <x-button.filled :href="route('positions.edit', $position)" leading="edit" color="primary">
+                        <x-button :href="route('positions.edit', $position)" color="primary">
+                            <x-icon name="edit" size="sm"></x-icon>
                             Edit
-                        </x-button.filled>
+                        </x-button>
                     @endcan
                 @endcan
             </x-slot>
@@ -72,13 +73,14 @@
                                 </div>
 
                                 @can('update', $character)
-                                    <x-button.text
+                                    <x-button
                                         :href="route('characters.edit', $character)"
-                                        color="gray"
+                                        color="neutral"
                                         class="group-hover:visible sm:invisible"
+                                        text
                                     >
                                         <x-icon name="edit" size="sm"></x-icon>
-                                    </x-button.text>
+                                    </x-button>
                                 @endcan
                             </div>
                         @empty

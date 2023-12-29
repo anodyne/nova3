@@ -93,15 +93,6 @@ class MyDraftsList extends TableComponent
                     ->multiple()
                     ->hidden(fn () => Story::current()->count() <= 1),
             ])
-            ->heading('My draft posts')
-            ->description('Drafts are posts in progress that have not been published')
-            ->headerActions([
-                CreateAction::make()
-                    ->authorize('create')
-                    ->label('Start writing')
-                    ->icon(iconName('write'))
-                    ->url(route('posts.create')),
-            ])
             ->emptyStateIcon(iconName('write'))
             ->emptyStateHeading('No draft posts found')
             ->emptyStateActions([

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Foundation;
 
+use Composer\InstalledVersions;
 use Illuminate\Foundation\Application as IlluminateApplication;
 
 class Application extends IlluminateApplication
@@ -123,5 +124,20 @@ class Application extends IlluminateApplication
     public function usesSimpleSkeleton(): bool
     {
         return ! $this->usesSecureSkeleton();
+    }
+
+    public function filamentVersion(): string
+    {
+        return str(InstalledVersions::getPrettyVersion('filament/support'))->after('v')->toString();
+    }
+
+    public function livewireVersion(): string
+    {
+        return str(InstalledVersions::getPrettyVersion('livewire/livewire'))->after('v')->toString();
+    }
+
+    public function novaVersion(): string
+    {
+        return $this['nova']->getVersion();
     }
 }

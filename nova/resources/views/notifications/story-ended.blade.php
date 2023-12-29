@@ -9,6 +9,6 @@
     has been marked as completed.
 
     <x-slot name="actions">
-        <x-button.filled :href="route('stories.show', $story_id)" color="neutral">Review story</x-button.filled>
+        <x-button :href="route('stories.show', $story_id)" color="neutral">Review story</x-button>
     </x-slot>
 </x-notification>

@@ -41,6 +41,7 @@ class RankGroupsList extends TableComponent
         return $table
             ->query(RankGroup::query())
             ->defaultSort('order_column', 'asc')
+            ->reorderable('order_column')
             ->columns([
                 TextColumn::make('name')
                     ->titleColumn()
@@ -142,15 +143,6 @@ class RankGroupsList extends TableComponent
                         false: fn (Builder $query): Builder => $query->whereDoesntHave('ranks')
                     ),
                 SelectFilter::make('status')->options(RankGroupStatus::class),
-            ])
-            ->reorderable('order_column')
-            ->heading('Rank groups')
-            ->description('Collections of related rank items for simpler searching and selecting')
-            ->headerActions([
-                CreateAction::make()
-                    ->authorize('create')
-                    ->label('Add')
-                    ->url(route('ranks.groups.create')),
             ])
             ->header(fn (): ?View => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)
             ->emptyStateIcon(iconName('list'))

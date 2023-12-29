@@ -14,9 +14,9 @@
 
                             <x-slot name="trailing">
                                 @if ($search)
-                                    <x-button.text tag="button" color="neutral" wire:click="$set('search', '')">
+                                    <x-button tag="button" color="neutral" wire:click="$set('search', '')" text>
                                         <x-icon name="x" size="sm"></x-icon>
-                                    </x-button.text>
+                                    </x-button>
                                 @endif
                             </x-slot>
                         </x-input.text>
@@ -30,7 +30,7 @@
                                 @forelse ($searchResults as $position)
                                     <x-dropdown.item
                                         type="button"
-                                        class="group flex w-full items-center rounded-md px-4 py-2 text-base font-medium text-gray-700 transition hover:bg-gray-50 focus:outline-none dark:text-gray-300 dark:hover:bg-gray-600/50 md:text-sm"
+                                        class="group flex w-full items-center rounded-md px-4 py-2 text-base font-medium text-gray-700 transition hover:bg-gray-50 focus:outline-none md:text-sm dark:text-gray-300 dark:hover:bg-gray-600/50"
                                         wire:click="add({{ $position->id }})"
                                     >
                                         {{ $position->name }}

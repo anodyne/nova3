@@ -121,13 +121,11 @@
 
             <div x-show="provider === 'bunny'" x-collapse x-cloak>
                 <div class="mt-6 flex flex-col gap-6 border-t border-gray-900/10 pt-6 dark:border-white/5">
-                    <p>
-                        <x-button.text size="none-base" color="primary" href="https://bunny.net/fonts/" target="_blank">
-                            Bunny Fonts
-                        </x-button.text>
+                    <x-text>
+                        <x-text.link href="https://bunny.net/fonts/" target="_blank">Bunny Fonts</x-text.link>
                         is a privacy-focused, GDPR-compliant font service. In most cases, it's a drop-in replacement for
                         Google Fonts.
-                    </p>
+                    </x-text>
 
                     <div wire:ignore>
                         <x-input.group
@@ -193,12 +191,10 @@
                 <div
                     class="mt-6 flex flex-col justify-between gap-6 border-t border-gray-900/10 pt-6 dark:border-white/5"
                 >
-                    <p>
-                        <x-button.text size="none-base" color="primary" href="https://google.com/fonts" target="_blank">
-                            Google Fonts
-                        </x-button.text>
+                    <x-text>
+                        <x-text.link href="https://google.com/fonts" target="_blank">Google Fonts</x-text.link>
                         is a library of open source font families for convenient use on the web.
-                    </p>
+                    </x-text>
 
                     <div wire:ignore>
                         <x-input.group

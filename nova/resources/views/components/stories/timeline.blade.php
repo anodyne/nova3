@@ -82,9 +82,7 @@
                     </div>
 
                     <div class="mt-8">
-                        <x-button.filled :href="route('stories.show', $story)" color="neutral">
-                            Go to story &rarr;
-                        </x-button.filled>
+                        <x-button :href="route('stories.show', $story)" color="neutral">Go to story &rarr;</x-button>
                     </div>
 
                     @if ($story->children_count > 0)

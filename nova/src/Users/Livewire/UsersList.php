@@ -228,14 +228,6 @@ class UsersList extends TableComponent
                         return 'Last posted: within '.$data['value'];
                     }),
             ])
-            ->heading('Users')
-            ->description("Manage all of the game's users")
-            ->headerActions([
-                CreateAction::make()
-                    ->authorize('create')
-                    ->label('Add')
-                    ->url(route('users.create')),
-            ])
             ->emptyStateIcon(iconName('users'))
             ->emptyStateHeading('No users found')
             ->emptyStateDescription('')

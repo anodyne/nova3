@@ -5,9 +5,7 @@
         <x-panel.header title="Add a new story">
             <x-slot name="actions">
                 @can('viewAny', Nova\Stories\Models\Story::class)
-                    <x-button.text :href="route('stories.index')" leading="arrow-left" color="gray">
-                        Back
-                    </x-button.text>
+                    <x-button :href="route('stories.index')" color="neutral" plain>&larr; Back</x-button>
                 @endcan
             </x-slot>
         </x-panel.header>
@@ -28,26 +26,32 @@
                 </x-input.group>
             </x-form.section>
 
-            <x-form.section
-                title="Story status"
-                message="Setting the status of a story lets you control the stories that players are able to write within. You can have as many currently running stories as you want. If you have more than 1 current story, players will be given the option to choose which story they want to write their post within."
-            >
-                <fieldset>
-                    <legend class="sr-only">Status</legend>
-                    <div class="space-y-4">
-                        @foreach (Nova\Stories\Models\Story::getStatuses() as $status)
-                            <x-input.radio
-                                id="{{ $status->name() }}"
-                                aria-describedby="{{ $status->name() }}-description"
+            <x-form.section title="Story status">
+                <x-slot name="message">
+                    <x-text>
+                        Setting the status of a story lets you control the stories that players are able to write
+                        within. You can have as many currently running stories as you want. If you have more than 1
+                        current story, players will be given the option to choose which story they want to write their
+                        post within.
+                    </x-text>
+                </x-slot>
+
+                <x-radio.group>
+                    @foreach (Nova\Stories\Models\Story::getStatuses() as $status)
+                        <x-radio.field>
+                            <x-fieldset.label :for="$status->name()">
+                                {{ $status->displayName() }}
+                            </x-fieldset.label>
+                            <x-fieldset.description>{{ $status->description() }}</x-fieldset.description>
+                            <x-radio
                                 name="status"
-                                value="{{ $status->name() }}"
+                                :id="$status->name()"
+                                :value="$status->name()"
                                 :checked="old('status', 'upcoming') === $status->name()"
-                                :label="$status->displayName()"
-                                :help="$status->description()"
-                            ></x-input.radio>
-                        @endforeach
-                    </div>
-                </fieldset>
+                            ></x-radio>
+                        </x-radio.field>
+                    @endforeach
+                </x-radio.group>
             </x-form.section>
 
             <x-form.section
@@ -76,8 +80,8 @@
             </x-form.section>
 
             <x-form.footer>
-                <x-button.filled type="submit" color="primary">Add</x-button.filled>
-                <x-button.filled :href="route('stories.index')" color="neutral">Cancel</x-button.filled>
+                <x-button type="submit" color="primary">Add</x-button>
+                <x-button :href="route('stories.index')" plain>Cancel</x-button>
             </x-form.footer>
         </x-form>
     </x-panel>

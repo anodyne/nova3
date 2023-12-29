@@ -21,9 +21,9 @@
         @if ($field->suggest && $suggestion && ! $value)
             <div class="text-xs">
                 <span class="font-medium text-gray-600">Suggested:</span>
-                <x-button.text wire:click="$set('{{ $name }}', '{{ $suggestion->{$name} }}')" color="primary">
+                <x-button wire:click="$set('{{ $name }}', '{{ $suggestion->{$name} }}')" color="primary" text>
                     {{ $suggestion->{$name} }}
-                </x-button.text>
+                </x-button>
             </div>
         @endif
     </div>

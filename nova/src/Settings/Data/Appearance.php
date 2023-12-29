@@ -8,35 +8,26 @@ use Illuminate\Contracts\Support\Arrayable;
 use Nova\Foundation\Colors\Color;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 
+#[MapInputName(SnakeCaseMapper::class)]
 class Appearance extends Data implements Arrayable
 {
     public function __construct(
         public string $theme,
-        #[MapInputName('icon_set')]
         public string $iconSet,
-        #[MapInputName('avatar_shape')]
         public string $avatarShape,
-        #[MapInputName('avatar_style')]
         public ?string $avatarStyle,
-        #[MapInputName('image_path')]
         public ?string $imagePath,
-        #[MapInputName('colors_gray')]
         public string $colorsGray,
-        #[MapInputName('colors_primary')]
         public string $colorsPrimary,
-        #[MapInputName('colors_danger')]
         public string $colorsDanger,
-        #[MapInputName('colors_warning')]
         public string $colorsWarning,
-        #[MapInputName('colors_success')]
         public string $colorsSuccess,
-        #[MapInputName('colors_info')]
         public string $colorsInfo,
-        #[MapInputName('font_provider')]
         public string $fontProvider,
-        #[MapInputName('font_family')]
         public string $fontFamily,
+        public bool $panda,
     ) {
     }
 

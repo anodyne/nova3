@@ -17,12 +17,13 @@
                 </div>
 
                 <div class="flex items-center gap-6">
-                    <x-button.text x-on:click="window.history.back()" leading="arrow-left" color="neutral">
-                        Back
-                    </x-button.text>
+                    <x-button x-on:click="window.history.back()" color="neutral" plain>&larr; Back</x-button>
 
                     @can('update', $story)
-                        <x-button.filled :href="route('stories.edit', $story)" color="primary">Edit</x-button.filled>
+                        <x-button :href="route('stories.edit', $story)" color="primary">
+                            <x-icon name="edit" size="sm"></x-icon>
+                            Edit
+                        </x-button>
                     @endcan
                 </div>
             </div>
@@ -101,7 +102,7 @@
                 <div class="flex flex-col space-y-4 md:flex-row md:items-center md:space-x-8 md:space-y-0">
                     @if ($story->started_at)
                         <div
-                            class="flex items-center space-x-2 font-medium text-gray-600 dark:text-gray-400 md:text-sm"
+                            class="flex items-center space-x-2 font-medium text-gray-600 md:text-sm dark:text-gray-400"
                         >
                             <x-icon name="calendar" size="md" class="text-gray-500"></x-icon>
                             <span>
@@ -118,7 +119,7 @@
                         </div>
 
                         <div
-                            class="flex items-center space-x-2 font-medium text-gray-600 dark:text-gray-400 md:text-sm"
+                            class="flex items-center space-x-2 font-medium text-gray-600 md:text-sm dark:text-gray-400"
                         >
                             <x-icon name="clock" size="md" class="text-gray-500"></x-icon>
                             <span>
@@ -131,12 +132,10 @@
 
                     @if ($ancestors->count() > 0)
                         <div class="flex items-center">
-                            <x-button.text :href="route('stories.show', $ancestors->last())" color="neutral-primary">
-                                <div class="flex items-center space-x-2">
-                                    <x-icon name="book" size="md" class="shrink-0"></x-icon>
-                                    <span>Part of {{ $ancestors->last()->title }}</span>
-                                </div>
-                            </x-button.text>
+                            <x-button :href="route('stories.show', $ancestors->last())" color="neutral-primary" text>
+                                <x-icon name="book" size="md"></x-icon>
+                                <span>Part of {{ $ancestors->last()->title }}</span>
+                            </x-button>
                         </div>
                     @endif
                 </div>

@@ -44,12 +44,9 @@
                         <div>{{ $post->postType->name }}</div>
                     </div>
 
-                    <x-button.text
-                        :href="route('posts.show', ['story' => $post->story, 'post' => $post])"
-                        color="neutral-primary"
-                    >
+                    <x-button :href="route('posts.show', ['story' => $post->story, 'post' => $post])" outline>
                         Read post &rarr;
-                    </x-button.text>
+                    </x-button>
                 </div>
 
                 <div class="relative mt-4">

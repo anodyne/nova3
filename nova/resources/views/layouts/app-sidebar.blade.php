@@ -28,7 +28,7 @@
     </div>
     @endImpersonating
 
-    <div x-data="{ open: false }" class="relative min-h-screen xl:flex xl:py-3">
+    <div x-data="{ open: false }" class="relative min-h-screen xl:flex xl:pt-2">
         <!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
         <div class="relative z-50 xl:hidden" role="dialog" aria-modal="true" x-show="open" x-cloak>
             <div
@@ -176,7 +176,7 @@
                                         @can('update', $settings)
                                             <li>
                                                 <x-nav.main-item-mobile
-                                                    :href="route('settings.index', 'general')"
+                                                    :href="route('settings.general.edit')"
                                                     :active="$meta->subnavSection === 'settings'"
                                                     icon="settings"
                                                     :meta="$meta"
@@ -301,7 +301,7 @@
         <!-- Static sidebar for desktop -->
         <div
             @class([
-                'hidden xl:fixed xl:inset-y-0 xl:z-10 xl:flex xl:w-72 xl:flex-col',
+                'hidden xl:fixed xl:inset-y-0 xl:z-10 xl:flex xl:w-60 xl:flex-col',
                 'pt-11' => app('impersonate')->isImpersonating(),
             ])
         >
@@ -397,7 +397,7 @@
                                 @can('update', $settings)
                                     <li>
                                         <x-nav.main-item
-                                            :href="route('settings.index', 'general')"
+                                            :href="route('settings.general.edit')"
                                             :active="$meta->subnavSection === 'settings'"
                                             icon="settings"
                                             :meta="$meta"
@@ -608,15 +608,41 @@
         </div>
 
         <main
-            @class([
-                'flex-1 py-10 focus:outline-none xl:ml-72',
-                '!pt-[5.25rem]' => app('impersonate')->isImpersonating(),
-            ])
+            class="flex-1 overflow-hidden rounded-tl-xl bg-white ring-1 ring-inset ring-gray-950/[0.08] focus:outline-none xl:ml-60 dark:bg-gray-900 dark:ring-white/5"
             tabindex="0"
         >
+            @impersonating
+            <div
+                class="sticky z-50 flex w-full items-center justify-between gap-x-6 rounded-tl-xl bg-gray-900 px-6 py-2.5 sm:pr-3.5 lg:pl-8"
+            >
+                <p class="text-sm leading-6 text-white">
+                    <a href="#">
+                        <strong class="font-semibold">Impersonation mode</strong>
+                        <svg viewBox="0 0 2 2" class="mx-2 inline h-0.5 w-0.5 fill-current" aria-hidden="true">
+                            <circle cx="1" cy="1" r="1" />
+                        </svg>
+                        You are currently impersonating {{ auth()->user()->name }}
+                    </a>
+                </p>
+                <a
+                    href="{{ route('impersonate.leave') }}"
+                    class="group -m-3 flex items-center p-3 focus-visible:outline-offset-[-4px]"
+                >
+                    <span class="mr-2 hidden text-sm font-medium text-gray-300 group-hover:block">
+                        Leave impersonation
+                    </span>
+                    <svg class="size-5 text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path
+                            d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"
+                        />
+                    </svg>
+                </a>
+            </div>
+            @endImpersonating
+
             {{ NovaView::renderHook('admin::content.start') }}
 
-            <div class="space-y-6 px-4 sm:px-6 lg:px-8">
+            <div class="mx-auto w-full max-w-6xl px-4 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-8">
                 @yield('template')
             </div>
 

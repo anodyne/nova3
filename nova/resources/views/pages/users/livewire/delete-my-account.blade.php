@@ -75,7 +75,10 @@
     <x-form.footer>
         <x-dropdown placement="bottom-start">
             <x-slot name="emptyTrigger">
-                <x-button.filled color="danger" leading="trash">Delete my account</x-button.filled>
+                <x-button color="danger">
+                    <x-icon name="trash" size="sm"></x-icon>
+                    Delete my account
+                </x-button>
             </x-slot>
 
             <x-dropdown.group>

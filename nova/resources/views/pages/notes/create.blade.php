@@ -4,7 +4,7 @@
     <x-panel>
         <x-panel.header title="Add a new note">
             <x-slot:actions>
-                <x-button.text :href="route('notes.index')" color="gray" leading="arrow-left">Back</x-button.text>
+                <x-button :href="route('notes.index')" color="neutral" plain>&larr; Back</x-button>
             </x-slot>
         </x-panel.header>
 
@@ -20,8 +20,8 @@
             </x-content-box>
 
             <x-form.footer>
-                <x-button.filled type="submit" color="primary">Add</x-button.filled>
-                <x-button.filled :href="route('notes.index')" color="neutral">Cancel</x-button.filled>
+                <x-button type="submit" color="primary">Add</x-button>
+                <x-button :href="route('notes.index')" plain>Cancel</x-button>
             </x-form.footer>
         </x-form>
     </x-panel>

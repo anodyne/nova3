@@ -17,9 +17,10 @@
   @if ($hasHeading || $hasDescription)
     <x-panel.header :title="$heading" :message="$description" :border="$records->count() === 0">
       <x-slot:actions>
-        <x-button.filled :href="route('notes.create')" leading="add" color="primary">
+        <x-button :href="route('notes.create')" color="primary">
+          <x-icon name="add" size="sm"></x-icon>
           Add
-        </x-button.filled>
+        </x-button>
       </x-slot:actions>
     </x-panel.header>
   @endif

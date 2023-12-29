@@ -34,9 +34,9 @@
                         </x-input.select>
 
                         @can('viewAny', Nova\Stories\Models\Story::class)
-                            <x-button.text :href="route('stories.index')" color="subtle-neutral">
+                            <x-button :href="route('stories.index')" color="subtle-neutral" text>
                                 <x-icon name="settings" size="md"></x-icon>
-                            </x-button.text>
+                            </x-button>
                         @endcan
                     </div>
 
@@ -91,9 +91,9 @@
                         </x-input.select>
 
                         @can('viewAny', Nova\Stories\Models\PostType::class)
-                            <x-button.text :href="route('post-types.index')" color="subtle-neutral">
+                            <x-button :href="route('post-types.index')" color="subtle-neutral" text>
                                 <x-icon name="settings" size="md"></x-icon>
-                            </x-button.text>
+                            </x-button>
                         @endcan
                     </div>
 
@@ -158,13 +158,14 @@
 
                                                 <x-slot name="trailing">
                                                     @if (filled($search))
-                                                        <x-button.text
+                                                        <x-button
                                                             tag="button"
                                                             color="neutral"
                                                             wire:click="$set('search', '')"
+                                                            text
                                                         >
                                                             <x-icon name="x" size="sm"></x-icon>
-                                                        </x-button.text>
+                                                        </x-button>
                                                     @endif
                                                 </x-slot>
                                             </x-input.text>
@@ -390,7 +391,7 @@
         <div class="flex items-center">
             @can('discardDraft', $post)
                 <x-dropdown placement="bottom-start">
-                    <x-slot name="trigger" color="neutral-danger" leading="trash" size="none">Discard draft</x-slot>
+                    <x-slot name="trigger" color="neutral-danger" leading="trash">Discard draft</x-slot>
 
                     <x-dropdown.group>
                         <x-dropdown.text>
@@ -414,7 +415,7 @@
 
             @can('delete', $post)
                 <x-dropdown placement="bottom-start">
-                    <x-slot name="trigger" color="neutral-danger" leading="trash" size="none">
+                    <x-slot name="trigger" color="neutral-danger" leading="trash">
                         Delete {{ str($postType->name)->lower() }}
                     </x-slot>
 
@@ -442,10 +443,10 @@
         <div class="flex items-center gap-4">
             @if ($canGoToNextStep)
                 @if ($post->exists)
-                    <x-button.filled wire:click="save" color="neutral">Save</x-button.filled>
+                    <x-button wire:click="save" color="neutral">Save</x-button>
                 @endif
 
-                <x-button.outlined wire:click="goToNextStep" color="primary">Next: Write post &rarr;</x-button.outlined>
+                <x-button wire:click="goToNextStep" color="primary">Next: Write post &rarr;</x-button>
             @else
                 {{ $canGoToNextStepMessage }}
             @endif

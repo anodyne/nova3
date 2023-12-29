@@ -87,7 +87,7 @@
                     </div>
 
                     <div
-                        class="flex h-full flex-col overflow-y-scroll rounded-lg bg-white shadow-xl ring-1 ring-gray-950/5 dark:bg-gray-800"
+                        class="flex h-full flex-col overflow-y-scroll rounded-xl bg-white shadow-xl ring-1 ring-gray-950/5 dark:bg-gray-800"
                         x-data="tabsList('notifications')"
                     >
                         <x-content-box>
@@ -95,25 +95,17 @@
                                 <x-h2>Notifications</x-h2>
 
                                 @if ($unreadNotificationsCount > 0)
-                                    <x-button.text
-                                        tag="button"
-                                        color="gray"
-                                        wire:click="markAllNotificationsAsRead"
-                                        leading="check"
-                                    >
+                                    <x-button tag="button" color="neutral" wire:click="markAllNotificationsAsRead" text>
+                                        <x-icon name="check" size="md"></x-icon>
                                         Mark all as read
-                                    </x-button.text>
+                                    </x-button>
                                 @endif
 
                                 @if ($unreadNotificationsCount === 0 && $hasNotifications)
-                                    <x-button.text
-                                        tag="button"
-                                        color="gray"
-                                        wire:click="clearAllNotifications"
-                                        leading="check"
-                                    >
+                                    <x-button tag="button" color="neutral" wire:click="clearAllNotifications" text>
+                                        <x-icon name="check" size="md"></x-icon>
                                         Clear all
-                                    </x-button.text>
+                                    </x-button>
                                 @endif
                             </header>
                         </x-content-box>
@@ -154,14 +146,10 @@
                         </div>
 
                         <footer class="text-center">
-                            <x-button.text
-                                :href="route('account.edit', 'notifications')"
-                                color="neutral"
-                                leading="settings"
-                                class="mb-6"
-                            >
+                            <x-button :href="route('account.edit', 'notifications')" color="neutral" class="mb-6" text>
+                                <x-icon name="bell" size="sm"></x-icon>
                                 Manage your notifications
-                            </x-button.text>
+                            </x-button>
                         </footer>
                     </div>
                 </div>

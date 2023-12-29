@@ -33,12 +33,12 @@
         height="sm"
         width="sm"
     >
-        <x-button.filled wire:click="confirm" :color="$theme">
+        <x-button wire:click="confirm" :color="$theme">
             {{ $prompt['confirm'] }}
-        </x-button.filled>
+        </x-button>
 
-        <x-button.filled wire:click="dismiss" type="button" color="neutral">
+        <x-button wire:click="dismiss" type="button" plain>
             {{ $prompt['cancel'] }}
-        </x-button.filled>
+        </x-button>
     </x-content-box>
 </div>
