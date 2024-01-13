@@ -1,14 +1,14 @@
 <div>
-    <x-content-box width="sm">
+    <x-spacing width="sm">
         <div class="flex items-center space-x-2">
             <x-icon name="book" size="md" class="shrink-0 text-gray-600 dark:text-gray-500"></x-icon>
             <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100" id="modal-title">Set post position</h3>
         </div>
-    </x-content-box>
+    </x-spacing>
 
-    <x-content-box height="none" width="sm">
+    <x-spacing height="none" width="sm">
         <div>
-            <x-input.group>
+            <x-fieldset.field>
                 <x-input.text placeholder="Search posts" wire:model.live.debounce.500ms="search" autofocus>
                     <x-slot name="leading">
                         <x-icon name="search" size="sm"></x-icon>
@@ -22,7 +22,7 @@
                         @endif
                     </x-slot>
                 </x-input.text>
-            </x-input.group>
+            </x-fieldset.field>
 
             <div class="mt-4 w-full max-h-60 h-60 overflow-auto bg-white dark:bg-gray-800 text-base focus:outline-none sm:text-sm" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
                 <div class="space-y-1">
@@ -48,13 +48,13 @@
                 </div>
             </div>
         </div>
-    </x-content-box>
+    </x-spacing>
 
-    <x-content-box class="z-20 sm:flex sm:flex-row-reverse sm:space-x-4 sm:space-x-reverse bg-gray-50 dark:bg-gray-700/50 rounded-b-lg" height="sm" width="sm">
+    <x-spacing class="z-20 sm:flex sm:flex-row-reverse sm:space-x-4 sm:space-x-reverse bg-gray-50 dark:bg-gray-700/50 rounded-b-lg" size="sm">
         @if ($selected && $direction)
             <x-button color="primary" wire:click="apply">Apply</x-button>
         @endif
 
         <x-button wire:click="dismiss" plain>Cancel</x-button>
-    </x-content-box>
+    </x-spacing>
 </div>

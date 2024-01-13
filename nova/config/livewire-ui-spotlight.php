@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     /*
@@ -29,7 +31,7 @@ return [
     */
 
     'commands' => [
-        \LivewireUI\Spotlight\Commands\Logout::class
+        \LivewireUI\Spotlight\Commands\Logout::class,
     ],
 
     /*
@@ -42,7 +44,6 @@ return [
     |
     */
     'include_css' => false,
-
 
     /*
     |--------------------------------------------------------------------------

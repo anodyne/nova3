@@ -39,7 +39,7 @@ class RankItemController extends Controller
     public function show(RankItem $item)
     {
         return ShowRankItemResponse::sendWith([
-            'item' => $item->load('group', 'name', 'characters'),
+            'item' => $item->load('group', 'characters'),
         ]);
     }
 

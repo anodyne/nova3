@@ -42,7 +42,7 @@ describe('without story', function () {
         livewire(StoryPosition::class, ['parentId' => $this->story1->id])
             ->assertOk()
             ->assertSet('parentId', $this->story1->id)
-            ->assertSet('parent', Story::withCount('stories')->find($this->story1->id));
+            ->assertSet('parentStory', Story::withCount('stories')->find($this->story1->id));
     });
 
     test('can mount for creating a story before another story', function () {
@@ -82,7 +82,7 @@ describe('with story', function () {
             ->assertOk()
             ->assertSet('story', $story)
             ->assertSet('parentId', $this->story1->id)
-            ->assertSet('parent', Story::withCount('stories')->find($this->story1->id))
+            ->assertSet('parentStory', Story::withCount('stories')->find($this->story1->id))
             ->assertSet('direction', 'before');
     });
 });
@@ -90,9 +90,9 @@ describe('with story', function () {
 test('stories for ordering change based on the selected parent story', function () {
     livewire(StoryPosition::class)
         ->set('parentId', $this->story1->id)
-        ->assertSet('parent', Story::withCount('stories')->find($this->story1->id))
+        ->assertSet('parentStory', Story::withCount('stories')->find($this->story1->id))
         ->assertSet('storiesForOrdering', $this->story1->stories)
         ->set('parentId', $this->story2->id)
-        ->assertSet('parent', Story::withCount('stories')->find($this->story2->id))
+        ->assertSet('parentStory', Story::withCount('stories')->find($this->story2->id))
         ->assertSet('storiesForOrdering', $this->story2->stories);
 });

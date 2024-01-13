@@ -35,8 +35,10 @@ test('an authorized user can duplicate a department', function () {
 
     $newDepartment = Department::latest('id')->first();
 
+    assertDatabaseHas(Department::class, $this->department->only('id', 'name'));
     assertDatabaseHas(Department::class, $newDepartment->only('id', 'name'));
 
+    assertDatabaseHas(Position::class, ['department_id' => $this->department->id]);
     assertDatabaseHas(Position::class, ['department_id' => $newDepartment->id]);
 
     Event::assertDispatched(DepartmentDuplicated::class);

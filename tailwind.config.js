@@ -160,9 +160,6 @@ module.exports = {
     },
     plugins: [
         /* eslint-disable */
-        require("@tailwindcss/forms")({
-            strategy: 'class',
-        }),
         require('@tailwindcss/typography'),
         require('@tailwindcss/aspect-ratio'),
         require('@tailwindcss/container-queries'),

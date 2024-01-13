@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
@@ -90,9 +89,6 @@ describe('authorized user with role create permissions', function () {
 
     test('has the correct permissions', function () {
         livewire(RolesList::class)
-            ->assertTableHeaderActionsExistInOrder([
-                CreateAction::class,
-            ])
             ->assertTableActionHidden(ViewAction::class, $this->roles->first())
             ->assertTableActionHidden(EditAction::class, $this->roles->first())
             ->assertTableActionHidden(DeleteAction::class, $this->roles->first());
@@ -106,7 +102,6 @@ describe('authorized user with role delete permissions', function () {
 
     test('has the correct permissions', function () {
         livewire(RolesList::class)
-            ->assertTableHeaderActionsExistInOrder([])
             ->assertTableActionHidden(ViewAction::class, $this->roles->first())
             ->assertTableActionHidden(EditAction::class, $this->roles->first())
             ->assertTableActionVisible(DeleteAction::class, $this->roles->first());
@@ -120,7 +115,6 @@ describe('authorized user with role update permissions', function () {
 
     test('has the correct permissions', function () {
         livewire(RolesList::class)
-            ->assertTableHeaderActionsExistInOrder([])
             ->assertTableActionHidden(ViewAction::class, $this->roles->first())
             ->assertTableActionVisible(EditAction::class, $this->roles->first())
             ->assertTableActionHidden(DeleteAction::class, $this->roles->first());
@@ -134,7 +128,6 @@ describe('authorized user with role view permissions', function () {
 
     test('has the correct permissions', function () {
         livewire(RolesList::class)
-            ->assertTableHeaderActionsExistInOrder([])
             ->assertTableActionVisible(ViewAction::class, $this->roles->first())
             ->assertTableActionHidden(EditAction::class, $this->roles->first())
             ->assertTableActionHidden(DeleteAction::class, $this->roles->first());

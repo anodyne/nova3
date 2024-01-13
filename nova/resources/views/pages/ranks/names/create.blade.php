@@ -1,40 +1,43 @@
 @extends($meta->template)
 
+@use('Nova\Ranks\Models\RankName')
+
 @section('content')
-    <x-panel>
-        <x-panel.header title="Add a new rank name">
+    <x-spacing constrained>
+        <x-page-header>
+            <x-slot name="heading">Add a new rank name</x-slot>
+
             <x-slot name="actions">
-                @can('viewAny', Nova\Ranks\Models\RankName::class)
-                    <x-button :href="route('ranks.names.index')" color="neutral" plain>&larr; Back</x-button>
+                @can('viewAny', RankName::class)
+                    <x-button :href="route('ranks.names.index')" plain>&larr; Back</x-button>
                 @endcan
             </x-slot>
-        </x-panel.header>
+        </x-page-header>
 
         <x-form :action="route('ranks.names.store')">
-            <x-form.section
-                title="Rank name info"
-                message="Rank names allow you to re-use basic rank information across all of your ranks to avoid unnecessary and tedious editing of the same information across every rank in the system."
-            >
-                <x-input.group label="Name" for="name" :error="$errors->first('name')">
-                    <x-input.text id="name" name="name" :value="old('name')" data-cy="name" />
-                </x-input.group>
+            <x-fieldset>
+                <x-fieldset.field-group constrained>
+                    <x-fieldset.field label="Name" id="name" name="name" :error="$errors->first('name')">
+                        <x-input.text :value="old('name')" data-cy="name" />
+                    </x-fieldset.field>
 
-                <div class="flex items-center gap-x-2.5">
-                    <x-switch
-                        name="status"
-                        :value="old('status', 'active')"
-                        on-value="active"
-                        off-value="inactive"
-                        id="status"
-                    ></x-switch>
-                    <x-fieldset.label for="status">Active</x-fieldset.label>
-                </div>
-            </x-form.section>
+                    <div class="flex items-center gap-x-2.5">
+                        <x-switch
+                            name="status"
+                            :value="old('status', 'active')"
+                            on-value="active"
+                            off-value="inactive"
+                            id="status"
+                        ></x-switch>
+                        <x-fieldset.label for="status">Active</x-fieldset.label>
+                    </div>
+                </x-fieldset.field-group>
+            </x-fieldset>
 
-            <x-form.footer>
+            <x-fieldset.controls>
                 <x-button type="submit" color="primary">Add</x-button>
                 <x-button :href="route('ranks.names.index')" plain>Cancel</x-button>
-            </x-form.footer>
+            </x-fieldset.controls>
         </x-form>
-    </x-panel>
+    </x-spacing>
 @endsection

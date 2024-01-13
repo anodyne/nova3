@@ -5,9 +5,7 @@
 @section('content')
     <x-page-header>
         <x-slot name="heading">Rank groups</x-slot>
-        <x-slot name="description">
-            Collections of related rank items for simpler searching and selecting
-        </x-slot>
+        <x-slot name="description">Collections of related rank items for simpler searching and selecting</x-slot>
 
         <x-slot name="actions">
             @can('create', RankGroup::class)

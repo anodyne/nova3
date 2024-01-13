@@ -5,8 +5,9 @@
         '[&+[data-slot=description]]:mt-4',
         '[&+[data-slot=error]]:mt-4',
         '[&+[data-slot=warning]]:mt-4',
-        $attributes->get('class'),
+        $attributes->get('class') => $attributes->has('class'),
     ])
+    {{ $attributes }}
 >
     {{ $slot }}
 </p>

@@ -1,0 +1,21 @@
+on:
+  push:
+    branches:
+      - "**"
+
+name: Code Style
+jobs:
+  laravel-pint:
+    runs-on: ubuntu-latest
+    container:
+      image: kirschbaumdevelopment/laravel-test-runner:8.3
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Laravel Pint
+        run: composer global require laravel/pint
+
+      - name: Check Coding Standards
+        run: pint --test

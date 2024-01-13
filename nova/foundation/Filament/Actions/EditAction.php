@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Foundation\Filament\Actions;
 
 use Filament\Tables\Actions\EditAction as FilamentEditAction;

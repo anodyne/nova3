@@ -1,5 +1,5 @@
 @if ($stories->count() > 0)
-    <x-content-box width="lg">
+    <x-spacing width="lg">
         <div class="flex items-center gap-x-8">
             <div class="flex items-center">
                 <x-input.field>
@@ -39,7 +39,7 @@
         <div class="mt-12">
             <x-stories.timeline :stories="$stories" />
         </div>
-    </x-content-box>
+    </x-spacing>
 @else
     <x-empty-state.large
         icon="book"

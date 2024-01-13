@@ -6,7 +6,7 @@
     <x-page-header>
         <x-slot name="heading">Rank items</x-slot>
         <x-slot name="description">
-            Combine the rank group, rank name, and rank images to define your game's ranks
+            Combine the rank group, rank name, and rank images to define your game’s ranks
         </x-slot>
 
         <x-slot name="actions">

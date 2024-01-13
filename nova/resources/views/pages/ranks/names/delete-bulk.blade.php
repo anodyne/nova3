@@ -11,7 +11,7 @@
         @endforeach
     </ul>
 
-    <p>You won't be able to recover {{ trans_choice('it|them', $count) }}.</p>
+    <p>You won’t be able to recover {{ trans_choice('it|them', $count) }}.</p>
 
     <p>
         This will also delete all ranks associated with the {{ str('rank name')->plural($count) }} and any characters

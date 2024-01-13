@@ -41,24 +41,24 @@
         <div class="mx-auto max-w-2xl space-y-8">
             <div class="grid grid-cols-2 gap-8">
                 <x-button color="neutral" wire:click="useSameDatabaseForMigration">
-                    <x-content-box class="space-y-2 text-left">
+                    <x-spacing size="md" class="space-y-2 text-left">
                         <x-icon name="tabler-database" size="xl" class="text-gray-600"></x-icon>
                         <x-h3>Use the same database</x-h3>
                         <p class="text-sm/6 font-normal text-gray-600">
                             Your Nova 2 database tables live in the same database that you are installing Nova 3 into.
                         </p>
-                    </x-content-box>
+                    </x-spacing>
                 </x-button>
 
                 <x-button color="neutral" wire:click="useDifferentDatabaseForMigration">
-                    <x-content-box class="space-y-2 text-left">
+                    <x-spacing size="md" class="space-y-2 text-left">
                         <x-icon name="tabler-database-export" size="xl" class="text-gray-600"></x-icon>
                         <x-h3>Use a different database</x-h3>
                         <p class="text-sm/6 font-normal text-gray-600">
                             Your Nova 2 database tables live in a separate database from the one you are installing Nova
                             3 into.
                         </p>
-                    </x-content-box>
+                    </x-spacing>
                 </x-button>
             </div>
 

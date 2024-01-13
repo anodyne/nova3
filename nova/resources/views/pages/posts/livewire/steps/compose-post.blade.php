@@ -2,7 +2,7 @@
     :steps="$steps"
     message="Compose your post. You’ll be able to set the content rating, summary, and order within the story before publishing."
 >
-    <x-content-box>
+    <x-spacing>
         <div class="space-y-8">
             <div class="space-y-4">
                 <div class="space-y-1">
@@ -59,114 +59,130 @@
 
             <x-editor wire:model.live="form.content"></x-editor>
         </div>
-    </x-content-box>
+    </x-spacing>
 
-    <x-content-box class="border-t border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-900/50">
-        <div class="flex items-center justify-between">
-            <div class="text-sm font-medium text-gray-600 dark:text-gray-400">
-                {{ $postType->name }} in {{ $story->title }}
-            </div>
+    <x-panel well>
+        <x-spacing size="sm">
+            <div class="flex items-center justify-between">
+                <x-fieldset.legend>{{ $postType->name }} in {{ $story->title }}</x-fieldset.legend>
 
-            <div class="flex items-center">
-                <x-button
-                    wire:click="$dispatch('showStep', { toStepName: 'posts-wizard-step-setup' })"
-                    color="neutral-primary"
-                    text
-                >
-                    <x-icon name="edit" size="md"></x-icon>
-                    Edit post details
-                </x-button>
-            </div>
-        </div>
-
-        <div class="mt-8 grid grid-cols-3 gap-4">
-            @foreach ($post->characterAuthors as $character)
-                <div class="flex flex-col">
-                    <p class="font-medium text-gray-600 dark:text-gray-400">
-                        {{ $character->display_name }}
-                    </p>
-                    <div class="text-sm text-gray-500">played by {{ $character->pivot->user?->name }}</div>
+                <div class="flex items-center">
+                    <x-button
+                        wire:click="$dispatch('showStep', { toStepName: 'posts-wizard-step-setup' })"
+                        size="xs"
+                        plain
+                    >
+                        Edit post details
+                    </x-button>
                 </div>
-            @endforeach
+            </div>
+        </x-spacing>
 
-            @foreach ($post->userAuthors as $user)
-                <div class="flex flex-col">
-                    <p class="font-medium text-gray-600 dark:text-gray-400">
-                        {{ $user->pivot->as ?? 'Additional character' }}
-                    </p>
-                    <div class="text-sm text-gray-500">played by {{ $user->name }}</div>
+        <x-spacing size="2xs">
+            <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
+                @if (filled($post->characterAuthors))
+                    <x-spacing size="md" class="grid grid-cols-3 gap-4">
+                        @foreach ($post->characterAuthors as $character)
+                            <div class="flex flex-col">
+                                <x-text size="md">
+                                    <x-text.strong>{{ $character->display_name }}</x-text.strong>
+                                </x-text>
+                                <div class="text-sm text-gray-500">played by {{ $character->pivot->user?->name }}</div>
+                            </div>
+                        @endforeach
+                    </x-spacing>
+                @endif
+
+                @if (filled($post->userAuthors))
+                    <x-spacing size="md" class="grid grid-cols-3 gap-4">
+                        @foreach ($post->userAuthors as $user)
+                            <div class="flex flex-col">
+                                <x-text size="md">
+                                    <x-text.strong>{{ $user->pivot->as ?? 'Additional character' }}</x-text.strong>
+                                </x-text>
+                                <div class="text-sm text-gray-500">played by {{ $user->name }}</div>
+                            </div>
+                        @endforeach
+                    </x-spacing>
+                @endif
+            </x-panel>
+        </x-spacing>
+    </x-panel>
+
+    <x-fieldset.controls>
+        @if ($canSave)
+            <div class="flex w-full items-center justify-between">
+                <div class="flex items-center gap-x-2">
+                    <x-button wire:click="goToNextStep" color="primary">Next: Publish post &rarr;</x-button>
+                    <x-button wire:click="save" color="neutral">Save</x-button>
                 </div>
-            @endforeach
-        </div>
-    </x-content-box>
 
-    <div
-        @class([
-            'flex flex-col rounded-b-lg border-t border-gray-200 px-4 py-4 md:flex-row md:items-center md:justify-between md:px-6 md:py-6 dark:border-gray-800',
-            'bg-gray-50 font-medium text-gray-500 dark:bg-gray-950/30' => ! $canSave,
-        ])
-    >
-        <div class="flex items-center">
-            @can('discardDraft', $post)
-                <x-dropdown placement="bottom-start">
-                    <x-slot name="trigger" color="neutral-danger" leading="trash">Discard draft</x-slot>
+                <div class="flex items-center">
+                    @can('discardDraft', $post)
+                        <x-dropdown placement="bottom-end">
+                            <x-slot name="trigger" color="neutral-danger" leading="trash">Discard draft</x-slot>
 
-                    <x-dropdown.group>
-                        <x-dropdown.text>
-                            Are you sure you want to discard this {{ str($postType->name)->lower() }} draft?
-                        </x-dropdown.text>
-                    </x-dropdown.group>
-                    <x-dropdown.group>
-                        <x-dropdown.item-danger type="button" icon="trash" wire:click="discardDraft({{ $post->id }})">
-                            Discard
-                        </x-dropdown.item-danger>
-                        <x-dropdown.item
-                            type="button"
-                            icon="prohibited"
-                            x-on:click.prevent="$dispatch('dropdown-close')"
-                        >
-                            Cancel
-                        </x-dropdown.item>
-                    </x-dropdown.group>
-                </x-dropdown>
-            @endcan
+                            <x-dropdown.group>
+                                <x-dropdown.text>
+                                    Are you sure you want to discard this {{ str($postType->name)->lower() }} draft?
+                                </x-dropdown.text>
+                            </x-dropdown.group>
+                            <x-dropdown.group>
+                                <x-dropdown.item-danger
+                                    type="button"
+                                    icon="trash"
+                                    wire:click="discardDraft({{ $post->id }})"
+                                >
+                                    Discard
+                                </x-dropdown.item-danger>
+                                <x-dropdown.item
+                                    type="button"
+                                    icon="prohibited"
+                                    x-on:click.prevent="$dispatch('dropdown-close')"
+                                >
+                                    Cancel
+                                </x-dropdown.item>
+                            </x-dropdown.group>
+                        </x-dropdown>
+                    @endcan
 
-            @can('delete', $post)
-                <x-dropdown placement="bottom-start">
-                    <x-slot name="trigger" color="neutral-danger" leading="trash">
-                        Delete {{ str($postType->name)->lower() }}
-                    </x-slot>
+                    @can('delete', $post)
+                        <x-dropdown placement="bottom-start">
+                            <x-slot name="trigger" color="neutral-danger" leading="trash">
+                                Delete {{ str($postType->name)->lower() }}
+                            </x-slot>
 
-                    <x-dropdown.group>
-                        <x-dropdown.text>
-                            Are you sure you want to delete the {{ str($postType->name)->lower() }}
-                            <strong class="font-semibold">{{ $post->title }}</strong>
-                            ?
-                        </x-dropdown.text>
-                    </x-dropdown.group>
-                    <x-dropdown.group>
-                        <x-dropdown.item-danger type="button" icon="trash" wire:click="deletePost({{ $post->id }})">
-                            Delete
-                        </x-dropdown.item-danger>
-                        <x-dropdown.item
-                            type="button"
-                            icon="prohibited"
-                            x-on:click.prevent="$dispatch('dropdown-close')"
-                        >
-                            Cancel
-                        </x-dropdown.item>
-                    </x-dropdown.group>
-                </x-dropdown>
-            @endcan
-        </div>
-
-        <div class="flex items-center gap-4">
-            @if ($canSave)
-                <x-button wire:click="save" color="neutral">Save</x-button>
-                <x-button wire:click="goToNextStep" color="primary">Next: Publish post &rarr;</x-button>
-            @else
+                            <x-dropdown.group>
+                                <x-dropdown.text>
+                                    Are you sure you want to delete the {{ str($postType->name)->lower() }}
+                                    <strong class="font-semibold">{{ $post->title }}</strong>
+                                    ?
+                                </x-dropdown.text>
+                            </x-dropdown.group>
+                            <x-dropdown.group>
+                                <x-dropdown.item-danger
+                                    type="button"
+                                    icon="trash"
+                                    wire:click="deletePost({{ $post->id }})"
+                                >
+                                    Delete
+                                </x-dropdown.item-danger>
+                                <x-dropdown.item
+                                    type="button"
+                                    icon="prohibited"
+                                    x-on:click.prevent="$dispatch('dropdown-close')"
+                                >
+                                    Cancel
+                                </x-dropdown.item>
+                            </x-dropdown.group>
+                        </x-dropdown>
+                    @endcan
+                </div>
+            </div>
+        @else
+            <x-panel.warning class="w-full">
                 {{ $canSaveMessage }}
-            @endif
-        </div>
-    </div>
+            </x-panel.warning>
+        @endif
+    </x-fieldset.controls>
 </x-write-post-wizard-layout>

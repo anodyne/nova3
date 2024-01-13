@@ -1,4 +1,4 @@
-<x-content-box height="sm" class="bg-white">
+<x-spacing height="sm" class="bg-white">
     <div x-data="{ expanded: @js($e->extensions->fails()) }">
         <div class="flex justify-between gap-6">
             <div class="flex items-center gap-4">
@@ -61,4 +61,4 @@
             </dl>
         </div>
     </div>
-</x-content-box>
+</x-spacing>

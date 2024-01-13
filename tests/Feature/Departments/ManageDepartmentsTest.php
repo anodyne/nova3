@@ -5,7 +5,6 @@ declare(strict_types=1);
 use Nova\Departments\Enums\DepartmentStatus;
 use Nova\Departments\Livewire\DepartmentsList;
 use Nova\Departments\Models\Department;
-use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
@@ -78,9 +77,6 @@ describe('authorized user with department create permissions', function () {
 
     test('has the correct permissions', function () {
         livewire(DepartmentsList::class)
-            ->assertTableHeaderActionsExistInOrder([
-                CreateAction::class,
-            ])
             ->assertTableActionHidden(ViewAction::class, $this->departments->first())
             ->assertTableActionHidden(EditAction::class, $this->departments->first())
             ->assertTableActionHidden(DeleteAction::class, $this->departments->first())
@@ -95,7 +91,6 @@ describe('authorized user with department delete permissions', function () {
 
     test('has the correct permissions', function () {
         livewire(DepartmentsList::class)
-            ->assertTableHeaderActionsExistInOrder([])
             ->assertTableActionHidden(ViewAction::class, $this->departments->first())
             ->assertTableActionHidden(EditAction::class, $this->departments->first())
             ->assertTableActionVisible(DeleteAction::class, $this->departments->first())
@@ -110,7 +105,6 @@ describe('authorized user with department update permissions', function () {
 
     test('has the correct permissions', function () {
         livewire(DepartmentsList::class)
-            ->assertTableHeaderActionsExistInOrder([])
             ->assertTableActionHidden(ViewAction::class, $this->departments->first())
             ->assertTableActionVisible(EditAction::class, $this->departments->first())
             ->assertTableActionHidden(DeleteAction::class, $this->departments->first())
@@ -125,7 +119,6 @@ describe('authorized user with department view permissions', function () {
 
     test('has the correct permissions', function () {
         livewire(DepartmentsList::class)
-            ->assertTableHeaderActionsExistInOrder([])
             ->assertTableActionVisible(ViewAction::class, $this->departments->first())
             ->assertTableActionHidden(EditAction::class, $this->departments->first())
             ->assertTableActionHidden(DeleteAction::class, $this->departments->first())

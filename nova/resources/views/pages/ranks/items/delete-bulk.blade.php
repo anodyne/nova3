@@ -1,4 +1,4 @@
-@php($count = $records->count())
+@php($count = $records->loadMissing('group')->count())
 
 <x-filament.modal-content icon="trash">
     <x-slot name="title">Delete {{ $count }} selected {{ str('rank item')->plural($count) }}?</x-slot>
@@ -14,7 +14,7 @@
         @endforeach
     </ul>
 
-    <p>You won't be able to recover {{ trans_choice('it|them', $count) }}.</p>
+    <p>You won’t be able to recover {{ trans_choice('it|them', $count) }}.</p>
 
     <p>
         Any character with {{ trans_choice('this rank|these ranks', $count) }} will need to have a new rank assigned to

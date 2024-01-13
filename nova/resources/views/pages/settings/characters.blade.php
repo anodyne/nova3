@@ -1,25 +1,31 @@
 @extends($meta->template)
 
 @section('content')
-    <x-panel>
-        <x-panel.header title="Character settings">
+    <x-spacing constrained>
+        <x-page-header>
+            <x-slot name="heading">Character settings</x-slot>
+
             <x-slot name="actions">
                 <div x-data="{}">
-                    <x-button x-on:click="$dispatch('toggle-spotlight')" plain>
+                    <x-button x-on:click="$dispatch('toggle-spotlight')" color="neutral">
                         <x-icon name="search" size="sm"></x-icon>
                         Find a setting
                     </x-button>
                 </div>
             </x-slot>
-        </x-panel.header>
+        </x-page-header>
 
         <x-form :action="route('settings.characters.update')" method="PUT">
-            <x-form.section title="Character creation approvals">
-                <x-slot name="message">
-                    <x-text>Set whether characters of certain types require approval before being activated.</x-text>
-                </x-slot>
+            <x-fieldset>
+                <x-fieldset.heading>
+                    <x-icon name="check"></x-icon>
+                    <x-fieldset.legend>Character creation approvals</x-fieldset.legend>
+                    <x-fieldset.description>
+                        Set whether characters of certain types require approval before being activated.
+                    </x-fieldset.description>
+                </x-fieldset.heading>
 
-                <div class="w-full max-w-md">
+                <x-fieldset.field-group constrained>
                     <x-switch.group>
                         <x-switch.field>
                             <x-fieldset.label for="approve_primary">Primary characters</x-fieldset.label>
@@ -60,77 +66,82 @@
                             ></x-switch>
                         </x-switch.field>
                     </x-switch.group>
-                </div>
-            </x-form.section>
+                </x-fieldset.field-group>
+            </x-fieldset>
 
-            <x-form.section title="Character limits">
-                <x-slot name="message">
-                    <x-text>
+            <x-fieldset>
+                <x-fieldset.heading>
+                    <x-icon name="forbid"></x-icon>
+                    <x-fieldset.legend>Character limits</x-fieldset.legend>
+                    <x-fieldset.description>
                         Define how many active characters a user can have linked to their account. Additional characters
                         beyond the limit can still be created, but will require approval to be activated.
-                    </x-text>
-                </x-slot>
+                    </x-fieldset.description>
+                </x-fieldset.heading>
 
-                <div class="flex items-center gap-x-2.5">
-                    <x-switch
-                        name="enforce_character_limits"
-                        :value="old('enforce_character_limits', $settings->enforceCharacterLimits)"
-                        id="enforce_character_limits"
-                    ></x-switch>
-                    <x-fieldset.label for="enforce_character_limits">Enforce character limits</x-fieldset.label>
-                </div>
-
-                <x-input.group label="Character limit">
-                    <div class="w-full sm:w-2/3 md:w-2/5">
-                        <x-input.number
-                            id="character_limit"
-                            name="character_limit"
-                            :value="old('character_limit', $settings->characterLimit)"
-                        />
+                <x-fieldset.field-group constrained>
+                    <div class="flex items-center gap-x-2.5">
+                        <x-switch
+                            name="enforce_character_limits"
+                            :value="old('enforce_character_limits', $settings->enforceCharacterLimits)"
+                            id="enforce_character_limits"
+                        ></x-switch>
+                        <x-fieldset.label for="enforce_character_limits">Enforce character limits</x-fieldset.label>
                     </div>
-                </x-input.group>
-            </x-form.section>
 
-            <x-form.section title="Automatic position availability">
-                <x-slot name="message">
-                    <x-text>
+                    <x-fieldset.field label="Character limit" id="character_limit" name="character_limit">
+                        <x-input.number
+                            :value="old('character_limit', $settings->characterLimit)"
+                            class="w-full sm:w-1/3"
+                        ></x-input.number>
+                    </x-fieldset.field>
+                </x-fieldset.field-group>
+            </x-fieldset>
+
+            <x-fieldset>
+                <x-fieldset.heading>
+                    <x-icon name="plus-minus"></x-icon>
+                    <x-fieldset.legend>Automatic position availability</x-fieldset.legend>
+                    <x-fieldset.description>
                         You can pick which character statuses will trigger Nova to automatically update position
                         availability. If none are selected, you will need to manage the availability of positions
                         manually.
-                    </x-text>
-                </x-slot>
+                    </x-fieldset.description>
+                </x-fieldset.heading>
 
-                <div class="flex items-center gap-x-2.5">
-                    <x-switch
-                        name="auto_availability_primary"
-                        :value="old('auto_availability_primary', $settings->autoAvailabilityForPrimary)"
-                        id="auto_availability_primary"
-                    ></x-switch>
-                    <x-fieldset.label for="auto_availability_primary">Primary characters</x-fieldset.label>
-                </div>
+                <x-fieldset.field-group constrained>
+                    <div class="flex items-center gap-x-2.5">
+                        <x-switch
+                            name="auto_availability_primary"
+                            :value="old('auto_availability_primary', $settings->autoAvailabilityForPrimary)"
+                            id="auto_availability_primary"
+                        ></x-switch>
+                        <x-fieldset.label for="auto_availability_primary">Primary characters</x-fieldset.label>
+                    </div>
 
-                <div class="flex items-center gap-x-2.5">
-                    <x-switch
-                        name="auto_availability_secondary"
-                        :value="old('auto_availability_secondary', $settings->autoAvailabilityForSecondary)"
-                        id="auto_availability_secondary"
-                    ></x-switch>
-                    <x-fieldset.label for="auto_availability_secondary">Secondary characters</x-fieldset.label>
-                </div>
+                    <div class="flex items-center gap-x-2.5">
+                        <x-switch
+                            name="auto_availability_secondary"
+                            :value="old('auto_availability_secondary', $settings->autoAvailabilityForSecondary)"
+                            id="auto_availability_secondary"
+                        ></x-switch>
+                        <x-fieldset.label for="auto_availability_secondary">Secondary characters</x-fieldset.label>
+                    </div>
 
-                <div class="flex items-center gap-x-2.5">
-                    <x-switch
-                        name="auto_availability_support"
-                        :value="old('auto_availability_support', $settings->autoAvailabilityForSupport)"
-                        id="auto_availability_support"
-                    ></x-switch>
-                    <x-fieldset.label for="auto_availability_support">Support characters</x-fieldset.label>
-                </div>
-            </x-form.section>
+                    <div class="flex items-center gap-x-2.5">
+                        <x-switch
+                            name="auto_availability_support"
+                            :value="old('auto_availability_support', $settings->autoAvailabilityForSupport)"
+                            id="auto_availability_support"
+                        ></x-switch>
+                        <x-fieldset.label for="auto_availability_support">Support characters</x-fieldset.label>
+                    </div>
+                </x-fieldset.field-group>
+            </x-fieldset>
 
-            <x-form.footer>
+            <x-fieldset.controls>
                 <x-button type="submit" color="primary">Update</x-button>
-            </x-form.footer>
+            </x-fieldset.controls>
         </x-form>
-    </x-panel>
+    </x-spacing>
 @endsection

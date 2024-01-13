@@ -16,7 +16,7 @@
     $pluralModelLabel = $table->getPluralModelLabel();
 @endphp
 
-<x-content-box height="none" width="none">
+<x-spacing size="none">
     <x-panel.primary icon="arrows-sort" title="Change sorting order">
         <div class="space-y-4">
             <p>
@@ -34,4 +34,4 @@
             </div>
         </div>
     </x-panel.primary>
-</x-content-box>
+</x-spacing>

@@ -2,7 +2,7 @@
     <p>
         Are you sure you want to delete the
         <strong class="font-semibold">{{ $record->name }}</strong>
-        department? You won't be able to recover it.
+        department? You won’t be able to recover it.
     </p>
 
     <p>

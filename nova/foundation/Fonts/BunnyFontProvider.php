@@ -9,7 +9,7 @@ use Illuminate\Support\HtmlString;
 
 class BunnyFontProvider implements Contracts\FontProvider
 {
-    public function getHtml(string $family, string $url = null): Htmlable
+    public function getHtml(string $family, ?string $url = null): Htmlable
     {
         $family = str($family)->kebab();
         $url ??= "https://fonts.bunny.net/css?family={$family}:400,500,600,700,800,900&display=swap";

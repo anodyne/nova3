@@ -9,7 +9,7 @@ use Illuminate\Support\HtmlString;
 
 class LocalFontProvider implements Contracts\FontProvider
 {
-    public function getHtml(string $family, string $url = null): Htmlable
+    public function getHtml(string $family, ?string $url = null): Htmlable
     {
         $family = str($family)->kebab()->lower();
         $url = asset('dist/fonts/'.$family.'/font.css');

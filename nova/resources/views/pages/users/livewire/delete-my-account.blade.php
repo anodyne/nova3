@@ -1,78 +1,80 @@
-<div class="divide-y divide-gray-100 dark:divide-gray-800">
-    <x-form.section
-        title="Delete account"
-        message="This will delete your account and you will no longer be able to interact with the game."
-    >
-        <div>
-            <p class="text-sm/6 text-gray-600 dark:text-gray-400">The following information will be deleted:</p>
-            <div class="mt-2 grid grid-cols-2 gap-4">
-                <div class="flex items-center gap-x-2">
-                    <div class="shrink-0">
-                        <x-icon name="user" size="md"></x-icon>
+<div class="space-y-12">
+    <x-fieldset>
+        <x-fieldset.legend>Delete account</x-fieldset.legend>
+        <x-fieldset.description>
+            This will delete your account and you will no longer be able to interact with the game.
+        </x-fieldset.description>
+
+        <x-fieldset.field-group>
+            <div>
+                <x-text>The following information will be deleted:</x-text>
+                <div class="mt-4 grid grid-cols-2 gap-4">
+                    <div class="flex items-center gap-x-2">
+                        <div class="shrink-0">
+                            <x-icon name="user" size="md"></x-icon>
+                        </div>
+                        <div>
+                            <x-h4>User account</x-h4>
+                        </div>
                     </div>
-                    <div>
-                        <x-h4>User account</x-h4>
+                    <div class="flex items-center gap-x-2">
+                        <div class="shrink-0">
+                            <x-icon name="login" size="md"></x-icon>
+                        </div>
+                        <div>
+                            <x-h4>Log in records</x-h4>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-x-2">
+                        <div class="shrink-0">
+                            <x-icon name="note" size="md"></x-icon>
+                        </div>
+                        <div>
+                            <x-h4>Notes</x-h4>
+                        </div>
                     </div>
                 </div>
-                <div class="flex items-center gap-x-2">
-                    <div class="shrink-0">
-                        <x-icon name="login" size="md"></x-icon>
+
+                <x-text class="mt-8">The following information will not be deleted:</x-text>
+                <div class="mt-4 grid grid-cols-2 gap-4">
+                    <div class="flex items-center gap-x-2">
+                        <div class="shrink-0">
+                            <x-icon name="characters" size="md"></x-icon>
+                        </div>
+                        <div>
+                            <x-h4>Characters</x-h4>
+                        </div>
                     </div>
-                    <div>
-                        <x-h4>Log in records</x-h4>
+                    <div class="flex items-center gap-x-2">
+                        <div class="shrink-0">
+                            <x-icon name="book" size="md"></x-icon>
+                        </div>
+                        <div>
+                            <x-h4>Story posts</x-h4>
+                        </div>
                     </div>
-                </div>
-                <div class="flex items-center gap-x-2">
-                    <div class="shrink-0">
-                        <x-icon name="note" size="md"></x-icon>
+                    <div class="flex items-center gap-x-2">
+                        <div class="shrink-0">
+                            <x-icon name="megaphone" size="md"></x-icon>
+                        </div>
+                        <div>
+                            <x-h4>Announcements</x-h4>
+                        </div>
                     </div>
-                    <div>
-                        <x-h4>Notes</x-h4>
+                    <div class="flex items-center gap-x-2">
+                        <div class="shrink-0">
+                            <x-icon name="messages" size="md"></x-icon>
+                        </div>
+                        <div>
+                            <x-h4>Direct messages</x-h4>
+                        </div>
                     </div>
                 </div>
             </div>
+        </x-fieldset.field-group>
+    </x-fieldset>
 
-            <p class="mt-8 text-sm/6 text-gray-600 dark:text-gray-400">
-                The following information will not be deleted:
-            </p>
-            <div class="mt-2 grid grid-cols-2 gap-4">
-                <div class="flex items-center gap-x-2">
-                    <div class="shrink-0">
-                        <x-icon name="characters" size="md"></x-icon>
-                    </div>
-                    <div>
-                        <x-h4>Characters</x-h4>
-                    </div>
-                </div>
-                <div class="flex items-center gap-x-2">
-                    <div class="shrink-0">
-                        <x-icon name="book" size="md"></x-icon>
-                    </div>
-                    <div>
-                        <x-h4>Story posts</x-h4>
-                    </div>
-                </div>
-                <div class="flex items-center gap-x-2">
-                    <div class="shrink-0">
-                        <x-icon name="megaphone" size="md"></x-icon>
-                    </div>
-                    <div>
-                        <x-h4>Announcements</x-h4>
-                    </div>
-                </div>
-                <div class="flex items-center gap-x-2">
-                    <div class="shrink-0">
-                        <x-icon name="messages" size="md"></x-icon>
-                    </div>
-                    <div>
-                        <x-h4>Direct messages</x-h4>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </x-form.section>
-
-    <x-form.footer>
+    <x-fieldset.controls>
         <x-dropdown placement="bottom-start">
             <x-slot name="emptyTrigger">
                 <x-button color="danger">
@@ -93,5 +95,5 @@
                 </x-dropdown.item>
             </x-dropdown.group>
         </x-dropdown>
-    </x-form.footer>
+    </x-fieldset.controls>
 </div>

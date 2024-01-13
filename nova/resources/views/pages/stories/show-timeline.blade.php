@@ -1,13 +1,13 @@
 @extends($meta->template)
 
 @section('content')
-    <x-panel class="overflow-hidden" x-data="{ active: 'posts' }">
+    <div x-data="{ active: 'posts' }">
         <div class="grid grid-cols-2">
             <a
                 href="{{ route('stories.timeline', 'posts') }}"
                 @class([
                     'flex gap-3 px-8 py-4',
-                    'rounded-br-md border-b border-r border-gray-200 bg-gray-100' => $type !== 'posts',
+                    'rounded-lg bg-gray-100 ring-1 ring-inset ring-gray-950/5 dark:bg-white/5 dark:ring-white/5' => $type === 'posts',
                 ])
             >
                 <div
@@ -28,7 +28,7 @@
                 href="{{ route('stories.timeline', 'stories') }}"
                 @class([
                     'flex gap-3 px-8 py-4',
-                    'rounded-bl-md border-b border-l border-gray-200 bg-gray-100' => $type !== 'stories',
+                    'rounded-lg bg-gray-100 ring-1 ring-inset ring-gray-950/5 dark:bg-white/5 dark:ring-white/5' => $type === 'stories',
                 ])
             >
                 <div
@@ -46,12 +46,12 @@
             </a>
         </div>
 
-        <div>
+        <div class="mt-8">
             @if ($type === 'stories')
                 <livewire:stories-timeline />
             @else
                 <livewire:posts-timeline />
             @endif
         </div>
-    </x-panel>
+    </div>
 @endsection

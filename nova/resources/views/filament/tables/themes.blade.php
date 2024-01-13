@@ -1,4 +1,4 @@
-<x-content-box>
+<x-spacing size="md">
     <div class="grid grid-cols-3 gap-6">
         @forelse ($records as $record)
             <x-panel x-data="{ id: {{ $record->id ?? 0 }} }">
@@ -10,7 +10,7 @@
                     />
                 </div>
 
-                <x-content-box>
+                <x-spacing size="md">
                     <div class="flex items-center justify-between">
                         <x-h3>{{ $record->name }}</x-h3>
 
@@ -28,10 +28,10 @@
                             {{ ($record->exists) ? $record->status->getLabel() : 'Pending' }}
                         </x-badge>
                     </div>
-                </x-content-box>
+                </x-spacing>
             </x-panel>
         @empty
             <div>Nothing</div>
         @endforelse
     </div>
-</x-content-box>
+</x-spacing>

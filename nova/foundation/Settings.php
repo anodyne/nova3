@@ -10,7 +10,7 @@ use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Arr;
 use JsonSerializable;
 
-class Settings implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
+class Settings implements Arrayable, ArrayAccess, Jsonable, JsonSerializable
 {
     /**
      * Array of default values

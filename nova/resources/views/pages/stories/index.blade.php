@@ -8,7 +8,7 @@
         <x-slot name="description">Manage the stories and timeline of your game</x-slot>
 
         <x-slot name="actions">
-            <x-button :href="route('stories.timeline', 'stories')" outline>
+            <x-button :href="route('stories.timeline', 'stories')" color="neutral">
                 <x-icon name="timeline" size="sm"></x-icon>
                 Story timeline
             </x-button>

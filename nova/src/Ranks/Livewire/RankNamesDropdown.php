@@ -36,7 +36,7 @@ class RankNamesDropdown extends Component
 
     public function selectName(int $nameId)
     {
-        $this->dispatch('rank-names-dropdown-close');
+        $this->dispatch('dropdown-close');
 
         $this->reset('search');
 
@@ -53,7 +53,7 @@ class RankNamesDropdown extends Component
             ->get();
     }
 
-    public function mount(int $nameId = null): void
+    public function mount(?int $nameId = null): void
     {
         $this->selectedId = $nameId;
         $this->selected = $this->filteredNames->where('id', $nameId)->first();

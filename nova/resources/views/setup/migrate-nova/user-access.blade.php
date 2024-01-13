@@ -12,7 +12,7 @@
         <x-panel class="overflow-hidden">
             <div class="divide-y divide-gray-200">
                 @foreach ($roles as $role)
-                    <x-content-box height="sm">
+                    <x-spacing height="sm">
                         <div class="space-y-6" x-data="{ expanded: @js($role->name != 'active') }">
                             <div class="flex items-start justify-between">
                                 <div class="flex flex-1 flex-col gap-2">
@@ -48,7 +48,7 @@
                                 </div>
                             @endif
                         </div>
-                    </x-content-box>
+                    </x-spacing>
                 @endforeach
             </div>
         </x-panel>

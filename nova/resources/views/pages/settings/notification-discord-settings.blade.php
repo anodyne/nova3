@@ -1,9 +1,9 @@
 <x-filament.modal-content icon="discord" title="Discord settings">
-    <p>
+    <x-text>
         You can set the settings for the Discord webhook and accent color for the
         <strong class="font-semibold">{{ $record->name }}</strong>
         notification below.
-    </p>
+    </x-text>
 
     @if (filled($record->notes))
         <x-panel.primary title="Please note">

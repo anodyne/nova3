@@ -113,7 +113,7 @@ describe('authorized user', function () {
 
         assertDatabaseMissing(Post::class, ['story_id' => $storyToDelete->id]);
 
-        assertCount(5, $childStory->refresh()->posts);
+        assertCount(5, $childStory->refresh()->loadMissing('posts')->posts);
     });
 });
 

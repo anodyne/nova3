@@ -22,25 +22,25 @@
                 title="Form Info"
                 message="Laborum esse proident non officia laborum mollit aliqua ad ullamco nisi."
             >
-                <x-input.group label="Name" for="name" :error="$errors->first('name')">
+                <x-fieldset.field label="Name" for="name" :error="$errors->first('name')">
                     <x-input.text x-model="name" id="name" name="name" data-cy="name" />
-                </x-input.group>
+                </x-fieldset.field>
 
-                <x-input.group label="Key" for="key" :error="$errors->first('key')">
+                <x-fieldset.field label="Key" for="key" :error="$errors->first('key')">
                     <x-input.text x-model="key" @change="suggestKey = false" id="key" name="key" data-cy="key" />
-                </x-input.group>
+                </x-fieldset.field>
 
-                <x-input.group label="Description" for="description">
+                <x-fieldset.field label="Description" for="description">
                     <x-input.textarea id="description" name="description" data-cy="description" rows="3">
                         {{ old('description') }}
                     </x-input.textarea>
-                </x-input.group>
+                </x-fieldset.field>
             </x-form.section>
 
-            <x-form.footer>
+            <x-fieldset.controls>
                 <x-button type="submit" color="primary">Add</x-button>
                 <x-button :href="route('forms.index')" plain>Cancel</x-button>
-            </x-form.footer>
+            </x-fieldset.controls>
         </x-form>
     </x-panel>
 @endsection

@@ -1,4 +1,4 @@
-<div x-data="adminThemeToggle(@entangle('appearance'))">
+<div data-slot="control" x-data="adminThemeToggle(@entangle('appearance'))">
     <x-switch x-model="appearance" on-value="dark" off-value="light" id="appearance"></x-switch>
 </div>
 

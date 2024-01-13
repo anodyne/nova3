@@ -1,4 +1,4 @@
-<div>
+<div data-slot="control">
     <div class="flex items-center gap-3">
         @if (str($selected)->startsWith('#'))
             <x-input.text name="{{ $name }}" wire:model.live.debounce.500ms="selected">
@@ -9,12 +9,12 @@
                 </x-slot>
             </x-input.text>
         @else
-            <x-input.select name="{{ $name }}" wire:model.live="selected">
+            <x-select name="{{ $name }}" wire:model.live="selected">
                 <option value="">Choose a color</option>
                 @foreach ($colors as $color => $name)
                     <option value="{{ $color }}" @selected($color === $selected)>{{ $name }}</option>
                 @endforeach
-            </x-input.select>
+            </x-select>
         @endif
 
         <div class="shrink-0">

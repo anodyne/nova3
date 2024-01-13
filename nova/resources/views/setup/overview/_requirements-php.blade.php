@@ -1,4 +1,4 @@
-<x-content-box height="sm" class="bg-white">
+<x-spacing height="sm" class="bg-white">
     <div class="flex justify-between gap-6">
         <div class="flex items-center gap-4">
             <div class="shrink-0">
@@ -22,4 +22,4 @@
 
         <p>Your server is currently running PHP {{ $e->php->version }}.</p>
     </div>
-</x-content-box>
+</x-spacing>

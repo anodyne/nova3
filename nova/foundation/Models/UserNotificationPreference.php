@@ -12,7 +12,7 @@ class UserNotificationPreference extends Model
 {
     public $timestamps = false;
 
-    protected $fillable = ['user_id', 'database', 'mail'];
+    protected $fillable = ['user_id', 'database', 'mail', 'discord'];
 
     public function notificationType(): BelongsTo
     {

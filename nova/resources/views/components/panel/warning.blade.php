@@ -6,7 +6,7 @@
 ])
 
 <x-panel {{ $attributes }} no-shadow>
-    <x-container
+    <x-spacing
         :height="$height"
         :width="$width"
         class="border-y border-warning-300 bg-warning-50 text-warning-600 sm:rounded-lg sm:border-x dark:border-warning-700 dark:bg-warning-950 dark:text-warning-500"
@@ -30,5 +30,5 @@
                 </div>
             </div>
         </div>
-    </x-container>
+    </x-spacing>
 </x-panel>

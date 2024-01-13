@@ -8,6 +8,8 @@
     'secondary' => false,
 ])
 
+@php($character->loadMissing('rank', 'positions'))
+
 <x-avatar.meta :src="$character->avatar_url" {{ $attributes }}>
     <x-slot name="primary">
         @if ($primaryStatus)

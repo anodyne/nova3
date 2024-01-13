@@ -24,7 +24,7 @@ class NovaView extends Facade
     /**
      * @param  string | array<string> | null  $scopes
      */
-    public static function registerRenderHook(string $name, Closure $hook, string|array $scopes = null): void
+    public static function registerRenderHook(string $name, Closure $hook, string|array|null $scopes = null): void
     {
         static::resolved(function (ViewManager $viewManager) use ($name, $hook, $scopes) {
             $viewManager->registerRenderHook($name, $hook, $scopes);

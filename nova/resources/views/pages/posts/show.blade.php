@@ -3,7 +3,7 @@
 @section('content')
     <x-panel>
         <div x-data="{ showContentWarning: @js($post->show_content_warning) }">
-            <x-content-box class="space-y-8">
+            <x-spacing size="md" class="space-y-8">
                 <div>
                     <div class="flex justify-between gap-x-8">
                         <div>
@@ -128,7 +128,7 @@
                     </div>
 
                     <div class="rounded-md bg-gray-50 ring-1 ring-inset ring-gray-950/5">
-                        <x-content-box>
+                        <x-spacing size="md">
                             <x-h2>{{ str('character')->plural($post->characterAuthors->count())->title() }}</x-h2>
 
                             <div class="mt-4 grid grid-cols-3 gap-6">
@@ -140,9 +140,9 @@
                                     </div>
                                 @endforeach
                             </div>
-                        </x-content-box>
+                        </x-spacing>
 
-                        <x-content-box>
+                        <x-spacing size="md">
                             <x-h2>
                                 {{ str('author')->plural($post->userAuthors->count())->prepend('Additional ') }}
                             </x-h2>
@@ -156,7 +156,7 @@
                                     </div>
                                 @endforeach
                             </div>
-                        </x-content-box>
+                        </x-spacing>
                     </div>
                 </div>
 
@@ -206,7 +206,7 @@
                         </div>
                     @endif
                 </div>
-            </x-content-box>
+            </x-spacing>
         </div>
     </x-panel>
 @endsection

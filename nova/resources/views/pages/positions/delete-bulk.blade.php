@@ -14,7 +14,7 @@
         @endforeach
     </ul>
 
-    <p>You won't be able to recover {{ trans_choice('it|them', $count) }}.</p>
+    <p>You won’t be able to recover {{ trans_choice('it|them', $count) }}.</p>
 
     <p>Any character(s) assigned to a removed position will need to be re-assigned to another position.</p>
 </x-filament.modal-content>

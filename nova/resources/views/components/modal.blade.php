@@ -48,7 +48,7 @@
             aria-labelledby="modal-title"
             x-cloak
         >
-            <x-content-box>
+            <x-spacing size="md">
                 <div class="flex flex-col items-start space-y-4">
                     @if ($icon)
                         <div class="flex shrink-0 items-center justify-center">
@@ -68,11 +68,11 @@
                         </div>
                     </div>
                 </div>
-            </x-content-box>
+            </x-spacing>
 
-            <x-content-box class="z-20 space-y-4 sm:flex sm:space-x-4 sm:space-y-0" height="sm">
+            <x-spacing class="z-20 space-y-4 sm:flex sm:space-x-4 sm:space-y-0" height="sm">
                 {{ $footer }}
-            </x-content-box>
+            </x-spacing>
         </div>
     </div>
 @endpush

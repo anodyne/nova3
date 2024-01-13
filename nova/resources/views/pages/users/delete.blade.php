@@ -2,7 +2,7 @@
     {{-- format-ignore-start --}}
     <p>
         Are you sure you want to delete
-        <strong class="font-semibold">{{ $record->name }}</strong>'s
+        <strong class="font-semibold">{{ $record->name }}</strong>’s
         user account?
     </p>
 

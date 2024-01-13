@@ -11,7 +11,7 @@ class DiscordAlert
 {
     protected ?NotificationType $notificationType;
 
-    public function __construct(string $notificationKey = null)
+    public function __construct(?string $notificationKey = null)
     {
         if (filled($notificationKey)) {
             $this->notificationType = NotificationType::where('key', $notificationKey)->first();
@@ -75,7 +75,7 @@ class DiscordAlert
         })->values()->all();
     }
 
-    public static function make(string $notificationKey = null): static
+    public static function make(?string $notificationKey = null): static
     {
         return app(static::class, ['notificationKey' => $notificationKey]);
     }

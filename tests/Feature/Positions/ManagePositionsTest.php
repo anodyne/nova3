@@ -6,7 +6,6 @@ use Nova\Characters\Models\Character;
 use Nova\Departments\Enums\PositionStatus;
 use Nova\Departments\Livewire\PositionsList;
 use Nova\Departments\Models\Position;
-use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
@@ -110,9 +109,6 @@ describe('authorized user with department create permissions', function () {
 
     test('has the correct permissions', function () {
         livewire(PositionsList::class)
-            ->assertTableHeaderActionsExistInOrder([
-                CreateAction::class,
-            ])
             ->assertTableActionHidden(ViewAction::class, $this->positions->first())
             ->assertTableActionHidden(EditAction::class, $this->positions->first())
             ->assertTableActionHidden(DeleteAction::class, $this->positions->first());
@@ -126,7 +122,6 @@ describe('authorized user with department delete permissions', function () {
 
     test('has the correct permissions', function () {
         livewire(PositionsList::class)
-            ->assertTableHeaderActionsExistInOrder([])
             ->assertTableActionHidden(ViewAction::class, $this->positions->first())
             ->assertTableActionHidden(EditAction::class, $this->positions->first())
             ->assertTableActionVisible(DeleteAction::class, $this->positions->first());
@@ -140,7 +135,6 @@ describe('authorized user with department update permissions', function () {
 
     test('has the correct permissions', function () {
         livewire(PositionsList::class)
-            ->assertTableHeaderActionsExistInOrder([])
             ->assertTableActionHidden(ViewAction::class, $this->positions->first())
             ->assertTableActionVisible(EditAction::class, $this->positions->first())
             ->assertTableActionHidden(DeleteAction::class, $this->positions->first());
@@ -154,7 +148,6 @@ describe('authorized user with department view permissions', function () {
 
     test('has the correct permissions', function () {
         livewire(PositionsList::class)
-            ->assertTableHeaderActionsExistInOrder([])
             ->assertTableActionVisible(ViewAction::class, $this->positions->first())
             ->assertTableActionHidden(EditAction::class, $this->positions->first())
             ->assertTableActionHidden(DeleteAction::class, $this->positions->first());

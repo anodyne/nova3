@@ -29,6 +29,8 @@ class RankItem extends Model implements Sortable
         'base_image', 'overlay_image', 'group_id', 'name_id', 'order_column', 'status',
     ];
 
+    protected $with = ['name'];
+
     protected $casts = [
         'order_column' => 'integer',
         'status' => RankItemStatus::class,

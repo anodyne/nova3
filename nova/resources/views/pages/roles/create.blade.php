@@ -3,7 +3,7 @@
 @use('Nova\Roles\Models\Role')
 
 @section('content')
-    <x-container.narrow>
+    <x-spacing constrained>
         <x-page-header>
             <x-slot name="heading">Add a new role</x-slot>
 
@@ -33,38 +33,25 @@
         >
             <x-form :action="route('roles.store')">
                 <x-fieldset>
-                    <x-fieldset.legend>Role details</x-fieldset.legend>
-                    <x-fieldset.description>
-                        A role is a collection of permissions that allows a user to take certain actions throughout
-                        Nova. Since a user can have as many roles as you’d like, we recommend creating roles with fewer
-                        permissions to give yourself more freedom to add and remove access for a given user.
-                    </x-fieldset.description>
+                    <x-fieldset.field-group constrained>
+                        <x-fieldset.field
+                            label="Name"
+                            id="display_name"
+                            name="display_name"
+                            :error="$errors->first('display_name')"
+                        >
+                            <x-input.text x-model="displayName" data-cy="display_name" />
+                        </x-fieldset.field>
 
-                    <x-fieldset.field-group class="w-full max-w-md">
-                        <x-input.group label="Name" for="display_name" :error="$errors->first('display_name')">
-                            <x-input.text
-                                x-model="displayName"
-                                id="display_name"
-                                name="display_name"
-                                data-cy="display_name"
-                            />
-                        </x-input.group>
+                        <x-fieldset.field label="Key" id="name" name="name" :error="$errors->first('name')">
+                            <x-input.text x-model="name" x-on:change="suggestName = false" data-cy="name" />
+                        </x-fieldset.field>
 
-                        <x-input.group label="Key" for="name" :error="$errors->first('name')">
-                            <x-input.text
-                                x-model="name"
-                                @change="suggestName = false"
-                                id="name"
-                                name="name"
-                                data-cy="name"
-                            />
-                        </x-input.group>
-
-                        <x-input.group label="Description" for="description">
-                            <x-input.textarea id="description" name="description" data-cy="description" rows="3">
+                        <x-fieldset.field label="Description" id="description" name="description">
+                            <x-input.textarea data-cy="description" rows="3">
                                 {{ old('description') }}
                             </x-input.textarea>
-                        </x-input.group>
+                        </x-fieldset.field>
 
                         <div class="flex items-center gap-x-2.5">
                             <x-switch name="is_default" :value="old('is_default')" id="is_default"></x-switch>
@@ -75,32 +62,32 @@
 
                 <x-fieldset>
                     <x-panel well>
-                        <x-container width="sm" height="sm">
+                        <x-spacing size="sm">
                             <x-fieldset.legend>Permissions for this role</x-fieldset.legend>
                             <x-fieldset.description>
                                 These permissions will be added to the role when it’s created.
                             </x-fieldset.description>
-                        </x-container>
+                        </x-spacing>
 
-                        <x-container height="2xs" width="2xs">
+                        <x-spacing size="2xs">
                             <livewire:roles-manage-permissions />
-                        </x-container>
+                        </x-spacing>
                     </x-panel>
                 </x-fieldset>
 
                 <x-fieldset>
                     <x-panel well>
-                        <x-container width="sm" height="sm">
+                        <x-spacing size="sm">
                             <x-fieldset.legend>Users with this role</x-fieldset.legend>
                             <x-fieldset.description>
                                 These users will be assigned this role and have all of the permissions listed below when
                                 it’s created.
                             </x-fieldset.description>
-                        </x-container>
+                        </x-spacing>
 
-                        <x-container height="2xs" width="2xs">
+                        <x-spacing size="2xs">
                             <livewire:roles-manage-users />
-                        </x-container>
+                        </x-spacing>
                     </x-panel>
                 </x-fieldset>
 
@@ -112,5 +99,5 @@
                 </x-fieldset>
             </x-form>
         </div>
-    </x-container.narrow>
+    </x-spacing>
 @endsection

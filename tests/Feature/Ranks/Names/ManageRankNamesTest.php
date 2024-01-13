@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
@@ -76,9 +75,6 @@ describe('authorized user with rank create permissions', function () {
 
     test('has the correct permissions', function () {
         livewire(RankNamesList::class)
-            ->assertTableHeaderActionsExistInOrder([
-                CreateAction::class,
-            ])
             ->assertTableActionHidden(ViewAction::class, $this->rankNames->first())
             ->assertTableActionHidden(EditAction::class, $this->rankNames->first())
             ->assertTableActionHidden(DeleteAction::class, $this->rankNames->first());
@@ -92,7 +88,6 @@ describe('authorized user with rank delete permissions', function () {
 
     test('has the correct permissions', function () {
         livewire(RankNamesList::class)
-            ->assertTableHeaderActionsExistInOrder([])
             ->assertTableActionHidden(ViewAction::class, $this->rankNames->first())
             ->assertTableActionHidden(EditAction::class, $this->rankNames->first())
             ->assertTableActionVisible(DeleteAction::class, $this->rankNames->first());
@@ -106,7 +101,6 @@ describe('authorized user with rank update permissions', function () {
 
     test('has the correct permissions', function () {
         livewire(RankNamesList::class)
-            ->assertTableHeaderActionsExistInOrder([])
             ->assertTableActionHidden(ViewAction::class, $this->rankNames->first())
             ->assertTableActionVisible(EditAction::class, $this->rankNames->first())
             ->assertTableActionHidden(DeleteAction::class, $this->rankNames->first());
@@ -120,7 +114,6 @@ describe('authorized user with rank view permissions', function () {
 
     test('has the correct permissions', function () {
         livewire(RankNamesList::class)
-            ->assertTableHeaderActionsExistInOrder([])
             ->assertTableActionVisible(ViewAction::class, $this->rankNames->first())
             ->assertTableActionHidden(EditAction::class, $this->rankNames->first())
             ->assertTableActionHidden(DeleteAction::class, $this->rankNames->first());

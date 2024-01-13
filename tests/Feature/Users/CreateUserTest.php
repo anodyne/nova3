@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Nova\Characters\Models\Character;
-use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
@@ -62,9 +61,6 @@ describe('authorized user', function () {
         $inactiveUser = User::factory()->inactive()->create();
 
         livewire(UsersList::class)
-            ->assertTableHeaderActionsExistInOrder([
-                CreateAction::class,
-            ])
             ->assertTableActionHidden(ViewAction::class, $activeUser)
             ->assertTableActionHidden(EditAction::class, $activeUser)
             ->assertTableActionHidden(DeleteAction::class, $activeUser)

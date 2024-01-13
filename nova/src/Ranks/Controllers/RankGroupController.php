@@ -55,7 +55,7 @@ class RankGroupController extends Controller
     public function edit(RankGroup $group)
     {
         return EditRankGroupResponse::sendWith([
-            'group' => $group->load('ranks.name'),
+            'group' => $group,
         ]);
     }
 

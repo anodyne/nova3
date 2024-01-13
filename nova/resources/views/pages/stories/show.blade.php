@@ -1,97 +1,51 @@
 @extends($meta->template)
 
 @section('content')
-    <x-panel class="relative" x-data="tabsList('details')">
+    <x-spacing class="relative" x-data="tabsList('details')">
         @if ($story->hasMedia('story-image'))
-            <img class="h-72 w-full object-cover" src="{{ $story->getFirstMediaUrl('story-image') }}" alt="" />
+            <div class="rounded-2xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10">
+                <img
+                    src="{{ $story->getFirstMediaUrl('story-image') }}"
+                    alt=""
+                    class="max-h-96 w-full rounded-lg object-cover shadow-2xl ring-1 ring-gray-900/10"
+                />
+            </div>
         @endif
 
-        <x-content-box height="none" class="pt-6">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center gap-6">
-                    <x-h1>{{ $story->title }}</x-h1>
+        <x-page-header class="mt-6">
+            <x-slot name="heading">{{ $story->title }}</x-slot>
+            <x-slot name="description">
+                <x-badge :color="$story->status->color()" size="md">
+                    {{ $story->status->displayName() }}
+                </x-badge>
+            </x-slot>
 
-                    <x-badge :color="$story->status->color()">
-                        {{ $story->status->displayName() }}
-                    </x-badge>
-                </div>
+            <x-slot name="actions">
+                <x-button x-on:click="window.history.back()" plain>&larr; Back</x-button>
 
-                <div class="flex items-center gap-6">
-                    <x-button x-on:click="window.history.back()" color="neutral" plain>&larr; Back</x-button>
+                @can('update', $story)
+                    <x-button :href="route('stories.edit', $story)" color="primary">
+                        <x-icon name="edit" size="sm"></x-icon>
+                        Edit
+                    </x-button>
+                @endcan
+            </x-slot>
+        </x-page-header>
 
-                    @can('update', $story)
-                        <x-button :href="route('stories.edit', $story)" color="primary">
-                            <x-icon name="edit" size="sm"></x-icon>
-                            Edit
-                        </x-button>
-                    @endcan
-                </div>
-            </div>
-        </x-content-box>
+        <x-tab.group name="story">
+            <x-tab.heading name="details">Details</x-tab.heading>
+            <x-tab.heading name="posts">Posts</x-tab.heading>
 
-        <div>
-            <x-content-box class="sm:hidden">
-                <x-input.select @change="switchTab($event.target.value)" aria-label="Selected tab">
-                    <option value="details">Details</option>
-                    <option value="posts">Posts</option>
+            @if ($story->has_summary)
+                <x-tab.heading name="summary">Summary</x-tab.heading>
+            @endif
 
-                    @if ($story->has_summary)
-                        <option value="summary">Summary</option>
-                    @endif
+            @if ($story->children->count() > 0)
+                <x-tab.heading name="stories">Additional stories</x-tab.heading>
+            @endif
+        </x-tab.group>
 
-                    @if ($story->children->count() > 0)
-                        <option value="stories">Additional stories</option>
-                    @endif
-                </x-input.select>
-            </x-content-box>
-            <div class="hidden sm:block">
-                <x-content-box height="none" class="border-b border-gray-200 dark:border-gray-800">
-                    <nav class="-mb-px flex">
-                        <a
-                            href="#"
-                            class="ml-8 whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition first:ml-0 focus:outline-none"
-                            :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('details'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('details') }"
-                            x-on:click.prevent="switchTab('details')"
-                        >
-                            Details
-                        </a>
-
-                        <a
-                            href="#"
-                            class="ml-8 whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition first:ml-0 focus:outline-none"
-                            :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('posts'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('posts') }"
-                            x-on:click.prevent="switchTab('posts')"
-                        >
-                            Posts
-                        </a>
-
-                        @if ($story->has_summary)
-                            <a
-                                href="#"
-                                class="ml-8 whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition first:ml-0 focus:outline-none"
-                                :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('summary'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('summary') }"
-                                x-on:click.prevent="switchTab('summary')"
-                            >
-                                Summary
-                            </a>
-                        @endif
-
-                        @if ($story->children->count() > 0)
-                            <a
-                                href="#"
-                                class="ml-8 whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition first:ml-0 focus:outline-none"
-                                :class="{ 'border-primary-500 text-primary-600 dark:text-primary-500': isTab('stories'), 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500': isNotTab('stories') }"
-                                x-on:click.prevent="switchTab('stories')"
-                            >
-                                Additional stories
-                            </a>
-                        @endif
-                    </nav>
-                </x-content-box>
-            </div>
-        </div>
-
-        <x-content-box x-show="isTab('details')" class="space-y-12">
+        <x-spacing height="xl" width="2xs" x-show="isTab('details')" class="space-y-12">
             <div class="space-y-4">
                 <div
                     class="prose prose-lg max-w-3xl dark:prose-invert prose-a:text-primary-500 hover:prose-a:text-primary-600 dark:hover:prose-a:text-primary-400"
@@ -156,22 +110,23 @@
                     ></x-panel.stat>
                 @endif
             </div>
-        </x-content-box>
+        </x-spacing>
 
-        <x-content-box x-show="isTab('stories')" x-cloak>
+        <x-spacing size="md" x-show="isTab('stories')" x-cloak>
             <x-stories.timeline :stories="$story->children->loadCount('posts')" expanded></x-stories.timeline>
-        </x-content-box>
+        </x-spacing>
 
         <div x-show="isTab('posts')" x-cloak>
             <livewire:stories-posts-list :story="$story" />
         </div>
 
-        <x-content-box
+        <x-spacing
+            size="md"
             x-show="isTab('summary')"
             class="prose prose-lg max-w-none dark:prose-invert prose-a:text-primary-500 hover:prose-a:text-primary-600 dark:hover:prose-a:text-primary-400"
             x-cloak
         >
             {!! $story->summary !!}
-        </x-content-box>
-    </x-panel>
+        </x-spacing>
+    </x-spacing>
 @endsection

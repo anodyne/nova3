@@ -39,7 +39,7 @@ class PostForm extends Form
     public function save(): void
     {
         $this->post->update(array_merge(
-            $this->all(),
+            $this->except('post'),
             ['word_count' => str($this->content)->pipe('strip_tags')->wordCount()]
         ));
     }

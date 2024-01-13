@@ -14,7 +14,7 @@ class RoleFactory extends Factory
 
     public function definition()
     {
-        $name = $this->faker->words(2, true);
+        $name = $this->faker->words(4, true);
 
         return [
             'name' => Str::slug($name),

@@ -14,6 +14,7 @@
     )"
     x-init="() => init($refs.editor)"
     {{ $attributes->whereDoesntStartWith('wire:model') }}
+    data-slot="control"
 >
     <div
         class="group relative flex w-full flex-col overflow-hidden rounded-md border border-gray-300 bg-white shadow-sm transition focus-within:border-primary-600 focus-within:ring-1 focus-within:ring-primary-600 dark:border-gray-700 dark:bg-gray-800 dark:focus-within:border-primary-700 dark:focus-within:ring-1 dark:focus-within:ring-primary-700"

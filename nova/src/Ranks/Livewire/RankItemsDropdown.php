@@ -34,12 +34,12 @@ class RankItemsDropdown extends Component
 
     public function selectRankItem($rankId): void
     {
-        $this->dispatch('rank-items-dropdown-close');
+        $this->dispatch('dropdown-close');
 
         $this->selected = $this->items?->where('id', $rankId)->first();
     }
 
-    public function mount(int $rank = null): void
+    public function mount(?int $rank = null): void
     {
         $this->groups = RankGroup::ordered()->get();
 

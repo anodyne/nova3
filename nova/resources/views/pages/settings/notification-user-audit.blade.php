@@ -1,12 +1,4 @@
 <x-filament.modal-content icon="preferences" title="User preference audit">
-    <p>
-        You can set the default values for the
-        <strong class="font-semibold">{{ $record->name }}</strong>
-        notification. New users will automatically have these preferences set for their accounts.
-    </p>
-
-    <hr class="my-6" />
-
     <div class="flex flex-col">
         <div class="flex items-center py-1.5 font-medium text-gray-600 dark:text-gray-400">
             <div class="flex-1">User</div>

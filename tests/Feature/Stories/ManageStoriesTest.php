@@ -5,7 +5,6 @@ declare(strict_types=1);
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Notification;
-use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
@@ -99,9 +98,6 @@ describe('authorized user with story create permissions', function () {
 
     test('has the correct permissions', function () {
         livewire(StoriesList::class)
-            ->assertTableHeaderActionsExistInOrder([
-                CreateAction::class,
-            ])
             ->assertTableActionHidden(ViewAction::class, $this->stories->first())
             ->assertTableActionHidden(EditAction::class, $this->stories->first())
             ->assertTableActionHidden(DeleteAction::class, $this->stories->first())
@@ -120,7 +116,6 @@ describe('authorized user with story delete permissions', function () {
 
     test('has the correct permissions', function () {
         livewire(StoriesList::class)
-            ->assertTableHeaderActionsExistInOrder([])
             ->assertTableActionHidden(ViewAction::class, $this->stories->first())
             ->assertTableActionHidden(EditAction::class, $this->stories->first())
             ->assertTableActionVisible(DeleteAction::class, $this->stories->first())
@@ -139,7 +134,6 @@ describe('authorized user with story update permissions', function () {
 
     test('has the correct permissions', function () {
         livewire(StoriesList::class)
-            ->assertTableHeaderActionsExistInOrder([])
             ->assertTableActionHidden(ViewAction::class, $this->stories->first())
             ->assertTableActionVisible(EditAction::class, $this->stories->first())
             ->assertTableActionHidden(DeleteAction::class, $this->stories->first());
@@ -241,7 +235,6 @@ describe('authorized user with story view permissions', function () {
 
     test('has the correct permissions', function () {
         livewire(StoriesList::class)
-            ->assertTableHeaderActionsExistInOrder([])
             ->assertTableActionVisible(ViewAction::class, $this->stories->first())
             ->assertTableActionHidden(EditAction::class, $this->stories->first())
             ->assertTableActionHidden(DeleteAction::class, $this->stories->first())

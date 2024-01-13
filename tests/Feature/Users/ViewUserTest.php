@@ -31,7 +31,6 @@ describe('authorized user', function () {
         $inactiveUser = User::factory()->inactive()->create();
 
         livewire(UsersList::class)
-            ->assertTableHeaderActionsExistInOrder([])
             ->assertTableActionVisible(ViewAction::class, $activeUser)
             ->assertTableActionHidden(EditAction::class, $activeUser)
             ->assertTableActionHidden(DeleteAction::class, $activeUser)

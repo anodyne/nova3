@@ -13,7 +13,6 @@ use Nova\Characters\Livewire\ManagePositions;
 use Nova\Characters\Livewire\ManageUsers;
 use Nova\Characters\Models\Character;
 use Nova\Departments\Models\Position;
-use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ForceDeleteAction;
@@ -62,9 +61,6 @@ describe('authorized user', function () {
         $deletedCharacter = Character::factory()->active()->trashed()->create();
 
         livewire(CharactersList::class)
-            ->assertTableHeaderActionsExistInOrder([
-                CreateAction::class,
-            ])
             ->assertTableActionHidden(ViewAction::class, $activeCharacter)
             ->assertTableActionHidden(EditAction::class, $activeCharacter)
             ->assertTableActionHidden(DeleteAction::class, $activeCharacter)
@@ -110,7 +106,6 @@ describe('unauthorized user', function () {
         $deletedCharacter = Character::factory()->active()->trashed()->create();
 
         livewire(CharactersList::class)
-            ->assertTableHeaderActionsExistInOrder([])
             ->assertTableActionHidden(ViewAction::class, $activeCharacter)
             ->assertTableActionHidden(EditAction::class, $activeCharacter)
             ->assertTableActionHidden(DeleteAction::class, $activeCharacter)

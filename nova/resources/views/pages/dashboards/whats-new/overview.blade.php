@@ -6,7 +6,7 @@
 
     <div class="flex flex-col divide-gray-200 lg:flex-row lg:divide-x">
         <div class="flex flex-1 flex-col gap-6 divide-y divide-gray-200">
-            <x-content-box>
+            <x-spacing size="md">
                 <div x-show="active === 'characters'" x-cloak>
                     @include('pages.dashboards.whats-new.characters')
                 </div>
@@ -30,7 +30,7 @@
                 <div x-show="active === 'more'" x-cloak>
                     @include('pages.dashboards.whats-new.more')
                 </div>
-            </x-content-box>
+            </x-spacing>
         </div>
 
         <div class="w-full lg:w-[22rem]">

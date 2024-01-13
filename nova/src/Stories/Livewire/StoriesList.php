@@ -198,7 +198,7 @@ class StoriesList extends TableComponent
                                 }),
                         ])
                             ->grouped()
-                            ->icon(iconName('change'))
+                            ->icon(iconName('status-change'))
                             ->label('Change status'),
                     ])->authorizeAny(['view', 'update', 'updateDates'])->divided(),
 

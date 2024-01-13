@@ -1,60 +1,14 @@
 <div>
-    <x-panel>
-        <x-content-box height="xs" width="xs" class="rounded-t-lg bg-gray-50 dark:bg-gray-950/30">
-            <div class="flex justify-between space-x-4">
-                <div class="relative w-full">
-                    <x-input.group>
-                        <x-input.text
-                            wire:model.live.debounce.500ms="search"
-                            placeholder="Find a user to assign (type * to see all users)"
-                        >
-                            <x-slot name="leading">
-                                <x-icon name="search" size="sm"></x-icon>
-                            </x-slot>
-
-                            <x-slot name="trailing">
-                                @if ($search)
-                                    <x-button tag="button" color="neutral" wire:click="$set('search', '')" text>
-                                        <x-icon name="x" size="sm"></x-icon>
-                                    </x-button>
-                                @endif
-                            </x-slot>
-                        </x-input.text>
-                    </x-input.group>
-
-                    @if (filled($search))
-                        <div
-                            class="absolute z-10 mt-2 max-h-60 w-full divide-y divide-gray-200 overflow-y-scroll rounded-md bg-white shadow-lg ring-1 ring-gray-950/5 dark:divide-gray-600/50 dark:bg-gray-800"
-                        >
-                            @if ($searchResults->count() === 0)
-                                <x-empty-state.small icon="users" title="No user(s) found"></x-empty-state.small>
-                            @else
-                                <x-dropdown.group>
-                                    @foreach ($searchResults as $user)
-                                        <x-dropdown.item
-                                            type="button"
-                                            class="group flex w-full items-center rounded-md px-4 py-2 text-base font-medium text-gray-700 transition hover:bg-gray-50 focus:outline-none md:text-sm dark:text-gray-300 dark:hover:bg-gray-600/50"
-                                            wire:click="add({{ $user->id }})"
-                                        >
-                                            {{ $user->name }}
-                                        </x-dropdown.item>
-                                    @endforeach
-                                </x-dropdown.group>
-
-                                @can('viewAny', Nova\Users\Models\User::class)
-                                    <x-dropdown.group>
-                                        <x-dropdown.text>Don't see the user you're looking for?</x-dropdown.text>
-                                        <x-dropdown.item :href="route('users.index')">
-                                            Go to user management &rarr;
-                                        </x-dropdown.item>
-                                    </x-dropdown.group>
-                                @endcan
-                            @endif
-                        </div>
-                    @endif
-                </div>
-            </div>
-        </x-content-box>
+    <x-panel.manage>
+        <x-panel.manage.search :search="$search" placeholder="Find a user to assign (type * to see all users)">
+            <x-dropdown.group>
+                @forelse ($searchResults as $user)
+                    <x-panel.manage.result-item :value="$user->id" :text="$user->name"></x-panel.manage.result-item>
+                @empty
+                    <x-empty-state.small icon="users" title="No user(s) found"></x-empty-state.small>
+                @endforelse
+            </x-dropdown.group>
+        </x-panel.manage.search>
 
         @if ($users->count() > 0)
             <div
@@ -119,15 +73,13 @@
                 @endforeach
             </div>
         @else
-            <x-content-box class="border-t border-gray-200 text-center dark:border-gray-800">
-                <x-icon name="users" size="h-12 w-12" class="mx-auto text-gray-500"></x-icon>
-                <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-white">No user(s) assigned</h3>
-                <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                    Get started by assigning a user to this character
-                </p>
-            </x-content-box>
+            <x-panel.manage.empty
+                icon="users"
+                heading="No user(s) assigned"
+                description="Get started by assigning a user to this character"
+            ></x-panel.manage.empty>
         @endif
-    </x-panel>
+    </x-panel.manage>
 
     <input type="hidden" name="assigned_users" value="{{ $assignedUsers }}" />
     <input type="hidden" name="primary_users" value="{{ $primaryUsers }}" />

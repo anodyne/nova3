@@ -5,7 +5,7 @@
         </div>
     </div>
     <div class="mt-3 flex-1">
-        <x-content-box width="none" height="none" class="mb-6 flex flex-col gap-6">
+        <x-spacing size="none" class="mb-6 flex flex-col gap-6">
             <div class="flex-1">
                 <div
                     class="relative mt-2 flex flex-col space-y-3 text-base md:flex-row md:items-center md:space-x-8 md:space-y-0 md:text-sm"
@@ -78,6 +78,6 @@
                     {!! $post->content !!}
                 </div>
             </div>
-        </x-content-box>
+        </x-spacing>
     </div>
 </div>

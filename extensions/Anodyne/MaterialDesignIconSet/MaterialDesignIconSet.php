@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extensions\Anodyne\MaterialDesignIconSet;
 
 use Nova\Foundation\Icons\IconSet;

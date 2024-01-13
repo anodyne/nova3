@@ -1,74 +1,87 @@
 @extends($meta->template)
 
+@use('Nova\Ranks\Models\RankItem')
+
 @section('content')
-    <x-panel>
-        <x-panel.header title="Edit rank name">
+    <x-spacing constrained>
+        <x-page-header>
+            <x-slot name="heading">Edit rank name</x-slot>
+
             <x-slot name="actions">
-                @can('viewAny', Nova\Ranks\Models\RankName::class)
-                    <x-button :href="route('ranks.names.index')" color="neutral" plain>&larr; Back</x-button>
+                @can('viewAny', $name::class)
+                    <x-button :href="route('ranks.names.index')" plain>&larr; Back</x-button>
                 @endcan
             </x-slot>
-        </x-panel.header>
+        </x-page-header>
 
         <x-form :action="route('ranks.names.update', $name)" method="PUT">
-            <x-form.section
-                title="Rank name info"
-                message="Rank names allow you to re-use basic rank information across all of your ranks to avoid unnecessary and tedious editing of the same information across every rank in the system."
-            >
-                <x-input.group label="Name" for="name" :error="$errors->first('name')">
-                    <x-input.text id="name" name="name" :value="old('name', $name->name)" data-cy="name" />
-                </x-input.group>
+            <x-fieldset>
+                <x-fieldset.field-group constrained>
+                    <x-fieldset.field label="Name" id="name" name="name" :error="$errors->first('name')">
+                        <x-input.text :value="old('name', $name->name)" data-cy="name" />
+                    </x-fieldset.field>
 
-                <div class="flex items-center gap-x-2.5">
-                    <x-switch
-                        name="status"
-                        :value="old('status', $name->status->value ?? 'active')"
-                        on-value="active"
-                        off-value="inactive"
-                        id="status"
-                    ></x-switch>
-                    <x-fieldset.label for="status">Active</x-fieldset.label>
-                </div>
-            </x-form.section>
+                    <div class="flex items-center gap-x-2.5">
+                        <x-switch
+                            name="status"
+                            :value="old('status', $name->status->value ?? 'active')"
+                            on-value="active"
+                            off-value="inactive"
+                            id="status"
+                        ></x-switch>
+                        <x-fieldset.label for="status">Active</x-fieldset.label>
+                    </div>
+                </x-fieldset.field-group>
+            </x-fieldset>
 
-            <x-form.section
-                title="Assigned Ranks"
-                message="These are the rank items that have been assigned this rank name."
-            >
-                <div class="flex w-full flex-col">
-                    @foreach ($name->ranks as $rank)
-                        <div
-                            class="group flex items-center justify-between rounded-md px-4 py-2 odd:bg-gray-100 dark:odd:bg-gray-700/50"
-                        >
-                            <div class="flex flex-col sm:flex-row sm:items-center">
-                                <div class="flex items-center gap-2">
-                                    <x-status :status="$rank->status"></x-status>
-                                    <x-rank :rank="$rank" />
-                                </div>
-                                <span class="ml-3 font-medium text-gray-600 dark:text-gray-300">
-                                    {{ $rank->group?->name }}
-                                </span>
-                            </div>
+            <x-fieldset>
+                <x-panel well>
+                    <x-spacing size="sm">
+                        <x-fieldset.legend>Ranks assigned this name</x-fieldset.legend>
+                    </x-spacing>
 
-                            @can('update', $rank)
-                                <x-button
-                                    :href="route('ranks.items.edit', $rank)"
-                                    color="neutral"
-                                    class="group-hover:visible sm:invisible"
-                                    text
-                                >
-                                    <x-icon name="edit" size="sm"></x-icon>
-                                </x-button>
-                            @endcan
-                        </div>
-                    @endforeach
-                </div>
-            </x-form.section>
+                    <x-spacing size="2xs">
+                        <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
+                            @forelse ($name->ranks as $rank)
+                                <x-spacing size="sm" class="group flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="flex items-center gap-2">
+                                            <x-status :status="$rank->status"></x-status>
+                                            <x-rank :rank="$rank"></x-rank>
+                                        </div>
+                                        <x-text class="ml-3">
+                                            <x-text.strong>{{ $rank->name?->name }}</x-text.strong>
+                                        </x-text>
+                                    </div>
 
-            <x-form.footer>
+                                    @can('update', $rank)
+                                        <x-button
+                                            :href="route('ranks.items.edit', $rank)"
+                                            class="group-hover:visible sm:invisible"
+                                            text
+                                        >
+                                            <x-icon name="edit" size="md"></x-icon>
+                                        </x-button>
+                                    @endcan
+                                </x-spacing>
+                            @empty
+                                <x-empty-state.small
+                                    icon="rank"
+                                    title="No ranks found for this rank name"
+                                    :link="route('ranks.items.create')"
+                                    :link-access="gate()->allows('create', RankItem::class)"
+                                    label="Add a rank item &rarr;"
+                                ></x-empty-state.small>
+                            @endforelse
+                        </x-panel>
+                    </x-spacing>
+                </x-panel>
+            </x-fieldset>
+
+            <x-fieldset.controls>
                 <x-button type="submit" color="primary">Update</x-button>
                 <x-button :href="route('ranks.names.index')" plain>Cancel</x-button>
-            </x-form.footer>
+            </x-fieldset.controls>
         </x-form>
-    </x-panel>
+    </x-spacing>
 @endsection

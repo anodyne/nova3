@@ -1,4 +1,4 @@
-<x-content-box
+<x-spacing
     height="sm"
     class="grid grid-cols-4 gap-4 bg-white"
     x-data="{
@@ -51,4 +51,4 @@
             @endif
         @endif
     </div>
-</x-content-box>
+</x-spacing>

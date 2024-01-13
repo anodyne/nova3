@@ -4,18 +4,21 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Providers;
 
+use Carbon\CarbonImmutable;
 use Filament\Notifications\Notification as FilamentNotification;
 use Filament\Support\Facades\FilamentColor;
 use Filament\Support\Facades\FilamentIcon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\View\Factory as ViewFactory;
@@ -43,18 +46,16 @@ class AppServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        clock()->event('app service provider register')->color('purple')->begin();
-
         $this->registerNovaSingleton();
         $this->registerResponseFilters();
         $this->registerFilamentBindings();
-
-        clock()->event('app service provider register')->end();
     }
 
     public function boot(): void
     {
-        clock()->event('app service provider boot')->color('green')->begin();
+        Model::shouldBeStrict(! app()->environment('production'));
+
+        Date::use(CarbonImmutable::class);
 
         // Make sure the file finder can find Javascript files
         $this->app['view']->addExtension('js', 'file');
@@ -95,8 +96,6 @@ class AppServiceProvider extends ServiceProvider
             $this->registerResponseFilters();
             $this->setupFilament();
         }
-
-        clock()->event('app service provider boot')->end();
     }
 
     protected function registerNovaSingleton()

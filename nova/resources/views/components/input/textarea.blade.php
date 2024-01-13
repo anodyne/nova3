@@ -1,3 +1,5 @@
+@aware(['error', 'name', 'id'])
+
 {{-- format-ignore-start --}}
 <span
     data-slot="control"
@@ -46,7 +48,7 @@
 
             $attributes->get('class'),
         ])
-        {{ $attributes->merge(['rows' => 5]) }}
+        {{ $attributes->merge(['rows' => 5, 'name' => $name, 'id' => $id, 'data-invalid' => filled($error)]) }}
     >{{ $slot }}</textarea>
 </span>
 {{-- format-ignore-end --}}

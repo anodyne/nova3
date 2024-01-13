@@ -36,7 +36,7 @@ class RankGroupsDropdown extends Component
 
     public function selectGroup(int $groupId): void
     {
-        $this->dispatch('rank-groups-dropdown-close');
+        $this->dispatch('dropdown-close');
 
         $this->reset('search');
 
@@ -53,7 +53,7 @@ class RankGroupsDropdown extends Component
             ->get();
     }
 
-    public function mount(int $groupId = null): void
+    public function mount(?int $groupId = null): void
     {
         $this->selectedId = $groupId;
         $this->selected = $this->filteredGroups->where('id', $groupId)->first();

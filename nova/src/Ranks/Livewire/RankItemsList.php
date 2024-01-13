@@ -39,6 +39,7 @@ class RankItemsList extends TableComponent
             ->defaultGroup('group.name')
             ->defaultSort('order_column', 'asc')
             ->reorderable('order_column')
+            ->defaultPaginationPageOption(25)
             ->columns([
                 ViewColumn::make('name')
                     ->view('filament.tables.columns.rank')

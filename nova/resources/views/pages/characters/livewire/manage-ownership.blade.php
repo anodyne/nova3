@@ -1,6 +1,8 @@
+@use('Nova\Characters\Models\Character')
+
 <x-panel class="overflow-hidden">
-    <div class="divide-y divide-gray-200 dark:divide-gray-800">
-        <x-content-box height="sm" class="grid grid-cols-4 gap-4 bg-white dark:bg-gray-900">
+    <div class="divide-y divide-gray-950/5 dark:divide-white/5">
+        <x-spacing height="sm" class="grid grid-cols-4 gap-4 bg-white dark:bg-gray-900">
             <div class="col-span-3">
                 <x-fieldset.field>
                     <x-fieldset.label>Character type</x-fieldset.label>
@@ -9,16 +11,16 @@
             <div class="flex items-start justify-end">
                 <x-badge :color="$characterType->color()">{{ $characterType->getLabel() }}</x-badge>
             </div>
-        </x-content-box>
+        </x-spacing>
 
-        <x-content-box height="sm" class="grid grid-cols-4 gap-4 bg-white dark:bg-gray-900">
+        <x-spacing height="sm" class="grid grid-cols-4 gap-4 bg-white dark:bg-gray-900">
             <div class="col-span-3">
                 <x-fieldset.field>
                     <x-fieldset.label>Character status</x-fieldset.label>
 
                     @if ($hasReachedCharacterLimit)
                         <x-fieldset.warning-message>
-                            You've reached the maximum allowed number of linked active characters
+                            You’ve reached the maximum allowed number of linked active characters
                             ({{ settings('characters.characterLimit') }}). In order to be activated, this character
                             will require approval by a game master.
                         </x-fieldset.warning-message>
@@ -32,14 +34,14 @@
             <div class="flex items-start justify-end">
                 <x-badge :color="$characterStatus['color']">{{ $characterStatus['label'] }}</x-badge>
             </div>
-        </x-content-box>
+        </x-spacing>
 
-        <x-content-box height="sm" class="bg-white dark:bg-gray-900">
+        <x-spacing height="sm" class="bg-white dark:bg-gray-900">
             <x-switch.group>
                 <x-switch.field>
                     <x-fieldset.label for="link_to_user">Link this character to me</x-fieldset.label>
 
-                    @cannot('selfAssign', Nova\Characters\Models\Character::class)
+                    @cannot('selfAssign', Character::class)
                         <x-fieldset.warning-message>
                             Contact the game master(s) to have this character assigned to your account
                         </x-fieldset.warning-message>
@@ -60,7 +62,7 @@
                 <x-switch.field>
                     <x-fieldset.label for="assign_as_primary">Set as my primary character</x-fieldset.label>
 
-                    @cannot('assignAsPrimary', Nova\Characters\Models\Character::class)
+                    @cannot('assignAsPrimary', Character::class)
                         <x-fieldset.warning-message>
                             Contact the game master(s) to set this character as your primary character
                         </x-fieldset.warning-message>
@@ -70,10 +72,10 @@
                         name="assign_as_primary"
                         id="assign_as_primary"
                         wire:model.live="assignAsPrimary"
-                        :disabled="auth()->user()->cannot(['createSecondary', 'createPrimary'], Nova\Characters\Models\Character::class)"
+                        :disabled="auth()->user()->cannot(['createSecondary', 'createPrimary'], Character::class)"
                     ></x-switch>
                 </x-switch.field>
             </x-switch.group>
-        </x-content-box>
+        </x-spacing>
     </div>
 </x-panel>

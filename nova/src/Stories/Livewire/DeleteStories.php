@@ -76,7 +76,7 @@ class DeleteStories extends Component
 
     public function mount($stories)
     {
-        $this->stories = $stories;
+        $this->stories = $stories->loadMissing('parent');
 
         $this->actions = $stories->mapWithKeys(function ($story) {
             return [$story->id => [

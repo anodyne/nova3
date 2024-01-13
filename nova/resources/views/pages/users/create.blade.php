@@ -1,7 +1,7 @@
 @extends($meta->template)
 
 @section('content')
-    <x-container.narrow>
+    <x-spacing constrained>
         <x-page-header>
             <x-slot name="heading">Add a new user</x-slot>
 
@@ -29,76 +29,76 @@
         >
             <x-form :action="route('users.store')">
                 <x-fieldset>
-                    <x-fieldset.field-group class="w-full max-w-md">
-                        <x-input.group
+                    <x-fieldset.field-group constrained>
+                        <x-fieldset.field
                             label="Name"
-                            for="name"
+                            description="For privacy reasons, consider using a nickname rather than a user’s real name."
+                            id="name"
+                            name="name"
                             :error="$errors->first('name')"
-                            help="For privacy reasons, consider using a nickname rather than a user’s real name."
                         >
-                            <x-input.text id="name" name="name" :value="old('name')" data-cy="name" />
-                        </x-input.group>
+                            <x-input.text :value="old('name')" data-cy="name" />
+                        </x-fieldset.field>
 
-                        <x-input.group label="Email address" for="email" :error="$errors->first('email')">
-                            <x-input.email id="email" name="email" :value="old('email')" data-cy="email" />
-                        </x-input.group>
+                        <x-fieldset.field
+                            label="Email address"
+                            id="email"
+                            name="email"
+                            :error="$errors->first('email')"
+                        >
+                            <x-input.email :value="old('email')" data-cy="email" />
+                        </x-fieldset.field>
 
-                        <x-input.group label="Password">
-                            <x-text>
-                                After the account is created, a password will be generated and emailed to the user.
-                            </x-text>
-                        </x-input.group>
+                        <x-fieldset.field
+                            label="Password"
+                            description="After the account is created, a password will be generated and emailed to the user."
+                            id="password"
+                            name="password"
+                        ></x-fieldset.field>
 
-                        <x-input.group label="Pronouns" for="pronouns" :error="$errors->first('pronouns.value')">
-                            <x-input.select name="pronouns[value]" id="pronouns" class="w-auto" x-model="pronouns">
+                        <x-fieldset.field
+                            label="Pronouns"
+                            id="pronouns"
+                            name="pronouns[value]"
+                            :error="$errors->first('pronouns.value')"
+                        >
+                            <x-select class="w-auto" x-model="pronouns">
                                 <option value="none">Prefer not to share</option>
                                 <option value="male">He/Him/His</option>
                                 <option value="female">She/Her/Hers</option>
                                 <option value="neutral">They/Them/Theirs</option>
                                 <option value="neo">Ze/Zir/Zirs</option>
                                 <option value="other">Other pronouns not listed (please specify)</option>
-                            </x-input.select>
-                        </x-input.group>
+                            </x-select>
+                        </x-fieldset.field>
 
                         <div x-show="pronouns === 'other'" class="space-y-6" x-cloak>
-                            <x-input.group
+                            <x-fieldset.field
                                 label="What is your subject pronoun?"
-                                for="pronouns-subject"
+                                id="pronouns_subject"
+                                name="pronouns[subject]"
                                 :error="$errors->first('pronouns.subject')"
                             >
-                                <x-input.text
-                                    id="pronouns-subject"
-                                    name="pronouns[subject]"
-                                    x-model="pronounSubject"
-                                    placeholder="He, she, they, ze, etc."
-                                />
-                            </x-input.group>
+                                <x-input.text x-model="pronounSubject" placeholder="He, she, they, ze, etc." />
+                            </x-fieldset.field>
 
-                            <x-input.group
+                            <x-fieldset.field
                                 label="What is your object pronoun?"
-                                for="pronouns-object"
+                                id="pronouns_object"
+                                name="pronouns[object]"
                                 :error="$errors->first('pronouns.object')"
                             >
-                                <x-input.text
-                                    id="pronouns-object"
-                                    name="pronouns[object]"
-                                    x-model="pronounObject"
-                                    placeholder="Him, her, them, zir, etc."
-                                />
-                            </x-input.group>
+                                <x-input.text x-model="pronounObject" placeholder="Him, her, them, zir, etc." />
+                            </x-fieldset.field>
 
-                            <x-input.group
+                            <x-fieldset.field
                                 label="What is your possessive pronoun?"
-                                for="pronouns-possessive"
+                                id="pronouns_possessive"
+                                name="pronouns[possessive]"
                                 :error="$errors->first('pronouns.possessive')"
                             >
-                                <x-input.text
-                                    id="pronouns-possessive"
-                                    name="pronouns[possessive]"
-                                    x-model="pronounPossessive"
-                                    placeholder="His, hers, theirs, zirs, etc."
-                                />
-                            </x-input.group>
+                                <x-input.text x-model="pronounPossessive" placeholder="His, hers, theirs, zirs, etc." />
+                            </x-fieldset.field>
                         </div>
 
                         <livewire:media-upload-avatar />
@@ -107,42 +107,40 @@
 
                 <x-fieldset>
                     <x-panel well>
-                        <x-container width="sm" height="sm">
+                        <x-spacing size="sm">
                             <x-fieldset.legend>Characters assigned to this user</x-fieldset.legend>
                             <x-fieldset.description>
                                 Users can be assigned as many characters as you want.
                             </x-fieldset.description>
-                        </x-container>
+                        </x-spacing>
 
-                        <x-container height="2xs" width="2xs">
+                        <x-spacing size="2xs">
                             <livewire:users-manage-characters />
-                        </x-container>
+                        </x-spacing>
                     </x-panel>
                 </x-fieldset>
 
                 <x-fieldset>
                     <x-panel well>
-                        <x-container width="sm" height="sm">
+                        <x-spacing size="sm">
                             <x-fieldset.legend>Roles assigned to this user</x-fieldset.legend>
                             <x-fieldset.description>
                                 Roles control what users can do inside of Nova. You can assign as many roles as needed
                                 to users.
                             </x-fieldset.description>
-                        </x-container>
+                        </x-spacing>
 
-                        <x-container height="2xs" width="2xs">
+                        <x-spacing size="2xs">
                             <livewire:users-manage-roles />
-                        </x-container>
+                        </x-spacing>
                     </x-panel>
                 </x-fieldset>
 
-                <x-fieldset>
-                    <div class="flex gap-x-2 lg:flex-row-reverse">
-                        <x-button type="submit" color="primary">Add</x-button>
-                        <x-button :href="route('users.index')" plain>Cancel</x-button>
-                    </div>
-                </x-fieldset>
+                <x-fieldset.controls>
+                    <x-button type="submit" color="primary">Add</x-button>
+                    <x-button :href="route('users.index')" plain>Cancel</x-button>
+                </x-fieldset.controls>
             </x-form>
         </div>
-    </x-container.narrow>
+    </x-spacing>
 @endsection

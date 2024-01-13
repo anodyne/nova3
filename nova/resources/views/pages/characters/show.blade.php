@@ -1,84 +1,97 @@
 @extends($meta->template)
 
 @section('content')
-    <div class="grid grid-cols-1 items-start gap-4 lg:grid-cols-3 lg:gap-8">
-        <div class="space-y-8 lg:col-span-2">
-            <x-panel>
-                <x-content-box>
-                    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between lg:space-x-8">
-                        <div>
-                            <x-avatar.character :character="$character" size="xl" :secondary-positions="false">
-                                @if ($character->rank)
-                                    <x-slot name="secondary">
-                                        <x-rank :rank="$character->rank" />
-                                    </x-slot>
-                                @endif
-                            </x-avatar.character>
-                        </div>
-
-                        <div class="flex items-center space-x-4">
-                            <x-badge :color="$character->status->color()">
-                                {{ $character->status->getLabel() }}
-                            </x-badge>
-
-                            <x-badge :color="$character->type->color()">
-                                {{ $character->type->getLabel() }}
-                            </x-badge>
-                        </div>
+    <x-spacing constrained>
+        <x-page-header>
+            <x-slot name="heading">
+                <div class="flex items-center gap-x-4">
+                    <x-avatar :src="$character->avatar_url" size="xl"></x-avatar>
+                    <div class="flex flex-col gap-y-1">
+                        {{ $character->display_name }}
+                        <x-rank :rank="$character->rank"></x-rank>
                     </div>
+                </div>
+            </x-slot>
 
-                    <div class="mt-4 flex items-center space-x-4">
-                        @can('update', $character)
-                            <x-button :href="route('characters.edit', $character)" color="primary">
-                                <x-icon name="edit" size="sm"></x-icon>
-                                Edit
-                            </x-button>
-                        @endcan
+            <x-slot name="actions">
+                <x-button :href="route('characters.index')" plain>&larr; Back</x-button>
 
-                        <x-button :href="route('characters.index')" plain>&larr; Back</x-button>
-                    </div>
-                </x-content-box>
-            </x-panel>
+                @can('update', $character)
+                    <x-button :href="route('characters.edit', $character)" color="primary">
+                        <x-icon name="edit" size="sm"></x-icon>
+                        Edit
+                    </x-button>
+                @endcan
+            </x-slot>
+        </x-page-header>
 
-            <x-panel>
-                <x-content-box>Dynamic form content will go here</x-content-box>
-            </x-panel>
-        </div>
+        <div class="space-y-12">
+            <x-panel well>
+                <x-spacing size="sm">
+                    <x-fieldset.legend>Assigned positions</x-fieldset.legend>
+                </x-spacing>
 
-        <div>
-            <x-panel class="divide-y divide-gray-200 dark:divide-gray-600/50">
-                @if ($character->positions->count() > 0)
-                    <x-content-box>
-                        <div class="text-sm font-medium text-gray-500">
-                            Assigned
-                            @choice('position|positions', $character->positions)
-                        </div>
-                        <div class="mt-2 flex w-full flex-col space-y-1.5">
-                            @foreach ($character->positions as $position)
-                                <div class="group flex items-center font-medium text-gray-600 dark:text-gray-400">
+                <x-spacing size="2xs">
+                    <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
+                        @forelse ($character->positions as $position)
+                            <x-spacing size="sm">
+                                <div class="truncate font-medium text-gray-900 dark:text-white">
                                     {{ $position->name }}
                                 </div>
-                            @endforeach
-                        </div>
-                    </x-content-box>
-                @endif
+                            </x-spacing>
+                        @empty
+                            <x-empty-state.small icon="list" title="No position(s) assigned"></x-empty-state.small>
+                        @endforelse
+                    </x-panel>
+                </x-spacing>
+            </x-panel>
 
-                @if ($character->users->count() > 0)
-                    <x-content-box>
-                        <div class="flex w-full flex-col space-y-4">
-                            @foreach ($character->users as $user)
-                                <div class="flex items-center justify-between">
-                                    <x-avatar.user :user="$user" :secondary-status="true"></x-avatar.user>
+            <x-panel well>
+                <x-spacing size="sm">
+                    <x-fieldset.legend>Assigned users</x-fieldset.legend>
+                </x-spacing>
 
-                                    @if ($user->pivot->primary)
-                                        <x-badge color="primary">Primary</x-badge>
-                                    @endif
+                <x-spacing size="2xs">
+                    <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
+                        <x-spacing size="sm" class="grid lg:grid-cols-2">
+                            <x-panel.stat label="Active users" :value="$character->active_users_count"></x-panel.stat>
+                            <x-panel.stat
+                                label="Primary users"
+                                :value="$character->primary_users_count"
+                            ></x-panel.stat>
+                        </x-spacing>
+
+                        <x-spacing size="md" class="grid gap-4 lg:grid-cols-2">
+                            @forelse ($character->users as $user)
+                                <x-avatar.user :user="$user">
+                                    <x-slot name="secondary">
+                                        <div class="flex items-center gap-x-2">
+                                            <x-badge :color="$user->status->color()">
+                                                {{ $user->status->getLabel() }}
+                                            </x-badge>
+
+                                            @if ($user->pivot->primary)
+                                                <x-badge color="primary">Primary</x-badge>
+                                            @endif
+                                        </div>
+                                    </x-slot>
+                                </x-avatar.user>
+                            @empty
+                                <div class="lg:col-span-2">
+                                    <x-empty-state.small
+                                        icon="users"
+                                        title="No users assigned"
+                                        message="There aren’t any positions assigned to this department. Assign some positions to this department to populate this list."
+                                        :link-access="gate()->allows('viewAny', Nova\Departments\Models\Position::class)"
+                                        :link="route('positions.index')"
+                                        label="Assign positions"
+                                    ></x-empty-state.small>
                                 </div>
-                            @endforeach
-                        </div>
-                    </x-content-box>
-                @endif
+                            @endforelse
+                        </x-spacing>
+                    </x-panel>
+                </x-spacing>
             </x-panel>
         </div>
-    </div>
+    </x-spacing>
 @endsection

@@ -3,163 +3,197 @@
 @inject('iconSets', 'Nova\Foundation\Icons\IconSets')
 
 @section('content')
-    <x-panel>
-        <x-panel.header
-            title="Appearance settings"
-            message="Change the way Nova looks to match your game's design aesthetic"
-        >
+    <x-spacing constrained>
+        <x-page-header>
+            <x-slot name="heading">Appearance settings</x-slot>
+
             <x-slot name="actions">
                 <div x-data="{}">
-                    <x-button x-on:click="$dispatch('toggle-spotlight')" plain>
+                    <x-button x-on:click="$dispatch('toggle-spotlight')" color="neutral">
                         <x-icon name="search" size="sm"></x-icon>
                         Find a setting
                     </x-button>
                 </div>
             </x-slot>
-        </x-panel.header>
+        </x-page-header>
 
         <x-form :action="route('settings.appearance.update')" method="PUT">
-            <x-form.section title="Theme">
-                <x-slot name="message">
-                    <x-text>Update the way your site looks through the theme and icon set defaults.</x-text>
-                </x-slot>
+            <x-fieldset>
+                <x-fieldset.heading>
+                    <x-icon name="paint-brush"></x-icon>
+                    <x-fieldset.legend>Theme</x-fieldset.legend>
+                    <x-fieldset.description>
+                        Update the way your site looks through the theme and icon set defaults.
+                    </x-fieldset.description>
+                </x-fieldset.heading>
 
-                <x-input.group label="Theme" for="theme">
-                    <x-input.select class="mt-1 block w-full" id="theme" name="theme">
-                        @foreach ($themes as $theme)
-                            <option value="{{ $theme->location }}" @selected($theme->location === $settings->theme)>
-                                {{ $theme->name }}
-                            </option>
-                        @endforeach
-                    </x-input.select>
-                </x-input.group>
+                <x-fieldset.field-group constrained>
+                    <x-fieldset.field label="Public site theme" id="theme" name="theme">
+                        <x-select class="mt-1 block w-full">
+                            @foreach ($themes as $theme)
+                                <option
+                                    value="{{ $theme->location }}"
+                                    @selected($theme->location === $settings->theme)
+                                >
+                                    {{ $theme->name }}
+                                </option>
+                            @endforeach
+                        </x-select>
+                    </x-fieldset.field>
 
-                <x-input.group label="Icon Set" for="icon_set">
-                    <x-input.select class="mt-1 block w-full" id="icon_set" name="icon_set">
-                        @foreach ($iconSets->getSets() as $alias => $set)
-                            <option value="{{ $alias }}" @selected($alias === $settings->iconSet)>
-                                {{ $set->name() }}
-                            </option>
-                        @endforeach
-                    </x-input.select>
-                </x-input.group>
-            </x-form.section>
+                    <x-fieldset.field label="Icon Set" id="icon_set" name="icon_set">
+                        <x-select class="mt-1 block w-full">
+                            @foreach ($iconSets->getSets() as $alias => $set)
+                                <option value="{{ $alias }}" @selected($alias === $settings->iconSet)>
+                                    {{ $set->name() }}
+                                </option>
+                            @endforeach
+                        </x-select>
+                    </x-fieldset.field>
+                </x-fieldset.field-group>
+            </x-fieldset>
 
-            <x-form.section title="Logo">
-                <x-slot name="message">
-                    <x-text>
+            <x-fieldset>
+                <x-fieldset.heading>
+                    <x-icon name="image"></x-icon>
+                    <x-fieldset.legend>Logo</x-fieldset.legend>
+                    <x-fieldset.description>
                         You can upload a logo that will be used in the header of the admin system as well as on the sign
                         in pages.
-                    </x-text>
-                </x-slot>
+                    </x-fieldset.description>
+                </x-fieldset.heading>
 
-                <x-input.group>
-                    <livewire:media-upload-image
-                        :model="settings()"
-                        media-collection-name="logo"
-                        support-message="PNG, JPG, or SVG (max. 5MB)"
-                    />
-                </x-input.group>
-            </x-form.section>
+                <x-fieldset.field-group constrained>
+                    <x-fieldset.field id="logo" name="logo">
+                        <livewire:media-upload-image
+                            :model="settings()"
+                            media-collection-name="logo"
+                            support-message="PNG, JPG, or SVG (max. 5MB)"
+                        />
+                    </x-fieldset.field>
+                </x-fieldset.field-group>
+            </x-fieldset>
 
-            <x-form.section title="Colors">
-                <x-slot name="message">
-                    <x-text>
+            <x-fieldset>
+                <x-fieldset.heading>
+                    <x-icon name="palette"></x-icon>
+                    <x-fieldset.legend>Colors</x-fieldset.legend>
+                    <x-fieldset.description>
                         Put your own personal touch on Nova by changing the colors used throughout the admin system. You
                         can choose from a series of pre-defined color scales or specify your own color and a color scale
                         will be created for you.
-                    </x-text>
-                </x-slot>
+                    </x-fieldset.description>
+                </x-fieldset.heading>
 
-                <x-input.group label="Gray">
-                    <livewire:color-shade-picker type="gray" name="colors_gray" :selected="$settings->colorsGray" />
-                </x-input.group>
+                <x-fieldset.field-group constrained>
+                    <x-fieldset.field label="Gray" id="colors_gray" name="colors_gray">
+                        <livewire:color-shade-picker type="gray" name="colors_gray" :selected="$settings->colorsGray" />
+                    </x-fieldset.field>
 
-                <x-input.group label="Primary color">
-                    <livewire:color-shade-picker
-                        type="colors"
-                        name="colors_primary"
-                        :selected="$settings->colorsPrimary"
-                        :allow-panda="true"
-                    />
-                </x-input.group>
+                    <x-fieldset.field label="Primary color" id="colors_primary" name="colors_primary">
+                        <livewire:color-shade-picker
+                            type="colors"
+                            name="colors_primary"
+                            :selected="$settings->colorsPrimary"
+                            :allow-panda="true"
+                        />
+                    </x-fieldset.field>
 
-                <x-input.group label="Danger color">
-                    <livewire:color-shade-picker
-                        type="colors"
-                        name="colors_danger"
-                        :selected="$settings->colorsDanger"
-                    />
-                </x-input.group>
+                    <x-fieldset.field label="Danger color" id="colors_danger" name="colors_danger">
+                        <livewire:color-shade-picker
+                            type="colors"
+                            name="colors_danger"
+                            :selected="$settings->colorsDanger"
+                        />
+                    </x-fieldset.field>
 
-                <x-input.group label="Warning color">
-                    <livewire:color-shade-picker
-                        type="colors"
-                        name="colors_warning"
-                        :selected="$settings->colorsWarning"
-                    />
-                </x-input.group>
+                    <x-fieldset.field label="Warning color" id="colors_warning" name="colors_warning">
+                        <livewire:color-shade-picker
+                            type="colors"
+                            name="colors_warning"
+                            :selected="$settings->colorsWarning"
+                        />
+                    </x-fieldset.field>
 
-                <x-input.group label="Success color">
-                    <livewire:color-shade-picker
-                        type="colors"
-                        name="colors_success"
-                        :selected="$settings->colorsSuccess"
-                    />
-                </x-input.group>
+                    <x-fieldset.field label="Success color" id="colors_success" name="colors_success">
+                        <livewire:color-shade-picker
+                            type="colors"
+                            name="colors_success"
+                            :selected="$settings->colorsSuccess"
+                        />
+                    </x-fieldset.field>
 
-                <x-input.group label="Info color">
-                    <livewire:color-shade-picker type="colors" name="colors_info" :selected="$settings->colorsInfo" />
-                </x-input.group>
-            </x-form.section>
+                    <x-fieldset.field label="Info color" id="colors_info" name="colors_info">
+                        <livewire:color-shade-picker
+                            type="colors"
+                            name="colors_info"
+                            :selected="$settings->colorsInfo"
+                        />
+                    </x-fieldset.field>
+                </x-fieldset.field-group>
+            </x-fieldset>
 
-            <x-form.section title="Font family">
-                <x-slot name="message">
-                    <x-text>Customize Nova by changing the font used throughout the admin system.</x-text>
-                </x-slot>
+            <x-fieldset>
+                <x-fieldset.heading>
+                    <x-icon name="typography"></x-icon>
+                    <x-fieldset.legend>Font family</x-fieldset.legend>
+                    <x-fieldset.description>
+                        Customize Nova by changing the font used throughout the admin system.
+                    </x-fieldset.description>
+                </x-fieldset.heading>
 
-                <livewire:settings-font-selector />
-            </x-form.section>
+                <x-fieldset.field-group constrained>
+                    <livewire:settings-font-selector />
+                </x-fieldset.field-group>
+            </x-fieldset>
 
-            <x-form.section title="Avatars">
-                <x-slot name="message">
-                    <x-text>Update the shape and style of avatars throughout Nova.</x-text>
+            <x-fieldset>
+                <x-fieldset.heading>
+                    <x-icon name="user-profile"></x-icon>
+                    <x-fieldset.legend>Avatars</x-fieldset.legend>
+                    <x-fieldset.description>
+                        Update the shape and style of avatars throughout Nova.
 
-                    <x-avatar
-                        src="https://api.dicebear.com/7.x/{{ $settings->avatarStyle }}/svg?seed=nova3"
-                        size="lg"
-                    ></x-avatar>
-                </x-slot>
+                        <x-fieldset.description class="mt-4">
+                            <x-avatar
+                                src="https://api.dicebear.com/7.x/{{ $settings->avatarStyle }}/svg?seed=nova3"
+                                size="lg"
+                            ></x-avatar>
+                        </x-fieldset.description>
+                    </x-fieldset.description>
+                </x-fieldset.heading>
 
-                <x-input.group label="Shape" for="avatar_shape">
-                    <x-input.select class="block w-full" id="avatar_shape" name="avatar_shape">
-                        <option value="circle" @selected($settings->avatarShape === 'circle')>Circle</option>
-                        <option value="square" @selected($settings->avatarShape === 'square')>Square</option>
-                    </x-input.select>
-                </x-input.group>
+                <x-fieldset.field-group constrained>
+                    <x-fieldset.field label="Shape" id="avatar_shape" name="avatar_shape">
+                        <x-select class="block w-full">
+                            <option value="circle" @selected($settings->avatarShape === 'circle')>Circle</option>
+                            <option value="square" @selected($settings->avatarShape === 'square')>Square</option>
+                        </x-select>
+                    </x-fieldset.field>
 
-                <x-input.group label="Style" for="avatar_style">
-                    <x-slot name="help">
-                        Nova uses the
-                        <x-button href="https://www.dicebear.com/" target="_blank" color="primary" text>
-                            DiceBear avatar library
-                        </x-button>
-                        for generated avatars when a user or character has not had one uploaded.
-                    </x-slot>
+                    <x-fieldset.field label="Style" id="avatar_style" name="avatar_style">
+                        <x-slot name="description">
+                            Nova uses the
+                            <x-button href="https://www.dicebear.com/" target="_blank" color="primary" text>
+                                DiceBear avatar library
+                            </x-button>
+                            for generated avatars when a user or character has not had one uploaded.
+                        </x-slot>
 
-                    <x-input.select class="block w-full" id="avatar_style" name="avatar_style">
-                        @foreach ($settings->getAvatarStyles() as $value => $name)
-                            <option value="{{ $value }}" @selected($settings->avatarStyle === $value)>
-                                {{ $name }}
-                            </option>
-                        @endforeach
-                    </x-input.select>
-                </x-input.group>
-            </x-form.section>
+                        <x-select class="block w-full">
+                            @foreach ($settings->getAvatarStyles() as $value => $name)
+                                <option value="{{ $value }}" @selected($settings->avatarStyle === $value)>
+                                    {{ $name }}
+                                </option>
+                            @endforeach
+                        </x-select>
+                    </x-fieldset.field>
+                </x-fieldset.field-group>
+            </x-fieldset>
 
-            <x-form.footer>
+            <x-fieldset.controls>
                 <x-button type="submit" color="primary">Update</x-button>
-            </x-form.footer>
+            </x-fieldset.controls>
         </x-form>
-    </x-panel>
+    </x-spacing>
 @endsection

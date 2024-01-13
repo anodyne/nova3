@@ -90,7 +90,7 @@
                         class="flex h-full flex-col overflow-y-scroll rounded-xl bg-white shadow-xl ring-1 ring-gray-950/5 dark:bg-gray-800"
                         x-data="tabsList('notifications')"
                     >
-                        <x-content-box>
+                        <x-spacing size="md">
                             <header class="flex items-center justify-between">
                                 <x-h2>Notifications</x-h2>
 
@@ -108,7 +108,7 @@
                                     </x-button>
                                 @endif
                             </header>
-                        </x-content-box>
+                        </x-spacing>
 
                         <div class="relative mt-6 w-full flex-1 space-y-8 px-4 leading-normal sm:px-6">
                             @forelse ($notifications as $notification)
@@ -140,7 +140,7 @@
                                 </div>
                             @empty
                                 <x-panel.primary icon="check" title="You're all caught up">
-                                    You don't have any unread notifications
+                                    You don’t have any unread notifications
                                 </x-panel.primary>
                             @endforelse
                         </div>

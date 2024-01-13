@@ -301,7 +301,7 @@
         <!-- Static sidebar for desktop -->
         <div
             @class([
-                'hidden xl:fixed xl:inset-y-0 xl:z-10 xl:flex xl:w-60 xl:flex-col',
+                'hidden xl:fixed xl:inset-y-0 xl:z-10 xl:flex xl:w-72 xl:flex-col',
                 'pt-11' => app('impersonate')->isImpersonating(),
             ])
         >
@@ -426,7 +426,7 @@
                             <ul role="list" class="space-y-2">
                                 <li class="hidden px-6 leading-none">
                                     <x-panel class="mb-8">
-                                        <x-content-box height="sm" width="sm" class="flex flex-col gap-3">
+                                        <x-spacing size="sm" class="flex flex-col gap-3">
                                             <h3 class="text-sm/5 font-medium text-gray-900 dark:text-white">
                                                 Complete your profile
                                             </h3>
@@ -443,7 +443,7 @@
                                                     25%
                                                 </div>
                                             </div>
-                                        </x-content-box>
+                                        </x-spacing>
                                     </x-panel>
                                 </li>
                                 {{--
@@ -608,7 +608,7 @@
         </div>
 
         <main
-            class="flex-1 overflow-hidden rounded-tl-xl bg-white ring-1 ring-inset ring-gray-950/[0.08] focus:outline-none xl:ml-60 dark:bg-gray-900 dark:ring-white/5"
+            class="flex-1 overflow-hidden rounded-tl-xl bg-white ring-1 ring-inset ring-gray-950/[0.08] focus:outline-none xl:ml-72 dark:bg-gray-900 dark:ring-white/5"
             tabindex="0"
         >
             @impersonating

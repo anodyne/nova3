@@ -2,7 +2,7 @@
     <p>
         Are you sure you want to delete the
         <strong class="font-semibold">{{ $record->name }}</strong>
-        rank name? You won't be able to recover it.
+        rank name? You won’t be able to recover it.
     </p>
 
     @if ($record->ranks->count() > 0)

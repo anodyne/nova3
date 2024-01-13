@@ -1,20 +1,18 @@
 @extends($meta->template)
 
+@use('Nova\Ranks\Models\RankItem')
+
 @section('content')
-    <x-panel class="overflow-hidden">
-        <x-panel.header :title="$group->name">
-            <x-slot name="title">
-                <div class="flex items-center gap-4">
-                    <span>{{ $group->name }}</span>
-                    <div class="flex items-center">
-                        <x-badge :color="$group->status->color()">{{ $group->status->getLabel() }}</x-badge>
-                    </div>
-                </div>
+    <x-spacing constrained>
+        <x-page-header>
+            <x-slot name="heading">{{ $group->name }}</x-slot>
+            <x-slot name="description">
+                <x-badge :color="$group->status->color()" size="md">{{ $group->status->getLabel() }}</x-badge>
             </x-slot>
 
             <x-slot name="actions">
                 @can('viewAny', $group::class)
-                    <x-button :href="route('ranks.groups.index')" color="neutral" plain>&larr; Back</x-button>
+                    <x-button :href="route('ranks.groups.index')" plain>&larr; Back</x-button>
                 @endcan
 
                 @can('update', $group)
@@ -24,52 +22,48 @@
                     </x-button>
                 @endcan
             </x-slot>
-        </x-panel.header>
+        </x-page-header>
 
-        <x-content-box class="flex flex-col gap-4">
-            <x-h3>Assigned ranks</x-h3>
+        <x-panel well>
+            <x-spacing size="sm">
+                <x-fieldset.legend>Ranks assigned to this group</x-fieldset.legend>
+            </x-spacing>
 
-            <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
-                @forelse ($group->ranks as $rank)
-                    <x-panel as="light-well" class="group flex w-full items-center justify-between">
-                        <x-content-box height="sm" width="sm" class="w-full">
-                            <div class="group flex items-center justify-between">
-                                <div class="flex flex-col sm:flex-row sm:items-center">
-                                    <div class="flex items-center space-x-3">
-                                        <x-status :status="$rank->status"></x-status>
-                                        <x-rank :rank="$rank" />
-                                    </div>
-                                    <span class="ml-3 text-sm font-medium text-gray-600 dark:text-gray-300">
-                                        {{ $rank->name?->name }}
-                                    </span>
+            <x-spacing size="2xs">
+                <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
+                    @forelse ($group->ranks as $rank)
+                        <x-spacing size="sm" class="group flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="flex items-center gap-2">
+                                    <x-status :status="$rank->status"></x-status>
+                                    <x-rank :rank="$rank"></x-rank>
                                 </div>
-
-                                @can('update', $rank)
-                                    <x-button
-                                        :href="route('ranks.items.edit', $rank)"
-                                        color="neutral"
-                                        class="group-hover:visible sm:invisible"
-                                        text
-                                    >
-                                        <x-icon name="edit" size="sm"></x-icon>
-                                    </x-button>
-                                @endcan
+                                <x-text class="ml-3">
+                                    <x-text.strong>{{ $rank->name?->name }}</x-text.strong>
+                                </x-text>
                             </div>
-                        </x-content-box>
-                    </x-panel>
-                @empty
-                    <div class="col-span-2">
+
+                            @can('update', $rank)
+                                <x-button
+                                    :href="route('ranks.items.edit', $rank)"
+                                    class="group-hover:visible sm:invisible"
+                                    text
+                                >
+                                    <x-icon name="edit" size="md"></x-icon>
+                                </x-button>
+                            @endcan
+                        </x-spacing>
+                    @empty
                         <x-empty-state.small
                             icon="rank"
-                            title="No ranks assigned"
-                            message="There aren't any ranks assigned to this rank group. Assign some ranks to this rank group to populate this list."
-                            :link-access="gate()->allows('viewAny', Nova\Ranks\Models\RankItem::class)"
-                            :link="route('ranks.items.index')"
-                            label="Assign ranks"
+                            title="No ranks found for this rank group"
+                            :link="route('ranks.items.create')"
+                            :link-access="gate()->allows('create', RankItem::class)"
+                            label="Add a rank item &rarr;"
                         ></x-empty-state.small>
-                    </div>
-                @endforelse
-            </div>
-        </x-content-box>
-    </x-panel>
+                    @endforelse
+                </x-panel>
+            </x-spacing>
+        </x-panel>
+    </x-spacing>
 @endsection

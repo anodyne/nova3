@@ -19,7 +19,7 @@ class IconPicker extends Component
     {
         $this->selected = $icon;
 
-        $this->dispatch('icons-dropdown-close');
+        $this->dispatch('dropdown-close');
 
         $this->reset('search');
     }

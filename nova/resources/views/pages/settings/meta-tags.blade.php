@@ -14,9 +14,9 @@
         </x-panel.header>
 
         <x-form :action="route('settings.update')" method="PUT">
-            <x-form.footer>
+            <x-fieldset.controls>
                 <x-button type="submit" color="primary">Update</x-button>
-            </x-form.footer>
+            </x-fieldset.controls>
         </x-form>
     </x-panel>
 @endsection

@@ -4,41 +4,36 @@
 
 @section('content')
     <x-form :action="route('login')">
-        <x-input.group label="Email" for="email" :error="$errors->first('email')">
-            <x-input.email
-                id="email"
-                name="email"
-                placeholder="john@example.com"
-                :value="old('email')"
-                data-cy="email"
-                required
-                autofocus
-            >
-                <x-slot name="leading">
-                    <x-icon name="mail" size="md"></x-icon>
-                </x-slot>
-            </x-input.email>
-        </x-input.group>
+        <x-fieldset>
+            <x-fieldset.field-group>
+                <x-fieldset.field label="Email" id="email" name="email" :error="$errors->first('email')">
+                    <x-input.email
+                        placeholder="john@example.com"
+                        :value="old('email')"
+                        data-cy="email"
+                        required
+                        autofocus
+                    ></x-input.email>
+                </x-fieldset.field>
 
-        <x-input.group label="Password" for="password">
-            <x-input.password id="password" name="password" placeholder="Your password" data-cy="password" required>
-                <x-slot name="leading">
-                    <x-icon name="key" size="md"></x-icon>
-                </x-slot>
-            </x-input.password>
-        </x-input.group>
+                <x-fieldset.field label="Password" id="password" name="password">
+                    <x-input.password placeholder="Your password" data-cy="password" required></x-input.password>
+                </x-fieldset.field>
 
-        <div class="flex items-center justify-between text-sm">
-            <div class="flex items-center gap-x-2">
-                <x-switch name="remember" id="remember"></x-switch>
-                <x-fieldset.label for="remember">Remember me</x-fieldset.label>
-            </div>
+                <div class="flex items-center gap-x-2.5">
+                    <x-switch name="remember" id="remember"></x-switch>
+                    <x-fieldset.label for="status">Remember me</x-fieldset.label>
+                </div>
+            </x-fieldset.field-group>
+        </x-fieldset>
 
-            <x-button :href="route('password.request')" color="neutral" text>Forgot your password?</x-button>
-        </div>
-
-        <div>
-            <x-button type="submit" class="w-full" color="primary">Sign in</x-button>
-        </div>
+        <x-fieldset>
+            <x-fieldset.field-group>
+                <x-button type="submit" class="w-full" color="primary">Sign in</x-button>
+                <div class="flex items-center justify-center">
+                    <x-button :href="route('password.request')" color="neutral" text>Forgot your password?</x-button>
+                </div>
+            </x-fieldset.field-group>
+        </x-fieldset>
     </x-form>
 @endsection

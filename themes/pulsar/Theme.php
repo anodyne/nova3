@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Themes\pulsar;
 
 use Nova\Themes\BaseTheme;

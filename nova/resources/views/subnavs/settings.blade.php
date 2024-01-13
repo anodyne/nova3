@@ -22,12 +22,14 @@
         >
             Content ratings
         </x-nav.sub-item>
-        <x-nav.sub-item
+        {{--
+            <x-nav.sub-item
             :href="route('settings.posting-activity.edit')"
             :active="request()->routeIs('settings.posting-activity.edit')"
-        >
+            >
             Posting activity
-        </x-nav.sub-item>
+            </x-nav.sub-item>
+        --}}
     </x-nav.sub-group>
 
     <x-nav.sub-group>

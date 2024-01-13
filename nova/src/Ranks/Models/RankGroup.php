@@ -25,6 +25,8 @@ class RankGroup extends Model implements Sortable
 
     protected $fillable = ['name', 'order_column', 'status'];
 
+    protected $with = ['ranks'];
+
     protected $casts = [
         'order_column' => 'integer',
         'status' => RankGroupStatus::class,

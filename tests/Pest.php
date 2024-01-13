@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Nova\Users\Actions\PopulateAccountPreferences;
 use Nova\Users\Actions\PopulateNotificationPreferences;
 use Nova\Users\Models\User;
+use Tests\TestCase;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +18,7 @@ use Nova\Users\Models\User;
 |
 */
 
-uses(Tests\TestCase::class)->in('Feature');
+uses(TestCase::class)->in('Feature');
 
 /*
 |--------------------------------------------------------------------------

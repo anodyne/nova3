@@ -1,5 +1,5 @@
 <div>
-    <x-content-box>
+    <x-spacing size="md">
         <x-page-header :pretitle="$post->story->title">
             {{ $post->title }}
         </x-page-header>
@@ -31,13 +31,12 @@
         <div class="prose mt-8 max-w-none dark:prose-invert">
             {!! $post->content !!}
         </div>
-    </x-content-box>
+    </x-spacing>
 
-    <x-content-box
+    <x-spacing
         class="z-20 rounded-b-lg bg-gray-50 sm:flex sm:flex-row-reverse sm:space-x-4 sm:space-x-reverse dark:bg-gray-700/50"
-        height="sm"
-        width="sm"
+        size="sm"
     >
         <x-button color="neutral" wire:click="dismiss">Close</x-button>
-    </x-content-box>
+    </x-spacing>
 </div>

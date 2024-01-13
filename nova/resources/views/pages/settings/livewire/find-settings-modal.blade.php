@@ -1,5 +1,5 @@
 <div>
-    <x-content-box width="sm">
+    <x-spacing width="sm">
         <div class="flex items-center justify-between">
             <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">Find settings</h3>
 
@@ -7,11 +7,11 @@
                 <x-icon name="x" size="sm"></x-icon>
             </x-button>
         </div>
-    </x-content-box>
+    </x-spacing>
 
-    <x-content-box height="none" width="sm">
+    <x-spacing height="none" width="sm">
         <div>
-            <x-input.group>
+            <x-fieldset.field>
                 <x-input.text placeholder="Search for settings" wire:model.live.debounce.500ms="search" autofocus>
                     <x-slot name="leading">
                         <x-icon name="search" size="sm"></x-icon>
@@ -25,7 +25,7 @@
                         @endif
                     </x-slot>
                 </x-input.text>
-            </x-input.group>
+            </x-fieldset.field>
 
             <div class="mt-4 w-full max-h-60 h-60 overflow-auto bg-white text-base focus:outline-none sm:text-sm space-y-1" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
                 @if ($filteredSettings->count() === 0)
@@ -49,5 +49,5 @@
                 @endisset
             </div>
         </div>
-    </x-content-box>
+    </x-spacing>
 </div>

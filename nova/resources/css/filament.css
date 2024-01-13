@@ -14,6 +14,9 @@
     @apply divide-y-0;
 }
 
+.fi-ta-header {
+    @apply !px-0.5 pb-4;
+}
 .fi-ta-header-toolbar {
     @apply !px-0.5 pb-4;
 }
@@ -52,6 +55,9 @@
 }
 .fi-ta-table tbody tr:first-child td:last-child {
     @apply rounded-tr-lg;
+}
+.fi-ta-table tbody tr:first-child td .fi-ta-group-header {
+    @apply rounded-t-lg;
 }
 .fi-ta-table tbody tr:last-child td:first-child {
     @apply rounded-bl-lg;
@@ -93,32 +99,99 @@
 }
 
 .fi-btn {
-    @apply relative isolate inline-flex items-center justify-center gap-1.5 rounded-lg border border-transparent bg-[--button-border] px-[calc(theme(spacing.3)-1px)] py-[calc(theme(spacing.[1.5])-1px)] text-center text-sm/6 font-semibold shadow-none ring-0 transition before:absolute before:inset-0 before:-z-10 before:rounded-[calc(theme(borderRadius.lg)-1px)] before:bg-[--button-bg] before:shadow after:absolute after:inset-0 after:-z-10 after:rounded-[calc(theme(borderRadius.lg)-1px)] after:shadow-[inset_0_1px_theme(colors.white/15%)] hover:!bg-[--button-border] after:hover:bg-white/10 focus:!ring-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 dark:border-white/10 dark:bg-[--button-bg] dark:shadow dark:ring-1 dark:ring-black/50 dark:before:hidden dark:after:-inset-px dark:after:rounded-md;
-}
-.fi-btn-color-primary {
-    @apply text-white [--button-bg:theme(colors.primary.500)] [--button-border:theme(colors.primary.600/80%)];
-}
-.fi-btn-color-danger {
-    @apply text-white [--button-bg:theme(colors.danger.500)] [--button-border:theme(colors.danger.600/80%)];
-}
-.fi-btn-color-gray {
-    @apply text-gray-950 [--button-bg:theme(colors.white)] [--button-border:theme(colors.gray.950/10%)] hover:[--button-border:theme(colors.gray.950/20%)] dark:text-white dark:[--button-bg:theme(colors.gray.600)] dark:[--button-border:theme(colors.gray.800/90%)] dark:hover:[--button-border:theme(colors.gray.800/70%)];
-}
-.fi-btn-outlined {
-    @apply after:bg-white after:bg-opacity-50 after:hover:bg-opacity-0 dark:border-white/[15%] dark:bg-[--button-border] dark:ring-black/50 dark:after:rounded-lg dark:after:bg-gray-950 dark:after:bg-opacity-[65%] dark:after:shadow-[inset_0_1px_theme(colors.white/10%)] dark:after:hover:bg-opacity-50;
-}
-.fi-btn-outlined.fi-btn-color-primary {
-    @apply text-primary-600 [--button-bg:theme(colors.primary.50)] [--button-border:theme(colors.primary.300/80%)] before:shadow-primary-500/20 dark:[--button-bg:theme(colors.primary.900)] dark:[--button-border:theme(colors.primary.300/80%)];
-}
-.fi-btn-outlined.fi-btn-color-danger {
-    @apply text-danger-600 [--button-bg:theme(colors.danger.50)] [--button-border:theme(colors.danger.300/80%)] before:shadow-danger-500/20 dark:[--button-bg:theme(colors.danger.950)];
-}
-.fi-btn-outlined.fi-btn-color-warning {
-    @apply text-warning-600 [--button-bg:theme(colors.warning.50)] [--button-border:theme(colors.warning.300/80%)] before:shadow-warning-500/20 dark:[--button-bg:theme(colors.warning.950)];
+    @apply relative isolate inline-flex items-center justify-center gap-x-2 rounded-lg border text-base/6 font-semibold shadow-none ring-0 focus:outline-none disabled:opacity-50;
 }
 
-.fi-input-wrp {
-    @apply rounded-md;
+.fi-btn:not(.fi-btn-outlined) {
+    @apply border-transparent bg-[--btn-border] before:absolute before:inset-0 before:-z-10 before:rounded-[calc(theme(borderRadius.lg)-1px)] before:bg-[--btn-bg] before:shadow after:absolute after:inset-0 after:-z-10 after:rounded-[calc(theme(borderRadius.lg)-1px)] after:shadow-[shadow:inset_0_1px_theme(colors.white/15%)] hover:!bg-[--btn-border] after:hover:bg-[--btn-hover-overlay] after:active:bg-[--btn-hover-overlay] before:disabled:shadow-none after:disabled:shadow-none dark:border-white/5 dark:bg-[--btn-bg] dark:before:hidden dark:after:-inset-px dark:after:rounded-lg;
+}
+
+.fi-btn.fi-btn-outlined {
+    @apply border-gray-950/10 text-gray-950 [--btn-icon:theme(colors.gray.500)] hover:bg-gray-950/[2.5%] hover:[--btn-icon:theme(colors.gray.700)] active:bg-gray-950/[2.5%] active:[--btn-icon:theme(colors.gray.700)] dark:border-white/15 dark:text-white dark:[--btn-bg:transparent] dark:hover:bg-white/5 dark:hover:[--btn-icon:theme(colors.gray.400)] dark:active:bg-white/5 dark:active:[--btn-icon:theme(colors.gray.400)];
+}
+
+.fi-btn > .fi-btn-icon {
+    @apply -mx-0.5 shrink-0 text-[--btn-icon];
+}
+
+.fi-btn.fi-size-xs {
+    @apply px-[calc(theme(spacing.[2.5])-1px)] py-[calc(theme(spacing.1)-1px)] text-xs/5;
+}
+.fi-btn.fi-size-sm {
+    @apply px-[calc(theme(spacing.[2.5])-1px)] py-[calc(theme(spacing.1)-1px)] text-sm/5;
+}
+.fi-btn.fi-size-md {
+    @apply px-[calc(theme(spacing[3.5])-1px)] py-[calc(theme(spacing[2.5])-1px)] sm:px-[calc(theme(spacing.3)-1px)] sm:py-[calc(theme(spacing[1.5])-1px)] sm:text-sm/6;
+}
+
+.fi-btn.fi-color-custom {
+    @apply text-white [--btn-bg:theme(colors.custom.500)] [--btn-border:theme(colors.custom.600/80%)] [--btn-hover-overlay:theme(colors.white/10%)] [--btn-icon:theme(colors.white/60%)] hover:[--btn-icon:theme(colors.white/80%)] active:[--btn-icon:theme(colors.white/80%)];
+}
+.fi-btn:not(.fi-btn-outlined).fi-color-gray {
+    @apply text-gray-950 [--btn-icon:theme(colors.gray.500)] [--btn-bg:white] [--btn-border:theme(colors.gray.950/10%)] [--btn-hover-overlay:theme(colors.gray.950/2.5%)] hover:[--btn-icon:theme(colors.gray.700)] hover:[--btn-border:theme(colors.gray.950/15%)] active:[--btn-icon:theme(colors.gray.700)] active:[--btn-border:theme(colors.gray.950/15%)] dark:text-white dark:[--btn-bg:theme(colors.gray.800)] dark:[--btn-hover-overlay:theme(colors.white/5%)] dark:[--btn-icon:theme(colors.gray.500)] dark:hover:[--btn-icon:theme(colors.gray.400)] dark:active:[--btn-icon:theme(colors.gray.400)];
+}
+.fi-btn.fi-btn-outlined.fi-color-gray {
+    @apply text-gray-950 [--btn-icon:theme(colors.gray.500)] [--btn-bg:white] [--btn-border:theme(colors.gray.950/10%)] [--btn-hover-overlay:theme(colors.gray.950/2.5%)] hover:[--btn-icon:theme(colors.gray.700)] hover:[--btn-border:theme(colors.gray.950/15%)] active:[--btn-icon:theme(colors.gray.700)] active:[--btn-border:theme(colors.gray.950/15%)] dark:text-white dark:[--btn-bg:theme(colors.gray.800)] dark:[--btn-hover-overlay:theme(colors.white/5%)] dark:[--btn-icon:theme(colors.gray.500)] dark:hover:[--btn-icon:theme(colors.gray.400)] dark:active:[--btn-icon:theme(colors.gray.400)];
+}
+
+.fi-input-wrp:has(.fi-input) {
+    @apply relative flex w-full rounded-lg bg-transparent p-0 shadow-none ring-0 before:absolute before:inset-px before:rounded-[calc(theme(borderRadius.lg)-1px)] before:bg-white before:shadow after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:ring-inset after:ring-transparent focus-within:!ring-0 has-[[data-disabled]]:opacity-50 before:has-[[data-disabled]]:bg-gray-950/5 before:has-[[data-disabled]]:shadow-none before:has-[[data-invalid]]:shadow-danger-500/10 sm:after:focus-within:ring-2 sm:after:focus-within:ring-primary-500 dark:before:hidden;
+}
+.fi-input-wrp .fi-input {
+    @apply relative block w-full appearance-none rounded-lg border !border-solid border-gray-950/10 bg-transparent px-[calc(theme(spacing[3.5])-1px)] py-[calc(theme(spacing[2.5])-1px)] text-base/6 text-gray-950 placeholder:text-gray-500 invalid:border-danger-500 hover:border-gray-950/20 invalid:hover:border-danger-500 focus:outline-none focus:ring-0 disabled:border-gray-950/20 sm:px-[calc(theme(spacing[3])-1px)] sm:py-[calc(theme(spacing[1.5])-1px)] sm:text-sm/6 dark:border-white/10 dark:bg-white/5 dark:text-white invalid:dark:border-danger-500 dark:hover:border-white/20 invalid:hover:dark:border-danger-500 disabled:dark:border-white/15 disabled:dark:bg-white/[2.5%] dark:hover:disabled:border-white/15;
+}
+
+.fi-fo-select,
+.fi-input-wrp:has(.fi-select-input) {
+    @apply relative flex w-full p-0 shadow-none ring-0 before:absolute before:inset-px before:rounded-[calc(theme(borderRadius.lg)-1px)] before:bg-white before:shadow after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:ring-inset after:ring-transparent focus-within:!ring-0 has-[[data-disabled]]:opacity-50 before:has-[[data-disabled]]:bg-gray-950/5 before:has-[[data-disabled]]:shadow-none sm:after:focus-within:ring-2 sm:after:focus-within:ring-primary-500 dark:before:hidden;
+}
+.fi-fo-select .fi-select-input,
+.fi-input-wrp:has(.fi-select-input) .fi-select-input,
+.fi-fo-select .choices__inner {
+    @apply relative block w-full appearance-none rounded-lg border !border-solid border-gray-950/10 bg-transparent py-[calc(theme(spacing[2.5])-1px)] pl-[calc(theme(spacing[3.5])-1px)] pr-[calc(theme(spacing.10)-1px)] text-base/6 text-gray-950 placeholder:text-gray-500 invalid:border-danger-500 hover:border-gray-950/20 invalid:hover:border-danger-500 focus:outline-none disabled:border-gray-950/20 disabled:opacity-100 sm:py-[calc(theme(spacing[1.5])-1px)] sm:pl-[calc(theme(spacing.3)-1px)] sm:pr-[calc(theme(spacing.9)-1px)] sm:text-sm/6 dark:border-white/10 dark:bg-white/5 dark:text-white invalid:dark:border-danger-600 dark:hover:border-white/20 invalid:hover:dark:border-danger-600 disabled:dark:border-white/15 disabled:dark:bg-white/[2.5%] dark:hover:disabled:border-white/15 [&_optgroup]:font-semibold;
+
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' aria-hidden='true' fill='none' stroke='%236B7280'%3E%3Cpath d='M5.75 10.75L8 13L10.25 10.75' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' /%3E%3Cpath d='M10.25 5.25L8 3L5.75 5.25' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' /%3E%3C/svg%3E");
+    background-size: 1rem 1rem;
+}
+.dark .fi-select-input,
+.dark .choices__inner {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' aria-hidden='true' fill='none' stroke='%239CA3AF'%3E%3Cpath d='M5.75 10.75L8 13L10.25 10.75' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' /%3E%3Cpath d='M10.25 5.25L8 3L5.75 5.25' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' /%3E%3C/svg%3E");
+}
+
+.choices__list--dropdown,
+.choices__list[aria-expanded] {
+    @apply rounded-lg ring-gray-950/5 dark:ring-white/5;
+}
+
+.choices__list--single .choices__item,
+.choices__input {
+    @apply text-gray-950 placeholder:text-gray-950 sm:text-sm/6 dark:text-white dark:placeholder:text-white;
+}
+.choices__list--dropdown .choices__item--selectable.is-highlighted,
+.choices__list[aria-expanded] .choices__item--selectable.is-highlighted {
+    @apply bg-gray-100 dark:hover:bg-gray-600/50;
+}
+.choices__placeholder {
+    @apply opacity-100;
+}
+
+/* Color picker preview circle */
+.fi-fo-color-picker .fi-input + div {
+    @apply absolute inset-y-0 right-0;
+}
+
+.fi-ta-search-field .fi-input-wrp > div:first-child {
+    @apply absolute inset-y-0 left-0;
+}
+.fi-ta-search-field .fi-input-wrp .fi-input {
+    @apply pl-10;
+}
+
+.fi-pagination-records-per-page-select .fi-input-wrp > div:first-child {
+    @apply absolute inset-y-0 left-0 flex items-center border-none;
+}
+.fi-pagination-records-per-page-select .fi-input-wrp .fi-select-input {
+    @apply pl-24;
 }
 
 .fi-icon-btn {
@@ -145,55 +218,6 @@
 }
 .fi-dropdown-list-item-color-gray .fi-dropdown-list-item-icon {
     @apply text-gray-500 dark:text-gray-400;
-}
-
-.filament-modal-window {
-    @apply rounded-lg shadow-xl ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-gray-800;
-}
-.filament-modal-close-overlay {
-    @apply backdrop-blur-sm;
-}
-.filament-modal-content {
-    @apply gap-y-8 text-gray-600 dark:text-gray-400;
-}
-.filament-modal-heading {
-    @apply text-lg text-gray-900 dark:text-white;
-}
-.filament-modal-description {
-    @apply text-gray-600;
-}
-
-.filament-forms-text-input-component,
-.choices__inner {
-    @apply rounded-md py-1.5 text-base;
-
-    background-size: 1.25em 1.25em;
-}
-.filament-forms-text-input-component .filament-forms-input {
-    @apply appearance-none rounded-none border-0 !bg-transparent p-0 shadow-none focus:border-0 focus:text-gray-900 focus:outline-none focus:ring-0 dark:focus:text-white;
-}
-
-.choices__list--dropdown,
-.choices__list[aria-expanded] {
-    @apply rounded-md;
-}
-
-.choices__list--single .choices__item,
-.choices__input {
-    @apply text-gray-900 placeholder-gray-500 dark:text-white;
-}
-.choices__placeholder {
-    @apply opacity-100;
-}
-
-.filament-notifications-notification {
-    @apply rounded-lg dark:border-none dark:bg-gray-600 dark:highlight-white/5;
-}
-
-.filament-modal-slide-over-window {
-    @apply my-4 mr-4;
-
-    height: calc(100vh - 2rem);
 }
 
 .fi-badge {

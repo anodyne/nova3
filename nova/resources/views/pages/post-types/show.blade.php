@@ -1,25 +1,24 @@
 @extends($meta->template)
 
 @section('content')
-    <x-panel class="overflow-hidden">
-        <x-panel.header :message="str($postType->visibility)->replace('-', ' ')->title()">
-            <x-slot name="title">
-                <div class="flex items-center gap-4">
-                    <span>{{ $postType->name }}</span>
-                    <div class="flex items-center space-x-4">
-                        <x-badge :color="$postType->status->color()">
-                            {{ $postType->status->getLabel() }}
-                        </x-badge>
-                    </div>
-                </div>
+    <x-spacing constrained>
+        <x-page-header :message="str($postType->visibility)->replace('-', ' ')->title()">
+            <x-slot name="heading">{{ $postType->name }}</x-slot>
+            <x-slot name="description">
+                <span class="flex items-center gap-x-4">
+                    <x-badge :color="$postType->status->color()" size="md">
+                        {{ $postType->status->getLabel() }}
+                    </x-badge>
+
+                    <x-badge size="md">
+                        {{ str($postType->visibility)->replace('-', ' ')->title() }}
+                    </x-badge>
+                </span>
             </x-slot>
 
             <x-slot name="actions">
-                @can('viewAny', $postType)
-                    <x-button :href="route('post-types.index')" plain>
-                        <x-icon name="arrow-left" size="sm"></x-icon>
-                        Back
-                    </x-button>
+                @can('viewAny', $postType::class)
+                    <x-button :href="route('post-types.index')" plain>&larr; Back</x-button>
                 @endcan
 
                 @can('update', $postType)
@@ -29,54 +28,56 @@
                     </x-button>
                 @endcan
             </x-slot>
-        </x-panel.header>
+        </x-page-header>
 
-        <div class="flex flex-col divide-gray-200 lg:flex-row lg:divide-x">
-            <div class="flex flex-1 flex-col justify-between gap-6 divide-y divide-gray-200">
-                @if (filled($postType->description))
-                    <x-content-box>
-                        <p class="max-w-xl text-lg">{{ $postType->description }}</p>
-                    </x-content-box>
-                @endif
+        <div class="space-y-12">
+            <x-panel well>
+                <x-spacing size="sm">
+                    <div class="flex items-center justify-between">
+                        <x-fieldset.legend>Details</x-fieldset.legend>
+                    </div>
+                </x-spacing>
 
-                <x-content-box>
-                    <div class="grid grid-cols-1 lg:grid-cols-3">
-                        <x-panel.stat
-                            label="Total published posts"
-                            :value="$postType->published_posts_count"
-                        ></x-panel.stat>
-                        <x-panel.stat label="Icon">
-                            @if (filled($postType->icon))
-                                <x-icon :name="$postType->icon" size="h-11 w-11 md:h-10 md:w-10"></x-icon>
-                            @else
-                                <span class="text-4xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                                    &ndash;
-                                </span>
-                            @endif
-                        </x-panel.stat>
-                        <x-panel.stat label="Accent color">
-                            <div
-                                class="flex items-center gap-2 text-4xl font-semibold tracking-tight text-gray-900 dark:text-white"
-                            >
-                                <span style="color: {{ $postType->color }}">{{ $postType->color }}</span>
+                <x-spacing size="2xs">
+                    <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
+                        @if (filled($postType->description))
+                            <x-spacing size="md">
+                                <x-text size="lg">{{ $postType->description }}</x-text>
+                            </x-spacing>
+                        @endif
+
+                        <x-spacing height="sm">
+                            <div class="grid grid-cols-1 lg:grid-cols-3">
+                                <x-panel.stat
+                                    label="Total published posts"
+                                    :value="$postType->published_posts_count"
+                                ></x-panel.stat>
+                                <x-panel.stat label="Icon">
+                                    @if (filled($postType->icon))
+                                        <x-icon :name="$postType->icon" size="h-11 w-11 md:h-10 md:w-10"></x-icon>
+                                    @else
+                                        &ndash;
+                                    @endif
+                                </x-panel.stat>
+                                <x-panel.stat label="Accent color">
+                                    <span style="color: {{ $postType->color }}">{{ $postType->color }}</span>
+                                </x-panel.stat>
                             </div>
-                        </x-panel.stat>
-                    </div>
-                </x-content-box>
-            </div>
+                        </x-spacing>
+                    </x-panel>
+                </x-spacing>
+            </x-panel>
 
-            <div class="w-full divide-y divide-gray-200 lg:w-1/3">
-                <div class="flex w-full flex-col">
-                    <div class="flex items-center justify-between px-4 py-4">
-                        <x-h3>Fields</x-h3>
-                    </div>
+            <x-panel well>
+                <x-spacing size="sm">
+                    <x-fieldset.legend>Fields</x-fieldset.legend>
+                </x-spacing>
 
-                    <div>
+                <x-spacing size="2xs">
+                    <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
                         @foreach ($fieldTypes as $fieldType)
                             @if ($postType->fields->{$fieldType}->enabled)
-                                <div
-                                    class="flex items-center gap-3 px-4 py-4 font-medium odd:bg-gray-100 dark:odd:bg-gray-700/50"
-                                >
+                                <x-spacing size="sm" class="flex items-center gap-3 font-medium">
                                     <div class="flex items-center">
                                         <div class="h-2 w-2 rounded-full bg-success-500"></div>
                                     </div>
@@ -86,127 +87,89 @@
                                     @if ($postType->fields->{$fieldType}->required)
                                         <span class="text-sm">(required)</span>
                                     @endif
-                                </div>
+                                </x-spacing>
                             @endif
                         @endforeach
-                    </div>
-                </div>
+                    </x-panel>
+                </x-spacing>
+            </x-panel>
 
-                <div class="flex w-full flex-col">
-                    <div class="flex items-center justify-between px-4 py-4">
-                        <x-h3>Options</x-h3>
-                    </div>
+            <x-panel well>
+                <x-spacing size="sm">
+                    <x-fieldset.legend>Options</x-fieldset.legend>
+                </x-spacing>
 
-                    <div class="font-medium">
+                <x-spacing size="2xs">
+                    <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
                         @if ($postType->options->notifiesUsers)
-                            <div
-                                class="flex items-center gap-3 px-4 py-4 font-medium odd:bg-gray-100 dark:odd:bg-gray-700/50"
-                            >
-                                <div class="flex items-center">
-                                    <div class="h-2 w-2 rounded-full bg-success-500"></div>
-                                </div>
-
+                            <x-spacing size="sm" class="flex items-center gap-3 font-medium">
+                                <x-icon name="notification" size="md"></x-icon>
                                 <span>Sends notifications when published</span>
-                            </div>
+                            </x-spacing>
+                        @else
+                            <x-spacing size="sm" class="flex items-center gap-3 font-medium">
+                                <x-icon name="notification-off" size="md"></x-icon>
+                                <span>Does not send notifications when published</span>
+                            </x-spacing>
                         @endif
 
                         @if ($postType->options->includedInPostTracking)
-                            <div
-                                class="flex items-center gap-3 px-4 py-4 font-medium odd:bg-gray-100 dark:odd:bg-gray-700/50"
-                            >
-                                <div class="flex items-center">
-                                    <div class="h-2 w-2 rounded-full bg-success-500"></div>
-                                </div>
-
+                            <x-spacing size="sm" class="flex items-center gap-3 font-medium">
+                                <x-icon name="chart" size="md"></x-icon>
                                 <span>Included in activity tracking stats</span>
-                            </div>
+                            </x-spacing>
                         @endif
 
                         @if ($postType->options->allowsMultipleAuthors)
-                            <div
-                                class="flex items-center gap-3 px-4 py-4 font-medium odd:bg-gray-100 dark:odd:bg-gray-700/50"
-                            >
-                                <div class="flex items-center">
-                                    <div class="h-2 w-2 rounded-full bg-success-500"></div>
-                                </div>
-
+                            <x-spacing size="sm" class="flex items-center gap-3 font-medium">
+                                <x-icon name="users" size="md"></x-icon>
                                 <span>Allows multiple authors</span>
-                            </div>
+                            </x-spacing>
                         @endif
 
                         @if ($postType->options->allowsCharacterAuthors)
-                            <div
-                                class="flex items-center gap-3 px-4 py-4 font-medium odd:bg-gray-100 dark:odd:bg-gray-700/50"
-                            >
-                                <div class="flex items-center">
-                                    <div class="h-2 w-2 rounded-full bg-success-500"></div>
-                                </div>
-
+                            <x-spacing size="sm" class="flex items-center gap-3 font-medium">
+                                <x-icon name="characters" size="md"></x-icon>
                                 <span>Allows characters as authors</span>
-                            </div>
+                            </x-spacing>
                         @endif
 
                         @if ($postType->options->allowsUserAuthors)
-                            <div
-                                class="flex items-center gap-3 px-4 py-4 font-medium odd:bg-gray-100 dark:odd:bg-gray-700/50"
-                            >
-                                <div class="flex items-center">
-                                    <div class="h-2 w-2 rounded-full bg-success-500"></div>
-                                </div>
-
+                            <x-spacing size="sm" class="flex items-center gap-3 font-medium">
+                                <x-icon name="user" size="md"></x-icon>
                                 <span>Allows users as authors</span>
-                            </div>
+                            </x-spacing>
                         @endif
 
                         @if ($postType->options->showContentInTimelineView)
-                            <div
-                                class="flex items-center gap-3 px-4 py-4 font-medium odd:bg-gray-100 dark:odd:bg-gray-700/50"
-                            >
-                                <div class="flex items-center">
-                                    <div class="h-2 w-2 rounded-full bg-success-500"></div>
-                                </div>
-
+                            <x-spacing size="sm" class="flex items-center gap-3 font-medium">
+                                <x-icon name="timeline" size="md"></x-icon>
                                 <span>Show content in timeline view</span>
-                            </div>
+                            </x-spacing>
                         @endif
 
                         @if ($postType->role)
-                            <div
-                                class="flex items-center gap-3 px-4 py-4 font-medium odd:bg-gray-100 dark:odd:bg-gray-700/50"
-                            >
-                                <div class="flex items-center">
-                                    <div class="h-2 w-2 rounded-full bg-success-500"></div>
-                                </div>
-
+                            <x-spacing size="sm" class="flex items-center gap-3 font-medium">
+                                <x-icon name="shield" size="md"></x-icon>
                                 <span>Requires {{ $postType->role->display_name }} role</span>
-                            </div>
+                            </x-spacing>
                         @endif
 
-                        <div
-                            class="flex items-center gap-3 px-4 py-4 font-medium odd:bg-gray-100 dark:odd:bg-gray-700/50"
-                        >
-                            <div class="flex items-center">
-                                <div
-                                    @class([
-                                        'h-2 w-2 rounded-full',
-                                        'bg-success-500' => $postType->options->editTimeframe->value !== 'never',
-                                        'bg-danger-500' => $postType->options->editTimeframe->value === 'never',
-                                    ])
-                                ></div>
-                            </div>
-
+                        <x-spacing size="sm" class="flex items-center gap-3 font-medium">
                             @if ($postType->options->editTimeframe->value === 'never')
+                                <x-icon name="edit-off" size="md"></x-icon>
                                 <span>{{ $postType->options->editTimeframe->getLabel() }}</span>
                             @else
+                                <x-icon name="edit" size="md"></x-icon>
                                 <span>
                                     Can be edited for {{ $postType->options->editTimeframe->getLabel() }} after
                                     publishing
                                 </span>
                             @endif
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        </x-spacing>
+                    </x-panel>
+                </x-spacing>
+            </x-panel>
         </div>
-    </x-panel>
+    </x-spacing>
 @endsection

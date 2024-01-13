@@ -36,7 +36,7 @@ class CharacterController extends Controller
         $this->authorize('view', $character);
 
         return ShowCharacterResponse::sendWith([
-            'character' => $character->load('media', 'positions', 'rank.name', 'users'),
+            'character' => $character->load('media', 'positions', 'rank.name', 'users')->loadCount('activeUsers', 'primaryUsers', 'positions'),
         ]);
     }
 

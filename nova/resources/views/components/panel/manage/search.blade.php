@@ -3,7 +3,7 @@
     'placeholder' => 'Search...',
 ])
 
-<x-container height="none" width="none" class="rounded-t-lg bg-gray-950/[.02] dark:bg-white/[.02]">
+<x-spacing size="none" class="rounded-t-lg bg-gray-950/[.02] dark:bg-white/[.02]">
     <div class="relative">
         <div class="group relative flex w-full items-center gap-x-2 px-3 py-3">
             <div
@@ -15,7 +15,7 @@
             <input
                 type="text"
                 wire:model.live.debounce.500ms="search"
-                class="w-full appearance-none border-none bg-transparent p-0 placeholder-gray-400 focus:outline-none focus:ring-0"
+                class="w-full appearance-none border-none bg-transparent p-0 placeholder-gray-500 focus:outline-none focus:ring-0"
                 placeholder="{{ $placeholder }}"
             />
 
@@ -34,4 +34,4 @@
             </div>
         @endif
     </div>
-</x-container>
+</x-spacing>

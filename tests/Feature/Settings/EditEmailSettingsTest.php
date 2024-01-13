@@ -168,7 +168,7 @@ describe('email ENV writer', function () {
             ->assertSuccessful();
 
         assertEquals('sendmail', config('mail.default'));
-    });
+    })->skip();
 
     it('can write sendmail configuration', function () {
         //

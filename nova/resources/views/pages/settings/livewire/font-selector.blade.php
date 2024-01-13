@@ -128,15 +128,14 @@
                     </x-text>
 
                     <div wire:ignore>
-                        <x-input.group
+                        <x-fieldset.field
                             label="Font family"
-                            for="button_font"
-                            help="Enter the name of the font from Bunny Fonts you want to use"
+                            description="Enter the name of the font from Bunny Fonts you want to use"
+                            id="button_font"
+                            name="button_font"
                         >
-                            <div class="w-full xl:w-2/3">
-                                <x-input.text name="bunny_font" id="button_font" x-model="family"></x-input.text>
-                            </div>
-                        </x-input.group>
+                            <x-input.text x-model="family"></x-input.text>
+                        </x-fieldset.field>
                     </div>
                 </div>
             </div>
@@ -197,15 +196,14 @@
                     </x-text>
 
                     <div wire:ignore>
-                        <x-input.group
+                        <x-fieldset.field
                             label="Font family"
-                            for="google_font"
-                            help="Enter the name of the font from Google Fonts you want to use"
+                            description="Enter the name of the font from Google Fonts you want to use"
+                            id="google_font"
+                            name="google_font"
                         >
-                            <div class="w-full xl:w-2/3">
-                                <x-input.text name="google_font" id="google_font" x-model="family"></x-input.text>
-                            </div>
-                        </x-input.group>
+                            <x-input.text x-model="family"></x-input.text>
+                        </x-fieldset.field>
                     </div>
                 </div>
             </div>

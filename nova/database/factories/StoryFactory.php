@@ -70,7 +70,7 @@ class StoryFactory extends Factory
         ]);
     }
 
-    public function withParent(Story $parent = null)
+    public function withParent(?Story $parent = null)
     {
         return $this->state([
             'parent_id' => $parent?->id ?? Story::factory(),

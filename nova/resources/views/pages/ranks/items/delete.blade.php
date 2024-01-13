@@ -4,7 +4,7 @@
         <strong class="font-semibold">{{ $record->name?->name }}</strong>
         rank item from the
         <em>{{ $record->group?->name }}</em>
-        rank group? You won't be able to recover it.
+        rank group? You won’t be able to recover it.
     </p>
 
     @if ($record->characters->count() > 0)

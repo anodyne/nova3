@@ -11,7 +11,7 @@
         @endforeach
     </ul>
 
-    <p>You won't be able to recover {{ trans_choice('it|them', $count) }}.</p>
+    <p>You won’t be able to recover {{ trans_choice('it|them', $count) }}.</p>
 
     <p>
         All positions assigned to {{ trans_choice('this department|these departments', $count) }} will be removed. Any

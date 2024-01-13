@@ -4,7 +4,15 @@
     'actions' => null,
 ])
 
-<div class="mb-8 px-4 sm:px-0" data-cy="page-header" {{ $attributes }}>
+<div
+    @class([
+        'mb-8 px-4 sm:px-0',
+        $attributes->get('class') => $attributes->has('class'),
+    ])
+    data-slot="header"
+    data-cy="page-header"
+    {{ $attributes }}
+>
     <div class="md:flex md:items-center md:justify-between">
         <div class="min-w-0 flex-1">
             <x-h1>{{ $heading ?? $slot }}</x-h1>
@@ -21,6 +29,8 @@
     </div>
 
     @if ($description?->isNotEmpty())
-        <x-text>{{ $description }}</x-text>
+        <div class="mt-1.5 w-full max-w-lg text-base text-gray-500 sm:text-sm/6 dark:text-gray-400">
+            {{ $description }}
+        </div>
     @endif
 </div>

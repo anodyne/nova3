@@ -6,6 +6,7 @@
 @php($format = settings('general')->jsDateFormat())
 
 <div
+    data-slot="control"
     class="relative"
     x-data="datePicker(
         @if ($attributes->hasStartsWith('wire:model'))
@@ -23,27 +24,26 @@
     @endif
     x-cloak
 >
-    <x-input.field>
-        <x-slot name="leading">
-            <div
-                x-on:click="
-                    datePickerOpen = ! datePickerOpen
-                    if (datePickerOpen) {
-                        $refs.datePickerInput.focus()
-                    }
-                "
-            >
-                <x-icon :name="$icon" size="md"></x-icon>
-            </div>
-        </x-slot>
+    <div class="relative">
+        <div
+            class="absolute inset-y-0 left-0 isolate z-10 flex items-center pl-2.5"
+            x-on:click="
+                datePickerOpen = ! datePickerOpen
+                if (datePickerOpen) {
+                    $refs.datePickerInput.focus()
+                }
+            "
+        >
+            <x-icon :name="$icon" size="md"></x-icon>
+        </div>
 
-        <input
+        <x-input.text
             x-ref="datePickerInput"
-            type="text"
             x-on:click="datePickerOpen = !datePickerOpen"
             x-model="datePickerDisplayValue"
             x-on:keydown.escape="datePickerOpen=false"
-            class="flex-1 appearance-none border-none bg-transparent p-0 focus:text-gray-900 focus:outline-none focus:ring-0 dark:focus:text-gray-100"
+            {{-- class="flex-1 appearance-none border-none bg-transparent p-0 focus:text-gray-900 focus:outline-none focus:ring-0 dark:focus:text-gray-100" --}}
+            class="pl-10 sm:pl-10"
             {{ $attributes->except('name') }}
             readonly
         />
@@ -52,13 +52,13 @@
             {{ $attributes->only('name') }}
             x-model="datePickerValue"
         />
-    </x-input.field>
+    </div>
 
     <div
         x-show="datePickerOpen"
         x-transition
         x-on:click.away="datePickerOpen = false"
-        class="absolute left-0 top-0 z-10 mt-12 w-[17rem] max-w-lg rounded-lg bg-white p-4 antialiased shadow ring-1 ring-gray-950/5 dark:bg-gray-800 dark:ring-white/20"
+        class="absolute left-0 top-0 z-20 mt-12 w-[17rem] max-w-lg rounded-lg bg-white p-4 antialiased shadow ring-1 ring-gray-950/5 dark:bg-gray-800 dark:ring-white/20"
     >
         <div class="mb-2 flex items-center justify-between">
             <div>

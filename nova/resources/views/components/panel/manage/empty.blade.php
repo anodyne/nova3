@@ -4,7 +4,7 @@
     'description' => null,
 ])
 
-<x-container class="space-y-2 border-t border-gray-950/5 text-center dark:border-white/5">
+<x-spacing size="md" class="space-y-2 border-t border-gray-950/5 text-center dark:border-white/5">
     @if (filled($icon))
         <x-icon :name="$icon" size="2xl" class="mx-auto text-gray-500"></x-icon>
     @endif
@@ -16,4 +16,4 @@
     @if (filled($description))
         <x-text>{{ $description }}</x-text>
     @endif
-</x-container>
+</x-spacing>

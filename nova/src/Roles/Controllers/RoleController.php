@@ -57,7 +57,7 @@ class RoleController extends Controller
     {
         return EditRoleResponse::sendWith([
             'permissions' => Permission::get(),
-            'role' => $role->load('user.media', 'permissions')->loadCount('user'),
+            'role' => $role->load('user.media', 'permissions')->loadCount(['user', 'permissions']),
         ]);
     }
 

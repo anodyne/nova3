@@ -118,6 +118,8 @@ class Character extends Model implements HasMedia
 
     public function displayName(): Attribute
     {
+        $this->loadMissing('rank.name');
+
         return new Attribute(
             get: fn (): string => trim($this?->rank?->name?->name.' '.$this->name)
         );

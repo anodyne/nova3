@@ -1,4 +1,4 @@
-<div class="flex flex-col">
+<div data-slot="control" class="isolate flex flex-col">
     <div
         class="flex w-full justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pb-6 pt-5 dark:border-gray-500"
     >

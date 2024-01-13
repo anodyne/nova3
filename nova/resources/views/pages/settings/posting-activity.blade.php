@@ -4,7 +4,7 @@
     <x-panel>
         <x-panel.header
             title="Posting activity settings"
-            message="Set your game's posting activity requirements and how you want posts and words counted"
+            message="Set your game’s posting activity requirements and how you want posts and words counted"
         >
             <x-slot name="actions">
                 <div x-data="{}">
@@ -28,7 +28,7 @@
         >
             <x-form.section
                 title="Activity tracking strategy"
-                message="Nova provides for two options to track posting activity: by entire posts or by word counts. You can specify whether a specific post type is included in the posting activity from each post type's settings."
+                message="Nova provides for two options to track posting activity: by entire posts or by word counts. You can specify whether a specific post type is included in the posting activity from each post type’s settings."
             >
                 <fieldset x-data="{ strategy: 'posts' }">
                     <legend class="sr-only">Activity tracking strategy</legend>
@@ -83,9 +83,13 @@
                                     class="mt-6 flex justify-between border-t border-gray-900/10 pt-6 dark:border-white/5"
                                 >
                                     <div class="space-y-3">
-                                        <x-input.group label="Required number of published story posts">
+                                        <x-fieldset.field
+                                            label="Required number of published story posts"
+                                            id="bar"
+                                            name="bar"
+                                        >
                                             <x-input.text trailing="per month"></x-input.text>
-                                        </x-input.group>
+                                        </x-fieldset.field>
                                     </div>
                                 </div>
 
@@ -163,9 +167,13 @@
                                     class="mt-6 flex justify-between border-t border-gray-900/10 pt-6 dark:border-white/5"
                                 >
                                     <div class="space-y-3">
-                                        <x-input.group label="Required number of published story post words">
+                                        <x-fieldset.field
+                                            label="Required number of published story post words"
+                                            id="baz"
+                                            name="baz"
+                                        >
                                             <x-input.text trailing="per month"></x-input.text>
-                                        </x-input.group>
+                                        </x-fieldset.field>
                                     </div>
                                 </div>
 
@@ -197,9 +205,9 @@
                                     class="mt-6 flex justify-between border-t border-gray-900/10 pt-6 dark:border-white/5"
                                 >
                                     <div class="space-y-3">
-                                        <x-input.group label="Story post word count conversion">
+                                        <x-fieldset.field label="Story post word count conversion" id="foo" name="foo">
                                             <x-input.text leading="1 story post equals" trailing="words"></x-input.text>
-                                        </x-input.group>
+                                        </x-fieldset.field>
                                     </div>
                                 </div>
                             </div>
@@ -210,7 +218,7 @@
 
             <x-form.section
                 title="Activity level tracking strategy"
-                message="Nova provides for two options to track posting activity: by entire posts or by word counts. You can specify whether a specific post type is included in the posting activity from each post type's settings."
+                message="Nova provides for two options to track posting activity: by entire posts or by word counts. You can specify whether a specific post type is included in the posting activity from each post type’s settings."
             >
                 <fieldset>
                     <legend class="sr-only">Activity Level Tracking Strategy</legend>
@@ -292,15 +300,15 @@
                 title="Monthly required activity level"
                 message="Set the specific requirements your game has around posting activity for users."
             >
-                <x-input.group>
+                <x-fieldset.field id="required_activity" name="required-activity">
                     <x-slot name="label">
                         <span x-show="strategy === 'posts'">Story posts</span>
                         <span x-show="strategy === 'words'">Story post words</span>
                         <span>per month</span>
                     </x-slot>
 
-                    <x-input.text name="required-activity" value="{{ $settings->requiredActivity }}" />
-                </x-input.group>
+                    <x-input.text value="{{ $settings->requiredActivity }}" />
+                </x-fieldset.field>
             </x-form.section>
 
             <x-form.section
@@ -461,19 +469,22 @@
                     </div>
                 </fieldset>
 
-                <x-input.group label="Story post word count conversion">
+                <x-fieldset.field
+                    label="Story post word count conversion"
+                    id="word_count_post_conversion"
+                    name="word-count-post-conversion"
+                >
                     <x-input.text
-                        name="word-count-post-conversion"
                         value="{{ $settings->wordCountPostConversion }}"
                         leading="1 story post equals"
                         trailing="words"
                     />
-                </x-input.group>
+                </x-fieldset.field>
             </x-form.section>
 
-            <x-form.footer>
+            <x-fieldset.controls>
                 <x-button type="submit" color="primary">Update</x-button>
-            </x-form.footer>
+            </x-fieldset.controls>
         </x-form>
     </x-panel>
 @endsection

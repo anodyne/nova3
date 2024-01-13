@@ -14,6 +14,8 @@ class DeleteRankNameManager
 
     public function handle(RankName $name): RankName
     {
+        $name->loadMissing('ranks');
+
         $name->ranks->each(fn (RankItem $item) => DeleteRankItemManager::run($item));
 
         $name = DeleteRankName::run($name);

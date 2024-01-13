@@ -3,7 +3,7 @@
 <x-filament.modal-content icon="key">
     <x-slot name="title">Force password reset for {{ $count }} selected {{ str('user')->plural($count) }}?</x-slot>
 
-    <p>Are you sure you want to force a password reset for the following users?</p>
+    <x-text>Are you sure you want to force a password reset for the following users?</x-text>
 
     <ul class="list-inside list-disc">
         @foreach ($records as $record)

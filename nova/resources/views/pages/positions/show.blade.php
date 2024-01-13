@@ -1,24 +1,23 @@
 @extends($meta->template)
 
 @section('content')
-    <x-panel class="overflow-hidden">
-        <x-panel.header :message="$position->department?->name">
-            <x-slot name="title">
-                <div class="flex items-center gap-4">
-                    <span>{{ $position->name }}</span>
-                    <div class="flex items-center">
-                        <x-badge :color="$position->status->color()">{{ $position->status->getLabel() }}</x-badge>
-                    </div>
+    <x-spacing constrained>
+        <x-page-header>
+            <x-slot name="heading">{{ $position->name }}</x-slot>
+            <x-slot name="description">
+                <div class="flex items-center gap-x-4">
+                    <x-badge size="md">
+                        {{ $position->department?->name }}
+                    </x-badge>
+                    <x-badge :color="$position->status->color()" size="md">
+                        {{ $position->status->getLabel() }}
+                    </x-badge>
                 </div>
             </x-slot>
 
             <x-slot name="actions">
-                @can('viewAny', Nova\Departments\Models\Position::class)
-                    <x-button
-                        :href="route('positions.index', 'department='.$position->department->id)"
-                        color="neutral"
-                        plain
-                    >
+                @can('viewAny', $position::class)
+                    <x-button :href="route('positions.index', 'department='.$position->department->id)" plain>
                         &larr; Back
                     </x-button>
 
@@ -30,99 +29,130 @@
                     @endcan
                 @endcan
             </x-slot>
-        </x-panel.header>
+        </x-page-header>
 
-        <div class="flex flex-col divide-gray-200 lg:flex-row lg:divide-x">
-            <div class="flex flex-1 flex-col justify-between gap-6 divide-y divide-gray-200">
-                @if (filled($position->description))
-                    <x-content-box>
-                        <p class="max-w-xl text-lg">{{ $position->description }}</p>
-                    </x-content-box>
-                @endif
+        <x-form action="">
+            @if (filled($position->description))
+                <x-fieldset>
+                    <x-text size="xl">{{ $position->description }}</x-text>
+                </x-fieldset>
+            @endif
 
-                <x-content-box>
-                    <div class="grid grid-cols-1 lg:grid-cols-3">
-                        <x-panel.stat
-                            label="Assigned characters"
-                            :value="$position->active_characters_count"
-                        ></x-panel.stat>
-                        <x-panel.stat label="Playing users" :value="$position->active_users_count"></x-panel.stat>
-                        <x-panel.stat label="Available slots" :value="$position->available"></x-panel.stat>
-                    </div>
-                </x-content-box>
-            </div>
+            <x-fieldset>
+                <x-panel well>
+                    <x-spacing size="sm">
+                        <x-fieldset.legend>Stats</x-fieldset.legend>
+                    </x-spacing>
 
-            <div class="w-full divide-y divide-gray-200 lg:w-1/3">
-                <div class="flex w-full flex-col">
-                    <div class="px-4 py-4">
-                        <x-h3>Characters</x-h3>
-                    </div>
-
-                    <div>
-                        @forelse ($position->activeCharacters as $character)
-                            <div
-                                class="group flex w-full items-center justify-between px-4 py-4 odd:bg-gray-100 dark:odd:bg-gray-700/50"
-                            >
-                                <div class="flex items-center space-x-3">
-                                    <x-avatar.character
-                                        :character="$character"
-                                        :primary-rank="false"
-                                        :secondary-positions="false"
-                                        :secondary-type="true"
-                                    ></x-avatar.character>
+                    <x-spacing size="2xs">
+                        <x-panel>
+                            <x-spacing size="sm">
+                                <div class="grid grid-cols-1 lg:grid-cols-3">
+                                    <x-panel.stat
+                                        label="Assigned characters"
+                                        :value="$position->active_characters_count"
+                                    ></x-panel.stat>
+                                    <x-panel.stat
+                                        label="Playing users"
+                                        :value="$position->active_users_count"
+                                    ></x-panel.stat>
+                                    <x-panel.stat label="Available slots" :value="$position->available"></x-panel.stat>
                                 </div>
+                            </x-spacing>
+                        </x-panel>
+                    </x-spacing>
+                </x-panel>
+            </x-fieldset>
 
-                                @can('update', $character)
-                                    <x-button
-                                        :href="route('characters.edit', $character)"
-                                        color="neutral"
-                                        class="group-hover:visible sm:invisible"
-                                        text
-                                    >
-                                        <x-icon name="edit" size="sm"></x-icon>
-                                    </x-button>
-                                @endcan
-                            </div>
-                        @empty
-                            <x-content-box class="flex flex-col gap-2 text-center">
-                                <x-icon
-                                    name="characters"
-                                    size="h-12 w-12"
-                                    class="mx-auto text-gray-400 dark:text-gray-500"
-                                ></x-icon>
-                                <x-h4>No assigned characters</x-h4>
-                            </x-content-box>
-                        @endforelse
-                    </div>
-                </div>
+            <x-fieldset>
+                <x-panel well>
+                    <x-spacing size="sm">
+                        <x-fieldset.legend>Active characters assigned to this position</x-fieldset.legend>
+                    </x-spacing>
 
-                <div class="flex w-full flex-col">
-                    <div class="px-4 py-4">
-                        <x-h3>Users</x-h3>
-                    </div>
+                    <x-spacing size="2xs">
+                        <x-panel>
+                            <x-spacing size="md">
+                                <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+                                    @forelse ($position->activeCharacters as $character)
+                                        <div class="group flex items-center justify-between">
+                                            <div class="flex items-center">
+                                                <x-avatar.character
+                                                    :character="$character"
+                                                    :primary-rank="false"
+                                                    :secondary-positions="true"
+                                                ></x-avatar.character>
+                                            </div>
 
-                    <div>
-                        @forelse ($position->activeUsers as $user)
-                            <div
-                                class="group flex w-full items-center justify-between px-4 py-4 odd:bg-gray-100 dark:odd:bg-gray-700/50"
-                            >
-                                <div class="flex items-center space-x-3">
-                                    <x-avatar.user :user="$user"></x-avatar.user>
+                                            @can('update', $character)
+                                                <x-button
+                                                    :href="route('characters.edit', $character)"
+                                                    color="neutral"
+                                                    class="group-hover:visible sm:invisible"
+                                                    text
+                                                >
+                                                    <x-icon name="edit" size="sm"></x-icon>
+                                                </x-button>
+                                            @endcan
+                                        </div>
+                                    @empty
+                                        <div class="col-span-2">
+                                            <x-empty-state.small
+                                                icon="characters"
+                                                title="No characters assigned"
+                                                message="There aren’t any characters assigned to this position. Assign some characters to the position to populate this list."
+                                            ></x-empty-state.small>
+                                        </div>
+                                    @endforelse
                                 </div>
-                            </div>
-                        @empty
-                            <x-content-box class="flex flex-col gap-2 text-center">
-                                <x-icon
-                                    name="users"
-                                    size="h-12 w-12"
-                                    class="mx-auto text-gray-400 dark:text-gray-500"
-                                ></x-icon>
-                                <x-h4>No assigned users</x-h4>
-                            </x-content-box>
-                        @endforelse
-                    </div>
-                </div>
-            </div>
-        </div>
-    </x-panel>
+                            </x-spacing>
+                        </x-panel>
+                    </x-spacing>
+                </x-panel>
+            </x-fieldset>
+
+            <x-fieldset>
+                <x-panel well>
+                    <x-spacing size="sm">
+                        <x-fieldset.legend>Active users assigned to this position</x-fieldset.legend>
+                    </x-spacing>
+
+                    <x-spacing size="2xs">
+                        <x-panel>
+                            <x-spacing size="md">
+                                <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+                                    @forelse ($position->activeUsers as $user)
+                                        <div class="group flex items-center justify-between">
+                                            <div class="flex items-center">
+                                                <x-avatar.user :user="$user"></x-avatar.user>
+                                            </div>
+
+                                            @can('update', $user)
+                                                <x-button
+                                                    :href="route('users.edit', $user)"
+                                                    color="neutral"
+                                                    class="group-hover:visible sm:invisible"
+                                                    text
+                                                >
+                                                    <x-icon name="edit" size="sm"></x-icon>
+                                                </x-button>
+                                            @endcan
+                                        </div>
+                                    @empty
+                                        <div class="col-span-2">
+                                            <x-empty-state.small
+                                                icon="users"
+                                                title="No users assigned"
+                                                message="There aren’t any active users who have a character assigned to this position. Assign some characters to the position to populate this list."
+                                            ></x-empty-state.small>
+                                        </div>
+                                    @endforelse
+                                </div>
+                            </x-spacing>
+                        </x-panel>
+                    </x-spacing>
+                </x-panel>
+            </x-fieldset>
+        </x-form>
+    </x-spacing>
 @endsection

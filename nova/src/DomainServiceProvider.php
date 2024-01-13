@@ -53,7 +53,6 @@ abstract class DomainServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        clock()->event(static::class.' booting')->color('green')->begin();
         $this->domainBooting();
 
         $this->registerConsoleCommands();
@@ -65,14 +64,11 @@ abstract class DomainServiceProvider extends ServiceProvider
         $this->registerSpotlightCommands();
 
         $this->domainBooted();
-        clock()->event(static::class.' booting')->end();
     }
 
     public function register()
     {
-        clock()->event(static::class.' registering')->color('purple')->begin();
         $this->registerMorphMaps();
-        clock()->event(static::class.' registering')->end();
     }
 
     public function spotlightCommands(): array
@@ -143,7 +139,7 @@ abstract class DomainServiceProvider extends ServiceProvider
 
     private function registerMorphMaps(): void
     {
-        Relation::morphMap($this->morphMaps());
+        Relation::enforceMorphMap($this->morphMaps());
     }
 
     private function registerPolicies(): void

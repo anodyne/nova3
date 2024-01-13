@@ -43,6 +43,8 @@ class PostPolicy
             return $this->allow();
         }
 
+        $post->loadMissing('participatingUsers');
+
         if ($post->is_draft && $post->participatingUsers->contains('id', $user->id)) {
             return $this->allow();
         }

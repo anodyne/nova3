@@ -1,5 +1,5 @@
-<div>
-    <div class="flex items-center space-x-1 overflow-hidden rounded-full">
+<div data-slot="control">
+    <div class="flex items-center gap-x-[3px] overflow-hidden rounded-full">
         @for ($r = 0; $r <= 3; $r++)
             <button
                 type="button"
@@ -22,9 +22,9 @@
         @endfor
     </div>
 
-    <div class="relative ml-0.5 mt-2 block w-full text-base text-gray-500 md:text-sm">
+    <x-text class="mt-2">
         {{ settings("ratings.{$area}.description_{$value}") }}
-    </div>
+    </x-text>
 
     <input type="hidden" name="{{ $area }}[rating]" value="{{ $value }}" />
 </div>

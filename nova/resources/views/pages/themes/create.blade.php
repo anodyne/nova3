@@ -22,11 +22,11 @@
                 title="Theme info"
                 message="A theme allows you to give your public-facing site the look-and-feel you want to any visitors. Using tools like regular HTML and CSS, you can show visitors the personality of your game and put your own spin on Nova."
             >
-                <x-input.group label="Name" for="name" :error="$errors->first('name')">
+                <x-fieldset.field label="Name" for="name" :error="$errors->first('name')">
                     <x-input.text x-model="name" id="name" name="name" />
-                </x-input.group>
+                </x-fieldset.field>
 
-                <x-input.group label="Location" for="location" :error="$errors->first('location')">
+                <x-fieldset.field label="Location" for="location" :error="$errors->first('location')">
                     <x-input.text
                         x-model="location"
                         x-on:change="suggestLocation = false"
@@ -34,19 +34,19 @@
                         name="location"
                         leading="themes/"
                     />
-                </x-input.group>
+                </x-fieldset.field>
 
-                <x-input.group label="Preview image filename" for="preview" :error="$errors->first('preview')">
+                <x-fieldset.field label="Preview image filename" for="preview" :error="$errors->first('preview')">
                     <x-input.text id="preview" name="preview" />
-                </x-input.group>
+                </x-fieldset.field>
 
-                <x-input.group
+                <x-fieldset.field
                     label="Credits"
                     for="credits"
                     help="We strongly encourage providing detailed credits for your theme. If you used an icon set or borrowed code from someone or even got inspiration from another site, this is the place to provide the appropriate credit."
                 >
                     <x-input.textarea id="credits" name="credits">{{ old('credits') }}</x-input.textarea>
-                </x-input.group>
+                </x-fieldset.field>
 
                 <div class="flex items-center gap-x-2.5">
                     <x-switch
@@ -64,13 +64,13 @@
                 title="Scaffolding"
                 message="When you create your theme, Nova will create all of the necessary directories and files for your theme. These options allow you to specify additional files you want created during scaffolding."
             >
-                <x-input.group
+                <x-fieldset.field
                     label="Variants"
                     for="variants"
                     help="Enter the names of any variants you want for your theme, separated by commas."
                 >
                     <x-input.text id="variants" name="variants" value="{{ old('variants') }}" />
-                </x-input.group>
+                </x-fieldset.field>
             </x-form.section>
 
             <x-form.footer>

@@ -9,6 +9,15 @@ use Illuminate\Pagination\Paginator;
 
 class CollectionMacros
 {
+    public function active()
+    {
+        return function () {
+            return $this->filter(function (mixed $model) {
+                return $model->deleted_at === null;
+            });
+        };
+    }
+
     public function paginate()
     {
         return function ($perPage = 15, $page = null, $options = []) {
@@ -25,6 +34,15 @@ class CollectionMacros
                 $page,
                 $options
             );
+        };
+    }
+
+    public function trashed()
+    {
+        return function () {
+            return $this->filter(function (mixed $model) {
+                return $model->deleted_at !== null;
+            });
         };
     }
 }

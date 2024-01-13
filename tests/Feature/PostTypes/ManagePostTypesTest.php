@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
@@ -94,9 +93,6 @@ describe('authorized user with post type create permissions', function () {
 
     test('has the correct permissions', function () {
         livewire(PostTypesList::class)
-            ->assertTableHeaderActionsExistInOrder([
-                CreateAction::class,
-            ])
             ->assertTableActionHidden(ViewAction::class, $this->postTypes->first())
             ->assertTableActionHidden(EditAction::class, $this->postTypes->first())
             ->assertTableActionHidden(DeleteAction::class, $this->postTypes->first());
@@ -110,7 +106,6 @@ describe('authorized user with post type delete permissions', function () {
 
     test('has the correct permissions', function () {
         livewire(PostTypesList::class)
-            ->assertTableHeaderActionsExistInOrder([])
             ->assertTableActionHidden(ViewAction::class, $this->postTypes->first())
             ->assertTableActionHidden(EditAction::class, $this->postTypes->first())
             ->assertTableActionVisible(DeleteAction::class, $this->postTypes->first());
@@ -124,7 +119,6 @@ describe('authorized user with post type update permissions', function () {
 
     test('has the correct permissions', function () {
         livewire(PostTypesList::class)
-            ->assertTableHeaderActionsExistInOrder([])
             ->assertTableActionHidden(ViewAction::class, $this->postTypes->first())
             ->assertTableActionVisible(EditAction::class, $this->postTypes->first())
             ->assertTableActionHidden(DeleteAction::class, $this->postTypes->first());
@@ -138,7 +132,6 @@ describe('authorized user with post type view permissions', function () {
 
     test('has the correct permissions', function () {
         livewire(PostTypesList::class)
-            ->assertTableHeaderActionsExistInOrder([])
             ->assertTableActionVisible(ViewAction::class, $this->postTypes->first())
             ->assertTableActionHidden(EditAction::class, $this->postTypes->first())
             ->assertTableActionHidden(DeleteAction::class, $this->postTypes->first());

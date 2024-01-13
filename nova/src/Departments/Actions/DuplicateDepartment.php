@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Departments\Actions;
 
+use Illuminate\Support\Arr;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Departments\Data\DepartmentData;
 use Nova\Departments\Models\Department;
@@ -23,9 +24,9 @@ class DuplicateDepartment
         $replica->forceFill($data->all());
         $replica->save();
 
-        $original->positions->each(
-            fn (Position $position) => $replica->positions()->create($position->toArray())
-        );
+        $original->positions->each(fn (Position $position) => $replica->positions()->create(
+            Arr::except($position->toArray(), ['id', 'created_at', 'updated_at'])
+        ));
 
         return $replica->refresh();
     }

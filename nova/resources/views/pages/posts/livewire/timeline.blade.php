@@ -1,12 +1,12 @@
-<x-content-box width="lg">
+<x-spacing width="lg">
     <div class="flex items-center gap-x-8">
         <div class="flex items-center">
-            <x-input.select wire:model.numeric.live="storyId" class="text-sm">
+            <x-select wire:model.numeric.live="storyId" class="text-sm">
                 <option value="">Choose a story</option>
                 @foreach ($stories as $story)
                     <option value="{{ $story->id }}">{{ $story->title }}</option>
                 @endforeach
-            </x-input.select>
+            </x-select>
         </div>
 
         <div class="flex items-center">
@@ -50,6 +50,8 @@
                     $showMetaFields = $post->postType->fields->location->enabled || $post->postType->fields->day->enabled || $post->postType->fields->time->enabled;
 
                     $showContent = $post->postType->options->showContentInTimelineView;
+
+                    $post->loadMissing('characterAuthors', 'userAuthors');
                 @endphp
 
                 <x-timeline.item
@@ -118,4 +120,4 @@
             </x-slot>
         </x-empty-state.large>
     @endif
-</x-content-box>
+</x-spacing>

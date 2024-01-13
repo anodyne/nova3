@@ -37,7 +37,7 @@ class DepartmentsList extends TableComponent
     public function table(Table $table): Table
     {
         return $table
-            ->query(Department::query())
+            ->query(Department::with('positions'))
             ->defaultSort('order_column', 'asc')
             ->reorderable('order_column')
             ->columns([

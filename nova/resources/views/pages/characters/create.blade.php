@@ -1,78 +1,75 @@
 @extends($meta->template)
 
+@use('Nova\Characters\Models\Character')
+
 @section('content')
-    <x-panel>
-        <x-panel.header title="Add a new character">
+    <x-spacing constrained>
+        <x-page-header>
+            <x-slot name="heading">Add a new character</x-slot>
+
             <x-slot name="actions">
-                <x-button :href="route('characters.index')" color="neutral" plain>&larr; Back</x-button>
+                <x-button :href="route('characters.index')" plain>&larr; Back</x-button>
             </x-slot>
-        </x-panel.header>
+        </x-page-header>
 
         <x-form :action="route('characters.store')">
-            <x-form.section title="Character Info">
-                <x-input.group label="Name" for="name" :error="$errors->first('name')">
-                    <x-input.text id="name" name="name" :value="old('name')" data-cy="name" />
-                </x-input.group>
+            <x-fieldset>
+                <x-fieldset.field-group constrained>
+                    <x-fieldset.field label="Name" id="name" name="name" :error="$errors->first('name')">
+                        <x-input.text :value="old('name')" data-cy="name" />
+                    </x-fieldset.field>
 
-                <x-input.group label="Rank" :error="$errors->first('rank_id')">
-                    <livewire:rank-items-dropdown :rank="old('rank_id')" />
-                </x-input.group>
-            </x-form.section>
+                    <x-fieldset.field label="Rank" id="rank" name="rank" :error="$errors->first('rank_id')">
+                        <livewire:rank-items-dropdown :rank="old('rank_id')" />
+                    </x-fieldset.field>
 
-            <x-form.section title="Avatar">
-                <x-slot name="message">
-                    <x-text>
-                        Character avatars should be a square image at least 500 pixels tall by 500 pixels wide, but not
-                        more than 5MB in size.
-                    </x-text>
-                </x-slot>
+                    <x-fieldset.field label="Avatar" id="avatar" name="avatar">
+                        <livewire:media-upload-avatar />
+                    </x-fieldset.field>
+                </x-fieldset.field-group>
+            </x-fieldset>
 
-                <x-input.group>
-                    <livewire:media-upload-avatar />
-                </x-input.group>
-            </x-form.section>
+            <x-fieldset title="Positions">
+                <x-panel well>
+                    <x-spacing size="sm">
+                        <x-fieldset.legend>Positions</x-fieldset.legend>
+                        <x-fieldset.description>
+                            Characters can be assigned to any number of positions. On the manifest, the character will
+                            be displayed for each position they’re assigned to.
+                        </x-fieldset.description>
+                    </x-spacing>
 
-            <x-form.section title="Positions">
-                <x-slot name="message">
-                    <x-text>
-                        Characters can be assigned to any number of positions. On the manifest, the character will be
-                        displayed for each position they're assigned to.
-                    </x-text>
-                </x-slot>
+                    <x-spacing size="2xs">
+                        <livewire:characters-manage-positions />
+                    </x-spacing>
+                </x-panel>
+            </x-fieldset>
 
-                <livewire:characters-manage-positions />
-            </x-form.section>
-
-            @can('create', Nova\Characters\Models\Character::class)
-                <x-form.section title="Ownership">
-                    <x-slot name="message">
-                        <x-text>
+            <x-fieldset>
+                <x-panel well>
+                    <x-spacing size="sm">
+                        <x-fieldset.legend>Ownership</x-fieldset.legend>
+                        <x-fieldset.description>
                             Characters can be assigned to any number of users and all assigned users will have the same
                             rights with the character. Additionally, any notifications on behalf of the character will
                             be sent to all users assigned to the character.
-                        </x-text>
-                    </x-slot>
+                        </x-fieldset.description>
+                    </x-spacing>
 
-                    <livewire:characters-manage-users />
-                </x-form.section>
-            @else
-                <x-form.section title="Ownership">
-                    <x-slot name="message">
-                        <x-text>
-                            Characters can be assigned to any number of users and all assigned users will have the same
-                            rights with the character. Additionally, any notifications on behalf of the character will
-                            be sent to all users assigned to the character.
-                        </x-text>
-                    </x-slot>
+                    <x-spacing size="2xs">
+                        @can('create', Character::class)
+                            <livewire:characters-manage-users />
+                        @else
+                            <livewire:characters-manage-ownership />
+                        @endcan
+                    </x-spacing>
+                </x-panel>
+            </x-fieldset>
 
-                    <livewire:characters-manage-ownership />
-                </x-form.section>
-            @endcan
-
-            <x-form.footer>
-                <x-button.solid type="submit" color="primary">Add</x-button.solid>
-                <x-button.solid :href="route('characters.index')" color="neutral">Cancel</x-button.solid>
-            </x-form.footer>
+            <x-fieldset.controls>
+                <x-button type="submit" color="primary">Add</x-button>
+                <x-button :href="route('characters.index')" plain>Cancel</x-button>
+            </x-fieldset.controls>
         </x-form>
-    </x-panel>
+    </x-spacing>
 @endsection

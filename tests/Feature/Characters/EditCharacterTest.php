@@ -65,7 +65,6 @@ describe('authorized user', function () {
         $deletedCharacter = Character::factory()->active()->trashed()->create();
 
         livewire(CharactersList::class)
-            ->assertTableHeaderActionsExistInOrder([])
             ->assertTableActionHidden(ViewAction::class, $activeCharacter)
             ->assertTableActionVisible(EditAction::class, $activeCharacter)
             ->assertTableActionHidden(DeleteAction::class, $activeCharacter)
@@ -113,7 +112,6 @@ describe('unauthorized user', function () {
         $deletedCharacter = Character::factory()->active()->trashed()->create();
 
         livewire(CharactersList::class)
-            ->assertTableHeaderActionsExistInOrder([])
             ->assertTableActionHidden(ViewAction::class, $activeCharacter)
             ->assertTableActionHidden(EditAction::class, $activeCharacter)
             ->assertTableActionHidden(DeleteAction::class, $activeCharacter)

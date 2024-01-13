@@ -8,7 +8,7 @@
 <div @class([
     'border-b border-gray-200 dark:border-gray-800' => $border,
 ])>
-    <x-content-box height="sm">
+    <x-spacing height="sm">
         <div class="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-x-6 md:space-y-0">
             <div>
                 <x-h2>{{ $title }}</x-h2>
@@ -26,7 +26,7 @@
                 </div>
             @endif
         </div>
-    </x-content-box>
+    </x-spacing>
 
     {{ $slot }}
 </div>

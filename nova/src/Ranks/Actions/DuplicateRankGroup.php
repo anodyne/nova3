@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Ranks\Actions;
 
+use Illuminate\Support\Arr;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Ranks\Data\RankGroupData;
 use Nova\Ranks\Models\RankGroup;
@@ -16,13 +17,13 @@ class DuplicateRankGroup
     public function handle(RankGroup $original, RankGroupData $data): RankGroup
     {
         $replica = $original->replicate(['ranks_count']);
-        $replica->fill($data->all());
+        $replica->fill(Arr::except($data->toArray(), 'base_image'));
         $replica->save();
 
         $original->ranks->each(
             fn (RankItem $rank) => $replica->ranks()->create(array_merge(
-                $rank->toArray(),
-                $data->only('base_image')->all()
+                Arr::except($rank->toArray(), ['id', 'name', 'created_at', 'updated_at']),
+                Arr::only($data->toArray(), 'base_image')
             ))
         );
 

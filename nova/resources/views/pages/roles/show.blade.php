@@ -1,7 +1,7 @@
 @extends($meta->template)
 
 @section('content')
-    <x-container.narrow>
+    <x-spacing constrained>
         <x-page-header>
             <x-slot name="heading">{{ $role->display_name }}</x-slot>
 
@@ -15,7 +15,7 @@
 
             <x-slot name="actions">
                 @can('viewAny', $role::class)
-                    <x-button :href="route('roles.index')" color="neutral" plain>&larr; Back</x-button>
+                    <x-button :href="route('roles.index')" plain>&larr; Back</x-button>
                 @endcan
 
                 @can('update', $role)
@@ -30,13 +30,13 @@
         <x-form action="">
             <x-fieldset>
                 <x-panel well>
-                    <x-container width="sm" height="sm">
+                    <x-spacing size="sm">
                         <x-fieldset.legend>Permissions for this role</x-fieldset.legend>
-                    </x-container>
+                    </x-spacing>
 
-                    <x-container height="2xs" width="2xs">
+                    <x-spacing size="2xs">
                         <x-panel>
-                            <x-container>
+                            <x-spacing size="md">
                                 <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
                                     @forelse ($role->permissions as $permission)
                                         <div>
@@ -55,21 +55,21 @@
                                         </div>
                                     @endforelse
                                 </div>
-                            </x-container>
+                            </x-spacing>
                         </x-panel>
-                    </x-container>
+                    </x-spacing>
                 </x-panel>
             </x-fieldset>
 
             <x-fieldset>
                 <x-panel well>
-                    <x-container width="sm" height="sm">
+                    <x-spacing size="sm">
                         <x-fieldset.legend>Users with this role</x-fieldset.legend>
-                    </x-container>
+                    </x-spacing>
 
-                    <x-container height="2xs" width="2xs">
+                    <x-spacing size="2xs">
                         <x-panel>
-                            <x-container>
+                            <x-spacing size="md">
                                 <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
                                     @forelse ($role->user as $user)
                                         <x-avatar.user :user="$user"></x-avatar.user>
@@ -83,11 +83,11 @@
                                         </div>
                                     @endforelse
                                 </div>
-                            </x-container>
+                            </x-spacing>
                         </x-panel>
-                    </x-container>
+                    </x-spacing>
                 </x-panel>
             </x-fieldset>
         </x-form>
-    </x-container.narrow>
+    </x-spacing>
 @endsection

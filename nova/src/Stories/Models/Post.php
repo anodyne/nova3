@@ -36,10 +36,10 @@ class Post extends Model implements Sortable
     protected $table = 'posts';
 
     protected $fillable = [
-        'story_id', 'post_type_id', 'title', 'content', 'status', 'word_count',
-        'day', 'time', 'location', 'parent_id', 'rating_language', 'rating_sex',
+        'id', 'story_id', 'post_type_id', 'title', 'content', 'status', 'word_count',
+        'day', 'time', 'location', 'rating_language', 'rating_sex',
         'rating_violence', 'summary', 'participants', 'neighbor', 'direction',
-        'sort',
+        'order_column',
     ];
 
     protected $with = ['postType', 'story'];

@@ -13,7 +13,6 @@ use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
-use Livewire\Component;
 use Nova\Foundation\Data\DiscordSettings;
 use Nova\Foundation\Enums\NotificationAudience;
 use Nova\Foundation\Filament\Actions\Action;
@@ -164,8 +163,6 @@ class NotificationTypesList extends TableComponent
                     ])->divided(),
                 ]),
             ])
-            ->filters([])
-            ->heading('Notification settings')
             ->headerActions([
                 Action::make('globalDiscordSettings')
                     ->label('Global Discord settings')
@@ -199,11 +196,6 @@ class NotificationTypesList extends TableComponent
                             ->title('Global discord settings were updated')
                             ->send();
                     }),
-                Action::make('findSettings')
-                    ->label('Find a setting')
-                    ->icon(iconName('search'))
-                    ->color('gray')
-                    ->action(fn (Component $livewire) => $livewire->dispatch('toggle-spotlight')),
             ])
             ->emptyStateIcon(iconName('write'))
             ->emptyStateHeading('No draft posts found');

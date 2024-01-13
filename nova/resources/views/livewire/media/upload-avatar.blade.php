@@ -1,18 +1,14 @@
 @use('Nova\Foundation\Nova')
 
-<div class="flex items-center gap-x-4">
+<div data-slot="control" class="isolate flex items-center gap-x-4">
     @if (filled($image))
         <img
             src="{{ $image->temporaryUrl() }}"
             alt="user photo"
             @class([
-                'h-16 w-16 rounded-lg object-cover',
-                match (settings('appearance.avatarShape')) {
-                    'squircle' => 'mask mask-squircle',
-                    'hexagon' => 'mask mask-hexagon',
-                    'hexagon-alt' => 'mask mask-hexagon-alt',
-                    default => settings('appearance.avatarShape'),
-                },
+                'h-16 w-16 object-cover',
+                'rounded-[20%]' => settings('appearance.avatarShape') === 'square',
+                'rounded-full' => settings('appearance.avatarShape') === 'circle',
             ])
         />
     @else
@@ -21,13 +17,9 @@
                 src="{{ $existingImage }}"
                 alt="user photo"
                 @class([
-                    'h-16 w-16 rounded-lg object-cover',
-                    match (settings('appearance.avatarShape')) {
-                        'squircle' => 'mask mask-squircle',
-                        'hexagon' => 'mask mask-hexagon',
-                        'hexagon-alt' => 'mask mask-hexagon-alt',
-                        default => settings('appearance.avatarShape'),
-                    },
+                    'h-16 w-16 object-cover',
+                    'rounded-[20%]' => settings('appearance.avatarShape') === 'square',
+                    'rounded-full' => settings('appearance.avatarShape') === 'circle',
                 ])
             />
         @else
@@ -35,13 +27,9 @@
                 src="{{ Nova::getAvatarUrl('nova3') }}"
                 alt="generated user photo"
                 @class([
-                    'h-16 w-16 rounded-lg object-cover',
-                    match (settings('appearance.avatarShape')) {
-                        'squircle' => 'mask mask-squircle',
-                        'hexagon' => 'mask mask-hexagon',
-                        'hexagon-alt' => 'mask mask-hexagon-alt',
-                        default => settings('appearance.avatarShape'),
-                    },
+                    'h-16 w-16 object-cover',
+                    'rounded-[20%]' => settings('appearance.avatarShape') === 'square',
+                    'rounded-full' => settings('appearance.avatarShape') === 'circle',
                 ])
             />
         @endif
@@ -60,7 +48,7 @@
 
                 <label
                     for="user-photo"
-                    class="pointer-events-none block rounded-md bg-white px-3 py-2 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 peer-hover:bg-slate-50 peer-focus:ring-2 peer-focus:ring-primary-600"
+                    class="pointer-events-none block rounded-md bg-white px-3 py-2 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 peer-hover:bg-slate-50 peer-focus:ring-2 peer-focus:ring-primary-600 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:peer-hover:bg-white/10"
                 >
                     <span>Change</span>
                     <span class="sr-only">user photo</span>

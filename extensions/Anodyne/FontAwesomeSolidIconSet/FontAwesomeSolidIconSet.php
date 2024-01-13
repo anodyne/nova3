@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extensions\Anodyne\FontAwesomeSolidIconSet;
 
 use Nova\Foundation\Icons\IconSet;

@@ -1,4 +1,4 @@
-<x-content-box height="sm" class="grid grid-cols-4 gap-4 bg-white">
+<x-spacing height="sm" class="grid grid-cols-4 gap-4 bg-white">
     <div class="col-span-3 font-medium text-gray-900">
         <div class="flex items-center gap-4">
             <div class="shrink-0">
@@ -16,4 +16,4 @@
             <x-button.setup :href="url('setup/migrate/steps')" size="xs">Go &rarr;</x-button.setup>
         @endif
     </div>
-</x-content-box>
+</x-spacing>
