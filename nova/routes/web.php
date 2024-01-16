@@ -4,11 +4,16 @@ declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
 use Nova\Departments\Models\Department;
+use Nova\Pages\Controllers\BasicPageController;
 
 try {
     $pages = cache()->rememberForever('nova.pages', fn () => Nova\Pages\Models\Page::get());
 
-    $pages->each(
+    $pages->basic()->each(
+        fn ($page) => $router->{$page->verb->value}($page->uri, BasicPageController::class)->name($page->key)
+    );
+
+    $pages->advanced()->each(
         fn ($page) => $router->{$page->verb->value}($page->uri, $page->resource)->name($page->key)
     );
 } catch (Throwable $th) {

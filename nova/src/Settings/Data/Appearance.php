@@ -25,8 +25,8 @@ class Appearance extends Data implements Arrayable
         public string $colorsWarning,
         public string $colorsSuccess,
         public string $colorsInfo,
-        public string $fontProvider,
-        public string $fontFamily,
+        public FontFamilies $adminFonts,
+        public FontFamilies $publicFonts,
         public bool $panda,
     ) {
     }

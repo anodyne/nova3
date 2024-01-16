@@ -214,7 +214,7 @@ return [
         Nova\Media\Providers\MediaServiceProvider::class,
         // Nova\Navigation\Providers\NavigationServiceProvider::class,
         Nova\Notes\Providers\NotesServiceProvider::class,
-        // Nova\Pages\Providers\PageServiceProvider::class,
+        Nova\Pages\Providers\PageServiceProvider::class,
         Nova\Ranks\Providers\RankServiceProvider::class,
         Nova\Roles\Providers\RoleServiceProvider::class,
         Nova\Settings\Providers\SettingsServiceProvider::class,

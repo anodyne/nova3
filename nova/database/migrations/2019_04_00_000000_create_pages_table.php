@@ -18,6 +18,7 @@ class CreatePagesTable extends Migration
             $table->string('verb')->default(PageVerb::get->value);
             $table->string('resource')->nullable();
             $table->string('layout')->default('public');
+            $table->json('blocks')->nullable();
             $table->timestamps();
 
             $table->index('key');

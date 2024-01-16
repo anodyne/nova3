@@ -10,6 +10,7 @@ use Filament\Support\Facades\FilamentColor;
 use Filament\Support\Facades\FilamentIcon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use FilamentTiptapEditor\TiptapEditor;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Console\AboutCommand;
@@ -40,6 +41,7 @@ use Nova\Foundation\Responses\FiltersManager;
 use Nova\Foundation\View\Components\EmailLayout;
 use Nova\Foundation\View\Components\Tips;
 use Nova\Navigation\Models\Navigation;
+use Nova\Pages\Blocks;
 use Nova\Settings\Models\Settings;
 
 class AppServiceProvider extends ServiceProvider
@@ -48,7 +50,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->registerNovaSingleton();
         $this->registerResponseFilters();
-        $this->registerFilamentBindings();
+        // $this->registerFilamentBindings();
     }
 
     public function boot(): void
@@ -131,8 +133,10 @@ class AppServiceProvider extends ServiceProvider
     protected function registerBladeDirectives()
     {
         Blade::directive('icon', [NovaBladeDirectives::class, 'icon']);
-        Blade::directive('novaScripts', [NovaBladeDirectives::class, 'novaScripts']);
-        Blade::directive('novaStyles', [NovaBladeDirectives::class, 'novaStyles']);
+        Blade::directive('novaAdminScripts', [NovaBladeDirectives::class, 'novaAdminScripts']);
+        Blade::directive('novaAdminStyles', [NovaBladeDirectives::class, 'novaAdminStyles']);
+        Blade::directive('novaPublicScripts', [NovaBladeDirectives::class, 'novaPublicScripts']);
+        Blade::directive('novaPublicStyles', [NovaBladeDirectives::class, 'novaPublicStyles']);
     }
 
     protected function registerLivewireComponents()
@@ -186,6 +190,20 @@ class AppServiceProvider extends ServiceProvider
                         ->size('lg')
                         ->color($isReordering ? 'primary' : 'gray');
                 });
+        });
+
+        TiptapEditor::configureUsing(function (TiptapEditor $component) {
+            return $component->blocks([
+                // Blocks\CallToActionBlock::class,
+                // Blocks\CallToActionImageTilesBlock::class,
+                Blocks\CallToAction\DarkPanelBlock::class,
+
+                Blocks\Hero\SimpleCenteredBlock::class,
+                Blocks\Hero\SplitBlock::class,
+                Blocks\Hero\BackgroundImageBlock::class,
+
+                Blocks\Stats\SimpleBlock::class,
+            ]);
         });
 
         $this->app->bind(FilamentNotification::class, Notification::class);

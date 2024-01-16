@@ -10,9 +10,9 @@
 
         {{ NovaView::renderHook('admin::styles.before') }}
 
-        <x-fonts />
+        <x-fonts section="admin" />
         @filamentStyles
-        @novaStyles
+        @novaAdminStyles
         @stack('styles')
 
         {{ NovaView::renderHook('admin::styles.after') }}
@@ -44,7 +44,7 @@
         {{ NovaView::renderHook('admin::scripts.before') }}
 
         @filamentScripts(withCore: true)
-        @novaScripts
+        @novaAdminScripts
         @stack('scripts')
 
         {{ NovaView::renderHook('admin::scripts.after') }}

@@ -9,6 +9,7 @@ use Nova\Settings\Data\ContentRating;
 use Nova\Settings\Data\ContentRatings;
 use Nova\Settings\Data\Discord;
 use Nova\Settings\Data\Email;
+use Nova\Settings\Data\FontFamilies;
 use Nova\Settings\Data\General;
 use Nova\Settings\Data\MetaTags;
 use Nova\Settings\Data\PostingActivity;
@@ -41,8 +42,18 @@ class PopulateSettingsTable extends Migration
                 colorsWarning: 'Amber',
                 colorsSuccess: 'Emerald',
                 colorsInfo: 'Purple',
-                fontProvider: 'local',
-                fontFamily: 'Inter',
+                adminFonts: new FontFamilies(
+                    headerProvider: 'local',
+                    headerFamily: 'Inter',
+                    bodyProvider: 'local',
+                    bodyFamily: 'Inter'
+                ),
+                publicFonts: new FontFamilies(
+                    headerProvider: 'local',
+                    headerFamily: 'Inter',
+                    bodyProvider: 'local',
+                    bodyFamily: 'Inter'
+                ),
                 panda: false
             ),
             'meta_tags' => new MetaTags(),
