@@ -1,4 +1,4 @@
-<div class="space-y-12">
+<div class="space-y-12" wire:key="account-info">
     <x-fieldset>
         <x-fieldset.field-group constrained>
             <x-fieldset.field label="Name" id="name" name="name" :error="$errors->first('form.name')">

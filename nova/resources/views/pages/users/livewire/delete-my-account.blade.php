@@ -1,4 +1,4 @@
-<div class="space-y-12">
+<div class="space-y-12" wire:key="delete-account">
     <x-fieldset>
         <x-fieldset.legend>Delete account</x-fieldset.legend>
         <x-fieldset.description>

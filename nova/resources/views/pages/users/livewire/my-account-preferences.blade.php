@@ -1,4 +1,4 @@
-<div class="space-y-12">
+<div class="space-y-12" wire:key="account-preferences">
     <x-fieldset>
         <x-fieldset.field-group constrained>
             <x-fieldset.field label="Timezone" id="timezone" name="timezone" :error="$errors->first('form.timezone')">
