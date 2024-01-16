@@ -59,7 +59,7 @@ jobs:
       - name: Run testsuite
         run: |
           php artisan migrate
-          ./vendor/bin/pest
+          ./vendor/bin/pest --parallel
 
       - name: Deploy to Forge
         if: github.ref == 'refs/heads/dev'
