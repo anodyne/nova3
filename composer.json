@@ -10,7 +10,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.3",
+        "php": "^8.2",
         "anodyne/blade-tabler-icons": "^2.18",
         "aws/aws-sdk-php": "^3.293",
         "awssat/discord-notification-channel": "^1.4",

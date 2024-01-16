@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
 
-if (version_compare(PHP_VERSION, '8.3', '<')) {
+if (version_compare(PHP_VERSION, '8.2', '<')) {
     header('Location: message.php?type=php');
     exit();
 }
