@@ -21,9 +21,7 @@
         </div>
 
         <div class="z-10 mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-            <div class="bg-white px-4 py-8 shadow-xl ring-1 ring-gray-950/5 sm:rounded-xl sm:px-10">
-                @yield('content')
-            </div>
+            @yield('content')
         </div>
     </div>
 @endsection
