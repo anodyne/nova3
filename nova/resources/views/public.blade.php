@@ -23,7 +23,7 @@
         {{ NovaView::renderHook('public::head-scripts.after') }}
     </head>
     <body
-        class="h-full bg-white font-sans text-gray-600 antialiased dark:bg-gray-950 dark:text-gray-400 dark:xl:bg-gray-950"
+        class="h-full bg-white font-[family-name:--font-body] text-gray-600 antialiased dark:bg-gray-950 dark:text-gray-400 dark:xl:bg-gray-950"
     >
         {{ NovaView::renderHook('public::body.start') }}
 

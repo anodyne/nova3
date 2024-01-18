@@ -1,3 +1,9 @@
-<h2 {{ $attributes->merge(['class' => 'block font-bold text-xl text-gray-900 dark:text-white tracking-tight']) }}>
+<h2
+    @class([
+        'block font-[family-name:--font-header] text-xl font-bold tracking-tight text-gray-900 dark:text-white',
+        $attributes->get('class') => $attributes->has('class'),
+    ])
+    {{ $attributes }}
+>
     {{ $slot }}
 </h2>

@@ -8,6 +8,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -22,6 +23,7 @@ use Nova\Foundation\Filament\Actions\ReplicateAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
+use Nova\Pages\Enums\PageStatus;
 use Nova\Pages\Enums\PageVerb;
 use Nova\Pages\Models\Page;
 use Nova\Stories\Actions\DeletePostType;
@@ -37,6 +39,7 @@ class PagesList extends TableComponent
     {
         return $table
             ->query(Page::query())
+            ->defaultPaginationPageOption(25)
             ->columns([
                 TextColumn::make('uri')
                     ->titleColumn()
@@ -47,11 +50,19 @@ class PagesList extends TableComponent
                     ->badge()
                     ->label('HTTP Verb')
                     ->color(fn (Page $record): string => $record->verb->color())
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(),
+                TextColumn::make('pageType')
+                    ->badge()
+                    ->state(fn (Page $record): string => $record->is_basic ? 'Basic' : 'Advanced')
+                    ->color(fn (string $state): string => match ($state) {
+                        'Basic' => 'info',
+                        'Advanced' => 'primary',
+                    })
+                    ->toggleable(),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (Model $record): string => $record->trashed() ? 'danger' : $record->status->color())
-                    ->formatStateUsing(fn (Model $record): string => $record->trashed() ? 'Deleted' : $record->status->getLabel())
+                    ->color(fn (Model $record): string => $record->status->color())
                     ->toggleable(),
             ])
             ->actions([
@@ -164,9 +175,16 @@ class PagesList extends TableComponent
                     }),
             ])
             ->filters([
+                SelectFilter::make('status')->options(PageStatus::class),
                 SelectFilter::make('verb')
                     ->label('HTTP verb')
                     ->options(PageVerb::class),
+                TernaryFilter::make('pageType')
+                    ->nullable()
+                    ->attribute('resource')
+                    ->placeholder('All pages')
+                    ->trueLabel('Advanced pages')
+                    ->falseLabel('Basic pages'),
             ])
             ->header(fn () => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)
             ->emptyStateIcon(iconName('list'))

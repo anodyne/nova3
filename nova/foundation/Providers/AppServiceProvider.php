@@ -24,6 +24,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\View\Factory as ViewFactory;
 use Livewire\Livewire;
+use Nova\Foundation\Blocks\BlockManager;
 use Nova\Foundation\Environment\Environment;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Icons\IconSets;
@@ -94,6 +95,7 @@ class AppServiceProvider extends ServiceProvider
             //     fn () => Navigation::with('children.page', 'page', 'authorization')->public()->topLevel()->get()
             // );
 
+            $this->registerBlocks();
             $this->registerLivewireComponents();
             $this->registerResponseFilters();
             $this->setupFilament();
@@ -193,17 +195,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         TiptapEditor::configureUsing(function (TiptapEditor $component) {
-            return $component->blocks([
-                // Blocks\CallToActionBlock::class,
-                // Blocks\CallToActionImageTilesBlock::class,
-                Blocks\CallToAction\DarkPanelBlock::class,
-
-                Blocks\Hero\SimpleCenteredBlock::class,
-                Blocks\Hero\SplitBlock::class,
-                Blocks\Hero\BackgroundImageBlock::class,
-
-                Blocks\Stats\SimpleBlock::class,
-            ]);
+            return $component->blocks($this->app[BlockManager::class]->blocks());
         });
 
         $this->app->bind(FilamentNotification::class, Notification::class);
@@ -218,21 +210,16 @@ class AppServiceProvider extends ServiceProvider
         }
     }
 
-    protected function registerFilamentBindings(): void
+    protected function registerBlocks(): void
     {
-        $this->app->bind(
-            \Filament\Support\Assets\Js::class,
-            \Nova\Foundation\Filament\Assets\Js::class
-        );
+        $blockManager = new BlockManager();
 
-        $this->app->bind(
-            \Filament\Support\Assets\Css::class,
-            \Nova\Foundation\Filament\Assets\Css::class
-        );
+        $blockManager->registerPageBlocks([
+            Blocks\Hero\SimpleCenteredBlock::class,
+        ]);
 
-        $this->app->bind(
-            \Filament\Support\Assets\AlpineComponent::class,
-            \Nova\Foundation\Filament\Assets\AlpineComponent::class
-        );
+        $blockManager->registerFormBlocks([]);
+
+        $this->app->scoped(BlockManager::class, fn () => $blockManager);
     }
 }

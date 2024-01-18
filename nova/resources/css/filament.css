@@ -273,3 +273,13 @@ body[data-panda] .fi-checkbox-input {
 body[data-panda] .fi-radio-input {
     @apply checked:bg-gray-900 checked:hover:bg-gray-900 dark:checked:bg-gray-600 dark:checked:hover:bg-gray-600;
 }
+
+.fi-section {
+    @apply rounded-xl bg-gray-950/[.04] p-1.5 shadow-none ring-1 ring-inset ring-gray-950/[.025] dark:bg-white/[.04] dark:ring-white/[.025];
+}
+.fi-section-header {
+    @apply p-4;
+}
+.fi-section-content-ctn {
+    @apply rounded-lg border-none bg-white shadow ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/5;
+}

@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Illuminate\Support\Facades\Route;
 use Nova\Departments\Models\Department;
 use Nova\Pages\Controllers\BasicPageController;
+use Nova\Settings\Data\FontFamilies;
 
 try {
     $pages = cache()->rememberForever('nova.pages', fn () => Nova\Pages\Models\Page::get());
@@ -116,5 +117,12 @@ Route::get('manifest-test', function () {
 });
 
 Route::get('test', function () {
-    //
+    $fontFamilies = new FontFamilies(
+        headerProvider: 'local',
+        headerFamily: 'Geist',
+        bodyProvider: 'local',
+        bodyFamily: 'Geist'
+    );
+
+    dd($fontFamilies->getFontHtml());
 });

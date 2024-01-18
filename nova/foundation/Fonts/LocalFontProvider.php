@@ -9,13 +9,16 @@ use Illuminate\Support\HtmlString;
 
 class LocalFontProvider implements Contracts\FontProvider
 {
-    public function getHtml(string $family, ?string $url = null): Htmlable
+    public function getFontHtml(string $family, ?string $url = null): Htmlable
     {
         $family = str($family)->kebab()->lower();
         $url = asset('dist/fonts/'.$family.'/font.css');
 
-        return new HtmlString("
-            <link href=\"{$url}\" rel=\"stylesheet\">
-        ");
+        return new HtmlString("<link href=\"{$url}\" rel=\"stylesheet\">");
+    }
+
+    public function getPreconnectHtml(): ?Htmlable
+    {
+        return null;
     }
 }

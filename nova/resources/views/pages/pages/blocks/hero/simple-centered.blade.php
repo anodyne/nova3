@@ -75,12 +75,12 @@
                     @if (filled($heading))
                         <h1
                             @class([
-                                'nv-hero-heading font-[family-name:--font-titles] text-4xl font-bold tracking-tight sm:text-6xl',
+                                'nv-hero-heading font-[family-name:--font-header] text-4xl font-bold tracking-tight sm:text-6xl',
                                 'text-gray-900' => ! $dark,
                                 'text-white' => $dark,
                             ])
                         >
-                            Data to enrich your online business
+                            {{ $heading }}
                         </h1>
                     @endif
 

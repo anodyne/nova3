@@ -7,8 +7,9 @@ namespace Nova\Pages\Livewire;
 use Filament\Forms\Form;
 use FilamentTiptapEditor\Enums\TiptapOutput;
 use FilamentTiptapEditor\TiptapEditor;
+use Nova\Foundation\Blocks\BlockManager;
+use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\FormComponent;
-use Nova\Pages\Blocks;
 use Nova\Pages\Models\Page;
 
 class PageDesigner extends FormComponent
@@ -21,9 +22,7 @@ class PageDesigner extends FormComponent
             ->schema([
                 TiptapEditor::make('blocks')
                     ->output(TiptapOutput::Json)
-                    ->blocks([
-                        Blocks\Hero\SimpleCenteredBlock::class,
-                    ]),
+                    ->blocks(app(BlockManager::class)->pageBlocks()),
             ])
             ->statePath('data')
             ->model($this->page);
@@ -32,6 +31,10 @@ class PageDesigner extends FormComponent
     public function save(): void
     {
         $this->page->update($this->form->getState());
+
+        Notification::make()->success()
+            ->title('Page design has been updated')
+            ->send();
     }
 
     public function mount(Page $page): void

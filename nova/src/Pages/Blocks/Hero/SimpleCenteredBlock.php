@@ -20,16 +20,18 @@ class SimpleCenteredBlock extends HeroBlock
     public function getFormSchema(): array
     {
         return array_merge(parent::getFormSchema(), [
-            Toggle::make('dark'),
             Section::make('Callout')->schema([
                 TextInput::make('calloutText'),
                 TextInput::make('calloutLinkLabel'),
-                TextInput::make('calloutLinkUrl')->url(),
+                TextInput::make('calloutLinkUrl')
+                    ->label('Callout link URL')
+                    ->url(),
             ]),
             Section::make('Colors')->schema([
-                ColorPicker::make('color1'),
-                ColorPicker::make('color2'),
+                ColorPicker::make('color1')->label('Color 1'),
+                ColorPicker::make('color2')->label('Color 2'),
             ]),
+            Toggle::make('dark'),
         ]);
     }
 }

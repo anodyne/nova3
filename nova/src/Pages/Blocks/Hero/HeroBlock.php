@@ -24,11 +24,15 @@ abstract class HeroBlock extends TiptapBlock
             Textarea::make('description'),
             Section::make('Primary button')->schema([
                 TextInput::make('primaryButtonLabel'),
-                TextInput::make('primaryButtonUrl')->url(),
+                TextInput::make('primaryButtonUrl')
+                    ->label('Primary button URL')
+                    ->url(),
             ]),
             Section::make('Secondary button')->schema([
                 TextInput::make('secondaryButtonLabel'),
-                TextInput::make('secondaryButtonUrl')->url(),
+                TextInput::make('secondaryButtonUrl')
+                    ->label('Secondary button URL')
+                    ->url(),
             ]),
         ];
     }

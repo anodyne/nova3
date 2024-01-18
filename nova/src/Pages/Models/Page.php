@@ -6,6 +6,7 @@ namespace Nova\Pages\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Nova\Pages\Enums\PageStatus;
 use Nova\Pages\Enums\PageVerb;
 use Nova\Pages\Models\Collections\PagesCollection;
 use Spatie\Activitylog\LogOptions;
@@ -16,10 +17,11 @@ class Page extends Model
     use LogsActivity;
 
     protected $fillable = [
-        'uri', 'key', 'verb', 'resource', 'layout', 'blocks',
+        'uri', 'key', 'verb', 'resource', 'layout', 'blocks', 'status',
     ];
 
     protected $casts = [
+        'status' => PageStatus::class,
         'verb' => PageVerb::class,
     ];
 

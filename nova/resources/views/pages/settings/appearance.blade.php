@@ -136,7 +136,7 @@
             <x-fieldset>
                 <x-fieldset.heading>
                     <x-icon name="typography"></x-icon>
-                    <x-fieldset.legend>Font family</x-fieldset.legend>
+                    <x-fieldset.legend>Fonts</x-fieldset.legend>
                     <x-fieldset.description>
                         Customize Nova by changing the fonts used throughout the admin system and on the public-facing
                         site.
@@ -144,26 +144,21 @@
                 </x-fieldset.heading>
 
                 <x-fieldset.field-group constrained>
-                    <x-fieldset.field label="Admin header font family" id="admin_font_header" name="admin_font_header">
-                        <x-select></x-select>
+                    <x-fieldset.field label="Admin headers font" id="admin_font_header" name="admin_font_header">
+                        <livewire:settings-font-selector section="admin" type="header" />
                     </x-fieldset.field>
 
-                    <x-fieldset.field label="Admin body font family" id="admin_font_body" name="admin_font_body">
-                        <x-select></x-select>
+                    <x-fieldset.field label="Admin body font" id="admin_font_body" name="admin_font_body">
+                        <livewire:settings-font-selector section="admin" type="body" />
                     </x-fieldset.field>
 
-                    <x-fieldset.field
-                        label="Public header font family"
-                        id="public_font_header"
-                        name="public_font_header"
-                    >
-                        <x-select></x-select>
+                    <x-fieldset.field label="Public headers font" id="public_font_header" name="public_font_header">
+                        <livewire:settings-font-selector section="public" type="header" />
                     </x-fieldset.field>
 
-                    <x-fieldset.field label="Public body font family" id="public_font_body" name="public_font_body">
-                        <x-select></x-select>
+                    <x-fieldset.field label="Public body font" id="public_font_body" name="public_font_body">
+                        <livewire:settings-font-selector section="public" type="body" />
                     </x-fieldset.field>
-                    {{-- <livewire:settings-font-selector /> --}}
                 </x-fieldset.field-group>
             </x-fieldset>
 

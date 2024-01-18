@@ -2,11 +2,12 @@
     'section' => 'admin',
 ])
 
-{!! nova()->getFontHtml() !!}
+@php($fonts = settings("appearance.{$section}Fonts"))
+
+{!! $fonts?->getFontHtml() !!}
 <style>
     :root {
-        --font-family: {!! nova()->getFontFamily() !!};
-        --font-header: {!! nova()->getHeaderFontFamily($section) !!};
-        --font-body: {!! nova()->getBodyFontFamily($section) !!};
+        --font-header: '{{ $fonts?->headerFamily ?? 'Inter' }}';
+        --font-body: '{{ $fonts?->bodyFamily ?? 'Inter' }}';
     }
 </style>
