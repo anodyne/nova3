@@ -2,7 +2,7 @@
     use Nova\Setup\Enums\DatabaseConfigStatus;
 @endphp
 
-<x-spacing height="sm" class="grid grid-cols-4 gap-4 bg-white">
+<x-spacing size="sm" class="grid grid-cols-4 gap-4">
     <div class="col-span-3 font-medium text-gray-900">
         <div class="flex items-center gap-4">
             <div class="shrink-0">

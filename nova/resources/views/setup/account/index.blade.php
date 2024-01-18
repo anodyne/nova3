@@ -21,104 +21,36 @@
     </header>
 
     @if ($shouldShowForm)
-        <div class="mx-auto max-w-lg space-y-8">
-            <fieldset>
-                <div class="isolate -space-y-px rounded-lg shadow-sm">
-                    <div
-                        class="relative rounded-lg rounded-b-none px-3 pb-1.5 pt-2.5 ring-1 ring-inset ring-gray-300 focus-within:z-10 focus-within:ring-2 focus-within:ring-primary-600"
+        <div class="mx-auto max-w-lg space-y-12">
+            <x-fieldset>
+                <x-fieldset.field-group>
+                    <x-fieldset.field
+                        label="Name"
+                        description="For privacy reasons, we recommend using a nickname or alias rather than your real name"
+                        id="name"
+                        name="name"
+                        :error="$errors->first('name')"
                     >
-                        <label
-                            for="user-name"
-                            @class([
-                                'block text-xs font-medium',
-                                'text-gray-900' => ! $errors->has('name'),
-                                'text-danger-600' => $errors->has('name'),
-                            ])
-                        >
-                            Name
-                        </label>
-                        <input
-                            type="text"
-                            name="user-name"
-                            id="user-name"
-                            class="mt-1 block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                            wire:model="name"
-                            placeholder="For privacy reasons, we recommend using a nickname or alias"
-                        />
-                        @error('name')
-                            <div class="mt-1 flex items-center gap-1 text-xs text-danger-600">
-                                {{-- format-ignore-start --}}
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-4 text-danger-400"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 10a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/></svg>
-                                {{-- format-ignore-end --}}
+                        <x-input.text wire:model="name"></x-input.text>
+                    </x-fieldset.field>
 
-                                <p>{{ $message }}</p>
-                            </div>
-                        @enderror
-                    </div>
-                    <div
-                        class="relative px-3 pb-1.5 pt-2.5 ring-1 ring-inset ring-gray-300 focus-within:z-10 focus-within:ring-2 focus-within:ring-primary-600"
-                    >
-                        <label
-                            for="user-email"
-                            @class([
-                                'block text-xs font-medium',
-                                'text-gray-900' => ! $errors->has('email'),
-                                'text-danger-600' => $errors->has('email'),
-                            ])
-                        >
-                            Email address
-                        </label>
-                        <input
-                            type="email"
-                            name="user-email"
-                            id="user-email"
-                            class="mt-1 block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                            wire:model="email"
-                            placeholder="me@example.com"
-                        />
-                        @error('email')
-                            <div class="mt-1 flex items-center gap-1 text-xs text-danger-600">
-                                {{-- format-ignore-start --}}
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-4 text-danger-400"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 10a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/></svg>
-                                {{-- format-ignore-end --}}
+                    <x-fieldset.field label="Email address" id="email" name="email" :error="$errors->first('email')">
+                        <x-input.email wire:model="email" placeholder="me@example.com"></x-input.email>
+                    </x-fieldset.field>
 
-                                <p>{{ $message }}</p>
-                            </div>
-                        @enderror
-                    </div>
-                    <div
-                        class="relative rounded-lg rounded-t-none px-3 pb-1.5 pt-2.5 ring-1 ring-inset ring-gray-300 focus-within:z-10 focus-within:ring-2 focus-within:ring-primary-600"
+                    <x-fieldset.field
+                        label="Password"
+                        id="password"
+                        name="password"
+                        :error="$errors->first('password')"
                     >
-                        <label
-                            for="user-password"
-                            @class([
-                                'block text-xs font-medium',
-                                'text-gray-900' => ! $errors->has('password'),
-                                'text-danger-600' => $errors->has('password'),
-                            ])
-                        >
-                            Password
-                        </label>
-                        <input
-                            type="password"
-                            name="user-password"
-                            id="user-password"
-                            class="mt-1 block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                        <x-input.password
                             wire:model="password"
                             placeholder="Your password or a passphrase"
-                        />
-                        @error('password')
-                            <div class="mt-1 flex items-center gap-1 text-xs text-danger-600">
-                                {{-- format-ignore-start --}}
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-4 text-danger-400"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 10a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/></svg>
-                                {{-- format-ignore-end --}}
-
-                                <p>{{ $message }}</p>
-                            </div>
-                        @enderror
-                    </div>
-                </div>
-            </fieldset>
+                        ></x-input.password>
+                    </x-fieldset.field>
+                </x-fieldset.field-group>
+            </x-fieldset>
 
             <div class="flex items-center justify-between">
                 <x-button.setup type="button" wire:click="createUserAccount" size="sm">Create account</x-button.setup>
@@ -128,12 +60,14 @@
 
     @if ($shouldShowSuccessTable)
         <div class="mx-auto max-w-lg space-y-8">
-            <x-panel class="overflow-hidden">
-                <div class="divide-y divide-gray-200">
-                    @include('setup.account._user-created')
-                    @include('setup.account._roles-assigned')
-                    @include('setup.account._signin')
-                </div>
+            <x-panel well>
+                <x-spacing size="2xs">
+                    <x-panel class="divide-y divide-gray-950/5">
+                        @include('setup.account._user-created')
+                        @include('setup.account._roles-assigned')
+                        @include('setup.account._signin')
+                    </x-panel>
+                </x-spacing>
             </x-panel>
         </div>
 

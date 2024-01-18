@@ -29,12 +29,14 @@
         @endif
 
         <div class="mx-auto max-w-2xl space-y-8">
-            <x-panel class="overflow-hidden">
-                <div class="divide-y divide-gray-200">
-                    @include('setup.overview._requirements-php')
-                    @include('setup.overview._requirements-database')
-                    @include('setup.overview._requirements-php-extensions')
-                </div>
+            <x-panel well>
+                <x-spacing size="2xs">
+                    <x-panel class="divide-y divide-gray-950/5">
+                        @include('setup.overview._requirements-php')
+                        @include('setup.overview._requirements-database')
+                        @include('setup.overview._requirements-php-extensions')
+                    </x-panel>
+                </x-spacing>
             </x-panel>
         </div>
     </div>

@@ -10,85 +10,42 @@
     </header>
 
     @if ($shouldShowForm)
-        <div class="mx-auto max-w-lg space-y-8">
+        <div class="mx-auto max-w-lg space-y-12">
             @if ($errorMessage)
                 <x-panel.danger title="Error installing Nova" icon="tabler-alert-circle">
                     {{ $errorMessage }}
                 </x-panel.danger>
             @endif
 
-            <fieldset>
-                <div class="isolate -space-y-px rounded-lg shadow-sm">
-                    <div
-                        class="relative rounded-lg rounded-b-none px-3 pb-1.5 pt-2.5 ring-1 ring-inset ring-gray-300 focus-within:z-10 focus-within:ring-2 focus-within:ring-primary-600"
+            <x-fieldset>
+                <x-fieldset.field-group>
+                    <x-fieldset.field
+                        label="What’s the name of your game?"
+                        id="game_name"
+                        name="game_name"
+                        :error="$errors->first('name')"
                     >
-                        <label
-                            for="game-name"
-                            @class([
-                                'block text-xs font-medium',
-                                'text-gray-900' => ! $errors->has('name'),
-                                'text-danger-600' => $errors->has('name'),
-                            ])
-                        >
-                            Name of your game
-                        </label>
-                        <input
-                            type="text"
-                            name="game-name"
-                            id="game-name"
-                            class="mt-1 block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                            wire:model="name"
-                            placeholder="What's the name of your game?"
-                        />
-                        @error('name')
-                            <div class="mt-1 flex items-center gap-1 text-xs text-danger-600">
-                                {{-- format-ignore-start --}}
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-4 text-danger-400"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 10a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/></svg>
-                                {{-- format-ignore-end --}}
+                        <x-input.text wire:model="name"></x-input.text>
+                    </x-fieldset.field>
 
-                                <p>{{ $message }}</p>
-                            </div>
-                        @enderror
-                    </div>
-                    <div
-                        class="relative rounded-lg rounded-t-none px-3 pb-1.5 pt-2.5 ring-1 ring-inset ring-gray-300 focus-within:z-10 focus-within:ring-2 focus-within:ring-primary-600"
-                    >
-                        <label
-                            for="game-genre"
-                            @class([
-                                'block text-xs font-medium',
-                                'text-gray-900' => ! $errors->has('genre'),
-                                'text-danger-600' => $errors->has('genre'),
-                            ])
-                        >
-                            Genre
-                        </label>
-                        <input
-                            type="text"
-                            name="game-genre"
-                            id="game-genre"
-                            class="mt-1 block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                            wire:model="genre"
-                        />
-                        @error('genre')
-                            <div class="mt-1 flex items-center gap-1 text-xs text-danger-600">
-                                {{-- format-ignore-start --}}
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-4 text-danger-400"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 10a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/></svg>
-                                {{-- format-ignore-end --}}
+                    <x-fieldset.field label="What genre are you playing in?" id="game_genre" name="game_genre">
+                        <x-select wire:model="genre">
+                            <option value="st24">Star Trek (24th century)</option>
+                        </x-select>
+                    </x-fieldset.field>
 
-                                <p>{{ $message }}</p>
-                            </div>
-                        @enderror
-                    </div>
-                </div>
-            </fieldset>
-
-            @env('local')
-                <div class="flex items-center gap-x-2.5">
-                    <x-switch id="should_seed" wire:model="shouldSeed"></x-switch>
-                    <x-fieldset.label for="should_seed">Assign this role to new users</x-fieldset.label>
-                </div>
-            @endenv
+                    @env('local')
+                        <x-switch.field>
+                            <x-fieldset.label for="should_seed">Install with demo data</x-fieldset.label>
+                            <x-fieldset.description>
+                                Automatically create users, characters, stories, posts, and other game data to simulate
+                                how Nova would work with a fully operational game.
+                            </x-fieldset.description>
+                            <x-switch id="should_seed" wire:model="shouldSeed"></x-switch>
+                        </x-switch.field>
+                    @endenv
+                </x-fieldset.field-group>
+            </x-fieldset>
 
             <x-button.setup type="button" wire:click="install" size="sm">
                 <div class="flex items-center gap-3">
@@ -105,12 +62,14 @@
 
     @if ($shouldShowSuccessTable)
         <div class="mx-auto max-w-lg space-y-8">
-            <x-panel class="overflow-hidden">
-                <div class="divide-y divide-gray-200">
-                    @include('setup.install-nova._check-installed')
-                    @include('setup.install-nova._check-genre')
-                    @include('setup.install-nova._check-update-settings')
-                </div>
+            <x-panel well>
+                <x-spacing size="2xs">
+                    <x-panel class="divide-y divide-gray-950/5">
+                        @include('setup.install-nova._check-installed')
+                        @include('setup.install-nova._check-genre')
+                        @include('setup.install-nova._check-update-settings')
+                    </x-panel>
+                </x-spacing>
             </x-panel>
         </div>
 

@@ -1,6 +1,6 @@
 <x-spacing
-    height="sm"
-    class="grid grid-cols-4 gap-4 bg-white"
+    size="sm"
+    class="grid grid-cols-4 gap-4"
     x-data="{
         async runMigrationStep() {
             await $wire.migrate();

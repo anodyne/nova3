@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Users\Data\PronounsData;
+use Nova\Users\Models\States\Status\Active;
 use Nova\Users\Models\User;
 
 class SetupAccount extends Component
@@ -31,6 +32,8 @@ class SetupAccount extends Component
         ]);
 
         $user->addRoles(['owner', 'admin', 'active', 'writer', 'story-manager']);
+
+        $user->status->transitionTo(Active::class);
 
         $user->refresh();
 

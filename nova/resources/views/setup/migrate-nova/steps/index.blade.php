@@ -9,17 +9,19 @@
     </header>
 
     <div class="mx-auto max-w-lg space-y-8">
-        <x-panel class="overflow-hidden">
-            <div class="divide-y divide-gray-200">
-                <livewire:setup-migrate-users />
-                <livewire:setup-migrate-departments />
-                <livewire:setup-migrate-positions />
-                <livewire:setup-migrate-characters />
-                <livewire:setup-migrate-missions />
-                <livewire:setup-migrate-posts />
-                <livewire:setup-migrate-logs />
-                <livewire:setup-migrate-news />
-            </div>
+        <x-panel well>
+            <x-spacing size="2xs">
+                <x-panel class="divide-y divide-gray-950/5">
+                    <livewire:setup-migrate-users />
+                    <livewire:setup-migrate-departments />
+                    <livewire:setup-migrate-positions />
+                    <livewire:setup-migrate-characters />
+                    <livewire:setup-migrate-missions />
+                    <livewire:setup-migrate-posts />
+                    <livewire:setup-migrate-logs />
+                    <livewire:setup-migrate-news />
+                </x-panel>
+            </x-spacing>
         </x-panel>
     </div>
 

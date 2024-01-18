@@ -30,254 +30,101 @@
     </header>
 
     @if ($shouldShowForm)
-        <div class="mx-auto max-w-lg space-y-8">
+        <div class="mx-auto max-w-lg space-y-12">
             @if ($errorMessage)
                 <x-panel.danger title="Error connecting to your database" icon="tabler-alert-circle">
                     {{ $errorMessage }}
                 </x-panel.danger>
             @endif
 
-            <fieldset>
-                <div class="isolate -space-y-px rounded-lg shadow-sm">
-                    <div
-                        class="relative rounded-lg rounded-b-none px-3 pb-1.5 pt-2.5 ring-1 ring-inset ring-gray-300 focus-within:z-10 focus-within:ring-2 focus-within:ring-primary-600"
+            <x-fieldset>
+                <x-fieldset.field-group>
+                    <x-fieldset.field
+                        label="Username"
+                        id="db_username"
+                        name="db_username"
+                        :error="$errors->first('username')"
                     >
-                        <label
-                            for="db-username"
-                            @class([
-                                'block text-xs font-medium',
-                                'text-gray-900' => ! $errors->has('username'),
-                                'text-danger-600' => $errors->has('username'),
-                            ])
-                        >
-                            Username
-                        </label>
-                        <input
-                            type="text"
-                            name="db-username"
-                            id="db-username"
-                            class="mt-1 block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                            placeholder="Your database username"
-                            wire:model="username"
-                        />
-                        @error('username')
-                            <div class="mt-1 flex items-center gap-1 text-xs text-danger-600">
-                                {{-- format-ignore-start --}}
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-4 text-danger-400"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 10a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/></svg>
-                                {{-- format-ignore-end --}}
+                        <x-input.text placeholder="Your database username" wire:model="username"></x-input.text>
+                    </x-fieldset.field>
 
-                                <p>{{ $message }}</p>
-                            </div>
-                        @enderror
-                    </div>
-                    <div
-                        class="relative rounded-lg rounded-t-none px-3 pb-1.5 pt-2.5 ring-1 ring-inset ring-gray-300 focus-within:z-10 focus-within:ring-2 focus-within:ring-primary-600"
+                    <x-fieldset.field
+                        label="Password"
+                        id="db_password"
+                        name="db_password"
+                        :error="$errors->first('password')"
                     >
-                        <label
-                            for="db-password"
-                            @class([
-                                'block text-xs font-medium',
-                                'text-gray-900' => ! $errors->has('password'),
-                                'text-danger-600' => $errors->has('password'),
-                            ])
-                        >
-                            Password
-                        </label>
-                        <input
-                            type="password"
-                            name="db-password"
-                            id="db-password"
-                            class="mt-1 block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                            placeholder="Your database password"
-                            wire:model="password"
-                        />
-                        @error('password')
-                            <div class="mt-1 flex items-center gap-1 text-xs text-danger-600">
-                                {{-- format-ignore-start --}}
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-4 text-danger-400"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 10a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/></svg>
-                                {{-- format-ignore-end --}}
+                        <x-input.password placeholder="Your database password" wire:model="password"></x-input.password>
+                    </x-fieldset.field>
 
-                                <p>{{ $message }}</p>
-                            </div>
-                        @enderror
-                    </div>
-                </div>
-            </fieldset>
-
-            <fieldset>
-                <div class="isolate -space-y-px rounded-lg shadow-sm">
-                    <div
-                        class="relative rounded-lg rounded-b-none px-3 pb-1.5 pt-2.5 ring-1 ring-inset ring-gray-300 focus-within:z-10 focus-within:ring-2 focus-within:ring-primary-600"
+                    <x-fieldset.field
+                        label="Database name"
+                        id="db_name"
+                        name="db_name"
+                        :error="$errors->first('database')"
                     >
-                        <label
-                            for="db-name"
-                            @class([
-                                'block text-xs font-medium',
-                                'text-gray-900' => ! $errors->has('database'),
-                                'text-danger-600' => $errors->has('database'),
-                            ])
-                        >
-                            Database name
-                        </label>
-                        <input
-                            type="text"
-                            name="db-name"
-                            id="db-name"
-                            class="mt-1 block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                            placeholder="The name of your database"
-                            wire:model="database"
-                        />
-                        @error('database')
-                            <div class="mt-1 flex items-center gap-1 text-xs text-danger-600">
-                                {{-- format-ignore-start --}}
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-4 text-danger-400"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 10a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/></svg>
-                                {{-- format-ignore-end --}}
+                        <x-input.text placeholder="The name of your database" wire:model="database"></x-input.text>
+                    </x-fieldset.field>
 
-                                <p>{{ $message }}</p>
-                            </div>
-                        @enderror
-                    </div>
-                    <div
-                        class="relative rounded-lg rounded-t-none px-3 pb-1.5 pt-2.5 ring-1 ring-inset ring-gray-300 focus-within:z-10 focus-within:ring-2 focus-within:ring-primary-600"
-                    >
-                        <label for="db-prefix" class="block text-xs font-medium text-gray-900">Table prefix</label>
-                        <input
-                            type="text"
-                            name="db-prefix"
-                            id="db-prefix"
-                            class="mt-1 block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                            placeholder="The table prefix (optional)"
+                    <x-fieldset.field label="Database table prefix" id="db_prefix" name="db_prefix">
+                        <x-slot name="description">
+                            If you’re planning to install other applications into the same database
+                            <strong class="font-semibold text-gray-600">or</strong>
+                            you’re migrating from Nova 2 and using the same database, you’ll want to add a table prefix
+                            such as
+                            <strong class="font-semibold text-gray-600">nova3_</strong>
+                        </x-slot>
+
+                        <x-input.text
+                            placeholder="The database table prefix (optional)"
                             wire:model="prefix"
-                        />
-                    </div>
-                </div>
+                        ></x-input.text>
+                    </x-fieldset.field>
+                </x-fieldset.field-group>
+            </x-fieldset>
 
-                <p class="mt-2 px-1 text-sm/6 text-gray-500">
-                    If you’re planning to install other applications into the same database
-                    <strong class="font-semibold text-gray-600">or</strong>
-                    you’re migrating from Nova 2 and using the same database, you’ll want to add a table prefix such as
-                    <strong class="font-semibold text-gray-600">nova3_</strong>
-                </p>
-            </fieldset>
-
-            <fieldset
-                x-data="{ expanded: false }"
-                x-on:advanced-settings-validation-error.window="expanded = true"
-            >
-                <button
-                    type="button"
-                    x-on:click="expanded = !expanded"
-                    class="flex w-full items-center justify-between gap-4 text-left text-gray-500 transition hover:text-gray-600"
-                >
-                    <x-h3 class="flex-1">Advanced settings</x-h3>
-
-                    <div class="flex items-center">
-                        <x-icon name="tabler-plus" x-show="!expanded"></x-icon>
-                        <x-icon name="tabler-minus" x-show="expanded"></x-icon>
-                    </div>
-                </button>
-
-                <div class="mt-2" x-show="expanded" x-collapse x-cloak>
-                    <p class="mb-4 text-gray-600">
-                        In most cases you won't need to change these values unless your web host has provided you
+            <x-fieldset>
+                <x-fieldset.heading>
+                    <x-icon name="tabler-database-cog"></x-icon>
+                    <x-fieldset.legend>Advanced settings</x-fieldset.legend>
+                    <x-fieldset.description>
+                        In most cases you won’t need to change these values unless your web host has provided you
                         different connection parameters.
-                    </p>
+                    </x-fieldset.description>
+                </x-fieldset.heading>
 
-                    <div class="isolate -space-y-px rounded-lg shadow-sm">
-                        <div
-                            class="relative rounded-lg rounded-b-none px-3 pb-1.5 pt-2.5 ring-1 ring-inset ring-gray-300 focus-within:z-10 focus-within:ring-2 focus-within:ring-primary-600"
-                        >
-                            <label
-                                for="db-host"
-                                @class([
-                                    'block text-xs font-medium',
-                                    'text-gray-900' => ! $errors->has('host'),
-                                    'text-danger-600' => $errors->has('host'),
-                                ])
-                            >
-                                Host
-                            </label>
-                            <input
-                                type="text"
-                                name="db-host"
-                                id="db-host"
-                                class="mt-1 block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                wire:model="host"
-                            />
-                            @error('host')
-                                <div class="mt-1 flex items-center gap-1 text-xs text-danger-600">
-                                    {{-- format-ignore-start --}}
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-4 text-danger-400"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 10a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/></svg>
-                                    {{-- format-ignore-end --}}
+                <x-fieldset.field-group>
+                    <x-fieldset.field
+                        label="Database host"
+                        id="db_host"
+                        name="db_host"
+                        :error="$errors->first('host')"
+                    >
+                        <x-input.text wire:model="host"></x-input.text>
+                    </x-fieldset.field>
 
-                                    <p>{{ $message }}</p>
-                                </div>
-                            @enderror
-                        </div>
-                        <div
-                            class="relative px-3 pb-1.5 pt-2.5 ring-1 ring-inset ring-gray-300 focus-within:z-10 focus-within:ring-2 focus-within:ring-primary-600"
-                        >
-                            <label
-                                for="db-port"
-                                @class([
-                                    'block text-xs font-medium',
-                                    'text-gray-900' => ! $errors->has('port'),
-                                    'text-danger-600' => $errors->has('port'),
-                                ])
-                            >
-                                Port
-                            </label>
-                            <input
-                                type="text"
-                                name="db-port"
-                                id="db-port"
-                                class="mt-1 block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                wire:model="port"
-                            />
-                            @error('port')
-                                <div class="mt-1 flex items-center gap-1 text-xs text-danger-600">
-                                    {{-- format-ignore-start --}}
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-4 text-danger-400"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 10a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/></svg>
-                                    {{-- format-ignore-end --}}
+                    <x-fieldset.field
+                        label="Database port"
+                        id="db_port"
+                        name="db_port"
+                        :error="$errors->first('port')"
+                    >
+                        <x-input.text wire:model="port"></x-input.text>
+                    </x-fieldset.field>
 
-                                    <p>{{ $message }}</p>
-                                </div>
-                            @enderror
-                        </div>
-                        <div
-                            class="relative rounded-lg rounded-t-none px-3 pb-1.5 pt-2.5 ring-1 ring-inset ring-gray-300 focus-within:z-10 focus-within:ring-2 focus-within:ring-primary-600"
-                        >
-                            <label
-                                for="db-socket"
-                                @class([
-                                    'block text-xs font-medium',
-                                    'text-gray-900' => ! $errors->has('socket'),
-                                    'text-danger-600' => $errors->has('socket'),
-                                ])
-                            >
-                                Socket
-                            </label>
-                            <input
-                                type="text"
-                                name="db-socket"
-                                id="db-socket"
-                                class="mt-1 block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                wire:model="socket"
-                                placeholder="The UNIX socket path (generally not needed)"
-                            />
-                            @error('socket')
-                                <div class="mt-1 flex items-center gap-1 text-xs text-danger-600">
-                                    {{-- format-ignore-start --}}
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-4 text-danger-400"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 10a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/></svg>
-                                    {{-- format-ignore-end --}}
-
-                                    <p>{{ $message }}</p>
-                                </div>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
+                    <x-fieldset.field
+                        label="Database socket"
+                        id="db_socket"
+                        name="db_socket"
+                        :error="$errors->first('socket')"
+                    >
+                        <x-input.text
+                            placeholder="The UNIX socket path (generally not needed)"
+                            wire:model="socket"
+                        ></x-input.text>
+                    </x-fieldset.field>
+                </x-fieldset.field-group>
+            </x-fieldset>
 
             <div class="flex items-center justify-between">
                 <x-button.setup type="button" wire:click="connectToDatabase" size="sm">
@@ -296,13 +143,15 @@
 
     @if ($shouldShowSuccessTable)
         <div class="mx-auto max-w-lg space-y-8">
-            <x-panel class="overflow-hidden">
-                <div class="divide-y divide-gray-200">
-                    @include('setup.configure-database._verify-temp-connection')
-                    @include('setup.configure-database._verify-write-env')
-                    @include('setup.configure-database._verify-connection')
-                    @include('setup.configure-database._verify-compatibility')
-                </div>
+            <x-panel well>
+                <x-spacing size="2xs">
+                    <x-panel class="divide-y divide-gray-950/5">
+                        @include('setup.configure-database._verify-temp-connection')
+                        @include('setup.configure-database._verify-write-env')
+                        @include('setup.configure-database._verify-connection')
+                        @include('setup.configure-database._verify-compatibility')
+                    </x-panel>
+                </x-spacing>
             </x-panel>
         </div>
     @endif

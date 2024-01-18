@@ -1,4 +1,4 @@
-<x-spacing height="sm" class="bg-white">
+<x-spacing size="sm">
     <div x-data="{ expanded: @js($e->extensions->fails()) }">
         <div class="flex justify-between gap-6">
             <div class="flex items-center gap-4">
@@ -15,7 +15,7 @@
                 @endif
             </div>
         </div>
-        <div class="ml-12 mt-2 max-w-lg space-y-4 text-sm font-normal text-gray-500">
+        <div class="ml-12 mt-2 max-w-lg space-y-4 text-sm/6 font-normal text-gray-500">
             <p>
                 Nova and its underlying framework require specific PHP extensions be enabled for different features to
                 be used.
