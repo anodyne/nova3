@@ -1,6 +1,4 @@
-@php
-    use Nova\Setup\Enums\DatabaseConfigStatus;
-@endphp
+@use('Nova\Setup\Enums\DatabaseConfigStatus')
 
 <x-spacing size="sm" class="grid grid-cols-4 gap-4">
     <div class="col-span-3 font-medium text-gray-900">
