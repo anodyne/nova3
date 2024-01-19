@@ -67,6 +67,7 @@
                     <x-panel class="divide-y divide-gray-950/5">
                         @include('setup.install-nova._check-installed')
                         @include('setup.install-nova._check-genre')
+                        @include('setup.install-nova._check-app-url')
                         @include('setup.install-nova._check-update-settings')
                     </x-panel>
                 </x-spacing>

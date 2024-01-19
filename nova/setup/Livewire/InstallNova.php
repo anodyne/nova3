@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Setup\Livewire;
 
+use Exception;
 use Illuminate\Support\Facades\Artisan;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
+use Nova\Foundation\EnvWriter;
 use Nova\Foundation\Nova;
 use Nova\Setup\Enums\NovaInstallStatus;
 use Throwable;
@@ -27,6 +29,8 @@ class InstallNova extends Component
     {
         try {
             $this->runInstaller();
+
+            $this->setAppUrl();
 
             // $this->updateSettings();
 
@@ -99,5 +103,24 @@ class InstallNova extends Component
         settings()->update([
             'game_name' => $this->name,
         ]);
+    }
+
+    protected function setAppUrl(): void
+    {
+        $envWriter = app(EnvWriter::class);
+
+        if ($envWriter->isEnvWritable()) {
+            $path = $envWriter->envFilePath();
+
+            if (file_exists($path)) {
+                $write = $envWriter->write([
+                    'APP_URL' => url('/'),
+                ]);
+
+                if (! $write) {
+                    throw new Exception('error writing to the ENV file');
+                }
+            }
+        }
     }
 }
