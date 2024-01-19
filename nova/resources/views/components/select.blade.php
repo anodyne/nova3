@@ -31,7 +31,7 @@
             '[&_optgroup]:font-semibold',
 
             // Typography
-            'text-base/6 text-gray-950 placeholder:text-gray-500 sm:text-sm/6 dark:text-white',
+            'text-base/6 text-gray-950 placeholder:text-gray-500 dark:text-white sm:text-sm/6',
 
             // Border
             'border border-gray-950/10 hover:border-gray-950/20 dark:border-white/10 dark:hover:border-white/20',
@@ -47,6 +47,9 @@
 
             // Disabled state
             'disabled:border-gray-950/20 disabled:opacity-100 disabled:dark:border-white/15 disabled:dark:bg-white/[2.5%] dark:hover:disabled:border-white/15',
+
+            // Options (Windows in dark mode)
+            'dark:*:bg-gray-800 dark:*:text-white',
         ])
         {{ $attributes->merge(['id' => $id, 'name' => $name, 'data-invalid' => filled($error)]) }}
     >
@@ -55,7 +58,7 @@
 
     <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
         <svg
-            class="size-5 stroke-gray-500 group-has-[[data-disabled]]:stroke-gray-600 sm:size-4 dark:stroke-gray-400 forced-colors:stroke-[CanvasText]"
+            class="size-5 stroke-gray-500 group-has-[[data-disabled]]:stroke-gray-600 dark:stroke-gray-400 sm:size-4 forced-colors:stroke-[CanvasText]"
             viewBox="0 0 16 16"
             aria-hidden="true"
             fill="none"
