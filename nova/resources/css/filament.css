@@ -44,7 +44,8 @@
 .fi-ta-table {
     @apply divide-y-0;
 }
-.fi-ta-table thead {
+.fi-ta-table thead,
+.fi-ta-table thead tr {
     @apply bg-transparent;
 }
 .fi-ta-table tbody {
@@ -282,4 +283,17 @@ body[data-panda] .fi-radio-input {
 }
 .fi-section-content-ctn {
     @apply rounded-lg border-none bg-white shadow ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/5;
+}
+
+.tiptap-editor {
+    @apply rounded-lg shadow;
+}
+.tiptap-wrapper {
+    @apply rounded-lg;
+}
+.tiptap-toolbar {
+    @apply rounded-t-lg bg-gray-950/[.04] dark:bg-white/[.04];
+}
+.tiptap-prosemirror-wrapper + div {
+    @apply rounded-br-lg border-l border-gray-950/5 dark:border-white/5;
 }

@@ -136,10 +136,10 @@
 
                 <div class="nv-hero-image mt-16 flow-root sm:mt-24">
                     <img
-                        src="https://tailwindui.com/img/component-images/project-app-screenshot.png"
+                        src="{{ asset('media/'.$image) }}"
                         alt="App screenshot"
-                        width="2432"
-                        height="1442"
+                        {{-- width="2432" --}}
+                        {{-- height="1442" --}}
                         @class([
                             'rounded-xl shadow-2xl ring-1',
                             'ring-gray-900/10' => ! $dark,

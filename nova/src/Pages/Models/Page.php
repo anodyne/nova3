@@ -6,14 +6,17 @@ namespace Nova\Pages\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Pages\Enums\PageStatus;
 use Nova\Pages\Enums\PageVerb;
 use Nova\Pages\Models\Collections\PagesCollection;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\MediaLibrary\HasMedia;
 
-class Page extends Model
+class Page extends Model implements HasMedia
 {
+    use InteractsWithMedia;
     use LogsActivity;
 
     protected $fillable = [
@@ -64,5 +67,17 @@ class Page extends Model
     public function newEloquentBuilder($query): Builders\PageBuilder
     {
         return new Builders\PageBuilder($query);
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('block-images')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'])
+            ->useDisk('media');
+    }
+
+    public static function getMediaPath(): string
+    {
+        return 'pages/{model_id}/{media_id}/';
     }
 }

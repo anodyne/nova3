@@ -18,6 +18,7 @@
         "blade-ui-kit/blade-icons": "^1.0",
         "filament/forms": "^3.0-stable",
         "filament/notifications": "^3.0-stable",
+        "filament/spatie-laravel-media-library-plugin": "^3.2",
         "filament/support": "^3.0-stable",
         "filament/tables": "^3.0-stable",
         "guzzlehttp/guzzle": "^7.2",

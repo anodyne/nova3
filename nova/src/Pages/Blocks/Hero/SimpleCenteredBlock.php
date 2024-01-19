@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Pages\Blocks\Hero;
 
 use Filament\Forms\Components\ColorPicker;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -31,6 +32,9 @@ class SimpleCenteredBlock extends HeroBlock
                 ColorPicker::make('color1')->label('Color 1'),
                 ColorPicker::make('color2')->label('Color 2'),
             ]),
+            FileUpload::make('image')
+                ->disk('media')
+                ->directory('pages'),
             Toggle::make('dark'),
         ]);
     }

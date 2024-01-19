@@ -38,10 +38,10 @@
         @if (version_compare($filesVersion, $serverVersion, '!='))
             <div class="w-full max-w-2xl">
                 <x-panel well>
-                    <x-spacing size="sm">
-                        <div class="flex items-center justify-between">
-                            <x-fieldset.legend>Nova {{ $serverVersion }}</x-fieldset.legend>
+                    <x-panel.well-heading>
+                        <x-slot name="heading">Nova {{ $serverVersion }}</x-slot>
 
+                        <x-slot name="controls">
                             <x-dropdown placement="bottom-end">
                                 <x-slot name="trigger" color="neutral">Ignore this update</x-slot>
 
@@ -64,8 +64,8 @@
                                     </x-dropdown.item>
                                 </x-dropdown.group>
                             </x-dropdown>
-                        </div>
-                    </x-spacing>
+                        </x-slot>
+                    </x-panel.well-heading>
 
                     <x-spacing size="2xs">
                         <x-panel>
@@ -105,11 +105,7 @@
 
         <div class="grid gap-8 lg:grid-cols-2">
             <x-panel well>
-                <x-spacing size="sm">
-                    <div class="flex items-center justify-between">
-                        <x-fieldset.legend>Environment</x-fieldset.legend>
-                    </div>
-                </x-spacing>
+                <x-panel.well-heading heading="Environment"></x-panel.well-heading>
 
                 <x-spacing size="2xs">
                     <x-panel>
@@ -201,11 +197,7 @@
             </x-panel>
 
             <x-panel well>
-                <x-spacing size="sm">
-                    <div class="flex items-center justify-between">
-                        <x-fieldset.legend>Drivers</x-fieldset.legend>
-                    </div>
-                </x-spacing>
+                <x-panel.well-heading heading="Drivers"></x-panel.well-heading>
 
                 <x-spacing size="2xs">
                     <x-panel>
