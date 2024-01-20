@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Nova\Pages\Blocks;
+namespace Nova\Pages\Blocks\CallToAction;
 
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Textarea;
