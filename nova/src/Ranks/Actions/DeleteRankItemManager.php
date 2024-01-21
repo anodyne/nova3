@@ -19,7 +19,7 @@ class DeleteRankItemManager
         $item->loadMissing('characters');
 
         $item->characters->each(function (Character $character) {
-            UpdateCharacter::run(new CharacterData(
+            UpdateCharacter::run($character, new CharacterData(
                 name: $character->name,
                 rank_id: null
             ));
