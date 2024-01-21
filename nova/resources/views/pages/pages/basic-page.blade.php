@@ -1,4 +1,4 @@
-@extends('public')
+@extends($meta->template)
 
 @section('content')
     <div>

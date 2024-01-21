@@ -30,7 +30,7 @@
         <main id="nova">
             {{ NovaView::renderHook('public::page.start') }}
 
-            @yield('content')
+            @yield('layout')
 
             {{ NovaView::renderHook('public::page.end') }}
         </main>

@@ -14,6 +14,7 @@ module.exports = {
         './vendor/filament/**/*.blade.php',
         './vendor/livewire-ui/modal/resources/views/*.blade.php',
         './storage/framework/views/*.php',
+        './themes/**/*.blade.php',
     ],
     safelist: [
         {

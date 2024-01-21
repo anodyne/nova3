@@ -25,6 +25,8 @@ class ThemeServiceProvider extends DomainServiceProvider
             $theme = new PulsarTheme();
 
             $this->app->instance('nova.theme', $theme);
+
+            $this->app['view']->addLocation("themes/{$theme->location}/views");
         }
     }
 

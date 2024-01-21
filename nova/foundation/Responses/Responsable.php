@@ -69,6 +69,10 @@ abstract class Responsable implements LaravelResponsable
 
     public function layout(): string
     {
+        if ($this->page->layout === 'public') {
+            return 'layouts.public';
+        }
+
         $layout = $this->layout ?? $this->theme->getPageLayout($this->page);
 
         return "layouts.{$layout}";
@@ -104,7 +108,7 @@ abstract class Responsable implements LaravelResponsable
 
         $meta = new ResponseMeta([
             'layout' => $this->layout(),
-            'structure' => 'app',
+            'structure' => $this->page->layout === 'public' ? 'public' : 'app',
             'subnav' => $this->subnav(),
             'subnavSection' => $this->subnav,
             'template' => $this->template(),
