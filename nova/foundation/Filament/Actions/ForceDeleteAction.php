@@ -26,7 +26,8 @@ class ForceDeleteAction extends FilamentForceDeleteAction
         $this->modalIcon(null);
         $this->modalHeading('');
         $this->modalDescription(null);
-        $this->modalSubmitActionLabel('Force delete');
+        $this->modalSubmitActionLabel('Yes, delete it forever');
+        $this->modalCancelActionLabel('No, keep it');
         $this->modalContent(fn (Model $record): View => view($this->modalContentView, [
             'record' => $record,
         ]));
