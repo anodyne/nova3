@@ -32,4 +32,9 @@ class ContentRating extends Data implements Arrayable
             warning_threshold_message: data_get($data, 'warning_threshold_message', ''),
         );
     }
+
+    public function getDescription(): ?string
+    {
+        return $this->{"description_{$this->rating}"};
+    }
 }

@@ -15,7 +15,6 @@ class Appearance extends Data implements Arrayable
 {
     public function __construct(
         public string $theme,
-        public string $iconSet,
         public string $avatarShape,
         public ?string $avatarStyle,
         public ?string $imagePath,

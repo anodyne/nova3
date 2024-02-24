@@ -15,7 +15,7 @@ abstract class HeroBlock extends TiptapBlock
 
     public bool $slideOver = true;
 
-    public ?string $icon = 'tabler-speakerphone';
+    public ?string $icon = 'tabler-star';
 
     public function getFormSchema(): array
     {
@@ -32,6 +32,12 @@ abstract class HeroBlock extends TiptapBlock
                 TextInput::make('secondaryButtonLabel'),
                 TextInput::make('secondaryButtonUrl')
                     ->label('Secondary button URL')
+                    ->url(),
+            ]),
+            Section::make('Callout')->schema([
+                TextInput::make('calloutText'),
+                TextInput::make('calloutUrl')
+                    ->label('Callout URL')
                     ->url(),
             ]),
         ];

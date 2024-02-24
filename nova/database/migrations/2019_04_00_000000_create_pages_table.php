@@ -14,12 +14,13 @@ class CreatePagesTable extends Migration
     {
         Schema::create('pages', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->string('uri');
             $table->string('key')->nullable();
             $table->string('verb')->default(PageVerb::get->value);
             $table->string('resource')->nullable();
             $table->string('layout')->default('public');
-            $table->json('blocks')->nullable();
+            $table->longText('blocks')->nullable();
             $table->string('status')->default(PageStatus::active->value);
             $table->timestamps();
 

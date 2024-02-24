@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Characters\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
+use Nova\Characters\Enums\CharacterType;
 use Nova\Characters\Models\States\Status\Active;
 use Nova\Characters\Models\States\Status\Inactive;
 use Nova\Characters\Models\States\Status\Pending;
@@ -59,13 +60,43 @@ class CharacterBuilder extends Builder
             ->where('character_user.primary', true);
     }
 
-    public function wherePending(): Builder
+    public function pending(): Builder
     {
         return $this->whereState('status', Pending::class);
     }
 
-    public function whereNotPending(): Builder
+    public function notPending(): Builder
     {
         return $this->whereNotState('status', Pending::class);
+    }
+
+    public function primary(): Builder
+    {
+        return $this->where('type', CharacterType::primary);
+    }
+
+    public function notPrimary(): Builder
+    {
+        return $this->where('type', '!=', CharacterType::primary);
+    }
+
+    public function secondary(): Builder
+    {
+        return $this->where('type', CharacterType::secondary);
+    }
+
+    public function notSecondary(): Builder
+    {
+        return $this->where('type', '!=', CharacterType::secondary);
+    }
+
+    public function support(): Builder
+    {
+        return $this->where('type', CharacterType::support);
+    }
+
+    public function notSupport(): Builder
+    {
+        return $this->where('type', '!=', CharacterType::support);
     }
 }

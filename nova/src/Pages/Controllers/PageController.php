@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Nova\Pages\Controllers;
 
 use Nova\Foundation\Controllers\Controller;
+use Nova\Pages\Actions\CreatePage;
+use Nova\Pages\Actions\UpdatePage;
 use Nova\Pages\Models\Page;
 use Nova\Pages\Requests\StorePageRequest;
 use Nova\Pages\Requests\UpdatePageRequest;
@@ -12,8 +14,6 @@ use Nova\Pages\Responses\CreatePageResponse;
 use Nova\Pages\Responses\EditPageResponse;
 use Nova\Pages\Responses\ListPagesResponse;
 use Nova\Pages\Responses\ShowPageResponse;
-use Nova\Stories\Actions\CreatePostType;
-use Nova\Stories\Actions\UpdatePostType;
 
 class PageController extends Controller
 {
@@ -43,7 +43,13 @@ class PageController extends Controller
 
     public function store(StorePageRequest $request)
     {
-        $page = CreatePostType::run($request->getPageData());
+        $page = CreatePage::run($request->getPageData());
+
+        if ($page->is_basic) {
+            return redirect()
+                ->route('pages.design', $page)
+                ->notify("{$page->name} page was created");
+        }
 
         return redirect()
             ->route('pages.index')
@@ -59,7 +65,7 @@ class PageController extends Controller
 
     public function update(UpdatePageRequest $request, Page $page)
     {
-        $page = UpdatePostType::run(
+        $page = UpdatePage::run(
             $page,
             $request->getPageData()
         );

@@ -2,7 +2,13 @@
     'section' => 'admin',
 ])
 
-@php($fonts = settings("appearance.{$section}Fonts"))
+@php
+    if ($section === 'admin') {
+        $fonts = settings('appearance.adminFonts');
+    } else {
+        $fonts = app('nova.theme')->getModel()->settings->fonts;
+    }
+@endphp
 
 {!! $fonts?->getFontHtml() !!}
 <style>

@@ -114,72 +114,80 @@
                                     enabled: @js($postType->fields->{$fieldType}->enabled),
                                     required: @js($postType->fields->{$fieldType}->required),
                                 }"
-                                class="rounded-lg px-6 py-4"
-                                :class="{
-                                'shadow-md ring-1 ring-inset ring-gray-950/10 dark:bg-gray-800 dark:ring-white/5 dark:shadow-lg': expanded,
-                                'transition hover:bg-gray-100 dark:hover:bg-gray-800': ! expanded,
-                            }"
                             >
-                                <button
-                                    type="button"
-                                    class="flex w-full appearance-none items-center justify-between"
-                                    x-on:click="expanded = !expanded"
-                                >
-                                    <div class="flex items-center space-x-1">
-                                        <h3 class="text-left text-base font-semibold text-gray-900 dark:text-white">
-                                            {{ str($fieldType)->ucfirst() }} field
-                                        </h3>
-                                        <p class="font-medium text-danger-500" x-show="required">*</p>
-                                    </div>
-                                    <div class="ml-8 flex shrink-0 items-center space-x-3">
-                                        <x-badge color="success" x-show="enabled">Enabled</x-badge>
-                                        <x-badge color="gray" x-show="!enabled">Disabled</x-badge>
+                                <x-panel well>
+                                    <x-spacing size="sm">
+                                        <button
+                                            type="button"
+                                            class="flex w-full appearance-none items-center justify-between"
+                                            x-on:click="expanded = !expanded"
+                                        >
+                                            <div class="flex items-center space-x-1">
+                                                <x-fieldset.legend>
+                                                    {{ str($fieldType)->ucfirst() }} field
+                                                </x-fieldset.legend>
+                                                <p class="font-medium text-danger-500" x-show="required">*</p>
+                                            </div>
+                                            <div class="ml-8 flex shrink-0 items-center space-x-3">
+                                                <x-badge color="success" x-show="enabled">Enabled</x-badge>
+                                                <x-badge color="gray" x-show="!enabled">Disabled</x-badge>
 
-                                        <x-icon
-                                            name="add"
-                                            size="md"
-                                            class="text-gray-400 dark:text-gray-500"
-                                            x-show="!expanded"
-                                        ></x-icon>
-                                        <x-icon
-                                            name="remove"
-                                            size="md"
-                                            class="text-gray-400 dark:text-gray-500"
-                                            x-show="expanded"
-                                        ></x-icon>
-                                    </div>
-                                </button>
+                                                <x-icon
+                                                    name="add"
+                                                    size="md"
+                                                    class="text-gray-400 dark:text-gray-500"
+                                                    x-show="!expanded"
+                                                ></x-icon>
+                                                <x-icon
+                                                    name="remove"
+                                                    size="md"
+                                                    class="text-gray-400 dark:text-gray-500"
+                                                    x-show="expanded"
+                                                ></x-icon>
+                                            </div>
+                                        </button>
+                                    </x-spacing>
 
-                                <div x-show="expanded" x-collapse x-cloak>
-                                    <div class="mt-6 border-t border-gray-950/10 pt-6 dark:border-white/5">
-                                        @php($enabledId = "field_enabled_{$fieldType}")
+                                    <div x-show="expanded" x-collapse x-cloak>
+                                        <x-spacing size="2xs">
+                                            <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
+                                                <x-spacing size="sm">
+                                                    @php($enabledId = "field_enabled_{$fieldType}")
 
-                                        <x-switch.field x-on:toggle-switch-changed="enabled = !enabled">
-                                            <x-fieldset.label :for="$enabledId">Enabled</x-fieldset.label>
-                                            <x-fieldset.description>
-                                                Use the {{ $fieldType }} field for this post type
-                                            </x-fieldset.description>
-                                            <x-switch
-                                                name="fields[{{ $fieldType }}][enabled]"
-                                                :id="$enabledId"
-                                                :value="old('fields[{{ $fieldType }}][enabled]', $postType->fields->{$fieldType}->enabled)"
-                                            ></x-switch>
-                                        </x-switch.field>
-                                    </div>
-                                    <div class="mt-6 border-t border-gray-950/10 pt-6 dark:border-white/5">
-                                        @php($requiredId = "field_required_{$fieldType}")
+                                                    <x-switch.field x-on:toggle-switch-changed="enabled = !enabled">
+                                                        <x-fieldset.label :for="$enabledId">Enabled</x-fieldset.label>
+                                                        <x-fieldset.description>
+                                                            Use the {{ $fieldType }} field for this post type
+                                                        </x-fieldset.description>
+                                                        <x-switch
+                                                            name="fields[{{ $fieldType }}][enabled]"
+                                                            :id="$enabledId"
+                                                            :value="old('fields[{{ $fieldType }}][enabled]', $postType->fields->{$fieldType}->enabled)"
+                                                        ></x-switch>
+                                                    </x-switch.field>
+                                                </x-spacing>
 
-                                        <x-switch.field x-on:toggle-switch-changed="required = !required">
-                                            <x-fieldset.label :for="$requiredId">Required</x-fieldset.label>
-                                            <x-fieldset.description>The field must have a value</x-fieldset.description>
-                                            <x-switch
-                                                name="fields[{{ $fieldType }}][required]"
-                                                :id="$requiredId"
-                                                :value="old('fields[{{ $fieldType }}][required]', $postType->fields->{$fieldType}->required)"
-                                            ></x-switch>
-                                        </x-switch.field>
+                                                <x-spacing size="sm">
+                                                    @php($requiredId = "field_required_{$fieldType}")
+
+                                                    <x-switch.field x-on:toggle-switch-changed="required = !required">
+                                                        <x-fieldset.label :for="$requiredId">
+                                                            Required
+                                                        </x-fieldset.label>
+                                                        <x-fieldset.description>
+                                                            The field must have a value
+                                                        </x-fieldset.description>
+                                                        <x-switch
+                                                            name="fields[{{ $fieldType }}][required]"
+                                                            :id="$requiredId"
+                                                            :value="old('fields[{{ $fieldType }}][required]', $postType->fields->{$fieldType}->required)"
+                                                        ></x-switch>
+                                                    </x-switch.field>
+                                                </x-spacing>
+                                            </x-panel>
+                                        </x-spacing>
                                     </div>
-                                </div>
+                                </x-panel>
                             </div>
                         @endforeach
                     </x-fieldset.field-group>

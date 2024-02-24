@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Stories\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Date;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\States\PostStatus\Draft;
 use Nova\Stories\Models\States\PostStatus\Published;
@@ -28,6 +29,38 @@ class PostBuilder extends Builder
     {
         return $this->whereState('status', Started::class)
             ->where('created_at', '<', now()->subDays(2)->startOfDay());
+    }
+
+    public function currentMonth(): self
+    {
+        $startOfCurrentMonth = Date::now()->startOfMonth();
+        $endOfCurrentMonth = Date::now()->endOfMonth();
+
+        return $this->whereBetween('published_at', [$startOfCurrentMonth, $endOfCurrentMonth]);
+    }
+
+    public function currentYear(): self
+    {
+        $startOfCurrentYear = Date::now()->startOfYear();
+        $endOfCurrentYear = Date::now()->endOfYear();
+
+        return $this->whereBetween('published_at', [$startOfCurrentYear, $endOfCurrentYear]);
+    }
+
+    public function previousMonth(): self
+    {
+        $startOfPreviousMonth = Date::now()->subMonth()->startOfMonth();
+        $endOfPreviousMonth = Date::now()->subMonth()->endOfMonth();
+
+        return $this->whereBetween('published_at', [$startOfPreviousMonth, $endOfPreviousMonth]);
+    }
+
+    public function previousYear(): self
+    {
+        $startOfPreviousYear = Date::now()->subYear()->startOfYear();
+        $endOfPreviousYear = Date::now()->subYear()->endOfYear();
+
+        return $this->whereBetween('published_at', [$startOfPreviousYear, $endOfPreviousYear]);
     }
 
     public function whereHasUser(User $user): self

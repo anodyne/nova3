@@ -1,38 +1,22 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
+
+@import "components/icon.css";
+@import "components/rank.css";
+
 @import "tailwindcss/utilities";
 
 @config "./tailwind.public.config.js";
 
-:root {
-    --bg-light: #ffffff;
-    --bg-dark: #111827;
-
-    --blue: #4690ff;
-    --blueDark: #0a46ee;
-    --blueDarker: #0d2b7d;
-    --blueLight: #72bbff;
-    --purple: #8c79ff;
-    --purpleDark: #524c68;
-    --purpleLight: #8b8aca;
-    --cyanDark: #1c3c55;
-    --cyan: #2a7193;
-    --cyanLight: #37a6d1;
-    --cyanLighter: #67caf0;
-    --orangeDarker: #ef1d10;
-    --orangeDark: #e7442a;
-    --orange: #ff6753;
-    --orangeLight: #ff977b;
-    --black: #000;
-    --grayDarker: #1e2229;
-    --grayDark: #2f3749;
-    --gray: #52596e;
-    --grayLight: #6d748c;
-    --grayLighter: #9ea5ba;
-
-    --fontLcars: "Antonio";
+.laravel-embed__responsive-wrapper {
+    @apply relative h-0 w-full max-w-full overflow-hidden rounded-xl;
 }
-
-html {
-    @apply bg-[--black];
+.laravel-embed__fallback {
+    @apply flex items-center justify-center bg-black/15 text-black/70;
+}
+.laravel-embed__fallback,
+.laravel-embed__responsive-wrapper iframe,
+.laravel-embed__responsive-wrapper object,
+.laravel-embed__responsive-wrapper embed {
+    @apply aspect-video w-full;
 }

@@ -2,6 +2,7 @@
 import preset from '../../../vendor/filament/support/tailwind.config.preset';
 const defaultTheme = require('tailwindcss/defaultTheme');
 const { default: flattenColorPalette } = require('tailwindcss/lib/util/flattenColorPalette');
+const plugin = require('tailwindcss/plugin');
 /* eslint-enable */
 
 /** @type {import('tailwindcss').Config} */
@@ -13,6 +14,8 @@ module.exports = {
         './nova/src/**/Models/**/*.php',
         './vendor/filament/**/*.blade.php',
         './vendor/livewire-ui/modal/resources/views/*.blade.php',
+        './vendor/awcodes/scribble/resources/**/*.blade.php',
+        './vendor/awcodes/pounce/resources/views/**/*.blade.php',
         './storage/framework/views/*.php',
         './themes/**/*.blade.php',
     ],
@@ -62,41 +65,29 @@ module.exports = {
                 'safe-left': 'env(safe-area-inset-left)',
                 'safe-right': 'env(safe-area-inset-right)',
             },
-            typography: (theme) => ({
-                DEFAULT: {
-                    css: {
-                        color: theme('colors.gray.600'),
-                        'h1, h2, h3, h4, h5, h6': {
-                            color: theme('colors.gray.900'),
-                        },
-                        h1: {
-                            fontWeight: theme('fontWeight.extrabold'),
-                        },
-                        h2: {
-                            fontWeight: theme('fontWeight.bold'),
-                        },
-                        'h3, h4': {
-                            fontWeight: theme('fontWeight.semibold'),
-                        },
-                        'h5, h6': {
-                            fontWeight: theme('fontWeight.medium'),
-                        },
-                        strong: {
-                            fontWeight: theme('fontWeight.semibold'),
-                        },
-                        blockquote: {
-                            color: theme('colors.gray.600'),
-                            borderColor: theme('colors.gray.300'),
-                        },
-                    },
-                },
-            }),
+            transitionDelay: {
+                2000: '2000ms',
+                2500: '2500ms',
+                3000: '3000ms',
+                3500: '3500ms',
+                4000: '4000ms',
+                4500: '4500ms',
+                5000: '5000ms',
+            },
+            transitionDuration: {
+                2000: '2000ms',
+                2500: '2500ms',
+                3000: '3000ms',
+                3500: '3500ms',
+                4000: '4000ms',
+                4500: '4500ms',
+                5000: '5000ms',
+            },
         },
     },
     plugins: [
         /* eslint-disable */
         require('@tailwindcss/typography'),
-        require('@tailwindcss/aspect-ratio'),
         require('@tailwindcss/container-queries'),
         function ({ matchUtilities, theme }) {
             matchUtilities(
@@ -106,6 +97,30 @@ module.exports = {
                 { values: flattenColorPalette(theme('backgroundColor')), type: 'color' }
             )
         },
+        plugin(function ({ matchUtilities, theme }) {
+            matchUtilities(
+                {
+                    'animate-duration': (value) => ({ animationDuration: value }),
+                },
+                { values: theme('transitionDuration') }
+            )
+        }),
+        plugin(function ({ matchUtilities, theme }) {
+            matchUtilities(
+                {
+                    'animate-delay': (value) => ({ animationDelay: value }),
+                },
+                { values: theme('transitionDelay') }
+            )
+        }),
+        plugin(function ({ matchUtilities, theme }) {
+            matchUtilities(
+                {
+                    'animate-ease': (value) => ({ animationTimingFunction: value }),
+                },
+                { values: theme('transitionTimingFunction') }
+            )
+        }),
         /* eslint-enable */
     ],
 };

@@ -4,10 +4,16 @@
     "scripts": {
         "css:build-dev": "cross-env ENV_BUILD=dev postcss nova/resources/css/*.css --base nova/resources --dir dist --verbose",
         "css:build-prod": "cross-env ENV_BUILD=prod postcss nova/resources/css/*.css --base nova/resources --dir dist --verbose",
+        "css:build-themes": "concurrently \"npm run css:build-theme-celestial\" \"npm run css:build-theme-cerritos\" \"npm run css:build-theme-event-horizon\" \"npm run css:build-theme-pulsar\" \"npm run css:build-theme-titan\"",
+        "css:build-theme-celestial": "cross-env ENV_BUILD=dev postcss \"themes/celestial/resources/css/**/*.css\" --base themes/celestial/resources/css --dir themes/celestial/design --verbose",
+        "css:build-theme-cerritos": "cross-env ENV_BUILD=dev postcss \"themes/cerritos/resources/css/**/*.css\" --base themes/cerritos/resources/css --dir themes/cerritos/design --verbose",
+        "css:build-theme-event-horizon": "cross-env ENV_BUILD=dev postcss \"themes/EventHorizon/resources/css/**/*.css\" --base themes/EventHorizon/resources/css --dir themes/EventHorizon/design --verbose",
+        "css:build-theme-pulsar": "cross-env ENV_BUILD=dev postcss \"themes/pulsar/resources/css/**/*.css\" --base themes/pulsar/resources/css --dir themes/pulsar/design --verbose",
+        "css:build-theme-titan": "cross-env ENV_BUILD=dev postcss \"themes/titan/resources/css/**/*.css\" --base themes/titan/resources/css --dir themes/titan/design --verbose",
         "js:build-dev": "esbuild nova/resources/js/app.js --bundle --minify --sourcemap=inline --outfile=dist/js/app.js",
         "js:build-prod": "esbuild nova/resources/js/app.js --bundle --minify --outfile=dist/js/app.js",
-        "dev": "concurrently \"npm run js:build-dev\" \"npm run css:build-dev\"",
-        "prod": "concurrently \"npm run js:build-prod\" \"npm run css:build-prod\""
+        "dev": "concurrently \"npm run js:build-dev\" \"npm run css:build-dev\" \"npm run css:build-themes\"",
+        "prod": "concurrently \"npm run js:build-prod\" \"npm run css:build-prod\" \"npm run css:build-dev\""
     },
     "dependencies": {
         "@alpinejs/collapse": "^3.10",
@@ -62,6 +68,7 @@
         "prettier": "^3.2",
         "prettier-plugin-blade": "^2.0",
         "prettier-plugin-tailwindcss": "^0.5",
-        "tailwindcss": "^3.4"
+        "tailwindcss": "^3.4",
+        "tailwindcss-animation-delay": "^1.2"
     }
 }

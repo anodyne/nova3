@@ -265,12 +265,6 @@
                                                 </x-dropdown.group>
 
                                                 <x-dropdown.group>
-                                                    <x-dropdown.item :href="route('whats-new')" icon="star">
-                                                        See what's new
-                                                    </x-dropdown.item>
-                                                </x-dropdown.group>
-
-                                                <x-dropdown.group>
                                                     <x-dropdown.item
                                                         type="submit"
                                                         icon="logout"
@@ -525,7 +519,7 @@
                                                 My characters
                                             </x-dropdown.item>
                                             <div
-                                                class="flex items-center px-4 py-3 text-base text-gray-700 md:text-sm dark:text-gray-300"
+                                                class="flex items-center px-4 py-3 text-base text-gray-700 dark:text-gray-300 md:text-sm"
                                             >
                                                 <x-icon
                                                     name="moon"
@@ -608,7 +602,7 @@
         </div>
 
         <main
-            class="flex-1 overflow-hidden rounded-tl-xl bg-white ring-1 ring-inset ring-gray-950/[0.08] focus:outline-none xl:ml-72 dark:bg-gray-900 dark:ring-white/5"
+            class="flex-1 overflow-hidden rounded-tl-xl bg-white ring-1 ring-inset ring-gray-950/[0.08] focus:outline-none dark:bg-gray-900 dark:ring-white/5 xl:ml-72"
             tabindex="0"
         >
             @impersonating

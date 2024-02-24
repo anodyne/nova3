@@ -14,6 +14,7 @@ use Nova\Settings\Data\General;
 use Nova\Settings\Data\MetaTags;
 use Nova\Settings\Data\PostingActivity;
 use Nova\Settings\Models\Settings;
+use Nova\Setup\Randomize;
 
 class PopulateSettingsTable extends Migration
 {
@@ -31,10 +32,9 @@ class PopulateSettingsTable extends Migration
                 imagePath: null,
             ),
             'appearance' => new Appearance(
-                theme: 'Pulsar',
-                iconSet: 'tabler',
-                avatarShape: 'circle',
-                avatarStyle: 'bottts-neutral',
+                theme: Randomize::theme(),
+                avatarShape: Randomize::avatarShape(),
+                avatarStyle: Randomize::avatarStyle(),
                 imagePath: null,
                 colorsGray: 'Gray',
                 colorsPrimary: 'Sky',

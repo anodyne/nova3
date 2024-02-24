@@ -21,6 +21,10 @@ class PageDesigner extends FormComponent
         return $form
             ->schema([
                 TiptapEditor::make('blocks')
+                    ->profile('none')
+                    ->tools([
+                        'blocks',
+                    ])
                     ->output(TiptapOutput::Json)
                     ->blocks(app(BlockManager::class)->pageBlocks()),
             ])

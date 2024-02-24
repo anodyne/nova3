@@ -25,7 +25,6 @@ class UploadImage extends Component
     public bool $removeExistingImage = false;
 
     #[Validate('image')]
-    #[Validate('max:10000')]
     public $image = null;
 
     public string $actionMessage = 'Upload a file';

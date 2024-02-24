@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Nova\Pages\Providers;
 
 use Nova\DomainServiceProvider;
+use Nova\Pages\Livewire\AlternatingStories;
+use Nova\Pages\Livewire\CharactersManifest;
 use Nova\Pages\Livewire\PageDesigner;
 use Nova\Pages\Livewire\PagesList;
+use Nova\Pages\Livewire\StatWidget;
 use Nova\Pages\Models\Page;
-use Nova\Roles\Spotlight\AddRole;
-use Nova\Roles\Spotlight\EditRole;
-use Nova\Roles\Spotlight\ViewRole;
-use Nova\Roles\Spotlight\ViewRoles;
+use Nova\Pages\Spotlight;
 
 class PageServiceProvider extends DomainServiceProvider
 {
@@ -20,6 +20,9 @@ class PageServiceProvider extends DomainServiceProvider
         return [
             'pages-designer' => PageDesigner::class,
             'pages-list' => PagesList::class,
+            'pages-alternating-stories' => AlternatingStories::class,
+            'pages-characters-manifest' => CharactersManifest::class,
+            'pages-stat-widget' => StatWidget::class,
         ];
     }
 
@@ -30,13 +33,11 @@ class PageServiceProvider extends DomainServiceProvider
         ];
     }
 
-    // public function spotlightCommands(): array
-    // {
-    //     return [
-    //         AddRole::class,
-    //         EditRole::class,
-    //         ViewRole::class,
-    //         ViewRoles::class,
-    //     ];
-    // }
+    public function spotlightCommands(): array
+    {
+        return [
+            Spotlight\ViewPage::class,
+            Spotlight\ViewPages::class,
+        ];
+    }
 }

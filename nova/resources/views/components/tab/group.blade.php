@@ -13,7 +13,7 @@
 <div
     data-slot="tabs"
     @class([
-        'inline-flex w-full gap-x-2 rounded-xl bg-gray-950/[.04] p-1 ring-1 ring-inset ring-gray-950/[.025] lg:w-auto dark:bg-white/[.04]',
+        'inline-flex w-full gap-x-2 lg:w-auto',
         $attributes->get('class') => $attributes->has('class'),
     ])
 >

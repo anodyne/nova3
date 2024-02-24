@@ -136,20 +136,20 @@
 }
 
 .fi-input-wrp:has(.fi-input) {
-    @apply relative flex w-full rounded-lg bg-transparent p-0 shadow-none ring-0 before:absolute before:inset-px before:rounded-[calc(theme(borderRadius.lg)-1px)] before:bg-white before:shadow after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:ring-inset after:ring-transparent focus-within:!ring-0 has-[[data-disabled]]:opacity-50 before:has-[[data-disabled]]:bg-gray-950/5 before:has-[[data-disabled]]:shadow-none before:has-[[data-invalid]]:shadow-danger-500/10 sm:after:focus-within:ring-2 sm:after:focus-within:ring-primary-500 dark:before:hidden;
+    @apply relative flex w-full rounded-lg bg-transparent p-0 shadow-none ring-0 before:absolute before:inset-px before:rounded-[calc(theme(borderRadius.lg)-1px)] before:bg-white before:shadow after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:ring-inset after:ring-transparent focus-within:!ring-0 has-[[data-disabled]]:opacity-50 before:has-[[data-disabled]]:bg-gray-950/5 before:has-[[data-disabled]]:shadow-none before:has-[[data-invalid]]:shadow-danger-500/10 dark:before:hidden sm:after:focus-within:ring-2 sm:after:focus-within:ring-primary-500;
 }
 .fi-input-wrp .fi-input {
-    @apply relative block w-full appearance-none rounded-lg border !border-solid border-gray-950/10 bg-transparent px-[calc(theme(spacing[3.5])-1px)] py-[calc(theme(spacing[2.5])-1px)] text-base/6 text-gray-950 placeholder:text-gray-500 invalid:border-danger-500 hover:border-gray-950/20 invalid:hover:border-danger-500 focus:outline-none focus:ring-0 disabled:border-gray-950/20 sm:px-[calc(theme(spacing[3])-1px)] sm:py-[calc(theme(spacing[1.5])-1px)] sm:text-sm/6 dark:border-white/10 dark:bg-white/5 dark:text-white invalid:dark:border-danger-500 dark:hover:border-white/20 invalid:hover:dark:border-danger-500 disabled:dark:border-white/15 disabled:dark:bg-white/[2.5%] dark:hover:disabled:border-white/15;
+    @apply relative block w-full appearance-none rounded-lg border !border-solid border-gray-950/10 bg-transparent px-[calc(theme(spacing[3.5])-1px)] py-[calc(theme(spacing[2.5])-1px)] text-base/6 text-gray-950 placeholder:text-gray-500 invalid:border-danger-500 hover:border-gray-950/20 invalid:hover:border-danger-500 focus:outline-none focus:ring-0 disabled:border-gray-950/20 dark:border-white/10 dark:bg-white/5 dark:text-white invalid:dark:border-danger-500 dark:hover:border-white/20 invalid:hover:dark:border-danger-500 disabled:dark:border-white/15 disabled:dark:bg-white/[2.5%] dark:hover:disabled:border-white/15 sm:px-[calc(theme(spacing[3])-1px)] sm:py-[calc(theme(spacing[1.5])-1px)] sm:text-sm/6;
 }
 
 .fi-fo-select,
 .fi-input-wrp:has(.fi-select-input) {
-    @apply relative flex w-full p-0 shadow-none ring-0 before:absolute before:inset-px before:rounded-[calc(theme(borderRadius.lg)-1px)] before:bg-white before:shadow after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:ring-inset after:ring-transparent focus-within:!ring-0 has-[[data-disabled]]:opacity-50 before:has-[[data-disabled]]:bg-gray-950/5 before:has-[[data-disabled]]:shadow-none sm:after:focus-within:ring-2 sm:after:focus-within:ring-primary-500 dark:before:hidden;
+    @apply relative flex w-full p-0 shadow-none ring-0 before:absolute before:inset-px before:rounded-[calc(theme(borderRadius.lg)-1px)] before:bg-white before:shadow after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:ring-inset after:ring-transparent focus-within:!ring-0 has-[[data-disabled]]:opacity-50 before:has-[[data-disabled]]:bg-gray-950/5 before:has-[[data-disabled]]:shadow-none dark:before:hidden sm:after:focus-within:ring-2 sm:after:focus-within:ring-primary-500;
 }
 .fi-fo-select .fi-select-input,
 .fi-input-wrp:has(.fi-select-input) .fi-select-input,
 .fi-fo-select .choices__inner {
-    @apply relative block w-full appearance-none rounded-lg border !border-solid border-gray-950/10 bg-transparent py-[calc(theme(spacing[2.5])-1px)] pl-[calc(theme(spacing[3.5])-1px)] pr-[calc(theme(spacing.10)-1px)] text-base/6 text-gray-950 placeholder:text-gray-500 invalid:border-danger-500 hover:border-gray-950/20 invalid:hover:border-danger-500 focus:outline-none disabled:border-gray-950/20 disabled:opacity-100 sm:py-[calc(theme(spacing[1.5])-1px)] sm:pl-[calc(theme(spacing.3)-1px)] sm:pr-[calc(theme(spacing.9)-1px)] sm:text-sm/6 dark:border-white/10 dark:bg-white/5 dark:text-white invalid:dark:border-danger-600 dark:hover:border-white/20 invalid:hover:dark:border-danger-600 disabled:dark:border-white/15 disabled:dark:bg-white/[2.5%] dark:hover:disabled:border-white/15 [&_optgroup]:font-semibold;
+    @apply relative block w-full appearance-none rounded-lg border !border-solid border-gray-950/10 bg-transparent py-[calc(theme(spacing[2.5])-1px)] pl-[calc(theme(spacing[3.5])-1px)] pr-[calc(theme(spacing.10)-1px)] text-base/6 text-gray-950 placeholder:text-gray-500 invalid:border-danger-500 hover:border-gray-950/20 invalid:hover:border-danger-500 focus:outline-none disabled:border-gray-950/20 disabled:opacity-100 dark:border-white/10 dark:bg-white/5 dark:text-white invalid:dark:border-danger-600 dark:hover:border-white/20 invalid:hover:dark:border-danger-600 disabled:dark:border-white/15 disabled:dark:bg-white/[2.5%] dark:hover:disabled:border-white/15 sm:py-[calc(theme(spacing[1.5])-1px)] sm:pl-[calc(theme(spacing.3)-1px)] sm:pr-[calc(theme(spacing.9)-1px)] sm:text-sm/6 [&_optgroup]:font-semibold;
 
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' aria-hidden='true' fill='none' stroke='%236B7280'%3E%3Cpath d='M5.75 10.75L8 13L10.25 10.75' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' /%3E%3Cpath d='M10.25 5.25L8 3L5.75 5.25' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' /%3E%3C/svg%3E");
     background-size: 1rem 1rem;
@@ -166,7 +166,7 @@
 
 .choices__list--single .choices__item,
 .choices__input {
-    @apply text-gray-950 placeholder:text-gray-950 sm:text-sm/6 dark:text-white dark:placeholder:text-white;
+    @apply text-gray-950 placeholder:text-gray-950 dark:text-white dark:placeholder:text-white sm:text-sm/6;
 }
 .choices__list--dropdown .choices__item--selectable.is-highlighted,
 .choices__list[aria-expanded] .choices__item--selectable.is-highlighted {
@@ -233,7 +233,7 @@
 
 .fi-ta-toggle > div,
 .fi-fo-toggle {
-    @apply relative isolate inline-flex h-6 w-10 cursor-default rounded-full border-none bg-gray-200 p-[3px] ring-1 ring-inset ring-black/5 hover:ring-black/15 focus:outline-none sm:h-5 sm:w-8 dark:ring-white/15 dark:hover:ring-white/25;
+    @apply relative isolate inline-flex h-6 w-10 cursor-default rounded-full border-none bg-gray-200 p-[3px] ring-1 ring-inset ring-black/5 hover:ring-black/15 focus:outline-none dark:ring-white/15 dark:hover:ring-white/25 sm:h-5 sm:w-8;
 }
 .fi-ta-toggle > div > span,
 .fi-fo-toggle > span {
@@ -296,4 +296,14 @@ body[data-panda] .fi-radio-input {
 }
 .tiptap-prosemirror-wrapper + div {
     @apply rounded-br-lg border-l border-gray-950/5 dark:border-white/5;
+}
+
+.fi-modal-slide-over-window {
+    @apply right-4 top-2 h-[calc(100dvh-theme(spacing.8))] rounded-xl ring-1 ring-gray-950/5 dark:ring-white/5;
+}
+.fi-modal-slide-over-window .fi-modal-header {
+    @apply border-none;
+}
+.fi-modal-slide-over-window .fi-modal-header .fi-modal-heading {
+    @apply block font-[family-name:--font-header] text-xl font-bold tracking-tight text-gray-900 dark:text-white;
 }

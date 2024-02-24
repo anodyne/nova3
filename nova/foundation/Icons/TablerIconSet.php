@@ -37,6 +37,7 @@ class TablerIconSet extends IconSet
             'clock' => 'tabler-clock-hour-3',
             'clock-edit' => 'tabler-clock-edit',
             'cloud' => 'tabler-cloud',
+            'code' => 'tabler-code',
             'columns' => 'tabler-columns-3',
             'copy' => 'tabler-copy',
             'dashboard' => 'tabler-gauge',

@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Nova\Themes;
 
 use Nova\Pages\Models\Page;
-use Nova\Themes\Concerns\InteractsWithModel;
-use Nova\Themes\Concerns\RendersTheme;
 
 abstract class BaseTheme
 {
-    use InteractsWithModel;
-    use RendersTheme;
+    use Concerns\HasThemeSettings;
+    use Concerns\InteractsWithModel;
+    use Concerns\RendersTheme;
 
     /**
      * @var string

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Nova\Pages\Blocks\CallToAction;
 
 use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use FilamentTiptapEditor\TiptapBlock;
+use Nova\Pages\Blocks\FormSchema;
 
 abstract class CallToActionBlock extends TiptapBlock
 {
@@ -22,8 +22,6 @@ abstract class CallToActionBlock extends TiptapBlock
     {
         return [
             TextInput::make('heading'),
-            Textarea::make('description'),
-            Toggle::make('fullWidth'),
             Section::make('Primary button')->schema([
                 TextInput::make('primaryButtonLabel'),
                 TextInput::make('primaryButtonUrl')->url(),
@@ -32,6 +30,8 @@ abstract class CallToActionBlock extends TiptapBlock
                 TextInput::make('secondaryButtonLabel'),
                 TextInput::make('secondaryButtonUrl')->url(),
             ]),
+            ...FormSchema::background(),
+            Toggle::make('dark')->label('Invert text colors for dark backgrounds'),
         ];
     }
 }

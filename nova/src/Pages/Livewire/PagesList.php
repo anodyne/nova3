@@ -41,8 +41,12 @@ class PagesList extends TableComponent
             ->query(Page::query())
             ->defaultPaginationPageOption(25)
             ->columns([
-                TextColumn::make('uri')
+                TextColumn::make('name')
                     ->titleColumn()
+                    ->label('Address')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('uri')
                     ->label('Address')
                     ->searchable()
                     ->sortable(),

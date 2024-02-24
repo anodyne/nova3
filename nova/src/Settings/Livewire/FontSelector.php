@@ -45,19 +45,26 @@ class FontSelector extends Component
 
     public function updatedFamily($value): void
     {
+        $this->dispatch('font-updated', data: [
+            'section' => $this->section,
+            'type' => $this->type,
+            'provider' => $this->provider,
+            'family' => $this->family,
+        ]);
+
         $this->dispatch('dropdown-close');
     }
 
-    public function mount()
-    {
-        $fonts = settings("appearance.{$this->section}Fonts");
+    // public function mount()
+    // {
+    //     $fonts = settings("appearance.{$this->section}Fonts");
 
-        $providerVariable = "{$this->type}Provider";
-        $familyVariable = "{$this->type}Family";
+    //     $providerVariable = "{$this->type}Provider";
+    //     $familyVariable = "{$this->type}Family";
 
-        $this->provider = $fonts->{$providerVariable} ?? 'local';
-        $this->family = $fonts->{$familyVariable} ?? 'Inter';
-    }
+    //     $this->provider = $fonts->{$providerVariable} ?? 'local';
+    //     $this->family = $fonts->{$familyVariable} ?? 'Inter';
+    // }
 
     public function render()
     {

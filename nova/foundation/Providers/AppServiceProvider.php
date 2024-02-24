@@ -81,8 +81,7 @@ class AppServiceProvider extends ServiceProvider
         $this->updateAboutCommand();
         $this->setupFactories();
         $this->registerIcons();
-        $this->registerBladeDirectives();
-        $this->registerBladeComponents();
+        $this->setupBlade();
 
         if (Nova::isInstalled()) {
             // cache()->rememberForever(
@@ -126,14 +125,13 @@ class AppServiceProvider extends ServiceProvider
         $this->app->scoped(IconSets::class, fn () => $iconSets);
     }
 
-    protected function registerBladeComponents()
+    protected function setupBlade(): void
     {
+        Blade::anonymousComponentPath(resource_path('views/public-components'), 'public');
+
         Blade::component('tips', Tips::class);
         Blade::component('email-layout', EmailLayout::class);
-    }
 
-    protected function registerBladeDirectives()
-    {
         Blade::directive('icon', [NovaBladeDirectives::class, 'icon']);
         Blade::directive('novaAdminScripts', [NovaBladeDirectives::class, 'novaAdminScripts']);
         Blade::directive('novaAdminStyles', [NovaBladeDirectives::class, 'novaAdminStyles']);
@@ -215,7 +213,33 @@ class AppServiceProvider extends ServiceProvider
         $blockManager = new BlockManager();
 
         $blockManager->registerPageBlocks([
-            Blocks\Hero\SimpleCenteredBlock::class,
+            Blocks\Hero\SplitWithImageHeroBlock::class,
+            Blocks\Hero\SplitWithImageTilesHeroBlock::class,
+            Blocks\Hero\SplitWithOffsetImageHeroBlock::class,
+            Blocks\Hero\StackedWithImageHeroBlock::class,
+
+            Blocks\Stats\SimpleStatsBlock::class,
+            Blocks\Stats\SplitStatsBlock::class,
+
+            Blocks\CallToAction\StackedCallToActionBlock::class,
+            Blocks\CallToAction\SplitCallToActionBlock::class,
+
+            Blocks\Features\GridFeatureBlock::class,
+            Blocks\Features\CardsFeatureBlock::class,
+            Blocks\Features\AlternatingFeatureBlock::class,
+
+            Blocks\LogoCloud\SimpleCenteredLogoCloudBlock::class,
+            Blocks\LogoCloud\SplitLogoCloudBlock::class,
+
+            Blocks\Content\ContentBlock::class,
+
+            Blocks\Stories\AlternatingStoriesBlock::class,
+
+            Blocks\Manifest\ManifestBlock::class,
+
+            Blocks\ContentRatings\CardContentRatingsBlock::class,
+            Blocks\ContentRatings\GridContentRatingsBlock::class,
+            Blocks\ContentRatings\SplitContentRatingsBlock::class,
         ]);
 
         $blockManager->registerFormBlocks([]);
