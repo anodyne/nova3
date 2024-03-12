@@ -36,8 +36,7 @@ module.exports = {
         './vendor/rawilk/laravel-form-components/src/**/*.php',
         './vendor/rawilk/laravel-form-components/resources/**/*.php',
         './vendor/rawilk/laravel-form-components/resources/js/*.js',
-        './vendor/awcodes/scribble/resources/**/*.blade.php',
-        './vendor/awcodes/pounce/resources/views/**/*.blade.php',
+        './vendor/awcodes/scribble/resources/**/*{.blade.php,.svelte}',
         './storage/framework/views/*.php',
     ],
     safelist: [
