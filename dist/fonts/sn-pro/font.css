@@ -1,0 +1,127 @@
+@font-face {
+  font-family: "SN Pro";
+  src: url('/dist/fonts/sn-pro/SNPro-Thin.woff2') format('woff2');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SN Pro";
+  src: url('/dist/fonts/sn-pro/SNPro-ThinItalic.woff2') format('woff2');
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SN Pro";
+  src: url('/dist/fonts/sn-pro/SNPro-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SN Pro";
+  src: url('/dist/fonts/sn-pro/SNPro-LightItalic.woff2') format('woff2');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SN Pro";
+  src: url('/dist/fonts/sn-pro/SNPro-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SN Pro";
+  src: url('/dist/fonts/sn-pro/SNPro-RegularItalic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SN Pro";
+  src: url('/dist/fonts/sn-pro/SNPro-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SN Pro";
+  src: url('/dist/fonts/sn-pro/SNPro-MediumItalic.woff2') format('woff2');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SN Pro";
+  src: url('/dist/fonts/sn-pro/SNPro-Semibold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SN Pro";
+  src: url('/dist/fonts/sn-pro/SNPro-SemiboldItalic.woff2') format('woff2');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SN Pro";
+  src: url('/dist/fonts/sn-pro/SNPro-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SN Pro";
+  src: url('/dist/fonts/sn-pro/SNPro-BoldItalic.woff2') format('woff2');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SN Pro";
+  src: url('/dist/fonts/sn-pro/SNPro-Heavy.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SN Pro";
+  src: url('/dist/fonts/sn-pro/SNPro-HeavyItalic.woff2') format('woff2');
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SN Pro";
+  src: url('/dist/fonts/sn-pro/SNPro-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SN Pro";
+  src: url('/dist/fonts/sn-pro/SNPro-BlackItalic.woff2') format('woff2');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
