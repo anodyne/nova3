@@ -17,6 +17,7 @@ class FreeformContentBlock extends ScribbleTool
             ->label('Freeform content')
             ->identifier('content')
             ->optionsModal(Settings\FreeformContentBlockSettings::class)
-            ->renderedView('pages.pages.blocks.content.index');
+            ->renderedView('pages.pages.blocks.content.index')
+            ->editorView('pages.pages.blocks.content.index-preview');
     }
 }

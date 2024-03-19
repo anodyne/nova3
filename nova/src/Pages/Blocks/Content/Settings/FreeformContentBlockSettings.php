@@ -13,7 +13,7 @@ use Nova\Pages\Blocks\FormSchema;
 
 class FreeformContentBlockSettings extends ScribbleModal
 {
-    public ?string $header = 'Freeform Content Options';
+    public ?string $header = 'Freeform Content block';
 
     public ?string $identifier = 'content';
 
@@ -32,8 +32,8 @@ class FreeformContentBlockSettings extends ScribbleModal
         $this->form->fill([
             'content' => $this->data['content'] ?? null,
 
-            'backgroundType' => $this->data['backgroundType'] ?? null,
-            'backgroundColor' => $this->data['backgroundColor'] ?? null,
+            'bgOption' => $this->data['bgOption'] ?? null,
+            'bgColor' => $this->data['bgColor'] ?? null,
 
             'spacingHorizontal' => $this->data['spacingHorizontal'] ?? null,
             'spacingVertical' => $this->data['spacingVertical'] ?? null,
