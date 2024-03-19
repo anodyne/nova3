@@ -10,7 +10,7 @@
         :spacing-horizontal="$spacingHorizontal ?? null"
         :spacing-vertical="$spacingVertical ?? null"
     >
-        <div class="nv-stats-wrapper @xs:px-6 @lg:px-8 relative z-10 mx-auto max-w-7xl">
+        <div class="nv-stats-wrapper">
             @if (filled($heading) || filled($description))
                 <div
                     @class([
@@ -21,7 +21,7 @@
                 >
                     <div
                         @class([
-                            'nv-stats-ctn',
+                            'nv-stats-content-ctn',
                             'text-center' => $headerOrientation === 'center',
                             'text-right' => $headerOrientation === 'right',
                         ])
@@ -46,7 +46,7 @@
 
             <dl
                 @class([
-                    'grid gap-x-8 gap-y-16 text-center @xs:grid-cols-1 @lg:grid-cols-2',
+                    'nv-stats-stat-wrapper grid gap-x-8 gap-y-16 text-center @xs:grid-cols-1 @lg:grid-cols-2',
                     '@4xl:grid-cols-2' => count($stats) === 2,
                     '@4xl:grid-cols-3' => count($stats) === 3,
                     '@4xl:grid-cols-4' => count($stats) === 4,
@@ -54,7 +54,7 @@
                 ])
             >
                 @foreach ($stats as $stat)
-                    <div class="nv-stat-ctn mx-auto flex max-w-xs flex-col gap-y-4">
+                    <div class="nv-stats-stat-ctn mx-auto flex max-w-xs flex-col gap-y-4">
                         <dt class="nv-stat-heading text-base/7 text-gray-600 dark:text-gray-300">
                             {{ $stat->heading }}
                         </dt>

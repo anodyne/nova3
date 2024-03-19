@@ -10,7 +10,7 @@
         :spacing-horizontal="$spacingHorizontal ?? null"
         :spacing-vertical="$spacingVertical ?? null"
     >
-        <div class="nv-stats-wrapper relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="nv-stats-wrapper">
             @if (filled($heading) || filled($description))
                 <div class="nv-stats-content-wrapper @xs:mx-auto @xs:max-w-2xl @xl:mx-0 @xl:max-w-none">
                     @if (filled($heading))
@@ -19,7 +19,7 @@
 
                     <div
                         @class([
-                            'nv-stats-wrapper flex gap-x-8 gap-y-20 @xs:flex-col @2xl:flex-row',
+                            'nv-stats-content-ctn flex gap-x-8 gap-y-20 @xs:flex-col @2xl:flex-row',
                             'mt-6' => filled($heading),
                         ])
                     >
@@ -31,8 +31,8 @@
                             </div>
                         @endif
 
-                        <div class="nv-stats-ctn @2xl:flex @2xl:flex-auto @2xl:justify-center">
-                            <dl class="@xs:w-64 space-y-8 @2xl:w-80">
+                        <div class="nv-stats-stat-wrapper @2xl:flex @2xl:flex-auto @2xl:justify-center">
+                            <dl class="nv-stats-stat-ctn @xs:w-64 space-y-8 @2xl:w-80">
                                 @foreach ($stats as $stat)
                                     <div class="flex flex-col-reverse gap-y-4">
                                         <dt class="text-base/7 text-gray-600 dark:text-gray-300">

@@ -3,7 +3,7 @@
     'dark' => $dark,
 ]) style="--bgColor: {{ $bgColor ?? 'transparent' }}">
     <div class="mx-auto max-w-7xl bg-[--bgColor] px-8 py-8 font-[family-name:Flow_Circular]">
-        <div class="nv-stats-wrapper @xs:px-6 @lg:px-8 relative z-10 mx-auto max-w-7xl">
+        <div class="nv-stats-wrapper">
             @if (filled($heading) || filled($description))
                 <div
                     @class([
