@@ -10,7 +10,7 @@
         :spacing-horizontal="$spacingHorizontal ?? null"
         :spacing-vertical="$spacingVertical ?? null"
     >
-        <div class="nv-logos-wrapper @xs:px-6 @lg:px-8 relative z-10 mx-auto max-w-7xl">
+        <div class="nv-logos-wrapper">
             @if (filled($heading) || filled($description))
                 <div
                     @class([
@@ -21,7 +21,7 @@
                 >
                     <div
                         @class([
-                            'nv-logos-ctn',
+                            'nv-logos-content-ctn',
                             'text-center' => $headerOrientation === 'center',
                             'text-right' => $headerOrientation === 'right',
                         ])
@@ -46,7 +46,7 @@
 
             <div
                 @class([
-                    'nv-logos-image-ctn mx-auto grid items-center gap-y-10 @xs:max-w-lg @xs:grid-cols-2 @xs:gap-x-8 @xl:max-w-xl @xl:grid-cols-4 @xl:gap-x-10 @4xl:mx-0 @4xl:max-w-none',
+                    'nv-logos-images-ctn mx-auto grid items-center gap-y-10 @xs:max-w-lg @xs:grid-cols-2 @xs:gap-x-8 @xl:max-w-xl @xl:grid-cols-4 @xl:gap-x-10 @4xl:mx-0 @4xl:max-w-none',
                     'mt-10' => filled($heading),
                 ])
             >

@@ -3,7 +3,7 @@
     'dark' => $dark,
 ]) style="--bgColor: {{ $bgColor ?? 'transparent' }}">
     <div class="mx-auto max-w-7xl bg-[--bgColor] px-8 py-8 font-[family-name:Flow_Circular]">
-        <div class="nv-logos-wrapper relative z-10 mx-auto max-w-7xl">
+        <div class="nv-logos-wrapper">
             @if (filled($heading) || filled($description))
                 <div
                     @class([
@@ -14,7 +14,7 @@
                 >
                     <div
                         @class([
-                            'nv-logos-ctn',
+                            'nv-logos-content-ctn',
                             'text-center' => $headerOrientation === 'center',
                             'text-right' => $headerOrientation === 'right',
                         ])
@@ -41,7 +41,7 @@
 
             <div
                 @class([
-                    'mx-auto grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10',
+                    'nv-logos-images-ctn mx-auto grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10',
                     'mt-10' => filled($heading),
                 ])
             >
