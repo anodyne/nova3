@@ -6,9 +6,13 @@ namespace Nova\Pages\Blocks\Stats;
 
 class SimpleStatsBlock extends StatsBlock
 {
-    public ?string $label = 'Stats - Simple';
-
-    public string $rendered = 'pages.pages.blocks.stats.simple';
-
-    public string $preview = 'pages.pages.blocks.stats.simple-preview';
+    protected function setUp(): void
+    {
+        $this->baseConfiguration()
+            ->label('Stats - Simple')
+            ->identifier('stats-simple')
+            ->optionsModal(Settings\SimpleStatsBlockSettings::class)
+            ->renderedView('pages.pages.blocks.stats.simple')
+            ->editorView('pages.pages.blocks.stats.simple-preview');
+    }
 }
