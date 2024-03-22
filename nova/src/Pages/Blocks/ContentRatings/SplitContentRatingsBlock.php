@@ -6,9 +6,13 @@ namespace Nova\Pages\Blocks\ContentRatings;
 
 class SplitContentRatingsBlock extends ContentRatingsBlock
 {
-    public ?string $label = 'Content ratings - Split';
-
-    public string $rendered = 'pages.pages.blocks.content-ratings.split';
-
-    public string $preview = 'pages.pages.blocks.content-ratings.split';
+    protected function setUp(): void
+    {
+        $this->baseConfiguration()
+            ->label('Content ratings - Split')
+            ->identifier('ratings-split')
+            ->optionsModal(Settings\SplitContentRatingsBlockSettings::class)
+            ->renderedView('pages.pages.blocks.content-ratings.split')
+            ->editorView('pages.pages.blocks.content-ratings.split-preview');
+    }
 }

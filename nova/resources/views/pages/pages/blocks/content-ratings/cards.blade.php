@@ -1,47 +1,44 @@
-<div class="@container nv-ratings nv-ratings-cards">
-    <div
-        class="nv-ratings-wrapper relative isolate overflow-hidden font-[family-name:--font-body]"
-        @isset($backgroundColor)
-            style="background-color:{{ $backgroundColor }}"
-        @endisset
+<div
+    @class([
+        '@container',
+        'nv-ratings nv-ratings-cards',
+        'dark' => $dark,
+    ])
+    style="--bgColor: {{ $bgColor ?? 'transparent' }}"
+>
+    <x-public::block.wrapper
+        :spacing-horizontal="$spacingHorizontal ?? null"
+        :spacing-vertical="$spacingVertical ?? null"
     >
-        <div class="nv-ratings-ctn @xs:px-6 @xs:py-8 @lg:py-12 @lg:px-8 relative z-10 mx-auto max-w-7xl">
+        <div class="nv-ratings-ctn">
             <div
                 @class([
                     'nv-ratings-intro-wrapper flex',
-                    'content-end justify-end' => $orientation === 'right',
+                    'content-end justify-end' => $headerOrientation === 'right',
                 ])
             >
                 <div
                     @class([
                         'nv-ratings-intro-ctn max-w-2xl',
-                        'mx-auto @lg:text-center' => $orientation === 'center',
-                        '@lg:text-right' => $orientation === 'right',
+                        'mx-auto @xl:text-center' => $headerOrientation === 'center',
+                        '@xl:text-right' => $headerOrientation === 'right',
                     ])
                 >
                     @if (filled($heading))
-                        <h2
-                            @class([
-                                'nv-ratings-heading font-[family-name:--font-header] text-3xl font-bold tracking-tight sm:text-4xl',
-                                'text-gray-900' => ! $dark,
-                                'text-white' => $dark,
-                            ])
-                        >
+                        <x-public::h2>
                             {{ $heading }}
-                        </h2>
+                        </x-public::h2>
                     @endif
 
                     @if (filled($description))
-                        <div
+                        <x-public::lead
                             @class([
-                                'nv-ratings-description space-y-6 text-lg/8',
-                                'text-gray-600' => ! $dark,
-                                'text-gray-300' => $dark,
                                 'mt-6' => filled($heading),
                             ])
+                            markdown
                         >
-                            {!! str($description)->markdown() !!}
-                        </div>
+                            {{ $description }}
+                        </x-public::lead>
                     @endif
                 </div>
             </div>
@@ -92,5 +89,5 @@
                 @endforeach
             </div>
         </div>
-    </div>
+    </x-public::block.wrapper>
 </div>

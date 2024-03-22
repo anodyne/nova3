@@ -6,9 +6,13 @@ namespace Nova\Pages\Blocks\ContentRatings;
 
 class GridContentRatingsBlock extends ContentRatingsBlock
 {
-    public ?string $label = 'Content ratings - Grid';
-
-    public string $rendered = 'pages.pages.blocks.content-ratings.grid';
-
-    public string $preview = 'pages.pages.blocks.content-ratings.grid';
+    protected function setUp(): void
+    {
+        $this->baseConfiguration()
+            ->label('Content ratings - Grid')
+            ->identifier('ratings-grid')
+            ->optionsModal(Settings\GridContentRatingsBlockSettings::class)
+            ->renderedView('pages.pages.blocks.content-ratings.grid')
+            ->editorView('pages.pages.blocks.content-ratings.grid-preview');
+    }
 }
