@@ -91,7 +91,7 @@ class TablerIconSet extends IconSet
             'note' => 'tabler-note',
             'notification' => 'tabler-notification',
             'notification-off' => 'tabler-notification-off',
-            'number' => 'tabler-123',
+            'number' => 'tabler-number-123',
             'paint-brush' => 'tabler-brush',
             'palette' => 'tabler-palette',
             'plus-minus' => 'tabler-plus-minus',
