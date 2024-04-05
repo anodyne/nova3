@@ -1,6 +1,7 @@
 <div
     @class([
-        'not-prose',
+        '@container',
+        'nv-cta nv-cta-simple',
         'dark' => $dark,
     ])
     style="
@@ -9,7 +10,12 @@
         --cardBgOpacity: {{ $card ? $cardBgOpacity/100 : 1 }};
     "
 >
-    <div class="mx-auto max-w-7xl bg-[--bgColor] px-8 py-8 font-[family-name:Flow_Circular]">
+    <x-public::block.wrapper
+        :bg-option="$bgOption"
+        :bg-image-intensity="$bgImageIntensity ?? null"
+        :spacing-horizontal="$spacingHorizontal ?? null"
+        :spacing-vertical="$spacingVertical ?? null"
+    >
         <div
             @class([
                 'relative rounded-xl shadow-lg ring-1 ring-inset' => $card,
@@ -18,56 +24,66 @@
                 'ring-black/5' => $card && ! $cardDark,
                 'ring-white/5' => $card && $cardDark,
                 'before:opacity-[--cardBgOpacity]' => $card && $cardBgOpacity > 0,
-                'backdrop-blur-md' => $card && $cardBgBlur,
+                'backdrop-blur' => $card && $cardBgBlur,
                 match ($cardSpacing ?? null) {
                     'small' => 'p-4',
                     'medium' => 'p-8',
                     'large' => 'p-16',
                     default => 'p-0',
-                } => $card && filled($cardSpacing),
+                } => $card,
             ])
         >
             <div
-                class="nv-cta-wrapper flex items-center justify-between"
+                @class([
+                    'nv-cta-wrapper relative flex max-w-2xl flex-col',
+                    'mx-auto items-center text-center' => $headerOrientation === 'center',
+                    'ml-auto items-end text-right' => $headerOrientation === 'right',
+                ])
             >
-                <div class="max-w-2xl">
+                @if (filled($heading) || filled($description))
                     @if (filled($heading))
-                        <x-public::preview.h2>{{ $heading }}</x-public::preview.h2>
+                        <x-public::h2>{{ $heading }}</x-public::h2>
                     @endif
 
                     @if (filled($description))
-                        <x-public::preview.lead
+                        <x-public::lead
                             @class([
                                 'mt-4' => filled($heading),
                             ])
                             markdown
                         >
                             {{ $description }}
-                        </x-public::preview.lead>
+                        </x-public::lead>
                     @endif
-                </div>
+                @endif
 
                 @if (filled($primaryButtonUrl) || filled($secondaryButtonUrl))
-                    <div class="nv-cta-buttons-ctn flex items-center gap-x-6 mt-0 shrink-0">
+                    <div
+                        @class([
+                            'nv-cta-buttons mt-10 flex items-center gap-x-6',
+                            'justify-center' => $headerOrientation === 'center',
+                            'flex-row-reverse' => $headerOrientation === 'right',
+                        ])
+                    >
                         @if (filled($primaryButtonLabel) && filled($primaryButtonUrl))
-                            <x-public::preview.button
+                            <x-public::button
                                 :href="$primaryButtonUrl"
                                 :bg-color="$primaryButtonBgColor"
                                 :text-color="$primaryButtonTextColor ?? null"
                                 primary
                             >
                                 {{ $primaryButtonLabel }}
-                            </x-public::preview.button>
+                            </x-public::button>
                         @endif
 
                         @if (filled($secondaryButtonUrl) && filled($secondaryButtonLabel))
-                            <x-public::preview.button :href="$secondaryButtonUrl">
+                            <x-public::button :href="$secondaryButtonUrl">
                                 {{ $secondaryButtonLabel }}
-                            </x-public::preview.button>
+                            </x-public::button>
                         @endif
                     </div>
                 @endif
             </div>
         </div>
-    </div>
+    </x-public::block.wrapper>
 </div>
