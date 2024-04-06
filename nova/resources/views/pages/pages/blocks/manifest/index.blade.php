@@ -9,7 +9,7 @@
     <x-public::block.wrapper>
         <div class="nv-ctn @xs:px-6 @xl:px-8 @xs:py-8 @xl:py-16 mx-auto max-w-7xl">
             <x-public::block.header
-                :orientation="$orientation"
+                :orientation="$headerOrientation"
                 :heading="$heading"
                 :description="$description"
             ></x-public::block.header>
