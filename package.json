@@ -2,6 +2,7 @@
     "private": true,
     "license": "MIT",
     "scripts": {
+        "cleanup": "rm -rf ./node_modules",
         "css:build-dev": "cross-env ENV_BUILD=dev postcss nova/resources/css/*.css --base nova/resources --dir dist --verbose",
         "css:build-prod": "cross-env ENV_BUILD=prod postcss nova/resources/css/*.css --base nova/resources --dir dist --verbose",
         "css:build-themes": "concurrently \"npm run css:build-theme-celestial\" \"npm run css:build-theme-cerritos\" \"npm run css:build-theme-event-horizon\" \"npm run css:build-theme-pulsar\" \"npm run css:build-theme-titan\"",

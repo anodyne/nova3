@@ -11,9 +11,9 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "anodyne/blade-tabler-icons": "^2.18",
+        "anodyne/blade-tabler-icons": "^3.0",
         "awcodes/filament-tiptap-editor": "^3.0",
-        "awcodes/scribble": "^0.1.0@alpha",
+        "awcodes/scribble": "^0.3.0@alpha",
         "aws/aws-sdk-php": "^3.293",
         "awssat/discord-notification-channel": "^1.4",
         "bensampo/laravel-embed": "^2.4",
@@ -37,7 +37,7 @@
         "spatie/eloquent-sortable": "^4.0",
         "spatie/laravel-activitylog": "^4.0",
         "spatie/laravel-collection-macros": "^7.1",
-        "spatie/laravel-data": "^3.5",
+        "spatie/laravel-data": "^4.2",
         "spatie/laravel-html": "^3.0",
         "spatie/laravel-medialibrary": "^11.0",
         "spatie/laravel-model-states": "^2.1",
@@ -94,6 +94,12 @@
         }
     },
     "scripts": {
+        "analyse": "./vendor/bin/phpstan analyse",
+        "clean": [
+            "rm -f ./nova/bootstrap/cache/blade-icons.php",
+            "rm -f ./nova/bootstrap/cache/packages.php",
+            "rm -f ./nova/bootstrap/cache/services.php"
+        ],
         "lint": "./vendor/bin/pint",
         "test": "./vendor/bin/pest",
         "post-autoload-dump": [
