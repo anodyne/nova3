@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nova\Foundation\Livewire;
 
 use Livewire\Attributes\Computed;
@@ -41,7 +43,7 @@ class AdvancedColorPicker extends Component
             700,
             800,
             900,
-            950
+            950,
         ];
     }
 
