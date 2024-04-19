@@ -46,6 +46,8 @@ module.exports = {
         'text-[#f2634c]',
         'text-[#f99c26]',
         'text-[#130f32]',
+        'bg-sky-500',
+        'bg-sky-700',
         {
             pattern: /max-w-(lg|xl|2xl|3xl|4xl|5xl|6xl|7xl)/,
             variants: ['sm', 'md', 'lg', 'xl', '2xl'],
@@ -76,6 +78,10 @@ module.exports = {
         },
         {
             pattern: /bg-(primary|danger|gray|info)-(500)/,
+            variants: ['sm', 'md', 'lg'],
+        },
+        {
+            pattern: /bg-(red|orange|amber|yellow|lime|emerald|green|sky|teal|cyan|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)/,
             variants: ['sm', 'md', 'lg'],
         },
     ],

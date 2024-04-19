@@ -298,12 +298,17 @@ body[data-panda] .fi-radio-input {
     @apply rounded-br-lg border-l border-gray-950/5 dark:border-white/5;
 }
 
+.scribble-modal.slide-from-right,
 .fi-modal-slide-over-window {
     @apply right-4 top-2 h-[calc(100dvh-theme(spacing.8))] rounded-xl ring-1 ring-gray-950/5 dark:ring-white/5;
+}
+.scribble-modal.slide-from-right {
+    @apply top-4;
 }
 .fi-modal-slide-over-window .fi-modal-header {
     @apply border-none;
 }
+.scribble-modal .fi-modal-header .fi-modal-heading,
 .fi-modal-slide-over-window .fi-modal-header .fi-modal-heading {
     @apply block font-[family-name:--font-header] text-xl font-bold tracking-tight text-gray-900 dark:text-white;
 }

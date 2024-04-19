@@ -1,4 +1,6 @@
 @import "../../../vendor/filament/forms/dist/index.css";
+@import "../../../vendor/awcodes/scribble/resources/css/editor.css";
+@import "../../../vendor/awcodes/scribble/resources/css/entry.css";
 
 @import "tailwindcss/base";
 
