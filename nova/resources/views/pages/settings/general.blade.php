@@ -55,6 +55,103 @@
 
             <x-fieldset>
                 <x-fieldset.heading>
+                    <x-icon name="update"></x-icon>
+                    <x-fieldset.legend>Software update settings</x-fieldset.legend>
+                    <x-fieldset.description>
+                        Pick which severity of software updates Nova will notify you about.
+                    </x-fieldset.description>
+                </x-fieldset.heading>
+
+                <x-fieldset.field-group constrained>
+                    <x-checkbox.group>
+                        <x-checkbox.field>
+                            <x-fieldset.label for="severity_basic">Critical updates</x-fieldset.label>
+                            <x-fieldset.description>
+                                Critical security issues found within Nova or an issue that has the potential for
+                                significant data loss
+
+                                <x-fieldset.warning-message class="mt-4 font-medium">
+                                    Due to the nature of these updates, they cannot be disabled
+                                </x-fieldset.warning-message>
+                            </x-fieldset.description>
+                            <x-checkbox
+                                id="severity_basic"
+                                name="update_severity[]"
+                                value="critical"
+                                :checked="in_array('critical', old('update_severity[]', $settings->updateSeverity))"
+                                disabled
+                            ></x-checkbox>
+                        </x-checkbox.field>
+
+                        <x-checkbox.field>
+                            <x-fieldset.label for="severity_major">Major updates</x-fieldset.label>
+                            <x-fieldset.description>
+                                Significant architectural changes that will require data migration
+                            </x-fieldset.description>
+                            <x-checkbox
+                                id="severity_major"
+                                name="update_severity[]"
+                                value="major"
+                                :checked="in_array('major', old('update_severity[]', $settings->updateSeverity))"
+                            ></x-checkbox>
+                        </x-checkbox.field>
+
+                        <x-checkbox.field>
+                            <x-fieldset.label for="severity_minor">Minor updates</x-fieldset.label>
+                            <x-fieldset.description>
+                                Adding new features and addressing quality of life changes
+                            </x-fieldset.description>
+                            <x-checkbox
+                                id="severity_minor"
+                                name="update_severity[]"
+                                value="minor"
+                                :checked="in_array('minor', old('update_severity[]', $settings->updateSeverity))"
+                            ></x-checkbox>
+                        </x-checkbox.field>
+
+                        <x-checkbox.field>
+                            <x-fieldset.label for="severity_patch">Patch updates</x-fieldset.label>
+                            <x-fieldset.description>
+                                Updates that will most often fix issues people have found
+                            </x-fieldset.description>
+                            <x-checkbox
+                                id="severity_patch"
+                                name="update_severity[]"
+                                value="patch"
+                                :checked="in_array('patch', old('update_severity[]', $settings->updateSeverity))"
+                            ></x-checkbox>
+                        </x-checkbox.field>
+
+                        <x-checkbox.field>
+                            <x-fieldset.label for="severity_dependency">Dependency updates</x-fieldset.label>
+                            <x-fieldset.description>Updates to Nova’s third-party dependencies</x-fieldset.description>
+                            <x-checkbox
+                                id="severity_dependency"
+                                name="update_severity[]"
+                                value="dependency"
+                                :checked="in_array('dependency', old('update_severity[]', $settings->updateSeverity))"
+                            ></x-checkbox>
+                        </x-checkbox.field>
+
+                        <x-checkbox.field>
+                            <x-fieldset.label for="severity_security">Dependency security updates</x-fieldset.label>
+                            <x-fieldset.description>
+                                If security issues are discovered in any of Nova’s third-party dependencies, we will
+                                push a security update. While important, this is not as impactful as a critical update.
+                            </x-fieldset.description>
+                            <x-checkbox
+                                id="severity_security"
+                                name="update_severity[]"
+                                value="security"
+                                :checked="in_array('security', old('update_severity[]', $settings->updateSeverity))"
+                            ></x-checkbox>
+                        </x-checkbox.field>
+                    </x-checkbox.group>
+                </x-fieldset.field-group>
+            </x-fieldset>
+
+            <x-fieldset>
+                <x-fieldset.heading>
                     <x-icon name="leaf"></x-icon>
                     <x-fieldset.legend>Environment settings</x-fieldset.legend>
                     <x-fieldset.description>

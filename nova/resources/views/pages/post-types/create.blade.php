@@ -46,15 +46,23 @@
                             </x-input.textarea>
                         </x-fieldset.field>
 
-                        <x-fieldset.field
-                            label="Accent color"
-                            description="When setting the accent color for your post type icon, keep in mind that it could be displayed on either a light or dark background."
-                            name="color"
-                            id="color"
-                            :error="$errors->first('color')"
-                        >
-                            <x-input.color :value="old('color', '#0ea5e9')"></x-input.color>
-                        </x-fieldset.field>
+                        <x-panel well>
+                            <x-panel.well-heading
+                                heading="Accent color"
+                                description="When setting the accent color for your post type icon, keep in mind that it could be displayed on either a light or dark background."
+                            ></x-panel.well-heading>
+
+                            <x-spacing size="2xs">
+                                <x-panel>
+                                    <x-spacing size="sm">
+                                        <livewire:advanced-color-picker
+                                            field="color"
+                                            :state="old('color', '#0ea5e9')"
+                                        />
+                                    </x-spacing>
+                                </x-panel>
+                            </x-spacing>
+                        </x-panel>
 
                         <x-fieldset.field label="Icon" id="icon" name="icon">
                             <livewire:icon-picker :selected="old('icon', '')" />

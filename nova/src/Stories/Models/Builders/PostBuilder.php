@@ -17,12 +17,12 @@ class PostBuilder extends Builder
 {
     public function searchFor($search): self
     {
-        return $this->where(function ($query) use ($search) {
-            return $query->where('title', 'like', "%{$search}%")
-                ->orWhere('location', 'like', "%{$search}%")
-                ->orWhere('day', 'like', "%{$search}%")
-                ->orWhere('time', 'like', "%{$search}%");
-        });
+        return $this->whereAny([
+            'title',
+            'location',
+            'day',
+            'time',
+        ], 'like', "%{$search}%");
     }
 
     public function abandoned(): self
@@ -65,7 +65,7 @@ class PostBuilder extends Builder
 
     public function whereHasUser(User $user): self
     {
-        return $this->whereHas('userAuthors', fn (Builder $query) => $query->where('users.id', $user->id));
+        return $this->whereRelation('userAuthors', 'users.id', '=', $user->id);
     }
 
     public function whereNotPost(Post $post): self

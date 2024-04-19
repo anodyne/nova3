@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Themes\Actions;
 
 use Illuminate\Console\Command;
+use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Filesystem\FilesystemManager;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Themes\Data\ThemeData;
@@ -14,6 +15,8 @@ use Throwable;
 class SetupThemeDirectory
 {
     use AsAction;
+
+    protected FilesystemAdapter $files;
 
     public string $commandSignature = 'nova:make-theme
                                        {name : The name of the theme}

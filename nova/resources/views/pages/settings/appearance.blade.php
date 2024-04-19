@@ -2,6 +2,9 @@
 
 @inject('iconSets', 'Nova\Foundation\Icons\IconSets')
 
+@use('Nova\Settings\Enums\AvatarShape')
+@use('Nova\Settings\Enums\AvatarStyle')
+
 @section('content')
     <x-spacing constrained>
         <x-page-header>
@@ -171,8 +174,11 @@
                 <x-fieldset.field-group constrained>
                     <x-fieldset.field label="Shape" id="avatar_shape" name="avatar_shape">
                         <x-select class="block w-full">
-                            <option value="circle" @selected($settings->avatarShape === 'circle')>Circle</option>
-                            <option value="square" @selected($settings->avatarShape === 'square')>Square</option>
+                            @foreach (AvatarShape::cases() as $shape)
+                                <option value="{{ $shape->value }}" @selected($settings->avatarShape === $shape)>
+                                    {{ $shape->getLabel() }}
+                                </option>
+                            @endforeach
                         </x-select>
                     </x-fieldset.field>
 
@@ -186,9 +192,9 @@
                         </x-slot>
 
                         <x-select class="block w-full">
-                            @foreach ($settings->getAvatarStyles() as $value => $name)
-                                <option value="{{ $value }}" @selected($settings->avatarStyle === $value)>
-                                    {{ $name }}
+                            @foreach (AvatarStyle::cases() as $style)
+                                <option value="{{ $style->value }}" @selected($settings->avatarStyle === $style)>
+                                    {{ $style->getLabel() }}
                                 </option>
                             @endforeach
                         </x-select>

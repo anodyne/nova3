@@ -23,7 +23,7 @@
         {{ NovaView::renderHook('admin::head-scripts.after') }}
     </head>
     <body
-        class="h-full bg-white font-[family-name:--font-body] text-gray-600 antialiased xl:bg-gray-100 dark:bg-gray-950 dark:text-gray-400 dark:xl:bg-gray-950"
+        class="h-full bg-white font-[family-name:--font-body] text-gray-600 antialiased dark:bg-gray-950 dark:text-gray-400 xl:bg-gray-100 dark:xl:bg-gray-950"
         @if (settings('appearance.panda')) data-panda @endif
     >
         {{ NovaView::renderHook('admin::body.start') }}
@@ -37,9 +37,10 @@
         </div>
 
         @stack('modal')
-        @livewire('livewire-ui-modal')
         @livewire('livewire-ui-spotlight')
         @livewire('notifications')
+        @livewire('scribble.renderer')
+        @livewire('scribble.modals')
 
         {{ NovaView::renderHook('admin::scripts.before') }}
 

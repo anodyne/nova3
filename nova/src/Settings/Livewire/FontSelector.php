@@ -52,7 +52,9 @@ class FontSelector extends Component
             'family' => $this->family,
         ]);
 
-        $this->dispatch('dropdown-close');
+        if ($this->provider === 'local') {
+            $this->dispatch('dropdown-close');
+        }
     }
 
     // public function mount()

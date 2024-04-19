@@ -1,4 +1,5 @@
 @use('Nova\Foundation\Nova')
+@use('Nova\Settings\Enums\AvatarShape')
 
 <div data-slot="control" class="isolate flex items-center gap-x-4">
     @if (filled($image))
@@ -7,8 +8,8 @@
             alt="user photo"
             @class([
                 'h-16 w-16 object-cover',
-                'rounded-[20%]' => settings('appearance.avatarShape') === 'square',
-                'rounded-full' => settings('appearance.avatarShape') === 'circle',
+                'rounded-[20%]' => settings('appearance.avatarShape') === AvatarShape::Square,
+                'rounded-full' => settings('appearance.avatarShape') === AvatarShape::Circle,
             ])
         />
     @else
@@ -18,8 +19,8 @@
                 alt="user photo"
                 @class([
                     'h-16 w-16 object-cover',
-                    'rounded-[20%]' => settings('appearance.avatarShape') === 'square',
-                    'rounded-full' => settings('appearance.avatarShape') === 'circle',
+                    'rounded-[20%]' => settings('appearance.avatarShape') === AvatarShape::Square,
+                    'rounded-full' => settings('appearance.avatarShape') === AvatarShape::Circle,
                 ])
             />
         @else
@@ -28,8 +29,8 @@
                 alt="generated user photo"
                 @class([
                     'h-16 w-16 object-cover',
-                    'rounded-[20%]' => settings('appearance.avatarShape') === 'square',
-                    'rounded-full' => settings('appearance.avatarShape') === 'circle',
+                    'rounded-[20%]' => settings('appearance.avatarShape') === AvatarShape::Square,
+                    'rounded-full' => settings('appearance.avatarShape') === AvatarShape::Circle,
                 ])
             />
         @endif

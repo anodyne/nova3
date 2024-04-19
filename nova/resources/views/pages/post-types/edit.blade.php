@@ -36,18 +36,26 @@
                             </x-input.textarea>
                         </x-fieldset.field>
 
-                        <x-fieldset.field
-                            label="Accent color"
-                            description="When setting the accent color for your post type icon, keep in mind that it could be displayed on either a light or dark background."
-                            name="color"
-                            id="color"
-                            :error="$errors->first('color')"
-                        >
-                            <x-input.color :value="old('color', $postType->color)"></x-input.color>
-                        </x-fieldset.field>
+                        <x-panel well>
+                            <x-panel.well-heading
+                                heading="Accent color"
+                                description="When setting the accent color for your post type icon, keep in mind that it could be displayed on either a light or dark background."
+                            ></x-panel.well-heading>
+
+                            <x-spacing size="2xs">
+                                <x-panel>
+                                    <x-spacing size="sm">
+                                        <livewire:advanced-color-picker
+                                            field="color"
+                                            :state="old('color', $postType->color)"
+                                        />
+                                    </x-spacing>
+                                </x-panel>
+                            </x-spacing>
+                        </x-panel>
 
                         <x-fieldset.field label="Icon" id="icon" name="icon">
-                            <livewire:icon-picker :selected="old('icon', $postType->icon)" />
+                            <livewire:icon-picker field="icon" :selected="old('icon', $postType->icon)" />
                         </x-fieldset.field>
                     </x-fieldset.field-group>
                 </x-fieldset>
@@ -66,16 +74,18 @@
                         <x-radio.field id="in_character" name="visibility">
                             <x-fieldset.label for="in_character">In character</x-fieldset.label>
                             <x-radio
+                                name="visibility"
                                 value="in-character"
                                 :checked="old('visibility', $postType->visibility === 'in-character')"
                             ></x-radio>
                         </x-radio.field>
 
-                        <x-radio.field>
+                        <x-radio.field id="out_of_character" name="visibility">
                             <x-fieldset.label name="visibility" id="out_of_character">
                                 Out of character
                             </x-fieldset.label>
                             <x-radio
+                                name="visibility"
                                 value="out-of-character"
                                 :checked="old('visibility', $postType->visibility === 'out-of-character')"
                             ></x-radio>

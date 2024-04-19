@@ -10,10 +10,10 @@ class FormBuilder extends Builder
 {
     public function searchFor($search): Builder
     {
-        return $this->where(function ($query) use ($search) {
-            return $query->where('name', 'like', "%{$search}%")
-                ->orWhere('key', 'like', "%{$search}%")
-                ->orWhere('description', 'like', "%{$search}%");
-        });
+        return $this->whereAny([
+            'name',
+            'key',
+            'description',
+        ], 'like', "%{$search}%");
     }
 }

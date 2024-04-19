@@ -101,6 +101,145 @@
             <div class="mt-6 flex items-center gap-x-4">
                 <livewire:copy-diagnostic-data-button />
             </div>
+
+            <div class="mt-6 max-w-xs">
+                <x-panel well>
+                    <x-panel.well-heading heading="Background color"></x-panel.well-heading>
+
+                    <x-spacing size="2xs">
+                        <x-panel>
+                            <livewire:advanced-color-picker />
+                        </x-panel>
+                    </x-spacing>
+                </x-panel>
+            </div>
+
+            <div
+                class="mt-6 max-w-xs rounded-xl ring-1 ring-gray-950/10 shadow divide-y divide-gray-950/10"
+                x-data="{
+                    shade: 500,
+                    color: 'sky',
+                }"
+            >
+                <div class="px-4 py-4">
+                    <x-fieldset.field>
+                        <x-fieldset.label>Shade</x-fieldset.label>
+                        <x-fieldset.description>Choose a color shade to customize the color picker.</x-fieldset.description>
+                        <x-input.range x-model="shade"></x-input.range>
+                    </x-fieldset.field>
+                </div>
+                <div class="p-4">
+                    <x-fieldset.field>
+                        <x-fieldset.label>
+                            <div class="flex items-center justify-between">
+                                <div>Color</div>
+                                <div x-text="color" class="font-normal text-xs/5 text-gray-500"></div>
+                            </div>
+                        </x-fieldset.label>
+                        <div data-slot="control" class="grid grid-cols-6 gap-x-3 gap-y-3 *:size-7 *:rounded-full *:border *:border-black/10">
+                            <button
+                                class="bg-red-500"
+                                x-on:click="color = 'red'"
+                                x-bind:class="{ 'ring-2 ring-offset-2 ring-blue-500': color === 'red' }"
+                            ></button>
+                            <button
+                                class="bg-orange-500"
+                                x-on:click="color = 'orange'"
+                                x-bind:class="{ 'ring-2 ring-offset-2 ring-blue-500': color === 'orange' }"
+                            ></button>
+                            <button
+                                class="bg-amber-500"
+                                x-on:click="color = 'amber'"
+                                x-bind:class="{ 'ring-2 ring-offset-2 ring-blue-500': color === 'amber' }"
+                            ></button>
+                            <button
+                                class="bg-yellow-500"
+                                x-on:click="color = 'yellow'"
+                                x-bind:class="{ 'ring-2 ring-offset-2 ring-blue-500': color === 'yellow' }"
+                            ></button>
+                            <button
+                                class="bg-lime-500"
+                                x-on:click="color = 'lime'"
+                                x-bind:class="{ 'ring-2 ring-offset-2 ring-blue-500': color === 'lime' }"
+                            ></button>
+                            <button
+                                class="bg-green-500"
+                                x-on:click="color = 'green'"
+                                x-bind:class="{ 'ring-2 ring-offset-2 ring-blue-500': color === 'green' }"
+                            ></button>
+
+                            <button
+                            x-on:click="color = 'emerald'"
+                            x-bind:class="{
+                                [`bg-emerald-${shade}`]: true,
+                                'ring-2 ring-offset-2 ring-blue-500': color === 'emerald',
+                            }"
+                            ></button>
+                            <button
+                            x-on:click="color = 'teal'"
+                            x-bind:class="{
+                                [`bg-teal-${shade}`]: true,
+                                'ring-2 ring-offset-2 ring-blue-500': color === 'teal',
+                            }"
+                            ></button>
+                            <button
+                            x-on:click="color = 'cyan'"
+                            x-bind:class="{
+                                [`bg-cyan-${shade}`]: true,
+                                'ring-2 ring-offset-2 ring-blue-500': color === 'cyan',
+                            }"
+                            ></button>
+                            <button
+                                x-on:click="color = 'sky'"
+                                x-bind:class="{
+                                    [`bg-sky-${shade}`]: true,
+                                    'ring-2 ring-offset-2 ring-blue-500': color === 'sky',
+                                }"
+                            ></button>
+                            <button
+                            x-on:click="color = 'blue'"
+                            x-bind:class="{
+                                [`bg-blue-${shade}`]: true,
+                                'ring-2 ring-offset-2 ring-blue-500': color === 'blue',
+                            }"
+                            ></button>
+                            <button
+                            x-on:click="color = 'indigo'"
+                            x-bind:class="{
+                                [`bg-indigo-${shade}`]: true,
+                                'ring-2 ring-offset-2 ring-blue-500': color === 'indigo',
+                            }"
+                            ></button>
+
+                            <button
+                                class="bg-violet-500"
+                                x-on:click="color = 'violet'"
+                                x-bind:class="{ 'ring-2 ring-offset-2 ring-blue-500': color === 'violet' }"
+                            ></button>
+                            <button
+                                class="bg-purple-500"
+                                x-on:click="color = 'purple'"
+                                x-bind:class="{ 'ring-2 ring-offset-2 ring-blue-500': color === 'purple' }"
+                            ></button>
+                            <button
+                                class="bg-fuchsia-500"
+                                x-on:click="color = 'fuchsia'"
+                                x-bind:class="{ 'ring-2 ring-offset-2 ring-blue-500': color === 'fuchsia' }"
+                            ></button>
+                            <button
+                                class="bg-pink-500"
+                                x-on:click="color = 'pink'"
+                                x-bind:class="{ 'ring-2 ring-offset-2 ring-blue-500': color === 'pink' }"
+                            ></button>
+                            <button
+                                class="bg-rose-500"
+                                x-on:click="color = 'rose'"
+                                x-bind:class="{ 'ring-2 ring-offset-2 ring-blue-500': color === 'rose' }"
+                            ></button>
+                        </div>
+                    </x-fieldset.field>
+                </div>
+            </div>
         </div>
 
         <div class="grid gap-8 lg:grid-cols-2">

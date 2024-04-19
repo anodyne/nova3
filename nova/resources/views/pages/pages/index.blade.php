@@ -5,7 +5,7 @@
 @section('content')
     <x-page-header>
         <x-slot name="heading">Pages</x-slot>
-        <x-slot name="description">Control the content users can post into stories</x-slot>
+        <x-slot name="description">Manage all of Nova’s pages</x-slot>
 
         <x-slot name="actions">
             @can('create', Page::class)

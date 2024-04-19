@@ -64,11 +64,11 @@
                                             href="{{ auth()->check() ? route('dashboard') : route('login') }}"
                                             class="inline-flex items-center justify-center gap-2 rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-gray-700"
                                         >
-                                            @auth
-                                                Dashboard
-                                            @else
+                                            @guest
                                                 Sign in
-                                            @endauth
+                                            @else
+                                                Dashboard
+                                            @endguest
                                             <span aria-hidden="true">&rarr;</span>
                                         </a>
                                     @else

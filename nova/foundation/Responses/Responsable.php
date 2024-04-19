@@ -31,18 +31,18 @@ abstract class Responsable implements LaravelResponsable
 
     protected $theme;
 
-    public static function send(): self
+    public static function send(?Page $page = null): self
     {
         return new static(
-            optional(request()->route())->findPageFromRoute(),
+            $page ?? optional(request()->route())->findPageFromRoute(),
             app()
         );
     }
 
-    public static function sendWith(array $data): self
+    public static function sendWith(array $data, ?Page $page = null): self
     {
         $instance = new static(
-            optional(request()->route())->findPageFromRoute(),
+            $page ?? optional(request()->route())->findPageFromRoute(),
             app()
         );
 

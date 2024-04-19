@@ -35,12 +35,12 @@ class StoryBuilder extends Builder
             ->unless(is_int($parent), fn (Builder $query): Builder => $query->where('parent_id', $parent?->id));
     }
 
-    public function searchFor($value): self
+    public function searchFor($search): self
     {
-        return $this->where(function (Builder $query) use ($value): Builder {
-            return $query->where('title', 'like', "%{$value}%")
-                ->orWhere('description', 'like', "%{$value}%");
-        });
+        return $this->whereAny([
+            'title',
+            'description',
+        ], 'like', "%{$search}%");
     }
 
     public function upcoming(): self

@@ -5,46 +5,19 @@ declare(strict_types=1);
 namespace Nova\Setup;
 
 use Illuminate\Support\Arr;
+use Nova\Settings\Enums\AvatarShape;
+use Nova\Settings\Enums\AvatarStyle;
 
 class Randomize
 {
-    public static function avatarShape(): string
+    public static function avatarShape(): AvatarShape
     {
-        return Arr::random(['circle', 'square']);
+        return Arr::random(AvatarShape::cases());
     }
 
-    public static function avatarStyle(): string
+    public static function avatarStyle(): AvatarStyle
     {
-        return Arr::random([
-            'adventurer',
-            'adventurer-neutral',
-            'avataaars',
-            'avataaars-neutral',
-            'big-ears',
-            'big-ears-neutral',
-            'big-smile',
-            'bottts',
-            'bottts-neutral',
-            'croodles',
-            'croodles-neutral',
-            'fun-emoji',
-            'icons',
-            'identicon',
-            'initials',
-            'lorelei',
-            'lorelei-neutral',
-            'micah',
-            'miniavs',
-            'notionists',
-            'notionists-neutral',
-            'open-peeps',
-            'personas',
-            'pixel-art',
-            'pixel-art-neutral',
-            'rings',
-            'shapes',
-            'thumbs',
-        ]);
+        return Arr::random(AvatarStyle::cases());
     }
 
     public static function publicBodyFont(): string
@@ -55,6 +28,7 @@ class Randomize
             'Nacelle',
             'Onest',
             'Public Sans',
+            'Sn Pro',
         ]);
     }
 
@@ -72,6 +46,7 @@ class Randomize
             'Public Sans',
             'Satoshi',
             'Space Grotesk',
+            'Sn Pro',
             'Supreme',
             'Thicccboi',
         ]);

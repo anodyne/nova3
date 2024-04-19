@@ -67,10 +67,7 @@
         @if ($provider === 'bunny')
             <x-fieldset class="p-4">
                 <x-fieldset.heading>
-                    <x-logos.bunny-fonts-color
-                        class="h-9 w-9 md:h-8 md:w-8"
-                        data-slot="icon"
-                    ></x-logos.bunny-fonts-color>
+                    <x-logos.bunny-fonts-color class="size-9 md:size-8" data-slot="icon"></x-logos.bunny-fonts-color>
                     <x-fieldset.legend>Bunny Fonts</x-fieldset.legend>
                     <x-fieldset.description>
                         <x-text.link href="https://bunny.net/fonts/" target="_blank">Bunny Fonts</x-text.link>
@@ -87,7 +84,7 @@
                         name="button_font_bunny"
                         wire:ignore
                     >
-                        <x-input.text wire:model.live="family"></x-input.text>
+                        <x-input.text wire:model.live.debounce="family"></x-input.text>
                     </x-fieldset.field>
                 </x-fieldset.field-group>
             </x-fieldset>
@@ -96,7 +93,7 @@
         @if ($provider === 'google')
             <x-fieldset class="p-4">
                 <x-fieldset.heading>
-                    <x-logos.google-color class="h-9 w-9 md:h-8 md:w-8" data-slot="icon"></x-logos.google-color>
+                    <x-logos.google-color class="size-9 md:size-8" data-slot="icon"></x-logos.google-color>
                     <x-fieldset.legend>Google Fonts</x-fieldset.legend>
                     <x-fieldset.description>
                         <x-text.link href="https://google.com/fonts" target="_blank">Google Fonts</x-text.link>
@@ -112,7 +109,7 @@
                         name="button_font_google"
                         wire:ignore
                     >
-                        <x-input.text wire:model.live="family"></x-input.text>
+                        <x-input.text wire:model.live.debounce="family"></x-input.text>
                     </x-fieldset.field>
                 </x-fieldset.field-group>
             </x-fieldset>
