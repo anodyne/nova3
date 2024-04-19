@@ -21,7 +21,9 @@ class CreatePagesTable extends Migration
             $table->string('resource')->nullable();
             $table->string('layout')->default('public');
             $table->longText('blocks')->nullable();
+            $table->longText('published_blocks')->nullable();
             $table->string('status')->default(PageStatus::active->value);
+            $table->dateTime('published_at')->nullable();
             $table->timestamps();
 
             $table->index('key');
