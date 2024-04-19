@@ -1,36 +1,29 @@
 @props([
     'type' => 'button',
-    'leading' => false,
-    'trailing' => false,
-    'size' => 'base',
-    'outline' => false,
-    'plain' => false,
-    'text' => false,
-    'color' => 'neutral',
+    'primary' => false,
+    'bgColor' => null,
+    'textColor' => null,
 ])
-
-@use('Illuminate\Support\Arr')
 
 @php
     $tag = $attributes->has('href') ? 'a' : 'button';
-
-    $variant = $outline ? 'outline' : ($plain ? 'plain' : ($text ? 'text' : 'solid'));
-
-    $size = $text ? 'none' : $size;
-
-    $color = ($color === 'primary' && settings('appearance.panda')) ? 'panda' : $color;
 @endphp
 
 <{{ $tag }}
-    {{
-        $attributes->merge([
-            'type' => ($tag === 'button') ? $type : null,
-        ])->class([
-            'nv-btn-primary w-full rounded-lg px-3.5 py-2.5 text-center text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 lg:w-auto',
-            // 'nv-btn-primary-light bg-primary-600 text-white hover:bg-primary-500 focus-visible:outline-primary-600' => ! $dark,
-            // 'nv-btn-primary-dark bg-primary-500 text-white hover:bg-primary-400 focus-visible:outline-primary-400' => $dark,
-        ])
-    }}
+    {{ $attributes->merge(['type' => ($tag === 'button') ? $type : null]) }}
+    @class([
+        'nv-btn-primary' => $primary,
+        'nv-btn-secondary' => ! $primary,
+        'relative rounded-lg px-3.5 py-2.5 text-center text-sm/6 font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2',
+        'bg-[--nv-page-btn-bg-color] text-[--nv-page-btn-text-color] shadow-sm' => $primary,
+        'before:z-1 before:absolute before:inset-0 before:rounded-[calc(theme(borderRadius.lg)-1px)] before:bg-white before:bg-opacity-0 before:hover:bg-opacity-10' => $primary,
+        'text-gray-900 hover:bg-black/5 dark:text-white dark:hover:bg-white/5' => ! $primary,
+        $attributes->get('class') => $attributes->has('class'),
+    ])
+    @style([
+        "--nv-page-btn-bg-color:{$bgColor}" => $primary,
+        "--nv-page-btn-text-color:{$textColor}" => $primary,
+    ])
 >
     {{ $slot }}
 </{{ $tag }}>

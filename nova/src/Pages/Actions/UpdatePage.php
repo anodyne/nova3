@@ -11,8 +11,8 @@ class UpdatePage
 {
     use AsAction;
 
-    public function handle(Page $page): Page
+    public function handle(Page $page, array $data): Page
     {
-        return tap($page)->update();
+        return tap($page)->update($data);
     }
 }

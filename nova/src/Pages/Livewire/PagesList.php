@@ -13,6 +13,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
+use Livewire\Attributes\Url;
 use Nova\Foundation\Filament\Actions\Action;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
@@ -35,6 +36,11 @@ use Nova\Stories\Models\PostType;
 
 class PagesList extends TableComponent
 {
+    #[Url]
+    public ?array $tableFilters = [
+        'pageType',
+    ];
+
     public function table(Table $table): Table
     {
         return $table
@@ -190,10 +196,9 @@ class PagesList extends TableComponent
                     ->trueLabel('Advanced pages')
                     ->falseLabel('Basic pages'),
             ])
-            ->header(fn () => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)
             ->emptyStateIcon(iconName('list'))
             ->emptyStateHeading('No pages found')
-            ->emptyStateDescription('Post types allow you to control the type of content users can create inside of stories.')
+            ->emptyStateDescription('Manage all of Nova’s pages.')
             ->emptyStateActions([
                 CreateAction::make()
                     ->authorize('create')

@@ -2,6 +2,6 @@
 
 @section('content')
     <div class="nova-basic-page-content">
-        {!! scribble($page->published_blocks ?? ['content' => null])->toHtml() !!}
+        {!! scribble($page->blocks ?? ['content' => null])->toHtml() !!}
     </div>
 @endsection

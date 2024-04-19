@@ -16,10 +16,12 @@ abstract class FormComponent extends Component implements HasForms
 
     public ?array $data = [];
 
+    protected string $view = 'livewire.filament-form';
+
     abstract public function form(Form $form): Form;
 
     public function render(): ?View
     {
-        return view('livewire.filament-form');
+        return view($this->view);
     }
 }

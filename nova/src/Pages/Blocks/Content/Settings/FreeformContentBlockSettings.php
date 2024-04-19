@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Nova\Pages\Blocks\Content\Settings;
 
 use Awcodes\Scribble\Enums\SlideDirection;
-use Awcodes\Scribble\Livewire\ScribbleModal;
 use Awcodes\Scribble\Profiles\DefaultProfile;
 use Awcodes\Scribble\ScribbleEditor;
 use Filament\Support\Enums\MaxWidth;
+use Nova\Foundation\Scribble\ScribbleModal;
 use Nova\Pages\Blocks\FormSchema;
 
 class FreeformContentBlockSettings extends ScribbleModal

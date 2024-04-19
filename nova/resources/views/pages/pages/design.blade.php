@@ -16,7 +16,15 @@
                 <x-button :href="route('pages.index')" plain>&larr; Back</x-button>
             @endcan
 
-            <x-button :href="url($page->uri)">Visit page</x-button>
+            <x-button :href="route('preview-basic-page', $page->key)">
+                <x-icon name="show"></x-icon>
+                Preview page
+            </x-button>
+
+            <x-button :href="url($page->uri)">
+                <x-icon name="globe"></x-icon>
+                Visit live page
+            </x-button>
         </x-slot>
     </x-page-header>
 

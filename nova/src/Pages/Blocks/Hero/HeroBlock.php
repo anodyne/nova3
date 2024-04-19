@@ -4,42 +4,15 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Blocks\Hero;
 
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\TextInput;
-use FilamentTiptapEditor\TiptapBlock;
+use Awcodes\Scribble\Enums\ToolType;
+use Awcodes\Scribble\ScribbleTool;
 
-abstract class HeroBlock extends TiptapBlock
+abstract class HeroBlock extends ScribbleTool
 {
-    public string $width = 'xl';
-
-    public bool $slideOver = true;
-
-    public ?string $icon = 'tabler-star';
-
-    public function getFormSchema(): array
+    protected function baseConfiguration(): self
     {
-        return [
-            TextInput::make('heading'),
-            Textarea::make('description'),
-            Section::make('Primary button')->schema([
-                TextInput::make('primaryButtonLabel'),
-                TextInput::make('primaryButtonUrl')
-                    ->label('Primary button URL')
-                    ->url(),
-            ]),
-            Section::make('Secondary button')->schema([
-                TextInput::make('secondaryButtonLabel'),
-                TextInput::make('secondaryButtonUrl')
-                    ->label('Secondary button URL')
-                    ->url(),
-            ]),
-            Section::make('Callout')->schema([
-                TextInput::make('calloutText'),
-                TextInput::make('calloutUrl')
-                    ->label('Callout URL')
-                    ->url(),
-            ]),
-        ];
+        return $this
+            ->icon('tabler-star')
+            ->type(ToolType::Block);
     }
 }

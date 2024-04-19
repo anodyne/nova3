@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Nova\Pages\Blocks\CallToAction\Settings;
 
 use Awcodes\Scribble\Enums\SlideDirection;
-use Awcodes\Scribble\Livewire\ScribbleModal;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Section;
@@ -14,6 +13,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Get;
 use Filament\Support\Enums\MaxWidth;
+use Nova\Foundation\Scribble\ScribbleModal;
 use Nova\Pages\Blocks\FormSchema;
 
 abstract class CallToActionBlockSettings extends ScribbleModal

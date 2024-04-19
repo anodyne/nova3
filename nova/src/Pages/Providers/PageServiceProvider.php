@@ -36,6 +36,7 @@ class PageServiceProvider extends DomainServiceProvider
     public function spotlightCommands(): array
     {
         return [
+            Spotlight\DesignPage::class,
             Spotlight\ViewPage::class,
             Spotlight\ViewPages::class,
         ];

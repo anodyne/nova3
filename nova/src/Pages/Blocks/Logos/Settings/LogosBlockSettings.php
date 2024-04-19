@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Nova\Pages\Blocks\Logos\Settings;
 
 use Awcodes\Scribble\Enums\SlideDirection;
-use Awcodes\Scribble\Livewire\ScribbleModal;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Support\Enums\MaxWidth;
+use Nova\Foundation\Scribble\ScribbleModal;
 use Nova\Pages\Blocks\FormSchema;
 
 abstract class LogosBlockSettings extends ScribbleModal

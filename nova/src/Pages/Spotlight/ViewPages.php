@@ -23,7 +23,7 @@ class ViewPages extends SpotlightCommand
 
     public function execute(Spotlight $spotlight): void
     {
-        $spotlight->redirectRoute('pages.index');
+        $spotlight->redirectRoute('pages.index', ['tableFilters' => ['pageType' => ['value' => 0]]]);
     }
 
     public function shouldBeShown(): bool

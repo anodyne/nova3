@@ -11,25 +11,22 @@
     <div
         @class([
             'nv-header-ctn max-w-2xl',
-            'mx-auto @lg:text-center' => $orientation === 'center',
-            '@lg:text-right' => $orientation === 'right',
+            'mx-auto text-center' => $orientation === 'center',
+            'text-right' => $orientation === 'right',
         ])
     >
         @if (filled($heading))
-            <x-public::h2>
+            <x-public::preview.h2>
                 {{ $heading }}
-            </x-public::h2>
+            </x-public::preview.h2>
         @endif
 
         @if (filled($description))
-            <x-public::lead
-                @class([
-                    'mt-6' => filled($heading),
-                ])
-                markdown
-            >
+            <x-public::preview.lead @class([
+                'mt-6' => filled($heading),
+            ])>
                 {{ $description }}
-            </x-public::lead>
+            </x-public::preview.lead>
         @endif
     </div>
 </div>
