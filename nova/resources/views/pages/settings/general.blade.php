@@ -67,10 +67,10 @@
                         <x-checkbox.field>
                             <x-fieldset.label for="severity_basic">Critical updates</x-fieldset.label>
                             <x-fieldset.description>
-                                Critical security issues found within Nova or an issue that has the potential for
+                                These updates will address critical security issues or an issues with the potential for
                                 significant data loss
 
-                                <x-fieldset.warning-message class="mt-4 font-medium">
+                                <x-fieldset.warning-message class="mt-2 font-medium">
                                     Due to the nature of these updates, they cannot be disabled
                                 </x-fieldset.warning-message>
                             </x-fieldset.description>
@@ -86,7 +86,7 @@
                         <x-checkbox.field>
                             <x-fieldset.label for="severity_major">Major updates</x-fieldset.label>
                             <x-fieldset.description>
-                                Significant architectural changes that will require data migration
+                                These updates include significant architectural changes that require data migration
                             </x-fieldset.description>
                             <x-checkbox
                                 id="severity_major"
@@ -99,7 +99,7 @@
                         <x-checkbox.field>
                             <x-fieldset.label for="severity_minor">Minor updates</x-fieldset.label>
                             <x-fieldset.description>
-                                Adding new features and addressing quality of life changes
+                                These updates will add new features, fix issues, and address quality of life changes
                             </x-fieldset.description>
                             <x-checkbox
                                 id="severity_minor"
@@ -112,7 +112,7 @@
                         <x-checkbox.field>
                             <x-fieldset.label for="severity_patch">Patch updates</x-fieldset.label>
                             <x-fieldset.description>
-                                Updates that will most often fix issues people have found
+                                These updates will most often fix issues found in the system
                             </x-fieldset.description>
                             <x-checkbox
                                 id="severity_patch"
@@ -124,7 +124,14 @@
 
                         <x-checkbox.field>
                             <x-fieldset.label for="severity_dependency">Dependency updates</x-fieldset.label>
-                            <x-fieldset.description>Updates to Nova’s third-party dependencies</x-fieldset.description>
+                            <x-fieldset.description>
+                                These updates will bump Nova’s third-party dependencies
+
+                                <x-fieldset.info-message class="mt-2 font-medium">
+                                    Due to the nature of these updates and their inclusion in future updates, they’re
+                                    generally safe to skip for running games
+                                </x-fieldset.info-message>
+                            </x-fieldset.description>
                             <x-checkbox
                                 id="severity_dependency"
                                 name="update_severity[]"
@@ -136,8 +143,8 @@
                         <x-checkbox.field>
                             <x-fieldset.label for="severity_security">Dependency security updates</x-fieldset.label>
                             <x-fieldset.description>
-                                If security issues are discovered in any of Nova’s third-party dependencies, we will
-                                push a security update. While important, this is not as impactful as a critical update.
+                                These updates address any security issues discovered in any of Nova’s third-party
+                                dependencies
                             </x-fieldset.description>
                             <x-checkbox
                                 id="severity_security"
