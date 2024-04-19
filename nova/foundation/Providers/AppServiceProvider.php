@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Providers;
 
+use Awcodes\Scribble\Facades\ScribbleFacade;
 use Carbon\CarbonImmutable;
 use Filament\Notifications\Notification as FilamentNotification;
 use Filament\Support\Facades\FilamentColor;
@@ -22,6 +23,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use Illuminate\View\DynamicComponent;
 use Illuminate\View\Factory as ViewFactory;
 use Livewire\Livewire;
 use Nova\Foundation\Blocks\BlockManager;
@@ -29,6 +31,7 @@ use Nova\Foundation\Environment\Environment;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Icons\IconSets;
 use Nova\Foundation\Icons\TablerIconSet;
+use Nova\Foundation\Livewire\AdvancedColorPicker;
 use Nova\Foundation\Livewire\ColorShadePicker;
 use Nova\Foundation\Livewire\ConfirmationModal;
 use Nova\Foundation\Livewire\Editor;
@@ -39,6 +42,7 @@ use Nova\Foundation\Nova;
 use Nova\Foundation\NovaBladeDirectives;
 use Nova\Foundation\NovaManager;
 use Nova\Foundation\Responses\FiltersManager;
+use Nova\Foundation\View\Compilers\BladeCompiler;
 use Nova\Foundation\View\Components\EmailLayout;
 use Nova\Foundation\View\Components\Tips;
 use Nova\Navigation\Models\Navigation;
@@ -52,6 +56,19 @@ class AppServiceProvider extends ServiceProvider
         $this->registerNovaSingleton();
         $this->registerResponseFilters();
         // $this->registerFilamentBindings();
+        $this->registerBlocks();
+
+        $this->app->extend('blade.compiler', function ($compiler, $app) {
+            return tap(new BladeCompiler(
+                $app['files'],
+                $app['config']['view.compiled'],
+                $app['config']->get('view.relative_hash', false) ? $app->basePath() : '',
+                $app['config']->get('view.cache', true),
+                $app['config']->get('view.compiled_extension', 'php'),
+            ), function ($blade) {
+                $blade->component('dynamic-component', DynamicComponent::class);
+            });
+        });
     }
 
     public function boot(): void
@@ -94,7 +111,6 @@ class AppServiceProvider extends ServiceProvider
             //     fn () => Navigation::with('children.page', 'page', 'authorization')->public()->topLevel()->get()
             // );
 
-            $this->registerBlocks();
             $this->registerLivewireComponents();
             $this->registerResponseFilters();
             $this->setupFilament();
@@ -145,6 +161,7 @@ class AppServiceProvider extends ServiceProvider
         Livewire::component('rating', Rating::class);
         Livewire::component('icon-picker', IconPicker::class);
         Livewire::component('color-shade-picker', ColorShadePicker::class);
+        Livewire::component('advanced-color-picker', AdvancedColorPicker::class);
         // Livewire::component('confirmation-modal', ConfirmationModal::class);
     }
 
@@ -172,6 +189,8 @@ class AppServiceProvider extends ServiceProvider
         FilamentColor::addShades('forms::components.toggle.on', [500, 900]);
 
         FilamentIcon::register([
+            'forms::components.repeater.actions.delete' => iconName('trash'),
+            'forms::components.repeater.actions.reorder' => iconName('arrows-sort'),
             'tables::search-field' => iconName('search'),
             'modal.close-button' => iconName('x'),
         ]);
@@ -203,7 +222,7 @@ class AppServiceProvider extends ServiceProvider
     {
         if (class_exists(AboutCommand::class)) {
             AboutCommand::add('Nova', [
-                'Version' => Nova::getVersion(),
+                'Version' => 'v'.Nova::getVersion(),
             ]);
         }
     }
@@ -213,37 +232,41 @@ class AppServiceProvider extends ServiceProvider
         $blockManager = new BlockManager();
 
         $blockManager->registerPageBlocks([
-            Blocks\Hero\SplitWithImageHeroBlock::class,
-            Blocks\Hero\SplitWithImageTilesHeroBlock::class,
-            Blocks\Hero\SplitWithOffsetImageHeroBlock::class,
-            Blocks\Hero\StackedWithImageHeroBlock::class,
+            Blocks\Hero\ImageTilesHeroBlock::make(),
+            Blocks\Hero\OffsetImageHeroBlock::make(),
+            Blocks\Hero\SplitHeroBlock::make(),
+            Blocks\Hero\StackedHeroBlock::make(),
 
-            Blocks\Stats\SimpleStatsBlock::class,
-            Blocks\Stats\SplitStatsBlock::class,
+            Blocks\Stats\SimpleStatsBlock::make(),
+            Blocks\Stats\SplitStatsBlock::make(),
 
-            Blocks\CallToAction\StackedCallToActionBlock::class,
-            Blocks\CallToAction\SplitCallToActionBlock::class,
+            Blocks\CallToAction\SimpleCallToActionBlock::make(),
+            Blocks\CallToAction\SplitCallToActionBlock::make(),
 
-            Blocks\Features\GridFeatureBlock::class,
-            Blocks\Features\CardsFeatureBlock::class,
-            Blocks\Features\AlternatingFeatureBlock::class,
+            Blocks\Features\GridFeatureBlock::make(),
+            Blocks\Features\CardsFeatureBlock::make(),
+            Blocks\Features\AlternatingFeatureBlock::make(),
 
-            Blocks\LogoCloud\SimpleCenteredLogoCloudBlock::class,
-            Blocks\LogoCloud\SplitLogoCloudBlock::class,
+            Blocks\Logos\SimpleLogosBlock::make(),
+            Blocks\Logos\SplitLogosBlock::make(),
 
-            Blocks\Content\ContentBlock::class,
+            Blocks\Content\FreeformContentBlock::make(),
 
-            Blocks\Stories\AlternatingStoriesBlock::class,
+            Blocks\Stories\AlternatingStoriesBlock::make(),
 
-            Blocks\Manifest\ManifestBlock::class,
+            Blocks\Manifest\ManifestBlock::make(),
 
-            Blocks\ContentRatings\CardContentRatingsBlock::class,
-            Blocks\ContentRatings\GridContentRatingsBlock::class,
-            Blocks\ContentRatings\SplitContentRatingsBlock::class,
+            Blocks\ContentRatings\CardsContentRatingsBlock::make(),
+            Blocks\ContentRatings\GridContentRatingsBlock::make(),
+            Blocks\ContentRatings\SplitContentRatingsBlock::make(),
         ]);
 
         $blockManager->registerFormBlocks([]);
 
         $this->app->scoped(BlockManager::class, fn () => $blockManager);
+
+        ScribbleFacade::registerTools(
+            $this->app[BlockManager::class]->blocks()->toArray()
+        );
     }
 }
