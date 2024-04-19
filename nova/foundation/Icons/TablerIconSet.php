@@ -123,6 +123,7 @@ class TablerIconSet extends IconSet
             'tools' => 'tabler-tools',
             'trash' => 'tabler-trash',
             'typography' => 'tabler-typography',
+            'update' => 'tabler-refresh-dot',
             'user' => 'tabler-user',
             'user-profile' => 'tabler-user-circle',
             'user-scan' => 'tabler-user-scan',
