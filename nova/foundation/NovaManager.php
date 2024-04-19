@@ -26,7 +26,7 @@ class NovaManager
     {
         return sprintf(
             'https://api.dicebear.com/7.x/%s/svg?seed=%s',
-            settings('appearance.avatarStyle'),
+            settings('appearance.avatarStyle')->value,
             str_replace(' ', '', $seed ?? 'nova3')
         );
     }
@@ -149,7 +149,7 @@ class NovaManager
             'icons' => $theme->iconMap(),
             'page' => request()->route()->findPageFromRoute(),
             'theme' => $theme,
-            'user' => auth()->user(),
+            'user' => auth()?->user(),
         ]);
     }
 
