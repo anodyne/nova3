@@ -222,6 +222,11 @@
     height: 80rem
 }
 
+.h-full {
+
+    height: 100%
+}
+
 .h-px {
 
     height: 1px
@@ -232,14 +237,19 @@
     width: 180%
 }
 
-.w-\[35\%\] {
+.w-\[25\%\] {
 
-    width: 35%
+    width: 25%
 }
 
 .w-auto {
 
     width: auto
+}
+
+.w-px {
+
+    width: 1px
 }
 
 .max-w-2xl {
@@ -483,6 +493,32 @@
     background-color: rgb(255 255 255 / 0.05)
 }
 
+.bg-gradient-to-b {
+
+    background-image: linear-gradient(to bottom, var(--tw-gradient-stops))
+}
+
+.from-transparent {
+
+    --tw-gradient-from: transparent var(--tw-gradient-from-position);
+
+    --tw-gradient-to: rgb(0 0 0 / 0) var(--tw-gradient-to-position);
+
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to)
+}
+
+.via-white\/10 {
+
+    --tw-gradient-to: rgb(255 255 255 / 0)  var(--tw-gradient-to-position);
+
+    --tw-gradient-stops: var(--tw-gradient-from), rgb(255 255 255 / 0.1) var(--tw-gradient-via-position), var(--tw-gradient-to)
+}
+
+.to-transparent {
+
+    --tw-gradient-to: transparent var(--tw-gradient-to-position)
+}
+
 .px-2 {
 
     padding-left: 0.5rem;
@@ -533,6 +569,11 @@
 .pb-4 {
 
     padding-bottom: 1rem
+}
+
+.pl-6 {
+
+    padding-left: 1.5rem
 }
 
 .pt-20 {
@@ -1280,13 +1321,6 @@ main#nova {
     .lg\:justify-start {
 
         justify-content: flex-start
-    }
-
-    .lg\:px-0 {
-
-        padding-left: 0px;
-
-        padding-right: 0px
     }
 
     .lg\:px-12 {

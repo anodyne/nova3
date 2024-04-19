@@ -6,15 +6,18 @@
 
 @section('layout')
     <div class="relative flex-none overflow-hidden text-white">
-        <div class="relative w-[35%] pl-6 lg:fixed lg:inset-0 lg:flex">
+        <div class="relative w-[25%] pl-6 lg:fixed lg:inset-0 lg:flex">
             <div class="absolute inset-0 -z-10 overflow-hidden bg-gray-950 lg:min-w-[32rem]">
                 <img
                     src="{{ asset('dist/black-hole-3-vertical.png') }}"
                     alt=""
-                    class="absolute right-0 top-1/2 -translate-y-1/2 opacity-35"
+                    class="absolute right-0 top-1/2 hidden -translate-y-1/2 opacity-35"
                 />
+                <div
+                    class="absolute right-0 h-full w-px bg-gradient-to-b from-transparent via-white/10 to-transparent"
+                ></div>
                 <svg
-                    class="absolute -bottom-48 left-[-40%] hidden h-[80rem] w-[180%] lg:-right-40 lg:bottom-auto lg:left-auto lg:top-[-40%] lg:h-[180%] lg:w-[80rem]"
+                    class="absolute -bottom-48 left-[-40%] h-[80rem] w-[180%] lg:-right-40 lg:bottom-auto lg:left-auto lg:top-[-40%] lg:h-[180%] lg:w-[80rem]"
                     aria-hidden="true"
                 >
                     <defs>
