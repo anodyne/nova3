@@ -19,13 +19,9 @@ class UserBuilder extends Builder
 
     public function searchFor(string $search): self
     {
-        return $this->where(function ($query) use ($search) {
-            return $query->where('name', 'like', "%{$search}%")
-                ->orWhere('email', 'like', "%{$search}%");
-        })
-            ->orWhereHas('characters', function ($query) use ($search) {
-                return $query->where('name', 'like', "%{$search}%");
-            });
+        return $this
+            ->where(fn (Builder $query): Builder => $query->whereAny(['users.name', 'users.email'], 'like', "%{$search}%"))
+            ->orWhereRelation('characters', 'characters.name', 'like', "%{$search}%");
     }
 
     public function searchForBasic($search): self
@@ -35,10 +31,7 @@ class UserBuilder extends Builder
 
     public function searchForWithoutCharacters(string $search): self
     {
-        return $this->where(
-            fn (self $query) => $query->where('name', 'like', "%{$search}%")
-                ->orWhere('email', 'like', "%{$search}%")
-        );
+        return $this->whereAny(['name', 'email'], 'like', "%{$search}%");
     }
 
     public function active(): self

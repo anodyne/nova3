@@ -33,11 +33,12 @@ class Department extends Model implements HasMedia, Sortable
 
     protected $table = 'departments';
 
-    protected $fillable = ['name', 'description', 'order_column', 'status'];
+    protected $fillable = ['name', 'description', 'order_column', 'status', 'tags'];
 
     protected $casts = [
         'order_column' => 'integer',
         'status' => DepartmentStatus::class,
+        'tags' => 'array',
     ];
 
     protected $dispatchesEvents = [

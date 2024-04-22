@@ -38,7 +38,7 @@
                             </x-panel>
                         </x-spacing>
 
-                        <x-spacing size="sm">
+                        <x-spacing width="sm" bottom="sm" top="xs">
                             <div class="grid grid-cols-1 sm:grid-cols-3">
                                 <a
                                     href="{{ route('characters.index', ['tableFilters' => ['only_my_characters' => ['isActive' => true]]]) }}"
@@ -156,7 +156,7 @@
 
                 <section x-data="tabsList('announcements')" aria-labelledby="dashboard-announcements-title">
                     <x-panel well>
-                        <x-spacing size="xs">
+                        <x-spacing width="xs" top="xs" bottom="2xs">
                             <x-tab.group name="posts">
                                 <x-tab.heading name="announcements">Announcements</x-tab.heading>
                                 <x-tab.heading name="posts">Recent posts</x-tab.heading>
@@ -199,10 +199,10 @@
                                         </x-spacing>
                                     </div>
                                 </x-panel>
+                            </x-spacing>
 
-                                <x-spacing size="sm" class="flex items-center">
-                                    <x-button color="heavy-neutral" text>See all announcements &rarr;</x-button>
-                                </x-spacing>
+                            <x-spacing width="sm" top="2xs" bottom="xs" class="flex items-center">
+                                <x-button color="heavy-neutral" text>See all announcements &rarr;</x-button>
                             </x-spacing>
                         </div>
 
@@ -242,10 +242,10 @@
                                         </x-spacing>
                                     </div>
                                 </x-panel>
+                            </x-spacing>
 
-                                <x-spacing size="sm" class="flex items-center">
-                                    <x-button color="heavy-neutral" text>See recent posts &rarr;</x-button>
-                                </x-spacing>
+                            <x-spacing width="sm" top="2xs" bottom="xs" class="flex items-center">
+                                <x-button color="heavy-neutral" text>See recent posts &rarr;</x-button>
                             </x-spacing>
                         </div>
                     </x-panel>

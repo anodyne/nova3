@@ -19,8 +19,8 @@ class RankNameBuilder extends Builder
         return $this->where('status', RankNameStatus::inactive);
     }
 
-    public function searchFor($value): self
+    public function searchFor($search): self
     {
-        return $this->where('name', 'like', "%{$value}%");
+        return $this->where('name', 'like', "%{$search}%");
     }
 }

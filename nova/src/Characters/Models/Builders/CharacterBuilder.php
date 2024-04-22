@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Nova\Characters\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
+use Nova\Characters\Enums\CharacterType;
 use Nova\Characters\Models\States\Status\Active;
 use Nova\Characters\Models\States\Status\Inactive;
 use Nova\Characters\Models\States\Status\Pending;
@@ -19,13 +21,14 @@ class CharacterBuilder extends Builder
 
     public function searchFor($search): Builder
     {
-        return $this->where(fn ($q) => $q->where('name', 'like', "%{$search}%"))
-            ->orWhereHas('positions', fn ($q) => $q->where('name', 'like', "%{$search}%"))
-            ->orWhereHas('positions.department', fn ($q) => $q->where('name', 'like', "%{$search}%"))
-            ->orWhereHas('users', fn ($q) => $q->where('name', 'like', "%{$search}%"))
-            ->when(auth()->user()->isAbleTo('character.*'), function ($query) use ($search) {
-                return $query->orWhereHas('users', fn ($q) => $q->where('email', 'like', "%{$search}%"));
-            });
+        return $this->where(fn (Builder $query): Builder => $query->where('name', 'like', "%{$search}%"))
+            ->orWhereRelation('positions', 'positions.name', 'like', "%{$search}%")
+            ->orWhereRelation('positions.department', 'departments.name', 'like', "%{$search}%")
+            ->orWhereRelation('users', 'users.name', 'like', "%{$search}%")
+            ->when(
+                Auth::user()->isAbleTo('character.*'),
+                fn (Builder $query): Builder => $query->orWhereRelation('users', 'users.email', 'like', "%{$search}%")
+            );
     }
 
     public function searchForBasic($search): self
@@ -35,12 +38,9 @@ class CharacterBuilder extends Builder
 
     public function searchForWithoutUsers($search): Builder
     {
-        return $this->where(fn ($q) => $q->where('name', 'like', "%{$search}%"))
-            ->orWhereHas('positions', fn ($q) => $q->where('name', 'like', "%{$search}%"))
-            ->orWhereHas('positions.department', fn ($q) => $q->where('name', 'like', "%{$search}%"))
-            ->when(auth()->user()->isAbleTo('character.*'), function ($query) use ($search) {
-                return $query->orWhereHas('users', fn ($q) => $q->where('email', 'like', "%{$search}%"));
-            });
+        return $this->where(fn (Builder $query): Builder => $query->where('name', 'like', "%{$search}%"))
+            ->orWhereRelation('positions', 'positions.name', 'like', "%{$search}%")
+            ->orWhereRelation('positions.department', 'departments.name', 'like', "%{$search}%");
     }
 
     public function active(): Builder
@@ -59,13 +59,43 @@ class CharacterBuilder extends Builder
             ->where('character_user.primary', true);
     }
 
-    public function wherePending(): Builder
+    public function pending(): Builder
     {
         return $this->whereState('status', Pending::class);
     }
 
-    public function whereNotPending(): Builder
+    public function notPending(): Builder
     {
         return $this->whereNotState('status', Pending::class);
+    }
+
+    public function primary(): Builder
+    {
+        return $this->where('type', CharacterType::primary);
+    }
+
+    public function notPrimary(): Builder
+    {
+        return $this->where('type', '!=', CharacterType::primary);
+    }
+
+    public function secondary(): Builder
+    {
+        return $this->where('type', CharacterType::secondary);
+    }
+
+    public function notSecondary(): Builder
+    {
+        return $this->where('type', '!=', CharacterType::secondary);
+    }
+
+    public function support(): Builder
+    {
+        return $this->where('type', CharacterType::support);
+    }
+
+    public function notSupport(): Builder
+    {
+        return $this->where('type', '!=', CharacterType::support);
     }
 }

@@ -116,12 +116,6 @@
                             </x-dropdown.group>
 
                             <x-dropdown.group>
-                                <x-dropdown.item :href="route('whats-new')" icon="star">
-                                    See what's new
-                                </x-dropdown.item>
-                            </x-dropdown.group>
-
-                            <x-dropdown.group>
                                 <x-dropdown.item type="submit" icon="logout" form="logout-form">
                                     <span>Sign out</span>
 
@@ -277,13 +271,6 @@
                             class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                         >
                             My account
-                        </a>
-
-                        <a
-                            href="{{ route('whats-new') }}"
-                            class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-                        >
-                            See what's new
                         </a>
 
                         <a

@@ -1,0 +1,22 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+
+@import "components/icon.css";
+@import "components/rank.css";
+
+@import "tailwindcss/utilities";
+
+@config "./tailwind.public.config.js";
+
+.laravel-embed__responsive-wrapper {
+    @apply relative h-0 w-full max-w-full overflow-hidden rounded-xl;
+}
+.laravel-embed__fallback {
+    @apply flex items-center justify-center bg-black/15 text-black/70;
+}
+.laravel-embed__fallback,
+.laravel-embed__responsive-wrapper iframe,
+.laravel-embed__responsive-wrapper object,
+.laravel-embed__responsive-wrapper embed {
+    @apply aspect-video w-full;
+}

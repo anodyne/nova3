@@ -8,7 +8,7 @@
         @else
             Select an icon
         @endif
-        <input type="hidden" name="icon" value="{{ $selected }}" />
+        <input type="hidden" name="{{ $field }}" id="{{ $field }}" value="{{ $selected }}" />
     </x-slot>
 
     <x-dropdown.group>

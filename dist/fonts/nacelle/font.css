@@ -1,0 +1,111 @@
+@font-face {
+  font-family: "Nacelle";
+  src: url('/dist/fonts/nacelle/Nacelle-Thin.otf') format('opentype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nacelle";
+  src: url('/dist/fonts/nacelle/Nacelle-ThinItalic.otf') format('opentype');
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nacelle";
+  src: url('/dist/fonts/nacelle/Nacelle-ExtraLight.otf') format('opentype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nacelle";
+  src: url('/dist/fonts/nacelle/Nacelle-ExtraLightItalic.otf') format('opentype');
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nacelle";
+  src: url('/dist/fonts/nacelle/Nacelle-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nacelle";
+  src: url('/dist/fonts/nacelle/Nacelle-LightItalic.otf') format('opentype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nacelle";
+  src: url('/dist/fonts/nacelle/Nacelle-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nacelle";
+  src: url('/dist/fonts/nacelle/Nacelle-Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nacelle";
+  src: url('/dist/fonts/nacelle/Nacelle-SemiBold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nacelle";
+  src: url('/dist/fonts/nacelle/Nacelle-SemiBoldItalic.otf') format('opentype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nacelle";
+  src: url('/dist/fonts/nacelle/Nacelle-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nacelle";
+  src: url('/dist/fonts/nacelle/Nacelle-BoldItalic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nacelle";
+  src: url('/dist/fonts/nacelle/Nacelle-Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nacelle";
+  src: url('/dist/fonts/nacelle/Nacelle-BlackItalic.otf') format('opentype');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}

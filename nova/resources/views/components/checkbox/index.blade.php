@@ -38,9 +38,9 @@
             'group-data-[focus]:outline group-data-[focus]:outline-2 group-data-[focus]:outline-offset-2 group-data-[focus]:outline-blue-500',
 
             // Disabled state
-            'disabled:opacity-50',
-            'disabled:border-gray-950/25 disabled:bg-gray-950/5 disabled:[--checkbox-check:theme(colors.gray.950/50%)] disabled:before:bg-transparent',
-            'dark:disabled:border-white/20 dark:disabled:bg-white/[2.5%] dark:disabled:[--checkbox-check:theme(colors.white/50%)] dark:disabled:peer-checked:after:hidden',
+            'peer-disabled:opacity-50',
+            'peer-disabled:border-gray-950/25 peer-disabled:bg-gray-950/5 peer-disabled:[--checkbox-check:theme(colors.gray.950/50%)] peer-disabled:before:bg-transparent peer-disabled:hover:border-gray-950/25',
+            'dark:peer-disabled:border-white/20 dark:peer-disabled:bg-white/[2.5%] dark:peer-disabled:[--checkbox-check:theme(colors.white/50%)] dark:peer-disabled:hover:border-white/20 dark:peer-disabled:peer-checked:after:hidden',
 
             // Forced color mode
             'forced-colors:[--checkbox-check:HighlightText] forced-colors:[--checkbox-checked-bg:Highlight] forced-colors:disabled:[--checkbox-check:Highlight]',

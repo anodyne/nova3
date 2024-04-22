@@ -1,0 +1,8 @@
+:root {
+    --bg-light: #fff;
+    --bg-dark: #030712;
+}
+
+body {
+    @apply bg-gray-100;
+}

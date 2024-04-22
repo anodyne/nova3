@@ -26,12 +26,22 @@ class NovaManager
     {
         return sprintf(
             'https://api.dicebear.com/7.x/%s/svg?seed=%s',
-            settings('appearance.avatarStyle'),
+            settings('appearance.avatarStyle')->value,
             str_replace(' ', '', $seed ?? 'nova3')
         );
     }
 
     public function getFontFamily(): string
+    {
+        return settings('appearance.fontFamily') ?? 'Inter';
+    }
+
+    public function getBodyFontFamily(string $section): string
+    {
+        return settings('appearance.fontFamily') ?? 'Inter';
+    }
+
+    public function getHeaderFontFamily(string $section): string
     {
         return settings('appearance.fontFamily') ?? 'Inter';
     }
@@ -66,11 +76,11 @@ class NovaManager
         }
     }
 
-    public function styles($options = [])
+    public function adminStyles($options = [])
     {
         $debug = config('app.debug');
 
-        $styles = $this->cssAssets();
+        $styles = $this->cssAdminAssets();
 
         // HTML Label.
         $html = $debug ? ['<!-- Nova Styles -->'] : [];
@@ -81,11 +91,41 @@ class NovaManager
         return implode("\n", $html);
     }
 
-    public function scripts($options = [])
+    public function adminScripts($options = [])
     {
         $debug = config('app.debug');
 
-        $scripts = $this->javaScriptAssets($options);
+        $scripts = $this->javaScriptAdminAssets($options);
+
+        // HTML Label.
+        $html = $debug ? ['<!-- Nova Scripts -->'] : [];
+
+        // JavaScript assets.
+        $html[] = $debug ? $scripts : $this->minify($scripts);
+
+        return implode("\n", $html);
+    }
+
+    public function publicStyles($options = [])
+    {
+        $debug = config('app.debug');
+
+        $styles = $this->cssPublicAssets();
+
+        // HTML Label.
+        $html = $debug ? ['<!-- Nova Styles -->'] : [];
+
+        // CSS assets.
+        $html[] = $debug ? $styles : $this->minify($styles);
+
+        return implode("\n", $html);
+    }
+
+    public function publicScripts($options = [])
+    {
+        $debug = config('app.debug');
+
+        $scripts = $this->javaScriptPublicAssets($options);
 
         // HTML Label.
         $html = $debug ? ['<!-- Nova Scripts -->'] : [];
@@ -109,11 +149,11 @@ class NovaManager
             'icons' => $theme->iconMap(),
             'page' => request()->route()->findPageFromRoute(),
             'theme' => $theme,
-            'user' => auth()->user(),
+            'user' => auth()?->user(),
         ]);
     }
 
-    protected function cssAssets()
+    protected function cssAdminAssets()
     {
         $appUrl = url('');
         $appStylesPath = "{$appUrl}/dist/css/app.css";
@@ -123,7 +163,31 @@ class NovaManager
 HTML;
     }
 
-    protected function javaScriptAssets($options)
+    protected function cssPublicAssets()
+    {
+        $appUrl = url('');
+        $appStylesPath = "{$appUrl}/dist/css/public.css";
+
+        return <<<HTML
+<link href="{$appStylesPath}" rel="stylesheet">
+HTML;
+    }
+
+    protected function javaScriptAdminAssets($options)
+    {
+        $jsonEncodedOptions = $options ? json_encode($options) : '';
+
+        $appUrl = url('');
+        $jsPath = "{$appUrl}/dist/js/app.js";
+
+        // Adding semicolons for this JavaScript is important,
+        // because it will be minified in production.
+        return <<<HTML
+<script src="{$jsPath}" defer></script>
+HTML;
+    }
+
+    protected function javaScriptPublicAssets($options)
     {
         $jsonEncodedOptions = $options ? json_encode($options) : '';
 

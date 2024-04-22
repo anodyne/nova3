@@ -2,6 +2,9 @@
 
 @inject('iconSets', 'Nova\Foundation\Icons\IconSets')
 
+@use('Nova\Settings\Enums\AvatarShape')
+@use('Nova\Settings\Enums\AvatarStyle')
+
 @section('content')
     <x-spacing constrained>
         <x-page-header>
@@ -23,33 +26,12 @@
                     <x-icon name="paint-brush"></x-icon>
                     <x-fieldset.legend>Theme</x-fieldset.legend>
                     <x-fieldset.description>
-                        Update the way your site looks through the theme and icon set defaults.
+                        Update the way your public site looks through the theme and its settings.
                     </x-fieldset.description>
                 </x-fieldset.heading>
 
                 <x-fieldset.field-group constrained>
-                    <x-fieldset.field label="Public site theme" id="theme" name="theme">
-                        <x-select class="mt-1 block w-full">
-                            @foreach ($themes as $theme)
-                                <option
-                                    value="{{ $theme->location }}"
-                                    @selected($theme->location === $settings->theme)
-                                >
-                                    {{ $theme->name }}
-                                </option>
-                            @endforeach
-                        </x-select>
-                    </x-fieldset.field>
-
-                    <x-fieldset.field label="Icon Set" id="icon_set" name="icon_set">
-                        <x-select class="mt-1 block w-full">
-                            @foreach ($iconSets->getSets() as $alias => $set)
-                                <option value="{{ $alias }}" @selected($alias === $settings->iconSet)>
-                                    {{ $set->name() }}
-                                </option>
-                            @endforeach
-                        </x-select>
-                    </x-fieldset.field>
+                    <livewire:theme-selector />
                 </x-fieldset.field-group>
             </x-fieldset>
 
@@ -58,8 +40,8 @@
                     <x-icon name="image"></x-icon>
                     <x-fieldset.legend>Logo</x-fieldset.legend>
                     <x-fieldset.description>
-                        You can upload a logo that will be used in the header of the admin system as well as on the sign
-                        in pages.
+                        You can upload a logo that will be used in the header of the admin system, in some themes for
+                        the public-facing site, as well as on the sign in pages.
                     </x-fieldset.description>
                 </x-fieldset.heading>
 
@@ -136,14 +118,40 @@
             <x-fieldset>
                 <x-fieldset.heading>
                     <x-icon name="typography"></x-icon>
-                    <x-fieldset.legend>Font family</x-fieldset.legend>
+                    <x-fieldset.legend>Fonts</x-fieldset.legend>
                     <x-fieldset.description>
-                        Customize Nova by changing the font used throughout the admin system.
+                        Customize Nova by changing the fonts used throughout the admin system.
                     </x-fieldset.description>
                 </x-fieldset.heading>
 
                 <x-fieldset.field-group constrained>
-                    <livewire:settings-font-selector />
+                    <x-fieldset.field label="Admin headers font" id="admin_font_header" name="admin_font_header">
+                        <livewire:settings-font-selector
+                            section="admin"
+                            type="header"
+                            :family="$settings->adminFonts->headerFamily"
+                            :provider="$settings->adminFonts->headerProvider"
+                        />
+                    </x-fieldset.field>
+
+                    <x-fieldset.field label="Admin body font" id="admin_font_body" name="admin_font_body">
+                        <livewire:settings-font-selector
+                            section="admin"
+                            type="body"
+                            :family="$settings->adminFonts->bodyFamily"
+                            :provider="$settings->adminFonts->bodyProvider"
+                        />
+                    </x-fieldset.field>
+
+                    {{--
+                        <x-fieldset.field label="Public headers font" id="public_font_header" name="public_font_header">
+                        <livewire:settings-font-selector section="public" type="header" />
+                        </x-fieldset.field>
+                        
+                        <x-fieldset.field label="Public body font" id="public_font_body" name="public_font_body">
+                        <livewire:settings-font-selector section="public" type="body" />
+                        </x-fieldset.field>
+                    --}}
                 </x-fieldset.field-group>
             </x-fieldset>
 
@@ -166,8 +174,11 @@
                 <x-fieldset.field-group constrained>
                     <x-fieldset.field label="Shape" id="avatar_shape" name="avatar_shape">
                         <x-select class="block w-full">
-                            <option value="circle" @selected($settings->avatarShape === 'circle')>Circle</option>
-                            <option value="square" @selected($settings->avatarShape === 'square')>Square</option>
+                            @foreach (AvatarShape::cases() as $shape)
+                                <option value="{{ $shape->value }}" @selected($settings->avatarShape === $shape)>
+                                    {{ $shape->getLabel() }}
+                                </option>
+                            @endforeach
                         </x-select>
                     </x-fieldset.field>
 
@@ -181,9 +192,9 @@
                         </x-slot>
 
                         <x-select class="block w-full">
-                            @foreach ($settings->getAvatarStyles() as $value => $name)
-                                <option value="{{ $value }}" @selected($settings->avatarStyle === $value)>
-                                    {{ $name }}
+                            @foreach (AvatarStyle::cases() as $style)
+                                <option value="{{ $style->value }}" @selected($settings->avatarStyle === $style)>
+                                    {{ $style->getLabel() }}
                                 </option>
                             @endforeach
                         </x-select>

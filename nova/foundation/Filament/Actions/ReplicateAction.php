@@ -24,7 +24,7 @@ class ReplicateAction extends FilamentReplicateAction
         $this->modalIcon(null);
         $this->modalHeading('');
         $this->modalDescription(null);
-        $this->modalSubmitActionLabel('Duplicate');
+        $this->modalSubmitActionLabel('Yes, duplicate it');
         $this->modalContent(fn (Model $record): View => view($this->modalContentView, [
             'record' => $record,
         ]));

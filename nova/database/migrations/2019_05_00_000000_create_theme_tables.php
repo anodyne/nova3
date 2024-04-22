@@ -21,6 +21,7 @@ class CreateThemeTables extends Migration
             $table->string('layout_auth')->default('auth-simple');
             $table->string('layout_public')->default('app-hero');
             $table->string('layout_admin')->default('app-sidebar');
+            $table->json('settings');
             $table->timestamps();
 
             $table->index(['location', 'name']);

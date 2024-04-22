@@ -68,7 +68,34 @@ class CopyDiagnosticDataButton extends Component
     public function render()
     {
         return <<<'blade'
-            <x-button type="button" color="neutral" x-clipboard.raw="{{ $this->codeToCopy }}">Copy diagnostic data</x-button>
+            <div
+                class="flex items-center gap-x-2"
+                x-data="{ copied: false }"
+                x-init="$watch('copied', () => setTimeout(() => copied = false, 2000))"
+            >
+                <x-button
+                    type="button"
+                    color="neutral"
+                    x-clipboard.raw="{{ $this->codeToCopy }}"
+                    x-on:click="copied = true"
+                >
+                    Copy diagnostic data
+                </x-button>
+
+                <div
+                    class="text-success-500 dark:text-success-500 text-sm/6 font-medium"
+                    x-show="copied"
+                    x-transition:enter="duration-200 ease-out"
+                    x-transition:enter-start="opacity-0"
+                    x-transition:enter-end="opacity-100"
+                    x-transition:leave="duration-100 ease-in"
+                    x-transition:leave-start="opacity-100"
+                    x-transition:leave-end="opacity-0"
+                    x-cloak
+                >
+                    Copied!
+                </div>
+            </div>
         blade;
     }
 }

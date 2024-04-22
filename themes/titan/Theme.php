@@ -2,13 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Themes\titan;
+namespace Themes\Titan;
 
 use Nova\Themes\BaseTheme;
 
 class Theme extends BaseTheme
 {
-    public $location = 'titan';
-
-    public $iconSet = 'feather';
+    public $location = 'Titan';
 }

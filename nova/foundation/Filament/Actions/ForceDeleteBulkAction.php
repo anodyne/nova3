@@ -24,7 +24,8 @@ class ForceDeleteBulkAction extends FilamentForceDeleteBulkAction
         $this->modalIcon(null);
         $this->modalHeading('');
         $this->modalDescription(null);
-        $this->modalSubmitActionLabel('Force delete');
+        $this->modalSubmitActionLabel('Yes, delete them forever');
+        $this->modalCancelActionLabel('No, keep them');
         $this->modalContent(fn (Collection $records): View => view($this->modalContentView, [
             'records' => $records,
         ]));

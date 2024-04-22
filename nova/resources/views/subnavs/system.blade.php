@@ -6,7 +6,12 @@
     </x-nav.sub-group>
 
     <x-nav.sub-group>
-        {{-- <x-nav.sub-item href="#">Pages</x-nav.sub-item> --}}
+        <x-nav.sub-item
+            href="{{ route('pages.index', ['tableFilters' => ['pageType' => ['value' => 0]]]) }}"
+            :active="request()->routeIs('pages.*')"
+        >
+            Pages
+        </x-nav.sub-item>
         {{-- <x-nav.sub-item href="#">Content</x-nav.sub-item> --}}
         {{-- <x-nav.sub-item :href="route('forms.index')" :active="request()->routeIs('forms.*')">Forms</x-nav.sub-item> --}}
         {{-- <x-nav.sub-item href="#">Menus</x-nav.sub-item> --}}

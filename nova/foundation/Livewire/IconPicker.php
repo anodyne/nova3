@@ -11,6 +11,8 @@ use Nova\Foundation\Icons\IconSets;
 
 class IconPicker extends Component
 {
+    public string $field = 'icon';
+
     public string $search = '';
 
     public string $selected = '';

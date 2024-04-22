@@ -6,7 +6,6 @@ namespace Nova\Settings\Controllers;
 
 use Illuminate\Http\Request;
 use Nova\Foundation\Controllers\Controller;
-use Nova\Settings\Actions\UpdateGeneral;
 use Nova\Settings\Actions\UpdateSettings;
 use Nova\Settings\Data\General;
 use Nova\Settings\Responses\GeneralSettingsResponse;
@@ -34,8 +33,6 @@ class GeneralSettingsController extends Controller
         $this->authorize('update', settings());
 
         UpdateSettings::run('general', $data = General::from($request));
-
-        UpdateGeneral::run($data, $request);
 
         return redirect()
             ->route('settings.general.edit')

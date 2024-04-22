@@ -36,6 +36,7 @@ module.exports = {
         './vendor/rawilk/laravel-form-components/src/**/*.php',
         './vendor/rawilk/laravel-form-components/resources/**/*.php',
         './vendor/rawilk/laravel-form-components/resources/js/*.js',
+        './vendor/awcodes/scribble/resources/**/*{.blade.php,.svelte}',
         './storage/framework/views/*.php',
     ],
     safelist: [
@@ -45,6 +46,8 @@ module.exports = {
         'text-[#f2634c]',
         'text-[#f99c26]',
         'text-[#130f32]',
+        'bg-sky-500',
+        'bg-sky-700',
         {
             pattern: /max-w-(lg|xl|2xl|3xl|4xl|5xl|6xl|7xl)/,
             variants: ['sm', 'md', 'lg', 'xl', '2xl'],
@@ -75,6 +78,10 @@ module.exports = {
         },
         {
             pattern: /bg-(primary|danger|gray|info)-(500)/,
+            variants: ['sm', 'md', 'lg'],
+        },
+        {
+            pattern: /bg-(red|orange|amber|yellow|lime|emerald|green|sky|teal|cyan|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)/,
             variants: ['sm', 'md', 'lg'],
         },
     ],
@@ -127,41 +134,11 @@ module.exports = {
                 'safe-left': 'env(safe-area-inset-left)',
                 'safe-right': 'env(safe-area-inset-right)',
             },
-            typography: (theme) => ({
-                DEFAULT: {
-                    css: {
-                        color: theme('colors.gray.600'),
-                        'h1, h2, h3, h4, h5, h6': {
-                            color: theme('colors.gray.900'),
-                        },
-                        h1: {
-                            fontWeight: theme('fontWeight.extrabold'),
-                        },
-                        h2: {
-                            fontWeight: theme('fontWeight.bold'),
-                        },
-                        'h3, h4': {
-                            fontWeight: theme('fontWeight.semibold'),
-                        },
-                        'h5, h6': {
-                            fontWeight: theme('fontWeight.medium'),
-                        },
-                        strong: {
-                            fontWeight: theme('fontWeight.semibold'),
-                        },
-                        blockquote: {
-                            color: theme('colors.gray.600'),
-                            borderColor: theme('colors.gray.300'),
-                        },
-                    },
-                },
-            }),
         },
     },
     plugins: [
         /* eslint-disable */
         require('@tailwindcss/typography'),
-        require('@tailwindcss/aspect-ratio'),
         require('@tailwindcss/container-queries'),
         function ({ matchUtilities, theme }) {
             matchUtilities(

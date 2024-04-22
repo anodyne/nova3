@@ -11,13 +11,23 @@ class NovaBladeDirectives
         return "<?php echo e(icon({$expression})); ?>";
     }
 
-    public static function novaScripts($expression)
+    public static function novaAdminScripts($expression)
     {
-        return '{!! \Nova\Foundation\Nova::scripts('.$expression.') !!}';
+        return '{!! \Nova\Foundation\Nova::adminScripts('.$expression.') !!}';
     }
 
-    public static function novaStyles($expression)
+    public static function novaAdminStyles($expression)
     {
-        return '{!! \Nova\Foundation\Nova::styles('.$expression.') !!}';
+        return '{!! \Nova\Foundation\Nova::adminStyles('.$expression.') !!}';
+    }
+
+    public static function novaPublicScripts($expression)
+    {
+        return '{!! \Nova\Foundation\Nova::publicScripts('.$expression.') !!}';
+    }
+
+    public static function novaPublicStyles($expression)
+    {
+        return '{!! \Nova\Foundation\Nova::publicStyles('.$expression.') !!}';
     }
 }

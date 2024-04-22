@@ -1,0 +1,10 @@
+:root {
+    --bgColor: #000;
+    --bodyColor: #18181b;
+    --bodyBorderColor: hsla(240, 5%, 84%, 0.2);
+
+    --accentColor: 45 212 191;
+
+    --navBgColor: 39 39 42;
+    --navBorderColor: 255 255 255;
+}

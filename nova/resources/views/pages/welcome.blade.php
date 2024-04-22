@@ -6,12 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Nova NextGen</title>
 
-        <x-fonts />
+        <x-fonts section="public" />
 
+        @livewireStyles
         @filamentStyles
-        @novaStyles
+        @novaPublicStyles
     </head>
-    <body class="bg-white font-sans leading-normal text-gray-600">
+    <body class="bg-white font-[family-name:--font-body] leading-normal text-gray-600">
         <div class="bg-white">
             <div class="relative isolate overflow-hidden bg-gradient-to-b from-primary-100/20">
                 <div class="mx-auto max-w-7xl pb-24 pt-10 sm:pb-32 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:px-8 lg:py-40">
@@ -48,7 +49,7 @@
                                     </div>
                                 --}}
                                 <h1
-                                    class="mt-24 text-4xl font-bold tracking-tight text-gray-900 sm:mt-32 sm:text-6xl lg:mt-16"
+                                    class="mt-24 font-[family-name:--font-header] text-4xl font-bold tracking-tight text-gray-900 sm:mt-32 sm:text-6xl lg:mt-16"
                                 >
                                     Welcome to the next generation
                                 </h1>
@@ -63,11 +64,11 @@
                                             href="{{ auth()->check() ? route('dashboard') : route('login') }}"
                                             class="inline-flex items-center justify-center gap-2 rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-gray-700"
                                         >
-                                            @auth
-                                                Dashboard
-                                            @else
+                                            @guest
                                                 Sign in
-                                            @endauth
+                                            @else
+                                                Dashboard
+                                            @endguest
                                             <span aria-hidden="true">&rarr;</span>
                                         </a>
                                     @else
@@ -140,5 +141,9 @@
         </div>
 
         @livewire('notifications')
+
+        @filamentScripts(withCore: true)
+        @novaPublicScripts
+        @stack('scripts')
     </body>
 </html>
