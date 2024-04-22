@@ -114,15 +114,28 @@
                                 <div
                                     class="flex flex-col gap-y-2 rounded-md bg-gray-950/[.04] p-3 dark:bg-white/[.04] lg:col-span-2"
                                 >
-                                    <x-icon name="tabler-world" size="lg"></x-icon>
-                                    <x-fieldset.label>URL</x-fieldset.label>
+                                    <div class="flex justify-between">
+                                        <div class="flex flex-col gap-y-2">
+                                            <x-icon name="tabler-world" size="lg"></x-icon>
+                                            <x-fieldset.label>URL</x-fieldset.label>
+                                        </div>
+                                        @if (! str(config('app.url'))->startsWith('https'))
+                                            <div
+                                                class="relative text-danger-600 dark:text-danger-500"
+                                                x-tooltip.raw="Your site is missing an SSL certificate. If you have added an SSL certificate, please update your ENV file."
+                                            >
+                                                <x-icon name="lock-open" size="sm"></x-icon>
+                                            </div>
+                                        @endif
+                                    </div>
+
                                     <p class="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                                        {{ str(config('app.url'))->replace(['http://', 'https://'], '') }}
+                                        {{ str(config('app.url'))->replace('https://', '') }}
                                     </p>
                                 </div>
 
                                 <a
-                                    href="{{ route('settings.general.edit') }}"
+                                    href="{{ route('settings.environment.edit') }}"
                                     @class([
                                         'group relative flex flex-col gap-y-2 rounded-md p-3',
                                         'bg-gray-950/[.04] ring-1 ring-inset ring-transparent transition',
@@ -142,7 +155,7 @@
                                     </p>
                                 </a>
                                 <a
-                                    href="{{ route('settings.general.edit') }}"
+                                    href="{{ route('settings.environment.edit') }}"
                                     @class([
                                         'group relative flex flex-col gap-y-2 rounded-md p-3',
                                         'bg-gray-950/[.04] ring-1 ring-inset ring-transparent transition',

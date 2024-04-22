@@ -194,7 +194,14 @@
                                                     icon="server"
                                                     :meta="$meta"
                                                 >
-                                                    System
+                                                    <div class="flex items-center gap-x-2">
+                                                        <span>System</span>
+                                                        {{--
+                                                            @if (cache()->has('nova-update-available'))
+                                                            <div class="size-1.5 rounded-full bg-danger-500"></div>
+                                                            @endif
+                                                        --}}
+                                                    </div>
                                                 </x-nav.main-item-mobile>
                                             </li>
                                         @endif
@@ -409,7 +416,14 @@
                                             icon="server"
                                             :meta="$meta"
                                         >
-                                            System
+                                            <div class="flex items-center gap-x-1.5">
+                                                <span>System</span>
+                                                {{--
+                                                    @if (cache()->has('nova-update-available'))
+                                                    <div class="size-1.5 rounded-full bg-danger-500"></div>
+                                                    @endif
+                                                --}}
+                                            </div>
                                         </x-nav.main-item>
                                     </li>
                                 @endif
