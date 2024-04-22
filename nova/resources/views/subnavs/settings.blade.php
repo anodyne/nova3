@@ -9,6 +9,12 @@
         >
             Appearance
         </x-nav.sub-item>
+        <x-nav.sub-item
+            :href="route('settings.environment.edit')"
+            :active="request()->routeIs('settings.environment.edit')"
+        >
+            Environment
+        </x-nav.sub-item>
         <x-nav.sub-item :href="route('settings.email.edit')" :active="request()->routeIs('settings.email.edit')">
             Email
         </x-nav.sub-item>

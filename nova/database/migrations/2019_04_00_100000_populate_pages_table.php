@@ -66,6 +66,8 @@ class PopulatePagesTable extends Migration
             ['name' => 'Posting activity settings', 'uri' => 'settings/posting-activity', 'key' => 'settings.posting-activity.edit', 'resource' => 'Nova\\Settings\\Controllers\\PostingActivitySettingsController@edit', 'layout' => 'admin'],
             ['name' => 'Update posting activity settings', 'uri' => 'settings/posting-activity', 'key' => 'settings.posting-activity.update', 'verb' => PageVerb::put, 'resource' => 'Nova\\Settings\\Controllers\\PostingActivitySettingsController@update', 'layout' => 'admin'],
             ['name' => 'Notification settings', 'uri' => 'settings/notifications', 'key' => 'settings.notifications.edit', 'resource' => 'Nova\\Settings\\Controllers\\NotificationSettingsController@edit', 'layout' => 'admin'],
+            ['name' => 'Environment settings', 'uri' => 'settings/environment', 'key' => 'settings.environment.edit', 'resource' => 'Nova\\Settings\\Controllers\\EnvironmentSettingsController@edit', 'layout' => 'admin'],
+            ['name' => 'Update environment settings', 'uri' => 'settings/environment', 'key' => 'settings.environment.update', 'verb' => PageVerb::put, 'resource' => 'Nova\\Settings\\Controllers\\EnvironmentSettingsController@update', 'layout' => 'admin'],
 
             ['name' => 'List rank groups', 'uri' => 'ranks/groups', 'key' => 'ranks.groups.index', 'resource' => 'Nova\\Ranks\\Controllers\\RankGroupController@index', 'layout' => 'admin'],
             ['name' => 'View rank group', 'uri' => 'ranks/groups/{group}/show', 'key' => 'ranks.groups.show', 'resource' => 'Nova\\Ranks\\Controllers\\RankGroupController@show', 'layout' => 'admin'],

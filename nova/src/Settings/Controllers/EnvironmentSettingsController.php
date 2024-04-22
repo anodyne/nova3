@@ -6,11 +6,10 @@ namespace Nova\Settings\Controllers;
 
 use Illuminate\Http\Request;
 use Nova\Foundation\Controllers\Controller;
-use Nova\Settings\Actions\UpdateSettings;
-use Nova\Settings\Data\General;
-use Nova\Settings\Responses\GeneralSettingsResponse;
+use Nova\Settings\Actions\UpdateEnvironment;
+use Nova\Settings\Responses\EnvironmentSettingsResponse;
 
-class GeneralSettingsController extends Controller
+class EnvironmentSettingsController extends Controller
 {
     public function __construct()
     {
@@ -23,19 +22,17 @@ class GeneralSettingsController extends Controller
     {
         $this->authorize('update', $settings = settings());
 
-        return GeneralSettingsResponse::sendWith([
-            'settings' => $settings->general,
-        ]);
+        return EnvironmentSettingsResponse::send();
     }
 
     public function update(Request $request)
     {
         $this->authorize('update', settings());
 
-        UpdateSettings::run('general', $data = General::from($request));
+        UpdateEnvironment::run($request);
 
         return redirect()
-            ->route('settings.general.edit')
-            ->notify('General settings have been updated');
+            ->route('settings.environment.edit')
+            ->notify('Environment settings have been updated');
     }
 }
