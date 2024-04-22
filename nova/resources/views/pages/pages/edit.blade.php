@@ -54,7 +54,7 @@
             <x-fieldset x-show="type" x-cloak>
                 <x-fieldset.field-group constrained>
                     <x-fieldset.field label="Name" id="name" name="name" :error="$errors->first('name')">
-                        <x-input.text :value="old('name')" data-cy="name" />
+                        <x-input.text :value="old('name', $page->name)" data-cy="name" />
                     </x-fieldset.field>
 
                     <x-fieldset.field label="URI" id="uri" name="uri" :error="$errors->first('uri')">
