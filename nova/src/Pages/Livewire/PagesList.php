@@ -49,11 +49,11 @@ class PagesList extends TableComponent
             ->columns([
                 TextColumn::make('name')
                     ->titleColumn()
-                    ->label('Address')
+                    ->label('Page name')
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('uri')
-                    ->label('Address')
+                    ->label('URL')
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('verb')
@@ -185,16 +185,16 @@ class PagesList extends TableComponent
                     }),
             ])
             ->filters([
-                SelectFilter::make('status')->options(PageStatus::class),
-                SelectFilter::make('verb')
-                    ->label('HTTP verb')
-                    ->options(PageVerb::class),
                 TernaryFilter::make('pageType')
                     ->nullable()
                     ->attribute('resource')
                     ->placeholder('All pages')
                     ->trueLabel('Advanced pages')
                     ->falseLabel('Basic pages'),
+                SelectFilter::make('status')->options(PageStatus::class),
+                SelectFilter::make('verb')
+                    ->label('HTTP verb')
+                    ->options(PageVerb::class),
             ])
             ->emptyStateIcon(iconName('list'))
             ->emptyStateHeading('No pages found')
