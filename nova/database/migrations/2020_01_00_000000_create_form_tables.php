@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Nova\Forms\Enums\FormStatus;
 use Nova\Forms\Models\Block;
 use Nova\Forms\Models\Form;
 use Nova\Forms\Models\FormBlock;
@@ -20,6 +21,7 @@ class CreateFormTables extends Migration
             $table->text('description')->nullable();
             $table->boolean('locked')->default(false);
             $table->json('settings')->nullable();
+            $table->string('status')->default(FormStatus::active->value);
             $table->timestamps();
 
             $table->index(['name', 'key']);

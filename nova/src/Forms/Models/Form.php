@@ -6,6 +6,7 @@ namespace Nova\Forms\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Nova\Forms\Enums\FormStatus;
 use Nova\Forms\Events;
 use Nova\Forms\Models\Builders\FormBuilder;
 use Spatie\Activitylog\LogOptions;
@@ -18,6 +19,7 @@ class Form extends Model
 
     protected $casts = [
         'locked' => 'boolean',
+        'status' => FormStatus::class,
     ];
 
     protected $dispatchesEvents = [
@@ -26,7 +28,7 @@ class Form extends Model
         'updated' => Events\FormUpdated::class,
     ];
 
-    protected $fillable = ['name', 'key', 'description'];
+    protected $fillable = ['name', 'key', 'description', 'status'];
 
     public function blocks()
     {
