@@ -27,6 +27,7 @@ class PageDesigner extends FormComponent
             ->schema([
                 ScribbleEditor::make('blocks')
                     ->label('')
+                    ->helperText("Type '/' to show a list of available to blocks to add to your page")
                     ->profile(PageBuilderProfile::class),
             ])
             ->statePath('data')
