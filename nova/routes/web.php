@@ -4,15 +4,27 @@ declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
 use Nova\Departments\Models\Department;
+use Nova\Foundation\Http\Middleware\CheckInstallStatus;
+use Nova\Pages\Controllers\BasicPageController;
+use Nova\Pages\Controllers\PreviewBasicPageController;
+use Nova\Pages\Models\Page;
+use Nova\Settings\Data\FontFamilies;
+use Nova\Setup\Models\Legacy\Character;
 
 try {
     $pages = cache()->rememberForever('nova.pages', fn () => Nova\Pages\Models\Page::get());
 
-    $pages->each(
-        fn ($page) => $router->{$page->verb->value}($page->uri, $page->resource)->name($page->key)
+    $pages->basic()->each(
+        fn (Page $page) => $router->get($page->uri, BasicPageController::class)->name($page->key)
+    );
+
+    $router->get('preview-page/{pageKey}', PreviewBasicPageController::class)->name('preview-basic-page');
+
+    $pages->advanced()->each(
+        fn (Page $page) => $router->{$page->verb->value}($page->uri, $page->resource)->name($page->key)
     );
 } catch (Throwable $th) {
-    Route::view('/', 'pages.welcome');
+    Route::view('/', 'pages.welcome')->middleware(CheckInstallStatus::class);
 }
 
 Route::impersonate();
@@ -111,5 +123,21 @@ Route::get('manifest-test', function () {
 });
 
 Route::get('test', function () {
-    //
+    // $fontFamilies = new FontFamilies(
+    //     headerProvider: 'local',
+    //     headerFamily: 'Geist',
+    //     bodyProvider: 'local',
+    //     bodyFamily: 'Geist'
+    // );
+
+    // dd($fontFamilies->getFontHtml());
+
+    $character = Character::first();
+
+    dd(
+        Character::whereHas('user')->toRawSql(),
+        Character::whereDoesntHave('user')->toRawSql()
+    );
+
+    dd($character->user());
 });

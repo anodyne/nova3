@@ -9,10 +9,12 @@ use Nova\Settings\Data\ContentRating;
 use Nova\Settings\Data\ContentRatings;
 use Nova\Settings\Data\Discord;
 use Nova\Settings\Data\Email;
+use Nova\Settings\Data\FontFamilies;
 use Nova\Settings\Data\General;
 use Nova\Settings\Data\MetaTags;
 use Nova\Settings\Data\PostingActivity;
 use Nova\Settings\Models\Settings;
+use Nova\Setup\Randomize;
 
 class PopulateSettingsTable extends Migration
 {
@@ -22,7 +24,8 @@ class PopulateSettingsTable extends Migration
             'general' => new General(
                 gameName: 'USS Nova',
                 dateFormat: '#month_short# #day_num2#, #year_long#',
-                dateFormatTags: '[[{"value":"#month_short#","text":"Month, short (Sep)","prefix":"#"}]] [[{"value":"#day_num2#","text":"Day, numeric leading zero (12)","prefix":"#"}]], [[{"value":"#year_long#","text":"Year, long (2023)","prefix":"#"}]]'
+                dateFormatTags: '[[{"value":"#month_short#","text":"Month, short (Sep)","prefix":"#"}]] [[{"value":"#day_num2#","text":"Day, numeric leading zero (12)","prefix":"#"}]], [[{"value":"#year_long#","text":"Year, long (2023)","prefix":"#"}]]',
+                updateSeverity: ['critical', 'major', 'minor', 'patch', 'security']
             ),
             'email' => new Email(
                 subjectPrefix: null,
@@ -30,10 +33,9 @@ class PopulateSettingsTable extends Migration
                 imagePath: null,
             ),
             'appearance' => new Appearance(
-                theme: 'Pulsar',
-                iconSet: 'tabler',
-                avatarShape: 'circle',
-                avatarStyle: 'bottts-neutral',
+                theme: Randomize::theme(),
+                avatarShape: Randomize::avatarShape(),
+                avatarStyle: Randomize::avatarStyle(),
                 imagePath: null,
                 colorsGray: 'Gray',
                 colorsPrimary: 'Sky',
@@ -41,8 +43,12 @@ class PopulateSettingsTable extends Migration
                 colorsWarning: 'Amber',
                 colorsSuccess: 'Emerald',
                 colorsInfo: 'Purple',
-                fontProvider: 'local',
-                fontFamily: 'Inter',
+                adminFonts: new FontFamilies(
+                    headerProvider: 'local',
+                    headerFamily: 'Inter',
+                    bodyProvider: 'local',
+                    bodyFamily: 'Inter'
+                ),
                 panda: false
             ),
             'meta_tags' => new MetaTags(),

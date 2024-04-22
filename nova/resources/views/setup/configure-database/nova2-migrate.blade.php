@@ -1,6 +1,4 @@
-@php
-    use Nova\Setup\Enums\DatabaseConfigStatus;
-@endphp
+@use('Nova\Setup\Enums\DatabaseConfigStatus')
 
 <div class="mx-auto max-w-7xl space-y-16">
     <header class="mx-auto max-w-2xl space-y-6 text-center">

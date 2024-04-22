@@ -24,7 +24,8 @@ class DeleteAction extends FilamentDeleteAction
         $this->modalIcon(null);
         $this->modalHeading('');
         $this->modalDescription(null);
-        $this->modalSubmitActionLabel('Delete');
+        $this->modalSubmitActionLabel('Yes, delete it');
+        $this->modalCancelActionLabel('No, keep it');
         $this->modalContent(fn (Model $record): View => view($this->modalContentView, [
             'record' => $record,
         ]));

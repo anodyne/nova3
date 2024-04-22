@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Nova\Pages\Models\Page;
+use Nova\Themes\BaseTheme;
+use Nova\Themes\Data\ThemeSettings;
 use Nova\Themes\Enums\ThemeStatus;
 use Nova\Themes\Events;
 use Nova\Themes\Models\Builders\ThemeBuilder;
@@ -25,11 +27,12 @@ class Theme extends Model
 
     protected $fillable = [
         'name', 'location', 'credits', 'status', 'preview', 'layout_auth',
-        'layout_public', 'layout_admin', 'icon_set',
+        'layout_public', 'layout_admin', 'settings',
     ];
 
     protected $casts = [
         'status' => ThemeStatus::class,
+        'settings' => ThemeSettings::class,
     ];
 
     protected $dispatchesEvents = [
@@ -37,6 +40,13 @@ class Theme extends Model
         'deleted' => Events\ThemeDeleted::class,
         'updated' => Events\ThemeUpdated::class,
     ];
+
+    public function themeClass(): BaseTheme
+    {
+        $themeClass = 'Themes\\'.$this->location.'\\Theme';
+
+        return new $themeClass();
+    }
 
     public function getLayoutForPage(Page $page): string
     {

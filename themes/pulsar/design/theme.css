@@ -1,0 +1,9 @@
+:root {
+    --bg-light: #fff;
+    --bg-dark: #030712;
+}
+
+body {
+    --tw-bg-opacity: 1;
+    background-color: rgba(var(--gray-100), var(--tw-bg-opacity));
+}

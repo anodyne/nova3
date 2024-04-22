@@ -29,9 +29,9 @@ class PositionBuilder extends Builder
         return $this->where('status', PositionStatus::inactive);
     }
 
-    public function searchFor($value): self
+    public function searchFor($search): self
     {
-        return $this->where('name', 'like', "%{$value}%")
-            ->orWhereHas('department', fn ($query) => $query->where('name', 'like', "%{$value}%"));
+        return $this->where('name', 'like', "%{$search}%")
+            ->orWhereRelation('department', 'departments.name', 'like', "%{$search}%");
     }
 }

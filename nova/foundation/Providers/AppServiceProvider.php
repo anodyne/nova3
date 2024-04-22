@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Providers;
 
+use Awcodes\Scribble\Facades\ScribbleFacade;
 use Carbon\CarbonImmutable;
 use Filament\Notifications\Notification as FilamentNotification;
 use Filament\Support\Facades\FilamentColor;
 use Filament\Support\Facades\FilamentIcon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use FilamentTiptapEditor\TiptapEditor;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Console\AboutCommand;
@@ -21,12 +23,15 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use Illuminate\View\DynamicComponent;
 use Illuminate\View\Factory as ViewFactory;
 use Livewire\Livewire;
+use Nova\Foundation\Blocks\BlockManager;
 use Nova\Foundation\Environment\Environment;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Icons\IconSets;
 use Nova\Foundation\Icons\TablerIconSet;
+use Nova\Foundation\Livewire\AdvancedColorPicker;
 use Nova\Foundation\Livewire\ColorShadePicker;
 use Nova\Foundation\Livewire\ConfirmationModal;
 use Nova\Foundation\Livewire\Editor;
@@ -37,9 +42,11 @@ use Nova\Foundation\Nova;
 use Nova\Foundation\NovaBladeDirectives;
 use Nova\Foundation\NovaManager;
 use Nova\Foundation\Responses\FiltersManager;
+use Nova\Foundation\View\Compilers\BladeCompiler;
 use Nova\Foundation\View\Components\EmailLayout;
 use Nova\Foundation\View\Components\Tips;
 use Nova\Navigation\Models\Navigation;
+use Nova\Pages\Blocks;
 use Nova\Settings\Models\Settings;
 
 class AppServiceProvider extends ServiceProvider
@@ -48,7 +55,20 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->registerNovaSingleton();
         $this->registerResponseFilters();
-        $this->registerFilamentBindings();
+        // $this->registerFilamentBindings();
+        $this->registerBlocks();
+
+        $this->app->extend('blade.compiler', function ($compiler, $app) {
+            return tap(new BladeCompiler(
+                $app['files'],
+                $app['config']['view.compiled'],
+                $app['config']->get('view.relative_hash', false) ? $app->basePath() : '',
+                $app['config']->get('view.cache', true),
+                $app['config']->get('view.compiled_extension', 'php'),
+            ), function ($blade) {
+                $blade->component('dynamic-component', DynamicComponent::class);
+            });
+        });
     }
 
     public function boot(): void
@@ -78,8 +98,7 @@ class AppServiceProvider extends ServiceProvider
         $this->updateAboutCommand();
         $this->setupFactories();
         $this->registerIcons();
-        $this->registerBladeDirectives();
-        $this->registerBladeComponents();
+        $this->setupBlade();
 
         if (Nova::isInstalled()) {
             // cache()->rememberForever(
@@ -122,17 +141,18 @@ class AppServiceProvider extends ServiceProvider
         $this->app->scoped(IconSets::class, fn () => $iconSets);
     }
 
-    protected function registerBladeComponents()
+    protected function setupBlade(): void
     {
+        Blade::anonymousComponentPath(resource_path('views/public-components'), 'public');
+
         Blade::component('tips', Tips::class);
         Blade::component('email-layout', EmailLayout::class);
-    }
 
-    protected function registerBladeDirectives()
-    {
         Blade::directive('icon', [NovaBladeDirectives::class, 'icon']);
-        Blade::directive('novaScripts', [NovaBladeDirectives::class, 'novaScripts']);
-        Blade::directive('novaStyles', [NovaBladeDirectives::class, 'novaStyles']);
+        Blade::directive('novaAdminScripts', [NovaBladeDirectives::class, 'novaAdminScripts']);
+        Blade::directive('novaAdminStyles', [NovaBladeDirectives::class, 'novaAdminStyles']);
+        Blade::directive('novaPublicScripts', [NovaBladeDirectives::class, 'novaPublicScripts']);
+        Blade::directive('novaPublicStyles', [NovaBladeDirectives::class, 'novaPublicStyles']);
     }
 
     protected function registerLivewireComponents()
@@ -141,6 +161,7 @@ class AppServiceProvider extends ServiceProvider
         Livewire::component('rating', Rating::class);
         Livewire::component('icon-picker', IconPicker::class);
         Livewire::component('color-shade-picker', ColorShadePicker::class);
+        Livewire::component('advanced-color-picker', AdvancedColorPicker::class);
         // Livewire::component('confirmation-modal', ConfirmationModal::class);
     }
 
@@ -168,6 +189,8 @@ class AppServiceProvider extends ServiceProvider
         FilamentColor::addShades('forms::components.toggle.on', [500, 900]);
 
         FilamentIcon::register([
+            'forms::components.repeater.actions.delete' => iconName('trash'),
+            'forms::components.repeater.actions.reorder' => iconName('arrows-sort'),
             'tables::search-field' => iconName('search'),
             'modal.close-button' => iconName('x'),
         ]);
@@ -188,6 +211,10 @@ class AppServiceProvider extends ServiceProvider
                 });
         });
 
+        TiptapEditor::configureUsing(function (TiptapEditor $component) {
+            return $component->blocks($this->app[BlockManager::class]->blocks());
+        });
+
         $this->app->bind(FilamentNotification::class, Notification::class);
     }
 
@@ -195,26 +222,51 @@ class AppServiceProvider extends ServiceProvider
     {
         if (class_exists(AboutCommand::class)) {
             AboutCommand::add('Nova', [
-                'Version' => Nova::getVersion(),
+                'Version' => 'v'.Nova::getVersion(),
             ]);
         }
     }
 
-    protected function registerFilamentBindings(): void
+    protected function registerBlocks(): void
     {
-        $this->app->bind(
-            \Filament\Support\Assets\Js::class,
-            \Nova\Foundation\Filament\Assets\Js::class
-        );
+        $blockManager = new BlockManager();
 
-        $this->app->bind(
-            \Filament\Support\Assets\Css::class,
-            \Nova\Foundation\Filament\Assets\Css::class
-        );
+        $blockManager->registerPageBlocks([
+            Blocks\Hero\ImageTilesHeroBlock::make(),
+            Blocks\Hero\OffsetImageHeroBlock::make(),
+            Blocks\Hero\SplitHeroBlock::make(),
+            Blocks\Hero\StackedHeroBlock::make(),
 
-        $this->app->bind(
-            \Filament\Support\Assets\AlpineComponent::class,
-            \Nova\Foundation\Filament\Assets\AlpineComponent::class
+            Blocks\Stats\SimpleStatsBlock::make(),
+            Blocks\Stats\SplitStatsBlock::make(),
+
+            Blocks\CallToAction\SimpleCallToActionBlock::make(),
+            Blocks\CallToAction\SplitCallToActionBlock::make(),
+
+            Blocks\Features\GridFeatureBlock::make(),
+            Blocks\Features\CardsFeatureBlock::make(),
+            Blocks\Features\AlternatingFeatureBlock::make(),
+
+            Blocks\Logos\SimpleLogosBlock::make(),
+            Blocks\Logos\SplitLogosBlock::make(),
+
+            Blocks\Content\FreeformContentBlock::make(),
+
+            Blocks\Stories\AlternatingStoriesBlock::make(),
+
+            Blocks\Manifest\ManifestBlock::make(),
+
+            Blocks\ContentRatings\CardsContentRatingsBlock::make(),
+            Blocks\ContentRatings\GridContentRatingsBlock::make(),
+            Blocks\ContentRatings\SplitContentRatingsBlock::make(),
+        ]);
+
+        $blockManager->registerFormBlocks([]);
+
+        $this->app->scoped(BlockManager::class, fn () => $blockManager);
+
+        ScribbleFacade::registerTools(
+            $this->app[BlockManager::class]->blocks()->toArray()
         );
     }
 }

@@ -24,7 +24,8 @@ class RestoreBulkAction extends FilamentRestoreBulkAction
         $this->modalIcon(null);
         $this->modalHeading('');
         $this->modalDescription(null);
-        $this->modalSubmitActionLabel('Restore');
+        $this->modalSubmitActionLabel('Yes, restore them');
+        $this->modalCancelActionLabel('No, keep them deleted');
         $this->modalContent(fn (Collection $records): View => view($this->modalContentView, [
             'records' => $records,
         ]));

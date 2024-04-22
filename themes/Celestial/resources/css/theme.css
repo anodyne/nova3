@@ -1,0 +1,5 @@
+@config "./tailwind.celestial.config.js";
+
+html {
+    @apply bg-[--bgColor];
+}

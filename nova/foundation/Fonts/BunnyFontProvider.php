@@ -9,14 +9,16 @@ use Illuminate\Support\HtmlString;
 
 class BunnyFontProvider implements Contracts\FontProvider
 {
-    public function getHtml(string $family, ?string $url = null): Htmlable
+    public function getFontHtml(string $family, ?string $url = null): Htmlable
     {
         $family = str($family)->kebab();
         $url ??= "https://fonts.bunny.net/css?family={$family}:400,500,600,700,800,900&display=swap";
 
-        return new HtmlString("
-            <link rel=\"preconnect\" href=\"https://fonts.bunny.net\">
-            <link href=\"{$url}\" rel=\"stylesheet\">
-        ");
+        return new HtmlString("<link href=\"{$url}\" rel=\"stylesheet\">");
+    }
+
+    public function getPreconnectHtml(): ?Htmlable
+    {
+        return new HtmlString('<link rel="preconnect" href="https://fonts.bunny.net">');
     }
 }

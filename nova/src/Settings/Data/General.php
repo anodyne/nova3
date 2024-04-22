@@ -18,6 +18,7 @@ class General extends Data implements Arrayable
         public string $gameName = '',
         public string $dateFormat = '',
         public string $dateFormatTags = '',
+        public array $updateSeverity = [],
     ) {
     }
 
@@ -75,15 +76,12 @@ class General extends Data implements Arrayable
         return $this->dateFormatTokens(fn ($values) => [(object) Arr::only($values, ['value', 'text'])])->all();
     }
 
-    public static function prepareForPipeline(Collection $properties): Collection
+    public static function prepareForPipeline(array $properties): array
     {
-        $properties->put(
-            'dateFormat',
-            preg_replace(
-                '/(\[\[{"value":"(#.+#)","text":".*"}\]\])/miU',
-                '$2',
-                $properties->only('dateFormatTags')->first()
-            )
+        $properties['dateFormat'] = preg_replace(
+            '/(\[\[{"value":"(#.+#)","text":".*"}\]\])/miU',
+            '$2',
+            $properties['dateFormatTags']
         );
 
         return $properties;

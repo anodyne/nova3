@@ -5,11 +5,14 @@ declare(strict_types=1);
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Nova\Media\Livewire\UploadImage;
+use Nova\Settings\Enums\AvatarShape;
+use Nova\Settings\Enums\AvatarStyle;
 
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\from;
 use function Pest\Laravel\get;
 use function Pest\Laravel\put;
+use function Pest\Laravel\withoutExceptionHandling;
 use function Pest\Livewire\livewire;
 use function PHPUnit\Framework\assertCount;
 
@@ -26,21 +29,26 @@ describe('authorized user', function () {
     });
 
     it('can update appearance settings', function () {
+        withoutExceptionHandling();
+
         from(route('settings.appearance.edit'))
             ->followingRedirects()
             ->put(route('settings.appearance.update'), [
                 'theme' => 'Pulsar',
-                'icon_set' => 'tabler',
-                'font_provider' => 'local',
-                'font_family' => 'Inter',
+                'admin_fonts' => [
+                    'headerProvider' => 'local',
+                    'headerFamily' => 'Inter',
+                    'bodyProvider' => 'local',
+                    'bodyFamily' => 'Inter',
+                ],
                 'colors_gray' => 'Zinc',
                 'colors_primary' => 'Violet',
                 'colors_success' => 'Lime',
                 'colors_danger' => 'Red',
                 'colors_warning' => 'Yellow',
                 'colors_info' => 'Blue',
-                'avatar_shape' => 'square',
-                'avatar_style' => 'rings',
+                'avatar_shape' => AvatarShape::Square->value,
+                'avatar_style' => AvatarStyle::Rings->value,
                 'panda' => '0',
             ])
             ->assertSuccessful();
@@ -48,7 +56,6 @@ describe('authorized user', function () {
         assertDatabaseHas('settings', [
             'key' => 'custom',
             'appearance->theme' => 'Pulsar',
-            'appearance->iconSet' => 'tabler',
             'appearance->colorsGray' => 'Zinc',
             'appearance->colorsPrimary' => 'Violet',
             'appearance->colorsSuccess' => 'Lime',
@@ -57,8 +64,10 @@ describe('authorized user', function () {
             'appearance->colorsInfo' => 'Blue',
             'appearance->avatarShape' => 'square',
             'appearance->avatarStyle' => 'rings',
-            'appearance->fontProvider' => 'local',
-            'appearance->fontFamily' => 'Inter',
+            'appearance->adminFonts->headerProvider' => 'local',
+            'appearance->adminFonts->headerFamily' => 'Inter',
+            'appearance->adminFonts->bodyProvider' => 'local',
+            'appearance->adminFonts->bodyFamily' => 'Inter',
             'appearance->panda' => false,
         ]);
     });
@@ -73,9 +82,12 @@ describe('authorized user', function () {
 
         $data = [
             'theme' => 'Pulsar',
-            'icon_set' => 'tabler',
-            'font_provider' => 'local',
-            'font_family' => 'Inter',
+            'admin_fonts' => [
+                'headerProvider' => 'local',
+                'headerFamily' => 'Inter',
+                'bodyProvider' => 'local',
+                'bodyFamily' => 'Inter',
+            ],
             'colors_gray' => 'Zinc',
             'colors_primary' => 'Violet',
             'colors_success' => 'Lime',
@@ -106,9 +118,12 @@ describe('authorized user', function () {
 
         $data = [
             'theme' => 'Pulsar',
-            'icon_set' => 'tabler',
-            'font_provider' => 'local',
-            'font_family' => 'Inter',
+            'admin_fonts' => [
+                'headerProvider' => 'local',
+                'headerFamily' => 'Inter',
+                'bodyProvider' => 'local',
+                'bodyFamily' => 'Inter',
+            ],
             'colors_gray' => 'Zinc',
             'colors_primary' => 'Violet',
             'colors_success' => 'Lime',
@@ -134,9 +149,12 @@ describe('authorized user', function () {
 
         $data = [
             'theme' => 'Pulsar',
-            'icon_set' => 'tabler',
-            'font_provider' => 'local',
-            'font_family' => 'Inter',
+            'admin_fonts' => [
+                'headerProvider' => 'local',
+                'headerFamily' => 'Inter',
+                'bodyProvider' => 'local',
+                'bodyFamily' => 'Inter',
+            ],
             'colors_gray' => 'Zinc',
             'colors_primary' => 'Violet',
             'colors_success' => 'Lime',

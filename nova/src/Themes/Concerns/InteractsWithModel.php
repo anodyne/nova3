@@ -12,8 +12,6 @@ trait InteractsWithModel
 
     public $credits;
 
-    public $iconSet;
-
     public $layoutAuth;
 
     public $layoutAdmin;

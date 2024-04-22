@@ -8,17 +8,17 @@
         <meta name="theme-color" content="#0091ff" media="(prefers-color-scheme: dark)" />
         <title>{{ config('app.name', 'Nova NextGen') }}</title>
 
-        <x-fonts />
+        <x-fonts section="admin" />
 
         @livewireStyles
         @filamentStyles
-        @novaStyles
+        @novaAdminStyles
         @stack('styles')
 
         @stack('headScripts')
     </head>
     <body
-        class="h-full bg-white font-sans text-gray-600 antialiased xl:bg-gray-100 dark:bg-gray-950 dark:text-gray-400 dark:xl:bg-gray-950"
+        class="h-full bg-white font-[family-name:--font-body] text-gray-600 antialiased xl:bg-gray-100 dark:bg-gray-950 dark:text-gray-400 dark:xl:bg-gray-950"
     >
         <div id="nova">
             <div class="relative flex min-h-screen flex-col bg-gray-100">
@@ -203,9 +203,8 @@
             </div>
         </div>
 
-        @livewireScripts
-        @filamentScripts
-        @novaScripts
+        @filamentScripts(withCore: true)
+        @novaAdminScripts
         @stack('scripts')
     </body>
 </html>

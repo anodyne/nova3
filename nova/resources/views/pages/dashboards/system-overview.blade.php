@@ -38,10 +38,10 @@
         @if (version_compare($filesVersion, $serverVersion, '!='))
             <div class="w-full max-w-2xl">
                 <x-panel well>
-                    <x-spacing size="sm">
-                        <div class="flex items-center justify-between">
-                            <x-fieldset.legend>Nova {{ $serverVersion }}</x-fieldset.legend>
+                    <x-panel.well-heading>
+                        <x-slot name="heading">Nova {{ $serverVersion }}</x-slot>
 
+                        <x-slot name="controls">
                             <x-dropdown placement="bottom-end">
                                 <x-slot name="trigger" color="neutral">Ignore this update</x-slot>
 
@@ -64,8 +64,8 @@
                                     </x-dropdown.item>
                                 </x-dropdown.group>
                             </x-dropdown>
-                        </div>
-                    </x-spacing>
+                        </x-slot>
+                    </x-panel.well-heading>
 
                     <x-spacing size="2xs">
                         <x-panel>
@@ -105,28 +105,37 @@
 
         <div class="grid gap-8 lg:grid-cols-2">
             <x-panel well>
-                <x-spacing size="sm">
-                    <div class="flex items-center justify-between">
-                        <x-fieldset.legend>Environment</x-fieldset.legend>
-                    </div>
-                </x-spacing>
+                <x-panel.well-heading heading="Environment"></x-panel.well-heading>
 
                 <x-spacing size="2xs">
                     <x-panel>
                         <x-spacing size="md">
                             <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
                                 <div
-                                    class="flex flex-col gap-y-2 rounded-md bg-gray-950/[.04] p-3 lg:col-span-2 dark:bg-white/[.04]"
+                                    class="flex flex-col gap-y-2 rounded-md bg-gray-950/[.04] p-3 dark:bg-white/[.04] lg:col-span-2"
                                 >
-                                    <x-icon name="tabler-world" size="lg"></x-icon>
-                                    <x-fieldset.label>URL</x-fieldset.label>
+                                    <div class="flex justify-between">
+                                        <div class="flex flex-col gap-y-2">
+                                            <x-icon name="tabler-world" size="lg"></x-icon>
+                                            <x-fieldset.label>URL</x-fieldset.label>
+                                        </div>
+                                        @if (! str(config('app.url'))->startsWith('https'))
+                                            <div
+                                                class="relative text-danger-600 dark:text-danger-500"
+                                                x-tooltip.raw="Your site is missing an SSL certificate. If you have added an SSL certificate, please update your ENV file."
+                                            >
+                                                <x-icon name="lock-open" size="sm"></x-icon>
+                                            </div>
+                                        @endif
+                                    </div>
+
                                     <p class="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                                        {{ str(config('app.url'))->replace(['http://', 'https://'], '') }}
+                                        {{ str(config('app.url'))->replace('https://', '') }}
                                     </p>
                                 </div>
 
                                 <a
-                                    href="{{ route('settings.general.edit') }}"
+                                    href="{{ route('settings.environment.edit') }}"
                                     @class([
                                         'group relative flex flex-col gap-y-2 rounded-md p-3',
                                         'bg-gray-950/[.04] ring-1 ring-inset ring-transparent transition',
@@ -146,7 +155,7 @@
                                     </p>
                                 </a>
                                 <a
-                                    href="{{ route('settings.general.edit') }}"
+                                    href="{{ route('settings.environment.edit') }}"
                                     @class([
                                         'group relative flex flex-col gap-y-2 rounded-md p-3',
                                         'bg-gray-950/[.04] ring-1 ring-inset ring-transparent transition',
@@ -201,18 +210,14 @@
             </x-panel>
 
             <x-panel well>
-                <x-spacing size="sm">
-                    <div class="flex items-center justify-between">
-                        <x-fieldset.legend>Drivers</x-fieldset.legend>
-                    </div>
-                </x-spacing>
+                <x-panel.well-heading heading="Drivers"></x-panel.well-heading>
 
                 <x-spacing size="2xs">
                     <x-panel>
                         <x-spacing size="md">
                             <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
                                 <div
-                                    class="flex flex-col gap-y-2 rounded-md bg-gray-950/[.04] p-3 lg:col-span-2 dark:bg-white/[.04]"
+                                    class="flex flex-col gap-y-2 rounded-md bg-gray-950/[.04] p-3 dark:bg-white/[.04] lg:col-span-2"
                                 >
                                     <x-icon name="tabler-database" size="lg"></x-icon>
                                     <x-fieldset.label>Database</x-fieldset.label>

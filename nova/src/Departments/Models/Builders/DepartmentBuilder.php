@@ -19,9 +19,9 @@ class DepartmentBuilder extends Builder
         return $this->where('status', DepartmentStatus::inactive);
     }
 
-    public function searchFor($value): self
+    public function searchFor($search): self
     {
-        return $this->where('name', 'like', "%{$value}%")
-            ->orWhereHas('positions', fn (Builder $query): Builder => $query->where('name', 'like', "%{$value}%"));
+        return $this->where('name', 'like', "%{$search}%")
+            ->orWhereRelation('positions', 'positions.name', 'like', "%{$search}%");
     }
 }

@@ -4,12 +4,14 @@
     'initials' => false,
 ])
 
+@use('Nova\Settings\Enums\AvatarShape')
+
 <span
     data-slot="avatar"
     @class([
         'inline-grid align-middle *:col-start-1 *:row-start-1',
-        'rounded-[20%] *:rounded-[20%]' => settings('appearance.avatarShape') === 'square',
-        'rounded-full *:rounded-full' => settings('appearance.avatarShape') === 'circle',
+        'rounded-[20%] *:rounded-[20%]' => settings('appearance.avatarShape') === AvatarShape::Square,
+        'rounded-full *:rounded-full' => settings('appearance.avatarShape') === AvatarShape::Circle,
         match ($size) {
             'xs' => 'size-8',
             'sm' => 'size-10',

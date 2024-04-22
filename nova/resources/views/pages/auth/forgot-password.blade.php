@@ -53,7 +53,7 @@
             </x-panel>
         </x-spacing>
 
-        <x-spacing size="sm">
+        <x-spacing width="sm" top="2xs" bottom="sm">
             <div class="flex items-center justify-center">
                 <x-button href="/" text>Back home</x-button>
             </div>

@@ -78,6 +78,7 @@
                         class="absolute left-0 top-0 -ml-8 flex pr-2 pt-6 sm:-ml-10 sm:pr-4"
                     >
                         <button
+                            type="button"
                             x-on:click="open = false"
                             class="rounded-md text-gray-500 transition duration-200 ease-in-out hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
                         >

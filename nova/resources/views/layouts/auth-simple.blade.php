@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('layout')
-    <div class="flex min-h-screen flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <x-spacing size="xl" class="flex min-h-screen flex-col justify-center">
         <div class="relative z-10 sm:mx-auto sm:w-full sm:max-w-md">
             @if (app('nova.settings')->getFirstMedia('logo'))
                 <div>
@@ -23,5 +23,5 @@
         <div class="z-10 mt-8 sm:mx-auto sm:w-full sm:max-w-md">
             @yield('content')
         </div>
-    </div>
+    </x-spacing>
 @endsection

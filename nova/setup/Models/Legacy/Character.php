@@ -15,4 +15,9 @@ class Character extends Model
     protected $table = 'characters';
 
     protected $primaryKey = 'charid';
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user', 'userid');
+    }
 }

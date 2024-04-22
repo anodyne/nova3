@@ -8,6 +8,7 @@ import DateFormatPicker from './components/date-format-picker';
 import Modal from './components/modal';
 import Ratings from './components/ratings';
 import TabsList from './components/tabs-list';
+import TailwindScaleRange from './components/tailwind-scale-range';
 import TipTap from './components/tiptap';
 import SwitchToggle from './components/switch-toggle';
 import WordCount from './components/word-count';
@@ -20,6 +21,7 @@ document.addEventListener('alpine:init', () => {
     window.Alpine.data('modal', Modal);
     window.Alpine.data('ratings', Ratings);
     window.Alpine.data('tabsList', TabsList);
+    window.Alpine.data('tailwindScaleRange', TailwindScaleRange);
     window.Alpine.data('tiptap', TipTap);
     window.Alpine.data('switchToggle', SwitchToggle);
     window.Alpine.data('wordCount', WordCount);

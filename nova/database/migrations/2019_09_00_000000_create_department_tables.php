@@ -17,6 +17,7 @@ class CreateDepartmentTables extends Migration
             $table->text('description')->nullable();
             $table->unsignedInteger('order_column')->nullable();
             $table->string('status')->default(DepartmentStatus::active->value);
+            $table->json('tags')->nullable();
             $table->timestamps();
         });
     }
