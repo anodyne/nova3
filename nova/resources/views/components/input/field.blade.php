@@ -7,7 +7,7 @@
 
 <div
     @class([
-        'group relative flex w-full items-center space-x-2 rounded-md bg-white px-3 py-2.5 shadow-sm ring-1 ring-inset transition focus-within:ring-2 focus-within:ring-inset dark:bg-opacity-5',
+        'group relative flex w-full items-center space-x-2 rounded-lg bg-white px-3 py-2.5 shadow-sm ring-1 ring-inset transition focus-within:ring-2 focus-within:ring-inset dark:bg-opacity-5',
         'ring-gray-300 focus-within:ring-primary-600 dark:ring-white/10 dark:focus-within:ring-primary-500' => ! $error,
         'ring-danger-600 focus-within:ring-danger-600 dark:ring-danger-500 dark:focus-within:ring-danger-500' => $error,
     ])
