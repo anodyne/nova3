@@ -95,8 +95,8 @@
             </x-text>
             <x-text class="mt-4">
                 If you’re having issues with Nova, you can use the button below to copy the diagnostic information and
-                paste it into a Discord thread in the support channel. This will potentially help the support staff
-                immensely with resolving any issue.
+                paste it into a Discord thread in the support channel. This can potentially help the support staff with
+                resolving issues you may be having.
             </x-text>
             <div class="mt-6 flex items-center gap-x-4">
                 <livewire:copy-diagnostic-data-button />
