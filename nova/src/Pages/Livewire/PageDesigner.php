@@ -27,7 +27,7 @@ class PageDesigner extends FormComponent
             ->schema([
                 ScribbleEditor::make('blocks')
                     ->label('')
-                    ->helperText("Type '/' to show a list of available to blocks to add to your page")
+                    ->helperText("Type '/' to show a list of available blocks to add to your page")
                     ->profile(PageBuilderProfile::class),
             ])
             ->statePath('data')
@@ -41,7 +41,7 @@ class PageDesigner extends FormComponent
 
         Notification::make()->success()
             ->title('Page design has been updated')
-            ->body('This is an in progress draft and is not availble for visitors and users to see until you have published it.')
+            ->body('This is an in progress draft and is not available for visitors and users to see until you have published it.')
             ->send();
     }
 
