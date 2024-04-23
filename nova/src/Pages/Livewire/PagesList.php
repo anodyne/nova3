@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Livewire;
 
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Set;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
@@ -24,15 +24,13 @@ use Nova\Foundation\Filament\Actions\ReplicateAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
+use Nova\Pages\Actions\DeletePage;
+use Nova\Pages\Actions\DuplicatePage;
+use Nova\Pages\Data\PageData;
 use Nova\Pages\Enums\PageStatus;
 use Nova\Pages\Enums\PageVerb;
+use Nova\Pages\Events\PageDuplicated;
 use Nova\Pages\Models\Page;
-use Nova\Stories\Actions\DeletePostType;
-use Nova\Stories\Actions\DuplicatePostType;
-use Nova\Stories\Actions\MovePostTypePosts;
-use Nova\Stories\Data\PostTypeData;
-use Nova\Stories\Events\PostTypeDuplicated;
-use Nova\Stories\Models\PostType;
 
 class PagesList extends TableComponent
 {
@@ -72,22 +70,35 @@ class PagesList extends TableComponent
                     ->toggleable(),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (Model $record): string => $record->status->color())
+                    ->color(fn (Page $record): string => $record->status->color())
                     ->toggleable(),
             ])
             ->actions([
                 ActionGroup::make([
                     ActionGroup::make([
+                        Action::make('visit')
+                            ->icon(iconName('www'))
+                            ->label('Live page')
+                            ->url(fn (Page $record): string => url($record->uri))
+                            ->visible(fn (Page $record): bool => filled($record->published_blocks)),
+                        Action::make('preview')
+                            ->icon(iconName('www-preview'))
+                            ->label('Preview page')
+                            ->url(fn (Page $record): string => url($record->uri))
+                            ->visible(fn (Page $record): bool => $record->is_previewable),
+                    ])->divided(),
+
+                    ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (Model $record): string => route('pages.show', $record)),
+                            ->url(fn (Page $record): string => route('pages.show', $record)),
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (Model $record): string => route('pages.edit', $record)),
+                            ->url(fn (Page $record): string => route('pages.edit', $record)),
                         Action::make('design')
                             ->authorize('design')
                             ->icon(iconName('tools'))
-                            ->url(fn (Model $record): string => route('pages.design', $record)),
+                            ->url(fn (Page $record): string => route('pages.design', $record)),
                     ])->authorizeAny(['view', 'update', 'design'])->divided(),
 
                     ActionGroup::make([
@@ -95,23 +106,29 @@ class PagesList extends TableComponent
                             ->authorize('duplicate')
                             ->modalContentView('pages.pages.duplicate')
                             ->form([
-                                TextInput::make('name')->label('Page name'),
+                                TextInput::make('name')
+                                    ->live()
+                                    ->debounce(750)
+                                    ->afterStateUpdated(fn (Set $set, string $state) => $set('key', str($state)->slug())),
+                                TextInput::make('uri')->label('URI'),
+                                TextInput::make('key')
+                                    ->helperText('The key must be a unique value to identify the page'),
                             ])
-                            ->action(function (Model $record, array $data): void {
-                                $postTypeData = PostTypeData::from([
-                                    'name' => $name = data_get($data, 'name'),
-                                    'key' => str($name)->slug(),
-                                    'fields' => $record->fields,
-                                    'options' => $record->options,
-                                    'visibility' => $record->visibility,
+                            ->action(function (Page $record, array $data): void {
+                                $pageData = PageData::from([
+                                    'name' => data_get($data, 'name'),
+                                    'key' => data_get($data, 'key'),
+                                    'uri' => data_get($data, 'uri'),
+                                    'verb' => $record->verb,
+                                    'resource' => $record->resource,
                                 ]);
 
-                                $replica = DuplicatePostType::run($record, $postTypeData);
+                                $replica = DuplicatePage::run($record, $pageData);
 
-                                PostTypeDuplicated::dispatch($replica, $record);
+                                PageDuplicated::dispatch($replica, $record);
 
                                 Notification::make()->success()
-                                    ->title("{$replica->name} post type has been created")
+                                    ->title("{$replica->name} page has been created")
                                     ->send();
                             }),
                     ])->authorize('duplicate')->divided(),
@@ -120,35 +137,12 @@ class PagesList extends TableComponent
                         DeleteAction::make()
                             ->authorize('delete')
                             ->modalContentView('pages.pages.delete')
-                            ->form(function (Model $record): ?array {
-                                if ($record->posts_count === 0) {
-                                    return null;
-                                }
-
-                                return [
-                                    Select::make('new_post_type')
-                                        ->placeholder('Do not move posts to a new post type')
-                                        ->options(PostType::where('id', '!=', $record->id)->pluck('name', 'id')),
-                                ];
-                            })
-                            ->action(function (Model $record, array $data): void {
-                                if ($newPostTypeId = data_get($data, 'new_post_type')) {
-                                    MovePostTypePosts::run(
-                                        $record,
-                                        $newPostType = PostType::find($newPostTypeId)
-                                    );
-
-                                    $record->refresh();
-                                }
-
-                                DeletePostType::run($record);
+                            ->action(function (Page $record): void {
+                                DeletePage::run($record);
 
                                 Notification::make()->success()
-                                    ->title($record->name.' post type was deleted')
-                                    ->when(
-                                        isset($newPostType),
-                                        fn (Notification $notification) => $notification->body('All posts have been re-assigned to the '.$newPostType->name.' post type.')
-                                    );
+                                    ->title($record->name.' page was deleted')
+                                    ->send();
                             }),
                     ])->authorize('delete')->divided(),
                 ]),
@@ -156,12 +150,12 @@ class PagesList extends TableComponent
             ->groupedBulkActions([
                 DeleteBulkAction::make()
                     ->authorize('deleteAny')
-                    ->modalContentView('pages.post-types.delete-bulk')
+                    ->modalContentView('pages.pages.delete-bulk')
                     ->action(function (Collection $records): void {
                         $ignoredRecords = 0;
 
                         $records = $records
-                            ->filter(function (Model $record) use (&$ignoredRecords): bool {
+                            ->filter(function (Page $record) use (&$ignoredRecords): bool {
                                 if (Gate::allows('delete', $record)) {
                                     return true;
                                 }
@@ -170,10 +164,10 @@ class PagesList extends TableComponent
 
                                 return false;
                             })
-                            ->each(fn (Model $record): Model => DeletePostType::run($record));
+                            ->each(fn (Page $record): Model => DeletePage::run($record));
 
                         Notification::make()->success()
-                            ->title(count($records).' '.trans_choice('post type was|post types were', count($records)).' deleted')
+                            ->title(count($records).' '.trans_choice('page was|pages were', count($records)).' deleted')
                             ->when($ignoredRecords > 0, function (Notification $notification) use ($ignoredRecords) {
                                 return $notification->body(sprintf(
                                     '%d %s ignored due to being ineligible for this action.',

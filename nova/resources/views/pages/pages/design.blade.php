@@ -17,12 +17,12 @@
             @endcan
 
             <x-button :href="route('preview-basic-page', $page->key)">
-                <x-icon name="show"></x-icon>
+                <x-icon name="www-preview" size="sm"></x-icon>
                 Preview page
             </x-button>
 
             <x-button :href="url($page->uri)">
-                <x-icon name="www"></x-icon>
+                <x-icon name="www" size="sm"></x-icon>
                 Visit live page
             </x-button>
         </x-slot>

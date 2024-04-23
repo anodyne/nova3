@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Pages\Enums\PageStatus;
 use Nova\Pages\Enums\PageVerb;
+use Nova\Pages\Events;
 use Nova\Pages\Models\Collections\PagesCollection;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -30,6 +31,12 @@ class Page extends Model implements HasMedia
         'verb' => PageVerb::class,
     ];
 
+    protected $dispatchesEvents = [
+        'created' => Events\PageCreated::class,
+        'deleted' => Events\PageDeleted::class,
+        'updated' => Events\PageUpdated::class,
+    ];
+
     public function isAdvanced(): Attribute
     {
         return Attribute::make(
@@ -41,6 +48,23 @@ class Page extends Model implements HasMedia
     {
         return Attribute::make(
             get: fn (): bool => $this->resource === null
+        );
+    }
+
+    public function isPreviewable(): Attribute
+    {
+        return Attribute::make(
+            get: function (): bool {
+                if (filled($this->blocks) && blank($this->published_blocks)) {
+                    return true;
+                }
+
+                if ($this->blocks !== $this->published_blocks) {
+                    return true;
+                }
+
+                return false;
+            }
         );
     }
 
