@@ -30,15 +30,15 @@
         <x-form action="">
             <x-fieldset>
                 <x-fieldset.field-group>
-                    <div>
+                    <x-fieldset.field>
                         <x-fieldset.label>Rank group</x-fieldset.label>
                         <x-text>{{ $item?->group?->name }}</x-text>
-                    </div>
+                    </x-fieldset.field>
 
-                    <div>
+                    <x-fieldset.field>
                         <x-fieldset.label>Rank name</x-fieldset.label>
                         <x-text>{{ $item?->name?->name }}</x-text>
-                    </div>
+                    </x-fieldset.field>
                 </x-fieldset.field-group>
             </x-fieldset>
 
