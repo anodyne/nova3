@@ -84,7 +84,7 @@ class PagesList extends TableComponent
                         Action::make('preview')
                             ->icon(iconName('www-preview'))
                             ->label('Preview page')
-                            ->url(fn (Page $record): string => url($record->uri))
+                            ->url(fn (Page $record): string => route('preview-basic-page', $record->key))
                             ->visible(fn (Page $record): bool => $record->is_previewable),
                     ])->divided(),
 
