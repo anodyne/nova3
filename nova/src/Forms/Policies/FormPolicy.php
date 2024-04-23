@@ -43,14 +43,14 @@ class FormPolicy
 
     public function delete(User $user, Form $form): Response
     {
-        return $user->isAbleTo('form.delete') && ! $form->locked
+        return $user->isAbleTo('form.delete') && ! $form->is_locked
             ? $this->allow()
             : $this->deny();
     }
 
     public function duplicate(User $user, Form $form): Response
     {
-        return $user->isAbleTo('form.create') && $user->isAbleTo('form.update') && ! $form->locked
+        return $user->isAbleTo('form.create') && $user->isAbleTo('form.update') && ! $form->is_locked
             ? $this->allow()
             : $this->deny();
     }

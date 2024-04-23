@@ -64,7 +64,7 @@ class PopulateFormTables extends Migration
         $form = Form::create([
             'name' => 'Character form',
             'key' => 'character',
-            'locked' => true,
+            'is_locked' => true,
         ]);
 
         $form->blocks()->attach([
@@ -79,7 +79,7 @@ class PopulateFormTables extends Migration
         $form = Form::create([
             'name' => 'User form',
             'key' => 'user',
-            'locked' => true,
+            'is_locked' => true,
         ]);
 
         $form->blocks()->attach([
@@ -94,7 +94,7 @@ class PopulateFormTables extends Migration
         $form = Form::create([
             'name' => 'Application form',
             'key' => 'application',
-            'locked' => true,
+            'is_locked' => true,
         ]);
 
         $form->blocks()->attach([

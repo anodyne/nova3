@@ -4,26 +4,18 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Data;
 
-use Illuminate\Http\Request;
+use Spatie\LaravelData\Attributes\MapName;
 use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 
+#[MapName(SnakeCaseMapper::class)]
 class FormData extends Data
 {
     public function __construct(
         public string $name,
         public string $key,
         public ?string $description,
-        public bool $locked,
+        public bool $isLocked,
     ) {
-    }
-
-    public static function fromRequest(Request $request): static
-    {
-        return new self(
-            locked: false,
-            description: $request->input('description'),
-            key: $request->input('key'),
-            name: $request->input('name'),
-        );
     }
 }

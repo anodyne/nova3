@@ -15,6 +15,16 @@
             @can('viewAny', $form::class)
                 <x-button :href="route('forms.index')" plain>&larr; Back</x-button>
             @endcan
+
+            <x-button>
+                <x-icon name="form-preview" size="sm"></x-icon>
+                Preview form
+            </x-button>
+
+            <x-button>
+                <x-icon name="form" size="sm"></x-icon>
+                View live form
+            </x-button>
         </x-slot>
     </x-page-header>
 
@@ -25,5 +35,5 @@
         </x-panel.primary>
     </div>
 
-    <livewire:forms-designer :form="$form" />
+    <livewire:forms-designer :nova-form="$form" />
 @endsection

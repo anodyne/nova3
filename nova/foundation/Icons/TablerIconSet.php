@@ -58,6 +58,7 @@ class TablerIconSet extends IconSet
             'folder' => 'tabler-folder',
             'forbid' => 'tabler-forbid-2',
             'form' => 'tabler-forms',
+            'form-preview' => 'tabler-input-search',
             'globe' => 'tabler-world',
             'heart' => 'tabler-heart',
             'help' => 'tabler-help-square-rounded',

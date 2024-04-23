@@ -13,13 +13,9 @@ class FormDuplicated
     use Dispatchable;
     use SerializesModels;
 
-    public Form $original;
-
-    public Form $form;
-
-    public function __construct(Form $form, Form $original)
-    {
-        $this->original = $original;
-        $this->form = $form;
+    public function __construct(
+        public Form $form,
+        public Form $original
+    ) {
     }
 }

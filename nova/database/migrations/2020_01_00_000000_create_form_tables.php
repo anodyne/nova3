@@ -19,9 +19,12 @@ class CreateFormTables extends Migration
             $table->string('name');
             $table->string('key')->unique();
             $table->text('description')->nullable();
-            $table->boolean('locked')->default(false);
+            $table->boolean('is_locked')->default(false);
+            $table->longText('fields')->nullable();
+            $table->longText('published_fields')->nullable();
             $table->json('settings')->nullable();
             $table->string('status')->default(FormStatus::active->value);
+            $table->dateTime('published_at')->nullable();
             $table->timestamps();
 
             $table->index(['name', 'key']);

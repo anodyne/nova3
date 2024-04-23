@@ -5,18 +5,17 @@ declare(strict_types=1);
 namespace Nova\Forms\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Forms\Data\FormData;
 use Nova\Forms\Models\Form;
 
-class UpdateForm
+class PublishForm
 {
     use AsAction;
 
-    public function handle(Form $form, FormData $data): Form
+    public function handle(Form $form): Form
     {
-        $form->update(
-            $data->exceptWhen('key', $form->is_locked)->all()
-        );
+        $form->published_blocks = $form->blocks;
+        $form->published_at = now();
+        $form->save();
 
         return $form->refresh();
     }

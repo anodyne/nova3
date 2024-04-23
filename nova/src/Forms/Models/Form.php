@@ -18,7 +18,10 @@ class Form extends Model
     use LogsActivity;
 
     protected $casts = [
-        'locked' => 'boolean',
+        'is_locked' => 'boolean',
+        'fields' => 'array',
+        'published_at' => 'datetime',
+        'published_fields' => 'array',
         'status' => FormStatus::class,
     ];
 

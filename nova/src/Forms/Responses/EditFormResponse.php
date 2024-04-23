@@ -6,9 +6,9 @@ namespace Nova\Forms\Responses;
 
 use Nova\Foundation\Responses\Responsable;
 
-class ShowAllFormsResponse extends Responsable
+class EditFormResponse extends Responsable
 {
     public ?string $subnav = 'system';
 
-    public string $view = 'forms.index';
+    public string $view = 'forms.edit';
 }

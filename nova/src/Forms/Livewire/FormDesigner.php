@@ -7,17 +7,17 @@ namespace Nova\Forms\Livewire;
 use Awcodes\Scribble\ScribbleEditor;
 use Filament\Forms\Form;
 use Illuminate\Support\Facades\Cache;
-use Livewire\Attributes\On;
+use Nova\Forms\Actions\PublishForm;
+use Nova\Forms\Actions\UpdateForm;
+use Nova\Forms\Data\FormData;
+use Nova\Forms\Models\Form as NovaForm;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\FormComponent;
-use Nova\Foundation\Scribble\Profiles\PageBuilderProfile;
-use Nova\Pages\Actions\PublishPage;
-use Nova\Pages\Actions\UpdatePage;
-use Nova\Pages\Models\Page;
+use Nova\Foundation\Scribble\Profiles\FormBuilderProfile;
 
 class FormDesigner extends FormComponent
 {
-    public Page $page;
+    public NovaForm $novaForm;
 
     protected string $view = 'pages.forms.livewire.form-designer';
 
@@ -25,40 +25,40 @@ class FormDesigner extends FormComponent
     {
         return $form
             ->schema([
-                ScribbleEditor::make('blocks')
+                ScribbleEditor::make('fields')
                     ->label('')
-                    ->helperText("Type '/' to show a list of available to blocks to add to your page")
-                    ->profile(PageBuilderProfile::class),
+                    ->helperText("Type '/' to show a list of available fields to add to your form")
+                    ->profile(FormBuilderProfile::class)
+                    ->renderToolbar(),
             ])
             ->statePath('data')
-            ->model($this->page);
+            ->model($this->novaForm);
     }
 
-    #[On('saved-scribble-modal')]
     public function save(): void
     {
-        UpdatePage::run($this->page, $this->form->getState());
+        UpdateForm::run($this->novaForm, FormData::from($this->form->getState()));
 
         Notification::make()->success()
-            ->title('Page design has been updated')
-            ->body('This is an in progress draft and is not availble for visitors and users to see until you have published it.')
+            ->title('Form design has been updated')
+            ->body('This is an in progress draft and is not available for visitors and users to see and use until you have published it.')
             ->send();
     }
 
     public function publish(): void
     {
-        PublishPage::run($this->page);
+        PublishForm::run($this->novaForm);
 
         Notification::make()->success()
-            ->title('Page design has been published')
-            ->body('This version of the page is now live for all visitors and users to see.')
+            ->title('Form design has been published')
+            ->body('This version of the form is now live for all visitors and users to see and use.')
             ->send();
     }
 
-    public function mount(Page $page): void
+    public function mount(NovaForm $novaForm): void
     {
-        Cache::put('page-designer-page', $page->id);
+        Cache::put('form-designer-form', $novaForm->id);
 
-        $this->form->fill($page->toArray());
+        $this->form->fill($novaForm->toArray());
     }
 }

@@ -29,6 +29,8 @@ class FormsList extends TableComponent
                 TextColumn::make('name')
                     ->titleColumn()
                     ->label('Form name')
+                    ->icon(fn (Form $record): ?string => $record->is_locked ? iconName('lock-closed') : null)
+                    ->iconPosition('after')
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('status')

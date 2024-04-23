@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Requests;
 
-use Nova\Foundation\Http\Requests\ValidatesRequest;
+use Illuminate\Foundation\Http\FormRequest;
+use Nova\Forms\Data\FormData;
 
-class CreateFormRequest extends ValidatesRequest
+class StoreFormRequest extends FormRequest
 {
     public function rules(): array
     {
@@ -15,5 +16,10 @@ class CreateFormRequest extends ValidatesRequest
             'key' => ['required', 'unique:forms'],
             'description' => ['nullable'],
         ];
+    }
+
+    public function getFormData(): FormData
+    {
+        return FormData::from($this);
     }
 }

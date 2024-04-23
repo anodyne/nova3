@@ -26,6 +26,7 @@ use Illuminate\Support\Str;
 use Illuminate\View\DynamicComponent;
 use Illuminate\View\Factory as ViewFactory;
 use Livewire\Livewire;
+use Nova\Forms\Fields;
 use Nova\Foundation\Blocks\BlockManager;
 use Nova\Foundation\Environment\Environment;
 use Nova\Foundation\Filament\Notifications\Notification;
@@ -189,6 +190,7 @@ class AppServiceProvider extends ServiceProvider
         FilamentColor::addShades('forms::components.toggle.on', [500, 900]);
 
         FilamentIcon::register([
+            'forms::components.key-value.actions.delete' => iconName('trash'),
             'forms::components.repeater.actions.delete' => iconName('trash'),
             'forms::components.repeater.actions.reorder' => iconName('arrows-sort'),
             'tables::search-field' => iconName('search'),
@@ -261,7 +263,9 @@ class AppServiceProvider extends ServiceProvider
             Blocks\ContentRatings\SplitContentRatingsBlock::make(),
         ]);
 
-        $blockManager->registerFormBlocks([]);
+        $blockManager->registerFormBlocks([
+            Fields\TextField::make(),
+        ]);
 
         $this->app->scoped(BlockManager::class, fn () => $blockManager);
 
