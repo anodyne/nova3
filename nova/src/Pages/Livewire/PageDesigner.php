@@ -13,6 +13,7 @@ use Nova\Foundation\Livewire\FormComponent;
 use Nova\Foundation\Scribble\Profiles\PageBuilderProfile;
 use Nova\Pages\Actions\PublishPage;
 use Nova\Pages\Actions\UpdatePage;
+use Nova\Pages\Data\PageBlocksData;
 use Nova\Pages\Models\Page;
 
 class PageDesigner extends FormComponent
@@ -37,7 +38,7 @@ class PageDesigner extends FormComponent
     #[On('saved-scribble-modal')]
     public function save(): void
     {
-        UpdatePage::run($this->page, $this->form->getState());
+        UpdatePage::run($this->page, PageBlocksData::from($this->form->getState()));
 
         Notification::make()->success()
             ->title('Page design has been updated')
