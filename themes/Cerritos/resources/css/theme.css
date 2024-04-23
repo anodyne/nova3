@@ -1,0 +1,7 @@
+@tailwind utilities;
+
+@config "./tailwind.cerritos.config.js";
+
+main#nova {
+    @apply flex min-h-full flex-col bg-gray-950;
+}
