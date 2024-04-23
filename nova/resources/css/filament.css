@@ -46,7 +46,7 @@
 }
 .fi-ta-table thead,
 .fi-ta-table thead tr {
-    @apply bg-transparent;
+    @apply bg-transparent dark:!bg-transparent;
 }
 .fi-ta-table tbody {
     @apply divide-gray-950/5 rounded-lg bg-white ring-1 ring-gray-950/5 dark:divide-white/5 dark:bg-gray-900 dark:ring-white/5;
@@ -129,10 +129,14 @@
     @apply text-white [--btn-bg:theme(colors.custom.500)] [--btn-border:theme(colors.custom.600/80%)] [--btn-hover-overlay:theme(colors.white/10%)] [--btn-icon:theme(colors.white/60%)] hover:[--btn-icon:theme(colors.white/80%)] active:[--btn-icon:theme(colors.white/80%)];
 }
 .fi-btn:not(.fi-btn-outlined).fi-color-gray {
-    @apply text-gray-950 [--btn-icon:theme(colors.gray.500)] [--btn-bg:white] [--btn-border:theme(colors.gray.950/10%)] [--btn-hover-overlay:theme(colors.gray.950/2.5%)] hover:[--btn-icon:theme(colors.gray.700)] hover:[--btn-border:theme(colors.gray.950/15%)] active:[--btn-icon:theme(colors.gray.700)] active:[--btn-border:theme(colors.gray.950/15%)] dark:text-white dark:[--btn-bg:theme(colors.gray.800)] dark:[--btn-hover-overlay:theme(colors.white/5%)] dark:[--btn-icon:theme(colors.gray.500)] dark:hover:[--btn-icon:theme(colors.gray.400)] dark:active:[--btn-icon:theme(colors.gray.400)];
+    @apply text-gray-950 [--btn-bg:white] [--btn-border:theme(colors.gray.950/10%)] [--btn-hover-overlay:theme(colors.gray.950/2.5%)] [--btn-icon:theme(colors.gray.500)] hover:[--btn-border:theme(colors.gray.950/15%)] hover:[--btn-icon:theme(colors.gray.700)] active:[--btn-border:theme(colors.gray.950/15%)] active:[--btn-icon:theme(colors.gray.700)] dark:text-white dark:[--btn-bg:theme(colors.gray.800)] dark:[--btn-hover-overlay:theme(colors.white/5%)] dark:[--btn-icon:theme(colors.gray.500)] dark:hover:[--btn-icon:theme(colors.gray.400)] dark:active:[--btn-icon:theme(colors.gray.400)];
 }
 .fi-btn.fi-btn-outlined.fi-color-gray {
-    @apply text-gray-950 [--btn-icon:theme(colors.gray.500)] [--btn-bg:white] [--btn-border:theme(colors.gray.950/10%)] [--btn-hover-overlay:theme(colors.gray.950/2.5%)] hover:[--btn-icon:theme(colors.gray.700)] hover:[--btn-border:theme(colors.gray.950/15%)] active:[--btn-icon:theme(colors.gray.700)] active:[--btn-border:theme(colors.gray.950/15%)] dark:text-white dark:[--btn-bg:theme(colors.gray.800)] dark:[--btn-hover-overlay:theme(colors.white/5%)] dark:[--btn-icon:theme(colors.gray.500)] dark:hover:[--btn-icon:theme(colors.gray.400)] dark:active:[--btn-icon:theme(colors.gray.400)];
+    @apply text-gray-950 [--btn-bg:white] [--btn-border:theme(colors.gray.950/10%)] [--btn-hover-overlay:theme(colors.gray.950/2.5%)] [--btn-icon:theme(colors.gray.500)] hover:[--btn-border:theme(colors.gray.950/15%)] hover:[--btn-icon:theme(colors.gray.700)] active:[--btn-border:theme(colors.gray.950/15%)] active:[--btn-icon:theme(colors.gray.700)] dark:text-white dark:[--btn-bg:theme(colors.gray.800)] dark:[--btn-hover-overlay:theme(colors.white/5%)] dark:[--btn-icon:theme(colors.gray.500)] dark:hover:[--btn-icon:theme(colors.gray.400)] dark:active:[--btn-icon:theme(colors.gray.400)];
+}
+
+.fi-input-wrp > * {
+    @apply relative;
 }
 
 .fi-input-wrp:has(.fi-input) {
