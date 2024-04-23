@@ -132,6 +132,7 @@ class TablerIconSet extends IconSet
             'warning' => 'tabler-alert-triangle',
             'write' => 'tabler-edit',
             'www' => 'tabler-world-www',
+            'www-preview' => 'tabler-world-search',
             'x' => 'tabler-x',
         ];
     }
