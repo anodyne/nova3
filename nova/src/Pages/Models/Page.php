@@ -26,6 +26,7 @@ class Page extends Model implements HasMedia
 
     protected $casts = [
         'blocks' => 'array',
+        'published_at' => 'datetime',
         'published_blocks' => 'array',
         'status' => PageStatus::class,
         'verb' => PageVerb::class,
