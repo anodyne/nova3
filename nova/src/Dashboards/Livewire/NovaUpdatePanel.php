@@ -9,7 +9,7 @@ use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Foundation\Nova;
 
-class VersionChecker extends Component
+class NovaUpdatePanel extends Component
 {
     public bool $sidebarOpen = false;
 
@@ -45,12 +45,12 @@ class VersionChecker extends Component
 
     public function mount()
     {
-        $this->sidebarOpen = true;
+        $this->sidebarOpen = $this->hasCriticalUpdate();
     }
 
     public function render()
     {
-        return view('pages.dashboards.livewire.version-checker', [
+        return view('pages.dashboards.livewire.nova-update-panel', [
             'databaseVersion' => $this->databaseVersion,
             'filesVersion' => $this->filesVersion,
             'upstream' => $this->upstream,

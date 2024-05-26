@@ -88,61 +88,56 @@
 
                     <div
                         class="flex h-full flex-col overflow-y-scroll rounded-xl bg-white shadow-xl ring-1 ring-gray-950/5 dark:bg-gray-800"
-                        x-data="tabsList('notifications')"
                     >
                         <x-spacing size="md">
                             <header class="flex items-center justify-between">
-                                <x-h2>Notifications</x-h2>
+                                <x-h2>Nova Updates</x-h2>
                             </header>
                         </x-spacing>
 
                         <div class="relative mt-6 w-full flex-1 space-y-8 px-4 leading-normal sm:px-6">
                             @if (cache()->missing('nova-update-available'))
                                 <x-panel.primary icon="check" title="Nova is up-to-date">
-                                    There are no Nova updates that match your update notification criteria.
+                                    You are running the latest available release of Nova.
                                 </x-panel.primary>
                             @endif
 
-                            <x-panel.primary icon="check" title="Nova is up-to-date">
-                                You are running the latest available release of Nova.
-                            </x-panel.primary>
+                            @if (cache()->has('nova-update-available'))
+                                <x-panel well>
+                                    <x-panel.well-heading>
+                                        <x-slot name="heading">Nova {{ $upstream['version'] }} available</x-slot>
 
-                            <x-panel.info icon="update" title="Nova 3.0.11 is available">
-                                This is a {{ $upstream['severity'] }} release. Your current update notification
-                                preferences don't include this type of update.
-                            </x-panel.info>
+                                        @if ($upstream['severity'] === 'critical')
+                                            <x-slot name="controls">
+                                                <div
+                                                    class="flex items-center gap-x-1 text-sm/6 font-medium text-danger-500"
+                                                >
+                                                    <x-icon name="update-alert" size="sm"></x-icon>
+                                                    <p>Critical update</p>
+                                                </div>
+                                            </x-slot>
+                                        @endif
+                                    </x-panel.well-heading>
 
-                            <x-panel.warning icon="update" title="Nova 3.0.11 is available">
-                                <div class="space-y-6">
-                                    <p>{{ $upstream['notes'] }}</p>
+                                    <x-spacing size="2xs">
+                                        <x-panel>
+                                            <x-spacing size="md">
+                                                <x-text size="lg" class="max-w-2xl">
+                                                    {{ $upstream['notes'] }}
+                                                </x-text>
 
-                                    <p>This is a {{ $upstream['severity'] }} release.</p>
-                                </div>
-                            </x-panel.warning>
-
-                            <x-panel.warning icon="update" title="Nova 3.0.11 is available">
-                                <div class="space-y-6">
-                                    <p>{{ $upstream['notes'] }}</p>
-
-                                    <p>This is a {{ $upstream['severity'] }} release.</p>
-                                </div>
-                            </x-panel.warning>
-
-                            <x-panel.danger icon="warning" title="Nova 3.0.11 is available">
-                                <div class="space-y-6">
-                                    <p>{{ $upstream['notes'] }}</p>
-
-                                    <p>This is a {{ $upstream['severity'] }} release.</p>
-                                </div>
-                            </x-panel.danger>
+                                                <div class="mt-8 flex items-center gap-2">
+                                                    <x-button href="https://anodyne-productions.com" color="primary">
+                                                        Get the update files &rarr;
+                                                    </x-button>
+                                                    <x-button plain>Learn more</x-button>
+                                                </div>
+                                            </x-spacing>
+                                        </x-panel>
+                                    </x-spacing>
+                                </x-panel>
+                            @endif
                         </div>
-
-                        <footer class="text-center">
-                            <x-button :href="route('account.edit', 'notifications')" color="neutral" class="mb-6" text>
-                                <x-icon name="bell" size="sm"></x-icon>
-                                Manage your notifications
-                            </x-button>
-                        </footer>
                     </div>
                 </div>
             </section>

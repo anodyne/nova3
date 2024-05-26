@@ -6,7 +6,7 @@ namespace Nova\Dashboards\Providers;
 
 use Nova\Dashboards\Livewire\ActivityLogList;
 use Nova\Dashboards\Livewire\CopyDiagnosticDataButton;
-use Nova\Dashboards\Livewire\VersionChecker;
+use Nova\Dashboards\Livewire\NovaUpdatePanel;
 use Nova\Dashboards\Policies\ActivityPolicy;
 use Nova\Dashboards\Spotlight\ViewSystemDashboard;
 use Nova\Dashboards\Spotlight\ViewUserDashboard;
@@ -20,7 +20,7 @@ class DashboardsServiceProvider extends DomainServiceProvider
         return [
             'dashboard:activity-log-list' => ActivityLogList::class,
             'copy-diagnostic-data-button' => CopyDiagnosticDataButton::class,
-            // 'version-checker' => VersionChecker::class,
+            'nova-update-panel' => NovaUpdatePanel::class,
         ];
     }
 

@@ -25,7 +25,6 @@ class PopulateSettingsTable extends Migration
                 gameName: 'USS Nova',
                 dateFormat: '#month_short# #day_num2#, #year_long#',
                 dateFormatTags: '[[{"value":"#month_short#","text":"Month, short (Sep)","prefix":"#"}]] [[{"value":"#day_num2#","text":"Day, numeric leading zero (12)","prefix":"#"}]], [[{"value":"#year_long#","text":"Year, long (2023)","prefix":"#"}]]',
-                updateSeverity: ['critical', 'major', 'minor', 'patch', 'security']
             ),
             'email' => new Email(
                 subjectPrefix: null,

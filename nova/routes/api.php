@@ -22,3 +22,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('heartbeat', HeartbeatController::class);
+
+Route::get('version', function () {
+    return response()->json([
+        'severity' => 'patch',
+        'version' => '3.0.1',
+        'notes' => 'Sint eiusmod esse sint elit anim aliqua non ex consectetur.',
+    ]);
+});
