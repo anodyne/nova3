@@ -210,7 +210,7 @@ return [
         Nova\Characters\Providers\CharacterServiceProvider::class,
         Nova\Dashboards\Providers\DashboardsServiceProvider::class,
         Nova\Departments\Providers\DepartmentServiceProvider::class,
-        Nova\Forms\Providers\FormsServiceProvider::class,
+        Nova\Forms\Providers\FormServiceProvider::class,
         Nova\Media\Providers\MediaServiceProvider::class,
         // Nova\Navigation\Providers\NavigationServiceProvider::class,
         Nova\Notes\Providers\NotesServiceProvider::class,

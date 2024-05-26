@@ -14,8 +14,9 @@ class FormData extends Data
     public function __construct(
         public string $name,
         public string $key,
+        public string $type,
         public ?string $description,
-        public bool $isLocked,
+        public ?FormOptions $options,
     ) {
     }
 }

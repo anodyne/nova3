@@ -135,11 +135,12 @@ class PopulatePagesTable extends Migration
 
             ['name' => 'List forms', 'uri' => 'forms', 'key' => 'forms.index', 'resource' => 'Nova\\Forms\\Controllers\\FormController@index', 'layout' => 'admin'],
             ['name' => 'View form', 'uri' => 'forms/{form}/show', 'key' => 'forms.show', 'resource' => 'Nova\\Forms\\Controllers\\FormController@show', 'layout' => 'admin'],
-            ['name' => 'Design form', 'uri' => 'forms/{form}/design', 'key' => 'forms.design', 'resource' => 'Nova\\Forms\\Controllers\\DesignFormController', 'layout' => 'admin'],
             ['name' => 'Create form', 'uri' => 'forms/create', 'key' => 'forms.create', 'resource' => 'Nova\\Forms\\Controllers\\FormController@create', 'layout' => 'admin'],
             ['name' => 'Store form', 'uri' => 'forms', 'key' => 'forms.store', 'verb' => PageVerb::post, 'resource' => 'Nova\\Forms\\Controllers\\FormController@store', 'layout' => 'admin'],
             ['name' => 'Edit form', 'uri' => 'forms/{form}/edit', 'key' => 'forms.edit', 'resource' => 'Nova\\Forms\\Controllers\\FormController@edit', 'layout' => 'admin'],
             ['name' => 'Update form', 'uri' => 'forms/{form}', 'key' => 'forms.update', 'verb' => PageVerb::put, 'resource' => 'Nova\\Forms\\Controllers\\FormController@update', 'layout' => 'admin'],
+            ['name' => 'Design form', 'uri' => 'forms/{form}/design', 'key' => 'forms.design', 'resource' => 'Nova\\Forms\\Controllers\\DesignFormController', 'layout' => 'admin'],
+            ['name' => 'Preview form', 'uri' => 'forms/{form}/preview/{theme?}', 'key' => 'forms.preview', 'resource' => 'Nova\\Forms\\Controllers\\PreviewFormController', 'layout' => 'admin'],
 
             ['name' => 'List pages', 'uri' => 'pages', 'key' => 'pages.index', 'resource' => 'Nova\\Pages\\Controllers\\PageController@index', 'layout' => 'admin'],
             ['name' => 'View page', 'uri' => 'pages/{page}/show', 'key' => 'pages.show', 'resource' => 'Nova\\Pages\\Controllers\\PageController@show', 'layout' => 'admin'],

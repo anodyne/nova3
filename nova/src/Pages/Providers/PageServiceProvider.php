@@ -7,6 +7,7 @@ namespace Nova\Pages\Providers;
 use Nova\DomainServiceProvider;
 use Nova\Pages\Livewire\AlternatingStories;
 use Nova\Pages\Livewire\CharactersManifest;
+use Nova\Pages\Livewire\DynamicForm;
 use Nova\Pages\Livewire\PageDesigner;
 use Nova\Pages\Livewire\PagesList;
 use Nova\Pages\Livewire\StatWidget;
@@ -22,6 +23,7 @@ class PageServiceProvider extends DomainServiceProvider
             'pages-list' => PagesList::class,
             'pages-alternating-stories' => AlternatingStories::class,
             'pages-characters-manifest' => CharactersManifest::class,
+            'pages-dynamic-form' => DynamicForm::class,
             'pages-stat-widget' => StatWidget::class,
         ];
     }

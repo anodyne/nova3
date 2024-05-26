@@ -6,6 +6,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use Nova\Forms\Enums\FormType;
 use Nova\Forms\Models\Form;
 
 class FormFactory extends Factory
@@ -19,14 +20,28 @@ class FormFactory extends Factory
         return [
             'key' => Str::slug($name),
             'name' => $name,
-            'locked' => false,
+            'is_locked' => false,
         ];
+    }
+
+    public function advanced()
+    {
+        return $this->state([
+            'type' => FormType::Advanced,
+        ]);
+    }
+
+    public function basic()
+    {
+        return $this->state([
+            'type' => FormType::Basic,
+        ]);
     }
 
     public function locked()
     {
         return $this->state([
-            'locked' => true,
+            'is_locked' => true,
         ]);
     }
 }

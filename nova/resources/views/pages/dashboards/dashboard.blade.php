@@ -2,6 +2,29 @@
 
 @section('content')
     <div>
+        <section class="hidden mb-8">
+            <div class="rounded-xl bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-primary-900 to-gray-900 text-white">
+                <x-spacing size="md">
+                    <div class="grid grid-cols-1 xl:grid-cols-3 gap-y-8 gap-x-16">
+                        <div class="flex flex-col justify-between">
+                            <div>
+                                <div class="rounded-full inline-flex items-center bg-primary-400/10 px-3 py-1 text-xs font-medium text-primary-400 ring-1 ring-inset ring-primary-400/20">
+                                    Welcome to Nova 3
+                                </div>
+                            </div>
+                            <div class="space-y-3">
+                                <h2 class="block font-[family-name:--font-header] text-xl/8 font-bold tracking-tight dark:text-gray-900 text-white">Let’s get started</h2>
+                                <p class="text-sm/6">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad, fugiat voluptatum! Rem molestias amet unde eligendi possimus tenetur! Impedit itaque corporis quis error ipsa exercitationem earum amet facere?</p>
+                            </div>
+                        </div>
+                        <div class="col-span-2 h-60">
+                            foo
+                        </div>
+                    </div>
+                </x-spacing>
+            </div>
+        </section>
+
         <!-- Main 3 column grid -->
         <div class="grid grid-cols-1 items-start gap-4 lg:grid-cols-3 lg:gap-8">
             <!-- Left column -->

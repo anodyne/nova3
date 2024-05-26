@@ -261,10 +261,18 @@ class AppServiceProvider extends ServiceProvider
             Blocks\ContentRatings\CardsContentRatingsBlock::make(),
             Blocks\ContentRatings\GridContentRatingsBlock::make(),
             Blocks\ContentRatings\SplitContentRatingsBlock::make(),
+
+            Blocks\Form\FormBlock::make(),
         ]);
 
         $blockManager->registerFormBlocks([
-            Fields\TextField::make(),
+            Fields\ShortTextField::make(),
+            Fields\LongTextField::make(),
+            Fields\NumberField::make(),
+            Fields\EmailField::make(),
+            Fields\DropdownField::make(),
+            Fields\SelectOneField::make(),
+            Fields\SelectMultipleField::make(),
         ]);
 
         $this->app->scoped(BlockManager::class, fn () => $blockManager);

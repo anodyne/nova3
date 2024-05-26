@@ -11,23 +11,23 @@ enum FormStatus: string implements HasLabel
 {
     use HasSelectOptions;
 
-    case active = 'active';
+    case Active = 'active';
 
-    case inactive = 'inactive';
+    case Inactive = 'inactive';
 
     public function bgColor(): string
     {
         return match ($this) {
-            self::active => 'bg-success-500',
-            self::inactive => 'bg-gray-500',
+            self::Active => 'bg-success-500',
+            self::Inactive => 'bg-gray-500',
         };
     }
 
     public function color(): string
     {
         return match ($this) {
-            self::active => 'success',
-            self::inactive => 'gray',
+            self::Active => 'success',
+            self::Inactive => 'gray',
         };
     }
 

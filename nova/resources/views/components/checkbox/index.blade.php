@@ -9,7 +9,8 @@
 <span data-slot="control" class="group inline-flex focus:outline-none" role="radio">
     <input type="checkbox" class="peer sr-only" {{ $attributes }} />
 
-    <span
+    <label
+        for="{{ $attributes->get('id') }}"
         @class([
             // Basic layout
             'group relative isolate flex size-[1.125rem] items-center justify-center rounded-[0.3125rem] sm:size-4',
@@ -59,5 +60,5 @@
         >
             <path d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
-    </span>
+    </label>
 </span>

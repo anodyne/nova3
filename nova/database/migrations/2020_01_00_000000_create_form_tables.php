@@ -6,9 +6,9 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Nova\Forms\Enums\FormStatus;
-use Nova\Forms\Models\Block;
 use Nova\Forms\Models\Form;
-use Nova\Forms\Models\FormBlock;
+use Nova\Forms\Models\FormField;
+use Nova\Forms\Models\FormSubmission;
 
 class CreateFormTables extends Migration
 {
@@ -18,46 +18,39 @@ class CreateFormTables extends Migration
             $table->id();
             $table->string('name');
             $table->string('key')->unique();
+            $table->string('type');
             $table->text('description')->nullable();
             $table->boolean('is_locked')->default(false);
+            $table->json('options')->nullable();
             $table->longText('fields')->nullable();
             $table->longText('published_fields')->nullable();
-            $table->json('settings')->nullable();
-            $table->string('status')->default(FormStatus::active->value);
+            $table->string('status')->default(FormStatus::Active->value);
             $table->dateTime('published_at')->nullable();
             $table->timestamps();
 
             $table->index(['name', 'key']);
         });
 
-        Schema::create('blocks', function (Blueprint $table) {
+        Schema::create('form_fields', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(Form::class);
             $table->string('name');
-            $table->string('key');
-            $table->string('category');
-            $table->string('type')->nullable();
-            $table->integer('order_column')->nullable();
-            $table->json('settings')->nullable();
+            $table->string('uid');
+            $table->string('label');
             $table->timestamps();
         });
 
-        Schema::create('form_block', function (Blueprint $table) {
+        Schema::create('form_submissions', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Form::class);
-            $table->foreignIdFor(Block::class);
-            $table->integer('order_column')->nullable();
-            $table->unsignedInteger('parent_id')->nullable();
-            $table->json('settings')->nullable();
+            $table->morphs('owner');
             $table->timestamps();
         });
 
-        Schema::create('form_data', function (Blueprint $table) {
+        Schema::create('form_responses', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Form::class);
-            $table->foreignIdFor(Block::class);
-            // $table->foreignIdFor(FormBlock::class);
-            $table->morphs('answerable');
-            // $table->foreignIdFor()->nullable();
+            $table->foreignIdFor(FormSubmission::class, 'submission_id');
+            $table->foreignIdFor(FormField::class, 'field_id');
             $table->longText('value')->nullable();
             $table->timestamps();
         });
@@ -65,9 +58,9 @@ class CreateFormTables extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('form_data');
-        Schema::dropIfExists('form_block');
-        Schema::dropIfExists('blocks');
+        Schema::dropIfExists('form_fields');
+        Schema::dropIfExists('form_submissions');
+        Schema::dropIfExists('form_responses');
         Schema::dropIfExists('forms');
     }
 }

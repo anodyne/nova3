@@ -6,18 +6,17 @@ namespace Nova\Forms\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Forms\Data\FormData;
+use Nova\Forms\Data\FormFieldsData;
 use Nova\Forms\Models\Form;
 
 class UpdateForm
 {
     use AsAction;
 
-    public function handle(Form $form, FormData $data): Form
+    public function handle(Form $form, FormData|FormFieldsData $data): Form
     {
-        $form->update(
-            $data->exceptWhen('key', $form->is_locked)->all()
-        );
-
-        return $form->refresh();
+        return tap($form)
+            ->update($data->all())
+            ->refresh();
     }
 }

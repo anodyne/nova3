@@ -9,7 +9,7 @@ use Filament\Forms\Form;
 use Illuminate\Support\Facades\Cache;
 use Nova\Forms\Actions\PublishForm;
 use Nova\Forms\Actions\UpdateForm;
-use Nova\Forms\Data\FormData;
+use Nova\Forms\Data\FormFieldsData;
 use Nova\Forms\Models\Form as NovaForm;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\FormComponent;
@@ -26,7 +26,7 @@ class FormDesigner extends FormComponent
         return $form
             ->schema([
                 ScribbleEditor::make('fields')
-                    ->label('')
+                    ->hiddenLabel()
                     ->helperText("Type '/' to show a list of available fields to add to your form")
                     ->profile(FormBuilderProfile::class)
                     ->renderToolbar(),
@@ -37,7 +37,7 @@ class FormDesigner extends FormComponent
 
     public function save(): void
     {
-        UpdateForm::run($this->novaForm, FormData::from($this->form->getState()));
+        UpdateForm::run($this->novaForm, FormFieldsData::from($this->form->getState()));
 
         Notification::make()->success()
             ->title('Form design has been updated')

@@ -9,6 +9,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Nova\Forms\Actions\DeleteForm;
 use Nova\Forms\Enums\FormStatus;
+use Nova\Forms\Enums\FormType;
 use Nova\Forms\Models\Form;
 use Nova\Foundation\Filament\Actions\Action;
 use Nova\Foundation\Filament\Actions\ActionGroup;
@@ -33,6 +34,10 @@ class FormsList extends TableComponent
                     ->iconPosition('after')
                     ->searchable()
                     ->sortable(),
+                TextColumn::make('type')
+                    ->badge()
+                    ->color(fn (Form $record): string => $record->type->color())
+                    ->toggleable(),
                 TextColumn::make('status')
                     ->badge()
                     ->color(fn (Form $record): string => $record->status->color())
@@ -47,11 +52,26 @@ class FormsList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (Form $record): string => route('forms.edit', $record)),
+                    ])->authorizeAny(['view', 'update'])->divided(),
+
+                    ActionGroup::make([
                         Action::make('design')
                             ->authorize('design')
                             ->icon(iconName('tools'))
                             ->url(fn (Form $record): string => route('forms.design', $record)),
-                    ])->authorizeAny(['view', 'update', 'design'])->divided(),
+                        Action::make('preview')
+                            ->icon(iconName('form-preview'))
+                            ->label('Preview form')
+                            ->url(fn (Form $record): string => route('forms.preview', $record)),
+                    ])->authorize('design')->divided(),
+
+                    ActionGroup::make([
+                        Action::make('responses')
+                            ->icon(iconName('clipboard'))
+                            ->label('Responses')
+                            ->url(fn (Form $record): string => route('forms.preview', $record))
+                            ->visible(fn (Form $record): bool => $record->options?->collectResponses ?? false),
+                    ])->divided(),
 
                     ActionGroup::make([
                         DeleteAction::make()
@@ -66,6 +86,7 @@ class FormsList extends TableComponent
                 ]),
             ])
             ->filters([
+                SelectFilter::make('type')->options(FormType::class),
                 SelectFilter::make('status')->options(FormStatus::class),
             ])
             ->emptyStateIcon(iconName('list'))

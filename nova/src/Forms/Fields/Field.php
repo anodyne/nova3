@@ -11,8 +11,6 @@ abstract class Field extends ScribbleTool
 {
     protected function baseConfiguration(): self
     {
-        return $this
-            ->icon('tabler-forms')
-            ->type(ToolType::Block);
+        return $this->type(ToolType::Block);
     }
 }

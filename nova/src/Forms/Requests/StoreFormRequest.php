@@ -14,7 +14,9 @@ class StoreFormRequest extends FormRequest
         return [
             'name' => ['required'],
             'key' => ['required', 'unique:forms'],
+            'type' => ['required', 'in:advanced,basic'],
             'description' => ['nullable'],
+            'options' => ['sometimes'],
         ];
     }
 

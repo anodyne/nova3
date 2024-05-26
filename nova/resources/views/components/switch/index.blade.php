@@ -7,6 +7,8 @@
     'color' => 'primary',
 ])
 
+@use('Illuminate\Support\Js')
+
 @php
     $color = ($color === 'primary' && settings('appearance.panda')) ? 'panda' : $color;
 @endphp
@@ -18,11 +20,11 @@
         @elseif ($attributes->hasStartsWith('x-model'))
             value: {{ $attributes->first('x-model') }},
         @else
-            value: {{ Illuminate\Support\Js::from($value) }},
+            value: {{ Js::from($value) }},
         @endif
-        onValue: {{ Illuminate\Support\Js::from($onValue) }},
-        offValue: {{ Illuminate\Support\Js::from($offValue) }},
-        disabled: {{ Illuminate\Support\Js::from($disabled) }},
+        onValue: {{ Js::from($onValue) }},
+        offValue: {{ Js::from($offValue) }},
+        disabled: {{ Js::from($disabled) }},
         toggle () {
             if (this.disabled) {
                 return;
