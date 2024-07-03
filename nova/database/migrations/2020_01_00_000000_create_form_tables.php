@@ -7,7 +7,6 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Nova\Forms\Enums\FormStatus;
 use Nova\Forms\Models\Form;
-use Nova\Forms\Models\FormField;
 use Nova\Forms\Models\FormSubmission;
 
 class CreateFormTables extends Migration
@@ -37,20 +36,23 @@ class CreateFormTables extends Migration
             $table->string('name');
             $table->string('uid');
             $table->string('label');
+            $table->string('type');
+            $table->unsignedInteger('order_column')->nullable();
             $table->timestamps();
         });
 
         Schema::create('form_submissions', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Form::class);
-            $table->morphs('owner');
+            $table->nullableMorphs('owner');
             $table->timestamps();
         });
 
-        Schema::create('form_responses', function (Blueprint $table) {
+        Schema::create('form_submission_responses', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(FormSubmission::class, 'submission_id');
-            $table->foreignIdFor(FormField::class, 'field_id');
+            $table->string('field_type');
+            $table->string('field_uid');
             $table->longText('value')->nullable();
             $table->timestamps();
         });
@@ -60,7 +62,7 @@ class CreateFormTables extends Migration
     {
         Schema::dropIfExists('form_fields');
         Schema::dropIfExists('form_submissions');
-        Schema::dropIfExists('form_responses');
+        Schema::dropIfExists('form_submission_responses');
         Schema::dropIfExists('forms');
     }
 }

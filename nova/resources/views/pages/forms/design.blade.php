@@ -20,11 +20,6 @@
                 <x-icon name="form-preview" size="sm"></x-icon>
                 Preview form
             </x-button>
-
-            <x-button>
-                <x-icon name="form" size="sm"></x-icon>
-                View live form
-            </x-button>
         </x-slot>
     </x-page-header>
 

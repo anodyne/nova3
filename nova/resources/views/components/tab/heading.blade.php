@@ -27,11 +27,14 @@
 <button
     type="button"
     data-slot="tab"
-    class="flex flex-1 justify-center whitespace-nowrap rounded-full px-4 py-2 text-base font-medium transition focus:outline-none sm:text-sm/6 lg:flex-initial lg:py-1"
+    @class([
+        'flex items-center gap-x-2 rounded-full px-3.5 py-1',
+        '[&>[data-slot=icon]]:-mx-0.5 [&>[data-slot=icon]]:shrink-0 [&>[data-slot=icon]]:text-[--tab-icon]',
+    ])
     x-bind:class="{
-        'bg-gray-950 dark:bg-gray-300 text-white dark:text-gray-950':
+        'bg-white font-semibold text-gray-950 [--tab-icon:theme(colors.gray.500)] shadow-sm dark:bg-white/15 dark:text-white dark:[--tab-icon:theme(colors.gray.400)] dark:shadow-none ring-1 ring-gray-950/5':
             isTab('{{ $name }}'),
-        'text-gray-500 hover:text-gray-900 dark:hover:text-white':
+        'font-medium text-gray-600 [--tab-icon:theme(colors.gray.500)] hover:bg-gray-900/10 hover:text-gray-950 dark:text-gray-400 dark:hover:bg-white/[.08] dark:hover:text-white dark:[--tab-icon:theme(colors.gray.400)]':
             ! isTab('{{ $name }}'),
     }"
     x-on:click.prevent="switchTab('{{ $name }}')"

@@ -52,7 +52,7 @@ test('user can reset password with a valid token', function () {
 
 test('user cannot reset password with an invalid token', function () {
     $user = createUser(attributes: [
-        'password' => Hash::make('old-password'),
+        'password' => 'old-password',
     ]);
 
     from(route('password.reset', 'invalid-token'))
@@ -72,7 +72,7 @@ test('user cannot reset password with an invalid token', function () {
 
 test('user cannot reset password without providing a new password', function () {
     $user = createUser(attributes: [
-        'password' => Hash::make('old-password'),
+        'password' => 'old-password',
     ]);
 
     from(route('password.reset', $token = getValidToken($user)))
@@ -95,7 +95,7 @@ test('user cannot reset password without providing a new password', function () 
 
 test('user cannot reset password without providing an email', function () {
     $user = createUser(attributes: [
-        'password' => Hash::make('old-password'),
+        'password' => 'old-password',
     ]);
 
     from(route('password.reset', $token = getValidToken($user)))

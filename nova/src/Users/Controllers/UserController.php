@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Users\Controllers;
 
 use Illuminate\Support\Facades\Gate;
+use Nova\Forms\Models\Form;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Users\Actions\CreateUserManager;
 use Nova\Users\Actions\UpdateUserManager;
@@ -37,14 +38,17 @@ class UserController extends Controller
     public function show(User $user)
     {
         return ShowUserResponse::sendWith([
-            'user' => $user->load('roles', 'latestLogin', 'latestPost')->loadCount('activeCharacters', 'characters', 'publishedPosts'),
+            'user' => $user->load('roles', 'latestLogin', 'latestPost', 'userFormSubmission')->loadCount('activeCharacters', 'characters', 'publishedPosts'),
             'publishedPosts' => $user->publishedPosts()->take(5)->get(),
+            'form' => Form::key('user')->first(),
         ]);
     }
 
     public function create()
     {
-        return CreateUserResponse::send();
+        return CreateUserResponse::sendWith([
+            'form' => Form::key('user')->first(),
+        ]);
     }
 
     public function store(StoreUserRequest $request)
@@ -66,7 +70,8 @@ class UserController extends Controller
     public function edit(User $user)
     {
         return EditUserResponse::sendWith([
-            'user' => $user->load('roles', 'characters'),
+            'user' => $user->load('roles', 'characters', 'userFormSubmission'),
+            'form' => Form::key('user')->first(),
         ]);
     }
 

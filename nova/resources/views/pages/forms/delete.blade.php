@@ -1,3 +1,9 @@
-<x-form :action="route('forms.destroy', $form)" method="DELETE" id="form">
-    Are you sure you want to delete the {{ $form->name }}?
-</x-form>
+<x-filament.modal-content icon="trash" title="Delete form?">
+    {{-- format-ignore-start --}}
+    <p>
+        Are you sure you want to delete the
+        <strong class="font-semibold">{{ $record->name }}</strong> form?
+        You won’t be able to recover it.
+    </p>
+    {{-- format-ignore-end --}}
+</x-filament.modal-content>

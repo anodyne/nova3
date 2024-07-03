@@ -41,9 +41,16 @@ class FormPolicy
             : $this->deny();
     }
 
+    public function deleteAny(User $user): Response
+    {
+        return $user->isAbleTo('form.delete')
+            ? $this->allow()
+            : $this->deny();
+    }
+
     public function delete(User $user, Form $form): Response
     {
-        return $user->isAbleTo('form.delete') && ! $form->is_locked
+        return $this->deleteAny($user)->allowed() && ! $form->is_locked
             ? $this->allow()
             : $this->deny();
     }

@@ -129,6 +129,17 @@
                                 :value="old('options[singleSubmission]', false)"
                             ></x-switch>
                         </x-switch.field>
+                        <x-fieldset.field
+                            name="options[submissionTitleField]"
+                            id="options_submissionTitleField"
+                            label="Submission title field"
+                            x-show="collectResponses"
+                        >
+                            <x-fieldset.warning-message>
+                                You will be able to choose a submission title field after designing and publishing your
+                                form
+                            </x-fieldset.warning-message>
+                        </x-fieldset.field>
                         <x-switch.field>
                             <x-fieldset.label>Email responses</x-fieldset.label>
                             <x-fieldset.description>

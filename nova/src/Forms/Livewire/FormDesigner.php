@@ -8,6 +8,7 @@ use Awcodes\Scribble\ScribbleEditor;
 use Filament\Forms\Form;
 use Illuminate\Support\Facades\Cache;
 use Nova\Forms\Actions\PublishForm;
+use Nova\Forms\Actions\PublishFormManager;
 use Nova\Forms\Actions\UpdateForm;
 use Nova\Forms\Data\FormFieldsData;
 use Nova\Forms\Models\Form as NovaForm;
@@ -47,7 +48,7 @@ class FormDesigner extends FormComponent
 
     public function publish(): void
     {
-        PublishForm::run($this->novaForm);
+        PublishFormManager::run($this->novaForm);
 
         Notification::make()->success()
             ->title('Form design has been published')

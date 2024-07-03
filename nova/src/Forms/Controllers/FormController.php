@@ -54,8 +54,14 @@ class FormController extends Controller
 
     public function edit(Form $form)
     {
+        $fields = collect($form->published_fields['content'])
+            ->flatMap(fn ($field) => [
+                data_get($field, 'attrs.values.uid') => data_get($field, 'attrs.values.label'),
+            ]);
+
         return EditFormResponse::sendWith([
             'form' => $form,
+            'fields' => $fields,
         ]);
     }
 

@@ -9,6 +9,8 @@ use Nova\Characters\Data\CharacterPositionsData;
 use Nova\Characters\Models\Character;
 use Nova\Characters\Requests\UpdateCharacterRequest;
 use Nova\Departments\Actions\UpdatePositionAvailability;
+use Nova\Forms\Actions\SyncFormSubmissionResponses;
+use Nova\Forms\Actions\UpdateFormSubmission;
 
 class UpdateCharacterManager
 {
@@ -50,6 +52,15 @@ class UpdateCharacterManager
 
         RemoveCharacterAvatar::run($character, $request->boolean('remove_existing_image', false));
 
+        $this->updateFormSubmission($character, $request->input('character'));
+
         return $character->refresh();
+    }
+
+    protected function updateFormSubmission(Character $character, ?array $data = []): void
+    {
+        $submission = UpdateFormSubmission::run($character->characterFormSubmission);
+
+        SyncFormSubmissionResponses::run($submission, $data);
     }
 }

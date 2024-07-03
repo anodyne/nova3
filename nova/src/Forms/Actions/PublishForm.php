@@ -13,7 +13,7 @@ class PublishForm
 
     public function handle(Form $form): Form
     {
-        $form->published_blocks = $form->blocks;
+        $form->published_fields = $form->fields;
         $form->published_at = now();
         $form->save();
 

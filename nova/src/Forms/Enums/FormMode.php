@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Enums;
 
-enum FormSubmissionMode: string
+enum FormMode: string
 {
     case Create = 'create';
 
     case Edit = 'edit';
+
+    case View = 'view';
 }

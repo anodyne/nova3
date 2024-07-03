@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Nova\Forms\Enums\FormType;
 use Nova\Forms\Models\Form;
+use Nova\Setup\Actions\Database\Schema\DynamicFormSchema;
 
 class PopulateFormTables extends Migration
 {
@@ -18,6 +19,11 @@ class PopulateFormTables extends Migration
                 'key' => 'character',
                 'type' => FormType::Advanced,
                 'is_locked' => true,
+                'fields' => [
+                    DynamicFormSchema::shortText(label: 'Label 1', description: 'Ut laborum nisi minim ullamco veniam aute.'),
+                    DynamicFormSchema::shortText(label: 'Label 2', description: 'Ut laborum nisi minim ullamco veniam aute.'),
+                    DynamicFormSchema::shortText(label: 'Label 3', description: 'Ut laborum nisi minim ullamco veniam aute.'),
+                ],
             ]);
 
             Form::create([

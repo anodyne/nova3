@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -48,14 +49,64 @@ class Form extends Model
         'updated' => Events\FormUpdated::class,
     ];
 
-    public function formData(): HasMany
+    public function formFields(): HasMany
     {
-        return $this->hasMany(FormData::class, 'form_key', 'key');
+        return $this->hasMany(FormField::class);
     }
 
     public function submissions(): HasMany
     {
         return $this->hasMany(FormSubmission::class);
+    }
+
+    public function validationMessages(): Attribute
+    {
+        $form = $this;
+
+        return Attribute::make(
+            get: function () use ($form): array {
+                if ($form->type === FormType::Basic) {
+                    return collect(data_get($this->published_fields, 'content', []))
+                        ->filter(fn ($field) => data_get($field, 'attrs.values.required', false))
+                        ->flatMap(fn ($field) => [
+                            sprintf('%s.%s.required', 'values', data_get($field, 'attrs.values.uid')) => data_get($field, 'attrs.values.label').' field is required',
+                        ])
+                        ->all();
+                }
+
+                return collect(data_get($this->published_fields, 'content', []))
+                    ->filter(fn ($field) => data_get($field, 'attrs.values.required', false))
+                    ->flatMap(fn ($field) => [
+                        sprintf('%s.%s.required', $form->key, data_get($field, 'attrs.values.uid')) => data_get($field, 'attrs.values.label').' field is required',
+                    ])
+                    ->all();
+            }
+        );
+    }
+
+    public function validationRules(): Attribute
+    {
+        $form = $this;
+
+        return Attribute::make(
+            get: function () use ($form): array {
+                if ($form->type === FormType::Basic) {
+                    return collect(data_get($this->published_fields, 'content', []))
+                        ->filter(fn ($field) => data_get($field, 'attrs.values.required', false))
+                        ->flatMap(fn ($field) => [
+                            sprintf('%s.%s', 'values', data_get($field, 'attrs.values.uid')) => 'required',
+                        ])
+                        ->all();
+                }
+
+                return collect(data_get($this->published_fields, 'content', []))
+                    ->filter(fn ($field) => data_get($field, 'attrs.values.required', false))
+                    ->flatMap(fn ($field) => [
+                        sprintf('%s.%s', $this->key, data_get($field, 'attrs.values.uid')) => 'required',
+                    ])
+                    ->all();
+            }
+        );
     }
 
     public function getActivitylogOptions(): LogOptions

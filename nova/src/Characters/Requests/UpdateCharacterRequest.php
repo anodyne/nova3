@@ -8,15 +8,29 @@ use Illuminate\Foundation\Http\FormRequest;
 use Nova\Characters\Data\AssignCharacterOwnersData;
 use Nova\Characters\Data\AssignCharacterPositionsData;
 use Nova\Characters\Data\CharacterData;
+use Nova\Forms\Models\Form;
 
 class UpdateCharacterRequest extends FormRequest
 {
     public function rules(): array
     {
-        return [
-            'name' => ['required'],
-            'rank_id' => ['nullable'],
-        ];
+        return array_merge(
+            [
+                'name' => ['required'],
+                'rank_id' => ['nullable'],
+            ],
+            Form::key('character')->first()->validation_rules,
+        );
+    }
+
+    public function messages(): array
+    {
+        return array_merge(
+            [
+                'name.required' => ':attribute is required',
+            ],
+            Form::key('character')->first()->validation_messages,
+        );
     }
 
     public function getCharacterData(): CharacterData

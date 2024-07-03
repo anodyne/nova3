@@ -6,7 +6,6 @@ namespace Nova\Users\Listeners;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Support\Facades\Hash;
 use Nova\Foundation\WordGenerator;
 use Nova\Users\Events\UserCreatedByAdmin;
 use Nova\Users\Notifications\AccountCreated;
@@ -19,7 +18,7 @@ class GeneratePassword implements ShouldQueue
     {
         $password = implode('-', (new WordGenerator())->words(4));
 
-        $event->user->update(['password' => Hash::make($password)]);
+        $event->user->update(['password' => $password]);
 
         $event->user->notify(new AccountCreated($event->user, $password));
     }

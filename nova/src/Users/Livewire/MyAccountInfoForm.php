@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Users\Livewire;
 
-use Illuminate\Support\Facades\Hash;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 use Nova\Users\Data\PronounsData;
@@ -84,7 +83,7 @@ class MyAccountInfoForm extends Form
         ]);
 
         if (filled($this->newPassword)) {
-            $data['password'] = Hash::make($this->newPassword);
+            $data['password'] = $this->newPassword;
         }
 
         auth()->user()->update($data);

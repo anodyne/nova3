@@ -11,6 +11,7 @@ use Nova\DomainServiceProvider;
 use Nova\Foundation\Colors\Color;
 use Nova\Foundation\Nova;
 use Nova\Setup\Actions\SeedRealStories;
+use Nova\Setup\Actions\SetDatabaseInitialState;
 use Nova\Setup\Livewire\ConfigureDatabase;
 use Nova\Setup\Livewire\InstallNova;
 use Nova\Setup\Livewire\MigrateNovaSteps;
@@ -52,6 +53,7 @@ class SetupServiceProvider extends DomainServiceProvider
             SeedRealStories::class,
             // DiscoverCommand::class, // Livewire only registers this in the console
             CacheCommand::class, // Blade Icons only registers this in the console
+            SetDatabaseInitialState::class,
         ];
     }
 

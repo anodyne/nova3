@@ -7,6 +7,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Nova\Characters\Models\Character;
 use Nova\Departments\Models\Position;
+use Nova\Forms\Actions\CreateFormSubmission;
+use Nova\Forms\Models\Form;
 use Nova\Users\Models\User;
 
 class CharacterSeeder extends Seeder
@@ -15,11 +17,14 @@ class CharacterSeeder extends Seeder
     {
         activity()->disableLogging();
 
+        $form = Form::key('character')->first();
+
         $picard = Character::factory()->secondary()->create([
             'name' => 'Jean-Luc Picard',
             'rank_id' => 1,
         ]);
         $picard->users()->save(User::find(1));
+        CreateFormSubmission::run($form, $picard);
 
         $riker = Character::factory()->primary()->create([
             'name' => 'William Riker',
@@ -27,21 +32,25 @@ class CharacterSeeder extends Seeder
         ]);
         $riker->users()->save(User::find(2));
         $riker->users()->save(User::find(4), ['primary' => true]);
+        CreateFormSubmission::run($form, $riker);
 
         $laforge = Character::factory()->primary()->create([
             'name' => 'Geordi LaForge',
             'rank_id' => 4,
         ]);
         $laforge->users()->save(User::find(2), ['primary' => true]);
+        CreateFormSubmission::run($form, $laforge);
 
         $worf = Character::factory()->create([
             'name' => 'Worf',
         ]);
+        CreateFormSubmission::run($form, $worf);
 
         $crusher = Character::factory()->create([
             'name' => 'Beverly Crusher',
             'rank_id' => 4,
         ]);
+        CreateFormSubmission::run($form, $crusher);
 
         $shaw = Character::factory()->primary()->create([
             'name' => 'Liam Shaw',
@@ -49,6 +58,7 @@ class CharacterSeeder extends Seeder
         ]);
         $shaw->positions()->save(Position::find(1));
         $shaw->users()->save(User::find(1), ['primary' => true]);
+        CreateFormSubmission::run($form, $shaw);
 
         $seven = Character::factory()->primary()->create([
             'name' => 'Seven of Nine',
@@ -56,6 +66,7 @@ class CharacterSeeder extends Seeder
         ]);
         $seven->positions()->save(Position::find(2));
         $seven->users()->save(User::find(2), ['primary' => true]);
+        CreateFormSubmission::run($form, $seven);
 
         $sidney = Character::factory()->secondary()->create([
             'name' => 'Sidney LaForge',
@@ -63,16 +74,19 @@ class CharacterSeeder extends Seeder
         ]);
         $sidney->users()->save(User::find(2));
         $sidney->positions()->save(Position::find(5));
+        CreateFormSubmission::run($form, $sidney);
 
         $alandra = Character::factory()->secondary()->create([
             'name' => 'Alandra LaForge',
             'rank_id' => 24,
         ]);
         $alandra->users()->save(User::find(2));
+        CreateFormSubmission::run($form, $alandra);
 
         $jack = Character::factory()->pending()->create([
             'name' => 'Jack Crusher',
         ]);
+        CreateFormSubmission::run($form, $jack);
 
         activity()->enableLogging();
     }

@@ -25,19 +25,22 @@ class CheckVersion
             // $upstream = Http::get('https://anodyne-productions.com/api/nova/latest-version')->json();
             $upstream = Http::get(url('api/version'))->json();
 
-            if ($upstream['severity'] === 'critical') {
-                Cache::rememberForever('nova-critical-update-available', function () {
-                    return true;
-                });
+            if ($upstream) {
+                if ($upstream['severity'] === 'critical') {
+                    Cache::rememberForever('nova-critical-update-available', function () {
+                        return true;
+                    });
+                }
+
+                if (version_compare($upstream['version'], nova()->version, '>')) {
+                    Cache::rememberForever('nova-update-available', function () {
+                        return true;
+                    });
+                }
+
+                Cache::put('nova-latest-version', $upstream, now()->addDay());
             }
 
-            if (version_compare($upstream['version'], nova()->version, '>')) {
-                Cache::rememberForever('nova-update-available', function () {
-                    return true;
-                });
-            }
-
-            Cache::put('nova-latest-version', $upstream, now()->addDay());
             // }
         }
 

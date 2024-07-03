@@ -1,3 +1,9 @@
+@use('Nova\Forms\Models\Form')
+
+@php
+    $formModel = Form::key($form)->first();
+@endphp
+
 <div
     @class([
         '@container',
@@ -31,7 +37,7 @@
                 'mt-12' => filled($heading) || filled($description),
             ])
         >
-            <livewire:pages-dynamic-form :form-key="$form" />
+            <livewire:dynamic-form :form="$formModel" />
         </div>
     </x-public::block.wrapper>
 </div>

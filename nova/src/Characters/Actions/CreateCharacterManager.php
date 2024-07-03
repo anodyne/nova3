@@ -9,6 +9,9 @@ use Nova\Characters\Data\CharacterPositionsData;
 use Nova\Characters\Models\Character;
 use Nova\Characters\Requests\StoreCharacterRequest;
 use Nova\Departments\Actions\UpdatePositionAvailability;
+use Nova\Forms\Actions\CreateFormSubmission;
+use Nova\Forms\Actions\SyncFormSubmissionResponses;
+use Nova\Forms\Models\Form;
 
 class CreateCharacterManager
 {
@@ -51,6 +54,8 @@ class CreateCharacterManager
             $character = ActivateCharacter::run($character);
         }
 
+        $this->createFormSubmission($character, $request->input('character'));
+
         SendPendingCharacterNotification::runUnless(
             $character->is_active,
             $character,
@@ -58,5 +63,15 @@ class CreateCharacterManager
         );
 
         return $character->refresh();
+    }
+
+    protected function createFormSubmission(Character $character, ?array $data = []): void
+    {
+        $submission = CreateFormSubmission::run(
+            Form::key('character')->first(),
+            $character
+        );
+
+        SyncFormSubmissionResponses::run($submission, $data);
     }
 }

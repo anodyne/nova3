@@ -3,8 +3,12 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
-use Nova\Characters\Models\Character;
+use Nova\Conversations\Controllers\ConversationController;
 use Nova\Departments\Models\Department;
+use Nova\Forms\Models\Form;
+use Nova\Setup\Actions\Database\Schema\DynamicFormSchema;
+
+Route::get('messages', [ConversationController::class, 'index']);
 
 Route::get('manifest-test', function () {
     $active = Department::query()
@@ -100,10 +104,17 @@ Route::get('manifest-test', function () {
 });
 
 Route::get('test', function () {
-    $character = Character::first();
+    // $form = Form::find(4);
+
+    // dd(
+    //     $form->published_fields,
+    //     $form->validation_rules
+    // );
 
     dd(
-        $character->characterForm->pluck('value', 'field')->all(),
-        $character->applicationForm->pluck('value', 'field')->all()
+        DynamicFormSchema::tipTapSchema([
+            DynamicFormSchema::shortText(label: 'Label 1'),
+            DynamicFormSchema::longText(label: 'Label 2'),
+        ])
     );
 });

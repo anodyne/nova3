@@ -142,6 +142,11 @@ class PopulatePagesTable extends Migration
             ['name' => 'Design form', 'uri' => 'forms/{form}/design', 'key' => 'forms.design', 'resource' => 'Nova\\Forms\\Controllers\\DesignFormController', 'layout' => 'admin'],
             ['name' => 'Preview form', 'uri' => 'forms/{form}/preview/{theme?}', 'key' => 'forms.preview', 'resource' => 'Nova\\Forms\\Controllers\\PreviewFormController', 'layout' => 'admin'],
 
+            ['name' => 'List form submissions', 'uri' => 'form-submissions', 'key' => 'form-submissions.index', 'resource' => 'Nova\\Forms\\Controllers\\FormSubmissionController@index', 'layout' => 'admin'],
+            ['name' => 'View form submission', 'uri' => 'forms-submissions/{submission}/show', 'key' => 'form-submissions.show', 'resource' => 'Nova\\Forms\\Controllers\\FormSubmissionController@show', 'layout' => 'admin'],
+            ['name' => 'Create form submission', 'uri' => 'form-submissions/create/{form?}', 'key' => 'form-submissions.create', 'resource' => 'Nova\\Forms\\Controllers\\FormSubmissionController@create', 'layout' => 'admin'],
+            ['name' => 'Edit form submission', 'uri' => 'form-submissions/{submission}/edit', 'key' => 'form-submissions.edit', 'resource' => 'Nova\\Forms\\Controllers\\FormSubmissionController@edit', 'layout' => 'admin'],
+
             ['name' => 'List pages', 'uri' => 'pages', 'key' => 'pages.index', 'resource' => 'Nova\\Pages\\Controllers\\PageController@index', 'layout' => 'admin'],
             ['name' => 'View page', 'uri' => 'pages/{page}/show', 'key' => 'pages.show', 'resource' => 'Nova\\Pages\\Controllers\\PageController@show', 'layout' => 'admin'],
             ['name' => 'Design page', 'uri' => 'pages/{page}/design', 'key' => 'pages.design', 'resource' => 'Nova\\Pages\\Controllers\\DesignPageController', 'layout' => 'admin'],
@@ -151,6 +156,8 @@ class PopulatePagesTable extends Migration
             ['name' => 'Update page', 'uri' => 'pages/{page}', 'key' => 'pages.update', 'verb' => PageVerb::put, 'resource' => 'Nova\\Pages\\Controllers\\PageController@update', 'layout' => 'admin'],
 
             ['name' => 'Page test', 'uri' => 'page-test', 'key' => 'page-test', 'layout' => 'public'],
+
+            ['name' => 'Conversations', 'uri' => 'conversations', 'key' => 'conversations.index', 'resource' => 'Nova\\Conversations\\Controllers\\ConversationController@index', 'layout' => 'admin'],
         ];
 
         collect($pages)->each([Page::class, 'create']);

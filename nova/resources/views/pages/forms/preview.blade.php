@@ -33,10 +33,16 @@
             </a>
         </div>
 
-        <livewire:dynamic-form :form="$form" :admin="$theme === 'admin'" />
+        @if ($theme === 'admin')
+            <livewire:dynamic-form :form="$form" :admin="true" />
+        @else
+            <livewire:dynamic-form :form="$form" />
+        @endif
 
-        {{-- <x-form.dynamic :admin="$theme === 'admin'">
+        {{--
+            <x-form.dynamic :admin="$theme === 'admin'">
             {!! scribble($form->fields ?? ['content' => null])->toHtml() !!}
-        </x-form.dynamic> --}}
+            </x-form.dynamic>
+        --}}
     </x-spacing>
 @endsection

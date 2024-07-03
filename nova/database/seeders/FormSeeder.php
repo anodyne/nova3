@@ -21,6 +21,7 @@ class FormSeeder extends Seeder
                 onlyAuthenticatedUsers: true,
                 collectResponses: true,
                 singleSubmission: false,
+                submissionTitleField: null,
                 emailResponses: false
             ),
         ]);

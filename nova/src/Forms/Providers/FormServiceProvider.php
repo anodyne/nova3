@@ -8,6 +8,7 @@ use Nova\DomainServiceProvider;
 use Nova\Forms\Livewire\DynamicForm;
 use Nova\Forms\Livewire\FormDesigner;
 use Nova\Forms\Livewire\FormsList;
+use Nova\Forms\Livewire\FormSubmissionsList;
 use Nova\Forms\Models\Form;
 use Nova\Forms\Spotlight;
 
@@ -19,6 +20,7 @@ class FormServiceProvider extends DomainServiceProvider
             'dynamic-form' => DynamicForm::class,
             'forms-designer' => FormDesigner::class,
             'forms-list' => FormsList::class,
+            'forms-submissions-list' => FormSubmissionsList::class,
         ];
     }
 

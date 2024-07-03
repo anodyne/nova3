@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Nova\Setup\Livewire;
 
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
+use Nova\Forms\Actions\CreateFormSubmission;
+use Nova\Forms\Models\Form;
 use Nova\Users\Data\PronounsData;
 use Nova\Users\Models\States\Status\Active;
 use Nova\Users\Models\User;
@@ -27,13 +28,15 @@ class SetupAccount extends Component
         $user = User::create([
             'name' => $this->name,
             'email' => $this->email,
-            'password' => Hash::make($this->password),
+            'password' => $this->password,
             'pronouns' => PronounsData::from(['value' => 'none']),
         ]);
 
         $user->addRoles(['owner', 'admin', 'active', 'writer', 'story-manager']);
 
         $user->status->transitionTo(Active::class);
+
+        CreateFormSubmission::run(Form::key('user'), $user);
 
         $user->refresh();
 

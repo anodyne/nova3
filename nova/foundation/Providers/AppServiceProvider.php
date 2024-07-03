@@ -14,6 +14,7 @@ use Filament\Tables\Table;
 use FilamentTiptapEditor\TiptapEditor;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
@@ -39,6 +40,7 @@ use Nova\Foundation\Livewire\Editor;
 use Nova\Foundation\Livewire\IconPicker;
 use Nova\Foundation\Livewire\Rating;
 use Nova\Foundation\Macros;
+use Nova\Foundation\Macros\CreateUpdateOrDelete;
 use Nova\Foundation\Nova;
 use Nova\Foundation\NovaBladeDirectives;
 use Nova\Foundation\NovaManager;
@@ -132,6 +134,13 @@ class AppServiceProvider extends ServiceProvider
         Str::mixin(new Macros\StrMacros());
         TextColumn::mixin(new Macros\TextColumnMacros());
         ViewFactory::mixin(new Macros\ViewMacros());
+
+        HasMany::macro('createUpdateOrDelete', function (iterable $records) {
+            /** @var HasMany */
+            $hasMany = $this;
+
+            return (new CreateUpdateOrDelete($hasMany, $records))();
+        });
     }
 
     protected function registerIcons()
@@ -262,7 +271,7 @@ class AppServiceProvider extends ServiceProvider
             Blocks\ContentRatings\GridContentRatingsBlock::make(),
             Blocks\ContentRatings\SplitContentRatingsBlock::make(),
 
-            Blocks\Form\FormBlock::make(),
+            // Blocks\Form\FormBlock::make(),
         ]);
 
         $blockManager->registerFormBlocks([
@@ -272,7 +281,7 @@ class AppServiceProvider extends ServiceProvider
             Fields\EmailField::make(),
             Fields\DropdownField::make(),
             Fields\SelectOneField::make(),
-            Fields\SelectMultipleField::make(),
+            // Fields\SelectMultipleField::make(),
         ]);
 
         $this->app->scoped(BlockManager::class, fn () => $blockManager);

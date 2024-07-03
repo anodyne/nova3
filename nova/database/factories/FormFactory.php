@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 use Nova\Forms\Enums\FormType;
 use Nova\Forms\Models\Form;
 
@@ -18,8 +17,9 @@ class FormFactory extends Factory
         $name = $this->faker->words(2, true);
 
         return [
-            'key' => Str::slug($name),
+            'key' => str($name)->slug()->value(),
             'name' => $name,
+            'type' => FormType::Basic,
             'is_locked' => false,
         ];
     }

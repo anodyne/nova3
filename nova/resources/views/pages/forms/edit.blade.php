@@ -13,6 +13,13 @@
                 @can('viewAny', $form::class)
                     <x-button :href="route('forms.index')" plain>&larr; Back</x-button>
                 @endcan
+
+                @can('design', $form)
+                    <x-button :href="route('forms.design', $form)">
+                        <x-icon name="tools" size="sm"></x-icon>
+                        Design
+                    </x-button>
+                @endcan
             </x-slot>
         </x-page-header>
 
@@ -20,8 +27,8 @@
             :action="route('forms.update', $form)"
             method="PUT"
             x-data="{
-                emailResponses: {{ Js::from(old('options[emailResponses]', $form->options->emailResponses)) }},
-                collectResponses: {{ Js::from(old('options[collectResponses]', $form->options->collectResponses)) }},
+                emailResponses: {{ Js::from(old('options[emailResponses]', $form->options?->emailResponses ?? false)) }},
+                collectResponses: {{ Js::from(old('options[collectResponses]', $form->options?->collectResponses ?? false)) }},
             }"
         >
             <x-fieldset>
@@ -79,16 +86,23 @@
                                 </x-fieldset.description>
                                 <x-switch
                                     name="options[onlyAuthenticatedUsers]"
-                                    :value="old('options[onlyAuthenticatedUsers]', $form->options->onlyAuthenticatedUsers)"
+                                    :value="old('options[onlyAuthenticatedUsers]', $form->options?->onlyAuthenticatedUsers ?? false)"
+                                    id="options_onlyAuthenticatedUsers"
                                 ></x-switch>
                             </x-switch.field>
+
                             <x-switch.field>
                                 <x-fieldset.label>Collect responses</x-fieldset.label>
                                 <x-fieldset.description>
                                     Store responses in the database and make them available from the form viewer
                                 </x-fieldset.description>
-                                <x-switch x-model="collectResponses" name="options[collectResponses]"></x-switch>
+                                <x-switch
+                                    x-model="collectResponses"
+                                    name="options[collectResponses]"
+                                    id="options_collectResponses"
+                                ></x-switch>
                             </x-switch.field>
+
                             <x-switch.field x-show="collectResponses">
                                 <x-fieldset.label>Only allow 1 submission</x-fieldset.label>
                                 <x-fieldset.description>
@@ -96,15 +110,40 @@
                                 </x-fieldset.description>
                                 <x-switch
                                     name="options[singleSubmission]"
-                                    :value="old('options[singleSubmission]', $form->options->singleSubmission)"
+                                    :value="old('options[singleSubmission]', $form->options?->singleSubmission ?? false)"
+                                    id="options_singleSubmission"
                                 ></x-switch>
                             </x-switch.field>
+                            <x-fieldset.field
+                                name="options[submissionTitleField]"
+                                id="options_submissionTitleField"
+                                label="Submission title field"
+                                description="Choose the field that will be used in the form submissions list as the title field"
+                                x-show="collectResponses"
+                            >
+                                <x-select>
+                                    <option value="">Select a field</option>
+                                    @foreach ($fields as $uid => $label)
+                                        <option
+                                            value="{{ $uid }}"
+                                            @selected($form->options?->submissionTitleField === $uid)
+                                        >
+                                            {{ $label }}
+                                        </option>
+                                    @endforeach
+                                </x-select>
+                            </x-fieldset.field>
+
                             <x-switch.field>
                                 <x-fieldset.label>Email responses</x-fieldset.label>
                                 <x-fieldset.description>
                                     Email responses directly to specific individuals
                                 </x-fieldset.description>
-                                <x-switch x-model="emailResponses" name="options[emailResponses]"></x-switch>
+                                <x-switch
+                                    x-model="emailResponses"
+                                    name="options[emailResponses]"
+                                    id="options_emailResponses"
+                                ></x-switch>
                             </x-switch.field>
                         </x-switch.group>
 
@@ -115,7 +154,7 @@
                             :error="$errors->first('recipients')"
                             x-show="emailResponses"
                         >
-                            <x-input.text :value="old('options[emailRecipients]', $form->options->emailRecipients)" />
+                            <x-input.text :value="old('options[emailRecipients]', $form->options?->emailRecipients)" />
                         </x-fieldset.field>
                     </x-fieldset.field-group>
                 </x-fieldset>

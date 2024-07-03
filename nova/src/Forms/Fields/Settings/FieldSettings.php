@@ -35,6 +35,8 @@ abstract class FieldSettings extends ScribbleModal
             'label' => $this->data['label'] ?? null,
             'description' => $this->data['description'] ?? null,
             'uid' => $this->data['uid'] ?? null,
+            'required' => $this->data['required'] ?? false,
+            'hideWhenEmpty' => $this->data['hideWhenEmpty'] ?? false,
         ];
     }
 
@@ -65,11 +67,11 @@ abstract class FieldSettings extends ScribbleModal
                     ->label('Require this field to have a value'),
                 Toggle::make('hideWhenEmpty')
                     ->label('Hide this field from displaying if there is no value'),
-                Select::make('roles')
-                    ->label('Restrict this field to users with one of these roles')
-                    ->helperText('Restricting a field to specific roles will apply to both filling out the form as well as displaying its values')
-                    ->multiple()
-                    ->options(Role::all()->pluck('display_name', 'name')),
+                // Select::make('roles')
+                //     ->label('Restrict this field to users with one of these roles')
+                //     ->helperText('Restricting a field to specific roles will apply to both filling out the form as well as displaying its values')
+                //     ->multiple()
+                //     ->options(Role::all()->pluck('display_name', 'name')),
             ]),
         ];
     }
