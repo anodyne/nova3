@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
 use Nova\Users\Data\PronounsData;
 use Nova\Users\Models\States\Status\Active;
 use Nova\Users\Models\States\Status\Inactive;
@@ -21,7 +20,7 @@ class UserFactory extends Factory
         return [
             'name' => $this->faker->userName,
             'email' => $this->faker->unique()->safeEmail,
-            'password' => Hash::make('secret'),
+            'password' => 'secret',
             'pronouns' => PronounsData::from(['value' => 'none']),
             'appearance' => 'light',
         ];

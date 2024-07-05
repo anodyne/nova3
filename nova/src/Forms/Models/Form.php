@@ -4,8 +4,13 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Nova\Forms\Data\FormOptions;
+use Nova\Forms\Enums\FormStatus;
+use Nova\Forms\Enums\FormType;
 use Nova\Forms\Events;
 use Nova\Forms\Models\Builders\FormBuilder;
 use Spatie\Activitylog\LogOptions;
@@ -16,8 +21,26 @@ class Form extends Model
     use HasFactory;
     use LogsActivity;
 
+    protected $fillable = [
+        'name',
+        'key',
+        'type',
+        'description',
+        'status',
+        'fields',
+        'published_fields',
+        'published_at',
+        'options',
+    ];
+
     protected $casts = [
-        'locked' => 'boolean',
+        'is_locked' => 'boolean',
+        'fields' => 'array',
+        'published_at' => 'datetime',
+        'published_fields' => 'array',
+        'status' => FormStatus::class,
+        'type' => FormType::class,
+        'options' => FormOptions::class,
     ];
 
     protected $dispatchesEvents = [
@@ -26,14 +49,64 @@ class Form extends Model
         'updated' => Events\FormUpdated::class,
     ];
 
-    protected $fillable = ['name', 'key', 'description'];
-
-    public function blocks()
+    public function formFields(): HasMany
     {
-        return $this->belongsToMany(Block::class, 'form_block')
-            ->using(FormBlock::class)
-            ->withPivot('id', 'order_column', 'parent_id', 'settings')
-            ->orderBy('pivot_order_column');
+        return $this->hasMany(FormField::class);
+    }
+
+    public function submissions(): HasMany
+    {
+        return $this->hasMany(FormSubmission::class);
+    }
+
+    public function validationMessages(): Attribute
+    {
+        $form = $this;
+
+        return Attribute::make(
+            get: function () use ($form): array {
+                if ($form->type === FormType::Basic) {
+                    return collect(data_get($this->published_fields, 'content', []))
+                        ->filter(fn ($field) => data_get($field, 'attrs.values.required', false))
+                        ->flatMap(fn ($field) => [
+                            sprintf('%s.%s.required', 'values', data_get($field, 'attrs.values.uid')) => data_get($field, 'attrs.values.label').' field is required',
+                        ])
+                        ->all();
+                }
+
+                return collect(data_get($this->published_fields, 'content', []))
+                    ->filter(fn ($field) => data_get($field, 'attrs.values.required', false))
+                    ->flatMap(fn ($field) => [
+                        sprintf('%s.%s.required', $form->key, data_get($field, 'attrs.values.uid')) => data_get($field, 'attrs.values.label').' field is required',
+                    ])
+                    ->all();
+            }
+        );
+    }
+
+    public function validationRules(): Attribute
+    {
+        $form = $this;
+
+        return Attribute::make(
+            get: function () use ($form): array {
+                if ($form->type === FormType::Basic) {
+                    return collect(data_get($this->published_fields, 'content', []))
+                        ->filter(fn ($field) => data_get($field, 'attrs.values.required', false))
+                        ->flatMap(fn ($field) => [
+                            sprintf('%s.%s', 'values', data_get($field, 'attrs.values.uid')) => 'required',
+                        ])
+                        ->all();
+                }
+
+                return collect(data_get($this->published_fields, 'content', []))
+                    ->filter(fn ($field) => data_get($field, 'attrs.values.required', false))
+                    ->flatMap(fn ($field) => [
+                        sprintf('%s.%s', $this->key, data_get($field, 'attrs.values.uid')) => 'required',
+                    ])
+                    ->all();
+            }
+        );
     }
 
     public function getActivitylogOptions(): LogOptions

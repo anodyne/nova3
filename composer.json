@@ -14,6 +14,7 @@
         "anodyne/blade-tabler-icons": "^3.0",
         "awcodes/filament-tiptap-editor": "^3.0",
         "awcodes/scribble": "^0.3.0@alpha",
+        "awcodes/typist": "dev-main",
         "aws/aws-sdk-php": "^3.293",
         "awssat/discord-notification-channel": "^1.4",
         "bensampo/laravel-embed": "^2.4",
@@ -93,6 +94,12 @@
             "Tests\\": "tests/"
         }
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@dvs.github.com:awcodes/typist.git"
+        }
+    ],
     "scripts": {
         "analyse": "./vendor/bin/phpstan analyse",
         "clean": [

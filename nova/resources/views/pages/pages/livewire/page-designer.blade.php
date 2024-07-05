@@ -10,4 +10,6 @@
             <x-button type="button" wire:click="publish" color="neutral">Publish</x-button>
         </x-fieldset.controls>
     </form>
+
+    {{-- <x-filament-actions::modals /> --}}
 </div>

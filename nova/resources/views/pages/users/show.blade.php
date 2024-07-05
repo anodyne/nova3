@@ -3,7 +3,7 @@
 @use('Nova\Users\Models\User')
 
 @section('content')
-    <x-spacing x-data="tabsList('stats')" constrained>
+    <x-spacing x-data="tabsList('info')" constrained>
         <x-page-header>
             <x-slot name="heading">{{ $user->name }}</x-slot>
             <x-slot name="description">
@@ -26,12 +26,25 @@
             </x-slot>
         </x-page-header>
 
-        <x-tab.group name="user" class="mb-6">
-            <x-tab.heading name="details">Details</x-tab.heading>
-            <x-tab.heading name="stats">Stats</x-tab.heading>
+        <x-tab.group name="user" class="mb-12">
+            <x-tab.heading name="info">
+                <x-icon name="info" size="sm"></x-icon>
+                Basic info
+            </x-tab.heading>
+            <x-tab.heading name="stats">
+                <x-icon name="chart" size="sm"></x-icon>
+                Stats
+            </x-tab.heading>
+
+            @if (filled($form->published_fields))
+                <x-tab.heading name="bio">
+                    <x-icon name="user-profile" size="sm"></x-icon>
+                    Bio
+                </x-tab.heading>
+            @endif
         </x-tab.group>
 
-        <div class="space-y-8">
+        <div class="space-y-12" x-show="isTab('stats')">
             <x-panel well>
                 <x-spacing size="xs">
                     <x-fieldset.legend>Characters</x-fieldset.legend>
@@ -116,6 +129,16 @@
                     </x-panel>
                 </x-spacing>
             </x-panel>
+        </div>
+
+        <div class="w-full max-w-md" x-show="isTab('bio')">
+            <livewire:dynamic-form
+                :form="$form"
+                :submission="$user->userFormSubmission"
+                :owner="$user"
+                :admin="true"
+                :static="true"
+            />
         </div>
     </x-spacing>
 @endsection

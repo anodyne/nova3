@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Nova\Characters\Enums\CharacterType;
@@ -17,6 +20,7 @@ use Nova\Characters\Models\States\Status\CharacterStatus;
 use Nova\Characters\Models\States\Status\Inactive;
 use Nova\Characters\Models\States\Status\Pending;
 use Nova\Departments\Models\Position;
+use Nova\Forms\Models\FormSubmission;
 use Nova\Foundation\Nova;
 use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Ranks\Models\RankItem;
@@ -90,6 +94,17 @@ class Character extends Model implements HasMedia
         return $this->belongsToMany(User::class)
             ->withPivot('primary')
             ->withTimestamps();
+    }
+
+    public function formSubmissions(): MorphMany
+    {
+        return $this->morphMany(FormSubmission::class, 'owner');
+    }
+
+    public function characterFormSubmission(): MorphOne
+    {
+        return $this->morphOne(FormSubmission::class, 'owner')
+            ->whereHas('form', fn (Builder $query): Builder => $query->key('characterBio'));
     }
 
     public function getActivitylogOptions(): LogOptions

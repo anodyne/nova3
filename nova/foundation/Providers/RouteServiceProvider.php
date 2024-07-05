@@ -9,6 +9,7 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
+use Nova\Foundation\Http\Middleware\CheckVersion;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -33,8 +34,14 @@ class RouteServiceProvider extends ServiceProvider
                 ->middleware('api')
                 ->group(nova_path('routes/api.php'));
 
-            Route::middleware('web')
+            Route::middleware(['web', CheckVersion::class])
                 ->group(nova_path('routes/web.php'));
+
+            if (app()->environment('local')) {
+                Route::prefix('test')
+                    ->middleware('web')
+                    ->group(nova_path('routes/local.php'));
+            }
         });
     }
 

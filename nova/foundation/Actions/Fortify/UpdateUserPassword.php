@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Actions\Fortify;
 
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\UpdatesUserPasswords;
 use Nova\Users\Models\User;
@@ -28,7 +27,7 @@ class UpdateUserPassword implements UpdatesUserPasswords
         ])->validateWithBag('updatePassword');
 
         $user->forceFill([
-            'password' => Hash::make($input['password']),
+            'password' => $input['password'],
         ])->save();
     }
 }

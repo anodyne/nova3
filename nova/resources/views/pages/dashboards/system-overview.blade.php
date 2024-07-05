@@ -1,92 +1,15 @@
 @extends($meta->template)
 
-@use('Composer\InstalledVersions')
-
-@php
-    $filesVersion = app()->novaVersion();
-    $databaseVersion = '3.0.0';
-    $serverVersion = '3.0.0';
-@endphp
-
 @section('content')
     <x-page-header>
         <x-slot name="heading">System overview</x-slot>
 
         <x-slot name="actions">
-            @if (version_compare($filesVersion, $serverVersion, '=='))
-                @if (version_compare($filesVersion, $databaseVersion, '!='))
-                    <x-badge size="lg" color="warning" pill>
-                        <x-badge size="lg" color="warning" pill>Nova {{ $filesVersion }}</x-badge>
-                        Your database needs to be updated from Nova {{ $databaseVersion }}
-                    </x-badge>
-                @else
-                    <x-badge size="lg" color="success" pill>
-                        <x-badge size="lg" color="success" pill>Nova {{ $filesVersion }}</x-badge>
-                        Your site is up-to-date
-                    </x-badge>
-                @endif
-            @else
-                <x-badge size="lg" color="danger" pill>
-                    <x-badge size="lg" color="danger" pill>Nova {{ $serverVersion }} is available</x-badge>
-                    Update your site from Nova {{ $filesVersion }}
-                </x-badge>
-            @endif
+            <livewire:nova-update-panel />
         </x-slot>
     </x-page-header>
 
     <div class="space-y-8">
-        @if (version_compare($filesVersion, $serverVersion, '!='))
-            <div class="w-full max-w-2xl">
-                <x-panel well>
-                    <x-panel.well-heading>
-                        <x-slot name="heading">Nova {{ $serverVersion }}</x-slot>
-
-                        <x-slot name="controls">
-                            <x-dropdown placement="bottom-end">
-                                <x-slot name="trigger" color="neutral">Ignore this update</x-slot>
-
-                                <x-dropdown.group>
-                                    <x-dropdown.text>
-                                        Are you sure you want to ignore this update? You won’t be prompted to update
-                                        again until a new version is released.
-                                    </x-dropdown.text>
-                                </x-dropdown.group>
-                                <x-dropdown.group>
-                                    <x-dropdown.item-danger type="button" icon="tabler-bell-off">
-                                        Ignore
-                                    </x-dropdown.item-danger>
-                                    <x-dropdown.item
-                                        type="button"
-                                        icon="prohibited"
-                                        x-on:click.prevent="$dispatch('dropdown-close')"
-                                    >
-                                        Cancel
-                                    </x-dropdown.item>
-                                </x-dropdown.group>
-                            </x-dropdown>
-                        </x-slot>
-                    </x-panel.well-heading>
-
-                    <x-spacing size="2xs">
-                        <x-panel>
-                            <x-spacing size="md">
-                                <x-text size="lg" class="max-w-2xl">
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cum quos corporis suscipit
-                                    odio rerum illo porro officiis quod quis fugiat aliquid, esse, culpa, repellat dicta
-                                    nemo minus ipsam iusto nihil?
-                                </x-text>
-
-                                <div class="mt-8 flex items-center gap-2">
-                                    <x-button color="primary">Get the update files &rarr;</x-button>
-                                    <x-button plain>Learn more</x-button>
-                                </div>
-                            </x-spacing>
-                        </x-panel>
-                    </x-spacing>
-                </x-panel>
-            </div>
-        @endif
-
         <div class="w-full max-w-2xl">
             <x-h2>Diagnostics</x-h2>
             <x-text class="mt-2">

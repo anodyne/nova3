@@ -208,9 +208,10 @@ return [
          */
         Nova\Setup\Providers\SetupServiceProvider::class,
         Nova\Characters\Providers\CharacterServiceProvider::class,
+        Nova\Conversations\Providers\ConversationServiceProvider::class,
         Nova\Dashboards\Providers\DashboardsServiceProvider::class,
         Nova\Departments\Providers\DepartmentServiceProvider::class,
-        Nova\Forms\Providers\FormsServiceProvider::class,
+        Nova\Forms\Providers\FormServiceProvider::class,
         Nova\Media\Providers\MediaServiceProvider::class,
         // Nova\Navigation\Providers\NavigationServiceProvider::class,
         Nova\Notes\Providers\NotesServiceProvider::class,

@@ -21,16 +21,18 @@ class CheckVersion
     public function handle(Request $request, Closure $next): Response
     {
         if (Nova::isInstalled()) {
-            if (Cache::missing('nova-latest-version')) {
-                $upstream = Http::get('https://anodyne-productions.com/api/nova/latest-version')->json();
+            // if (Cache::missing('nova-latest-version')) {
+            // $upstream = Http::get('https://anodyne-productions.com/api/nova/latest-version')->json();
+            $upstream = Http::get(url('api/version'))->json();
 
-                // First, upstream needs to be higher than current
-                // Second, notify if it's a critical update
-                // Third, notify only if it matches what the GM wants to be notified of
-                if (
-                    version_compare($upstream['version'], nova()->version, '>') &&
-                    ($upstream['severity'] === 'critical' || in_array($upstream['severity'], settings('general.updateSeverity')))
-                ) {
+            if ($upstream) {
+                if ($upstream['severity'] === 'critical') {
+                    Cache::rememberForever('nova-critical-update-available', function () {
+                        return true;
+                    });
+                }
+
+                if (version_compare($upstream['version'], nova()->version, '>')) {
                     Cache::rememberForever('nova-update-available', function () {
                         return true;
                     });
@@ -38,6 +40,8 @@ class CheckVersion
 
                 Cache::put('nova-latest-version', $upstream, now()->addDay());
             }
+
+            // }
         }
 
         return $next($request);

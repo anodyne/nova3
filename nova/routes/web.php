@@ -3,13 +3,13 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
+use Nova\Characters\Models\Character;
 use Nova\Departments\Models\Department;
+use Nova\Forms\Models\Form;
 use Nova\Foundation\Http\Middleware\CheckInstallStatus;
 use Nova\Pages\Controllers\BasicPageController;
 use Nova\Pages\Controllers\PreviewBasicPageController;
 use Nova\Pages\Models\Page;
-use Nova\Settings\Data\FontFamilies;
-use Nova\Setup\Models\Legacy\Character;
 
 try {
     $pages = cache()->rememberForever('nova.pages', fn () => Nova\Pages\Models\Page::get());
@@ -28,116 +28,3 @@ try {
 }
 
 Route::impersonate();
-
-Route::get('manifest-test', function () {
-    $active = Department::query()
-        ->with([
-            'positions' => fn ($query) => $query->whereHas('characters'),
-            'positions.characters',
-        ])
-        ->whereHas('positions', fn ($query) => $query->whereHas('characters', fn ($q) => $q->active()))
-        ->get();
-    $inactive = Department::query()
-        ->with([
-            'positions' => fn ($query) => $query->whereHas('characters'),
-            'positions.characters',
-        ])
-        ->whereHas('positions', fn ($query) => $query->whereHas('characters', fn ($q) => $q->inactive()))
-        ->get();
-    $depts = Department::query()
-        ->with([
-            'positions' => fn ($query) => $query->active(),
-            'positions.characters',
-        ])
-        ->get();
-    // dd($manifest);
-
-    echo '<h1>Active</h1>';
-    echo '<ul>';
-    foreach ($active as $department) {
-        echo '<li>';
-        echo $department->name;
-
-        echo '<ul>';
-        foreach ($department->positions as $position) {
-            echo '<li>';
-            echo $position->name;
-
-            echo '<ul>';
-            foreach ($position->characters as $character) {
-                echo '<li>';
-                echo $character->name;
-                echo '</li>';
-            }
-            echo '</ul>';
-            echo '</li>';
-        }
-        echo '</ul>';
-        echo '</li>';
-    }
-    echo '</ul>';
-
-    echo '<h1>Inactive</h1>';
-    echo '<ul>';
-    foreach ($inactive as $department) {
-        echo '<li>';
-        echo $department->name;
-
-        echo '<ul>';
-        foreach ($department->positions as $position) {
-            echo '<li>';
-            echo $position->name;
-
-            echo '<ul>';
-            foreach ($position->characters as $character) {
-                echo '<li>';
-                echo $character->name;
-                echo '</li>';
-            }
-            echo '</ul>';
-            echo '</li>';
-        }
-        echo '</ul>';
-        echo '</li>';
-    }
-    echo '</ul>';
-
-    echo '<h1>Positions</h1>';
-    echo '<ul>';
-    foreach ($depts as $department) {
-        echo '<li>';
-        echo $department->name;
-
-        echo '<ul>';
-        foreach ($department->positions as $position) {
-            echo '<li>';
-            echo $position->name;
-            echo '</li>';
-        }
-        echo '</ul>';
-        echo '</li>';
-    }
-    echo '</ul>';
-
-    return 'done';
-});
-
-Route::get('test', function () {
-    // $fontFamilies = new FontFamilies(
-    //     headerProvider: 'local',
-    //     headerFamily: 'Geist',
-    //     bodyProvider: 'local',
-    //     bodyFamily: 'Geist'
-    // );
-
-    // dd($fontFamilies->getFontHtml());
-
-    $character = Character::first();
-
-    dd(
-        Character::whereHas('user')->toRawSql(),
-        Character::whereDoesntHave('user')->toRawSql()
-    );
-
-    dd($character->user());
-});

@@ -26,13 +26,9 @@
             <p class="mt-2 text-sm/6 text-warning-600">
                 At this time, Nova does not support MariaDB. While it’s often considered a drop-in replacement for
                 MySQL, a
-                <a
-                    href="https://jira.mariadb.org/browse/MDEV-19077"
-                    target="_blank"
-                    class="font-medium text-warning-800 underline hover:text-warning-900"
-                >
-                    known bug
-                </a>
+                {{-- format-ignore-start --}}
+                <a href="https://jira.mariadb.org/browse/MDEV-19077" target="_blank" class="font-medium text-warning-800 underline hover:text-warning-900">known bug</a>
+                {{-- format-ignore-end --}}
                 in MariaDB would prevent some of Nova’s core features from working correctly. When this bug has been
                 adequately addressed, we will update Nova’s database requirements.
             </p>

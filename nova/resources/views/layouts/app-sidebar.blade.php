@@ -196,11 +196,20 @@
                                                 >
                                                     <div class="flex items-center gap-x-2">
                                                         <span>System</span>
-                                                        {{--
-                                                            @if (cache()->has('nova-update-available'))
-                                                            <div class="size-1.5 rounded-full bg-danger-500"></div>
-                                                            @endif
-                                                        --}}
+
+                                                        @if (cache()->has('nova-update-available') || cache()->has('nova-critical-update-available'))
+                                                            <div
+                                                                @class([
+                                                                    'text-warning-500' => ! cache()->has('nova-critical-update-available'),
+                                                                    'text-danger-500' => cache()->has('nova-critical-update-available'),
+                                                                ])
+                                                            >
+                                                                <x-icon
+                                                                    :name="cache()->has('nova-critical-update-available') ? 'update-alert' : 'update'"
+                                                                    size="sm"
+                                                                ></x-icon>
+                                                            </div>
+                                                        @endif
                                                     </div>
                                                 </x-nav.main-item-mobile>
                                             </li>
@@ -418,11 +427,20 @@
                                         >
                                             <div class="flex items-center gap-x-1.5">
                                                 <span>System</span>
-                                                {{--
-                                                    @if (cache()->has('nova-update-available'))
-                                                    <div class="size-1.5 rounded-full bg-danger-500"></div>
-                                                    @endif
-                                                --}}
+
+                                                @if (cache()->has('nova-update-available') || cache()->has('nova-critical-update-available'))
+                                                    <div
+                                                        @class([
+                                                            'text-warning-500' => ! cache()->has('nova-critical-update-available'),
+                                                            'text-danger-500' => cache()->has('nova-critical-update-available'),
+                                                        ])
+                                                    >
+                                                        <x-icon
+                                                            :name="cache()->has('nova-critical-update-available') ? 'update-alert' : 'update'"
+                                                            size="sm"
+                                                        ></x-icon>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </x-nav.main-item>
                                     </li>

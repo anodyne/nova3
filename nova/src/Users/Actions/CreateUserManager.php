@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Nova\Users\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Forms\Actions\CreateFormSubmission;
+use Nova\Forms\Actions\SyncFormSubmissionResponses;
+use Nova\Forms\Models\Form;
 use Nova\Users\Models\User;
 use Nova\Users\Requests\StoreUserRequest;
 
@@ -28,6 +31,18 @@ class CreateUserManager
 
         UploadUserAvatar::run($user, $request->image_path);
 
+        $this->createFormSubmission($user, $request->input('userBio'));
+
         return $user->fresh();
+    }
+
+    protected function createFormSubmission(User $user, ?array $data = []): void
+    {
+        $submission = CreateFormSubmission::run(
+            Form::key('userBio')->first(),
+            $user
+        );
+
+        SyncFormSubmissionResponses::run($submission, $data);
     }
 }

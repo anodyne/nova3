@@ -22,7 +22,7 @@
         // With warning message
         '[&_[data-slot=label]]:has-[[data-slot=warning]]:font-medium',
 
-        $attributes->get('class'),
+        $attributes->get('class') => $attributes->has('class'),
     ])
     {{ $attributes }}
 >

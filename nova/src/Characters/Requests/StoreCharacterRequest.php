@@ -9,6 +9,7 @@ use Nova\Characters\Data\AssignCharacterOwnersData;
 use Nova\Characters\Data\AssignCharacterPositionsData;
 use Nova\Characters\Data\CharacterData;
 use Nova\Characters\Models\Character;
+use Nova\Forms\Models\Form;
 
 class StoreCharacterRequest extends FormRequest
 {
@@ -31,10 +32,23 @@ class StoreCharacterRequest extends FormRequest
 
     public function rules(): array
     {
-        return [
-            'name' => ['required'],
-            'rank_id' => ['nullable'],
-        ];
+        return array_merge(
+            [
+                'name' => ['required'],
+                'rank_id' => ['nullable'],
+            ],
+            Form::key('characterBio')->first()->validation_rules,
+        );
+    }
+
+    public function messages(): array
+    {
+        return array_merge(
+            [
+                'name.required' => ':attribute is required',
+            ],
+            Form::key('characterBio')->first()->validation_messages,
+        );
     }
 
     public function getCharacterData(): CharacterData

@@ -33,7 +33,7 @@ class BlockManager
     public function groupedFormBlocks(): array
     {
         $categories = [
-            'hero' => 'Hero',
+            'field' => 'Field',
         ];
 
         return collect($categories)
@@ -65,6 +65,7 @@ class BlockManager
             'stories' => 'Stories',
             'ratings' => 'Content ratings',
             'content' => 'Freeform content',
+            'form' => 'Dynamic form',
         ];
 
         return collect($categories)

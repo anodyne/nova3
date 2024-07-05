@@ -12,8 +12,16 @@
         >
             Pages
         </x-nav.sub-item>
+        <x-nav.sub-item href="{{ route('forms.index') }}" :active="request()->routeIs('forms.*')">
+            Forms
+        </x-nav.sub-item>
+        <x-nav.sub-item
+            href="{{ route('form-submissions.index') }}"
+            :active="request()->routeIs('form-submissions.*')"
+        >
+            Form submissions
+        </x-nav.sub-item>
         {{-- <x-nav.sub-item href="#">Content</x-nav.sub-item> --}}
-        {{-- <x-nav.sub-item :href="route('forms.index')" :active="request()->routeIs('forms.*')">Forms</x-nav.sub-item> --}}
         {{-- <x-nav.sub-item href="#">Menus</x-nav.sub-item> --}}
     </x-nav.sub-group>
 

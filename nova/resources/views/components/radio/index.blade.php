@@ -9,7 +9,7 @@
 <span data-slot="control" class="group inline-flex focus:outline-none" role="radio">
     <input type="radio" class="peer sr-only" {{ $attributes }} />
 
-    <span
+    <label
         @class([
             // Basic layout
             'relative isolate flex size-[1.1875rem] shrink-0 items-center justify-center rounded-full sm:size-[1.0625rem]',
@@ -57,7 +57,8 @@
                 default => '[--radio-checked-bg:theme(colors.primary.500)] [--radio-checked-border:theme(colors.primary.600/80%)] [--radio-checked-indicator:theme(colors.white)]',
             },
         ])
+        for="{{ $attributes->get('id') }}"
     >
         <span class="size-[0.375rem] rounded-full bg-[--radio-indicator]"></span>
-    </span>
+    </label>
 </span>

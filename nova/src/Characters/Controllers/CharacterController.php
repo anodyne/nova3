@@ -15,6 +15,7 @@ use Nova\Characters\Responses\CreateCharacterResponse;
 use Nova\Characters\Responses\EditCharacterResponse;
 use Nova\Characters\Responses\ListCharactersResponse;
 use Nova\Characters\Responses\ShowCharacterResponse;
+use Nova\Forms\Models\Form;
 use Nova\Foundation\Controllers\Controller;
 
 class CharacterController extends Controller
@@ -36,7 +37,8 @@ class CharacterController extends Controller
         $this->authorize('view', $character);
 
         return ShowCharacterResponse::sendWith([
-            'character' => $character->load('media', 'positions', 'rank.name', 'users')->loadCount('activeUsers', 'primaryUsers', 'positions'),
+            'character' => $character->load('media', 'positions', 'rank.name', 'users', 'characterFormSubmission')->loadCount('activeUsers', 'primaryUsers', 'positions'),
+            'form' => Form::key('characterBio')->first(),
         ]);
     }
 
@@ -44,7 +46,9 @@ class CharacterController extends Controller
     {
         $this->authorize('createAny', Character::class);
 
-        return CreateCharacterResponse::send();
+        return CreateCharacterResponse::sendWith([
+            'form' => Form::key('characterBio')->first(),
+        ]);
     }
 
     public function store(StoreCharacterRequest $request)
@@ -68,7 +72,8 @@ class CharacterController extends Controller
         $this->authorize('update', $character);
 
         return EditCharacterResponse::sendWith([
-            'character' => $character->load('media', 'positions', 'users'),
+            'character' => $character->load('media', 'positions', 'users', 'characterFormSubmission'),
+            'form' => Form::key('characterBio')->first(),
         ]);
     }
 

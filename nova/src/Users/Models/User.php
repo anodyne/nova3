@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace Nova\Users\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -19,6 +22,8 @@ use Lab404\Impersonate\Models\Impersonate;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
 use Nova\Characters\Models\Character;
+use Nova\Conversations\Models\Conversation;
+use Nova\Forms\Models\FormSubmission;
 use Nova\Foundation\Models\UserNotificationPreference;
 use Nova\Foundation\Nova;
 use Nova\Media\Concerns\InteractsWithMedia;
@@ -53,6 +58,7 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
     use SoftDeletes;
 
     protected $casts = [
+        'password' => 'hashed',
         'force_password_reset' => 'boolean',
         'preferences' => UserPreferences::class,
         'pronouns' => PronounsData::class,
@@ -91,6 +97,12 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
         return $this->activeCharacters()->wherePivot('primary', true);
     }
 
+    public function conversations(): BelongsToMany
+    {
+        return $this->belongsToMany(Conversation::class)
+            ->withTimestamps();
+    }
+
     public function logins(): HasMany
     {
         return $this->hasMany(Login::class);
@@ -104,6 +116,17 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
     public function notes(): HasMany
     {
         return $this->hasMany(Note::class);
+    }
+
+    public function formSubmissions(): MorphMany
+    {
+        return $this->morphMany(FormSubmission::class, 'owner');
+    }
+
+    public function userFormSubmission(): MorphOne
+    {
+        return $this->morphOne(FormSubmission::class, 'owner')
+            ->whereHas('form', fn (Builder $query): Builder => $query->key('userBio'));
     }
 
     public function notificationPreferences(): HasMany

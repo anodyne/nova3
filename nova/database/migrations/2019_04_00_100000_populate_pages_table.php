@@ -133,12 +133,19 @@ class PopulatePagesTable extends Migration
             ['name' => 'Create story post', 'uri' => 'posts/create/{neighbor?}/{direction?}', 'key' => 'posts.create', 'resource' => 'Nova\\Stories\\Controllers\\PostController@create', 'layout' => 'admin'],
             ['name' => 'Edit story post', 'uri' => 'posts/{post}/edit', 'key' => 'posts.edit', 'resource' => 'Nova\\Stories\\Controllers\\PostController@edit', 'layout' => 'admin'],
 
-            ['name' => 'List forms', 'uri' => 'forms', 'key' => 'forms.index', 'resource' => 'Nova\\Forms\\Controllers\\ShowFormController@all', 'layout' => 'admin'],
-            ['name' => 'View form', 'uri' => 'forms/{form}/show', 'key' => 'forms.show', 'resource' => 'Nova\\Forms\\Controllers\\ShowFormController@show', 'layout' => 'admin'],
-            ['name' => 'Create form', 'uri' => 'forms/create', 'key' => 'forms.create', 'resource' => 'Nova\\Forms\\Controllers\\CreateFormController@create', 'layout' => 'admin'],
-            ['name' => 'Store form', 'uri' => 'forms', 'key' => 'forms.store', 'verb' => PageVerb::post, 'resource' => 'Nova\\Forms\\Controllers\\CreateFormController@store', 'layout' => 'admin'],
-            ['name' => 'Edit form', 'uri' => 'forms/{form}/edit', 'key' => 'forms.edit', 'resource' => 'Nova\\Forms\\Controllers\\UpdateFormController@edit', 'layout' => 'admin'],
-            ['name' => 'Update form', 'uri' => 'forms/{form}', 'key' => 'forms.update', 'verb' => PageVerb::put, 'resource' => 'Nova\\Forms\\Controllers\\UpdateFormController@update', 'layout' => 'admin'],
+            ['name' => 'List forms', 'uri' => 'forms', 'key' => 'forms.index', 'resource' => 'Nova\\Forms\\Controllers\\FormController@index', 'layout' => 'admin'],
+            ['name' => 'View form', 'uri' => 'forms/{form}/show', 'key' => 'forms.show', 'resource' => 'Nova\\Forms\\Controllers\\FormController@show', 'layout' => 'admin'],
+            ['name' => 'Create form', 'uri' => 'forms/create', 'key' => 'forms.create', 'resource' => 'Nova\\Forms\\Controllers\\FormController@create', 'layout' => 'admin'],
+            ['name' => 'Store form', 'uri' => 'forms', 'key' => 'forms.store', 'verb' => PageVerb::post, 'resource' => 'Nova\\Forms\\Controllers\\FormController@store', 'layout' => 'admin'],
+            ['name' => 'Edit form', 'uri' => 'forms/{form}/edit', 'key' => 'forms.edit', 'resource' => 'Nova\\Forms\\Controllers\\FormController@edit', 'layout' => 'admin'],
+            ['name' => 'Update form', 'uri' => 'forms/{form}', 'key' => 'forms.update', 'verb' => PageVerb::put, 'resource' => 'Nova\\Forms\\Controllers\\FormController@update', 'layout' => 'admin'],
+            ['name' => 'Design form', 'uri' => 'forms/{form}/design', 'key' => 'forms.design', 'resource' => 'Nova\\Forms\\Controllers\\DesignFormController', 'layout' => 'admin'],
+            ['name' => 'Preview form', 'uri' => 'forms/{form}/preview/{theme?}', 'key' => 'forms.preview', 'resource' => 'Nova\\Forms\\Controllers\\PreviewFormController', 'layout' => 'admin'],
+
+            ['name' => 'List form submissions', 'uri' => 'form-submissions', 'key' => 'form-submissions.index', 'resource' => 'Nova\\Forms\\Controllers\\FormSubmissionController@index', 'layout' => 'admin'],
+            ['name' => 'View form submission', 'uri' => 'forms-submissions/{submission}/show', 'key' => 'form-submissions.show', 'resource' => 'Nova\\Forms\\Controllers\\FormSubmissionController@show', 'layout' => 'admin'],
+            ['name' => 'Create form submission', 'uri' => 'form-submissions/create/{form?}', 'key' => 'form-submissions.create', 'resource' => 'Nova\\Forms\\Controllers\\FormSubmissionController@create', 'layout' => 'admin'],
+            ['name' => 'Edit form submission', 'uri' => 'form-submissions/{submission}/edit', 'key' => 'form-submissions.edit', 'resource' => 'Nova\\Forms\\Controllers\\FormSubmissionController@edit', 'layout' => 'admin'],
 
             ['name' => 'List pages', 'uri' => 'pages', 'key' => 'pages.index', 'resource' => 'Nova\\Pages\\Controllers\\PageController@index', 'layout' => 'admin'],
             ['name' => 'View page', 'uri' => 'pages/{page}/show', 'key' => 'pages.show', 'resource' => 'Nova\\Pages\\Controllers\\PageController@show', 'layout' => 'admin'],
@@ -149,6 +156,8 @@ class PopulatePagesTable extends Migration
             ['name' => 'Update page', 'uri' => 'pages/{page}', 'key' => 'pages.update', 'verb' => PageVerb::put, 'resource' => 'Nova\\Pages\\Controllers\\PageController@update', 'layout' => 'admin'],
 
             ['name' => 'Page test', 'uri' => 'page-test', 'key' => 'page-test', 'layout' => 'public'],
+
+            ['name' => 'Conversations', 'uri' => 'conversations', 'key' => 'conversations.index', 'resource' => 'Nova\\Conversations\\Controllers\\ConversationController@index', 'layout' => 'admin'],
         ];
 
         collect($pages)->each([Page::class, 'create']);

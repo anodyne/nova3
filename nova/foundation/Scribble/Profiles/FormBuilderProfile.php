@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Scribble\Profiles;
 
+use Awcodes\Scribble\Facades\ScribbleFacade;
 use Awcodes\Scribble\ScribbleProfile;
 use Nova\Foundation\Blocks\BlockManager;
 
@@ -16,12 +17,12 @@ class FormBuilderProfile extends ScribbleProfile
 
     public static function suggestionTools(): array
     {
-        return app(BlockManager::class)->groupedFormBlocks();
+        return app(BlockManager::class)->formBlocks()->toArray();
     }
 
     public static function toolbarTools(): array
     {
-        return [
+        return ScribbleFacade::getTools([
             'heading-two',
             'heading-three',
             'horizontal-rule',
@@ -34,6 +35,6 @@ class FormBuilderProfile extends ScribbleProfile
             'divider',
             'link',
             'media',
-        ];
+        ])->toArray();
     }
 }

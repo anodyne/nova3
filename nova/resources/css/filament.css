@@ -139,10 +139,10 @@
     @apply relative;
 }
 
-.fi-input-wrp:has(.fi-input) {
+.fi-input-wrp:not(.fi-fo-key-value):has(.fi-input) {
     @apply relative flex w-full rounded-lg bg-transparent p-0 shadow-none ring-0 before:absolute before:inset-px before:rounded-[calc(theme(borderRadius.lg)-1px)] before:bg-white before:shadow after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:ring-inset after:ring-transparent focus-within:!ring-0 has-[[data-disabled]]:opacity-50 before:has-[[data-disabled]]:bg-gray-950/5 before:has-[[data-disabled]]:shadow-none before:has-[[data-invalid]]:shadow-danger-500/10 dark:before:hidden sm:after:focus-within:ring-2 sm:after:focus-within:ring-primary-500;
 }
-.fi-input-wrp .fi-input {
+.fi-input-wrp:not(.fi-fo-key-value) .fi-input {
     @apply relative block w-full appearance-none rounded-lg border !border-solid border-gray-950/10 bg-transparent px-[calc(theme(spacing[3.5])-1px)] py-[calc(theme(spacing[2.5])-1px)] text-base/6 text-gray-950 placeholder:text-gray-500 invalid:border-danger-500 hover:border-gray-950/20 invalid:hover:border-danger-500 focus:outline-none focus:ring-0 disabled:border-gray-950/20 dark:border-white/10 dark:bg-white/5 dark:text-white invalid:dark:border-danger-500 dark:hover:border-white/20 invalid:hover:dark:border-danger-500 disabled:dark:border-white/15 disabled:dark:bg-white/[2.5%] dark:hover:disabled:border-white/15 sm:px-[calc(theme(spacing[3])-1px)] sm:py-[calc(theme(spacing[1.5])-1px)] sm:text-sm/6;
 }
 

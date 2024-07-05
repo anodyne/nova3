@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Nova\Users\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Forms\Actions\SyncFormSubmissionResponses;
+use Nova\Forms\Actions\UpdateFormSubmission;
 use Nova\Users\Models\User;
 use Nova\Users\Requests\UpdateUserRequest;
 
@@ -28,6 +30,15 @@ class UpdateUserManager
 
         RemoveUserAvatar::run($user, $request->boolean('remove_existing_image', false));
 
+        $this->updateFormSubmission($user, $request->input('userBio'));
+
         return $user->refresh();
+    }
+
+    protected function updateFormSubmission(User $user, ?array $data = []): void
+    {
+        $submission = UpdateFormSubmission::run($user->userFormSubmission);
+
+        SyncFormSubmissionResponses::run($submission, $data);
     }
 }

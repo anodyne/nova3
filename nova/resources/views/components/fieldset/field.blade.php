@@ -1,10 +1,16 @@
 @props([
     'name',
-    'id',
+    'id' => null,
     'label' => null,
     'description' => null,
     'error' => null,
 ])
+
+@use('Illuminate\Support\Str')
+
+@php
+    $id = blank($id) ? Str::random(12) : $id;
+@endphp
 
 <div
     @class([
@@ -20,6 +26,7 @@
         '[&>[data-slot=control]+[data-slot=info]]:mt-3',
         '[&>[data-slot=label]]:font-medium',
     ])
+    {{ $attributes }}
 >
     @if (filled($label))
         <x-fieldset.label for="{{ $id }}">{{ $label }}</x-fieldset.label>

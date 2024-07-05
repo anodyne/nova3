@@ -13,10 +13,8 @@ class FormDeleted
     use Dispatchable;
     use SerializesModels;
 
-    public Form $form;
-
-    public function __construct(Form $form)
-    {
-        $this->form = $form;
+    public function __construct(
+        public Form $form
+    ) {
     }
 }
