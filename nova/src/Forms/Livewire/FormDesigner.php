@@ -7,8 +7,8 @@ namespace Nova\Forms\Livewire;
 use Awcodes\Scribble\ScribbleEditor;
 use Filament\Forms\Form;
 use Illuminate\Support\Facades\Cache;
-use Nova\Forms\Actions\PublishForm;
 use Nova\Forms\Actions\PublishFormManager;
+use Nova\Forms\Actions\UnpublishForm;
 use Nova\Forms\Actions\UpdateForm;
 use Nova\Forms\Data\FormFieldsData;
 use Nova\Forms\Models\Form as NovaForm;
@@ -53,6 +53,16 @@ class FormDesigner extends FormComponent
         Notification::make()->success()
             ->title('Form design has been published')
             ->body('This version of the form is now live for all visitors and users to see and use.')
+            ->send();
+    }
+
+    public function unpublish(): void
+    {
+        UnpublishForm::run($this->novaForm);
+
+        Notification::make()->success()
+            ->title('Form design has been un-published')
+            ->body('This version of the form is no longer live.')
             ->send();
     }
 
