@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
     {
         activity()->disableLogging();
 
-        $form = Form::key('user')->first();
+        $form = Form::key('userBio')->first();
 
         $admin = User::factory()->active()->create([
             'name' => 'admin',

@@ -14,15 +14,16 @@ class SyncFormSubmissionResponses
 
     public function handle(FormSubmission $submission, array $values = []): FormSubmission
     {
-        $data = collect($values)->map(function ($value, $uid): array {
-            $field = FormField::uid($uid)->first();
+        $data = collect($values)
+            ->map(function ($value, $uid): array {
+                $field = FormField::uid($uid)->first();
 
-            return [
-                'field_type' => $field->type,
-                'field_uid' => $uid,
-                'value' => $value,
-            ];
-        });
+                return [
+                    'field_type' => $field->type,
+                    'field_uid' => $uid,
+                    'value' => $value,
+                ];
+            });
 
         $submission->responses()->createUpdateOrDelete($data->all());
 

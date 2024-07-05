@@ -30,7 +30,7 @@ class UpdateUserManager
 
         RemoveUserAvatar::run($user, $request->boolean('remove_existing_image', false));
 
-        $this->updateFormSubmission($user, $request->input('user'));
+        $this->updateFormSubmission($user, $request->input('userBio'));
 
         return $user->refresh();
     }

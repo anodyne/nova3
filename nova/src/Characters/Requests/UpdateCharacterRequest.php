@@ -19,7 +19,7 @@ class UpdateCharacterRequest extends FormRequest
                 'name' => ['required'],
                 'rank_id' => ['nullable'],
             ],
-            Form::key('character')->first()->validation_rules,
+            Form::key('characterBio')->first()->validation_rules,
         );
     }
 
@@ -29,7 +29,7 @@ class UpdateCharacterRequest extends FormRequest
             [
                 'name.required' => ':attribute is required',
             ],
-            Form::key('character')->first()->validation_messages,
+            Form::key('characterBio')->first()->validation_messages,
         );
     }
 

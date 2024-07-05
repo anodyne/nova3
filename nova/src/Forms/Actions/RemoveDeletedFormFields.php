@@ -14,11 +14,12 @@ class RemoveDeletedFormFields
 
     public function handle(Form $form): void
     {
-        $fieldUids = collect($form->published_fields['content'])
+        $fieldUids = collect(data_get($form->published_fields, 'content') ?? [])
+            ->reject(fn ($item) => $item['type'] !== 'scribbleBlock')
             ->flatMap(fn ($item) => [data_get($item, 'attrs.values.uid')])
             ->all();
 
-        FormField::query()->whereNotIn('uid', $fieldUids)->delete();
+        FormField::query()->form($form)->whereNotIn('uid', $fieldUids)->delete();
 
         // Delete any submission data associated with the field(s)
     }

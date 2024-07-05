@@ -12,7 +12,9 @@ class EnsureAdvancedPagesAreCreated
 
     public function handle(): void
     {
-        //
+        activity()->disableLogging();
+
+        activity()->enableLogging();
     }
 
     public function present(): bool

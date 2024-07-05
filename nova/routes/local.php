@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Route;
 use Nova\Conversations\Controllers\ConversationController;
 use Nova\Departments\Models\Department;
 use Nova\Forms\Models\Form;
-use Nova\Setup\Actions\Database\Schema\DynamicFormSchema;
 
 Route::get('messages', [ConversationController::class, 'index']);
 
@@ -104,17 +103,7 @@ Route::get('manifest-test', function () {
 });
 
 Route::get('test', function () {
-    // $form = Form::find(4);
+    $form = Form::find(2);
 
-    // dd(
-    //     $form->published_fields,
-    //     $form->validation_rules
-    // );
-
-    dd(
-        DynamicFormSchema::tipTapSchema([
-            DynamicFormSchema::shortText(label: 'Label 1'),
-            DynamicFormSchema::longText(label: 'Label 2'),
-        ])
-    );
+    dd($form->validation_rules);
 });

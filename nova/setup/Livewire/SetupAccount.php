@@ -36,7 +36,7 @@ class SetupAccount extends Component
 
         $user->status->transitionTo(Active::class);
 
-        CreateFormSubmission::run(Form::key('user'), $user);
+        CreateFormSubmission::run(Form::key('userBio'), $user);
 
         $user->refresh();
 

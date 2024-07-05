@@ -31,7 +31,7 @@ class CreateUserManager
 
         UploadUserAvatar::run($user, $request->image_path);
 
-        $this->createFormSubmission($user, $request->input('user'));
+        $this->createFormSubmission($user, $request->input('userBio'));
 
         return $user->fresh();
     }
@@ -39,7 +39,7 @@ class CreateUserManager
     protected function createFormSubmission(User $user, ?array $data = []): void
     {
         $submission = CreateFormSubmission::run(
-            Form::key('user')->first(),
+            Form::key('userBio')->first(),
             $user
         );
 

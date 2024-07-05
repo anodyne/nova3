@@ -17,7 +17,7 @@ class CharacterSeeder extends Seeder
     {
         activity()->disableLogging();
 
-        $form = Form::key('character')->first();
+        $form = Form::key('characterBio')->first();
 
         $picard = Character::factory()->secondary()->create([
             'name' => 'Jean-Luc Picard',

@@ -38,7 +38,7 @@ class CharacterController extends Controller
 
         return ShowCharacterResponse::sendWith([
             'character' => $character->load('media', 'positions', 'rank.name', 'users', 'characterFormSubmission')->loadCount('activeUsers', 'primaryUsers', 'positions'),
-            'form' => Form::key('character')->first(),
+            'form' => Form::key('characterBio')->first(),
         ]);
     }
 
@@ -47,7 +47,7 @@ class CharacterController extends Controller
         $this->authorize('createAny', Character::class);
 
         return CreateCharacterResponse::sendWith([
-            'form' => Form::key('character')->first(),
+            'form' => Form::key('characterBio')->first(),
         ]);
     }
 
@@ -73,7 +73,7 @@ class CharacterController extends Controller
 
         return EditCharacterResponse::sendWith([
             'character' => $character->load('media', 'positions', 'users', 'characterFormSubmission'),
-            'form' => Form::key('character')->first(),
+            'form' => Form::key('characterBio')->first(),
         ]);
     }
 

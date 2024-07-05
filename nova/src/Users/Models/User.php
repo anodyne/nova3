@@ -126,7 +126,7 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
     public function userFormSubmission(): MorphOne
     {
         return $this->morphOne(FormSubmission::class, 'owner')
-            ->whereHas('form', fn (Builder $query): Builder => $query->key('user'));
+            ->whereHas('form', fn (Builder $query): Builder => $query->key('userBio'));
     }
 
     public function notificationPreferences(): HasMany

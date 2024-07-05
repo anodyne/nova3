@@ -40,14 +40,14 @@ class UserController extends Controller
         return ShowUserResponse::sendWith([
             'user' => $user->load('roles', 'latestLogin', 'latestPost', 'userFormSubmission')->loadCount('activeCharacters', 'characters', 'publishedPosts'),
             'publishedPosts' => $user->publishedPosts()->take(5)->get(),
-            'form' => Form::key('user')->first(),
+            'form' => Form::key('userBio')->first(),
         ]);
     }
 
     public function create()
     {
         return CreateUserResponse::sendWith([
-            'form' => Form::key('user')->first(),
+            'form' => Form::key('userBio')->first(),
         ]);
     }
 
@@ -71,7 +71,7 @@ class UserController extends Controller
     {
         return EditUserResponse::sendWith([
             'user' => $user->load('roles', 'characters', 'userFormSubmission'),
-            'form' => Form::key('user')->first(),
+            'form' => Form::key('userBio')->first(),
         ]);
     }
 

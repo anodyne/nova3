@@ -104,7 +104,7 @@ class Character extends Model implements HasMedia
     public function characterFormSubmission(): MorphOne
     {
         return $this->morphOne(FormSubmission::class, 'owner')
-            ->whereHas('form', fn (Builder $query): Builder => $query->key('character'));
+            ->whereHas('form', fn (Builder $query): Builder => $query->key('characterBio'));
     }
 
     public function getActivitylogOptions(): LogOptions

@@ -52,7 +52,7 @@ class UpdateCharacterManager
 
         RemoveCharacterAvatar::run($character, $request->boolean('remove_existing_image', false));
 
-        $this->updateFormSubmission($character, $request->input('character'));
+        $this->updateFormSubmission($character, $request->input('characterBio'));
 
         return $character->refresh();
     }
