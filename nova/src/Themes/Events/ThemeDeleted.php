@@ -15,6 +15,5 @@ class ThemeDeleted
 
     public function __construct(
         public Theme $theme
-    ) {
-    }
+    ) {}
 }

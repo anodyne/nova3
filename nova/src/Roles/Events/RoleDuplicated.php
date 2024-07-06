@@ -16,6 +16,5 @@ class RoleDuplicated
     public function __construct(
         public Role $role,
         public Role $original
-    ) {
-    }
+    ) {}
 }

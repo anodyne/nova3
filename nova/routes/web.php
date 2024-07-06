@@ -3,9 +3,6 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
-use Nova\Characters\Models\Character;
-use Nova\Departments\Models\Department;
-use Nova\Forms\Models\Form;
 use Nova\Foundation\Http\Middleware\CheckInstallStatus;
 use Nova\Pages\Controllers\BasicPageController;
 use Nova\Pages\Controllers\PreviewBasicPageController;

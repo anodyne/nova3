@@ -19,8 +19,7 @@ class Characters extends Data implements Arrayable
         public bool $autoAvailabilityForPrimary,
         public bool $autoAvailabilityForSecondary,
         public bool $autoAvailabilityForSupport
-    ) {
-    }
+    ) {}
 
     public static function fromRequest(Request $request): static
     {

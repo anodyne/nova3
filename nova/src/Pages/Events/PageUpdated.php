@@ -15,6 +15,5 @@ class PageUpdated
 
     public function __construct(
         public Page $page
-    ) {
-    }
+    ) {}
 }

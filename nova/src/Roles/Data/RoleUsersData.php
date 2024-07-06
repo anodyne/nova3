@@ -11,8 +11,7 @@ class RoleUsersData extends Data
 {
     public function __construct(
         public ?array $users
-    ) {
-    }
+    ) {}
 
     public static function fromRequest(Request $request): static
     {

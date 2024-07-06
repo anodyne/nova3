@@ -22,11 +22,9 @@ use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\LaravelData\WithData;
 use Spatie\ModelStates\HasStates;
-use Staudenmeir\EloquentEagerLimitXLaravelAdjacencyList\Eloquent\HasEagerLimitAndRecursiveRelationships;
 
 class Post extends Model implements Sortable
 {
-    use HasEagerLimitAndRecursiveRelationships;
     use HasFactory;
     use HasStates;
     use LogsActivity;

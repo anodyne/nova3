@@ -17,8 +17,7 @@ class CharacterPositionsData extends Data
         public ?CharacterType $currentType = null,
         public ?Collection $previousPositions = null,
         public ?Collection $currentPositions = null
-    ) {
-    }
+    ) {}
 
     public function canAutoManageCurrentType(): bool
     {

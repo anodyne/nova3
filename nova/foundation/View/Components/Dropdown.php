@@ -13,8 +13,7 @@ class Dropdown extends Component
         public bool $wide = false,
         public string $id = 'options-menu',
         public ?string $maxHeight = null
-    ) {
-    }
+    ) {}
 
     public function placementStyles(): string
     {

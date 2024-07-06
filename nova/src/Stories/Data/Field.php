@@ -14,8 +14,7 @@ class Field extends Data implements Arrayable
     public function __construct(
         public bool $enabled,
         public bool $required,
-    ) {
-    }
+    ) {}
 
     public static function fromArray(array $data): static
     {

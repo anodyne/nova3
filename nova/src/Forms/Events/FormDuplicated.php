@@ -16,6 +16,5 @@ class FormDuplicated
     public function __construct(
         public Form $form,
         public Form $original
-    ) {
-    }
+    ) {}
 }

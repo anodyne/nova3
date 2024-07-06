@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use Illuminate\View\ComponentAttributeBag;
 use Illuminate\View\DynamicComponent;
 use Illuminate\View\Factory as ViewFactory;
 use Livewire\Livewire;
@@ -134,6 +135,13 @@ class AppServiceProvider extends ServiceProvider
         Str::mixin(new Macros\StrMacros());
         TextColumn::mixin(new Macros\TextColumnMacros());
         ViewFactory::mixin(new Macros\ViewMacros());
+
+        ComponentAttributeBag::macro('hasStartsWith', function ($key) {
+            /** @var ComponentAttributeBag */
+            $bag = $this;
+
+            return (bool) $bag->whereStartsWith($key)->first();
+        });
 
         HasMany::macro('createUpdateOrDelete', function (iterable $records) {
             /** @var HasMany */

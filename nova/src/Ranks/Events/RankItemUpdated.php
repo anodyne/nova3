@@ -15,6 +15,5 @@ class RankItemUpdated
 
     public function __construct(
         public RankItem $item
-    ) {
-    }
+    ) {}
 }

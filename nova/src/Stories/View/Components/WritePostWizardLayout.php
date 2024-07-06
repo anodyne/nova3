@@ -11,8 +11,7 @@ class WritePostWizardLayout extends Component
     public function __construct(
         public $steps,
         public string $message
-    ) {
-    }
+    ) {}
 
     public function render()
     {

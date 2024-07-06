@@ -15,6 +15,5 @@ class UserCreatedByAdmin
 
     public function __construct(
         public User $user
-    ) {
-    }
+    ) {}
 }

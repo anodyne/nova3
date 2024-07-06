@@ -16,6 +16,5 @@ class RankGroupDuplicated
     public function __construct(
         public RankGroup $group,
         public RankGroup $original
-    ) {
-    }
+    ) {}
 }

@@ -16,6 +16,5 @@ class PositionDuplicated
     public function __construct(
         public Position $position,
         public Position $original
-    ) {
-    }
+    ) {}
 }

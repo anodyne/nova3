@@ -15,6 +15,5 @@ class NoteDeleted
 
     public function __construct(
         public Note $note
-    ) {
-    }
+    ) {}
 }

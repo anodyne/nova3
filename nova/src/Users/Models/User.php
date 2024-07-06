@@ -42,12 +42,10 @@ use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\ModelStates\HasStates;
-use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
 class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerifyEmail
 {
     use CausesActivity;
-    use HasEagerLimit;
     use HasFactory;
     use HasRolesAndPermissions;
     use HasStates;

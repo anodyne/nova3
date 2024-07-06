@@ -76,13 +76,9 @@ abstract class DomainServiceProvider extends ServiceProvider
         return [];
     }
 
-    public function domainBooting(): void
-    {
-    }
+    public function domainBooting(): void {}
 
-    public function domainBooted(): void
-    {
-    }
+    public function domainBooted(): void {}
 
     /**
      * Allow a domain service provider to specify additional actions to run
@@ -90,9 +86,7 @@ abstract class DomainServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registeringDomain()
-    {
-    }
+    protected function registeringDomain() {}
 
     /**
      * Allow a domain service provider to specify additional actions to run
@@ -100,9 +94,7 @@ abstract class DomainServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registeredDomain()
-    {
-    }
+    protected function registeredDomain() {}
 
     private function registerSpotlightCommands(): void
     {

@@ -12,8 +12,7 @@ class AssignCharacterOwnersData extends Data
     public function __construct(
         public ?array $users,
         public ?array $primaryUsers
-    ) {
-    }
+    ) {}
 
     public static function fromRequest(Request $request): static
     {

@@ -37,6 +37,5 @@ class EmailConfiguration extends Data implements Arrayable
         public ?string $awsAccessKeyId,
         public ?string $awsSecretAccessKey,
         public ?string $awsDefaultRegion
-    ) {
-    }
+    ) {}
 }

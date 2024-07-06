@@ -14,8 +14,7 @@ class ContentRatings extends Data implements Arrayable
         public ?ContentRating $language,
         public ?ContentRating $sex,
         public ?ContentRating $violence,
-    ) {
-    }
+    ) {}
 
     public static function fromRequest(Request $request): static
     {

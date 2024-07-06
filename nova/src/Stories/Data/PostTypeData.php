@@ -33,6 +33,5 @@ class PostTypeData extends Data
         public ?string $icon,
 
         public ?string $color,
-    ) {
-    }
+    ) {}
 }

@@ -15,6 +15,5 @@ class StoryEnded
 
     public function __construct(
         public Story $story
-    ) {
-    }
+    ) {}
 }

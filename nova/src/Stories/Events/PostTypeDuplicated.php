@@ -16,6 +16,5 @@ class PostTypeDuplicated
     public function __construct(
         public PostType $postType,
         public PostType $original
-    ) {
-    }
+    ) {}
 }

@@ -15,6 +15,5 @@ class PositionCreated
 
     public function __construct(
         public Position $position
-    ) {
-    }
+    ) {}
 }

@@ -17,8 +17,7 @@ class CharacterAuthorRemovedFromPost extends PreferenceBasedNotification
     public function __construct(
         protected Post $post,
         protected Character $character
-    ) {
-    }
+    ) {}
 
     public function toArray(object $notifiable): array
     {

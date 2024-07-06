@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Nova\Pages\Livewire;
 
 use Awcodes\Scribble\ScribbleEditor;
-use Awcodes\Typist\Actions\Alert;
 use Awcodes\Typist\TypistEditor;
 use Filament\Forms\Form;
 use Illuminate\Support\Facades\Cache;

@@ -17,6 +17,5 @@ class RankGroupData extends Data
         public ?RankGroupStatus $status,
 
         public ?string $base_image
-    ) {
-    }
+    ) {}
 }

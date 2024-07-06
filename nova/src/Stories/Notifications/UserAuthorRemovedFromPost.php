@@ -15,8 +15,7 @@ class UserAuthorRemovedFromPost extends PreferenceBasedNotification
 
     public function __construct(
         protected Post $post
-    ) {
-    }
+    ) {}
 
     public function toArray(object $notifiable): array
     {

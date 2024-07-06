@@ -15,6 +15,5 @@ class RankNameData extends Data
 
         #[Enum(RankNameStatus::class)]
         public ?RankNameStatus $status
-    ) {
-    }
+    ) {}
 }

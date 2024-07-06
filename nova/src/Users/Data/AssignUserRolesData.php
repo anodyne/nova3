@@ -11,8 +11,7 @@ class AssignUserRolesData extends Data
 {
     public function __construct(
         public ?array $roles
-    ) {
-    }
+    ) {}
 
     public static function fromRequest(Request $request): static
     {

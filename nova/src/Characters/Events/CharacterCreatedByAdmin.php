@@ -15,6 +15,5 @@ class CharacterCreatedByAdmin
 
     public function __construct(
         public Character $character
-    ) {
-    }
+    ) {}
 }

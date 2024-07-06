@@ -10,6 +10,5 @@ class PostStatusData extends Data
 {
     public function __construct(
         public string $status
-    ) {
-    }
+    ) {}
 }

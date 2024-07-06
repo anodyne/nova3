@@ -17,6 +17,5 @@ class FormData extends Data
         public string $type,
         public ?string $description,
         public ?FormOptions $options,
-    ) {
-    }
+    ) {}
 }

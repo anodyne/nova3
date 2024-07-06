@@ -69,8 +69,7 @@ describe('authorized user', function () {
         assertCount(1, $this->department->getMedia('header'));
     });
 
-    test('can remove an uploaded department image', function () {
-    })->todo();
+    test('can remove an uploaded department image', function () {})->todo();
 
     test('can replace an uploaded department image', function () {
         Storage::fake('media');

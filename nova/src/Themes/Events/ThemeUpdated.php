@@ -15,6 +15,5 @@ class ThemeUpdated
 
     public function __construct(
         public Theme $theme
-    ) {
-    }
+    ) {}
 }

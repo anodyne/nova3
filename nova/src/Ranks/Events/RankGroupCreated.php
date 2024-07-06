@@ -15,6 +15,5 @@ class RankGroupCreated
 
     public function __construct(
         public RankGroup $group
-    ) {
-    }
+    ) {}
 }

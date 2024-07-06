@@ -19,8 +19,7 @@ class StoryData extends Data
         public ?string $endedAt = null,
         public ?int $parentId = null,
         public ?string $summary = null
-    ) {
-    }
+    ) {}
 
     public function parentStory(): Story
     {

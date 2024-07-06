@@ -12,8 +12,7 @@ class Step
         public string $stepName,
         public array $info,
         public StepStatus $status,
-    ) {
-    }
+    ) {}
 
     public function isPrevious(): bool
     {

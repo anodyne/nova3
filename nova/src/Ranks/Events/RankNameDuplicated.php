@@ -16,6 +16,5 @@ class RankNameDuplicated
     public function __construct(
         public RankName $name,
         public RankName $original
-    ) {
-    }
+    ) {}
 }

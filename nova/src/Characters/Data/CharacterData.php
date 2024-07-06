@@ -11,6 +11,5 @@ class CharacterData extends Data
     public function __construct(
         public string $name,
         public ?int $rank_id
-    ) {
-    }
+    ) {}
 }

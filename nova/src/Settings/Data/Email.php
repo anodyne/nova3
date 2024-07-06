@@ -16,6 +16,5 @@ class Email extends Data implements Arrayable
         public ?string $subjectPrefix,
         public ?string $replyTo,
         public ?string $imagePath
-    ) {
-    }
+    ) {}
 }

@@ -15,6 +15,5 @@ class RankGroupUpdated
 
     public function __construct(
         public RankGroup $group
-    ) {
-    }
+    ) {}
 }

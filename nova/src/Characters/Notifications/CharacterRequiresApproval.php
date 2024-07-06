@@ -17,8 +17,7 @@ class CharacterRequiresApproval extends PreferenceBasedNotification
     public function __construct(
         public Character $character,
         public User $user
-    ) {
-    }
+    ) {}
 
     public function toArray(object $notifiable): array
     {

@@ -12,6 +12,5 @@ class Discord extends Data implements Arrayable
     public function __construct(
         public ?string $color,
         public ?string $webhook,
-    ) {
-    }
+    ) {}
 }

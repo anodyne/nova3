@@ -24,8 +24,7 @@ class ThemeData extends Data
         public string $preview,
 
         public ?array $variants,
-    ) {
-    }
+    ) {}
 
     public static function fromArray(array $data): static
     {

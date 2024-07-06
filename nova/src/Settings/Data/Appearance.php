@@ -27,8 +27,7 @@ class Appearance extends Data
         public string $colorsInfo,
         public FontFamilies $adminFonts,
         public bool $panda,
-    ) {
-    }
+    ) {}
 
     public function getColors(): array
     {

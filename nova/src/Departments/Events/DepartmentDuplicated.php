@@ -16,6 +16,5 @@ class DepartmentDuplicated
     public function __construct(
         public Department $department,
         public Department $original
-    ) {
-    }
+    ) {}
 }

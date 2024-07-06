@@ -13,8 +13,7 @@ class UpcomingToOngoing extends Transition
 
     public function __construct(
         protected Story $story
-    ) {
-    }
+    ) {}
 
     public function handle(): Story
     {

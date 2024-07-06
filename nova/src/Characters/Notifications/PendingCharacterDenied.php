@@ -15,8 +15,7 @@ class PendingCharacterDenied extends PreferenceBasedNotification
 
     public function __construct(
         public Character $character
-    ) {
-    }
+    ) {}
 
     public function toArray(object $notifiable): array
     {

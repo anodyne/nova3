@@ -15,6 +15,5 @@ class PostTypeDeleted
 
     public function __construct(
         public PostType $postType
-    ) {
-    }
+    ) {}
 }

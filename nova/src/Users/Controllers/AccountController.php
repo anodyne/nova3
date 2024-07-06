@@ -24,7 +24,5 @@ class AccountController extends Controller
         ]);
     }
 
-    public function update()
-    {
-    }
+    public function update() {}
 }

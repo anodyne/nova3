@@ -19,8 +19,7 @@ class SendPostPublished extends Mailable implements ShouldQueue
 
     public function __construct(
         public Post $post
-    ) {
-    }
+    ) {}
 
     public function envelope(): Envelope
     {

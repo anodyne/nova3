@@ -22,8 +22,7 @@ class PositionData extends Data
         public ?PositionStatus $status,
 
         public int $department_id = 0
-    ) {
-    }
+    ) {}
 
     public static function fromArray(array $data): static
     {

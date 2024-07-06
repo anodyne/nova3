@@ -21,8 +21,7 @@ class PostData extends Data
         public int $rating_language = 1,
         public int $rating_sex = 1,
         public int $rating_violence = 1,
-    ) {
-    }
+    ) {}
 
     public static function fromArray(array $array): static
     {
