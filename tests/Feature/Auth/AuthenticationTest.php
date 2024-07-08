@@ -85,7 +85,7 @@ describe('unauthenticated user', function () {
     });
 
     test('cannot sign out when not signed in', function () {
-        post(route('logout'))->assertRedirect('/');
+        post(route('logout'))->assertRedirectToRoute('login');
 
         assertGuest();
     });
@@ -95,7 +95,7 @@ describe('unauthenticated user', function () {
 
         foreach (range(0, 5) as $_) {
             $response = from(route('login'))
-                ->post(route('login'), [
+                ->postJson(route('login'), [
                     'email' => $user->email,
                     'password' => 'invalid-password',
                 ]);
