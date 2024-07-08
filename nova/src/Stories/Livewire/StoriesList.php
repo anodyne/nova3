@@ -144,7 +144,7 @@ class StoriesList extends TableComponent
                                     ->send();
                             }),
                         ActionGroup::make([
-                            Action::make('status_current')
+                            Action::make('statusCurrent')
                                 ->authorize('update')
                                 ->close()
                                 ->color('gray')
@@ -155,9 +155,10 @@ class StoriesList extends TableComponent
 
                                     Notification::make()->success()
                                         ->title("{$record->title} status has been updated")
+                                        ->body('The story is now marked as current and can be posted into.')
                                         ->send();
                                 }),
-                            Action::make('status_ongoing')
+                            Action::make('statusOngoing')
                                 ->authorize('update')
                                 ->close()
                                 ->color('gray')
@@ -168,9 +169,10 @@ class StoriesList extends TableComponent
 
                                     Notification::make()->success()
                                         ->title("{$record->title} status has been updated")
+                                        ->body('The story is now marked as ongoing and can be used to contain other stories.')
                                         ->send();
                                 }),
-                            Action::make('status_completed')
+                            Action::make('statusCompleted')
                                 ->authorize('update')
                                 ->close()
                                 ->color('gray')
@@ -181,9 +183,10 @@ class StoriesList extends TableComponent
 
                                     Notification::make()->success()
                                         ->title("{$record->title} status has been updated")
+                                        ->body('The story is now marked as completed and cannot be posted into.')
                                         ->send();
                                 }),
-                            Action::make('status_upcoming')
+                            Action::make('statusUpcoming')
                                 ->authorize('update')
                                 ->close()
                                 ->color('gray')
@@ -194,13 +197,14 @@ class StoriesList extends TableComponent
 
                                     Notification::make()->success()
                                         ->title("{$record->title} status has been updated")
+                                        ->body('The story is now marked as upcoming.')
                                         ->send();
                                 }),
                         ])
                             ->grouped()
                             ->icon(iconName('status-change'))
                             ->label('Change status'),
-                    ])->authorizeAny(['view', 'update', 'updateDates'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         Action::make('create-before')

@@ -102,10 +102,10 @@ describe('authorized user with story create permissions', function () {
             ->assertTableActionHidden(EditAction::class, $this->stories->first())
             ->assertTableActionHidden(DeleteAction::class, $this->stories->first())
             ->assertTableActionHidden('dates', $this->stories->first())
-            ->assertTableActionHidden('status_upcoming', $this->stories->first())
-            ->assertTableActionHidden('status_current', $this->stories->first())
-            ->assertTableActionHidden('status_ongoing', $this->stories->first())
-            ->assertTableActionHidden('status_completed', $this->stories->first());
+            ->assertTableActionHidden('statusUpcoming', $this->stories->first())
+            ->assertTableActionHidden('statusCurrent', $this->stories->first())
+            ->assertTableActionHidden('statusOngoing', $this->stories->first())
+            ->assertTableActionHidden('statusCompleted', $this->stories->first());
     });
 });
 
@@ -120,10 +120,10 @@ describe('authorized user with story delete permissions', function () {
             ->assertTableActionHidden(EditAction::class, $this->stories->first())
             ->assertTableActionVisible(DeleteAction::class, $this->stories->first())
             ->assertTableActionHidden('dates', $this->stories->first())
-            ->assertTableActionHidden('status_upcoming', $this->stories->first())
-            ->assertTableActionHidden('status_current', $this->stories->first())
-            ->assertTableActionHidden('status_ongoing', $this->stories->first())
-            ->assertTableActionHidden('status_completed', $this->stories->first());
+            ->assertTableActionHidden('statusUpcoming', $this->stories->first())
+            ->assertTableActionHidden('statusCurrent', $this->stories->first())
+            ->assertTableActionHidden('statusOngoing', $this->stories->first())
+            ->assertTableActionHidden('statusCompleted', $this->stories->first());
     });
 });
 
@@ -171,8 +171,8 @@ describe('authorized user with story update permissions', function () {
         $story = Story::factory()->current()->create();
 
         livewire(StoriesList::class)
-            ->assertTableActionVisible('status_upcoming', $story)
-            ->callTableAction('status_upcoming', $story);
+            ->assertTableActionVisible('statusUpcoming', $story)
+            ->callTableAction('statusUpcoming', $story);
 
         assertDatabaseHas(Story::class, [
             'title' => $story->title,
@@ -186,8 +186,8 @@ describe('authorized user with story update permissions', function () {
         $story = Story::factory()->upcoming()->create();
 
         livewire(StoriesList::class)
-            ->assertTableActionVisible('status_current', $story)
-            ->callTableAction('status_current', $story);
+            ->assertTableActionVisible('statusCurrent', $story)
+            ->callTableAction('statusCurrent', $story);
 
         assertDatabaseHas(Story::class, [
             'title' => $story->title,
@@ -203,8 +203,8 @@ describe('authorized user with story update permissions', function () {
         $story = Story::factory()->current()->create();
 
         livewire(StoriesList::class)
-            ->assertTableActionVisible('status_completed', $story)
-            ->callTableAction('status_completed', $story);
+            ->assertTableActionVisible('statusCompleted', $story)
+            ->callTableAction('statusCompleted', $story);
 
         assertDatabaseHas(Story::class, [
             'title' => $story->title,
@@ -218,8 +218,8 @@ describe('authorized user with story update permissions', function () {
         $story = Story::factory()->upcoming()->create();
 
         livewire(StoriesList::class)
-            ->assertTableActionVisible('status_ongoing', $story)
-            ->callTableAction('status_ongoing', $story);
+            ->assertTableActionVisible('statusOngoing', $story)
+            ->callTableAction('statusOngoing', $story);
 
         assertDatabaseHas(Story::class, [
             'title' => $story->title,
@@ -239,10 +239,10 @@ describe('authorized user with story view permissions', function () {
             ->assertTableActionHidden(EditAction::class, $this->stories->first())
             ->assertTableActionHidden(DeleteAction::class, $this->stories->first())
             ->assertTableActionHidden('dates', $this->stories->first())
-            ->assertTableActionHidden('status_upcoming', $this->stories->first())
-            ->assertTableActionHidden('status_current', $this->stories->first())
-            ->assertTableActionHidden('status_ongoing', $this->stories->first())
-            ->assertTableActionHidden('status_completed', $this->stories->first());
+            ->assertTableActionHidden('statusUpcoming', $this->stories->first())
+            ->assertTableActionHidden('statusCurrent', $this->stories->first())
+            ->assertTableActionHidden('statusOngoing', $this->stories->first())
+            ->assertTableActionHidden('statusCompleted', $this->stories->first());
     });
 });
 
