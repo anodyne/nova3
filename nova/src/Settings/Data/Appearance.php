@@ -29,6 +29,24 @@ class Appearance extends Data
         public bool $panda,
     ) {}
 
+    public static function fromArray(array $data = []): self
+    {
+        return new self(
+            theme: data_get($data, 'theme'),
+            avatarShape: AvatarShape::tryFrom(data_get($data, 'avatar_shape', 'none')),
+            avatarStyle: AvatarStyle::tryFrom(data_get($data, 'avatar_style', 'bottts')),
+            imagePath: data_get($data, 'image_path'),
+            colorsGray: data_get($data, 'colors_gray', 'Gray'),
+            colorsPrimary: data_get($data, 'colors_primary', 'Sky'),
+            colorsDanger: data_get($data, 'colors_danger', 'Rose'),
+            colorsWarning: data_get($data, 'colors_warning', 'Amber'),
+            colorsSuccess: data_get($data, 'colors_success', 'Emerald'),
+            colorsInfo: data_get($data, 'colors_info', 'Purple'),
+            adminFonts: FontFamilies::from(data_get($data, 'adminFonts', [])),
+            panda: data_get($data, 'panda', false)
+        );
+    }
+
     public function getColors(): array
     {
         return [
