@@ -15,6 +15,5 @@ class RankNameUpdated
 
     public function __construct(
         public RankName $name
-    ) {
-    }
+    ) {}
 }

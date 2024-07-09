@@ -15,6 +15,5 @@ class CharacterRestored
 
     public function __construct(
         public Character $character
-    ) {
-    }
+    ) {}
 }

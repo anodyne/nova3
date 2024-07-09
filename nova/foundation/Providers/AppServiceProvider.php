@@ -12,18 +12,26 @@ use Filament\Support\Facades\FilamentIcon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use FilamentTiptapEditor\TiptapEditor;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Mail\Events\MessageSending;
 use Illuminate\Routing\Redirector;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use Illuminate\View\ComponentAttributeBag;
 use Illuminate\View\DynamicComponent;
 use Illuminate\View\Factory as ViewFactory;
 use Livewire\Livewire;
@@ -33,6 +41,7 @@ use Nova\Foundation\Environment\Environment;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Icons\IconSets;
 use Nova\Foundation\Icons\TablerIconSet;
+use Nova\Foundation\Listeners\SetEmailSubjectPrefix;
 use Nova\Foundation\Livewire\AdvancedColorPicker;
 use Nova\Foundation\Livewire\ColorShadePicker;
 use Nova\Foundation\Livewire\ConfirmationModal;
@@ -50,6 +59,7 @@ use Nova\Foundation\View\Components\EmailLayout;
 use Nova\Foundation\View\Components\Tips;
 use Nova\Navigation\Models\Navigation;
 use Nova\Pages\Blocks;
+use Nova\Pages\Models\Page;
 use Nova\Settings\Models\Settings;
 
 class AppServiceProvider extends ServiceProvider
@@ -97,6 +107,7 @@ class AppServiceProvider extends ServiceProvider
             return null;
         });
 
+        $this->configureRateLimiting();
         $this->registerMacros();
         $this->updateAboutCommand();
         $this->setupFactories();
@@ -117,6 +128,7 @@ class AppServiceProvider extends ServiceProvider
             $this->registerLivewireComponents();
             $this->registerResponseFilters();
             $this->setupFilament();
+            $this->setupGlobalEventListeners();
         }
     }
 
@@ -130,10 +142,23 @@ class AppServiceProvider extends ServiceProvider
         Arr::mixin(new Macros\ArrMacros());
         Redirector::mixin(new Macros\NotificationMacros());
         RedirectResponse::mixin(new Macros\NotificationMacros());
-        Route::mixin(new Macros\RouteMacros());
         Str::mixin(new Macros\StrMacros());
         TextColumn::mixin(new Macros\TextColumnMacros());
         ViewFactory::mixin(new Macros\ViewMacros());
+
+        Route::macro('findPageFromRoute', function () {
+            /** @var Route */
+            $route = $this;
+
+            return Page::key($route->getName())->first();
+        });
+
+        ComponentAttributeBag::macro('hasStartsWith', function ($key) {
+            /** @var ComponentAttributeBag */
+            $bag = $this;
+
+            return (bool) $bag->whereStartsWith($key)->first();
+        });
 
         HasMany::macro('createUpdateOrDelete', function (iterable $records) {
             /** @var HasMany */
@@ -289,5 +314,18 @@ class AppServiceProvider extends ServiceProvider
         ScribbleFacade::registerTools(
             $this->app[BlockManager::class]->blocks()->toArray()
         );
+    }
+
+    protected function setupGlobalEventListeners(): void
+    {
+        Event::listen(Registered::class, SendEmailVerificationNotification::class);
+        Event::listen(MessageSending::class, SetEmailSubjectPrefix::class);
+    }
+
+    protected function configureRateLimiting(): void
+    {
+        RateLimiter::for('api', function (Request $request) {
+            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+        });
     }
 }

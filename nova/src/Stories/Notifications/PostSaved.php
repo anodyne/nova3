@@ -17,8 +17,7 @@ class PostSaved extends PreferenceBasedNotification
     public function __construct(
         protected Post $post,
         protected User $user,
-    ) {
-    }
+    ) {}
 
     public function toArray(object $notifiable): array
     {

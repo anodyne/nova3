@@ -11,8 +11,7 @@ class AssignCharacterPositionsData extends Data
 {
     public function __construct(
         public ?array $positions
-    ) {
-    }
+    ) {}
 
     public static function fromRequest(Request $request): static
     {

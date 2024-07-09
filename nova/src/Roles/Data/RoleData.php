@@ -19,8 +19,7 @@ class RoleData extends Data
         public string $displayName,
         public ?string $description,
         public bool $isDefault = false,
-    ) {
-    }
+    ) {}
 
     public static function rules(ValidationContext $context): array
     {

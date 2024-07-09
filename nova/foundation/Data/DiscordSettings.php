@@ -11,6 +11,5 @@ class DiscordSettings extends Data
     public function __construct(
         public ?string $webhook,
         public ?string $color,
-    ) {
-    }
+    ) {}
 }

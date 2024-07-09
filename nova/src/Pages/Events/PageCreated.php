@@ -15,6 +15,5 @@ class PageCreated
 
     public function __construct(
         public Page $page
-    ) {
-    }
+    ) {}
 }

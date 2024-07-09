@@ -15,6 +15,5 @@ class RoleDeleted
 
     public function __construct(
         public Role $role
-    ) {
-    }
+    ) {}
 }

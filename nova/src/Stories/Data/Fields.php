@@ -18,8 +18,7 @@ class Fields extends Data implements Arrayable
         public Field $content,
         public Field $rating,
         public Field $summary,
-    ) {
-    }
+    ) {}
 
     public function enabledFields(): Collection
     {

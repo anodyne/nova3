@@ -15,6 +15,5 @@ class RoleCreated
 
     public function __construct(
         public Role $role
-    ) {
-    }
+    ) {}
 }

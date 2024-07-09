@@ -11,8 +11,7 @@ class RolePermissionsData extends Data
 {
     public function __construct(
         public ?array $permissions
-    ) {
-    }
+    ) {}
 
     public static function fromRequest(Request $request): static
     {

@@ -15,6 +15,5 @@ class RankGroupDeleted
 
     public function __construct(
         public RankGroup $group
-    ) {
-    }
+    ) {}
 }

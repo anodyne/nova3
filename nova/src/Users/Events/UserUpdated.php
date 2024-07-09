@@ -15,6 +15,5 @@ class UserUpdated
 
     public function __construct(
         public User $user
-    ) {
-    }
+    ) {}
 }

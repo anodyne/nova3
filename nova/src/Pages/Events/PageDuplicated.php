@@ -16,6 +16,5 @@ class PageDuplicated
     public function __construct(
         public Page $page,
         public Page $original
-    ) {
-    }
+    ) {}
 }

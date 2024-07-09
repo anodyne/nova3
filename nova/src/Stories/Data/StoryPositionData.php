@@ -20,8 +20,7 @@ class StoryPositionData extends Data
 
         #[MapInputName('has_position_change')]
         public bool $hasPositionChange = false
-    ) {
-    }
+    ) {}
 
     public static function fromRequest(Request $request): self
     {

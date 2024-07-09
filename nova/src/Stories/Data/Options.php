@@ -24,8 +24,7 @@ class Options extends Data implements Arrayable
 
         #[WithCast(EnumCast::class, type: PostEditTimeframe::class)]
         public PostEditTimeframe $editTimeframe,
-    ) {
-    }
+    ) {}
 
     public static function fromArray(array $data): static
     {

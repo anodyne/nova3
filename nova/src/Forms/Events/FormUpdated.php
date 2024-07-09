@@ -15,6 +15,5 @@ class FormUpdated
 
     public function __construct(
         public Form $form
-    ) {
-    }
+    ) {}
 }

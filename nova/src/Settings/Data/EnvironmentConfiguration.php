@@ -16,8 +16,7 @@ class EnvironmentConfiguration extends Data implements Arrayable
         public ?string $url,
         public ?string $environment,
         public ?int $debugMode
-    ) {
-    }
+    ) {}
 
     public function debugMode(): string
     {

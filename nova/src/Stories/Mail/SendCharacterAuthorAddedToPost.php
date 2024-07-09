@@ -21,8 +21,7 @@ class SendCharacterAuthorAddedToPost extends Mailable implements ShouldQueue
     public function __construct(
         public Post $post,
         public Character $character
-    ) {
-    }
+    ) {}
 
     public function envelope(): Envelope
     {

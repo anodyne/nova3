@@ -19,8 +19,7 @@ class FontFamilies extends Data
         public string $headerFamily,
         public string $bodyProvider,
         public string $bodyFamily
-    ) {
-    }
+    ) {}
 
     public function getFontHtml(): Htmlable
     {

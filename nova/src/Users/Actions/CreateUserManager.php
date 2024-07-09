@@ -31,7 +31,7 @@ class CreateUserManager
 
         UploadUserAvatar::run($user, $request->image_path);
 
-        $this->createFormSubmission($user, $request->input('userBio'));
+        $this->createFormSubmission($user, $request->input('userBio', []));
 
         return $user->fresh();
     }

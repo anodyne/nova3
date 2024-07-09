@@ -15,6 +15,5 @@ class FormCreated
 
     public function __construct(
         public Form $form
-    ) {
-    }
+    ) {}
 }

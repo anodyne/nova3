@@ -72,8 +72,7 @@ describe('authorized user', function () {
         assertCount(1, $this->story->getMedia('story-image'));
     });
 
-    test('can remove an uploaded story image', function () {
-    })->todo();
+    test('can remove an uploaded story image', function () {})->todo();
 
     test('can replace an uploaded story image', function () {
         Storage::fake('media');

@@ -15,6 +15,5 @@ class FormDeleted
 
     public function __construct(
         public Form $form
-    ) {
-    }
+    ) {}
 }

@@ -10,6 +10,5 @@ class UserPreferences extends Data
 {
     public function __construct(
         public ?string $timezone
-    ) {
-    }
+    ) {}
 }

@@ -32,7 +32,7 @@ class RankItemBuilder extends Builder
 
     public function searchFor($search): self
     {
-        return $this->whereRelation('name', 'name.name', 'like', "%{$search}%");
+        return $this->whereRelation('name', 'name', 'like', "%{$search}%");
     }
 
     public function withRankName()

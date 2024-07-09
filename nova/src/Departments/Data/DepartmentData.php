@@ -18,8 +18,7 @@ class DepartmentData extends Data
 
         #[Enum(DepartmentStatus::class)]
         public ?DepartmentStatus $status
-    ) {
-    }
+    ) {}
 
     public static function fromArray(array $data): static
     {

@@ -7,6 +7,4 @@ namespace Nova\Settings\Data;
 use Illuminate\Contracts\Support\Arrayable;
 use Spatie\LaravelData\Data;
 
-class MetaTags extends Data implements Arrayable
-{
-}
+class MetaTags extends Data implements Arrayable {}

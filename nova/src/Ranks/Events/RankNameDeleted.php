@@ -15,6 +15,5 @@ class RankNameDeleted
 
     public function __construct(
         public RankName $name
-    ) {
-    }
+    ) {}
 }

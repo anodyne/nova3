@@ -18,8 +18,7 @@ class General extends Data implements Arrayable
         public string $gameName = '',
         public string $dateFormat = '',
         public string $dateFormatTags = '',
-    ) {
-    }
+    ) {}
 
     public function jsDateFormat(): string
     {

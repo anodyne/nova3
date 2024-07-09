@@ -15,6 +15,5 @@ class StoryDeleted
 
     public function __construct(
         public Story $story
-    ) {
-    }
+    ) {}
 }

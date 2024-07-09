@@ -15,6 +15,5 @@ class CharacterApproved
 
     public function __construct(
         public Character $character
-    ) {
-    }
+    ) {}
 }

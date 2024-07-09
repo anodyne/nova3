@@ -20,8 +20,7 @@ class SendAccountCreation extends Mailable implements ShouldQueue
     public function __construct(
         public User $user,
         public string $password
-    ) {
-    }
+    ) {}
 
     public function envelope(): Envelope
     {

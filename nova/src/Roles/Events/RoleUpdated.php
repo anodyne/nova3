@@ -15,6 +15,5 @@ class RoleUpdated
 
     public function __construct(
         public Role $role
-    ) {
-    }
+    ) {}
 }

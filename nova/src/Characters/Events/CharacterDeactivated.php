@@ -15,6 +15,5 @@ class CharacterDeactivated
 
     public function __construct(
         public Character $character
-    ) {
-    }
+    ) {}
 }

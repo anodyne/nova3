@@ -71,7 +71,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => env('APP_TIMEZONE', 'UTC'),
 
     /*
     |--------------------------------------------------------------------------
@@ -79,38 +79,16 @@ return [
     |--------------------------------------------------------------------------
     |
     | The application locale determines the default locale that will be used
-    | by the translation service provider. You are free to set this value
-    | to any of the locales which will be supported by the application.
+    | by Laravel's translation / localization methods. This option can be
+    | set to any locale for which you plan to have translation strings.
     |
     */
 
-    'locale' => 'en',
+    'locale' => env('APP_LOCALE', 'en'),
 
-    /*
-    |--------------------------------------------------------------------------
-    | Application Fallback Locale
-    |--------------------------------------------------------------------------
-    |
-    | The fallback locale determines the locale to use when the current one
-    | is not available. You may change the value to correspond to any of
-    | the language folders that are provided through your application.
-    |
-    */
+    'fallback_locale' => env('APP_FALLBACK_LOCALE', 'en'),
 
-    'fallback_locale' => 'en',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Faker Locale
-    |--------------------------------------------------------------------------
-    |
-    | This locale will be used by the Faker PHP library when generating fake
-    | data for your database seeds. For example, this will be used to get
-    | localized telephone numbers, street address information and more.
-    |
-    */
-
-    'faker_locale' => 'en_US',
+    'faker_locale' => env('APP_FAKER_LOCALE', 'en_US'),
 
     /*
     |--------------------------------------------------------------------------
@@ -123,9 +101,15 @@ return [
     |
     */
 
+    'cipher' => 'AES-256-CBC',
+
     'key' => env('APP_KEY', 'base64:seCuVALiMMNM/CZZCw4NLK4D7Zm4905Y5Pe7SCASiqs='),
 
-    'cipher' => 'AES-256-CBC',
+    'previous_keys' => [
+        ...array_filter(
+            explode(',', env('APP_PREVIOUS_KEYS', ''))
+        ),
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -141,90 +125,8 @@ return [
     */
 
     'maintenance' => [
-        'driver' => 'file',
-        // 'store'  => 'redis',
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Autoloaded Service Providers
-    |--------------------------------------------------------------------------
-    |
-    | The service providers listed here will be automatically loaded on the
-    | request to your application. Feel free to add your own services to
-    | this array to grant expanded functionality to your applications.
-    |
-    */
-
-    'providers' => [
-
-        /*
-         * Laravel Framework Service Providers...
-         */
-        Illuminate\Auth\AuthServiceProvider::class,
-        Illuminate\Broadcasting\BroadcastServiceProvider::class,
-        Illuminate\Bus\BusServiceProvider::class,
-        Illuminate\Cache\CacheServiceProvider::class,
-        Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
-        Illuminate\Cookie\CookieServiceProvider::class,
-        Illuminate\Database\DatabaseServiceProvider::class,
-        Illuminate\Encryption\EncryptionServiceProvider::class,
-        Illuminate\Filesystem\FilesystemServiceProvider::class,
-        Illuminate\Foundation\Providers\FoundationServiceProvider::class,
-        Illuminate\Hashing\HashServiceProvider::class,
-        Illuminate\Mail\MailServiceProvider::class,
-        Illuminate\Notifications\NotificationServiceProvider::class,
-        Illuminate\Pagination\PaginationServiceProvider::class,
-        Illuminate\Pipeline\PipelineServiceProvider::class,
-        Illuminate\Queue\QueueServiceProvider::class,
-        Illuminate\Redis\RedisServiceProvider::class,
-        Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
-        Illuminate\Session\SessionServiceProvider::class,
-        Illuminate\Translation\TranslationServiceProvider::class,
-        Illuminate\Validation\ValidationServiceProvider::class,
-        Illuminate\View\ViewServiceProvider::class,
-
-        /*
-         * Package Service Providers...
-         */
-        BladeUI\Icons\BladeIconsServiceProvider::class,
-        Livewire\LivewireServiceProvider::class,
-        LivewireUI\Spotlight\SpotlightServiceProvider::class,
-
-        /*
-         * Application Service Providers...
-         */
-        Nova\Foundation\Providers\AppServiceProvider::class,
-        Nova\Foundation\Providers\AuthServiceProvider::class,
-        // Nova\Foundation\Providers\BroadcastServiceProvider::class,
-        Nova\Foundation\Providers\EventServiceProvider::class,
-        Nova\Foundation\Providers\RouteServiceProvider::class,
-        // Nova\Foundation\Providers\ResponsesServiceProvider::class,
-        Nova\Foundation\Providers\FortifyServiceProvider::class,
-        // Nova\Foundation\Providers\TelescopeServiceProvider::class,
-
-        /**
-         * Nova Module Service Provides.
-         */
-        Nova\Setup\Providers\SetupServiceProvider::class,
-        Nova\Characters\Providers\CharacterServiceProvider::class,
-        Nova\Conversations\Providers\ConversationServiceProvider::class,
-        Nova\Dashboards\Providers\DashboardsServiceProvider::class,
-        Nova\Departments\Providers\DepartmentServiceProvider::class,
-        Nova\Forms\Providers\FormServiceProvider::class,
-        Nova\Media\Providers\MediaServiceProvider::class,
-        // Nova\Navigation\Providers\NavigationServiceProvider::class,
-        Nova\Notes\Providers\NotesServiceProvider::class,
-        Nova\Pages\Providers\PageServiceProvider::class,
-        Nova\Ranks\Providers\RankServiceProvider::class,
-        Nova\Roles\Providers\RoleServiceProvider::class,
-        Nova\Settings\Providers\SettingsServiceProvider::class,
-        Nova\Stories\Providers\PostServiceProvider::class,
-        Nova\Stories\Providers\PostTypeServiceProvider::class,
-        Nova\Stories\Providers\StoryServiceProvider::class,
-        Nova\Themes\Providers\ThemeServiceProvider::class,
-        Nova\Users\Providers\UserServiceProvider::class,
-
+        'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
+        'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
     /*

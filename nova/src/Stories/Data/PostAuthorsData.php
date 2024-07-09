@@ -14,8 +14,7 @@ class PostAuthorsData extends Data
     public function __construct(
         public ?Collection $characters,
         public ?Collection $users,
-    ) {
-    }
+    ) {}
 
     public static function fromArray(array $data): static
     {

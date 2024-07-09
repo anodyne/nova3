@@ -15,8 +15,7 @@ class StoryEnded extends PreferenceBasedNotification
 
     public function __construct(
         protected Story $story
-    ) {
-    }
+    ) {}
 
     public function toArray(object $notifiable): array
     {

@@ -17,8 +17,7 @@ class ContentRating extends Data implements Arrayable
         public ?string $description_3,
         public ?int $warning_threshold,
         public ?string $warning_threshold_message,
-    ) {
-    }
+    ) {}
 
     public static function fromArray(array $data): static
     {

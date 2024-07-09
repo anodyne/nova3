@@ -13,7 +13,5 @@ class Controller extends BaseController
     use AuthorizesRequests;
     use ValidatesRequests;
 
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 }

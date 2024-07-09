@@ -16,8 +16,7 @@ class AccountCreated extends PreferenceBasedNotification
     public function __construct(
         public User $user,
         public string $password
-    ) {
-    }
+    ) {}
 
     public function toArray(object $notifiable): array
     {

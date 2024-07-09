@@ -15,6 +15,5 @@ class PageDeleted
 
     public function __construct(
         public Page $page
-    ) {
-    }
+    ) {}
 }

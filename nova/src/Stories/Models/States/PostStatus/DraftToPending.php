@@ -11,8 +11,7 @@ class DraftToPending extends Transition
 {
     public function __construct(
         protected Post $post
-    ) {
-    }
+    ) {}
 
     public function handle(): Post
     {

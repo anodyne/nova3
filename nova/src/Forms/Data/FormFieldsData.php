@@ -10,6 +10,5 @@ class FormFieldsData extends Data
 {
     public function __construct(
         public array $fields
-    ) {
-    }
+    ) {}
 }

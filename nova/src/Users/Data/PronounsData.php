@@ -13,8 +13,7 @@ class PronounsData extends Data
         public ?string $subject,
         public ?string $object,
         public ?string $possessive,
-    ) {
-    }
+    ) {}
 
     public static function fromArray(array $pronouns = []): static
     {

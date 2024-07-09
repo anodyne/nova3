@@ -18,7 +18,7 @@ uses()->group('users');
 
 describe('authorized user', function () {
     beforeEach(function () {
-        $this->users = User::factory()->count(5)->create();
+        $this->users = User::factory()->active()->count(5)->create();
 
         signIn(permissions: 'user.delete');
     });
@@ -28,8 +28,7 @@ describe('authorized user', function () {
 
         livewire(UsersList::class)
             ->callTableAction(DeleteAction::class, $this->users->first())
-            ->assertCanNotSeeTableRecords([$this->users->first()])
-            ->assertNotified();
+            ->assertCanNotSeeTableRecords([$this->users->first()]);
 
         assertDatabaseMissing(User::class, $this->users->first()->toArray());
 

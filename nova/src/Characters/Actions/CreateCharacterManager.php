@@ -54,7 +54,7 @@ class CreateCharacterManager
             $character = ActivateCharacter::run($character);
         }
 
-        $this->createFormSubmission($character, $request->input('characterBio'));
+        $this->createFormSubmission($character, $request->input('characterBio', []));
 
         SendPendingCharacterNotification::runUnless(
             $character->is_active,

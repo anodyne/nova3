@@ -15,6 +15,5 @@ class PostPublished
 
     public function __construct(
         public Post $post
-    ) {
-    }
+    ) {}
 }

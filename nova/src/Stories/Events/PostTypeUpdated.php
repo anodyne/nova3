@@ -15,6 +15,5 @@ class PostTypeUpdated
 
     public function __construct(
         public PostType $postType
-    ) {
-    }
+    ) {}
 }

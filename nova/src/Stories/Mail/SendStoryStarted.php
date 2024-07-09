@@ -19,8 +19,7 @@ class SendStoryStarted extends Mailable implements ShouldQueue
 
     public function __construct(
         public Story $story
-    ) {
-    }
+    ) {}
 
     public function envelope(): Envelope
     {

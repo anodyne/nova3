@@ -19,8 +19,7 @@ class SendUserDeletedAccount extends Mailable implements ShouldQueue
 
     public function __construct(
         public User $user
-    ) {
-    }
+    ) {}
 
     public function envelope(): Envelope
     {

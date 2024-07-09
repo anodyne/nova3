@@ -15,6 +15,5 @@ class NoteUpdated
 
     public function __construct(
         public Note $note
-    ) {
-    }
+    ) {}
 }

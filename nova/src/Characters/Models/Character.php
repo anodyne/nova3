@@ -31,11 +31,9 @@ use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\ModelStates\HasStates;
-use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
 class Character extends Model implements HasMedia
 {
-    use HasEagerLimit;
     use HasFactory;
     use HasStates;
     use InteractsWithMedia;

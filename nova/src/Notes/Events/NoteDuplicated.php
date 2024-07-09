@@ -16,6 +16,5 @@ class NoteDuplicated
     public function __construct(
         public Note $note,
         public Note $original
-    ) {
-    }
+    ) {}
 }

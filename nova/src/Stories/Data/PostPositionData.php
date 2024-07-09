@@ -13,8 +13,7 @@ class PostPositionData extends Data
         public ?string $direction,
         public ?Post $neighbor,
         public bool $hasPositionChange,
-    ) {
-    }
+    ) {}
 
     public static function fromArray(array $array): static
     {

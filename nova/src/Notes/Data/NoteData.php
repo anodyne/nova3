@@ -15,8 +15,7 @@ class NoteData extends Data
 
         #[MapInputName('editor-content')]
         public ?string $content
-    ) {
-    }
+    ) {}
 
     public function user(): User
     {

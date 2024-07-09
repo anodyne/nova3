@@ -16,8 +16,7 @@ class ThemeSettings extends Data implements Arrayable
     public function __construct(
         public FontFamilies $fonts,
         public array $settings = []
-    ) {
-    }
+    ) {}
 
     public function hasSettings(): bool
     {

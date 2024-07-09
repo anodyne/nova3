@@ -15,6 +15,5 @@ class DepartmentDeleted
 
     public function __construct(
         public Department $department
-    ) {
-    }
+    ) {}
 }

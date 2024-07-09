@@ -16,8 +16,7 @@ class PostingActivity extends Data implements Arrayable
         public int $requiredActivity,
         public int $wordCountPostConversion,
         public string $wordCountStrategy,
-    ) {
-    }
+    ) {}
 
     public static function fromRequest(Request $request): static
     {

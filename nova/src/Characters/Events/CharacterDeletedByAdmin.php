@@ -15,6 +15,5 @@ class CharacterDeletedByAdmin
 
     public function __construct(
         public Character $character
-    ) {
-    }
+    ) {}
 }

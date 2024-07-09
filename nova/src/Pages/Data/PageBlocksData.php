@@ -10,6 +10,5 @@ class PageBlocksData extends Data
 {
     public function __construct(
         public array $blocks
-    ) {
-    }
+    ) {}
 }

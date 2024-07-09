@@ -13,8 +13,7 @@ class UserData extends Data
         public string $name,
         public string $email,
         public PronounsData $pronouns
-    ) {
-    }
+    ) {}
 
     public static function fromRequest(Request $request): static
     {

@@ -11,8 +11,7 @@ class ActiveToInactive extends Transition
 {
     public function __construct(
         protected Character $character
-    ) {
-    }
+    ) {}
 
     public function handle(): Character
     {

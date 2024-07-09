@@ -31,9 +31,7 @@ class PublishPostStep extends WizardStep
 
     public ?Collection $participatingUsers = null;
 
-    public function goToNextStep(): void
-    {
-    }
+    public function goToNextStep(): void {}
 
     public function save(): void
     {

@@ -21,8 +21,7 @@ class SendPostSaved extends Mailable implements ShouldQueue
     public function __construct(
         public Post $post,
         public User $user
-    ) {
-    }
+    ) {}
 
     public function envelope(): Envelope
     {

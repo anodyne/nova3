@@ -15,8 +15,7 @@ class UserDeletedAccount extends PreferenceBasedNotification
 
     public function __construct(
         public User $user
-    ) {
-    }
+    ) {}
 
     public function toArray(object $notifiable): array
     {

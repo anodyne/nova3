@@ -15,8 +15,7 @@ class PostPublished extends PreferenceBasedNotification
 
     public function __construct(
         protected Post $post
-    ) {
-    }
+    ) {}
 
     public function via(object $notifiable): array
     {

@@ -14,11 +14,9 @@ use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
-use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
 class Role extends LaratrustRole implements Sortable
 {
-    use HasEagerLimit;
     use HasFactory;
     use LogsActivity;
     use SortableTrait;
