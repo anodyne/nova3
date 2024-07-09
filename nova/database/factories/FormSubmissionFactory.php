@@ -23,4 +23,18 @@ class FormSubmissionFactory extends Factory
             },
         ];
     }
+
+    public function characterBio()
+    {
+        return $this->state([
+            'form_id' => Form::key('characterBio')->first(),
+        ]);
+    }
+
+    public function userBio()
+    {
+        return $this->state([
+            'form_id' => Form::key('userBio')->first(),
+        ]);
+    }
 }
