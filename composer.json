@@ -14,7 +14,6 @@
         "anodyne/blade-tabler-icons": "^3.0",
         "awcodes/filament-tiptap-editor": "^3.0",
         "awcodes/scribble": "^0.3.0@alpha",
-        "awcodes/typist": "dev-main",
         "aws/aws-sdk-php": "^3.293",
         "bensampo/laravel-embed": "^2.4",
         "blade-ui-kit/blade-icons": "^1.0",
@@ -59,8 +58,7 @@
         "pestphp/pest": "^2.9",
         "pestphp/pest-plugin-laravel": "^2.1",
         "pestphp/pest-plugin-livewire": "^2.1",
-        "phpunit/phpunit": "^10.0",
-        "spatie/laravel-ignition": "^2.0"
+        "phpunit/phpunit": "^10.0"
     },
     "extra": {
         "laravel": {
@@ -89,12 +87,6 @@
             "Tests\\": "tests/"
         }
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "git@dvs.github.com:awcodes/typist.git"
-        }
-    ],
     "scripts": {
         "analyse": "./vendor/bin/phpstan analyse",
         "clean": [
