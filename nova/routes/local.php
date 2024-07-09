@@ -105,5 +105,5 @@ Route::get('manifest-test', function () {
 Route::get('test', function () {
     $form = Form::find(2);
 
-    dd($form->validation_rules);
+    dd($form);
 });

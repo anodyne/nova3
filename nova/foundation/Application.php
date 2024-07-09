@@ -111,6 +111,20 @@ class Application extends IlluminateApplication
     }
 
     /**
+     * Get the path to the bootstrap directory.
+     *
+     * NOTE: We override this because it is not possible to change the
+     * bootstrap path before the providers file is loaded.
+     *
+     * @param  string  $path
+     * @return string
+     */
+    public function bootstrapPath($path = '')
+    {
+        return $this->joinPaths($this->novaPath('bootstrap'), $path);
+    }
+
+    /**
      * Are we using the secure skeleton?
      */
     public function usesSecureSkeleton(): bool
