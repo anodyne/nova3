@@ -6,6 +6,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
 use Nova\Characters\Models\Character;
+use Nova\Forms\Models\FormSubmission;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
@@ -28,6 +29,11 @@ uses()->group('users');
 
 beforeEach(function () {
     $this->user = User::factory()->create();
+
+    FormSubmission::factory()->userBio()->create([
+        'owner_id' => $this->user->id,
+        'owner_type' => 'user',
+    ]);
 });
 
 describe('authorized user', function () {

@@ -12,6 +12,7 @@ use Nova\Characters\Livewire\ManagePositions;
 use Nova\Characters\Livewire\ManageUsers;
 use Nova\Characters\Models\Character;
 use Nova\Departments\Models\Position;
+use Nova\Forms\Models\FormSubmission;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ForceDeleteAction;
@@ -31,6 +32,11 @@ uses()->group('characters');
 
 beforeEach(function () {
     $this->character = Character::factory()->create();
+
+    FormSubmission::factory()->characterBio()->create([
+        'owner_id' => $this->character,
+        'owner_type' => 'character',
+    ]);
 });
 
 describe('authorized user', function () {
