@@ -204,6 +204,7 @@ class CharacterPolicy
     public function manage(User $user, Character $character): Response
     {
         return match (true) {
+            $user->isAbleTo('character.view') => $this->allow(),
             $this->create($user)->allowed() => $this->allow(),
             $user->isAbleTo('character.update') => $this->allow(),
             $this->deleteAny($user, $character)->allowed() => $this->allow(),

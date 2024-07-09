@@ -95,7 +95,7 @@ class CharactersList extends TableComponent
                     ])->authorizeAny(['view', 'update'])->divided(),
 
                     ActionGroup::make([
-                        Action::make('activate')
+                        Action::make('activateCharacter')
                             ->authorize('activate')
                             ->icon(iconName('check'))
                             ->color('gray')
@@ -110,7 +110,7 @@ class CharactersList extends TableComponent
                                     ->title($record->name.' has been activated')
                                     ->send();
                             }),
-                        Action::make('deactivate')
+                        Action::make('deactivateCharacter')
                             ->authorize('deactivate')
                             ->icon(iconName('remove'))
                             ->color('gray')
@@ -164,7 +164,7 @@ class CharactersList extends TableComponent
                 ]),
             ])
             ->groupedBulkActions([
-                BulkAction::make('bulk_activate')
+                BulkAction::make('bulkActivateCharacter')
                     ->authorize('activateAny')
                     ->icon(iconName('check'))
                     ->color('gray')
@@ -202,7 +202,7 @@ class CharactersList extends TableComponent
                             })
                             ->send();
                     }),
-                BulkAction::make('bulk_deactivate')
+                BulkAction::make('bulkDeactivateCharacter')
                     ->authorize('deactivateAny')
                     ->icon(iconName('remove'))
                     ->color('gray')

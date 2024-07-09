@@ -66,22 +66,22 @@ describe('authorized user', function () {
             ->assertTableActionHidden(DeleteAction::class, $activeCharacter)
             ->assertTableActionHidden(ForceDeleteAction::class, $activeCharacter)
             ->assertTableActionHidden(RestoreAction::class, $activeCharacter)
-            ->assertTableActionHidden('activate', $activeCharacter)
-            ->assertTableActionHidden('deactivate', $activeCharacter)
+            ->assertTableActionHidden('activateCharacter', $activeCharacter)
+            ->assertTableActionHidden('deactivateCharacter', $activeCharacter)
             ->assertTableActionHidden(ViewAction::class, $inactiveCharacter)
             ->assertTableActionHidden(EditAction::class, $inactiveCharacter)
             ->assertTableActionHidden(DeleteAction::class, $inactiveCharacter)
             ->assertTableActionHidden(ForceDeleteAction::class, $inactiveCharacter)
             ->assertTableActionHidden(RestoreAction::class, $inactiveCharacter)
-            ->assertTableActionHidden('activate', $inactiveCharacter)
-            ->assertTableActionHidden('deactivate', $inactiveCharacter)
+            ->assertTableActionHidden('activateCharacter', $inactiveCharacter)
+            ->assertTableActionHidden('deactivateCharacter', $inactiveCharacter)
             ->assertTableActionHidden(ViewAction::class, $deletedCharacter)
             ->assertTableActionHidden(EditAction::class, $deletedCharacter)
             ->assertTableActionHidden(DeleteAction::class, $deletedCharacter)
             ->assertTableActionHidden(ForceDeleteAction::class, $deletedCharacter)
             ->assertTableActionHidden(RestoreAction::class, $deletedCharacter)
-            ->assertTableActionHidden('activate', $deletedCharacter)
-            ->assertTableActionHidden('deactivate', $deletedCharacter);
+            ->assertTableActionHidden('activateCharacter', $deletedCharacter)
+            ->assertTableActionHidden('deactivateCharacter', $deletedCharacter);
     });
 });
 
@@ -111,22 +111,22 @@ describe('unauthorized user', function () {
             ->assertTableActionHidden(DeleteAction::class, $activeCharacter)
             ->assertTableActionHidden(ForceDeleteAction::class, $activeCharacter)
             ->assertTableActionHidden(RestoreAction::class, $activeCharacter)
-            ->assertTableActionHidden('activate', $activeCharacter)
-            ->assertTableActionHidden('deactivate', $activeCharacter)
+            ->assertTableActionHidden('activateCharacter', $activeCharacter)
+            ->assertTableActionHidden('deactivateCharacter', $activeCharacter)
             ->assertTableActionHidden(ViewAction::class, $inactiveCharacter)
             ->assertTableActionHidden(EditAction::class, $inactiveCharacter)
             ->assertTableActionHidden(DeleteAction::class, $inactiveCharacter)
             ->assertTableActionHidden(ForceDeleteAction::class, $inactiveCharacter)
             ->assertTableActionHidden(RestoreAction::class, $inactiveCharacter)
-            ->assertTableActionHidden('activate', $inactiveCharacter)
-            ->assertTableActionHidden('deactivate', $inactiveCharacter)
+            ->assertTableActionHidden('activateCharacter', $inactiveCharacter)
+            ->assertTableActionHidden('deactivateCharacter', $inactiveCharacter)
             ->assertTableActionHidden(ViewAction::class, $deletedCharacter)
             ->assertTableActionHidden(EditAction::class, $deletedCharacter)
             ->assertTableActionHidden(DeleteAction::class, $deletedCharacter)
             ->assertTableActionHidden(ForceDeleteAction::class, $deletedCharacter)
             ->assertTableActionHidden(RestoreAction::class, $deletedCharacter)
-            ->assertTableActionHidden('activate', $deletedCharacter)
-            ->assertTableActionHidden('deactivate', $deletedCharacter);
+            ->assertTableActionHidden('activateCharacter', $deletedCharacter)
+            ->assertTableActionHidden('deactivateCharacter', $deletedCharacter);
     });
 });
 
