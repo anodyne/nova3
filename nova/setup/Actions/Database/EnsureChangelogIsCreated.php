@@ -16,16 +16,17 @@ class EnsureExternalChangelogIsPresent
     {
         activity()->disableLogging();
 
-        // Get the values from the external source
-        // $ext = Http::get('');
+        $changelog = Http::get('https://anodyne-productions.com/api/external-changelog');
 
-        DB::table('external_changelog')->insert([
-            'version' => '3.0.0',
-            'series' => '3.0',
-            'description' => '',
-            'tags' => '',
-            'release_date' => now(),
-        ]);
+        if ($changelog->ok()) {
+            DB::table('external_changelog')->insert([
+                'version' => '3.0.0',
+                'series' => '3.0',
+                'description' => '',
+                'tags' => '',
+                'release_date' => now(),
+            ]);
+        }
 
         activity()->enableLogging();
     }
