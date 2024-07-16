@@ -19,6 +19,8 @@ class SetDatabaseInitialState
             new Database\EnsureAdvancedPagesAreCreated,
             new Database\EnsureBasicPagesAreCreated,
             new Database\EnsureFormsAreCreated,
+            new Database\EnsureExternalContentIsPresent,
+            new Database\EnsureExternalChangelogIsPresent,
         ])->each->handle();
     }
 

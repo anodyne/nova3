@@ -28,7 +28,7 @@
     type="button"
     data-slot="tab"
     @class([
-        'flex items-center gap-x-2 rounded-full px-3.5 py-1',
+        'flex shrink-0 items-center gap-x-2 rounded-full px-3.5 py-1',
         '[&>[data-slot=icon]]:-mx-0.5 [&>[data-slot=icon]]:shrink-0 [&>[data-slot=icon]]:text-[--tab-icon]',
     ])
     x-bind:class="{

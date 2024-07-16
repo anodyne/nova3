@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Nova\Users\Controllers;
 
 use Nova\Foundation\Controllers\Controller;
-use Nova\Users\Responses\EditUserAccountResponse;
+use Nova\Foundation\Responses\Responsable;
+use Nova\Users\Responses\EditAccountResponse;
 
-class AccountController extends Controller
+class EditAccountController extends Controller
 {
     public function __construct()
     {
@@ -16,13 +17,10 @@ class AccountController extends Controller
         $this->middleware('auth');
     }
 
-    public function edit($tab = 'info')
+    public function __invoke(): Responsable
     {
-        return EditUserAccountResponse::sendWith([
-            'tab' => $tab,
+        return EditAccountResponse::sendWith([
             'user' => auth()->user(),
         ]);
     }
-
-    public function update() {}
 }

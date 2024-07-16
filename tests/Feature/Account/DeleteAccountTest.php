@@ -22,7 +22,7 @@ beforeEach(function () {
 });
 
 test('a user can view the delete account page', function () {
-    get(route('account.edit', 'delete'))
+    get(route('account.delete'))
         ->assertSuccessful()
         ->assertSeeLivewire(DeleteMyAccount::class);
 });

@@ -2,93 +2,20 @@
 
 @php($settings = settings())
 
+@use('Nova\Pages\Models\Page')
+
 @section('layout')
-    @impersonating
-    <div class="fixed z-50 flex w-full items-center justify-between gap-x-6 bg-gray-900 px-6 py-2.5 sm:pr-3.5 lg:pl-8">
-        <p class="text-sm leading-6 text-white">
-            <a href="#">
-                <strong class="font-semibold">Impersonation mode</strong>
-                <svg viewBox="0 0 2 2" class="mx-2 inline h-0.5 w-0.5 fill-current" aria-hidden="true">
-                    <circle cx="1" cy="1" r="1" />
-                </svg>
-                You are currently impersonating {{ auth()->user()->name }}
-            </a>
-        </p>
-        <a
-            href="{{ route('impersonate.leave') }}"
-            class="group -m-3 flex items-center p-3 focus-visible:outline-offset-[-4px]"
-        >
-            <span class="mr-2 hidden text-sm font-medium text-gray-300 group-hover:block">Leave impersonation</span>
-            <svg class="size-5 text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path
-                    d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"
-                />
-            </svg>
-        </a>
-    </div>
-    @endImpersonating
-
-    <div x-data="{ open: false }" class="relative min-h-screen xl:flex xl:pt-2">
-        <!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
-        <div class="relative z-50 xl:hidden" role="dialog" aria-modal="true" x-show="open" x-cloak>
-            <div
-                x-show="open"
-                x-transition:enter="transition-opacity duration-300 ease-linear"
-                x-transition:enter-start="opacity-0"
-                x-transition:enter-end="opacity-100"
-                x-transition:leave="transition-opacity duration-300 ease-linear"
-                x-transition:leave-start="opacity-100"
-                x-transition:leave-end="opacity-0"
-                class="fixed inset-0 bg-gray-900/80"
-                x-description="Off-canvas menu backdrop, show/hide based on off-canvas menu state."
-                class="fixed inset-0 bg-gray-900/80"
-                x-cloak
-            ></div>
-            <div class="fixed inset-0 flex">
-                <div
-                    x-show="open"
-                    x-transition:enter="transform transition duration-300 ease-in-out"
-                    x-transition:enter-start="-translate-x-full"
-                    x-transition:enter-end="translate-x-0"
-                    x-transition:leave="transform transition duration-300 ease-in-out"
-                    x-transition:leave-start="translate-x-0"
-                    x-transition:leave-end="-translate-x-full"
-                    x-description="Off-canvas menu, show/hide based on off-canvas menu state."
-                    class="relative mr-16 flex w-full max-w-xs flex-1"
-                    x-on:click.away="open = false"
-                    x-cloak
-                >
-                    <div
-                        x-show="open"
-                        x-transition:enter="duration-300 ease-in-out"
-                        x-transition:enter-start="opacity-0"
-                        x-transition:enter-end="opacity-100"
-                        x-transition:leave="duration-300 ease-in-out"
-                        x-transition:leave-start="opacity-100"
-                        x-transition:leave-end="opacity-0"
-                        x-description="Close button, show/hide based on off-canvas menu state."
-                        class="absolute left-full top-0 flex w-16 justify-center pt-5"
-                        x-cloak
-                    >
-                        <button type="button" class="-m-2.5 p-2.5" x-on:click="open = false">
-                            <span class="sr-only">Close sidebar</span>
-                            <svg
-                                class="size-6 text-white"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke-width="1.5"
-                                stroke="currentColor"
-                                aria-hidden="true"
-                            >
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
-                    </div>
-
-                    <!-- Sidebar component, swap this element with another sidebar if you like -->
-                    <div class="dark flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 ring-1 ring-white/10">
-                        <div class="flex h-16 shrink-0 items-center">
-                            <a href="{{ route('dashboard') }}">
+    <div
+        class="relative flex min-h-svh w-full bg-white dark:bg-gray-900 max-lg:flex-col lg:bg-gray-100 dark:lg:bg-gray-950"
+        x-data="{ open: false }"
+    >
+        {{-- Sidebar on desktop --}}
+        <div class="fixed inset-y-0 left-0 w-64 max-lg:hidden">
+            <x-sidebar>
+                <x-sidebar.header>
+                    <x-sidebar.section>
+                        <div class="mb-2 flex px-2">
+                            <a href="{{ route('dashboard') }}" aria-label="Home">
                                 @if (app('nova.settings')->getFirstMedia('logo'))
                                     <img
                                         src="{{ app('nova.settings')->getFirstMediaUrl('logo') }}"
@@ -96,597 +23,503 @@
                                         class="block h-8 w-auto"
                                     />
                                 @else
-                                    <x-logos.nova class="h-8 w-auto text-white" />
+                                    <x-logos.nova class="hidden h-8 w-auto md:block" />
+                                    <x-logos.nova-mark class="block h-8 w-auto md:hidden" />
                                 @endif
                             </a>
                         </div>
-                        <nav class="flex flex-1 flex-col">
-                            <ul role="list" class="flex flex-1 flex-col gap-y-7">
-                                <li>
-                                    <ul role="list" class="-mx-2 space-y-1">
-                                        <li>
-                                            <x-nav.main-item-mobile
-                                                :href="route('dashboard')"
-                                                :active="request()->routeIs('dashboard')"
-                                                icon="home"
-                                                :meta="$meta"
-                                            >
-                                                Dashboard
-                                            </x-nav.main-item-mobile>
-                                        </li>
+                    </x-sidebar.section>
+
+                    <x-sidebar.section>
+                        <x-sidebar.item href="#">
+                            <x-icon name="search"></x-icon>
+                            <x-sidebar.label>Search</x-sidebar.label>
+                        </x-sidebar.item>
+                        <x-sidebar.item href="#">
+                            <x-icon name="inbox"></x-icon>
+                            <x-sidebar.label>Messages</x-sidebar.label>
+
+                            <x-slot name="trailing">
+                                <x-badge color="primary">6</x-badge>
+                            </x-slot>
+                        </x-sidebar.item>
+                        <livewire:users-notifications />
+                    </x-sidebar.section>
+                </x-sidebar.header>
+
+                <x-sidebar.body>
+                    <x-sidebar.section>
+                        <x-sidebar.item
+                            :href="route('dashboard')"
+                            :active="request()->routeIs('dashboard')"
+                            :meta="$meta"
+                        >
+                            <x-icon name="home" size="sm"></x-icon>
+                            <x-sidebar.label>Dashboard</x-sidebar.label>
+                        </x-sidebar.item>
+
+                        @if (auth()->user()->canWrite)
+                            <x-sidebar.item
+                                :href="route('writing-overview')"
+                                :active="$meta->subnavSection === 'writing' || $meta->subnavSection === 'posting'"
+                                :meta="$meta"
+                            >
+                                <x-icon name="write" size="sm"></x-icon>
+                                <x-sidebar.label>Writing</x-sidebar.label>
+                            </x-sidebar.item>
+                        @endif
+
+                        <x-sidebar.item
+                            :href="route('stories.timeline', 'posts')"
+                            :active="request()->routeIs('stories.timeline')"
+                            :meta="$meta"
+                        >
+                            <x-icon name="timeline" size="sm"></x-icon>
+                            <x-sidebar.label>Timeline</x-sidebar.label>
+                        </x-sidebar.item>
+                        <x-sidebar.item
+                            :href="route('notes.index')"
+                            :active="request()->routeIs('notes.*')"
+                            :meta="$meta"
+                        >
+                            <x-icon name="note" size="sm"></x-icon>
+                            <x-sidebar.label>Notes</x-sidebar.label>
+                        </x-sidebar.item>
+                        <x-sidebar.item
+                            :href="route('characters.index')"
+                            :active="$meta->subnavSection === 'characters'"
+                            :meta="$meta"
+                        >
+                            <x-icon name="characters" size="sm"></x-icon>
+                            <x-sidebar.label>Characters</x-sidebar.label>
+                        </x-sidebar.item>
+
+                        @if (auth()->user()->canManageUsers)
+                            <x-sidebar.item
+                                :href="route('users.index')"
+                                :active="$meta->subnavSection === 'users'"
+                                :meta="$meta"
+                            >
+                                <x-icon name="users" size="sm"></x-icon>
+                                <x-sidebar.label>Users</x-sidebar.label>
+                            </x-sidebar.item>
+                        @endif
+
+                        @can('viewAny', Page::class)
+                            <x-sidebar.item
+                                :href="route('pages.index', ['tableFilters' => ['pageType' => ['value' => 0]]])"
+                                :active="request()->routeIs('pages.*')"
+                                :meta="$meta"
+                            >
+                                <x-icon name="www" size="sm"></x-icon>
+                                <x-sidebar.label>Pages</x-sidebar.label>
+                            </x-sidebar.item>
+                        @endcan
+
+                        @if (auth()->user()->canManageForms)
+                            <x-sidebar.item
+                                :href="route('forms.index')"
+                                :active="$meta->subnavSection === 'forms'"
+                                :meta="$meta"
+                            >
+                                <x-icon name="form"></x-icon>
+                                <x-sidebar.label>Forms</x-sidebar.label>
+                            </x-sidebar.item>
+                        @endif
+
+                        @can('update', $settings)
+                            <x-sidebar.item
+                                :href="route('settings.general.edit')"
+                                :active="$meta->subnavSection === 'settings'"
+                                :meta="$meta"
+                            >
+                                <x-icon name="settings" size="sm"></x-icon>
+                                <x-sidebar.label>Settings</x-sidebar.label>
+                            </x-sidebar.item>
+                        @endcan
+
+                        @if (auth()->user()->canManageSystem)
+                            <x-sidebar.item
+                                :href="route('system-overview')"
+                                :active="$meta->subnavSection === 'system'"
+                                :meta="$meta"
+                            >
+                                <x-icon name="server" size="sm"></x-icon>
+                                <x-sidebar.label>System</x-sidebar.label>
+
+                                @if (cache()->has('nova-update-available') || cache()->has('nova-critical-update-available'))
+                                    <x-slot name="trailing">
+                                        <div
+                                            @class([
+                                                'text-warning-500' => ! cache()->has('nova-critical-update-available'),
+                                                'text-danger-500' => cache()->has('nova-critical-update-available'),
+                                            ])
+                                        >
+                                            <x-icon
+                                                :name="cache()->has('nova-critical-update-available') ? 'update-alert' : 'update'"
+                                                size="sm"
+                                            ></x-icon>
+                                        </div>
+                                    </x-slot>
+                                @endif
+                            </x-sidebar.item>
+                        @endif
+                    </x-sidebar.section>
+
+                    <x-sidebar.spacer></x-sidebar.spacer>
+
+                    <x-sidebar.section>
+                        <x-sidebar.item href="https://discord.gg/7WmKUks" target="_blank">
+                            <x-icon name="help" size="sm"></x-icon>
+                            <x-sidebar.label>Get help</x-sidebar.label>
+                            <x-slot name="trailing">
+                                <x-icon name="external" size="xs" class="text-gray-400 dark:text-gray-600"></x-icon>
+                            </x-slot>
+                        </x-sidebar.item>
+                    </x-sidebar.section>
+                </x-sidebar.body>
+
+                <x-sidebar.footer>
+                    <x-sidebar.section>
+                        <x-dropdown placement="bottom-end" class="w-full">
+                            <x-slot name="emptyTrigger">
+                                <x-sidebar.item>
+                                    <x-avatar :src="auth()->user()->avatar_url" :tooltip="auth()->user()->name" />
+                                    <x-sidebar.label>{{ auth()->user()->name }}</x-sidebar.label>
+                                    <x-icon.chevron-up-down></x-icon.chevron-up-down>
+                                </x-sidebar.item>
+                            </x-slot>
+
+                            <x-dropdown.group>
+                                <x-dropdown.item :href="route('account.edit')" icon="user">My account</x-dropdown.item>
+                                <x-dropdown.item :href="route('account.notifications')" icon="bell">
+                                    My notifications
+                                </x-dropdown.item>
+                                <div
+                                    class="flex items-center px-4 py-3 text-base text-gray-700 dark:text-gray-300 md:text-sm"
+                                >
+                                    <x-icon
+                                        name="moon"
+                                        size="sm"
+                                        class="mr-3 text-gray-500 dark:text-gray-400"
+                                    ></x-icon>
+                                    <div class="flex w-full items-center justify-between">
+                                        <div class="flex-1 font-medium">Dark mode</div>
+                                        <livewire:users-admin-theme-toggle />
+                                    </div>
+                                </div>
+                            </x-dropdown.group>
+
+                            <x-dropdown.group>
+                                <x-dropdown.item
+                                    :href="route('characters.index', ['tableFilters' => ['only_my_characters' => ['isActive' => true]]])"
+                                    icon="characters"
+                                >
+                                    My characters
+                                </x-dropdown.item>
+                            </x-dropdown.group>
+
+                            <x-dropdown.group>
+                                <x-dropdown.item type="submit" icon="logout" form="logout-form">
+                                    <span>Sign out</span>
+
+                                    <x-slot name="buttonForm">
+                                        <x-form :action="route('logout')" class="hidden" id="logout-form" />
+                                    </x-slot>
+                                </x-dropdown.item>
+                            </x-dropdown.group>
+                        </x-dropdown>
+                    </x-sidebar.section>
+                </x-sidebar.footer>
+            </x-sidebar>
+        </div>
+
+        {{-- Sidebar on mobile --}}
+        <div class="relative isolate lg:hidden">
+            <template x-teleport="body">
+                <div class="relative z-10" x-show="open" x-on:keydown.window.escape="open = false" x-cloak>
+                    <div
+                        class="fixed inset-0 bg-black/25 backdrop-blur"
+                        x-transition:enter="duration-300 ease-out"
+                        x-transition:enter-start="opacity-0"
+                        x-transition:enter-end="opacity-100"
+                        x-transition:leave="duration-200 ease-in"
+                        x-transition:leave-start="opacity-100"
+                        x-transition:leave-end="opacity-0"
+                        x-show="open"
+                    ></div>
+
+                    <div
+                        class="fixed inset-y-0 w-full max-w-80 p-2 transition"
+                        x-transition:enter="duration-300 ease-in-out"
+                        x-transition:enter-start="-translate-x-full"
+                        x-transition:enter-end="translate-x-0"
+                        x-transition:leave="duration-300 ease-in-out"
+                        x-transition:leave-start="translate-x-0"
+                        x-transition:leave-end="-translate-x-full"
+                        x-show="open"
+                        x-trap.noscroll="open"
+                    >
+                        <div
+                            class="relative z-10 flex h-full flex-col overflow-y-scroll rounded-lg bg-white shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10"
+                            x-on:click.away="open = false"
+                        >
+                            <div class="-mb-3 px-4 pt-3">
+                                <span class="relative">
+                                    <button
+                                        aria-label="Close navigation"
+                                        type="button"
+                                        x-on:click="open = false"
+                                        class="relative flex min-w-0 cursor-default items-center gap-3 rounded-lg p-2 text-left text-base/6 font-medium text-gray-950 data-[active]:bg-gray-950/5 data-[hover]:bg-gray-950/5 data-[slot=avatar]:*:-m-0.5 data-[slot=avatar]:*:size-7 data-[slot=icon]:*:size-6 data-[slot=icon]:*:shrink-0 data-[slot=icon]:*:data-[active]:fill-gray-950 data-[slot=icon]:*:data-[hover]:fill-gray-950 data-[slot=icon]:*:fill-gray-500 data-[slot=avatar]:*:[--avatar-radius:theme(borderRadius.DEFAULT)] data-[slot=avatar]:*:[--ring-opacity:10%] dark:text-white dark:data-[active]:bg-white/5 dark:data-[hover]:bg-white/5 dark:data-[slot=icon]:*:data-[active]:fill-white dark:data-[slot=icon]:*:data-[hover]:fill-white dark:data-[slot=icon]:*:fill-gray-400 sm:text-sm/5 sm:data-[slot=avatar]:*:size-6 sm:data-[slot=icon]:*:size-5 data-[slot=icon]:last:[&:not(:nth-child(2))]:*:ml-auto data-[slot=icon]:last:[&:not(:nth-child(2))]:*:size-5 sm:data-[slot=icon]:last:[&:not(:nth-child(2))]:*:size-4"
+                                    >
+                                        <span
+                                            class="absolute left-1/2 top-1/2 size-[max(100%,2.75rem)] -translate-x-1/2 -translate-y-1/2 [@media(pointer:fine)]:hidden"
+                                            aria-hidden="true"
+                                        ></span>
+                                        <x-icon.x></x-icon.x>
+                                    </button>
+                                </span>
+                            </div>
+
+                            <x-sidebar>
+                                <x-sidebar.header>
+                                    <x-sidebar.section>
+                                        <div class="mb-2 flex px-2">
+                                            <a href="{{ route('dashboard') }}" aria-label="Home">
+                                                @if (app('nova.settings')->getFirstMedia('logo'))
+                                                    <img
+                                                        src="{{ app('nova.settings')->getFirstMediaUrl('logo') }}"
+                                                        alt="logo"
+                                                        class="block h-8 w-auto"
+                                                    />
+                                                @else
+                                                    <x-logos.nova class="h-8 w-auto" />
+                                                @endif
+                                            </a>
+                                        </div>
+                                    </x-sidebar.section>
+                                </x-sidebar.header>
+
+                                <x-sidebar.body>
+                                    <x-sidebar.section>
+                                        <x-sidebar.item
+                                            :href="route('dashboard')"
+                                            :active="request()->routeIs('dashboard')"
+                                            :meta="$meta"
+                                        >
+                                            <x-icon name="home" size="sm"></x-icon>
+                                            <x-sidebar.label>Dashboard</x-sidebar.label>
+                                        </x-sidebar.item>
 
                                         @if (auth()->user()->canWrite)
-                                            <li>
-                                                <x-nav.main-item-mobile
-                                                    :href="route('writing-overview')"
-                                                    :active="$meta->subnavSection === 'writing' || $meta->subnavSection === 'posting'"
-                                                    icon="write"
-                                                    :meta="$meta"
-                                                >
-                                                    Writing
-                                                </x-nav.main-item-mobile>
-                                            </li>
+                                            <x-sidebar.item
+                                                :href="route('writing-overview')"
+                                                :active="$meta->subnavSection === 'writing' || $meta->subnavSection === 'posting'"
+                                                :meta="$meta"
+                                            >
+                                                <x-icon name="write" size="sm"></x-icon>
+                                                <x-sidebar.label>Writing</x-sidebar.label>
+                                            </x-sidebar.item>
                                         @endif
 
-                                        <li>
-                                            <x-nav.main-item-mobile
-                                                :href="route('stories.timeline', 'posts')"
-                                                :active="request()->routeIs('stories.timeline')"
-                                                icon="timeline"
-                                                :meta="$meta"
-                                            >
-                                                Timeline
-                                            </x-nav.main-item-mobile>
-                                        </li>
-
-                                        <li>
-                                            <x-nav.main-item-mobile
-                                                :href="route('notes.index')"
-                                                :active="request()->routeIs('notes.*')"
-                                                icon="note"
-                                                :meta="$meta"
-                                            >
-                                                Notes
-                                            </x-nav.main-item-mobile>
-                                        </li>
-                                        <li>
-                                            <x-nav.main-item-mobile
-                                                :href="route('characters.index')"
-                                                :active="$meta->subnavSection === 'characters'"
-                                                icon="characters"
-                                                :meta="$meta"
-                                            >
-                                                Characters
-                                            </x-nav.main-item-mobile>
-                                        </li>
+                                        <x-sidebar.item
+                                            :href="route('stories.timeline', 'posts')"
+                                            :active="request()->routeIs('stories.timeline')"
+                                            :meta="$meta"
+                                        >
+                                            <x-icon name="timeline" size="sm"></x-icon>
+                                            <x-sidebar.label>Timeline</x-sidebar.label>
+                                        </x-sidebar.item>
+                                        <x-sidebar.item
+                                            :href="route('notes.index')"
+                                            :active="request()->routeIs('notes.*')"
+                                            :meta="$meta"
+                                        >
+                                            <x-icon name="note" size="sm"></x-icon>
+                                            <x-sidebar.label>Notes</x-sidebar.label>
+                                        </x-sidebar.item>
+                                        <x-sidebar.item
+                                            :href="route('characters.index')"
+                                            :active="$meta->subnavSection === 'characters'"
+                                            :meta="$meta"
+                                        >
+                                            <x-icon name="characters" size="sm"></x-icon>
+                                            <x-sidebar.label>Characters</x-sidebar.label>
+                                        </x-sidebar.item>
 
                                         @if (auth()->user()->canManageUsers)
-                                            <li>
-                                                <x-nav.main-item-mobile
-                                                    :href="route('users.index')"
-                                                    :active="$meta->subnavSection === 'users'"
-                                                    icon="users"
-                                                    :meta="$meta"
-                                                >
-                                                    Users
-                                                </x-nav.main-item-mobile>
-                                            </li>
+                                            <x-sidebar.item
+                                                :href="route('users.index')"
+                                                :active="$meta->subnavSection === 'users'"
+                                                :meta="$meta"
+                                            >
+                                                <x-icon name="users" size="sm"></x-icon>
+                                                <x-sidebar.label>Users</x-sidebar.label>
+                                            </x-sidebar.item>
+                                        @endif
+
+                                        @can('viewAny', Page::class)
+                                            <x-sidebar.item
+                                                :href="route('pages.index', ['tableFilters' => ['pageType' => ['value' => 0]]])"
+                                                :active="request()->routeIs('pages.*')"
+                                                :meta="$meta"
+                                            >
+                                                <x-icon name="www" size="sm"></x-icon>
+                                                <x-sidebar.label>Pages</x-sidebar.label>
+                                            </x-sidebar.item>
+                                        @endcan
+
+                                        @if (auth()->user()->canManageForms)
+                                            <x-sidebar.item
+                                                :href="route('forms.index')"
+                                                :active="$meta->subnavSection === 'forms'"
+                                                :meta="$meta"
+                                            >
+                                                <x-icon name="form"></x-icon>
+                                                <x-sidebar.label>Forms</x-sidebar.label>
+                                            </x-sidebar.item>
                                         @endif
 
                                         @can('update', $settings)
-                                            <li>
-                                                <x-nav.main-item-mobile
-                                                    :href="route('settings.general.edit')"
-                                                    :active="$meta->subnavSection === 'settings'"
-                                                    icon="settings"
-                                                    :meta="$meta"
-                                                >
-                                                    Settings
-                                                </x-nav.main-item-mobile>
-                                            </li>
+                                            <x-sidebar.item
+                                                :href="route('settings.general.edit')"
+                                                :active="$meta->subnavSection === 'settings'"
+                                                :meta="$meta"
+                                            >
+                                                <x-icon name="settings" size="sm"></x-icon>
+                                                <x-sidebar.label>Settings</x-sidebar.label>
+                                            </x-sidebar.item>
                                         @endcan
 
                                         @if (auth()->user()->canManageSystem)
-                                            <li>
-                                                <x-nav.main-item-mobile
-                                                    :href="route('system-overview')"
-                                                    :active="$meta->subnavSection === 'system'"
-                                                    icon="server"
-                                                    :meta="$meta"
-                                                >
-                                                    <div class="flex items-center gap-x-2">
-                                                        <span>System</span>
-
-                                                        @if (cache()->has('nova-update-available') || cache()->has('nova-critical-update-available'))
-                                                            <div
-                                                                @class([
-                                                                    'text-warning-500' => ! cache()->has('nova-critical-update-available'),
-                                                                    'text-danger-500' => cache()->has('nova-critical-update-available'),
-                                                                ])
-                                                            >
-                                                                <x-icon
-                                                                    :name="cache()->has('nova-critical-update-available') ? 'update-alert' : 'update'"
-                                                                    size="sm"
-                                                                ></x-icon>
-                                                            </div>
-                                                        @endif
-                                                    </div>
-                                                </x-nav.main-item-mobile>
-                                            </li>
-                                        @endif
-                                    </ul>
-                                </li>
-                                <li class="mt-auto">
-                                    <ul role="list" class="space-y-2">
-                                        <li class="p-2 leading-none">
-                                            <livewire:users-notifications />
-                                        </li>
-                                        <li class="leading-none">
-                                            <x-nav.main-item-mobile href="#" icon="search" :meta="$meta">
-                                                <div class="flex w-full items-center justify-between">
-                                                    <span>Search</span>
-                                                    <x-badge>/</x-badge>
-                                                </div>
-                                            </x-nav.main-item-mobile>
-                                        </li>
-                                        <li class="leading-none">
-                                            <x-nav.main-item-mobile href="#" icon="help" :meta="$meta">
-                                                Get help
-                                            </x-nav.main-item-mobile>
-                                        </li>
-                                        <li class="p-2 leading-none">
-                                            <div class="grid w-full grid-cols-3 rounded-md bg-gray-200 p-1">
-                                                <div
-                                                    class="flex items-center justify-center space-x-2 rounded bg-white px-3 py-1 text-xs font-medium text-gray-700 shadow ring-1 ring-gray-900/5"
-                                                >
-                                                    <x-icon name="sun" size="sm"></x-icon>
-                                                    <span class="sr-only">Light</span>
-                                                </div>
-                                                <div
-                                                    class="flex items-center justify-center space-x-2 rounded px-3 py-1 text-xs font-medium"
-                                                >
-                                                    <x-icon name="moon" size="sm"></x-icon>
-                                                    <span class="sr-only">Dark</span>
-                                                </div>
-                                                <div
-                                                    class="flex items-center justify-center space-x-2 rounded px-3 py-1 text-xs font-medium"
-                                                >
-                                                    <x-icon name="device-desktop" size="sm"></x-icon>
-                                                    <span class="sr-only">System</span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        {{--
-                                            <li class="px-6 leading-none">
-                                            <livewire:users-admin-theme-toggle />
-                                            </li>
-                                        --}}
-                                        <li class="!mt-4 border-t border-gray-900/5 px-6 py-4 leading-none">
-                                            <x-dropdown placement="top-start">
-                                                <x-slot name="trigger">
-                                                    <x-avatar
-                                                        size="xs"
-                                                        :src="auth()->user()->avatar_url"
-                                                        :tooltip="auth()->user()->name"
-                                                    />
-                                                    <span class="ml-2.5">
-                                                        {{ auth()->user()->name }}
-                                                    </span>
-                                                </x-slot>
-
-                                                <x-dropdown.group>
-                                                    <x-dropdown.item :href="route('account.edit')" icon="user">
-                                                        My account
-                                                    </x-dropdown.item>
-                                                </x-dropdown.group>
-
-                                                <x-dropdown.group>
-                                                    <x-dropdown.item
-                                                        type="submit"
-                                                        icon="logout"
-                                                        form="logout-form-mobile"
-                                                    >
-                                                        <span>Sign out</span>
-
-                                                        <x-slot name="buttonForm">
-                                                            <x-form
-                                                                :action="route('logout')"
-                                                                class="hidden"
-                                                                id="logout-form-mobile"
-                                                            />
-                                                        </x-slot>
-                                                    </x-dropdown.item>
-                                                </x-dropdown.group>
-                                            </x-dropdown>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Static sidebar for desktop -->
-        <div
-            @class([
-                'hidden xl:fixed xl:inset-y-0 xl:z-10 xl:flex xl:w-72 xl:flex-col',
-                'pt-11' => app('impersonate')->isImpersonating(),
-            ])
-        >
-            <!-- Sidebar component, swap this element with another sidebar if you like -->
-            <div class="flex grow flex-col gap-y-5 overflow-y-auto">
-                <div class="flex shrink-0 items-center px-6 py-6">
-                    <a href="{{ route('dashboard') }}">
-                        @if (app('nova.settings')->getFirstMedia('logo'))
-                            <img
-                                src="{{ app('nova.settings')->getFirstMediaUrl('logo') }}"
-                                alt="logo"
-                                class="block h-8 w-auto"
-                            />
-                        @else
-                            <x-logos.nova class="hidden h-10 w-auto md:block" />
-                            <x-logos.nova-mark class="block h-8 w-auto md:hidden" />
-                        @endif
-                    </a>
-                </div>
-                <nav class="flex flex-1 flex-col">
-                    <ul role="list" class="flex flex-1 flex-col gap-y-7">
-                        <li>
-                            <ul role="list" class="space-y-3">
-                                <li>
-                                    <x-nav.main-item
-                                        :href="route('dashboard')"
-                                        :active="request()->routeIs('dashboard')"
-                                        icon="home"
-                                        :meta="$meta"
-                                    >
-                                        Dashboard
-                                    </x-nav.main-item>
-                                </li>
-
-                                @if (auth()->user()->canWrite)
-                                    <li>
-                                        <x-nav.main-item
-                                            :href="route('writing-overview')"
-                                            :active="$meta->subnavSection === 'writing' || $meta->subnavSection === 'posting'"
-                                            icon="write"
-                                            :meta="$meta"
-                                        >
-                                            Writing
-                                        </x-nav.main-item>
-                                    </li>
-                                @endif
-
-                                <li>
-                                    <x-nav.main-item
-                                        :href="route('stories.timeline', 'posts')"
-                                        :active="request()->routeIs('stories.timeline')"
-                                        icon="timeline"
-                                        :meta="$meta"
-                                    >
-                                        Timeline
-                                    </x-nav.main-item>
-                                </li>
-
-                                <li>
-                                    <x-nav.main-item
-                                        :href="route('notes.index')"
-                                        :active="request()->routeIs('notes.*')"
-                                        icon="note"
-                                        :meta="$meta"
-                                    >
-                                        Notes
-                                    </x-nav.main-item>
-                                </li>
-                                <li>
-                                    <x-nav.main-item
-                                        :href="route('characters.index')"
-                                        :active="$meta->subnavSection === 'characters'"
-                                        icon="characters"
-                                        :meta="$meta"
-                                    >
-                                        Characters
-                                    </x-nav.main-item>
-                                </li>
-
-                                @if (auth()->user()->canManageUsers)
-                                    <li>
-                                        <x-nav.main-item
-                                            :href="route('users.index')"
-                                            :active="$meta->subnavSection === 'users'"
-                                            icon="users"
-                                            :meta="$meta"
-                                        >
-                                            Users
-                                        </x-nav.main-item>
-                                    </li>
-                                @endif
-
-                                @can('update', $settings)
-                                    <li>
-                                        <x-nav.main-item
-                                            :href="route('settings.general.edit')"
-                                            :active="$meta->subnavSection === 'settings'"
-                                            icon="settings"
-                                            :meta="$meta"
-                                        >
-                                            Settings
-                                        </x-nav.main-item>
-                                    </li>
-                                @endcan
-
-                                @if (auth()->user()->canManageSystem)
-                                    <li>
-                                        <x-nav.main-item
-                                            :href="route('system-overview')"
-                                            :active="$meta->subnavSection === 'system'"
-                                            icon="server"
-                                            :meta="$meta"
-                                        >
-                                            <div class="flex items-center gap-x-1.5">
-                                                <span>System</span>
+                                            <x-sidebar.item
+                                                :href="route('system-overview')"
+                                                :active="$meta->subnavSection === 'system'"
+                                                :meta="$meta"
+                                            >
+                                                <x-icon name="server" size="sm"></x-icon>
+                                                <x-sidebar.label>System</x-sidebar.label>
 
                                                 @if (cache()->has('nova-update-available') || cache()->has('nova-critical-update-available'))
-                                                    <div
-                                                        @class([
-                                                            'text-warning-500' => ! cache()->has('nova-critical-update-available'),
-                                                            'text-danger-500' => cache()->has('nova-critical-update-available'),
-                                                        ])
-                                                    >
-                                                        <x-icon
-                                                            :name="cache()->has('nova-critical-update-available') ? 'update-alert' : 'update'"
-                                                            size="sm"
-                                                        ></x-icon>
-                                                    </div>
+                                                    <x-slot name="trailing">
+                                                        <div
+                                                            @class([
+                                                                'text-warning-500' => ! cache()->has('nova-critical-update-available'),
+                                                                'text-danger-500' => cache()->has('nova-critical-update-available'),
+                                                            ])
+                                                        >
+                                                            <x-icon
+                                                                :name="cache()->has('nova-critical-update-available') ? 'update-alert' : 'update'"
+                                                                size="sm"
+                                                            ></x-icon>
+                                                        </div>
+                                                    </x-slot>
                                                 @endif
-                                            </div>
-                                        </x-nav.main-item>
-                                    </li>
-                                @endif
-                            </ul>
-                        </li>
+                                            </x-sidebar.item>
+                                        @endif
+                                    </x-sidebar.section>
 
-                        <li class="mt-auto">
-                            <ul role="list" class="space-y-2">
-                                <li class="hidden px-6 leading-none">
-                                    <x-panel class="mb-8">
-                                        <x-spacing size="sm" class="flex flex-col gap-3">
-                                            <h3 class="text-sm/5 font-medium text-gray-900 dark:text-white">
-                                                Complete your profile
-                                            </h3>
-                                            <div class="flex items-center gap-3">
-                                                <div
-                                                    class="relative h-2 w-full overflow-hidden rounded-full bg-gray-300 dark:bg-gray-600"
-                                                >
-                                                    <div
-                                                        class="absolute inset-0 h-2 bg-primary-500 dark:bg-primary-400"
-                                                        style="width: 25%"
-                                                    ></div>
-                                                </div>
-                                                <div class="text-xs font-medium text-gray-500 dark:text-gray-400">
-                                                    25%
-                                                </div>
-                                            </div>
-                                        </x-spacing>
-                                    </x-panel>
-                                </li>
-                                {{--
-                                    <li class="leading-none">
-                                    <x-nav.main-item href="#" icon="messages" :meta="$meta">Messages</x-nav.main-item>
-                                    </li>
-                                    <li class="leading-none">
-                                    <x-nav.main-item href="#" icon="megaphone" :meta="$meta">
-                                    Announcements
-                                    </x-nav.main-item>
-                                    </li>
-                                --}}
-                                <li class="px-6 leading-none">
-                                    <livewire:users-notifications />
-                                </li>
-                                {{--
-                                    <li class="leading-none">
-                                    <x-nav.main-item href="#" icon="search" :meta="$meta">Search</x-nav.main-item>
-                                    </li>
-                                --}}
-                                <li class="leading-none">
-                                    <x-nav.main-item href="https://discord.gg/7WmKUks" icon="help" :meta="$meta">
-                                        Get help
-                                    </x-nav.main-item>
-                                </li>
-                                {{--
-                                    <li class="px-6 leading-none">
-                                    
-                                    <div class="grid w-full grid-cols-3 rounded-md bg-gray-200 p-1">
-                                    <div
-                                    class="flex items-center justify-center space-x-2 rounded bg-white px-3 py-1 text-xs font-medium text-gray-700 shadow ring-1 ring-gray-900/5"
-                                    >
-                                    <x-icon name="sun" size="sm"></x-icon>
-                                    <span class="sr-only">Light</span>
-                                    </div>
-                                    <div
-                                    class="flex items-center justify-center space-x-2 rounded px-3 py-1 text-xs font-medium"
-                                    >
-                                    <x-icon name="moon" size="sm"></x-icon>
-                                    <span class="sr-only">Dark</span>
-                                    </div>
-                                    <div
-                                    class="flex items-center justify-center space-x-2 rounded px-3 py-1 text-xs font-medium"
-                                    >
-                                    <x-icon name="device-desktop" size="sm"></x-icon>
-                                    <span class="sr-only">System</span>
-                                    </div>
-                                    </div>
-                                    
-                                    <livewire:users-admin-theme-toggle />
-                                    </li>
-                                --}}
-                                {{--
-                                    <li class="px-6 leading-none">
-                                    <livewire:users-admin-theme-toggle />
-                                    </li>
-                                --}}
-                                <li class="!mt-4 px-6 py-4 leading-none">
-                                    <x-dropdown placement="bottom-end" class="w-full">
-                                        <x-slot name="trigger" color="heavy-neutral">
-                                            <x-avatar
-                                                size="xs"
-                                                :src="auth()->user()->avatar_url"
-                                                :tooltip="auth()->user()->name"
-                                            />
-                                            <span class="ml-2.5">
-                                                {{ auth()->user()->name }}
-                                            </span>
-                                        </x-slot>
+                                    <x-sidebar.spacer></x-sidebar.spacer>
 
-                                        <x-dropdown.group>
-                                            <x-dropdown.item :href="route('account.edit')" icon="user">
-                                                My account
-                                            </x-dropdown.item>
-                                            <x-dropdown.item
-                                                :href="route('characters.index', ['tableFilters' => ['only_my_characters' => ['isActive' => true]]])"
-                                                icon="characters"
-                                            >
-                                                My characters
-                                            </x-dropdown.item>
-                                            <div
-                                                class="flex items-center px-4 py-3 text-base text-gray-700 dark:text-gray-300 md:text-sm"
-                                            >
+                                    <x-sidebar.section>
+                                        <x-sidebar.item href="https://discord.gg/7WmKUks" target="_blank">
+                                            <x-icon name="help" size="sm"></x-icon>
+                                            <x-sidebar.label>Get help</x-sidebar.label>
+                                            <x-slot name="trailing">
                                                 <x-icon
-                                                    name="moon"
-                                                    size="sm"
-                                                    class="mr-3 text-gray-500 dark:text-gray-400"
+                                                    name="external"
+                                                    size="xs"
+                                                    class="text-gray-400 dark:text-gray-600"
                                                 ></x-icon>
-                                                <div class="flex w-full items-center justify-between">
-                                                    <div class="flex-1 font-medium">Dark mode</div>
-                                                    <livewire:users-admin-theme-toggle />
-                                                </div>
-                                            </div>
-                                        </x-dropdown.group>
-
-                                        {{--
-                                            <x-dropdown.group>
-                                            <x-dropdown.item :href="route('whats-new')" icon="star">
-                                            See what's new
-                                            </x-dropdown.item>
-                                            <x-dropdown.item
-                                            href="https://discord.gg/7WmKUks"
-                                            target="_blank"
-                                            icon="help"
-                                            >
-                                            Get help
-                                            </x-dropdown.item>
-                                            </x-dropdown.group>
-                                        --}}
-
-                                        <x-dropdown.group>
-                                            <x-dropdown.item type="submit" icon="logout" form="logout-form">
-                                                <span>Sign out</span>
-
-                                                <x-slot name="buttonForm">
-                                                    <x-form
-                                                        :action="route('logout')"
-                                                        class="hidden"
-                                                        id="logout-form"
-                                                    />
-                                                </x-slot>
-                                            </x-dropdown.item>
-                                        </x-dropdown.group>
-                                    </x-dropdown>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-
-        <div
-            class="sticky top-0 z-40 flex items-center gap-x-6 border-b border-gray-900/5 bg-white/60 px-4 py-4 backdrop-blur sm:px-6 xl:hidden"
-        >
-            <button type="button" class="-m-2.5 p-2.5 text-gray-700 xl:hidden" x-on:click="open = true">
-                <span class="sr-only">Open sidebar</span>
-                <svg
-                    class="size-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                    />
-                </svg>
-            </button>
-            <div class="flex-1 text-sm font-semibold leading-6 text-gray-900">Dashboard</div>
-            <a href="#">
-                <span class="sr-only">Your profile</span>
-                <img
-                    class="h-8 w-8 rounded-full bg-gray-50"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt=""
-                />
-            </a>
-        </div>
-
-        <main
-            class="flex-1 overflow-hidden rounded-tl-xl bg-white ring-1 ring-inset ring-gray-950/[0.08] focus:outline-none dark:bg-gray-900 dark:ring-white/5 xl:ml-72"
-            tabindex="0"
-        >
-            @impersonating
-            <div
-                class="sticky z-50 flex w-full items-center justify-between gap-x-6 rounded-tl-xl bg-gray-900 px-6 py-2.5 sm:pr-3.5 lg:pl-8"
-            >
-                <p class="text-sm leading-6 text-white">
-                    <a href="#">
-                        <strong class="font-semibold">Impersonation mode</strong>
-                        <svg viewBox="0 0 2 2" class="mx-2 inline h-0.5 w-0.5 fill-current" aria-hidden="true">
-                            <circle cx="1" cy="1" r="1" />
-                        </svg>
-                        You are currently impersonating {{ auth()->user()->name }}
-                    </a>
-                </p>
-                <a
-                    href="{{ route('impersonate.leave') }}"
-                    class="group -m-3 flex items-center p-3 focus-visible:outline-offset-[-4px]"
-                >
-                    <span class="mr-2 hidden text-sm font-medium text-gray-300 group-hover:block">
-                        Leave impersonation
-                    </span>
-                    <svg class="size-5 text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path
-                            d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"
-                        />
-                    </svg>
-                </a>
-            </div>
-            @endImpersonating
-
-            {{ NovaView::renderHook('admin::content.start') }}
-
-            <div class="mx-auto w-full max-w-6xl px-4 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-8">
-                @yield('template')
-            </div>
-
-            {{ NovaView::renderHook('admin::content.end') }}
-
-            <footer class="mb-4 mt-8">
-                {{ NovaView::renderHook('admin::footer.start') }}
-
-                <div class="mx-auto text-sm text-gray-400 dark:text-gray-600">
-                    <div class="flex items-center justify-center space-x-2">
-                        <span>Powered by Nova</span>
-                        <span>&bull;</span>
-                        <span>Built with &hearts; by Anodyne</span>
+                                            </x-slot>
+                                        </x-sidebar.item>
+                                    </x-sidebar.section>
+                                </x-sidebar.body>
+                            </x-sidebar>
+                        </div>
                     </div>
                 </div>
+            </template>
+        </div>
 
-                {{ NovaView::renderHook('admin::footer.end') }}
-            </footer>
+        {{-- Header on mobile --}}
+        <header class="flex items-center px-4 lg:hidden">
+            <x-navbar>
+                <x-navbar.section>
+                    <x-navbar.item x-on:click="open = true" type="button">
+                        <svg data-slot="icon" viewBox="0 0 20 20" aria-hidden="true" fill="currentColor">
+                            <path
+                                d="M2 6.75C2 6.33579 2.33579 6 2.75 6H17.25C17.6642 6 18 6.33579 18 6.75C18 7.16421 17.6642 7.5 17.25 7.5H2.75C2.33579 7.5 2 7.16421 2 6.75ZM2 13.25C2 12.8358 2.33579 12.5 2.75 12.5H17.25C17.6642 12.5 18 12.8358 18 13.25C18 13.6642 17.6642 14 17.25 14H2.75C2.33579 14 2 13.6642 2 13.25Z"
+                            />
+                        </svg>
+                    </x-navbar.item>
+                </x-navbar.section>
+
+                <x-navbar.spacer></x-navbar.spacer>
+
+                <x-navbar.section>
+                    <x-navbar.item>
+                        <x-icon name="search"></x-icon>
+                    </x-navbar.item>
+                    <x-navbar.item class="relative">
+                        {{-- <div class="absolute right-0 top-2 size-2 rounded-full bg-danger-500"></div> --}}
+                        <x-icon name="inbox"></x-icon>
+                    </x-navbar.item>
+                    <livewire:users-notifications />
+                    <x-dropdown placement="bottom-end" class="w-full">
+                        <x-slot name="emptyTrigger">
+                            <x-navbar.item>
+                                <x-avatar :src="auth()->user()->avatar_url"></x-avatar>
+                            </x-navbar.item>
+                        </x-slot>
+
+                        <x-dropdown.group>
+                            <x-dropdown.item :href="route('account.edit')" icon="user">My account</x-dropdown.item>
+                            <x-dropdown.item :href="route('account.notifications')" icon="notification">
+                                My notifications
+                            </x-dropdown.item>
+                            <div
+                                class="flex items-center px-4 py-3 text-base text-gray-700 dark:text-gray-300 md:text-sm"
+                            >
+                                <x-icon name="moon" size="sm" class="mr-3 text-gray-500 dark:text-gray-400"></x-icon>
+                                <div class="flex w-full items-center justify-between">
+                                    <div class="flex-1 font-medium">Dark mode</div>
+                                    <livewire:users-admin-theme-toggle />
+                                </div>
+                            </div>
+                        </x-dropdown.group>
+
+                        <x-dropdown.group>
+                            <x-dropdown.item
+                                :href="route('characters.index', ['tableFilters' => ['only_my_characters' => ['isActive' => true]]])"
+                                icon="characters"
+                            >
+                                My characters
+                            </x-dropdown.item>
+                        </x-dropdown.group>
+
+                        <x-dropdown.group>
+                            <x-dropdown.item type="submit" icon="logout" form="logout-form">
+                                <span>Sign out</span>
+
+                                <x-slot name="buttonForm">
+                                    <x-form :action="route('logout')" class="hidden" id="logout-form" />
+                                </x-slot>
+                            </x-dropdown.item>
+                        </x-dropdown.group>
+                    </x-dropdown>
+                </x-navbar.section>
+            </x-navbar>
+        </header>
+
+        <main class="flex flex-1 flex-col pb-2 lg:min-w-0 lg:pl-64 lg:pr-2 lg:pt-2">
+            <div
+                class="grow p-6 lg:rounded-lg lg:bg-white lg:p-10 lg:shadow-sm lg:ring-1 lg:ring-gray-950/5 dark:lg:bg-gray-900 dark:lg:ring-white/10"
+            >
+                <div class="mx-auto max-w-6xl">
+                    @yield('template')
+                </div>
+            </div>
         </main>
     </div>
 @endsection

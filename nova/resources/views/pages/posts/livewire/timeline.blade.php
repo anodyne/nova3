@@ -1,4 +1,4 @@
-<x-spacing width="lg">
+<x-spacing>
     <div class="flex items-center gap-x-8">
         <div class="flex items-center">
             <x-select wire:model.numeric.live="storyId" class="text-sm">
@@ -14,7 +14,7 @@
                 <x-slot name="leading">
                     <select
                         aria-label="Post sort field"
-                        class="form-select -ml-3 h-full border-none bg-transparent py-0 text-gray-900 focus:shadow-none focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
+                        class="form-select -ml-3 h-full border-none bg-transparent py-0 text-gray-900 focus:shadow-none focus:outline-none focus:ring-0 dark:text-white sm:text-sm"
                         wire:model.live="sortField"
                     >
                         <option value="order_column">Sort by timeline order</option>
@@ -24,7 +24,7 @@
 
                 <select
                     aria-label="Post sort direction"
-                    class="form-select -ml-3 h-full border-none bg-transparent py-0 text-gray-900 focus:shadow-none focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
+                    class="form-select -ml-3 h-full border-none bg-transparent py-0 text-gray-900 focus:shadow-none focus:outline-none focus:ring-0 dark:text-white sm:text-sm"
                     wire:model.live="sortDirection"
                 >
                     <option value="desc">Newest first</option>
@@ -35,7 +35,7 @@
 
         @can('viewAny', $postClass)
             <div class="flex items-center">
-                <x-button :href="route('posts.index')" color="primary">
+                <x-button :href="route('posts.index')" outline>
                     <x-icon name="settings" size="sm"></x-icon>
                     Manage posts
                 </x-button>

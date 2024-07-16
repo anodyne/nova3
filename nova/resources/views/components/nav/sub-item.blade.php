@@ -4,7 +4,7 @@
 
 <a
     @class([
-        'group relative -ml-0.5 flex items-center py-2 pl-6 pr-4 text-base transition md:text-sm',
+        'group relative -ml-0.5 flex items-center py-1.5 pl-6 pr-4 text-base transition md:text-sm',
         'font-semibold text-primary-500' => $active && ! settings('appearance.panda'),
         'font-semibold text-gray-900 dark:text-white' => $active && settings('appearance.panda'),
         'hover:text-gray-900 dark:hover:text-gray-100' => ! $active,

@@ -9,7 +9,7 @@
     <x-spacing
         :height="$height"
         :width="$width"
-        class="border-y border-warning-300 bg-warning-50 text-warning-600 sm:rounded-lg sm:border-x dark:border-warning-700 dark:bg-warning-950 dark:text-warning-500"
+        class="rounded-lg bg-warning-50 text-warning-600 ring-1 ring-inset ring-warning-300 dark:bg-warning-950 dark:text-warning-400 dark:ring-warning-700"
     >
         <div class="flex items-start space-x-4">
             @if ($icon)

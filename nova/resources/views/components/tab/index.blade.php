@@ -1,7 +1,7 @@
 <li data-slot="tab">
     <button
         type="button"
-        class="rounded-full px-4 py-0.5 text-sm/6 font-semibold"
+        class="shrink-0 rounded-full px-4 py-0.5 text-sm/6 font-semibold"
         x-bind:class="{
             'text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white':
                 ! isTab('base'),

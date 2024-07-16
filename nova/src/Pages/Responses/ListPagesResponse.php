@@ -8,7 +8,5 @@ use Nova\Foundation\Responses\Responsable;
 
 class ListPagesResponse extends Responsable
 {
-    public ?string $subnav = 'system';
-
     public string $view = 'pages.index';
 }

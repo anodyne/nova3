@@ -8,7 +8,7 @@ use Nova\Foundation\Responses\Responsable;
 
 class EditFormSubmissionResponse extends Responsable
 {
-    public ?string $subnav = 'system';
+    public ?string $subnav = 'forms';
 
     public string $view = 'form-submissions.edit';
 }

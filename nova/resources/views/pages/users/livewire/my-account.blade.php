@@ -113,6 +113,43 @@
         </x-fieldset.field-group>
     </x-fieldset>
 
+    <x-fieldset>
+        <x-fieldset.heading>
+            <x-icon name="preferences"></x-icon>
+            <x-fieldset.legend>My preferences</x-fieldset.legend>
+            <x-fieldset.description>
+                You can update your personal preferences to change the way Nova looks and behaves for your own account.
+            </x-fieldset.description>
+        </x-fieldset.heading>
+
+        <x-fieldset.field-group constrained>
+            <x-fieldset.field label="Timezone" id="timezone" name="timezone" :error="$errors->first('form.timezone')">
+                <x-input.text wire:model.live.debounce="form.timezone"></x-input.text>
+            </x-fieldset.field>
+
+            <x-switch.field>
+                <x-fieldset.label>Dark mode</x-fieldset.label>
+                <x-fieldset.description>Show the admin panel in dark mode</x-fieldset.description>
+                <livewire:users-admin-theme-toggle />
+            </x-switch.field>
+        </x-fieldset.field-group>
+    </x-fieldset>
+
+    <x-fieldset>
+        <x-fieldset.heading>
+            <x-icon name="trash"></x-icon>
+            <x-fieldset.legend>Delete my account</x-fieldset.legend>
+            <x-fieldset.description>
+                If you would like to permanently delete your account from the system, you can do so from the page linked
+                below.
+            </x-fieldset.description>
+        </x-fieldset.heading>
+
+        <x-fieldset.field-group constrained>
+            <x-button :href="route('account.delete')">Delete my account</x-button>
+        </x-fieldset.field-group>
+    </x-fieldset>
+
     <x-fieldset.controls>
         <x-button type="button" wire:click="save" color="primary">Update</x-button>
     </x-fieldset.controls>
