@@ -227,6 +227,12 @@ class AppServiceProvider extends ServiceProvider
             'forms::components.key-value.actions.delete' => iconName('trash'),
             'forms::components.repeater.actions.delete' => iconName('trash'),
             'forms::components.repeater.actions.reorder' => iconName('arrows-sort'),
+            'tables::actions.disable-reordering' => iconName('check'),
+            'tables::actions.enable-reordering' => iconName('arrows-sort'),
+            'tables::actions.filter' => iconName('filter'),
+            'tables::actions.group' => iconName('group'),
+            'tables::actions.toggle-columns' => iconName('columns'),
+            'tables::reorder.handle' => iconName('drag-handle'),
             'tables::search-field' => iconName('search'),
             'modal.close-button' => iconName('x'),
         ]);
@@ -234,14 +240,13 @@ class AppServiceProvider extends ServiceProvider
         Table::configureUsing(function (Table $table) {
             $table
                 ->filtersTriggerAction(function ($action) {
-                    return $action->icon(iconName('filter'))->size('lg')->color('gray');
+                    return $action->size('lg')->color('gray');
                 })
                 ->toggleColumnsTriggerAction(function ($action) {
-                    return $action->icon(iconName('columns'))->size('lg')->color('gray');
+                    return $action->size('lg')->color('gray');
                 })
                 ->reorderRecordsTriggerAction(function ($action, bool $isReordering) {
                     return $action
-                        ->icon($isReordering ? iconName('check') : iconName('arrows-sort'))
                         ->size('lg')
                         ->color($isReordering ? 'primary' : 'gray');
                 });
@@ -295,8 +300,6 @@ class AppServiceProvider extends ServiceProvider
             Blocks\ContentRatings\CardsContentRatingsBlock::make(),
             Blocks\ContentRatings\GridContentRatingsBlock::make(),
             Blocks\ContentRatings\SplitContentRatingsBlock::make(),
-
-            // Blocks\Form\FormBlock::make(),
         ]);
 
         $blockManager->registerFormBlocks([
@@ -306,7 +309,6 @@ class AppServiceProvider extends ServiceProvider
             Fields\EmailField::make(),
             Fields\DropdownField::make(),
             Fields\SelectOneField::make(),
-            // Fields\SelectMultipleField::make(),
         ]);
 
         $this->app->scoped(BlockManager::class, fn () => $blockManager);

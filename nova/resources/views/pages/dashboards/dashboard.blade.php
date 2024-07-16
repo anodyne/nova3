@@ -2,24 +2,34 @@
 
 @section('content')
     <div>
-        <section class="hidden mb-8">
-            <div class="rounded-xl bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-primary-900 to-gray-900 text-white">
+        <section class="mb-8 hidden">
+            <div
+                class="rounded-xl bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-primary-900 to-gray-900 text-white"
+            >
                 <x-spacing size="md">
-                    <div class="grid grid-cols-1 xl:grid-cols-3 gap-y-8 gap-x-16">
+                    <div class="grid grid-cols-1 gap-x-16 gap-y-8 xl:grid-cols-3">
                         <div class="flex flex-col justify-between">
                             <div>
-                                <div class="rounded-full inline-flex items-center bg-primary-400/10 px-3 py-1 text-xs font-medium text-primary-400 ring-1 ring-inset ring-primary-400/20">
+                                <div
+                                    class="inline-flex items-center rounded-full bg-primary-400/10 px-3 py-1 text-xs font-medium text-primary-400 ring-1 ring-inset ring-primary-400/20"
+                                >
                                     Welcome to Nova 3
                                 </div>
                             </div>
                             <div class="space-y-3">
-                                <h2 class="block font-[family-name:--font-header] text-xl/8 font-bold tracking-tight dark:text-gray-900 text-white">Let’s get started</h2>
-                                <p class="text-sm/6">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad, fugiat voluptatum! Rem molestias amet unde eligendi possimus tenetur! Impedit itaque corporis quis error ipsa exercitationem earum amet facere?</p>
+                                <h2
+                                    class="block font-[family-name:--font-header] text-xl/8 font-bold tracking-tight text-white dark:text-gray-900"
+                                >
+                                    Let’s get started
+                                </h2>
+                                <p class="text-sm/6">
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad, fugiat voluptatum! Rem
+                                    molestias amet unde eligendi possimus tenetur! Impedit itaque corporis quis error
+                                    ipsa exercitationem earum amet facere?
+                                </p>
                             </div>
                         </div>
-                        <div class="col-span-2 h-60">
-                            foo
-                        </div>
+                        <div class="col-span-2 h-60">foo</div>
                     </div>
                 </x-spacing>
             </div>
@@ -62,7 +72,21 @@
                         </x-spacing>
 
                         <x-spacing width="sm" bottom="sm" top="xs">
-                            <div class="grid grid-cols-1 sm:grid-cols-3">
+                            <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                                <a
+                                    href="{{ route('account.edit') }}"
+                                    class="group flex items-center justify-center space-x-2 px-6 text-center text-base font-medium transition md:text-sm"
+                                >
+                                    <x-icon
+                                        name="preferences"
+                                        size="lg"
+                                        class="text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-400"
+                                    ></x-icon>
+                                    <span class="group-hover:text-gray-900 dark:group-hover:text-gray-100">
+                                        My preferences
+                                    </span>
+                                </a>
+
                                 <a
                                     href="{{ route('characters.index', ['tableFilters' => ['only_my_characters' => ['isActive' => true]]]) }}"
                                     class="group flex items-center justify-center space-x-2 px-6 text-center text-base font-medium transition md:text-sm"
@@ -73,21 +97,7 @@
                                         class="text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-400"
                                     ></x-icon>
                                     <span class="group-hover:text-gray-900 dark:group-hover:text-gray-100">
-                                        Characters
-                                    </span>
-                                </a>
-
-                                <a
-                                    href="{{ route('account.edit', 'preferences') }}"
-                                    class="group flex items-center justify-center space-x-2 px-6 text-center text-base font-medium transition md:text-sm"
-                                >
-                                    <x-icon
-                                        name="settings"
-                                        size="lg"
-                                        class="text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-400"
-                                    ></x-icon>
-                                    <span class="group-hover:text-gray-900 dark:group-hover:text-gray-100">
-                                        Preferences
+                                        My characters
                                     </span>
                                 </a>
 
@@ -96,14 +106,14 @@
                                     class="group flex items-center justify-center space-x-2 px-6 text-center text-base font-medium transition md:text-sm"
                                 >
                                     <x-icon
-                                        name="messages"
+                                        name="inbox"
                                         size="lg"
                                         class="text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-400"
                                     ></x-icon>
                                     <span class="group-hover:text-gray-900 dark:group-hover:text-gray-100">
                                         Messages
                                     </span>
-                                    <x-badge color="danger">3</x-badge>
+                                    <x-badge color="primary">6</x-badge>
                                     {{-- <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-danger-50 text-danger-600 border border-danger-300">3</span> --}}
                                 </a>
                             </div>

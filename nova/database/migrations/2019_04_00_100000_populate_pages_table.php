@@ -43,8 +43,9 @@ class PopulatePagesTable extends Migration
             ['name' => 'Edit user', 'uri' => 'users/{user}/edit', 'key' => 'users.edit', 'resource' => 'Nova\\Users\\Controllers\\UserController@edit', 'layout' => 'admin'],
             ['name' => 'Update user', 'uri' => 'users/{user}', 'key' => 'users.update', 'verb' => PageVerb::put, 'resource' => 'Nova\\Users\\Controllers\\UserController@update', 'layout' => 'admin'],
 
-            ['name' => 'My account', 'uri' => 'account/{tab?}', 'key' => 'account.edit', 'resource' => 'Nova\\Users\\Controllers\\AccountController@edit', 'layout' => 'admin'],
-            ['name' => 'Update my account', 'uri' => 'account', 'key' => 'account.update', 'verb' => PageVerb::put, 'resource' => 'Nova\\Users\\Controllers\\AccountController@update', 'layout' => 'admin'],
+            ['name' => 'My account', 'uri' => 'account', 'key' => 'account.edit', 'resource' => 'Nova\\Users\\Controllers\\EditAccountController', 'layout' => 'admin'],
+            ['name' => 'Notification preferences', 'uri' => 'account/notifications', 'key' => 'account.notifications', 'resource' => 'Nova\\Users\\Controllers\\NotificationPreferencesController', 'layout' => 'admin'],
+            ['name' => 'Delete my account', 'uri' => 'account/delete', 'key' => 'account.delete', 'resource' => 'Nova\\Users\\Controllers\\DeleteAccountController', 'layout' => 'admin'],
 
             ['name' => 'List all my notes', 'uri' => 'notes', 'key' => 'notes.index', 'resource' => 'Nova\\Notes\\Controllers\\NoteController@index', 'layout' => 'admin'],
             ['name' => 'View my note', 'uri' => 'notes/{note}/show', 'key' => 'notes.show', 'resource' => 'Nova\\Notes\\Controllers\\NoteController@show', 'layout' => 'admin'],

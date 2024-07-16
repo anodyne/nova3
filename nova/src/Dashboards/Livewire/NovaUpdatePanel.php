@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Dashboards\Livewire;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
+use Nova\Foundation\Models\Changelog;
 use Nova\Foundation\Nova;
 
 class NovaUpdatePanel extends Component
@@ -43,6 +45,15 @@ class NovaUpdatePanel extends Component
         return $this->hasUpdate && $this->upstream['severity'] === 'critical';
     }
 
+    #[Computed]
+    public function versionHistory(): Collection
+    {
+        return Changelog::query()
+            ->orderBy('series', 'desc')
+            ->orderBy('version', 'desc')
+            ->get();
+    }
+
     public function mount()
     {
         $this->sidebarOpen = $this->hasCriticalUpdate();
@@ -54,6 +65,7 @@ class NovaUpdatePanel extends Component
             'databaseVersion' => $this->databaseVersion,
             'filesVersion' => $this->filesVersion,
             'upstream' => $this->upstream,
+            'versionHistory' => $this->versionHistory,
         ]);
     }
 }

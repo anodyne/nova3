@@ -8,5 +8,7 @@ use Nova\Foundation\Responses\Responsable;
 
 class ShowStoryTimelineResponse extends Responsable
 {
+    public ?string $subnav = 'timeline';
+
     public string $view = 'stories.show-timeline';
 }

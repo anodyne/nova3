@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Nova\Users\Livewire\MyAccountInfo;
+use Nova\Users\Livewire\MyAccount;
 use Nova\Users\Models\User;
 
 use function Pest\Laravel\assertDatabaseHas;
@@ -24,9 +24,9 @@ beforeEach(function () {
 test('a user can view their account info', function () {
     get(route('account.edit'))
         ->assertSuccessful()
-        ->assertSeeLivewire(MyAccountInfo::class);
+        ->assertSeeLivewire(MyAccount::class);
 
-    livewire(MyAccountInfo::class)
+    livewire(MyAccount::class)
         ->assertSet('form.name', $this->user->name)
         ->assertSet('form.email', $this->user->email)
         ->assertSet('form.pronouns', $this->user->pronouns->value)
@@ -48,7 +48,7 @@ test('a user can update their account info without updating their password', fun
         'pronouns->possessive' => null,
     ]);
 
-    livewire(MyAccountInfo::class)
+    livewire(MyAccount::class)
         ->set('form.name', 'John Doe')
         ->set('form.email', 'johndoe@example.com')
         ->set('form.pronouns', 'male')
@@ -69,7 +69,7 @@ test('a user can update their account info without updating their password', fun
 test('a user can update their password', function () {
     assertTrue(Hash::check('secret', $this->user->password));
 
-    livewire(MyAccountInfo::class)
+    livewire(MyAccount::class)
         ->set('form.currentPassword', 'secret')
         ->set('form.newPassword', 'password')
         ->set('form.newPasswordConfirmation', 'password')
@@ -79,4 +79,24 @@ test('a user can update their password', function () {
 
     assertFalse(Hash::check('secret', $this->user->password));
     assertTrue(Hash::check('password', $this->user->password));
+});
+
+test('a user can update their account preferences', function () {
+    assertDatabaseHas(User::class, [
+        'name' => $this->user->name,
+        'email' => $this->user->email,
+        'preferences->timezone' => 'UTC',
+    ]);
+
+    livewire(MyAccount::class)
+        ->set('form.timezone', 'America/New_York')
+        ->call('save')
+        ->assertNotified()
+        ->assertHasNoErrors();
+
+    assertDatabaseHas(User::class, [
+        'name' => $this->user->name,
+        'email' => $this->user->email,
+        'preferences->timezone' => 'America/New_York',
+    ]);
 });

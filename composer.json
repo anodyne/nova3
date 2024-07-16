@@ -26,6 +26,7 @@
         "lab404/laravel-impersonate": "^1.7",
         "laravel/fortify": "^1.16",
         "laravel/framework": "^11.0",
+        "laravel/pulse": "^1.2",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^3.4",

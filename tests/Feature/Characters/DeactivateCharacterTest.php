@@ -23,37 +23,6 @@ describe('authorized user', function () {
         signIn(permissions: 'character.deactivate');
     });
 
-    test('has the correct permissions for list characters page', function () {
-        $activeCharacter = Character::factory()->active()->create();
-        $inactiveCharacter = Character::factory()->inactive()->create();
-        $deletedCharacter = Character::factory()->active()->trashed()->create();
-
-        // dd($activeCharacter, $inactiveCharacter);
-
-        livewire(CharactersList::class)
-            // ->assertTableActionHidden(ViewAction::class, $activeCharacter)
-            // ->assertTableActionHidden(EditAction::class, $activeCharacter)
-            // ->assertTableActionHidden(DeleteAction::class, $activeCharacter)
-            // ->assertTableActionHidden(ForceDeleteAction::class, $activeCharacter)
-            // ->assertTableActionHidden(RestoreAction::class, $activeCharacter)
-            // ->assertTableActionHidden('activateCharacter', $activeCharacter)
-            ->assertTableActionVisible('deactivateCharacter', $activeCharacter);
-        // ->assertTableActionHidden(ViewAction::class, $inactiveCharacter)
-        // ->assertTableActionHidden(EditAction::class, $inactiveCharacter)
-        // ->assertTableActionHidden(DeleteAction::class, $inactiveCharacter)
-        // ->assertTableActionHidden(ForceDeleteAction::class, $inactiveCharacter)
-        // ->assertTableActionHidden(RestoreAction::class, $inactiveCharacter)
-        // ->assertTableActionHidden('activateCharacter', $inactiveCharacter)
-        // ->assertTableActionHidden('deactivateCharacter', $inactiveCharacter)
-        // ->assertTableActionHidden(ViewAction::class, $deletedCharacter)
-        // ->assertTableActionHidden(EditAction::class, $deletedCharacter)
-        // ->assertTableActionHidden(DeleteAction::class, $deletedCharacter)
-        // ->assertTableActionHidden(ForceDeleteAction::class, $deletedCharacter)
-        // ->assertTableActionHidden(RestoreAction::class, $deletedCharacter)
-        // ->assertTableActionHidden('activateCharacter', $deletedCharacter)
-        // ->assertTableActionHidden('deactivateCharacter', $deletedCharacter)
-    })->only();
-
     test('can deactivate an active character', function () {
         Event::fake();
 
@@ -87,6 +56,34 @@ describe('authorized user', function () {
         }
     });
 
+    test('has the correct permissions for list characters page', function () {
+        $activeCharacter = Character::factory()->active()->create();
+        $inactiveCharacter = Character::factory()->inactive()->create();
+        $deletedCharacter = Character::factory()->active()->trashed()->create();
+
+        livewire(CharactersList::class)
+            ->assertTableActionHidden(ViewAction::class, $activeCharacter)
+            ->assertTableActionHidden(EditAction::class, $activeCharacter)
+            ->assertTableActionHidden(DeleteAction::class, $activeCharacter)
+            ->assertTableActionHidden(ForceDeleteAction::class, $activeCharacter)
+            ->assertTableActionHidden(RestoreAction::class, $activeCharacter)
+            ->assertTableActionHidden('activateCharacter', $activeCharacter)
+            ->assertTableActionVisible('deactivateCharacter', $activeCharacter)
+            ->assertTableActionHidden(ViewAction::class, $inactiveCharacter)
+            ->assertTableActionHidden(EditAction::class, $inactiveCharacter)
+            ->assertTableActionHidden(DeleteAction::class, $inactiveCharacter)
+            ->assertTableActionHidden(ForceDeleteAction::class, $inactiveCharacter)
+            ->assertTableActionHidden(RestoreAction::class, $inactiveCharacter)
+            ->assertTableActionHidden('activateCharacter', $inactiveCharacter)
+            ->assertTableActionHidden('deactivateCharacter', $inactiveCharacter)
+            ->assertTableActionHidden(ViewAction::class, $deletedCharacter)
+            ->assertTableActionHidden(EditAction::class, $deletedCharacter)
+            ->assertTableActionHidden(DeleteAction::class, $deletedCharacter)
+            ->assertTableActionHidden(ForceDeleteAction::class, $deletedCharacter)
+            ->assertTableActionHidden(RestoreAction::class, $deletedCharacter)
+            ->assertTableActionHidden('activateCharacter', $deletedCharacter)
+            ->assertTableActionHidden('deactivateCharacter', $deletedCharacter);
+    });
 });
 
 describe('unauthorized user', function () {

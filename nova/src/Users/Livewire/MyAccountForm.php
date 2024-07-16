@@ -9,7 +9,7 @@ use Livewire\Form;
 use Nova\Users\Data\PronounsData;
 use Nova\Users\Models\User;
 
-class MyAccountInfoForm extends Form
+class MyAccountForm extends Form
 {
     #[Validate]
     public string $name;
@@ -38,6 +38,9 @@ class MyAccountInfoForm extends Form
     #[Validate]
     public ?string $pronounPossessive = null;
 
+    #[Validate]
+    public string $timezone;
+
     public function rules(): array
     {
         return [
@@ -49,6 +52,7 @@ class MyAccountInfoForm extends Form
             'pronounSubject' => ['required_if:form.pronouns,other'],
             'pronounObject' => ['required_if:form.pronouns,other'],
             'pronounPossessive' => ['required_if:form.pronouns,other'],
+            'timezone' => ['required'],
         ];
     }
 
@@ -67,6 +71,7 @@ class MyAccountInfoForm extends Form
         $this->pronounSubject = $user->pronouns->subject;
         $this->pronounObject = $user->pronouns->object;
         $this->pronounPossessive = $user->pronouns->possessive;
+        $this->timezone = $user->preferences->timezone ?? 'UTC';
     }
 
     public function save(): void
@@ -85,6 +90,8 @@ class MyAccountInfoForm extends Form
         if (filled($this->newPassword)) {
             $data['password'] = $this->newPassword;
         }
+
+        $data['preferences'] = $this->only('timezone');
 
         auth()->user()->update($data);
 

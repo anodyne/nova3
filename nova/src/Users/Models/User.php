@@ -281,14 +281,22 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
         );
     }
 
+    public function canManageForms(): Attribute
+    {
+        return new Attribute(
+            get: function (): bool {
+                return $this->isAbleTo('form.*')
+                    || $this->isAbleTo('form-submission.*');
+            }
+        );
+    }
+
     public function canManageSystem(): Attribute
     {
         return new Attribute(
             get: function (): bool {
                 return $this->isAbleTo('theme.*')
-                    || $this->isAbleTo('system.activity')
-                    || $this->isAbleTo('forms.*')
-                    || $this->isAbleTo('pages.*');
+                    || $this->isAbleTo('system.activity');
             }
         );
     }

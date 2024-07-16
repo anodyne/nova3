@@ -15,9 +15,10 @@
         match ($size) {
             'xs' => 'size-8',
             'sm' => 'size-10',
+            'md' => 'size-12',
             'lg' => 'size-16',
             'xl' => 'size-24',
-            default => 'size-12'
+            default => $size
         },
         $attributes->get('class'),
     ])

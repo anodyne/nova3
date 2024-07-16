@@ -1,12 +1,12 @@
 @if ($stories->count() > 0)
-    <x-spacing width="lg">
+    <x-spacing>
         <div class="flex items-center gap-x-8">
             <div class="flex items-center">
                 <x-input.field>
                     <x-slot name="leading">
                         <select
                             aria-label="Story sort field"
-                            class="form-select -ml-3 h-full border-none bg-transparent py-0 text-gray-900 focus:shadow-none focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
+                            class="form-select -ml-3 h-full border-none bg-transparent py-0 text-gray-900 focus:shadow-none focus:outline-none focus:ring-0 dark:text-white sm:text-sm"
                             wire:model.live="sortField"
                         >
                             <option value="order_column">Sort by timeline order</option>
@@ -17,7 +17,7 @@
 
                     <select
                         aria-label="Story sort direction"
-                        class="form-select -ml-3 h-full border-none bg-transparent py-0 text-gray-900 focus:shadow-none focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
+                        class="form-select -ml-3 h-full border-none bg-transparent py-0 text-gray-900 focus:shadow-none focus:outline-none focus:ring-0 dark:text-white sm:text-sm"
                         wire:model.live="sortDirection"
                     >
                         <option value="desc">Newest first</option>

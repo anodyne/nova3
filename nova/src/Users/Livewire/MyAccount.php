@@ -4,23 +4,22 @@ declare(strict_types=1);
 
 namespace Nova\Users\Livewire;
 
-use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Foundation\Filament\Notifications\Notification;
 
-class MyAccountPreferences extends Component
+class MyAccount extends Component
 {
-    public MyAccountPreferencesForm $form;
+    public MyAccountForm $form;
 
     public function save(): void
     {
-        $this->authorize('updateAccount', Auth::user());
+        $this->authorize('updateAccount', auth()->user());
 
         $this->form->save();
 
         Notification::make()->success()
-            ->title('Account preferences updated')
+            ->title('Account updated')
             ->send();
     }
 
@@ -43,9 +42,8 @@ class MyAccountPreferences extends Component
 
     public function render()
     {
-        return view('pages.users.livewire.my-account-preferences', [
+        return view('pages.users.livewire.my-account', [
             'errors' => $this->errors,
-            'timezones' => $this->timezones,
         ]);
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Nova\Foundation\Controllers\Api\HeartbeatController;
+use Nova\Foundation\Controllers\Api\SyncExternalContentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('heartbeat', HeartbeatController::class);
+
+Route::get('sync-content', SyncExternalContentController::class);
 
 Route::get('version', function () {
     return response()->json([

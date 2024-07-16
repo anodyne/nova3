@@ -1,6 +1,6 @@
 @props([
     'name',
-    'size' => 'md',
+    'size' => '',
     'class' => '',
 ])
 
@@ -16,6 +16,4 @@
     };
 @endphp
 
-<span data-slot="icon" {{ $attributes->merge(['class' => 'nova-icon']) }}>
-    {{ icon(name: $name, size: $size, class: $class) }}
-</span>
+{{ icon(name: $name, size: $size, class: Arr::toCssClasses([$class, 'nova-icon']), attributes: ['data-slot' => 'icon']) }}
