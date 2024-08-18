@@ -43,6 +43,7 @@ class PopulateAuthorizationTables extends Migration
                 'post-type.create', 'post-type.delete', 'post-type.update', 'post-type.view', 'post-type.restore',
                 'form.create', 'form.delete', 'form.update',
                 'page.create', 'page.delete', 'page.update', 'page.view',
+                'application.approve',
                 'system.activity',
             ],
             'story-manager' => [
@@ -52,7 +53,6 @@ class PopulateAuthorizationTables extends Migration
             'active' => [
                 'form.view',
             ],
-            'inactive' => [],
             'writer' => [
                 'story.view',
                 'post.view', 'post.create',
@@ -142,6 +142,8 @@ class PopulateAuthorizationTables extends Migration
                 ['name' => 'page.update', 'display_name' => 'Update pages', 'description' => 'Allows a user to edit pages'],
                 ['name' => 'page.view', 'display_name' => 'View pages', 'description' => 'Allows a user to view any pages'],
 
+                ['name' => 'application.approve', 'display_name' => 'Approve applications', 'description' => 'Allows a user to approve or deny applications'],
+
                 ['name' => 'system.activity', 'display_name' => 'View activity log', 'description' => 'Allows a user to view the activity log for the site'],
             ];
 
@@ -164,7 +166,6 @@ class PopulateAuthorizationTables extends Migration
                 ['name' => 'create-secondary-characters', 'display_name' => 'Create Secondary Characters', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'is_default' => false, 'order_column' => 6],
                 ['name' => 'create-support-characters', 'display_name' => 'Create Support Characters', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'is_default' => false, 'order_column' => 7],
                 ['name' => 'update-support-characters', 'display_name' => 'Update Support Characters', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'is_default' => false, 'order_column' => 8],
-                ['name' => 'inactive', 'display_name' => 'Inactive User', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'is_default' => false, 'order_column' => 9],
             ];
 
             collect($roles)->each(function ($role) {

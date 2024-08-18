@@ -15,6 +15,7 @@ use Filament\Tables\Table;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Attributes\Url;
 use Nova\Characters\Actions\ActivateCharacter;
@@ -53,11 +54,12 @@ class CharactersList extends TableComponent
     {
         return $table
             ->query(
-                Character::with('media', 'positions', 'rank.name', 'users', 'activeUsers')
+                Character::with('media', 'positions', 'rank.name', 'users', 'activeUsers', 'application.reviews')
                     ->withTrashed()
+                    ->notHidden()
                     ->unless(
-                        auth()->user()->can('manage', new Character()),
-                        fn (Builder $query): Builder => $query->isAssignedTo(auth()->user())
+                        Auth::user()->can('manage', new Character),
+                        fn (Builder $query): Builder => $query->isAssignedTo(Auth::user())
                     )
             )
             ->groups([
@@ -69,7 +71,7 @@ class CharactersList extends TableComponent
                     ->view('filament.tables.columns.character-avatar')
                     ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search)),
                 TextColumn::make('activeUsers.name')
-                    ->visible(auth()->user()->can('viewAny', Character::class))
+                    ->visible(Auth::user()->can('viewAny', Character::class))
                     ->label('Played by')
                     ->listWithLineBreaks()
                     ->toggleable(),
@@ -126,6 +128,15 @@ class CharactersList extends TableComponent
                                     ->send();
                             }),
                     ])->authorizeAny(['activate', 'deactivate'])->divided(),
+
+                    ActionGroup::make([
+                        Action::make('application')
+                            ->label('View application')
+                            ->color('gray')
+                            ->icon(iconName('progress'))
+                            ->visible(fn (Character $record): bool => Gate::allows('vote', $record->application))
+                            ->url(fn (Character $record): ?string => route('applications.show', $record->application)),
+                    ])->visible(fn (Character $record): bool => Gate::allows('vote', $record->application))->divided(),
 
                     ActionGroup::make([
                         RestoreAction::make()
@@ -349,10 +360,10 @@ class CharactersList extends TableComponent
                     ->query(function (Builder $query, array $data): Builder {
                         return $query->when(
                             $data['my_characters'],
-                            fn (Builder $query): Builder => $query->whereRelation('users', 'users.id', '=', auth()->id())
+                            fn (Builder $query): Builder => $query->whereRelation('users', 'users.id', '=', Auth::id())
                         );
                     })
-                    ->visible(auth()->user()->can('manage', new Character())),
+                    ->visible(Auth::user()->can('manage', new Character)),
                 TrashedFilter::make()->label('Deleted characters'),
             ])
             ->emptyStateIcon(iconName('characters'))

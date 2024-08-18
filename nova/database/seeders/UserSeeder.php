@@ -7,6 +7,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Nova\Forms\Actions\CreateFormSubmission;
 use Nova\Forms\Models\Form;
+use Nova\Settings\Actions\UpdateApplicationReviewers;
+use Nova\Settings\Data\ApplicationReviewers;
 use Nova\Users\Actions\PopulateAccountPreferences;
 use Nova\Users\Actions\PopulateNotificationPreferences;
 use Nova\Users\Models\User;
@@ -31,6 +33,9 @@ class UserSeeder extends Seeder
         $admin->addRoles(['owner', 'admin', 'active', 'writer', 'story-manager']);
         PopulateAccountPreferences::run($admin);
         PopulateNotificationPreferences::run($admin);
+        UpdateApplicationReviewers::run(new ApplicationReviewers(
+            globalReviewers: [$admin->id],
+        ));
         CreateFormSubmission::run($form, $admin);
 
         for ($i = 1; $i <= 5; $i++) {
@@ -52,7 +57,6 @@ class UserSeeder extends Seeder
                 'name' => 'inactive',
                 'email' => 'inactive@inactive.com',
             ]);
-        $inactiveUser->addRoles(['inactive']);
         PopulateAccountPreferences::run($inactiveUser);
         PopulateNotificationPreferences::run($inactiveUser);
         CreateFormSubmission::run($form, $inactiveUser);
@@ -63,7 +67,6 @@ class UserSeeder extends Seeder
                 'name' => 'pending',
                 'email' => 'pending@pending.com',
             ]);
-        $pendingUser->addRoles(['inactive']);
         PopulateAccountPreferences::run($pendingUser);
         PopulateNotificationPreferences::run($pendingUser);
         CreateFormSubmission::run($form, $pendingUser);

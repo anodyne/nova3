@@ -7,3 +7,220 @@ body {
     --tw-bg-opacity: 1;
     background-color: rgba(var(--gray-100), var(--tw-bg-opacity));
 }
+
+.content-container {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    max-width: 80rem;
+}
+
+.content {
+    position: relative;
+    overflow: hidden;
+    --tw-bg-opacity: 1;
+    background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+    --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+    --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+    box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+    --tw-ring-color: rgba(var(--gray-950), 0.05);
+}
+
+@media (min-width: 1024px) {
+
+    .content {
+        border-radius: 1.5rem;
+    }
+}
+
+.main-nav {
+    position: fixed;
+    left: 50%;
+    z-index: 50;
+    display: flex;
+    --tw-translate-x: -50%;
+    --tw-translate-y: -50%;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    align-items: center;
+    -moz-column-gap: 0.75rem;
+         column-gap: 0.75rem;
+    border-radius: 9999px;
+    background-color: rgb(255 255 255 / 0.75);
+    padding-left: 1rem;
+    padding-right: 1rem;
+    --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+    --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+    box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+    --tw-ring-color: rgba(var(--gray-900), 0.05);
+    --tw-backdrop-blur: blur(4px);
+    -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+    backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+
+@media (min-width: 1024px) {
+
+    .main-nav {
+        -moz-column-gap: 1.5rem;
+             column-gap: 1.5rem;
+    }
+}
+
+.main-nav .leading-container {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    padding-left: 0.25rem;
+}
+
+.main-nav .trailing-container {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    padding-right: 0.5rem;
+}
+
+.main-nav .divider {
+    display: flex;
+    height: 1.25rem;
+    width: 1px;
+    align-items: center;
+    background-color: rgba(var(--primary-950), 0.1);
+}
+
+.main-nav ul {
+    display: flex;
+    align-items: center;
+}
+
+.main-nav ul li {
+    position: relative;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
+}
+
+.main-nav ul li[data-active]::after {
+    position: absolute;
+    left: 0.25rem;
+    right: 0.25rem;
+    bottom: -1px;
+    height: 1px;
+    background-image: linear-gradient(to right, var(--tw-gradient-stops));
+    --tw-gradient-from: rgba(var(--primary-500), 0) var(--tw-gradient-from-position);
+    --tw-gradient-to: rgba(var(--primary-500), 0) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+    --tw-gradient-to: rgba(var(--primary-500), 0)  var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), rgba(var(--primary-500), 1) var(--tw-gradient-via-position), var(--tw-gradient-to);
+    content: var(--tw-content);
+    --tw-gradient-to: rgba(var(--primary-500), 0) var(--tw-gradient-to-position);
+}
+
+.main-nav a {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 600;
+    --tw-text-opacity: 1;
+    color: rgba(var(--gray-500), var(--tw-text-opacity));
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}
+
+.main-nav a:hover {
+    --tw-text-opacity: 1;
+    color: rgba(var(--gray-950), var(--tw-text-opacity));
+}
+
+.main-nav [data-active] a {
+    --tw-text-opacity: 1;
+    color: rgba(var(--primary-600), var(--tw-text-opacity));
+}
+
+.nova-advanced-page-content {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 72rem;
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+}
+
+.nv-tabs {
+}
+
+.nv-tabs-list {
+    display: inline-flex;
+    align-items: center;
+    -moz-column-gap: 0.5rem;
+         column-gap: 0.5rem;
+    border-radius: 9999px;
+    --tw-bg-opacity: 1;
+    background-color: rgba(var(--gray-50), var(--tw-bg-opacity));
+    padding-left: 1rem;
+    padding-right: 1rem;
+    --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+    --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+    box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+    --tw-ring-color: rgba(var(--gray-900), 0.05);
+}
+
+.nv-tabs-list>[data-active] {
+    --tw-text-opacity: 1;
+    color: rgba(var(--primary-600), var(--tw-text-opacity));
+}
+
+.nv-tabs-list>[data-active]::after {
+    position: absolute;
+    left: 0.25rem;
+    right: 0.25rem;
+    bottom: -1px;
+    height: 1px;
+    background-image: linear-gradient(to right, var(--tw-gradient-stops));
+    --tw-gradient-from: rgba(var(--primary-500), 0) var(--tw-gradient-from-position);
+    --tw-gradient-to: rgba(var(--primary-500), 0) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+    --tw-gradient-to: rgba(var(--primary-500), 0)  var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), rgba(var(--primary-500), 1) var(--tw-gradient-via-position), var(--tw-gradient-to);
+    content: var(--tw-content);
+    --tw-gradient-to: rgba(var(--primary-500), 0) var(--tw-gradient-to-position);
+}
+
+.nv-tabs-list:hover>[data-active] {
+    --tw-text-opacity: 1;
+    color: rgba(var(--primary-600), var(--tw-text-opacity));
+}
+
+.nv-tabs-tab {
+    position: relative;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.375rem;
+    padding-bottom: 0.375rem;
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+    font-weight: 500;
+    --tw-text-opacity: 1;
+    color: rgba(var(--gray-500), var(--tw-text-opacity));
+}
+
+.nv-tabs-tab:hover {
+    --tw-text-opacity: 1;
+    color: rgba(var(--gray-900), var(--tw-text-opacity));
+}
+
+.nv-btn-primary {
+    --tw-bg-opacity: 1;
+    background-color: rgba(var(--primary-500), var(--tw-bg-opacity));
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+}

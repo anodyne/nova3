@@ -59,6 +59,13 @@ class Form extends Model
         return $this->hasMany(FormSubmission::class);
     }
 
+    public function hasPublishedFields(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): bool => filled($this->published_fields)
+        );
+    }
+
     public function validationMessages(): Attribute
     {
         $form = $this;

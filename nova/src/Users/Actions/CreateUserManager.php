@@ -19,6 +19,8 @@ class CreateUserManager
     {
         $user = CreateUser::run($request->getUserData());
 
+        $user = ActivateUser::run($user);
+
         if (filled($request->assigned_characters)) {
             $user = SyncUserCharacters::run($user, $request->getUserCharactersData());
         }

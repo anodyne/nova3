@@ -21,7 +21,7 @@ class ViewCharacterSettings extends SpotlightCommand
 
     public function execute(Spotlight $spotlight): void
     {
-        $spotlight->redirectRoute('settings.index', 'characters');
+        $spotlight->redirectRoute('settings.characters.edit');
     }
 
     public function shouldBeShown(): bool

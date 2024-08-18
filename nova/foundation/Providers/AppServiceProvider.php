@@ -139,12 +139,12 @@ class AppServiceProvider extends ServiceProvider
 
     protected function registerMacros()
     {
-        Arr::mixin(new Macros\ArrMacros());
-        Redirector::mixin(new Macros\NotificationMacros());
-        RedirectResponse::mixin(new Macros\NotificationMacros());
-        Str::mixin(new Macros\StrMacros());
-        TextColumn::mixin(new Macros\TextColumnMacros());
-        ViewFactory::mixin(new Macros\ViewMacros());
+        Arr::mixin(new Macros\ArrMacros);
+        Redirector::mixin(new Macros\NotificationMacros);
+        RedirectResponse::mixin(new Macros\NotificationMacros);
+        Str::mixin(new Macros\StrMacros);
+        TextColumn::mixin(new Macros\TextColumnMacros);
+        ViewFactory::mixin(new Macros\ViewMacros);
 
         Route::macro('findPageFromRoute', function () {
             /** @var Route */
@@ -170,8 +170,8 @@ class AppServiceProvider extends ServiceProvider
 
     protected function registerIcons()
     {
-        $iconSets = new IconSets();
-        $iconSets->addDefault('tabler', new TablerIconSet());
+        $iconSets = new IconSets;
+        $iconSets->addDefault('tabler', new TablerIconSet);
 
         $this->app->scoped(IconSets::class, fn () => $iconSets);
     }
@@ -204,7 +204,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton(
             'nova.response-filters',
-            fn () => new FiltersManager()
+            fn () => new FiltersManager
         );
     }
 
@@ -270,7 +270,7 @@ class AppServiceProvider extends ServiceProvider
 
     protected function registerBlocks(): void
     {
-        $blockManager = new BlockManager();
+        $blockManager = new BlockManager;
 
         $blockManager->registerPageBlocks([
             Blocks\Hero\ImageTilesHeroBlock::make(),
@@ -328,6 +328,10 @@ class AppServiceProvider extends ServiceProvider
     {
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+        });
+
+        RateLimiter::for('join', function (Request $request) {
+            return Limit::perMinute(15)->by($request->ip());
         });
     }
 }

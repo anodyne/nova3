@@ -12,9 +12,9 @@ class CreateFormSubmission
 {
     use AsAction;
 
-    public function handle(Form $form, mixed $owner): FormSubmission
+    public function handle(Form $form, mixed $owner, ?array $meta = null): FormSubmission
     {
-        $submission = $form->submissions()->create([]);
+        $submission = $form->submissions()->create(['meta' => $meta]);
 
         $submission->owner()->associate($owner)->save();
 

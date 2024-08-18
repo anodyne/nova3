@@ -27,6 +27,7 @@ abstract class CharacterStatus extends State
             ->allowTransitions([
                 [Pending::class, Active::class, PendingToActive::class],
                 [Pending::class, Inactive::class],
+                [Pending::class, Hidden::class],
                 [Active::class, Pending::class],
                 [Active::class, Inactive::class, ActiveToInactive::class],
                 [Inactive::class, Active::class, InactiveToActive::class],

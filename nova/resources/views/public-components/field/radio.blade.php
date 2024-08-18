@@ -33,7 +33,7 @@
         @endif
 
         @if (filled($description))
-            <p class="nova-field-description text-gray-500 m-0">{{ $description }}</p>
+            <p class="nova-field-description m-0 text-gray-500">{{ $description }}</p>
         @endif
     </div>
 </div>

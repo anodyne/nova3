@@ -38,6 +38,7 @@
 
         @stack('modal')
         @livewire('livewire-ui-spotlight')
+        @livewire('wire-elements-modal')
         @livewire('notifications')
         @livewire('scribble.renderer')
         @livewire('scribble.modals')

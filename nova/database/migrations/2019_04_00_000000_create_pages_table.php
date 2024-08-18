@@ -20,6 +20,7 @@ class CreatePagesTable extends Migration
             $table->string('verb')->default(PageVerb::get->value);
             $table->string('resource')->nullable();
             $table->string('layout')->default('public');
+            $table->text('middleware')->nullable();
             $table->longText('blocks')->nullable();
             $table->longText('published_blocks')->nullable();
             $table->string('status')->default(PageStatus::active->value);

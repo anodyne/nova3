@@ -91,6 +91,7 @@ class TablerIconSet extends IconSet
             'mature' => 'tabler-rating-18-plus',
             'megaphone' => 'tabler-speakerphone',
             'menu' => 'tabler-menu-2',
+            'message-dots' => 'tabler-message-dots',
             'messages' => 'tabler-messages',
             'moon' => 'tabler-moon-stars',
             'more' => 'tabler-dots-vertical',
@@ -105,6 +106,9 @@ class TablerIconSet extends IconSet
             'palette' => 'tabler-palette',
             'plus-minus' => 'tabler-plus-minus',
             'preferences' => 'tabler-adjustments',
+            'progress' => 'tabler-progress',
+            'progress-check' => 'tabler-progress-check',
+            'progress-x' => 'tabler-progress-x',
             'prohibited' => 'tabler-ban',
             'rank' => 'tabler-military-rank',
             'remove' => 'tabler-square-rounded-minus',
@@ -144,6 +148,7 @@ class TablerIconSet extends IconSet
             'www' => 'tabler-world-www',
             'www-preview' => 'tabler-world-search',
             'x' => 'tabler-x',
+            'x-alt' => 'tabler-square-rounded-x',
         ];
     }
 

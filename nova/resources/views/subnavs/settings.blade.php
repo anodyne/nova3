@@ -46,6 +46,12 @@
             Characters
         </x-sidebar.subnav.item>
         <x-sidebar.subnav.item
+            :href="route('settings.applications.edit')"
+            :active="request()->routeIs('settings.applications.edit')"
+        >
+            Applications
+        </x-sidebar.subnav.item>
+        <x-sidebar.subnav.item
             :href="route('settings.notifications.edit')"
             :active="request()->routeIs('settings.notifications.edit')"
         >

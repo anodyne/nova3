@@ -12,7 +12,7 @@ class UserData extends Data
     public function __construct(
         public string $name,
         public string $email,
-        public PronounsData $pronouns
+        public PronounsData $pronouns,
     ) {}
 
     public static function fromRequest(Request $request): static
@@ -20,7 +20,7 @@ class UserData extends Data
         return new self(
             name: $request->input('name'),
             email: $request->input('email'),
-            pronouns: PronounsData::from($request->input('pronouns', []))
+            pronouns: PronounsData::from($request->input('pronouns', [])),
         );
     }
 }

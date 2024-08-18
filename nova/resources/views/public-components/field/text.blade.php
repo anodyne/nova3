@@ -3,9 +3,19 @@
     'description' => null,
     'id' => null,
     'name' => null,
+    'error' => null,
 ])
 
-<x-public::field :label="$label" :description="$description" :id="$id">
+@aware(['form' => null])
+
+@php
+    if (filled($form)) {
+        $errorKey = "{$form->key}.{$id}";
+        $error = $errors->getBag('default')->first($errorKey);
+    }
+@endphp
+
+<x-public::field :$label :$description :$id :$error>
     <input
         type="text"
         data-slot="control"

@@ -6,7 +6,7 @@
 
             @if ($unreadNotificationsCount > 0)
                 <x-slot name="trailing">
-                    <x-badge color="primary">
+                    <x-badge color="primary" class="tabular-nums">
                         {{ $unreadNotificationsCount }}
                     </x-badge>
                 </x-slot>

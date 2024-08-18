@@ -147,14 +147,16 @@
                             <x-panel class="overflow-hidden">
                                 <div class="relative">
                                     <img
-                                        src="{{ asset('dist/test4.jpg') }}"
+                                        src="{{ asset('dist/test6.jpg') }}"
                                         alt=""
                                         class="h-auto w-full object-cover"
                                     />
 
                                     <div
-                                        class="absolute bottom-0 left-0 w-full rounded-b-lg bg-black/25 backdrop-blur-md"
-                                    >
+                                        class="absolute bottom-0 left-0 h-1/2 w-full rounded-b-lg backdrop-blur-2xl [mask-image:linear-gradient(to_bottom,transparent,black_70%)]"
+                                    ></div>
+
+                                    <div class="absolute bottom-0 left-0">
                                         <x-spacing width="sm" height="md">
                                             <x-h3 class="text-white">The Best of Both Worlds</x-h3>
                                         </x-spacing>

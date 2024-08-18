@@ -15,6 +15,8 @@ abstract class UserStatus extends State
 
     abstract public function name(): string;
 
+    abstract public function simple(): string;
+
     public function getLabel(): string
     {
         return ucfirst($this->name());
@@ -25,10 +27,11 @@ abstract class UserStatus extends State
         return parent::config()
             ->default(Pending::class)
             ->allowTransitions([
-                [Pending::class, Active::class],
+                [Pending::class, Active::class, PendingToActive::class],
                 [Pending::class, Inactive::class],
+                [Pending::class, Hidden::class],
                 [Active::class, Inactive::class, ActiveToInactive::class],
-                [Inactive::class, Active::class],
+                [Inactive::class, Active::class, InactiveToActive::class],
             ]);
     }
 }

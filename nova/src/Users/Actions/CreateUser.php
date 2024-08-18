@@ -6,7 +6,6 @@ namespace Nova\Users\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Users\Data\UserData;
-use Nova\Users\Models\States\Status\Active;
 use Nova\Users\Models\User;
 
 class CreateUser
@@ -15,9 +14,6 @@ class CreateUser
 
     public function handle(UserData $data): User
     {
-        return User::create(array_merge(
-            $data->except('roles')->all(),
-            ['status' => Active::class]
-        ));
+        return User::create($data->except('roles')->all());
     }
 }

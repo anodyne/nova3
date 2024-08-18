@@ -8,6 +8,10 @@
 
 @config "./tailwind.public.config.js";
 
+.nv-form-field-select {
+    background-image: none !important;
+}
+
 .laravel-embed__responsive-wrapper {
     @apply relative h-0 w-full max-w-full overflow-hidden rounded-xl;
 }

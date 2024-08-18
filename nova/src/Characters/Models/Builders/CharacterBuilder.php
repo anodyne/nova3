@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Nova\Characters\Enums\CharacterType;
 use Nova\Characters\Models\States\Status\Active;
+use Nova\Characters\Models\States\Status\Hidden;
 use Nova\Characters\Models\States\Status\Inactive;
 use Nova\Characters\Models\States\Status\Pending;
 use Nova\Users\Models\User;
@@ -46,6 +47,16 @@ class CharacterBuilder extends Builder
     public function active(): Builder
     {
         return $this->whereState('status', Active::class);
+    }
+
+    public function hidden(): Builder
+    {
+        return $this->whereState('status', Hidden::class);
+    }
+
+    public function notHidden(): Builder
+    {
+        return $this->whereNotState('status', Hidden::class);
     }
 
     public function inactive(): Builder

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Illuminate\Database\Migrations\Migration;
 use Nova\Settings\Data\Appearance;
+use Nova\Settings\Data\Applications;
 use Nova\Settings\Data\Characters;
 use Nova\Settings\Data\ContentRating;
 use Nova\Settings\Data\ContentRatings;
@@ -50,7 +51,7 @@ class PopulateSettingsTable extends Migration
                 ),
                 panda: false
             ),
-            'meta_tags' => new MetaTags(),
+            'meta_tags' => new MetaTags,
             'characters' => new Characters(
                 approvePrimary: true,
                 approveSecondary: true,
@@ -100,6 +101,13 @@ class PopulateSettingsTable extends Migration
                     warning_threshold: 2,
                     warning_threshold_message: 'May contain explicit violence',
                 ),
+            ),
+            'applications' => new Applications(
+                enabled: true,
+                disabledMessage: 'We’re sorry, but applications are currently closed. Please try again at a later date.',
+                alwaysShowResults: false,
+                allowVoteChanging: false,
+                showDecisionMessage: true
             ),
         ];
 

@@ -45,6 +45,9 @@ class PopulateNotifications extends Migration
             ['name' => 'User author removed from post', 'key' => 'user-author-removed-from-post'],
             ['name' => 'Draft post discarded', 'key' => 'draft-post-discarded'],
             ['name' => 'Post saved', 'key' => 'post-saved'],
+            ['name' => 'Application ready for review', 'key' => 'application-ready-for-review'],
+            ['name' => 'Application accepted', 'key' => 'application-accepted', 'mail' => true, 'mail_default' => true, 'database' => false, 'database_default' => false],
+            ['name' => 'Application denied', 'key' => 'application-denied', 'mail' => true, 'mail_default' => true, 'database' => false, 'database_default' => false],
         ]);
 
         NotificationType::unguarded(function () use ($admin, $group, $personal) {

@@ -111,6 +111,19 @@ if (! function_exists('nova')) {
     }
 }
 
+if (! function_exists('theme')) {
+    function theme(?string $property = null)
+    {
+        $theme = app('nova.theme');
+
+        return match ($property) {
+            'model' => $theme->getModel(),
+            'settings' => $theme->getModel()->settings,
+            default => $theme,
+        };
+    }
+}
+
 if (! function_exists('nova_path')) {
     function nova_path($path = '')
     {

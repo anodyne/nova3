@@ -21,11 +21,12 @@ class Page extends Model implements HasMedia
     use LogsActivity;
 
     protected $fillable = [
-        'name', 'uri', 'key', 'verb', 'resource', 'layout', 'blocks', 'published_blocks', 'status',
+        'name', 'uri', 'key', 'verb', 'resource', 'layout', 'blocks', 'published_blocks', 'status', 'middleware',
     ];
 
     protected $casts = [
         'blocks' => 'array',
+        'middleware' => 'array',
         'published_at' => 'datetime',
         'published_blocks' => 'array',
         'status' => PageStatus::class,

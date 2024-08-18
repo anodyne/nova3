@@ -22,4 +22,9 @@ class ThemeSettings extends Data implements Arrayable
     {
         return count($this->settings) > 0;
     }
+
+    public function accentColor(): ?string
+    {
+        return data_get($this->settings, 'accentColor', '#406ceb');
+    }
 }

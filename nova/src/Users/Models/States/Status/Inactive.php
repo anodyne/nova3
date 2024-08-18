@@ -8,6 +8,11 @@ class Inactive extends UserStatus
 {
     public static $name = 'inactive';
 
+    public function simple(): string
+    {
+        return 'Previous user';
+    }
+
     public function color(): string
     {
         return 'gray';

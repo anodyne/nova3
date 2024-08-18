@@ -8,6 +8,11 @@ class Pending extends UserStatus
 {
     public static $name = 'pending';
 
+    public function simple(): string
+    {
+        return 'New user';
+    }
+
     public function color(): string
     {
         return 'warning';

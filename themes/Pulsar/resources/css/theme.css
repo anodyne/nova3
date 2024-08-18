@@ -1,3 +1,5 @@
+@config "./tailwind.pulsar.config.js";
+
 :root {
     --bg-light: #fff;
     --bg-dark: #030712;
@@ -5,4 +7,57 @@
 
 body {
     @apply bg-gray-100;
+}
+
+.content-container {
+    @apply relative mx-auto my-12 max-w-7xl;
+}
+
+.content {
+    @apply relative overflow-hidden bg-white shadow-lg ring-1 ring-gray-950/5 lg:rounded-3xl;
+}
+
+.main-nav {
+    @apply fixed left-1/2 z-50 flex -translate-x-1/2 -translate-y-1/2 items-center gap-x-3 rounded-full bg-white/75 px-4 shadow-lg ring-1 ring-gray-900/5 backdrop-blur-sm lg:gap-x-6;
+}
+.main-nav .leading-container {
+    @apply flex shrink-0 items-center pl-1;
+}
+.main-nav .trailing-container {
+    @apply flex shrink-0 items-center pr-2;
+}
+.main-nav .divider {
+    @apply flex h-5 w-px items-center bg-primary-950/10;
+}
+.main-nav ul {
+    @apply flex items-center;
+}
+.main-nav ul li {
+    @apply relative px-3 py-2.5;
+}
+.main-nav ul li[data-active] {
+    @apply after:absolute after:inset-x-1 after:-bottom-px after:h-px after:bg-gradient-to-r after:from-primary-500/0 after:via-primary-500 after:to-primary-500/0;
+}
+.main-nav a {
+    @apply text-sm font-semibold text-gray-500 transition hover:text-gray-950;
+}
+.main-nav [data-active] a {
+    @apply text-primary-600;
+}
+
+.nova-advanced-page-content {
+    @apply mx-auto max-w-6xl py-24;
+}
+
+.nv-tabs {
+}
+.nv-tabs-list {
+    @apply inline-flex items-center gap-x-2 rounded-full bg-gray-50 px-4 ring-1 ring-gray-900/5 [&>[data-active]]:text-primary-600 [&>[data-active]]:after:absolute [&>[data-active]]:after:inset-x-1 [&>[data-active]]:after:-bottom-px [&>[data-active]]:after:h-px [&>[data-active]]:after:bg-gradient-to-r [&>[data-active]]:after:from-primary-500/0 [&>[data-active]]:after:via-primary-500 [&>[data-active]]:after:to-primary-500/0 [&>[data-active]]:hover:text-primary-600;
+}
+.nv-tabs-tab {
+    @apply relative px-4 py-1.5 text-sm/6 font-medium text-gray-500 hover:text-gray-900;
+}
+
+.nv-btn-primary {
+    @apply bg-primary-500 text-white;
 }
