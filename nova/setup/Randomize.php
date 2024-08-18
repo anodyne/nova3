@@ -56,8 +56,8 @@ class Randomize
     {
         return Arr::random([
             'Pulsar',
-            'Titan',
-            'EventHorizon',
+            // 'Titan',
+            // 'EventHorizon',
             // 'Cerritos',
             // 'Celestial',
         ]);

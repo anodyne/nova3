@@ -13,7 +13,7 @@ class UserException extends Exception
     {
         Auth::logout();
 
-        throw new AdminForcedPasswordResetException();
+        throw new AdminForcedPasswordResetException;
     }
 
     public static function cannotDeleteOwnAccount()

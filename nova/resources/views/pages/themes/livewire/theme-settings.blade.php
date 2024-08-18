@@ -1,6 +1,8 @@
 <div x-data="{ open: false }" x-on:theme-settings-close="open = false" class="leading-none">
     <x-button x-on:click.prevent="open = true" text>
-        <x-icon name="settings"></x-icon>
+        <span class="shrink-0">
+            <x-icon name="settings" size="md"></x-icon>
+        </span>
     </x-button>
 
     <div

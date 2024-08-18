@@ -51,6 +51,6 @@ class EditPostType extends SpotlightCommand
 
     public function shouldBeShown(): bool
     {
-        return Gate::allows('update', new PostType());
+        return Gate::allows('update', new PostType);
     }
 }

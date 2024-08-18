@@ -20,7 +20,7 @@ class ViewEmailSettings extends SpotlightCommand
 
     public function execute(Spotlight $spotlight): void
     {
-        $spotlight->redirectRoute('settings.index', 'email');
+        $spotlight->redirectRoute('settings.email.edit');
     }
 
     public function shouldBeShown(): bool

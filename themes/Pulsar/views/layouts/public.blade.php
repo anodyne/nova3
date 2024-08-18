@@ -1,7 +1,7 @@
 @extends($meta->structure)
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('themes/pulsar/design/theme.css') }}" />
+    <link rel="stylesheet" href="{{ asset('themes/Pulsar/design/theme.css') }}" />
 @endpush
 
 @section('layout')
@@ -52,36 +52,27 @@
         </g>
     </svg>
 
-    <div class="relative mx-auto my-12 max-w-7xl">
-        <div class="relative overflow-hidden bg-white shadow-lg ring-1 ring-gray-950/5 lg:rounded-3xl">
-            <nav
-                class="fixed left-1/2 z-50 flex -translate-x-1/2 -translate-y-1/2 items-center gap-x-3 rounded-full bg-white/75 px-4 shadow-lg ring-1 ring-gray-900/5 backdrop-blur-sm lg:gap-x-6"
-            >
-                <div class="flex items-center pl-1">
+    <div class="content-container">
+        <div class="content">
+            <nav class="main-nav">
+                <div class="leading-container">
                     <x-logos.nova class="h-6 w-auto"></x-logos.nova>
                 </div>
 
-                <div class="flex h-5 w-px items-center bg-primary-950/10"></div>
+                <div class="divider"></div>
 
-                <ul
-                    class="flex items-center *:relative *:cursor-pointer *:px-3 *:py-2.5 *:text-sm *:font-semibold *:text-gray-500 *:transition hover:*:text-gray-950 [&>[data-active]]:text-primary-600 [&>[data-active]]:after:absolute [&>[data-active]]:after:inset-x-1 [&>[data-active]]:after:-bottom-px [&>[data-active]]:after:h-px [&>[data-active]]:after:bg-gradient-to-r [&>[data-active]]:after:from-primary-500/0 [&>[data-active]]:after:via-primary-500 [&>[data-active]]:after:to-primary-500/0"
-                >
-                    <li>Home</li>
-                    <li>Stories</li>
-                    <li data-active>Characters</li>
-                    <li>Join</li>
-                    <li>Contact</li>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Stories</a></li>
+                    <li data-active><a href="#">Characters</a></li>
+                    <li><a href="#">Join</a></li>
+                    <li><a href="#">Contact</a></li>
                 </ul>
 
-                <div class="flex h-5 w-px items-center bg-primary-950/10"></div>
+                <div class="divider"></div>
 
-                <div class="flex shrink-0 items-center">
-                    <a
-                        href="/login"
-                        class="relative pr-2 text-sm font-semibold text-gray-500 transition hover:text-gray-950"
-                    >
-                        Sign in
-                    </a>
+                <div class="trailing-container">
+                    <a href="{{ route('login') }}">Sign in</a>
                 </div>
             </nav>
 

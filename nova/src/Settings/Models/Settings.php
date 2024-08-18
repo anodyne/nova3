@@ -7,6 +7,7 @@ namespace Nova\Settings\Models;
 use Illuminate\Database\Eloquent\Model;
 use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Settings\Data\Appearance;
+use Nova\Settings\Data\Applications;
 use Nova\Settings\Data\Characters;
 use Nova\Settings\Data\ContentRatings;
 use Nova\Settings\Data\Discord;
@@ -32,6 +33,7 @@ class Settings extends Model implements HasMedia
         'discord' => Discord::class,
         'posting_activity' => PostingActivity::class,
         'ratings' => ContentRatings::class,
+        'applications' => Applications::class,
     ];
 
     protected $fillable = [
@@ -44,6 +46,7 @@ class Settings extends Model implements HasMedia
         'discord',
         'posting_activity',
         'ratings',
+        'applications',
     ];
 
     public function newEloquentBuilder($query): SettingsBuilder

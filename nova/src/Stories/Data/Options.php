@@ -42,12 +42,12 @@ class Options extends Data implements Arrayable
     public static function rules(): array
     {
         return [
-            'notifiesUsers' => [new Boolean()],
-            'includedInPostTracking' => [new Boolean()],
-            'allowsMultipleAuthors' => [new Boolean()],
-            'allowsCharacterAuthors' => [new Boolean()],
-            'allowsUserAuthors' => [new Boolean()],
-            'showContentInTimelineView' => [new Boolean()],
+            'notifiesUsers' => [new Boolean],
+            'includedInPostTracking' => [new Boolean],
+            'allowsMultipleAuthors' => [new Boolean],
+            'allowsCharacterAuthors' => [new Boolean],
+            'allowsUserAuthors' => [new Boolean],
+            'showContentInTimelineView' => [new Boolean],
         ];
     }
 }

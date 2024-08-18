@@ -29,6 +29,8 @@ class DatabaseSeeder extends Seeder
             // NimitzStorySeeder::class,
             PostSeeder::class,
             FormSeeder::class,
+
+            ApplicationSeeder::class,
         ]);
 
         activity()->enableLogging();

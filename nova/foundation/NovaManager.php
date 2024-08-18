@@ -56,9 +56,9 @@ class NovaManager
     public function getFontProvider(): FontProvider
     {
         return match (settings('appearance.fontProvider')) {
-            'bunny' => new BunnyFontProvider(),
-            'google' => new GoogleFontProvider(),
-            default => new LocalFontProvider(),
+            'bunny' => new BunnyFontProvider,
+            'google' => new GoogleFontProvider,
+            default => new LocalFontProvider,
         };
     }
 

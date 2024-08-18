@@ -21,7 +21,7 @@ class ViewPostingActivitySettings extends SpotlightCommand
 
     public function execute(Spotlight $spotlight): void
     {
-        $spotlight->redirectRoute('settings.index', 'posting-activity');
+        $spotlight->redirectRoute('settings.posting-activity.edit');
     }
 
     public function shouldBeShown(): bool

@@ -50,6 +50,6 @@ class DesignForm extends SpotlightCommand
 
     public function shouldBeShown(): bool
     {
-        return Gate::allows('design', new Form());
+        return Gate::allows('design', new Form);
     }
 }

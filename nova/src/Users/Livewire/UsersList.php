@@ -39,7 +39,10 @@ class UsersList extends TableComponent
     public function table(Table $table): Table
     {
         return $table
-            ->query(User::with('media', 'latestLogin', 'latestPost', 'primaryCharacter', 'characters', 'activeCharacters'))
+            ->query(
+                User::with('media', 'latestLogin', 'latestPost', 'primaryCharacter', 'characters', 'activeCharacters', 'application')
+                    ->notHidden()
+            )
             ->groups([
                 Group::make('status')->collapsible(),
             ])
@@ -94,6 +97,14 @@ class UsersList extends TableComponent
                             ->authorize('update')
                             ->url(fn (Model $record): string => route('users.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
+
+                    ActionGroup::make([
+                        Action::make('application')
+                            ->label('View application')
+                            ->color('gray')
+                            ->icon(iconName('progress'))
+                            ->url(fn (User $record): ?string => route('applications.show', $record->application)),
+                    ])->visible(fn (User $record): bool => filled($record->application))->divided(),
 
                     ActionGroup::make([
                         Action::make('impersonate')

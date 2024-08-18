@@ -52,6 +52,6 @@ class ViewPostType extends SpotlightCommand
 
     public function shouldBeShown(): bool
     {
-        return Gate::allows('view', new PostType());
+        return Gate::allows('view', new PostType);
     }
 }

@@ -8,6 +8,11 @@ class Active extends UserStatus
 {
     public static $name = 'active';
 
+    public function simple(): string
+    {
+        return 'Existing user';
+    }
+
     public function color(): string
     {
         return 'success';

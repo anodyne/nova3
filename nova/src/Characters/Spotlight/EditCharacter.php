@@ -51,6 +51,6 @@ class EditCharacter extends SpotlightCommand
 
     public function shouldBeShown(): bool
     {
-        return Gate::allows('update', new Character());
+        return Gate::allows('update', new Character);
     }
 }

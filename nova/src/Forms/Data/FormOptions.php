@@ -35,11 +35,11 @@ class FormOptions extends Data implements Arrayable
     public static function rules(): array
     {
         return [
-            'onlyAuthenticatedUsers' => [new Boolean()],
-            'collectResponses' => [new Boolean()],
-            'singleSubmission' => [new Boolean()],
+            'onlyAuthenticatedUsers' => [new Boolean],
+            'collectResponses' => [new Boolean],
+            'singleSubmission' => [new Boolean],
             'submissionTitleField' => ['nullable'],
-            'emailResponses' => [new Boolean()],
+            'emailResponses' => [new Boolean],
             'emailRecipients' => ['nullable'],
         ];
     }

@@ -8,10 +8,13 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Nova\Applications\Models\Application;
+use Nova\Characters\Data\CharacterData;
 use Nova\Characters\Enums\CharacterType;
 use Nova\Characters\Events;
 use Nova\Characters\Models\Builders\CharacterBuilder;
@@ -29,6 +32,7 @@ use Nova\Users\Models\States\Status\Active as ActiveUser;
 use Nova\Users\Models\User;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\LaravelData\WithData;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\ModelStates\HasStates;
 
@@ -39,6 +43,7 @@ class Character extends Model implements HasMedia
     use InteractsWithMedia;
     use LogsActivity;
     use SoftDeletes;
+    use WithData;
 
     protected $casts = [
         'status' => CharacterStatus::class,
@@ -56,6 +61,8 @@ class Character extends Model implements HasMedia
     protected $fillable = [
         'name', 'status', 'rank_id', 'type',
     ];
+
+    protected $dataClass = CharacterData::class;
 
     public function activeUsers()
     {
@@ -103,6 +110,11 @@ class Character extends Model implements HasMedia
     {
         return $this->morphOne(FormSubmission::class, 'owner')
             ->whereHas('form', fn (Builder $query): Builder => $query->key('characterBio'));
+    }
+
+    public function application(): HasOne
+    {
+        return $this->hasOne(Application::class);
     }
 
     public function getActivitylogOptions(): LogOptions

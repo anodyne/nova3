@@ -11,15 +11,19 @@ use Nova\Pages\Models\Page;
 try {
     $pages = cache()->rememberForever('nova.pages', fn () => Nova\Pages\Models\Page::get());
 
-    $pages->basic()->each(
-        fn (Page $page) => $router->get($page->uri, BasicPageController::class)->name($page->key)
-    );
+    $pages->basic()->each(function (Page $page) use ($router) {
+        return $router->get($page->uri, BasicPageController::class)
+            ->name($page->key)
+            ->middleware($page->middleware);
+    });
 
     $router->get('preview-page/{pageKey}', PreviewBasicPageController::class)->name('preview-basic-page');
 
-    $pages->advanced()->each(
-        fn (Page $page) => $router->{$page->verb->value}($page->uri, $page->resource)->name($page->key)
-    );
+    $pages->advanced()->each(function (Page $page) use ($router) {
+        return $router->{$page->verb->value}($page->uri, $page->resource)
+            ->name($page->key)
+            ->middleware($page->middleware);
+    });
 } catch (Throwable $th) {
     Route::view('/', 'pages.welcome')->middleware(CheckInstallStatus::class);
 }

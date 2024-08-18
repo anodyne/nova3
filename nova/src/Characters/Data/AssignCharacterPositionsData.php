@@ -13,6 +13,13 @@ class AssignCharacterPositionsData extends Data
         public ?array $positions
     ) {}
 
+    public static function fromArray(array $data): static
+    {
+        return new self(
+            positions: explode(',', data_get($data, 'position', '') ?? '')
+        );
+    }
+
     public static function fromRequest(Request $request): static
     {
         return new self(

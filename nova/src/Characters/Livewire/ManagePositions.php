@@ -25,6 +25,8 @@ class ManagePositions extends Component
         $this->search = '';
 
         $this->assigned->push($position);
+
+        $this->dispatch('positions-updated', positions: $this->assigned->pluck('id')->all());
     }
 
     public function remove(Position $position): void
@@ -32,6 +34,8 @@ class ManagePositions extends Component
         $this->assigned = $this->assigned->reject(
             fn (Position $collectionPosition) => $collectionPosition->id === $position->id
         );
+
+        $this->dispatch('positions-updated', positions: $this->assigned->pluck('id')->all());
     }
 
     #[Computed]

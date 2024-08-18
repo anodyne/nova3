@@ -25,7 +25,7 @@ class RoleData extends Data
     {
         return [
             'name' => Rule::unique('roles')->ignore(request()->role),
-            'is_default' => new Boolean(),
+            'is_default' => new Boolean,
         ];
     }
 }

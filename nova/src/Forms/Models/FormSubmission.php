@@ -16,6 +16,12 @@ class FormSubmission extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['meta'];
+
+    protected $casts = [
+        'meta' => 'array',
+    ];
+
     public function form(): BelongsTo
     {
         return $this->belongsTo(Form::class);

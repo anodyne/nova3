@@ -45,7 +45,7 @@ class Theme extends Model
     {
         $themeClass = 'Themes\\'.$this->location.'\\Theme';
 
-        return new $themeClass();
+        return new $themeClass;
     }
 
     public function getLayoutForPage(Page $page): string

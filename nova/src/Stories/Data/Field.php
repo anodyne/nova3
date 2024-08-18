@@ -27,8 +27,8 @@ class Field extends Data implements Arrayable
     public static function rules(): array
     {
         return [
-            'enabled' => [new Boolean()],
-            'required' => [new Boolean()],
+            'enabled' => [new Boolean],
+            'required' => [new Boolean],
         ];
     }
 }

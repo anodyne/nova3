@@ -9,6 +9,8 @@ use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Forms\Actions\CreateFormSubmission;
 use Nova\Forms\Models\Form;
+use Nova\Settings\Actions\UpdateApplicationReviewers;
+use Nova\Settings\Data\ApplicationReviewers;
 use Nova\Users\Data\PronounsData;
 use Nova\Users\Models\States\Status\Active;
 use Nova\Users\Models\User;
@@ -35,6 +37,10 @@ class SetupAccount extends Component
         $user->addRoles(['owner', 'admin', 'active', 'writer', 'story-manager']);
 
         $user->status->transitionTo(Active::class);
+
+        UpdateApplicationReviewers::run(new ApplicationReviewers(
+            globalReviewers: [$user->id]
+        ));
 
         CreateFormSubmission::run(Form::key('userBio')->first(), $user);
 

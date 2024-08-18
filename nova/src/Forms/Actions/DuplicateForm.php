@@ -16,7 +16,7 @@ class DuplicateForm
     {
         $form = $original->replicate();
 
-        $form->key = implode('-', (new WordGenerator())->words(2));
+        $form->key = implode('-', (new WordGenerator)->words(2));
         $form->name = "Copy of {$form->name}";
 
         $form->save();

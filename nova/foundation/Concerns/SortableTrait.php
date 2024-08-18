@@ -16,11 +16,11 @@ trait SortableTrait
     public function moveBefore(Sortable $otherModel): static
     {
         if (! $otherModel instanceof Model) {
-            throw new InvalidArgumentException();
+            throw new InvalidArgumentException;
         }
 
         if ($otherModel->getTable() !== $this->getTable()) {
-            throw new InvalidArgumentException();
+            throw new InvalidArgumentException;
         }
 
         if ($otherModel->getKey() === $this->getKey()) {
@@ -43,11 +43,11 @@ trait SortableTrait
     public function moveAfter(Sortable $otherModel): static
     {
         if (! $otherModel instanceof Model) {
-            throw new InvalidArgumentException();
+            throw new InvalidArgumentException;
         }
 
         if ($otherModel->getTable() !== $this->getTable()) {
-            throw new InvalidArgumentException();
+            throw new InvalidArgumentException;
         }
 
         if ($otherModel->getKey() === $this->getKey()) {

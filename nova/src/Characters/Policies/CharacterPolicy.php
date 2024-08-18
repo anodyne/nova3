@@ -69,7 +69,7 @@ class CharacterPolicy
 
     public function update(User $user, Character $character): Response
     {
-        return $user->isAbleTo('character.update') || $character->users->contains('id', $user->id)
+        return $user->is_active && ($user->isAbleTo('character.update') || $character->users->contains('id', $user->id))
             ? $this->allow()
             : $this->deny();
     }

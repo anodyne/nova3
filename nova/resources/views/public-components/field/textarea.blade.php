@@ -4,9 +4,19 @@
     'id' => null,
     'name' => null,
     'rows' => null,
+    'error' => null,
 ])
 
-<x-public::field :label="$label" :description="$description">
+@aware(['form' => null])
+
+@php
+    if (filled($form)) {
+        $errorKey = "{$form->key}.{$id}";
+        $error = $errors->getBag('default')->first($errorKey);
+    }
+@endphp
+
+<x-public::field :$label :$description :$error>
     <textarea
         data-slot="control"
         id="{{ $id }}"

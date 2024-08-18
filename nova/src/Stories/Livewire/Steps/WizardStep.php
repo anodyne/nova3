@@ -30,7 +30,7 @@ abstract class WizardStep extends Component
             ->map(function (string $stepName) use (&$currentFound, $currentStepName) {
                 $className = app(ComponentRegistry::class)->getClass($stepName);
 
-                $info = (new $className())->stepInfo();
+                $info = (new $className)->stepInfo();
 
                 $status = $currentFound ? StepStatus::Next : StepStatus::Previous;
 

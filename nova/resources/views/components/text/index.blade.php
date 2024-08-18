@@ -1,8 +1,9 @@
 @props([
     'size' => 'base',
+    'tag' => 'p',
 ])
 
-<p
+<{{ $tag }}
     data-slot="text"
     @class([
         'text-gray-600 dark:text-gray-300',
@@ -16,4 +17,4 @@
     ])
 >
     {{ $slot }}
-</p>
+</{{ $tag }}>

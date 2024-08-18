@@ -45,6 +45,7 @@ class CreateFormTables extends Migration
             $table->id();
             $table->foreignIdFor(Form::class);
             $table->nullableMorphs('owner');
+            $table->json('meta')->nullable();
             $table->timestamps();
         });
 

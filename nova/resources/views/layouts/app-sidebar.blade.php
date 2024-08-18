@@ -1,8 +1,12 @@
 @extends($meta->structure)
 
-@php($settings = settings())
-
+@use('Nova\Applications\Models\Application')
 @use('Nova\Pages\Models\Page')
+
+@php
+    $settings = settings();
+    $applicationCount = Application::pending()->count();
+@endphp
 
 @section('layout')
     <div
@@ -35,14 +39,16 @@
                             <x-icon name="search"></x-icon>
                             <x-sidebar.label>Search</x-sidebar.label>
                         </x-sidebar.item>
+
                         <x-sidebar.item href="#">
                             <x-icon name="inbox"></x-icon>
                             <x-sidebar.label>Messages</x-sidebar.label>
 
                             <x-slot name="trailing">
-                                <x-badge color="primary">6</x-badge>
+                                <x-badge color="primary" class="tabular-nums">6</x-badge>
                             </x-slot>
                         </x-sidebar.item>
+
                         <livewire:users-notifications />
                     </x-sidebar.section>
                 </x-sidebar.header>
@@ -104,6 +110,25 @@
                                 <x-sidebar.label>Users</x-sidebar.label>
                             </x-sidebar.item>
                         @endif
+
+                        @can('viewAny', Application::class)
+                            <x-sidebar.item
+                                :href="route('applications.index', ['tableFilters' => ['result' => ['values' => ['pending']]]])"
+                                :active="request()->routeIs('applications.*')"
+                                :meta="$meta"
+                            >
+                                <x-icon name="progress-check" size="sm"></x-icon>
+                                <x-sidebar.label>Applications</x-sidebar.label>
+
+                                @if ($applicationCount > 0)
+                                    <x-slot name="trailing">
+                                        <x-badge color="warning" class="tabular-nums">
+                                            {{ $applicationCount }}
+                                        </x-badge>
+                                    </x-slot>
+                                @endif
+                            </x-sidebar.item>
+                        @endcan
 
                         @can('viewAny', Page::class)
                             <x-sidebar.item
@@ -358,6 +383,23 @@
                                             </x-sidebar.item>
                                         @endif
 
+                                        @can('viewAny', Application::class)
+                                            <x-sidebar.item
+                                                :href="route('applications.index', ['tableFilters' => ['result' => ['values' => ['pending']]]])"
+                                                :active="request()->routeIs('applications.*')"
+                                                :meta="$meta"
+                                            >
+                                                <x-icon name="progress-check" size="sm"></x-icon>
+                                                <x-sidebar.label>Applications</x-sidebar.label>
+
+                                                @if ($applicationCount > 0)
+                                                    <x-slot name="trailing">
+                                                        <x-badge color="warning">{{ $applicationCount }}</x-badge>
+                                                    </x-slot>
+                                                @endif
+                                            </x-sidebar.item>
+                                        @endcan
+
                                         @can('viewAny', Page::class)
                                             <x-sidebar.item
                                                 :href="route('pages.index', ['tableFilters' => ['pageType' => ['value' => 0]]])"
@@ -514,9 +556,15 @@
 
         <main class="flex flex-1 flex-col pb-2 lg:min-w-0 lg:pl-64 lg:pr-2 lg:pt-2">
             <div
-                class="grow p-6 lg:rounded-lg lg:bg-white lg:p-10 lg:shadow-sm lg:ring-1 lg:ring-gray-950/5 dark:lg:bg-gray-900 dark:lg:ring-white/10"
+                class="relative grow p-6 lg:rounded-lg lg:bg-white lg:p-10 lg:shadow-sm lg:ring-1 lg:ring-gray-950/5 dark:lg:bg-gray-900 dark:lg:ring-white/10"
             >
-                <div class="mx-auto max-w-6xl">
+                {{--
+                    <div
+                    class="absolute inset-0 z-[1] bg-[repeating-linear-gradient(-45deg,white,white_6px,theme(colors.warning.100)_6px,theme(colors.warning.100)_12px)] [mask-image:linear-gradient(black,transparent_10%,transparent)] lg:rounded-[calc(theme(borderRadius.lg)-1px)]"
+                    ></div>
+                --}}
+
+                <div class="relative z-[2] mx-auto max-w-6xl">
                     @yield('template')
                 </div>
             </div>

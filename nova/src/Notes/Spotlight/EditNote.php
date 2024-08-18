@@ -53,6 +53,6 @@ class EditNote extends SpotlightCommand
 
     public function shouldBeShown(): bool
     {
-        return Gate::allows('update', new Note());
+        return Gate::allows('update', new Note);
     }
 }

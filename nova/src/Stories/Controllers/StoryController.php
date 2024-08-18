@@ -86,7 +86,7 @@ class StoryController extends Controller
 
     public function delete($id)
     {
-        $this->authorize('delete', new Story());
+        $this->authorize('delete', new Story);
 
         $stories = Story::with('parent')
             ->ordered()
@@ -100,7 +100,7 @@ class StoryController extends Controller
 
     public function destroy(Request $request)
     {
-        $this->authorize('delete', new Story());
+        $this->authorize('delete', new Story);
 
         $deletedStories = DeleteStoriesManager::run($request);
 

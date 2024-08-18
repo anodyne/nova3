@@ -21,6 +21,8 @@ use Illuminate\Notifications\Notification;
 use Lab404\Impersonate\Models\Impersonate;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
+use Nova\Applications\Models\Application;
+use Nova\Applications\Models\ApplicationReviewer;
 use Nova\Characters\Models\Character;
 use Nova\Conversations\Models\Conversation;
 use Nova\Forms\Models\FormSubmission;
@@ -159,6 +161,16 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
     public function publishedPosts(): BelongsToMany
     {
         return $this->posts()->published();
+    }
+
+    public function application(): HasOne
+    {
+        return $this->hasOne(Application::class);
+    }
+
+    public function globalApplicationReviewer(): HasOne
+    {
+        return $this->hasOne(ApplicationReviewer::class)->global();
     }
 
     public function avatarUrl(): Attribute
