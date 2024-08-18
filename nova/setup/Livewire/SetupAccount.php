@@ -34,9 +34,9 @@ class SetupAccount extends Component
             'pronouns' => PronounsData::from(['value' => 'none']),
         ]);
 
-        $user->addRoles(['owner', 'admin', 'active', 'writer', 'story-manager']);
-
         $user->status->transitionTo(Active::class);
+
+        $user->syncRolesWithoutDetaching(['owner', 'admin', 'active', 'writer', 'story-manager']);
 
         UpdateApplicationReviewers::run(new ApplicationReviewers(
             globalReviewers: [$user->id]
