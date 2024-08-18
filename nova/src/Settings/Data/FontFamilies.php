@@ -58,9 +58,9 @@ class FontFamilies extends Data
     public function getFontProvider(string $provider): FontProvider
     {
         return match ($provider) {
-            'bunny' => new BunnyFontProvider(),
-            'google' => new GoogleFontProvider(),
-            default => new LocalFontProvider(),
+            'bunny' => new BunnyFontProvider,
+            'google' => new GoogleFontProvider,
+            default => new LocalFontProvider,
         };
     }
 }

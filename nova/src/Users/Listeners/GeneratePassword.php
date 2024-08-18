@@ -16,7 +16,7 @@ class GeneratePassword implements ShouldQueue
 
     public function handle(UserCreatedByAdmin $event)
     {
-        $password = implode('-', (new WordGenerator())->words(4));
+        $password = implode('-', (new WordGenerator)->words(4));
 
         $event->user->update(['password' => $password]);
 

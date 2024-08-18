@@ -30,7 +30,7 @@ class ThemeServiceProvider extends DomainServiceProvider
 
             $themeClass = "Themes\\$themeNamespace\\Theme";
 
-            $theme = new $themeClass();
+            $theme = new $themeClass;
 
             $this->app->instance('nova.theme', $theme);
 

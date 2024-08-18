@@ -51,6 +51,6 @@ class DesignPage extends SpotlightCommand
 
     public function shouldBeShown(): bool
     {
-        return Gate::allows('design', new Page());
+        return Gate::allows('design', new Page);
     }
 }

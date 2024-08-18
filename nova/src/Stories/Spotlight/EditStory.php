@@ -52,6 +52,6 @@ class EditStory extends SpotlightCommand
 
     public function shouldBeShown(): bool
     {
-        return Gate::allows('update', new Story());
+        return Gate::allows('update', new Story);
     }
 }

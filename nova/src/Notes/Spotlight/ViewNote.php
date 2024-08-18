@@ -53,6 +53,6 @@ class ViewNote extends SpotlightCommand
 
     public function shouldBeShown(): bool
     {
-        return Gate::allows('view', new Note());
+        return Gate::allows('view', new Note);
     }
 }

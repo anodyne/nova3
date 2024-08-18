@@ -20,7 +20,7 @@ trait FindRankImages
 
     protected function getRankImages(string $path): array
     {
-        $finder = new Finder();
+        $finder = new Finder;
         $finder->in(base_path("ranks/{$path}"))->files();
 
         $images = [];

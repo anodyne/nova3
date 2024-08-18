@@ -82,7 +82,7 @@ describe('authorized user', function () {
         test('1 week', function () {
             $user = $this->users->first();
 
-            $login = new Login();
+            $login = new Login;
             $login->forceFill([
                 'user_id' => $user->id,
                 'ip_address' => '127.0.0.1',
@@ -100,7 +100,7 @@ describe('authorized user', function () {
         test('2 weeks', function () {
             $user = $this->users->first();
 
-            $login = new Login();
+            $login = new Login;
             $login->forceFill([
                 'user_id' => $user->id,
                 'ip_address' => '127.0.0.1',
@@ -118,7 +118,7 @@ describe('authorized user', function () {
         test('1 month', function () {
             $user = $this->users->first();
 
-            $login = new Login();
+            $login = new Login;
             $login->forceFill([
                 'user_id' => $user->id,
                 'ip_address' => '127.0.0.1',

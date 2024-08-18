@@ -15,7 +15,7 @@ class StoreDepartmentRequest extends FormRequest
         return [
             'name' => ['required'],
             'description' => ['nullable'],
-            'image' => ['nullable', 'mimes:jpg,jpeg,png,gif,webp,svg', new MaxFileSize()],
+            'image' => ['nullable', 'mimes:jpg,jpeg,png,gif,webp,svg', new MaxFileSize],
             'status' => ['required'],
         ];
     }

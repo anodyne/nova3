@@ -17,7 +17,7 @@ class StoreUserRequest extends FormRequest
     {
         return array_merge(
             [
-                'avatar' => ['nullable', 'mimes:jpeg,png,gif', new MaxFileSize()],
+                'avatar' => ['nullable', 'mimes:jpeg,png,gif', new MaxFileSize],
                 'email' => ['required', 'email', 'unique:users,email'],
                 'name' => ['required'],
                 'pronouns.value' => ['required', 'in:none,male,female,neutral,neo,other'],

@@ -51,6 +51,6 @@ class ViewPage extends SpotlightCommand
 
     public function shouldBeShown(): bool
     {
-        return Gate::allows('view', new Page());
+        return Gate::allows('view', new Page);
     }
 }

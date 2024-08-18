@@ -28,10 +28,10 @@ class Environment
 
     public static function make(): static
     {
-        $environment = new static();
-        $environment->php = new Php();
-        $environment->extensions = new PhpExtensions();
-        $environment->database = new Database();
+        $environment = new static;
+        $environment->php = new Php;
+        $environment->extensions = new PhpExtensions;
+        $environment->database = new Database;
 
         return $environment;
     }

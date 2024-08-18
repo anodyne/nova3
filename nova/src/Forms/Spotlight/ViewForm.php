@@ -51,6 +51,6 @@ class ViewForm extends SpotlightCommand
 
     public function shouldBeShown(): bool
     {
-        return Gate::allows('view', new Form());
+        return Gate::allows('view', new Form);
     }
 }

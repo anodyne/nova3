@@ -51,6 +51,6 @@ class ViewRole extends SpotlightCommand
 
     public function shouldBeShown(): bool
     {
-        return Gate::allows('view', new Role());
+        return Gate::allows('view', new Role);
     }
 }

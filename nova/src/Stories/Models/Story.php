@@ -198,7 +198,7 @@ class Story extends Model implements HasMedia, Sortable
 
     public static function getStatuses(): Collection
     {
-        $model = new static();
+        $model = new static;
 
         return StoryStatus\StoryStatus::all()
             ->flatMap(fn (string $className): array => [new $className($model)])

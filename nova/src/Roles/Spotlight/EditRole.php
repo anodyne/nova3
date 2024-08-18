@@ -50,6 +50,6 @@ class EditRole extends SpotlightCommand
 
     public function shouldBeShown(): bool
     {
-        return Gate::allows('update', new Role());
+        return Gate::allows('update', new Role);
     }
 }

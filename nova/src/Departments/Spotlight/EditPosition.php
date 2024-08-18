@@ -52,6 +52,6 @@ class EditPosition extends SpotlightCommand
 
     public function shouldBeShown(): bool
     {
-        return Gate::allows('update', new Department());
+        return Gate::allows('update', new Department);
     }
 }

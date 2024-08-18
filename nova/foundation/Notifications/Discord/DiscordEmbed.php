@@ -185,7 +185,7 @@ class DiscordEmbed
         if (is_callable($title)) {
             $callback = $title;
 
-            $callback($attachmentField = new DiscordEmbedField());
+            $callback($attachmentField = new DiscordEmbedField);
 
             $this->fields[] = $attachmentField;
 
