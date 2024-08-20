@@ -38,8 +38,9 @@ body {
 .main-nav ul li[data-active] {
     @apply after:absolute after:inset-x-1 after:-bottom-px after:h-px after:bg-gradient-to-r after:from-primary-500/0 after:via-primary-500 after:to-primary-500/0;
 }
-.main-nav a {
-    @apply text-sm font-semibold text-gray-500 transition hover:text-gray-950;
+.main-nav a,
+.main-nav button {
+    @apply flex items-center gap-x-1.5 text-sm font-semibold text-gray-500 transition hover:text-gray-950 [&>[data-slot=icon]]:size-5 [&>[data-slot=icon]]:shrink-0;
 }
 .main-nav [data-active] a {
     @apply text-primary-600;

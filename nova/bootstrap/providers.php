@@ -19,6 +19,7 @@ return [
     Nova\Departments\Providers\DepartmentServiceProvider::class,
     Nova\Forms\Providers\FormServiceProvider::class,
     Nova\Media\Providers\MediaServiceProvider::class,
+    Nova\Menus\Providers\MenusServiceProvider::class,
     // Nova\Navigation\Providers\NavigationServiceProvider::class,
     Nova\Notes\Providers\NotesServiceProvider::class,
     Nova\Pages\Providers\PageServiceProvider::class,

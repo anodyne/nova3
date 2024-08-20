@@ -308,6 +308,7 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
         return new Attribute(
             get: function (): bool {
                 return $this->isAbleTo('theme.*')
+                    || $this->isAbleTo('menu.*')
                     || $this->isAbleTo('system.activity');
             }
         );

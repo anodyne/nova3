@@ -9,6 +9,7 @@ use Illuminate\Contracts\Support\Responsable as LaravelResponsable;
 use Illuminate\Http\Response;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Str;
+use Nova\Menus\Models\Menu;
 use Nova\Pages\Models\Page;
 
 abstract class Responsable implements LaravelResponsable
@@ -112,6 +113,7 @@ abstract class Responsable implements LaravelResponsable
             'subnav' => $this->subnav(),
             'subnavSection' => $this->subnav,
             'template' => $this->template(),
+            'menu' => $this->page->layout === 'public' ? Menu::with('items.page', 'items.items')->public()->first() : null,
         ]);
 
         return view(

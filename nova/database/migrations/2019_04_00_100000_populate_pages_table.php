@@ -167,6 +167,20 @@ class PopulatePagesTable extends Migration
 
             ['name' => 'Join page', 'uri' => 'join', 'key' => 'join.show', 'resource' => 'Nova\\PublicSite\\Controllers\\ShowJoinFormController', 'layout' => 'public'],
             ['name' => 'Process join form', 'uri' => 'join', 'key' => 'join.process', 'resource' => 'Nova\\PublicSite\\Controllers\\ProcessJoinFormController', 'layout' => 'public', 'middleware' => ['throttle:join'], 'verb' => PageVerb::post],
+
+            ['name' => 'List menus', 'uri' => 'menus', 'key' => 'menus.index', 'resource' => 'Nova\\Menus\\Controllers\\MenuController@index', 'layout' => 'admin'],
+            ['name' => 'View menu', 'uri' => 'menus/{menu}/show', 'key' => 'menus.show', 'resource' => 'Nova\\Menus\\Controllers\\MenuController@show', 'layout' => 'admin'],
+            ['name' => 'Create menu', 'uri' => 'menus/create', 'key' => 'menus.create', 'resource' => 'Nova\\Menus\\Controllers\\MenuController@create', 'layout' => 'admin'],
+            ['name' => 'Store menu', 'uri' => 'menus', 'key' => 'menus.store', 'verb' => PageVerb::post, 'resource' => 'Nova\\Menus\\Controllers\\MenuController@store', 'layout' => 'admin'],
+            ['name' => 'Edit menu', 'uri' => 'menus/{menu}/edit', 'key' => 'menus.edit', 'resource' => 'Nova\\Menus\\Controllers\\MenuController@edit', 'layout' => 'admin'],
+            ['name' => 'Update menu', 'uri' => 'menus/{menu}', 'key' => 'menus.update', 'verb' => PageVerb::put, 'resource' => 'Nova\\Menus\\Controllers\\MenuController@update', 'layout' => 'admin'],
+
+            ['name' => 'List menu items', 'uri' => 'menu-items', 'key' => 'menu-items.index', 'resource' => 'Nova\\Menus\\Controllers\\MenuItemController@index', 'layout' => 'admin'],
+            ['name' => 'View menu item', 'uri' => 'menu-items/{menuItem}/show', 'key' => 'menu-items.show', 'resource' => 'Nova\\Menus\\Controllers\\MenuItemController@show', 'layout' => 'admin'],
+            ['name' => 'Create menu item', 'uri' => 'menu-items/create', 'key' => 'menu-items.create', 'resource' => 'Nova\\Menus\\Controllers\\MenuItemController@create', 'layout' => 'admin'],
+            ['name' => 'Store menu item', 'uri' => 'menu-items', 'key' => 'menu-items.store', 'verb' => PageVerb::post, 'resource' => 'Nova\\Menus\\Controllers\\MenuItemController@store', 'layout' => 'admin'],
+            ['name' => 'Edit menu item', 'uri' => 'menu-items/{menuItem}/edit', 'key' => 'menu-items.edit', 'resource' => 'Nova\\Menus\\Controllers\\MenuItemController@edit', 'layout' => 'admin'],
+            ['name' => 'Update menu item', 'uri' => 'menu-items/{menuItem}', 'key' => 'menu-items.update', 'verb' => PageVerb::put, 'resource' => 'Nova\\Menus\\Controllers\\MenuItemController@update', 'layout' => 'admin'],
         ];
 
         collect($pages)->each([Page::class, 'create']);

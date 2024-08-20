@@ -61,13 +61,7 @@
 
                 <div class="divider"></div>
 
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Stories</a></li>
-                    <li data-active><a href="#">Characters</a></li>
-                    <li><a href="#">Join</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
+                <x-public::menu :items="$meta->menu?->items"></x-public::menu>
 
                 <div class="divider"></div>
 
