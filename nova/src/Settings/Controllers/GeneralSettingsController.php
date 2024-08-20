@@ -32,7 +32,12 @@ class GeneralSettingsController extends Controller
     {
         $this->authorize('update', settings());
 
-        UpdateSettings::run('general', $data = General::from($request));
+        try {
+            UpdateSettings::run('general', $data = General::from($request));
+            dd($data);
+        } catch (\Throwable $th) {
+            dd($request->all(), $th->getMessage());
+        }
 
         return redirect()
             ->route('settings.general.edit')

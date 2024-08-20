@@ -167,6 +167,8 @@ class PopulatePagesTable extends Migration
 
             ['name' => 'Join page', 'uri' => 'join', 'key' => 'join.show', 'resource' => 'Nova\\PublicSite\\Controllers\\ShowJoinFormController', 'layout' => 'public'],
             ['name' => 'Process join form', 'uri' => 'join', 'key' => 'join.process', 'resource' => 'Nova\\PublicSite\\Controllers\\ProcessJoinFormController', 'layout' => 'public', 'middleware' => ['throttle:join'], 'verb' => PageVerb::post],
+            ['name' => 'Contact page', 'uri' => 'contact', 'key' => 'contact.show', 'resource' => 'Nova\\PublicSite\\Controllers\\ShowContactFormController', 'layout' => 'public'],
+            ['name' => 'Process contact form', 'uri' => 'contact', 'key' => 'contact.process', 'resource' => 'Nova\\PublicSite\\Controllers\\ProcessContactFormController', 'layout' => 'public', 'middleware' => ['throttle:contact'], 'verb' => PageVerb::post],
 
             ['name' => 'List menus', 'uri' => 'menus', 'key' => 'menus.index', 'resource' => 'Nova\\Menus\\Controllers\\MenuController@index', 'layout' => 'admin'],
             ['name' => 'View menu', 'uri' => 'menus/{menu}/show', 'key' => 'menus.show', 'resource' => 'Nova\\Menus\\Controllers\\MenuController@show', 'layout' => 'admin'],
