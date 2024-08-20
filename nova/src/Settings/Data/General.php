@@ -7,18 +7,29 @@ namespace Nova\Settings\Data;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Nova\Foundation\Rules\Boolean;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Mappers\SnakeCaseMapper;
+use Spatie\LaravelData\Support\Validation\ValidationContext;
 
 #[MapInputName(SnakeCaseMapper::class)]
 class General extends Data implements Arrayable
 {
     public function __construct(
-        public string $gameName = '',
-        public string $dateFormat = '',
-        public string $dateFormatTags = '',
+        public string $gameName,
+        public string $dateFormat,
+        public string $dateFormatTags,
+        public bool $contactFormEnabled,
+        public ?string $contactFormDisabledMessage
     ) {}
+
+    public static function rules(ValidationContext $context): array
+    {
+        return [
+            'contactFormEnabled' => new Boolean,
+        ];
+    }
 
     public function jsDateFormat(): string
     {

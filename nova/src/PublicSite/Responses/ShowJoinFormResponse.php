@@ -8,5 +8,5 @@ use Nova\Foundation\Responses\Responsable;
 
 class ShowJoinFormResponse extends Responsable
 {
-    public string $view = 'public.join';
+    public string $view = 'public-site.join';
 }

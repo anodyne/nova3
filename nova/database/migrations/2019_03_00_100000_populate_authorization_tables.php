@@ -45,6 +45,7 @@ class PopulateAuthorizationTables extends Migration
                 'page.create', 'page.delete', 'page.update', 'page.view',
                 'application.approve',
                 'system.activity',
+                'menu.create', 'menu.delete', 'menu.update', 'menu.view',
             ],
             'story-manager' => [
                 'story.create', 'story.delete', 'story.update',
@@ -145,6 +146,11 @@ class PopulateAuthorizationTables extends Migration
                 ['name' => 'application.approve', 'display_name' => 'Approve applications', 'description' => 'Allows a user to approve or deny applications'],
 
                 ['name' => 'system.activity', 'display_name' => 'View activity log', 'description' => 'Allows a user to view the activity log for the site'],
+
+                ['name' => 'menu.create', 'display_name' => 'Create menus', 'description' => 'Allows a user to add new menus'],
+                ['name' => 'menu.delete', 'display_name' => 'Delete menus', 'description' => 'Allows a user to remove menus'],
+                ['name' => 'menu.update', 'display_name' => 'Update menus', 'description' => 'Allows a user to edit menus'],
+                ['name' => 'menu.view', 'display_name' => 'View menus', 'description' => 'Allows a user to view any menus'],
             ];
 
             collect($permissions)->each(function ($permission) {

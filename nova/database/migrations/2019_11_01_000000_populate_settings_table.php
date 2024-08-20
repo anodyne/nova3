@@ -26,6 +26,8 @@ class PopulateSettingsTable extends Migration
                 gameName: 'USS Nova',
                 dateFormat: '#month_short# #day_num2#, #year_long#',
                 dateFormatTags: '[[{"value":"#month_short#","text":"Month, short (Sep)","prefix":"#"}]] [[{"value":"#day_num2#","text":"Day, numeric leading zero (12)","prefix":"#"}]], [[{"value":"#year_long#","text":"Year, long (2023)","prefix":"#"}]]',
+                contactFormEnabled: true,
+                contactFormDisabledMessage: 'We’re sorry, but the contact form is currently closed. Please try again at a later date.',
             ),
             'email' => new Email(
                 subjectPrefix: null,
