@@ -27,6 +27,7 @@ class PopulateNotifications extends Migration
         $admin = collect([
             ['name' => 'Character requires approval', 'key' => 'character-requires-approval'],
             ['name' => 'User deleted their account', 'key' => 'user-deleted-account'],
+            ['name' => 'Site contact message', 'key' => 'site-contact-message', 'description' => 'When a user submits the contact form', 'database' => false, 'mail' => true],
         ]);
 
         $group = collect([

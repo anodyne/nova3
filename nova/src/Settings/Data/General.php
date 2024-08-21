@@ -5,22 +5,25 @@ declare(strict_types=1);
 namespace Nova\Settings\Data;
 
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Nova\Foundation\Rules\Boolean;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 use Spatie\LaravelData\Support\Validation\ValidationContext;
 
-#[MapInputName(SnakeCaseMapper::class)]
 class General extends Data implements Arrayable
 {
     public function __construct(
+        #[MapInputName('game_name')]
         public string $gameName,
+
         public string $dateFormat,
         public string $dateFormatTags,
         public bool $contactFormEnabled,
+
+        #[MapInputName('contact_form_disabled_message')]
         public ?string $contactFormDisabledMessage
     ) {}
 
@@ -94,5 +97,16 @@ class General extends Data implements Arrayable
         );
 
         return $properties;
+    }
+
+    public static function fromRequest(Request $request): static
+    {
+        return new self(
+            gameName: $request->input('game_name'),
+            dateFormatTags: $request->input('dateFormatTags'),
+            dateFormat: '',
+            contactFormEnabled: $request->boolean('contactFormEnabled', true),
+            contactFormDisabledMessage: $request->input('contact_form_disabled_message')
+        );
     }
 }

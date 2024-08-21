@@ -21,7 +21,7 @@ return new class extends Migration
         $menu->items()->createMany([
             ['label' => 'Home', 'link_type' => LinkType::Url, 'url' => '/'],
             ['label' => 'Join', 'link_type' => LinkType::Page, 'page_id' => Page::key('join.show')->first()->id],
-            ['label' => 'Contact', 'link_type' => LinkType::Url, 'url' => '/contact'],
+            ['label' => 'Contact', 'link_type' => LinkType::Page, 'page_id' => Page::key('contact.show')->first()->id],
         ]);
 
         activity()->enableLogging();
