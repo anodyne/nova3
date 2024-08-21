@@ -11,7 +11,7 @@
         xmlns:xlink="http://www.w3.org/1999/xlink"
         xmlns:svgjs="http://svgjs.dev/svgjs"
         viewBox="0 0 1066 800"
-        class="fixed left-1/2 top-0 w-full -translate-x-1/2 opacity-15"
+        class="fixed left-1/2 top-0 hidden w-full -translate-x-1/2 opacity-15"
     >
         <defs>
             <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="oooscillate-grad">
