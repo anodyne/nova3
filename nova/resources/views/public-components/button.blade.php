@@ -7,6 +7,11 @@
 
 @php
     $tag = $attributes->has('href') ? 'a' : 'button';
+
+    if ($primary) {
+        $bgColor ??= theme('settings')->accentColor();
+        $textColor ??= theme('settings')->textAccentColor();
+    }
 @endphp
 
 <{{ $tag }}

@@ -15,6 +15,7 @@ class Theme extends BaseTheme
     {
         return [
             ColorPicker::make('accentColor'),
+            ColorPicker::make('textAccentColor'),
         ];
     }
 }
