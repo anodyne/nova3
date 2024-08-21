@@ -11,6 +11,7 @@ use Illuminate\Support\Collection;
 use Nova\Foundation\Rules\Boolean;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Optional;
 use Spatie\LaravelData\Support\Validation\ValidationContext;
 
 class General extends Data implements Arrayable
@@ -19,7 +20,7 @@ class General extends Data implements Arrayable
         #[MapInputName('game_name')]
         public string $gameName,
 
-        public string $dateFormat,
+        public string|Optional $dateFormat,
         public string $dateFormatTags,
         public bool $contactFormEnabled,
 
@@ -88,23 +89,16 @@ class General extends Data implements Arrayable
         return $this->dateFormatTokens(fn ($values) => [(object) Arr::only($values, ['value', 'text'])])->all();
     }
 
-    public static function prepareForPipeline(array $properties): array
-    {
-        $properties['dateFormat'] = preg_replace(
-            '/(\[\[{"value":"(#.+#)","text":".*"}\]\])/miU',
-            '$2',
-            $properties['dateFormatTags']
-        );
-
-        return $properties;
-    }
-
     public static function fromRequest(Request $request): static
     {
         return new self(
             gameName: $request->input('game_name'),
-            dateFormatTags: $request->input('dateFormatTags'),
-            dateFormat: '',
+            dateFormatTags: $dateFormatTags = $request->input('dateFormatTags'),
+            dateFormat: preg_replace(
+                '/(\[\[{"value":"(#.+#)","text":".*"}\]\])/miU',
+                '$2',
+                $dateFormatTags
+            ),
             contactFormEnabled: $request->boolean('contactFormEnabled', true),
             contactFormDisabledMessage: $request->input('contact_form_disabled_message')
         );

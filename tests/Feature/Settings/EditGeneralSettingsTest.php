@@ -25,6 +25,8 @@ describe('authorized user', function () {
             ->put(route('settings.general.update'), [
                 'game_name' => 'Foo',
                 'dateFormatTags' => '[[{"value":"#year_long#","text":"Year, long (2024)","prefix":"#"}]]',
+                'contactFormEnabled' => 'true',
+                'contact_form_disabled_message' => 'Message',
             ])
             ->assertSuccessful();
 
@@ -33,6 +35,8 @@ describe('authorized user', function () {
             'general->gameName' => 'Foo',
             'general->dateFormat' => '#year_long#',
             'general->dateFormatTags' => '[[{"value":"#year_long#","text":"Year, long (2024)","prefix":"#"}]]',
+            'general->contactFormEnabled' => 'true',
+            'general->contactFormDisabledMessage' => 'Message',
         ]);
     });
 });
