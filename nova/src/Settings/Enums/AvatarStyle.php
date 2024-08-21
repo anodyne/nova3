@@ -33,7 +33,11 @@ enum AvatarStyle: string implements HasLabel
 
     case CroodlesNeutral = 'croodles-neutral';
 
+    case Dylan = 'dylan';
+
     case FunEmoji = 'fun-emoji';
+
+    case Glass = 'glass';
 
     case Icons = 'icons';
 

@@ -25,7 +25,7 @@ class NovaManager
     public function getAvatarUrl(?string $seed = null): string
     {
         return sprintf(
-            'https://api.dicebear.com/7.x/%s/svg?seed=%s',
+            'https://api.dicebear.com/9.x/%s/svg?seed=%s',
             settings('appearance.avatarStyle')->value,
             str_replace(' ', '', $seed ?? 'nova3')
         );

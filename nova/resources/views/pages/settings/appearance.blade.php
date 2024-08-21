@@ -2,6 +2,7 @@
 
 @inject('iconSets', 'Nova\Foundation\Icons\IconSets')
 
+@use('Nova\Foundation\Nova')
 @use('Nova\Settings\Enums\AvatarShape')
 @use('Nova\Settings\Enums\AvatarStyle')
 
@@ -163,10 +164,7 @@
                         Update the shape and style of avatars throughout Nova.
 
                         <x-fieldset.description class="mt-4">
-                            <x-avatar
-                                src="https://api.dicebear.com/7.x/{{ $settings->avatarStyle }}/svg?seed=nova3"
-                                size="lg"
-                            ></x-avatar>
+                            <x-avatar :src="Nova::getAvatarUrl('nova3')" size="lg"></x-avatar>
                         </x-fieldset.description>
                     </x-fieldset.description>
                 </x-fieldset.heading>
