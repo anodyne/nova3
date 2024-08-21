@@ -7,6 +7,7 @@ namespace Nova\Settings\Data;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Http\Request;
 use Nova\Foundation\Rules\Boolean;
+use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Support\Validation\ValidationContext;
 
@@ -14,7 +15,10 @@ class Applications extends Data implements Arrayable
 {
     public function __construct(
         public bool $enabled,
+
+        #[MapInputName('disabled_message')]
         public ?string $disabledMessage,
+
         public bool $alwaysShowResults,
         public bool $allowVoteChanging,
         public bool $showDecisionMessage
