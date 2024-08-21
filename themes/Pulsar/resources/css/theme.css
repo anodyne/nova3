@@ -6,19 +6,19 @@
 }
 
 body {
-    @apply bg-gray-100;
+    @apply bg-white;
 }
 
 .content-container {
-    @apply relative mx-auto my-12 max-w-7xl;
+    @apply relative;
 }
 
 .content {
-    @apply relative overflow-hidden bg-white shadow-lg ring-1 ring-gray-950/5 lg:rounded-3xl;
+    @apply relative;
 }
 
 .main-nav {
-    @apply fixed left-1/2 z-50 flex -translate-x-1/2 -translate-y-1/2 items-center gap-x-3 rounded-full bg-white/75 px-4 shadow-lg ring-1 ring-gray-900/5 backdrop-blur-sm lg:gap-x-6;
+    @apply fixed left-1/2 z-50 mt-8 flex -translate-x-1/2 items-center gap-x-3 rounded-xl bg-white/75 px-4 shadow-lg ring-1 ring-gray-900/5 backdrop-blur-sm lg:gap-x-6;
 }
 .main-nav .leading-container {
     @apply flex shrink-0 items-center pl-1;
@@ -47,7 +47,7 @@ body {
 }
 
 .nova-advanced-page-content {
-    @apply mx-auto max-w-6xl py-24;
+    @apply mx-auto max-w-5xl py-28;
 }
 
 .nv-tabs {
@@ -57,8 +57,4 @@ body {
 }
 .nv-tabs-tab {
     @apply relative px-4 py-1.5 text-sm/6 font-medium text-gray-500 hover:text-gray-900;
-}
-
-.nv-btn-primary {
-    @apply bg-primary-500 text-white;
 }

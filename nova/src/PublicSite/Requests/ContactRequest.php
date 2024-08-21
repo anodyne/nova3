@@ -10,6 +10,11 @@ class ContactRequest extends FormRequest
 {
     public function rules(): array
     {
-        return [];
+        return [
+            'name' => ['required'],
+            'email' => ['required', 'email'],
+            'subject' => ['required'],
+            'message' => ['required'],
+        ];
     }
 }

@@ -36,7 +36,7 @@ class SetupAccount extends Component
 
         $user->status->transitionTo(Active::class);
 
-        $user->syncRolesWithoutDetaching(['owner', 'admin', 'active', 'writer', 'story-manager']);
+        $user->syncRolesWithoutDetaching(['owner', 'admin', 'active', 'writer', 'story-manager', 'webmaster']);
 
         UpdateApplicationReviewers::run(new ApplicationReviewers(
             globalReviewers: [$user->id]

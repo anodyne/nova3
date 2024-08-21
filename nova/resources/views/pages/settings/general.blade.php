@@ -65,12 +65,12 @@
                 <x-fieldset.field-group constrained>
                     <x-switch.group>
                         <x-switch.field>
-                            <x-fieldset.label for="contact_form_enabled">Contact form enabled</x-fieldset.label>
+                            <x-fieldset.label for="contactFormEnabled">Contact form enabled</x-fieldset.label>
                             <x-fieldset.description>Allow outside users to contact the game</x-fieldset.description>
                             <x-switch
-                                name="contact_form_enabled"
-                                :value="old('contact_form_enabled', $settings->contactFormEnabled)"
-                                id="contact_form_enabled"
+                                name="contactFormEnabled"
+                                :value="old('contactFormEnabled', $settings->contactFormEnabled)"
+                                id="contactFormEnabled"
                             ></x-switch>
                         </x-switch.field>
                     </x-switch.group>
@@ -84,6 +84,18 @@
                         name="contact_form_disabled_message"
                     >
                         <x-input.textarea rows="3">{{ $settings->contactFormDisabledMessage }}</x-input.textarea>
+                    </x-fieldset.field>
+
+                    <x-fieldset.field
+                        label="Site contact recipients"
+                        id="contact_form_recipients"
+                        name="contact_form_recipients"
+                    >
+                        <x-text>
+                            Any user that has the
+                            <code class="font-mono font-semibold">site.contact</code>
+                            permission will receive the site contact messages.
+                        </x-text>
                     </x-fieldset.field>
                 </x-fieldset.field-group>
             </x-fieldset>

@@ -49,6 +49,7 @@ describe('authorized user', function () {
         $roleWithPermission->givePermission(Permission::first());
 
         livewire(RolesList::class)
+            ->set('tableRecordsPerPage', 100)
             ->filterTable('has_permissions', true)
             ->assertCanSeeTableRecords([$roleWithPermission])
             ->resetTableFilters()

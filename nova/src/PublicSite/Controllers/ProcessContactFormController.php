@@ -6,18 +6,26 @@ namespace Nova\PublicSite\Controllers;
 
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Support\Facades\RateLimiter;
-use Nova\Applications\Actions\CreateApplicationManager;
 use Nova\Foundation\Controllers\Controller;
+use Nova\PublicSite\Actions\HandleContactForm;
 use Nova\PublicSite\Requests\ContactRequest;
+use Spatie\Honeypot\ProtectAgainstSpam;
 
 class ProcessContactFormController extends Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->middleware(ProtectAgainstSpam::class);
+    }
+
     public function __invoke(ContactRequest $request)
     {
         $executed = RateLimiter::attempt(
             key: 'process-contact:'.$request->ip(),
             maxAttempts: 1,
-            callback: fn () => CreateApplicationManager::run($request),
+            callback: fn () => HandleContactForm::run($request),
             decaySeconds: 15 * 60
         );
 

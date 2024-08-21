@@ -5,22 +5,26 @@ declare(strict_types=1);
 namespace Nova\Settings\Data;
 
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Nova\Foundation\Rules\Boolean;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Mappers\SnakeCaseMapper;
+use Spatie\LaravelData\Optional;
 use Spatie\LaravelData\Support\Validation\ValidationContext;
 
-#[MapInputName(SnakeCaseMapper::class)]
 class General extends Data implements Arrayable
 {
     public function __construct(
+        #[MapInputName('game_name')]
         public string $gameName,
-        public string $dateFormat,
+
+        public string|Optional $dateFormat,
         public string $dateFormatTags,
         public bool $contactFormEnabled,
+
+        #[MapInputName('contact_form_disabled_message')]
         public ?string $contactFormDisabledMessage
     ) {}
 
@@ -85,14 +89,18 @@ class General extends Data implements Arrayable
         return $this->dateFormatTokens(fn ($values) => [(object) Arr::only($values, ['value', 'text'])])->all();
     }
 
-    public static function prepareForPipeline(array $properties): array
+    public static function fromRequest(Request $request): static
     {
-        $properties['dateFormat'] = preg_replace(
-            '/(\[\[{"value":"(#.+#)","text":".*"}\]\])/miU',
-            '$2',
-            $properties['dateFormatTags']
+        return new self(
+            gameName: $request->input('game_name'),
+            dateFormatTags: $dateFormatTags = $request->input('dateFormatTags'),
+            dateFormat: preg_replace(
+                '/(\[\[{"value":"(#.+#)","text":".*"}\]\])/miU',
+                '$2',
+                $dateFormatTags
+            ),
+            contactFormEnabled: $request->boolean('contactFormEnabled', true),
+            contactFormDisabledMessage: $request->input('contact_form_disabled_message')
         );
-
-        return $properties;
     }
 }

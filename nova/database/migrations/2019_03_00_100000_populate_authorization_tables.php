@@ -62,6 +62,7 @@ class PopulateAuthorizationTables extends Migration
             'create-secondary-characters' => ['character.create-secondary'],
             'create-support-characters' => ['character.create-support'],
             'update-support-characters' => ['character.update-support'],
+            'webmaster' => ['site.contact'],
         ];
 
         collect($permissions)->each(function ($permission, $role) {
@@ -151,6 +152,8 @@ class PopulateAuthorizationTables extends Migration
                 ['name' => 'menu.delete', 'display_name' => 'Delete menus', 'description' => 'Allows a user to remove menus'],
                 ['name' => 'menu.update', 'display_name' => 'Update menus', 'description' => 'Allows a user to edit menus'],
                 ['name' => 'menu.view', 'display_name' => 'View menus', 'description' => 'Allows a user to view any menus'],
+
+                ['name' => 'site.contact', 'display_name' => 'Site contact', 'description' => 'Allows a user to receive site contact messages'],
             ];
 
             collect($permissions)->each(function ($permission) {
@@ -172,6 +175,7 @@ class PopulateAuthorizationTables extends Migration
                 ['name' => 'create-secondary-characters', 'display_name' => 'Create Secondary Characters', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'is_default' => false, 'order_column' => 6],
                 ['name' => 'create-support-characters', 'display_name' => 'Create Support Characters', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'is_default' => false, 'order_column' => 7],
                 ['name' => 'update-support-characters', 'display_name' => 'Update Support Characters', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'is_default' => false, 'order_column' => 8],
+                ['name' => 'webmaster', 'display_name' => 'Webmaster', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'is_default' => false, 'order_column' => 9],
             ];
 
             collect($roles)->each(function ($role) {

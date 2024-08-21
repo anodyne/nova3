@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@admin.com',
         ]);
-        $admin->addRoles(['owner', 'admin', 'active', 'writer', 'story-manager']);
+        $admin->addRoles(['owner', 'admin', 'active', 'writer', 'story-manager', 'webmaster']);
         PopulateAccountPreferences::run($admin);
         PopulateNotificationPreferences::run($admin);
         UpdateApplicationReviewers::run(new ApplicationReviewers(
