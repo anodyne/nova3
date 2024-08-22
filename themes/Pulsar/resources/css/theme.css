@@ -53,6 +53,35 @@ body {
     @apply mx-auto max-w-6xl;
 }
 
+.nv-character-bio {
+    @apply flex gap-16;
+}
+.avatar-container {
+    @apply shrink-0;
+}
+.bio-content {
+    @apply flex-1 space-y-8;
+}
+.bio-content .character-details {
+    @apply flex flex-col gap-1;
+}
+.bio-content .character-details .character-name {
+    @apply flex items-baseline gap-x-8;
+}
+.bio-content .character-details .character-metadata {
+    @apply flex items-center gap-x-4;
+}
+.bio-content .character-details .character-metadata .metadata-item {
+    @apply text-lg/7 font-semibold text-gray-500;
+}
+.bio-content .character-details .character-metadata .divider {
+    @apply text-lg/7 text-gray-300;
+}
+
+.horizontal-divider {
+    @apply h-px max-w-lg bg-gradient-to-r from-gray-200 to-transparent;
+}
+
 .nv-hero,
 .nv-features,
 .nv-cta {
