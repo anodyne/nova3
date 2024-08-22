@@ -54,10 +54,10 @@ class FormSubmissionsList extends TableComponent
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (FormSubmission $record): string => route('form-submissions.show', $record)),
+                            ->url(fn (FormSubmission $record): string => route('admin.form-submissions.show', $record)),
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (FormSubmission $record): string => route('forms.edit', $record)),
+                            ->url(fn (FormSubmission $record): string => route('admin.forms.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
 
                     ActionGroup::make([

@@ -29,7 +29,7 @@ describe('authorized user', function () {
     });
 
     test('can view the edit role page', function () {
-        get(route('roles.edit', $this->role))->assertSuccessful();
+        get(route('admin.roles.edit', $this->role))->assertSuccessful();
     });
 
     test('can update a role', function () {
@@ -37,9 +37,9 @@ describe('authorized user', function () {
 
         $data = Role::factory()->make();
 
-        from(route('roles.edit', $this->role))
+        from(route('admin.roles.edit', $this->role))
             ->followingRedirects()
-            ->put(route('roles.update', $this->role), $data->toArray())
+            ->put(route('admin.roles.update', $this->role), $data->toArray())
             ->assertSuccessful();
 
         assertDatabaseHas(Role::class, $data->toArray());
@@ -59,9 +59,9 @@ describe('authorized user', function () {
             ['assigned_users' => $assignedUsers]
         );
 
-        from(route('roles.edit', $this->role))
+        from(route('admin.roles.edit', $this->role))
             ->followingRedirects()
-            ->put(route('roles.update', $this->role), $data)
+            ->put(route('admin.roles.update', $this->role), $data)
             ->assertSuccessful();
 
         assertDatabaseHas(Role::class, Arr::only($data, ['name', 'display_name']));
@@ -84,9 +84,9 @@ describe('authorized user', function () {
             ['assigned_permissions' => $assignedPermissions]
         );
 
-        from(route('roles.edit', $this->role))
+        from(route('admin.roles.edit', $this->role))
             ->followingRedirects()
-            ->put(route('roles.update', $this->role), $data)
+            ->put(route('admin.roles.update', $this->role), $data)
             ->assertSuccessful();
 
         assertDatabaseHas(Role::class, Arr::only($data, ['name', 'display_name']));
@@ -104,22 +104,22 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the edit role page', function () {
-        get(route('roles.edit', $this->role))->assertForbidden();
+        get(route('admin.roles.edit', $this->role))->assertForbidden();
     });
 
     test('cannot update a role', function () {
-        put(route('roles.update', $this->role), [])->assertForbidden();
+        put(route('admin.roles.update', $this->role), [])->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the edit role page', function () {
-        get(route('roles.edit', $this->role))
+        get(route('admin.roles.edit', $this->role))
             ->assertRedirectToRoute('login');
     });
 
     test('cannot update a role', function () {
-        put(route('roles.update', $this->role), [])
+        put(route('admin.roles.update', $this->role), [])
             ->assertRedirectToRoute('login');
     });
 });

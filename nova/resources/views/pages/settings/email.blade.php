@@ -15,7 +15,7 @@
             </x-slot>
         </x-page-header>
 
-        <x-form :action="route('settings.email.update')" method="PUT">
+        <x-form :action="route('admin.settings.email.update')" method="PUT">
             <x-fieldset>
                 <x-fieldset.field-group constrained>
                     <x-fieldset.field label="Subject prefix" id="subject_prefix" name="subject_prefix">

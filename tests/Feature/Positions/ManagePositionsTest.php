@@ -32,7 +32,7 @@ describe('authorized user', function () {
     });
 
     test('can view the list positions page', function () {
-        get(route('positions.index'))->assertSuccessful();
+        get(route('admin.positions.index'))->assertSuccessful();
 
         livewire(PositionsList::class)
             ->assertCanSeeTableRecords($this->positions);
@@ -160,13 +160,13 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the manage positions page', function () {
-        get(route('positions.index'))->assertForbidden();
+        get(route('admin.positions.index'))->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the manage positions page', function () {
-        get(route('positions.index'))
+        get(route('admin.positions.index'))
             ->assertRedirectToRoute('login');
     });
 });

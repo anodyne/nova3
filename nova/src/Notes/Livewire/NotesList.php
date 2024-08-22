@@ -46,10 +46,10 @@ class NotesList extends TableComponent
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (Model $record): string => route('notes.show', $record)),
+                            ->url(fn (Model $record): string => route('admin.notes.show', $record)),
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (Model $record): string => route('notes.edit', $record)),
+                            ->url(fn (Model $record): string => route('admin.notes.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
                     ActionGroup::make([
                         ReplicateAction::make()
@@ -112,7 +112,7 @@ class NotesList extends TableComponent
                 CreateAction::make()
                     ->authorize('create')
                     ->label('Add a note')
-                    ->url(route('notes.create')),
+                    ->url(route('admin.notes.create')),
             ]);
     }
 }

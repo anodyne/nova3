@@ -19,7 +19,7 @@ describe('authorized user', function () {
     });
 
     test('can view the create menu item page', function () {
-        get(route('menu-items.create'))->assertSuccessful();
+        get(route('admin.menu-items.create'))->assertSuccessful();
     });
 
     test('can create a menu item', function () {
@@ -27,9 +27,9 @@ describe('authorized user', function () {
 
         $data = MenuItem::factory()->make();
 
-        from(route('menu-items.create'))
+        from(route('admin.menu-items.create'))
             ->followingRedirects()
-            ->post(route('menu-items.store'), $data->toArray())
+            ->post(route('admin.menu-items.store'), $data->toArray())
             ->assertSuccessful();
 
         assertDatabaseHas(MenuItem::class, $data->toArray());
@@ -44,24 +44,24 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the create menu item page', function () {
-        get(route('menu-items.create'))->assertForbidden();
+        get(route('admin.menu-items.create'))->assertForbidden();
     });
 
     test('cannot create a menu item', function () {
         $data = MenuItem::factory()->make();
 
-        post(route('menu-items.store'), $data->toArray())->assertForbidden();
+        post(route('admin.menu-items.store'), $data->toArray())->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the create menu item page', function () {
-        get(route('menu-items.create'))
+        get(route('admin.menu-items.create'))
             ->assertRedirectToRoute('login');
     });
 
     test('cannot create a menu item', function () {
-        post(route('menu-items.store'), [])
+        post(route('admin.menu-items.store'), [])
             ->assertRedirectToRoute('login');
     });
 });

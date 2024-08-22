@@ -21,7 +21,7 @@ class ViewNotes extends SpotlightCommand
 
     public function execute(Spotlight $spotlight): void
     {
-        $spotlight->redirectRoute('notes.index');
+        $spotlight->redirectRoute('admin.notes.index');
     }
 
     public function shouldBeShown(): bool

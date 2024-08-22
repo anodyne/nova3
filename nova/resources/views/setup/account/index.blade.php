@@ -72,7 +72,7 @@
         </div>
 
         <div class="flex items-center justify-center">
-            <x-button.setup :href="route('dashboard')">Get started with Nova &rarr;</x-button.setup>
+            <x-button.setup :href="route('admin.dashboard')">Get started with Nova &rarr;</x-button.setup>
         </div>
     @endif
 </div>

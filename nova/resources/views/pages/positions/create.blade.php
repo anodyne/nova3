@@ -10,7 +10,7 @@
             <x-slot name="actions">
                 @can('viewAny', Position::class)
                     <x-button
-                        :href="$selectedDepartment ? route('positions.index', 'department='.$selectedDepartment?->id) : route('positions.index')"
+                        :href="$selectedDepartment ? route('admin.positions.index', 'department='.$selectedDepartment?->id) : route('admin.positions.index')"
                         plain
                     >
                         &larr; Back
@@ -19,7 +19,7 @@
             </x-slot>
         </x-page-header>
 
-        <x-form :action="route('positions.store')">
+        <x-form :action="route('admin.positions.store')">
             <x-fieldset>
                 <x-fieldset.field-group constrained>
                     <x-fieldset.field label="Name" id="name" name="name" :error="$errors->first('name')">
@@ -76,7 +76,7 @@
                             <x-fieldset.description class="mt-4">
                                 Nova can keep the number updated for you as characters are assigned and un-assigned to
                                 this position. Go to
-                                <x-button :href="route('settings.characters.edit')" color="primary" text>
+                                <x-button :href="route('admin.settings.characters.edit')" color="primary" text>
                                     character settings
                                 </x-button>
                                 to update your availability settings.
@@ -94,7 +94,7 @@
 
             <x-fieldset.controls>
                 <x-button type="submit" color="primary">Add</x-button>
-                <x-button :href="route('positions.index', 'department='.$selectedDepartment?->id)" plain>
+                <x-button :href="route('admin.positions.index', 'department='.$selectedDepartment?->id)" plain>
                     Cancel
                 </x-button>
             </x-fieldset.controls>

@@ -22,7 +22,7 @@ class ActivateCharacterButton extends Component
         CharacterActivated::dispatch($this->character);
 
         redirect()
-            ->route('characters.edit', $this->character)
+            ->route('admin.characters.edit', $this->character)
             ->notify("{$this->character->name} was activated");
     }
 

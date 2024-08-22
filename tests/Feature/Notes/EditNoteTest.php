@@ -30,7 +30,7 @@ describe('authenticated user', function () {
     });
 
     test('can view the edit note page', function () {
-        get(route('notes.edit', $this->note))->assertSuccessful();
+        get(route('admin.notes.edit', $this->note))->assertSuccessful();
     });
 
     test('can update a note', function () {
@@ -38,9 +38,9 @@ describe('authenticated user', function () {
 
         $data = Note::factory()->make();
 
-        from(route('notes.edit', $this->note))
+        from(route('admin.notes.edit', $this->note))
             ->followingRedirects()
-            ->put(route('notes.update', $this->note), Arr::except($data->toArray(), 'user_id'))
+            ->put(route('admin.notes.update', $this->note), Arr::except($data->toArray(), 'user_id'))
             ->assertSuccessful();
 
         assertDatabaseHas(Note::class, Arr::except($data->toArray(), 'user_id'));
@@ -55,12 +55,12 @@ describe('unauthenticated user', function () {
     });
 
     test('cannot view the edit note page', function () {
-        get(route('notes.edit', $this->note))
+        get(route('admin.notes.edit', $this->note))
             ->assertRedirectToRoute('login');
     });
 
     test('cannot update a note', function () {
-        put(route('notes.update', $this->note), [])
+        put(route('admin.notes.update', $this->note), [])
             ->assertRedirectToRoute('login');
     });
 });

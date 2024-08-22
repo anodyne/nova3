@@ -18,11 +18,11 @@
 
             <x-slot name="actions">
                 @can('viewAny', $postType::class)
-                    <x-button :href="route('post-types.index')" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.post-types.index')" plain>&larr; Back</x-button>
                 @endcan
 
                 @can('update', $postType)
-                    <x-button :href="route('post-types.edit', $postType)" color="primary">
+                    <x-button :href="route('admin.post-types.edit', $postType)" color="primary">
                         <x-icon name="edit" size="sm"></x-icon>
                         Edit
                     </x-button>

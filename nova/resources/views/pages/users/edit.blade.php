@@ -6,7 +6,7 @@
             <x-slot name="heading">{{ $user->name }}</x-slot>
 
             <x-slot name="actions">
-                <x-button :href="route('users.index')" plain>&larr; Back</x-button>
+                <x-button :href="route('admin.users.index')" plain>&larr; Back</x-button>
             </x-slot>
         </x-page-header>
 
@@ -31,7 +31,7 @@
                 })
             "
         >
-            <x-form :action="route('users.update', $user)" method="PUT">
+            <x-form :action="route('admin.users.update', $user)" method="PUT">
                 @if (filled($form->published_fields))
                     <x-tab.group name="user">
                         <x-tab.heading name="info">
@@ -244,7 +244,7 @@
 
                 <x-fieldset.controls>
                     <x-button type="submit" color="primary">Update</x-button>
-                    <x-button :href="route('users.index')" plain>Cancel</x-button>
+                    <x-button :href="route('admin.users.index')" plain>Cancel</x-button>
                 </x-fieldset.controls>
             </x-form>
         </div>

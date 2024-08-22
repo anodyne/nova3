@@ -45,7 +45,7 @@ class DesignForm extends SpotlightCommand
 
     public function execute(Spotlight $spotlight, Form $form): void
     {
-        $spotlight->redirectRoute('forms.design', $form);
+        $spotlight->redirectRoute('admin.forms.design', $form);
     }
 
     public function shouldBeShown(): bool

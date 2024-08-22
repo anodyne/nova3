@@ -22,8 +22,8 @@ describe('authorized user', function () {
         $activeUser = User::factory()->active()->create();
         $inactiveUser = User::factory()->inactive()->create();
 
-        get(route('users.show', $activeUser))->assertSuccessful();
-        get(route('users.show', $inactiveUser))->assertSuccessful();
+        get(route('admin.users.show', $activeUser))->assertSuccessful();
+        get(route('admin.users.show', $inactiveUser))->assertSuccessful();
     });
 
     test('has the correct permissions for list users page', function () {
@@ -55,8 +55,8 @@ describe('unauthorized user', function () {
         $activeUser = User::factory()->active()->create();
         $inactiveUser = User::factory()->inactive()->create();
 
-        get(route('users.show', $activeUser))->assertForbidden();
-        get(route('users.show', $inactiveUser))->assertForbidden();
+        get(route('admin.users.show', $activeUser))->assertForbidden();
+        get(route('admin.users.show', $inactiveUser))->assertForbidden();
     });
 });
 
@@ -65,7 +65,7 @@ describe('unauthenticated user', function () {
         $activeUser = User::factory()->active()->create();
         $inactiveUser = User::factory()->inactive()->create();
 
-        get(route('users.show', $activeUser))->assertRedirectToRoute('login');
-        get(route('users.show', $inactiveUser))->assertRedirectToRoute('login');
+        get(route('admin.users.show', $activeUser))->assertRedirectToRoute('login');
+        get(route('admin.users.show', $inactiveUser))->assertRedirectToRoute('login');
     });
 });

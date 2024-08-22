@@ -15,11 +15,11 @@
 
             <x-slot name="actions">
                 @can('viewAny', $item::class)
-                    <x-button :href="route('ranks.items.index')" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.ranks.items.index')" plain>&larr; Back</x-button>
                 @endcan
 
                 @can('update', $item)
-                    <x-button :href="route('ranks.items.edit', $item)" color="primary">
+                    <x-button :href="route('admin.ranks.items.edit', $item)" color="primary">
                         <x-icon name="edit" size="sm"></x-icon>
                         Edit
                     </x-button>
@@ -66,7 +66,7 @@
 
                                             @can('update', $character)
                                                 <x-button
-                                                    :href="route('characters.edit', $character)"
+                                                    :href="route('admin.characters.edit', $character)"
                                                     color="neutral"
                                                     class="group-hover:visible sm:invisible"
                                                     text

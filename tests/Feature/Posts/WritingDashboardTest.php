@@ -18,6 +18,6 @@ describe('unauthorized user', function () {
 
 describe('unauthenticated user', function () {
     test('cannot view the writing dashboard', function () {
-        get(route('writing-overview'))->assertRedirectToRoute('login');
+        get(route('admin.writing-overview'))->assertRedirectToRoute('login');
     });
 });

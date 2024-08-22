@@ -10,6 +10,8 @@
     is ready to be reviewed.
 
     <x-slot name="actions">
-        <x-button :href="route('applications.show', $application_id)" color="primary">Start reviewing &rarr;</x-button>
+        <x-button :href="route('admin.applications.show', $application_id)" color="primary">
+            Start reviewing &rarr;
+        </x-button>
     </x-slot>
 </x-notification>

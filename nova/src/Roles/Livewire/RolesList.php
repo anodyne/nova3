@@ -66,10 +66,10 @@ class RolesList extends TableComponent
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (Model $record): string => route('roles.show', $record)),
+                            ->url(fn (Model $record): string => route('admin.roles.show', $record)),
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (Model $record): string => route('roles.edit', $record)),
+                            ->url(fn (Model $record): string => route('admin.roles.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
 
                     ActionGroup::make([
@@ -166,7 +166,7 @@ class RolesList extends TableComponent
                 CreateAction::make()
                     ->authorize('create')
                     ->label('Add a role')
-                    ->url(route('roles.create')),
+                    ->url(route('admin.roles.create')),
             ]);
     }
 }

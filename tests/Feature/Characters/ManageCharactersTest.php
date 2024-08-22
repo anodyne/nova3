@@ -32,7 +32,7 @@ describe('authorized user', function () {
     });
 
     test('can view the list characters page', function () {
-        get(route('characters.index'))->assertSuccessful();
+        get(route('admin.characters.index'))->assertSuccessful();
 
         livewire(CharactersList::class)
             ->assertCountTableRecords(3)
@@ -114,7 +114,7 @@ describe('unauthorized user', function () {
     });
 
     test('can view the manage characters page', function () {
-        get(route('characters.index'))->assertSuccessful();
+        get(route('admin.characters.index'))->assertSuccessful();
     });
 
     test('can only see their own characters', function () {
@@ -131,7 +131,7 @@ describe('unauthorized user', function () {
 
 describe('unauthenticated user', function () {
     test('cannot view the manage characters page', function () {
-        get(route('characters.index'))
+        get(route('admin.characters.index'))
             ->assertRedirectToRoute('login');
     });
 });

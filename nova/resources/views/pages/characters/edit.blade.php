@@ -6,12 +6,12 @@
             <x-slot name="heading">Edit character</x-slot>
 
             <x-slot name="actions">
-                <x-button :href="route('characters.index')" plain>&larr; Back</x-button>
+                <x-button :href="route('admin.characters.index')" plain>&larr; Back</x-button>
             </x-slot>
         </x-page-header>
 
         <x-form
-            :action="route('characters.update', $character)"
+            :action="route('admin.characters.update', $character)"
             method="PUT"
             x-data="tabsList('{{ $errors->getBag('default')->has('character.*') ? 'bio' : 'info' }}')"
         >
@@ -144,7 +144,7 @@
 
             <x-fieldset.controls>
                 <x-button type="submit" color="primary">Update</x-button>
-                <x-button :href="route('characters.index')" plain>Cancel</x-button>
+                <x-button :href="route('admin.characters.index')" plain>Cancel</x-button>
             </x-fieldset.controls>
         </x-form>
     </x-spacing>

@@ -18,7 +18,7 @@ describe('authorized user', function () {
     });
 
     test('can view the view rank group page', function () {
-        get(route('ranks.groups.show', $this->rankGroup))->assertSuccessful();
+        get(route('admin.ranks.groups.show', $this->rankGroup))->assertSuccessful();
     });
 });
 
@@ -28,13 +28,13 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the view rank group page', function () {
-        get(route('ranks.groups.show', $this->rankGroup))->assertForbidden();
+        get(route('admin.ranks.groups.show', $this->rankGroup))->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the view rank group page', function () {
-        get(route('ranks.groups.show', $this->rankGroup))
+        get(route('admin.ranks.groups.show', $this->rankGroup))
             ->assertRedirectToRoute('login');
     });
 });

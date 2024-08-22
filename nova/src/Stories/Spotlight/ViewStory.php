@@ -47,7 +47,7 @@ class ViewStory extends SpotlightCommand
 
     public function execute(Spotlight $spotlight, Story $story)
     {
-        $spotlight->redirectRoute('stories.show', $story);
+        $spotlight->redirectRoute('admin.stories.show', $story);
     }
 
     public function shouldBeShown(): bool

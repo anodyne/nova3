@@ -32,7 +32,7 @@ class EnvironmentSettingsController extends Controller
         UpdateEnvironment::run($request);
 
         return redirect()
-            ->route('settings.environment.edit')
+            ->route('admin.settings.environment.edit')
             ->notify('Environment settings have been updated');
     }
 }

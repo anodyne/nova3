@@ -20,7 +20,7 @@ describe('authenticated user', function () {
     });
 
     test('can view the create note page', function () {
-        get(route('notes.create'))->assertSuccessful();
+        get(route('admin.notes.create'))->assertSuccessful();
     });
 
     test('can create a note', function () {
@@ -30,9 +30,9 @@ describe('authenticated user', function () {
             'user_id' => Auth::id(),
         ]);
 
-        from(route('notes.create'))
+        from(route('admin.notes.create'))
             ->followingRedirects()
-            ->post(route('notes.store'), $data->toArray())
+            ->post(route('admin.notes.store'), $data->toArray())
             ->assertSuccessful();
 
         assertDatabaseHas(Note::class, $data->toArray());
@@ -43,12 +43,12 @@ describe('authenticated user', function () {
 
 describe('unauthenticated user', function () {
     test('cannot view the create note page', function () {
-        get(route('notes.create'))
+        get(route('admin.notes.create'))
             ->assertRedirectToRoute('login');
     });
 
     test('cannot create a note', function () {
-        post(route('notes.store'), [])
+        post(route('admin.notes.store'), [])
             ->assertRedirectToRoute('login');
     });
 });

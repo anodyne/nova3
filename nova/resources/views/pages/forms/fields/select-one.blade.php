@@ -60,21 +60,31 @@
         </x-fieldset.field>
     @endif
 @else
-    <x-public::field.radio-group :label="$label" :description="$description">
-        @foreach ((array) $options as $option)
-            @php
-                $attributesBag = new ComponentAttributeBag((array) data_get($option, 'attributes'));
-                $inputName = $form ? $form?->key."[{$uid}]" : $name;
-            @endphp
+    @if ($static)
+        @if (filled($value) || blank($value) && ! $hideWhenEmpty)
+            <x-public::field :label="$label">
+                <div data-slot="text">
+                    {{ filled($value) ? $value : '—' }}
+                </div>
+            </x-public::field>
+        @endif
+    @else
+        <x-public::field.radio-group :label="$label" :description="$description">
+            @foreach ((array) $options as $option)
+                @php
+                    $attributesBag = new ComponentAttributeBag((array) data_get($option, 'attributes'));
+                    $inputName = $form ? $form?->key."[{$uid}]" : $name;
+                @endphp
 
-            <x-public::field.radio
-                :name="$inputName"
-                :value="data_get($option, 'value')"
-                :label="data_get($option, 'label')"
-                :description="data_get($option, 'description')"
-                id="{{ $name }}_{{ data_get($option, 'value') }}"
-                :attributes="$attributesBag"
-            ></x-public::field.radio>
-        @endforeach
-    </x-public::field.radio-group>
+                <x-public::field.radio
+                    :name="$inputName"
+                    :value="data_get($option, 'value')"
+                    :label="data_get($option, 'label')"
+                    :description="data_get($option, 'description')"
+                    id="{{ $name }}_{{ data_get($option, 'value') }}"
+                    :attributes="$attributesBag"
+                ></x-public::field.radio>
+            @endforeach
+        </x-public::field.radio-group>
+    @endif
 @endif

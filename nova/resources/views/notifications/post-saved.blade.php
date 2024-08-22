@@ -9,6 +9,6 @@
     <strong class="font-semibold text-gray-900 dark:text-white">{{ $post_title }}.</strong>
 
     <x-slot name="actions">
-        <x-button :href="route('posts.edit', $post_id)" color="primary">Keep writing &rarr;</x-button>
+        <x-button :href="route('admin.posts.edit', $post_id)" color="primary">Keep writing &rarr;</x-button>
     </x-slot>
 </x-notification>

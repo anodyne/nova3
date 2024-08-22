@@ -21,7 +21,7 @@ class ViewRatingsSettings extends SpotlightCommand
 
     public function execute(Spotlight $spotlight): void
     {
-        $spotlight->redirectRoute('settings.content-ratings.edit');
+        $spotlight->redirectRoute('admin.settings.content-ratings.edit');
     }
 
     public function shouldBeShown(): bool

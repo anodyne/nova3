@@ -44,7 +44,7 @@
                         <div>{{ $post->postType->name }}</div>
                     </div>
 
-                    <x-button :href="route('posts.show', ['story' => $post->story, 'post' => $post])" outline>
+                    <x-button :href="route('admin.posts.show', ['story' => $post->story, 'post' => $post])" outline>
                         Read post &rarr;
                     </x-button>
                 </div>

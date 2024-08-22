@@ -9,13 +9,13 @@
 
         <x-slot name="actions">
             @can('viewAny', Form::class)
-                <x-button :href="route('forms.index')" color="neutral">
+                <x-button :href="route('admin.forms.index')" color="neutral">
                     <x-icon name="form" size="sm"></x-icon>
                     Manage forms
                 </x-button>
             @endcan
 
-            <x-button :href="route('form-submissions.create')" color="primary">
+            <x-button :href="route('admin.form-submissions.create')" color="primary">
                 <x-icon name="write" size="sm"></x-icon>
                 Submit a form
             </x-button>

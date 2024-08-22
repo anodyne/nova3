@@ -60,10 +60,10 @@ class RankItemsList extends TableComponent
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (Model $record): string => route('ranks.items.show', $record)),
+                            ->url(fn (Model $record): string => route('admin.ranks.items.show', $record)),
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (Model $record): string => route('ranks.items.edit', $record)),
+                            ->url(fn (Model $record): string => route('admin.ranks.items.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
 
                     ActionGroup::make([
@@ -125,7 +125,7 @@ class RankItemsList extends TableComponent
                 CreateAction::make()
                     ->authorize('create')
                     ->label('Add a rank')
-                    ->url(route('ranks.items.create')),
+                    ->url(route('admin.ranks.items.create')),
             ]);
     }
 }

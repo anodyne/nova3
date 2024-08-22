@@ -30,7 +30,7 @@ describe('authorized user', function () {
     });
 
     test('can view the list rank items page', function () {
-        get(route('ranks.items.index'))->assertSuccessful();
+        get(route('admin.ranks.items.index'))->assertSuccessful();
 
         livewire(RankItemsList::class)
             ->assertCanSeeTableRecords($this->rankItems);
@@ -132,13 +132,13 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the manage rank items page', function () {
-        get(route('ranks.items.index'))->assertForbidden();
+        get(route('admin.ranks.items.index'))->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the manage rank items page', function () {
-        get(route('ranks.items.index'))
+        get(route('admin.ranks.items.index'))
             ->assertRedirectToRoute('login');
     });
 });

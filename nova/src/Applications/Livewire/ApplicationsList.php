@@ -28,7 +28,7 @@ class ApplicationsList extends TableComponent
             ->groups([
                 Group::make('result')->collapsible(),
             ])
-            ->recordUrl(fn (Application $record): string => route('applications.show', $record))
+            ->recordUrl(fn (Application $record): string => route('admin.applications.show', $record))
             ->columns([
                 TextColumn::make('character.name')
                     ->titleColumn()

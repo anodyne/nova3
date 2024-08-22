@@ -48,7 +48,7 @@ class RankNameController extends Controller
         $name = CreateRankName::run($request->getRankNameData());
 
         return redirect()
-            ->route('ranks.names.index')
+            ->route('admin.ranks.names.index')
             ->notify("{$name->name} rank name was created");
     }
 

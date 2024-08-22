@@ -148,7 +148,12 @@
                             </div>
 
                             <footer class="text-center">
-                                <x-button :href="route('account.notifications')" color="neutral" class="mb-6" text>
+                                <x-button
+                                    :href="route('admin.account.notifications')"
+                                    color="neutral"
+                                    class="mb-6"
+                                    text
+                                >
                                     <x-icon name="bell" size="sm"></x-icon>
                                     Manage your notifications
                                 </x-button>

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Actions;
 
+use Illuminate\Support\Facades\Cache;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Pages\Models\Page;
 
@@ -13,6 +14,10 @@ class DeletePage
 
     public function handle(Page $page): Page
     {
-        return tap($page)->delete();
+        $page = tap($page)->delete();
+
+        Cache::forget('nova.pages');
+
+        return $page;
     }
 }

@@ -92,10 +92,10 @@ class UsersList extends TableComponent
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (Model $record): string => route('users.show', $record)),
+                            ->url(fn (Model $record): string => route('admin.users.show', $record)),
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (Model $record): string => route('users.edit', $record)),
+                            ->url(fn (Model $record): string => route('admin.users.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
 
                     ActionGroup::make([
@@ -103,7 +103,7 @@ class UsersList extends TableComponent
                             ->label('View application')
                             ->color('gray')
                             ->icon(iconName('progress'))
-                            ->url(fn (User $record): ?string => route('applications.show', $record->application)),
+                            ->url(fn (User $record): ?string => route('admin.applications.show', $record->application)),
                     ])->visible(fn (User $record): bool => filled($record->application))->divided(),
 
                     ActionGroup::make([
@@ -246,7 +246,7 @@ class UsersList extends TableComponent
                 CreateAction::make()
                     ->authorize('create')
                     ->label('Add a user')
-                    ->url(route('users.create')),
+                    ->url(route('admin.users.create')),
             ]);
     }
 }

@@ -9,7 +9,7 @@
 
             <x-slot name="actions">
                 @can('viewAny', FormSubmission::class)
-                    <x-button :href="route('form-submissions.index')" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.form-submissions.index')" plain>&larr; Back</x-button>
                 @endcan
             </x-slot>
         </x-page-header>

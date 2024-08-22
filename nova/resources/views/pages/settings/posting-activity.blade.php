@@ -17,7 +17,7 @@
         </x-panel.header>
 
         <x-form
-            :action="route('settings.posting-activity.update')"
+            :action="route('admin.settings.posting-activity.update')"
             method="PUT"
             x-data="{
                 strategy: '{{ $settings->trackingStrategy }}',
@@ -224,7 +224,7 @@
                     <legend class="sr-only">Activity Level Tracking Strategy</legend>
                     <div class="space-y-4">
                         <label
-                            class="relative block cursor-pointer rounded-md border border-gray-300 bg-white px-6 py-4 shadow-sm transition hover:border-gray-400 focus:outline-none sm:flex sm:justify-between dark:border-gray-600 dark:bg-gray-800 dark:shadow-none"
+                            class="relative block cursor-pointer rounded-md border border-gray-300 bg-white px-6 py-4 shadow-sm transition hover:border-gray-400 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:shadow-none sm:flex sm:justify-between"
                         >
                             <input
                                 type="radio"
@@ -259,7 +259,7 @@
                         </label>
 
                         <label
-                            class="relative block cursor-pointer rounded-md border border-gray-300 bg-white px-6 py-4 shadow-sm transition hover:border-gray-400 focus:outline-none sm:flex sm:justify-between dark:border-gray-600 dark:bg-gray-800 dark:shadow-none"
+                            class="relative block cursor-pointer rounded-md border border-gray-300 bg-white px-6 py-4 shadow-sm transition hover:border-gray-400 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:shadow-none sm:flex sm:justify-between"
                         >
                             <input
                                 type="radio"

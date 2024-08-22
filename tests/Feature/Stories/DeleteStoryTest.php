@@ -34,16 +34,16 @@ describe('authorized user', function () {
     });
 
     test('can view the delete story page', function () {
-        get(route('stories.delete', $this->story))
+        get(route('admin.stories.delete', $this->story))
             ->assertSuccessful();
     });
 
     test('can delete a story and delete its posts', function () {
         Event::fake();
 
-        from(route('stories.delete', $this->story))
+        from(route('admin.stories.delete', $this->story))
             ->followingRedirects()
-            ->delete(route('stories.destroy'), [
+            ->delete(route('admin.stories.destroy'), [
                 'actions' => json_encode([
                     $this->story->id => [
                         'story' => ['action' => 'delete', 'actionId' => null],
@@ -64,9 +64,9 @@ describe('authorized user', function () {
         $storyToDelete = $this->story->stories->first();
         $newStory = $this->story;
 
-        from(route('stories.delete', $storyToDelete))
+        from(route('admin.stories.delete', $storyToDelete))
             ->followingRedirects()
-            ->delete(route('stories.destroy'), [
+            ->delete(route('admin.stories.destroy'), [
                 'actions' => json_encode([
                     $storyToDelete->id => [
                         'story' => ['action' => 'delete', 'actionId' => null],
@@ -87,9 +87,9 @@ describe('authorized user', function () {
         $storyToDelete = $this->story;
         $childStory = $this->story->stories->first();
 
-        from(route('stories.delete', $storyToDelete))
+        from(route('admin.stories.delete', $storyToDelete))
             ->followingRedirects()
-            ->delete(route('stories.destroy'), [
+            ->delete(route('admin.stories.destroy'), [
                 'actions' => json_encode([
                     $storyToDelete->id => [
                         'story' => ['action' => 'delete', 'actionId' => null],
@@ -123,24 +123,24 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the delete story page', function () {
-        get(route('stories.delete', $this->story))
+        get(route('admin.stories.delete', $this->story))
             ->assertForbidden();
     });
 
     test('cannot delete a story', function () {
-        delete(route('stories.destroy'), [])
+        delete(route('admin.stories.destroy'), [])
             ->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the delete story page', function () {
-        get(route('stories.delete', $this->story))
+        get(route('admin.stories.delete', $this->story))
             ->assertRedirectToRoute('login');
     });
 
     test('cannot delete a story', function () {
-        delete(route('stories.destroy'), [])
+        delete(route('admin.stories.destroy'), [])
             ->assertRedirectToRoute('login');
     });
 });

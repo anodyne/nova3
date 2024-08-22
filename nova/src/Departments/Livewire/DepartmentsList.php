@@ -76,17 +76,17 @@ class DepartmentsList extends TableComponent
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (Model $record): string => route('departments.show', $record)),
+                            ->url(fn (Model $record): string => route('admin.departments.show', $record)),
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (Model $record): string => route('departments.edit', $record)),
+                            ->url(fn (Model $record): string => route('admin.departments.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
 
                     ActionGroup::make([
                         Action::make('positions')
                             ->authorize('viewAny', Position::class)
                             ->icon(iconName('list'))
-                            ->url(fn (Model $record): string => route('positions.index', ['tableFilters' => ['department_id' => ['values' => [$record->id]]]])),
+                            ->url(fn (Model $record): string => route('admin.positions.index', ['tableFilters' => ['department_id' => ['values' => [$record->id]]]])),
                     ])->authorize('viewAny', Position::class)->divided(),
 
                     ActionGroup::make([
@@ -167,7 +167,7 @@ class DepartmentsList extends TableComponent
                 CreateAction::make()
                     ->authorize('create')
                     ->label('Add a department')
-                    ->url(route('departments.create')),
+                    ->url(route('admin.departments.create')),
             ]);
     }
 }

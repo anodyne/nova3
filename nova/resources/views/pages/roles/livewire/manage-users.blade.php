@@ -18,7 +18,9 @@
                 @can('viewAny', User::class)
                     <x-dropdown.group>
                         <x-dropdown.text>Don’t see the user you're looking for?</x-dropdown.text>
-                        <x-dropdown.item :href="route('users.index')">Go to user management &rarr;</x-dropdown.item>
+                        <x-dropdown.item :href="route('admin.users.index')">
+                            Go to user management &rarr;
+                        </x-dropdown.item>
                     </x-dropdown.group>
                 @endcan
             @endif

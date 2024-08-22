@@ -22,7 +22,7 @@ describe('authorized user', function () {
     });
 
     test('can view the list menu items page', function () {
-        get(route('menu-items.index'))->assertSuccessful();
+        get(route('admin.menu-items.index'))->assertSuccessful();
 
         livewire(MenuItemsList::class)
             ->assertCanSeeTableRecords($this->menuItems);
@@ -93,13 +93,13 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the manage menu items page', function () {
-        get(route('menu-items.index'))->assertForbidden();
+        get(route('admin.menu-items.index'))->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the manage menu items page', function () {
-        get(route('menu-items.index'))
+        get(route('admin.menu-items.index'))
             ->assertRedirectToRoute('login');
     });
 });

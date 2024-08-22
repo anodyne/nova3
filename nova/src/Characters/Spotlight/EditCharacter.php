@@ -46,7 +46,7 @@ class EditCharacter extends SpotlightCommand
 
     public function execute(Spotlight $spotlight, Character $character): void
     {
-        $spotlight->redirectRoute('characters.edit', $character);
+        $spotlight->redirectRoute('admin.characters.edit', $character);
     }
 
     public function shouldBeShown(): bool

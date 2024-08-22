@@ -9,7 +9,7 @@
 
         <x-slot name="actions">
             @can('viewAny', Role::class)
-                <x-button :href="route('roles.index')" color="neutral">
+                <x-button :href="route('admin.roles.index')" color="neutral">
                     <x-icon name="shield" size="sm"></x-icon>
                     View roles
                 </x-button>

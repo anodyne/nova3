@@ -26,7 +26,7 @@ describe('authorized user', function () {
     });
 
     test('can view the create story page', function () {
-        get(route('stories.create'))->assertSuccessful();
+        get(route('admin.stories.create'))->assertSuccessful();
     });
 
     test('can create a story', function () {
@@ -34,9 +34,9 @@ describe('authorized user', function () {
 
         $data = Story::factory()->upcoming()->make();
 
-        from(route('stories.create'))
+        from(route('admin.stories.create'))
             ->followingRedirects()
-            ->post(route('stories.store'), $data->toArray())
+            ->post(route('admin.stories.store'), $data->toArray())
             ->assertSuccessful();
 
         assertDatabaseHas(Story::class, $data->toArray());
@@ -47,9 +47,9 @@ describe('authorized user', function () {
     test('can create a story inside another story', function () {
         $data = Story::factory()->upcoming()->withParent()->make();
 
-        from(route('stories.create'))
+        from(route('admin.stories.create'))
             ->followingRedirects()
-            ->post(route('stories.store'), $data->toArray())
+            ->post(route('admin.stories.store'), $data->toArray())
             ->assertSuccessful();
 
         assertDatabaseHas(Story::class, $data->toArray());
@@ -67,9 +67,9 @@ describe('authorized user', function () {
             ]
         );
 
-        from(route('stories.create'))
+        from(route('admin.stories.create'))
             ->followingRedirects()
-            ->post(route('stories.store'), $data)
+            ->post(route('admin.stories.store'), $data)
             ->assertSuccessful();
 
         $existingStory->refresh();
@@ -90,9 +90,9 @@ describe('authorized user', function () {
             ]
         );
 
-        from(route('stories.create'))
+        from(route('admin.stories.create'))
             ->followingRedirects()
-            ->post(route('stories.store'), $data)
+            ->post(route('admin.stories.store'), $data)
             ->assertSuccessful();
 
         $existingStory->refresh();
@@ -114,9 +114,9 @@ describe('authorized user', function () {
             ['image_path' => $imagePath]
         );
 
-        from(route('stories.create'))
+        from(route('admin.stories.create'))
             ->followingRedirects()
-            ->post(route('stories.store'), $data)
+            ->post(route('admin.stories.store'), $data)
             ->assertSuccessful();
 
         $story = Story::where('title', $data['title'])->first();
@@ -131,24 +131,24 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the create story page', function () {
-        get(route('stories.create'))->assertForbidden();
+        get(route('admin.stories.create'))->assertForbidden();
     });
 
     test('cannot create a story', function () {
         $data = Story::factory()->make();
 
-        post(route('stories.store'), $data->toArray())->assertForbidden();
+        post(route('admin.stories.store'), $data->toArray())->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the create story page', function () {
-        get(route('stories.create'))
+        get(route('admin.stories.create'))
             ->assertRedirectToRoute('login');
     });
 
     test('cannot create a story', function () {
-        post(route('stories.store'), [])
+        post(route('admin.stories.store'), [])
             ->assertRedirectToRoute('login');
     });
 });

@@ -100,7 +100,7 @@ class DynamicForm extends Component
             $this->setBlankValuesForCreate();
 
             if ($this->admin) {
-                redirect()->route('form-submissions.index')->notify('Form submitted');
+                redirect()->route('admin.form-submissions.index')->notify('Form submitted');
             }
         }
     }

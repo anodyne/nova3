@@ -23,7 +23,7 @@ class ViewPostTypes extends SpotlightCommand
 
     public function execute(Spotlight $spotlight): void
     {
-        $spotlight->redirectRoute('post-types.index');
+        $spotlight->redirectRoute('admin.post-types.index');
     }
 
     public function shouldBeShown(): bool

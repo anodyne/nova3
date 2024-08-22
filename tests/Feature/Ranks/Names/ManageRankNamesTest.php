@@ -31,7 +31,7 @@ describe('authorized user', function () {
     });
 
     test('can view the list rank names page', function () {
-        get(route('ranks.names.index'))->assertSuccessful();
+        get(route('admin.ranks.names.index'))->assertSuccessful();
 
         livewire(RankNamesList::class)
             ->assertCanSeeTableRecords($this->rankNames);
@@ -126,13 +126,13 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the manage rank names page', function () {
-        get(route('ranks.names.index'))->assertForbidden();
+        get(route('admin.ranks.names.index'))->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the manage rank names page', function () {
-        get(route('ranks.names.index'))
+        get(route('admin.ranks.names.index'))
             ->assertRedirectToRoute('login');
     });
 });

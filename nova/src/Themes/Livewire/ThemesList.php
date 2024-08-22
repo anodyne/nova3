@@ -51,10 +51,10 @@ class ThemesList extends TableComponent
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (Model $record): string => route('themes.show', $record)),
+                            ->url(fn (Model $record): string => route('admin.themes.show', $record)),
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (Model $record): string => route('themes.edit', $record)),
+                            ->url(fn (Model $record): string => route('admin.themes.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
 
                     ActionGroup::make([
@@ -136,7 +136,7 @@ class ThemesList extends TableComponent
                 CreateAction::make()
                     ->authorize('create')
                     ->label('Add')
-                    ->url(route('themes.create')),
+                    ->url(route('admin.themes.create')),
             ])
             ->emptyStateIcon(iconName('paint-brush'))
             ->emptyStateHeading('No theme found')
@@ -145,7 +145,7 @@ class ThemesList extends TableComponent
                 CreateAction::make()
                     ->authorize('create')
                     ->label('Add a theme')
-                    ->url(route('themes.create')),
+                    ->url(route('admin.themes.create')),
             ]);
     }
 }

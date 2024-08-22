@@ -10,13 +10,13 @@
 
             <x-slot name="actions">
                 @can('viewAny', Page::class)
-                    <x-button :href="route('pages.index')" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.pages.index')" plain>&larr; Back</x-button>
                 @endcan
             </x-slot>
         </x-page-header>
 
         <x-form
-            :action="route('pages.update', $page)"
+            :action="route('admin.pages.update', $page)"
             x-data="{
                 type: '{{ filled($page->resource) ? 'advanced' : 'basic' }}',
                 verb: '{{ $page->verb }}',
@@ -28,6 +28,7 @@
                     resource = null;
                 }
             })"
+            method="PUT"
         >
             <x-fieldset>
                 <x-fieldset.field-group constrained>
@@ -109,7 +110,7 @@
 
             <x-fieldset.controls>
                 <x-button type="submit" color="primary">Update</x-button>
-                <x-button :href="route('pages.index')" plain>Cancel</x-button>
+                <x-button :href="route('admin.pages.index')" plain>Cancel</x-button>
             </x-fieldset.controls>
         </x-form>
     </x-spacing>

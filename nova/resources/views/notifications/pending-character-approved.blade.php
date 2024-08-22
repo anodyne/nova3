@@ -10,6 +10,6 @@
     has been approved by the game masters and is now available on your account.
 
     <x-slot name="actions">
-        <x-button :href="route('characters.show', $character_id)" color="neutral">View bio</x-button>
+        <x-button :href="route('admin.characters.show', $character_id)" color="neutral">View bio</x-button>
     </x-slot>
 </x-notification>

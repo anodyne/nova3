@@ -16,7 +16,7 @@
 @endif
 </x-mail::panel>
 
-<x-mail::button :url="route('characters.index')">
+<x-mail::button :url="route('admin.characters.index')">
 View pending characters &rarr;
 </x-mail::button>
 </x-email-layout>

@@ -18,7 +18,7 @@ describe('authorized user', function () {
     });
 
     test('can view the view story page', function () {
-        get(route('stories.show', $this->story))->assertSuccessful();
+        get(route('admin.stories.show', $this->story))->assertSuccessful();
     });
 });
 
@@ -28,13 +28,13 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the view story page', function () {
-        get(route('stories.show', $this->story))->assertForbidden();
+        get(route('admin.stories.show', $this->story))->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the view story page', function () {
-        get(route('stories.show', $this->story))
+        get(route('admin.stories.show', $this->story))
             ->assertRedirectToRoute('login');
     });
 });

@@ -31,7 +31,7 @@ describe('authorized user', function () {
     });
 
     test('can view the list departments page', function () {
-        get(route('departments.index'))->assertSuccessful();
+        get(route('admin.departments.index'))->assertSuccessful();
 
         livewire(DepartmentsList::class)
             ->assertCanSeeTableRecords($this->departments);
@@ -132,13 +132,13 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the manage departments page', function () {
-        get(route('departments.index'))->assertForbidden();
+        get(route('admin.departments.index'))->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the manage departments page', function () {
-        get(route('departments.index'))
+        get(route('admin.departments.index'))
             ->assertRedirectToRoute('login');
     });
 });

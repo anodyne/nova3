@@ -23,7 +23,7 @@ describe('authorized user', function () {
     });
 
     test('can view the edit rank group page', function () {
-        get(route('ranks.groups.edit', $this->rankGroup))->assertSuccessful();
+        get(route('admin.ranks.groups.edit', $this->rankGroup))->assertSuccessful();
     });
 
     test('can update a rank group', function () {
@@ -31,9 +31,9 @@ describe('authorized user', function () {
 
         $data = RankGroup::factory()->make();
 
-        from(route('ranks.groups.edit', $this->rankGroup))
+        from(route('admin.ranks.groups.edit', $this->rankGroup))
             ->followingRedirects()
-            ->put(route('ranks.groups.update', $this->rankGroup), $data->toArray())
+            ->put(route('admin.ranks.groups.update', $this->rankGroup), $data->toArray())
             ->assertSuccessful();
 
         assertDatabaseHas(RankGroup::class, $data->toArray());
@@ -48,22 +48,22 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the edit rank group page', function () {
-        get(route('ranks.groups.edit', $this->rankGroup))->assertForbidden();
+        get(route('admin.ranks.groups.edit', $this->rankGroup))->assertForbidden();
     });
 
     test('cannot update a rank group', function () {
-        put(route('ranks.groups.update', $this->rankGroup), [])->assertForbidden();
+        put(route('admin.ranks.groups.update', $this->rankGroup), [])->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the edit rank group page', function () {
-        get(route('ranks.groups.edit', $this->rankGroup))
+        get(route('admin.ranks.groups.edit', $this->rankGroup))
             ->assertRedirectToRoute('login');
     });
 
     test('cannot update a rank group', function () {
-        put(route('ranks.groups.update', $this->rankGroup), [])
+        put(route('admin.ranks.groups.update', $this->rankGroup), [])
             ->assertRedirectToRoute('login');
     });
 });

@@ -4,15 +4,15 @@
 <x-sidebar.subnav>
     <x-sidebar.subnav.group>
         @can('viewAny', Form::class)
-            <x-sidebar.subnav.item href="{{ route('forms.index') }}" :active="request()->routeIs('forms.*')">
+            <x-sidebar.subnav.item :href="route('admin.forms.index')" :active="request()->routeIs('admin.forms.*')">
                 All forms
             </x-sidebar.subnav.item>
         @endcan
 
         @can('viewAny', FormSubmission::class)
             <x-sidebar.subnav.item
-                href="{{ route('form-submissions.index') }}"
-                :active="request()->routeIs('form-submissions.*')"
+                :href="route('admin.form-submissions.index')"
+                :active="request()->routeIs('admin.form-submissions.*')"
             >
                 Submissions
             </x-sidebar.subnav.item>

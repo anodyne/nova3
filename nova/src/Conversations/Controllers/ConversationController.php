@@ -51,7 +51,7 @@ class ConversationController extends Controller
         $note = CreateNote::run(NoteData::from($request));
 
         return redirect()
-            ->route('notes.index')
+            ->route('admin.notes.index')
             ->notify("{$note->title} was created");
     }
 

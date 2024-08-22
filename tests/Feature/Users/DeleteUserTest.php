@@ -66,12 +66,12 @@ describe('unauthorized user', function () {
     });
 
     test('cannot delete a user', function () {
-        get(route('users.index'))->assertForbidden();
+        get(route('admin.users.index'))->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot delete a user', function () {
-        get(route('users.index'))->assertRedirectToRoute('login');
+        get(route('admin.users.index'))->assertRedirectToRoute('login');
     });
 });

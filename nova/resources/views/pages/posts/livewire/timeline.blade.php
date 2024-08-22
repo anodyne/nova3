@@ -35,7 +35,7 @@
 
         @can('viewAny', $postClass)
             <div class="flex items-center">
-                <x-button :href="route('posts.index')" outline>
+                <x-button :href="route('admin.posts.index')" outline>
                     <x-icon name="settings" size="sm"></x-icon>
                     Manage posts
                 </x-button>
@@ -99,7 +99,7 @@
 
                         <div class="mt-8">
                             <x-button
-                                :href="route('posts.show', ['story' => $post->story, 'post' => $post])"
+                                :href="route('admin.posts.show', ['story' => $post->story, 'post' => $post])"
                                 color="neutral"
                             >
                                 Read {{ str($post->postType->name)->lower() }} &rarr;

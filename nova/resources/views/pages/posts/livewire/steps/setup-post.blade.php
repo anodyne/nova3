@@ -20,7 +20,7 @@
                     icon="books"
                     title="No stories available"
                     message="There are no actively running stories right now. Update a story to a status of current to allow posting."
-                    :link="route('stories.index')"
+                    :link="route('admin.stories.index')"
                     label="Manage stories &rarr;"
                     :link-access="gate()->allows('viewAny', Story::class)"
                 ></x-empty-state.small>
@@ -41,7 +41,7 @@
                         </x-select>
 
                         @can('viewAny', Nova\Stories\Models\Story::class)
-                            <x-button :href="route('stories.index')" color="neutral" text>
+                            <x-button :href="route('admin.stories.index')" color="neutral" text>
                                 <x-icon name="settings" size="md"></x-icon>
                             </x-button>
                         @endcan
@@ -80,7 +80,7 @@
                     icon="edit-settings"
                     title="No post types available"
                     message="You do not have any post types available to you. Please contact a game master to add a post type or update an existing post type to use."
-                    :link="route('post-types.index')"
+                    :link="route('admin.post-types.index')"
                     label="Manage post types"
                     :link-access="gate()->allows('viewAny', PostType::class)"
                 ></x-empty-state.small>
@@ -104,7 +104,7 @@
                         </x-select>
 
                         @can('viewAny', Nova\Stories\Models\PostType::class)
-                            <x-button :href="route('post-types.index')" color="neutral" text>
+                            <x-button :href="route('admin.post-types.index')" color="neutral" text>
                                 <x-icon name="settings" size="md"></x-icon>
                             </x-button>
                         @endcan

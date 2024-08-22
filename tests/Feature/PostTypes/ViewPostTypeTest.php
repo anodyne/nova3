@@ -19,7 +19,7 @@ describe('authorized user', function () {
     });
 
     test('can view the view post types page', function () {
-        get(route('post-types.show', $this->postType))->assertSuccessful();
+        get(route('admin.post-types.show', $this->postType))->assertSuccessful();
     });
 });
 
@@ -29,13 +29,13 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the view post types page', function () {
-        get(route('post-types.show', $this->postType))->assertForbidden();
+        get(route('admin.post-types.show', $this->postType))->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the view post types page', function () {
-        get(route('post-types.show', $this->postType))
+        get(route('admin.post-types.show', $this->postType))
             ->assertRedirectToRoute('login');
     });
 });

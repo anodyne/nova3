@@ -1,5 +1,3 @@
-@use('Spatie\Html\Html')
-
 <div>
     @if ($showDepartments)
         @foreach ($departments as $department)
@@ -20,7 +18,7 @@
                             @if ($showCharacters)
                                 @foreach ($position->characters as $character)
                                     <x-public::manifest.table-row
-                                        href="#"
+                                        :href="route('public.character-bio', $character)"
                                         :columns="$columns"
                                         :character="$character"
                                         :position="$position"
@@ -30,7 +28,7 @@
 
                             @if ($this->shouldShowAvailablePosition($position))
                                 <x-public::manifest.table-row
-                                    href="#"
+                                    :href="route('public.join', $position->id)"
                                     :columns="$columns"
                                     :position="$position"
                                 ></x-public::manifest.table-row>
@@ -44,6 +42,7 @@
                         @foreach ($department->positions as $position)
                             @foreach ($position->characters as $character)
                                 <x-public::manifest.grid-item
+                                    :href="route('public.character-bio', $character)"
                                     :character="$character"
                                     :position="$position"
                                     :options="$characterOptions ?? []"
@@ -51,7 +50,10 @@
                             @endforeach
 
                             @if ($this->shouldShowAvailablePosition($position))
-                                <x-public::manifest.grid-item :position="$position"></x-public::manifest.grid-item>
+                                <x-public::manifest.grid-item
+                                    :href="route('public.join', $position->id)"
+                                    :position="$position"
+                                ></x-public::manifest.grid-item>
                             @endif
                         @endforeach
                     </div>
@@ -62,6 +64,7 @@
                         @foreach ($department->positions as $position)
                             @foreach ($position->characters as $character)
                                 <x-public::manifest.card
+                                    :href="route('public.character-bio', $character)"
                                     :character="$character"
                                     :position="$position"
                                     :orientation="$cardOrientation"
@@ -71,7 +74,7 @@
 
                             @if ($showAvailablePositions && $position->available > 0)
                                 <a
-                                    href="#"
+                                    href="{{ route('public.join', $position->id) }}"
                                     @class([
                                         'flex flex-col rounded-lg px-4 py-6 transition',
                                         'items-center' => $cardOrientation === 'center',
@@ -119,7 +122,7 @@
                 @if ($showCharacters)
                     @foreach ($characters as $character)
                         <x-public::manifest.table-row
-                            href="#"
+                            :href="route('public.character-bio', $character)"
                             :columns="$columns"
                             :character="$character"
                         ></x-public::manifest.table-row>
@@ -130,7 +133,7 @@
                     @foreach ($positions as $position)
                         @if ($this->shouldShowAvailablePosition($position))
                             <x-public::manifest.table-row
-                                href="#"
+                                href="{{ route('public.join', $position->id) }}"
                                 :columns="
                                     [
                                         ['column' => 'character-name', 'characterOptions' => [], 'width' => 'fill'],
@@ -149,6 +152,7 @@
                 @if ($showCharacters)
                     @foreach ($characters as $character)
                         <x-public::manifest.grid-item
+                            :href="route('public.character-bio', $character)"
                             :character="$character"
                             :options="$characterOptions ?? []"
                         ></x-public::manifest.grid-item>
@@ -158,7 +162,10 @@
                 @if ($showAvailablePositions)
                     @foreach ($positions as $position)
                         @if ($this->shouldShowAvailablePosition($position))
-                            <x-public::manifest.grid-item :position="$position"></x-public::manifest.grid-item>
+                            <x-public::manifest.grid-item
+                                :href="route('public.join', $position->id)"
+                                :position="$position"
+                            ></x-public::manifest.grid-item>
                         @endif
                     @endforeach
                 @endif
@@ -170,6 +177,7 @@
                 @if ($showCharacters)
                     @foreach ($characters as $character)
                         <x-public::manifest.card
+                            :href="route('public.character-bio', $character)"
                             :character="$character"
                             :orientation="$cardOrientation"
                             :options="$characterOptions ?? []"
@@ -180,7 +188,10 @@
                 @if ($showAvailablePositions)
                     @foreach ($positions as $position)
                         @if ($this->shouldShowAvailablePosition($position))
-                            <x-public::manifest.card :position="$position"></x-public::manifest.card>
+                            <x-public::manifest.card
+                                :href="route('public.join', $position->id)"
+                                :position="$position"
+                            ></x-public::manifest.card>
                         @endif
                     @endforeach
                 @endif

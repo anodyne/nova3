@@ -12,12 +12,12 @@
         <x-panel.header title="Add a new theme">
             <x-slot name="actions">
                 @can('viewAny', Nova\Themes\Models\Theme::class)
-                    <x-button :href="route('themes.index')" color="neutral" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.themes.index')" color="neutral" plain>&larr; Back</x-button>
                 @endcan
             </x-slot>
         </x-panel.header>
 
-        <x-form :action="route('themes.store')">
+        <x-form :action="route('admin.themes.store')">
             <x-form.section
                 title="Theme info"
                 message="A theme allows you to give your public-facing site the look-and-feel you want to any visitors. Using tools like regular HTML and CSS, you can show visitors the personality of your game and put your own spin on Nova."
@@ -75,7 +75,7 @@
 
             <x-form.footer>
                 <x-button type="submit" color="primary">Add</x-button>
-                <x-button :href="route('themes.index')" plain>Cancel</x-button>
+                <x-button :href="route('admin.themes.index')" plain>Cancel</x-button>
             </x-form.footer>
         </x-form>
     </x-panel>

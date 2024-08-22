@@ -15,7 +15,7 @@
             </x-slot>
         </x-page-header>
 
-        <x-form :action="route('settings.environment.update')" method="PUT">
+        <x-form :action="route('admin.settings.environment.update')" method="PUT">
             <x-fieldset>
                 <x-fieldset.field-group class="w-full max-w-md" x-data="{ environment: '{{ app()->environment() }}' }">
                     <x-fieldset.field label="Environment" id="environment" name="environment">

@@ -6,7 +6,7 @@
             <x-slot name="heading">Account settings</x-slot>
 
             <x-slot name="actions">
-                <x-button :href="route('account.notifications')">
+                <x-button :href="route('admin.account.notifications')">
                     <x-icon name="notification" size="sm"></x-icon>
                     <span>Notifications</span>
                 </x-button>

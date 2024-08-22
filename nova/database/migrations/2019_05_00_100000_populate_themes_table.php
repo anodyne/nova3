@@ -15,17 +15,23 @@ class PopulateThemesTable extends Migration
         activity()->disableLogging();
 
         $themes = [
-            ['name' => 'Pulsar', 'location' => 'Pulsar', 'preview' => 'preview.jpg', 'settings' => new ThemeSettings(
-                fonts: new FontFamilies(
-                    headerProvider: 'local',
-                    headerFamily: Randomize::publicHeaderFont(),
-                    bodyProvider: 'local',
-                    bodyFamily: Randomize::publicBodyFont()
+            [
+                'name' => 'Pulsar',
+                'location' => 'Pulsar',
+                'preview' => 'preview.jpg',
+                'settings' => new ThemeSettings(
+                    fonts: new FontFamilies(
+                        headerProvider: 'local',
+                        headerFamily: Randomize::publicHeaderFont(),
+                        bodyProvider: 'local',
+                        bodyFamily: Randomize::publicBodyFont()
+                    ),
+                    settings: [
+                        'accentColor' => '#08a37e',
+                        'textAccentColor' => '#ffffff',
+                    ],
                 ),
-                settings: [
-                    'accentColor' => '#0ea5e9',
-                ]
-            )],
+            ],
             ['name' => 'Event Horizon', 'location' => 'EventHorizon', 'preview' => 'preview.jpg', 'settings' => new ThemeSettings(
                 fonts: new FontFamilies(
                     headerProvider: 'local',

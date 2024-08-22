@@ -9,7 +9,7 @@
 
         <x-slot name="actions">
             @can('create', RankGroup::class)
-                <x-button :href="route('ranks.groups.create')" color="primary">
+                <x-button :href="route('admin.ranks.groups.create')" color="primary">
                     <x-icon name="add" size="sm"></x-icon>
                     Add
                 </x-button>

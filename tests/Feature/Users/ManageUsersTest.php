@@ -31,7 +31,7 @@ describe('authorized user', function () {
     });
 
     test('can view the list users page', function () {
-        get(route('users.index'))->assertSuccessful();
+        get(route('admin.users.index'))->assertSuccessful();
 
         livewire(UsersList::class)
             ->assertCountTableRecords(4)
@@ -217,12 +217,12 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the manage users page', function () {
-        get(route('users.index'))->assertForbidden();
+        get(route('admin.users.index'))->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the manage users page', function () {
-        get(route('users.index'))->assertRedirectToRoute('login');
+        get(route('admin.users.index'))->assertRedirectToRoute('login');
     });
 });

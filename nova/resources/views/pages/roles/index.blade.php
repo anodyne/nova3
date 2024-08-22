@@ -9,14 +9,14 @@
 
         <x-slot name="actions">
             @can('viewAny', Role::class)
-                <x-button :href="route('permissions.index')" color="neutral">
+                <x-button :href="route('admin.permissions.index')" color="neutral">
                     <x-icon name="key" size="sm"></x-icon>
                     View permissions
                 </x-button>
             @endcan
 
             @can('create', Role::class)
-                <x-button :href="route('roles.create')" color="primary">
+                <x-button :href="route('admin.roles.create')" color="primary">
                     <x-icon name="add" size="sm"></x-icon>
                     Add
                 </x-button>

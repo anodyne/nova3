@@ -146,7 +146,7 @@
         </x-fieldset.heading>
 
         <x-fieldset.field-group constrained>
-            <x-button :href="route('account.delete')">Delete my account</x-button>
+            <x-button :href="route('admin.account.delete')">Delete my account</x-button>
         </x-fieldset.field-group>
     </x-fieldset>
 

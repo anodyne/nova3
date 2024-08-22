@@ -41,7 +41,7 @@ class ApplicationSettingsController extends Controller
         UpdateApplicationReviewers::run(ApplicationReviewers::from($request));
 
         return redirect()
-            ->route('settings.applications.edit')
+            ->route('admin.settings.applications.edit')
             ->notify('Applications settings have been updated');
     }
 }

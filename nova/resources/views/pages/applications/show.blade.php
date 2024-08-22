@@ -25,7 +25,7 @@
 
             <x-slot name="actions">
                 @can('viewAny', $application::class)
-                    <x-button :href="route('applications.index')" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.applications.index')" plain>&larr; Back</x-button>
                 @endcan
             </x-slot>
         </x-page-header>

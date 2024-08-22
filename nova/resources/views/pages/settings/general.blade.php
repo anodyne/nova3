@@ -15,7 +15,7 @@
             </x-slot>
         </x-page-header>
 
-        <x-form :action="route('settings.general.update')" method="PUT">
+        <x-form :action="route('admin.settings.general.update')" method="PUT">
             <x-fieldset>
                 <x-fieldset.field-group constrained>
                     <x-fieldset.field label="Game name" id="game_name" name="game_name">

@@ -23,7 +23,7 @@ class ViewMenuItems extends SpotlightCommand
 
     public function execute(Spotlight $spotlight): void
     {
-        $spotlight->redirectRoute('menu-items.index');
+        $spotlight->redirectRoute('admin.menu-items.index');
     }
 
     public function shouldBeShown(): bool

@@ -18,7 +18,7 @@ class ViewGeneralSettings extends SpotlightCommand
 
     public function execute(Spotlight $spotlight): void
     {
-        $spotlight->redirectRoute('settings.general.edit');
+        $spotlight->redirectRoute('admin.settings.general.edit');
     }
 
     public function shouldBeShown(): bool

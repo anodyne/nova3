@@ -62,7 +62,7 @@
                                             </div>
                                         </div>
                                         <div class="mt-5 flex justify-center gap-2 md:mt-0">
-                                            <x-button :href="route('account.edit')" color="neutral">
+                                            <x-button :href="route('admin.account.edit')" color="neutral">
                                                 Go to my account
                                             </x-button>
                                         </div>
@@ -74,7 +74,7 @@
                         <x-spacing width="sm" bottom="sm" top="xs">
                             <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
                                 <a
-                                    href="{{ route('account.edit') }}"
+                                    href="{{ route('admin.account.edit') }}"
                                     class="group flex items-center justify-center space-x-2 px-6 text-center text-base font-medium transition md:text-sm"
                                 >
                                     <x-icon
@@ -88,7 +88,7 @@
                                 </a>
 
                                 <a
-                                    href="{{ route('characters.index', ['tableFilters' => ['only_my_characters' => ['isActive' => true]]]) }}"
+                                    href="{{ route('admin.characters.index', ['tableFilters' => ['only_my_characters' => ['isActive' => true]]]) }}"
                                     class="group flex items-center justify-center space-x-2 px-6 text-center text-base font-medium transition md:text-sm"
                                 >
                                     <x-icon

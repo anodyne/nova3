@@ -10,7 +10,7 @@
             >
                 <div class="relative flex h-16 justify-between">
                     <div class="relative flex px-2 lg:px-0">
-                        <a href="{{ route('dashboard') }}" class="flex shrink-0 items-center">
+                        <a href="{{ route('admin.dashboard') }}" class="flex shrink-0 items-center">
                             @if (app('nova.settings')->getFirstMedia('logo'))
                                 <img
                                     src="{{ app('nova.settings')->getFirstMediaUrl('logo') }}"
@@ -129,32 +129,35 @@
                 </div>
 
                 <nav class="hidden lg:flex lg:space-x-8 lg:py-2" aria-label="Global">
-                    <x-nav.main-item :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-nav.main-item :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                         Dashboard
                     </x-nav.main-item>
 
                     @if (auth()->user()->canWrite)
                         <x-nav.main-item
-                            :href="route('writing-overview')"
+                            :href="route('admin.writing-overview')"
                             :active="$meta->subnavSection === 'writing' || $meta->subnavSection === 'posting'"
                         >
                             Writing
                         </x-nav.main-item>
                     @endif
 
-                    <x-nav.main-item :href="route('notes.index')" :active="request()->routeIs('notes.*')">
+                    <x-nav.main-item :href="route('admin.notes.index')" :active="request()->routeIs('admin.notes.*')">
                         Notes
                     </x-nav.main-item>
 
                     <x-nav.main-item
-                        :href="route('characters.index')"
+                        :href="route('admin.characters.index')"
                         :active="$meta->subnavSection === 'characters'"
                     >
                         Characters
                     </x-nav.main-item>
 
                     @if (auth()->user()->canManageUsers)
-                        <x-nav.main-item :href="route('users.index')" :active="$meta->subnavSection === 'users'">
+                        <x-nav.main-item
+                            :href="route('admin.users.index')"
+                            :active="$meta->subnavSection === 'users'"
+                        >
                             Users
                         </x-nav.main-item>
                     @endif
@@ -169,7 +172,10 @@
                     @endcan
 
                     @if (auth()->user()->canManageSystem)
-                        <x-nav.main-item :href="route('system-overview')" :active="$meta->subnavSection === 'system'">
+                        <x-nav.main-item
+                            :href="route('admin.system-overview')"
+                            :active="$meta->subnavSection === 'system'"
+                        >
                             System
                         </x-nav.main-item>
                     @endif
@@ -185,25 +191,31 @@
                 style="display: none"
             >
                 <div class="space-y-1 px-2 pb-3 pt-2">
-                    <x-nav.main-item-mobile :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-nav.main-item-mobile
+                        :href="route('admin.dashboard')"
+                        :active="request()->routeIs('admin.dashboard')"
+                    >
                         Dashboard
                     </x-nav.main-item-mobile>
 
                     @if (auth()->user()->canWrite)
                         <x-nav.main-item-mobile
-                            :href="route('writing-overview')"
+                            :href="route('admin.writing-overview')"
                             :active="$meta->subnavSection === 'writing'"
                         >
                             Writing
                         </x-nav.main-item-mobile>
                     @endif
 
-                    <x-nav.main-item-mobile :href="route('notes.index')" :active="request()->routeIs('notes.*')">
+                    <x-nav.main-item-mobile
+                        :href="route('admin.notes.index')"
+                        :active="request()->routeIs('admin.notes.*')"
+                    >
                         Notes
                     </x-nav.main-item-mobile>
 
                     <x-nav.main-item-mobile
-                        :href="route('characters.index')"
+                        :href="route('admin.characters.index')"
                         :active="$meta->subnavSection === 'characters'"
                     >
                         Characters
@@ -211,7 +223,7 @@
 
                     @if (auth()->user()->canManageUsers)
                         <x-nav.main-item-mobile
-                            :href="route('users.index')"
+                            :href="route('admin.users.index')"
                             :active="$meta->subnavSection === 'users'"
                         >
                             Users
@@ -229,7 +241,7 @@
 
                     @if (auth()->user()->canManageSystem)
                         <x-nav.main-item-mobile
-                            :href="route('system-overview')"
+                            :href="route('admin.system-overview')"
                             :active="$meta->subnavSection === 'system'"
                         >
                             System

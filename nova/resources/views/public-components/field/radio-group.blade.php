@@ -2,6 +2,7 @@
     'label' => null,
     'description' => null,
     'id' => null,
+    'error' => null,
 ])
 
 @aware(['form' => null])

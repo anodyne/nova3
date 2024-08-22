@@ -28,7 +28,7 @@ describe('authenticated user', function () {
     });
 
     test('can only see their own notes on the list notes page', function () {
-        get(route('notes.index'))->assertSuccessful();
+        get(route('admin.notes.index'))->assertSuccessful();
 
         livewire(NotesList::class)
             ->assertCanSeeTableRecords($this->notes->where('user_id', Auth::id()))
@@ -51,7 +51,7 @@ describe('authenticated user', function () {
 
 describe('unauthenticated user', function () {
     test('cannot view the manage notes page', function () {
-        get(route('notes.index'))
+        get(route('admin.notes.index'))
             ->assertRedirectToRoute('login');
     });
 });

@@ -35,7 +35,7 @@ class CharacterSettingsController extends Controller
         UpdateSettings::run('characters', Characters::from($request));
 
         return redirect()
-            ->route('settings.characters.edit')
+            ->route('admin.settings.characters.edit')
             ->notify('Character settings have been updated');
     }
 }

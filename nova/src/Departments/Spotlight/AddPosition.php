@@ -46,7 +46,7 @@ class AddPosition extends SpotlightCommand
 
     public function execute(Spotlight $spotlight, Department $department): void
     {
-        $spotlight->redirectRoute('positions.create', "department={$department->id}");
+        $spotlight->redirectRoute('admin.positions.create', "department={$department->id}");
     }
 
     public function shouldBeShown(): bool

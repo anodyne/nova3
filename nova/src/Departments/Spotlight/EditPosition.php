@@ -47,7 +47,7 @@ class EditPosition extends SpotlightCommand
 
     public function execute(Spotlight $spotlight, Position $position): void
     {
-        $spotlight->redirectRoute('positions.edit', $position);
+        $spotlight->redirectRoute('admin.positions.edit', $position);
     }
 
     public function shouldBeShown(): bool

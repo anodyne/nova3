@@ -19,7 +19,7 @@ describe('authorized user', function () {
     });
 
     test('can view the create form page', function () {
-        get(route('forms.create'))->assertSuccessful();
+        get(route('admin.forms.create'))->assertSuccessful();
     });
 
     test('can create a form', function () {
@@ -27,9 +27,9 @@ describe('authorized user', function () {
 
         $data = Form::factory()->make();
 
-        from(route('forms.create'))
+        from(route('admin.forms.create'))
             ->followingRedirects()
-            ->post(route('forms.store'), $data->toArray())
+            ->post(route('admin.forms.store'), $data->toArray())
             ->assertSuccessful();
 
         assertDatabaseHas(Form::class, $data->toArray());
@@ -44,24 +44,24 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the create form page', function () {
-        get(route('forms.create'))->assertForbidden();
+        get(route('admin.forms.create'))->assertForbidden();
     });
 
     test('cannot create a form', function () {
         $data = Form::factory()->make();
 
-        post(route('forms.store'), $data->toArray())->assertForbidden();
+        post(route('admin.forms.store'), $data->toArray())->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the create form page', function () {
-        get(route('forms.create'))
+        get(route('admin.forms.create'))
             ->assertRedirectToRoute('login');
     });
 
     test('cannot create a form', function () {
-        post(route('forms.store'), [])
+        post(route('admin.forms.store'), [])
             ->assertRedirectToRoute('login');
     });
 });

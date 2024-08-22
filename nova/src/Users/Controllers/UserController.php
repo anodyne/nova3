@@ -61,10 +61,10 @@ class UserController extends Controller
             ->notify("An account for {$user->name} was created", 'The user has been notified of their account and their password.');
 
         if (Gate::allows('update', $user)) {
-            return $redirect->route('users.edit', $user);
+            return $redirect->route('admin.users.edit', $user);
         }
 
-        return $redirect->route('users.index');
+        return $redirect->route('admin.users.index');
     }
 
     public function edit(User $user)

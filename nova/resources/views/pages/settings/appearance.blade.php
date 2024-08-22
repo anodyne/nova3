@@ -21,7 +21,7 @@
             </x-slot>
         </x-page-header>
 
-        <x-form :action="route('settings.appearance.update')" method="PUT">
+        <x-form :action="route('admin.settings.appearance.update')" method="PUT">
             <x-fieldset>
                 <x-fieldset.heading>
                     <x-icon name="paint-brush"></x-icon>

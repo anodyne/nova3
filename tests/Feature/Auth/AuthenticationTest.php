@@ -26,7 +26,7 @@ describe('unauthenticated user', function () {
             'email' => $user->email,
             'password' => 'secret',
         ])
-            ->assertRedirectToRoute('dashboard');
+            ->assertRedirectToRoute('admin.dashboard');
 
         assertAuthenticatedAs($user);
     });
@@ -42,7 +42,7 @@ describe('unauthenticated user', function () {
 
         $user = $user->fresh();
 
-        $response->assertRedirectToRoute('dashboard')
+        $response->assertRedirectToRoute('admin.dashboard')
             ->assertCookie(Auth::guard()->getRecallerName(), vsprintf('%s|%s|%s', [
                 $user->id,
                 $user->getRememberToken(),
@@ -107,9 +107,9 @@ describe('unauthenticated user', function () {
 
 describe('authenticated user', function () {
     test('is redirected to the dashboard when trying to view the sign in page', function () {
-        signIn()
-            ->get(route('login'))
-            ->assertRedirectToRoute('dashboard');
+        signIn();
+
+        get(route('login'))->assertRedirectToRoute('admin.dashboard');
     });
 
     test('can sign out', function () {

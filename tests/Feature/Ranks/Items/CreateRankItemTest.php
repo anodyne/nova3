@@ -19,7 +19,7 @@ describe('authorized user', function () {
     });
 
     test('can view the create rank item page', function () {
-        get(route('ranks.items.create'))->assertSuccessful();
+        get(route('admin.ranks.items.create'))->assertSuccessful();
     });
 
     test('can create a rank item', function () {
@@ -27,9 +27,9 @@ describe('authorized user', function () {
 
         $data = RankItem::factory()->make();
 
-        from(route('ranks.items.create'))
+        from(route('admin.ranks.items.create'))
             ->followingRedirects()
-            ->post(route('ranks.items.store'), $data->toArray())
+            ->post(route('admin.ranks.items.store'), $data->toArray())
             ->assertSuccessful();
 
         assertDatabaseHas(RankItem::class, $data->toArray());
@@ -44,22 +44,22 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the create rank item page', function () {
-        get(route('ranks.items.create'))->assertForbidden();
+        get(route('admin.ranks.items.create'))->assertForbidden();
     });
 
     test('cannot create a rank item', function () {
-        post(route('ranks.items.store'), [])->assertForbidden();
+        post(route('admin.ranks.items.store'), [])->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the create rank item page', function () {
-        get(route('ranks.items.create'))
+        get(route('admin.ranks.items.create'))
             ->assertRedirectToRoute('login');
     });
 
     test('cannot create a rank item', function () {
-        post(route('ranks.items.store'), [])
+        post(route('admin.ranks.items.store'), [])
             ->assertRedirectToRoute('login');
     });
 });

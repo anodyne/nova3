@@ -23,7 +23,7 @@ describe('authorized user', function () {
     });
 
     test('can view the edit menu item page', function () {
-        get(route('menu-items.edit', $this->menuItem))->assertSuccessful();
+        get(route('admin.menu-items.edit', $this->menuItem))->assertSuccessful();
     });
 
     test('can update a menu item', function () {
@@ -31,9 +31,9 @@ describe('authorized user', function () {
 
         $data = MenuItem::factory()->make();
 
-        from(route('menu-items.edit', $this->menuItem))
+        from(route('admin.menu-items.edit', $this->menuItem))
             ->followingRedirects()
-            ->put(route('menu-items.update', $this->menuItem), $data->toArray())
+            ->put(route('admin.menu-items.update', $this->menuItem), $data->toArray())
             ->assertSuccessful();
 
         assertDatabaseHas(MenuItem::class, $data->toArray());
@@ -48,26 +48,26 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the edit menu item page', function () {
-        get(route('menu-items.edit', $this->menuItem))
+        get(route('admin.menu-items.edit', $this->menuItem))
             ->assertForbidden();
     });
 
     test('cannot update a menu item', function () {
         $data = MenuItem::factory()->make();
 
-        put(route('menu-items.update', $this->menuItem), $data->toArray())
+        put(route('admin.menu-items.update', $this->menuItem), $data->toArray())
             ->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the edit menu item page', function () {
-        get(route('menu-items.edit', $this->menuItem))
+        get(route('admin.menu-items.edit', $this->menuItem))
             ->assertRedirectToRoute('login');
     });
 
     test('cannot update a menu item', function () {
-        put(route('menu-items.update', $this->menuItem), [])
+        put(route('admin.menu-items.update', $this->menuItem), [])
             ->assertRedirectToRoute('login');
     });
 });

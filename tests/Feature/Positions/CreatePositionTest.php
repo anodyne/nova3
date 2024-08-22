@@ -20,7 +20,7 @@ describe('authorized user', function () {
     });
 
     test('can view the create position page', function () {
-        get(route('positions.create'))->assertSuccessful();
+        get(route('admin.positions.create'))->assertSuccessful();
     });
 
     test('can create a position', function () {
@@ -28,9 +28,9 @@ describe('authorized user', function () {
 
         $data = Position::factory()->make();
 
-        from(route('positions.create'))
+        from(route('admin.positions.create'))
             ->followingRedirects()
-            ->post(route('positions.store'), $data->toArray())
+            ->post(route('admin.positions.store'), $data->toArray())
             ->assertSuccessful();
 
         assertDatabaseHas(Position::class, $data->toArray());
@@ -45,24 +45,24 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the create position page', function () {
-        get(route('positions.create'))->assertForbidden();
+        get(route('admin.positions.create'))->assertForbidden();
     });
 
     test('cannot create a position', function () {
         $data = Position::factory()->make();
 
-        post(route('positions.store'), $data->toArray())->assertForbidden();
+        post(route('admin.positions.store'), $data->toArray())->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the create position page', function () {
-        get(route('positions.create'))
+        get(route('admin.positions.create'))
             ->assertRedirectToRoute('login');
     });
 
     test('cannot create a position', function () {
-        post(route('positions.store'), [])
+        post(route('admin.positions.store'), [])
             ->assertRedirectToRoute('login');
     });
 });

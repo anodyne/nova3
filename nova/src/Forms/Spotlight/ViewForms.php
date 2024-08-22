@@ -23,7 +23,7 @@ class ViewForms extends SpotlightCommand
 
     public function execute(Spotlight $spotlight): void
     {
-        $spotlight->redirectRoute('forms.index');
+        $spotlight->redirectRoute('admin.forms.index');
     }
 
     public function shouldBeShown(): bool

@@ -4,7 +4,7 @@
     'options' => [],
 ])
 
-<a href="#" class="flex items-center rounded-lg px-4 py-2 hover:bg-gray-50 dark:hover:bg-gray-900">
+<a class="flex items-center rounded-lg px-4 py-2 hover:bg-gray-50 dark:hover:bg-gray-900" {{ $attributes }}>
     <div
         @class([
             'inline-flex gap-x-3',

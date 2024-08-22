@@ -81,10 +81,10 @@ class StoryPostsList extends TableComponent
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (Model $record): string => route('posts.show', [$record->story, $record])),
+                            ->url(fn (Model $record): string => route('admin.posts.show', [$record->story, $record])),
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (Model $record): string => route('posts.edit', $record)),
+                            ->url(fn (Model $record): string => route('admin.posts.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
 
                     ActionGroup::make([
@@ -92,12 +92,12 @@ class StoryPostsList extends TableComponent
                             ->icon(iconName('move-up'))
                             ->color('gray')
                             ->label('Before this post')
-                            ->url(fn (Model $record): string => route('posts.create', ['neighbor' => $record, 'direction' => 'before'])),
+                            ->url(fn (Model $record): string => route('admin.posts.create', ['neighbor' => $record, 'direction' => 'before'])),
                         Action::make('create-after')
                             ->icon(iconName('move-down'))
                             ->color('gray')
                             ->label('After this post')
-                            ->url(fn (Model $record): string => route('posts.create', ['neighbor' => $record, 'direction' => 'after'])),
+                            ->url(fn (Model $record): string => route('admin.posts.create', ['neighbor' => $record, 'direction' => 'after'])),
                     ])
                         ->divided()
                         ->visible(fn (Model $record): bool => $record->story->can_post),

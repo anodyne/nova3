@@ -8,7 +8,7 @@
 {{ $story->description }}
 </x-mail::panel>
 
-<x-mail::button :url="route('stories.show', $story)">
+<x-mail::button :url="route('admin.stories.show', $story)">
 Review story &rarr;
 </x-mail::button>
 </x-email-layout>

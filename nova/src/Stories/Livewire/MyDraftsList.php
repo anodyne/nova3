@@ -69,11 +69,11 @@ class MyDraftsList extends TableComponent
                         ViewAction::make()
                             ->authorize('view')
                             ->label('View draft')
-                            ->url(fn (Model $record): string => route('notes.show', $record)),
+                            ->url(fn (Model $record): string => route('admin.notes.show', $record)),
                         EditAction::make()
                             ->authorize('update')
                             ->label('Continue writing')
-                            ->url(fn (Model $record): string => route('posts.edit', $record)),
+                            ->url(fn (Model $record): string => route('admin.posts.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
                     ActionGroup::make([
                         DeleteAction::make()
@@ -100,7 +100,7 @@ class MyDraftsList extends TableComponent
                     ->authorize('create')
                     ->label('Start writing')
                     ->icon(iconName('write'))
-                    ->url(route('posts.create')),
+                    ->url(route('admin.posts.create')),
             ]);
     }
 }

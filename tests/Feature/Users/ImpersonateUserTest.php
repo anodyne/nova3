@@ -33,7 +33,7 @@ describe('authorized user', function () {
         $user = User::factory()->active()->create();
 
         get(route('impersonate', $user->id))
-            ->assertRedirectToRoute('dashboard');
+            ->assertRedirectToRoute('admin.dashboard');
 
         assertTrue($user->isImpersonated());
 
@@ -55,7 +55,7 @@ describe('authorized user', function () {
 
         get(route('impersonate', $user->id));
 
-        get(route('impersonate.leave'))->assertRedirectToRoute('users.index');
+        get(route('impersonate.leave'))->assertRedirectToRoute('admin.users.index');
 
         assertFalse($user->isImpersonated());
 

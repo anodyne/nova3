@@ -88,7 +88,7 @@
                     <!-- Sidebar component, swap this element with another sidebar if you like -->
                     <div class="dark flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 ring-1 ring-white/10">
                         <div class="flex h-16 shrink-0 items-center">
-                            <a href="{{ route('dashboard') }}">
+                            <a href="{{ route('admin.dashboard') }}">
                                 @if (app('nova.settings')->getFirstMedia('logo'))
                                     <img
                                         src="{{ app('nova.settings')->getFirstMediaUrl('logo') }}"
@@ -106,8 +106,8 @@
                                     <ul role="list" class="-mx-2 space-y-1">
                                         <li>
                                             <x-nav.main-item-mobile
-                                                :href="route('dashboard')"
-                                                :active="request()->routeIs('dashboard')"
+                                                :href="route('admin.dashboard')"
+                                                :active="request()->routeIs('admin.dashboard')"
                                                 icon="home"
                                                 :meta="$meta"
                                             >
@@ -118,7 +118,7 @@
                                         @if (auth()->user()->canWrite)
                                             <li>
                                                 <x-nav.main-item-mobile
-                                                    :href="route('writing-overview')"
+                                                    :href="route('admin.writing-overview')"
                                                     :active="$meta->subnavSection === 'writing' || $meta->subnavSection === 'posting'"
                                                     icon="write"
                                                     :meta="$meta"
@@ -130,8 +130,8 @@
 
                                         <li>
                                             <x-nav.main-item-mobile
-                                                :href="route('stories.timeline', 'posts')"
-                                                :active="request()->routeIs('stories.timeline')"
+                                                :href="route('admin.stories.timeline', 'posts')"
+                                                :active="request()->routeIs('admin.stories.timeline')"
                                                 icon="timeline"
                                                 :meta="$meta"
                                             >
@@ -141,8 +141,8 @@
 
                                         <li>
                                             <x-nav.main-item-mobile
-                                                :href="route('notes.index')"
-                                                :active="request()->routeIs('notes.*')"
+                                                :href="route('admin.notes.index')"
+                                                :active="request()->routeIs('admin.notes.*')"
                                                 icon="note"
                                                 :meta="$meta"
                                             >
@@ -151,7 +151,7 @@
                                         </li>
                                         <li>
                                             <x-nav.main-item-mobile
-                                                :href="route('characters.index')"
+                                                :href="route('admin.characters.index')"
                                                 :active="$meta->subnavSection === 'characters'"
                                                 icon="characters"
                                                 :meta="$meta"
@@ -163,7 +163,7 @@
                                         @if (auth()->user()->canManageUsers)
                                             <li>
                                                 <x-nav.main-item-mobile
-                                                    :href="route('users.index')"
+                                                    :href="route('admin.users.index')"
                                                     :active="$meta->subnavSection === 'users'"
                                                     icon="users"
                                                     :meta="$meta"
@@ -176,7 +176,7 @@
                                         @can('update', $settings)
                                             <li>
                                                 <x-nav.main-item-mobile
-                                                    :href="route('settings.general.edit')"
+                                                    :href="route('admin.settings.general.edit')"
                                                     :active="$meta->subnavSection === 'settings'"
                                                     icon="settings"
                                                     :meta="$meta"
@@ -189,7 +189,7 @@
                                         @if (auth()->user()->canManageSystem)
                                             <li>
                                                 <x-nav.main-item-mobile
-                                                    :href="route('system-overview')"
+                                                    :href="route('admin.system-overview')"
                                                     :active="$meta->subnavSection === 'system'"
                                                     icon="server"
                                                     :meta="$meta"
@@ -275,7 +275,7 @@
                                                 </x-slot>
 
                                                 <x-dropdown.group>
-                                                    <x-dropdown.item :href="route('account.edit')" icon="user">
+                                                    <x-dropdown.item :href="route('admin.account.edit')" icon="user">
                                                         My account
                                                     </x-dropdown.item>
                                                 </x-dropdown.group>
@@ -318,7 +318,7 @@
             <!-- Sidebar component, swap this element with another sidebar if you like -->
             <div class="flex grow flex-col gap-y-5 overflow-y-auto">
                 <div class="flex shrink-0 items-center px-6 py-6">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('admin.dashboard') }}">
                         @if (app('nova.settings')->getFirstMedia('logo'))
                             <img
                                 src="{{ app('nova.settings')->getFirstMediaUrl('logo') }}"
@@ -337,8 +337,8 @@
                             <ul role="list" class="space-y-3">
                                 <li>
                                     <x-nav.main-item
-                                        :href="route('dashboard')"
-                                        :active="request()->routeIs('dashboard')"
+                                        :href="route('admin.dashboard')"
+                                        :active="request()->routeIs('admin.dashboard')"
                                         icon="home"
                                         :meta="$meta"
                                     >
@@ -349,7 +349,7 @@
                                 @if (auth()->user()->canWrite)
                                     <li>
                                         <x-nav.main-item
-                                            :href="route('writing-overview')"
+                                            :href="route('admin.writing-overview')"
                                             :active="$meta->subnavSection === 'writing' || $meta->subnavSection === 'posting'"
                                             icon="write"
                                             :meta="$meta"
@@ -361,8 +361,8 @@
 
                                 <li>
                                     <x-nav.main-item
-                                        :href="route('stories.timeline', 'posts')"
-                                        :active="request()->routeIs('stories.timeline')"
+                                        :href="route('admin.stories.timeline', 'posts')"
+                                        :active="request()->routeIs('admin.stories.timeline')"
                                         icon="timeline"
                                         :meta="$meta"
                                     >
@@ -372,8 +372,8 @@
 
                                 <li>
                                     <x-nav.main-item
-                                        :href="route('notes.index')"
-                                        :active="request()->routeIs('notes.*')"
+                                        :href="route('admin.notes.index')"
+                                        :active="request()->routeIs('admin.notes.*')"
                                         icon="note"
                                         :meta="$meta"
                                     >
@@ -382,7 +382,7 @@
                                 </li>
                                 <li>
                                     <x-nav.main-item
-                                        :href="route('characters.index')"
+                                        :href="route('admin.characters.index')"
                                         :active="$meta->subnavSection === 'characters'"
                                         icon="characters"
                                         :meta="$meta"
@@ -394,7 +394,7 @@
                                 @if (auth()->user()->canManageUsers)
                                     <li>
                                         <x-nav.main-item
-                                            :href="route('users.index')"
+                                            :href="route('admin.users.index')"
                                             :active="$meta->subnavSection === 'users'"
                                             icon="users"
                                             :meta="$meta"
@@ -407,7 +407,7 @@
                                 @can('update', $settings)
                                     <li>
                                         <x-nav.main-item
-                                            :href="route('settings.general.edit')"
+                                            :href="route('admin.settings.general.edit')"
                                             :active="$meta->subnavSection === 'settings'"
                                             icon="settings"
                                             :meta="$meta"
@@ -420,7 +420,7 @@
                                 @if (auth()->user()->canManageSystem)
                                     <li>
                                         <x-nav.main-item
-                                            :href="route('system-overview')"
+                                            :href="route('admin.system-overview')"
                                             :active="$meta->subnavSection === 'system'"
                                             icon="server"
                                             :meta="$meta"
@@ -541,11 +541,11 @@
                                         </x-slot>
 
                                         <x-dropdown.group>
-                                            <x-dropdown.item :href="route('account.edit')" icon="user">
+                                            <x-dropdown.item :href="route('admin.account.edit')" icon="user">
                                                 My account
                                             </x-dropdown.item>
                                             <x-dropdown.item
-                                                :href="route('characters.index', ['tableFilters' => ['only_my_characters' => ['isActive' => true]]])"
+                                                :href="route('admin.characters.index', ['tableFilters' => ['only_my_characters' => ['isActive' => true]]])"
                                                 icon="characters"
                                             >
                                                 My characters

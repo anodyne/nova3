@@ -46,7 +46,7 @@ class ViewCharacter extends SpotlightCommand
 
     public function execute(Spotlight $spotlight, Character $character): void
     {
-        $spotlight->redirectRoute('characters.show', $character);
+        $spotlight->redirectRoute('admin.characters.show', $character);
     }
 
     public function shouldBeShown(): bool

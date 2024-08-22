@@ -58,7 +58,7 @@
                                 </div>
 
                                 <a
-                                    href="{{ route('settings.environment.edit') }}"
+                                    href="{{ route('admin.settings.environment.edit') }}"
                                     @class([
                                         'group relative flex flex-col gap-y-2 rounded-md p-3',
                                         'bg-gray-950/[.04] ring-1 ring-inset ring-transparent transition',
@@ -78,7 +78,7 @@
                                     </p>
                                 </a>
                                 <a
-                                    href="{{ route('settings.environment.edit') }}"
+                                    href="{{ route('admin.settings.environment.edit') }}"
                                     @class([
                                         'group relative flex flex-col gap-y-2 rounded-md p-3',
                                         'bg-gray-950/[.04] ring-1 ring-inset ring-transparent transition',
@@ -150,7 +150,7 @@
                                 </div>
 
                                 <a
-                                    href="{{ route('settings.email.edit') }}"
+                                    href="{{ route('admin.settings.email.edit') }}"
                                     @class([
                                         'group relative flex flex-col gap-y-2 rounded-md p-3',
                                         'bg-gray-950/[.04] ring-1 ring-inset ring-transparent transition',

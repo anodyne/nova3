@@ -46,7 +46,7 @@ class ViewPositions extends SpotlightCommand
 
     public function execute(Spotlight $spotlight, Department $department): void
     {
-        $spotlight->redirectRoute('positions.index', $department);
+        $spotlight->redirectRoute('admin.positions.index', $department);
     }
 
     public function shouldBeShown(): bool

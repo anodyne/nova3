@@ -11,7 +11,7 @@
 
         <x-slot name="actions">
             @can('create', Position::class)
-                <x-button :href="route('positions.create')" color="primary">
+                <x-button :href="route('admin.positions.create')" color="primary">
                     <x-icon name="add" size="sm"></x-icon>
                     Add
                 </x-button>

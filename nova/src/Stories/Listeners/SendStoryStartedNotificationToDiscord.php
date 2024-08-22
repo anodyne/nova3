@@ -21,7 +21,7 @@ class SendStoryStartedNotificationToDiscord
         $message = (new DiscordMessage)
             ->content('A new story has been started!')
             ->embed(function (DiscordEmbed $embed) use ($story, $notificationType) {
-                $embed->title($story->title, route('stories.show', $story))
+                $embed->title($story->title, route('admin.stories.show', $story))
                     ->description($story->description)
                     ->color($notificationType->discord_color);
             });

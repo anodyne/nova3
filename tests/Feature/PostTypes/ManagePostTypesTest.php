@@ -33,7 +33,7 @@ describe('authorized user', function () {
     });
 
     test('can view the list post types page', function () {
-        get(route('post-types.index'))->assertSuccessful();
+        get(route('admin.post-types.index'))->assertSuccessful();
 
         livewire(PostTypesList::class)
             ->assertCountTableRecords(PostType::count());
@@ -144,13 +144,13 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the manage post types page', function () {
-        get(route('post-types.index'))->assertForbidden();
+        get(route('admin.post-types.index'))->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the manage post types page', function () {
-        get(route('post-types.index'))
+        get(route('admin.post-types.index'))
             ->assertRedirectToRoute('login');
     });
 });

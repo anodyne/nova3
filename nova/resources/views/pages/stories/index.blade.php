@@ -8,13 +8,13 @@
         <x-slot name="description">Manage the stories and timeline of your game</x-slot>
 
         <x-slot name="actions">
-            <x-button :href="route('stories.timeline', 'stories')" color="neutral">
+            <x-button :href="route('admin.stories.timeline', 'stories')" color="neutral">
                 <x-icon name="timeline" size="sm"></x-icon>
                 Story timeline
             </x-button>
 
             @can('create', Story::class)
-                <x-button :href="route('stories.create')" color="primary">
+                <x-button :href="route('admin.stories.create')" color="primary">
                     <x-icon name="add" size="sm"></x-icon>
                     Add
                 </x-button>

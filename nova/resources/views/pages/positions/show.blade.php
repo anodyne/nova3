@@ -17,12 +17,12 @@
 
             <x-slot name="actions">
                 @can('viewAny', $position::class)
-                    <x-button :href="route('positions.index', 'department='.$position->department->id)" plain>
+                    <x-button :href="route('admin.positions.index', 'department='.$position->department->id)" plain>
                         &larr; Back
                     </x-button>
 
                     @can('update', $position)
-                        <x-button :href="route('positions.edit', $position)" color="primary">
+                        <x-button :href="route('admin.positions.edit', $position)" color="primary">
                             <x-icon name="edit" size="sm"></x-icon>
                             Edit
                         </x-button>
@@ -86,7 +86,7 @@
 
                                             @can('update', $character)
                                                 <x-button
-                                                    :href="route('characters.edit', $character)"
+                                                    :href="route('admin.characters.edit', $character)"
                                                     color="neutral"
                                                     class="group-hover:visible sm:invisible"
                                                     text
@@ -129,7 +129,7 @@
 
                                             @can('update', $user)
                                                 <x-button
-                                                    :href="route('users.edit', $user)"
+                                                    :href="route('admin.users.edit', $user)"
                                                     color="neutral"
                                                     class="group-hover:visible sm:invisible"
                                                     text

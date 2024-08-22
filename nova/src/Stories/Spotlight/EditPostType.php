@@ -46,7 +46,7 @@ class EditPostType extends SpotlightCommand
 
     public function execute(Spotlight $spotlight, PostType $postType): void
     {
-        $spotlight->redirectRoute('post-types.edit', $postType);
+        $spotlight->redirectRoute('admin.post-types.edit', $postType);
     }
 
     public function shouldBeShown(): bool

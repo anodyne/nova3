@@ -17,7 +17,7 @@ describe('authorized user', function () {
     });
 
     test('can view the list permissions page', function () {
-        get(route('permissions.index'))->assertSuccessful();
+        get(route('admin.permissions.index'))->assertSuccessful();
 
         livewire(PermissionsList::class)
             ->assertCountTableRecords(Permission::count());
@@ -53,13 +53,13 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the manage permissions page', function () {
-        get(route('permissions.index'))->assertForbidden();
+        get(route('admin.permissions.index'))->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the manage permissions page', function () {
-        get(route('permissions.index'))
+        get(route('admin.permissions.index'))
             ->assertRedirectToRoute('login');
     });
 });

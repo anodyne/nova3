@@ -96,10 +96,10 @@ class PostsList extends TableComponent
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (Model $record): string => route('posts.show', ['story' => $record->story, 'post' => $record])),
+                            ->url(fn (Model $record): string => route('admin.posts.show', ['story' => $record->story, 'post' => $record])),
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (Model $record): string => route('posts.edit', $record)),
+                            ->url(fn (Model $record): string => route('admin.posts.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
 
                     ActionGroup::make([
@@ -133,7 +133,7 @@ class PostsList extends TableComponent
                     ->authorize('create')
                     ->label('Start writing')
                     ->icon(iconName('write'))
-                    ->url(route('posts.create')),
+                    ->url(route('admin.posts.create')),
             ]);
     }
 }

@@ -21,7 +21,7 @@ class AddNote extends SpotlightCommand
 
     public function execute(Spotlight $spotlight): void
     {
-        $spotlight->redirectRoute('notes.create');
+        $spotlight->redirectRoute('admin.notes.create');
     }
 
     public function shouldBeShown(): bool

@@ -4,7 +4,7 @@
 
 You have been added as a reviewer on an application for **{{ $application->character->name }}**. You can begin reviewing
 
-<x-mail::button :url="route('applications.show', $application)">
+<x-mail::button :url="route('admin.applications.show', $application)">
 Start reviewing &rarr;
 </x-mail::button>
 </x-email-layout>

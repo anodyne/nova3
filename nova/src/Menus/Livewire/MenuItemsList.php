@@ -58,7 +58,7 @@ class MenuItemsList extends TableComponent
                     ActionGroup::make([
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (MenuItem $record): string => route('menu-items.edit', $record)),
+                            ->url(fn (MenuItem $record): string => route('admin.menu-items.edit', $record)),
                     ])->authorize('update')->divided(),
 
                     ActionGroup::make([
@@ -112,7 +112,7 @@ class MenuItemsList extends TableComponent
                 CreateAction::make()
                     ->authorize('create')
                     ->label('Add a menu item')
-                    ->url(route('menu-items.create')),
+                    ->url(route('admin.menu-items.create')),
             ]);
     }
 }

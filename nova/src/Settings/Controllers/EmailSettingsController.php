@@ -38,7 +38,7 @@ class EmailSettingsController extends Controller
         UpdateEmail::run($data, $request);
 
         return redirect()
-            ->route('settings.email.edit')
+            ->route('admin.settings.email.edit')
             ->notify('Email settings have been updated');
     }
 }

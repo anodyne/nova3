@@ -9,12 +9,12 @@
 
             <x-slot name="actions">
                 @can('viewAny', $story::class)
-                    <x-button :href="route('stories.index')" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.stories.index')" plain>&larr; Back</x-button>
                 @endcan
             </x-slot>
         </x-page-header>
 
-        <x-form :action="route('stories.update', $story)" method="PUT">
+        <x-form :action="route('admin.stories.update', $story)" method="PUT">
             <x-fieldset>
                 <x-fieldset.field-group constrained>
                     <x-fieldset.field label="Title" id="title" name="title" :error="$errors->first('title')">
@@ -95,7 +95,7 @@
 
             <x-fieldset.controls>
                 <x-button type="submit" color="primary">Update</x-button>
-                <x-button :href="route('stories.index')" plain>Cancel</x-button>
+                <x-button :href="route('admin.stories.index')" plain>Cancel</x-button>
             </x-fieldset.controls>
         </x-form>
     </x-spacing>

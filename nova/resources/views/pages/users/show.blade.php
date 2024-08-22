@@ -14,11 +14,11 @@
 
             <x-slot name="actions">
                 @can('viewAny', User::class)
-                    <x-button :href="route('users.index')" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.users.index')" plain>&larr; Back</x-button>
                 @endcan
 
                 @can('update', $user)
-                    <x-button :href="route('users.edit', $user)" color="primary">
+                    <x-button :href="route('admin.users.edit', $user)" color="primary">
                         <x-icon name="edit" size="sm"></x-icon>
                         Edit
                     </x-button>
@@ -70,7 +70,7 @@
                                         title="No characters assigned"
                                         message="There aren’t any positions assigned to this department. Assign some positions to this department to populate this list."
                                         :link-access="gate()->allows('viewAny', Nova\Departments\Models\Position::class)"
-                                        :link="route('positions.index')"
+                                        :link="route('admin.positions.index')"
                                         label="Assign positions"
                                     ></x-empty-state.small>
                                 </div>

@@ -13,7 +13,7 @@
 
         <x-slot name="actions">
             @can('viewAny', $page::class)
-                <x-button :href="route('pages.index')" plain>&larr; Back</x-button>
+                <x-button :href="route('admin.pages.index')" plain>&larr; Back</x-button>
             @endcan
 
             <x-button :href="route('preview-basic-page', $page->key)">

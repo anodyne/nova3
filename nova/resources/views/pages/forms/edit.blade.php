@@ -11,11 +11,11 @@
 
             <x-slot name="actions">
                 @can('viewAny', $form::class)
-                    <x-button :href="route('forms.index')" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.forms.index')" plain>&larr; Back</x-button>
                 @endcan
 
                 @can('design', $form)
-                    <x-button :href="route('forms.design', $form)">
+                    <x-button :href="route('admin.forms.design', $form)">
                         <x-icon name="tools" size="sm"></x-icon>
                         Design
                     </x-button>
@@ -24,7 +24,7 @@
         </x-page-header>
 
         <x-form
-            :action="route('forms.update', $form)"
+            :action="route('admin.forms.update', $form)"
             method="PUT"
             x-data="{
                 emailResponses: {{ Js::from(old('options[emailResponses]', $form->options?->emailResponses ?? false)) }},
@@ -162,7 +162,7 @@
 
             <x-fieldset.controls>
                 <x-button type="submit" color="primary">Update</x-button>
-                <x-button :href="route('forms.index')" plain>Cancel</x-button>
+                <x-button :href="route('admin.forms.index')" plain>Cancel</x-button>
             </x-fieldset.controls>
         </x-form>
     </x-spacing>

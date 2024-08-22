@@ -23,7 +23,7 @@ describe('authorized user', function () {
     test('can view the view character page', function () {
         $character = Character::factory()->active()->create();
 
-        get(route('characters.show', $character))
+        get(route('admin.characters.show', $character))
             ->assertSuccessful();
     });
 
@@ -65,7 +65,7 @@ describe('unauthorized user', function () {
     test('cannot view the view character page', function () {
         $character = Character::factory()->active()->create();
 
-        get(route('characters.show', $character))
+        get(route('admin.characters.show', $character))
             ->assertForbidden();
     });
 
@@ -103,7 +103,7 @@ describe('unauthenticated user', function () {
     test('cannot view the view character page', function () {
         $character = Character::factory()->active()->create();
 
-        get(route('characters.show', $character))
+        get(route('admin.characters.show', $character))
             ->assertRedirectToRoute('login');
     });
 });

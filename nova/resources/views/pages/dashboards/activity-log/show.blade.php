@@ -9,7 +9,7 @@
 
             <x-slot name="actions">
                 @can('viewAny', Activity::class)
-                    <x-button :href="route('activity-log.index')" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.activity-log.index')" plain>&larr; Back</x-button>
                 @endcan
             </x-slot>
         </x-page-header>

@@ -46,7 +46,7 @@ class ViewForm extends SpotlightCommand
 
     public function execute(Spotlight $spotlight, Form $form): void
     {
-        $spotlight->redirectRoute('forms.show', $form);
+        $spotlight->redirectRoute('admin.forms.show', $form);
     }
 
     public function shouldBeShown(): bool

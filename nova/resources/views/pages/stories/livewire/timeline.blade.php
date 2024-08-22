@@ -28,7 +28,7 @@
 
             @can('viewAny', $storyClass)
                 <div class="flex items-center">
-                    <x-button :href="route('stories.index')" color="primary">
+                    <x-button :href="route('admin.stories.index')" color="primary">
                         <x-icon name="settings" size="sm"></x-icon>
                         Manage stories
                     </x-button>
@@ -44,7 +44,7 @@
     <x-empty-state.large
         icon="book"
         title="No stories found"
-        :link="route('stories.create')"
+        :link="route('admin.stories.create')"
         label="Add your first story"
         :link-access="gate()->allows('create', $storyClass)"
     ></x-empty-state.large>

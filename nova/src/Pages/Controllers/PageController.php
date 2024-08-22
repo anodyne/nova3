@@ -47,12 +47,12 @@ class PageController extends Controller
 
         if ($page->is_basic) {
             return redirect()
-                ->route('pages.design', $page)
+                ->route('admin.pages.design', $page)
                 ->notify("{$page->name} page was created");
         }
 
         return redirect()
-            ->route('pages.index')
+            ->route('admin.pages.index')
             ->notify("{$page->name} page was created");
     }
 
@@ -71,7 +71,7 @@ class PageController extends Controller
         );
 
         return redirect()
-            ->route('pages.edit', $page)
+            ->route('admin.pages.edit', $page)
             ->notify("{$page->name} page was updated");
     }
 }

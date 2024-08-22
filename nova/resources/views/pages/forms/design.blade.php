@@ -13,10 +13,10 @@
 
         <x-slot name="actions">
             @can('viewAny', $form::class)
-                <x-button :href="route('forms.index')" plain>&larr; Back</x-button>
+                <x-button :href="route('admin.forms.index')" plain>&larr; Back</x-button>
             @endcan
 
-            <x-button :href="route('forms.preview', $form)">
+            <x-button :href="route('admin.forms.preview', $form)">
                 <x-icon name="form-preview" size="sm"></x-icon>
                 Preview form
             </x-button>

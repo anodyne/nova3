@@ -46,7 +46,7 @@ class ViewPage extends SpotlightCommand
 
     public function execute(Spotlight $spotlight, Page $page): void
     {
-        $spotlight->redirectRoute('pages.show', $page);
+        $spotlight->redirectRoute('admin.pages.show', $page);
     }
 
     public function shouldBeShown(): bool

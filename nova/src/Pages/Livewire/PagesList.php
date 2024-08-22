@@ -91,14 +91,14 @@ class PagesList extends TableComponent
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (Page $record): string => route('pages.show', $record)),
+                            ->url(fn (Page $record): string => route('admin.pages.show', $record)),
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (Page $record): string => route('pages.edit', $record)),
+                            ->url(fn (Page $record): string => route('admin.pages.edit', $record)),
                         Action::make('design')
                             ->authorize('design')
                             ->icon(iconName('tools'))
-                            ->url(fn (Page $record): string => route('pages.design', $record)),
+                            ->url(fn (Page $record): string => route('admin.pages.design', $record)),
                     ])->authorizeAny(['view', 'update', 'design'])->divided(),
 
                     ActionGroup::make([
@@ -197,7 +197,7 @@ class PagesList extends TableComponent
                 CreateAction::make()
                     ->authorize('create')
                     ->label('Add a page')
-                    ->url(route('pages.create')),
+                    ->url(route('admin.pages.create')),
             ]);
     }
 }

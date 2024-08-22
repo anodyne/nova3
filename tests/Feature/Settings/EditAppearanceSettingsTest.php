@@ -24,16 +24,16 @@ describe('authorized user', function () {
     });
 
     it('can view the appearance settings page', function () {
-        get(route('settings.appearance.edit'))
+        get(route('admin.settings.appearance.edit'))
             ->assertSuccessful();
     });
 
     it('can update appearance settings', function () {
         withoutExceptionHandling();
 
-        from(route('settings.appearance.edit'))
+        from(route('admin.settings.appearance.edit'))
             ->followingRedirects()
-            ->put(route('settings.appearance.update'), [
+            ->put(route('admin.settings.appearance.update'), [
                 'theme' => 'Pulsar',
                 'admin_fonts' => [
                     'headerProvider' => 'local',
@@ -100,9 +100,9 @@ describe('authorized user', function () {
             'image_path' => $imagePath,
         ];
 
-        from(route('settings.appearance.edit'))
+        from(route('admin.settings.appearance.edit'))
             ->followingRedirects()
-            ->put(route('settings.appearance.update'), $data)
+            ->put(route('admin.settings.appearance.update'), $data)
             ->assertSuccessful();
 
         assertCount(1, settings()->getMedia('logo'));
@@ -138,8 +138,8 @@ describe('authorized user', function () {
 
         assertCount(0, settings()->getMedia('logo'));
 
-        from(route('settings.appearance.edit'))
-            ->put(route('settings.appearance.update'), $data);
+        from(route('admin.settings.appearance.edit'))
+            ->put(route('admin.settings.appearance.update'), $data);
 
         assertCount(1, settings()->getMedia('logo'));
 
@@ -167,9 +167,9 @@ describe('authorized user', function () {
             'image_path' => $imagePath,
         ];
 
-        from(route('settings.appearance.edit'))
+        from(route('admin.settings.appearance.edit'))
             ->followingRedirects()
-            ->put(route('settings.appearance.update'), $data)
+            ->put(route('admin.settings.appearance.update'), $data)
             ->assertSuccessful();
 
         assertCount(1, settings()->getMedia('logo'));
@@ -186,24 +186,24 @@ describe('unauthorized user', function () {
     });
 
     it('cannot view the appearance settings page', function () {
-        get(route('settings.appearance.edit'))
+        get(route('admin.settings.appearance.edit'))
             ->assertForbidden();
     });
 
     it('cannot update appearance settings', function () {
-        put(route('settings.appearance.update'), [])
+        put(route('admin.settings.appearance.update'), [])
             ->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     it('cannot view the appearance settings page', function () {
-        get(route('settings.appearance.edit'))
+        get(route('admin.settings.appearance.edit'))
             ->assertRedirectToRoute('login');
     });
 
     it('cannot update appearance settings', function () {
-        put(route('settings.appearance.update'), [])
+        put(route('admin.settings.appearance.update'), [])
             ->assertRedirectToRoute('login');
     });
 });

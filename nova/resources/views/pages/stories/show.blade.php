@@ -24,7 +24,7 @@
                 <x-button x-on:click="window.history.back()" plain>&larr; Back</x-button>
 
                 @can('update', $story)
-                    <x-button :href="route('stories.edit', $story)" color="primary">
+                    <x-button :href="route('admin.stories.edit', $story)" color="primary">
                         <x-icon name="edit" size="sm"></x-icon>
                         Edit
                     </x-button>
@@ -56,7 +56,7 @@
                 <div class="flex flex-col space-y-4 md:flex-row md:items-center md:space-x-8 md:space-y-0">
                     @if ($story->started_at)
                         <div
-                            class="flex items-center space-x-2 font-medium text-gray-600 md:text-sm dark:text-gray-400"
+                            class="flex items-center space-x-2 font-medium text-gray-600 dark:text-gray-400 md:text-sm"
                         >
                             <x-icon name="calendar" size="md" class="text-gray-500"></x-icon>
                             <span>
@@ -73,7 +73,7 @@
                         </div>
 
                         <div
-                            class="flex items-center space-x-2 font-medium text-gray-600 md:text-sm dark:text-gray-400"
+                            class="flex items-center space-x-2 font-medium text-gray-600 dark:text-gray-400 md:text-sm"
                         >
                             <x-icon name="clock" size="md" class="text-gray-500"></x-icon>
                             <span>
@@ -86,7 +86,11 @@
 
                     @if ($ancestors->count() > 0)
                         <div class="flex items-center">
-                            <x-button :href="route('stories.show', $ancestors->last())" color="neutral-primary" text>
+                            <x-button
+                                :href="route('admin.stories.show', $ancestors->last())"
+                                color="neutral-primary"
+                                text
+                            >
                                 <x-icon name="book" size="md"></x-icon>
                                 <span>Part of {{ $ancestors->last()->title }}</span>
                             </x-button>

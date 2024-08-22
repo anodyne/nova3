@@ -12,11 +12,11 @@
 
             <x-slot name="actions">
                 @can('viewAny', $submission::class)
-                    <x-button :href="route('form-submissions.index')" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.form-submissions.index')" plain>&larr; Back</x-button>
                 @endcan
 
                 @can('update', $submission)
-                    <x-button :href="route('form-submissions.edit', $submission)" color="primary">
+                    <x-button :href="route('admin.form-submissions.edit', $submission)" color="primary">
                         <x-icon name="edit" size="sm"></x-icon>
                         Edit
                     </x-button>

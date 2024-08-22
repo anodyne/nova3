@@ -46,7 +46,7 @@ class DesignPage extends SpotlightCommand
 
     public function execute(Spotlight $spotlight, Page $page): void
     {
-        $spotlight->redirectRoute('pages.design', $page);
+        $spotlight->redirectRoute('admin.pages.design', $page);
     }
 
     public function shouldBeShown(): bool

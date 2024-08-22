@@ -21,11 +21,11 @@ describe('authenticated user', function () {
     });
 
     test('can view their own note', function () {
-        get(route('notes.show', $this->userCreatedNote))->assertSuccessful();
+        get(route('admin.notes.show', $this->userCreatedNote))->assertSuccessful();
     });
 
     test('cannot view a note created by someone else', function () {
-        get(route('notes.show', $this->otherUserCreatedNote))->assertForbidden();
+        get(route('admin.notes.show', $this->otherUserCreatedNote))->assertForbidden();
     });
 });
 
@@ -35,7 +35,7 @@ describe('unauthenticated user', function () {
     });
 
     test('cannot view a note', function () {
-        get(route('notes.show', $this->note))
+        get(route('admin.notes.show', $this->note))
             ->assertRedirectToRoute('login');
     });
 });

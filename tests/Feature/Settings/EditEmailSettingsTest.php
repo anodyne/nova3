@@ -22,14 +22,14 @@ describe('authorized user', function () {
     });
 
     test('can view the email settings page', function () {
-        get(route('settings.email.edit'))
+        get(route('admin.settings.email.edit'))
             ->assertSuccessful();
     });
 
     test('can update email settings', function () {
-        from(route('settings.email.edit'))
+        from(route('admin.settings.email.edit'))
             ->followingRedirects()
-            ->put(route('settings.email.update'), [
+            ->put(route('admin.settings.email.update'), [
                 'subject_prefix' => '[Nova 3]',
                 'reply_to' => 'donotreply@example.com',
                 'from_address' => 'from@example.com',
@@ -62,9 +62,9 @@ describe('authorized user', function () {
             'image_path' => $imagePath,
         ];
 
-        from(route('settings.email.edit'))
+        from(route('admin.settings.email.edit'))
             ->followingRedirects()
-            ->put(route('settings.email.update'), $data)
+            ->put(route('admin.settings.email.update'), $data)
             ->assertSuccessful();
 
         assertCount(1, settings()->getMedia('email-logo'));
@@ -89,8 +89,8 @@ describe('authorized user', function () {
 
         assertCount(0, settings()->getMedia('email-logo'));
 
-        from(route('settings.email.edit'))
-            ->put(route('settings.email.update'), $data);
+        from(route('admin.settings.email.edit'))
+            ->put(route('admin.settings.email.update'), $data);
 
         assertCount(1, settings()->getMedia('email-logo'));
 
@@ -107,9 +107,9 @@ describe('authorized user', function () {
             'image_path' => $imagePath,
         ];
 
-        from(route('settings.email.edit'))
+        from(route('admin.settings.email.edit'))
             ->followingRedirects()
-            ->put(route('settings.email.update'), $data)
+            ->put(route('admin.settings.email.update'), $data)
             ->assertSuccessful();
 
         assertCount(1, settings()->getMedia('email-logo'));
@@ -126,24 +126,24 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the email settings page', function () {
-        get(route('settings.email.edit'))
+        get(route('admin.settings.email.edit'))
             ->assertForbidden();
     });
 
     test('cannot update email settings', function () {
-        put(route('settings.email.update'), [])
+        put(route('admin.settings.email.update'), [])
             ->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the email settings page', function () {
-        get(route('settings.email.edit'))
+        get(route('admin.settings.email.edit'))
             ->assertRedirectToRoute('login');
     });
 
     test('cannot update email settings', function () {
-        put(route('settings.email.update'), [])
+        put(route('admin.settings.email.update'), [])
             ->assertRedirectToRoute('login');
     });
 });
@@ -162,9 +162,9 @@ describe('email ENV writer', function () {
             'mailer' => 'sendmail',
         ];
 
-        from(route('settings.email.edit'))
+        from(route('admin.settings.email.edit'))
             ->followingRedirects()
-            ->put(route('settings.email.update'), $data)
+            ->put(route('admin.settings.email.update'), $data)
             ->assertSuccessful();
 
         assertEquals('sendmail', config('mail.default'));
