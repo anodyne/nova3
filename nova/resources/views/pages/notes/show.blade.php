@@ -6,9 +6,9 @@
             <x-slot name="heading">{{ $note->title }}</x-slot>
 
             <x-slot name="actions">
-                <x-button :href="route('notes.index')" plain>&larr; Back</x-button>
+                <x-button :href="route('admin.notes.index')" plain>&larr; Back</x-button>
 
-                <x-button :href="route('notes.edit', $note)" color="primary">
+                <x-button :href="route('admin.notes.edit', $note)" color="primary">
                     <x-icon name="edit" size="sm"></x-icon>
                     Edit
                 </x-button>

@@ -37,7 +37,7 @@ describe('authorized user', function () {
     });
 
     test('can view the create user page', function () {
-        get(route('users.create'))->assertSuccessful();
+        get(route('admin.users.create'))->assertSuccessful();
     });
 
     test('can create a user', function () {
@@ -45,9 +45,9 @@ describe('authorized user', function () {
 
         $data = User::factory()->make();
 
-        from(route('users.create'))
+        from(route('admin.users.create'))
             ->followingRedirects()
-            ->post(route('users.store'), $data->toArray())
+            ->post(route('admin.users.store'), $data->toArray())
             ->assertSuccessful();
 
         assertDatabaseHas(User::class, Arr::only($data->toArray(), ['name', 'email']));
@@ -82,22 +82,22 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the create user page', function () {
-        get(route('users.create'))->assertForbidden();
+        get(route('admin.users.create'))->assertForbidden();
     });
 
     test('cannot create a user', function () {
-        post(route('users.store'), [])->assertForbidden();
+        post(route('admin.users.store'), [])->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the create user page', function () {
-        get(route('users.create'))
+        get(route('admin.users.create'))
             ->assertRedirectToRoute('login');
     });
 
     test('cannot create a user', function () {
-        post(route('users.store'), [])
+        post(route('admin.users.store'), [])
             ->assertRedirectToRoute('login');
     });
 });
@@ -112,9 +112,9 @@ describe('user creation', function () {
 
         $data = User::factory()->make();
 
-        from(route('users.create'))
+        from(route('admin.users.create'))
             ->followingRedirects()
-            ->post(route('users.store'), $data->toArray())
+            ->post(route('admin.users.store'), $data->toArray())
             ->assertSuccessful();
 
         $newUser = User::latest('id')->first();
@@ -134,9 +134,9 @@ describe('user creation', function () {
             ['assigned_characters' => $assignedCharacters]
         );
 
-        from(route('users.create'))
+        from(route('admin.users.create'))
             ->followingRedirects()
-            ->post(route('users.store'), $data)
+            ->post(route('admin.users.store'), $data)
             ->assertSuccessful();
 
         assertDatabaseHas(User::class, Arr::only($data, ['name', 'email']));
@@ -162,9 +162,9 @@ describe('user creation', function () {
             ]
         );
 
-        from(route('users.create'))
+        from(route('admin.users.create'))
             ->followingRedirects()
-            ->post(route('users.store'), $data)
+            ->post(route('admin.users.store'), $data)
             ->assertSuccessful();
 
         assertDatabaseHas('character_user', [
@@ -186,9 +186,9 @@ describe('user creation', function () {
             ['assigned_roles' => $assignedRoles]
         );
 
-        from(route('users.create'))
+        from(route('admin.users.create'))
             ->followingRedirects()
-            ->post(route('users.store'), $data)
+            ->post(route('admin.users.store'), $data)
             ->assertSuccessful();
 
         assertDatabaseHas(User::class, Arr::only($data, ['name', 'email']));
@@ -212,9 +212,9 @@ describe('user creation', function () {
             ['image_path' => $imagePath]
         );
 
-        from(route('users.create'))
+        from(route('admin.users.create'))
             ->followingRedirects()
-            ->post(route('users.store'), $data)
+            ->post(route('admin.users.store'), $data)
             ->assertSuccessful();
 
         $newUser = User::latest('id')->first();
@@ -227,9 +227,9 @@ describe('user creation', function () {
 
         $data = User::factory()->make();
 
-        from(route('users.create'))
+        from(route('admin.users.create'))
             ->followingRedirects()
-            ->post(route('users.store'), $data->toArray())
+            ->post(route('admin.users.store'), $data->toArray())
             ->assertSuccessful();
 
         $newUser = User::latest('id')->first();

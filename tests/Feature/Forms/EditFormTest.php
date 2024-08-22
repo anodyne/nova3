@@ -23,7 +23,7 @@ describe('authorized user', function () {
     });
 
     test('can view the edit form page', function () {
-        get(route('forms.edit', $this->form))->assertSuccessful();
+        get(route('admin.forms.edit', $this->form))->assertSuccessful();
     });
 
     test('can update a form', function () {
@@ -31,9 +31,9 @@ describe('authorized user', function () {
 
         $data = Form::factory()->make();
 
-        from(route('forms.edit', $this->form))
+        from(route('admin.forms.edit', $this->form))
             ->followingRedirects()
-            ->put(route('forms.update', $this->form), $data->toArray())
+            ->put(route('admin.forms.update', $this->form), $data->toArray())
             ->assertSuccessful();
 
         assertDatabaseHas(Form::class, $data->toArray());
@@ -48,26 +48,26 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the edit form page', function () {
-        get(route('forms.edit', $this->form))
+        get(route('admin.forms.edit', $this->form))
             ->assertForbidden();
     });
 
     test('cannot update a form', function () {
         $data = Form::factory()->make();
 
-        put(route('forms.update', $this->form), $data->toArray())
+        put(route('admin.forms.update', $this->form), $data->toArray())
             ->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the edit form page', function () {
-        get(route('forms.edit', $this->form))
+        get(route('admin.forms.edit', $this->form))
             ->assertRedirectToRoute('login');
     });
 
     test('cannot update a form', function () {
-        put(route('forms.update', $this->form), [])
+        put(route('admin.forms.update', $this->form), [])
             ->assertRedirectToRoute('login');
     });
 });

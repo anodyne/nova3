@@ -6,13 +6,13 @@
             <x-slot name="heading">Preview form &ndash; {{ $form->name }}</x-slot>
 
             <x-slot name="actions">
-                <x-button :href="route('forms.design', $form)" plain>&larr; Back</x-button>
+                <x-button :href="route('admin.forms.design', $form)" plain>&larr; Back</x-button>
             </x-slot>
         </x-page-header>
 
         <div class="mb-8 inline-flex w-full gap-x-2 lg:w-auto">
             <a
-                href="{{ route('forms.preview', [$form, 'public']) }}"
+                href="{{ route('admin.forms.preview', [$form, 'public']) }}"
                 @class([
                     'flex flex-1 justify-center whitespace-nowrap rounded-full px-4 py-2 text-base font-medium transition focus:outline-none sm:text-sm/6 lg:flex-initial lg:py-1',
                     'bg-gray-950 text-white dark:bg-gray-300 dark:text-gray-950' => $theme === 'public',
@@ -22,7 +22,7 @@
                 Public theme
             </a>
             <a
-                href="{{ route('forms.preview', [$form, 'admin']) }}"
+                href="{{ route('admin.forms.preview', [$form, 'admin']) }}"
                 @class([
                     'flex flex-1 justify-center whitespace-nowrap rounded-full px-4 py-2 text-base font-medium transition focus:outline-none sm:text-sm/6 lg:flex-initial lg:py-1',
                     'bg-gray-950 text-white dark:bg-gray-300 dark:text-gray-950' => $theme === 'admin',

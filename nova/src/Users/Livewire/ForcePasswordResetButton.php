@@ -19,7 +19,7 @@ class ForcePasswordResetButton extends Component
         ForcePasswordReset::run($this->user);
 
         redirect()
-            ->route('users.edit', $this->user)
+            ->route('admin.users.edit', $this->user)
             ->notify(
                 "Password reset initiated for {$this->user->name}",
                 'The user will be forced to reset their password the next time they sign in.'

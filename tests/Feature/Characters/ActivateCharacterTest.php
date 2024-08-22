@@ -148,6 +148,6 @@ describe('unauthorized user', function () {
 
 describe('unauthenticated user', function () {
     test('cannot activate an inactive character', function () {
-        get(route('characters.index'))->assertRedirectToRoute('login');
+        get(route('admin.characters.index'))->assertRedirectToRoute('login');
     });
 });

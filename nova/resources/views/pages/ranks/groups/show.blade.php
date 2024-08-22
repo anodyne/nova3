@@ -12,11 +12,11 @@
 
             <x-slot name="actions">
                 @can('viewAny', $group::class)
-                    <x-button :href="route('ranks.groups.index')" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.ranks.groups.index')" plain>&larr; Back</x-button>
                 @endcan
 
                 @can('update', $group)
-                    <x-button :href="route('ranks.groups.edit', $group)" color="primary">
+                    <x-button :href="route('admin.ranks.groups.edit', $group)" color="primary">
                         <x-icon name="edit" size="sm"></x-icon>
                         Edit
                     </x-button>
@@ -45,7 +45,7 @@
 
                             @can('update', $rank)
                                 <x-button
-                                    :href="route('ranks.items.edit', $rank)"
+                                    :href="route('admin.ranks.items.edit', $rank)"
                                     class="group-hover:visible sm:invisible"
                                     text
                                 >
@@ -57,7 +57,7 @@
                         <x-empty-state.small
                             icon="rank"
                             title="No ranks found for this rank group"
-                            :link="route('ranks.items.create')"
+                            :link="route('admin.ranks.items.create')"
                             :link-access="gate()->allows('create', RankItem::class)"
                             label="Add a rank item &rarr;"
                         ></x-empty-state.small>

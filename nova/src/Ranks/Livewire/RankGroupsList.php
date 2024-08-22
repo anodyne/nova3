@@ -63,10 +63,10 @@ class RankGroupsList extends TableComponent
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (Model $record): string => route('ranks.groups.show', $record)),
+                            ->url(fn (Model $record): string => route('admin.ranks.groups.show', $record)),
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (Model $record): string => route('ranks.groups.edit', $record)),
+                            ->url(fn (Model $record): string => route('admin.ranks.groups.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
 
                     ActionGroup::make([
@@ -152,7 +152,7 @@ class RankGroupsList extends TableComponent
                 CreateAction::make()
                     ->authorize('create')
                     ->label('Add a rank group')
-                    ->url(route('ranks.groups.create')),
+                    ->url(route('admin.ranks.groups.create')),
             ]);
     }
 }

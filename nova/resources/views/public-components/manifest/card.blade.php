@@ -6,11 +6,12 @@
 ])
 
 <a
-    href="#"
-    @class([
-        'flex flex-col rounded-lg bg-white px-4 py-6 shadow ring-1 ring-gray-950/5 transition hover:shadow-lg dark:bg-gray-900 dark:ring-inset dark:ring-white/5 dark:hover:ring-white/10',
-        'items-center' => $orientation === 'center',
-    ])
+    {{
+        $attributes->class([
+            'flex flex-col rounded-lg bg-white px-4 py-6 shadow ring-1 ring-gray-950/5 transition hover:shadow-lg dark:bg-gray-900 dark:ring-inset dark:ring-white/5 dark:hover:ring-white/10',
+            'items-center' => $orientation === 'center',
+        ])
+    }}
 >
     @if (filled($character?->avatar_url) && in_array('avatar', $options))
         <x-avatar :src="$character->avatar_url" size="xl"></x-avatar>

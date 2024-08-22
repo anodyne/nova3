@@ -31,7 +31,7 @@ describe('authorized user', function () {
     });
 
     test('can view the edit story page', function () {
-        get(route('stories.edit', $this->story))->assertSuccessful();
+        get(route('admin.stories.edit', $this->story))->assertSuccessful();
     });
 
     test('can update a story', function () {
@@ -39,9 +39,9 @@ describe('authorized user', function () {
 
         $data = Story::factory()->make();
 
-        from(route('stories.edit', $this->story))
+        from(route('admin.stories.edit', $this->story))
             ->followingRedirects()
-            ->put(route('stories.update', $this->story), $data->toArray())
+            ->put(route('admin.stories.update', $this->story), $data->toArray())
             ->assertSuccessful();
 
         assertDatabaseHas(Story::class, $data->toArray());
@@ -62,9 +62,9 @@ describe('authorized user', function () {
             ['image_path' => $imagePath]
         );
 
-        from(route('stories.edit', $this->story))
+        from(route('admin.stories.edit', $this->story))
             ->followingRedirects()
-            ->put(route('stories.update', $this->story), $data)
+            ->put(route('admin.stories.update', $this->story), $data)
             ->assertSuccessful();
 
         $this->story->refresh();
@@ -94,9 +94,9 @@ describe('authorized user', function () {
             ['image_path' => $imagePath]
         );
 
-        from(route('stories.edit', $this->story))
+        from(route('admin.stories.edit', $this->story))
             ->followingRedirects()
-            ->put(route('stories.update', $this->story), $data)
+            ->put(route('admin.stories.update', $this->story), $data)
             ->assertSuccessful();
 
         $this->story->refresh();
@@ -109,8 +109,8 @@ describe('authorized user', function () {
 
         $story = Story::factory()->upcoming()->create();
 
-        from(route('stories.edit', $story))
-            ->put(route('stories.update', $story), [
+        from(route('admin.stories.edit', $story))
+            ->put(route('admin.stories.update', $story), [
                 'title' => $story->title,
                 'description' => $story->description,
                 'status' => 'current',
@@ -129,8 +129,8 @@ describe('authorized user', function () {
 
         $story = Story::factory()->current()->create();
 
-        from(route('stories.edit', $story))
-            ->put(route('stories.update', $story), [
+        from(route('admin.stories.edit', $story))
+            ->put(route('admin.stories.update', $story), [
                 'title' => $story->title,
                 'description' => $story->description,
                 'status' => 'completed',
@@ -151,24 +151,24 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the edit story page', function () {
-        get(route('stories.edit', $this->story))->assertForbidden();
+        get(route('admin.stories.edit', $this->story))->assertForbidden();
     });
 
     test('cannot update a story', function () {
         $data = Story::factory()->make();
 
-        put(route('stories.update', $this->story), $data->toArray())->assertForbidden();
+        put(route('admin.stories.update', $this->story), $data->toArray())->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the edit story page', function () {
-        get(route('stories.edit', $this->story))
+        get(route('admin.stories.edit', $this->story))
             ->assertRedirectToRoute('login');
     });
 
     test('cannot update a story', function () {
-        put(route('stories.update', $this->story), [])
+        put(route('admin.stories.update', $this->story), [])
             ->assertRedirectToRoute('login');
     });
 });

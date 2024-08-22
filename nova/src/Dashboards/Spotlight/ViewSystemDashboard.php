@@ -20,7 +20,7 @@ class ViewSystemDashboard extends SpotlightCommand
 
     public function execute(Spotlight $spotlight): void
     {
-        $spotlight->redirectRoute('system-overview');
+        $spotlight->redirectRoute('admin.system-overview');
     }
 
     public function shouldBeShown(Request $request): bool

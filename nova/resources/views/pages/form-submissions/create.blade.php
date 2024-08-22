@@ -10,7 +10,7 @@
 
                 <x-slot name="actions">
                     @can('viewAny', FormSubmission::class)
-                        <x-button :href="route('form-submissions.index')" plain>&larr; Back</x-button>
+                        <x-button :href="route('admin.form-submissions.index')" plain>&larr; Back</x-button>
                     @endcan
                 </x-slot>
             </x-page-header>
@@ -37,7 +37,7 @@
                         <div class="group relative flex items-center space-x-3 py-4">
                             <div class="min-w-0 flex-1">
                                 <p class="text-sm/6 font-medium text-gray-900 dark:text-white">
-                                    <a href="{{ route('form-submissions.create', $f->id) }}">
+                                    <a href="{{ route('admin.form-submissions.create', $f->id) }}">
                                         <span class="absolute inset-0" aria-hidden="true"></span>
                                         {{ $f->name }}
                                     </a>
@@ -82,7 +82,7 @@
 
             @can('create', Form::class)
                 <div class="mt-6 flex">
-                    <x-button :href="route('forms.index')" color="primary" text>
+                    <x-button :href="route('admin.forms.index')" color="primary" text>
                         Or create a new form
                         <span aria-hidden="true">&rarr;</span>
                     </x-button>

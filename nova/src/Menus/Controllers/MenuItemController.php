@@ -46,7 +46,7 @@ class MenuItemController extends Controller
     {
         $menuItem = CreateMenuItem::run($request->getMenuItemData());
 
-        return to_route('menu-items.index')
+        return to_route('admin.menu-items.index')
             ->notify("{$menuItem->label} menu item was created");
     }
 

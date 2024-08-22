@@ -21,7 +21,7 @@ class AddPostType extends SpotlightCommand
 
     public function execute(Spotlight $spotlight): void
     {
-        $spotlight->redirectRoute('post-types.create');
+        $spotlight->redirectRoute('admin.post-types.create');
     }
 
     public function shouldBeShown(): bool

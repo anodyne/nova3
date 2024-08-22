@@ -65,7 +65,7 @@ class PostTypeController extends Controller
         $postType = CreatePostType::run($request->getPostTypeData());
 
         return redirect()
-            ->route('post-types.index')
+            ->route('admin.post-types.index')
             ->notify("{$postType->name} post type was created");
     }
 
@@ -87,7 +87,7 @@ class PostTypeController extends Controller
         );
 
         return redirect()
-            ->route('post-types.edit', $postType)
+            ->route('admin.post-types.edit', $postType)
             ->notify("{$postType->name} post type was updated");
     }
 }

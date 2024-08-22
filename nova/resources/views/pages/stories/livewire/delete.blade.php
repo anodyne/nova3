@@ -10,12 +10,12 @@
 
         <x-slot name="actions">
             @can('viewAny', $stories->first())
-                <x-button :href="route('stories.index')" plain>&larr; Back</x-button>
+                <x-button :href="route('admin.stories.index')" plain>&larr; Back</x-button>
             @endcan
         </x-slot>
     </x-page-header>
 
-    <x-form :action="route('stories.destroy')" method="DELETE">
+    <x-form :action="route('admin.stories.destroy')" method="DELETE">
         @foreach ($stories as $story)
             <x-fieldset
                 x-data="{}"
@@ -213,7 +213,7 @@
 
         <x-fieldset.controls>
             <x-button type="submit" color="primary">Delete</x-button>
-            <x-button :href="route('stories.index')" plain>Cancel</x-button>
+            <x-button :href="route('admin.stories.index')" plain>Cancel</x-button>
         </x-fieldset.controls>
     </x-form>
 </x-spacing>

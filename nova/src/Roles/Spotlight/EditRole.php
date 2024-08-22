@@ -45,7 +45,7 @@ class EditRole extends SpotlightCommand
 
     public function execute(Spotlight $spotlight, Role $role): void
     {
-        $spotlight->redirectRoute('roles.edit', $role);
+        $spotlight->redirectRoute('admin.roles.edit', $role);
     }
 
     public function shouldBeShown(): bool

@@ -23,18 +23,18 @@
 
             <x-fieldset.controls class="mt-4 md:mt-8">
                 @can('update', $form)
-                    <x-button :href="route('forms.edit', $form)" color="primary">
+                    <x-button :href="route('admin.forms.edit', $form)" color="primary">
                         <x-icon name="edit" size="sm"></x-icon>
                         Edit
                     </x-button>
-                    <x-button :href="route('forms.edit', $form)" color="neutral">
+                    <x-button :href="route('admin.forms.design', $form)" color="neutral">
                         <x-icon name="tools" size="sm"></x-icon>
                         Design
                     </x-button>
                 @endcan
 
                 @can('viewAny', $form::class)
-                    <x-button :href="route('forms.index')" color="neutral" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.forms.index')" color="neutral" plain>&larr; Back</x-button>
                 @endcan
             </x-fieldset.controls>
         </x-form>

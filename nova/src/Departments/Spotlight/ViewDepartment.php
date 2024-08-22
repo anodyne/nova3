@@ -46,7 +46,7 @@ class ViewDepartment extends SpotlightCommand
 
     public function execute(Spotlight $spotlight, Department $department): void
     {
-        $spotlight->redirectRoute('departments.show', $department);
+        $spotlight->redirectRoute('admin.departments.show', $department);
     }
 
     public function shouldBeShown(): bool

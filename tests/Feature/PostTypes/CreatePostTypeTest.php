@@ -20,7 +20,7 @@ describe('authorized user', function () {
     });
 
     test('can view the create post type page', function () {
-        get(route('post-types.create'))->assertSuccessful();
+        get(route('admin.post-types.create'))->assertSuccessful();
     });
 
     test('can create a post type', function () {
@@ -28,9 +28,9 @@ describe('authorized user', function () {
 
         $data = PostType::factory()->make();
 
-        from(route('post-types.create'))
+        from(route('admin.post-types.create'))
             ->followingRedirects()
-            ->post(route('post-types.store'), $data->toArray())
+            ->post(route('admin.post-types.store'), $data->toArray())
             ->assertSuccessful();
 
         assertDatabaseHas(PostType::class, [
@@ -48,22 +48,22 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the create post type page', function () {
-        get(route('post-types.create'))->assertForbidden();
+        get(route('admin.post-types.create'))->assertForbidden();
     });
 
     test('cannot create a post type', function () {
-        post(route('post-types.store'), [])->assertForbidden();
+        post(route('admin.post-types.store'), [])->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the create post type page', function () {
-        get(route('post-types.create'))
+        get(route('admin.post-types.create'))
             ->assertRedirectToRoute('login');
     });
 
     test('cannot create a post type', function () {
-        post(route('post-types.store'), [])
+        post(route('admin.post-types.store'), [])
             ->assertRedirectToRoute('login');
     });
 });

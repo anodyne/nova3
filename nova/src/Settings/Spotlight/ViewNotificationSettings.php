@@ -20,7 +20,7 @@ class ViewNotificationSettings extends SpotlightCommand
 
     public function execute(Spotlight $spotlight): void
     {
-        $spotlight->redirectRoute('settings.notifications.edit');
+        $spotlight->redirectRoute('admin.settings.notifications.edit');
     }
 
     public function shouldBeShown(): bool

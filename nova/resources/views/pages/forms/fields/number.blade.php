@@ -40,12 +40,22 @@
         </x-fieldset.field>
     @endif
 @else
-    <x-public::field.number
-        :label="$label"
-        :description="$description"
-        :id="$uid"
-        :name="$inputName"
-        :attributes="$attributesBag"
-        wire:model.live.debounce="values.{{ $uid }}"
-    ></x-public::field.number>
+    @if ($static)
+        @if (filled($value) || blank($value) && ! $hideWhenEmpty)
+            <x-public::field :label="$label">
+                <div data-slot="text">
+                    {{ filled($value) ? $value : '—' }}
+                </div>
+            </x-public::field>
+        @endif
+    @else
+        <x-public::field.number
+            :label="$label"
+            :description="$description"
+            :id="$uid"
+            :name="$inputName"
+            :attributes="$attributesBag"
+            wire:model.live.debounce="values.{{ $uid }}"
+        ></x-public::field.number>
+    @endif
 @endif

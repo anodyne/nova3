@@ -138,7 +138,7 @@ describe('unauthorized user', function () {
 
 describe('unauthenticated user', function () {
     test('cannot restore a soft deleted character', function () {
-        get(route('characters.index'))
+        get(route('admin.characters.index'))
             ->assertRedirectToRoute('login');
     });
 });

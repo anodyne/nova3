@@ -18,7 +18,7 @@ describe('authorized user', function () {
     });
 
     test('can view the view form page', function () {
-        get(route('forms.show', $this->form))->assertSuccessful();
+        get(route('admin.forms.show', $this->form))->assertSuccessful();
     });
 });
 
@@ -28,13 +28,13 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the view form page', function () {
-        get(route('forms.show', $this->form))->assertForbidden();
+        get(route('admin.forms.show', $this->form))->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the view form page', function () {
-        get(route('forms.show', $this->form))
+        get(route('admin.forms.show', $this->form))
             ->assertRedirectToRoute('login');
     });
 });

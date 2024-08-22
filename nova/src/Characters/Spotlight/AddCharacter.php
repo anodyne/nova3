@@ -21,7 +21,7 @@ class AddCharacter extends SpotlightCommand
 
     public function execute(Spotlight $spotlight): void
     {
-        $spotlight->redirectRoute('characters.create');
+        $spotlight->redirectRoute('admin.characters.create');
     }
 
     public function shouldBeShown(): bool

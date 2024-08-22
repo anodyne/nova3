@@ -8,7 +8,7 @@
 {{ $story->description }}
 </x-mail::panel>
 
-<x-mail::button :url="route('posts.create')">
+<x-mail::button :url="route('admin.posts.create')">
 Start posting &rarr;
 </x-mail::button>
 </x-email-layout>

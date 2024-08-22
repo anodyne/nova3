@@ -58,7 +58,7 @@ class RankItemController extends Controller
         CreateRankItem::run($request->getRankItemData());
 
         return redirect()
-            ->route('ranks.items.index')
+            ->route('admin.ranks.items.index')
             ->notify('Rank item was created');
     }
 

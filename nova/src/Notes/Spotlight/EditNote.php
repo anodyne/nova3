@@ -48,7 +48,7 @@ class EditNote extends SpotlightCommand
 
     public function execute(Spotlight $spotlight, Note $note): void
     {
-        $spotlight->redirectRoute('notes.edit', $note);
+        $spotlight->redirectRoute('admin.notes.edit', $note);
     }
 
     public function shouldBeShown(): bool

@@ -35,7 +35,7 @@ class ContentRatingSettingsController extends Controller
         UpdateSettings::run('ratings', $data = ContentRatings::from($request));
 
         return redirect()
-            ->route('settings.content-ratings.edit')
+            ->route('admin.settings.content-ratings.edit')
             ->notify('Content rating settings have been updated');
     }
 }

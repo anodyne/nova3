@@ -19,6 +19,6 @@ class ViewUserDashboard extends SpotlightCommand
 
     public function execute(Spotlight $spotlight): void
     {
-        $spotlight->redirectRoute('dashboard');
+        $spotlight->redirectRoute('admin.dashboard');
     }
 }

@@ -39,7 +39,7 @@ describe('authorized user', function () {
     });
 
     test('can view the list stories page', function () {
-        get(route('stories.index'))->assertSuccessful();
+        get(route('admin.stories.index'))->assertSuccessful();
 
         livewire(StoriesList::class)
             ->assertCanSeeTableRecords($this->stories);
@@ -252,13 +252,13 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the manage stories page', function () {
-        get(route('stories.index'))->assertForbidden();
+        get(route('admin.stories.index'))->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the manage stories page', function () {
-        get(route('stories.index'))
+        get(route('admin.stories.index'))
             ->assertRedirectToRoute('login');
     });
 });

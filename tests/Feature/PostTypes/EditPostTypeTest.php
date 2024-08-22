@@ -24,7 +24,7 @@ describe('authorized user', function () {
     });
 
     test('can view the edit post type page', function () {
-        get(route('post-types.edit', $this->postType))->assertSuccessful();
+        get(route('admin.post-types.edit', $this->postType))->assertSuccessful();
     });
 
     test('can update a post type', function () {
@@ -32,9 +32,9 @@ describe('authorized user', function () {
 
         $data = PostType::factory()->make();
 
-        from(route('post-types.edit', $this->postType))
+        from(route('admin.post-types.edit', $this->postType))
             ->followingRedirects()
-            ->put(route('post-types.update', $this->postType), $data->toArray())
+            ->put(route('admin.post-types.update', $this->postType), $data->toArray())
             ->assertSuccessful();
 
         assertDatabaseHas(PostType::class, [
@@ -52,22 +52,22 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the edit post type page', function () {
-        get(route('post-types.edit', $this->postType))->assertForbidden();
+        get(route('admin.post-types.edit', $this->postType))->assertForbidden();
     });
 
     test('cannot update a post type', function () {
-        put(route('post-types.update', $this->postType), [])->assertForbidden();
+        put(route('admin.post-types.update', $this->postType), [])->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the edit post type page', function () {
-        get(route('post-types.edit', $this->postType))
+        get(route('admin.post-types.edit', $this->postType))
             ->assertRedirectToRoute('login');
     });
 
     test('cannot update a post type', function () {
-        put(route('post-types.update', $this->postType), [])
+        put(route('admin.post-types.update', $this->postType), [])
             ->assertRedirectToRoute('login');
     });
 });

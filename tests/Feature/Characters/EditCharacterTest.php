@@ -45,7 +45,7 @@ describe('authorized user', function () {
     });
 
     test('can view the edit character page', function () {
-        get(route('characters.edit', $this->character))
+        get(route('admin.characters.edit', $this->character))
             ->assertSuccessful();
     });
 
@@ -54,9 +54,9 @@ describe('authorized user', function () {
 
         $data = Character::factory()->make();
 
-        from(route('characters.edit', $this->character))
+        from(route('admin.characters.edit', $this->character))
             ->followingRedirects()
-            ->put(route('characters.update', $this->character), $data->toArray())
+            ->put(route('admin.characters.update', $this->character), $data->toArray())
             ->assertSuccessful();
 
         assertDatabaseHas(Character::class, $this->character->only('id'));
@@ -101,14 +101,14 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the edit character page', function () {
-        get(route('characters.edit', $this->character))
+        get(route('admin.characters.edit', $this->character))
             ->assertForbidden();
     });
 
     test('cannot update a character', function () {
         $data = Character::factory()->make();
 
-        put(route('characters.update', $this->character), $data->toArray())
+        put(route('admin.characters.update', $this->character), $data->toArray())
             ->assertForbidden();
     });
 
@@ -144,12 +144,12 @@ describe('unauthorized user', function () {
 
 describe('unauthenticated user', function () {
     test('cannot view the edit character page', function () {
-        get(route('characters.edit', $this->character))
+        get(route('admin.characters.edit', $this->character))
             ->assertRedirectToRoute('login');
     });
 
     test('cannot update a character', function () {
-        put(route('characters.update', $this->character), [])
+        put(route('admin.characters.update', $this->character), [])
             ->assertRedirectToRoute('login');
     });
 });
@@ -172,9 +172,9 @@ describe('character updating', function () {
             ['image_path' => $imagePath]
         );
 
-        from(route('characters.edit', $this->character))
+        from(route('admin.characters.edit', $this->character))
             ->followingRedirects()
-            ->put(route('characters.update', $this->character), $data)
+            ->put(route('admin.characters.update', $this->character), $data)
             ->assertSuccessful();
 
         $this->character->refresh();
@@ -193,8 +193,8 @@ describe('character updating', function () {
 
         assertCount(1, $this->character->getMedia('avatar'));
 
-        from(route('characters.edit', $this->character))
-            ->put(route('characters.update', $this->character), [
+        from(route('admin.characters.edit', $this->character))
+            ->put(route('admin.characters.update', $this->character), [
                 'name' => $this->character->name,
                 'remove_existing_image' => 'true',
             ]);
@@ -219,8 +219,8 @@ describe('character updating', function () {
 
         assertCount(0, $this->character->getMedia('avatar'));
 
-        from(route('characters.edit', $this->character))
-            ->put(route('characters.update', $this->character), $data);
+        from(route('admin.characters.edit', $this->character))
+            ->put(route('admin.characters.update', $this->character), $data);
 
         $this->character->refresh();
 
@@ -235,9 +235,9 @@ describe('character updating', function () {
             ['image_path' => $imagePath]
         );
 
-        from(route('characters.edit', $this->character))
+        from(route('admin.characters.edit', $this->character))
             ->followingRedirects()
-            ->put(route('characters.update', $this->character), $data)
+            ->put(route('admin.characters.update', $this->character), $data)
             ->assertSuccessful();
 
         $this->character->refresh();
@@ -257,9 +257,9 @@ describe('character updating', function () {
             ['assigned_users' => $assignedUsers]
         );
 
-        from(route('characters.edit', $this->character))
+        from(route('admin.characters.edit', $this->character))
             ->followingRedirects()
-            ->put(route('characters.update', $this->character), $data)
+            ->put(route('admin.characters.update', $this->character), $data)
             ->assertSuccessful();
 
         assertDatabaseHas('character_user', [
@@ -283,9 +283,9 @@ describe('character updating', function () {
             ]
         );
 
-        from(route('characters.edit', $this->character))
+        from(route('admin.characters.edit', $this->character))
             ->followingRedirects()
-            ->put(route('characters.update', $this->character), $data)
+            ->put(route('admin.characters.update', $this->character), $data)
             ->assertSuccessful();
 
         assertDatabaseHas('character_user', [
@@ -307,9 +307,9 @@ describe('character updating', function () {
             ['assigned_positions' => $assignedPositions]
         );
 
-        from(route('characters.edit', $this->character))
+        from(route('admin.characters.edit', $this->character))
             ->followingRedirects()
-            ->put(route('characters.update', $this->character), $data)
+            ->put(route('admin.characters.update', $this->character), $data)
             ->assertSuccessful();
 
         assertDatabaseHas('character_position', [

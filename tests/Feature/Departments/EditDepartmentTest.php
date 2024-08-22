@@ -28,7 +28,7 @@ describe('authorized user', function () {
     });
 
     test('can view the edit department page', function () {
-        get(route('departments.edit', $this->department))->assertSuccessful();
+        get(route('admin.departments.edit', $this->department))->assertSuccessful();
     });
 
     test('can update a department', function () {
@@ -36,9 +36,9 @@ describe('authorized user', function () {
 
         $data = Department::factory()->make();
 
-        from(route('departments.edit', $this->department))
+        from(route('admin.departments.edit', $this->department))
             ->followingRedirects()
-            ->put(route('departments.update', $this->department), $data->toArray())
+            ->put(route('admin.departments.update', $this->department), $data->toArray())
             ->assertSuccessful();
 
         assertDatabaseHas(Department::class, $data->toArray());
@@ -59,9 +59,9 @@ describe('authorized user', function () {
             ['image_path' => $imagePath]
         );
 
-        from(route('departments.edit', $this->department))
+        from(route('admin.departments.edit', $this->department))
             ->followingRedirects()
-            ->put(route('departments.update', $this->department), $data)
+            ->put(route('admin.departments.update', $this->department), $data)
             ->assertSuccessful();
 
         $this->department->refresh();
@@ -86,8 +86,8 @@ describe('authorized user', function () {
 
         assertCount(0, $this->department->getMedia('header'));
 
-        from(route('departments.edit', $this->department))
-            ->put(route('departments.update', $this->department), $data);
+        from(route('admin.departments.edit', $this->department))
+            ->put(route('admin.departments.update', $this->department), $data);
 
         $this->department->refresh();
 
@@ -102,9 +102,9 @@ describe('authorized user', function () {
             ['image_path' => $imagePath]
         );
 
-        from(route('departments.edit', $this->department))
+        from(route('admin.departments.edit', $this->department))
             ->followingRedirects()
-            ->put(route('departments.update', $this->department), $data)
+            ->put(route('admin.departments.update', $this->department), $data)
             ->assertSuccessful();
 
         $this->department->refresh();
@@ -119,26 +119,26 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the edit department page', function () {
-        get(route('departments.edit', $this->department))
+        get(route('admin.departments.edit', $this->department))
             ->assertForbidden();
     });
 
     test('cannot update a department', function () {
         $data = Department::factory()->make();
 
-        put(route('departments.update', $this->department), $data->toArray())
+        put(route('admin.departments.update', $this->department), $data->toArray())
             ->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the edit department page', function () {
-        get(route('departments.edit', $this->department))
+        get(route('admin.departments.edit', $this->department))
             ->assertRedirectToRoute('login');
     });
 
     test('cannot update a department', function () {
-        put(route('departments.update', $this->department), [])
+        put(route('admin.departments.update', $this->department), [])
             ->assertRedirectToRoute('login');
     });
 });

@@ -9,12 +9,12 @@
 
             <x-slot name="actions">
                 @can('viewAny', Department::class)
-                    <x-button :href="route('departments.index')" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.departments.index')" plain>&larr; Back</x-button>
                 @endcan
             </x-slot>
         </x-page-header>
 
-        <x-form :action="route('departments.store')">
+        <x-form :action="route('admin.departments.store')">
             <x-fieldset>
                 <x-fieldset.field-group constrained>
                     <x-fieldset.field label="Name" id="name" name="name" :error="$errors->first('name')">
@@ -69,7 +69,7 @@
 
             <x-fieldset.controls>
                 <x-button type="submit" color="primary">Add</x-button>
-                <x-button :href="route('departments.index')" plain>Cancel</x-button>
+                <x-button :href="route('admin.departments.index')" plain>Cancel</x-button>
             </x-fieldset.controls>
         </x-form>
     </x-spacing>

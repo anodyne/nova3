@@ -16,7 +16,7 @@ beforeEach(function () {
 });
 
 test('user can view the create characters page', function () {
-    get(route('characters.create'))
+    get(route('admin.characters.create'))
         ->assertSuccessful();
 });
 
@@ -33,9 +33,9 @@ test('with approval required user can create character', function () {
         'primary_users' => null,
     ];
 
-    from(route('characters.create'))
+    from(route('admin.characters.create'))
         ->followingRedirects()
-        ->post(route('characters.store'), $postData)
+        ->post(route('admin.characters.store'), $postData)
         ->assertSuccessful();
 
     assertDatabaseHas(Character::class, [
@@ -58,9 +58,9 @@ test('without approval required user can create character', function () {
         'primary_users' => null,
     ];
 
-    from(route('characters.create'))
+    from(route('admin.characters.create'))
         ->followingRedirects()
-        ->post(route('characters.store'), $postData)
+        ->post(route('admin.characters.store'), $postData)
         ->assertSuccessful();
 
     assertDatabaseHas(Character::class, [
@@ -79,9 +79,9 @@ test('user cannot directly create primary character', function () {
         'primary_users' => (string) auth()->id(),
     ];
 
-    from(route('characters.create'))
+    from(route('admin.characters.create'))
         ->followingRedirects()
-        ->post(route('characters.store'), $postData)
+        ->post(route('admin.characters.store'), $postData)
         ->assertForbidden();
 
     assertDatabaseMissing(Character::class, [
@@ -98,9 +98,9 @@ test('user cannot directly create secondary character', function () {
         'primary_users' => null,
     ];
 
-    from(route('characters.create'))
+    from(route('admin.characters.create'))
         ->followingRedirects()
-        ->post(route('characters.store'), $postData)
+        ->post(route('admin.characters.store'), $postData)
         ->assertForbidden();
 
     assertDatabaseMissing(Character::class, [

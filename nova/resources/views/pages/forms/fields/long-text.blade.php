@@ -44,13 +44,23 @@
         </x-fieldset.field>
     @endif
 @else
-    <x-public::field.textarea
-        :label="$label"
-        :description="$description"
-        :id="$uid"
-        :name="$inputName"
-        :rows="$rows"
-        :attributes="$attributesBag"
-        wire:model.live.debounce="values.{{ $uid }}"
-    ></x-public::field.textarea>
+    @if ($static)
+        @if (filled($value) || blank($value) && ! $hideWhenEmpty)
+            <x-public::field :label="$label">
+                <div class="space-y-6" data-slot="text">
+                    {!! filled($value) ? str($value)->markdown() : '—' !!}
+                </div>
+            </x-public::field>
+        @endif
+    @else
+        <x-public::field.textarea
+            :label="$label"
+            :description="$description"
+            :id="$uid"
+            :name="$inputName"
+            :rows="$rows"
+            :attributes="$attributesBag"
+            wire:model.live.debounce="values.{{ $uid }}"
+        ></x-public::field.textarea>
+    @endif
 @endif

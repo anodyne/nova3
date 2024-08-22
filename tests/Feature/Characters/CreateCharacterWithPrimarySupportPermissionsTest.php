@@ -41,9 +41,9 @@ test('without primary and support approvals required user cannot create addition
         'primary_users' => (string) auth()->id(),
     ];
 
-    from(route('characters.create'))
+    from(route('admin.characters.create'))
         ->followingRedirects()
-        ->post(route('characters.store'), $postData)
+        ->post(route('admin.characters.store'), $postData)
         ->assertSuccessful();
 
     $user->refresh();
@@ -84,9 +84,9 @@ test('with primary and support approvals required user cannot create additional 
         'primary_users' => (string) auth()->id(),
     ];
 
-    from(route('characters.create'))
+    from(route('admin.characters.create'))
         ->followingRedirects()
-        ->post(route('characters.store'), $postData)
+        ->post(route('admin.characters.store'), $postData)
         ->assertSuccessful();
 
     $user->refresh();
@@ -127,9 +127,9 @@ test('with primary approval and without support approval user cannot create addi
         'primary_users' => (string) auth()->id(),
     ];
 
-    from(route('characters.create'))
+    from(route('admin.characters.create'))
         ->followingRedirects()
-        ->post(route('characters.store'), $postData)
+        ->post(route('admin.characters.store'), $postData)
         ->assertSuccessful();
 
     $user->refresh();
@@ -170,9 +170,9 @@ test('without primary approval and with support approval user cannot create addi
         'primary_users' => (string) auth()->id(),
     ];
 
-    from(route('characters.create'))
+    from(route('admin.characters.create'))
         ->followingRedirects()
-        ->post(route('characters.store'), $postData)
+        ->post(route('admin.characters.store'), $postData)
         ->assertSuccessful();
 
     $user->refresh();
@@ -199,9 +199,9 @@ test('user cannot directly create secondary character', function () {
         'primary_users' => null,
     ];
 
-    from(route('characters.create'))
+    from(route('admin.characters.create'))
         ->followingRedirects()
-        ->post(route('characters.store'), $postData)
+        ->post(route('admin.characters.store'), $postData)
         ->assertForbidden();
 
     assertDatabaseMissing(Character::class, [

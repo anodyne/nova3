@@ -99,10 +99,10 @@ class PostTypesList extends TableComponent
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (Model $record): string => route('post-types.show', $record)),
+                            ->url(fn (Model $record): string => route('admin.post-types.show', $record)),
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (Model $record): string => route('post-types.edit', $record)),
+                            ->url(fn (Model $record): string => route('admin.post-types.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
 
                     ActionGroup::make([
@@ -326,7 +326,7 @@ class PostTypesList extends TableComponent
                 CreateAction::make()
                     ->authorize('create')
                     ->label('Add a post type')
-                    ->url(route('post-types.create')),
+                    ->url(route('admin.post-types.create')),
             ]);
     }
 }

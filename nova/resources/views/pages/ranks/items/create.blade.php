@@ -14,12 +14,12 @@
 
             <x-slot name="actions">
                 @can('viewAny', RankItem::class)
-                    <x-button :href="route('ranks.items.index')" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.ranks.items.index')" plain>&larr; Back</x-button>
                 @endcan
             </x-slot>
         </x-page-header>
 
-        <x-form :action="route('ranks.items.store')">
+        <x-form :action="route('admin.ranks.items.store')">
             <x-fieldset>
                 <x-fieldset.field-group constrained>
                     <x-fieldset.field
@@ -32,7 +32,7 @@
                             <livewire:rank-groups-dropdown :group-id="old('group_id')" />
 
                             @can('create', RankGroup::class)
-                                <x-button :href="route('ranks.groups.index')" color="neutral" class="ml-3" text>
+                                <x-button :href="route('admin.ranks.groups.index')" color="neutral" class="ml-3" text>
                                     <x-icon name="settings" size="md"></x-icon>
                                 </x-button>
                             @endcan
@@ -44,7 +44,7 @@
                             <livewire:rank-names-dropdown :name-id="old('name_id')" />
 
                             @can('create', RankName::class)
-                                <x-button :href="route('ranks.names.index')" color="neutral" class="ml-3" text>
+                                <x-button :href="route('admin.ranks.names.index')" color="neutral" class="ml-3" text>
                                     <x-icon name="settings" size="md"></x-icon>
                                 </x-button>
                             @endcan
@@ -151,7 +151,7 @@
 
             <x-fieldset.controls>
                 <x-button type="submit" color="primary">Add</x-button>
-                <x-button :href="route('ranks.items.index')" plain>Cancel</x-button>
+                <x-button :href="route('admin.ranks.items.index')" plain>Cancel</x-button>
             </x-fieldset.controls>
 
             <input type="hidden" name="base_image" x-model="base" />

@@ -88,10 +88,10 @@ class PositionsList extends TableComponent
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (Model $record): string => route('positions.show', $record)),
+                            ->url(fn (Model $record): string => route('admin.positions.show', $record)),
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (Model $record): string => route('positions.edit', $record)),
+                            ->url(fn (Model $record): string => route('admin.positions.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
 
                     ActionGroup::make([
@@ -185,7 +185,7 @@ class PositionsList extends TableComponent
                 CreateAction::make()
                     ->authorize('create')
                     ->label('Add a position')
-                    ->url(route('positions.create')),
+                    ->url(route('admin.positions.create')),
             ]);
     }
 }

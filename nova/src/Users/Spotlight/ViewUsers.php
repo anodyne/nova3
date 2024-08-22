@@ -21,7 +21,7 @@ class ViewUsers extends SpotlightCommand
 
     public function execute(Spotlight $spotlight): void
     {
-        $spotlight->redirectRoute('users.index');
+        $spotlight->redirectRoute('admin.users.index');
     }
 
     public function shouldBeShown(): bool

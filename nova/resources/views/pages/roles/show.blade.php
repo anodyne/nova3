@@ -15,11 +15,11 @@
 
             <x-slot name="actions">
                 @can('viewAny', $role::class)
-                    <x-button :href="route('roles.index')" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.roles.index')" plain>&larr; Back</x-button>
                 @endcan
 
                 @can('update', $role)
-                    <x-button :href="route('roles.edit', $role)" color="primary">
+                    <x-button :href="route('admin.roles.edit', $role)" color="primary">
                         <x-icon name="edit" size="sm"></x-icon>
                         Edit
                     </x-button>

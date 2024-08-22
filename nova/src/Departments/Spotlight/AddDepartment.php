@@ -21,7 +21,7 @@ class AddDepartment extends SpotlightCommand
 
     public function execute(Spotlight $spotlight): void
     {
-        $spotlight->redirectRoute('departments.create');
+        $spotlight->redirectRoute('admin.departments.create');
     }
 
     public function shouldBeShown(): bool

@@ -21,7 +21,7 @@ class AddUser extends SpotlightCommand
 
     public function execute(Spotlight $spotlight): void
     {
-        $spotlight->redirectRoute('users.create');
+        $spotlight->redirectRoute('admin.users.create');
     }
 
     public function shouldBeShown(): bool

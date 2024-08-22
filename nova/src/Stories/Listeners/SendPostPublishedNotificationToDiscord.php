@@ -18,7 +18,7 @@ class SendPostPublishedNotificationToDiscord
         $message = (new DiscordMessage)
             ->content('A new '.str($post->postType->name)->lower().' has been published!')
             ->embed(function (DiscordEmbed $embed) use ($post) {
-                $embed->title($post->title, route('posts.show', [$post->story, $post]))
+                $embed->title($post->title, route('admin.posts.show', [$post->story, $post]))
                     ->description($post->authors_string)
                     ->color($post->postType->color)
                     ->when(filled($post->location), fn ($embed) => $embed->field('Location', $post->location))

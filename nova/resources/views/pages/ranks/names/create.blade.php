@@ -9,12 +9,12 @@
 
             <x-slot name="actions">
                 @can('viewAny', RankName::class)
-                    <x-button :href="route('ranks.names.index')" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.ranks.names.index')" plain>&larr; Back</x-button>
                 @endcan
             </x-slot>
         </x-page-header>
 
-        <x-form :action="route('ranks.names.store')">
+        <x-form :action="route('admin.ranks.names.store')">
             <x-fieldset>
                 <x-fieldset.field-group constrained>
                     <x-fieldset.field label="Name" id="name" name="name" :error="$errors->first('name')">
@@ -36,7 +36,7 @@
 
             <x-fieldset.controls>
                 <x-button type="submit" color="primary">Add</x-button>
-                <x-button :href="route('ranks.names.index')" plain>Cancel</x-button>
+                <x-button :href="route('admin.ranks.names.index')" plain>Cancel</x-button>
             </x-fieldset.controls>
         </x-form>
     </x-spacing>

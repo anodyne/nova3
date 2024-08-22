@@ -9,6 +9,6 @@
     has been created by {{ $creator_name }} and requires approval before it can be activated.
 
     <x-slot name="actions">
-        <x-button :href="route('characters.show', $character_id)" color="primary">Review &rarr;</x-button>
+        <x-button :href="route('admin.characters.show', $character_id)" color="primary">Review &rarr;</x-button>
     </x-slot>
 </x-notification>

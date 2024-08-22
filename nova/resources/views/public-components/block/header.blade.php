@@ -16,18 +16,15 @@
         ])
     >
         @if (filled($heading))
-            <x-public::h2>
+            <x-public::h1>
                 {{ $heading }}
-            </x-public::h2>
+            </x-public::h1>
         @endif
 
         @if (filled($description))
-            <x-public::lead
-                @class([
-                    'mt-6' => filled($heading),
-                ])
-                markdown
-            >
+            <x-public::lead @class([
+                'mt-6' => filled($heading),
+            ]) markdown>
                 {{ $description }}
             </x-public::lead>
         @endif

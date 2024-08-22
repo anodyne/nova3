@@ -40,7 +40,7 @@ class AppearanceSettingsController extends Controller
         UpdateAppearance::run($data, $request);
 
         return redirect()
-            ->route('settings.appearance.edit')
+            ->route('admin.settings.appearance.edit')
             ->notify('Appearance settings have been updated');
     }
 }

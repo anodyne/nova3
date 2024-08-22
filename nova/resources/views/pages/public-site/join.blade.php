@@ -21,7 +21,7 @@
                 </x-public::alert>
             @endif
 
-            <x-form :action="route('join.process')">
+            <x-form :action="route('public.join.process')">
                 <x-public::tabs class="mt-8" initial="user">
                     <x-slot name="tabs">
                         <x-public::tabs.tab name="user">
@@ -116,7 +116,7 @@
                                         @foreach ($department->positions as $position)
                                             <option
                                                 value="{{ $position->id }}"
-                                                @selected(old('characterInfo.position') == $position->id)
+                                                @selected(old('characterInfo.position', $selectedPosition) == $position->id)
                                             >
                                                 {{ $position->name }}
                                             </option>

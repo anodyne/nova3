@@ -18,7 +18,7 @@ describe('authorized user', function () {
     });
 
     test('can view the view rank name page', function () {
-        get(route('ranks.names.show', $this->rankName))->assertSuccessful();
+        get(route('admin.ranks.names.show', $this->rankName))->assertSuccessful();
     });
 });
 
@@ -28,13 +28,13 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the view rank name page', function () {
-        get(route('ranks.names.show', $this->rankName))->assertForbidden();
+        get(route('admin.ranks.names.show', $this->rankName))->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the view rank name page', function () {
-        get(route('ranks.names.show', $this->rankName))
+        get(route('admin.ranks.names.show', $this->rankName))
             ->assertRedirectToRoute('login');
     });
 });

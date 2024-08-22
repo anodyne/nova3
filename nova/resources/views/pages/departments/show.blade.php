@@ -14,11 +14,11 @@
 
             <x-slot name="actions">
                 @can('viewAny', $department::class)
-                    <x-button :href="route('departments.index')" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.departments.index')" plain>&larr; Back</x-button>
                 @endcan
 
                 @can('update', $department)
-                    <x-button :href="route('departments.edit', $department)" color="primary">
+                    <x-button :href="route('admin.departments.edit', $department)" color="primary">
                         <x-icon name="edit" size="sm"></x-icon>
                         Edit
                     </x-button>
@@ -41,7 +41,7 @@
 
                             @can('viewAny', Position::class)
                                 <x-button
-                                    :href="route('positions.index', ['tableFilters' => ['department_id' => ['values' => [$department->id]]]])"
+                                    :href="route('admin.positions.index', ['tableFilters' => ['department_id' => ['values' => [$department->id]]]])"
                                     size="xs"
                                     plain
                                 >
@@ -63,7 +63,7 @@
                                     </div>
                                     @can('update', $position)
                                         <x-button
-                                            :href="route('positions.edit', $position)"
+                                            :href="route('admin.positions.edit', $position)"
                                             class="group-hover:visible sm:invisible"
                                             color="neutral"
                                             text
@@ -78,7 +78,7 @@
                                     title="No positions assigned"
                                     message="There aren’t any positions assigned to this department. Assign some positions to this department to populate this list."
                                     :link-access="gate()->allows('viewAny', Position::class)"
-                                    :link="route('positions.index')"
+                                    :link="route('admin.positions.index')"
                                     label="Assign positions &rarr;"
                                 ></x-empty-state.small>
                             @endforelse
@@ -109,7 +109,7 @@
 
                                             @can('update', $character)
                                                 <x-button
-                                                    :href="route('characters.edit', $character)"
+                                                    :href="route('admin.characters.edit', $character)"
                                                     color="neutral"
                                                     class="group-hover:visible sm:invisible"
                                                     text
@@ -152,7 +152,7 @@
 
                                             @can('update', $user)
                                                 <x-button
-                                                    :href="route('users.edit', $user)"
+                                                    :href="route('admin.users.edit', $user)"
                                                     color="neutral"
                                                     class="group-hover:visible sm:invisible"
                                                     text

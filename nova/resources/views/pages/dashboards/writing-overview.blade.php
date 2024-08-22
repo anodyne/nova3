@@ -9,7 +9,7 @@
 
         <x-slot name="actions">
             @can('create', Post::class)
-                <x-button :href="route('posts.create')" color="primary">
+                <x-button :href="route('admin.posts.create')" color="primary">
                     <x-icon name="write" size="sm"></x-icon>
                     Start writing
                 </x-button>

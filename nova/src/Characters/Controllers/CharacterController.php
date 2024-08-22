@@ -63,7 +63,7 @@ class CharacterController extends Controller
         );
 
         return redirect()
-            ->route('characters.index')
+            ->route('admin.characters.index')
             ->notify("{$character->name} was created");
     }
 

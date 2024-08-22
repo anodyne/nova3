@@ -22,7 +22,7 @@ class ActivateUserButton extends Component
         UserActivated::dispatch($this->user);
 
         redirect()
-            ->route('users.edit', $this->user)
+            ->route('admin.users.edit', $this->user)
             ->notify("{$this->user->name} was activated");
     }
 

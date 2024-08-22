@@ -24,7 +24,7 @@ describe('authorized user', function () {
     });
 
     test('can view the edit position page', function () {
-        get(route('positions.edit', $this->position))->assertSuccessful();
+        get(route('admin.positions.edit', $this->position))->assertSuccessful();
     });
 
     test('can update a position', function () {
@@ -32,9 +32,9 @@ describe('authorized user', function () {
 
         $data = Position::factory()->make();
 
-        from(route('positions.edit', $this->position))
+        from(route('admin.positions.edit', $this->position))
             ->followingRedirects()
-            ->put(route('positions.update', $this->position), $data->toArray())
+            ->put(route('admin.positions.update', $this->position), $data->toArray())
             ->assertSuccessful();
 
         assertDatabaseHas(Position::class, $data->toArray());
@@ -49,26 +49,26 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the edit position page', function () {
-        get(route('positions.edit', $this->position))
+        get(route('admin.positions.edit', $this->position))
             ->assertForbidden();
     });
 
     test('cannot update a position', function () {
         $data = Position::factory()->make();
 
-        put(route('positions.update', $this->position), $data->toArray())
+        put(route('admin.positions.update', $this->position), $data->toArray())
             ->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the edit position page', function () {
-        get(route('positions.edit', $this->position))
+        get(route('admin.positions.edit', $this->position))
             ->assertRedirectToRoute('login');
     });
 
     test('cannot update a position', function () {
-        put(route('positions.update', $this->position), [])
+        put(route('admin.positions.update', $this->position), [])
             ->assertRedirectToRoute('login');
     });
 });

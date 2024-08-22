@@ -18,6 +18,8 @@
             'md' => 'size-12',
             'lg' => 'size-16',
             'xl' => 'size-24',
+            '2xl' => 'size-32',
+            '3xl' => 'size-48',
             default => $size
         },
         $attributes->get('class'),

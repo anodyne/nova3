@@ -48,8 +48,7 @@ class RoleController extends Controller
     {
         $role = CreateRoleManager::run($request);
 
-        return redirect()
-            ->route('roles.index')
+        return to_route('admin.roles.index')
             ->notify("{$role->display_name} role was created");
     }
 
@@ -65,9 +64,7 @@ class RoleController extends Controller
     {
         $role = UpdateRoleManager::run($role, $request);
 
-        return redirect()
-            // ->route('roles.edit', $role)
-            ->route('roles.index')
+        return to_route('admin.roles.index')
             ->notify($role->display_name.' role was updated');
     }
 }

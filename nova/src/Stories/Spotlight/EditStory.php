@@ -47,7 +47,7 @@ class EditStory extends SpotlightCommand
 
     public function execute(Spotlight $spotlight, Story $story)
     {
-        $spotlight->redirectRoute('stories.edit', $story);
+        $spotlight->redirectRoute('admin.stories.edit', $story);
     }
 
     public function shouldBeShown(): bool

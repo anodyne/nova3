@@ -19,9 +19,10 @@ return new class extends Migration
         $menu = Menu::create(['name' => 'Public', 'key' => 'public']);
 
         $menu->items()->createMany([
-            ['label' => 'Home', 'link_type' => LinkType::Url, 'url' => '/'],
-            ['label' => 'Join', 'link_type' => LinkType::Page, 'page_id' => Page::key('join.show')->first()->id],
-            ['label' => 'Contact', 'link_type' => LinkType::Page, 'page_id' => Page::key('contact.show')->first()->id],
+            ['label' => 'Home', 'link_type' => LinkType::Page, 'page_id' => Page::key('home')->first()->id],
+            ['label' => 'Characters', 'link_type' => LinkType::Page, 'page_id' => Page::key('public.characters')->first()->id],
+            ['label' => 'Join', 'link_type' => LinkType::Page, 'page_id' => Page::key('public.join')->first()->id],
+            ['label' => 'Contact', 'link_type' => LinkType::Page, 'page_id' => Page::key('public.contact')->first()->id],
         ]);
 
         activity()->enableLogging();

@@ -14,6 +14,7 @@ use Filament\Tables\Table;
 use FilamentTiptapEditor\TiptapEditor;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
+use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
@@ -89,6 +90,8 @@ class AppServiceProvider extends ServiceProvider
         Model::shouldBeStrict(! app()->environment('production'));
 
         Date::use(CarbonImmutable::class);
+
+        RedirectIfAuthenticated::redirectUsing(fn () => route('admin.dashboard'));
 
         // Make sure the file finder can find Javascript files
         $this->app['view']->addExtension('js', 'file');

@@ -21,7 +21,7 @@
                 @can('viewAny', Character::class)
                     <x-dropdown.group>
                         <x-dropdown.text>Don’t see the character you’re looking for?</x-dropdown.text>
-                        <x-dropdown.item :href="route('characters.index')">
+                        <x-dropdown.item :href="route('admin.characters.index')">
                             Go to character management &rarr;
                         </x-dropdown.item>
                     </x-dropdown.group>

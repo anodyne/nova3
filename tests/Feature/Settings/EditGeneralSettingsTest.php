@@ -15,14 +15,14 @@ describe('authorized user', function () {
     });
 
     test('can view the general settings page', function () {
-        get(route('settings.general.edit'))
+        get(route('admin.settings.general.edit'))
             ->assertSuccessful();
     });
 
     test('can update general settings', function () {
-        from(route('settings.general.edit'))
+        from(route('admin.settings.general.edit'))
             ->followingRedirects()
-            ->put(route('settings.general.update'), [
+            ->put(route('admin.settings.general.update'), [
                 'game_name' => 'Foo',
                 'dateFormatTags' => '[[{"value":"#year_long#","text":"Year, long (2024)","prefix":"#"}]]',
                 'contactFormEnabled' => 'true',
@@ -47,24 +47,24 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the general settings page', function () {
-        get(route('settings.general.edit'))
+        get(route('admin.settings.general.edit'))
             ->assertForbidden();
     });
 
     test('cannot update general settings', function () {
-        put(route('settings.general.update'), [])
+        put(route('admin.settings.general.update'), [])
             ->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the general settings page', function () {
-        get(route('settings.general.edit'))
+        get(route('admin.settings.general.edit'))
             ->assertRedirectToRoute('login');
     });
 
     test('cannot update general settings', function () {
-        put(route('settings.general.update'), [])
+        put(route('admin.settings.general.update'), [])
             ->assertRedirectToRoute('login');
     });
 });

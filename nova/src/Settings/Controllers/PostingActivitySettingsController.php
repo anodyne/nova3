@@ -35,7 +35,7 @@ class PostingActivitySettingsController extends Controller
         UpdateSettings::run('posting_activity', PostingActivity::from($request));
 
         return redirect()
-            ->route('settings.posting-activity.edit')
+            ->route('admin.settings.posting-activity.edit')
             ->notify('Posting activity settings have been updated');
     }
 }

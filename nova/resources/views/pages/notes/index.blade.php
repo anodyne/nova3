@@ -8,7 +8,7 @@
 
         <x-slot name="actions">
             @can('create', Note::class)
-                <x-button :href="route('notes.create')" color="primary">
+                <x-button :href="route('admin.notes.create')" color="primary">
                     <x-icon name="add" size="sm"></x-icon>
                     Add
                 </x-button>

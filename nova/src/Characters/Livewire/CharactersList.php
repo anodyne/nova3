@@ -90,10 +90,10 @@ class CharactersList extends TableComponent
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (Model $record): string => route('characters.show', $record)),
+                            ->url(fn (Model $record): string => route('admin.characters.show', $record)),
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (Model $record): string => route('characters.edit', $record)),
+                            ->url(fn (Model $record): string => route('admin.characters.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
 
                     ActionGroup::make([
@@ -135,7 +135,7 @@ class CharactersList extends TableComponent
                             ->color('gray')
                             ->icon(iconName('progress'))
                             ->visible(fn (Character $record): bool => Gate::allows('vote', $record->application))
-                            ->url(fn (Character $record): ?string => route('applications.show', $record->application)),
+                            ->url(fn (Character $record): ?string => route('admin.applications.show', $record->application)),
                     ])->visible(fn (Character $record): bool => Gate::allows('vote', $record->application))->divided(),
 
                     ActionGroup::make([
@@ -372,7 +372,7 @@ class CharactersList extends TableComponent
             ->emptyStateActions([
                 CreateAction::make()
                     ->label('Add a character')
-                    ->url(route('characters.create'))
+                    ->url(route('admin.characters.create'))
                     ->authorize('createAny'),
             ]);
     }

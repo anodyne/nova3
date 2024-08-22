@@ -23,7 +23,7 @@ class ViewRoles extends SpotlightCommand
 
     public function execute(Spotlight $spotlight): void
     {
-        $spotlight->redirectRoute('roles.index');
+        $spotlight->redirectRoute('admin.roles.index');
     }
 
     public function shouldBeShown(): bool

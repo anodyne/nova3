@@ -15,19 +15,23 @@
 
                         <div class="flex items-center gap-x-4">
                             @if ($previousPost)
-                                <x-button :href="route('posts.show', [$story, $previousPost])" color="neutral" text>
+                                <x-button
+                                    :href="route('admin.posts.show', [$story, $previousPost])"
+                                    color="neutral"
+                                    text
+                                >
                                     <x-icon name="arrow-left" size="lg"></x-icon>
                                 </x-button>
                             @endif
 
                             @if ($nextPost)
-                                <x-button :href="route('posts.show', [$story, $nextPost])" color="neutral" text>
+                                <x-button :href="route('admin.posts.show', [$story, $nextPost])" color="neutral" text>
                                     <x-icon name="arrow-right" size="lg"></x-icon>
                                 </x-button>
                             @endif
 
                             @can('update', $post)
-                                <x-button href="{{ route('posts.edit', $post) }}" color="primary">
+                                <x-button href="{{ route('admin.posts.edit', $post) }}" color="primary">
                                     <x-icon name="edit" size="sm"></x-icon>
                                     Edit
                                 </x-button>

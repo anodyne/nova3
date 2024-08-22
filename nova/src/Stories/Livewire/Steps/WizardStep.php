@@ -55,7 +55,7 @@ abstract class WizardStep extends Component
             ->title('Post has been deleted')
             ->send();
 
-        redirect()->route('writing-overview');
+        redirect()->route('admin.writing-overview');
     }
 
     #[Renderless]
@@ -71,6 +71,6 @@ abstract class WizardStep extends Component
             ->title('Draft has been discarded')
             ->send();
 
-        redirect()->route('writing-overview');
+        redirect()->route('admin.writing-overview');
     }
 }

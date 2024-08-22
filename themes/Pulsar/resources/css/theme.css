@@ -6,28 +6,31 @@
 }
 
 body {
-    @apply bg-white;
+    @apply bg-white px-2 py-2;
 }
 
 .content-container {
-    @apply relative;
+    @apply relative mx-auto flex max-w-6xl flex-1 flex-col;
 }
 
 .content {
-    @apply relative;
+    @apply relative my-8;
 }
 
 .main-nav {
-    @apply fixed left-1/2 z-50 mt-8 flex -translate-x-1/2 items-center gap-x-3 rounded-xl bg-white/75 px-4 shadow-lg ring-1 ring-gray-900/5 backdrop-blur-sm lg:gap-x-6;
+    @apply mx-auto flex max-w-6xl items-center gap-x-3 rounded-xl py-2 lg:gap-x-6;
 }
 .main-nav .leading-container {
     @apply flex shrink-0 items-center pl-1;
 }
 .main-nav .trailing-container {
-    @apply flex shrink-0 items-center pr-2;
+    @apply ml-auto flex shrink-0 items-center pr-2;
+}
+.main-nav .trailing-container a {
+    @apply relative rounded-lg bg-[--accent-color] px-3.5 py-1.5 text-center text-sm/6 font-semibold text-[--text-accent-color] shadow-sm transition before:absolute before:inset-0 before:z-[1] before:rounded-[calc(theme(borderRadius.lg)-1px)] before:bg-white before:bg-opacity-0 hover:text-[--text-accent-color] before:hover:bg-opacity-10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
 }
 .main-nav .divider {
-    @apply flex h-5 w-px items-center bg-primary-950/10;
+    @apply flex hidden h-5 w-px items-center bg-primary-950/10;
 }
 .main-nav ul {
     @apply flex items-center;
@@ -36,18 +39,53 @@ body {
     @apply relative px-3 py-2.5;
 }
 .main-nav ul li[data-active] {
-    @apply after:absolute after:inset-x-1 after:-bottom-px after:h-px after:bg-gradient-to-r after:from-primary-500/0 after:via-primary-500 after:to-primary-500/0;
+    @apply after:absolute after:inset-x-1 after:-bottom-px after:h-px after:bg-gradient-to-r after:from-transparent after:via-[--accent-color] after:to-transparent;
 }
 .main-nav a,
 .main-nav button {
-    @apply flex items-center gap-x-1.5 text-sm font-semibold text-gray-500 transition hover:text-gray-950 [&>[data-slot=icon]]:size-5 [&>[data-slot=icon]]:shrink-0;
+    @apply flex items-center gap-x-1.5 font-bold text-gray-500 transition hover:text-gray-950 [&>[data-slot=icon]]:size-5 [&>[data-slot=icon]]:shrink-0;
 }
 .main-nav [data-active] a {
-    @apply text-primary-600;
+    @apply text-[--accent-color];
 }
 
 .nova-advanced-page-content {
-    @apply mx-auto max-w-5xl py-28;
+    @apply mx-auto max-w-6xl;
+}
+
+.nv-character-bio {
+    @apply flex gap-16;
+}
+.avatar-container {
+    @apply shrink-0;
+}
+.bio-content {
+    @apply flex-1 space-y-8;
+}
+.bio-content .character-details {
+    @apply flex flex-col gap-1;
+}
+.bio-content .character-details .character-name {
+    @apply flex items-baseline gap-x-8;
+}
+.bio-content .character-details .character-metadata {
+    @apply flex items-center gap-x-4;
+}
+.bio-content .character-details .character-metadata .metadata-item {
+    @apply text-lg/7 font-semibold text-gray-500;
+}
+.bio-content .character-details .character-metadata .divider {
+    @apply text-lg/7 text-gray-300;
+}
+
+.horizontal-divider {
+    @apply h-px max-w-lg bg-gradient-to-r from-gray-200 to-transparent;
+}
+
+.nv-hero,
+.nv-features,
+.nv-cta {
+    @apply overflow-hidden rounded-2xl;
 }
 
 .nv-tabs {

@@ -18,7 +18,7 @@ describe('authorized user', function () {
     });
 
     test('can view the view role page', function () {
-        get(route('roles.show', $this->role))->assertSuccessful();
+        get(route('admin.roles.show', $this->role))->assertSuccessful();
     });
 });
 
@@ -28,13 +28,13 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the view role page', function () {
-        get(route('roles.show', $this->role))->assertForbidden();
+        get(route('admin.roles.show', $this->role))->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the view role page', function () {
-        get(route('roles.show', $this->role))
+        get(route('admin.roles.show', $this->role))
             ->assertRedirectToRoute('login');
     });
 });

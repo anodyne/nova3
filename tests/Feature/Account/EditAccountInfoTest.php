@@ -22,7 +22,7 @@ beforeEach(function () {
 });
 
 test('a user can view their account info', function () {
-    get(route('account.edit'))
+    get(route('admin.account.edit'))
         ->assertSuccessful()
         ->assertSeeLivewire(MyAccount::class);
 

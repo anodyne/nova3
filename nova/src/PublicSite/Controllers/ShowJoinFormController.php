@@ -12,7 +12,7 @@ use Nova\PublicSite\Responses\ShowJoinFormResponse;
 
 class ShowJoinFormController extends Controller
 {
-    public function __invoke()
+    public function __invoke(?int $position = null)
     {
         return ShowJoinFormResponse::sendWith([
             'applicationInfoForm' => Form::key('applicationInfo')->first(),
@@ -24,6 +24,7 @@ class ShowJoinFormController extends Controller
                 ->active()
                 ->ordered()
                 ->get(),
+            'selectedPosition' => $position,
         ]);
     }
 }

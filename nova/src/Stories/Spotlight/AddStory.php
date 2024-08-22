@@ -22,7 +22,7 @@ class AddStory extends SpotlightCommand
 
     public function execute(Spotlight $spotlight): void
     {
-        $spotlight->redirectRoute('stories.create');
+        $spotlight->redirectRoute('admin.stories.create');
     }
 
     public function shouldBeShown(): bool

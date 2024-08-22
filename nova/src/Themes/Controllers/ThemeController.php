@@ -54,7 +54,7 @@ class ThemeController extends Controller
         $theme = CreateThemeManager::run($request);
 
         return redirect()
-            ->route('themes.index')
+            ->route('admin.themes.index')
             ->notify("{$theme->name} theme was created", 'A folder has been created in the themes directory to help you get started creating your theme.');
     }
 
@@ -70,7 +70,7 @@ class ThemeController extends Controller
         $theme = UpdateTheme::run($theme, ThemeData::from($request));
 
         return redirect()
-            ->route('themes.edit', $theme)
+            ->route('admin.themes.edit', $theme)
             ->notify("{$theme->name} theme was updated");
     }
 }

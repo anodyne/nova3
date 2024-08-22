@@ -36,7 +36,7 @@ describe('authorized user', function () {
     });
 
     test('can view the create character page', function () {
-        get(route('characters.create'))->assertSuccessful();
+        get(route('admin.characters.create'))->assertSuccessful();
     });
 
     test('can create a character', function () {
@@ -44,9 +44,9 @@ describe('authorized user', function () {
 
         $data = Character::factory()->make();
 
-        from(route('characters.create'))
+        from(route('admin.characters.create'))
             ->followingRedirects()
-            ->post(route('characters.store'), $data->toArray())
+            ->post(route('admin.characters.store'), $data->toArray())
             ->assertSuccessful();
 
         assertDatabaseHas(Character::class, Arr::only($data->toArray(), ['name']));
@@ -91,12 +91,12 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the create character page', function () {
-        get(route('characters.create'))
+        get(route('admin.characters.create'))
             ->assertForbidden();
     });
 
     test('cannot create a character', function () {
-        post(route('characters.store'), [])
+        post(route('admin.characters.store'), [])
             ->assertForbidden();
     });
 
@@ -132,12 +132,12 @@ describe('unauthorized user', function () {
 
 describe('unauthenticated user', function () {
     test('cannot view the create character page', function () {
-        get(route('characters.create'))
+        get(route('admin.characters.create'))
             ->assertRedirectToRoute('login');
     });
 
     test('cannot create a character', function () {
-        post(route('characters.store'), [])
+        post(route('admin.characters.store'), [])
             ->assertRedirectToRoute('login');
     });
 });
@@ -159,9 +159,9 @@ describe('character creation', function () {
             ['assigned_users' => $assignedUsers]
         );
 
-        from(route('characters.create'))
+        from(route('admin.characters.create'))
             ->followingRedirects()
-            ->post(route('characters.store'), $data)
+            ->post(route('admin.characters.store'), $data)
             ->assertSuccessful();
 
         assertDatabaseHas(Character::class, Arr::only($data, ['name']));
@@ -187,9 +187,9 @@ describe('character creation', function () {
             ]
         );
 
-        from(route('characters.create'))
+        from(route('admin.characters.create'))
             ->followingRedirects()
-            ->post(route('characters.store'), $data)
+            ->post(route('admin.characters.store'), $data)
             ->assertSuccessful();
 
         assertDatabaseHas(Character::class, Arr::only($data, ['name']));
@@ -213,9 +213,9 @@ describe('character creation', function () {
             ['assigned_positions' => $assignedPositions]
         );
 
-        from(route('characters.create'))
+        from(route('admin.characters.create'))
             ->followingRedirects()
-            ->post(route('characters.store'), $data)
+            ->post(route('admin.characters.store'), $data)
             ->assertSuccessful();
 
         assertDatabaseHas(Character::class, Arr::only($data, ['name']));
@@ -239,9 +239,9 @@ describe('character creation', function () {
             ['image_path' => $imagePath]
         );
 
-        from(route('characters.create'))
+        from(route('admin.characters.create'))
             ->followingRedirects()
-            ->post(route('characters.store'), $data)
+            ->post(route('admin.characters.store'), $data)
             ->assertSuccessful();
 
         $newCharacter = Character::latest('id')->first();

@@ -8,12 +8,12 @@
             <x-slot name="heading">Add a new character</x-slot>
 
             <x-slot name="actions">
-                <x-button :href="route('characters.index')" plain>&larr; Back</x-button>
+                <x-button :href="route('admin.characters.index')" plain>&larr; Back</x-button>
             </x-slot>
         </x-page-header>
 
         <x-form
-            :action="route('characters.store')"
+            :action="route('admin.characters.store')"
             x-data="tabsList('{{ $errors->getBag('default')->has('character.*') ? 'bio' : 'info' }}')"
         >
             @if (filled($form->published_fields))
@@ -90,7 +90,7 @@
 
             <x-fieldset.controls>
                 <x-button type="submit" color="primary">Add</x-button>
-                <x-button :href="route('characters.index')" plain>Cancel</x-button>
+                <x-button :href="route('admin.characters.index')" plain>Cancel</x-button>
             </x-fieldset.controls>
         </x-form>
     </x-spacing>

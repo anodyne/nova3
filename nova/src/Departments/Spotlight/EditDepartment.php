@@ -46,7 +46,7 @@ class EditDepartment extends SpotlightCommand
 
     public function execute(Spotlight $spotlight, Department $department): void
     {
-        $spotlight->redirectRoute('departments.edit', $department);
+        $spotlight->redirectRoute('admin.departments.edit', $department);
     }
 
     public function shouldBeShown(): bool

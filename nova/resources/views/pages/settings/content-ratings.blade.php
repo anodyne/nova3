@@ -33,7 +33,7 @@
             </div>
         </div>
 
-        <x-form :action="route('settings.content-ratings.update')" method="PUT" x-show="isTab('language')">
+        <x-form :action="route('admin.settings.content-ratings.update')" method="PUT" x-show="isTab('language')">
             <x-fieldset>
                 <x-fieldset.heading>
                     <x-icon name="mature"></x-icon>
@@ -136,7 +136,7 @@
             </x-fieldset.controls>
         </x-form>
 
-        <x-form :action="route('settings.content-ratings.update')" method="PUT" x-show="isTab('sex')" x-cloak>
+        <x-form :action="route('admin.settings.content-ratings.update')" method="PUT" x-show="isTab('sex')" x-cloak>
             <x-fieldset>
                 <x-fieldset.heading>
                     <x-icon name="mature"></x-icon>
@@ -231,7 +231,12 @@
             </x-fieldset.controls>
         </x-form>
 
-        <x-form :action="route('settings.content-ratings.update')" method="PUT" x-show="isTab('violence')" x-cloak>
+        <x-form
+            :action="route('admin.settings.content-ratings.update')"
+            method="PUT"
+            x-show="isTab('violence')"
+            x-cloak
+        >
             <x-fieldset>
                 <x-fieldset.heading>
                     <x-icon name="mature"></x-icon>

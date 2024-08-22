@@ -21,7 +21,7 @@ class WritePost extends SpotlightCommand
 
     public function execute(Spotlight $spotlight)
     {
-        $spotlight->redirectRoute('posts.create');
+        $spotlight->redirectRoute('admin.posts.create');
     }
 
     public function shouldBeShown(): bool

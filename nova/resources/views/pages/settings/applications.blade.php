@@ -15,7 +15,7 @@
             </x-slot>
         </x-page-header>
 
-        <x-form :action="route('settings.applications.update')" method="PUT">
+        <x-form :action="route('admin.settings.applications.update')" method="PUT">
             <x-fieldset>
                 <x-fieldset.field-group constrained>
                     <x-switch.group>

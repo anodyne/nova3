@@ -26,7 +26,7 @@ describe('authorized user', function () {
     });
 
     test('can view the list forms page', function () {
-        get(route('forms.index'))->assertSuccessful();
+        get(route('admin.forms.index'))->assertSuccessful();
 
         livewire(FormsList::class)
             ->assertCanSeeTableRecords($this->forms);
@@ -123,13 +123,13 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the manage forms page', function () {
-        get(route('forms.index'))->assertForbidden();
+        get(route('admin.forms.index'))->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the manage forms page', function () {
-        get(route('forms.index'))
+        get(route('admin.forms.index'))
             ->assertRedirectToRoute('login');
     });
 });

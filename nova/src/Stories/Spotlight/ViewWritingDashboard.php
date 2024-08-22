@@ -19,6 +19,6 @@ class ViewWritingDashboard extends SpotlightCommand
 
     public function execute(Spotlight $spotlight): void
     {
-        $spotlight->redirectRoute('writing-overview');
+        $spotlight->redirectRoute('admin.writing-overview');
     }
 }

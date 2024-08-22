@@ -24,7 +24,7 @@ describe('authorized user', function () {
     });
 
     test('can view the create department page', function () {
-        get(route('departments.create'))->assertSuccessful();
+        get(route('admin.departments.create'))->assertSuccessful();
     });
 
     test('can create a department', function () {
@@ -32,9 +32,9 @@ describe('authorized user', function () {
 
         $data = Department::factory()->make();
 
-        from(route('departments.create'))
+        from(route('admin.departments.create'))
             ->followingRedirects()
-            ->post(route('departments.store'), $data->toArray())
+            ->post(route('admin.departments.store'), $data->toArray())
             ->assertSuccessful();
 
         assertDatabaseHas(Department::class, $data->toArray());
@@ -55,9 +55,9 @@ describe('authorized user', function () {
             ['image_path' => $imagePath]
         );
 
-        from(route('departments.create'))
+        from(route('admin.departments.create'))
             ->followingRedirects()
-            ->post(route('departments.store'), $data)
+            ->post(route('admin.departments.store'), $data)
             ->assertSuccessful();
 
         $department = Department::where('name', $data['name'])->first();
@@ -72,24 +72,24 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the create department page', function () {
-        get(route('departments.create'))->assertForbidden();
+        get(route('admin.departments.create'))->assertForbidden();
     });
 
     test('cannot create a department', function () {
         $data = Department::factory()->make();
 
-        post(route('departments.store'), $data->toArray())->assertForbidden();
+        post(route('admin.departments.store'), $data->toArray())->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the create department page', function () {
-        get(route('departments.create'))
+        get(route('admin.departments.create'))
             ->assertRedirectToRoute('login');
     });
 
     test('cannot create a department', function () {
-        post(route('departments.store'), [])
+        post(route('admin.departments.store'), [])
             ->assertRedirectToRoute('login');
     });
 });

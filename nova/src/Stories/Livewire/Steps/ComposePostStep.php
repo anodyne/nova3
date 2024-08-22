@@ -83,7 +83,7 @@ class ComposePostStep extends WizardStep
         }
 
         if ($shouldRedirect) {
-            redirect()->route('posts.edit', $this->post);
+            redirect()->route('admin.posts.edit', $this->post);
         }
     }
 

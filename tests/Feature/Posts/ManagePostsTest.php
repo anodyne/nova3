@@ -23,7 +23,7 @@ describe('authorized user', function () {
     it('can view the list posts page', function () {
         Post::factory(5)->published()->create();
 
-        get(route('posts.index'))->assertSuccessful();
+        get(route('admin.posts.index'))->assertSuccessful();
 
         livewire(PostsList::class)
             ->assertCountTableRecords(5);
@@ -114,13 +114,13 @@ describe('unauthorized user', function () {
     });
 
     it('cannot view the manage posts page', function () {
-        get(route('posts.index'))->assertForbidden();
+        get(route('admin.posts.index'))->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the manage posts page', function () {
-        get(route('posts.index'))
+        get(route('admin.posts.index'))
             ->assertRedirectToRoute('login');
     });
 });

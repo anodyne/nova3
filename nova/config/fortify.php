@@ -12,7 +12,7 @@ return [
     'username' => 'email',
     'email' => 'email',
     'views' => true,
-    'home' => '/dashboard',
+    'home' => '/admin/dashboard',
     'prefix' => '',
     'domain' => null,
     'lowercase_usernames' => false,

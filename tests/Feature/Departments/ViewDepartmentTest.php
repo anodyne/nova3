@@ -18,7 +18,7 @@ describe('authorized user', function () {
     });
 
     test('can view the view department page', function () {
-        get(route('departments.show', $this->department))->assertSuccessful();
+        get(route('admin.departments.show', $this->department))->assertSuccessful();
     });
 });
 
@@ -28,13 +28,13 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the view department page', function () {
-        get(route('departments.show', $this->department))->assertForbidden();
+        get(route('admin.departments.show', $this->department))->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the view department page', function () {
-        get(route('departments.show', $this->department))
+        get(route('admin.departments.show', $this->department))
             ->assertRedirectToRoute('login');
     });
 });

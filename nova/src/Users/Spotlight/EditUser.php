@@ -46,7 +46,7 @@ class EditUser extends SpotlightCommand
 
     public function execute(Spotlight $spotlight, User $user)
     {
-        $spotlight->redirectRoute('users.edit', $user);
+        $spotlight->redirectRoute('admin.users.edit', $user);
     }
 
     public function shouldBeShown(): bool

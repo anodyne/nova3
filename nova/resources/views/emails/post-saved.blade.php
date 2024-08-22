@@ -4,7 +4,7 @@
 
 {{ $user->name }} has updated the {{ str($post->postType->name)->lower() }} **{{ $post->title }}**.
 
-<x-mail::button :url="route('posts.edit', $post)">
+<x-mail::button :url="route('admin.posts.edit', $post)">
 Keep writing &rarr;
 </x-mail::button>
 </x-email-layout>

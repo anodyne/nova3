@@ -27,7 +27,7 @@ describe('authorized user', function () {
     });
 
     test('can view the list roles page', function () {
-        get(route('roles.index'))->assertSuccessful();
+        get(route('admin.roles.index'))->assertSuccessful();
 
         livewire(RolesList::class)
             ->assertCountTableRecords(Role::count());
@@ -141,13 +141,13 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the manage roles page', function () {
-        get(route('roles.index'))->assertForbidden();
+        get(route('admin.roles.index'))->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the manage roles page', function () {
-        get(route('roles.index'))
+        get(route('admin.roles.index'))
             ->assertRedirectToRoute('login');
     });
 });

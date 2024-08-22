@@ -106,10 +106,10 @@ class StoriesList extends TableComponent
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (Model $record): string => route('stories.show', $record)),
+                            ->url(fn (Model $record): string => route('admin.stories.show', $record)),
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (Model $record): string => route('stories.edit', $record)),
+                            ->url(fn (Model $record): string => route('admin.stories.edit', $record)),
                         Action::make('dates')
                             ->authorize('updateDates')
                             ->label('Update dates')
@@ -212,19 +212,19 @@ class StoriesList extends TableComponent
                             ->icon(iconName('move-up'))
                             ->color('gray')
                             ->label('Before this story')
-                            ->url(fn (Model $record): string => route('stories.create', 'direction=before&neighbor='.$record->id)),
+                            ->url(fn (Model $record): string => route('admin.stories.create', 'direction=before&neighbor='.$record->id)),
                         Action::make('create-after')
                             ->authorize('create')
                             ->icon(iconName('move-down'))
                             ->color('gray')
                             ->label('After this story')
-                            ->url(fn (Model $record): string => route('stories.create', 'direction=after&neighbor='.$record->id)),
+                            ->url(fn (Model $record): string => route('admin.stories.create', 'direction=after&neighbor='.$record->id)),
                         Action::make('create-inside')
                             ->authorize('create')
                             ->icon(iconName('move-right'))
                             ->color('gray')
                             ->label('Inside this story')
-                            ->url(fn (Model $record): string => route('stories.create', 'parent='.$record->id)),
+                            ->url(fn (Model $record): string => route('admin.stories.create', 'parent='.$record->id)),
                     ])->authorize('create')->divided(),
 
                     ActionGroup::make([
@@ -232,7 +232,7 @@ class StoriesList extends TableComponent
                             ->authorize('delete')
                             ->icon(iconName('trash'))
                             ->color('danger')
-                            ->url(fn (Model $record): string => route('stories.delete', $record)),
+                            ->url(fn (Model $record): string => route('admin.stories.delete', $record)),
                     ])->authorize('delete')->divided(),
                 ]),
             ])
@@ -253,7 +253,7 @@ class StoriesList extends TableComponent
                 CreateAction::make()
                     ->authorize('create')
                     ->label('Add your first story')
-                    ->url(route('stories.create')),
+                    ->url(route('admin.stories.create')),
             ]);
     }
 }

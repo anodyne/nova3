@@ -52,27 +52,27 @@ class FormsList extends TableComponent
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (Form $record): string => route('forms.show', $record)),
+                            ->url(fn (Form $record): string => route('admin.forms.show', $record)),
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (Form $record): string => route('forms.edit', $record)),
+                            ->url(fn (Form $record): string => route('admin.forms.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
 
                     ActionGroup::make([
                         Action::make('design')
                             ->authorize('design')
                             ->icon(iconName('tools'))
-                            ->url(fn (Form $record): string => route('forms.design', $record)),
+                            ->url(fn (Form $record): string => route('admin.forms.design', $record)),
                         Action::make('preview')
                             ->icon(iconName('form-preview'))
                             ->label('Preview form')
-                            ->url(fn (Form $record): string => route('forms.preview', $record)),
+                            ->url(fn (Form $record): string => route('admin.forms.preview', $record)),
                     ])->authorize('design')->divided(),
 
                     ActionGroup::make([
                         Action::make('submissions')
                             ->icon(iconName('clipboard'))
-                            ->url(fn (Form $record): string => route('form-submissions.index'))
+                            ->url(fn (Form $record): string => route('admin.form-submissions.index'))
                             ->visible(fn (Form $record): bool => $record->options?->collectResponses ?? false),
                     ])->divided(),
 
@@ -130,7 +130,7 @@ class FormsList extends TableComponent
                 CreateAction::make()
                     ->authorize('create')
                     ->label('Add a form')
-                    ->url(route('forms.create')),
+                    ->url(route('admin.forms.create')),
             ]);
     }
 }

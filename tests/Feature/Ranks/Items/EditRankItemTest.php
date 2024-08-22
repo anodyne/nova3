@@ -23,7 +23,7 @@ describe('authorized user', function () {
     });
 
     test('can view the edit rank item page', function () {
-        get(route('ranks.items.edit', $this->rankItem))->assertSuccessful();
+        get(route('admin.ranks.items.edit', $this->rankItem))->assertSuccessful();
     });
 
     test('can update a rank item', function () {
@@ -31,9 +31,9 @@ describe('authorized user', function () {
 
         $data = RankItem::factory()->make();
 
-        from(route('ranks.items.edit', $this->rankItem))
+        from(route('admin.ranks.items.edit', $this->rankItem))
             ->followingRedirects()
-            ->put(route('ranks.items.update', $this->rankItem), $data->toArray())
+            ->put(route('admin.ranks.items.update', $this->rankItem), $data->toArray())
             ->assertSuccessful();
 
         assertDatabaseHas(RankItem::class, $data->toArray());
@@ -48,22 +48,22 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the edit rank item page', function () {
-        get(route('ranks.items.edit', $this->rankItem))->assertForbidden();
+        get(route('admin.ranks.items.edit', $this->rankItem))->assertForbidden();
     });
 
     test('cannot update a rank item', function () {
-        put(route('ranks.items.update', $this->rankItem), [])->assertForbidden();
+        put(route('admin.ranks.items.update', $this->rankItem), [])->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the edit rank item page', function () {
-        get(route('ranks.items.edit', $this->rankItem))
+        get(route('admin.ranks.items.edit', $this->rankItem))
             ->assertRedirectToRoute('login');
     });
 
     test('cannot update a rank item', function () {
-        put(route('ranks.items.update', $this->rankItem), [])
+        put(route('admin.ranks.items.update', $this->rankItem), [])
             ->assertRedirectToRoute('login');
     });
 });

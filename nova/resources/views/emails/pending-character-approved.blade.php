@@ -16,6 +16,6 @@ Your newly created character **{{ $character->name }}** has been approved by the
 @endif
 </x-mail::panel>
 
-<x-mail::button :href="route('characters.show', $character)">View bio &rarr;</x-mail::button>
+<x-mail::button :href="route('admin.characters.show', $character)">View bio &rarr;</x-mail::button>
 </x-email-layout>
 {{-- format-ignore-end --}}

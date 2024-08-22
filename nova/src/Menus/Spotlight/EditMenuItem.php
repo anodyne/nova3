@@ -46,7 +46,7 @@ class EditMenuItem extends SpotlightCommand
 
     public function execute(Spotlight $spotlight, MenuItem $menuItem): void
     {
-        $spotlight->redirectRoute('menu-items.edit', $menuItem);
+        $spotlight->redirectRoute('admin.menu-items.edit', $menuItem);
     }
 
     public function shouldBeShown(): bool

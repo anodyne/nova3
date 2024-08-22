@@ -11,7 +11,7 @@ uses()->group('account');
 test('a user can view their notification preferences', function () {
     signIn();
 
-    get(route('account.notifications'))
+    get(route('admin.account.notifications'))
         ->assertSuccessful()
         ->assertSeeLivewire(UserNotificationPreferencesList::class);
 });

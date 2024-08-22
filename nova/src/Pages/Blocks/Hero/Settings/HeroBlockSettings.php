@@ -17,6 +17,6 @@ abstract class HeroBlockSettings extends ScribbleModal
 
     public static function getMaxWidth(): MaxWidth
     {
-        return MaxWidth::ExtraLarge;
+        return MaxWidth::TwoExtraLarge;
     }
 }

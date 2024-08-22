@@ -10,13 +10,13 @@
 
             <x-slot name="actions">
                 @can('viewAny', Page::class)
-                    <x-button :href="route('pages.index')" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.pages.index')" plain>&larr; Back</x-button>
                 @endcan
             </x-slot>
         </x-page-header>
 
         <x-form
-            :action="route('pages.store')"
+            :action="route('admin.pages.store')"
             x-data="{
                 type: null,
                 verb: 'get',
@@ -109,7 +109,7 @@
 
             <x-fieldset.controls>
                 <x-button type="submit" color="primary">Add</x-button>
-                <x-button :href="route('pages.index')" plain>Cancel</x-button>
+                <x-button :href="route('admin.pages.index')" plain>Cancel</x-button>
             </x-fieldset.controls>
         </x-form>
     </x-spacing>

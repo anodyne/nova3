@@ -21,7 +21,7 @@ class AddRole extends SpotlightCommand
 
     public function execute(Spotlight $spotlight): void
     {
-        $spotlight->redirectRoute('roles.create');
+        $spotlight->redirectRoute('admin.roles.create');
     }
 
     public function shouldBeShown(): bool

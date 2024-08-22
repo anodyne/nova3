@@ -9,7 +9,7 @@
 
             <x-slot name="actions">
                 @can('viewAny', Role::class)
-                    <x-button :href="route('roles.index')" color="neutral" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.roles.index')" color="neutral" plain>&larr; Back</x-button>
                 @endcan
             </x-slot>
         </x-page-header>
@@ -31,7 +31,7 @@
                 })
             "
         >
-            <x-form :action="route('roles.store')">
+            <x-form :action="route('admin.roles.store')">
                 <x-fieldset>
                     <x-fieldset.field-group constrained>
                         <x-fieldset.field
@@ -94,7 +94,7 @@
                 <x-fieldset>
                     <div class="flex gap-x-2 lg:flex-row-reverse">
                         <x-button type="submit" color="primary">Add</x-button>
-                        <x-button :href="route('roles.index')" plain>Cancel</x-button>
+                        <x-button :href="route('admin.roles.index')" plain>Cancel</x-button>
                     </div>
                 </x-fieldset>
             </x-form>

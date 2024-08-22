@@ -15,7 +15,7 @@
                 </x-public::alert>
             @endif
 
-            <x-form :action="route('contact.process')">
+            <x-form :action="route('public.contact.process')">
                 @honeypot
 
                 <div class="max-w-xl space-y-8">

@@ -20,7 +20,7 @@ class ViewEnvironmentSettings extends SpotlightCommand
 
     public function execute(Spotlight $spotlight): void
     {
-        $spotlight->redirectRoute('settings.environment.edit');
+        $spotlight->redirectRoute('admin.settings.environment.edit');
     }
 
     public function shouldBeShown(): bool

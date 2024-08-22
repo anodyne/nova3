@@ -74,7 +74,7 @@ class ActivityLogList extends TableComponent
                     ->iconButton()
                     ->color('gray')
                     ->size('md')
-                    ->url(fn (Model $record): string => route('activity-log.show', $record)),
+                    ->url(fn (Model $record): string => route('admin.activity-log.show', $record)),
             ])
             ->filters([
                 SelectFilter::make('log_name')

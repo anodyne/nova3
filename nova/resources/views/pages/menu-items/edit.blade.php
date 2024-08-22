@@ -11,12 +11,12 @@
 
             <x-slot name="actions">
                 @can('viewAny', MenuItem::class)
-                    <x-button :href="route('menu-items.index')" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.menu-items.index')" plain>&larr; Back</x-button>
                 @endcan
             </x-slot>
         </x-page-header>
 
-        <x-form :action="route('menu-items.update', $menuItem)" method="PUT">
+        <x-form :action="route('admin.menu-items.update', $menuItem)" method="PUT">
             <x-fieldset>
                 <x-fieldset.field-group
                     x-data="{ linkType: '{{ old('link_type', $menuItem->link_type->value) }}' }"
@@ -143,7 +143,7 @@
 
             <x-fieldset.controls>
                 <x-button type="submit" color="primary">Update</x-button>
-                <x-button :href="route('menu-items.index')" plain>Cancel</x-button>
+                <x-button :href="route('admin.menu-items.index')" plain>Cancel</x-button>
             </x-fieldset.controls>
         </x-form>
     </x-spacing>

@@ -48,7 +48,7 @@ class FormController extends Controller
         $form = CreateForm::run($request->getFormData());
 
         return redirect()
-            ->route('forms.index')
+            ->route('admin.forms.index')
             ->notify("{$form->name} form was created");
     }
 

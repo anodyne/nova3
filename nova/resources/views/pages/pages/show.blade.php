@@ -20,16 +20,16 @@
 
             <x-slot name="actions">
                 @can('viewAny', $page::class)
-                    <x-button :href="route('pages.index')" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.pages.index')" plain>&larr; Back</x-button>
                 @endcan
 
                 @can('update', $page)
-                    <x-button :href="route('pages.design', $page)" color="neutral">
+                    <x-button :href="route('admin.pages.design', $page)" color="neutral">
                         <x-icon name="tools" size="sm"></x-icon>
                         Design
                     </x-button>
 
-                    <x-button :href="route('pages.edit', $page)" color="primary">
+                    <x-button :href="route('admin.pages.edit', $page)" color="primary">
                         <x-icon name="edit" size="sm"></x-icon>
                         Edit
                     </x-button>

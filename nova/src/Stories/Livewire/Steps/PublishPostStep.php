@@ -100,7 +100,7 @@ class PublishPostStep extends WizardStep
             $this->post->status->transitionTo(Published::class);
         }
 
-        return redirect()->route('writing-overview')
+        return redirect()->route('admin.writing-overview')
             ->notify($this->post->title.' has been published');
     }
 

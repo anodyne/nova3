@@ -19,7 +19,7 @@
                 <x-sidebar.header>
                     <x-sidebar.section>
                         <div class="mb-2 flex px-2">
-                            <a href="{{ route('dashboard') }}" aria-label="Home">
+                            <a href="{{ route('admin.dashboard') }}" aria-label="Home">
                                 @if (app('nova.settings')->getFirstMedia('logo'))
                                     <img
                                         src="{{ app('nova.settings')->getFirstMediaUrl('logo') }}"
@@ -56,8 +56,8 @@
                 <x-sidebar.body>
                     <x-sidebar.section>
                         <x-sidebar.item
-                            :href="route('dashboard')"
-                            :active="request()->routeIs('dashboard')"
+                            :href="route('admin.dashboard')"
+                            :active="request()->routeIs('admin.dashboard')"
                             :meta="$meta"
                         >
                             <x-icon name="home" size="sm"></x-icon>
@@ -66,7 +66,7 @@
 
                         @if (auth()->user()->canWrite)
                             <x-sidebar.item
-                                :href="route('writing-overview')"
+                                :href="route('admin.writing-overview')"
                                 :active="$meta->subnavSection === 'writing' || $meta->subnavSection === 'posting'"
                                 :meta="$meta"
                             >
@@ -76,23 +76,23 @@
                         @endif
 
                         <x-sidebar.item
-                            :href="route('stories.timeline', 'posts')"
-                            :active="request()->routeIs('stories.timeline')"
+                            :href="route('admin.stories.timeline', 'posts')"
+                            :active="request()->routeIs('admin.stories.timeline')"
                             :meta="$meta"
                         >
                             <x-icon name="timeline" size="sm"></x-icon>
                             <x-sidebar.label>Timeline</x-sidebar.label>
                         </x-sidebar.item>
                         <x-sidebar.item
-                            :href="route('notes.index')"
-                            :active="request()->routeIs('notes.*')"
+                            :href="route('admin.notes.index')"
+                            :active="request()->routeIs('admin.notes.*')"
                             :meta="$meta"
                         >
                             <x-icon name="note" size="sm"></x-icon>
                             <x-sidebar.label>Notes</x-sidebar.label>
                         </x-sidebar.item>
                         <x-sidebar.item
-                            :href="route('characters.index')"
+                            :href="route('admin.characters.index')"
                             :active="$meta->subnavSection === 'characters'"
                             :meta="$meta"
                         >
@@ -102,7 +102,7 @@
 
                         @if (auth()->user()->canManageUsers)
                             <x-sidebar.item
-                                :href="route('users.index')"
+                                :href="route('admin.users.index')"
                                 :active="$meta->subnavSection === 'users'"
                                 :meta="$meta"
                             >
@@ -113,8 +113,8 @@
 
                         @can('viewAny', Application::class)
                             <x-sidebar.item
-                                :href="route('applications.index', ['tableFilters' => ['result' => ['values' => ['pending']]]])"
-                                :active="request()->routeIs('applications.*')"
+                                :href="route('admin.applications.index', ['tableFilters' => ['result' => ['values' => ['pending']]]])"
+                                :active="request()->routeIs('admin.applications.*')"
                                 :meta="$meta"
                             >
                                 <x-icon name="progress-check" size="sm"></x-icon>
@@ -132,8 +132,8 @@
 
                         @can('viewAny', Page::class)
                             <x-sidebar.item
-                                :href="route('pages.index', ['tableFilters' => ['pageType' => ['value' => 0]]])"
-                                :active="request()->routeIs('pages.*')"
+                                :href="route('admin.pages.index', ['tableFilters' => ['pageType' => ['value' => 0]]])"
+                                :active="request()->routeIs('admin.pages.*')"
                                 :meta="$meta"
                             >
                                 <x-icon name="www" size="sm"></x-icon>
@@ -143,7 +143,7 @@
 
                         @if (auth()->user()->canManageForms)
                             <x-sidebar.item
-                                :href="route('forms.index')"
+                                :href="route('admin.forms.index')"
                                 :active="$meta->subnavSection === 'forms'"
                                 :meta="$meta"
                             >
@@ -154,7 +154,7 @@
 
                         @can('update', $settings)
                             <x-sidebar.item
-                                :href="route('settings.general.edit')"
+                                :href="route('admin.settings.general.edit')"
                                 :active="$meta->subnavSection === 'settings'"
                                 :meta="$meta"
                             >
@@ -165,7 +165,7 @@
 
                         @if (auth()->user()->canManageSystem)
                             <x-sidebar.item
-                                :href="route('system-overview')"
+                                :href="route('admin.system-overview')"
                                 :active="$meta->subnavSection === 'system'"
                                 :meta="$meta"
                             >
@@ -216,8 +216,10 @@
                             </x-slot>
 
                             <x-dropdown.group>
-                                <x-dropdown.item :href="route('account.edit')" icon="user">My account</x-dropdown.item>
-                                <x-dropdown.item :href="route('account.notifications')" icon="bell">
+                                <x-dropdown.item :href="route('admin.account.edit')" icon="user">
+                                    My account
+                                </x-dropdown.item>
+                                <x-dropdown.item :href="route('admin.account.notifications')" icon="bell">
                                     My notifications
                                 </x-dropdown.item>
                                 <div
@@ -237,7 +239,7 @@
 
                             <x-dropdown.group>
                                 <x-dropdown.item
-                                    :href="route('characters.index', ['tableFilters' => ['only_my_characters' => ['isActive' => true]]])"
+                                    :href="route('admin.characters.index', ['tableFilters' => ['only_my_characters' => ['isActive' => true]]])"
                                     icon="characters"
                                 >
                                     My characters
@@ -310,7 +312,7 @@
                                 <x-sidebar.header>
                                     <x-sidebar.section>
                                         <div class="mb-2 flex px-2">
-                                            <a href="{{ route('dashboard') }}" aria-label="Home">
+                                            <a href="{{ route('admin.dashboard') }}" aria-label="Home">
                                                 @if (app('nova.settings')->getFirstMedia('logo'))
                                                     <img
                                                         src="{{ app('nova.settings')->getFirstMediaUrl('logo') }}"
@@ -328,8 +330,8 @@
                                 <x-sidebar.body>
                                     <x-sidebar.section>
                                         <x-sidebar.item
-                                            :href="route('dashboard')"
-                                            :active="request()->routeIs('dashboard')"
+                                            :href="route('admin.dashboard')"
+                                            :active="request()->routeIs('admin.dashboard')"
                                             :meta="$meta"
                                         >
                                             <x-icon name="home" size="sm"></x-icon>
@@ -338,7 +340,7 @@
 
                                         @if (auth()->user()->canWrite)
                                             <x-sidebar.item
-                                                :href="route('writing-overview')"
+                                                :href="route('admin.writing-overview')"
                                                 :active="$meta->subnavSection === 'writing' || $meta->subnavSection === 'posting'"
                                                 :meta="$meta"
                                             >
@@ -348,23 +350,23 @@
                                         @endif
 
                                         <x-sidebar.item
-                                            :href="route('stories.timeline', 'posts')"
-                                            :active="request()->routeIs('stories.timeline')"
+                                            :href="route('admin.stories.timeline', 'posts')"
+                                            :active="request()->routeIs('admin.stories.timeline')"
                                             :meta="$meta"
                                         >
                                             <x-icon name="timeline" size="sm"></x-icon>
                                             <x-sidebar.label>Timeline</x-sidebar.label>
                                         </x-sidebar.item>
                                         <x-sidebar.item
-                                            :href="route('notes.index')"
-                                            :active="request()->routeIs('notes.*')"
+                                            :href="route('admin.notes.index')"
+                                            :active="request()->routeIs('admin.notes.*')"
                                             :meta="$meta"
                                         >
                                             <x-icon name="note" size="sm"></x-icon>
                                             <x-sidebar.label>Notes</x-sidebar.label>
                                         </x-sidebar.item>
                                         <x-sidebar.item
-                                            :href="route('characters.index')"
+                                            :href="route('admin.characters.index')"
                                             :active="$meta->subnavSection === 'characters'"
                                             :meta="$meta"
                                         >
@@ -374,7 +376,7 @@
 
                                         @if (auth()->user()->canManageUsers)
                                             <x-sidebar.item
-                                                :href="route('users.index')"
+                                                :href="route('admin.users.index')"
                                                 :active="$meta->subnavSection === 'users'"
                                                 :meta="$meta"
                                             >
@@ -385,8 +387,8 @@
 
                                         @can('viewAny', Application::class)
                                             <x-sidebar.item
-                                                :href="route('applications.index', ['tableFilters' => ['result' => ['values' => ['pending']]]])"
-                                                :active="request()->routeIs('applications.*')"
+                                                :href="route('admin.applications.index', ['tableFilters' => ['result' => ['values' => ['pending']]]])"
+                                                :active="request()->routeIs('admin.applications.*')"
                                                 :meta="$meta"
                                             >
                                                 <x-icon name="progress-check" size="sm"></x-icon>
@@ -402,8 +404,8 @@
 
                                         @can('viewAny', Page::class)
                                             <x-sidebar.item
-                                                :href="route('pages.index', ['tableFilters' => ['pageType' => ['value' => 0]]])"
-                                                :active="request()->routeIs('pages.*')"
+                                                :href="route('admin.pages.index', ['tableFilters' => ['pageType' => ['value' => 0]]])"
+                                                :active="request()->routeIs('admin.pages.*')"
                                                 :meta="$meta"
                                             >
                                                 <x-icon name="www" size="sm"></x-icon>
@@ -413,7 +415,7 @@
 
                                         @if (auth()->user()->canManageForms)
                                             <x-sidebar.item
-                                                :href="route('forms.index')"
+                                                :href="route('admin.forms.index')"
                                                 :active="$meta->subnavSection === 'forms'"
                                                 :meta="$meta"
                                             >
@@ -424,7 +426,7 @@
 
                                         @can('update', $settings)
                                             <x-sidebar.item
-                                                :href="route('settings.general.edit')"
+                                                :href="route('admin.settings.general.edit')"
                                                 :active="$meta->subnavSection === 'settings'"
                                                 :meta="$meta"
                                             >
@@ -435,7 +437,7 @@
 
                                         @if (auth()->user()->canManageSystem)
                                             <x-sidebar.item
-                                                :href="route('system-overview')"
+                                                :href="route('admin.system-overview')"
                                                 :active="$meta->subnavSection === 'system'"
                                                 :meta="$meta"
                                             >
@@ -516,8 +518,10 @@
                         </x-slot>
 
                         <x-dropdown.group>
-                            <x-dropdown.item :href="route('account.edit')" icon="user">My account</x-dropdown.item>
-                            <x-dropdown.item :href="route('account.notifications')" icon="notification">
+                            <x-dropdown.item :href="route('admin.account.edit')" icon="user">
+                                My account
+                            </x-dropdown.item>
+                            <x-dropdown.item :href="route('admin.account.notifications')" icon="notification">
                                 My notifications
                             </x-dropdown.item>
                             <div
@@ -533,7 +537,7 @@
 
                         <x-dropdown.group>
                             <x-dropdown.item
-                                :href="route('characters.index', ['tableFilters' => ['only_my_characters' => ['isActive' => true]]])"
+                                :href="route('admin.characters.index', ['tableFilters' => ['only_my_characters' => ['isActive' => true]]])"
                                 icon="characters"
                             >
                                 My characters

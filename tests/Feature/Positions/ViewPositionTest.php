@@ -19,7 +19,7 @@ describe('authorized user', function () {
     });
 
     test('can view the view position page', function () {
-        get(route('positions.show', $this->position))->assertSuccessful();
+        get(route('admin.positions.show', $this->position))->assertSuccessful();
     });
 });
 
@@ -29,13 +29,13 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the view position page', function () {
-        get(route('positions.show', $this->position))->assertForbidden();
+        get(route('admin.positions.show', $this->position))->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the view position page', function () {
-        get(route('positions.show', $this->position))
+        get(route('admin.positions.show', $this->position))
             ->assertRedirectToRoute('login');
     });
 });

@@ -7,7 +7,7 @@
 
             <x-slot name="actions">
                 @can('viewAny', $postType::class)
-                    <x-button :href="route('post-types.index')" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.post-types.index')" plain>&larr; Back</x-button>
                 @endcan
             </x-slot>
         </x-page-header>
@@ -18,7 +18,7 @@
             <x-tab.heading name="options">Options</x-tab.heading>
         </x-tab.group>
 
-        <x-form :action="route('post-types.update', $postType)" method="PUT" :space="false" class="mt-8">
+        <x-form :action="route('admin.post-types.update', $postType)" method="PUT" :space="false" class="mt-8">
             <div x-show="isTab('details')" class="space-y-12">
                 <x-fieldset>
                     <x-fieldset.field-group constrained>
@@ -330,7 +330,7 @@
 
             <x-fieldset.controls class="mt-12">
                 <x-button type="submit" color="primary">Update</x-button>
-                <x-button :href="route('post-types.index')" plain>Cancel</x-button>
+                <x-button :href="route('admin.post-types.index')" plain>Cancel</x-button>
             </x-fieldset.controls>
         </x-form>
     </x-spacing>

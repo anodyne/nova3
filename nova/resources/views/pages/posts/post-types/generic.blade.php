@@ -71,7 +71,10 @@
                 </div>
 
                 <div class="relative mt-4">
-                    <x-button :href="route('posts.show', ['story' => $post->story, 'post' => $post])" color="neutral">
+                    <x-button
+                        :href="route('admin.posts.show', ['story' => $post->story, 'post' => $post])"
+                        color="neutral"
+                    >
                         Read post &rarr;
                     </x-button>
                 </div>

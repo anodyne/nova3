@@ -21,7 +21,7 @@ class ViewStories extends SpotlightCommand
 
     public function execute(Spotlight $spotlight): void
     {
-        $spotlight->redirectRoute('stories.index');
+        $spotlight->redirectRoute('admin.stories.index');
     }
 
     public function shouldBeShown(): bool

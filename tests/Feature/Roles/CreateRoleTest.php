@@ -25,7 +25,7 @@ describe('authorized user', function () {
     });
 
     test('can view the create role page', function () {
-        get(route('roles.create'))->assertSuccessful();
+        get(route('admin.roles.create'))->assertSuccessful();
     });
 
     test('can create a role', function () {
@@ -33,9 +33,9 @@ describe('authorized user', function () {
 
         $data = Role::factory()->make();
 
-        from(route('roles.create'))
+        from(route('admin.roles.create'))
             ->followingRedirects()
-            ->post(route('roles.store'), $data->toArray())
+            ->post(route('admin.roles.store'), $data->toArray())
             ->assertSuccessful();
 
         assertDatabaseHas(Role::class, $data->toArray());
@@ -46,9 +46,9 @@ describe('authorized user', function () {
     test('can create a role that is a default role for new users', function () {
         $data = Role::factory()->default()->make();
 
-        from(route('roles.create'))
+        from(route('admin.roles.create'))
             ->followingRedirects()
-            ->post(route('roles.store'), $data->toArray())
+            ->post(route('admin.roles.store'), $data->toArray())
             ->assertSuccessful();
 
         assertDatabaseHas(Role::class, $data->toArray());
@@ -66,9 +66,9 @@ describe('authorized user', function () {
             ['assigned_users' => $assignedUsers]
         );
 
-        from(route('roles.create'))
+        from(route('admin.roles.create'))
             ->followingRedirects()
-            ->post(route('roles.store'), $data)
+            ->post(route('admin.roles.store'), $data)
             ->assertSuccessful();
 
         assertDatabaseHas(Role::class, Arr::only($data, ['name', 'display_name']));
@@ -91,9 +91,9 @@ describe('authorized user', function () {
             ['assigned_permissions' => $assignedPermissions]
         );
 
-        from(route('roles.create'))
+        from(route('admin.roles.create'))
             ->followingRedirects()
-            ->post(route('roles.store'), $data)
+            ->post(route('admin.roles.store'), $data)
             ->assertSuccessful();
 
         assertDatabaseHas(Role::class, Arr::only($data, ['name', 'display_name']));
@@ -111,22 +111,22 @@ describe('unauthorized user', function () {
     });
 
     test('cannot view the create role page', function () {
-        get(route('roles.create'))->assertForbidden();
+        get(route('admin.roles.create'))->assertForbidden();
     });
 
     test('cannot create a role', function () {
-        post(route('roles.store'), [])->assertForbidden();
+        post(route('admin.roles.store'), [])->assertForbidden();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the create role page', function () {
-        get(route('roles.create'))
+        get(route('admin.roles.create'))
             ->assertRedirectToRoute('login');
     });
 
     test('cannot create a role', function () {
-        post(route('roles.store'), [])
+        post(route('admin.roles.store'), [])
             ->assertRedirectToRoute('login');
     });
 });

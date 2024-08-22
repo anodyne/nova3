@@ -21,7 +21,7 @@ class AddMenuItem extends SpotlightCommand
 
     public function execute(Spotlight $spotlight): void
     {
-        $spotlight->redirectRoute('menu-items.create');
+        $spotlight->redirectRoute('admin.menu-items.create');
     }
 
     public function shouldBeShown(): bool

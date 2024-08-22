@@ -50,22 +50,32 @@
         </x-fieldset.field>
     @endif
 @else
-    <x-public::field.select
-        :label="$label"
-        :description="$description"
-        :id="$uid"
-        :name="$inputName"
-        :attributes="$attributesBag"
-        wire:model.live.debounce="values.{{ $uid }}"
-    >
-        @if ($attributesBag->has('placeholder'))
-            <option value="">{{ $attributesBag->get('placeholder') }}</option>
+    @if ($static)
+        @if (filled($value) || blank($value) && ! $hideWhenEmpty)
+            <x-public::field :label="$label">
+                <div data-slot="text">
+                    {{ filled($value) ? $value : '—' }}
+                </div>
+            </x-public::field>
         @endif
+    @else
+        <x-public::field.select
+            :label="$label"
+            :description="$description"
+            :id="$uid"
+            :name="$inputName"
+            :attributes="$attributesBag"
+            wire:model.live.debounce="values.{{ $uid }}"
+        >
+            @if ($attributesBag->has('placeholder'))
+                <option value="">{{ $attributesBag->get('placeholder') }}</option>
+            @endif
 
-        @foreach ((array) $options as $value => $text)
-            <option value="{{ $value }}">
-                {{ $text }}
-            </option>
-        @endforeach
-    </x-public::field.select>
+            @foreach ((array) $options as $value => $text)
+                <option value="{{ $value }}">
+                    {{ $text }}
+                </option>
+            @endforeach
+        </x-public::field.select>
+    @endif
 @endif
