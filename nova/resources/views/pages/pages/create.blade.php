@@ -73,6 +73,24 @@
                     >
                         <x-input.text :value="old('key')" data-cy="key" />
                     </x-fieldset.field>
+
+                    <x-radio.group>
+                        <x-radio.field>
+                            <x-fieldset.label for="layout_public">Public page</x-fieldset.label>
+                            <x-fieldset.description>
+                                A page that is accessible to any site visitor
+                            </x-fieldset.description>
+                            <x-radio id="layout_public" name="layout" value="public"></x-radio>
+                        </x-radio.field>
+
+                        <x-radio.field>
+                            <x-fieldset.label for="layout_admin">Admin page</x-fieldset.label>
+                            <x-fieldset.description>
+                                A page that is only accessible to authenticated users
+                            </x-fieldset.description>
+                            <x-radio id="layout_admin" name="layout" value="admin"></x-radio>
+                        </x-radio.field>
+                    </x-radio.group>
                 </x-fieldset.field-group>
             </x-fieldset>
 

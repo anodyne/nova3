@@ -21,6 +21,7 @@ return new class extends Migration
         $menu->items()->createMany([
             ['label' => 'Home', 'link_type' => LinkType::Page, 'page_id' => Page::key('home')->first()->id],
             ['label' => 'Characters', 'link_type' => LinkType::Page, 'page_id' => Page::key('public.characters')->first()->id],
+            ['label' => 'Stories', 'link_type' => LinkType::Page, 'page_id' => Page::key('public.stories')->first()->id],
             ['label' => 'Join', 'link_type' => LinkType::Page, 'page_id' => Page::key('public.join')->first()->id],
             ['label' => 'Contact', 'link_type' => LinkType::Page, 'page_id' => Page::key('public.contact')->first()->id],
         ]);

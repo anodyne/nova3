@@ -18,6 +18,8 @@ class PageData extends Data
 
         public PageVerb $verb,
 
-        public ?string $resource
+        public ?string $resource,
+
+        public string $layout
     ) {}
 }

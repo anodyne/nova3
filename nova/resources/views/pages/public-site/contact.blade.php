@@ -5,12 +5,12 @@
 @endphp
 
 @section('content')
-    <div class="@container nova-advanced-page-content">
+    <div class="@container advanced-page contact">
         <x-public::h1>Contact</x-public::h1>
 
         @if (settings('general.contactFormEnabled'))
             @if (session()->has('contact-submitted'))
-                <x-public::alert level="success" title="Contact message received" class="mt-8">
+                <x-public::alert level="success" title="Contact message received">
                     Your message has been sent and will be reviewed by the staff.
                 </x-public::alert>
             @endif
@@ -18,7 +18,7 @@
             <x-form :action="route('public.contact.process')">
                 @honeypot
 
-                <div class="max-w-xl space-y-8">
+                <div class="form-ctn">
                     <x-public::field.text
                         name="name"
                         label="Name"
@@ -60,12 +60,12 @@
                     </x-public::field.textarea>
                 </div>
 
-                <div class="mt-8 w-full">
+                <div class="form-controls">
                     <x-public::button type="submit" primary>Submit</x-public::button>
                 </div>
             </x-form>
         @else
-            <x-public::alert level="warning" title="Contact form disabled" class="mt-8">
+            <x-public::alert level="warning" title="Contact form disabled">
                 {{ settings('general.contactFormDisabledMessage') }}
             </x-public::alert>
         @endif

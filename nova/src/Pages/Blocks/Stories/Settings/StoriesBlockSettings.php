@@ -45,6 +45,8 @@ abstract class StoriesBlockSettings extends ScribbleModal
             'selectedStories' => $this->data['selectedStories'] ?? [],
             'showStoryDescription' => $this->data['showStoryDescription'] ?? null,
             'showStoryStats' => $this->data['showStoryStats'] ?? null,
+
+            'timelineSorting' => $this->data['timelineSorting'] ?? null,
         ]);
     }
 

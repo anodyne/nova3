@@ -297,6 +297,7 @@ class AppServiceProvider extends ServiceProvider
             Blocks\Content\FreeformContentBlock::make(),
 
             Blocks\Stories\AlternatingStoriesBlock::make(),
+            Blocks\Stories\StoriesTimelineBlock::make(),
 
             Blocks\Manifest\ManifestBlock::make(),
 

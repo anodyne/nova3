@@ -1,3 +1,3 @@
-<div class="nv-tabs-pane">
+<div {{ $attributes->merge(['class' => 'nv-tabs-pane']) }}>
     {{ $slot }}
 </div>

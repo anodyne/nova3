@@ -12,17 +12,15 @@
 
 @section('layout')
     <nav class="main-nav">
-        <div class="leading-container">
+        <div class="logo">
             <x-logos.nova class="h-6 w-auto"></x-logos.nova>
         </div>
 
-        <div class="divider"></div>
+        <div class="nav-container">
+            <x-public::menu :items="$meta->menu?->items"></x-public::menu>
+        </div>
 
-        <x-public::menu :items="$meta->menu?->items"></x-public::menu>
-
-        <div class="divider"></div>
-
-        <div class="trailing-container">
+        <div class="auth-ctn">
             @guest
                 <a href="{{ route('login') }}">Sign in</a>
             @endguest
@@ -33,7 +31,7 @@
         </div>
     </nav>
 
-    <div class="content-container">
+    <div class="content-ctn">
         <div class="content">
             <main>
                 @yield('template')

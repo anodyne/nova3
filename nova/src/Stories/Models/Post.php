@@ -232,21 +232,25 @@ class Post extends Model implements Sortable
             ->whereNotState('status', PostStatus\Started::class);
     }
 
-    public function nextSibling($status = null): ?self
+    public function nextSibling($status = null, array $types = []): ?self
     {
-        return $this->getSibling('next', $status);
+        return $this->getSibling('next', $status, $types);
     }
 
-    public function previousSibling($status = null): ?self
+    public function previousSibling($status = null, array $types = []): ?self
     {
-        return $this->getSibling('previous', $status);
+        return $this->getSibling('previous', $status, $types);
     }
 
-    protected function getSibling($direction, $status)
+    protected function getSibling($direction, $status, array $types = [])
     {
         $query = self::query()
             ->story($this->story_id)
-            ->when($status, fn (Builder $query) => $query->whereState('status', $status));
+            ->when($status, fn (Builder $query) => $query->whereState('status', $status))
+            ->when(
+                count($types) > 0,
+                fn (Builder $query) => $query->whereHas('postType', fn (Builder $query) => $query->whereIn('key', $types))
+            );
 
         return match ($direction) {
             'previous' => $query->where('order_column', '<', $this->order_column)->orderByDesc('order_column')->first(),
