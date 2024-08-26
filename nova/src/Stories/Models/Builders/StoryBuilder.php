@@ -47,4 +47,9 @@ class StoryBuilder extends Builder
     {
         return $this->whereState('status', Upcoming::class);
     }
+
+    public function exceptUpcoming(): self
+    {
+        return $this->whereNotState('status', Upcoming::class);
+    }
 }

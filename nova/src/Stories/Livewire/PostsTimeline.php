@@ -20,6 +20,8 @@ class PostsTimeline extends Component
 
     public ?int $storyId = null;
 
+    public bool $admin = true;
+
     #[Computed]
     public function posts(): EloquentCollection
     {
@@ -55,7 +57,11 @@ class PostsTimeline extends Component
 
     public function render()
     {
-        return view('pages.posts.livewire.timeline', [
+        $view = $this->admin
+            ? 'pages.posts.livewire.timeline'
+            : 'pages.public-site.livewire.posts-timeline';
+
+        return view($view, [
             'stories' => $this->stories,
             'posts' => $this->posts,
             'postClass' => Post::class,

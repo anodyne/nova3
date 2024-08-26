@@ -5,18 +5,18 @@
 @endphp
 
 @section('content')
-    <div class="@container nova-advanced-page-content">
+    <div class="@container advanced-page join">
         <x-public::h1>Join</x-public::h1>
 
         @if (settings('applications.enabled'))
             @if (session()->has('join-submitted'))
-                <x-public::alert level="success" title="Application received" class="mt-8">
+                <x-public::alert level="success" title="Application received">
                     Your application has been received and will be reviewed by the staff.
                 </x-public::alert>
             @endif
 
             @if (filled($errors))
-                <x-public::alert level="danger" title="Validation errors" class="mt-8">
+                <x-public::alert level="danger" title="Validation errors">
                     There are validation errors that require your attention in order to submit your application.
                 </x-public::alert>
             @endif
@@ -65,8 +65,8 @@
                         @endif
                     </x-slot>
 
-                    <div class="mt-8 w-full space-y-12" x-show="isTab('user')" x-cloak>
-                        <div class="max-w-2xl space-y-8">
+                    <x-public::tabs.pane class="space-y-12" x-show="isTab('user')" x-cloak>
+                        <div class="form-ctn">
                             <x-public::field.text
                                 name="userInfo[name]"
                                 label="Name"
@@ -94,10 +94,10 @@
                         @if ($userBioForm->has_published_fields)
                             <livewire:dynamic-form :form="$userBioForm" :admin="false" />
                         @endif
-                    </div>
+                    </x-public::tabs.pane>
 
-                    <div class="mt-8 w-full space-y-12" x-show="isTab('character')" x-cloak>
-                        <div class="max-w-2xl space-y-8">
+                    <x-public::tabs.pane class="space-y-12" x-show="isTab('character')" x-cloak>
+                        <div class="form-ctn">
                             <x-public::field.text
                                 name="characterInfo[name]"
                                 label="Character name"
@@ -129,21 +129,21 @@
                         @if ($characterBioForm->has_published_fields)
                             <livewire:dynamic-form :form="$characterBioForm" :admin="false" />
                         @endif
-                    </div>
+                    </x-public::tabs.pane>
 
                     @if ($applicationInfoForm->has_published_fields)
-                        <div class="mt-8 w-full" x-show="isTab('application')" x-cloak>
+                        <x-public::tabs.pane x-show="isTab('application')" x-cloak>
                             <livewire:dynamic-form :form="$applicationInfoForm" :admin="false" />
-                        </div>
+                        </x-public::tabs.pane>
                     @endif
                 </x-public::tabs>
 
-                <div class="mt-8 w-full">
+                <div class="form-controls">
                     <x-public::button type="submit" primary>Submit</x-public::button>
                 </div>
             </x-form>
         @else
-            <x-public::alert level="warning" title="Applications closed" class="mt-8">
+            <x-public::alert level="warning" title="Applications closed">
                 {{ settings('applications.disabledMessage') }}
             </x-public::alert>
         @endif

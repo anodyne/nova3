@@ -76,14 +76,15 @@
                     </div>
 
                     <div class="mt-8">
-                        <x-button :href="route('admin.stories.show', $story)" color="neutral">
-                            Go to story &rarr;
-                        </x-button>
+                        <x-public::button :href="route('public.story', $story)">Go to story &rarr;</x-public::button>
                     </div>
 
                     @if ($story->children_count > 0)
                         <div class="relative mt-8 w-full">
-                            <x-stories.timeline :stories="$story->children"></x-stories.timeline>
+                            <x-public::stories.timeline
+                                :stories="$story->children"
+                                :expanded="true"
+                            ></x-public::stories.timeline>
                         </div>
                     @endif
                 </div>
