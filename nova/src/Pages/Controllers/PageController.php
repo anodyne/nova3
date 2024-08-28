@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Nova\Pages\Controllers;
 
 use Nova\Foundation\Controllers\Controller;
-use Nova\Pages\Actions\CreatePage;
-use Nova\Pages\Actions\UpdatePage;
+use Nova\Pages\Actions\CreatePageManager;
+use Nova\Pages\Actions\UpdatePageManager;
 use Nova\Pages\Models\Page;
 use Nova\Pages\Requests\StorePageRequest;
 use Nova\Pages\Requests\UpdatePageRequest;
@@ -43,7 +43,7 @@ class PageController extends Controller
 
     public function store(StorePageRequest $request)
     {
-        $page = CreatePage::run($request->getPageData());
+        $page = CreatePageManager::run($request);
 
         if ($page->is_basic) {
             return redirect()
@@ -65,10 +65,7 @@ class PageController extends Controller
 
     public function update(UpdatePageRequest $request, Page $page)
     {
-        $page = UpdatePage::run(
-            $page,
-            $request->getPageData()
-        );
+        $page = UpdatePageManager::run($page, $request);
 
         return redirect()
             ->route('admin.pages.edit', $page)

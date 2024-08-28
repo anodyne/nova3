@@ -12,6 +12,7 @@
     "require": {
         "php": "^8.2",
         "anodyne/blade-tabler-icons": "^3.0",
+        "artesaos/seotools": "^1.3",
         "awcodes/filament-tiptap-editor": "^3.0",
         "awcodes/scribble": "^0.3.0@alpha",
         "aws/aws-sdk-php": "^3.293",

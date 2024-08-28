@@ -68,6 +68,15 @@ class PagesList extends TableComponent
                         'Advanced' => 'primary',
                     })
                     ->toggleable(),
+                TextColumn::make('layout')
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'public' => 'primary',
+                        'admin' => 'info',
+                        default => 'gray',
+                    })
+                    ->formatStateUsing(fn (string $state): string => ucfirst($state))
+                    ->toggleable(),
                 TextColumn::make('status')
                     ->badge()
                     ->color(fn (Page $record): string => $record->status->color())
@@ -186,6 +195,10 @@ class PagesList extends TableComponent
                     ->trueLabel('Advanced pages')
                     ->falseLabel('Basic pages'),
                 SelectFilter::make('status')->options(PageStatus::class),
+                SelectFilter::make('layout')->options([
+                    'public' => 'Public pages',
+                    'admin' => 'Admin pages',
+                ]),
                 SelectFilter::make('verb')
                     ->label('HTTP verb')
                     ->options(PageVerb::class),

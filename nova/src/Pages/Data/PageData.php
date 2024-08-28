@@ -20,6 +20,12 @@ class PageData extends Data
 
         public ?string $resource,
 
-        public string $layout
+        public string $layout,
+
+        public ?string $seo_title,
+
+        public ?string $seo_description,
+
+        public ?string $seo_keywords
     ) {}
 }

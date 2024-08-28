@@ -47,13 +47,10 @@
 
                 <x-fieldset title="Positions">
                     <x-panel well>
-                        <x-spacing size="sm">
-                            <x-fieldset.legend>Positions</x-fieldset.legend>
-                            <x-fieldset.description>
-                                Characters can be assigned to any number of positions. On the manifest, the character
-                                will be displayed for each position they’re assigned to.
-                            </x-fieldset.description>
-                        </x-spacing>
+                        <x-panel.well-heading
+                            heading="Positions"
+                            description="Characters can be assigned to any number of positions. On the manifest, the character will be displayed for each position they’re assigned to."
+                        ></x-panel.well-heading>
 
                         <x-spacing size="2xs">
                             <livewire:characters-manage-positions :character="$character" />
@@ -63,14 +60,10 @@
 
                 <x-fieldset>
                     <x-panel well>
-                        <x-spacing size="sm">
-                            <x-fieldset.legend>Ownership</x-fieldset.legend>
-                            <x-fieldset.description>
-                                Characters can be assigned to any number of users and all assigned users will have the
-                                same rights with the character. Additionally, any notifications on behalf of the
-                                character will be sent to all users assigned to the character.
-                            </x-fieldset.description>
-                        </x-spacing>
+                        <x-panel.well-heading
+                            heading="Ownership"
+                            description="Characters can be assigned to any number of users and all assigned users will have the same rights with the character. Additionally, any notifications on behalf of the character will be sent to all users assigned to the character."
+                        ></x-panel.well-heading>
 
                         <x-spacing size="2xs">
                             <livewire:characters-manage-users :character="$character" />
@@ -81,9 +74,7 @@
                 @canany(['activate', 'deactivate'], $character)
                     <x-fieldset>
                         <x-panel well>
-                            <x-spacing size="sm">
-                                <x-fieldset.legend>Administrative actions</x-fieldset.legend>
-                            </x-spacing>
+                            <x-panel.well-heading heading="Admin actions"></x-panel.well-heading>
 
                             <x-spacing size="2xs">
                                 <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">

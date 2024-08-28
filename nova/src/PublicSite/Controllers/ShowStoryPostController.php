@@ -17,11 +17,16 @@ class ShowStoryPostController extends Controller
     {
         $inCharacterPostTypes = PostType::query()->inCharacter()->pluck('key')->all();
 
-        return ShowStoryPostResponse::sendWith([
-            'story' => $story,
-            'post' => $post->loadMissing('characterAuthors', 'userAuthors'),
-            'nextPost' => $post->nextSibling(Published::class, $inCharacterPostTypes),
-            'previousPost' => $post->previousSibling(Published::class, $inCharacterPostTypes),
-        ]);
+        return ShowStoryPostResponse::sendWith(
+            data: [
+                'story' => $story,
+                'post' => $post->loadMissing('characterAuthors', 'userAuthors'),
+                'nextPost' => $post->nextSibling(Published::class, $inCharacterPostTypes),
+                'previousPost' => $post->previousSibling(Published::class, $inCharacterPostTypes),
+            ],
+            seo: [
+                'title' => $post->title.' - '.$story->title.' - Story post',
+            ]
+        );
     }
 }

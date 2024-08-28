@@ -13,9 +13,14 @@ class ShowCharacterBioController extends Controller
 {
     public function __invoke(Character $character)
     {
-        return ShowCharacterBioResponse::sendWith([
-            'character' => $character->loadMissing('positions', 'rank.name', 'characterFormSubmission'),
-            'form' => Form::key('characterBio')->first(),
-        ]);
+        return ShowCharacterBioResponse::sendWith(
+            data: [
+                'character' => $character->loadMissing('positions', 'rank.name', 'characterFormSubmission'),
+                'form' => Form::key('characterBio')->first(),
+            ],
+            seo: [
+                'title' => $character->name.' - Character bio',
+            ]
+        );
     }
 }
