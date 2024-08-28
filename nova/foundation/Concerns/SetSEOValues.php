@@ -49,9 +49,11 @@ trait SetSEOValues
 
     protected function setSEOKeywords(): void
     {
-        $keywords = data_get($this->seoData, 'keywords', explode(',', $this->page?->seo_keywords ?? ''));
+        $keywords = data_get($this->seoData, 'keywords', $this->page?->seo_keywords);
 
         if (filled($keywords)) {
+            $keywords = explode(',', $keywords);
+
             SEOTools::metatags()->addKeyword($keywords);
         }
     }

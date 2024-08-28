@@ -243,6 +243,7 @@ class PopulatePagesTable extends Migration
                 'key' => 'public.join',
                 'resource' => 'Nova\\PublicSite\\Controllers\\ShowJoinFormController',
                 'layout' => 'public',
+                'seo_title' => 'Join the game',
             ],
             [
                 'name' => 'Process join form',
@@ -259,6 +260,7 @@ class PopulatePagesTable extends Migration
                 'key' => 'public.contact',
                 'resource' => 'Nova\\PublicSite\\Controllers\\ShowContactFormController',
                 'layout' => 'public',
+                'seo_title' => 'Contact us',
             ],
             [
                 'name' => 'Process contact form',
