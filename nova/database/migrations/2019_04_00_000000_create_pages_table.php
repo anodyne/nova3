@@ -23,6 +23,9 @@ class CreatePagesTable extends Migration
             $table->text('middleware')->nullable();
             $table->longText('blocks')->nullable();
             $table->longText('published_blocks')->nullable();
+            $table->string('seo_title')->nullable();
+            $table->text('seo_description')->nullable();
+            $table->text('seo_keywords')->nullable();
             $table->string('status')->default(PageStatus::active->value);
             $table->dateTime('published_at')->nullable();
             $table->timestamps();

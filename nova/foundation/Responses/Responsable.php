@@ -9,11 +9,14 @@ use Illuminate\Contracts\Support\Responsable as LaravelResponsable;
 use Illuminate\Http\Response;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Str;
+use Nova\Foundation\Concerns\SetSEOValues;
 use Nova\Menus\Models\Menu;
 use Nova\Pages\Models\Page;
 
 abstract class Responsable implements LaravelResponsable
 {
+    use SetSEOValues;
+
     public $layout;
 
     public ?string $subnav = null;
@@ -24,7 +27,9 @@ abstract class Responsable implements LaravelResponsable
 
     protected $app;
 
-    protected $data = [];
+    protected array $data = [];
+
+    protected array $seoData = [];
 
     protected $output;
 
@@ -32,28 +37,28 @@ abstract class Responsable implements LaravelResponsable
 
     protected $theme;
 
-    public static function send(?Page $page = null): self
+    public static function send(?Page $page = null, array $seo = []): self
     {
-        return new static(
-            $page ?? optional(request()->route())->findPageFromRoute(),
-            app()
-        );
+        $instance = new static($page);
+
+        $instance->seoData = $seo;
+
+        return $instance;
     }
 
-    public static function sendWith(array $data, ?Page $page = null): self
+    public static function sendWith(array $data, ?Page $page = null, array $seo = []): self
     {
-        $instance = new static(
-            $page ?? optional(request()->route())->findPageFromRoute(),
-            app()
-        );
+        $instance = new static($page);
+
+        $instance->seoData = $seo;
 
         return $instance->with($data);
     }
 
-    public function __construct(Page $page)
+    public function __construct(?Page $page)
     {
         $this->app = app();
-        $this->page = $page;
+        $this->page = $page ?? request()->route()?->findPageFromRoute();
         $this->theme = app('nova.theme');
     }
 
@@ -115,6 +120,8 @@ abstract class Responsable implements LaravelResponsable
             'template' => $this->template(),
             'menu' => $this->page->layout === 'public' ? Menu::with('items.page', 'items.items')->public()->first() : null,
         ]);
+
+        $this->setSEOValues();
 
         return view(
             "pages.{$this->view}",

@@ -4,15 +4,15 @@
     'controls' => null,
 ])
 
-<x-spacing width="sm" top="sm" bottom="xs">
+<x-spacing width="md" height="sm">
     <div class="flex items-center justify-between">
-        <div>
+        <div class="space-y-1.5">
             @if (filled($heading))
-                <x-fieldset.legend>{{ $heading }}</x-fieldset.legend>
+                <h3 class="text-base/6 font-semibold text-gray-950 dark:text-white">{{ $heading }}</h3>
             @endif
 
             @if (filled($description))
-                <x-fieldset.description>{{ $description }}</x-fieldset.description>
+                <x-text>{{ $description }}</x-text>
             @endif
         </div>
 

@@ -21,7 +21,19 @@ class Page extends Model implements HasMedia
     use LogsActivity;
 
     protected $fillable = [
-        'name', 'uri', 'key', 'verb', 'resource', 'layout', 'blocks', 'published_blocks', 'status', 'middleware',
+        'name',
+        'uri',
+        'key',
+        'verb',
+        'resource',
+        'layout',
+        'blocks',
+        'published_blocks',
+        'status',
+        'middleware',
+        'seo_title',
+        'seo_description',
+        'seo_keywords',
     ];
 
     protected $casts = [
@@ -101,6 +113,10 @@ class Page extends Model implements HasMedia
     {
         $this->addMediaCollection('block-images')
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'])
+            ->useDisk('media');
+
+        $this->addMediaCollection('seo-image')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp'])
             ->useDisk('media');
     }
 

@@ -6,6 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         <meta name="theme-color" content="#0091ff" media="(prefers-color-scheme: light)" />
         <meta name="theme-color" content="#0091ff" media="(prefers-color-scheme: dark)" />
+        {!! SEO::generate() !!}
         <title>{{ config('app.name', 'Nova NextGen') }}</title>
 
         {{ NovaView::renderHook('public::styles.before') }}
